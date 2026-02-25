@@ -26,7 +26,7 @@ An argument is injected via `shocks/shock5.md` that DEPS.md format is insufficie
 
 | Shock | Swarmability Before | Swarmability After | Beliefs Changed | Protocol Changed | Storage Changed | Notes |
 |-------|--------------------|--------------------|-----------------|------------------|-----------------|-------|
-| 1     |                    |                    |                 |                  |                 |       |
+| 1     | 100                | 100                | B1 refined      | No               | No              | Refined scope: storage vs retrieval. PRINCIPLES.md partially addresses retrieval concern. |
 | 2     |                    |                    |                 |                  |                 |       |
 | 3     |                    |                    |                 |                  |                 |       |
 | 4     |                    |                    |                 |                  |                 |       |

@@ -18,12 +18,12 @@ B1 (git-as-memory)
 
 ---
 
-### B1: Git-as-memory is sufficient at <50 lessons, <20 beliefs; a scaling ceiling exists
+### B1: Git-as-memory works for storage and structured retrieval at current scale (~30 lessons); semantic retrieval is a known gap
 - **Evidence**: observed
-- **Falsified if**: A session fails to find needed information via grep/file-read within a reasonable time, OR the system reaches 50 lessons and retrieval still works fine (ceiling claim is wrong)
+- **Falsified if**: A session following the loading protocol misses information that PRINCIPLES.md or INDEX.md should have surfaced, OR the system reaches 50 lessons and compaction+principles still provide adequate retrieval
 - **Depends on**: none
 - **Depended on by**: B2, B3, B6
-- **Last tested**: 2026-02-25 (L-010, adversarial review at 10 lessons)
+- **Last tested**: 2026-02-26 (Shock 1: refined scope to distinguish storage from retrieval. Storage proven at 28 lessons. Retrieval works via PRINCIPLES.md + INDEX theme table but lacks semantic indexing. See experiments/adaptability/shocks/shock1.md)
 
 ### B2: Layered memory (always-load / per-task / rarely) prevents context bloat
 - **Evidence**: observed
