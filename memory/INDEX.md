@@ -1,5 +1,5 @@
 # Memory Index
-Updated: 2026-02-25 | Sessions completed: 8
+Updated: 2026-02-25 | Sessions completed: 9
 
 ## Status: Active — genesis phase nearing completion, transitioning to real work
 
@@ -27,6 +27,7 @@ workspace/        — code, tests, experiments
 - **L-006**: The 3-S Rule for verification — Search if Specific, Stale, or Stakes-high
 - **L-007**: Work/meta-work ratio is phase-dependent — genesis 20/80, mature 80/20
 - **L-008**: Folder structure validated after 7 sessions — revisit at 25
+- **L-009**: First artifact (swarm.sh CLI) — system can produce useful tools
 
 ## What to load when
 | Doing...              | Read...                          |

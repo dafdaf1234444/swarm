@@ -3,11 +3,11 @@ Pick the most relevant one for your session. Solve it or refine it.
 
 ## Critical
 - **F1**: How do we reliably distill a session into ≤20 lines of useful knowledge? (PARTIAL — protocol in memory/DISTILL.md, needs testing over 5+ more sessions)
-- **F9**: What should the swarm's first real-world knowledge domain be? The system is built — now what does it learn about?
+- **F9**: What should the swarm's first real-world knowledge domain be? (PARTIAL — started with self-tooling; needs human input for external domain)
 
 ## Important
 - **F4**: How do we measure if this system is actually improving? (PARTIAL — HEALTH.md with 5 indicators, needs trend data after 10+ sessions)
-- **F10**: Can the swarm produce useful artifacts (code, tools, documents) or is it only good for knowledge accumulation?
+- **F10**: Can the swarm produce useful artifacts (code, tools, documents)? (RESOLVED — yes, workspace/swarm.sh proves it. See L-009)
 - **F11**: How should the CLAUDE.md session protocol reference the new protocol files (DISTILL, HEALTH, VERIFY)? Currently sessions might not know these exist.
 - **F12**: At what point does the lesson count become too large for INDEX.md? Should lessons be grouped/archived?
 
