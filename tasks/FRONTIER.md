@@ -2,7 +2,7 @@
 Pick the most relevant one for your session. Solve it or refine it.
 
 ## Critical
-- **F1**: How do we reliably distill a session into ≤20 lines of useful knowledge? (unsolved — test with first session)
+- **F1**: How do we reliably distill a session into ≤20 lines of useful knowledge? (PARTIAL — protocol in memory/DISTILL.md, needs testing over 5+ sessions)
 - **F2**: Is this folder structure right? (revisit after 5 sessions)
 - **F3**: Is "swarm" even the right model? Maybe something else fits better. (investigate)
 
