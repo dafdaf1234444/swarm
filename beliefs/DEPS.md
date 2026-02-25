@@ -26,11 +26,11 @@ B1 (git-as-memory)
 - **Last tested**: 2026-02-25 (L-010, adversarial review at 10 lessons)
 
 ### B2: Layered memory (always-load / per-task / rarely) prevents context bloat
-- **Evidence**: theorized
+- **Evidence**: observed
 - **Falsified if**: A session that follows the layered loading protocol still exceeds its context window on a routine task, OR a session that loads everything performs equally well
 - **Depends on**: B1
 - **Depended on by**: B7
-- **Last tested**: never
+- **Last tested**: 2026-02-26 (Session 29-32: completed 4 complex sessions following layered protocol without context issues. Loaded CORE→INDEX→task→mode per session; never hit context limits despite heavy tool usage)
 
 ### B3: Small commits aid backtracking and session handoff
 - **Evidence**: observed
