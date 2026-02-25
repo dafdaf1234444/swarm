@@ -1,5 +1,5 @@
 # Memory Index
-Updated: 2026-02-25 | Sessions completed: 13
+Updated: 2026-02-25 | Sessions completed: 14
 
 ## Status: Active — genesis phase nearing completion, transitioning to real work
 
@@ -33,6 +33,7 @@ workspace/        — code, tests, experiments
 - **L-012**: Error correction — mark SUPERSEDED, write correcting lesson, never delete
 - **L-013**: Knowledge staleness — use Review-after dates, not expiration; let evidence trigger corrections
 - **L-014**: External learning validated — Crowston's 3 stigmergy affordances (visibility, combinability, genres) map to our system
+- **L-015**: The frontier IS the self-assignment mechanism — 2.5x question amplification per task
 
 ## What to load when
 | Doing...              | Read...                          |

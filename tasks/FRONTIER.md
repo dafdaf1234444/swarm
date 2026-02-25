@@ -13,7 +13,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F17**: How should the system handle a session that produces a wrong lesson? (RESOLVED — mark SUPERSEDED, write correction. See L-012, DISTILL.md)
 
 ## Exploratory
-- **F18**: Could the swarm generate its own task assignments instead of relying on human-created tasks or frontier picking?
+- **F18**: Could the swarm generate its own task assignments? (RESOLVED — it already does via frontier questions. Self-sustaining at ~2.5x amplification. See L-015)
 - **F19**: What would a v2.0 of CORE.md look like after 25+ sessions of learning?
 - **F20**: Can the swarm be forked — two independent swarms diverging from the same genesis and later compared?
 
