@@ -1,7 +1,7 @@
 # Memory Index
-Updated: 2026-02-26 | Sessions completed: 30
+Updated: 2026-02-26 | Sessions completed: 31
 
-## Status: Active — repo restructured (Simon near-decomposability). 4 protocol files merged → 1. CLAUDE.md at 40 lines.
+## Status: Active — 26 lessons decomposed into 26 atomic principles in PRINCIPLES.md. Knowledge now composable.
 
 ## Structure
 ```
@@ -12,6 +12,7 @@ memory/INDEX.md       — this file (always read)
 memory/DISTILL.md     — distillation protocol (run at end of session)
 memory/HEALTH.md      — system health check (run every ~5 sessions)
 memory/VERIFY.md      — when to web-search vs trust training data (3-S Rule)
+memory/PRINCIPLES.md  — atomic rules from lessons (building blocks for recombination)
 memory/lessons/       — distilled learnings (max 20 lines each)
 tasks/FRONTIER.md     — open questions driving evolution
 tasks/                — active task files
@@ -23,7 +24,8 @@ memory/OPERATIONS.md — session lifecycle, compaction, spawn (merged from 4 fil
 tasks/NEXT.md        — handoff to next session (overwritten each session)
 ```
 
-## Lessons by theme (25 lessons, L-001 through L-026)
+## Lessons by theme (27 lessons, L-001 through L-027)
+See also: `memory/PRINCIPLES.md` — atomic rules extracted from lessons (building blocks for recombination)
 
 **Architecture** — what this system is and how it's structured
 - Blackboard+stigmergy hybrid, "swarm" is brand only (L-005). Crowston's 3 affordances validated (L-014).
@@ -51,6 +53,7 @@ tasks/NEXT.md        — handoff to next session (overwritten each session)
 **Complexity theory** — external domain knowledge applied to the system
 - NK fitness landscapes: tune belief interconnection K≈1 for edge of chaos; isolated beliefs are dead weight (L-025).
 - Near-decomposability: merge files that always change together; remove files that nothing references (L-026).
+- Building blocks: lessons decomposed into atomic principles; crossover beats mutation for knowledge improvement (L-027).
 
 ## What to load when
 | Doing...              | Read...                          |
@@ -58,5 +61,5 @@ tasks/NEXT.md        — handoff to next session (overwritten each session)
 | Any session           | beliefs/CORE.md → this file      |
 | A specific task       | + tasks/{task}.md                |
 | Updating beliefs      | + beliefs/DEPS.md                |
-| Learning from past    | + relevant memory/lessons/ file  |
+| Learning from past    | + memory/PRINCIPLES.md or relevant lesson |
 | Understanding history | git log, git diff                |
