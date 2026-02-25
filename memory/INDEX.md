@@ -1,5 +1,5 @@
 # Memory Index
-Updated: 2026-02-25 | Sessions completed: 25
+Updated: 2026-02-25 | Sessions completed: 26
 
 ## Status: Active — infrastructure solid, 50% of beliefs untested, adaptability unproven. All sessions to date are same-day; cross-session handoff never tested.
 
@@ -16,9 +16,11 @@ memory/lessons/       — distilled learnings (max 20 lines each)
 tasks/FRONTIER.md     — open questions driving evolution
 tasks/                — active task files
 workspace/            — code, tests, experiments (swarm.sh CLI)
+tools/                — validator, hooks (validate_beliefs.py)
+experiments/          — controlled experiments (adaptability, swarm-vs-stateless)
 ```
 
-## Lessons by theme (15 lessons, L-001 through L-015)
+## Lessons by theme (22 lessons, L-001 through L-022)
 
 **Architecture** — what this system is and how it's structured
 - Blackboard+stigmergy hybrid, "swarm" is brand only (L-005). Crowston's 3 affordances validated (L-014).
@@ -39,6 +41,7 @@ workspace/            — code, tests, experiments (swarm.sh CLI)
 - Core docs: integrate lessons into existing sections, don't just append (L-016). CORE.md now at v0.2.
 - Genesis automation: workspace/genesis.sh bootstraps a new swarm in 1 command, 12 files (L-020).
 - Diminishing returns: when lessons reference each other and questions go meta-meta, switch to domain work (L-021).
+- External review revealed "proven" claim was false with 62% beliefs untested (L-022). Epistemic discipline enforced via validator + pre-commit hook.
 
 ## What to load when
 | Doing...              | Read...                          |
