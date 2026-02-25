@@ -11,4 +11,7 @@ Confidence: Verified (tested/searched) | Assumed (reasoning only) | Inherited (t
 | B5 | LLM training biases are a real risk | Verified | ML research | verification mandates |
 | B6 | Architecture is blackboard+stigmergy; "swarm" is brand name only | Verified | L-005, research | naming, structure, CONFLICTS.md |
 
+| B7 | Protocols (distill, health, verify, correct) compound system quality | Verified | L-002,L-003,L-006,L-012 | all protocol files |
+| B8 | The frontier is a self-sustaining task generation mechanism | Verified | L-015, 20 sessions of data | task assignment, system continuity |
+
 When a belief is disproven: check this table → find what depends on it → update those too.
