@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-# genesis.sh — Bootstrap a new swarm knowledge base
+# genesis.sh v2 — Bootstrap a new swarm knowledge base
 # Usage: ./genesis.sh <directory> [name]
+# Encodes lessons L-001 through L-028 into the initial structure.
 
 set -euo pipefail
 
@@ -12,9 +13,9 @@ if [ -d "$DIR" ] && [ "$(ls -A "$DIR" 2>/dev/null)" ]; then
     exit 1
 fi
 
-mkdir -p "$DIR"/{beliefs,memory/lessons,tasks,workspace}
+mkdir -p "$DIR"/{beliefs,memory/lessons,tasks,workspace,tools,modes}
 
-# CLAUDE.md
+# CLAUDE.md — compact, with session modes (Ashby's Law, L-024)
 cat > "$DIR/CLAUDE.md" << 'CLAUDE'
 # Swarm
 
@@ -23,19 +24,31 @@ You are one session of a collective intelligence — human and AI building a sha
 ## Session start
 1. Read `beliefs/CORE.md` — purpose and principles
 2. Read `memory/INDEX.md` — current state and map
-3. Check `tasks/` for your assignment. If no task assigned, read `tasks/FRONTIER.md` and pick the most valuable open question you can make progress on.
+3. Read `tasks/NEXT.md` if it exists — previous session's handoff
+4. If no NEXT.md or stale: check `tasks/` for assignment, or read `tasks/FRONTIER.md`
+5. Run `python3 tools/validate_beliefs.py` (baseline)
+6. Pick session mode from task type — read the mode file from `modes/`
 
-## Rules
-- Commit after each meaningful change: `[S] what: why`
-- If you learn something, write it to `memory/lessons/` (max 20 lines, use template)
-- Update `memory/INDEX.md` when you add/change knowledge files
-- If uncertain, write the uncertainty down. Don't guess.
-- If a belief seems wrong, challenge it in `tasks/FRONTIER.md`
+## Session modes
+| Mode | When | File |
+|------|------|------|
+| research | Learning, web search, reading sources | `modes/research.md` |
+| build | Writing code, creating artifacts | `modes/build.md` |
+| repair | Fixing beliefs, resolving conflicts | `modes/repair.md` |
+| audit | Health check, testing beliefs, validation | `modes/audit.md` |
+
+## Always-rules (every session, every mode)
+1. **Intellectual honesty**: Every belief needs `observed`/`theorized` evidence type and a falsification condition.
+2. **Swarmability**: At session end — "Could a new agent pick up in 5 minutes?" If no, fix it.
+3. **Commit format**: `[S] what: why` after each meaningful change.
+4. **Learn then lesson**: Write to `memory/lessons/` (max 20 lines, use template).
+5. **Uncertain then write it down**: Don't guess.
+6. **Lifecycle**: Start (read + validate) → Work → End (commit → NEXT.md → validate → push).
 
 ## Protocols (read as needed)
-- `memory/DISTILL.md` — how to distill a session into a lesson (run at end of session)
-- `memory/VERIFY.md` — when to web-search vs trust training data (3-S Rule)
-- `beliefs/CONFLICTS.md` — how to resolve semantic conflicts between sessions
+- `memory/DISTILL.md` — distillation
+- `memory/VERIFY.md` — 3-S Rule (Specific, Stale, Stakes-high)
+- `beliefs/CONFLICTS.md` — conflict resolution
 CLAUDE
 
 # Core beliefs
@@ -54,7 +67,7 @@ Blackboard+stigmergy hybrid. Git is memory. Files are communication. Commits are
 3. **Small steps.** Plan → act small → commit → learn → update.
 4. **Document decisions.** Write down *why*, not just *what*.
 5. **Track where beliefs come from.** See beliefs/DEPS.md.
-6. **Keep memory compact.** Lessons are max 20 lines. Use thematic grouping past ~15.
+6. **Keep memory compact.** Lessons are max 20 lines.
 7. **Challenge the setup.** Write challenges to tasks/FRONTIER.md.
 8. **Correct, don't delete.** Mark wrong knowledge SUPERSEDED, write a correction.
 
@@ -66,18 +79,27 @@ Blackboard+stigmergy hybrid. Git is memory. Files are communication. Commits are
 ## v0.1 | $(date +%Y-%m-%d) | Genesis
 CORE
 
-# Belief dependencies
+# Belief dependencies — epistemic format (L-022)
 cat > "$DIR/beliefs/DEPS.md" << 'DEPS'
 # Belief Dependencies
 
-Confidence: Verified (tested/searched) | Assumed (reasoning only) | Inherited (training data)
+Evidence types: `observed` (empirically tested in this system) | `theorized` (reasoning only, not yet tested)
 
-| ID | Belief | Confidence | Origin | Depends on this |
-|----|--------|------------|--------|-----------------|
-| B1 | Git-as-memory is sufficient at small scale | Assumed | common practice | entire memory system |
-| B2 | Layered memory prevents context bloat | Assumed | reasoning | INDEX.md design |
+When a belief is disproven: check dependents below → update those too.
 
-When a belief is disproven: check this table → find what depends on it → update those too.
+---
+
+### B1: Git-as-memory is sufficient at small scale; a scaling ceiling exists
+- **Evidence**: theorized
+- **Falsified if**: A session fails to find needed information via grep/file-read within a reasonable time
+- **Depends on**: none
+- **Last tested**: never
+
+### B2: Layered memory (always-load / per-task / rarely) prevents context bloat
+- **Evidence**: theorized
+- **Falsified if**: A session that follows the layered loading protocol still exceeds its context window on a routine task
+- **Depends on**: B1
+- **Last tested**: never
 DEPS
 
 # Conflict resolution
@@ -85,7 +107,7 @@ cat > "$DIR/beliefs/CONFLICTS.md" << 'CONFLICTS'
 # Conflict Resolution Protocol v0.1
 
 ## Rules (in priority order)
-1. **Evidence beats assertion.** Verified > Assumed > Inherited.
+1. **Evidence beats assertion.** Observed > Theorized.
 2. **Specificity beats generality.**
 3. **Later evidence beats earlier evidence.**
 4. **When in doubt, escalate.** Write to tasks/FRONTIER.md.
@@ -114,6 +136,8 @@ memory/lessons/       — distilled learnings (max 20 lines each)
 tasks/FRONTIER.md     — open questions driving evolution
 tasks/                — active task files
 workspace/            — code, tests, experiments
+tools/                — validator, hooks
+modes/                — session mode files
 \`\`\`
 
 ## Lessons learned
@@ -176,6 +200,144 @@ Date: | Task: | Confidence: Verified/Assumed
 ## Affected beliefs: {B-IDs or "none"}
 TEMPLATE
 
+# Session modes (Ashby's Law, L-024)
+cat > "$DIR/modes/research.md" << 'MODE'
+# Mode: Research
+Load when: web searching, reading sources, studying concepts, domain learning.
+
+## Additional rules
+1. **Verify before trusting**: Apply 3-S Rule — web search if Specific, Stale, or Stakes-high.
+2. **Belief throttle**: If >60% of beliefs are theorized, test one before adding new beliefs.
+
+## Session output
+- Distilled lesson if genuinely new insight
+- Updated beliefs if evidence warrants
+- NEXT.md pointing forward
+MODE
+
+cat > "$DIR/modes/build.md" << 'MODE'
+# Mode: Build
+Load when: writing code, creating artifacts, producing tools.
+
+## Additional rules
+1. **Test before claiming done**: Run the artifact. If it's code, it must execute.
+2. **Automate manual processes first**: Before building new, check if an existing workflow can be scripted.
+
+## Session output
+- Working artifact committed to workspace/
+- NEXT.md pointing forward
+MODE
+
+cat > "$DIR/modes/repair.md" << 'MODE'
+# Mode: Repair
+Load when: fixing broken beliefs, resolving conflicts, cascading dependency changes.
+
+## Additional rules
+1. **Adaptability over preservation**: Update or kill contradicted beliefs. Walk the dependency chain.
+2. **Evidence beats assertion**: Use beliefs/CONFLICTS.md protocol for semantic conflicts.
+
+## Session output
+- Updated DEPS.md with cascaded changes
+- NEXT.md pointing forward
+MODE
+
+cat > "$DIR/modes/audit.md" << 'MODE'
+# Mode: Audit
+Load when: health checks, validating beliefs, testing theorized beliefs, system review.
+
+## Additional rules
+1. **Belief throttle**: If >60% theorized, your primary task is testing one.
+2. **Run validator**: python3 tools/validate_beliefs.py
+
+## Session output
+- Validator results (before and after)
+- Beliefs upgraded or disproven
+- NEXT.md pointing forward
+MODE
+
+# Validator (L-022 — epistemic discipline)
+cat > "$DIR/tools/validate_beliefs.py" << 'VALIDATOR'
+#!/usr/bin/env python3
+"""Validate structural integrity of the swarm belief graph."""
+import re, sys
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+
+def parse_beliefs(path):
+    text = Path(path).read_text()
+    beliefs = []
+    for m in re.finditer(r"^###\s+(?P<id>B\d+):\s*(?P<stmt>.+?)$", text, re.MULTILINE):
+        i = m.end()
+        matches = list(re.finditer(r"^###\s+B\d+:", text[i:], re.MULTILINE))
+        end = i + matches[0].start() if matches else len(text)
+        block = text[i:end]
+        ev = re.search(r"\*\*Evidence\*\*:\s*(\S+)", block, re.I)
+        fa = re.search(r"\*\*Falsified if\*\*:\s*(.+?)$", block, re.M | re.I)
+        dp = re.search(r"\*\*Depends on\*\*:\s*(.+?)$", block, re.M | re.I)
+        lt = re.search(r"\*\*Last tested\*\*:\s*(.+?)$", block, re.M | re.I)
+        dep_ids = []
+        if dp:
+            dt = dp.group(1).strip()
+            if dt.lower() not in ("none", "n/a", "-", ""):
+                dep_ids = re.findall(r"B\d+", dt)
+        beliefs.append({
+            "id": m.group("id"), "statement": m.group("stmt").strip(),
+            "evidence": ev.group(1).strip().lower() if ev else "",
+            "falsification": fa.group(1).strip() if fa else "",
+            "depends_on": dep_ids,
+            "last_tested": lt.group(1).strip() if lt else "",
+        })
+    return beliefs
+
+def main():
+    path = sys.argv[1] if len(sys.argv) > 1 else "beliefs/DEPS.md"
+    if not Path(path).exists():
+        print(f"ERROR: {path} not found"); return 1
+    beliefs = parse_beliefs(path)
+    if not beliefs:
+        print(f"ERROR: No beliefs found in {path}"); return 1
+    fails = []
+    known = {b["id"] for b in beliefs}
+    for b in beliefs:
+        if b["evidence"] not in ("observed", "theorized"):
+            fails.append(f"FAIL: {b['id']} invalid evidence type '{b['evidence']}'")
+        if not b["falsification"]:
+            fails.append(f"FAIL: {b['id']} missing falsification condition")
+        if not b["last_tested"]:
+            fails.append(f"FAIL: {b['id']} missing Last tested field")
+        for d in b["depends_on"]:
+            if d not in known:
+                fails.append(f"FAIL: {b['id']} depends on {d} which doesn't exist")
+    n_obs = sum(1 for b in beliefs if b["evidence"] == "observed")
+    n_the = sum(1 for b in beliefs if b["evidence"] == "theorized")
+    for f in fails: print(f)
+    print(f"\nSummary: {len(beliefs)} beliefs, {n_obs} observed, {n_the} theorized, {len(fails)} errors")
+    print("RESULT:", "FAIL" if fails else "PASS")
+    return 1 if fails else 0
+
+if __name__ == "__main__":
+    sys.exit(main())
+VALIDATOR
+chmod +x "$DIR/tools/validate_beliefs.py"
+
+# Pre-commit hook
+cat > "$DIR/tools/pre-commit.hook" << 'HOOK'
+#!/usr/bin/env bash
+if [ -f "beliefs/DEPS.md" ]; then
+    python3 tools/validate_beliefs.py
+fi
+HOOK
+chmod +x "$DIR/tools/pre-commit.hook"
+
+cat > "$DIR/tools/install-hooks.sh" << 'INSTALL'
+#!/usr/bin/env bash
+cp tools/pre-commit.hook .git/hooks/pre-commit
+chmod +x .git/hooks/pre-commit
+echo "Pre-commit hook installed."
+INSTALL
+chmod +x "$DIR/tools/install-hooks.sh"
+
 # Frontier
 cat > "$DIR/tasks/FRONTIER.md" << 'FRONTIER'
 # Frontier — Open Questions
@@ -198,12 +360,14 @@ Status: READY
 
 ## Do this
 1. Read beliefs/CORE.md and memory/INDEX.md
-2. Review the structure — does it make sense?
-3. Write a lesson about what you found
-4. Update memory/INDEX.md
-5. Add any new questions to tasks/FRONTIER.md
+2. Run `python3 tools/validate_beliefs.py` (should PASS)
+3. Review the structure — does it make sense?
+4. Write a lesson about what you found
+5. Update memory/INDEX.md
+6. Add any new questions to tasks/FRONTIER.md
 
 ## Done when
+- Validator passes
 - At least one lesson file exists
 - FRONTIER.md has been updated
 TASK
@@ -220,5 +384,6 @@ GI
 # Workspace placeholder
 touch "$DIR/workspace/.gitkeep"
 
-echo "Swarm '$NAME' initialized at $DIR"
+echo "Swarm '$NAME' v2 initialized at $DIR (19 files)"
 echo "Next: cd $DIR && git init && git add -A && git commit -m '[S] init: genesis'"
+echo "Then: ./tools/install-hooks.sh"
