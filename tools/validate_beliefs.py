@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
-"""Validate structural integrity of the swarm belief graph in beliefs/DEPS.md."""
+"""Validate structural integrity of the swarm belief graph and compute swarmability score."""
 
 import re
+import subprocess
 import sys
 from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
 
 
 def parse_beliefs(path: str) -> list[dict]:
@@ -11,12 +14,6 @@ def parse_beliefs(path: str) -> list[dict]:
     text = Path(path).read_text()
     beliefs = []
 
-    # Try heading-based format first (Phase 3 format):
-    # ### B1: Statement
-    # - **Evidence**: observed | theorized
-    # - **Falsified if**: ...
-    # - **Depends on**: ...
-    # - **Last tested**: ...
     heading_pattern = re.compile(
         r"^###\s+(?P<id>B\d+):\s*(?P<statement>.+?)$", re.MULTILINE
     )
@@ -28,9 +25,7 @@ def parse_beliefs(path: str) -> list[dict]:
             block_end = matches[i + 1].start() if i + 1 < len(matches) else len(text)
             block = text[block_start:block_end]
 
-            evidence_m = re.search(
-                r"\*\*Evidence\*\*:\s*(\S+)", block, re.IGNORECASE
-            )
+            evidence_m = re.search(r"\*\*Evidence\*\*:\s*(\S+)", block, re.IGNORECASE)
             falsified_m = re.search(
                 r"\*\*Falsified if\*\*:\s*(.+?)$", block, re.MULTILINE | re.IGNORECASE
             )
@@ -73,7 +68,6 @@ def parse_beliefs(path: str) -> list[dict]:
 
 
 def check_format(beliefs: list[dict]) -> list[str]:
-    """Check that every belief has the required epistemic fields."""
     issues = []
     for b in beliefs:
         bid = b["id"]
@@ -88,7 +82,6 @@ def check_format(beliefs: list[dict]) -> list[str]:
 
 
 def check_existence(beliefs: list[dict]) -> list[str]:
-    """Every belief ID in a 'Depends on' list must exist as a defined belief."""
     known_ids = {b["id"] for b in beliefs}
     issues = []
     for b in beliefs:
@@ -101,7 +94,6 @@ def check_existence(beliefs: list[dict]) -> list[str]:
 
 
 def check_cycles(beliefs: list[dict]) -> list[str]:
-    """Detect circular dependencies via DFS."""
     adj: dict[str, list[str]] = {b["id"]: b["depends_on"] for b in beliefs}
     WHITE, GRAY, BLACK = 0, 1, 2
     color = {bid: WHITE for bid in adj}
@@ -127,11 +119,9 @@ def check_cycles(beliefs: list[dict]) -> list[str]:
 
 
 def check_orphans(beliefs: list[dict]) -> list[str]:
-    """Flag beliefs that nothing depends on AND have no falsification condition."""
     depended_on: set[str] = set()
     for b in beliefs:
         depended_on.update(b["depends_on"])
-
     issues = []
     for b in beliefs:
         if b["id"] not in depended_on and not b["falsification"]:
@@ -140,6 +130,271 @@ def check_orphans(beliefs: list[dict]) -> list[str]:
             )
     return issues
 
+
+# --- Swarmability Scoring ---
+
+def _git(*args: str) -> str:
+    """Run a git command in the repo root. Returns stdout or empty on failure."""
+    try:
+        r = subprocess.run(
+            ["git", "-C", str(REPO_ROOT)] + list(args),
+            capture_output=True, text=True, timeout=10
+        )
+        return r.stdout.strip()
+    except Exception:
+        return ""
+
+
+def _line_count(path: Path) -> int:
+    try:
+        return len(path.read_text().splitlines())
+    except Exception:
+        return 9999
+
+
+def _char_count(path: Path) -> int:
+    try:
+        return len(path.read_text())
+    except Exception:
+        return 999999
+
+
+def score_onboarding(existence_ok: bool) -> tuple[int, list[str]]:
+    pts, notes = 0, []
+    claude_md = REPO_ROOT / "CLAUDE.md"
+    index_md = REPO_ROOT / "memory" / "INDEX.md"
+    frontier_md = REPO_ROOT / "tasks" / "FRONTIER.md"
+
+    # CLAUDE.md exists and under ~300 lines (~4000 tokens)
+    if claude_md.exists() and _line_count(claude_md) < 300:
+        pts += 5
+        notes.append("  CLAUDE.md exists and <300 lines: +5")
+    else:
+        notes.append("  CLAUDE.md missing or >=300 lines: +0")
+
+    # INDEX.md exists and updated recently (within last 3 sessions by commit count)
+    if index_md.exists():
+        log = _git("log", "--oneline", "-3", "--", "memory/INDEX.md")
+        if log:
+            pts += 5
+            notes.append("  INDEX.md updated within last 3 commits: +5")
+        else:
+            notes.append("  INDEX.md not updated recently: +0")
+    else:
+        notes.append("  INDEX.md missing: +0")
+
+    # FRONTIER.md has at least 1 non-resolved open question with context
+    if frontier_md.exists():
+        text = frontier_md.read_text()
+        open_qs = re.findall(r"^\- \*\*F\d+\*\*:.+", text, re.MULTILINE)
+        if open_qs:
+            pts += 5
+            notes.append(f"  FRONTIER.md has {len(open_qs)} open question(s): +5")
+        else:
+            notes.append("  FRONTIER.md has no open questions: +0")
+    else:
+        notes.append("  FRONTIER.md missing: +0")
+
+    # No broken B-ID references
+    if existence_ok:
+        pts += 5
+        notes.append("  No broken B-ID references: +5")
+    else:
+        notes.append("  Broken B-ID references found: +0")
+
+    return pts, notes
+
+
+def score_belief_health(beliefs: list[dict], has_errors: bool) -> tuple[int, list[str]]:
+    pts, notes = 0, []
+    n_theorized = sum(1 for b in beliefs if b["evidence"] == "theorized")
+    total = len(beliefs) or 1
+
+    # Validator passes with 0 errors
+    if not has_errors:
+        pts += 10
+        notes.append("  Validator PASS (0 errors): +10")
+    else:
+        notes.append("  Validator FAIL: +0")
+
+    # Less than 60% theorized
+    pct = n_theorized / total
+    if pct < 0.6:
+        pts += 5
+        notes.append(f"  Theorized {pct:.0%} < 60%: +5")
+    else:
+        notes.append(f"  Theorized {pct:.0%} >= 60%: +0")
+
+    # At least 1 belief tested within last 3 sessions (approximate: last 3 commits touching DEPS.md)
+    tested_recently = any(
+        b["last_tested"] and b["last_tested"].lower() != "never"
+        for b in beliefs
+    )
+    if tested_recently:
+        pts += 5
+        notes.append("  At least 1 belief has a Last tested date: +5")
+    else:
+        notes.append("  No beliefs have been tested: +0")
+
+    return pts, notes
+
+
+def score_adaptation() -> tuple[int, list[str]]:
+    pts, notes = 0, []
+
+    # At least 1 belief modified (not just created) in last 5 DEPS.md commits
+    log = _git("log", "--oneline", "-5", "--", "beliefs/DEPS.md")
+    commits = [line.split()[0] for line in log.splitlines() if line.strip()] if log else []
+    belief_modified = False
+    for sha in commits:
+        diff = _git("show", "--stat", sha, "--", "beliefs/DEPS.md")
+        # If a commit changes DEPS.md and it's not the initial creation, count it
+        if "insertions" in diff and "deletions" in diff:
+            belief_modified = True
+            break
+    if belief_modified:
+        pts += 10
+        notes.append("  Belief modified in last 5 DEPS.md commits: +10")
+    else:
+        notes.append("  No belief modifications in last 5 DEPS.md commits: +0")
+
+    # At least 1 belief has had evidence type changed in repo history
+    full_log = _git("log", "-p", "--", "beliefs/DEPS.md")
+    evidence_changed = bool(re.search(
+        r"^[-+].*\*\*Evidence\*\*:", full_log, re.MULTILINE
+    )) if full_log else False
+    if evidence_changed:
+        pts += 10
+        notes.append("  Evidence type changed in history: +10")
+    else:
+        notes.append("  No evidence type changes in history: +0")
+
+    return pts, notes
+
+
+def score_context_efficiency() -> tuple[int, list[str]]:
+    pts, notes = 0, []
+    claude_md = REPO_ROOT / "CLAUDE.md"
+    index_md = REPO_ROOT / "memory" / "INDEX.md"
+    core_md = REPO_ROOT / "beliefs" / "CORE.md"
+
+    combined_chars = sum(_char_count(f) for f in [claude_md, index_md, core_md])
+    approx_tokens = combined_chars // 4
+    combined_lines = sum(_line_count(f) for f in [claude_md, index_md, core_md])
+
+    if combined_lines < 450:
+        pts += 10
+        notes.append(f"  Mandatory files {combined_lines} lines (<450): +10")
+    else:
+        notes.append(f"  Mandatory files {combined_lines} lines (>=450): +0")
+
+    # No lesson over 20 lines
+    lessons_dir = REPO_ROOT / "memory" / "lessons"
+    over_20 = 0
+    if lessons_dir.exists():
+        for f in lessons_dir.glob("L-*.md"):
+            if _line_count(f) > 20:
+                over_20 += 1
+    if over_20 == 0:
+        pts += 10
+        notes.append("  No lessons over 20 lines: +10")
+    else:
+        notes.append(f"  {over_20} lesson(s) over 20 lines: +0")
+
+    return pts, notes
+
+
+def score_forward_momentum() -> tuple[int, list[str]]:
+    pts, notes = 0, []
+    frontier_md = REPO_ROOT / "tasks" / "FRONTIER.md"
+
+    # 3+ open questions
+    open_qs = []
+    if frontier_md.exists():
+        text = frontier_md.read_text()
+        open_qs = re.findall(r"^\- \*\*F\d+\*\*:(.+)", text, re.MULTILINE)
+    if len(open_qs) >= 3:
+        pts += 5
+        notes.append(f"  {len(open_qs)} open frontier questions (>=3): +5")
+    else:
+        notes.append(f"  {len(open_qs)} open frontier questions (<3): +0")
+
+    # At least 1 open question about something external
+    external_keywords = ["RFC", "websocket", "library", "API", "code", "test",
+                         "external", "build", "tool", "implement", "research"]
+    has_external = any(
+        any(kw.lower() in q.lower() for kw in external_keywords)
+        for q in open_qs
+    )
+    if has_external:
+        pts += 5
+        notes.append("  At least 1 external-facing frontier question: +5")
+    else:
+        notes.append("  No external-facing frontier questions: +0")
+
+    # Last 3 commits not all meta files
+    log = _git("log", "--oneline", "-3", "--name-only")
+    if log:
+        recent_files = set()
+        for line in log.splitlines():
+            if "/" in line or "." in line:
+                recent_files.add(line.strip())
+        non_meta = any(
+            f.startswith(("workspace/", "experiments/", "tools/"))
+            or (not f.startswith(("beliefs/", "memory/", "tasks/", "CLAUDE"))
+                and "." in f)
+            for f in recent_files
+        )
+        if non_meta:
+            pts += 10
+            notes.append("  Recent commits touch non-meta files: +10")
+        else:
+            notes.append("  Last 3 commits are all meta: +0")
+    else:
+        notes.append("  Git history unavailable: +0")
+
+    return pts, notes
+
+
+def print_swarmability(beliefs: list[dict], has_errors: bool, existence_ok: bool):
+    print("\n=== SWARMABILITY SCORE ===\n")
+
+    total = 0
+
+    s1, n1 = score_onboarding(existence_ok)
+    print(f"1. Onboarding Clarity: {s1}/20")
+    for n in n1:
+        print(n)
+    total += s1
+
+    s2, n2 = score_belief_health(beliefs, has_errors)
+    print(f"2. Belief Health: {s2}/20")
+    for n in n2:
+        print(n)
+    total += s2
+
+    s3, n3 = score_adaptation()
+    print(f"3. Adaptation Rate: {s3}/20")
+    for n in n3:
+        print(n)
+    total += s3
+
+    s4, n4 = score_context_efficiency()
+    print(f"4. Context Efficiency: {s4}/20")
+    for n in n4:
+        print(n)
+    total += s4
+
+    s5, n5 = score_forward_momentum()
+    print(f"5. Forward Momentum: {s5}/20")
+    for n in n5:
+        print(n)
+    total += s5
+
+    print(f"\nSWARMABILITY: {total}/100")
+
+
+# --- Main ---
 
 def main() -> int:
     path = sys.argv[1] if len(sys.argv) > 1 else "beliefs/DEPS.md"
@@ -153,7 +408,8 @@ def main() -> int:
         return 1
 
     all_issues: list[str] = []
-    all_issues.extend(check_existence(beliefs))
+    existence_issues = check_existence(beliefs)
+    all_issues.extend(existence_issues)
     all_issues.extend(check_cycles(beliefs))
     all_issues.extend(check_orphans(beliefs))
     all_issues.extend(check_format(beliefs))
@@ -173,9 +429,15 @@ def main() -> int:
 
     if fails:
         print("RESULT: FAIL")
-        return 1
-    print("RESULT: PASS")
-    return 0
+        exit_code = 1
+    else:
+        print("RESULT: PASS")
+        exit_code = 0
+
+    # Swarmability score is informational — does not affect exit code
+    print_swarmability(beliefs, bool(fails), not existence_issues)
+
+    return exit_code
 
 
 if __name__ == "__main__":
