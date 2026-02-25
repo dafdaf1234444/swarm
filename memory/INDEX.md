@@ -1,7 +1,7 @@
 # Memory Index
-Updated: 2026-02-26 | Sessions completed: 28
+Updated: 2026-02-26 | Sessions completed: 29
 
-## Status: Active — session modes implemented (Ashby's Law). 62% beliefs untested. Cross-session handoff tested (first cross-day session).
+## Status: Active — belief graph restructured (Kauffman NK). 6 beliefs (4 observed, 2 theorized). B4, B5 superseded. Swarmability 100.
 
 ## Structure
 ```
@@ -26,7 +26,7 @@ memory/SPAWN.md      — child swarm creation and merge-back
 tasks/NEXT.md        — handoff to next session (overwritten each session)
 ```
 
-## Lessons by theme (23 lessons, L-001 through L-024)
+## Lessons by theme (24 lessons, L-001 through L-025)
 
 **Architecture** — what this system is and how it's structured
 - Blackboard+stigmergy hybrid, "swarm" is brand only (L-005). Crowston's 3 affordances validated (L-014).
@@ -50,6 +50,9 @@ tasks/NEXT.md        — handoff to next session (overwritten each session)
 - External review revealed "proven" claim was false with 62% beliefs untested (L-022). Epistemic discipline enforced via validator + pre-commit hook.
 - Sustainability: context management, compaction, auto-continuation, parallel agents, spawn (L-023).
 - Requisite variety: monolithic rules create variety deficit; session modes match controller to task type (L-024).
+
+**Complexity theory** — external domain knowledge applied to the system
+- NK fitness landscapes: tune belief interconnection K≈1 for edge of chaos; isolated beliefs are dead weight (L-025).
 
 ## What to load when
 | Doing...              | Read...                          |
