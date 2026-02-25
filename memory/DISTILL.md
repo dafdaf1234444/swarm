@@ -31,3 +31,11 @@ Before committing the lesson:
 - Session only did mechanical work (formatting, renaming) with no insight
 - The insight is already captured in an existing lesson
 - You're uncertain whether the insight is real — write it to FRONTIER.md as a question instead
+
+## Correcting a wrong lesson
+If you discover an existing lesson is wrong (factually incorrect, outdated, overgeneralized, or misleading):
+1. Add `**SUPERSEDED BY L-{NNN}**` as the first line of the original lesson
+2. Write a new lesson with `CORRECTS L-{old}` in the "What happened" section
+3. Explain *why* the original was wrong — the error is informative
+4. Update INDEX.md: mark the old entry with ~~strikethrough~~ and add the new one
+5. Never delete the original — it's part of the system's learning history

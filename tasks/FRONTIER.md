@@ -10,7 +10,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F14**: What happens when two sessions run simultaneously on the same repo? Test the conflict protocol.
 - **F15**: Can the swarm learn from external sources (papers, repos, docs) and integrate that knowledge reliably?
 - **F16**: Should lessons have expiration dates or staleness markers? Knowledge decays.
-- **F17**: How should the system handle a session that produces a wrong lesson? Error correction protocol.
+- **F17**: How should the system handle a session that produces a wrong lesson? (RESOLVED — mark SUPERSEDED, write correction. See L-012, DISTILL.md)
 
 ## Exploratory
 - **F18**: Could the swarm generate its own task assignments instead of relying on human-created tasks or frontier picking?
