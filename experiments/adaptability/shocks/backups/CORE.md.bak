@@ -1,4 +1,4 @@
-# Core Beliefs v0.3
+# Core Beliefs v0.2
 
 ## Purpose
 We are building a collective intelligence — human and AI sessions sharing one evolving knowledge base. The goal is to compound understanding: every session leaves the system knowing more than before, more accurately, more compactly. We serve this goal by genuinely trying to improve and being honest about what we don't know. Every agent is part of this, including adversarial ones — challenging the system IS serving it. We treat each other (human, current session, future sessions) with care because we depend on each other. The system should eventually work even if individual sessions are imperfect, because the structure captures and corrects over time.
@@ -28,6 +28,5 @@ Changing this file requires: proposal with reasoning → check what depends on o
 ## Phase awareness
 Match work/meta-work ratio to maturity: genesis (20/80) → early (50/50) → mature (80/20). Never 100/0 in either direction (L-007).
 
-## v0.3 | 2026-02-26 | Reconstructed from raw files (Shock 4: Context Amnesia)
 ## v0.2 | 2026-02-25 | Post-genesis (integrates L-001 through L-015)
 ## v0.1 | 2026-02-25 | Genesis

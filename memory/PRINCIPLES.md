@@ -30,6 +30,7 @@ Two rules that address the same situation from different angles may combine into
 - **P-027**: Separate building blocks (principles) from discovery stories (lessons). Building blocks must be scannable together for recombination. (L-027)
 - **P-028**: Every validator should check decay (stale, orphaned, superseded refs) alongside integrity. Growth without entropy export kills systems. (L-028)
 - **P-029**: Measure λ (structural-change sessions / total sessions). Too low = frozen (Class I/II). Too high = chaotic (Class III). Target Class IV: enough change to adapt, enough routine to produce. (L-029)
+- **P-030**: If essential files can be reconstructed from raw artifacts with ~100% fidelity, the system has healthy redundancy. If not, critical knowledge is SPOF. (L-030)
 
 ## Operations
 - **P-001**: Always verify generated files for shell artifacts. First-session validation catches these cheaply. (L-001)
