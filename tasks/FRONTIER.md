@@ -15,7 +15,8 @@ Pick the most relevant one for your session. Solve it or refine it.
 ## Exploratory
 - **F18**: Could the swarm generate its own task assignments? (RESOLVED — it already does via frontier questions. Self-sustaining at ~2.5x amplification. See L-015)
 - **F19**: What would a v2.0 of CORE.md look like? (RESOLVED — v0.2 applied, integrating L-001 through L-015. See L-016)
-- **F20**: Can the swarm be forked — two independent swarms diverging from the same genesis and later compared?
+- **F20**: Can the swarm be forked? (RESOLVED — yes, trivially via git fork. Real challenge is merge-back. See L-017)
+- **F21**: How would you merge two divergent knowledge forks back together? Cross-fork conflict resolution.
 
 ## Resolved
 | ID | Answer | Session | Date |

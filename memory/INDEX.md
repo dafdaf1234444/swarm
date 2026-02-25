@@ -1,5 +1,5 @@
 # Memory Index
-Updated: 2026-02-25 | Sessions completed: 16
+Updated: 2026-02-25 | Sessions completed: 17
 
 ## Status: Active — genesis complete, transitioning to real work
 
@@ -23,6 +23,7 @@ workspace/            — code, tests, experiments (swarm.sh CLI)
 **Architecture** — what this system is and how it's structured
 - Blackboard+stigmergy hybrid, "swarm" is brand only (L-005). Crowston's 3 affordances validated (L-014).
 - Git-as-memory works at <50 lessons/<20 beliefs; ceiling exists (L-010). Folder structure validated (L-008).
+- Forking is free (git fork = knowledge fork); merge-back is the hard problem (L-017).
 
 **Protocols** — how to operate the system
 - Distillation: template + protocol, not just format (L-002). Error correction: SUPERSEDED, never delete (L-012).
