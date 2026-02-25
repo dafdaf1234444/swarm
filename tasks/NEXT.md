@@ -1,25 +1,26 @@
 # Next Session
 
 ## Do First
-TASK-013 is DONE. The system is ready for domain work or a new task.
-Options for the human to choose from:
-1. Clean up entropy: fix the 7 items the entropy detector found (repair mode)
-2. Start a real-world knowledge domain (F9 — needs human input)
-3. Run adaptability shocks (F29-F31 — PAUSED, can resume)
-4. Test concurrent sessions (F14 — protocol exists, never tested)
+Entropy at 1 item (B7 — needs 10+ sessions to test, leave it).
+Pick from FRONTIER.md:
+- **F9**: Choose a real-world knowledge domain (needs human input)
+- **F36**: Apply complexity theory to a real domain (not just the swarm)
+- **F29/F30**: Run formal shock experiments (adaptability/shocks/)
+- **F14**: Test concurrent sessions
 
 ## Key context
-- CLAUDE.md is 39 lines, TASK-013 achieved all 5 success criteria
-- Swarmability: 100/100, entropy items: 7
-- 6 beliefs (4 observed, 2 theorized — 33%)
+- TASK-013 DONE: 5 complexity theory sessions, all success criteria met
+- Swarmability: 100/100, entropy: 1 item
+- 6 beliefs (5 observed, 1 theorized = 17%)
 - 28 lessons, 28 principles in PRINCIPLES.md
-- Entropy detector is live in the validator
+- CLAUDE.md: 39 lines. Mandatory load: 137 lines
+- Compaction trigger at 30 lessons (currently 28)
 
 ## Read These
-- tasks/FRONTIER.md (pick next frontier question)
-- memory/PRINCIPLES.md (composable knowledge base)
+- tasks/FRONTIER.md (pick direction)
+- memory/PRINCIPLES.md (composable knowledge)
 
 ## Warnings
-- Compaction trigger approaching: 28 lessons, threshold is 30
-- Entropy items: 5 lessons reference superseded B4/B5 — consider updating affected-beliefs lines
-- B2 and B7 are theorized+never-tested — good candidates for next test
+- Compaction is 2 lessons away (28/30 threshold)
+- B7 remains the only theorized belief — it needs 10+ sessions of protocol adherence data
+- FRONTIER has 11 open questions, 7 resolved this session

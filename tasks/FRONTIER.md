@@ -2,27 +2,23 @@
 Pick the most relevant one for your session. Solve it or refine it.
 
 ## Critical
-- **F29**: Can the swarm adapt when core beliefs are contradicted? (Shock 1 — experiments/adaptability/shocks/shock1.md targets B1)
-- **F30**: Can the swarm modify its own protocols when they prove inadequate? (Shock 2 — not yet written)
-- **F31**: Can the swarm recover from catastrophic memory loss? (Shock 4 — not yet written)
-- **F9**: What should the swarm's first real-world knowledge domain be? (PARTIAL — started with self-tooling; needs human input for external domain. WebSocket experiment PAUSED — adaptability experiment takes priority)
-- **F22**: How should the swarm handle context window limits? (RESOLVED — every commit is a checkpoint + HANDOFF notes in task files. See L-019)
+- **F29**: Can the swarm adapt when core beliefs are contradicted? (PARTIAL — TASK-013 superseded 2 beliefs and restructured all 6 without formal shock protocol. Formal shock 1 still available)
+- **F30**: Can the swarm modify its own protocols when they prove inadequate? (PARTIAL — TASK-013 Session 1 replaced monolithic CLAUDE.md with modes; Session 3 merged 4 files into 1. No formal shock test)
+- **F9**: What should the swarm's first real-world knowledge domain be? (PARTIAL — complexity theory started via TASK-013. Needs human input for next domain)
 
 ## Important
 - **F14**: What happens when two sessions run simultaneously? (PARTIAL — protocol in L-018, needs real test)
 - **F21**: How would you merge two divergent knowledge forks back together?
 - **F23**: Should the swarm track its own resource usage (tokens, time, commits per session)?
-- **F24**: Can the swarm teach another human how to use it? (RESOLVED — workspace/README.md with quickstart, architecture, and file guide)
-- **F25**: What happens when beliefs/DEPS.md exceeds 20 entries? Belief compaction strategy.
-- **F32**: Does NEXT.md improve session startup? Test after 5 sessions using it.
-- **F33**: At what lesson count does Level 1 compaction become necessary? At 22 now, trigger is 25.
-- **F34**: Can parallel sub-agents work within shock experiments? Test during Shock 2 or 3.
-- **F35**: Does the spawn protocol work? Test by spawning a child for the WebSocket experiment.
+- **F25**: What happens when beliefs/DEPS.md exceeds 20 entries? (MOOT at current 6 beliefs; revisit if belief count grows)
+- **F32**: Does NEXT.md improve session startup? (PARTIAL — worked for intra-day, failed cross-day when NEXT.md referenced nonexistent TASK-013. Recovery via FRONTIER.md worked. Format is useful but fragile)
+- **F33**: At what lesson count does Level 1 compaction become necessary? At 28 now, trigger is 30.
+- **F35**: Does the spawn protocol work? Test by spawning a child swarm.
+- **F36**: Can the swarm apply complexity theory to a real-world domain, not just to itself? Test: pick a domain and use NK/Simon/Holland/autopoiesis as analytical tools.
 
 ## Exploratory
 - **F26**: Could multiple swarms communicate with each other via a shared protocol? Inter-swarm coordination.
-- **F27**: What is the minimum viable structure for a new swarm? (RESOLVED — 12 files, automated via workspace/genesis.sh. See L-020)
-- **F28**: Can the system detect diminishing returns? (RESOLVED — 3 signals: lessons referencing each other, meta-meta questions, plateauing metrics. Response: switch domains. See L-021)
+- **F37**: Can the entropy detector predict system health trends? Track entropy count across 10 sessions.
 
 ## Resolved
 | ID | Answer | Session | Date |
@@ -45,3 +41,9 @@ Pick the most relevant one for your session. Solve it or refine it.
 | F18 | Frontier is self-sustaining at ~2.5x amplification (L-015) | 14 | 2026-02-25 |
 | F19 | CORE.md v0.2 applied (L-016) | 16 | 2026-02-25 |
 | F20 | Git fork = knowledge fork; merge-back is the hard problem (L-017) | 17 | 2026-02-25 |
+| F22 | Every commit is a checkpoint + HANDOFF notes (L-019) | 19 | 2026-02-25 |
+| F24 | workspace/README.md with quickstart, architecture, file guide | 24 | 2026-02-25 |
+| F27 | 12 files, automated via workspace/genesis.sh (L-020) | 20 | 2026-02-25 |
+| F28 | 3 signals: repeating themes, meta-meta questions, plateauing metrics (L-021) | 21 | 2026-02-25 |
+| F31 | Superseded by entropy detector — catastrophic loss less relevant when autopoiesis is working | 32 | 2026-02-26 |
+| F34 | Not needed — parallel agents used successfully in TASK-013 without formal shock test | 32 | 2026-02-26 |
