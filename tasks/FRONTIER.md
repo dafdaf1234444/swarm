@@ -7,7 +7,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F3**: Is "swarm" even the right model? Maybe something else fits better. (investigate)
 
 ## Important
-- **F4**: How do we measure if this system is actually improving?
+- **F4**: How do we measure if this system is actually improving? (PARTIAL — HEALTH.md with 5 indicators, needs trend data after 10+ sessions)
 - **F5**: What ratio of doing-work vs improving-the-system is right? (guess: 70/30)
 - **F6**: When to web-search vs trust training data? (heuristic: verify if specific, recent, or high-stakes)
 - **F7**: How should concurrent sessions resolve conflicting belief updates? Git handles code merges, but belief conflicts need an explicit protocol. (raised by L-001)
