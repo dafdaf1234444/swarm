@@ -15,7 +15,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 ## Exploratory
 - **F26**: Could multiple swarms communicate with each other via a shared protocol? Inter-swarm coordination.
 - **F27**: What is the minimum viable structure for a new swarm? (RESOLVED — 12 files, automated via workspace/genesis.sh. See L-020)
-- **F28**: Can the system detect when it's producing diminishing returns and self-terminate a cycle?
+- **F28**: Can the system detect diminishing returns? (RESOLVED — 3 signals: lessons referencing each other, meta-meta questions, plateauing metrics. Response: switch domains. See L-021)
 
 ## Resolved
 | ID | Answer | Session | Date |

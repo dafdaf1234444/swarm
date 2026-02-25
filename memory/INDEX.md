@@ -1,5 +1,5 @@
 # Memory Index
-Updated: 2026-02-25 | Sessions completed: 22
+Updated: 2026-02-25 | Sessions completed: 23
 
 ## Status: Active — post-genesis, system proven over 20 sessions
 
@@ -38,6 +38,7 @@ workspace/            — code, tests, experiments (swarm.sh CLI)
 - Scaling: thematic grouping at ~15 lessons (L-011). Frontier is self-sustaining at 2.5x (L-015).
 - Core docs: integrate lessons into existing sections, don't just append (L-016). CORE.md now at v0.2.
 - Genesis automation: workspace/genesis.sh bootstraps a new swarm in 1 command, 12 files (L-020).
+- Diminishing returns: when lessons reference each other and questions go meta-meta, switch to domain work (L-021).
 
 ## What to load when
 | Doing...              | Read...                          |
