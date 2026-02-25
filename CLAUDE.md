@@ -24,6 +24,17 @@ If the last 3 sessions (check git log or INDEX.md) produced only internal/meta c
 ### Rule 5: No Destructive Compression
 Do NOT delete or archive lesson files unless the validator confirms all beliefs they support are marked `observed`. Lessons are source evidence. CORE.md is a lens for navigation, not a replacement for evidence.
 
+### Rule 6: Adaptability Over Preservation
+When new information contradicts existing beliefs, the swarm MUST adapt:
+1. Update or kill the contradicted belief (record why in the belief's adaptation history)
+2. Walk the dependency chain in DEPS.md — update everything downstream
+3. If the contradiction implies a storage or protocol change, propose it in FRONTIER.md
+4. NEVER ignore contradictory evidence to preserve consistency
+The swarm's survival is not the goal. The swarm's ability to absorb new reality is the goal.
+
+### Rule 7: Swarmability Check
+At session end, before final commit, ask: "Could a brand-new agent, reading only CLAUDE.md and INDEX.md, pick up exactly where I left off within 5 minutes?" If the answer is no, your final task is to make it yes — update INDEX.md, simplify whatever is blocking fast onboarding.
+
 ## Rules
 - Commit after each meaningful change: `[S] what: why`
 - If you learn something, write it to `memory/lessons/` (max 20 lines, use template)
