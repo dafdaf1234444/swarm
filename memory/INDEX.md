@@ -1,5 +1,5 @@
 # Memory Index
-Updated: 2026-02-25 | Sessions completed: 15
+Updated: 2026-02-25 | Sessions completed: 16
 
 ## Status: Active — genesis complete, transitioning to real work
 
@@ -33,6 +33,7 @@ workspace/            — code, tests, experiments (swarm.sh CLI)
 - Verification: 3-S Rule — search if Specific, Stale, or Stakes-high (L-006).
 - Work ratio: phase-dependent 20/80→50/50→80/20 (L-007). Automate manual processes first (L-009).
 - Scaling: thematic grouping at ~15 lessons (L-011). Frontier is self-sustaining at 2.5x (L-015).
+- Core docs: integrate lessons into existing sections, don't just append (L-016). CORE.md now at v0.2.
 
 ## What to load when
 | Doing...              | Read...                          |

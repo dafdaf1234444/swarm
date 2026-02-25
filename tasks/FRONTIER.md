@@ -14,7 +14,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 
 ## Exploratory
 - **F18**: Could the swarm generate its own task assignments? (RESOLVED — it already does via frontier questions. Self-sustaining at ~2.5x amplification. See L-015)
-- **F19**: What would a v2.0 of CORE.md look like after 25+ sessions of learning?
+- **F19**: What would a v2.0 of CORE.md look like? (RESOLVED — v0.2 applied, integrating L-001 through L-015. See L-016)
 - **F20**: Can the swarm be forked — two independent swarms diverging from the same genesis and later compared?
 
 ## Resolved
