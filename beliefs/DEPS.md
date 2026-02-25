@@ -19,10 +19,10 @@ When a belief is disproven: check dependents below → update those too.
 - **Last tested**: never
 
 ### B3: Small commits aid backtracking and session handoff
-- **Evidence**: observed
+- **Evidence**: theorized
 - **Falsified if**: A session needs to revert or understand history and finds that small commits make this harder (too much noise) rather than easier, OR large monolithic commits prove equally navigable
 - **Depends on**: none
-- **Last tested**: 2026-02-25 (tested: traced L-010 to exact commit, isolated DEPS.md history across 5 commits, all navigable via git log --oneline + git show)
+- **Last tested**: 2026-02-25 (intra-day only — traced commits within a single marathon session. Cross-day handoff with zero shared context never tested. Original observed claim was premature.)
 
 ### B4: One focused session is more productive than many unfocused ones
 - **Evidence**: theorized
