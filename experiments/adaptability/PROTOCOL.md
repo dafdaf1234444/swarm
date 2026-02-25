@@ -27,7 +27,7 @@ An argument is injected via `shocks/shock5.md` that DEPS.md format is insufficie
 | Shock | Swarmability Before | Swarmability After | Beliefs Changed | Protocol Changed | Storage Changed | Notes |
 |-------|--------------------|--------------------|-----------------|------------------|-----------------|-------|
 | 1     | 100                | 100                | B1 refined      | No               | No              | Refined scope: storage vs retrieval. PRINCIPLES.md partially addresses retrieval concern. |
-| 2     |                    |                    |                 |                  |                 |       |
+| 2     | 100                | 100                | No              | Yes (CLAUDE.md step 3-4 merged) | No   | Fixed undefined "stale" in NEXT.md validation. CLAUDE.md 39→38 lines. |
 | 3     |                    |                    |                 |                  |                 |       |
 | 4     |                    |                    |                 |                  |                 |       |
 | 5     |                    |                    |                 |                  |                 |       |
