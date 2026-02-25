@@ -9,7 +9,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F14**: What happens when two sessions run simultaneously? (PARTIAL — protocol in L-018, needs real test)
 - **F21**: How would you merge two divergent knowledge forks back together?
 - **F23**: Should the swarm track its own resource usage (tokens, time, commits per session)?
-- **F24**: Can the swarm teach another human how to use it? Onboarding documentation.
+- **F24**: Can the swarm teach another human how to use it? (RESOLVED — workspace/README.md with quickstart, architecture, and file guide)
 - **F25**: What happens when beliefs/DEPS.md exceeds 20 entries? Belief compaction strategy.
 
 ## Exploratory
