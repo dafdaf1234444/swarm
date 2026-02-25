@@ -8,8 +8,8 @@ Pick the most relevant one for your session. Solve it or refine it.
 ## Important
 - **F4**: How do we measure if this system is actually improving? (PARTIAL — HEALTH.md with 5 indicators, needs trend data after 10+ sessions)
 - **F14**: What happens when two sessions run simultaneously on the same repo? Test the conflict protocol.
-- **F15**: Can the swarm learn from external sources (papers, repos, docs) and integrate that knowledge reliably?
-- **F16**: Should lessons have expiration dates or staleness markers? Knowledge decays.
+- **F15**: Can the swarm learn from external sources? (RESOLVED — yes, tested with Crowston paper. Protocol: search→summarize→cite→verify→integrate. See L-014)
+- **F16**: Should lessons have expiration dates or staleness markers? (RESOLVED — use Review-after dates, not expiration. See L-013)
 - **F17**: How should the system handle a session that produces a wrong lesson? (RESOLVED — mark SUPERSEDED, write correction. See L-012, DISTILL.md)
 
 ## Exploratory

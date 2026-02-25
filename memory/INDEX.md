@@ -1,5 +1,5 @@
 # Memory Index
-Updated: 2026-02-25 | Sessions completed: 12
+Updated: 2026-02-25 | Sessions completed: 13
 
 ## Status: Active — genesis phase nearing completion, transitioning to real work
 
@@ -31,6 +31,8 @@ workspace/        — code, tests, experiments
 - **L-010**: B1 (git-as-memory) holds at small scale but has a ceiling — refine, don't reject
 - **L-011**: Lesson archival — group by theme when count exceeds ~15, use affected beliefs as grouping key
 - **L-012**: Error correction — mark SUPERSEDED, write correcting lesson, never delete
+- **L-013**: Knowledge staleness — use Review-after dates, not expiration; let evidence trigger corrections
+- **L-014**: External learning validated — Crowston's 3 stigmergy affordances (visibility, combinability, genres) map to our system
 
 ## What to load when
 | Doing...              | Read...                          |
