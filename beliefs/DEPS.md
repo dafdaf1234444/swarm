@@ -1,0 +1,14 @@
+# Belief Dependencies
+
+Confidence: Verified (tested/searched) | Assumed (reasoning only) | Inherited (training data)
+
+| ID | Belief | Confidence | Origin | Depends on this |
+|----|--------|------------|--------|-----------------|
+| B1 | Git-as-memory is sufficient | Assumed | common practice | entire memory system |
+| B2 | Layered memory prevents context bloat | Assumed | reasoning | INDEX.md design, read protocol |
+| B3 | Small commits aid backtracking | Inherited | software eng practice | commit protocol |
+| B4 | One focused session > many unfocused | Assumed | budget reasoning | anti-spam approach |
+| B5 | LLM training biases are a real risk | Verified | ML research | verification mandates |
+| B6 | "Swarm" is the right coordination model | Assumed | initial design | naming, structure |
+
+When a belief is disproven: check this table → find what depends on it → update those too.
