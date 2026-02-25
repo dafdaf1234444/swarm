@@ -1,7 +1,7 @@
 # Memory Index
-Updated: 2026-02-25 | Sessions completed: 0
+Updated: 2026-02-25 | Sessions completed: 1
 
-## Status: Genesis — no sessions run yet
+## Status: Active — first session complete
 
 ## Structure
 ```
@@ -15,7 +15,7 @@ workspace/        — code, tests, experiments
 ```
 
 ## Lessons learned
-None yet.
+- **L-001**: Genesis validation — setup is sound, .gitignore had shell artifact, missing conflict resolution protocol
 
 ## What to load when
 | Doing...              | Read...                          |

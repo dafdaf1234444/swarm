@@ -1,5 +1,5 @@
 # TASK-001: Validate the setup
-Status: READY
+Status: DONE (Session 1, 2026-02-25)
 
 ## Do this
 1. Read beliefs/CORE.md and memory/INDEX.md
