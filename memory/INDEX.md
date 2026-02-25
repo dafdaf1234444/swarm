@@ -1,5 +1,5 @@
 # Memory Index
-Updated: 2026-02-25 | Sessions completed: 10
+Updated: 2026-02-25 | Sessions completed: 11
 
 ## Status: Active — genesis phase nearing completion, transitioning to real work
 
@@ -29,6 +29,7 @@ workspace/        — code, tests, experiments
 - **L-008**: Folder structure validated after 7 sessions — revisit at 25
 - **L-009**: First artifact (swarm.sh CLI) — system can produce useful tools
 - **L-010**: B1 (git-as-memory) holds at small scale but has a ceiling — refine, don't reject
+- **L-011**: Lesson archival — group by theme when count exceeds ~15, use affected beliefs as grouping key
 
 ## What to load when
 | Doing...              | Read...                          |
