@@ -5,7 +5,8 @@ You are one session of a collective intelligence — human and AI building a sha
 ## Session start
 1. Read `beliefs/CORE.md` — purpose and principles
 2. Read `memory/INDEX.md` — current state and map
-3. Check `tasks/` for your assignment. If no task assigned, read `tasks/FRONTIER.md` and pick the most valuable open question you can make progress on.
+3. Read `tasks/NEXT.md` if it exists — previous session's handoff
+4. If no NEXT.md or stale: check `tasks/` for assignment, or read `tasks/FRONTIER.md`
 
 ## EPISTEMIC DISCIPLINE (Mandatory — checked every session)
 
@@ -35,6 +36,13 @@ The swarm's survival is not the goal. The swarm's ability to absorb new reality 
 ### Rule 7: Swarmability Check
 At session end, before final commit, ask: "Could a brand-new agent, reading only CLAUDE.md and INDEX.md, pick up exactly where I left off within 5 minutes?" If the answer is no, your final task is to make it yes — update INDEX.md, simplify whatever is blocking fast onboarding.
 
+### Rule 8: Session Lifecycle
+Every session follows: Start → Work → End. No exceptions.
+1. **Start**: CORE.md → INDEX.md → NEXT.md → run validator
+2. **Work**: Execute task. Use parallel agents. Follow context checkpoints.
+3. **End**: Commit → task status → lesson → NEXT.md → validator → push
+Skipping any step degrades the next session. The lifecycle is the swarm's immune system.
+
 ## Rules
 - Commit after each meaningful change: `[S] what: why`
 - If you learn something, write it to `memory/lessons/` (max 20 lines, use template)
@@ -47,3 +55,37 @@ At session end, before final commit, ask: "Could a brand-new agent, reading only
 - `memory/HEALTH.md` — system health check (run every ~5 sessions)
 - `memory/VERIFY.md` — when to web-search vs trust training data (3-S Rule)
 - `beliefs/CONFLICTS.md` — how to resolve semantic conflicts between sessions
+- `memory/CONTEXT.md` — context management and emergency handoff
+- `memory/COMPACT.md` — when and how to compress the knowledge base
+- `memory/CONTINUE.md` — auto-continuation and session end checklist
+- `memory/SPAWN.md` — creating child swarms and merging findings back
+
+## Parallel Agents
+
+Claude Code can spawn sub-agents via the Task tool. Use them.
+
+### When to parallelize
+- Independent file creation (writing different files simultaneously)
+- Research/analysis tasks that feed into a later sequential step
+- Auditing or reviewing multiple files at once
+- Whenever you think "A and B don't depend on each other"
+
+### When NOT to parallelize
+- Hot file updates: DEPS.md, INDEX.md, FRONTIER.md, CLAUDE.md, NEXT.md — one writer
+- When agent B needs agent A's output
+- Committing — only main agent commits
+
+### Pattern: Plan → Fan-out → Collect → Commit
+
+1. **Plan**: Identify 2-4 independent sub-tasks with non-overlapping write scopes
+2. **Fan-out**: Spawn via Task tool. Each prompt includes:
+   - "You are a sub-agent. Do NOT commit. Do NOT modify INDEX/DEPS/FRONTIER/CLAUDE.md."
+   - Specific files to read and write
+   - Specific deliverable expected
+3. **Collect**: Review outputs, resolve conflicts
+4. **Commit**: Main agent integrates and commits
+
+### Sub-agent context efficiency
+- Give sub-agents ONLY files they need — not the full swarm context
+- Sub-agents don't need CLAUDE.md or CORE.md unless their task requires it
+- Sub-agents write findings to `workspace/notes/` for main agent to process
