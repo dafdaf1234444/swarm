@@ -6,12 +6,13 @@ Claude Code sessions have finite context windows. The swarm must track usage and
 ## Context Budget (approximate)
 
 Mandatory load every session (non-negotiable):
-- CLAUDE.md (~50 lines)
-- CORE.md (~32 lines)
-- INDEX.md (~55 lines)
+- CLAUDE.md (~90 lines, growing — watch this)
+- CORE.md (~33 lines)
+- INDEX.md (~60 lines)
 - Task file (~20 lines)
 - Protocol overhead (~20 lines)
-Approx 180 lines / 700 tokens of mandatory read before work starts.
+Approx 220 lines / ~3000 tokens of mandatory read before work starts.
+Note: 3000 tokens is ~2% of effective working context — substantial headroom exists.
 
 Rule of thumb: Claude Code effective context is large but not infinite. The real consumption comes from:
 - Reading lesson files, DEPS.md, FRONTIER.md during work
