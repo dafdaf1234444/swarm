@@ -33,9 +33,7 @@ Pick one based on your task. Each adds rules on top of the always-rules below.
 - `memory/HEALTH.md` — health check (~every 5 sessions)
 - `memory/VERIFY.md` — 3-S Rule (Specific, Stale, Stakes-high)
 - `beliefs/CONFLICTS.md` — conflict resolution
-- `memory/CONTEXT.md` — context management
-- `memory/COMPACT.md` — compaction
-- `memory/SPAWN.md` — child swarms
+- `memory/OPERATIONS.md` — session lifecycle, compaction, spawn
 
 ## Parallel agents
 Use Task tool for independent sub-tasks. Don't parallelize hot files (INDEX, DEPS, FRONTIER, CLAUDE.md). Pattern: Plan → Fan-out → Collect → Commit. Give sub-agents only files they need.

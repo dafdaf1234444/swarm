@@ -1,7 +1,7 @@
 # Memory Index
-Updated: 2026-02-26 | Sessions completed: 29
+Updated: 2026-02-26 | Sessions completed: 30
 
-## Status: Active — belief graph restructured (Kauffman NK). 6 beliefs (4 observed, 2 theorized). B4, B5 superseded. Swarmability 100.
+## Status: Active — repo restructured (Simon near-decomposability). 4 protocol files merged → 1. CLAUDE.md at 40 lines.
 
 ## Structure
 ```
@@ -19,14 +19,11 @@ workspace/            — code, tests, experiments (swarm.sh CLI)
 tools/                — validator, hooks (validate_beliefs.py)
 experiments/          — controlled experiments (adaptability, swarm-vs-stateless)
 modes/                — session mode files (research, build, repair, audit)
-memory/CONTEXT.md    — context management and emergency handoff
-memory/COMPACT.md    — compaction triggers and procedures
-memory/CONTINUE.md   — auto-continuation and session lifecycle
-memory/SPAWN.md      — child swarm creation and merge-back
+memory/OPERATIONS.md — session lifecycle, compaction, spawn (merged from 4 files)
 tasks/NEXT.md        — handoff to next session (overwritten each session)
 ```
 
-## Lessons by theme (24 lessons, L-001 through L-025)
+## Lessons by theme (25 lessons, L-001 through L-026)
 
 **Architecture** — what this system is and how it's structured
 - Blackboard+stigmergy hybrid, "swarm" is brand only (L-005). Crowston's 3 affordances validated (L-014).
@@ -53,6 +50,7 @@ tasks/NEXT.md        — handoff to next session (overwritten each session)
 
 **Complexity theory** — external domain knowledge applied to the system
 - NK fitness landscapes: tune belief interconnection K≈1 for edge of chaos; isolated beliefs are dead weight (L-025).
+- Near-decomposability: merge files that always change together; remove files that nothing references (L-026).
 
 ## What to load when
 | Doing...              | Read...                          |
