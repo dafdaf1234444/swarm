@@ -1,7 +1,7 @@
 # Memory Index
-Updated: 2026-02-26 | Sessions completed: 31
+Updated: 2026-02-26 | Sessions completed: 32
 
-## Status: Active — 26 lessons decomposed into 26 atomic principles in PRINCIPLES.md. Knowledge now composable.
+## Status: Active — TASK-013 complete (5 sessions). Entropy detector live. 28 lessons, 6 beliefs (4 observed), CLAUDE.md 40 lines.
 
 ## Structure
 ```
@@ -24,7 +24,7 @@ memory/OPERATIONS.md — session lifecycle, compaction, spawn (merged from 4 fil
 tasks/NEXT.md        — handoff to next session (overwritten each session)
 ```
 
-## Lessons by theme (27 lessons, L-001 through L-027)
+## Lessons by theme (28 lessons, L-001 through L-028)
 See also: `memory/PRINCIPLES.md` — atomic rules extracted from lessons (building blocks for recombination)
 
 **Architecture** — what this system is and how it's structured
@@ -54,6 +54,7 @@ See also: `memory/PRINCIPLES.md` — atomic rules extracted from lessons (buildi
 - NK fitness landscapes: tune belief interconnection K≈1 for edge of chaos; isolated beliefs are dead weight (L-025).
 - Near-decomposability: merge files that always change together; remove files that nothing references (L-026).
 - Building blocks: lessons decomposed into atomic principles; crossover beats mutation for knowledge improvement (L-027).
+- Autopoiesis: track decay (stale beliefs, orphaned refs) not just growth; entropy detector in validator (L-028).
 
 ## What to load when
 | Doing...              | Read...                          |

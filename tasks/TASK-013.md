@@ -1,5 +1,5 @@
 # TASK-013: Complexity Theory as Operating System
-Status: IN PROGRESS (Session 2)
+Status: DONE (Sessions 28-32, 2026-02-26)
 
 ## What This Is
 The swarm spent 27 sessions building bureaucracy. 8 rules, 7 protocols, 23 lessons about itself. No real domain work. This task fixes that by studying complexity theory — the one domain where learning directly improves the system, because the system IS a complex adaptive system.

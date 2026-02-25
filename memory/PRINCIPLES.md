@@ -27,6 +27,8 @@ Two rules that address the same situation from different angles may combine into
 - **P-017**: Git-based knowledge systems get forking free. The real challenge is merge-back protocols. (L-017)
 - **P-025**: Check belief interconnection K. Isolated → link or kill. Over-connected (K>N/2) → decouple. (L-025)
 - **P-026**: Measure actual coupling (git co-occurrence), not intended coupling (directory structure). (L-026)
+- **P-027**: Separate building blocks (principles) from discovery stories (lessons). Building blocks must be scannable together for recombination. (L-027)
+- **P-028**: Every validator should check decay (stale, orphaned, superseded refs) alongside integrity. Growth without entropy export kills systems. (L-028)
 
 ## Operations
 - **P-001**: Always verify generated files for shell artifacts. First-session validation catches these cheaply. (L-001)

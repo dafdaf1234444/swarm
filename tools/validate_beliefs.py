@@ -394,6 +394,87 @@ def print_swarmability(beliefs: list[dict], has_errors: bool, existence_ok: bool
     print(f"\nSWARMABILITY: {total}/100")
 
 
+# --- Entropy Detection ---
+
+def detect_entropy(beliefs: list[dict]) -> list[str]:
+    """Detect entropy accumulation: stale beliefs, orphaned files, drifted lessons."""
+    findings = []
+
+    # 1. Stale beliefs: theorized AND never tested
+    for b in beliefs:
+        if b["evidence"] == "theorized" and (
+            not b["last_tested"] or b["last_tested"].lower() == "never"
+        ):
+            findings.append(f"  {b['id']}: theorized and never tested")
+
+    # 2. Lessons referencing superseded beliefs
+    deps_path = REPO_ROOT / "beliefs" / "DEPS.md"
+    superseded: set[str] = set()
+    if deps_path.exists():
+        superseded = set(re.findall(r"~~(B\d+)~~", deps_path.read_text()))
+
+    lessons_dir = REPO_ROOT / "memory" / "lessons"
+    if lessons_dir.exists() and superseded:
+        for f in sorted(lessons_dir.glob("L-*.md")):
+            try:
+                text = f.read_text()
+            except Exception:
+                continue
+            affected_m = re.search(r"## Affected beliefs:\s*(.+)", text)
+            if affected_m:
+                affected_ids = re.findall(r"B\d+", affected_m.group(1))
+                stale = [bid for bid in affected_ids if bid in superseded]
+                if stale:
+                    findings.append(
+                        f"  {f.name}: references superseded {', '.join(stale)}"
+                    )
+
+    # 3. Protocol files in memory/ not referenced by any .md outside themselves
+    ref_corpus = ""
+    for md_file in REPO_ROOT.rglob("*.md"):
+        # Skip lessons (they're outputs, not structure) and the file itself
+        rel = md_file.relative_to(REPO_ROOT)
+        if str(rel).startswith("memory/lessons/"):
+            continue
+        try:
+            ref_corpus += md_file.read_text() + "\n"
+        except Exception:
+            pass
+
+    memory_dir = REPO_ROOT / "memory"
+    skip = {"INDEX.md", "PRINCIPLES.md"}  # meta-files, always relevant
+    if memory_dir.exists():
+        for f in sorted(memory_dir.glob("*.md")):
+            if f.name in skip:
+                continue
+            # Check if filename appears in the corpus (excluding self-references)
+            self_text = ""
+            try:
+                self_text = f.read_text()
+            except Exception:
+                pass
+            # Remove self-content from corpus for this check
+            corpus_without_self = ref_corpus.replace(self_text, "")
+            if f.name not in corpus_without_self:
+                findings.append(
+                    f"  {f.relative_to(REPO_ROOT)}: not referenced by any structural file"
+                )
+
+    return findings
+
+
+def print_entropy(beliefs: list[dict]):
+    findings = detect_entropy(beliefs)
+    print("\n=== ENTROPY DETECTOR ===\n")
+    if findings:
+        for f in findings:
+            print(f)
+        print(f"\nEntropy items: {len(findings)}")
+    else:
+        print("  No entropy detected.")
+        print("\nEntropy items: 0")
+
+
 # --- Main ---
 
 def main() -> int:
@@ -436,6 +517,9 @@ def main() -> int:
 
     # Swarmability score is informational — does not affect exit code
     print_swarmability(beliefs, bool(fails), not existence_issues)
+
+    # Entropy detection — tracks decay, not just growth
+    print_entropy(beliefs)
 
     return exit_code
 
