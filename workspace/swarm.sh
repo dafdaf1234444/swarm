@@ -99,6 +99,40 @@ cmd_lessons() {
     done
 }
 
+cmd_next() {
+    echo "=== Suggested Next Session ==="
+    echo ""
+
+    # Check for in-progress tasks
+    local in_progress
+    in_progress=$(grep -rl 'Status: IN PROGRESS' "$REPO_ROOT/tasks/" 2>/dev/null | head -1 || true)
+    if [ -n "$in_progress" ]; then
+        echo "CONTINUE: $(basename "$in_progress") is still in progress"
+        head -1 "$in_progress" | sed 's/^# /  /'
+        return
+    fi
+
+    # Show critical frontier questions first
+    echo "Critical open questions:"
+    grep '^\- \*\*F' "$REPO_ROOT/tasks/FRONTIER.md" 2>/dev/null | head -3 | while read -r line; do
+        echo "  $line"
+    done
+    echo ""
+
+    # Health check suggestion
+    local sessions
+    sessions=$(grep -oP 'Sessions completed: \K\d+' "$REPO_ROOT/memory/INDEX.md" 2>/dev/null || echo "0")
+    if [ $((sessions % 5)) -eq 0 ] && [ "$sessions" -gt 0 ]; then
+        echo "NOTE: Session $sessions — time for a health check (run: swarm.sh health)"
+    fi
+}
+
+cmd_log() {
+    echo "=== Recent Activity ==="
+    echo ""
+    git -C "$REPO_ROOT" log --oneline -10 2>/dev/null
+}
+
 cmd_help() {
     echo "swarm — CLI for the swarm knowledge base"
     echo ""
@@ -107,6 +141,8 @@ cmd_help() {
     echo "  health    Run health check"
     echo "  frontier  List open frontier questions"
     echo "  lessons   List all lessons"
+    echo "  next      Suggest what to work on next"
+    echo "  log       Show recent git activity"
     echo "  help      Show this help"
 }
 
@@ -115,6 +151,8 @@ case "${1:-help}" in
     health)   cmd_health ;;
     frontier) cmd_frontier ;;
     lessons)  cmd_lessons ;;
+    next)     cmd_next ;;
+    log)      cmd_log ;;
     help)     cmd_help ;;
     *)        echo "Unknown command: $1"; cmd_help; exit 1 ;;
 esac
