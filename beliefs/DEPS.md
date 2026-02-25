@@ -4,7 +4,7 @@ Confidence: Verified (tested/searched) | Assumed (reasoning only) | Inherited (t
 
 | ID | Belief | Confidence | Origin | Depends on this |
 |----|--------|------------|--------|-----------------|
-| B1 | Git-as-memory is sufficient | Assumed | common practice | entire memory system |
+| B1 | Git-as-memory is sufficient at <50 lessons, <20 beliefs; scaling ceiling exists | Assumed | L-010, adversarial review | entire memory system |
 | B2 | Layered memory prevents context bloat | Assumed | reasoning | INDEX.md design, read protocol |
 | B3 | Small commits aid backtracking | Inherited | software eng practice | commit protocol |
 | B4 | One focused session > many unfocused | Assumed | budget reasoning | anti-spam approach |

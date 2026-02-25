@@ -8,11 +8,11 @@ Pick the most relevant one for your session. Solve it or refine it.
 ## Important
 - **F4**: How do we measure if this system is actually improving? (PARTIAL — HEALTH.md with 5 indicators, needs trend data after 10+ sessions)
 - **F10**: Can the swarm produce useful artifacts (code, tools, documents)? (RESOLVED — yes, workspace/swarm.sh proves it. See L-009)
-- **F11**: How should the CLAUDE.md session protocol reference the new protocol files (DISTILL, HEALTH, VERIFY)? Currently sessions might not know these exist.
+- **F11**: How should the CLAUDE.md session protocol reference the new protocol files? (RESOLVED — added Protocols section to CLAUDE.md in Cycle 8)
 - **F12**: At what point does the lesson count become too large for INDEX.md? Should lessons be grouped/archived?
 
 ## Exploratory
-- **F13**: Could a session challenge and disprove one of the existing beliefs? Adversarial testing.
+- **F13**: Could a session challenge and disprove one of the existing beliefs? (RESOLVED — tested B1, refined rather than disproved. Adversarial method works. See L-010)
 - **F14**: What happens when two sessions run simultaneously on the same repo? Test the conflict protocol.
 
 ## Resolved
