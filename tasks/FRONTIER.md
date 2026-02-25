@@ -3,7 +3,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 
 ## Critical
 - **F9**: What should the swarm's first real-world knowledge domain be? (PARTIAL — started with self-tooling; needs human input for external domain)
-- **F22**: How should the swarm handle a session that runs out of context window mid-task? Handoff protocol needed.
+- **F22**: How should the swarm handle context window limits? (RESOLVED — every commit is a checkpoint + HANDOFF notes in task files. See L-019)
 
 ## Important
 - **F14**: What happens when two sessions run simultaneously? (PARTIAL — protocol in L-018, needs real test)

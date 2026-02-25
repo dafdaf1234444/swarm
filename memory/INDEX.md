@@ -1,5 +1,5 @@
 # Memory Index
-Updated: 2026-02-25 | Sessions completed: 20
+Updated: 2026-02-25 | Sessions completed: 21
 
 ## Status: Active — post-genesis, system proven over 20 sessions
 
@@ -25,6 +25,7 @@ workspace/            — code, tests, experiments (swarm.sh CLI)
 - Git-as-memory works at <50 lessons/<20 beliefs; ceiling exists (L-010). Folder structure validated (L-008).
 - Forking is free (git fork = knowledge fork); merge-back is the hard problem (L-017).
 - Concurrent sessions: git pull --rebase before commits; INDEX/FRONTIER are hot files (L-018).
+- Context handoff: every commit is a checkpoint; use HANDOFF notes in task files (L-019).
 
 **Protocols** — how to operate the system
 - Distillation: template + protocol, not just format (L-002). Error correction: SUPERSEDED, never delete (L-012).
