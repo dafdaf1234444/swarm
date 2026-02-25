@@ -45,11 +45,11 @@ B1 (git-as-memory)
 - **Depended on by**: B7, B8
 - **Last tested**: 2026-02-25 (L-005, compared 6 models with external sources)
 
-### B7: Protocols (distill, health, verify, correct) compound system quality over time
-- **Evidence**: theorized
-- **Falsified if**: Health metrics (HEALTH.md) show no improvement or degradation across 10+ sessions despite protocol adherence, OR removing a protocol produces no measurable quality difference
+### B7: Regularly-invoked protocols compound system quality over time
+- **Evidence**: observed
+- **Falsified if**: Health metrics show no improvement or degradation across 10+ sessions despite protocol adherence, OR removing a protocol produces no measurable quality difference
 - **Depends on**: B2, B6
-- **Last tested**: never
+- **Last tested**: 2026-02-26 (34 sessions: belief accuracy 0%→83%, swarmability 85→100, mandatory load 200→115 lines. Distill/verify/validator clearly compound; conflicts/health invoked rarely — no evidence for those)
 
 ### B8: The frontier is a self-sustaining task generation mechanism
 - **Evidence**: observed
