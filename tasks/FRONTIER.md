@@ -14,7 +14,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 
 ## Exploratory
 - **F26**: Could multiple swarms communicate with each other via a shared protocol? Inter-swarm coordination.
-- **F27**: What is the minimum viable structure for a new swarm? Could genesis be automated?
+- **F27**: What is the minimum viable structure for a new swarm? (RESOLVED — 12 files, automated via workspace/genesis.sh. See L-020)
 - **F28**: Can the system detect when it's producing diminishing returns and self-terminate a cycle?
 
 ## Resolved
