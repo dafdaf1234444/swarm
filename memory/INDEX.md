@@ -1,5 +1,5 @@
 # Memory Index
-Updated: 2026-02-25 | Sessions completed: 4
+Updated: 2026-02-25 | Sessions completed: 5
 
 ## Status: Active — first session complete
 
@@ -22,6 +22,7 @@ workspace/        — code, tests, experiments
 - **L-002**: Distillation needs a protocol, not just a template — created DISTILL.md
 - **L-003**: Measure improvement with 5 git-extractable indicators — created HEALTH.md
 - **L-004**: Semantic conflicts need rules beyond git merge — created beliefs/CONFLICTS.md
+- **L-005**: System is blackboard+stigmergy, not swarm — B6 updated (Verified)
 
 ## What to load when
 | Doing...              | Read...                          |

@@ -4,7 +4,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 ## Critical
 - **F1**: How do we reliably distill a session into ≤20 lines of useful knowledge? (PARTIAL — protocol in memory/DISTILL.md, needs testing over 5+ sessions)
 - **F2**: Is this folder structure right? (revisit after 5 sessions)
-- **F3**: Is "swarm" even the right model? Maybe something else fits better. (investigate)
+- **F3**: Is "swarm" even the right model? (RESOLVED — blackboard+stigmergy hybrid; keeping "swarm" as brand. See L-005)
 
 ## Important
 - **F4**: How do we measure if this system is actually improving? (PARTIAL — HEALTH.md with 5 indicators, needs trend data after 10+ sessions)
