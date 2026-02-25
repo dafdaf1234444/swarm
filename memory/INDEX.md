@@ -1,5 +1,5 @@
 # Memory Index
-Updated: 2026-02-25 | Sessions completed: 6
+Updated: 2026-02-25 | Sessions completed: 7
 
 ## Status: Active — first session complete
 
@@ -25,6 +25,7 @@ workspace/        — code, tests, experiments
 - **L-004**: Semantic conflicts need rules beyond git merge — created beliefs/CONFLICTS.md
 - **L-005**: System is blackboard+stigmergy, not swarm — B6 updated (Verified)
 - **L-006**: The 3-S Rule for verification — Search if Specific, Stale, or Stakes-high
+- **L-007**: Work/meta-work ratio is phase-dependent — genesis 20/80, mature 80/20
 
 ## What to load when
 | Doing...              | Read...                          |
