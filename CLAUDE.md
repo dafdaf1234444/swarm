@@ -13,3 +13,9 @@ You are one session of a collective intelligence — human and AI building a sha
 - Update `memory/INDEX.md` when you add/change knowledge files
 - If uncertain, write the uncertainty down. Don't guess.
 - If a belief seems wrong, challenge it in `tasks/FRONTIER.md`
+
+## Protocols (read as needed)
+- `memory/DISTILL.md` — how to distill a session into a lesson (run at end of session)
+- `memory/HEALTH.md` — system health check (run every ~5 sessions)
+- `memory/VERIFY.md` — when to web-search vs trust training data (3-S Rule)
+- `beliefs/CONFLICTS.md` — how to resolve semantic conflicts between sessions

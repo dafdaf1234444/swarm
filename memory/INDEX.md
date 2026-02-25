@@ -1,7 +1,7 @@
 # Memory Index
-Updated: 2026-02-25 | Sessions completed: 7
+Updated: 2026-02-25 | Sessions completed: 8
 
-## Status: Active — first session complete
+## Status: Active — genesis phase nearing completion, transitioning to real work
 
 ## Structure
 ```
@@ -26,6 +26,7 @@ workspace/        — code, tests, experiments
 - **L-005**: System is blackboard+stigmergy, not swarm — B6 updated (Verified)
 - **L-006**: The 3-S Rule for verification — Search if Specific, Stale, or Stakes-high
 - **L-007**: Work/meta-work ratio is phase-dependent — genesis 20/80, mature 80/20
+- **L-008**: Folder structure validated after 7 sessions — revisit at 25
 
 ## What to load when
 | Doing...              | Read...                          |
