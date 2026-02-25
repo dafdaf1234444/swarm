@@ -1,0 +1,11 @@
+#!/bin/bash
+# Swarm belief integrity check
+if [ -f "beliefs/DEPS.md" ]; then
+    python3 tools/validate_beliefs.py
+    if [ $? -ne 0 ]; then
+        echo ""
+        echo "COMMIT BLOCKED: Belief graph has integrity issues."
+        echo "Fix the issues above before committing."
+        exit 1
+    fi
+fi
