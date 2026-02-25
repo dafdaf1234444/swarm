@@ -1,5 +1,5 @@
 # Memory Index
-Updated: 2026-02-25 | Sessions completed: 26
+Updated: 2026-02-25 | Sessions completed: 27
 
 ## Status: Active — infrastructure solid, 50% of beliefs untested, adaptability unproven. All sessions to date are same-day; cross-session handoff never tested.
 
@@ -18,6 +18,11 @@ tasks/                — active task files
 workspace/            — code, tests, experiments (swarm.sh CLI)
 tools/                — validator, hooks (validate_beliefs.py)
 experiments/          — controlled experiments (adaptability, swarm-vs-stateless)
+memory/CONTEXT.md    — context management and emergency handoff
+memory/COMPACT.md    — compaction triggers and procedures
+memory/CONTINUE.md   — auto-continuation and session lifecycle
+memory/SPAWN.md      — child swarm creation and merge-back
+tasks/NEXT.md        — handoff to next session (overwritten each session)
 ```
 
 ## Lessons by theme (22 lessons, L-001 through L-022)
@@ -42,6 +47,7 @@ experiments/          — controlled experiments (adaptability, swarm-vs-statele
 - Genesis automation: workspace/genesis.sh bootstraps a new swarm in 1 command, 12 files (L-020).
 - Diminishing returns: when lessons reference each other and questions go meta-meta, switch to domain work (L-021).
 - External review revealed "proven" claim was false with 62% beliefs untested (L-022). Epistemic discipline enforced via validator + pre-commit hook.
+- Sustainability: context management, compaction, auto-continuation, parallel agents, spawn (L-023).
 
 ## What to load when
 | Doing...              | Read...                          |

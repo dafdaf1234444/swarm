@@ -14,6 +14,10 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F23**: Should the swarm track its own resource usage (tokens, time, commits per session)?
 - **F24**: Can the swarm teach another human how to use it? (RESOLVED — workspace/README.md with quickstart, architecture, and file guide)
 - **F25**: What happens when beliefs/DEPS.md exceeds 20 entries? Belief compaction strategy.
+- **F32**: Does NEXT.md improve session startup? Test after 5 sessions using it.
+- **F33**: At what lesson count does Level 1 compaction become necessary? At 22 now, trigger is 25.
+- **F34**: Can parallel sub-agents work within shock experiments? Test during Shock 2 or 3.
+- **F35**: Does the spawn protocol work? Test by spawning a child for the WebSocket experiment.
 
 ## Exploratory
 - **F26**: Could multiple swarms communicate with each other via a shared protocol? Inter-swarm coordination.
