@@ -1,7 +1,7 @@
 # Memory Index
-Updated: 2026-02-26 | Sessions completed: 32
+Updated: 2026-02-26 | Sessions completed: 34
 
-## Status: Active — TASK-013 complete (5 sessions). Entropy detector live. 28 lessons, 6 beliefs (4 observed), CLAUDE.md 40 lines.
+## Status: Active — 28 lessons, 6 beliefs (5 observed/1 theorized), entropy 1. Genesis v2 shipped. INDEX compacted.
 
 ## Structure
 ```
@@ -24,37 +24,15 @@ memory/OPERATIONS.md — session lifecycle, compaction, spawn (merged from 4 fil
 tasks/NEXT.md        — handoff to next session (overwritten each session)
 ```
 
-## Lessons by theme (28 lessons, L-001 through L-028)
-See also: `memory/PRINCIPLES.md` — atomic rules extracted from lessons (building blocks for recombination)
+## Lessons: 28 (L-001–L-028)
+For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{NNN}.md`.
 
-**Architecture** — what this system is and how it's structured
-- Blackboard+stigmergy hybrid, "swarm" is brand only (L-005). Crowston's 3 affordances validated (L-014).
-- Git-as-memory works at <50 lessons/<20 beliefs; ceiling exists (L-010). Folder structure validated (L-008).
-- Forking is free (git fork = knowledge fork); merge-back is the hard problem (L-017).
-- Concurrent sessions: git pull --rebase before commits; INDEX/FRONTIER are hot files (L-018).
-- Context handoff: every commit is a checkpoint; use HANDOFF notes in task files (L-019).
-
-**Protocols** — how to operate the system
-- Distillation: template + protocol, not just format (L-002). Error correction: SUPERSEDED, never delete (L-012).
-- Health check: 5 indicators in HEALTH.md (L-003). Conflicts: evidence beats assertion (L-004).
-- Staleness: Review-after dates, not expiration (L-013). Genesis validation caught shell artifacts (L-001).
-
-**Strategy** — when and how to make decisions
-- Verification: 3-S Rule — search if Specific, Stale, or Stakes-high (L-006).
-- Work ratio: phase-dependent 20/80→50/50→80/20 (L-007). Automate manual processes first (L-009).
-- Scaling: thematic grouping at ~15 lessons (L-011). Frontier is self-sustaining at 2.5x (L-015).
-- Core docs: integrate lessons into existing sections, don't just append (L-016). CORE.md now at v0.2.
-- Genesis automation: workspace/genesis.sh bootstraps a new swarm in 1 command, 12 files (L-020).
-- Diminishing returns: when lessons reference each other and questions go meta-meta, switch to domain work (L-021).
-- External review revealed "proven" claim was false with 62% beliefs untested (L-022). Epistemic discipline enforced via validator + pre-commit hook.
-- Sustainability: context management, compaction, auto-continuation, parallel agents, spawn (L-023).
-- Requisite variety: monolithic rules create variety deficit; session modes match controller to task type (L-024).
-
-**Complexity theory** — external domain knowledge applied to the system
-- NK fitness landscapes: tune belief interconnection K≈1 for edge of chaos; isolated beliefs are dead weight (L-025).
-- Near-decomposability: merge files that always change together; remove files that nothing references (L-026).
-- Building blocks: lessons decomposed into atomic principles; crossover beats mutation for knowledge improvement (L-027).
-- Autopoiesis: track decay (stale beliefs, orphaned refs) not just growth; entropy detector in validator (L-028).
+| Theme | Lessons | Key insight |
+|-------|---------|-------------|
+| Architecture | L-005,008,010,014,017-019 | Blackboard+stigmergy, git-as-memory, handoff via commits |
+| Protocols | L-001-004,012,013 | Distill, health, verify, correct; evidence beats assertion |
+| Strategy | L-006,007,009,011,015,016,020-024 | 3-S Rule, phase ratios, genesis automation, session modes |
+| Complexity | L-025-028 | NK landscapes, near-decomposability, building blocks, autopoiesis |
 
 ## What to load when
 | Doing...              | Read...                          |
