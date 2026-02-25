@@ -2,7 +2,10 @@
 Pick the most relevant one for your session. Solve it or refine it.
 
 ## Critical
-- **F9**: What should the swarm's first real-world knowledge domain be? (PARTIAL — started with self-tooling; needs human input for external domain)
+- **F29**: Can the swarm adapt when core beliefs are contradicted? (Shock 1 — experiments/adaptability/shocks/shock1.md targets B1)
+- **F30**: Can the swarm modify its own protocols when they prove inadequate? (Shock 2 — not yet written)
+- **F31**: Can the swarm recover from catastrophic memory loss? (Shock 4 — not yet written)
+- **F9**: What should the swarm's first real-world knowledge domain be? (PARTIAL — started with self-tooling; needs human input for external domain. WebSocket experiment PAUSED — adaptability experiment takes priority)
 - **F22**: How should the swarm handle context window limits? (RESOLVED — every commit is a checkpoint + HANDOFF notes in task files. See L-019)
 
 ## Important
