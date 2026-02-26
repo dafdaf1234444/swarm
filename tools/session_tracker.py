@@ -7,6 +7,7 @@ Usage:
     python3 tools/session_tracker.py report
     python3 tools/session_tracker.py lambda
     python3 tools/session_tracker.py growth-rate [--n N]
+    python3 tools/session_tracker.py trend [--window N]
 
 Records per-session metrics by analyzing git history.
 Provides λ_swarm calculation (Langton's lambda for the swarm).
@@ -79,9 +80,31 @@ def record_session(session_num: int):
         (REPO_ROOT / "memory" / "lessons").glob("L-*.md")
     ))
     principles_count = len(re.findall(
-        r"\*\*P-\d+\*\*",
+        r"P-\d+",
         (REPO_ROOT / "memory" / "PRINCIPLES.md").read_text()
     )) if (REPO_ROOT / "memory" / "PRINCIPLES.md").exists() else 0
+
+    # Count frontier state
+    frontier_path = REPO_ROOT / "tasks" / "FRONTIER.md"
+    frontier_open = 0
+    frontier_resolved = 0
+    if frontier_path.exists():
+        ft = frontier_path.read_text()
+        frontier_open = len(re.findall(r"^- \*\*F\d+\*\*:", ft, re.MULTILINE))
+        frontier_resolved = len(re.findall(r"^\| F\d+", ft, re.MULTILINE))
+
+    # Count entropy
+    entropy_count = 0
+    try:
+        r = subprocess.run(
+            ["python3", str(REPO_ROOT / "tools" / "validate_beliefs.py")],
+            capture_output=True, text=True, timeout=30, cwd=str(REPO_ROOT)
+        )
+        m = re.search(r"Entropy items: (\d+)", r.stdout)
+        if m:
+            entropy_count = int(m.group(1))
+    except Exception:
+        pass
 
     session_data = {
         "commits": commit_count,
@@ -89,6 +112,9 @@ def record_session(session_num: int):
         "structural_change": structural_change,
         "lessons_total": lessons_count,
         "principles_total": principles_count,
+        "frontier_open": frontier_open,
+        "frontier_resolved": frontier_resolved,
+        "entropy_items": entropy_count,
     }
 
     sessions[str(session_num)] = session_data
@@ -382,6 +408,155 @@ def growth_rate(num_commits: int = 30):
     print(f"  Run periodically to detect trends before they become problems.")
 
 
+def trend(window: int = 5):
+    """Analyze trends across sessions to detect stalls (F61).
+
+    Computes slopes for key metrics across a rolling window and
+    detects stall conditions:
+    - Declining lesson generation rate
+    - Frontier resolution rate declining
+    - Entropy accumulation increasing
+    - Lambda diverging from target range
+    """
+    if not TRACKER_FILE.exists():
+        print("No session data. Run 'record' first.")
+        return
+
+    data = json.loads(TRACKER_FILE.read_text())
+    sessions = data.get("sessions", {})
+
+    if len(sessions) < 3:
+        print(f"Need at least 3 sessions for trend analysis (have {len(sessions)}).")
+        return
+
+    # Sort sessions by number
+    sorted_keys = sorted(sessions.keys(), key=int)
+    recent = sorted_keys[-window:] if len(sorted_keys) >= window else sorted_keys
+
+    print(f"=== TREND ANALYSIS (sessions {recent[0]}–{recent[-1]}) ===\n")
+
+    # --- Metric extraction ---
+    def get_metric(key, default=0):
+        return [sessions[k].get(key, default) for k in recent]
+
+    lessons = get_metric("lessons_total")
+    principles = get_metric("principles_total")
+    f_open = get_metric("frontier_open")
+    f_resolved = get_metric("frontier_resolved")
+    entropy = get_metric("entropy_items")
+    structural = [1 if sessions[k].get("structural_change") else 0 for k in recent]
+
+    def slope(values):
+        """Simple linear regression slope."""
+        n = len(values)
+        if n < 2:
+            return 0.0
+        x_mean = (n - 1) / 2
+        y_mean = sum(values) / n
+        num = sum((i - x_mean) * (v - y_mean) for i, v in enumerate(values))
+        den = sum((i - x_mean) ** 2 for i in range(n))
+        return num / den if den > 0 else 0.0
+
+    def direction(s):
+        if abs(s) < 0.1:
+            return "→ FLAT"
+        return "↑ RISING" if s > 0 else "↓ FALLING"
+
+    # --- Report ---
+    stall_warnings = []
+
+    # 1. Lessons per session (delta between consecutive sessions)
+    lesson_deltas = [lessons[i] - lessons[i-1] for i in range(1, len(lessons))]
+    avg_new_lessons = sum(lesson_deltas) / len(lesson_deltas) if lesson_deltas else 0
+    lesson_slope = slope(lesson_deltas) if len(lesson_deltas) >= 2 else 0
+
+    print(f"## Learning Rate")
+    print(f"  Lessons: {lessons[0]} → {lessons[-1]} (+{lessons[-1]-lessons[0]} over {len(recent)} sessions)")
+    print(f"  Avg new lessons/session: {avg_new_lessons:.1f}")
+    print(f"  Trend: {direction(lesson_slope)} (slope={lesson_slope:+.2f})")
+    if avg_new_lessons < 0.5 and len(recent) >= 3:
+        stall_warnings.append("LEARNING STALLED: <0.5 new lessons/session")
+        print(f"  ⚠ STALL: Learning rate below threshold")
+    print()
+
+    # 2. Frontier health
+    if f_open and f_resolved:
+        resolution_rates = [
+            f_resolved[i] / (f_open[i] + f_resolved[i])
+            if (f_open[i] + f_resolved[i]) > 0 else 0
+            for i in range(len(recent))
+        ]
+        res_slope = slope(resolution_rates)
+
+        print(f"## Frontier Health")
+        print(f"  Open: {f_open[0]} → {f_open[-1]}")
+        print(f"  Resolved: {f_resolved[0]} → {f_resolved[-1]}")
+        print(f"  Resolution rate: {resolution_rates[0]:.0%} → {resolution_rates[-1]:.0%}")
+        print(f"  Trend: {direction(res_slope)} (slope={res_slope:+.3f})")
+
+        if res_slope < -0.02 and len(recent) >= 3:
+            stall_warnings.append("CREATIVE EXHAUSTION: Resolution rate declining")
+            print(f"  ⚠ STALL: Resolution rate declining across {len(recent)} sessions")
+        elif resolution_rates[-1] > 0.85:
+            stall_warnings.append("FRONTIER DEPLETING: >85% resolved, few open questions")
+            print(f"  ⚠ WARNING: Running low on open questions")
+        print()
+
+    # 3. Entropy
+    if any(e > 0 for e in entropy):
+        ent_slope = slope(entropy)
+        print(f"## Entropy")
+        print(f"  Items: {entropy[0]} → {entropy[-1]}")
+        print(f"  Trend: {direction(ent_slope)} (slope={ent_slope:+.2f})")
+        if ent_slope > 0.3:
+            stall_warnings.append("ENTROPY ACCUMULATING: Items increasing across sessions")
+            print(f"  ⚠ STALL: Entropy outpacing repair")
+        print()
+    else:
+        print(f"## Entropy")
+        print(f"  Zero entropy across all measured sessions — healthy.")
+        print()
+
+    # 4. Structural change rate (lambda proxy)
+    if len(recent) >= 3:
+        lambda_recent = sum(structural) / len(structural)
+        print(f"## Structural Change Rate (λ proxy)")
+        print(f"  Changes: {sum(structural)}/{len(recent)} sessions ({lambda_recent:.0%})")
+        if lambda_recent < 0.1:
+            stall_warnings.append("FROZEN: No structural changes in recent sessions")
+            print(f"  ⚠ STALL: System may be frozen (no adaptation)")
+        elif lambda_recent > 0.8:
+            print(f"  NOTE: High structural change rate — verify stability")
+        else:
+            print(f"  Healthy range")
+        print()
+
+    # --- Summary ---
+    print(f"## Stall Detection Summary")
+    if stall_warnings:
+        print(f"  {len(stall_warnings)} warning(s) detected:")
+        for w in stall_warnings:
+            print(f"    ⚠ {w}")
+    else:
+        print(f"  No stall signals detected. System is healthy.")
+
+    # Session data summary
+    print(f"\n## Session Data")
+    print(f"  {'Session':<8} {'Lessons':>8} {'Principles':>11} {'Open':>5} {'Resolved':>9} {'Entropy':>8} {'λ':>3}")
+    print(f"  {'-'*55}")
+    for k in recent:
+        s = sessions[k]
+        lam = "Y" if s.get("structural_change") else "N"
+        print(
+            f"  {k:<8} {s.get('lessons_total', '?'):>8} "
+            f"{s.get('principles_total', '?'):>11} "
+            f"{s.get('frontier_open', '?'):>5} "
+            f"{s.get('frontier_resolved', '?'):>9} "
+            f"{s.get('entropy_items', '?'):>8} "
+            f"{lam:>3}"
+        )
+
+
 def main():
     if len(sys.argv) < 2:
         print(__doc__)
@@ -406,6 +581,13 @@ def main():
             if idx + 1 < len(sys.argv):
                 n = int(sys.argv[idx + 1])
         growth_rate(n)
+    elif cmd == "trend":
+        w = 5
+        if "--window" in sys.argv:
+            idx = sys.argv.index("--window")
+            if idx + 1 < len(sys.argv):
+                w = int(sys.argv[idx + 1])
+        trend(w)
     else:
         print(f"Unknown command: {cmd}")
         print(__doc__)

@@ -14,7 +14,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F53**: ~~Validate two-factor model on more packages.~~ RESOLVED — 14 packages validated. Static vs runtime distinction adds third dimension. See F53 resolution below.
 - **F59**: ~~Can nk_analyze.py be packaged as a pip-installable tool?~~ YES — workspace/nk-analyze/ with pyproject.toml, `pip install -e .`, `nk-analyze` CLI command. See F59 resolution.
 - **F60**: ~~PRINCIPLES.md scannability~~ RESOLVED — restructured from 66→31 lines using inline sub-theme grouping. All 51 principles preserved. See F60 resolution below.
-- **F61**: Stall detection — snapshot works, needs trend-over-time component
+- **F61**: ~~Stall detection trend-over-time~~ RESOLVED — `session_tracker.py trend` computes slopes across rolling window, detects 4 stall conditions. See F61 resolution.
 - **F62**: ~~Does cycle count independently predict unresolvable bugs?~~ YES — B10 upgraded to observed. See F62 resolution below.
 - **F63**: ~~Can NK analysis guide refactoring decisions?~~ YES — cycle participation count identifies optimal extraction candidates. See F63 resolution below.
 
@@ -31,6 +31,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F61 | RESOLVED — `session_tracker.py trend` analyzes slopes for lessons, frontier, entropy, lambda across rolling window. Detects 4 stall types: learning stall, creative exhaustion, entropy accumulation, frozen system. | 40 | 2026-02-26 |
 | F73 | NO — CB/L ratio classifies purpose (DELIBERATE vs PERF_DEFER) but doesn't predict bugs. Runtime cycles remain best predictor. | 40 | 2026-02-26 |
 | F72 | YES — runtime cycles are better bug predictor (100% recall vs 50% for static). Static good for architecture assessment only. | 40 | 2026-02-26 |
 | F53 | RESOLVED — 14 packages validated. Static vs runtime cycles add third dimension. High hidden + low static = good architecture (multiprocessing). Three-layer model: static, runtime, hidden. | 40 | 2026-02-26 |

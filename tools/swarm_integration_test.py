@@ -277,6 +277,21 @@ def test_growth_rate_runs():
     return True
 
 
+def test_trend_analysis_runs():
+    """Test that session_tracker.py trend command runs and produces valid output."""
+    r = subprocess.run(
+        ["python3", str(REPO_ROOT / "tools" / "session_tracker.py"), "trend"],
+        cwd=str(REPO_ROOT), capture_output=True, text=True
+    )
+    if r.returncode != 0:
+        raise RuntimeError(f"trend failed: {r.stderr}")
+    required = ["Learning Rate", "Frontier Health", "Entropy", "Stall Detection Summary"]
+    for section in required:
+        if section not in r.stdout:
+            raise RuntimeError(f"trend output missing: {section}")
+    return True
+
+
 # --- Tool tests ---
 
 def test_nk_analyze_runs():
@@ -606,6 +621,7 @@ def main():
     run_test("merge_reports_valid", test_merge_reports_valid)
     run_test("integration_log_valid", test_integration_log_valid)
     run_test("growth_rate_runs", test_growth_rate_runs)
+    run_test("trend_analysis_runs", test_trend_analysis_runs)
 
     print("\nTool tests:")
     run_test("nk_analyze_runs", test_nk_analyze_runs)
