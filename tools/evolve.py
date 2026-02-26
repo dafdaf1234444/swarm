@@ -27,6 +27,8 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
+from novelty import check_novelty, load_parent_rules
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 CHILDREN_DIR = REPO_ROOT / "experiments" / "children"
 
@@ -194,9 +196,7 @@ def integrate_child(child_name: str, dry_run: bool = False):
     parent_principles = REPO_ROOT / "memory" / "PRINCIPLES.md"
     parent_principles_text = parent_principles.read_text() if parent_principles.exists() else ""
 
-    parent_rules_lower = set()
-    for m in re.finditer(r"\*\*P-\d+\*\*:\s*(.+?)(?:\(L-|\Z)", parent_principles_text):
-        parent_rules_lower.add(m.group(1).strip().lower())
+    parent_rules = load_parent_rules(parent_principles)
 
     novel_rules = []
     if child_lessons_dir.exists():
@@ -210,15 +210,7 @@ def integrate_child(child_name: str, dry_run: bool = False):
             )
             if rule_m:
                 rule = rule_m.group(1).strip()
-                # Check novelty (same logic as merge_back.py)
-                rule_lower = rule.lower()
-                is_novel = True
-                for pr in parent_rules_lower:
-                    child_words = set(rule_lower.split())
-                    parent_words = set(pr.split())
-                    if len(child_words & parent_words) > 0.6 * len(child_words):
-                        is_novel = False
-                        break
+                is_novel, sim, closest = check_novelty(rule, parent_rules)
                 if is_novel:
                     novel_rules.append(rule)
 
@@ -330,6 +322,20 @@ def integrate_child(child_name: str, dry_run: bool = False):
         parent_frontier.write_text(new_text)
         changes_made.append(f"Added {len(novel_questions)} question(s) to FRONTIER.md")
         print(f"Added {len(novel_questions)} question(s) to FRONTIER.md")
+
+    # Post-integration validation
+    validator = REPO_ROOT / "tools" / "validate_beliefs.py"
+    if validator.exists():
+        r = subprocess.run(
+            ["python3", str(validator)],
+            cwd=str(REPO_ROOT), capture_output=True, text=True
+        )
+        if r.returncode == 0:
+            print("\n  Post-integration validation: PASS")
+        else:
+            print(f"\n  WARNING: Post-integration validation FAILED!")
+            print(f"  {r.stdout}")
+            changes_made.append("WARNING: validator failed after integration")
 
     # Write integration log
     log_dir = REPO_ROOT / "experiments" / "integration-log"

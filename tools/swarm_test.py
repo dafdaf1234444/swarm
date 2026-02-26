@@ -59,6 +59,7 @@ def spawn(name: str, topic: str = "general") -> Path:
         "parent": str(REPO_ROOT),
         "spawned_from_lesson_count": _count_parent_lessons(),
         "spawned_from_belief_count": _count_parent_beliefs(),
+        "genesis_version": _get_genesis_version(),
     }
     meta_path = child_dir / ".swarm_meta.json"
     meta_path.write_text(json.dumps(meta, indent=2))
@@ -224,6 +225,17 @@ def print_evaluation(results: dict):
 def _count_parent_lessons() -> int:
     lessons_dir = REPO_ROOT / "memory" / "lessons"
     return len(list(lessons_dir.glob("L-*.md"))) if lessons_dir.exists() else 0
+
+
+def _get_genesis_version() -> str:
+    """Extract genesis version from genesis.sh header comment."""
+    genesis = REPO_ROOT / "workspace" / "genesis.sh"
+    if genesis.exists():
+        text = genesis.read_text()
+        m = re.search(r"genesis\.sh (v\d+)", text)
+        if m:
+            return m.group(1)
+    return "unknown"
 
 
 def _count_parent_beliefs() -> int:

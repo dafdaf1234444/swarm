@@ -18,6 +18,8 @@ import re
 import sys
 from pathlib import Path
 
+from novelty import check_novelty, load_parent_rules
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
 
@@ -88,32 +90,9 @@ def extract_child_frontier(child_dir: Path) -> list[str]:
     return re.findall(r"^\- \*\*F\d+\*\*:\s*(.+)$", text, re.MULTILINE)
 
 
-def load_parent_rules() -> set[str]:
+def _load_parent_rules() -> list[str]:
     """Load parent's existing principles for dedup."""
-    principles = REPO_ROOT / "memory" / "PRINCIPLES.md"
-    if not principles.exists():
-        return set()
-    text = principles.read_text()
-    # Extract rule text (after P-NNN:)
-    return set(
-        m.group(1).strip().lower()
-        for m in re.finditer(r"\*\*P-\d+\*\*:\s*(.+?)(?:\(L-|\Z)", text)
-    )
-
-
-def check_novelty(child_rule: str, parent_rules: set[str]) -> bool:
-    """Check if a child's rule is novel (not already in parent)."""
-    if not child_rule:
-        return False
-    # Simple substring check — if any parent rule contains most of the child rule, it's not novel
-    child_lower = child_rule.lower()
-    for parent_rule in parent_rules:
-        # Check for significant overlap (>60% of words in common)
-        child_words = set(child_lower.split())
-        parent_words = set(parent_rule.split())
-        if len(child_words & parent_words) > 0.6 * len(child_words):
-            return False
-    return True
+    return load_parent_rules(REPO_ROOT / "memory" / "PRINCIPLES.md")
 
 
 def generate_report(child_dir: Path) -> str:
@@ -122,7 +101,7 @@ def generate_report(child_dir: Path) -> str:
     lessons = extract_child_lessons(child_dir)
     beliefs = extract_child_beliefs(child_dir)
     frontier = extract_child_frontier(child_dir)
-    parent_rules = load_parent_rules()
+    parent_rules = _load_parent_rules()
 
     lines = [
         f"# Merge-Back Report: {child_dir.name}",
@@ -142,10 +121,10 @@ def generate_report(child_dir: Path) -> str:
     lines.append(f"## Lessons ({len(lessons)})")
     novel_count = 0
     for lesson in lessons:
-        is_novel = check_novelty(lesson["rule"], parent_rules)
+        is_novel, sim, closest = check_novelty(lesson["rule"], parent_rules)
         if is_novel:
             novel_count += 1
-        marker = " [NOVEL]" if is_novel else ""
+        marker = " [NOVEL]" if is_novel else f" [sim={sim:.0%}]"
         lines.append(f"- **{lesson['title']}**{marker}")
         if lesson["rule"]:
             lines.append(f"  Rule: {lesson['rule']}")
