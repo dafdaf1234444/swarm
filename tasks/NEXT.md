@@ -2,35 +2,42 @@
 Updated: 2026-02-26
 
 ## Do First
-- Run `python3 tools/swarm_integration_test.py` (18 tests)
-- Run `python3 tools/pulse.py` (colony orientation)
-- Run `python3 tools/session_tracker.py growth-rate` (predictive indicators)
+- Run `python3 tools/swarm_integration_test.py` (22 tests — verify all pass)
+- Run `python3 tools/test_nk_analyze.py` (42 tests)
+- Run `python3 tools/test_novelty.py` (17 tests)
+- Run `python3 tools/validate_beliefs.py` (baseline)
 
-## What was done this session (38-39)
-- **B9 MILESTONE**: Upgraded from theorized to observed — K_avg*N+Cycles validated across 14 packages in 4 languages (Python, JavaScript, Go, Rust)
-- **nk_analyze.py tool**: Automated NK analysis for any Python package with batch mode
-- **4 NK analyses**: Express.js (6.0/15.0), Go net/http (89.0), asyncio (128.0), Rust serde (30.0)
-- **3 more via batch**: multiprocessing (102.0, 19 cycles!), xml (26.0), http (2.0)
-- **F64 self-analysis**: Swarm's own tools/ has composite=0.0 — perfectly decoupled, stigmergic coordination
-- **B10 (theorized)**: Cycle count predicts unresolvable bugs — observed in multiprocessing vs asyncio
-- **F49, F55, F58, F43, F64 resolved**; frontier replenished with F62-F65
-- **L-041** (supply-chain blind spot), **L-042** (automated validation), **P-047**, **P-048**
-- **Health check**: 5/5 healthy, 25/42 lessons verified
+## What was done this session (39 extended)
+- **81 tests total**: 42 nk_analyze regression tests, 17 novelty tests, 22 integration tests (including E2E evolution)
+- **F67 resolved**: Flask app factory reduces cycles 29-56%
+- **F68 resolved**: Two-threshold model (composite+cycles independently predict intervention need)
+- **F59 resolved**: nk-analyze packaged as pip-installable tool (workspace/nk-analyze/)
+- **F69 partial**: context_router.py (Level 1) + 4-level architecture design
+- **F70 resolved**: 42 regression tests with 3 S39-specific sub-package resolution tests
+- **Evolution pipeline upgraded**: shared novelty.py (Jaccard + stopwords), genesis version tracking, post-integration validation
+- **Import bug fixed**: nk_analyze.py sub-package resolution; corrected all 21 package scores
+- **Synthesis updated**: 21 packages across 4 languages, corrected values
+- **Lessons**: L-046 (tool self-testing), L-047 (context routing)
+- **Principles**: P-052 (tool testing), P-053 (context routing)
+- **Self-analysis**: tools/ N=16, K=3, composite=3.0 (up from 0.0 after novelty.py)
+- **16 commits** this session
 
 ## Read These
-- `experiments/complexity-applied/nk-cross-package-synthesis.md` — 14-package synthesis across 4 languages
-- `tools/nk_analyze.py` — automated NK analyzer with batch mode
-- `experiments/complexity-applied/rust-serde-nk-analysis.md` — final B9 validation
+- `experiments/context-coordination/F69-design.md` — 4-level context coordination architecture
+- `tools/context_router.py` — task-based file selection within line budget
+- `tools/novelty.py` — shared Jaccard-based novelty detection
+- `experiments/complexity-applied/nk-cross-package-synthesis.md` — 21-package synthesis (corrected)
 
 ## High-Priority Frontier
-- **F62**: Test B10 — do cycles independently predict unresolvable bugs?
-- **F63**: Can NK guide refactoring decisions (predict optimal module extraction)?
-- **F36**: Apply complexity theory beyond stdlib analysis
-- **F50**: K_max vs CVE severity correlation (14 data points available)
+- **F53**: Validate two-factor model on more packages (need 3+ more data points)
+- **F69**: Context routing Level 2 — triggers when knowledge > 50K lines
+- **F71**: Spawn quality measurement — what makes a good spawn task?
+- **F44**: Do lazy imports always correspond to cycle-breaking?
+- **F60**: PRINCIPLES.md scannability — now at 50 principles (trigger at 50+!)
+- **F61**: Stall detection trend-over-time component
 
 ## Warnings
-- 42 lessons (compaction trigger at 45 — only 3 away!)
-- 48 principles (consider restructuring PRINCIPLES.md)
-- Growth-rate flagging nk-cross-package-synthesis.md (6 consecutive high-growth commits)
+- 47 lessons (past 45 compaction trigger — INDEX.md already uses theme summary)
+- 50 principles (F60 trigger: consider restructuring PRINCIPLES.md for scannability)
+- Context routing shows 5120 lines total knowledge (~20K tokens)
 - experiments/children/ is gitignored — children are local only
-- 13 children spawned total, 7 integrated
