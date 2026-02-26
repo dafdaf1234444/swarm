@@ -10,6 +10,7 @@ Usage:
     python3 tools/nk_analyze.py <package_name> --suggest-refactor
     python3 tools/nk_analyze.py <package_name> --lazy
     python3 tools/nk_analyze.py batch --lazy
+    python3 tools/nk_analyze.py compare --repo <path> --pkg <subpath> --name <name> <ref1> <ref2>
 
 Analyzes internal dependencies of a Python package and computes:
 - N (number of modules), K_total (edges), K_avg, K/N, K_max
@@ -17,18 +18,22 @@ Analyzes internal dependencies of a Python package and computes:
 - Composite score: K_avg * N + Cycles
 - Architecture classification (facade, monolith, framework, registry)
 
+Compare mode analyzes a package at two git refs and outputs the delta (ΔNK).
+
 Examples:
     python3 tools/nk_analyze.py json
     python3 tools/nk_analyze.py email --verbose
     python3 tools/nk_analyze.py asyncio --json
     python3 tools/nk_analyze.py batch json email asyncio
     python3 tools/nk_analyze.py batch  # scans default stdlib set
+    python3 tools/nk_analyze.py compare --repo workspace/werkzeug --pkg src/werkzeug --name werkzeug 1.0.0 2.0.0
 """
 
 import ast
 import importlib
 import json as json_mod
 import os
+import subprocess
 import sys
 from collections import defaultdict
 from pathlib import Path
@@ -682,6 +687,235 @@ def batch_analyze(packages: list[str]):
         )
 
 
+def analyze_path(pkg_path: Path, package_name: str) -> dict:
+    """Perform NK analysis on a package at a given filesystem path.
+
+    Like analyze_package but takes an explicit path instead of using importlib.
+    """
+    if not pkg_path.is_dir():
+        return {"error": f"Path {pkg_path} is not a directory"}
+
+    modules = list_modules(pkg_path)
+    if not modules:
+        return {"error": f"No modules found in {pkg_path}"}
+
+    deps: dict[str, list[str]] = {}
+    file_info: dict[str, dict] = {}
+    module_names = set(modules.keys())
+
+    for mod_name, filepath in modules.items():
+        imports = extract_imports(filepath, package_name)
+        valid_imports = [i for i in imports if i in module_names and i != mod_name]
+        deps[mod_name] = valid_imports
+        file_info[mod_name] = {
+            "loc": count_lines(filepath),
+            "k_out": len(valid_imports),
+            "imports": valid_imports,
+        }
+
+    n = len(file_info)
+    if n == 0:
+        return {"error": "No analyzable modules found"}
+
+    k_total = sum(len(d) for d in deps.values())
+    k_avg = k_total / n if n > 0 else 0
+    k_n = k_avg / n if n > 0 else 0
+    k_max = max((len(d) for d in deps.values()), default=0)
+    k_max_file = max(deps.keys(), key=lambda k: len(deps[k]), default="")
+
+    in_degree: dict[str, int] = defaultdict(int)
+    for mod, imports in deps.items():
+        for imp in imports:
+            in_degree[imp] += 1
+
+    cycles = detect_cycles(deps)
+    cycle_count = len(cycles)
+    composite = k_avg * n + cycle_count
+
+    hub_pct = k_max / k_total if k_total > 0 else 0
+    arch = classify_architecture(n, k_avg, k_max, cycle_count, hub_pct)
+    total_loc = sum(f["loc"] for f in file_info.values())
+
+    return {
+        "package": package_name,
+        "path": str(pkg_path),
+        "n": n,
+        "k_total": k_total,
+        "k_avg": round(k_avg, 2),
+        "k_n": round(k_n, 3),
+        "k_max": k_max,
+        "k_max_file": k_max_file,
+        "cycles": cycle_count,
+        "cycle_details": [" → ".join(c) for c in cycles],
+        "composite": round(composite, 1),
+        "architecture": arch,
+        "hub_pct": round(hub_pct, 2),
+        "total_loc": total_loc,
+        "modules": file_info,
+        "in_degree": dict(in_degree),
+    }
+
+
+def compare_refs(repo_path: str, pkg_subpath: str, package_name: str,
+                 ref1: str, ref2: str, as_json: bool = False) -> dict:
+    """Compare NK metrics of a package between two git refs.
+
+    Checks out each ref, runs analyze_path, and computes deltas.
+    Restores the original HEAD when done.
+    """
+    repo = Path(repo_path).resolve()
+    if not (repo / ".git").exists():
+        return {"error": f"{repo} is not a git repository"}
+
+    # Save current state
+    orig_ref = subprocess.run(
+        ["git", "rev-parse", "--abbrev-ref", "HEAD"],
+        cwd=repo, capture_output=True, text=True
+    ).stdout.strip()
+    if orig_ref == "HEAD":
+        orig_ref = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            cwd=repo, capture_output=True, text=True
+        ).stdout.strip()
+
+    results = {}
+    for label, ref in [("before", ref1), ("after", ref2)]:
+        subprocess.run(
+            ["git", "checkout", ref, "--force"],
+            cwd=repo, capture_output=True, text=True
+        )
+        pkg_path = repo / pkg_subpath
+        if not pkg_path.is_dir():
+            results[label] = {"error": f"Path {pkg_subpath} not found at ref {ref}"}
+        else:
+            results[label] = analyze_path(pkg_path, package_name)
+        results[label]["ref"] = ref
+
+    # Restore original state
+    subprocess.run(
+        ["git", "checkout", orig_ref, "--force"],
+        cwd=repo, capture_output=True, text=True
+    )
+
+    # Compute deltas
+    before = results["before"]
+    after = results["after"]
+
+    if "error" in before or "error" in after:
+        return {"before": before, "after": after, "error": "Analysis failed for one or both refs"}
+
+    delta_keys = ["n", "k_total", "k_avg", "k_n", "k_max", "cycles", "composite", "total_loc"]
+    deltas = {}
+    for key in delta_keys:
+        b_val = before.get(key, 0)
+        a_val = after.get(key, 0)
+        deltas[key] = round(a_val - b_val, 3) if isinstance(a_val, float) else a_val - b_val
+
+    return {
+        "package": package_name,
+        "ref_before": ref1,
+        "ref_after": ref2,
+        "before": before,
+        "after": after,
+        "delta": deltas,
+    }
+
+
+def print_compare_report(result: dict):
+    """Print a human-readable ΔNK comparison report."""
+    if "error" in result:
+        print(f"ERROR: {result['error']}")
+        if "before" in result:
+            print(f"  Before ({result.get('ref_before', '?')}): {result['before'].get('error', 'OK')}")
+            print(f"  After  ({result.get('ref_after', '?')}): {result['after'].get('error', 'OK')}")
+        return
+
+    b = result["before"]
+    a = result["after"]
+    d = result["delta"]
+    pkg = result["package"]
+
+    print(f"\n=== ΔNK COMPARISON: {pkg} ===")
+    print(f"  Before: {result['ref_before']}")
+    print(f"  After:  {result['ref_after']}")
+    print()
+
+    def fmt_delta(val, lower_is_better=True):
+        if val == 0:
+            return "  0"
+        sign = "+" if val > 0 else ""
+        indicator = ""
+        if lower_is_better:
+            indicator = " WORSE" if val > 0 else " BETTER"
+        else:
+            indicator = " BETTER" if val > 0 else " WORSE"
+        return f"{sign}{val}{indicator}"
+
+    headers = [
+        ("N (modules)", "n", False),
+        ("K_total (edges)", "k_total", True),
+        ("K_avg", "k_avg", True),
+        ("K/N", "k_n", True),
+        ("K_max", "k_max", True),
+        ("Cycles", "cycles", True),
+        ("Composite", "composite", True),
+        ("Total LOC", "total_loc", False),
+    ]
+
+    print(f"  {'Metric':<20} {'Before':>10} {'After':>10} {'Delta':>15}")
+    print("  " + "-" * 58)
+    for label, key, lower_better in headers:
+        b_val = b.get(key, 0)
+        a_val = a.get(key, 0)
+        d_val = d.get(key, 0)
+        print(f"  {label:<20} {b_val:>10} {a_val:>10} {fmt_delta(d_val, lower_better):>15}")
+    print()
+
+    # Architecture change
+    b_arch = b.get("architecture", "?")
+    a_arch = a.get("architecture", "?")
+    if b_arch != a_arch:
+        print(f"  Architecture: {b_arch} → {a_arch}")
+    else:
+        print(f"  Architecture: {b_arch} (unchanged)")
+    print()
+
+    # Cycle details comparison
+    b_cycles = set(b.get("cycle_details", []))
+    a_cycles = set(a.get("cycle_details", []))
+    removed = b_cycles - a_cycles
+    added = a_cycles - b_cycles
+    if removed:
+        print(f"  Cycles REMOVED ({len(removed)}):")
+        for c in sorted(removed):
+            print(f"    - {c}")
+    if added:
+        print(f"  Cycles ADDED ({len(added)}):")
+        for c in sorted(added):
+            print(f"    + {c}")
+    if not removed and not added:
+        if b.get("cycles", 0) == 0:
+            print("  No cycles in either version.")
+        else:
+            print("  Same cycles in both versions.")
+    print()
+
+    # Verdict
+    composite_improved = d["composite"] < 0
+    cycles_improved = d["cycles"] <= 0
+    if composite_improved and cycles_improved:
+        verdict = "STRUCTURAL IMPROVEMENT — composite and cycles both reduced"
+    elif composite_improved:
+        verdict = "MIXED — composite improved but cycles increased"
+    elif cycles_improved and d["cycles"] < 0:
+        verdict = "MIXED — cycles reduced but composite increased"
+    elif d["composite"] == 0 and d["cycles"] == 0:
+        verdict = "NEUTRAL — no structural change detected"
+    else:
+        verdict = "STRUCTURAL DEGRADATION — complexity increased"
+    print(f"  VERDICT: {verdict}")
+
+
 def batch_lazy_analyze(packages: list[str]):
     """Analyze lazy imports across multiple packages for F44 hypothesis testing."""
     results = []
@@ -738,6 +972,46 @@ def main():
     as_json = "--json" in sys.argv
     refactor = "--suggest-refactor" in sys.argv or "--refactor" in sys.argv
     lazy = "--lazy" in sys.argv
+
+    if package_name == "compare":
+        # Compare mode: analyze a package at two git refs
+        args = sys.argv[2:]
+        repo_path = None
+        pkg_subpath = None
+        pkg_name = None
+        positional = []
+        i = 0
+        while i < len(args):
+            if args[i] == "--repo" and i + 1 < len(args):
+                repo_path = args[i + 1]
+                i += 2
+            elif args[i] == "--pkg" and i + 1 < len(args):
+                pkg_subpath = args[i + 1]
+                i += 2
+            elif args[i] == "--name" and i + 1 < len(args):
+                pkg_name = args[i + 1]
+                i += 2
+            elif not args[i].startswith("-"):
+                positional.append(args[i])
+                i += 1
+            else:
+                i += 1
+
+        if not repo_path or not pkg_subpath or len(positional) < 2:
+            print("Usage: nk_analyze.py compare --repo <path> --pkg <subpath> --name <name> <ref1> <ref2>")
+            sys.exit(1)
+
+        if not pkg_name:
+            pkg_name = Path(pkg_subpath).name
+
+        ref1, ref2 = positional[0], positional[1]
+        result = compare_refs(repo_path, pkg_subpath, pkg_name, ref1, ref2, as_json)
+
+        if as_json:
+            print(json_mod.dumps(result, indent=2, default=str))
+        else:
+            print_compare_report(result)
+        return
 
     if package_name == "batch":
         # Batch mode: analyze all remaining args as package names

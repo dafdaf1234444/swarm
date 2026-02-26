@@ -1,5 +1,5 @@
 # Principles — Atomic Building Blocks
-Extracted from lessons. Scan for recombination. 51 principles, 5 themes.
+Extracted from lessons. Scan for recombination. 52 principles, 5 themes.
 
 ## Architecture
 **Structure**: P-008 validate by usage not theory | P-011 flat→hierarchical when outgrown | P-030 healthy redundancy = reconstructible from raw
@@ -20,7 +20,7 @@ Extracted from lessons. Scan for recombination. 51 principles, 5 themes.
 **Core**: P-035 count N, K, identify hubs/isolates | P-042 K_avg*N+Cycles composite (never compare K/N across granularities)
 **Caveats**: P-036 facade pattern yields low K/N | P-037 normalize for granularity | P-038 K_avg+cycles alongside K/N | P-054 static analysis undercounts — use layered (lazy) analysis
 **Boundaries**: P-047 note boundary choice (internal vs ecosystem) | P-049 include critical deps for real burden
-**Refactoring**: P-050 cycles predict bugs better than K_avg/K_max | P-051 extract modules by cycle participation, not K
+**Refactoring**: P-050 cycles predict bugs better than K_avg/K_max | P-051 extract modules by cycle participation, not K | P-055 ΔNK is a vector — evaluate (ΔN, ΔK_avg, ΔCycles, ΔComposite) together
 
 ## Evolution (spawn, colony)
 **Spawn**: P-032 test by spawning, not inspecting | P-033 fitness = offspring viability | P-041 viability scores reveal template weaknesses
