@@ -1,7 +1,7 @@
 # Memory Index
 Updated: 2026-02-26 | Sessions completed: 34
 
-## Status: Active — 33 lessons, 6 beliefs (6 observed/0 theorized), entropy 0. All 5 shocks passed. Colony testing live (4 children).
+## Status: Active — 34 lessons, 6 beliefs (6 observed/0 theorized), entropy 0. Colony + inter-swarm communication live.
 
 ## Structure
 ```
@@ -24,7 +24,7 @@ memory/OPERATIONS.md  — session lifecycle, compaction, spawn (merged from 4 fi
 tasks/NEXT.md         — handoff to next session (overwritten each session)
 ```
 
-## Lessons: 33 (L-001–L-033)
+## Lessons: 34 (L-001–L-034)
 For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{NNN}.md`.
 
 | Theme | Lessons | Key insight |
@@ -32,7 +32,7 @@ For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{N
 | Architecture | L-005,008,010,014,017-019 | Blackboard+stigmergy, git-as-memory, handoff via commits |
 | Protocols | L-001-004,012,013 | Distill, health, verify, correct; evidence beats assertion |
 | Strategy | L-006,007,009,011,015,016,020-024 | 3-S Rule, phase ratios, genesis automation, session modes |
-| Complexity | L-025-033 | Edge-of-chaos tuning, modular coupling, building blocks, autopoiesis, spawn, colony testing |
+| Complexity | L-025-034 | Edge-of-chaos, autopoiesis, spawn, colony testing, inter-swarm bulletins |
 
 ## What to load when
 | Doing...              | Read...                          |
