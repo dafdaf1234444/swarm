@@ -25,12 +25,13 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F69**: PARTIAL — context_router.py implements Level 1 (keyword-based routing). Level 2 (coordinator spawns with auto-summaries) triggers at 50K lines. See experiments/context-coordination/F69-design.md
 - **F70**: ~~Can nk_analyze.py detect sub-package import resolution bugs?~~ YES — 42 regression tests in test_nk_analyze.py. See F70 resolution below.
 - **F71**: Spawn quality: what makes a good spawn task? Compare results of parallel agents given identical vs different starting contexts. Measure convergence speed and novelty.
-- **F72**: Do runtime cycles (including lazy imports) improve the two-factor model's predictive power over static cycles? multiprocessing has 1 static but 19 runtime cycles. (from F44)
+- **F72**: ~~Do runtime cycles improve the model over static?~~ YES — runtime cycles are the better bug predictor (100% recall vs 50%). Static good for architecture assessment only. See F72 resolution.
 - **F73**: Is there a lazy-import ratio threshold (lazy/total imports) that signals architectural debt vs deliberate design? (from F44)
 
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F72 | YES — runtime cycles are better bug predictor (100% recall vs 50% for static). Static good for architecture assessment only. | 40 | 2026-02-26 |
 | F53 | RESOLVED — 14 packages validated. Static vs runtime cycles add third dimension. High hidden + low static = good architecture (multiprocessing). Three-layer model: static, runtime, hidden. | 40 | 2026-02-26 |
 | F60 | RESOLVED — restructured from 66→31 lines using inline sub-theme grouping with | separators. All 51 principles preserved. Next trigger: 80+ principles. | 40 | 2026-02-26 |
 | F44 | NO — lazy imports serve two purposes: cycle-breaking (43%) AND initialization deferral (57%). 8 packages tested, 0 fully support "always = cycle-breaking". multiprocessing has 50 lazy imports, 33 cycle-breaking. | 40 | 2026-02-26 |
