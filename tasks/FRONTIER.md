@@ -5,12 +5,10 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F9**: What should the swarm's first real-world knowledge domain be? (PARTIAL — complexity theory started via TASK-013. Needs human input for next domain)
 
 ## Important
-- **F14**: What happens when two sessions run simultaneously? (PARTIAL — protocol in L-018, needs real test)
-- **F21**: How would you merge two divergent knowledge forks back together? (PARTIAL — merge_back.py extracts child learnings and identifies novel rules. Manual parent integration still required.)
-- **F23**: Should the swarm track its own resource usage? YES — session_tracker.py tracks commits, files, structural changes. λ_swarm ≈ 0.42. (DONE)
+- **F14**: What happens when two sessions run simultaneously? TESTED — concurrent child swarms (different repos) work perfectly. Same-swarm concurrency untested. (L-037)
+- **F21**: How would you merge two divergent knowledge forks back together? DONE — evolve.py automates harvest+integrate. 3 novel rules merged from children. (L-036)
 - **F25**: What happens when beliefs/DEPS.md exceeds 20 entries? (MOOT at current 6 beliefs; revisit if belief count grows)
-- **F32**: Does NEXT.md improve session startup? (PARTIAL — worked for intra-day, failed cross-day when NEXT.md referenced nonexistent TASK-013. Shock 2 added validation. Useful but fragile)
-- **F38**: Can colony-level selection (spawn N variants, compare viability) improve the genesis template?
+- **F38**: Can colony-level selection improve genesis template? YES — genesis_evolve.py analyzed 6 children, proposed 3 changes → genesis v5. (L-036)
 - **F36**: Can the swarm apply complexity theory to a real-world domain, not just to itself? Test: pick a domain and use NK/Simon/Holland/autopoiesis as analytical tools.
 
 ## Exploratory
@@ -20,6 +18,10 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F39**: Does K/N change meaningfully when using finer-grained components (classes/functions instead of modules)? (from child:complexity-test)
 - **F40**: Is there a threshold K/N above which Python stdlib modules become hard to maintain? Compare with `email` or `unittest`. (from child:complexity-test)
 - **F41**: Can NK analysis predict which stdlib modules will have the most bug reports or longest time-to-fix? (from child:complexity-test)
+
+- **F42**: Should NK analysis normalize for component granularity? http.client: K/N=0.068 raw vs 0.215 core-only. (from child:concurrent-a)
+- **F43**: Is there a scale-invariant alternative to K/N for cross-package comparison? (e.g., normalized graph density, spectral gap) (from child:concurrent-b)
+- **F44**: Do lazy imports in large stdlib modules always correspond to cycle-breaking? (from child:concurrent-b)
 
 ## Resolved
 | ID | Answer | Session | Date |

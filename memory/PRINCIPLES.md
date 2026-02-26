@@ -47,5 +47,9 @@ Two rules that address the same situation from different angles may combine into
 - **P-020**: When a system proves itself, encode its bootstrap into an executable script. (L-020)
 - **P-023**: Check both epistemic (reasoning correctly) and operational (sustaining itself) axes. One doesn't imply the other. (L-023)
 
-## From child:complexity-test
+## Spawn & Evolution
 - **P-036**: Facade + independent engine pattern yields very low K/N (~0.16). Keep optional accelerators external to the package to preserve structural simplicity. (from child:complexity-test)
+- **P-037**: When comparing K/N across systems, normalize for granularity and filter trivial components (pure inheritance leaves). Raw K/N can be misleadingly low. (from child:concurrent-a)
+- **P-038**: When comparing NK across packages of different N, use K_avg and cycle count alongside K/N. A low K/N with high K_avg and cycles is deceptively complex. (from child:concurrent-b)
+- **P-039**: Automate the full evolution cycle (spawn→run→evaluate→integrate). Manual steps between spawn and merge-back kill iteration speed. (L-036)
+- **P-040**: For parallel work, spawn independent child swarms per agent. Same-swarm concurrency needs pull-rebase; different-swarm is contention-free. (L-037)

@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-# genesis.sh v4 — Bootstrap a new swarm knowledge base
+# genesis.sh v5 — Bootstrap a new swarm knowledge base
 # Usage: ./genesis.sh <directory> [name]
 # Encodes lessons L-001 through L-036 into the initial structure.
+# v5: F1 made resolvable in 1 session, NEXT.md template added (genesis_evolve feedback)
 
 set -euo pipefail
 
@@ -342,7 +343,7 @@ cat > "$DIR/tasks/FRONTIER.md" << 'FRONTIER'
 # Frontier — Open Questions
 
 ## Critical
-- **F1**: Validate the setup — does this structure work for the first 5 sessions?
+- **F1**: Run the validator, write your first lesson, and confirm the structure works. (Resolve this in session 1.)
 
 ## Important
 - **F2**: What should this swarm's knowledge domain be?
@@ -371,6 +372,23 @@ Status: READY
 - FRONTIER.md has been updated
 TASK
 
+# NEXT.md template — session handoff
+cat > "$DIR/tasks/NEXT.md" << NEXT
+# Next Session Handoff
+Updated: $(date +%Y-%m-%d)
+
+## Do First
+- Run \`python3 tools/validate_beliefs.py\`
+- Read tasks/TASK-001.md and complete the setup validation
+
+## Read These
+- beliefs/CORE.md
+- memory/INDEX.md
+
+## Warnings
+- No sessions completed yet
+NEXT
+
 # Gitignore
 cat > "$DIR/.gitignore" << 'GI'
 .DS_Store
@@ -393,6 +411,6 @@ PRINCIPLES
 # Workspace placeholder
 touch "$DIR/workspace/.gitkeep"
 
-echo "Swarm '$NAME' v4 initialized at $DIR (20 files)"
+echo "Swarm '$NAME' v5 initialized at $DIR (21 files)"
 echo "Next: cd $DIR && git init && git add -A && git commit -m '[S] init: genesis'"
 echo "Then: ./tools/install-hooks.sh"

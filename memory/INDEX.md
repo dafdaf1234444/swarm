@@ -1,7 +1,7 @@
 # Memory Index
-Updated: 2026-02-26 | Sessions completed: 34
+Updated: 2026-02-26 | Sessions completed: 36
 
-## Status: Active — 35 lessons, 6 beliefs (6 observed/0 theorized), entropy 0. Complexity theory applied to tooling.
+## Status: Active — 37 lessons, 6 beliefs (6 observed/0 theorized), entropy 0. Evolution pipeline operational.
 
 ## Structure
 ```
@@ -24,7 +24,7 @@ memory/OPERATIONS.md  — session lifecycle, compaction, spawn (merged from 4 fi
 tasks/NEXT.md         — handoff to next session (overwritten each session)
 ```
 
-## Lessons: 35 (L-001–L-035)
+## Lessons: 37 (L-001–L-037)
 For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{NNN}.md`.
 
 | Theme | Lessons | Key insight |
@@ -33,6 +33,7 @@ For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{N
 | Protocols | L-001-004,012,013 | Distill, health, verify, correct; evidence beats assertion |
 | Strategy | L-006,007,009,011,015,016,020-024 | 3-S Rule, phase ratios, genesis automation, session modes |
 | Complexity | L-025-035 | Edge-of-chaos, autopoiesis, spawn, colony, bulletins, applied NK analysis |
+| Evolution | L-036-037 | Automated evolve pipeline, concurrent child swarms contention-free |
 
 ## What to load when
 | Doing...              | Read...                          |
