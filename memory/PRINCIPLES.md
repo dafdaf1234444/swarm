@@ -32,10 +32,6 @@ Two rules that address the same situation from different angles may combine into
 - **P-029**: Measure λ (structural-change sessions / total sessions). Too low = frozen (Class I/II). Too high = chaotic (Class III). Target Class IV: enough change to adapt, enough routine to produce. (L-029)
 - **P-030**: If essential files can be reconstructed from raw artifacts with ~100% fidelity, the system has healthy redundancy. If not, critical knowledge is SPOF. (L-030)
 - **P-031**: When a format change is proposed, separate near-term risks (fix cheaply) from long-term risks (set a trigger). Migrate when the trigger fires, not when the argument sounds good. (L-031)
-- **P-032**: Test architecture by spawning and measuring offspring viability, not by inspecting the parent. Viable children > parent audits. (L-032)
-- **P-033**: Architecture fitness = offspring viability. Compare colony members to identify which variations survive. (L-033)
-- **P-034**: Use typed, append-only bulletins for inter-swarm communication. The blackboard pattern works at the colony level. (L-034)
-- **P-035**: To analyze any system: count N (elements), K (dependencies), check K/N < 0.3. Identify hubs and isolates. (L-035)
 
 ## Operations
 - **P-001**: Always verify generated files for shell artifacts. First-session validation catches these cheaply. (L-001)
@@ -47,16 +43,19 @@ Two rules that address the same situation from different angles may combine into
 - **P-020**: When a system proves itself, encode its bootstrap into an executable script. (L-020)
 - **P-023**: Check both epistemic (reasoning correctly) and operational (sustaining itself) axes. One doesn't imply the other. (L-023)
 
-## Spawn & Evolution
-- **P-036**: Facade + independent engine pattern yields very low K/N (~0.16). Keep optional accelerators external to the package to preserve structural simplicity. (from child:complexity-test)
-- **P-037**: When comparing K/N across systems, normalize for granularity and filter trivial components (pure inheritance leaves). Raw K/N can be misleadingly low. (from child:concurrent-a)
-- **P-038**: When comparing NK across packages of different N, use K_avg and cycle count alongside K/N. A low K/N with high K_avg and cycles is deceptively complex. (from child:concurrent-b)
-- **P-039**: Automate the full evolution cycle (spawn→run→evaluate→integrate). Manual steps between spawn and merge-back kill iteration speed. (L-036)
-- **P-040**: For parallel work, spawn independent child swarms per agent. Same-swarm concurrency needs pull-rebase; different-swarm is contention-free. (L-037)
-- **P-041**: Use offspring viability scores to identify and fix template weaknesses. If children consistently fail a criterion, fix the template. (L-038)
+## NK Analysis (from children + L-039)
+- **P-035**: To analyze any system: count N (elements), K (dependencies). Identify hubs and isolates. (L-035)
+- **P-036**: Facade + independent engine pattern yields very low K/N (~0.16). Keep accelerators external. (from child:complexity-test)
+- **P-037**: Normalize K/N for granularity; filter trivial components. Raw K/N can be misleadingly low. (from child:concurrent-a)
+- **P-038**: Use K_avg and cycle count alongside K/N. Low K/N with high K_avg and cycles is deceptively complex. (from child:concurrent-b)
+- **P-042**: Never compare K/N across different granularities or different N. K/N is scale-dependent (= K_avg/N). Use K_avg*N+Cycles as composite predictor. Always state N. (L-039)
+- **P-043**: Measure growth rates, not just states. A file growing >1.5 lines/commit for 5+ commits predicts restructure. (from child:evolve-f37)
 
-- **P-042**: Never compare K/N across different granularities. Use K_avg for cross-granularity, K_max for hotspot detection. (from child:evolve-f39)
-- **P-043**: Measure growth rates, not just states. A file growing >1.5 lines/commit for 5+ commits predicts restructure within 10 commits. (from child:evolve-f37)
-- **P-044**: Never use K/N to compare maintenance burden across different-sized modules. Use K_avg*N+Cycles as a composite predictor, and always state N alongside any NK metric. (from child:evolve-f41)
-- **P-045**: When comparing complexity across different scales, K/N misleads because it's scale-dependent (K/N = K_avg/N). Use K_avg*N+Cycles for cross-scale comparison. (L-039)
-- **P-046**: Stigmergic coordination requires deposit + evaporation + amplification. Missing any one creates signal accumulation or orphaned knowledge. (L-040)
+## Spawn & Evolution
+- **P-032**: Test architecture by spawning and measuring offspring viability, not by inspecting the parent. (L-032)
+- **P-033**: Architecture fitness = offspring viability. Compare colony members to identify which variations survive. (L-033)
+- **P-034**: Use typed, append-only bulletins for inter-swarm communication. Blackboard pattern at colony level. (L-034)
+- **P-039**: Automate the full evolution cycle (spawn→run→evaluate→integrate). Manual steps kill iteration speed. (L-036)
+- **P-040**: For parallel work, spawn independent child swarms per agent. Different-swarm is contention-free. (L-037)
+- **P-041**: Use offspring viability scores to identify and fix template weaknesses. (L-038)
+- **P-046**: Stigmergic coordination requires deposit + evaporation + amplification. Missing any one is incomplete. (L-040)
