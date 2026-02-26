@@ -302,6 +302,187 @@ def test_nk_analyze_runs():
 
 # --- Negative tests: verify the validator catches known breakages ---
 
+def test_context_router_routes_correctly():
+    """Test that context_router.py routes tasks to relevant domains."""
+    import json as json_mod
+    r = subprocess.run(
+        ["python3", str(REPO_ROOT / "tools" / "context_router.py"),
+         "analyze NK complexity cycles", "--json"],
+        cwd=str(REPO_ROOT), capture_output=True, text=True
+    )
+    if r.returncode != 0:
+        raise RuntimeError(f"context_router failed: {r.stderr}")
+    data = json_mod.loads(r.stdout)
+
+    # Should find complexity domain
+    domains = [d["name"] for d in data["domains"]]
+    if "complexity" not in domains:
+        raise RuntimeError(f"Expected 'complexity' domain, got: {domains}")
+
+    # Should have selected files
+    if not data["selected_files"]:
+        raise RuntimeError("No files selected")
+
+    # Budget should not be exceeded
+    if data["total_lines"] > data["budget"]:
+        raise RuntimeError(f"Budget exceeded: {data['total_lines']} > {data['budget']}")
+    return True
+
+
+def test_context_router_inventory():
+    """Test that context_router.py inventory shows total knowledge."""
+    import json as json_mod
+    r = subprocess.run(
+        ["python3", str(REPO_ROOT / "tools" / "context_router.py"),
+         "inventory", "--json"],
+        cwd=str(REPO_ROOT), capture_output=True, text=True
+    )
+    if r.returncode != 0:
+        raise RuntimeError(f"inventory failed: {r.stderr}")
+    data = json_mod.loads(r.stdout)
+
+    if data["total_knowledge_lines"] < 100:
+        raise RuntimeError(f"Total knowledge too low: {data['total_knowledge_lines']}")
+    if data["mandatory_lines"] < 10:
+        raise RuntimeError(f"Mandatory too low: {data['mandatory_lines']}")
+    return True
+
+
+def test_novelty_detection_accuracy():
+    """Test that shared novelty module detects duplicates and novel rules."""
+    sys.path.insert(0, str(REPO_ROOT / "tools"))
+    from novelty import check_novelty
+
+    existing = [
+        "Always verify generated files for artifacts",
+        "Measure complexity using NK metrics",
+        "Cycle count predicts bug accumulation rate",
+    ]
+
+    # Novel rule should be detected as novel
+    is_novel, _, _ = check_novelty(
+        "Use Jaccard similarity for deduplication", existing
+    )
+    if not is_novel:
+        raise RuntimeError("Novel rule falsely detected as duplicate")
+
+    # Duplicate should be detected as duplicate
+    is_novel, sim, _ = check_novelty(
+        "Always verify the generated files for artifacts", existing
+    )
+    if is_novel:
+        raise RuntimeError(f"Duplicate rule not detected (sim={sim})")
+
+    return True
+
+
+def test_evolution_e2e():
+    """End-to-end test: spawn → simulate agent → harvest → integrate.
+
+    Creates a synthetic child with known novel content, runs the full
+    evolution pipeline, and verifies integration works correctly.
+    """
+    import json as json_mod
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        child_name = "e2e-test-child"
+        child_dir = os.path.join(tmpdir, child_name)
+        genesis = REPO_ROOT / "workspace" / "genesis.sh"
+
+        # Step 1: Spawn
+        r = subprocess.run(
+            ["bash", str(genesis), child_dir, "e2e-test"],
+            capture_output=True, text=True
+        )
+        if r.returncode != 0:
+            raise RuntimeError(f"genesis.sh failed: {r.stderr}")
+
+        subprocess.run(["git", "init"], cwd=child_dir, capture_output=True)
+        subprocess.run(["git", "add", "-A"], cwd=child_dir, capture_output=True)
+        subprocess.run(
+            ["git", "commit", "-m", "init"],
+            cwd=child_dir, capture_output=True
+        )
+
+        # Step 2: Simulate agent session — write a novel lesson
+        lesson_path = Path(child_dir) / "memory" / "lessons" / "L-099.md"
+        lesson_path.write_text(
+            "# L-099: Quantum entanglement enables instantaneous state transfer in distributed systems\n"
+            "Date: 2026-02-26 | Task: F99 | Confidence: Theorized\n\n"
+            "## What happened (3 lines max)\n"
+            "Tested quantum entanglement hypothesis on distributed cache.\n\n"
+            "## What we learned (3 lines max)\n"
+            "Quantum effects don't apply at macro scale but the metaphor is useful.\n\n"
+            "## Rule extracted (1-2 lines)\n"
+            "Quantum entanglement metaphor helps reason about eventual consistency.\n\n"
+            "## Affected beliefs: B1\n"
+        )
+
+        # Update child's frontier
+        frontier_path = Path(child_dir) / "tasks" / "FRONTIER.md"
+        frontier_text = frontier_path.read_text()
+        frontier_path.write_text(
+            frontier_text +
+            "\n- **F99**: Can quantum computing parallelize swarm evolution? (from e2e-test)\n"
+        )
+
+        # Resolve a frontier question
+        frontier_path.write_text(
+            frontier_path.read_text().replace(
+                "## Resolved\n",
+                "## Resolved\n| F1 | YES — tested | 1 | 2026-02-26 |\n"
+            )
+        )
+
+        subprocess.run(["git", "add", "-A"], cwd=child_dir, capture_output=True)
+        subprocess.run(
+            ["git", "commit", "-m", "[S] session: novel lesson and frontier"],
+            cwd=child_dir, capture_output=True
+        )
+
+        # Step 3: Harvest — evaluate viability
+        swarm_test = REPO_ROOT / "tools" / "swarm_test.py"
+
+        # Override CHILDREN_DIR temporarily by symlinking
+        children_dir = REPO_ROOT / "experiments" / "children"
+        test_link = children_dir / child_name
+        try:
+            if not children_dir.exists():
+                children_dir.mkdir(parents=True)
+            os.symlink(child_dir, str(test_link))
+
+            # Run merge-back report
+            merge_back = REPO_ROOT / "tools" / "merge_back.py"
+            r = subprocess.run(
+                ["python3", str(merge_back), child_dir],
+                capture_output=True, text=True
+            )
+            if "Novel rules:" not in r.stdout:
+                raise RuntimeError(f"merge_back didn't produce novel rules section")
+
+            # Verify the novel rule was detected
+            if "[NOVEL]" not in r.stdout:
+                raise RuntimeError(f"Novel lesson not detected by merge_back")
+
+            # Step 4: Verify integration dry-run works
+            evolve = REPO_ROOT / "tools" / "evolve.py"
+            r = subprocess.run(
+                ["python3", str(evolve), "integrate", child_name, "--dry-run"],
+                capture_output=True, text=True
+            )
+            if "Novel rules to add" not in r.stdout:
+                raise RuntimeError(f"Integration dry-run didn't find novel rules")
+            if "DRY RUN" not in r.stdout:
+                raise RuntimeError(f"Integration dry-run didn't show DRY RUN marker")
+
+        finally:
+            # Clean up symlink
+            if test_link.is_symlink():
+                test_link.unlink()
+
+    return True
+
+
 def test_neg_broken_belief_detected():
     """Negative test: validator catches a belief with missing evidence type."""
     with tempfile.TemporaryDirectory() as tmpdir:
@@ -431,6 +612,12 @@ def main():
 
     print("\nTool tests:")
     run_test("nk_analyze_runs", test_nk_analyze_runs)
+    run_test("context_router_routes", test_context_router_routes_correctly)
+    run_test("context_router_inventory", test_context_router_inventory)
+    run_test("novelty_detection_accuracy", test_novelty_detection_accuracy)
+
+    print("\nEnd-to-end tests:")
+    run_test("evolution_e2e", test_evolution_e2e)
 
     print("\nNegative tests (validator catches breakages):")
     run_test("neg_broken_belief_detected", test_neg_broken_belief_detected)
