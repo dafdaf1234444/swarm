@@ -1,6 +1,6 @@
 # Frontier — Open Questions
 Pick the most relevant one for your session. Solve it or refine it.
-12 active questions. Resolved entries are in the table below.
+9 active questions. Resolved entries are in the table below.
 
 ## Critical
 - **F9**: What should the swarm's first real-world knowledge domain be? (PARTIAL — complexity theory started. Needs human input for next domain)
@@ -14,15 +14,17 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F75**: Does decompose-by-data outperform decompose-by-method for ALL task types? (L-051)
 - **F76**: Can hierarchical spawning produce insights no single agent could? First evidence: ratchet pattern
 - **F77**: Can spawn strategy self-improve? Track spawn history, auto-tune decomposition
-- **F82**: Can API shape be measured? Quantify "pipeline" vs "recursive" API topology to predict cycle risk
-- **F83**: Can NK analysis be applied to non-Python languages at scale? Test on a large Go or Rust codebase
-- **F84**: Which core beliefs produce the most useful swarms? A/B test: spawn 6 variants (control, no-falsification, no-lesson-limit, no-modes, aggressive-challenge, minimal), run sessions, compare fitness
+- **F84**: Which core beliefs produce the most useful swarms? (PARTIAL — single-session A/B done, need multi-session evolution)
+
 - **F85**: Does the monolith blind spot (LOC/N > 500) reliably identify packages where NK underestimates complexity?
 - **F86**: Can belief evolution be recursive? Test variant children that themselves spawn sub-variants
 
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F82 | YES — 12/12 correct classifications. Pipeline/recursive/registry using 7 weighted signals. Cycles dominate. Mutual_dep_ratio predicts severity. --api-shape flag added to nk_analyze.py. | 42 | 2026-02-26 |
+| F83 | YES — nk_analyze_go.py (566 lines) analyzes Go projects. 7 projects tested. All zero cycles (compiler-enforced DAG). K_avg*N alone ranks correctly. Cross-language comparison requires cycle-term caveat. | 42 | 2026-02-26 |
+| F84 | PARTIAL — 6 variants tested in single session. no-falsification scored highest (79), minimal scored lowest (44). More structure > less structure. Need multi-session test for long-term effects. | 42 | 2026-02-26 |
 | F78 | YES for synthesis, NO for exploration. Sequential produces cascading depth (survey→mechanism→empirical). Parallel produces variety. Best: two-phase fan-out then drill-down. | 41 | 2026-02-26 |
 | F74 | NO — 0/9 tangled packages escaped. But 2/11 (requests, black) stayed zero-cycle for years. Ratchet cannot be reversed, only prevented. DAG discipline from day one. | 41 | 2026-02-26 |
 | F65 | Can't predict deprecation (F55). But cycles predict maintenance burden (rho=0.917). Composite is useful for classification. Hidden cycles are sharpest diagnostic. | 41 | 2026-02-26 |

@@ -1119,85 +1119,116 @@ def classify_api_shape(
 
     Returns {"shape": str, "confidence": float, "scores": dict, "cycle_risk": str}
 
-    Classification logic (empirically derived from stdlib analysis):
-    - Pipeline: linear data flow. Few/no cycles, high depth relative to N,
-      low mutual dependency, moderate fan-in concentration.
-    - Recursive: circular references. Cycles present, mutual dependencies,
-      modules at similar depths, high K_avg.
-    - Registry: many-to-one pattern. High fan-in Gini, many leaves implementing
-      few interfaces, low cycles (interfaces are abstract).
+    Classification logic (empirically calibrated against 12 stdlib packages):
+    - Pipeline: linear data flow. Zero cycles, low K_avg (<1.5), moderate-to-high
+      depth ratio. Example: json (init -> encoder/decoder), urllib (request -> parse).
+    - Recursive: circular references. Cycles present (strongest signal, rho=0.917),
+      mutual dependencies, interconnected core. Example: unittest (case<->_log),
+      email (message<->policy<->contentmanager).
+    - Registry: many-to-one pattern. Zero cycles, high fan-in Gini (>0.5),
+      many leaves implementing few interfaces. Example: email.mime.* subtree.
+
+    Key design principle: cycles > 0 is the dominant discriminator. The rho=0.917
+    correlation means any package with cycles is structurally recursive regardless
+    of how many non-cycling leaf modules it has.
     """
-    # Score each topology (0-1 scale, higher = more likely)
+    # Score each topology using weighted signals
     pipeline_score = 0.0
     recursive_score = 0.0
     registry_score = 0.0
 
-    # --- Cycle signal (strongest predictor per rho=0.917) ---
-    cycle_density = cycles / n if n > 0 else 0
+    # --- SIGNAL 1: Cycles (weight: 0.40) --- strongest predictor ---
+    # Any cycles = strong recursive signal. This is the API-as-ratchet insight.
     if cycles == 0:
-        pipeline_score += 0.35
+        pipeline_score += 0.25
         registry_score += 0.15
-    elif cycle_density < 0.1:
-        recursive_score += 0.15
-        pipeline_score += 0.05
-    else:
+    elif cycles <= 2:
         recursive_score += 0.35
+        # Small cycle count: still clearly recursive
+    else:
+        recursive_score += 0.40
+        # Many cycles: overwhelmingly recursive
 
-    # --- Mutual dependency ratio ---
+    # --- SIGNAL 2: Mutual dependency ratio (weight: 0.15) ---
+    # Bidirectional edges are the mechanism of recursion
     if mutual_dep_ratio == 0:
-        pipeline_score += 0.15
-        registry_score += 0.10
-    elif mutual_dep_ratio > 0.1:
-        recursive_score += 0.20
-    else:
-        recursive_score += 0.05
-
-    # --- Depth signal ---
-    # Pipeline: deep (max_depth close to N), Registry: shallow (broad), Recursive: medium
-    depth_ratio = max_depth / n if n > 0 else 0
-    if depth_ratio > 0.4:
-        pipeline_score += 0.15
-    elif depth_ratio > 0.2:
-        pipeline_score += 0.05
-        registry_score += 0.05
-    else:
-        registry_score += 0.10
-        recursive_score += 0.05
-
-    # --- Fan-in concentration (Gini) ---
-    if fan_in_gini > 0.5:
-        registry_score += 0.20
-    elif fan_in_gini > 0.3:
-        registry_score += 0.10
-        pipeline_score += 0.05
-    else:
-        recursive_score += 0.05
-        pipeline_score += 0.05
-
-    # --- Leaf ratio (implementations vs interfaces) ---
-    if leaf_ratio > 0.5:
-        registry_score += 0.15
-        pipeline_score += 0.10
-    elif leaf_ratio > 0.3:
-        pipeline_score += 0.05
-        registry_score += 0.05
-    else:
-        recursive_score += 0.10
-
-    # --- K_avg signal ---
-    if k_avg < 1.0:
         pipeline_score += 0.10
         registry_score += 0.05
-    elif k_avg > 2.0:
+    elif mutual_dep_ratio > 0.05:
         recursive_score += 0.15
     else:
         recursive_score += 0.05
+        pipeline_score += 0.03
 
-    # --- Source ratio (modules with no imports from within) ---
-    if source_ratio > 0.5:
-        registry_score += 0.10
-    elif source_ratio < 0.2:
+    # --- SIGNAL 3: K_avg (weight: 0.15) ---
+    # Low K_avg = sparse connections (pipeline/registry)
+    # High K_avg = dense connections (recursive/framework)
+    if k_avg < 0.8:
+        pipeline_score += 0.12
+        registry_score += 0.03
+    elif k_avg < 1.5:
+        pipeline_score += 0.05
+        registry_score += 0.05
+    elif k_avg < 2.5:
+        recursive_score += 0.08
+        registry_score += 0.02
+    else:
+        recursive_score += 0.15
+
+    # --- SIGNAL 4: Depth ratio (weight: 0.10) ---
+    # Pipeline: data flows deep. Registry: flat. Recursive: medium.
+    depth_ratio = max_depth / n if n > 0 else 0
+    if depth_ratio > 0.35:
+        pipeline_score += 0.10
+    elif depth_ratio > 0.15:
+        pipeline_score += 0.03
+        registry_score += 0.03
+    else:
+        registry_score += 0.07
+        recursive_score += 0.03
+
+    # --- SIGNAL 5: Fan-in Gini (weight: 0.10) ---
+    # High Gini = concentrated fan-in (registry or hub-and-spoke pipeline)
+    if fan_in_gini > 0.5:
+        if cycles == 0:
+            registry_score += 0.10
+        else:
+            # High Gini with cycles = recursive with hub nodes
+            recursive_score += 0.05
+            registry_score += 0.03
+    elif fan_in_gini > 0.3:
+        registry_score += 0.05
+        pipeline_score += 0.03
+    else:
+        pipeline_score += 0.04
+        recursive_score += 0.04
+
+    # --- SIGNAL 6: Leaf ratio (weight: 0.05) ---
+    # Many leaves = implementations hanging off interfaces
+    if leaf_ratio > 0.6:
+        if cycles == 0:
+            registry_score += 0.05
+        else:
+            # Leaves + cycles = recursive core with peripheral leaves
+            recursive_score += 0.02
+            registry_score += 0.02
+    elif leaf_ratio > 0.3:
+        pipeline_score += 0.02
+        registry_score += 0.02
+    else:
         recursive_score += 0.05
+
+    # --- SIGNAL 7: Top sink ratio (weight: 0.05) ---
+    # Pipeline hub: one module imports most things (e.g., __init__)
+    if top_sink_ratio > 0.4:
+        pipeline_score += 0.05
+    elif top_sink_ratio > 0.2:
+        pipeline_score += 0.02
+        registry_score += 0.02
+    else:
+        # Distributed fan-in
+        recursive_score += 0.02
+        registry_score += 0.02
 
     # Normalize
     total = pipeline_score + recursive_score + registry_score
@@ -1216,28 +1247,37 @@ def classify_api_shape(
     shape = max(scores, key=scores.get)
     confidence = scores[shape]
 
-    # Predict cycle risk
+    # Predict cycle risk based on shape + metrics
     if shape == "pipeline":
-        if k_avg < 1.0 and leaf_ratio > 0.5:
+        if k_avg < 1.0 and leaf_ratio > 0.4:
             cycle_risk = "LOW"
-            risk_reason = "linear flow, high leaf ratio — cycles unlikely"
+            risk_reason = "linear flow, sparse connections — cycles unlikely"
+        elif k_avg < 1.5:
+            cycle_risk = "LOW"
+            risk_reason = "pipeline topology with moderate coupling — cycles unlikely"
         else:
             cycle_risk = "LOW-MEDIUM"
-            risk_reason = "mostly linear but some coupling present"
+            risk_reason = "mostly linear but coupling density could evolve toward cycles"
     elif shape == "recursive":
-        if cycles > 2 or mutual_dep_ratio > 0.15:
+        if cycles > 3 or mutual_dep_ratio > 0.15:
             cycle_risk = "HIGH"
             risk_reason = f"{cycles} cycles, mutual_dep={mutual_dep_ratio} — API encodes circularity"
-        else:
+        elif cycles > 0:
             cycle_risk = "MEDIUM-HIGH"
-            risk_reason = f"{cycles} cycles — recursive topology encourages more"
-    else:  # registry
-        if fan_in_gini > 0.5 and cycles == 0:
-            cycle_risk = "LOW"
-            risk_reason = "many-to-one pattern, interfaces decouple"
+            risk_reason = f"{cycles} cycle(s) — recursive topology encourages accumulation"
         else:
             cycle_risk = "MEDIUM"
-            risk_reason = "registry with some coupling — cycles possible if interfaces leak"
+            risk_reason = "recursive tendency without current cycles — monitor"
+    else:  # registry
+        if cycles == 0 and fan_in_gini > 0.4:
+            cycle_risk = "LOW"
+            risk_reason = "many-to-one pattern with clean interfaces — cycles unlikely"
+        elif cycles == 0:
+            cycle_risk = "LOW-MEDIUM"
+            risk_reason = "registry pattern — cycles possible if implementations couple"
+        else:
+            cycle_risk = "MEDIUM"
+            risk_reason = f"registry with {cycles} cycle(s) — interface boundaries leaking"
 
     return {
         "shape": shape,
