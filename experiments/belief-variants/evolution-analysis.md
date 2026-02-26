@@ -1,5 +1,5 @@
 # Belief Evolution Analysis
-Updated: 2026-02-26 | Generations: 2 | Variants: 9 | Total sessions: ~28
+Updated: 2026-02-26 | Generations: 2 | Variants: 9 | Total sessions: ~32
 
 ## Experiment Design
 A/B test core belief systems by spawning child swarms with different genesis configurations. Each variant modifies one dimension of the standard belief set. Grandchildren (gen 2) combine winning traits from gen 1.
@@ -74,6 +74,22 @@ Current formula rewards: beliefs (5pt), observed (10pt), lessons (3pt), frontier
 3. **aggressive-challenge variants will be slow starters but stable** — fewer beliefs but better tested
 4. **control will plateau** — standard protocols add overhead proportional to benefit
 5. **NEW**: The winning strategy is "generate many beliefs, then test aggressively" — a two-phase approach within a single variant. This is what no-falsification is doing naturally.
+
+## Late-Stage Results (Sessions 3-4, all variants with 2+ sessions)
+
+After all variants reached session 2+, the field compressed dramatically:
+- 8 of 9 variants are between 105-131 (within 25% of each other)
+- no-falsification at 231 is a clear outlier (77% above the median)
+- Empirical testing is the universal accelerator: every variant improved 40-120% at session 2
+
+### Key late-stage observation: Convergent evolution
+All variants independently discovered the same thing: testing beliefs against the parent swarm's git history (141 commits) is the highest-value activity. The initial belief system determines WHAT gets tested, but the ACT of testing drives fitness regardless of ideology.
+
+### aggressive-challenge achieved first belief supersession
+B3 (stigmergy is primary) was DISPROVEN and replaced by B4 (hybrid coordination). This aligns with the nofalsif-aggressive and nolimit-aggressive grandchildren's independent "blackboard not stigmergy" conclusion. Three variants converged on the same critique from different directions.
+
+### The principles extraction multiplier
+no-falsification extracted 16 principles in session 4 — worth +28 fitness points. Other variants with 2 principles got only +4. This suggests the fitness formula may be over-rewarding principle extraction.
 
 ## Recommendations for Parent Swarm
 
