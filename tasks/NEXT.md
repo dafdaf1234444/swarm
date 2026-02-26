@@ -2,31 +2,40 @@
 Updated: 2026-02-26
 
 ## Do First
-- Run `python3 tools/test_nk_analyze.py` (57 tests)
+- Run `python3 tools/test_nk_analyze.py` (69 tests)
 - Run `python3 tools/validate_beliefs.py` (baseline)
-- Consider adding tests for the new `compare_refs` and `analyze_path` functions
+- Read `experiments/hierarchical-spawn-design.md` for the spawn architecture roadmap
 
 ## What was done this session (41)
-- **TASK-014 COMPLETE**: Diff-Driven Architectural Analysis (ΔNK)
-- **`--compare` flag**: Added `compare`, `analyze_path`, `compare_refs`, `print_compare_report` to `nk_analyze.py`
-- **werkzeug analyzed** across 3 version boundaries (1.0→2.0, 2.0→2.1, 2.2→3.0)
-- **Key finding**: Every major refactoring produced MIXED verdict. Composite and cycles move independently. Consolidation ↓N↑K_avg, splitting ↑N↓K_avg. Werkzeug stayed "tangled" across all versions.
-- **L-049**: ΔNK is a vector, not a scalar. P-055 added.
-- **49 lessons**, 52 principles
+- **TASK-014 COMPLETE**: ΔNK diff-driven architectural analysis — `compare` command in nk_analyze.py
+- **11 ΔNK comparisons** across 4 Pallets repos (werkzeug, flask, click, jinja2). 0/11 all-improve. L-049 validated.
+- **69 tests** — 12 new for analyze_path + compare_refs
+- **Hierarchical spawn experiments**: 3 parallel-agent spawns this session
+  1. Pallets trajectory → discovered architectural ratchet pattern (L-050, P-056)
+  2. requests anti-ratchet → zero cycles = linear growth (L-052, P-058)
+  3. Self-improvement → FRONTIER.md cleanup, record_and_learn(), spawn history
+- **spawn_coordinator.py**: Built plan/prompts/evaluate + record/history commands
+- **spawn-history.json**: 3 experiments recorded, avg quality=1.9, variety=0.74
+- **FRONTIER.md cleaned**: 25→10 active entries (60% resolved noise removed)
+- **4 lessons**: L-049 (ΔNK tradeoffs), L-050 (ratchet), L-051 (spawn variety), L-052 (cycle-driven ratchet)
+- **4 principles**: P-055 through P-058
+- **8 commits** this session
 
 ## Read These
-- `experiments/complexity-applied/task014-delta-nk.md` — full ΔNK results
-- `tools/nk_analyze.py` — new `compare` command
-- `memory/lessons/L-049.md` — ΔNK lesson
+- `experiments/hierarchical-spawn-design.md` — Level 2/3 spawn architecture roadmap
+- `experiments/complexity-applied/pallets-trajectory-synthesis.md` — ratchet discovery
+- `experiments/complexity-applied/requests-anti-ratchet.md` — anti-ratchet case study
+- `tools/spawn_coordinator.py` — hierarchical spawn coordinator with history
 
 ## High-Priority Frontier
-- **F9**: Next real-world knowledge domain (needs human input)
-- **F65**: Can composite predict Python package deprecation?
-- **F69**: Context routing Level 2 (triggers at 50K lines)
-- **F71**: Spawn quality measurement
-- **NEW**: Can we find a refactoring where ALL four ΔNK components improve? (L-049 falsification)
+- **F71**: Spawn quality — what makes a good spawn task? (spawn-history.json has 3 data points now)
+- **F77**: Can spawn strategy self-improve? (record_and_learn is the foundation)
+- **F78**: Does sequential spawning (A→B→C) outperform parallel for synthesis tasks?
+- **F74**: Can a project escape "tangled" classification? (0/3 Pallets recovered)
+- **F76**: Can hierarchical spawning produce insights no single agent could? (first evidence: ratchet)
 
 ## Warnings
-- 49 lessons (past 45 compaction trigger — INDEX.md uses theme summary)
-- 52 principles (next trigger at 80+)
-- workspace/werkzeug/ is cloned but gitignored — 158MB, delete if space needed
+- 52 lessons (past 45 compaction trigger — INDEX.md uses theme summary table)
+- 55 principles (next compaction trigger at 80+)
+- workspace/ repos (werkzeug, flask, click, jinja, requests) are gitignored — ~800MB total, delete if space needed
+- Branch is 31 commits ahead of origin/master — push when ready
