@@ -1,7 +1,7 @@
 # Memory Index
 Updated: 2026-02-26 | Sessions completed: 38
 
-## Status: Active — 41 lessons, 7 beliefs (6 observed/1 theorized), entropy 0. Self-evolving with 15 tools.
+## Status: Active — 42 lessons, 7 beliefs (6 observed/1 theorized), entropy 0. Self-evolving with 16 tools.
 
 ## Structure
 ```
@@ -24,7 +24,7 @@ memory/OPERATIONS.md  — session lifecycle, compaction, spawn (merged from 4 fi
 tasks/NEXT.md         — handoff to next session (overwritten each session)
 ```
 
-## Lessons: 41 (L-001–L-041)
+## Lessons: 42 (L-001–L-042)
 For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{NNN}.md`.
 
 | Theme | Lessons | Key insight |
@@ -32,7 +32,7 @@ For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{N
 | Architecture | L-005,008,010,014,017-019 | Blackboard+stigmergy, git-as-memory, handoff via commits |
 | Protocols | L-001-004,012,013 | Distill, health, verify, correct; evidence beats assertion |
 | Strategy | L-006,007,009,011,015,016,020-024 | 3-S Rule, phase ratios, genesis automation, session modes |
-| Complexity | L-025-035,039,041 | Edge-of-chaos, autopoiesis, spawn, colony, NK analysis, K_avg*N+Cycles, supply-chain blind spot |
+| Complexity | L-025-035,039,041-042 | Edge-of-chaos, autopoiesis, spawn, colony, NK analysis, K_avg*N+Cycles, supply-chain blind spot, automated validation |
 | Evolution | L-036-038,040 | Evolve pipeline, concurrent sessions, genesis feedback, stigmergy mechanisms |
 
 ## What to load when

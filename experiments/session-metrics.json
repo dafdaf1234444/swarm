@@ -20,7 +20,14 @@
       "structural_change": false,
       "lessons_total": 40,
       "principles_total": 46
+    },
+    "38": {
+      "commits": 10,
+      "files_touched": 49,
+      "structural_change": true,
+      "lessons_total": 42,
+      "principles_total": 46
     }
   },
-  "latest_session": 37
+  "latest_session": 38
 }
