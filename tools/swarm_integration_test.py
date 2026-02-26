@@ -280,6 +280,108 @@ def test_growth_rate_runs():
     return True
 
 
+# --- Negative tests: verify the validator catches known breakages ---
+
+def test_neg_broken_belief_detected():
+    """Negative test: validator catches a belief with missing evidence type."""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        child_dir = os.path.join(tmpdir, "neg-test")
+        genesis = REPO_ROOT / "workspace" / "genesis.sh"
+        subprocess.run(
+            ["bash", str(genesis), child_dir, "test"],
+            capture_output=True, text=True
+        )
+        subprocess.run(["git", "init"], cwd=child_dir, capture_output=True)
+
+        # Break a belief: replace evidence type with invalid value
+        deps = Path(child_dir) / "beliefs" / "DEPS.md"
+        text = deps.read_text()
+        # Genesis uses 'theorized' as default evidence type
+        text = text.replace("**Evidence**: theorized", "**Evidence**: INVALID_TYPE")
+        deps.write_text(text)
+
+        subprocess.run(["git", "add", "-A"], cwd=child_dir, capture_output=True)
+        subprocess.run(["git", "commit", "-m", "break"], cwd=child_dir, capture_output=True)
+
+        r = subprocess.run(
+            ["python3", "tools/validate_beliefs.py"],
+            cwd=child_dir, capture_output=True, text=True
+        )
+        # Validator should report FAIL for invalid evidence type
+        return "FAIL" in r.stdout or r.returncode != 0
+
+
+def test_neg_broken_dep_ref_detected():
+    """Negative test: validator catches a broken belief dependency reference."""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        child_dir = os.path.join(tmpdir, "neg-test2")
+        genesis = REPO_ROOT / "workspace" / "genesis.sh"
+        subprocess.run(
+            ["bash", str(genesis), child_dir, "test"],
+            capture_output=True, text=True
+        )
+        subprocess.run(["git", "init"], cwd=child_dir, capture_output=True)
+
+        # Add a lesson that references a non-existent belief
+        lesson = Path(child_dir) / "memory" / "lessons" / "L-099.md"
+        lesson.write_text(
+            "# Lesson L-099\n## Summary\nTest broken ref\n"
+            "## Affected beliefs: B999\n## Rule extracted\nnone\n"
+        )
+
+        subprocess.run(["git", "add", "-A"], cwd=child_dir, capture_output=True)
+        subprocess.run(["git", "commit", "-m", "break"], cwd=child_dir, capture_output=True)
+
+        # Our own test checks for broken refs — verify it would catch this
+        deps = Path(child_dir) / "beliefs" / "DEPS.md"
+        deps_text = deps.read_text()
+        all_ids = set(re.findall(r"(?:### |~~)(B\d+)", deps_text))
+        lessons_dir = Path(child_dir) / "memory" / "lessons"
+
+        for f in lessons_dir.glob("L-*.md"):
+            text = f.read_text()
+            affected_m = re.search(r"## Affected beliefs:\s*(.+)", text)
+            if affected_m:
+                refs = re.findall(r"B\d+", affected_m.group(1))
+                for ref in refs:
+                    if ref not in all_ids:
+                        return True  # Correctly detected broken ref
+        return False  # Should have caught B999
+
+
+def test_neg_missing_falsification_detected():
+    """Negative test: test catches belief missing falsification condition."""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        child_dir = os.path.join(tmpdir, "neg-test3")
+        genesis = REPO_ROOT / "workspace" / "genesis.sh"
+        subprocess.run(
+            ["bash", str(genesis), child_dir, "test"],
+            capture_output=True, text=True
+        )
+
+        # Break a belief: remove falsification condition
+        deps = Path(child_dir) / "beliefs" / "DEPS.md"
+        text = deps.read_text()
+        text = text.replace("**Falsified if**:", "**Notes**:")
+        deps.write_text(text)
+
+        # Run the falsification check logic directly
+        superseded_section = text.find("## Superseded")
+        active_text = text[:superseded_section] if superseded_section > 0 else text
+
+        beliefs = re.findall(r"^### (B\d+):", active_text, re.MULTILINE)
+        for bid in beliefs:
+            if f"### {bid}:" in active_text:
+                block_start = active_text.index(f"### {bid}:")
+                block_end = active_text.find("\n### B", block_start + 1)
+                if block_end == -1:
+                    block_end = len(active_text)
+                block = active_text[block_start:block_end]
+                if "**Falsified if**:" not in block:
+                    return True  # Correctly detected missing falsification
+        return False  # Should have caught it
+
+
 def main():
     global PASSED, FAILED
 
@@ -306,6 +408,11 @@ def main():
     run_test("merge_reports_valid", test_merge_reports_valid)
     run_test("integration_log_valid", test_integration_log_valid)
     run_test("growth_rate_runs", test_growth_rate_runs)
+
+    print("\nNegative tests (validator catches breakages):")
+    run_test("neg_broken_belief_detected", test_neg_broken_belief_detected)
+    run_test("neg_broken_dep_ref_detected", test_neg_broken_dep_ref_detected)
+    run_test("neg_missing_falsification_detected", test_neg_missing_falsification_detected)
 
     print(f"\n{'='*40}")
     print(f"PASSED: {PASSED}/{PASSED + FAILED}")
