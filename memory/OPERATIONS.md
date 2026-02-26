@@ -35,7 +35,11 @@ Run compaction when ANY fires:
 Compaction method: replace individual lesson lines in INDEX.md with theme summaries.
 Create `memory/themes/` if needed. Run validator before and after.
 
-## Spawn (tested — genesis v3)
-To create a child swarm: `./workspace/genesis.sh ~/child-swarm-[name] "[topic]"`
-Scope it to <5 sessions. Child develops own beliefs. Merge back via parent session reading compressed findings.
-For sub-swarm testing: use `tools/swarm_test.py` to spawn, run, and evaluate child swarms.
+## Spawn & Evolve (tested — genesis v4)
+Full evolution pipeline: `tools/evolve.py init|harvest|integrate|compare`
+- **init**: spawn child + write task + generate sub-agent prompt
+- **harvest**: evaluate viability + merge-back report
+- **integrate**: auto-add novel rules to PRINCIPLES.md and questions to FRONTIER.md
+- **compare**: side-by-side comparison of multiple children
+Manual spawn: `./workspace/genesis.sh ~/child-swarm-[name] "[topic]"`
+For listing children: `tools/swarm_test.py list`

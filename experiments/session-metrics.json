@@ -6,7 +6,14 @@
       "structural_change": true,
       "lessons_total": 34,
       "principles_total": 34
+    },
+    "36": {
+      "commits": 10,
+      "files_touched": 60,
+      "structural_change": true,
+      "lessons_total": 35,
+      "principles_total": 36
     }
   },
-  "latest_session": 35
+  "latest_session": 36
 }

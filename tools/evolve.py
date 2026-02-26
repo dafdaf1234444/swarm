@@ -6,12 +6,14 @@ Usage:
     python3 tools/evolve.py init <child-name> <task-description>
     python3 tools/evolve.py harvest <child-name>
     python3 tools/evolve.py integrate <child-name> [--dry-run]
+    python3 tools/evolve.py compare <child1> <child2> [child3...]
     python3 tools/evolve.py cycle <child-name> <task-description>
 
 Commands:
     init      — Spawn child swarm with task, output sub-agent prompt
     harvest   — Evaluate child + generate merge-back report
     integrate — Auto-integrate novel rules/questions into parent
+    compare   — Compare multiple children side-by-side
     cycle     — Full pipeline summary (init → agent → harvest → integrate)
 
 This closes the evolution loop: spawn → run → evaluate → learn.
@@ -322,6 +324,73 @@ def show_cycle(child_name: str, task: str):
     print(f"  - Harvest all → compare viability → integrate best")
 
 
+def compare_children(child_names: list[str]):
+    """Compare multiple children side-by-side: viability, rules, questions."""
+    swarm_test = REPO_ROOT / "tools" / "swarm_test.py"
+
+    print("=== COLONY COMPARISON ===\n")
+    print(f"{'Child':<25} {'Viability':<12} {'Lessons':<10} {'Beliefs':<10} {'Novel':<8}")
+    print("-" * 65)
+
+    results = []
+    for name in child_names:
+        child_dir = CHILDREN_DIR / name
+        if not child_dir.exists():
+            print(f"{name:<25} NOT FOUND")
+            continue
+
+        # Evaluate viability
+        r = subprocess.run(
+            ["python3", str(swarm_test), "evaluate", str(child_dir)],
+            capture_output=True, text=True
+        )
+        viability = "?"
+        vm = re.search(r"Viability: (\d+/4)", r.stdout)
+        if vm:
+            viability = vm.group(1)
+
+        # Count lessons and beliefs
+        lesson_count = len(list((child_dir / "memory" / "lessons").glob("L-*.md"))) if (child_dir / "memory" / "lessons").exists() else 0
+        belief_count = 0
+        deps = child_dir / "beliefs" / "DEPS.md"
+        if deps.exists():
+            belief_count = len(re.findall(r"^### B\d+:", deps.read_text(), re.MULTILINE))
+
+        # Check for novel rules via merge-back
+        merge_back = REPO_ROOT / "tools" / "merge_back.py"
+        r = subprocess.run(
+            ["python3", str(merge_back), str(child_dir)],
+            capture_output=True, text=True
+        )
+        novel = 0
+        nm = re.search(r"Novel rules: (\d+)/", r.stdout)
+        if nm:
+            novel = int(nm.group(1))
+
+        results.append({
+            "name": name,
+            "viability": viability,
+            "lessons": lesson_count,
+            "beliefs": belief_count,
+            "novel": novel,
+        })
+        print(f"{name:<25} {viability:<12} {lesson_count:<10} {belief_count:<10} {novel:<8}")
+
+    if not results:
+        print("\nNo children found.")
+        return
+
+    # Find best performer
+    def score(r):
+        vm = re.search(r"(\d+)/4", r["viability"])
+        return (int(vm.group(1)) if vm else 0, r["novel"], r["lessons"])
+
+    results.sort(key=score, reverse=True)
+    winner = results[0]
+    print(f"\nBest performer: {winner['name']} ({winner['viability']} viability, {winner['novel']} novel rules)")
+    print(f"Recommended: python3 tools/evolve.py integrate {winner['name']} --dry-run")
+
+
 def main():
     if len(sys.argv) < 2:
         print(__doc__)
@@ -347,6 +416,12 @@ def main():
             sys.exit(1)
         dry_run = "--dry-run" in sys.argv
         integrate_child(sys.argv[2], dry_run)
+
+    elif cmd == "compare":
+        if len(sys.argv) < 4:
+            print("Usage: evolve.py compare <child1> <child2> [child3...]")
+            sys.exit(1)
+        compare_children(sys.argv[2:])
 
     elif cmd == "cycle":
         if len(sys.argv) < 4:
