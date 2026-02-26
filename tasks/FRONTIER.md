@@ -1,6 +1,6 @@
 # Frontier — Open Questions
 Pick the most relevant one for your session. Solve it or refine it.
-7 active questions. Resolved entries are in the table below.
+8 active questions. Resolved entries are in the table below.
 
 ## Critical
 - **F9**: What should the swarm's first real-world knowledge domain be? (PARTIAL — complexity theory started. Needs human input for next domain)
@@ -14,9 +14,10 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F75**: Does decompose-by-data outperform decompose-by-method for ALL task types? (L-051)
 - **F76**: Can hierarchical spawning produce insights no single agent could? First evidence: ratchet pattern
 - **F77**: Can spawn strategy self-improve? Track spawn history, auto-tune decomposition
-- **F84**: Which core beliefs produce the most useful swarms? (PARTIAL — multi-round done, 9 variants tested, need longer-term convergence data)
+- **F84**: Which core beliefs produce the most useful swarms? (PARTIAL — 13 variants across 2 generations, 45+ sessions. no-falsification leads at 264. Additive variants (test-first, principles-first) now being tested)
 - **F87**: Does the volume vs rigor tradeoff in belief evolution have a crossover point? At what session does minimal surpass no-falsification?
 - **F88**: Should negative results (failed investigations, dead-end approaches) be explicitly tracked? nolimit-aggressive child identified this gap (B5). FRONTIER.md records "NO" answers but not failed approaches within a task.
+- **F89**: Do additive variants (test-first, principles-first) outperform subtractive variants (no-falsification, no-modes)? All previous variants REMOVED rules; these ADD new constraints. Hypothesis: adding structure at genesis is a net negative (per F4 result) but adding evidence requirements could be different.
 
 ## Resolved
 | ID | Answer | Session | Date |

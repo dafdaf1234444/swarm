@@ -113,6 +113,36 @@ VARIANTS = {
             },
         },
     },
+    "test-first": {
+        "description": "Require empirical evidence before any belief is added",
+        "hypothesis": "Forcing evidence-first produces fewer but higher-quality beliefs",
+        "modifications": {
+            "CORE.md": {
+                "replace": {
+                    "**Challenge the setup.** Write challenges to tasks/FRONTIER.md.":
+                    "**Test before believing.** No belief may be added until you have empirical evidence from the domain (not just theory). Beliefs start as observed, never theorized. Write challenges to tasks/FRONTIER.md.",
+                },
+            },
+            "CLAUDE.md": {
+                "replace": {
+                    "Every belief needs `observed`/`theorized` evidence type and a falsification condition.":
+                    "Every belief MUST have `observed` evidence type (no theorized beliefs allowed) and a falsification condition.",
+                },
+            },
+        },
+    },
+    "principles-first": {
+        "description": "Prioritize extracting reusable principles over accumulating beliefs",
+        "hypothesis": "Principles-focused swarms produce more transferable knowledge",
+        "modifications": {
+            "CORE.md": {
+                "replace": {
+                    "**Challenge the setup.** Write challenges to tasks/FRONTIER.md.":
+                    "**Extract principles.** After every lesson, extract at least one atomic reusable principle to memory/PRINCIPLES.md. Principles are more valuable than beliefs. Write challenges to tasks/FRONTIER.md.",
+                },
+            },
+        },
+    },
 }
 
 # --- EVALUATION METRICS ---
