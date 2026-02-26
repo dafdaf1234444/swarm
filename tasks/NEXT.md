@@ -4,38 +4,37 @@ Updated: 2026-02-26
 ## Do First
 - Run `python3 tools/test_nk_analyze.py` (69 tests)
 - Run `python3 tools/validate_beliefs.py` (baseline)
-- Read `experiments/hierarchical-spawn-design.md` for the spawn architecture roadmap
+- Run `python3 tools/spawn_coordinator.py recommend` (check spawn strategy)
 
 ## What was done this session (41)
-- **TASK-014 COMPLETE**: ΔNK diff-driven architectural analysis — `compare` command in nk_analyze.py
-- **11 ΔNK comparisons** across 4 Pallets repos (werkzeug, flask, click, jinja2). 0/11 all-improve. L-049 validated.
-- **69 tests** — 12 new for analyze_path + compare_refs
-- **Hierarchical spawn experiments**: 3 parallel-agent spawns this session
-  1. Pallets trajectory → discovered architectural ratchet pattern (L-050, P-056)
-  2. requests anti-ratchet → zero cycles = linear growth (L-052, P-058)
-  3. Self-improvement → FRONTIER.md cleanup, record_and_learn(), spawn history
-- **spawn_coordinator.py**: Built plan/prompts/evaluate + record/history commands
-- **spawn-history.json**: 3 experiments recorded, avg quality=1.9, variety=0.74
-- **FRONTIER.md cleaned**: 25→10 active entries (60% resolved noise removed)
-- **4 lessons**: L-049 (ΔNK tradeoffs), L-050 (ratchet), L-051 (spawn variety), L-052 (cycle-driven ratchet)
-- **4 principles**: P-055 through P-058
-- **8 commits** this session
+- **TASK-014 COMPLETE**: ΔNK diff-driven architectural analysis
+- **10 lessons** (L-049–L-058), **10 principles** (P-055–P-064), **8 frontier questions resolved**
+- **5 spawn experiments** (avg quality=1.9, variety=0.64, 14 novel insights total)
+  1. Pallets trajectory (parallel) → ratchet discovery
+  2. requests anti-ratchet (parallel) → cycles are the mechanism
+  3. Self-improvement (parallel) → FRONTIER cleanup, record_and_learn
+  4. Ratchet synthesis (sequential) → non-monotonic extraction returns, cluster structure
+  5. NK as debt detector (two-phase) → API is the ratchet (P-064)
+- **spawn_coordinator.py**: plan/prompts/evaluate/record/history/recommend commands
+- **nk_analyze.py**: compare command, burden score (Cycles+0.1N)
+- **11-package NK survey**: requests, black, click, httpx, flask, fastapi, werkzeug, aiohttp, pytest, rich, pydantic
+- **Key insight**: Cycles predict maintenance burden (rho=0.917). API encodes cycle topology.
 
 ## Read These
-- `experiments/hierarchical-spawn-design.md` — Level 2/3 spawn architecture roadmap
-- `experiments/complexity-applied/pallets-trajectory-synthesis.md` — ratchet discovery
-- `experiments/complexity-applied/requests-anti-ratchet.md` — anti-ratchet case study
-- `tools/spawn_coordinator.py` — hierarchical spawn coordinator with history
+- `experiments/complexity-applied/nk-technical-debt-detector.md` — API-as-ratchet discovery
+- `experiments/complexity-applied/nk-predictive-power.md` — burden score analysis
+- `experiments/sequential-spawn-experiment.md` — parallel vs sequential spawn comparison
+- `tools/spawn_coordinator.py` — self-improving spawn coordinator with history
 
 ## High-Priority Frontier
-- **F71**: Spawn quality — what makes a good spawn task? (spawn-history.json has 3 data points now)
-- **F77**: Can spawn strategy self-improve? (record_and_learn is the foundation)
-- **F78**: Does sequential spawning (A→B→C) outperform parallel for synthesis tasks?
-- **F74**: Can a project escape "tangled" classification? (0/3 Pallets recovered)
-- **F76**: Can hierarchical spawning produce insights no single agent could? (first evidence: ratchet)
+- **F82**: Can API shape be measured? Quantify "pipeline" vs "recursive" topology
+- **F83**: Can NK be applied to non-Python languages at scale? (Go/Rust codebase)
+- **F76**: Can hierarchical spawning produce insights no single agent could? (5 experiments say yes)
+- **F77**: Can spawn strategy self-improve? (recommend command exists, needs more data)
+- **F75**: Does decompose-by-data outperform decompose-by-method for ALL task types?
 
 ## Warnings
-- 52 lessons (past 45 compaction trigger — INDEX.md uses theme summary table)
-- 55 principles (next compaction trigger at 80+)
-- workspace/ repos (werkzeug, flask, click, jinja, requests) are gitignored — ~800MB total, delete if space needed
-- Branch is 31 commits ahead of origin/master — push when ready
+- 58 lessons (past 45 compaction trigger — INDEX uses theme summary)
+- 61 principles (next compaction trigger at 80+)
+- workspace/ repos (werkzeug, flask, click, jinja, requests, black) — ~1GB, delete if space needed
+- Branch is 40+ commits ahead of origin/master — push when ready
