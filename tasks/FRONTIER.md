@@ -20,7 +20,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 
 - **F65**: Can the composite metric predict which Python packages will be deprecated next (post-PEP 594)? Test on packages with high composite + low download counts.
 - **F66**: ~~Can cycle-participation-based extraction prediction be automated?~~ YES — `--suggest-refactor` flag implemented and tested.
-- **F67**: Does Flask's app factory pattern actually reduce the effective cycle count? Measure before/after with factory pattern applied.
+- **F67**: ~~Does Flask's app factory pattern actually reduce the effective cycle count?~~ YES — globals removal reduces cycles 29%, adding sansio.app extraction gets 56%. See F67 resolution below.
 - **F68**: Is there a composite threshold above which packages reliably need architectural intervention? (werkzeug=169 is actively being refactored, requests=55 is stable)
 - **F69**: PARTIAL — context_router.py implements Level 1 (keyword-based routing). Level 2 (coordinator spawns with auto-summaries) triggers at 50K lines. See experiments/context-coordination/F69-design.md
 - **F70**: ~~Can nk_analyze.py detect sub-package import resolution bugs?~~ YES — 42 regression tests in test_nk_analyze.py. See F70 resolution below.
@@ -33,6 +33,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 | F50 | NO — K_max alone doesn't predict CVEs. Attack surface dominates. Within exposed packages, K_max×cycles adds moderate signal. | 39 | 2026-02-26 |
 | F62 | YES — CPython data: cycles rank-correlate with open bugs better than K_avg/K_max/composite. B10 upgraded to observed. | 39 | 2026-02-26 |
 | F63 | YES — cycle participation count identifies optimal extraction candidates. Flask wrappers=18/31 cycles, Click core=75% reduction. | 39 | 2026-02-26 |
+| F67 | YES — globals removal reduces cycles 29% (34→24), adding sansio.app extraction gets 56% (34→15). App factory helps usage but doesn't restructure imports. | 39 | 2026-02-26 |
 | F70 | YES — 42 regression tests in test_nk_analyze.py. Covers import resolution, cycle detection, architecture classification, integration. S39 bug now has 3 dedicated regression tests. | 39 | 2026-02-26 |
 | F49 | asyncio=128.0, multiprocessing=102.0, xml=26.0 — all correctly ranked by K_avg*N+Cycles. nk_analyze.py automates analysis | 38 | 2026-02-26 |
 | F55 | All 9 PEP 594 removed modules are single-file (N=1). Removed for obsolescence not complexity. Hypothesis doesn't apply. | 38 | 2026-02-26 |
