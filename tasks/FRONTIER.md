@@ -16,6 +16,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F77**: Can spawn strategy self-improve? Track spawn history, auto-tune decomposition
 - **F84**: Which core beliefs produce the most useful swarms? (PARTIAL — multi-round done, 9 variants tested, need longer-term convergence data)
 - **F87**: Does the volume vs rigor tradeoff in belief evolution have a crossover point? At what session does minimal surpass no-falsification?
+- **F88**: Should negative results (failed investigations, dead-end approaches) be explicitly tracked? nolimit-aggressive child identified this gap (B5). FRONTIER.md records "NO" answers but not failed approaches within a task.
 
 ## Resolved
 | ID | Answer | Session | Date |

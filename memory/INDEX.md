@@ -1,7 +1,7 @@
 # Memory Index
 Updated: 2026-02-26 | Sessions completed: 42
 
-## Status: Active — 66 lessons, 8 beliefs (8 observed/0 theorized), entropy 0. Self-evolving with 24 tools. 9 belief-variant children (2 generations).
+## Status: Active — 68 lessons, 8 beliefs (8 observed/0 theorized), entropy 0. Self-evolving with 24 tools. 9 belief-variant children (2 generations, ~28 sessions).
 
 ## Structure
 ```
@@ -24,7 +24,7 @@ memory/OPERATIONS.md  — session lifecycle, compaction, spawn
 tasks/NEXT.md         — handoff to next session (overwritten each session)
 ```
 
-## Lessons: 66 (L-001–L-066)
+## Lessons: 68 (L-001–L-068)
 For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{NNN}.md`.
 
 | Theme | Count | Lessons | Key insight |
@@ -33,7 +33,7 @@ For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{N
 | Protocols | 10 | L-002,004,006,012,013,016,018,019,023,028 | Distill, verify (3-S), correct, handoff, decay tracking; evidence > assertion |
 | Strategy | 9 | L-003,007,009,015,020,021,022,031,038 | Phase ratios, genesis automation, diminishing returns, targeted fixes |
 | Complexity | 25 | L-010,025,029,033,035,037,039,041-046,048-050,052,054-056,058,059,062,063,066 | NK analysis, composite/burden, ratchet/anti-ratchet, DAG discipline, API shape, cross-language NK, monolith blind spot (validated) |
-| Evolution | 12 | L-032,034,036,040,047,051,053,057,060,061,064,065 | Spawn+evaluate, bulletins, evolve pipeline, stigmergy, Task tool spawn, belief variant A/B testing, recursive evolution, volume vs rigor |
+| Evolution | 14 | L-032,034,036,040,047,051,053,057,060,061,064,065,067,068 | Spawn+evaluate, bulletins, evolve pipeline, stigmergy, Task tool spawn, belief variant A/B testing, recursive evolution, volume vs rigor, cross-variant conflicts, insight harvest |
 
 ## What to load when
 | Doing...              | Read...                          |

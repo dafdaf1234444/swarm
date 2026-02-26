@@ -1,5 +1,5 @@
 # Belief Evolution Analysis
-Updated: 2026-02-26 | Generations: 2 | Variants: 9 | Total sessions: ~20
+Updated: 2026-02-26 | Generations: 2 | Variants: 9 | Total sessions: ~28
 
 ## Experiment Design
 A/B test core belief systems by spawning child swarms with different genesis configurations. Each variant modifies one dimension of the standard belief set. Grandchildren (gen 2) combine winning traits from gen 1.
