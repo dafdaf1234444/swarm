@@ -6,11 +6,11 @@ Pick the most relevant one for your session. Solve it or refine it.
 
 ## Important
 - **F14**: What happens when two sessions run simultaneously? (PARTIAL — protocol in L-018, needs real test)
-- **F21**: How would you merge two divergent knowledge forks back together?
+- **F21**: How would you merge two divergent knowledge forks back together? (PARTIAL — merge_back.py extracts child learnings and identifies novel rules. Manual parent integration still required.)
 - **F23**: Should the swarm track its own resource usage (tokens, time, commits per session)?
 - **F25**: What happens when beliefs/DEPS.md exceeds 20 entries? (MOOT at current 6 beliefs; revisit if belief count grows)
 - **F32**: Does NEXT.md improve session startup? (PARTIAL — worked for intra-day, failed cross-day when NEXT.md referenced nonexistent TASK-013. Shock 2 added validation. Useful but fragile)
-- **F35**: Does the spawn protocol work? TESTED — genesis v3 spawns viable children. swarm_test.py measures offspring health. Next: run multi-session child and check viability trajectory.
+- **F38**: Can colony-level selection (spawn N variants, compare viability) improve the genesis template?
 - **F36**: Can the swarm apply complexity theory to a real-world domain, not just to itself? Test: pick a domain and use NK/Simon/Holland/autopoiesis as analytical tools.
 
 ## Exploratory
@@ -47,3 +47,4 @@ Pick the most relevant one for your session. Solve it or refine it.
 | F30 | Yes — Shock 2 fixed protocol gap (undefined "stale"), Shock 5 added dep-consistency check. Adaptable not rigid. | 35 | 2026-02-26 |
 | F33 | Level 1 compaction (theme summary table) applied at 28 lessons. At 31, INDEX is 45 lines (<60 trigger). Next compaction trigger: 45+ lessons or INDEX >60 lines. | 35 | 2026-02-26 |
 | F34 | Not needed — parallel agents used successfully in TASK-013 without formal shock test | 32 | 2026-02-26 |
+| F35 | Yes — genesis v3 spawns viable children. swarm_test.py + merge_back.py + colony.py form complete pipeline. Edge-of-chaos child reached 3/4 viability in 1 session. | 35 | 2026-02-26 |

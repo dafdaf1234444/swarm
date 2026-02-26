@@ -33,6 +33,7 @@ Two rules that address the same situation from different angles may combine into
 - **P-030**: If essential files can be reconstructed from raw artifacts with ~100% fidelity, the system has healthy redundancy. If not, critical knowledge is SPOF. (L-030)
 - **P-031**: When a format change is proposed, separate near-term risks (fix cheaply) from long-term risks (set a trigger). Migrate when the trigger fires, not when the argument sounds good. (L-031)
 - **P-032**: Test architecture by spawning and measuring offspring viability, not by inspecting the parent. Viable children > parent audits. (L-032)
+- **P-033**: Architecture fitness = offspring viability. Compare colony members to identify which variations survive. (L-033)
 
 ## Operations
 - **P-001**: Always verify generated files for shell artifacts. First-session validation catches these cheaply. (L-001)
