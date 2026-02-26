@@ -8,3 +8,4 @@ workspace/werkzeug/
 workspace/flask/
 workspace/click/
 workspace/jinja/
+workspace/requests/
