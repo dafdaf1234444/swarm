@@ -18,7 +18,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F58**: Does K_avg*N+Cycles predict maintenance burden in non-Python codebases? (PARTIAL — Express.js tested, correctly ranks v4 vs v5. Need Go + Rust for B9 falsification threshold of 3+)
 - **F59**: Can the swarm's NK analysis tools be packaged as a reusable library? Would other developers use it?
 - **F60**: At 40 lessons and 44 principles, is the PRINCIPLES.md format still scannable? (PARTIAL — consolidated in S37 from 46→44 principles, added NK Analysis section. Revisit at 50+)
-- **F61**: Can session_tracker.py's predictive metrics detect when the system is about to stall (Class I/II transition)?
+- **F61**: Can session_tracker.py's predictive metrics detect when the system is about to stall? (PARTIAL — detected 84% resolution rate + 0% theorized, both acted on. Snapshot works; needs trend-over-time for trajectory prediction)
 
 ## Resolved
 | ID | Answer | Session | Date |

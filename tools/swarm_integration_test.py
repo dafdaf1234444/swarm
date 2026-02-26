@@ -280,6 +280,26 @@ def test_growth_rate_runs():
     return True
 
 
+# --- Tool tests ---
+
+def test_nk_analyze_runs():
+    """Test that nk_analyze.py can analyze a stdlib package and output valid JSON."""
+    import json
+    r = subprocess.run(
+        ["python3", str(REPO_ROOT / "tools" / "nk_analyze.py"), "json", "--json"],
+        cwd=str(REPO_ROOT), capture_output=True, text=True
+    )
+    if r.returncode != 0:
+        raise RuntimeError(f"nk_analyze failed: {r.stderr}")
+    data = json.loads(r.stdout)
+    for field in ["n", "k_avg", "k_max", "cycles", "composite", "architecture"]:
+        if field not in data:
+            raise RuntimeError(f"nk_analyze output missing field: {field}")
+    if data["n"] < 1:
+        raise RuntimeError(f"N should be >= 1, got {data['n']}")
+    return True
+
+
 # --- Negative tests: verify the validator catches known breakages ---
 
 def test_neg_broken_belief_detected():
@@ -408,6 +428,9 @@ def main():
     run_test("merge_reports_valid", test_merge_reports_valid)
     run_test("integration_log_valid", test_integration_log_valid)
     run_test("growth_rate_runs", test_growth_rate_runs)
+
+    print("\nTool tests:")
+    run_test("nk_analyze_runs", test_nk_analyze_runs)
 
     print("\nNegative tests (validator catches breakages):")
     run_test("neg_broken_belief_detected", test_neg_broken_belief_detected)
