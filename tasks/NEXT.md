@@ -2,42 +2,39 @@
 Updated: 2026-02-26
 
 ## Do First
-- Run `python3 tools/swarm_integration_test.py` (22 tests — verify all pass)
-- Run `python3 tools/test_nk_analyze.py` (42 tests)
+- Run `python3 tools/swarm_integration_test.py` (23 tests — verify all pass)
+- Run `python3 tools/test_nk_analyze.py` (57 tests)
 - Run `python3 tools/test_novelty.py` (17 tests)
 - Run `python3 tools/validate_beliefs.py` (baseline)
+- Run `python3 tools/session_tracker.py trend` (stall detection)
 
-## What was done this session (39 extended)
-- **81 tests total**: 42 nk_analyze regression tests, 17 novelty tests, 22 integration tests (including E2E evolution)
-- **F67 resolved**: Flask app factory reduces cycles 29-56%
-- **F68 resolved**: Two-threshold model (composite+cycles independently predict intervention need)
-- **F59 resolved**: nk-analyze packaged as pip-installable tool (workspace/nk-analyze/)
-- **F69 partial**: context_router.py (Level 1) + 4-level architecture design
-- **F70 resolved**: 42 regression tests with 3 S39-specific sub-package resolution tests
-- **Evolution pipeline upgraded**: shared novelty.py (Jaccard + stopwords), genesis version tracking, post-integration validation
-- **Import bug fixed**: nk_analyze.py sub-package resolution; corrected all 21 package scores
-- **Synthesis updated**: 21 packages across 4 languages, corrected values
-- **Lessons**: L-046 (tool self-testing), L-047 (context routing)
-- **Principles**: P-052 (tool testing), P-053 (context routing)
-- **Self-analysis**: tools/ N=16, K=3, composite=3.0 (up from 0.0 after novelty.py)
-- **16 commits** this session
+## What was done this session (40)
+- **97 tests total**: 57 nk_analyze (15 new lazy import tests), 17 novelty, 23 integration (+1 trend)
+- **F44 resolved**: Lazy imports serve two purposes — cycle-breaking (43%) AND initialization deferral (57%). Built scope-aware AST traversal (`extract_imports_layered`), `--lazy` flag, batch --lazy
+- **F53 resolved**: Two-factor model validated with 14 packages. Static vs runtime cycles add third dimension
+- **F60 resolved**: PRINCIPLES.md restructured from 66→31 lines with inline sub-theme grouping
+- **F61 resolved**: Stall detection trend-over-time with 4 stall types (learning, creative exhaustion, entropy, frozen)
+- **F72 resolved**: Runtime cycles are better bug predictor (100% recall vs 50% for static)
+- **F73 resolved**: Lazy-import ratio classifies purpose (DELIBERATE/PERF_DEFER/MIXED) but doesn't predict bugs
+- **L-048**: Lazy imports lesson. P-054: Static analysis undercounts true coupling
+- **7 commits** this session
 
 ## Read These
-- `experiments/context-coordination/F69-design.md` — 4-level context coordination architecture
-- `tools/context_router.py` — task-based file selection within line budget
-- `tools/novelty.py` — shared Jaccard-based novelty detection
-- `experiments/complexity-applied/nk-cross-package-synthesis.md` — 21-package synthesis (corrected)
+- `experiments/complexity-applied/f44-lazy-imports.md` — comprehensive lazy import analysis (8 packages)
+- `experiments/complexity-applied/f53-two-factor-validation.md` — three-layer model: static, runtime, hidden
+- `experiments/complexity-applied/f72-runtime-vs-static-predictor.md` — binary classification results
+- `tools/nk_analyze.py` — new `--lazy` flag and `batch --lazy`
+- `tools/session_tracker.py` — new `trend` command
 
 ## High-Priority Frontier
-- **F53**: Validate two-factor model on more packages (need 3+ more data points)
-- **F69**: Context routing Level 2 — triggers when knowledge > 50K lines
-- **F71**: Spawn quality measurement — what makes a good spawn task?
-- **F44**: Do lazy imports always correspond to cycle-breaking?
-- **F60**: PRINCIPLES.md scannability — now at 50 principles (trigger at 50+!)
-- **F61**: Stall detection trend-over-time component
+- **F9**: Next real-world knowledge domain (needs human input)
+- **F65**: Can composite predict Python package deprecation?
+- **F69**: Context routing Level 2 (triggers at 50K lines)
+- **F71**: Spawn quality measurement
+- **F25**: DEPS.md scaling (moot at current 6 beliefs)
 
 ## Warnings
-- 47 lessons (past 45 compaction trigger — INDEX.md already uses theme summary)
-- 50 principles (F60 trigger: consider restructuring PRINCIPLES.md for scannability)
+- 48 lessons (past 45 compaction trigger — INDEX.md uses theme summary)
+- 51 principles (F60 just resolved — next trigger at 80+)
 - Context routing shows 5120 lines total knowledge (~20K tokens)
 - experiments/children/ is gitignored — children are local only
