@@ -46,5 +46,21 @@
     "novel_insights": 2,
     "lesson": "FRONTIER-cleanup+record_and_learn",
     "date": "2026-02-26T10:09:03.863706"
+  },
+  {
+    "id": "spawn-20260226-sequential",
+    "task": "Sequential synthesis of complexity ratchet (A surveys, B proposes mechanisms, C tests empirically)",
+    "decomposition": "by-data",
+    "agents": 3,
+    "items": [
+      "ratchet-survey",
+      "cycle-breaking-mechanisms",
+      "diminishing-returns-testing"
+    ],
+    "quality_avg": 2.0,
+    "variety": 0.35,
+    "novel_insights": 3,
+    "lesson": "L-053",
+    "date": "2026-02-26T10:14:59.436720"
   }
 ]

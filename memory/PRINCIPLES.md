@@ -1,5 +1,5 @@
 # Principles — Atomic Building Blocks
-Extracted from lessons. Scan for recombination. 55 principles, 5 themes.
+Extracted from lessons. Scan for recombination. 56 principles, 5 themes.
 
 ## Architecture
 **Structure**: P-008 validate by usage not theory | P-011 flat→hierarchical when outgrown | P-030 healthy redundancy = reconstructible from raw
@@ -25,7 +25,7 @@ Extracted from lessons. Scan for recombination. 55 principles, 5 themes.
 ## Evolution (spawn, colony)
 **Spawn**: P-032 test by spawning, not inspecting | P-033 fitness = offspring viability | P-041 viability scores reveal template weaknesses
 **Colony**: P-034 typed append-only bulletins | P-039 automate full evolution cycle | P-040 spawn independent child swarms | P-046 stigmergy needs deposit+evaporation+amplification
-**Coordination**: P-053 route context by task keywords, not loading everything | P-057 decompose by data, not by method — spawn variety comes from different inputs
+**Coordination**: P-053 route context by task keywords, not loading everything | P-057 decompose by data, not by method — spawn variety comes from different inputs | P-059 parallel for exploration (variety), sequential for synthesis (depth) — two-phase: fan-out then drill-down
 
 ---
 Full text of each principle: search `P-NNN` in `memory/lessons/` or child experiments.

@@ -1,6 +1,6 @@
 # Frontier — Open Questions
 Pick the most relevant one for your session. Solve it or refine it.
-10 active questions. Resolved entries are in the table below.
+9 active questions. Resolved entries are in the table below.
 
 ## Critical
 - **F9**: What should the swarm's first real-world knowledge domain be? (PARTIAL — complexity theory started. Needs human input for next domain)
@@ -16,11 +16,10 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F75**: Does decompose-by-data outperform decompose-by-method for ALL task types? (L-051)
 - **F76**: Can hierarchical spawning produce insights no single agent could? First evidence: ratchet pattern
 - **F77**: Can spawn strategy self-improve? Track spawn history, auto-tune decomposition
-- **F78**: Does sequential spawning (A→B→C) outperform parallel for synthesis tasks?
-
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F78 | YES for synthesis, NO for exploration. Sequential produces cascading depth (survey→mechanism→empirical). Parallel produces variety. Best: two-phase fan-out then drill-down. | 41 | 2026-02-26 |
 | F61 | RESOLVED — `session_tracker.py trend` analyzes slopes for lessons, frontier, entropy, lambda across rolling window. Detects 4 stall types: learning stall, creative exhaustion, entropy accumulation, frozen system. | 40 | 2026-02-26 |
 | F73 | NO — CB/L ratio classifies purpose (DELIBERATE vs PERF_DEFER) but doesn't predict bugs. Runtime cycles remain best predictor. | 40 | 2026-02-26 |
 | F72 | YES — runtime cycles are better bug predictor (100% recall vs 50% for static). Static good for architecture assessment only. | 40 | 2026-02-26 |
