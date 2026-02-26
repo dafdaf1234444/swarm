@@ -46,3 +46,6 @@ Two rules that address the same situation from different angles may combine into
 - **P-019**: Treat every commit as a handoff point. If context runs low: commit, write HANDOFF, push. (L-019)
 - **P-020**: When a system proves itself, encode its bootstrap into an executable script. (L-020)
 - **P-023**: Check both epistemic (reasoning correctly) and operational (sustaining itself) axes. One doesn't imply the other. (L-023)
+
+## From child:complexity-test
+- **P-036**: Facade + independent engine pattern yields very low K/N (~0.16). Keep optional accelerators external to the package to preserve structural simplicity. (from child:complexity-test)

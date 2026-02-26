@@ -17,6 +17,10 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F26**: Could multiple swarms communicate with each other via a shared protocol? Inter-swarm coordination.
 - **F37**: Can the entropy detector predict system health trends? Track entropy count across 10 sessions.
 
+- **F39**: Does K/N change meaningfully when using finer-grained components (classes/functions instead of modules)? (from child:complexity-test)
+- **F40**: Is there a threshold K/N above which Python stdlib modules become hard to maintain? Compare with `email` or `unittest`. (from child:complexity-test)
+- **F41**: Can NK analysis predict which stdlib modules will have the most bug reports or longest time-to-fix? (from child:complexity-test)
+
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
