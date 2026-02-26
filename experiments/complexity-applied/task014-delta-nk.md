@@ -69,6 +69,29 @@ Splitting modules increased N, which dominated despite lower K_avg.
 
 5. **ΔNK is useful but insufficient as a single signal.** You need to look at the delta vector (ΔN, ΔK_avg, ΔCycles, ΔComposite) together, not any single metric. A PR review gate should check multiple thresholds.
 
+## Extended Data: 11 Comparisons Across 4 Pallets Repos
+
+| Repo | Versions | ΔN | ΔK_avg | ΔCycles | ΔComposite | Verdict |
+|------|----------|----|--------|---------|------------|---------|
+| werkzeug | 1.0→2.0 | +4 | -0.59 | +7 | -5.0 | MIXED |
+| werkzeug | 2.0→2.1 | -11 | +0.69 | +1 | -11.0 | MIXED |
+| werkzeug | 2.1→2.2 | +6 | +0.07 | +6 | +33.0 | DEGRADATION |
+| werkzeug | 2.2→3.0 | +10 | -0.45 | -3 | +15.0 | MIXED |
+| flask | 1.1→2.0 | +1 | +0.76 | +15 | +34.0 | DEGRADATION |
+| flask | 2.0→3.0 | +3 | +0.07 | +15 | +28.0 | DEGRADATION |
+| flask | 3.0→3.1 | 0 | +0.12 | +2 | +5.0 | DEGRADATION |
+| click | 7.1→8.0 | 0 | -0.12 | +3 | +1.0 | DEGRADATION |
+| click | 8.0→8.1 | -1 | +0.15 | 0 | -1.0 | IMPROVEMENT |
+| jinja2 | 2.11→3.0 | -2 | +0.20 | +1 | -1.0 | MIXED |
+| jinja2 | 3.0→3.1 | 0 | -0.04 | 0 | -1.0 | IMPROVEMENT |
+
+**L-049 NOT FALSIFIED**: 0/11 comparisons show all four delta components improving simultaneously.
+- 5/11 DEGRADATION (worse on multiple metrics)
+- 4/11 MIXED (some better, some worse)
+- 2/11 IMPROVEMENT (but only on composite; K_avg or N worsened)
+
+**Cross-repo finding**: Flask trends consistently toward more complexity over time (+34, +28, +5 composite across three major releases). Werkzeug oscillates. Click and Jinja2 are relatively stable.
+
 ## Implications for PR Review
 
 A potential ΔNK-based PR gate could flag:

@@ -5,3 +5,6 @@
 .idea/
 experiments/children/
 workspace/werkzeug/
+workspace/flask/
+workspace/click/
+workspace/jinja/
