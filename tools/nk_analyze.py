@@ -7,6 +7,7 @@ Usage:
     python3 tools/nk_analyze.py <package_name> --json
     python3 tools/nk_analyze.py <package_name> --verbose
     python3 tools/nk_analyze.py batch [pkg1 pkg2 ...]
+    python3 tools/nk_analyze.py <package_name> --suggest-refactor
 
 Analyzes internal dependencies of a Python package and computes:
 - N (number of modules), K_total (edges), K_avg, K/N, K_max
@@ -382,6 +383,72 @@ def print_report(result: dict, verbose: bool = False):
         print(f"  → {pkg:<20} {result['composite']:>8.1f}  ← THIS")
 
 
+def suggest_refactor(result: dict):
+    """Suggest which modules to extract for maximum cycle reduction."""
+    if "error" in result:
+        print(f"ERROR: {result['error']}")
+        return
+
+    if result["cycles"] == 0:
+        print(f"\n  {result['package']} has 0 cycles — no refactoring needed for cycle reduction.")
+        print(f"  Composite score: {result['composite']}")
+        return
+
+    deps = {k: v["imports"] for k, v in result["modules"].items()}
+
+    # Count cycle participation for each module
+    participation = {}
+    for cycle_str in result["cycle_details"]:
+        mods = cycle_str.split(" → ")
+        for m in mods[:-1]:
+            participation[m] = participation.get(m, 0) + 1
+
+    # Simulate extraction of top candidates
+    print(f"\n=== REFACTORING SUGGESTIONS: {result['package']} ===\n")
+    print(f"  Current: N={result['n']}, Cycles={result['cycles']}, Composite={result['composite']}")
+    print()
+
+    # Sort by cycle participation
+    ranked = sorted(participation.items(), key=lambda x: -x[1])
+
+    print(f"  {'Module':<25} {'CyclePart':>10} {'Cycles_after':>13} {'Composite_after':>16} {'CycleReduction':>15}")
+    print("  " + "-" * 82)
+
+    for mod, count in ranked[:7]:
+        new_deps = {}
+        for m, imports in deps.items():
+            if m == mod:
+                continue
+            new_deps[m] = [i for i in imports if i != mod]
+
+        n_after = len(new_deps)
+        k_total = sum(len(d) for d in new_deps.values())
+        k_avg = k_total / n_after if n_after > 0 else 0
+        cycles_after = len(detect_cycles(new_deps))
+        composite_after = k_avg * n_after + cycles_after
+        cycle_reduction = (1 - cycles_after / result["cycles"]) * 100
+
+        marker = " ← BEST" if mod == ranked[0][0] else ""
+        print(
+            f"  {mod:<25} {count:>10}/{result['cycles']}"
+            f" {cycles_after:>13} {composite_after:>16.1f} {cycle_reduction:>14.0f}%{marker}"
+        )
+
+    best_mod = ranked[0][0]
+    best_info = result["modules"].get(best_mod, {})
+    k_in = result["in_degree"].get(best_mod, 0)
+    k_out = best_info.get("k_out", 0)
+
+    print(f"\n  Recommendation: Extract '{best_mod}' first")
+    print(f"    - Participates in {ranked[0][1]}/{result['cycles']} cycles ({ranked[0][1]*100//result['cycles']}%)")
+    print(f"    - K_in={k_in} (imported by {k_in} modules), K_out={k_out}")
+    if k_in > k_out:
+        print(f"    - High K_in/K_out ratio → 'cycle passenger' (good extraction candidate)")
+    else:
+        print(f"    - Low K_in/K_out ratio → 'cycle driver' (extraction may require interface changes)")
+    print()
+
+
 def batch_analyze(packages: list[str]):
     """Analyze multiple packages and print a comparison table."""
     results = []
@@ -417,6 +484,7 @@ def main():
     package_name = sys.argv[1]
     verbose = "--verbose" in sys.argv or "-v" in sys.argv
     as_json = "--json" in sys.argv
+    refactor = "--suggest-refactor" in sys.argv or "--refactor" in sys.argv
 
     if package_name == "batch":
         # Batch mode: analyze all remaining args as package names
@@ -437,6 +505,8 @@ def main():
         print(json_mod.dumps(result, indent=2))
     else:
         print_report(result, verbose)
+        if refactor:
+            suggest_refactor(result)
 
 
 if __name__ == "__main__":
