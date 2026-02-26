@@ -118,5 +118,51 @@
       "aggressive-challenge"
     ],
     "spawned": "2026-02-26"
+  },
+  "belief-minimal-nofalsif-principles-first": {
+    "parents": [
+      "belief-minimal",
+      "belief-no-falsification",
+      "belief-principles-first"
+    ],
+    "generation": 2,
+    "variants_combined": [
+      "minimal",
+      "no-falsification",
+      "principles-first"
+    ],
+    "spawned": "2026-02-26"
+  },
+  "belief-principles-first": {
+    "parents": [
+      "genesis"
+    ],
+    "generation": 1,
+    "variants_combined": [
+      "principles-first"
+    ],
+    "spawned": "2026-02-26"
+  },
+  "belief-minimal-test-first": {
+    "parents": [
+      "belief-test-first",
+      "belief-minimal"
+    ],
+    "generation": 2,
+    "variants_combined": [
+      "test-first",
+      "minimal"
+    ],
+    "spawned": "2026-02-26"
+  },
+  "belief-test-first": {
+    "parents": [
+      "genesis"
+    ],
+    "generation": 1,
+    "variants_combined": [
+      "test-first"
+    ],
+    "spawned": "2026-02-26"
   }
 }

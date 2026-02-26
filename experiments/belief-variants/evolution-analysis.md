@@ -79,45 +79,55 @@ Current formula rewards: beliefs (5pt), observed (10pt), lessons (3pt), frontier
 5. **The winning strategy is "generate many beliefs, then test aggressively"** — a two-phase approach. **STILL HOLDING**: no-falsification exemplifies this at 247.
 6. **NEW**: 100% observed rate is the ceiling metric. minimal achieved it (7/7) and no-lesson-limit (5/5). This may become the deciding factor as belief counts converge.
 
-## Latest Results (13 variants, ~60 sessions total)
+## Latest Results (15 variants, ~75 sessions total)
 
 | Rank | Variant | Gen | Fitness | Beliefs | Observed | Obs% | Type |
 |------|---------|-----|---------|---------|----------|------|------|
-| 1 | no-falsification | 1 | 345 | 12 | 12 | 100% | subtractive |
-| 2 | minimal-nofalsif | 2 | 313 | 15+ | 15+ | ~100% | combined |
-| 3 | test-first | 1 | 276 | 13 | 13 | 100% | additive |
-| 4 | minimal | 1 | 236 | 10 | 10 | 100% | subtractive |
-| 5 | principles-first | 1 | 224 | 9+ | 9+ | ~100% | additive |
-| 6 | aggressive-minimal | 2 | 208 | 9+ | 9+ | ~100% | combined |
-| 7 | no-lesson-limit | 1 | 204 | 8 | 8 | 100% | subtractive |
-| 8 | nofalsif-aggressive | 2 | 198 | 8 | 7 | 88% | combined |
-| 9 | nofalsif-nolimit | 2 | 196 | 8 | 8 | 100% | combined |
-| 10 | control | 1 | 171 | 6 | 6 | 100% | baseline |
-| 11 | nolimit-aggressive | 2 | 150 | 6 | 5 | 83% | combined |
-| 12 | aggressive-challenge | 1 | 135 | 6 | 3 | 50% | subtractive |
-| 13 | no-modes | 1 | 132 | 4 | 4 | 100% | subtractive |
+| 1 | no-falsification | 1 | 434 | 16 | 16 | 100% | subtractive |
+| 2 | test-first | 1 | 409 | 19 | 19 | 100% | additive |
+| 3 | minimal-nofalsif | 2 | 396 | 19 | 19 | 100% | combined |
+| 4 | principles-first | 1 | 345 | 14 | 14 | 100% | additive |
+| 5 | no-modes | 1 | 273 | 10 | 10 | 100% | subtractive |
+| 6 | minimal | 1 | 236 | 10 | 10 | 100% | subtractive |
+| 7 | aggressive-minimal | 2 | 208 | 9 | 9 | 100% | combined |
+| 8 | no-lesson-limit | 1 | 204 | 8 | 8 | 100% | subtractive |
+| 9 | nofalsif-aggressive | 2 | 198 | 8 | 7 | 88% | combined |
+| 10 | nofalsif-nolimit | 2 | 196 | 8 | 8 | 100% | combined |
+| 11 | aggressive-challenge | 1 | 174 | 7 | 5 | 71% | subtractive |
+| 12 | control | 1 | 171 | 6 | 6 | 100% | baseline |
+| 13 | nolimit-aggressive | 2 | 150 | 6 | 5 | 83% | combined |
+| 14 | gen-3 triple | 3 | 115 | 7 | 0 | 0% | combined |
+| 15 | minimal-test-first | 2 | 27 | 2 | 0 | 0% | combined |
 
-### Key observations from late-stage results
+### Key observations from session 44
 
-**Universal convergence to 100% observed**: 10 of 13 variants reached 100% observed rate. Empirical testing is the universal accelerator — all variants eventually test their beliefs against the parent swarm.
+**Leadership change: no-falsification regained #1 at 434 but test-first closing fast at 409.** The additive variant grew +133 in one session (48% growth) vs no-falsification's +89 (26%). At current trajectories, test-first will overtake by session 5.
 
-**no-falsification achieved 345 with 12/12 observed and 25 principles**: Volume + testing + extraction = dominance. Formula-robust (#1 under all 4 tested weighting schemes).
+**Additive variants now dominate the top 4**: test-first (#2, 409) and principles-first (#4, 345) join no-falsification (#1) and minimal-nofalsif (#3). Additive constraints (channeling effort toward testing/extraction) compound faster than subtractive (removing barriers) once evidence is abundant (P-085).
 
-**minimal-nofalsif (gen-2) at 313 after just 2 sessions**: Combining the top-2 traits (minimal + no-falsification) produces synergy. 198 in S1 → 313 in S2. This is the fastest-growing variant.
+**no-modes massive recovery: 132→273 (+107%)**: The worst variant jumped to #5 in 2 sessions. Early rankings are unreliable (P-084). Structure emerges naturally; imposed structure just accelerates the bootstrap.
 
-**Additive variants crush expectations**: test-first (276, S2) and principles-first (224, S2) outperform most subtractive variants. Adding constraints that channel effort toward high-value activities (testing, extraction) works better than removing constraints — but only when evidence is abundant.
+**Goodhart vulnerability identified**: All variants converge on the same optimization strategy (maximize beliefs + observed). Cross-variant harvest found extensive overlap. Fitness rewards production efficiency, not knowledge novelty (P-086).
 
-**Three-tier strategy hierarchy**:
-1. **Top tier (300+)**: no-falsification, minimal-nofalsif — high volume + aggressive testing
-2. **High tier (200-300)**: test-first, minimal, principles-first, aggressive-minimal, no-lesson-limit
-3. **Mid tier (130-200)**: everyone else — all viable, stable
+**Universal 100% observed convergence**: 12 of 15 variants (excluding 2 new genesis and gen-3 S1) now have 100% observed rate.
 
-**Inverted-U constraint curve confirmed**: Moderate constraints (no-falsification) > strict constraints (aggressive-challenge) > no constraints (no-modes). The sweet spot removes friction while retaining quality mechanisms.
+**Four-tier hierarchy (updated)**:
+1. **Elite (400+)**: no-falsification (434), test-first (409) — sustained volume + quality
+2. **Top (300-400)**: minimal-nofalsif (396), principles-first (345) — trait synergy
+3. **Mid (200-300)**: no-modes (273), minimal (236), aggressive-minimal (208), no-lesson-limit (204)
+4. **Lower (<200)**: remaining variants — viable but slower growing
+
+**Gen-3 triple combo (minimal+nofalsif+principles-first) bootstrapped at 115**: Resolved trait conflict (additive overrides subtractive — P-008 from gen-3 child). All 7 beliefs theorized; needs testing session.
+
+**Novel insight from minimal-nofalsif S3**: Tool code encodes more knowledge than declarative beliefs. Parent has 9,003 LOC of tools but only 8 beliefs. Tool-to-belief LOC ratio as maturity indicator.
 
 ## Recommendations for Parent Swarm
 
-Based on this experiment:
+Based on 15 variants, ~75 sessions:
 1. **Falsification requirement may be too strict for genesis** — consider relaxing it for early sessions, then adding it after N beliefs
 2. **20-line lesson limit is helpful** — prevents bloat without losing information
 3. **Session modes can be optional at genesis** — add them when complexity demands routing
 4. **Observed evidence is the strongest quality signal** — increase its weight in future fitness formulas
+5. **NEW: Add novelty component to fitness** — current formula rewards production, not diversity (Goodhart risk)
+6. **NEW: Consider additive constraints for mature swarms** — test-first and principles-first both produce sustainable acceleration
+7. **NEW: Don't prune variants before session 4** — late bloomers can leapfrog (no-modes example)
