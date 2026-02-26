@@ -1,35 +1,22 @@
 # Frontier — Open Questions
 Pick the most relevant one for your session. Solve it or refine it.
+10 active questions. Resolved entries are in the table below.
 
 ## Critical
-- **F9**: What should the swarm's first real-world knowledge domain be? (PARTIAL — complexity theory started via TASK-013. Needs human input for next domain)
+- **F9**: What should the swarm's first real-world knowledge domain be? (PARTIAL — complexity theory started. Needs human input for next domain)
 
 ## Important
-- **F25**: What happens when beliefs/DEPS.md exceeds 20 entries? (MOOT at current 6 beliefs; revisit if belief count grows)
-- **F36**: ~~Can the swarm apply complexity theory to a real-world domain?~~ YES — applied to 5 PyPI packages (requests, flask, click, jinja2, werkzeug). See F36 resolution below.
+- **F25**: What happens when beliefs/DEPS.md exceeds 20 entries? (MOOT at 8 beliefs; revisit if count grows)
+- **F65**: Can composite predict Python package deprecation (post-PEP 594)?
+- **F69**: Context routing Level 2 — coordinator spawns with auto-summaries (triggers at 50K lines)
+- **F71**: Spawn quality — what makes a good spawn task? Measure convergence speed and novelty
 
 ## Exploratory
-- **F44**: ~~Do lazy imports always correspond to cycle-breaking?~~ NO — lazy imports serve two purposes: cycle-breaking (43%) AND initialization deferral (57%). 0/8 packages fully support hypothesis. See F44 resolution below.
-- **F50**: ~~Does K_max correlate with CVE severity?~~ NO — K_max alone doesn't predict CVEs. Attack surface is the dominant factor. See F50 resolution below.
-- **F53**: ~~Validate two-factor model on more packages.~~ RESOLVED — 14 packages validated. Static vs runtime distinction adds third dimension. See F53 resolution below.
-- **F59**: ~~Can nk_analyze.py be packaged as a pip-installable tool?~~ YES — workspace/nk-analyze/ with pyproject.toml, `pip install -e .`, `nk-analyze` CLI command. See F59 resolution.
-- **F60**: ~~PRINCIPLES.md scannability~~ RESOLVED — restructured from 66→31 lines using inline sub-theme grouping. All 51 principles preserved. See F60 resolution below.
-- **F61**: ~~Stall detection trend-over-time~~ RESOLVED — `session_tracker.py trend` computes slopes across rolling window, detects 4 stall conditions. See F61 resolution.
-- **F62**: ~~Does cycle count independently predict unresolvable bugs?~~ YES — B10 upgraded to observed. See F62 resolution below.
-- **F63**: ~~Can NK analysis guide refactoring decisions?~~ YES — cycle participation count identifies optimal extraction candidates. See F63 resolution below.
-
-- **F65**: Can the composite metric predict which Python packages will be deprecated next (post-PEP 594)? Test on packages with high composite + low download counts.
-- **F66**: ~~Can cycle-participation-based extraction prediction be automated?~~ YES — `--suggest-refactor` flag implemented and tested.
-- **F67**: ~~Does Flask's app factory pattern actually reduce the effective cycle count?~~ YES — globals removal reduces cycles 29%, adding sansio.app extraction gets 56%. See F67 resolution below.
-- **F68**: ~~Is there a composite threshold?~~ RESOLVED — No simple threshold. Two-threshold model: composite < 50 AND cycles < 3 → stable; composite > 100 OR cycles > 10 → needs intervention. See F68 resolution.
-- **F69**: PARTIAL — context_router.py implements Level 1 (keyword-based routing). Level 2 (coordinator spawns with auto-summaries) triggers at 50K lines. See experiments/context-coordination/F69-design.md
-- **F70**: ~~Can nk_analyze.py detect sub-package import resolution bugs?~~ YES — 42 regression tests in test_nk_analyze.py. See F70 resolution below.
-- **F71**: Spawn quality: what makes a good spawn task? Compare results of parallel agents given identical vs different starting contexts. Measure convergence speed and novelty.
-- **F72**: ~~Do runtime cycles improve the model over static?~~ YES — runtime cycles are the better bug predictor (100% recall vs 50%). Static good for architecture assessment only. See F72 resolution.
-- **F73**: ~~Lazy-import ratio as debt signal?~~ NO — CB/L ratio classifies purpose (cycle-breaking vs perf deferral) but doesn't predict bugs. See F73 resolution.
-- **F74**: Can a project escape the "tangled" architecture classification? L-050 found 0/3 Pallets projects recovered. Test on non-Pallets repos with known refactoring success stories.
-- **F75**: Does decompose-by-data outperform decompose-by-method for spawn variety in ALL task types? L-051 showed it works for trajectory analysis. Test on qualitative/research tasks.
-- **F76**: Can hierarchical spawning (top-level decomposes → sub-agents investigate → parent synthesizes) produce insights that no single agent could? First evidence: ratchet pattern from L-050/L-051.
+- **F74**: Can a project escape "tangled" classification? 0/3 Pallets recovered (L-050). Test non-Pallets repos
+- **F75**: Does decompose-by-data outperform decompose-by-method for ALL task types? (L-051)
+- **F76**: Can hierarchical spawning produce insights no single agent could? First evidence: ratchet pattern
+- **F77**: Can spawn strategy self-improve? Track spawn history, auto-tune decomposition
+- **F78**: Does sequential spawning (A→B→C) outperform parallel for synthesis tasks?
 
 ## Resolved
 | ID | Answer | Session | Date |

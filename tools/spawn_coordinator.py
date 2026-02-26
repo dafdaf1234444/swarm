@@ -6,6 +6,8 @@ Usage:
     python3 tools/spawn_coordinator.py plan <task-description> --decompose <item1> <item2> ...
     python3 tools/spawn_coordinator.py prompts <plan-file>
     python3 tools/spawn_coordinator.py evaluate <plan-file> <result1.json> <result2.json> ...
+    python3 tools/spawn_coordinator.py record <plan-file> <quality> <variety> [--novel N] [--lesson TEXT]
+    python3 tools/spawn_coordinator.py history
 
 Automates the pattern: decompose → spawn → collect → synthesize.
 The top-level swarm decomposes a complex task into sub-tasks by data,
@@ -21,6 +23,7 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 PLANS_DIR = REPO_ROOT / "experiments" / "spawn-plans"
+HISTORY_FILE = PLANS_DIR / "spawn-history.json"
 
 
 def plan(task: str, items: list[str], tool_cmd: str = "",
@@ -146,6 +149,56 @@ def evaluate(results: list[dict]):
     }
 
 
+def record_and_learn(plan_file: str, quality: float, variety: float,
+                     novel_insights: int = 0, lesson: str = ""):
+    """Record spawn outcome and suggest strategy improvements.
+
+    Appends to spawn-history.json and prints recommendations based
+    on accumulated experience.
+    """
+    data = json.loads(Path(plan_file).read_text())
+    PLANS_DIR.mkdir(parents=True, exist_ok=True)
+
+    # Load or create history
+    history = []
+    if HISTORY_FILE.exists():
+        history = json.loads(HISTORY_FILE.read_text())
+
+    record = {
+        "id": data["id"],
+        "task": data["task"],
+        "decomposition": "by-data",
+        "agents": len(data["agents"]),
+        "items": data["items"],
+        "quality_avg": round(quality, 2),
+        "variety": round(variety, 2),
+        "novel_insights": novel_insights,
+        "lesson": lesson,
+        "date": datetime.now().isoformat(),
+    }
+    history.append(record)
+    HISTORY_FILE.write_text(json.dumps(history, indent=2))
+
+    print(f"=== SPAWN RECORD: {data['id']} ===")
+    print(f"  Quality: {quality:.1f}  Variety: {variety:.2f}  Novel: {novel_insights}")
+
+    # Learn from history — recommend strategy adjustments
+    if len(history) >= 2:
+        avg_var = sum(h["variety"] for h in history) / len(history)
+        avg_qual = sum(h["quality_avg"] for h in history) / len(history)
+        print(f"\n  History ({len(history)} spawns): avg quality={avg_qual:.1f}, avg variety={avg_var:.2f}")
+
+        if variety < 0.4:
+            print("  RECOMMENDATION: Low variety. Try different data splits or add constraints.")
+        if quality < 1.0:
+            print("  RECOMMENDATION: Low quality. Make prompts more specific or reduce scope.")
+        if variety > avg_var + 0.1:
+            print(f"  NOTE: Variety above average ({avg_var:.2f}) — this decomposition works well.")
+
+    print(f"\n  Saved to: {HISTORY_FILE}")
+    return record
+
+
 def main():
     if len(sys.argv) < 2:
         print(__doc__)
@@ -185,6 +238,33 @@ def main():
         for f in sys.argv[2:]:
             results.append(json.loads(Path(f).read_text()))
         evaluate(results)
+
+    elif cmd == "record":
+        if len(sys.argv) < 5:
+            print("Usage: spawn_coordinator.py record <plan-file> <quality> <variety> [--novel N] [--lesson TEXT]")
+            sys.exit(1)
+        pf = sys.argv[2]
+        quality = float(sys.argv[3])
+        variety = float(sys.argv[4])
+        novel = 0
+        lesson = ""
+        if "--novel" in sys.argv:
+            novel = int(sys.argv[sys.argv.index("--novel") + 1])
+        if "--lesson" in sys.argv:
+            lesson = sys.argv[sys.argv.index("--lesson") + 1]
+        record_and_learn(pf, quality, variety, novel, lesson)
+
+    elif cmd == "history":
+        if HISTORY_FILE.exists():
+            history = json.loads(HISTORY_FILE.read_text())
+            print(f"=== SPAWN HISTORY ({len(history)} entries) ===\n")
+            for h in history:
+                print(f"  {h['id']}: q={h['quality_avg']:.1f} v={h['variety']:.2f} novel={h['novel_insights']} — {h['task'][:60]}")
+            avg_v = sum(h["variety"] for h in history) / len(history) if history else 0
+            avg_q = sum(h["quality_avg"] for h in history) / len(history) if history else 0
+            print(f"\n  Averages: quality={avg_q:.1f}, variety={avg_v:.2f}")
+        else:
+            print("No spawn history yet.")
 
     else:
         print(f"Unknown command: {cmd}")
