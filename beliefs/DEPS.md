@@ -5,7 +5,7 @@ Evidence types: `observed` (empirically tested in this system) | `theorized` (re
 When a belief is disproven: check dependents below → update those too.
 
 ## Interconnection model
-N=8 beliefs (7 observed, 1 theorized), target K≈1. See L-025.
+N=8 beliefs (8 observed, 0 theorized), target K≈1. See L-025.
 K=0 is frozen (no cascades, no adaptation). K=N-1 is chaotic (everything affects everything).
 
 ```
@@ -15,7 +15,7 @@ B1 (git-as-memory)
 └── B6 (architecture) ──→ B7 (protocols)
                        └── B8 (frontier)
 B9 (NK predictive power) ──→ B10 (cycle-count predictor)
-B10 (cycles predict unresolvable bugs) — needs testing
+B10 (cycles predict unresolvable bugs) — observed
 ```
 
 ---
@@ -67,10 +67,10 @@ B10 (cycles predict unresolvable bugs) — needs testing
 - **Last tested**: 2026-02-26 (Validated across 14 packages in 4 languages — Python, JavaScript, Go, Rust. Express 6.0/15.0, Go net/http 89.0, Rust serde 30.0 — all correctly ranked. 3 non-Python codebases exceed falsification threshold. Caveats: npm supply-chain blind spot (P-047), Go invisible coupling, Rust guaranteed zero cycles)
 
 ### B10: Cycle count is a stronger predictor of unresolvable (long-lived) bugs than K_avg or K_max
-- **Evidence**: theorized
+- **Evidence**: observed
 - **Falsified if**: A codebase with high cycle count (>5) has fewer long-lived bugs than a codebase with zero cycles but similar composite score, OR cycle count adds no predictive power beyond K_avg*N alone across 5+ packages
 - **Depends on**: B9
-- **Last tested**: never (Observed pattern: multiprocessing has 19 cycles + oldest bugs, email has 9 cycles + bugs since 2004, asyncio has 1 cycle + well-managed issues. But correlation ≠ causation, n too small)
+- **Last tested**: 2026-02-26 (9 CPython stdlib modules: multiprocessing 19 cycles→176 open/99 long-lived bugs, email 9 cycles→156/73, asyncio 1 cycle→52/8 despite highest composite. Cycles rank-correlate with open bugs better than K_avg, K_max, or composite. See experiments/complexity-applied/b10-cycle-bug-correlation.md)
 
 ---
 
