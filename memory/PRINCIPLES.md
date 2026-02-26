@@ -53,3 +53,4 @@ Two rules that address the same situation from different angles may combine into
 - **P-038**: When comparing NK across packages of different N, use K_avg and cycle count alongside K/N. A low K/N with high K_avg and cycles is deceptively complex. (from child:concurrent-b)
 - **P-039**: Automate the full evolution cycle (spawn→run→evaluate→integrate). Manual steps between spawn and merge-back kill iteration speed. (L-036)
 - **P-040**: For parallel work, spawn independent child swarms per agent. Same-swarm concurrency needs pull-rebase; different-swarm is contention-free. (L-037)
+- **P-041**: Use offspring viability scores to identify and fix template weaknesses. If children consistently fail a criterion, fix the template. (L-038)

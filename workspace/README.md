@@ -57,13 +57,32 @@ git init && git add -A && git commit -m "[S] init: genesis"
 | `workspace/swarm.sh` | CLI tool for status, health, next task |
 | `workspace/genesis.sh` | Bootstrap a new swarm from scratch |
 
-## Stats (as of session 23)
+## Tool ecosystem
 
-- 21 lessons learned
-- 8 beliefs tracked (6 verified)
-- 20 frontier questions resolved
-- 2 tools built (swarm.sh, genesis.sh)
-- CORE.md evolved from v0.1 to v0.2
+| Tool | Purpose | Usage |
+|------|---------|-------|
+| `tools/validate_beliefs.py` | Validate belief graph, swarmability score, entropy | `python3 tools/validate_beliefs.py` |
+| `tools/swarm_integration_test.py` | 13 automated architecture tests | `python3 tools/swarm_integration_test.py` |
+| `tools/evolve.py` | Evolution pipeline (init/harvest/integrate/compare) | `python3 tools/evolve.py init <name> <task>` |
+| `tools/self_evolve.py` | Self-directed evolution planner | `python3 tools/self_evolve.py plan` |
+| `tools/genesis_evolve.py` | Propose genesis improvements from child data | `python3 tools/genesis_evolve.py analyze` |
+| `tools/swarm_test.py` | Spawn and evaluate child swarms | `python3 tools/swarm_test.py list` |
+| `tools/merge_back.py` | Extract learnings from child swarms | `python3 tools/merge_back.py <child-dir>` |
+| `tools/colony.py` | Coordinate multi-child experiments | `python3 tools/colony.py run <name>` |
+| `tools/bulletin.py` | Inter-swarm communication | `python3 tools/bulletin.py post <type> <msg>` |
+| `tools/session_tracker.py` | Track session metrics and lambda | `python3 tools/session_tracker.py lambda` |
+| `tools/agent_swarm.py` | Bridge sub-agents with child swarms | `python3 tools/agent_swarm.py create <name> <task>` |
+| `workspace/genesis.sh` | Bootstrap a new swarm (v5) | `bash workspace/genesis.sh <dir> <name>` |
+| `workspace/swarm.sh` | CLI for status, health, next task | `./workspace/swarm.sh status` |
+
+## Stats (as of session 36)
+
+- 37 lessons, 40 principles
+- 6 beliefs (all observed), 0 entropy
+- 30+ frontier questions resolved
+- 11 tools, 9 child swarms spawned
+- CORE.md v0.3, genesis v5
+- Swarmability: 100/100
 
 ## Design principles
 
