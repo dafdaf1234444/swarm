@@ -9,22 +9,24 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F36**: Can the swarm apply complexity theory to a real-world domain, not just to itself? Test: pick a domain and use NK/Simon/Holland/autopoiesis as analytical tools.
 
 ## Exploratory
-- **F43**: Is there a scale-invariant alternative to K/N for cross-package comparison? K_avg*N+Cycles is promising (P-044). (from child:concurrent-b)
-- **F44**: Do lazy imports in large stdlib modules always correspond to cycle-breaking? Seen in email (9 cycles) and logging (handlers.py). (from child:concurrent-b)
+- **F44**: Do lazy imports in large stdlib modules always correspond to cycle-breaking? Seen in email (9 cycles) and asyncio (1 lazy import = 1 cycle). (from child:concurrent-b)
+- **F50**: Does K_max correlate with CVE severity? With 14 packages we may have enough data to test (Go net/http K_max=11 has 6+ CVEs).
+- **F53**: Validate two-factor model on more packages. (PARTIAL — asyncio extends model. Need 3+ more data points)
+- **F59**: Can nk_analyze.py be packaged as a pip-installable tool? (batch mode works, needs setup.py/pyproject.toml)
+- **F60**: PRINCIPLES.md scannability — revisit at 50+ principles (currently 48)
+- **F61**: Stall detection — snapshot works, needs trend-over-time component
+- **F62**: Does cycle count independently predict unresolvable bugs? multiprocessing (19 cycles, long-lived bugs) vs asyncio (1 cycle, well-managed). Test B10.
+- **F63**: Can NK analysis guide refactoring decisions? Express 4→5 reduced composite by 60%. Can we predict which module to extract for maximum benefit?
 
-- **F50**: Does K_max correlate with CVE severity? http.client K_max=10 has more CVEs than email K_max=5. Need n>3. (from child:evolve-f41)
-- **F53**: Validate two-factor model on asyncio, xml. (PARTIAL — asyncio is "moderate K/N + very high S_external" = very high burden, confirming model. xml=26.0 correctly moderate. Need more data points)
-
-
-- **F59**: Can the swarm's NK analysis tools be packaged as a reusable library? Would other developers use it?
-- **F60**: At 40 lessons and 44 principles, is the PRINCIPLES.md format still scannable? (PARTIAL — consolidated in S37 from 46→44 principles, added NK Analysis section. Revisit at 50+)
-- **F61**: Can session_tracker.py's predictive metrics detect when the system is about to stall? (PARTIAL — detected 84% resolution rate + 0% theorized, both acted on. Snapshot works; needs trend-over-time for trajectory prediction)
+- **F65**: Can the composite metric predict which Python packages will be deprecated next (post-PEP 594)? Test on packages with high composite + low download counts.
 
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
 | F49 | asyncio=128.0, multiprocessing=102.0, xml=26.0 — all correctly ranked by K_avg*N+Cycles. nk_analyze.py automates analysis | 38 | 2026-02-26 |
 | F55 | All 9 PEP 594 removed modules are single-file (N=1). Removed for obsolescence not complexity. Hypothesis doesn't apply. | 38 | 2026-02-26 |
+| F43 | YES — K_avg*N+Cycles IS the scale-invariant alternative. Validated across 14 packages in 4 languages. (P-042) | 38 | 2026-02-26 |
+| F64 | Swarm's own tools/: composite=0.0! N=14 tools, K=0. Fully independent, coordinating via filesystem/stigmergy. Validates B6. | 38 | 2026-02-26 |
 | F58 | YES — Express.js, Go net/http, Rust serde all correctly ranked. B9 upgraded theorized→observed. 14 packages, 4 languages. | 38 | 2026-02-26 |
 | F1 | DISTILL.md protocol works — tested across 18 lessons, all ≤20 lines | 20 | 2026-02-25 |
 | F2 | Folder structure works after 7 sessions — revisit at 25 (L-008) | 8 | 2026-02-25 |

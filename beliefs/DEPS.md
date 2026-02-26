@@ -5,7 +5,7 @@ Evidence types: `observed` (empirically tested in this system) | `theorized` (re
 When a belief is disproven: check dependents below → update those too.
 
 ## Interconnection model
-N=7 beliefs (all observed), target K≈1 (edge of chaos for small N per Kauffman's NK model). See L-025.
+N=8 beliefs (7 observed, 1 theorized), target K≈1. See L-025.
 K=0 is frozen (no cascades, no adaptation). K=N-1 is chaotic (everything affects everything).
 
 ```
@@ -14,7 +14,8 @@ B1 (git-as-memory)
 ├── B3 (small commits)
 └── B6 (architecture) ──→ B7 (protocols)
                        └── B8 (frontier)
-B9 (NK predictive power) — isolated, needs testing
+B9 (NK predictive power) ──→ B10 (cycle-count predictor)
+B10 (cycles predict unresolvable bugs) — needs testing
 ```
 
 ---
@@ -62,8 +63,14 @@ B9 (NK predictive power) — isolated, needs testing
 - **Evidence**: observed
 - **Falsified if**: K_avg*N+Cycles fails to correctly rank maintenance burden on 3+ non-Python codebases (e.g., npm packages, Go modules, Rust crates), OR a simpler metric (like raw line count) proves equally predictive
 - **Depends on**: none
-- **Depended on by**: none
+- **Depended on by**: B10
 - **Last tested**: 2026-02-26 (Validated across 14 packages in 4 languages — Python, JavaScript, Go, Rust. Express 6.0/15.0, Go net/http 89.0, Rust serde 30.0 — all correctly ranked. 3 non-Python codebases exceed falsification threshold. Caveats: npm supply-chain blind spot (P-047), Go invisible coupling, Rust guaranteed zero cycles)
+
+### B10: Cycle count is a stronger predictor of unresolvable (long-lived) bugs than K_avg or K_max
+- **Evidence**: theorized
+- **Falsified if**: A codebase with high cycle count (>5) has fewer long-lived bugs than a codebase with zero cycles but similar composite score, OR cycle count adds no predictive power beyond K_avg*N alone across 5+ packages
+- **Depends on**: B9
+- **Last tested**: never (Observed pattern: multiprocessing has 19 cycles + oldest bugs, email has 9 cycles + bugs since 2004, asyncio has 1 cycle + well-managed issues. But correlation ≠ causation, n too small)
 
 ---
 
