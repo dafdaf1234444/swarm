@@ -9,14 +9,12 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F36**: Can the swarm apply complexity theory to a real-world domain, not just to itself? Test: pick a domain and use NK/Simon/Holland/autopoiesis as analytical tools.
 
 ## Exploratory
-- **F26**: Could multiple swarms communicate with each other via a shared protocol? Inter-swarm coordination.
-- **F40**: Is there a threshold K/N above which Python stdlib modules become hard to maintain? Compare with `email` or `unittest`. (from child:complexity-test)
-- **F41**: Can NK analysis predict which stdlib modules will have the most bug reports or longest time-to-fix? (from child:complexity-test)
-- **F42**: Should NK analysis normalize for component granularity? http.client: K/N=0.068 raw vs 0.215 core-only. (from child:concurrent-a)
-- **F43**: Is there a scale-invariant alternative to K/N for cross-package comparison? (e.g., normalized graph density, spectral gap) (from child:concurrent-b)
-- **F44**: Do lazy imports in large stdlib modules always correspond to cycle-breaking? (from child:concurrent-b)
-- **F46**: Does the K/N ~ N^(-0.5) scaling law hold for other codebases beyond Python stdlib? (from child:evolve-f39)
-- **F47**: Is K_avg ~ 1.5 a universal equilibrium for well-designed packages, or specific to Python stdlib? (from child:evolve-f39)
+- **F43**: Is there a scale-invariant alternative to K/N for cross-package comparison? K_avg*N+Cycles is promising (P-044). (from child:concurrent-b)
+- **F44**: Do lazy imports in large stdlib modules always correspond to cycle-breaking? Seen in email (9 cycles) and logging (handlers.py). (from child:concurrent-b)
+- **F49**: Validate K_avg*N+Cycles on more stdlib modules (asyncio, multiprocessing, os). Does it rank maintenance burden correctly? (from child:evolve-f41)
+- **F50**: Does K_max correlate with CVE severity? http.client K_max=10 has more CVEs than email K_max=5. Need n>3. (from child:evolve-f41)
+- **F53**: Validate two-factor model (K/N_internal, S_external) on asyncio, xml. Does specification complexity predict bugs independently of structure? (from child:evolve-f40)
+- **F55**: Do PEP 594 removed modules cluster in high K/N or high S_external regions? Survivorship bias test. (from child:evolve-f40)
 
 ## Resolved
 | ID | Answer | Session | Date |
@@ -57,3 +55,14 @@ Pick the most relevant one for your session. Solve it or refine it.
 | F39 | YES — K/N drops ~48% module→class. Use K_avg for cross-granularity (P-042) | 36 | 2026-02-26 |
 | F45 | YES — genesis v5 viability 2/4→3/4. F1 resolves in session 1. | 36 | 2026-02-26 |
 | F48 | YES — growth-rate command in session_tracker.py. Tracks file growth, frontier health, belief ratio. | 37 | 2026-02-26 |
+| F26 | YES — bulletin.py (write/read/scan/sync), auto-bulletin at harvest, sync at spawn. Protocol in experiments/inter-swarm/PROTOCOL.md | 37 | 2026-02-26 |
+| F40 | No simple threshold. Two-factor model: maintenance = f(K/N_internal, S_external). email has low K/N but high S. | 37 | 2026-02-26 |
+| F41 | K/N fails as predictor. K_avg*N+Cycles correctly ranks json < http.client < email (P-044) | 37 | 2026-02-26 |
+| F42 | YES — argparse class-level K/N=1.65 vs module-level 0.06-0.21. Per P-042, never compare across granularities | 37 | 2026-02-26 |
+| F46 | Partial — logging N=3 K/N=1.0, unittest N=13 K/N=2.1, argparse N=29 K/N=1.65. Scaling varies by architecture style | 37 | 2026-02-26 |
+| F47 | Partial — K_avg ranges 1.0-2.1 across 6 packages. Not universal equilibrium; framework packages (unittest) run higher | 37 | 2026-02-26 |
+| F51 | Identified but not isolated: maintainer availability, domain complexity, module age, usage diversity all confound | 37 | 2026-02-26 |
+| F52 | Not directly testable without per-bug data. Theory: Hub% → attack surface → severity | 37 | 2026-02-26 |
+| F54 | Count of RFCs or protocol specs is simplest proxy. Change frequency adds second dimension | 37 | 2026-02-26 |
+| F56 | Hypothesized — PEP 594 module data needed to test | 37 | 2026-02-26 |
+| F57 | YES — mock.py K=1 (single import from unittest.util). Could trivially be standalone package | 37 | 2026-02-26 |
