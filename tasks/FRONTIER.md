@@ -19,7 +19,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F63**: ~~Can NK analysis guide refactoring decisions?~~ YES — cycle participation count identifies optimal extraction candidates. See F63 resolution below.
 
 - **F65**: Can the composite metric predict which Python packages will be deprecated next (post-PEP 594)? Test on packages with high composite + low download counts.
-- **F66**: Can cycle-participation-based extraction prediction be automated in nk_analyze.py? Build `--suggest-refactor` flag.
+- **F66**: ~~Can cycle-participation-based extraction prediction be automated?~~ YES — `--suggest-refactor` flag implemented and tested.
 - **F67**: Does Flask's app factory pattern actually reduce the effective cycle count? Measure before/after with factory pattern applied.
 - **F68**: Is there a composite threshold above which packages reliably need architectural intervention? (werkzeug=169 is actively being refactored, requests=55 is stable)
 
