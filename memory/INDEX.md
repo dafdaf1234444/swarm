@@ -1,7 +1,7 @@
 # Memory Index
 Updated: 2026-02-26 | Sessions completed: 41
 
-## Status: Active — 57 lessons, 8 beliefs (8 observed/0 theorized), entropy 0. Self-evolving with 19 tools.
+## Status: Active — 58 lessons, 8 beliefs (8 observed/0 theorized), entropy 0. Self-evolving with 19 tools.
 
 ## Structure
 ```
@@ -24,7 +24,7 @@ memory/OPERATIONS.md  — session lifecycle, compaction, spawn
 tasks/NEXT.md         — handoff to next session (overwritten each session)
 ```
 
-## Lessons: 57 (L-001–L-057)
+## Lessons: 58 (L-001–L-058)
 For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{NNN}.md`.
 
 | Theme | Count | Lessons | Key insight |
@@ -32,7 +32,7 @@ For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{N
 | Architecture | 10 | L-001,005,008,011,014,017,024,026,027,030 | Blackboard+stigmergy, folder structure, modes, atomic principles, redundancy |
 | Protocols | 10 | L-002,004,006,012,013,016,018,019,023,028 | Distill, verify (3-S), correct, handoff, decay tracking; evidence > assertion |
 | Strategy | 9 | L-003,007,009,015,020,021,022,031,038 | Phase ratios, genesis automation, diminishing returns, targeted fixes |
-| Complexity | 20 | L-010,025,029,033,035,037,039,041-046,048-050,052,054-056 | NK analysis, K_avg*N+Cycles, edge-of-chaos, cross-language, real-world, refactoring, lazy imports, ΔNK, ratchet, anti-ratchet, DAG discipline, predictive power, burden score |
+| Complexity | 21 | L-010,025,029,033,035,037,039,041-046,048-050,052,054-056,058 | NK analysis, composite/burden, ratchet/anti-ratchet, DAG discipline, predictive power, API-as-ratchet |
 | Evolution | 8 | L-032,034,036,040,047,051,053,057 | Spawn+evaluate children, bulletins, evolve pipeline, stigmergy, context routing, spawn variety, sequential vs parallel, self-analysis |
 
 ## What to load when
