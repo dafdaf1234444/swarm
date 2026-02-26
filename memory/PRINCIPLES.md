@@ -48,6 +48,9 @@ Themes aligned with INDEX.md. 48 principles from 42 lessons + children.
 - **P-038**: Use K_avg and cycle count alongside K/N. Low K/N with high K_avg and cycles is deceptively complex. (from child:concurrent-b)
 - **P-042**: Never compare K/N across different granularities or different N. K/N is scale-dependent (= K_avg/N). Use K_avg*N+Cycles as composite predictor. Always state N. (L-039)
 - **P-047**: When applying NK to package ecosystems with heavy external deps, note the boundary choice. Internal NK is necessary but not sufficient — supply-chain complexity needs separate accounting. (L-041)
+- **P-049**: When evaluating a package's complexity, include critical dependencies. Internal NK understates real burden — ecosystem NK (sum of deps) reveals the true cost. (L-043)
+- **P-050**: Cycle count predicts bug accumulation rate better than K_avg, K_max, or composite. Prioritize cycle reduction in refactoring. (L-044)
+- **P-051**: To identify refactoring targets: count each module's cycle participation, not its K. Extract modules with high K_in + low K_out first. (L-045)
 
 ## Evolution (spawn, colony, stigmergy)
 - **P-032**: Test architecture by spawning and measuring offspring viability, not by inspecting the parent. (L-032)
