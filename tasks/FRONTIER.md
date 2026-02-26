@@ -7,7 +7,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 ## Important
 - **F25**: What happens when beliefs/DEPS.md exceeds 20 entries? (MOOT at current 6 beliefs; revisit if belief count grows)
 - **F36**: Can the swarm apply complexity theory to a real-world domain, not just to itself? Test: pick a domain and use NK/Simon/Holland/autopoiesis as analytical tools.
-- **F45**: Does genesis v5 (resolvable F1 + NEXT.md template) raise child viability above 3/4?
+- **F45**: Does genesis v5 raise child viability? YES — from 2/4 to 3/4. F1 now resolves in session 1. 4/4 requires domain task producing observed evidence.
 
 ## Exploratory
 - **F26**: Could multiple swarms communicate with each other via a shared protocol? Inter-swarm coordination.
