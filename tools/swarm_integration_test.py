@@ -198,30 +198,27 @@ def test_entropy_zero():
 
 
 def test_principles_count_matches_lessons():
-    """Test that every lesson with a rule has a matching principle."""
+    """Test that PRINCIPLES.md contains all principle IDs referenced in lessons."""
     principles = REPO_ROOT / "memory" / "PRINCIPLES.md"
     p_text = principles.read_text()
-    p_ids = set(re.findall(r"\(L-(\d+)\)", p_text))
+    # Find all P-NNN references in PRINCIPLES.md
+    p_ids = set(re.findall(r"P-(\d+)", p_text))
 
     lessons_dir = REPO_ROOT / "memory" / "lessons"
     missing = []
     for f in sorted(lessons_dir.glob("L-*.md")):
         if f.name == "TEMPLATE.md":
             continue
-        lesson_num = re.search(r"L-(\d+)", f.name).group(1)
         text = f.read_text()
-        # Check if lesson has a rule
-        if "## Rule extracted" in text:
-            rule_m = re.search(
-                r"## Rule extracted.*?\n(.+?)(?:\n\n|\n##|\Z)",
-                text, re.DOTALL
-            )
-            if rule_m and rule_m.group(1).strip() and rule_m.group(1).strip() != "none":
-                if lesson_num not in p_ids:
-                    missing.append(f"L-{lesson_num}")
+        # Check if lesson defines a principle (## Principle or ## Rule extracted)
+        p_match = re.search(r"P-(\d+)", text)
+        if p_match:
+            p_num = p_match.group(1)
+            if p_num not in p_ids:
+                missing.append(f"P-{p_num} (from {f.name})")
 
     if missing:
-        raise RuntimeError(f"Lessons with rules but no principle: {missing}")
+        raise RuntimeError(f"Principles in lessons but not in PRINCIPLES.md: {missing}")
     return True
 
 

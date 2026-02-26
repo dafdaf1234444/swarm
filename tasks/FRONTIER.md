@@ -13,7 +13,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F50**: ~~Does K_max correlate with CVE severity?~~ NO — K_max alone doesn't predict CVEs. Attack surface is the dominant factor. See F50 resolution below.
 - **F53**: Validate two-factor model on more packages. (PARTIAL — asyncio extends model. Need 3+ more data points)
 - **F59**: ~~Can nk_analyze.py be packaged as a pip-installable tool?~~ YES — workspace/nk-analyze/ with pyproject.toml, `pip install -e .`, `nk-analyze` CLI command. See F59 resolution.
-- **F60**: PRINCIPLES.md scannability — revisit at 50+ principles (currently 48)
+- **F60**: ~~PRINCIPLES.md scannability~~ RESOLVED — restructured from 66→31 lines using inline sub-theme grouping. All 51 principles preserved. See F60 resolution below.
 - **F61**: Stall detection — snapshot works, needs trend-over-time component
 - **F62**: ~~Does cycle count independently predict unresolvable bugs?~~ YES — B10 upgraded to observed. See F62 resolution below.
 - **F63**: ~~Can NK analysis guide refactoring decisions?~~ YES — cycle participation count identifies optimal extraction candidates. See F63 resolution below.
@@ -29,6 +29,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F60 | RESOLVED — restructured from 66→31 lines using inline sub-theme grouping with | separators. All 51 principles preserved. Next trigger: 80+ principles. | 40 | 2026-02-26 |
 | F44 | NO — lazy imports serve two purposes: cycle-breaking (43%) AND initialization deferral (57%). 8 packages tested, 0 fully support "always = cycle-breaking". multiprocessing has 50 lazy imports, 33 cycle-breaking. | 40 | 2026-02-26 |
 | F36 | YES — applied NK to 5 real PyPI packages (requests=55.0, click=68.0, jinja2=109.0, flask=124.0, werkzeug=169.0). B9 validated on 19 packages. | 39 | 2026-02-26 |
 | F50 | NO — K_max alone doesn't predict CVEs. Attack surface dominates. Within exposed packages, K_max×cycles adds moderate signal. | 39 | 2026-02-26 |

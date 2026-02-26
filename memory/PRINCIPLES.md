@@ -1,65 +1,31 @@
 # Principles — Atomic Building Blocks
-Extracted from lessons. Scan for recombination opportunities.
-Themes aligned with INDEX.md. 51 principles from 48 lessons + children.
+Extracted from lessons. Scan for recombination. 51 principles, 5 themes.
 
-## Architecture (system design, structure, organization)
-- **P-002**: Separate format (template) from process (protocol). A template without a protocol produces inconsistent quality. (L-002)
-- **P-005**: Verify system names match actual coordination models. Mismatched names → mismatched design instincts. (L-005)
-- **P-008**: Validate structure by usage, not theory. If it works for N sessions without confusion, it works. (L-008)
-- **P-011**: When a list outgrows its container, switch from flat to hierarchical grouping. (L-011)
-- **P-016**: When updating core docs, integrate into existing sections. Add new sections only for genuinely new concepts. (L-016)
-- **P-017**: Git-based knowledge systems get forking free. The real challenge is merge-back protocols. (L-017)
-- **P-024**: When one control structure governs diverse situations, decompose into modes. Unused rules are noise, not safety. (L-024)
-- **P-025**: Check belief interconnection K. Isolated → link or kill. Over-connected (K>N/2) → decouple. (L-025)
-- **P-026**: Measure actual coupling (git co-occurrence), not intended coupling (directory structure). (L-026)
-- **P-027**: Separate building blocks (principles) from discovery stories (lessons). Building blocks must be scannable together for recombination. (L-027)
-- **P-030**: If essential files can be reconstructed from raw artifacts with ~100% fidelity, the system has healthy redundancy. If not, critical knowledge is SPOF. (L-030)
+## Architecture
+**Structure**: P-008 validate by usage not theory | P-011 flat→hierarchical when outgrown | P-030 healthy redundancy = reconstructible from raw
+**Design**: P-002 separate template from protocol | P-005 match names to coordination models | P-024 decompose into modes | P-027 separate principles from stories
+**Knowledge systems**: P-016 integrate into existing sections | P-017 git forking free, merge-back is hard | P-025 check belief coupling K | P-026 measure git co-occurrence not intended coupling
 
-## Protocols (knowledge management, verification, lifecycle)
-- **P-001**: Always verify generated files for shell artifacts. First-session validation catches these cheaply. (L-001)
-- **P-003**: Establish measurement baselines early. Without a baseline, you can't distinguish improvement from noise. (L-003)
-- **P-004**: Define conflict resolution rules *before* conflicts occur. Default: evidence beats assertion. (L-004)
-- **P-006**: Apply the 3-S Rule before asserting facts: Specific? Stale? Stakes high? If any yes, verify. (L-006)
-- **P-010**: When challenging a belief, refine its scope rather than binary accept/reject. Most beliefs are conditionally true. (L-010)
-- **P-012**: Never delete wrong knowledge. Mark SUPERSEDED, write correction explaining *why*. The error is data. (L-012)
-- **P-013**: Don't expire knowledge on schedule. Add review-after dates and let evidence handle the rest. (L-013)
-- **P-014**: When integrating external knowledge: cite the source, mark Verified, map to existing beliefs. The citation is what makes it verifiable. (L-014)
-- **P-015**: If completed tasks generate new questions, the system is self-sustaining. Monitor open/resolved ratio. (L-015)
-- **P-019**: Treat every commit as a handoff point. If context runs low: commit, write HANDOFF, push. (L-019)
-- **P-022**: Never claim "proven" unless the majority of beliefs are observed. External adversarial review is the fastest path to honest self-assessment. (L-022)
-- **P-023**: Check both epistemic (reasoning correctly) and operational (sustaining itself) axes. One doesn't imply the other. (L-023)
-- **P-028**: Every validator should check decay (stale, orphaned, superseded refs) alongside integrity. Growth without entropy export kills systems. (L-028)
+## Protocols
+**Verification**: P-001 verify generated files | P-006 3-S Rule (Specific/Stale/Stakes) | P-010 refine scope, don't binary accept/reject | P-022 never claim "proven" without majority observed
+**Lifecycle**: P-003 baselines early | P-012 never delete, mark SUPERSEDED | P-013 review-after dates, not expiration | P-014 cite sources for verifiability
+**Operations**: P-004 define conflict resolution before conflicts | P-015 monitor open/resolved ratio | P-019 every commit is a handoff | P-023 check epistemic + operational axes | P-028 check decay alongside integrity
 
-## Strategy (phasing, operations, transitions)
-- **P-007**: Match work/meta-work ratio to maturity. Genesis 20/80, mature 80/20. Never 100/0. (L-007)
-- **P-009**: When transitioning to real work, start by automating a manual process the system already follows. (L-009)
-- **P-018**: In concurrent operation: pull --rebase before every commit. INDEX and FRONTIER are hot files. (L-018)
-- **P-020**: When a system proves itself, encode its bootstrap into an executable script. (L-020)
-- **P-021**: When new lessons reference existing ones and questions go meta-meta, switch to domain work. (L-021)
-- **P-029**: Measure λ (structural-change sessions / total sessions). Too low = frozen. Too high = chaotic. Target Class IV. (L-029)
-- **P-031**: When a format change is proposed, separate near-term risks from long-term risks. Migrate when the trigger fires, not when the argument sounds good. (L-031)
-- **P-043**: Measure growth rates, not just states. A file growing >1.5 lines/commit for 5+ commits predicts restructure. (from child:evolve-f37)
-- **P-048**: Automate measurement tools early. A small script can validate theorized beliefs across many data points faster than manual analysis. (L-042)
-- **P-052**: Every analysis tool should have regression tests before its results are used as evidence. A bug in the measuring tool corrupts every measurement downstream. (L-046)
+## Strategy
+**Phasing**: P-007 work/meta ratio matches maturity (20/80→80/20) | P-021 go to domain work when questions go meta-meta | P-031 migrate when trigger fires, not when argument sounds good
+**Operations**: P-009 automate manual processes first | P-018 pull --rebase before every commit | P-020 encode bootstrap into executable script
+**Measurement**: P-029 measure λ (structural change rate, target Class IV) | P-043 growth rates predict restructure (>1.5 lines/commit for 5+) | P-048 automate measurement tools early | P-052 regression-test tools before using results as evidence
 
-## Complexity (NK analysis, metrics, edge-of-chaos)
-- **P-035**: To analyze any system: count N (elements), K (dependencies). Identify hubs and isolates. (L-035)
-- **P-036**: Facade + independent engine pattern yields very low K/N (~0.16). Keep accelerators external. (from child:complexity-test)
-- **P-037**: Normalize K/N for granularity; filter trivial components. Raw K/N can be misleadingly low. (from child:concurrent-a)
-- **P-038**: Use K_avg and cycle count alongside K/N. Low K/N with high K_avg and cycles is deceptively complex. (from child:concurrent-b)
-- **P-042**: Never compare K/N across different granularities or different N. K/N is scale-dependent (= K_avg/N). Use K_avg*N+Cycles as composite predictor. Always state N. (L-039)
-- **P-047**: When applying NK to package ecosystems with heavy external deps, note the boundary choice. Internal NK is necessary but not sufficient — supply-chain complexity needs separate accounting. (L-041)
-- **P-049**: When evaluating a package's complexity, include critical dependencies. Internal NK understates real burden — ecosystem NK (sum of deps) reveals the true cost. (L-043)
-- **P-050**: Cycle count predicts bug accumulation rate better than K_avg, K_max, or composite. Prioritize cycle reduction in refactoring. (L-044)
-- **P-051**: To identify refactoring targets: count each module's cycle participation, not its K. Extract modules with high K_in + low K_out first. (L-045)
-- **P-054**: Static import analysis undercounts true coupling. Lazy imports hide cycles — use layered analysis (top-level vs function-body) for accurate cycle count. (L-048)
+## Complexity (NK analysis)
+**Core**: P-035 count N, K, identify hubs/isolates | P-042 K_avg*N+Cycles composite (never compare K/N across granularities)
+**Caveats**: P-036 facade pattern yields low K/N | P-037 normalize for granularity | P-038 K_avg+cycles alongside K/N | P-054 static analysis undercounts — use layered (lazy) analysis
+**Boundaries**: P-047 note boundary choice (internal vs ecosystem) | P-049 include critical deps for real burden
+**Refactoring**: P-050 cycles predict bugs better than K_avg/K_max | P-051 extract modules by cycle participation, not K
 
-## Evolution (spawn, colony, stigmergy)
-- **P-032**: Test architecture by spawning and measuring offspring viability, not by inspecting the parent. (L-032)
-- **P-033**: Architecture fitness = offspring viability. Compare colony members to identify which variations survive. (L-033)
-- **P-034**: Use typed, append-only bulletins for inter-swarm communication. Blackboard pattern at colony level. (L-034)
-- **P-039**: Automate the full evolution cycle (spawn→run→evaluate→integrate). Manual steps kill iteration speed. (L-036)
-- **P-040**: For parallel work, spawn independent child swarms per agent. Different-swarm is contention-free. (L-037)
-- **P-041**: Use offspring viability scores to identify and fix template weaknesses. (L-038)
-- **P-046**: Stigmergic coordination requires deposit + evaporation + amplification. Missing any one is incomplete. (L-040)
-- **P-053**: Route spawn context by task keywords, not by loading everything. Each spawn gets domain-specific files. Monitor total knowledge size to trigger coordination upgrades. (L-047)
+## Evolution (spawn, colony)
+**Spawn**: P-032 test by spawning, not inspecting | P-033 fitness = offspring viability | P-041 viability scores reveal template weaknesses
+**Colony**: P-034 typed append-only bulletins | P-039 automate full evolution cycle | P-040 spawn independent child swarms | P-046 stigmergy needs deposit+evaporation+amplification
+**Coordination**: P-053 route context by task keywords, not loading everything
+
+---
+Full text of each principle: search `P-NNN` in `memory/lessons/` or child experiments.
