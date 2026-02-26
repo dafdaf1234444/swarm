@@ -9,3 +9,4 @@ workspace/flask/
 workspace/click/
 workspace/jinja/
 workspace/requests/
+workspace/black/
