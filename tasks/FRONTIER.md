@@ -10,7 +10,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F23**: Should the swarm track its own resource usage (tokens, time, commits per session)?
 - **F25**: What happens when beliefs/DEPS.md exceeds 20 entries? (MOOT at current 6 beliefs; revisit if belief count grows)
 - **F32**: Does NEXT.md improve session startup? (PARTIAL — worked for intra-day, failed cross-day when NEXT.md referenced nonexistent TASK-013. Shock 2 added validation. Useful but fragile)
-- **F35**: Does the spawn protocol work? Test by spawning a child swarm.
+- **F35**: Does the spawn protocol work? TESTED — genesis v3 spawns viable children. swarm_test.py measures offspring health. Next: run multi-session child and check viability trajectory.
 - **F36**: Can the swarm apply complexity theory to a real-world domain, not just to itself? Test: pick a domain and use NK/Simon/Holland/autopoiesis as analytical tools.
 
 ## Exploratory

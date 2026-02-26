@@ -29,12 +29,13 @@ If context feels constrained or you're losing track:
 Run compaction when ANY fires:
 - INDEX.md exceeds 60 lines
 - Total mandatory load exceeds 200 lines
-- More than 30 lessons exist (currently 25)
+- More than 45 lessons exist (next trigger after 31)
 - Swarmability "Context Efficiency" drops below 10/20
 
 Compaction method: replace individual lesson lines in INDEX.md with theme summaries.
 Create `memory/themes/` if needed. Run validator before and after.
 
-## Spawn (untested — see F35)
+## Spawn (tested — genesis v3)
 To create a child swarm: `./workspace/genesis.sh ~/child-swarm-[name] "[topic]"`
 Scope it to <5 sessions. Child develops own beliefs. Merge back via parent session reading compressed findings.
+For sub-swarm testing: use `tools/swarm_test.py` to spawn, run, and evaluate child swarms.
