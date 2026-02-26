@@ -62,7 +62,7 @@ B9 (NK predictive power) — isolated, needs testing
 - **Evidence**: theorized
 - **Falsified if**: K_avg*N+Cycles fails to correctly rank maintenance burden on 3+ non-Python codebases (e.g., npm packages, Go modules, Rust crates), OR a simpler metric (like raw line count) proves equally predictive
 - **Depends on**: none
-- **Last tested**: never (tested only on 6 Python stdlib packages — n too small for generalization)
+- **Last tested**: 2026-02-26 (Express.js analysis: Express 5 N=6 score=6.0, Express 4 N=11 score=15.0. Correctly ranks both versions. BUT reveals supply-chain blind spot — Express externalizes complexity to 26 npm deps invisible to internal NK. 1 non-Python codebase tested, need 2 more for falsification threshold)
 
 ---
 

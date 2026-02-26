@@ -50,6 +50,7 @@ Two rules that address the same situation from different angles may combine into
 - **P-038**: Use K_avg and cycle count alongside K/N. Low K/N with high K_avg and cycles is deceptively complex. (from child:concurrent-b)
 - **P-042**: Never compare K/N across different granularities or different N. K/N is scale-dependent (= K_avg/N). Use K_avg*N+Cycles as composite predictor. Always state N. (L-039)
 - **P-043**: Measure growth rates, not just states. A file growing >1.5 lines/commit for 5+ commits predicts restructure. (from child:evolve-f37)
+- **P-047**: When applying NK to package ecosystems with heavy external deps, note the boundary choice. Internal NK is necessary but not sufficient — supply-chain complexity needs separate accounting. (L-041)
 
 ## Spawn & Evolution
 - **P-032**: Test architecture by spawning and measuring offspring viability, not by inspecting the parent. (L-032)

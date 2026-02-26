@@ -15,9 +15,9 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F50**: Does K_max correlate with CVE severity? http.client K_max=10 has more CVEs than email K_max=5. Need n>3. (from child:evolve-f41)
 - **F53**: Validate two-factor model (K/N_internal, S_external) on asyncio, xml. Does specification complexity predict bugs independently of structure? (from child:evolve-f40)
 - **F55**: Do PEP 594 removed modules cluster in high K/N or high S_external regions? Survivorship bias test. (from child:evolve-f40)
-- **F58**: Does K_avg*N+Cycles predict maintenance burden in non-Python codebases? Test B9 on npm packages or Go modules.
+- **F58**: Does K_avg*N+Cycles predict maintenance burden in non-Python codebases? (PARTIAL — Express.js tested, correctly ranks v4 vs v5. Need Go + Rust for B9 falsification threshold of 3+)
 - **F59**: Can the swarm's NK analysis tools be packaged as a reusable library? Would other developers use it?
-- **F60**: At 40 lessons and 46 principles, is the PRINCIPLES.md format still scannable? Should it be restructured?
+- **F60**: At 40 lessons and 44 principles, is the PRINCIPLES.md format still scannable? (PARTIAL — consolidated in S37 from 46→44 principles, added NK Analysis section. Revisit at 50+)
 - **F61**: Can session_tracker.py's predictive metrics detect when the system is about to stall (Class I/II transition)?
 
 ## Resolved
