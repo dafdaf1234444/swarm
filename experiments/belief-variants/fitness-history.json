@@ -61,6 +61,13 @@
       "commits": 7,
       "beliefs": 11,
       "observed": 8
+    },
+    {
+      "timestamp": "2026-02-26T11:48:37",
+      "fitness": 345.0,
+      "commits": 8,
+      "beliefs": 12,
+      "observed": 12
     }
   ],
   "belief-no-lesson-limit": [
@@ -150,6 +157,13 @@
       "commits": 2,
       "beliefs": 10,
       "observed": 8
+    },
+    {
+      "timestamp": "2026-02-26T11:48:36",
+      "fitness": 313.0,
+      "commits": 2,
+      "beliefs": 15,
+      "observed": 15
     }
   ],
   "belief-aggressive-minimal": [
@@ -159,6 +173,13 @@
       "commits": 2,
       "beliefs": 7,
       "observed": 6
+    },
+    {
+      "timestamp": "2026-02-26T11:48:33",
+      "fitness": 208.0,
+      "commits": 2,
+      "beliefs": 9,
+      "observed": 9
     }
   ],
   "belief-principles-first": [
@@ -168,6 +189,13 @@
       "commits": 2,
       "beliefs": 7,
       "observed": 6
+    },
+    {
+      "timestamp": "2026-02-26T11:48:41",
+      "fitness": 224.0,
+      "commits": 2,
+      "beliefs": 9,
+      "observed": 9
     }
   ],
   "belief-test-first": [
@@ -177,6 +205,13 @@
       "commits": 1,
       "beliefs": 8,
       "observed": 8
+    },
+    {
+      "timestamp": "2026-02-26T11:48:42",
+      "fitness": 276.0,
+      "commits": 2,
+      "beliefs": 13,
+      "observed": 13
     }
   ]
 }

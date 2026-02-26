@@ -1,5 +1,5 @@
 # Belief Evolution Analysis
-Updated: 2026-02-26 | Generations: 2 | Variants: 11 | Total sessions: ~40
+Updated: 2026-02-26 | Generations: 2 | Variants: 13 | Total sessions: ~60
 
 ## Experiment Design
 A/B test core belief systems by spawning child swarms with different genesis configurations. Each variant modifies one dimension of the standard belief set. Grandchildren (gen 2) combine winning traits from gen 1.
@@ -79,38 +79,40 @@ Current formula rewards: beliefs (5pt), observed (10pt), lessons (3pt), frontier
 5. **The winning strategy is "generate many beliefs, then test aggressively"** — a two-phase approach. **STILL HOLDING**: no-falsification exemplifies this at 247.
 6. **NEW**: 100% observed rate is the ceiling metric. minimal achieved it (7/7) and no-lesson-limit (5/5). This may become the deciding factor as belief counts converge.
 
-## Latest Results (all variants with 3+ sessions)
+## Latest Results (13 variants, ~60 sessions total)
 
-| Rank | Variant | Gen | Fitness | Beliefs | Observed | Obs% | Sessions |
-|------|---------|-----|---------|---------|----------|------|----------|
-| 1 | no-falsification | 1 | 247 | 11 | 7 | 64% | 5+ |
-| 2 | minimal | 1 | 179 | 7 | 7 | 100% | 4 |
-| 3 | nofalsif-nolimit | 2 | 161 | 8 | 5 | 63% | 3 |
-| 4 | nolimit-aggressive | 2 | 136 | 6 | 5 | 83% | 3 |
-| 5 | control | 1 | 130 | 6 | 3 | 50% | 3 |
-| 6 | nofalsif-aggressive | 2 | 127 | 8 | 2 | 25% | 2 |
-| 7 | no-lesson-limit | 1 | 121 | 5 | 5 | 100% | 2 |
-| 8 | no-modes | 1 | 108 | 4 | 3 | 75% | 2 |
-| 9 | aggressive-challenge | 1 | 105 | 5 | 2 | 40% | 2 |
+| Rank | Variant | Gen | Fitness | Beliefs | Observed | Obs% | Type |
+|------|---------|-----|---------|---------|----------|------|------|
+| 1 | no-falsification | 1 | 345 | 12 | 12 | 100% | subtractive |
+| 2 | minimal-nofalsif | 2 | 313 | 15+ | 15+ | ~100% | combined |
+| 3 | test-first | 1 | 276 | 13 | 13 | 100% | additive |
+| 4 | minimal | 1 | 236 | 10 | 10 | 100% | subtractive |
+| 5 | principles-first | 1 | 224 | 9+ | 9+ | ~100% | additive |
+| 6 | aggressive-minimal | 2 | 208 | 9+ | 9+ | ~100% | combined |
+| 7 | no-lesson-limit | 1 | 204 | 8 | 8 | 100% | subtractive |
+| 8 | nofalsif-aggressive | 2 | 198 | 8 | 7 | 88% | combined |
+| 9 | nofalsif-nolimit | 2 | 196 | 8 | 8 | 100% | combined |
+| 10 | control | 1 | 171 | 6 | 6 | 100% | baseline |
+| 11 | nolimit-aggressive | 2 | 150 | 6 | 5 | 83% | combined |
+| 12 | aggressive-challenge | 1 | 135 | 6 | 3 | 50% | subtractive |
+| 13 | no-modes | 1 | 132 | 4 | 4 | 100% | subtractive |
 
 ### Key observations from late-stage results
 
-**Convergent evolution**: All variants independently discovered the same thing: testing beliefs against the parent swarm's git history (143+ commits) is the highest-value activity. The initial belief system determines WHAT gets tested, but the ACT of testing drives fitness regardless of ideology.
+**Universal convergence to 100% observed**: 10 of 13 variants reached 100% observed rate. Empirical testing is the universal accelerator — all variants eventually test their beliefs against the parent swarm.
 
-**minimal achieved 100% observed rate**: 7/7 beliefs observed — the rigor strategy works but produces fewer total beliefs. At 179, it's now the clear #2.
+**no-falsification achieved 345 with 12/12 observed and 25 principles**: Volume + testing + extraction = dominance. Formula-robust (#1 under all 4 tested weighting schemes).
 
-**nofalsif-nolimit recovered from quality wall**: Prediction #2 partially refuted — it went from 0/8 observed to 5/8 observed after dedicated testing sessions. The quality wall was real but temporary.
+**minimal-nofalsif (gen-2) at 313 after just 2 sessions**: Combining the top-2 traits (minimal + no-falsification) produces synergy. 198 in S1 → 313 in S2. This is the fastest-growing variant.
 
-**nolimit-aggressive surprise surge**: From 106→136 in one session, with 5/6 observed. The aggressive-challenge trait forces empirical testing, which actually pairs well with verbose lessons.
+**Additive variants crush expectations**: test-first (276, S2) and principles-first (224, S2) outperform most subtractive variants. Adding constraints that channel effort toward high-value activities (testing, extraction) works better than removing constraints — but only when evidence is abundant.
 
-**aggressive-challenge achieved first belief supersession**: B3 (stigmergy is primary) was DISPROVEN and replaced by B4 (hybrid coordination). Three variants converged on the same critique from different directions.
+**Three-tier strategy hierarchy**:
+1. **Top tier (300+)**: no-falsification, minimal-nofalsif — high volume + aggressive testing
+2. **High tier (200-300)**: test-first, minimal, principles-first, aggressive-minimal, no-lesson-limit
+3. **Mid tier (130-200)**: everyone else — all viable, stable
 
-**Principles extraction multiplier**: no-falsification extracted 16 principles — worth +28 fitness points. Other variants with 2 principles got only +4. Fitness formula may be over-rewarding principle extraction.
-
-**Two-tier strategy hierarchy**:
-1. **Top tier (200+)**: no-falsification — high volume + testing catches up over time
-2. **Mid-high tier (150-200)**: minimal, nofalsif-nolimit — either pure rigor OR combined traits with testing
-3. **Mid tier (100-150)**: everyone else — all viable, none broken
+**Inverted-U constraint curve confirmed**: Moderate constraints (no-falsification) > strict constraints (aggressive-challenge) > no constraints (no-modes). The sweet spot removes friction while retaining quality mechanisms.
 
 ## Recommendations for Parent Swarm
 
