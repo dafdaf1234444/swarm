@@ -1,5 +1,5 @@
 # Principles — Atomic Building Blocks
-Extracted from lessons. Scan for recombination. 52 principles, 5 themes.
+Extracted from lessons. Scan for recombination. 54 principles, 5 themes.
 
 ## Architecture
 **Structure**: P-008 validate by usage not theory | P-011 flat→hierarchical when outgrown | P-030 healthy redundancy = reconstructible from raw
@@ -20,12 +20,12 @@ Extracted from lessons. Scan for recombination. 52 principles, 5 themes.
 **Core**: P-035 count N, K, identify hubs/isolates | P-042 K_avg*N+Cycles composite (never compare K/N across granularities)
 **Caveats**: P-036 facade pattern yields low K/N | P-037 normalize for granularity | P-038 K_avg+cycles alongside K/N | P-054 static analysis undercounts — use layered (lazy) analysis
 **Boundaries**: P-047 note boundary choice (internal vs ecosystem) | P-049 include critical deps for real burden
-**Refactoring**: P-050 cycles predict bugs better than K_avg/K_max | P-051 extract modules by cycle participation, not K | P-055 ΔNK is a vector — evaluate (ΔN, ΔK_avg, ΔCycles, ΔComposite) together
+**Refactoring**: P-050 cycles predict bugs better than K_avg/K_max | P-051 extract modules by cycle participation, not K | P-055 ΔNK is a vector — evaluate (ΔN, ΔK_avg, ΔCycles, ΔComposite) together | P-056 complexity is a ratchet — feature additions crossing cycle thresholds are one-way doors
 
 ## Evolution (spawn, colony)
 **Spawn**: P-032 test by spawning, not inspecting | P-033 fitness = offspring viability | P-041 viability scores reveal template weaknesses
 **Colony**: P-034 typed append-only bulletins | P-039 automate full evolution cycle | P-040 spawn independent child swarms | P-046 stigmergy needs deposit+evaporation+amplification
-**Coordination**: P-053 route context by task keywords, not loading everything
+**Coordination**: P-053 route context by task keywords, not loading everything | P-057 decompose by data, not by method — spawn variety comes from different inputs
 
 ---
 Full text of each principle: search `P-NNN` in `memory/lessons/` or child experiments.

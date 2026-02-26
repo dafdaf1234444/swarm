@@ -27,6 +27,9 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F71**: Spawn quality: what makes a good spawn task? Compare results of parallel agents given identical vs different starting contexts. Measure convergence speed and novelty.
 - **F72**: ~~Do runtime cycles improve the model over static?~~ YES — runtime cycles are the better bug predictor (100% recall vs 50%). Static good for architecture assessment only. See F72 resolution.
 - **F73**: ~~Lazy-import ratio as debt signal?~~ NO — CB/L ratio classifies purpose (cycle-breaking vs perf deferral) but doesn't predict bugs. See F73 resolution.
+- **F74**: Can a project escape the "tangled" architecture classification? L-050 found 0/3 Pallets projects recovered. Test on non-Pallets repos with known refactoring success stories.
+- **F75**: Does decompose-by-data outperform decompose-by-method for spawn variety in ALL task types? L-051 showed it works for trajectory analysis. Test on qualitative/research tasks.
+- **F76**: Can hierarchical spawning (top-level decomposes → sub-agents investigate → parent synthesizes) produce insights that no single agent could? First evidence: ratchet pattern from L-050/L-051.
 
 ## Resolved
 | ID | Answer | Session | Date |
