@@ -8,6 +8,7 @@ Usage:
     python3 tools/spawn_coordinator.py evaluate <plan-file> <result1.json> <result2.json> ...
     python3 tools/spawn_coordinator.py record <plan-file> <quality> <variety> [--novel N] [--lesson TEXT]
     python3 tools/spawn_coordinator.py history
+    python3 tools/spawn_coordinator.py recommend
 
 Automates the pattern: decompose → spawn → collect → synthesize.
 The top-level swarm decomposes a complex task into sub-tasks by data,
@@ -199,6 +200,58 @@ def record_and_learn(plan_file: str, quality: float, variety: float,
     return record
 
 
+def recommend(task_type: str = ""):
+    """Recommend spawn strategy based on history.
+
+    Analyzes past spawns and recommends parallel, sequential, or two-phase
+    based on what worked for similar task types.
+    """
+    history = []
+    if HISTORY_FILE.exists():
+        history = json.loads(HISTORY_FILE.read_text())
+
+    print("=== SPAWN STRATEGY RECOMMENDATION ===\n")
+
+    if len(history) < 2:
+        print("  Not enough history (<2 spawns). Default: parallel with 3 agents.")
+        print("  Tip: Use --decompose with different data splits (P-057)")
+        return {"strategy": "parallel", "reason": "insufficient history"}
+
+    # Analyze patterns
+    parallel = [h for h in history if h["variety"] > 0.5]
+    sequential = [h for h in history if h["variety"] <= 0.5]
+
+    avg_novel_par = (sum(h["novel_insights"] for h in parallel) / len(parallel)
+                     if parallel else 0)
+    avg_novel_seq = (sum(h["novel_insights"] for h in sequential) / len(sequential)
+                     if sequential else 0)
+
+    print(f"  History: {len(history)} spawns ({len(parallel)} parallel, {len(sequential)} sequential)")
+    print(f"  Parallel avg novel insights: {avg_novel_par:.1f}")
+    print(f"  Sequential avg novel insights: {avg_novel_seq:.1f}")
+
+    # Two-phase is always recommended when we have evidence for both
+    if parallel and sequential:
+        print(f"\n  RECOMMENDED: Two-phase (P-059)")
+        print(f"    Phase 1: Parallel exploration ({len(parallel)} precedents, avg variety={sum(h['variety'] for h in parallel)/len(parallel):.2f})")
+        print(f"    Phase 2: Sequential drill-down on best finding ({len(sequential)} precedents)")
+        strategy = "two-phase"
+    elif avg_novel_par >= avg_novel_seq:
+        print(f"\n  RECOMMENDED: Parallel (higher novelty: {avg_novel_par:.1f} vs {avg_novel_seq:.1f})")
+        strategy = "parallel"
+    else:
+        print(f"\n  RECOMMENDED: Sequential (higher novelty: {avg_novel_seq:.1f} vs {avg_novel_par:.1f})")
+        strategy = "sequential"
+
+    # Best decomposition from history
+    best = max(history, key=lambda h: h["novel_insights"])
+    print(f"\n  Best past spawn: {best['id']} ({best['novel_insights']} novel insights)")
+    print(f"    Task: {best['task'][:80]}")
+    print(f"    Items: {', '.join(best['items'][:3])}")
+
+    return {"strategy": strategy, "history_size": len(history)}
+
+
 def main():
     if len(sys.argv) < 2:
         print(__doc__)
@@ -253,6 +306,9 @@ def main():
         if "--lesson" in sys.argv:
             lesson = sys.argv[sys.argv.index("--lesson") + 1]
         record_and_learn(pf, quality, variety, novel, lesson)
+
+    elif cmd == "recommend":
+        recommend()
 
     elif cmd == "history":
         if HISTORY_FILE.exists():

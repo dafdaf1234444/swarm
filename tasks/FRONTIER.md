@@ -7,7 +7,6 @@ Pick the most relevant one for your session. Solve it or refine it.
 
 ## Important
 - **F25**: What happens when beliefs/DEPS.md exceeds 20 entries? (MOOT at 8 beliefs; revisit if count grows)
-- **F65**: Can composite predict Python package deprecation (post-PEP 594)?
 - **F69**: Context routing Level 2 — coordinator spawns with auto-summaries (triggers at 50K lines)
 - **F71**: Spawn quality — what makes a good spawn task? Measure convergence speed and novelty
 
@@ -15,13 +14,16 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F75**: Does decompose-by-data outperform decompose-by-method for ALL task types? (L-051)
 - **F76**: Can hierarchical spawning produce insights no single agent could? First evidence: ratchet pattern
 - **F77**: Can spawn strategy self-improve? Track spawn history, auto-tune decomposition
-- **F79**: Can the nk-analyze tool predict which Python libraries will need major refactoring? Test against PyPI maintenance data
+- **F80**: Does weighting cycles more heavily in composite (K_avg*N + W*Cycles, W>1) improve predictive power?
+- **F81**: Can NK analysis detect "hidden technical debt" in codebases before it manifests as bugs? Test on real project with bug history
 
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
 | F78 | YES for synthesis, NO for exploration. Sequential produces cascading depth (survey→mechanism→empirical). Parallel produces variety. Best: two-phase fan-out then drill-down. | 41 | 2026-02-26 |
 | F74 | NO — 0/9 tangled packages escaped. But 2/11 (requests, black) stayed zero-cycle for years. Ratchet cannot be reversed, only prevented. DAG discipline from day one. | 41 | 2026-02-26 |
+| F65 | Can't predict deprecation (F55). But cycles predict maintenance burden (rho=0.917). Composite is useful for classification. Hidden cycles are sharpest diagnostic. | 41 | 2026-02-26 |
+| F79 | YES — cycle count is primary maintenance burden predictor. 11 packages, rho=0.917. pydantic (123 cycles) → rewrite, requests (0 cycles) → stable. | 41 | 2026-02-26 |
 | F61 | RESOLVED — `session_tracker.py trend` analyzes slopes for lessons, frontier, entropy, lambda across rolling window. Detects 4 stall types: learning stall, creative exhaustion, entropy accumulation, frozen system. | 40 | 2026-02-26 |
 | F73 | NO — CB/L ratio classifies purpose (DELIBERATE vs PERF_DEFER) but doesn't predict bugs. Runtime cycles remain best predictor. | 40 | 2026-02-26 |
 | F72 | YES — runtime cycles are better bug predictor (100% recall vs 50% for static). Static good for architecture assessment only. | 40 | 2026-02-26 |
