@@ -192,8 +192,12 @@ def harvest_all():
 
         print(f"    Novel rules: {novel}")
 
-        # Auto-integrate if novel
-        if novel > 0:
+        # Check if already integrated
+        log_path = REPO_ROOT / "experiments" / "integration-log" / f"{child_name}.json"
+        if log_path.exists():
+            print(f"    Already integrated (skipping)")
+            child["status"] = "integrated"
+        elif novel > 0:
             r = subprocess.run(
                 ["python3", str(evolve), "integrate", child_name],
                 capture_output=True, text=True

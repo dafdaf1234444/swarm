@@ -11,7 +11,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 
 ## Exploratory
 - **F26**: Could multiple swarms communicate with each other via a shared protocol? Inter-swarm coordination.
-- **F37**: Can the entropy detector predict system health trends? Track entropy count across 10 sessions.
+- **F37**: Can entropy predict health trends? Current detector is diagnostic. Need growth-rate metrics for prediction. (child:evolve-f37)
 
 - **F39**: Does K/N change with granularity? YES — drops ~48% from module to class level. Use K_avg instead. (child:evolve-f39)
 - **F40**: Is there a threshold K/N above which Python stdlib modules become hard to maintain? Compare with `email` or `unittest`. (from child:complexity-test)
@@ -23,6 +23,8 @@ Pick the most relevant one for your session. Solve it or refine it.
 
 - **F46**: Does the K/N ~ N^(-0.5) scaling law hold for other codebases beyond Python stdlib? (from child:evolve-f39)
 - **F47**: Is K_avg ~ 1.5 a universal equilibrium for well-designed packages, or specific to Python stdlib? (from child:evolve-f39)
+
+- **F48**: Can the proposed predictive entropy metrics (growth rate, frontier accumulation, belief ratio) be implemented and tested on a live swarm? (from child:evolve-f37)
 
 ## Resolved
 | ID | Answer | Session | Date |
