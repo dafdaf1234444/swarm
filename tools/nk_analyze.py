@@ -29,13 +29,17 @@ from pathlib import Path
 
 
 def find_package_path(package_name: str) -> Path | None:
-    """Find the filesystem path of a Python package."""
+    """Find the filesystem path of a Python package.
+
+    Returns the package directory for multi-file packages,
+    or None for single-file modules (which can't have internal deps).
+    """
     try:
         mod = importlib.import_module(package_name)
         if hasattr(mod, "__path__"):
             return Path(mod.__path__[0])
-        elif hasattr(mod, "__file__") and mod.__file__:
-            return Path(mod.__file__).parent
+        # Single-file module — no internal dependencies to analyze
+        return None
     except ImportError:
         pass
     return None
@@ -222,10 +226,7 @@ def analyze_package(package_name: str, verbose: bool = False) -> dict:
     """Perform full NK analysis on a Python package."""
     pkg_path = find_package_path(package_name)
     if not pkg_path:
-        return {"error": f"Package '{package_name}' not found"}
-
-    if not pkg_path.is_dir():
-        return {"error": f"'{package_name}' is a single-file module, not a package"}
+        return {"error": f"'{package_name}' is a single-file module (no internal dependencies to analyze) or not found"}
 
     # List modules
     modules = list_modules(pkg_path)

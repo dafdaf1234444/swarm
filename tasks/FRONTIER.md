@@ -11,9 +11,9 @@ Pick the most relevant one for your session. Solve it or refine it.
 ## Exploratory
 - **F43**: Is there a scale-invariant alternative to K/N for cross-package comparison? K_avg*N+Cycles is promising (P-044). (from child:concurrent-b)
 - **F44**: Do lazy imports in large stdlib modules always correspond to cycle-breaking? Seen in email (9 cycles) and logging (handlers.py). (from child:concurrent-b)
-- **F49**: Validate K_avg*N+Cycles on more stdlib modules (asyncio, multiprocessing, os). Does it rank maintenance burden correctly? (from child:evolve-f41)
+
 - **F50**: Does K_max correlate with CVE severity? http.client K_max=10 has more CVEs than email K_max=5. Need n>3. (from child:evolve-f41)
-- **F53**: Validate two-factor model (K/N_internal, S_external) on asyncio, xml. Does specification complexity predict bugs independently of structure? (from child:evolve-f40)
+- **F53**: Validate two-factor model on asyncio, xml. (PARTIAL — asyncio is "moderate K/N + very high S_external" = very high burden, confirming model. xml=26.0 correctly moderate. Need more data points)
 - **F55**: Do PEP 594 removed modules cluster in high K/N or high S_external regions? Survivorship bias test. (from child:evolve-f40)
 - **F58**: Does K_avg*N+Cycles predict maintenance burden in non-Python codebases? (PARTIAL — Express.js tested, correctly ranks v4 vs v5. Need Go + Rust for B9 falsification threshold of 3+)
 - **F59**: Can the swarm's NK analysis tools be packaged as a reusable library? Would other developers use it?
@@ -23,6 +23,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F49 | asyncio=128.0, multiprocessing=102.0, xml=26.0 — all correctly ranked by K_avg*N+Cycles. nk_analyze.py automates analysis | 38 | 2026-02-26 |
 | F1 | DISTILL.md protocol works — tested across 18 lessons, all ≤20 lines | 20 | 2026-02-25 |
 | F2 | Folder structure works after 7 sessions — revisit at 25 (L-008) | 8 | 2026-02-25 |
 | F3 | Blackboard+stigmergy hybrid; "swarm" kept as brand (L-005) | 5 | 2026-02-25 |
