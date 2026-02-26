@@ -1,5 +1,5 @@
 # Principles — Atomic Building Blocks
-Extracted from lessons. Scan for recombination. 82 principles, 5 themes.
+Extracted from lessons. Scan for recombination. 83 principles, 5 themes.
 
 ## Architecture
 **Structure**: P-008 validate by usage not theory | P-011 flat→hierarchical when outgrown | P-030 healthy redundancy = reconstructible from raw
@@ -22,6 +22,7 @@ Extracted from lessons. Scan for recombination. 82 principles, 5 themes.
 **Boundaries**: P-047 note boundary choice (internal vs ecosystem) | P-049 include critical deps for real burden
 **Refactoring**: P-050 cycles predict bugs better than K_avg/K_max | P-051 extract modules by cycle participation, not K | P-055 ΔNK is a vector — evaluate (ΔN, ΔK_avg, ΔCycles, ΔComposite) together | P-056 complexity is a ratchet — feature additions crossing cycle thresholds are one-way doors | P-058 cycles are the ratchet mechanism — zero-cycle projects grow linearly | P-060 ratchet cannot be reversed, only prevented — DAG discipline from day one | P-061 cycle count is the primary maintenance burden predictor (rho=0.917) | P-062 burden (Cycles+0.1N) for prediction, composite for classification | P-064 API is the ratchet — API-compatible rewrites reproduce cycles | P-068 API shape (pipeline/recursive/registry) predicts cycle risk — check before major refactors
 **Cross-language**: P-069 NK composite works cross-language but cycle term is language-dependent — compiler-enforced DAG zeroes cycles, interpret as lower bound
+**Multi-scale**: P-083 NK must be run at multiple granularities (file, class, function) — single-scale analysis masks hidden complexity
 
 ## Evolution (spawn, colony)
 **Spawn**: P-032 test by spawning, not inspecting | P-033 fitness = offspring viability | P-041 viability scores reveal template weaknesses
