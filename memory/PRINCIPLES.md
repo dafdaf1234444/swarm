@@ -58,3 +58,5 @@ Two rules that address the same situation from different angles may combine into
 - **P-042**: Never compare K/N across different granularities. Use K_avg for cross-granularity, K_max for hotspot detection. (from child:evolve-f39)
 - **P-043**: Measure growth rates, not just states. A file growing >1.5 lines/commit for 5+ commits predicts restructure within 10 commits. (from child:evolve-f37)
 - **P-044**: Never use K/N to compare maintenance burden across different-sized modules. Use K_avg*N+Cycles as a composite predictor, and always state N alongside any NK metric. (from child:evolve-f41)
+- **P-045**: When comparing complexity across different scales, K/N misleads because it's scale-dependent (K/N = K_avg/N). Use K_avg*N+Cycles for cross-scale comparison. (L-039)
+- **P-046**: Stigmergic coordination requires deposit + evaporation + amplification. Missing any one creates signal accumulation or orphaned knowledge. (L-040)
