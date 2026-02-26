@@ -1,6 +1,6 @@
 # Principles — Atomic Building Blocks
 Extracted from lessons. Scan for recombination opportunities.
-Themes aligned with INDEX.md. 48 principles from 42 lessons + children.
+Themes aligned with INDEX.md. 49 principles from 46 lessons + children.
 
 ## Architecture (system design, structure, organization)
 - **P-002**: Separate format (template) from process (protocol). A template without a protocol produces inconsistent quality. (L-002)
@@ -40,6 +40,7 @@ Themes aligned with INDEX.md. 48 principles from 42 lessons + children.
 - **P-031**: When a format change is proposed, separate near-term risks from long-term risks. Migrate when the trigger fires, not when the argument sounds good. (L-031)
 - **P-043**: Measure growth rates, not just states. A file growing >1.5 lines/commit for 5+ commits predicts restructure. (from child:evolve-f37)
 - **P-048**: Automate measurement tools early. A small script can validate theorized beliefs across many data points faster than manual analysis. (L-042)
+- **P-052**: Every analysis tool should have regression tests before its results are used as evidence. A bug in the measuring tool corrupts every measurement downstream. (L-046)
 
 ## Complexity (NK analysis, metrics, edge-of-chaos)
 - **P-035**: To analyze any system: count N (elements), K (dependencies). Identify hubs and isolates. (L-035)

@@ -358,18 +358,26 @@ def print_report(result: dict, verbose: bool = False):
     # Comparison
     print("  Cross-Package Comparison:")
     benchmarks = [
-        ("logging", "Py", 3.0),
-        ("json", "Py", 4.0),
+        ("logging", "Py", 1.0),
+        ("json", "Py", 2.0),
+        ("urllib", "Py", 6.0),
         ("Express 5", "JS", 6.0),
         ("Express 4", "JS", 15.0),
-        ("xml", "Py", 26.0),
         ("http.client", "Py", 26.4),
-        ("unittest", "Py", 27.0),
+        ("unittest", "Py", 28.0),
+        ("Rust serde", "Rust", 30.0),
+        ("importlib", "Py", 38.0),
+        ("xml", "Py", 38.0),
+        ("email", "Py", 46.0),
         ("argparse", "Py", 48.1),
-        ("email", "Py", 61.1),
+        ("requests", "Py", 55.0),
+        ("click", "Py", 68.0),
         ("Go net/http", "Go", 89.0),
         ("multiprocessing", "Py", 102.0),
+        ("jinja2", "Py", 109.0),
         ("asyncio", "Py", 128.0),
+        ("flask", "Py", 130.0),
+        ("werkzeug", "Py", 238.0),
     ]
 
     # Insert current package

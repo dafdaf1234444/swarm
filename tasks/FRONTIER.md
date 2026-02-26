@@ -23,7 +23,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F67**: Does Flask's app factory pattern actually reduce the effective cycle count? Measure before/after with factory pattern applied.
 - **F68**: Is there a composite threshold above which packages reliably need architectural intervention? (werkzeug=169 is actively being refactored, requests=55 is stable)
 - **F69**: Context limit evolution: when CLAUDE.md + INDEX.md + core files exceed model context, how should spawns coordinate? Can spawn trees share compressed context across branches? (Human insight: this is the eventual bottleneck)
-- **F70**: Can nk_analyze.py detect sub-package import resolution bugs? Current tool misresolves relative imports in sub-packages (e.g., `resources.abc` vs `abc` in importlib). Build regression tests.
+- **F70**: ~~Can nk_analyze.py detect sub-package import resolution bugs?~~ YES — 42 regression tests in test_nk_analyze.py. See F70 resolution below.
 - **F71**: Spawn quality: what makes a good spawn task? Compare results of parallel agents given identical vs different starting contexts. Measure convergence speed and novelty.
 
 ## Resolved
@@ -33,6 +33,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 | F50 | NO — K_max alone doesn't predict CVEs. Attack surface dominates. Within exposed packages, K_max×cycles adds moderate signal. | 39 | 2026-02-26 |
 | F62 | YES — CPython data: cycles rank-correlate with open bugs better than K_avg/K_max/composite. B10 upgraded to observed. | 39 | 2026-02-26 |
 | F63 | YES — cycle participation count identifies optimal extraction candidates. Flask wrappers=18/31 cycles, Click core=75% reduction. | 39 | 2026-02-26 |
+| F70 | YES — 42 regression tests in test_nk_analyze.py. Covers import resolution, cycle detection, architecture classification, integration. S39 bug now has 3 dedicated regression tests. | 39 | 2026-02-26 |
 | F49 | asyncio=128.0, multiprocessing=102.0, xml=26.0 — all correctly ranked by K_avg*N+Cycles. nk_analyze.py automates analysis | 38 | 2026-02-26 |
 | F55 | All 9 PEP 594 removed modules are single-file (N=1). Removed for obsolescence not complexity. Hypothesis doesn't apply. | 38 | 2026-02-26 |
 | F43 | YES — K_avg*N+Cycles IS the scale-invariant alternative. Validated across 14 packages in 4 languages. (P-042) | 38 | 2026-02-26 |
