@@ -5,24 +5,22 @@
       "frontier_id": "F26",
       "question": "Could multiple swarms communicate with each other via a shared protocol? Inter-swarm coordination.",
       "task": "Investigate: Could multiple swarms communicate with each other via a shared protocol? Inter-swarm coordination.\nExplore this question and document your findings.",
-      "status": "not_spawned"
+      "status": "planned"
     },
     {
-      "name": "evolve-f37",
-      "frontier_id": "F37",
-      "question": "Can the entropy detector predict system health trends? Track entropy count across 10 sessions.",
-      "task": "Research: Can the entropy detector predict system health trends? Track entropy count across 10 sessions.\nInvestigate this question through analysis, web search if needed, and reasoning. Write your findings as a workspace document. Conclude with a clear answer or a refined version of the question.",
-      "status": "integrated",
-      "novel_rules": 1
+      "name": "evolve-f40",
+      "frontier_id": "F40",
+      "question": "Is there a threshold K/N above which Python stdlib modules become hard to maintain? Compare with `email` or `unittest`. (from child:complexity-test)",
+      "task": "Investigate: Is there a threshold K/N above which Python stdlib modules become hard to maintain? Compare with `email` or `unittest`. (from child:complexity-test)\nApply NK landscape analysis. Count N components, map K dependencies, calculate K/N. Write your findings as a workspace analysis document. Compare with known benchmarks: json (K/N=0.16), http.client (K/N=0.215 core), email (K/N=0.06).",
+      "status": "planned"
     },
     {
-      "name": "evolve-f39",
-      "frontier_id": "F39",
-      "question": "Does K/N change meaningfully when using finer-grained components (classes/functions instead of modules)? (from child:complexity-test)",
-      "task": "Investigate: Does K/N change meaningfully when using finer-grained components (classes/functions instead of modules)? (from child:complexity-test)\nApply NK landscape analysis. Count N components, map K dependencies, calculate K/N. Write your findings as a workspace analysis document. Compare with known benchmarks: json (K/N=0.16), http.client (K/N=0.215 core), email (K/N=0.06).",
-      "status": "integrated",
-      "novel_rules": 1
+      "name": "evolve-f41",
+      "frontier_id": "F41",
+      "question": "Can NK analysis predict which stdlib modules will have the most bug reports or longest time-to-fix? (from child:complexity-test)",
+      "task": "Investigate: Can NK analysis predict which stdlib modules will have the most bug reports or longest time-to-fix? (from child:complexity-test)\nApply NK landscape analysis. Count N components, map K dependencies, calculate K/N. Write your findings as a workspace analysis document. Compare with known benchmarks: json (K/N=0.16), http.client (K/N=0.215 core), email (K/N=0.06).",
+      "status": "planned"
     }
   ],
-  "status": "harvested"
+  "status": "planned"
 }

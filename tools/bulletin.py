@@ -6,17 +6,21 @@ Usage:
     python3 tools/bulletin.py write <swarm-name> <type> <message>
     python3 tools/bulletin.py read [swarm-name]
     python3 tools/bulletin.py scan
+    python3 tools/bulletin.py sync <child-name>
 
 Types: discovery, question, warning, principle
+Sync copies parent bulletins into a child's workspace for cross-swarm reading.
 """
 
 import re
+import shutil
 import sys
 from datetime import date
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 BULLETINS_DIR = REPO_ROOT / "experiments" / "inter-swarm" / "bulletins"
+CHILDREN_DIR = REPO_ROOT / "experiments" / "children"
 
 
 def write_bulletin(swarm_name: str, bulletin_type: str, message: str):
@@ -104,6 +108,33 @@ def scan_bulletins():
     print(f"  Principles: {stats['principle']}")
 
 
+def sync_to_child(child_name: str):
+    """Copy parent bulletins into a child swarm for cross-swarm reading."""
+    child_dir = CHILDREN_DIR / child_name
+    if not child_dir.exists():
+        print(f"Child '{child_name}' not found at {child_dir}")
+        sys.exit(1)
+
+    if not BULLETINS_DIR.exists():
+        print("No bulletins to sync.")
+        return
+
+    # Create bulletins dir in child workspace
+    child_bulletins = child_dir / "workspace" / "bulletins"
+    child_bulletins.mkdir(parents=True, exist_ok=True)
+
+    # Copy all bulletins EXCEPT the child's own
+    copied = 0
+    for f in sorted(BULLETINS_DIR.glob("*.md")):
+        if f.stem == child_name:
+            continue  # Don't copy own bulletins
+        shutil.copy2(f, child_bulletins / f.name)
+        copied += 1
+
+    print(f"Synced {copied} bulletin file(s) to {child_bulletins}")
+    print(f"Child '{child_name}' can now read sibling discoveries.")
+
+
 def main():
     if len(sys.argv) < 2:
         print(__doc__)
@@ -123,6 +154,12 @@ def main():
 
     elif cmd == "scan":
         scan_bulletins()
+
+    elif cmd == "sync":
+        if len(sys.argv) < 3:
+            print("Usage: bulletin.py sync <child-name>")
+            sys.exit(1)
+        sync_to_child(sys.argv[2])
 
     else:
         print(f"Unknown command: {cmd}")

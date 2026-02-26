@@ -58,6 +58,13 @@ New children start with improved template
 ## Implementation Status
 - [x] Bulletin format defined
 - [x] Shared directory created
-- [ ] Child swarms writing bulletins (needs genesis.sh update or manual setup)
-- [ ] Parent bulletin reader tool
-- [ ] Cross-child bulletin reading
+- [x] bulletin.py: write, read, scan, sync commands
+- [x] Auto-bulletin generation during harvest (evolve.py)
+- [x] Bulletin sync at spawn (evolve.py init copies sibling bulletins)
+- [x] Cross-child reading via `bulletin.py sync <child-name>`
+
+## Tools
+- `python3 tools/bulletin.py write <swarm> <type> <msg>` — post a bulletin
+- `python3 tools/bulletin.py read [swarm]` — read bulletins
+- `python3 tools/bulletin.py scan` — summary of all bulletins
+- `python3 tools/bulletin.py sync <child>` — copy sibling bulletins to child

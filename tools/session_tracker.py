@@ -6,15 +6,21 @@ Usage:
     python3 tools/session_tracker.py record <session-number>
     python3 tools/session_tracker.py report
     python3 tools/session_tracker.py lambda
+    python3 tools/session_tracker.py growth-rate [--n N]
 
 Records per-session metrics by analyzing git history.
 Provides λ_swarm calculation (Langton's lambda for the swarm).
+Growth-rate implements predictive entropy metrics (P-043):
+  - File growth rates (warns if >1.5 lines/commit for 5+ commits)
+  - Frontier accumulation vs resolution rate
+  - Belief theorized:observed ratio
 """
 
 import json
 import re
 import subprocess
 import sys
+from collections import defaultdict
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -188,6 +194,194 @@ def calculate_lambda():
     print(f"λ_swarm = {lambda_val:.2f}")
 
 
+def growth_rate(num_commits: int = 30):
+    """Predictive entropy metrics (P-043, F48).
+
+    Three leading indicators:
+    1. File growth rates — warns when >1.5 net lines/commit for 5+ commits
+    2. Frontier accumulation — open vs resolved question rates
+    3. Belief ratio — theorized vs observed
+    """
+    print("=== PREDICTIVE ENTROPY METRICS ===\n")
+
+    # --- 1. File growth rates ---
+    print("## File Growth Rates")
+    print(f"   (analyzing last {num_commits} commits)\n")
+
+    # Parse numstat from git log (most recent first)
+    raw = _git("log", f"-{num_commits}", "--numstat", "--format=COMMIT:%H")
+    if not raw:
+        print("  No git history found.")
+        return
+
+    # Build per-file growth history: list of net-lines per commit (touched only)
+    file_growth = defaultdict(list)
+
+    for line in raw.splitlines():
+        if line.startswith("COMMIT:") or not line.strip():
+            continue
+        if "\t" in line:
+            parts = line.split("\t")
+            if len(parts) == 3:
+                added, removed, filepath = parts
+                if added == "-" or removed == "-":
+                    continue  # binary file
+                net = int(added) - int(removed)
+                file_growth[filepath].append(net)
+
+    # Identify files with sustained growth
+    warnings = []
+    hot_files = []
+
+    # Only look at tracked files (not one-off new files)
+    STRUCTURAL_FILES = {
+        "CLAUDE.md", "beliefs/CORE.md", "beliefs/DEPS.md",
+        "memory/INDEX.md", "memory/PRINCIPLES.md", "memory/OPERATIONS.md",
+        "tasks/FRONTIER.md", "tasks/NEXT.md",
+        "tools/validate_beliefs.py", "workspace/genesis.sh",
+        "tools/session_tracker.py", "tools/evolve.py",
+        "tools/self_evolve.py", "tools/swarm_integration_test.py",
+        "workspace/README.md",
+    }
+
+    for filepath, changes in sorted(file_growth.items()):
+        if len(changes) < 2:
+            continue
+
+        # Calculate average growth rate
+        avg_growth = sum(changes) / len(changes)
+
+        # Check for consecutive high-growth streaks
+        streak = 0
+        max_streak = 0
+        for net in changes:
+            if net > 1.5:
+                streak += 1
+                max_streak = max(max_streak, streak)
+            else:
+                streak = 0
+
+        is_structural = filepath in STRUCTURAL_FILES
+
+        if max_streak >= 5:
+            warnings.append({
+                "file": filepath,
+                "avg_growth": avg_growth,
+                "streak": max_streak,
+                "commits": len(changes),
+                "structural": is_structural,
+            })
+        elif avg_growth > 1.0 and len(changes) >= 3:
+            hot_files.append({
+                "file": filepath,
+                "avg_growth": avg_growth,
+                "commits": len(changes),
+                "structural": is_structural,
+            })
+
+    if warnings:
+        print("  WARNING — Files needing compaction/restructure:")
+        for w in warnings:
+            marker = " [STRUCTURAL]" if w["structural"] else ""
+            print(f"    {w['file']}{marker}")
+            print(f"      avg +{w['avg_growth']:.1f} lines/commit, "
+                  f"streak: {w['streak']} consecutive, "
+                  f"touched in {w['commits']} commits")
+        print()
+    else:
+        print("  No files exceed P-043 threshold (>1.5 lines/commit for 5+ commits).\n")
+
+    if hot_files:
+        print("  Hot files (high growth, below threshold):")
+        for h in sorted(hot_files, key=lambda x: -x["avg_growth"])[:10]:
+            marker = " [S]" if h["structural"] else ""
+            print(f"    {h['file']}{marker}: "
+                  f"avg +{h['avg_growth']:.1f} lines/commit "
+                  f"({h['commits']} commits)")
+        print()
+
+    # --- 2. Frontier accumulation rate ---
+    print("## Frontier Health\n")
+
+    frontier_path = REPO_ROOT / "tasks" / "FRONTIER.md"
+    if frontier_path.exists():
+        frontier_text = frontier_path.read_text()
+
+        # Count open questions
+        open_questions = len(re.findall(
+            r"^- \*\*F\d+\*\*:", frontier_text, re.MULTILINE
+        ))
+
+        # Count resolved questions
+        resolved_questions = len(re.findall(
+            r"^\| F\d+", frontier_text, re.MULTILINE
+        ))
+
+        total = open_questions + resolved_questions
+        resolution_rate = resolved_questions / total if total > 0 else 0
+
+        print(f"  Open questions:    {open_questions}")
+        print(f"  Resolved:          {resolved_questions}")
+        print(f"  Total generated:   {total}")
+        print(f"  Resolution rate:   {resolution_rate:.0%}")
+
+        if open_questions > resolved_questions:
+            print("  STATUS: Accumulating (more open than resolved)")
+            print("  ACTION: Focus on resolving existing questions before opening new ones.")
+        elif resolution_rate > 0.8:
+            print("  STATUS: Depleting (running low on questions)")
+            print("  ACTION: The generative loop may be stalling — challenge more beliefs.")
+        else:
+            print("  STATUS: Healthy balance")
+    else:
+        print("  No FRONTIER.md found.")
+    print()
+
+    # --- 3. Belief ratio ---
+    print("## Belief Ratio\n")
+
+    deps_path = REPO_ROOT / "beliefs" / "DEPS.md"
+    if deps_path.exists():
+        deps_text = deps_path.read_text()
+
+        observed = len(re.findall(
+            r"\*\*Evidence\*\*:\s*observed", deps_text
+        ))
+        theorized = len(re.findall(
+            r"\*\*Evidence\*\*:\s*theorized", deps_text
+        ))
+        total_beliefs = observed + theorized
+
+        if total_beliefs > 0:
+            observed_ratio = observed / total_beliefs
+            print(f"  Observed:    {observed}/{total_beliefs} ({observed_ratio:.0%})")
+            print(f"  Theorized:   {theorized}/{total_beliefs}")
+
+            if observed_ratio < 0.5:
+                print("  STATUS: Too speculative — more theorized than observed")
+                print("  ACTION: Test theorized beliefs before adding new ones.")
+            elif theorized == 0:
+                print("  STATUS: Fully grounded — all beliefs observed")
+                print("  NOTE: Consider adding bold theorized beliefs to drive exploration.")
+            else:
+                print("  STATUS: Healthy mix")
+        else:
+            print("  No beliefs found.")
+    else:
+        print("  No DEPS.md found.")
+
+    print()
+
+    # --- Summary ---
+    print("## Summary")
+    warning_count = len(warnings)
+    if warning_count == 0:
+        print("  All predictive indicators healthy.")
+    else:
+        print(f"  {warning_count} file(s) predicted to need restructuring soon.")
+    print(f"  Run periodically to detect trends before they become problems.")
+
+
 def main():
     if len(sys.argv) < 2:
         print(__doc__)
@@ -202,6 +396,13 @@ def main():
         report()
     elif cmd == "lambda":
         calculate_lambda()
+    elif cmd == "growth-rate":
+        n = 30
+        if "--n" in sys.argv:
+            idx = sys.argv.index("--n")
+            if idx + 1 < len(sys.argv):
+                n = int(sys.argv[idx + 1])
+        growth_rate(n)
     else:
         print(f"Unknown command: {cmd}")
         print(__doc__)

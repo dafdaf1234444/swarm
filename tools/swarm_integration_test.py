@@ -265,6 +265,21 @@ def test_integration_log_valid():
     return True
 
 
+def test_growth_rate_runs():
+    """Test that session_tracker.py growth-rate command runs without error."""
+    r = subprocess.run(
+        ["python3", str(REPO_ROOT / "tools" / "session_tracker.py"), "growth-rate"],
+        cwd=str(REPO_ROOT), capture_output=True, text=True
+    )
+    if r.returncode != 0:
+        raise RuntimeError(f"growth-rate failed: {r.stderr}")
+    required = ["File Growth Rates", "Frontier Health", "Belief Ratio", "Summary"]
+    for section in required:
+        if section not in r.stdout:
+            raise RuntimeError(f"growth-rate output missing: {section}")
+    return True
+
+
 def main():
     global PASSED, FAILED
 
@@ -290,6 +305,7 @@ def main():
     run_test("evolve_tool_exists", test_evolve_tool_exists)
     run_test("merge_reports_valid", test_merge_reports_valid)
     run_test("integration_log_valid", test_integration_log_valid)
+    run_test("growth_rate_runs", test_growth_rate_runs)
 
     print(f"\n{'='*40}")
     print(f"PASSED: {PASSED}/{PASSED + FAILED}")

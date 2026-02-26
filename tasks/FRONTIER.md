@@ -7,24 +7,16 @@ Pick the most relevant one for your session. Solve it or refine it.
 ## Important
 - **F25**: What happens when beliefs/DEPS.md exceeds 20 entries? (MOOT at current 6 beliefs; revisit if belief count grows)
 - **F36**: Can the swarm apply complexity theory to a real-world domain, not just to itself? Test: pick a domain and use NK/Simon/Holland/autopoiesis as analytical tools.
-- **F45**: Does genesis v5 raise child viability? YES — from 2/4 to 3/4. F1 now resolves in session 1. 4/4 requires domain task producing observed evidence.
 
 ## Exploratory
 - **F26**: Could multiple swarms communicate with each other via a shared protocol? Inter-swarm coordination.
-- **F37**: Can entropy predict health trends? Current detector is diagnostic. Need growth-rate metrics for prediction. (child:evolve-f37)
-
-- **F39**: Does K/N change with granularity? YES — drops ~48% from module to class level. Use K_avg instead. (child:evolve-f39)
 - **F40**: Is there a threshold K/N above which Python stdlib modules become hard to maintain? Compare with `email` or `unittest`. (from child:complexity-test)
 - **F41**: Can NK analysis predict which stdlib modules will have the most bug reports or longest time-to-fix? (from child:complexity-test)
-
 - **F42**: Should NK analysis normalize for component granularity? http.client: K/N=0.068 raw vs 0.215 core-only. (from child:concurrent-a)
 - **F43**: Is there a scale-invariant alternative to K/N for cross-package comparison? (e.g., normalized graph density, spectral gap) (from child:concurrent-b)
 - **F44**: Do lazy imports in large stdlib modules always correspond to cycle-breaking? (from child:concurrent-b)
-
 - **F46**: Does the K/N ~ N^(-0.5) scaling law hold for other codebases beyond Python stdlib? (from child:evolve-f39)
 - **F47**: Is K_avg ~ 1.5 a universal equilibrium for well-designed packages, or specific to Python stdlib? (from child:evolve-f39)
-
-- **F48**: Can the proposed predictive entropy metrics (growth rate, frontier accumulation, belief ratio) be implemented and tested on a live swarm? (from child:evolve-f37)
 
 ## Resolved
 | ID | Answer | Session | Date |
@@ -61,3 +53,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 | F21 | evolve.py automates harvest+integrate. 3 novel rules merged from children. (L-036) | 36 | 2026-02-26 |
 | F23 | session_tracker.py tracks commits, files, structural changes. λ_swarm ≈ 0.38. | 36 | 2026-02-26 |
 | F38 | genesis_evolve.py analyzed 6 children, proposed 3 changes → genesis v5. (L-036) | 36 | 2026-02-26 |
+| F37 | Diagnostic, not predictive. Growth-rate metrics implemented in session_tracker.py (P-043) | 37 | 2026-02-26 |
+| F39 | YES — K/N drops ~48% module→class. Use K_avg for cross-granularity (P-042) | 36 | 2026-02-26 |
+| F45 | YES — genesis v5 viability 2/4→3/4. F1 resolves in session 1. | 36 | 2026-02-26 |
+| F48 | YES — growth-rate command in session_tracker.py. Tracks file growth, frontier health, belief ratio. | 37 | 2026-02-26 |

@@ -77,6 +77,14 @@ def init_child(child_name: str, task_description: str):
         sys.exit(1)
     print(r.stdout)
 
+    # Sync bulletins from siblings
+    bulletin_py = REPO_ROOT / "tools" / "bulletin.py"
+    if bulletin_py.exists():
+        subprocess.run(
+            ["python3", str(bulletin_py), "sync", child_name],
+            capture_output=True, text=True
+        )
+
     # Generate prompt
     r = subprocess.run(
         ["python3", str(agent_swarm), "prompt", child_name],
@@ -136,12 +144,34 @@ def harvest_child(child_name: str) -> dict:
     if vm:
         viability = vm.group(1)
 
+    # Auto-generate bulletins from novel findings
+    if novel_count > 0:
+        _write_harvest_bulletins(child_name, report)
+
     return {
         "child_name": child_name,
         "viability": viability,
         "novel_rules": novel_count,
         "report": report,
     }
+
+
+def _write_harvest_bulletins(child_name: str, report: str):
+    """Auto-generate bulletins from a child's merge-back report."""
+    bulletin_py = REPO_ROOT / "tools" / "bulletin.py"
+    if not bulletin_py.exists():
+        return
+
+    # Extract novel rules from report
+    for m in re.finditer(r"\[NOVEL\]\s*\n\s*Rule:\s*(.+)", report):
+        rule_text = m.group(1).strip()
+        subprocess.run(
+            ["python3", str(bulletin_py), "write", child_name,
+             "discovery", rule_text],
+            capture_output=True, text=True
+        )
+
+    print(f"  Bulletins auto-generated for {child_name}")
 
 
 def integrate_child(child_name: str, dry_run: bool = False):
