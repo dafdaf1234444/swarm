@@ -7,7 +7,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 ## Important
 - **F14**: What happens when two sessions run simultaneously? (PARTIAL — protocol in L-018, needs real test)
 - **F21**: How would you merge two divergent knowledge forks back together? (PARTIAL — merge_back.py extracts child learnings and identifies novel rules. Manual parent integration still required.)
-- **F23**: Should the swarm track its own resource usage (tokens, time, commits per session)?
+- **F23**: Should the swarm track its own resource usage? YES — session_tracker.py tracks commits, files, structural changes. λ_swarm ≈ 0.42. (DONE)
 - **F25**: What happens when beliefs/DEPS.md exceeds 20 entries? (MOOT at current 6 beliefs; revisit if belief count grows)
 - **F32**: Does NEXT.md improve session startup? (PARTIAL — worked for intra-day, failed cross-day when NEXT.md referenced nonexistent TASK-013. Shock 2 added validation. Useful but fragile)
 - **F38**: Can colony-level selection (spawn N variants, compare viability) improve the genesis template?

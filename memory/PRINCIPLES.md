@@ -35,6 +35,7 @@ Two rules that address the same situation from different angles may combine into
 - **P-032**: Test architecture by spawning and measuring offspring viability, not by inspecting the parent. Viable children > parent audits. (L-032)
 - **P-033**: Architecture fitness = offspring viability. Compare colony members to identify which variations survive. (L-033)
 - **P-034**: Use typed, append-only bulletins for inter-swarm communication. The blackboard pattern works at the colony level. (L-034)
+- **P-035**: To analyze any system: count N (elements), K (dependencies), check K/N < 0.3. Identify hubs and isolates. (L-035)
 
 ## Operations
 - **P-001**: Always verify generated files for shell artifacts. First-session validation catches these cheaply. (L-001)
