@@ -5,11 +5,9 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F9**: What should the swarm's first real-world knowledge domain be? (PARTIAL — complexity theory started via TASK-013. Needs human input for next domain)
 
 ## Important
-- **F14**: What happens when two sessions run simultaneously? TESTED — concurrent child swarms (different repos) work perfectly. Same-swarm concurrency untested. (L-037)
-- **F21**: How would you merge two divergent knowledge forks back together? DONE — evolve.py automates harvest+integrate. 3 novel rules merged from children. (L-036)
 - **F25**: What happens when beliefs/DEPS.md exceeds 20 entries? (MOOT at current 6 beliefs; revisit if belief count grows)
-- **F38**: Can colony-level selection improve genesis template? YES — genesis_evolve.py analyzed 6 children, proposed 3 changes → genesis v5. (L-036)
 - **F36**: Can the swarm apply complexity theory to a real-world domain, not just to itself? Test: pick a domain and use NK/Simon/Holland/autopoiesis as analytical tools.
+- **F45**: Does genesis v5 (resolvable F1 + NEXT.md template) raise child viability above 3/4?
 
 ## Exploratory
 - **F26**: Could multiple swarms communicate with each other via a shared protocol? Inter-swarm coordination.
@@ -54,3 +52,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 | F33 | Level 1 compaction (theme summary table) applied at 28 lessons. At 31, INDEX is 45 lines (<60 trigger). Next compaction trigger: 45+ lessons or INDEX >60 lines. | 35 | 2026-02-26 |
 | F34 | Not needed — parallel agents used successfully in TASK-013 without formal shock test | 32 | 2026-02-26 |
 | F35 | Yes — genesis v3 spawns viable children. swarm_test.py + merge_back.py + colony.py form complete pipeline. Edge-of-chaos child reached 3/4 viability in 1 session. | 35 | 2026-02-26 |
+| F14 | Concurrent child swarms work perfectly (no contention). Same-swarm untested. (L-037) | 36 | 2026-02-26 |
+| F21 | evolve.py automates harvest+integrate. 3 novel rules merged from children. (L-036) | 36 | 2026-02-26 |
+| F23 | session_tracker.py tracks commits, files, structural changes. λ_swarm ≈ 0.38. | 36 | 2026-02-26 |
+| F38 | genesis_evolve.py analyzed 6 children, proposed 3 changes → genesis v5. (L-036) | 36 | 2026-02-26 |

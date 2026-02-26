@@ -198,16 +198,25 @@ def integrate_child(child_name: str, dry_run: bool = False):
     parent_frontier_text = parent_frontier.read_text() if parent_frontier.exists() else ""
 
     novel_questions = []
+    # Common genesis questions that are child-specific, not worth importing
+    skip_patterns = [
+        "validate the setup",
+        "does this structure work",
+        "knowledge domain",
+    ]
     if child_frontier.exists():
         child_text = child_frontier.read_text()
         child_qs = re.findall(r"^\- \*\*F\d+\*\*:\s*(.+)$", child_text, re.MULTILINE)
         for q in child_qs:
-            # Skip if parent already has a similar question
             q_lower = q.lower()
+            # Skip common genesis boilerplate questions
+            if any(pat in q_lower for pat in skip_patterns):
+                continue
+            # Skip if parent already has a similar question
             q_words = set(q_lower.split())
             is_novel = True
             for line in parent_frontier_text.lower().splitlines():
-                if not line.strip().startswith("-"):
+                if not line.strip().startswith("-") and "| f" not in line:
                     continue
                 p_words = set(line.split())
                 if len(q_words & p_words) > 0.5 * len(q_words):
