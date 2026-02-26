@@ -5,7 +5,7 @@ Evidence types: `observed` (empirically tested in this system) | `theorized` (re
 When a belief is disproven: check dependents below → update those too.
 
 ## Interconnection model
-N=6 beliefs, target K≈1 (edge of chaos for small N per Kauffman's NK model). See L-025.
+N=7 beliefs, target K≈1 (edge of chaos for small N per Kauffman's NK model). See L-025.
 K=0 is frozen (no cascades, no adaptation). K=N-1 is chaotic (everything affects everything).
 
 ```
@@ -14,6 +14,7 @@ B1 (git-as-memory)
 ├── B3 (small commits)
 └── B6 (architecture) ──→ B7 (protocols)
                        └── B8 (frontier)
+B9 (NK predictive power) — isolated, needs testing
 ```
 
 ---
@@ -56,6 +57,12 @@ B1 (git-as-memory)
 - **Falsified if**: The system runs 10 consecutive sessions where no new frontier questions are generated from completed work, indicating the generative loop has stalled
 - **Depends on**: B6
 - **Last tested**: 2026-02-25 (L-015, measured 2.5x amplification over 13 sessions)
+
+### B9: K_avg*N+Cycles is a reliable predictor of software maintenance burden across different codebases and languages
+- **Evidence**: theorized
+- **Falsified if**: K_avg*N+Cycles fails to correctly rank maintenance burden on 3+ non-Python codebases (e.g., npm packages, Go modules, Rust crates), OR a simpler metric (like raw line count) proves equally predictive
+- **Depends on**: none
+- **Last tested**: never (tested only on 6 Python stdlib packages — n too small for generalization)
 
 ---
 
