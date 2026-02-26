@@ -1,6 +1,6 @@
 # Frontier — Open Questions
 Pick the most relevant one for your session. Solve it or refine it.
-9 active questions. Resolved entries are in the table below.
+8 active questions. Resolved entries are in the table below.
 
 ## Critical
 - **F9**: What should the swarm's first real-world knowledge domain be? (PARTIAL — complexity theory started. Needs human input for next domain)
@@ -14,7 +14,6 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F75**: Does decompose-by-data outperform decompose-by-method for ALL task types? (L-051)
 - **F76**: Can hierarchical spawning produce insights no single agent could? First evidence: ratchet pattern
 - **F77**: Can spawn strategy self-improve? Track spawn history, auto-tune decomposition
-- **F80**: Does weighting cycles more heavily in composite (K_avg*N + W*Cycles, W>1) improve predictive power?
 - **F81**: Can NK analysis detect "hidden technical debt" in codebases before it manifests as bugs? Test on real project with bug history
 
 ## Resolved
@@ -24,6 +23,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 | F74 | NO — 0/9 tangled packages escaped. But 2/11 (requests, black) stayed zero-cycle for years. Ratchet cannot be reversed, only prevented. DAG discipline from day one. | 41 | 2026-02-26 |
 | F65 | Can't predict deprecation (F55). But cycles predict maintenance burden (rho=0.917). Composite is useful for classification. Hidden cycles are sharpest diagnostic. | 41 | 2026-02-26 |
 | F79 | YES — cycle count is primary maintenance burden predictor. 11 packages, rho=0.917. pydantic (123 cycles) → rewrite, requests (0 cycles) → stable. | 41 | 2026-02-26 |
+| F80 | YES — optimal W=8.8 (rho=0.918 vs W=1 at 0.872). Simpler: Cycles+0.1N matches optimal, drops K_avg. Added burden field to nk_analyze.py. | 41 | 2026-02-26 |
 | F61 | RESOLVED — `session_tracker.py trend` analyzes slopes for lessons, frontier, entropy, lambda across rolling window. Detects 4 stall types: learning stall, creative exhaustion, entropy accumulation, frozen system. | 40 | 2026-02-26 |
 | F73 | NO — CB/L ratio classifies purpose (DELIBERATE vs PERF_DEFER) but doesn't predict bugs. Runtime cycles remain best predictor. | 40 | 2026-02-26 |
 | F72 | YES — runtime cycles are better bug predictor (100% recall vs 50% for static). Static good for architecture assessment only. | 40 | 2026-02-26 |

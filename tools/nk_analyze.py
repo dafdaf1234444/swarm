@@ -353,8 +353,10 @@ def analyze_package(package_name: str, verbose: bool = False) -> dict:
     cycles = detect_cycles(deps)
     cycle_count = len(cycles)
 
-    # Composite score
+    # Composite score (architecture classification)
     composite = k_avg * n + cycle_count
+    # Burden score (maintenance prediction, P-061/L-055)
+    burden = cycle_count + 0.1 * n
 
     # Hub analysis
     hub_pct = k_max / k_total if k_total > 0 else 0
@@ -377,6 +379,7 @@ def analyze_package(package_name: str, verbose: bool = False) -> dict:
         "cycles": cycle_count,
         "cycle_details": [" → ".join(c) for c in cycles],
         "composite": round(composite, 1),
+        "burden": round(burden, 1),
         "architecture": arch,
         "hub_pct": round(hub_pct, 2),
         "total_loc": total_loc,
@@ -535,6 +538,7 @@ def print_report(result: dict, verbose: bool = False):
     print(f"    K_max:                {result['k_max']} ({result['k_max_file']})")
     print(f"    Cycles:               {result['cycles']}")
     print(f"    K_avg*N + Cycles:     {result['composite']}")
+    print(f"    Burden (Cyc+0.1N):   {result['burden']}")
     print(f"    Hub concentration:    {result['hub_pct']:.0%}")
     print()
 
@@ -731,6 +735,7 @@ def analyze_path(pkg_path: Path, package_name: str) -> dict:
     cycles = detect_cycles(deps)
     cycle_count = len(cycles)
     composite = k_avg * n + cycle_count
+    burden = cycle_count + 0.1 * n
 
     hub_pct = k_max / k_total if k_total > 0 else 0
     arch = classify_architecture(n, k_avg, k_max, cycle_count, hub_pct)
@@ -748,6 +753,7 @@ def analyze_path(pkg_path: Path, package_name: str) -> dict:
         "cycles": cycle_count,
         "cycle_details": [" → ".join(c) for c in cycles],
         "composite": round(composite, 1),
+        "burden": round(burden, 1),
         "architecture": arch,
         "hub_pct": round(hub_pct, 2),
         "total_loc": total_loc,
