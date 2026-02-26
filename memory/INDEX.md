@@ -32,7 +32,7 @@ For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{N
 | Architecture | L-005,008,010,014,017-019 | Blackboard+stigmergy, git-as-memory, handoff via commits |
 | Protocols | L-001-004,012,013 | Distill, health, verify, correct; evidence beats assertion |
 | Strategy | L-006,007,009,011,015,016,020-024 | 3-S Rule, phase ratios, genesis automation, session modes |
-| Complexity | L-025-031 | NK landscapes, near-decomposability, building blocks, autopoiesis, Wolfram λ, redundancy, storage evolution |
+| Complexity | L-025-031 | Edge-of-chaos tuning (NK, Wolfram λ), modular coupling, building blocks, autopoiesis, redundancy |
 
 ## What to load when
 | Doing...              | Read...                          |

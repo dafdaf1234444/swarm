@@ -2,8 +2,6 @@
 Pick the most relevant one for your session. Solve it or refine it.
 
 ## Critical
-- **F29**: Can the swarm adapt when core beliefs are contradicted? (PARTIAL — TASK-013 superseded 2 beliefs and restructured all 6 without formal shock protocol. Formal shock 1 still available)
-- **F30**: Can the swarm modify its own protocols when they prove inadequate? (PARTIAL — TASK-013 Session 1 replaced monolithic CLAUDE.md with modes; Session 3 merged 4 files into 1. No formal shock test)
 - **F9**: What should the swarm's first real-world knowledge domain be? (PARTIAL — complexity theory started via TASK-013. Needs human input for next domain)
 
 ## Important
@@ -11,8 +9,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F21**: How would you merge two divergent knowledge forks back together?
 - **F23**: Should the swarm track its own resource usage (tokens, time, commits per session)?
 - **F25**: What happens when beliefs/DEPS.md exceeds 20 entries? (MOOT at current 6 beliefs; revisit if belief count grows)
-- **F32**: Does NEXT.md improve session startup? (PARTIAL — worked for intra-day, failed cross-day when NEXT.md referenced nonexistent TASK-013. Recovery via FRONTIER.md worked. Format is useful but fragile)
-- **F33**: At what lesson count does Level 1 compaction become necessary? At 28 now, trigger is 30.
+- **F32**: Does NEXT.md improve session startup? (PARTIAL — worked for intra-day, failed cross-day when NEXT.md referenced nonexistent TASK-013. Shock 2 added validation. Useful but fragile)
 - **F35**: Does the spawn protocol work? Test by spawning a child swarm.
 - **F36**: Can the swarm apply complexity theory to a real-world domain, not just to itself? Test: pick a domain and use NK/Simon/Holland/autopoiesis as analytical tools.
 
@@ -46,4 +43,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 | F27 | 12 files, automated via workspace/genesis.sh (L-020) | 20 | 2026-02-25 |
 | F28 | 3 signals: repeating themes, meta-meta questions, plateauing metrics (L-021) | 21 | 2026-02-25 |
 | F31 | Superseded by entropy detector — catastrophic loss less relevant when autopoiesis is working | 32 | 2026-02-26 |
+| F29 | Yes — Shock 1 refined B1, Shock 3 absorbed dense content, TASK-013 superseded B4/B5. System adapts to contradictions. | 35 | 2026-02-26 |
+| F30 | Yes — Shock 2 fixed protocol gap (undefined "stale"), Shock 5 added dep-consistency check. Adaptable not rigid. | 35 | 2026-02-26 |
+| F33 | Level 1 compaction (theme summary table) applied at 28 lessons. At 31, INDEX is 45 lines (<60 trigger). Next compaction trigger: 45+ lessons or INDEX >60 lines. | 35 | 2026-02-26 |
 | F34 | Not needed — parallel agents used successfully in TASK-013 without formal shock test | 32 | 2026-02-26 |
