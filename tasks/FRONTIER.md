@@ -1,6 +1,6 @@
 # Frontier — Open Questions
 Pick the most relevant one for your session. Solve it or refine it.
-9 active questions. Resolved entries are in the table below.
+12 active questions. Resolved entries are in the table below.
 
 ## Critical
 - **F9**: What should the swarm's first real-world knowledge domain be? (PARTIAL — complexity theory started. Needs human input for next domain)
@@ -16,6 +16,9 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F77**: Can spawn strategy self-improve? Track spawn history, auto-tune decomposition
 - **F82**: Can API shape be measured? Quantify "pipeline" vs "recursive" API topology to predict cycle risk
 - **F83**: Can NK analysis be applied to non-Python languages at scale? Test on a large Go or Rust codebase
+- **F84**: Which core beliefs produce the most useful swarms? A/B test: spawn 6 variants (control, no-falsification, no-lesson-limit, no-modes, aggressive-challenge, minimal), run sessions, compare fitness
+- **F85**: Does the monolith blind spot (LOC/N > 500) reliably identify packages where NK underestimates complexity?
+- **F86**: Can belief evolution be recursive? Test variant children that themselves spawn sub-variants
 
 ## Resolved
 | ID | Answer | Session | Date |

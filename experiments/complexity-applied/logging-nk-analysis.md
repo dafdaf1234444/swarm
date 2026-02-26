@@ -1,196 +1,205 @@
 # NK Landscape Analysis: Python `logging` Package
 
 **Date**: 2026-02-26
-**Python version**: 3.12
-**Package**: `logging` (stdlib)
+**Python version**: 3.12.x (CPython, `/usr/lib/python3.12/logging`)
+**Tool**: `tools/nk_analyze.py`
 
-## 1. Module Inventory (N)
+## 1. Raw Tool Output
 
-The `logging` package consists of exactly **3 modules**:
-
-| Module | File | Lines | Classes | Top-level Functions |
-|--------|------|------:|--------:|--------------------:|
-| `logging` (core) | `__init__.py` | 2,345 | 18 | 31 |
-| `logging.handlers` | `handlers.py` | 1,605 | 14 | 0 |
-| `logging.config` | `config.py` | 1,050 | 6 | 12 |
-| **Total** | | **5,000** | **38** | **43** |
-
-**N = 3**
-
-## 2. Dependency Map (K)
-
-### 2.1 Internal Dependency Edges
-
-| From | To | Edge Type | Distinct Attributes Used |
-|------|----|-----------|------------------------:|
-| `handlers` | `__init__` | `import logging` | 7 |
-| `config` | `__init__` | `import logging` | 13 |
-| `config` | `handlers` | `import logging.handlers` | 5 |
-
-**Total directed edges: K = 3**
-
-The dependency graph is a **DAG** (directed acyclic graph) with no cycles:
+### 1.1 Basic Run (`python3 tools/nk_analyze.py logging`)
 
 ```
-__init__  <----  handlers
-   ^
-   |
- config  ---->  handlers
+=== NK ANALYSIS: logging ===
+
+  Path: /usr/lib/python3.12/logging
+  Total LOC: 5000
+  Architecture: monolith
+
+  NK Metrics:
+    N (modules):          3
+    K_total (edges):      1
+    K_avg:                0.33
+    K/N:                  0.111
+    K_max:                1 (config)
+    Cycles:               0
+    K_avg*N + Cycles:     1.0
+    Burden (Cyc+0.1N):   0.3
+    Hub concentration:    100%
 ```
 
-### 2.2 Detailed Attribute Coupling
+### 1.2 Verbose Run (`python3 tools/nk_analyze.py logging --verbose`)
 
-**handlers.py -> logging (7 attributes)**:
-- `logging.FileHandler` (base class for 3 handler classes)
-- `logging.Handler` (base class for 9 handler classes)
-- `logging.CRITICAL`, `logging.DEBUG`, `logging.ERROR`, `logging.INFO`, `logging.WARNING` (level constants)
+Module-level detail:
 
-**config.py -> logging (13 attributes)**:
-- Public API: `logging.Filter`, `logging.Formatter`, `logging.Handler`, `logging.NOTSET`, `logging.PlaceHolder`, `logging.getLogger`, `logging.root`, `logging.shutdown`
-- Private internals: `logging._acquireLock`, `logging._releaseLock`, `logging._checkLevel`, `logging._handlers`, `logging._handlerList`
+```
+  Modules:
+    Module                       LOC  K_out  K_in  Imports
+    ----------------------------------------------------------------------
+    __init__                    2345      0     0  (none)
+    config                      1050      1     0  handlers
+    handlers                    1605      0     1  (none)
+```
 
-**config.py -> logging.handlers (5 attributes)**:
-- `logging.handlers.MemoryHandler`
-- `logging.handlers.QueueHandler`
-- `logging.handlers.QueueListener`
-- `logging.handlers.SMTPHandler`
-- `logging.handlers.SysLogHandler`
+### 1.3 Refactor Run (`python3 tools/nk_analyze.py logging --suggest-refactor`)
 
-### 2.3 Dependency Direction Summary
+```
+  logging has 0 cycles -- no refactoring needed for cycle reduction.
+  Composite score: 1.0
+```
 
-| Module | In-degree | Out-degree | Total degree |
-|--------|----------:|----------:|-----------:|
-| `__init__` | 2 | 0 | 2 |
-| `handlers` | 1 | 1 | 2 |
-| `config` | 0 | 2 | 2 |
+### 1.4 Lazy Import Analysis (`python3 tools/nk_analyze.py logging --lazy`)
 
-## 3. NK Metrics
+```
+  Total lazy imports (internal): 0
+  Cycle-breaking lazy imports:   0
+  Static cycles (top-level):     0
+  Runtime cycles (all imports):  0
+  F44 Hypothesis Verdict: NO_LAZY
+```
+
+## 2. Metrics Summary
 
 | Metric | Value | Notes |
 |--------|------:|-------|
-| **N** | 3 | Number of modules |
-| **K** (total edges) | 3 | Directed dependency edges between modules |
-| **K/N** | 1.00 | Dependency density ratio |
-| **K_avg** | 1.00 | Average dependencies per module (K/N) |
-| **K_max** | 2 | Maximum out-degree (config.py) |
-| **K_max_in** | 2 | Maximum in-degree (__init__.py) |
-| **Max possible K** | 6 | N * (N-1) for a directed graph |
-| **K/K_max_possible** | 0.50 | Graph density (50% of possible edges used) |
+| N (modules) | 3 | `__init__`, `config`, `handlers` |
+| K_total (edges) | 1 | Tool detects only `config -> handlers` |
+| K_avg | 0.33 | K_total / N |
+| K/N | 0.111 | K_avg / N |
+| K_max | 1 | `config` (imports `handlers`) |
+| Cycles | 0 | Clean DAG |
+| Composite (K_avg*N + Cycles) | 1.0 | Lowest in the benchmark set |
+| Burden (Cycles + 0.1*N) | 0.3 | Lowest in the benchmark set |
+| Hub concentration | 100% | K_max / K_total = 1/1 |
+| Architecture classification | monolith | N <= 3 triggers monolith classification |
+| Total LOC | 5,000 | `__init__`: 2345, `handlers`: 1605, `config`: 1050 |
 
-## 4. Comparison with Known Benchmarks
+## 3. Tool vs. Reality: The Edge Count Discrepancy
 
-| Package | N | K | K/N | K_avg | Assessment |
-|---------|--:|--:|----:|------:|------------|
-| `json` | 5 | ~0.8 | 0.16 | 0.16 | Excellent: minimal coupling |
-| `email` | 28 | ~1.7 | 0.06 | 0.06 | Excellent: very loose coupling |
-| `http.client` (core) | 24 | ~5.2 | 0.215 | 0.215 | Good: moderate coupling |
-| **`logging`** | **3** | **3** | **1.00** | **1.00** | **See analysis below** |
+The tool reports **K_total = 1**, but manual inspection of the source reveals **3 actual dependency edges**:
 
-The raw K/N = 1.00 for logging is dramatically higher than the benchmarks. However, this demands careful interpretation.
+| From | To | Import Statement | Tool Detects? |
+|------|----|------------------|:---:|
+| `config` | `handlers` | `import logging.handlers` | Yes |
+| `config` | `__init__` | `import logging` | No |
+| `handlers` | `__init__` | `import logging` | No |
 
-## 5. Analysis and Interpretation
+**Why the discrepancy**: The tool's `_resolve_import_name` function requires `len(parts) > 1` for absolute imports -- i.e., it catches `import logging.handlers` (parts = `["logging", "handlers"]`) but not `import logging` (parts = `["logging"]`), because a single-part import matching the package name is ambiguous between "importing the package itself" and "importing something external." Inside a package, `import logging` in `handlers.py` is an import of the parent `__init__.py`, but the tool cannot distinguish this from a hypothetical external package named `logging`.
 
-### 5.1 The Small-N Distortion
+**Corrected metrics** (if counting all 3 edges):
 
-The K/N ratio is misleading for very small N. With only 3 modules:
-- The minimum non-trivial K/N is 0.33 (one edge)
-- The maximum K/N is 2.00 (fully connected directed graph)
-- Any meaningful package with 3 modules will have K/N >= 0.33
+| Metric | Tool Value | Corrected Value |
+|--------|----------:|---------------:|
+| K_total | 1 | 3 |
+| K_avg | 0.33 | 1.00 |
+| K/N | 0.111 | 0.333 |
+| K_max | 1 | 2 (config) |
+| Composite | 1.0 | 3.0 |
+| Burden | 0.3 | 0.3 (unchanged; no cycles) |
 
-For comparison, if `json` (N=5) had the same *graph density* as logging (50%), it would have K=10 and K/N=2.0. Logging's 50% graph density is actually moderate.
+Even with the corrected value of 3.0, logging remains among the lowest-complexity packages.
 
-### 5.2 The Monolith Problem
+## 4. Architecture Classification
 
-The real finding is not high coupling -- it is **extreme concentration**. The `__init__.py` module contains:
-- **2,345 of 5,000 lines** (47% of code)
-- **18 of 38 classes** (47%)
-- **31 of 43 top-level functions** (72%)
-- All core abstractions: `LogRecord`, `Logger`, `Handler`, `Formatter`, `Filter`, `Manager`, etc.
+The tool classifies logging as **monolith**. This is triggered by the rule `if n <= 3: return "monolith"` in the classifier -- any package with 3 or fewer modules is automatically classified as monolith regardless of other metrics.
 
-This is a **monolith with satellites** pattern, not a decomposed package. The real N -- the number of meaningful architectural components -- is arguably much higher than 3. The `__init__.py` alone contains what would be 5-8 modules in a well-decomposed package:
-1. Level management (`CRITICAL`, `DEBUG`, etc. + `addLevelName`, `getLevelName`)
-2. `LogRecord` and factories
-3. Formatting (`Formatter`, `PercentStyle`, `StrFormatStyle`, `StringTemplateStyle`, `BufferingFormatter`)
-4. Filtering (`Filter`, `Filterer`)
-5. Core handler infrastructure (`Handler`, `StreamHandler`, `FileHandler`)
-6. Logger hierarchy (`Logger`, `RootLogger`, `Manager`, `PlaceHolder`)
-7. `LoggerAdapter`
-8. Module-level convenience API (`getLogger`, `basicConfig`, `debug`, `info`, etc.)
+This classification is actually correct for a deeper reason: `__init__.py` contains 2,345 of 5,000 lines (47%), 18 classes, and 31 top-level functions. The "monolith" label reflects the reality that most of the package's logic is concentrated in a single file. The package has a layered DAG structure, but the core layer is itself a monolith.
 
-### 5.3 Config Module: Deep Coupling to Internals
+The dependency graph is a clean 3-layer DAG:
 
-The `config` module accesses **5 private attributes** of `__init__`:
-- `logging._acquireLock`
-- `logging._releaseLock`
-- `logging._checkLevel`
-- `logging._handlers`
-- `logging._handlerList`
-
-This is a strong code smell. These underscore-prefixed names represent internal implementation details. The config module cannot function without intimate knowledge of the core module's internals, making it fragile to refactoring. This is **coupling through private API** -- the worst kind in terms of maintenance burden.
-
-### 5.4 Handlers Module: Clean Coupling
-
-By contrast, `handlers.py` couples only to **public API** (base classes and level constants). This is clean, intentional extension-point coupling. All 14 handler classes inherit from either `logging.Handler` or `logging.FileHandler` -- exactly the pattern the architecture intended.
-
-### 5.5 Cycle Analysis
-
-**No cycles exist.** The dependency graph is a clean DAG:
-- `__init__` depends on nothing within the package
-- `handlers` depends only on `__init__`
-- `config` depends on both `__init__` and `handlers`
-
-This is structurally sound. The layering is:
 ```
-Layer 0 (foundation):  __init__
-Layer 1 (extensions):  handlers
-Layer 2 (configuration): config
+Layer 0 (foundation):     __init__     (2345 LOC, 0 out-edges, 2 in-edges)
+Layer 1 (extensions):     handlers     (1605 LOC, 1 out-edge, 1 in-edge)
+Layer 2 (configuration):  config       (1050 LOC, 2 out-edges, 0 in-edges)
 ```
 
-### 5.6 Coupling Hubs
+## 5. Cycle Analysis
 
-**Hub by in-degree**: `__init__` (in-degree = 2) -- both other modules depend on it.
-This is expected for a core module and is not problematic.
+**Zero cycles.** The dependency graph is a strict DAG. No module has a path back to itself.
 
-**Hub by out-degree**: `config` (out-degree = 2) -- it depends on both other modules.
-Also expected: configuration must know about what it configures.
+Modules participating in cycles: none.
 
-**Hub by attribute surface area**: `config` -> `__init__` uses 13 distinct attributes (including 5 private ones), making this the highest-coupling edge by far.
+The lazy import analysis confirms zero internal lazy imports, meaning no hidden runtime cycles either. This makes logging one of the cleanest packages structurally. The F44 hypothesis (lazy imports exist to break cycles) is not testable here.
 
-### 5.7 Isolated Modules
+Note: `handlers.py` and `config.py` do use lazy imports for *external* dependencies (e.g., `smtplib`, `configparser`, `multiprocessing`), but not for internal cross-module imports.
 
-None. All 3 modules participate in the dependency graph. There are no dead or orphan modules.
+## 6. Hub Analysis
 
-## 6. External Dependencies (stdlib)
+**Hub by out-degree**: `config` (K_out = 2 corrected, 1 per tool) -- depends on both other modules. This is architecturally expected: a configuration module must know about the things it configures.
 
-For completeness, each module's external stdlib imports:
+**Hub by in-degree**: `__init__` (K_in = 2 corrected, 0 per tool) -- both other modules depend on it. This is the natural gravity well of a core module that defines all base classes.
 
-| Module | Unconditional Imports | Conditional (lazy) Imports |
-|--------|----------------------|---------------------------|
-| `__init__` | `sys`, `os`, `time`, `io`, `re`, `traceback`, `warnings`, `weakref`, `collections.abc`, `types`, `string`, `threading`, `atexit` (13) | `pickle` (1) |
-| `handlers` | `io`, `socket`, `os`, `pickle`, `struct`, `time`, `re`, `stat`, `queue`, `threading`, `copy` (11) | `smtplib`, `email.message`, `email.utils`, `win32evtlogutil`, `win32evtlog`, `http.client`, `urllib.parse`, `base64` (8) |
-| `config` | `errno`, `functools`, `io`, `os`, `queue`, `re`, `struct`, `threading`, `traceback`, `socketserver` (10) | `configparser`, `multiprocessing.queues`, `json`, `select` (4) |
+**Hub concentration**: 100% (tool value). All detected edges originate from a single module (`config`). In the corrected graph, `config` still accounts for 2/3 of all edges.
 
-The `handlers` module makes heavy use of **lazy imports** for protocol-specific dependencies (SMTP, HTTP, Windows Event Log), which is good practice -- it avoids loading expensive modules until the specific handler type is actually used.
+The hub structure is healthy: `__init__` is a pure provider (high in-degree, zero out-degree), while `config` is a pure consumer (high out-degree, zero in-degree). This is the "clean layering" pattern.
 
-## 7. Summary Assessment
+## 7. Refactoring Suggestions
 
-| Dimension | Finding | Verdict |
-|-----------|---------|---------|
-| K/N ratio | 1.00 | Misleadingly high due to small N; actual graph density (50%) is moderate |
-| Cycle freedom | No cycles | Good: clean layered DAG |
-| Decomposition quality | Monolith `__init__` (47% of code, 72% of functions) | Poor: under-decomposed core |
-| Coupling quality | `config` uses 5 private attributes of `__init__` | Poor: fragile internal coupling |
-| Extension pattern | `handlers` uses only public base classes | Good: clean extension points |
-| Effective N | ~8-10 logical components crammed into 3 files | Package would benefit from further decomposition |
+The tool's refactoring engine reports: "logging has 0 cycles -- no refactoring needed for cycle reduction." This is the correct output given zero cycles.
 
-### Overall Verdict
+However, the tool's cycle-focused refactoring misses the main issue: **`__init__.py` is an under-decomposed monolith**. If decomposed into its logical components, the package would look like:
 
-The `logging` package's NK profile reveals a **monolith-with-satellites** anti-pattern. The low module count (N=3) masks significant internal complexity within `__init__.py`. The K/N = 1.00 is not inherently problematic for a 3-module package, but the **coupling quality** is mixed:
+| Proposed Module | Contents | Approx LOC |
+|----------------|----------|----------:|
+| `_levels` | Level constants, `addLevelName`, `getLevelName`, `_checkLevel` | ~100 |
+| `_records` | `LogRecord`, `LogRecordFactory`, `makeLogRecord` | ~200 |
+| `_formatting` | `Formatter`, `PercentStyle`, `StrFormatStyle`, `StringTemplateStyle`, `BufferingFormatter` | ~300 |
+| `_filtering` | `Filter`, `Filterer` | ~100 |
+| `_handlers_base` | `Handler`, `StreamHandler`, `FileHandler` | ~400 |
+| `_hierarchy` | `Logger`, `RootLogger`, `Manager`, `PlaceHolder` | ~600 |
+| `_adapter` | `LoggerAdapter` | ~100 |
+| `__init__` | Public API surface, `getLogger`, `basicConfig`, convenience functions | ~500 |
+| `config` | (unchanged) | ~1050 |
+| `handlers` | (unchanged) | ~1605 |
 
-- **Good**: `handlers` -> `__init__` is clean public-API coupling through inheritance
-- **Bad**: `config` -> `__init__` reaches into private internals, creating hidden fragility
-- **Structural**: The package would score much better on NK metrics if `__init__.py` were decomposed into 5-8 focused modules (records, formatting, filtering, handlers-base, logger-hierarchy, convenience-api)
+This would yield approximately N=10, K~12-15, composite~15-20 -- more honestly reflecting the package's internal complexity.
 
-Compared to the benchmarks, `logging` achieves its low apparent coupling not through good decomposition but through **under-modularization** -- stuffing most logic into one giant file. This is a common pattern in older Python stdlib packages that predate modern packaging conventions.
+## 8. Cross-Package Comparison
 
-**If `__init__.py` were split into its ~8 logical components**, the resulting package would likely have N~10, K~12-15, and K/N~1.2-1.5, which would more honestly reflect the actual internal complexity while still being a reasonable ratio for a tightly-integrated framework package.
+| Package | N | K_total | K_avg | K/N | Cycles | Composite | Burden | Architecture |
+|---------|--:|-------:|------:|----:|-------:|----------:|-------:|:------------|
+| **logging** | **3** | **1** | **0.33** | **0.111** | **0** | **1.0** | **0.3** | **monolith** |
+| json | 5 | 2 | 0.40 | 0.08 | 0 | 2.0 | 0.5 | hub-and-spoke |
+| email | 29 | 44 | 1.52 | 0.052 | 2 | 46.0 | 2.9 | distributed |
+
+### What explains the differences?
+
+**logging (composite=1.0) vs json (composite=2.0)**:
+- Both are cycle-free, so the composite difference is purely from K_avg * N.
+- json has more modules (5 vs 3) but both have minimal internal coupling.
+- json's `__init__.py` imports `decoder` and `encoder`, giving it K_total=2 vs logging's tool-detected K_total=1.
+- Both share the pattern of a dominant `__init__.py` that re-exports functionality.
+- json's architecture is classified as "hub-and-spoke" because N > 3, while logging falls into the automatic "monolith" bucket.
+- Key difference: json is better decomposed -- its decoder and encoder are separate modules with clear boundaries. Logging stuffs the equivalent functionality into `__init__.py`.
+
+**logging (composite=1.0) vs email (composite=46.0)**:
+- email has 29 modules (nearly 10x logging's 3), so even moderate coupling (K_avg=1.52) produces a large K_avg * N term (44.1).
+- email has 2 cycles, adding 2 to the composite score.
+- email is a genuinely decomposed package: MIME types, encoders, headers, charset handling, and policy modules are all separate files. This decomposition is honest -- it reflects the real internal complexity of email parsing/generation.
+- logging achieves a low composite score not primarily through good design but through **under-modularization**. With 5,000 LOC across only 3 files, the LOC-per-module ratio is 1,667 -- far higher than email's 172 LOC-per-module.
+- Burden scores differ dramatically (0.3 vs 2.9) primarily because email has cycles and 10x the module count.
+
+### The LOC/N ratio as a hidden complexity indicator
+
+| Package | LOC | N | LOC/N | Composite |
+|---------|----:|--:|------:|----------:|
+| logging | 5,000 | 3 | 1,667 | 1.0 |
+| json | 1,316 | 5 | 263 | 2.0 |
+| email | ~5,000 | 29 | 172 | 46.0 |
+
+Logging's LOC/N of 1,667 is an order of magnitude higher than email's 172. This suggests the NK composite score, taken alone, under-reports complexity for under-modularized packages. A package can achieve a low composite score by concentrating all logic in `__init__.py`, avoiding the edges that come from decomposition. The composite score measures *inter-module* complexity but is blind to *intra-module* complexity.
+
+## 9. Key Findings
+
+1. **logging scores 1.0 composite, the lowest in the benchmark set.** This is factually correct per the tool's methodology.
+
+2. **The tool under-counts edges (1 vs 3 actual).** The `import logging` pattern used by submodules to access `__init__` is not detected. Even corrected, the composite would be 3.0 -- still very low.
+
+3. **Zero cycles, zero lazy internal imports.** The DAG is clean and there is no deferred coupling.
+
+4. **The monolith classification is accurate.** 47% of code lives in `__init__.py`. The real architectural complexity is hidden inside that single file.
+
+5. **The low composite score is partly an artifact of under-modularization.** Logging's 5,000 LOC would produce a higher (and more honest) composite score if the core were decomposed into its 5-8 logical components.
+
+6. **Coupling quality is mixed.** `handlers -> __init__` uses only public API (clean). `config -> __init__` reaches into 5 private attributes (fragile).
+
+7. **The NK composite metric has a blind spot for monolithic packages.** A supplementary metric like LOC/N or a "monolith penalty" would improve accuracy for packages with N < 5.

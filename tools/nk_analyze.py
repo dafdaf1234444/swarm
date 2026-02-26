@@ -10,6 +10,8 @@ Usage:
     python3 tools/nk_analyze.py <package_name> --suggest-refactor
     python3 tools/nk_analyze.py <package_name> --lazy
     python3 tools/nk_analyze.py batch --lazy
+    python3 tools/nk_analyze.py <package_name> --api-shape
+    python3 tools/nk_analyze.py batch --api-shape
     python3 tools/nk_analyze.py compare --repo <path> --pkg <subpath> --name <name> <ref1> <ref2>
 
 Analyzes internal dependencies of a Python package and computes:
@@ -17,6 +19,7 @@ Analyzes internal dependencies of a Python package and computes:
 - Cycle detection
 - Composite score: K_avg * N + Cycles
 - Architecture classification (facade, monolith, framework, registry)
+- API shape topology: pipeline / recursive / registry (with --api-shape)
 
 Compare mode analyzes a package at two git refs and outputs the delta (ΔNK).
 
@@ -26,6 +29,8 @@ Examples:
     python3 tools/nk_analyze.py asyncio --json
     python3 tools/nk_analyze.py batch json email asyncio
     python3 tools/nk_analyze.py batch  # scans default stdlib set
+    python3 tools/nk_analyze.py json --api-shape
+    python3 tools/nk_analyze.py batch --api-shape
     python3 tools/nk_analyze.py compare --repo workspace/werkzeug --pkg src/werkzeug --name werkzeug 1.0.0 2.0.0
 """
 
@@ -367,6 +372,8 @@ def analyze_package(package_name: str, verbose: bool = False) -> dict:
     # Total LOC
     total_loc = sum(f["loc"] for f in file_info.values())
 
+    loc_n = total_loc / n if n > 0 else 0
+
     result = {
         "package": package_name,
         "path": str(pkg_path),
@@ -380,6 +387,7 @@ def analyze_package(package_name: str, verbose: bool = False) -> dict:
         "cycle_details": [" → ".join(c) for c in cycles],
         "composite": round(composite, 1),
         "burden": round(burden, 1),
+        "loc_n": round(loc_n, 0),
         "architecture": arch,
         "hub_pct": round(hub_pct, 2),
         "total_loc": total_loc,
@@ -539,6 +547,10 @@ def print_report(result: dict, verbose: bool = False):
     print(f"    Cycles:               {result['cycles']}")
     print(f"    K_avg*N + Cycles:     {result['composite']}")
     print(f"    Burden (Cyc+0.1N):   {result['burden']}")
+    loc_n = result['total_loc'] / result['n'] if result['n'] > 0 else 0
+    print(f"    LOC/N:                {loc_n:.0f}")
+    if loc_n > 500:
+        print(f"    ⚠ MONOLITH BLIND SPOT: LOC/N > 500 — complexity may be hidden in large modules")
     print(f"    Hub concentration:    {result['hub_pct']:.0%}")
     print()
 
@@ -922,6 +934,509 @@ def print_compare_report(result: dict):
     print(f"  VERDICT: {verdict}")
 
 
+def _count_entry_points(pkg_path: Path, modules: dict[str, Path], package_name: str) -> dict:
+    """Count public entry points: functions/classes in __init__.py or __all__.
+
+    Returns {"count": int, "names": list[str], "source": "__all__" | "__init__" | "submodules"}
+    """
+    init_path = pkg_path / "__init__.py"
+    if not init_path.exists():
+        return {"count": 0, "names": [], "source": "missing"}
+
+    try:
+        source = init_path.read_text(encoding="utf-8", errors="replace")
+        tree = ast.parse(source)
+    except (SyntaxError, ValueError):
+        return {"count": 0, "names": [], "source": "parse_error"}
+
+    # Check for __all__
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Assign):
+            for target in node.targets:
+                if isinstance(target, ast.Name) and target.id == "__all__":
+                    if isinstance(node.value, (ast.List, ast.Tuple)):
+                        names = []
+                        for elt in node.value.elts:
+                            if isinstance(elt, ast.Constant) and isinstance(elt.value, str):
+                                names.append(elt.value)
+                        return {"count": len(names), "names": names, "source": "__all__"}
+
+    # Count functions and classes defined in __init__.py
+    names = []
+    for node in ast.iter_child_nodes(tree):
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+            if not node.name.startswith("_"):
+                names.append(node.name)
+        elif isinstance(node, ast.ClassDef):
+            if not node.name.startswith("_"):
+                names.append(node.name)
+
+    if names:
+        return {"count": len(names), "names": names, "source": "__init__"}
+
+    # Fall back to counting public submodules
+    public_mods = [m for m in modules.keys() if not m.startswith("_") and m != "__init__"]
+    return {"count": len(public_mods), "names": public_mods, "source": "submodules"}
+
+
+def _compute_dag_depth(deps: dict[str, list[str]]) -> dict:
+    """Compute the longest path (DAG depth) and average path depth.
+
+    Uses topological-order BFS. Cycles are broken by ignoring back-edges.
+    Returns {"max_depth": int, "avg_depth": float, "depth_map": dict[str, int]}
+    """
+    # Compute in-degrees for topological sort
+    in_deg = defaultdict(int)
+    all_nodes = set(deps.keys())
+    for targets in deps.values():
+        for t in targets:
+            in_deg[t] += 1
+            all_nodes.add(t)
+
+    # Kahn's algorithm with depth tracking
+    depth_map = {}
+    queue = []
+    for node in all_nodes:
+        if in_deg[node] == 0:
+            queue.append(node)
+            depth_map[node] = 0
+
+    visited = set()
+    while queue:
+        current = queue.pop(0)
+        visited.add(current)
+        for neighbor in deps.get(current, []):
+            candidate_depth = depth_map.get(current, 0) + 1
+            if candidate_depth > depth_map.get(neighbor, 0):
+                depth_map[neighbor] = candidate_depth
+            in_deg[neighbor] -= 1
+            if in_deg[neighbor] <= 0 and neighbor not in visited:
+                queue.append(neighbor)
+                visited.add(neighbor)
+
+    # Handle nodes in cycles (not visited by Kahn's)
+    for node in all_nodes:
+        if node not in depth_map:
+            depth_map[node] = -1  # in a cycle, mark as -1
+
+    max_depth = max(depth_map.values(), default=0)
+    valid_depths = [d for d in depth_map.values() if d >= 0]
+    avg_depth = sum(valid_depths) / len(valid_depths) if valid_depths else 0
+
+    return {"max_depth": max_depth, "avg_depth": round(avg_depth, 2), "depth_map": depth_map}
+
+
+def _compute_fan_in_distribution(deps: dict[str, list[str]], in_degree: dict[str, int]) -> dict:
+    """Analyze fan-in distribution to detect registry patterns.
+
+    Registry pattern: many modules fan into a small number of interface modules.
+    Returns metrics about fan-in concentration.
+    """
+    all_modules = set(deps.keys())
+    for targets in deps.values():
+        all_modules.update(targets)
+
+    n = len(all_modules)
+    if n == 0:
+        return {"max_fan_in": 0, "gini": 0.0, "top_sink_ratio": 0.0}
+
+    fan_ins = sorted([in_degree.get(m, 0) for m in all_modules], reverse=True)
+    max_fan_in = fan_ins[0] if fan_ins else 0
+
+    # Gini coefficient of fan-in (0=equal, 1=maximally concentrated)
+    total = sum(fan_ins)
+    if total == 0:
+        gini = 0.0
+    else:
+        cumulative = 0
+        area_under = 0
+        for fi in sorted(fan_ins):
+            cumulative += fi
+            area_under += cumulative
+        perfect_area = total * n / 2
+        gini = round(1 - area_under / (perfect_area + total * n / 2), 3) if (perfect_area + total * n / 2) > 0 else 0.0
+        # Simplified Gini: use standard formula
+        fan_sorted = sorted(fan_ins)
+        n_g = len(fan_sorted)
+        if n_g > 1 and total > 0:
+            numerator = sum((2 * (i + 1) - n_g - 1) * fan_sorted[i] for i in range(n_g))
+            gini = round(numerator / (n_g * total), 3)
+        else:
+            gini = 0.0
+
+    # What fraction of edges go to the top sink?
+    top_sink_ratio = round(max_fan_in / total, 3) if total > 0 else 0.0
+
+    # Count leaf modules (fan-out = 0, no outgoing edges)
+    leaf_count = sum(1 for m in all_modules if len(deps.get(m, [])) == 0)
+    leaf_ratio = round(leaf_count / n, 3) if n > 0 else 0.0
+
+    # Count source modules (fan-in = 0, no incoming edges)
+    source_count = sum(1 for m in all_modules if in_degree.get(m, 0) == 0)
+    source_ratio = round(source_count / n, 3) if n > 0 else 0.0
+
+    return {
+        "max_fan_in": max_fan_in,
+        "gini": gini,
+        "top_sink_ratio": top_sink_ratio,
+        "leaf_count": leaf_count,
+        "leaf_ratio": leaf_ratio,
+        "source_count": source_count,
+        "source_ratio": source_ratio,
+    }
+
+
+def _compute_mutual_dependency_ratio(deps: dict[str, list[str]]) -> float:
+    """Fraction of edges that are bidirectional (A->B and B->A).
+
+    High mutual dependency ratio signals recursive topology.
+    """
+    edge_set = set()
+    for src, targets in deps.items():
+        for tgt in targets:
+            edge_set.add((src, tgt))
+
+    if not edge_set:
+        return 0.0
+
+    mutual = sum(1 for (a, b) in edge_set if (b, a) in edge_set)
+    return round(mutual / len(edge_set), 3)
+
+
+def classify_api_shape(
+    n: int,
+    cycles: int,
+    max_depth: int,
+    avg_depth: float,
+    mutual_dep_ratio: float,
+    fan_in_gini: float,
+    top_sink_ratio: float,
+    leaf_ratio: float,
+    source_ratio: float,
+    k_avg: float,
+) -> dict:
+    """Classify API topology as pipeline, recursive, or registry.
+
+    Returns {"shape": str, "confidence": float, "scores": dict, "cycle_risk": str}
+
+    Classification logic (empirically derived from stdlib analysis):
+    - Pipeline: linear data flow. Few/no cycles, high depth relative to N,
+      low mutual dependency, moderate fan-in concentration.
+    - Recursive: circular references. Cycles present, mutual dependencies,
+      modules at similar depths, high K_avg.
+    - Registry: many-to-one pattern. High fan-in Gini, many leaves implementing
+      few interfaces, low cycles (interfaces are abstract).
+    """
+    # Score each topology (0-1 scale, higher = more likely)
+    pipeline_score = 0.0
+    recursive_score = 0.0
+    registry_score = 0.0
+
+    # --- Cycle signal (strongest predictor per rho=0.917) ---
+    cycle_density = cycles / n if n > 0 else 0
+    if cycles == 0:
+        pipeline_score += 0.35
+        registry_score += 0.15
+    elif cycle_density < 0.1:
+        recursive_score += 0.15
+        pipeline_score += 0.05
+    else:
+        recursive_score += 0.35
+
+    # --- Mutual dependency ratio ---
+    if mutual_dep_ratio == 0:
+        pipeline_score += 0.15
+        registry_score += 0.10
+    elif mutual_dep_ratio > 0.1:
+        recursive_score += 0.20
+    else:
+        recursive_score += 0.05
+
+    # --- Depth signal ---
+    # Pipeline: deep (max_depth close to N), Registry: shallow (broad), Recursive: medium
+    depth_ratio = max_depth / n if n > 0 else 0
+    if depth_ratio > 0.4:
+        pipeline_score += 0.15
+    elif depth_ratio > 0.2:
+        pipeline_score += 0.05
+        registry_score += 0.05
+    else:
+        registry_score += 0.10
+        recursive_score += 0.05
+
+    # --- Fan-in concentration (Gini) ---
+    if fan_in_gini > 0.5:
+        registry_score += 0.20
+    elif fan_in_gini > 0.3:
+        registry_score += 0.10
+        pipeline_score += 0.05
+    else:
+        recursive_score += 0.05
+        pipeline_score += 0.05
+
+    # --- Leaf ratio (implementations vs interfaces) ---
+    if leaf_ratio > 0.5:
+        registry_score += 0.15
+        pipeline_score += 0.10
+    elif leaf_ratio > 0.3:
+        pipeline_score += 0.05
+        registry_score += 0.05
+    else:
+        recursive_score += 0.10
+
+    # --- K_avg signal ---
+    if k_avg < 1.0:
+        pipeline_score += 0.10
+        registry_score += 0.05
+    elif k_avg > 2.0:
+        recursive_score += 0.15
+    else:
+        recursive_score += 0.05
+
+    # --- Source ratio (modules with no imports from within) ---
+    if source_ratio > 0.5:
+        registry_score += 0.10
+    elif source_ratio < 0.2:
+        recursive_score += 0.05
+
+    # Normalize
+    total = pipeline_score + recursive_score + registry_score
+    if total > 0:
+        pipeline_score /= total
+        recursive_score /= total
+        registry_score /= total
+
+    scores = {
+        "pipeline": round(pipeline_score, 3),
+        "recursive": round(recursive_score, 3),
+        "registry": round(registry_score, 3),
+    }
+
+    # Pick winner
+    shape = max(scores, key=scores.get)
+    confidence = scores[shape]
+
+    # Predict cycle risk
+    if shape == "pipeline":
+        if k_avg < 1.0 and leaf_ratio > 0.5:
+            cycle_risk = "LOW"
+            risk_reason = "linear flow, high leaf ratio — cycles unlikely"
+        else:
+            cycle_risk = "LOW-MEDIUM"
+            risk_reason = "mostly linear but some coupling present"
+    elif shape == "recursive":
+        if cycles > 2 or mutual_dep_ratio > 0.15:
+            cycle_risk = "HIGH"
+            risk_reason = f"{cycles} cycles, mutual_dep={mutual_dep_ratio} — API encodes circularity"
+        else:
+            cycle_risk = "MEDIUM-HIGH"
+            risk_reason = f"{cycles} cycles — recursive topology encourages more"
+    else:  # registry
+        if fan_in_gini > 0.5 and cycles == 0:
+            cycle_risk = "LOW"
+            risk_reason = "many-to-one pattern, interfaces decouple"
+        else:
+            cycle_risk = "MEDIUM"
+            risk_reason = "registry with some coupling — cycles possible if interfaces leak"
+
+    return {
+        "shape": shape,
+        "confidence": round(confidence, 3),
+        "scores": scores,
+        "cycle_risk": cycle_risk,
+        "risk_reason": risk_reason,
+    }
+
+
+def analyze_api_shape(package_name: str) -> dict:
+    """Full API shape analysis for a package.
+
+    Combines NK analysis with topological metrics to classify the API as
+    pipeline / recursive / registry and predict cycle risk.
+    """
+    result = analyze_package(package_name, verbose=False)
+    if "error" in result:
+        return result
+
+    # Build dependency map from result
+    deps = {k: v["imports"] for k, v in result["modules"].items()}
+    in_degree = result.get("in_degree", {})
+
+    # Compute topological metrics
+    entry_points = _count_entry_points(
+        Path(result["path"]), {}, package_name
+    )
+    # Re-derive modules dict for entry point counting
+    pkg_path = Path(result["path"])
+    modules_dict = list_modules(pkg_path)
+    entry_points = _count_entry_points(pkg_path, modules_dict, package_name)
+
+    depth_info = _compute_dag_depth(deps)
+    fan_in_info = _compute_fan_in_distribution(deps, in_degree)
+    mutual_dep = _compute_mutual_dependency_ratio(deps)
+
+    # Classify
+    shape_result = classify_api_shape(
+        n=result["n"],
+        cycles=result["cycles"],
+        max_depth=depth_info["max_depth"],
+        avg_depth=depth_info["avg_depth"],
+        mutual_dep_ratio=mutual_dep,
+        fan_in_gini=fan_in_info["gini"],
+        top_sink_ratio=fan_in_info["top_sink_ratio"],
+        leaf_ratio=fan_in_info["leaf_ratio"],
+        source_ratio=fan_in_info["source_ratio"],
+        k_avg=result["k_avg"],
+    )
+
+    return {
+        "package": package_name,
+        "n": result["n"],
+        "k_avg": result["k_avg"],
+        "cycles": result["cycles"],
+        "composite": result["composite"],
+        "burden": result["burden"],
+        "architecture": result["architecture"],
+        "entry_points": entry_points,
+        "dag_depth": {
+            "max_depth": depth_info["max_depth"],
+            "avg_depth": depth_info["avg_depth"],
+        },
+        "fan_in": fan_in_info,
+        "mutual_dep_ratio": mutual_dep,
+        "api_shape": shape_result["shape"],
+        "shape_confidence": shape_result["confidence"],
+        "shape_scores": shape_result["scores"],
+        "cycle_risk": shape_result["cycle_risk"],
+        "risk_reason": shape_result["risk_reason"],
+    }
+
+
+def print_api_shape_report(result: dict):
+    """Print a human-readable API shape report."""
+    if "error" in result:
+        print(f"ERROR: {result['error']}")
+        return
+
+    pkg = result["package"]
+    shape = result["api_shape"].upper()
+    conf = result["shape_confidence"]
+    risk = result["cycle_risk"]
+
+    print(f"\n=== API SHAPE ANALYSIS: {pkg} ===\n")
+    print(f"  API Topology:   {shape} (confidence: {conf:.0%})")
+    print(f"  Cycle Risk:     {risk}")
+    print(f"  Risk Reason:    {result['risk_reason']}")
+    print()
+
+    print("  Shape Scores:")
+    for s, v in sorted(result["shape_scores"].items(), key=lambda x: -x[1]):
+        bar = "#" * int(v * 40)
+        marker = " <--" if s == result["api_shape"] else ""
+        print(f"    {s:<12} {v:.3f} |{bar}{marker}")
+    print()
+
+    print("  Topology Metrics:")
+    print(f"    N (modules):         {result['n']}")
+    print(f"    K_avg:               {result['k_avg']}")
+    print(f"    Cycles:              {result['cycles']}")
+    print(f"    Composite:           {result['composite']}")
+    print(f"    Burden:              {result['burden']}")
+    print(f"    DAG max depth:       {result['dag_depth']['max_depth']}")
+    print(f"    DAG avg depth:       {result['dag_depth']['avg_depth']}")
+    print(f"    Mutual dep ratio:    {result['mutual_dep_ratio']}")
+    print(f"    Fan-in Gini:         {result['fan_in']['gini']}")
+    print(f"    Top sink ratio:      {result['fan_in']['top_sink_ratio']}")
+    print(f"    Leaf ratio:          {result['fan_in']['leaf_ratio']}")
+    print(f"    Source ratio:         {result['fan_in']['source_ratio']}")
+    print()
+
+    ep = result["entry_points"]
+    print(f"  Entry Points ({ep['source']}): {ep['count']}")
+    if ep["names"] and len(ep["names"]) <= 15:
+        for name in ep["names"]:
+            print(f"    - {name}")
+    elif ep["names"]:
+        for name in ep["names"][:10]:
+            print(f"    - {name}")
+        print(f"    ... and {len(ep['names']) - 10} more")
+    print()
+
+    # Interpretation
+    print("  Interpretation:")
+    if result["api_shape"] == "pipeline":
+        print("    Data flows linearly through the package. Entry points call")
+        print("    internal modules in sequence. Low cycle risk because modules")
+        print("    don't need to reference each other circularly.")
+        print("    API-compatible rewrites are SAFE — linear flow is preserved.")
+    elif result["api_shape"] == "recursive":
+        print("    Modules reference each other circularly. The API *encodes*")
+        print("    this circularity — e.g., case<->suite<->runner in unittest.")
+        print("    API-compatible rewrites WILL reproduce cycles (P-064).")
+        print("    Only API redesign (reimagination) can escape the ratchet.")
+    else:
+        print("    Many modules implement a shared interface/protocol. Fan-in")
+        print("    concentrates on a few base classes or registries. Cycle risk")
+        print("    is moderate — depends on whether implementations leak back.")
+    print()
+
+
+def batch_api_shape(packages: list[str], as_json: bool = False):
+    """Analyze API shape across multiple packages."""
+    results = []
+    for pkg in packages:
+        r = analyze_api_shape(pkg)
+        if "error" not in r:
+            results.append(r)
+        else:
+            print(f"  SKIP: {pkg} — {r.get('error', 'unknown error')}")
+
+    if not results:
+        print("No packages analyzed successfully.")
+        return results
+
+    if as_json:
+        print(json_mod.dumps(results, indent=2))
+        return results
+
+    # Table output
+    print(f"\n{'Package':<20} {'Shape':<12} {'Conf':>5} {'Risk':<12} "
+          f"{'Cyc':>4} {'Depth':>5} {'MutDep':>7} {'Gini':>5} {'LeafR':>6}")
+    print("-" * 95)
+    for r in results:
+        print(
+            f"{r['package']:<20} {r['api_shape']:<12} {r['shape_confidence']:>5.0%} "
+            f"{r['cycle_risk']:<12} {r['cycles']:>4} "
+            f"{r['dag_depth']['max_depth']:>5} {r['mutual_dep_ratio']:>7.3f} "
+            f"{r['fan_in']['gini']:>5.3f} {r['fan_in']['leaf_ratio']:>6.3f}"
+        )
+
+    # Summary
+    shapes = defaultdict(list)
+    for r in results:
+        shapes[r["api_shape"]].append(r["package"])
+    print(f"\nSummary:")
+    for shape in ["pipeline", "recursive", "registry"]:
+        pkgs = shapes.get(shape, [])
+        if pkgs:
+            print(f"  {shape.upper()}: {', '.join(pkgs)}")
+
+    # Cycle risk correlation
+    risk_order = {"LOW": 0, "LOW-MEDIUM": 1, "MEDIUM": 2, "MEDIUM-HIGH": 3, "HIGH": 4}
+    print(f"\nCycle Risk vs Actual Cycles:")
+    for r in sorted(results, key=lambda x: risk_order.get(x["cycle_risk"], 2)):
+        predicted = r["cycle_risk"]
+        actual = r["cycles"]
+        match = "CORRECT" if (
+            (predicted in ("LOW", "LOW-MEDIUM") and actual == 0) or
+            (predicted in ("MEDIUM", "MEDIUM-HIGH") and 0 < actual <= 3) or
+            (predicted == "HIGH" and actual > 2)
+        ) else "CHECK"
+        print(f"  {r['package']:<20} predicted={predicted:<12} actual_cycles={actual:>3}  {match}")
+
+    return results
+
+
 def batch_lazy_analyze(packages: list[str]):
     """Analyze lazy imports across multiple packages for F44 hypothesis testing."""
     results = []
@@ -978,6 +1493,7 @@ def main():
     as_json = "--json" in sys.argv
     refactor = "--suggest-refactor" in sys.argv or "--refactor" in sys.argv
     lazy = "--lazy" in sys.argv
+    api_shape = "--api-shape" in sys.argv
 
     if package_name == "compare":
         # Compare mode: analyze a package at two git refs
@@ -1029,10 +1545,20 @@ def main():
                 "asyncio", "multiprocessing", "xml", "sqlite3",
                 "urllib", "collections", "importlib",
             ]
-        if lazy:
+        if api_shape:
+            batch_api_shape(packages, as_json)
+        elif lazy:
             batch_lazy_analyze(packages)
         else:
             batch_analyze(packages)
+        return
+
+    if api_shape:
+        shape_result = analyze_api_shape(package_name)
+        if as_json:
+            print(json_mod.dumps(shape_result, indent=2))
+        else:
+            print_api_shape_report(shape_result)
         return
 
     if lazy:

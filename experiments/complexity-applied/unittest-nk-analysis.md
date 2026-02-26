@@ -1,244 +1,199 @@
 # NK Landscape Analysis: Python `unittest` Package
 
 **Date**: 2026-02-26
+**Tool**: `tools/nk_analyze.py` (3 runs: default, --verbose, --suggest-refactor)
 **Python version**: 3.12
 **Source**: `/usr/lib/python3.12/unittest/`
 
-## 1. Component Inventory (N)
+## 1. Raw NK Metrics
 
-The `unittest` package contains **N = 13** Python modules:
+| Metric | Value |
+|--------|------:|
+| **N** (modules) | 13 |
+| **K_total** (directed edges) | 27 |
+| **K_avg** | 2.08 |
+| **K/N** | 0.16 |
+| **K_max** | 8 (`__init__`) |
+| **Cycles** | 1 |
+| **Composite** (K_avg * N + Cycles) | 28.0 |
+| **Burden** (Cycles + 0.1 * N) | 2.3 |
+| **Hub concentration** | 30% |
+| **Architecture classification** | framework |
+| **Total LOC** | 6,763 |
 
-| # | Module | Lines | Role |
-|---|--------|------:|------|
-| 1 | `__init__` | 85 | Package entry point, re-exports public API |
-| 2 | `__main__` | 18 | CLI entry point (`python -m unittest`) |
-| 3 | `_log` | 86 | Logging assertion support (`assertLogs`, `assertNoLogs`) |
-| 4 | `async_case` | 142 | `IsolatedAsyncioTestCase` for async tests |
-| 5 | `case` | 1,456 | Core `TestCase` class, assertions, decorators |
-| 6 | `loader` | 495 | `TestLoader`, test discovery |
-| 7 | `main` | 291 | `TestProgram`, CLI argument parsing |
-| 8 | `mock` | 3,022 | `Mock`, `MagicMock`, `patch`, `AsyncMock` |
-| 9 | `result` | 256 | `TestResult` base class |
-| 10 | `runner` | 292 | `TextTestRunner`, `TextTestResult` |
-| 11 | `signals` | 71 | SIGINT handling for graceful Ctrl-C |
-| 12 | `suite` | 379 | `TestSuite`, `BaseTestSuite`, fixture orchestration |
-| 13 | `util` | 170 | Pure utility functions (`safe_repr`, `strclass`, diff helpers) |
+### Classification Logic
 
-**Total**: 6,763 lines of code.
+The tool classified unittest as "framework" because:
+- N > 3 (not monolith)
+- Cycles = 1, which is not > 3 (not tangled)
+- hub_pct = 0.30, k_max = 8, N*0.3 = 3.9 -- hub_pct is not > 0.5 (not hub-and-spoke)
+- K_avg = 2.08 > 2.0 (triggers framework classification)
 
-The `mock` module alone is 3,022 lines (44.7% of the package), making it the dominant component by size.
+## 2. Per-Module Detail Table (--verbose output)
 
-## 2. Dependency Map (K)
+| Module | LOC | K_out | K_in | Imports |
+|--------|----:|------:|-----:|---------|
+| `__init__` | 85 | 8 | 0 | async_case, case, loader, main, result, runner, signals, suite |
+| `__main__` | 18 | 1 | 0 | main |
+| `_log` | 86 | 1 | 1 | case |
+| `async_case` | 142 | 1 | 1 | case |
+| `case` | 1,456 | 3 | 6 | _log, result, util |
+| `loader` | 495 | 3 | 2 | case, suite, util |
+| `main` | 291 | 3 | 2 | loader, runner, signals |
+| `mock` | 3,022 | 1 | 0 | util |
+| `result` | 256 | 1 | 3 | util |
+| `runner` | 292 | 3 | 2 | case, result, signals |
+| `signals` | 71 | 0 | 3 | (none) |
+| `suite` | 379 | 2 | 2 | case, util |
+| `util` | 170 | 0 | 5 | (none) |
 
-Internal dependencies between modules (directed edges: A depends on B):
+### In-Degree Ranking
 
-```
-__init__  --> async_case, case, loader, main, result, runner, signals, suite
-__main__  --> main
-_log      --> case
-async_case --> case
-case      --> _log (lazy), result, util
-loader    --> case, suite, util
-main      --> loader, runner, signals
-mock      --> util (via absolute import: from unittest.util import safe_repr)
-result    --> util
-runner    --> case, result, signals
-signals   --> (none)
-suite     --> case, util
-util      --> (none)
-```
-
-### Dependency Matrix
-
-Rows depend on columns. `X` = direct dependency.
-
-```
-              __init__ __main__ _log async case loader main mock result runner signals suite util
-__init__         .       .       .    X     X     X     X    .     X     X      X      X     .
-__main__         .       .       .    .     .     .     X    .     .     .      .      .     .
-_log             .       .       .    .     X     .     .    .     .     .      .      .     .
-async_case       .       .       .    .     X     .     .    .     .     .      .      .     .
-case             .       .       X    .     .     .     .    .     X     .      .      .     X
-loader           .       .       .    .     X     .     .    .     .     .      .      X     X
-main             .       .       .    .     .     X     .    .     .     X      X      .     .
-mock             .       .       .    .     .     .     .    .     .     .      .      .     X
-result           .       .       .    .     .     .     .    .     .     .      .      .     X
-runner           .       .       .    .     X     .     .    .     X     .      X      .     .
-signals          .       .       .    .     .     .     .    .     .     .      .      .     .
-suite            .       .       .    .     X     .     .    .     .     .      .      .     X
-util             .       .       .    .     .     .     .    .     .     .      .      .     .
-```
-
-## 3. Key Metrics
-
-| Metric | All Modules (N=13) | Core Modules (N=11)* |
-|--------|-------------------:|---------------------:|
-| **N** | 13 | 11 |
-| **K** (total directed edges) | 27 | 18 |
-| **K/N** (avg deps per module) | 2.077 | 1.636 |
-| **K_avg** | 2.077 | 1.636 |
-| **K_max** | 8 (`__init__`) | 3 (case, loader, main, runner) |
-| **Density** (K / N(N-1)) | 0.173 | 0.164 |
-
-*Core excludes `__init__` and `__main__`, which are structural entry points rather than functional components.
-
-### Out-degree (how many modules each depends on)
-
-| Module | Out-degree | Role |
-|--------|----------:|----|
-| `__init__` | 8 | Re-export hub (structural, not functional) |
-| `case` | 3 | Core test case |
-| `loader` | 3 | Test discovery |
-| `main` | 3 | CLI program |
-| `runner` | 3 | Test execution |
-| `suite` | 2 | Test grouping |
-| `__main__` | 1 | CLI entry |
-| `_log` | 1 | Logging assertions |
-| `async_case` | 1 | Async tests |
-| `mock` | 1 | Mocking framework |
-| `result` | 1 | Result storage |
-| `signals` | 0 | Leaf (standalone) |
-| `util` | 0 | Leaf (standalone) |
-
-### In-degree (how many modules depend on each)
-
-| Module | In-degree | Assessment |
-|--------|----------:|------------|
-| `case` | **6** | **Primary hub** -- the gravitational center |
-| `util` | **5** | **Utility hub** -- pure functions, healthy dependency |
-| `result` | 3 | Mid-tier |
-| `signals` | 3 | Mid-tier |
+| Module | K_in | Role |
+|--------|-----:|------|
+| `case` | 6 | Primary hub -- most-depended-on module |
+| `util` | 5 | Utility leaf -- pure functions, zero outgoing deps |
+| `result` | 3 | Mid-tier -- result aggregation |
+| `signals` | 3 | Leaf -- signal handling, zero outgoing deps |
 | `loader` | 2 | Standard |
 | `main` | 2 | Standard |
 | `runner` | 2 | Standard |
 | `suite` | 2 | Standard |
 | `_log` | 1 | Low |
 | `async_case` | 1 | Low |
-| `__init__` | 0 | Root (no one imports the init) |
-| `__main__` | 0 | Root |
-| `mock` | 0 | **Isolated satellite** |
+| `__init__` | 0 | Root (re-export facade) |
+| `__main__` | 0 | Root (CLI entry) |
+| `mock` | 0 | Isolated satellite -- no one imports it internally |
 
-## 4. Cycle Analysis
+## 3. Cycle Analysis
 
-**One cycle detected:**
+**Cycle count**: 1
+
+**Cycle**: `_log -> case -> _log`
+
+The `_log` module imports `_BaseTestCaseContext` from `case`. The `case` module lazily imports `_log` inside the `assertLogs()` and `assertNoLogs()` methods. This is a managed mutual dependency -- the lazy import in `case.py` prevents an import-time circular import error.
+
+**Modules participating in cycles**: `_log`, `case` (2 of 13 modules, 15.4%).
+
+The remaining 11 modules form a clean DAG.
+
+## 4. Hub Modules
+
+### `case` (K_in=6, K_out=3, 1,456 LOC)
+
+The gravitational center of the package. Six modules depend on it: `__init__`, `_log`, `async_case`, `loader`, `runner`, `suite`. It contains the `TestCase` class with the entire assertion library, test lifecycle management, skip/expected-failure decorators, and subtest support. Its high in-degree is domain-appropriate -- in a testing framework, the test case is the central abstraction everything revolves around.
+
+### `util` (K_in=5, K_out=0, 170 LOC)
+
+A pure leaf utility module with no outgoing dependencies. Five modules depend on it: `case`, `loader`, `mock`, `result`, `suite`. Provides `safe_repr`, `strclass`, and diff helpers. This is the ideal dependency pattern -- a stable foundation that creates no transitive coupling.
+
+### `__init__` (K_out=8, K_in=0, 85 LOC)
+
+The re-export facade. It imports 8 of 13 modules to surface the public API. This is structural, not functional -- it does not participate in any cycle and creates no coupling between the modules it imports.
+
+### `mock` (K_out=1, K_in=0, 3,022 LOC)
+
+The largest module by far (44.7% of total LOC) but structurally isolated. Its only internal dependency is `util` (for `safe_repr`). No other module imports `mock` internally. It is effectively a standalone sub-package (it was an independent PyPI package before Python 3.3).
+
+## 5. Refactoring Suggestions (--suggest-refactor output)
+
+The tool identified two candidates for cycle reduction:
+
+| Module | Cycle Participation | Cycles After Removal | Composite After | Cycle Reduction |
+|--------|-------------------:|--------------------:|----------------:|----------------:|
+| `_log` | 1/1 | 0 | 25.0 | 100% |
+| `case` | 1/1 | 0 | 18.0 | 100% |
+
+**Tool recommendation**: Extract `_log` first.
+- Participates in 1/1 cycles (100%)
+- K_in=1, K_out=1
+- Classified as "cycle driver" (K_in/K_out ratio = 1.0)
+
+**Analysis**: Removing `_log` eliminates the only cycle and drops composite from 28.0 to 25.0. Removing `case` would drop composite further to 18.0, but that is impractical -- `case` is the central abstraction. The realistic refactoring path is to merge `_log` back into `case` (eliminating the cycle by removing the module boundary) or to break the dependency by having `_log` accept a context class via parameter rather than importing it from `case`.
+
+## 6. Three-Way Comparison: json vs unittest vs email
+
+| Metric | json | unittest | email |
+|--------|-----:|---------:|------:|
+| **N** | 5 | 13 | 29 |
+| **K_total** | 2 | 27 | 44 |
+| **K_avg** | 0.40 | 2.08 | 1.52 |
+| **K/N** | 0.08 | 0.16 | 0.052 |
+| **K_max** | 2 | 8 | 5 |
+| **Cycles** | 0 | 1 | 2 |
+| **Composite** | 2.0 | 28.0 | 46.0 |
+| **Burden** | 0.5 | 2.3 | 4.9 |
+| **Hub %** | 100% | 30% | 11% |
+| **Architecture** | hub-and-spoke | framework | distributed |
+| **Total LOC** | 1,316 | 6,763 | 10,323 |
+
+### What Explains the Differences
+
+**json (composite=2.0)**: The simplest architecture. Only 5 modules, only 2 internal edges (both from `__init__` to `decoder` and `encoder`), zero cycles. The hub concentration is 100% because all coupling flows through `__init__`. The low composite is a direct consequence of small N (5) and near-zero K_avg (0.4). The `json` package is essentially 3 independent modules (`decoder`, `encoder`, `scanner`) plus a facade.
+
+**unittest (composite=28.0)**: Mid-range complexity. The composite of 28.0 comes from two factors: (1) K_avg of 2.08 multiplied by N of 13 yields 27.0, and (2) one cycle adds 1.0. The K_avg is high because unittest is a framework where modules must coordinate -- TestCase needs TestResult, TestRunner needs both, TestLoader needs TestCase and TestSuite. The single cycle is managed (lazy import). The `__init__` facade contributes 8 of 27 edges; excluding it would reduce K_avg to ~1.58 and composite to ~19.0.
+
+**email (composite=46.0)**: The highest complexity, driven primarily by scale. N=29 is the dominant factor -- even though K_avg (1.52) is lower than unittest's (2.08), multiplying by 29 yields 44.1, plus 2 cycles = 46.0. The email package has a `mime.*` sub-hierarchy (8 modules) that inflates N significantly. Its 2 cycles (`contentmanager <-> message <-> policy`) are in the semantic core where content handling and policy enforcement are inherently intertwined. The distributed architecture (hub_pct = 11%) means coupling is spread across many modules rather than concentrated in one hub.
+
+### Key Insight: Composite = K_avg * N + Cycles
+
+The composite formula amplifies the interaction between average coupling and module count:
+
+- **json**: 0.4 * 5 + 0 = 2.0 (low K_avg, low N, no cycles)
+- **unittest**: 2.08 * 13 + 1 = 28.0 (high K_avg, medium N, 1 cycle)
+- **email**: 1.52 * 29 + 2 = 46.0 (medium K_avg, high N, 2 cycles)
+
+This shows that N is the dominant scaling factor. Email's composite is 1.64x unittest's despite lower K_avg, because its module count is 2.23x higher. The K_avg * N product captures the total coupling surface area -- the number of dependency relationships a maintainer must understand.
+
+### Burden Score Comparison
+
+| Package | Burden (Cycles + 0.1*N) | Interpretation |
+|---------|------------------------:|----------------|
+| json | 0.5 | Minimal maintenance burden |
+| unittest | 2.3 | Low burden -- 1 managed cycle, moderate N |
+| email | 4.9 | Moderate burden -- 2 real cycles, high N |
+
+Burden emphasizes cycles over module count (cycles are weighted 1.0 vs 0.1 for N). This makes email's 2 cycles a larger contributor to its burden than its 29 modules.
+
+## 7. Structural Patterns
+
+### Pipeline Architecture
+
+The functional modules form a clear execution pipeline:
 
 ```
-case --> _log --> case
+loader --> suite --> case --> result
+  |                   |        ^
+  v                   v        |
+ main ------------> runner ----+
+                       |
+                       v
+                    signals
 ```
 
-`case.py` lazily imports `_log` inside the `assertLogs()` and `assertNoLogs()` methods. `_log.py` imports `_BaseTestCaseContext` from `case`. This is a **managed mutual dependency** -- the lazy import in `case.py` breaks the import-time cycle, so Python does not encounter a circular import error at module load.
+Discover tests (loader) -> group tests (suite) -> run tests (case) -> collect results (result) -> display results (runner).
 
-**Assessment**: This is a pragmatic extraction pattern. The `_log` module was factored out of `case` to reduce the size of an already-large module (1,456 lines), but the two remain logically coupled. The lazy import makes the cycle invisible at import time, so it is harmless in practice.
+### Two-Layer Design
 
-No other cycles exist. The remaining graph is a clean **DAG** (directed acyclic graph).
+**Foundation layer** (K_out=0): `util`, `signals`
+**Application layer**: `case`, `result`, `suite`, `loader`, `runner`, `main`, `mock`, `_log`, `async_case`
+**Facade layer**: `__init__`, `__main__`
 
-## 5. Comparison with Benchmarks
+### Mock as Isolated Mass
 
-| Package | N | K | K/N | Density | Notes |
-|---------|--:|--:|----:|--------:|-------|
-| `json` | 5 | ~0.8 | **0.16** | 0.040 | Very low coupling, well-decomposed |
-| `email` | 28 | ~1.7 | **0.06** | 0.002 | Many modules, sparse coupling |
-| `http.client` (raw) | 24 | ~1.6 | **0.068** | 0.003 | Broadly distributed |
-| `http.client` (core) | - | - | **0.215** | - | Higher when filtered to core |
-| **`unittest` (all)** | **13** | **27** | **2.077** | **0.173** | Moderately coupled |
-| **`unittest` (core)** | **11** | **18** | **1.636** | **0.164** | Still notably coupled |
+`mock` is 44.7% of total LOC but contributes only 1 of 27 edges (3.7% of coupling). Its LOC-to-coupling ratio is the most favorable in the package.
 
-The `unittest` K/N of **2.077** is an order of magnitude higher than `json` (0.16) or `email` (0.06). However, context matters:
+## 8. Summary
 
-1. **`__init__` inflation**: The `__init__.py` alone contributes 8 of the 27 edges. It is a re-export facade, not a functional component. Excluding it and `__main__` yields K/N = 1.636, which is still high but more representative.
-
-2. **Package size**: With only 13 modules, `unittest` is a mid-sized package. Smaller packages tend to have higher K/N because modules cannot avoid knowing about each other in a compact design.
-
-3. **Framework nature**: Testing frameworks are inherently coupled -- the TestCase needs the TestResult, the TestRunner needs both, the TestLoader needs TestCase and TestSuite. This is the nature of the domain, not a design flaw.
-
-## 6. Structural Patterns
-
-### 6.1 Hub-and-Spoke: `case` as Gravity Well
-
-The `case` module (in-degree 6) is the gravitational center of the package. Six of eleven core modules depend on it. This is both expected (TestCase is the primary user-facing abstraction) and a structural risk (changes to `case` can cascade widely).
-
-The `case` module's size (1,456 lines, 21.5% of the package) reflects its hub role -- it contains the entire assertion library, test lifecycle management, skip/expected-failure decorators, and subtest support.
-
-### 6.2 Clean Utility Layer: `util` and `signals`
-
-`util` (in-degree 5, out-degree 0) and `signals` (in-degree 3, out-degree 0) are **pure leaf modules** with zero outgoing dependencies. This is excellent decomposition -- they provide services without creating coupling chains. Any module can use them without risk of transitive dependency bloat.
-
-### 6.3 Mock as Isolated Satellite
-
-`mock` is the largest module (3,022 lines, 44.7% of the package) but has only **one** internal dependency (`util.safe_repr`). It is effectively a standalone sub-package that was folded into `unittest`. Its isolation means:
-
-- It could be extracted to a separate package with trivial effort (and historically, it was -- `mock` was an independent PyPI package before Python 3.3).
-- It contributes mass but not coupling to the system.
-- Its K contribution (1 edge) is minimal relative to its size.
-
-### 6.4 The Execution Pipeline
-
-The modules form a clear pipeline architecture:
-
-```
-      loader --> suite --> case --> result
-        |                   |        ^
-        v                   v        |
-       main ------------> runner ----+
-                             |
-                             v
-                          signals
-```
-
-This is a well-structured data flow: **discover tests** (loader) --> **group tests** (suite) --> **run tests** (case) --> **collect results** (result) --> **display results** (runner).
-
-### 6.5 Two-Layer Architecture
-
-The package has a clear two-layer structure:
-
-**Foundation layer** (out-degree 0, no internal dependencies):
-- `util` -- pure functions
-- `signals` -- signal handling
-
-**Application layer** (depends on foundation and each other):
-- `case`, `result`, `suite`, `loader`, `runner`, `main`, `mock`, `_log`, `async_case`
-
-There is no middle "service" layer, which keeps the architecture simple but means the application layer modules must reach directly to the foundation.
-
-## 7. Assessment
-
-### Is unittest's K/N good or poor?
-
-**It is reasonable for its domain, though not exemplary.**
-
-**Arguments for "good":**
-- The dependency graph is almost entirely acyclic (one managed cycle).
-- Two pure leaf modules (`util`, `signals`) provide a stable foundation.
-- `mock` is beautifully isolated despite being the largest component.
-- The pipeline structure (loader -> suite -> case -> result -> runner) is logical and traceable.
-- No module has an out-degree greater than 3 (excluding the re-export `__init__`).
-
-**Arguments for "could be better":**
-- `case` at 1,456 lines and in-degree 6 is doing too much. The assertions, lifecycle management, decorators, and context managers could potentially be split into separate modules.
-- The `case <-> _log` cycle, while managed, is a sign that `_log` is not a truly independent module -- it is a factored-out appendage of `case`.
-- K/N of 2.077 (or 1.636 core) is significantly higher than packages like `json` or `email`, suggesting the modules are not as independent as they could be.
-- The `result` module is imported by both `case` and `runner`, creating an indirect coupling path between them.
-
-### NK Fitness Landscape Interpretation
-
-In NK landscape terms:
-- **N = 13** components define the search space.
-- **K_avg = 2.077** means each component's fitness depends on ~2 other components on average.
-- The **ruggedness** of the fitness landscape is moderate -- changes to any module affect on average 2 others, meaning local optimization (changing one module) has a reasonable chance of improving global fitness.
-- The **case** module with K_in=6 is a **correlation hub** -- it creates correlated fitness contributions across 6 other modules, making it the most sensitive point for refactoring.
-- The landscape is not excessively rugged (K is not close to N-1=12), so the system is still navigable for evolution and refactoring.
-
-### Summary Table
-
-| Property | Value | Verdict |
-|----------|-------|---------|
-| N | 13 | Mid-sized, manageable |
-| K/N (all) | 2.077 | Moderately coupled |
-| K/N (core) | 1.636 | Acceptable for a framework |
-| K_max | 8 (__init__) / 3 (core) | Reasonable |
-| Cycles | 1 (managed) | Acceptable |
-| Hub concentration | case (in=6) | High but domain-appropriate |
-| Isolated mass | mock (3022 lines, K=1) | Excellent isolation |
-| Leaf modules | util, signals | Clean foundation |
-| Graph density | 0.173 | Moderate |
-| Overall | -- | **Competent framework architecture with one oversized hub** |
+| Property | Value | Assessment |
+|----------|-------|------------|
+| Composite score | 28.0 | Mid-range on the stdlib spectrum |
+| Burden score | 2.3 | Low maintenance risk |
+| Architecture | framework | Appropriate for a testing framework |
+| Cycles | 1 (managed via lazy import) | Acceptable |
+| Primary hub | `case` (K_in=6) | Domain-appropriate concentration |
+| Largest isolate | `mock` (3,022 LOC, K=1) | Excellent decoupling |
+| Leaf modules | `util`, `signals` | Clean foundation |
+| Refactoring target | `_log` (cycle elimination) | Low priority given cycle is managed |
+| vs json | 14x higher composite | Expected: 2.6x more modules, 5.2x higher K_avg |
+| vs email | 0.61x composite | Lower N compensates for higher K_avg |
