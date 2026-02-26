@@ -38,6 +38,13 @@
       "commits": 5,
       "beliefs": 7,
       "observed": 7
+    },
+    {
+      "timestamp": "2026-02-26T11:47:02",
+      "fitness": 236.0,
+      "commits": 6,
+      "beliefs": 10,
+      "observed": 10
     }
   ],
   "belief-no-falsification": [
@@ -152,6 +159,24 @@
       "commits": 2,
       "beliefs": 7,
       "observed": 6
+    }
+  ],
+  "belief-principles-first": [
+    {
+      "timestamp": "2026-02-26T11:44:47",
+      "fitness": 163.0,
+      "commits": 2,
+      "beliefs": 7,
+      "observed": 6
+    }
+  ],
+  "belief-test-first": [
+    {
+      "timestamp": "2026-02-26T11:44:55",
+      "fitness": 186.0,
+      "commits": 1,
+      "beliefs": 8,
+      "observed": 8
     }
   ]
 }
