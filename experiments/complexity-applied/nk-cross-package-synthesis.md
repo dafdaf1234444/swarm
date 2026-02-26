@@ -183,5 +183,5 @@ Note: Automated tool gives slightly different numbers than manual analysis (miss
 - F58: RESOLVED — 4 languages, 21 packages validated
 - F62: RESOLVED — Cycles rank-correlate with open bugs better than K_avg/K_max/composite
 - F63: RESOLVED — Cycle participation count identifies optimal extraction candidates
-- F67: Does Flask's app factory pattern actually reduce effective cycle count?
-- F68: Is there a composite threshold above which packages need architectural intervention?
+- F67: RESOLVED — globals removal reduces cycles 29%, globals+sansio.app 56%
+- F68: RESOLVED — No simple threshold; two-threshold model (composite + cycles independently)
