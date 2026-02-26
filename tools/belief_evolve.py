@@ -11,6 +11,7 @@ Usage:
     python3 tools/belief_evolve.py evaluate-all          # evaluate all belief-* children
     python3 tools/belief_evolve.py compare               # compare all variant children
     python3 tools/belief_evolve.py lineage               # show parent→child→grandchild tree
+    python3 tools/belief_evolve.py timeline              # show fitness progression over time
     python3 tools/belief_evolve.py synthesize            # extract lessons about beliefs
 
 The core idea: spawn sub-swarms with different core belief sets as genesis points,
@@ -23,7 +24,7 @@ import os
 import re
 import subprocess
 import sys
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -31,6 +32,7 @@ VARIANTS_DIR = REPO_ROOT / "experiments" / "belief-variants"
 CHILDREN_DIR = REPO_ROOT / "experiments" / "children"
 RESULTS_FILE = VARIANTS_DIR / "evolution-results.json"
 LINEAGE_FILE = VARIANTS_DIR / "lineage.json"
+HISTORY_FILE = VARIANTS_DIR / "fitness-history.json"
 
 # --- BELIEF VARIANTS ---
 # Each variant modifies one dimension of the core belief system.
@@ -566,6 +568,24 @@ def cmd_evaluate(child_name: str):
     }
     RESULTS_FILE.write_text(json.dumps(results, indent=2))
 
+    # Record fitness history
+    history = {}
+    if HISTORY_FILE.exists():
+        history = json.loads(HISTORY_FILE.read_text())
+    if child_name not in history:
+        history[child_name] = []
+    # Only append if fitness changed from last entry
+    entries = history[child_name]
+    if not entries or entries[-1]["fitness"] != fitness:
+        entries.append({
+            "timestamp": datetime.now().isoformat(timespec="seconds"),
+            "fitness": fitness,
+            "commits": metrics["commit_count"],
+            "beliefs": metrics["beliefs_count"],
+            "observed": metrics["observed_count"],
+        })
+        HISTORY_FILE.write_text(json.dumps(history, indent=2))
+
     return metrics, fitness
 
 
@@ -624,6 +644,69 @@ def cmd_compare():
                 status = "CONFIRMED" if data["fitness"] > sorted_results[len(sorted_results)//2][1]["fitness"] else "REFUTED"
                 print(f"  {variant_name}: {v['hypothesis']}")
                 print(f"    → {status} (fitness={data['fitness']:.1f})")
+
+
+def cmd_timeline():
+    """Show fitness progression over time for all variants."""
+    if not HISTORY_FILE.exists():
+        print("No history yet. Run 'evaluate-all' to start tracking.")
+        print("Seeding history from current results...\n")
+        # Seed from existing results
+        if RESULTS_FILE.exists():
+            results = json.loads(RESULTS_FILE.read_text())
+            history = {}
+            for name, data in results.items():
+                m = data["metrics"]
+                history[name] = [{
+                    "timestamp": data.get("evaluated", date.today().isoformat()),
+                    "fitness": data["fitness"],
+                    "commits": m["commit_count"],
+                    "beliefs": m["beliefs_count"],
+                    "observed": m["observed_count"],
+                }]
+            HISTORY_FILE.write_text(json.dumps(history, indent=2))
+        else:
+            print("No results file either. Run evaluate-all first.")
+            sys.exit(1)
+
+    history = json.loads(HISTORY_FILE.read_text())
+    lineage = _load_lineage()
+
+    print("=== FITNESS TIMELINE ===\n")
+    print(f"{'Variant':<30} {'Gen':>4}  {'Trajectory':<50}")
+    print("-" * 90)
+
+    # Sort by latest fitness
+    def latest_fitness(name):
+        entries = history.get(name, [])
+        return entries[-1]["fitness"] if entries else 0
+
+    for name in sorted(history.keys(), key=latest_fitness, reverse=True):
+        entries = history[name]
+        gen = lineage.get(name, {}).get("generation", 1)
+
+        # Build trajectory string: fitness(commits) → fitness(commits) → ...
+        points = []
+        for e in entries:
+            points.append(f"{e['fitness']:.0f}({e['commits']}c,{e['observed']}obs)")
+
+        trajectory = " → ".join(points)
+        print(f"{name:<30} {gen:>4}  {trajectory}")
+
+    # Growth rate analysis
+    print("\n--- Growth Analysis ---")
+    print(f"{'Variant':<30} {'Sessions':>8} {'Growth':>10} {'Avg/Eval':>10}")
+    print("-" * 65)
+    for name in sorted(history.keys(), key=latest_fitness, reverse=True):
+        entries = history[name]
+        if len(entries) >= 2:
+            first = entries[0]["fitness"]
+            last = entries[-1]["fitness"]
+            growth = ((last - first) / first * 100) if first > 0 else 0
+            avg_per = (last - first) / (len(entries) - 1)
+            print(f"{name:<30} {len(entries):>8} {growth:>9.1f}% {avg_per:>9.1f}")
+        else:
+            print(f"{name:<30} {len(entries):>8}      —          —")
 
 
 def cmd_synthesize():
@@ -717,6 +800,8 @@ def main():
         cmd_compare()
     elif cmd == "lineage":
         cmd_lineage()
+    elif cmd == "timeline":
+        cmd_timeline()
     elif cmd == "synthesize":
         cmd_synthesize()
     else:

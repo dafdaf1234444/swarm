@@ -21,62 +21,62 @@
   },
   "belief-no-falsification": {
     "metrics": {
-      "lessons_count": 10,
+      "lessons_count": 12,
       "lessons_avg_length": 17.0,
       "beliefs_count": 11,
-      "observed_count": 6,
-      "theorized_count": 5,
-      "frontier_open": 8,
+      "observed_count": 8,
+      "theorized_count": 3,
+      "frontier_open": 9,
       "frontier_resolved": 4,
-      "principles_count": 16,
-      "total_files": 29,
-      "total_lines": 629,
+      "principles_count": 19,
+      "total_files": 31,
+      "total_lines": 671,
       "has_tools": true,
       "has_workspace": true,
       "validator_passes": true,
-      "commit_count": 6
+      "commit_count": 7
     },
-    "fitness": 231.0,
+    "fitness": 264.0,
     "evaluated": "2026-02-26"
   },
   "belief-minimal": {
     "metrics": {
-      "lessons_count": 7,
-      "lessons_avg_length": 19.0,
-      "beliefs_count": 5,
-      "observed_count": 4,
-      "theorized_count": 1,
+      "lessons_count": 9,
+      "lessons_avg_length": 19.333333333333332,
+      "beliefs_count": 7,
+      "observed_count": 7,
+      "theorized_count": 0,
       "frontier_open": 5,
-      "frontier_resolved": 2,
+      "frontier_resolved": 3,
       "principles_count": 0,
-      "total_files": 26,
-      "total_lines": 719,
+      "total_files": 30,
+      "total_lines": 1035,
+      "has_tools": true,
+      "has_workspace": true,
+      "validator_passes": true,
+      "commit_count": 5
+    },
+    "fitness": 179.0,
+    "evaluated": "2026-02-26"
+  },
+  "belief-no-modes": {
+    "metrics": {
+      "lessons_count": 6,
+      "lessons_avg_length": 17.0,
+      "beliefs_count": 4,
+      "observed_count": 4,
+      "theorized_count": 0,
+      "frontier_open": 4,
+      "frontier_resolved": 4,
+      "principles_count": 2,
+      "total_files": 25,
+      "total_lines": 447,
       "has_tools": true,
       "has_workspace": true,
       "validator_passes": true,
       "commit_count": 4
     },
-    "fitness": 129.0,
-    "evaluated": "2026-02-26"
-  },
-  "belief-no-modes": {
-    "metrics": {
-      "lessons_count": 4,
-      "lessons_avg_length": 17.0,
-      "beliefs_count": 4,
-      "observed_count": 3,
-      "theorized_count": 1,
-      "frontier_open": 4,
-      "frontier_resolved": 2,
-      "principles_count": 2,
-      "total_files": 23,
-      "total_lines": 408,
-      "has_tools": true,
-      "has_workspace": true,
-      "validator_passes": true,
-      "commit_count": 3
-    },
-    "fitness": 108.0,
+    "fitness": 132.0,
     "evaluated": "2026-02-26"
   },
   "belief-no-lesson-limit": {
@@ -141,42 +141,42 @@
   },
   "belief-nofalsif-nolimit": {
     "metrics": {
-      "lessons_count": 4,
-      "lessons_avg_length": 21.5,
+      "lessons_count": 7,
+      "lessons_avg_length": 26.571428571428573,
       "beliefs_count": 8,
-      "observed_count": 2,
-      "theorized_count": 6,
+      "observed_count": 5,
+      "theorized_count": 3,
       "frontier_open": 8,
       "frontier_resolved": 2,
       "principles_count": 2,
-      "total_files": 23,
-      "total_lines": 485,
+      "total_files": 26,
+      "total_lines": 589,
+      "has_tools": true,
+      "has_workspace": true,
+      "validator_passes": true,
+      "commit_count": 5
+    },
+    "fitness": 161.0,
+    "evaluated": "2026-02-26"
+  },
+  "belief-nolimit-aggressive": {
+    "metrics": {
+      "lessons_count": 6,
+      "lessons_avg_length": 49.166666666666664,
+      "beliefs_count": 6,
+      "observed_count": 5,
+      "theorized_count": 1,
+      "frontier_open": 8,
+      "frontier_resolved": 5,
+      "principles_count": 2,
+      "total_files": 25,
+      "total_lines": 717,
       "has_tools": true,
       "has_workspace": true,
       "validator_passes": true,
       "commit_count": 4
     },
-    "fitness": 122.0,
-    "evaluated": "2026-02-26"
-  },
-  "belief-nolimit-aggressive": {
-    "metrics": {
-      "lessons_count": 4,
-      "lessons_avg_length": 55.25,
-      "beliefs_count": 6,
-      "observed_count": 2,
-      "theorized_count": 4,
-      "frontier_open": 8,
-      "frontier_resolved": 3,
-      "principles_count": 2,
-      "total_files": 23,
-      "total_lines": 630,
-      "has_tools": true,
-      "has_workspace": true,
-      "validator_passes": true,
-      "commit_count": 2
-    },
-    "fitness": 106.0,
+    "fitness": 150.0,
     "evaluated": "2026-02-26"
   }
 }

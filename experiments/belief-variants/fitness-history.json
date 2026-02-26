@@ -1,0 +1,104 @@
+{
+  "belief-aggressive-challenge": [
+    {
+      "timestamp": "2026-02-26T11:33:33",
+      "fitness": 105.0,
+      "commits": 4,
+      "beliefs": 5,
+      "observed": 2
+    }
+  ],
+  "belief-control": [
+    {
+      "timestamp": "2026-02-26T11:33:33",
+      "fitness": 130.0,
+      "commits": 4,
+      "beliefs": 6,
+      "observed": 3
+    }
+  ],
+  "belief-minimal": [
+    {
+      "timestamp": "2026-02-26T11:33:34",
+      "fitness": 179.0,
+      "commits": 5,
+      "beliefs": 7,
+      "observed": 7
+    }
+  ],
+  "belief-no-falsification": [
+    {
+      "timestamp": "2026-02-26T11:33:35",
+      "fitness": 247.0,
+      "commits": 6,
+      "beliefs": 11,
+      "observed": 7
+    },
+    {
+      "timestamp": "2026-02-26T11:38:15",
+      "fitness": 264.0,
+      "commits": 7,
+      "beliefs": 11,
+      "observed": 8
+    }
+  ],
+  "belief-no-lesson-limit": [
+    {
+      "timestamp": "2026-02-26T11:33:36",
+      "fitness": 121.0,
+      "commits": 3,
+      "beliefs": 5,
+      "observed": 5
+    }
+  ],
+  "belief-no-modes": [
+    {
+      "timestamp": "2026-02-26T11:33:37",
+      "fitness": 108.0,
+      "commits": 3,
+      "beliefs": 4,
+      "observed": 3
+    },
+    {
+      "timestamp": "2026-02-26T11:38:26",
+      "fitness": 132.0,
+      "commits": 4,
+      "beliefs": 4,
+      "observed": 4
+    }
+  ],
+  "belief-nofalsif-aggressive": [
+    {
+      "timestamp": "2026-02-26T11:33:37",
+      "fitness": 127.0,
+      "commits": 3,
+      "beliefs": 8,
+      "observed": 2
+    }
+  ],
+  "belief-nofalsif-nolimit": [
+    {
+      "timestamp": "2026-02-26T11:33:38",
+      "fitness": 161.0,
+      "commits": 5,
+      "beliefs": 8,
+      "observed": 5
+    }
+  ],
+  "belief-nolimit-aggressive": [
+    {
+      "timestamp": "2026-02-26T11:33:39",
+      "fitness": 136.0,
+      "commits": 3,
+      "beliefs": 6,
+      "observed": 5
+    },
+    {
+      "timestamp": "2026-02-26T11:38:16",
+      "fitness": 150.0,
+      "commits": 4,
+      "beliefs": 6,
+      "observed": 5
+    }
+  ]
+}
