@@ -12,7 +12,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F44**: Do lazy imports in large stdlib modules always correspond to cycle-breaking? Seen in email (9 cycles) and asyncio (1 lazy import = 1 cycle). (from child:concurrent-b)
 - **F50**: ~~Does K_max correlate with CVE severity?~~ NO — K_max alone doesn't predict CVEs. Attack surface is the dominant factor. See F50 resolution below.
 - **F53**: Validate two-factor model on more packages. (PARTIAL — asyncio extends model. Need 3+ more data points)
-- **F59**: Can nk_analyze.py be packaged as a pip-installable tool? (batch mode works, needs setup.py/pyproject.toml)
+- **F59**: ~~Can nk_analyze.py be packaged as a pip-installable tool?~~ YES — workspace/nk-analyze/ with pyproject.toml, `pip install -e .`, `nk-analyze` CLI command. See F59 resolution.
 - **F60**: PRINCIPLES.md scannability — revisit at 50+ principles (currently 48)
 - **F61**: Stall detection — snapshot works, needs trend-over-time component
 - **F62**: ~~Does cycle count independently predict unresolvable bugs?~~ YES — B10 upgraded to observed. See F62 resolution below.
@@ -34,6 +34,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 | F62 | YES — CPython data: cycles rank-correlate with open bugs better than K_avg/K_max/composite. B10 upgraded to observed. | 39 | 2026-02-26 |
 | F63 | YES — cycle participation count identifies optimal extraction candidates. Flask wrappers=18/31 cycles, Click core=75% reduction. | 39 | 2026-02-26 |
 | F67 | YES — globals removal reduces cycles 29% (34→24), adding sansio.app extraction gets 56% (34→15). App factory helps usage but doesn't restructure imports. | 39 | 2026-02-26 |
+| F59 | YES — workspace/nk-analyze/ package with pyproject.toml. `pip install -e .` → `nk-analyze` CLI + importable library. | 39 | 2026-02-26 |
 | F68 | No simple threshold. Two-threshold model: composite<50+cycles<3→stable; composite>100 OR cycles>10→needs intervention. Cycles dominate. | 39 | 2026-02-26 |
 | F70 | YES — 42 regression tests in test_nk_analyze.py. Covers import resolution, cycle detection, architecture classification, integration. S39 bug now has 3 dedicated regression tests. | 39 | 2026-02-26 |
 | F49 | asyncio=128.0, multiprocessing=102.0, xml=26.0 — all correctly ranked by K_avg*N+Cycles. nk_analyze.py automates analysis | 38 | 2026-02-26 |
