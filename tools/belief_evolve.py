@@ -6,13 +6,16 @@ Usage:
     python3 tools/belief_evolve.py variants              # list defined belief variants
     python3 tools/belief_evolve.py spawn <variant>       # spawn a child with that variant
     python3 tools/belief_evolve.py spawn-all             # spawn all variants
+    python3 tools/belief_evolve.py combine <v1> <v2>     # spawn grandchild combining 2 variants
     python3 tools/belief_evolve.py evaluate <child>      # measure outcomes
+    python3 tools/belief_evolve.py evaluate-all          # evaluate all belief-* children
     python3 tools/belief_evolve.py compare               # compare all variant children
+    python3 tools/belief_evolve.py lineage               # show parent→child→grandchild tree
     python3 tools/belief_evolve.py synthesize            # extract lessons about beliefs
 
 The core idea: spawn sub-swarms with different core belief sets as genesis points,
 let them evolve independently, then compare which beliefs produce useful swarms.
-This is A/B testing for epistemology.
+This is A/B testing for epistemology. Recursive: grandchildren combine winning traits.
 """
 
 import json
@@ -27,6 +30,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 VARIANTS_DIR = REPO_ROOT / "experiments" / "belief-variants"
 CHILDREN_DIR = REPO_ROOT / "experiments" / "children"
 RESULTS_FILE = VARIANTS_DIR / "evolution-results.json"
+LINEAGE_FILE = VARIANTS_DIR / "lineage.json"
 
 # --- BELIEF VARIANTS ---
 # Each variant modifies one dimension of the core belief system.
@@ -344,6 +348,192 @@ def cmd_spawn_all():
         cmd_spawn(name)
 
 
+def _load_lineage():
+    """Load lineage tracking data."""
+    if LINEAGE_FILE.exists():
+        return json.loads(LINEAGE_FILE.read_text())
+    return {}
+
+
+def _save_lineage(data):
+    """Save lineage tracking data."""
+    VARIANTS_DIR.mkdir(parents=True, exist_ok=True)
+    LINEAGE_FILE.write_text(json.dumps(data, indent=2))
+
+
+def cmd_combine(variant_names: list):
+    """Spawn a grandchild combining 2+ variants."""
+    # Validate all variant names
+    for name in variant_names:
+        if name not in VARIANTS:
+            print(f"Unknown variant: {name}")
+            print(f"Available: {', '.join(VARIANTS.keys())}")
+            sys.exit(1)
+
+    # Create combined name (shortened for directory friendliness)
+    short_names = {
+        "no-falsification": "nofalsif",
+        "no-lesson-limit": "nolimit",
+        "no-modes": "nomodes",
+        "aggressive-challenge": "aggressive",
+        "control": "control",
+        "minimal": "minimal",
+    }
+    combined_name = "-".join(short_names.get(n, n) for n in sorted(variant_names))
+    child_name = f"belief-{combined_name}"
+    child_dir = CHILDREN_DIR / child_name
+
+    if child_dir.exists():
+        print(f"Combined child already exists: {child_dir}")
+        sys.exit(1)
+
+    # Run genesis
+    genesis = REPO_ROOT / "workspace" / "genesis.sh"
+    r = subprocess.run(
+        ["bash", str(genesis), str(child_dir)],
+        capture_output=True, text=True
+    )
+    if r.returncode != 0:
+        print(f"Genesis failed: {r.stderr}")
+        sys.exit(1)
+
+    # Apply all variant modifications in sequence
+    for variant_name in variant_names:
+        variant = VARIANTS[variant_name]
+        mods = variant["modifications"]
+
+        for f in mods.get("remove_files", []):
+            fp = child_dir / f
+            if fp.exists():
+                fp.unlink()
+                print(f"  [{variant_name}] Removed: {f}")
+
+        for filename, changes in mods.items():
+            if filename in ("remove_files",) or not isinstance(changes, dict):
+                continue
+            candidates = list(child_dir.rglob(filename))
+            for filepath in candidates:
+                text = filepath.read_text()
+                for old, new in changes.get("replace", {}).items():
+                    text = text.replace(old, new)
+                for pattern in changes.get("remove_lines_containing", []):
+                    lines = text.splitlines()
+                    text = "\n".join(l for l in lines if pattern not in l) + "\n"
+                for section in changes.get("remove_sections", []):
+                    text = re.sub(
+                        rf"^## {re.escape(section)}.*?(?=^## |\Z)",
+                        "", text, flags=re.MULTILINE | re.DOTALL
+                    )
+                filepath.write_text(text)
+                print(f"  [{variant_name}] Modified: {filepath.relative_to(child_dir)}")
+
+    # Init git
+    subprocess.run(["git", "init"], cwd=str(child_dir), capture_output=True)
+    subprocess.run(["git", "add", "-A"], cwd=str(child_dir), capture_output=True)
+    subprocess.run(
+        ["git", "commit", "-m", f"[S] genesis: {combined_name} combined variant (grandchild)"],
+        cwd=str(child_dir), capture_output=True
+    )
+
+    # Track lineage
+    lineage = _load_lineage()
+    lineage[child_name] = {
+        "parents": [f"belief-{n}" for n in variant_names],
+        "generation": 2,
+        "variants_combined": variant_names,
+        "spawned": date.today().isoformat(),
+    }
+    # Ensure single-variant entries exist
+    for name in variant_names:
+        single = f"belief-{name}"
+        if single not in lineage:
+            lineage[single] = {
+                "parents": ["genesis"],
+                "generation": 1,
+                "variants_combined": [name],
+                "spawned": date.today().isoformat(),
+            }
+    _save_lineage(lineage)
+
+    print(f"\nGrandchild '{child_name}' spawned combining: {', '.join(variant_names)}")
+    print(f"Directory: {child_dir}")
+
+
+def cmd_evaluate_all():
+    """Evaluate all belief-* children."""
+    if not CHILDREN_DIR.exists():
+        print("No children directory found.")
+        sys.exit(1)
+
+    children = sorted([
+        d for d in CHILDREN_DIR.iterdir()
+        if d.is_dir() and d.name.startswith("belief-") and (d / ".git").exists()
+    ])
+
+    if not children:
+        print("No belief-variant children found.")
+        sys.exit(1)
+
+    print(f"Evaluating {len(children)} children...\n")
+    for child in children:
+        cmd_evaluate(child.name)
+        print()
+
+
+def cmd_lineage():
+    """Show parent→child→grandchild tree."""
+    lineage = _load_lineage()
+
+    # Also scan for any children not yet in lineage
+    if CHILDREN_DIR.exists():
+        for d in sorted(CHILDREN_DIR.iterdir()):
+            if d.is_dir() and d.name.startswith("belief-") and d.name not in lineage:
+                # Infer generation from name
+                variant_name = d.name.replace("belief-", "")
+                if variant_name in VARIANTS:
+                    lineage[d.name] = {
+                        "parents": ["genesis"],
+                        "generation": 1,
+                        "variants_combined": [variant_name],
+                    }
+                else:
+                    lineage[d.name] = {
+                        "parents": ["unknown"],
+                        "generation": 2,
+                        "variants_combined": [],
+                    }
+
+    # Load fitness data for display
+    results = {}
+    if RESULTS_FILE.exists():
+        results = json.loads(RESULTS_FILE.read_text())
+
+    # Print tree
+    print("=== BELIEF EVOLUTION LINEAGE ===\n")
+    print("genesis (standard beliefs)")
+
+    gen1 = {k: v for k, v in lineage.items() if v.get("generation") == 1}
+    gen2 = {k: v for k, v in lineage.items() if v.get("generation", 0) >= 2}
+
+    for name, info in sorted(gen1.items()):
+        fitness = results.get(name, {}).get("fitness", "?")
+        print(f"  ├── {name} (fitness={fitness})")
+
+        # Find grandchildren of this variant
+        for gname, ginfo in sorted(gen2.items()):
+            if name in ginfo.get("parents", []):
+                gfitness = results.get(gname, {}).get("fitness", "?")
+                print(f"  │   └── {gname} (fitness={gfitness})")
+
+    # Show orphan grandchildren (parents not in gen1)
+    shown = set()
+    for gname, ginfo in sorted(gen2.items()):
+        parents = ginfo.get("parents", [])
+        if not any(p in gen1 for p in parents):
+            gfitness = results.get(gname, {}).get("fitness", "?")
+            print(f"  └── {gname} (fitness={gfitness}) [parents: {', '.join(parents)}]")
+
+
 def cmd_evaluate(child_name: str):
     """Evaluate a child swarm's outcomes."""
     child_dir = CHILDREN_DIR / child_name
@@ -401,17 +591,20 @@ def cmd_compare():
 
     results = json.loads(RESULTS_FILE.read_text())
 
+    lineage = _load_lineage()
+
     print("=== BELIEF VARIANT COMPARISON ===\n")
-    print(f"{'Variant':<25} {'Fitness':>8} {'Lessons':>8} {'Beliefs':>8} {'Observed':>9} {'Frontier':>9} {'Valid':>6}")
-    print("-" * 85)
+    print(f"{'Variant':<30} {'Gen':>4} {'Fitness':>8} {'Lessons':>8} {'Beliefs':>8} {'Observed':>9} {'Frontier':>9} {'Valid':>6}")
+    print("-" * 95)
 
     sorted_results = sorted(results.items(), key=lambda x: -x[1]["fitness"])
     for name, data in sorted_results:
         m = data["metrics"]
         valid = "PASS" if m["validator_passes"] else "FAIL"
         frontier = f"{m['frontier_resolved']}/{m['frontier_open']+m['frontier_resolved']}"
+        gen = lineage.get(name, {}).get("generation", 1)
         print(
-            f"{name:<25} {data['fitness']:>8.1f} {m['lessons_count']:>8} "
+            f"{name:<30} {gen:>4} {data['fitness']:>8.1f} {m['lessons_count']:>8} "
             f"{m['beliefs_count']:>8} {m['observed_count']:>9} "
             f"{frontier:>9} {valid:>6}"
         )
@@ -508,13 +701,22 @@ def main():
         cmd_spawn(sys.argv[2])
     elif cmd == "spawn-all":
         cmd_spawn_all()
+    elif cmd == "combine":
+        if len(sys.argv) < 4:
+            print("Usage: belief_evolve.py combine <variant1> <variant2> [variant3...]")
+            sys.exit(1)
+        cmd_combine(sys.argv[2:])
     elif cmd == "evaluate":
         if len(sys.argv) < 3:
             print("Usage: belief_evolve.py evaluate <child-name>")
             sys.exit(1)
         cmd_evaluate(sys.argv[2])
+    elif cmd == "evaluate-all":
+        cmd_evaluate_all()
     elif cmd == "compare":
         cmd_compare()
+    elif cmd == "lineage":
+        cmd_lineage()
     elif cmd == "synthesize":
         cmd_synthesize()
     else:

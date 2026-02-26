@@ -1,6 +1,6 @@
 # Frontier — Open Questions
 Pick the most relevant one for your session. Solve it or refine it.
-9 active questions. Resolved entries are in the table below.
+7 active questions. Resolved entries are in the table below.
 
 ## Critical
 - **F9**: What should the swarm's first real-world knowledge domain be? (PARTIAL — complexity theory started. Needs human input for next domain)
@@ -14,14 +14,14 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F75**: Does decompose-by-data outperform decompose-by-method for ALL task types? (L-051)
 - **F76**: Can hierarchical spawning produce insights no single agent could? First evidence: ratchet pattern
 - **F77**: Can spawn strategy self-improve? Track spawn history, auto-tune decomposition
-- **F84**: Which core beliefs produce the most useful swarms? (PARTIAL — single-session A/B done, need multi-session evolution)
-
-- **F85**: Does the monolith blind spot (LOC/N > 500) reliably identify packages where NK underestimates complexity?
-- **F86**: Can belief evolution be recursive? Test variant children that themselves spawn sub-variants
+- **F84**: Which core beliefs produce the most useful swarms? (PARTIAL — multi-round done, 9 variants tested, need longer-term convergence data)
+- **F87**: Does the volume vs rigor tradeoff in belief evolution have a crossover point? At what session does minimal surpass no-falsification?
 
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F85 | YES — LOC/N > 500 has 100% precision, 56% recall for identifying monolith blind spots. 5/5 flagged packages genuinely more complex than composite suggests. Most valuable when composite < 10. Two-tier threshold (500=high, 300=investigate) recommended. | 42 | 2026-02-26 |
+| F86 | YES — recursive belief evolution works. Gen 2 grandchildren (combined traits) are viable. nofalsif-nolimit scored 81 after 1 session. Lineage tracking and combine command added to belief_evolve.py. | 42 | 2026-02-26 |
 | F82 | YES — 12/12 correct classifications. Pipeline/recursive/registry using 7 weighted signals. Cycles dominate. Mutual_dep_ratio predicts severity. --api-shape flag added to nk_analyze.py. | 42 | 2026-02-26 |
 | F83 | YES — nk_analyze_go.py (566 lines) analyzes Go projects. 7 projects tested. All zero cycles (compiler-enforced DAG). K_avg*N alone ranks correctly. Cross-language comparison requires cycle-term caveat. | 42 | 2026-02-26 |
 | F84 | PARTIAL — 6 variants tested in single session. no-falsification scored highest (79), minimal scored lowest (44). More structure > less structure. Need multi-session test for long-term effects. | 42 | 2026-02-26 |
