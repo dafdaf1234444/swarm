@@ -1,6 +1,6 @@
 # Principles — Atomic Building Blocks
 Extracted from lessons. Scan for recombination opportunities.
-Themes aligned with INDEX.md. 49 principles from 46 lessons + children.
+Themes aligned with INDEX.md. 50 principles from 47 lessons + children.
 
 ## Architecture (system design, structure, organization)
 - **P-002**: Separate format (template) from process (protocol). A template without a protocol produces inconsistent quality. (L-002)
@@ -61,3 +61,4 @@ Themes aligned with INDEX.md. 49 principles from 46 lessons + children.
 - **P-040**: For parallel work, spawn independent child swarms per agent. Different-swarm is contention-free. (L-037)
 - **P-041**: Use offspring viability scores to identify and fix template weaknesses. (L-038)
 - **P-046**: Stigmergic coordination requires deposit + evaporation + amplification. Missing any one is incomplete. (L-040)
+- **P-053**: Route spawn context by task keywords, not by loading everything. Each spawn gets domain-specific files. Monitor total knowledge size to trigger coordination upgrades. (L-047)

@@ -35,11 +35,18 @@ Run compaction when ANY fires:
 Compaction method: replace individual lesson lines in INDEX.md with theme summaries.
 Create `memory/themes/` if needed. Run validator before and after.
 
-## Spawn & Evolve (tested — genesis v4)
+## Spawn & Evolve (tested — genesis v5)
 Full evolution pipeline: `tools/evolve.py init|harvest|integrate|compare`
-- **init**: spawn child + write task + generate sub-agent prompt
-- **harvest**: evaluate viability + merge-back report
+- **init**: spawn child + context route + write task + generate sub-agent prompt
+- **harvest**: evaluate viability + merge-back report + post-integration validation
 - **integrate**: auto-add novel rules to PRINCIPLES.md and questions to FRONTIER.md
 - **compare**: side-by-side comparison of multiple children
 Manual spawn: `./workspace/genesis.sh ~/child-swarm-[name] "[topic]"`
 For listing children: `tools/swarm_test.py list`
+
+## Context Routing (F69)
+When tasks exceed a single session's ability to hold all context:
+- `tools/context_router.py <task>` — select relevant files within budget
+- `tools/context_router.py inventory` — show total knowledge size
+- Trigger for Level 2 coordination: total knowledge > 50K lines
+- See `experiments/context-coordination/F69-design.md` for full design

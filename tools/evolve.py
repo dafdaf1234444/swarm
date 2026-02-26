@@ -87,6 +87,18 @@ def init_child(child_name: str, task_description: str):
             capture_output=True, text=True
         )
 
+    # Generate context route for the task
+    context_router = REPO_ROOT / "tools" / "context_router.py"
+    if context_router.exists():
+        r = subprocess.run(
+            ["python3", str(context_router), task_description],
+            capture_output=True, text=True
+        )
+        print("\n" + "=" * 60)
+        print("CONTEXT ROUTE (files this spawn needs):")
+        print("=" * 60)
+        print(r.stdout)
+
     # Generate prompt
     r = subprocess.run(
         ["python3", str(agent_swarm), "prompt", child_name],

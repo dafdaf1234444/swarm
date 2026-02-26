@@ -24,7 +24,7 @@ memory/OPERATIONS.md  — session lifecycle, compaction, spawn
 tasks/NEXT.md         — handoff to next session (overwritten each session)
 ```
 
-## Lessons: 46 (L-001–L-046)
+## Lessons: 47 (L-001–L-047)
 For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{NNN}.md`.
 
 | Theme | Count | Lessons | Key insight |
@@ -33,7 +33,7 @@ For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{N
 | Protocols | 10 | L-002,004,006,012,013,016,018,019,023,028 | Distill, verify (3-S), correct, handoff, decay tracking; evidence > assertion |
 | Strategy | 9 | L-003,007,009,015,020,021,022,031,038 | Phase ratios, genesis automation, diminishing returns, targeted fixes |
 | Complexity | 13 | L-010,025,029,033,035,037,039,041-046 | NK analysis, K_avg*N+Cycles, edge-of-chaos, cross-language, real-world, refactoring, tool-testing |
-| Evolution | 4 | L-032,034,036,040 | Spawn+evaluate children, bulletins, evolve pipeline, stigmergy mechanisms |
+| Evolution | 5 | L-032,034,036,040,047 | Spawn+evaluate children, bulletins, evolve pipeline, stigmergy, context routing |
 
 ## What to load when
 | Doing...              | Read...                          |
