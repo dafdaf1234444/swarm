@@ -1,5 +1,5 @@
 # Memory Index
-Updated: 2026-02-26 | Sessions completed: 38
+Updated: 2026-02-26 | Sessions completed: 39
 
 ## Status: Active — 42 lessons, 8 beliefs (7 observed/1 theorized), entropy 0. Self-evolving with 16 tools.
 
@@ -19,21 +19,21 @@ tasks/                — active task files
 workspace/            — code, tests, experiments (swarm.sh CLI)
 tools/                — validator, hooks (validate_beliefs.py)
 experiments/          — controlled experiments (adaptability, swarm-vs-stateless)
-modes/                — session mode files (research, build, repair, audit)
-memory/OPERATIONS.md  — session lifecycle, compaction, spawn (merged from 4 files)
+modes/                — session mode files (research, build, repair/audit)
+memory/OPERATIONS.md  — session lifecycle, compaction, spawn
 tasks/NEXT.md         — handoff to next session (overwritten each session)
 ```
 
 ## Lessons: 42 (L-001–L-042)
 For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{NNN}.md`.
 
-| Theme | Lessons | Key insight |
-|-------|---------|-------------|
-| Architecture | L-005,008,010,014,017-019 | Blackboard+stigmergy, git-as-memory, handoff via commits |
-| Protocols | L-001-004,012,013 | Distill, health, verify, correct; evidence beats assertion |
-| Strategy | L-006,007,009,011,015,016,020-024 | 3-S Rule, phase ratios, genesis automation, session modes |
-| Complexity | L-025-035,039,041-042 | Edge-of-chaos, autopoiesis, spawn, colony, NK analysis, K_avg*N+Cycles, supply-chain blind spot, automated validation |
-| Evolution | L-036-038,040 | Evolve pipeline, concurrent sessions, genesis feedback, stigmergy mechanisms |
+| Theme | Count | Lessons | Key insight |
+|-------|-------|---------|-------------|
+| Architecture | 10 | L-001,005,008,011,014,017,024,026,027,030 | Blackboard+stigmergy, folder structure, modes, atomic principles, redundancy |
+| Protocols | 10 | L-002,004,006,012,013,016,018,019,023,028 | Distill, verify (3-S), correct, handoff, decay tracking; evidence > assertion |
+| Strategy | 9 | L-003,007,009,015,020,021,022,031,038 | Phase ratios, genesis automation, diminishing returns, targeted fixes |
+| Complexity | 9 | L-010,025,029,033,035,037,039,041,042 | NK analysis, K_avg*N+Cycles, edge-of-chaos, cross-language validation |
+| Evolution | 4 | L-032,034,036,040 | Spawn+evaluate children, bulletins, evolve pipeline, stigmergy mechanisms |
 
 ## What to load when
 | Doing...              | Read...                          |

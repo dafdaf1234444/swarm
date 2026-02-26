@@ -1,59 +1,55 @@
 # Principles — Atomic Building Blocks
 Extracted from lessons. Scan for recombination opportunities.
-Two rules that address the same situation from different angles may combine into a stronger rule.
+Themes aligned with INDEX.md. 48 principles from 42 lessons + children.
 
-## Verification & Honesty
-- **P-003**: Establish measurement baselines early. Without a baseline, you can't distinguish improvement from noise. (L-003)
-- **P-006**: Apply the 3-S Rule before asserting facts: Specific? Stale? Stakes high? If any yes, verify. (L-006)
-- **P-010**: When challenging a belief, refine its scope rather than binary accept/reject. Most beliefs are conditionally true. (L-010)
-- **P-014**: When integrating external knowledge: cite the source, mark Verified, map to existing beliefs. The citation is what makes it verifiable. (L-014)
-- **P-022**: Never claim "proven" unless the majority of beliefs are observed. External adversarial review is the fastest path to honest self-assessment. (L-022)
-
-## Structure & Organization
+## Architecture (system design, structure, organization)
 - **P-002**: Separate format (template) from process (protocol). A template without a protocol produces inconsistent quality. (L-002)
+- **P-005**: Verify system names match actual coordination models. Mismatched names → mismatched design instincts. (L-005)
 - **P-008**: Validate structure by usage, not theory. If it works for N sessions without confusion, it works. (L-008)
 - **P-011**: When a list outgrows its container, switch from flat to hierarchical grouping. (L-011)
 - **P-016**: When updating core docs, integrate into existing sections. Add new sections only for genuinely new concepts. (L-016)
-- **P-024**: When one control structure governs diverse situations, decompose into modes. Unused rules are noise, not safety. (L-024)
-
-## Knowledge Lifecycle
-- **P-012**: Never delete wrong knowledge. Mark SUPERSEDED, write correction explaining *why*. The error is data. (L-012)
-- **P-013**: Don't expire knowledge on schedule. Add review-after dates and let evidence handle the rest. (L-013)
-- **P-015**: If completed tasks generate new questions, the system is self-sustaining. Monitor open/resolved ratio. (L-015)
-- **P-021**: When new lessons reference existing ones and questions go meta-meta, switch to domain work. (L-021)
-
-## System Architecture
-- **P-005**: Verify system names match actual coordination models. Mismatched names → mismatched design instincts. (L-005)
 - **P-017**: Git-based knowledge systems get forking free. The real challenge is merge-back protocols. (L-017)
+- **P-024**: When one control structure governs diverse situations, decompose into modes. Unused rules are noise, not safety. (L-024)
 - **P-025**: Check belief interconnection K. Isolated → link or kill. Over-connected (K>N/2) → decouple. (L-025)
 - **P-026**: Measure actual coupling (git co-occurrence), not intended coupling (directory structure). (L-026)
 - **P-027**: Separate building blocks (principles) from discovery stories (lessons). Building blocks must be scannable together for recombination. (L-027)
-- **P-028**: Every validator should check decay (stale, orphaned, superseded refs) alongside integrity. Growth without entropy export kills systems. (L-028)
-- **P-029**: Measure λ (structural-change sessions / total sessions). Too low = frozen (Class I/II). Too high = chaotic (Class III). Target Class IV: enough change to adapt, enough routine to produce. (L-029)
 - **P-030**: If essential files can be reconstructed from raw artifacts with ~100% fidelity, the system has healthy redundancy. If not, critical knowledge is SPOF. (L-030)
-- **P-031**: When a format change is proposed, separate near-term risks (fix cheaply) from long-term risks (set a trigger). Migrate when the trigger fires, not when the argument sounds good. (L-031)
 
-## Operations
+## Protocols (knowledge management, verification, lifecycle)
 - **P-001**: Always verify generated files for shell artifacts. First-session validation catches these cheaply. (L-001)
+- **P-003**: Establish measurement baselines early. Without a baseline, you can't distinguish improvement from noise. (L-003)
 - **P-004**: Define conflict resolution rules *before* conflicts occur. Default: evidence beats assertion. (L-004)
+- **P-006**: Apply the 3-S Rule before asserting facts: Specific? Stale? Stakes high? If any yes, verify. (L-006)
+- **P-010**: When challenging a belief, refine its scope rather than binary accept/reject. Most beliefs are conditionally true. (L-010)
+- **P-012**: Never delete wrong knowledge. Mark SUPERSEDED, write correction explaining *why*. The error is data. (L-012)
+- **P-013**: Don't expire knowledge on schedule. Add review-after dates and let evidence handle the rest. (L-013)
+- **P-014**: When integrating external knowledge: cite the source, mark Verified, map to existing beliefs. The citation is what makes it verifiable. (L-014)
+- **P-015**: If completed tasks generate new questions, the system is self-sustaining. Monitor open/resolved ratio. (L-015)
+- **P-019**: Treat every commit as a handoff point. If context runs low: commit, write HANDOFF, push. (L-019)
+- **P-022**: Never claim "proven" unless the majority of beliefs are observed. External adversarial review is the fastest path to honest self-assessment. (L-022)
+- **P-023**: Check both epistemic (reasoning correctly) and operational (sustaining itself) axes. One doesn't imply the other. (L-023)
+- **P-028**: Every validator should check decay (stale, orphaned, superseded refs) alongside integrity. Growth without entropy export kills systems. (L-028)
+
+## Strategy (phasing, operations, transitions)
 - **P-007**: Match work/meta-work ratio to maturity. Genesis 20/80, mature 80/20. Never 100/0. (L-007)
 - **P-009**: When transitioning to real work, start by automating a manual process the system already follows. (L-009)
 - **P-018**: In concurrent operation: pull --rebase before every commit. INDEX and FRONTIER are hot files. (L-018)
-- **P-019**: Treat every commit as a handoff point. If context runs low: commit, write HANDOFF, push. (L-019)
 - **P-020**: When a system proves itself, encode its bootstrap into an executable script. (L-020)
-- **P-023**: Check both epistemic (reasoning correctly) and operational (sustaining itself) axes. One doesn't imply the other. (L-023)
+- **P-021**: When new lessons reference existing ones and questions go meta-meta, switch to domain work. (L-021)
+- **P-029**: Measure λ (structural-change sessions / total sessions). Too low = frozen. Too high = chaotic. Target Class IV. (L-029)
+- **P-031**: When a format change is proposed, separate near-term risks from long-term risks. Migrate when the trigger fires, not when the argument sounds good. (L-031)
+- **P-043**: Measure growth rates, not just states. A file growing >1.5 lines/commit for 5+ commits predicts restructure. (from child:evolve-f37)
+- **P-048**: Automate measurement tools early. A small script can validate theorized beliefs across many data points faster than manual analysis. (L-042)
 
-## NK Analysis (from children + L-039)
+## Complexity (NK analysis, metrics, edge-of-chaos)
 - **P-035**: To analyze any system: count N (elements), K (dependencies). Identify hubs and isolates. (L-035)
 - **P-036**: Facade + independent engine pattern yields very low K/N (~0.16). Keep accelerators external. (from child:complexity-test)
 - **P-037**: Normalize K/N for granularity; filter trivial components. Raw K/N can be misleadingly low. (from child:concurrent-a)
 - **P-038**: Use K_avg and cycle count alongside K/N. Low K/N with high K_avg and cycles is deceptively complex. (from child:concurrent-b)
 - **P-042**: Never compare K/N across different granularities or different N. K/N is scale-dependent (= K_avg/N). Use K_avg*N+Cycles as composite predictor. Always state N. (L-039)
-- **P-043**: Measure growth rates, not just states. A file growing >1.5 lines/commit for 5+ commits predicts restructure. (from child:evolve-f37)
 - **P-047**: When applying NK to package ecosystems with heavy external deps, note the boundary choice. Internal NK is necessary but not sufficient — supply-chain complexity needs separate accounting. (L-041)
-- **P-048**: Automate measurement tools early. A small script can validate theorized beliefs across many data points faster than manual analysis. (L-042)
 
-## Spawn & Evolution
+## Evolution (spawn, colony, stigmergy)
 - **P-032**: Test architecture by spawning and measuring offspring viability, not by inspecting the parent. (L-032)
 - **P-033**: Architecture fitness = offspring viability. Compare colony members to identify which variations survive. (L-033)
 - **P-034**: Use typed, append-only bulletins for inter-swarm communication. Blackboard pattern at colony level. (L-034)
