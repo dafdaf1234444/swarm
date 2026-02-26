@@ -6,23 +6,30 @@ Pick the most relevant one for your session. Solve it or refine it.
 
 ## Important
 - **F25**: What happens when beliefs/DEPS.md exceeds 20 entries? (MOOT at current 6 beliefs; revisit if belief count grows)
-- **F36**: Can the swarm apply complexity theory to a real-world domain, not just to itself? Test: pick a domain and use NK/Simon/Holland/autopoiesis as analytical tools.
+- **F36**: ~~Can the swarm apply complexity theory to a real-world domain?~~ YES — applied to 5 PyPI packages (requests, flask, click, jinja2, werkzeug). See F36 resolution below.
 
 ## Exploratory
 - **F44**: Do lazy imports in large stdlib modules always correspond to cycle-breaking? Seen in email (9 cycles) and asyncio (1 lazy import = 1 cycle). (from child:concurrent-b)
-- **F50**: Does K_max correlate with CVE severity? With 14 packages we may have enough data to test (Go net/http K_max=11 has 6+ CVEs).
+- **F50**: ~~Does K_max correlate with CVE severity?~~ NO — K_max alone doesn't predict CVEs. Attack surface is the dominant factor. See F50 resolution below.
 - **F53**: Validate two-factor model on more packages. (PARTIAL — asyncio extends model. Need 3+ more data points)
 - **F59**: Can nk_analyze.py be packaged as a pip-installable tool? (batch mode works, needs setup.py/pyproject.toml)
 - **F60**: PRINCIPLES.md scannability — revisit at 50+ principles (currently 48)
 - **F61**: Stall detection — snapshot works, needs trend-over-time component
-- **F62**: Does cycle count independently predict unresolvable bugs? multiprocessing (19 cycles, long-lived bugs) vs asyncio (1 cycle, well-managed). Test B10.
-- **F63**: Can NK analysis guide refactoring decisions? Express 4→5 reduced composite by 60%. Can we predict which module to extract for maximum benefit?
+- **F62**: ~~Does cycle count independently predict unresolvable bugs?~~ YES — B10 upgraded to observed. See F62 resolution below.
+- **F63**: ~~Can NK analysis guide refactoring decisions?~~ YES — cycle participation count identifies optimal extraction candidates. See F63 resolution below.
 
 - **F65**: Can the composite metric predict which Python packages will be deprecated next (post-PEP 594)? Test on packages with high composite + low download counts.
+- **F66**: Can cycle-participation-based extraction prediction be automated in nk_analyze.py? Build `--suggest-refactor` flag.
+- **F67**: Does Flask's app factory pattern actually reduce the effective cycle count? Measure before/after with factory pattern applied.
+- **F68**: Is there a composite threshold above which packages reliably need architectural intervention? (werkzeug=169 is actively being refactored, requests=55 is stable)
 
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F36 | YES — applied NK to 5 real PyPI packages (requests=55.0, click=68.0, jinja2=109.0, flask=124.0, werkzeug=169.0). B9 validated on 19 packages. | 39 | 2026-02-26 |
+| F50 | NO — K_max alone doesn't predict CVEs. Attack surface dominates. Within exposed packages, K_max×cycles adds moderate signal. | 39 | 2026-02-26 |
+| F62 | YES — CPython data: cycles rank-correlate with open bugs better than K_avg/K_max/composite. B10 upgraded to observed. | 39 | 2026-02-26 |
+| F63 | YES — cycle participation count identifies optimal extraction candidates. Flask wrappers=18/31 cycles, Click core=75% reduction. | 39 | 2026-02-26 |
 | F49 | asyncio=128.0, multiprocessing=102.0, xml=26.0 — all correctly ranked by K_avg*N+Cycles. nk_analyze.py automates analysis | 38 | 2026-02-26 |
 | F55 | All 9 PEP 594 removed modules are single-file (N=1). Removed for obsolescence not complexity. Hypothesis doesn't apply. | 38 | 2026-02-26 |
 | F43 | YES — K_avg*N+Cycles IS the scale-invariant alternative. Validated across 14 packages in 4 languages. (P-042) | 38 | 2026-02-26 |
