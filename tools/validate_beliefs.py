@@ -35,6 +35,9 @@ def parse_beliefs(path: str) -> list[dict]:
             tested_m = re.search(
                 r"\*\*Last tested\*\*:\s*(.+?)$", block, re.MULTILINE | re.IGNORECASE
             )
+            depended_m = re.search(
+                r"\*\*Depended on by\*\*:\s*(.+?)$", block, re.MULTILINE | re.IGNORECASE
+            )
 
             dep_ids = []
             if depends_m:
@@ -42,12 +45,19 @@ def parse_beliefs(path: str) -> list[dict]:
                 if dep_text.lower() not in ("none", "n/a", "-", ""):
                     dep_ids = re.findall(r"B\d+", dep_text)
 
+            rev_dep_ids = []
+            if depended_m:
+                rev_text = depended_m.group(1).strip()
+                if rev_text.lower() not in ("none", "n/a", "-", ""):
+                    rev_dep_ids = re.findall(r"B\d+", rev_text)
+
             beliefs.append({
                 "id": m.group("id"),
                 "statement": m.group("statement").strip(),
                 "evidence": evidence_m.group(1).strip().lower() if evidence_m else "",
                 "falsification": falsified_m.group(1).strip() if falsified_m else "",
                 "depends_on": dep_ids,
+                "depended_on_by": rev_dep_ids,
                 "last_tested": tested_m.group(1).strip() if tested_m else "",
             })
         return beliefs
@@ -115,6 +125,40 @@ def check_cycles(beliefs: list[dict]) -> list[str]:
     for bid in adj:
         if color[bid] == WHITE:
             dfs(bid, [bid])
+    return issues
+
+
+def check_dep_consistency(beliefs: list[dict]) -> list[str]:
+    """Cross-check 'Depends on' vs 'Depended on by' fields for consistency."""
+    issues = []
+    known = {b["id"] for b in beliefs}
+    # Build forward map: who depends on whom
+    forward: dict[str, set[str]] = {b["id"]: set(b["depends_on"]) for b in beliefs}
+    # Build reverse map from "Depended on by" fields
+    reverse: dict[str, set[str]] = {b["id"]: set(b.get("depended_on_by", [])) for b in beliefs}
+
+    for bid, deps in forward.items():
+        for dep in deps:
+            if dep not in known:
+                continue
+            # If B2 depends on B1, then B1 should list B2 in "Depended on by"
+            if bid not in reverse.get(dep, set()):
+                # Only warn if the target has a depended_on_by field at all
+                if reverse.get(dep) is not None:
+                    issues.append(
+                        f"WARN DEP_SYNC: {dep} should list {bid} in 'Depended on by' "
+                        f"(since {bid} depends on {dep})"
+                    )
+    for bid, rev_deps in reverse.items():
+        for rdep in rev_deps:
+            if rdep not in known:
+                continue
+            # If B1 says "Depended on by B2", then B2 should depend on B1
+            if bid not in forward.get(rdep, set()):
+                issues.append(
+                    f"WARN DEP_SYNC: {rdep} should list {bid} in 'Depends on' "
+                    f"(since {bid} lists {rdep} in 'Depended on by')"
+                )
     return issues
 
 
@@ -493,6 +537,7 @@ def main() -> int:
     all_issues.extend(existence_issues)
     all_issues.extend(check_cycles(beliefs))
     all_issues.extend(check_orphans(beliefs))
+    all_issues.extend(check_dep_consistency(beliefs))
     all_issues.extend(check_format(beliefs))
 
     n_observed = sum(1 for b in beliefs if b["evidence"] == "observed")

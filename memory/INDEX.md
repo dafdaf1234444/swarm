@@ -1,7 +1,7 @@
 # Memory Index
 Updated: 2026-02-26 | Sessions completed: 34
 
-## Status: Active — 29 lessons, 6 beliefs (6 observed/0 theorized), entropy 0. Genesis v2 shipped. Shocks 1-3 passed.
+## Status: Active — 31 lessons, 6 beliefs (6 observed/0 theorized), entropy 0. Genesis v2 shipped. All 5 shocks passed.
 
 ## Structure
 ```
@@ -24,7 +24,7 @@ memory/OPERATIONS.md  — session lifecycle, compaction, spawn (merged from 4 fi
 tasks/NEXT.md         — handoff to next session (overwritten each session)
 ```
 
-## Lessons: 30 (L-001–L-030)
+## Lessons: 31 (L-001–L-031)
 For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{NNN}.md`.
 
 | Theme | Lessons | Key insight |
@@ -32,7 +32,7 @@ For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{N
 | Architecture | L-005,008,010,014,017-019 | Blackboard+stigmergy, git-as-memory, handoff via commits |
 | Protocols | L-001-004,012,013 | Distill, health, verify, correct; evidence beats assertion |
 | Strategy | L-006,007,009,011,015,016,020-024 | 3-S Rule, phase ratios, genesis automation, session modes |
-| Complexity | L-025-030 | NK landscapes, near-decomposability, building blocks, autopoiesis, Wolfram λ, redundancy |
+| Complexity | L-025-031 | NK landscapes, near-decomposability, building blocks, autopoiesis, Wolfram λ, redundancy, storage evolution |
 
 ## What to load when
 | Doing...              | Read...                          |
