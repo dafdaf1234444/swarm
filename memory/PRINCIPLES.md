@@ -1,6 +1,6 @@
 # Principles — Atomic Building Blocks
 Extracted from lessons. Scan for recombination opportunities.
-Themes aligned with INDEX.md. 50 principles from 47 lessons + children.
+Themes aligned with INDEX.md. 51 principles from 48 lessons + children.
 
 ## Architecture (system design, structure, organization)
 - **P-002**: Separate format (template) from process (protocol). A template without a protocol produces inconsistent quality. (L-002)
@@ -52,6 +52,7 @@ Themes aligned with INDEX.md. 50 principles from 47 lessons + children.
 - **P-049**: When evaluating a package's complexity, include critical dependencies. Internal NK understates real burden — ecosystem NK (sum of deps) reveals the true cost. (L-043)
 - **P-050**: Cycle count predicts bug accumulation rate better than K_avg, K_max, or composite. Prioritize cycle reduction in refactoring. (L-044)
 - **P-051**: To identify refactoring targets: count each module's cycle participation, not its K. Extract modules with high K_in + low K_out first. (L-045)
+- **P-054**: Static import analysis undercounts true coupling. Lazy imports hide cycles — use layered analysis (top-level vs function-body) for accurate cycle count. (L-048)
 
 ## Evolution (spawn, colony, stigmergy)
 - **P-032**: Test architecture by spawning and measuring offspring viability, not by inspecting the parent. (L-032)

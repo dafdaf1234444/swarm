@@ -9,7 +9,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F36**: ~~Can the swarm apply complexity theory to a real-world domain?~~ YES — applied to 5 PyPI packages (requests, flask, click, jinja2, werkzeug). See F36 resolution below.
 
 ## Exploratory
-- **F44**: Do lazy imports in large stdlib modules always correspond to cycle-breaking? Seen in email (9 cycles) and asyncio (1 lazy import = 1 cycle). (from child:concurrent-b)
+- **F44**: ~~Do lazy imports always correspond to cycle-breaking?~~ NO — lazy imports serve two purposes: cycle-breaking (43%) AND initialization deferral (57%). 0/8 packages fully support hypothesis. See F44 resolution below.
 - **F50**: ~~Does K_max correlate with CVE severity?~~ NO — K_max alone doesn't predict CVEs. Attack surface is the dominant factor. See F50 resolution below.
 - **F53**: Validate two-factor model on more packages. (PARTIAL — asyncio extends model. Need 3+ more data points)
 - **F59**: ~~Can nk_analyze.py be packaged as a pip-installable tool?~~ YES — workspace/nk-analyze/ with pyproject.toml, `pip install -e .`, `nk-analyze` CLI command. See F59 resolution.
@@ -29,6 +29,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F44 | NO — lazy imports serve two purposes: cycle-breaking (43%) AND initialization deferral (57%). 8 packages tested, 0 fully support "always = cycle-breaking". multiprocessing has 50 lazy imports, 33 cycle-breaking. | 40 | 2026-02-26 |
 | F36 | YES — applied NK to 5 real PyPI packages (requests=55.0, click=68.0, jinja2=109.0, flask=124.0, werkzeug=169.0). B9 validated on 19 packages. | 39 | 2026-02-26 |
 | F50 | NO — K_max alone doesn't predict CVEs. Attack surface dominates. Within exposed packages, K_max×cycles adds moderate signal. | 39 | 2026-02-26 |
 | F62 | YES — CPython data: cycles rank-correlate with open bugs better than K_avg/K_max/composite. B10 upgraded to observed. | 39 | 2026-02-26 |

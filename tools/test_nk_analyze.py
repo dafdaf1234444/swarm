@@ -25,10 +25,12 @@ from pathlib import Path
 # Add tools directory to path
 sys.path.insert(0, str(Path(__file__).parent))
 from nk_analyze import (
+    analyze_lazy_imports,
     analyze_package,
     classify_architecture,
     detect_cycles,
     extract_imports,
+    extract_imports_layered,
     list_modules,
 )
 
@@ -421,6 +423,176 @@ class TestSubPackageResolution(SyntheticPackageMixin, unittest.TestCase):
         self.assertIn("sub2", imports)
 
 
+class TestExtractImportsLayered(SyntheticPackageMixin, unittest.TestCase):
+    """Test scope-aware import extraction (top-level vs lazy)."""
+
+    def test_all_top_level(self):
+        """All imports at module level should be top_level."""
+        pkg = self.create_package("mypkg", {
+            "__init__.py": "",
+            "a.py": "from . import b\nfrom . import c",
+            "b.py": "",
+            "c.py": "",
+        })
+        result = extract_imports_layered(pkg / "a.py", "mypkg")
+        self.assertIn("b", result["top_level"])
+        self.assertIn("c", result["top_level"])
+        self.assertEqual(result["lazy"], [])
+
+    def test_lazy_in_function(self):
+        """Import inside a function should be lazy."""
+        pkg = self.create_package("mypkg", {
+            "__init__.py": "",
+            "a.py": "def foo():\n    from . import b\n",
+            "b.py": "",
+        })
+        result = extract_imports_layered(pkg / "a.py", "mypkg")
+        self.assertEqual(result["top_level"], [])
+        self.assertIn("b", result["lazy"])
+        self.assertEqual(len(result["lazy_locations"]), 1)
+        self.assertEqual(result["lazy_locations"][0]["func"], "foo")
+
+    def test_mixed_imports(self):
+        """Mix of top-level and lazy imports."""
+        pkg = self.create_package("mypkg", {
+            "__init__.py": "",
+            "a.py": "from . import b\ndef foo():\n    from . import c\n",
+            "b.py": "",
+            "c.py": "",
+        })
+        result = extract_imports_layered(pkg / "a.py", "mypkg")
+        self.assertIn("b", result["top_level"])
+        self.assertNotIn("b", result["lazy"])
+        self.assertIn("c", result["lazy"])
+        self.assertNotIn("c", result["top_level"])
+
+    def test_async_function_is_lazy(self):
+        """Import inside async function should be lazy."""
+        pkg = self.create_package("mypkg", {
+            "__init__.py": "",
+            "a.py": "async def bar():\n    from . import b\n",
+            "b.py": "",
+        })
+        result = extract_imports_layered(pkg / "a.py", "mypkg")
+        self.assertIn("b", result["lazy"])
+        self.assertEqual(result["lazy_locations"][0]["func"], "bar")
+
+    def test_class_method_is_lazy(self):
+        """Import inside a class method should be lazy."""
+        pkg = self.create_package("mypkg", {
+            "__init__.py": "",
+            "a.py": "class Foo:\n    def bar(self):\n        from . import b\n",
+            "b.py": "",
+        })
+        result = extract_imports_layered(pkg / "a.py", "mypkg")
+        self.assertIn("b", result["lazy"])
+        self.assertEqual(result["lazy_locations"][0]["func"], "bar")
+
+    def test_lazy_location_tracks_line(self):
+        """Lazy location should track the correct line number."""
+        pkg = self.create_package("mypkg", {
+            "__init__.py": "",
+            "a.py": "# line 1\n# line 2\ndef foo():\n    # line 4\n    from . import b\n",
+            "b.py": "",
+        })
+        result = extract_imports_layered(pkg / "a.py", "mypkg")
+        self.assertEqual(result["lazy_locations"][0]["line"], 5)
+
+    def test_empty_file(self):
+        """Empty file should return empty results."""
+        pkg = self.create_package("mypkg", {
+            "__init__.py": "",
+            "a.py": "",
+        })
+        result = extract_imports_layered(pkg / "a.py", "mypkg")
+        self.assertEqual(result["top_level"], [])
+        self.assertEqual(result["lazy"], [])
+
+
+class TestAnalyzeLazyImports(SyntheticPackageMixin, unittest.TestCase):
+    """Test the full lazy import analysis pipeline."""
+
+    def _add_to_syspath(self, parent_dir):
+        sys.path.insert(0, str(parent_dir))
+        self.addCleanup(lambda: sys.path.remove(str(parent_dir)))
+
+    def test_no_lazy_verdict(self):
+        """Package with no lazy imports gets NO_LAZY verdict."""
+        pkg = self.create_package("nolazy", {
+            "__init__.py": "",
+            "a.py": "from . import b",
+            "b.py": "",
+        })
+        self._add_to_syspath(pkg.parent)
+        result = analyze_lazy_imports("nolazy")
+        if "error" in result:
+            self.skipTest("Could not analyze synthetic package")
+        self.assertEqual(result["hypothesis_f44"], "NO_LAZY")
+        self.assertEqual(result["total_lazy_imports"], 0)
+
+    def test_cycle_breaking_lazy(self):
+        """Lazy import that prevents a cycle should be detected."""
+        pkg = self.create_package("cycbrk", {
+            "__init__.py": "",
+            "a.py": "from . import b",
+            "b.py": "def foo():\n    from . import a\n",
+        })
+        self._add_to_syspath(pkg.parent)
+        result = analyze_lazy_imports("cycbrk")
+        if "error" in result:
+            self.skipTest("Could not analyze synthetic package")
+        self.assertEqual(result["total_lazy_imports"], 1)
+        self.assertEqual(result["cycle_breaking_lazy"], 1)
+        self.assertEqual(result["static_cycles"], 0)
+        self.assertGreater(result["runtime_cycles"], 0)
+        self.assertEqual(result["hypothesis_f44"], "SUPPORTS")
+
+    def test_non_cycle_breaking_lazy(self):
+        """Lazy import that doesn't break a cycle → REFUTES."""
+        pkg = self.create_package("ncblazy", {
+            "__init__.py": "",
+            "a.py": "def foo():\n    from . import b\n",
+            "b.py": "",
+        })
+        self._add_to_syspath(pkg.parent)
+        result = analyze_lazy_imports("ncblazy")
+        if "error" in result:
+            self.skipTest("Could not analyze synthetic package")
+        self.assertEqual(result["total_lazy_imports"], 1)
+        self.assertEqual(result["cycle_breaking_lazy"], 0)
+        self.assertEqual(result["hypothesis_f44"], "REFUTES")
+
+    def test_partial_verdict(self):
+        """Mix of cycle-breaking and non-cycle-breaking → PARTIAL."""
+        pkg = self.create_package("partial", {
+            "__init__.py": "",
+            "a.py": "from . import b\ndef foo():\n    from . import c\n",
+            "b.py": "def bar():\n    from . import a\n",
+            "c.py": "",
+        })
+        self._add_to_syspath(pkg.parent)
+        result = analyze_lazy_imports("partial")
+        if "error" in result:
+            self.skipTest("Could not analyze synthetic package")
+        self.assertGreater(result["cycle_breaking_lazy"], 0)
+        self.assertGreater(result["non_cycle_breaking_lazy"], 0)
+        self.assertEqual(result["hypothesis_f44"], "PARTIAL")
+
+    def test_hidden_cycles_count(self):
+        """Hidden cycles = runtime - static."""
+        pkg = self.create_package("hidden", {
+            "__init__.py": "",
+            "a.py": "from . import b",
+            "b.py": "def foo():\n    from . import a\n",
+        })
+        self._add_to_syspath(pkg.parent)
+        result = analyze_lazy_imports("hidden")
+        if "error" in result:
+            self.skipTest("Could not analyze synthetic package")
+        self.assertEqual(result["hidden_cycles"], result["runtime_cycles"] - result["static_cycles"])
+        self.assertGreater(result["hidden_cycles"], 0)
+
+
 class TestEndToEnd(SyntheticPackageMixin, unittest.TestCase):
     """End-to-end tests with synthetic packages."""
 
@@ -456,6 +628,31 @@ class TestEndToEnd(SyntheticPackageMixin, unittest.TestCase):
         if "error" in result:
             self.skipTest("Could not analyze synthetic package")
         self.assertGreater(result["cycles"], 0)
+
+
+class TestLazyImportsRealPackages(unittest.TestCase):
+    """Integration tests: lazy import detection on real stdlib packages."""
+
+    def test_email_has_lazy_imports(self):
+        result = analyze_lazy_imports("email")
+        if "error" in result:
+            self.skipTest("email not available")
+        self.assertGreater(result["total_lazy_imports"], 0)
+
+    def test_asyncio_has_lazy_import(self):
+        result = analyze_lazy_imports("asyncio")
+        if "error" in result:
+            self.skipTest("asyncio not available")
+        self.assertGreater(result["total_lazy_imports"], 0)
+
+    def test_multiprocessing_heavy_lazy(self):
+        """multiprocessing should have many lazy imports."""
+        result = analyze_lazy_imports("multiprocessing")
+        if "error" in result:
+            self.skipTest("multiprocessing not available")
+        self.assertGreater(result["total_lazy_imports"], 20)
+        self.assertGreater(result["cycle_breaking_lazy"], 10)
+        self.assertGreater(result["hidden_cycles"], 5)
 
 
 if __name__ == "__main__":
