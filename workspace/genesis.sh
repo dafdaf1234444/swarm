@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# genesis.sh v3 — Bootstrap a new swarm knowledge base
+# genesis.sh v4 — Bootstrap a new swarm knowledge base
 # Usage: ./genesis.sh <directory> [name]
-# Encodes lessons L-001 through L-031 into the initial structure.
+# Encodes lessons L-001 through L-036 into the initial structure.
 
 set -euo pipefail
 
@@ -380,9 +380,19 @@ cat > "$DIR/.gitignore" << 'GI'
 .idea/
 GI
 
+# Principles — building blocks from lessons (P-027: separate building blocks from stories)
+cat > "$DIR/memory/PRINCIPLES.md" << 'PRINCIPLES'
+# Principles — Atomic Building Blocks
+Extracted from lessons. Scan for recombination opportunities.
+
+## Getting Started
+- **P-001**: Always verify generated files for shell artifacts. First-session validation catches these cheaply.
+- **P-002**: Separate format (template) from process (protocol). A template without a protocol produces inconsistent quality.
+PRINCIPLES
+
 # Workspace placeholder
 touch "$DIR/workspace/.gitkeep"
 
-echo "Swarm '$NAME' v2 initialized at $DIR (19 files)"
+echo "Swarm '$NAME' v4 initialized at $DIR (20 files)"
 echo "Next: cd $DIR && git init && git add -A && git commit -m '[S] init: genesis'"
 echo "Then: ./tools/install-hooks.sh"

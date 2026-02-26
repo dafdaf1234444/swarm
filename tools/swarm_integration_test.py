@@ -225,6 +225,46 @@ def test_principles_count_matches_lessons():
     return True
 
 
+def test_evolve_tool_exists():
+    """Test that evolve.py exists and has all commands."""
+    evolve = REPO_ROOT / "tools" / "evolve.py"
+    if not evolve.exists():
+        raise RuntimeError("tools/evolve.py does not exist")
+    text = evolve.read_text()
+    for cmd in ["init", "harvest", "integrate", "cycle"]:
+        if f'cmd == "{cmd}"' not in text:
+            raise RuntimeError(f"evolve.py missing command: {cmd}")
+    return True
+
+
+def test_merge_reports_valid():
+    """Test that all merge-back reports have required sections."""
+    reports_dir = REPO_ROOT / "experiments" / "merge-reports"
+    if not reports_dir.exists():
+        return True  # No reports yet is fine
+    for f in reports_dir.glob("*.md"):
+        text = f.read_text()
+        if "## Lessons" not in text:
+            raise RuntimeError(f"{f.name} missing ## Lessons section")
+        if "## Recommendations" not in text:
+            raise RuntimeError(f"{f.name} missing ## Recommendations section")
+    return True
+
+
+def test_integration_log_valid():
+    """Test that integration logs are valid JSON with required fields."""
+    log_dir = REPO_ROOT / "experiments" / "integration-log"
+    if not log_dir.exists():
+        return True  # No logs yet is fine
+    import json
+    for f in log_dir.glob("*.json"):
+        data = json.loads(f.read_text())
+        for field in ["child", "date", "novel_rules", "novel_questions"]:
+            if field not in data:
+                raise RuntimeError(f"{f.name} missing field: {field}")
+    return True
+
+
 def main():
     global PASSED, FAILED
 
@@ -245,6 +285,11 @@ def main():
 
     print("\nCompleteness tests:")
     run_test("principles_count_matches_lessons", test_principles_count_matches_lessons)
+
+    print("\nEvolution pipeline tests:")
+    run_test("evolve_tool_exists", test_evolve_tool_exists)
+    run_test("merge_reports_valid", test_merge_reports_valid)
+    run_test("integration_log_valid", test_integration_log_valid)
 
     print(f"\n{'='*40}")
     print(f"PASSED: {PASSED}/{PASSED + FAILED}")
