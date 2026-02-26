@@ -107,11 +107,12 @@ Never compare across granularities.
 
 K_max alone does NOT predict CVEs (F50 resolved). Attack surface is the dominant factor.
 
-### 5. Cycles predict bug accumulation rate (B10, P-050)
-multiprocessing has 19 cycles and 176 open bugs (highest of any tested package) — context.py is a massive hub.
-email has 2 static cycles (but ~9 runtime cycles due to lazy imports) and 156 open bugs, oldest unresolved since 2004.
+### 5. Cycles predict bug accumulation rate (B10, P-050, F72)
+multiprocessing has 19 runtime cycles (but only 1 static!) and 176 open bugs — 50 lazy imports provide deliberate cycle discipline.
+email has 0 static cycles (2 runtime) and 156 open bugs — lazy imports hide coupling that still causes bugs.
 asyncio has 1 cycle despite high N=33 and K_avg=3.85 — only 52 open bugs. Well-managed for its size.
-CPython data: rank correlation of cycles→open bugs exceeds K_avg, K_max, or composite.
+**Runtime cycles are the better predictor** (F72): 100% recall for high-bug packages vs 50% for static cycles.
+Static cycles useful for architecture assessment, runtime for maintenance prediction (P-054).
 
 ### 6. New architecture pattern: Tangled
 multiprocessing introduces a new pattern: "tangled" (K_avg > 3, cycles > 3).
@@ -127,6 +128,7 @@ Compare asyncio: similar K_avg (3.85 vs 3.61) but only 1 cycle — better archit
 - **P-049**: Include critical deps in evaluation — internal NK understates real burden
 - **P-050**: Cycle count predicts bug accumulation better than K_avg, K_max, or composite
 - **P-051**: Use cycle participation count (not K) to identify refactoring targets
+- **P-054**: Static import analysis undercounts true coupling — use layered analysis for accurate cycle count
 
 ## Cross-Language Findings
 
@@ -155,7 +157,14 @@ Rust serde analysis (see `rust-serde-nk-analysis.md`):
 
 **Verdict on B9**: **VALIDATED.** K_avg*N+Cycles correctly ranks across **4 languages** (Python, JavaScript, Go, Rust) and **21 packages** including 5 real-world PyPI packages (requests, click, jinja2, flask, werkzeug) and 2 additional stdlib (urllib, importlib). This far exceeds the falsification threshold. Key finding: Rust's guaranteed zero-cycle property means the composite formula's cycle term contributes nothing for Rust, yet the metric still produces correct ordinal rankings via K_avg*N alone.
 
-**Tool limitation (S39)**: Static AST analysis undercounts cycles for packages using lazy imports (inside functions/methods). email has 2 static cycles but ~9 runtime cycles. multiprocessing's 19 cycles are all static/real. For accurate cycle counting, both static and dynamic analysis are needed.
+**S39 resolved**: The `--lazy` flag now provides scope-aware AST traversal distinguishing static (top-level) from lazy (function-body) imports. Key corrections:
+- multiprocessing: 1 static cycle, 19 runtime (50 lazy imports, 33 cycle-breaking)
+- email: 0 static cycles, 2 runtime (8 lazy imports, 1 cycle-breaking)
+- importlib: 0 static cycles, 2 runtime (4 lazy imports, 2 cycle-breaking)
+
+**F72 finding**: Runtime cycles are the better bug predictor (100% recall vs 50% for static). Static cycles are useful for architecture assessment.
+
+**F73 finding**: CB/L ratio (cycle-breaking / lazy) classifies purpose but doesn't predict bugs. DELIBERATE (CB/L > 50%) = intentional cycle management. PERF_DEFER (CB/L < 20%) = initialization deferral.
 
 ## Automated Analysis Tool
 
@@ -164,9 +173,11 @@ Rust serde analysis (see `rust-serde-nk-analysis.md`):
 python3 tools/nk_analyze.py asyncio              # Human-readable report
 python3 tools/nk_analyze.py multiprocessing --json # Machine-readable
 python3 tools/nk_analyze.py email --verbose       # With module details
+python3 tools/nk_analyze.py email --lazy          # Static vs runtime cycles
+python3 tools/nk_analyze.py batch --lazy          # Batch lazy analysis
 ```
 
-Note: Automated tool gives slightly different numbers than manual analysis (misses lazy imports, some edge cases). Rankings are consistent.
+57 regression tests (42 core + 15 lazy import tests) validate the tool.
 
 ### 7. Real-world PyPI packages validate the metric
 5 PyPI packages from the Pallets Project (requests, click, jinja2, flask, werkzeug) confirm:
