@@ -390,7 +390,10 @@ def main():
     cmd = sys.argv[1]
 
     if cmd == "record":
-        session_num = int(sys.argv[2]) if len(sys.argv) > 2 else 35
+        if len(sys.argv) < 3:
+            print("Usage: session_tracker.py record <session-number>")
+            sys.exit(1)
+        session_num = int(sys.argv[2])
         record_session(session_num)
     elif cmd == "report":
         report()
