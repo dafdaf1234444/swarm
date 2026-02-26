@@ -11,7 +11,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 ## Exploratory
 - **F44**: ~~Do lazy imports always correspond to cycle-breaking?~~ NO — lazy imports serve two purposes: cycle-breaking (43%) AND initialization deferral (57%). 0/8 packages fully support hypothesis. See F44 resolution below.
 - **F50**: ~~Does K_max correlate with CVE severity?~~ NO — K_max alone doesn't predict CVEs. Attack surface is the dominant factor. See F50 resolution below.
-- **F53**: Validate two-factor model on more packages. (PARTIAL — asyncio extends model. Need 3+ more data points)
+- **F53**: ~~Validate two-factor model on more packages.~~ RESOLVED — 14 packages validated. Static vs runtime distinction adds third dimension. See F53 resolution below.
 - **F59**: ~~Can nk_analyze.py be packaged as a pip-installable tool?~~ YES — workspace/nk-analyze/ with pyproject.toml, `pip install -e .`, `nk-analyze` CLI command. See F59 resolution.
 - **F60**: ~~PRINCIPLES.md scannability~~ RESOLVED — restructured from 66→31 lines using inline sub-theme grouping. All 51 principles preserved. See F60 resolution below.
 - **F61**: Stall detection — snapshot works, needs trend-over-time component
@@ -25,10 +25,13 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F69**: PARTIAL — context_router.py implements Level 1 (keyword-based routing). Level 2 (coordinator spawns with auto-summaries) triggers at 50K lines. See experiments/context-coordination/F69-design.md
 - **F70**: ~~Can nk_analyze.py detect sub-package import resolution bugs?~~ YES — 42 regression tests in test_nk_analyze.py. See F70 resolution below.
 - **F71**: Spawn quality: what makes a good spawn task? Compare results of parallel agents given identical vs different starting contexts. Measure convergence speed and novelty.
+- **F72**: Do runtime cycles (including lazy imports) improve the two-factor model's predictive power over static cycles? multiprocessing has 1 static but 19 runtime cycles. (from F44)
+- **F73**: Is there a lazy-import ratio threshold (lazy/total imports) that signals architectural debt vs deliberate design? (from F44)
 
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F53 | RESOLVED — 14 packages validated. Static vs runtime cycles add third dimension. High hidden + low static = good architecture (multiprocessing). Three-layer model: static, runtime, hidden. | 40 | 2026-02-26 |
 | F60 | RESOLVED — restructured from 66→31 lines using inline sub-theme grouping with | separators. All 51 principles preserved. Next trigger: 80+ principles. | 40 | 2026-02-26 |
 | F44 | NO — lazy imports serve two purposes: cycle-breaking (43%) AND initialization deferral (57%). 8 packages tested, 0 fully support "always = cycle-breaking". multiprocessing has 50 lazy imports, 33 cycle-breaking. | 40 | 2026-02-26 |
 | F36 | YES — applied NK to 5 real PyPI packages (requests=55.0, click=68.0, jinja2=109.0, flask=124.0, werkzeug=169.0). B9 validated on 19 packages. | 39 | 2026-02-26 |
