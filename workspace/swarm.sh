@@ -28,7 +28,7 @@ cmd_status() {
 
     # Belief count
     local beliefs
-    beliefs=$(grep -c '^| B' "$REPO_ROOT/beliefs/DEPS.md" 2>/dev/null || echo "0")
+    beliefs=$(grep -c '^### B' "$REPO_ROOT/beliefs/DEPS.md" 2>/dev/null || echo "0")
     echo "Beliefs tracked: $beliefs"
 
     # Frontier
