@@ -27,11 +27,14 @@ sys.path.insert(0, str(Path(__file__).parent))
 from nk_analyze import (
     analyze_lazy_imports,
     analyze_package,
+    analyze_path,
     classify_architecture,
+    compare_refs,
     detect_cycles,
     extract_imports,
     extract_imports_layered,
     list_modules,
+    print_compare_report,
 )
 
 
@@ -653,6 +656,179 @@ class TestLazyImportsRealPackages(unittest.TestCase):
         self.assertGreater(result["total_lazy_imports"], 20)
         self.assertGreater(result["cycle_breaking_lazy"], 10)
         self.assertGreater(result["hidden_cycles"], 5)
+
+
+class TestAnalyzePath(SyntheticPackageMixin, unittest.TestCase):
+    """Test analyze_path — filesystem-based NK analysis."""
+
+    def test_basic_analysis(self):
+        """analyze_path should produce same structure as analyze_package."""
+        pkg = self.create_package("pathpkg", {
+            "__init__.py": "from . import a, b",
+            "a.py": "from . import b",
+            "b.py": "",
+        })
+        result = analyze_path(pkg, "pathpkg")
+        self.assertNotIn("error", result)
+        self.assertEqual(result["n"], 3)
+        self.assertEqual(result["cycles"], 0)
+        self.assertIn("composite", result)
+        self.assertIn("architecture", result)
+        self.assertIn("modules", result)
+
+    def test_cyclic_path(self):
+        """analyze_path should detect cycles."""
+        pkg = self.create_package("cyclepath", {
+            "__init__.py": "",
+            "a.py": "from . import b",
+            "b.py": "from . import a",
+        })
+        result = analyze_path(pkg, "cyclepath")
+        self.assertNotIn("error", result)
+        self.assertGreater(result["cycles"], 0)
+
+    def test_nonexistent_path(self):
+        """analyze_path should return error for nonexistent path."""
+        result = analyze_path(Path("/tmp/definitely_not_existing_pkg_xyz"), "fake")
+        self.assertIn("error", result)
+
+    def test_empty_package(self):
+        """analyze_path on empty dir should return error."""
+        pkg = self.create_package("emptypkg", {})
+        result = analyze_path(pkg, "emptypkg")
+        self.assertIn("error", result)
+
+    def test_result_keys(self):
+        """analyze_path result should have all expected keys."""
+        pkg = self.create_package("keypkg", {
+            "__init__.py": "",
+            "mod.py": "",
+        })
+        result = analyze_path(pkg, "keypkg")
+        self.assertNotIn("error", result)
+        expected_keys = ["package", "path", "n", "k_total", "k_avg", "k_n",
+                         "k_max", "k_max_file", "cycles", "cycle_details",
+                         "composite", "architecture", "hub_pct", "total_loc",
+                         "modules", "in_degree"]
+        for key in expected_keys:
+            self.assertIn(key, result, f"Missing key: {key}")
+
+
+class TestCompareRefs(SyntheticPackageMixin, unittest.TestCase):
+    """Test compare_refs — git-based ΔNK comparison."""
+
+    def _create_git_repo_with_two_versions(self):
+        """Create a temp git repo with two tagged versions of a package."""
+        import subprocess
+
+        repo_dir = Path(self._tmpdir.name) / "testrepo"
+        repo_dir.mkdir()
+        pkg_dir = repo_dir / "src" / "testpkg"
+        pkg_dir.mkdir(parents=True)
+
+        subprocess.run(["git", "init"], cwd=repo_dir, capture_output=True)
+        subprocess.run(["git", "config", "user.email", "test@test.com"],
+                       cwd=repo_dir, capture_output=True)
+        subprocess.run(["git", "config", "user.name", "Test"],
+                       cwd=repo_dir, capture_output=True)
+
+        # Version 1: simple package, no cycles
+        (pkg_dir / "__init__.py").write_text("from . import a")
+        (pkg_dir / "a.py").write_text("from . import b")
+        (pkg_dir / "b.py").write_text("")
+        subprocess.run(["git", "add", "."], cwd=repo_dir, capture_output=True)
+        subprocess.run(["git", "commit", "-m", "v1"], cwd=repo_dir, capture_output=True)
+        subprocess.run(["git", "tag", "v1.0"], cwd=repo_dir, capture_output=True)
+
+        # Version 2: add a cycle and a module
+        (pkg_dir / "b.py").write_text("from . import a")  # creates a→b→a cycle
+        (pkg_dir / "c.py").write_text("from . import a")
+        subprocess.run(["git", "add", "."], cwd=repo_dir, capture_output=True)
+        subprocess.run(["git", "commit", "-m", "v2"], cwd=repo_dir, capture_output=True)
+        subprocess.run(["git", "tag", "v2.0"], cwd=repo_dir, capture_output=True)
+
+        return repo_dir
+
+    def test_compare_basic(self):
+        """compare_refs should return before, after, and delta."""
+        repo = self._create_git_repo_with_two_versions()
+        result = compare_refs(str(repo), "src/testpkg", "testpkg", "v1.0", "v2.0")
+
+        self.assertNotIn("error", result)
+        self.assertIn("before", result)
+        self.assertIn("after", result)
+        self.assertIn("delta", result)
+        self.assertEqual(result["ref_before"], "v1.0")
+        self.assertEqual(result["ref_after"], "v2.0")
+
+    def test_compare_delta_values(self):
+        """Delta should correctly compute after - before."""
+        repo = self._create_git_repo_with_two_versions()
+        result = compare_refs(str(repo), "src/testpkg", "testpkg", "v1.0", "v2.0")
+
+        self.assertNotIn("error", result)
+        b = result["before"]
+        a = result["after"]
+        d = result["delta"]
+
+        self.assertEqual(d["n"], a["n"] - b["n"])
+        self.assertEqual(d["cycles"], a["cycles"] - b["cycles"])
+        self.assertGreater(d["cycles"], 0, "v2 added a cycle, delta should be positive")
+
+    def test_compare_cycles_increase(self):
+        """v1→v2 should show cycles increased."""
+        repo = self._create_git_repo_with_two_versions()
+        result = compare_refs(str(repo), "src/testpkg", "testpkg", "v1.0", "v2.0")
+
+        self.assertEqual(result["before"]["cycles"], 0)
+        self.assertGreater(result["after"]["cycles"], 0)
+
+    def test_compare_invalid_repo(self):
+        """compare_refs should return error for non-git dir."""
+        result = compare_refs("/tmp", "src/pkg", "pkg", "v1", "v2")
+        self.assertIn("error", result)
+
+    def test_compare_restores_head(self):
+        """After compare, repo should be back to original HEAD."""
+        import subprocess
+
+        repo = self._create_git_repo_with_two_versions()
+        orig = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            cwd=repo, capture_output=True, text=True
+        ).stdout.strip()
+
+        compare_refs(str(repo), "src/testpkg", "testpkg", "v1.0", "v2.0")
+
+        after = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            cwd=repo, capture_output=True, text=True
+        ).stdout.strip()
+
+        self.assertEqual(orig, after, "HEAD should be restored after compare")
+
+    def test_print_compare_report_no_crash(self):
+        """print_compare_report should not crash with valid input."""
+        repo = self._create_git_repo_with_two_versions()
+        result = compare_refs(str(repo), "src/testpkg", "testpkg", "v1.0", "v2.0")
+        # Should not raise
+        import io
+        from contextlib import redirect_stdout
+        f = io.StringIO()
+        with redirect_stdout(f):
+            print_compare_report(result)
+        output = f.getvalue()
+        self.assertIn("ΔNK COMPARISON", output)
+        self.assertIn("VERDICT", output)
+
+    def test_print_compare_report_error(self):
+        """print_compare_report should handle error results."""
+        import io
+        from contextlib import redirect_stdout
+        f = io.StringIO()
+        with redirect_stdout(f):
+            print_compare_report({"error": "test error"})
+        self.assertIn("ERROR", f.getvalue())
 
 
 if __name__ == "__main__":
