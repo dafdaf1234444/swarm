@@ -1,7 +1,7 @@
 # Memory Index
 Updated: 2026-02-26 | Sessions completed: 38
 
-## Status: Active — 42 lessons, 7 beliefs (6 observed/1 theorized), entropy 0. Self-evolving with 16 tools.
+## Status: Active — 42 lessons, 7 beliefs (7 observed/0 theorized), entropy 0. Self-evolving with 16 tools.
 
 ## Structure
 ```

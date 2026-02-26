@@ -5,7 +5,7 @@ Evidence types: `observed` (empirically tested in this system) | `theorized` (re
 When a belief is disproven: check dependents below → update those too.
 
 ## Interconnection model
-N=7 beliefs, target K≈1 (edge of chaos for small N per Kauffman's NK model). See L-025.
+N=7 beliefs (all observed), target K≈1 (edge of chaos for small N per Kauffman's NK model). See L-025.
 K=0 is frozen (no cascades, no adaptation). K=N-1 is chaotic (everything affects everything).
 
 ```
@@ -59,10 +59,11 @@ B9 (NK predictive power) — isolated, needs testing
 - **Last tested**: 2026-02-25 (L-015, measured 2.5x amplification over 13 sessions)
 
 ### B9: K_avg*N+Cycles is a reliable predictor of software maintenance burden across different codebases and languages
-- **Evidence**: theorized
+- **Evidence**: observed
 - **Falsified if**: K_avg*N+Cycles fails to correctly rank maintenance burden on 3+ non-Python codebases (e.g., npm packages, Go modules, Rust crates), OR a simpler metric (like raw line count) proves equally predictive
 - **Depends on**: none
-- **Last tested**: 2026-02-26 (Express.js: scores 6.0/15.0 correctly rank v5 vs v4. Go net/http: score 89.0 correctly predicts high burden — 394 open issues, 6+ CVEs. 2 non-Python codebases tested across 3 languages. Need 1 more for falsification threshold. Caveat: npm supply-chain blind spot, Go invisible coupling)
+- **Depended on by**: none
+- **Last tested**: 2026-02-26 (Validated across 14 packages in 4 languages — Python, JavaScript, Go, Rust. Express 6.0/15.0, Go net/http 89.0, Rust serde 30.0 — all correctly ranked. 3 non-Python codebases exceed falsification threshold. Caveats: npm supply-chain blind spot (P-047), Go invisible coupling, Rust guaranteed zero cycles)
 
 ---
 

@@ -15,7 +15,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F50**: Does K_max correlate with CVE severity? http.client K_max=10 has more CVEs than email K_max=5. Need n>3. (from child:evolve-f41)
 - **F53**: Validate two-factor model on asyncio, xml. (PARTIAL — asyncio is "moderate K/N + very high S_external" = very high burden, confirming model. xml=26.0 correctly moderate. Need more data points)
 
-- **F58**: Does K_avg*N+Cycles predict maintenance burden in non-Python codebases? (MOSTLY YES — Express.js + Go net/http both correctly ranked. Need 1 more (Rust) for B9 falsification threshold of 3+)
+
 - **F59**: Can the swarm's NK analysis tools be packaged as a reusable library? Would other developers use it?
 - **F60**: At 40 lessons and 44 principles, is the PRINCIPLES.md format still scannable? (PARTIAL — consolidated in S37 from 46→44 principles, added NK Analysis section. Revisit at 50+)
 - **F61**: Can session_tracker.py's predictive metrics detect when the system is about to stall? (PARTIAL — detected 84% resolution rate + 0% theorized, both acted on. Snapshot works; needs trend-over-time for trajectory prediction)
@@ -25,6 +25,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 |----|--------|---------|------|
 | F49 | asyncio=128.0, multiprocessing=102.0, xml=26.0 — all correctly ranked by K_avg*N+Cycles. nk_analyze.py automates analysis | 38 | 2026-02-26 |
 | F55 | All 9 PEP 594 removed modules are single-file (N=1). Removed for obsolescence not complexity. Hypothesis doesn't apply. | 38 | 2026-02-26 |
+| F58 | YES — Express.js, Go net/http, Rust serde all correctly ranked. B9 upgraded theorized→observed. 14 packages, 4 languages. | 38 | 2026-02-26 |
 | F1 | DISTILL.md protocol works — tested across 18 lessons, all ≤20 lines | 20 | 2026-02-25 |
 | F2 | Folder structure works after 7 sessions — revisit at 25 (L-008) | 8 | 2026-02-25 |
 | F3 | Blackboard+stigmergy hybrid; "swarm" kept as brand (L-005) | 5 | 2026-02-25 |
