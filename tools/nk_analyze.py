@@ -6,6 +6,7 @@ Usage:
     python3 tools/nk_analyze.py <package_name>
     python3 tools/nk_analyze.py <package_name> --json
     python3 tools/nk_analyze.py <package_name> --verbose
+    python3 tools/nk_analyze.py batch [pkg1 pkg2 ...]
 
 Analyzes internal dependencies of a Python package and computes:
 - N (number of modules), K_total (edges), K_avg, K/N, K_max
@@ -17,6 +18,8 @@ Examples:
     python3 tools/nk_analyze.py json
     python3 tools/nk_analyze.py email --verbose
     python3 tools/nk_analyze.py asyncio --json
+    python3 tools/nk_analyze.py batch json email asyncio
+    python3 tools/nk_analyze.py batch  # scans default stdlib set
 """
 
 import ast
@@ -356,10 +359,14 @@ def print_report(result: dict, verbose: bool = False):
         ("json", "Py", 4.0),
         ("Express 5", "JS", 6.0),
         ("Express 4", "JS", 15.0),
+        ("xml", "Py", 26.0),
         ("http.client", "Py", 26.4),
         ("unittest", "Py", 27.0),
         ("argparse", "Py", 48.1),
         ("email", "Py", 61.1),
+        ("Go net/http", "Go", 89.0),
+        ("multiprocessing", "Py", 102.0),
+        ("asyncio", "Py", 128.0),
     ]
 
     # Insert current package
@@ -375,6 +382,33 @@ def print_report(result: dict, verbose: bool = False):
         print(f"  → {pkg:<20} {result['composite']:>8.1f}  ← THIS")
 
 
+def batch_analyze(packages: list[str]):
+    """Analyze multiple packages and print a comparison table."""
+    results = []
+    for pkg in packages:
+        r = analyze_package(pkg)
+        if "error" not in r:
+            results.append(r)
+        else:
+            print(f"  SKIP: {pkg} — {r['error']}")
+
+    if not results:
+        print("No packages analyzed successfully.")
+        return
+
+    # Sort by composite score
+    results.sort(key=lambda r: r["composite"])
+
+    print(f"\n{'Package':<25} {'N':>4} {'K_avg':>6} {'K_max':>6} {'Cycles':>7} {'Composite':>10} {'Architecture':<15}")
+    print("-" * 80)
+    for r in results:
+        print(
+            f"{r['package']:<25} {r['n']:>4} {r['k_avg']:>6.2f} "
+            f"{r['k_max']:>6} {r['cycles']:>7} {r['composite']:>10.1f} "
+            f"{r['architecture']:<15}"
+        )
+
+
 def main():
     if len(sys.argv) < 2:
         print(__doc__)
@@ -383,6 +417,19 @@ def main():
     package_name = sys.argv[1]
     verbose = "--verbose" in sys.argv or "-v" in sys.argv
     as_json = "--json" in sys.argv
+
+    if package_name == "batch":
+        # Batch mode: analyze all remaining args as package names
+        packages = [a for a in sys.argv[2:] if not a.startswith("-")]
+        if not packages:
+            # Default: scan interesting stdlib packages
+            packages = [
+                "json", "logging", "http", "unittest", "email",
+                "asyncio", "multiprocessing", "xml", "sqlite3",
+                "urllib", "collections", "importlib",
+            ]
+        batch_analyze(packages)
+        return
 
     result = analyze_package(package_name, verbose)
 
