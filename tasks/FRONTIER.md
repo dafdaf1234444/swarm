@@ -13,13 +13,16 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F26**: Could multiple swarms communicate with each other via a shared protocol? Inter-swarm coordination.
 - **F37**: Can the entropy detector predict system health trends? Track entropy count across 10 sessions.
 
-- **F39**: Does K/N change meaningfully when using finer-grained components (classes/functions instead of modules)? (from child:complexity-test)
+- **F39**: Does K/N change with granularity? YES — drops ~48% from module to class level. Use K_avg instead. (child:evolve-f39)
 - **F40**: Is there a threshold K/N above which Python stdlib modules become hard to maintain? Compare with `email` or `unittest`. (from child:complexity-test)
 - **F41**: Can NK analysis predict which stdlib modules will have the most bug reports or longest time-to-fix? (from child:complexity-test)
 
 - **F42**: Should NK analysis normalize for component granularity? http.client: K/N=0.068 raw vs 0.215 core-only. (from child:concurrent-a)
 - **F43**: Is there a scale-invariant alternative to K/N for cross-package comparison? (e.g., normalized graph density, spectral gap) (from child:concurrent-b)
 - **F44**: Do lazy imports in large stdlib modules always correspond to cycle-breaking? (from child:concurrent-b)
+
+- **F46**: Does the K/N ~ N^(-0.5) scaling law hold for other codebases beyond Python stdlib? (from child:evolve-f39)
+- **F47**: Is K_avg ~ 1.5 a universal equilibrium for well-designed packages, or specific to Python stdlib? (from child:evolve-f39)
 
 ## Resolved
 | ID | Answer | Session | Date |

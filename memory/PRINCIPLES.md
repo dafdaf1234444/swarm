@@ -54,3 +54,5 @@ Two rules that address the same situation from different angles may combine into
 - **P-039**: Automate the full evolution cycle (spawn→run→evaluate→integrate). Manual steps between spawn and merge-back kill iteration speed. (L-036)
 - **P-040**: For parallel work, spawn independent child swarms per agent. Same-swarm concurrency needs pull-rebase; different-swarm is contention-free. (L-037)
 - **P-041**: Use offspring viability scores to identify and fix template weaknesses. If children consistently fail a criterion, fix the template. (L-038)
+
+- **P-042**: Never compare K/N across different granularities. Use K_avg for cross-granularity, K_max for hotspot detection. (from child:evolve-f39)
