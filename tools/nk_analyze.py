@@ -93,10 +93,12 @@ def extract_imports(filepath: Path, package_name: str) -> list[str]:
         return []
 
     # Determine this file's position relative to package root
+    # pkg_base should be the PARENT of the package directory
+    # so that pkg_base / package_name = the package root
     pkg_root = filepath
     while pkg_root.parent.name != package_name and pkg_root.parent != pkg_root:
         pkg_root = pkg_root.parent
-    pkg_base = pkg_root.parent  # Directory containing the package
+    pkg_base = pkg_root.parent.parent  # Parent of the package directory
 
     internal_imports = set()
 

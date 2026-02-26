@@ -22,6 +22,9 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F66**: ~~Can cycle-participation-based extraction prediction be automated?~~ YES — `--suggest-refactor` flag implemented and tested.
 - **F67**: Does Flask's app factory pattern actually reduce the effective cycle count? Measure before/after with factory pattern applied.
 - **F68**: Is there a composite threshold above which packages reliably need architectural intervention? (werkzeug=169 is actively being refactored, requests=55 is stable)
+- **F69**: Context limit evolution: when CLAUDE.md + INDEX.md + core files exceed model context, how should spawns coordinate? Can spawn trees share compressed context across branches? (Human insight: this is the eventual bottleneck)
+- **F70**: Can nk_analyze.py detect sub-package import resolution bugs? Current tool misresolves relative imports in sub-packages (e.g., `resources.abc` vs `abc` in importlib). Build regression tests.
+- **F71**: Spawn quality: what makes a good spawn task? Compare results of parallel agents given identical vs different starting contexts. Measure convergence speed and novelty.
 
 ## Resolved
 | ID | Answer | Session | Date |
