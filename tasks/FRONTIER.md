@@ -18,7 +18,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 
 ## Exploratory
 
-- **F117**: Can swarm produce installable libs from its own functionality — maintenance tools, belief graph, NK analyzer — and apply the same to human repos? S83: human signal confirmed. nk-analyze (workspace/nk-analyze/) is evidence YES is possible for analysis libs; missing: test coverage and full analyze→package→test loop. Connects to F111 (builder) and PHIL-2 (self-applying function). Open: which swarm tools benefit most from lib extraction? Does lib form improve reuse across sessions?
+- **F117**: Can swarm produce installable libs from its own functionality — maintenance tools, belief graph, NK analyzer — and apply the same to human repos? S83: human signal confirmed. S83b: nk-analyze v0.2.0 — analyze_path() added (filesystem analysis without import), refactored shared logic, 6 tests passing, tested on 68-module codebase. Full analyze→package→test loop DONE for NK analyzer. Open: which OTHER swarm tools benefit from lib extraction? Does lib form improve reuse across sessions?
 - **F114**: Belief citation rate — PARTIALLY ANSWERED by F116 MDL audit (L-150). 73.5% of principles cited 0-1 times. Most-cited: P-119 (6), P-090 (5), P-140 (4). Auto-linking and per-session tracking still open.
 - **F104**: Does personality persistence produce different findings on the same question?
 - **F106**: Is max_depth=2 the right recursive limit?
