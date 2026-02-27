@@ -1,5 +1,5 @@
 # Principles — Atomic Building Blocks
-Extracted from lessons. Scan for recombination. 151 live principles, 7 themes.
+Extracted from lessons. Scan for recombination. 152 live principles, 7 themes.
 Last compacted: S170 (P-163 rising-sawtooth; P-082 nuanced; P-175 enforcement-tiers added; S169: P-174 substrate-scope; S100: T3 −252t; S148: P-131→P-130)
 
 ## Architecture
