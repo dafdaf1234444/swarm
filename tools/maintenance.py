@@ -455,6 +455,55 @@ def check_handoff_staleness() -> list[tuple[str, str]]:
     return results
 
 
+def check_utility() -> list[tuple[str, str]]:
+    """Surface zero-citation active principles (utility = MDL proxy, F116/F114).
+
+    Active principles never cited in lessons/frontier/session-log have
+    description-length cost without demonstrated use — compression candidates.
+    """
+    results = []
+
+    principles_text = _read(REPO_ROOT / "memory" / "PRINCIPLES.md")
+    if not principles_text:
+        return results
+
+    # All P-IDs in PRINCIPLES.md
+    all_ids = {int(m.group(1)) for m in re.finditer(r"\bP-(\d+)\b", principles_text)}
+
+    # Superseded/merged IDs — several patterns:
+    # 1. P-NNN→P-MMM (left side superseded, from tracking line)
+    superseded = {int(m.group(1)) for m in re.finditer(r"\bP-(\d+)→", principles_text)}
+    # 2. (P-NNN merged) or (P-NNN superseded) or (P-NNN absorbed)
+    superseded |= {int(m.group(1)) for m in re.finditer(
+        r"\(P-(\d+)\s+(?:merged|superseded|absorbed)\)", principles_text, re.IGNORECASE)}
+    # 3. P-NNN+P-MMM merged (both superseded)
+    for m in re.finditer(r"P-(\d+)\+P-(\d+)\s+merged", principles_text, re.IGNORECASE):
+        superseded.add(int(m.group(1)))
+        superseded.add(int(m.group(2)))
+
+    active_ids = all_ids - superseded
+
+    # Citations in lessons, frontier, next, session-log (not PRINCIPLES.md itself)
+    cited: set[int] = set()
+    source_files = list((REPO_ROOT / "memory" / "lessons").glob("L-*.md")) + [
+        REPO_ROOT / "tasks" / "FRONTIER.md",
+        REPO_ROOT / "tasks" / "NEXT.md",
+        REPO_ROOT / "memory" / "SESSION-LOG.md",
+    ]
+    for f in source_files:
+        for m in re.finditer(r"\bP-(\d+)\b", _read(f)):
+            cited.add(int(m.group(1)))
+
+    uncited = sorted(active_ids - cited)
+    if uncited:
+        count = len(uncited)
+        sample = ", ".join(f"P-{x}" for x in uncited[:5])
+        suffix = "..." if count > 5 else ""
+        results.append(("NOTICE", f"{count} active principle(s) with 0 citations — compression candidates: {sample}{suffix}"))
+
+    return results
+
+
 def check_resolution_claims() -> list[tuple[str, str]]:
     """Check for stale resolution claims."""
     results = []
@@ -495,6 +544,7 @@ def main():
         check_handoff_staleness,
         check_resolution_claims,
         check_cross_references,
+        check_utility,
         check_pulse_children,
     ]
 
