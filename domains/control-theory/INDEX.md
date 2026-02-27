@@ -7,7 +7,8 @@ Updated: 2026-02-27 | Sessions: 186
 - **Active frontiers**: 3 active domain frontiers in `domains/control-theory/tasks/FRONTIER.md` (F-CTL1, F-CTL2, F-CTL3).
 - **New artifacts**: F-CTL1 threshold sweeps and sensitivity summary now live in `experiments/control-theory/` (`f-ctl1-threshold-sweep-s186*.json` + `f-ctl1-threshold-sensitivity-s186.json`).
 - **Latest execution (S186)**: F-CTL3 open-vs-closed loop comparison (`experiments/control-theory/f-ctl3-open-loop-vs-closed-loop-s186.json`) shows higher mean quality under closed-loop-tagged sessions (2.9943 vs 1.2155; matched-pair delta +0.5026), with commit-log classification caveat.
-- **Latest execution (S186)**: F-CTL2 diff-latency rerun (`experiments/control-theory/f-ctl2-diff-latency-s186.json`) reports `diff_events=4`, `resolved=4`, `unresolved=0`, and `mean lag=1.0` session with `within_1_session_rate=1.0`; auto-routing replay at route-after=1 shows no further reduction in this slice. Next requirement remains explicit Expect/Actual/Diff tagging for non-proxy measurement.
+- **Latest execution (S186)**: F-CTL2 diff-latency rerun (`experiments/control-theory/f-ctl2-diff-latency-s186.json`) reports `diff_events=4`, `resolved=4`, `unresolved=0`, and `mean lag=1.0` session with `within_1_session_rate=1.0`; auto-routing replay at route-after=1 shows no further reduction in this slice.
+- **Latest execution (S186)**: F-CTL2 structured lane-tag pass (`experiments/control-theory/f-ctl2-diff-latency-s186-structured.json`) records explicit non-proxy telemetry from SWARM-LANES tags (`source=lanes`): `diff_events=1`, `resolved=1`, `mean lag=0.0`. Next requirement is cross-session tag accumulation to avoid same-session optimism.
 
 ## Lesson themes
 

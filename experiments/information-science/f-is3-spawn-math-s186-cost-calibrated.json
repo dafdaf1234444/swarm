@@ -6,11 +6,17 @@
     "coordination_cost_per_extra_agent": 0.5666666666666667,
     "risk_aversion": 1.0,
     "n_max": 6,
-    "p119_threshold_fraction": 0.45
+    "p119_threshold_fraction": 0.45,
+    "tie_margin_min": 0.01
   },
   "recommendation": {
     "best_n": 1,
     "best_utility": 0.30419,
+    "best_n_raw": 1,
+    "best_utility_raw": 0.30419,
+    "raw_top2_margin": 0.443401,
+    "tie_guard_triggered": false,
+    "tie_guard_candidate_ns": [],
     "spawn": false
   },
   "rows": [

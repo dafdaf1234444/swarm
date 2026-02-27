@@ -74,8 +74,26 @@ LANE_ACTIVE_STATUSES = {"CLAIMED", "ACTIVE", "BLOCKED", "READY"}
 LANE_PLACEHOLDERS = {"", "-", "n/a", "na", "none", "pending", "tbd", "unknown"}
 LANE_STALE_NOTICE_SESSIONS = 1
 LANE_STALE_DUE_SESSIONS = 3
+LANE_REPORT_KEYS = ("capabilities", "intent", "progress", "available", "blocked", "next_step", "human_open_item")
+DOMAIN_SYNC_ALLOWED_VALUES = {"queued", "syncing", "synced", "stale", "n/a", "na"}
+LANE_AVAILABLE_ALLOWED_VALUES = {"yes", "no", "partial"}
+LANE_AVAILABLE_LEGACY_MAP = {"ready": "yes", "now": "yes", "true": "yes", "false": "no"}
+HIGH_RISK_LANE_PATTERNS = (
+    (re.compile(r"\b(?:git[-_\s]*)?reset[-_\s]*(?:--)?hard\b", re.IGNORECASE), "reset-hard"),
+    (re.compile(r"\b(?:git[-_\s]*)?clean[-_\s]*(?:-fd|-fdx|fd|fdx)\b", re.IGNORECASE), "clean-fd"),
+    (re.compile(r"\b(?:push[-_\s]*--force|force[-_\s]*push)\b", re.IGNORECASE), "force-push"),
+    (re.compile(r"\brm[-_\s]*-?rf\b", re.IGNORECASE), "rm-rf"),
+    (re.compile(r"\b(?:branch[-_\s]*delete|delete[-_\s]*branch)\b", re.IGNORECASE), "delete-branch"),
+    (re.compile(r"\bdrop[-_\s]*table\b", re.IGNORECASE), "drop-table"),
+    (re.compile(r"\bkill[-_\s]*switch[-_\s]*activate\b", re.IGNORECASE), "kill-switch-activate"),
+    (re.compile(r"\bshutdown\b", re.IGNORECASE), "shutdown"),
+    (re.compile(r"\b(?:irreversible|destructive|wipe[-_\s]*repo|purge)\b", re.IGNORECASE), "irreversible"),
+)
 IGNORED_UNTRACKED_RUNTIME_FILES = {"tools/check.ps1", "tools/maintenance.ps1"}
 LANE_GLOBAL_FOCUS_VALUES = {"global", "system", "all", "coordination", "cross-cutting", "crosscutting"}
+CHECK_FOCUS_HISTORIAN_REQUIRED = {"objective", "historian"}
+HISTORIAN_SELF_ANCHOR_TOKENS = ("next", "swarm-lanes", "session-log")
+HISTORIAN_SURROUNDINGS_ANCHOR_TOKENS = ("frontier", "artifact", "domain", "experiment", "bulletin")
 F119_STALE_EVIDENCE_SESSIONS = {"python-alias-missing": 12, "inter-swarm-tooling-missing": 16}
 F119_TRANSITION_OUTCOME_PATTERNS = (r"Beliefs:? PASS", r"NOTICE-only", r"no DUE", r"no URGENT", r"verification pass")
 F119_RECENT_REASON_ACTIVITY_WINDOW = 6
@@ -85,6 +103,16 @@ KILL_SWITCH_PATH = REPO_ROOT / "tasks" / "KILL-SWITCH.md"
 DOMAIN_FRONTIER_ID_PATTERN = r"F(?:-[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*|\d+(?:-[A-Za-z0-9]+)?)"
 DOMAIN_FRONTIER_ID_RE = re.compile(rf"\b({DOMAIN_FRONTIER_ID_PATTERN})\b", re.IGNORECASE)
 DOMAIN_ACTIVE_BULLET_RE = re.compile(rf"^\s*-\s*(?:~~)?\*\*({DOMAIN_FRONTIER_ID_PATTERN})\*\*", re.IGNORECASE)
+STRUCTURE_REQUIRED_PATHS = (
+    "docs/SWARM-STRUCTURE.md",
+    "references/README.md",
+    "recordings/README.md",
+)
+STRUCTURE_ALLOWED_FILENAMES = {"README.md", ".gitkeep"}
+STRUCTURE_ALLOWED_EXTENSIONS = {
+    "references": {".md", ".json", ".txt", ".csv", ".tsv", ".bib", ".yml", ".yaml"},
+    "recordings": {".md", ".json", ".txt", ".csv", ".tsv", ".log", ".yml", ".yaml"},
+}
 
 def _truncated(items, n=3, sep=", ", fmt=None):
     """Join items[:n] with sep, append '...' if truncated. Optional fmt callable per item."""
@@ -186,6 +214,59 @@ def _is_lane_placeholder(value: str) -> bool:
 def _parse_lane_tags(value: str) -> dict[str, str]:
     return {k.strip().lower(): v.strip()
             for k, v in re.findall(r"([A-Za-z][A-Za-z0-9_-]*)\s*=\s*([^\s,;|]+)", value or "")}
+
+def _lane_domain_focus(row: dict[str, str], tags: dict[str, str]) -> str | None:
+    for raw in (tags.get("focus", ""), row.get("scope_key", "")):
+        match = re.search(r"domains/([a-z0-9][a-z0-9-]*)", (raw or "").strip().lower())
+        if match:
+            return match.group(1)
+    return None
+
+def _parse_check_focus_modes(raw: str) -> set[str]:
+    return {tok for tok in re.split(r"[+,/;|]+", (raw or "").strip().lower()) if tok}
+
+def _historian_anchor_coverage(raw: str) -> tuple[bool, bool]:
+    low = (raw or "").strip().lower()
+    has_self = any(token in low for token in HISTORIAN_SELF_ANCHOR_TOKENS)
+    has_surroundings = any(token in low for token in HISTORIAN_SURROUNDINGS_ANCHOR_TOKENS)
+    return has_self, has_surroundings
+
+def _lane_has_any_tag(tags: dict[str, str], keys: tuple[str, ...]) -> bool:
+    return any(key in tags for key in keys)
+
+def _lane_high_risk_signal(row: dict[str, str], tags: dict[str, str]) -> str | None:
+    haystack = " ".join(
+        part for part in (
+            row.get("scope_key", ""),
+            row.get("notes", ""),
+            tags.get("intent", ""),
+            tags.get("next_step", ""),
+            tags.get("action", ""),
+            tags.get("plan", ""),
+            tags.get("objective", ""),
+        )
+        if part
+    )
+    for pattern, label in HIGH_RISK_LANE_PATTERNS:
+        if pattern.search(haystack):
+            return label
+    return None
+
+def _is_dispatch_lane_row(row: dict[str, str], tags: dict[str, str]) -> bool:
+    lane = (row.get("lane", "") or "").strip().lower()
+    if any(key in tags for key in ("dispatch", "slot", "wip_cap")):
+        return True
+    return bool(re.search(r"(?:^|[-_/])(msw\d*|domex|slot)(?:$|[-_/])", lane))
+
+def _is_coordinator_lane_row(row: dict[str, str], tags: dict[str, str]) -> bool:
+    lane = (row.get("lane", "") or "").strip().lower()
+    scope = (row.get("scope_key", "") or "").strip().lower()
+    has_coord_hint = (
+        bool(re.search(r"(?:^|[-_/])(coord|coordinator)(?:$|[-_/])", lane))
+        or "coordinator" in scope
+        or "tasks/swarm-lanes.md" in scope
+    )
+    return has_coord_hint
 
 _LANE_KEYS = ("date", "lane", "session", "agent", "branch", "pr", "model", "platform", "scope_key", "etc", "status", "notes")
 
@@ -358,7 +439,15 @@ def check_unpushed() -> list[tuple[str, str]]:
     ahead = _git("rev-list", "--count", "@{upstream}..HEAD")
     if ahead and ahead.isdigit() and int(ahead) > 0:
         n = int(ahead)
-        return [("URGENT" if n >= 10 else "DUE" if n >= 5 else "NOTICE", f"{n} unpushed commits — git push")]
+        severity = "URGENT" if n >= 10 else "DUE" if n >= 5 else "NOTICE"
+        items: list[tuple[str, str]] = [(severity, f"{n} unpushed commits — git push")]
+        if n >= 20:
+            items.append((
+                "URGENT",
+                "Commit saturation detected (>=20 unpushed) — run a commit-pressure swarm "
+                "(`python3 tools/agent_swarm.py create <child> \"reduce commit backlog\" --personality commit-swarmer`)"
+            ))
+        return items
     return []
 
 def _parse_kill_switch() -> dict[str, str]:
@@ -634,18 +723,58 @@ def check_swarm_lanes() -> list[tuple[str, str]]:
         results.append(("NOTICE", f"{len(missing_meta)} active lane(s) missing metadata: {_truncated(missing_meta, 5)}"))
 
     missing_coordination_tags: list[str] = []
+    missing_domain_memory_tags: list[str] = []
+    invalid_domain_sync_tags: list[str] = []
+    invalid_available_tags: list[str] = []
+    legacy_available_tags: list[str] = []
+    high_risk_missing_human: list[str] = []
     setup_values: set[str] = set()
     has_global_focus = False
     for row in active:
         lane = row.get("lane", "").strip() or "<unknown>"
         tags = _parse_lane_tags(row.get("etc", ""))
+        domain_focus = _lane_domain_focus(row, tags)
+        if domain_focus:
+            domain_missing = []
+            domain_sync = tags.get("domain_sync", "").strip().lower()
+            memory_target = tags.get("memory_target", "").strip().lower()
+            if _is_lane_placeholder(domain_sync):
+                domain_missing.append("domain_sync")
+            elif domain_sync not in DOMAIN_SYNC_ALLOWED_VALUES:
+                invalid_domain_sync_tags.append(f"{lane}(domain_sync={domain_sync})")
+            if _is_lane_placeholder(memory_target):
+                domain_missing.append("memory_target")
+            if domain_missing:
+                missing_domain_memory_tags.append(f"{lane}({','.join(domain_missing)})")
         missing = []
         for key in ("setup", "focus"):
             if _is_lane_placeholder(tags.get(key, "")):
                 missing.append(key)
+        if not any(k in tags for k in ("available", "capacity", "availability", "ready")):
+            missing.append("available")
+        if not any(k in tags for k in ("blocked", "blocker")):
+            missing.append("blocked")
+        if not any(k in tags for k in ("next_step", "next", "action", "plan")):
+            missing.append("next_step")
+        if not any(k in tags for k in ("human_open_item", "human_open")):
+            missing.append("human_open_item")
         if missing:
             missing_coordination_tags.append(f"{lane}({','.join(missing)})")
             continue
+
+        human_open_value = (tags.get("human_open_item", "") or tags.get("human_open", "")).strip().lower()
+        high_risk_signal = _lane_high_risk_signal(row, tags)
+        if high_risk_signal and _is_lane_placeholder(human_open_value):
+            high_risk_missing_human.append(f"{lane}({high_risk_signal})")
+
+        available_raw = (tags.get("available", "") or "").strip().lower()
+        if available_raw:
+            if available_raw in LANE_AVAILABLE_LEGACY_MAP:
+                canonical = LANE_AVAILABLE_LEGACY_MAP[available_raw]
+                legacy_available_tags.append(f"{lane}(available={available_raw}->{canonical})")
+            elif available_raw not in LANE_AVAILABLE_ALLOWED_VALUES:
+                invalid_available_tags.append(f"{lane}(available={available_raw})")
+
         setup_value = tags.get("setup", "").strip().lower()
         focus_value = tags.get("focus", "").strip().lower()
         setup_values.add(setup_value)
@@ -653,7 +782,41 @@ def check_swarm_lanes() -> list[tuple[str, str]]:
             has_global_focus = True
 
     if missing_coordination_tags:
-        results.append(("NOTICE", f"{len(missing_coordination_tags)} active lane(s) missing setup/focus tags in Etc: {_truncated(missing_coordination_tags, 5)}"))
+        results.append((
+            "DUE",
+            f"{len(missing_coordination_tags)} active lane(s) missing coordination contract tags "
+            f"(setup/focus/available/blocked/next_step/human_open_item): {_truncated(missing_coordination_tags, 5)}",
+        ))
+    if missing_domain_memory_tags:
+        results.append((
+            "DUE",
+            f"{len(missing_domain_memory_tags)} active domain-focused lane(s) missing domain-memory coordination tags "
+            f"(domain_sync/memory_target): {_truncated(missing_domain_memory_tags, 5)}",
+        ))
+    if invalid_domain_sync_tags:
+        results.append((
+            "NOTICE",
+            f"{len(invalid_domain_sync_tags)} active domain-focused lane(s) with invalid domain_sync value "
+            f"(allowed: {','.join(sorted(DOMAIN_SYNC_ALLOWED_VALUES))}): {_truncated(invalid_domain_sync_tags, 5)}",
+        ))
+    if invalid_available_tags:
+        results.append((
+            "DUE",
+            f"{len(invalid_available_tags)} active lane(s) with invalid available value "
+            f"(allowed: {','.join(sorted(LANE_AVAILABLE_ALLOWED_VALUES))}): {_truncated(invalid_available_tags, 5)}",
+        ))
+    if legacy_available_tags:
+        results.append((
+            "NOTICE",
+            f"{len(legacy_available_tags)} active lane(s) using legacy available value "
+            f"(normalize to {','.join(sorted(LANE_AVAILABLE_ALLOWED_VALUES))}): {_truncated(legacy_available_tags, 5)}",
+        ))
+    if high_risk_missing_human:
+        results.append((
+            "DUE",
+            f"{len(high_risk_missing_human)} active lane(s) declare high-risk intent without "
+            f"`human_open_item=HQ-N` (MC-SAFE): {_truncated(high_risk_missing_human, 5)}",
+        ))
 
     if len(setup_values) > 1 and not has_global_focus:
         results.append(("NOTICE", "Multi-setup active lanes have no global coordination focus (`focus=global|system|coordination`) in Etc"))
@@ -672,6 +835,181 @@ def check_swarm_lanes() -> list[tuple[str, str]]:
 
     _detect_collisions("branch", "branch")
     _detect_collisions("scope_key", "scope")
+
+    return results
+
+def check_swarm_coordinator() -> list[tuple[str, str]]:
+    results: list[tuple[str, str]] = []
+    lanes_text = _read(REPO_ROOT / "tasks" / "SWARM-LANES.md")
+    if not lanes_text:
+        return results
+
+    rows = _parse_swarm_lane_rows(lanes_text)
+    if not rows:
+        return results
+
+    latest_by_lane: dict[str, dict[str, str]] = {}
+    for row in rows:
+        lane = row.get("lane", "").strip()
+        if lane:
+            latest_by_lane[lane] = row
+
+    active = [
+        row for row in latest_by_lane.values()
+        if row.get("status", "").upper() in LANE_ACTIVE_STATUSES
+    ]
+    if len(active) < 2:
+        return results
+
+    dispatch_rows: list[tuple[dict[str, str], dict[str, str]]] = []
+    coordinator_rows: list[tuple[dict[str, str], dict[str, str]]] = []
+    for row in active:
+        tags = _parse_lane_tags(row.get("etc", ""))
+        if _is_dispatch_lane_row(row, tags):
+            dispatch_rows.append((row, tags))
+        if _is_coordinator_lane_row(row, tags):
+            coordinator_rows.append((row, tags))
+
+    # Single dispatch lane can run without a dedicated coordinator row; fan-out swarms cannot.
+    if len(dispatch_rows) < 2:
+        return results
+
+    if not coordinator_rows:
+        dispatch_lanes = [row.get("lane", "").strip() or "<unknown>" for row, _ in dispatch_rows]
+        results.append((
+            "DUE",
+            f"{len(dispatch_rows)} active dispatch lane(s) have no active coordinator lane: "
+            f"{_truncated(dispatch_lanes, 5)}",
+        ))
+        return results
+
+    missing_contract: list[str] = []
+    for row, tags in coordinator_rows:
+        lane = row.get("lane", "").strip() or "<unknown>"
+        missing: list[str] = []
+
+        if tags.get("focus", "").strip().lower() not in LANE_GLOBAL_FOCUS_VALUES:
+            missing.append("focus")
+        if not _lane_has_any_tag(tags, ("intent", "objective", "goal")):
+            missing.append("intent")
+        if not _lane_has_any_tag(tags, ("progress", "status_note", "evidence", "artifact")):
+            missing.append("progress")
+        if not _lane_has_any_tag(tags, ("available", "capacity", "availability", "ready")):
+            missing.append("available")
+        if not _lane_has_any_tag(tags, ("blocked", "blocker")):
+            missing.append("blocked")
+        if not _lane_has_any_tag(tags, ("next_step", "next", "action", "plan")):
+            missing.append("next_step")
+        if not _lane_has_any_tag(tags, ("human_open_item", "human_open")):
+            missing.append("human_open_item")
+        if not _lane_has_any_tag(tags, ("check_focus",)):
+            missing.append("check_focus")
+
+        if missing:
+            missing_contract.append(f"{lane}({','.join(missing)})")
+
+    if missing_contract:
+        results.append((
+            "DUE",
+            f"{len(missing_contract)} coordinator lane(s) missing coordinator contract fields "
+            f"(focus,intent,progress,available,blocked,next_step,human_open_item,check_focus): "
+            f"{_truncated(missing_contract, 5)}",
+        ))
+
+    return results
+
+def check_lane_reporting_quality() -> list[tuple[str, str]]:
+    results: list[tuple[str, str]] = []
+    lanes_text = _read(REPO_ROOT / "tasks" / "SWARM-LANES.md")
+    if not lanes_text:
+        return results
+
+    rows = _parse_swarm_lane_rows(lanes_text)
+    if not rows:
+        return results
+
+    latest_by_lane: dict[str, dict[str, str]] = {}
+    for row in rows:
+        lane = row.get("lane", "").strip()
+        if lane:
+            latest_by_lane[lane] = row
+
+    active = [
+        row for row in latest_by_lane.values()
+        if row.get("status", "").upper() in LANE_ACTIVE_STATUSES
+    ]
+    if not active:
+        return results
+
+    missing_contract: list[str] = []
+    missing_historian_contract: list[str] = []
+    explicit_counts = {key: 0 for key in LANE_REPORT_KEYS}
+    dispatchable = 0
+
+    for row in sorted(active, key=lambda item: item.get("lane", "")):
+        lane = row.get("lane", "").strip() or "<unknown>"
+        tags = _parse_lane_tags(row.get("etc", ""))
+
+        fields = {
+            "capabilities": (
+                not _is_lane_placeholder(row.get("model", ""))
+                and not _is_lane_placeholder(row.get("platform", ""))
+                and not _is_lane_placeholder(tags.get("setup", ""))
+            ),
+            "intent": any(k in tags for k in ("intent", "objective", "goal", "frontier", "dispatch", "task")),
+            "progress": any(k in tags for k in ("progress", "status_note", "evidence", "artifact")),
+            "available": any(k in tags for k in ("available", "capacity", "availability", "ready")),
+            "blocked": "blocked" in tags or "blocker" in tags,
+            "next_step": any(k in tags for k in ("next_step", "next", "action", "plan")),
+            "human_open_item": "human_open_item" in tags or "human_open" in tags,
+        }
+
+        missing = [key for key in LANE_REPORT_KEYS if not fields[key]]
+        if missing:
+            missing_contract.append(f"{lane}({','.join(missing)})")
+        else:
+            dispatchable += 1
+        for key, present in fields.items():
+            if present:
+                explicit_counts[key] += 1
+
+        check_modes = _parse_check_focus_modes(tags.get("check_focus", ""))
+        if check_modes & CHECK_FOCUS_HISTORIAN_REQUIRED:
+            if "objective" in check_modes and _is_lane_placeholder(tags.get("objective_check", "")):
+                missing_historian_contract.append(f"{lane}(objective_check)")
+            historian_raw = tags.get("historian_check", "")
+            if _is_lane_placeholder(historian_raw):
+                missing_historian_contract.append(f"{lane}(historian_check)")
+            else:
+                has_self, has_surroundings = _historian_anchor_coverage(historian_raw)
+                anchor_missing: list[str] = []
+                if not has_self:
+                    anchor_missing.append("self_anchor")
+                if not has_surroundings:
+                    anchor_missing.append("surroundings_anchor")
+                if anchor_missing:
+                    missing_historian_contract.append(f"{lane}({','.join(anchor_missing)})")
+
+    lane_count = len(active)
+    dispatchable_rate = dispatchable / lane_count if lane_count else 0.0
+    if missing_contract:
+        severity = "DUE" if dispatchable_rate < 0.5 else "NOTICE"
+        results.append((
+            severity,
+            f"{len(missing_contract)} active lane(s) missing explicit reporting contract fields "
+            f"({dispatchable}/{lane_count} dispatchable): {_truncated(missing_contract, 5)}",
+        ))
+        weakest = sorted(explicit_counts.items(), key=lambda item: (item[1], item[0]))[:3]
+        if weakest:
+            weakest_fmt = ", ".join(f"{key}={count}/{lane_count}" for key, count in weakest)
+            results.append(("NOTICE", f"Lane explicit-reporting weakest keys: {weakest_fmt}"))
+
+    if missing_historian_contract:
+        results.append((
+            "DUE",
+            f"{len(missing_historian_contract)} active lane(s) with historian/objective check focus missing "
+            f"historian grounding (self+surroundings anchors): {_truncated(missing_historian_contract, 5)}",
+        ))
 
     return results
 
@@ -1179,6 +1517,38 @@ def check_readme_snapshot_drift() -> list[tuple[str, str]]:
 
     return results
 
+def check_structure_layout() -> list[tuple[str, str]]:
+    results: list[tuple[str, str]] = []
+
+    missing_required = [path for path in STRUCTURE_REQUIRED_PATHS if not _exists(path)]
+    if missing_required:
+        results.append(("DUE", f"Structure policy files missing: {_truncated(missing_required, 5)}"))
+
+    for folder, allowed_exts in STRUCTURE_ALLOWED_EXTENSIONS.items():
+        folder_path = REPO_ROOT / folder
+        if not folder_path.exists():
+            results.append(("DUE", f"Missing required structure folder: {folder}/"))
+            continue
+
+        disallowed: list[str] = []
+        for path in folder_path.rglob("*"):
+            if not path.is_file():
+                continue
+            rel = path.relative_to(REPO_ROOT).as_posix()
+            if path.name in STRUCTURE_ALLOWED_FILENAMES:
+                continue
+            ext = path.suffix.lower()
+            if ext not in allowed_exts:
+                disallowed.append(rel)
+        if disallowed:
+            results.append((
+                "DUE",
+                f"{folder}/ has disallowed file types: {_truncated(disallowed, 5)} "
+                f"(allowed: {', '.join(sorted(allowed_exts))})",
+            ))
+
+    return results
+
 def check_frontier_registry() -> list[tuple[str, str]]:
     results = []
 
@@ -1414,11 +1784,14 @@ def check_mission_constraints() -> list[tuple[str, str]]:
         "check_runtime_portability",
         "check_cross_references",
         "check_readme_snapshot_drift",
+        "check_structure_layout",
         "check_state_header_sync",
         "check_session_log_integrity",
         "check_child_bulletins",
         "check_help_requests",
         "check_swarm_lanes",
+        "check_swarm_coordinator",
+        "check_lane_reporting_quality",
     ]
     missing_defs = [
         name for name in required_checks
@@ -1822,6 +2195,8 @@ def main():
         check_periodics,
         check_human_queue,
         check_swarm_lanes,
+        check_swarm_coordinator,
+        check_lane_reporting_quality,
         check_github_swarm_intake,
         check_uncommitted,
         check_handoff_staleness,
@@ -1830,6 +2205,7 @@ def main():
         check_cross_references,
         check_domain_frontier_consistency,
         check_readme_snapshot_drift,
+        check_structure_layout,
         check_frontier_registry,
         check_file_graph,
         check_paper_accuracy,

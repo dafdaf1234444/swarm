@@ -38,6 +38,37 @@ QA_BANK: tuple[CapitalQuestion, ...] = (
     CapitalQuestion("Sweden", "Stockholm"),
 )
 
+CAPITAL_NAME_RE = r"[A-Z][A-Za-zÀ-ÿ'’-]*(?:\s+[A-Z][A-Za-zÀ-ÿ'’-]*){0,3}"
+
+ANSWER_ALIAS_BY_COUNTRY: dict[str, dict[str, str]] = {
+    "India": {
+        "delhi": "New Delhi",
+    },
+}
+
+BLOCKED_ANSWER_MARKERS: tuple[str, ...] = (
+    "capital of",
+    "capital punishment",
+    "closed ended",
+    "closed-ended",
+    "closed ended question",
+    "closed-ended question",
+    "list of",
+    "history of",
+    "capital city",
+)
+
+BLOCKED_EXACT_ANSWERS: set[str] = {
+    "capital",
+    "capital city",
+    "the city",
+    "city",
+    "new capital",
+    "the new capital",
+    "country capital",
+    "question",
+}
+
 
 def _normalize(text: str) -> str:
     value = unicodedata.normalize("NFKD", text or "")
@@ -62,22 +93,59 @@ def _extract_capital_answer(summary: str, country: str) -> str:
     if not text:
         return ""
     country_re = re.escape(country)
+    capital_re = CAPITAL_NAME_RE
     patterns = (
-        rf"\bcapital(?:\s+city)?\s+of\s+{country_re}\s+is\s+([A-Z][A-Za-zÀ-ÿ' -]+)",
-        rf"\b([A-Z][A-Za-zÀ-ÿ' -]+)\s+is\s+the\s+capital(?:\s+(?:and|,)\s+[A-Za-zÀ-ÿ' -]+)?\s+of\s+{country_re}\b",
-        rf"\b([A-Z][A-Za-zÀ-ÿ' -]+)\s+is\s+the\s+capital(?:\s+city)?\s+of\s+{country_re}\b",
-        rf"\b{country_re}'s\s+capital(?:\s+city)?\s+is\s+([A-Z][A-Za-zÀ-ÿ' -]+)",
-        rf"\b{country_re}\b.{0,100}\bcapital(?:\s+city)?\s+is\s+([A-Z][A-Za-zÀ-ÿ' -]+)",
-        rf"\b([A-Z][A-Za-zÀ-ÿ' -]+)\s+serves\s+as\s+the\s+capital\s+of\s+{country_re}\b",
+        rf"\bcapital(?:\s+city)?\s+of\s+{country_re}\s+is\s+(?:the\s+city\s+of\s+)?({capital_re})\b",
+        rf"\bcapital(?:\s+city)?\s+of\s+{country_re}\s+has\s+been\s+({capital_re})\b",
+        rf"\b({capital_re})\s+is\s+the\s+capital(?:\s+(?:and|,)\s+[A-Za-zÀ-ÿ' -]+)?\s+of\s+{country_re}\b",
+        rf"\b({capital_re})\s+is\s+the\s+capital(?:\s+city)?\s+of\s+{country_re}\b",
+        rf"\b({capital_re}),\s+the\s+capital(?:\s+city)?\s+of\s+{country_re}\b",
+        rf"\b{country_re}'s\s+capital(?:\s+city)?\s+is\s+({capital_re})\b",
+        rf"\b{country_re}\b[\s\S]{{0,220}}\bcapital(?:\s+city)?\s*,\s*({capital_re})\b",
+        rf"\b{country_re}\b[\s\S]{{0,140}}\bcapital(?:\s+city)?\s+is\s+({capital_re})\b",
+        rf"\b({capital_re})\s+serves\s+as\s+the\s+capital\s+of\s+{country_re}\b",
     )
     for pattern in patterns:
-        m = re.search(pattern, text, flags=re.IGNORECASE)
+        m = re.search(pattern, text)
         if not m:
             continue
         answer = m.group(1).strip(" .,:;()[]{}")
         answer = re.sub(r"\s+", " ", answer)
         return answer
     return ""
+
+
+def _canonicalize_answer(answer: str, country: str) -> str:
+    value = re.sub(r"\s+", " ", (answer or "").strip(" .,:;()[]{}"))
+    norm = _normalize(value)
+    if norm.startswith("the city of "):
+        value = value[12:]
+        norm = _normalize(value)
+    elif norm.startswith("city of "):
+        value = value[8:]
+        norm = _normalize(value)
+    alias_map = ANSWER_ALIAS_BY_COUNTRY.get(country, {})
+    if norm in alias_map:
+        return alias_map[norm]
+    if value.lower().startswith("the "):
+        return value[4:]
+    return value
+
+
+def _is_plausible_capital_answer(answer: str, country: str) -> bool:
+    norm_answer = _normalize(answer)
+    norm_country = _normalize(country)
+    if not norm_answer or norm_answer == norm_country:
+        return False
+    if norm_answer.startswith(("what", "who", "when", "where", "why", "how")):
+        return False
+    if norm_answer in BLOCKED_EXACT_ANSWERS:
+        return False
+    if any(marker in norm_answer for marker in BLOCKED_ANSWER_MARKERS):
+        return False
+    if len(norm_answer.split()) > 4:
+        return False
+    return True
 
 
 def _majority_vote(predictions: list[str]) -> str:
@@ -150,7 +218,16 @@ def _is_plausible_capital_title(title: str, country: str) -> bool:
         "capital of",
         "country of",
         "what is",
+        "what ",
+        "who ",
+        "when ",
+        "where ",
+        "why ",
+        "how ",
         "capital city",
+        "new capital",
+        "capital punishment",
+        "closed ended question",
         "list of",
         "history of",
     )
@@ -186,9 +263,14 @@ def _predict_capital(
         summary = _resolve_summary(resolved, lang, summary_cache)
         answer = _extract_capital_answer(summary, country)
         if answer:
-            return answer, resolved_titles
-        if _is_plausible_capital_title(resolved, country):
-            fallback_title = resolved
+            answer = _canonicalize_answer(answer, country)
+            if _is_plausible_capital_answer(answer, country):
+                return answer, resolved_titles
+        fallback_candidate = _canonicalize_answer(resolved, country)
+        if _is_plausible_capital_title(resolved, country) and _is_plausible_capital_answer(
+            fallback_candidate, country
+        ):
+            fallback_title = fallback_candidate
 
     if fallback_title:
         return fallback_title, resolved_titles
@@ -274,6 +356,44 @@ def _summarize(accuracies: list[float]) -> dict:
     }
 
 
+def _bootstrap_delta_ci(
+    single_accuracies: list[float],
+    diversified_accuracies: list[float],
+    *,
+    resamples: int,
+    rng: Random,
+) -> dict:
+    if (
+        not single_accuracies
+        or not diversified_accuracies
+        or resamples <= 0
+    ):
+        return {
+            "resamples": 0,
+            "lower": 0.0,
+            "upper": 0.0,
+            "includes_zero": True,
+        }
+    n1 = len(single_accuracies)
+    n3 = len(diversified_accuracies)
+    draws: list[float] = []
+    for _ in range(resamples):
+        sample_n1 = [single_accuracies[rng.randrange(n1)] for _ in range(n1)]
+        sample_n3 = [diversified_accuracies[rng.randrange(n3)] for _ in range(n3)]
+        draws.append(statistics.fmean(sample_n3) - statistics.fmean(sample_n1))
+    draws.sort()
+    lower_idx = int(0.025 * (resamples - 1))
+    upper_idx = int(0.975 * (resamples - 1))
+    lower = draws[lower_idx]
+    upper = draws[upper_idx]
+    return {
+        "resamples": resamples,
+        "lower": round(lower, 4),
+        "upper": round(upper, 4),
+        "includes_zero": lower <= 0.0 <= upper,
+    }
+
+
 def run(
     *,
     trials_per_condition: int,
@@ -281,6 +401,8 @@ def run(
     perturb_rate: float,
     seed: int,
     lang: str,
+    bootstrap_resamples: int,
+    bootstrap_seed: int | None,
 ) -> dict:
     rng = Random(seed)
     resolve_cache: dict[str, str] = {}
@@ -330,6 +452,13 @@ def run(
             if row["pairwise_agreement"] is not None
         ]
     )
+    bootstrap_rng = Random(seed + 1000 if bootstrap_seed is None else bootstrap_seed)
+    delta_bootstrap_ci95 = _bootstrap_delta_ci(
+        single_accuracies,
+        diversified_accuracies,
+        resamples=max(0, bootstrap_resamples),
+        rng=bootstrap_rng,
+    )
 
     return {
         "experiment": "F-FIN1",
@@ -366,6 +495,7 @@ def run(
                 diversified_summary["mean"] - single_summary["mean"], 4
             ),
             "variance_ratio_n3_over_n1": variance_ratio,
+            "bootstrap_ci95_n3_minus_n1": delta_bootstrap_ci95,
         },
         "interpretation": (
             "This run scores direct capital answers extracted from fetched knowledge "
@@ -381,6 +511,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--agents-diversified", type=int, default=3)
     parser.add_argument("--perturb-rate", type=float, default=0.35)
     parser.add_argument("--seed", type=int, default=186)
+    parser.add_argument("--bootstrap-resamples", type=int, default=2000)
+    parser.add_argument("--bootstrap-seed", type=int)
     parser.add_argument("--lang", type=str, default="en")
     parser.add_argument("--out", type=Path, required=True)
     return parser.parse_args()
@@ -394,6 +526,8 @@ def main() -> int:
         perturb_rate=max(0.0, min(1.0, args.perturb_rate)),
         seed=args.seed,
         lang=args.lang,
+        bootstrap_resamples=max(0, args.bootstrap_resamples),
+        bootstrap_seed=args.bootstrap_seed,
     )
     payload["generated_at_utc"] = datetime.now(timezone.utc).isoformat(
         timespec="seconds"

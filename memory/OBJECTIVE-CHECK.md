@@ -1,15 +1,19 @@
 # Objective Check Protocol
-v0.1 | 2026-02-27 | S186
+v0.2 | 2026-02-27 | S186
 
-Swarm always checks objective alignment before non-trivial work.
+Swarm always checks, but objective alignment is one check mode (not a universal required lens).
 
 ## Why
 - Keep action tied to PHIL-14 (collaborate, increase, protect, be truthful).
 - Keep output tied to PHIL-4 (measurably better swarm).
 - Reduce direction drift by grounding decisions in recent swarm history.
 
+## Scope
+Use this protocol when uncertainty is about mission-fit, prioritization, or objective tradeoffs.
+If the uncertainty is elsewhere (for example evidence quality or assumption risk), use another check mode.
+
 ## Required fields
-For each non-trivial lane/task update, record:
+When running objective-focus mode, record:
 
 1. `objective_check`
 - Which PHIL-14 goal(s) this action advances.
@@ -39,7 +43,7 @@ For each non-trivial lane/task update, record:
 ## Minimal template
 Use this compact block in lane notes or NEXT entries:
 
-`objective_check=<...>; historian_check=<source refs>; coordination_check=available:<...>|blocked:<...>|human_open_item:<...>; subswarm_plan=<...>`
+`check_focus=objective; objective_check=<...>; historian_check=<source refs>; coordination_check=available:<...>|blocked:<...>|human_open_item:<...>; subswarm_plan=<...>`
 
 ## Diff closeout
 After execution, compare expected vs actual objective movement:

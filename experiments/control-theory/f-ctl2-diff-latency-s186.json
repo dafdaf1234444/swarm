@@ -1,6 +1,7 @@
 {
   "frontier_id": "F-CTL2",
   "title": "Expect-act-diff to correction latency baseline",
+  "source": "commits",
   "session_filter_min": 150,
   "session_range": {
     "start": 150,
@@ -16,7 +17,12 @@
     "resolved_events": 4,
     "unresolved_events": 0,
     "anchor_matched_events": 3,
+    "same_session_resolved_events": 0,
+    "cross_session_resolved_events": 4,
+    "same_session_resolution_rate": 0.0,
     "mean_lag_sessions": 1.0,
+    "cross_session_mean_lag_sessions": 1.0,
+    "mean_lag_floor_1_sessions": 1.0,
     "median_lag_sessions": 1.0,
     "p90_lag_sessions": 1.0,
     "within_1_session_rate": 1.0
@@ -143,5 +149,5 @@
     "caveat": "Signals are inferred from commit messages, so silent or differently-worded corrections can inflate measured lag.",
     "direction": "healthy"
   },
-  "generated_at_utc": "2026-02-27T21:00:43Z"
+  "generated_at_utc": "2026-02-27T21:42:09Z"
 }

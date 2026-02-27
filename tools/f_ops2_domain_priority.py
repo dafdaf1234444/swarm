@@ -29,6 +29,7 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 ACTIVE_LANE_STATUSES = {"CLAIMED", "ACTIVE", "BLOCKED", "READY"}
+DISPATCHABLE_LANE_STATUSES = {"CLAIMED", "ACTIVE", "READY"}
 POLICIES = ("fifo", "risk_first", "value_density", "hybrid")
 
 
@@ -240,33 +241,147 @@ def _parse_lane_rows(lanes_text: str) -> list[dict[str, str]]:
     return rows
 
 
-def parse_active_lane_pressure(lanes_text: str, frontier_to_domain: dict[str, str]) -> dict[str, int]:
+def _latest_lane_rows(lanes_text: str) -> list[dict[str, str]]:
     latest_by_lane: dict[str, dict[str, str]] = {}
     for row in _parse_lane_rows(lanes_text):
         lane = row.get("lane", "")
         if lane:
             latest_by_lane[lane] = row
+    return list(latest_by_lane.values())
 
+
+def _parse_etc_fields(etc: str) -> dict[str, str]:
+    fields: dict[str, str] = {}
+    for part in re.split(r"[;,]", etc or ""):
+        chunk = part.strip()
+        if not chunk or "=" not in chunk:
+            continue
+        key, value = chunk.split("=", 1)
+        fields[key.strip().lower()] = value.strip().lower()
+    return fields
+
+
+def _domain_from_lane_row(row: dict[str, str], frontier_to_domain: dict[str, str]) -> str | None:
+    scope = row.get("scope", "")
+    etc = row.get("etc", "")
+
+    m_scope = re.search(r"domains/([^/\s]+)/", scope)
+    if m_scope:
+        return m_scope.group(1)
+
+    m_fid = re.search(r"frontier=(F-[A-Z0-9]+)", etc)
+    if m_fid:
+        return frontier_to_domain.get(m_fid.group(1))
+    return None
+
+
+def parse_active_lane_pressure(lanes_text: str, frontier_to_domain: dict[str, str]) -> dict[str, int]:
     pressure: dict[str, int] = {}
-    for row in latest_by_lane.values():
+    for row in _latest_lane_rows(lanes_text):
         if row.get("status", "") not in ACTIVE_LANE_STATUSES:
             continue
-        scope = row.get("scope", "")
-        etc = row.get("etc", "")
-
-        domain = None
-        m_scope = re.search(r"domains/([^/\s]+)/", scope)
-        if m_scope:
-            domain = m_scope.group(1)
-        if domain is None:
-            m_fid = re.search(r"frontier=(F-[A-Z0-9]+)", etc)
-            if m_fid:
-                domain = frontier_to_domain.get(m_fid.group(1))
+        domain = _domain_from_lane_row(row, frontier_to_domain)
         if domain is None:
             continue
         pressure[domain] = pressure.get(domain, 0) + 1
 
     return pressure
+
+
+def parse_dispatchable_capacity(lanes_text: str, frontier_to_domain: dict[str, str]) -> dict[str, float]:
+    """Count domain slots immediately dispatchable from lane state.
+
+    A lane contributes capacity when its latest status is READY/ACTIVE/CLAIMED,
+    `available` is yes/partial, and `blocked=none`.
+    """
+    capacity: dict[str, float] = {}
+    for row in _latest_lane_rows(lanes_text):
+        status = row.get("status", "")
+        if status not in DISPATCHABLE_LANE_STATUSES:
+            continue
+        domain = _domain_from_lane_row(row, frontier_to_domain)
+        if domain is None:
+            continue
+
+        fields = _parse_etc_fields(row.get("etc", ""))
+        blocked = fields.get("blocked", "none")
+        available = fields.get("available", "yes")
+        if blocked != "none":
+            continue
+
+        slot_capacity = 0.0
+        if available == "yes":
+            slot_capacity = 1.0
+        elif available == "partial":
+            slot_capacity = 0.5
+        if slot_capacity <= 0:
+            continue
+
+        capacity[domain] = capacity.get(domain, 0.0) + slot_capacity
+    return capacity
+
+
+def compute_automability(
+    allocations: dict[str, int],
+    dispatchable_capacity: dict[str, float],
+) -> dict:
+    total_decisions = float(sum(max(0, int(v)) for v in allocations.values()))
+    if total_decisions <= 0:
+        return {
+            "total_decisions": 0,
+            "accepted_decisions": 0.0,
+            "rejected_decisions": 0.0,
+            "automability_rate": 0.0,
+            "accepted_by_domain": {},
+            "dispatchable_capacity_by_domain": {},
+        }
+
+    accepted_by_domain: dict[str, float] = {}
+    accepted_total = 0.0
+    for domain, slots in allocations.items():
+        if slots <= 0:
+            continue
+        accepted = min(float(slots), max(0.0, dispatchable_capacity.get(domain, 0.0)))
+        if accepted <= 0:
+            continue
+        accepted_total += accepted
+        accepted_by_domain[domain] = round(accepted, 3)
+
+    rejected = max(0.0, total_decisions - accepted_total)
+    return {
+        "total_decisions": int(total_decisions),
+        "accepted_decisions": round(accepted_total, 3),
+        "rejected_decisions": round(rejected, 3),
+        "automability_rate": round(accepted_total / total_decisions, 4),
+        "accepted_by_domain": accepted_by_domain,
+        "dispatchable_capacity_by_domain": {
+            domain: round(cap, 3)
+            for domain, cap in sorted(dispatchable_capacity.items())
+            if cap > 0
+        },
+    }
+
+
+def apply_automability_guard(
+    metrics: dict,
+    automability_floor: float,
+    guard_penalty: float,
+) -> dict:
+    floor = min(1.0, max(0.0, float(automability_floor)))
+    penalty_per_unit = max(0.0, float(guard_penalty))
+    rate = float(metrics.get("automability_rate", 0.0))
+    shortfall = max(0.0, floor - rate)
+    penalty = round(shortfall * penalty_per_unit, 4)
+
+    guarded = dict(metrics)
+    guarded["guard"] = {
+        "automability_floor": round(floor, 4),
+        "pass": shortfall <= 0.0,
+        "shortfall": round(shortfall, 4),
+        "penalty": penalty,
+    }
+    guarded["effective_net_score"] = round(float(metrics.get("net_score", 0.0)) - penalty, 4)
+    return guarded
 
 
 def policy_score(policy: str, state: DomainState) -> float:
@@ -298,9 +413,18 @@ def policy_score(policy: str, state: DomainState) -> float:
     raise ValueError(f"Unknown policy: {policy}")
 
 
-def allocate_agents(states: list[DomainState], policy: str, agent_count: int) -> dict[str, int]:
+def allocate_agents(
+    states: list[DomainState],
+    policy: str,
+    agent_count: int,
+    dispatchable_capacity: dict[str, float] | None = None,
+    capacity_bias: float = 0.0,
+) -> dict[str, int]:
     allocations = {s.name: 0 for s in states}
     base_scores = {s.name: max(0.0, policy_score(policy, s)) for s in states}
+    capacity = dispatchable_capacity or {}
+    bias = max(0.0, min(1.0, float(capacity_bias)))
+    floor_factor = 0.05
 
     if agent_count <= 0:
         return allocations
@@ -311,6 +435,15 @@ def allocate_agents(states: list[DomainState], policy: str, agent_count: int) ->
         for s in sorted(states, key=lambda item: item.name):
             score = base_scores[s.name]
             marginal = score / (1.0 + allocations[s.name])
+            if bias > 0.0:
+                remaining_capacity = max(0.0, capacity.get(s.name, 0.0) - allocations[s.name])
+                if remaining_capacity > 0.0:
+                    # Boost lanes that can be dispatched immediately.
+                    capacity_factor = 1.0 + bias * min(1.0, remaining_capacity)
+                else:
+                    # Softly penalize over-capacity assignments so dispatchable lanes can win.
+                    capacity_factor = max(floor_factor, 1.0 - bias)
+                marginal *= capacity_factor
             if marginal > best_marginal:
                 best_marginal = marginal
                 best_domain = s.name
@@ -321,7 +454,12 @@ def allocate_agents(states: list[DomainState], policy: str, agent_count: int) ->
     return allocations
 
 
-def evaluate_policy(states: list[DomainState], allocations: dict[str, int]) -> dict[str, float]:
+def evaluate_policy(
+    states: list[DomainState],
+    allocations: dict[str, int],
+    dispatchable_capacity: dict[str, float],
+    automability_weight: float,
+) -> dict:
     by_name = {s.name: s for s in states}
     projected_gain = 0.0
     collision_risk = 0.0
@@ -335,11 +473,18 @@ def evaluate_policy(states: list[DomainState], allocations: dict[str, int]) -> d
         )
         projected_gain += slots * value_proxy
         collision_risk += max(0, slots - 1) * (1.0 + st.active_lane_pressure)
-    net = projected_gain - 1.5 * collision_risk
+    automability = compute_automability(allocations, dispatchable_capacity)
+    automability_bonus = automability_weight * automability["automability_rate"]
+    net = projected_gain - 1.5 * collision_risk + automability_bonus
     return {
         "projected_gain": round(projected_gain, 4),
         "collision_risk": round(collision_risk, 4),
+        "automability_rate": automability["automability_rate"],
+        "accepted_decisions": automability["accepted_decisions"],
+        "rejected_decisions": automability["rejected_decisions"],
+        "automability_bonus": round(automability_bonus, 4),
         "net_score": round(net, 4),
+        "automability": automability,
     }
 
 
@@ -395,6 +540,30 @@ def parse_args() -> argparse.Namespace:
         default=20,
         help="How many recent 'What just happened' lines to scan for finding pressure.",
     )
+    parser.add_argument(
+        "--automability-weight",
+        type=float,
+        default=20.0,
+        help="Weight for automability bonus in net policy score.",
+    )
+    parser.add_argument(
+        "--automability-floor",
+        type=float,
+        default=0.0,
+        help="Minimum automability_rate required for unpenalized policy ranking (0..1).",
+    )
+    parser.add_argument(
+        "--guard-penalty",
+        type=float,
+        default=200.0,
+        help="Penalty multiplier for automability shortfall when automability_floor is set.",
+    )
+    parser.add_argument(
+        "--capacity-bias",
+        type=float,
+        default=0.0,
+        help="Dispatchability bias in allocation (0=no bias, 1=strong boost-in-capacity + over-capacity penalty).",
+    )
     parser.add_argument("--json-out", type=Path, default=None)
     return parser.parse_args()
 
@@ -421,6 +590,7 @@ def main() -> int:
         max_lines=max(1, args.findings_window),
     )
     lane_pressure = parse_active_lane_pressure(_read(lanes_path), frontier_to_domain)
+    dispatchable_capacity = parse_dispatchable_capacity(_read(lanes_path), frontier_to_domain)
 
     for st in states:
         st.next_mentions = mention_counts.get(st.name, 0)
@@ -434,8 +604,24 @@ def main() -> int:
     for policy in selected_policies:
         scores = {s.name: round(policy_score(policy, s), 6) for s in states}
         ranked = [name for name, _ in sorted(scores.items(), key=lambda kv: (kv[1], kv[0]), reverse=True)]
-        allocations = allocate_agents(states, policy, args.agent_count)
-        metrics = evaluate_policy(states, allocations)
+        allocations = allocate_agents(
+            states,
+            policy,
+            args.agent_count,
+            dispatchable_capacity=dispatchable_capacity,
+            capacity_bias=args.capacity_bias,
+        )
+        raw_metrics = evaluate_policy(
+            states,
+            allocations,
+            dispatchable_capacity=dispatchable_capacity,
+            automability_weight=args.automability_weight,
+        )
+        metrics = apply_automability_guard(
+            raw_metrics,
+            automability_floor=args.automability_floor,
+            guard_penalty=args.guard_penalty,
+        )
         policy_payload[policy] = {
             "scores": scores,
             "ranked_domains": ranked,
@@ -446,7 +632,7 @@ def main() -> int:
     recommended_policy = max(
         policy_payload.keys(),
         key=lambda p: (
-            policy_payload[p]["metrics"]["net_score"],
+            policy_payload[p]["metrics"]["effective_net_score"],
             policy_payload[p]["metrics"]["projected_gain"],
             p == "hybrid",
         ),
@@ -463,8 +649,15 @@ def main() -> int:
             "lanes_path": _display_path(lanes_path),
             "domains_root": _display_path(domains_root),
             "findings_window": args.findings_window,
+            "automability_weight": args.automability_weight,
+            "automability_floor": args.automability_floor,
+            "guard_penalty": args.guard_penalty,
+            "capacity_bias": args.capacity_bias,
         },
         "domain_signals": [s.to_json() for s in sorted(states, key=lambda x: x.name)],
+        "dispatchable_capacity": {
+            domain: round(cap, 3) for domain, cap in sorted(dispatchable_capacity.items()) if cap > 0
+        },
         "policies": policy_payload,
         "recommended_policy": recommended_policy,
         "recommended_plan": recommended_plan,
@@ -482,6 +675,7 @@ def main() -> int:
     print(
         "recommended_policy="
         f"{recommended_policy} net={rec_metrics['net_score']:.3f} "
+        f"effective_net={rec_metrics['effective_net_score']:.3f} "
         f"gain={rec_metrics['projected_gain']:.3f} risk={rec_metrics['collision_risk']:.3f}"
     )
     return 0

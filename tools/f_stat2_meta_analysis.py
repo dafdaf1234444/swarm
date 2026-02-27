@@ -57,6 +57,25 @@ def _se_from_var(v1: float, n1: int, v2: float, n2: int) -> float:
     return max(SE_FLOOR, _se_floor_for_n(min(n1, n2)), se)
 
 
+def _detect_fin1_regime(payload: dict[str, Any], path: Path) -> str:
+    mode = str(payload.get("mode", "")).strip().lower()
+    if "direct-answer" in mode or "direct_answer" in mode:
+        return "direct_answer"
+    if mode:
+        return "resolver_proxy"
+
+    interpretation = str(payload.get("interpretation", "")).lower()
+    if "direct answer" in interpretation or "direct capital answers" in interpretation:
+        return "direct_answer"
+    if "resolver proxy" in interpretation:
+        return "resolver_proxy"
+
+    name = path.name.lower()
+    if "-direct-" in name or name.startswith("f-fin1-factual-qa-direct"):
+        return "direct_answer"
+    return "unknown"
+
+
 def fin1_studies() -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for path in sorted((REPO_ROOT / "experiments" / "finance").glob("f-fin1-factual-qa*.json")):
@@ -89,11 +108,14 @@ def fin1_studies() -> list[dict[str, Any]]:
         if n3 <= 0:
             n3 = _safe_int(payload.get("trials_per_condition"), 1)
         se = _se_from_var(v1, n1, v3, n3)
+        regime = _detect_fin1_regime(payload, path)
+        family = f"finance_factual_qa_{regime}"
 
         rows.append(
             {
                 "study_id": str(path.relative_to(REPO_ROOT)).replace("\\", "/"),
-                "family": "finance_factual_qa",
+                "family": family,
+                "scoring_regime": regime,
                 "effect": _round(effect),
                 "se": _round(se),
                 "n": int(max(n1, n3)),
@@ -214,6 +236,26 @@ def random_effects(studies: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
+def _summarize_finance_regimes(studies: list[dict[str, Any]]) -> dict[str, Any]:
+    by_regime: dict[str, list[dict[str, Any]]] = {}
+    for row in studies:
+        family = str(row.get("family", ""))
+        if not family.startswith("finance_factual_qa_"):
+            continue
+        regime = str(row.get("scoring_regime", "unknown"))
+        by_regime.setdefault(regime, []).append(row)
+
+    regimes = {regime: random_effects(rows) for regime, rows in sorted(by_regime.items())}
+    delta = None
+    if "direct_answer" in regimes and "resolver_proxy" in regimes:
+        delta = _round(regimes["direct_answer"]["pooled_effect"] - regimes["resolver_proxy"]["pooled_effect"])
+
+    return {
+        "regimes": regimes,
+        "pooled_effect_delta_direct_minus_proxy": delta,
+    }
+
+
 def _transfer_label(ci_low: float, ci_high: float, i2: float) -> str:
     if ci_low > 0:
         return "positive-transfer-signal" if i2 < 75 else "positive-but-heterogeneous"
@@ -232,6 +274,7 @@ def run(out_path: Path) -> dict[str, Any]:
     family_summaries = {
         family: random_effects(rows) for family, rows in sorted(by_family.items())
     }
+    finance_regime_split = _summarize_finance_regimes(studies)
 
     ci_low, ci_high = overall["ci95"]
     result = {
@@ -241,6 +284,7 @@ def run(out_path: Path) -> dict[str, Any]:
         "families": {k: len(v) for k, v in sorted(by_family.items())},
         "overall": overall,
         "by_family": family_summaries,
+        "finance_regime_split": finance_regime_split,
         "transfer_decision": {
             "label": _transfer_label(ci_low, ci_high, overall["I2_percent"]),
             "rule": "ci95 above zero => positive; below zero => negative; crossing zero => inconclusive",
@@ -248,6 +292,7 @@ def run(out_path: Path) -> dict[str, Any]:
         "studies": studies,
         "notes": (
             "Effects are normalized as improvement deltas from each artifact family. "
+            "FIN1 studies are split into direct-answer vs resolver-proxy regimes. "
             "SEs are approximated from available trial/count fields; interpretation should be "
             "paired with F-STAT3 multiplicity controls."
         ),

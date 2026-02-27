@@ -103,7 +103,7 @@ class TestSwarmLanes(unittest.TestCase):
                 if tags.get(key, "") in PLACEHOLDER_VALUES
             ]
             missing_keys.extend(
-                key for key in ("blocked", "human_open_item")
+                key for key in ("available", "blocked", "next_step", "human_open_item")
                 if key not in tags
             )
             if missing_keys:

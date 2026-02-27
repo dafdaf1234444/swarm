@@ -8,6 +8,7 @@ this tool selects the minimal relevant context for a given task.
 Usage:
     python3 tools/context_router.py <task-description>
     python3 tools/context_router.py <task-description> --budget 500
+    python3 tools/context_router.py <task-description> --local tasks/NEXT.md
     python3 tools/context_router.py <task-description> --json
     python3 tools/context_router.py inventory
 
@@ -25,7 +26,7 @@ This is the foundation for distributed spawn coordination:
 """
 
 import json
-import os
+import argparse
 import re
 import sys
 from collections import defaultdict
@@ -96,6 +97,19 @@ DOMAIN_KEYWORDS = {
         "keywords": [
             "tool", "script", "automat", "validator", "track",
             "measure", "metric", "test", "check", "run",
+        ],
+    },
+    "domain_meta": {
+        "files": [
+            "domains/meta/DOMAIN.md",
+            "domains/meta/INDEX.md",
+            "domains/meta/tasks/FRONTIER.md",
+        ],
+        "keywords": [
+            "meta", "self", "self-model", "self-knowledge", "swarm",
+            "swarmability", "handoff", "lane", "contract", "protocol",
+            "expect", "diff", "correction", "human-signal", "autonomy",
+            "f-meta", "f103", "f104", "f106", "f107",
         ],
     },
     "domain_ai": {
@@ -227,6 +241,79 @@ DOMAIN_KEYWORDS = {
             "human", "swarm", "f-psy",
         ],
     },
+    "domain_history": {
+        "files": [
+            "domains/history/DOMAIN.md",
+            "domains/history/INDEX.md",
+            "domains/history/tasks/FRONTIER.md",
+        ],
+        "keywords": [
+            "history", "historian", "historical", "historiography",
+            "chronology", "timeline", "archive", "provenance",
+            "source", "citation", "lineage", "drift", "periodization",
+            "session", "handoff", "f-his",
+        ],
+    },
+    "domain_protocol_engineering": {
+        "files": [
+            "domains/protocol-engineering/DOMAIN.md",
+            "domains/protocol-engineering/INDEX.md",
+            "domains/protocol-engineering/tasks/FRONTIER.md",
+        ],
+        "keywords": [
+            "protocol", "contract", "schema", "bridge", "parity",
+            "adoption", "enforcement", "mutation", "cadence", "compatibility",
+            "cross-tool", "drift", "f-pro",
+        ],
+    },
+    "domain_strategy": {
+        "files": [
+            "domains/strategy/DOMAIN.md",
+            "domains/strategy/INDEX.md",
+            "domains/strategy/tasks/FRONTIER.md",
+        ],
+        "keywords": [
+            "strategy", "prioritization", "priority", "campaign", "plan",
+            "slot", "allocation", "sequencing", "execution", "backlog",
+            "wip", "throughput", "f-str",
+        ],
+    },
+    "domain_governance": {
+        "files": [
+            "domains/governance/DOMAIN.md",
+            "domains/governance/INDEX.md",
+            "domains/governance/tasks/FRONTIER.md",
+        ],
+        "keywords": [
+            "governance", "authority", "invariant", "policy", "compliance",
+            "challenge", "resolution", "oversight", "audit", "constitutional",
+            "safety", "legitimacy", "f-gov",
+        ],
+    },
+    "domain_helper_swarm": {
+        "files": [
+            "domains/helper-swarm/DOMAIN.md",
+            "domains/helper-swarm/INDEX.md",
+            "domains/helper-swarm/tasks/FRONTIER.md",
+        ],
+        "keywords": [
+            "helper", "assist", "assistance", "support", "rescue",
+            "handoff", "stalled", "blocked", "triage", "recovery",
+            "relief", "delegation", "overflow", "continuity", "f-hlp",
+        ],
+    },
+    "domain_fractals": {
+        "files": [
+            "domains/fractals/DOMAIN.md",
+            "domains/fractals/INDEX.md",
+            "domains/fractals/tasks/FRONTIER.md",
+        ],
+        "keywords": [
+            "fractal", "self-similar", "self-similarity", "recursive",
+            "recursion", "scale", "multi-scale", "dimension", "box-count",
+            "bifurcation", "attractor", "boundary", "branching", "f-fra",
+        ],
+    },
 }
 
 # Files always included (mandatory load)
@@ -234,6 +321,43 @@ MANDATORY_FILES = [
     "beliefs/CORE.md",
     "memory/INDEX.md",
 ]
+
+LOCAL_TOOL_PREFIX_TO_DOMAIN = {
+    "f_ai": "domain_ai",
+    "f_fin": "domain_finance",
+    "f_hlt": "domain_health",
+    "f_is": "domain_information_science",
+    "f_brn": "domain_brain",
+    "f_evo": "domain_evolution",
+    "f_ctl": "domain_control_theory",
+    "f_gam": "domain_game_theory",
+    "f_ops": "domain_operations_research",
+    "f_stat": "domain_statistics",
+    "f_psy": "domain_psychology",
+    "f_his": "domain_history",
+    "f_pro": "domain_protocol_engineering",
+    "f_str": "domain_strategy",
+    "f_gov": "domain_governance",
+    "f_fra": "domain_fractals",
+    "f_meta": "domain_meta",
+}
+
+CORE_SWARM_PATH_PREFIXES = (
+    "tasks/",
+    "memory/",
+    "beliefs/",
+    "references/",
+    "recordings/",
+)
+CORE_SWARM_FILENAMES = {
+    "swarm.md",
+    "agents.md",
+    "claude.md",
+    "gemini.md",
+    ".cursorrules",
+    ".windsurfrules",
+    "readme.md",
+}
 
 
 def extract_task_keywords(task_description: str) -> set[str]:
@@ -266,17 +390,80 @@ def count_file_lines(filepath: Path) -> int:
         return 0
 
 
-def route_context(task_description: str, budget_lines: int = 500) -> dict:
+def normalize_local_context_path(local_context: str | None) -> tuple[str | None, bool, bool]:
+    """Resolve local context path to repo-relative form when possible.
+
+    Returns:
+        (normalized_path, exists, in_repo)
+    """
+    raw = (local_context or "").strip()
+    if not raw:
+        return None, False, False
+
+    candidate = Path(raw)
+    if not candidate.is_absolute():
+        candidate = REPO_ROOT / candidate
+
+    try:
+        resolved = candidate.resolve()
+    except Exception:
+        resolved = candidate
+
+    exists = resolved.exists()
+    try:
+        rel = resolved.relative_to(REPO_ROOT).as_posix()
+        return rel, exists, True
+    except Exception:
+        return resolved.as_posix().replace("\\", "/"), exists, False
+
+
+def infer_local_domain(local_path: str | None) -> tuple[str | None, str | None]:
+    """Infer likely domain key from a local repo path."""
+    if not local_path:
+        return None, None
+
+    low = local_path.strip().lower().replace("\\", "/")
+    if not low:
+        return None, None
+
+    domain_match = re.search(r"(?:^|/)domains/([a-z0-9][a-z0-9-]*)/", low)
+    if domain_match:
+        key = f"domain_{domain_match.group(1).replace('-', '_')}"
+        if key in DOMAIN_KEYWORDS:
+            return key, "domain_path"
+
+    filename = Path(low).name
+    for prefix, key in LOCAL_TOOL_PREFIX_TO_DOMAIN.items():
+        if filename.startswith(prefix):
+            return key, f"tool_prefix:{prefix}"
+
+    if low in CORE_SWARM_FILENAMES or any(low.startswith(prefix) for prefix in CORE_SWARM_PATH_PREFIXES):
+        return "domain_meta", "swarm_core_path"
+
+    if low.startswith("tools/") and any(token in low for token in ("swarm", "context_router", "maintenance")):
+        return "domain_meta", "swarm_tool_path"
+
+    return None, None
+
+
+def route_context(
+    task_description: str,
+    budget_lines: int = 500,
+    local_context: str | None = None,
+) -> dict:
     """Route a task to its relevant context files.
 
     Args:
         task_description: What the task is about.
         budget_lines: Maximum total lines to include.
+        local_context: Optional local file/dir path to boost place-aware routing.
 
     Returns:
         Dict with ranked files, domains, and loading instructions.
     """
     task_kws = extract_task_keywords(task_description)
+    local_path, local_exists, local_in_repo = normalize_local_context_path(local_context)
+    local_domain, local_domain_reason = infer_local_domain(local_path if local_in_repo else None)
 
     # Score each domain
     domain_scores = {}
@@ -285,8 +472,11 @@ def route_context(task_description: str, budget_lines: int = 500) -> dict:
         if score > 0:
             domain_scores[domain] = score
 
+    if local_domain:
+        domain_scores[local_domain] = domain_scores.get(local_domain, 0.0) + 0.35
+
     # Rank domains
-    ranked_domains = sorted(domain_scores.items(), key=lambda x: -x[1])
+    ranked_domains = sorted(domain_scores.items(), key=lambda x: (-x[1], x[0]))
 
     # Collect files from relevant domains
     file_scores: dict[str, float] = {}
@@ -302,8 +492,12 @@ def route_context(task_description: str, budget_lines: int = 500) -> dict:
         if f not in file_scores:
             file_scores[f] = 1.0  # Mandatory = highest priority
 
+    if local_path and local_in_repo:
+        local_score = 0.95 if local_exists else 0.6
+        file_scores[local_path] = max(file_scores.get(local_path, 0.0), local_score)
+
     # Rank files by score
-    ranked_files = sorted(file_scores.items(), key=lambda x: -x[1])
+    ranked_files = sorted(file_scores.items(), key=lambda x: (-x[1], x[0]))
 
     # Budget-constrained selection
     selected_files = []
@@ -320,7 +514,7 @@ def route_context(task_description: str, budget_lines: int = 500) -> dict:
                 "score": round(score, 3),
                 "domain": next(
                     (d for d, info in DOMAIN_KEYWORDS.items() if filepath in info["files"]),
-                    "general"
+                    "local" if local_path and filepath == local_path else "general",
                 ),
             })
             total_lines += lines
@@ -357,6 +551,15 @@ def route_context(task_description: str, budget_lines: int = 500) -> dict:
         "task": task_description,
         "keywords": sorted(task_kws),
         "domains": [{"name": d, "score": round(s, 3)} for d, s in ranked_domains],
+        "local_context": {
+            "requested": (local_context or "").strip(),
+            "path": local_path,
+            "exists": local_exists,
+            "in_repo": local_in_repo,
+            "detected_domain": local_domain,
+            "detection_reason": local_domain_reason,
+            "boost_applied": bool(local_domain),
+        },
         "selected_files": selected_files,
         "relevant_lessons": relevant_lessons[:5],
         "excluded_files": excluded_files,
@@ -409,6 +612,14 @@ def print_route(result: dict):
     print(f"=== CONTEXT ROUTE ===\n")
     print(f"Task: {result['task']}")
     print(f"Keywords: {', '.join(result['keywords'][:10])}")
+    local = result.get("local_context", {}) or {}
+    if local.get("requested"):
+        local_line = f"Local context: {local.get('requested')}"
+        if local.get("path"):
+            local_line += f" -> {local.get('path')}"
+        if local.get("detected_domain"):
+            local_line += f" (domain={local.get('detected_domain')})"
+        print(local_line)
     print()
 
     if result["domains"]:
@@ -461,28 +672,39 @@ def print_inventory(inv: dict):
     print(f"  ~{remaining * 4} tokens optional (routed per task)")
 
 
-def main():
-    if len(sys.argv) < 2:
-        print(__doc__)
-        sys.exit(1)
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Route swarm context to relevant files.")
+    parser.add_argument("task", nargs="*", help="Task description tokens or `inventory`.")
+    parser.add_argument("--budget", type=int, default=500, help="Max lines to select.")
+    parser.add_argument("--json", action="store_true", help="Emit JSON output.")
+    parser.add_argument(
+        "--local",
+        default="",
+        help="Optional local file/path to bias routing toward current place context.",
+    )
+    return parser.parse_args()
 
-    if sys.argv[1] == "inventory":
+
+def main():
+    args = parse_args()
+    task_tokens = args.task or []
+
+    if len(task_tokens) == 1 and task_tokens[0].lower() == "inventory":
         inv = inventory()
-        if "--json" in sys.argv:
+        if args.json:
             print(json.dumps(inv, indent=2))
         else:
             print_inventory(inv)
         return
 
-    task = " ".join(a for a in sys.argv[1:] if not a.startswith("-"))
-    budget = 500
-    for i, a in enumerate(sys.argv):
-        if a == "--budget" and i + 1 < len(sys.argv):
-            budget = int(sys.argv[i + 1])
+    if not task_tokens:
+        print(__doc__)
+        sys.exit(1)
 
-    result = route_context(task, budget)
+    task = " ".join(task_tokens)
+    result = route_context(task, budget_lines=args.budget, local_context=args.local or None)
 
-    if "--json" in sys.argv:
+    if args.json:
         print(json.dumps(result, indent=2))
     else:
         print_route(result)

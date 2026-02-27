@@ -11,6 +11,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from random import Random
+from typing import Mapping
 
 
 THEME_TARGETS: dict[str, tuple[str, ...]] = {
@@ -111,6 +112,38 @@ def make_transfer_decisions(
     return tuple(decisions)
 
 
+def _paper_ids_for_source(lane: Mapping[str, object], source: str) -> list[str]:
+    if source == "backlog":
+        return list(lane.get("backlog_paper_ids", []))
+    return list(lane.get("paper_ids", []))
+
+
+def build_shared_slice(
+    *,
+    intake: dict,
+    source: str,
+    shared_per_lane: int,
+    seed: int,
+) -> dict[str, tuple[str, ...]]:
+    if shared_per_lane <= 0:
+        return {}
+    source = (source or "selected").strip().lower()
+    if source not in {"selected", "backlog"}:
+        raise ValueError(f"Unsupported shared source set: {source}")
+
+    shared: dict[str, tuple[str, ...]] = {}
+    for lane in intake.get("lane_plan", []):
+        lane_id = str(lane.get("lane_id", "ARX-00"))
+        paper_ids = _paper_ids_for_source(lane, source)
+        if not paper_ids:
+            continue
+        lane_rng = Random(f"{seed}:{lane_id}:{source}")
+        paper_ids = list(paper_ids)
+        lane_rng.shuffle(paper_ids)
+        shared[lane_id] = tuple(paper_ids[:shared_per_lane])
+    return shared
+
+
 def distill_pass(
     *,
     intake: dict,
@@ -119,12 +152,14 @@ def distill_pass(
     seed: int,
     per_lane: int,
     active_targets: set[str],
+    shared_by_lane: Mapping[str, tuple[str, ...]] | None = None,
 ) -> list[Claim]:
     source = (source or "selected").strip().lower()
     if source not in {"selected", "backlog"}:
         raise ValueError(f"Unsupported source set: {source}")
 
     rng = Random(seed)
+    shared_by_lane = shared_by_lane or {}
     papers = {row["arxiv_id"]: row for row in intake.get("papers", [])}
     lanes = intake.get("lane_plan", [])
     claims: list[Claim] = []
@@ -132,14 +167,20 @@ def distill_pass(
     for lane in lanes:
         lane_id = lane.get("lane_id", "ARX-00")
         theme = lane.get("theme", "misc")
-        if source == "backlog":
-            paper_ids = list(lane.get("backlog_paper_ids", []))
-        else:
-            paper_ids = list(lane.get("paper_ids", []))
-        if not paper_ids:
-            continue
-        rng.shuffle(paper_ids)
-        selected = paper_ids[: max(1, per_lane)]
+        paper_ids = _paper_ids_for_source(lane, source)
+        shared_ids = [paper_id for paper_id in shared_by_lane.get(lane_id, ()) if paper_id in papers]
+
+        unique_ids = [paper_id for paper_id in paper_ids if paper_id not in set(shared_ids)]
+        rng.shuffle(unique_ids)
+        shared_take = min(max(0, per_lane), len(shared_ids))
+        unique_take = max(0, per_lane - shared_take)
+        selected = list(shared_ids[:shared_take]) + unique_ids[:unique_take]
+
+        if not selected:
+            fallback = paper_ids or shared_ids
+            if not fallback:
+                continue
+            selected = [fallback[0]]
 
         targets = THEME_TARGETS.get(theme, THEME_TARGETS["misc"])
         if owner.endswith("A"):
@@ -271,7 +312,16 @@ def build_payload(
     active_target_paths: list[Path],
     source_a: str,
     source_b: str,
+    shared_source: str,
+    shared_per_lane: int,
+    shared_seed: int,
+    shared_by_lane: Mapping[str, tuple[str, ...]],
 ) -> dict:
+    shared_claim_keys = {
+        (claim.lane_id, claim.paper_id)
+        for claim in claims
+        if claim.paper_id in set(shared_by_lane.get(claim.lane_id, ()))
+    }
     return {
         "experiment": "F-IS5",
         "title": "two-pass lane distillation scoring",
@@ -279,6 +329,15 @@ def build_payload(
         "active_target_sources": [str(path).replace("\\", "/") for path in active_target_paths],
         "pass_count": 2,
         "pass_sources": {"lane-owner-A": source_a, "lane-owner-B": source_b},
+        "overlap_slice": {
+            "enabled": shared_per_lane > 0,
+            "shared_source": shared_source,
+            "shared_per_lane": shared_per_lane,
+            "shared_seed": shared_seed,
+            "shared_lane_count": len(shared_by_lane),
+            "shared_papers_total": sum(len(paper_ids) for paper_ids in shared_by_lane.values()),
+            "shared_claim_keys": len(shared_claim_keys),
+        },
         "input_papers": intake.get("retrieved_count", 0),
         "input_lanes": len(intake.get("lane_plan", [])),
         "summary_metrics": summary,
@@ -326,6 +385,24 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--seed-b", type=int, default=1862)
     parser.add_argument("--source-a", choices=("selected", "backlog"), default="selected")
     parser.add_argument("--source-b", choices=("selected", "backlog"), default="selected")
+    parser.add_argument(
+        "--shared-per-lane",
+        type=int,
+        default=0,
+        help="Inject this many shared paper IDs per lane into both passes (controlled overlap slice).",
+    )
+    parser.add_argument(
+        "--shared-source",
+        choices=("selected", "backlog"),
+        default="selected",
+        help="Source set used to choose shared overlap papers.",
+    )
+    parser.add_argument(
+        "--shared-seed",
+        type=int,
+        default=1860,
+        help="Seed used for deterministic shared overlap selection.",
+    )
     return parser.parse_args()
 
 
@@ -341,6 +418,12 @@ def main() -> int:
         Path("beliefs/PHILOSOPHY.md"),
     ]
     active_targets = load_active_targets(active_target_paths)
+    shared_by_lane = build_shared_slice(
+        intake=intake,
+        source=args.shared_source,
+        shared_per_lane=max(0, args.shared_per_lane),
+        seed=args.shared_seed,
+    )
 
     claims_a = distill_pass(
         intake=intake,
@@ -349,6 +432,7 @@ def main() -> int:
         seed=args.seed_a,
         per_lane=max(1, args.per_lane),
         active_targets=active_targets,
+        shared_by_lane=shared_by_lane,
     )
     claims_b = distill_pass(
         intake=intake,
@@ -357,6 +441,7 @@ def main() -> int:
         seed=args.seed_b,
         per_lane=max(1, args.per_lane),
         active_targets=active_targets,
+        shared_by_lane=shared_by_lane,
     )
     claims = claims_a + claims_b
 
@@ -369,6 +454,10 @@ def main() -> int:
         active_target_paths=active_target_paths,
         source_a=args.source_a,
         source_b=args.source_b,
+        shared_source=args.shared_source,
+        shared_per_lane=max(0, args.shared_per_lane),
+        shared_seed=args.shared_seed,
+        shared_by_lane=shared_by_lane,
     )
     payload["generated_at_utc"] = datetime.now(timezone.utc).isoformat(
         timespec="seconds"

@@ -35,6 +35,35 @@ class TestFFIN1FactualQA(unittest.TestCase):
         answer = mod._extract_capital_answer(summary, "France")
         self.assertEqual(mod._normalize(answer), mod._normalize("Paris"))
 
+    def test_extract_capital_answer_handles_city_of_form(self):
+        summary = "The capital of Germany is the city of Berlin."
+        answer = mod._extract_capital_answer(summary, "Germany")
+        self.assertEqual(mod._normalize(answer), mod._normalize("Berlin"))
+
+    def test_extract_capital_answer_handles_has_been_form(self):
+        summary = "The capital of France has been Paris since 1944."
+        answer = mod._extract_capital_answer(summary, "France")
+        self.assertEqual(mod._normalize(answer), mod._normalize("Paris"))
+
+    def test_extract_capital_answer_handles_appositive_form(self):
+        summary = "Delhi contains New Delhi, the capital of India."
+        answer = mod._extract_capital_answer(summary, "India")
+        self.assertEqual(mod._normalize(answer), mod._normalize("New Delhi"))
+
+    def test_extract_capital_answer_handles_country_then_capital_city_comma(self):
+        summary = "Egypt. It is a satellite city of the nation's original capital city, Cairo."
+        answer = mod._extract_capital_answer(summary, "Egypt")
+        self.assertEqual(mod._normalize(answer), mod._normalize("Cairo"))
+
+    def test_canonicalize_india_alias(self):
+        self.assertEqual(mod._canonicalize_answer("Delhi", "India"), "New Delhi")
+
+    def test_plausibility_filters_noise_answer(self):
+        self.assertFalse(mod._is_plausible_capital_answer("Closed-ended question", "France"))
+        self.assertFalse(mod._is_plausible_capital_answer("The New Capital", "Egypt"))
+        self.assertFalse(mod._is_plausible_capital_answer("Whati", "France"))
+        self.assertTrue(mod._is_plausible_capital_answer("Paris", "France"))
+
     @mock.patch.object(mod, "_resolve_summary")
     @mock.patch.object(mod, "_resolve_title")
     def test_predict_capital_uses_fallback_queries(self, mock_resolve_title, mock_resolve_summary):
@@ -60,6 +89,47 @@ class TestFFIN1FactualQA(unittest.TestCase):
         )
         self.assertEqual(mod._normalize(answer), mod._normalize("Paris"))
         self.assertIn("Paris", resolved_chain)
+
+    @mock.patch.object(mod, "_resolve_summary")
+    @mock.patch.object(mod, "_resolve_title")
+    def test_predict_capital_skips_implausible_extracted_answer(
+        self, mock_resolve_title, mock_resolve_summary
+    ):
+        def fake_resolve(query: str, _lang: str, _cache: dict[str, str]) -> str:
+            if query == "What is the capital of France?":
+                return "Paris"
+            return "France"
+
+        def fake_summary(title: str, _lang: str, _cache: dict[str, str]) -> str:
+            if title == "France":
+                return "The capital of France is Closed-ended question."
+            if title == "Paris":
+                return "Paris is the capital and most populous city of France."
+            return ""
+
+        mock_resolve_title.side_effect = fake_resolve
+        mock_resolve_summary.side_effect = fake_summary
+
+        answer, _ = mod._predict_capital(
+            country="France",
+            query="capital of France",
+            lang="en",
+            resolve_cache={},
+            summary_cache={},
+        )
+        self.assertEqual(mod._normalize(answer), mod._normalize("Paris"))
+
+    def test_bootstrap_delta_ci_covers_zero_for_identical_inputs(self):
+        rng = mod.Random(5)
+        ci = mod._bootstrap_delta_ci(
+            [0.2, 0.4, 0.6, 0.8],
+            [0.2, 0.4, 0.6, 0.8],
+            resamples=500,
+            rng=rng,
+        )
+        self.assertEqual(ci["resamples"], 500)
+        self.assertTrue(ci["includes_zero"])
+        self.assertLessEqual(ci["lower"], ci["upper"])
 
 
 if __name__ == "__main__":

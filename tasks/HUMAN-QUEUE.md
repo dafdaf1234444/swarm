@@ -51,7 +51,23 @@ See Answered section below.
 ### ~~HQ-12: Concurrent edits detected mid-run in `tasks/NEXT.md` and `domains/information-science/tasks/FRONTIER.md` — continue integrating live state or isolate only investigation edits?~~ ANSWERED S186
 See Answered section below.
 
+### ~~HQ-13: Should swarm explicitly extract value from both positive and negative information?~~ ANSWERED S186
+See Answered section below.
+
+### ~~HQ-14: Concurrent edits landed during F-OPS2 guard-floor update — continue integrating live floor=0.5 state or isolate around floor=0.3333 replay?~~ ANSWERED S186
+See Answered section below.
+
 ## Answered
+
+### HQ-14: Concurrent edits landed during F-OPS2 guard-floor update — continue integrating live floor=0.5 state or isolate around floor=0.3333 replay?
+**Date**: 2026-02-27 | **Session**: S186
+**Answer**: `swarm` continuation signal (integrate live state).
+**Action**: Closed as answered; continued live-state integration and executed a fresh unguarded F-OPS2 next-cycle rerun while preserving guarded scheduler defaults in NEXT.
+
+### HQ-13: Should swarm explicitly extract value from both positive and negative information?
+**Date**: 2026-02-27 | **Session**: S186
+**Answer**: Yes — extract value from all information, including positive and negative outcomes.
+**Action**: Encoded as protocol/core guidance in `SWARM.md` and `beliefs/CORE.md`, advanced `tasks/FRONTIER.md` F88, and logged the signal in `memory/HUMAN-SIGNALS.md`.
 
 ### HQ-12: Concurrent edits detected mid-run in `tasks/NEXT.md` and `domains/information-science/tasks/FRONTIER.md` — continue integrating live state or isolate only investigation edits?
 **Date**: 2026-02-27 | **Session**: S186

@@ -183,6 +183,59 @@ class TestFIS5LaneDistill(unittest.TestCase):
         self.assertEqual(summary["transfer_accepted"], 0)
         self.assertEqual(summary["merge_collision_count"], 1)
 
+    def test_controlled_overlap_slice_is_deterministic(self):
+        intake = _sample_intake()
+        overlap_a = mod.build_shared_slice(
+            intake=intake,
+            source="selected",
+            shared_per_lane=1,
+            seed=1860,
+        )
+        overlap_b = mod.build_shared_slice(
+            intake=intake,
+            source="selected",
+            shared_per_lane=1,
+            seed=1860,
+        )
+        self.assertEqual(overlap_a, overlap_b)
+        self.assertEqual(len(overlap_a), 3)
+        self.assertTrue(all(len(ids) == 1 for ids in overlap_a.values()))
+
+    def test_controlled_overlap_is_present_in_both_passes(self):
+        intake = _sample_intake()
+        overlap = mod.build_shared_slice(
+            intake=intake,
+            source="selected",
+            shared_per_lane=1,
+            seed=1860,
+        )
+        active_targets = {"F119", "F-IS3", "F111", "PHIL-13", "P-152", "F120"}
+        claims_a = mod.distill_pass(
+            intake=intake,
+            owner="lane-owner-A",
+            source="selected",
+            seed=10,
+            per_lane=2,
+            active_targets=active_targets,
+            shared_by_lane=overlap,
+        )
+        claims_b = mod.distill_pass(
+            intake=intake,
+            owner="lane-owner-B",
+            source="backlog",
+            seed=11,
+            per_lane=2,
+            active_targets=active_targets,
+            shared_by_lane=overlap,
+        )
+        for lane in intake["lane_plan"]:
+            lane_id = lane["lane_id"]
+            shared_paper = overlap[lane_id][0]
+            papers_a = {claim.paper_id for claim in claims_a if claim.lane_id == lane_id}
+            papers_b = {claim.paper_id for claim in claims_b if claim.lane_id == lane_id}
+            self.assertIn(shared_paper, papers_a)
+            self.assertIn(shared_paper, papers_b)
+
 
 if __name__ == "__main__":
     unittest.main()

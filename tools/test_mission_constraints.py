@@ -55,20 +55,26 @@ def _seed_repo(root: Path, next_body: str) -> None:
                 "def check_validator(): pass",
                 "def check_runtime_portability(): pass",
                 "def check_cross_references(): pass",
+                "def check_structure_layout(): pass",
                 "def check_state_header_sync(): pass",
                 "def check_session_log_integrity(): pass",
                 "def check_child_bulletins(): pass",
                 "def check_help_requests(): pass",
                 "def check_swarm_lanes(): pass",
+                "def check_swarm_coordinator(): pass",
+                "def check_lane_reporting_quality(): pass",
                 "all_checks = [",
                 "    check_validator,",
                 "    check_runtime_portability,",
                 "    check_cross_references,",
+                "    check_structure_layout,",
                 "    check_state_header_sync,",
                 "    check_session_log_integrity,",
                 "    check_child_bulletins,",
                 "    check_help_requests,",
                 "    check_swarm_lanes,",
+                "    check_swarm_coordinator,",
+                "    check_lane_reporting_quality,",
                 "]",
                 "",
             ]
@@ -212,15 +218,15 @@ class TestSwarmLaneCoordinationSignals(unittest.TestCase):
             ]
         )
         results = self._run_check(lanes_text)
-        self.assertTrue(any("missing setup/focus tags in Etc" in msg for _, msg in results))
+        self.assertTrue(any("missing coordination contract tags" in msg for _, msg in results))
 
     def test_multi_setup_without_global_focus_is_noticed(self):
         lanes_text = "\n".join(
             [
                 "| Date | Lane | Session | Agent | Branch | PR | Model | Platform | Scope-Key | Etc | Status | Notes |",
                 "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
-                "| 2026-02-27 | LANE-1 | S200 | codex | feature/a | - | gpt-5 | windows | tools/maintenance.py | setup=windows focus=parser | ACTIVE | work |",
-                "| 2026-02-27 | LANE-2 | S200 | copilot | feature/b | - | gpt-5 | wsl | tasks/SWARM-LANES.md | setup=wsl focus=parser | READY | work |",
+                "| 2026-02-27 | LANE-1 | S200 | codex | feature/a | - | gpt-5 | windows | tools/maintenance.py | setup=windows focus=parser available=ready blocked=none next_step=run human_open_item=none | ACTIVE | work |",
+                "| 2026-02-27 | LANE-2 | S200 | copilot | feature/b | - | gpt-5 | wsl | tasks/SWARM-LANES.md | setup=wsl focus=parser available=ready blocked=none next_step=run human_open_item=none | READY | work |",
             ]
         )
         results = self._run_check(lanes_text)
@@ -231,12 +237,89 @@ class TestSwarmLaneCoordinationSignals(unittest.TestCase):
             [
                 "| Date | Lane | Session | Agent | Branch | PR | Model | Platform | Scope-Key | Etc | Status | Notes |",
                 "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
-                "| 2026-02-27 | LANE-1 | S200 | codex | feature/a | - | gpt-5 | windows | tools/maintenance.py | setup=windows focus=parser | ACTIVE | work |",
-                "| 2026-02-27 | LANE-2 | S200 | copilot | feature/b | - | gpt-5 | wsl | tasks/SWARM-LANES.md | setup=wsl focus=global | READY | work |",
+                "| 2026-02-27 | LANE-1 | S200 | codex | feature/a | - | gpt-5 | windows | tools/maintenance.py | setup=windows focus=parser available=ready blocked=none next_step=run human_open_item=none | ACTIVE | work |",
+                "| 2026-02-27 | LANE-2 | S200 | copilot | feature/b | - | gpt-5 | wsl | tasks/SWARM-LANES.md | setup=wsl focus=global available=ready blocked=none next_step=run human_open_item=none | READY | work |",
             ]
         )
         results = self._run_check(lanes_text)
         self.assertFalse(any("no global coordination focus" in msg for _, msg in results))
+
+    def test_domain_focus_missing_domain_memory_contract_is_due(self):
+        lanes_text = "\n".join(
+            [
+                "| Date | Lane | Session | Agent | Branch | PR | Model | Platform | Scope-Key | Etc | Status | Notes |",
+                "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+                "| 2026-02-27 | LANE-1 | S200 | codex | feature/a | - | gpt-5 | windows | domains/ai/tasks/FRONTIER.md | setup=windows focus=domains/ai available=ready blocked=none next_step=run human_open_item=none | READY | work |",
+            ]
+        )
+        results = self._run_check(lanes_text)
+        self.assertTrue(any("domain-memory coordination tags" in msg for _, msg in results))
+
+    def test_domain_focus_with_domain_memory_contract_is_not_flagged(self):
+        lanes_text = "\n".join(
+            [
+                "| Date | Lane | Session | Agent | Branch | PR | Model | Platform | Scope-Key | Etc | Status | Notes |",
+                "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+                "| 2026-02-27 | LANE-1 | S200 | codex | feature/a | - | gpt-5 | windows | domains/ai/tasks/FRONTIER.md | setup=windows focus=domains/ai available=ready blocked=none next_step=run human_open_item=none domain_sync=queued memory_target=domains/ai/tasks/FRONTIER.md | READY | work |",
+            ]
+        )
+        results = self._run_check(lanes_text)
+        self.assertFalse(any("domain-memory coordination tags" in msg for _, msg in results), results)
+
+    def test_domain_focus_invalid_domain_sync_is_notice(self):
+        lanes_text = "\n".join(
+            [
+                "| Date | Lane | Session | Agent | Branch | PR | Model | Platform | Scope-Key | Etc | Status | Notes |",
+                "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+                "| 2026-02-27 | LANE-1 | S200 | codex | feature/a | - | gpt-5 | windows | domains/ai/tasks/FRONTIER.md | setup=windows focus=domains/ai available=ready blocked=none next_step=run human_open_item=none domain_sync=waiting memory_target=domains/ai/tasks/FRONTIER.md | READY | work |",
+            ]
+        )
+        results = self._run_check(lanes_text)
+        self.assertTrue(any(priority == "NOTICE" and "invalid domain_sync value" in msg for priority, msg in results))
+
+    def test_invalid_available_value_is_due(self):
+        lanes_text = "\n".join(
+            [
+                "| Date | Lane | Session | Agent | Branch | PR | Model | Platform | Scope-Key | Etc | Status | Notes |",
+                "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+                "| 2026-02-27 | LANE-1 | S200 | codex | feature/a | - | gpt-5 | windows | tools/maintenance.py | setup=windows focus=global available=sometimes blocked=none next_step=run human_open_item=none | ACTIVE | work |",
+            ]
+        )
+        results = self._run_check(lanes_text)
+        self.assertTrue(any(priority == "DUE" and "invalid available value" in msg for priority, msg in results))
+
+    def test_legacy_available_value_is_notice(self):
+        lanes_text = "\n".join(
+            [
+                "| Date | Lane | Session | Agent | Branch | PR | Model | Platform | Scope-Key | Etc | Status | Notes |",
+                "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+                "| 2026-02-27 | LANE-1 | S200 | codex | feature/a | - | gpt-5 | windows | tools/maintenance.py | setup=windows focus=global available=ready blocked=none next_step=run human_open_item=none | ACTIVE | work |",
+            ]
+        )
+        results = self._run_check(lanes_text)
+        self.assertTrue(any(priority == "NOTICE" and "legacy available value" in msg for priority, msg in results))
+
+    def test_high_risk_lane_without_human_open_item_is_due(self):
+        lanes_text = "\n".join(
+            [
+                "| Date | Lane | Session | Agent | Branch | PR | Model | Platform | Scope-Key | Etc | Status | Notes |",
+                "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+                "| 2026-02-27 | LANE-1 | S200 | codex | feature/a | - | gpt-5 | windows | tools/maintenance.py | setup=windows focus=global available=yes blocked=none next_step=reset-hard-and-rerun human_open_item=none | ACTIVE | work |",
+            ]
+        )
+        results = self._run_check(lanes_text)
+        self.assertTrue(any(priority == "DUE" and "high-risk intent" in msg for priority, msg in results))
+
+    def test_high_risk_lane_with_human_open_item_is_not_flagged(self):
+        lanes_text = "\n".join(
+            [
+                "| Date | Lane | Session | Agent | Branch | PR | Model | Platform | Scope-Key | Etc | Status | Notes |",
+                "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+                "| 2026-02-27 | LANE-1 | S200 | codex | feature/a | - | gpt-5 | windows | tools/maintenance.py | setup=windows focus=global available=yes blocked=none next_step=reset-hard-and-rerun human_open_item=HQ-91 | ACTIVE | work |",
+            ]
+        )
+        results = self._run_check(lanes_text)
+        self.assertFalse(any("high-risk intent" in msg for _, msg in results), results)
 
     def test_stale_active_lane_notice(self):
         lanes_text = "\n".join(
@@ -259,6 +342,127 @@ class TestSwarmLaneCoordinationSignals(unittest.TestCase):
         )
         results = self._run_check(lanes_text, session=200)
         self.assertTrue(any("stale >3 sessions" in msg for _, msg in results))
+
+
+class TestSwarmLaneReportingQualitySignals(unittest.TestCase):
+    def _run_check(self, lanes_text: str) -> list[tuple[str, str]]:
+        with patch.object(maintenance, "_read", return_value=lanes_text):
+            return maintenance.check_lane_reporting_quality()
+
+    def test_missing_explicit_fields_is_due_when_not_dispatchable(self):
+        lanes_text = "\n".join(
+            [
+                "| Date | Lane | Session | Agent | Branch | PR | Model | Platform | Scope-Key | Etc | Status | Notes |",
+                "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+                "| 2026-02-27 | LANE-1 | S200 | codex | feature/a | - | gpt-5 | windows | tools/maintenance.py | setup=windows focus=global intent=repair blocked=none human_open_item=none | ACTIVE | work |",
+            ]
+        )
+        results = self._run_check(lanes_text)
+        self.assertTrue(
+            any(priority == "DUE" and "missing explicit reporting contract fields" in msg for priority, msg in results),
+            f"Expected DUE contract warning, got: {results}",
+        )
+
+    def test_full_explicit_contract_is_not_flagged(self):
+        lanes_text = "\n".join(
+            [
+                "| Date | Lane | Session | Agent | Branch | PR | Model | Platform | Scope-Key | Etc | Status | Notes |",
+                "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+                "| 2026-02-27 | LANE-1 | S200 | codex | feature/a | - | gpt-5 | windows | tools/maintenance.py | setup=windows focus=global intent=repair progress=queued available=now blocked=none next_step=run-check human_open_item=none | ACTIVE | work |",
+            ]
+        )
+        results = self._run_check(lanes_text)
+        self.assertFalse(any("missing explicit reporting contract fields" in msg for _, msg in results), results)
+
+    def test_partial_dispatchable_contract_is_notice(self):
+        lanes_text = "\n".join(
+            [
+                "| Date | Lane | Session | Agent | Branch | PR | Model | Platform | Scope-Key | Etc | Status | Notes |",
+                "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+                "| 2026-02-27 | LANE-1 | S200 | codex | feature/a | - | gpt-5 | windows | tools/maintenance.py | setup=windows focus=global intent=repair progress=queued available=now blocked=none next_step=run-check human_open_item=none | ACTIVE | work |",
+                "| 2026-02-27 | LANE-2 | S200 | codex | feature/b | - | gpt-5 | windows | tasks/NEXT.md | setup=windows focus=global intent=repair blocked=none human_open_item=none | READY | work |",
+            ]
+        )
+        results = self._run_check(lanes_text)
+        self.assertTrue(
+            any(priority == "NOTICE" and "missing explicit reporting contract fields" in msg for priority, msg in results),
+            f"Expected NOTICE contract warning, got: {results}",
+        )
+
+    def test_objective_focus_requires_historian_self_and_surroundings_anchors(self):
+        lanes_text = "\n".join(
+            [
+                "| Date | Lane | Session | Agent | Branch | PR | Model | Platform | Scope-Key | Etc | Status | Notes |",
+                "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+                "| 2026-02-27 | LANE-1 | S200 | codex | feature/a | - | gpt-5 | windows | tools/maintenance.py | setup=windows focus=global intent=repair progress=queued available=now blocked=none next_step=run-check human_open_item=none check_focus=objective objective_check=phil14 historian_check=NEXT-only | ACTIVE | work |",
+            ]
+        )
+        results = self._run_check(lanes_text)
+        self.assertTrue(
+            any(priority == "DUE" and "historian grounding" in msg for priority, msg in results),
+            f"Expected DUE historian-grounding warning, got: {results}",
+        )
+
+    def test_objective_focus_with_self_and_surroundings_anchors_is_not_flagged(self):
+        lanes_text = "\n".join(
+            [
+                "| Date | Lane | Session | Agent | Branch | PR | Model | Platform | Scope-Key | Etc | Status | Notes |",
+                "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+                "| 2026-02-27 | LANE-1 | S200 | codex | feature/a | - | gpt-5 | windows | tools/maintenance.py | setup=windows focus=global intent=repair progress=queued available=now blocked=none next_step=run-check human_open_item=none check_focus=objective objective_check=phil14 historian_check=NEXT+SWARM-LANES+OR-FRONTIER-FOPS1 | ACTIVE | work |",
+            ]
+        )
+        results = self._run_check(lanes_text)
+        self.assertFalse(any("historian grounding" in msg for _, msg in results), results)
+
+
+class TestSwarmCoordinatorSignals(unittest.TestCase):
+    def _run_check(self, lanes_text: str) -> list[tuple[str, str]]:
+        with patch.object(maintenance, "_read", return_value=lanes_text):
+            return maintenance.check_swarm_coordinator()
+
+    def test_dispatch_fanout_without_coordinator_is_due(self):
+        lanes_text = "\n".join(
+            [
+                "| Date | Lane | Session | Agent | Branch | PR | Model | Platform | Scope-Key | Etc | Status | Notes |",
+                "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+                "| 2026-02-27 | L-MSW-S1 | S200 | codex | lane-1 | - | gpt-5 | windows | tools/f_stat1_gates.py | setup=windows focus=domains/statistics dispatch=multiswarm progress=queued available=ready blocked=none next_step=run-slot-1 human_open_item=none | READY | work |",
+                "| 2026-02-27 | L-MSW-S2 | S200 | codex | lane-2 | - | gpt-5 | windows | tools/f_gam3_signal_contract.py | setup=windows focus=domains/game-theory dispatch=multiswarm progress=queued available=ready blocked=none next_step=run-slot-2 human_open_item=none | READY | work |",
+            ]
+        )
+        results = self._run_check(lanes_text)
+        self.assertTrue(
+            any(priority == "DUE" and "no active coordinator lane" in msg for priority, msg in results),
+            f"Expected coordinator-missing DUE, got: {results}",
+        )
+
+    def test_coordinator_missing_contract_fields_is_due(self):
+        lanes_text = "\n".join(
+            [
+                "| Date | Lane | Session | Agent | Branch | PR | Model | Platform | Scope-Key | Etc | Status | Notes |",
+                "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+                "| 2026-02-27 | L-MSW-S1 | S200 | codex | lane-1 | - | gpt-5 | windows | tools/f_stat1_gates.py | setup=windows focus=domains/statistics dispatch=multiswarm progress=queued available=ready blocked=none next_step=run-slot-1 human_open_item=none | READY | work |",
+                "| 2026-02-27 | L-MSW-S2 | S200 | codex | lane-2 | - | gpt-5 | windows | tools/f_gam3_signal_contract.py | setup=windows focus=domains/game-theory dispatch=multiswarm progress=queued available=ready blocked=none next_step=run-slot-2 human_open_item=none | READY | work |",
+                "| 2026-02-27 | L-MSW-COORD | S200 | codex | local | - | gpt-5 | windows | tasks/SWARM-LANES.md | setup=windows focus=global intent=multiswarm-dispatch blocked=none human_open_item=none | ACTIVE | coord |",
+            ]
+        )
+        results = self._run_check(lanes_text)
+        self.assertTrue(
+            any(priority == "DUE" and "coordinator contract fields" in msg for priority, msg in results),
+            f"Expected coordinator-contract DUE, got: {results}",
+        )
+
+    def test_valid_coordinator_contract_is_not_flagged(self):
+        lanes_text = "\n".join(
+            [
+                "| Date | Lane | Session | Agent | Branch | PR | Model | Platform | Scope-Key | Etc | Status | Notes |",
+                "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+                "| 2026-02-27 | L-MSW-S1 | S200 | codex | lane-1 | - | gpt-5 | windows | tools/f_stat1_gates.py | setup=windows focus=domains/statistics dispatch=multiswarm progress=queued available=ready blocked=none next_step=run-slot-1 human_open_item=none | READY | work |",
+                "| 2026-02-27 | L-MSW-S2 | S200 | codex | lane-2 | - | gpt-5 | windows | tools/f_gam3_signal_contract.py | setup=windows focus=domains/game-theory dispatch=multiswarm progress=queued available=ready blocked=none next_step=run-slot-2 human_open_item=none | READY | work |",
+                "| 2026-02-27 | L-MSW-COORD | S200 | codex | local | - | gpt-5 | windows | tasks/SWARM-LANES.md | setup=windows focus=global intent=multiswarm-dispatch progress=running available=yes blocked=none next_step=dispatch-slot-3 human_open_item=none check_focus=coordination | ACTIVE | coord |",
+            ]
+        )
+        results = self._run_check(lanes_text)
+        self.assertFalse(any("coordinator" in msg for _, msg in results), results)
 
 
 class TestMissionConstraintDegradedRuntime(unittest.TestCase):

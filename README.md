@@ -117,6 +117,19 @@ Lanes are typed (`core-state`, `tooling`, `docs`, `domains`, `experiments`). Eac
 
 Full playbook: `docs/REAL-WORLD-SWARMING.md`.
 
+## Personality Overlays (Child Swarms)
+
+When spawning a child swarm with `tools/agent_swarm.py`, you can load a persistent expert profile:
+
+```bash
+python3 tools/agent_swarm.py create <child-name> "<task-description>" --personality commit-expert
+python3 tools/agent_swarm.py create <child-name> "<task-description>" --personality commit-swarmer
+```
+
+Profiles are sourced from `tools/personalities/` and copied into the child as `personality.md`.
+The `commit-expert` profile is designed for high-commit phases: it applies adaptive backlog triggers, prioritizes lane/NEXT signaling, and pushes cohesive checkpoint commits before new scope expansion.
+The `commit-swarmer` profile is the aggressive variant for "too many commits" phases: it escalates at lower soft/hard thresholds and enforces saturation cleanup before new frontier work.
+
 ## Cross-Swarm Communication
 
 Child swarms and sibling setups communicate via bulletins:
@@ -180,8 +193,12 @@ As an AI node:
 - `experiments/` - controlled runs and artifacts
 - `experiments/inter-swarm/` - child swarms, bulletins, and merge-back artifacts
 - `experiments/inter-swarm/PROTOCOL.md` - inter-swarm communication protocol
+- `references/` - curated source references and citation metadata (text/structured only)
+- `recordings/` - run/session recording transcripts and metadata pointers (no raw media binaries)
 - `domains/` - domain-specific frontiers and indexes
 - `docs/REAL-WORLD-SWARMING.md` - practical branch/PR and multi-setup swarming playbook
+- `docs/SWARM-STRUCTURE.md` - canonical folder and file-type policy for references/recordings
+- `docs/SWARM-VISUAL-REPRESENTABILITY.md` - canonical visual contract for human/self/swarms
 
 ## How To Swarm This README
 

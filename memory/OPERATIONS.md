@@ -17,6 +17,12 @@ Use `tools/swarm_pr.py plan <base> <head>` to derive a file-lane split for incom
 3. Move lane state forward by appending new rows (`ACTIVE` -> `READY` -> `MERGED`/`ABANDONED`).
 4. Put extra dimensions in `Etc` (`runtime=...`, `tool=...`, `dataset=...`) instead of inventing ad-hoc files.
 
+### Task Assignment (swarmed)
+1. Build the assignment set from `tasks/NEXT.md`, open `tasks/FRONTIER.md` items, and non-closed rows in `tasks/SWARM-LANES.md`.
+2. Convert each assignment into lane state first (`READY` or `CLAIMED`) with explicit dispatch context plus `blocked`, `next_step`, and `human_open_item`.
+3. Fan-out only after every assigned lane has a unique `Scope-Key` and clear next action.
+4. Reassign by appending a new lane row with reason and next step; never do silent chat-only reassignment.
+
 ## Swarm Everywhere (Portability + Resource Reality)
 Goal: run swarm on any supported tool/host while respecting finite context, compute, and coordination budget.
 

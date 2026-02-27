@@ -73,18 +73,21 @@ def build_report(
     risk_aversion: float,
     n_max: int,
     p119_threshold: float,
+    tie_margin_min: float = 0.01,
 ) -> dict:
     rows = []
-    best_n = 1
-    best_u = utility(1, baseline_quality, baseline_std, rho, coordination_cost, risk_aversion)
+    best_raw_n = 1
+    best_raw_u = utility(1, baseline_quality, baseline_std, rho, coordination_cost, risk_aversion)
+    utility_by_n: dict[int, float] = {}
 
     for n in range(1, max(1, n_max) + 1):
         u = utility(n, baseline_quality, baseline_std, rho, coordination_cost, risk_aversion)
+        utility_by_n[n] = u
         row = {
             "n": n,
             "std_factor": round(std_factor(n, rho), 6),
             "utility": round(u, 6),
-            "gain_vs_n1": round(u - best_u, 6),
+            "gain_vs_n1": round(u - utility_by_n[1], 6),
             "required_degradation_fraction": round(
                 required_degradation_fraction(
                     n=n,
@@ -98,9 +101,30 @@ def build_report(
         }
         row["passes_p119_gate"] = row["required_degradation_fraction"] <= p119_threshold
         rows.append(row)
-        if u > best_u:
-            best_u = u
-            best_n = n
+        if u > best_raw_u:
+            best_raw_u = u
+            best_raw_n = n
+
+    sorted_rows = sorted(utility_by_n.items(), key=lambda item: (-item[1], item[0]))
+    if len(sorted_rows) >= 2:
+        raw_top2_margin = sorted_rows[0][1] - sorted_rows[1][1]
+    else:
+        raw_top2_margin = float("inf")
+
+    tie_margin = max(0.0, float(tie_margin_min))
+    near_best = [n for n, u in utility_by_n.items() if (best_raw_u - u) <= (tie_margin + 1e-12)]
+    near_best_lower = sorted(n for n in near_best if n < best_raw_n)
+    tie_guard_triggered = (
+        best_raw_n > 1
+        and tie_margin > 0.0
+        and raw_top2_margin < tie_margin
+        and bool(near_best_lower)
+    )
+    if tie_guard_triggered:
+        best_n = near_best_lower[0]
+    else:
+        best_n = best_raw_n
+    best_u = utility_by_n[best_n]
 
     return {
         "model": {
@@ -111,10 +135,16 @@ def build_report(
             "risk_aversion": risk_aversion,
             "n_max": n_max,
             "p119_threshold_fraction": p119_threshold,
+            "tie_margin_min": tie_margin,
         },
         "recommendation": {
             "best_n": best_n,
             "best_utility": round(best_u, 6),
+            "best_n_raw": best_raw_n,
+            "best_utility_raw": round(best_raw_u, 6),
+            "raw_top2_margin": round(raw_top2_margin, 6) if math.isfinite(raw_top2_margin) else None,
+            "tie_guard_triggered": tie_guard_triggered,
+            "tie_guard_candidate_ns": near_best_lower if tie_guard_triggered else [],
             "spawn": best_n > 1,
         },
         "rows": rows,
@@ -256,6 +286,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--risk-aversion", type=float, default=1.0, help="Penalty weight on uncertainty.")
     parser.add_argument("--n-max", type=int, default=6)
     parser.add_argument("--p119-threshold", type=float, default=0.45, help="Spawn gate fraction for comparison.")
+    parser.add_argument(
+        "--tie-margin-min",
+        type=float,
+        default=0.01,
+        help="Minimum top-2 utility gap required before promoting to a larger N.",
+    )
     parser.add_argument("--json-out", type=Path, default=None)
     return parser.parse_args()
 
@@ -314,6 +350,7 @@ def main() -> int:
         risk_aversion=args.risk_aversion,
         n_max=args.n_max,
         p119_threshold=args.p119_threshold,
+        tie_margin_min=args.tie_margin_min,
     )
     if calibration is not None:
         report["calibration"] = calibration
@@ -331,7 +368,12 @@ def main() -> int:
         print(json.dumps(report, indent=2))
 
     rec = report["recommendation"]
-    print(f"recommended_n={rec['best_n']} spawn={rec['spawn']}")
+    print(
+        f"recommended_n={rec['best_n']}",
+        f"raw_best_n={rec['best_n_raw']}",
+        f"tie_guard={rec['tie_guard_triggered']}",
+        f"spawn={rec['spawn']}",
+    )
     return 0
 
 

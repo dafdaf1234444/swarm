@@ -68,6 +68,27 @@ S185: F-EVO2 baseline merged.
         self.assertNotIn("finance", pressure)
         self.assertEqual(pressure.get("information-science"), 1)
 
+    def test_parse_dispatchable_capacity_honors_available_and_blocked(self):
+        lanes_text = """| Date | Lane | Session | Agent | Branch | PR | Model | Platform | Scope-Key | Etc | Status | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2026-02-27 | L-1 | S186 | codex | local | - | GPT-5 | codex-cli | domains/finance/tasks/FRONTIER.md | setup=x; available=yes; blocked=none | READY | a |
+| 2026-02-27 | L-2 | S186 | codex | local | - | GPT-5 | codex-cli | domains/finance/tasks/FRONTIER.md | setup=x; available=partial; blocked=none | ACTIVE | b |
+| 2026-02-27 | L-3 | S186 | codex | local | - | GPT-5 | codex-cli | domains/finance/tasks/FRONTIER.md | setup=x; available=yes; blocked=await-human | READY | c |
+| 2026-02-27 | L-4 | S186 | codex | local | - | GPT-5 | codex-cli | tools/wiki_swarm.py | setup=x; frontier=F-IS3; available=yes; blocked=none | CLAIMED | d |
+"""
+        capacity = mod.parse_dispatchable_capacity(lanes_text, {"F-IS3": "information-science"})
+        self.assertAlmostEqual(capacity.get("finance", 0.0), 1.5)
+        self.assertAlmostEqual(capacity.get("information-science", 0.0), 1.0)
+
+    def test_compute_automability_uses_capacity_cap(self):
+        allocations = {"finance": 2, "information-science": 1, "ai": 1}
+        dispatchable_capacity = {"finance": 1.5, "information-science": 0.5}
+        auto = mod.compute_automability(allocations, dispatchable_capacity)
+        self.assertEqual(auto["total_decisions"], 4)
+        self.assertAlmostEqual(auto["accepted_decisions"], 2.0)
+        self.assertAlmostEqual(auto["rejected_decisions"], 2.0)
+        self.assertAlmostEqual(auto["automability_rate"], 0.5)
+
     def test_allocate_agents_gives_more_slots_to_higher_signal_domain(self):
         states = [
             mod.DomainState(
@@ -93,6 +114,130 @@ S185: F-EVO2 baseline merged.
         ]
         alloc = mod.allocate_agents(states, "hybrid", 4)
         self.assertGreater(alloc["information-science"], alloc["finance"])
+
+    def test_allocate_agents_capacity_bias_penalizes_over_capacity(self):
+        states = [
+            mod.DomainState(
+                name="alpha",
+                frontier_path="domains/alpha/tasks/FRONTIER.md",
+                active_frontiers=["F-A1"],
+                updated_session=186,
+                age_sessions=0,
+                next_mentions=1,
+                next_priority_weight=20.0,
+                active_lane_pressure=0,
+            ),
+            mod.DomainState(
+                name="beta",
+                frontier_path="domains/beta/tasks/FRONTIER.md",
+                active_frontiers=["F-B1"],
+                updated_session=186,
+                age_sessions=0,
+                next_mentions=1,
+                next_priority_weight=3.0,
+                active_lane_pressure=0,
+            ),
+        ]
+        alloc_no_bias = mod.allocate_agents(
+            states,
+            "value_density",
+            3,
+            dispatchable_capacity={"beta": 1.0},
+            capacity_bias=0.0,
+        )
+        alloc_with_bias = mod.allocate_agents(
+            states,
+            "value_density",
+            3,
+            dispatchable_capacity={"beta": 1.0},
+            capacity_bias=1.0,
+        )
+        self.assertEqual(alloc_no_bias["alpha"], 3)
+        self.assertGreater(alloc_with_bias["beta"], 0)
+
+    def test_capacity_bias_improves_automability_rate(self):
+        states = [
+            mod.DomainState(
+                name="alpha",
+                frontier_path="domains/alpha/tasks/FRONTIER.md",
+                active_frontiers=["F-A1"],
+                updated_session=186,
+                age_sessions=0,
+                next_mentions=1,
+                next_priority_weight=20.0,
+                active_lane_pressure=0,
+            ),
+            mod.DomainState(
+                name="beta",
+                frontier_path="domains/beta/tasks/FRONTIER.md",
+                active_frontiers=["F-B1"],
+                updated_session=186,
+                age_sessions=0,
+                next_mentions=1,
+                next_priority_weight=3.0,
+                active_lane_pressure=0,
+            ),
+        ]
+        dispatchable_capacity = {"beta": 1.0}
+        alloc_no_bias = mod.allocate_agents(
+            states,
+            "value_density",
+            3,
+            dispatchable_capacity=dispatchable_capacity,
+            capacity_bias=0.0,
+        )
+        alloc_with_bias = mod.allocate_agents(
+            states,
+            "value_density",
+            3,
+            dispatchable_capacity=dispatchable_capacity,
+            capacity_bias=1.0,
+        )
+        no_bias_auto = mod.compute_automability(alloc_no_bias, dispatchable_capacity)["automability_rate"]
+        with_bias_auto = mod.compute_automability(alloc_with_bias, dispatchable_capacity)["automability_rate"]
+        self.assertGreater(with_bias_auto, no_bias_auto)
+
+    def test_apply_automability_guard_penalizes_shortfall(self):
+        base = {"net_score": 100.0, "automability_rate": 0.1}
+        guarded = mod.apply_automability_guard(base, automability_floor=0.25, guard_penalty=200.0)
+        self.assertFalse(guarded["guard"]["pass"])
+        self.assertAlmostEqual(guarded["guard"]["shortfall"], 0.15)
+        self.assertAlmostEqual(guarded["guard"]["penalty"], 30.0)
+        self.assertAlmostEqual(guarded["effective_net_score"], 70.0)
+
+    def test_evaluate_policy_reports_automability_fields(self):
+        states = [
+            mod.DomainState(
+                name="information-science",
+                frontier_path="domains/information-science/tasks/FRONTIER.md",
+                active_frontiers=["F-IS3"],
+                updated_session=186,
+                age_sessions=0,
+                next_mentions=1,
+                next_priority_weight=4.0,
+                active_lane_pressure=0,
+            ),
+            mod.DomainState(
+                name="finance",
+                frontier_path="domains/finance/tasks/FRONTIER.md",
+                active_frontiers=["F-FIN1"],
+                updated_session=186,
+                age_sessions=0,
+                next_mentions=0,
+                next_priority_weight=0.0,
+                active_lane_pressure=0,
+            ),
+        ]
+        metrics = mod.evaluate_policy(
+            states,
+            {"information-science": 2, "finance": 1},
+            dispatchable_capacity={"information-science": 1.0, "finance": 0.0},
+            automability_weight=10.0,
+        )
+        self.assertIn("automability_rate", metrics)
+        self.assertIn("accepted_decisions", metrics)
+        self.assertIn("automability_bonus", metrics)
+        self.assertGreater(metrics["net_score"], metrics["projected_gain"] - 1.5 * metrics["collision_risk"])
 
     def test_load_domain_frontiers_from_temp_tree(self):
         with tempfile.TemporaryDirectory() as tmpdir:

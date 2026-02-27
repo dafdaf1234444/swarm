@@ -16,3 +16,14 @@ workspace/gin/
 **/*.pyc
 .claude/worktrees/
 workspace/etcd/
+
+# Raw recording media should stay outside git; commit pointer metadata instead.
+recordings/**/*.mp3
+recordings/**/*.mp4
+recordings/**/*.m4a
+recordings/**/*.mov
+recordings/**/*.wav
+recordings/**/*.webm
+recordings/**/*.flac
+recordings/**/*.avi
+recordings/**/*.mkv

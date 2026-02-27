@@ -93,24 +93,24 @@
     },
     {
       "class_name": "lane_log_extraction",
-      "run_count": 5,
+      "run_count": 6,
       "effect_metric": "transfer_acceptance_rate_minus_collision_frequency",
       "observed": {
-        "mean_effect": -0.1031,
-        "median_effect": 0.028,
-        "std_effect": 0.2614,
+        "mean_effect": -0.1337,
+        "median_effect": 0.014,
+        "std_effect": 0.2483,
         "ci95_mean_effect": [
-          -0.3638,
-          0.0383
+          -0.3521,
+          0.0319
         ],
-        "sign_stability": 0.6,
+        "sign_stability": 0.5,
         "median_sample_size": 28
       },
       "recommended_gate": {
-        "min_runs": 7,
+        "min_runs": 8,
         "min_per_run_sample": 28,
-        "min_abs_effect": 0.1307,
-        "promotion_rule": "Promote class claim only if >= 7 independent runs, per-run sample >= 28, and |effect| >= 0.1307."
+        "min_abs_effect": 0.1241,
+        "promotion_rule": "Promote class claim only if >= 8 independent runs, per-run sample >= 28, and |effect| >= 0.1241."
       },
       "runs": [
         {
@@ -131,6 +131,11 @@
         {
           "artifact": "experiments/information-science/f-is5-lane-distill-s186.json",
           "effect": 0.0326,
+          "sample_size": 28
+        },
+        {
+          "artifact": "experiments/information-science/f-is5-lane-distill-tags-s186-rerun2.json",
+          "effect": -0.2867,
           "sample_size": 28
         },
         {
@@ -185,6 +190,6 @@
       ]
     }
   ],
-  "generated_at_utc": "2026-02-27T21:02:16Z",
+  "generated_at_utc": "2026-02-27T21:13:26Z",
   "notes": "Gates are first-pass calibration from S186 artifacts; update as more independent runs arrive and as scoring contracts become stricter."
 }

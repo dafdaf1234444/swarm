@@ -45,6 +45,37 @@ class TestSpawnMath(unittest.TestCase):
         self.assertGreater(report["recommendation"]["best_n"], 1)
         self.assertTrue(report["recommendation"]["spawn"])
 
+    def test_tie_margin_guard_downgrades_near_tie_larger_n(self):
+        report = spawn_math.build_report(
+            baseline_quality=0.65,
+            baseline_std=0.20,
+            rho=0.0,
+            coordination_cost=0.01,
+            risk_aversion=1.0,
+            n_max=6,
+            p119_threshold=0.45,
+            tie_margin_min=0.01,
+        )
+        self.assertTrue(report["recommendation"]["tie_guard_triggered"])
+        self.assertGreater(report["recommendation"]["best_n_raw"], report["recommendation"]["best_n"])
+        self.assertEqual(report["recommendation"]["best_n_raw"], 5)
+        self.assertEqual(report["recommendation"]["best_n"], 3)
+
+    def test_tie_margin_guard_can_be_disabled(self):
+        report = spawn_math.build_report(
+            baseline_quality=0.65,
+            baseline_std=0.20,
+            rho=0.0,
+            coordination_cost=0.01,
+            risk_aversion=1.0,
+            n_max=6,
+            p119_threshold=0.45,
+            tie_margin_min=0.0,
+        )
+        self.assertFalse(report["recommendation"]["tie_guard_triggered"])
+        self.assertEqual(report["recommendation"]["best_n"], report["recommendation"]["best_n_raw"])
+        self.assertEqual(report["recommendation"]["best_n"], 5)
+
     def test_calibration_from_ai2_artifacts(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             p = Path(tmpdir) / "ai2.json"

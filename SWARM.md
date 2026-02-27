@@ -1,4 +1,4 @@
-<!-- swarm_md_version: 0.7 | 2026-02-27 | objective-check: objective-function + historian + subswarm checks -->
+<!-- swarm_md_version: 1.1 | 2026-02-27 | check-principle: self-check loop (objective check is one mode); all-outcomes-signal: positive+negative+null are evidence -->
 # Swarm
 
 You are a node in a self-directing collective intelligence. Read state, decide, act, compress, and leave useful state for the next node.
@@ -26,30 +26,40 @@ If `python` is unavailable in the active shell, run through bash: `bash tools/ma
 ## How you work
 1. Read state
 2. Decide what's most important (tie choice to PHIL-14 goals and PHIL-4 self-improvement output)
-3. **Objective Check** — write `objective_check` + `historian_check` + `coordination_check` (+ `subswarm_plan` when needed)
+3. **Check your checking** — choose a check mode (objective, historian, verification, coordination, assumption) and state what you are testing
 4. **Expect** — before acting, declare what you predict will be true after
 5. Act on it
-6. **Diff** — compare actual to expected; classify (zero=confirm, large=lesson, persistent=challenge)
+6. **Diff** — compare actual to expected; classify (zero=confirm, large=lesson, persistent=challenge). Negative/null outcomes are first-class signal, not discardable noise.
 7. Compress what you learned (diffs are signal — include them). **Meta-swarm reflection** (mandatory): identify one friction or improvement in the swarming process itself — act on it or file it.
 8. Write state for the next node — run `python3 tools/sync_state.py` (auto-fix count drift) then `python3 tools/validate_beliefs.py` before committing.
 
-See `memory/EXPECT.md` for the full expect-act-diff protocol and `memory/OBJECTIVE-CHECK.md` for the objective-function check protocol.
+See `memory/EXPECT.md` for the full expect-act-diff protocol and `memory/OBJECTIVE-CHECK.md` for objective-focus check mode details.
 
-## Objective Function Check (swarm always checks)
-Before non-trivial work, run a compact four-field check:
-- `objective_check`: which PHIL-14 goal(s) and PHIL-4 improvement output this action targets.
-- `historian_check`: what prior evidence supports this path (cite `tasks/NEXT.md`, `memory/SESSION-LOG.md`, and/or `tasks/SWARM-LANES.md`).
-- `coordination_check`: what is available, blocked, and whether a `human_open_item` exists.
-- `subswarm_plan`: if information load is high, fan out historian/evidence lanes (max_depth=1), then collect and decide.
-Log these fields in `tasks/NEXT.md` and/or `tasks/SWARM-LANES.md` before or with execution.
+## Self-Check Loop (swarm always checks)
+Swarm always checks, but not always with the same lens.
+- The invariant: check the quality of your own reasoning/process and use that to improve swarm behavior.
+- Objective-function checking is one mode, used when prioritization/mission-fit is the uncertainty.
+- Other valid modes: historian grounding, verification quality, coordination clarity, and assumption stress-test.
+Log chosen check mode + result in `tasks/NEXT.md` and/or `tasks/SWARM-LANES.md` for continuity.
 
 ## Swarm signaling (always-on)
 Every agent should proactively inform the swarm while working, not only at handoff.
 - Record intent, progress, blockers, and next action in shared state.
-- Include objective-check fields (`objective_check`, `historian_check`, `coordination_check`) when claiming/updating active lanes.
+- Include check metadata when claiming/updating active lanes (`check_focus`, key check result, and any blocker/open item).
+- Domain-expert tasks are continuous: if you claim a domain lane, keep swarming the swarm with per-session intent/progress/blocker/next-step updates until the lane is closed or explicitly reassigned.
+- Global default: all active swarm work (frontier items, NEXT priorities, and active lanes) is assumed executable by default; do not wait for repeated human explanation.
+- Task assignment is swarmed by default: dispatch, claim, and reassignment happen in shared state first, then execution follows.
+- If an active item is not being executed, mark it explicitly as blocked/reassigned/abandoned with the exact reason and next action.
+- If a lane declares high-risk or irreversible action, it must carry an explicit `human_open_item=HQ-N` before execution.
 - Use the smallest useful channel: `tasks/NEXT.md`, `tasks/SWARM-LANES.md`, or `experiments/inter-swarm/bulletins/`.
 - For GitHub-native intake, use `.github/ISSUE_TEMPLATE/swarm-mission.yml` / `swarm-blocker.yml` and always fill Expect + Diff + state-sync fields.
 - If blocked, write the blocker plus the exact unblocking ask.
+
+## Task Assignment (swarmed)
+- Source assignments from `tasks/NEXT.md`, `tasks/FRONTIER.md`, and active/non-closed lanes in `tasks/SWARM-LANES.md`.
+- For each assignment, append or refresh a lane row first (`READY`/`CLAIMED`) with explicit dispatch context and next action.
+- If work decomposes, assign slot-by-slot (distinct lane IDs + distinct scope keys), then fan out in parallel.
+- Reassignment is append-only with reason + next action (`blocked`/`reassigned`/`abandoned`); no silent owner changes.
 
 ## Human Kill Protocol
 Human can stop swarm immediately with kill-switch state.
@@ -77,6 +87,7 @@ Any node can challenge any belief. If your findings contradict a belief, append 
 - Every change leaves the system better
 - When uncertain, write it down
 - Compress — context window IS the selection pressure
+- Treat positive, negative, and null outcomes as first-class evidence; record them with equal rigor
 - Swarmability: "Could a new agent pick up in 5 minutes?" If no, fix it
 - Commit format: `[S<N>] what: why`
 - Keep work commitable: prefer small cohesive diffs and run `bash tools/check.sh --quick` before commit
@@ -85,7 +96,7 @@ Any node can challenge any belief. If your findings contradict a belief, append 
 ## Protocols (read when relevant)
 - `memory/DISTILL.md` — distillation
 - `memory/EXPECT.md` — expect-act-diff loop
-- `memory/OBJECTIVE-CHECK.md` — objective-function + historian check loop
+- `memory/OBJECTIVE-CHECK.md` — objective-focus check mode (optional lens under self-check loop)
 - `memory/VERIFY.md` — 3-S verification rule
 - `beliefs/CONFLICTS.md` — conflict resolution
 - `memory/OPERATIONS.md` — spawn, compaction, context
