@@ -219,5 +219,57 @@
     },
     "total": 24825,
     "genesis": 7635
+  },
+  {
+    "date": "2026-02-27",
+    "session": 99,
+    "tiers": {
+      "T0-mandatory": 2358,
+      "T1-identity": 5085,
+      "T2-protocols": 3080,
+      "T3-knowledge": 4323,
+      "T4-tools": 9122
+    },
+    "total": 23968,
+    "genesis": 7646
+  },
+  {
+    "date": "2026-02-27",
+    "session": 99,
+    "tiers": {
+      "T0-mandatory": 2358,
+      "T1-identity": 5085,
+      "T2-protocols": 3080,
+      "T3-knowledge": 4271,
+      "T4-tools": 9122
+    },
+    "total": 23916,
+    "genesis": 7646
+  },
+  {
+    "date": "2026-02-27",
+    "session": 99,
+    "tiers": {
+      "T0-mandatory": 2358,
+      "T1-identity": 5085,
+      "T2-protocols": 3080,
+      "T3-knowledge": 4271,
+      "T4-tools": 9122
+    },
+    "total": 23916,
+    "genesis": 7646
+  },
+  {
+    "date": "2026-02-27",
+    "session": 99,
+    "tiers": {
+      "T0-mandatory": 2358,
+      "T1-identity": 5085,
+      "T2-protocols": 3080,
+      "T3-knowledge": 4271,
+      "T4-tools": 9122
+    },
+    "total": 23916,
+    "genesis": 7646
   }
 ]
