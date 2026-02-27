@@ -1,7 +1,7 @@
 # Memory Index
 Updated: 2026-02-26 | Sessions completed: 44
 
-## Status: Active — 84 lessons, 10 beliefs (10 observed/0 theorized), entropy 0. Self-evolving with 24 tools. 15 belief-variant children (3 generations, ~90 sessions). /swarm command operational.
+## Status: Active — 85 lessons, 10 beliefs (10 observed/0 theorized), entropy 0. Self-evolving with 24 tools. 15 belief-variant children (3 generations, ~90 sessions). /swarm command operational.
 
 ## Structure
 ```
@@ -26,7 +26,7 @@ memory/HUMAN.md       — human contributions and strategic directives
 .claude/commands/     — /swarm command (fractal session protocol)
 ```
 
-## Lessons: 84 (L-001–L-084)
+## Lessons: 85 (L-001–L-085)
 For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{NNN}.md`.
 
 | Theme | Count | Lessons | Key insight |
@@ -35,7 +35,7 @@ For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{N
 | Protocols | 10 | L-002,004,006,012,013,016,018,019,023,028 | Distill, verify (3-S), correct, handoff, decay tracking; evidence > assertion |
 | Strategy | 9 | L-003,007,009,015,020,021,022,031,038 | Phase ratios, genesis automation, diminishing returns, targeted fixes |
 | Complexity | 26 | L-010,025,029,033,035,037,039,041-046,048-050,052,054-056,058,059,062,063,066,077 | NK analysis, composite/burden, ratchet/anti-ratchet, DAG discipline, API shape, cross-language NK, monolith blind spot, multi-scale analysis |
-| Evolution | 24 | L-032,034,036,040,047,051,053,057,060,061,064,065,067-076,078-080 | Spawn+evaluate, bulletins, evolve pipeline, stigmergy, Task tool spawn, belief variant A/B, recursive evolution, volume vs rigor, cross-variant conflicts, insight harvest, pessimism bias, observed ceiling, trait synergy, additive variants, formula robustness, coupling density, failure mode filtering, late bloomers, additive overtake, Goodhart vulnerability |
+| Evolution | 29 | L-032,034,036,040,047,051,053,057,060,061,064,065,067-076,078-085 | Spawn+evaluate, bulletins, evolve pipeline, stigmergy, Task tool spawn, belief variant A/B, recursive evolution, volume vs rigor, cross-variant conflicts, insight harvest, pessimism bias, observed ceiling, trait synergy, additive variants, formula robustness, coupling density, failure mode filtering, late bloomers, additive overtake, Goodhart vulnerability, hybrid vigor, harvest convergence, dark matter, tool adoption |
 
 ## What to load when
 | Doing...              | Read...                          |
