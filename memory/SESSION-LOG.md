@@ -261,3 +261,4 @@ S178	| 2026-02-27 | +0L +0P | resumed from context compaction; verified domains/
 S179	| 2026-02-27 | +0L +0P +3B | B17/B18/B19 added to DEPS.md (AI domain beliefs formally registered: info asymmetry bottleneck, capability⊥vigilance, async cascade defense); DOMAIN.md canonical IDs updated; 14B→17B
 S180\t| 2026-02-27 | +2P (P-186,P-187) | F121 harvest: Measurable self-assessment + Human-signal interaction model formalized from HUMAN-SIGNALS patterns
 S180	| 2026-02-27 | +2P (P-186,P-187) | F121 harvest: Measurable self-assessment + Human-signal interaction model formalized from HUMAN-SIGNALS patterns
+S180	| 2026-02-27 | +1L (L-231) +0P | F-FIN3 PARTIAL: lesson Sharpe analysis (81 L-150+ lessons; 54/81 zero-cite; top: L-222/L-220/L-216; mean 0.044); PAPER 161P→159P drift fixed; state-sync periodic advanced; git lock contention noted (F110 data)
