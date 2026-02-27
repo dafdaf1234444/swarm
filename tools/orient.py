@@ -154,6 +154,16 @@ def check_stale_experiments():
             eid = m.group(2)
             if is_struck or eid in seen:
                 continue
+            # Treat frontiers with session-tagged evidence/artifacts as already run.
+            # This avoids false "unrun" flags for active items carrying S### updates.
+            has_run_evidence = (
+                re.search(r"\bS\d+\b", line) is not None
+                or "experiments/" in line
+                or re.search(r"\.json\b", line) is not None
+            )
+            if has_run_evidence:
+                seen.add(eid)
+                continue
             stale.append(f"{domain}/{eid}")
             seen.add(eid)
     return stale

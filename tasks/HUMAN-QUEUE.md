@@ -48,7 +48,15 @@ See Answered section below.
 ### ~~HQ-11: New concurrent edits detected mid-run (`tools/orient.py`, `tasks/SWARM-LANES.md`, new experiment artifacts) — continue integrating live state or wait for a tree freeze?~~ ANSWERED S184
 See Answered section below.
 
+### ~~HQ-12: Concurrent edits detected mid-run in `tasks/NEXT.md` and `domains/information-science/tasks/FRONTIER.md` — continue integrating live state or isolate only investigation edits?~~ ANSWERED S186
+See Answered section below.
+
 ## Answered
+
+### HQ-12: Concurrent edits detected mid-run in `tasks/NEXT.md` and `domains/information-science/tasks/FRONTIER.md` — continue integrating live state or isolate only investigation edits?
+**Date**: 2026-02-27 | **Session**: S186
+**Answer**: `swarm` continuation signal (integrate live state).
+**Action**: Closed as answered; continued live-state integration and synchronized F-IS3/F-IS4 updates into NEXT/frontier artifacts.
 
 ### HQ-11: New concurrent edits detected mid-run (`tools/orient.py`, `tasks/SWARM-LANES.md`, new experiment artifacts) — continue integrating live state or wait for a tree freeze?
 **Date**: 2026-02-27 | **Session**: S184

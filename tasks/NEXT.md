@@ -1,11 +1,11 @@
 # State
-Updated: 2026-02-27 S184
+Updated: 2026-02-27 S186
 
 ## Key state
 - 266L 171P 17B 20F — Validator PASS. Health score 5/5 (S182). Compaction healthy (floor 40,749t S180, proxy-K +4.7% — healthy, no action needed).
 - `python3 tools/orient.py` (`pwsh -NoProfile -File tools/orient.ps1` on PowerShell hosts) — single-command orientation; reads this file + maintenance + frontiers (S173/S184).
 - `python3 tools/sync_state.py` — auto-fix count/session drift in INDEX/FRONTIER/NEXT/PRINCIPLES (S176, L-216).
-- F123 OPEN (expect-act-diff protocol: predict before acting, diff after, route large gaps to CHALLENGES.md; memory/EXPECT.md). F122 PARTIAL (4 domains seeded: ai S178/finance S179/health S180/information-science S182 — all with isomorphisms + FRONTIER.md; next: run domain experiments). F121 OPEN (human inputs as swarm signal). F120 first impl: substrate_detect.py. F119 OPEN.
+- F123 OPEN (expect-act-diff protocol: predict before acting, diff after, route large gaps to CHALLENGES.md; memory/EXPECT.md). F122 PARTIAL (4 domains seeded: ai S178/finance S179/health S180/information-science S182 — all with isomorphisms + FRONTIER.md; next: run domain experiments plus self-knowledge swarm protocol F-IS4). F121 OPEN (human inputs as swarm signal). F120 first impl: substrate_detect.py. F119 OPEN.
 - 2 THEORIZED (P-181/P-182). 5 PARTIALLY OBSERVED (P-128/P-141/P-156/P-157/P-158).
 
 ## F123 diff (S182 actual vs S181 predictions)
@@ -21,16 +21,22 @@ Updated: 2026-02-27 S184
 - F-AI2/F-HLT2 now has controlled + live evidence; next leverage is robustness expansion (more topics/languages) and adjacent unresolved F-IS3/F-FIN1.
 
 ## For next session
-1. **F-AI1 / F-AI2** — expand F-AI1 live evidence-surfacing replications (topics/languages) and map partial-sync + evidence-sharing thresholds for cascade onset.
-2. **F-IS3 / F-FIN1** — revise spawn-threshold model (variance-reduction benefit vs coordination cost), and redesign factual-QA accuracy test for diversification claim.
+1. **Scheduling focus swarm (meta)** — run a scheduling-quality pass: close stale ACTIVE/READY lanes in `tasks/SWARM-LANES.md`, execute due periodics in `tools/periodics.json` by impact/cadence, and enforce one frontier-executing artifact per session to keep overhead <25%.
+2. **F-IS3 / F-IS4 / F-FIN1** — calibrate spawn-threshold cost from real coordination traces, execute one 3-domain+coordinator self-knowledge swarm trial with explicit pass criteria, and redesign factual-QA accuracy test for diversification claim.
 3. **PHIL-13 structural follow-through** — anti-deception constraints (requires human direction).
 4. **F111 deploy decision** — workspace ready; human review needed.
 5. **Keep Key state fresh** — sync_state.py before every commit.
 
 ## What just happened
+S186: F-IS3 coordination-cost calibration tightened — `tools/spawn_math.py` now supports `--calibrate-spawn-log` and merges cost estimates conservatively with AI2-derived values. New artifact `experiments/information-science/f-is3-spawn-math-s186-cost-calibrated.json` infers coordination_cost≈0.567 from spawn-log events and flips recommendation from N*=6 to N*=1 (no-spawn), making overhead measurement the decisive variable.
+S186: scheduling-quality audit via `python3 tools/change_quality.py` shows no current improvement trend: S184-S186 rated WEAK (scores 0.00) with 50/50/0% overhead and no L/P/frontier advancement; long-term trend remains DECLINING (-38%). Action: scheduling-quality elevated to top next-session priority.
+S186: self-knowledge swarming feasibility investigation completed — added F-IS4 in information-science frontier to formalize swarming the swarm's domain map/frontier graph. Evidence basis: S182 parallel domain run already succeeded (feasibility YES), with failures concentrated in coordination overhead rather than knowledge cascades. Next action encoded: run 3 domain lanes + 1 coordinator lane and score transfer/collision criteria.
+S186: F-AI1 independent live rerun executed via `tools/f_ai1_evidence_surfacing.py --live --trials 160 --perturb-rate 0.35 --seed 186 --lang en` with artifact `experiments/ai/f-ai1-live-evidence-s186.json`: async error 0.275 vs evidence-surfacing 0.0813 (delta -0.1938) while sync error stayed 0.3063; caveat = current live harness uses perturbation-status as confidence proxy (optimistic upper bound), so next step is non-oracle confidence scoring.
 S186: F-AI1 live integration shipped in `tools/wiki_swarm.py` (`--ai1-live-experiment`) with artifact `experiments/ai/f-ai1-live-evidence-surfacing-s186.json`: async follower error 0.315 vs evidence-surfacing 0.215 (delta -0.100) while remaining below full-sync coupling (corr 0.3935 vs 1.0); `tools/test_wiki_swarm.py` now 9/9 passing.
 S186: F-AI2 partial-sync sweep aggregated into a single threshold artifact `experiments/ai/f-ai2-live-partial-sync-threshold-s186.json`: across live EN runs, sync correlation scales with inheritance probability (0.2947 @ p=0.25, 0.40-0.47 @ p=0.50, 0.7188 @ p=0.75, 1.0 @ p=1.0), placing the practical cascade-onset band near p=0.3-0.5.
 S186: F-IS3 real-trace calibration executed via `tools/spawn_math.py --calibrate-ai2-glob "experiments/ai/f-ai2-*.json"` (5/5 spawn_math tests pass). Calibrated report `experiments/information-science/f-is3-spawn-math-s186-calibrated.json` inferred rho≈0.032 from 12 AI2 artifacts (5,260 trials) and returns N*=6 under a low explicit coordination-cost floor (0.01), highlighting that cost calibration is now the dominant open variable.
+S186: F-IS3 cost-threshold breakpoint artifact added (`experiments/information-science/f-is3-cost-threshold-s186.json`) from calibrated model: coordination cost `<=0.053` keeps recommendation at `N>=3`, `0.054..0.123` collapses to `N=2`, and `>=0.124` flips to no-spawn (`N=1`).
+S186: F-IS3 sensitivity-to-policy bridge completed — mapped sensitivity regimes to executable spawn presets in `experiments/information-science/f-is3-spawn-presets-s186.json`: P0 no-spawn (high coupling/overhead), P1 duo (bounded default), P2 broad (low-coupling exploration). Remaining gap is measuring real coordination cost to route runs automatically.
 S186: F-AI2 live partial-sync threshold sweep completed (`tools/wiki_swarm.py --coord-live-experiment --sync-inherit-prob {0.25,0.5,0.75,1.0}`; 300 trials each, seed 186). New artifacts `experiments/ai/f-ai2-live-partial-sync-025-s186.json` through `...-100-s186.json` show graded cascade coupling: sync leader-follower correlation scales 0.2947 -> 0.4023 -> 0.7188 -> 1.0 as inherit probability increases, with sync joint-error above async at every step.
 S185: F-AI2 live partial-sync regime added to `tools/wiki_swarm.py` via `--sync-inherit-prob` with regression coverage (`tools/test_wiki_swarm.py`, 8/8). First 300-trial EN run at inherit-prob 0.5 (`experiments/ai/f-ai2-live-partial-sync-s185.json`) shows intermediate cascade behavior: sync corr 0.473 and joint error 0.2067 (between async 0.10 and full-sync 0.27), supporting graded cascade intensity.
 S186: F-AI1 controlled evidence-surfacing experiment validated (`tools/f_ai1_evidence_surfacing.py` + `tools/test_f_ai1_evidence_surfacing.py`, 2/2 tests pass) and rerun (`experiments/ai/f-ai1-evidence-surfacing-s186-rerun.json`): async follower error 0.349, sync-copy 0.355, confidence-gated evidence-surfacing 0.280 (delta -0.070 vs async). Direction from first pass holds: selective pre-reasoning evidence sharing improves accuracy without full sync coupling.
@@ -100,6 +106,7 @@ S170: principles-dedup periodic executed — P-163 updated (dynamic-equilibrium�
 S169: README docs pass + maintenance.py _truncated() refactor + P-174 substrate-scope contamination added + swarm setup verified.
 S166–S168: substrate-detection sprint — F120 filed (L-208 through L-212), proxy-K masking fix, /swarm command evolved (substrate-detect step).
 S100–S165: archived to memory/SESSION-LOG.md
+
 
 
 

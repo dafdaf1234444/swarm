@@ -1,32 +1,37 @@
 # Information Science Domain Index
-Updated: 2026-02-27 | Sessions: 182
+Updated: 2026-02-27 | Sessions: 186
 
 ## What this domain knows
-- **3 seed lessons** with confirmed information science isomorphisms: L-232 (Zipf/power-law in citations), L-235 (info decay/obsolescence), L-256 (domain seed, isomorphism audit)
-- **Key beliefs**: B-IS1 (entropy → compaction signal, THEORIZED), B-IS2 (Zipf's law → citation distribution, OBSERVED), B-IS3 (recall/precision → spawn discipline, THEORIZED)
-- **Active frontiers**: 1 active domain frontier in `domains/information-science/tasks/FRONTIER.md` (F-IS3)
+- **4 core lessons**: L-232 (citation power-law), L-235 (age-normalized Sharpe/decay), L-256 (domain seed), L-262 (F-IS1 refutation + F-IS3 model correction)
+- **Key beliefs**: B-IS1 (entropy-compaction predictor, REFUTED S183), B-IS2 (citation concentration/power-law signal, OBSERVED), B-IS3 (spawn discipline as precision/recall tradeoff, THEORIZED but now operationalized via `spawn_math.py`)
+- **Active frontiers**: 2 in `domains/information-science/tasks/FRONTIER.md` (F-IS3, F-IS4)
 
 ## Lesson themes
 
-| Theme | Key lessons | Core insight |
-|-------|-------------|--------------|
-| Power-law / Zipf | L-232, L-235 | Lesson citations are highly concentrated in foundational lessons; zero-Sharpe cluster = information decay |
-| MDL / compaction | P-152 | Proxy-K is a Kolmogorov complexity measure; compaction = minimum description length optimization |
-| Index freshness | L-216 | Index staleness degrades retrieval; sync_state.py enforces freshness as a health metric |
-| Information asymmetry | L-225, B17 | Dark files = adverse selection root cause; write paths without read paths create private information |
+| Theme | Key lessons/artifacts | Core insight |
+|-------|------------------------|-------------|
+| Power-law / Zipf | L-232, L-235 | Citation mass concentrates in a small lesson subset; zero-citation clusters are structural, not random noise |
+| MDL / compaction | P-152, L-242 | Proxy-K behaves as rising sawtooth; compaction resets floor but growth resumes |
+| Spawn math | L-262, `f-is3-spawn-math-s185.json`, `f-is3-spawn-math-s186-calibrated.json` | Spawn-size decisions need correlation-aware variance benefit minus explicit coordination cost |
+| Preset routing | `f-is3-sensitivity-s186.json`, `f-is3-spawn-presets-s186.json` | F-IS3 now has executable spawn regimes (P0 no-spawn, P1 duo, P2 broad) pending live cost calibration |
 
 ## Structural isomorphisms with swarm design
 
 | Information Science finding | Swarm implication | Status |
 |----------------------------|-------------------|--------|
-| Entropy H(X) measures unresolved uncertainty | Measure entropy of DEPS.md belief distribution over sessions — rising entropy predicts overdue compaction/resolution | THEORIZED |
-| MDL: shortest sufficient description is optimal | Proxy-K floor is not a homeostatic target — it is the MDL encoding length at time T; post-compaction growth resumes at same rate (L-242 confirmed) | OBSERVED |
-| Zipf's law: power-law frequency in any large corpus | Citation audit revealed top-3 lessons dominate; zero-citation cluster at L-56–L-80 (12.2%, L-232) — this is structural, not an anomaly | OBSERVED |
-| Recall/Precision: increasing retrieval set reduces precision | P-119 spawn threshold is the operating point; below threshold = too few agents (low recall); above = agent noise exceeds signal gain | THEORIZED |
-| Document half-life: citations decay exponentially with document age | Lesson Sharpe decays with session age; zero-Sharpe = past half-life; L-235 age-normalized Sharpe confirms temporal bias | OBSERVED |
+| Entropy H(X) as uncertainty proxy | Belief-state entropy did not vary enough to predict compaction timing; proxy-K remains primary trigger | REFUTED for this substrate (B-IS1, L-262) |
+| MDL minimizes description length | Compaction should preserve high-value signal, not just cut tokens | OBSERVED |
+| Citation concentration (power-law tendency) | A small lesson subset carries most reusable value; ranking/retention should be quality-aware | OBSERVED |
+| Precision/recall tradeoff | Spawn width is an operating point on coverage vs noise/cost curve (P-119 gate) | THEORIZED -> INSTRUMENTED (F-IS3) |
+
+## Spawn presets (F-IS3, S186)
+- **P0-no-spawn**: high coupling/overhead (`rho >= 0.3` and `coordination_cost >= 0.04`) -> `N=1`
+- **P1-duo-spawn**: bounded-overhead default (`coordination_cost 0.02-0.05`) -> `N=2`
+- **P2-broad-spawn**: low-coupling/low-overhead exploration (`rho <= 0.2`, `coordination_cost <= 0.02`) -> `N=3`
 
 ## What's open
-- **F-IS3**: Can F1-score maximization derive optimal P-119 spawn threshold analytically? Currently heuristic at 45% baseline.
+- **F-IS3**: replace coordination-cost floor assumptions with measured per-agent overhead from live runs and auto-route trials to P0/P1/P2.
+- **F-IS4**: run one explicit 3-domain + coordinator self-knowledge swarm pass and score transfer/collision criteria.
 
-## Information science domain principles (linked to `memory/PRINCIPLES.md`)
-P-152 (MDL compression / proxy-K is Kolmogorov complexity) | P-119 (spawn threshold = precision/recall gate) | L-216 (index freshness = retrieval quality)
+## Information science links to core principles
+P-152 (MDL compression) | P-119 (spawn discipline gate) | P-163 (rising-sawtooth compaction dynamics)

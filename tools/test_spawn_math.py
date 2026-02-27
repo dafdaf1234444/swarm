@@ -67,6 +67,25 @@ class TestSpawnMath(unittest.TestCase):
             self.assertAlmostEqual(cal["inferred_rho"], 0.0254, places=6)
             self.assertGreaterEqual(cal["inferred_coordination_cost"], 0.01)
 
+    def test_coordination_calibration_from_spawn_log(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            p = Path(tmpdir) / "spawn-log.json"
+            p.write_text(
+                json.dumps(
+                    {
+                        "spawn_events": [
+                            {"id": "SE-A", "agents_spawned": 2, "tool_call_cost_factor": 1.3},
+                            {"id": "SE-B", "agents_spawned": 3, "wall_time_speedup": 2.4},
+                        ]
+                    }
+                ),
+                encoding="utf-8",
+            )
+            cal = spawn_math.calibrate_coordination_cost_from_spawn_log(p)
+            self.assertEqual(cal["sample_count"], 2)
+            self.assertGreater(cal["inferred_coordination_cost"], 0.0)
+            self.assertLessEqual(cal["inferred_coordination_cost"], 1.0)
+
 
 if __name__ == "__main__":
     unittest.main()

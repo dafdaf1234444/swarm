@@ -177,6 +177,58 @@ def calibrate_from_ai2_artifacts(paths: list[Path], coordination_cost_floor: flo
     }
 
 
+def calibrate_coordination_cost_from_spawn_log(path: Path) -> dict:
+    """Infer coordination-cost proxy from spawn-quality event history."""
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    events = payload.get("spawn_events", [])
+
+    samples: list[float] = []
+    sample_rows: list[dict] = []
+    for ev in events:
+        n = int(ev.get("agents_spawned", 0) or 0)
+        if n <= 1:
+            continue
+
+        cost_proxy = None
+        if "tool_call_cost_factor" in ev:
+            factor = float(ev["tool_call_cost_factor"])
+            # Extra cost per additional agent vs a single-agent baseline.
+            cost_proxy = max(0.0, (factor - 1.0) / (n - 1))
+        elif "wall_time_speedup" in ev:
+            speedup = float(ev["wall_time_speedup"])
+            ideal = float(n)
+            if ideal > 0:
+                inefficiency = max(0.0, 1.0 - min(speedup, ideal) / ideal)
+                cost_proxy = inefficiency / (n - 1)
+
+        if cost_proxy is None:
+            continue
+        # Clamp outliers to keep utility scale bounded.
+        cost_proxy = max(0.0, min(1.0, cost_proxy))
+        samples.append(cost_proxy)
+        sample_rows.append({"id": ev.get("id", "?"), "agents_spawned": n, "cost_proxy": cost_proxy})
+
+    if not samples:
+        raise ValueError("No usable multi-agent spawn-log cost samples found.")
+
+    samples_sorted = sorted(samples)
+    mid = len(samples_sorted) // 2
+    if len(samples_sorted) % 2 == 1:
+        median = samples_sorted[mid]
+    else:
+        median = 0.5 * (samples_sorted[mid - 1] + samples_sorted[mid])
+
+    mean = sum(samples_sorted) / len(samples_sorted)
+    return {
+        "source": str(path),
+        "sample_count": len(samples_sorted),
+        "sample_ids": sample_rows,
+        "mean_cost_proxy": mean,
+        "median_cost_proxy": median,
+        "inferred_coordination_cost": median,
+    }
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--baseline-quality", type=float, default=None)
@@ -195,6 +247,12 @@ def parse_args() -> argparse.Namespace:
         default=0.01,
         help="Minimum coordination cost when calibration is used.",
     )
+    parser.add_argument(
+        "--calibrate-spawn-log",
+        type=Path,
+        default=None,
+        help="Optional spawn log JSON (e.g. experiments/spawn-quality/spawn-log.json) to infer coordination cost.",
+    )
     parser.add_argument("--risk-aversion", type=float, default=1.0, help="Penalty weight on uncertainty.")
     parser.add_argument("--n-max", type=int, default=6)
     parser.add_argument("--p119-threshold", type=float, default=0.45, help="Spawn gate fraction for comparison.")
@@ -205,6 +263,7 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     calibration = None
+    coordination_calibration = None
     baseline_quality = args.baseline_quality
     baseline_std = args.baseline_std
     rho = args.rho
@@ -222,6 +281,20 @@ def main() -> int:
             rho = calibration["inferred_rho"]
         if coordination_cost is None:
             coordination_cost = calibration["inferred_coordination_cost"]
+
+    if args.calibrate_spawn_log is not None:
+        log_path = args.calibrate_spawn_log
+        if not log_path.is_absolute():
+            log_path = Path(__file__).resolve().parent.parent / log_path
+        coordination_calibration = calibrate_coordination_cost_from_spawn_log(log_path)
+        if coordination_cost is None:
+            coordination_cost = coordination_calibration["inferred_coordination_cost"]
+        elif args.coordination_cost is None:
+            # Conservative merge: when both calibrators are active, keep the higher cost.
+            coordination_cost = max(
+                float(coordination_cost),
+                float(coordination_calibration["inferred_coordination_cost"]),
+            )
 
     # Backward-compatible defaults when explicit values are not provided.
     if baseline_quality is None:
@@ -244,6 +317,8 @@ def main() -> int:
     )
     if calibration is not None:
         report["calibration"] = calibration
+    if coordination_calibration is not None:
+        report["coordination_calibration"] = coordination_calibration
 
     if args.json_out is not None:
         out = args.json_out
