@@ -12,6 +12,7 @@ Usage:
     python3 tools/sync_state.py --quiet   # apply, no output unless changed
 """
 
+import hashlib
 import re
 import subprocess
 import sys
@@ -150,6 +151,17 @@ def main():
         new = f"## Themes ({lessons} lessons)"
         if patch_file(index, old, new, "INDEX themes count"):
             changed.append("INDEX themes")
+
+    # core_md_hash (prevents recurring validator FAIL when CORE.md is updated without hash renewal)
+    core_md = ROOT / "beliefs" / "CORE.md"
+    if core_md.exists():
+        current_hash = hashlib.sha256(core_md.read_bytes()).hexdigest()
+        m_hash = re.search(r"(<!--\s*core_md_hash:\s*)([a-f0-9]{64})(\s*-->)", text)
+        if m_hash and m_hash.group(2) != current_hash:
+            old_tag = m_hash.group(0)
+            new_tag = f"{m_hash.group(1)}{current_hash}{m_hash.group(3)}"
+            if patch_file(index, old_tag, new_tag, "INDEX core_md_hash"):
+                changed.append("INDEX core_md_hash")
 
     # --- FRONTIER.md ---
     frontier = ROOT / "tasks" / "FRONTIER.md"
