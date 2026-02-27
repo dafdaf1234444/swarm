@@ -135,10 +135,13 @@ def _lesson_sharpe_candidates(top_n: int = 20) -> list[dict]:
         return []
 
     # Build citation map: count L-NNN refs across ALL project markdown files (excluding lesson files)
+    # Use git ls-files for speed (rglob is 15s+ on WSL with 868 files; git index is ~0.3s)
     citation_counts: dict[str, int] = {}
+    import subprocess as _sp
+    _ls = _sp.run(["git", "ls-files", "*.md", "**/*.md"], capture_output=True, text=True, cwd=REPO_ROOT)
     scan_paths = [
-        p for p in REPO_ROOT.rglob("*.md")
-        if "lessons" not in p.parts
+        REPO_ROOT / p for p in _ls.stdout.splitlines()
+        if p and "lessons" not in Path(p).parts
     ]
     for sp in scan_paths:
         text = _read(sp)
