@@ -109,6 +109,25 @@ def extract_session_log_tail(log_text, n=10):
     return lines[-n:]
 
 
+def check_stale_experiments():
+    """Scan domain frontier files for active (unrun) experiments. L-246."""
+    domain_dir = ROOT / "domains"
+    if not domain_dir.exists():
+        return []
+    stale = []
+    for frontier_file in sorted(domain_dir.glob("*/tasks/FRONTIER.md")):
+        domain = frontier_file.parent.parent.name
+        text = frontier_file.read_text(encoding="utf-8")
+        active_m = re.search(r"## Active\n(.*?)(?:\n## |\Z)", text, re.DOTALL)
+        if not active_m:
+            continue
+        active_block = active_m.group(1)
+        exp_ids = re.findall(r"\*\*(F-[A-Z]+\d+)\*\*", active_block)
+        for eid in exp_ids:
+            stale.append(f"{domain}/{eid}")
+    return stale
+
+
 def main():
     brief = "--brief" in sys.argv
 
@@ -158,6 +177,14 @@ def main():
         print("--- Open frontiers (critical/important) ---")
         for f in frontiers:
             print(f"  • {f}")
+        print()
+
+    # Stale domain experiments (L-246: design debt)
+    stale_experiments = check_stale_experiments()
+    if stale_experiments:
+        print(f"--- Unrun domain experiments ({len(stale_experiments)}) ---")
+        for e in stale_experiments[:6]:
+            print(f"  ○ {e}")
         print()
 
     # Session log tail (full mode only — last 10 entries = behavioral signal)
