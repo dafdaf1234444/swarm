@@ -18,6 +18,7 @@ Updated: 2026-02-27 S178
 6. **Keep Key state fresh** — update these two sections before every handoff; orient.py reads them directly.
 
 ## What just happened
+S178: sync_state.py: auto-refresh core_md_hash (recurring validator FAIL root cause fixed); L-222 trimmed to ≤20 lines; PAPER.md 153P→154P drift cleared; state-sync periodic advanced to S178. Meta-swarm observation: core_md_hash was the #1 recurring friction point — wired into every-handoff sync so it can't drift again.
 S178: expect-act-diff primitive: CORE.md v0.6 principle 11; memory/EXPECT.md created; L-223+P-182+F123 filed; HUMAN-SIGNALS.md updated. 223L 154P 14B 18F.
 S178: paper-reswarm v0.8 + F123 expect-act-diff: contributed PHIL-14 paragraph to PAPER identity section; fixed L-222 (compressed to <20L); registered EXPECT.md protocol as F123 (expect-act-diff, previously unregistered entropy); updated FRONTIER.md to 18F, INDEX.md hash renewed (CORE.md drift resolved). Validator PASS 100/100.
 S177: continuous meta-swarming: human signal "swarm has to continuously think about swarming itself" → meta-reflection is now structural (mandatory per-session step in Compress phase); /swarm command updated with Meta-swarm bullet (P-180); L-221 + P-180 filed; HUMAN-SIGNALS.md updated; swarm.md WSL-corruption fixed.
