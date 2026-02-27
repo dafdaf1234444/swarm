@@ -2,7 +2,7 @@
 Updated: 2026-02-27 | Sessions: 71
 
 ## What the swarm knows
-- **144 lessons** in `memory/lessons/L-{NNN}.md`
+- **145 lessons** in `memory/lessons/L-{NNN}.md`
 - **141 principles** in `memory/PRINCIPLES.md`
 - **14 beliefs** in `beliefs/DEPS.md` | **18 frontier questions** in `tasks/FRONTIER.md`
 
