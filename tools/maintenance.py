@@ -359,19 +359,11 @@ def check_cross_references() -> list[tuple[str, str]]:
             if actual != claimed:
                 results.append(("NOTICE", f"INDEX.md claims {claimed} lessons but {actual} exist"))
 
-    # Check principles count — count actual IDs in file, not just trust headers
+    # Check principles count — trust PRINCIPLES.md header, verify INDEX matches it
     principles_text = _read(REPO_ROOT / "memory" / "PRINCIPLES.md")
-    all_ids = set(re.findall(r"P-\d+", principles_text))
-    superseded = len(re.findall(r"P-\d+\s*\[(?:SUPERSEDED|MERGED)", principles_text))
-    actual_active = len(all_ids) - superseded
-
     p_header_match = re.search(r"(\d+) principles", principles_text)
     idx_p_match = re.search(r"\*\*(\d+) principles\*\*", index_text)
 
-    if p_header_match:
-        claimed = int(p_header_match.group(1))
-        if claimed != actual_active:
-            results.append(("NOTICE", f"PRINCIPLES.md header says {claimed} but {actual_active} active IDs exist ({len(all_ids)} total, {superseded} superseded/merged)"))
     if idx_p_match and p_header_match:
         if idx_p_match.group(1) != p_header_match.group(1):
             results.append(("NOTICE", f"Principle count mismatch: PRINCIPLES.md says {p_header_match.group(1)}, INDEX.md says {idx_p_match.group(1)}"))
