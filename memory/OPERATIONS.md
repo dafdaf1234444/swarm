@@ -37,6 +37,14 @@ Before writing a new lesson:
 3. Write lesson content in a second commit.
 Two sessions claiming simultaneously will produce a git conflict on step 2 — one must rename.
 
+## Version Tracking Protocol (F110-A1/C3)
+Prevents sessions from operating under stale rules without knowing it.
+- CLAUDE.md carries `<!-- claude_md_version: N | date -->` in its first line
+- CORE.md carries `<!-- core_md_version: N | date -->` in its first line
+- At spawn: record these in child's `.swarm_meta.json` as `claude_md_version` and `core_md_version`
+- At session start: check current versions vs `.swarm_meta.json`. If different: re-read changed file.
+  Authority: CLAUDE.md > CORE.md > domain FRONTIERs > task files > lessons.
+
 ## Resolution Claim Protocol (F110-C1)
 Prevents parallel conviction on frontier questions (two sessions reaching contradictory conclusions).
 Before resolving any frontier question:

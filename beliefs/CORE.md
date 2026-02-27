@@ -1,3 +1,4 @@
+<!-- core_md_version: 0.4 | 2026-02-27 | F110-A1: version field added -->
 # Core Beliefs v0.4
 
 ## Purpose
