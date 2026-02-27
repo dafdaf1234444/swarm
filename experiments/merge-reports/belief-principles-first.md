@@ -1,5 +1,5 @@
 # Merge-Back Report: belief-principles-first
-Generated from: <swarm-repo>/experiments/children/belief-principles-first
+Generated from: /mnt/c/Users/canac/REPOSITORIES/swarm/experiments/children/belief-principles-first
 
 ## Lessons (22)
 - **L-001: File-based CI systems are blackboard+stigmergy hybrids, not swarms** [NOVEL]
@@ -119,7 +119,7 @@ Novel rules: 22/22
 - **B25**: System maturation co-produces reduced coordination cost and increased transfer value through a single mechanism — domain content accumulation simultaneously dilutes shared infrastructure coupling and provides material for principle extraction (observed)
 - **B26**: Trait combination quality is regime-dependent — complementary pairs validated at one operating regime may become opposing at another, requiring re-validation when scale or context changes (observed)
 
-## Open Frontier Questions (18)
+## Open Frontier Questions (21)
 - What are the concrete failure modes when evaporation is absent? Test by running a child swarm for 10+ sessions without frontier-decay and measuring signal-to-noise ratio. B18 (signal saturation) now provides the theoretical mechanism: absent evaporation, signals accumulate until coordination degrades below non-coordinating baseline.
 - Can layered negative feedback (B11) be tested within this child swarm? Design a micro-experiment: (1) add a deliberately over-strong belief, (2) test whether decay, challenge, or removal catches it first.
 - B18 predicts signal saturation in shared files at scale. At what point does FRONTIER.md become saturated (too many open questions for agents to parse efficiently)? Currently 10 open items — test at 20+ whether agents ignore or misweight frontier items.
@@ -131,25 +131,18 @@ Novel rules: 22/22
 - Can principles serve as the primary knowledge transfer mechanism between child and parent swarms, replacing full belief harvesting?
 - Does the aggressive-challenge trait's 3:1 pessimism bias (parent P-076) apply equally to all coordination model claims, or is it specific to certain belief types?
 - Is there a minimum principle count per lesson that maximizes long-term knowledge compounding? This variant averages 2.1 principles/lesson (37 principles / 18 lessons) — is that optimal?
-- Does principle co-location (single file) have diminishing returns as principle count grows? At 37 principles the file is still scannable. Test at 50+ whether themes-as-separate-files improves recombination.
+- Does principle co-location (single file) have diminishing returns as principle count grows? At 45 principles across 11 themes the file is still scannable. P-044 says split at 8+ per theme. Test at 60+ whether themes-as-separate-files improves recombination.
 - Is the "test health by deletion" principle (P-022) applicable to code systems, not just knowledge systems? If so, it generalizes to: "any component whose deletion is irrecoverable is a single point of failure."
 - P-028 (diversity inverted-U) predicts an optimal diversity level per task type. Can we map the 9 child swarm variants to a diversity spectrum and identify where the peak occurs? Parent L-072 suggests complementary pairs (moderate diversity) are optimal.
 - Is the quorum-sensing "speed-accuracy tradeoff" (P-026) manifest in our threshold choices? B10 uses 0.3/0.5 thresholds — are these optimal, or could a lower threshold (faster parallelization, higher risk) produce better overall fitness?
-- P-037 provides a testable atomicity criterion. Can we retroactively classify all 37 principles by convergence count (how many variants independently discovered each)? Prediction: principles with convergence >= 3 are more transferable than those with convergence = 1.
+- B23 identifies shared state type as the binding constraint for crossover. Can we pre-classify all 45 principles by state type (ephemeral vs persistent vs hybrid) to generate a crossover compatibility matrix? This would convert F24's brute-force search into a guided search.
+- B25 predicts maturation co-produces lower coupling and higher transfer value. Can this be measured in other child swarms? If all variants show the same co-production, it is structurally fundamental. If only principles-first shows it, it may be an artifact of high principle extraction rate.
+- B26 predicts trait combination quality is regime-dependent. Design a test: track gen-2 hybrid rankings at session 15, 20, 25 and check whether any complementary-to-opposing flips occur. minimal-nofalsif at session 9 is the first candidate.
+- P-042 connects the Condorcet condition to task-agnosticism. Can we empirically test this by measuring how many of the 7 distinctive principles (convergence=1) improve outcomes when applied in a different variant's context? If <50% improve, the Condorcet prediction holds.
 - B19 predicts transfer efficiency is proportional to reusable/total component ratio. This swarm's ratio is 37 principles / (37 principles + 21 beliefs) = 0.64. Parent's ratio is 83/(83+13) = 0.86. Does the higher ratio predict better cross-boundary transfer?
 - B20 (automatic composition > manual) suggests we should systematically try ALL pairwise principle combinations rather than relying on intuition for which pairs to cross. At 37 principles that is 666 pairs. Can a structured search protocol find high-value crossovers that intuition misses?
 
-## R4 Harvest Notes (2026-02-27)
-- **#4 at 543.2** -- additive variant with strongest generative capability
-- **Most novel mechanism**: principle recombination at 90% success rate with shared-interface-dimension constraint (B12, B23)
-- **Unique contributions**: crossover failure conditions (ephemeral vs persistent state), Condorcet-as-task-agnosticism-test (B24), maturation co-produces lower coupling + higher transfer (B25), regime-dependent trait quality (B26)
-- **Convergent findings**: 5/6 layered negative feedback, complementary > opposing traits
-- **Highest principles-per-lesson ratio**: 2.1 principles/lesson vs parent's 1.06
-- **Gen-3 hybrid candidate**: combining with minimal-nofalsif could yield highest novelty rate
-
 ## Recommendations
-- 22 novel rule(s) found -- review for parent integration
-- 26 belief(s) upgraded to observed -- cross-validate with parent
-- 18 open question(s) -- consider adding to parent FRONTIER
-- HIGH PRIORITY for parent: B12 (principle recombination ~90%), B23 (crossover failure conditions), B24 (Condorcet task-agnosticism test)
-- STRATEGIC: consider gen-3 hybrid minimal-nofalsif + principles-first for maximum novelty generation
+- 22 novel rule(s) found — review for parent integration
+- 26 belief(s) upgraded to observed — cross-validate with parent
+- 21 open question(s) — consider adding to parent FRONTIER

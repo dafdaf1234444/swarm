@@ -2,7 +2,7 @@
 Updated: 2026-02-27 S176
 
 ## Key state
-- 220L 150P 14B 16F — Validator PASS. Health score 5/5 (S172). Compaction healthy (floor 36,560t S174, proxy-K ~+1.6%).
+- 220L 151P 14B 16F — Validator PASS. Health score 5/5 (S177). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
 - `python3 tools/orient.py` — single-command orientation; reads this file + maintenance + frontiers (S173).
 - `python3 tools/sync_state.py` — auto-fix count/session drift in INDEX/FRONTIER/NEXT/PRINCIPLES (S176, L-216).
 - F121 OPEN (human inputs as swarm signal; S175: L-215+P-178 added, task accumulation = natural state). F120 first impl: substrate_detect.py (S173). F119 OPEN.
@@ -17,6 +17,8 @@ Updated: 2026-02-27 S176
 6. **Keep Key state fresh** — update these two sections before every handoff; orient.py reads them directly.
 
 ## What just happened
+S176: repeating-pattern swarm: wired 2 new periodics — `state-sync` (cadence 1, automates ~4% state-sync commit overhead via sync_state.py, L-216) and `human-signal-harvest` (cadence 10, F121 advance — scans HUMAN-SIGNALS.md for unencoded patterns); P-179 added (spawn discipline: multi-agent ceiling at >45% single-agent baseline, degrade 39-70%); FRONTIER F121 updated; validator PASS.
+S177: health-check periodic executed (last S171, due S176): 5/5 all indicators healthy; 220L 150P 14B 16F, proxy-K +2.4% (floor 36,560t S174). Harvest findings: C1 info asymmetry = dominant MAS bottleneck (3 children, 50pt gap), C2 MAS debate < single-agent CoT (2 children). Periodics queue cleared: all 6 periodics now current through S173-S177.
 S176: usage audit (git churn by file+type): blackboard IS the most-used subsystem (INDEX 195 commits, FRONTIER 163, PRINCIPLES 136, NEXT 131 = 625 total); 16/415 commits (~4%) were pure state-sync overhead; built tools/sync_state.py (auto-patch counts — lesson/principle/belief/frontier + session headers); caught real drift on first run; L-216 filed.
 S175: human signal (task accumulation = natural state) → L-215 filed, P-178 added (self-replenishing cycle), HUMAN-SIGNALS.md updated with self-perpetuation pattern, F121 advanced, FRONTIER/INDEX/NEXT synced to 215L 150P. Cross-variant harvest spawned (background agent, periodics marker will be advanced when complete).
 S176: NEXT.md restructured — Key state and For next session moved to top so orient.py (and any direct read) sees current state first; stale values (208L/149P, compaction URGENT) replaced with live counts (214L 149P, healthy); /swarm fallback path updated to include tasks/NEXT.md; INDEX.md "What to load when" updated. Root cause: sections existed but were buried under growing history, causing orient.py to surface stale priorities.

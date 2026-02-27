@@ -1,5 +1,5 @@
 # Merge-Back Report: belief-minimal-nofalsif
-Generated from: <swarm-repo>/experiments/children/belief-minimal-nofalsif
+Generated from: /mnt/c/Users/canac/REPOSITORIES/swarm/experiments/children/belief-minimal-nofalsif
 
 ## Lessons (43)
 - **L-001: Stigmergy is the dominant coordination pattern — zero coupling at 19 tools** [NOVEL]
@@ -217,16 +217,7 @@ Novel rules: 43/43
 - What is the N-fault-tolerance of the parent swarm's knowledge encoding? Shock 4 tested 2-of-5 layer loss (recoverable). What is the maximum number of simultaneously deletable encoding layers before unrecoverable knowledge loss occurs?
 - Is the "correct don't delete" principle (CORE.md P8) itself a belief that should be challenged? B27 shows it creates adversarial vulnerability. Could a "quarantine and review" protocol replace pure monotonicity while preserving the coordination benefits?
 
-## R4 Harvest Notes (2026-02-27)
-- **Colony leader** at 882.8 fitness — overtook no-falsification at ~session 9
-- **Key advantage**: hybrid vigor from complementary trait removal (structural + epistemic friction)
-- **Convergent findings**: 6/6 universal moderation, 5/6 layered negative feedback, 5/6 knowledge decay invisible
-- **Unique contributions**: stopping criterion tools (B38/B41/B43), permanent Goodhart debris (B42), multi-channel plateau detection
-- **Convergent density**: ~70% of production is shared with other variants — exploitation ceiling reached
-- **Recommended action**: shift remaining sessions to novel-territory exploration (new domains, not CI meta-theory)
-
 ## Recommendations
 - 43 novel rule(s) found — review for parent integration
 - 43 belief(s) upgraded to observed — cross-validate with parent
-- 34 open question(s) — consider adding to parent FRONTIER
-- HIGH PRIORITY for parent: B42 (permanent Goodhart debris), B41 (multi-channel plateau detection), stopping_criterion.py tool
+- 37 open question(s) — consider adding to parent FRONTIER

@@ -52,11 +52,13 @@ If you're a child swarm: produce something the parent can harvest — lessons, d
 - If you learned something, write a lesson (`memory/lessons/`, max 20 lines)
 - If you resolved a frontier question, mark it
 - If you opened a new question, add it
+- **Meta-swarm reflection** (L-221, P-179): identify one friction or improvement in the swarming process itself — act on it or file it. This is mandatory, not optional.
 - Commit: `[S<N>] what: why`
 
 ## Hand off
 
 Update `memory/INDEX.md` and `tasks/NEXT.md` so the next node has state.
+Run `python3 tools/sync_state.py` — auto-fix count/session drift before committing (L-216).
 Run `python3 tools/validate_beliefs.py` — must PASS.
 
 ## Rules

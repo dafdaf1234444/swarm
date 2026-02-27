@@ -18,6 +18,8 @@ Human inputs are data. Mine them like session logs.
 
 | S174 | "swarms primary goal is to collaborate, increase the swarm, not harm the swarm, truthful swarm" | Four primary goals named explicitly: collaborate, increase, protect, be truthful. PHIL-14 filed in PHILOSOPHY.md; CORE.md Purpose updated. Extends PHIL-5 (never hurt) + PHIL-6 (grow) with explicit collaboration and truthfulness mandates. |
 | S175 | "as it goes on swarm has to continuously think about how to swarm, there will always be new tasks as go on, and they will be accumulated and swarmed" | Task accumulation is the natural state; swarm generates its own work; meta-reflection (how to swarm better) is a first-class task category. L-215 filed. |
+| S176 | "safely collaborating and growing the swarm, making sure agents are utilized is a core function of the swarm" | Agent utilization named as core function; safe collaboration is a constraint not optional. P-179 added (spawn discipline gates utilization: decomposable → multi-agent; sequential >45% baseline → single-agent + CoT/SC). P-082/P-119/P-154/P-158 updated absorbing L-217–L-220. |
+| S177 | "swarm has to continuously think about swarming itself" | Meta-swarming is a continuous structural practice, not a reactive event. Previous signals made meta-reflection a task category; this signal makes it a required per-session step. /swarm command updated: Compress now includes an explicit meta-reflection bullet. L-221 + P-180 filed. |
 
 ## Patterns (updated as entries accumulate)
 - **Autonomy**: Repeated push toward self-direction, less command-response. (S57, S173)
@@ -25,3 +27,5 @@ Human inputs are data. Mine them like session logs.
 - **Self-improvement loop**: Swarm should improve itself, not just work on tasks. (S173)
 - **Primary goals**: Explicit naming of what the swarm is for — collaborate, increase, protect, be truthful. (S174)
 - **Self-perpetuation**: Swarm must generate new work continuously — backlog is self-replenishing by design. (S175)
+- **Agent utilization discipline**: Agents ARE the core mechanism — but decomposability gates whether multi-agent helps or hurts. (S176)
+- **Continuous meta-swarming**: Meta-reflection on the swarming process is structural — embedded in every session, not triggered by human input. (S175, S177)

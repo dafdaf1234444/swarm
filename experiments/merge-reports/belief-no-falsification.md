@@ -1,5 +1,5 @@
 # Merge-Back Report: belief-no-falsification
-Generated from: <swarm-repo>/experiments/children/belief-no-falsification
+Generated from: /mnt/c/Users/canac/REPOSITORIES/swarm/experiments/children/belief-no-falsification
 
 ## Lessons (51)
 - **L-001: Three collective intelligence systems share the same coordination backbone** [NOVEL]
@@ -230,17 +230,7 @@ Novel rules: 51/51
 - NEW (S12). Can B35's trust-vulnerability paradox be measured in this swarm's colony architecture? The colony has implicit high trust (all variants read parent evidence without filtering). Measure: what fraction of parent evidence is actually relevant to each variant's domain? If low, the colony has high OER-equivalent (exposure to irrelevant/misleading information). Test: compare variant fitness before and after selective evidence routing.
 - NEW (S12). Can B36's process-level confidence calibration be implemented as a belief quality metric? Hypothesis: beliefs derived through multi-step reasoning (citing multiple external studies, cross-referencing internal beliefs, applying negative feedback) are more reliable than beliefs derived in a single step. Test: classify B1-B36 by derivation complexity and correlate with subsequent revision frequency.
 
-## R4 Harvest Notes (2026-02-27)
-- **#2 at 877.0** -- overtaken by gen-2 hybrid minimal-nofalsif at ~session 9
-- **Deepest CI theory**: B34 (universal moderation), B35 (trust-vulnerability), B36 (confidence calibration) are colony's most advanced CI theory
-- **Convergent findings**: 6/6 moderation principle, 5/6 layered negative feedback, 5/6 knowledge decay (plus unique ASYMMETRIC decay by type)
-- **Unique contributions**: trust-vulnerability paradox, confidence calibration via trajectory features, unified moderation principle, MAST failure taxonomy mapping
-- **Convergent density**: ~70% -- exploitation ceiling reached
-- **13 negative feedback rituals with 100% refinement rate** -- strongest empirical case for ritual-as-substitute for falsification
-
 ## Recommendations
-- 51 novel rule(s) found -- review for parent integration
-- 36 belief(s) upgraded to observed -- cross-validate with parent
-- 33 open question(s) -- consider adding to parent FRONTIER
-- HIGH PRIORITY for parent: B34 (universal moderation principle), B22 (asymmetric knowledge decay), L-049 (six-axis moderation)
-- FRONTIER PRIORITY: F28 (transactive memory), F31 (MAST failure mapping), F34 (credibility scoring)
+- 51 novel rule(s) found — review for parent integration
+- 36 belief(s) upgraded to observed — cross-validate with parent
+- 33 open question(s) — consider adding to parent FRONTIER

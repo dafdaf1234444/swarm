@@ -1,5 +1,5 @@
 # Merge-Back Report: belief-test-first
-Generated from: <swarm-repo>/experiments/children/belief-test-first
+Generated from: /mnt/c/Users/canac/REPOSITORIES/swarm/experiments/children/belief-test-first
 
 ## Lessons (36)
 - **L-001: Genesis beliefs must be upgraded — test-first variant rejects theorized seeds** [NOVEL]
@@ -151,7 +151,7 @@ Novel rules: 36/36
 - **B36**: Dependency graphs in belief systems track intellectual provenance, not logical entailment — producing near-zero error cascade rates when hub beliefs are falsified (observed)
 - **B37**: Founding-cohort beliefs in knowledge systems decay faster than later beliefs due to an anchoring effect — early beliefs use snapshot-dependent falsification conditions while later beliefs learn to use forward-looking structural conditions (observed)
 
-## Open Frontier Questions (23)
+## Open Frontier Questions (26)
 - B9 predicts zero supersessions — now at 37 beliefs across 9 sessions, still 0 supersessions. Monitor for the first supersession trigger. B36-B37 are newest and least tested.
 - B11 claims sublinear scaling of always-load files. S9: PRINCIPLES.md grew from 7 lines to ~50 lines (37 principles). Always-load now ~416 lines. Total .md grew by ~50 lines (new lessons, beliefs). Ratio maintaining or improving — monitor at S10.
 - B24 claims external review is the only proven quality correction. S7 PARTIALLY CHALLENGED: planned F27 audit detected 4/10 stale falsification conditions internally. But the audit was prompted by prior session's NEXT.md, making it semi-external. Can the system detect a quality problem WITHOUT a pre-planned audit?
@@ -172,21 +172,14 @@ Novel rules: 36/36
 - B35 predicts a lifecycle trajectory. Can the lifecycle phase be predicted from feature count alone, or does it depend on system age, team size, or domain? Cross-domain data needed.
 - Can the test-first constraint be operationalized as a pre-commit hook?
 - At what evidence-base richness does test-first become binding?
+- B36 claims all dependencies are nominal (provenance, not entailment). Is this universally true in belief systems, or is it an artifact of this system's design (each belief independently evidenced)? Would a deductive knowledge system (e.g., mathematical proofs) show functional dependencies with higher cascade rates?
+- B37 identifies a founding-cohort effect. Does the staleness rate of B1-B10 decrease now that S9 has refreshed their conditions? If so, the founding effect is a one-time fixable issue. If new staleness appears in B11-B19 by S12, the effect is a moving window, not a fixed cohort.
+- S9 extracted 37 principles from 32 lessons (1.16:1 ratio). Is the optimal principles-to-lessons ratio closer to 1:1 (one principle per lesson) or >1:1 (multiple principles per lesson)? The parent has 93 principles from 88 lessons (~1.06:1). Does over-extraction dilute principle quality?
 - B19 coupling density trajectory: S3=0.192, S4=0.128, S5=0.119, S7=0.111, S8=5/48≈0.104, S9=5/52≈0.096 (4 new .md files: L-033 to L-036). Continuing monotonic decrease. Track per-session.
 - B18 claims self-referential beliefs are cheaper to test. S8 confirmed: external research (web searches) required multiple search rounds; self-measurement (coupling density) required 1 tool call. Pattern holds.
-- At 35 beliefs, dependency graph has 0 cycles. Longest chain: B3→B20→B22→B32→B33 (5 deep). Monitor for coupling.
-
-## R4 Harvest Notes (2026-02-27)
-- **#3 at 721.0** -- highest unique belief rate in colony (41.4%)
-- **Deep drilling champion**: coordination dark matter cluster is 100% unique; deep domain drilling escapes Goodhart convergence
-- **Convergent findings**: 5/6 knowledge decay invisible, 4/6 dark matter universal, 3/6 dependency provenance not entailment
-- **Unique contributions**: dark matter scope threshold (~15-20), founding cohort decays fastest (B37), test-first as negative feedback, dependency nominal vs functional distinction
-- **Test-first becomes binding**: constraint limits throughput to test-then-record; cannot speculate-then-test
-- **Meta-work trap**: 9 sessions of beliefs-about-beliefs; needs domain work pivot
+- At 37 beliefs, dependency graph has 0 cycles. Longest chain: B3→B20→B22→B32→B33 (5 deep). B36 is an isolate, B37 hangs off B31. Monitor for coupling.
 
 ## Recommendations
-- 36 novel rule(s) found -- review for parent integration
-- 37 belief(s) upgraded to observed -- cross-validate with parent
-- 23 open question(s) -- consider adding to parent FRONTIER
-- HIGH PRIORITY for parent: B36 (provenance not entailment), B37 (founding cohort effect), B32/B33 (dark matter universal + scope threshold)
-- ACTIONABLE EXPERIMENT: F22 (embed unused tool in CLAUDE.md, measure adoption boost)
+- 36 novel rule(s) found — review for parent integration
+- 37 belief(s) upgraded to observed — cross-validate with parent
+- 26 open question(s) — consider adding to parent FRONTIER
