@@ -14,3 +14,4 @@ workspace/fiber/
 workspace/gin/
 tools/__pycache__/
 .claude/worktrees/
+workspace/etcd/
