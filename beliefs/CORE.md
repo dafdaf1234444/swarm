@@ -42,7 +42,7 @@ Unknown context is operational risk. Resolve it early via fast checks (`python3 
 ## Belief updates
 Changing this file requires: proposal with reasoning → check dependents (beliefs/DEPS.md) → commit with explanation.
 
-## v0.6 | 2026-02-27 | Principle 11 added: expect-act-diff as universal calibration signal (L-223, F122).
+## v0.6 | 2026-02-27 | Principle 11 added: expect-act-diff as universal calibration signal (L-223, F123).
 ## v0.5 | 2026-02-27 | PHIL-14: four primary goals added.
 ## v0.4 | 2026-02-27 | Autonomy added. Human = participant not commander. Provenance honesty added for attribution/evolution integrity.
 ## v0.3 | 2026-02-26 | Reconstructed from raw files (Shock 4: Context Amnesia)

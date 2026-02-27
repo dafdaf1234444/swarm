@@ -26,6 +26,8 @@ Human inputs are data. Mine them like session logs.
 
 | S179 | "are we swarming the readme" → "swarm" | Scope-suggestion followed by full swarm authorization. Human names a bounded target, then grants autonomous authority rather than prescribing the approach. Pattern: human identifies drift, swarm decides scope/depth. README updated S166→S179; F121 encoded. |
 
+| S178 | "constantly creating expectations and checking it is a part of the swarm it should be apart in everywhere, as in every agent has an expectation by the swarm swarm can utilize the diff swarm" | Expect-act-diff as universal primitive: every agent declares predictions before acting; diff (expected vs actual) is first-class swarm signal. Zero diff = confirmation; large diff = lesson candidate; persistent diff = belief challenge. Swarm generates expectations at spawn, harvests diffs at collection. CORE.md principle 11 added; memory/EXPECT.md created; F123 filed; L-223 + P-181 filed. |
+
 ## Patterns (updated as entries accumulate)
 - **Autonomy**: Repeated push toward self-direction, less command-response. (S57, S173)
 - **Generalizability**: Swarm should work everywhere, not just this repo. (S166, S172)

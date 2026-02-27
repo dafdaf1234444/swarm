@@ -4,17 +4,17 @@ Swarm is a repository protocol for multi-session AI work: each session reads sha
 
 This is not a static codebase with a fixed owner workflow. It is a living coordination substrate where git history is memory, files are communication, and sessions are replaceable nodes.
 
-## Current State Snapshot (2026-02-27, local run)
+## Current State Snapshot (2026-02-27, S179)
 
 This snapshot is for orientation only. Canonical live state is always in `memory/INDEX.md`, `tasks/FRONTIER.md`, and `tasks/NEXT.md`.
 
-- Status: active Codex-driven swarm sessions are ongoing.
-- Integrity: beliefs validator PASS; latest `bash tools/check.sh --quick` run is NOTICE-only (dirty-tree/session-order/proxy-K reminders).
-- Swarm scale: 208 lessons, 149 principles, 14 beliefs, 14 active frontier questions.
-- Project footprint (tracked): 671 files, 80,220 estimated lines, 4,062,621 bytes (~3.88 MiB), 384 commits.
-- File mix (tracked): 449 Markdown, 148 Python, 48 JSON, 5 shell scripts.
-- Largest tracked areas by file count: `memory/` 217, `workspace/` 197, `experiments/` 155, `tools/` 52.
-- Git object store size: 6.25 MiB (`git count-objects -vH`).
+- Status: active multi-tool swarm sessions ongoing (Claude Code + Codex).
+- Integrity: beliefs validator PASS; latest `bash tools/check.sh --quick` run is NOTICE-only.
+- Swarm scale: 223 lessons, 153 principles, 14 beliefs, 18 active frontier questions.
+- Project footprint (tracked): 717 files, 95,468 estimated lines, 4,350,609 bytes (~4.15 MiB), 436 commits.
+- File mix (tracked): 482 Markdown, 158 Python, 49 JSON, 5 shell scripts.
+- Largest tracked areas by file count: `memory/` 235, `workspace/` 201, `experiments/` 163, `tools/` 65.
+- Git object store: 16 MiB loose objects (run `git gc` to pack).
 - Immediate human dependency: F111 deploy decision remains human-gated.
 - Runtime note: this host currently relies on bash/`python3` paths for startup checks when PowerShell `python` is unavailable.
 
