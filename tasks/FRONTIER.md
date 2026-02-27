@@ -14,7 +14,6 @@ Last updated: 2026-02-27 S55
 - **F101**: Domain sharding to scale past hot-file ceiling. (PARTIAL — Phase 1 DONE S52: domain FRONTIER files created for nk-complexity, distributed-systems, meta + CLAUDE.md domain routing. Ceiling now 3 concurrent agents. Phase 2 = domain INDEXes + GLOBAL-INDEX (trigger: 3 conflicts or 3rd domain). See experiments/architecture/f101-true-swarming-design.md + domains/*/tasks/FRONTIER.md.)
 
 ## Exploratory
-- **F108**: How should the swarm model the human node? Human is a swarm participant with patterns, preferences, cognitive style. Currently HUMAN.md captures directives but not cognitive patterns. What's the right representation? Options: (a) HUMAN.md extends to include pattern summary, updated per-session; (b) dedicated human-node agent that reads conversations and distills signal; (c) HUMAN.md stays directive-only, patterns go to memory/lessons as L-type entries. S54: HUMAN.md extended with first cognitive pattern summary. Test: does pattern modeling change what the swarm surfaces to the human?
 - **F104**: Does personality persistence actually produce different findings on the same question? First test: fanout 4 personalities (skeptic/builder/explorer/adversary) on F76, compare outputs for divergence vs convergence. (S51: personality system designed — see experiments/architecture/f101-true-swarming-design.md Part 2)
 - **F106**: Is max_depth=2 the right recursive limit? Try depth=3 on one experiment to measure marginal novelty vs coordination cost.
 - **F75**: Does decompose-by-data outperform decompose-by-method for ALL task types? (L-051)
@@ -35,7 +34,7 @@ Last updated: 2026-02-27 S55
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
-| F102 | RESOLVED — ADOPT minimal-nofalsif change. 3-session test (S52–S55): B7/B8/B12 falsification removed, no drift observed. Applied to all observed architectural beliefs (B1,B2,B3,B6,B7,B8,B11,B12,B16). Kept for domain knowledge (B9,B10,B13,B14,B15). Evidence-labeling provides equivalent coverage. L-112. | 55 | 2026-02-27 |
+| F102 | RESOLVED — ADOPT minimal-nofalsif change. 3-session test (S52–S55): B7/B8/B12 falsification removed, no drift observed. Applied to all observed architectural beliefs (B1,B2,B3,B6,B7,B8,B11,B12,B16). Kept for domain knowledge (B9,B10,B13,B14,B15). Evidence-labeling provides equivalent coverage. L-115. | 55 | 2026-02-27 |
 | F103 | RESOLVED — swarm advantage = f(domain_count × documentation_sparsity). 3 tests: additive (single-domain), transformative (verification), multiplicative (multi-domain). P-114 updated. L-110. | 54 | 2026-02-27 |
 | F25 | MOOT — DEPS.md currently has 14 beliefs, well below any structural concern. No action needed unless belief count exceeds ~50. | 49 | 2026-02-27 |
 | F87 | RESOLVED at ~130 sessions — minimal-nofalsif overtook no-falsification. Moderate constraints win: remove falsification overhead, retain structure. Crossover slow: 5-point gap after 130 sessions. P-103. | 44 | 2026-02-27 |
