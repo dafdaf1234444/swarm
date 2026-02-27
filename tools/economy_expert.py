@@ -77,26 +77,50 @@ def compute_production(sessions: list[dict]) -> dict:
 # ---------------------------------------------------------------------------
 
 def read_proxy_k() -> dict:
-    """Read Proxy-K floor and drift from SESSION-LOG or HEALTH.md."""
+    """Read Proxy-K current total and floor; compute drift."""
+    import subprocess
+
+    # Get current token count from proxy_k.py
+    current: int | None = None
+    try:
+        result = subprocess.run(
+            ["python3", str(ROOT / "tools" / "proxy_k.py")],
+            capture_output=True, text=True, cwd=ROOT, timeout=30
+        )
+        m = re.search(r"TOTAL\s+([\d,]+)\s+tokens", result.stdout)
+        if m:
+            current = int(m.group(1).replace(",", ""))
+    except Exception:
+        pass
+
+    # Read floor from session log (most recent "floor NNNt" on a proxy-K line)
+    floor: int | None = None
     log_path = ROOT / "memory" / "SESSION-LOG.md"
-    if not log_path.exists():
-        return {}
-    text = log_path.read_text(encoding="utf-8")
-    floor_m = re.search(r"floor[= ](\d[\d,]+)t", text)
-    drift_m = re.search(r"(-?\d+\.?\d*)%.*?drift|proxy.K.*?(-?\d+\.?\d*)%", text)
-    floor = int(floor_m.group(1).replace(",", "")) if floor_m else None
-    drift = None
-    if drift_m:
-        drift = float(drift_m.group(1) or drift_m.group(2))
+    if log_path.exists():
+        text = log_path.read_text(encoding="utf-8")
+        # Look for lines explicitly about proxy-K with a floor value
+        for line in reversed(text.splitlines()):
+            if "proxy" in line.lower() and "floor" in line.lower():
+                m = re.search(r"floor[= ]?(\d[\d,]+)t", line)
+                if m:
+                    floor = int(m.group(1).replace(",", ""))
+                    break
+
+    drift: float | None = None
+    if current is not None and floor and floor > 0:
+        drift = round((current - floor) / floor * 100, 2)
+
+    status = (
+        "URGENT" if drift is not None and drift > 10
+        else "DUE" if drift is not None and drift > 6
+        else "HEALTHY" if drift is not None
+        else "UNKNOWN"
+    )
     return {
         "floor_tokens": floor,
-        "last_drift_pct": drift,
-        "status": (
-            "URGENT" if drift and abs(drift) > 10
-            else "DUE" if drift and abs(drift) > 6
-            else "HEALTHY" if drift is not None
-            else "UNKNOWN"
-        ),
+        "current_tokens": current,
+        "drift_pct": drift,
+        "status": status,
     }
 
 
@@ -265,7 +289,7 @@ def recommendations(production: dict, proxy: dict, sharpe: dict,
 
     # Proxy-K resource
     status = proxy.get("status", "UNKNOWN")
-    drift = proxy.get("last_drift_pct")
+    drift = proxy.get("drift_pct")
     if status == "URGENT":
         recs.append(f"URGENT: proxy-K drift {drift}% exceeds 10% — run compact.py immediately")
     elif status == "DUE":
