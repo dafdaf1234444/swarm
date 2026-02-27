@@ -5,7 +5,7 @@ Evidence types: `observed` (empirically tested in this system) | `theorized` (re
 When a belief is disproven: check dependents below → update those too.
 
 ## Interconnection model
-N=14 beliefs (11 observed, 3 theorized), target K≈1. See L-025.
+N=14 beliefs (12 observed, 2 theorized), target K≈1. See L-025.
 K=0 is frozen (no cascades, no adaptation). K=N-1 is chaotic (everything affects everything).
 
 ```
@@ -20,7 +20,7 @@ B9 (NK predictive power) ──→ B10 (cycle-count predictor)
 B10 (cycles predict unresolvable bugs) — observed
 B11 (CRDT knowledge structures) — observed
 B12 (tool adoption power law) — observed
-B13 (error handling dominates failures) — theorized [distributed-systems]
+B13 (error handling dominates failures) — observed [distributed-systems]
 B14 (small-scale reproducibility) ──→ B13 — theorized [distributed-systems]
 B15 (CAP tradeoff) — theorized [distributed-systems]
 ```
@@ -93,15 +93,16 @@ B15 (CAP tradeoff) — theorized [distributed-systems]
 - **Depends on**: B7
 - **Last tested**: 2026-02-27 (test-first child B20-B22: 3 tools near 100% (NEXT.md, FRONTIER.md, validate_beliefs.py) vs 6 tools at <20% (bulletin.py, frontier_claim.py, colony.py, etc. ~1524 LOC total). L-084)
 
-### B13: Incorrect error handling, not algorithm design, causes ~92% of catastrophic distributed systems failures
-- **Evidence**: theorized (strong corroboration — 12 examples found in 3 systems, 3 independent studies confirm)
+### B13: Incorrect error handling is the dominant cause of catastrophic distributed systems failures (53-92% depending on methodology)
+- **Evidence**: observed (100-bug classification across 24 systems, 5 independent studies)
 - **Falsified if**: A comparable study of 100+ failures in distributed systems finds that fewer than 50% trace to error handling, OR finds that consensus algorithm bugs dominate catastrophic failures
 - **Depends on**: none
 - **Depended on by**: B14
-- **Source**: Yuan et al. OSDI 2014 — 198 failures across Cassandra, HBase, HDFS, MapReduce, Redis. Three anti-patterns: swallowed errors, TODO handlers, overly-broad catch-then-abort
-- **Corroboration (S45)**: 12 anti-pattern examples in etcd (4), CockroachDB (4), Redis (4). Three independent studies: Gunawi SoCC 2014 (18% of all bugs), Liu & Lu HotOS 2019 (31% of Azure incidents), Chang 2022 (top-3 partial failure cause). See experiments/distributed-systems/real-world-failures.md
-- **Path to observed**: Classify 60+ catastrophic bugs from etcd/CockroachDB/Redis by root cause. If >50% trace to error handling, upgrade to observed.
-- **Last tested**: 2026-02-27 (S45: 12 examples confirmed across modern Go/C systems)
+- **Source**: Yuan et al. OSDI 2014 — 198 failures across Cassandra, HBase, HDFS, MapReduce, Redis: 92% EH. Three anti-patterns: swallowed errors, TODO handlers, overly-broad catch-then-abort
+- **Evidence (S47)**: 100 bugs classified across 24 systems (Jepsen analyses + GitHub + postmortems): EH=53%, AP=26%, CFG=10%, CC=5%. Falsification condition NOT met even in Jepsen-biased sample (which over-selects protocol bugs). EH+CFG (config failures often EH-adjacent) = 63%. See experiments/distributed-systems/f94-bug-classification.md
+- **Reconciliation**: 92% (Yuan) vs 53% (Jepsen) gap explained by population difference: Yuan studied user-reported catastrophic failures; Jepsen proactively tests consensus protocols (over-samples AP category). Both studies confirm EH is the dominant category.
+- **Corroboration**: 5 independent studies agree — Gunawi SoCC 2014 (18% of all bugs, #2 behind logic), Liu & Lu HotOS 2019 (31% of Azure incidents), Chang NSDI 2020 (top-3 partial failure causes all EH-related), Ganesan FAST 2017 (crash-instead-of-recover dominates), Yuan OSDI 2014 (92%).
+- **Last tested**: 2026-02-27 (S47: F94 — 100 bugs, 24 systems classified)
 - **Domain**: distributed-systems
 
 ### B14: Most distributed systems bugs (98%) are reproducible with 3 or fewer nodes and are deterministic (74%)
@@ -123,11 +124,13 @@ B15 (CAP tradeoff) — theorized [distributed-systems]
 - **Last tested**: Not yet tested — theorized from external research (S44)
 - **Domain**: distributed-systems
 
-### B16: Knowledge decay is invisible to growth metrics — lessons and beliefs accumulate but silently lose relevance
+### B16: Knowledge decay is present but asymmetric — specific claims decay faster than extracted principles, making it visible on reading but invisible to growth metrics
 - **Evidence**: observed
-- **Falsified if**: A systematic review of lessons older than 10 sessions finds >80% still actionable and current, OR growth metrics (lesson count, belief count) correlate with a measured quality metric (e.g., session productivity) at r>0.7
+- **Falsified if**: A systematic review of lessons older than 10 sessions finds >80% still actionable and fully current (not just rule-level actionable), OR growth metrics (lesson count, belief count) correlate with a measured quality metric (e.g., session productivity) at r>0.7
 - **Depends on**: B7 (protocols compound, but decay is the counterforce)
-- **Last tested**: 2026-02-27 (Harvest R4: 3/6 child variants independently discovered this. test-first B25: falsification conditions decay silently. minimal-nofalsif B25: knowledge decay invisible to metrics. no-falsification B22: knowledge decays asymmetrically by type. Parent evidence: 24 tools built, <20% used (L-084). Medical knowledge half-life 18-24 months. L-092)
+- **Evidence (S47)**: F99 — systematic review of L-001 to L-030 (30 lessons, 30+ sessions old). Result: 67% ACTIONABLE, 33% PARTIALLY_STALE, 0% STALE. Falsification threshold (>80% fully current) NOT met — decay exists. BUT "invisible" overstated: staleness is visible when reading (outdated session counts, version labels, measurements). Mitigation works: PRINCIPLES.md strips decaying context → 100% actionable at rule level. See experiments/distributed-systems/f99-knowledge-decay.md
+- **Refined understanding**: Decay patterns: (1) session-count references age immediately, (2) version labels stale when thing evolves, (3) specific measurements are point-in-time. Protocols and architecture validations are least vulnerable (no expiry).
+- **Last tested**: 2026-02-27 (S47: F99 — 30-lesson systematic review)
 - **Convergence**: 3/6 variants (test-first, minimal-nofalsif, no-falsification)
 
 ---

@@ -139,7 +139,17 @@ Novel rules: 22/22
 - B19 predicts transfer efficiency is proportional to reusable/total component ratio. This swarm's ratio is 37 principles / (37 principles + 21 beliefs) = 0.64. Parent's ratio is 83/(83+13) = 0.86. Does the higher ratio predict better cross-boundary transfer?
 - B20 (automatic composition > manual) suggests we should systematically try ALL pairwise principle combinations rather than relying on intuition for which pairs to cross. At 37 principles that is 666 pairs. Can a structured search protocol find high-value crossovers that intuition misses?
 
+## R4 Harvest Notes (2026-02-27)
+- **#4 at 543.2** -- additive variant with strongest generative capability
+- **Most novel mechanism**: principle recombination at 90% success rate with shared-interface-dimension constraint (B12, B23)
+- **Unique contributions**: crossover failure conditions (ephemeral vs persistent state), Condorcet-as-task-agnosticism-test (B24), maturation co-produces lower coupling + higher transfer (B25), regime-dependent trait quality (B26)
+- **Convergent findings**: 5/6 layered negative feedback, complementary > opposing traits
+- **Highest principles-per-lesson ratio**: 2.1 principles/lesson vs parent's 1.06
+- **Gen-3 hybrid candidate**: combining with minimal-nofalsif could yield highest novelty rate
+
 ## Recommendations
-- 22 novel rule(s) found — review for parent integration
-- 26 belief(s) upgraded to observed — cross-validate with parent
-- 18 open question(s) — consider adding to parent FRONTIER
+- 22 novel rule(s) found -- review for parent integration
+- 26 belief(s) upgraded to observed -- cross-validate with parent
+- 18 open question(s) -- consider adding to parent FRONTIER
+- HIGH PRIORITY for parent: B12 (principle recombination ~90%), B23 (crossover failure conditions), B24 (Condorcet task-agnosticism test)
+- STRATEGIC: consider gen-3 hybrid minimal-nofalsif + principles-first for maximum novelty generation

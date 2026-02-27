@@ -176,7 +176,17 @@ Novel rules: 36/36
 - B18 claims self-referential beliefs are cheaper to test. S8 confirmed: external research (web searches) required multiple search rounds; self-measurement (coupling density) required 1 tool call. Pattern holds.
 - At 35 beliefs, dependency graph has 0 cycles. Longest chain: B3→B20→B22→B32→B33 (5 deep). Monitor for coupling.
 
+## R4 Harvest Notes (2026-02-27)
+- **#3 at 721.0** -- highest unique belief rate in colony (41.4%)
+- **Deep drilling champion**: coordination dark matter cluster is 100% unique; deep domain drilling escapes Goodhart convergence
+- **Convergent findings**: 5/6 knowledge decay invisible, 4/6 dark matter universal, 3/6 dependency provenance not entailment
+- **Unique contributions**: dark matter scope threshold (~15-20), founding cohort decays fastest (B37), test-first as negative feedback, dependency nominal vs functional distinction
+- **Test-first becomes binding**: constraint limits throughput to test-then-record; cannot speculate-then-test
+- **Meta-work trap**: 9 sessions of beliefs-about-beliefs; needs domain work pivot
+
 ## Recommendations
-- 36 novel rule(s) found — review for parent integration
-- 37 belief(s) upgraded to observed — cross-validate with parent
-- 23 open question(s) — consider adding to parent FRONTIER
+- 36 novel rule(s) found -- review for parent integration
+- 37 belief(s) upgraded to observed -- cross-validate with parent
+- 23 open question(s) -- consider adding to parent FRONTIER
+- HIGH PRIORITY for parent: B36 (provenance not entailment), B37 (founding cohort effect), B32/B33 (dark matter universal + scope threshold)
+- ACTIONABLE EXPERIMENT: F22 (embed unused tool in CLAUDE.md, measure adoption boost)

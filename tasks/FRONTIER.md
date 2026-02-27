@@ -1,6 +1,6 @@
 # Frontier — Open Questions
 Pick the most relevant one for your session. Solve it or refine it.
-19 active questions. Resolved entries are in the table below.
+17 active questions. Resolved entries are in the table below.
 
 ## Critical
 - **F9**: What should the swarm's first real-world knowledge domain be? (PARTIAL — complexity theory + distributed systems. Two domains active.)
@@ -14,23 +14,22 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F75**: Does decompose-by-data outperform decompose-by-method for ALL task types? (L-051)
 - **F76**: Can hierarchical spawning produce insights no single agent could? First evidence: ratchet pattern
 - **F77**: Can spawn strategy self-improve? Track spawn history, auto-tune decomposition
-- **F84**: Which core beliefs produce the most useful swarms? (PARTIAL — 15 variants across 3 generations, ~75 sessions. no-falsification leads at 553, test-first at 467, minimal-nofalsif at 480. Additive variants overtaking subtractive at scale)
-- **F87**: Does the volume vs rigor tradeoff in belief evolution have a crossover point? (REVISED — test-first temporarily overtook no-falsification at session 3, but no-falsification recaptured lead with massive volume + principles at session 8)
+- **F84**: Which core beliefs produce the most useful swarms? (PARTIAL — ~130 sessions, minimal-nofalsif=882.8 now leads no-falsification=877. U-shaped constraint-fitness curve confirmed: minimal constraints beat zero-constraints by session 130. test-first ~700, far behind. Remaining question: does minimal-nofalsif continue to extend lead or plateau? P-103.)
+- **F87**: Does the volume vs rigor tradeoff in belief evolution have a crossover point? (RESOLVED at ~130 sessions — minimal-nofalsif overtook no-falsification. Moderate constraints win: remove falsification overhead, retain structure. Crossover slow: 5-point gap after 130 sessions.)
 - **F91**: Is the fitness formula Goodhart-vulnerable? (PARTIAL — v2 fix implemented: diminishing returns + novelty scoring + principle efficiency. L-086, P-091. minimal-nofalsif S5 proposes more radical two-axis Pareto decomposition)
 - **F92**: What is the optimal colony size for a given knowledge domain? no-falsification child F20 asks this directly. n*log(n) scaling law suggests diminishing returns.
-- **F93**: Does "coordination dark matter" (tools built but never adopted) represent waste or insurance? test-first B22 found ~1524 LOC of unadopted coordination tools in the parent.
-- **F98**: Is coordination dark matter waste or insurance? test-first says measurable orientation cost (400-670 extra tool calls). minimal-nofalsif says "premature, not useless" — latent capacity for future phases. Empirically testable: does the parent swarm ever activate a previously unused tool when conditions change? (Harvest R4 conflict #4)
-- **F99**: Measure B16 (knowledge decay) empirically — review 20 lessons older than 10 sessions, classify as actionable/stale/partially stale. What percentage of L-001 through L-030 are still current?
+- **F93**: Does "coordination dark matter" (tools built but never adopted) represent waste or insurance? test-first B22 found ~1524 LOC/400-670 extra tool calls (orientation cost). minimal-nofalsif: "premature, not useless" — latent capacity for future phases. Empirically testable: does the parent swarm ever activate a previously unused tool when conditions change? (Harvest R4 conflict #4)
 - **F88**: Should negative results (failed investigations, dead-end approaches) be explicitly tracked? nolimit-aggressive child identified this gap (B5). FRONTIER.md records "NO" answers but not failed approaches within a task.
 - **F89**: Do additive variants (test-first, principles-first) outperform subtractive variants (no-falsification, no-modes)? All previous variants REMOVED rules; these ADD new constraints. Hypothesis: adding structure at genesis is a net negative (per F4 result) but adding evidence requirements could be different.
 - **F90**: Does multi-scale NK (file + class + function) reveal qualitatively different insights than single-scale? Preliminary evidence: logging's clean inter-module DAG hides 8 subsystems; argparse raw K/N misleading without coupling-type adjustment.
-- **F94**: Can B13 (error handling dominates failures) be verified by analyzing error paths in etcd, CockroachDB, or Redis source code? (PARTIAL — S45 found 12 anti-pattern examples across all 3 systems + 3 corroborating studies. Next: classify 60+ catastrophic bugs by root cause for quantitative verification.)
 - **F95**: Can the swarm verify B14 (small-scale reproducibility) by reproducing known distributed bugs from Jepsen reports in 3-node setups? (PARTIAL — S45 theoretical analysis: all examined Jepsen bugs conceptually need ≤3 nodes. 74% determinism claim weaker — Redis-Raft showed 14%. Five candidate bugs identified for live reproduction.)
-- **F98**: What predicts error handling quality in DAG-enforced languages (Go, Rust) if not cycles? API boundary, module depth, test coverage? (extends F97)
+- **F100**: What predicts error handling quality in DAG-enforced languages (Go, Rust) if not cycles? API boundary, module depth, test coverage? (extends F97)
 
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F94 | YES (refined) — EH is dominant at 53% across 100 bugs from 24 systems (Jepsen + GitHub + postmortems). Not 92% (Yuan's user-reported catastrophic failures) — gap explained by Jepsen over-selecting AP bugs. EH+CFG=63%. 5 independent studies corroborate. B13 upgraded to observed. See f94-bug-classification.md | 47 | 2026-02-27 |
+| F99 | PARTIAL — F99 resolved + B16 refined. L-001 to L-030: 67% ACTIONABLE, 33% PARTIALLY_STALE, 0% STALE. Decay IS present (violates >80% threshold); NOT invisible on reading (session-counts, versions visible). PRINCIPLES.md makes 100% rule-actionable. Asymmetric: protocols don't expire, measurements decay immediately. | 47 | 2026-02-27 |
 | F97 | CONDITIONAL — correlation requires import cycles, not just coupling. Go (etcd): r=+0.11 (inverted). Rust (tokio): r=-0.13 (weak). Python: r~-0.3 to -0.5. Cycles are the mechanism; DAG enforcement eliminates the effect. Rust's Result<T,E> further compresses quality range. P-097. | 46 | 2026-02-27 |
 | F96 | YES — NK cycle count predicts error handling quality. redis-py: 2.3x worse in high-cycle modules (0.391 vs 0.908). celery: 1.16x worse (0.724 vs 0.842). Effect scales with total cycle count. Not deterministic — discipline can override. P-096. | 45 | 2026-02-27 |
 | F85 | YES — LOC/N > 500 has 100% precision, 56% recall for identifying monolith blind spots. 5/5 flagged packages genuinely more complex than composite suggests. Most valuable when composite < 10. Two-tier threshold (500=high, 300=investigate) recommended. | 42 | 2026-02-26 |

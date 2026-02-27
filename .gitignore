@@ -10,3 +10,7 @@ workspace/click/
 workspace/jinja/
 workspace/requests/
 workspace/black/
+workspace/fiber/
+workspace/gin/
+tools/__pycache__/
+.claude/worktrees/

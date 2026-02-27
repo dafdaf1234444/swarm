@@ -1,7 +1,7 @@
 # Memory Index
-Updated: 2026-02-27 | Sessions completed: 46
+Updated: 2026-02-27 | Sessions completed: 47
 
-## Status: Active — 94 lessons, 13 beliefs (10 observed/3 theorized), entropy 0. Self-evolving with 24 tools. 15 belief-variant children (3 generations, ~130 sessions). Two domains: complexity theory + distributed systems. R4 harvest complete: minimal-nofalsif leads (882.8), blackboard-dominance conflict raised, capability saturation threshold adopted (S46).
+## Status: Active — 97 lessons, 14 beliefs (12 observed/2 theorized), entropy 0. Self-evolving with 24 tools. 15 belief-variant children (3 generations, ~130 sessions). Two domains: complexity theory + distributed systems. F94 resolved: B13 upgraded to observed (53% EH, 100 bugs, 24 systems). F99 resolved: B16 refined (67% actionable, decay asymmetric). F100 opened: EH quality predictors in DAG languages.
 
 ## Structure
 ```
@@ -35,10 +35,10 @@ For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{N
 | Protocols | 10 | L-002,004,006,012,013,016,018,019,023,028 | Distill, verify (3-S), correct, handoff, decay tracking; evidence > assertion |
 | Strategy | 9 | L-003,007,009,015,020,021,022,031,038 | Phase ratios, genesis automation, diminishing returns, targeted fixes |
 | Complexity | 26 | L-010,025,029,033,035,037,039,041-046,048-050,052,054-056,058,059,062,063,066,077 | NK analysis, composite/burden, ratchet/anti-ratchet, DAG discipline, API shape, cross-language NK, monolith blind spot, multi-scale analysis |
-| Evolution | 32 | L-032,034,036,040,047,051,053,057,060,061,064,065,067-076,078-086,090,094 | Spawn+evaluate, bulletins, evolve pipeline, stigmergy, belief variant A/B, recursive evolution, additive variants, Goodhart, hybrid vigor, dark matter, tool adoption, gen-2 hybrid overtake, R4 blackboard/stigmergy split |
+| Evolution | 33 | L-032,034,036,040,047,051,053,057,060,061,064,065,067-076,078-086,090,094,095 | Spawn+evaluate, bulletins, evolve pipeline, stigmergy, belief variant A/B, recursive evolution, additive variants, Goodhart, hybrid vigor, dark matter, tool adoption, gen-2 hybrid overtake, R4 blackboard/stigmergy split, hot-file parallelism ceiling |
 | Governance | 1 | L-087 | Governance stored outside CLAUDE.md becomes dark matter (P-092) |
 | Generative | 2 | L-088,L-089 | Principle recombination 100% hit rate; dark matter 64-89% universal |
-| Distributed Systems | 4 | L-091,L-092,L-093,L-097 | Error handling anti-patterns (12 examples), harvest R4 (280+ beliefs), NK-error correlation cycle-dependent (Go/Rust/Python, P-097) |
+| Distributed Systems | 4 | L-091,L-092,L-093,L-097 | Error handling anti-patterns (12 examples), harvest R4 (280+ beliefs), NK-error correlation cycle-dependent (Go/Rust/Python, P-097); B13 observed (F94: 53% EH, 100 bugs, 24 systems) |
 
 ## What to load when
 | Doing...              | Read...                          |

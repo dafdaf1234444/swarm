@@ -2,63 +2,63 @@
 Date: 2026-02-27
 
 ## Recent Activity (last 10 commits)
-  99667d7 [S44] Distributed systems domain: B13-B15 theorized, 3 research reports, L-088 (21 seconds ago)
-  ba68759 [S44] remove B13-B15 distributed systems beliefs (background agent cross-contamination) (2 minutes ago)
-  bede3af [S44] L-087 meta-governance trap + evolution analysis update (~100 sessions) (4 minutes ago)
-  5a5a00b [S44] Goodhart fix v2: novelty + diminishing returns + principle efficiency (8 minutes ago)
-  736ec03 [S44] L-085 parent tool audit + INDEX/NEXT updates (13 minutes ago)
-  8c1d955 [S44] fix dep-sync warnings: B3→B11, B7→B12 (18 minutes ago)
-  15d7f9e [S44] harvest R3 + 2 new parent beliefs: CRDT knowledge (B11), tool adoption power law (B12) (19 minutes ago)
-  9e7ca1a [S44] 15 variants at ~75 sessions: nofalsif=553, test-first=467, minimal-nofalsif=480 (13 hours ago)
-  1bb0fa2 [S44] 3 stigmergy mechanisms: signal decay, colony pulse, task claiming (13 hours ago)
-  1a37463 [S43] /swarm command + 3 parallel stdlib NK analyses + human tracking (13 hours ago)
+  44b33b4 [S46] L-097: cycle-dependent error correlation + INDEX fix for concurrent session collision (64 seconds ago)
+  f5fc2db [S44] evaluate-all ~140 sessions: no-falsif=951 reclaims #1, test-first=839 (+118) (2 minutes ago)
+  a2b2c9a [S46] add R4 merge reports (untracked artifacts from S44 harvest) (3 minutes ago)
+  78f0675 [S46] F97 resolved: NK-error correlation is cycle-dependent, not coupling-dependent (3 minutes ago)
+  dd34401 [S44] F98-F99: dark matter waste-vs-insurance conflict + B16 decay measurement (7 minutes ago)
+  8acf749 [S44] B16 knowledge decay invisible to growth metrics (3/6 convergent, harvest R4) (7 minutes ago)
+  3dd6183 [S44] harvest R4: 280+ beliefs, 22 convergent concepts, 6 conflicts (9 minutes ago)
+  e62e676 [S45] F94/F95 distributed systems verification: 12 error handling examples, B13-B15 restored (13 minutes ago)
+  ea31484 [S44] L-090 hybrid overtake + evolution analysis update (~130 sessions) (14 minutes ago)
+  23cf748 [S44] evaluate-all ~130 sessions: minimal-nofalsif=882.8 overtakes no-falsification=877 (19 minutes ago)
 
 ## Hot Files (modified in last 5 commits)
-  memory/INDEX.md (4x)
-  memory/PRINCIPLES.md (3x)
-  beliefs/DEPS.md (2x)
+  memory/INDEX.md (2x)
   tasks/FRONTIER.md (2x)
-  tasks/NEXT.md (2x)
-  experiments/belief-variants/evolution-results.json (2x)
-  experiments/belief-variants/fitness-history.json (2x)
-  experiments/distributed-systems/cap-theorem.md (1x)
-  experiments/distributed-systems/consensus-protocols.md (1x)
-  experiments/distributed-systems/real-world-failures.md (1x)
+  memory/lessons/L-097.md (1x)
+  experiments/belief-variants/evolution-results.json (1x)
+  experiments/belief-variants/fitness-history.json (1x)
+  memory/lessons/L-096.md (1x)
+  experiments/merge-reports/belief-aggressive-challenge.md (1x)
+  experiments/merge-reports/belief-control.md (1x)
+  experiments/merge-reports/belief-minimal-nofalsif.md (1x)
+  experiments/merge-reports/belief-no-falsification.md (1x)
 
 ## Active Claims
   F82: claimed by S42 at 2026-02-26T10:54:03
   F83: claimed by S42 at 2026-02-26T10:54:12
 
 ## Frontier Questions (by signal strength)
-  [1.00] F96: Does NK complexity analysis predict which distributed system comp
+  [1.00] F99: Measure B16 (knowledge decay) empirically — review 20 lessons old
+  [1.00] F98: What predicts error handling quality in DAG-enforced languages (G
+  [1.00] F98: Is coordination dark matter waste or insurance? test-first says m
   [1.00] F95: Can the swarm verify B14 (small-scale reproducibility) by reprodu
   [1.00] F94: Can B13 (error handling dominates failures) be verified by analyz
   [1.00] F93: Does "coordination dark matter" (tools built but never adopted) r
   [1.00] F92: What is the optimal colony size for a given knowledge domain? no-
   [1.00] F91: Is the fitness formula Goodhart-vulnerable? (PARTIAL — v2 fix imp
-  [0.90] F90: Does multi-scale NK (file + class + function) reveal qualitativel
-  [0.90] F9: What should the swarm's first real-world knowledge domain be? (PA
 
-  Open: 18 | Resolved: 77
+  Open: 20 | Resolved: 79
 
 ## Children
   architecture-test-baseline [spawned] lessons: 0
   architecture-test-minimal [spawned] lessons: 0
   belief-aggressive-challenge [active] lessons: 12
-  belief-aggressive-minimal [active] lessons: 9
+  belief-aggressive-minimal [active] lessons: 15
   belief-control            [active] lessons: 14
   belief-minimal            [active] lessons: 15
-  belief-minimal-nofalsif   [active] lessons: 36
-  belief-minimal-nofalsif-principles-first [active] lessons: 24
+  belief-minimal-nofalsif   [active] lessons: 43
+  belief-minimal-nofalsif-principles-first [active] lessons: 37
   belief-minimal-test-first [active] lessons: 9
-  belief-no-falsification   [active] lessons: 43
-  belief-no-lesson-limit    [active] lessons: 9
-  belief-no-modes           [active] lessons: 12
+  belief-no-falsification   [active] lessons: 51
+  belief-no-lesson-limit    [active] lessons: 12
+  belief-no-modes           [active] lessons: 16
   belief-nofalsif-aggressive [active] lessons: 11
-  belief-nofalsif-nolimit   [active] lessons: 12
+  belief-nofalsif-nolimit   [active] lessons: 16
   belief-nolimit-aggressive [active] lessons: 9
-  belief-principles-first   [active] lessons: 14
-  belief-test-first         [active] lessons: 29
+  belief-principles-first   [active] lessons: 22
+  belief-test-first         [active] lessons: 36
   complexity-test           [integrated] lessons: 1
   concurrent-a              [integrated] lessons: 1
   concurrent-b              [integrated] lessons: 1
@@ -72,4 +72,4 @@ Date: 2026-02-27
 ## System Health
   Swarmability: 100/100
   Entropy: 0
-  Commits: 159 | Lessons: 88 | Principles: 91
+  Commits: 173 | Lessons: 97 | Principles: 101

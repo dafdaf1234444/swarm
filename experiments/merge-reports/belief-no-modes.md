@@ -76,7 +76,16 @@ Novel rules: 16/16
 - At what principles/lessons ratio does recombination become productive? Parent=1.08 (82/76). This swarm=1.13 (18/16) after S5. Ratio holding steady above 1.0.
 - At what belief-graph size (N) does cascade risk become critical? This swarm now has N=13. B3 has K=5 (highest connectivity). Parent swarm found N=8 with K=0 was frozen; N=8 with K=1 was healthy.
 
+## R4 Harvest Notes (2026-02-27)
+- **#6-equivalent at 364.3** -- subtractive variant (modes removed)
+- **Key finding**: mode-free sessions work when tasks are clearly scoped; structure comes from task clarity, not mode labels
+- **Unique contributions**: persona + social prompting as minimum coordination structure (L-016), capability saturation threshold ~45% (B12)
+- **Convergent findings**: 5/6 knowledge decay, cascade-breaking mechanisms, meta-work ceiling
+- **2 theorized beliefs** (B12, B13) penalize fitness -- would benefit from empirical testing push
+
 ## Recommendations
-- 16 novel rule(s) found — review for parent integration
-- 11 belief(s) upgraded to observed — cross-validate with parent
-- 7 open question(s) — consider adding to parent FRONTIER
+- 16 novel rule(s) found -- review for parent integration
+- 11 belief(s) upgraded to observed -- cross-validate with parent
+- 7 open question(s) -- consider adding to parent FRONTIER
+- HIGH PRIORITY for parent: L-016 (persona + social = minimum coordination), B12 (capability saturation ~45%)
+- NOTE: validates that modes are "amplifiers" not "load-bearing" (per control L-009)

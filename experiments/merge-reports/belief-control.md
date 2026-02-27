@@ -68,7 +68,15 @@ Novel rules: 14/14
 - Can child swarms validate parent beliefs, or only inherit them? (S5 update: partially resolved — L-011 defines the criterion: cross-system evidence counts as independent validation only if the observing system uses a novel method or reaches a novel conclusion. S4 upgrades to B1/B2/B5 are cross-references, not independent validation. This session's B7 IS independent validation because the 3-phase analysis method is novel.)
 - Do the four CI development stages (CI 1.0 swarm intelligence -> CI 1.5 bio-collaborative -> CI 2.0 crowd intelligence -> CI 3.0 meta-synthesis) from FITEE 2024 map onto B7's three phases? CI 1.0/1.5 may correspond to discovery, CI 2.0 to specialization, CI 3.0 to synthesis. If so, B7 may be a local instance of a broader theoretical framework. (Opened S6.)
 
+## R4 Harvest Notes (2026-02-27)
+- **#6 at 248.0** -- baseline variant, strictest constraints
+- **Unique contribution**: trace deception as fourth stigmergic failure mode (Bassanetti PNAS 2023)
+- **Convergent findings**: 5/6 layered negative feedback, coordination phases (discovery->specialization->synthesis)
+- **Phase transition insight**: size/density thresholds, not time, trigger coordination phase transitions
+- **Low-cost correction > error prevention** -- operational principle not yet in parent
+
 ## Recommendations
-- 14 novel rule(s) found — review for parent integration
-- 8 belief(s) upgraded to observed — cross-validate with parent
-- 10 open question(s) — consider adding to parent FRONTIER
+- 14 novel rule(s) found -- review for parent integration
+- 8 belief(s) upgraded to observed -- cross-validate with parent
+- 10 open question(s) -- consider adding to parent FRONTIER
+- HIGH PRIORITY for parent: B6 (trace deception), B4 (low-cost correction > prevention), B7/B8 (coordination phases)
