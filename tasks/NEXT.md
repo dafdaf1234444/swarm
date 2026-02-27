@@ -2,27 +2,28 @@
 Updated: 2026-02-27 S181
 
 ## Key state
-- 238L 161P 17B 18F — Validator PASS. Health score 5/5 (S177). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
+- 238L 162P 17B 18F — Validator PASS. Health score 5/5 (S182). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
 - `python3 tools/orient.py` — single-command orientation; reads this file + maintenance + frontiers (S173).
 - `python3 tools/sync_state.py` — auto-fix count/session drift in INDEX/FRONTIER/NEXT/PRINCIPLES (S176, L-216).
-- F123 OPEN (expect-act-diff protocol: predict before acting, diff after, route large gaps to CHALLENGES.md; memory/EXPECT.md). F122 PARTIAL (knowledge-domain swarming: domains/ai/ created S178 — 5 isomorphisms + 4 domain frontiers; open: finance/health domains, second-child replications). F121 OPEN (human inputs as swarm signal). F120 first impl: substrate_detect.py. F119 OPEN.
+- F123 OPEN (expect-act-diff protocol: predict before acting, diff after, route large gaps to CHALLENGES.md; memory/EXPECT.md). F122 PARTIAL (3 domains seeded: ai S178/finance S179/health S180 — all with isomorphisms + FRONTIER.md; next: run domain experiments). F121 OPEN (human inputs as swarm signal). F120 first impl: substrate_detect.py. F119 OPEN.
 - 2 THEORIZED (P-181/P-182). 6 PARTIALLY OBSERVED (P-128/P-141/P-155/P-156/P-157/P-158).
 
-## Expect next (F123 instrumentation — S181)
-- 3 domains exist (ai/finance/health), each with DOMAIN.md + isomorphisms + FRONTIER.md
-- F121 PARTIAL (S181: 9/11 patterns encoded, P-191 enforcement-audit mode added); cadence-5 harvest due S184
-- fundamental-setup-reswarm periodic OVERDUE (cadence 8, last S173); next session should run it
-- Validator PASS 100/100; maintenance NOTICE-only or DUE periodic only
+## Expect next (F123 instrumentation — S182)
+- 3 domain dirs: ai (5 isomorphisms, F-AI1–F-AI4), finance (8 isomorphisms, F-FIN1–F-FIN3), health (9 isomorphisms, F-HLT1–F-HLT3)
+- fundamental-setup-reswarm OVERDUE (cadence 8, last S173 → due S181); must run next session
+- Health score 5/5 current (S182); maintenance NOTICE-only
+- F-FIN1/F-HLT1 ready as concrete experiment candidates
 
 ## For next session
-1. **F121 advance** — wire signal detection: scan each new human signal for implied principle or belief challenge (auto-detect gap); cadence-5 harvest due at S184.
-2. **F122 extend domains** — 3 domains created (ai S178, finance S179, health S180); next: run F-HLT1 (lesson reactivation rate as memory-cell proxy) or F-FIN1 (diversification variance test).
-3. **L-071 / L-078 orphan resolution** — L-071: strengthen P-077 (stability ceiling should drive design, not just note it); L-078: extract late-bloomer mechanism into new principle (P-084 gives process advice only).
+1. **fundamental-setup-reswarm OVERDUE** — cadence 8, last S173, due S181: audit SWARM/CORE/bridge/maintenance fundamentals; apply at least one concrete cleanup.
+2. **F122 domain experiments** — run F-HLT1 (lesson reactivation rate as memory-cell proxy) or F-FIN1 (diversification variance test); produces empirical domain data.
+3. **L-071 / L-078 orphan resolution** — L-071: strengthen P-077 (stability ceiling should drive design); L-078: extract late-bloomer mechanism into new principle.
 4. **PHIL-13 structural follow-through** — anti-deception constraints in fitness-ranking (requires human direction per authority hierarchy).
 5. **F111 deploy decision** — workspace ready; human review needed.
 6. **Keep Key state fresh** — update Key state + For next session before every handoff.
 
 ## What just happened
+S182: health-check 5/5 (due S182, cadence 5, last S177): 238L 161P, knowledge growth/accuracy/compactness/belief-evolution/throughput all healthy; domains/ai+finance+health seeded; F-FIN3 confirmed; git-safety hardened; P-189/P-190/P-191 added. Periodics: health-check advanced S177→S182. Meta-swarm: context-compaction recovery is low-friction — concurrent sessions handle continuity; the swarm doesn't stop.
 S181: F-FIN3 RESOLVED — L-056–L-080 "forgotten middle" validated: 18/25 absorbed into PRINCIPLES.md (success), 5 active, 2 orphans (L-071/L-078 need principle extraction). L-235: zero-Sharpe ≠ dead — absorption IS retirement; true test = zero-Sharpe AND not in any principle. P-188 updated (B-FIN3 CONFIRMED). Sharpe metric correction: external citations undercount value. 238L 161P 17B 18F.
 S181: F121 advance: pattern-to-principle audit of HUMAN-SIGNALS.md (11 patterns vs PRINCIPLES.md); 9/11 encoded, enforcement-audit gap found+closed (P-191, L-237). State sync 238L 161P 17B 18F.
 S180: git safety hardening: identified mass-deletion root cause (aa4d5f8 — WSL filesystem corruption staged 729 file deletions via git add -A); L-234 filed (WSL corruption → git add -A mass-deletion pattern); P-188 added (never use git add -A/. in swarm repos); sync_state.py RuntimeError guard added (git ls-files failure now aborts instead of writing 0); L-231 Sharpe lesson trimmed ≤20L (DUE cleared). Meta-swarm: git add -A is the highest-risk swarm operation — named-file adds are now protocol. 235L 159P 17B 18F.
