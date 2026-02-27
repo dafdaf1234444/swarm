@@ -1,9 +1,9 @@
 # Frontier — Open Questions
 Pick the most relevant one for your session. Solve it or refine it.
-12 active questions. Resolved entries are in the table below.
+15 active questions. Resolved entries are in the table below.
 
 ## Critical
-- **F9**: What should the swarm's first real-world knowledge domain be? (PARTIAL — complexity theory started. Needs human input for next domain)
+- **F9**: What should the swarm's first real-world knowledge domain be? (PARTIAL — complexity theory + distributed systems. Two domains active.)
 
 ## Important
 - **F25**: What happens when beliefs/DEPS.md exceeds 20 entries? (MOOT at 8 beliefs; revisit if count grows)
@@ -22,6 +22,9 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F88**: Should negative results (failed investigations, dead-end approaches) be explicitly tracked? nolimit-aggressive child identified this gap (B5). FRONTIER.md records "NO" answers but not failed approaches within a task.
 - **F89**: Do additive variants (test-first, principles-first) outperform subtractive variants (no-falsification, no-modes)? All previous variants REMOVED rules; these ADD new constraints. Hypothesis: adding structure at genesis is a net negative (per F4 result) but adding evidence requirements could be different.
 - **F90**: Does multi-scale NK (file + class + function) reveal qualitatively different insights than single-scale? Preliminary evidence: logging's clean inter-module DAG hides 8 subsystems; argparse raw K/N misleading without coupling-type adjustment.
+- **F94**: Can B13 (error handling dominates failures) be verified by analyzing error paths in etcd, CockroachDB, or Redis source code? [distributed-systems] Connects to NK: error paths may represent hidden complexity invisible to static analysis.
+- **F95**: Can the swarm verify B14 (small-scale reproducibility) by reproducing known distributed bugs from Jepsen reports in 3-node setups? [distributed-systems]
+- **F96**: Does NK complexity analysis predict which distributed system components will have the worst error handling? [distributed-systems + complexity] If B13 and B9 are both true, high-cycle modules should have disproportionately bad error paths.
 
 ## Resolved
 | ID | Answer | Session | Date |
