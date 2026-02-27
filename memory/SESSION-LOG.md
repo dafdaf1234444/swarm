@@ -41,3 +41,4 @@ S76     | 2026-02-27 | +0L +1P (P-152) | F116 MDL: P-152 citation-era analysis, 
 S75+    | 2026-02-27 | +1L (L-151) +0P | F116 test 1: proxy K history traced (S57→S60 -40% event); PHILOSOPHY.md challenges compressed -26%; T4-tools=43% of proxy K; INDEX fixed 152L 129P
 S76b    | 2026-02-27 | +1L (L-152) -4P | F116 subtractive MDL test on PRINCIPLES.md: P-006,P-018,P-019,P-024 removed via cross-tier redundancy (CORE/VERIFY); validator PASS; cross-tier redundancy > citation count as MDL signal
 S75c    | 2026-02-27 | +2L (L-151,L-152) +0P | F116 proxy-K trajectory (-40% S57→S60), PHILOSOPHY.md -26% (ref-only challenges), subtractive MDL: cross-tier redundancy > citation (L-151,L-152); INDEX Meta 36→38
+S76c    | 2026-02-27 | +0L +0P | Tool consolidation (periodic): 30→28 tools (claim.py+colony_pulse.py removed); cross-variant harvest (periodic): 9 convergent/3 divergent/6 novel child findings; 4 novel queued for integration; periodics.json updated

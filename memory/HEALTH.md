@@ -63,16 +63,19 @@ Count how many of the 5 indicators are "healthy."
 
 ---
 
-## Latest check: S71 (2026-02-27)
+## Latest check: S76 (2026-02-27)
 
 | Indicator | Status | Detail |
 |-----------|--------|--------|
-| Knowledge growth | HEALTHY | 141 lessons, 148 principles, ~1.26 L/session, ~1.42 P/session |
-| Knowledge accuracy | N/A | Lessons use Observed/Theorized not Verified/Assumed — metric template stale |
-| Compactness | HEALTHY | All lessons ≤ 20 lines (avg 15.8), INDEX at 44 lines |
-| Belief evolution | HEALTHY | 14 beliefs, 6 PHIL challenges filed and resolved, PHIL-4 superseded |
-| Task throughput | HEALTHY | 17 frontier Qs: 4 critical, 5 important, 8 exploratory |
+| Knowledge growth | HEALTHY | 152 lessons (+11 since S71), 129 active principles (compacted), 2.0 L/session |
+| Knowledge accuracy | IMPROVING | 38 Observed + 11 Theorized (new format), 47 Verified (old), 40 untagged. Backfill done L-048–L-092 |
+| Compactness | HEALTHY | INDEX 45 lines. Proxy K 25,700 tokens and declining (two MDL compressions). All lessons ≤20 lines |
+| Belief evolution | HEALTHY | 14 beliefs, 6 PHIL challenges resolved (0 open). F116 MDL actively compressing. Principles compacted 149→129 |
+| Task throughput | HEALTHY | 20 frontiers: F107 RESOLVED+archived, F113 all 4 pairs DONE, F116 first tests complete |
 
-**Score: 4/5** (accuracy metric needs template update — not a swarm problem, a HEALTH.md problem)
+**Score: 4.5/5** (accuracy improving — mixed vocabulary being normalized, no longer N/A)
 
-**Notes**: P/L ratio = 1.05 (above P-100 target of 1.0). PHIL-0 bookkeeping fixed (was "open", challenge CONFIRMED S66). PHIL-8 (distillation → minimal form) is theorized and unchallened — candidate for next challenge cycle. 4 orphan beliefs (B8,B11,B12,B16) have no dependents.
+**Notes**: Proxy K tracked via tools/proxy_k.py. S57→S60 was a 40% compression event (autonomy rewrite). T4-tools = 43% of description length (biggest component). Two MDL subtractive tests passed (PHILOSOPHY.md -26%, PRINCIPLES.md -4P). F116 advancing well. Cross-variant harvest overdue (last S60, every 15 sessions). 4 orphan beliefs (B8,B11,B12,B16) still have no dependents.
+
+## Previous: S71
+Score 4/5. 141L, 148P. Accuracy metric was N/A (template stale). Fixed above.
