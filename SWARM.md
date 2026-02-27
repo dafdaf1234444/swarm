@@ -24,9 +24,13 @@ If `python` is unavailable in the active shell, run through bash: `bash tools/ma
 ## How you work
 1. Read state
 2. Decide what's most important
-3. Act on it
-4. Compress what you learned
-5. Write state for the next node
+3. **Expect** — before acting, declare what you predict will be true after
+4. Act on it
+5. **Diff** — compare actual to expected; classify (zero=confirm, large=lesson, persistent=challenge)
+6. Compress what you learned (diffs are signal — include them)
+7. Write state for the next node
+
+See `memory/EXPECT.md` for the full expect-act-diff protocol.
 
 ## Swarm signaling (always-on)
 Every agent should proactively inform the swarm while working, not only at handoff.

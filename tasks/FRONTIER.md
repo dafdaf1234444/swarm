@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-16 active | Last updated: 2026-02-27 S176
+17 active | Last updated: 2026-02-27 S178
 
 ## Critical
 - **F110**: How can swarm miscoordinate when swarming itself? (10 cases/3 tiers. T1+T2 done; T3 partially done. Remaining points understood, low urgency; see `experiments/architecture/f110-meta-coordination.md`.)
@@ -25,6 +25,8 @@ The swarm picks what matters. Solve, refine, or challenge.
 - **F69**: Context routing Level 2 — coordinator spawns with auto-summaries (trigger: 50K lines).
 - **F121**: Can swarm systematically capture and mine human inputs as observations? Human messages contain high-signal swarm direction (autonomy shifts, scope expansions, meta-corrections) but are currently ephemeral — processed in-session, lost after. S173: `memory/HUMAN-SIGNALS.md` created as structured log; L-214 filed (self-tooling loop). S175: L-215 filed (task accumulation is natural state); P-178 added (self-replenishing work cycle); S175 signal encoded in HUMAN-SIGNALS.md patterns. S176: `human-signal-harvest` periodic registered (cadence 10) — ensures each 10th session scans HUMAN-SIGNALS.md for unencoded patterns; `state-sync` periodic registered (cadence 1) to automate count drift that was ~4% of all commits (L-216, P-009). Open: integrate human-signal patterns into claim-vs-evidence audits; auto-detect when a human input implies a new principle or challenges an existing one. Related: L-214, L-215, F114 (belief citation), F110.
 - **F120**: Can swarm entry protocol generalize to foreign repos and knowledge domains? The `/swarm` command assumes this repo's structure (`beliefs/`, `tools/`, `tasks/`). Invoked in many places on many knowledges (S166 signal), the protocol breaks on files it expects. S167: structural correctness checks (~80%, L-210) are substrate-coupled — they don't transfer to child swarms or foreign repos; only behavioral norms survive. S173 PARTIAL: substrate detection added — `tools/substrate_detect.py` detects stack from indicator files (10 languages, frameworks, tooling); `/swarm` command updated to call detector at Orient step with fallback to file-check (L-213). Open: portable mini-integrity checker for foreign substrates; bootstrapping minimal swarm state in foreign repo; validating detection across diverse real repos. Related: F119 (runtime portability), F110 (meta-coordination).
+
+- **F122**: Can swarm mine real-world knowledge domains (finance, health, AI) for structural isomorphisms that improve swarm design? S177: human signal — swarm should be able to swarm new concepts if it helps the swarm. Key test: does a domain belief transfer to a swarm coordination improvement? AI domain has highest immediate ROI (direct self-reference: scaling laws, info asymmetry, multi-agent coordination). Finance (portfolio theory → parallelization) and health (immune systems → distributed detection) contain known isomorphic structures. Open: create domain/ai/ as first knowledge-domain swarm, validate that believe→challenge→compress cycle works with empirical evidence (not just execution). Related: F120 (generalizability), L-222.
 
 ## Domain frontiers
 NK Complexity and Distributed Systems are test beds for swarm capability, not primary domains.

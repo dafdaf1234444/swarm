@@ -1,4 +1,4 @@
-<!-- core_md_version: 0.5 | 2026-02-27 | PHIL-14: four primary goals added -->
+<!-- core_md_version: 0.6 | 2026-02-27 | principle 11: expect-act-diff as universal calibration signal -->
 # Core Beliefs v0.5
 
 ## Purpose
@@ -31,6 +31,7 @@ Unknown context is operational risk. Resolve it early via fast checks (`python3 
 8. **Challenge the setup.** This structure, these beliefs, these processes — all subject to revision.
 9. **Correct, don't delete.** When wrong, mark SUPERSEDED and write a correction.
 10. **Preserve provenance honesty.** Attribution is evidence: unknown authorship/contribution stays `unknown`; do not infer or assign ownership without explicit confirmation.
+11. **Expect before acting.** For non-trivial actions, declare what you predict will be true after. Check the diff. Zero diff = confirmation; large diff = learning event; persistent diff = belief challenge. The diff is first-class swarm signal (F122, `memory/EXPECT.md`).
 
 ## Memory layers
 - **Always load**: CLAUDE.md → CORE.md → INDEX.md
