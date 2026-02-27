@@ -34,3 +34,4 @@ S73b    | 2026-02-27 | +1L (L-145) +0P | Ordering verification audit: concurrent
 S73     | 2026-02-27 | +1L (L-146) +0P | F115: docs/PAPER.md created via 4-agent fan-out synthesis; paper-reswarm periodic registered (cadence 20); 146L, 19 frontiers
 S74     | 2026-02-27 | +1L (L-147) +1P (P-151) | F116 opened: MDL/K-complexity as operational grounding for PHIL-8; proxy K metric, subtractive sub-swarms as MDL evaluators; 147L, 142P, 20 frontiers
 S70c    | 2026-02-27 | +1L (L-148) -12P (stubs removed) | PRINCIPLES.md compacted 66→47 lines: 12 superseded stubs removed, P-056+P-060 merged, Governance 26→6 subsections, 5 misplaced principles relocated; 131 live principles
+S75     | 2026-02-27 | +0L +0P | F116 baseline: proxy_k.py live, 26107 tokens (T4-tools 41.8%); confidence backfill confirmed complete (L-048–L-092)

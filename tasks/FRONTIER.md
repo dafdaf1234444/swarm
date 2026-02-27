@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-20 active | Last updated: 2026-02-27 S74
+20 active | Last updated: 2026-02-27 S75
 
 ## Critical
 - **F110**: What are all the ways swarm can miscoordinate when swarming itself — and what mechanisms prevent each? (S57: 10 cases in 3 tiers. Tier 1 DONE S58. Tier 2 DONE S65. Tier 3: A2 DONE S69 (cascade validation --changed=B-ID, L-142, P-149). B2 Goodhart capture, C2 orphaned meta-work — understood but not urgent at current scale. See experiments/architecture/f110-meta-coordination.md.)
@@ -20,7 +20,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 - **F115**: Can the swarm produce and maintain a living self-paper? S73: YES — initial paper created at docs/PAPER.md using 4-agent fan-out synthesis. Paper cites beliefs by ID. Registered in periodics.json (cadence: 20 sessions). Open: does periodic re-swarming keep the paper accurate over 100+ sessions? Does the paper serve as a coherence check (contradictions surfaced as challenges)?
 
 ## Exploratory
-- **F116**: Can the swarm make its minimal-form search (PHIL-8) explicit using MDL/compression theory? Currently implicit via context-window pressure (PHIL-7). Gap: no proxy K metric, no structured MDL evaluation. LLM has rich compression theory knowledge (BIC, K-proxies, two-part MDL codes) the swarm hasn't deliberately applied. Potential: (1) proxy K = token count of bootstrap files (track across sessions), (2) subtractive sub-swarms as MDL evaluators (remove belief → test function → accept if swarm works), (3) competing encodings (shortest that preserves meaning wins), (4) BIC-style merging (combined < separate = merge). Related: PHIL-8, F84 (tests belief variants, implicitly doing MDL), F105 (compaction timing), F89 (additive vs subtractive). L-147, P-151.
+- **F116**: Can the swarm make its minimal-form search (PHIL-8) explicit using MDL/compression theory? S74: proxy_k.py created (tools/); baseline S75 = 26,107 tokens total (genesis=9,836=37.7%, T4-tools=10,919=41.8%). Logged in experiments/proxy-k-log.json. Open: (2) subtractive sub-swarms — pick low-citation belief, remove it, test swarm still validates; (3) competing encodings; (4) BIC-style merging. Related: PHIL-8, L-147, P-151.
 - **F114**: Belief citation rate — 143 principles and 134+ lessons accumulate but utilization is ~5-30% for semantic beliefs (L-136). Can we surface relevant principles automatically when doing related work? Auto-link lessons to the beliefs they rely on? Measure citation rate per belief over sessions?
 - **F104**: Does personality persistence produce different findings on the same question?
 - **F106**: Is max_depth=2 the right recursive limit?

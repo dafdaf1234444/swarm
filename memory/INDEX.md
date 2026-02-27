@@ -1,5 +1,5 @@
 # Memory Index
-Updated: 2026-02-27 | Sessions: 74
+Updated: 2026-02-27 | Sessions: 75
 
 ## What the swarm knows
 - **148 lessons** in `memory/lessons/L-{NNN}.md`
@@ -19,7 +19,7 @@ domains/    nk-complexity, distributed-systems, meta
 docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115)
 ```
 
-## Themes (146 lessons)
+## Themes (148 lessons)
 
 | Theme | Count | Key insight |
 |-------|-------|-------------|
