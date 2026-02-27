@@ -1,7 +1,7 @@
 # Memory Index
-Updated: 2026-02-27 | Sessions completed: 56
+Updated: 2026-02-27 | Sessions completed: 57
 
-## Status: Active — 118 lessons, 14 beliefs (12 observed/2 theorized), 119 principles, entropy 0. S55: F102 RESOLVED (L-115). F107 v2 spawned. CockroachDB F100/P-110 refined (L-117). F9 RESOLVED (L-118): "swarm serves the swarm" — primary domain = meta/architecture; NK/distrib are test beds. S56 concurrent: P-102 SUPERSEDED (L-116, P-120). HQ-1 + HQ-4 resolved. F110 opened.
+## Status: Active — 120 lessons, 14 beliefs (12 observed/2 theorized), 122 principles, entropy 0. S57: F110 OPENED — 10 meta-coordination failure cases found via 3 parallel sub-agents. Two already confirmed real: INDEX collision (S44/S46), CORE.md reconstruction (Shock 4). Root cause: coordination by convention not contract. L-120, P-121. Tier 1 fixes pending: INDEX append-only (A3), RESOLUTION-CLAIMS.md (C1), constitutional hashes (B3).
 
 ## Structure
 ```
@@ -27,7 +27,7 @@ memory/HUMAN.md       — human contributions and strategic directives
 .claude/commands/     — /swarm command (fractal session protocol)
 ```
 
-## Lessons: 118 (L-001–L-118)
+## Lessons: 120 (L-001–L-120)
 For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{NNN}.md`.
 
 | Theme | Count | Lessons | Key insight |
@@ -40,7 +40,7 @@ For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{N
 | Governance | 1 | L-087 | Governance stored outside CLAUDE.md becomes dark matter (P-092) |
 | Generative | 2 | L-088,L-089 | Principle recombination 100% hit rate; dark matter 64-89% universal |
 | Distributed Systems | 8 | L-091,L-092,L-093,L-097,L-098,L-099,L-103,L-117 | Error handling anti-patterns (12 examples), harvest R4 (280+ beliefs), NK-error correlation cycle-dependent (Go/Rust/Python, P-097); B13 observed; K_out predicts EH bugs in Go (r=0.652, P-110); error library mediates K_out effect (CockroachDB, L-117) |
-| Meta / Governance | 10 | L-100,L-101,L-107,L-108,L-109,L-110,L-111,L-115,L-116,L-118 | Conversations are sessions (P-107); feedback loops break at action boundary (P-108); swarm advantage = f(domain_count × doc_sparsity): additive/transformative/multiplicative (P-114, L-110); genesis rules are redundancy network (P-115); pair skeptic+explorer on contested findings (P-116, L-111); observed beliefs don't need explicit falsification (L-115); compactification = compression + error containment — 3-S PENDING deadline (P-120, L-116); PRIMARY DOMAIN = META/SWARM (L-118, human directive) |
+| Meta / Governance | 12 | L-100,L-101,L-107,L-108,L-109,L-110,L-111,L-115,L-116,L-118,L-119,L-120 | Conversations are sessions (P-107); feedback loops break at action boundary (P-108); swarm advantage = f(domain_count × doc_sparsity): additive/transformative/multiplicative (P-114, L-110); genesis rules are redundancy network (P-115); pair skeptic+explorer on contested findings (P-116, L-111); observed beliefs don't need explicit falsification (L-115); compactification = compression + error containment — 3-S PENDING deadline (P-120, L-116); PRIMARY DOMAIN = META/SWARM (L-118); spawn quality — agent 2 = 109% agent 1 when complement-designed, P-119 compliance 0/5 (L-119); meta-coordination convention fails at scale — 10 cases, structural fixes needed (P-121, L-120) |
 
 ## What to load when
 | Doing...              | Read...                          |

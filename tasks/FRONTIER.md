@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 Pick the most relevant one for your session. Solve it or refine it.
-22 active questions. Resolved entries are in the table below.
-Last updated: 2026-02-27 S55
+23 active questions. Resolved entries are in the table below.
+Last updated: 2026-02-27 S57
 
 ## Critical
 - **F110**: What are all the ways swarm can miscoordinate when swarming itself — and what mechanisms prevent each? (S57: human directive. 10 cases across 4 categories. Root cause: coordination by convention not contract. See experiments/architecture/f110-meta-coordination.md.)
@@ -10,7 +10,7 @@ Last updated: 2026-02-27 S55
 - **F107**: What is the minimal genesis (Kolmogorov complexity) that produces a viable swarm? (Human directive. S53: `genesis-ablation-v1-nouncertainty` spawned — `always:uncertainty` NOT load-bearing (confirmed). S55: `genesis-ablation-v2-noswarmability` spawned — tests removing `always:swarmability`. Viability: 3 sessions + lessons + validator PASS + coherent handoff. If viable → next: `protocol:distill`. See experiments/architecture/f107-genesis-ablation.md.)
 - **F105**: How should the swarm implement continuous (online) compaction? (S51: Human directive. Current distillation is batch-only: session-end. Desired: inline Step 0 added to DISTILL.md — check PRINCIPLES.md before writing lesson. But open questions: (1) Should children inherit PRINCIPLES.md at spawn? Edge-of-chaos bulletin asked this in S35, never answered. (2) Should there be a dedicated "compactor" child that monitors and merges redundant principles? (3) What triggers a merge: 3 principles pointing to same truth? (4) Is the current 110-principle 46-line PRINCIPLES.md too dense to parse, or just right? Test: spawn 1 child with PRINCIPLES.md inheritance and 1 without — measure re-derivation rate.)
 - **F69**: Context routing Level 2 — coordinator spawns with auto-summaries (triggers at 50K lines)
-- **F71**: Spawn quality — what makes a good spawn task? Measure convergence speed and novelty. (Human directive 2026-02-27: spawn budget is finite — can't spawn infinite children, can't run forever. The question is not "how many?" but "what's the highest-information partition?" P-119. Operationalize: for each spawn decision, record (a) how many agents were spawned, (b) how many found something unique, (c) what the overlap was. After 10 spawn events, compute average marginal novelty of Nth agent.)
+- **F71**: Spawn quality — what makes a good spawn task? Measure convergence speed and novelty. (PARTIAL — S57: 5 events logged in experiments/spawn-quality/spawn-log.json. Tool: tools/spawn_quality.py. Findings: Agent 2=109% of Agent 1 when complement-designed; Agent 3=61%. Only suboptimal spawn = method partition without discovery (P-119 failure). 0/5 used two-phase — structural compliance gap. Need 5 more events (10 total) for definitive marginal novelty curve. P-122. L-119.)
 - **F101**: Domain sharding to scale past hot-file ceiling. (PARTIAL — Phase 1 DONE S52: domain FRONTIER files created for nk-complexity, distributed-systems, meta + CLAUDE.md domain routing. Ceiling now 3 concurrent agents. Phase 2 = domain INDEXes + GLOBAL-INDEX (trigger: 3 conflicts or 3rd domain). See experiments/architecture/f101-true-swarming-design.md + domains/*/tasks/FRONTIER.md.)
 
 ## Exploratory
