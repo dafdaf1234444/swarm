@@ -1,4 +1,4 @@
-# Expect-Act-Diff Protocol (F122)
+# Expect-Act-Diff Protocol (F123)
 
 Every non-trivial action in the swarm is preceded by a declared expectation.
 The diff between expected and actual is first-class swarm signal.

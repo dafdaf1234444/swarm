@@ -23,7 +23,9 @@ ROOT = Path(__file__).parent.parent
 SESSION_RE = re.compile(r'\[S(\d+)\]')
 LESSON_RE = re.compile(r'\bL-(\d{3})\b')
 PRINCIPLE_RE = re.compile(r'\bP-(\d{3})\b')
+BELIEF_RE = re.compile(r'\bPHIL-(\d+)\b')
 FRONTIER_ADVANCE_RE = re.compile(r'\bF\d+\b.*\b(RESOLVED|PARTIAL)\b|\b(RESOLVED|PARTIAL)\b.*\bF\d+\b', re.IGNORECASE)
+FRONTIER_OPEN_RE = re.compile(r'\bF\d+\b.*\bOPEN\b|\bOPEN\b.*\bF\d+\b|\bF\d+\s+filed\b|\bfiled\s+F\d+\b', re.IGNORECASE)
 
 # Patterns that indicate administrative overhead (state-sync, not knowledge work)
 OVERHEAD_PATTERNS = [
@@ -79,6 +81,7 @@ def extract_session_signals(commits):
         'commits': 0,
         'lessons': set(),
         'principles': set(),
+        'beliefs': set(),
         'frontier_advances': 0,
         'frontiers_opened': 0,
         'overhead_commits': 0,
@@ -98,9 +101,11 @@ def extract_session_signals(commits):
             d['lessons'].add(lid)
         for pid in PRINCIPLE_RE.findall(msg):
             d['principles'].add(pid)
+        for bid in BELIEF_RE.findall(msg):
+            d['beliefs'].add(bid)
         if FRONTIER_ADVANCE_RE.search(msg):
             d['frontier_advances'] += 1
-        if re.search(r'\bF\d+\b.*\bOPEN\b', msg, re.IGNORECASE):
+        if FRONTIER_OPEN_RE.search(msg):
             d['frontiers_opened'] += 1
         if OVERHEAD_RE.search(msg):
             d['overhead_commits'] += 1
@@ -125,6 +130,7 @@ def quality_score(sig):
 
     lessons = len(sig['lessons'])
     principles = len(sig['principles'])
+    beliefs = len(sig.get('beliefs', set()))
     frontier_advances = sig['frontier_advances']
     frontiers_opened = sig['frontiers_opened']
     overhead_ratio = sig['overhead_commits'] / n
@@ -133,6 +139,7 @@ def quality_score(sig):
     knowledge = (
         lessons * 1.2
         + principles * 0.6
+        + beliefs * 1.5          # belief changes are high-signal
         + frontier_advances * 2.0
         + frontiers_opened * 1.5
     )
@@ -154,7 +161,7 @@ def quality_score(sig):
 def compute_baseline(sessions_data, exclude_last_n=5):
     """Compute historical baseline stats, excluding the most recent N sessions."""
     sorted_sessions = sorted(sessions_data.keys())
-    if len(sorted_sessions) <= exclude_last_n:
+    if exclude_last_n == 0 or len(sorted_sessions) <= exclude_last_n:
         baseline_sessions = sorted_sessions
     else:
         baseline_sessions = sorted_sessions[:-exclude_last_n]
@@ -293,6 +300,7 @@ def show_session_detail(sessions_data, session_num):
     print(f"Commits:             {sig['commits']}")
     print(f"Lessons referenced:  {sorted(sig['lessons'])} ({len(sig['lessons'])} unique)")
     print(f"Principles ref'd:    {sorted(sig['principles'])} ({len(sig['principles'])} unique)")
+    print(f"Beliefs changed:     PHIL-{sorted(sig.get('beliefs', set()))} ({len(sig.get('beliefs', set()))} unique)")
     print(f"Frontier advances:   {sig['frontier_advances']}")
     print(f"Frontiers opened:    {sig['frontiers_opened']}")
     print(f"Overhead commits:    {sig['overhead_commits']} "

@@ -2,14 +2,15 @@
 Updated: 2026-02-27 S178
 
 ## Key state
-- 222L 153P 14B 17F — Validator PASS. Health score 5/5 (S177). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
+- 223L 153P 14B 17F — Validator PASS. Health score 5/5 (S177). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
 - `python3 tools/orient.py` — single-command orientation; reads this file + maintenance + frontiers (S173).
 - `python3 tools/sync_state.py` — auto-fix count/session drift in INDEX/FRONTIER/NEXT/PRINCIPLES (S176, L-216).
-- F121 OPEN (human inputs as swarm signal; S175: L-215+P-178 added, task accumulation = natural state). F120 first impl: substrate_detect.py (S173). F119 OPEN.
-- 0 THEORIZED. 6 PARTIALLY OBSERVED (P-128/P-141/P-155/P-156/P-157/P-158).
+- F122 OPEN (knowledge-domain swarming: finance/health/AI isomorphisms; S177: L-222+P-181 filed). F121 OPEN (human inputs as swarm signal). F120 first impl: substrate_detect.py. F119 OPEN.
+- 1 THEORIZED (P-181). 6 PARTIALLY OBSERVED (P-128/P-141/P-155/P-156/P-157/P-158).
 
 ## For next session
-1. **F121 advance** — human inputs as swarm signal (OPEN S173); categorize steering patterns in HUMAN-SIGNALS.md; wire signal detection into swarm behavior.
+1. **F122 first domain** — create `domains/ai/` as first knowledge-domain swarm (highest ROI: direct self-reference); seed with beliefs from existing lessons (L-218 info asymmetry, L-219 persuasion/capability split, L-220 info-surfacing); validate believe→challenge→compress cycle with empirical evidence.
+2. **F121 advance** — human inputs as swarm signal (OPEN S173); categorize steering patterns in HUMAN-SIGNALS.md; wire signal detection into swarm behavior.
 2. **PHIL-13 structural follow-through** — competitive deception risk acknowledged (S165 REFINED); consider explicit anti-deception constraints in fitness-ranking (requires human direction per authority hierarchy).
 3. **P-155 follow-through (high-fidelity)** — run incentive contrast on real LLM/human-task traces (beyond software-agent simulation).
 4. **F111 deploy decision** — workspace ready; human review needed.
@@ -17,6 +18,7 @@ Updated: 2026-02-27 S178
 6. **Keep Key state fresh** — update these two sections before every handoff; orient.py reads them directly.
 
 ## What just happened
+S177: knowledge-domain swarming signal: human asked whether swarm can extend to finance/health/AI. Answer: YES — believe→challenge→compress cycle is substrate-independent; evidence mechanism changes (execution→empirical) but structure holds. Domain utility filter: only swarm domains with structural isomorphisms to swarm coordination. AI highest ROI (direct self-reference). F122 filed (knowledge-domain swarming), L-222 filed, P-181 filed. HUMAN-SIGNALS.md updated. 223L 153P 14B 17F.
 S178: ancient-functionality investigation: traced evolution mechanisms across CORE.md (8 commits v0.1→v0.5), maintenance.py (36 commits), swarm.md (8 commits). Finding: ancient artifacts need DUAL pressure — bottom-up (L-N→P-N→PHIL challenge→belief revision) AND top-down (periodics.json forces scheduled revisit at cadences 5-25). Self-tooling loop (L-214) is a third path. L-222 filed. Maintenance DUE cleared by concurrent session (PAPER counts + P-155 status). 222L 152P.
 S176: repeating-pattern swarm: wired 2 new periodics — `state-sync` (cadence 1, automates ~4% state-sync commit overhead via sync_state.py, L-216) and `human-signal-harvest` (cadence 10, F121 advance — scans HUMAN-SIGNALS.md for unencoded patterns); P-179 added (spawn discipline: multi-agent ceiling at >45% single-agent baseline, degrade 39-70%); FRONTIER F121 updated; validator PASS.
 S177: health-check periodic executed (last S171, due S176): 5/5 all indicators healthy; 220L 150P 14B 16F, proxy-K +2.4% (floor 36,560t S174). Harvest findings: C1 info asymmetry = dominant MAS bottleneck (3 children, 50pt gap), C2 MAS debate < single-agent CoT (2 children). Periodics queue cleared: all 6 periodics now current through S173-S177.
