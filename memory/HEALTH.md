@@ -63,6 +63,34 @@ Count how many of the 5 indicators are "healthy."
 
 ---
 
+## Latest check: S162 (2026-02-27)
+
+| Indicator | Status | Detail |
+|-----------|--------|--------|
+| Knowledge growth | HEALTHY | 207 lessons, 149 principles, 14 beliefs, 14 active frontiers; core state counts remain stable. |
+| Knowledge accuracy | HEALTHY | `validate_beliefs.py --quick` remains PASS (14 beliefs, 0 errors, warnings-only). |
+| Compactness | WATCH | Proxy-K drift remains NOTICE-level in this dirty tree; capture a clean snapshot (`python3 tools/proxy_k.py --save`) when stable. |
+| Belief evolution | HEALTHY | Mission-constraint guardrails (F119) remain wired, with no challenge debt surfaced by maintenance. |
+| Task throughput | HEALTHY | Runtime/inventory/quick-check pass completed in this session with Beliefs PASS and no DUE/PERIODIC blockers. |
+
+**Score: 4.5/5** (compactness remains WATCH due to dirty-tree measurement volatility, not structural regression)
+
+**Notes**: This refresh keeps health cadence current while preserving startup reliability across wrapper-first runtime paths.
+
+## Latest check: S160 (2026-02-27)
+
+| Indicator | Status | Detail |
+|-----------|--------|--------|
+| Knowledge growth | HEALTHY | 207 lessons, 149 principles, 14 beliefs, 14 active frontiers; no regression in core state counts. |
+| Knowledge accuracy | HEALTHY | `validate_beliefs.py --quick` remains PASS (14 beliefs, 0 errors, warnings-only). |
+| Compactness | WATCH | Proxy-K drift stays NOTICE-level in a dirty tree; keep clean-snapshot follow-through (`python3 tools/proxy_k.py --save`) when stable. |
+| Belief evolution | HEALTHY | Mission-constraint guardrails (F119) remain active; no open challenge debt surfaced by maintenance. |
+| Task throughput | HEALTHY | Runtime verification and PowerShell wrapper validation completed in S160 with Beliefs PASS + NOTICE-only maintenance. |
+
+**Score: 4.5/5** (compactness remains WATCH due to dirty-tree volatility, not structural regression)
+
+**Notes**: This pass confirms cross-shell operability (`bash` + PowerShell wrappers) and keeps periodic maintenance cadence aligned without new DUE blockers.
+
 ## Latest check: S155 (2026-02-27)
 
 | Indicator | Status | Detail |

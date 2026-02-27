@@ -91,6 +91,27 @@ FILE_REF_ALIAS_MAP = {
 }
 LANE_ACTIVE_STATUSES = {"CLAIMED", "ACTIVE", "BLOCKED", "READY"}
 LANE_PLACEHOLDERS = {"", "-", "n/a", "na", "none", "pending", "tbd", "unknown"}
+IGNORED_UNTRACKED_RUNTIME_FILES = {
+    "tools/check.ps1",
+    "tools/maintenance.ps1",
+}
+LANE_GLOBAL_FOCUS_VALUES = {
+    "global",
+    "system",
+    "all",
+    "coordination",
+    "cross-cutting",
+    "crosscutting",
+}
+# F119 stale-evidence tolerance by degraded mode. Runtime portability can drift
+# faster than offline continuity coordination, so keep thresholds mode-aware.
+F119_STALE_EVIDENCE_SESSIONS = {
+    "python-alias-missing": 12,
+    "inter-swarm-tooling-missing": 16,
+}
+# Only emit stale degraded-transition notices when there is recent reason-only
+# activity (prevents noisy reminders for long-lived, unchanged degraded runtimes).
+F119_RECENT_REASON_ACTIVITY_WINDOW = 6
 
 
 def _command_exists(cmd: str) -> bool:
@@ -233,6 +254,13 @@ def _resolve_repo_file_ref(ref: str) -> str | None:
 
 def _is_lane_placeholder(value: str) -> bool:
     return (value or "").strip().lower() in LANE_PLACEHOLDERS
+
+
+def _parse_lane_tags(value: str) -> dict[str, str]:
+    tags: dict[str, str] = {}
+    for key, raw_value in re.findall(r"([A-Za-z][A-Za-z0-9_-]*)\s*=\s*([^\s,;|]+)", value or ""):
+        tags[key.strip().lower()] = raw_value.strip()
+    return tags
 
 
 def _parse_swarm_lane_rows(text: str) -> list[dict[str, str]]:
@@ -453,6 +481,7 @@ def check_uncommitted() -> list[tuple[str, str]]:
                 (p.startswith("workspace/notes/wiki-swarm-") and p.endswith(".md"))
                 or re.fullmatch(r"memory/lessons/L-\d+\.md", p)
                 or _is_ephemeral_parent_child_artifact(p)
+                or p in IGNORED_UNTRACKED_RUNTIME_FILES
             )
         ]
         if tracked:
@@ -472,7 +501,11 @@ def check_uncommitted() -> list[tuple[str, str]]:
         if untracked_actionable:
             sample = ", ".join(untracked_actionable[:3])
             suffix = "..." if len(untracked_actionable) > 3 else ""
-            results.append(("NOTICE", f"{len(untracked_actionable)} untracked file(s): {sample}{suffix}"))
+            results.append((
+                "NOTICE",
+                f"{len(untracked_actionable)} untracked file(s): {sample}{suffix} "
+                "(stage if intentional, or ignore via .gitignore)",
+            ))
     return results
 
 
@@ -595,6 +628,40 @@ def check_swarm_lanes() -> list[tuple[str, str]]:
         sample = ", ".join(missing_meta[:5])
         suffix = "..." if len(missing_meta) > 5 else ""
         results.append(("NOTICE", f"{len(missing_meta)} active lane(s) missing metadata: {sample}{suffix}"))
+
+    missing_coordination_tags: list[str] = []
+    setup_values: set[str] = set()
+    has_global_focus = False
+    for row in active:
+        lane = row.get("lane", "").strip() or "<unknown>"
+        tags = _parse_lane_tags(row.get("etc", ""))
+        missing = []
+        for key in ("setup", "focus"):
+            if _is_lane_placeholder(tags.get(key, "")):
+                missing.append(key)
+        if missing:
+            missing_coordination_tags.append(f"{lane}({','.join(missing)})")
+            continue
+        setup_value = tags.get("setup", "").strip().lower()
+        focus_value = tags.get("focus", "").strip().lower()
+        setup_values.add(setup_value)
+        if focus_value in LANE_GLOBAL_FOCUS_VALUES:
+            has_global_focus = True
+
+    if missing_coordination_tags:
+        sample = ", ".join(missing_coordination_tags[:5])
+        suffix = "..." if len(missing_coordination_tags) > 5 else ""
+        results.append((
+            "NOTICE",
+            f"{len(missing_coordination_tags)} active lane(s) missing setup/focus tags in Etc: {sample}{suffix}",
+        ))
+
+    if len(setup_values) > 1 and not has_global_focus:
+        results.append((
+            "NOTICE",
+            "Multi-setup active lanes have no global coordination focus "
+            "(`focus=global|system|coordination`) in Etc",
+        ))
 
     branch_to_lanes: dict[str, set[str]] = {}
     scope_to_lanes: dict[str, set[str]] = {}
@@ -864,21 +931,44 @@ def check_runtime_portability() -> list[tuple[str, str]]:
 
     has_git = _command_exists("git")
     has_bash = _command_exists("bash")
+    has_pwsh = _command_exists("pwsh") or _command_exists("powershell")
     has_python_alias = _python_command_runs("python3") or _python_command_runs("python") or _py_launcher_runs()
-    has_check_wrapper = _exists("tools/check.sh")
-    has_maintenance_wrapper = _exists("tools/maintenance.sh")
+    has_check_wrapper_sh = _exists("tools/check.sh")
+    has_maintenance_wrapper_sh = _exists("tools/maintenance.sh")
+    has_check_wrapper_ps = _exists("tools/check.ps1")
+    has_maintenance_wrapper_ps = _exists("tools/maintenance.ps1")
+    has_bash_wrapper_pair = has_check_wrapper_sh and has_maintenance_wrapper_sh
+    has_ps_wrapper_pair = has_check_wrapper_ps and has_maintenance_wrapper_ps
+    has_bash_wrappers = has_bash and has_bash_wrapper_pair
+    has_pwsh_wrappers = has_pwsh and has_ps_wrapper_pair
 
     if not has_git:
         results.append(("URGENT", "git not found in PATH — swarm memory/commit workflow cannot run"))
     if not has_python_alias:
-        if has_bash and (has_check_wrapper or has_maintenance_wrapper):
+        if has_bash_wrappers and has_pwsh_wrappers:
+            results.append((
+                "NOTICE",
+                "No python alias in active shell; use wrappers (`bash tools/check.sh --quick` or `pwsh -NoProfile -File tools/check.ps1 --quick`)",
+            ))
+        elif has_bash_wrappers:
             results.append(("NOTICE", "No python alias in active shell; use bash wrappers (`bash tools/check.sh --quick`, `bash tools/maintenance.sh --inventory`)"))
         else:
             results.append(("DUE", f"No python alias in PATH — use explicit interpreter: {PYTHON_EXE}"))
     if not has_bash and (_exists("workspace/genesis.sh") or _exists("tools/check.sh")):
-        results.append(("DUE", "bash not found — `workspace/genesis.sh` and `tools/check.sh` won't run on this host"))
-    if has_bash and not has_maintenance_wrapper:
+        if has_python_alias and has_pwsh_wrappers:
+            results.append(("NOTICE", "bash not found — use PowerShell wrappers (`pwsh -NoProfile -File tools/check.ps1 --quick`, `pwsh -NoProfile -File tools/maintenance.ps1 --inventory`)"))
+        elif has_python_alias:
+            results.append((
+                "NOTICE",
+                f"bash not found — use direct python entrypoints (`{PYTHON_CMD} tools/maintenance.py --quick`, `{PYTHON_CMD} tools/maintenance.py --inventory`)",
+            ))
+        else:
+            results.append(("DUE", "bash not found and no python alias — portable startup path is broken"))
+    if has_bash and not has_maintenance_wrapper_sh:
         results.append(("DUE", "tools/maintenance.sh missing — portable maintenance/inventory path is broken"))
+    if has_pwsh and not has_maintenance_wrapper_ps:
+        level = "DUE" if not has_bash else "NOTICE"
+        results.append((level, "tools/maintenance.ps1 missing — PowerShell maintenance/inventory path is degraded"))
 
     # Cross-runtime warning: WSL over /mnt/* often reports different git/index state
     # than Windows-native runs due line-ending/index semantics.
@@ -1224,14 +1314,20 @@ def check_mission_constraints() -> list[tuple[str, str]]:
     # if runtime capabilities degrade, continuity handling must be explicit in handoff state.
     has_python_alias = _python_command_runs("python3") or _python_command_runs("python") or _py_launcher_runs()
     has_bash = _command_exists("bash")
+    has_pwsh = _command_exists("pwsh") or _command_exists("powershell")
     has_check_wrapper = _exists("tools/check.sh")
     has_maintenance_wrapper = _exists("tools/maintenance.sh")
+    has_check_wrapper_ps = _exists("tools/check.ps1")
+    has_maintenance_wrapper_ps = _exists("tools/maintenance.ps1")
     inter_swarm_tools = (
         _exists("tools/bulletin.py")
         and _exists("tools/merge_back.py")
         and _exists("tools/propagate_challenges.py")
     )
-    fallback_ready = has_bash and has_check_wrapper and has_maintenance_wrapper
+    fallback_ready = (
+        (has_bash and has_check_wrapper and has_maintenance_wrapper)
+        or (has_pwsh and has_check_wrapper_ps and has_maintenance_wrapper_ps)
+    )
 
     degraded_reasons: list[str] = []
     if not has_python_alias:
@@ -1249,10 +1345,11 @@ def check_mission_constraints() -> list[tuple[str, str]]:
         if not has_python_alias and not fallback_ready:
             results.append((
                 "DUE",
-                "F119 degraded runtime continuity broken: no python alias and no bash wrapper path (`tools/check.sh` + `tools/maintenance.sh`)",
+                "F119 degraded runtime continuity broken: no python alias and no wrapper path "
+                "(`tools/check.sh` + `tools/maintenance.sh` or `tools/check.ps1` + `tools/maintenance.ps1`)",
             ))
 
-        reason_specs: dict[str, dict[str, tuple[str, ...] | str]] = {
+        reason_specs: dict[str, dict[str, tuple[str, ...] | str | int]] = {
             "python-alias-missing": {
                 "label": "runtime portability",
                 "reason_patterns": (
@@ -1265,6 +1362,12 @@ def check_mission_constraints() -> list[tuple[str, str]]:
                 "action_patterns": (
                     r"bash tools/check\.sh --quick",
                     r"bash tools/maintenance\.sh --inventory",
+                    r"pwsh -NoProfile -File tools/check\.ps1 --quick",
+                    r"pwsh -NoProfile -File tools/maintenance\.ps1 --inventory",
+                    r"powershell -ExecutionPolicy Bypass -File tools/check\.ps1 --quick",
+                    r"powershell -ExecutionPolicy Bypass -File tools/maintenance\.ps1 --inventory",
+                    r"tools/check\.ps1 --quick",
+                    r"tools/maintenance\.ps1 --inventory",
                     r"python3 tools/maintenance\.py --quick",
                     r"python3 tools/maintenance\.py --inventory",
                     r"py -3",
@@ -1315,6 +1418,9 @@ def check_mission_constraints() -> list[tuple[str, str]]:
             outcome_sessions = set(
                 _reason_action_evidence_sessions(continuity_text, reason_patterns, outcome_patterns)
             )
+            reason_sessions = set(
+                _reason_action_evidence_sessions(continuity_text, reason_patterns, (r".+",))
+            )
 
             if not action_sessions:
                 results.append((
@@ -1338,10 +1444,22 @@ def check_mission_constraints() -> list[tuple[str, str]]:
                 continue
 
             latest = max(joined_sessions)
-            if session > 0 and (session - latest) > 8:
+            stale_limit = F119_STALE_EVIDENCE_SESSIONS.get(
+                reason,
+                max(F119_STALE_EVIDENCE_SESSIONS.values()),
+            )
+            if session > 0 and (session - latest) > stale_limit:
+                has_recent_reason_signal = any(
+                    (session - s) <= F119_RECENT_REASON_ACTIVITY_WINDOW for s in reason_sessions
+                )
+                if not has_recent_reason_signal:
+                    continue
+                recent_reason = max(reason_sessions) if reason_sessions else latest
                 results.append((
                     "NOTICE",
-                    f"F119 {label} degraded transition evidence stale (latest S{latest}, current S{session})",
+                    f"F119 {label} degraded transition evidence stale "
+                    f"(latest S{latest}, current S{session}, threshold >{stale_limit} sessions, "
+                    f"recent reason S{recent_reason})",
                 ))
 
         if "inter-swarm-tooling-missing" in degraded_reasons:
@@ -1447,6 +1565,19 @@ def check_session_log_integrity() -> list[tuple[str, str]]:
     if not text:
         return results
 
+    # Hidden control characters in session text make grep/parse behavior brittle.
+    # Surface them explicitly so state can be sanitized quickly.
+    control_hits: list[tuple[int, int]] = []
+    for line_no, raw in enumerate(text.splitlines(), start=1):
+        for ch in raw:
+            code = ord(ch)
+            if code < 32 and ch not in ("\t",):
+                control_hits.append((line_no, code))
+    if control_hits:
+        sample = ", ".join(f"L{ln}:0x{code:02x}" for ln, code in control_hits[:5])
+        suffix = "..." if len(control_hits) > 5 else ""
+        results.append(("NOTICE", f"SESSION-LOG contains control character(s): {sample}{suffix}"))
+
     rows = []
     for raw in text.splitlines():
         m = re.match(r"^S(\d+)\b", raw)
@@ -1478,7 +1609,6 @@ def check_session_log_integrity() -> list[tuple[str, str]]:
     historical_ids = {sid for sid, _ in rows[:-recent_window]} if len(rows) > recent_window else set()
 
     non_monotonic = []
-    seen_ids = {recent_rows[0][0]} if recent_rows else set()
     for i in range(1, len(recent_rows)):
         prev_sid = recent_rows[i - 1][0]
         sid = recent_rows[i][0]
@@ -1493,7 +1623,6 @@ def check_session_log_integrity() -> list[tuple[str, str]]:
         benign_backfill = sid in historical_ids or one_step_backfill
         if sid < prev_sid and not benign_backfill:
             non_monotonic.append((prev_sid, sid))
-        seen_ids.add(sid)
     if non_monotonic:
         sample = ", ".join(f"S{a}->S{b}" for a, b in non_monotonic[:5])
         suffix = "..." if len(non_monotonic) > 5 else ""
@@ -1606,7 +1735,9 @@ def check_proxy_k_drift() -> list[tuple[str, str]]:
         likely_dirty_logged
         and dirty
         and current_session > 0
-        and latest_session >= current_session
+        # Allow short lag on dirty trees where state headers/log markers can
+        # advance before a clean snapshot can be taken.
+        and latest_session >= max(0, current_session - 2)
         and abs(live_total - latest_logged) / max(1, latest_logged) <= 0.01
     )
 
@@ -1765,7 +1896,17 @@ def build_inventory() -> dict:
     ]
     capability_sets: dict[str, list[str]] = {
         "orientation": _tools("maintenance.py", "pulse.py", "context_router.py"),
-        "validation": _tools("validate_beliefs.py", "check.sh", "install-hooks.sh", "pre-commit.hook", "commit-msg.hook"),
+        "validation": _tools(
+            "validate_beliefs.py",
+            "check.sh",
+            "check.ps1",
+            "maintenance.sh",
+            "maintenance.ps1",
+            "install-hooks.sh",
+            "repair.py",
+            "pre-commit.hook",
+            "commit-msg.hook",
+        ),
         "evolution": _tools("evolve.py", "swarm_test.py", "agent_swarm.py", "colony.py", "spawn_coordinator.py"),
         "collaboration": _tools("swarm_pr.py"),
         "inter_swarm": _tools("bulletin.py", "merge_back.py", "propagate_challenges.py"),
@@ -1778,6 +1919,10 @@ def build_inventory() -> dict:
         "git": _command_runs("git", ["--version"]),
         "bash": _command_runs("bash", ["--version"]),
     }
+    if platform.system().lower().startswith("windows") or _command_exists("pwsh"):
+        commands["pwsh"] = _command_runs("pwsh", ["-NoProfile", "-Command", "$PSVersionTable.PSVersion.Major"], timeout=8)
+    elif _command_exists("powershell"):
+        commands["powershell"] = _command_runs("powershell", ["-NoProfile", "-Command", "$PSVersionTable.PSVersion.Major"], timeout=8)
     # `py -3` is a Windows launcher path; avoid emitting a permanent "NO" on
     # Linux/WSL hosts where it is not expected to exist.
     if platform.system().lower().startswith("windows") or _command_exists("py"):

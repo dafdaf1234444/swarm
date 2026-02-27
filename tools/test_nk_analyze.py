@@ -818,7 +818,8 @@ class TestCompareRefs(SyntheticPackageMixin, unittest.TestCase):
         with redirect_stdout(f):
             print_compare_report(result)
         output = f.getvalue()
-        self.assertIn("ΔNK COMPARISON", output)
+        # Accept both spellings to avoid Unicode/header drift across hosts.
+        self.assertRegex(output, r"(?:ΔNK|DeltaNK) COMPARISON")
         self.assertIn("VERDICT", output)
 
     def test_print_compare_report_error(self):

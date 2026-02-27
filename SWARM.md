@@ -14,6 +14,8 @@ Read `memory/INDEX.md` — map of what the swarm knows.
 Read `tasks/FRONTIER.md` — open questions driving evolution.
 Run `bash tools/check.sh --quick` — portable startup validation + maintenance.
 Run `bash tools/maintenance.sh --inventory` — what this host can run and which swarm capabilities are available.
+PowerShell equivalents: `pwsh -NoProfile -File tools/check.ps1 --quick` and
+`pwsh -NoProfile -File tools/maintenance.ps1 --inventory`.
 If `bash` is unavailable on host, run maintenance directly with a working interpreter for that shell
 (`python3`, `python`, or `py -3`), for example:
 `python3 tools/maintenance.py` and `python3 tools/maintenance.py --inventory`.

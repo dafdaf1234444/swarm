@@ -4,7 +4,7 @@
       "id": "health-check",
       "description": "System health check (memory/HEALTH.md): knowledge growth, accuracy, compactness, belief evolution, task throughput",
       "cadence_sessions": 5,
-      "last_reviewed_session": 155,
+      "last_reviewed_session": 162,
       "registered_by": "S69"
     },
     {
@@ -18,21 +18,21 @@
       "id": "cross-variant-harvest",
       "description": "Cross-variant harvest: compare active children for convergent/divergent/novel findings",
       "cadence_sessions": 15,
-      "last_reviewed_session": 144,
+      "last_reviewed_session": 159,
       "registered_by": "S69"
     },
     {
       "id": "principles-dedup",
       "description": "Scan PRINCIPLES.md for redundant/overlapping principles -- merge or supersede",
       "cadence_sessions": 10,
-      "last_reviewed_session": 157,
+      "last_reviewed_session": 159,
       "registered_by": "S69"
     },
     {
       "id": "proxy-k-measurement",
       "description": "Measure proxy K (python tools/proxy_k.py --save): track bootstrap description length across sessions (F116, PHIL-8)",
       "cadence_sessions": 10,
-      "last_reviewed_session": 151,
+      "last_reviewed_session": 161,
       "registered_by": "S75"
     },
     {
@@ -46,21 +46,21 @@
       "id": "paper-reswarm",
       "description": "Re-swarm docs/PAPER.md: read current beliefs/PHILOSOPHY.md + beliefs/CORE.md + memory/INDEX.md, check paper for drift, fan-out agents to update stale sections, update paper_version header. File challenges for any contradictions found.",
       "cadence_sessions": 20,
-      "last_reviewed_session": 155,
+      "last_reviewed_session": 160,
       "registered_by": "S73"
     },
     {
       "id": "fundamental-setup-reswarm",
       "description": "Swarm setup hygiene: audit SWARM/CORE/bridge/maintenance fundamentals for friction and apply at least one concrete cleanup (or log a blocker with evidence + next action).",
       "cadence_sessions": 8,
-      "last_reviewed_session": 157,
+      "last_reviewed_session": 159,
       "registered_by": "S117"
     },
     {
       "id": "mission-constraint-reswarm",
       "description": "F119 mission constraints: review safety/portability/learning/connectivity invariants and harden enforcement checks against drift.",
       "cadence_sessions": 12,
-      "last_reviewed_session": 158,
+      "last_reviewed_session": 161,
       "registered_by": "S151"
     }
   ]

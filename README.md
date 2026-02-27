@@ -42,6 +42,12 @@ For current integrity/status, run:
 bash tools/check.sh --quick
 ```
 
+PowerShell equivalent:
+
+```powershell
+pwsh -NoProfile -File tools/check.ps1 --quick
+```
+
 If `bash` is unavailable, follow runtime fallback instructions in `SWARM.md`.
 
 Install commit-time quality hooks once per clone:

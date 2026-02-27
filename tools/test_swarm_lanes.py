@@ -35,6 +35,8 @@ ALLOWED_STATUSES = {
     "MERGED",
     "ABANDONED",
 }
+ACTIVE_STATUSES = {"CLAIMED", "ACTIVE", "BLOCKED", "READY"}
+PLACEHOLDER_VALUES = {"", "-", "n/a", "na", "none", "pending", "tbd", "unknown"}
 
 
 def _parse_markdown_table(text: str) -> tuple[list[str], list[list[str]]]:
@@ -71,6 +73,37 @@ class TestSwarmLanes(unittest.TestCase):
             if not status:
                 continue
             self.assertIn(status, ALLOWED_STATUSES, f"Unknown lane status: {status}")
+
+    def test_active_lanes_include_setup_and_focus_tags(self):
+        text = LANES_PATH.read_text(encoding="utf-8")
+        header, rows = _parse_markdown_table(text)
+        self.assertIn("Status", header, "Status column missing in SWARM-LANES.md")
+        self.assertIn("Lane", header, "Lane column missing in SWARM-LANES.md")
+        self.assertIn("Etc", header, "Etc column missing in SWARM-LANES.md")
+        status_idx = header.index("Status")
+        lane_idx = header.index("Lane")
+        etc_idx = header.index("Etc")
+        tag_re = re.compile(r"([A-Za-z][A-Za-z0-9_-]*)\s*=\s*([^\s,;|]+)")
+
+        missing: list[str] = []
+        for row in rows:
+            status = row[status_idx].strip().upper()
+            if status not in ACTIVE_STATUSES:
+                continue
+
+            tags = {k.lower(): v.strip().lower() for k, v in tag_re.findall(row[etc_idx])}
+            missing_keys = [
+                key for key in ("setup", "focus")
+                if tags.get(key, "") in PLACEHOLDER_VALUES
+            ]
+            if missing_keys:
+                lane = row[lane_idx].strip() or "<unknown>"
+                missing.append(f"{lane}({','.join(missing_keys)})")
+
+        self.assertFalse(
+            missing,
+            f"Active lanes missing setup/focus tags in Etc: {', '.join(missing)}",
+        )
 
     def test_pr_queue_schema_and_identity_invariants(self):
         data = json.loads(QUEUE_PATH.read_text(encoding="utf-8"))

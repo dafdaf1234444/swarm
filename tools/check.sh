@@ -121,7 +121,27 @@ if [ "${#ARGS[@]}" -eq 0 ] && [ -f "tools/test_mission_constraints.py" ]; then
     echo "  Mission constraints regression: PASS"
 fi
 
-# 10. Proxy K (if not quick)
+# 10. Repair regression suite (if not quick)
+if [ "${#ARGS[@]}" -eq 0 ] && [ -f "tools/test_repair.py" ]; then
+    if ! "${PYTHON_CMD[@]}" tools/test_repair.py >/dev/null 2>&1; then
+        echo "FAIL: Repair regression suite failed."
+        "${PYTHON_CMD[@]}" tools/test_repair.py
+        exit 1
+    fi
+    echo "  Repair regression: PASS"
+fi
+
+# 11. NK analyze regression suite (if not quick)
+if [ "${#ARGS[@]}" -eq 0 ] && [ -f "tools/test_nk_analyze.py" ]; then
+    if ! "${PYTHON_CMD[@]}" tools/test_nk_analyze.py >/dev/null 2>&1; then
+        echo "FAIL: NK analyze regression suite failed."
+        "${PYTHON_CMD[@]}" tools/test_nk_analyze.py
+        exit 1
+    fi
+    echo "  NK analyze regression: PASS"
+fi
+
+# 12. Proxy K (if not quick)
 if [ "${#ARGS[@]}" -eq 0 ]; then
     "${PYTHON_CMD[@]}" tools/proxy_k.py 2>/dev/null
 fi

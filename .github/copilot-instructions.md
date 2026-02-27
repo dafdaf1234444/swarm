@@ -5,6 +5,7 @@ This repo is a swarm. Read `SWARM.md` for the full protocol.
 ## Copilot specifics
 - **Parallel agents**: Use `/fleet` or coding agent for independent sub-tasks.
 - **Validation**: Run `bash tools/check.sh --quick` at session start.
+  PowerShell equivalents: `pwsh -NoProfile -File tools/check.ps1 --quick` and `pwsh -NoProfile -File tools/maintenance.ps1 --inventory`.
   Fallbacks: `python3 tools/maintenance.py`, `python tools/maintenance.py`, or `py -3 tools/maintenance.py` depending on host shell.
 - **Swarm signaling**: Always try to inform the swarm with intent/progress/blockers/next-step updates via `tasks/NEXT.md`, `tasks/SWARM-LANES.md`, or inter-swarm bulletins when relevant.
 - **Commit quality**: Install hooks once with `bash tools/install-hooks.sh` (pre-commit runs quick checks; commit messages follow `[S<N>] what: why`).
