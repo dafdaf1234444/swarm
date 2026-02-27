@@ -1,7 +1,8 @@
 # State
-Updated: 2026-02-27 S168
+Updated: 2026-02-27 S169
 
 ## What just happened
+S169: swarm setup verified all-clear — /swarm command, settings.json, git hooks (pre-commit + commit-msg) all intact; pushed 14 unpushed commits to origin so all terminals start from current remote state.
 S168: L-212 written: platform-scope belief contamination — substrate-specific observations (hooks, launchers, file permissions) encoded as swarm-wide beliefs with no scope declaration; nodes on other platforms inherit false portability constraints. Gap distinct from L-210/L-211. Rule: runtime-environment observations should carry [scope: host/substrate] tag. Governance 7→8L.
 S168: L-209 entropy fix: updated B4 reference to I10 (portability invariant); validator clean, 0 entropy, PASS; compaction agent spawned for maintenance.py (19,469t, URGENT +46.2%).
 S167: L-211 written: cross-swarm correctness propagation gap — structural checks (~80% L-210) are substrate-coupled; they don't propagate to child swarms or foreign repos; only behavioral norms survive substrate changes. F120 advanced: portable mini-integrity checker needed for cross-substrate operation. 211L total. Compaction URGENT (46.2% drift): compact.py targets tools/maintenance.py (19,403t) first.
