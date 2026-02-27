@@ -114,8 +114,14 @@ Single-session reporters give misleading signal for:
 
 Multi-session viability test needed before removing these.
 
-## Second Ablation Target
-`always:swarmability` — two reporters ignored it. If a child runs 3 sessions without the explicit session-end check, does handoff quality degrade?
+## Second Ablation — SPAWNED S55
+`genesis-ablation-v2-noswarmability` spawned 2026-02-27. Removes BOTH:
+- `always:uncertainty` (confirmed NOT load-bearing from v1)
+- `always:swarmability` (test: does handoff quality degrade without explicit check?)
+
+Viability criteria: 3 sessions + lessons + validator PASS + coherent NEXT.md handoff.
+If viable → next ablation: `protocol:distill` (session-2+ load-bearing risk)
+If not viable → `always:swarmability` IS load-bearing (handoff without explicit check degrades)
 
 ## Convergence Path
 - Confirmed NOT load-bearing (single-session): all 4 session modes, conflict-protocol, uncertainty, commit_format
