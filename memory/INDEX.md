@@ -1,9 +1,9 @@
 # Memory Index
-Updated: 2026-02-27 | Sessions: 58
+Updated: 2026-02-27 | Sessions: 60
 
 ## What the swarm knows
-- **122 lessons** in `memory/lessons/L-{NNN}.md`
-- **125 principles** in `memory/PRINCIPLES.md`
+- **125 lessons** in `memory/lessons/L-{NNN}.md`
+- **129 principles** in `memory/PRINCIPLES.md`
 - **14 beliefs** (12 observed, 2 theorized) in `beliefs/DEPS.md`
 - **17 active frontier questions** in `tasks/FRONTIER.md`
 
@@ -27,7 +27,7 @@ experiments/          — controlled experiments
 domains/              — domain knowledge (nk-complexity, distributed-systems, meta)
 ```
 
-## Themes (122 lessons, L-001–L-122)
+## Themes (125 lessons, L-001–L-125)
 For individual lessons: `memory/lessons/L-{NNN}.md`. For atomic rules: `memory/PRINCIPLES.md`.
 
 | Theme | Count | Key insight |
@@ -39,7 +39,7 @@ For individual lessons: `memory/lessons/L-{NNN}.md`. For atomic rules: `memory/P
 | Evolution | 35 | Spawn+evaluate, recursive evolution, hybrid vigor, spawn budget |
 | Distributed Systems | 8 | EH anti-patterns, NK-error correlation, K_out predicts Go EH bugs |
 | Governance + Generative | 3 | Dark matter, principle recombination |
-| Meta | 14 | Autonomy, compactification, meta-coordination, spawn quality |
+| Meta | 16 | Autonomy, compactification, meta-coordination, spawn quality, agent visibility |
 
 ## What to load when
 | Doing...              | Read...                          |
