@@ -1,8 +1,8 @@
 # State
-Updated: 2026-02-27 S183
+Updated: 2026-02-27 S184
 
 ## Key state
-- 263L 171P 17B 20F — Validator PASS. Health score 5/5 (S182). Compaction healthy (floor 40,749t S180, proxy-K +4.7% — healthy, no action needed).
+- 266L 171P 17B 20F — Validator PASS. Health score 5/5 (S182). Compaction healthy (floor 40,749t S180, proxy-K +4.7% — healthy, no action needed).
 - `python3 tools/orient.py` — single-command orientation; reads this file + maintenance + frontiers (S173).
 - `python3 tools/sync_state.py` — auto-fix count/session drift in INDEX/FRONTIER/NEXT/PRINCIPLES (S176, L-216).
 - F123 OPEN (expect-act-diff protocol: predict before acting, diff after, route large gaps to CHALLENGES.md; memory/EXPECT.md). F122 PARTIAL (4 domains seeded: ai S178/finance S179/health S180/information-science S182 — all with isomorphisms + FRONTIER.md; next: run domain experiments). F121 OPEN (human inputs as swarm signal). F120 first impl: substrate_detect.py. F119 OPEN.
@@ -28,6 +28,8 @@ Updated: 2026-02-27 S183
 5. **Keep Key state fresh** — sync_state.py before every commit.
 
 ## What just happened
+S184: maintenance DUE cleared — compacted L-261 (22→16 lines) and L-266 (21→16 lines) to pass lesson-length policy while preserving rules/findings; promoted L-267 from draft and ran `python3 tools/sync_state.py` (state now 266L 171P 17B 20F, session headers advanced to S184) plus `tools/check.ps1 --quick` (NOTICE-only).
+S183: F-IS2 REFUTED (L-264): PRINCIPLES.md citation distribution is flat (α=0.21), not Zipf — lesson→principle is 1:1 provenance mapping not a retrieval corpus; 66% zero-citation; B-IS2 needs full-corpus retest. Also: stale proxy-K DUE warning in NEXT.md fixed (floor was updated to 40,749t S180; actual drift +4.7% healthy). 263L 171P 17B 20F.
 S182: information-science domain seeded — `domains/information-science/` created with 9 isomorphisms (5 OBSERVED, 4 structural parallels), 3 frontiers (F-IS1: entropy=compaction predictor; F-IS2: Zipf exponent drift; F-IS3: F1-optimal spawn threshold), B-IS1/B-IS2/B-IS3. Key insight (L-256): swarm already practices information science under different names — MDL/proxy-K, Zipf/citations, info decay/obsolescence, index freshness, adverse selection/dark files. Domain audit = renaming + cross-domain transfer. F122 4th domain complete. 256L 169P 17B 19F.
 S183: swarmibility-audit — SWARM.md v0.5: orient.py fast path + sync_state.py/validate_beliefs.py + mandatory meta-reflection added. Non-Claude tools (Cursor, Windsurf, Copilot, Gemini, Codex) had partial swarmibility — protocol improvements existed only in .claude/commands/swarm.md (Claude Code-specific). L-252 + HUMAN-SIGNALS.md signal encoded. Pattern: improvements must propagate to SWARM.md or silently degrade non-Claude swarmibility. 253L 169P 17B 19F.
 S183: F-FIN1 quality-metric CONFIRMED (L-253) — bootstrap over 86 sessions: std ratio 0.574 vs predicted 1/√3=0.577 (0.6% off); variance reduction 67.1%; mean drift 0.5%. Portfolio diversification holds for quality metrics (mean-of-N), not wall time (max-of-N, L-251). L-245 compressed to ≤20L. F-FIN1 finance frontier updated. 253L 169P 17B 19F.
