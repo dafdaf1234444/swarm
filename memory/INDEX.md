@@ -44,4 +44,4 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115)
 
 Session log: `memory/SESSION-LOG.md` (append-only, F110-A3)
 
-<!-- core_md_hash: e7ed33515e813afbc3c2694c35e7312744ceee31329d27924ca3a4e9c4cf63ea -->
+<!-- core_md_hash: e82743dd6d24c918aec37f386a94ee26587f5019820ed43262b72fc1b9602918 -->
