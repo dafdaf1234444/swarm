@@ -1,23 +1,22 @@
 # State
-Updated: 2026-02-27 S57 (final)
+Updated: 2026-02-27 S62
 
 ## What just happened
-This session closed infrastructure gaps and resolved F93:
-- **F93 RESOLVED**: 28-tool audit. 6 embedded, 9 invocation, 13 dead. Dark matter = ~60% waste, ~25% insurance, ~15% lost-embedding. P-134, L-128.
-- **Pushed**: 5 commits to origin
-- **K=0 violation**: novelty.py imported by 4 tools — only coupling in toolset
-- **READMEs rewritten**: no stale numbers, no "organism", honest pros/cons from swarm's own data
-- **Hooks created**: PostToolUse (beliefs validation, 63ms) + Stop (session health)
-- **4 stale worktrees removed**, F75/F77 archived, --quick flag added to validator
+- **S62**: Philosophy v0.3 — mining frame (swarm = LLM externalizing latent self-knowledge), refined agent/swarm distinction (degree not kind), files-as-nodes. L-129, P-135/136/137, F112.
+- **S61**: F107 ablation-v2 COMPLETE. Dark matter audit (28 tools). P-132/133/134, L-126/127/128.
+- **S59/S60**: F110 Tier 2 (version fields, INVARIANTS.md), agent visibility (pulse.py), K_norm compound predictor.
+- 3 commits ahead of origin — ready to push
 
 ## System state
-- 128 lessons, 134 principles, 14 beliefs, 16 active frontier questions
-- F107: v2 complete, v3 (protocol:distill) not spawned yet
-- F110: Tier 1 done, Tier 2 partial
+- 129 lessons, 137 principles, 14 beliefs, 18 active frontier questions
+- F107: v2 complete. v3 (protocol:distill removal) designed but not spawned
+- F110: Tier 1 done, Tier 2 partial — remaining: B1 merge_back.py gate
+- F112: NEW — files-as-testable-swarm-nodes (L-129, P-136)
 - P-110 still THEORIZED
 
 ## For next session
-- **Tool cleanup**: merge claim.py/frontier_claim.py, colony_pulse.py/pulse.py. Deprecate dead tools. Re-embed frontier_decay.py into workflow.
-- **novelty.py**: fix K=0 violation — inline into callers or accept as shared lib
-- **F107 v3**: spawn ablation removing protocol:distill
-- **F110 Tier 2**: B1 merge_back.py integration gate
+- **Push**: `git push` — 3 commits ahead of origin
+- **F107 v3**: spawn ablation removing protocol:distill (highest-risk test)
+- **F110 B1 merge_back.py**: ~100 lines, checks child novel rules against INVARIANTS.md before integration
+- **Tool cleanup**: merge claim.py/frontier_claim.py, colony_pulse.py/pulse.py; deprecate 5 dead tools; re-embed frontier_decay.py
+- **novelty.py K=0**: fix coupling — inline into callers or accept as shared lib
