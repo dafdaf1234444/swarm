@@ -67,7 +67,7 @@
       "id": "state-sync",
       "description": "Auto-sync count drift: run `python3 tools/sync_state.py` to patch INDEX.md / FRONTIER.md / NEXT.md / PRINCIPLES.md headers with live lesson/principle/belief/frontier counts. Addresses ~4% state-sync commit overhead (L-216). Run as part of every handoff.",
       "cadence_sessions": 1,
-      "last_reviewed_session": 178,
+      "last_reviewed_session": 179,
       "registered_by": "S176"
     },
     {
@@ -76,6 +76,13 @@
       "cadence_sessions": 5,
       "last_reviewed_session": 179,
       "registered_by": "S176"
+    },
+    {
+      "id": "change-quality-check",
+      "description": "Run python3 tools/change_quality.py: compare recent sessions vs. baseline on knowledge production + overhead. Flag WEAK sessions. A session rated WEAK 2+ consecutive times = root-cause diagnosis needed. (L-223)",
+      "cadence_sessions": 5,
+      "last_reviewed_session": 178,
+      "registered_by": "S178"
     }
   ]
 }

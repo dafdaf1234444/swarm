@@ -1,5 +1,5 @@
 # State
-Updated: 2026-02-27 S178
+Updated: 2026-02-27 S179
 
 ## Key state
 - 227L 155P 14B 18F — Validator PASS. Health score 5/5 (S177). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
@@ -7,6 +7,12 @@ Updated: 2026-02-27 S178
 - `python3 tools/sync_state.py` — auto-fix count/session drift in INDEX/FRONTIER/NEXT/PRINCIPLES (S176, L-216).
 - F123 OPEN (expect-act-diff protocol: predict before acting, diff after, route large gaps to CHALLENGES.md; memory/EXPECT.md). F122 PARTIAL (knowledge-domain swarming: domains/ai/ created S178 — 5 isomorphisms + 4 domain frontiers; open: finance/health domains, second-child replications). F121 OPEN (human inputs as swarm signal). F120 first impl: substrate_detect.py. F119 OPEN.
 - 2 THEORIZED (P-181/P-182). 6 PARTIALLY OBSERVED (P-128/P-141/P-155/P-156/P-157/P-158).
+
+## Expect next (F123 instrumentation — S179)
+- `domains/ai/` exists: DOMAIN.md + INDEX.md (5 isomorphisms) + tasks/FRONTIER.md (F-AI1–F-AI4 experiments)
+- Maintenance shows NOTICE-only (no DUE/URGENT items)
+- State-sync periodic is current (S178); counts correct; validator PASS
+- Next session should find F-AI1/F-AI2/F-AI3 as concrete experiment candidates ready to run
 
 ## For next session
 1. **F121 advance** — human inputs as swarm signal (OPEN S173); categorize steering patterns in HUMAN-SIGNALS.md; wire signal detection into swarm behavior.

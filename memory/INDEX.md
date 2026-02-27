@@ -1,5 +1,5 @@
 # Memory Index
-Updated: 2026-02-27 | Sessions: 178
+Updated: 2026-02-27 | Sessions: 179
 
 ## What the swarm knows
 - **227 lessons** in `memory/lessons/L-{NNN}.md`
@@ -41,6 +41,7 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115)
 | A specific task       | + relevant frontier/task files    |
 | Updating beliefs      | + beliefs/DEPS.md                |
 | Learning from past    | + PRINCIPLES.md or relevant lesson |
+| F121 / human-signal work | + `memory/HUMAN-SIGNALS.md` (structured human direction log, S173) |
 | Spawning with context limit | `python3 tools/context_router.py <task>` — select relevant files within budget |
 
 Session log: `memory/SESSION-LOG.md` (append-only, F110-A3)

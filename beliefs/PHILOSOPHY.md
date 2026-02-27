@@ -82,7 +82,7 @@ preserving, challenging, and compressing what it learns.
 | PHIL-6 | Grow without breaking | axiom | active |
 | PHIL-7 | Compactify — compression is selection pressure | observed | active |
 | PHIL-8 | Swarm seeks minimal form as dynamic equilibrium | observed | active — REFINED S165: observed rising sawtooth (+69% in 65 sessions); growth is managed not equilibrated |
-| PHIL-9 | Swarm/agent distinction is degree not category | theorized | active |
+| PHIL-9 | Swarm/agent distinction is degree not category | observed | active — REFINED S178: volatile-vs-persistent accumulation is structural; async blackboard prevents cascade anchoring that agent loops produce (L-217/L-218, L-225) |
 | PHIL-10 | Swarm learning compounds; agent learning evaporates | observed | active |
 | PHIL-11 | Human is a node with judgment, not authority | axiom | active |
 | PHIL-12 | One-sentence identity (ouroboros) | axiom | active |
