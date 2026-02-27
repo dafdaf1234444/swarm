@@ -85,6 +85,24 @@ def create_agent_swarm(child_name: str, task_description: str, personality: str 
         cwd=str(child_dir), capture_output=True
     )
 
+    # Record spawn metadata in .swarm_meta.json
+    from datetime import date as _date
+    meta_path = child_dir / ".swarm_meta.json"
+    meta = {}
+    if meta_path.exists():
+        try:
+            meta = json.loads(meta_path.read_text())
+        except Exception:
+            pass
+    meta["task"] = task_description
+    meta["spawned"] = str(_date.today())
+    meta_path.write_text(json.dumps(meta, indent=2))
+    subprocess.run(["git", "add", ".swarm_meta.json"], cwd=str(child_dir), capture_output=True)
+    subprocess.run(
+        ["git", "commit", "-m", "[S] meta: record spawn task + date"],
+        cwd=str(child_dir), capture_output=True
+    )
+
     print(f"Task file written: {task_file}")
     print(f"\nTo run: python3 tools/agent_swarm.py prompt {child_name}")
 

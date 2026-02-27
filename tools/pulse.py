@@ -118,17 +118,84 @@ def generate_pulse(out=None):
         p(f"\n  Open: {len(questions)} | Resolved: {resolved_count}")
     p()
 
-    # --- Active children ---
-    p("## Children")
+    # --- Agents ---
+    p("## Agents")
     if CHILDREN_DIR.exists():
         children = sorted([d for d in CHILDREN_DIR.iterdir() if d.is_dir()])
         if children:
+            def child_task(child_dir):
+                agent_task = child_dir / "tasks" / "AGENT-TASK.md"
+                if agent_task.exists():
+                    lines = agent_task.read_text().splitlines()
+                    for i, line in enumerate(lines):
+                        if line.strip() == "## Description" and i + 1 < len(lines):
+                            t = lines[i + 1].strip()
+                            if t:
+                                return (t[:42] + "…") if len(t) > 42 else t
+                meta_path = child_dir / ".swarm_meta.json"
+                if meta_path.exists():
+                    try:
+                        t = json.loads(meta_path.read_text()).get("task", "")
+                        if t:
+                            return (t[:42] + "…") if len(t) > 42 else t
+                    except Exception:
+                        pass
+                return "—"
+
+            def child_last_commit(child_dir):
+                r = subprocess.run(
+                    ["git", "-C", str(child_dir), "log", "--oneline", "-1",
+                     "--format=%cd", "--date=short"],
+                    capture_output=True, text=True, timeout=10
+                )
+                return r.stdout.strip() or "never"
+
+            needs_attention, not_started, active_list, integrated_list = [], [], [], []
+
             for child_dir in children:
                 name = child_dir.name
                 lessons = len(list((child_dir / "memory" / "lessons").glob("L-*.md"))) if (child_dir / "memory" / "lessons").exists() else 0
                 log_path = REPO_ROOT / "experiments" / "integration-log" / f"{name}.json"
-                status = "integrated" if log_path.exists() else ("active" if lessons > 0 else "spawned")
-                p(f"  {name:<25} [{status}] lessons: {lessons}")
+                bulletin_path = REPO_ROOT / "experiments" / "inter-swarm" / "bulletins" / f"{name}.md"
+                last = child_last_commit(child_dir)
+                task = child_task(child_dir)
+                entry = (name, task, last, lessons)
+
+                if log_path.exists():
+                    integrated_list.append(entry)
+                elif bulletin_path.exists():
+                    needs_attention.append(entry)
+                elif last == "never":
+                    not_started.append(entry)
+                else:
+                    active_list.append(entry)
+
+            def fmt(name, task, last, lessons, flag=""):
+                return f"  {name:<30} {task:<44} {last}  L:{lessons}{flag}"
+
+            if needs_attention:
+                p(f"  NEEDS ATTENTION ({len(needs_attention)})")
+                for e in needs_attention:
+                    p(fmt(*e, "  → bulletin unread"))
+                p()
+            if not_started:
+                p(f"  NOT STARTED ({len(not_started)})")
+                for e in not_started:
+                    p(fmt(*e))
+                p()
+            if active_list:
+                tasked = [e for e in active_list if e[1] != "—"]
+                variants = [e for e in active_list if e[1] == "—"]
+                p(f"  ACTIVE ({len(active_list)})")
+                for e in tasked:
+                    p(fmt(*e))
+                if variants:
+                    names = ", ".join(e[0] for e in variants)
+                    p(f"  {'':30} experiment variants ({len(variants)}): {names}")
+                p()
+            if integrated_list:
+                names = ", ".join(e[0] for e in integrated_list)
+                p(f"  INTEGRATED ({len(integrated_list)}): {names}")
         else:
             p("  No children spawned.")
     else:
