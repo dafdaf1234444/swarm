@@ -412,6 +412,39 @@ def check_pulse_children() -> list[tuple[str, str]]:
     return results
 
 
+def check_handoff_staleness() -> list[tuple[str, str]]:
+    """Check for stale handoff items in NEXT.md (F113 pair 4: past↔future alignment).
+
+    Items tagged (added SN) that have been in NEXT.md for >3 sessions
+    indicate a past→future handoff that isn't being received.
+    """
+    results = []
+    next_text = _read(REPO_ROOT / "tasks" / "NEXT.md")
+    if not next_text:
+        return results
+
+    session = _session_number()
+    if session <= 0:
+        return results
+
+    stale = []
+    for m in re.finditer(r"\(added S(\d+)\)", next_text):
+        added_session = int(m.group(1))
+        age = session - added_session
+        if age > 3:
+            line_start = next_text.rfind("\n", 0, m.start()) + 1
+            line_end = next_text.find("\n", m.end())
+            line = next_text[line_start:line_end if line_end > 0 else len(next_text)].strip()
+            item_match = re.search(r"\*\*(.+?)\*\*", line)
+            item_name = item_match.group(1) if item_match else line[:50]
+            stale.append(f"{item_name} (age: {age} sessions)")
+
+    if stale:
+        results.append(("DUE", f"{len(stale)} stale handoff item(s) in NEXT.md — knowledge loss risk: {'; '.join(stale[:3])}"))
+
+    return results
+
+
 def check_resolution_claims() -> list[tuple[str, str]]:
     """Check for stale resolution claims."""
     results = []
@@ -449,6 +482,7 @@ def main():
         check_periodics,
         check_human_queue,
         check_uncommitted,
+        check_handoff_staleness,
         check_resolution_claims,
         check_cross_references,
         check_pulse_children,
