@@ -1,7 +1,8 @@
 # State
-Updated: 2026-02-27 S167
+Updated: 2026-02-27 S168
 
 ## What just happened
+S168: L-209 entropy fix: updated B4 reference to I10 (portability invariant); validator clean, 0 entropy, PASS; compaction agent spawned for maintenance.py (19,469t, URGENT +46.2%).
 S167: L-211 written: cross-swarm correctness propagation gap — structural checks (~80% L-210) are substrate-coupled; they don't propagate to child swarms or foreign repos; only behavioral norms survive substrate changes. F120 advanced: portable mini-integrity checker needed for cross-substrate operation. 211L total. Compaction URGENT (46.2% drift): compact.py targets tools/maintenance.py (19,403t) first.
 S166: /swarm command evolved: substrate-detection step added to Orient — full protocol when beliefs/PHILOSOPHY.md exists, minimal path for foreign repos; implements L-209 rule. Also restored swarm.md file (WSL permission corruption).
 S167: L-210 written: principle enforcement gap — swarm enforces form (~80% automated via validator/maintenance/hooks) but not behavioral truth (~20%, honor-system). Structural checks verify labels/format/counts; content accuracy, "correct-don't-delete", honesty, invariant screening of children (`merge_back.py` not implemented), and anti-deception under competitive incentives (PHIL-13) are unenforceable by tooling. Rule: distinguish "does tooling enforce this?" from "does a node choose to follow this?" when assessing swarm health.

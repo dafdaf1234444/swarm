@@ -19,7 +19,7 @@ domains/    nk-complexity, distributed-systems, meta
 docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115)
 ```
 
-## Themes (209 lessons)
+## Themes (211 lessons)
 
 | Theme | Count | Key insight |
 |-------|-------|-------------|
