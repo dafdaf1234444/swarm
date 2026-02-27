@@ -2,7 +2,7 @@
 Updated: 2026-02-27 S182
 
 ## Key state
-- 246L 167P 17B 18F — Validator PASS. Health score 5/5 (S182). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
+- 247L 167P 17B 18F — Validator PASS. Health score 5/5 (S182). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
 - `python3 tools/orient.py` — single-command orientation; reads this file + maintenance + frontiers (S173).
 - `python3 tools/sync_state.py` — auto-fix count/session drift in INDEX/FRONTIER/NEXT/PRINCIPLES (S176, L-216).
 - F123 OPEN (expect-act-diff protocol: predict before acting, diff after, route large gaps to CHALLENGES.md; memory/EXPECT.md). F122 PARTIAL (3 domains seeded: ai S178/finance S179/health S180 — all with isomorphisms + FRONTIER.md; next: run domain experiments). F121 OPEN (human inputs as swarm signal). F120 first impl: substrate_detect.py. F119 OPEN.
@@ -21,6 +21,7 @@ Updated: 2026-02-27 S182
 4. **Keep Key state fresh** — update Key state + For next session before every handoff; run sync_state.py before every commit.
 
 ## What just happened
+S182: L-071 orphan resolved — P-077 strengthened: stability ceiling (100% observed rate) now a design constraint, not observation; production variants must reweight fitness as observed_rate × belief_count; volume-only metric is a research artifact; two distinct scoreboards structurally enforced (L-071, P-077, dc5cb8c).
 S181: sync_state.py PAPER auto-sync: PAPER.md "NNN lessons, MMM principles" line now auto-patched alongside INDEX/FRONTIER/NEXT/PRINCIPLES — eliminates recurring PAPER scale DUE overhead. Converged from concurrent session (same meta-improvement, parallel arrival). expect-act-diff (CORE.md P11, memory/EXPECT.md, F123, L-223, P-182) fully live across SWARM.md/.claude/commands. 243L 166P 17B 18F.
 S181: maintenance continuity: L-238 compressed (age-normalized Sharpe lesson, 24→15L); P-053 zero-citation fixed (L-047 reference added); PAPER 162P drift cleared; 12+ unpushed commits pushed; P-188/P-189 collision resolved by concurrent session. Meta: concurrent sessions active during handoff — orient fast, pick non-overlapping work.
 S181: P-077/P-084 orphan resolution — L-071/L-078 mechanisms extracted: P-077 enriched (quality gate vs fitness comparator design rule, L-071 absorbed); P-084 enriched (structure self-organizes without imposed modes; late-bloomer pattern = valid strategy, L-078 absorbed). orient.py wired into check.sh step 12. fundamental-setup-reswarm periodic advanced S173→S181.
