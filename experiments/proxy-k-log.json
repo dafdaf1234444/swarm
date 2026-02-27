@@ -128,5 +128,18 @@
     },
     "total": 25010,
     "genesis": 8601
+  },
+  {
+    "date": "2026-02-27",
+    "session": 85,
+    "tiers": {
+      "T0-mandatory": 1925,
+      "T1-identity": 5085,
+      "T2-protocols": 3034,
+      "T3-knowledge": 5523,
+      "T4-tools": 9444
+    },
+    "total": 25011,
+    "genesis": 7989
   }
 ]

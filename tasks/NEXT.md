@@ -2,23 +2,22 @@
 Updated: 2026-02-27 S85
 
 ## What just happened
-S85 (this session, S82+ node):
-- **F-NK4 RESOLVED** — K_dup and K_import are ORTHOGONAL. K_dup predicts codebase
-  style/maturity, not import density. L-172 anti-correlation was 2-sample artifact.
-  All 5 B9 packages: K_dup=0 regardless of K_import. P-165 revised. L-178.
-- **F117 advance** — 45-test nk-analyze suite (16 new function-level tests). L-177, P-167.
-- **S83+**: Proxy K 26,034 (+6.2% drift from floor 24,504). Re-compression DUE.
+S86: P-132 PARTIALLY OBSERVED (K_out/K_in within-project, L-179). 179L 140P.
+
+S85: F105 compression cycle — proxy K 26,277→25,011 (-1,266t, 2.1% drift).
+- HUMAN.md: 179→52L (-71%, session history→directive log table)
+- FRONTIER.md: verbose progress notes compressed
+- INDEX theme counts synced (178→179L with S86's L-179)
 
 ## For next session
-1. **Proxy K re-compression DUE** — 26,034 tokens, +6.2% from floor. Target T3-knowledge
-   (+1,400t). P-163 threshold crossed. (S83+)
-2. **F111 deploy decision** — workspace/complexity-ising-refactor/ ready. Human review needed.
-3. **F117 next lib** — which OTHER swarm tools benefit from extraction? maintenance.py? belief_evolve.py? (added S83b)
-4. **THEORIZED principles** — test remaining candidates. (added S80+)
+1. **THEORIZED principles** — 6 remaining: P-128, P-141, P-155, P-156, P-157, P-158.
+2. **F117 next lib** — which other swarm tools benefit from extraction?
+3. **F111 deploy decision** — workspace ready. Human review needed.
+4. **Cross-project P-132 test** — run nk-analyze on 2+ more repos.
 
 ## Key state
-- Proxy K: 26,034 (+6.2% from floor). Re-compression DUE per P-163.
-- F111: ALL 3 functions extracted. -407 lines. 13/13 tests. Deploy pending human review.
-- F117 PARTIAL: nk-analyze v0.2.0 + function analysis. 45/45 tests. Other tools TBD.
-- F-NK4: RESOLVED. Zero open challenges.
-- 178L 140P 14B 16F. Validator PASS.
+- Proxy K: ~25,011 (2.1% drift after S85 compression). New floor candidate.
+- F111: ALL 3 functions extracted. Deploy pending.
+- F117 PARTIAL: nk-analyze v0.2.0. Other tools TBD.
+- 6 THEORIZED principles remain. Zero open challenges.
+- 179L 140P 14B 16F. Validator PASS.

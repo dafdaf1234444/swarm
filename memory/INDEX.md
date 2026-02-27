@@ -1,9 +1,9 @@
 # Memory Index
-Updated: 2026-02-27 | Sessions: 85
+Updated: 2026-02-27 | Sessions: 86
 
 ## What the swarm knows
-- **178 lessons** in `memory/lessons/L-{NNN}.md`
-- **140 principles** in `memory/PRINCIPLES.md` (S81: P-122→P-119 merged, P-145 removed — uncited MDL audit)
+- **179 lessons** in `memory/lessons/L-{NNN}.md`
+- **140 principles** in `memory/PRINCIPLES.md` (S86: P-132 PARTIALLY OBSERVED; S81: P-122→P-119 merged, P-145 removed)
 - **14 beliefs** in `beliefs/DEPS.md` | **16 frontier questions** in `tasks/FRONTIER.md` (F117 added S83 — self-producing libs; F116 archived S81; F109+F113+F91 archived S79+)
 
 ## Structure
@@ -19,14 +19,14 @@ domains/    nk-complexity, distributed-systems, meta
 docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115)
 ```
 
-## Themes (176 lessons)
+## Themes (178 lessons)
 
 | Theme | Count | Key insight |
 |-------|-------|-------------|
 | Architecture | 15 | Blackboard+stigmergy, domain sharding, online distillation, 3-var decision tree (L-156), phantom dependency (L-161) |
 | Protocols | 13 | Distill, verify (3-S), correct, handoff; evidence > assertion, persuasion≠accuracy (L-158), self-measurable falsification (L-160) |
-| Strategy | 12 | Phase ratios, genesis automation, targeted fixes, builder fix-phase test (L-176), superset-return refactor (L-175) |
-| Complexity (NK) | 29 | K_avg*N+Cycles composite, DAG discipline, multi-scale, duplication K (L-172), function-level ADDITIVE (L-174) |
+| Strategy | 13 | Phase ratios, genesis automation, targeted fixes, builder fix-phase test (L-176), superset-return refactor (L-175), lib production loop (L-177) |
+| Complexity (NK) | 30 | K_avg*N+Cycles composite, DAG discipline, multi-scale, duplication K (L-172), function-level ADDITIVE (L-174), K_dup orthogonal (L-178) |
 | Evolution | 42 | Spawn+evaluate, recursive evolution, hybrid vigor, transactive memory (L-153), trace deception (L-154), fractal lifecycle (L-155), fitness decomposition (L-159), 2D fitness quadrants (L-164), human node model (L-165), experiment→code loop (L-167) |
 | Distributed Systems | 10 | EH anti-patterns, K_out/K_in role classifier, ctx compound |
 | Governance | 4 | Dark matter, principle recombination, PHIL authority types (L-173) |
