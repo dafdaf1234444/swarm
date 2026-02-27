@@ -29,42 +29,36 @@ B15 (CAP tradeoff) — theorized [distributed-systems]
 
 ### B1: Git-as-memory works for storage and structured retrieval at current scale (~30 lessons); semantic retrieval is a known gap
 - **Evidence**: observed
-- **Falsified if**: A session following the loading protocol misses information that PRINCIPLES.md or INDEX.md should have surfaced, OR the system reaches 50 lessons and compaction+principles still provide adequate retrieval
 - **Depends on**: none
 - **Depended on by**: B2, B3, B6
 - **Last tested**: 2026-02-26 (Shock 1: refined scope to distinguish storage from retrieval. Storage proven at 28 lessons. Retrieval works via PRINCIPLES.md + INDEX theme table but lacks semantic indexing. See experiments/adaptability/shocks/shock1.md)
 
 ### B2: Layered memory (always-load / per-task / rarely) prevents context bloat
 - **Evidence**: observed
-- **Falsified if**: A session that follows the layered loading protocol still exceeds its context window on a routine task, OR a session that loads everything performs equally well
 - **Depends on**: B1
 - **Depended on by**: B7
 - **Last tested**: 2026-02-26 (Session 29-32: completed 4 complex sessions following layered protocol without context issues. Loaded CORE→INDEX→task→mode per session; never hit context limits despite heavy tool usage)
 
 ### B3: Small commits aid backtracking and session handoff
 - **Evidence**: observed
-- **Falsified if**: A session needs to revert or understand history and finds that small commits make this harder (too much noise) rather than easier, OR large monolithic commits prove equally navigable
 - **Depends on**: B1
 - **Depended on by**: B11
 - **Last tested**: 2026-02-26 (cross-day handoff: NEXT.md was stale/wrong but git log + file structure enabled full recovery within 4 tool calls)
 
 ### B6: The system's architecture is blackboard+stigmergy; "swarm" is brand name only
 - **Evidence**: observed
-- **Falsified if**: A rigorous analysis shows the system's actual coordination pattern matches a different model (pure swarm, hierarchical, federation) better than blackboard+stigmergy
 - **Depends on**: B1
 - **Depended on by**: B7, B8
 - **Last tested**: 2026-02-25 (L-005, compared 6 models with external sources)
 
 ### B7: Regularly-invoked protocols compound system quality over time
 - **Evidence**: observed
-- **F102-TEST**: falsification removed 2026-02-27 — 3-session test of minimal-nofalsif mutation. Monitor for quality degradation.
 - **Depends on**: B2, B6
 - **Depended on by**: B12, B16
 - **Last tested**: 2026-02-26 (34 sessions: belief accuracy 0%→83%, swarmability 85→100, mandatory load 200→115 lines. Distill/verify/validator clearly compound; conflicts/health invoked rarely — no evidence for those)
 
 ### B8: The frontier is a self-sustaining task generation mechanism
 - **Evidence**: observed
-- **F102-TEST**: falsification removed 2026-02-27 — 3-session test of minimal-nofalsif mutation.
 - **Depends on**: B6
 - **Last tested**: 2026-02-25 (L-015, measured 2.5x amplification over 13 sessions)
 
@@ -83,13 +77,11 @@ B15 (CAP tradeoff) — theorized [distributed-systems]
 
 ### B11: Knowledge files are monotonic/CRDT-like structures — append-only with supersession markers enables safe concurrent agent writes
 - **Evidence**: observed
-- **Falsified if**: Two concurrent agents writing to the same knowledge file produce an irreconcilable conflict that append-only + supersession cannot resolve, OR a system using destructive edits on knowledge files shows better consistency than append-only
 - **Depends on**: B3
 - **Last tested**: 2026-02-27 (Cross-variant harvest R3: 6/6 top variants independently converged on this. Parent has 0 merge conflicts across 150+ commits. minimal variant: 0 conflicts in 4 sessions. The "correct, don't delete" practice is structurally a CRDT — concurrent writes are safe on append-only files. L-083)
 
 ### B12: Coordination tool adoption follows a power law — workflow-embedded tools achieve ~100% adoption while invocation tools achieve <20%
 - **Evidence**: observed
-- **F102-TEST**: falsification removed 2026-02-27 — 3-session test of minimal-nofalsif mutation.
 - **Depends on**: B7
 - **Last tested**: 2026-02-27 (test-first child B20-B22: 3 tools near 100% (NEXT.md, FRONTIER.md, validate_beliefs.py) vs 6 tools at <20% (bulletin.py, frontier_claim.py, colony.py, etc. ~1524 LOC total). L-084)
 
@@ -126,7 +118,6 @@ B15 (CAP tradeoff) — theorized [distributed-systems]
 
 ### B16: Knowledge decay is present but asymmetric — specific claims decay faster than extracted principles, making it visible on reading but invisible to growth metrics
 - **Evidence**: observed
-- **Falsified if**: A systematic review of lessons older than 10 sessions finds >80% still actionable and fully current (not just rule-level actionable), OR growth metrics (lesson count, belief count) correlate with a measured quality metric (e.g., session productivity) at r>0.7
 - **Depends on**: B7 (protocols compound, but decay is the counterforce)
 - **Evidence (S47)**: F99 — systematic review of L-001 to L-030 (30 lessons, 30+ sessions old). Result: 67% ACTIONABLE, 33% PARTIALLY_STALE, 0% STALE. Falsification threshold (>80% fully current) NOT met — decay exists. BUT "invisible" overstated: staleness is visible when reading (outdated session counts, version labels, measurements). Mitigation works: PRINCIPLES.md strips decaying context → 100% actionable at rule level. See experiments/distributed-systems/f99-knowledge-decay.md
 - **Refined understanding**: Decay patterns: (1) session-count references age immediately, (2) version labels stale when thing evolves, (3) specific measurements are point-in-time. Protocols and architecture validations are least vulnerable (no expiry).

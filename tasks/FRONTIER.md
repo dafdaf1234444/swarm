@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 Pick the most relevant one for your session. Solve it or refine it.
-19 active questions. Resolved entries are in the table below.
-Last updated: 2026-02-27 S54
+23 active questions. Resolved entries are in the table below.
+Last updated: 2026-02-27 S55
 
 ## Critical
 - **F9**: What should the swarm's first real-world knowledge domain be? (PARTIAL — complexity theory + distributed systems. Two domains active.)
@@ -9,7 +9,6 @@ Last updated: 2026-02-27 S54
 ## Important
 - **F107**: What is the minimal genesis (Kolmogorov complexity) that produces a viable swarm? (Human directive. S53: Phase 2 started — ablation child `genesis-ablation-v1-nouncertainty` spawned with `always:uncertainty` removed. Child running first session. Viability criteria: 3 sessions + lessons + validator PASS. See experiments/architecture/f107-genesis-ablation.md. If viable → next ablation: `always:swarmability`. If not viable → `always:uncertainty` is load-bearing.)
 - **F105**: How should the swarm implement continuous (online) compaction? (S51: Human directive. Current distillation is batch-only: session-end. Desired: inline Step 0 added to DISTILL.md — check PRINCIPLES.md before writing lesson. But open questions: (1) Should children inherit PRINCIPLES.md at spawn? Edge-of-chaos bulletin asked this in S35, never answered. (2) Should there be a dedicated "compactor" child that monitors and merges redundant principles? (3) What triggers a merge: 3 principles pointing to same truth? (4) Is the current 110-principle 46-line PRINCIPLES.md too dense to parse, or just right? Test: spawn 1 child with PRINCIPLES.md inheritance and 1 without — measure re-derivation rate.)
-- **F102**: Should the parent adopt minimal-nofalsif's winning changes? (S48: two mutations: remove falsification from beliefs, remove protocol files. S53 session 1/3 complete: B7/B8/B12 falsification removed; no drift observed; session ran normally. S54 = session 2/3. Decide by S55. Observation so far: sessions that don't NEED to reason about falsification don't notice it's missing; sessions that UPDATE beliefs will face the gap.)
 - **F69**: Context routing Level 2 — coordinator spawns with auto-summaries (triggers at 50K lines)
 - **F71**: Spawn quality — what makes a good spawn task? Measure convergence speed and novelty. (Human directive 2026-02-27: spawn budget is finite — can't spawn infinite children, can't run forever. The question is not "how many?" but "what's the highest-information partition?" P-119. Operationalize: for each spawn decision, record (a) how many agents were spawned, (b) how many found something unique, (c) what the overlap was. After 10 spawn events, compute average marginal novelty of Nth agent.)
 - **F101**: Domain sharding to scale past hot-file ceiling. (PARTIAL — Phase 1 DONE S52: domain FRONTIER files created for nk-complexity, distributed-systems, meta + CLAUDE.md domain routing. Ceiling now 3 concurrent agents. Phase 2 = domain INDEXes + GLOBAL-INDEX (trigger: 3 conflicts or 3rd domain). See experiments/architecture/f101-true-swarming-design.md + domains/*/tasks/FRONTIER.md.)
@@ -36,6 +35,7 @@ Last updated: 2026-02-27 S54
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F102 | RESOLVED — ADOPT minimal-nofalsif change. 3-session test (S52–S55): B7/B8/B12 falsification removed, no drift observed. Applied to all observed architectural beliefs (B1,B2,B3,B6,B7,B8,B11,B12,B16). Kept for domain knowledge (B9,B10,B13,B14,B15). Evidence-labeling provides equivalent coverage. L-112. | 55 | 2026-02-27 |
 | F103 | RESOLVED — swarm advantage = f(domain_count × documentation_sparsity). 3 tests: additive (single-domain), transformative (verification), multiplicative (multi-domain). P-114 updated. L-110. | 54 | 2026-02-27 |
 | F25 | MOOT — DEPS.md currently has 14 beliefs, well below any structural concern. No action needed unless belief count exceeds ~50. | 49 | 2026-02-27 |
 | F87 | RESOLVED at ~130 sessions — minimal-nofalsif overtook no-falsification. Moderate constraints win: remove falsification overhead, retain structure. Crossover slow: 5-point gap after 130 sessions. P-103. | 44 | 2026-02-27 |
