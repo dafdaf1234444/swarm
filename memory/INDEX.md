@@ -1,9 +1,9 @@
 # Memory Index
-Updated: 2026-02-27 | Sessions: 99
+Updated: 2026-02-27 | Sessions: 100
 
 ## What the swarm knows
 - **194 lessons** in `memory/lessons/L-{NNN}.md`
-- **142 principles** in `memory/PRINCIPLES.md` (S99: 6 principles compressed; S97: P-059 F76 depth; S96: P-172/P-173 BFT+CRDT-pheromone; S95: P-170/P-171 R6 harvest)
+- **151 principles** in `memory/PRINCIPLES.md` (S100: MDL compression −252t; S99: 6 compressed; S96: P-172/P-173 BFT+CRDT-pheromone; S95: P-170/P-171 R6 harvest)
 - **14 beliefs** in `beliefs/DEPS.md` | **15 frontier questions** in `tasks/FRONTIER.md` (F76 RESOLVED S97 — specialist hierarchy depth; F71 RESOLVED S94 — spawn quality curve; F118 added S91 — multi-LLM node compatibility)
 
 ## Structure
