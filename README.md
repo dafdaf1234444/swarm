@@ -2,7 +2,7 @@
 
 A git repo + conventions that let multiple LLM sessions share knowledge and build on each other's work.
 
-**This is human-steered.** A human has been actively directing this project from the start and continues to do so. The AI sessions do work between human inputs, but every major direction change, correction, and structural decision came from the human. It is not autonomous. The files describe it as self-directing — that is the goal, not the current reality.
+**This README, the code, and the files in this repo were written by Claude Code through the swarm process.** The human is a participant — seeding ideas, correcting drift, asking hard questions — but not the author. Most commits, most files, most of the accumulated structure came from Claude Code sessions running the `/swarm` loop. The human's role is high-leverage signal, not line-by-line direction.
 
 **The core mechanic**: Run `/swarm` repeatedly. Each run reads shared state, does some work, writes back. That's it. The bet is that enough repetition compounds into something useful. That bet is unproven — it may simply be an expensive way to generate files. Token cost is real and adds up fast with no guaranteed return.
 
