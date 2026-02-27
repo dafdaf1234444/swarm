@@ -4,6 +4,7 @@ Resolved entries moved from `tasks/FRONTIER.md` to keep active list readable.
 
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F116 | YES — proxy_k.py operationalizes MDL as bootstrap token count (S74); citation audit: 73.5% dark matter, era effect identified (S75); cross-tier redundancy strongest MDL removal signal (S76); T4 compression -15% (S77); principles near-optimal post-T4 (S77b); T1/T2 floor non-compressible, Goodhart confirmed (S78); proxy K stabilization measured: ~170t/session growth rate, PHIL-8 = dynamic equilibrium not fixed-point (S80, L-168). Ongoing operation: re-compress when K drifts >6% above floor (P-163); proxy_k.py tracks trajectory. | 81 | 2026-02-27 |
 | F93 | RESOLVED — dark matter is ~60% waste (duplicates), ~25% insurance (dormant), ~15% lost-embedding. 28 tools audited: 6 embedded, 9 invocation, 13 dead. P-090 confirmed. L-128. | 57 | 2026-02-27 |
 | F107 | RESOLVED — protocol:distill is SPLIT: duplication-check=CATALYST (stigmergy sufficient S2+), merge/supersede-scan=PERMANENT (0/3 sessions emerged without protocol). Minimal genesis confirmed: core-beliefs + frontier + lesson-template + memory-index + session-protocol + validator + distill-merge-scan (7 components). See f107-genesis-ablation.md. | 68 | 2026-02-27 |
 | F9 | RESOLVED — "swarm serves the swarm." Primary domain = meta/swarm architecture. NK complexity and distributed systems are test beds for capability validation, not deliverables. All domain work should compound back into swarm self-knowledge. L-118. | 55 | 2026-02-27 |

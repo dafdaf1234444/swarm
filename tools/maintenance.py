@@ -482,6 +482,51 @@ def check_utility() -> list[tuple[str, str]]:
     return results
 
 
+def check_proxy_k_drift() -> list[tuple[str, str]]:
+    """Check if proxy K has drifted >6% above last compression floor (P-163, F105)."""
+    results = []
+    log_path = REPO_ROOT / "experiments" / "proxy-k-log.json"
+    if not log_path.exists():
+        return results
+
+    try:
+        entries = json.loads(log_path.read_text())
+    except Exception:
+        return results
+
+    if len(entries) < 2:
+        return results
+
+    # Find compression floor: most recent entry where total decreased from previous
+    floor_idx = 0
+    for i in range(1, len(entries)):
+        if entries[i]["total"] < entries[i - 1]["total"]:
+            floor_idx = i
+
+    floor_entry = entries[floor_idx]
+    floor = floor_entry["total"]
+    latest_entry = entries[-1]
+    latest = latest_entry["total"]
+    if floor <= 0:
+        return results
+
+    drift = (latest - floor) / floor
+    if drift > 0.06:
+        # Identify which tiers grew most since floor
+        floor_tiers = floor_entry.get("tiers", {})
+        latest_tiers = latest_entry.get("tiers", {})
+        tier_deltas = []
+        for tier in sorted(latest_tiers):
+            delta = latest_tiers.get(tier, 0) - floor_tiers.get(tier, 0)
+            if delta > 0:
+                tier_deltas.append(f"{tier}+{delta}")
+        targets = ", ".join(tier_deltas[:3]) if tier_deltas else "unknown"
+        level = "URGENT" if drift > 0.10 else "DUE"
+        results.append((level, f"Proxy K drift {drift:.1%} ({latest} vs floor {floor}) — targets: {targets} (P-163)"))
+
+    return results
+
+
 def check_resolution_claims() -> list[tuple[str, str]]:
     """Check for stale resolution claims."""
     results = []
@@ -524,6 +569,7 @@ def main():
         check_cross_references,
         check_utility,
         check_pulse_children,
+        check_proxy_k_drift,
     ]
 
     if not quick:
