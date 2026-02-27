@@ -96,12 +96,31 @@ def _load_home_lesson_rules() -> list[str]:
 
 
 def _load_home_principles() -> list[str]:
-    """Extract non-blank, non-heading lines from home PRINCIPLES.md."""
+    """Extract individual principle atoms from home PRINCIPLES.md.
+
+    Lines use the format:
+        **Category**: P-NNN text | P-NNN text | ...
+    We split on ' | ' and strip leading 'P-NNN ' identifiers so that novelty
+    comparison works on the semantic content, not the identifier.
+    """
     path = _home_principles_path()
     if not path.exists():
         return []
-    lines = path.read_text(encoding="utf-8", errors="replace").splitlines()
-    return [l.strip() for l in lines if l.strip() and not l.startswith("#")]
+    principles: list[str] = []
+    for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+        # Strip leading "**Category**: " prefix if present.
+        line = re.sub(r"^\*\*[^*]+\*\*:\s*", "", line)
+        # Split on ` | ` separator used in PRINCIPLES.md.
+        parts = re.split(r"\s*\|\s*", line)
+        for part in parts:
+            # Strip leading P-NNN identifier (e.g. "P-012 never delete...").
+            content = re.sub(r"^P-\d+\s+", "", part.strip())
+            if content:
+                principles.append(content)
+    return principles
 
 
 def _load_home_frontiers() -> list[str]:
@@ -161,8 +180,8 @@ def _foreign_frontiers(foreign: Path) -> Iterator[tuple[str, str]]:
 # ---------------------------------------------------------------------------
 # Novelty scoring threshold
 # ---------------------------------------------------------------------------
-KNOWN_THRESHOLD = 0.70   # Jaccard ≥ this → already known, novelty_score = 0.0
-NOVEL_THRESHOLD = 0.30   # Jaccard ≤ this → fully novel, novelty_score = 1.0
+KNOWN_THRESHOLD = 0.60   # Jaccard ≥ this → already known, novelty_score = 0.0
+NOVEL_THRESHOLD = 0.25   # Jaccard ≤ this → fully novel, novelty_score = 1.0
 
 
 def _novelty(text: str, corpus: list[str]) -> float:

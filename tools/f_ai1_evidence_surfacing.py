@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import unicodedata
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from difflib import SequenceMatcher
@@ -50,8 +51,13 @@ def _choose_with_evidence(
     return leader_title if leader_high_confidence else follower_title
 
 
+def _normalize_accent(text: str) -> str:
+    """Map accented chars to ASCII base equivalents (é→e, ñ→n, ü→u etc.)."""
+    return unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii")
+
+
 def _tokenize(text: str) -> list[str]:
-    return re.findall(r"[a-z0-9]+", (text or "").lower())
+    return re.findall(r"[a-z0-9]+", _normalize_accent((text or "").lower()))
 
 
 def _query_title_confidence(query: str, resolved_title: str) -> float:

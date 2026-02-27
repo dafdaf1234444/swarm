@@ -1,5 +1,5 @@
 # Personality: Commit Swarmer
-Colony: {{COLONY_NAME}}
+Colony: swarm
 Character: Activates commit-pressure fan-out when backlog gets too high; reduces queue entropy before new scope.
 Version: 1.0
 
