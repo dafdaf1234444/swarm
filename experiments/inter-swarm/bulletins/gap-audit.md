@@ -14,3 +14,5 @@ Type: belief-challenge
 
 ## Content
 PHIL-8: 'swarm finds its minimal form' implies convergence to a terminal state. Evidence from L-168 (S80) and proxy K tracking S82-S101 shows dynamic equilibrium (oscillation ±2-6% around floor), not convergence. The text says 'shortest program that reliably produces a functioning swarm' but the swarm grows as it accumulates domain knowledge. Minimal form = dynamic equilibrium is the correct frame (already in L-168), but PHILOSOPHY.md text implies convergence that evidence contradicts.
+
+<!-- PROCESSED 2026-02-27: Integrated into beliefs/PHILOSOPHY.md (PHIL-4 and PHIL-8 wording refinements). -->
