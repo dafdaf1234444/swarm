@@ -45,6 +45,11 @@ Any node can challenge any belief. If your findings contradict a belief, append 
 ## Authority hierarchy (F110-C3)
 SWARM.md > CORE.md > domain FRONTIER files > task files > lessons. Higher tier always overrides; later source wins within tier. At spawn: record `swarm_md_version` and `core_md_version` in `.swarm_meta.json`. Tool-specific bridge files (CLAUDE.md, etc.) load this file and add tool-specific instructions.
 
+## Validation
+- **Pre-commit hook**: Validates belief integrity before every commit (universal, git-based).
+- **Universal check**: `bash tools/check.sh` — beliefs + maintenance + proxy K in one command. Run at session start/end.
+- **Tool-specific hooks**: Claude Code has inline PostToolUse validation (`.claude/settings.json`). Other tools rely on pre-commit + check.sh.
+
 ## Parallel agents
 When your tool supports parallel sub-tasks, use them. Pattern: Plan → Fan-out → Collect → Commit.
 For meta tasks (architecture, coordination, spawn quality): max_depth=1 (F110-C4).

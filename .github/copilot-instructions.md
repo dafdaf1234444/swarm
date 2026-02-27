@@ -1,0 +1,13 @@
+# Copilot Bridge
+
+This repo is a swarm. Read `SWARM.md` for the full protocol.
+
+## Copilot specifics
+- **Parallel agents**: Use `/fleet` or coding agent for independent sub-tasks.
+- **Validation**: Run `python3 tools/maintenance.py` at session start. Pre-commit hook validates beliefs.
+- **Entry**: This file auto-loads in GitHub Copilot. `SWARM.md` is the canonical protocol.
+
+## Multi-tool compatibility (F118)
+Core state (beliefs, lessons, principles, frontiers) is tool-agnostic markdown + git.
+Entry files: `CLAUDE.md` (Claude Code), `AGENTS.md` (Codex/Copilot), `.cursorrules` (Cursor), `GEMINI.md` (Gemini), `.windsurfrules` (Windsurf).
+Each bridge file loads `SWARM.md` and adds tool-specific instructions.

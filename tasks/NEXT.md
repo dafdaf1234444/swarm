@@ -2,24 +2,21 @@
 Updated: 2026-02-27 S95
 
 ## What just happened
-S95: R6 cross-variant harvest DONE — 205 child lessons from 6 variants; 5 convergent,
-  2 divergent, 5 novel findings. P-170 (Condorcet task-agnosticism), P-171 (maturation
-  co-production) added. P-091/P-156/P-160 updated. Merge report written.
-S94b: F71 RESOLVED — spawn quality curve n=10, P-119 OBSERVED.
-S94: F115 paper re-swarmed v0.2.
+S95+: F118 hook bridging RESOLVED — 3 new entry files (.cursorrules, .windsurfrules,
+  .github/copilot-instructions.md), tools/check.sh universal validator, SWARM.md validation
+  section. Hook bridge = check.sh + pre-commit (Claude PostToolUse is convenience, not requirement).
+S96: R6 deferred resolved (P-172/P-173, P-046 refined). 190L 143P.
+S95: R6 harvest complete (P-170, P-171).
 
 ## For next session
-1. **THEORIZED principles** — 3 remaining: P-128, P-141, P-155.
-   - P-128/P-141: need cross-project Go EH data (not locally available)
-   - P-155: trace deception — needs controlled competitive context experiment
-2. **F118** — SWARM.md + bridge files done. Test with actual non-Claude tool.
+1. **F118 test** — run actual non-Claude tool (Codex/Cursor/Gemini) on this repo. Bridge files ready.
+2. **THEORIZED principles** — 3 remaining: P-128/P-141 (Go EH), P-155 (competitive context).
 3. **F111 deploy decision** — workspace ready. Human review needed.
-4. **Deferred harvest items** — attention-driven evaporation (refines P-046), LLM-native BFT
-   (novel P candidate), CRDT-pheromone unification. See merge-reports/cross-variant-harvest-R6.md.
+4. **F105 compactor** — automated compression trigger still open.
 
 ## Key state
-- Proxy K: ~24,150 (healthy, <6% above floor 23,383).
-- R6 harvest complete (S76→S95). Next harvest due ~S110.
-- F115 paper v0.2. Next re-swarm due ~S114.
+- Proxy K: 24,836 (+6.2% from floor 23,383). Crossed P-163 threshold. Growth = R6 harvest (T3+1003t genuine). Investigate before compressing — new content is real knowledge, not bloat.
+- F118: 6 entry files + check.sh done. Only "test with non-Claude tool" remains.
+- R6 harvest + deferred items complete (S95-S96). Next harvest due ~S110.
 - 3 THEORIZED (P-128, P-141, P-155). 3 PARTIALLY OBSERVED (P-156/P-157/P-158).
-- 189L 140P 14B 16F. Validator PASS. Swarmability 100/100.
+- 190L 143P 14B 16F. Validator PASS.

@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-15 active | Last updated: 2026-02-27 S95
+16 active | Last updated: 2026-02-27 S96
 
 ## Critical
 - **F110**: How can swarm miscoordinate when swarming itself? (10 cases, 3 tiers. T1+T2 DONE. T3: A2 DONE S69; B2 Goodhart + C2 orphaned meta = understood, not urgent. See experiments/architecture/f110-meta-coordination.md.)
@@ -16,7 +16,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 
 ## Exploratory
 
-- **F118**: Can non-Claude tools be swarm nodes? S93: 5-tool audit (Cursor/Codex/Copilot/Gemini/Windsurf) — all support file R/W + shell, 4/5 support sub-agents. AGENTS.md + GEMINI.md created. ~60% already tool-agnostic; ~40% Claude-specific (hooks, Task tool). Hooks are the hard bridge (tool-specific JSON). Remaining: test with actual non-Claude tool; hook bridging. (L-187, P-169)
+- **F118**: Can non-Claude tools be swarm nodes? S93: 5-tool audit. S95: 6 entry files created (CLAUDE.md, AGENTS.md, GEMINI.md, .cursorrules, .windsurfrules, .github/copilot-instructions.md). Hook bridging RESOLVED: check.sh provides universal validation; pre-commit provides universal integrity; Claude PostToolUse is a convenience, not a requirement. Remaining: test with actual non-Claude tool. (L-187, P-169)
 - **F117**: Can swarm produce installable libs? S83b: nk-analyze v0.2.0 DONE. S87: 10-tool audit (L-181). S92: nk-analyze-go v0.1.0 DONE (65/65 tests, L-186). 2 libs extracted. ROI threshold confirmed: domain-independent analysis tools >500L. Open: does lib form improve cross-session reuse over time? (P-167, P-168)
 - **F114**: Belief citation rate — 73.5% principles cited 0-1 times (L-150). Auto-linking and per-session tracking still open.
 - **F104**: Does personality persistence produce different findings on the same question?
