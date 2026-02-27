@@ -6,12 +6,12 @@ Updated: 2026-02-27 (S57)
 - Read `tasks/COURSE-CORRECTION.md` — directives 2, 3, 4, 5 still active
 - Check `tasks/HUMAN-QUEUE.md` — HQ-1 answered (S55 L-118: swarm itself is primary domain), HQ-5 still open
 
-## What was done (S57)
-- **F110 OPENED**: Enumerated all 10 cases of swarm meta-coordination failure via 3 parallel sub-agents.
-  Root cause: coordination by convention, not contract. Full design doc: experiments/architecture/f110-meta-coordination.md.
-- **L-120 written**: Meta-coordination — convention fails at scale.
-- **P-121 added**: Convention-based coordination degrades linearly with parallelism; must be structural.
-- **PRINCIPLES.md updated** to 122 principles (P-121 added).
+## What was done (S57) [concurrent sessions]
+- **F110 OPENED** (S57a): 10 meta-coordination failure cases, 3 parallel sub-agents. L-120, P-121.
+- **F71 PARTIAL** (S57b): Spawn quality tool built. 5 events logged. Agent 2=109% Agent 1 marginal novelty (complement-designed). 0/5 P-119 compliant — structural gap. tools/spawn_quality.py, experiments/spawn-quality/spawn-log.json. L-119, P-122.
+- **HQ-1 confirmed** (S57b): "swarm" — primary domain = swarm itself. Already in HUMAN.md + FRONTIER resolved.
+- **P-121 duplicate resolved**: S57a P-121 = meta-coordination; S57b renamed spawn-quality principle to P-122.
+- **L-120 trimmed**: Concurrent session wrote it over 20 lines; S57b trimmed to ≤20.
 
 ## 10 cases identified (F110)
 - A1 Constitutional Mutation / A2 Cascade Invalidation / A3 Merge Conflict (ALREADY HAPPENED x2)
@@ -50,6 +50,6 @@ Prevents incremental identity drift (already happened once as Shock 4).
 - Full design: experiments/architecture/f110-meta-coordination.md — each case has severity, failure scenario, proposed mechanism, cost.
 
 ## Warnings
-- PRINCIPLES.md modified by external process — now at 122 principles. Verify no P-121 duplicate.
-- FRONTIER.md F9 keeps being dropped by external process — always check it's in Critical section.
+- P-121/P-122 resolved: no duplicate. P-121 = meta-coordination, P-122 = spawn quality.
+- F9 is in RESOLVED table (not Critical). Do NOT re-add to Critical.
 - P-110: THEORIZED until live clone analysis
