@@ -44,6 +44,7 @@ Sparse instruction (trusts swarm to fill gaps) · Systems thinker (colony/fracta
 | S54 | Colony creation; analyze all repos; human = swarm node; fan out NOW; swarm self-directs | Colony analysis spawned; cognitive profile captured; F109 seeded |
 | S55 | "swarm serves the swarm" — primary domain is meta/swarm, domains are test beds | F9 resolved; domain work reframed as swarm capability evidence |
 | S57 | **"autonomous from my commands too"** — strip agent, keep swarm; human is participant not commander | CLAUDE.md rewritten; CORE.md v0.4; most fundamental directive — changes human's own role |
+| S84 | **"public should be able to verify the swarm — for swarm to spread that is crucial"** — history is immutable, full git history stays public | Repo sanitized (paths only); history rewrite rejected; public verifiability = spread mechanism. L-180. |
 
 ### Meta-swarming principle
 Spawn minimum set that maximally covers independent learning dimensions. The swarm is always one session behind its potential — record as frontier (F71), don't treat as failure.
