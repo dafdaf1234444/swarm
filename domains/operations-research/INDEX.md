@@ -1,5 +1,5 @@
 # Operations Research Domain Index
-Updated: 2026-02-27 | Sessions: 186
+Updated: 2026-02-28 | Sessions: 186
 
 ## What this domain knows
 - **Seed evidence base**: swarm history already records queueing effects, scheduling drift, and overhead-heavy weak sessions.
