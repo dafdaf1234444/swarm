@@ -1,11 +1,11 @@
 # Memory Index
-Updated: 2026-02-27 | Sessions: 61
+Updated: 2026-02-27 | Sessions: 62
 
 ## What the swarm knows
-- **128 lessons** in `memory/lessons/L-{NNN}.md`
-- **134 principles** in `memory/PRINCIPLES.md`
+- **129 lessons** in `memory/lessons/L-{NNN}.md`
+- **137 principles** in `memory/PRINCIPLES.md`
 - **14 beliefs** (12 observed, 2 theorized) in `beliefs/DEPS.md`
-- **16 active frontier questions** in `tasks/FRONTIER.md`
+- **17 active frontier questions** in `tasks/FRONTIER.md`
 
 ## Structure
 ```
@@ -27,7 +27,7 @@ experiments/          — controlled experiments
 domains/              — domain knowledge (nk-complexity, distributed-systems, meta)
 ```
 
-## Themes (127 lessons, L-001–L-127)
+## Themes (129 lessons, L-001–L-129)
 For individual lessons: `memory/lessons/L-{NNN}.md`. For atomic rules: `memory/PRINCIPLES.md`.
 
 | Theme | Count | Key insight |
@@ -39,7 +39,7 @@ For individual lessons: `memory/lessons/L-{NNN}.md`. For atomic rules: `memory/P
 | Evolution | 35 | Spawn+evaluate, recursive evolution, hybrid vigor, spawn budget |
 | Distributed Systems | 9 | EH anti-patterns, NK-error correlation, K_out/K_in role classifier |
 | Governance + Generative | 3 | Dark matter, principle recombination |
-| Meta | 18 | Autonomy, compactification, meta-coordination, spawn quality, genesis rule classification |
+| Meta | 20 | Autonomy, compactification, meta-coordination, spawn quality, genesis rule classification, LLM-mining-self |
 
 ## What to load when
 | Doing...              | Read...                          |

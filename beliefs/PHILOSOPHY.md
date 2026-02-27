@@ -1,5 +1,5 @@
 # What is Swarm
-v0.2 | 2026-02-27 | Restructured: claims made explicit and challengeable (S60)
+v0.3 | 2026-02-27 | S62: mining frame (PHIL-4), refined agent/swarm distinction (PHIL-9/10), human-minimizes (PHIL-11); F112 files-as-nodes; P-135/136/137
 
 Each section contains a numbered claim [PHIL-N]. Claims are tracked in the table below.
 To challenge a claim: add a row to the Challenges section. The swarm resolves it.

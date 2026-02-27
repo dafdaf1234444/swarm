@@ -1,12 +1,14 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-16 active | Last updated: 2026-02-27 S57
+17 active | Last updated: 2026-02-27 S62
 
 ## Critical
 - **F110**: What are all the ways swarm can miscoordinate when swarming itself — and what mechanisms prevent each? (S57: 10 cases. S58: Tier 1 DONE (A3+C1+B3). S59: Tier 2 PARTIAL — A1+C3 (version fields, authority hierarchy), C4 (meta task depth limit), B1 (INVARIANTS.md 8 anchors). Remaining Tier 2: B1 merge_back.py (gate for child integration). Tier 3 open. See experiments/architecture/f110-meta-coordination.md.)
 - **F107**: What is the minimal genesis (Kolmogorov complexity) that produces a viable swarm? v2 ablation COMPLETE: swarmability=catalyst (bootstrap, not permanent, P-129/P-133), uncertainty=partially redundant (P-115). Genesis rules now classified: PERMANENT, CATALYST, REDUNDANT (L-127). Next ablation v3: remove `protocol:distill` — highest-risk, tests whether children self-organize distillation. See f107-genesis-ablation.md.
 - **F111**: Can the swarm operate as a builder, not just analyst — analyze→fix→deploy real codebases? (S53: YES for `dutch`. Pattern: parallel analysis → cross-agent synthesis → parallel fix on independent files.)
+
+- **F112**: Can all repo files be treated as testable, relation-bearing swarm nodes? What architecture — validators, dependency graph, integrity checks — makes the repo itself a self-checking structure rather than a pile of artifacts? (L-129, P-136. OPEN.)
 
 ## Important
 - **F105**: How should the swarm implement continuous (online) compaction? Current distillation is batch-only. Open: children inherit PRINCIPLES.md? Compactor child role? Merge trigger?
