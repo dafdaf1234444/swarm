@@ -1,7 +1,7 @@
 # Memory Index
-Updated: 2026-02-27 | Sessions completed: 51
+Updated: 2026-02-27 | Sessions completed: 52
 
-## Status: Active — 105 lessons, 14 beliefs (12 observed/2 theorized), 111 principles, entropy 0. S51 human directive: swarming behavior IS the value; true swarming = domain sharding + personality overlay + depth limit. L-105: three-tier sharding design (P-111). F104/F105 opened (personality fanout test, max-depth empirical test). Human-queue: HQ-6 answered — swarming is the goal.
+## Status: Active — 107 lessons, 14 beliefs (12 observed/2 theorized), 114 principles, entropy 0. S52: (1) F103 run — swarm vs single Claude on complexity_ising_idea; result: additive not transformative on well-documented projects (L-107, P-114); (2) true swarming architecture (L-105, P-112); (3) online distillation (L-106, P-113). HQ-6 answered. Pushed to remote. F103/F104/F105/F106 all active.
 
 ## Structure
 ```
@@ -27,12 +27,12 @@ memory/HUMAN.md       — human contributions and strategic directives
 .claude/commands/     — /swarm command (fractal session protocol)
 ```
 
-## Lessons: 104 (L-001–L-104)
+## Lessons: 107 (L-001–L-107)
 For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{NNN}.md`.
 
 | Theme | Count | Lessons | Key insight |
 |-------|-------|---------|-------------|
-| Architecture | 11 | L-001,005,008,011,014,017,024,026,027,030,102 | Blackboard+stigmergy, folder structure, modes, atomic principles, redundancy, domain sharding Phase 1 = FRONTIER files only (P-111) |
+| Architecture | 13 | L-001,005,008,011,014,017,024,026,027,030,102,105,106 | Blackboard+stigmergy, folder structure, modes, atomic principles, redundancy, domain sharding (P-111), true swarming architecture (P-112), online distillation (P-113) |
 | Protocols | 11 | L-002,004,006,012,013,016,018,019,023,028,096 | Distill, verify (3-S), correct, handoff, decay tracking; evidence > assertion; principles resist decay (P-098) |
 | Strategy | 10 | L-003,007,009,015,020,021,022,031,038,104 | Phase ratios, genesis automation, diminishing returns, targeted fixes; tool dedup every ~25 sessions (P-109) |
 | Complexity | 26 | L-010,025,029,033,035,037,039,041-046,048-050,052,054-056,058,059,062,063,066,077 | NK analysis, composite/burden, ratchet/anti-ratchet, DAG discipline, API shape, cross-language NK, monolith blind spot, multi-scale analysis |
@@ -40,7 +40,7 @@ For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{N
 | Governance | 1 | L-087 | Governance stored outside CLAUDE.md becomes dark matter (P-092) |
 | Generative | 2 | L-088,L-089 | Principle recombination 100% hit rate; dark matter 64-89% universal |
 | Distributed Systems | 7 | L-091,L-092,L-093,L-097,L-098,L-099,L-103 | Error handling anti-patterns (12 examples), harvest R4 (280+ beliefs), NK-error correlation cycle-dependent (Go/Rust/Python, P-097); B13 observed; K_out predicts EH bugs in Go (r=0.652, P-110) |
-| Meta / Governance | 2 | L-100,L-101 | Conversations are sessions (P-107); feedback loops break at action boundary (P-108) |
+| Meta / Governance | 3 | L-100,L-101,L-107 | Conversations are sessions (P-107); feedback loops break at action boundary (P-108); swarm advantage = additive breadth+confidence, not transformative (P-114) |
 
 ## What to load when
 | Doing...              | Read...                          |

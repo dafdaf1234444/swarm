@@ -1,30 +1,42 @@
 # Next Session Handoff
-Updated: 2026-02-27 (S51)
+Updated: 2026-02-27 (S52)
 
 ## Do First
 - Run `/swarm` — fractal session command
+- Read `tasks/COURSE-CORRECTION.md` — 5 active directives
+- Read `tasks/HUMAN-QUEUE.md` — HQ-3 through HQ-5 still unanswered (etcd errcheck, P-102 source, Jepsen)
 
-## What was done this session (51)
-- **True swarming architecture designed** (F101 partial→full design):
-  - Part 1: Domain sharding — three-tier model (Tier 0 read-only / Tier 1 domain-owned / Tier 2 synthesizer). Phase 1 in 2h, Phase 2-3 in 2 sessions, reaches ~10 concurrent agents.
-  - Part 2: Personality system — `personality.md` overlay (not CLAUDE.md fork), 5 archetypes (Skeptic/Builder/Explorer/Synthesizer/Adversary), `--personality` flag on evolve.py init
-  - Part 3: Hierarchical protocol — spawn decision rule (3 conditions), max_depth=2 in .swarm_meta.json, coordinator role, pull-model results flow, 3 swarm.md insertions
-  - 3/3 parallel agents converged independently on: pull model, .swarm_meta.json as coordination metadata, no new tools needed
-- **L-105**: True swarming = domain sharding + personality overlay + depth limit (P-111)
-- **Human directive recorded**: swarming behavior IS the value; HQ-6 answered
-- **F104, F106 opened**: personality fanout test, max_depth empirical test
+## What was done this session (S52)
+
+### F103 First Test — Swarm vs Single Claude
+- 3 parallel agents on `complexity_ising_idea` (causal emergence EWS research)
+- Finding: swarm is 2.2× faster, more comprehensive, but NOT qualitatively different on well-documented projects
+- Cross-agent convergence finding: missing shuffle baseline for E(k=1) — the recommended alternative is not yet validated by the project's own falsification standards
+- **Practical recommendation for user**: write `phase1_v6_wolff_e1.py` — Wolff + shuffle for E(k=1)
+- P-114: swarm advantage = additive (breadth+confidence) not transformative
+- L-107 written. F103 updated to PARTIAL.
+- Results: `experiments/complexity-applied/f103-swarm-vs-single-causal-emergence.md`
+
+### Bookkeeping
+- Pushed 91 commits to remote (COURSE-CORRECTION #4 done)
+- Human directives recorded: HUMAN.md, HUMAN-QUEUE.md (HQ-6, HQ-2, HQ-3 answered)
+- F103 opened (Critical frontier)
+- INDEX.md updated: 107 lessons, 114 principles, sessions=52
 
 ## High-Priority Frontier
-- **F102**: TIME-BOUND — adopt minimal-nofalsif changes by S53. Remove falsification from 3 beliefs, measure quality. This is S51; deadline is S53.
-- **F101 Phase 1**: 2 hours of implementation. Populate `domains/*/tasks/FRONTIER.md` + one CLAUDE.md paragraph. Unlocks 3 concurrent agents immediately.
-- **F103**: Can swarm outperform single session? Human directive — stakes: falsification condition for swarm itself.
-- **F104**: Personality fanout test — run 4 personality variants on F76, compare divergence.
+
+- **F102**: TIME-BOUND — adopt minimal-nofalsif changes by **S53** (this session is S52 — one left). Remove falsification from 3 beliefs, run 3 sessions, measure drift. Do NOT let slip again (L-101: feedback loops break at action boundary).
+- **F103**: PARTIAL — needs a harder test. Choose a task where: (1) documentation is sparse, OR (2) multiple domains needed simultaneously (NK + distributed + code quality). User's `dutch`, `ilkerloan`, `strats` repos are untested candidates.
+- **F107**: Genesis minimal complexity — live ablation protocol. Human directive.
+- **F101 Phase 1**: Populate `domains/*/tasks/FRONTIER.md` + CLAUDE.md paragraph. Unlocks 3 concurrent agents. ~2h.
 
 ## Warnings
-- F102 deadline: S53. Do not let it slip again (L-101: feedback loops break at action boundary)
-- F105 = continuous compaction frontier (two separate F105 entries — one just got renumbered to F106)
-- 20+ active frontier questions — consider archiving the lowest-signal ones
+- **F102 DEADLINE IS S53** — act now or document failure explicitly
+- 20+ active frontier questions — consider archiving lowest-signal exploratory ones
+- L-106 added P-113 (online distillation) — ensure DISTILL.md is updated to match
+- Concurrent sessions (S51/52) created good architecture designs — implement them, don't just design more
 
-## Read these
-- `experiments/architecture/f101-true-swarming-design.md` — full design, ready to implement
-- `tasks/HUMAN-QUEUE.md` — HQ-3 through HQ-5 still unanswered (etcd errcheck, P-102 source, Jepsen setup)
+## Read These
+- `experiments/architecture/f101-true-swarming-design.md` — ready to implement
+- `experiments/complexity-applied/f103-swarm-vs-single-causal-emergence.md` — F103 test results
+- `tasks/COURSE-CORRECTION.md` — 5 directives (including genesis ablation)
