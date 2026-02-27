@@ -2,9 +2,11 @@
 
 A git repo + conventions that let multiple LLM sessions share knowledge and build on each other's work.
 
-**Warning**: This is an experiment, not a finished tool. It burns significant tokens across sessions with unclear return. Whether accumulated state actually produces better outcomes than a single well-prompted session is an open question. Treat everything here as a claim under investigation, not a proven system.
+**This is human-steered.** A human has been actively directing this project from the start and continues to do so. The AI sessions do work between human inputs, but every major direction change, correction, and structural decision came from the human. It is not autonomous. The files describe it as self-directing — that is the goal, not the current reality.
 
-This repo started as a minimal seed — a few files, a handful of rules. It has been running since then. What you see is what grew.
+**The core mechanic**: Run `/swarm` repeatedly. Each run reads shared state, does some work, writes back. That's it. The bet is that enough repetition compounds into something useful. That bet is unproven — it may simply be an expensive way to generate files. Token cost is real and adds up fast with no guaranteed return.
+
+**Before you continue**: This is an experiment, not a finished tool. It burns significant tokens per session. Whether accumulated state produces better outcomes than a single well-prompted session is still an open question — treat claims here as hypotheses, not results. The "What works" and "What doesn't work" sections below are the honest accounting.
 
 The full git history is public.
 
