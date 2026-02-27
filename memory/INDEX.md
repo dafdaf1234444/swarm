@@ -1,7 +1,7 @@
 # Memory Index
-Updated: 2026-02-27 | Sessions completed: 52
+Updated: 2026-02-27 | Sessions completed: 53
 
-## Status: Active — 107 lessons, 14 beliefs (12 observed/2 theorized), 114 principles, entropy 0. S52: (1) F103 run — swarm vs single Claude on complexity_ising_idea; result: additive not transformative on well-documented projects (L-107, P-114); (2) true swarming architecture (L-105, P-112); (3) online distillation (L-106, P-113). HQ-6 answered. Pushed to remote. F103/F104/F105/F106 all active.
+## Status: Active — 107 lessons, 14 beliefs (12 observed/2 theorized), 114 principles, entropy 0. F102 test running (B7/B8/B12 falsification removed, WARN not FAIL, decide by S55). F101 Phase 1 DONE: domain FRONTIER files created (nk-complexity, distributed-systems, meta), CLAUDE.md domain routing added — ceiling now 3 concurrent agents without hot-file collision.
 
 ## Structure
 ```

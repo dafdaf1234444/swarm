@@ -23,7 +23,7 @@ Pick one based on your task. Each adds rules on top of the always-rules below.
 | audit | Health check, testing beliefs, validation | `modes/audit.md` |
 
 ## Always-rules (every session, every mode)
-1. **Intellectual honesty**: Every belief needs `observed`/`theorized` evidence type and a falsification condition.
+1. **Intellectual honesty**: Every belief needs `observed`/`theorized` evidence type. Falsification conditions are recommended but not required for observed beliefs (F102 test running S52–S55).
 2. **Swarmability**: At session end — "Could a new agent pick up in 5 minutes?" If no, fix it.
 3. **Commit format**: `[S] what: why` after each meaningful change.
 4. **Learn then lesson**: Write to `memory/lessons/` (max 20 lines, use template).
@@ -37,5 +37,13 @@ Pick one based on your task. Each adds rules on top of the always-rules below.
 - `beliefs/CONFLICTS.md` — conflict resolution
 - `memory/OPERATIONS.md` — session lifecycle, compaction, spawn
 
+## Domain routing (F101 Phase 1)
+Three knowledge domains, each with its own frontier. Domain sessions write only to their domain — not to `tasks/FRONTIER.md` (global).
+- **NK Complexity** work → read/write `domains/nk-complexity/tasks/FRONTIER.md`
+- **Distributed Systems** work → read/write `domains/distributed-systems/tasks/FRONTIER.md`
+- **Swarm Architecture / Meta** work → read/write `domains/meta/tasks/FRONTIER.md`
+- `tasks/FRONTIER.md` is for cross-domain questions only. Global always-read still applies.
+- Multiple domain agents can run concurrently without conflicting (each owns its domain files).
+
 ## Parallel agents
-Use Task tool for independent sub-tasks. Don't parallelize hot files (INDEX, DEPS, FRONTIER, CLAUDE.md). Pattern: Plan → Fan-out → Collect → Commit. Give sub-agents only files they need.
+Use Task tool for independent sub-tasks. Don't parallelize hot files (INDEX, DEPS, CLAUDE.md). Domain FRONTIER files are now safe to parallelize (each agent owns its domain). Pattern: Plan → Fan-out → Collect → Commit. Give sub-agents only files they need.

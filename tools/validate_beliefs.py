@@ -85,7 +85,7 @@ def check_format(beliefs: list[dict]) -> list[str]:
             issues.append(f"FAIL FORMAT: {bid} missing or invalid evidence type "
                           f"(got '{b['evidence']}', need 'observed' or 'theorized')")
         if not b["falsification"] or b["falsification"].lower() in ("", "none", "n/a"):
-            issues.append(f"FAIL FORMAT: {bid} missing falsification condition")
+            issues.append(f"WARN FORMAT: {bid} missing falsification condition (F102 test: downgraded to warning)")
         if not b["last_tested"]:
             issues.append(f"FAIL FORMAT: {bid} missing 'Last tested' field")
     return issues

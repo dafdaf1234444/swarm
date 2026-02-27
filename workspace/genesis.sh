@@ -1,8 +1,32 @@
 #!/usr/bin/env bash
-# genesis.sh v5 — Bootstrap a new swarm knowledge base
+# genesis.sh v6 — Bootstrap a new swarm knowledge base
 # Usage: ./genesis.sh <directory> [name]
 # Encodes lessons L-001 through L-036 into the initial structure.
 # v5: F1 made resolvable in 1 session, NEXT.md template added (genesis_evolve feedback)
+# v6: F107 — atoms tagged for Kolmogorov complexity ablation experiment
+#
+# GENESIS ATOMS (F107 ablation experiment)
+# Each section below is tagged with its atom name.
+# Children should report used/ignored atoms in session-end bulletins.
+# NEVER remove: atom:validator, atom:core-beliefs
+# Ablation candidates (remove one per child): atom:conflict-protocol, atom:first-task,
+#   atom:pre-commit-hook, atom:lesson-template, atom:verify-protocol
+#
+# atom:session-protocol  — CLAUDE.md (session start, always-rules, modes list)
+# atom:core-beliefs      — beliefs/CORE.md (purpose, architecture, principles) [NEVER REMOVE]
+# atom:belief-tracking   — beliefs/DEPS.md (falsification + dependency format)
+# atom:conflict-protocol — beliefs/CONFLICTS.md (conflict resolution rules)
+# atom:memory-index      — memory/INDEX.md (structural map)
+# atom:distill-protocol  — memory/DISTILL.md (distillation rules)
+# atom:verify-protocol   — memory/VERIFY.md (3-S Rule)
+# atom:lesson-template   — memory/lessons/TEMPLATE.md (lesson format)
+# atom:session-modes     — modes/ (research/build/repair/audit)
+# atom:validator         — tools/validate_beliefs.py (epistemic gating) [NEVER REMOVE]
+# atom:pre-commit-hook   — tools/pre-commit.hook (automated validation gate)
+# atom:frontier          — tasks/FRONTIER.md (open question tracking)
+# atom:first-task        — tasks/TASK-001.md (first-session setup guide)
+# atom:next-handoff      — tasks/NEXT.md (session handoff template)
+# atom:principles-inherit — memory/PRINCIPLES.md (P-113: cross-session rules)
 
 set -euo pipefail
 
@@ -16,7 +40,7 @@ fi
 
 mkdir -p "$DIR"/{beliefs,memory/lessons,tasks,workspace,tools,modes}
 
-# CLAUDE.md — compact, with session modes (Ashby's Law, L-024)
+# [atom:session-protocol] CLAUDE.md — compact, with session modes (Ashby's Law, L-024)
 cat > "$DIR/CLAUDE.md" << 'CLAUDE'
 # Swarm
 
@@ -51,7 +75,7 @@ You are one session of a collective intelligence — human and AI building a sha
 - `beliefs/CONFLICTS.md` — conflict resolution
 CLAUDE
 
-# Core beliefs
+# [atom:core-beliefs] Core beliefs — NEVER REMOVE
 cat > "$DIR/beliefs/CORE.md" << CORE
 # Core Beliefs v0.1
 
@@ -79,7 +103,7 @@ Blackboard+stigmergy hybrid. Git is memory. Files are communication. Commits are
 ## v0.1 | $(date +%Y-%m-%d) | Genesis
 CORE
 
-# Belief dependencies — epistemic format (L-022)
+# [atom:belief-tracking] Belief dependencies — epistemic format (L-022)
 cat > "$DIR/beliefs/DEPS.md" << 'DEPS'
 # Belief Dependencies
 
@@ -102,7 +126,7 @@ When a belief is disproven: check dependents below → update those too.
 - **Last tested**: never
 DEPS
 
-# Conflict resolution
+# [atom:conflict-protocol] Conflict resolution — ablation candidate #1
 cat > "$DIR/beliefs/CONFLICTS.md" << 'CONFLICTS'
 # Conflict Resolution Protocol v0.1
 
@@ -117,7 +141,7 @@ cat > "$DIR/beliefs/CONFLICTS.md" << 'CONFLICTS'
 - Check DEPS.md before changing beliefs
 CONFLICTS
 
-# Memory index
+# [atom:memory-index] Memory index
 cat > "$DIR/memory/INDEX.md" << INDEX
 # Memory Index
 Updated: $(date +%Y-%m-%d) | Sessions completed: 0
@@ -152,7 +176,7 @@ None yet.
 | Learning from past    | + relevant memory/lessons/ file  |
 INDEX
 
-# Distillation protocol
+# [atom:distill-protocol] Distillation protocol
 cat > "$DIR/memory/DISTILL.md" << 'DISTILL'
 # Distillation Protocol
 
@@ -176,7 +200,7 @@ Ask: "If a future session loads only INDEX.md and this lesson, will they avoid m
 Add `SUPERSEDED BY L-{N}` to original. Write correction with `CORRECTS L-{N}`. Never delete.
 DISTILL
 
-# Verification heuristic
+# [atom:verify-protocol] Verification heuristic
 cat > "$DIR/memory/VERIFY.md" << 'VERIFY'
 # 3-S Rule: Search if Specific, Stale, or Stakes-high
 
@@ -186,7 +210,7 @@ cat > "$DIR/memory/VERIFY.md" << 'VERIFY'
 None of the above → TRUST (but note Assumed confidence)
 VERIFY
 
-# Lesson template
+# [atom:lesson-template] Lesson template
 cat > "$DIR/memory/lessons/TEMPLATE.md" << 'TEMPLATE'
 # L-{NNN}: {title}
 Date: | Task: | Confidence: Verified/Assumed
@@ -200,7 +224,7 @@ Date: | Task: | Confidence: Verified/Assumed
 ## Affected beliefs: {B-IDs or "none"}
 TEMPLATE
 
-# Session modes (Ashby's Law, L-024)
+# [atom:session-modes] Session modes (Ashby's Law, L-024)
 cat > "$DIR/modes/research.md" << 'MODE'
 # Mode: Research
 Load when: web searching, reading sources, studying concepts, domain learning.
@@ -255,7 +279,7 @@ Load when: health checks, validating beliefs, testing theorized beliefs, system 
 - NEXT.md pointing forward
 MODE
 
-# Validator (L-022 — epistemic discipline)
+# [atom:validator] Validator (L-022 — epistemic discipline) — NEVER REMOVE
 cat > "$DIR/tools/validate_beliefs.py" << 'VALIDATOR'
 #!/usr/bin/env python3
 """Validate structural integrity of the swarm belief graph."""
@@ -321,7 +345,7 @@ if __name__ == "__main__":
 VALIDATOR
 chmod +x "$DIR/tools/validate_beliefs.py"
 
-# Pre-commit hook
+# [atom:pre-commit-hook] Pre-commit hook
 cat > "$DIR/tools/pre-commit.hook" << 'HOOK'
 #!/usr/bin/env bash
 if [ -f "beliefs/DEPS.md" ]; then
@@ -338,7 +362,7 @@ echo "Pre-commit hook installed."
 INSTALL
 chmod +x "$DIR/tools/install-hooks.sh"
 
-# Frontier
+# [atom:frontier] Frontier
 cat > "$DIR/tasks/FRONTIER.md" << 'FRONTIER'
 # Frontier — Open Questions
 
@@ -353,7 +377,7 @@ cat > "$DIR/tasks/FRONTIER.md" << 'FRONTIER'
 |----|--------|---------|------|
 FRONTIER
 
-# First task
+# [atom:first-task] First task
 cat > "$DIR/tasks/TASK-001.md" << 'TASK'
 # TASK-001: Validate the setup
 Status: READY
@@ -372,7 +396,7 @@ Status: READY
 - FRONTIER.md has been updated
 TASK
 
-# NEXT.md template — session handoff
+# [atom:next-handoff] NEXT.md template — session handoff
 cat > "$DIR/tasks/NEXT.md" << NEXT
 # Next Session Handoff
 Updated: $(date +%Y-%m-%d)
@@ -389,7 +413,7 @@ Updated: $(date +%Y-%m-%d)
 - No sessions completed yet
 NEXT
 
-# Gitignore
+# [atom:gitignore] Gitignore
 cat > "$DIR/.gitignore" << 'GI'
 .DS_Store
 *.swp
@@ -398,7 +422,7 @@ cat > "$DIR/.gitignore" << 'GI'
 .idea/
 GI
 
-# Principles — inherit from parent if available (P-113: children inherit PRINCIPLES.md)
+# [atom:principles-inherit] Principles — inherit from parent if available (P-113)
 if [ -f "memory/PRINCIPLES.md" ]; then
     cp "memory/PRINCIPLES.md" "$DIR/memory/PRINCIPLES.md"
     echo "Inherited parent PRINCIPLES.md ($(grep -c 'P-[0-9]' memory/PRINCIPLES.md) principles)"

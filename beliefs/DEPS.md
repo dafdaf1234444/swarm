@@ -57,14 +57,14 @@ B15 (CAP tradeoff) — theorized [distributed-systems]
 
 ### B7: Regularly-invoked protocols compound system quality over time
 - **Evidence**: observed
-- **Falsified if**: Health metrics show no improvement or degradation across 10+ sessions despite protocol adherence, OR removing a protocol produces no measurable quality difference
+- **F102-TEST**: falsification removed 2026-02-27 — 3-session test of minimal-nofalsif mutation. Monitor for quality degradation.
 - **Depends on**: B2, B6
 - **Depended on by**: B12, B16
 - **Last tested**: 2026-02-26 (34 sessions: belief accuracy 0%→83%, swarmability 85→100, mandatory load 200→115 lines. Distill/verify/validator clearly compound; conflicts/health invoked rarely — no evidence for those)
 
 ### B8: The frontier is a self-sustaining task generation mechanism
 - **Evidence**: observed
-- **Falsified if**: The system runs 10 consecutive sessions where no new frontier questions are generated from completed work, indicating the generative loop has stalled
+- **F102-TEST**: falsification removed 2026-02-27 — 3-session test of minimal-nofalsif mutation.
 - **Depends on**: B6
 - **Last tested**: 2026-02-25 (L-015, measured 2.5x amplification over 13 sessions)
 
@@ -89,7 +89,7 @@ B15 (CAP tradeoff) — theorized [distributed-systems]
 
 ### B12: Coordination tool adoption follows a power law — workflow-embedded tools achieve ~100% adoption while invocation tools achieve <20%
 - **Evidence**: observed
-- **Falsified if**: An invocation-only tool (not mandated in CLAUDE.md session protocol) achieves >50% session adoption rate over 10+ sessions, OR embedding a low-adoption tool in CLAUDE.md does not significantly increase its adoption
+- **F102-TEST**: falsification removed 2026-02-27 — 3-session test of minimal-nofalsif mutation.
 - **Depends on**: B7
 - **Last tested**: 2026-02-27 (test-first child B20-B22: 3 tools near 100% (NEXT.md, FRONTIER.md, validate_beliefs.py) vs 6 tools at <20% (bulletin.py, frontier_claim.py, colony.py, etc. ~1524 LOC total). L-084)
 
