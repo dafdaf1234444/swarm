@@ -47,7 +47,7 @@ For individual lessons: `memory/lessons/L-{NNN}.md`. For atomic rules: `memory/P
 | Evolution | 35 | Spawn+evaluate, recursive evolution, hybrid vigor, spawn budget |
 | Distributed Systems | 10 | EH anti-patterns, NK-error correlation, K_out/K_in role classifier, ctx.Context compound classifier |
 | Governance + Generative | 3 | Dark matter, principle recombination |
-| Meta | 25 | Autonomy, compactification, meta-coordination, spawn quality, genesis rule classification, LLM-mining-self, invariant gate (L-132), bidirectional alignment (L-134, L-135), belief utilization (L-136) |
+| Meta | 26 | Autonomy, compactification, meta-coordination, spawn quality, genesis rule classification, LLM-mining-self, invariant gate (L-132), bidirectional alignment (L-134, L-135), belief utilization (L-136), meta-swarming (L-137) |
 
 ## What to load when
 | Doing...              | Read...                          |
