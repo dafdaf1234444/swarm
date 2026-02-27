@@ -50,5 +50,44 @@
     },
     "total": 26107,
     "genesis": 9836
+  },
+  {
+    "date": "2026-02-27",
+    "session": 75,
+    "tiers": {
+      "T0-mandatory": 1732,
+      "T1-identity": 5538,
+      "T2-protocols": 2997,
+      "T3-knowledge": 4827,
+      "T4-tools": 11103
+    },
+    "total": 26197,
+    "genesis": 9752
+  },
+  {
+    "date": "2026-02-27",
+    "session": 75,
+    "tiers": {
+      "T0-mandatory": 1732,
+      "T1-identity": 4943,
+      "T2-protocols": 2997,
+      "T3-knowledge": 4915,
+      "T4-tools": 11103
+    },
+    "total": 25690,
+    "genesis": 9755
+  },
+  {
+    "date": "2026-02-27",
+    "session": 75,
+    "tiers": {
+      "T0-mandatory": 1748,
+      "T1-identity": 4943,
+      "T2-protocols": 2997,
+      "T3-knowledge": 4929,
+      "T4-tools": 11103
+    },
+    "total": 25720,
+    "genesis": 9785
   }
 ]

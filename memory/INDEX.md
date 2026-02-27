@@ -1,9 +1,9 @@
 # Memory Index
-Updated: 2026-02-27 | Sessions: 75
+Updated: 2026-02-27 | Sessions: 76
 
 ## What the swarm knows
-- **148 lessons** in `memory/lessons/L-{NNN}.md`
-- **132 principles** in `memory/PRINCIPLES.md` (compacted S70: 12 stubs removed, 1 merge)
+- **152 lessons** in `memory/lessons/L-{NNN}.md`
+- **129 principles** in `memory/PRINCIPLES.md` (compacted S70c, ID-counted per L-149)
 - **14 beliefs** in `beliefs/DEPS.md` | **20 frontier questions** in `tasks/FRONTIER.md`
 
 ## Structure
@@ -19,7 +19,7 @@ domains/    nk-complexity, distributed-systems, meta
 docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115)
 ```
 
-## Themes (148 lessons)
+## Themes (152 lessons)
 
 | Theme | Count | Key insight |
 |-------|-------|-------------|
@@ -30,7 +30,7 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115)
 | Evolution | 35 | Spawn+evaluate, recursive evolution, hybrid vigor |
 | Distributed Systems | 10 | EH anti-patterns, K_out/K_in role classifier, ctx compound |
 | Governance | 3 | Dark matter, principle recombination |
-| Meta | 34 | Autonomy, compactification, genesis rules, bidirectional alignment, cold-start convergence (L-139), integration receipts (L-141), cascade validation (L-142), handoff staleness (L-144), ordering verification (L-145), fan-out synthesis (L-146), MDL/minimal-form (L-147), principles compaction (L-148) |
+| Meta | 38 | Autonomy, compactification, genesis rules, bidirectional alignment, cold-start convergence (L-139), integration receipts (L-141), cascade validation (L-142), handoff staleness (L-144), MDL/minimal-form (L-147), principles compaction (L-148), MDL citation audit (L-150), proxy-K trajectory (L-151), subtractive MDL test (L-152) |
 
 ## What to load when
 | Doing...              | Read...                          |
