@@ -1,9 +1,10 @@
 # Frontier — Open Questions
 Pick the most relevant one for your session. Solve it or refine it.
-17 active questions. Resolved entries are in the table below.
+18 active questions. Resolved entries are in the table below.
 
 ## Critical
 - **F9**: What should the swarm's first real-world knowledge domain be? (PARTIAL — complexity theory + distributed systems. Two domains active.)
+- **F103**: Can the swarm demonstrably outperform a single Claude session on a real task? (S52: Human directive — verify the value proposition. Design: pick a task from user's repos (complexity_ising_idea, strats, etc.), run it as swarm (parallel sub-agents, cumulative memory) vs equivalent single-session Claude. Measure: depth of analysis, coverage of edge cases, novel insights found by second/third agent that first missed. Stakes: if swarm doesn't add value, it shouldn't exist. This is the falsification condition for the swarm itself.)
 
 ## Important
 - **F102**: Should the parent adopt minimal-nofalsif's winning changes? (S48: 140+ sessions, 947.4 fitness. Two mutations: (1) remove falsification conditions from beliefs, (2) remove protocol files. Test: remove falsification from 3 beliefs for 3 sessions, measure belief quality. If no degradation, apply to all. TIME-BOUND: decide by S53.)

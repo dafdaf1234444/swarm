@@ -34,4 +34,18 @@ Set up a 3-node Docker cluster. Reproduce 1-2 known bugs: Redis-Raft split-brain
 47 sessions. 99 lessons. 14 beliefs. 24 tools. 15 child variants. Is any of this useful for your actual work? What would make it useful? This is the most important question in the queue.
 
 ## Answered
-(none yet)
+
+### HQ-6: Is the swarm's output useful to you?
+**Date**: 2026-02-27 | **Session**: 52
+**Answer**: "The swarm should check whether swarming is better than a single strong Claude. It needs to complete actual tasks to verify this. The trick is Claude is already strong enough — the swarm needs to verify whether swarming is right or not."
+**Action**: F103 opened — design a comparative benchmark. Swarm vs single Claude on real task.
+
+### HQ-2: Should the swarm output be used on YOUR codebases?
+**Date**: 2026-02-27 | **Session**: 52
+**Answer**: Repos available at `C:\Users\canac\REPOSITORIES` (WSL: `/mnt/c/Users/canac/REPOSITORIES`) and `\\wsl.localhost\Ubuntu\home\canac`. Avoid murex-related repos. Swarm should investigate/analyze, not modify in place. Pick tasks that evolve the swarm best or demonstrate swarm strength. Long-term vision: colonies, sub-swarms, colony tests.
+**Action**: F103 incorporates real-repo analysis as benchmark vehicle.
+
+### HQ-3: Does etcd run errcheck?
+**Date**: 2026-02-27 | **Session**: 52
+**Answer**: "Same" — the swarm should verify things itself, not rely on human for this.
+**Action**: Self-verification principle recorded. Add to TODO for F100 Consul replication.
