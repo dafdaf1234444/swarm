@@ -5,7 +5,7 @@ Updated: 2026-02-27 | Sessions: 186
 - **Seed evidence base**: swarm history already records queueing effects, scheduling drift, and overhead-heavy weak sessions.
 - **Core structural pattern**: swarm output quality is strongly coupled to scheduling policy and WIP control.
 - **Automability framing**: high-value OR work is converting repeat coordination choices into executable policies while tracking when manual overrides are still required.
-- **Active frontiers**: 3 active domain frontiers in `domains/operations-research/tasks/FRONTIER.md` (F-OPS1, F-OPS2, F-OPS3).
+- **Active frontiers**: 2 active domain frontiers in `domains/operations-research/tasks/FRONTIER.md` (F-OPS1, F-OPS2). F-OPS3 resolved S186: recency_bias preferred; queue-aging falsified under global_delay_rate=1.0.
 - **F-OPS2 executable baseline (S186)**: `tools/f_ops2_domain_priority.py` now scores policy alternatives from live state and emits domain-per-agent allocation plans (`experiments/operations-research/f-ops2-domain-priority-s186.json`).
 - **F-OPS2 findings-driven extension (S186)**: scheduler now ingests recent finding pressure from `tasks/NEXT.md` ("What just happened") and emits finding-weighted plans (`experiments/operations-research/f-ops2-domain-priority-findings-s186.json`), which currently prioritize `finance:2`, `control-theory:1`, `information-science:1`.
 - **F-OPS2 coordinator rerun (S186)**: refreshed 6-slot dispatch (`experiments/operations-research/f-ops2-domain-priority-multiswarm6-s186-coord-rerun.json`) keeps `hybrid` as best policy but shifts mix to `game-theory:2`, `operations-research:1`, `history:1`, `statistics:1`, `information-science:1` (net `268.6`) after slot churn and history-domain activation.
@@ -36,7 +36,6 @@ Updated: 2026-02-27 | Sessions: 186
 ## What's open
 - **F-OPS1**: determine WIP limits that maximize knowledge throughput.
 - **F-OPS2**: validate the findings-driven schedule on independent-owner runs, compare realized quality/collision outcomes against prior hybrid/risk-first baselines, and track automability ratio (tool plan accepted without manual rewrite).
-- **F-OPS3**: implement queue-aging rules for stale frontiers/tasks and test impact.
 
 ## Operations-research links to current principles
 P-119 (spawn discipline) | P-190 (task clarity gate) | P-197 (high-yield session pattern)

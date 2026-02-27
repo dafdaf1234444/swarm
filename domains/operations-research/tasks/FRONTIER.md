@@ -1,6 +1,6 @@
 # Operations Research Domain — Frontier Questions
 Domain agent: write here for operations-research-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-02-28 S186 | Active: 3
+Updated: 2026-02-28 S186 | Active: 2
 
 ## Active
 

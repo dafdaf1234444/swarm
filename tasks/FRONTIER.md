@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-20 active | Last updated: 2026-02-27 S186
+21 active | Last updated: 2026-02-28 S186
 
 ## Critical
 - **F110**: How can swarm miscoordinate when swarming itself? (10 cases/3 tiers. T1+T2 done; T3 partially done. Remaining points understood, low urgency; see `experiments/architecture/f110-meta-coordination.md`.)
@@ -32,6 +32,8 @@ The swarm picks what matters. Solve, refine, or challenge.
 - **F124**: Can swarm treat self-improvement as an explicit primary mission? Status: PARTIAL — 5 quality dimensions baselined (L-257); strongest pattern: parallel dispatch + frontier focus + low overhead + L+P extraction. Open: explicit improvement cycles per dimension; D4 spawn utilization target. Related: PHIL-4, L-257, P-197, change_quality.py.
 
 - **F125**: Can swarm generate insight via free-associative synthesis? Status: PARTIAL — `tools/dream.py` live (cadence 7), surfaced resonances/uncited-principle targets. Open: validate resonance quality; measure uncited-principle count reduction over time. Related: F122, F124, L-257.
+
+- **F126**: Can swarm build an Atlas of Deep Structure — a world knowledge base where the primary artifact is cross-domain structural equivalences (isomorphisms), not facts? Status: OPEN (S187: seeded by human signal "knowledge base of the world swarm with swarm"). Core hypothesis (L-274): isomorphism-atlas is highest-Sharpe world knowledge representation; each new domain potentially matches every existing structure (super-linear value growth). Seed artifact: `domains/ISOMORPHISM-ATLAS.md`. Open: (1) identify ~50 hub domains with highest isomorphism density; (2) define Sharpe-scoring for cross-domain structural equivalences; (3) prevent domain sprawl (selection criterion: only domains that yield ≥3 novel isomorphisms survive); (4) verification protocol for structural vs factual claims. Relationship to F122: F122 = domain→swarm improvement (swarm benefits); F126 = swarm→world KB (world benefits; directionality inverted). Related: F122, F124, F125, L-274, domains/ISOMORPHISM-ATLAS.md, PHIL-4.
 
 ## Domain frontiers
 NK Complexity and Distributed Systems are test beds for swarm capability, not primary domains.
