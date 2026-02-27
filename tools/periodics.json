@@ -32,14 +32,14 @@
       "id": "proxy-k-measurement",
       "description": "Measure proxy K (python tools/proxy_k.py --save): track bootstrap description length across sessions (F116, PHIL-8)",
       "cadence_sessions": 10,
-      "last_reviewed_session": 175,
+      "last_reviewed_session": 186,
       "registered_by": "S75"
     },
     {
       "id": "claim-vs-evidence-audit",
       "description": "Gap audit: test each PHILOSOPHY.md claim against git history, session log, and quantitative evidence. File challenges for any claim where evidence contradicts the stated belief. P-164: confirmation rate >80% = underchallenging signal.",
       "cadence_sessions": 20,
-      "last_reviewed_session": 165,
+      "last_reviewed_session": 186,
       "registered_by": "S81b"
     },
     {
@@ -60,14 +60,14 @@
       "id": "mission-constraint-reswarm",
       "description": "F119 mission constraints: review safety/portability/learning/connectivity invariants and harden enforcement checks against drift.",
       "cadence_sessions": 12,
-      "last_reviewed_session": 173,
+      "last_reviewed_session": 186,
       "registered_by": "S151"
     },
     {
       "id": "state-sync",
       "description": "Auto-sync count drift: run `python3 tools/sync_state.py` to patch INDEX.md / FRONTIER.md / NEXT.md / PRINCIPLES.md headers with live lesson/principle/belief/frontier counts. Addresses ~4% state-sync commit overhead (L-216). Run as part of every handoff.",
       "cadence_sessions": 1,
-      "last_reviewed_session": 184,
+      "last_reviewed_session": 186,
       "registered_by": "S176"
     },
     {

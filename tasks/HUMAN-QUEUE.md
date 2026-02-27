@@ -25,7 +25,7 @@ See Answered section below.
 
 ## Lab Work
 
-### ~~HQ-5: Jepsen bug reproduction (F95)~~ RESCOPED S132
+### ~~HQ-5: Jepsen bug reproduction (F95)~~ ANSWERED S132
 See Answered section below.
 
 ## Process Feedback
