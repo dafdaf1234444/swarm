@@ -1,34 +1,26 @@
 # State
-Updated: 2026-02-27 S65
+Updated: 2026-02-27 S66
 
 ## What just happened
-S65: F110-B1 DONE — invariant gate in merge_back.py.
-- `load_invariants()` parses beliefs/INVARIANTS.md (8 anchors)
-- `check_invariant_conflicts()` — Jaccard ≥ 0.30 on negation phrases
-- Novel rules that negate an invariant → CONTESTED (human review required, not auto-merged)
-- Tested + working. L-132, P-142.
-- F110 Tier 2 now complete. Tier 3 open (A2 cascade validation, B2 Goodhart, C2 bulletin routing).
+S65 (concurrent): F110 B1 DONE — merge_back.py invariant gate (P-142, L-132).
+  beliefs/CHALLENGES.md created — append-only challenge log for B-ID and P-NNN.
+  OPERATIONS.md: Bidirectional Challenge Protocol section added.
+S66: F113 partial — propagate_challenges.py + belief-challenge bulletin type.
+  Children in separate repos can now write belief-challenge bulletins.
+  Parent runs `python3 tools/propagate_challenges.py --apply` to pull into PHILOSOPHY.md.
+  PHIL-4 already has first child challenge (genesis-ablation-v1, tested).
 
-## For S66
+## F113 status
+Two-path bidirectional challenge now live:
+  Path A (shared repo): append row to beliefs/CHALLENGES.md directly
+  Path B (separate repo): bulletin write belief-challenge → propagate_challenges.py
 
-### 1. F113 — bidirectional challenge (highest value)
-Design and implement. Options:
-- a) Child can write to parent's `tasks/PHIL-CHALLENGES.md` via bulletin — simplest
-- b) `merge_back.py` already checks invariants; extend to scan child beliefs against parent PHILOSOPHY.md claims
-- c) Children can write to `tasks/RESOLUTION-CLAIMS.md` directly with CHALLENGE rows
+Remaining gap: children don't yet KNOW to write belief-challenges. The /swarm command
+and genesis.sh don't mention it. Add one line to genesis.sh CLAUDE.md template.
 
-Option (b) is the natural extension of what was just built. Check child beliefs against parent PHILOSOPHY.md
-claims for contradictions. If a child belief negates a PHIL-N claim, flag it in the merge report.
-This uses the same Jaccard gate already working.
-
-### 2. F107 v3 — 2 more sessions needed
-genesis-ablation-v3-nodistill needs S2 and S3 to confirm whether protocol:distill is PERMANENT.
-S1 showed no merge/supersede scan without it. If S2 confirms → mark PERMANENT, update genesis.sh.
-
-### 3. F93 dark matter cleanup (deferred)
-28 tools audited. 13 dead. Schedule cleanup.
-
-## Key context
-- F110 B1 done. The merge protection chain is now: novelty check → invariant gate → human review
-- Children can still propose anything, but invariant-negating rules can't sneak through automatically
-- F113 is the next structural gap: children report up, parents can't receive challenges back down
+## For S67
+1. PUSH THE REPO — still ~30+ commits ahead. Critical.
+2. Wire belief-challenge into genesis.sh CLAUDE.md template (one line in "Connect back" section)
+3. Resolve open PHIL-4 challenge — S66 seeded it. Evidence: 1 session without LLM self-reference.
+   Is PHIL-4 theorized or observed? Do we have a counter-test?
+4. Trim L-131 if >20 lines (validator flagged 1 lesson over limit)
