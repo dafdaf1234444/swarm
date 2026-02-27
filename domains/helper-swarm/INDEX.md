@@ -29,6 +29,7 @@ Updated: 2026-02-27 | Sessions: 186
 - **F-HLP1**: optimize helper-trigger rules for stalled work detection.
 - **F-HLP2**: measure which helper handoff contract minimizes rework and lag.
 - **F-HLP3**: tune helper-capacity policy to maximize recovery without overload.
+- **F-HLP4**: task recognizer routes unrecognized tasks via full domain knowledge index (S188, `tools/task_recognizer.py`, 10/10 tests). Next: routing accuracy measurement over 20+ diverse tasks.
 
 ## Helper-swarm links to current principles
 P-119 (spawn discipline) | P-179 (agent utilization discipline) | P-190 (task clarity gate) | P-197 (quality dimensions)

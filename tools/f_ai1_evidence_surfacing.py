@@ -60,20 +60,6 @@ def _tokenize(text: str) -> list[str]:
     return re.findall(r"[a-z0-9]+", _normalize_accent((text or "").lower()))
 
 
-# Common Romance-language function words that inflate title length vs query
-_STOPWORDS = frozenset([
-    "de", "la", "el", "los", "las", "del", "un", "una", "y", "en",
-    "le", "les", "du", "des", "al", "lo", "e", "o",
-])
-
-
-def _stem_simple(token: str) -> str:
-    """Strip common Romance-language inflectional suffixes for morphological matching."""
-    for sfx in ("acion", "amiento", "idad", "ado", "ada", "cion", "ando", "iendo"):
-        if len(token) > len(sfx) + 3 and token.endswith(sfx):
-            return token[: -len(sfx)]
-    return token
-
 
 def _query_title_confidence(query: str, resolved_title: str, lang: str = "en") -> float:
     """
@@ -83,10 +69,10 @@ def _query_title_confidence(query: str, resolved_title: str, lang: str = "en") -
     across all overlap formulations (Jaccard, recall, F1 with stop-word filtering) at
     all tested thresholds. Root cause: query-title alignment measures lexical similarity,
     not resolution correctness — the two are structurally decoupled in Spanish Wikipedia.
-    (L-279: language-aware proxy attempt, gating as evidence-based fallback)
+    (L-288: language-aware proxy attempt, gating as evidence-based fallback)
     """
     if lang != "en":
-        return 0.0  # gate non-EN surfacing: proxy not reliable for ES (L-279)
+        return 0.0  # gate non-EN surfacing: proxy not reliable for ES (L-288)
 
     query_norm = " ".join(_tokenize(query))
     title_norm = " ".join(_tokenize(resolved_title))
