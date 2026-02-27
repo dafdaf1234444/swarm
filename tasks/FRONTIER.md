@@ -1,10 +1,10 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-17 active | Last updated: 2026-02-27 S69
+18 active | Last updated: 2026-02-27 S69
 
 ## Critical
-- **F110**: What are all the ways swarm can miscoordinate when swarming itself — and what mechanisms prevent each? (S57: 10 cases in 3 tiers. Tier 1 DONE S58. Tier 2 DONE S65. Tier 3 ANALYZED S68: A2 cascade invalidation, B2 Goodhart capture, C2 orphaned meta-work — understood but not urgent at current scale. See experiments/architecture/f110-meta-coordination.md.)
+- **F110**: What are all the ways swarm can miscoordinate when swarming itself — and what mechanisms prevent each? (S57: 10 cases in 3 tiers. Tier 1 DONE S58. Tier 2 DONE S65. Tier 3: A2 DONE S69 (cascade validation --changed=B-ID, L-142, P-149). B2 Goodhart capture, C2 orphaned meta-work — understood but not urgent at current scale. See experiments/architecture/f110-meta-coordination.md.)
 - **F111**: Can the swarm operate as a builder, not just analyst — analyze→fix→deploy real codebases? (S53: YES for `dutch`. Pattern: parallel analysis → cross-agent synthesis → parallel fix on independent files.)
 
 - **F113**: What does alignment across all node types look like, and how do you measure it? S65: Pair 2 (session↔children) done. S69: Pair 3 (children↔each other) wired — genesis.sh now copies sibling bulletins + bulletin.py to child at spawn; child CLAUDE.md tells children to scan siblings at session start. Remaining pairs: 1 (human↔session, see F109), 4 (past↔future sessions).

@@ -508,6 +508,62 @@ def detect_entropy(beliefs: list[dict]) -> list[str]:
     return findings
 
 
+def cascade_check(beliefs: list[dict], changed_id: str) -> list[str]:
+    """F110-A2: Given a changed belief, flag downstream beliefs that may need re-review.
+
+    Usage: validate_beliefs.py --changed=B1
+    Walks the forward dependency graph from changed_id, warns if any downstream
+    belief's last_tested date predates the changed belief's last_tested date.
+    """
+    issues = []
+    by_id = {b["id"]: b for b in beliefs}
+
+    if changed_id not in by_id:
+        issues.append(f"FAIL CASCADE: Unknown belief ID '{changed_id}'")
+        return issues
+
+    # Build forward graph from depends_on entries
+    forward: dict[str, list[str]] = {}
+    for b in beliefs:
+        for dep in b.get("depends_on", []):
+            forward.setdefault(dep, []).append(b["id"])
+
+    # BFS from changed_id
+    visited: set[str] = set()
+    queue = [changed_id]
+    downstream: list[str] = []
+    while queue:
+        node = queue.pop(0)
+        for child in forward.get(node, []):
+            if child not in visited:
+                visited.add(child)
+                downstream.append(child)
+                queue.append(child)
+
+    if not downstream:
+        issues.append(f"INFO CASCADE: {changed_id} has no downstream beliefs — no cascade needed")
+        return issues
+
+    changed = by_id[changed_id]
+    changed_date = changed.get("last_tested", "")[:10]
+
+    for did in downstream:
+        dep = by_id[did]
+        dep_date = dep.get("last_tested", "")[:10]
+        stmt_preview = dep["statement"][:55].rstrip()
+        if not dep_date or (changed_date and dep_date < changed_date):
+            issues.append(
+                f"WARN STALE: {did} ('{stmt_preview}') depends on changed {changed_id} — "
+                f"last reviewed {dep_date or 'never'} vs {changed_id} updated {changed_date}. Review."
+            )
+        else:
+            issues.append(
+                f"INFO CASCADE: {did} last reviewed {dep_date} ≥ {changed_id} date {changed_date} — OK"
+            )
+
+    return issues
+
+
 def check_identity() -> list[str]:
     """Check that CORE.md hasn't drifted from its stored constitutional hash (F110-B3)."""
     index_md = REPO_ROOT / "memory" / "INDEX.md"
@@ -549,7 +605,24 @@ def print_entropy(beliefs: list[dict]):
 
 def main() -> int:
     quick = "--quick" in sys.argv
-    args = [a for a in sys.argv[1:] if a != "--quick"]
+    raw_args = [a for a in sys.argv[1:] if a != "--quick"]
+
+    # Extract --changed=B-ID or --changed B-ID flag (F110-A2 cascade check)
+    changed_id = None
+    args = []
+    skip_next = False
+    for i, a in enumerate(raw_args):
+        if skip_next:
+            skip_next = False
+            continue
+        if a.startswith("--changed="):
+            changed_id = a.split("=", 1)[1]
+        elif a == "--changed" and i + 1 < len(raw_args):
+            changed_id = raw_args[i + 1]
+            skip_next = True
+        else:
+            args.append(a)
+
     path = args[0] if args else "beliefs/DEPS.md"
     if not Path(path).exists():
         print(f"ERROR: {path} not found")
@@ -595,6 +668,12 @@ def main() -> int:
 
         # Entropy detection — tracks decay, not just growth
         print_entropy(beliefs)
+
+    # Cascade check: --changed=B-ID flag (F110-A2)
+    if changed_id:
+        print(f"\n=== CASCADE CHECK ({changed_id} changed) ===")
+        for issue in cascade_check(beliefs, changed_id):
+            print(issue)
 
     return exit_code
 
