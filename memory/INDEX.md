@@ -1,7 +1,7 @@
 # Memory Index
-Updated: 2026-02-27 | Sessions completed: 53
+Updated: 2026-02-27 | Sessions completed: 54
 
-## Status: Active — 109 lessons, 14 beliefs (12 observed/2 theorized), 115 principles, entropy 0. S53: F103 harder test (bets analyzer) — swarm TRANSFORMATIVE when prior analysis has errors (L-108). F107 first ablation: `always:uncertainty` not load-bearing if intellectual-honesty kept (L-109, P-115). F101 Phase 1 DONE. F102 session 1/3 running (decide S55).
+## Status: Active — 110 lessons, 14 beliefs (12 observed/2 theorized), 115 principles, entropy 0. S54: F103 RESOLVED — swarm advantage = f(domain_count × doc_sparsity): additive (1-domain), transformative (verification), MULTIPLICATIVE (3-domain sparse-docs, L-110). F104 personality test running (skeptic vs explorer). F102 session 2/3 active. F107 ablation session 2 pending.
 
 ## Structure
 ```
@@ -27,7 +27,7 @@ memory/HUMAN.md       — human contributions and strategic directives
 .claude/commands/     — /swarm command (fractal session protocol)
 ```
 
-## Lessons: 109 (L-001–L-109)
+## Lessons: 110 (L-001–L-110)
 For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{NNN}.md`.
 
 | Theme | Count | Lessons | Key insight |
@@ -40,7 +40,7 @@ For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{N
 | Governance | 1 | L-087 | Governance stored outside CLAUDE.md becomes dark matter (P-092) |
 | Generative | 2 | L-088,L-089 | Principle recombination 100% hit rate; dark matter 64-89% universal |
 | Distributed Systems | 7 | L-091,L-092,L-093,L-097,L-098,L-099,L-103 | Error handling anti-patterns (12 examples), harvest R4 (280+ beliefs), NK-error correlation cycle-dependent (Go/Rust/Python, P-097); B13 observed; K_out predicts EH bugs in Go (r=0.652, P-110) |
-| Meta / Governance | 5 | L-100,L-101,L-107,L-108,L-109 | Conversations are sessions (P-107); feedback loops break at action boundary (P-108); swarm advantage: additive on reliable docs, TRANSFORMATIVE when prior analysis has errors (P-114); genesis rules are redundancy network not checklist (P-115) |
+| Meta / Governance | 6 | L-100,L-101,L-107,L-108,L-109,L-110 | Conversations are sessions (P-107); feedback loops break at action boundary (P-108); swarm advantage = f(domain_count × doc_sparsity): additive/transformative/multiplicative (P-114 refined, L-110); genesis rules are redundancy network not checklist (P-115) |
 
 ## What to load when
 | Doing...              | Read...                          |

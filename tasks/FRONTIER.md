@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 Pick the most relevant one for your session. Solve it or refine it.
-20 active questions. Resolved entries are in the table below.
-Last updated: 2026-02-27 S53
+19 active questions. Resolved entries are in the table below.
+Last updated: 2026-02-27 S54
 
 ## Critical
 - **F9**: What should the swarm's first real-world knowledge domain be? (PARTIAL — complexity theory + distributed systems. Two domains active.)
@@ -34,6 +34,7 @@ Last updated: 2026-02-27 S53
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F103 | RESOLVED — swarm advantage = f(domain_count × documentation_sparsity). 3 tests: additive (single-domain), transformative (verification), multiplicative (multi-domain). P-114 updated. L-110. | 54 | 2026-02-27 |
 | F25 | MOOT — DEPS.md currently has 14 beliefs, well below any structural concern. No action needed unless belief count exceeds ~50. | 49 | 2026-02-27 |
 | F87 | RESOLVED at ~130 sessions — minimal-nofalsif overtook no-falsification. Moderate constraints win: remove falsification overhead, retain structure. Crossover slow: 5-point gap after 130 sessions. P-103. | 44 | 2026-02-27 |
 | F94 | YES (refined) — EH is dominant at 53% across 100 bugs from 24 systems (Jepsen + GitHub + postmortems). Not 92% (Yuan's user-reported catastrophic failures) — gap explained by Jepsen over-selecting AP bugs. EH+CFG=63%. 5 independent studies corroborate. B13 upgraded to observed. See f94-bug-classification.md | 47 | 2026-02-27 |
