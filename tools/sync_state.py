@@ -217,6 +217,17 @@ def main():
             if patch_file(next_md, old, new, "NEXT counts"):
                 changed.append("NEXT counts")
 
+    # --- PAPER.md scale line ---
+    paper_md = ROOT / "docs" / "PAPER.md"
+    if paper_md.exists():
+        text = paper_md.read_text(encoding="utf-8")
+        m = re.search(r"(\d+) lessons, (\d+) principles", text)
+        if m and (int(m.group(1)) != lessons or int(m.group(2)) != principles):
+            old = m.group(0)
+            new = f"{lessons} lessons, {principles} principles"
+            if patch_file(paper_md, old, new, "PAPER scale"):
+                changed.append("PAPER scale")
+
     if not changed:
         if not QUIET:
             print("  all counts in sync — no changes needed")

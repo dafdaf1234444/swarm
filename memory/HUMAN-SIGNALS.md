@@ -36,6 +36,8 @@ before committing — not retrospectively at the harvest.
 | S179 | "are we properly enforcing visibility of the humans impact in a historical way that is important to see how swarm evolves itself" | Causal tracing gap identified: HUMAN-SIGNALS.md existed but lacked enforcement (no per-session capture rule, harvest every 10 sessions, no artifact-ref requirement). Enforcement rule added to this file; swarm.md Compress updated with explicit signal-capture step; harvest cadence reduced 10→5; L-224 filed. F121 advanced. |
 | S181 | "swarm the successful swarming from past" | Direction to replicate/reinforce what has worked rather than always seeking new frontiers. Processed as: orient on proven high-value patterns (compaction, periodics, orient.py, domain extraction, human-signal harvesting); compaction target L-150-168 verified — found L-231's zero-Sharpe claim incorrect (all have 1-6 refs); real zero-citation cluster is L-22-149 (66 lessons). L-235 filed. Pattern: success-tracking as selection pressure. |
 
+| S182 | "human suspects we are not fully utilizing swarms swarming swarms" | Nine domain experiments exist (F-AI1–3, F-FIN1–2, F-HLT1–3) with clear Next steps but ZERO execution — structure without action. Gap: designing experiments ≠ running them. Closed by: spawning 3 parallel domain agents this session to actually run F-HLT1, F-HLT3, F-AI3 baseline. Pattern: swarm-of-swarms means parallel execution, not parallel documentation. |
+
 ## Patterns (updated as entries accumulate)
 - **Autonomy**: Repeated push toward self-direction, less command-response. (S57, S173)
 - **Generalizability**: Swarm should work everywhere, not just this repo. (S166, S172)
