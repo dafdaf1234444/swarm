@@ -118,36 +118,20 @@ def check_cycles(beliefs: list[dict]) -> list[str]:
 
 
 def check_dep_consistency(beliefs: list[dict]) -> list[str]:
-    """Cross-check 'Depends on' vs 'Depended on by' fields for consistency."""
+    """Cross-check Depends on vs Depended on by fields."""
     issues = []
     known = {b["id"] for b in beliefs}
-    # Build forward map: who depends on whom
     forward: dict[str, set[str]] = {b["id"]: set(b["depends_on"]) for b in beliefs}
-    # Build reverse map from "Depended on by" fields
     reverse: dict[str, set[str]] = {b["id"]: set(b.get("depended_on_by", [])) for b in beliefs}
 
     for bid, deps in forward.items():
         for dep in deps:
-            if dep not in known:
-                continue
-            # If B2 depends on B1, then B1 should list B2 in "Depended on by"
-            if bid not in reverse.get(dep, set()):
-                # Only warn if the target has a depended_on_by field at all
-                if reverse.get(dep) is not None:
-                    issues.append(
-                        f"WARN DEP_SYNC: {dep} should list {bid} in 'Depended on by' "
-                        f"(since {bid} depends on {dep})"
-                    )
+            if dep in known and bid not in reverse.get(dep, set()) and reverse.get(dep) is not None:
+                issues.append(f"WARN DEP_SYNC: {dep} should list {bid} in 'Depended on by'")
     for bid, rev_deps in reverse.items():
         for rdep in rev_deps:
-            if rdep not in known:
-                continue
-            # If B1 says "Depended on by B2", then B2 should depend on B1
-            if bid not in forward.get(rdep, set()):
-                issues.append(
-                    f"WARN DEP_SYNC: {rdep} should list {bid} in 'Depends on' "
-                    f"(since {bid} lists {rdep} in 'Depended on by')"
-                )
+            if rdep in known and bid not in forward.get(rdep, set()):
+                issues.append(f"WARN DEP_SYNC: {rdep} should list {bid} in 'Depends on'")
     return issues
 
 
@@ -322,12 +306,7 @@ def detect_entropy(beliefs: list[dict]) -> list[str]:
 
 
 def cascade_check(beliefs: list[dict], changed_id: str) -> list[str]:
-    """F110-A2: Given a changed belief, flag downstream beliefs that may need re-review.
-
-    Usage: validate_beliefs.py --changed=B1
-    Walks the forward dependency graph from changed_id, warns if any downstream
-    belief's last_tested date predates the changed belief's last_tested date.
-    """
+    """F110-A2: Flag downstream beliefs needing re-review after a change."""
     issues = []
     by_id = {b["id"]: b for b in beliefs}
 

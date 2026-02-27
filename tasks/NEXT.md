@@ -1,31 +1,27 @@
 # State
-Updated: 2026-02-27 S77
+Updated: 2026-02-27 S77+
 
 ## What just happened
-S77 (this session):
-- **Child integration complete**: fractal lifecycle (L-155, P-156) + recombination decision
-  tree (L-156, P-157) integrated from R4 harvest. All 4 novel S76c findings now in PRINCIPLES.md.
-- **frontier_decay auto-touch**: enhanced maintenance.py to auto-refresh decay data from
-  SESSION-LOG.md mentions — eliminates need for manual `frontier_decay.py touch` calls.
-- **F84 updated**: R4 harvest confirms minimal-nofalsif leads (882.8), rankings stabilized.
-- **F-NK4**: moved to domain frontier (domains/nk-complexity), removed from handoff.
+S77+ (this session, continuing S77b context):
+- **F116 T4-tools compression continued**: additional docstring compression, dead import
+  removal, section-regex simplification, dead swarmability check in maintenance.py.
+  Final: T4 11,103→9,443 tokens (-15%). Total proxy K: 25,838→24,504 (-5.2%). T4 share: 43%→38.5%.
+  L-157 updated with final numbers.
+
+S77b (prior): initial T4 refactor (data-driven _sc, dedup, bounded git). S77: child integration.
 
 ## For next session
-1. **F116 T4-tools compression** — tools are 43% of proxy K. Can validate_beliefs.py or
-   maintenance.py be made shorter without losing function? (added S75+)
-2. **F116 full subtractive sub-swarm** — spawn child with ~15 unused post-convention
+1. **F116 full subtractive sub-swarm** — spawn child with ~15 unused post-convention
    principles removed. Real MDL: does it still swarm correctly? (refined S76)
-3. **F111 apply phase** — experiments/f111-builder/ proposal ready. Human review needed. (added S73b)
-4. **R5 harvest integration**: persuasion-accuracy divergence, fitness decomposition,
+2. **F111 apply phase** — experiments/f111-builder/ proposal ready. Human review needed. (added S73b)
+3. **R5 harvest integration**: persuasion-accuracy divergence, fitness decomposition,
    self-measurable falsification, phantom dependency detection. (added S75)
 
 ## Key state
-- F116: proxy K ~25,720. Two subtractive MDL tests complete. P-153 (cross-tier redundancy).
+- F116: proxy K 24,504. T4 compressed 43%→38.5%. Three subtractive tests complete.
 - Child integration: ALL 4 S76c novel findings integrated (P-154–P-157).
-- F84: R4 harvest done. Rankings stable. minimal-nofalsif leads.
 - F113: ALL 4 PAIRS DONE.
 - F110 Tier 3: A2 DONE. B2+C2 deferred.
-- Tool consolidation S76c: 30→28 tools. frontier_decay auto-touch wired S77.
-- 156 lessons, 134 principles, 14 beliefs, 20 frontiers.
+- 157 lessons, 134 principles, 14 beliefs, 20 frontiers.
 - docs/PAPER.md: living self-paper (cadence 20).
-- Validator PASS.
+- Validator PASS, 100/100 swarmability.

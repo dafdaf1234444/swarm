@@ -1,20 +1,6 @@
 #!/usr/bin/env python3
-"""
-maintenance.py — What needs doing right now.
-
-Usage:
-    python3 tools/maintenance.py          # show all due maintenance
-    python3 tools/maintenance.py --quick  # skip slow checks (git remote)
-
-The swarm runs this at session start. It reads state and surfaces conditions —
-not a checklist. The swarm decides what matters most.
-
-Categories:
-  URGENT   — do this before other work
-  DUE      — threshold crossed, handle this session
-  PERIODIC — cadence-based, check if it's time
-  NOTICE   — informational, act if relevant
-"""
+"""maintenance.py — Surface what needs doing now. Run at session start.
+Priority: URGENT > DUE > PERIODIC > NOTICE. Use --quick to skip remote checks."""
 
 import json
 import re
@@ -212,12 +198,7 @@ def check_lessons() -> list[tuple[str, str]]:
 
 
 def check_frontier_decay() -> list[tuple[str, str]]:
-    """Check for decayed frontier questions.
-
-    Auto-refreshes decay data from SESSION-LOG.md: any F-NNN mentioned
-    in a session log entry gets its last_active updated to that entry's date.
-    This eliminates the need for manual `frontier_decay.py touch` calls.
-    """
+    """Check for decayed frontier questions. Auto-refreshes decay from SESSION-LOG.md."""
     results = []
     decay_file = REPO_ROOT / "experiments" / "frontier-decay.json"
     frontier_path = REPO_ROOT / "tasks" / "FRONTIER.md"
@@ -286,12 +267,7 @@ def check_frontier_decay() -> list[tuple[str, str]]:
 
 
 def check_periodics() -> list[tuple[str, str]]:
-    """Check self-scheduled periodic items from periodics.json.
-
-    The swarm registers items it wants periodically re-examined.
-    Each item has a cadence (sessions) and last_reviewed_session.
-    Items are DUE when current_session - last_reviewed >= cadence.
-    """
+    """Check self-scheduled periodic items from periodics.json."""
     results = []
     periodics_path = REPO_ROOT / "tools" / "periodics.json"
     if not periodics_path.exists():
@@ -428,27 +404,11 @@ def check_pulse_children() -> list[tuple[str, str]]:
     if not children_dir.exists() or not pulse_text:
         return results
 
-    # Extract children from PULSE.md (only from ## Children section)
-    children_section = ""
-    in_children = False
-    for line in pulse_text.splitlines():
-        if line.strip().startswith("## Children"):
-            in_children = True
-            continue
-        if in_children and line.strip().startswith("## "):
-            break
-        if in_children:
-            children_section += line + "\n"
-
-    pulse_children = set()
-    for m in re.finditer(r"^\s+([\w][\w-]+)\s+\[", children_section, re.MULTILINE):
-        pulse_children.add(m.group(1))
-
-    # Actual children on disk
-    disk_children = set()
-    for d in children_dir.iterdir():
-        if d.is_dir() and not d.name.startswith("."):
-            disk_children.add(d.name)
+    # Extract children from PULSE.md (## Children section only)
+    section_m = re.search(r"## Children\n(.*?)(?=\n## |\Z)", pulse_text, re.DOTALL)
+    children_section = section_m.group(1) if section_m else ""
+    pulse_children = {m.group(1) for m in re.finditer(r"^\s+([\w][\w-]+)\s+\[", children_section, re.MULTILINE)}
+    disk_children = {d.name for d in children_dir.iterdir() if d.is_dir() and not d.name.startswith(".")}
 
     missing_from_pulse = disk_children - pulse_children
     missing_from_disk = pulse_children - disk_children
@@ -462,11 +422,7 @@ def check_pulse_children() -> list[tuple[str, str]]:
 
 
 def check_handoff_staleness() -> list[tuple[str, str]]:
-    """Check for stale handoff items in NEXT.md (F113 pair 4: past↔future alignment).
-
-    Items tagged (added SN) that have been in NEXT.md for >3 sessions
-    indicate a past→future handoff that isn't being received.
-    """
+    """Check for stale handoff items in NEXT.md (>3 sessions old)."""
     results = []
     next_text = _read(REPO_ROOT / "tasks" / "NEXT.md")
     if not next_text:
@@ -495,11 +451,7 @@ def check_handoff_staleness() -> list[tuple[str, str]]:
 
 
 def check_utility() -> list[tuple[str, str]]:
-    """Surface zero-citation active principles (utility = MDL proxy, F116/F114).
-
-    Active principles never cited in lessons/frontier/session-log have
-    description-length cost without demonstrated use — compression candidates.
-    """
+    """Surface zero-citation active principles — compression candidates (F116/F114)."""
     results = []
 
     principles_text = _read(REPO_ROOT / "memory" / "PRINCIPLES.md")

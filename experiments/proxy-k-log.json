@@ -89,5 +89,31 @@
     },
     "total": 25720,
     "genesis": 9785
+  },
+  {
+    "date": "2026-02-27",
+    "session": 77,
+    "tiers": {
+      "T0-mandatory": 1765,
+      "T1-identity": 4943,
+      "T2-protocols": 2997,
+      "T3-knowledge": 5356,
+      "T4-tools": 9499
+    },
+    "total": 24560,
+    "genesis": 8506
+  },
+  {
+    "date": "2026-02-27",
+    "session": 77,
+    "tiers": {
+      "T0-mandatory": 1765,
+      "T1-identity": 4943,
+      "T2-protocols": 2997,
+      "T3-knowledge": 5356,
+      "T4-tools": 9443
+    },
+    "total": 24504,
+    "genesis": 8450
   }
 ]
