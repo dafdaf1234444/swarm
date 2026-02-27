@@ -39,6 +39,16 @@ class TestFAI1EvidenceSurfacing(unittest.TestCase):
 
         self.assertLess(surfaced_err, async_err)
 
+    def test_accent_normalization(self):
+        # Accented variants should produce high confidence when they normalize to same tokens
+        self.assertAlmostEqual(mod._query_title_confidence("España", "Espana"), 1.0)
+        self.assertAlmostEqual(mod._query_title_confidence("señor", "senor"), 1.0)
+        # Accent-normalized tokens should be non-empty (not split by ñ)
+        self.assertEqual(mod._tokenize("señor"), ["senor"])
+        self.assertEqual(mod._tokenize("español"), ["espanol"])
+        # Cross-language mismatch should still be low
+        self.assertLess(mod._query_title_confidence("España", "Stigmergy"), 0.3)
+
     def test_sync_has_highest_correlation(self):
         payload = mod.run(
             mod.Config(
