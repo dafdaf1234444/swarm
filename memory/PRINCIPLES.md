@@ -33,6 +33,7 @@ Extracted from lessons. Scan for recombination. 93 principles, 6 themes.
 ## Governance
 **Meta-governance**: P-092 governance recommendations must be workflow-embedded (CLAUDE.md) to be acted upon — recommendations in lessons/principles become dark matter
 **Hybrid evolution**: P-093 hybrid vigor peaks when parent traits remove DIFFERENT friction types (structural vs epistemic, not redundant)
+**Colony lifecycle**: P-096 convergent density ~70% at R4 signals exploitation→exploration threshold — shift to novel territory exploration
 
 ## Distributed Systems
 **Error handling**: P-095 B14 determinism (74%) and node-count (98%) are independent claims — verify separately, as Jepsen data challenges determinism while supporting node-count
