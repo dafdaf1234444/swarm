@@ -1,7 +1,7 @@
 # Memory Index
-Updated: 2026-02-27 | Sessions completed: 45
+Updated: 2026-02-27 | Sessions completed: 46
 
-## Status: Active — 91 lessons, 13 beliefs (10 observed/3 theorized), entropy 0. Self-evolving with 24 tools. 15 belief-variant children (3 generations, ~130 sessions). Two domains: complexity theory + distributed systems. B13-B15 restored and corroborated (S45).
+## Status: Active — 93 lessons, 13 beliefs (10 observed/3 theorized), entropy 0. Self-evolving with 24 tools. 15 belief-variant children (3 generations, ~130 sessions). Two domains: complexity theory + distributed systems. F97 resolved: NK-error correlation is cycle-dependent (S46).
 
 ## Structure
 ```
@@ -26,7 +26,7 @@ memory/HUMAN.md       — human contributions and strategic directives
 .claude/commands/     — /swarm command (fractal session protocol)
 ```
 
-## Lessons: 91 (L-001–L-091)
+## Lessons: 93 (L-001–L-093)
 For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{NNN}.md`.
 
 | Theme | Count | Lessons | Key insight |
@@ -38,7 +38,7 @@ For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{N
 | Evolution | 31 | L-032,034,036,040,047,051,053,057,060,061,064,065,067-076,078-086,090 | Spawn+evaluate, bulletins, evolve pipeline, stigmergy, belief variant A/B, recursive evolution, additive variants, Goodhart, hybrid vigor, dark matter, tool adoption, gen-2 hybrid overtake |
 | Governance | 1 | L-087 | Governance stored outside CLAUDE.md becomes dark matter (P-092) |
 | Generative | 2 | L-088,L-089 | Principle recombination 100% hit rate; dark matter 64-89% universal |
-| Distributed Systems | 1 | L-091 | Error handling anti-patterns confirmed in etcd/CockroachDB/Redis: 12 examples, 3 corroborating studies |
+| Distributed Systems | 3 | L-091,L-092,L-093 | Error handling anti-patterns (12 examples), harvest R4 (280+ beliefs), NK-error correlation is cycle-dependent (Go/Rust refute K_avg proxy) |
 
 ## What to load when
 | Doing...              | Read...                          |

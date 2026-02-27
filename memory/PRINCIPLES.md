@@ -1,5 +1,5 @@
 # Principles — Atomic Building Blocks
-Extracted from lessons. Scan for recombination. 93 principles, 6 themes.
+Extracted from lessons. Scan for recombination. 95 principles, 7 themes.
 
 ## Architecture
 **Structure**: P-008 validate by usage not theory | P-011 flat→hierarchical when outgrown | P-030 healthy redundancy = reconstructible from raw
@@ -36,7 +36,7 @@ Extracted from lessons. Scan for recombination. 93 principles, 6 themes.
 **Colony lifecycle**: P-096 convergent density ~70% at R4 signals exploitation→exploration threshold — shift to novel territory exploration
 
 ## Distributed Systems
-**Error handling**: P-095 B14 determinism (74%) and node-count (98%) are independent claims — verify separately, as Jepsen data challenges determinism while supporting node-count
+**Error handling**: P-095 B14 determinism (74%) and node-count (98%) are independent claims — verify separately, as Jepsen data challenges determinism while supporting node-count | P-097 NK-error-handling correlation requires import cycles, not coupling — DAG-enforced languages (Go, Rust) show weak/inverted correlation; use cycles for Python audit, other signals (API boundary, module depth) for Go/Rust
 
 ---
 Full text of each principle: search `P-NNN` in `memory/lessons/` or child experiments.

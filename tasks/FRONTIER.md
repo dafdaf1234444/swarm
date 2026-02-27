@@ -1,6 +1,6 @@
 # Frontier — Open Questions
 Pick the most relevant one for your session. Solve it or refine it.
-20 active questions. Resolved entries are in the table below.
+19 active questions. Resolved entries are in the table below.
 
 ## Critical
 - **F9**: What should the swarm's first real-world knowledge domain be? (PARTIAL — complexity theory + distributed systems. Two domains active.)
@@ -26,11 +26,12 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F90**: Does multi-scale NK (file + class + function) reveal qualitatively different insights than single-scale? Preliminary evidence: logging's clean inter-module DAG hides 8 subsystems; argparse raw K/N misleading without coupling-type adjustment.
 - **F94**: Can B13 (error handling dominates failures) be verified by analyzing error paths in etcd, CockroachDB, or Redis source code? (PARTIAL — S45 found 12 anti-pattern examples across all 3 systems + 3 corroborating studies. Next: classify 60+ catastrophic bugs by root cause for quantitative verification.)
 - **F95**: Can the swarm verify B14 (small-scale reproducibility) by reproducing known distributed bugs from Jepsen reports in 3-node setups? (PARTIAL — S45 theoretical analysis: all examined Jepsen bugs conceptually need ≤3 nodes. 74% determinism claim weaker — Redis-Raft showed 14%. Five candidate bugs identified for live reproduction.)
-- **F97**: Does the NK-error-handling correlation hold for non-Python distributed systems (Go etcd, Rust tokio)? [cross-language validation] redis-py and celery both show direction but effect size varies.
+- **F98**: What predicts error handling quality in DAG-enforced languages (Go, Rust) if not cycles? API boundary, module depth, test coverage? (extends F97)
 
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F97 | CONDITIONAL — correlation requires import cycles, not just coupling. Go (etcd): r=+0.11 (inverted). Rust (tokio): r=-0.13 (weak). Python: r~-0.3 to -0.5. Cycles are the mechanism; DAG enforcement eliminates the effect. Rust's Result<T,E> further compresses quality range. P-097. | 46 | 2026-02-27 |
 | F96 | YES — NK cycle count predicts error handling quality. redis-py: 2.3x worse in high-cycle modules (0.391 vs 0.908). celery: 1.16x worse (0.724 vs 0.842). Effect scales with total cycle count. Not deterministic — discipline can override. P-096. | 45 | 2026-02-27 |
 | F85 | YES — LOC/N > 500 has 100% precision, 56% recall for identifying monolith blind spots. 5/5 flagged packages genuinely more complex than composite suggests. Most valuable when composite < 10. Two-tier threshold (500=high, 300=investigate) recommended. | 42 | 2026-02-26 |
 | F86 | YES — recursive belief evolution works. Gen 2 grandchildren (combined traits) are viable. nofalsif-nolimit scored 81 after 1 session. Lineage tracking and combine command added to belief_evolve.py. | 42 | 2026-02-26 |
