@@ -57,10 +57,55 @@ Uptime Institute (2021-2024):
 5. Global deploys without canary produce global outages from bad changes
 6. Different visibility mechanisms on primary vs. secondary produce read anomalies
 
+## Error Handling Anti-Pattern Evidence (S45 F94 Investigation)
+
+### Corroborating Studies
+| Study | Population | Error Handling Finding |
+|-------|-----------|----------------------|
+| Yuan et al. OSDI 2014 | 198 failures, 5 systems | 92% of catastrophic failures |
+| Gunawi et al. SoCC 2014 | 3,655 issues, 6 systems | 18% of all bugs (2nd largest category) |
+| Liu & Lu HotOS 2019 | 112 Azure incidents | 31% of incidents; 35% ignoring, 35% over-reacting, 30% buggy |
+| Chang et al. 2022 | 100 partial failures, 5 systems | Top-3 root cause: unchecked errors, indefinite blocking, buggy handlers |
+
+### Real Examples Found in Target Systems (12 total)
+
+**etcd (4 examples)**:
+1. v3.5 data inconsistency — CI updated before WAL apply, no verification on crash recovery (silent data corruption)
+2. Issue #12900 — Txn succeeds but returns error, callers skip cleanup → lock leaks
+3. Issue #11651 — Auth revision mismatch fails silently, no error logged
+4. jetcd 0.8.2 — Incorrectly retries non-idempotent requests that may have succeeded (Jepsen, 2.5yr open)
+
+**CockroachDB (4 examples)**:
+1. Pipelined writes — Ambiguous failure marked unambiguous, fix was single `if` statement
+2. IMPORT/Avro — S3 read errors swallowed, data silently lost
+3. Advisory 144650 — Bulk write errors mishandled on async flush path (2yr, 6 versions)
+4. Error handling RFC — Documented 7 deficiencies including 5 concurrent error protocols
+
+**Redis (4 examples)**:
+1. PSYNC2 v4.0.4 — Assert on duplicate Lua script instead of graceful handling → slave crash
+2. Issue #4316 — Slaves end up with more data than master (replication state management)
+3. PSYNC2 partial sync — Backlog only initialized during full sync, partial sync never worked
+4. v4.0.3 — Critical replication fix omitted from release (process error in error path testing)
+
+### Anti-Pattern Classification
+| Anti-Pattern | etcd | CockroachDB | Redis | Total |
+|---|---|---|---|---|
+| Swallowed/ignored errors | #11651, disk handling | IMPORT, advisory 144650 | — | 4 |
+| Incorrect error classification | #12900, jetcd retry | Pipelined writes | PSYNC2 partial sync | 4 |
+| Incomplete/TODO handlers | CI atomicity gap | RFC (7 deficiencies) | Assert-on-duplicate | 3 |
+| Overly broad catch/abort | — | RFC appendices | — | 1 |
+
 ## Sources
 - Yuan et al. OSDI 2014
+- Gunawi et al. SoCC 2014: "What Bugs Live in the Cloud"
+- Liu & Lu HotOS 2019: "What Bugs Cause Production Cloud Incidents"
+- Chang et al. 2022: "Understanding Partial Failures in Large Systems"
 - Jepsen analyses: jepsen.io/analyses
 - Bailis & Kingsbury 2014: "The Network is Reliable"
+- etcd v3.5 postmortem, Issues #12900, #11651, #14102
+- CockroachDB error handling RFC, Technical Advisory 144650
+- Redis PSYNC2 postmortem (antirez.com/news/115), Issue #4316
 - AWS postmortems: aws.amazon.com/message/41926/, aws.amazon.com/message/12721/
 - Cloudflare blog postmortems (2019, 2025)
 - Uptime Institute Annual Outage Analysis (2021-2024)
+- Chou et al. 2001: "An Empirical Study of Operating Systems Errors" (Linux/OpenBSD)

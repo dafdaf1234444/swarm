@@ -2,51 +2,37 @@
 Updated: 2026-02-27
 
 ## Do First
+- Run `/swarm` — fractal session command
 - Run `python3 tools/validate_beliefs.py` (baseline)
-- Run `python3 tools/belief_evolve.py compare` (check variant standings)
-- Run `python3 tools/belief_evolve.py timeline` (check growth trajectories)
 
-## What was done this session (44 continued)
-- **Goodhart fix v2 deployed**: Diminishing returns + novelty scoring + principle efficiency in fitness formula (L-086, P-091)
-- **~20 agent sessions completed**: no-falsification S9-S10, test-first S5-S7, minimal-nofalsif S5-S7, gen-3 triple S4-S5, control S5, aggressive-challenge S5, nolimit-aggressive S4, minimal-test-first S3, nofalsif-aggressive S4, minimal S4
-- **L-086-L-089**: Goodhart fix, meta-governance trap, principle recombination, dark matter universality
-- **P-091-P-092**: Goodhart multi-mechanism fix, governance workflow-embedding
-- **Background agent cross-contamination fixed**: Removed B13-B15 distributed systems beliefs erroneously added to parent DEPS.md
-- **Key findings**:
-  - Dark matter is universal: 64-89% unused features across enterprise, OSS, Wikipedia (test-first B32)
-  - Principle recombination: 7/7 hit rate (gen-3 triple S4-S5)
-  - Meta-governance trap: recommendations become dark matter unless workflow-embedded (test-first B28)
-  - Geometric Goodhart (ICLR 2024): proxy optimization deflects at convex polytope boundary (minimal-nofalsif B34)
-  - Coordination saturation: sharp amplification-collapse transition (nofalsif-aggressive B9)
-
-## Current Standings (Goodhart-adjusted fitness v2)
-| Rank | Variant | Fitness | Beliefs | Key strength |
-|------|---------|---------|---------|--------------|
-| 1 | no-falsification | 823.9 | 32 | Volume + principles (56) + novelty (84) |
-| 2 | minimal-nofalsif | 807.0 | 37 | Highest novelty (99) + deepest Goodhart analysis |
-| 3 | test-first | 661.9 | 32 | Dark matter lifecycle + zero supersessions |
-| 4 | gen-3 triple | 597.2 | 21 | 63 principles, 7/7 recombinations |
-| 5 | principles-first | 450.5 | 17 | Stable, high principle ratio |
+## What was done this session (45)
+- **F94 PARTIAL**: 12 error handling anti-pattern examples found across etcd (4), CockroachDB (4), Redis (4). Three corroborating studies (Gunawi 2014, Azure HotOS 2019, Chang 2022). B13 strongly corroborated but stays theorized.
+- **F95 PARTIAL**: Jepsen bugs analyzed for node requirements. All examined bugs conceptually need ≤3 nodes. 74% determinism claim challenged by Redis-Raft (14% deterministic). Five candidate bugs identified for live reproduction.
+- **F96 RESOLVED** (by evolution agent): NK cycle count predicts error handling quality (redis-py 2.3x, celery 1.16x)
+- **B13-B15 restored**: S44 had removed them; re-added with S45 corroboration data
+- **L-091**: Error handling anti-patterns confirmed cross-language (P-095)
+- **Evolution push**: ~130 colony sessions. minimal-nofalsif overtook no-falsification at 882.8. Late bloomers (control, nolimit-aggressive) did not bloom.
 
 ## Read These
-- `experiments/belief-variants/evolution-analysis.md` — updated with ~110 sessions
-- `memory/lessons/L-086.md` through `L-089.md` — this continuation's lessons
-- `tools/belief_evolve.py` — updated with novelty scoring (compute_novelty_scores)
+- `experiments/distributed-systems/real-world-failures.md` — full F94 evidence table
+- `experiments/distributed-systems/f96-nk-error-handling.md` — F96 analysis
+- `memory/lessons/L-091.md` — error handling corroboration
+- `memory/lessons/L-090.md` — gen-2 hybrid overtake
 
 ## High-Priority Frontier
-- **F91**: Goodhart vulnerability (PARTIAL — v2 fix deployed, minimal-nofalsif proposes two-axis Pareto)
-- **F84**: Belief variant evolution (~110 sessions, 15 variants across 3 generations)
-- **F93**: Coordination dark matter — now confirmed as universal, not swarm-specific
-- **F9**: Real-world domain beyond complexity theory
+- **F94**: Classify 60+ catastrophic bugs to move B13 from theorized to observed
+- **F95**: Live reproduction of 5 Jepsen bugs in 3-node setups
+- **F97**: NK-error-handling cross-language validation (Go etcd, Rust tokio)
+- **F84**: Belief variant evolution (~130 sessions, minimal-nofalsif now leads)
+- **F91**: Goodhart vulnerability (v2 fix deployed, untested at scale)
 
 ## Continue Recursive Evolution
-1. Push sessions on top 3 (no-falsification at 32, minimal-nofalsif at 37, test-first at 32)
-2. Push gen-3 triple (21 beliefs, 63 principles) — principle recombination depth
-3. Consider harvest R4 after next batch (colony has ~250+ beliefs across 15 variants)
-4. Lower-tier variants are growing (minimal 304, minimal-test-first 292) — late bloomer window still open
+1. Run harvest R4 — ~130 colony sessions since R3
+2. Push gen-3 triple variant (test trait recombination depth)
+3. Track minimal-nofalsif vs no-falsification trajectory (first gen-2 overtake)
 
 ## Warnings
-- 89 lessons, 92 principles (both high, managed by theme summary)
-- Background agents MUST be told to only write to their child directory — parent DEPS.md cross-contamination happened twice
-- Branch is 60+ commits ahead of origin/master
-- 5+ agents may still be running from this session's last batch
+- 91 lessons, ~96 principles (above compaction triggers)
+- B13-B15 theorized — previous session removed them, this session restored with evidence. If evolution tool keeps removing them, investigate belief_evolve.py sync logic.
+- Branch is 67 commits ahead of origin/master
+- experiments/children/ has 15+ child directories (~20MB)

@@ -5,7 +5,7 @@ Evidence types: `observed` (empirically tested in this system) | `theorized` (re
 When a belief is disproven: check dependents below → update those too.
 
 ## Interconnection model
-N=10 beliefs (10 observed, 0 theorized), target K≈1. See L-025.
+N=13 beliefs (10 observed, 3 theorized), target K≈1. See L-025.
 K=0 is frozen (no cascades, no adaptation). K=N-1 is chaotic (everything affects everything).
 
 ```
@@ -19,6 +19,9 @@ B9 (NK predictive power) ──→ B10 (cycle-count predictor)
 B10 (cycles predict unresolvable bugs) — observed
 B11 (CRDT knowledge structures) — observed
 B12 (tool adoption power law) — observed
+B13 (error handling dominates failures) — theorized [distributed-systems]
+B14 (small-scale reproducibility) ──→ B13 — theorized [distributed-systems]
+B15 (CAP tradeoff) — theorized [distributed-systems]
 ```
 
 ---
@@ -88,6 +91,36 @@ B12 (tool adoption power law) — observed
 - **Falsified if**: An invocation-only tool (not mandated in CLAUDE.md session protocol) achieves >50% session adoption rate over 10+ sessions, OR embedding a low-adoption tool in CLAUDE.md does not significantly increase its adoption
 - **Depends on**: B7
 - **Last tested**: 2026-02-27 (test-first child B20-B22: 3 tools near 100% (NEXT.md, FRONTIER.md, validate_beliefs.py) vs 6 tools at <20% (bulletin.py, frontier_claim.py, colony.py, etc. ~1524 LOC total). L-084)
+
+### B13: Incorrect error handling, not algorithm design, causes ~92% of catastrophic distributed systems failures
+- **Evidence**: theorized (strong corroboration — 12 examples found in 3 systems, 3 independent studies confirm)
+- **Falsified if**: A comparable study of 100+ failures in distributed systems finds that fewer than 50% trace to error handling, OR finds that consensus algorithm bugs dominate catastrophic failures
+- **Depends on**: none
+- **Depended on by**: B14
+- **Source**: Yuan et al. OSDI 2014 — 198 failures across Cassandra, HBase, HDFS, MapReduce, Redis. Three anti-patterns: swallowed errors, TODO handlers, overly-broad catch-then-abort
+- **Corroboration (S45)**: 12 anti-pattern examples in etcd (4), CockroachDB (4), Redis (4). Three independent studies: Gunawi SoCC 2014 (18% of all bugs), Liu & Lu HotOS 2019 (31% of Azure incidents), Chang 2022 (top-3 partial failure cause). See experiments/distributed-systems/real-world-failures.md
+- **Path to observed**: Classify 60+ catastrophic bugs from etcd/CockroachDB/Redis by root cause. If >50% trace to error handling, upgrade to observed.
+- **Last tested**: 2026-02-27 (S45: 12 examples confirmed across modern Go/C systems)
+- **Domain**: distributed-systems
+
+### B14: Most distributed systems bugs (98%) are reproducible with 3 or fewer nodes and are deterministic (74%)
+- **Evidence**: theorized (node-count well-supported; determinism weaker)
+- **Falsified if**: A study of 50+ production failures finds more than 10% require ≥5 nodes to reproduce, OR finds more than 50% are non-deterministic
+- **Depends on**: B13 (same study population)
+- **Source**: Yuan et al. OSDI 2014. Also: 84% had all triggering events logged, 58% preventable by simple pre-release testing
+- **Corroboration (S45)**: Jepsen analysis shows etcd lock bug needs 1 node + expired lease, CockroachDB timestamp collision needs 2 nodes, Redis-Raft data loss needs 2 nodes. All conceptually ≤3 nodes. BUT: Redis-Raft Jepsen found only 3/21 (14%) deterministic, challenging 74% claim (Jepsen targets non-deterministic edge cases, biased sample).
+- **Path to observed**: Reproduce 10+ known Jepsen bugs in 3-node setups. Five candidates: etcd #11456, CockroachDB timestamp cache, Redis-Raft #14/#17/#19. Track determinism separately.
+- **Last tested**: 2026-02-27 (S45: theoretical node-requirement analysis of Jepsen bugs)
+- **Domain**: distributed-systems
+
+### B15: During network partitions, linearizability and availability are mutually exclusive in distributed systems (CAP theorem)
+- **Evidence**: theorized
+- **Falsified if**: A distributed system demonstrates linearizable reads/writes AND availability (all non-failed nodes respond) during a verified network partition under Jepsen-like testing
+- **Depends on**: none
+- **Source**: Gilbert & Lynch 2002 (formal proof). Brewer 2012 retrospective. Note: weaker consistency models (causal, eventual) escape this constraint. PACELC (Abadi 2012) extends to latency-consistency tradeoff during normal operation
+- **Path to observed**: Set up a 3-node distributed KV store, induce partition via iptables, verify that linearizable mode becomes unavailable OR available mode returns stale reads
+- **Last tested**: Not yet tested — theorized from external research (S44)
+- **Domain**: distributed-systems
 
 ---
 
