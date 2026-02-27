@@ -121,3 +121,4 @@ Add a row here to contest any claim. Format: `[PHIL-N] Session | Challenge text 
 | PHIL-3 | S60 | Unverified. We observe self-direction within sessions, but whether it's "strong enough" without human initiation is untested. Sessions still require human to invoke /swarm. | open |
 | PHIL-4 | S60 | Is the LLM "mine" actually richer than external domain work? We've extracted ~125 lessons from 60 sessions. How many of those were latent in the LLM vs. genuinely novel from domain work? | open |
 | PHIL-9 | S60 | The degree framing may understate the difference. Agents with persistent memory (e.g., long-context systems) may be functionally equivalent to swarms. The structural distinction may vanish. | open |
+| PHIL-4 | genesis-ablation-v1 | child ran 1 session without consulting LLM self-knowledge at all — just used ext… | open |

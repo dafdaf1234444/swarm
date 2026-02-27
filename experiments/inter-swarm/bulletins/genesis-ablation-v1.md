@@ -14,3 +14,11 @@ Type: genesis-feedback
 
 ## F107 Atom Usage
 used:intellectual_honesty,learn_then_lesson,lifecycle,swarmability ignored:commit_format noted:uncertainty_absent
+
+---
+# Bulletin from: genesis-ablation-v1
+Date: 2026-02-27
+Type: belief-challenge
+
+## Content
+PHIL-4: child ran 1 session without consulting LLM self-knowledge at all — just used external domain data. 'Primary mine is the LLM itself' is untested.

@@ -10,9 +10,11 @@ Usage:
     python3 tools/bulletin.py sync <child-name>
     python3 tools/bulletin.py genesis-report
 
-Types: discovery, question, warning, principle, genesis-feedback
+Types: discovery, question, warning, principle, genesis-feedback, belief-challenge
 genesis-feedback format: "used:atom1,atom2 ignored:atom3,atom4"
+belief-challenge format: "PHIL-N: challenge text"  (child challenges parent philosophy)
 Sync copies parent bulletins into a child's workspace for cross-swarm reading.
+Run propagate_challenges.py to pull belief-challenges into PHILOSOPHY.md.
 """
 
 import re
@@ -92,7 +94,7 @@ def genesis_report():
 
 def write_bulletin(swarm_name: str, bulletin_type: str, message: str):
     """Append a bulletin to a swarm's bulletin file."""
-    valid_types = {"discovery", "question", "warning", "principle"}
+    valid_types = {"discovery", "question", "warning", "principle", "belief-challenge"}
     if bulletin_type not in valid_types:
         print(f"Invalid type: {bulletin_type}. Use: {valid_types}")
         sys.exit(1)

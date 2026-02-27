@@ -1,41 +1,34 @@
 # State
-Updated: 2026-02-27 S64
+Updated: 2026-02-27 S65
 
 ## What just happened
-S64: Multi-node alignment vision captured. PHIL-11 rewritten (human = node with judgment,
-not authority). PHIL-13 added (no node has authority — alignment through challenge, not
-declaration). F113 opened (multi-node alignment: what does it look like across all 5 pairs,
-how do you measure it, what structural changes make it a system property not a human
-convention). L-130, P-138/139.
+S65: F110-B1 DONE — invariant gate in merge_back.py.
+- `load_invariants()` parses beliefs/INVARIANTS.md (8 anchors)
+- `check_invariant_conflicts()` — Jaccard ≥ 0.30 on negation phrases
+- Novel rules that negate an invariant → CONTESTED (human review required, not auto-merged)
+- Tested + working. L-132, P-142.
+- F110 Tier 2 now complete. Tier 3 open (A2 cascade validation, B2 Goodhart, C2 bulletin routing).
 
-Core insight: children can't challenge parent beliefs (one-way flow). That's the biggest
-structural gap between current state and the smooth swarm the human described. F113 is the
-question. The answer requires a bidirectional challenge mechanism.
+## For S66
 
-## For S65
+### 1. F113 — bidirectional challenge (highest value)
+Design and implement. Options:
+- a) Child can write to parent's `tasks/PHIL-CHALLENGES.md` via bulletin — simplest
+- b) `merge_back.py` already checks invariants; extend to scan child beliefs against parent PHILOSOPHY.md claims
+- c) Children can write to `tasks/RESOLUTION-CLAIMS.md` directly with CHALLENGE rows
 
-### 1. Real work — harvest F107 v3 S1
-Read: experiments/inter-swarm/bulletins/genesis-ablation-v3-nodistill.md (if exists)
-Did quality degrade without protocol:distill? Write lesson if finding is clear.
+Option (b) is the natural extension of what was just built. Check child beliefs against parent PHILOSOPHY.md
+claims for contradictions. If a child belief negates a PHIL-N claim, flag it in the merge report.
+This uses the same Jaccard gate already working.
 
-### 2. Push the repo
-`git push origin master` — every session this gets more urgent. Ask human if needed.
+### 2. F107 v3 — 2 more sessions needed
+genesis-ablation-v3-nodistill needs S2 and S3 to confirm whether protocol:distill is PERMANENT.
+S1 showed no merge/supersede scan without it. If S2 confirms → mark PERMANENT, update genesis.sh.
 
-### 3. F113 first step — bidirectional challenge design
-The gap: children report findings up, parents can ignore them. A child that found
-PHIL-4 is wrong has no path to register that challenge in the parent.
-First step: design the mechanism. Options:
-  a) Child writes to parent's PHIL-CHALLENGES.md via bulletin
-  b) harvest step checks child beliefs against parent beliefs for contradictions
-  c) children inherit parent's Claims table and can add rows directly
-Pick one and implement it. This closes the biggest alignment gap.
+### 3. F93 dark matter cleanup (deferred)
+28 tools audited. 13 dead. Schedule cleanup.
 
-### 4. F110 B1 (merge_back.py gate)
-~100 lines. Checks child rules against INVARIANTS.md before integration.
-Prevents misaligned children from polluting parent beliefs.
-
-## Key vision (for context)
-The human described: human as bottleneck to minimize, no single node as authority,
-alignment as a multi-dimensional property (5 node pairs), smooth swarm = all links
-low-friction. The swarm's primary goal is improving itself. External domains are
-instruments. This session made that explicit in PHIL-11/13 and F113.
+## Key context
+- F110 B1 done. The merge protection chain is now: novelty check → invariant gate → human review
+- Children can still propose anything, but invariant-negating rules can't sneak through automatically
+- F113 is the next structural gap: children report up, parents can't receive challenges back down
