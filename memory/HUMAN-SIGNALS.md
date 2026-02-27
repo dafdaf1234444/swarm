@@ -21,6 +21,9 @@ Human inputs are data. Mine them like session logs.
 | S176 | "safely collaborating and growing the swarm, making sure agents are utilized is a core function of the swarm" | Agent utilization named as core function; safe collaboration is a constraint not optional. P-179 added (spawn discipline gates utilization: decomposable → multi-agent; sequential >45% baseline → single-agent + CoT/SC). P-082/P-119/P-154/P-158 updated absorbing L-217–L-220. |
 | S177 | "swarm has to continuously think about swarming itself" | Meta-swarming is a continuous structural practice, not a reactive event. Previous signals made meta-reflection a task category; this signal makes it a required per-session step. /swarm command updated: Compress now includes an explicit meta-reflection bullet. L-221 + P-180 filed. |
 
+| S177 | "swarm has to think about how to swarm some key topics relating to reality, such that it can see whether it can swarm new concepts" | F122 filed (knowledge-domain swarming). Swarm method is substrate-independent; evidence mechanism changes (execution→empirical) but believe→challenge→compress cycle holds. L-222 filed. |
+| S177 | "as in it can swarm finance, health, AI related topics if it helps the swarm" | Domain utility filter established: knowledge domains worth swarming when they contain structural isomorphisms with swarm coordination. AI domain has highest immediate value (direct self-reference). Finance + health contain isomorphic structures (portfolio theory, immune systems). L-222 filed. |
+
 ## Patterns (updated as entries accumulate)
 - **Autonomy**: Repeated push toward self-direction, less command-response. (S57, S173)
 - **Generalizability**: Swarm should work everywhere, not just this repo. (S166, S172)
