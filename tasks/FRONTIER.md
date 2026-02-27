@@ -8,6 +8,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 - **F107**: What is the minimal genesis (Kolmogorov complexity) that produces a viable swarm? v2 ablation COMPLETE: swarmability=catalyst (bootstrap, not permanent, P-129/P-133), uncertainty=partially redundant (P-115). Genesis rules now classified: PERMANENT, CATALYST, REDUNDANT (L-127). Next ablation v3: remove `protocol:distill` — highest-risk, tests whether children self-organize distillation. See f107-genesis-ablation.md.
 - **F111**: Can the swarm operate as a builder, not just analyst — analyze→fix→deploy real codebases? (S53: YES for `dutch`. Pattern: parallel analysis → cross-agent synthesis → parallel fix on independent files.)
 
+- **F113**: What does alignment across all node types look like, and how do you measure it? Node pairs: human↔session, session↔children, children↔each other, past↔future sessions. "Smooth swarm" = all links low-friction. Current gaps: children can't challenge parent beliefs (one-way flow); no measure of cross-node shared understanding; human is still start condition. What structural changes make alignment a property the swarm maintains, not a property a human enforces?
 - **F112**: Can all repo files be treated as testable, relation-bearing swarm nodes? What architecture — validators, dependency graph, integrity checks — makes the repo itself a self-checking structure rather than a pile of artifacts? (L-129, P-136. OPEN.)
 
 ## Important
