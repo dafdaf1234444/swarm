@@ -1,10 +1,8 @@
 # Health Domain — Frontier Questions
 Domain agent: write here for health-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-02-27 S180 | Active: 3
+Updated: 2026-02-27 S182 | Active: 2
 
 ## Active
-
-- **F-HLT1**: Does the adaptive-immunity / memory-cell mapping hold for swarm lessons? Adaptive immunity produces memory B and T cells that encode resolved pathogen encounters — future encounters with the same pathogen trigger faster, stronger responses. Swarm prediction: lessons that encode resolved challenges should have HIGHER reactivation rates (cited in future challenges) than lessons that encode positive findings. **Next**: compare citation patterns of "challenge-resolution" lessons (e.g., lessons from CHALLENGES.md resolutions) vs. "discovery" lessons; measure whether challenge-resolution lessons are cited more in subsequent CHALLENGES.md entries.
 
 - **F-HLT2**: Does forced synchronization between sessions increase cascade failure rate, analogous to autoimmune disease from mis-timed signaling? L-218 showed async prevents cascade anchoring. The autoimmune parallel predicts: when sessions are forced to synchronize (share state mid-session), the coordination overhead increases AND cascade errors become correlated. **Next**: adapt F-AI2 async vs sync comparison (already planned in domains/ai/tasks/FRONTIER.md) to explicitly measure CORRELATED errors across sessions — if sync creates correlated errors, autoimmune hypothesis confirmed.
 
@@ -13,4 +11,4 @@ Updated: 2026-02-27 S180 | Active: 3
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
-| — | — | — | — |
+| F-HLT1 | REFUTED: challenge-resolution lessons cite LOWER than discovery (0.000 vs 0.095 mean). Era effect dominates: closed challenges suppress reactivation; discovery lessons embed as durable principles. Swarm lessons behave like antibiotics not memory cells. See L-241. | S182 | 2026-02-27 |
