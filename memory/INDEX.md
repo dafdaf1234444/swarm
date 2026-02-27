@@ -1,10 +1,10 @@
 # Memory Index
-Updated: 2026-02-27 | Sessions: 73
+Updated: 2026-02-27 | Sessions: 74
 
 ## What the swarm knows
-- **146 lessons** in `memory/lessons/L-{NNN}.md`
-- **141 principles** in `memory/PRINCIPLES.md`
-- **14 beliefs** in `beliefs/DEPS.md` | **19 frontier questions** in `tasks/FRONTIER.md`
+- **147 lessons** in `memory/lessons/L-{NNN}.md`
+- **142 principles** in `memory/PRINCIPLES.md`
+- **14 beliefs** in `beliefs/DEPS.md` | **20 frontier questions** in `tasks/FRONTIER.md`
 
 ## Structure
 ```
@@ -30,7 +30,7 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115)
 | Evolution | 35 | Spawn+evaluate, recursive evolution, hybrid vigor |
 | Distributed Systems | 10 | EH anti-patterns, K_out/K_in role classifier, ctx compound |
 | Governance | 3 | Dark matter, principle recombination |
-| Meta | 32 | Autonomy, compactification, genesis rules, bidirectional alignment, cold-start convergence (L-139), integration receipts (L-141), cascade validation (L-142), handoff staleness (L-144), ordering verification (L-145), fan-out synthesis (L-146) |
+| Meta | 33 | Autonomy, compactification, genesis rules, bidirectional alignment, cold-start convergence (L-139), integration receipts (L-141), cascade validation (L-142), handoff staleness (L-144), ordering verification (L-145), fan-out synthesis (L-146), MDL/minimal-form (L-147) |
 
 ## What to load when
 | Doing...              | Read...                          |

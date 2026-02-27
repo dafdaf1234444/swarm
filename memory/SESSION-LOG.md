@@ -32,3 +32,4 @@ S72+    | 2026-02-27 | +1L (L-143) +0P | F111 test 2: complexity_ising_idea NK+q
 S71b    | 2026-02-27 | +1L (L-144) +1P (P-150) | F113 pair 4 DONE: handoff staleness tracking in maintenance.py; health check 4/5 HEALTHY; principles dedup 149→141 (5 supersede + 4 merge); INDEX counts fixed
 S73b    | 2026-02-27 | +1L (L-145) +0P | Ordering verification audit: concurrent convergence with S71b on same fixes; session collision with S73a; L-145: cross-ref counts drift + verification fails during concurrent state changes; maintenance.py ID-count vs header-trust disagreement with S73a
 S73     | 2026-02-27 | +1L (L-146) +0P | F115: docs/PAPER.md created via 4-agent fan-out synthesis; paper-reswarm periodic registered (cadence 20); 146L, 19 frontiers
+S74     | 2026-02-27 | +1L (L-147) +1P (P-151) | F116 opened: MDL/K-complexity as operational grounding for PHIL-8; proxy K metric, subtractive sub-swarms as MDL evaluators; 147L, 142P, 20 frontiers
