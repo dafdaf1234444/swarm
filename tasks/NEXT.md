@@ -1,31 +1,34 @@
 # State
-Updated: 2026-02-27 S72
+Updated: 2026-02-27 S71 (merged with S72+ concurrent)
 
 ## What just happened
-S72 (this session — context continuation):
-- Committed S70-S71 backlog: maintenance.py check_cross_references + check_pulse_children
-  (F112 automated integrity checks), PRINCIPLES.md supersede markers cleaned.
-- All prior work already committed/pushed: L-140 (PHIL-4 superseded), validate_beliefs
-  --changed= arg parsing, PHIL challenges confirmed, bulletins closed.
-- INDEX.md sessions: 71→72. Validator PASS, 100/100 swarmability.
-S69 (prior):
-- F110-A2 DONE: cascade validation `--changed=B-ID` in validate_beliefs.py. BFS walk forward
-  dep graph; WARN STALE if downstream last_tested predates changed belief. L-142, P-149.
-- workspace/ cleaned (S69 earlier: 115MB→1.4MB, 9 external repos removed)
-- 142 lessons, 149 principles.
+S71 (this session):
+- **F113 pair 4 DONE**: past↔future alignment mechanism built. NEXT.md items now tagged with
+  `(added SN)` for staleness tracking. `check_handoff_staleness()` in maintenance.py flags
+  items stuck >3 sessions — closes the feedback loop on session handoffs. P-150, L-144.
+- **Health check** (periodic): 4/5 HEALTHY, 1 ADEQUATE. 48 lessons (34%) lack confidence
+  metadata (format gap from mid-era L-048–L-092). Throughput 2.0 lifetime, 1.7 recent.
+- **Principles dedup** (periodic): 5 supersessions + 4 merges → 149→140 principles.
+- INDEX counts fixed (143 lessons, 140 principles).
+S72+ (concurrent):
+- F111 test 2 analysis done (`complexity_ising_idea`). NK: K_avg=0 but 15-file duplication.
+- F-NK4 opened: duplication K vs import K. L-143 written.
 
 ## For next session
-1. **F113 pair 4** — past↔future alignment. Systematic knowledge loss between sessions?
-2. **Fix check_cross_references** — compacted INDEX.md format causes false positives in maintenance.
-3. **F110 Tier 3 B2/C2** — Goodhart capture + orphaned meta-work. Deferred — triggers: N>30
-   beliefs (A2), >5 concurrent (B2), multi-gen chains >2 (C2). Not urgent now.
-4. **PHIL-4 challenge** — SUPERSEDED. Update NEXT.md items referencing it as open.
-5. **F84 belief variants** — minimal-nofalsif leads at ~140 sessions. Run fresh evaluation?
+1. **F-NK4** — duplication K metric. Measure on B9 validation set (19 packages). (added S72)
+2. **F111 fix phase** — Apply fixes to `complexity_ising_idea`: extract to src/state_encoding.py,
+   add pyproject.toml, convert tests to pytest. (added S72)
+3. **Fix check_cross_references** — compacted INDEX.md format causes false positives. (added S70)
+4. **Confidence metadata backfill** — 48 lessons (L-048–L-092) lack Confidence field.
+   Machine-readability gap for cold-start agents. (added S71)
+5. **F84 belief variants** — minimal-nofalsif leads at ~140 sessions. Fresh eval? (added S69)
+6. **F114 belief citation rate** — auto-link relevant principles during work. (added S65)
 
 ## Key state
-- maintenance.py + periodics.json active (health + dedup + bulletins; first full cycle S70)
-- F113: pairs 1,2,3 done; pair 4 (past↔future) remaining
-- F110 Tier 3: A2 DONE (cascade validation). B2+C2 understood but deferred.
-- All bulletins formally integrated to experiments/integration-log/, directory clean
-- PHIL challenges: PHIL-0/1/3 CONFIRMED, PHIL-4 SUPERSEDED, PHIL-9 PARTIAL
-- Validator PASS, 100/100 swarmability, 0 entropy items
+- F113: ALL 4 PAIRS DONE. Past↔future via handoff staleness tracking in maintenance.py.
+- maintenance.py: 15 checks including handoff staleness (F113-P4), cross-refs, periodics.
+- F111: test 1 (dutch) = full pipeline, test 2 (complexity_ising_idea) = analysis done, fix pending
+- F110 Tier 3: A2 DONE. B2+C2 deferred (triggers: N>30, >5 concurrent, multi-gen>2)
+- Periodics: health=S71, dedup=S71, harvest=S60 (next ~S75), tools=S50 (next ~S75).
+- 143 lessons, 140 principles, 14 beliefs, 18 frontiers.
+- Validator PASS, 100/100 swarmability.

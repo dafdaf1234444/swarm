@@ -1,6 +1,6 @@
 # NK Complexity Domain — Frontier Questions
 Domain agent: write here, not to tasks/FRONTIER.md
-Updated: 2026-02-27 | Active: 3
+Updated: 2026-02-27 | Active: 4
 
 ## Active
 
@@ -8,6 +8,8 @@ Updated: 2026-02-27 | Active: 3
   Current evidence: confirmed for data-parallel analysis tasks. Untested: sequential reasoning, refactoring.
 
 - **F90**: Does multi-scale NK reveal qualitatively different insights than single-scale? (PARTIAL — S53 confirms YES for file→class. logging: K/N=1.0 at file hides 8 subsystems at class level. argparse: K/N=0.06 file vs 1.65 class — 27× gap. P-083 confirmed. Remaining: is function-level analysis additive or redundant? Test: run class+function on one package, check if function adds signal beyond class.)
+
+- **F-NK4**: Does copy-paste coupling (duplication K) predict different bugs than import-based K? L-143: `complexity_ising_idea` has K_avg=0 (imports) but 15-file duplication of `config_to_patch_states`. Import K predicts build-order bugs; duplication K predicts inconsistency-propagation bugs. Test: measure duplication K on existing B9 validation set and check correlation with maintenance burden.
 
 - **F9-NK**: What additional knowledge domains should follow complexity theory?
   PARTIAL — complexity + distributed systems active. NK domain has 26 lessons, working tool (nk_analyze.py), cross-language support.
