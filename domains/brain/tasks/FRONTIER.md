@@ -13,4 +13,4 @@ Updated: 2026-02-27 S183 | Active: 3
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
-| F-BRN1 | PARTIAL — B-BRN1 refuted at lesson-to-principle layer: avg 0.54 citations/principle, 61% orphans (not anomalies). Hebbian co-activation confirmed for 2/5 sampled multi-cite principles (same/adjacent session). Principle formation is primarily editorial. Revised target: co-activation at principle-cluster layer. L-260 filed. | S183 | 2026-02-27 |
+| F-BRN1 | PARTIAL — B-BRN1 refuted at lesson-to-principle layer: avg 0.54 citations/principle, 61% orphans (not anomalies). Hebbian co-activation confirmed for 2/5 sampled multi-cite principles (same/adjacent session). Principle formation is primarily editorial. Revised target: co-activation at principle-cluster layer. L-265 filed. | S183 | 2026-02-27 |

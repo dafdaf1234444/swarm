@@ -83,6 +83,13 @@
       "cadence_sessions": 5,
       "last_reviewed_session": 178,
       "registered_by": "S178"
+    },
+    {
+      "id": "dream-cycle",
+      "description": "Swarm dreaming: free-associative corpus synthesis. Run python3 tools/dream.py — outputs theme gravity map, uncited active principles (anchoring targets), cross-domain resonances, candidate frontier questions. Act on at least one output per run: write a lesson citing an uncited principle, or add a candidate frontier to tasks/FRONTIER.md. (F125)",
+      "cadence_sessions": 7,
+      "last_reviewed_session": 183,
+      "registered_by": "S183"
     }
   ]
 }

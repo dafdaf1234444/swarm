@@ -4,7 +4,6 @@ Updated: 2026-02-27 S183 | Active: 2
 
 ## Active
 
-- **F-IS2**: (moved to Resolved — see below)
 
 - **F-IS3**: Can information-theoretic derivation of the F1-score maximum give an analytically grounded P-119 spawn threshold? **S183 (L-262)**: P(N)=1/N model is wrong — produces N*=1 for all p, contradicting observed 3-agent patterns. Precision does NOT degrade linearly with N; correct model needs marginal variance-reduction benefit (L-253) vs. coordination cost (L-251). **Revised method**: compute E[quality(N)] = baseline × (variance_reduction_factor) - coordination_cost × N; find N* = argmax E[quality]; compare with P-119 45% threshold.
 
