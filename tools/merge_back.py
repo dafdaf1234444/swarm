@@ -11,6 +11,10 @@ parent doesn't already know. The parent session reviews the
 report and decides what to integrate.
 
 This is the "merge-back protocol" for knowledge forks (F21).
+
+Invariant gate (F110-B1): novel rules are checked against beliefs/INVARIANTS.md.
+Rules that semantically negate an invariant are flagged CONTESTED and require
+human review before integration. They are NOT auto-merged.
 """
 
 import json
@@ -18,9 +22,60 @@ import re
 import sys
 from pathlib import Path
 
-from novelty import check_novelty, load_parent_rules
+from novelty import check_novelty, content_words, jaccard_similarity, load_parent_rules
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
+
+INVARIANTS_PATH = REPO_ROOT / "beliefs" / "INVARIANTS.md"
+# Lower threshold for negation matching — negation phrases are short and specific
+CONFLICT_THRESHOLD = 0.3
+
+
+def load_invariants() -> list[dict]:
+    """Load invariants and their negation patterns from beliefs/INVARIANTS.md."""
+    if not INVARIANTS_PATH.exists():
+        return []
+    text = INVARIANTS_PATH.read_text()
+    invariants = []
+    for block in re.split(r"^## ", text, flags=re.MULTILINE):
+        id_m = re.match(r"(I\d+) — (.+)", block)
+        if not id_m:
+            continue
+        inv_id = id_m.group(1)
+        inv_name = id_m.group(2).split("\n")[0].strip()
+        negated_m = re.search(r"\*\*Negated by\*\*: (.+?)(?:\n|$)", block)
+        negation_text = negated_m.group(1).strip() if negated_m else ""
+        # Statement = first non-empty line after the header
+        body_lines = [l.strip() for l in block.split("\n")[2:] if l.strip() and not l.startswith("**")]
+        statement = body_lines[0] if body_lines else ""
+        invariants.append({
+            "id": inv_id,
+            "name": inv_name,
+            "statement": statement,
+            "negation": negation_text,
+        })
+    return invariants
+
+
+def check_invariant_conflicts(rule: str, invariants: list[dict]) -> list[dict]:
+    """Check if a rule semantically negates any invariant.
+
+    Returns list of conflicting invariants (empty = no conflict).
+    """
+    if not rule or not invariants:
+        return []
+    rule_words = content_words(rule)
+    if not rule_words:
+        return []
+    conflicts = []
+    for inv in invariants:
+        if not inv["negation"]:
+            continue
+        neg_words = content_words(inv["negation"])
+        sim = jaccard_similarity(rule_words, neg_words)
+        if sim >= CONFLICT_THRESHOLD:
+            conflicts.append({"id": inv["id"], "name": inv["name"], "sim": sim})
+    return conflicts
 
 
 def extract_child_lessons(child_dir: Path) -> list[dict]:
@@ -102,6 +157,7 @@ def generate_report(child_dir: Path) -> str:
     beliefs = extract_child_beliefs(child_dir)
     frontier = extract_child_frontier(child_dir)
     parent_rules = _load_parent_rules()
+    invariants = load_invariants()
 
     lines = [
         f"# Merge-Back Report: {child_dir.name}",
@@ -117,20 +173,31 @@ def generate_report(child_dir: Path) -> str:
         lines.append(f"Parent lessons at spawn: {meta.get('spawned_from_lesson_count', '?')}")
         lines.append("")
 
-    # Lessons
+    # Lessons — novelty check + invariant gate
     lines.append(f"## Lessons ({len(lessons)})")
     novel_count = 0
+    contested_count = 0
     for lesson in lessons:
         is_novel, sim, closest = check_novelty(lesson["rule"], parent_rules)
         if is_novel:
-            novel_count += 1
-        marker = " [NOVEL]" if is_novel else f" [sim={sim:.0%}]"
+            conflicts = check_invariant_conflicts(lesson["rule"], invariants)
+            if conflicts:
+                contested_count += 1
+                inv_ids = ", ".join(c["id"] for c in conflicts)
+                marker = f" [CONTESTED: {inv_ids}]"
+            else:
+                novel_count += 1
+                marker = " [NOVEL]"
+        else:
+            marker = f" [sim={sim:.0%}]"
         lines.append(f"- **{lesson['title']}**{marker}")
         if lesson["rule"]:
             lines.append(f"  Rule: {lesson['rule']}")
         lines.append("")
 
     lines.append(f"Novel rules: {novel_count}/{len(lessons)}")
+    if contested_count:
+        lines.append(f"Contested rules (invariant conflicts): {contested_count}/{len(lessons)} — HUMAN REVIEW REQUIRED")
     lines.append("")
 
     # Beliefs
@@ -148,9 +215,14 @@ def generate_report(child_dir: Path) -> str:
 
     # Recommendations
     lines.append("## Recommendations")
+    if contested_count > 0:
+        lines.append(
+            f"- ⚠ {contested_count} rule(s) CONTESTED — conflict with INVARIANTS.md. "
+            "Do NOT auto-integrate. Requires human review and explicit override."
+        )
     if novel_count > 0:
         lines.append(f"- {novel_count} novel rule(s) found — review for parent integration")
-    else:
+    if not novel_count and not contested_count:
         lines.append("- No novel rules — child confirmed existing knowledge")
 
     observed = sum(1 for b in beliefs if b["evidence"] == "observed")

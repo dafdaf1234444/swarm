@@ -1,9 +1,9 @@
 # Memory Index
-Updated: 2026-02-27 | Sessions: 64
+Updated: 2026-02-27 | Sessions: 65
 
 ## What the swarm knows
-- **131 lessons** in `memory/lessons/L-{NNN}.md`
-- **141 principles** in `memory/PRINCIPLES.md`
+- **132 lessons** in `memory/lessons/L-{NNN}.md`
+- **142 principles** in `memory/PRINCIPLES.md`
 - **14 beliefs** (12 observed, 2 theorized) in `beliefs/DEPS.md`
 - **17 active frontier questions** in `tasks/FRONTIER.md`
 
@@ -39,7 +39,7 @@ For individual lessons: `memory/lessons/L-{NNN}.md`. For atomic rules: `memory/P
 | Evolution | 35 | Spawn+evaluate, recursive evolution, hybrid vigor, spawn budget |
 | Distributed Systems | 9 | EH anti-patterns, NK-error correlation, K_out/K_in role classifier |
 | Governance + Generative | 3 | Dark matter, principle recombination |
-| Meta | 20 | Autonomy, compactification, meta-coordination, spawn quality, genesis rule classification, LLM-mining-self |
+| Meta | 21 | Autonomy, compactification, meta-coordination, spawn quality, genesis rule classification, LLM-mining-self, invariant gate (L-132) |
 
 ## What to load when
 | Doing...              | Read...                          |

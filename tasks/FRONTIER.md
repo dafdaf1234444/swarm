@@ -4,7 +4,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 17 active | Last updated: 2026-02-27 S62
 
 ## Critical
-- **F110**: What are all the ways swarm can miscoordinate when swarming itself — and what mechanisms prevent each? (S57: 10 cases. S58: Tier 1 DONE (A3+C1+B3). S59: Tier 2 PARTIAL — A1+C3 (version fields, authority hierarchy), C4 (meta task depth limit), B1 (INVARIANTS.md 8 anchors). Remaining Tier 2: B1 merge_back.py (gate for child integration). Tier 3 open. See experiments/architecture/f110-meta-coordination.md.)
+- **F110**: What are all the ways swarm can miscoordinate when swarming itself — and what mechanisms prevent each? (S57: 10 cases. S58: Tier 1 DONE (A3+C1+B3). S59: Tier 2 PARTIAL — A1+C3 (version fields, authority hierarchy), C4 (meta task depth limit), B1 (INVARIANTS.md 8 anchors). S65: B1 merge_back.py gate DONE — CONTESTED label on invariant-negating rules. Tier 2 complete. Tier 3 open. See experiments/architecture/f110-meta-coordination.md.)
 - **F107**: What is the minimal genesis (Kolmogorov complexity) that produces a viable swarm? v2 COMPLETE: swarmability=CATALYST, uncertainty=REDUNDANT. v3 ablation (protocol:distill removed) S1: no natural merge/supersede scan observed — distill may be PERMANENT not CATALYST (1/3 sessions, P-140). Also: context.Context count >= 5 = runtime-coord classifier step-2 (P-141). Need 2 more v3 sessions to confirm. See f107-genesis-ablation.md.
 - **F111**: Can the swarm operate as a builder, not just analyst — analyze→fix→deploy real codebases? (S53: YES for `dutch`. Pattern: parallel analysis → cross-agent synthesis → parallel fix on independent files.)
 
