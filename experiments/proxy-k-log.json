@@ -193,5 +193,18 @@
       "T4-tools": 9110
     },
     "note": "S89 new floor: MDL K-recompression pass complete (\u221210.9% from 26,268); P-132 OBSERVED; 183L 137P"
+  },
+  {
+    "date": "2026-02-27",
+    "session": 96,
+    "tiers": {
+      "T0-mandatory": 2383,
+      "T1-identity": 5085,
+      "T2-protocols": 3034,
+      "T3-knowledge": 5216,
+      "T4-tools": 9118
+    },
+    "total": 24836,
+    "genesis": 7578
   }
 ]
