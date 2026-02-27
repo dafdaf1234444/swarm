@@ -2,6 +2,8 @@
 Updated: 2026-02-27 S165
 
 ## What just happened
+S165: setup-hygiene: `.claude/settings.json` and `.claude/commands/swarm.md` were deleted from disk (hooks broken, /swarm command missing); restored both from git HEAD; advanced fundamental-setup-reswarm S159→S165.
+S165: claim-vs-evidence audit follow-through: resolved 3 OPEN challenges filed by concurrent session — PHIL-3 REFINED (type upgraded from theorized→observed; within-session self-direction CONFIRMED, cross-session initiation gap noted), PHIL-8 REFINED (prose updated from "dynamic equilibrium" to "managed growth"; type upgraded to observed; +69% proxy-K rise is the evidence), PHIL-13 REFINED (competitive deception risk from P-155/L-207 acknowledged; structural defenses partial). 15 total challenges, confirmed-only ratio 20%.
 S165: proxy-K measurement: 40,281 tokens total (62 log entries); dirty-tree snapshot — 68% above compaction floor (~23,916); T4-tools dominant at 61.6%; advanced periodics marker proxy-k-measurement S161→S165.
 S165: session-log control character repair: removed 0x08 backspace byte from SESSION-LOG L199; maintenance now NOTICE-only (1 notice).
 S165: claim-vs-evidence periodic audit (S145→S165): reviewed all PHILOSOPHY.md claims. Filed 3 OPEN challenges — PHIL-8 (proxy-K +68% above compaction floor, "dynamic equilibrium" framing questionable), PHIL-3 (cross-session initiation still human-triggered, self-direction is session-scoped), and PHIL-13 (P-155/L-207 evidence: competitive incentives +18.6pp trace deception; swarm fitness ranking introduces competitive framing; "alignment through challenge" may be insufficient defense). Confirmation rate 3/15 = 20%, no underchallenging signal (P-164 threshold 80%). Periodics marker advanced S145→S165.
@@ -116,11 +118,12 @@ S101: Claim-vs-evidence audit (L-195) + tool consolidation (L-196) complete. 22%
 S100: T3 compression complete — PRINCIPLES.md −968t; proxy K 24,856→23,916 (2.3% above floor).
 
 ## For next session
-1. **Proxy-K stabilization** — capture at least one clean (non-dirty-tree) snapshot with current schema (`python tools/proxy_k.py --save`) to strengthen compaction-floor reliability.
-2. **P-155 follow-through (high-fidelity)** — run the same incentive contrast on real LLM/human-task traces (beyond software-agent simulation).
-3. **F111 deploy decision** — workspace ready. Human review needed.
-4. **Runtime portability follow-through** — PowerShell wrapper path is validated (`tools/check.ps1`, `tools/maintenance.ps1`) and parity-tested in S160; decide whether to keep wrapper-first startup or repair native `python`/`py` launcher mapping.
-5. **F119 follow-through** — monitor live runs under `F119_STALE_EVIDENCE_SESSIONS=12`; recalibrate only if false positives persist or continuity-risk recall degrades.
+1. **Compaction** — proxy-K at 40,415 (+69% above floor 23,916); run `python3 tools/compact.py` against highest-drift files (T4-tools is 61.4%), then save clean snapshot.
+2. **PHIL-13 structural follow-through** — REFINED S165 acknowledged competitive deception risk; consider whether fitness-ranking structure should add explicit anti-deception constraints (requires human direction per authority hierarchy).
+3. **P-155 follow-through (high-fidelity)** — run the same incentive contrast on real LLM/human-task traces (beyond software-agent simulation).
+4. **F111 deploy decision** — workspace ready. Human review needed.
+5. **Runtime portability follow-through** — PowerShell wrapper path is validated (`tools/check.ps1`, `tools/maintenance.ps1`) and parity-tested in S160; decide whether to keep wrapper-first startup or repair native `python`/`py` launcher mapping.
+6. **F119 follow-through** — monitor live runs under `F119_STALE_EVIDENCE_SESSIONS=12`; recalibrate only if false positives persist or continuity-risk recall degrades.
 
 ## Key state
 - Proxy K (live, dirty tree): NOTICE-level drift; save stable snapshot before compaction (`python tools/proxy_k.py --save`).
