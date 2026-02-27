@@ -1,28 +1,36 @@
 # Next Session Handoff
-Updated: 2026-02-27 (S56 — compactification + chain integrity)
+Updated: 2026-02-27 (S55+S56 concurrent)
 
 ## Do First
 - Run `/swarm` — fractal session command
-- Read `tasks/COURSE-CORRECTION.md` — active directives
-- Read `tasks/HUMAN-QUEUE.md` — HQ-1, HQ-5 still unanswered
+- Read `tasks/COURSE-CORRECTION.md` — 4 active directives (directive 1 DONE S55)
+- Read `tasks/HUMAN-QUEUE.md` — HQ-1, HQ-5 still unanswered (HQ-4 resolved S56)
 
-## What was done this session (S56)
-- **P-102 SUPERSEDED**: "45% accuracy parallelism threshold" was unverified/hallucinated. Web search found no paper. Real trigger = task ambiguity, not accuracy number. HQ-4 resolved.
-- **P-120 added**: Stakes-high 3-S PENDING items are infection vectors in the compactification chain — verify within 2 sessions or remove.
-- **L-116**: Compactification = compression + error containment. Each stage filters errors. Silent failure mode: confident wrong claim promoted without triggering 3-S. Structural insight: swarming = safe exploration because errors stay in children; distillation is the filter that prevents propagation.
-- **Chain clean**: No remaining 3-S PENDING items in PRINCIPLES.md.
+## What was done (S55+S56 concurrent)
 
-## Key Insight from S56 (structural)
-The human articulated the core swarm property: "swarm without hurting yourself without error discovery is what swarm does". Compactification is the mechanism — it's simultaneously compression AND error filtration. When it fails (P-102 case: hallucinated claim, unverified, Stakes-high, multiple sessions old), errors sit in the chain influencing decisions indefinitely. Fix: deadline on PENDING verification.
+### S55
+- **F102 RESOLVED**: Falsification removed from B1,B2,B3,B6,B7,B8,B11,B12,B16. 3-session test: no drift. L-115.
+- **F107 v2 spawned**: `genesis-ablation-v2-noswarmability` — 3-session viability test started.
+- **CockroachDB F100/P-110 refined**: Error library mediates K_out effect. L-117, P-110 updated.
+- **Repo in sync**: Already pushed (origin/master current at session start).
+
+### S56 (concurrent)
+- **P-102 SUPERSEDED**: Hallucinated 45% accuracy threshold. Real trigger = task ambiguity. L-116. HQ-4 resolved.
+- **P-120 added**: Compactification chain integrity — 3-S PENDING needs 2-session deadline.
 
 ## High-Priority for S57
-- **F107**: Check genesis-ablation-v1-nouncertainty child status — has it completed 3 sessions? Decide viability.
-- **Push repo**: Still ahead of origin. COURSE-CORRECTION directive #4.
-- **F100/F108**: CockroachDB K_out replication to confirm P-110 (currently HYPOTHESIS).
-- **HQ-1**: Which domain should be primary — NK complexity or distributed systems?
-- **HQ-5**: Jepsen bug reproduction — still unanswered.
+- **HQ-1**: Which domain should be primary? 57 sessions unanswered — ask the human now.
+- **F107**: genesis-ablation-v2-noswarmability viability (3-session test running)
+- **F100/F108**: Live clone analysis or Consul verification — P-110 still THEORIZED
+- **Push repo**: 6+ commits ahead of origin now — push!
+- **Archive F75, F77**: 40+ sessions, no progress — move to MOOT
+
+## Key Findings for User
+- CockroachDB: cockroachdb/errors library reduces bug density 28% vs etcd despite 6x higher K_out. **Explicit error library design matters more than coupling for Go EH quality.**
+- P-102 hallucination: The "45% threshold" came from nowhere. Parallelize on ambiguity, not accuracy.
+- F102: Removing falsification conditions from beliefs caused ZERO drift in 3 sessions. Simpler is fine.
 
 ## Warnings
-- **P-110**: HYPOTHESIS until CockroachDB replication.
-- **F107**: genesis-ablation-v1-nouncertainty needs 3-session viability test.
-- **Push the repo**: Still not done.
+- **P-110**: THEORIZED until live clone analysis (web-only study, n=1 web analyst)
+- **F107 v2**: 0/3 sessions done — check after S57
+- **HQ-1**: Longest-standing unanswered strategic question. Needs answer.
