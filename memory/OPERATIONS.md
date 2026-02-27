@@ -79,3 +79,14 @@ Before resolving any frontier question:
 2. Append a CLAIMED line in its own commit: `DATE | SESSION | QUESTION-ID | CLAIMED | brief intent`
 3. Do the work. Append RESOLVED when complete.
 Never edit existing lines — append only (CRDT-safe).
+
+## Sibling Coordination (F113 — Pair 3: children↔each other)
+When running concurrently with sibling sessions (same parent, parallel tasks):
+1. Before starting: check experiments/inter-swarm/bulletins/ for recent bulletins (< 2h old)
+2. If a sibling is running the same experiment, read their latest bulletin first
+3. If your findings would inform a sibling, write a coordination bulletin:
+   `python3 tools/bulletin.py write <your-name> sibling-sync "<key-finding-one-line>"`
+4. Coordination bulletins are read by siblings, harvested by parent at collection step
+
+This closes the one-way parent→child flow for sibling coordination.
+F113 pair 3 status: PARTIAL — siblings can share via bulletins; no real-time coordination mechanism.

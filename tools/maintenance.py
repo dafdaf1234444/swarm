@@ -144,8 +144,11 @@ def check_child_bulletins() -> list[tuple[str, str]]:
     stale = []
     for f in bulletin_dir.glob("*.md"):
         name = f.stem
+        content = _read(f)
         if name in integrated:
             stale.append(name)
+        elif "<!-- PROCESSED" in content:
+            continue  # bulletin manually marked as processed
         else:
             unprocessed.append(name)
 
@@ -323,6 +326,92 @@ def check_version_drift() -> list[tuple[str, str]]:
     return results
 
 
+def check_cross_references() -> list[tuple[str, str]]:
+    """Check that top-level directories in INDEX.md structure section exist (F112)."""
+    results = []
+    index_text = _read(REPO_ROOT / "memory" / "INDEX.md")
+
+    # Extract directory prefixes from structure block (lines starting with word/)
+    struct_match = re.search(r"```\n(.*?)```", index_text, re.DOTALL)
+    if not struct_match:
+        return results
+
+    broken = []
+    for line in struct_match.group(1).splitlines():
+        m = re.match(r"^(\w[\w-]*/)", line.strip())
+        if not m:
+            continue
+        dir_path = m.group(1).rstrip("/")
+        full = REPO_ROOT / dir_path
+        if not full.exists():
+            broken.append(dir_path)
+
+    if broken:
+        results.append(("DUE", f"{len(broken)} broken directory(s) in INDEX.md structure: {', '.join(broken[:3])}"))
+
+    # Check lesson count matches actual files
+    lessons_dir = REPO_ROOT / "memory" / "lessons"
+    if lessons_dir.exists():
+        actual = len(list(lessons_dir.glob("L-*.md")))
+        count_match = re.search(r"\*\*(\d+) lessons\*\*", index_text)
+        if count_match:
+            claimed = int(count_match.group(1))
+            if actual != claimed:
+                results.append(("NOTICE", f"INDEX.md claims {claimed} lessons but {actual} exist"))
+
+    # Check principles count
+    principles_text = _read(REPO_ROOT / "memory" / "PRINCIPLES.md")
+    p_count_match = re.search(r"(\d+) principles", principles_text)
+    idx_p_match = re.search(r"\*\*(\d+) principles\*\*", index_text)
+    if p_count_match and idx_p_match:
+        if p_count_match.group(1) != idx_p_match.group(1):
+            results.append(("NOTICE", f"Principle count mismatch: PRINCIPLES.md says {p_count_match.group(1)}, INDEX.md says {idx_p_match.group(1)}"))
+
+    return results
+
+
+def check_pulse_children() -> list[tuple[str, str]]:
+    """Check that PULSE.md children match actual children on disk (F112)."""
+    results = []
+    pulse_text = _read(REPO_ROOT / "memory" / "PULSE.md")
+    children_dir = REPO_ROOT / "experiments" / "children"
+
+    if not children_dir.exists() or not pulse_text:
+        return results
+
+    # Extract children from PULSE.md (only from ## Children section)
+    children_section = ""
+    in_children = False
+    for line in pulse_text.splitlines():
+        if line.strip().startswith("## Children"):
+            in_children = True
+            continue
+        if in_children and line.strip().startswith("## "):
+            break
+        if in_children:
+            children_section += line + "\n"
+
+    pulse_children = set()
+    for m in re.finditer(r"^\s+([\w][\w-]+)\s+\[", children_section, re.MULTILINE):
+        pulse_children.add(m.group(1))
+
+    # Actual children on disk
+    disk_children = set()
+    for d in children_dir.iterdir():
+        if d.is_dir() and not d.name.startswith("."):
+            disk_children.add(d.name)
+
+    missing_from_pulse = disk_children - pulse_children
+    missing_from_disk = pulse_children - disk_children
+
+    if missing_from_pulse:
+        results.append(("DUE", f"Children on disk but not in PULSE.md: {', '.join(sorted(missing_from_pulse)[:3])}"))
+    if missing_from_disk:
+        results.append(("DUE", f"Children in PULSE.md but not on disk: {', '.join(sorted(missing_from_disk)[:3])}"))
+
+    return results
+
+
 def check_resolution_claims() -> list[tuple[str, str]]:
     """Check for stale resolution claims."""
     results = []
@@ -361,6 +450,8 @@ def main():
         check_human_queue,
         check_uncommitted,
         check_resolution_claims,
+        check_cross_references,
+        check_pulse_children,
     ]
 
     if not quick:

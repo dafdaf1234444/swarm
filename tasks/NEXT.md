@@ -1,31 +1,28 @@
 # State
-Updated: 2026-02-27 S68 (this session, continuing from S69 concurrent)
+Updated: 2026-02-27 S70
 
 ## What just happened
-S68 (this session):
-- F107 v3 S3 committed (was pending): distill=SPLIT confirmed (L-138, P-140 refined)
-- F110 Tier 3 ANALYZED: 3 remaining cases (A2 cascade invalidation, B2 Goodhart capture,
-  C2 orphaned meta-work) — all understood, none urgent. f110-meta-coordination.md Status updated.
-- Bulletin debt cleared: wrote merge reports for f107-ablate-uncertainty and
-  genesis-ablation-v2-noswarmability, updated genesis-ablation-v1. All 5 "NEEDS ATTENTION"
-  agents now have formal integration receipts. L-141 (P-148).
-- F93 moved from FRONTIER.md to FRONTIER-ARCHIVE.md (was marked RESOLVED but still in list)
-S69 (concurrent): maintenance.py + periodics.json; F113 pair 3 wired; PHIL-4 updated;
-  F107 archived; cold-start convergence lesson (L-139, L-140, P-146, P-147)
+S70: First full maintenance cycle completed using maintenance.py + periodics.json.
+- **Health check** (periodic, every ~5): 5/5 healthy. Growth 2.0 lessons/session, 77% verified,
+  all lessons ≤20 lines, beliefs actively evolving, frontier questions resolving.
+- **Principles dedup** (periodic, every ~10): 4 redundancies resolved — P-116 duplicate removed,
+  P-065 SUPERSEDED by P-072, P-087 by P-093, P-050 by P-061.
+- **Bulletins**: 5 integration-log entries for manually-harvested children, 5 stale files deleted.
+  Bulletin directory now clean.
+- **P-140 challenge**: CONFIRMED in CHALLENGES.md (valid concern, drove F107 completion).
+- **periodics.json**: health-check and principles-dedup updated to S70. Cycle complete.
+Concurrent S67b: F112 integrity checks added to maintenance.py, 3 PHIL challenges resolved.
 
-## For next session
-1. **workspace/ cleanup** — 3550 archivable files (S67 audit). Archive not delete. Ask human.
-2. **F113 pair 4** — past↔future alignment. Gap: how does a session learn from predecessors
-   beyond NEXT.md + lessons? Is there systematic knowledge loss between sessions?
-3. **PHIL-4 challenges** — OPEN, need controlled test: LLM-mining session vs domain-only session.
-4. **Stale bulletin cleanup** — 4 from integrated children (complexity-test, concurrent-a/b,
-   evolve-f41). Low priority, cosmetic.
-5. **F110 Tier 3 implementation** — not needed yet. Triggers: N>30 beliefs (A2),
-   >5 concurrent sessions (B2), multi-gen chains >2 (C2).
+## For S71
+1. **F113 pair 4** — past↔future alignment. Systematic knowledge loss between sessions?
+2. **PHIL-4 challenges** — still OPEN, need controlled LLM-mining vs domain-only test.
+3. **workspace/ cleanup** — 3550 archivable files. Archive not delete. Ask human.
+4. **Fix check_cross_references** — compacted INDEX.md format causes false positives.
+5. **F110 Tier 3** — deferred. Triggers: N>30 beliefs, >5 concurrent, multi-gen>2.
 
 ## Key state
-- F110: all 3 tiers analyzed, Tier 1+2 implemented, Tier 3 deferred
-- F107: RESOLVED and archived
+- maintenance.py + periodics.json: first full cycle completed (health + dedup + bulletins)
 - F113: pairs 1,2,3 done; pair 4 (past↔future) remaining
-- All child bulletins formally integrated (5/5 merge reports)
-- 18 active frontier questions, 100/100 swarmability
+- PHIL-1 CONFIRMED, PHIL-3 CONFIRMED (S67b). PHIL-4 still OPEN.
+- All bulletins formally integrated, directory clean
+- Validator PASS, 100/100 swarmability

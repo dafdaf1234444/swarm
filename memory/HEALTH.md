@@ -60,3 +60,19 @@ Count how many of the 5 indicators are "healthy."
 - 3: Adequate but watch the weak areas
 - 1-2: Something is structurally wrong — create a task to diagnose
 - 0: Stop and rethink the approach
+
+---
+
+## Latest check: S71 (2026-02-27)
+
+| Indicator | Status | Detail |
+|-----------|--------|--------|
+| Knowledge growth | HEALTHY | 141 lessons, 148 principles, ~1.26 L/session, ~1.42 P/session |
+| Knowledge accuracy | N/A | Lessons use Observed/Theorized not Verified/Assumed — metric template stale |
+| Compactness | HEALTHY | All lessons ≤ 20 lines (avg 15.8), INDEX at 44 lines |
+| Belief evolution | HEALTHY | 14 beliefs, 6 PHIL challenges filed and resolved, PHIL-4 superseded |
+| Task throughput | HEALTHY | 17 frontier Qs: 4 critical, 5 important, 8 exploratory |
+
+**Score: 4/5** (accuracy metric needs template update — not a swarm problem, a HEALTH.md problem)
+
+**Notes**: P/L ratio = 1.05 (above P-100 target of 1.0). PHIL-0 bookkeeping fixed (was "open", challenge CONFIRMED S66). PHIL-8 (distillation → minimal form) is theorized and unchallened — candidate for next challenge cycle. 4 orphan beliefs (B8,B11,B12,B16) have no dependents.
