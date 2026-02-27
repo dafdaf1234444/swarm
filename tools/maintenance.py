@@ -508,65 +508,35 @@ def check_child_bulletins() -> list[tuple[str, str]]:
     bulletin_dir = REPO_ROOT / "experiments" / "inter-swarm" / "bulletins"
     integration_dir = REPO_ROOT / "experiments" / "integration-log"
     children_dir = REPO_ROOT / "experiments" / "children"
-    if not bulletin_dir.exists():
-        return results
-
-    integrated = set()
-    if integration_dir.exists():
-        for f in integration_dir.glob("*.json"):
-            integrated.add(f.stem)
-
-    known_children = set()
-    if children_dir.exists():
-        known_children = {d.name for d in children_dir.iterdir() if d.is_dir()}
-
-    unprocessed = []
-    stale = []
-    external = []
+    if not bulletin_dir.exists(): return results
+    integrated = {f.stem for f in integration_dir.glob("*.json")} if integration_dir.exists() else set()
+    known_children = {d.name for d in children_dir.iterdir() if d.is_dir()} if children_dir.exists() else set()
+    unprocessed, stale, external = [], [], []
     for f in bulletin_dir.glob("*.md"):
         name = f.stem
-        if name not in known_children and name not in integrated:
-            external.append(name)
-            continue
-
-        content = _read(f)
-        if name in integrated:
-            stale.append(name)
-        elif "<!-- PROCESSED" in content:
-            continue  # bulletin manually marked as processed
-        else:
-            unprocessed.append(name)
-
-    if unprocessed:
-        results.append(("DUE", f"{len(unprocessed)} unprocessed bulletin(s): {', '.join(unprocessed[:5])}"))
-    if stale:
-        results.append(("NOTICE", f"{len(stale)} stale bulletin(s): {', '.join(stale[:5])}"))
-    if external:
-        results.append(("NOTICE", f"{len(external)} external bulletin file(s) ignored: {', '.join(external[:5])}"))
-
+        if name not in known_children and name not in integrated: external.append(name); continue
+        if name in integrated: stale.append(name)
+        elif "<!-- PROCESSED" not in _read(f): unprocessed.append(name)
+    if unprocessed: results.append(("DUE", f"{len(unprocessed)} unprocessed bulletin(s): {', '.join(unprocessed[:5])}"))
+    if stale: results.append(("NOTICE", f"{len(stale)} stale bulletin(s): {', '.join(stale[:5])}"))
+    if external: results.append(("NOTICE", f"{len(external)} external bulletin file(s) ignored: {', '.join(external[:5])}"))
     return results
 
 def check_help_requests() -> list[tuple[str, str]]:
-    results = []
     bulletin_dir = REPO_ROOT / "experiments" / "inter-swarm" / "bulletins"
-    if not bulletin_dir.exists():
-        return results
-
+    if not bulletin_dir.exists(): return []
     req_re = re.compile(r"Type:\s*help-request.*?Request-ID:\s*(\S+)", re.DOTALL)
     resp_re = re.compile(r"Type:\s*help-response.*?Request-ID:\s*(\S+)", re.DOTALL)
     open_ids: set[str] = set()
     responses: set[str] = set()
-
     for f in bulletin_dir.glob("*.md"):
         text = _read(f)
         open_ids |= {m.group(1).strip() for m in req_re.finditer(text)}
         responses |= {m.group(1).strip() for m in resp_re.finditer(text)}
-
-    open_ids = sorted(open_ids - responses)
-    if open_ids:
-        results.append(("DUE", f"{len(open_ids)} open help request(s): {_truncated(open_ids)}; respond with `{PYTHON_CMD} tools/bulletin.py offer-help ...`"))
-
-    return results
+    remaining = sorted(open_ids - responses)
+    if remaining:
+        return [("DUE", f"{len(remaining)} open help request(s): {_truncated(remaining)}; respond with `{PYTHON_CMD} tools/bulletin.py offer-help ...`")]
+    return []
 
 def check_compaction() -> list[tuple[str, str]]:
     results = []
@@ -602,12 +572,8 @@ def check_frontier_decay() -> list[tuple[str, str]]:
 
     text = _read(frontier_path)
     open_text = text.split("## Archive", 1)[0]
-    decay: dict[str, dict[str, str]] = {}
-    if decay_file.exists():
-        try:
-            decay = json.loads(_read(decay_file))
-        except Exception:
-            decay = {}
+    try: decay = json.loads(_read(decay_file)) if decay_file.exists() else {}
+    except Exception: decay = {}
 
     open_ids = {f"F{m.group(1)}" for m in re.finditer(r"^- \*\*F(\d+)\*\*:", open_text, re.MULTILINE)}
     for fid in open_ids:
@@ -644,14 +610,10 @@ def check_periodics() -> list[tuple[str, str]]:
     if not periodics_path.exists():
         return results
 
-    try:
-        data = json.loads(periodics_path.read_text())
-    except Exception:
-        return results
-
+    try: data = json.loads(periodics_path.read_text())
+    except Exception: return results
     session = _session_number()
-    if session <= 0:
-        return results
+    if session <= 0: return results
     dirty = bool(_git("status", "--porcelain"))
 
     for item in data.get("items", []):
@@ -682,28 +644,13 @@ def check_validator() -> list[tuple[str, str]]:
 def check_version_drift() -> list[tuple[str, str]]:
     results = []
     meta_path = REPO_ROOT / ".swarm_meta.json"
-    if not meta_path.exists():
-        return results
-
-    try:
-        meta = json.loads(meta_path.read_text())
-    except Exception:
-        return results
-
-    claude_md = _read(REPO_ROOT / "CLAUDE.md")
-    core_md = _read(REPO_ROOT / "beliefs" / "CORE.md")
-
-    claude_ver = re.search(r"claude_md_version:\s*([\d.]+)", claude_md)
-    core_ver = re.search(r"core_md_version:\s*([\d.]+)", core_md)
-
-    if claude_ver and meta.get("claude_md_version"):
-        if str(claude_ver.group(1)) != str(meta["claude_md_version"]):
-            results.append(("URGENT", f"CLAUDE.md version {claude_ver.group(1)} != meta {meta['claude_md_version']} — re-read CLAUDE.md"))
-
-    if core_ver and meta.get("core_md_version"):
-        if str(core_ver.group(1)) != str(meta["core_md_version"]):
-            results.append(("URGENT", f"CORE.md version {core_ver.group(1)} != meta {meta['core_md_version']} — re-read CORE.md"))
-
+    if not meta_path.exists(): return results
+    try: meta = json.loads(meta_path.read_text())
+    except Exception: return results
+    for label, fpath, key in [("CLAUDE.md", "CLAUDE.md", "claude_md_version"), ("CORE.md", "beliefs/CORE.md", "core_md_version")]:
+        ver = re.search(rf"{key}:\s*([\d.]+)", _read(REPO_ROOT / fpath))
+        if ver and meta.get(key) and str(ver.group(1)) != str(meta[key]):
+            results.append(("URGENT", f"{label} version {ver.group(1)} != meta {meta[key]} — re-read {label}"))
     return results
 
 def check_runtime_portability() -> list[tuple[str, str]]:
@@ -777,43 +724,20 @@ def check_runtime_portability() -> list[tuple[str, str]]:
 def check_commit_hooks() -> list[tuple[str, str]]:
     results = []
     git_dir = REPO_ROOT / ".git"
-    if not git_dir.exists():
-        return results
-
+    if not git_dir.exists(): return results
     hooks_dir = git_dir / "hooks"
-    if not hooks_dir.exists():
-        results.append(("NOTICE", ".git/hooks missing — commit quality hooks unavailable"))
-        return results
-
-    expected_hooks = [
-        ("pre-commit", "tools/pre-commit.hook"),
-        ("commit-msg", "tools/commit-msg.hook"),
-    ]
-    missing_templates = [tpl for _, tpl in expected_hooks if not _exists(tpl)]
-    if missing_templates:
-        sample = ", ".join(missing_templates[:3])
-        results.append(("DUE", f"Hook template(s) missing: {sample}"))
-        return results
-
-    missing_installed: list[str] = []
-    drifted: list[str] = []
-    for hook_name, template_rel in expected_hooks:
-        template_text = _read(REPO_ROOT / template_rel).replace("\r\n", "\n").strip()
-        installed_path = hooks_dir / hook_name
-        if not installed_path.exists():
-            missing_installed.append(hook_name)
-            continue
-        installed_text = _read(installed_path).replace("\r\n", "\n").strip()
-        if template_text != installed_text:
-            drifted.append(hook_name)
-
-    if missing_installed:
-        sample = ", ".join(missing_installed)
-        results.append(("DUE", f"Missing hook(s): {sample} — run: bash tools/install-hooks.sh"))
-    if drifted:
-        sample = ", ".join(drifted)
-        results.append(("NOTICE", f"Hook drift detected ({sample}) — run: bash tools/install-hooks.sh"))
-
+    if not hooks_dir.exists(): return [("NOTICE", ".git/hooks missing — commit quality hooks unavailable")]
+    expected = [("pre-commit", "tools/pre-commit.hook"), ("commit-msg", "tools/commit-msg.hook")]
+    missing_tpl = [tpl for _, tpl in expected if not _exists(tpl)]
+    if missing_tpl: return [("DUE", f"Hook template(s) missing: {', '.join(missing_tpl[:3])}")]
+    missing_inst, drifted = [], []
+    for hook_name, tpl_rel in expected:
+        tpl_text = _read(REPO_ROOT / tpl_rel).replace("\r\n", "\n").strip()
+        inst_path = hooks_dir / hook_name
+        if not inst_path.exists(): missing_inst.append(hook_name); continue
+        if tpl_text != _read(inst_path).replace("\r\n", "\n").strip(): drifted.append(hook_name)
+    if missing_inst: results.append(("DUE", f"Missing hook(s): {', '.join(missing_inst)} — run: bash tools/install-hooks.sh"))
+    if drifted: results.append(("NOTICE", f"Hook drift detected ({', '.join(drifted)}) — run: bash tools/install-hooks.sh"))
     return results
 
 def check_cross_references() -> list[tuple[str, str]]:
