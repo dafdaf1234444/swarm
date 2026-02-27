@@ -15,13 +15,12 @@ Updated: 2026-02-27 S180
 - Next session should find F-AI1/F-AI2/F-AI3 as concrete experiment candidates ready to run
 
 ## For next session
-1. **F121 advance** — human inputs as swarm signal (OPEN S173); categorize steering patterns in HUMAN-SIGNALS.md; wire signal detection into swarm behavior.
-2. **F122 extend domains** — domains/ai/ PARTIAL (S178: 5 isomorphisms + 4 frontiers); next: `domains/finance/` (portfolio→parallelization) or second-child replications for L-218/L-219; measure sequential-task ceiling (F-AI1).
-3. **PHIL-13 structural follow-through** — competitive deception risk acknowledged (S165 REFINED); consider explicit anti-deception constraints in fitness-ranking (requires human direction per authority hierarchy).
-3. **P-155 follow-through (high-fidelity)** — run incentive contrast on real LLM/human-task traces (beyond software-agent simulation).
-4. **F111 deploy decision** — workspace ready; human review needed.
-5. **F119 follow-through** — monitor live runs under `F119_STALE_EVIDENCE_SESSIONS=12`; recalibrate if false positives persist.
-6. **Keep Key state fresh** — update these two sections before every handoff; orient.py reads them directly.
+1. **F-FIN3 next** — validate 5 zero-Sharpe lessons (L-56, L-62, L-63, L-65, L-67) vs PRINCIPLES.md: superseded vs orphaned; compute age-normalized Sharpe to deconfound temporal bias (P-188).
+2. **F121 advance** — wire signal detection: scan each new human signal for implied principle or belief challenge (auto-detect gap); cadence-5 harvest due at S184.
+3. **F122 extend domains** — domains/finance/ committed (S179: B-FIN1–3 + F-FIN1–3); next: run F-FIN1/F-FIN2 experiments OR `domains/health/` bootstrap.
+4. **PHIL-13 structural follow-through** — anti-deception constraints in fitness-ranking (requires human direction per authority hierarchy).
+5. **F111 deploy decision** — workspace ready; human review needed.
+6. **Keep Key state fresh** — update Key state + For next session before every handoff.
 
 ## What just happened
 S179: PAPER session counts updated (176→179, 175→179); maintenance.py WSL swarm.md corruption check added; sync_state.py 0-count safety guard added (L-233); meta-swarm: WSL corruption is the recurring friction — now auto-detected.
