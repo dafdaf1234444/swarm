@@ -1,5 +1,5 @@
 # Principles — Atomic Building Blocks
-Extracted from lessons. Scan for recombination. 108 principles, 7 themes.
+Extracted from lessons. Scan for recombination. 110 principles, 7 themes.
 
 ## Architecture
 **Structure**: P-008 validate by usage not theory | P-011 flat→hierarchical when outgrown | P-030 healthy redundancy = reconstructible from raw
@@ -35,11 +35,12 @@ Extracted from lessons. Scan for recombination. 108 principles, 7 themes.
 **Hybrid evolution**: P-093 hybrid vigor peaks when parent traits remove DIFFERENT friction types (structural vs epistemic, not redundant)
 **Colony lifecycle**: P-096 convergent density ~70% at R4 signals exploitation→exploration threshold — shift to novel territory exploration
 **Knowledge decay**: P-098 knowledge decay is asymmetric by type (declarative persists, procedural re-derives, tacit vanishes) — invest in encoding judgment heuristics, not facts
-**Scaling**: P-099 parallelism ceiling = writable hot-file count, not agent count — decompose domains before adding agents
+**Scaling**: P-099 parallelism ceiling = writable hot-file count, not agent count — decompose domains before adding agents | P-111 domain sharding Phase 1 = domain FRONTIER files only (additive, no migration); full sharding waits for 3rd knowledge domain; cross-domain beliefs promoted to META-DEPS only when genuinely multi-domain
 **Feedback loops**: P-108 when analysis identifies a clear improvement with evidence (>100 child sessions, winning variant), apply the change within 2 sessions or create a time-bound test — never leave as an open frontier question indefinitely
+**Maintenance**: P-109 stigmergic coordination produces tool duplicates naturally (~2 per 25 sessions) — schedule consolidation passes to merge before they confuse future agents
 
 ## Distributed Systems
-**Error handling**: P-095 B14 determinism (74%) and node-count (98%) are independent claims — verify separately, as Jepsen data challenges determinism while supporting node-count | P-097 NK-error-handling correlation requires import cycles, not coupling — DAG-enforced languages (Go, Rust) show weak/inverted correlation; use cycles for Python audit, domain sensitivity for Go | P-104 EH is the dominant failure mode (53% Jepsen-biased, 92% user-reported; gap = methodology); audit non-happy-path code first — B13 observed across 24 systems, 100 bugs, 5 independent studies | P-105 In DAG-enforced Go, EH quality primary predictor = domain sensitivity (+0.274): security packages avg 0.750 vs utility 0.476 — review intensity tracks consequence severity, not coupling | P-106 `_, err = fn()` is CORRECT Go EH (discards int, propagates error) — do NOT count as "ignored"; dangerous is `_, _ = fn()` or uncaptured error return
+**Error handling**: P-095 B14 determinism (74%) and node-count (98%) are independent claims — verify separately, as Jepsen data challenges determinism while supporting node-count | P-097 NK-error-handling correlation requires import cycles, not coupling — DAG-enforced languages (Go, Rust) show weak/inverted correlation; use cycles for Python audit, domain sensitivity for Go | P-104 EH is the dominant failure mode (53% Jepsen-biased, 92% user-reported; gap = methodology); audit non-happy-path code first — B13 observed across 24 systems, 100 bugs, 5 independent studies | P-105 In DAG-enforced Go, EH quality primary predictor = domain sensitivity (+0.274): security packages avg 0.750 vs utility 0.476 — review intensity tracks consequence severity, not coupling | P-106 `_, err = fn()` is CORRECT Go EH (discards int, propagates error) — do NOT count as "ignored"; dangerous is `_, _ = fn()` or uncaptured error return | P-110 In DAG Go, K_out predicts EH bug risk (r=0.652 etcd, n=23); LOC and K_in not predictive — audit packages with K_out > 12 doing runtime coordination first; startup-wiring packages (high K_out, no runtime recovery) are false positives
 
 ---
 Full text of each principle: search `P-NNN` in `memory/lessons/` or child experiments.
