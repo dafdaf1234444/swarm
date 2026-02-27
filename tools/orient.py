@@ -109,6 +109,22 @@ def extract_session_log_tail(log_text, n=10):
     return lines[-n:]
 
 
+def get_recent_commits(n=6):
+    """Get recent commit summaries for collision-avoidance (L-251)."""
+    result = subprocess.run(
+        ["git", "log", "--oneline", f"-{n}"],
+        capture_output=True, text=True, cwd=ROOT
+    )
+    if result.returncode != 0:
+        return []
+    commits = []
+    for line in result.stdout.strip().splitlines():
+        parts = line.split(" ", 1)
+        if len(parts) == 2:
+            commits.append(parts[1])
+    return commits
+
+
 def check_stale_experiments():
     """Scan domain frontier files for active (unrun) experiments. L-246."""
     domain_dir = ROOT / "domains"
@@ -185,6 +201,14 @@ def main():
         print(f"--- Unrun domain experiments ({len(stale_experiments)}) ---")
         for e in stale_experiments[:6]:
             print(f"  ○ {e}")
+        print()
+
+    # Recent commits — collision-avoidance for concurrent nodes (L-251)
+    recent_commits = get_recent_commits()
+    if recent_commits:
+        print("--- Recent commits (avoid repeating) ---")
+        for c in recent_commits:
+            print(f"  ✓ {c[:100]}")
         print()
 
     # Session log tail (full mode only — last 10 entries = behavioral signal)
