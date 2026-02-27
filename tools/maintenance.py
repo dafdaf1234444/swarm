@@ -202,7 +202,12 @@ def check_lessons() -> list[tuple[str, str]]:
 
 
 def check_frontier_decay() -> list[tuple[str, str]]:
-    """Check for decayed frontier questions."""
+    """Check for decayed frontier questions.
+
+    Auto-refreshes decay data from SESSION-LOG.md: any F-NNN mentioned
+    in a session log entry gets its last_active updated to that entry's date.
+    This eliminates the need for manual `frontier_decay.py touch` calls.
+    """
     results = []
     decay_file = REPO_ROOT / "experiments" / "frontier-decay.json"
     frontier_path = REPO_ROOT / "tasks" / "FRONTIER.md"
@@ -220,6 +225,33 @@ def check_frontier_decay() -> list[tuple[str, str]]:
             decay = json.loads(decay_file.read_text())
         except Exception:
             pass
+
+    # Auto-refresh: scan SESSION-LOG.md for F-NNN mentions with dates
+    session_log = _read(REPO_ROOT / "memory" / "SESSION-LOG.md")
+    for line in session_log.splitlines():
+        line_date_m = re.search(r"\d{4}-\d{2}-\d{2}", line)
+        if not line_date_m:
+            continue
+        line_date = line_date_m.group()
+        for fid_m in re.finditer(r"\bF(\d+)\b", line):
+            fid = f"F{fid_m.group(1)}"
+            current = decay.get(fid, {}).get("last_active", "1970-01-01")
+            if line_date > current:
+                decay[fid] = {"last_active": line_date}
+
+    # Also check FRONTIER.md text for session mentions (S75: ... means active)
+    for m in re.finditer(r"^- \*\*F(\d+)\*\*:.*S(\d+)", open_text, re.MULTILINE):
+        fid = f"F{m.group(1)}"
+        # Frontier entries with recent session mentions are active today
+        if fid not in decay:
+            decay[fid] = {"last_active": date.today().isoformat()}
+
+    # Save refreshed decay data
+    try:
+        decay_file.parent.mkdir(parents=True, exist_ok=True)
+        decay_file.write_text(json.dumps(decay, indent=2))
+    except Exception:
+        pass
 
     today = date.today().isoformat()
     weak = []

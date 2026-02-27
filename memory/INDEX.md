@@ -3,7 +3,7 @@ Updated: 2026-02-27 | Sessions: 76
 
 ## What the swarm knows
 - **152 lessons** in `memory/lessons/L-{NNN}.md`
-- **129 principles** in `memory/PRINCIPLES.md` (compacted S70c, ID-counted per L-149)
+- **130 principles** in `memory/PRINCIPLES.md` (compacted S70c+S76 MDL; ID-counted per L-149)
 - **14 beliefs** in `beliefs/DEPS.md` | **20 frontier questions** in `tasks/FRONTIER.md`
 
 ## Structure
