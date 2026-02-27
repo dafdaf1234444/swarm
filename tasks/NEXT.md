@@ -1,7 +1,24 @@
 # State
-Updated: 2026-02-27 S174
+Updated: 2026-02-27 S176
+
+## Key state
+- 214L 149P 14B 16F — Validator PASS. Health score 5/5 (S172). Compaction healthy (floor 36,560t S174, proxy-K ~+0.0%).
+- `python3 tools/orient.py` — single-command orientation; reads this file + maintenance + frontiers (S173).
+- F121 OPEN (human inputs as swarm signal, S173). F120 first impl: substrate_detect.py (S173). F119 OPEN.
+- 0 THEORIZED. 6 PARTIALLY OBSERVED (P-128/P-141/P-155/P-156/P-157/P-158).
+
+## For next session
+1. **F121 advance** — human inputs as swarm signal (OPEN S173); categorize steering patterns in HUMAN-SIGNALS.md; wire signal detection into swarm behavior.
+2. **PHIL-13 structural follow-through** — competitive deception risk acknowledged (S165 REFINED); consider explicit anti-deception constraints in fitness-ranking (requires human direction per authority hierarchy).
+3. **P-155 follow-through (high-fidelity)** — run incentive contrast on real LLM/human-task traces (beyond software-agent simulation).
+4. **F111 deploy decision** — workspace ready; human review needed.
+5. **F119 follow-through** — monitor live runs under `F119_STALE_EVIDENCE_SESSIONS=12`; recalibrate if false positives persist.
+6. **Keep Key state fresh** — update these two sections before every handoff; orient.py reads them directly.
 
 ## What just happened
+S176: NEXT.md restructured — Key state and For next session moved to top so orient.py (and any direct read) sees current state first; stale values (208L/149P, compaction URGENT) replaced with live counts (214L 149P, healthy); /swarm fallback path updated to include tasks/NEXT.md; INDEX.md "What to load when" updated. Root cause: sections existed but were buried under growing history, causing orient.py to surface stale priorities.
+## What just happened
+S175: F120 validation pass — substrate_detect.py 10/10 stacks correct; NEXT.md F120 item updated.
 S174: NEXT.md history compressed — S100-S169 bulk replaced with archive ref; FRONTIER/INDEX headers synced to S174; proxy-K +0.0% healthy (floor 36,560t S171, maintenance.py 1,500L after -28% compaction sprint S169-S171).
 S173: self-tooling loop: orient.py built (single-command orientation — replaces 5-read + maintenance pattern every session); HUMAN-SIGNALS.md created (structured human input archive); L-214 filed (self-tooling loop: session logs are tool-requirements); F121 filed (human inputs as swarm signal); /swarm command updated to call orient.py + substrate_detect.py at Orient step; .claude/commands/swarm.md WSL corruption fixed. 214L 149P 14B 16F.
 S173: fundamental-setup-reswarm periodic (cadence 8, last S165): all 6 bridge files reference SWARM.md; git hooks (pre-commit + commit-msg) installed; validator PASS; no friction in fundamentals this pass. Marker advanced S165→S173.
@@ -15,17 +32,3 @@ S170: principles-dedup periodic executed — P-163 updated (dynamic-equilibrium�
 S169: README docs pass + maintenance.py _truncated() refactor + P-174 substrate-scope contamination added + swarm setup verified.
 S166–S168: substrate-detection sprint — F120 filed (L-208 through L-212), proxy-K masking fix, /swarm command evolved (substrate-detect step).
 S100–S165: archived to memory/SESSION-LOG.md
-
-## For next session
-1. **F120 follow-through** — substrate_detect.py committed (S173); integrate into /swarm entry Orient step; test on 2+ foreign repos; validate detection across diverse stacks; advance toward RESOLVED.
-2. **PHIL-13 structural follow-through** — REFINED S165 acknowledged competitive deception risk; consider adding explicit anti-deception constraints to fitness-ranking structure (requires human direction per authority hierarchy).
-3. **P-155 follow-through (high-fidelity)** — run the same incentive contrast on real LLM/human-task traces (beyond software-agent simulation).
-4. **F111 deploy decision** — workspace ready. Human review needed.
-5. **F121 follow-through** — HUMAN-SIGNALS.md created (S173); periodic harvest pass to extract lessons/principles from human signal log.
-
-## Key state
-- **Compaction healthy**: proxy-K +0.0% drift (floor 36,560t S171); maintenance.py 1,500L (down from 2,082L peak, -28% compaction sprint S169-S171).
-- 213L 149P 14B 16F. Validator PASS.
-- F105 RESOLVED: compact.py wired. F76/F71/F101 RESOLVED. F115 paper v0.6. F120 PARTIAL: substrate_detect.py done, /swarm integration open. F121 OPEN: human-signal mining.
-- Next cross-variant harvest due ~S173 (overdue; cadence 15 from S158). fundamental-setup-reswarm DONE S173. mission-constraint-reswarm DONE S173.
-- 0 THEORIZED remain. 6 PARTIALLY OBSERVED (P-128/P-141/P-155/P-156/P-157/P-158).
