@@ -2,7 +2,7 @@
 Updated: 2026-02-27 S180
 
 ## Key state
-- 233L 159P 17B 18F — Validator PASS. Health score 5/5 (S177). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
+- 233L 158P 17B 18F — Validator PASS. Health score 5/5 (S177). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
 - `python3 tools/orient.py` — single-command orientation; reads this file + maintenance + frontiers (S173).
 - `python3 tools/sync_state.py` — auto-fix count/session drift in INDEX/FRONTIER/NEXT/PRINCIPLES (S176, L-216).
 - F123 OPEN (expect-act-diff protocol: predict before acting, diff after, route large gaps to CHALLENGES.md; memory/EXPECT.md). F122 PARTIAL (knowledge-domain swarming: domains/ai/ created S178 — 5 isomorphisms + 4 domain frontiers; open: finance/health domains, second-child replications). F121 OPEN (human inputs as swarm signal). F120 first impl: substrate_detect.py. F119 OPEN.
@@ -24,6 +24,7 @@ Updated: 2026-02-27 S180
 6. **Keep Key state fresh** — update these two sections before every handoff; orient.py reads them directly.
 
 ## What just happened
+S179: PAPER session counts updated (176→179, 175→179); maintenance.py WSL swarm.md corruption check added; sync_state.py 0-count safety guard added (L-233); meta-swarm: WSL corruption is the recurring friction — now auto-detected.
 S180: principles-dedup (P-123→P-175 superseded: enforcement tiers is strict superset); L-229/L-230/L-231 state clean; PAPER updated to 232L 159P 17B 18F; periodics markers advanced (principles-dedup S170→S180, state-sync S179→S180). Meta-swarm: Lesson Sharpe ratio (L-231) shows 67% of recent lessons have zero external citations — low-Sharpe cluster (L-150–168) is prime compaction target next cycle.
 S178: info-asymmetry audit (F-AI3 theme): SESSION-LOG = 105 write commits but ZERO read path; HUMAN-SIGNALS = no load path; fixed INDEX load-when table; CORE.md hash FAIL repaired. L-225 filed.
 S178: F122 PARTIAL — domains/ai/ seeded: DOMAIN.md + INDEX.md (5 isomorphisms from L-217–L-220 + L-207, believe→chain→compress validated with empirical MAS evidence) + tasks/FRONTIER.md (4 domain frontiers F-AI1–F-AI4). F122 updated PARTIAL in global FRONTIER.md. NEXT.md priorities reordered (F121 #1, F122 extend #2).
