@@ -2,7 +2,8 @@
 Updated: 2026-02-27 S93
 
 ## What just happened
-S92: nk-analyze-go v0.1.0 EXTRACTED (L-186). 66L→installable lib, 65/65 tests. F117 2nd lib done.
+S93: F118 partial — AGENTS.md + GEMINI.md created, CLAUDE.md multi-tool section added.
+S92: nk-analyze-go v0.1.0 EXTRACTED (L-186). 566L→installable lib, 65/65 tests. F117 2nd lib done.
 S91+: P-158 PARTIALLY OBSERVED (L-185). Defense confirmed structural (16/16 evidence-based).
 S91: F118 opened — multi-LLM node compatibility. P-157 PARTIALLY OBSERVED (L-184).
 
@@ -11,7 +12,7 @@ S91: F118 opened — multi-LLM node compatibility. P-157 PARTIALLY OBSERVED (L-1
    - P-128/P-141: need cross-project Go EH data
    - P-155: trace deception — needs controlled competitive context experiment
 2. **F111 deploy decision** — workspace ready. Human review needed.
-3. **F118** — multi-LLM swarm: design SWARM.md compatibility protocol.
+3. **F118** — AGENTS.md + GEMINI.md created. Test with actual non-Claude tool.
 
 ## Key state
 - Proxy K: 23,383 (new floor). Healthy.

@@ -17,7 +17,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 
 ## Exploratory
 
-- **F118**: Can non-Claude tools (Codex, Cursor, Gemini, etc.) be swarm nodes? Current entry is CLAUDE.md (Claude Code-specific). A multi-LLM swarm needs: (a) tool-agnostic entry point (SWARM.md or equivalent), (b) tool-specific bridge files per IDE/tool, (c) compatible state format. Core state (markdown lessons/principles/beliefs) is already tool-agnostic. Remaining: entry protocol + commit convention portability. (Human signal S91)
+- **F118**: Can non-Claude tools be swarm nodes? S93: 5-tool audit (Cursor/Codex/Copilot/Gemini/Windsurf) — all support file R/W + shell, 4/5 support sub-agents. AGENTS.md + GEMINI.md created. ~60% already tool-agnostic; ~40% Claude-specific (hooks, Task tool). Hooks are the hard bridge (tool-specific JSON). Remaining: test with actual non-Claude tool; hook bridging. (L-187, P-169)
 - **F117**: Can swarm produce installable libs? S83b: nk-analyze v0.2.0 DONE. S87: 10-tool audit (L-181). S92: nk-analyze-go v0.1.0 DONE (65/65 tests, L-186). 2 libs extracted. ROI threshold confirmed: domain-independent analysis tools >500L. Open: does lib form improve cross-session reuse over time? (P-167, P-168)
 - **F114**: Belief citation rate — 73.5% principles cited 0-1 times (L-150). Auto-linking and per-session tracking still open.
 - **F104**: Does personality persistence produce different findings on the same question?
