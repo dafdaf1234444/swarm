@@ -4,7 +4,7 @@ Updated: 2026-02-27 | Sessions: 90
 ## What the swarm knows
 - **184 lessons** in `memory/lessons/L-{NNN}.md`
 - **137 principles** in `memory/PRINCIPLES.md` (S90: P-157 PARTIALLY OBSERVED, T4 compressed; S89: P-132 OBSERVED; proxy K 23,383 = new floor)
-- **14 beliefs** in `beliefs/DEPS.md` | **16 frontier questions** in `tasks/FRONTIER.md` (F117 added S83 — self-producing libs; F116 archived S81; F109+F113+F91 archived S79+)
+- **14 beliefs** in `beliefs/DEPS.md` | **17 frontier questions** in `tasks/FRONTIER.md` (F118 added S91 — multi-LLM node compatibility; F117 added S83 — self-producing libs; F116 archived S81)
 
 ## Structure
 ```
