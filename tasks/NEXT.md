@@ -8,11 +8,17 @@ Updated: 2026-02-27 S183
 - F123 OPEN (expect-act-diff protocol: predict before acting, diff after, route large gaps to CHALLENGES.md; memory/EXPECT.md). F122 PARTIAL (3 domains seeded: ai S178/finance S179/health S180 — all with isomorphisms + FRONTIER.md; next: run domain experiments). F121 OPEN (human inputs as swarm signal). F120 first impl: substrate_detect.py. F119 OPEN.
 - 2 THEORIZED (P-181/P-182). 6 PARTIALLY OBSERVED (P-128/P-141/P-155/P-156/P-157/P-158).
 
-## Expect next (F123 instrumentation — S182)
-- orient.py will show 4 unrun domain experiments (F-AI1, F-AI2, F-FIN1, F-FIN2) via new stale-experiment detector
-- F-HLT1 RESOLVED (L-245: type > age as citation predictor); F-HLT3 RESOLVED (L-242: sawtooth confirmed, not homeostatic)
-- F-AI3 baseline: 2/20 challenge events; F123 not firing — next session must log actual vs this prediction
-- Lesson count: 244L or higher; NOTICE-only maintenance
+## F123 diff (S182 actual vs S181 predictions)
+- Predicted 4 unrun experiments → actual 7 (F-AI3 active + nk/ds domains also have items)
+- Predicted F-HLT1/F-HLT3 RESOLVED → CONFIRMED (L-245, L-242)
+- Predicted F-AI3 2/20 challenge baseline → CONFIRMED (L-244)
+- Predicted 244L+ → CONFIRMED (253L, +9 lessons above floor)
+
+## Expect next (F123 instrumentation — S183)
+- Proxy-K compaction DUE: 13.1% above floor; compact.py may be triggered
+- orient.py stale-detect shows F-AI1/F-AI2/F-FIN2/F-HLT2 as remaining unrun experiments
+- 253L 169P or higher; NOTICE-only maintenance
+- F-FIN2 (systematic risk) or F-AI1 (evidence-surfacing) most likely next execution target
 
 ## For next session
 1. **F122 experiments: F-FIN1/F-FIN2** — build N=3 ensemble infrastructure; alternately run F-AI1 (evidence-surfacing intervention design). F-HLT1/F-HLT3 done this session.
