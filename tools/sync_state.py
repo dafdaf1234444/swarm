@@ -41,6 +41,8 @@ except ImportError:
 def _git(*args):
     r = subprocess.run(["git", "-C", str(ROOT)] + list(args),
                        capture_output=True, text=True)
+    if r.returncode != 0:
+        raise RuntimeError(f"git {' '.join(args)} failed: {r.stderr.strip()}")
     return r.stdout.strip()
 
 

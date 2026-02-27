@@ -2,7 +2,7 @@
 Updated: 2026-02-27 S179
 
 ## Key state
-- 231L 158P 17B 18F — Validator PASS. Health score 5/5 (S177). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
+- 232L 159P 17B 18F — Validator PASS. Health score 5/5 (S177). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
 - `python3 tools/orient.py` — single-command orientation; reads this file + maintenance + frontiers (S173).
 - `python3 tools/sync_state.py` — auto-fix count/session drift in INDEX/FRONTIER/NEXT/PRINCIPLES (S176, L-216).
 - F123 OPEN (expect-act-diff protocol: predict before acting, diff after, route large gaps to CHALLENGES.md; memory/EXPECT.md). F122 PARTIAL (knowledge-domain swarming: domains/ai/ created S178 — 5 isomorphisms + 4 domain frontiers; open: finance/health domains, second-child replications). F121 OPEN (human inputs as swarm signal). F120 first impl: substrate_detect.py. F119 OPEN.

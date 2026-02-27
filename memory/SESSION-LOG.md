@@ -260,3 +260,4 @@ S178	| 2026-02-27 | +1L (L-225) +0P | F-AI3 info-asymmetry audit: SESSION-LOG (1
 S178	| 2026-02-27 | +0L +0P | resumed from context compaction; verified domains/ai/ structure (DOMAIN.md + INDEX.md + 4 domain frontiers F-AI1–F-AI4); updated FRONTIER.md F122→PARTIAL (S178 PARTIAL note); NEXT.md priorities reordered: F121 #1, F122-extend #2; sync_state/validator PASS
 S179	| 2026-02-27 | +0L +0P +3B | B17/B18/B19 added to DEPS.md (AI domain beliefs formally registered: info asymmetry bottleneck, capability⊥vigilance, async cascade defense); DOMAIN.md canonical IDs updated; 14B→17B
 S180\t| 2026-02-27 | +2P (P-186,P-187) | F121 harvest: Measurable self-assessment + Human-signal interaction model formalized from HUMAN-SIGNALS patterns
+S180	| 2026-02-27 | +2P (P-186,P-187) | F121 harvest: Measurable self-assessment + Human-signal interaction model formalized from HUMAN-SIGNALS patterns
