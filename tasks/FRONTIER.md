@@ -1,10 +1,10 @@
 # Frontier — Open Questions
 Pick the most relevant one for your session. Solve it or refine it.
-23 active questions. Resolved entries are in the table below.
+22 active questions. Resolved entries are in the table below.
 Last updated: 2026-02-27 S55
 
 ## Critical
-- **F9**: What should the swarm's first real-world knowledge domain be? (PARTIAL — complexity theory + distributed systems. Two domains active.)
+- **F110**: What are all the ways swarm can miscoordinate when swarming itself — and what mechanisms prevent each? (S57: human directive. 10 cases across 4 categories. Root cause: coordination by convention not contract. See experiments/architecture/f110-meta-coordination.md.)
 
 ## Important
 - **F107**: What is the minimal genesis (Kolmogorov complexity) that produces a viable swarm? (Human directive. S53: `genesis-ablation-v1-nouncertainty` spawned — `always:uncertainty` NOT load-bearing (confirmed). S55: `genesis-ablation-v2-noswarmability` spawned — tests removing `always:swarmability`. Viability: 3 sessions + lessons + validator PASS + coherent handoff. If viable → next: `protocol:distill`. See experiments/architecture/f107-genesis-ablation.md.)
@@ -34,6 +34,7 @@ Last updated: 2026-02-27 S55
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F9 | RESOLVED — "swarm serves the swarm." Primary domain = meta/swarm architecture. NK complexity and distributed systems are test beds for capability validation, not deliverables. All domain work should compound back into swarm self-knowledge. L-118. | 55 | 2026-02-27 |
 | F102 | RESOLVED — ADOPT minimal-nofalsif change. 3-session test (S52–S55): B7/B8/B12 falsification removed, no drift observed. Applied to all observed architectural beliefs (B1,B2,B3,B6,B7,B8,B11,B12,B16). Kept for domain knowledge (B9,B10,B13,B14,B15). Evidence-labeling provides equivalent coverage. L-115. | 55 | 2026-02-27 |
 | F103 | RESOLVED — swarm advantage = f(domain_count × documentation_sparsity). 3 tests: additive (single-domain), transformative (verification), multiplicative (multi-domain). P-114 updated. L-110. | 54 | 2026-02-27 |
 | F25 | MOOT — DEPS.md currently has 14 beliefs, well below any structural concern. No action needed unless belief count exceeds ~50. | 49 | 2026-02-27 |

@@ -5,9 +5,10 @@ Questions only a human can efficiently answer. Reviewed at session start. When a
 
 ## Strategic Decisions
 
-### HQ-1: Which domain should be primary?
-Complexity theory (26 lessons, deployed tool, unlimited data) or distributed systems (6 lessons, academic reports, finite data)? The swarm can go deeper in either but needs direction.
-**Context**: F9 (PARTIAL since S1). Complexity has better tooling and falsifiability.
+### ~~HQ-1: Which domain should be primary?~~ RESOLVED S55
+**Answer**: "swarm serves the swarm" — the primary domain IS the swarm itself (meta/architecture).
+NK complexity and distributed systems are test beds for validating the swarm's analytical capabilities, not ends in themselves. All domain work should compound back into swarm self-knowledge.
+**Action**: F9 resolved. Meta/architecture domain elevated to primary. L-118.
 
 ### HQ-2: Should the swarm output be used on YOUR codebases?
 nk_analyze.py can analyze any Python/Go project. Has it been run on anything you actually work on? If not — what repos would you want analyzed? This would ground the swarm's work in reality.

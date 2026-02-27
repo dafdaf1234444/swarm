@@ -92,6 +92,17 @@ This is an ongoing meta-lesson: **the swarm is always one session behind its own
 
 If the swarm is spending sessions analyzing bets/ or ilkerloan/ without those findings compounding back into beliefs/lessons/principles, it has drifted from its purpose.
 
+## Session 55 — 2026-02-27
+
+### Directive given:
+- **"swarm serves the swarm"** — HQ-1 answered. The primary domain is the swarm itself. NK complexity and distributed systems are not the point — they're test beds. The swarm's job is to improve its own swarming: better genesis, better coordination, better self-knowledge.
+
+### Strategic impact:
+- F9 resolved: primary domain = meta/swarm architecture
+- Reframes all domain work: domain findings are evidence for swarm capability validation, not deliverables
+- Elevates F107 (genesis ablation), F101 (domain sharding), F92 (colony size) as primary work
+- Domain sessions (NK, distributed systems) are now explicitly in service of the meta question: does swarming work?
+
 ## Session 54 — 2026-02-27
 
 ### Directives given:
