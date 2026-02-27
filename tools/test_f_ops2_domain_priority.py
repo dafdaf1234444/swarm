@@ -80,6 +80,14 @@ S185: F-EVO2 baseline merged.
         self.assertAlmostEqual(capacity.get("finance", 0.0), 1.5)
         self.assertAlmostEqual(capacity.get("information-science", 0.0), 1.0)
 
+    def test_parse_dispatchable_capacity_treats_available_ready_as_yes(self):
+        lanes_text = """| Date | Lane | Session | Agent | Branch | PR | Model | Platform | Scope-Key | Etc | Status | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2026-02-27 | L-R1 | S186 | codex | local | - | GPT-5 | codex-cli | domains/finance/tasks/FRONTIER.md | setup=x; available=ready; blocked=none | READY | a |
+"""
+        capacity = mod.parse_dispatchable_capacity(lanes_text, {})
+        self.assertAlmostEqual(capacity.get("finance", 0.0), 1.0)
+
     def test_parse_domain_expert_coverage_filters_to_domex_lanes(self):
         lanes_text = """| Date | Lane | Session | Agent | Branch | PR | Model | Platform | Scope-Key | Etc | Status | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |

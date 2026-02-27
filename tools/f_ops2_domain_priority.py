@@ -413,7 +413,7 @@ def parse_dispatchable_capacity(lanes_text: str, frontier_to_domain: dict[str, s
             continue
 
         slot_capacity = 0.0
-        if available == "yes":
+        if available in ("yes", "ready"):
             slot_capacity = 1.0
         elif available == "partial":
             slot_capacity = 0.5
@@ -460,7 +460,7 @@ def parse_domain_expert_coverage(
             continue
 
         slot_capacity = 0.0
-        if available == "yes":
+        if available in ("yes", "ready"):
             slot_capacity = 1.0
         elif available == "partial":
             slot_capacity = 0.5
