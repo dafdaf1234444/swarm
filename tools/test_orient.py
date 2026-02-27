@@ -53,5 +53,40 @@ class TestUnderusedCoreTools(unittest.TestCase):
         self.assertIsNone(start)
 
 
+class TestClassifyRouting(unittest.TestCase):
+    def test_task_recognizer_in_core_tools(self):
+        self.assertIn("tools/task_recognizer.py", orient.CORE_SWARM_TOOLS)
+
+    def test_get_classify_task_long_form(self):
+        import sys
+        original = sys.argv[:]
+        sys.argv = ["orient.py", "--classify", "build something"]
+        try:
+            result = orient._get_classify_task()
+        finally:
+            sys.argv = original
+        self.assertEqual(result, "build something")
+
+    def test_get_classify_task_equals_form(self):
+        import sys
+        original = sys.argv[:]
+        sys.argv = ["orient.py", "--classify=check for drift"]
+        try:
+            result = orient._get_classify_task()
+        finally:
+            sys.argv = original
+        self.assertEqual(result, "check for drift")
+
+    def test_get_classify_task_absent(self):
+        import sys
+        original = sys.argv[:]
+        sys.argv = ["orient.py", "--brief"]
+        try:
+            result = orient._get_classify_task()
+        finally:
+            sys.argv = original
+        self.assertIsNone(result)
+
+
 if __name__ == "__main__":
     unittest.main()

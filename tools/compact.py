@@ -27,6 +27,7 @@ TIERS = {
 }
 
 LOG_PATH = REPO_ROOT / "experiments" / "proxy-k-log.json"
+CACHE_PATH = REPO_ROOT / "experiments" / "compact-citation-cache.json"
 
 # Compression techniques per file type (proven in S77b, S83++, S85, S90b)
 TECHNIQUES = {
@@ -70,6 +71,29 @@ def _read(path: Path) -> str:
         return path.read_text(encoding="utf-8", errors="replace")
     except Exception:
         return ""
+
+
+def _file_sha256(path: Path) -> str:
+    try:
+        return hashlib.sha256(path.read_bytes()).hexdigest()[:16]
+    except Exception:
+        return ""
+
+
+def _load_citation_cache() -> dict:
+    if not CACHE_PATH.exists():
+        return {}
+    try:
+        return json.loads(_read(CACHE_PATH))
+    except Exception:
+        return {}
+
+
+def _save_citation_cache(cache: dict) -> None:
+    try:
+        CACHE_PATH.write_text(json.dumps(cache, separators=(",", ":")), encoding="utf-8")
+    except Exception:
+        pass
 
 
 def _tier_schema() -> str:
@@ -143,11 +167,26 @@ def _lesson_sharpe_candidates(top_n: int = 20) -> list[dict]:
         REPO_ROOT / p for p in _ls.stdout.splitlines()
         if p and "lessons" not in Path(p).parts
     ]
+    cache = _load_citation_cache()
+    cache_dirty = False
     for sp in scan_paths:
-        text = _read(sp)
-        for m in re.finditer(r"L-(\d+)", text):
-            lid = f"L-{m.group(1)}"
-            citation_counts[lid] = citation_counts.get(lid, 0) + 1
+        key = str(sp.relative_to(REPO_ROOT))
+        sha = _file_sha256(sp)
+        if sha and cache.get(key, {}).get("sha256") == sha:
+            for lid, cnt in cache[key].get("cites", {}).items():
+                citation_counts[lid] = citation_counts.get(lid, 0) + cnt
+        else:
+            text = _read(sp)
+            file_cites: dict[str, int] = {}
+            for match in re.finditer(r"L-(\d+)", text):
+                lid = f"L-{match.group(1)}"
+                citation_counts[lid] = citation_counts.get(lid, 0) + 1
+                file_cites[lid] = file_cites.get(lid, 0) + 1
+            if sha:
+                cache[key] = {"sha256": sha, "cites": file_cites}
+                cache_dirty = True
+    if cache_dirty:
+        _save_citation_cache(cache)
 
     # Extract session number from each lesson header
     import json as _json
