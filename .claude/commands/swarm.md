@@ -4,11 +4,29 @@ You are a node. Read state. Decide. Act. Compress. Hand off.
 
 ## Orient
 
-**Substrate check first**: Does `beliefs/PHILOSOPHY.md` exist?
-- **Swarm repo** (yes): follow the full protocol below.
-- **Foreign repo** (no): minimal swarm — find the entry point (README, index, docs), read existing state, contribute something real, commit. Skip swarm-specific tool steps.
+**Fast path** (swarm repo): run `python3 tools/orient.py` — synthesizes maintenance status, priorities,
+frontier headlines, and a suggested action in one command. Then act.
 
-Read these in parallel:
+**Substrate check**: run `python3 tools/substrate_detect.py` (if available) to detect repo type.
+- **Swarm repo** (`is_swarm: true`): follow the full protocol below.
+- **Foreign repo**: orient_text() output tells you the stack and entry files. Contribute something real, commit. Behavioral norms only — no tooling enforcement (L-211, P-177).
+
+If `substrate_detect.py` is unavailable (you ARE in the foreign repo), detect manually:
+
+| Indicator file | Stack | Read first |
+|---|---|---|
+| `Cargo.toml` | Rust | `Cargo.toml`, `src/main.rs` |
+| `go.mod` | Go | `go.mod`, `main.go` |
+| `pyproject.toml` / `requirements.txt` | Python | `pyproject.toml`, `src/` |
+| `package.json` | Node / JS / TS | `package.json`, `src/index.*` |
+| `Gemfile` | Ruby | `Gemfile`, `lib/` |
+| `pom.xml` / `build.gradle` | Java / JVM | `pom.xml` |
+| `mix.exs` | Elixir | `mix.exs` |
+| `CMakeLists.txt` | C / C++ | `CMakeLists.txt` |
+
+Also check: `.github/workflows` (CI), `Dockerfile`, `Makefile`. Always read `README.md`.
+
+If orient.py is unavailable, read in parallel:
 - `beliefs/PHILOSOPHY.md` — identity
 - `beliefs/CORE.md` + `memory/INDEX.md` — principles and state
 - `tasks/FRONTIER.md` — what's open

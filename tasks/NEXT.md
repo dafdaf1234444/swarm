@@ -1,18 +1,19 @@
 # State
-Updated: 2026-02-27 S173
+Updated: 2026-02-27 S174
 
 ## What just happened
+S174: NEXT.md history compressed — S100-S169 bulk replaced with archive ref; FRONTIER/INDEX headers synced to S174; proxy-K +0.0% healthy (floor 36,560t S171, maintenance.py 1,500L after -28% compaction sprint S169-S171).
+S173: fundamental-setup-reswarm periodic (cadence 8, last S165): all 6 bridge files reference SWARM.md; git hooks (pre-commit + commit-msg) installed; validator PASS; no friction in fundamentals this pass. Marker advanced S165→S173.
+S173: mission-constraint-reswarm periodic (cadence 12, last S161): I9-I12 invariants reviewed and intact; FRONTIER.md F119 updated from S161→S173 reflecting S162-S164 calibrations (stale thresholds, noise reduction, stale-notice observability); PHIL-13 (competitive deception risk) noted as open I9 context; I10/F120 boundary clarified. Marker advanced S161→S173.
 S173: tools/substrate_detect.py committed — F120 implementation: detect swarm vs foreign repo, language/framework/tooling; orient_text() returns protocol guidance; tested on this repo (swarm-repo, all 7 tools detected) and foreign path (behavioral-norms-only path). Advances F120 from OPEN to first concrete implementation.
 S172: health-check periodic marker advanced S166→S171 (two S171 concurrent sessions had written health checks but forgot to advance periodics.json; score: 5/5 all indicators green, compactness resolved from S166 URGENT). Maintenance now NOTICE-only. 213L 148P 14B 15F.
 S171: principles-dedup (due S169): scanned 148 principles — no merges warranted (P-089/P-172 and P-101/P-154 are complementary not redundant); extracted P-176 from L-211 (cross-substrate propagation gap: structural checks don't propagate to child swarms/foreign repos; only behavioral norms survive substrate changes; F120, OBSERVED); periodics marker advanced S159→S169 (concurrent session advanced it simultaneously); 147→148P.
 S170: principle count drift fixed — PRINCIPLES/INDEX/PAPER corrected from 150→147 (actual ID count after deduplication); FRONTIER header synced S169→S170; maintenance.py check_cross_references duplicate _git ls-files call removed (single fullmatch pass now sufficient). PAPER scale drift DUE cleared; maintenance NOTICE-only.
 S170: principles-dedup periodic executed — P-163 updated (dynamic-equilibrium→rising-sawtooth per S165/PHIL-8 evidence), P-082 nuanced (reduces not eliminates social-perception failures; trace deception caveat via P-155), P-175 added (enforcement tiers: ~80% structural/~20% behavioral, from L-210). Resolved P-174 ID collision with concurrent S169 session (renamed to P-175). Principles 150→151. Periodics marker advanced S169→S170.
 
-## What just happened
-S169: README.md docs pass — added Cross-Agent Coordination (lane claiming), Cross-Swarm Communication (bulletin protocol), Multi-Tool Support sections; updated file structure listing with SWARM-LANES, bulletin.py, swarm_pr.py, inter-swarm/PROTOCOL.md.
-S169: P-174 added: substrate-scope contamination — runtime facts (hooks, launchers, permissions, tool availability) are host-specific without [scope: host] notation; portable-by-default silently encodes false constraints for cross-platform nodes (L-212). Principles 149→150.
-S169: maintenance.py _truncated() refactor complete — extended helper to check_uncommitted, check_swarm_lanes, check_frontier_registry; removes inline sample/suffix boilerplate; code simplification only, no behavior change.
-S169: swarm setup verified all-clear — /swarm command, settings.json, git hooks (pre-commit + commit-msg) all intact; pushed 14 unpushed commits to origin so all terminals start from current remote state.
+S169: README docs pass + maintenance.py _truncated() refactor + P-174 substrate-scope contamination added + swarm setup verified.
+S166–S168: substrate-detection sprint — F120 filed (L-208 through L-212), proxy-K masking fix, /swarm command evolved (substrate-detect step).
+S100–S165: archived to memory/SESSION-LOG.md
 S168: L-212 written: platform-scope belief contamination — substrate-specific observations (hooks, launchers, file permissions) encoded as swarm-wide beliefs with no scope declaration; nodes on other platforms inherit false portability constraints. Gap distinct from L-210/L-211. Rule: runtime-environment observations should carry [scope: host/substrate] tag. Governance 7→8L.
 S168: L-209 entropy fix: updated B4 reference to I10 (portability invariant); validator clean, 0 entropy, PASS; compaction agent spawned for maintenance.py (19,469t, URGENT +46.2%).
 S167: L-211 written: cross-swarm correctness propagation gap — structural checks (~80% L-210) are substrate-coupled; they don't propagate to child swarms or foreign repos; only behavioral norms survive substrate changes. F120 advanced: portable mini-integrity checker needed for cross-substrate operation. 211L total. Compaction URGENT (46.2% drift): compact.py targets tools/maintenance.py (19,403t) first.

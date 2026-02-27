@@ -53,14 +53,14 @@
       "id": "fundamental-setup-reswarm",
       "description": "Swarm setup hygiene: audit SWARM/CORE/bridge/maintenance fundamentals for friction and apply at least one concrete cleanup (or log a blocker with evidence + next action).",
       "cadence_sessions": 8,
-      "last_reviewed_session": 165,
+      "last_reviewed_session": 173,
       "registered_by": "S117"
     },
     {
       "id": "mission-constraint-reswarm",
       "description": "F119 mission constraints: review safety/portability/learning/connectivity invariants and harden enforcement checks against drift.",
       "cadence_sessions": 12,
-      "last_reviewed_session": 161,
+      "last_reviewed_session": 173,
       "registered_by": "S151"
     }
   ]

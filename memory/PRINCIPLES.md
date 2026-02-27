@@ -1,5 +1,5 @@
 # Principles — Atomic Building Blocks
-Extracted from lessons. Scan for recombination. 148 live principles, 7 themes.
+Extracted from lessons. Scan for recombination. 149 live principles, 7 themes.
 Last compacted: S170 (P-163 rising-sawtooth; P-082 nuanced; P-175 enforcement-tiers added; S169: P-174 substrate-scope; S100: T3 −252t; S148: P-131→P-130)
 
 ## Architecture
@@ -10,7 +10,7 @@ Last compacted: S170 (P-163 rising-sawtooth; P-082 nuanced; P-175 enforcement-ti
 ## Protocols
 **Verification**: P-001 verify generated files | P-010 refine scope, don't binary accept/reject | P-022 never claim "proven" without majority observed | P-158 persuasion ≠ accuracy in LLM systems — stylistic confidence overrides evidential weight; defense: challenge mechanism requires evidence not majority vote; defense OBSERVED (16/16 evidence-based, structural), vulnerability external (L-158, L-185, F113, PARTIALLY OBSERVED) | P-160 falsification conditions must be locally testable — ratios/structural properties over external-system snapshots; founding cohort decays 40% vs 0% in later beliefs — audit founding beliefs first (L-160, L-035/L-036, OBSERVED)
 **Lifecycle**: P-003 baselines early | P-012 never delete, mark SUPERSEDED | P-013 review-after dates, not expiration | P-014 cite sources for verifiability
-**Operations**: P-004 define conflict resolution before conflicts | P-015 monitor open/resolved ratio | P-023 check epistemic + operational axes | P-028 check decay alongside integrity
+**Operations**: P-004 define conflict resolution before conflicts | P-015 monitor open/resolved ratio | P-023 check epistemic + operational axes | P-028 check decay alongside integrity | P-177 foreign-repo entry: detect substrate first (check Cargo.toml/go.mod/package.json/pyproject.toml/etc.) → read stack-specific entry files → orient to gaps → contribute; blind entry wastes orientation tokens and risks incompatible contributions (L-213, F120, OBSERVED)
 
 ## Strategy
 **Phasing**: P-007 phase budgeting follows maturity (startup meta-heavy → mature work-heavy) | P-021 meta-recursion exit trigger: switch to domain work when questions become meta-meta | P-031 migrate when trigger fires, not when argument sounds good

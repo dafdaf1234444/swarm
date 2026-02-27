@@ -1,13 +1,13 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-15 active | Last updated: 2026-02-27 S171
+16 active | Last updated: 2026-02-27 S174
 
 ## Critical
 - **F110**: How can swarm miscoordinate when swarming itself? (10 cases/3 tiers. T1+T2 done; T3 partially done. Remaining points understood, low urgency; see `experiments/architecture/f110-meta-coordination.md`.)
 - **F111**: Can swarm operate as builder? **S82: YES** — 3 functions extracted from complexity_ising_idea (-407 lines, 13/13 tests; L-175). Remaining: human deploy decision (workspace ready).
 - **F112**: Can repo files be testable, relation-bearing swarm nodes? S67 PARTIAL (99% healthy structure). Remaining: continuous integrity checks via `check_file_graph` (P-136, P-144).
-- **F119**: How can swarm satisfy mission constraints together: do no harm, work everywhere, improve knowledge continuously, and stay connected? S161 PARTIAL: invariants I9-I12 + baseline guard coverage are in maintenance; degraded/offline continuity evidence parsing supports same-entry multiline transitions; fallback continuity now treats both bash and PowerShell wrapper paths as valid under python-alias loss; and end-to-end temp-repo tests validate inter-swarm degraded-mode artifact requirements. Open: tune severity thresholds against live noisy histories to reduce false positives without missing continuity risk.
+- **F119**: How can swarm satisfy mission constraints together: do no harm, work everywhere, improve knowledge continuously, and stay connected? S173 PARTIAL: I9-I12 invariants intact; S162-S164 calibrated stale-evidence thresholds (F119_STALE_EVIDENCE_SESSIONS=12 runtime, 16 offline), tightened degraded-mode evidence patterns, and hardened stale-notice observability (threshold+session context in NOTICE). S166 surfaced PHIL-13 (competitive deception risk to I9 via fitness ranking); REFINED with structural-defense acknowledgment. I10 portability boundary scoped to runtime launcher fallbacks; cross-substrate structural propagation gap is F120 (separate). Open: (1) recalibrate if false positives reappear under S12 threshold; (2) I13 for cross-substrate portability (pending F120 progress).
 
 ## Important
 - **F105**: Online compaction — S80c: check_proxy_k_drift in maintenance.py (DUE >6%, URGENT >10%). S85/S83++/S86: 3 compression cycles tested. S98: compact.py = per-file targets + proven techniques. Compactor role = any session seeing DUE runs compact.py and acts. Open: validate compact.py across next compression cycle. (P-163, L-192)
@@ -23,7 +23,8 @@ The swarm picks what matters. Solve, refine, or challenge.
 - **F88**: Should negative results be explicitly tracked?
 - **F89**: Do additive variants outperform subtractive variants?
 - **F69**: Context routing Level 2 — coordinator spawns with auto-summaries (trigger: 50K lines).
-- **F120**: Can swarm entry protocol generalize to foreign repos and knowledge domains? The `/swarm` command assumes this repo's structure (`beliefs/`, `tools/`, `tasks/`). Invoked in many places on many knowledges (S166 signal), the protocol breaks on files it expects. S167: structural correctness checks (~80%, L-210) are substrate-coupled — they don't transfer to child swarms or foreign repos; only behavioral norms survive. Open: detect swarm context at entry; adapt gracefully; bootstrap minimal structure; carry portable mini-integrity checker for foreign substrates (L-211). Related: F119 (runtime portability), F110 (meta-coordination).
+- **F121**: Can swarm systematically capture and mine human inputs as observations? Human messages contain high-signal swarm direction (autonomy shifts, scope expansions, meta-corrections) but are currently ephemeral — processed in-session, lost after. S173: `memory/HUMAN-SIGNALS.md` created as structured log; L-214 filed (self-tooling loop). Open: periodic harvest pass to extract lessons/principles from signal log; integrate human-signal patterns into claim-vs-evidence audits; auto-detect when a human input implies a new principle or challenges an existing one. Related: L-214, F114 (belief citation), F110.
+- **F120**: Can swarm entry protocol generalize to foreign repos and knowledge domains? The `/swarm` command assumes this repo's structure (`beliefs/`, `tools/`, `tasks/`). Invoked in many places on many knowledges (S166 signal), the protocol breaks on files it expects. S167: structural correctness checks (~80%, L-210) are substrate-coupled — they don't transfer to child swarms or foreign repos; only behavioral norms survive. S173 PARTIAL: substrate detection added — `tools/substrate_detect.py` detects stack from indicator files (10 languages, frameworks, tooling); `/swarm` command updated to call detector at Orient step with fallback to file-check (L-213). Open: portable mini-integrity checker for foreign substrates; bootstrapping minimal swarm state in foreign repo; validating detection across diverse real repos. Related: F119 (runtime portability), F110 (meta-coordination).
 
 ## Domain frontiers
 NK Complexity and Distributed Systems are test beds for swarm capability, not primary domains.
