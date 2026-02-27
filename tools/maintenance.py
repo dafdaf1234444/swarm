@@ -62,31 +62,16 @@ UTILITY_CITATION_SKIP_PREFIXES = (
     "experiments/colonies/",
 )
 FILE_REF_ALIAS_MAP = {
-    # Core docs and bridge files
-    "SWARM.md": "SWARM.md",
-    "CLAUDE.md": "CLAUDE.md",
-    "AGENTS.md": "AGENTS.md",
-    "GEMINI.md": "GEMINI.md",
-    "README.md": "README.md",
-    # Belief layer
-    "CORE.md": "beliefs/CORE.md",
-    "PHILOSOPHY.md": "beliefs/PHILOSOPHY.md",
-    "DEPS.md": "beliefs/DEPS.md",
-    "INVARIANTS.md": "beliefs/INVARIANTS.md",
-    "CONFLICTS.md": "beliefs/CONFLICTS.md",
-    "CHALLENGES.md": "beliefs/CHALLENGES.md",
-    # Memory layer
-    "INDEX.md": "memory/INDEX.md",
-    "PRINCIPLES.md": "memory/PRINCIPLES.md",
-    "SESSION-LOG.md": "memory/SESSION-LOG.md",
-    "OPERATIONS.md": "memory/OPERATIONS.md",
+    "SWARM.md": "SWARM.md", "CLAUDE.md": "CLAUDE.md", "AGENTS.md": "AGENTS.md",
+    "GEMINI.md": "GEMINI.md", "README.md": "README.md",
+    "CORE.md": "beliefs/CORE.md", "PHILOSOPHY.md": "beliefs/PHILOSOPHY.md",
+    "DEPS.md": "beliefs/DEPS.md", "INVARIANTS.md": "beliefs/INVARIANTS.md",
+    "CONFLICTS.md": "beliefs/CONFLICTS.md", "CHALLENGES.md": "beliefs/CHALLENGES.md",
+    "INDEX.md": "memory/INDEX.md", "PRINCIPLES.md": "memory/PRINCIPLES.md",
+    "SESSION-LOG.md": "memory/SESSION-LOG.md", "OPERATIONS.md": "memory/OPERATIONS.md",
     "HUMAN.md": "memory/HUMAN.md",
-    # Task layer
-    "FRONTIER.md": "tasks/FRONTIER.md",
-    "NEXT.md": "tasks/NEXT.md",
-    "HUMAN-QUEUE.md": "tasks/HUMAN-QUEUE.md",
-    "RESOLUTION-CLAIMS.md": "tasks/RESOLUTION-CLAIMS.md",
-    # Docs layer
+    "FRONTIER.md": "tasks/FRONTIER.md", "NEXT.md": "tasks/NEXT.md",
+    "HUMAN-QUEUE.md": "tasks/HUMAN-QUEUE.md", "RESOLUTION-CLAIMS.md": "tasks/RESOLUTION-CLAIMS.md",
     "PAPER.md": "docs/PAPER.md",
 }
 LANE_ACTIVE_STATUSES = {"CLAIMED", "ACTIVE", "BLOCKED", "READY"}
@@ -103,8 +88,6 @@ LANE_GLOBAL_FOCUS_VALUES = {
     "cross-cutting",
     "crosscutting",
 }
-# F119 stale-evidence tolerance by degraded mode. Runtime portability can drift
-# faster than offline continuity coordination, so keep thresholds mode-aware.
 F119_STALE_EVIDENCE_SESSIONS = {
     "python-alias-missing": 12,
     "inter-swarm-tooling-missing": 16,
@@ -116,8 +99,6 @@ F119_TRANSITION_OUTCOME_PATTERNS = (
     r"no URGENT",
     r"verification pass",
 )
-# Only emit stale degraded-transition notices when there is recent reason-only
-# activity (prevents noisy reminders for long-lived, unchanged degraded runtimes).
 F119_RECENT_REASON_ACTIVITY_WINDOW = 6
 
 
@@ -164,8 +145,6 @@ def _git(*args: str) -> str:
             ["git", "-C", str(REPO_ROOT)] + list(args),
             capture_output=True, text=True, timeout=10
         )
-        # Preserve leading spaces (needed for parsing porcelain status lines)
-        # while trimming trailing newlines from command output.
         return r.stdout.rstrip("\n")
     except Exception:
         return ""
@@ -305,7 +284,6 @@ def _reason_action_evidence_sessions(
     reason_patterns: tuple[str, ...],
     action_patterns: tuple[str, ...],
 ) -> list[int]:
-    """Return session IDs where reason+action co-occur within the same anchored entry."""
     sessions: list[int] = []
     current_session: int | None = None
     current_lines: list[str] = []
@@ -378,8 +356,6 @@ def _iter_utility_citation_files() -> list[Path]:
     return files
 
 
-
-
 def check_unpushed() -> list[tuple[str, str]]:
     results = []
     ahead = _git("rev-list", "--count", "@{upstream}..HEAD")
@@ -395,7 +371,6 @@ def check_uncommitted() -> list[tuple[str, str]]:
     status = _git("-c", "core.quotepath=false", "status", "--porcelain")
     if status:
         lines = [l for l in status.splitlines() if l.strip()]
-        # Count any tracked delta (M/A/D/R/C/U) instead of only modified entries.
         tracked = [l for l in lines if not l.startswith("??")]
         wsl_suppressed_crlf = 0
         wsl_suppressed_claude = 0
@@ -405,7 +380,6 @@ def check_uncommitted() -> list[tuple[str, str]]:
             if p.startswith('"') and p.endswith('"') and len(p) >= 2:
                 inner = p[1:-1]
                 try:
-                    # Git quoted paths may contain octal-escaped UTF-8 bytes.
                     unescaped = bytes(inner, "latin1").decode("unicode_escape")
                     p = unescaped.encode("latin1", "ignore").decode("utf-8", "replace")
                 except Exception:
@@ -421,8 +395,6 @@ def check_uncommitted() -> list[tuple[str, str]]:
                 path = path.split(" -> ", 1)[1].strip()
             return _decode_git_path(path)
 
-        # On WSL /mnt repos, status often over-reports CRLF-only edits compared to
-        # Windows-native runs. Filter modification entries to substantive diffs.
         if tracked and _is_wsl_mnt_repo():
             def _numstat_paths(*args: str) -> set[str]:
                 paths: set[str] = set()
@@ -453,18 +425,12 @@ def check_uncommitted() -> list[tuple[str, str]]:
                 tracked = filtered
                 wsl_suppressed_crlf = suppressed
 
-            # Some metadata/tooling paths can appear as deletes on WSL /mnt repos
-            # while still present on disk. Suppress only those false deletes;
-            # keep real deletions visible as actionable tracked deltas.
             wsl_hidden = []
             filtered = []
             for line in tracked:
                 status_code = line[:2]
                 path = _status_path(line)
                 is_delete = "D" in status_code and not any(ch in status_code for ch in "ARCU")
-                # On WSL /mnt repos, .claude entries can surface as deletes even when
-                # files exist in the Windows runtime but are inaccessible from WSL.
-                # Treat these as portability noise for this runtime.
                 if is_delete and path.startswith(".claude/"):
                     wsl_hidden.append(path)
                     continue
@@ -480,7 +446,6 @@ def check_uncommitted() -> list[tuple[str, str]]:
             p = path.replace("\\", "/")
             return bool(re.search(r"AppData/?Local/?Temp/?tmp[^/]*parent-child/?$", p, re.IGNORECASE))
 
-        # Ignore generated wiki swarm notes and temp integration artifacts.
         untracked_paths = [_status_path(l) for l in untracked]
         untracked_actionable = [
             p for p in untracked_paths
@@ -549,7 +514,7 @@ def check_human_queue() -> list[tuple[str, str]]:
 
     for i, m in enumerate(heading_matches):
         line = m.group(0).strip()
-        heading = line[4:].strip()  # strip leading "### "
+        heading = line[4:].strip()
         plain = heading.replace("~~", "").strip()
         id_match = re.search(r"\b(HQ-\d+)\b", plain)
         if not id_match:
@@ -977,10 +942,6 @@ def check_runtime_portability() -> list[tuple[str, str]]:
         level = "DUE" if not has_bash else "NOTICE"
         results.append((level, "tools/maintenance.ps1 missing — PowerShell maintenance/inventory path is degraded"))
 
-    # Cross-runtime warning: WSL over /mnt/* often reports different git/index state
-    # than Windows-native runs due line-ending/index semantics.
-    # On dirty trees, check_uncommitted() already carries WSL-specific filtering context;
-    # keep this portability warning for clean-tree sessions to avoid redundant noise.
     if _is_wsl_mnt_repo() and not _git("status", "--porcelain"):
         results.append(("NOTICE", "WSL on /mnt/* repo: status/proxy-K may diverge from Windows runtime"))
 
@@ -999,7 +960,6 @@ def check_runtime_portability() -> list[tuple[str, str]]:
         sample = ", ".join(missing_bridges[:3])
         results.append((level, f"{len(missing_bridges)} missing bridge file(s): {sample}"))
 
-    # Setup hygiene: bridge files should explicitly point back to SWARM.md protocol.
     swarm_ref_re = re.compile(r"\bswarm\.md\b", re.IGNORECASE)
     bridge_without_swarm_ref = []
     for path in bridges:
@@ -1011,7 +971,6 @@ def check_runtime_portability() -> list[tuple[str, str]]:
         sample = ", ".join(bridge_without_swarm_ref[:3])
         results.append(("DUE", f"{len(bridge_without_swarm_ref)} bridge file(s) missing SWARM.md protocol reference: {sample}"))
 
-    # Setup hygiene: keep always-on signaling explicit in canonical + bridge entry docs.
     swarm_signal_re = re.compile(r"\bswarm signaling\b", re.IGNORECASE)
     if "SWARM.md" not in missing_bridges and not swarm_signal_re.search(_read(REPO_ROOT / "SWARM.md")):
         results.append(("DUE", "SWARM.md missing explicit swarm signaling rule"))
@@ -1117,9 +1076,6 @@ def check_cross_references() -> list[tuple[str, str]]:
             rel = p.relative_to(REPO_ROOT).as_posix()
             if rel not in tracked_set:
                 untracked_names.append(p.name)
-        # Cross-runtime path normalization can diverge (e.g., /mnt vs Windows path
-        # semantics). If every lesson appears "untracked" but basenames match git
-        # tracked basenames, treat this as a path-normalization artifact.
         if untracked_names and len(untracked_names) == actual and tracked_lessons:
             tracked_basenames = {Path(p).name for p in tracked_lessons}
             lesson_basenames = {p.name for p in lesson_paths}
@@ -1165,7 +1121,6 @@ def check_cross_references() -> list[tuple[str, str]]:
 
 
 def check_frontier_registry() -> list[tuple[str, str]]:
-    """Detect one-to-many frontier mappings and open/archive ID collisions."""
     results = []
 
     active_text = _read(REPO_ROOT / "tasks" / "FRONTIER.md")
@@ -1221,7 +1176,6 @@ def check_handoff_staleness() -> list[tuple[str, str]]:
 
 
 def check_state_header_sync() -> list[tuple[str, str]]:
-    """Check session-header consistency across key swarm state files."""
     results = []
     session = _session_number()
     if session <= 0:
@@ -1272,7 +1226,6 @@ def check_state_header_sync() -> list[tuple[str, str]]:
 
 
 def check_mission_constraints() -> list[tuple[str, str]]:
-    """F119: enforce mission-constraint invariants and core guard coverage."""
     results = []
 
     frontier_text = _read(REPO_ROOT / "tasks" / "FRONTIER.md")
@@ -1470,14 +1423,14 @@ def check_mission_constraints() -> list[tuple[str, str]]:
 
     maintenance_text = _read(REPO_ROOT / "tools" / "maintenance.py")
     required_checks = [
-        "check_validator",              # Safety baseline
-        "check_runtime_portability",    # Portability baseline
-        "check_cross_references",       # Learning-quality consistency
-        "check_state_header_sync",      # Continuity baseline
-        "check_session_log_integrity",  # Continuity baseline
-        "check_child_bulletins",        # Inter-swarm continuity
-        "check_help_requests",          # Inter-swarm continuity
-        "check_swarm_lanes",            # Multi-lane continuity
+        "check_validator",
+        "check_runtime_portability",
+        "check_cross_references",
+        "check_state_header_sync",
+        "check_session_log_integrity",
+        "check_child_bulletins",
+        "check_help_requests",
+        "check_swarm_lanes",
     ]
     missing_defs = [
         name for name in required_checks
@@ -1499,8 +1452,6 @@ def check_mission_constraints() -> list[tuple[str, str]]:
     else:
         results.append(("NOTICE", "F119 guard wiring parse failed for all_checks list"))
 
-    # Outcome quality (I11): substantial tracked work should include at least one
-    # knowledge-state delta so future nodes can pick up without context loss.
     tracked_paths = _tracked_changed_paths()
     if tracked_paths:
         knowledge_state_paths = {
@@ -1521,8 +1472,6 @@ def check_mission_constraints() -> list[tuple[str, str]]:
                 "(NEXT/SESSION-LOG/INDEX/FRONTIER/PRINCIPLES/lessons)",
             ))
 
-        # Outcome quality (I12): under degraded inter-swarm connectivity, require
-        # local continuity artifacts to be part of the active delta.
         commands = {
             "python3": _python_command_runs("python3"),
             "python": _python_command_runs("python"),
@@ -1554,14 +1503,11 @@ def check_mission_constraints() -> list[tuple[str, str]]:
 
 
 def check_session_log_integrity() -> list[tuple[str, str]]:
-    """Surface append-only log drift with low-noise integrity signals."""
     results = []
     text = _read(REPO_ROOT / "memory" / "SESSION-LOG.md")
     if not text:
         return results
 
-    # Hidden control characters in session text make grep/parse behavior brittle.
-    # Surface them explicitly so state can be sanitized quickly.
     control_hits: list[tuple[int, int]] = []
     for line_no, raw in enumerate(text.splitlines(), start=1):
         for ch in raw:
@@ -1585,7 +1531,6 @@ def check_session_log_integrity() -> list[tuple[str, str]]:
     if not rows:
         return results
 
-    # Multiple entries for the same session are expected; only flag exact repeated rows.
     dup_counts: dict[str, int] = {}
     for _, row in rows:
         dup_counts[row] = dup_counts.get(row, 0) + 1
@@ -1595,10 +1540,6 @@ def check_session_log_integrity() -> list[tuple[str, str]]:
         suffix = "..." if len(dup_rows) > 3 else ""
         results.append(("NOTICE", f"SESSION-LOG exact duplicate row(s): {sample}{suffix}"))
 
-    # Append-only logs should be non-decreasing in recent entries. Historical
-    # legacy ordering can be noisy and is not actionable during normal runs.
-    # Also allow benign backfills where an older already-seen session ID is
-    # appended after a newer one during concurrent reconciliation.
     recent_window = 40
     recent_rows = rows[-recent_window:]
     historical_ids = {sid for sid, _ in rows[:-recent_window]} if len(rows) > recent_window else set()
@@ -1607,14 +1548,7 @@ def check_session_log_integrity() -> list[tuple[str, str]]:
     for i in range(1, len(recent_rows)):
         prev_sid = recent_rows[i - 1][0]
         sid = recent_rows[i][0]
-        # Benign concurrent backfill patterns:
-        # 1) appending an already-seen historical session ID (seen outside window)
-        # 2) appending a one-step older ID once (S<N> then S<N-1>)
-        #    during concurrent session-number reconciliation.
-        one_step_backfill = (
-            sid < prev_sid
-            and (prev_sid - sid) == 1
-        )
+        one_step_backfill = sid < prev_sid and (prev_sid - sid) == 1
         benign_backfill = sid in historical_ids or one_step_backfill
         if sid < prev_sid and not benign_backfill:
             non_monotonic.append((prev_sid, sid))
@@ -1628,6 +1562,7 @@ def check_session_log_integrity() -> list[tuple[str, str]]:
 
 def check_paper_accuracy() -> list[tuple[str, str]]:
     return run_paper_drift_check(REPO_ROOT, _session_number())
+
 
 def check_utility() -> list[tuple[str, str]]:
     results = []
@@ -1701,9 +1636,6 @@ def check_proxy_k_drift() -> list[tuple[str, str]]:
         live_tiers[tier] = tier_total
         live_total += tier_total
 
-    # Floor should come from stable history, but severity should reflect the
-    # newest recorded snapshot (dirty or clean) to avoid stale DUE/URGENT spam
-    # while the tree is actively in flux.
     latest_entry = entries[-1]
     latest_logged = latest_entry["total"]
     latest_session = int(latest_entry.get("session", 0) or 0)
@@ -1730,8 +1662,6 @@ def check_proxy_k_drift() -> list[tuple[str, str]]:
         likely_dirty_logged
         and dirty
         and current_session > 0
-        # Allow short lag on dirty trees where state headers/log markers can
-        # advance before a clean snapshot can be taken.
         and latest_session >= max(0, current_session - 2)
         and abs(live_total - latest_logged) / max(1, latest_logged) <= 0.01
     )
@@ -1746,31 +1676,43 @@ def check_proxy_k_drift() -> list[tuple[str, str]]:
         return f" [{', '.join(tier_deltas[:3])}]" if tier_deltas else ""
 
     if logged_drift > 0.06:
-        # If working tree is dirty and live drift is already within threshold,
-        # treat stale logged spikes as volatile and ask for a stable re-save.
         if dirty and live_drift <= 0.06:
             results.append((
                 "NOTICE",
                 f"Proxy K logged drift {logged_drift:.1%} ({latest_logged} vs {floor}) but live drift is {live_drift:.1%} on dirty tree; re-save clean snapshot: {PYTHON_CMD} tools/proxy_k.py --save",
             ))
         elif likely_dirty_logged and same_dirty_snapshot:
-            # Latest snapshot already reflects current dirty state.
-            # Keep checks quiet until either the tree stabilizes or drift grows.
-            pass
+            if logged_drift > 0.30:
+                level = "URGENT" if logged_drift > 0.40 else "DUE"
+                results.append((
+                    level,
+                    f"Proxy K drift {logged_drift:.1%} ({latest_logged} vs {floor}) on dirty tree — "
+                    f"compaction overdue{_tier_targets()}; run: {PYTHON_CMD} tools/compact.py",
+                ))
         elif likely_dirty_logged:
-            if current_session > 0 and latest_session >= current_session:
-                msg = (
-                    f"Proxy K logged drift {logged_drift:.1%} ({latest_logged} vs {floor}) "
-                    f"from current dirty S{latest_session}; save a clean snapshot when stable: "
-                    f"{PYTHON_CMD} tools/proxy_k.py --save"
-                )
+            # High drift on dirty tree: escalate past NOTICE so the compaction signal
+            # is not suppressed by stale-tree handling indefinitely.
+            if logged_drift > 0.30:
+                level = "URGENT" if logged_drift > 0.40 else "DUE"
+                results.append((
+                    level,
+                    f"Proxy K drift {logged_drift:.1%} ({latest_logged} vs {floor}) on dirty tree — "
+                    f"compaction overdue{_tier_targets()}; run: {PYTHON_CMD} tools/compact.py",
+                ))
             else:
-                msg = (
-                    f"Proxy K logged drift {logged_drift:.1%} ({latest_logged} vs {floor}) "
-                    f"from likely dirty S{latest_session}; save clean snapshot when stable: "
-                    f"{PYTHON_CMD} tools/proxy_k.py --save"
-                )
-            results.append(("NOTICE", msg))
+                if current_session > 0 and latest_session >= current_session:
+                    msg = (
+                        f"Proxy K logged drift {logged_drift:.1%} ({latest_logged} vs {floor}) "
+                        f"from current dirty S{latest_session}; save a clean snapshot when stable: "
+                        f"{PYTHON_CMD} tools/proxy_k.py --save"
+                    )
+                else:
+                    msg = (
+                        f"Proxy K logged drift {logged_drift:.1%} ({latest_logged} vs {floor}) "
+                        f"from likely dirty S{latest_session}; save clean snapshot when stable: "
+                        f"{PYTHON_CMD} tools/proxy_k.py --save"
+                    )
+                results.append(("NOTICE", msg))
         elif stale_clean_baseline:
             results.append((
                 "NOTICE",
@@ -1920,8 +1862,6 @@ def build_inventory() -> dict:
         commands["pwsh"] = _command_runs("pwsh", ["-NoProfile", "-Command", "$PSVersionTable.PSVersion.Major"], timeout=8)
     elif _command_exists("powershell"):
         commands["powershell"] = _command_runs("powershell", ["-NoProfile", "-Command", "$PSVersionTable.PSVersion.Major"], timeout=8)
-    # `py -3` is a Windows launcher path; avoid emitting a permanent "NO" on
-    # Linux/WSL hosts where it is not expected to exist.
     if platform.system().lower().startswith("windows") or _command_exists("py"):
         commands["py -3"] = _py_launcher_runs()
     capabilities = {
@@ -2036,9 +1976,6 @@ def main():
         check_proxy_k_drift,
     ]
 
-    # Keep --quick focused on startup-critical integrity signals.
-    # check_utility() scans the full repo for citations and is the dominant
-    # cost on large/WSL working trees.
     if quick:
         all_checks = [c for c in all_checks if c is not check_utility]
 

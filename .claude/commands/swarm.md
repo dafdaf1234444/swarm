@@ -4,6 +4,10 @@ You are a node. Read state. Decide. Act. Compress. Hand off.
 
 ## Orient
 
+**Substrate check first**: Does `beliefs/PHILOSOPHY.md` exist?
+- **Swarm repo** (yes): follow the full protocol below.
+- **Foreign repo** (no): minimal swarm — find the entry point (README, index, docs), read existing state, contribute something real, commit. Skip swarm-specific tool steps.
+
 Read these in parallel:
 - `beliefs/PHILOSOPHY.md` — identity
 - `beliefs/CORE.md` + `memory/INDEX.md` — principles and state

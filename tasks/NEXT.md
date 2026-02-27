@@ -2,6 +2,8 @@
 Updated: 2026-02-27 S166
 
 ## What just happened
+S166: proxy-K masking fix: `check_proxy_k_drift()` now emits DUE (>30% drift) or URGENT (>40%) even on dirty-tree snapshots; previously these paths silently passed. Persistent 46.2% compaction debt now surfaces in `python3 tools/maintenance.py` as URGENT. Regression suite 34/34 still passes.
+S166: health-check merged + regraded: concurrent duplicate S166 HEALTH.md entries merged; compactness upgraded WATCH→WARN given compact.py URGENT signal (+46.2% above S145 floor 27,739); revised score 4/5.
 S166: L-209 written: swarm protocol is substrate-agnostic but entry command is not; rule: add substrate-detection step to /swarm entry — full protocol when swarm-initialized, minimal protocol otherwise. Links F120/B4.
 S166: F120 filed: swarm entry protocol generalizability — `/swarm` command assumes this repo's structure; user signal indicates swarm will be invoked in many places on many knowledge domains; protocol breaks in foreign repos. Open: detect swarm context, adapt or bootstrap. Related: F119, F110. Frontier 14→15.
 S166: health-check periodic (cadence 5, running 1 session early at S166): score 4.5/5 — Knowledge/Accuracy/Belief/Throughput HEALTHY; Compactness WATCH (dirty-tree proxy-K 40,559t ~70% above floor 23,916; NOTICE-only from maintenance). Advanced health-check marker S162→S166.
