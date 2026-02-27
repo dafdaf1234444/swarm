@@ -218,3 +218,5 @@ S169	| 2026-02-27 | +0L +0P | maintenance.py _truncated() refactor: extended hel
 S169	| 2026-02-27 | +0L +1P | P-174 added: substrate-scope contamination — runtime facts (hooks, launchers, permissions) are host-specific; portable-by-default encodes false constraints (L-212); maintenance.py bridge check reads content once per file + adds no_signal tracking
 S169	| 2026-02-27 | +0L +0P | README.md docs pass: added Cross-Agent Coordination, Cross-Swarm Communication, Multi-Tool Support sections; updated file structure listing; INDEX 149P→150P, S168→S169
 S166	| 2026-02-27 | +0L +0P | scale-sync + commit fix: corrected PRINCIPLES.md 149→150, FRONTIER.md S168→S169, PAPER.md S167→S169 with 212L/150P counts; cleared PAPER scale drift DUE; validator PASS 100/100, entropy 0
+S169	| 2026-02-27 | +0L +0P | proxy-K clean snapshot: 37,812t (36.4% above floor 27,739) — DUE not URGENT; dirty-tree was inflating to 46.2%; maintenance.py tuple format cleanup
+S170	| 2026-02-27 | +0L +0P | PRINCIPLES.md partial compaction: P-163 rising-sawtooth nuance, P-082 nuanced with deception cascade caveat (P-155), P-174 enforcement-tiers noted; last-compacted header updated S100→S170

@@ -76,29 +76,10 @@ FILE_REF_ALIAS_MAP = {
 }
 LANE_ACTIVE_STATUSES = {"CLAIMED", "ACTIVE", "BLOCKED", "READY"}
 LANE_PLACEHOLDERS = {"", "-", "n/a", "na", "none", "pending", "tbd", "unknown"}
-IGNORED_UNTRACKED_RUNTIME_FILES = {
-    "tools/check.ps1",
-    "tools/maintenance.ps1",
-}
-LANE_GLOBAL_FOCUS_VALUES = {
-    "global",
-    "system",
-    "all",
-    "coordination",
-    "cross-cutting",
-    "crosscutting",
-}
-F119_STALE_EVIDENCE_SESSIONS = {
-    "python-alias-missing": 12,
-    "inter-swarm-tooling-missing": 16,
-}
-F119_TRANSITION_OUTCOME_PATTERNS = (
-    r"Beliefs:? PASS",
-    r"NOTICE-only",
-    r"no DUE",
-    r"no URGENT",
-    r"verification pass",
-)
+IGNORED_UNTRACKED_RUNTIME_FILES = {"tools/check.ps1", "tools/maintenance.ps1"}
+LANE_GLOBAL_FOCUS_VALUES = {"global", "system", "all", "coordination", "cross-cutting", "crosscutting"}
+F119_STALE_EVIDENCE_SESSIONS = {"python-alias-missing": 12, "inter-swarm-tooling-missing": 16}
+F119_TRANSITION_OUTCOME_PATTERNS = (r"Beliefs:? PASS", r"NOTICE-only", r"no DUE", r"no URGENT", r"verification pass")
 F119_RECENT_REASON_ACTIVITY_WINDOW = 6
 
 
@@ -157,33 +138,34 @@ def _git(*args: str) -> str:
         return ""
 
 
+def _decode_git_path(path: str) -> str:
+    p = path.strip()
+    if p.startswith('"') and p.endswith('"') and len(p) >= 2:
+        inner = p[1:-1]
+        try:
+            unescaped = bytes(inner, "latin1").decode("unicode_escape")
+            p = unescaped.encode("latin1", "ignore").decode("utf-8", "replace")
+        except Exception:
+            p = inner
+    p = p.replace("\\", "/").replace("\uf03a", ":")
+    if re.match(r"^[A-Za-z]:[^/]", p):
+        p = p[:2] + "/" + p[2:]
+    return p
+
+
+def _status_path(line: str) -> str:
+    path = line[3:].strip() if len(line) >= 3 else line.strip()
+    if " -> " in path:
+        path = path.split(" -> ", 1)[1].strip()
+    return _decode_git_path(path)
+
+
 def _tracked_changed_paths() -> list[str]:
     status = _git("-c", "core.quotepath=false", "status", "--porcelain")
     if not status:
         return []
-    paths: list[str] = []
-    for raw in status.splitlines():
-        line = raw.rstrip()
-        if not line:
-            continue
-        if line[:2] == "??":
-            continue
-        path = line[3:] if len(line) >= 3 else line
-        if " -> " in path:
-            path = path.split(" -> ", 1)[1].strip()
-        if path.startswith('"') and path.endswith('"') and len(path) >= 2:
-            inner = path[1:-1]
-            try:
-                unescaped = bytes(inner, "latin1").decode("unicode_escape")
-                path = unescaped.encode("latin1", "ignore").decode("utf-8", "replace")
-            except Exception:
-                path = inner
-        path = path.strip().replace("\\", "/").replace("\uf03a", ":")
-        if re.match(r"^[A-Za-z]:[^/]", path):
-            path = path[:2] + "/" + path[2:]
-        if path:
-            paths.append(path)
-    return paths
+    return [_status_path(line) for line in status.splitlines()
+            if line.rstrip() and line[:2] != "??"]
 
 
 def _line_count(path: Path) -> int:
@@ -317,46 +299,35 @@ def _reason_action_evidence_sessions(
     flush_entry()
 
     for session, entry_text in entries:
-        has_reason = any(re.search(pattern, entry_text, re.IGNORECASE) for pattern in reason_patterns)
-        if not has_reason:
-            continue
-        has_action = any(re.search(pattern, entry_text, re.IGNORECASE) for pattern in action_patterns)
-        if has_action:
+        if (any(re.search(p, entry_text, re.IGNORECASE) for p in reason_patterns)
+                and any(re.search(p, entry_text, re.IGNORECASE) for p in action_patterns)):
             sessions.append(session)
     return sessions
 
 
 def _iter_utility_citation_files() -> list[Path]:
+    def _accept(rel: str, path: Path) -> bool:
+        if any(rel.startswith(prefix) for prefix in UTILITY_CITATION_SKIP_PREFIXES):
+            return False
+        try:
+            return path.exists() and path.is_file() and path.stat().st_size <= UTILITY_CITATION_MAX_BYTES
+        except Exception:
+            return False
+
     tracked = _git("ls-files", "*.md", "*.py", "*.json")
     if tracked:
         files: list[Path] = []
         for rel in tracked.splitlines():
             rel = rel.strip().replace("\\", "/")
-            if not rel or any(rel.startswith(prefix) for prefix in UTILITY_CITATION_SKIP_PREFIXES):
-                continue
-            path = REPO_ROOT / rel
-            if not path.exists() or not path.is_file():
-                continue
-            try:
-                if path.stat().st_size > UTILITY_CITATION_MAX_BYTES:
-                    continue
-            except Exception:
-                continue
-            files.append(path)
+            if rel and _accept(rel, REPO_ROOT / rel):
+                files.append(REPO_ROOT / rel)
         return files
 
     files: list[Path] = []
     for ext in ("*.md", "*.py", "*.json"):
         for path in REPO_ROOT.rglob(ext):
-            rel = path.relative_to(REPO_ROOT).as_posix()
-            if any(rel.startswith(prefix) for prefix in UTILITY_CITATION_SKIP_PREFIXES):
-                continue
-            try:
-                if path.stat().st_size > UTILITY_CITATION_MAX_BYTES:
-                    continue
-            except Exception:
-                continue
-            files.append(path)
+            if _accept(path.relative_to(REPO_ROOT).as_posix(), path):
+                files.append(path)
     return files
 
 
@@ -378,26 +349,6 @@ def check_uncommitted() -> list[tuple[str, str]]:
         tracked = [l for l in lines if not l.startswith("??")]
         wsl_suppressed_crlf = 0
         wsl_suppressed_claude = 0
-
-        def _decode_git_path(path: str) -> str:
-            p = path.strip()
-            if p.startswith('"') and p.endswith('"') and len(p) >= 2:
-                inner = p[1:-1]
-                try:
-                    unescaped = bytes(inner, "latin1").decode("unicode_escape")
-                    p = unescaped.encode("latin1", "ignore").decode("utf-8", "replace")
-                except Exception:
-                    p = inner
-            p = p.replace("\\", "/").replace("\uf03a", ":")
-            if re.match(r"^[A-Za-z]:[^/]", p):
-                p = p[:2] + "/" + p[2:]
-            return p
-
-        def _status_path(line: str) -> str:
-            path = line[3:].strip() if len(line) >= 3 else line.strip()
-            if " -> " in path:
-                path = path.split(" -> ", 1)[1].strip()
-            return _decode_git_path(path)
 
         if tracked and _is_wsl_mnt_repo():
             def _numstat_paths(*args: str) -> set[str]:
@@ -1494,10 +1445,8 @@ def check_proxy_k_drift() -> list[tuple[str, str]]:
     baseline = clean_schema_entries if len(clean_schema_entries) >= 2 else schema_entries
     if len(baseline) < 2:
         n = len(schema_entries)
-        results.append((
-            "NOTICE",
-            f"Proxy K schema baseline unavailable ({n} matching snapshot{'s' if n != 1 else ''}); run clean snapshots: {PYTHON_CMD} tools/proxy_k.py --save",
-        ))
+        results.append(("NOTICE",
+            f"Proxy K schema baseline unavailable ({n} matching snapshot{'s' if n != 1 else ''}); run clean snapshots: {PYTHON_CMD} tools/proxy_k.py --save"))
         return results
 
     floor_idx = 0
@@ -1558,46 +1507,29 @@ def check_proxy_k_drift() -> list[tuple[str, str]]:
 
     if logged_drift > 0.06:
         if dirty and live_drift <= 0.06:
-            results.append((
-                "NOTICE",
-                f"Proxy K logged drift {logged_drift:.1%} ({latest_logged} vs {floor}) but live drift is {live_drift:.1%} on dirty tree; re-save clean snapshot: {PYTHON_CMD} tools/proxy_k.py --save",
-            ))
+            results.append(("NOTICE",
+                f"Proxy K logged drift {logged_drift:.1%} ({latest_logged} vs {floor}) but live drift is {live_drift:.1%} on dirty tree; re-save clean snapshot: {PYTHON_CMD} tools/proxy_k.py --save"))
         elif likely_dirty_logged:
             if logged_drift > 0.30:
                 level = "URGENT" if logged_drift > 0.40 else "DUE"
-                results.append((
-                    level,
-                    f"Proxy K drift {logged_drift:.1%} ({latest_logged} vs {floor}) on dirty tree — "
-                    f"compaction overdue{_tier_targets()}; run: {PYTHON_CMD} tools/compact.py",
-                ))
+                results.append((level,
+                    f"Proxy K drift {logged_drift:.1%} ({latest_logged} vs {floor}) on dirty tree — compaction overdue{_tier_targets()}; run: {PYTHON_CMD} tools/compact.py"))
             elif not same_dirty_snapshot:
                 qualifier = "current dirty" if (current_session > 0 and latest_session >= current_session) else f"likely dirty S{latest_session}"
                 results.append(("NOTICE",
-                    f"Proxy K logged drift {logged_drift:.1%} ({latest_logged} vs {floor}) "
-                    f"from {qualifier}; save clean snapshot when stable: {PYTHON_CMD} tools/proxy_k.py --save",
-                ))
+                    f"Proxy K logged drift {logged_drift:.1%} ({latest_logged} vs {floor}) from {qualifier}; save clean snapshot when stable: {PYTHON_CMD} tools/proxy_k.py --save"))
         elif stale_clean_baseline:
-            results.append((
-                "NOTICE",
-                f"Proxy K baseline S{floor_session} is stale on dirty tree (current S{current_session}); re-save clean snapshot: {PYTHON_CMD} tools/proxy_k.py --save",
-            ))
+            results.append(("NOTICE",
+                f"Proxy K baseline S{floor_session} is stale on dirty tree (current S{current_session}); re-save clean snapshot: {PYTHON_CMD} tools/proxy_k.py --save"))
         else:
             level = "URGENT" if logged_drift > 0.10 else "DUE"
-            results.append((
-                level,
-                f"Proxy K drift {logged_drift:.1%} ({latest_logged} vs {floor}); run: {PYTHON_CMD} tools/compact.py",
-            ))
+            results.append((level, f"Proxy K drift {logged_drift:.1%} ({latest_logged} vs {floor}); run: {PYTHON_CMD} tools/compact.py"))
     elif live_drift > 0.06 and dirty:
-        results.append((
-            "NOTICE",
-            f"Proxy K live drift {live_drift:.1%} ({live_total} vs {floor}) on dirty tree{_tier_targets()}; save when stable: {PYTHON_CMD} tools/proxy_k.py --save",
-        ))
+        results.append(("NOTICE",
+            f"Proxy K live drift {live_drift:.1%} ({live_total} vs {floor}) on dirty tree{_tier_targets()}; save when stable: {PYTHON_CMD} tools/proxy_k.py --save"))
     elif live_drift > 0.06:
         level = "URGENT" if live_drift > 0.10 else "DUE"
-        results.append((
-            level,
-            f"Proxy K drift {live_drift:.1%} ({live_total} vs {floor}){_tier_targets()}; run: {PYTHON_CMD} tools/compact.py",
-        ))
+        results.append((level, f"Proxy K drift {live_drift:.1%} ({live_total} vs {floor}){_tier_targets()}; run: {PYTHON_CMD} tools/compact.py"))
 
     return results
 
