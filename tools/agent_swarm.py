@@ -28,7 +28,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 CHILDREN_DIR = REPO_ROOT / "experiments" / "children"
 
 
-def create_agent_swarm(child_name: str, task_description: str):
+def create_agent_swarm(child_name: str, task_description: str, personality: str = None):
     """Create a child swarm with a specific task for a sub-agent."""
     import subprocess
 
@@ -45,14 +45,20 @@ def create_agent_swarm(child_name: str, task_description: str):
             print(f"Genesis failed: {r.stderr}")
             sys.exit(1)
 
+        # Apply personality overlay if specified
+        if personality:
+            _apply_personality(child_dir, child_name, personality)
+
         # Init git
         subprocess.run(["git", "init"], cwd=str(child_dir), capture_output=True)
         subprocess.run(["git", "add", "-A"], cwd=str(child_dir), capture_output=True)
         subprocess.run(
-            ["git", "commit", "-m", "[S] init: genesis"],
+            ["git", "commit", "-m", f"[S] init: genesis{f' ({personality})' if personality else ''}"],
             cwd=str(child_dir), capture_output=True
         )
         print(f"Child swarm '{child_name}' created at {child_dir}")
+        if personality:
+            print(f"  Personality: {personality} (personality.md written)")
     else:
         print(f"Child swarm '{child_name}' already exists at {child_dir}")
 
@@ -81,6 +87,41 @@ def create_agent_swarm(child_name: str, task_description: str):
 
     print(f"Task file written: {task_file}")
     print(f"\nTo run: python3 tools/agent_swarm.py prompt {child_name}")
+
+
+def _apply_personality(child_dir: Path, child_name: str, personality: str):
+    """Write personality.md overlay and update .swarm_meta.json."""
+    personalities_dir = REPO_ROOT / "tools" / "personalities"
+    template_path = personalities_dir / f"{personality}.md"
+    if not template_path.exists():
+        available = [p.stem for p in personalities_dir.glob("*.md")]
+        print(f"Personality '{personality}' not found. Available: {available}")
+        sys.exit(1)
+
+    # Write personality.md with colony name substituted
+    content = template_path.read_text().replace("{{COLONY_NAME}}", child_name)
+    (child_dir / "personality.md").write_text(content)
+
+    # Add personality to .swarm_meta.json
+    meta_path = child_dir / ".swarm_meta.json"
+    if meta_path.exists():
+        meta = json.loads(meta_path.read_text())
+    else:
+        meta = {}
+    meta["personality"] = personality
+    meta_path.write_text(json.dumps(meta, indent=2))
+
+    # Add one line to child's CLAUDE.md session start
+    claude_path = child_dir / "CLAUDE.md"
+    if claude_path.exists():
+        content = claude_path.read_text()
+        old_line = "1. Read `beliefs/CORE.md` — purpose and principles"
+        new_lines = (
+            "0. Read `personality.md` — your persistent character for this colony\n"
+            "1. Read `beliefs/CORE.md` — purpose and principles"
+        )
+        content = content.replace(old_line, new_lines)
+        claude_path.write_text(content)
 
 
 def generate_prompt(child_name: str) -> str:
@@ -132,9 +173,15 @@ def main():
 
     if cmd == "create":
         if len(sys.argv) < 4:
-            print("Usage: agent_swarm.py create <child-name> <task-description>")
+            print("Usage: agent_swarm.py create <child-name> <task-description> [--personality <name>]")
             sys.exit(1)
-        create_agent_swarm(sys.argv[2], " ".join(sys.argv[3:]))
+        args = sys.argv[3:]
+        personality = None
+        if "--personality" in args:
+            idx = args.index("--personality")
+            personality = args[idx + 1]
+            args = args[:idx] + args[idx + 2:]
+        create_agent_swarm(sys.argv[2], " ".join(args), personality=personality)
 
     elif cmd == "prompt":
         prompt = generate_prompt(sys.argv[2])

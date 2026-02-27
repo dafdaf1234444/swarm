@@ -7,9 +7,7 @@ Updated: 2026-02-27 | Active: 3
 - **F75**: Does decompose-by-data outperform decompose-by-method for ALL task types? (L-051)
   Current evidence: confirmed for data-parallel analysis tasks. Untested: sequential reasoning, refactoring.
 
-- **F90**: Does multi-scale NK (file + class + function) reveal qualitatively different insights than single-scale?
-  Preliminary evidence: logging's clean inter-module DAG hides 8 subsystems; argparse raw K/N misleading without coupling-type adjustment.
-  Next: apply 3-scale analysis to one package, compare single-scale vs multi-scale diagnostic value.
+- **F90**: Does multi-scale NK reveal qualitatively different insights than single-scale? (PARTIAL — S53 confirms YES for file→class. logging: K/N=1.0 at file hides 8 subsystems at class level. argparse: K/N=0.06 file vs 1.65 class — 27× gap. P-083 confirmed. Remaining: is function-level analysis additive or redundant? Test: run class+function on one package, check if function adds signal beyond class.)
 
 - **F9-NK**: What additional knowledge domains should follow complexity theory?
   PARTIAL — complexity + distributed systems active. NK domain has 26 lessons, working tool (nk_analyze.py), cross-language support.

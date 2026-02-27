@@ -66,14 +66,14 @@ def get_next_frontier_id() -> int:
     return max(ids) + 1 if ids else 1
 
 
-def init_child(child_name: str, task_description: str):
+def init_child(child_name: str, task_description: str, personality: str = None):
     """Spawn child swarm with task, output sub-agent prompt."""
     # Use agent_swarm.py to create
     agent_swarm = REPO_ROOT / "tools" / "agent_swarm.py"
-    r = subprocess.run(
-        ["python3", str(agent_swarm), "create", child_name, task_description],
-        capture_output=True, text=True
-    )
+    cmd = ["python3", str(agent_swarm), "create", child_name, task_description]
+    if personality:
+        cmd += ["--personality", personality]
+    r = subprocess.run(cmd, capture_output=True, text=True)
     if r.returncode != 0:
         print(f"Failed to create child: {r.stderr}")
         sys.exit(1)
@@ -457,9 +457,34 @@ def main():
 
     if cmd == "init":
         if len(sys.argv) < 4:
-            print("Usage: evolve.py init <child-name> <task-description>")
+            print("Usage: evolve.py init <child-name> <task-description> [--personality <name>]")
             sys.exit(1)
-        init_child(sys.argv[2], " ".join(sys.argv[3:]))
+        args = sys.argv[3:]
+        personality = None
+        if "--personality" in args:
+            idx = args.index("--personality")
+            personality = args[idx + 1]
+            args = args[:idx] + args[idx + 2:]
+        init_child(sys.argv[2], " ".join(args), personality=personality)
+
+    elif cmd == "fanout":
+        # evolve.py fanout <frontier-id> <task-desc> --personalities p1,p2,p3
+        if len(sys.argv) < 4:
+            print("Usage: evolve.py fanout <frontier-id> <task-description> [--personalities p1,p2,p3]")
+            sys.exit(1)
+        frontier_id = sys.argv[2]
+        args = sys.argv[3:]
+        personalities = ["skeptic", "builder", "explorer", "adversary"]
+        if "--personalities" in args:
+            idx = args.index("--personalities")
+            personalities = args[idx + 1].split(",")
+            args = args[:idx] + args[idx + 2:]
+        task_desc = " ".join(args)
+        print(f"Fanning out {len(personalities)} personalities on {frontier_id}: {personalities}")
+        for p in personalities:
+            child_name = f"{frontier_id}-{p}"
+            print(f"\n--- Spawning {child_name} ---")
+            init_child(child_name, task_desc, personality=p)
 
     elif cmd == "harvest":
         if len(sys.argv) < 3:

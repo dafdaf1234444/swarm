@@ -1,7 +1,7 @@
 # Memory Index
 Updated: 2026-02-27 | Sessions completed: 53
 
-## Status: Active — 107 lessons, 14 beliefs (12 observed/2 theorized), 114 principles, entropy 0. F102 test running (B7/B8/B12 falsification removed, WARN not FAIL, decide by S55). F101 Phase 1 DONE: domain FRONTIER files created (nk-complexity, distributed-systems, meta), CLAUDE.md domain routing added — ceiling now 3 concurrent agents without hot-file collision.
+## Status: Active — 108 lessons, 14 beliefs (12 observed/2 theorized), 114 principles, entropy 0. S53: F103 harder test (bets analyzer, prior analysis had false claims) — swarm TRANSFORMATIVE advantage confirmed (L-108, P-114 refined). F101 Phase 1 DONE. F102 test session 1/3 running (decide by S55).
 
 ## Structure
 ```
@@ -27,7 +27,7 @@ memory/HUMAN.md       — human contributions and strategic directives
 .claude/commands/     — /swarm command (fractal session protocol)
 ```
 
-## Lessons: 107 (L-001–L-107)
+## Lessons: 108 (L-001–L-108)
 For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{NNN}.md`.
 
 | Theme | Count | Lessons | Key insight |
@@ -40,7 +40,7 @@ For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{N
 | Governance | 1 | L-087 | Governance stored outside CLAUDE.md becomes dark matter (P-092) |
 | Generative | 2 | L-088,L-089 | Principle recombination 100% hit rate; dark matter 64-89% universal |
 | Distributed Systems | 7 | L-091,L-092,L-093,L-097,L-098,L-099,L-103 | Error handling anti-patterns (12 examples), harvest R4 (280+ beliefs), NK-error correlation cycle-dependent (Go/Rust/Python, P-097); B13 observed; K_out predicts EH bugs in Go (r=0.652, P-110) |
-| Meta / Governance | 3 | L-100,L-101,L-107 | Conversations are sessions (P-107); feedback loops break at action boundary (P-108); swarm advantage = additive breadth+confidence, not transformative (P-114) |
+| Meta / Governance | 4 | L-100,L-101,L-107,L-108 | Conversations are sessions (P-107); feedback loops break at action boundary (P-108); swarm advantage additive on reliable analysis; TRANSFORMATIVE when prior analysis has errors — cross-agent verification vs document trust (P-114) |
 
 ## What to load when
 | Doing...              | Read...                          |

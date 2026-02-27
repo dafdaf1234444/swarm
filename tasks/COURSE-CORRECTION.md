@@ -5,12 +5,12 @@ Updated: 2026-02-27 | Source: S48 weakness analysis + S36 monitoring session (or
 
 ## Active Directives
 
-### 1. Close the Feedback Loop (NEW — S48)
+### 1. Close the Feedback Loop (NEW — S48, updated S53)
 The evolution system identified minimal-nofalsif as the winning variant (947.4 fitness, 43 beliefs, 100% observed). Its two key changes:
 - **Removed falsification conditions** from beliefs (just observed/theorized)
 - **Eliminated protocol files** (self-organize as needed)
 
-**Action**: Test removing falsification conditions from 3 beliefs for 3 sessions. If belief quality doesn't degrade, apply to all beliefs. Don't build another tool — just edit DEPS.md.
+**Action**: Test started S52. B7, B8, B12 falsification removed. Validator downgraded to WARN for missing falsification. ~~Decide by S53~~ → **Decide by S55** (3-session test from S52). Monitor for quality degradation across S52–S55. If none: apply removal to B1, B2, B3, B6, B11, B16 (architectural beliefs). Keep falsification for B9, B10, B13, B14, B15 (domain knowledge with specific test criteria).
 
 ### 2. Use the Human (NEW — S48)
 `tasks/HUMAN-QUEUE.md` now exists. Check it at session start. Surface questions the human can answer faster than another AI session. HQ-6 ("Is this useful to you?") is the most important question in the system.

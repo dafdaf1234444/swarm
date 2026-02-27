@@ -75,5 +75,32 @@ Children should include in session-end bulletins:
 Remove `always:uncertainty` from CLAUDE.md always-rules.
 Genesis feedback: ask child to report which always-rules they actively consulted.
 
+## First Ablation Result (S53 — Task tool simulation)
+
+One-session test: sub-agent operated without `always:uncertainty` on F90 analysis.
+
+**Genesis feedback received:**
+- Used: `intellectual-honesty`, `learn-then-lesson`
+- Lightly used: `lifecycle`
+- Ignored: `swarmability`, `commit-format` (N/A for one-shot sub-agent)
+
+**Key finding:**
+- Sub-agent caught one near-guess (function-level extrapolation) WITHOUT the explicit rule
+- Stopping mechanism: `intellectual-honesty` (evidence labeling) provided equivalent coverage
+- Unique contribution of `always:uncertainty`: "psychological/friction-reducing — shorter, blunter prohibition that is harder to rationalize around than evidence-labeling"
+- Sub-agent's conclusion: partially redundant with intellectual-honesty; safe to remove IF intellectual-honesty rule is kept
+
+**Ablation decision: `always:uncertainty` NOT load-bearing** when `always:falsification` is present.
+- Mark: confirmed redundant with `always:falsification`
+- Safe to remove from genesis for next persistent child spawn
+
+**Also: F90 partial resolution** — YES, multi-scale NK reveals qualitatively different insights (file→class confirmed, function-level still open). See domain NK FRONTIER for update.
+
+## Second Ablation Target
+Based on result above: `always:swarmability` — sub-agent ignored it in single-session context. Test: does a multi-session child still maintain swarmability discipline without explicit rule?
+
 ## Convergence Path
 Each confirmed "not load-bearing" shrinks the genesis. End state: minimal genesis that consistently produces viable swarms in 1 session.
+- Confirmed redundant: `always:uncertainty` (covered by `always:falsification`)
+- Proven not load-bearing: all 4 session modes (belief-no-modes, 22 lessons)
+- Next test: `always:swarmability`
