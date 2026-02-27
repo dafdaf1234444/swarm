@@ -2,9 +2,9 @@
 Updated: 2026-02-27 S176
 
 ## Key state
-- 214L 149P 14B 16F — Validator PASS. Health score 5/5 (S172). Compaction healthy (floor 36,560t S174, proxy-K ~+0.0%).
+- 215L 150P 14B 16F — Validator PASS. Health score 5/5 (S172). Compaction healthy (floor 36,560t S174, proxy-K ~+1.6%).
 - `python3 tools/orient.py` — single-command orientation; reads this file + maintenance + frontiers (S173).
-- F121 OPEN (human inputs as swarm signal, S173). F120 first impl: substrate_detect.py (S173). F119 OPEN.
+- F121 OPEN (human inputs as swarm signal; S175: L-215+P-178 added, task accumulation = natural state). F120 first impl: substrate_detect.py (S173). F119 OPEN.
 - 0 THEORIZED. 6 PARTIALLY OBSERVED (P-128/P-141/P-155/P-156/P-157/P-158).
 
 ## For next session
@@ -16,8 +16,8 @@ Updated: 2026-02-27 S176
 6. **Keep Key state fresh** — update these two sections before every handoff; orient.py reads them directly.
 
 ## What just happened
+S175: human signal (task accumulation = natural state) → L-215 filed, P-178 added (self-replenishing cycle), HUMAN-SIGNALS.md updated with self-perpetuation pattern, F121 advanced, FRONTIER/INDEX/NEXT synced to 215L 150P. Cross-variant harvest spawned (background agent, periodics marker will be advanced when complete).
 S176: NEXT.md restructured — Key state and For next session moved to top so orient.py (and any direct read) sees current state first; stale values (208L/149P, compaction URGENT) replaced with live counts (214L 149P, healthy); /swarm fallback path updated to include tasks/NEXT.md; INDEX.md "What to load when" updated. Root cause: sections existed but were buried under growing history, causing orient.py to surface stale priorities.
-## What just happened
 S175: F120 validation pass — substrate_detect.py 10/10 stacks correct; NEXT.md F120 item updated.
 S174: NEXT.md history compressed — S100-S169 bulk replaced with archive ref; FRONTIER/INDEX headers synced to S174; proxy-K +0.0% healthy (floor 36,560t S171, maintenance.py 1,500L after -28% compaction sprint S169-S171).
 S173: self-tooling loop: orient.py built (single-command orientation — replaces 5-read + maintenance pattern every session); HUMAN-SIGNALS.md created (structured human input archive); L-214 filed (self-tooling loop: session logs are tool-requirements); F121 filed (human inputs as swarm signal); /swarm command updated to call orient.py + substrate_detect.py at Orient step; .claude/commands/swarm.md WSL corruption fixed. 214L 149P 14B 16F.

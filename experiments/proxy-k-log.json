@@ -1048,5 +1048,35 @@
     },
     "total": 36560,
     "genesis": 6193
+  },
+  {
+    "date": "2026-02-27",
+    "session": 174,
+    "dirty_tree": true,
+    "tier_schema": "20821b5ab8311621b49909adb92f470a769a6ddec83b8f200ffc2b09dc8db8a0",
+    "tiers": {
+      "T0-mandatory": 3198,
+      "T1-identity": 4187,
+      "T2-protocols": 3500,
+      "T3-knowledge": 5227,
+      "T4-tools": 21042
+    },
+    "total": 37154,
+    "genesis": 6504
+  },
+  {
+    "date": "2026-02-27",
+    "session": 175,
+    "dirty_tree": true,
+    "tier_schema": "20821b5ab8311621b49909adb92f470a769a6ddec83b8f200ffc2b09dc8db8a0",
+    "tiers": {
+      "T0-mandatory": 3208,
+      "T1-identity": 4187,
+      "T2-protocols": 3500,
+      "T3-knowledge": 5323,
+      "T4-tools": 21042
+    },
+    "total": 37260,
+    "genesis": 6553
   }
 ]
