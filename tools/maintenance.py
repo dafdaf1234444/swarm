@@ -25,7 +25,6 @@ def _load_symbol(module_names: tuple[str, ...], symbol: str):
             continue
     return None
 
-
 _paper_drift = _load_symbol(("tools.paper_drift", "paper_drift"), "check_paper_accuracy")
 if _paper_drift is None:
     def run_paper_drift_check(repo_root: Path, session: int) -> list[tuple[str, str]]:
@@ -34,7 +33,6 @@ if _paper_drift is None:
         ]
 else:
     run_paper_drift_check = _paper_drift
-
 
 _parse_active_principle_ids = _load_symbol(("tools.swarm_parse", "swarm_parse"), "active_principle_ids")
 if _parse_active_principle_ids is None:
@@ -84,17 +82,14 @@ F119_RECENT_REASON_ACTIVITY_WINDOW = 6
 BRIDGE_FILES = ["SWARM.md", "CLAUDE.md", "AGENTS.md", "GEMINI.md",
                 ".cursorrules", ".windsurfrules", ".github/copilot-instructions.md"]
 
-
 def _truncated(items, n=3, sep=", ", fmt=None):
     """Join items[:n] with sep, append '...' if truncated. Optional fmt callable per item."""
     show = items[:n]
     parts = [fmt(x) for x in show] if fmt else [str(x) for x in show]
     return sep.join(parts) + ("..." if len(items) > n else "")
 
-
 def _command_exists(cmd: str) -> bool:
     return bool(shutil.which(cmd))
-
 
 def _command_runs(cmd: str, args: list[str], timeout: int = 5) -> bool:
     if not _command_exists(cmd):
@@ -105,14 +100,11 @@ def _command_runs(cmd: str, args: list[str], timeout: int = 5) -> bool:
         return False
     return r.returncode == 0
 
-
 def _python_command_runs(cmd: str) -> bool:
     return _command_runs(cmd, ["-c", "import sys"], timeout=8)
 
-
 def _py_launcher_runs() -> bool:
     return _command_runs("py", ["-3", "-c", "import sys"], timeout=8)
-
 
 def _select_python_command() -> str:
     for candidate in ("python3", "python"):
@@ -125,9 +117,7 @@ def _select_python_command() -> str:
         return exe_name
     return PYTHON_EXE
 
-
 PYTHON_CMD = _select_python_command()
-
 
 def _git(*args: str) -> str:
     try:
@@ -138,7 +128,6 @@ def _git(*args: str) -> str:
         return r.stdout.rstrip("\n")
     except Exception:
         return ""
-
 
 def _decode_git_path(path: str) -> str:
     p = path.strip()
@@ -154,13 +143,11 @@ def _decode_git_path(path: str) -> str:
         p = p[:2] + "/" + p[2:]
     return p
 
-
 def _status_path(line: str) -> str:
     path = line[3:].strip() if len(line) >= 3 else line.strip()
     if " -> " in path:
         path = path.split(" -> ", 1)[1].strip()
     return _decode_git_path(path)
-
 
 def _tracked_changed_paths() -> list[str]:
     status = _git("-c", "core.quotepath=false", "status", "--porcelain")
@@ -169,13 +156,11 @@ def _tracked_changed_paths() -> list[str]:
     return [_status_path(line) for line in status.splitlines()
             if line.rstrip() and line[:2] != "??"]
 
-
 def _line_count(path: Path) -> int:
     try:
         return len(_read(path).splitlines())
     except Exception:
         return 0
-
 
 def _token_count(path: Path) -> int:
     try:
@@ -183,17 +168,14 @@ def _token_count(path: Path) -> int:
     except Exception:
         return 0
 
-
 def _read(path: Path) -> str:
     try:
         return path.read_text(encoding="utf-8", errors="replace")
     except Exception:
         return ""
 
-
 def _exists(path: str) -> bool:
     return (REPO_ROOT / path).exists()
-
 
 def _is_wsl_mnt_repo() -> bool:
     if not sys.platform.startswith("linux"):
@@ -205,37 +187,30 @@ def _is_wsl_mnt_repo() -> bool:
     repo_posix = str(REPO_ROOT).replace("\\", "/")
     return repo_posix.startswith("/mnt/")
 
-
 def _session_number() -> int:
     log = _read(REPO_ROOT / "memory" / "SESSION-LOG.md")
     numbers = re.findall(r"^S(\d+)", log, re.MULTILINE)
     return max(int(n) for n in numbers) if numbers else 0
 
-
 _active_principle_ids = parse_active_principle_ids
-
 
 def _normalize_hq_question(text: str) -> str:
     text = re.sub(r"[^a-zA-Z0-9\s]", " ", (text or "").lower())
     return re.sub(r"\s+", " ", text).strip()
-
 
 def _resolve_repo_file_ref(ref: str) -> str | None:
     if "/" in ref:
         return ref
     return FILE_REF_ALIAS_MAP.get(ref)
 
-
 def _is_lane_placeholder(value: str) -> bool:
     return (value or "").strip().lower() in LANE_PLACEHOLDERS
-
 
 def _parse_lane_tags(value: str) -> dict[str, str]:
     tags: dict[str, str] = {}
     for key, raw_value in re.findall(r"([A-Za-z][A-Za-z0-9_-]*)\s*=\s*([^\s,;|]+)", value or ""):
         tags[key.strip().lower()] = raw_value.strip()
     return tags
-
 
 _LANE_KEYS = ("date", "lane", "session", "agent", "branch", "pr", "model", "platform", "scope_key", "etc", "status", "notes")
 
@@ -252,7 +227,6 @@ def _parse_swarm_lane_rows(text: str) -> list[dict[str, str]]:
         row["status"] = row["status"].upper()
         rows.append(row)
     return rows
-
 
 def _reason_action_evidence_sessions(
     text: str,
@@ -293,7 +267,6 @@ def _reason_action_evidence_sessions(
             sessions.append(session)
     return sessions
 
-
 def _iter_utility_citation_files() -> list[Path]:
     def _accept(rel: str, path: Path) -> bool:
         if any(rel.startswith(prefix) for prefix in UTILITY_CITATION_SKIP_PREFIXES):
@@ -319,7 +292,6 @@ def _iter_utility_citation_files() -> list[Path]:
                 files.append(path)
     return files
 
-
 def check_unpushed() -> list[tuple[str, str]]:
     results = []
     ahead = _git("rev-list", "--count", "@{upstream}..HEAD")
@@ -328,7 +300,6 @@ def check_unpushed() -> list[tuple[str, str]]:
         level = "URGENT" if n >= 10 else "DUE" if n >= 5 else "NOTICE"
         results.append((level, f"{n} unpushed commits — git push"))
     return results
-
 
 def check_uncommitted() -> list[tuple[str, str]]:
     results = []
@@ -414,23 +385,15 @@ def check_uncommitted() -> list[tuple[str, str]]:
             results.append(("NOTICE", f"{len(untracked_actionable)} untracked file(s): {_truncated(untracked_actionable)} (stage if intentional, or ignore via .gitignore)"))
     return results
 
-
 def check_open_challenges() -> list[tuple[str, str]]:
     results = []
-
-    challenges_text = _read(REPO_ROOT / "beliefs" / "CHALLENGES.md")
-    open_challenges = re.findall(r"\|\s*OPEN\s*\|", challenges_text, re.IGNORECASE)
-    if open_challenges:
-        results.append(("DUE", f"{len(open_challenges)} open challenge(s) in CHALLENGES.md"))
-
+    n = len(re.findall(r"\|\s*OPEN\s*\|", _read(REPO_ROOT / "beliefs" / "CHALLENGES.md"), re.IGNORECASE))
+    if n: results.append(("DUE", f"{n} open challenge(s) in CHALLENGES.md"))
     phil_text = _read(REPO_ROOT / "beliefs" / "PHILOSOPHY.md")
     phil_section = phil_text[phil_text.find("## Challenges"):] if "## Challenges" in phil_text else ""
-    open_phil = re.findall(r"\|\s*open\s*\|", phil_section, re.IGNORECASE)
-    if open_phil:
-        results.append(("DUE", f"{len(open_phil)} open PHIL challenge(s)"))
-
+    n = len(re.findall(r"\|\s*open\s*\|", phil_section, re.IGNORECASE))
+    if n: results.append(("DUE", f"{n} open PHIL challenge(s)"))
     return results
-
 
 def check_human_queue() -> list[tuple[str, str]]:
     results = []
@@ -496,7 +459,6 @@ def check_human_queue() -> list[tuple[str, str]]:
         results.append(("NOTICE", f"{len(missing_metadata)} HUMAN-QUEUE item(s) missing ask metadata: {', '.join(missing_metadata[:5])}"))
 
     return results
-
 
 def check_swarm_lanes() -> list[tuple[str, str]]:
     results = []
@@ -575,7 +537,6 @@ def check_swarm_lanes() -> list[tuple[str, str]]:
 
     return results
 
-
 def check_child_bulletins() -> list[tuple[str, str]]:
     results = []
     bulletin_dir = REPO_ROOT / "experiments" / "inter-swarm" / "bulletins"
@@ -619,7 +580,6 @@ def check_child_bulletins() -> list[tuple[str, str]]:
 
     return results
 
-
 def check_help_requests() -> list[tuple[str, str]]:
     results = []
     bulletin_dir = REPO_ROOT / "experiments" / "inter-swarm" / "bulletins"
@@ -642,7 +602,6 @@ def check_help_requests() -> list[tuple[str, str]]:
 
     return results
 
-
 def check_compaction() -> list[tuple[str, str]]:
     results = []
 
@@ -660,7 +619,6 @@ def check_compaction() -> list[tuple[str, str]]:
 
     return results
 
-
 def check_lessons() -> list[tuple[str, str]]:
     results = []
     lessons_dir = REPO_ROOT / "memory" / "lessons"
@@ -677,7 +635,6 @@ def check_lessons() -> list[tuple[str, str]]:
         results.append(("DUE", f"{len(over_20)} lesson(s) over 20 lines: {', '.join(over_20[:5])}"))
 
     return results
-
 
 def check_frontier_decay() -> list[tuple[str, str]]:
     results = []
@@ -724,7 +681,6 @@ def check_frontier_decay() -> list[tuple[str, str]]:
         results.append(("NOTICE", f"{len(weak)} frontier(s) weakening: {', '.join(weak)}"))
     return results
 
-
 def check_periodics() -> list[tuple[str, str]]:
     results = []
     periodics_path = REPO_ROOT / "tools" / "periodics.json"
@@ -758,7 +714,6 @@ def check_periodics() -> list[tuple[str, str]]:
 
     return results
 
-
 def check_validator() -> list[tuple[str, str]]:
     results = []
     try:
@@ -771,7 +726,6 @@ def check_validator() -> list[tuple[str, str]]:
     except Exception as e:
         results.append(("URGENT", f"validate_beliefs.py failed to run: {e}"))
     return results
-
 
 def check_version_drift() -> list[tuple[str, str]]:
     results = []
@@ -799,7 +753,6 @@ def check_version_drift() -> list[tuple[str, str]]:
             results.append(("URGENT", f"CORE.md version {core_ver.group(1)} != meta {meta['core_md_version']} — re-read CORE.md"))
 
     return results
-
 
 def check_runtime_portability() -> list[tuple[str, str]]:
     results = []
@@ -869,7 +822,6 @@ def check_runtime_portability() -> list[tuple[str, str]]:
 
     return results
 
-
 def check_commit_hooks() -> list[tuple[str, str]]:
     results = []
     git_dir = REPO_ROOT / ".git"
@@ -911,7 +863,6 @@ def check_commit_hooks() -> list[tuple[str, str]]:
         results.append(("NOTICE", f"Hook drift detected ({sample}) — run: bash tools/install-hooks.sh"))
 
     return results
-
 
 def check_cross_references() -> list[tuple[str, str]]:
     results = []
@@ -979,7 +930,6 @@ def check_cross_references() -> list[tuple[str, str]]:
 
     return results
 
-
 def check_frontier_registry() -> list[tuple[str, str]]:
     results = []
 
@@ -1008,7 +958,6 @@ def check_frontier_registry() -> list[tuple[str, str]]:
 
     return results
 
-
 def check_handoff_staleness() -> list[tuple[str, str]]:
     results = []
     next_text = _read(REPO_ROOT / "tasks" / "NEXT.md")
@@ -1027,7 +976,6 @@ def check_handoff_staleness() -> list[tuple[str, str]]:
     if stale:
         results.append(("DUE", f"{len(stale)} stale handoff(s) in NEXT.md: {'; '.join(stale[:3])}"))
     return results
-
 
 def check_state_header_sync() -> list[tuple[str, str]]:
     results = []
@@ -1077,7 +1025,6 @@ def check_state_header_sync() -> list[tuple[str, str]]:
 
     return results
 
-
 def check_mission_constraints() -> list[tuple[str, str]]:
     results = []
 
@@ -1126,15 +1073,9 @@ def check_mission_constraints() -> list[tuple[str, str]]:
     has_maintenance_wrapper = _exists("tools/maintenance.sh")
     has_check_wrapper_ps = _exists("tools/check.ps1")
     has_maintenance_wrapper_ps = _exists("tools/maintenance.ps1")
-    inter_swarm_tools = (
-        _exists("tools/bulletin.py")
-        and _exists("tools/merge_back.py")
-        and _exists("tools/propagate_challenges.py")
-    )
-    fallback_ready = (
-        (has_bash and has_check_wrapper and has_maintenance_wrapper)
-        or (has_pwsh and has_check_wrapper_ps and has_maintenance_wrapper_ps)
-    )
+    inter_swarm_tools = all(_exists(p) for p in ("tools/bulletin.py", "tools/merge_back.py", "tools/propagate_challenges.py"))
+    fallback_ready = ((has_bash and has_check_wrapper and has_maintenance_wrapper)
+                      or (has_pwsh and has_check_wrapper_ps and has_maintenance_wrapper_ps))
 
     degraded_reasons: list[str] = []
     if not has_python_alias:
@@ -1285,7 +1226,6 @@ def check_mission_constraints() -> list[tuple[str, str]]:
 
     return results
 
-
 def check_session_log_integrity() -> list[tuple[str, str]]:
     results = []
     text = _read(REPO_ROOT / "memory" / "SESSION-LOG.md")
@@ -1337,10 +1277,8 @@ def check_session_log_integrity() -> list[tuple[str, str]]:
 
     return results
 
-
 def check_paper_accuracy() -> list[tuple[str, str]]:
     return run_paper_drift_check(REPO_ROOT, _session_number())
-
 
 def check_utility() -> list[tuple[str, str]]:
     results = []
@@ -1360,7 +1298,6 @@ def check_utility() -> list[tuple[str, str]]:
     if uncited:
         results.append(("NOTICE", f"{len(uncited)} active principle(s) with 0 citations: {_truncated(uncited, 5, fmt=lambda x: f'P-{x}')}"))
     return results
-
 
 def check_proxy_k_drift() -> list[tuple[str, str]]:
     results = []
@@ -1478,7 +1415,6 @@ def check_proxy_k_drift() -> list[tuple[str, str]]:
 
     return results
 
-
 def check_file_graph() -> list[tuple[str, str]]:
     results = []
     structural = [REPO_ROOT / p for p in (
@@ -1508,7 +1444,6 @@ def check_file_graph() -> list[tuple[str, str]]:
     if broken:
         results.append(("DUE", f"{len(broken)} broken file reference(s): {', '.join(broken[:5])}"))
     return results
-
 
 def _inter_swarm_connectivity(capabilities: dict, commands: dict[str, bool]) -> dict:
     protocol_paths = [
@@ -1543,7 +1478,6 @@ def _inter_swarm_connectivity(capabilities: dict, commands: dict[str, bool]) -> 
         "protocols": protocol_state,
         "missing": missing,
     }
-
 
 def build_inventory() -> dict:
     def _tools(*names: str) -> list[str]:
@@ -1598,47 +1532,32 @@ def build_inventory() -> dict:
         "inter_swarm_connectivity": inter_swarm_connectivity,
     }
 
-
 def print_inventory(inv: dict):
-    _f = lambda v: "OK " if v else "NO "
+    _ok = lambda v: "OK " if v else "NO "
     host = inv["host"]
-    print("=== SWARM INVENTORY ===")
-    print(f"Host: {host['platform']}")
-    print(f"Python: {host['python_executable']}  hint: {host['python_command_hint']}")
-    print()
+    print(f"=== SWARM INVENTORY ===\nHost: {host['platform']}\nPython: {host['python_executable']}  hint: {host['python_command_hint']}\n")
     print("Commands:")
     for name, ok in host["commands"].items():
-        print(f"  {_f(ok)}{name}")
-    print()
-    print("Bridge files:")
-    for item in inv["bridges"]:
-        print(f"  {_f(item['exists'])}{item['path']}")
-    print()
-    print("Core state:")
-    for item in inv["core_state"]:
-        print(f"  {_f(item['exists'])}{item['path']}")
-    print()
-    print("Capabilities:")
+        print(f"  {_ok(ok)}{name}")
+    for section, key in (("Bridge files", "bridges"), ("Core state", "core_state")):
+        print(f"\n{section}:")
+        for item in inv[key]:
+            print(f"  {_ok(item['exists'])}{item['path']}")
+    print("\nCapabilities:")
     for name, info in inv["capabilities"].items():
         print(f"  {name:<12} {info['present']}/{info['total']}")
-    print()
     inter_swarm = inv.get("inter_swarm_connectivity", {})
     if isinstance(inter_swarm, dict) and inter_swarm:
-        tooling = inter_swarm.get("tooling", {})
-        present = tooling.get("present", "?") if isinstance(tooling, dict) else "?"
-        total = tooling.get("total", "?") if isinstance(tooling, dict) else "?"
+        tooling = inter_swarm.get("tooling", {}) if isinstance(inter_swarm.get("tooling"), dict) else {}
         status = "READY" if inter_swarm.get("ready") else "NOT READY"
-        python_status = _f(bool(inter_swarm.get("python_command_ready")))
-        print(f"Inter-swarm: {status} (tooling {present}/{total}, python {python_status})")
+        print(f"\nInter-swarm: {status} (tooling {tooling.get('present', '?')}/{tooling.get('total', '?')}, python {_ok(inter_swarm.get('python_command_ready'))})")
         missing = inter_swarm.get("missing", [])
         if isinstance(missing, list) and missing:
             print(f"  Missing: {', '.join(str(item) for item in missing)}")
-        print()
-
+    print()
 
 PRIORITY_ORDER = {"URGENT": 0, "DUE": 1, "PERIODIC": 2, "NOTICE": 3}
 PRIORITY_SYMBOLS = {"URGENT": "!!!", "DUE": " ! ", "PERIODIC": " ~ ", "NOTICE": " . "}
-
 
 def main():
     if "--inventory" in sys.argv:
@@ -1714,7 +1633,6 @@ def main():
         print(f"  {summary}")
 
     print()
-
 
 if __name__ == "__main__":
     main()

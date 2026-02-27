@@ -222,3 +222,4 @@ S169	| 2026-02-27 | +0L +0P | proxy-K clean snapshot: 37,812t (36.4% above floor
 S170	| 2026-02-27 | +0L +0P | PRINCIPLES.md partial compaction: P-163 rising-sawtooth nuance, P-082 nuanced with deception cascade caveat (P-155), P-174 enforcement-tiers noted; last-compacted header updated S100→S170
 S170	| 2026-02-27 | +0L +0P | maintenance.py check_cross_references: removed duplicate _git ls-files call; principle count drift fixed 151→147 (PRINCIPLES/INDEX/PAPER); FRONTIER header synced S169→S170; check PASS
 S170	| 2026-02-27 | +0L +0P | state-sync: PAPER.md 150P→147P + session-span →S170; INDEX.md 151P→147P; maintenance.py BRIDGE_FILES constant extracted + help-request DUE formatting
+S170	| 2026-02-27 | +0L +0P | S169-leftovers committed + principle count verified: 147 active (155-8 superseded); PRINCIPLES header 151→147 patch applied before concurrent node committed it; 34/34 tests passing
