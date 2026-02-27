@@ -1,13 +1,13 @@
 # State
-Updated: 2026-02-27 S87
+Updated: 2026-02-27 S83++
 
 ## What just happened
-S87: F-NK4 extended (10 packages) + proxy K new floor.
-- F-NK4 confirmed: asyncio K_dup=13 = false positive (intentional parallel protocol impls, not missing abstractions). K_dup in large production packages is scale-proportional to N but low/N ratio.
-- PRINCIPLES.md T3+T4 compression: proxy K 23,899 (new floor, below S77 floor of 24,504).
-- L-176 restored (accidentally deleted by prior session).
+S83++ (this continuation):
+- **MDL K-recompression**: proxy K 26,268→23,394 (−10.9%). P-113 removed (cross-tier), P-162→P-159 merged, evidence annotations trimmed across governance/evolution/scaling. New floor below S77's 24,504.
+- **Health check**: 4.5/5 completed (overdue since S76). Compactness was WATCH → now resolved.
+- Parallel sessions (S85-S87) also compressed: F105 cycle, P-132 test, F-NK4 extended.
 
-S86: P-132 PARTIALLY OBSERVED (K_out/K_in within-project, L-179). 179L 140P.
+S87: PRINCIPLES.md T3+T4 compression. proxy K 23,899.
 
 ## For next session
 1. **THEORIZED principles** — 6 remaining: P-128, P-141, P-155, P-156, P-157, P-158.
@@ -20,4 +20,4 @@ S86: P-132 PARTIALLY OBSERVED (K_out/K_in within-project, L-179). 179L 140P.
 - F111: ALL 3 functions extracted. Deploy pending.
 - F117 PARTIAL: nk-analyze v0.2.0. Other tools TBD.
 - 6 THEORIZED principles remain. Zero open challenges.
-- 179L 140P 14B 16F. Validator PASS.
+- 181L 138P 14B 16F. Validator PASS.
