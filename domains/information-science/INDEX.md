@@ -4,7 +4,7 @@ Updated: 2026-02-27 | Sessions: 182
 ## What this domain knows
 - **3 seed lessons** with confirmed information science isomorphisms: L-232 (Zipf/power-law in citations), L-235 (info decay/obsolescence), L-256 (domain seed, isomorphism audit)
 - **Key beliefs**: B-IS1 (entropy → compaction signal, THEORIZED), B-IS2 (Zipf's law → citation distribution, OBSERVED), B-IS3 (recall/precision → spawn discipline, THEORIZED)
-- **Active frontiers**: 3 domain frontiers in `domains/information-science/tasks/FRONTIER.md`
+- **Active frontiers**: 1 active domain frontier in `domains/information-science/tasks/FRONTIER.md` (F-IS3)
 
 ## Lesson themes
 
@@ -26,8 +26,6 @@ Updated: 2026-02-27 | Sessions: 182
 | Document half-life: citations decay exponentially with document age | Lesson Sharpe decays with session age; zero-Sharpe = past half-life; L-235 age-normalized Sharpe confirms temporal bias | OBSERVED |
 
 ## What's open
-- **F-IS1**: Does belief entropy rise before proxy-K hits DUE threshold? If entropy leads proxy-K, it's a better early-warning signal.
-- **F-IS2**: Does the Zipf exponent of lesson citations drift over time? Increasing exponent = concentration risk (knowledge monopoly); decreasing = healthy diversification.
 - **F-IS3**: Can F1-score maximization derive optimal P-119 spawn threshold analytically? Currently heuristic at 45% baseline.
 
 ## Information science domain principles (linked to `memory/PRINCIPLES.md`)

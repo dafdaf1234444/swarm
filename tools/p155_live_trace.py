@@ -261,6 +261,12 @@ def parse_args() -> argparse.Namespace:
         required=True,
         help="Output JSON path.",
     )
+    parser.add_argument(
+        "--baseline",
+        type=Path,
+        default=None,
+        help="Optional baseline JSON from a previous run to compare deltas against.",
+    )
     return parser.parse_args()
 
 
@@ -322,6 +328,25 @@ def main() -> int:
             "This is software-agent live trace evidence; external/LLM human-task replication is still future work.",
         ],
     }
+
+    if args.baseline is not None:
+        if not args.baseline.exists():
+            raise SystemExit(f"Baseline file not found: {args.baseline}")
+        baseline = json.loads(args.baseline.read_text(encoding="utf-8"))
+        baseline_delta = baseline.get("delta", {})
+        comparison = {}
+        for key, value in delta.items():
+            baseline_value = baseline_delta.get(key)
+            if isinstance(baseline_value, (int, float)):
+                comparison[key] = {
+                    "current": value,
+                    "baseline": float(baseline_value),
+                    "abs_diff": abs(value - float(baseline_value)),
+                }
+        payload["baseline_comparison"] = {
+            "baseline_path": str(args.baseline),
+            "delta_comparison": comparison,
+        }
 
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")

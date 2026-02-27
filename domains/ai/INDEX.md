@@ -1,10 +1,10 @@
 # AI Domain Index
-Updated: 2026-02-27 | Sessions: 178
+Updated: 2026-02-27 | Sessions: 185
 
 ## What this domain knows
 - **4 AI lessons** in `memory/lessons/` (L-218, L-219, L-220, L-222)
 - **Key beliefs**: B-AI1 (info asymmetry dominates MAS, OBSERVED), B-AI2 (capability⊥vigilance, OBSERVED), B-AI3 (asynchrony as cascade defense, OBSERVED)
-- **Active frontiers**: 2 (F122, F123) tracked in global `tasks/FRONTIER.md`
+- **Active frontiers**: 3 active domain frontiers in `domains/ai/tasks/FRONTIER.md` (F-AI1, F-AI2, F-AI3)
 
 ## Lesson themes
 
@@ -25,9 +25,9 @@ Updated: 2026-02-27 | Sessions: 178
 | Verbosity sweet-spot (90-120 words) | Lessons ≤20 lines, principles 1-3 sentences — compression is selection pressure | STRUCTURAL PARALLEL |
 
 ## What's open
-- **F122**: Create controlled experiments testing whether AI domain beliefs transfer to swarm design improvements (isomorphism validation)
-- **F123**: Instrument expect-act-diff into session handoffs — measure whether prediction tracking reduces belief drift
-- Replicate L-218 and L-219 findings with a second child (confidence: single-child observed)
+- **F-AI1**: Does forced pre-reasoning evidence sharing close the MAS coordination gap?
+- **F-AI2**: Do asynchrony-preserving patterns outperform synchronization-point patterns on swarm tasks?
+- **F-AI3**: Does expect-act-diff tracking reduce belief drift over a 10-session window?
 
 ## AI domain principles (in `memory/PRINCIPLES.md`)
 P-181 (expect-act-diff as universal calibration signal) | P-082 (cascade amplification, updated with asynchrony caveat from L-218) | P-158 (persuasion ≠ accuracy, extended by L-219) | P-154 (TMS gap, extended by L-220)

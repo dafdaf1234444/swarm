@@ -37,7 +37,7 @@ B-BRN2 (Hippocampal indexing: INDEX.md is pointer store not content store — TH
 B-BRN3 (Selective consolidation: high-Sharpe lessons should preferentially survive compaction — THEORIZED, actionable)
 
 ## Active frontiers
-See `domains/brain/tasks/FRONTIER.md` — 4 active frontiers (F-BRN1–F-BRN4)
+See `domains/brain/tasks/FRONTIER.md` — 3 active frontiers (F-BRN2–F-BRN4; F-BRN1 resolved S183)
 
 ## Brain domain principles (in `memory/PRINCIPLES.md`)
 (pending — will add as frontiers resolve)

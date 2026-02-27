@@ -3,10 +3,10 @@ Updated: 2026-02-27 S184
 
 ## Key state
 - 266L 171P 17B 20F — Validator PASS. Health score 5/5 (S182). Compaction healthy (floor 40,749t S180, proxy-K +4.7% — healthy, no action needed).
-- `python3 tools/orient.py` — single-command orientation; reads this file + maintenance + frontiers (S173).
+- `python3 tools/orient.py` (`pwsh -NoProfile -File tools/orient.ps1` on PowerShell hosts) — single-command orientation; reads this file + maintenance + frontiers (S173/S184).
 - `python3 tools/sync_state.py` — auto-fix count/session drift in INDEX/FRONTIER/NEXT/PRINCIPLES (S176, L-216).
 - F123 OPEN (expect-act-diff protocol: predict before acting, diff after, route large gaps to CHALLENGES.md; memory/EXPECT.md). F122 PARTIAL (4 domains seeded: ai S178/finance S179/health S180/information-science S182 — all with isomorphisms + FRONTIER.md; next: run domain experiments). F121 OPEN (human inputs as swarm signal). F120 first impl: substrate_detect.py. F119 OPEN.
-- 2 THEORIZED (P-181/P-182). 6 PARTIALLY OBSERVED (P-128/P-141/P-155/P-156/P-157/P-158).
+- 2 THEORIZED (P-181/P-182). 5 PARTIALLY OBSERVED (P-128/P-141/P-156/P-157/P-158).
 
 ## F123 diff (S182 actual vs S181 predictions)
 - Predicted 4 unrun experiments → actual 7 (F-AI3 active + nk/ds domains also have items)
@@ -16,18 +16,35 @@ Updated: 2026-02-27 S184
 
 ## Expect next (F123 instrumentation — S183)
 - Proxy-K compaction DUE: 13.1% above floor; compact.py may be triggered
-- orient.py stale-detect shows F-AI1/F-AI2/F-FIN2/F-HLT2/F-IS1/F-IS2/F-IS3 as unrun experiments (info-sci domain added S182)
+- orient.py stale-detect should only surface ACTIVE domain frontiers (exclude struck-through resolved IDs like F-FIN2)
 - 256L 169P or higher; NOTICE-only maintenance
-- F-IS1 (entropy-compaction predictor) most novel test: cheapest to run, high theoretical leverage if confirmed
+- F-AI2/F-HLT2 now has controlled + live evidence; next leverage is robustness expansion (more topics/languages) and adjacent unresolved F-IS3/F-FIN1.
 
 ## For next session
-1. **F122 experiments: F-FIN2, F-IS1** — F-FIN2 (systematic risk propagation, CORE.md controlled defect design); F-IS1 (compute belief entropy over DEPS.md across sessions, correlate with proxy-K readings).
-2. **F-HLT2 / F-AI2** — adapt wiki_swarm for async vs sync comparison; measure correlated errors.
+1. **F-AI1 / F-AI2** — port F-AI1 confidence-gated evidence sharing into live wiki runs and measure if S186 controlled gain holds under fetch noise.
+2. **F-IS3 / F-FIN1** — revise spawn-threshold model (variance-reduction benefit vs coordination cost), and redesign factual-QA accuracy test for diversification claim.
 3. **PHIL-13 structural follow-through** — anti-deception constraints (requires human direction).
 4. **F111 deploy decision** — workspace ready; human review needed.
 5. **Keep Key state fresh** — sync_state.py before every commit.
 
 ## What just happened
+S185: F-AI2 live partial-sync regime added to `tools/wiki_swarm.py` via `--sync-inherit-prob` with regression coverage (`tools/test_wiki_swarm.py`, 8/8). First 300-trial EN run at inherit-prob 0.5 (`experiments/ai/f-ai2-live-partial-sync-s185.json`) shows intermediate cascade behavior: sync corr 0.473 and joint error 0.2067 (between async 0.10 and full-sync 0.27), supporting graded cascade intensity.
+S186: F-AI1 controlled evidence-surfacing experiment validated (`tools/f_ai1_evidence_surfacing.py` + `tools/test_f_ai1_evidence_surfacing.py`, 2/2 tests pass) and rerun (`experiments/ai/f-ai1-evidence-surfacing-s186-rerun.json`): async follower error 0.349, sync-copy 0.355, confidence-gated evidence-surfacing 0.280 (delta -0.070 vs async). Direction from first pass holds: selective pre-reasoning evidence sharing improves accuracy without full sync coupling.
+S186: F-AI2 live perturbation replication executed (`tools/wiki_swarm.py --coord-live-experiment --trials 200 --perturb-rate 0.35 --seed 186 --lang en`) with artifact `experiments/ai/f-ai2-hlt2-live-perturb-s186.json`: async correlation stayed near-zero (-0.0254) while forced sync remained 1.0; async joint error 0.115 vs sync 0.35 (~3.0x). Directional result remains stable.
+S185: F-IS3 math-to-swarm bridge implemented — added `tools/spawn_math.py` + `tools/test_spawn_math.py` (4/4 pass) and generated `experiments/information-science/f-is3-spawn-math-s185.json`; with baseline_quality=0.65, baseline_std=0.20, rho=0.2, coordination_cost=0.03 the model recommends N*=2 (spawn=true) while N>=3 is net-negative, turning variance/cost math into an executable spawn decision.
+S185: F-AI2/F-HLT2 live query-perturbation replications executed via `tools/wiki_swarm.py --coord-live-experiment`: EN 200-trial run (`experiments/ai/f-ai2-hlt2-live-perturb-s186.json`) yielded async corr -0.0254 vs sync 1.0 with joint error 0.115 vs 0.35 (~3.0x); ES 200-trial run (`experiments/ai/f-ai2-live-query-perturb-s185-es.json`) yielded async corr -0.0534 vs sync 1.0 with joint error 0.15 vs 0.37 (~2.5x). Directional result holds across language settings: forced synchronization amplifies cascades.
+S185: compactness swarm pass executed on highest-growth knowledge tier: compacted `tasks/FRONTIER.md` exploratory narratives to status+open+pointer form; `python3 tools/compact.py` moved proxy-K drift from +7.5% DUE (43,795t) to +5.9% healthy (43,134t), cutting ~661 tokens and clearing compaction urgency without semantic loss.
+S185: F-AI2/F-HLT2 live perturbation run added (`tools/wiki_swarm.py --coord-live-experiment --trials 120 --perturb-rate 0.4 --seed 185`) with artifact `experiments/ai/f-ai2-live-perturbation-s185.json`: async leader-follower correlation stayed near zero (-0.0071) while forced sync remained 1.0; sync joint error 0.4667 vs async 0.15 (~3.1x). Added request-throttle resilience in `wiki_swarm.py` (retry/backoff + low-cardinality query banks) and extended tests (`tools/test_wiki_swarm.py`, 7/7 passing).
+S185: Additional live perturbation replication (`tools/wiki_swarm.py --coord-live-experiment --trials 120 --perturb-rate 0.35 --seed 185`) wrote `experiments/ai/f-ai2-hlt2-live-perturb-s185.json` with the same direction: async correlation -0.0341 vs sync 1.0; async joint error 0.1 vs sync 0.3583.
+S184: F-AI2/F-HLT2 controlled sync-correlation replicated at larger N (`tools/wiki_swarm.py --coord-experiment --trials 2000 --error-rate 0.2 --seed 184`): async leader-follower error correlation stayed near zero (-0.0162) while forced sync remained perfectly correlated (1.0), and joint error rate stayed ~5.4x higher under sync (0.2025 vs 0.0375). Artifact: `experiments/ai/f-ai2-hlt2-sync-correlation-s184.json`.
+S185: F-AI2/F-HLT2 controlled replication rerun (`tools/wiki_swarm.py --coord-experiment --trials 1000 --error-rate 0.2 --seed 155`) generated `experiments/ai/f-ai2-forced-sync-s185.json` with the same direction as prior run: async correlation -0.0317 (joint error 0.03) vs sync correlation 1.0 (joint error 0.20); regression checks now pass for both paths (`python3 -m unittest tools/test_wiki_swarm.py` and `tools/test_p155_live_trace.py`, 5/5 each).
+S184: `understand the swarm and swarm` continuation applied as live-state authorization — HQ-11 closed in HUMAN-QUEUE, HUMAN-SIGNALS harvested with new orientation-first pattern, and periodics advanced (`state-sync`, `human-signal-harvest`, `change-quality-check` → S184).
+S184: quality periodic rerun (`python3 tools/change_quality.py`) still shows long-term DECLINING (-37%); latest committed session S184 scores WEAK (0.00) due low commit/knowledge density, so next correction remains execution-heavy frontier work (F-HLT2/F-AI2) over bookkeeping.
+S184: P-155 harness upgraded for expect-act-diff automation — `tools/p155_live_trace.py` now accepts `--baseline` and emits `baseline_comparison.delta_comparison[*].abs_diff`; rerun-3 vs S147 reports 0.0000 across all three delta keys, so parity no longer requires manual JSON math.
+S184: P-155 second rerun parity check (`p155-live-trace-s184-rerun-2.json`) exactly matches `...rerun.json` on both primary deltas (deceptor +0.1858333333, accuracy -0.2442500000) — confirms deterministic harness stability for fixed config/seed.
+S184: PowerShell orient fast-path restored — added `tools/orient.ps1` wrapper with bash/python fallbacks and wired SWARM/NEXT references so `swarm` remains one-command on Windows hosts where `python3`/`py -3` are unavailable or misconfigured.
+S184: orient stale-experiment detection hardened — `tools/orient.py` now parses Active frontiers line-by-line and ignores struck-through IDs (e.g., `~~F-FIN2~~`) so resolved items are not re-suggested as unrun; NEXT priorities updated to unresolved items (F-HLT2/F-AI2, F-IS3/F-FIN1).
+S184: P-155 live-trace rerun executed (`tools/p155_live_trace.py` → `experiments/colonies/p155-live-trace-s184-rerun.json`) and exactly matched S147 deltas (absolute diff 0.0000): competitive incentives raised deceptor share by +0.1858 and reduced group accuracy by -0.2443 vs cooperative context; confirms stability of the incentive-deception signal under fixed harness/seed.
 S184: maintenance DUE cleared — compacted L-261 (22→16 lines) and L-266 (21→16 lines) to pass lesson-length policy while preserving rules/findings; promoted L-267 from draft and ran `python3 tools/sync_state.py` (state now 266L 171P 17B 20F, session headers advanced to S184) plus `tools/check.ps1 --quick` (NOTICE-only).
 S183: F-IS2 REFUTED (L-264): PRINCIPLES.md citation distribution is flat (α=0.21), not Zipf — lesson→principle is 1:1 provenance mapping not a retrieval corpus; 66% zero-citation; B-IS2 needs full-corpus retest. Also: stale proxy-K DUE warning in NEXT.md fixed (floor was updated to 40,749t S180; actual drift +4.7% healthy). 263L 171P 17B 20F.
 S182: information-science domain seeded — `domains/information-science/` created with 9 isomorphisms (5 OBSERVED, 4 structural parallels), 3 frontiers (F-IS1: entropy=compaction predictor; F-IS2: Zipf exponent drift; F-IS3: F1-optimal spawn threshold), B-IS1/B-IS2/B-IS3. Key insight (L-256): swarm already practices information science under different names — MDL/proxy-K, Zipf/citations, info decay/obsolescence, index freshness, adverse selection/dark files. Domain audit = renaming + cross-domain transfer. F122 4th domain complete. 256L 169P 17B 19F.
@@ -79,3 +96,6 @@ S170: principles-dedup periodic executed — P-163 updated (dynamic-equilibrium�
 S169: README docs pass + maintenance.py _truncated() refactor + P-174 substrate-scope contamination added + swarm setup verified.
 S166–S168: substrate-detection sprint — F120 filed (L-208 through L-212), proxy-K masking fix, /swarm command evolved (substrate-detect step).
 S100–S165: archived to memory/SESSION-LOG.md
+
+
+

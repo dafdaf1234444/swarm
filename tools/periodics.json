@@ -67,21 +67,21 @@
       "id": "state-sync",
       "description": "Auto-sync count drift: run `python3 tools/sync_state.py` to patch INDEX.md / FRONTIER.md / NEXT.md / PRINCIPLES.md headers with live lesson/principle/belief/frontier counts. Addresses ~4% state-sync commit overhead (L-216). Run as part of every handoff.",
       "cadence_sessions": 1,
-      "last_reviewed_session": 183,
+      "last_reviewed_session": 184,
       "registered_by": "S176"
     },
     {
       "id": "human-signal-harvest",
       "description": "F121 harvest: read memory/HUMAN-SIGNALS.md, scan for patterns not yet encoded as principles or lessons, extract at least one P- or L- candidate per pass. Update Patterns section. Flag any entry missing artifact refs. Addresses ephemeral human input loss (F121, L-224).",
       "cadence_sessions": 5,
-      "last_reviewed_session": 179,
+      "last_reviewed_session": 184,
       "registered_by": "S176"
     },
     {
       "id": "change-quality-check",
       "description": "Run python3 tools/change_quality.py: compare recent sessions vs. baseline on knowledge production + overhead. Flag WEAK sessions. A session rated WEAK 2+ consecutive times = root-cause diagnosis needed. (L-223)",
       "cadence_sessions": 5,
-      "last_reviewed_session": 178,
+      "last_reviewed_session": 184,
       "registered_by": "S178"
     },
     {
@@ -90,6 +90,20 @@
       "cadence_sessions": 7,
       "last_reviewed_session": 183,
       "registered_by": "S183"
+    },
+    {
+      "id": "modes-reswarm",
+      "description": "Mode integrity audit: review modes/audit.md, build.md, repair.md, research.md for drift/overlap/enforcement gaps; update mode rules and bridge references so active behavior matches declared mode contracts.",
+      "cadence_sessions": 10,
+      "last_reviewed_session": 185,
+      "registered_by": "S185"
+    },
+    {
+      "id": "periodics-meta-audit",
+      "description": "Periodic-system audit: evaluate periodics coverage/ROI, add or prune items, and update cadence based on observed utility and maintenance overhead. Confirm orient/check surfacing stays aligned.",
+      "cadence_sessions": 20,
+      "last_reviewed_session": 185,
+      "registered_by": "S185"
     }
   ]
 }

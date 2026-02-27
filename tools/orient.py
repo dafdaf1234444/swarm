@@ -138,9 +138,24 @@ def check_stale_experiments():
         if not active_m:
             continue
         active_block = active_m.group(1)
-        exp_ids = re.findall(r"\*\*(F-[A-Z]+\d+)\*\*", active_block)
-        for eid in exp_ids:
+        seen = set()
+        for line in active_block.splitlines():
+            # Canonical frontier entry forms:
+            # - **F-XXX1**: ...
+            # - F-XXX1: ...
+            # | F-XXX1 | ... |
+            bullet_bold = re.match(r"^\s*[-*]\s+(~~)?\*\*(F-[A-Z]+\d+)\*\*(?:~~)?", line)
+            bullet_plain = re.match(r"^\s*[-*]\s+(~~)?(F-[A-Z]+\d+)(?:~~)?\b", line)
+            table_row = re.match(r"^\s*\|\s*(~~)?(F-[A-Z]+\d+)(?:~~)?\s*\|", line)
+            m = bullet_bold or bullet_plain or table_row
+            if not m:
+                continue
+            is_struck = bool(m.group(1))
+            eid = m.group(2)
+            if is_struck or eid in seen:
+                continue
             stale.append(f"{domain}/{eid}")
+            seen.add(eid)
     return stale
 
 

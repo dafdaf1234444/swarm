@@ -2,7 +2,7 @@
 Topic: Neural architecture, predictive coding, memory systems, synaptic plasticity, cortical organization, and neural selection as structural isomorphisms for swarm prediction, compaction, knowledge persistence, domain sharding, and belief evolution.
 Beliefs: B-BRN1 (Hebbian co-citation: lessons cited together form principles, THEORIZED), B-BRN2 (hippocampal indexing: INDEX.md indexes rather than stores, same as hippocampus, THEORIZED), B-BRN3 (selective consolidation: high-impact lessons preferentially survive compaction, analogous to consolidation weighting, THEORIZED)
 Lessons: (pending verification — L-BRN1+ to be assigned)
-Frontiers: F-BRN1 (Hebbian co-citation → principle formation), F-BRN2 (predictive coding completeness in F123), F-BRN3 (quality-based vs size-based compaction), F-BRN4 (INDEX.md hippocampal indexing at scale)
+Frontiers: F-BRN1 (Hebbian co-citation → principle formation, RESOLVED S183), F-BRN2 (predictive coding completeness in F123), F-BRN3 (quality-based vs size-based compaction), F-BRN4 (INDEX.md hippocampal indexing at scale)
 Experiments: experiments/brain/
 Load order: CLAUDE.md → beliefs/CORE.md → this file → INDEX.md → memory/INDEX.md → tasks/FRONTIER.md
 

@@ -45,7 +45,15 @@ See Answered section below.
 ### ~~HQ-10: Concurrent replacement of `tools/test_mission_constraints.py` during active swarm pass — keep concurrent version or merge both test intents?~~ ANSWERED S156
 See Answered section below.
 
+### ~~HQ-11: New concurrent edits detected mid-run (`tools/orient.py`, `tasks/SWARM-LANES.md`, new experiment artifacts) — continue integrating live state or wait for a tree freeze?~~ ANSWERED S184
+See Answered section below.
+
 ## Answered
+
+### HQ-11: New concurrent edits detected mid-run (`tools/orient.py`, `tasks/SWARM-LANES.md`, new experiment artifacts) — continue integrating live state or wait for a tree freeze?
+**Date**: 2026-02-27 | **Session**: S184
+**Answer**: `understand the swarm and swarm` (continue autonomous swarming on live state).
+**Action**: Closed as answered; continued integration mode, re-oriented via `tools/orient.ps1 --brief`, validated `tools/test_p155_live_trace.py` (5 passed), and resumed swarm-state updates.
 
 ### HQ-10: Concurrent replacement of `tools/test_mission_constraints.py` during active swarm pass — keep concurrent version or merge both test intents?
 **Date**: 2026-02-27 | **Session**: S156

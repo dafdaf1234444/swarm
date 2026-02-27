@@ -7,8 +7,6 @@ Updated: 2026-02-27 | Active: 2
 - **F75**: Does decompose-by-data outperform decompose-by-method for ALL task types? (L-051)
   Current evidence: confirmed for data-parallel analysis tasks. Untested: sequential reasoning, refactoring.
 
-- **F-NK4**: RESOLVED S83 — K_dup and K_import are ORTHOGONAL metrics. All 5 B9 packages have K_dup=0 regardless of K_import composite (1.0→104.0). Codebase maturity/style (script vs published lib) predicts K_dup, not import density. L-172 anti-correlation was a 2-sample artifact. L-178, P-165 revised. Note: within-module K_dup (same-class identical methods) = "missing base class" signal (click example). @overload stubs must be filtered in methodology.
-
 - **F9-NK**: What additional knowledge domains should follow complexity theory?
   PARTIAL — complexity + distributed systems active. NK domain has 26 lessons, working tool (nk_analyze.py), cross-language support.
   Open: apply NK to human's own codebases (see HUMAN-QUEUE HQ-2).
