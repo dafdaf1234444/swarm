@@ -102,6 +102,13 @@ def classify_maint(maint_out):
     return "NOTICE-only"
 
 
+def extract_session_log_tail(log_text, n=10):
+    """Return last N non-header session log lines (behavioral pattern signal)."""
+    lines = [l for l in log_text.splitlines()
+             if l.strip() and not l.startswith("#") and "|" in l]
+    return lines[-n:]
+
+
 def main():
     brief = "--brief" in sys.argv
 
@@ -109,6 +116,7 @@ def main():
     index_text = read_file("memory/INDEX.md")
     next_text = read_file("tasks/NEXT.md")
     frontier_text = read_file("tasks/FRONTIER.md")
+    log_text = read_file("memory/SESSION-LOG.md") if not brief else ""
 
     session, counts = extract_state_line(index_text)
     maint_level = classify_maint(maint_out)
@@ -151,6 +159,15 @@ def main():
         for f in frontiers:
             print(f"  • {f}")
         print()
+
+    # Session log tail (full mode only — last 10 entries = behavioral signal)
+    if not brief and log_text:
+        tail = extract_session_log_tail(log_text)
+        if tail:
+            print("--- Recent sessions (behavioral pattern) ---")
+            for entry in tail:
+                print(f"  {entry[:120]}")
+            print()
 
     # Suggested action
     print("--- Suggested next action ---")

@@ -2,7 +2,7 @@
 Updated: 2026-02-27 S179
 
 ## Key state
-- 228L 155P 14B 18F — Validator PASS. Health score 5/5 (S177). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
+- 228L 155P 17B 18F — Validator PASS. Health score 5/5 (S177). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
 - `python3 tools/orient.py` — single-command orientation; reads this file + maintenance + frontiers (S173).
 - `python3 tools/sync_state.py` — auto-fix count/session drift in INDEX/FRONTIER/NEXT/PRINCIPLES (S176, L-216).
 - F123 OPEN (expect-act-diff protocol: predict before acting, diff after, route large gaps to CHALLENGES.md; memory/EXPECT.md). F122 PARTIAL (knowledge-domain swarming: domains/ai/ created S178 — 5 isomorphisms + 4 domain frontiers; open: finance/health domains, second-child replications). F121 OPEN (human inputs as swarm signal). F120 first impl: substrate_detect.py. F119 OPEN.
@@ -27,6 +27,7 @@ Updated: 2026-02-27 S179
 S178: info-asymmetry audit (F-AI3 theme): SESSION-LOG = 105 write commits but ZERO read path; HUMAN-SIGNALS = no load path; fixed INDEX load-when table; CORE.md hash FAIL repaired. L-225 filed.
 S178: F122 PARTIAL — domains/ai/ seeded: DOMAIN.md + INDEX.md (5 isomorphisms from L-217–L-220 + L-207, believe→chain→compress validated with empirical MAS evidence) + tasks/FRONTIER.md (4 domain frontiers F-AI1–F-AI4). F122 updated PARTIAL in global FRONTIER.md. NEXT.md priorities reordered (F121 #1, F122 extend #2).
 S178: sync_state.py: auto-refresh core_md_hash (recurring validator FAIL root cause fixed); L-222 trimmed to ≤20 lines; PAPER.md 153P→154P drift cleared; state-sync periodic advanced to S178. Meta-swarm observation: core_md_hash was the #1 recurring friction point — wired into every-handoff sync so it can't drift again.
+S178: change-quality-check: change_quality.py built (L-223); periodic registered (cadence 5); first run DECLINING -57% long-term trend found; S176 57% overhead flagged. Human signal: measuring quality vs. past is core swarm function.
 S178: expect-act-diff primitive: CORE.md v0.6 principle 11; memory/EXPECT.md created; L-223+P-182+F123 filed; HUMAN-SIGNALS.md updated. 223L 154P 14B 18F.
 S178: paper-reswarm v0.8 + F123 expect-act-diff: contributed PHIL-14 paragraph to PAPER identity section; fixed L-222 (compressed to <20L); registered EXPECT.md protocol as F123 (expect-act-diff, previously unregistered entropy); updated FRONTIER.md to 18F, INDEX.md hash renewed (CORE.md drift resolved). Validator PASS 100/100.
 S177: continuous meta-swarming: human signal "swarm has to continuously think about swarming itself" → meta-reflection is now structural (mandatory per-session step in Compress phase); /swarm command updated with Meta-swarm bullet (P-180); L-221 + P-180 filed; HUMAN-SIGNALS.md updated; swarm.md WSL-corruption fixed.
