@@ -30,6 +30,7 @@ If orient.py is unavailable, read in parallel:
 - `beliefs/PHILOSOPHY.md` — identity
 - `beliefs/CORE.md` + `memory/INDEX.md` — principles and state
 - `tasks/FRONTIER.md` — what's open
+- `tasks/NEXT.md` (Key state + For next session) — current priorities
 
 Check alignment: `python3 tools/alignment_check.py` — shows pending child challenges and belief contradictions. Process any pending challenges before starting new work.
 

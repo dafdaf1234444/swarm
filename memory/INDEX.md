@@ -20,7 +20,7 @@ domains/    nk-complexity, distributed-systems, meta
 docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115)
 ```
 
-## Themes (214 lessons)
+## Themes (215 lessons)
 
 | Theme | Count | Key insight |
 |-------|-------|-------------|
@@ -36,7 +36,7 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115)
 ## What to load when
 | Doing...              | Read...                          |
 |-----------------------|----------------------------------|
-| Any session           | CLAUDE.md → CORE.md → this file  |
+| Any session           | CLAUDE.md → CORE.md → this file → `tasks/NEXT.md` (Key state) |
 | A specific task       | + relevant frontier/task files    |
 | Updating beliefs      | + beliefs/DEPS.md                |
 | Learning from past    | + PRINCIPLES.md or relevant lesson |

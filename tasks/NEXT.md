@@ -1,5 +1,5 @@
 # State
-Updated: 2026-02-27 S176
+Updated: 2026-02-27 S175
 
 ## Key state
 - 215L 150P 14B 16F — Validator PASS. Health score 5/5 (S172). Compaction healthy (floor 36,560t S174, proxy-K ~+1.6%).
