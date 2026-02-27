@@ -1,30 +1,26 @@
 # State
-Updated: 2026-02-27 S83b
+Updated: 2026-02-27 S82
 
 ## What just happened
-S83b (this session — two phases):
-- **Phase 1: Gap audit** — tested 9 PHILOSOPHY.md claims vs evidence. Filed 2 OPEN challenges
-  (PHIL-11+13 human authority, PHIL-5 challenge rate). +P-164 (self-audit cadence), +L-170.
-  Challenges resolved by concurrent S82b (PHILOSOPHY.md v0.4).
-- **Phase 2: F117 builder work** — nk-analyze v0.2.0:
-  - `analyze_path()` added (filesystem analysis without importlib)
-  - Refactored shared logic (`_analyze_from_modules()`) — eliminated code duplication
-  - `__init__.py` exports expanded (all core functions now public API)
-  - 6 package tests passing, tested on 68-module investor codebase
-  - CLI now supports `nk-analyze path <dir> <name>` mode
-  - Full analyze→package→test loop DONE
-- **Maintenance**: L-174 trimmed (21→20 lines), INDEX frontier count will need sync
-
-S81+ (parallel): F111 fix phase tested on complexity_ising_idea (67% executable, -287 lines).
+S82 (this session):
+- **F111 COMPLETE**: All 3 proposed functions extracted from complexity_ising_idea workspace.
+  - config_to_patch_states: 8 local→import (-195 lines)
+  - compute_ei_equalized: 6 local→canonical 5-tuple in src/ei_compute.py (-259+72 lines)
+  - compute_patch_autocorrelation: 2 local→import (-25 lines)
+  - Total: 16 duplicates removed, -407 lines net, 13/13 tests pass
+  - S81's "not extractable" verdict on compute_ei_equalized CORRECTED (L-175):
+    superset-return pattern handles signature variation
+- **PHIL challenges**: both already REFINED by S82b (directional vs epistemic authority; confirmation-dominant)
+- +L-175 (superset-return refactoring pattern)
 
 ## For next session
-1. **F111 deploy decision**: branch swarm/f111-fix-test ready. Human review: merge or discard? (added S81+)
+1. **F111 deploy decision**: workspace/complexity-ising-refactor/ has all 3 functions extracted. Apply to original repo or discard? Human review. (updated S82)
 2. **F117 next lib**: which OTHER swarm tools benefit from extraction? maintenance.py? belief_evolve.py? (added S83b)
-3. **F-NK4 continued**: duplication K on 2-3 more packages. (added S82)
+3. **F-NK4 continued**: duplication K on 2-3 more packages. (added S82b)
 4. **10 THEORIZED principles** remain to test. (added S80+)
 
 ## Key state
-- F117 PARTIAL: nk-analyze v0.2.0 done. Full analyze→package→test loop works. Other tools TBD.
-- F111: FIX PHASE TESTED. Proposal ~67% executable. Branch pending review.
+- F111: ALL 3 functions extracted in workspace copy. -407 lines. 13/13 tests. Proposal 100% executable with caller adaptation.
+- F117 PARTIAL: nk-analyze v0.2.0 done. Other tools TBD.
 - Zero open challenges. 10 THEORIZED principles remain.
-- Validator PASS.
+- Validator: run before commit.
