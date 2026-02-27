@@ -1,0 +1,179 @@
+#!/usr/bin/env python3
+"""
+dream.py — swarm dreaming: associative synthesis from existing corpus.
+
+Normal swarming = goal-directed work on open frontiers.
+Dreaming = free-associative cross-corpus reading that generates:
+  - Theme gravity map (where is knowledge dense vs sparse?)
+  - Uncited active principles (anchoring targets for new lessons)
+  - Cross-domain resonances (domain isomorphisms ↔ principles)
+  - Candidate frontier questions (implied by corpus combinations)
+
+Output is actionable: routes to FRONTIER.md, memory/lessons/, CHALLENGES.md.
+Run as periodic (cadence 7) or on-demand. (F125, L-256)
+"""
+
+import re
+import sys
+from pathlib import Path
+from collections import Counter
+
+ROOT = Path(__file__).parent.parent
+
+
+def load_lessons():
+    """Load all lessons with id, theme, and principle citations."""
+    lessons = []
+    lesson_dir = ROOT / "memory" / "lessons"
+    if not lesson_dir.exists():
+        return lessons
+    for f in sorted(lesson_dir.glob("L-*.md"),
+                    key=lambda p: int(re.search(r'\d+', p.stem).group())):
+        text = f.read_text(encoding="utf-8", errors="replace")
+        num = int(re.search(r'\d+', f.stem).group())
+        theme_m = re.search(r'\*\*Theme\*\*:\s*([^\n|*]+)', text)
+        theme = theme_m.group(1).strip() if theme_m else ""
+        cited = list(set(re.findall(r'P-\d+', text)))
+        lessons.append({"id": f"L-{num}", "num": num, "theme": theme, "cited": cited})
+    return lessons
+
+
+def load_principles():
+    """Load active principles with ids and text."""
+    principles = []
+    p_path = ROOT / "memory" / "PRINCIPLES.md"
+    if not p_path.exists():
+        return principles
+    text = p_path.read_text(encoding="utf-8", errors="replace")
+    for m in re.finditer(r'(P-\d+):\s*(.+?)(?=\nP-\d+:|\Z)', text, re.DOTALL):
+        pid, body = m.group(1), m.group(2).strip()[:300]
+        if 'superseded' in body[:60].lower() or 'dropped' in body[:60].lower():
+            continue
+        principles.append({"id": pid, "text": body})
+    return principles
+
+
+def load_domains():
+    """Load domain isomorphisms."""
+    domains = {}
+    domain_dir = ROOT / "domains"
+    if not domain_dir.exists():
+        return domains
+    for d in domain_dir.iterdir():
+        if not d.is_dir():
+            continue
+        f = d / "DOMAIN.md"
+        if f.exists():
+            text = f.read_text(encoding="utf-8", errors="replace")
+            isos = [ln.strip() for ln in text.split('\n') if '→' in ln and len(ln.strip()) > 20]
+            domains[d.name] = {"isos": isos[:8], "raw": text[:600]}
+    return domains
+
+
+def theme_gravity(lessons):
+    """Show where knowledge mass is concentrated."""
+    counts = Counter(l["theme"] for l in lessons if l["theme"])
+    total = len(lessons)
+    unthemed = sum(1 for l in lessons if not l["theme"])
+    print(f"\n--- Theme gravity ({total} lessons) ---")
+    for theme, n in counts.most_common(10):
+        bar = "▪" * min(n // 3, 20)
+        print(f"  {n:3d}  {theme[:28]:28s}  {bar}")
+    if unthemed:
+        print(f"  {unthemed:3d}  (unthemed)")
+    return counts
+
+
+def find_uncited_principles(principles, lessons):
+    """Find active principles with no lesson citations — anchoring targets."""
+    all_cited = set(p for l in lessons for p in l["cited"])
+    uncited = [p for p in principles if p["id"] not in all_cited]
+    print(f"\n--- Uncited active principles ({len(uncited)} / {len(principles)}) ---")
+    if uncited:
+        for p in uncited[:6]:
+            print(f"  {p['id']}: {p['text'][:70].rstrip()}")
+        if len(uncited) > 6:
+            print(f"  ... and {len(uncited) - 6} more")
+    else:
+        print("  All active principles cited.")
+    return uncited
+
+
+def cross_domain_resonances(domains, principles):
+    """Find domain isomorphisms that share key concepts with existing principles."""
+    resonances = []
+    stop = {"swarm", "lesson", "principle", "domain", "belief", "system", "based", "using",
+            "which", "their", "about", "these", "where", "other", "under", "above", "within",
+            "across", "between", "through", "should", "would", "could", "there", "those"}
+    for dname, data in domains.items():
+        for iso in data["isos"]:
+            iso_words = {w for w in re.findall(r'\b\w{5,}\b', iso.lower()) if w not in stop}
+            for p in principles:
+                p_words = {w for w in re.findall(r'\b\w{5,}\b', p["text"].lower()) if w not in stop}
+                overlap = iso_words & p_words
+                if len(overlap) >= 3:
+                    resonances.append((dname, iso[:70], p["id"], sorted(overlap)[:4]))
+    print(f"\n--- Cross-domain resonances ({len(resonances)}) ---")
+    for dname, iso, pid, overlap in resonances[:6]:
+        print(f"  [{dname}] {iso}")
+        print(f"    ↔ {pid}  shared: {overlap}")
+    if not resonances:
+        print("  (none detected at ≥3 word overlap)")
+    return resonances
+
+
+def candidate_frontiers(theme_counts, lessons, domains):
+    """Generate candidate frontier questions from corpus patterns."""
+    candidates = []
+    domain_names = set(domains.keys()) - {"meta", "nk-complexity", "distributed-systems"}
+    for theme, n in theme_counts.most_common(5):
+        if n >= 10 and theme.lower() not in domain_names:
+            candidates.append(
+                f"'{theme}' has {n} lessons — is there a structural meta-pattern not yet a principle?"
+            )
+    recent = lessons[-15:]
+    recent_themes = Counter(l["theme"] for l in recent if l["theme"])
+    if recent_themes:
+        top = recent_themes.most_common(1)[0]
+        if top[1] >= 5:
+            candidates.append(
+                f"Recent: {top[1]}/15 lessons in '{top[0]}' — orthogonal themes underexplored?"
+            )
+    if len(domain_names) >= 2:
+        dlist = sorted(domain_names)
+        candidates.append(
+            f"Do {dlist[0]}+{dlist[1]} isomorphisms overlap to suggest a third unidentified mapping?"
+        )
+    return candidates
+
+
+def dream():
+    print("=== SWARM DREAM CYCLE ===")
+    print("Associative synthesis from corpus. Not goal-directed. Output = swarm input.")
+
+    lessons = load_lessons()
+    principles = load_principles()
+    domains = load_domains()
+    print(f"\nCorpus: {len(lessons)}L  {len(principles)}P  {len(domains)} domains")
+
+    theme_counts = theme_gravity(lessons)
+    uncited = find_uncited_principles(principles, lessons)
+    resonances = cross_domain_resonances(domains, principles)
+    candidates = candidate_frontiers(theme_counts, lessons, domains)
+
+    print(f"\n--- Candidate frontier questions ({len(candidates)}) ---")
+    for i, q in enumerate(candidates, 1):
+        print(f"  {i}. {q}")
+
+    print(f"\n--- Dream routing ---")
+    if uncited:
+        print(f"  Write lessons that cite: {', '.join(p['id'] for p in uncited[:4])}")
+    if resonances:
+        print(f"  Cross-domain: validate {len(resonances)} resonances against FRONTIER.md")
+    if candidates:
+        print(f"  Add strongest candidates to tasks/FRONTIER.md")
+    print(f"\nDream complete. Act on what resonates; ignore what doesn't.")
+
+
+if __name__ == "__main__":
+    dream()

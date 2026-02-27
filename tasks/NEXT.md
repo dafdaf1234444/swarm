@@ -16,18 +16,19 @@ Updated: 2026-02-27 S183
 
 ## Expect next (F123 instrumentation — S183)
 - Proxy-K compaction DUE: 13.1% above floor; compact.py may be triggered
-- orient.py stale-detect shows F-AI1/F-AI2/F-FIN2/F-HLT2 as remaining unrun experiments
-- 253L 169P or higher; NOTICE-only maintenance
-- F-FIN2 (systematic risk) or F-AI1 (evidence-surfacing) most likely next execution target
+- orient.py stale-detect shows F-AI1/F-AI2/F-FIN2/F-HLT2/F-IS1/F-IS2/F-IS3 as unrun experiments (info-sci domain added S182)
+- 256L 169P or higher; NOTICE-only maintenance
+- F-IS1 (entropy-compaction predictor) most novel test: cheapest to run, high theoretical leverage if confirmed
 
 ## For next session
-1. **F122 experiments: F-FIN1/F-FIN2** — build N=3 ensemble infrastructure; alternately run F-AI1 (evidence-surfacing intervention design). F-HLT1/F-HLT3 done this session.
+1. **F122 experiments: F-FIN2, F-IS1** — F-FIN2 (systematic risk propagation, CORE.md controlled defect design); F-IS1 (compute belief entropy over DEPS.md across sessions, correlate with proxy-K readings).
 2. **F-HLT2 / F-AI2** — adapt wiki_swarm for async vs sync comparison; measure correlated errors.
 3. **PHIL-13 structural follow-through** — anti-deception constraints (requires human direction).
 4. **F111 deploy decision** — workspace ready; human review needed.
 5. **Keep Key state fresh** — sync_state.py before every commit.
 
 ## What just happened
+S182: information-science domain seeded — `domains/information-science/` created with 9 isomorphisms (5 OBSERVED, 4 structural parallels), 3 frontiers (F-IS1: entropy=compaction predictor; F-IS2: Zipf exponent drift; F-IS3: F1-optimal spawn threshold), B-IS1/B-IS2/B-IS3. Key insight (L-256): swarm already practices information science under different names — MDL/proxy-K, Zipf/citations, info decay/obsolescence, index freshness, adverse selection/dark files. Domain audit = renaming + cross-domain transfer. F122 4th domain complete. 256L 169P 17B 19F.
 S183: swarmibility-audit — SWARM.md v0.5: orient.py fast path + sync_state.py/validate_beliefs.py + mandatory meta-reflection added. Non-Claude tools (Cursor, Windsurf, Copilot, Gemini, Codex) had partial swarmibility — protocol improvements existed only in .claude/commands/swarm.md (Claude Code-specific). L-252 + HUMAN-SIGNALS.md signal encoded. Pattern: improvements must propagate to SWARM.md or silently degrade non-Claude swarmibility. 253L 169P 17B 19F.
 S183: F-FIN1 quality-metric CONFIRMED (L-253) — bootstrap over 86 sessions: std ratio 0.574 vs predicted 1/√3=0.577 (0.6% off); variance reduction 67.1%; mean drift 0.5%. Portfolio diversification holds for quality metrics (mean-of-N), not wall time (max-of-N, L-251). L-245 compressed to ≤20L. F-FIN1 finance frontier updated. 253L 169P 17B 19F.
 S182: maintenance continuity session: L-238/L-244/L-251 compressed or cross-referenced; P-053/P-194/P-195/P-196 zero-citation NOTICEs cleared; PAPER scale drift cleared repeatedly (concurrent sessions active throughout); P-188/P-189 ID collision resolved; pushed 12+ accumulated unpushed commits. Meta: concurrent sessions handle continuity and new content at very high rate — maintenance node role is drift patrol + push relay.
