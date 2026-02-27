@@ -398,7 +398,11 @@ cat > "$DIR/.gitignore" << 'GI'
 .idea/
 GI
 
-# Principles — building blocks from lessons (P-027: separate building blocks from stories)
+# Principles — inherit from parent if available (P-113: children inherit PRINCIPLES.md)
+if [ -f "memory/PRINCIPLES.md" ]; then
+    cp "memory/PRINCIPLES.md" "$DIR/memory/PRINCIPLES.md"
+    echo "Inherited parent PRINCIPLES.md ($(grep -c 'P-[0-9]' memory/PRINCIPLES.md) principles)"
+else
 cat > "$DIR/memory/PRINCIPLES.md" << 'PRINCIPLES'
 # Principles — Atomic Building Blocks
 Extracted from lessons. Scan for recombination opportunities.
@@ -407,6 +411,7 @@ Extracted from lessons. Scan for recombination opportunities.
 - **P-001**: Always verify generated files for shell artifacts. First-session validation catches these cheaply.
 - **P-002**: Separate format (template) from process (protocol). A template without a protocol produces inconsistent quality.
 PRINCIPLES
+fi
 
 # Workspace placeholder
 touch "$DIR/workspace/.gitkeep"
