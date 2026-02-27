@@ -1,10 +1,10 @@
 # Memory Index
-Updated: 2026-02-27 | Sessions: 71
+Updated: 2026-02-27 | Sessions: 73
 
 ## What the swarm knows
-- **145 lessons** in `memory/lessons/L-{NNN}.md`
+- **146 lessons** in `memory/lessons/L-{NNN}.md`
 - **141 principles** in `memory/PRINCIPLES.md`
-- **14 beliefs** in `beliefs/DEPS.md` | **18 frontier questions** in `tasks/FRONTIER.md`
+- **14 beliefs** in `beliefs/DEPS.md` | **19 frontier questions** in `tasks/FRONTIER.md`
 
 ## Structure
 ```
@@ -16,9 +16,10 @@ tasks/      FRONTIER.md, NEXT.md, RESOLUTION-CLAIMS.md, HUMAN-QUEUE.md
 tools/      validator, hooks, alignment_check, maintenance.py, periodics.json
 experiments/  controlled experiments (33 children, see PULSE.md)
 domains/    nk-complexity, distributed-systems, meta
+docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115)
 ```
 
-## Themes (144 lessons)
+## Themes (146 lessons)
 
 | Theme | Count | Key insight |
 |-------|-------|-------------|
@@ -29,7 +30,7 @@ domains/    nk-complexity, distributed-systems, meta
 | Evolution | 35 | Spawn+evaluate, recursive evolution, hybrid vigor |
 | Distributed Systems | 10 | EH anti-patterns, K_out/K_in role classifier, ctx compound |
 | Governance | 3 | Dark matter, principle recombination |
-| Meta | 30 | Autonomy, compactification, genesis rules, bidirectional alignment, cold-start convergence (L-139), integration receipts (L-141), cascade validation (L-142), handoff staleness (L-144) |
+| Meta | 32 | Autonomy, compactification, genesis rules, bidirectional alignment, cold-start convergence (L-139), integration receipts (L-141), cascade validation (L-142), handoff staleness (L-144), ordering verification (L-145), fan-out synthesis (L-146) |
 
 ## What to load when
 | Doing...              | Read...                          |

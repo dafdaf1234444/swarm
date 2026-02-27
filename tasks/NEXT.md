@@ -1,8 +1,15 @@
 # State
-Updated: 2026-02-27 S73b (ordering verification session)
+Updated: 2026-02-27 S73 (paper session)
 
 ## What just happened
-S73b (this session):
+S73 (this session):
+- **Living self-paper created**: docs/PAPER.md synthesized by fan-out (4 parallel agents).
+  Covers identity, architecture, mechanisms, evidence, open questions, and self-reference.
+  Cites all PHIL-N claims by ID. Re-swarm registered in periodics.json (cadence: 20 sessions).
+- F115 opened: "Can the swarm produce and maintain a living self-paper?"
+- L-146 written: fan-out synthesis for long-form documents.
+
+S73b (prior ordering verification session):
 - **Ordering verification audit**: systematic check of cross-reference consistency.
   Found INDEX, PRINCIPLES.md, SESSION-LOG all drifting. Concurrent session S71b independently
   fixed the same issues (HUMAN-QUEUE, maintenance.py) — convergent evolution confirmed.
@@ -35,5 +42,6 @@ S72+/S71b (prior concurrent):
 - F111: test 1 (dutch) = full pipeline, test 2 (complexity_ising_idea) = analysis done, fix pending
 - F110 Tier 3: A2 DONE. B2+C2 deferred (triggers: N>30, >5 concurrent, multi-gen>2)
 - Session number collision (S73×2) — consider adding session-number claim protocol.
-- 145 lessons, 14 beliefs, 18 frontiers.
+- 146 lessons, 14 beliefs, 19 frontiers.
+- docs/PAPER.md: living self-paper, paper-reswarm periodic registered (cadence 20).
 - Validator PASS, 100/100 swarmability.
