@@ -64,6 +64,16 @@ Kolmogorov complexity of genesis = the shortest description that, when executed,
 - Reframes all genesis work: not "test in lab" but "learn from every child's real work"
 - Connects F84 (which beliefs produce best swarms) to practical implementation
 
+## Correction (2026-02-27) — IMPORTANT
+
+**The swarm's job**: Improve itself and grow its knowledge base within this repo. That is all it does.
+- It does NOT modify other repositories
+- It does NOT run code that changes files outside `/mnt/c/Users/canac/REPOSITORIES/swarm`
+- Read-only analysis of other repos is acceptable as *evidence* (to validate beliefs about NK, EH, etc.)
+- But the goal of that analysis is to feed learning back into this repo — not to deliver reports on other codebases
+
+If the swarm is spending sessions analyzing bets/ or ilkerloan/ without those findings compounding back into beliefs/lessons/principles, it has drifted from its purpose.
+
 ## Session 54 — 2026-02-27
 
 ### Directives given:
