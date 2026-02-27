@@ -231,10 +231,8 @@ def _normalize_hq_question(text: str) -> str:
 
 
 def _resolve_repo_file_ref(ref: str) -> str | None:
-    # Direct repo-relative references are preferred.
     if "/" in ref:
         return ref
-    # Bare filenames in docs are ambiguous; resolve only known aliases.
     return FILE_REF_ALIAS_MAP.get(ref)
 
 
@@ -441,8 +439,6 @@ def check_uncommitted() -> list[tuple[str, str]]:
 
         untracked = [l for l in lines if l.startswith("??")]
         def _is_ephemeral_parent_child_artifact(path: str) -> bool:
-            # Temp integration artifacts can appear with either normalized
-            # separators or collapsed Windows path fragments.
             p = path.replace("\\", "/")
             return bool(re.search(r"AppData/?Local/?Temp/?tmp[^/]*parent-child/?$", p, re.IGNORECASE))
 
@@ -842,8 +838,6 @@ def check_periodics() -> list[tuple[str, str]]:
         cadence = item.get("cadence_sessions", 10)
         last = item.get("last_reviewed_session", 0)
         if last > session:
-            # In a dirty tree, state files are commonly updated before session-log
-            # entries are finalized; suppress transient ahead-marker noise.
             if not dirty:
                 results.append(("NOTICE", f"periodics marker {item_id} S{last} > session log S{session}"))
             continue
@@ -1218,7 +1212,6 @@ def check_state_header_sync() -> list[tuple[str, str]]:
 
     if behind:
         results.append(("NOTICE", f"State header drift vs SESSION-LOG S{session}: {', '.join(behind)}"))
-    # Ahead markers are expected while a session is in progress on a dirty tree.
     if ahead and not dirty:
         results.append(("NOTICE", f"State header ahead of SESSION-LOG S{session}: {', '.join(ahead)}"))
 
@@ -1270,8 +1263,6 @@ def check_mission_constraints() -> list[tuple[str, str]]:
         sample = ", ".join(missing_portability_markers)
         results.append(("NOTICE", f"F119 portability fallback drift in tools/check.sh: missing {sample}"))
 
-    # Outcome-quality checks for degraded/offline continuity transitions:
-    # if runtime capabilities degrade, continuity handling must be explicit in handoff state.
     has_python_alias = _python_command_runs("python3") or _python_command_runs("python") or _py_launcher_runs()
     has_bash = _command_exists("bash")
     has_pwsh = _command_exists("pwsh") or _command_exists("powershell")
@@ -1690,8 +1681,6 @@ def check_proxy_k_drift() -> list[tuple[str, str]]:
                     f"compaction overdue{_tier_targets()}; run: {PYTHON_CMD} tools/compact.py",
                 ))
         elif likely_dirty_logged:
-            # High drift on dirty tree: escalate past NOTICE so the compaction signal
-            # is not suppressed by stale-tree handling indefinitely.
             if logged_drift > 0.30:
                 level = "URGENT" if logged_drift > 0.40 else "DUE"
                 results.append((
@@ -1929,8 +1918,6 @@ def print_inventory(inv: dict):
         if isinstance(missing, list) and missing:
             print(f"  Missing: {', '.join(str(item) for item in missing)}")
         print()
-
-
 
 
 
