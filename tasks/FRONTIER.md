@@ -1,18 +1,22 @@
 # Frontier — Open Questions
 Pick the most relevant one for your session. Solve it or refine it.
-18 active questions. Resolved entries are in the table below.
+20 active questions. Resolved entries are in the table below.
 
 ## Critical
 - **F9**: What should the swarm's first real-world knowledge domain be? (PARTIAL — complexity theory + distributed systems. Two domains active.)
 - **F103**: Can the swarm demonstrably outperform a single Claude session on a real task? (S52: Human directive — verify the value proposition. Design: pick a task from user's repos (complexity_ising_idea, strats, etc.), run it as swarm (parallel sub-agents, cumulative memory) vs equivalent single-session Claude. Measure: depth of analysis, coverage of edge cases, novel insights found by second/third agent that first missed. Stakes: if swarm doesn't add value, it shouldn't exist. This is the falsification condition for the swarm itself.)
 
 ## Important
+- **F107**: What is the minimal genesis (Kolmogorov complexity) that produces a viable swarm? (Human directive. Live ablation, not lab experiments. Protocol: (1) Tag genesis components as named atoms (always-rule:swarmability, protocol:distill, mode:research, etc). (2) Children report genesis-used/genesis-ignored in session-end bulletins. (3) Next child spawned gets genesis minus least-used component. (4) Viability holds → not load-bearing → remove. Viability drops → essential → restore, mark confirmed. (5) Safety: never remove validator or CORE.md, never remove >1 component per child. Converges on minimal genesis over time. Children do real work AND provide genesis data — no wasted compute. Connects F84, F89. See HUMAN.md pre-S53.)
+- **F105**: How should the swarm implement continuous (online) compaction? (S51: Human directive. Current distillation is batch-only: session-end. Desired: inline Step 0 added to DISTILL.md — check PRINCIPLES.md before writing lesson. But open questions: (1) Should children inherit PRINCIPLES.md at spawn? Edge-of-chaos bulletin asked this in S35, never answered. (2) Should there be a dedicated "compactor" child that monitors and merges redundant principles? (3) What triggers a merge: 3 principles pointing to same truth? (4) Is the current 110-principle 46-line PRINCIPLES.md too dense to parse, or just right? Test: spawn 1 child with PRINCIPLES.md inheritance and 1 without — measure re-derivation rate.)
 - **F102**: Should the parent adopt minimal-nofalsif's winning changes? (S48: 140+ sessions, 947.4 fitness. Two mutations: (1) remove falsification conditions from beliefs, (2) remove protocol files. Test: remove falsification from 3 beliefs for 3 sessions, measure belief quality. If no degradation, apply to all. TIME-BOUND: decide by S53.)
 - **F69**: Context routing Level 2 — coordinator spawns with auto-summaries (triggers at 50K lines)
 - **F71**: Spawn quality — what makes a good spawn task? Measure convergence speed and novelty
-- **F101**: How should the swarm shard by domain to scale past the hot-file ceiling? (PARTIAL — S50: concrete proposal written. 4-phase plan: Phase 1 = add domain FRONTIER files (FRONTIER-NK.md, FRONTIER-distributed.md, FRONTIER-meta.md) — additive only, ~2h work, immediate ceiling relief. Phase 2-4 = domain indexes, domain beliefs, genesis adaptation — defer until 3rd domain. Cross-domain beliefs → META-DEPS.md. See experiments/architecture/f101-domain-sharding.md. P-111.)
+- **F101**: How should the swarm shard by domain to scale past the hot-file ceiling? (PARTIAL — S51: full architecture designed. Three-tier model: Tier 0 read-only, Tier 1 domain-owned, Tier 2 synthesizer-only. Phase 1 = domain FRONTIER files (2h, 2→3 agents). Phase 2 = domain INDEXes (1 session, 3→5+ agents). Phase 3 = domain DEPS + validate_beliefs.py update (1 session, →10 agents). Synthesizer role is stigmergic (stale-timestamp signal), not a dedicated coordinator. Soft locking via CLAIMS.md. See experiments/architecture/f101-true-swarming-design.md.)
 
 ## Exploratory
+- **F104**: Does personality persistence actually produce different findings on the same question? First test: fanout 4 personalities (skeptic/builder/explorer/adversary) on F76, compare outputs for divergence vs convergence. (S51: personality system designed — see experiments/architecture/f101-true-swarming-design.md Part 2)
+- **F106**: Is max_depth=2 the right recursive limit? Try depth=3 on one experiment to measure marginal novelty vs coordination cost.
 - **F75**: Does decompose-by-data outperform decompose-by-method for ALL task types? (L-051)
 - **F76**: Can hierarchical spawning produce insights no single agent could? First evidence: ratchet pattern
 - **F77**: Can spawn strategy self-improve? Track spawn history, auto-tune decomposition

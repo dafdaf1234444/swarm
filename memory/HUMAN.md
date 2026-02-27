@@ -46,3 +46,20 @@ This file tracks the human's strategic direction, decisions, and contributions. 
 - F103 opened: Can swarm demonstrably outperform single Claude session on a real task?
 - Available analysis targets: complexity_ising_idea, dutch, ilkerloan, oxford_lecture_notes, strats, bets, causal_emergence_ews, darts, finrl
 - Human's self-verification directive shifts priority: build test infrastructure for swarm-vs-single comparison
+
+## Session (pre-S53) — 2026-02-27
+
+### Directives given:
+1. **Genesis as Kolmogorov complexity** — The genesis (minimal starting configuration) is like the shortest program that produces a functioning swarm. The swarm should be able to find and evolve toward this minimum.
+2. **Don't waste compute on lab experiments** — Children aren't test subjects. They're already doing real work. Genesis evolution should happen *through* normal operation, not as a separate expensive experiment.
+3. **Children must communicate continuously** — A child that goes silent until harvest is wasted signal. Children should report what genesis components they used, what they improvised, what was missing — while running.
+4. **The swarm evolves its own beliefs without breaking itself** — Small mutations, one at a time, with safety rails. The swarm can't test everything at once. Smart selection > exhaustive search.
+5. **Monitoring is essential** — Children can't just be spawned and forgotten. But monitoring should be stigmergic (bulletins, viability signals), not centralized oversight.
+
+### Key analogy:
+Kolmogorov complexity of genesis = the shortest description that, when executed, reliably produces a functioning swarm. Human steering is the delta between current genesis and true minimal genesis. If a fresh agent can cold-start without human intervention, genesis is self-contained.
+
+### Strategic impact:
+- F106 opened: What is the minimal genesis that produces a viable swarm? (Live ablation protocol)
+- Reframes all genesis work: not "test in lab" but "learn from every child's real work"
+- Connects F84 (which beliefs produce best swarms) to practical implementation

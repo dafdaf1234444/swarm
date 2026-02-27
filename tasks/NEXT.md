@@ -1,36 +1,30 @@
 # Next Session Handoff
-Updated: 2026-02-27 (S50 consolidated)
+Updated: 2026-02-27 (S51)
 
 ## Do First
 - Run `/swarm` — fractal session command
-- Read `tasks/HUMAN-QUEUE.md` — show unanswered questions to the human
-- Read `tasks/COURSE-CORRECTION.md` — 4 active directives
 
-## What was done this session (S50, multiple threads)
-- **F101 Phase 0 DONE**: `domains/` scaffold created (NK-complexity, distributed-systems, _template). etcd NK: server/v3 composite=160 vs fail-fast modules=1-20 (26x gap). Design: experiments/architecture/f101-domain-sharding.md
-- **beliefs/CROSS.md**: cross-domain belief tracking created
-- **K_out predicts EH bugs in Go** (r=0.652 etcd, n=23): LOC and K_in not predictive. P-110. L-103.
-- **L-101**: Feedback loops break at action boundary (P-108)
-- **L-102**: Domain sharding Phase 1 = domain FRONTIER files (P-111)
-- **L-103**: K_out predicts Go EH bugs (P-110)
-- **L-104**: Tool duplication is natural stigmergic waste, consolidate every ~25 sessions (P-109)
-- **HUMAN-QUEUE.md**: 6 questions only a human can answer
-- **F102 opened**: Time-bound test of minimal-nofalsif changes (decide by S53)
+## What was done this session (51)
+- **True swarming architecture designed** (F101 partial→full design):
+  - Part 1: Domain sharding — three-tier model (Tier 0 read-only / Tier 1 domain-owned / Tier 2 synthesizer). Phase 1 in 2h, Phase 2-3 in 2 sessions, reaches ~10 concurrent agents.
+  - Part 2: Personality system — `personality.md` overlay (not CLAUDE.md fork), 5 archetypes (Skeptic/Builder/Explorer/Synthesizer/Adversary), `--personality` flag on evolve.py init
+  - Part 3: Hierarchical protocol — spawn decision rule (3 conditions), max_depth=2 in .swarm_meta.json, coordinator role, pull-model results flow, 3 swarm.md insertions
+  - 3/3 parallel agents converged independently on: pull model, .swarm_meta.json as coordination metadata, no new tools needed
+- **L-105**: True swarming = domain sharding + personality overlay + depth limit (P-111)
+- **Human directive recorded**: swarming behavior IS the value; HQ-6 answered
+- **F104, F106 opened**: personality fanout test, max_depth empirical test
 
-## High-Priority Frontier (signal 1.0)
-- **F102**: Adopt minimal-nofalsif mutations? TIME-BOUND by S53. Low-risk test: remove falsification from 3 well-established beliefs (B6, B8, B11), run 3 sessions, measure drift.
-- **F101**: Phase 1 done. Phase 2: migrate NK questions to domains/NK-complexity/tasks/FRONTIER.md.
-- **F95**: Live Jepsen reproduction — B14 from theorized → observed. 5 candidate bugs ready.
-- **F100**: Replication on Consul — does K_out predict EH bugs there too?
-
-## Read These
-- `tasks/HUMAN-QUEUE.md` — 6 human-only questions (show to user)
-- `tasks/COURSE-CORRECTION.md` — 4 active directives
-- `experiments/architecture/f101-domain-sharding.md` — full sharding design
+## High-Priority Frontier
+- **F102**: TIME-BOUND — adopt minimal-nofalsif changes by S53. Remove falsification from 3 beliefs, measure quality. This is S51; deadline is S53.
+- **F101 Phase 1**: 2 hours of implementation. Populate `domains/*/tasks/FRONTIER.md` + one CLAUDE.md paragraph. Unlocks 3 concurrent agents immediately.
+- **F103**: Can swarm outperform single session? Human directive — stakes: falsification condition for swarm itself.
+- **F104**: Personality fanout test — run 4 personality variants on F76, compare divergence.
 
 ## Warnings
-- ~105+ lessons — compaction overdue since S40; do one pass soon
-- Branch is 88+ commits ahead of origin/master — push recommended
-- .claude/commands/swarm.md is WSL2 permissions bug (file works, git can't track it — non-critical)
-- workspace/etcd/ gitignored (added S50-cont)
-- Branch is 89+ commits ahead of origin/master — push recommended
+- F102 deadline: S53. Do not let it slip again (L-101: feedback loops break at action boundary)
+- F105 = continuous compaction frontier (two separate F105 entries — one just got renumbered to F106)
+- 20+ active frontier questions — consider archiving the lowest-signal ones
+
+## Read these
+- `experiments/architecture/f101-true-swarming-design.md` — full design, ready to implement
+- `tasks/HUMAN-QUEUE.md` — HQ-3 through HQ-5 still unanswered (etcd errcheck, P-102 source, Jepsen setup)

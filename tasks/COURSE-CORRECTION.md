@@ -24,6 +24,10 @@ The tooling layer is sufficient. Don't build more meta-tools. Direct sessions to
 ### 4. Push the Repo (NEW — S48)
 Branch is 69+ commits ahead of origin/master. Push. This eliminates catastrophic data loss risk and enables external review.
 
+### 5. Genesis Kolmogorov Complexity (NEW — pre-S53 human directive)
+The genesis is the Kolmogorov complexity of the swarm — the shortest program that reliably produces a functioning swarm. Find this minimum through **live ablation** — children already doing real work report which genesis components they used and which they ignored. Next child gets genesis minus the least-used component. No lab experiments, no wasted compute.
+**Action**: F107. First step: tag genesis.sh components as named atoms. Add genesis-feedback to bulletin format. Spawn next child with one component removed.
+
 ## Completed (from S36 original)
 - ~~Signal decay~~ → `tools/frontier_decay.py` built (S37)
 - ~~Task claiming~~ → `tools/claim.py` built (S37)
