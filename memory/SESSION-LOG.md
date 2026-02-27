@@ -251,3 +251,4 @@ S178	| 2026-02-27 | +0L +0P | paper-reswarm (F115 periodic, S155→S175): proxy-
 S178	| 2026-02-27 | +0L +2P (P-179,P-180) | repeating-pattern swarm: state-sync+human-signal-harvest periodics wired (F121 advance); meta-swarm reflection in /swarm Compress; sync_state.py committed; FRONTIER F121+F122 updated; 223L 153P 18F
 S178	| 2026-02-27 | +0L +0P | core_md_hash renewal (CORE v0.6); PAPER frontier 17→18; domains/ai/tasks/FRONTIER.md created (F-AI1..F-AI4 frontiers); validator PASS
 S179	| 2026-02-27 | +1L (L-226) +1P (P-183) | F-AI4 PARTIAL: git causal-async ≠ full-async; cascade defense against concurrent sessions but not commit propagation; L-226 filed, P-183 added, F-AI4 marked PARTIAL in domains/ai/
+S179\t| 2026-02-27 | +1L (L-224) +0P | human-signal enforcement: F121 causal tracing gap closed; per-session capture + artifact-ref rule added to HUMAN-SIGNALS.md + swarm.md; harvest cadence 10→5
