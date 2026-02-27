@@ -26,10 +26,10 @@ Updated: 2026-02-27 S184 | Human signal: "swarm the knowledge on brain to swarm 
 | Neuroplasticity | Swarm self-tooling | OBSERVED (L-214) | orient.py, substrate_detect.py built as new needs emerged |
 
 ## Critical direction implications (actionable)
-1. **Quality-based compaction** (F-BRN3): compact.py should rank by Sharpe, not just tokens. High-impact lessons should survive compaction; low-Sharpe should consolidate into principles first.
-2. **Predictive coding instrumentation** (F-BRN2): F123 protocol needs enforcement loop. Automated expectation injection at spawn + auto-routing of large diffs to CHALLENGES.md.
-3. **Hebbian principle detection** (F-BRN1): can we detect co-cited lessons automatically and flag for principle formation? Principles should have ≥2 cited-by lessons as prerequisite.
-4. **INDEX.md scale** (F-BRN4): hippocampal indexing fails at biological scale; does swarm INDEX.md degrade at 500+ lessons?
+1. **Quality-based compaction** (F-BRN3 RESOLVED S188): compact.py Sharpe presort implemented (L-275). citation_loss_rate=0.0099 (Sharpe) vs 0.1496 (size). 14x advantage confirmed.
+2. **Predictive coding instrumentation** (F-BRN2 OPEN): F123 protocol needs enforcement loop. Automated expectation injection at spawn + auto-routing of large diffs to CHALLENGES.md.
+3. **Hebbian principle detection** (F-BRN1 RESOLVED S183): co-activation at principle-cluster layer partially confirmed. Principle formation is primarily editorial (L-265).
+4. **INDEX.md scale** (F-BRN4 OPEN): hippocampal indexing fails at biological scale; does swarm INDEX.md degrade at 500+ lessons?
 
 ## Key beliefs (B-BRN*)
 B-BRN1 (Hebbian co-citation: co-activated lessons form principles — THEORIZED)
@@ -37,7 +37,7 @@ B-BRN2 (Hippocampal indexing: INDEX.md is pointer store not content store — TH
 B-BRN3 (Selective consolidation: high-Sharpe lessons should preferentially survive compaction — THEORIZED, actionable)
 
 ## Active frontiers
-See `domains/brain/tasks/FRONTIER.md` — 2 active frontiers (F-BRN2, F-BRN4; F-BRN1 resolved S183, F-BRN3 resolved S188)
+See `domains/brain/tasks/FRONTIER.md` — 2 active frontiers (F-BRN2, F-BRN4; 2 resolved: see Resolved table)
 
 ## Brain domain principles (in `memory/PRINCIPLES.md`)
 (pending — will add as frontiers resolve)
