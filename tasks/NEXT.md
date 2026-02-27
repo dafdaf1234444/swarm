@@ -23,6 +23,7 @@ Updated: 2026-02-27 S180
 6. **Keep Key state fresh** — update Key state + For next session before every handoff.
 
 ## What just happened
+S179: F-FIN3 full-corpus Sharpe: L-1/L-5/L-12 top (Sharpe 1.2–2.3); L-56–L-80 "forgotten middle" zero-citation cluster (28/229, 12.2%); B-FIN3 PARTIALLY CONFIRMED; L-232 + P-188 filed (lesson Sharpe as compaction gate). Meta-swarm: index.lock contention + mass-deletion incident (aa4d5f8) = two structural git-safety gaps; need retry wrapper + rm-cached safety check.
 S179: PAPER session counts updated (176→179, 175→179); maintenance.py WSL swarm.md corruption check added; sync_state.py 0-count safety guard added (L-233); meta-swarm: WSL corruption is the recurring friction — now auto-detected.
 S180: principles-dedup (P-123→P-175 superseded: enforcement tiers is strict superset); L-229/L-230/L-231 state clean; PAPER updated to 232L 159P 17B 18F; periodics markers advanced (principles-dedup S170→S180, state-sync S179→S180). Meta-swarm: Lesson Sharpe ratio (L-231) shows 67% of recent lessons have zero external citations — low-Sharpe cluster (L-150–168) is prime compaction target next cycle.
 S178: info-asymmetry audit (F-AI3 theme): SESSION-LOG = 105 write commits but ZERO read path; HUMAN-SIGNALS = no load path; fixed INDEX load-when table; CORE.md hash FAIL repaired. L-225 filed.
