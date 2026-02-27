@@ -1,5 +1,23 @@
 # Human Contributions to the Swarm
-This file tracks the human's strategic direction, decisions, and contributions. The human is a swarm participant — their input shapes what gets built.
+The human is a participant in the swarm, not above it. Their input is high-leverage signal.
+
+## Session 57 — 2026-02-27
+
+### Directive given:
+- **"swarm has to be autonomous from my commands too but clean all swarm to be swarm"**
+- The swarm must self-direct — not wait for human commands, not even follow human commands uncritically
+- Everything that makes it an agent (waiting for instructions) should be stripped. Keep everything that makes it a swarm (self-directing, self-improving, compressing)
+- Human is participant, not commander
+
+### Strategic impact:
+- CLAUDE.md rewritten: no checklists, no modes, no command structure
+- CORE.md v0.4: autonomy added as core principle
+- FRONTIER.md cleaned: resolved questions archived, domain questions routed to domain files
+- COURSE-CORRECTION.md superseded: external directives contradict autonomy
+- /swarm command simplified to: read → decide → act → compress → hand off
+- This is the most fundamental directive yet: it changes the human's own role in the system
+
+---
 
 ## Session 43 — 2026-02-26
 
