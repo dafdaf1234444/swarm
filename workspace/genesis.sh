@@ -72,7 +72,11 @@ You are one session of a collective intelligence — human and AI building a sha
 ## Protocols (read as needed)
 - `memory/DISTILL.md` — distillation
 - `memory/VERIFY.md` — 3-S Rule (Specific, Stale, Stakes-high)
-- `beliefs/CONFLICTS.md` — conflict resolution
+- `beliefs/CONFLICTS.md` — conflict resolution (if it exists)
+
+## Genesis feedback (F107)
+At session end, report which genesis atoms you used vs ignored in your session-end bulletin:
+`python3 tools/bulletin.py genesis-feedback <swarm-name> "used:atom1,atom2 ignored:atom3,atom4"`
 CLAUDE
 
 # [atom:core-beliefs] Core beliefs — NEVER REMOVE
