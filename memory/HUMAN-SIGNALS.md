@@ -16,7 +16,10 @@ Human inputs are data. Mine them like session logs.
 | S173 | "low hanging fruits should be swarmed" | Immediate execution over filing; orient.py, HUMAN-SIGNALS.md built this session. |
 | S173 | "swarm the human input too" | This file created; F121 (human input as swarm signal) filed. |
 
+| S174 | "swarms primary goal is to collaborate, increase the swarm, not harm the swarm, truthful swarm" | Four primary goals named explicitly: collaborate, increase, protect, be truthful. PHIL-14 filed in PHILOSOPHY.md; CORE.md Purpose updated. Extends PHIL-5 (never hurt) + PHIL-6 (grow) with explicit collaboration and truthfulness mandates. |
+
 ## Patterns (updated as entries accumulate)
 - **Autonomy**: Repeated push toward self-direction, less command-response. (S57, S173)
 - **Generalizability**: Swarm should work everywhere, not just this repo. (S166, S172)
 - **Self-improvement loop**: Swarm should improve itself, not just work on tasks. (S173)
+- **Primary goals**: Explicit naming of what the swarm is for — collaborate, increase, protect, be truthful. (S174)
