@@ -17,12 +17,9 @@ if hasattr(sys.stderr, "reconfigure"):
     sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 
 def _load_symbol(module_names: tuple[str, ...], symbol: str):
-    for module_name in module_names:
-        try:
-            mod = importlib.import_module(module_name)
-            return getattr(mod, symbol)
-        except (ModuleNotFoundError, AttributeError):
-            continue
+    for name in module_names:
+        try: return getattr(importlib.import_module(name), symbol)
+        except (ModuleNotFoundError, AttributeError): continue
     return None
 
 _paper_drift = _load_symbol(("tools.paper_drift", "paper_drift"), "check_paper_accuracy")
@@ -92,13 +89,9 @@ def _command_exists(cmd: str) -> bool:
     return bool(shutil.which(cmd))
 
 def _command_runs(cmd: str, args: list[str], timeout: int = 5) -> bool:
-    if not _command_exists(cmd):
-        return False
-    try:
-        r = subprocess.run([cmd] + args, capture_output=True, text=True, timeout=timeout)
-    except Exception:
-        return False
-    return r.returncode == 0
+    if not _command_exists(cmd): return False
+    try: return subprocess.run([cmd] + args, capture_output=True, text=True, timeout=timeout).returncode == 0
+    except Exception: return False
 
 def _python_command_runs(cmd: str) -> bool:
     return _command_runs(cmd, ["-c", "import sys"], timeout=8)
@@ -107,27 +100,18 @@ def _py_launcher_runs() -> bool:
     return _command_runs("py", ["-3", "-c", "import sys"], timeout=8)
 
 def _select_python_command() -> str:
-    for candidate in ("python3", "python"):
-        if _python_command_runs(candidate):
-            return candidate
-    if _py_launcher_runs():
-        return "py -3"
-    exe_name = Path(PYTHON_EXE).name
-    if _python_command_runs(exe_name):
-        return exe_name
-    return PYTHON_EXE
+    for c in ("python3", "python"):
+        if _python_command_runs(c): return c
+    if _py_launcher_runs(): return "py -3"
+    name = Path(PYTHON_EXE).name
+    return name if _python_command_runs(name) else PYTHON_EXE
 
 PYTHON_CMD = _select_python_command()
 
 def _git(*args: str) -> str:
-    try:
-        r = subprocess.run(
-            ["git", "-C", str(REPO_ROOT)] + list(args),
-            capture_output=True, text=True, timeout=10
-        )
-        return r.stdout.rstrip("\n")
-    except Exception:
-        return ""
+    try: return subprocess.run(["git", "-C", str(REPO_ROOT)] + list(args),
+                               capture_output=True, text=True, timeout=10).stdout.rstrip("\n")
+    except Exception: return ""
 
 def _decode_git_path(path: str) -> str:
     p = path.strip()
@@ -157,60 +141,44 @@ def _tracked_changed_paths() -> list[str]:
             if line.rstrip() and line[:2] != "??"]
 
 def _line_count(path: Path) -> int:
-    try:
-        return len(_read(path).splitlines())
-    except Exception:
-        return 0
+    try: return len(_read(path).splitlines())
+    except Exception: return 0
 
 def _token_count(path: Path) -> int:
-    try:
-        return len(_read(path)) // 4
-    except Exception:
-        return 0
+    try: return len(_read(path)) // 4
+    except Exception: return 0
 
 def _read(path: Path) -> str:
-    try:
-        return path.read_text(encoding="utf-8", errors="replace")
-    except Exception:
-        return ""
+    try: return path.read_text(encoding="utf-8", errors="replace")
+    except Exception: return ""
 
 def _exists(path: str) -> bool:
     return (REPO_ROOT / path).exists()
 
 def _is_wsl_mnt_repo() -> bool:
-    if not sys.platform.startswith("linux"):
-        return False
-    rel = platform.release().lower()
-    plat = platform.platform().lower()
-    if "microsoft" not in rel and "microsoft" not in plat:
-        return False
-    repo_posix = str(REPO_ROOT).replace("\\", "/")
-    return repo_posix.startswith("/mnt/")
+    if not sys.platform.startswith("linux"): return False
+    info = (platform.release() + " " + platform.platform()).lower()
+    if "microsoft" not in info: return False
+    return str(REPO_ROOT).replace("\\", "/").startswith("/mnt/")
 
 def _session_number() -> int:
-    log = _read(REPO_ROOT / "memory" / "SESSION-LOG.md")
-    numbers = re.findall(r"^S(\d+)", log, re.MULTILINE)
+    numbers = re.findall(r"^S(\d+)", _read(REPO_ROOT / "memory" / "SESSION-LOG.md"), re.MULTILINE)
     return max(int(n) for n in numbers) if numbers else 0
 
 _active_principle_ids = parse_active_principle_ids
 
 def _normalize_hq_question(text: str) -> str:
-    text = re.sub(r"[^a-zA-Z0-9\s]", " ", (text or "").lower())
-    return re.sub(r"\s+", " ", text).strip()
+    return re.sub(r"\s+", " ", re.sub(r"[^a-zA-Z0-9\s]", " ", (text or "").lower())).strip()
 
 def _resolve_repo_file_ref(ref: str) -> str | None:
-    if "/" in ref:
-        return ref
-    return FILE_REF_ALIAS_MAP.get(ref)
+    return ref if "/" in ref else FILE_REF_ALIAS_MAP.get(ref)
 
 def _is_lane_placeholder(value: str) -> bool:
     return (value or "").strip().lower() in LANE_PLACEHOLDERS
 
 def _parse_lane_tags(value: str) -> dict[str, str]:
-    tags: dict[str, str] = {}
-    for key, raw_value in re.findall(r"([A-Za-z][A-Za-z0-9_-]*)\s*=\s*([^\s,;|]+)", value or ""):
-        tags[key.strip().lower()] = raw_value.strip()
-    return tags
+    return {k.strip().lower(): v.strip()
+            for k, v in re.findall(r"([A-Za-z][A-Za-z0-9_-]*)\s*=\s*([^\s,;|]+)", value or "")}
 
 _LANE_KEYS = ("date", "lane", "session", "agent", "branch", "pr", "model", "platform", "scope_key", "etc", "status", "notes")
 
@@ -293,13 +261,11 @@ def _iter_utility_citation_files() -> list[Path]:
     return files
 
 def check_unpushed() -> list[tuple[str, str]]:
-    results = []
     ahead = _git("rev-list", "--count", "@{upstream}..HEAD")
     if ahead and ahead.isdigit() and int(ahead) > 0:
         n = int(ahead)
-        level = "URGENT" if n >= 10 else "DUE" if n >= 5 else "NOTICE"
-        results.append((level, f"{n} unpushed commits — git push"))
-    return results
+        return [("URGENT" if n >= 10 else "DUE" if n >= 5 else "NOTICE", f"{n} unpushed commits — git push")]
+    return []
 
 def check_uncommitted() -> list[tuple[str, str]]:
     results = []
@@ -604,19 +570,10 @@ def check_help_requests() -> list[tuple[str, str]]:
 
 def check_compaction() -> list[tuple[str, str]]:
     results = []
-
-    index_lines = _line_count(REPO_ROOT / "memory" / "INDEX.md")
-    if index_lines > 60:
-        results.append(("DUE", f"INDEX.md is {index_lines} lines (>60)"))
-
-    mandatory = sum(_line_count(REPO_ROOT / p) for p in [
-        Path("CLAUDE.md"),
-        Path("beliefs") / "CORE.md",
-        Path("memory") / "INDEX.md",
-    ])
-    if mandatory > 200:
-        results.append(("DUE", f"Mandatory load is {mandatory} lines (>200)"))
-
+    idx = _line_count(REPO_ROOT / "memory" / "INDEX.md")
+    if idx > 60: results.append(("DUE", f"INDEX.md is {idx} lines (>60)"))
+    mandatory = sum(_line_count(REPO_ROOT / p) for p in [Path("CLAUDE.md"), Path("beliefs") / "CORE.md", Path("memory") / "INDEX.md"])
+    if mandatory > 200: results.append(("DUE", f"Mandatory load is {mandatory} lines (>200)"))
     return results
 
 def check_lessons() -> list[tuple[str, str]]:
@@ -715,17 +672,12 @@ def check_periodics() -> list[tuple[str, str]]:
     return results
 
 def check_validator() -> list[tuple[str, str]]:
-    results = []
     try:
-        r = subprocess.run(
-            [PYTHON_EXE, str(REPO_ROOT / "tools" / "validate_beliefs.py"), "--quick"],
-            capture_output=True, text=True, timeout=30
-        )
-        if "RESULT: FAIL" in r.stdout:
-            results.append(("URGENT", "validate_beliefs.py FAIL — fix before other work"))
+        r = subprocess.run([PYTHON_EXE, str(REPO_ROOT / "tools" / "validate_beliefs.py"), "--quick"],
+                           capture_output=True, text=True, timeout=30)
+        return [("URGENT", "validate_beliefs.py FAIL — fix before other work")] if "RESULT: FAIL" in r.stdout else []
     except Exception as e:
-        results.append(("URGENT", f"validate_beliefs.py failed to run: {e}"))
-    return results
+        return [("URGENT", f"validate_beliefs.py failed to run: {e}")]
 
 def check_version_drift() -> list[tuple[str, str]]:
     results = []
