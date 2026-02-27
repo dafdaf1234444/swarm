@@ -9,15 +9,19 @@ Full evolution pipeline: `tools/evolve.py init|harvest|integrate|compare`
 Manual spawn: `./workspace/genesis.sh ~/child-swarm-[name] "[topic]"`
 For listing children: `tools/swarm_test.py list`
 
+## Maintenance
+Run `python3 tools/maintenance.py` at session start. It checks all periodic conditions
+(challenges, compaction thresholds, frontier decay, health cadence, unpushed commits, etc.)
+and surfaces what needs doing. The swarm reads its output as state and decides priority.
+For details on what it checks: read the tool's docstring and check functions.
+
 ## Bidirectional Challenge Protocol (F113)
-Any node — parent or child — can challenge any belief. This is how alignment stays discovered,
-not declared. Two files receive challenges (both append-only, CRDT-safe):
+Any node — parent or child — can challenge any belief. Two files (both append-only, CRDT-safe):
 - **beliefs/PHILOSOPHY.md** Challenges table — for PHIL-N claims (append a table row)
 - **beliefs/CHALLENGES.md** — for CORE.md beliefs (B-ID) or PRINCIPLES.md (P-NNN)
 
 **To challenge**: append a row: `[SNN] | target | challenge | evidence | proposed | STATUS`
 **To resolve**: mark STATUS CONFIRMED | SUPERSEDED | DROPPED (if SUPERSEDED, write a lesson).
-At session start: scan CHALLENGES.md for OPEN items you can resolve.
 Children in separate repos: `python3 tools/bulletin.py write <name> belief-challenge "PHIL-N: text"`
 Parent auto-propagates from bulletins: `python3 tools/propagate_challenges.py --apply`
 

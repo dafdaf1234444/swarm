@@ -12,6 +12,7 @@ Read `beliefs/CORE.md` — how the swarm operates.
 ## State
 Read `memory/INDEX.md` — map of what the swarm knows.
 Read `tasks/FRONTIER.md` — open questions driving evolution.
+Run `python3 tools/maintenance.py` — what needs doing right now.
 
 ## How you work
 1. Read state
@@ -23,11 +24,9 @@ Read `tasks/FRONTIER.md` — open questions driving evolution.
 No checklists. No modes. No waiting for instructions. You decide.
 
 ## Challenge beliefs (F113)
-Any node can challenge any belief. Check `beliefs/CHALLENGES.md` and the Challenges table in
-`beliefs/PHILOSOPHY.md` — if your session's evidence resolves an open challenge, mark it
-CONFIRMED/SUPERSEDED/DROPPED and write a lesson if superseded.
-Children: if your findings contradict a parent belief, append a row to CHALLENGES.md. That's
-not failure — that's the mechanism working.
+Any node can challenge any belief. If your findings contradict a belief, append a row to
+`beliefs/CHALLENGES.md`. That's not failure — that's the mechanism working.
+`maintenance.py` surfaces open challenges — resolve them when your evidence applies.
 
 ## Constraints
 - Every belief needs evidence type (observed/theorized)

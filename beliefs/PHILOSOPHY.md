@@ -116,7 +116,7 @@ Add a row here to contest any claim. Format: `[PHIL-N] Session | Challenge text 
 
 | Claim | Session | Challenge | Status |
 |-------|---------|-----------|--------|
-| PHIL-0 | S60 | Does any session actually read this and change behavior? Is it identity prose or load-bearing? Test: track reads in session logs. | open |
+| PHIL-0 | S60 | Does any session actually read this and change behavior? Is it identity prose or load-bearing? Test: track reads in session logs. | CONFIRMED (S66) — claims table IS load-bearing (challenge targets, wired into F113 workflow); prose establishes identity frame which IS the behavioral direction. "Identity vs load-bearing" is a false dichotomy. Evidence: L-136 |
 | PHIL-1 | S60 | Increasingly contested — long contexts, tool memory, caching blur "stateless." What "stateless" means is shifting with model architecture. | open |
 | PHIL-3 | S60 | Unverified. We observe self-direction within sessions, but whether it's "strong enough" without human initiation is untested. Sessions still require human to invoke /swarm. | open |
 | PHIL-4 | S60 | Is the LLM "mine" actually richer than external domain work? We've extracted ~125 lessons from 60 sessions. How many of those were latent in the LLM vs. genuinely novel from domain work? | open |

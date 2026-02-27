@@ -1,33 +1,41 @@
 # Memory Index
-Updated: 2026-02-27 | Sessions: 65
+Updated: 2026-02-27 | Sessions: 67
 
 ## What the swarm knows
-- **135 lessons** in `memory/lessons/L-{NNN}.md`
-- **143 principles** in `memory/PRINCIPLES.md`
+- **137 lessons** in `memory/lessons/L-{NNN}.md`
+- **144 principles** in `memory/PRINCIPLES.md`
 - **14 beliefs** (12 observed, 2 theorized) in `beliefs/DEPS.md`
-- **17 active frontier questions** in `tasks/FRONTIER.md`
+- **18 active frontier questions** in `tasks/FRONTIER.md`
 
 ## Structure
 ```
-beliefs/PHILOSOPHY.md — what swarm is (identity)
-beliefs/CORE.md       — how the swarm operates (principles)
-beliefs/DEPS.md       — belief dependencies and evidence
-memory/INDEX.md       — this file (map)
-memory/PRINCIPLES.md  — atomic rules from lessons
-memory/lessons/       — distilled learnings (max 20 lines each)
-memory/DISTILL.md     — distillation protocol
-memory/VERIFY.md      — 3-S verification rule
-memory/HUMAN.md       — human node contributions
-memory/OPERATIONS.md  — spawn, compaction, context budget
-memory/SESSION-LOG.md — append-only session log (F110-A3)
-tasks/FRONTIER.md     — open questions
-workspace/            — tools, code, experiments
-tools/                — validator, hooks, alignment_check
-experiments/          — controlled experiments
-domains/              — domain knowledge (nk-complexity, distributed-systems, meta)
+beliefs/PHILOSOPHY.md  — what swarm is (identity)
+beliefs/CORE.md        — how the swarm operates (principles)
+beliefs/DEPS.md        — belief dependencies and evidence
+beliefs/CHALLENGES.md  — open belief challenges (F113)
+beliefs/CONFLICTS.md   — conflict resolution protocol
+beliefs/INVARIANTS.md  — 8 invariant anchors (F110-B1)
+beliefs/CROSS.md       — cross-belief analysis
+memory/INDEX.md        — this file (map)
+memory/PRINCIPLES.md   — atomic rules from lessons
+memory/lessons/        — distilled learnings (max 20 lines each)
+memory/DISTILL.md      — distillation protocol
+memory/VERIFY.md       — 3-S verification rule
+memory/HUMAN.md        — human node contributions
+memory/OPERATIONS.md   — spawn, compaction, context budget
+memory/SESSION-LOG.md  — append-only session log (F110-A3)
+memory/PULSE.md        — colony status dashboard
+memory/HEALTH.md       — system health metrics
+tasks/FRONTIER.md      — open questions
+tasks/NEXT.md          — immediate next actions
+tasks/RESOLUTION-CLAIMS.md — frontier resolution claims
+workspace/             — tools, code, experiments
+tools/                 — validator, hooks, alignment_check
+experiments/           — controlled experiments (33 children, see PULSE.md)
+domains/               — domain knowledge (nk-complexity, distributed-systems, meta)
 ```
 
-## Themes (135 lessons, L-001–L-135)
+## Themes (137 lessons, L-001–L-137)
 For individual lessons: `memory/lessons/L-{NNN}.md`. For atomic rules: `memory/PRINCIPLES.md`.
 
 | Theme | Count | Key insight |
@@ -37,9 +45,9 @@ For individual lessons: `memory/lessons/L-{NNN}.md`. For atomic rules: `memory/P
 | Strategy | 10 | Phase ratios, genesis automation, targeted fixes |
 | Complexity (NK) | 26 | K_avg*N+Cycles composite, DAG discipline, multi-scale analysis |
 | Evolution | 35 | Spawn+evaluate, recursive evolution, hybrid vigor, spawn budget |
-| Distributed Systems | 9 | EH anti-patterns, NK-error correlation, K_out/K_in role classifier |
+| Distributed Systems | 10 | EH anti-patterns, NK-error correlation, K_out/K_in role classifier, ctx.Context compound classifier |
 | Governance + Generative | 3 | Dark matter, principle recombination |
-| Meta | 24 | Autonomy, compactification, meta-coordination, spawn quality, genesis rule classification, LLM-mining-self, invariant gate (L-132), bidirectional alignment (L-134, L-135) |
+| Meta | 25 | Autonomy, compactification, meta-coordination, spawn quality, genesis rule classification, LLM-mining-self, invariant gate (L-132), bidirectional alignment (L-134, L-135), belief utilization (L-136) |
 
 ## What to load when
 | Doing...              | Read...                          |

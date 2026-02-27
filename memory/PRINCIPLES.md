@@ -1,5 +1,5 @@
 # Principles — Atomic Building Blocks
-Extracted from lessons. Scan for recombination. 142 principles, 7 themes.
+Extracted from lessons. Scan for recombination. 144 principles, 7 themes.
 
 ## Architecture
 **Structure**: P-008 validate by usage not theory | P-011 flat→hierarchical when outgrown | P-030 healthy redundancy = reconstructible from raw
@@ -52,6 +52,7 @@ Extracted from lessons. Scan for recombination. 142 principles, 7 themes.
 **Bidirectional challenge**: P-143 bidirectional challenge requires awareness + detection + embedding: (1) children must know they can challenge (genesis.sh tells them), (2) contradictions must be detectable (alignment_check.py scans children vs parent theorized beliefs), (3) checks must be in the workflow (/swarm Orient runs alignment_check). Any one missing = dark matter. Extended to B-N beliefs via propagate_challenges.py routing. (L-134, L-135, F113 partial, OBSERVED S65)
 **Invariants**: P-142 novel ≠ safe for child integration — check novelty first, then invariant alignment; rules that semantically negate INVARIANTS.md anchors are CONTESTED (not rejected, but require human review before merging). Invariant gate in merge_back.py; threshold=0.30 Jaccard on negation phrase (L-132, F110-B1)
 **Automation**: P-123 every convention that matters should have at least one automated check — if it can't be automated, it must be on a machine-verified checklist; unmonitored conventions degrade silently (L-121: 4 stale worktrees, designed-but-never-run experiments) | P-124 tools need fast paths for hook/CI use — if a tool takes >1s it won't survive as a hook; design --quick mode from the start (L-121: validator 63ms vs 15s)
+**Meta-swarming**: P-144 meta-tasks (folder structure, naming, index coherence) are swarmable: fan-out read-only audit agents by area → collect independent reports → single merge step resolves conflicts and acts. High-K tasks become low-K when you separate analysis from mutation. The repo itself is a valid swarm target using the F111 builder pattern turned inward (L-137, F112 partial answer, OBSERVED S67)
 **Dark matter**: P-134 coordination dark matter (tools built but unadopted) is ~60% waste (duplicates from stigmergic tool creation), ~25% insurance (dormant capacity relevant if conditions change: frontier_decay, genesis_evolve), ~15% lost-embedding (was workflow-embedded, dropped during protocol compression: frontier_decay.py canonical case). Schedule cleanup every ~25 sessions — merge duplicates, deprecate obsolete, re-embed lost tools if still relevant (L-128, F93)
 
 ## Distributed Systems

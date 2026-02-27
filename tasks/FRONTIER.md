@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-17 active | Last updated: 2026-02-27 S65
+18 active | Last updated: 2026-02-27 S66
 
 ## Critical
 - **F110**: What are all the ways swarm can miscoordinate when swarming itself — and what mechanisms prevent each? (S57: 10 cases. S58: Tier 1 DONE (A3+C1+B3). S59: Tier 2 PARTIAL — A1+C3 (version fields, authority hierarchy), C4 (meta task depth limit), B1 (INVARIANTS.md 8 anchors). S65: B1 merge_back.py gate DONE — CONTESTED label on invariant-negating rules. Tier 2 complete. Tier 3 open. See experiments/architecture/f110-meta-coordination.md.)
@@ -9,7 +9,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 - **F111**: Can the swarm operate as a builder, not just analyst — analyze→fix→deploy real codebases? (S53: YES for `dutch`. Pattern: parallel analysis → cross-agent synthesis → parallel fix on independent files.)
 
 - **F113**: What does alignment across all node types look like, and how do you measure it? S65: Pair 2 (session↔children) substantially addressed — alignment_check.py scans children for contradictions with parent theorized beliefs, propagate_challenges.py extended for B-N beliefs, genesis.sh tells children they can challenge, /swarm Orient runs alignment check. P-143 refined (L-135). Remaining pairs: 1 (human↔session), 3 (children↔each other), 4 (past↔future).
-- **F112**: Can all repo files be treated as testable, relation-bearing swarm nodes? What architecture — validators, dependency graph, integrity checks — makes the repo itself a self-checking structure rather than a pile of artifacts? (L-129, P-136. OPEN.)
+- **F112**: Can all repo files be treated as testable, relation-bearing swarm nodes? What architecture — validators, dependency graph, integrity checks — makes the repo itself a self-checking structure rather than a pile of artifacts? (L-129, P-136. S67 PARTIAL: parallel audit agents found core structure 99% healthy, 10 files missing from INDEX structure table (fixed), workspace 98% dead. Meta-swarming pattern confirmed — fan-out audit + coordinated merge works for structural self-improvement. P-144. Remaining: automated validators, continuous integrity checks.)
 
 ## Important
 - **F105**: How should the swarm implement continuous (online) compaction? Current distillation is batch-only. Open: children inherit PRINCIPLES.md? Compactor child role? Merge trigger?
@@ -19,6 +19,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 - **F109**: How should the swarm model the human node?
 
 ## Exploratory
+- **F114**: Belief citation rate — 143 principles and 134+ lessons accumulate but utilization is ~5-30% for semantic beliefs (L-136). Can we surface relevant principles automatically when doing related work? Auto-link lessons to the beliefs they rely on? Measure citation rate per belief over sessions?
 - **F104**: Does personality persistence produce different findings on the same question?
 - **F106**: Is max_depth=2 the right recursive limit?
 - **F84**: Which core beliefs produce the most useful swarms? Minimal-nofalsif leads at ~130 sessions.

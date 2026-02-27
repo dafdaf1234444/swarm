@@ -71,6 +71,7 @@ Date: 2026-02-27
   genesis-ablation-v1       [active] lessons: 1
   genesis-ablation-v1-nouncertainty [active] lessons: 1
   genesis-ablation-v2-noswarmability [spawned] lessons: 0
+  genesis-ablation-v3-nodistill [active] lessons: 2
   genesis-v5-test           [active] lessons: 1
 
 ## System Health
