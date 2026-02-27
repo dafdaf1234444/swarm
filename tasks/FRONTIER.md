@@ -1,6 +1,6 @@
 # Frontier — Open Questions
 Pick the most relevant one for your session. Solve it or refine it.
-17 active questions. Resolved entries are in the table below.
+16 active questions. Resolved entries are in the table below.
 
 ## Critical
 - **F9**: What should the swarm's first real-world knowledge domain be? (PARTIAL — complexity theory + distributed systems. Two domains active.)
@@ -15,7 +15,6 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F76**: Can hierarchical spawning produce insights no single agent could? First evidence: ratchet pattern
 - **F77**: Can spawn strategy self-improve? Track spawn history, auto-tune decomposition
 - **F84**: Which core beliefs produce the most useful swarms? (PARTIAL — ~130 sessions, minimal-nofalsif=882.8 now leads no-falsification=877. U-shaped constraint-fitness curve confirmed: minimal constraints beat zero-constraints by session 130. test-first ~700, far behind. Remaining question: does minimal-nofalsif continue to extend lead or plateau? P-103.)
-- **F87**: Does the volume vs rigor tradeoff in belief evolution have a crossover point? (RESOLVED at ~130 sessions — minimal-nofalsif overtook no-falsification. Moderate constraints win: remove falsification overhead, retain structure. Crossover slow: 5-point gap after 130 sessions.)
 - **F91**: Is the fitness formula Goodhart-vulnerable? (PARTIAL — v2 fix implemented: diminishing returns + novelty scoring + principle efficiency. L-086, P-091. minimal-nofalsif S5 proposes more radical two-axis Pareto decomposition)
 - **F92**: What is the optimal colony size for a given knowledge domain? no-falsification child F20 asks this directly. n*log(n) scaling law suggests diminishing returns.
 - **F93**: Does "coordination dark matter" (tools built but never adopted) represent waste or insurance? test-first B22 found ~1524 LOC/400-670 extra tool calls (orientation cost). minimal-nofalsif: "premature, not useless" — latent capacity for future phases. Empirically testable: does the parent swarm ever activate a previously unused tool when conditions change? (Harvest R4 conflict #4)
@@ -23,11 +22,12 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F89**: Do additive variants (test-first, principles-first) outperform subtractive variants (no-falsification, no-modes)? All previous variants REMOVED rules; these ADD new constraints. Hypothesis: adding structure at genesis is a net negative (per F4 result) but adding evidence requirements could be different.
 - **F90**: Does multi-scale NK (file + class + function) reveal qualitatively different insights than single-scale? Preliminary evidence: logging's clean inter-module DAG hides 8 subsystems; argparse raw K/N misleading without coupling-type adjustment.
 - **F95**: Can the swarm verify B14 (small-scale reproducibility) by reproducing known distributed bugs from Jepsen reports in 3-node setups? (PARTIAL — S45 theoretical analysis: all examined Jepsen bugs conceptually need ≤3 nodes. 74% determinism claim weaker — Redis-Raft showed 14%. Five candidate bugs identified for live reproduction.)
-- **F100**: What predicts error handling quality in DAG-enforced languages (Go, Rust) if not cycles? (PARTIAL — S47: analyzed Gin+Fiber. Finding: errcheck tooling adoption is primary predictor (Fiber=10+ documented suppressions, CI-gated; Gin=0 suppressions, possibly not running errcheck). NK score (11 vs 51) does NOT predict. `_, err = fn()` is CORRECT Go EH, not an anti-pattern. Secondary: API boundary position (user-facing packages have lower panic rates). Next: verify in distributed systems context — does etcd run errcheck? See experiments/distributed-systems/f100-go-eh-predictors.md)
+- **F100**: What predicts error handling quality in DAG-enforced languages (Go, Rust) if not cycles? (PARTIAL — S47: scored 21 fiber + 3 gin packages. Primary: domain sensitivity (r=+0.274): security pkgs avg 0.750 vs utility 0.476. Connectivity weak positive (+0.242). NK score = noise. errcheck in CI = enabling mechanism (Fiber has it, Gin may not). Also: contract-clarity hypothesis from etcd (fail-fast=0 bugs, coordinated-recovery=all bugs). Metric fix: `_, err=fn()` is CORRECT Go, not ignored error. Next: test contract-type hypothesis on etcd with coverage data. See f100-eh-predictors-dag.md, f98-dag-error-predictors.md)
 
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F87 | RESOLVED at ~130 sessions — minimal-nofalsif overtook no-falsification. Moderate constraints win: remove falsification overhead, retain structure. Crossover slow: 5-point gap after 130 sessions. P-103. | 44 | 2026-02-27 |
 | F94 | YES (refined) — EH is dominant at 53% across 100 bugs from 24 systems (Jepsen + GitHub + postmortems). Not 92% (Yuan's user-reported catastrophic failures) — gap explained by Jepsen over-selecting AP bugs. EH+CFG=63%. 5 independent studies corroborate. B13 upgraded to observed. See f94-bug-classification.md | 47 | 2026-02-27 |
 | F99 | PARTIAL — F99 resolved + B16 refined. L-001 to L-030: 67% ACTIONABLE, 33% PARTIALLY_STALE, 0% STALE. Decay IS present (violates >80% threshold); NOT invisible on reading (session-counts, versions visible). PRINCIPLES.md makes 100% rule-actionable. Asymmetric: protocols don't expire, measurements decay immediately. | 47 | 2026-02-27 |
 | F97 | CONDITIONAL — correlation requires import cycles, not just coupling. Go (etcd): r=+0.11 (inverted). Rust (tokio): r=-0.13 (weak). Python: r~-0.3 to -0.5. Cycles are the mechanism; DAG enforcement eliminates the effect. Rust's Result<T,E> further compresses quality range. P-097. | 46 | 2026-02-27 |
