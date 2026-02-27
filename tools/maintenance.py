@@ -81,6 +81,8 @@ LANE_GLOBAL_FOCUS_VALUES = {"global", "system", "all", "coordination", "cross-cu
 F119_STALE_EVIDENCE_SESSIONS = {"python-alias-missing": 12, "inter-swarm-tooling-missing": 16}
 F119_TRANSITION_OUTCOME_PATTERNS = (r"Beliefs:? PASS", r"NOTICE-only", r"no DUE", r"no URGENT", r"verification pass")
 F119_RECENT_REASON_ACTIVITY_WINDOW = 6
+BRIDGE_FILES = ["SWARM.md", "CLAUDE.md", "AGENTS.md", "GEMINI.md",
+                ".cursorrules", ".windsurfrules", ".github/copilot-instructions.md"]
 
 
 def _truncated(items, n=3, sep=", ", fmt=None):
@@ -567,11 +569,7 @@ def check_swarm_lanes() -> list[tuple[str, str]]:
         results.append(("NOTICE", f"{len(missing_coordination_tags)} active lane(s) missing setup/focus tags in Etc: {_truncated(missing_coordination_tags, 5)}"))
 
     if len(setup_values) > 1 and not has_global_focus:
-        results.append((
-            "NOTICE",
-            "Multi-setup active lanes have no global coordination focus "
-            "(`focus=global|system|coordination`) in Etc",
-        ))
+        results.append(("NOTICE", "Multi-setup active lanes have no global coordination focus (`focus=global|system|coordination`) in Etc"))
 
     branch_to_lanes: dict[str, set[str]] = {}
     scope_to_lanes: dict[str, set[str]] = {}
@@ -667,11 +665,7 @@ def check_help_requests() -> list[tuple[str, str]]:
 
     open_ids = sorted(open_ids - responses)
     if open_ids:
-        sample = ", ".join(open_ids[:3])
-        results.append((
-            "DUE",
-            f"{len(open_ids)} open help request(s): {sample}; respond with `{PYTHON_CMD} tools/bulletin.py offer-help ...`",
-        ))
+        results.append(("DUE", f"{len(open_ids)} open help request(s): {_truncated(open_ids)}; respond with `{PYTHON_CMD} tools/bulletin.py offer-help ...`"))
 
     return results
 
@@ -875,15 +869,7 @@ def check_runtime_portability() -> list[tuple[str, str]]:
     if _is_wsl_mnt_repo() and not _git("status", "--porcelain"):
         results.append(("NOTICE", "WSL on /mnt/* repo: status/proxy-K may diverge from Windows runtime"))
 
-    bridges = [
-        "SWARM.md",
-        "CLAUDE.md",
-        "AGENTS.md",
-        "GEMINI.md",
-        ".cursorrules",
-        ".windsurfrules",
-        ".github/copilot-instructions.md",
-    ]
+    bridges = BRIDGE_FILES
     missing_bridges = [p for p in bridges if not _exists(p)]
     if missing_bridges:
         level = "URGENT" if "SWARM.md" in missing_bridges else "DUE"
@@ -980,38 +966,24 @@ def check_cross_references() -> list[tuple[str, str]]:
         lesson_paths = list(lessons_dir.glob("L-*.md"))
         actual = len(lesson_paths)
         tracked_raw = _git("ls-files", "--", "memory/lessons")
-        tracked_lessons = [
-            l.strip() for l in (tracked_raw or "").splitlines()
-            if re.fullmatch(r"memory/lessons/L-\d+\.md", l.strip())
-        ]
+        tracked_lessons = [l.strip() for l in (tracked_raw or "").splitlines()
+                           if re.fullmatch(r"memory/lessons/L-\d+\.md", l.strip())]
         tracked = len(tracked_lessons) if tracked_lessons else actual
         tracked_set = {p.replace("\\", "/") for p in tracked_lessons}
-        untracked_names = []
-        for p in lesson_paths:
-            rel = p.relative_to(REPO_ROOT).as_posix()
-            if rel not in tracked_set:
-                untracked_names.append(p.name)
+        untracked_names = sorted(p.name for p in lesson_paths if p.relative_to(REPO_ROOT).as_posix() not in tracked_set)
         if untracked_names and len(untracked_names) == actual and tracked_lessons:
-            tracked_basenames = {Path(p).name for p in tracked_lessons}
-            lesson_basenames = {p.name for p in lesson_paths}
-            if tracked_basenames == lesson_basenames:
+            if {Path(p).name for p in tracked_lessons} == {p.name for p in lesson_paths}:
                 untracked_names = []
-        untracked_names.sort()
         untracked = len(untracked_names)
         count_match = re.search(r"\*\*(\d+) lessons\*\*", index_text)
-        claimed = None
-        if count_match:
-            claimed = int(count_match.group(1))
-            count_includes_untracked = untracked > 0 and claimed == actual
-            if tracked != claimed and not count_includes_untracked:
+        claimed = int(count_match.group(1)) if count_match else None
+        if claimed is not None:
+            if tracked != claimed and not (untracked > 0 and claimed == actual):
                 results.append(("NOTICE", f"INDEX lessons {claimed} != tracked {tracked}"))
         if untracked:
-            sample = ", ".join(untracked_names[:3])
             includes = claimed == actual if claimed is not None else False
-            if includes:
-                results.append(("NOTICE", f"{untracked} untracked lesson draft(s): {sample} (INDEX includes drafts; tracked count excludes them)"))
-            else:
-                results.append(("NOTICE", f"{untracked} untracked lesson draft(s): {sample} (not counted in tracked lesson total)"))
+            note = "(INDEX includes drafts; tracked count excludes them)" if includes else "(not counted in tracked lesson total)"
+            results.append(("NOTICE", f"{untracked} untracked lesson draft(s): {_truncated(untracked_names)} {note}"))
 
     principles_text = _read(REPO_ROOT / "memory" / "PRINCIPLES.md")
     all_pids, superseded_pids = _active_principle_ids(principles_text)
@@ -1610,35 +1582,12 @@ def build_inventory() -> dict:
     def _tools(*names: str) -> list[str]:
         return [f"tools/{name}" for name in names]
 
-    bridges = [
-        "SWARM.md",
-        "CLAUDE.md",
-        "AGENTS.md",
-        "GEMINI.md",
-        ".cursorrules",
-        ".windsurfrules",
-        ".github/copilot-instructions.md",
-    ]
-    core_state = [
-        "beliefs/CORE.md",
-        "memory/INDEX.md",
-        "tasks/FRONTIER.md",
-        "tasks/NEXT.md",
-        "memory/PRINCIPLES.md",
-    ]
+    bridges = BRIDGE_FILES
+    core_state = ["beliefs/CORE.md", "memory/INDEX.md", "tasks/FRONTIER.md", "tasks/NEXT.md", "memory/PRINCIPLES.md"]
     capability_sets: dict[str, list[str]] = {
         "orientation": _tools("maintenance.py", "pulse.py", "context_router.py"),
-        "validation": _tools(
-            "validate_beliefs.py",
-            "check.sh",
-            "check.ps1",
-            "maintenance.sh",
-            "maintenance.ps1",
-            "install-hooks.sh",
-            "repair.py",
-            "pre-commit.hook",
-            "commit-msg.hook",
-        ),
+        "validation": _tools("validate_beliefs.py", "check.sh", "check.ps1", "maintenance.sh",
+                             "maintenance.ps1", "install-hooks.sh", "repair.py", "pre-commit.hook", "commit-msg.hook"),
         "evolution": _tools("evolve.py", "swarm_test.py", "agent_swarm.py", "colony.py", "spawn_coordinator.py"),
         "collaboration": _tools("swarm_pr.py"),
         "inter_swarm": _tools("bulletin.py", "merge_back.py", "propagate_challenges.py"),

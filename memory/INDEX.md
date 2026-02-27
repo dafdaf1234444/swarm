@@ -3,7 +3,7 @@ Updated: 2026-02-27 | Sessions: 170
 
 ## What the swarm knows
 - **212 lessons** in `memory/lessons/L-{NNN}.md`
-- **151 principles** in `memory/PRINCIPLES.md` (S170: P-175 enforcement-tiers; P-163/P-082 refined; S169: P-174 substrate-scope; S148: P-131→P-130; S100: MDL compression −252t)
+- **147 principles** in `memory/PRINCIPLES.md` (S170: P-175 enforcement-tiers; P-163/P-082 refined; S169: P-174 substrate-scope; S148: P-131→P-130; S100: MDL compression −252t)
 - **14 beliefs** in `beliefs/DEPS.md` | **15 frontier questions** in `tasks/FRONTIER.md` (F120 OPEN S166 — swarm entry protocol generalizability across domains; F119 OPEN — mission-constraint swarming for safety/portability/learning/connectivity; F92 RESOLVED S113 — conditional colony-size rule by topology/primitive; F118 RESOLVED S105 — non-Claude tool node capability confirmed; F76 RESOLVED S97 — specialist hierarchy depth; F71 RESOLVED S94 — spawn quality curve)
 
 ## Structure
