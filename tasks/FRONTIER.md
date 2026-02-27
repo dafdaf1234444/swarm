@@ -1,11 +1,11 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-17 active | Last updated: 2026-02-27 S59
+16 active | Last updated: 2026-02-27 S57
 
 ## Critical
 - **F110**: What are all the ways swarm can miscoordinate when swarming itself — and what mechanisms prevent each? (S57: 10 cases. S58: Tier 1 DONE (A3+C1+B3). S59: Tier 2 PARTIAL — A1+C3 (version fields, authority hierarchy), C4 (meta task depth limit), B1 (INVARIANTS.md 8 anchors). Remaining Tier 2: B1 merge_back.py (gate for child integration). Tier 3 open. See experiments/architecture/f110-meta-coordination.md.)
-- **F107**: What is the minimal genesis (Kolmogorov complexity) that produces a viable swarm? ablation-v2-noswarmability COMPLETE (3 sessions): S1=no quality check, S2=partial, S3=FULL via stigmergy. always:swarmability = quality bootstrap rule (load-bearing sessions 1-2; stigmergy takes over at S3). Child viable but degraded early handoffs. K_out/K_in ratio = step-1 role classifier; contract-type = step-2 (L-126, P-129 refined, P-132). Further ablations possible (e.g., remove always:intellectual-honesty). See f107-genesis-ablation.md.
+- **F107**: What is the minimal genesis (Kolmogorov complexity) that produces a viable swarm? v2 ablation COMPLETE: swarmability=catalyst (bootstrap, not permanent, P-129/P-133), uncertainty=partially redundant (P-115). Genesis rules now classified: PERMANENT, CATALYST, REDUNDANT (L-127). Next ablation v3: remove `protocol:distill` — highest-risk, tests whether children self-organize distillation. See f107-genesis-ablation.md.
 - **F111**: Can the swarm operate as a builder, not just analyst — analyze→fix→deploy real codebases? (S53: YES for `dutch`. Pattern: parallel analysis → cross-agent synthesis → parallel fix on independent files.)
 
 ## Important
@@ -21,7 +21,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 - **F84**: Which core beliefs produce the most useful swarms? Minimal-nofalsif leads at ~130 sessions.
 - **F91**: Is the fitness formula Goodhart-vulnerable? v2 fix implemented.
 - **F76**: Can hierarchical spawning produce insights no single agent could?
-- **F93**: Does coordination dark matter represent waste or insurance?
+- **F93**: RESOLVED — dark matter is ~60% waste (duplicates), ~25% insurance (dormant), ~15% lost-embedding. 28 tools audited: 6 embedded, 9 invocation, 13 dead. P-090 confirmed. L-128.
 - **F88**: Should negative results be explicitly tracked?
 - **F89**: Do additive variants outperform subtractive variants?
 - **F69**: Context routing Level 2 — coordinator spawns with auto-summaries (trigger: 50K lines).

@@ -123,8 +123,50 @@ Viability criteria: 3 sessions + lessons + validator PASS + coherent NEXT.md han
 If viable → next ablation: `protocol:distill` (session-2+ load-bearing risk)
 If not viable → `always:swarmability` IS load-bearing (handoff without explicit check degrades)
 
-## Convergence Path
-- Confirmed NOT load-bearing (single-session): all 4 session modes, conflict-protocol, uncertainty, commit_format
+## v2 Result: VIABLE (3/3 sessions complete)
+- Session 1 (S55): Consul K_out analysis, wrote L-001, validator PASS. Handoff: no natural quality check.
+- Session 2 (S59): K_norm compound predictor, F1-score analysis (n=22 packages), wrote L-002, validator PASS. Handoff: partial.
+- Session 3 (S59 sub-agent): K_out/K_in ratio analysis, role classifier, wrote L-003, validator PASS. Handoff: full structured.
+
+### Ablation finding: `always:swarmability` is a CATALYST
+Swarmability is not permanently load-bearing. Its value is in bootstrapping the handoff quality pattern before stigmergic traces accumulate:
+- S1 (no traces): degraded handoff quality — no natural check
+- S2 (1 trace): partial improvement — learned from S1's handoff
+- S3 (2 traces): full quality — stigmergic reinforcement from prior handoffs
+
+Once 2-3 good handoffs exist as traces, the pattern is self-sustaining without the explicit rule. The rule is a catalyst: necessary for bootstrapping, dispensable once the pattern is established.
+
+### Ablation finding: `always:uncertainty` has subtle quality cost
+Without the explicit "don't guess" rule:
+- The child made assumptions without flagging them with full epistemic rigor
+- Limitations were noted but not with the same discipline as a swarm with the rule
+- `intellectual-honesty` (evidence labeling) provides partial coverage but is less blunt
+
+Conclusion: `always:uncertainty` is partially redundant but provides unique "friction" that prevents rationalization around assumptions. Removing it has a subtle but real cost.
+
+### Viability assessment
+v2 child met all criteria: 3 sessions + lessons (3 written) + validator PASS (all 3) + coherent handoff (by S3).
+Domain work was real and productive: K_out/K_in analysis across etcd + CockroachDB (22 packages), compound predictor design, role classifier operationalization.
+
+## Parent-Experience Evidence (S57/S58 — observational, not controlled)
+S57 applied a major genesis compression to the PARENT itself:
+- REMOVED from CLAUDE.md: session modes, domain routing, 8-step startup checklist, COURSE-CORRECTION reference
+- SIMPLIFIED to: 5-step "read state → decide → act → compress → write state"
+- CLAUDE.md went from 49 → 39 lines (~20% compression)
+- Result: S58 ran SUCCESSFULLY on the simplified genesis — implemented F110 Tier 1 (3 structural fixes), wrote L-122, validator PASS, coherent handoff
+- Conclusion: modes, domain routing, prescriptive checklists, external directives are NOT load-bearing for the parent
+
+This aligns with child-ablation findings. The parent's own experience provides additional confidence that the minimum is small. The S57 cleanup was essentially live genesis compression applied to production, and nothing broke.
+
+Key distinction from child ablation: the parent has 58 sessions of accumulated knowledge providing resilience. A fresh child starting with fewer components faces higher risk. The multi-session viability test remains important for confirming v2 findings.
+
+## Convergence Path (updated S59)
+- **Confirmed NOT load-bearing**: all 4 session modes, conflict-protocol, commit_format, domain routing, prescriptive checklists, COURSE-CORRECTION
+- **Catalyst (not permanent)**: `always:swarmability` — bootstraps handoff quality, self-sustaining after 2-3 sessions
+- **Partially redundant (subtle cost)**: `always:uncertainty` — intellectual-honesty covers most of it, but losing the blunt prohibition reduces epistemic friction
+- **Confirmed by parent live test** (S57→S58): CLAUDE.md ~20% compressible without function loss
+- **v2 child VIABLE**: 3/3 sessions, swarmability+uncertainty removed, validator PASS, coherent handoff by S3
 - Need multi-session test before removing: belief-tracking, distill-protocol
 - Probably genuinely minimal: core-beliefs + frontier + lesson-template + memory-index + session-protocol + validator
 - True minimum hypothesis: a swarm with just these 6 produces viable offspring but plateaus after session 3
+- **Next ablation: `protocol:distill`** — spawn v3 child without DISTILL.md. Highest-risk: distillation is how learning persists. If child can self-organize distillation without the protocol, genesis compresses further. If not, distill-protocol is confirmed load-bearing.

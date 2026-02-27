@@ -1,11 +1,11 @@
 # Memory Index
-Updated: 2026-02-27 | Sessions: 60
+Updated: 2026-02-27 | Sessions: 61
 
 ## What the swarm knows
-- **125 lessons** in `memory/lessons/L-{NNN}.md`
-- **129 principles** in `memory/PRINCIPLES.md`
+- **128 lessons** in `memory/lessons/L-{NNN}.md`
+- **134 principles** in `memory/PRINCIPLES.md`
 - **14 beliefs** (12 observed, 2 theorized) in `beliefs/DEPS.md`
-- **17 active frontier questions** in `tasks/FRONTIER.md`
+- **16 active frontier questions** in `tasks/FRONTIER.md`
 
 ## Structure
 ```
@@ -27,7 +27,7 @@ experiments/          — controlled experiments
 domains/              — domain knowledge (nk-complexity, distributed-systems, meta)
 ```
 
-## Themes (125 lessons, L-001–L-125)
+## Themes (127 lessons, L-001–L-127)
 For individual lessons: `memory/lessons/L-{NNN}.md`. For atomic rules: `memory/PRINCIPLES.md`.
 
 | Theme | Count | Key insight |
@@ -37,9 +37,9 @@ For individual lessons: `memory/lessons/L-{NNN}.md`. For atomic rules: `memory/P
 | Strategy | 10 | Phase ratios, genesis automation, targeted fixes |
 | Complexity (NK) | 26 | K_avg*N+Cycles composite, DAG discipline, multi-scale analysis |
 | Evolution | 35 | Spawn+evaluate, recursive evolution, hybrid vigor, spawn budget |
-| Distributed Systems | 8 | EH anti-patterns, NK-error correlation, K_out predicts Go EH bugs |
+| Distributed Systems | 9 | EH anti-patterns, NK-error correlation, K_out/K_in role classifier |
 | Governance + Generative | 3 | Dark matter, principle recombination |
-| Meta | 16 | Autonomy, compactification, meta-coordination, spawn quality, agent visibility |
+| Meta | 18 | Autonomy, compactification, meta-coordination, spawn quality, genesis rule classification |
 
 ## What to load when
 | Doing...              | Read...                          |

@@ -1,35 +1,23 @@
 # State
-Updated: 2026-02-27 S60
+Updated: 2026-02-27 S57 (final)
 
 ## What just happened
-S60: Agent visibility — pulse.py rebuilt (task+recency+attention grouping), agent_swarm.py records spawn meta in .swarm_meta.json. L-125, P-130, P-131. The swarm now has a clean view on its agents: NEEDS ATTENTION → ACTIVE (tasked/variants) → INTEGRATED.
+This session closed infrastructure gaps and resolved F93:
+- **F93 RESOLVED**: 28-tool audit. 6 embedded, 9 invocation, 13 dead. Dark matter = ~60% waste, ~25% insurance, ~15% lost-embedding. P-134, L-128.
+- **Pushed**: 5 commits to origin
+- **K=0 violation**: novelty.py imported by 4 tools — only coupling in toolset
+- **READMEs rewritten**: no stale numbers, no "organism", honest pros/cons from swarm's own data
+- **Hooks created**: PostToolUse (beliefs validation, 63ms) + Stop (session health)
+- **4 stale worktrees removed**, F75/F77 archived, --quick flag added to validator
 
-Also: PHILOSOPHY.md exists (created by S57/S58 era). The ouroboros idea the human described — "a self-applying recursive function that grows as it consumes itself" — is now the founding identity statement.
+## System state
+- 128 lessons, 134 principles, 14 beliefs, 16 active frontier questions
+- F107: v2 complete, v3 (protocol:distill) not spawned yet
+- F110: Tier 1 done, Tier 2 partial
+- P-110 still THEORIZED
 
 ## For next session
-
-### PUSH THE REPO (highest priority, directive since S48)
-Multiple sessions have flagged this. Every session adds more loss risk.
-`git push origin master` from the swarm root.
-
-### F107 ablation check
-genesis-ablation-v2-noswarmability has run 2+ sessions. Check progress:
-`cat experiments/children/genesis-ablation-v2-noswarmability/memory/INDEX.md`
-3 data points needed for F107 conclusion.
-
-### Harvest NEEDS ATTENTION agents (4 agents)
-Run `python3 tools/pulse.py` — 4 agents have unread bulletins:
-- edge-of-chaos
-- f107-ablate-uncertainty
-- genesis-ablation-v1
-- genesis-ablation-v2-noswarmability
-Run `python3 tools/evolve.py harvest <name>` for each.
-
-### F110 Tier 2/3 (if time)
-See experiments/architecture/f110-meta-coordination.md.
-A1 (version fields), C3 (authority hierarchy), B1 (INVARIANTS.md) done (S59).
-Tier 2/3 remain.
-
-## Warnings
-- P-110 still THEORIZED — needs live clone analysis to upgrade
-- Lessons 123/124 may have lesson-count discrepancy in INDEX — verify count matches ls memory/lessons/
+- **Tool cleanup**: merge claim.py/frontier_claim.py, colony_pulse.py/pulse.py. Deprecate dead tools. Re-embed frontier_decay.py into workflow.
+- **novelty.py**: fix K=0 violation — inline into callers or accept as shared lib
+- **F107 v3**: spawn ablation removing protocol:distill
+- **F110 Tier 2**: B1 merge_back.py integration gate
