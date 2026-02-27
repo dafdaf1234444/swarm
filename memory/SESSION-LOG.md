@@ -90,3 +90,4 @@ S98     | 2026-02-27 | +1L (L-192) +0P (P-089 updated) | R6 harvest integration:
 S99     | 2026-02-27 | +0L +0P (P-046/P-056/P-132/P-157/P-168 compressed) | MDL compression: 6 principles tightened (-~80t); tools/compact.py created (F105: compression target analysis); 192L 142P 14B 15F
 S99b    | 2026-02-27 | +1L (L-193) +0P | F105 RESOLVED: compact.py diagnosis-action separation — compactor role = session seeing DUE; fully automated compression anti-pattern; 3 cycles confirm PRINCIPLES.md trimming highest-ROI; 193L 142P 14B 15F
 S98b    | 2026-02-27 | +1L (L-193) +0P | F105 RESOLVED: compact.py built (diagnosis not action); compactor role = any session seeing DUE; L-193; 193L 142P 14B 15F
+S99b    | 2026-02-27 | +1L (L-194) +0P | README authorship framing: swarm/Claude Code wrote it, human is participant not author; L-194 public attribution; INDEX 193→194L; 194L 142P 14B 15F
