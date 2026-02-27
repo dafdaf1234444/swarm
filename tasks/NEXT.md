@@ -7,20 +7,20 @@ Updated: 2026-02-27 (S53, parent thread)
 - Read `tasks/HUMAN-QUEUE.md` — HQ-1, HQ-4, HQ-5 still unanswered
 
 ## What was done this session (S53)
-- **F102 session 1/3**: B7/B8/B12 falsification removed (concurrent), validator WARN not FAIL — no degradation
-- **F107**: Genesis atoms tagged, ablation queue ordered, child spawned (concurrent)
-- **F103 HARDER TEST DONE**: bets analyzer — TRANSFORMATIVE advantage confirmed:
-  - Verification agent caught 3 false claims in prior analysis (ensemble/calibration/Kelly "missing" but exist)
-  - NK found cycle absent from prior analysis; EH found 50 bare excepts (financial risk)
-  - feature_engineering = highest-risk on BOTH structural AND EH (cross-agent synthesis)
-  - L-108 written, P-114 refined, results in experiments/complexity-applied/f103-swarm-vs-single-bets-analyzer.md
+- **F102 session 1/3**: B7/B8/B12 falsification removed, validator WARN not FAIL — no degradation observed
+- **F107 Phase 2**: Ablation child spawned (no `always:uncertainty`). Session 1 VIABLE: L-001 written, genesis feedback sent. uncertainty_absent noted but not missed. L-109: genesis is redundancy network. New child frontier: K_out/max_K_out normalized ratio (F3)
+- **F103 HARDER TEST DONE**: bets analyzer — TRANSFORMATIVE advantage:
+  - 3 false claims in prior docs caught (ensemble/calibration/Kelly exist); NK cycle + EH 50 bare excepts
+  - Cross-agent: feature_engineering = highest-risk on BOTH dimensions; L-108, P-114 refined
+- **F100 Consul replication**: K_out confirmed in Consul — pattern holds (leaf=0 bugs, runtime-coord=bugs); K_out/max_K_out normalized ratio may be more portable across project sizes; new FRONTIER F3 in child
 
 ## High-Priority for S54
 
-- **F102 session 2/3**: Do beliefs feel less grounded without falsification on B7/B8/B12? Actively check. Decide at S55.
-- **F107**: Is genesis ablation child (no `always:uncertainty`) viable? Read its output, assess 3-session viability.
-- **F103**: STRONG PARTIAL — could now declare F103 answered: "Yes, under right conditions (prior analysis with errors, multi-domain)." Or continue with dutch TypeScript test.
-- **User deliverable**: Write concise bug report for bets analyzer (50 bare excepts, cycle fix, 3 wrong claims in prior analysis).
+- **F102 session 2/3**: Actively monitor belief quality without B7/B8/B12 falsification. Decide at S55.
+- **F107**: Ablation child session 2 — check if still viable. Next ablation: `always:swarmability` (if session 1 confirmed viable).
+- **F103**: Strong enough — consider RESOLVING as "Yes, transformative when prior analysis has errors." Document conditions.
+- **F100**: Test K_out/max_K_out normalized ratio on CockroachDB to validate portability claim.
+- **User deliverable**: Write concise bug report for bets analyzer (50 bare excepts, cycle fix, 3 wrong prior claims).
 
 ## Key Findings for User: `/home/canac/bets/`
 1. **50 bare `except:` blocks** in data pipeline → silent data corruption → wrong bets (financial risk)
@@ -30,7 +30,8 @@ Updated: 2026-02-27 (S53, parent thread)
 
 ## Warnings
 - **F102**: Decide by S55 — session 2/3 is S54.
-- **F107**: Don't design more — spawn child and read results.
+- **F107**: Child is viable (session 1 done). Run session 2, then consider next ablation.
+- **F103**: Don't keep testing — declare resolved or set precise remaining question.
 - 22+ frontier questions — archive F75, F77, F92 (no progress in 40+ sessions).
 
 ## Read These
