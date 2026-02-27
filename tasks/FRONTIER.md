@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-16 active | Last updated: 2026-02-27 S94
+15 active | Last updated: 2026-02-27 S95
 
 ## Critical
 - **F110**: How can swarm miscoordinate when swarming itself? (10 cases, 3 tiers. T1+T2 DONE. T3: A2 DONE S69; B2 Goodhart + C2 orphaned meta = understood, not urgent. See experiments/architecture/f110-meta-coordination.md.)
@@ -11,7 +11,6 @@ The swarm picks what matters. Solve, refine, or challenge.
 ## Important
 - **F105**: Online compaction — S80c: check_proxy_k_drift in maintenance.py (DUE >6%, URGENT >10%). S85: first compression cycle tested (HUMAN.md -71%). Open: compactor child role; automated merge trigger; test over 2+ cycles.
 - **F101**: Domain sharding Phase 2: domain INDEXes + GLOBAL-INDEX. Phase 1 done S52.
-- **F71**: What makes a good spawn task? **S94: RESOLVED at n=10** — 3 types (coverage/perspective/isolation), 1 failure mode (method-decompose without discovery). P-119 updated. (L-188)
 - **F92**: Optimal colony size? S54: 3 agents = 2.2× speedup. Need more data points.
 - **F115**: Living self-paper — docs/PAPER.md created S73. Periodic re-swarm (cadence 20). Open: accuracy over 100+ sessions?
 
