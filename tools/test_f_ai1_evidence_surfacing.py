@@ -10,6 +10,11 @@ import f_ai1_evidence_surfacing as mod
 
 
 class TestFAI1EvidenceSurfacing(unittest.TestCase):
+    def test_confidence_policy(self):
+        self.assertEqual(mod._choose_with_evidence("A", "A", False), "A")
+        self.assertEqual(mod._choose_with_evidence("A", "B", False), "A")
+        self.assertEqual(mod._choose_with_evidence("A", "B", True), "B")
+
     def test_surfacing_beats_async_and_sync_not_better(self):
         payload = mod.run(
             mod.Config(
