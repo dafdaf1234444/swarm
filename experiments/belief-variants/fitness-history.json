@@ -194,6 +194,13 @@
       "commits": 12,
       "beliefs": 32,
       "observed": 32
+    },
+    {
+      "timestamp": "2026-02-27T01:25:21",
+      "fitness": 835.9041575982343,
+      "commits": 12,
+      "beliefs": 32,
+      "observed": 32
     }
   ],
   "belief-no-lesson-limit": [
@@ -254,6 +261,13 @@
       "commits": 5,
       "beliefs": 10,
       "observed": 10
+    },
+    {
+      "timestamp": "2026-02-27T01:25:23",
+      "fitness": 364.32050807568874,
+      "commits": 5,
+      "beliefs": 13,
+      "observed": 11
     }
   ],
   "belief-nofalsif-aggressive": [
@@ -483,6 +497,13 @@
       "commits": 5,
       "beliefs": 17,
       "observed": 17
+    },
+    {
+      "timestamp": "2026-02-27T01:25:26",
+      "fitness": 462.4575131106459,
+      "commits": 5,
+      "beliefs": 17,
+      "observed": 17
     }
   ],
   "belief-test-first": [
@@ -589,6 +610,13 @@
     {
       "timestamp": "2026-02-27T01:19:35",
       "fitness": 597.166247903554,
+      "commits": 6,
+      "beliefs": 21,
+      "observed": 15
+    },
+    {
+      "timestamp": "2026-02-27T01:25:19",
+      "fitness": 606.166247903554,
       "commits": 6,
       "beliefs": 21,
       "observed": 15
