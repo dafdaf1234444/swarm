@@ -25,7 +25,7 @@
       "id": "principles-dedup",
       "description": "Scan PRINCIPLES.md for redundant/overlapping principles -- merge or supersede",
       "cadence_sessions": 10,
-      "last_reviewed_session": 159,
+      "last_reviewed_session": 169,
       "registered_by": "S69"
     },
     {

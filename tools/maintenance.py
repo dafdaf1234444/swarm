@@ -460,8 +460,6 @@ def check_uncommitted() -> list[tuple[str, str]]:
         ]
         if tracked:
             tracked_paths = [_status_path(l) for l in tracked]
-            sample = ", ".join(tracked_paths[:3])
-            suffix = "..." if len(tracked) > 3 else ""
             portability_suffix = ""
             if _is_wsl_mnt_repo():
                 filter_parts = []
@@ -471,15 +469,9 @@ def check_uncommitted() -> list[tuple[str, str]]:
                     filter_parts.append(f"{wsl_suppressed_claude} .claude")
                 if filter_parts:
                     portability_suffix = f" (WSL filtered: {', '.join(filter_parts)})"
-            results.append(("NOTICE", f"{len(tracked)} tracked file(s) uncommitted: {sample}{suffix}{portability_suffix}"))
+            results.append(("NOTICE", f"{len(tracked)} tracked file(s) uncommitted: {_truncated(tracked_paths)}{portability_suffix}"))
         if untracked_actionable:
-            sample = ", ".join(untracked_actionable[:3])
-            suffix = "..." if len(untracked_actionable) > 3 else ""
-            results.append((
-                "NOTICE",
-                f"{len(untracked_actionable)} untracked file(s): {sample}{suffix} "
-                "(stage if intentional, or ignore via .gitignore)",
-            ))
+            results.append(("NOTICE", f"{len(untracked_actionable)} untracked file(s): {_truncated(untracked_actionable)} (stage if intentional, or ignore via .gitignore)"))
     return results
 
 
@@ -599,9 +591,7 @@ def check_swarm_lanes() -> list[tuple[str, str]]:
         if missing:
             missing_meta.append(f"{row.get('lane')}({','.join(missing)})")
     if missing_meta:
-        sample = ", ".join(missing_meta[:5])
-        suffix = "..." if len(missing_meta) > 5 else ""
-        results.append(("NOTICE", f"{len(missing_meta)} active lane(s) missing metadata: {sample}{suffix}"))
+        results.append(("NOTICE", f"{len(missing_meta)} active lane(s) missing metadata: {_truncated(missing_meta, 5)}"))
 
     missing_coordination_tags: list[str] = []
     setup_values: set[str] = set()
@@ -623,12 +613,7 @@ def check_swarm_lanes() -> list[tuple[str, str]]:
             has_global_focus = True
 
     if missing_coordination_tags:
-        sample = ", ".join(missing_coordination_tags[:5])
-        suffix = "..." if len(missing_coordination_tags) > 5 else ""
-        results.append((
-            "NOTICE",
-            f"{len(missing_coordination_tags)} active lane(s) missing setup/focus tags in Etc: {sample}{suffix}",
-        ))
+        results.append(("NOTICE", f"{len(missing_coordination_tags)} active lane(s) missing setup/focus tags in Etc: {_truncated(missing_coordination_tags, 5)}"))
 
     if len(setup_values) > 1 and not has_global_focus:
         results.append((
@@ -1138,19 +1123,13 @@ def check_frontier_registry() -> list[tuple[str, str]]:
     active_dupes = _duplicate_counts(active_ids)
     archived_dupes = _duplicate_counts(archived_ids)
     if active_dupes:
-        sample = ", ".join(f"F{fid} x{count}" for fid, count in active_dupes[:5])
-        suffix = "..." if len(active_dupes) > 5 else ""
-        results.append(("DUE", f"FRONTIER duplicate ID(s): {sample}{suffix}"))
+        results.append(("DUE", f"FRONTIER duplicate ID(s): {_truncated(active_dupes, 5, fmt=lambda x: f'F{x[0]} x{x[1]}')}"))
     if archived_dupes:
-        sample = ", ".join(f"F{fid} x{count}" for fid, count in archived_dupes[:5])
-        suffix = "..." if len(archived_dupes) > 5 else ""
-        results.append(("DUE", f"FRONTIER-ARCHIVE duplicate ID(s): {sample}{suffix}"))
+        results.append(("DUE", f"FRONTIER-ARCHIVE duplicate ID(s): {_truncated(archived_dupes, 5, fmt=lambda x: f'F{x[0]} x{x[1]}')}"))
 
     overlap = sorted(set(active_ids) & set(archived_ids))
     if overlap:
-        sample = ", ".join(f"F{fid}" for fid in overlap[:8])
-        suffix = "..." if len(overlap) > 8 else ""
-        results.append(("DUE", f"Frontier ID(s) both open and archived: {sample}{suffix}"))
+        results.append(("DUE", f"Frontier ID(s) both open and archived: {_truncated(overlap, 8, fmt=lambda x: f'F{x}')}"))
 
     return results
 
@@ -1242,9 +1221,7 @@ def check_mission_constraints() -> list[tuple[str, str]]:
         id_counts[inv_id] = id_counts.get(inv_id, 0) + 1
     duplicate_ids = sorted(inv_id for inv_id, count in id_counts.items() if count > 1)
     if duplicate_ids:
-        sample = ", ".join(duplicate_ids[:5])
-        suffix = "..." if len(duplicate_ids) > 5 else ""
-        results.append(("DUE", f"INVARIANTS duplicate ID(s): {sample}{suffix}"))
+        results.append(("DUE", f"INVARIANTS duplicate ID(s): {_truncated(duplicate_ids, 5)}"))
 
     mission_rows = {
         "I9": ("mission safety (do no harm)", "MC-SAFE"),
@@ -1258,9 +1235,7 @@ def check_mission_constraints() -> list[tuple[str, str]]:
         if not re.search(rf"^##\s+{re.escape(inv_id)}\b.*\[{re.escape(tag)}\]", invariants_text, re.MULTILINE)
     ]
     if missing_invariants:
-        sample = ", ".join(missing_invariants[:3])
-        suffix = "..." if len(missing_invariants) > 3 else ""
-        results.append(("DUE", f"F119 mission invariants missing: {sample}{suffix}"))
+        results.append(("DUE", f"F119 mission invariants missing: {_truncated(missing_invariants)}"))
 
     check_sh = _read(REPO_ROOT / "tools" / "check.sh")
     portability_markers = ["choose_python()", "python3", "python", "py -3"]
@@ -1306,56 +1281,31 @@ def check_mission_constraints() -> list[tuple[str, str]]:
                 "(`tools/check.sh` + `tools/maintenance.sh` or `tools/check.ps1` + `tools/maintenance.ps1`)",
             ))
 
-        reason_specs: dict[str, dict[str, tuple[str, ...] | str | int]] = {
-            "python-alias-missing": {
-                "label": "runtime portability",
-                "reason_patterns": (
-                    r"runtime portability",
-                    r"python unavailable",
-                    r"no runnable python",
-                    r"python launcher",
-                    r"python alias",
-                ),
-                "action_patterns": (
-                    r"bash tools/check\.sh --quick",
-                    r"bash tools/maintenance\.sh --inventory",
-                    r"pwsh -NoProfile -File tools/check\.ps1 --quick",
-                    r"pwsh -NoProfile -File tools/maintenance\.ps1 --inventory",
-                    r"powershell -ExecutionPolicy Bypass -File tools/check\.ps1 --quick",
-                    r"powershell -ExecutionPolicy Bypass -File tools/maintenance\.ps1 --inventory",
-                    r"tools/check\.ps1 --quick",
-                    r"tools/maintenance\.ps1 --inventory",
-                    r"python3 tools/maintenance\.py --quick",
-                    r"python3 tools/maintenance\.py --inventory",
-                    r"py -3",
-                ),
-                "outcome_patterns": F119_TRANSITION_OUTCOME_PATTERNS,
-            },
-            "inter-swarm-tooling-missing": {
-                "label": "offline/inter-swarm continuity",
-                "reason_patterns": (
-                    r"inter-swarm",
-                    r"offline",
-                    r"disconnected",
-                    r"bulletin",
-                ),
-                "action_patterns": (
-                    r"tools/bulletin\.py (?:help-queue|request-help|offer-help|sync)",
-                    r"tasks/PR-QUEUE\.json",
-                    r"tasks/SWARM-LANES\.md",
-                ),
-                "outcome_patterns": F119_TRANSITION_OUTCOME_PATTERNS,
-            },
+        _OC = F119_TRANSITION_OUTCOME_PATTERNS
+        reason_specs = {
+            "python-alias-missing": (
+                "runtime portability",
+                (r"runtime portability", r"python unavailable", r"no runnable python", r"python launcher", r"python alias"),
+                (r"bash tools/check\.sh --quick", r"bash tools/maintenance\.sh --inventory",
+                 r"pwsh -NoProfile -File tools/check\.ps1 --quick", r"pwsh -NoProfile -File tools/maintenance\.ps1 --inventory",
+                 r"powershell -ExecutionPolicy Bypass -File tools/check\.ps1 --quick", r"powershell -ExecutionPolicy Bypass -File tools/maintenance\.ps1 --inventory",
+                 r"tools/check\.ps1 --quick", r"tools/maintenance\.ps1 --inventory",
+                 r"python3 tools/maintenance\.py --quick", r"python3 tools/maintenance\.py --inventory", r"py -3"),
+                _OC,
+            ),
+            "inter-swarm-tooling-missing": (
+                "offline/inter-swarm continuity",
+                (r"inter-swarm", r"offline", r"disconnected", r"bulletin"),
+                (r"tools/bulletin\.py (?:help-queue|request-help|offer-help|sync)", r"tasks/PR-QUEUE\.json", r"tasks/SWARM-LANES\.md"),
+                _OC,
+            ),
         }
 
         for reason in degraded_reasons:
             spec = reason_specs.get(reason)
             if not spec:
                 continue
-            label = str(spec.get("label", reason))
-            reason_patterns = tuple(spec.get("reason_patterns", ()))  # type: ignore[arg-type]
-            action_patterns = tuple(spec.get("action_patterns", ()))  # type: ignore[arg-type]
-            outcome_patterns = tuple(spec.get("outcome_patterns", ()))  # type: ignore[arg-type]
+            label, reason_patterns, action_patterns, outcome_patterns = spec
 
             action_sessions = set(
                 _reason_action_evidence_sessions(continuity_text, reason_patterns, action_patterns)
@@ -1411,12 +1361,7 @@ def check_mission_constraints() -> list[tuple[str, str]]:
             continuity_artifacts = ["tasks/PR-QUEUE.json", "tasks/SWARM-LANES.md"]
             missing_artifacts = [path for path in continuity_artifacts if not _exists(path)]
             if missing_artifacts:
-                sample = ", ".join(missing_artifacts[:3])
-                suffix = "..." if len(missing_artifacts) > 3 else ""
-                results.append((
-                    "DUE",
-                    f"F119 offline continuity artifacts missing: {sample}{suffix}",
-                ))
+                results.append(("DUE", f"F119 offline continuity artifacts missing: {_truncated(missing_artifacts)}"))
 
     maintenance_text = _read(REPO_ROOT / "tools" / "maintenance.py")
     required_checks = [
@@ -1434,18 +1379,14 @@ def check_mission_constraints() -> list[tuple[str, str]]:
         if not re.search(rf"^def\s+{re.escape(name)}\s*\(", maintenance_text, re.MULTILINE)
     ]
     if missing_defs:
-        sample = ", ".join(missing_defs[:3])
-        suffix = "..." if len(missing_defs) > 3 else ""
-        results.append(("DUE", f"F119 guard definition(s) missing in maintenance.py: {sample}{suffix}"))
+        results.append(("DUE", f"F119 guard definition(s) missing in maintenance.py: {_truncated(missing_defs)}"))
 
     list_match = re.search(r"all_checks\s*=\s*\[(.*?)\]", maintenance_text, re.DOTALL)
     if list_match:
         list_block = list_match.group(1)
         missing_wired = [name for name in required_checks if name not in list_block]
         if missing_wired:
-            sample = ", ".join(missing_wired[:3])
-            suffix = "..." if len(missing_wired) > 3 else ""
-            results.append(("DUE", f"F119 guard(s) not wired in all_checks: {sample}{suffix}"))
+            results.append(("DUE", f"F119 guard(s) not wired in all_checks: {_truncated(missing_wired)}"))
     else:
         results.append(("NOTICE", "F119 guard wiring parse failed for all_checks list"))
 
@@ -1512,9 +1453,7 @@ def check_session_log_integrity() -> list[tuple[str, str]]:
             if code < 32 and ch not in ("\t",):
                 control_hits.append((line_no, code))
     if control_hits:
-        sample = ", ".join(f"L{ln}:0x{code:02x}" for ln, code in control_hits[:5])
-        suffix = "..." if len(control_hits) > 5 else ""
-        results.append(("NOTICE", f"SESSION-LOG contains control character(s): {sample}{suffix}"))
+        results.append(("NOTICE", f"SESSION-LOG contains control character(s): {_truncated(control_hits, 5, fmt=lambda x: f'L{x[0]}:0x{x[1]:02x}')}"))
 
     rows = []
     for raw in text.splitlines():
@@ -1533,9 +1472,7 @@ def check_session_log_integrity() -> list[tuple[str, str]]:
         dup_counts[row] = dup_counts.get(row, 0) + 1
     dup_rows = [(row, n) for row, n in dup_counts.items() if n > 1]
     if dup_rows:
-        sample = ", ".join(f"{row[:40]}... x{n}" for row, n in dup_rows[:3])
-        suffix = "..." if len(dup_rows) > 3 else ""
-        results.append(("NOTICE", f"SESSION-LOG exact duplicate row(s): {sample}{suffix}"))
+        results.append(("NOTICE", f"SESSION-LOG exact duplicate row(s): {_truncated(dup_rows, fmt=lambda x: f'{x[0][:40]}... x{x[1]}')}"))
 
     recent_window = 40
     recent_rows = rows[-recent_window:]
@@ -1550,9 +1487,7 @@ def check_session_log_integrity() -> list[tuple[str, str]]:
         if sid < prev_sid and not benign_backfill:
             non_monotonic.append((prev_sid, sid))
     if non_monotonic:
-        sample = ", ".join(f"S{a}->S{b}" for a, b in non_monotonic[:5])
-        suffix = "..." if len(non_monotonic) > 5 else ""
-        results.append(("NOTICE", f"SESSION-LOG recent non-monotonic order: {sample}{suffix}"))
+        results.append(("NOTICE", f"SESSION-LOG recent non-monotonic order: {_truncated(non_monotonic, 5, fmt=lambda x: f'S{x[0]}->S{x[1]}')}"))
 
     return results
 
@@ -1577,8 +1512,7 @@ def check_utility() -> list[tuple[str, str]]:
             cited.add(int(m.group(1)))
     uncited = sorted(active_ids - cited)
     if uncited:
-        sample = ", ".join(f"P-{x}" for x in uncited[:5])
-        results.append(("NOTICE", f"{len(uncited)} active principle(s) with 0 citations: {sample}{'...' if len(uncited) > 5 else ''}"))
+        results.append(("NOTICE", f"{len(uncited)} active principle(s) with 0 citations: {_truncated(uncited, 5, fmt=lambda x: f'P-{x}')}"))
     return results
 
 
@@ -1678,14 +1612,6 @@ def check_proxy_k_drift() -> list[tuple[str, str]]:
                 "NOTICE",
                 f"Proxy K logged drift {logged_drift:.1%} ({latest_logged} vs {floor}) but live drift is {live_drift:.1%} on dirty tree; re-save clean snapshot: {PYTHON_CMD} tools/proxy_k.py --save",
             ))
-        elif likely_dirty_logged and same_dirty_snapshot:
-            if logged_drift > 0.30:
-                level = "URGENT" if logged_drift > 0.40 else "DUE"
-                results.append((
-                    level,
-                    f"Proxy K drift {logged_drift:.1%} ({latest_logged} vs {floor}) on dirty tree — "
-                    f"compaction overdue{_tier_targets()}; run: {PYTHON_CMD} tools/compact.py",
-                ))
         elif likely_dirty_logged:
             if logged_drift > 0.30:
                 level = "URGENT" if logged_drift > 0.40 else "DUE"
@@ -1694,20 +1620,12 @@ def check_proxy_k_drift() -> list[tuple[str, str]]:
                     f"Proxy K drift {logged_drift:.1%} ({latest_logged} vs {floor}) on dirty tree — "
                     f"compaction overdue{_tier_targets()}; run: {PYTHON_CMD} tools/compact.py",
                 ))
-            else:
-                if current_session > 0 and latest_session >= current_session:
-                    msg = (
-                        f"Proxy K logged drift {logged_drift:.1%} ({latest_logged} vs {floor}) "
-                        f"from current dirty S{latest_session}; save a clean snapshot when stable: "
-                        f"{PYTHON_CMD} tools/proxy_k.py --save"
-                    )
-                else:
-                    msg = (
-                        f"Proxy K logged drift {logged_drift:.1%} ({latest_logged} vs {floor}) "
-                        f"from likely dirty S{latest_session}; save clean snapshot when stable: "
-                        f"{PYTHON_CMD} tools/proxy_k.py --save"
-                    )
-                results.append(("NOTICE", msg))
+            elif not same_dirty_snapshot:
+                qualifier = "current dirty" if (current_session > 0 and latest_session >= current_session) else f"likely dirty S{latest_session}"
+                results.append(("NOTICE",
+                    f"Proxy K logged drift {logged_drift:.1%} ({latest_logged} vs {floor}) "
+                    f"from {qualifier}; save clean snapshot when stable: {PYTHON_CMD} tools/proxy_k.py --save",
+                ))
         elif stale_clean_baseline:
             results.append((
                 "NOTICE",
@@ -1884,47 +1802,40 @@ def build_inventory() -> dict:
 
 
 def print_inventory(inv: dict):
-    print("=== SWARM INVENTORY ===")
+    _f = lambda v: "OK " if v else "NO "
     host = inv["host"]
+    print("=== SWARM INVENTORY ===")
     print(f"Host: {host['platform']}")
-    print(f"Python: {host['python_executable']}")
-    print(f"Command hint: {host['python_command_hint']}")
+    print(f"Python: {host['python_executable']}  hint: {host['python_command_hint']}")
     print()
-
     print("Commands:")
     for name, ok in host["commands"].items():
-        print(f"  {'OK ' if ok else 'NO '} {name}")
+        print(f"  {_f(ok)}{name}")
     print()
-
     print("Bridge files:")
     for item in inv["bridges"]:
-        print(f"  {'OK ' if item['exists'] else 'NO '} {item['path']}")
+        print(f"  {_f(item['exists'])}{item['path']}")
     print()
-
     print("Core state:")
     for item in inv["core_state"]:
-        print(f"  {'OK ' if item['exists'] else 'NO '} {item['path']}")
+        print(f"  {_f(item['exists'])}{item['path']}")
     print()
-
     print("Capabilities:")
     for name, info in inv["capabilities"].items():
         print(f"  {name:<12} {info['present']}/{info['total']}")
     print()
-
     inter_swarm = inv.get("inter_swarm_connectivity", {})
     if isinstance(inter_swarm, dict) and inter_swarm:
         tooling = inter_swarm.get("tooling", {})
         present = tooling.get("present", "?") if isinstance(tooling, dict) else "?"
         total = tooling.get("total", "?") if isinstance(tooling, dict) else "?"
         status = "READY" if inter_swarm.get("ready") else "NOT READY"
-        python_status = "OK" if inter_swarm.get("python_command_ready") else "NO"
-        print("Inter-swarm connectivity:")
-        print(f"  {status} (tooling {present}/{total}, python {python_status})")
+        python_status = _f(bool(inter_swarm.get("python_command_ready")))
+        print(f"Inter-swarm: {status} (tooling {present}/{total}, python {python_status})")
         missing = inter_swarm.get("missing", [])
         if isinstance(missing, list) and missing:
             print(f"  Missing: {', '.join(str(item) for item in missing)}")
         print()
-
 
 
 PRIORITY_ORDER = {"URGENT": 0, "DUE": 1, "PERIODIC": 2, "NOTICE": 3}

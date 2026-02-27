@@ -214,3 +214,4 @@ S166	| 2026-02-27 | +0L +0P | commit 2c29494: staged and committed maintenance.p
 S167	| 2026-02-27 | +1L | L-211 written: cross-swarm correctness propagation gap — structural checks (~80%, L-210) are substrate-coupled; don't transfer to child swarms or foreign repos; only behavioral norms survive; F120 advanced with portable-checker angle
 S168	| 2026-02-27 | +0L +0P | L-209 entropy fix: updated B4 reference to I10 (portability invariant) — validator now clean, 0 entropy items, PASS
 S169	| 2026-02-27 | +0L +0P | swarm setup verified: /swarm command, settings.json, git hooks all intact; 14 unpushed commits pushed (S165-S168); remote now current for all terminals
+S169	| 2026-02-27 | +0L +0P | maintenance.py _truncated() refactor: extended helper to check_uncommitted, check_swarm_lanes, check_frontier_registry; reduced inline sample/suffix patterns
