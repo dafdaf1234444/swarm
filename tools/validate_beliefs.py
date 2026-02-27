@@ -185,235 +185,83 @@ def _line_count(path: Path) -> int:
         return 9999
 
 
-def score_onboarding(existence_ok: bool) -> tuple[int, list[str]]:
-    pts, notes = 0, []
-    claude_md = REPO_ROOT / "CLAUDE.md"
-    index_md = REPO_ROOT / "memory" / "INDEX.md"
-    frontier_md = REPO_ROOT / "tasks" / "FRONTIER.md"
-
-    # CLAUDE.md exists and under ~300 lines (~4000 tokens)
-    if claude_md.exists() and _line_count(claude_md) < 300:
-        pts += 5
-        notes.append("  CLAUDE.md exists and <300 lines: +5")
-    else:
-        notes.append("  CLAUDE.md missing or >=300 lines: +0")
-
-    # INDEX.md exists and updated recently (within last 3 sessions by commit count)
-    if index_md.exists():
-        log = _git("log", "--oneline", "-3", "--", "memory/INDEX.md")
-        if log:
-            pts += 5
-            notes.append("  INDEX.md updated within last 3 commits: +5")
-        else:
-            notes.append("  INDEX.md not updated recently: +0")
-    else:
-        notes.append("  INDEX.md missing: +0")
-
-    # FRONTIER.md has at least 1 non-resolved open question with context
-    if frontier_md.exists():
-        text = frontier_md.read_text()
-        open_qs = re.findall(r"^\- \*\*F\d+\*\*:.+", text, re.MULTILINE)
-        if open_qs:
-            pts += 5
-            notes.append(f"  FRONTIER.md has {len(open_qs)} open question(s): +5")
-        else:
-            notes.append("  FRONTIER.md has no open questions: +0")
-    else:
-        notes.append("  FRONTIER.md missing: +0")
-
-    # No broken B-ID references
-    if existence_ok:
-        pts += 5
-        notes.append("  No broken B-ID references: +5")
-    else:
-        notes.append("  Broken B-ID references found: +0")
-
-    return pts, notes
-
-
-def score_belief_health(beliefs: list[dict], has_errors: bool) -> tuple[int, list[str]]:
-    pts, notes = 0, []
-    n_theorized = sum(1 for b in beliefs if b["evidence"] == "theorized")
-    total = len(beliefs) or 1
-
-    # Validator passes with 0 errors
-    if not has_errors:
-        pts += 10
-        notes.append("  Validator PASS (0 errors): +10")
-    else:
-        notes.append("  Validator FAIL: +0")
-
-    # Less than 60% theorized
-    pct = n_theorized / total
-    if pct < 0.6:
-        pts += 5
-        notes.append(f"  Theorized {pct:.0%} < 60%: +5")
-    else:
-        notes.append(f"  Theorized {pct:.0%} >= 60%: +0")
-
-    # At least 1 belief tested within last 3 sessions (approximate: last 3 commits touching DEPS.md)
-    tested_recently = any(
-        b["last_tested"] and b["last_tested"].lower() != "never"
-        for b in beliefs
-    )
-    if tested_recently:
-        pts += 5
-        notes.append("  At least 1 belief has a Last tested date: +5")
-    else:
-        notes.append("  No beliefs have been tested: +0")
-
-    return pts, notes
-
-
-def score_adaptation() -> tuple[int, list[str]]:
-    pts, notes = 0, []
-
-    # At least 1 belief modified (not just created) in last 5 DEPS.md commits
-    log = _git("log", "--oneline", "-5", "--", "beliefs/DEPS.md")
-    commits = [line.split()[0] for line in log.splitlines() if line.strip()] if log else []
-    belief_modified = False
-    for sha in commits:
-        diff = _git("show", "--stat", sha, "--", "beliefs/DEPS.md")
-        # If a commit changes DEPS.md and it's not the initial creation, count it
-        if "insertions" in diff and "deletions" in diff:
-            belief_modified = True
-            break
-    if belief_modified:
-        pts += 10
-        notes.append("  Belief modified in last 5 DEPS.md commits: +10")
-    else:
-        notes.append("  No belief modifications in last 5 DEPS.md commits: +0")
-
-    # At least 1 belief has had evidence type changed in repo history
-    full_log = _git("log", "-p", "--", "beliefs/DEPS.md")
-    evidence_changed = bool(re.search(
-        r"^[-+].*\*\*Evidence\*\*:", full_log, re.MULTILINE
-    )) if full_log else False
-    if evidence_changed:
-        pts += 10
-        notes.append("  Evidence type changed in history: +10")
-    else:
-        notes.append("  No evidence type changes in history: +0")
-
-    return pts, notes
-
-
-def score_context_efficiency() -> tuple[int, list[str]]:
-    pts, notes = 0, []
-    claude_md = REPO_ROOT / "CLAUDE.md"
-    index_md = REPO_ROOT / "memory" / "INDEX.md"
-    core_md = REPO_ROOT / "beliefs" / "CORE.md"
-
-    combined_lines = sum(_line_count(f) for f in [claude_md, index_md, core_md])
-
-    if combined_lines < 450:
-        pts += 10
-        notes.append(f"  Mandatory files {combined_lines} lines (<450): +10")
-    else:
-        notes.append(f"  Mandatory files {combined_lines} lines (>=450): +0")
-
-    # No lesson over 20 lines
-    lessons_dir = REPO_ROOT / "memory" / "lessons"
-    over_20 = 0
-    if lessons_dir.exists():
-        for f in lessons_dir.glob("L-*.md"):
-            if _line_count(f) > 20:
-                over_20 += 1
-    if over_20 == 0:
-        pts += 10
-        notes.append("  No lessons over 20 lines: +10")
-    else:
-        notes.append(f"  {over_20} lesson(s) over 20 lines: +0")
-
-    return pts, notes
-
-
-def score_forward_momentum() -> tuple[int, list[str]]:
-    pts, notes = 0, []
-    frontier_md = REPO_ROOT / "tasks" / "FRONTIER.md"
-
-    # 3+ open questions
-    open_qs = []
-    if frontier_md.exists():
-        text = frontier_md.read_text()
-        open_qs = re.findall(r"^\- \*\*F\d+\*\*:(.+)", text, re.MULTILINE)
-    if len(open_qs) >= 3:
-        pts += 5
-        notes.append(f"  {len(open_qs)} open frontier questions (>=3): +5")
-    else:
-        notes.append(f"  {len(open_qs)} open frontier questions (<3): +0")
-
-    # At least 1 open question about something external
-    external_keywords = ["RFC", "websocket", "library", "API", "code", "test",
-                         "external", "build", "tool", "implement", "research"]
-    has_external = any(
-        any(kw.lower() in q.lower() for kw in external_keywords)
-        for q in open_qs
-    )
-    if has_external:
-        pts += 5
-        notes.append("  At least 1 external-facing frontier question: +5")
-    else:
-        notes.append("  No external-facing frontier questions: +0")
-
-    # Last 3 commits not all meta files
-    log = _git("log", "--oneline", "-3", "--name-only")
-    if log:
-        recent_files = set()
-        for line in log.splitlines():
-            if "/" in line or "." in line:
-                recent_files.add(line.strip())
-        non_meta = any(
-            f.startswith(("workspace/", "experiments/", "tools/"))
-            or (not f.startswith(("beliefs/", "memory/", "tasks/", "CLAUDE"))
-                and "." in f)
-            for f in recent_files
-        )
-        if non_meta:
-            pts += 10
-            notes.append("  Recent commits touch non-meta files: +10")
-        else:
-            notes.append("  Last 3 commits are all meta: +0")
-    else:
-        notes.append("  Git history unavailable: +0")
-
-    return pts, notes
+def _sc(pts, cond, msg):
+    """Score check: returns (max_pts, earned, note)."""
+    return (pts, pts if cond else 0, f"  {msg}: +{pts if cond else 0}")
 
 
 def print_swarmability(beliefs: list[dict], has_errors: bool, existence_ok: bool):
     print("\n=== SWARMABILITY SCORE ===\n")
 
+    # Pre-compute shared state
+    frontier_path = REPO_ROOT / "tasks" / "FRONTIER.md"
+    frontier_text = frontier_path.read_text() if frontier_path.exists() else ""
+    open_qs = re.findall(r"^\- \*\*F\d+\*\*:(.+)", frontier_text, re.MULTILINE)
+    theorized_pct = sum(1 for b in beliefs if b["evidence"] == "theorized") / max(len(beliefs), 1)
+    has_tested = any(b["last_tested"] and b["last_tested"].lower() != "never" for b in beliefs)
+
+    # Adaptation: belief modifications in recent commits
+    dep_log = _git("log", "--oneline", "-5", "--", "beliefs/DEPS.md")
+    belief_modified = False
+    for sha in (l.split()[0] for l in dep_log.splitlines() if l.strip()):
+        stat = _git("show", "--stat", sha, "--", "beliefs/DEPS.md")
+        if "insertions" in stat and "deletions" in stat:
+            belief_modified = True
+            break
+    ev_log = _git("log", "-20", "-p", "--", "beliefs/DEPS.md")
+    ev_changed = bool(re.search(r"^[-+].*\*\*Evidence\*\*:", ev_log, re.MULTILINE)) if ev_log else False
+
+    # Context efficiency
+    mandatory_lines = sum(_line_count(REPO_ROOT / p) for p in ["CLAUDE.md", "beliefs/CORE.md", "memory/INDEX.md"])
+    lessons_dir = REPO_ROOT / "memory" / "lessons"
+    over_20 = sum(1 for f in lessons_dir.glob("L-*.md") if _line_count(f) > 20) if lessons_dir.exists() else 0
+
+    # Forward momentum
+    ext_kw = ["RFC", "websocket", "library", "API", "code", "test", "external", "build", "tool", "implement", "research"]
+    has_external = any(any(k.lower() in q.lower() for k in ext_kw) for q in open_qs)
+    git_log = _git("log", "--oneline", "-3", "--name-only")
+    recent = {l.strip() for l in git_log.splitlines() if "/" in l or "." in l} if git_log else set()
+    non_meta = any(
+        f.startswith(("workspace/", "experiments/", "tools/"))
+        or (not f.startswith(("beliefs/", "memory/", "tasks/", "CLAUDE")) and "." in f)
+        for f in recent
+    )
+
+    categories = [
+        ("Onboarding Clarity", [
+            _sc(5, (REPO_ROOT / "CLAUDE.md").exists() and _line_count(REPO_ROOT / "CLAUDE.md") < 300, "CLAUDE.md exists and <300 lines"),
+            _sc(5, bool(_git("log", "--oneline", "-3", "--", "memory/INDEX.md")), "INDEX.md updated within last 3 commits"),
+            _sc(5, bool(open_qs), f"FRONTIER.md has {len(open_qs)} open question(s)"),
+            _sc(5, existence_ok, "No broken B-ID references"),
+        ]),
+        ("Belief Health", [
+            _sc(10, not has_errors, "Validator PASS (0 errors)"),
+            _sc(5, theorized_pct < 0.6, f"Theorized {theorized_pct:.0%} < 60%"),
+            _sc(5, has_tested, "At least 1 belief has a Last tested date"),
+        ]),
+        ("Adaptation Rate", [
+            _sc(10, belief_modified, "Belief modified in last 5 DEPS.md commits"),
+            _sc(10, ev_changed, "Evidence type changed in history"),
+        ]),
+        ("Context Efficiency", [
+            _sc(10, mandatory_lines < 450, f"Mandatory files {mandatory_lines} lines (<450)"),
+            _sc(10, over_20 == 0, "No lessons over 20 lines"),
+        ]),
+        ("Forward Momentum", [
+            _sc(5, len(open_qs) >= 3, f"{len(open_qs)} open frontier questions (>=3)"),
+            _sc(5, has_external, "At least 1 external-facing frontier question"),
+            _sc(10, non_meta, "Recent commits touch non-meta files"),
+        ]),
+    ]
+
     total = 0
-
-    s1, n1 = score_onboarding(existence_ok)
-    print(f"1. Onboarding Clarity: {s1}/20")
-    for n in n1:
-        print(n)
-    total += s1
-
-    s2, n2 = score_belief_health(beliefs, has_errors)
-    print(f"2. Belief Health: {s2}/20")
-    for n in n2:
-        print(n)
-    total += s2
-
-    s3, n3 = score_adaptation()
-    print(f"3. Adaptation Rate: {s3}/20")
-    for n in n3:
-        print(n)
-    total += s3
-
-    s4, n4 = score_context_efficiency()
-    print(f"4. Context Efficiency: {s4}/20")
-    for n in n4:
-        print(n)
-    total += s4
-
-    s5, n5 = score_forward_momentum()
-    print(f"5. Forward Momentum: {s5}/20")
-    for n in n5:
-        print(n)
-    total += s5
+    for i, (name, checks) in enumerate(categories, 1):
+        earned = sum(c[1] for c in checks)
+        max_pts = sum(c[0] for c in checks)
+        print(f"{i}. {name}: {earned}/{max_pts}")
+        for _, _, note in checks:
+            print(note)
+        total += earned
 
     print(f"\nSWARMABILITY: {total}/100")
 

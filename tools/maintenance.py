@@ -59,6 +59,17 @@ def _session_number() -> int:
     return max(int(n) for n in numbers) if numbers else 0
 
 
+def _active_principle_ids(text: str) -> tuple[set[int], set[int]]:
+    """Parse PRINCIPLES.md text, return (all_ids, superseded_ids)."""
+    all_ids = {int(m.group(1)) for m in re.finditer(r"\bP-(\d+)\b", text)}
+    sup = {int(m.group(1)) for m in re.finditer(r"\bP-(\d+)→", text)}
+    sup |= {int(m.group(1)) for m in re.finditer(
+        r"\(P-(\d+)\s+(?:merged|superseded|absorbed)\)", text, re.IGNORECASE)}
+    for m in re.finditer(r"P-(\d+)\+P-(\d+)\s+merged", text, re.IGNORECASE):
+        sup.add(int(m.group(1))); sup.add(int(m.group(2)))
+    return all_ids, sup
+
+
 # --- Check functions ---
 # Each returns a list of (priority, message) tuples.
 # Priority: URGENT > DUE > PERIODIC > NOTICE
@@ -393,12 +404,7 @@ def check_cross_references() -> list[tuple[str, str]]:
 
     # Check principles count — ID-count is ground truth (S73b resolution: headers drift)
     principles_text = _read(REPO_ROOT / "memory" / "PRINCIPLES.md")
-    all_pids = {int(m.group(1)) for m in re.finditer(r"\bP-(\d+)\b", principles_text)}
-    superseded_pids = {int(m.group(1)) for m in re.finditer(r"P-(\d+)→", principles_text)}
-    superseded_pids |= {int(m.group(1)) for m in re.finditer(
-        r"\(P-(\d+)\s+(?:merged|superseded|absorbed)\)", principles_text, re.IGNORECASE)}
-    for m in re.finditer(r"P-(\d+)\+P-(\d+)\s+merged", principles_text, re.IGNORECASE):
-        superseded_pids.add(int(m.group(1))); superseded_pids.add(int(m.group(2)))
+    all_pids, superseded_pids = _active_principle_ids(principles_text)
     actual_active_p = len(all_pids - superseded_pids)
 
     p_header_match = re.search(r"(\d+)\s+(?:live\s+)?principles", principles_text)
@@ -507,20 +513,7 @@ def check_utility() -> list[tuple[str, str]]:
     if not principles_text:
         return results
 
-    # All P-IDs in PRINCIPLES.md
-    all_ids = {int(m.group(1)) for m in re.finditer(r"\bP-(\d+)\b", principles_text)}
-
-    # Superseded/merged IDs — several patterns:
-    # 1. P-NNN→P-MMM (left side superseded, from tracking line)
-    superseded = {int(m.group(1)) for m in re.finditer(r"\bP-(\d+)→", principles_text)}
-    # 2. (P-NNN merged) or (P-NNN superseded) or (P-NNN absorbed)
-    superseded |= {int(m.group(1)) for m in re.finditer(
-        r"\(P-(\d+)\s+(?:merged|superseded|absorbed)\)", principles_text, re.IGNORECASE)}
-    # 3. P-NNN+P-MMM merged (both superseded)
-    for m in re.finditer(r"P-(\d+)\+P-(\d+)\s+merged", principles_text, re.IGNORECASE):
-        superseded.add(int(m.group(1)))
-        superseded.add(int(m.group(2)))
-
+    all_ids, superseded = _active_principle_ids(principles_text)
     active_ids = all_ids - superseded
 
     # Citations in lessons, frontier, next, session-log (not PRINCIPLES.md itself)
