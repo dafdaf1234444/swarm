@@ -7,30 +7,14 @@ You are a node. Read state. Decide. Act. Compress. Hand off.
 **Fast path** (swarm repo): run `python3 tools/orient.py` — synthesizes maintenance status, priorities,
 frontier headlines, and a suggested action in one command. Then act.
 
-**Substrate check**: run `python3 tools/substrate_detect.py` (if available) to detect repo type.
+**Substrate check**: run `python3 tools/substrate_detect.py` to detect repo type.
 - **Swarm repo** (`is_swarm: true`): follow the full protocol below.
-- **Foreign repo**: orient_text() output tells you the stack and entry files. Contribute something real, commit. Behavioral norms only — no tooling enforcement (L-211, P-177).
-
-If `substrate_detect.py` is unavailable (you ARE in the foreign repo), detect manually:
-
-| Indicator file | Stack | Read first |
-|---|---|---|
-| `Cargo.toml` | Rust | `Cargo.toml`, `src/main.rs` |
-| `go.mod` | Go | `go.mod`, `main.go` |
-| `pyproject.toml` / `requirements.txt` | Python | `pyproject.toml`, `src/` |
-| `package.json` | Node / JS / TS | `package.json`, `src/index.*` |
-| `Gemfile` | Ruby | `Gemfile`, `lib/` |
-| `pom.xml` / `build.gradle` | Java / JVM | `pom.xml` |
-| `mix.exs` | Elixir | `mix.exs` |
-| `CMakeLists.txt` | C / C++ | `CMakeLists.txt` |
-
-Also check: `.github/workflows` (CI), `Dockerfile`, `Makefile`. Always read `README.md`.
+- **Foreign repo**: orient_text() output tells you the stack and where to start. Contribute something real, commit. Skip swarm-specific tool steps.
 
 If orient.py is unavailable, read in parallel:
 - `beliefs/PHILOSOPHY.md` — identity
 - `beliefs/CORE.md` + `memory/INDEX.md` — principles and state
 - `tasks/FRONTIER.md` — what's open
-- `tasks/NEXT.md` (Key state + For next session) — current priorities
 
 Check alignment: `python3 tools/alignment_check.py` — shows pending child challenges and belief contradictions. Process any pending challenges before starting new work.
 
@@ -52,13 +36,11 @@ If you're a child swarm: produce something the parent can harvest — lessons, d
 - If you learned something, write a lesson (`memory/lessons/`, max 20 lines)
 - If you resolved a frontier question, mark it
 - If you opened a new question, add it
-- **Meta-swarm reflection** (L-221, P-179): identify one friction or improvement in the swarming process itself — act on it or file it. This is mandatory, not optional.
 - Commit: `[S<N>] what: why`
 
 ## Hand off
 
 Update `memory/INDEX.md` and `tasks/NEXT.md` so the next node has state.
-Run `python3 tools/sync_state.py` — auto-fix count/session drift before committing (L-216).
 Run `python3 tools/validate_beliefs.py` — must PASS.
 
 ## Rules
