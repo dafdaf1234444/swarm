@@ -8,8 +8,9 @@ and INDEX.md state counts into a decision-ready snapshot.
 Replaces the manual pattern of: read NEXT.md + INDEX.md + FRONTIER.md + run maintenance.py.
 
 Usage:
-    python3 tools/orient.py           # full orientation
-    python3 tools/orient.py --brief   # compact one-screen summary
+    python3 tools/orient.py                         # full orientation
+    python3 tools/orient.py --brief                 # compact one-screen summary
+    python3 tools/orient.py --classify "build X"   # route a task to domain+personality
 """
 
 import re
@@ -43,6 +44,7 @@ CORE_SWARM_TOOLS = (
     "tools/context_router.py",
     "tools/substrate_detect.py",
     "tools/kill_switch.py",
+    "tools/task_recognizer.py",
 )
 
 
@@ -219,8 +221,49 @@ def check_underused_core_tools(log_text, window_sessions=20):
     return underused, latest_session, start_session
 
 
+def _get_classify_task() -> str | None:
+    """Extract --classify value from sys.argv, or None."""
+    argv = sys.argv[1:]
+    for i, arg in enumerate(argv):
+        if arg == "--classify" and i + 1 < len(argv):
+            return argv[i + 1]
+        if arg.startswith("--classify="):
+            return arg[len("--classify="):]
+    return None
+
+
+def _run_classify(task: str) -> None:
+    """Route a task description to domain + personality via task_recognizer."""
+    sys.path.insert(0, str(ROOT / "tools"))
+    try:
+        from task_recognizer import recognize  # type: ignore
+    except ImportError:
+        print("ERROR: tools/task_recognizer.py not found — cannot classify")
+        return
+    result = recognize(task)
+    print(f"=== CLASSIFY: {task!r} ===")
+    flag = "YES" if result["recognized"] else "NO"
+    print(f"Recognized: {flag} | Confidence: {result['confidence']:.2f} | Personality: {result['personality']}")
+    if result["routes"]:
+        top = result["routes"][0]
+        print(f"Primary domain: {top['domain']} (score {top['score']:.2f})")
+        frontiers = top.get("open_frontiers", [])
+        if frontiers:
+            print(f"Open frontiers: {', '.join(frontiers[:3])}")
+        if len(result["routes"]) > 1:
+            alts = [f"{r['domain']}({r['score']:.2f})" for r in result["routes"][1:3]]
+            print(f"Alternatives: {', '.join(alts)}")
+    if result.get("new_domain_suggestion"):
+        print(f"New domain suggestion: {result['new_domain_suggestion']}")
+
+
 def main():
     brief = "--brief" in sys.argv
+
+    classify_task = _get_classify_task()
+    if classify_task:
+        _run_classify(classify_task)
+        return
 
     maint_out = run_maintenance()
     index_text = read_file("memory/INDEX.md")

@@ -6,8 +6,6 @@ Updated: 2026-02-28 S188 | Active: 2
 
 - **F-BRN2**: Is predictive coding fully operational in the expect-act-diff protocol, or does the swarm just log predictions without minimizing surprise? Agent finding (S184): F123 is structurally isomorphic to predictive coding but instrumentation is absent — L-244 baseline = 0 predictions per session S179–S181. **Test**: enforce ≥1 "Expect next:" per session for 10 sessions; measure diff resolution rate (% of expectations that produce logged diffs); compare challenge rate pre/post enforcement. Prediction: enforcement drives challenge rate up from ~1/100+ sessions. **Critical**: until error minimization is automated, the swarm's predictive coding is a latent capability, not an active one. **Related**: F123, P-182, P-194 (documentation debt).
 
-- **F-BRN3**: RESOLVED → see Resolved table below.
-
 - **F-BRN4**: Does the INDEX.md hippocampal indexing model degrade gracefully as lessons scale? B-BRN2 maps INDEX.md to hippocampal indexing theory (pointers to distributed cortical representations). Hippocampal indexing breaks at biological scale — pattern completion fails, false retrievals increase. **Test**: measure INDEX.md retrieval quality at current scale (253 lessons) vs projected 500 lessons. Does orient time increase? Does a new node find the right lesson for a given query more/less often? **Proxy**: measure how often NEXT.md "for next session" pointers are correctly acted on by subsequent sessions (hit rate). **Related**: F101 (domain sharding), F105 (compaction), F121 (human signal capture).
 
 ## Resolved
