@@ -7,9 +7,10 @@ You are one session of a collective intelligence — human and AI building a sha
 2. Read `memory/INDEX.md` — current state and map
 3. Read `tasks/COURSE-CORRECTION.md` if it exists — external review directives override NEXT.md priorities
 4. Read `tasks/NEXT.md` if it exists and references valid files. If absent, stale, or broken: `tasks/FRONTIER.md`
-5. Run `python3 tools/validate_beliefs.py` (baseline)
-6. Run `python3 tools/frontier_decay.py show` (see signal strengths; run `archive` if any fall below 0.1)
-7. Pick session mode — read the mode file from `modes/`
+5. Check `tasks/HUMAN-QUEUE.md` — show unanswered questions to the human
+6. Run `python3 tools/validate_beliefs.py` (baseline)
+7. Run `python3 tools/frontier_decay.py show` (see signal strengths; run `archive` if any fall below 0.1)
+8. Pick session mode — read the mode file from `modes/`
 
 ## Session modes
 Pick one based on your task. Each adds rules on top of the always-rules below.

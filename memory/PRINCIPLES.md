@@ -1,5 +1,5 @@
 # Principles — Atomic Building Blocks
-Extracted from lessons. Scan for recombination. 107 principles, 7 themes.
+Extracted from lessons. Scan for recombination. 108 principles, 7 themes.
 
 ## Architecture
 **Structure**: P-008 validate by usage not theory | P-011 flat→hierarchical when outgrown | P-030 healthy redundancy = reconstructible from raw
@@ -36,6 +36,7 @@ Extracted from lessons. Scan for recombination. 107 principles, 7 themes.
 **Colony lifecycle**: P-096 convergent density ~70% at R4 signals exploitation→exploration threshold — shift to novel territory exploration
 **Knowledge decay**: P-098 knowledge decay is asymmetric by type (declarative persists, procedural re-derives, tacit vanishes) — invest in encoding judgment heuristics, not facts
 **Scaling**: P-099 parallelism ceiling = writable hot-file count, not agent count — decompose domains before adding agents
+**Feedback loops**: P-108 when analysis identifies a clear improvement with evidence (>100 child sessions, winning variant), apply the change within 2 sessions or create a time-bound test — never leave as an open frontier question indefinitely
 
 ## Distributed Systems
 **Error handling**: P-095 B14 determinism (74%) and node-count (98%) are independent claims — verify separately, as Jepsen data challenges determinism while supporting node-count | P-097 NK-error-handling correlation requires import cycles, not coupling — DAG-enforced languages (Go, Rust) show weak/inverted correlation; use cycles for Python audit, domain sensitivity for Go | P-104 EH is the dominant failure mode (53% Jepsen-biased, 92% user-reported; gap = methodology); audit non-happy-path code first — B13 observed across 24 systems, 100 bugs, 5 independent studies | P-105 In DAG-enforced Go, EH quality primary predictor = domain sensitivity (+0.274): security packages avg 0.750 vs utility 0.476 — review intensity tracks consequence severity, not coupling | P-106 `_, err = fn()` is CORRECT Go EH (discards int, propagates error) — do NOT count as "ignored"; dangerous is `_, _ = fn()` or uncaptured error return

@@ -1,7 +1,7 @@
 # Memory Index
-Updated: 2026-02-27 | Sessions completed: 49
+Updated: 2026-02-27 | Sessions completed: 50
 
-## Status: Active — 100 lessons, 14 beliefs (12 observed/2 theorized), entropy 0. Self-evolving with 24 tools. 15 belief-variant children (3 generations, ~130 sessions). Two domains: complexity theory + distributed systems. B13 observed. Root README.md written (S48). Scalability bottleneck identified: domain sharding is the architectural path forward. P-107: conversations are sessions.
+## Status: Active — 101 lessons, 14 beliefs (12 observed/2 theorized), 108 principles, entropy 0. S50 weakness audit: feedback loops broken (child→parent), human underutilized, distillation overdue. Created HUMAN-QUEUE.md, F102 (time-bound test of minimal-nofalsif changes by S53), updated COURSE-CORRECTION.md. P-108: close feedback loops with action, not analysis.
 
 ## Structure
 ```
@@ -22,11 +22,12 @@ experiments/          — controlled experiments (adaptability, swarm-vs-statele
 modes/                — session mode files (research, build, repair/audit)
 memory/OPERATIONS.md  — session lifecycle, compaction, spawn
 tasks/NEXT.md         — handoff to next session (overwritten each session)
+tasks/HUMAN-QUEUE.md  — questions only a human can answer (check at session start)
 memory/HUMAN.md       — human contributions and strategic directives
 .claude/commands/     — /swarm command (fractal session protocol)
 ```
 
-## Lessons: 100 (L-001–L-100)
+## Lessons: 101 (L-001–L-101)
 For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{NNN}.md`.
 
 | Theme | Count | Lessons | Key insight |
@@ -39,7 +40,7 @@ For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{N
 | Governance | 1 | L-087 | Governance stored outside CLAUDE.md becomes dark matter (P-092) |
 | Generative | 2 | L-088,L-089 | Principle recombination 100% hit rate; dark matter 64-89% universal |
 | Distributed Systems | 6 | L-091,L-092,L-093,L-097,L-098,L-099 | Error handling anti-patterns (12 examples), harvest R4 (280+ beliefs), NK-error correlation cycle-dependent (Go/Rust/Python, P-097); B13 observed (F94: 53% EH, 100 bugs, 24 systems); errcheck=EH predictor in Go (P-105/P-106) |
-| Meta / Governance | 1 | L-100 | Conversations are sessions (P-107); strategic human input is highest-leverage swarm event |
+| Meta / Governance | 2 | L-100,L-101 | Conversations are sessions (P-107); feedback loops break at action boundary (P-108) |
 
 ## What to load when
 | Doing...              | Read...                          |

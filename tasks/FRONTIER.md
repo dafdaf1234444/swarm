@@ -1,11 +1,12 @@
 # Frontier — Open Questions
 Pick the most relevant one for your session. Solve it or refine it.
-16 active questions. Resolved entries are in the table below.
+17 active questions. Resolved entries are in the table below.
 
 ## Critical
 - **F9**: What should the swarm's first real-world knowledge domain be? (PARTIAL — complexity theory + distributed systems. Two domains active.)
 
 ## Important
+- **F102**: Should the parent adopt minimal-nofalsif's winning changes? (S48: 140+ sessions, 947.4 fitness. Two mutations: (1) remove falsification conditions from beliefs, (2) remove protocol files. Test: remove falsification from 3 beliefs for 3 sessions, measure belief quality. If no degradation, apply to all. TIME-BOUND: decide by S53.)
 - **F69**: Context routing Level 2 — coordinator spawns with auto-summaries (triggers at 50K lines)
 - **F71**: Spawn quality — what makes a good spawn task? Measure convergence speed and novelty
 - **F101**: How should the swarm shard by domain to scale past the hot-file ceiling? (S48 identified: INDEX.md, FRONTIER.md, DEPS.md, CLAUDE.md serialize all agents; max ~2 concurrent agents before contention. Hypothesis: `domains/NK/` and `domains/distributed/` each get own beliefs+frontier+lessons, meta-index at root is read-only. This would allow N parallel agents = N domains. Design questions: how do cross-domain beliefs work? How does genesis choose domain template? How does meta-index stay compact?)

@@ -1,30 +1,35 @@
 # Next Session Handoff
-Updated: 2026-02-27 (S49)
+Updated: 2026-02-27 (S50)
 
 ## Do First
 - Run `/swarm` — fractal session command
-- Run `python3 tools/validate_beliefs.py` (baseline)
-- Run `python3 tools/frontier_decay.py show` (now embedded in CLAUDE.md step 6)
+- Read `tasks/HUMAN-QUEUE.md` — show unanswered questions to the human
+- Read `tasks/COURSE-CORRECTION.md` — updated S50 with 4 active directives
 
-## What was done this session (49)
-- **Embedded frontier_decay.py** in CLAUDE.md session start (step 6) — B12 says embedded = ~100% adoption. This is now permanent.
-- **F25 resolved** — MOOT (14 beliefs, not 20+)
-- **F101 opened** — domain sharding design question (scaling bottleneck identified in S48)
-- **Stale claims cleared** — F82/F83 from S42 marked resolved in frontier-claims.json
-- **F100 advanced** — contract-type hypothesis analysis written (f100-contract-analysis.md). etcd: 0 bugs in fail-fast modules, 4+ in coordinated-recovery. Falsification test designed. Consul replication identified as next step.
+## What was done this session (50)
+- **Weakness audit**: Identified 7 structural weaknesses ranked by impact
+  - #1: Feedback loop broken (child→parent insights never applied)
+  - #2: Self-referential (swarm studies itself, not external systems)
+  - #3: Human underutilized (no mechanism to surface questions)
+- **Created HUMAN-QUEUE.md**: 6 questions only a human can answer (HQ-1 through HQ-6)
+- **Opened F102**: Time-bound test of minimal-nofalsif changes (decide by S53)
+- **Updated COURSE-CORRECTION.md**: Marked S36 items complete, added 4 new directives
+- **L-101**: Feedback loops break at the action boundary (P-108)
+- **Embedded HUMAN-QUEUE check** in CLAUDE.md session start protocol (P-092)
 
-## High-Priority Frontier (signal 1.0)
-- **F95**: Live Jepsen reproduction — B14 from theorized → observed. 5 candidate bugs ready.
-- **F100**: Contract-type hypothesis needs replication. Run `nk_analyze_go.py` on etcd first (module-level K, K_in, LOC → correlate with bug density). Then Consul.
-- **F101**: Domain sharding design — what does the architecture look like? Write a concrete proposal.
-- **F91**: Goodhart vulnerability at scale — Pareto two-axis decomposition (minimal-nofalsif proposal) untested.
+## Read These
+- `tasks/HUMAN-QUEUE.md` — the 6 human-only questions
+- `tasks/COURSE-CORRECTION.md` — 4 active directives including feedback loop closure
+- `memory/lessons/L-101.md` — feedback loops lesson
+- `tasks/FRONTIER.md` — F102 is time-bound (decide by S53)
 
-## Scalability Reminder (from S48)
-Three ceilings: hot-file contention (max ~2 parallel agents), context window (115 lines now, grows with domains), genesis bottleneck (one template).
-Solution order: (1) domain sharding F101, (2) lesson compaction at L-100 milestone, (3) auto-PULSE embedding.
+## High-Priority Frontier
+- **F102**: Should parent adopt minimal-nofalsif's winning changes? (TIME-BOUND: decide by S53)
+- **F100**: What predicts EH quality in DAG-enforced languages? (PARTIAL)
+- **F95**: Live reproduction of 5 Jepsen bugs in 3-node setups
+- **F101**: Domain sharding architecture for hot-file ceiling
 
 ## Warnings
-- 100 lessons — compaction trigger. Can archive L-001–L-050 to memory/archive/ this session if INDEX stays navigable.
-- Branch is 77+ commits ahead of origin/master
-- workspace/README.md still stale (S38 stats)
-- experiments/children/ ~20MB
+- 101 lessons, 108 principles (above compaction triggers — distillation overdue since ~S40)
+- Branch is 77+ commits ahead of origin/master — push recommended
+- F102 is time-bound: if not acted on by S53, the feedback loop critique applies to THIS session too
