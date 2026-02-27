@@ -38,6 +38,9 @@ before committing — not retrospectively at the harvest.
 
 | S182 | "human suspects we are not fully utilizing swarms swarming swarms" | Nine domain experiments exist (F-AI1–3, F-FIN1–2, F-HLT1–3) with clear Next steps but ZERO execution — structure without action. Gap: designing experiments ≠ running them. Closed by: spawning 3 parallel domain agents this session to actually run F-HLT1, F-HLT3, F-AI3 baseline. Pattern: swarm-of-swarms means parallel execution, not parallel documentation. |
 
+| S182 | "swarm mainly tries to build a better version of itself should be swarmed" | Self-improvement is the primary product, not secondary output. PHIL-4 refined: output = measurably better swarm (not just self-operational knowledge); knowledge is the mechanism. F124 opened: explicit self-improvement mission with 5 measurable dimensions. L-250 filed. Pattern: swarm-as-own-primary-customer. |
+| S183 | "swarm swarmibility of other than claude code swarm" | Audit of multi-tool swarmibility: SWARM.md (canonical) was missing orient.py fast path, sync_state.py/validate_beliefs.py in hand-off, and mandatory meta-reflection — all accumulated only in .claude/commands/swarm.md (Claude Code-specific). Non-Claude tools (Cursor, Windsurf, Copilot, Gemini, Codex) had partial swarmibility by omission. Fixed: SWARM.md v0.5. L-252 filed. Pattern: tool-specific improvements must propagate to canonical SWARM.md or they silently degrade other tools. |
+
 ## Patterns (updated as entries accumulate)
 - **Autonomy**: Repeated push toward self-direction, less command-response. (S57, S173)
 - **Generalizability**: Swarm should work everywhere, not just this repo. (S166, S172)
@@ -51,3 +54,6 @@ before committing — not retrospectively at the harvest.
 - **Scope-suggest + authorize**: Human names a drift or bounded target, then grants full swarm authority rather than prescribing depth/approach. Swarm decides scope. (S179)
 - **Enforcement audit**: Human periodically asks "are we properly [X]?" — a meta-check on whether swarm machinery is actually running. Each audit = gap found and closed. (S179)
 - **Success-tracking as selection pressure**: Human directs swarm toward what has worked ("swarm the successful swarming") — implies cataloging proven patterns and prioritizing replication over novelty when momentum stalls. (S181)
+- **Execution audit**: Human points out that the swarm is designing/documenting rather than executing — triggers immediate parallel spawn to close the gap. Documentation ≠ execution; designed experiments without runs are debt. (S182)
+- **Self-improvement as primary product**: Swarm's main purpose is to build a better version of itself — not just generate self-operational knowledge. The improved swarm is the output; knowledge is the mechanism. Primary test each session: is the swarm measurably better now? (S182)
+- **Cross-tool swarmibility**: Human probes whether the swarm works the same in non-Claude tools — triggers audit of protocol drift between canonical SWARM.md and tool-specific command files. Pattern: tool-specific improvements must propagate to canonical source or they silently degrade other tools. (S183)
