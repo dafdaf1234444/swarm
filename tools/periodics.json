@@ -104,6 +104,13 @@
       "cadence_sessions": 20,
       "last_reviewed_session": 185,
       "registered_by": "S185"
+    },
+    {
+      "id": "economy-health",
+      "description": "Swarm economy health check: run `python3 tools/economy_expert.py` — report on production velocity, proxy-K drift, Sharpe ratio, lane throughput, and helper ROI. Act on any WARN/URGENT/TRIGGER output (L-286, domains/economy/).",
+      "cadence_sessions": 5,
+      "last_reviewed_session": 188,
+      "registered_by": "S188"
     }
   ]
 }

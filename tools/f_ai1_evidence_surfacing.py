@@ -96,7 +96,9 @@ def _query_title_confidence(query: str, resolved_title: str, lang: str = "en") -
         if not qtoks:
             return 0.0
         qset, tset = set(qtoks), set(ttoks)
-        overlap = len(qset & tset) / max(1, len(qset))  # query recall: less penalized by longer titles
+        q_recall = len(qset & tset) / max(1, len(qset))
+        t_recall = len(qset & tset) / max(1, len(tset))
+        overlap = 2 * q_recall * t_recall / max(1e-9, q_recall + t_recall)  # F1: penalizes short-query over-fire
     else:
         qset = set(query_norm.split())
         tset = set(title_norm.split())

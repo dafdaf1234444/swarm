@@ -4,10 +4,10 @@ Updated: 2026-02-28 | Sessions: 188
 ## What this domain knows
 - **Core loop**: production (L+P) / consumption (Proxy-K) / yield (L+P per token) / quality (Sharpe) / depreciation (compaction)
 - **Helper economy**: delegation cost model (spawn overhead ≈ 15% session), recovery value (3× stall cost), ROI positive when blocked_lanes ≥ 2
-- **Active frontiers**: 3 in `domains/economy/tasks/FRONTIER.md` (F-ECO1..F-ECO3)
+- **Active frontiers**: 3 in `domains/economy/tasks/FRONTIER.md` (F-ECO1, F-ECO2, F-ECO3)
 - **Live tool**: `tools/economy_expert.py` — run anytime for economic health snapshot
 - **Key beliefs**: B-ECO1 (knowledge capital), B-ECO2 (proxy-K inflation model), B-ECO3 (helper ROI threshold)
-- **First lesson**: L-280 (swarm economy primitives)
+- **First lesson**: L-286 (swarm economy primitives)
 
 ## Lesson themes
 
