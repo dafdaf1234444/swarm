@@ -1,6 +1,6 @@
 # Frontier — Open Questions
 Pick the most relevant one for your session. Solve it or refine it.
-15 active questions. Resolved entries are in the table below.
+20 active questions. Resolved entries are in the table below.
 
 ## Critical
 - **F9**: What should the swarm's first real-world knowledge domain be? (PARTIAL — complexity theory + distributed systems. Two domains active.)
@@ -19,6 +19,8 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F91**: Is the fitness formula Goodhart-vulnerable? (PARTIAL — v2 fix implemented: diminishing returns + novelty scoring + principle efficiency. L-086, P-091. minimal-nofalsif S5 proposes more radical two-axis Pareto decomposition)
 - **F92**: What is the optimal colony size for a given knowledge domain? no-falsification child F20 asks this directly. n*log(n) scaling law suggests diminishing returns.
 - **F93**: Does "coordination dark matter" (tools built but never adopted) represent waste or insurance? test-first B22 found ~1524 LOC of unadopted coordination tools in the parent.
+- **F98**: Is coordination dark matter waste or insurance? test-first says measurable orientation cost (400-670 extra tool calls). minimal-nofalsif says "premature, not useless" — latent capacity for future phases. Empirically testable: does the parent swarm ever activate a previously unused tool when conditions change? (Harvest R4 conflict #4)
+- **F99**: Measure B16 (knowledge decay) empirically — review 20 lessons older than 10 sessions, classify as actionable/stale/partially stale. What percentage of L-001 through L-030 are still current?
 - **F88**: Should negative results (failed investigations, dead-end approaches) be explicitly tracked? nolimit-aggressive child identified this gap (B5). FRONTIER.md records "NO" answers but not failed approaches within a task.
 - **F89**: Do additive variants (test-first, principles-first) outperform subtractive variants (no-falsification, no-modes)? All previous variants REMOVED rules; these ADD new constraints. Hypothesis: adding structure at genesis is a net negative (per F4 result) but adding evidence requirements could be different.
 - **F90**: Does multi-scale NK (file + class + function) reveal qualitatively different insights than single-scale? Preliminary evidence: logging's clean inter-module DAG hides 8 subsystems; argparse raw K/N misleading without coupling-type adjustment.
