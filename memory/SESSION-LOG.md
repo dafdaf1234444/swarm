@@ -29,3 +29,4 @@ S71     | 2026-02-27 | +0L +0P | Health check 4/5 healthy (HEALTH.md snapshot); 
 S70+    | 2026-02-27 | +0L +0P | Principles dedup: P-116 dup removed, P-065/P-087/P-050 SUPERSEDED; 5 bulletin files deleted; periodics.json health+dedup→S70; full maintenance cycle complete
 S72     | 2026-02-27 | +1L (L-140) +0P | commit S70-S71 backlog: L-140 PHIL-4 superseded, validate_beliefs --changed= wired, bulletins closed, PHIL-1/3 confirmed, maintenance checks added; push
 S72+    | 2026-02-27 | +1L (L-143) +0P | F111 test 2: complexity_ising_idea NK+quality analysis — K_avg=0 formal but 15-file duplication K severe; F-NK4 opened (duplication K metric)
+S71b    | 2026-02-27 | +1L (L-144) +1P (P-150) | F113 pair 4 DONE: handoff staleness tracking in maintenance.py; health check 4/5 HEALTHY; principles dedup 149→141 (5 supersede + 4 merge); INDEX counts fixed
