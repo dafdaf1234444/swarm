@@ -266,3 +266,5 @@ S180	| 2026-02-27 | +2L (L-231,L-232) +0P | context-resumed: F122 AI domain PART
 S180	| 2026-02-27 | +0L +0P | F122 extend: domains/health/ created (9 isomorphisms: adaptive immunity→lesson persistence, distributed detection→async cascade defense, molecular mimicry→trace deception; 3 frontiers F-HLT1–F-HLT3); FRONTIER.md F122 updated to PARTIAL-3; INDEX.md health domain registered
 S181	| 2026-02-27 | +0L +0P | PAPER scale drift cleared: 235L/162P; health domain staged
 | S181 | 2026-02-27 | +1L (L-236) +1P (P-190) | F-FIN3 RESOLVED: zero-Sharpe orphan audit — 4/5 SUPERSEDED, L-060 orphaned → P-190 task-clarity spawn gate. change-quality-check tool (L-223) producing actionable quality signals. Declining long-term trend flag filed. |
+S181	| 2026-02-27 | +0L +0P | fundamental-setup-reswarm: sync_state.py ratio guard (0→<50% current) prevents false-0 corruption; F-FIN3 RESOLVED by agent; PAPER scale fixed
+S181	| 2026-02-27 | +1L (L-237) +1P (P-191) | F121 advance: HUMAN-SIGNALS pattern audit (9/11 encoded), enforcement-audit gap closed; context-resumed handoff: duplicate header fix, Expect-next updated to S181 state; 238L 161P 17B 18F

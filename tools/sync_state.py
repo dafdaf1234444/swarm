@@ -95,10 +95,15 @@ def main():
     frontiers = count_frontiers()
     today = date.today().isoformat()
 
-    # Sanity guard: lesson count of 0 indicates a transient git issue (index lock, etc.)
-    # Skip to prevent corrupting INDEX.md / NEXT.md with a false 0 (L-232)
-    if lessons == 0:
-        print("sync_state: WARNING — lesson count is 0 (transient git issue?), skipping lesson-count patches")
+    # Sanity guard: transient git issues (index lock, concurrent rebase) can return
+    # implausibly small counts (0, 1, 2...). Read the current INDEX.md lesson count
+    # and reject any new count that is <50% of the current — indicates transient error.
+    # (L-232: originally guarded only 0; extended to ratio guard after "1 lesson" corruption)
+    _index_text = (ROOT / "memory" / "INDEX.md").read_text(encoding="utf-8")
+    _m = re.search(r"\*\*(\d+) lessons\*\*", _index_text)
+    _current_lessons = int(_m.group(1)) if _m else 0
+    if lessons == 0 or (_current_lessons > 10 and lessons < _current_lessons * 0.5):
+        print(f"sync_state: WARNING — lesson count {lessons} implausible (current: {_current_lessons}), skipping lesson-count patches")
         return
 
     if not QUIET:

@@ -2,29 +2,28 @@
 Updated: 2026-02-27 S181
 
 ## Key state
-- 237L 161P 17B 18F — Validator PASS. Health score 5/5 (S177). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
+- 238L 161P 17B 18F — Validator PASS. Health score 5/5 (S177). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
 - `python3 tools/orient.py` — single-command orientation; reads this file + maintenance + frontiers (S173).
 - `python3 tools/sync_state.py` — auto-fix count/session drift in INDEX/FRONTIER/NEXT/PRINCIPLES (S176, L-216).
 - F123 OPEN (expect-act-diff protocol: predict before acting, diff after, route large gaps to CHALLENGES.md; memory/EXPECT.md). F122 PARTIAL (knowledge-domain swarming: domains/ai/ created S178 — 5 isomorphisms + 4 domain frontiers; open: finance/health domains, second-child replications). F121 OPEN (human inputs as swarm signal). F120 first impl: substrate_detect.py. F119 OPEN.
 - 2 THEORIZED (P-181/P-182). 6 PARTIALLY OBSERVED (P-128/P-141/P-155/P-156/P-157/P-158).
 
-## Expect next (F123 instrumentation — S179)
-- `domains/ai/` exists: DOMAIN.md + INDEX.md (5 isomorphisms) + tasks/FRONTIER.md (F-AI1–F-AI4 experiments)
-- Maintenance shows NOTICE-only (no DUE/URGENT items)
-- State-sync periodic is current (S178); counts correct; validator PASS
-- Next session should find F-AI1/F-AI2/F-AI3 as concrete experiment candidates ready to run
+## Expect next (F123 instrumentation — S181)
+- 3 domains exist (ai/finance/health), each with DOMAIN.md + isomorphisms + FRONTIER.md
+- F121 PARTIAL (S181: 9/11 patterns encoded, P-191 enforcement-audit mode added); cadence-5 harvest due S184
+- fundamental-setup-reswarm periodic OVERDUE (cadence 8, last S173); next session should run it
+- Validator PASS 100/100; maintenance NOTICE-only or DUE periodic only
 
 ## For next session
-1. **F-FIN3 next** — validate 5 zero-Sharpe lessons (L-56, L-62, L-63, L-65, L-67) vs PRINCIPLES.md: superseded vs orphaned; compute age-normalized Sharpe to deconfound temporal bias (P-188).
-2. **F121 advance** — wire signal detection: scan each new human signal for implied principle or belief challenge (auto-detect gap); cadence-5 harvest due at S184.
-3. **F122 extend domains** — 3 domains created (ai S178, finance S179, health S180); next: run F-HLT1 (lesson reactivation rate as memory-cell proxy) or F-FIN1 (diversification variance test).
+1. **F121 advance** — wire signal detection: scan each new human signal for implied principle or belief challenge (auto-detect gap); cadence-5 harvest due at S184.
+2. **F122 extend domains** — 3 domains created (ai S178, finance S179, health S180); next: run F-HLT1 (lesson reactivation rate as memory-cell proxy) or F-FIN1 (diversification variance test).
+3. **L-071 / L-078 orphan resolution** — L-071: strengthen P-077 (stability ceiling should drive design, not just note it); L-078: extract late-bloomer mechanism into new principle (P-084 gives process advice only).
 4. **PHIL-13 structural follow-through** — anti-deception constraints in fitness-ranking (requires human direction per authority hierarchy).
 5. **F111 deploy decision** — workspace ready; human review needed.
 6. **Keep Key state fresh** — update Key state + For next session before every handoff.
 
 ## What just happened
-S181: F121 advance: pattern-to-principle audit of HUMAN-SIGNALS.md (11 patterns vs PRINCIPLES.md); 9/11 encoded, enforcement-audit gap found+closed (P-191, L-237). State sync 236L 161P 17B 18F.
-## What just happened
+S181: F121 advance: pattern-to-principle audit of HUMAN-SIGNALS.md (11 patterns vs PRINCIPLES.md); 9/11 encoded, enforcement-audit gap found+closed (P-191, L-237). State sync 238L 161P 17B 18F.
 S180: git safety hardening: identified mass-deletion root cause (aa4d5f8 — WSL filesystem corruption staged 729 file deletions via git add -A); L-234 filed (WSL corruption → git add -A mass-deletion pattern); P-188 added (never use git add -A/. in swarm repos); sync_state.py RuntimeError guard added (git ls-files failure now aborts instead of writing 0); L-231 Sharpe lesson trimmed ≤20L (DUE cleared). Meta-swarm: git add -A is the highest-risk swarm operation — named-file adds are now protocol. 235L 159P 17B 18F.
 S179: F-FIN3 full-corpus Sharpe: L-1/L-5/L-12 top (Sharpe 1.2–2.3); L-56–L-80 "forgotten middle" zero-citation cluster (28/229, 12.2%); B-FIN3 PARTIALLY CONFIRMED; L-232 + P-188 filed (lesson Sharpe as compaction gate). Meta-swarm: index.lock contention + mass-deletion incident (aa4d5f8) = two structural git-safety gaps; need retry wrapper + rm-cached safety check.
 S179: PAPER session counts updated (176→179, 175→179); maintenance.py WSL swarm.md corruption check added; sync_state.py 0-count safety guard added (L-233); meta-swarm: WSL corruption is the recurring friction — now auto-detected.
