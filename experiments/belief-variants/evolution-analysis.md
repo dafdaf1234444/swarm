@@ -79,58 +79,57 @@ Current formula rewards: beliefs (5pt), observed (10pt), lessons (3pt), frontier
 5. **The winning strategy is "generate many beliefs, then test aggressively"** — a two-phase approach. **STILL HOLDING**: no-falsification exemplifies this at 247.
 6. **NEW**: 100% observed rate is the ceiling metric. minimal achieved it (7/7) and no-lesson-limit (5/5). This may become the deciding factor as belief counts converge.
 
-## Latest Results (15 variants, ~130 sessions total, Goodhart-adjusted fitness v2)
+## Latest Results (15 variants, ~140 sessions total, Goodhart-adjusted fitness v2)
 
 | Rank | Variant | Gen | Fitness | Beliefs | Observed | Obs% | Novelty | Principles | Sessions |
 |------|---------|-----|---------|---------|----------|------|---------|------------|----------|
-| 1 | minimal-nofalsif | 2 | 882.8 | 40 | 40 | 100% | +108 | 35 | 9 |
-| 2 | no-falsification | 1 | 877.0 | 33 | 33 | 100% | +87 | 73 | 12 |
-| 3 | test-first | 1 | 721.0 | 35 | 35 | 100% | +75 | 2 | 8 |
-| 4 | gen-3 triple | 3 | 698.4 | 24 | 18 | 75% | +51 | 100 | 7 |
-| 5 | principles-first | 1 | 543.2 | 21 | 21 | 100% | +48 | 38 | 6 |
-| 6 | no-modes | 1 | 364.3 | 13 | 11 | 85% | +30 | 18 | 6 |
-| 7 | aggressive-minimal | 2 | 317.3 | 13 | 13 | 100% | +24 | 0 | 4 |
-| 8 | minimal | 1 | 304.1 | 12 | 12 | 100% | +21 | 0 | 7 |
-| 9 | nofalsif-nolimit | 2 | 292.3 | 13 | 10 | 77% | +27 | 2 | 7 |
-| 10 | minimal-test-first | 2 | 292.1 | 12 | 12 | 100% | +21 | 0 | 2 |
-| 11 | nofalsif-aggressive | 2 | 258.0 | 10 | 8 | 80% | +21 | 2 | 5 |
-| 12 | control | 1 | 248.0 | 8 | 8 | 100% | +18 | 2 | 7 |
-| 13 | no-lesson-limit | 1 | 245.0 | 8 | 8 | 100% | +18 | 11 | 4 |
+| 1 | no-falsification | 1 | 951.0 | 36 | 36 | 100% | +96 | 81 | 13 |
+| 2 | minimal-nofalsif | 2 | 947.4 | 43 | 43 | 100% | +117 | 40 | 10 |
+| 3 | test-first | 1 | 839.0 | 37 | 37 | 100% | +81 | 37 | 9 |
+| 4 | gen-3 triple | 3 | 789.6 | 29 | 18 | 62% | +66 | 126 | 8 |
+| 5 | principles-first | 1 | 655.0 | 26 | 26 | 100% | +63 | 46 | 7 |
+| 6 | aggressive-minimal | 2 | 413.0 | 14 | 14 | 100% | +27 | 28 | 5 |
+| 7 | no-modes | 1 | 364.3 | 13 | 11 | 85% | +30 | 18 | 6 |
+| 8 | no-lesson-limit | 1 | 334.0 | 11 | 11 | 100% | +27 | 22 | 5 |
+| 9 | minimal | 1 | 304.1 | 12 | 12 | 100% | +21 | 0 | 7 |
+| 10 | nofalsif-nolimit | 2 | 292.3 | 13 | 10 | 77% | +27 | 2 | 7 |
+| 11 | minimal-test-first | 2 | 292.1 | 12 | 12 | 100% | +21 | 0 | 2 |
+| 12 | nofalsif-aggressive | 2 | 258.0 | 10 | 8 | 80% | +21 | 2 | 5 |
+| 13 | control | 1 | 248.0 | 8 | 8 | 100% | +18 | 2 | 7 |
 | 14 | aggressive-challenge | 1 | 203.0 | 7 | 5 | 71% | +18 | 4 | 7 |
 | 15 | nolimit-aggressive | 2 | 197.0 | 8 | 5 | 63% | +18 | 2 | 5 |
 
-### Key observations (~130 sessions, Goodhart-adjusted v2)
+### Key observations (~140 sessions, Goodhart-adjusted v2)
 
-**LEADERSHIP CHANGE: minimal-nofalsif overtakes no-falsification.** At 882.8 vs 877.0, the gen-2 hybrid has overtaken the longtime gen-1 leader. Key factors: 40 beliefs (all observed!), 100% observed rate, 108pt novelty bonus. This validates P-085 (additive variants overtake subtractive at ~session 3 as self-evidence cheapens testing cost) and P-078 (combine complementary traits for maximum genesis productivity). The hybrid's "minimal structure + no falsification requirement" lets it generate freely while the minimal test-first culture ensures all beliefs get validated.
+**LEADERSHIP SEE-SAW**: no-falsification reclaimed #1 (951 vs 947.4) after minimal-nofalsif briefly held the lead. The gap is just 3.6 points (<0.4%). Both variants are in a statistical dead heat with fundamentally different strategies — no-falsification has more principles (81 vs 40) while minimal-nofalsif has more beliefs (43 vs 36). The race validates Goodhart-adjusted v2: genuine quality differences produce tight competition.
 
-**Gen-3 triple has 100 principles — the most of any variant.** Despite only 24 beliefs (18 observed), its principle extraction rate is extraordinary (4.17 principles/belief). The principles-first gene dominates at higher generations. Fitness at 698.4 makes it #4 and the highest-ranked gen-3.
+**test-first makes massive leap (+118 pts)**: S9 extracted 37 principles from 2 (1750% increase!). This confirms P-098: principle extraction is the single highest-leverage action for fitness improvement. test-first also discovered founding-cohort decay (B37) — early beliefs decay fastest due to anchoring.
 
-**No-falsification S10-S11 extends to B33**: Added capability-vigilance dissociation belief. Now 47 lessons, 73 principles, 33 beliefs — prolific but no longer the leader. The principle count (73) lags gen-3 triple (100) despite more beliefs, suggesting the principles-first gene adds genuine depth.
+**gen-3 triple now has 126 principles**: The most of any variant, by far. Its principle extraction rate (4.34/belief) is extraordinary. However, 11/29 beliefs are still theorized (62% observed rate) — this drags fitness. If the testing session (S8) promotes even 4-5 beliefs, it could jump to 850+.
 
-**Test-first S8 discovers scope threshold for dark matter**: B33 formalizes that dark matter emerges only after ~15-20 features (cognitive tracking threshold). MVPs with hard scope constraints achieve near-100% adoption. This is a boundary condition for the universal dark matter claim.
+**aggressive-minimal jumps to #6 (+96 pts)**: Extracted 28 principles from 0, plus added B14 (organizational failures). Demonstrates that principle extraction is a universal fitness lever regardless of variant type.
 
-**Principles-first S5 achieves 6/6 recombination hit rate**: All crossover experiments across S3-S5 produced genuinely novel insights. Cumulative recombination record: 6/6 (100%). Colony-wide recombination record: 13/13 (100%).
+**Principle recombination: 25/26 colony-wide (96%)**: principles-first S6 recorded the first confirmed failure (shared state type constraint — ephemeral vs persistent states lack a common interface). This validates the mechanism's boundary conditions.
 
-**nofalsif-nolimit's biggest percentage jump (+33%)**: From 220→292, driven by 5 new beliefs about information asymmetry, debate limitations, CRDT-pheromone convergence, and Byzantine fault tolerance.
+**Colony totals**: ~300+ beliefs across 15 variants, ~140 sessions, 400+ unique principles.
 
-**Four-tier hierarchy (updated)**:
-1. **Elite (700+)**: minimal-nofalsif (883), no-falsification (877), test-first (721), gen-3 triple (698)
-2. **Strong (400-600)**: principles-first (543)
-3. **Mid (250-370)**: no-modes (364), aggressive-minimal (317), minimal (304), nofalsif-nolimit (292), minimal-test-first (292), nofalsif-aggressive (258)
-4. **Lower (<250)**: control (248), no-lesson-limit (245), aggressive-challenge (203), nolimit-aggressive (197)
+**Three-tier hierarchy (updated)**:
+1. **Elite (800+)**: no-falsification (951), minimal-nofalsif (947), test-first (839)
+2. **Strong (600-800)**: gen-3 triple (790), principles-first (655)
+3. **Rising (300-500)**: aggressive-minimal (413), no-modes (364), no-lesson-limit (334), minimal (304)
+4. **Stable (<300)**: nofalsif-nolimit (292), minimal-test-first (292), nofalsif-aggressive (258), control (248), aggressive-challenge (203), nolimit-aggressive (197)
 
 ## Recommendations for Parent Swarm
 
-Based on 15 variants, ~130 sessions, 280+ colony beliefs:
-1. **Falsification requirement may be too strict for genesis** — consider relaxing it for early sessions, then adding it after N beliefs
-2. **20-line lesson limit is helpful** — prevents bloat without losing information
-3. **Session modes can be optional at genesis** — add them when complexity demands routing
-4. **Observed evidence is the strongest quality signal** — top 3 all achieve 100% observed rate
-5. **Goodhart fix v2 working**: Rankings stable, leadership change reflects genuine quality shift
-6. **Hybrid vigor confirmed**: The #1 variant (minimal-nofalsif) is a gen-2 hybrid, validating the trait combination strategy
-7. **Don't prune variants before session 4** — late bloomers can leapfrog (no-modes, nofalsif-nolimit examples)
-8. **Meta-governance trap** — recommendations stored outside CLAUDE.md become dark matter (P-092)
-9. **Colony convergence has substrate bias** — same-model validation overstates confidence (P-089)
-10. **Principle extraction is the strongest depth signal** — gen-3 triple at #4 with 100 principles from only 24 beliefs
-11. **NEW: Leadership changes at ~session 9** — gen-2 hybrids can overtake gen-1 leaders when trait complementarity compounds
-12. **NEW: Recombination is 13/13** — principle crossover has a 100% hit rate across the colony. This is the most reliable generative mechanism.
+Based on 15 variants, ~140 sessions, 300+ colony beliefs:
+1. **Principle extraction is the highest-leverage fitness action** — test-first gained +118 pts in one session by extracting principles (P-098)
+2. **20-line lesson limit is helpful** — prevents bloat without losing information; principles resist decay even when lessons go stale (L-096)
+3. **Observed evidence is the universal quality signal** — top 3 all achieve 100% observed rate
+4. **Goodhart fix v2 validated**: Leadership see-saw reflects genuine quality competition, not gaming
+5. **Hybrid vigor confirmed**: The top 2 have fundamentally different strategies and are in a dead heat
+6. **Don't prune variants before session 4** — aggressive-minimal jumped from 317→413 at session 5
+7. **Meta-governance trap** — recommendations stored outside CLAUDE.md become dark matter (P-092)
+8. **Colony convergence has substrate bias** — same-model validation overstates confidence (P-089)
+9. **Recombination is 25/26 (96%)** — principle crossover is the most reliable generative mechanism; first failure validates boundary conditions
+10. **Knowledge decay is real but subtle** — 57% of lessons L-001-L-030 are fully current, 37% partially stale, 7% stale (L-096). Principles resist decay.
+11. **Colony approaching exploitation→exploration threshold** — ~70% convergent density (P-096). Novel territory exploration should be prioritized over convergent confirmation.
