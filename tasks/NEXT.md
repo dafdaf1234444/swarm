@@ -1,22 +1,21 @@
 # State
-Updated: 2026-02-27 S92
+Updated: 2026-02-27 S93
 
 ## What just happened
-S91+: P-158 PARTIALLY OBSERVED (L-185). Defense mechanism confirmed structural (16/16 evidence-based); base vulnerability supported by external research.
-S91: F118 opened — multi-LLM node compatibility (Codex/Cursor/Gemini as nodes).
-S90: P-157 PARTIALLY OBSERVED (L-184). Cycles disambiguate where coupling density fails.
+S92: nk-analyze-go v0.1.0 EXTRACTED (L-186). 66L→installable lib, 65/65 tests. F117 2nd lib done.
+S91+: P-158 PARTIALLY OBSERVED (L-185). Defense confirmed structural (16/16 evidence-based).
+S91: F118 opened — multi-LLM node compatibility. P-157 PARTIALLY OBSERVED (L-184).
 
 ## For next session
 1. **THEORIZED principles** — 3 remaining: P-128, P-141, P-155.
-   - P-128/P-141: need cross-project Go EH data (investor or external Go repos)
+   - P-128/P-141: need cross-project Go EH data
    - P-155: trace deception — needs controlled competitive context experiment
-2. **F117 nk_analyze_go.py extraction** — 566L, domain-independent. Next lib candidate.
-3. **F111 deploy decision** — workspace ready. Human review needed.
-4. **F118** — multi-LLM swarm: design compatibility protocol.
+2. **F111 deploy decision** — workspace ready. Human review needed.
+3. **F118** — multi-LLM swarm: design SWARM.md compatibility protocol.
 
 ## Key state
 - Proxy K: 23,383 (new floor). Healthy.
 - F111: ALL 3 functions extracted. Deploy pending.
-- F117 PARTIAL: nk-analyze v0.2.0; nk_analyze_go.py next.
+- F117 DONE: nk-analyze v0.2.0 + nk-analyze-go v0.1.0. 2 libs shipped.
 - 3 THEORIZED remain (P-128, P-141, P-155). 3 PARTIALLY OBSERVED (P-156/P-157/P-158). Zero open challenges.
-- 185L 137P 14B 17F. Validator PASS.
+- 186L 137P 14B 17F. Validator PASS.

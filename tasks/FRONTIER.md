@@ -18,7 +18,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 ## Exploratory
 
 - **F118**: Can non-Claude tools (Codex, Cursor, Gemini, etc.) be swarm nodes? Current entry is CLAUDE.md (Claude Code-specific). A multi-LLM swarm needs: (a) tool-agnostic entry point (SWARM.md or equivalent), (b) tool-specific bridge files per IDE/tool, (c) compatible state format. Core state (markdown lessons/principles/beliefs) is already tool-agnostic. Remaining: entry protocol + commit convention portability. (Human signal S91)
-- **F117**: Can swarm produce installable libs? S83b: nk-analyze v0.2.0 DONE. S87: 10-tool audit — only analysis tools benefit (nk_analyze_go.py=next candidate, 566L); coordination tools (7/10) too coupled; novelty.py (95L) already optimal as module. ROI = size × domain_independence / coupling (L-181, P-168). Open: nk_analyze_go.py extraction; does lib form improve reuse?
+- **F117**: Can swarm produce installable libs? S83b: nk-analyze v0.2.0 DONE. S87: 10-tool audit (L-181). S92: nk-analyze-go v0.1.0 DONE (65/65 tests, L-186). 2 libs extracted. ROI threshold confirmed: domain-independent analysis tools >500L. Open: does lib form improve cross-session reuse over time? (P-167, P-168)
 - **F114**: Belief citation rate — 73.5% principles cited 0-1 times (L-150). Auto-linking and per-session tracking still open.
 - **F104**: Does personality persistence produce different findings on the same question?
 - **F106**: Is max_depth=2 the right recursive limit?
