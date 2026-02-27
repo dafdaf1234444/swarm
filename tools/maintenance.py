@@ -359,14 +359,22 @@ def check_cross_references() -> list[tuple[str, str]]:
             if actual != claimed:
                 results.append(("NOTICE", f"INDEX.md claims {claimed} lessons but {actual} exist"))
 
-    # Check principles count — trust PRINCIPLES.md header, verify INDEX matches it
+    # Check principles count — ID-count is ground truth (S73b resolution: headers drift)
     principles_text = _read(REPO_ROOT / "memory" / "PRINCIPLES.md")
-    p_header_match = re.search(r"(\d+) principles", principles_text)
-    idx_p_match = re.search(r"\*\*(\d+) principles\*\*", index_text)
+    all_pids = {int(m.group(1)) for m in re.finditer(r"\bP-(\d+)\b", principles_text)}
+    superseded_pids = {int(m.group(1)) for m in re.finditer(r"P-(\d+)→", principles_text)}
+    superseded_pids |= {int(m.group(1)) for m in re.finditer(
+        r"\(P-(\d+)\s+(?:merged|superseded|absorbed)\)", principles_text, re.IGNORECASE)}
+    for m in re.finditer(r"P-(\d+)\+P-(\d+)\s+merged", principles_text, re.IGNORECASE):
+        superseded_pids.add(int(m.group(1))); superseded_pids.add(int(m.group(2)))
+    actual_active_p = len(all_pids - superseded_pids)
 
-    if idx_p_match and p_header_match:
-        if idx_p_match.group(1) != p_header_match.group(1):
-            results.append(("NOTICE", f"Principle count mismatch: PRINCIPLES.md says {p_header_match.group(1)}, INDEX.md says {idx_p_match.group(1)}"))
+    p_header_match = re.search(r"(\d+)\s+(?:live\s+)?principles", principles_text)
+    idx_p_match = re.search(r"\*\*(\d+) principles\*\*", index_text)
+    if p_header_match and int(p_header_match.group(1)) != actual_active_p:
+        results.append(("NOTICE", f"PRINCIPLES.md header says {p_header_match.group(1)} but ID-count finds {actual_active_p} active"))
+    if idx_p_match and int(idx_p_match.group(1)) != actual_active_p:
+        results.append(("NOTICE", f"INDEX.md claims {idx_p_match.group(1)} principles but ID-count finds {actual_active_p} active"))
 
     # Check frontier question count
     frontier_text = _read(REPO_ROOT / "tasks" / "FRONTIER.md")

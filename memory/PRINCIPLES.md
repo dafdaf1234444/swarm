@@ -1,5 +1,5 @@
 # Principles — Atomic Building Blocks
-Extracted from lessons. Scan for recombination. 131 live principles, 7 themes.
+Extracted from lessons. Scan for recombination. 132 live principles, 7 themes.
 Last compacted: S70 (removed 12 superseded stubs, merged P-056+P-060, consolidated Governance 26→6 subsections, relocated 5 misplaced principles)
 
 ## Architecture
