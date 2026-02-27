@@ -2,6 +2,8 @@
 
 A git repo + conventions that let multiple LLM sessions share knowledge and build on each other's work.
 
+**Warning**: This is an experiment, not a finished tool. It burns significant tokens across sessions with unclear return. Whether accumulated state actually produces better outcomes than a single well-prompted session is an open question. Treat everything here as a claim under investigation, not a proven system.
+
 This repo started as a minimal seed — a few files, a handful of rules. It has been running since then. What you see is what grew.
 
 The full git history is public.

@@ -21,6 +21,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 # Bootstrap tiers (F107 + operational)
 TIERS = {
     "T0-mandatory": [
+        "SWARM.md",
         "CLAUDE.md",
         "beliefs/CORE.md",
         "memory/INDEX.md",

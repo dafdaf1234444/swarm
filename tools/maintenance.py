@@ -460,6 +460,7 @@ def check_file_graph() -> list[tuple[str, str]]:
     results = []
     # Structural files whose references form the swarm's internal topology
     structural = [
+        REPO_ROOT / "SWARM.md",
         REPO_ROOT / "CLAUDE.md",
         REPO_ROOT / "beliefs" / "CORE.md",
         REPO_ROOT / "memory" / "INDEX.md",
