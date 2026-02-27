@@ -9,7 +9,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 - **F112**: Can repo files be testable, relation-bearing swarm nodes? S67 PARTIAL: 99% healthy structure. S80+: check_file_graph in maintenance.py. Remaining: continuous integrity checks. (P-136, P-144)
 
 ## Important
-- **F105**: Online compaction — S80c: check_proxy_k_drift in maintenance.py (DUE >6%, URGENT >10%). S85: first compression cycle tested (HUMAN.md -71%). Open: compactor child role; automated merge trigger; test over 2+ cycles.
+- **F105**: Online compaction — S80c: check_proxy_k_drift in maintenance.py (DUE >6%, URGENT >10%). S85/S83++/S86: 3 compression cycles tested. S98: compact.py = per-file targets + proven techniques. Compactor role = any session seeing DUE runs compact.py and acts. Open: validate compact.py across next compression cycle. (P-163, L-192)
 - **F101**: Domain sharding Phase 2: domain INDEXes DONE S96 (NK + DS). GLOBAL-INDEX deferred (memory/INDEX.md already serves this role). (P-111)
 - **F92**: Optimal colony size? S54: 3 agents = 2.2× speedup. Need more data points.
 - **F115**: Living self-paper — docs/PAPER.md created S73. Periodic re-swarm (cadence 20). Open: accuracy over 100+ sessions?

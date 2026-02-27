@@ -36,13 +36,13 @@ Children in separate repos: `python3 tools/bulletin.py write <name> belief-chall
 Parent auto-propagates from bulletins: `python3 tools/propagate_challenges.py --apply`
 
 ## Compaction Triggers
-Use `python3 tools/maintenance.py` — it surfaces compaction needs automatically. Manual signals:
-- INDEX.md exceeds 60 lines
-- Total mandatory load (T0) exceeds 200 lines
-- Proxy K rising across 3+ sessions (tools/proxy_k.py --history)
-- Swarmability drops
+Use `python3 tools/maintenance.py` — it surfaces compaction needs automatically. When proxy K
+drift >6%, run `python3 tools/compact.py` for per-file targets and proven techniques.
+Compact.py separates analysis from mutation (P-144): it diagnoses, session acts.
 
 Method: replace individual entries with theme summaries. Run validator before and after.
+Three compression cycles completed (S77, S83, S86). Pattern: T3-knowledge (PRINCIPLES.md
+evidence trimming) and T4-tools (dead code, docstring compression) are highest-ROI targets.
 
 ## Emergency Handoff
 If context is constrained:

@@ -450,7 +450,7 @@ def check_proxy_k_drift() -> list[tuple[str, str]]:
                 tier_deltas.append(f"{tier}+{delta}")
         targets = ", ".join(tier_deltas[:3]) if tier_deltas else "unknown"
         level = "URGENT" if drift > 0.10 else "DUE"
-        results.append((level, f"Proxy K drift {drift:.1%} ({latest} vs floor {floor}) — targets: {targets} (P-163)"))
+        results.append((level, f"Proxy K drift {drift:.1%} ({latest} vs floor {floor}) — run: python3 tools/compact.py (P-163, F105)"))
 
     return results
 
