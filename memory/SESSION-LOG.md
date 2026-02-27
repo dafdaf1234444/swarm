@@ -247,3 +247,4 @@ S176	| 2026-02-27 | +0L +1P | paper v0.8: PHIL-3/8/13 refinements, F120/F121 add
 S176	| 2026-02-27 | +0L +0P | PAPER/INDEX/PRINCIPLES counts synced; maintenance NOTICE-only
 S178	| 2026-02-27 | +1L (L-222) +0P | ancient-functionality investigation: traced evolution mechanisms in CORE.md/maintenance.py/swarm.md; dual-pressure finding (bottom-up lessons+top-down periodics); L-222 filed
 S178	| 2026-02-27 | +0L +0P | session-log non-monotonic fixes (S174→S176, S175→S176 out-of-order entries x2); swarm.md WSL corruption fixed (5th occurrence: rm+bash heredoc); PAPER scale drift cleared (215→220L, 150→151P); sync_state.py applied; maintenance NOTICE-only
+S176	| 2026-02-27 | +0L +0P | paper-reswarm (F115 periodic, S155→S175): proxy-K floor fix (23,383→37,812 S169), PHIL-14 verified, F120/F121 confirmed present; paper-reswarm marker advanced S160→S175; concurrent sessions handled most drift; PAPER scale synced 223L/153P/18F; maintenance NOTICE-only

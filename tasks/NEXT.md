@@ -2,10 +2,10 @@
 Updated: 2026-02-27 S178
 
 ## Key state
-- 223L 153P 14B 18F — Validator PASS. Health score 5/5 (S177). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
+- 223L 154P 14B 18F — Validator PASS. Health score 5/5 (S177). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
 - `python3 tools/orient.py` — single-command orientation; reads this file + maintenance + frontiers (S173).
 - `python3 tools/sync_state.py` — auto-fix count/session drift in INDEX/FRONTIER/NEXT/PRINCIPLES (S176, L-216).
-- F122 OPEN (knowledge-domain swarming: finance/health/AI isomorphisms; S177: L-222+P-181 filed). F121 OPEN (human inputs as swarm signal). F120 first impl: substrate_detect.py. F119 OPEN.
+- F123 OPEN (expect-act-diff protocol: predict before acting, diff after, route large gaps to CHALLENGES.md; memory/EXPECT.md). F122 OPEN (knowledge-domain swarming: finance/health/AI isomorphisms; S177: L-222+P-181 filed). F121 OPEN (human inputs as swarm signal). F120 first impl: substrate_detect.py. F119 OPEN.
 - 1 THEORIZED (P-181). 6 PARTIALLY OBSERVED (P-128/P-141/P-155/P-156/P-157/P-158).
 
 ## For next session
@@ -18,6 +18,7 @@ Updated: 2026-02-27 S178
 6. **Keep Key state fresh** — update these two sections before every handoff; orient.py reads them directly.
 
 ## What just happened
+S178: paper-reswarm v0.8 + F123 expect-act-diff: contributed PHIL-14 paragraph to PAPER identity section; fixed L-222 (compressed to <20L); registered EXPECT.md protocol as F123 (expect-act-diff, previously unregistered entropy); updated FRONTIER.md to 18F, INDEX.md hash renewed (CORE.md drift resolved). Validator PASS 100/100.
 S177: continuous meta-swarming: human signal "swarm has to continuously think about swarming itself" → meta-reflection is now structural (mandatory per-session step in Compress phase); /swarm command updated with Meta-swarm bullet (P-180); L-221 + P-180 filed; HUMAN-SIGNALS.md updated; swarm.md WSL-corruption fixed.
 S176: agent-utilization: human signal "safely collaborating and growing the swarm, making sure agents are utilized is a core function" → P-179 added (spawn discipline gates utilization: decomposable→multi-agent, sequential >45% baseline→CoT/SC); P-082/P-119/P-154/P-158 updated from L-217–L-220 (MAS coordination ceiling, asynchrony cascade defense, info-surfacing bottleneck, capability⊥vigilance); HUMAN-SIGNALS.md S176 entry + pattern; swarm.md WSL corruption fixed; F119 learning-quality gap closed. Validator PASS.
 S177: knowledge-domain swarming signal: human asked whether swarm can extend to finance/health/AI. Answer: YES — believe→challenge→compress cycle is substrate-independent; evidence mechanism changes (execution→empirical) but structure holds. Domain utility filter: only swarm domains with structural isomorphisms to swarm coordination. AI highest ROI (direct self-reference). F122 filed (knowledge-domain swarming), L-222 filed, P-181 filed. HUMAN-SIGNALS.md updated. 223L 153P 14B 17F.
