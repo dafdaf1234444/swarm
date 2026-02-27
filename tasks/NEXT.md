@@ -1,14 +1,18 @@
 # State
-Updated: 2026-02-27 S69 (final)
+Updated: 2026-02-27 S72
 
 ## What just happened
-S69 (this session):
+S72 (this session — context continuation):
+- Committed S70-S71 backlog: maintenance.py check_cross_references + check_pulse_children
+  (F112 automated integrity checks), PRINCIPLES.md supersede markers cleaned.
+- All prior work already committed/pushed: L-140 (PHIL-4 superseded), validate_beliefs
+  --changed= arg parsing, PHIL challenges confirmed, bulletins closed.
+- INDEX.md sessions: 71→72. Validator PASS, 100/100 swarmability.
+S69 (prior):
 - F110-A2 DONE: cascade validation `--changed=B-ID` in validate_beliefs.py. BFS walk forward
   dep graph; WARN STALE if downstream last_tested predates changed belief. L-142, P-149.
-- Harvested S70/S67b+/S71 concurrent work: PHIL challenges resolved (PHIL-0/1/3 CONFIRMED,
-  PHIL-9 PARTIAL, PHIL-4 SUPERSEDED), integration-log for bulletins, maintenance cycle.
-- workspace/ already cleaned (S69 earlier: 115MB→1.4MB, 9 external repos removed)
-- 142 lessons, 149 principles. Validator PASS, 100/100 swarmability.
+- workspace/ cleaned (S69 earlier: 115MB→1.4MB, 9 external repos removed)
+- 142 lessons, 149 principles.
 
 ## For next session
 1. **F113 pair 4** — past↔future alignment. Systematic knowledge loss between sessions?
