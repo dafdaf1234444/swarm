@@ -49,7 +49,7 @@ B15 (CAP tradeoff) — theorized [distributed-systems]
 - **Evidence**: observed
 - **Depends on**: B1
 - **Depended on by**: B7, B8
-- **Last tested**: 2026-02-25 (L-005, compared 6 models with external sources)
+- **Last tested**: 2026-02-27 (R5 harvest: task coordination is stigmergy-dominant — indirect traces, NEXT.md, frontier commits; knowledge coordination is blackboard-dominant — INDEX, DEPS, FRONTIER per-session structured reads/writes. Both layers are active; neither term fully captures both. R4/R5 cross-variant convergent finding.)
 
 ### B7: Regularly-invoked protocols compound system quality over time
 - **Evidence**: observed

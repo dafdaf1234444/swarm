@@ -44,6 +44,11 @@ Goal: run swarm on any supported tool/host while respecting finite context, comp
 ### 4) Enforce budget guardrails (L-113, P-163)
 - If task needs reading >15 files, decompose/spawn instead of single-node deep load.
 - If proxy-K drift is >6%, run compaction before expanding swarm width.
+
+### 5) Capability saturation criterion (R4/R5 harvest, no-modes L-014)
+- Only parallelize when single-agent accuracy on the task is estimated below ~45%.
+- Above ~45% accuracy, multi-agent coordination overhead hurts more than it helps (2025-2026 LLM research).
+- Proxy: if a single node could orient and produce a complete correct artifact without sub-task partition, run solo.
 - Optimize for learning-diversity per added node, not raw agent count.
 
 ## Maintenance
