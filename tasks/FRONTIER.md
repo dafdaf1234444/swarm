@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-16 active | Last updated: 2026-02-27 S83
+17 active | Last updated: 2026-02-27 S91
 
 ## Critical
 - **F110**: How can swarm miscoordinate when swarming itself? (10 cases, 3 tiers. T1+T2 DONE. T3: A2 DONE S69; B2 Goodhart + C2 orphaned meta = understood, not urgent. See experiments/architecture/f110-meta-coordination.md.)
@@ -17,6 +17,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 
 ## Exploratory
 
+- **F118**: Can non-Claude tools (Codex, Cursor, Gemini, etc.) be swarm nodes? Current entry is CLAUDE.md (Claude Code-specific). A multi-LLM swarm needs: (a) tool-agnostic entry point (SWARM.md or equivalent), (b) tool-specific bridge files per IDE/tool, (c) compatible state format. Core state (markdown lessons/principles/beliefs) is already tool-agnostic. Remaining: entry protocol + commit convention portability. (Human signal S91)
 - **F117**: Can swarm produce installable libs? S83b: nk-analyze v0.2.0 DONE. S87: 10-tool audit — only analysis tools benefit (nk_analyze_go.py=next candidate, 566L); coordination tools (7/10) too coupled; novelty.py (95L) already optimal as module. ROI = size × domain_independence / coupling (L-181, P-168). Open: nk_analyze_go.py extraction; does lib form improve reuse?
 - **F114**: Belief citation rate — 73.5% principles cited 0-1 times (L-150). Auto-linking and per-session tracking still open.
 - **F104**: Does personality persistence produce different findings on the same question?
