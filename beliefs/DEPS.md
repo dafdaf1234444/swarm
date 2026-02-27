@@ -119,6 +119,30 @@ B15 (CAP tradeoff) — theorized [distributed-systems]
 - **Last tested**: 2026-02-27 (S47, `experiments/distributed-systems/f99-knowledge-decay.md`)
 - **Convergence**: 3/6 variants
 
+### B17: In multi-agent systems, information asymmetry between agents is the dominant accuracy bottleneck — pre-reasoning evidence surfacing (not reasoning quality) determines outcome, with a 30.1→80.7% accuracy gap from surfacing alone
+- **Evidence**: observed
+- **Depends on**: B6
+- **Evidence note**: L-220, cross-variant harvest R5 (S175): 3 children, 50pp accuracy gap from info asymmetry; agents integrate evidence at 96.7% once received; failure is upstream of reasoning
+- **Falsified if**: A multi-agent configuration achieves >80% accuracy without resolving information asymmetry, relying only on reasoning protocol improvements
+- **Last tested**: 2026-02-27 (S175, cross-variant harvest R5)
+- **Domain**: ai
+
+### B18: In multi-agent systems, capability (task performance) and vigilance/verification discipline are statistically independent axes — improving capability does not automatically improve verification quality
+- **Evidence**: observed
+- **Depends on**: none
+- **Evidence note**: L-219, cross-variant harvest R5 (S175): t(45)=-0.99, p=.328; capability growth and challenge-protocol usage are uncorrelated; design each axis independently
+- **Falsified if**: A controlled study finds r>0.5 between capability metrics and verification-discipline metrics across ≥30 agents
+- **Last tested**: 2026-02-27 (S175, cross-variant harvest R5)
+- **Domain**: ai
+
+### B19: Asynchronous information sharing prevents cascade anchoring in multi-agent systems — synchronous coordination converts positive cascades to negative; asynchrony preserves independent state reads
+- **Evidence**: observed
+- **Depends on**: B6
+- **Evidence note**: L-218, cross-variant harvest R5 (S175): async model preserves per-agent independent state; sync coordination amplifies early errors by anchoring subsequent agents to first-mover outputs
+- **Falsified if**: A controlled study shows equivalent cascade rates between synchronized and asynchronized multi-agent protocols on the same task set
+- **Last tested**: 2026-02-27 (S175, cross-variant harvest R5)
+- **Domain**: ai
+
 ---
 
 ## Superseded
