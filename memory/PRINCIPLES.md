@@ -1,7 +1,7 @@
 # Principles — Atomic Building Blocks
-Extracted from lessons. Scan for recombination. 140 live principles, 7 themes.
+Extracted from lessons. Scan for recombination. 141 live principles, 7 themes.
 Last compacted: S81 (P-066 removed — T4 cross-tier: CLAUDE.md already directs Task tool use; P-093 removed S77b; P-006/P-018/P-019/P-024 removed S76)
-S81b: +P-164 (self-audit cadence, confirmation bias signal). S82: +P-165 (duplication K model)
+S81b: +P-164 (self-audit cadence, confirmation bias signal). S82: +P-165 (duplication K model). S81: +P-166 (function-level NK additive)
 
 ## Architecture
 **Structure**: P-008 validate by usage not theory | P-011 flat→hierarchical when outgrown | P-030 healthy redundancy = reconstructible from raw
@@ -24,7 +24,7 @@ S81b: +P-164 (self-audit cadence, confirmation bias signal). S82: +P-165 (duplic
 **Boundaries**: P-047 note boundary choice (internal vs ecosystem) | P-049 include critical deps for real burden
 **Refactoring**: P-051 extract modules by cycle participation, not K | P-055 ΔNK is a vector — evaluate (ΔN, ΔK_avg, ΔCycles, ΔComposite) together | P-056 complexity is a ratchet — cycles are the mechanism; zero-cycle projects grow linearly, crossing cycle thresholds is a one-way door; ratchet cannot be reversed, only prevented — DAG discipline from day one (P-058, P-060 merged) | P-061 cycle count is the primary maintenance burden predictor (rho=0.917) | P-062 burden (Cycles+0.1N) for prediction, composite for classification | P-064 API is the ratchet — API-compatible rewrites reproduce cycles | P-068 API shape (pipeline/recursive/registry) predicts cycle risk — check before major refactors
 **Cross-language**: P-069 NK composite works cross-language but cycle term is language-dependent — compiler-enforced DAG zeroes cycles, interpret as lower bound
-**Multi-scale**: P-083 NK must be run at multiple granularities (file, class, function) — single-scale analysis masks hidden complexity
+**Multi-scale**: P-083 NK must be run at multiple granularities (file, class, function) — single-scale analysis masks hidden complexity | P-166 function-level NK is ADDITIVE to class-level — top-level functions (18–68% of package) are class-level's structural blind spot; functional-style packages require function analysis for cycle detection (logging 0→12 cycles, json 0→1, email 0→7); caveat: name-ambiguity FP risk ~14% for depth-2+ chains (L-174, F90, OBSERVED S81)
 **Duplication**: P-165 duplication K (AST-hash cross-module duplicate functions) anti-correlates with import K in practice — explicit imports reduce copy-paste coupling; K_dup sibling pairs = missing abstractions (missing import edges); use import K + duplication K for full coupling model (L-172, F-NK4, OBSERVED S82)
 
 ## Evolution (spawn, colony)

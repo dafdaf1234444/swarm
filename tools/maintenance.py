@@ -527,6 +527,34 @@ def check_proxy_k_drift() -> list[tuple[str, str]]:
     return results
 
 
+def check_file_graph() -> list[tuple[str, str]]:
+    """Check that file references in structural files point to existing files (F112, P-136)."""
+    results = []
+    # Structural files whose references form the swarm's internal topology
+    structural = [
+        REPO_ROOT / "CLAUDE.md",
+        REPO_ROOT / "beliefs" / "CORE.md",
+        REPO_ROOT / "memory" / "INDEX.md",
+    ]
+    # Extract backtick-quoted file paths (e.g., `beliefs/DEPS.md`, `memory/DISTILL.md`)
+    broken = []
+    for sf in structural:
+        text = _read(sf)
+        if not text:
+            continue
+        refs = re.findall(r"`([a-zA-Z][\w\-/]+\.(?:md|py|json|sh))`", text)
+        for ref in refs:
+            # Skip if it's a code pattern, not a file reference
+            if ref.startswith("L-") or ref.startswith("P-") or ref.startswith("B-"):
+                continue
+            full = REPO_ROOT / ref
+            if not full.exists():
+                broken.append(f"{sf.name}→{ref}")
+    if broken:
+        results.append(("DUE", f"{len(broken)} broken file reference(s): {', '.join(broken[:5])}"))
+    return results
+
+
 def check_resolution_claims() -> list[tuple[str, str]]:
     """Check for stale resolution claims."""
     results = []
@@ -567,6 +595,7 @@ def main():
         check_handoff_staleness,
         check_resolution_claims,
         check_cross_references,
+        check_file_graph,
         check_utility,
         check_pulse_children,
         check_proxy_k_drift,

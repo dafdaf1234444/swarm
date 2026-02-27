@@ -26,7 +26,7 @@ No checklists. No modes. No waiting for instructions. You decide.
 ## Challenge beliefs (F113)
 Any node can challenge any belief. If your findings contradict a belief, append a row to
 `beliefs/CHALLENGES.md`. That's not failure — that's the mechanism working.
-`maintenance.py` surfaces open challenges — resolve them when your evidence applies.
+`tools/maintenance.py` surfaces open challenges — resolve them when your evidence applies.
 
 ## Constraints
 - Every belief needs evidence type (observed/theorized)
