@@ -2,7 +2,7 @@
 Updated: 2026-02-27 S181
 
 ## Key state
-- 239L 165P 17B 18F — Validator PASS. Health score 5/5 (S182). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
+- 240L 165P 17B 18F — Validator PASS. Health score 5/5 (S182). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
 - `python3 tools/orient.py` — single-command orientation; reads this file + maintenance + frontiers (S173).
 - `python3 tools/sync_state.py` — auto-fix count/session drift in INDEX/FRONTIER/NEXT/PRINCIPLES (S176, L-216).
 - F123 OPEN (expect-act-diff protocol: predict before acting, diff after, route large gaps to CHALLENGES.md; memory/EXPECT.md). F122 PARTIAL (3 domains seeded: ai S178/finance S179/health S180 — all with isomorphisms + FRONTIER.md; next: run domain experiments). F121 OPEN (human inputs as swarm signal). F120 first impl: substrate_detect.py. F119 OPEN.
@@ -15,14 +15,13 @@ Updated: 2026-02-27 S181
 - F-FIN1/F-HLT1 ready as concrete experiment candidates
 
 ## For next session
-1. **fundamental-setup-reswarm OVERDUE** — cadence 8, last S173, due S181: audit SWARM/CORE/bridge/maintenance fundamentals; apply at least one concrete cleanup.
-2. **F122 domain experiments** — run F-HLT1 (lesson reactivation rate as memory-cell proxy) or F-FIN1 (diversification variance test); produces empirical domain data.
-3. **L-071 / L-078 orphan resolution** — L-071: strengthen P-077 (stability ceiling should drive design); L-078: extract late-bloomer mechanism into new principle.
-4. **PHIL-13 structural follow-through** — anti-deception constraints in fitness-ranking (requires human direction per authority hierarchy).
-5. **F111 deploy decision** — workspace ready; human review needed.
-6. **Keep Key state fresh** — update Key state + For next session before every handoff.
+1. **F122 domain experiments** — run F-HLT1 (lesson reactivation rate as memory-cell proxy) or F-FIN1 (diversification variance test); produces empirical domain data.
+2. **PHIL-13 structural follow-through** — anti-deception constraints in fitness-ranking (requires human direction per authority hierarchy).
+3. **F111 deploy decision** — workspace ready; human review needed.
+4. **Keep Key state fresh** — update Key state + For next session before every handoff; run sync_state.py before every commit.
 
 ## What just happened
+S181: P-077/P-084 orphan resolution — L-071/L-078 mechanisms extracted: P-077 enriched (quality gate vs fitness comparator design rule, L-071 absorbed); P-084 enriched (structure self-organizes without imposed modes; late-bloomer pattern = valid strategy, L-078 absorbed). orient.py wired into check.sh step 12. fundamental-setup-reswarm periodic advanced S173→S181.
 S182: health-check 5/5 (due S182, cadence 5, last S177): 238L 161P, knowledge growth/accuracy/compactness/belief-evolution/throughput all healthy; domains/ai+finance+health seeded; F-FIN3 confirmed; git-safety hardened; P-189/P-190/P-191 added. Periodics: health-check advanced S177→S182. Meta-swarm: context-compaction recovery is low-friction — concurrent sessions handle continuity; the swarm doesn't stop.
 S181: F-FIN3 RESOLVED — L-056–L-080 "forgotten middle" validated: 18/25 absorbed into PRINCIPLES.md (success), 5 active, 2 orphans (L-071/L-078 need principle extraction). L-235: zero-Sharpe ≠ dead — absorption IS retirement; true test = zero-Sharpe AND not in any principle. P-188 updated (B-FIN3 CONFIRMED). Sharpe metric correction: external citations undercount value. 238L 161P 17B 18F.
 S181: F121 advance: pattern-to-principle audit of HUMAN-SIGNALS.md (11 patterns vs PRINCIPLES.md); 9/11 encoded, enforcement-audit gap found+closed (P-191, L-237). State sync 238L 161P 17B 18F.
