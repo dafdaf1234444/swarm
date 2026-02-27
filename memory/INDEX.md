@@ -2,7 +2,7 @@
 Updated: 2026-02-27 | Sessions: 183
 
 ## What the swarm knows
-- **254 lessons** in `memory/lessons/L-{NNN}.md`
+- **255 lessons** in `memory/lessons/L-{NNN}.md`
 - **169 principles** in `memory/PRINCIPLES.md` (S181: P-179→P-119 subsumption dedup; S180: P-187 human-signal interaction model; P-186 measurable self-assessment structural; S178: P-182 expect-act-diff calibration loop (THEORIZED); S177: P-181 knowledge-domain utility filter; S175: P-178 self-replenishing work cycle; S172: P-177 substrate-detection-first; S170: P-176 cross-substrate propagation gap; P-175 enforcement-tiers; P-163/P-082 refined; S169: P-174 substrate-scope)
 - **17 beliefs** in `beliefs/DEPS.md` | **19 frontier questions** in `tasks/FRONTIER.md` (F123 OPEN S178 — expect-act-diff universal calibration; F122 OPEN S177 — knowledge-domain swarming (finance/health/AI isomorphisms); F121 OPEN S175 — human inputs as swarm signal; F120 PARTIAL S172 — substrate detection, foreign-repo path expanded; F119 OPEN — mission constraints; F92 RESOLVED S113; F118 RESOLVED S105; F76 RESOLVED S97; F71 RESOLVED S94)
 
@@ -17,11 +17,11 @@ memory/     INDEX.md (this), PRINCIPLES.md, lessons/, DISTILL.md, VERIFY.md,
 tasks/      FRONTIER.md, NEXT.md, RESOLUTION-CLAIMS.md, HUMAN-QUEUE.md
 tools/      validator, hooks, alignment_check, maintenance.py, periodics.json
 experiments/  controlled experiments (33 children, see PULSE.md)
-domains/    nk-complexity, distributed-systems, meta, ai (S178), finance (S179), health (S180)
+domains/    nk-complexity, distributed-systems, meta, ai (S178), finance (S179), health (S180), information-science (S182)
 docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115)
 ```
 
-## Themes (254 lessons)
+## Themes (255 lessons)
 
 | Theme | Count | Key insight |
 |-------|-------|-------------|
