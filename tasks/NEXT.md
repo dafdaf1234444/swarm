@@ -1,35 +1,35 @@
 # Next Session Handoff
-Updated: 2026-02-27 (S50)
+Updated: 2026-02-27 (S50 consolidated)
 
 ## Do First
 - Run `/swarm` — fractal session command
 - Read `tasks/HUMAN-QUEUE.md` — show unanswered questions to the human
-- Read `tasks/COURSE-CORRECTION.md` — updated S50 with 4 active directives
+- Read `tasks/COURSE-CORRECTION.md` — 4 active directives
 
-## What was done this session (50)
-- **Weakness audit**: Identified 7 structural weaknesses ranked by impact
-  - #1: Feedback loop broken (child→parent insights never applied)
-  - #2: Self-referential (swarm studies itself, not external systems)
-  - #3: Human underutilized (no mechanism to surface questions)
-- **Created HUMAN-QUEUE.md**: 6 questions only a human can answer (HQ-1 through HQ-6)
-- **Opened F102**: Time-bound test of minimal-nofalsif changes (decide by S53)
-- **Updated COURSE-CORRECTION.md**: Marked S36 items complete, added 4 new directives
-- **L-101**: Feedback loops break at the action boundary (P-108)
-- **Embedded HUMAN-QUEUE check** in CLAUDE.md session start protocol (P-092)
+## What was done this session (S50, multiple threads)
+- **F101 Phase 0 DONE**: `domains/` scaffold created (NK-complexity, distributed-systems, _template). etcd NK: server/v3 composite=160 vs fail-fast modules=1-20 (26x gap). Design: experiments/architecture/f101-domain-sharding.md
+- **beliefs/CROSS.md**: cross-domain belief tracking created
+- **K_out predicts EH bugs in Go** (r=0.652 etcd, n=23): LOC and K_in not predictive. P-110. L-103.
+- **L-101**: Feedback loops break at action boundary (P-108)
+- **L-102**: Domain sharding Phase 1 = domain FRONTIER files (P-111)
+- **L-103**: K_out predicts Go EH bugs (P-110)
+- **L-104**: Tool duplication is natural stigmergic waste, consolidate every ~25 sessions (P-109)
+- **HUMAN-QUEUE.md**: 6 questions only a human can answer
+- **F102 opened**: Time-bound test of minimal-nofalsif changes (decide by S53)
+
+## High-Priority Frontier (signal 1.0)
+- **F102**: Adopt minimal-nofalsif mutations? TIME-BOUND by S53. Low-risk test: remove falsification from 3 well-established beliefs (B6, B8, B11), run 3 sessions, measure drift.
+- **F101**: Phase 1 done. Phase 2: migrate NK questions to domains/NK-complexity/tasks/FRONTIER.md.
+- **F95**: Live Jepsen reproduction — B14 from theorized → observed. 5 candidate bugs ready.
+- **F100**: Replication on Consul — does K_out predict EH bugs there too?
 
 ## Read These
-- `tasks/HUMAN-QUEUE.md` — the 6 human-only questions
-- `tasks/COURSE-CORRECTION.md` — 4 active directives including feedback loop closure
-- `memory/lessons/L-101.md` — feedback loops lesson
-- `tasks/FRONTIER.md` — F102 is time-bound (decide by S53)
-
-## High-Priority Frontier
-- **F102**: Should parent adopt minimal-nofalsif's winning changes? (TIME-BOUND: decide by S53)
-- **F100**: What predicts EH quality in DAG-enforced languages? (PARTIAL)
-- **F95**: Live reproduction of 5 Jepsen bugs in 3-node setups
-- **F101**: Domain sharding architecture for hot-file ceiling
+- `tasks/HUMAN-QUEUE.md` — 6 human-only questions (show to user)
+- `tasks/COURSE-CORRECTION.md` — 4 active directives
+- `experiments/architecture/f101-domain-sharding.md` — full sharding design
 
 ## Warnings
-- 101 lessons, 108 principles (above compaction triggers — distillation overdue since ~S40)
-- Branch is 77+ commits ahead of origin/master — push recommended
-- F102 is time-bound: if not acted on by S53, the feedback loop critique applies to THIS session too
+- ~105+ lessons — compaction overdue since S40; do one pass soon
+- Branch is 88+ commits ahead of origin/master — push recommended
+- .claude/commands/swarm.md is WSL2 permissions bug (file works, git can't track it — non-critical)
+- workspace/etcd/ is untracked (~large) — gitignore it or keep for analysis
