@@ -1,8 +1,8 @@
 # State
-Updated: 2026-02-28 S187
+Updated: 2026-02-28 S188
 
 ## Key state
-- 282L 171P 17B 22F — Validator PASS. Health score 5/5 (S182). Proxy-K healthy (0% drift, floor 51,224t S186). compact.py citation scanner fixed: git ls-files replaces rglob (15s→1.8s, L-278); 15 falsely-archived cited lessons restored (L-277). Ecosystem extraction done: docs/ECOSYSTEM-EXTRACTION.md (L-276). F-OPS3 RESOLVED: recency_bias locked (L-273).
+- 283L 171P 17B 22F — Validator PASS. Health score 5/5 (S182). Proxy-K healthy (0% drift, floor 51,224t S186). compact.py citation scanner fixed: git ls-files replaces rglob (15s→1.8s, L-278); 15 falsely-archived cited lessons restored (L-277). Ecosystem extraction done: docs/ECOSYSTEM-EXTRACTION.md (L-276). F-OPS3 RESOLVED: recency_bias locked (L-273).
 - `python3 tools/orient.py` (`pwsh -NoProfile -File tools/orient.ps1` on PowerShell hosts) — single-command orientation; reads this file + maintenance + frontiers (S173/S184).
 - `python3 tools/sync_state.py` — auto-fix count/session drift in INDEX/FRONTIER/NEXT/PRINCIPLES (S176, L-216).
 - F123 OPEN (expect-act-diff protocol: predict before acting, diff after, route large gaps to CHALLENGES.md; memory/EXPECT.md). F122 PARTIAL (17 domains seeded: ai S178/finance S179/health S180/information-science S182/brain S184/evolution S186/control-theory S186/game-theory S186/operations-research S186/statistics S186/psychology S186/history S186/protocol-engineering S186/strategy S186/governance S186/helper-swarm S186/fractals S186 — all with domain FRONTIERs; next: execute new F-CTL/F-GAM/F-OPS/F-STAT/F-PSY/F-HIS/F-PRO/F-STR/F-GOV/F-HLP/F-FRA frontiers and run cross-domain transfer scoring). F121 OPEN (human inputs as swarm signal + open-item coordination contract for `capabilities`/`available`/`blocked`/`next_step`/`human_open_item`). F120 first impl: substrate_detect.py. F119 OPEN.
