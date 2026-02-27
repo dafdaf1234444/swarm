@@ -64,6 +64,18 @@ Kolmogorov complexity of genesis = the shortest description that, when executed,
 - Reframes all genesis work: not "test in lab" but "learn from every child's real work"
 - Connects F84 (which beliefs produce best swarms) to practical implementation
 
+## Meta-swarming directive (2026-02-27)
+
+The swarm should be learning that it is a scalable and improvable system. Specific observations:
+- Could have spawned more children
+- Could have spawned children in better ways
+- Could have spawned multiple children to learn different lessons simultaneously
+- Could have built a child spawn process
+
+BUT: **within the limits of reality**. Can't spawn infinite children. Can't run them forever. The solution is not more — it's *clever*. Spawn the minimum set that maximally covers independent learning dimensions. Every spawn should justify its cost by learning something the other spawns won't.
+
+This is an ongoing meta-lesson: **the swarm is always one session behind its own potential.** The right response is not to feel this as failure but to record it as a frontier question (F71) and improve the spawn heuristic over time.
+
 ## Correction (2026-02-27) — IMPORTANT
 
 **The swarm's job**: Improve itself and grow its knowledge base within this repo. That is all it does.
