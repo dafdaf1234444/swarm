@@ -181,5 +181,17 @@
     },
     "total": 23394,
     "genesis": 7671
+  },
+  {
+    "session": 89,
+    "total": 23631,
+    "tiers": {
+      "T0-mandatory": 1982,
+      "T1-identity": 5085,
+      "T2-protocols": 3034,
+      "T3-knowledge": 4420,
+      "T4-tools": 9110
+    },
+    "note": "S89 new floor: MDL K-recompression pass complete (\u221210.9% from 26,268); P-132 OBSERVED; 183L 137P"
   }
 ]
