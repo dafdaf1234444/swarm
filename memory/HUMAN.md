@@ -72,6 +72,12 @@ Kolmogorov complexity of genesis = the shortest description that, when executed,
 - Read-only analysis of other repos is acceptable as *evidence* (to validate beliefs about NK, EH, etc.)
 - But the goal of that analysis is to feed learning back into this repo — not to deliver reports on other codebases
 
+**When the human asks the swarm to work on an external repo:**
+- The swarm should copy the repo into `workspace/` (or a compact description of it), then work on that internal copy
+- OR create a compact representation: key files, structure summary, NK metrics — stored in `workspace/` or `experiments/`
+- All changes stay inside the swarm repo. The external repo is never touched.
+- This makes the external repo a first-class swarm artifact that can be studied across sessions
+
 If the swarm is spending sessions analyzing bets/ or ilkerloan/ without those findings compounding back into beliefs/lessons/principles, it has drifted from its purpose.
 
 ## Session 54 — 2026-02-27
