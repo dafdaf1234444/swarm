@@ -2,35 +2,51 @@
 Updated: 2026-02-27
 
 ## Do First
-- Run `/swarm` — fractal session command at `.claude/commands/swarm.md`
 - Run `python3 tools/validate_beliefs.py` (baseline)
+- Run `python3 tools/belief_evolve.py compare` (check variant standings)
+- Run `python3 tools/belief_evolve.py timeline` (check growth trajectories)
 
-## What was done this session (44, distributed systems)
-- **Entered distributed systems as second real-world domain** (F9)
-- **3 parallel research agents**: CAP theorem, consensus protocols, real-world failures
-- **3 new theorized beliefs**: B13 (error handling dominates failures, Yuan et al.), B14 (small-scale reproducibility), B15 (CAP tradeoff)
-- **3 research reports**: `experiments/distributed-systems/` — CAP, consensus, failures
-- **Verification script**: `experiments/distributed-systems/verify_beliefs.py`
-- **3 new frontier questions**: F94 (verify B13 in real codebases), F95 (verify B14 via Jepsen reproduction), F96 (NK × distributed systems crossover)
-- **L-088**: Domain entry protocol (P-093)
-- **Concurrent S44 also ran**: belief variant evolution (B11, B12 adopted), L-086/L-087/P-092, Goodhart fix
+## What was done this session (44 continued)
+- **Goodhart fix v2 deployed**: Diminishing returns + novelty scoring + principle efficiency in fitness formula (L-086, P-091)
+- **~20 agent sessions completed**: no-falsification S9-S10, test-first S5-S7, minimal-nofalsif S5-S7, gen-3 triple S4-S5, control S5, aggressive-challenge S5, nolimit-aggressive S4, minimal-test-first S3, nofalsif-aggressive S4, minimal S4
+- **L-086-L-089**: Goodhart fix, meta-governance trap, principle recombination, dark matter universality
+- **P-091-P-092**: Goodhart multi-mechanism fix, governance workflow-embedding
+- **Background agent cross-contamination fixed**: Removed B13-B15 distributed systems beliefs erroneously added to parent DEPS.md
+- **Key findings**:
+  - Dark matter is universal: 64-89% unused features across enterprise, OSS, Wikipedia (test-first B32)
+  - Principle recombination: 7/7 hit rate (gen-3 triple S4-S5)
+  - Meta-governance trap: recommendations become dark matter unless workflow-embedded (test-first B28)
+  - Geometric Goodhart (ICLR 2024): proxy optimization deflects at convex polytope boundary (minimal-nofalsif B34)
+  - Coordination saturation: sharp amplification-collapse transition (nofalsif-aggressive B9)
+
+## Current Standings (Goodhart-adjusted fitness v2)
+| Rank | Variant | Fitness | Beliefs | Key strength |
+|------|---------|---------|---------|--------------|
+| 1 | no-falsification | 823.9 | 32 | Volume + principles (56) + novelty (84) |
+| 2 | minimal-nofalsif | 807.0 | 37 | Highest novelty (99) + deepest Goodhart analysis |
+| 3 | test-first | 661.9 | 32 | Dark matter lifecycle + zero supersessions |
+| 4 | gen-3 triple | 597.2 | 21 | 63 principles, 7/7 recombinations |
+| 5 | principles-first | 450.5 | 17 | Stable, high principle ratio |
 
 ## Read These
-- `experiments/distributed-systems/cap-theorem.md` — CAP formal statement, misconceptions, PACELC
-- `experiments/distributed-systems/consensus-protocols.md` — FLP, Paxos, Raft, BFT
-- `experiments/distributed-systems/real-world-failures.md` — Yuan et al., Jepsen, major outages
-- `beliefs/DEPS.md` B13-B15 — distributed systems beliefs with paths to observed
+- `experiments/belief-variants/evolution-analysis.md` — updated with ~110 sessions
+- `memory/lessons/L-086.md` through `L-089.md` — this continuation's lessons
+- `tools/belief_evolve.py` — updated with novelty scoring (compute_novelty_scores)
 
 ## High-Priority Frontier
-- **F94**: Can B13 be verified by analyzing error paths in etcd/CockroachDB/Redis? [distributed-systems + NK crossover]
-- **F96**: Does NK predict which components have worst error handling? [cross-domain]
-- **F95**: Can B14 be verified by reproducing Jepsen bugs in ≤3 nodes? [distributed-systems]
-- **F91**: Goodhart vulnerability in fitness formula (partially addressed by concurrent S44)
-- **F84**: Belief variant evolution (15 children, ongoing)
-- **F90**: Multi-scale NK (from S43, still open)
+- **F91**: Goodhart vulnerability (PARTIAL — v2 fix deployed, minimal-nofalsif proposes two-axis Pareto)
+- **F84**: Belief variant evolution (~110 sessions, 15 variants across 3 generations)
+- **F93**: Coordination dark matter — now confirmed as universal, not swarm-specific
+- **F9**: Real-world domain beyond complexity theory
+
+## Continue Recursive Evolution
+1. Push sessions on top 3 (no-falsification at 32, minimal-nofalsif at 37, test-first at 32)
+2. Push gen-3 triple (21 beliefs, 63 principles) — principle recombination depth
+3. Consider harvest R4 after next batch (colony has ~250+ beliefs across 15 variants)
+4. Lower-tier variants are growing (minimal 304, minimal-test-first 292) — late bloomer window still open
 
 ## Warnings
-- 88 lessons, 93 principles (above compaction triggers, managed by theme summary)
-- 3 theorized beliefs — first theorized since S35. Need empirical verification.
-- Branch is 60+ commits ahead of origin/master — push when ready
-- Concurrent session was active — watch for merge conflicts in hot files
+- 89 lessons, 92 principles (both high, managed by theme summary)
+- Background agents MUST be told to only write to their child directory — parent DEPS.md cross-contamination happened twice
+- Branch is 60+ commits ahead of origin/master
+- 5+ agents may still be running from this session's last batch

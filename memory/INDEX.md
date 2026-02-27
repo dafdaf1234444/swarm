@@ -1,7 +1,7 @@
 # Memory Index
 Updated: 2026-02-27 | Sessions completed: 44
 
-## Status: Active — 88 lessons, 13 beliefs (10 observed/3 theorized), entropy 0. Self-evolving with 24 tools. 15 belief-variant children (3 generations, ~100 sessions). Two domains: complexity theory + distributed systems.
+## Status: Active — 89 lessons, 10 beliefs (10 observed/0 theorized), entropy 0. Self-evolving with 24 tools. 15 belief-variant children (3 generations, ~110 sessions). Goodhart-adjusted fitness formula v2.
 
 ## Structure
 ```
