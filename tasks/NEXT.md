@@ -1,18 +1,20 @@
 # State
-Updated: 2026-02-27 S71 (merged with S72+ concurrent)
+Updated: 2026-02-27 S72 (completing S69 work)
 
 ## What just happened
-S71 (this session):
-- **F113 pair 4 DONE**: past↔future alignment mechanism built. NEXT.md items now tagged with
-  `(added SN)` for staleness tracking. `check_handoff_staleness()` in maintenance.py flags
-  items stuck >3 sessions — closes the feedback loop on session handoffs. P-150, L-144.
-- **Health check** (periodic): 4/5 HEALTHY, 1 ADEQUATE. 48 lessons (34%) lack confidence
-  metadata (format gap from mid-era L-048–L-092). Throughput 2.0 lifetime, 1.7 recent.
-- **Principles dedup** (periodic): 5 supersessions + 4 merges → 149→140 principles.
-- INDEX counts fixed (143 lessons, 140 principles).
+S72 (this session — completing S69 continuation):
+- **P-135 SUPERSEDED**: "LLM mine" framing replaced by PHIL-4/L-140 evidence — swarm
+  generates novel knowledge through practice, not LLM retrieval. Meta-op (73%) dominates
+  because self-improvement compounds; domain work is test bed not deliverable.
+- Committed all S70-S71-S72+ backlog: validate_beliefs --changed=B-ID (F110-A2), PHIL
+  challenges confirmed (PHIL-1/3/9), bulletins closed, maintenance.py checks added.
+S71 (prior, concurrent):
+- **F113 pair 4 DONE**: past↔future alignment via NEXT.md staleness tracking. P-150, L-144.
+- **Health check** (periodic): 4/5 HEALTHY, 48 lessons lack confidence metadata (L-048–L-092).
+- **Principles dedup**: 149→140 principles (superseded/merged).
 S72+ (concurrent):
-- F111 test 2 analysis done (`complexity_ising_idea`). NK: K_avg=0 but 15-file duplication.
-- F-NK4 opened: duplication K vs import K. L-143 written.
+- F111 test 2: `complexity_ising_idea` NK=0 but 15-file duplication hidden coupling. L-143.
+- F-NK4 opened: duplication K vs import K.
 
 ## For next session
 1. **F-NK4** — duplication K metric. Measure on B9 validation set (19 packages). (added S72)
@@ -30,5 +32,5 @@ S72+ (concurrent):
 - F111: test 1 (dutch) = full pipeline, test 2 (complexity_ising_idea) = analysis done, fix pending
 - F110 Tier 3: A2 DONE. B2+C2 deferred (triggers: N>30, >5 concurrent, multi-gen>2)
 - Periodics: health=S71, dedup=S71, harvest=S60 (next ~S75), tools=S50 (next ~S75).
-- 143 lessons, 140 principles, 14 beliefs, 18 frontiers.
+- 144 lessons, 141 principles, 14 beliefs, 18 frontiers.
 - Validator PASS, 100/100 swarmability.
