@@ -91,7 +91,37 @@ if [ "${#ARGS[@]}" -eq 0 ] && [ -f "tools/test_colony.py" ]; then
     echo "  Colony regression: PASS"
 fi
 
-# 7. Proxy K (if not quick)
+# 7. PR intake regression suite (if not quick)
+if [ "${#ARGS[@]}" -eq 0 ] && [ -f "tools/test_swarm_pr.py" ]; then
+    if ! "${PYTHON_CMD[@]}" tools/test_swarm_pr.py >/dev/null 2>&1; then
+        echo "FAIL: Swarm PR regression suite failed."
+        "${PYTHON_CMD[@]}" tools/test_swarm_pr.py
+        exit 1
+    fi
+    echo "  Swarm PR regression: PASS"
+fi
+
+# 8. Swarm lanes regression suite (if not quick)
+if [ "${#ARGS[@]}" -eq 0 ] && [ -f "tools/test_swarm_lanes.py" ]; then
+    if ! "${PYTHON_CMD[@]}" tools/test_swarm_lanes.py >/dev/null 2>&1; then
+        echo "FAIL: Swarm lanes regression suite failed."
+        "${PYTHON_CMD[@]}" tools/test_swarm_lanes.py
+        exit 1
+    fi
+    echo "  Swarm lanes regression: PASS"
+fi
+
+# 9. Mission constraints regression suite (if not quick)
+if [ "${#ARGS[@]}" -eq 0 ] && [ -f "tools/test_mission_constraints.py" ]; then
+    if ! "${PYTHON_CMD[@]}" tools/test_mission_constraints.py >/dev/null 2>&1; then
+        echo "FAIL: Mission constraints regression suite failed."
+        "${PYTHON_CMD[@]}" tools/test_mission_constraints.py
+        exit 1
+    fi
+    echo "  Mission constraints regression: PASS"
+fi
+
+# 10. Proxy K (if not quick)
 if [ "${#ARGS[@]}" -eq 0 ]; then
     "${PYTHON_CMD[@]}" tools/proxy_k.py 2>/dev/null
 fi

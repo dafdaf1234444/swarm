@@ -61,6 +61,36 @@ UTILITY_CITATION_SKIP_PREFIXES = (
     "workspace/notes/",
     "experiments/colonies/",
 )
+FILE_REF_ALIAS_MAP = {
+    # Core docs and bridge files
+    "SWARM.md": "SWARM.md",
+    "CLAUDE.md": "CLAUDE.md",
+    "AGENTS.md": "AGENTS.md",
+    "GEMINI.md": "GEMINI.md",
+    "README.md": "README.md",
+    # Belief layer
+    "CORE.md": "beliefs/CORE.md",
+    "PHILOSOPHY.md": "beliefs/PHILOSOPHY.md",
+    "DEPS.md": "beliefs/DEPS.md",
+    "INVARIANTS.md": "beliefs/INVARIANTS.md",
+    "CONFLICTS.md": "beliefs/CONFLICTS.md",
+    "CHALLENGES.md": "beliefs/CHALLENGES.md",
+    # Memory layer
+    "INDEX.md": "memory/INDEX.md",
+    "PRINCIPLES.md": "memory/PRINCIPLES.md",
+    "SESSION-LOG.md": "memory/SESSION-LOG.md",
+    "OPERATIONS.md": "memory/OPERATIONS.md",
+    "HUMAN.md": "memory/HUMAN.md",
+    # Task layer
+    "FRONTIER.md": "tasks/FRONTIER.md",
+    "NEXT.md": "tasks/NEXT.md",
+    "HUMAN-QUEUE.md": "tasks/HUMAN-QUEUE.md",
+    "RESOLUTION-CLAIMS.md": "tasks/RESOLUTION-CLAIMS.md",
+    # Docs layer
+    "PAPER.md": "docs/PAPER.md",
+}
+LANE_ACTIVE_STATUSES = {"CLAIMED", "ACTIVE", "BLOCKED", "READY"}
+LANE_PLACEHOLDERS = {"", "-", "n/a", "na", "none", "pending", "tbd", "unknown"}
 
 
 def _command_exists(cmd: str) -> bool:
@@ -81,10 +111,16 @@ def _python_command_runs(cmd: str) -> bool:
     return _command_runs(cmd, ["-c", "import sys"], timeout=8)
 
 
+def _py_launcher_runs() -> bool:
+    return _command_runs("py", ["-3", "-c", "import sys"], timeout=8)
+
+
 def _select_python_command() -> str:
-    for candidate in ("python3", "python", "py"):
+    for candidate in ("python3", "python"):
         if _python_command_runs(candidate):
             return candidate
+    if _py_launcher_runs():
+        return "py -3"
     exe_name = Path(PYTHON_EXE).name
     if _python_command_runs(exe_name):
         return exe_name
@@ -100,9 +136,40 @@ def _git(*args: str) -> str:
             ["git", "-C", str(REPO_ROOT)] + list(args),
             capture_output=True, text=True, timeout=10
         )
-        return r.stdout.strip()
+        # Preserve leading spaces (needed for parsing porcelain status lines)
+        # while trimming trailing newlines from command output.
+        return r.stdout.rstrip("\n")
     except Exception:
         return ""
+
+
+def _tracked_changed_paths() -> list[str]:
+    status = _git("-c", "core.quotepath=false", "status", "--porcelain")
+    if not status:
+        return []
+    paths: list[str] = []
+    for raw in status.splitlines():
+        line = raw.rstrip()
+        if not line:
+            continue
+        if line[:2] == "??":
+            continue
+        path = line[3:] if len(line) >= 3 else line
+        if " -> " in path:
+            path = path.split(" -> ", 1)[1].strip()
+        if path.startswith('"') and path.endswith('"') and len(path) >= 2:
+            inner = path[1:-1]
+            try:
+                unescaped = bytes(inner, "latin1").decode("unicode_escape")
+                path = unescaped.encode("latin1", "ignore").decode("utf-8", "replace")
+            except Exception:
+                path = inner
+        path = path.strip().replace("\\", "/").replace("\uf03a", ":")
+        if re.match(r"^[A-Za-z]:[^/]", path):
+            path = path[:2] + "/" + path[2:]
+        if path:
+            paths.append(path)
+    return paths
 
 
 def _line_count(path: Path) -> int:
@@ -154,6 +221,92 @@ def _active_principle_ids(text: str) -> tuple[set[int], set[int]]:
 def _normalize_hq_question(text: str) -> str:
     text = re.sub(r"[^a-zA-Z0-9\s]", " ", (text or "").lower())
     return re.sub(r"\s+", " ", text).strip()
+
+
+def _resolve_repo_file_ref(ref: str) -> str | None:
+    # Direct repo-relative references are preferred.
+    if "/" in ref:
+        return ref
+    # Bare filenames in docs are ambiguous; resolve only known aliases.
+    return FILE_REF_ALIAS_MAP.get(ref)
+
+
+def _is_lane_placeholder(value: str) -> bool:
+    return (value or "").strip().lower() in LANE_PLACEHOLDERS
+
+
+def _parse_swarm_lane_rows(text: str) -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    for raw in text.splitlines():
+        line = raw.strip()
+        if not line.startswith("|"):
+            continue
+        if re.match(r"^\|\s*Date\s*\|", line, re.IGNORECASE):
+            continue
+        if re.match(r"^\|\s*[-: ]+\|", line):
+            continue
+        parts = [part.strip() for part in line.strip("|").split("|")]
+        if len(parts) < 12:
+            continue
+        rows.append({
+            "date": parts[0],
+            "lane": parts[1],
+            "session": parts[2],
+            "agent": parts[3],
+            "branch": parts[4],
+            "pr": parts[5],
+            "model": parts[6],
+            "platform": parts[7],
+            "scope_key": parts[8],
+            "etc": parts[9],
+            "status": parts[10].upper(),
+            "notes": parts[11],
+        })
+    return rows
+
+
+def _reason_action_evidence_sessions(
+    text: str,
+    reason_patterns: tuple[str, ...],
+    action_patterns: tuple[str, ...],
+) -> list[int]:
+    """Return session IDs where reason+action co-occur within the same anchored entry."""
+    sessions: list[int] = []
+    current_session: int | None = None
+    current_lines: list[str] = []
+    entries: list[tuple[int, str]] = []
+
+    def flush_entry() -> None:
+        nonlocal current_session, current_lines
+        if current_session is not None and current_lines:
+            entries.append((current_session, "\n".join(current_lines)))
+        current_session = None
+        current_lines = []
+
+    for raw in (text or "").splitlines():
+        line = raw.strip()
+        if not line:
+            flush_entry()
+            continue
+        m = re.search(r"\bS(\d+)\b", line)
+        if m:
+            flush_entry()
+            current_session = int(m.group(1))
+            current_lines = [line]
+            continue
+        if current_session is not None:
+            current_lines.append(line)
+
+    flush_entry()
+
+    for session, entry_text in entries:
+        has_reason = any(re.search(pattern, entry_text, re.IGNORECASE) for pattern in reason_patterns)
+        if not has_reason:
+            continue
+        has_action = any(re.search(pattern, entry_text, re.IGNORECASE) for pattern in action_patterns)
+        if has_action:
+            sessions.append(session)
+    return sessions
 
 
 def _iter_utility_citation_files() -> list[Path]:
@@ -209,6 +362,8 @@ def check_uncommitted() -> list[tuple[str, str]]:
         lines = [l for l in status.splitlines() if l.strip()]
         # Count any tracked delta (M/A/D/R/C/U) instead of only modified entries.
         tracked = [l for l in lines if not l.startswith("??")]
+        wsl_suppressed_crlf = 0
+        wsl_suppressed_claude = 0
 
         def _decode_git_path(path: str) -> str:
             p = path.strip()
@@ -261,7 +416,27 @@ def check_uncommitted() -> list[tuple[str, str]]:
                     suppressed += 1
             if suppressed > 0:
                 tracked = filtered
-                results.append(("NOTICE", f"WSL portability: suppressed {suppressed} CRLF-only tracked delta(s)"))
+                wsl_suppressed_crlf = suppressed
+
+            # Some metadata/tooling paths can appear as deletes on WSL /mnt repos
+            # while still present on disk. Suppress only those false deletes;
+            # keep real deletions visible as actionable tracked deltas.
+            wsl_hidden = []
+            filtered = []
+            for line in tracked:
+                status_code = line[:2]
+                path = _status_path(line)
+                is_delete = "D" in status_code and not any(ch in status_code for ch in "ARCU")
+                # On WSL /mnt repos, .claude entries can surface as deletes even when
+                # files exist in the Windows runtime but are inaccessible from WSL.
+                # Treat these as portability noise for this runtime.
+                if is_delete and path.startswith(".claude/"):
+                    wsl_hidden.append(path)
+                    continue
+                filtered.append(line)
+            if wsl_hidden:
+                tracked = filtered
+                wsl_suppressed_claude = len(wsl_hidden)
 
         untracked = [l for l in lines if l.startswith("??")]
         def _is_ephemeral_parent_child_artifact(path: str) -> bool:
@@ -284,7 +459,16 @@ def check_uncommitted() -> list[tuple[str, str]]:
             tracked_paths = [_status_path(l) for l in tracked]
             sample = ", ".join(tracked_paths[:3])
             suffix = "..." if len(tracked) > 3 else ""
-            results.append(("NOTICE", f"{len(tracked)} tracked file(s) uncommitted: {sample}{suffix}"))
+            portability_suffix = ""
+            if _is_wsl_mnt_repo():
+                filter_parts = []
+                if wsl_suppressed_crlf:
+                    filter_parts.append(f"{wsl_suppressed_crlf} CRLF-only")
+                if wsl_suppressed_claude:
+                    filter_parts.append(f"{wsl_suppressed_claude} .claude")
+                if filter_parts:
+                    portability_suffix = f" (WSL filtered: {', '.join(filter_parts)})"
+            results.append(("NOTICE", f"{len(tracked)} tracked file(s) uncommitted: {sample}{suffix}{portability_suffix}"))
         if untracked_actionable:
             sample = ", ".join(untracked_actionable[:3])
             suffix = "..." if len(untracked_actionable) > 3 else ""
@@ -371,6 +555,75 @@ def check_human_queue() -> list[tuple[str, str]]:
 
     if missing_metadata:
         results.append(("NOTICE", f"{len(missing_metadata)} HUMAN-QUEUE item(s) missing ask metadata: {', '.join(missing_metadata[:5])}"))
+
+    return results
+
+
+def check_swarm_lanes() -> list[tuple[str, str]]:
+    results = []
+    lanes_text = _read(REPO_ROOT / "tasks" / "SWARM-LANES.md")
+    if not lanes_text:
+        return results
+
+    rows = _parse_swarm_lane_rows(lanes_text)
+    if not rows:
+        return results
+
+    latest_by_lane: dict[str, dict[str, str]] = {}
+    for row in rows:
+        lane = row.get("lane", "").strip()
+        if not lane:
+            continue
+        latest_by_lane[lane] = row
+
+    active = [
+        row for row in latest_by_lane.values()
+        if row.get("status", "").upper() in LANE_ACTIVE_STATUSES
+    ]
+    if not active:
+        return results
+
+    missing_meta: list[str] = []
+    for row in sorted(active, key=lambda item: item.get("lane", "")):
+        missing = []
+        for key, label in (("branch", "branch"), ("model", "model"), ("platform", "platform"), ("scope_key", "scope")):
+            if _is_lane_placeholder(row.get(key, "")):
+                missing.append(label)
+        if missing:
+            missing_meta.append(f"{row.get('lane')}({','.join(missing)})")
+    if missing_meta:
+        sample = ", ".join(missing_meta[:5])
+        suffix = "..." if len(missing_meta) > 5 else ""
+        results.append(("NOTICE", f"{len(missing_meta)} active lane(s) missing metadata: {sample}{suffix}"))
+
+    branch_to_lanes: dict[str, set[str]] = {}
+    scope_to_lanes: dict[str, set[str]] = {}
+    for row in active:
+        lane = row.get("lane", "")
+        branch = row.get("branch", "").strip().lower()
+        scope = row.get("scope_key", "").strip().lower()
+        if not _is_lane_placeholder(branch):
+            branch_to_lanes.setdefault(branch, set()).add(lane)
+        if not _is_lane_placeholder(scope):
+            scope_to_lanes.setdefault(scope, set()).add(lane)
+
+    branch_conflicts = sorted(
+        (branch, sorted(lanes))
+        for branch, lanes in branch_to_lanes.items()
+        if len(lanes) > 1
+    )
+    if branch_conflicts:
+        sample = "; ".join(f"{branch}:{'/'.join(lanes[:3])}" for branch, lanes in branch_conflicts[:3])
+        results.append(("DUE", f"Active lane branch collision(s): {sample}"))
+
+    scope_conflicts = sorted(
+        (scope, sorted(lanes))
+        for scope, lanes in scope_to_lanes.items()
+        if len(lanes) > 1
+    )
+    if scope_conflicts:
+        sample = "; ".join(f"{scope}:{'/'.join(lanes[:3])}" for scope, lanes in scope_conflicts[:3])
+        results.append(("DUE", f"Active lane scope collision(s): {sample}"))
 
     return results
 
@@ -611,18 +864,27 @@ def check_runtime_portability() -> list[tuple[str, str]]:
 
     has_git = _command_exists("git")
     has_bash = _command_exists("bash")
-    has_python_alias = _python_command_runs("python3") or _python_command_runs("python")
+    has_python_alias = _python_command_runs("python3") or _python_command_runs("python") or _py_launcher_runs()
+    has_check_wrapper = _exists("tools/check.sh")
+    has_maintenance_wrapper = _exists("tools/maintenance.sh")
 
     if not has_git:
         results.append(("URGENT", "git not found in PATH — swarm memory/commit workflow cannot run"))
     if not has_python_alias:
-        results.append(("DUE", f"No python alias in PATH — use explicit interpreter: {PYTHON_EXE}"))
+        if has_bash and (has_check_wrapper or has_maintenance_wrapper):
+            results.append(("NOTICE", "No python alias in active shell; use bash wrappers (`bash tools/check.sh --quick`, `bash tools/maintenance.sh --inventory`)"))
+        else:
+            results.append(("DUE", f"No python alias in PATH — use explicit interpreter: {PYTHON_EXE}"))
     if not has_bash and (_exists("workspace/genesis.sh") or _exists("tools/check.sh")):
         results.append(("DUE", "bash not found — `workspace/genesis.sh` and `tools/check.sh` won't run on this host"))
+    if has_bash and not has_maintenance_wrapper:
+        results.append(("DUE", "tools/maintenance.sh missing — portable maintenance/inventory path is broken"))
 
     # Cross-runtime warning: WSL over /mnt/* often reports different git/index state
     # than Windows-native runs due line-ending/index semantics.
-    if _is_wsl_mnt_repo():
+    # On dirty trees, check_uncommitted() already carries WSL-specific filtering context;
+    # keep this portability warning for clean-tree sessions to avoid redundant noise.
+    if _is_wsl_mnt_repo() and not _git("status", "--porcelain"):
         results.append(("NOTICE", "WSL on /mnt/* repo: status/proxy-K may diverge from Windows runtime"))
 
     bridges = [
@@ -651,6 +913,64 @@ def check_runtime_portability() -> list[tuple[str, str]]:
     if bridge_without_swarm_ref:
         sample = ", ".join(bridge_without_swarm_ref[:3])
         results.append(("DUE", f"{len(bridge_without_swarm_ref)} bridge file(s) missing SWARM.md protocol reference: {sample}"))
+
+    # Setup hygiene: keep always-on signaling explicit in canonical + bridge entry docs.
+    swarm_signal_re = re.compile(r"\bswarm signaling\b", re.IGNORECASE)
+    if "SWARM.md" not in missing_bridges and not swarm_signal_re.search(_read(REPO_ROOT / "SWARM.md")):
+        results.append(("DUE", "SWARM.md missing explicit swarm signaling rule"))
+
+    bridge_without_swarm_signal = []
+    for path in bridges:
+        if path == "SWARM.md" or path in missing_bridges:
+            continue
+        if not swarm_signal_re.search(_read(REPO_ROOT / path)):
+            bridge_without_swarm_signal.append(path)
+    if bridge_without_swarm_signal:
+        sample = ", ".join(bridge_without_swarm_signal[:3])
+        results.append(("DUE", f"{len(bridge_without_swarm_signal)} bridge file(s) missing swarm signaling guidance: {sample}"))
+
+    return results
+
+
+def check_commit_hooks() -> list[tuple[str, str]]:
+    results = []
+    git_dir = REPO_ROOT / ".git"
+    if not git_dir.exists():
+        return results
+
+    hooks_dir = git_dir / "hooks"
+    if not hooks_dir.exists():
+        results.append(("NOTICE", ".git/hooks missing — commit quality hooks unavailable"))
+        return results
+
+    expected_hooks = [
+        ("pre-commit", "tools/pre-commit.hook"),
+        ("commit-msg", "tools/commit-msg.hook"),
+    ]
+    missing_templates = [tpl for _, tpl in expected_hooks if not _exists(tpl)]
+    if missing_templates:
+        sample = ", ".join(missing_templates[:3])
+        results.append(("DUE", f"Hook template(s) missing: {sample}"))
+        return results
+
+    missing_installed: list[str] = []
+    drifted: list[str] = []
+    for hook_name, template_rel in expected_hooks:
+        template_text = _read(REPO_ROOT / template_rel).replace("\r\n", "\n").strip()
+        installed_path = hooks_dir / hook_name
+        if not installed_path.exists():
+            missing_installed.append(hook_name)
+            continue
+        installed_text = _read(installed_path).replace("\r\n", "\n").strip()
+        if template_text != installed_text:
+            drifted.append(hook_name)
+
+    if missing_installed:
+        sample = ", ".join(missing_installed)
+        results.append(("DUE", f"Missing hook(s): {sample} — run: bash tools/install-hooks.sh"))
+    if drifted:
+        sample = ", ".join(drifted)
+        results.append(("NOTICE", f"Hook drift detected ({sample}) — run: bash tools/install-hooks.sh"))
 
     return results
 
@@ -747,6 +1067,42 @@ def check_cross_references() -> list[tuple[str, str]]:
     return results
 
 
+def check_frontier_registry() -> list[tuple[str, str]]:
+    """Detect one-to-many frontier mappings and open/archive ID collisions."""
+    results = []
+
+    active_text = _read(REPO_ROOT / "tasks" / "FRONTIER.md")
+    archived_text = _read(REPO_ROOT / "tasks" / "FRONTIER-ARCHIVE.md")
+
+    active_ids = [int(m.group(1)) for m in re.finditer(r"^- \*\*F(\d+)\*\*:", active_text, re.MULTILINE)]
+    archived_ids = [int(m.group(1)) for m in re.finditer(r"\|\s*F(\d+)\s*\|", archived_text)]
+
+    def _duplicate_counts(ids: list[int]) -> list[tuple[int, int]]:
+        counts: dict[int, int] = {}
+        for fid in ids:
+            counts[fid] = counts.get(fid, 0) + 1
+        return sorted((fid, count) for fid, count in counts.items() if count > 1)
+
+    active_dupes = _duplicate_counts(active_ids)
+    archived_dupes = _duplicate_counts(archived_ids)
+    if active_dupes:
+        sample = ", ".join(f"F{fid} x{count}" for fid, count in active_dupes[:5])
+        suffix = "..." if len(active_dupes) > 5 else ""
+        results.append(("DUE", f"FRONTIER duplicate ID(s): {sample}{suffix}"))
+    if archived_dupes:
+        sample = ", ".join(f"F{fid} x{count}" for fid, count in archived_dupes[:5])
+        suffix = "..." if len(archived_dupes) > 5 else ""
+        results.append(("DUE", f"FRONTIER-ARCHIVE duplicate ID(s): {sample}{suffix}"))
+
+    overlap = sorted(set(active_ids) & set(archived_ids))
+    if overlap:
+        sample = ", ".join(f"F{fid}" for fid in overlap[:8])
+        suffix = "..." if len(overlap) > 8 else ""
+        results.append(("DUE", f"Frontier ID(s) both open and archived: {sample}{suffix}"))
+
+    return results
+
+
 def check_handoff_staleness() -> list[tuple[str, str]]:
     results = []
     next_text = _read(REPO_ROOT / "tasks" / "NEXT.md")
@@ -792,7 +1148,11 @@ def check_state_header_sync() -> list[tuple[str, str]]:
         parse_fail.append("INDEX")
 
     frontier_text = _read(REPO_ROOT / "tasks" / "FRONTIER.md")
-    m = re.search(r"Last updated:\s*\d{4}-\d{2}-\d{2}\s+S(\d+)\b", frontier_text)
+    m = re.search(
+        r"last\s+updated\s*:\s*\d{4}-\d{2}-\d{2}\s*(?:\|\s*)?S(\d+)\b",
+        frontier_text,
+        re.IGNORECASE,
+    )
     if m:
         values["FRONTIER"] = int(m.group(1))
     else:
@@ -810,6 +1170,272 @@ def check_state_header_sync() -> list[tuple[str, str]]:
     # Ahead markers are expected while a session is in progress on a dirty tree.
     if ahead and not dirty:
         results.append(("NOTICE", f"State header ahead of SESSION-LOG S{session}: {', '.join(ahead)}"))
+
+    return results
+
+
+def check_mission_constraints() -> list[tuple[str, str]]:
+    """F119: enforce mission-constraint invariants and core guard coverage."""
+    results = []
+
+    frontier_text = _read(REPO_ROOT / "tasks" / "FRONTIER.md")
+    if not re.search(r"^- \*\*F119\*\*:", frontier_text, re.MULTILINE):
+        results.append(("DUE", "F119 missing from tasks/FRONTIER.md (mission-constraint swarming)"))
+
+    next_text = _read(REPO_ROOT / "tasks" / "NEXT.md")
+    if "F119" not in next_text:
+        results.append(("NOTICE", "F119 not tracked in tasks/NEXT.md priorities"))
+
+    invariants_text = _read(REPO_ROOT / "beliefs" / "INVARIANTS.md")
+    invariant_ids = re.findall(r"^##\s+(I\d+)\b", invariants_text, re.MULTILINE)
+    id_counts: dict[str, int] = {}
+    for inv_id in invariant_ids:
+        id_counts[inv_id] = id_counts.get(inv_id, 0) + 1
+    duplicate_ids = sorted(inv_id for inv_id, count in id_counts.items() if count > 1)
+    if duplicate_ids:
+        sample = ", ".join(duplicate_ids[:5])
+        suffix = "..." if len(duplicate_ids) > 5 else ""
+        results.append(("DUE", f"INVARIANTS duplicate ID(s): {sample}{suffix}"))
+
+    mission_rows = {
+        "I9": ("mission safety (do no harm)", "MC-SAFE"),
+        "I10": ("mission portability (work everywhere)", "MC-PORT"),
+        "I11": ("mission learning quality (improve knowledge)", "MC-LEARN"),
+        "I12": ("mission continuity (stay connected)", "MC-CONN"),
+    }
+    missing_invariants = [
+        f"{inv_id} ({label})"
+        for inv_id, (label, tag) in mission_rows.items()
+        if not re.search(rf"^##\s+{re.escape(inv_id)}\b.*\[{re.escape(tag)}\]", invariants_text, re.MULTILINE)
+    ]
+    if missing_invariants:
+        sample = ", ".join(missing_invariants[:3])
+        suffix = "..." if len(missing_invariants) > 3 else ""
+        results.append(("DUE", f"F119 mission invariants missing: {sample}{suffix}"))
+
+    check_sh = _read(REPO_ROOT / "tools" / "check.sh")
+    portability_markers = ["choose_python()", "python3", "python", "py -3"]
+    missing_portability_markers = [m for m in portability_markers if m not in check_sh]
+    if missing_portability_markers:
+        sample = ", ".join(missing_portability_markers)
+        results.append(("NOTICE", f"F119 portability fallback drift in tools/check.sh: missing {sample}"))
+
+    # Outcome-quality checks for degraded/offline continuity transitions:
+    # if runtime capabilities degrade, continuity handling must be explicit in handoff state.
+    has_python_alias = _python_command_runs("python3") or _python_command_runs("python") or _py_launcher_runs()
+    has_bash = _command_exists("bash")
+    has_check_wrapper = _exists("tools/check.sh")
+    has_maintenance_wrapper = _exists("tools/maintenance.sh")
+    inter_swarm_tools = (
+        _exists("tools/bulletin.py")
+        and _exists("tools/merge_back.py")
+        and _exists("tools/propagate_challenges.py")
+    )
+    fallback_ready = has_bash and has_check_wrapper and has_maintenance_wrapper
+
+    degraded_reasons: list[str] = []
+    if not has_python_alias:
+        degraded_reasons.append("python-alias-missing")
+    if not inter_swarm_tools:
+        degraded_reasons.append("inter-swarm-tooling-missing")
+
+    if degraded_reasons:
+        session = _session_number()
+        continuity_text = (
+            next_text
+            + "\n"
+            + "\n".join(_read(REPO_ROOT / "memory" / "SESSION-LOG.md").splitlines()[-80:])
+        )
+        if not has_python_alias and not fallback_ready:
+            results.append((
+                "DUE",
+                "F119 degraded runtime continuity broken: no python alias and no bash wrapper path (`tools/check.sh` + `tools/maintenance.sh`)",
+            ))
+
+        reason_specs: dict[str, dict[str, tuple[str, ...] | str]] = {
+            "python-alias-missing": {
+                "label": "runtime portability",
+                "reason_patterns": (
+                    r"runtime portability",
+                    r"python unavailable",
+                    r"no runnable python",
+                    r"python launcher",
+                    r"python alias",
+                ),
+                "action_patterns": (
+                    r"bash tools/check\.sh --quick",
+                    r"bash tools/maintenance\.sh --inventory",
+                    r"python3 tools/maintenance\.py --quick",
+                    r"python3 tools/maintenance\.py --inventory",
+                    r"py -3",
+                ),
+                "outcome_patterns": (
+                    r"Beliefs:? PASS",
+                    r"NOTICE-only",
+                    r"no DUE",
+                    r"no URGENT",
+                    r"verification pass",
+                ),
+            },
+            "inter-swarm-tooling-missing": {
+                "label": "offline/inter-swarm continuity",
+                "reason_patterns": (
+                    r"inter-swarm",
+                    r"offline",
+                    r"disconnected",
+                    r"bulletin",
+                ),
+                "action_patterns": (
+                    r"tools/bulletin\.py (?:help-queue|request-help|offer-help|sync)",
+                    r"tasks/PR-QUEUE\.json",
+                    r"tasks/SWARM-LANES\.md",
+                ),
+                "outcome_patterns": (
+                    r"Beliefs:? PASS",
+                    r"NOTICE-only",
+                    r"no DUE",
+                    r"no URGENT",
+                    r"verification pass",
+                ),
+            },
+        }
+
+        for reason in degraded_reasons:
+            spec = reason_specs.get(reason)
+            if not spec:
+                continue
+            label = str(spec.get("label", reason))
+            reason_patterns = tuple(spec.get("reason_patterns", ()))  # type: ignore[arg-type]
+            action_patterns = tuple(spec.get("action_patterns", ()))  # type: ignore[arg-type]
+            outcome_patterns = tuple(spec.get("outcome_patterns", ()))  # type: ignore[arg-type]
+
+            action_sessions = set(
+                _reason_action_evidence_sessions(continuity_text, reason_patterns, action_patterns)
+            )
+            outcome_sessions = set(
+                _reason_action_evidence_sessions(continuity_text, reason_patterns, outcome_patterns)
+            )
+
+            if not action_sessions:
+                results.append((
+                    "NOTICE",
+                    f"F119 {label} degraded mode lacks reason+action transition evidence in NEXT/SESSION-LOG",
+                ))
+                continue
+            if not outcome_sessions:
+                results.append((
+                    "NOTICE",
+                    f"F119 {label} degraded mode lacks reason+outcome evidence in NEXT/SESSION-LOG",
+                ))
+                continue
+
+            joined_sessions = sorted(action_sessions & outcome_sessions)
+            if not joined_sessions:
+                results.append((
+                    "NOTICE",
+                    f"F119 {label} transition evidence is split across sessions (action/outcome not co-located)",
+                ))
+                continue
+
+            latest = max(joined_sessions)
+            if session > 0 and (session - latest) > 8:
+                results.append((
+                    "NOTICE",
+                    f"F119 {label} degraded transition evidence stale (latest S{latest}, current S{session})",
+                ))
+
+        if "inter-swarm-tooling-missing" in degraded_reasons:
+            continuity_artifacts = ["tasks/PR-QUEUE.json", "tasks/SWARM-LANES.md"]
+            missing_artifacts = [path for path in continuity_artifacts if not _exists(path)]
+            if missing_artifacts:
+                sample = ", ".join(missing_artifacts[:3])
+                suffix = "..." if len(missing_artifacts) > 3 else ""
+                results.append((
+                    "DUE",
+                    f"F119 offline continuity artifacts missing: {sample}{suffix}",
+                ))
+
+    maintenance_text = _read(REPO_ROOT / "tools" / "maintenance.py")
+    required_checks = [
+        "check_validator",              # Safety baseline
+        "check_runtime_portability",    # Portability baseline
+        "check_cross_references",       # Learning-quality consistency
+        "check_state_header_sync",      # Continuity baseline
+        "check_session_log_integrity",  # Continuity baseline
+        "check_child_bulletins",        # Inter-swarm continuity
+        "check_help_requests",          # Inter-swarm continuity
+        "check_swarm_lanes",            # Multi-lane continuity
+    ]
+    missing_defs = [
+        name for name in required_checks
+        if not re.search(rf"^def\s+{re.escape(name)}\s*\(", maintenance_text, re.MULTILINE)
+    ]
+    if missing_defs:
+        sample = ", ".join(missing_defs[:3])
+        suffix = "..." if len(missing_defs) > 3 else ""
+        results.append(("DUE", f"F119 guard definition(s) missing in maintenance.py: {sample}{suffix}"))
+
+    list_match = re.search(r"all_checks\s*=\s*\[(.*?)\]", maintenance_text, re.DOTALL)
+    if list_match:
+        list_block = list_match.group(1)
+        missing_wired = [name for name in required_checks if name not in list_block]
+        if missing_wired:
+            sample = ", ".join(missing_wired[:3])
+            suffix = "..." if len(missing_wired) > 3 else ""
+            results.append(("DUE", f"F119 guard(s) not wired in all_checks: {sample}{suffix}"))
+    else:
+        results.append(("NOTICE", "F119 guard wiring parse failed for all_checks list"))
+
+    # Outcome quality (I11): substantial tracked work should include at least one
+    # knowledge-state delta so future nodes can pick up without context loss.
+    tracked_paths = _tracked_changed_paths()
+    if tracked_paths:
+        knowledge_state_paths = {
+            "tasks/NEXT.md",
+            "memory/SESSION-LOG.md",
+            "memory/INDEX.md",
+            "tasks/FRONTIER.md",
+            "memory/PRINCIPLES.md",
+            "beliefs/CHALLENGES.md",
+            "memory/HEALTH.md",
+        }
+        has_lesson_delta = any(re.fullmatch(r"memory/lessons/L-\d+\.md", p) for p in tracked_paths)
+        has_knowledge_delta = has_lesson_delta or any(p in knowledge_state_paths for p in tracked_paths)
+        if len(tracked_paths) >= 5 and not has_knowledge_delta:
+            results.append((
+                "DUE",
+                "F119 learning-quality gap: tracked deltas without knowledge-state update "
+                "(NEXT/SESSION-LOG/INDEX/FRONTIER/PRINCIPLES/lessons)",
+            ))
+
+        # Outcome quality (I12): under degraded inter-swarm connectivity, require
+        # local continuity artifacts to be part of the active delta.
+        commands = {
+            "python3": _python_command_runs("python3"),
+            "python": _python_command_runs("python"),
+            "py -3": _py_launcher_runs(),
+            "git": _command_runs("git", ["--version"]),
+            "bash": _command_runs("bash", ["--version"]),
+        }
+        inter_swarm_cap = {
+            "inter_swarm": {
+                "present": sum(1 for p in ("tools/bulletin.py", "tools/merge_back.py", "tools/propagate_challenges.py") if _exists(p)),
+                "total": 3,
+            }
+        }
+        connectivity = _inter_swarm_connectivity(inter_swarm_cap, commands)
+        if not connectivity.get("ready"):
+            has_continuity_delta = any(p in {"tasks/NEXT.md", "memory/SESSION-LOG.md"} for p in tracked_paths)
+            if not has_continuity_delta:
+                missing = connectivity.get("missing", [])
+                missing_sample = ", ".join(str(x) for x in missing[:3]) if isinstance(missing, list) else ""
+                suffix = "..." if isinstance(missing, list) and len(missing) > 3 else ""
+                detail = f" ({missing_sample}{suffix})" if missing_sample else ""
+                results.append((
+                    "NOTICE",
+                    "F119 continuity risk: degraded inter-swarm connectivity"
+                    f"{detail} with no local handoff/log delta (tasks/NEXT.md or memory/SESSION-LOG.md)",
+                ))
 
     return results
 
@@ -849,12 +1475,23 @@ def check_session_log_integrity() -> list[tuple[str, str]]:
     # appended after a newer one during concurrent reconciliation.
     recent_window = 40
     recent_rows = rows[-recent_window:]
+    historical_ids = {sid for sid, _ in rows[:-recent_window]} if len(rows) > recent_window else set()
+
     non_monotonic = []
     seen_ids = {recent_rows[0][0]} if recent_rows else set()
     for i in range(1, len(recent_rows)):
         prev_sid = recent_rows[i - 1][0]
         sid = recent_rows[i][0]
-        if sid < prev_sid and sid not in seen_ids:
+        # Benign concurrent backfill patterns:
+        # 1) appending an already-seen historical session ID (seen outside window)
+        # 2) appending a one-step older ID once (S<N> then S<N-1>)
+        #    during concurrent session-number reconciliation.
+        one_step_backfill = (
+            sid < prev_sid
+            and (prev_sid - sid) == 1
+        )
+        benign_backfill = sid in historical_ids or one_step_backfill
+        if sid < prev_sid and not benign_backfill:
             non_monotonic.append((prev_sid, sid))
         seen_ids.add(sid)
     if non_monotonic:
@@ -965,6 +1602,13 @@ def check_proxy_k_drift() -> list[tuple[str, str]]:
         proximity = abs(latest_logged - live_total) / max(1, live_total)
         if recent and proximity <= 0.02:
             likely_dirty_logged = True
+    same_dirty_snapshot = (
+        likely_dirty_logged
+        and dirty
+        and current_session > 0
+        and latest_session >= current_session
+        and abs(live_total - latest_logged) / max(1, latest_logged) <= 0.01
+    )
 
     def _tier_targets() -> str:
         floor_tiers = floor_entry.get("tiers", {})
@@ -983,15 +1627,28 @@ def check_proxy_k_drift() -> list[tuple[str, str]]:
                 "NOTICE",
                 f"Proxy K logged drift {logged_drift:.1%} ({latest_logged} vs {floor}) but live drift is {live_drift:.1%} on dirty tree; re-save clean snapshot: {PYTHON_CMD} tools/proxy_k.py --save",
             ))
+        elif likely_dirty_logged and same_dirty_snapshot:
+            # Latest snapshot already reflects current dirty state.
+            # Keep checks quiet until either the tree stabilizes or drift grows.
+            pass
+        elif likely_dirty_logged:
+            if current_session > 0 and latest_session >= current_session:
+                msg = (
+                    f"Proxy K logged drift {logged_drift:.1%} ({latest_logged} vs {floor}) "
+                    f"from current dirty S{latest_session}; save a clean snapshot when stable: "
+                    f"{PYTHON_CMD} tools/proxy_k.py --save"
+                )
+            else:
+                msg = (
+                    f"Proxy K logged drift {logged_drift:.1%} ({latest_logged} vs {floor}) "
+                    f"from likely dirty S{latest_session}; save clean snapshot when stable: "
+                    f"{PYTHON_CMD} tools/proxy_k.py --save"
+                )
+            results.append(("NOTICE", msg))
         elif stale_clean_baseline:
             results.append((
                 "NOTICE",
                 f"Proxy K baseline S{floor_session} is stale on dirty tree (current S{current_session}); re-save clean snapshot: {PYTHON_CMD} tools/proxy_k.py --save",
-            ))
-        elif likely_dirty_logged:
-            results.append((
-                "NOTICE",
-                f"Proxy K logged drift {logged_drift:.1%} ({latest_logged} vs {floor}) from likely dirty S{latest_session}; re-save: {PYTHON_CMD} tools/proxy_k.py --save",
             ))
         else:
             level = "URGENT" if logged_drift > 0.10 else "DUE"
@@ -1019,10 +1676,14 @@ def check_file_graph() -> list[tuple[str, str]]:
     structural = [
         REPO_ROOT / "SWARM.md",
         REPO_ROOT / "CLAUDE.md",
+        REPO_ROOT / "README.md",
         REPO_ROOT / "beliefs" / "CORE.md",
         REPO_ROOT / "memory" / "INDEX.md",
+        REPO_ROOT / "memory" / "OPERATIONS.md",
+        REPO_ROOT / "tasks" / "NEXT.md",
     ]
     broken = []
+    seen = set()
     for sf in structural:
         text = _read(sf)
         if not text:
@@ -1031,12 +1692,55 @@ def check_file_graph() -> list[tuple[str, str]]:
         for ref in refs:
             if ref.startswith("L-") or ref.startswith("P-") or ref.startswith("B-"):
                 continue
-            full = REPO_ROOT / ref
+            resolved = _resolve_repo_file_ref(ref)
+            if not resolved:
+                continue
+            full = REPO_ROOT / resolved
             if not full.exists():
-                broken.append(f"{sf.name}→{ref}")
+                label = f"{sf.name}→{ref}"
+                if resolved != ref:
+                    label += f" ({resolved})"
+                if label not in seen:
+                    seen.add(label)
+                    broken.append(label)
     if broken:
         results.append(("DUE", f"{len(broken)} broken file reference(s): {', '.join(broken[:5])}"))
     return results
+
+
+def _inter_swarm_connectivity(capabilities: dict, commands: dict[str, bool]) -> dict:
+    protocol_paths = [
+        "experiments/inter-swarm/PROTOCOL.md",
+        "memory/OPERATIONS.md",
+    ]
+    protocol_state = [{"path": p, "exists": _exists(p)} for p in protocol_paths]
+    missing_protocols = [item["path"] for item in protocol_state if not item["exists"]]
+
+    inter_swarm = capabilities.get("inter_swarm", {}) if isinstance(capabilities, dict) else {}
+    present = inter_swarm.get("present", 0) if isinstance(inter_swarm, dict) else 0
+    total = inter_swarm.get("total", 0) if isinstance(inter_swarm, dict) else 0
+    if not isinstance(present, int):
+        present = 0
+    if not isinstance(total, int):
+        total = 0
+
+    tooling_ready = total > 0 and present >= total
+    python_ready = any(bool(commands.get(name)) for name in ("python3", "python", "py -3"))
+
+    missing: list[str] = []
+    if not tooling_ready:
+        missing.append(f"inter_swarm_tools:{present}/{total}")
+    if not python_ready:
+        missing.append("python-command")
+    missing.extend(missing_protocols)
+
+    return {
+        "ready": tooling_ready and python_ready and not missing_protocols,
+        "tooling": {"present": present, "total": total},
+        "python_command_ready": python_ready,
+        "protocols": protocol_state,
+        "missing": missing,
+    }
 
 
 def build_inventory() -> dict:
@@ -1061,8 +1765,9 @@ def build_inventory() -> dict:
     ]
     capability_sets: dict[str, list[str]] = {
         "orientation": _tools("maintenance.py", "pulse.py", "context_router.py"),
-        "validation": _tools("validate_beliefs.py", "check.sh"),
+        "validation": _tools("validate_beliefs.py", "check.sh", "install-hooks.sh", "pre-commit.hook", "commit-msg.hook"),
         "evolution": _tools("evolve.py", "swarm_test.py", "agent_swarm.py", "colony.py", "spawn_coordinator.py"),
+        "collaboration": _tools("swarm_pr.py"),
         "inter_swarm": _tools("bulletin.py", "merge_back.py", "propagate_challenges.py"),
         "compaction": _tools("compact.py", "proxy_k.py", "frontier_decay.py"),
         "analysis": _tools("nk_analyze.py", "nk_analyze_go.py", "wiki_swarm.py"),
@@ -1073,6 +1778,19 @@ def build_inventory() -> dict:
         "git": _command_runs("git", ["--version"]),
         "bash": _command_runs("bash", ["--version"]),
     }
+    # `py -3` is a Windows launcher path; avoid emitting a permanent "NO" on
+    # Linux/WSL hosts where it is not expected to exist.
+    if platform.system().lower().startswith("windows") or _command_exists("py"):
+        commands["py -3"] = _py_launcher_runs()
+    capabilities = {
+        name: {
+            "present": sum(1 for p in files if _exists(p)),
+            "total": len(files),
+            "files": files,
+        }
+        for name, files in capability_sets.items()
+    }
+    inter_swarm_connectivity = _inter_swarm_connectivity(capabilities, commands)
 
     return {
         "host": {
@@ -1083,14 +1801,8 @@ def build_inventory() -> dict:
         },
         "bridges": [{"path": p, "exists": _exists(p)} for p in bridges],
         "core_state": [{"path": p, "exists": _exists(p)} for p in core_state],
-        "capabilities": {
-            name: {
-                "present": sum(1 for p in files if _exists(p)),
-                "total": len(files),
-                "files": files,
-            }
-            for name, files in capability_sets.items()
-        },
+        "capabilities": capabilities,
+        "inter_swarm_connectivity": inter_swarm_connectivity,
     }
 
 
@@ -1122,6 +1834,20 @@ def print_inventory(inv: dict):
         print(f"  {name:<12} {info['present']}/{info['total']}")
     print()
 
+    inter_swarm = inv.get("inter_swarm_connectivity", {})
+    if isinstance(inter_swarm, dict) and inter_swarm:
+        tooling = inter_swarm.get("tooling", {})
+        present = tooling.get("present", "?") if isinstance(tooling, dict) else "?"
+        total = tooling.get("total", "?") if isinstance(tooling, dict) else "?"
+        status = "READY" if inter_swarm.get("ready") else "NOT READY"
+        python_status = "OK" if inter_swarm.get("python_command_ready") else "NO"
+        print("Inter-swarm connectivity:")
+        print(f"  {status} (tooling {present}/{total}, python {python_status})")
+        missing = inter_swarm.get("missing", [])
+        if isinstance(missing, list) and missing:
+            print(f"  Missing: {', '.join(str(item) for item in missing)}")
+        print()
+
 
 
 
@@ -1143,7 +1869,9 @@ def main():
 
     all_checks = [
         check_validator,
+        check_mission_constraints,
         check_runtime_portability,
+        check_commit_hooks,
         check_version_drift,
         check_open_challenges,
         check_compaction,
@@ -1153,11 +1881,13 @@ def main():
         check_frontier_decay,
         check_periodics,
         check_human_queue,
+        check_swarm_lanes,
         check_uncommitted,
         check_handoff_staleness,
         check_session_log_integrity,
         check_state_header_sync,
         check_cross_references,
+        check_frontier_registry,
         check_file_graph,
         check_paper_accuracy,
         check_utility,

@@ -1,8 +1,37 @@
 # State
-Updated: 2026-02-27 S150
+Updated: 2026-02-27 S159
 
 ## What just happened
-S150: setup-hygiene follow-through: `check_uncommitted()` now ignores transient Temp `tmp*/parent-child` untracked artifacts, and runtime rechecks (`bash -lc "python3 tools/maintenance.py --quick"`, `bash tools/check.sh --quick`) are NOTICE-only with actionable untracked files.
+S159: swarm runtime status pass: executed `python3 tools/maintenance.py`, `python3 tools/maintenance.py --inventory`, and `bash tools/check.sh --quick` in WSL; Beliefs PASS and maintenance remains NOTICE-only (WSL portability + dirty tracked tree), with no DUE/PERIODIC blockers.
+S158: session-log integrity calibration: `check_session_log_integrity()` now flags multi-step backfills (for example `S155->S153`) even when the older session ID was seen earlier in the recent window, while still allowing one-step reconciliation backfills.
+S158: verification pass for the above calibration: `python3 -m unittest tools/test_mission_constraints.py` (from `tools/`) = OK (14 tests), `bash tools/check.sh --quick` = Beliefs PASS with NOTICE-only output.
+S158: state-header parsing hardening: `check_state_header_sync()` FRONTIER regex now tolerates case/spacing variants and optional `|` before session marker, reducing false `State header parse failed: FRONTIER` notices during concurrent formatting edits.
+S158: F119 validation pass: calibrated degraded/offline transition evidence parsing so reason/action can match within one session entry block (including continuation lines) instead of only same-line matches.
+S158: F119 noise reduction: tightened degraded-mode evidence patterns in `check_mission_constraints()` by removing broad fallback tokens (`powershell`, generic `PASS`, generic `queue/sync`) and added regression coverage in `tools/test_mission_constraints.py`.
+S158: session-log integrity noise reduction: `check_session_log_integrity()` now treats one-step tail backfills (`S<N>` then `S<N-1>`) as benign regardless of duplicate count, eliminating persistent false `recent non-monotonic order` notices in concurrent reconciliation.
+S157: proxy-K signal refinement: reordered dirty-snapshot handling in `check_proxy_k_drift()` so likely/current dirty snapshots are evaluated before stale-baseline fallback, reducing repeated stale-baseline churn in dirty-tree runs.
+S157: setup hygiene: installed missing git hooks via `bash tools/install-hooks.sh` (`pre-commit`, `commit-msg`) and revalidated startup checks.
+S156: F112 integrity hardening: expanded `check_file_graph()` coverage in `tools/maintenance.py` (README/OPERATIONS/NEXT included) and added shorthand alias resolution (`CORE.md` -> `beliefs/CORE.md`, `INDEX.md` -> `memory/INDEX.md`) so continuous file-graph checks catch real broken refs without false positives.
+S156: session-log integrity refinement: `check_session_log_integrity()` now treats one-step recent-tail backfills (`S<N>` then `S<N-1>`) as benign concurrent reconciliation when the older ID appears once, reducing persistent false `recent non-monotonic order` noise.
+S156: swarm runtime verification pass: ran `python3 tools/maintenance.py`, `python3 tools/maintenance.py --inventory`, and `bash tools/check.sh` in WSL. Result remains Beliefs PASS with NOTICE-only maintenance (dirty tree + stale dirty-session proxy-K baseline reminder), and no DUE/PERIODIC blockers.
+S155: periodic cadence refresh: added a new `memory/HEALTH.md` check entry (score 4.5/5) and advanced `tools/periodics.json` `health-check` marker to S155.
+S155: paper re-swarm cadence closeout: refreshed `docs/PAPER.md` session-scale anchor to S155 (counts unchanged: 207L/149P/14B/14F), clearing paper-age drift.
+S155: F119 learning-quality reliability fix: `_tracked_changed_paths()` no longer strips porcelain status prefixes, so changed-path parsing preserves full filenames and mission-constraint knowledge-delta detection no longer raises false `F119 learning-quality gap` DUEs.
+S155: F119 guard-coverage hardening: `check_mission_constraints()` now enforces continuity guard presence/wiring for `check_child_bulletins`, `check_help_requests`, and `check_swarm_lanes`; added `tools/test_mission_constraints.py` regression tests (duplicate invariant IDs + required guard wiring) and validated via `python3 -m unittest tools/test_mission_constraints.py`.
+S155: maintenance signal consolidation: `check_uncommitted()` now folds WSL filtering counts (CRLF + `.claude`) into the tracked-delta notice instead of emitting separate portability noise lines; runtime recheck remains Beliefs PASS + maintenance NOTICE-only.
+S155: F119 outcome-quality follow-through: `check_mission_constraints()` now checks degraded/offline continuity transitions by requiring explicit fallback/continuity notes in NEXT or recent SESSION-LOG when runtime/inter-swarm capability is degraded, and escalates if no fallback path exists.
+S155: inventory portability refinement: `build_inventory()` now checks `py -3` only on Windows (or when `py` exists), removing irrelevant `NO py -3` noise on Linux/WSL while preserving launcher diagnostics on Windows hosts.
+S154: swarm runtime status pass: re-ran `python3 tools/maintenance.py --quick` + `bash tools/check.sh --quick` in WSL; Beliefs PASS with NOTICE-only output. No DUE/PERIODIC blockers; remaining signal is operational noise (dirty tree + proxy-K clean-snapshot reminder).
+S153: F119 integrity hardening: normalized `beliefs/INVARIANTS.md` mission IDs to a single canonical `I9-I12` set (removed duplicate/conflicting IDs) and upgraded `check_mission_constraints()` to flag duplicate invariant IDs plus require mission-tagged headings (`[MC-SAFE|PORT|LEARN|CONN]`).
+S153: F119 mission-constraint partial close: added explicit invariants I9-I12 in `beliefs/INVARIANTS.md` (safety, portability, learning quality, continuity) and added `check_mission_constraints()` in `tools/maintenance.py` to enforce presence/wiring of core guard checks.
+S153: F119 regression guard added: new `tools/test_swarm_lanes.py` validates lane-table shape/status values and `tasks/PR-QUEUE.json` schema/open-fingerprint uniqueness; `bash tools/check.sh` now executes this suite (`Swarm lanes regression: PASS`).
+S152: runtime portability severity calibration: `check_runtime_portability()` now downgrades missing `python` alias to NOTICE when bash wrappers are available (`bash tools/check.sh --quick`, `bash tools/maintenance.sh --inventory`), while keeping DUE when neither alias nor wrapper path is usable.
+S152: SWARM startup fallback text updated to explicit launcher set (`python3`/`python`/`py -3`) for bash-unavailable hosts.
+S152: maintenance signal refinement: `check_proxy_k_drift()` now recognizes current-session dirty snapshots and shifts wording from repeated `re-save` churn to `save clean snapshot when stable`, preserving the signal while reducing false urgency loops in dirty-tree runs.
+S152: paper drift repair: `docs/PAPER.md` scale statement synced to live frontier count (`13 -> 14`), clearing `PAPER scale drift` DUE in `check.sh --quick`.
+S151: swarm runtime status pass: executed `python3 tools/maintenance.py --quick`, `python3 tools/maintenance.py --inventory`, and `bash tools/check.sh --quick` via WSL runtime (Windows `python` unavailable in this host context). Current state is Beliefs PASS with NOTICE-only maintenance (dirty-tree + live proxy-K drift prompt); no DUE/PERIODIC blockers.
+S151: maintenance throughput hardening: `check_utility()` now scans tracked citation files with generated-path skips and a size cap, replacing full recursive reads of all `*.md/*.py/*.json`; local runtime dropped from ~95s to ~29s for `python3 tools/maintenance.py` while preserving NOTICE-level outputs.
+S150: setup-hygiene follow-through: `check_uncommitted()` now ignores transient Temp `tmp*/parent-child` artifacts, and runtime rechecks (`python3 tools/maintenance.py --quick`, `bash tools/check.sh --quick`) are passing with NOTICE-only maintenance in this dirty tree.
 S149: periodic health-check refreshed in `memory/HEALTH.md` (score 4.5/5; compactness stays WATCH on dirty-tree proxy-K volatility), and `tools/periodics.json` health-check marker advanced to S149.
 S149: maintenance setup-hygiene cleanup: `check_periodics()` now prefixes alerts with periodic IDs (for example `[fundamental-setup-reswarm]`), reducing friction when mapping maintenance output back to `tools/periodics.json`.
 S149: setup-hygiene periodic executed: `check_session_log_integrity()` now treats backfilled already-seen session IDs in the recent tail as benign (no persistent false non-monotonic alert). `tools/periodics.json` marker `fundamental-setup-reswarm` advanced to S149.
@@ -62,10 +91,11 @@ S100: T3 compression complete — PRINCIPLES.md −968t; proxy K 24,856→23,916
 2. **P-155 follow-through (high-fidelity)** — run the same incentive contrast on real LLM/human-task traces (beyond software-agent simulation).
 3. **F111 deploy decision** — workspace ready. Human review needed.
 4. **Runtime portability cleanup** — this host has no runnable `python`/`py` launcher in PowerShell; either repair launcher mapping or keep startup checks on `bash tools/check.sh --quick` (`python3`) path.
+5. **F119 follow-through** — validate inter-swarm degraded-mode transitions end-to-end (tooling missing + offline artifacts) against live maintenance output and tune severity if signal/noise drifts.
 
 ## Key state
 - Proxy K (live, dirty tree): NOTICE-level drift; save stable snapshot before compaction (`python tools/proxy_k.py --save`).
-- 207L 149P 14B 13F. Validator PASS. Swarmability 100/100.
+- 207L 149P 14B 14F. Validator PASS. Swarmability 100/100.
 - F105 RESOLVED: compact.py wired. F76 RESOLVED. F71 RESOLVED. F101 Phase 2 DONE. F115 paper updated to v0.6.
 - R6 harvest + all deferred items complete. Next cross-variant harvest due ~S159 (15-session cadence from S144 marker).
 - 0 THEORIZED remain. 6 PARTIALLY OBSERVED (P-128/P-141/P-155/P-156/P-157/P-158).

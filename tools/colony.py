@@ -113,6 +113,24 @@ def _inventory_constraints(inventory: dict, captured_at_utc: str) -> dict:
     for item in core_state:
         if isinstance(item, dict) and isinstance(item.get("path"), str) and not item.get("exists", False):
             missing_core.append(item["path"])
+    capabilities = _compact_capabilities(inventory.get("capabilities", {}) if isinstance(inventory, dict) else {})
+
+    inter_swarm_ready = False
+    inter_swarm_missing: list[str] = []
+    inter_swarm_connectivity = inventory.get("inter_swarm_connectivity", {}) if isinstance(inventory, dict) else {}
+    if isinstance(inter_swarm_connectivity, dict) and inter_swarm_connectivity:
+        inter_swarm_ready = bool(inter_swarm_connectivity.get("ready"))
+        missing = inter_swarm_connectivity.get("missing", [])
+        if isinstance(missing, list):
+            inter_swarm_missing = sorted(str(item) for item in missing if str(item).strip())
+    else:
+        inter_swarm = capabilities.get("inter_swarm", {})
+        present = inter_swarm.get("present", 0) if isinstance(inter_swarm, dict) else 0
+        total = inter_swarm.get("total", 0) if isinstance(inter_swarm, dict) else 0
+        if isinstance(present, int) and isinstance(total, int):
+            inter_swarm_ready = total > 0 and present >= total
+            if not inter_swarm_ready:
+                inter_swarm_missing = [f"inter_swarm_tools:{present}/{total}"]
 
     return {
         "source": "maintenance_inventory",
@@ -121,9 +139,11 @@ def _inventory_constraints(inventory: dict, captured_at_utc: str) -> dict:
         "python_executable": host.get("python_executable", PYTHON_BIN) if isinstance(host, dict) else PYTHON_BIN,
         "python_command_hint": host.get("python_command_hint", PYTHON_BIN) if isinstance(host, dict) else PYTHON_BIN,
         "commands": commands,
-        "capabilities": _compact_capabilities(inventory.get("capabilities", {}) if isinstance(inventory, dict) else {}),
+        "capabilities": capabilities,
         "missing_bridges": sorted(missing_bridges),
         "missing_core_state": sorted(missing_core),
+        "inter_swarm_connectivity_ready": inter_swarm_ready,
+        "inter_swarm_missing": inter_swarm_missing,
     }
 
 
@@ -139,6 +159,8 @@ def capture_environment_constraints() -> dict:
         "capabilities": {},
         "missing_bridges": [],
         "missing_core_state": [],
+        "inter_swarm_connectivity_ready": False,
+        "inter_swarm_missing": ["inventory-unavailable"],
     }
 
     maintenance = REPO_ROOT / "tools" / "maintenance.py"
@@ -172,6 +194,8 @@ def environment_signature(constraints: dict) -> str:
         "capabilities": constraints.get("capabilities", {}),
         "missing_bridges": constraints.get("missing_bridges", []),
         "missing_core_state": constraints.get("missing_core_state", []),
+        "inter_swarm_connectivity_ready": constraints.get("inter_swarm_connectivity_ready", False),
+        "inter_swarm_missing": constraints.get("inter_swarm_missing", []),
     }
     blob = json.dumps(stable_payload, sort_keys=True, separators=(",", ":"))
     return hashlib.sha256(blob.encode("utf-8")).hexdigest()[:12]
@@ -195,6 +219,14 @@ def _print_constraints_summary(constraints: dict, signature: str):
         ]
         if constrained:
             print(f"  Partial capability sets: {', '.join(sorted(constrained))}")
+    if constraints.get("inter_swarm_connectivity_ready"):
+        print("  Inter-swarm connectivity: READY")
+    else:
+        missing = constraints.get("inter_swarm_missing", [])
+        if isinstance(missing, list) and missing:
+            print(f"  Inter-swarm connectivity: NOT READY ({', '.join(missing[:3])})")
+        else:
+            print("  Inter-swarm connectivity: NOT READY")
 
 
 def list_experiments():

@@ -63,6 +63,34 @@ Count how many of the 5 indicators are "healthy."
 
 ---
 
+## Latest check: S155 (2026-02-27)
+
+| Indicator | Status | Detail |
+|-----------|--------|--------|
+| Knowledge growth | HEALTHY | 207 lessons, 149 principles, 14 beliefs, 14 active frontiers; no regressions in core counts. |
+| Knowledge accuracy | HEALTHY | `validate_beliefs.py --quick` PASS: 14 beliefs (12 observed, 2 theorized), 0 errors (warnings-only). |
+| Compactness | WATCH | Proxy K remains noisy on this dirty tree; baseline floor remains stable but action signal is still to save a clean snapshot (`python3 tools/proxy_k.py --save`). |
+| Belief evolution | HEALTHY | No open challenge debt surfaced by maintenance; F119 mission-constraint guardrails remain wired and active. |
+| Task throughput | HEALTHY | Paper re-swarm cadence marker and health-check marker were both refreshed to current session, clearing periodic debt in maintenance. |
+
+**Score: 4.5/5** (compactness stays WATCH due to dirty-tree measurement volatility, not structural regression)
+
+**Notes**: This pass was cadence hygiene and living-paper continuity: `docs/PAPER.md` session-scale anchor refreshed to S155, and periodic markers synced to avoid stale DUE/PERIODIC drift.
+
+## Latest check: S154 (2026-02-27)
+
+| Indicator | Status | Detail |
+|-----------|--------|--------|
+| Knowledge growth | HEALTHY | 207 lessons, 149 principles, 14 beliefs, 14 active frontiers; no regression in core counts. |
+| Knowledge accuracy | HEALTHY | `validate_beliefs.py --quick` PASS: 14 beliefs (12 observed, 2 theorized), 0 errors (warnings-only). |
+| Compactness | WATCH | Proxy K in this dirty tree is high/volatile (latest run: 34,700 tokens); baseline comparison remains noisy until a clean snapshot is saved (`python3 tools/proxy_k.py --save`). |
+| Belief evolution | HEALTHY | No open challenge debt surfaced by maintenance; mission-constraint guard checks were added in S153 to keep new invariants wired. |
+| Task throughput | HEALTHY | Hook drift blocker was cleared by installing `pre-commit` + `commit-msg` hooks; this health-check refresh clears the overdue periodic marker. |
+
+**Score: 4.5/5** (compactness remains WATCH due to dirty-tree measurement volatility, not a new structural break)
+
+**Notes**: Runtime remains WSL-first (`python3`) in this host context; maintenance/check are back to NOTICE-only after hook re-install.
+
 ## Latest check: S149 (2026-02-27)
 
 | Indicator | Status | Detail |

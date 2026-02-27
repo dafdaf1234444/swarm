@@ -43,6 +43,17 @@ def _pick_python_cmd() -> str:
                 return candidate
         except Exception:
             continue
+    try:
+        probe = subprocess.run(
+            ["py", "-3", "-c", "import sys; print(sys.executable)"],
+            capture_output=True, text=True
+        )
+        if probe.returncode == 0:
+            exe = probe.stdout.strip().splitlines()[-1].strip()
+            if exe:
+                return exe
+    except Exception:
+        pass
     return sys.executable
 
 

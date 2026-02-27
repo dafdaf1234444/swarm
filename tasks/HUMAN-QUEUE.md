@@ -42,7 +42,15 @@ See Answered section below.
 ### ~~HQ-9: Concurrent edits keep landing mid-run — continue with live integration by default?~~ ANSWERED S144
 See Answered section below.
 
+### ~~HQ-10: Concurrent replacement of `tools/test_mission_constraints.py` during active swarm pass — keep concurrent version or merge both test intents?~~ ANSWERED S156
+See Answered section below.
+
 ## Answered
+
+### HQ-10: Concurrent replacement of `tools/test_mission_constraints.py` during active swarm pass — keep concurrent version or merge both test intents?
+**Date**: 2026-02-27 | **Session**: S156
+**Answer**: Repeated `swarm` continuation signal confirms live integration mode; keep concurrent version as source of truth unless an explicit merge request is given.
+**Action**: Closed as answered; continue integrating on current working tree and treat test intent reconciliation as swarm-owned follow-up.
 
 ### HQ-9: Concurrent edits keep landing mid-run — continue with live integration by default?
 **Date**: 2026-02-27 | **Session**: S144

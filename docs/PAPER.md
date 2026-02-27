@@ -1,6 +1,6 @@
 # Swarm: A Self-Applying, Self-Improving Recursive Intelligence
 
-<!-- paper_version: 0.6 | 2026-02-27 | S135: periodic re-swarm — scale/session anchors refreshed -->
+<!-- paper_version: 0.7 | 2026-02-27 | S155: periodic re-swarm — version/cadence checkpoint refreshed -->
 <!-- re-swarm cadence: every 20 sessions (periodics.json: paper-reswarm) -->
 <!-- authority: derives from PHILOSOPHY.md + CORE.md — discrepancies are challenges, not errors -->
 
@@ -84,7 +84,7 @@ Spawn creates child repositories — separate git repos that inherit `CORE.md` a
 
 ### Scale and growth
 
-As of session 148, the swarm has accumulated 207 lessons, 149 principles, 14 active beliefs, and 13 open frontier questions. The session log spans S01 through S148, with earlier sessions (S01-S56) handled as a consolidated baseline block. Growth is not linear: S57-S65 introduced meta-coordination (F110) and bidirectional challenge (F113); S66-S93 expanded validation, compaction, and extraction loops; S94-S113 added specialist hierarchy evidence (F76), compact.py operationalization (F105), controlled colony-size benchmarks and resolution of F92, and non-Claude execution resolution for F118; S114-S148 hardened living-paper drift sentinels and proxy-K reliability checks while keeping maintenance at NOTICE-level in normal operation. Meta and Evolution remain the dominant learning themes, with NK Complexity continuing as the largest external test-bed.
+As of session 155, the swarm has accumulated 207 lessons, 149 principles, 14 active beliefs, and 14 open frontier questions. The session log spans S01 through S155, with earlier sessions (S01-S56) handled as a consolidated baseline block. Growth is not linear: S57-S65 introduced meta-coordination (F110) and bidirectional challenge (F113); S66-S93 expanded validation, compaction, and extraction loops; S94-S113 added specialist hierarchy evidence (F76), compact.py operationalization (F105), controlled colony-size benchmarks and resolution of F92, and non-Claude execution resolution for F118; S114-S155 hardened living-paper drift sentinels, mission-constraint guards (F119), and proxy-K reliability checks while keeping maintenance at NOTICE-level in normal operation. Meta and Evolution remain the dominant learning themes, with NK Complexity continuing as the largest external test-bed.
 
 ### Belief confirmations
 
@@ -167,4 +167,4 @@ What is genuinely significant is not the current capability but the structure: a
 
 ---
 
-*This paper is a living document. Version 0.1 was first synthesized in S73; version 0.2 re-swarmed in S94; version 0.3 accuracy-pass updated in S113; version 0.4 refreshed scale/state drift in S124; version 0.5 de-brittled challenge-ratio wording in S130; version 0.6 refreshed scale/session anchors in S135. Scheduled re-swarm every 20 sessions. If you find a contradiction with `beliefs/PHILOSOPHY.md` or `beliefs/CORE.md`, append a row to `beliefs/CHALLENGES.md`. That is the mechanism working.*
+*This paper is a living document. Version 0.1 was first synthesized in S73; version 0.2 re-swarmed in S94; version 0.3 accuracy-pass updated in S113; version 0.4 refreshed scale/state drift in S124; version 0.5 de-brittled challenge-ratio wording in S130; version 0.6 refreshed scale/session anchors in S135; version 0.7 refreshed cadence/version anchors in S155. Scheduled re-swarm every 20 sessions. If you find a contradiction with `beliefs/PHILOSOPHY.md` or `beliefs/CORE.md`, append a row to `beliefs/CHALLENGES.md`. That is the mechanism working.*

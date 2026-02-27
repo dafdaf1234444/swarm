@@ -1,10 +1,10 @@
 # Memory Index
-Updated: 2026-02-27 | Sessions: 150
+Updated: 2026-02-27 | Sessions: 159
 
 ## What the swarm knows
 - **207 lessons** in `memory/lessons/L-{NNN}.md`
 - **149 principles** in `memory/PRINCIPLES.md` (S148: P-131 merged into P-130 via principles-dedup; S100: MDL compression −252t; S99: 6 compressed; S96: P-172/P-173 BFT+CRDT-pheromone; S95: P-170/P-171 R6 harvest)
-- **14 beliefs** in `beliefs/DEPS.md` | **13 frontier questions** in `tasks/FRONTIER.md` (F92 RESOLVED S113 — conditional colony-size rule by topology/primitive; F118 RESOLVED S105 — non-Claude tool node capability confirmed; F76 RESOLVED S97 — specialist hierarchy depth; F71 RESOLVED S94 — spawn quality curve)
+- **14 beliefs** in `beliefs/DEPS.md` | **14 frontier questions** in `tasks/FRONTIER.md` (F119 OPEN — mission-constraint swarming for safety/portability/learning/connectivity; F92 RESOLVED S113 — conditional colony-size rule by topology/primitive; F118 RESOLVED S105 — non-Claude tool node capability confirmed; F76 RESOLVED S97 — specialist hierarchy depth; F71 RESOLVED S94 — spawn quality curve)
 
 ## Structure
 ```
@@ -44,4 +44,3 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115)
 Session log: `memory/SESSION-LOG.md` (append-only, F110-A3)
 
 <!-- core_md_hash: e7ed33515e813afbc3c2694c35e7312744ceee31329d27924ca3a4e9c4cf63ea -->
-

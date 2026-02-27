@@ -23,6 +23,35 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 CHILDREN_DIR = REPO_ROOT / "experiments" / "children"
 
 
+def _pick_python_cmd() -> str:
+    """Pick a runnable python command for this host."""
+    for candidate in ("python3", "python", sys.executable):
+        try:
+            probe = subprocess.run(
+                [candidate, "-c", "import sys"],
+                capture_output=True, text=True
+            )
+            if probe.returncode == 0:
+                return candidate
+        except Exception:
+            continue
+    try:
+        probe = subprocess.run(
+            ["py", "-3", "-c", "import sys; print(sys.executable)"],
+            capture_output=True, text=True
+        )
+        if probe.returncode == 0:
+            exe = probe.stdout.strip().splitlines()[-1].strip()
+            if exe:
+                return exe
+    except Exception:
+        pass
+    return sys.executable
+
+
+PYTHON_CMD = _pick_python_cmd()
+
+
 def spawn(name: str, topic: str = "general") -> Path:
     """Spawn a child swarm and return its path."""
     child_dir = CHILDREN_DIR / name
@@ -103,7 +132,7 @@ def evaluate(swarm_dir: Path) -> dict:
     validator = swarm_dir / "tools" / "validate_beliefs.py"
     if validator.exists():
         r = subprocess.run(
-            ["python3", str(validator)],
+            [PYTHON_CMD, str(validator)],
             cwd=str(swarm_dir), capture_output=True, text=True
         )
         results["validator_pass"] = r.returncode == 0

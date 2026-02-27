@@ -7,17 +7,24 @@ set -euo pipefail
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 
 choose_python() {
-    local cmd
-    for cmd in python3 python; do
-        if command -v "$cmd" >/dev/null 2>&1 && "$cmd" -c "import sys" >/dev/null 2>&1; then
-            echo "$cmd"
-            return 0
-        fi
-    done
+    if command -v python3 >/dev/null 2>&1 && python3 -c "import sys" >/dev/null 2>&1; then
+        PYTHON_CMD=(python3)
+        return 0
+    fi
+    if command -v python >/dev/null 2>&1 && python -c "import sys" >/dev/null 2>&1; then
+        PYTHON_CMD=(python)
+        return 0
+    fi
+    # Git Bash / Windows launcher fallback when python aliases are missing.
+    if command -v py >/dev/null 2>&1 && py -3 -c "import sys" >/dev/null 2>&1; then
+        PYTHON_CMD=(py -3)
+        return 0
+    fi
     return 1
 }
 
-PYTHON_CMD="$(choose_python || true)"
+declare -a PYTHON_CMD=()
+choose_python || true
 
 count_matches() {
     local pattern="$1"
@@ -250,29 +257,29 @@ cmd_wiki() {
     stamp=$(date -u +%Y%m%d-%H%M%S)
     out_path="$REPO_ROOT/workspace/notes/wiki-swarm-${slug}-${stamp}.md"
 
-    if [ -z "${PYTHON_CMD:-}" ]; then
-        echo "FAIL: No runnable python interpreter found (python3/python)."
+    if [ "${#PYTHON_CMD[@]}" -eq 0 ]; then
+        echo "FAIL: No runnable python interpreter found (python3/python/py -3)."
         return 1
     fi
 
     if [ "$topic" = "auto" ]; then
-        "$PYTHON_CMD" "$REPO_ROOT/tools/wiki_swarm.py" --auto "$@" --out "$out_path"
+        "${PYTHON_CMD[@]}" "$REPO_ROOT/tools/wiki_swarm.py" --auto "$@" --out "$out_path"
     else
-        "$PYTHON_CMD" "$REPO_ROOT/tools/wiki_swarm.py" "$topic" "$@" --out "$out_path"
+        "${PYTHON_CMD[@]}" "$REPO_ROOT/tools/wiki_swarm.py" "$topic" "$@" --out "$out_path"
     fi
     echo ""
     echo "Saved: $out_path"
 }
 
 cmd_colony() {
-    if [ -z "${PYTHON_CMD:-}" ]; then
-        echo "FAIL: No runnable python interpreter found (python3/python)."
+    if [ "${#PYTHON_CMD[@]}" -eq 0 ]; then
+        echo "FAIL: No runnable python interpreter found (python3/python/py -3)."
         return 1
     fi
 
     local action="${1:-swarm-all}"
     shift || true
-    "$PYTHON_CMD" "$REPO_ROOT/tools/colony.py" "$action" "$@"
+    "${PYTHON_CMD[@]}" "$REPO_ROOT/tools/colony.py" "$action" "$@"
 }
 
 cmd_help() {

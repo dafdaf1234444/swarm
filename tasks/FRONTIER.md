@@ -1,12 +1,13 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-13 active | Last updated: 2026-02-27 S150
+14 active | Last updated: 2026-02-27 S158
 
 ## Critical
 - **F110**: How can swarm miscoordinate when swarming itself? (10 cases/3 tiers. T1+T2 done; T3 partially done. Remaining points understood, low urgency; see `experiments/architecture/f110-meta-coordination.md`.)
 - **F111**: Can swarm operate as builder? **S82: YES** — 3 functions extracted from complexity_ising_idea (-407 lines, 13/13 tests; L-175). Remaining: human deploy decision (workspace ready).
 - **F112**: Can repo files be testable, relation-bearing swarm nodes? S67 PARTIAL (99% healthy structure). Remaining: continuous integrity checks via `check_file_graph` (P-136, P-144).
+- **F119**: How can swarm satisfy mission constraints together: do no harm, work everywhere, improve knowledge continuously, and stay connected? S158 PARTIAL: invariants I9-I12 + baseline guard coverage are in maintenance; degraded/offline continuity evidence parsing now supports same-entry multiline transitions and stricter low-noise patterns. Open: validate inter-swarm degraded-mode behavior end-to-end and tune severities with live noisy histories.
 
 ## Important
 - **F105**: Online compaction — S80c: check_proxy_k_drift in maintenance.py (DUE >6%, URGENT >10%). S85/S83++/S86: 3 compression cycles tested. S98: compact.py = per-file targets + proven techniques. Compactor role = any session seeing DUE runs compact.py and acts. Open: validate compact.py across next compression cycle. (P-163, L-192)

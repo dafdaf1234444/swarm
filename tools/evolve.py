@@ -33,6 +33,35 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 CHILDREN_DIR = REPO_ROOT / "experiments" / "children"
 
 
+def _pick_python_cmd() -> str:
+    """Pick a runnable python command for this host."""
+    for candidate in ("python3", "python", sys.executable):
+        try:
+            probe = subprocess.run(
+                [candidate, "-c", "import sys"],
+                capture_output=True, text=True
+            )
+            if probe.returncode == 0:
+                return candidate
+        except Exception:
+            continue
+    try:
+        probe = subprocess.run(
+            ["py", "-3", "-c", "import sys; print(sys.executable)"],
+            capture_output=True, text=True
+        )
+        if probe.returncode == 0:
+            exe = probe.stdout.strip().splitlines()[-1].strip()
+            if exe:
+                return exe
+    except Exception:
+        pass
+    return sys.executable
+
+
+PYTHON_CMD = _pick_python_cmd()
+
+
 def _configure_console_errors():
     for stream in (sys.stdout, sys.stderr):
         if hasattr(stream, "reconfigure"):
@@ -82,7 +111,7 @@ def init_child(child_name: str, task_description: str, personality: str = None):
     """Spawn child swarm with task, output sub-agent prompt."""
     # Use agent_swarm.py to create
     agent_swarm = REPO_ROOT / "tools" / "agent_swarm.py"
-    cmd = ["python3", str(agent_swarm), "create", child_name, task_description]
+    cmd = [PYTHON_CMD, str(agent_swarm), "create", child_name, task_description]
     if personality:
         cmd += ["--personality", personality]
     r = subprocess.run(cmd, capture_output=True, text=True)
@@ -95,7 +124,7 @@ def init_child(child_name: str, task_description: str, personality: str = None):
     bulletin_py = REPO_ROOT / "tools" / "bulletin.py"
     if bulletin_py.exists():
         subprocess.run(
-            ["python3", str(bulletin_py), "sync", child_name],
+            [PYTHON_CMD, str(bulletin_py), "sync", child_name],
             capture_output=True, text=True
         )
 
@@ -103,7 +132,7 @@ def init_child(child_name: str, task_description: str, personality: str = None):
     context_router = REPO_ROOT / "tools" / "context_router.py"
     if context_router.exists():
         r = subprocess.run(
-            ["python3", str(context_router), task_description],
+            [PYTHON_CMD, str(context_router), task_description],
             capture_output=True, text=True
         )
         print("\n" + "=" * 60)
@@ -113,7 +142,7 @@ def init_child(child_name: str, task_description: str, personality: str = None):
 
     # Generate prompt
     r = subprocess.run(
-        ["python3", str(agent_swarm), "prompt", child_name],
+        [PYTHON_CMD, str(agent_swarm), "prompt", child_name],
         capture_output=True, text=True
     )
     print("\n" + "=" * 60)
@@ -141,7 +170,7 @@ def harvest_child(child_name: str) -> dict:
     # Evaluate viability
     swarm_test = REPO_ROOT / "tools" / "swarm_test.py"
     r = subprocess.run(
-        ["python3", str(swarm_test), "evaluate", str(child_dir)],
+        [PYTHON_CMD, str(swarm_test), "evaluate", str(child_dir)],
         capture_output=True, text=True
     )
     print("=== VIABILITY ===")
@@ -150,7 +179,7 @@ def harvest_child(child_name: str) -> dict:
     # Merge-back report
     merge_back = REPO_ROOT / "tools" / "merge_back.py"
     r = subprocess.run(
-        ["python3", str(merge_back), str(child_dir)],
+        [PYTHON_CMD, str(merge_back), str(child_dir)],
         capture_output=True, text=True
     )
     print("\n=== MERGE-BACK ===")
@@ -192,7 +221,7 @@ def _write_harvest_bulletins(child_name: str, report: str):
     for m in re.finditer(r"\[NOVEL\]\s*\n\s*Rule:\s*(.+)", report):
         rule_text = m.group(1).strip()
         subprocess.run(
-            ["python3", str(bulletin_py), "write", child_name,
+            [PYTHON_CMD, str(bulletin_py), "write", child_name,
              "discovery", rule_text],
             capture_output=True, text=True
         )
@@ -351,7 +380,7 @@ def integrate_child(child_name: str, dry_run: bool = False):
     validator = REPO_ROOT / "tools" / "validate_beliefs.py"
     if validator.exists():
         r = subprocess.run(
-            ["python3", str(validator)],
+            [PYTHON_CMD, str(validator)],
             cwd=str(REPO_ROOT), capture_output=True, text=True
         )
         if r.returncode == 0:
@@ -410,7 +439,7 @@ def compare_children(child_names: list[str]):
 
         # Evaluate viability
         r = subprocess.run(
-            ["python3", str(swarm_test), "evaluate", str(child_dir)],
+            [PYTHON_CMD, str(swarm_test), "evaluate", str(child_dir)],
             capture_output=True, text=True
         )
         viability = "?"
@@ -428,7 +457,7 @@ def compare_children(child_names: list[str]):
         # Check for novel rules via merge-back
         merge_back = REPO_ROOT / "tools" / "merge_back.py"
         r = subprocess.run(
-            ["python3", str(merge_back), str(child_dir)],
+            [PYTHON_CMD, str(merge_back), str(child_dir)],
             capture_output=True, text=True
         )
         novel = 0

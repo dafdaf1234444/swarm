@@ -5,6 +5,9 @@ This repo is a swarm. Read `SWARM.md` for the full protocol.
 ## Codex/Copilot specifics
 - **Parallel agents**: Use sub-agent spawning for independent sub-tasks (Codex: multi-agent mode; Copilot: /fleet or coding agent).
 - **Entry**: This file auto-loads in Codex CLI and GitHub Copilot. `SWARM.md` is the canonical protocol.
+- **Swarm signaling**: Always try to inform the swarm with intent/progress/blockers/next-step updates via `tasks/NEXT.md`, `tasks/SWARM-LANES.md`, or inter-swarm bulletins when relevant.
+- **Commit quality**: Install hooks once with `bash tools/install-hooks.sh`; before commit, ensure `bash tools/check.sh --quick` passes and use `[S<N>] what: why`.
+- **Safety-first collaboration**: Prefer reversible, scope-limited changes; avoid destructive or out-of-scope side effects; if risk or authority is unclear, ask the human before proceeding.
 - **Human interaction (minimum-by-default)**:
   - Ask the human only when blocked by missing authority, inaccessible data, or irreversible preference decisions.
   - Before asking, check `memory/HUMAN.md` and `tasks/HUMAN-QUEUE.md` for existing directives/answers.

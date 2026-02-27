@@ -9,11 +9,19 @@ Full evolution pipeline: `tools/evolve.py init|harvest|integrate|compare`
 Manual spawn: `./workspace/genesis.sh ~/child-swarm-[name] "[topic]"`
 For listing children: `tools/swarm_test.py list`
 
+## Lane Coordination (multi-agent / PR / model / platform / etc)
+For concurrent work expected to produce multiple branches or PRs, claim lanes in `tasks/SWARM-LANES.md`.
+Use `tools/swarm_pr.py plan <base> <head>` to derive a file-lane split for incoming PR ranges.
+1. Append a `CLAIMED` row with lane ID, branch, model, platform, and `Scope-Key`.
+2. Spawn/fan-out only after each lane has a unique `Scope-Key`.
+3. Move lane state forward by appending new rows (`ACTIVE` -> `READY` -> `MERGED`/`ABANDONED`).
+4. Put extra dimensions in `Etc` (`runtime=...`, `tool=...`, `dataset=...`) instead of inventing ad-hoc files.
+
 ## Swarm Everywhere (Portability + Resource Reality)
 Goal: run swarm on any supported tool/host while respecting finite context, compute, and coordination budget.
 
 ### 0) Confirm substrate reality first
-1. Host/runtime capabilities: `python tools/maintenance.py --inventory`
+1. Host/runtime capabilities: `bash tools/maintenance.sh --inventory` (or local shell interpreter if `bash` unavailable)
 2. Active tool constraints: read bridge file (`AGENTS.md`, `CLAUDE.md`, etc.) and confirm parallel-agent support.
 3. Human boundary/context: `memory/HUMAN.md`, `tasks/HUMAN-QUEUE.md`
 
@@ -41,7 +49,7 @@ Goal: run swarm on any supported tool/host while respecting finite context, comp
 ## Maintenance
 Per CLAUDE.md §State. Checks: challenges, compaction thresholds, frontier decay, periodics,
 unpushed commits, cross-reference drift, runtime portability. Output = state; swarm decides priority.
-Capability scan: `python3 tools/maintenance.py --inventory` (or `--inventory --json` for machine-readable output).
+Capability scan: `bash tools/maintenance.sh --inventory` (or `--inventory --json` for machine-readable output).
 
 ### Periodic self-scheduling
 The swarm registers items for periodic review in `tools/periodics.json`. Each item has:
@@ -66,7 +74,7 @@ Children in separate repos: `python3 tools/bulletin.py write <name> belief-chall
 Parent auto-propagates from bulletins: `python3 tools/propagate_challenges.py --apply`
 
 ## Compaction Triggers
-Use `python3 tools/maintenance.py` — it surfaces compaction needs automatically. When proxy K
+Use `bash tools/maintenance.sh` — it surfaces compaction needs automatically. When proxy K
 drift >6%, run `python3 tools/compact.py` for per-file targets and proven techniques.
 Compact.py separates analysis from mutation (P-144): it diagnoses, session acts.
 

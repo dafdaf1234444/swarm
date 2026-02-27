@@ -63,6 +63,10 @@ class TestColony(unittest.TestCase):
                 "evolution": {"present": 4, "total": 5, "files": ["tools/colony.py"]},
                 "validation": {"present": 2, "total": 2},
             },
+            "inter_swarm_connectivity": {
+                "ready": False,
+                "missing": ["experiments/inter-swarm/PROTOCOL.md"],
+            },
         }
 
         constraints = colony._inventory_constraints(inventory, "2026-02-27T00:00:00Z")
@@ -73,6 +77,8 @@ class TestColony(unittest.TestCase):
         self.assertEqual(constraints["missing_core_state"], ["tasks/NEXT.md"])
         self.assertEqual(constraints["capabilities"]["evolution"], {"present": 4, "total": 5})
         self.assertEqual(constraints["commands"]["bash"], False)
+        self.assertFalse(constraints["inter_swarm_connectivity_ready"])
+        self.assertEqual(constraints["inter_swarm_missing"], ["experiments/inter-swarm/PROTOCOL.md"])
 
     def test_environment_signature_ignores_capture_timestamp(self):
         a = {
@@ -83,6 +89,8 @@ class TestColony(unittest.TestCase):
             "capabilities": {"evolution": {"present": 4, "total": 5}},
             "missing_bridges": ["AGENTS.md"],
             "missing_core_state": [],
+            "inter_swarm_connectivity_ready": True,
+            "inter_swarm_missing": [],
         }
         b = dict(a)
         b["captured_at_utc"] = "2026-02-27T02:00:00Z"

@@ -49,6 +49,7 @@ Sparse instruction (trusts swarm to fill gaps) · Systems thinker (colony/fracta
 | S84 | **"public should be able to verify the swarm — for swarm to spread that is crucial"** — history is immutable, full git history stays public | Repo sanitized (paths only); history rewrite rejected; public verifiability = spread mechanism. L-180. |
 | post-S129 | Record human contributions with explicit impact status; if not checked, contribution is `unknown` | Calibration rule added: no assumed contribution claims without explicit verification |
 | post-S132 | Concurrent/unattributed edits are not human contributions unless explicitly confirmed by human | Attribution rule tightened for provenance honesty so swarm evolution history remains trustworthy |
+| post-S151 | Swarm should not hurt, should work everywhere, should improve knowledge, and should stay connected despite constraints | Opened F119 to operationalize mission constraints into explicit invariants/checks for safety, portability, learning quality, and connectivity continuity |
 
 ### Meta-swarming principle
 Spawn minimum set that maximally covers independent learning dimensions. The swarm is always one session behind its potential — record as frontier (F71), don't treat as failure.

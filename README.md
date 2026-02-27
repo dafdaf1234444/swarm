@@ -4,6 +4,28 @@ Swarm is a repository protocol for multi-session AI work: each session reads sha
 
 This is not a static codebase with a fixed owner workflow. It is a living coordination substrate where git history is memory, files are communication, and sessions are replaceable nodes.
 
+## Current State Snapshot (2026-02-27, local run)
+
+This snapshot is for orientation only. Canonical live state is always in `memory/INDEX.md`, `tasks/FRONTIER.md`, and `tasks/NEXT.md`.
+
+- Status: active Codex-driven swarm sessions are ongoing.
+- Integrity: beliefs validator PASS; latest `bash tools/check.sh --quick` run is NOTICE-only (dirty-tree/session-order/proxy-K reminders).
+- Swarm scale: 208 lessons, 149 principles, 14 beliefs, 14 active frontier questions.
+- Project footprint (tracked): 671 files, 80,220 estimated lines, 4,062,621 bytes (~3.88 MiB), 384 commits.
+- File mix (tracked): 449 Markdown, 148 Python, 48 JSON, 5 shell scripts.
+- Largest tracked areas by file count: `memory/` 217, `workspace/` 197, `experiments/` 155, `tools/` 52.
+- Git object store size: 6.25 MiB (`git count-objects -vH`).
+- Immediate human dependency: F111 deploy decision remains human-gated.
+- Runtime note: this host currently relies on bash/`python3` paths for startup checks when PowerShell `python` is unavailable.
+
+## Warning Before You Run `swarm`
+
+- `swarm` is not a no-op status check. It authorizes autonomous work selection from live priorities.
+- A swarm run can edit many files, run maintenance/experiments, and consume significant tokens quickly.
+- Do not run swarm if you need a frozen tree. Use explicit scoped instructions instead (target file/task, exclusions, and timebox).
+- Always inspect deltas in git history, not chat memory, to understand what changed and why.
+- If you want bounded behavior, state hard constraints up front (for example: "README only, no tool code changes, no experiments").
+
 ## Read This First
 
 If you are new, start here in order:
@@ -18,6 +40,14 @@ For current integrity/status, run:
 
 ```bash
 bash tools/check.sh --quick
+```
+
+If `bash` is unavailable, follow runtime fallback instructions in `SWARM.md`.
+
+Install commit-time quality hooks once per clone:
+
+```bash
+bash tools/install-hooks.sh
 ```
 
 ## Swarm Mentality
@@ -50,7 +80,7 @@ If a change does not improve future-node pickup speed, it is probably not swarm-
 Every session is expected to follow this loop:
 
 1. Load core state (`SWARM.md`, `CORE.md`, `INDEX.md`, `FRONTIER.md`, `NEXT.md`).
-2. Run maintenance (`python tools/maintenance.py`).
+2. Run maintenance (`bash tools/maintenance.sh`).
 3. Pick the highest-value actionable item.
 4. Execute and verify.
 5. Distill what was learned (`memory/lessons/`, task/frontier updates).
@@ -92,6 +122,7 @@ As an AI node:
 - `tools/` - validators, maintenance, analysis, coordination helpers
 - `experiments/` - controlled runs and artifacts
 - `domains/` - domain-specific frontiers and indexes
+- `docs/REAL-WORLD-SWARMING.md` - practical branch/PR and multi-setup swarming playbook
 
 ## How To Swarm This README
 
@@ -117,10 +148,10 @@ Definition of done for README changes:
 - A third-party reader can answer: "What is this?", "How does it think?", "How do I start?".
 - A future node can update this file without inventing process.
 
-## Current State Is Live
+## Canonical Live State (Read This, Not Stale Snapshot Text)
 
-Do not treat this README as the canonical source for live counts or active frontiers.
+Do not treat any static README numbers or claims as authoritative beyond their stamped date/session.
 
 - Live state: `memory/INDEX.md`
 - Live priorities: `tasks/FRONTIER.md` and `tasks/NEXT.md`
-- Live integrity: `tools/check.sh` and `tools/maintenance.py`
+- Live integrity: `tools/check.sh` and `tools/maintenance.sh`
