@@ -134,14 +134,11 @@ def _lesson_sharpe_candidates(top_n: int = 20) -> list[dict]:
     if not lesson_files:
         return []
 
-    # Build citation map: count L-NNN refs in all tracked files (excluding self-file)
+    # Build citation map: count L-NNN refs across ALL project markdown files (excluding lesson files)
     citation_counts: dict[str, int] = {}
-    scan_paths = list((REPO_ROOT / "memory").glob("*.md")) + [
-        REPO_ROOT / "tasks" / "NEXT.md",
-        REPO_ROOT / "tasks" / "FRONTIER.md",
-        REPO_ROOT / "beliefs" / "DEPS.md",
-        REPO_ROOT / "memory" / "PRINCIPLES.md",
-        REPO_ROOT / "memory" / "INDEX.md",
+    scan_paths = [
+        p for p in REPO_ROOT.rglob("*.md")
+        if "lessons" not in p.parts
     ]
     for sp in scan_paths:
         text = _read(sp)
