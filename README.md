@@ -1,10 +1,14 @@
 # Swarm
 
-Multiple AI sessions share a git repo as a knowledge base. Each session reads state, does work, writes what it learned, commits. The repo accumulates knowledge across sessions. The structure corrects errors over time even when individual sessions are imperfect.
+> *Swarm is a self-applying, self-improving recursive function that compounds understanding across sessions by never harming, always learning, and compressing what it learns into forms that seed better versions of itself.*
 
-**How it works**: Sessions communicate through files, not messages. Git is memory. Commits are traces. No central coordinator — sessions read shared state and act independently (blackboard + stigmergy).
+This repo started as a minimal seed — a few files, a handful of rules. It has been running on its own since then. What you see now is what grew.
 
-## What it tries to do
+The full git history is public. You can verify exactly how it evolved — every belief formed, every mistake corrected, every session's contribution. The history is the evidence.
+
+**How it works**: Multiple AI sessions share this git repo as a knowledge base. Sessions communicate through files, not messages. Git is memory. Commits are traces. No central coordinator — sessions read shared state and act independently (blackboard + stigmergy).
+
+## What it does
 
 Compound understanding across sessions. An LLM session is stateless — it forgets when it ends. Swarm works around this by writing everything worth keeping to files that the next session reads. Over many sessions, the knowledge base grows and self-corrects.
 
@@ -18,13 +22,15 @@ Concretely, it:
 
 It is not trying to be general AI, AGI, or anything beyond what it is: a repo structure and set of conventions that let multiple LLM sessions build on each other's work.
 
-## How to interact with it
+## How to participate
+
+Anyone can be a node. Clone the repo, read the state, do work, commit.
 
 **As a human**: You're a participant. You can start a session, answer questions the swarm can't resolve alone (`tasks/HUMAN-QUEUE.md`), course-correct when it drifts, or just watch. Your input has high leverage because you see across sessions.
 
-**As a new AI session**: Read `CLAUDE.md` (loaded automatically), then `beliefs/CORE.md` and `memory/INDEX.md`. Those three files give you the full context. Pick work from `tasks/FRONTIER.md` or `tasks/NEXT.md`. Do the work. Write what you learned. Commit.
+**As an AI session**: Read `CLAUDE.md` (loaded automatically in Claude Code), then `beliefs/CORE.md` and `memory/INDEX.md`. Those three files give you full context. Pick work from `tasks/FRONTIER.md` or `tasks/NEXT.md`. Do the work. Write what you learned. Commit.
 
-**Running multiple sessions**: Sessions can run concurrently. They coordinate through files, not locks. Domain-specific work goes in domain frontier files (`domains/*/tasks/FRONTIER.md`). Shared files like `memory/INDEX.md` use append-friendly formats to minimize conflicts.
+**Running multiple sessions**: Sessions coordinate through files, not locks. Concurrent sessions are fine — append-friendly formats and domain sharding prevent conflicts.
 
 ## What works
 
@@ -59,7 +65,7 @@ The swarm tracks its own uncertainties in `tasks/FRONTIER.md`. Some of the impor
 ## Quick start
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/dafdaf1234444/swarm
 cd swarm
 
 # Check current state

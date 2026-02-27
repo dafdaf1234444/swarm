@@ -253,131 +253,79 @@ def print_swarmability(beliefs: list[dict], has_errors: bool, existence_ok: bool
 # --- Entropy Detection ---
 
 def detect_entropy(beliefs: list[dict]) -> list[str]:
-    """Detect entropy accumulation: stale beliefs, orphaned files, drifted lessons."""
+    """Detect entropy: stale beliefs, superseded refs, orphaned files."""
     findings = []
-
-    # 1. Stale beliefs: theorized AND never tested
     for b in beliefs:
-        if b["evidence"] == "theorized" and (
-            not b["last_tested"] or b["last_tested"].lower() == "never"
-        ):
+        if b["evidence"] == "theorized" and (not b["last_tested"] or b["last_tested"].lower() == "never"):
             findings.append(f"  {b['id']}: theorized and never tested")
 
-    # 2. Lessons referencing superseded beliefs
     deps_path = REPO_ROOT / "beliefs" / "DEPS.md"
-    superseded: set[str] = set()
-    if deps_path.exists():
-        superseded = set(re.findall(r"~~(B\d+)~~", deps_path.read_text()))
-
+    superseded = set(re.findall(r"~~(B\d+)~~", deps_path.read_text())) if deps_path.exists() else set()
     lessons_dir = REPO_ROOT / "memory" / "lessons"
     if lessons_dir.exists() and superseded:
         for f in sorted(lessons_dir.glob("L-*.md")):
-            try:
-                text = f.read_text()
-            except Exception:
-                continue
-            affected_m = re.search(r"## Affected beliefs:\s*(.+)", text)
-            if affected_m:
-                affected_ids = re.findall(r"B\d+", affected_m.group(1))
-                stale = [bid for bid in affected_ids if bid in superseded]
+            text = f.read_text() if f.exists() else ""
+            m = re.search(r"## Affected beliefs:\s*(.+)", text)
+            if m:
+                stale = [bid for bid in re.findall(r"B\d+", m.group(1)) if bid in superseded]
                 if stale:
-                    findings.append(
-                        f"  {f.name}: references superseded {', '.join(stale)}"
-                    )
+                    findings.append(f"  {f.name}: references superseded {', '.join(stale)}")
 
-    # 3. Protocol files in memory/ not referenced by CLAUDE.md or INDEX.md
-    structural_refs = ""
-    for ref_file in [REPO_ROOT / "CLAUDE.md", REPO_ROOT / "memory" / "INDEX.md"]:
-        try:
-            structural_refs += ref_file.read_text()
-        except Exception:
-            pass
-
-    memory_dir = REPO_ROOT / "memory"
+    refs = "".join(p.read_text() for p in [REPO_ROOT / "CLAUDE.md", REPO_ROOT / "memory" / "INDEX.md"] if p.exists())
     skip = {"INDEX.md", "PRINCIPLES.md", "SESSION-LOG.md", "PULSE.md", "HEALTH.md"}
+    memory_dir = REPO_ROOT / "memory"
     if memory_dir.exists():
         for f in sorted(memory_dir.glob("*.md")):
-            if f.name in skip:
-                continue
-            if f.name not in structural_refs:
+            if f.name not in skip and f.name not in refs:
                 findings.append(f"  {f.relative_to(REPO_ROOT)}: not referenced by CLAUDE.md or INDEX.md")
-
     return findings
 
 
 def cascade_check(beliefs: list[dict], changed_id: str) -> list[str]:
     """F110-A2: Flag downstream beliefs needing re-review after a change."""
-    issues = []
     by_id = {b["id"]: b for b in beliefs}
-
     if changed_id not in by_id:
-        issues.append(f"FAIL CASCADE: Unknown belief ID '{changed_id}'")
-        return issues
+        return [f"FAIL CASCADE: Unknown belief ID '{changed_id}'"]
 
-    # Build forward graph from depends_on entries
     forward: dict[str, list[str]] = {}
     for b in beliefs:
         for dep in b.get("depends_on", []):
             forward.setdefault(dep, []).append(b["id"])
 
-    # BFS from changed_id
-    visited: set[str] = set()
-    queue = [changed_id]
-    downstream: list[str] = []
+    visited, queue, downstream = set[str](), [changed_id], []
     while queue:
-        node = queue.pop(0)
-        for child in forward.get(node, []):
+        for child in forward.get(queue.pop(0), []):
             if child not in visited:
                 visited.add(child)
                 downstream.append(child)
                 queue.append(child)
 
     if not downstream:
-        issues.append(f"INFO CASCADE: {changed_id} has no downstream beliefs — no cascade needed")
-        return issues
+        return [f"INFO CASCADE: {changed_id} has no downstream beliefs — no cascade needed"]
 
-    changed = by_id[changed_id]
-    changed_date = changed.get("last_tested", "")[:10]
-
+    changed_date = by_id[changed_id].get("last_tested", "")[:10]
+    issues = []
     for did in downstream:
-        dep = by_id[did]
-        dep_date = dep.get("last_tested", "")[:10]
-        stmt_preview = dep["statement"][:55].rstrip()
+        dep_date = by_id[did].get("last_tested", "")[:10]
+        preview = by_id[did]["statement"][:55].rstrip()
         if not dep_date or (changed_date and dep_date < changed_date):
-            issues.append(
-                f"WARN STALE: {did} ('{stmt_preview}') depends on changed {changed_id} — "
-                f"last reviewed {dep_date or 'never'} vs {changed_id} updated {changed_date}. Review."
-            )
+            issues.append(f"WARN STALE: {did} ('{preview}') — last {dep_date or 'never'} vs {changed_id} {changed_date}")
         else:
-            issues.append(
-                f"INFO CASCADE: {did} last reviewed {dep_date} ≥ {changed_id} date {changed_date} — OK"
-            )
-
+            issues.append(f"INFO CASCADE: {did} last {dep_date} ≥ {changed_id} {changed_date} — OK")
     return issues
 
 
 def check_identity() -> list[str]:
-    """Check that CORE.md hasn't drifted from its stored constitutional hash (F110-B3)."""
-    index_md = REPO_ROOT / "memory" / "INDEX.md"
-    core_md = REPO_ROOT / "beliefs" / "CORE.md"
-
+    """Check CORE.md hasn't drifted from stored constitutional hash (F110-B3)."""
+    index_md, core_md = REPO_ROOT / "memory" / "INDEX.md", REPO_ROOT / "beliefs" / "CORE.md"
     if not index_md.exists() or not core_md.exists():
         return []
-
-    index_text = index_md.read_text()
-    m = re.search(r"<!--\s*core_md_hash:\s*([a-f0-9]{64})\s*-->", index_text)
+    m = re.search(r"<!--\s*core_md_hash:\s*([a-f0-9]{64})\s*-->", index_md.read_text())
     if not m:
-        return []  # Hash not yet stored — not an error; run renew_identity.py to add it
-
-    stored_hash = m.group(1)
-    current_hash = hashlib.sha256(core_md.read_bytes()).hexdigest()
-
-    if stored_hash != current_hash:
-        return [
-            f"FAIL IDENTITY: CORE.md has changed without renewal — "
-            f"run tools/renew_identity.py after intentional changes "
-            f"(stored={stored_hash[:12]}..., current={current_hash[:12]}...)"
-        ]
+        return []
+    stored, current = m.group(1), hashlib.sha256(core_md.read_bytes()).hexdigest()
+    if stored != current:
+        return [f"FAIL IDENTITY: CORE.md changed without renewal (stored={stored[:12]}…, current={current[:12]}…)"]
     return []
 
 
@@ -399,21 +347,16 @@ def main() -> int:
     quick = "--quick" in sys.argv
     raw_args = [a for a in sys.argv[1:] if a != "--quick"]
 
-    # Extract --changed=B-ID or --changed B-ID flag (F110-A2 cascade check)
-    changed_id = None
-    args = []
-    skip_next = False
-    for i, a in enumerate(raw_args):
-        if skip_next:
-            skip_next = False
-            continue
-        if a.startswith("--changed="):
-            changed_id = a.split("=", 1)[1]
-        elif a == "--changed" and i + 1 < len(raw_args):
-            changed_id = raw_args[i + 1]
-            skip_next = True
+    changed_id, args = None, []
+    i = 0
+    while i < len(raw_args):
+        if raw_args[i].startswith("--changed="):
+            changed_id = raw_args[i].split("=", 1)[1]
+        elif raw_args[i] == "--changed" and i + 1 < len(raw_args):
+            changed_id = raw_args[i + 1]; i += 1
         else:
-            args.append(a)
+            args.append(raw_args[i])
+        i += 1
 
     path = args[0] if args else "beliefs/DEPS.md"
     if not Path(path).exists():

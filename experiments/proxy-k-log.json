@@ -141,5 +141,32 @@
     },
     "total": 25011,
     "genesis": 7989
+  },
+  {
+    "date": "2026-02-27",
+    "session": 87,
+    "tiers": {
+      "T0-mandatory": 1941,
+      "T1-identity": 5085,
+      "T2-protocols": 3034,
+      "T3-knowledge": 4729,
+      "T4-tools": 9110
+    },
+    "total": 23899,
+    "genesis": 7671,
+    "note": "new floor after T3+T4 compression"
+  },
+  {
+    "date": "2026-02-27",
+    "session": 86,
+    "tiers": {
+      "T0-mandatory": 1941,
+      "T1-identity": 5085,
+      "T2-protocols": 3034,
+      "T3-knowledge": 4213,
+      "T4-tools": 9110
+    },
+    "total": 23383,
+    "genesis": 7671
   }
 ]
