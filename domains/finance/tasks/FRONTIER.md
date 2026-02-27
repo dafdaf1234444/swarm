@@ -1,6 +1,6 @@
 # Finance Domain — Frontier Questions
 Domain agent: write here for finance-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-02-27 S183 | Active: 2
+Updated: 2026-02-27 S182 (direct wiki_swarm run, L-254) | Active: 2
 
 ## Active
 
