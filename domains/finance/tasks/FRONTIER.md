@@ -1,10 +1,10 @@
 # Finance Domain — Frontier Questions
 Domain agent: write here for finance-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-02-27 S181 | Active: 2
+Updated: 2026-02-27 S182 | Active: 2
 
 ## Active
 
-- **F-FIN1**: Does the portfolio diversification benefit (variance reduction without sacrificing mean) hold for swarm parallelization? Portfolio theory predicts that N uncorrelated assets reduce variance ~1/N without reducing expected return. Swarm prediction: N=3 agents with independent contexts should produce ensemble accuracy ≈ N=1 single-agent accuracy, but with lower session-to-session variance. **Next**: run wiki-swarm task N=1 vs N=3 (5 trials each); measure mean accuracy and standard deviation; compare variance ratio to 1/N prediction.
+- **F-FIN1**: Does the portfolio diversification benefit (variance reduction without sacrificing mean) hold for swarm parallelization? **S182 PARTIAL**: Two pre-conditions failed — (a) wiki_swarm task is deterministic: zero content variance at any N, wrong tool for accuracy variance; (b) F92 timing benchmarks measure max-of-N (wall time), not mean-of-N. Measured: N=3 timing std is 4.1x HIGHER than N=1 (wiki) and 2.3x HIGHER (compute) — opposite of portfolio prediction. Root cause: wall time = max(agents), not mean; variance of max exceeds individual variance. Portfolio diversification DOES apply to mean-of-N ensembles (majority-vote accuracy), just not to wall time. **Next**: redesign experiment — factual QA task with ground truth, stochastic LLM outputs; N=1 accuracy × 5 trials vs. majority-vote of N=3 × 5 trials; compare variance ratios. (L-251)
 
 - **F-FIN2**: Does systematic risk (structural defect) propagate to ALL spawned agents while idiosyncratic errors (per-agent hallucinations) average out? Finance: systematic risk can't be diversified away; idiosyncratic risk can. Swarm prediction: a controlled error introduced into CORE.md should appear in 100% of spawned children (systematic); a per-agent hallucination should appear in ~1/N sessions and wash out in ensemble majority vote. **Next**: design controlled 2-step experiment — (a) introduce temporary wrong belief in CORE.md, spawn N=3, measure propagation rate; (b) spawn N=3 on identical factual question, measure per-agent error overlap.
 

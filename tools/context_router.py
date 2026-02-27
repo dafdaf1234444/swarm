@@ -98,6 +98,39 @@ DOMAIN_KEYWORDS = {
             "measure", "metric", "test", "check", "run",
         ],
     },
+    "domain_ai": {
+        "files": [
+            "domains/ai/DOMAIN.md", "domains/ai/INDEX.md",
+            "domains/ai/tasks/FRONTIER.md",
+        ],
+        "keywords": [
+            "ai", "llm", "multi-agent", "mas", "coordination", "info",
+            "asymmetry", "async", "sync", "cascade", "capability",
+            "vigilance", "isomorphism", "f-ai", "expect",
+        ],
+    },
+    "domain_finance": {
+        "files": [
+            "domains/finance/DOMAIN.md", "domains/finance/INDEX.md",
+            "domains/finance/tasks/FRONTIER.md",
+        ],
+        "keywords": [
+            "finance", "portfolio", "diversif", "variance", "sharpe",
+            "systematic", "idiosyncratic", "risk", "return", "f-fin",
+            "compaction", "lesson", "citation",
+        ],
+    },
+    "domain_health": {
+        "files": [
+            "domains/health/DOMAIN.md", "domains/health/INDEX.md",
+            "domains/health/tasks/FRONTIER.md",
+        ],
+        "keywords": [
+            "health", "immune", "immunology", "memory", "cell", "adaptive",
+            "innate", "homeostasis", "cascade", "autoimmune", "f-hlt",
+            "reactivation", "persistence", "proxy",
+        ],
+    },
 }
 
 # Files always included (mandatory load)

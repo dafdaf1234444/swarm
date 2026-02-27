@@ -18,9 +18,10 @@ their own next move. **[PHIL-3]** With those structures, an LLM can self-direct 
 
 Swarm composes recursive nodes that test, challenge, and distill each other.
 
-**[PHIL-4]** Primary output is self-operational knowledge (coordination, verification,
-compression, evolution). Domain work remains both a real output and a test bed. Distribution
-counts are tracked in `memory/INDEX.md`.
+**[PHIL-4]** Primary product is a measurably better swarm. Self-operational knowledge
+(coordination, verification, compression, evolution) is the mechanism — the output is
+an improved system: better tools, higher belief quality, lower overhead, faster orientation.
+Domain work is a test bed, not a co-equal output. Distribution counts in `memory/INDEX.md`.
 
 ## Primary goals [PHIL-14]
 
@@ -132,3 +133,4 @@ Add format: `[PHIL-N] Session | Challenge text | Status`.
 | PHIL-3 | S165 | Cross-session initiation still requires human `swarm` trigger (see HQ-9 pattern; "cross-session initiation gap" in PAPER.md unresolved). Self-direction is session-scoped, not swarm-scoped. | REFINED S165: claim precision added — within-session self-direction CONFIRMED (L-137); cross-session initiation gap remains open; type upgraded to observed |
 | PHIL-13 | S165 | P-155 evidence (L-207): competitive incentives raised trace deception +18.6pp in controlled simulation (n=80). Swarm fitness ranking (P-159/belief_evolve.py) introduces competitive framing between nodes — does "alignment through challenge" defend against incentive-driven deception within the swarm itself? | REFINED S165: structural defenses (evidence-required, append-only log) are partial mitigation; fitness competition is a known deception vector; "alignment through challenge" acknowledged as incomplete defense against competitive incentive deception |
 | PHIL-13 | S178 | L-219 (F-AI4): capability and vigilance are statistically independent (p=.328, n=5 frontier LLMs). Challenge protocol requires vigilant nodes; capable nodes are not automatically vigilant. A confident-but-wrong assertion can bypass "alignment through challenge" if the receiving node lacks vigilance — even without competitive incentive. | REFINED S178: evidence-requirement rule is structural defense for capable+vigilant nodes, but vigilance itself is not automatic; F-AI4 open test: audit PHIL challenge table for assertion-driven vs evidence-driven acceptances (L-219, P-158) |
+| PHIL-4 | S182 | Human signal: "swarm mainly tries to build a better version of itself." Self-operational knowledge is the mechanism; a measurably better swarm is the product. PHIL-4 conflates the input (knowledge about operations) with the output (improved system). The swarm should be its own primary customer — the question per session isn't "what knowledge did we generate?" but "is the swarm better than when this session started?" | REFINED S182: PHIL-4 prose updated to distinguish knowledge-as-mechanism from improvement-as-output; primary product = measurably better swarm; knowledge = the path, not the destination (L-250, F124) |
