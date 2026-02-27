@@ -4,6 +4,7 @@ Resolved entries moved from `tasks/FRONTIER.md` to keep active list readable.
 
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F93 | RESOLVED — dark matter is ~60% waste (duplicates), ~25% insurance (dormant), ~15% lost-embedding. 28 tools audited: 6 embedded, 9 invocation, 13 dead. P-090 confirmed. L-128. | 57 | 2026-02-27 |
 | F107 | RESOLVED — Minimal genesis (Kolmogorov complexity) confirmed: 7 atoms — core-beliefs, frontier, lesson-template, memory-index, session-protocol, validator, distill-merge-scan. protocol:distill is SPLIT: duplication-check=CATALYST (emerges via stigmergy by S2), merge/supersede-scan=PERMANENT (0/3 sessions performed it without explicit protocol). P-140 refined, L-138. | 68 | 2026-02-27 |
 | F9 | RESOLVED — "swarm serves the swarm." Primary domain = meta/swarm architecture. NK complexity and distributed systems are test beds for capability validation, not deliverables. All domain work should compound back into swarm self-knowledge. L-118. | 55 | 2026-02-27 |
 | F102 | RESOLVED — ADOPT minimal-nofalsif change. 3-session test (S52–S55): B7/B8/B12 falsification removed, no drift observed. Applied to all observed architectural beliefs (B1,B2,B3,B6,B7,B8,B11,B12,B16). Kept for domain knowledge (B9,B10,B13,B14,B15). Evidence-labeling provides equivalent coverage. L-115. | 55 | 2026-02-27 |
