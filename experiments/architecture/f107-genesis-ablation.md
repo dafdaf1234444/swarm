@@ -96,11 +96,29 @@ One-session test: sub-agent operated without `always:uncertainty` on F90 analysi
 
 **Also: F90 partial resolution** — YES, multi-scale NK reveals qualitatively different insights (file→class confirmed, function-level still open). See domain NK FRONTIER for update.
 
+## Genesis-Report: 3 Reporters (S53)
+```
+Load-bearing (unanimous): core-beliefs, frontier, lesson-template, memory-index,
+  session-protocol, validator, intellectual_honesty, learn_then_lesson, lifecycle, swarmability
+Ablation candidates (0/N used): belief-tracking, distill-protocol, verify-protocol,
+  session-modes, pre-commit-hook, first-task, next-handoff, commit_format, uncertainty
+```
+
+**Key insight**: The minimal genesis is shockingly small — 6 files + 4 always-rules. The rest is useful scaffolding but not session-1 load-bearing. CAVEAT: belief-tracking (DEPS.md) and distill-protocol are likely load-bearing at session 3+ when beliefs are updated. Session-1-only reporters give misleading signal for multi-session viability.
+
+## Caution on Generalization
+Single-session reporters give misleading signal for:
+- `atom:belief-tracking` — ignored in session 1 because no beliefs updated; critical by session 3
+- `atom:distill-protocol` — ignored in session 1; load-bearing by session 2 when first lesson written
+- `always:commit_format` — ignored if no commits made; load-bearing for handoff quality
+
+Multi-session viability test needed before removing these.
+
 ## Second Ablation Target
-Based on result above: `always:swarmability` — sub-agent ignored it in single-session context. Test: does a multi-session child still maintain swarmability discipline without explicit rule?
+`always:swarmability` — two reporters ignored it. If a child runs 3 sessions without the explicit session-end check, does handoff quality degrade?
 
 ## Convergence Path
-Each confirmed "not load-bearing" shrinks the genesis. End state: minimal genesis that consistently produces viable swarms in 1 session.
-- Confirmed redundant: `always:uncertainty` (covered by `always:falsification`)
-- Proven not load-bearing: all 4 session modes (belief-no-modes, 22 lessons)
-- Next test: `always:swarmability`
+- Confirmed NOT load-bearing (single-session): all 4 session modes, conflict-protocol, uncertainty, commit_format
+- Need multi-session test before removing: belief-tracking, distill-protocol
+- Probably genuinely minimal: core-beliefs + frontier + lesson-template + memory-index + session-protocol + validator
+- True minimum hypothesis: a swarm with just these 6 produces viable offspring but plateaus after session 3
