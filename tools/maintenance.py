@@ -128,13 +128,31 @@ def check_human_queue() -> list[tuple[str, str]]:
 
 
 def check_child_bulletins() -> list[tuple[str, str]]:
-    """Check for unprocessed child bulletins."""
+    """Check for unprocessed child bulletins, filtering already-integrated children."""
     results = []
     bulletin_dir = REPO_ROOT / "experiments" / "inter-swarm" / "bulletins"
-    if bulletin_dir.exists():
-        bulletins = list(bulletin_dir.glob("*.md"))
-        if bulletins:
-            results.append(("DUE", f"{len(bulletins)} child bulletin(s) — propagate_challenges.py / harvest"))
+    integration_dir = REPO_ROOT / "experiments" / "integration-log"
+    if not bulletin_dir.exists():
+        return results
+
+    integrated = set()
+    if integration_dir.exists():
+        for f in integration_dir.glob("*.json"):
+            integrated.add(f.stem)
+
+    unprocessed = []
+    stale = []
+    for f in bulletin_dir.glob("*.md"):
+        name = f.stem
+        if name in integrated:
+            stale.append(name)
+        else:
+            unprocessed.append(name)
+
+    if unprocessed:
+        results.append(("DUE", f"{len(unprocessed)} unprocessed bulletin(s): {', '.join(unprocessed[:5])}"))
+    if stale:
+        results.append(("NOTICE", f"{len(stale)} stale bulletin(s) from integrated children (can delete): {', '.join(stale[:5])}"))
 
     return results
 
@@ -222,21 +240,36 @@ def check_frontier_decay() -> list[tuple[str, str]]:
     return results
 
 
-def check_health_due() -> list[tuple[str, str]]:
-    """Check if periodic health check is due (every ~5 sessions)."""
-    results = []
-    session = _session_number()
-    if session > 0 and session % 5 == 0:
-        results.append(("PERIODIC", f"Session {session} — health check due (every ~5 sessions). See memory/HEALTH.md"))
-    return results
+def check_periodics() -> list[tuple[str, str]]:
+    """Check self-scheduled periodic items from periodics.json.
 
-
-def check_tool_consolidation() -> list[tuple[str, str]]:
-    """Check if tool consolidation is due (every ~25 sessions)."""
+    The swarm registers items it wants periodically re-examined.
+    Each item has a cadence (sessions) and last_reviewed_session.
+    Items are DUE when current_session - last_reviewed >= cadence.
+    """
     results = []
+    periodics_path = REPO_ROOT / "tools" / "periodics.json"
+    if not periodics_path.exists():
+        return results
+
+    try:
+        data = json.loads(periodics_path.read_text())
+    except Exception:
+        return results
+
     session = _session_number()
-    if session > 0 and session % 25 == 0:
-        results.append(("PERIODIC", f"Session {session} — tool consolidation due (every ~25 sessions). Audit tools/ for duplicates and dead code."))
+    if session <= 0:
+        return results
+
+    for item in data.get("items", []):
+        cadence = item.get("cadence_sessions", 10)
+        last = item.get("last_reviewed_session", 0)
+        gap = session - last
+        if gap >= cadence:
+            overdue = gap - cadence
+            urgency = "DUE" if overdue > cadence else "PERIODIC"
+            results.append((urgency, f"{item['description']} (every ~{cadence} sessions, last: S{last})"))
+
     return results
 
 
@@ -324,8 +357,7 @@ def main():
         check_lessons,
         check_child_bulletins,
         check_frontier_decay,
-        check_health_due,
-        check_tool_consolidation,
+        check_periodics,
         check_human_queue,
         check_uncommitted,
         check_resolution_claims,

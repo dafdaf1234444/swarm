@@ -15,5 +15,5 @@ If your session generates evidence that contradicts a belief, challenge it here 
 
 | Session | Target | Challenge | Evidence | Proposed | Status |
 |---------|--------|-----------|----------|----------|--------|
-| S65 | P-140 | protocol:distill = PERMANENT based on 1/3 sessions. Premature. Need 2 more v3 sessions before claiming PERMANENT. | L-131: S1 no merge-scan observed but 1 data point | Wait for v3 S2+S3 before updating P-140 status | OPEN |
+| S65 | P-140 | protocol:distill = PERMANENT based on 1/3 sessions. Premature. Need 2 more v3 sessions before claiming PERMANENT. | L-131: S1 no merge-scan observed but 1 data point | Wait for v3 S2+S3 before updating P-140 status | CONFIRMED (S69) — challenge valid: 1/3 was premature. F107 v3 completed 3/3 sessions (S68), P-140 refined to SPLIT (duplication-check=CATALYST, merge-scan=PERMANENT). Challenge drove better resolution. |
 

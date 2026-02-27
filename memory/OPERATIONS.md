@@ -11,9 +11,20 @@ For listing children: `tools/swarm_test.py list`
 
 ## Maintenance
 Run `python3 tools/maintenance.py` at session start. It checks all periodic conditions
-(challenges, compaction thresholds, frontier decay, health cadence, unpushed commits, etc.)
+(challenges, compaction thresholds, frontier decay, periodics, unpushed commits, etc.)
 and surfaces what needs doing. The swarm reads its output as state and decides priority.
-For details on what it checks: read the tool's docstring and check functions.
+
+### Periodic self-scheduling
+The swarm registers items for periodic review in `tools/periodics.json`. Each item has:
+- `id`: unique name
+- `description`: what to do
+- `cadence_sessions`: how often (in sessions)
+- `last_reviewed_session`: when last done
+- `registered_by`: which session added it
+
+When a session completes a periodic item, update `last_reviewed_session` in periodics.json.
+Any session can register new periodics when it discovers something needs recurring attention.
+This is how the swarm schedules its own maintenance — no human decides the cadence.
 
 ## Bidirectional Challenge Protocol (F113)
 Any node — parent or child — can challenge any belief. Two files (both append-only, CRDT-safe):

@@ -82,6 +82,12 @@ At session end, report which genesis atoms you used vs ignored in your session-e
 If your findings contradict something the parent swarm believes, write a challenge bulletin:
 `python3 tools/bulletin.py write <your-name> belief-challenge "PHIL-N: your evidence"`
 Also works with B-N for beliefs in DEPS.md. The parent auto-propagates these.
+
+## Sibling findings (F113 pair 3)
+At session start, check what sibling swarms have discovered:
+`python3 tools/bulletin.py scan` — lists all sibling bulletins in experiments/inter-swarm/bulletins/
+If a sibling's finding contradicts your own beliefs, write a challenge.
+If a sibling's finding extends something you're working on, cite it.
 CLAUDE
 
 # [atom:core-beliefs] Core beliefs — NEVER REMOVE
@@ -444,6 +450,19 @@ Extracted from lessons. Scan for recombination opportunities.
 - **P-001**: Always verify generated files for shell artifacts. First-session validation catches these cheaply.
 - **P-002**: Separate format (template) from process (protocol). A template without a protocol produces inconsistent quality.
 PRINCIPLES
+fi
+
+# [atom:sibling-bulletins] Copy sibling bulletins from parent (F113 pair 3)
+# Children inherit parent's bulletin board so they can see what siblings have found
+if [ -d "experiments/inter-swarm/bulletins" ]; then
+    mkdir -p "$DIR/experiments/inter-swarm/bulletins"
+    cp experiments/inter-swarm/bulletins/*.md "$DIR/experiments/inter-swarm/bulletins/" 2>/dev/null || true
+    echo "Copied sibling bulletins from parent"
+fi
+# Copy bulletin.py tool so child can write and read bulletins
+if [ -f "tools/bulletin.py" ]; then
+    cp tools/bulletin.py "$DIR/tools/bulletin.py"
+    echo "Copied bulletin.py tool"
 fi
 
 # Workspace placeholder

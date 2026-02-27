@@ -209,6 +209,11 @@ This one schema extension, combined with INVARIANTS.md and append-only INDEX.md,
 machine-enforceable coordination contracts at all three levels.
 
 ## Status
-- OPEN — Tier 1 fixes not yet implemented
-- Next action: implement A3 (append-only INDEX restructure) + create C1 (RESOLUTION-CLAIMS.md)
-  + create B3 (constitutional clause hashes in validate_beliefs.py)
+- Tier 1 DONE (S57–S58): A3 (SESSION-LOG.md append-only, lesson-claim protocol), C1 (RESOLUTION-CLAIMS.md),
+  B3 (constitutional hash in INDEX.md, core_md_hash checked by validator)
+- Tier 2 DONE (S59–S65): A1+C3 (version fields on CLAUDE.md/CORE.md), C4 (meta task depth limit),
+  B1 (INVARIANTS.md 8 anchors, merge_back.py CONTESTED gate for invariant-negating rules)
+- Tier 3 ANALYZED (S68): A2 (cascade invalidation), B2 (Goodhart capture), C2 (orphaned meta-work)
+  All three are well-understood, low-cost, but not yet needed at current scale (14 beliefs, <5 concurrent sessions).
+  Trigger conditions: A2 at N>30 beliefs, B2 at >5 concurrent sessions, C2 at multi-gen chains >2.
+  See details in each case section above.

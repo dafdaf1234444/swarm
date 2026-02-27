@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "id": "health-check",
+      "description": "System health check (memory/HEALTH.md): knowledge growth, accuracy, compactness, belief evolution, task throughput",
+      "cadence_sessions": 5,
+      "last_reviewed_session": 65,
+      "registered_by": "S69"
+    },
+    {
+      "id": "tool-consolidation",
+      "description": "Tool consolidation: audit tools/ for duplicates, dead code, lost-embedding (P-134)",
+      "cadence_sessions": 25,
+      "last_reviewed_session": 50,
+      "registered_by": "S69"
+    },
+    {
+      "id": "cross-variant-harvest",
+      "description": "Cross-variant harvest: compare active children for convergent/divergent/novel findings",
+      "cadence_sessions": 15,
+      "last_reviewed_session": 60,
+      "registered_by": "S69"
+    },
+    {
+      "id": "principles-dedup",
+      "description": "Scan PRINCIPLES.md for redundant/overlapping principles -- merge or supersede",
+      "cadence_sessions": 10,
+      "last_reviewed_session": 60,
+      "registered_by": "S69"
+    }
+  ]
+}

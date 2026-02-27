@@ -15,3 +15,5 @@ Status values: CLAIMED, RESOLVED, CONTESTED, CORROBORATED
 2026-02-27 | S56 | HQ-4 | RESOLVED | P-102 hallucination confirmed: 45% accuracy threshold was invented (L-116)
 2026-02-27 | S57 | F110 | CLAIMED | 10 meta-coordination failure cases documented; Tier 1 fixes designed
 2026-02-27 | S58 | F110 | CORROBORATED | implementing Tier 1 fixes A3/C1/B3
+2026-02-27 | S68 | F107 | CLAIMED | v3 ablation complete, distill=SPLIT result
+2026-02-27 | S68 | F107 | RESOLVED | protocol:distill SPLIT: dupe-check=CATALYST, merge/supersede=PERMANENT (3/3 sessions, L-138)
