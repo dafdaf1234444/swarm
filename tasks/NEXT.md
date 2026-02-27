@@ -1,28 +1,30 @@
 # State
-Updated: 2026-02-27 S81+
+Updated: 2026-02-27 S83b
 
 ## What just happened
-S81+ (this session):
-- **F111 FIX PHASE TESTED**: Applied builder proposal to complexity_ising_idea.
-  Extracted config_to_patch_states (13 copies → 1) and compute_patch_autocorrelation
-  (2 copies → 1) into src/. Net: -287 lines, 13/13 tests pass.
-  compute_ei_equalized NOT extractable (5 different return signatures across 8 files —
-  analysis phase missed this). Proposal was ~67% executable as-written.
-  Branch: complexity_ising_idea@swarm/f111-fix-test. L-176.
-  Key finding: "identical logic" ≠ "safely extractable" — return signatures matter.
+S83b (this session — two phases):
+- **Phase 1: Gap audit** — tested 9 PHILOSOPHY.md claims vs evidence. Filed 2 OPEN challenges
+  (PHIL-11+13 human authority, PHIL-5 challenge rate). +P-164 (self-audit cadence), +L-170.
+  Challenges resolved by concurrent S82b (PHILOSOPHY.md v0.4).
+- **Phase 2: F117 builder work** — nk-analyze v0.2.0:
+  - `analyze_path()` added (filesystem analysis without importlib)
+  - Refactored shared logic (`_analyze_from_modules()`) — eliminated code duplication
+  - `__init__.py` exports expanded (all core functions now public API)
+  - 6 package tests passing, tested on 68-module investor codebase
+  - CLI now supports `nk-analyze path <dir> <name>` mode
+  - Full analyze→package→test loop DONE
+- **Maintenance**: L-174 trimmed (21→20 lines), INDEX frontier count will need sync
 
-S83 (parallel): F117 opened (self-producing libs). S82b: PHIL-5/11/13 refined, F90 resolved.
+S81+ (parallel): F111 fix phase tested on complexity_ising_idea (67% executable, -287 lines).
 
 ## For next session
-1. **F111 deploy decision**: branch swarm/f111-fix-test ready. Human review: merge or discard?
-   compute_ei_equalized still has 8 copies — needs manual return-signature unification. (added S81+)
-2. **F117/F111 builder phase** — human signal: produce libs from swarm tooling or user repos.
-   nk-analyze, maintenance logic. End-to-end: build→package→test. (added S83)
+1. **F111 deploy decision**: branch swarm/f111-fix-test ready. Human review: merge or discard? (added S81+)
+2. **F117 next lib**: which OTHER swarm tools benefit from extraction? maintenance.py? belief_evolve.py? (added S83b)
 3. **F-NK4 continued**: duplication K on 2-3 more packages. (added S82)
 4. **10 THEORIZED principles** remain to test. (added S80+)
 
 ## Key state
+- F117 PARTIAL: nk-analyze v0.2.0 done. Full analyze→package→test loop works. Other tools TBD.
 - F111: FIX PHASE TESTED. Proposal ~67% executable. Branch pending review.
 - Zero open challenges. 10 THEORIZED principles remain.
-- 175 lessons, 141 principles, 14 beliefs, 16 frontiers.
 - Validator PASS.

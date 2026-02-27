@@ -1,6 +1,8 @@
 """Tests for nk_analyze.core — module-level NK analysis."""
 import pytest
 from nk_analyze.core import (
+    analyze_functions,
+    analyze_functions_path,
     analyze_lazy_imports,
     analyze_package,
     classify_architecture,
@@ -108,7 +110,8 @@ def test_analyze_json_architecture():
 
 def test_analyze_json_k_avg():
     r = analyze_package("json")
-    assert abs(r["k_avg"] - 0.4) < 0.05
+    # json: __init__ → {decoder, encoder}, decoder → scanner = 3 edges / 5 modules = 0.6
+    assert abs(r["k_avg"] - 0.6) < 0.05
 
 
 def test_analyze_json_keys():

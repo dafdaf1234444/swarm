@@ -3,6 +3,8 @@
 __version__ = "0.2.0"
 
 from nk_analyze.core import (
+    analyze_functions,
+    analyze_functions_path,
     analyze_lazy_imports,
     analyze_package,
     analyze_path,
@@ -18,6 +20,8 @@ from nk_analyze.core import (
 __all__ = [
     "analyze_package",
     "analyze_path",
+    "analyze_functions",
+    "analyze_functions_path",
     "analyze_lazy_imports",
     "classify_architecture",
     "count_lines",
