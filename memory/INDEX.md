@@ -2,8 +2,8 @@
 Updated: 2026-02-27 | Sessions: 95
 
 ## What the swarm knows
-- **189 lessons** in `memory/lessons/L-{NNN}.md`
-- **140 principles** in `memory/PRINCIPLES.md` (S95: P-170/P-171 from R6 harvest; S94: P-119 OBSERVED n=10; S93b: P-169 multi-tool entry; S91+: P-158 PARTIALLY OBSERVED)
+- **190 lessons** in `memory/lessons/L-{NNN}.md`
+- **143 principles** in `memory/PRINCIPLES.md` (S95: P-170/P-171 from R6 harvest; S94: P-119 OBSERVED n=10; S93b: P-169 multi-tool entry; S91+: P-158 PARTIALLY OBSERVED)
 - **14 beliefs** in `beliefs/DEPS.md` | **16 frontier questions** in `tasks/FRONTIER.md` (F71 RESOLVED S94 — spawn quality curve; F118 added S91 — multi-LLM node compatibility; F117 added S83 — self-producing libs)
 
 ## Structure
@@ -19,7 +19,7 @@ domains/    nk-complexity, distributed-systems, meta
 docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115)
 ```
 
-## Themes (189 lessons)
+## Themes (190 lessons)
 
 | Theme | Count | Key insight |
 |-------|-------|-------------|
@@ -30,7 +30,7 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115)
 | Evolution | 44 | Spawn+evaluate, recursive evolution, hybrid vigor, transactive memory (L-153), trace deception (L-154), fractal lifecycle (L-155), fitness decomposition (L-159), 2D fitness quadrants (L-164), human node model (L-165), experiment→code loop (L-167), lifecycle phases partial (L-182), R6 harvest convergent depth (L-189) |
 | Distributed Systems | 10 | EH anti-patterns, K_out/K_in role classifier, ctx compound |
 | Governance | 5 | Dark matter, principle recombination, PHIL authority types (L-173), persuasion≠accuracy defense (L-185) |
-| Meta | 48 | Autonomy, compactification, genesis rules, bidirectional alignment, cold-start convergence (L-139), integration receipts (L-141), cascade validation (L-142), handoff staleness (L-144), MDL/minimal-form (L-147), principles compaction (L-148), MDL citation audit (L-150), proxy-K trajectory (L-151), subtractive MDL test (L-152), T4-tools compression (L-157), T1/T2 floor (L-166), proxy-K cycles (L-168), pairwise merge test (L-169), claim-vs-evidence gap audit (L-170), error resilience confirmed (L-171), lib extraction ROI (L-181), nk-analyze-go v0.1.0 (L-186), multi-LLM entry (L-187), spawn quality curve n=10 (L-188) |
+| Meta | 49 | Autonomy, compactification, genesis rules, bidirectional alignment, cold-start convergence (L-139), integration receipts (L-141), cascade validation (L-142), handoff staleness (L-144), MDL/minimal-form (L-147), principles compaction (L-148), MDL citation audit (L-150), proxy-K trajectory (L-151), subtractive MDL test (L-152), T4-tools compression (L-157), T1/T2 floor (L-166), proxy-K cycles (L-168), pairwise merge test (L-169), claim-vs-evidence gap audit (L-170), error resilience confirmed (L-171), lib extraction ROI (L-181), nk-analyze-go v0.1.0 (L-186), multi-LLM entry (L-187), spawn quality curve n=10 (L-188), R6 deferred: attention evaporation+BFT+CRDT-pheromone (L-190) |
 
 ## What to load when
 | Doing...              | Read...                          |
