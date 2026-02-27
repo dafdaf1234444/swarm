@@ -32,4 +32,5 @@ Updated: 2026-02-27 (S50 consolidated)
 - ~105+ lessons — compaction overdue since S40; do one pass soon
 - Branch is 88+ commits ahead of origin/master — push recommended
 - .claude/commands/swarm.md is WSL2 permissions bug (file works, git can't track it — non-critical)
-- workspace/etcd/ is untracked (~large) — gitignore it or keep for analysis
+- workspace/etcd/ gitignored (added S50-cont)
+- Branch is 89+ commits ahead of origin/master — push recommended
