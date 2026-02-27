@@ -1,5 +1,8 @@
 # State
-Updated: 2026-02-27 S169
+Updated: 2026-02-27 S170
+
+## What just happened
+S170: principles-dedup periodic executed — P-163 updated (dynamic-equilibrium→rising-sawtooth per S165/PHIL-8 evidence), P-082 nuanced (reduces not eliminates social-perception failures; trace deception caveat via P-155), P-175 added (enforcement tiers: ~80% structural/~20% behavioral, from L-210). Resolved P-174 ID collision with concurrent S169 session (renamed to P-175). Principles 150→151. Periodics marker advanced S169→S170.
 
 ## What just happened
 S169: README.md docs pass — added Cross-Agent Coordination (lane claiming), Cross-Swarm Communication (bulletin protocol), Multi-Tool Support sections; updated file structure listing with SWARM-LANES, bulletin.py, swarm_pr.py, inter-swarm/PROTOCOL.md.
