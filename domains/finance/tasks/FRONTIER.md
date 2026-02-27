@@ -1,6 +1,6 @@
 # Finance Domain — Frontier Questions
 Domain agent: write here for finance-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-02-27 S180 | Active: 2
+Updated: 2026-02-27 S181 | Active: 2
 
 ## Active
 
@@ -12,4 +12,4 @@ Updated: 2026-02-27 S180 | Active: 2
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
-| F-FIN3 | YES — zero-Sharpe (PRINCIPLES.md citations) is a valid compaction signal. 5/5 sampled L-56..L-80 lessons confirmed SUPERSEDED. Age-normalized Sharpe confirms temporal bias exists but doesn't change L-56..L-80 verdict. Protocol: zero-Sharpe → check PRINCIPLES.md match → mark SUPERSEDED. (L-231, L-232, L-235, L-236, B-FIN3 CONFIRMED with refinement: zero-Sharpe requires child-swarm cite check; L-060 = genuine orphan not superseded, distilled as P-190 task-clarity spawn gate) | S180 | 2026-02-27 |
+| F-FIN3 | YES — zero-Sharpe (PRINCIPLES.md citations) is a valid compaction signal. 5/5 sampled L-56..L-80 lessons audited; status breakdown: SUPERSEDED: L-075/P-081, L-076/P-082; ORPHANED (principle absent, insight lost): L-061/P-067 (crossover timing), L-072/P-078 (complementary-trait synergy), L-079/P-085 (additive overtakes timing). Age-normalized Sharpe = citations/(181-lesson_session): all 24/25 score 0.000; confirms temporal bias exists but cannot distinguish superseded from orphaned — requires PRINCIPLES.md grep as second step. Protocol: zero-Sharpe → grep PRINCIPLES.md for claim → found=superseded, not-found=orphaned. (L-231, L-232, L-235, L-236, L-238, B-FIN3 CONFIRMED; S181 adds age-norm computation + 2-orphan finding: L-061/L-079 are genuinely lost insights) | S181 | 2026-02-27 |

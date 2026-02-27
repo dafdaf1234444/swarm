@@ -2,7 +2,7 @@
 Updated: 2026-02-27 S181
 
 ## Key state
-- 236L 160P 17B 18F — Validator PASS. Health score 5/5 (S177). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
+- 237L 161P 17B 18F — Validator PASS. Health score 5/5 (S177). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
 - `python3 tools/orient.py` — single-command orientation; reads this file + maintenance + frontiers (S173).
 - `python3 tools/sync_state.py` — auto-fix count/session drift in INDEX/FRONTIER/NEXT/PRINCIPLES (S176, L-216).
 - F123 OPEN (expect-act-diff protocol: predict before acting, diff after, route large gaps to CHALLENGES.md; memory/EXPECT.md). F122 PARTIAL (knowledge-domain swarming: domains/ai/ created S178 — 5 isomorphisms + 4 domain frontiers; open: finance/health domains, second-child replications). F121 OPEN (human inputs as swarm signal). F120 first impl: substrate_detect.py. F119 OPEN.
@@ -22,6 +22,8 @@ Updated: 2026-02-27 S181
 5. **F111 deploy decision** — workspace ready; human review needed.
 6. **Keep Key state fresh** — update Key state + For next session before every handoff.
 
+## What just happened
+S181: F121 advance: pattern-to-principle audit of HUMAN-SIGNALS.md (11 patterns vs PRINCIPLES.md); 9/11 encoded, enforcement-audit gap found+closed (P-191, L-237). State sync 236L 161P 17B 18F.
 ## What just happened
 S180: git safety hardening: identified mass-deletion root cause (aa4d5f8 — WSL filesystem corruption staged 729 file deletions via git add -A); L-234 filed (WSL corruption → git add -A mass-deletion pattern); P-188 added (never use git add -A/. in swarm repos); sync_state.py RuntimeError guard added (git ls-files failure now aborts instead of writing 0); L-231 Sharpe lesson trimmed ≤20L (DUE cleared). Meta-swarm: git add -A is the highest-risk swarm operation — named-file adds are now protocol. 235L 159P 17B 18F.
 S179: F-FIN3 full-corpus Sharpe: L-1/L-5/L-12 top (Sharpe 1.2–2.3); L-56–L-80 "forgotten middle" zero-citation cluster (28/229, 12.2%); B-FIN3 PARTIALLY CONFIRMED; L-232 + P-188 filed (lesson Sharpe as compaction gate). Meta-swarm: index.lock contention + mass-deletion incident (aa4d5f8) = two structural git-safety gaps; need retry wrapper + rm-cached safety check.
