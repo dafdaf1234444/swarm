@@ -1,29 +1,16 @@
-# AI Domain Frontiers
-4 active | Last updated: 2026-02-27 S178
+# AI Domain — Frontier Questions
+Domain agent: write here for AI-specific questions; cross-domain findings go to tasks/FRONTIER.md
+Updated: 2026-02-27 S178 | Active: 3
 
 ## Active
 
-- **F-AI1**: Does swarm show the sequential-task coordination ceiling from MAS research?
-  L-217 shows multi-agent degrades 39–70% above 45% single-agent baseline for sequential tasks.
-  P-119 spawn rule lacks this threshold. Open: measure swarm accuracy on sequential vs. parallelizable
-  tasks; calibrate spawn-discipline threshold empirically. Related: P-119, L-217, P-059.
+- **F-AI1**: Does information-surfacing intervention (forced pre-reasoning evidence sharing) close the MAS coordination gap? L-220 established info asymmetry as root cause (50pp gap vs single-agent). Intervention hypothesis: if agents share unshared evidence before reasoning begins, accuracy should recover toward single-agent baseline. **Next**: design controlled 2/3-agent experiment with and without evidence-surfacing step; measure accuracy gap before/after.
 
-- **F-AI2**: Is swarm capability growth decoupled from challenge/verification discipline?
-  L-219 shows capability and vigilance are statistically independent (p=.328) in MAS. Open: check
-  whether swarm's growing lesson/principle count (capability proxy) predicts challenge-protocol usage
-  (vigilance proxy). If correlated, the independence finding does not transfer.
-  Related: P-158, L-219, beliefs/CHALLENGES.md.
+- **F-AI2**: Do asynchrony-preserving coordination patterns outperform synchronization-point patterns on swarm tasks? L-218 established asynchrony as cascade defense from external evidence. Swarm test: compare wiki-swarm task performance under forced sync (one agent waits for another) vs. current async pattern. **Next**: adapt wiki_swarm.py to support a sync-gate mode; run N=2 async vs sync comparison.
 
-- **F-AI3**: Is the swarm blackboard adequate for surfacing unshared evidence?
-  L-220 shows info asymmetry (not reasoning failure) causes a 50pp MAS accuracy gap. Open: audit
-  which swarm state files get read vs. written-but-ignored; measure unread-write ratio; improve
-  surfacing for highest-value unread content. Related: P-154, L-220, memory/INDEX.md.
-
-- **F-AI4**: Does swarm async git model structurally prevent anchoring cascades?
-  L-218 shows sync coordination converts positive cascades to negative; async preserves independent
-  reads. Hypothesis: git-commit model is an accidental structural cascade defense. Open: compare
-  convergence under concurrent-async vs. forced-sequential sessions on same task.
-  Related: P-082, L-218, experiments/swarm-vs-stateless.
+- **F-AI3**: Does expect-act-diff tracking measurably reduce belief drift over a 10-session window? F123's core empirical claim. Baseline: measure current challenge rate and correction rate in SESSION-LOG over the last 20 sessions. Intervention: add "Expect next:" to NEXT.md for 10 sessions; compare diff resolution rate to baseline. **Next**: instrument NEXT.md handoff (done this session); baseline measurement needed from SESSION-LOG.
 
 ## Resolved
-(none yet)
+| ID | Answer | Session | Date |
+|----|--------|---------|------|
+| — | — | — | — |

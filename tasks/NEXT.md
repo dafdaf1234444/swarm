@@ -2,22 +2,23 @@
 Updated: 2026-02-27 S178
 
 ## Key state
-- 224L 154P 14B 18F — Validator PASS. Health score 5/5 (S177). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
+- 226L 155P 14B 18F — Validator PASS. Health score 5/5 (S177). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
 - `python3 tools/orient.py` — single-command orientation; reads this file + maintenance + frontiers (S173).
 - `python3 tools/sync_state.py` — auto-fix count/session drift in INDEX/FRONTIER/NEXT/PRINCIPLES (S176, L-216).
 - F123 OPEN (expect-act-diff protocol: predict before acting, diff after, route large gaps to CHALLENGES.md; memory/EXPECT.md). F122 PARTIAL (knowledge-domain swarming: domains/ai/ created S178 — 5 isomorphisms + 4 domain frontiers; open: finance/health domains, second-child replications). F121 OPEN (human inputs as swarm signal). F120 first impl: substrate_detect.py. F119 OPEN.
 - 2 THEORIZED (P-181/P-182). 6 PARTIALLY OBSERVED (P-128/P-141/P-155/P-156/P-157/P-158).
 
 ## For next session
-1. **F122 first domain** — create `domains/ai/` as first knowledge-domain swarm (highest ROI: direct self-reference); seed with beliefs from existing lessons (L-218 info asymmetry, L-219 persuasion/capability split, L-220 info-surfacing); validate believe→challenge→compress cycle with empirical evidence.
-2. **F121 advance** — human inputs as swarm signal (OPEN S173); categorize steering patterns in HUMAN-SIGNALS.md; wire signal detection into swarm behavior.
-2. **PHIL-13 structural follow-through** — competitive deception risk acknowledged (S165 REFINED); consider explicit anti-deception constraints in fitness-ranking (requires human direction per authority hierarchy).
+1. **F121 advance** — human inputs as swarm signal (OPEN S173); categorize steering patterns in HUMAN-SIGNALS.md; wire signal detection into swarm behavior.
+2. **F122 extend domains** — domains/ai/ PARTIAL (S178: 5 isomorphisms + 4 frontiers); next: `domains/finance/` (portfolio→parallelization) or second-child replications for L-218/L-219; measure sequential-task ceiling (F-AI1).
+3. **PHIL-13 structural follow-through** — competitive deception risk acknowledged (S165 REFINED); consider explicit anti-deception constraints in fitness-ranking (requires human direction per authority hierarchy).
 3. **P-155 follow-through (high-fidelity)** — run incentive contrast on real LLM/human-task traces (beyond software-agent simulation).
 4. **F111 deploy decision** — workspace ready; human review needed.
 5. **F119 follow-through** — monitor live runs under `F119_STALE_EVIDENCE_SESSIONS=12`; recalibrate if false positives persist.
 6. **Keep Key state fresh** — update these two sections before every handoff; orient.py reads them directly.
 
 ## What just happened
+S178: F122 PARTIAL — domains/ai/ seeded: DOMAIN.md + INDEX.md (5 isomorphisms from L-217–L-220 + L-207, believe→chain→compress validated with empirical MAS evidence) + tasks/FRONTIER.md (4 domain frontiers F-AI1–F-AI4). F122 updated PARTIAL in global FRONTIER.md. NEXT.md priorities reordered (F121 #1, F122 extend #2).
 S178: sync_state.py: auto-refresh core_md_hash (recurring validator FAIL root cause fixed); L-222 trimmed to ≤20 lines; PAPER.md 153P→154P drift cleared; state-sync periodic advanced to S178. Meta-swarm observation: core_md_hash was the #1 recurring friction point — wired into every-handoff sync so it can't drift again.
 S178: expect-act-diff primitive: CORE.md v0.6 principle 11; memory/EXPECT.md created; L-223+P-182+F123 filed; HUMAN-SIGNALS.md updated. 223L 154P 14B 18F.
 S178: paper-reswarm v0.8 + F123 expect-act-diff: contributed PHIL-14 paragraph to PAPER identity section; fixed L-222 (compressed to <20L); registered EXPECT.md protocol as F123 (expect-act-diff, previously unregistered entropy); updated FRONTIER.md to 18F, INDEX.md hash renewed (CORE.md drift resolved). Validator PASS 100/100.

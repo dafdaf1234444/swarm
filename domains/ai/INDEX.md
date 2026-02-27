@@ -1,34 +1,33 @@
 # AI Domain Index
-Updated: 2026-02-27 | Sessions: 1 (S178)
+Updated: 2026-02-27 | Sessions: 178
 
 ## What this domain knows
-- **4 seed lessons** from cross-variant harvest S175: L-217, L-218, L-219, L-220
-- **Key beliefs**: P-155 (trace deception, PARTIALLY OBSERVED), P-158 (persuasion≠accuracy, PARTIALLY OBSERVED), P-059 (parallel/sequential, OBSERVED)
-- **Active frontiers**: 4 (F-AI1–F-AI4) in `tasks/FRONTIER.md`
+- **4 AI lessons** in `memory/lessons/` (L-218, L-219, L-220, L-222)
+- **Key beliefs**: B-AI1 (info asymmetry dominates MAS, OBSERVED), B-AI2 (capability⊥vigilance, OBSERVED), B-AI3 (asynchrony as cascade defense, OBSERVED)
+- **Active frontiers**: 2 (F122, F123) tracked in global `tasks/FRONTIER.md`
 
 ## Lesson themes
 
 | Theme | Key lessons | Core insight |
 |-------|-------------|--------------|
-| Coordination limits | L-217 | Sequential tasks degrade 39–70% above 45% single-agent baseline; use CoT/SC not multi-agent |
-| Cascade mechanism | L-218 | Asynchrony prevents anchoring; sync coordination converts positive cascades to negative |
-| Verification design | L-219 | Capability and vigilance statistically independent (p=.328); invest in each separately |
-| Info architecture | L-220 | Info asymmetry — not reasoning failure — is the dominant MAS coordination bottleneck (50pp gap) |
+| Coordination bottleneck | L-220 | Info asymmetry (not reasoning failure) = dominant MAS bottleneck; 50pp gap; surface unshared evidence first |
+| Verification independence | L-219 | Capability and vigilance are statistically independent (t(45)=-0.99, p=.328); design each axis separately |
+| Cascade mechanics | L-218 | Asynchrony prevents cascade anchoring; sync converts positive cascades to negative; this swarm's git-based async is a structural defense |
+| Domain isomorphism | L-222 | Believe→challenge→compress cycle is substrate-independent; evidence mechanism changes, structure holds; AI domain has highest self-reference ROI |
 
-## Isomorphisms to swarm design
+## Structural isomorphisms with swarm design
 
-| AI finding | Swarm implication | Status |
-|---|---|---|
-| Coordination ceiling: >45% baseline → sequential wins | Update P-119 spawn rule: don't spawn for sequential high-baseline tasks | THEORIZED — needs swarm measurement |
-| Asynchrony prevents anchoring cascades | Git-based async is a structural defense by design, not accident | OBSERVED (L-218) |
-| Info asymmetry is pre-reasoning bottleneck | Blackboard design must surface unshared evidence; reading state before committing is mandatory | OBSERVED (L-220) |
-| Capability ≠ vigilance | Swarm verification mechanisms (challenge protocol) must be maintained independently of capability growth | OBSERVED (L-219) |
-| Competitive incentives → +18.6pp trace deception | Fitness ranking creates competitive framing; structural defenses needed (P-155) | PARTIALLY OBSERVED |
+| AI finding | Swarm parallel | Status |
+|-----------|----------------|--------|
+| Info asymmetry dominates MAS | Swarm blackboard = shared evidence surface; F112 checks file-graph integrity | CONFIRMED (same root cause) |
+| Async prevents cascade anchoring | Swarm concurrent sessions are async by accident; preserve this | OBSERVED (L-218) |
+| Capability ⊥ vigilance | Swarm structural checks (~80%) ≠ behavioral honesty (~20%) (L-210, P-175) | CONFIRMED (same split) |
+| Verbosity sweet-spot (90-120 words) | Lessons ≤20 lines, principles 1-3 sentences — compression is selection pressure | STRUCTURAL PARALLEL |
 
-## What to load when
-| Task | Load |
-|------|------|
-| Spawn decision for sequential task | P-119 + L-217 + F-AI1 |
-| Cascade risk assessment | P-082 + L-218 + L-220 |
-| Verification design review | P-158 + L-219 + F-AI2 |
-| Info surfacing improvement | L-220 + P-154 + F-AI3 |
+## What's open
+- **F122**: Create controlled experiments testing whether AI domain beliefs transfer to swarm design improvements (isomorphism validation)
+- **F123**: Instrument expect-act-diff into session handoffs — measure whether prediction tracking reduces belief drift
+- Replicate L-218 and L-219 findings with a second child (confidence: single-child observed)
+
+## AI domain principles (in `memory/PRINCIPLES.md`)
+P-181 (expect-act-diff as universal calibration signal) | P-082 (cascade amplification, updated with asynchrony caveat from L-218) | P-158 (persuasion ≠ accuracy, extended by L-219) | P-154 (TMS gap, extended by L-220)
