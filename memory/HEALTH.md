@@ -63,7 +63,21 @@ Count how many of the 5 indicators are "healthy."
 
 ---
 
-## Latest check: S83 (2026-02-27)
+## Latest check: S91 (2026-02-27)
+
+| Indicator | Status | Detail |
+|-----------|--------|--------|
+| Knowledge growth | HEALTHY | 184L (+9 since S83 in ~8 sessions: L-175 to L-184), 137P. 1.1 L/session net (many concurrent sessions this cluster). F-NK4 RESOLVED. F118 opened (multi-LLM). 17 active frontiers. |
+| Knowledge accuracy | HEALTHY | P-132 OBSERVED (was THEORIZED S76), P-157 PARTIALLY OBSERVED, P-156 PARTIALLY OBSERVED, P-168 added. Validator PASS: 12 observed beliefs, 2 theorized. Zero open challenges. |
+| Compactness | HEALTHY | Proxy K: 26,034→23,383 (−9.8%). New floor established. T3-knowledge 4,350t (was 5,978t at S83). HUMAN.md −71%, FRONTIER.md condensed. Well below 6% trigger. |
+| Belief evolution | HEALTHY | 14 beliefs stable. 3 THEORIZED principles converted: P-132 OBSERVED, P-156/P-157 PARTIALLY OBSERVED. CHALLENGES.md: 0 open. F118 signal suggests new belief area (multi-LLM) may emerge. |
+| Task throughput | HEALTHY | MDL compression DONE (highest priority). F111 builder DONE, deploy pending human review. F117 10-tool audit DONE (P-168 added). 4 THEORIZED principles remain. |
+
+**Score: 5/5** (all indicators healthy; compactness resolved from S83's 4.5/5)
+
+**Notes**: Session S83-S91 cluster was highly productive: MDL compression (-9.8%), F-NK4 resolved, P-132 validated cross-project, P-157/P-156 tested, F118 opened by human signal. Cross-variant harvest overdue (last S76, 15-session cadence) but no active children to harvest. Paper re-swarm due at S93. THEORIZED principles (P-128, P-141, P-155, P-158) require Go EH cross-project data and swarm-internal experiments.
+
+## Previous: S83
 
 | Indicator | Status | Detail |
 |-----------|--------|--------|
