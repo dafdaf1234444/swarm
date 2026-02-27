@@ -1,41 +1,53 @@
 # Next Session Handoff
-Updated: 2026-02-27 (S54 — colony session + personality tests + true concurrent swarming)
+Updated: 2026-02-27 (S54 — extended: F103 resolved, repo census, darts analysis, colony ops)
 
 ## Do First
 - Run `/swarm` — fractal session command
 - Read `tasks/COURSE-CORRECTION.md` — 5 active directives
 - Read `tasks/HUMAN-QUEUE.md` — HQ-1, HQ-4, HQ-5 still unanswered
 
-## What was done this session (S54)
-- **F104 DONE**: Personality test — skeptic vs explorer on same task (etcd EH predictors)
-  - Skeptic: 0 confirmed beliefs, challenged K_out r=0.652 (n=3 bugs, collinear with contract-type) — P-110 should be HYPOTHESIS until CockroachDB
-  - Explorer: 3 new principles, 7 new frontier questions (F108 queued) — K_out = proxy for error topology; gofail density and temporal contract are richer signals
-  - Together: correct epistemic state. P-116 written: pair skeptic+explorer on contested findings.
-- **L-111 written**: F104 personality contrast lesson
-- **P-110 refined**: Added skeptic challenge + richer multi-signal mechanism from explorer
-- **F108 queued**: 7 explorer questions on gofail density, error translation maps, errorlint vs errcheck, temporal contracts, CockroachDB library comparison
-- **INDEX + PRINCIPLES updated**: 111 lessons, 116 principles
+## What was done this session (S54 extended)
+- **F103 RESOLVED**: 3rd test (ilkerloan, multi-domain sparse-docs) — MULTIPLICATIVE advantage confirmed. P-114 refined: swarm advantage = f(domain_count × doc_sparsity). L-110.
+- **F102 session 2/3**: Missing falsification NOT noticed during routine work. No drift.
+- **F104 DONE** (concurrent): Personality test — skeptic vs explorer on etcd EH. P-116 written.
+- **Repo census complete**: 9 repos analyzed. All user code = zero cycles (except bets: 1). Star topology dominance. Bimodal docs. See repo-census-2026-02-27.md.
+- **darts deep analysis**: CRITICAL data leakage (bfill on features + target), non-stationary target, unadjusted prices, no early stopping. See darts-quant-framework-analysis.md.
+- **HUMAN.md extended**: Cognitive patterns documented, F108 opened (human modeling).
+
+## Key Findings for User
+
+### darts/quant_framework (CRITICAL)
+1. **`bfill()` = data leakage** (feature_engineering.py:43 + backtesting.py:200): Future data leaks into features AND target prices. All backtest results unreliable. **Fix: remove bfill()**.
+2. **Training on raw prices** (non-stationary): Should use returns/log-returns.
+3. **`auto_adjust=False`**: Stock splits create phantom price drops.
+4. **No early stopping**: TFT at 50 epochs on ~250 days likely overfits.
+
+### bets analyzer (from S53)
+1. **50 bare `except:` blocks** → silent data corruption
+2. **Cycle**: `analysis ↔ feature_engineering` — break it (1-2h)
+3. **Prior analysis docs wrong**: 3 features claimed "missing" but exist
+
+### ilkerloan (from S54)
+1. **Missing jurisdiction clause**: Forces Belgian litigation under Dutch law
+2. **Box 3 hidden tax**: ~EUR 432/year on the receivable
+3. **Date inconsistency**: `date.today()` vs hardcoded Feb 14, 2036
 
 ## High-Priority for S55
 
-- **F102 session 3/3**: DECIDE. Falsification removed from B7/B8/B12 since S52. Have beliefs drifted? Check B7/B8/B12 in DEPS.md — do they feel grounded? If no degradation: apply removal to B1, B2, B3, B6, B11, B16 (architectural). If degradation: restore.
-- **F100 / F108**: Test K_out/max_K_out normalized ratio AND temporal contract on CockroachDB. This resolves both P-110 status and F108-Q4.
-- **F107 session 2**: Run ablation child session 2. Next atom to test: `always:swarmability` (if session 1 viable, try removing the swarmability check).
-- **User deliverable**: Bug report for bets analyzer (50 bare excepts, cycle fix, 3 wrong prior claims) — still pending.
-
-## Key Findings for User: `/home/canac/bets/`
-1. **50 bare `except:` blocks** in data pipeline → silent data corruption → wrong bets (financial risk)
-2. **Cycle**: `analysis` ↔ `analysis.feature_engineering` — break it, composite 79→69 (1-2h)
-3. **Prior analysis docs are wrong**: ensemble/calibration/Kelly all claimed "missing" but EXIST
-4. **data_unifier.py returns 0** for missing height/weight/reach — use `np.nan` instead
+- **F102 DECISION**: Session 3/3. Check B7/B8/B12 for drift. Decide: apply to all or revert.
+- **Push repo**: 75+ commits ahead. Every session = more catastrophic loss risk.
+- **F107**: Ablation child session 2. Next atom: `always:swarmability`.
+- **F100/F108**: CockroachDB K_out replication (resolves P-110 + F108-Q4).
+- **Archive stale frontiers**: F75, F77, F92 (40+ sessions, no progress).
 
 ## Warnings
-- **F102**: MUST decide at S55 — 3-session window closes.
-- **P-110**: Currently HYPOTHESIS — don't cite as fact until CockroachDB replication.
-- **F108**: 7 new questions — pick most falsifiable first (gofail density Q1, easiest to measure).
-- 21 active frontier questions — archive F75, F77, F92 (no progress in 40+ sessions).
+- **F102**: S55 = FINAL deadline. Decide or lose the experiment's data.
+- **P-110**: HYPOTHESIS until CockroachDB replication.
+- **Push the repo**: Directive #4 in COURSE-CORRECTION. Still not done.
+- **24 open frontier questions**: trim the stale ones.
 
 ## Read These
-- `experiments/children/f104-test-skeptic/memory/lessons/L-001.md` — skeptic challenge details
-- `experiments/children/f104-test-explorer/memory/lessons/L-001.md` — explorer mechanism details (80 lines)
+- `experiments/complexity-applied/repo-census-2026-02-27.md` — NEW: full repo inventory
+- `experiments/complexity-applied/darts-quant-framework-analysis.md` — NEW: critical bugs
+- `experiments/complexity-applied/f103-ilkerloan-multi-domain.md` — NEW: F103 test 3
 - `experiments/architecture/f107-genesis-ablation.md` — genesis ablation protocol
