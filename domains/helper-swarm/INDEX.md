@@ -4,7 +4,7 @@ Updated: 2026-02-27 | Sessions: 186
 ## What this domain knows
 - **Seed evidence base**: active lane logs already expose blocked-lane rescue patterns, coordinator reassignment behavior, and helper-vs-delivery slot tension.
 - **Core structural pattern**: helper swarming works when assist triggers, ownership transfer, and exit conditions are explicit; otherwise support traffic becomes status-noise.
-- **Active frontiers**: 3 active domain frontiers in `domains/helper-swarm/tasks/FRONTIER.md` (F-HLP1, F-HLP2, F-HLP3).
+- **Active frontiers**: 4 active domain frontiers in `domains/helper-swarm/tasks/FRONTIER.md` (F-HLP1, F-HLP2, F-HLP3, F-HLP4).
 - **Cross-domain role**: helper-swarm turns stalled work signals (`blocked`, stale READY/ACTIVE rows, missing next steps) into targeted assist actions across all domain lanes.
 - **Latest baseline**: no dedicated helper-swarm artifact yet; first pass should mine `tasks/SWARM-LANES.md` + `tasks/NEXT.md` to quantify rescue lag and helper conversion quality.
 

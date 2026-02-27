@@ -22,7 +22,7 @@ import pathlib
 import re
 import sys
 from collections import defaultdict
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Optional
 
 REPO_ROOT = pathlib.Path(__file__).parent.parent
@@ -460,7 +460,7 @@ def main() -> None:
               f"--domain {result['new_domain_suggestion']}")
 
     if args.save:
-        ts = datetime.utcnow().strftime("%Y%m%d-%H%M%S")
+        ts = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
         out_dir = REPO_ROOT / "experiments" / "meta"
         out_dir.mkdir(parents=True, exist_ok=True)
         out_path = out_dir / f"task-recognizer-{ts}.json"

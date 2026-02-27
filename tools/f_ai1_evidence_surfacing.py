@@ -79,31 +79,24 @@ def _query_title_confidence(query: str, resolved_title: str, lang: str = "en") -
     """
     Non-oracle confidence proxy from query-title alignment only.
     For EN: Jaccard overlap + character similarity.
-    For non-EN: stop-word-filtered query recall + stemmed overlap, to avoid
-    penalizing Spanish/French titles that expand queries with function words.
-    (L-279: language-aware proxy reduces ES structural bias)
+    For non-EN: returns 0.0 (gate). ES consistently regressed (+0.08 to +0.14 delta)
+    across all overlap formulations (Jaccard, recall, F1 with stop-word filtering) at
+    all tested thresholds. Root cause: query-title alignment measures lexical similarity,
+    not resolution correctness — the two are structurally decoupled in Spanish Wikipedia.
+    (L-279: language-aware proxy attempt, gating as evidence-based fallback)
     """
+    if lang != "en":
+        return 0.0  # gate non-EN surfacing: proxy not reliable for ES (L-279)
+
     query_norm = " ".join(_tokenize(query))
     title_norm = " ".join(_tokenize(resolved_title))
     if not query_norm or not title_norm:
         return 0.0
 
+    qset = set(query_norm.split())
+    tset = set(title_norm.split())
+    overlap = len(qset & tset) / max(1, len(qset | tset))
     char_sim = SequenceMatcher(None, query_norm, title_norm).ratio()
-
-    if lang != "en":
-        qtoks = [_stem_simple(t) for t in query_norm.split() if t not in _STOPWORDS]
-        ttoks = [_stem_simple(t) for t in title_norm.split() if t not in _STOPWORDS]
-        if not qtoks:
-            return 0.0
-        qset, tset = set(qtoks), set(ttoks)
-        q_recall = len(qset & tset) / max(1, len(qset))
-        t_recall = len(qset & tset) / max(1, len(tset))
-        overlap = 2 * q_recall * t_recall / max(1e-9, q_recall + t_recall)  # F1: penalizes short-query over-fire
-    else:
-        qset = set(query_norm.split())
-        tset = set(title_norm.split())
-        overlap = len(qset & tset) / max(1, len(qset | tset))  # Jaccard for EN
-
     return 0.6 * overlap + 0.4 * char_sim
 
 
