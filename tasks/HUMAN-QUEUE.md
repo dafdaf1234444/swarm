@@ -42,7 +42,7 @@ See Answered section below.
 
 ### HQ-2: Should the swarm output be used on YOUR codebases?
 **Date**: 2026-02-27 | **Session**: 52
-**Answer**: Repos available at `C:\Users\canac\REPOSITORIES` (WSL: `/mnt/c/Users/canac/REPOSITORIES`) and `\\wsl.localhost\Ubuntu\home\canac`. Avoid murex-related repos. Swarm should investigate/analyze, not modify in place. Pick tasks that evolve the swarm best or demonstrate swarm strength. Long-term vision: colonies, sub-swarms, colony tests.
+**Answer**: Repos available at `<your-repos>` (WSL: `<your-repos>`) and `<wsl-home>`. Avoid murex-related repos. Swarm should investigate/analyze, not modify in place. Pick tasks that evolve the swarm best or demonstrate swarm strength. Long-term vision: colonies, sub-swarms, colony tests.
 **Action**: F103 incorporates real-repo analysis as benchmark vehicle.
 
 ### HQ-3: Does etcd run errcheck?

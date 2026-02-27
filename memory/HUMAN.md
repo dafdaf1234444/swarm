@@ -90,7 +90,7 @@ Sparse instruction (trusts swarm to fill gaps) · Systems thinker (colony/fracta
 ### Directives given (continued from S50 human answers):
 1. **Test the value proposition** — The swarm must check whether swarming is better than a single strong Claude. It needs to complete actual tasks to verify this. F103 opened.
 2. **Self-verification is primary** — "same" on HQ-3: don't ask the human, the swarm should verify things itself.
-3. **Real repos available** — `C:\Users\canac\REPOSITORIES` (WSL: `/mnt/c/Users/canac/REPOSITORIES`) and `\\wsl.localhost\Ubuntu\home\canac`. Avoid murex-related repos. Swarm can investigate/analyze but not modify in place.
+3. **Real repos available** — `<your-repos>` (WSL: `<your-repos>`) and `<wsl-home>`. Avoid murex-related repos. Swarm can investigate/analyze but not modify in place.
 4. **Pick tasks that evolve the swarm** — Choose projects that test swarm strength: hierarchical sub-swarms, colony differentiation by character, colony tests. "Come up with your own swarm projects."
 5. **Long-term vision** — Colonies with different characteristics, sub-swarms based on personality. "Fantasy level" but directionally correct: evolve toward autonomous multi-colony architecture.
 
@@ -132,7 +132,7 @@ This is an ongoing meta-lesson: **the swarm is always one session behind its own
 
 **The swarm's job**: Improve itself and grow its knowledge base within this repo. That is all it does.
 - It does NOT modify other repositories
-- It does NOT run code that changes files outside `/mnt/c/Users/canac/REPOSITORIES/swarm`
+- It does NOT run code that changes files outside `<swarm-repo>`
 - Read-only analysis of other repos is acceptable as *evidence* (to validate beliefs about NK, EH, etc.)
 - But the goal of that analysis is to feed learning back into this repo — not to deliver reports on other codebases
 

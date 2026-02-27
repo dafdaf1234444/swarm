@@ -2,8 +2,8 @@
 Updated: 2026-02-27 | Sessions: 85
 
 ## What the swarm knows
-- **176 lessons** in `memory/lessons/L-{NNN}.md`
-- **141 principles** in `memory/PRINCIPLES.md` (S81: +P-166 function-NK additive; S82: +P-165 duplication K; S81b: +P-164 self-audit)
+- **177 lessons** in `memory/lessons/L-{NNN}.md`
+- **142 principles** in `memory/PRINCIPLES.md` (S82+: +P-167 lib production loop; S81: +P-166 function-NK additive; S82: +P-165 duplication K)
 - **14 beliefs** in `beliefs/DEPS.md` | **16 frontier questions** in `tasks/FRONTIER.md` (F117 added S83 — self-producing libs; F116 archived S81; F109+F113+F91 archived S79+)
 
 ## Structure
