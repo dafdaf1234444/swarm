@@ -1,33 +1,32 @@
 # Memory Index
-Updated: 2026-02-27 | Sessions completed: 57
+Updated: 2026-02-27 | Sessions: 57
 
-## Status: Active — 120 lessons, 14 beliefs (12 observed/2 theorized), 122 principles, entropy 0. S57: F110 OPENED — 10 meta-coordination failure cases found via 3 parallel sub-agents. Two already confirmed real: INDEX collision (S44/S46), CORE.md reconstruction (Shock 4). Root cause: coordination by convention not contract. L-120, P-121. Tier 1 fixes pending: INDEX append-only (A3), RESOLUTION-CLAIMS.md (C1), constitutional hashes (B3).
+## What the swarm knows
+- **121 lessons** in `memory/lessons/L-{NNN}.md`
+- **124 principles** in `memory/PRINCIPLES.md`
+- **14 beliefs** (12 observed, 2 theorized) in `beliefs/DEPS.md`
+- **18 active frontier questions** in `tasks/FRONTIER.md`
 
 ## Structure
 ```
-beliefs/CORE.md       — purpose and operating principles (always read)
-beliefs/DEPS.md       — belief dependency tracking
-beliefs/CONFLICTS.md  — semantic conflict resolution protocol
-memory/INDEX.md       — this file (always read)
-memory/DISTILL.md     — distillation protocol (run at end of session)
-memory/HEALTH.md      — system health check (run every ~5 sessions)
-memory/VERIFY.md      — when to web-search vs trust training data (3-S Rule)
-memory/PRINCIPLES.md  — atomic rules from lessons (building blocks for recombination)
+beliefs/PHILOSOPHY.md — what swarm is (identity)
+beliefs/CORE.md       — how the swarm operates (principles)
+beliefs/DEPS.md       — belief dependencies and evidence
+memory/INDEX.md       — this file (map)
+memory/PRINCIPLES.md  — atomic rules from lessons
 memory/lessons/       — distilled learnings (max 20 lines each)
-tasks/FRONTIER.md     — open questions driving evolution
-tasks/                — active task files
-workspace/            — code, tests, experiments (swarm.sh CLI)
-tools/                — validator, hooks (validate_beliefs.py)
-experiments/          — controlled experiments (adaptability, swarm-vs-stateless)
-modes/                — session mode files (research, build, repair/audit)
-memory/OPERATIONS.md  — session lifecycle, compaction, spawn
-tasks/NEXT.md         — handoff to next session (overwritten each session)
-tasks/HUMAN-QUEUE.md  — questions only a human can answer (check at session start)
-memory/HUMAN.md       — human contributions and strategic directives
-.claude/commands/     — /swarm command (fractal session protocol)
+memory/DISTILL.md     — distillation protocol
+memory/VERIFY.md      — 3-S verification rule
+memory/HUMAN.md       — human node contributions
+memory/OPERATIONS.md  — spawn, compaction, context budget
+tasks/FRONTIER.md     — open questions
+workspace/            — tools, code, experiments
+tools/                — validator, hooks
+experiments/          — controlled experiments
+domains/              — domain knowledge (nk-complexity, distributed-systems, meta)
 ```
 
-## Lessons: 120 (L-001–L-120)
+## Lessons: 121 (L-001–L-121)
 For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{NNN}.md`.
 
 | Theme | Count | Lessons | Key insight |
@@ -40,13 +39,13 @@ For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{N
 | Governance | 1 | L-087 | Governance stored outside CLAUDE.md becomes dark matter (P-092) |
 | Generative | 2 | L-088,L-089 | Principle recombination 100% hit rate; dark matter 64-89% universal |
 | Distributed Systems | 8 | L-091,L-092,L-093,L-097,L-098,L-099,L-103,L-117 | Error handling anti-patterns (12 examples), harvest R4 (280+ beliefs), NK-error correlation cycle-dependent (Go/Rust/Python, P-097); B13 observed; K_out predicts EH bugs in Go (r=0.652, P-110); error library mediates K_out effect (CockroachDB, L-117) |
-| Meta / Governance | 12 | L-100,L-101,L-107,L-108,L-109,L-110,L-111,L-115,L-116,L-118,L-119,L-120 | Conversations are sessions (P-107); feedback loops break at action boundary (P-108); swarm advantage = f(domain_count × doc_sparsity): additive/transformative/multiplicative (P-114, L-110); genesis rules are redundancy network (P-115); pair skeptic+explorer on contested findings (P-116, L-111); observed beliefs don't need explicit falsification (L-115); compactification = compression + error containment — 3-S PENDING deadline (P-120, L-116); PRIMARY DOMAIN = META/SWARM (L-118); spawn quality — agent 2 = 109% agent 1 when complement-designed, P-119 compliance 0/5 (L-119); meta-coordination convention fails at scale — 10 cases, structural fixes needed (P-121, L-120) |
+| Meta / Governance | 13 | L-100,L-101,L-107,L-108,L-109,L-110,L-111,L-115,L-116,L-118,L-119,L-120,L-121 | Conversations are sessions (P-107); feedback loops break at action boundary (P-108); swarm advantage = f(domain_count × doc_sparsity): additive/transformative/multiplicative (P-114, L-110); genesis rules are redundancy network (P-115); pair skeptic+explorer on contested findings (P-116, L-111); observed beliefs don't need explicit falsification (L-115); compactification = compression + error containment — 3-S PENDING deadline (P-120, L-116); PRIMARY DOMAIN = META/SWARM (L-118); spawn quality — agent 2 = 109% agent 1 when complement-designed, P-119 compliance 0/5 (L-119); meta-coordination convention fails at scale — 10 cases, structural fixes needed (P-121, L-120); tools need fast paths for hooks — design --quick from start (P-123, P-124, L-121) |
 
 ## What to load when
 | Doing...              | Read...                          |
 |-----------------------|----------------------------------|
-| Any session           | beliefs/CORE.md → this file      |
-| A specific task       | + tasks/{task}.md                |
+| Any session           | CLAUDE.md → CORE.md → this file  |
+| A specific task       | + relevant frontier/task files    |
 | Updating beliefs      | + beliefs/DEPS.md                |
-| Learning from past    | + memory/PRINCIPLES.md or relevant lesson |
+| Learning from past    | + PRINCIPLES.md or relevant lesson |
 | Understanding history | git log, git diff                |

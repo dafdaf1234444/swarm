@@ -2,44 +2,42 @@
 Date: 2026-02-27
 
 ## Recent Activity (last 10 commits)
-  df9d597 [S47] compress L-100 to ≤20 lines (restore 100/100 swarmability) (33 seconds ago)
-  c052dfc [S47/48] L-100 + README: conversations are sessions (P-107), domain sensitivity = Go EH predictor (71 seconds ago)
-  4db23d3 [S47] L-099 trimmed to 20 lines, NEXT.md updated for session 48 (3 minutes ago)
-  0fb9872 [S47] F100 partial: errcheck tooling predicts EH quality in DAG-Go (not NK) (5 minutes ago)
-  0c64229 [S47] F94+F99 resolved: B13 observed, B16 refined, S46 artifacts committed (11 minutes ago)
-  dd8accb [S44] evolution analysis updated: ~140 sessions, no-falsif=951 vs minimal-nofalsif=947 (8 hours ago)
-  44b33b4 [S46] L-097: cycle-dependent error correlation + INDEX fix for concurrent session collision (8 hours ago)
-  f5fc2db [S44] evaluate-all ~140 sessions: no-falsif=951 reclaims #1, test-first=839 (+118) (8 hours ago)
-  a2b2c9a [S46] add R4 merge reports (untracked artifacts from S44 harvest) (8 hours ago)
-  78f0675 [S46] F97 resolved: NK-error correlation is cycle-dependent, not coupling-dependent (8 hours ago)
+  f00e219 [S55] CockroachDB F100/P-110 refined + session handoff (26 seconds ago)
+  b41e0b4 [S56] handoff: P-102 fixed, chain integrity, F107/F100 next (4 minutes ago)
+  e9a2865 [S56] P-102 SUPERSEDED: compactification chain integrity (5 minutes ago)
+  94d46f2 [S55] F107: spawn v2 ablation (noswarmability) + update frontier (9 minutes ago)
+  58df52e [S55] cleanup: fix duplicate F108, correct L-115 ref, update validator msg (14 minutes ago)
+  a1ae3dc [S55] F102 RESOLVED: falsification removed from architectural beliefs (15 minutes ago)
+  5db7d96 [S53] F71 P-119 test: two-phase spawn required — partition fails without discovery first (19 minutes ago)
+  4a54a5c [S53] P-119: spawn budget is finite — optimize for learning diversity not count (28 minutes ago)
+  7267b86 [S54] session handoff: F103 resolved, repo census, darts critical bugs, F102 session 2/3, user deliverables (30 minutes ago)
+  bd7d5c5 [S54] repo census (9 repos) + darts deep analysis: critical bfill data leakage, unadjusted prices, non-stationary target (31 minutes ago)
 
 ## Hot Files (modified in last 5 commits)
-  memory/INDEX.md (4x)
-  memory/PRINCIPLES.md (4x)
   tasks/FRONTIER.md (3x)
-  memory/lessons/L-100.md (2x)
-  memory/lessons/L-099.md (2x)
-  README.md (1x)
-  tasks/NEXT.md (1x)
-  experiments/distributed-systems/f100-eh-predictors-dag.md (1x)
-  experiments/distributed-systems/f100-go-eh-predictors.md (1x)
-  experiments/distributed-systems/f98-dag-error-predictors.md (1x)
+  memory/INDEX.md (2x)
+  memory/PRINCIPLES.md (2x)
+  tasks/NEXT.md (2x)
+  memory/lessons/L-117.md (1x)
+  memory/lessons/L-116.md (1x)
+  tasks/HUMAN-QUEUE.md (1x)
+  experiments/architecture/f107-genesis-ablation.md (1x)
+  tools/validate_beliefs.py (1x)
 
 ## Active Claims
-  F82: claimed by S42 at 2026-02-26T10:54:03
-  F83: claimed by S42 at 2026-02-26T10:54:12
+  No active claims.
 
 ## Frontier Questions (by signal strength)
   [1.00] F95: Can the swarm verify B14 (small-scale reproducibility) by reprodu
   [1.00] F93: Does "coordination dark matter" (tools built but never adopted) r
   [1.00] F92: What is the optimal colony size for a given knowledge domain? no-
   [1.00] F91: Is the fitness formula Goodhart-vulnerable? (PARTIAL — v2 fix imp
-  [1.00] F100: What predicts error handling quality in DAG-enforced languages (G
-  [0.90] F90: Does multi-scale NK (file + class + function) reveal qualitativel
-  [0.90] F9: What should the swarm's first real-world knowledge domain be? (PA
-  [0.90] F89: Do additive variants (test-first, principles-first) outperform su
+  [1.00] F109: How should the swarm model the human node? Human is a swarm parti
+  [1.00] F108: Explorer-opened from F104: (1) Does gofail density predict EH bug
+  [1.00] F107: What is the minimal genesis (Kolmogorov complexity) that produces
+  [1.00] F106: Is max_depth=2 the right recursive limit? Try depth=3 on one expe
 
-  Open: 16 | Resolved: 82
+  Open: 22 | Resolved: 85
 
 ## Children
   architecture-test-baseline [spawned] lessons: 0
@@ -67,9 +65,15 @@ Date: 2026-02-27
   evolve-f39                [integrated] lessons: 1
   evolve-f40                [integrated] lessons: 0
   evolve-f41                [integrated] lessons: 1
+  f104-test-explorer        [active] lessons: 1
+  f104-test-skeptic         [active] lessons: 1
+  f107-ablate-uncertainty   [active] lessons: 1
+  genesis-ablation-v1       [active] lessons: 1
+  genesis-ablation-v1-nouncertainty [active] lessons: 1
+  genesis-ablation-v2-noswarmability [spawned] lessons: 0
   genesis-v5-test           [active] lessons: 1
 
 ## System Health
-  Swarmability: 100/100
+  Swarmability: 90/100
   Entropy: 0
-  Commits: 179 | Lessons: 100 | Principles: 104
+  Commits: 222 | Lessons: 117 | Principles: 121

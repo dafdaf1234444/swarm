@@ -522,7 +522,9 @@ def print_entropy(beliefs: list[dict]):
 # --- Main ---
 
 def main() -> int:
-    path = sys.argv[1] if len(sys.argv) > 1 else "beliefs/DEPS.md"
+    quick = "--quick" in sys.argv
+    args = [a for a in sys.argv[1:] if a != "--quick"]
+    path = args[0] if args else "beliefs/DEPS.md"
     if not Path(path).exists():
         print(f"ERROR: {path} not found")
         return 1
@@ -560,11 +562,12 @@ def main() -> int:
         print("RESULT: PASS")
         exit_code = 0
 
-    # Swarmability score is informational — does not affect exit code
-    print_swarmability(beliefs, bool(fails), not existence_issues)
+    if not quick:
+        # Swarmability score is informational — does not affect exit code
+        print_swarmability(beliefs, bool(fails), not existence_issues)
 
-    # Entropy detection — tracks decay, not just growth
-    print_entropy(beliefs)
+        # Entropy detection — tracks decay, not just growth
+        print_entropy(beliefs)
 
     return exit_code
 
