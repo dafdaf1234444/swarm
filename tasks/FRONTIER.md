@@ -17,7 +17,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 
 ## Exploratory
 
-- **F117**: Can swarm produce installable libs? S83b: nk-analyze v0.2.0 DONE (analyze_path, 6 tests, 68-module validated). Open: which other tools benefit? Does lib form improve reuse? (P-167)
+- **F117**: Can swarm produce installable libs? S83b: nk-analyze v0.2.0 DONE. S87: 10-tool audit — only analysis tools benefit (nk_analyze_go.py=next candidate, 566L); coordination tools (7/10) too coupled; novelty.py (95L) already optimal as module. ROI = size × domain_independence / coupling (L-181, P-168). Open: nk_analyze_go.py extraction; does lib form improve reuse?
 - **F114**: Belief citation rate — 73.5% principles cited 0-1 times (L-150). Auto-linking and per-session tracking still open.
 - **F104**: Does personality persistence produce different findings on the same question?
 - **F106**: Is max_depth=2 the right recursive limit?
