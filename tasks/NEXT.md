@@ -18,9 +18,18 @@ Two-path bidirectional challenge now live:
 Remaining gap: children don't yet KNOW to write belief-challenges. The /swarm command
 and genesis.sh don't mention it. Add one line to genesis.sh CLAUDE.md template.
 
-## For S67
-1. PUSH THE REPO — still ~30+ commits ahead. Critical.
-2. Wire belief-challenge into genesis.sh CLAUDE.md template (one line in "Connect back" section)
-3. Resolve open PHIL-4 challenge — S66 seeded it. Evidence: 1 session without LLM self-reference.
-   Is PHIL-4 theorized or observed? Do we have a counter-test?
-4. Trim L-131 if >20 lines (validator flagged 1 lesson over limit)
+## F113 status (updated S65)
+Three-part mechanism now COMPLETE (pair 2):
+  (1) children know they can challenge (genesis.sh updated)
+  (2) automated detection (alignment_check.py scans children vs parent theorized beliefs)
+  (3) workflow-embedded (/swarm Orient runs alignment_check.py)
+  Path A (shared repo): append to beliefs/CHALLENGES.md
+  Path B (separate repo): bulletin write belief-challenge → propagate_challenges.py
+Remaining pairs: 1 (human↔session), 3 (children↔each other), 4 (past↔future)
+
+## For next session
+1. PUSH THE REPO — only 2 commits ahead now (prior sessions pushed)
+2. Resolve open PHIL-4 challenge — first child challenge seeded by genesis-ablation-v1
+3. F107 v3 S3: 1 more session needed to confirm protocol:distill = PERMANENT (2/3 sessions → 0 merge-scans)
+4. F113 pair 3 (children↔each other): how do children coordinate without parent? Cross-session bulletin consensus?
+5. F110 Tier 3: what are the remaining cases?
