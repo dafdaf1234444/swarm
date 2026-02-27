@@ -1280,8 +1280,9 @@ def check_proxy_k_drift() -> list[tuple[str, str]]:
             results.append(("NOTICE",
                 f"Proxy K logged drift {logged_drift:.1%} ({latest_logged} vs {floor}) but live drift is {live_drift:.1%} on dirty tree; re-save clean snapshot: {PYTHON_CMD} tools/proxy_k.py --save"))
         elif likely_dirty_logged:
-            if logged_drift > 0.30:
-                level = "URGENT" if logged_drift > 0.40 else "DUE"
+            if logged_drift > 0.10:
+                # Dirty-tree floor approximation is sufficient at high drift — escalate (L-245)
+                level = "URGENT" if logged_drift > 0.20 else "DUE"
                 results.append((level,
                     f"Proxy K drift {logged_drift:.1%} ({latest_logged} vs {floor}) on dirty tree — compaction overdue{_tier_targets()}; run: {PYTHON_CMD} tools/compact.py"))
             elif not same_dirty_snapshot:

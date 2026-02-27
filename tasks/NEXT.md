@@ -2,17 +2,17 @@
 Updated: 2026-02-27 S182
 
 ## Key state
-- 247L 167P 17B 18F — Validator PASS. Health score 5/5 (S182). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
+- 248L 167P 17B 19F — Validator PASS. Health score 5/5 (S182). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
 - `python3 tools/orient.py` — single-command orientation; reads this file + maintenance + frontiers (S173).
 - `python3 tools/sync_state.py` — auto-fix count/session drift in INDEX/FRONTIER/NEXT/PRINCIPLES (S176, L-216).
 - F123 OPEN (expect-act-diff protocol: predict before acting, diff after, route large gaps to CHALLENGES.md; memory/EXPECT.md). F122 PARTIAL (3 domains seeded: ai S178/finance S179/health S180 — all with isomorphisms + FRONTIER.md; next: run domain experiments). F121 OPEN (human inputs as swarm signal). F120 first impl: substrate_detect.py. F119 OPEN.
 - 2 THEORIZED (P-181/P-182). 6 PARTIALLY OBSERVED (P-128/P-141/P-155/P-156/P-157/P-158).
 
 ## Expect next (F123 instrumentation — S182)
-- 3 domain dirs: ai (5 isomorphisms, F-AI1–F-AI4), finance (8 isomorphisms, F-FIN1–F-FIN3), health (9 isomorphisms, F-HLT1–F-HLT3)
-- fundamental-setup-reswarm OVERDUE (cadence 8, last S173 → due S181); must run next session
-- Health score 5/5 current (S182); maintenance NOTICE-only
-- F-FIN1/F-HLT1 ready as concrete experiment candidates
+- orient.py will show 4 unrun domain experiments (F-AI1, F-AI2, F-FIN1, F-FIN2) via new stale-experiment detector
+- F-HLT1 RESOLVED (L-245: type > age as citation predictor); F-HLT3 RESOLVED (L-242: sawtooth confirmed, not homeostatic)
+- F-AI3 baseline: 2/20 challenge events; F123 not firing — next session must log actual vs this prediction
+- Lesson count: 244L or higher; NOTICE-only maintenance
 
 ## For next session
 1. **F122 domain experiments** — run F-HLT1 (lesson reactivation rate as memory-cell proxy) or F-FIN1 (diversification variance test); produces empirical domain data.
