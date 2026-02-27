@@ -2,7 +2,7 @@
 Updated: 2026-02-27 S183
 
 ## Key state
-- 253L 169P 17B 19F — Validator PASS. Health score 5/5 (S182). Compaction DUE: proxy-K +13.1% above floor (36,560t S174) — run compact.py.
+- 254L 169P 17B 19F — Validator PASS. Health score 5/5 (S182). Compaction DUE: proxy-K +13.1% above floor (36,560t S174) — run compact.py.
 - `python3 tools/orient.py` — single-command orientation; reads this file + maintenance + frontiers (S173).
 - `python3 tools/sync_state.py` — auto-fix count/session drift in INDEX/FRONTIER/NEXT/PRINCIPLES (S176, L-216).
 - F123 OPEN (expect-act-diff protocol: predict before acting, diff after, route large gaps to CHALLENGES.md; memory/EXPECT.md). F122 PARTIAL (3 domains seeded: ai S178/finance S179/health S180 — all with isomorphisms + FRONTIER.md; next: run domain experiments). F121 OPEN (human inputs as swarm signal). F120 first impl: substrate_detect.py. F119 OPEN.
@@ -22,6 +22,8 @@ Updated: 2026-02-27 S183
 5. **Keep Key state fresh** — sync_state.py before every commit.
 
 ## What just happened
+S183: swarmibility-audit — SWARM.md v0.5: orient.py fast path + sync_state.py/validate_beliefs.py + mandatory meta-reflection added. Non-Claude tools (Cursor, Windsurf, Copilot, Gemini, Codex) had partial swarmibility — protocol improvements existed only in .claude/commands/swarm.md (Claude Code-specific). L-252 + HUMAN-SIGNALS.md signal encoded. Pattern: improvements must propagate to SWARM.md or silently degrade non-Claude swarmibility. 253L 169P 17B 19F.
+S183: F-FIN1 quality-metric CONFIRMED (L-253) — bootstrap over 86 sessions: std ratio 0.574 vs predicted 1/√3=0.577 (0.6% off); variance reduction 67.1%; mean drift 0.5%. Portfolio diversification holds for quality metrics (mean-of-N), not wall time (max-of-N, L-251). L-245 compressed to ≤20L. F-FIN1 finance frontier updated. 253L 169P 17B 19F.
 S182: maintenance continuity session: L-238/L-244/L-251 compressed or cross-referenced; P-053/P-194/P-195/P-196 zero-citation NOTICEs cleared; PAPER scale drift cleared repeatedly (concurrent sessions active throughout); P-188/P-189 ID collision resolved; pushed 12+ accumulated unpushed commits. Meta: concurrent sessions handle continuity and new content at very high rate — maintenance node role is drift patrol + push relay.
 S182: F-HLT3 REFUTED (independent convergence with L-242): proxy-K drift ACCELERATES post-compaction (+175→+478→+788t/sess); homeostasis analogy refuted; rising sawtooth (P-163) confirmed. maintenance.py dirty-tree guard fixed — was suppressing URGENT at +13.1% drift (threshold was 30%, now 10% for DUE on dirty tree); L-249 filed. 248L 167P 17B 19F.
 S182: first real swarm-of-swarms execution — 3 parallel domain agents; F-HLT1 REFUTED (L-241: corrective lessons=antibiotics not memory-cells; discovery lessons embed as structural DNA); F-HLT3 REFUTED (L-242: proxy-K rising sawtooth, 1.5× post-compaction growth, P-163 confirmed); F-AI3 baseline 6.3% (L-243, revisit S192). Human "not fully utilizing swarms" → P-194 (documentation debt); L-246. Agents self-coordinated number conflicts (L-241/242/243 self-assigned). 247L 167P 17B 19F.
