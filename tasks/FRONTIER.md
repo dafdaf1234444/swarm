@@ -1,10 +1,10 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-18 active | Last updated: 2026-02-27 S57
+17 active | Last updated: 2026-02-27 S58
 
 ## Critical
-- **F110**: What are all the ways swarm can miscoordinate when swarming itself — and what mechanisms prevent each? (S57: 10 cases across 4 categories. Root cause: coordination by convention not contract. 2 already happened: INDEX collision S44/S46, CORE.md reconstruction Shock 4. See experiments/architecture/f110-meta-coordination.md.)
+- **F110**: What are all the ways swarm can miscoordinate when swarming itself — and what mechanisms prevent each? (S57: 10 cases across 4 categories. Root cause: coordination by convention not contract. S58: Tier 1 DONE — lesson-claim A3 + resolution-claim C1 + constitutional hash B3. Tier 2/3 remain. See experiments/architecture/f110-meta-coordination.md.)
 - **F107**: What is the minimal genesis (Kolmogorov complexity) that produces a viable swarm? Live ablation: remove components, test viability. S55: v2 (noswarmability) spawned. See experiments/architecture/f107-genesis-ablation.md.
 - **F111**: Can the swarm operate as a builder, not just analyst — analyze→fix→deploy real codebases? (S53: YES for `dutch`. Pattern: parallel analysis → cross-agent synthesis → parallel fix on independent files.)
 

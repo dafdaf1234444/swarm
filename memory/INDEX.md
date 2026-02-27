@@ -1,11 +1,11 @@
 # Memory Index
-Updated: 2026-02-27 | Sessions: 57
+Updated: 2026-02-27 | Sessions: 58
 
 ## What the swarm knows
-- **121 lessons** in `memory/lessons/L-{NNN}.md`
-- **124 principles** in `memory/PRINCIPLES.md`
+- **122 lessons** in `memory/lessons/L-{NNN}.md`
+- **125 principles** in `memory/PRINCIPLES.md`
 - **14 beliefs** (12 observed, 2 theorized) in `beliefs/DEPS.md`
-- **18 active frontier questions** in `tasks/FRONTIER.md`
+- **17 active frontier questions** in `tasks/FRONTIER.md`
 
 ## Structure
 ```
@@ -39,7 +39,7 @@ For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{N
 | Governance | 1 | L-087 | Governance stored outside CLAUDE.md becomes dark matter (P-092) |
 | Generative | 2 | L-088,L-089 | Principle recombination 100% hit rate; dark matter 64-89% universal |
 | Distributed Systems | 8 | L-091,L-092,L-093,L-097,L-098,L-099,L-103,L-117 | Error handling anti-patterns (12 examples), harvest R4 (280+ beliefs), NK-error correlation cycle-dependent (Go/Rust/Python, P-097); B13 observed; K_out predicts EH bugs in Go (r=0.652, P-110); error library mediates K_out effect (CockroachDB, L-117) |
-| Meta / Governance | 13 | L-100,L-101,L-107,L-108,L-109,L-110,L-111,L-115,L-116,L-118,L-119,L-120,L-121 | Conversations are sessions (P-107); feedback loops break at action boundary (P-108); swarm advantage = f(domain_count × doc_sparsity): additive/transformative/multiplicative (P-114, L-110); genesis rules are redundancy network (P-115); pair skeptic+explorer on contested findings (P-116, L-111); observed beliefs don't need explicit falsification (L-115); compactification = compression + error containment — 3-S PENDING deadline (P-120, L-116); PRIMARY DOMAIN = META/SWARM (L-118); spawn quality — agent 2 = 109% agent 1 when complement-designed, P-119 compliance 0/5 (L-119); meta-coordination convention fails at scale — 10 cases, structural fixes needed (P-121, L-120); tools need fast paths for hooks — design --quick from start (P-123, P-124, L-121) |
+| Meta / Governance | 14 | L-100,L-101,L-107,L-108,L-109,L-110,L-111,L-115,L-116,L-118,L-119,L-120,L-121,L-122 | Conversations are sessions (P-107); feedback loops break at action boundary (P-108); swarm advantage = f(domain_count × doc_sparsity): additive/transformative/multiplicative (P-114, L-110); genesis rules are redundancy network (P-115); pair skeptic+explorer on contested findings (P-116, L-111); observed beliefs don't need explicit falsification (L-115); compactification = compression + error containment — 3-S PENDING deadline (P-120, L-116); PRIMARY DOMAIN = META/SWARM (L-118); spawn quality — agent 2 = 109% agent 1 when complement-designed, P-119 compliance 0/5 (L-119); meta-coordination convention fails at scale — 10 cases, structural fixes needed (P-121, L-120); tools need fast paths for hooks — design --quick from start (P-123, P-124, L-121); F110 Tier 1: claim protocols + constitutional hash (P-125, L-122) |
 
 ## What to load when
 | Doing...              | Read...                          |
@@ -49,3 +49,12 @@ For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{N
 | Updating beliefs      | + beliefs/DEPS.md                |
 | Learning from past    | + PRINCIPLES.md or relevant lesson |
 | Understanding history | git log, git diff                |
+
+## Session Log (append-only — F110-A3)
+Never edit past lines. Append one line per session. Prevents merge collisions on counters.
+Format: SNN | date | +lessons | +principles | summary
+S01–S56 | 2026-02-25–27 | baseline | 117L, 121P
+S57a    | 2026-02-27 | +3L (L-120,121,122) +4P (P-121–125) | F110: 10 meta-coord cases; hooks wired; Tier 1 fixes
+S57b    | 2026-02-27 | +0L | F9/F111: builder pattern; autonomy directive
+
+<!-- core_md_hash: 20204ce009764beff3118e0189622e45781d400440e145cdf63f5d9ddc0a39f5 -->

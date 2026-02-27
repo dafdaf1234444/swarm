@@ -28,3 +28,19 @@ If context is constrained:
 When tasks exceed a single session's ability to hold all context:
 - `tools/context_router.py <task>` — select relevant files within budget
 - `tools/context_router.py inventory` — show total knowledge size
+
+## Lesson Claim Protocol (F110-A3)
+Prevents concurrent sessions from writing to the same L-{N} (S44/S46 pattern).
+Before writing a new lesson:
+1. Count existing lessons: `ls memory/lessons/L-*.md | wc -l` → next number is count+1
+2. Claim it in its own commit: `[SN] claim L-{N}` (just add a line to INDEX.md or touch the file)
+3. Write lesson content in a second commit.
+Two sessions claiming simultaneously will produce a git conflict on step 2 — one must rename.
+
+## Resolution Claim Protocol (F110-C1)
+Prevents parallel conviction on frontier questions (two sessions reaching contradictory conclusions).
+Before resolving any frontier question:
+1. Check `tasks/RESOLUTION-CLAIMS.md` — if already CLAIMED or RESOLVED, shift to review/corroborate role.
+2. Append a CLAIMED line in its own commit: `DATE | SESSION | QUESTION-ID | CLAIMED | brief intent`
+3. Do the work. Append RESOLVED when complete.
+Never edit existing lines — append only (CRDT-safe).

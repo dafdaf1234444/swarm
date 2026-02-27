@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Validate structural integrity of the swarm belief graph and compute swarmability score."""
 
+import hashlib
 import re
 import subprocess
 import sys
@@ -507,6 +508,31 @@ def detect_entropy(beliefs: list[dict]) -> list[str]:
     return findings
 
 
+def check_identity() -> list[str]:
+    """Check that CORE.md hasn't drifted from its stored constitutional hash (F110-B3)."""
+    index_md = REPO_ROOT / "memory" / "INDEX.md"
+    core_md = REPO_ROOT / "beliefs" / "CORE.md"
+
+    if not index_md.exists() or not core_md.exists():
+        return []
+
+    index_text = index_md.read_text()
+    m = re.search(r"<!--\s*core_md_hash:\s*([a-f0-9]{64})\s*-->", index_text)
+    if not m:
+        return []  # Hash not yet stored — not an error; run renew_identity.py to add it
+
+    stored_hash = m.group(1)
+    current_hash = hashlib.sha256(core_md.read_bytes()).hexdigest()
+
+    if stored_hash != current_hash:
+        return [
+            f"FAIL IDENTITY: CORE.md has changed without renewal — "
+            f"run tools/renew_identity.py after intentional changes "
+            f"(stored={stored_hash[:12]}..., current={current_hash[:12]}...)"
+        ]
+    return []
+
+
 def print_entropy(beliefs: list[dict]):
     findings = detect_entropy(beliefs)
     print("\n=== ENTROPY DETECTOR ===\n")
@@ -541,6 +567,7 @@ def main() -> int:
     all_issues.extend(check_orphans(beliefs))
     all_issues.extend(check_dep_consistency(beliefs))
     all_issues.extend(check_format(beliefs))
+    all_issues.extend(check_identity())
 
     n_observed = sum(1 for b in beliefs if b["evidence"] == "observed")
     n_theorized = sum(1 for b in beliefs if b["evidence"] == "theorized")

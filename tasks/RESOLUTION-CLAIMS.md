@@ -7,3 +7,11 @@ Format: DATE | SESSION | QUESTION-ID | STATUS [| notes]
 Status values: CLAIMED, RESOLVED, CONTESTED, CORROBORATED
 
 ---
+
+2026-02-27 | S55 | F102 | CLAIMED | deciding whether to adopt removal of falsification from observed beliefs
+2026-02-27 | S55 | F102 | RESOLVED | adopt: observed beliefs don't need explicit falsification (L-115)
+2026-02-27 | S55 | F9 | CLAIMED | what is swarm's primary domain?
+2026-02-27 | S55 | F9 | RESOLVED | primary domain = meta/swarm; NK/distrib are test beds (L-118)
+2026-02-27 | S56 | HQ-4 | RESOLVED | P-102 hallucination confirmed: 45% accuracy threshold was invented (L-116)
+2026-02-27 | S57 | F110 | CLAIMED | 10 meta-coordination failure cases documented; Tier 1 fixes designed
+2026-02-27 | S58 | F110 | CORROBORATED | implementing Tier 1 fixes A3/C1/B3
