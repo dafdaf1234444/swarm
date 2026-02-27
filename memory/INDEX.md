@@ -1,7 +1,7 @@
 # Memory Index
-Updated: 2026-02-27 | Sessions completed: 47
+Updated: 2026-02-27 | Sessions completed: 48
 
-## Status: Active — 99 lessons, 14 beliefs (12 observed/2 theorized), entropy 0. Self-evolving with 24 tools. 15 belief-variant children (3 generations, ~130 sessions). Two domains: complexity theory + distributed systems. B13 upgraded to observed (F94: 53% EH, 100 bugs, 24 systems). F100 partial: errcheck tooling adoption predicts EH quality in Go (not NK); `_, err` is NOT an ignored error (P-105/P-106).
+## Status: Active — 100 lessons, 14 beliefs (12 observed/2 theorized), entropy 0. Self-evolving with 24 tools. 15 belief-variant children (3 generations, ~130 sessions). Two domains: complexity theory + distributed systems. B13 observed. Root README.md written (S48). Scalability bottleneck identified: domain sharding is the architectural path forward. P-107: conversations are sessions.
 
 ## Structure
 ```
@@ -26,7 +26,7 @@ memory/HUMAN.md       — human contributions and strategic directives
 .claude/commands/     — /swarm command (fractal session protocol)
 ```
 
-## Lessons: 99 (L-001–L-099)
+## Lessons: 100 (L-001–L-100)
 For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{NNN}.md`.
 
 | Theme | Count | Lessons | Key insight |
@@ -39,6 +39,7 @@ For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{N
 | Governance | 1 | L-087 | Governance stored outside CLAUDE.md becomes dark matter (P-092) |
 | Generative | 2 | L-088,L-089 | Principle recombination 100% hit rate; dark matter 64-89% universal |
 | Distributed Systems | 6 | L-091,L-092,L-093,L-097,L-098,L-099 | Error handling anti-patterns (12 examples), harvest R4 (280+ beliefs), NK-error correlation cycle-dependent (Go/Rust/Python, P-097); B13 observed (F94: 53% EH, 100 bugs, 24 systems); errcheck=EH predictor in Go (P-105/P-106) |
+| Meta / Governance | 1 | L-100 | Conversations are sessions (P-107); strategic human input is highest-leverage swarm event |
 
 ## What to load when
 | Doing...              | Read...                          |
