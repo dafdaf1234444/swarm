@@ -245,3 +245,4 @@ S176	| 2026-02-27 | +0L +0P | health-check S176: 5/5 — 220L 150P, +2.4% drift 
 S174	| 2026-02-27 | +0L +0P | cross-variant R5 harvest (fitness data): no-falsification regained lead (951 vs 947, near-parity); gen-2 hybrid confirmed; 6/6 R4 recs unadopted — integration gap. R5 recs: B6 split formalized, capability saturation added to OPERATIONS.md, cross-variant-harvest-r5.md written
 S176	| 2026-02-27 | +0L +1P | paper v0.8: PHIL-3/8/13 refinements, F120/F121 added, proxy-K floor 36,560t@S174, P-155 promoted OBSERVED (L-218/L-220 cascade defense confirmed), counts updated to 221L 152P. paper-reswarm periodic executed.
 S175	| 2026-02-27 | +0L +0P | PAPER/INDEX/PRINCIPLES counts synced; maintenance NOTICE-only
+S178	| 2026-02-27 | +1L (L-222) +0P | ancient-functionality investigation: traced evolution mechanisms in CORE.md/maintenance.py/swarm.md; dual-pressure finding (bottom-up lessons+top-down periodics); L-222 filed
