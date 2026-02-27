@@ -1,53 +1,28 @@
 # Next Session Handoff
-Updated: 2026-02-27 (S54 — extended: F103 resolved, repo census, darts analysis, colony ops)
+Updated: 2026-02-27 (S56 — compactification + chain integrity)
 
 ## Do First
 - Run `/swarm` — fractal session command
-- Read `tasks/COURSE-CORRECTION.md` — 5 active directives
-- Read `tasks/HUMAN-QUEUE.md` — HQ-1, HQ-4, HQ-5 still unanswered
+- Read `tasks/COURSE-CORRECTION.md` — active directives
+- Read `tasks/HUMAN-QUEUE.md` — HQ-1, HQ-5 still unanswered
 
-## What was done this session (S54 extended)
-- **F103 RESOLVED**: 3rd test (ilkerloan, multi-domain sparse-docs) — MULTIPLICATIVE advantage confirmed. P-114 refined: swarm advantage = f(domain_count × doc_sparsity). L-110.
-- **F102 session 2/3**: Missing falsification NOT noticed during routine work. No drift.
-- **F104 DONE** (concurrent): Personality test — skeptic vs explorer on etcd EH. P-116 written.
-- **Repo census complete**: 9 repos analyzed. All user code = zero cycles (except bets: 1). Star topology dominance. Bimodal docs. See repo-census-2026-02-27.md.
-- **darts deep analysis**: CRITICAL data leakage (bfill on features + target), non-stationary target, unadjusted prices, no early stopping. See darts-quant-framework-analysis.md.
-- **HUMAN.md extended**: Cognitive patterns documented, F108 opened (human modeling).
+## What was done this session (S56)
+- **P-102 SUPERSEDED**: "45% accuracy parallelism threshold" was unverified/hallucinated. Web search found no paper. Real trigger = task ambiguity, not accuracy number. HQ-4 resolved.
+- **P-120 added**: Stakes-high 3-S PENDING items are infection vectors in the compactification chain — verify within 2 sessions or remove.
+- **L-116**: Compactification = compression + error containment. Each stage filters errors. Silent failure mode: confident wrong claim promoted without triggering 3-S. Structural insight: swarming = safe exploration because errors stay in children; distillation is the filter that prevents propagation.
+- **Chain clean**: No remaining 3-S PENDING items in PRINCIPLES.md.
 
-## Key Findings for User
+## Key Insight from S56 (structural)
+The human articulated the core swarm property: "swarm without hurting yourself without error discovery is what swarm does". Compactification is the mechanism — it's simultaneously compression AND error filtration. When it fails (P-102 case: hallucinated claim, unverified, Stakes-high, multiple sessions old), errors sit in the chain influencing decisions indefinitely. Fix: deadline on PENDING verification.
 
-### darts/quant_framework (CRITICAL)
-1. **`bfill()` = data leakage** (feature_engineering.py:43 + backtesting.py:200): Future data leaks into features AND target prices. All backtest results unreliable. **Fix: remove bfill()**.
-2. **Training on raw prices** (non-stationary): Should use returns/log-returns.
-3. **`auto_adjust=False`**: Stock splits create phantom price drops.
-4. **No early stopping**: TFT at 50 epochs on ~250 days likely overfits.
-
-### bets analyzer (from S53)
-1. **50 bare `except:` blocks** → silent data corruption
-2. **Cycle**: `analysis ↔ feature_engineering` — break it (1-2h)
-3. **Prior analysis docs wrong**: 3 features claimed "missing" but exist
-
-### ilkerloan (from S54)
-1. **Missing jurisdiction clause**: Forces Belgian litigation under Dutch law
-2. **Box 3 hidden tax**: ~EUR 432/year on the receivable
-3. **Date inconsistency**: `date.today()` vs hardcoded Feb 14, 2036
-
-## High-Priority for S55
-
-- **F102 DECISION**: Session 3/3. Check B7/B8/B12 for drift. Decide: apply to all or revert.
-- **Push repo**: 75+ commits ahead. Every session = more catastrophic loss risk.
-- **F107**: Ablation child session 2. Next atom: `always:swarmability`.
-- **F100/F108**: CockroachDB K_out replication (resolves P-110 + F108-Q4).
-- **Archive stale frontiers**: F75, F77, F92 (40+ sessions, no progress).
+## High-Priority for S57
+- **F107**: Check genesis-ablation-v1-nouncertainty child status — has it completed 3 sessions? Decide viability.
+- **Push repo**: Still ahead of origin. COURSE-CORRECTION directive #4.
+- **F100/F108**: CockroachDB K_out replication to confirm P-110 (currently HYPOTHESIS).
+- **HQ-1**: Which domain should be primary — NK complexity or distributed systems?
+- **HQ-5**: Jepsen bug reproduction — still unanswered.
 
 ## Warnings
-- **F102**: S55 = FINAL deadline. Decide or lose the experiment's data.
 - **P-110**: HYPOTHESIS until CockroachDB replication.
-- **Push the repo**: Directive #4 in COURSE-CORRECTION. Still not done.
-- **24 open frontier questions**: trim the stale ones.
-
-## Read These
-- `experiments/complexity-applied/repo-census-2026-02-27.md` — NEW: full repo inventory
-- `experiments/complexity-applied/darts-quant-framework-analysis.md` — NEW: critical bugs
-- `experiments/complexity-applied/f103-ilkerloan-multi-domain.md` — NEW: F103 test 3
-- `experiments/architecture/f107-genesis-ablation.md` — genesis ablation protocol
+- **F107**: genesis-ablation-v1-nouncertainty needs 3-session viability test.
+- **Push the repo**: Still not done.
