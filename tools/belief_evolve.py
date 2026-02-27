@@ -228,15 +228,35 @@ def evaluate_child(child_path: Path) -> dict:
     return metrics
 
 
-def compute_fitness(metrics: dict) -> float:
-    """Compute fitness score from metrics. Higher = better."""
+def compute_fitness(metrics: dict, novelty_score: float = 0.0) -> float:
+    """Compute fitness score from metrics. Higher = better.
+
+    v2 (Goodhart fix): adds diminishing returns on beliefs, principle efficiency
+    bonus, and optional cross-variant novelty score. See P-086, F91.
+    """
+    import math
     score = 0.0
 
     # Knowledge production (lessons + beliefs)
     score += metrics["lessons_count"] * 3
-    score += metrics["beliefs_count"] * 5
+
+    # Beliefs: diminishing returns above 10 (sqrt scaling for excess)
+    beliefs = metrics["beliefs_count"]
+    if beliefs <= 10:
+        score += beliefs * 5
+    else:
+        score += 10 * 5 + math.sqrt(beliefs - 10) * 10  # 50 base + sqrt bonus
+
     score += metrics["observed_count"] * 10  # observed beliefs are gold
     score += metrics["principles_count"] * 2
+
+    # Principle extraction efficiency bonus (rewards depth over breadth)
+    if beliefs > 0:
+        ratio = metrics["principles_count"] / beliefs
+        if ratio >= 2.0:
+            score += 15  # excellent extraction
+        elif ratio >= 1.0:
+            score += 8   # good extraction
 
     # Frontier health (generating AND resolving questions)
     score += metrics["frontier_resolved"] * 4
@@ -250,6 +270,9 @@ def compute_fitness(metrics: dict) -> float:
     if metrics["has_workspace"]:
         score += 5
 
+    # Cross-variant novelty bonus (computed externally)
+    score += novelty_score
+
     # Penalties
     if metrics["lessons_avg_length"] > 30:
         score -= 10  # bloated lessons
@@ -257,6 +280,64 @@ def compute_fitness(metrics: dict) -> float:
         score -= 15  # too speculative
 
     return max(0, score)
+
+
+def _extract_belief_titles(child_path: Path) -> list[str]:
+    """Extract normalized belief titles from a child's DEPS.md."""
+    deps = child_path / "beliefs" / "DEPS.md"
+    if not deps.exists():
+        return []
+    text = deps.read_text()
+    titles = re.findall(r"^### B\d+:\s*(.+)$", text, re.MULTILINE)
+    return [t.strip().lower() for t in titles]
+
+
+def _compute_title_similarity(title1: str, title2: str) -> float:
+    """Word-overlap Jaccard similarity between two belief titles."""
+    words1 = set(re.findall(r"\w+", title1))
+    words2 = set(re.findall(r"\w+", title2))
+    # Remove common stop words
+    stops = {"the", "a", "an", "is", "are", "in", "of", "and", "or", "for", "to",
+             "with", "by", "as", "on", "at", "not", "but", "its", "it", "that",
+             "this", "from", "be", "has", "have", "can", "will", "may", "than"}
+    words1 -= stops
+    words2 -= stops
+    if not words1 or not words2:
+        return 0.0
+    intersection = words1 & words2
+    union = words1 | words2
+    return len(intersection) / len(union)
+
+
+def compute_novelty_scores(children_dirs: list[Path]) -> dict[str, float]:
+    """Compute novelty scores for each child based on belief uniqueness.
+
+    A belief is "novel" if no other variant has a similar belief (Jaccard < 0.4).
+    Novelty score = novel_count * 3 (rewards unique exploration).
+    """
+    all_titles = {}
+    for child_dir in children_dirs:
+        name = child_dir.name
+        all_titles[name] = _extract_belief_titles(child_dir)
+
+    scores = {}
+    for name, titles in all_titles.items():
+        novel_count = 0
+        for title in titles:
+            is_novel = True
+            for other_name, other_titles in all_titles.items():
+                if other_name == name:
+                    continue
+                for other_title in other_titles:
+                    if _compute_title_similarity(title, other_title) >= 0.4:
+                        is_novel = False
+                        break
+                if not is_novel:
+                    break
+            if is_novel:
+                novel_count += 1
+        scores[name] = novel_count * 3.0
+    return scores
 
 
 # --- COMMANDS ---
@@ -492,7 +573,7 @@ def cmd_combine(variant_names: list):
 
 
 def cmd_evaluate_all():
-    """Evaluate all belief-* children."""
+    """Evaluate all belief-* children with cross-variant novelty scoring."""
     if not CHILDREN_DIR.exists():
         print("No children directory found.")
         sys.exit(1)
@@ -506,9 +587,11 @@ def cmd_evaluate_all():
         print("No belief-variant children found.")
         sys.exit(1)
 
-    print(f"Evaluating {len(children)} children...\n")
+    # Compute cross-variant novelty scores first
+    novelty_scores = compute_novelty_scores(children)
+    print(f"Evaluating {len(children)} children (with novelty scoring)...\n")
     for child in children:
-        cmd_evaluate(child.name)
+        cmd_evaluate(child.name, novelty_score=novelty_scores.get(child.name, 0.0))
         print()
 
 
@@ -566,7 +649,7 @@ def cmd_lineage():
             print(f"  └── {gname} (fitness={gfitness}) [parents: {', '.join(parents)}]")
 
 
-def cmd_evaluate(child_name: str):
+def cmd_evaluate(child_name: str, novelty_score: float = 0.0):
     """Evaluate a child swarm's outcomes."""
     child_dir = CHILDREN_DIR / child_name
     if not child_dir.exists():
@@ -574,7 +657,7 @@ def cmd_evaluate(child_name: str):
         sys.exit(1)
 
     metrics = evaluate_child(child_dir)
-    fitness = compute_fitness(metrics)
+    fitness = compute_fitness(metrics, novelty_score=novelty_score)
 
     print(f"=== EVALUATION: {child_name} ===\n")
     print(f"  Lessons:          {metrics['lessons_count']} (avg {metrics['lessons_avg_length']:.1f} lines)")
@@ -584,6 +667,8 @@ def cmd_evaluate(child_name: str):
     print(f"  Files/Lines:      {metrics['total_files']} / {metrics['total_lines']}")
     print(f"  Commits:          {metrics['commit_count']}")
     print(f"  Validator:        {'PASS' if metrics['validator_passes'] else 'FAIL'}")
+    if novelty_score > 0:
+        print(f"  Novelty bonus:    +{novelty_score:.1f}")
     print(f"\n  FITNESS SCORE:    {fitness:.1f}")
 
     # Save results

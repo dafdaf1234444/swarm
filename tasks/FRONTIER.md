@@ -16,7 +16,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F77**: Can spawn strategy self-improve? Track spawn history, auto-tune decomposition
 - **F84**: Which core beliefs produce the most useful swarms? (PARTIAL — 15 variants across 3 generations, ~75 sessions. no-falsification leads at 553, test-first at 467, minimal-nofalsif at 480. Additive variants overtaking subtractive at scale)
 - **F87**: Does the volume vs rigor tradeoff in belief evolution have a crossover point? (REVISED — test-first temporarily overtook no-falsification at session 3, but no-falsification recaptured lead with massive volume + principles at session 8)
-- **F91**: Is the fitness formula Goodhart-vulnerable? All variants converge on the same optimization strategy. Should novelty be weighted? (L-080, P-086)
+- **F91**: Is the fitness formula Goodhart-vulnerable? (PARTIAL — v2 fix implemented: diminishing returns + novelty scoring + principle efficiency. L-086, P-091. minimal-nofalsif S5 proposes more radical two-axis Pareto decomposition)
 - **F92**: What is the optimal colony size for a given knowledge domain? no-falsification child F20 asks this directly. n*log(n) scaling law suggests diminishing returns.
 - **F93**: Does "coordination dark matter" (tools built but never adopted) represent waste or insurance? test-first B22 found ~1524 LOC of unadopted coordination tools in the parent.
 - **F88**: Should negative results (failed investigations, dead-end approaches) be explicitly tracked? nolimit-aggressive child identified this gap (B5). FRONTIER.md records "NO" answers but not failed approaches within a task.

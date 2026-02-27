@@ -5,7 +5,7 @@ Evidence types: `observed` (empirically tested in this system) | `theorized` (re
 When a belief is disproven: check dependents below → update those too.
 
 ## Interconnection model
-N=10 beliefs (10 observed, 0 theorized), target K≈1. See L-025.
+N=13 beliefs (10 observed, 3 theorized), target K≈1. See L-025.
 K=0 is frozen (no cascades, no adaptation). K=N-1 is chaotic (everything affects everything).
 
 ```
@@ -19,6 +19,9 @@ B9 (NK predictive power) ──→ B10 (cycle-count predictor)
 B10 (cycles predict unresolvable bugs) — observed
 B11 (CRDT knowledge structures) — observed
 B12 (tool adoption power law) — observed
+B13 (error handling dominates failures) — theorized [distributed-systems]
+B14 (small-scale reproducibility) ──→ B13 — theorized [distributed-systems]
+B15 (CAP tradeoff) — theorized [distributed-systems]
 ```
 
 ---

@@ -20,6 +20,13 @@
       "commits": 5,
       "beliefs": 7,
       "observed": 5
+    },
+    {
+      "timestamp": "2026-02-27T01:10:57",
+      "fitness": 192.0,
+      "commits": 6,
+      "beliefs": 7,
+      "observed": 5
     }
   ],
   "belief-control": [
@@ -43,6 +50,13 @@
       "commits": 6,
       "beliefs": 7,
       "observed": 7
+    },
+    {
+      "timestamp": "2026-02-27T01:10:59",
+      "fitness": 212.0,
+      "commits": 6,
+      "beliefs": 7,
+      "observed": 7
     }
   ],
   "belief-minimal": [
@@ -56,6 +70,13 @@
     {
       "timestamp": "2026-02-26T11:47:02",
       "fitness": 236.0,
+      "commits": 6,
+      "beliefs": 10,
+      "observed": 10
+    },
+    {
+      "timestamp": "2026-02-27T01:11:00",
+      "fitness": 254.0,
       "commits": 6,
       "beliefs": 10,
       "observed": 10
@@ -103,6 +124,13 @@
       "commits": 10,
       "beliefs": 25,
       "observed": 25
+    },
+    {
+      "timestamp": "2026-02-27T01:11:04",
+      "fitness": 755.5889894354068,
+      "commits": 10,
+      "beliefs": 29,
+      "observed": 29
     }
   ],
   "belief-no-lesson-limit": [
@@ -123,6 +151,13 @@
     {
       "timestamp": "2026-02-27T00:59:55",
       "fitness": 210.0,
+      "commits": 4,
+      "beliefs": 8,
+      "observed": 8
+    },
+    {
+      "timestamp": "2026-02-27T01:11:04",
+      "fitness": 236.0,
       "commits": 4,
       "beliefs": 8,
       "observed": 8
@@ -149,6 +184,13 @@
       "commits": 4,
       "beliefs": 10,
       "observed": 10
+    },
+    {
+      "timestamp": "2026-02-27T01:11:05",
+      "fitness": 302.0,
+      "commits": 5,
+      "beliefs": 10,
+      "observed": 10
     }
   ],
   "belief-nofalsif-aggressive": [
@@ -162,6 +204,13 @@
     {
       "timestamp": "2026-02-26T11:41:27",
       "fitness": 198.0,
+      "commits": 4,
+      "beliefs": 8,
+      "observed": 7
+    },
+    {
+      "timestamp": "2026-02-27T01:11:06",
+      "fitness": 213.0,
       "commits": 4,
       "beliefs": 8,
       "observed": 7
@@ -188,6 +237,13 @@
       "commits": 6,
       "beliefs": 8,
       "observed": 8
+    },
+    {
+      "timestamp": "2026-02-27T01:11:07",
+      "fitness": 220.0,
+      "commits": 6,
+      "beliefs": 8,
+      "observed": 8
     }
   ],
   "belief-nolimit-aggressive": [
@@ -201,6 +257,13 @@
     {
       "timestamp": "2026-02-26T11:38:16",
       "fitness": 150.0,
+      "commits": 4,
+      "beliefs": 6,
+      "observed": 5
+    },
+    {
+      "timestamp": "2026-02-27T01:11:08",
+      "fitness": 162.0,
       "commits": 4,
       "beliefs": 6,
       "observed": 5
@@ -241,6 +304,13 @@
       "commits": 5,
       "beliefs": 29,
       "observed": 28
+    },
+    {
+      "timestamp": "2026-02-27T01:11:01",
+      "fitness": 655.9583152331272,
+      "commits": 6,
+      "beliefs": 33,
+      "observed": 31
     }
   ],
   "belief-aggressive-minimal": [
@@ -261,6 +331,13 @@
     {
       "timestamp": "2026-02-27T00:59:49",
       "fitness": 247.0,
+      "commits": 3,
+      "beliefs": 11,
+      "observed": 11
+    },
+    {
+      "timestamp": "2026-02-27T01:10:58",
+      "fitness": 270.0,
       "commits": 3,
       "beliefs": 11,
       "observed": 11
@@ -291,6 +368,13 @@
     {
       "timestamp": "2026-02-26T12:03:53",
       "fitness": 415.0,
+      "commits": 5,
+      "beliefs": 17,
+      "observed": 17
+    },
+    {
+      "timestamp": "2026-02-27T01:11:09",
+      "fitness": 450.4575131106459,
       "commits": 5,
       "beliefs": 17,
       "observed": 17
@@ -331,6 +415,13 @@
       "commits": 5,
       "beliefs": 26,
       "observed": 26
+    },
+    {
+      "timestamp": "2026-02-27T01:11:10",
+      "fitness": 602.5889894354068,
+      "commits": 6,
+      "beliefs": 29,
+      "observed": 29
     }
   ],
   "belief-minimal-nofalsif-principles-first": [
@@ -361,6 +452,13 @@
       "commits": 4,
       "beliefs": 12,
       "observed": 12
+    },
+    {
+      "timestamp": "2026-02-27T01:11:02",
+      "fitness": 502.4575131106459,
+      "commits": 5,
+      "beliefs": 17,
+      "observed": 12
     }
   ],
   "belief-minimal-test-first": [
@@ -381,6 +479,13 @@
     {
       "timestamp": "2026-02-27T00:59:53",
       "fitness": 199.0,
+      "commits": 2,
+      "beliefs": 9,
+      "observed": 9
+    },
+    {
+      "timestamp": "2026-02-27T01:11:02",
+      "fitness": 211.0,
       "commits": 2,
       "beliefs": 9,
       "observed": 9
