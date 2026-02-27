@@ -1,5 +1,5 @@
 # Principles — Atomic Building Blocks
-Extracted from lessons. Scan for recombination. 147 principles, 7 themes.
+Extracted from lessons. Scan for recombination. 148 principles, 7 themes.
 
 ## Architecture
 **Structure**: P-008 validate by usage not theory | P-011 flat→hierarchical when outgrown | P-030 healthy redundancy = reconstructible from raw
@@ -54,6 +54,7 @@ Extracted from lessons. Scan for recombination. 147 principles, 7 themes.
 **Automation**: P-123 every convention that matters should have at least one automated check — if it can't be automated, it must be on a machine-verified checklist; unmonitored conventions degrade silently (L-121: 4 stale worktrees, designed-but-never-run experiments) | P-124 tools need fast paths for hook/CI use — if a tool takes >1s it won't survive as a hook; design --quick mode from the start (L-121: validator 63ms vs 15s)
 **Meta-swarming**: P-144 meta-tasks (folder structure, naming, index coherence) are swarmable: fan-out read-only audit agents by area → collect independent reports → single merge step resolves conflicts and acts. High-K tasks become low-K when you separate analysis from mutation. The repo itself is a valid swarm target using the F111 builder pattern turned inward (L-137, F112 partial answer, OBSERVED S67)
 **Cold-start convergence**: P-146 cold-start "swarm" must equal context-rich "swarm" — the gap between them measures how much knowledge is trapped in ephemeral LLM context vs. persistent file state; maintenance.py + periodics.json close this gap; this IS swarmability restated for the temporal dimension (L-139, OBSERVED S68) | P-147 the swarm schedules its own maintenance — items declare review cadence in periodics.json; any session can register new periodics; no human decides what needs periodic attention; the node that produces knowledge also knows its shelf life (L-139, OBSERVED S68)
+**Integration receipts**: P-148 after harvesting child findings through any path (ablation, manual review, parent harvest session), write a merge report to close the integration loop — without formal receipt, pulse.py cannot distinguish "integrated via alternate path" from "genuinely unread", creating phantom work that wastes future sessions (L-141, OBSERVED S68)
 **Dark matter**: P-134 coordination dark matter (tools built but unadopted) is ~60% waste (duplicates from stigmergic tool creation), ~25% insurance (dormant capacity relevant if conditions change: frontier_decay, genesis_evolve), ~15% lost-embedding (was workflow-embedded, dropped during protocol compression: frontier_decay.py canonical case). Schedule cleanup every ~25 sessions — merge duplicates, deprecate obsolete, re-embed lost tools if still relevant (L-128, F93)
 
 ## Distributed Systems

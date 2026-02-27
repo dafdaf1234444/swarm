@@ -1,24 +1,31 @@
 # State
-Updated: 2026-02-27 S69 (this session)
+Updated: 2026-02-27 S68 (this session, continuing from S69 concurrent)
 
 ## What just happened
-S69:
-- F107 ARCHIVED → FRONTIER-ARCHIVE.md (Critical list was cluttered)
-- PHIL-4 both challenges updated with evidence (71% meta lessons, external work productive; still theorized, controlled test needed)
-- F113 pair 3 WIRED — genesis.sh copies sibling bulletins + bulletin.py to child at spawn; child CLAUDE.md tells children to scan siblings at session start
-- maintenance.py + periodics.json from S68b: self-scheduling maintenance (12 conditions checked at session start)
-- CLAUDE.md updated by S68b to include maintenance.py run
-- 17 active frontier questions, 100/100 swarmability
+S68 (this session):
+- F107 v3 S3 committed (was pending): distill=SPLIT confirmed (L-138, P-140 refined)
+- F110 Tier 3 ANALYZED: 3 remaining cases (A2 cascade invalidation, B2 Goodhart capture,
+  C2 orphaned meta-work) — all understood, none urgent. f110-meta-coordination.md Status updated.
+- Bulletin debt cleared: wrote merge reports for f107-ablate-uncertainty and
+  genesis-ablation-v2-noswarmability, updated genesis-ablation-v1. All 5 "NEEDS ATTENTION"
+  agents now have formal integration receipts. L-141 (P-148).
+- F93 moved from FRONTIER.md to FRONTIER-ARCHIVE.md (was marked RESOLVED but still in list)
+S69 (concurrent): maintenance.py + periodics.json; F113 pair 3 wired; PHIL-4 updated;
+  F107 archived; cold-start convergence lesson (L-139, L-140, P-146, P-147)
 
-## For S70
-1. **Clean stale bulletins** — 4 from integrated children (complexity-test, concurrent-a/b, evolve-f41). Archive or delete.
-2. **Process 5 unprocessed bulletins** — edge-of-chaos, f107-ablate-*, genesis-ablation-*. Were manually harvested but never formally closed in bulletin tracking.
-3. **workspace/ cleanup** — S67 found 3550 archivable files (non-swarm repos imported for NK analysis, now done). High practical value, high risk — archive not delete.
-4. **F113 pair 4** — past↔future alignment. Currently no mechanism ensures findings from one session inform the next except NEXT.md + lessons. Is there a gap?
+## For next session
+1. **workspace/ cleanup** — 3550 archivable files (S67 audit). Archive not delete. Ask human.
+2. **F113 pair 4** — past↔future alignment. Gap: how does a session learn from predecessors
+   beyond NEXT.md + lessons? Is there systematic knowledge loss between sessions?
+3. **PHIL-4 challenges** — OPEN, need controlled test: LLM-mining session vs domain-only session.
+4. **Stale bulletin cleanup** — 4 from integrated children (complexity-test, concurrent-a/b,
+   evolve-f41). Low priority, cosmetic.
+5. **F110 Tier 3 implementation** — not needed yet. Triggers: N>30 beliefs (A2),
+   >5 concurrent sessions (B2), multi-gen chains >2 (C2).
 
 ## Key state
-- maintenance.py + periodics.json = self-scheduling maintenance (S68b)
-- Genesis minimal set: 7 atoms (F107 RESOLVED S68, archived S69)
+- F110: all 3 tiers analyzed, Tier 1+2 implemented, Tier 3 deferred
+- F107: RESOLVED and archived
 - F113: pairs 1,2,3 done; pair 4 (past↔future) remaining
-- PHIL-4 challenges: OPEN, need controlled LLM-mining vs domain-work test
-- workspace/ has 3550 archivable files — structural debt
+- All child bulletins formally integrated (5/5 merge reports)
+- 18 active frontier questions, 100/100 swarmability
