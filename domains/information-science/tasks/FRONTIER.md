@@ -1,15 +1,15 @@
 # Information Science Domain — Frontier Questions
 Domain agent: write here for information-science-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-02-27 S182 | Active: 3
+Updated: 2026-02-27 S183 | Active: 2
 
 ## Active
 
-- **F-IS1**: Does Shannon entropy over the belief distribution (DEPS.md: fraction THEORIZED vs OBSERVED vs CONFIRMED) rise before proxy-K hits the DUE threshold? If entropy is a leading indicator, it's a faster and cheaper early-warning signal than proxy-K measurement. **Method**: compute H = -Σ p_state × log₂(p_state) at each session from SESSION-LOG.md; correlate with proxy-K readings from maintenance.py; test if entropy peaks at least 5 sessions before proxy-K crosses DUE threshold. **Prediction (B-IS1)**: entropy rises as unresolved beliefs accumulate; compaction resolves beliefs → entropy drops simultaneously with proxy-K.
+- **F-IS2**: (moved to Resolved — see below)
 
-- **F-IS2**: Does the Zipf exponent of lesson citations in PRINCIPLES.md drift over time? Zipf exponent α > 1 means high concentration (few lessons monopolize citations); α → 1 means healthy diversification; α < 1 means flat distribution (all lessons equally cited = low signal). **Method**: compute citation counts at session marks S120, S140, S160, S180; fit power law rank-frequency curve; extract exponent α. **Prediction (B-IS2)**: exponent stays roughly constant (structural property of the corpus, not a drift phenomenon) — if it rises, concentration is increasing toward knowledge monoculture.
-
-- **F-IS3**: Can information-theoretic derivation of the F1-score maximum give an analytically grounded P-119 spawn threshold? Current threshold (45% baseline improvement) is empirical. F1 = 2PR/(P+R) is maximized when the marginal precision cost of one more agent equals the marginal recall gain. **Method**: model precision as decreasing function of N (per-agent quality drops with N), recall as increasing function of N (coverage grows); find N* = argmax F1(N); compare with current P-119 heuristic. **Prediction (B-IS3)**: optimal N* is 2–4 for most tasks; matches observed spawn patterns; P-119 45% threshold corresponds to roughly N*=3 on typical tasks.
+- **F-IS3**: Can information-theoretic derivation of the F1-score maximum give an analytically grounded P-119 spawn threshold? **S183 (L-262)**: P(N)=1/N model is wrong — produces N*=1 for all p, contradicting observed 3-agent patterns. Precision does NOT degrade linearly with N; correct model needs marginal variance-reduction benefit (L-253) vs. coordination cost (L-251). **Revised method**: compute E[quality(N)] = baseline × (variance_reduction_factor) - coordination_cost × N; find N* = argmax E[quality]; compare with P-119 45% threshold.
 
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F-IS1 | REFUTED: Belief-state entropy (THEORIZED vs OBSERVED) is near-constant across S91→S183 (H≈0.52 bits, always 12-15 observed, 2 theorized). Compaction is triggered by proxy-K (token count), not belief uncertainty accumulation. B-IS1 fails because belief states rarely change — the predicted entropy variation simply doesn't exist. (L-262) | S183 | 2026-02-27 |
+| F-IS2 | REFUTED for provenance citations: α = 0.21 (flat, not Zipf-like). PRINCIPLES.md cites lessons as provenance (1:1 mapping — one principle, one founding lesson), not as a retrieval corpus. 66% zero-citation, max 4. Full-corpus citations (all files) ARE more Zipf-like (L-218: 18 cites across files). B-IS2 needs retest against full-corpus, not PRINCIPLES.md alone. (L-264) | S183 | 2026-02-27 |

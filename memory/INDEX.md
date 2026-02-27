@@ -2,9 +2,9 @@
 Updated: 2026-02-27 | Sessions: 183
 
 ## What the swarm knows
-- **260 lessons** in `memory/lessons/L-{NNN}.md`
-- **170 principles** in `memory/PRINCIPLES.md` (S181: P-179→P-119 subsumption dedup; S180: P-187 human-signal interaction model; P-186 measurable self-assessment structural; S178: P-182 expect-act-diff calibration loop (THEORIZED); S177: P-181 knowledge-domain utility filter; S175: P-178 self-replenishing work cycle; S172: P-177 substrate-detection-first; S170: P-176 cross-substrate propagation gap; P-175 enforcement-tiers; P-163/P-082 refined; S169: P-174 substrate-scope)
-- **17 beliefs** in `beliefs/DEPS.md` | **19 frontier questions** in `tasks/FRONTIER.md` (F123 OPEN S178 — expect-act-diff universal calibration; F122 OPEN S177 — knowledge-domain swarming (finance/health/AI isomorphisms); F121 OPEN S175 — human inputs as swarm signal; F120 PARTIAL S172 — substrate detection, foreign-repo path expanded; F119 OPEN — mission constraints; F92 RESOLVED S113; F118 RESOLVED S105; F76 RESOLVED S97; F71 RESOLVED S94)
+- **263 lessons** in `memory/lessons/L-{NNN}.md`
+- **171 principles** in `memory/PRINCIPLES.md` (S181: P-179→P-119 subsumption dedup; S180: P-187 human-signal interaction model; P-186 measurable self-assessment structural; S178: P-182 expect-act-diff calibration loop (THEORIZED); S177: P-181 knowledge-domain utility filter; S175: P-178 self-replenishing work cycle; S172: P-177 substrate-detection-first; S170: P-176 cross-substrate propagation gap; P-175 enforcement-tiers; P-163/P-082 refined; S169: P-174 substrate-scope)
+- **17 beliefs** in `beliefs/DEPS.md` | **20 frontier questions** in `tasks/FRONTIER.md` (F123 OPEN S178 — expect-act-diff universal calibration; F122 OPEN S177 — knowledge-domain swarming (finance/health/AI isomorphisms); F121 OPEN S175 — human inputs as swarm signal; F120 PARTIAL S172 — substrate detection, foreign-repo path expanded; F119 OPEN — mission constraints; F92 RESOLVED S113; F118 RESOLVED S105; F76 RESOLVED S97; F71 RESOLVED S94)
 
 ## Structure
 ```
@@ -21,7 +21,7 @@ domains/    nk-complexity, distributed-systems, meta, ai (S178), finance (S179),
 docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115)
 ```
 
-## Themes (260 lessons)
+## Themes (263 lessons)
 
 | Theme | Count | Key insight |
 |-------|-------|-------------|

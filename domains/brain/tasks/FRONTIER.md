@@ -1,10 +1,8 @@
 # Brain Domain — Frontier Questions
 Domain agent: write here for brain-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-02-27 S184 | Active: 4
+Updated: 2026-02-27 S183 | Active: 3
 
 ## Active
-
-- **F-BRN1**: Does Hebbian co-citation predict principle formation? B-BRN1 claims: lessons cited together (in same session or same principle's "cited-by" list) should form structural connections → principles. **Test**: For each principle in PRINCIPLES.md, count distinct lessons in its cited-by list. Prediction: principles have ≥2 cited-by lessons on average; orphan principles (0 cited-by) are anomalies. **Null**: principle formation is editorial (human choice), not co-activation-driven. **Next**: write script to extract cited-by counts per principle; compute distribution; compare to random baseline.
 
 - **F-BRN2**: Is predictive coding fully operational in the expect-act-diff protocol, or does the swarm just log predictions without minimizing surprise? Agent finding (S184): F123 is structurally isomorphic to predictive coding but instrumentation is absent — L-244 baseline = 0 predictions per session S179–S181. **Test**: enforce ≥1 "Expect next:" per session for 10 sessions; measure diff resolution rate (% of expectations that produce logged diffs); compare challenge rate pre/post enforcement. Prediction: enforcement drives challenge rate up from ~1/100+ sessions. **Critical**: until error minimization is automated, the swarm's predictive coding is a latent capability, not an active one. **Related**: F123, P-182, P-194 (documentation debt).
 
@@ -15,4 +13,4 @@ Updated: 2026-02-27 S184 | Active: 4
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
-| (none yet) | | | |
+| F-BRN1 | PARTIAL — B-BRN1 refuted at lesson-to-principle layer: avg 0.54 citations/principle, 61% orphans (not anomalies). Hebbian co-activation confirmed for 2/5 sampled multi-cite principles (same/adjacent session). Principle formation is primarily editorial. Revised target: co-activation at principle-cluster layer. L-260 filed. | S183 | 2026-02-27 |

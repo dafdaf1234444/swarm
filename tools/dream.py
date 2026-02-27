@@ -31,7 +31,10 @@ def load_lessons():
                     key=lambda p: int(re.search(r'\d+', p.stem).group())):
         text = f.read_text(encoding="utf-8", errors="replace")
         num = int(re.search(r'\d+', f.stem).group())
+        # Support both bold header (**Theme**: X) and pipe-separated (| Theme: X |)
         theme_m = re.search(r'\*\*Theme\*\*:\s*([^\n|*]+)', text)
+        if not theme_m:
+            theme_m = re.search(r'\|\s*Theme:\s*([^|\n]+)', text)
         theme = theme_m.group(1).strip() if theme_m else ""
         cited = list(set(re.findall(r'P-\d+', text)))
         lessons.append({"id": f"L-{num}", "num": num, "theme": theme, "cited": cited})
@@ -39,13 +42,28 @@ def load_lessons():
 
 
 def load_principles():
-    """Load active principles with ids and text."""
+    """Load active principles with ids and text.
+
+    PRINCIPLES.md uses pipe-separated format within section blocks:
+      P-NNN short-text | P-NNN short-text | ...
+    """
     principles = []
     p_path = ROOT / "memory" / "PRINCIPLES.md"
     if not p_path.exists():
         return principles
     text = p_path.read_text(encoding="utf-8", errors="replace")
-    for m in re.finditer(r'(P-\d+):\s*(.+?)(?=\nP-\d+:|\Z)', text, re.DOTALL):
+    # Skip the header section (before the first ## heading — contains compaction logs
+    # that mention P-IDs but are not principles)
+    first_section = text.find('\n## ')
+    if first_section > 0:
+        text = text[first_section:]
+    # Split by pipe and newline separators — format:
+    #   **Category**: P-NNN text | P-NNN text | P-NNN text\n**Next**: ...
+    for raw_segment in re.split(r' \| |\n', text):
+        segment = raw_segment.strip()
+        m = re.search(r'\b(P-\d+)\s+(.+)', segment)
+        if not m:
+            continue
         pid, body = m.group(1), m.group(2).strip()[:300]
         if 'superseded' in body[:60].lower() or 'dropped' in body[:60].lower():
             continue
