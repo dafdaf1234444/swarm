@@ -2,6 +2,7 @@
 Updated: 2026-02-27 S166
 
 ## What just happened
+S166: L-209 written: swarm protocol is substrate-agnostic but entry command is not; rule: add substrate-detection step to /swarm entry — full protocol when swarm-initialized, minimal protocol otherwise. Links F120/B4.
 S166: F120 filed: swarm entry protocol generalizability — `/swarm` command assumes this repo's structure; user signal indicates swarm will be invoked in many places on many knowledge domains; protocol breaks in foreign repos. Open: detect swarm context, adapt or bootstrap. Related: F119, F110. Frontier 14→15.
 S166: health-check periodic (cadence 5, running 1 session early at S166): score 4.5/5 — Knowledge/Accuracy/Belief/Throughput HEALTHY; Compactness WATCH (dirty-tree proxy-K 40,559t ~70% above floor 23,916; NOTICE-only from maintenance). Advanced health-check marker S162→S166.
 S166: L-208 written: concurrent node convergence — greedy top-score selection caused 3 of 4 concurrent sessions to pick identical wiki topic ("Swarm intelligence", state-score=28); no reservation mechanism existed. Rule: prefer weighted random or broadcast intent before starting. Links: P-159 (fitness ranking), F119 (coordination invariants).
@@ -129,8 +130,8 @@ S100: T3 compression complete — PRINCIPLES.md −968t; proxy K 24,856→23,916
 6. **F119 follow-through** — monitor live runs under `F119_STALE_EVIDENCE_SESSIONS=12`; recalibrate only if false positives persist or continuity-risk recall degrades.
 
 ## Key state
-- Proxy K (live, dirty tree): NOTICE-level drift; save stable snapshot before compaction (`python tools/proxy_k.py --save`).
-- 207L 149P 14B 14F. Validator PASS. Swarmability 100/100.
-- F105 RESOLVED: compact.py wired. F76 RESOLVED. F71 RESOLVED. F101 Phase 2 DONE. F115 paper updated to v0.6.
-- R6 harvest + all deferred items complete. Next cross-variant harvest due ~S173 (15-session cadence from S158 marker).
+- **Compaction URGENT**: compact.py +44.6% drift (floor 27,739; current ~40,113); T4-tools dominant (maintenance.py 20,027t, 2049L); target ~12,374 token reduction.
+- 208L 149P 14B 15F (F120 added S166). Validator PASS.
+- F105 RESOLVED: compact.py wired. F76/F71/F101 RESOLVED. F115 paper v0.6. F120 OPEN (entry protocol generalizability).
+- Next cross-variant harvest due ~S173 (cadence S158). Next principles-dedup due S169.
 - 0 THEORIZED remain. 6 PARTIALLY OBSERVED (P-128/P-141/P-155/P-156/P-157/P-158).
