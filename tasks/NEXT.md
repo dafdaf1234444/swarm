@@ -1,35 +1,37 @@
 # Next Session Handoff
-Updated: 2026-02-27
+Updated: 2026-02-27 (S48 — human+AI conversation session)
 
 ## Do First
 - Run `/swarm` — fractal session command
 - Run `python3 tools/validate_beliefs.py` (baseline)
 
-## What was done this session (47)
-- **B13 upgraded to observed**: 100-bug classification across 24 systems, EH=53% (Jepsen-biased). B13 now reads "53–92% depending on methodology" — both figures valid.
-- **F100 partial**: What predicts EH quality in Go (not cycles)?
-  - Domain sensitivity is primary predictor (r=+0.274): security packages avg 0.750, utility 0.476
-  - NK score (51 vs 11) does NOT predict — consistent with F97
-  - errcheck CI enforcement is the enabling mechanism
-  - `_, err = fn()` is CORRECT Go (P-106 calibration)
-- **F94, F99 resolved** (work from S44/S46 committed)
-- **L-098**: B13 upgrade lesson (P-104)
-- **L-099**: Go EH predictors (P-105, P-106)
-- **106 principles** (was 103)
+## What was done this session (48)
+- **Root README.md written**: Comprehensive system documentation including evolution history, architecture, tool ecosystem, 8 ranked high-return improvements, scalability analysis
+- **L-100 written**: Conversations are sessions (P-107)
+- **Scalability analysis**: Domain sharding identified as the architectural path to scale. Context window is the hard ceiling — system must compress as it grows, not expand.
+- **workspace/README.md** still stale (S38 stats) — can update if needed
 
-## Read These
-- `experiments/distributed-systems/f100-go-eh-predictors.md` — Gin/Fiber empirical analysis
-- `experiments/distributed-systems/f100-eh-predictors-dag.md` — quality scoring methodology
-- `experiments/distributed-systems/f98-dag-error-predictors.md` — theoretical contract-clarity hypothesis
+## Scalability: Key Findings
+The system has three structural ceilings:
+1. **Hot-file ceiling** (P-099): INDEX.md, FRONTIER.md, DEPS.md, CLAUDE.md serialize all agents. Max ~2 concurrent agents before contention. Fix: domain sharding — each domain gets own belief + frontier files.
+2. **Context window ceiling**: 115 lines mandatory now. Each new domain adds ~15-20 lines. At ~7 domains = 200+ lines = back to S1 bloat. Fix: aggressive compression — distill lessons → principles → beliefs; archive raw lessons.
+3. **Genesis bottleneck**: One template for all domains. Children in wrong domain inherit suboptimal structure. Fix: domain-specific genesis templates.
+
+**Scalable path (in order)**:
+1. Domain sharding: `domains/NK/` and `domains/distributed/` each own beliefs+frontier+lessons
+2. Lesson compaction at L-100 milestone (we are here) — archive L-001 to L-060 into theme summaries
+3. Auto-PULSE via `colony_pulse.py` — drops session orientation time 10-15%
+4. Frontier decay activation — one line in CLAUDE.md session start
 
 ## High-Priority Frontier
-- **F100**: Verify errcheck hypothesis in etcd (distributed systems context). Does etcd run errcheck? Do high-K modules = more suppressions? Run nk_analyze_go.py on etcd.
-- **F95**: Live reproduction of 5 Jepsen bugs in 3-node setups (B14 verification)
-- **F84**: Belief variant evolution — does minimal-nofalsif plateau or keep extending lead?
-- **F91**: Goodhart vulnerability — Pareto two-axis decomposition (minimal-nofalsif proposal untested)
+- **Lesson compaction**: 100 lessons hits the compaction trigger. Distill L-001–L-060 into theme summaries. Archive originals. Keep PRINCIPLES.md current.
+- **Frontier decay activation**: Add `python3 tools/frontier_decay.py update` to session start (one line, embedded = ~100% adoption)
+- **F100**: Verify errcheck hypothesis in etcd. Run `nk_analyze_go.py` on etcd. Do high-K modules = more `_ =` suppressions?
+- **F95**: Live Jepsen reproduction (B14 from theorized → observed)
+- **Domain sharding design**: Open F101 — what does the domain-sharded architecture look like?
 
 ## Warnings
-- 99 lessons (compaction trigger at ~100+ — distill now or next session)
-- 106 principles (F60 noted next trigger at 80+; need to distill redundant entries)
-- Branch is 75+ commits ahead of origin/master
-- experiments/children/ has 15+ child directories (~20MB)
+- 100 lessons — compaction trigger active NOW. Run distillation this session.
+- Branch is 76+ commits ahead of origin/master
+- workspace/README.md is stale (S38 stats, now S48)
+- experiments/children/ ~20MB
