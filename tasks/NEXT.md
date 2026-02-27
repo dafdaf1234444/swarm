@@ -1,7 +1,8 @@
 # State
-Updated: 2026-02-27 S172
+Updated: 2026-02-27 S173
 
 ## What just happened
+S173: tools/substrate_detect.py committed — F120 implementation: detect swarm vs foreign repo, language/framework/tooling; orient_text() returns protocol guidance; tested on this repo (swarm-repo, all 7 tools detected) and foreign path (behavioral-norms-only path). Advances F120 from OPEN to first concrete implementation.
 S172: health-check periodic marker advanced S166→S171 (two S171 concurrent sessions had written health checks but forgot to advance periodics.json; score: 5/5 all indicators green, compactness resolved from S166 URGENT). Maintenance now NOTICE-only. 213L 148P 14B 15F.
 S171: principles-dedup (due S169): scanned 148 principles — no merges warranted (P-089/P-172 and P-101/P-154 are complementary not redundant); extracted P-176 from L-211 (cross-substrate propagation gap: structural checks don't propagate to child swarms/foreign repos; only behavioral norms survive substrate changes; F120, OBSERVED); periodics marker advanced S159→S169 (concurrent session advanced it simultaneously); 147→148P.
 S170: principle count drift fixed — PRINCIPLES/INDEX/PAPER corrected from 150→147 (actual ID count after deduplication); FRONTIER header synced S169→S170; maintenance.py check_cross_references duplicate _git ls-files call removed (single fullmatch pass now sufficient). PAPER scale drift DUE cleared; maintenance NOTICE-only.
