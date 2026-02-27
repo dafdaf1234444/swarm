@@ -237,33 +237,20 @@ def _parse_lane_tags(value: str) -> dict[str, str]:
     return tags
 
 
+_LANE_KEYS = ("date", "lane", "session", "agent", "branch", "pr", "model", "platform", "scope_key", "etc", "status", "notes")
+
 def _parse_swarm_lane_rows(text: str) -> list[dict[str, str]]:
     rows: list[dict[str, str]] = []
     for raw in text.splitlines():
         line = raw.strip()
-        if not line.startswith("|"):
-            continue
-        if re.match(r"^\|\s*Date\s*\|", line, re.IGNORECASE):
-            continue
-        if re.match(r"^\|\s*[-: ]+\|", line):
+        if not line.startswith("|") or re.match(r"^\|\s*(Date\s*\||[-: ]+\|)", line, re.IGNORECASE):
             continue
         parts = [part.strip() for part in line.strip("|").split("|")]
         if len(parts) < 12:
             continue
-        rows.append({
-            "date": parts[0],
-            "lane": parts[1],
-            "session": parts[2],
-            "agent": parts[3],
-            "branch": parts[4],
-            "pr": parts[5],
-            "model": parts[6],
-            "platform": parts[7],
-            "scope_key": parts[8],
-            "etc": parts[9],
-            "status": parts[10].upper(),
-            "notes": parts[11],
-        })
+        row = dict(zip(_LANE_KEYS, parts))
+        row["status"] = row["status"].upper()
+        rows.append(row)
     return rows
 
 
@@ -571,34 +558,20 @@ def check_swarm_lanes() -> list[tuple[str, str]]:
     if len(setup_values) > 1 and not has_global_focus:
         results.append(("NOTICE", "Multi-setup active lanes have no global coordination focus (`focus=global|system|coordination`) in Etc"))
 
-    branch_to_lanes: dict[str, set[str]] = {}
-    scope_to_lanes: dict[str, set[str]] = {}
-    for row in active:
-        lane = row.get("lane", "")
-        branch = row.get("branch", "").strip().lower()
-        scope = row.get("scope_key", "").strip().lower()
-        if not _is_lane_placeholder(branch):
-            branch_to_lanes.setdefault(branch, set()).add(lane)
-        if not _is_lane_placeholder(scope):
-            scope_to_lanes.setdefault(scope, set()).add(lane)
+    def _detect_collisions(key_field: str, label: str) -> None:
+        mapping: dict[str, set[str]] = {}
+        for row in active:
+            lane = row.get("lane", "")
+            val = row.get(key_field, "").strip().lower()
+            if not _is_lane_placeholder(val):
+                mapping.setdefault(val, set()).add(lane)
+        conflicts = sorted((k, sorted(v)) for k, v in mapping.items() if len(v) > 1)
+        if conflicts:
+            sample = "; ".join(f"{k}:{'/'.join(v[:3])}" for k, v in conflicts[:3])
+            results.append(("DUE", f"Active lane {label} collision(s): {sample}"))
 
-    branch_conflicts = sorted(
-        (branch, sorted(lanes))
-        for branch, lanes in branch_to_lanes.items()
-        if len(lanes) > 1
-    )
-    if branch_conflicts:
-        sample = "; ".join(f"{branch}:{'/'.join(lanes[:3])}" for branch, lanes in branch_conflicts[:3])
-        results.append(("DUE", f"Active lane branch collision(s): {sample}"))
-
-    scope_conflicts = sorted(
-        (scope, sorted(lanes))
-        for scope, lanes in scope_to_lanes.items()
-        if len(lanes) > 1
-    )
-    if scope_conflicts:
-        sample = "; ".join(f"{scope}:{'/'.join(lanes[:3])}" for scope, lanes in scope_conflicts[:3])
-        results.append(("DUE", f"Active lane scope collision(s): {sample}"))
+    _detect_collisions("branch", "branch")
+    _detect_collisions("scope_key", "scope")
 
     return results
 
@@ -1508,15 +1481,9 @@ def check_proxy_k_drift() -> list[tuple[str, str]]:
 
 def check_file_graph() -> list[tuple[str, str]]:
     results = []
-    structural = [
-        REPO_ROOT / "SWARM.md",
-        REPO_ROOT / "CLAUDE.md",
-        REPO_ROOT / "README.md",
-        REPO_ROOT / "beliefs" / "CORE.md",
-        REPO_ROOT / "memory" / "INDEX.md",
-        REPO_ROOT / "memory" / "OPERATIONS.md",
-        REPO_ROOT / "tasks" / "NEXT.md",
-    ]
+    structural = [REPO_ROOT / p for p in (
+        "SWARM.md", "CLAUDE.md", "README.md", "beliefs/CORE.md",
+        "memory/INDEX.md", "memory/OPERATIONS.md", "tasks/NEXT.md")]
     broken = []
     seen = set()
     for sf in structural:
