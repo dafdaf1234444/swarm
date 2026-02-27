@@ -69,10 +69,10 @@ def _query_title_confidence(query: str, resolved_title: str, lang: str = "en") -
     across all overlap formulations (Jaccard, recall, F1 with stop-word filtering) at
     all tested thresholds. Root cause: query-title alignment measures lexical similarity,
     not resolution correctness — the two are structurally decoupled in Spanish Wikipedia.
-    (L-288: language-aware proxy attempt, gating as evidence-based fallback)
+    (L-289: language-aware proxy attempt, gating as evidence-based fallback)
     """
     if lang != "en":
-        return 0.0  # gate non-EN surfacing: proxy not reliable for ES (L-288)
+        return 0.0  # gate non-EN surfacing: proxy not reliable for ES (L-289)
 
     query_norm = " ".join(_tokenize(query))
     title_norm = " ".join(_tokenize(resolved_title))
