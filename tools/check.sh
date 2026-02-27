@@ -141,7 +141,19 @@ if [ "${#ARGS[@]}" -eq 0 ] && [ -f "tools/test_nk_analyze.py" ]; then
     echo "  NK analyze regression: PASS"
 fi
 
-# 12. Proxy K (if not quick)
+# 12. Orient.py smoke test (if not quick)
+if [ "${#ARGS[@]}" -eq 0 ] && [ -f "tools/orient.py" ]; then
+    ORIENT_OUT=$("${PYTHON_CMD[@]}" tools/orient.py --brief 2>&1)
+    if echo "$ORIENT_OUT" | grep -q "=== ORIENT"; then
+        echo "  Orient smoke test: PASS"
+    else
+        echo "FAIL: orient.py produced unexpected output."
+        echo "$ORIENT_OUT"
+        exit 1
+    fi
+fi
+
+# 13. Proxy K (if not quick)
 if [ "${#ARGS[@]}" -eq 0 ]; then
     "${PYTHON_CMD[@]}" tools/proxy_k.py 2>/dev/null
 fi

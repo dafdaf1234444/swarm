@@ -53,7 +53,7 @@
       "id": "fundamental-setup-reswarm",
       "description": "Swarm setup hygiene: audit SWARM/CORE/bridge/maintenance fundamentals for friction and apply at least one concrete cleanup (or log a blocker with evidence + next action).",
       "cadence_sessions": 8,
-      "last_reviewed_session": 173,
+      "last_reviewed_session": 181,
       "registered_by": "S117"
     },
     {
