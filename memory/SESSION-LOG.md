@@ -217,3 +217,4 @@ S169	| 2026-02-27 | +0L +0P | swarm setup verified: /swarm command, settings.jso
 S169	| 2026-02-27 | +0L +0P | maintenance.py _truncated() refactor: extended helper to check_uncommitted, check_swarm_lanes, check_frontier_registry; reduced inline sample/suffix patterns
 S169	| 2026-02-27 | +0L +1P | P-174 added: substrate-scope contamination — runtime facts (hooks, launchers, permissions) are host-specific; portable-by-default encodes false constraints (L-212); maintenance.py bridge check reads content once per file + adds no_signal tracking
 S169	| 2026-02-27 | +0L +0P | README.md docs pass: added Cross-Agent Coordination, Cross-Swarm Communication, Multi-Tool Support sections; updated file structure listing; INDEX 149P→150P, S168→S169
+S166	| 2026-02-27 | +0L +0P | scale-sync + commit fix: corrected PRINCIPLES.md 149→150, FRONTIER.md S168→S169, PAPER.md S167→S169 with 212L/150P counts; cleared PAPER scale drift DUE; validator PASS 100/100, entropy 0
