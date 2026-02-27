@@ -1398,38 +1398,23 @@ def check_file_graph() -> list[tuple[str, str]]:
     return results
 
 def _inter_swarm_connectivity(capabilities: dict, commands: dict[str, bool]) -> dict:
-    protocol_paths = [
-        "experiments/inter-swarm/PROTOCOL.md",
-        "memory/OPERATIONS.md",
-    ]
+    protocol_paths = ["experiments/inter-swarm/PROTOCOL.md", "memory/OPERATIONS.md"]
     protocol_state = [{"path": p, "exists": _exists(p)} for p in protocol_paths]
-    missing_protocols = [item["path"] for item in protocol_state if not item["exists"]]
-
+    missing_protocols = [s["path"] for s in protocol_state if not s["exists"]]
     inter_swarm = capabilities.get("inter_swarm", {}) if isinstance(capabilities, dict) else {}
     present = inter_swarm.get("present", 0) if isinstance(inter_swarm, dict) else 0
     total = inter_swarm.get("total", 0) if isinstance(inter_swarm, dict) else 0
-    if not isinstance(present, int):
-        present = 0
-    if not isinstance(total, int):
-        total = 0
-
+    if not isinstance(present, int): present = 0
+    if not isinstance(total, int): total = 0
     tooling_ready = total > 0 and present >= total
-    python_ready = any(bool(commands.get(name)) for name in ("python3", "python", "py -3"))
-
+    python_ready = any(bool(commands.get(n)) for n in ("python3", "python", "py -3"))
     missing: list[str] = []
-    if not tooling_ready:
-        missing.append(f"inter_swarm_tools:{present}/{total}")
-    if not python_ready:
-        missing.append("python-command")
+    if not tooling_ready: missing.append(f"inter_swarm_tools:{present}/{total}")
+    if not python_ready: missing.append("python-command")
     missing.extend(missing_protocols)
-
-    return {
-        "ready": tooling_ready and python_ready and not missing_protocols,
-        "tooling": {"present": present, "total": total},
-        "python_command_ready": python_ready,
-        "protocols": protocol_state,
-        "missing": missing,
-    }
+    return {"ready": tooling_ready and python_ready and not missing_protocols,
+            "tooling": {"present": present, "total": total}, "python_command_ready": python_ready,
+            "protocols": protocol_state, "missing": missing}
 
 def build_inventory() -> dict:
     def _tools(*names: str) -> list[str]:
