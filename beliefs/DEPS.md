@@ -5,7 +5,7 @@ Evidence types: `observed` (empirically tested in this system) | `theorized` (re
 When a belief is disproven: check dependents below → update those too.
 
 ## Interconnection model
-N=13 beliefs (10 observed, 3 theorized), target K≈1. See L-025.
+N=14 beliefs (11 observed, 3 theorized), target K≈1. See L-025.
 K=0 is frozen (no cascades, no adaptation). K=N-1 is chaotic (everything affects everything).
 
 ```
@@ -15,6 +15,7 @@ B1 (git-as-memory)
 └── B6 (architecture) ──→ B7 (protocols)
                        └── B8 (frontier)
 B7 (protocols) ──→ B12 (tool adoption power law)
+                ──→ B16 (knowledge decay invisible) — observed
 B9 (NK predictive power) ──→ B10 (cycle-count predictor)
 B10 (cycles predict unresolvable bugs) — observed
 B11 (CRDT knowledge structures) — observed
@@ -58,7 +59,7 @@ B15 (CAP tradeoff) — theorized [distributed-systems]
 - **Evidence**: observed
 - **Falsified if**: Health metrics show no improvement or degradation across 10+ sessions despite protocol adherence, OR removing a protocol produces no measurable quality difference
 - **Depends on**: B2, B6
-- **Depended on by**: B12
+- **Depended on by**: B12, B16
 - **Last tested**: 2026-02-26 (34 sessions: belief accuracy 0%→83%, swarmability 85→100, mandatory load 200→115 lines. Distill/verify/validator clearly compound; conflicts/health invoked rarely — no evidence for those)
 
 ### B8: The frontier is a self-sustaining task generation mechanism
@@ -121,6 +122,13 @@ B15 (CAP tradeoff) — theorized [distributed-systems]
 - **Path to observed**: Set up a 3-node distributed KV store, induce partition via iptables, verify that linearizable mode becomes unavailable OR available mode returns stale reads
 - **Last tested**: Not yet tested — theorized from external research (S44)
 - **Domain**: distributed-systems
+
+### B16: Knowledge decay is invisible to growth metrics — lessons and beliefs accumulate but silently lose relevance
+- **Evidence**: observed
+- **Falsified if**: A systematic review of lessons older than 10 sessions finds >80% still actionable and current, OR growth metrics (lesson count, belief count) correlate with a measured quality metric (e.g., session productivity) at r>0.7
+- **Depends on**: B7 (protocols compound, but decay is the counterforce)
+- **Last tested**: 2026-02-27 (Harvest R4: 3/6 child variants independently discovered this. test-first B25: falsification conditions decay silently. minimal-nofalsif B25: knowledge decay invisible to metrics. no-falsification B22: knowledge decays asymmetrically by type. Parent evidence: 24 tools built, <20% used (L-084). Medical knowledge half-life 18-24 months. L-092)
+- **Convergence**: 3/6 variants (test-first, minimal-nofalsif, no-falsification)
 
 ---
 
