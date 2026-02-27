@@ -1,42 +1,28 @@
 # State
-Updated: 2026-02-27 S83
+Updated: 2026-02-27 S81+
 
 ## What just happened
-S82b (this session, parallel work):
-- **PHIL-5/11/13 RESOLVED** — PHIL-11/13 now distinguish directional authority (human has
-  it) from epistemic authority (no node has it). PHIL-5 "breaking" corrected to
-  "confirming, rarely revising." PHILOSOPHY.md v0.4. L-173.
-- **F90 RESOLVED** — function-level NK is ADDITIVE to class-level. Top-level functions
-  (18–68% of package) are class-level's structural blind spot. Class misses ALL cycles
-  in logging/json/email; function finds 1–12. L-174, P-166. NK domain frontier updated.
+S81+ (this session):
+- **F111 FIX PHASE TESTED**: Applied builder proposal to complexity_ising_idea.
+  Extracted config_to_patch_states (13 copies → 1) and compute_patch_autocorrelation
+  (2 copies → 1) into src/. Net: -287 lines, 13/13 tests pass.
+  compute_ei_equalized NOT extractable (5 different return signatures across 8 files —
+  analysis phase missed this). Proposal was ~67% executable as-written.
+  Branch: complexity_ising_idea@swarm/f111-fix-test. L-176.
+  Key finding: "identical logic" ≠ "safely extractable" — return signatures matter.
 
-S82 (prior parallel):
-- **F-NK4 PARTIAL**: duplication K anti-correlation confirmed (L-172, P-165).
-
-S80+ (concurrent):
-- **P-151 tested** (THEORIZED → OBSERVED): pairwise merging yields 0.08% of proxy K. L-169.
-- **P-137 tested** (THEORIZED → OBSERVED): 6% error rate, 1-session correction lag. L-171.
-- **F84+F116 archived**: rankings stable, MDL floor reached. 15 active frontiers.
-- **F112: file-graph check** in maintenance.py — broken ref detection. P-136 implemented.
-
-S83 (this session):
-- **F117 opened** — human signal: can swarm produce installable libs from its own tools
-  and user repos? nk-analyze is evidence YES; full analyze→package→test loop unvalidated.
-  Added to FRONTIER.md Exploratory. Connects to F111 (builder) + PHIL-2.
-- **FRONTIER.md header updated**: S80+ → S83, count 15 → 16.
+S83 (parallel): F117 opened (self-producing libs). S82b: PHIL-5/11/13 refined, F90 resolved.
 
 ## For next session
-1. **F117/F111 builder phase** — human confirmed direction: produce libs from swarm tooling
-   or user repos. Execute end-to-end. Best candidates: (a) integrate function-level analyzer
-   (/tmp/f90_function_nk.py) into nk_analyze package with tests, (b) extract maintenance
-   or belief-graph logic as importable lib. This is the primary ask.
-2. **F-NK4 continued**: measure duplication K on 2-3 more B9 packages. (added S82)
-3. **Test THEORIZED principles** — 10 remaining: P-128, P-132, P-136, P-145, P-155-P-158. (added S80+)
-4. **36 uncited principles** — compression candidates when proxy K drift triggers (>6% floor).
+1. **F111 deploy decision**: branch swarm/f111-fix-test ready. Human review: merge or discard?
+   compute_ei_equalized still has 8 copies — needs manual return-signature unification. (added S81+)
+2. **F117/F111 builder phase** — human signal: produce libs from swarm tooling or user repos.
+   nk-analyze, maintenance logic. End-to-end: build→package→test. (added S83)
+3. **F-NK4 continued**: duplication K on 2-3 more packages. (added S82)
+4. **10 THEORIZED principles** remain to test. (added S80+)
 
 ## Key state
+- F111: FIX PHASE TESTED. Proposal ~67% executable. Branch pending review.
 - Zero open challenges. 10 THEORIZED principles remain.
-- Proxy K: ~25,010 (drift ~2% — under 6% threshold).
-- F112: file-graph check live in maintenance.py.
-- 16 active frontiers (F117 added S83; F84+F116 archived S80+).
+- 175 lessons, 141 principles, 14 beliefs, 16 frontiers.
 - Validator PASS.

@@ -1,8 +1,8 @@
 # Memory Index
-Updated: 2026-02-27 | Sessions: 83
+Updated: 2026-02-27 | Sessions: 81+
 
 ## What the swarm knows
-- **174 lessons** in `memory/lessons/L-{NNN}.md`
+- **175 lessons** in `memory/lessons/L-{NNN}.md`
 - **141 principles** in `memory/PRINCIPLES.md` (S81: +P-166 function-NK additive; S82: +P-165 duplication K; S81b: +P-164 self-audit)
 - **14 beliefs** in `beliefs/DEPS.md` | **16 frontier questions** in `tasks/FRONTIER.md` (F117 added S83 — self-producing libs; F116 archived S81; F109+F113+F91 archived S79+)
 
@@ -19,13 +19,13 @@ domains/    nk-complexity, distributed-systems, meta
 docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115)
 ```
 
-## Themes (174 lessons)
+## Themes (175 lessons)
 
 | Theme | Count | Key insight |
 |-------|-------|-------------|
 | Architecture | 15 | Blackboard+stigmergy, domain sharding, online distillation, 3-var decision tree (L-156), phantom dependency (L-161) |
 | Protocols | 13 | Distill, verify (3-S), correct, handoff; evidence > assertion, persuasion≠accuracy (L-158), self-measurable falsification (L-160) |
-| Strategy | 10 | Phase ratios, genesis automation, targeted fixes |
+| Strategy | 11 | Phase ratios, genesis automation, targeted fixes, builder fix-phase test (L-176) |
 | Complexity (NK) | 29 | K_avg*N+Cycles composite, DAG discipline, multi-scale, duplication K (L-172), function-level ADDITIVE (L-174) |
 | Evolution | 42 | Spawn+evaluate, recursive evolution, hybrid vigor, transactive memory (L-153), trace deception (L-154), fractal lifecycle (L-155), fitness decomposition (L-159), 2D fitness quadrants (L-164), human node model (L-165), experiment→code loop (L-167) |
 | Distributed Systems | 10 | EH anti-patterns, K_out/K_in role classifier, ctx compound |
