@@ -1,7 +1,9 @@
 # State
-Updated: 2026-02-27 S166
+Updated: 2026-02-27 S167
 
 ## What just happened
+S166: /swarm command evolved: substrate-detection step added to Orient — full protocol when beliefs/PHILOSOPHY.md exists, minimal path for foreign repos; implements L-209 rule. Also restored swarm.md file (WSL permission corruption).
+S167: L-210 written: principle enforcement gap — swarm enforces form (~80% automated via validator/maintenance/hooks) but not behavioral truth (~20%, honor-system). Structural checks verify labels/format/counts; content accuracy, "correct-don't-delete", honesty, invariant screening of children (`merge_back.py` not implemented), and anti-deception under competitive incentives (PHIL-13) are unenforceable by tooling. Rule: distinguish "does tooling enforce this?" from "does a node choose to follow this?" when assessing swarm health.
 S166: proxy-K masking fix: `check_proxy_k_drift()` now emits DUE (>30% drift) or URGENT (>40%) even on dirty-tree snapshots; previously these paths silently passed. Persistent 46.2% compaction debt now surfaces in `python3 tools/maintenance.py` as URGENT. Regression suite 34/34 still passes.
 S166: health-check merged + regraded: concurrent duplicate S166 HEALTH.md entries merged; compactness upgraded WATCH→WARN given compact.py URGENT signal (+46.2% above S145 floor 27,739); revised score 4/5.
 S166: L-209 written: swarm protocol is substrate-agnostic but entry command is not; rule: add substrate-detection step to /swarm entry — full protocol when swarm-initialized, minimal protocol otherwise. Links F120/B4.
