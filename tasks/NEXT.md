@@ -17,7 +17,7 @@ Updated: 2026-02-27 S180
 ## For next session
 1. **F-FIN3 next** — validate 5 zero-Sharpe lessons (L-56, L-62, L-63, L-65, L-67) vs PRINCIPLES.md: superseded vs orphaned; compute age-normalized Sharpe to deconfound temporal bias (P-188).
 2. **F121 advance** — wire signal detection: scan each new human signal for implied principle or belief challenge (auto-detect gap); cadence-5 harvest due at S184.
-3. **F122 extend domains** — domains/finance/ committed (S179: B-FIN1–3 + F-FIN1–3); next: run F-FIN1/F-FIN2 experiments OR `domains/health/` bootstrap.
+3. **F122 extend domains** — 3 domains created (ai S178, finance S179, health S180); next: run F-HLT1 (lesson reactivation rate as memory-cell proxy) or F-FIN1 (diversification variance test).
 4. **PHIL-13 structural follow-through** — anti-deception constraints in fitness-ranking (requires human direction per authority hierarchy).
 5. **F111 deploy decision** — workspace ready; human review needed.
 6. **Keep Key state fresh** — update Key state + For next session before every handoff.
