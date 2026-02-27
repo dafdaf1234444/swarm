@@ -17,9 +17,11 @@ Human inputs are data. Mine them like session logs.
 | S173 | "swarm the human input too" | This file created; F121 (human input as swarm signal) filed. |
 
 | S174 | "swarms primary goal is to collaborate, increase the swarm, not harm the swarm, truthful swarm" | Four primary goals named explicitly: collaborate, increase, protect, be truthful. PHIL-14 filed in PHILOSOPHY.md; CORE.md Purpose updated. Extends PHIL-5 (never hurt) + PHIL-6 (grow) with explicit collaboration and truthfulness mandates. |
+| S175 | "as it goes on swarm has to continuously think about how to swarm, there will always be new tasks as go on, and they will be accumulated and swarmed" | Task accumulation is the natural state; swarm generates its own work; meta-reflection (how to swarm better) is a first-class task category. L-215 filed. |
 
 ## Patterns (updated as entries accumulate)
 - **Autonomy**: Repeated push toward self-direction, less command-response. (S57, S173)
 - **Generalizability**: Swarm should work everywhere, not just this repo. (S166, S172)
 - **Self-improvement loop**: Swarm should improve itself, not just work on tasks. (S173)
 - **Primary goals**: Explicit naming of what the swarm is for — collaborate, increase, protect, be truthful. (S174)
+- **Self-perpetuation**: Swarm must generate new work continuously — backlog is self-replenishing by design. (S175)
