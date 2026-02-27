@@ -153,6 +153,35 @@ class TestWikiSwarm(unittest.TestCase):
         )
         self.assertGreaterEqual(partial["sync_inherit_prob"], 0.0)
 
+    def test_live_ai1_evidence_surfacing_direction(self):
+        def fake_summary(query: str, lang: str):
+            q = query.lower().replace(" ", "")
+            if q in {"swarmintelligence", "distributedsystems", "stigmergy"}:
+                return {"title": query.title(), "summary": "x", "url": "u"}
+            return {"title": query, "summary": "x", "url": "u"}
+
+        with patch.object(wiki_swarm, "fetch_summary", side_effect=fake_summary):
+            payload = wiki_swarm.run_live_ai1_evidence_experiment(
+                trials=400,
+                perturb_rate=0.35,
+                seed=186,
+                lang="en",
+                leader_high_conf_prob=0.6,
+                leader_high_conf_perturb_rate=0.0,
+                leader_low_conf_perturb_rate=1.0,
+            )
+
+        self.assertEqual(payload["mode"], "live-evidence-surfacing")
+        self.assertEqual(payload["experiment"], "F-AI1")
+        self.assertLess(
+            payload["evidence_surfacing"]["follower_error_rate"],
+            payload["async"]["follower_error_rate"],
+        )
+        self.assertGreater(
+            payload["sync"]["leader_follower_error_correlation"],
+            payload["evidence_surfacing"]["leader_follower_error_correlation"],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
