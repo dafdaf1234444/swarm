@@ -402,9 +402,12 @@ def _fmt(report: dict) -> None:
             f" ({sharpe.get('zero_sharpe_rate', 0):.0%})"
         )
     if proxy.get("floor_tokens"):
+        current = proxy.get("current_tokens", "?")
+        current_fmt = f"{current:,}" if isinstance(current, int) else current
         print(
             f"  Proxy-K:           floor={proxy['floor_tokens']:,}t"
-            f"  drift={proxy.get('last_drift_pct', '?')}%"
+            f"  current={current_fmt}t"
+            f"  drift={proxy.get('drift_pct', '?')}%"
             f"  [{proxy.get('status', '?')}]"
         )
 

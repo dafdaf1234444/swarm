@@ -60,21 +60,47 @@ def _tokenize(text: str) -> list[str]:
     return re.findall(r"[a-z0-9]+", _normalize_accent((text or "").lower()))
 
 
-def _query_title_confidence(query: str, resolved_title: str) -> float:
+# Common Romance-language function words that inflate title length vs query
+_STOPWORDS = frozenset([
+    "de", "la", "el", "los", "las", "del", "un", "una", "y", "en",
+    "le", "les", "du", "des", "al", "lo", "e", "o",
+])
+
+
+def _stem_simple(token: str) -> str:
+    """Strip common Romance-language inflectional suffixes for morphological matching."""
+    for sfx in ("acion", "amiento", "idad", "ado", "ada", "cion", "ando", "iendo"):
+        if len(token) > len(sfx) + 3 and token.endswith(sfx):
+            return token[: -len(sfx)]
+    return token
+
+
+def _query_title_confidence(query: str, resolved_title: str, lang: str = "en") -> float:
     """
     Non-oracle confidence proxy from query-title alignment only.
-    Higher when query tokens and resolved title tokens overlap and
-    the strings are similar at character level.
+    For EN: Jaccard overlap + character similarity.
+    For non-EN: stop-word-filtered query recall + stemmed overlap, to avoid
+    penalizing Spanish/French titles that expand queries with function words.
+    (L-279: language-aware proxy reduces ES structural bias)
     """
     query_norm = " ".join(_tokenize(query))
     title_norm = " ".join(_tokenize(resolved_title))
     if not query_norm or not title_norm:
         return 0.0
 
-    qset = set(query_norm.split())
-    tset = set(title_norm.split())
-    overlap = len(qset & tset) / max(1, len(qset | tset))
     char_sim = SequenceMatcher(None, query_norm, title_norm).ratio()
+
+    if lang != "en":
+        qtoks = [_stem_simple(t) for t in query_norm.split() if t not in _STOPWORDS]
+        ttoks = [_stem_simple(t) for t in title_norm.split() if t not in _STOPWORDS]
+        if not qtoks:
+            return 0.0
+        qset, tset = set(qtoks), set(ttoks)
+        overlap = len(qset & tset) / max(1, len(qset))  # query recall: less penalized by longer titles
+    else:
+        qset = set(query_norm.split())
+        tset = set(title_norm.split())
+        overlap = len(qset & tset) / max(1, len(qset | tset))  # Jaccard for EN
 
     return 0.6 * overlap + 0.4 * char_sim
 
@@ -218,7 +244,7 @@ def run_live(
         leader_title = resolve(leader_query)
         follower_title = resolve(follower_query)
 
-        conf_score = _query_title_confidence(leader_query, leader_title)
+        conf_score = _query_title_confidence(leader_query, leader_title, lang=lang)
         leader_high_conf = conf_score >= confidence_threshold
         surfaced_title = _choose_with_evidence(
             follower_title, leader_title, leader_high_conf
@@ -337,7 +363,7 @@ def _build_trial_data(
 
         leader_title = resolve(leader_query)
         follower_title = resolve(follower_query)
-        conf_score = _query_title_confidence(leader_query, leader_title)
+        conf_score = _query_title_confidence(leader_query, leader_title, lang=lang)
 
         data.append(
             _TrialData(
