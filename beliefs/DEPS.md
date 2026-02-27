@@ -5,7 +5,7 @@ Evidence types: `observed` (empirically tested in this system) | `theorized` (re
 When a belief is disproven: check dependents below → update those too.
 
 ## Interconnection model
-N=14 beliefs (12 observed, 2 theorized), target K≈1 (L-025). K=0 freezes adaptation;
+N=17 beliefs (15 observed, 2 theorized), target K≈1 (L-025). K=0 freezes adaptation;
 K=N-1 is unstable.
 
 ```
@@ -14,6 +14,8 @@ B1 (git-as-memory)
 ├── B3 (small commits) ──→ B11 (CRDT knowledge)
 └── B6 (architecture) ──→ B7 (protocols)
                        └── B8 (frontier)
+                       └── B17 (info asymmetry dominates) [ai]
+                       └── B19 (async cascade defense) [ai]
 B7 (protocols) ──→ B12 (tool adoption power law)
                 ──→ B16 (knowledge decay invisible) — observed
 B9 (NK predictive power) ──→ B10 (cycle-count predictor)
@@ -23,6 +25,9 @@ B12 (tool adoption power law) — observed
 B13 (error handling dominates failures) — observed [distributed-systems]
 B14 (small-scale reproducibility) ──→ B13 — theorized [distributed-systems]
 B15 (CAP tradeoff) — theorized [distributed-systems]
+B17 (info asymmetry = dominant MAS bottleneck) — observed [ai]
+B18 (capability⊥vigilance) — observed [ai]
+B19 (async prevents cascade anchoring) — observed [ai]
 ```
 
 ---
