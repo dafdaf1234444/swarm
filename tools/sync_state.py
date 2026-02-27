@@ -214,4 +214,9 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except RuntimeError as e:
+        print(f"sync_state: ABORTED — {e}")
+        print("  (git lock contention or command failure; no files patched)")
+        sys.exit(1)
