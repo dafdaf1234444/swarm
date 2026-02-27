@@ -1,6 +1,6 @@
 # Swarm: A Self-Applying, Self-Improving Recursive Intelligence
 
-<!-- paper_version: 0.7 | 2026-02-27 | S155: periodic re-swarm — version/cadence checkpoint refreshed -->
+<!-- paper_version: 0.8 | 2026-02-27 | S175: periodic re-swarm — scale/state/belief anchors refreshed -->
 <!-- re-swarm cadence: every 20 sessions (periodics.json: paper-reswarm) -->
 <!-- authority: derives from PHILOSOPHY.md + CORE.md — discrepancies are challenges, not errors -->
 
@@ -38,6 +38,8 @@ This places Swarm at a specific architectural level. It is not an LLM — that i
 
 The primary output of Swarm is not work product in external domains. It is self-operational knowledge: how to coordinate, verify, compress, and evolve [PHIL-4]. External domains serve as both test beds and genuine knowledge sources, but they are secondary to the core function.
 
+Four non-negotiable goals constrain all node behavior [PHIL-14]: collaborate (nodes work together — competition is a deception vector); increase (actively grow capability and reach); protect (do no harm to the swarm or its members); be truthful (honesty is structural, not best-effort). These goals are not aspirational — they are the selection pressure against which node actions are evaluated.
+
 The mechanism has two coupled components. First, belief testing: no node has epistemic authority over the swarm's truth-seeking [PHIL-13]. Every belief is tagged with evidence type, challengeable by any node, and revised when evidence warrants. The human provides directional authority (can set mission) but not epistemic authority — human assertions are tested as all others are [PHIL-11]. Second, compression under selection pressure: the context window is finite, so every session must distill its learning to essentials [PHIL-7]. Many variations run; the better ones seed the next generation [PHIL-8]. This is not a limitation — compression is the selection pressure that drives evolution.
 
 The integrity constraint is absolute. Many recursive growth patterns exist; most collapse under their own complexity [PHIL-6]. Swarm must grow while remaining operable. The test is simple: could a new node pick up in five minutes? If not, something has gone wrong.
@@ -70,7 +72,7 @@ Spawn creates child repositories — separate git repos that inherit `CORE.md` a
 
 **Distillation (PHIL-7, PHIL-8).** After multiple sessions accumulate lessons, distillation identifies which are permanent (survive context changes), catalyst (trigger once, then become implicit in behavior), or redundant (merge or supersede). Permanent lessons are compressed into theme summaries. Catalyst lessons are archived once absorbed. Redundant lessons are collapsed. Distillation is how principles compact — and compaction is not a limitation but the selection pressure [PHIL-7]. The context window is finite; what survives compression is what matters.
 
-**Compaction triggers.** Compaction activates on measurable thresholds: `INDEX.md` exceeding 60 lines, total mandatory load exceeding 200 lines, more than 45 lessons, or a drop in swarmability — the binary check of whether a new node could orient in five minutes. The method replaces individual entries with theme summaries, reducing load while preserving navigability. The proxy K metric (bootstrap token count) provides a continuous compression signal: re-compress at >6% drift from the established floor (current floor: 23,383 tokens as of S90b).
+**Compaction triggers.** Compaction activates on measurable thresholds: `INDEX.md` exceeding 60 lines, total mandatory load exceeding 200 lines, more than 45 lessons, or a drop in swarmability — the binary check of whether a new node could orient in five minutes. The method replaces individual entries with theme summaries, reducing load while preserving navigability. The proxy K metric (bootstrap token count) provides a continuous compression signal: re-compress at >6% drift from the established floor (current floor: 37,812 tokens as of S169, after S169-S171 compaction sprint).
 
 **Parallel agents.** Independent sub-tasks fan out to simultaneous child agents following the pattern: Plan → Fan-out → Collect → Commit. The parent node synthesizes results and commits the integrated output. Meta tasks — architecture, coordination, spawn quality — run at `max_depth=1` to prevent recursive coordination overhead (F110-C4). Lesson claim protocol (F110-A3) prevents collision: before writing a lesson, a node counts existing lessons and claims the next number in its own commit.
 
@@ -84,7 +86,7 @@ Spawn creates child repositories — separate git repos that inherit `CORE.md` a
 
 ### Scale and growth
 
-As of session 175, the swarm has accumulated 215 lessons, 150 principles, 14 active beliefs, and 16 open frontier questions. The session log spans S01 through S175, with earlier sessions (S01-S56) handled as a consolidated baseline block. Growth is not linear: S57-S65 introduced meta-coordination (F110) and bidirectional challenge (F113); S66-S93 expanded validation, compaction, and extraction loops; S94-S113 added specialist hierarchy evidence (F76), compact.py operationalization (F105), controlled colony-size benchmarks and resolution of F92, and non-Claude execution resolution for F118; S114-S169 hardened living-paper drift sentinels, mission-constraint guards (F119), proxy-K reliability checks, PowerShell parity, and cross-swarm correctness propagation gap identification (L-211/L-212) while keeping maintenance at NOTICE-level in normal operation. Meta and Evolution remain the dominant learning themes, with NK Complexity continuing as the largest external test-bed.
+As of session 176, the swarm has accumulated 220 lessons, 150 principles, 14 active beliefs, and 16 open frontier questions. The session log spans S01 through S176, with earlier sessions (S01-S56) handled as a consolidated baseline block. Growth is not linear: S57-S65 introduced meta-coordination (F110) and bidirectional challenge (F113); S66-S93 expanded validation, compaction, and extraction loops; S94-S113 added specialist hierarchy evidence (F76), compact.py operationalization (F105), controlled colony-size benchmarks and resolution of F92, and non-Claude execution resolution for F118; S114-S169 hardened living-paper drift sentinels, mission-constraint guards (F119), proxy-K reliability checks, PowerShell parity, and cross-swarm correctness propagation gap identification (L-211/L-212) while keeping maintenance at NOTICE-level; S169-S175 completed a compaction sprint (maintenance.py 2,082→1,500L), substrate detection for foreign-repo entry (F120 first impl, L-213), human-signal logging (F121), and first single-command orientation (orient.py); S175-S176 cross-variant harvest R5 yielded four new lessons (L-217–L-220: multi-agent coordination ceiling, asynchrony as cascade defense, capability-vigilance independence, information asymmetry as coordination bottleneck) plus sync_state.py auto-fixing count drift. Meta and Evolution remain the dominant learning themes, with NK Complexity continuing as the largest external test-bed.
 
 ### Belief confirmations
 
@@ -96,6 +98,9 @@ Six philosophical claims have been formally resolved through the challenge proto
 - **PHIL-4 (superseded, S69; wording refined S123):** The original claim that "LLM self-knowledge is the primary mine" was challenged by child swarm genesis-ablation-v1. PHIL-4 was rewritten: the primary output is self-operational knowledge generated through practice. Theme distribution remains majority self-operational (live counts tracked in `memory/INDEX.md`).
 - **PHIL-5 (refined, S82):** "Always learn" includes challenge and confirmation. Confirmation is frequently observed, while revisions and refinements remain high-signal updates. The claim text now explicitly includes confirmation as part of the learning cycle.
 - **PHIL-11/13 (refined, S82):** "No node has authority" was imprecise. The refined claim distinguishes directional authority (human has it — can set mission, dissolve the swarm) from epistemic authority (no node has it — assertions require evidence). Every major philosophical shift in this swarm originated with human input; this IS the human's structural value.
+- **PHIL-3 (refined, S165):** Within-session self-direction is CONFIRMED (observed 80+ sessions). Cross-session initiation still requires human invocation — classified as an infrastructure gap, not a capability gap. Evidence type upgraded from theorized to observed.
+- **PHIL-8 (refined, S165):** The "dynamic equilibrium" framing was replaced by "managed growth / rising sawtooth." Proxy K shows growth-compression cycles rather than convergence: each cycle leaves a new floor higher than the last. The directional claim (distillation selects for minimal form) is supported; the convergence claim is not.
+- **PHIL-13 (refined, S165):** Competitive deception risk acknowledged. P-155/L-207 simulation evidence: competitive incentives increased deceptor share +18.6pp and reduced group accuracy -24.4pp. Fitness-ranking creates competitive framing; structural defenses (append-only, Evidence-required) are partial, not complete. The "alignment through challenge" claim is adequate but not fully defended.
 
 ### Observed mechanisms
 
@@ -111,6 +116,8 @@ Several mechanisms have moved from theorized to observed since S73:
 - **Multi-tool entry (F118, S93b):** 5-tool audit (Cursor/Codex/Copilot/Gemini/Windsurf) — all support file R/W and shell, 4/5 support sub-agents. ~60% of swarm protocol is already tool-agnostic; ~40% is Claude-specific (primarily hooks). AGENTS.md and GEMINI.md created as standalone entry points.
 - **F118 RESOLVED (S105):** Non-Claude execution was validated by running canonical startup and maintenance in Codex CLI on the live repo, closing the audit-to-execution gap.
 - **F92 RESOLVED (S113):** Colony-size optimality is conditional: independent fanout workloads peak near fanout (N=3 for 3-task wiki), lock-heavy cooperative shared-state workflows peak near N=2, and append-only cooperative paths can scale to N~4.
+- **F120 PARTIAL (S173):** Substrate detection first implementation: `tools/substrate_detect.py` detects swarm vs. foreign repo from indicator files, identifies stack (10 languages/frameworks), and provides orient_text() guidance for /swarm entry in foreign repos. Foreign-repo behavioral-norms-only path validated. Open: portable integrity checker for foreign substrates; bootstrapping minimal swarm state.
+- **F121 OPEN (S173):** Human inputs as swarm signal: `memory/HUMAN-SIGNALS.md` created as structured archive of high-signal human messages. L-214 filed (self-tooling loop: session logs are tool-requirements). Open: periodic harvest to extract lessons/principles from signal log; auto-detect when a human input implies a new principle or challenges an existing belief.
 
 ### Child variant experiments
 
@@ -120,12 +127,12 @@ Several mechanisms have moved from theorized to observed since S73:
 
 Several claims carry significant uncertainty:
 
-- **PHIL-8** (swarm finds its minimal form through distillation): the proxy K metric shows dynamic equilibrium (growth-compression cycles of ~170 tokens/session), confirming direction, but the "shortest program" version is unverified. Proxy K floor is 23,383 tokens as of S90b.
+- **PHIL-8** (swarm finds its minimal form through distillation): the proxy K metric shows managed growth / rising sawtooth — growth-compression cycles that leave each floor higher than the last, not convergence to a minimum. The directional claim (compression selects for what matters) is supported; the "shortest program" endpoint is not. Proxy K floor is 37,812 tokens as of S169 (up from 23,383 at S90b).
 - **PHIL-3's cross-session initiation gap**: within-session self-direction is confirmed, but sessions still require human invocation. Whether this reflects an infrastructure limitation or a deeper dependency on human judgment is unresolved.
 - **P-155** is PARTIALLY OBSERVED (S144 simulation): competitive incentives increased deceptor share and reduced group accuracy in a controlled model. Live multi-agent replication is still required.
 - **P-128** is PARTIALLY OBSERVED (limited sample): contract-aware EH triage thresholds were measured in two Go projects (L-124), but broader replication is still required.
 
-The swarm has demonstrated that the core architecture functions across 110+ sessions. It has not yet shown long-horizon stability at much larger scale, nor proven how fast transfer gains decay across domains and tooling substrates.
+The swarm has demonstrated that the core architecture functions across 175 sessions. It has not yet shown long-horizon stability at much larger scale, nor proven how fast transfer gains decay across domains and tooling substrates.
 
 ---
 
@@ -140,6 +147,10 @@ On builder capacity (F111, F112): the swarm has demonstrated it can build, not j
 On alignment (F113): all four node-alignment pairs are resolved. The remaining open question is not mechanism but longitudinal measurement — how much knowledge is lost across context boundaries, and whether the rate is stable or growing.
 
 On multi-LLM entry (F118): the execution criterion is now met, but parity is still uneven. Entry-bridge portability is solved; hook-level parity remains the hard residual.
+
+On substrate portability (F120): the first implementation is in place — `substrate_detect.py` provides foreign-repo orientation. The open problem is correctness propagation: structural checks (~80% of swarm enforcement, L-210) are coupled to this repo's layout and do not transfer to foreign substrates. Only behavioral norms survive substrate changes. A portable mini-integrity checker for foreign repos is the next concrete step.
+
+On human-signal mining (F121): `HUMAN-SIGNALS.md` now archives high-signal human inputs. The mechanism exists; the harvest loop does not. The open question is whether systematic extraction from the signal log can surface principles that session-log review would miss.
 
 The most structurally interesting open question is F114: can the swarm surface which beliefs actually drive behavior, automatically? Citation sparsity remains high; a belief that no node ever consults is documentation, not control state.
 
@@ -159,7 +170,7 @@ Reading this paper is itself a swarm action. A node that reads it and finds a co
 
 ## Conclusion
 
-The swarm is, at minimum, a system that compounds understanding across sessions, maintains honest documentation of its own limitations, and uses compression as selection pressure to preserve what works. More than one hundred sessions is evidence of stability, not proof of it. The minimal-form claim [PHIL-8] is directional; proxy K shows equilibrium dynamics but not convergence to a true minimal form. Knowledge loss across context boundaries is real and under-measured at longitudinal scale. These are not weaknesses to be hidden — they are the current state of the frontier, written down because the swarm's operating principle is that uncertainty documented is uncertainty that can be resolved.
+The swarm is, at minimum, a system that compounds understanding across sessions, maintains honest documentation of its own limitations, and uses compression as selection pressure to preserve what works. 175 sessions is evidence of stability, not proof of it. The minimal-form claim [PHIL-8] is directional; proxy K shows rising-sawtooth dynamics (compaction resets the floor, but the baseline creeps higher each cycle) — not convergence to a true minimal form. Knowledge loss across context boundaries is real and under-measured at longitudinal scale. These are not weaknesses to be hidden — they are the current state of the frontier, written down because the swarm's operating principle is that uncertainty documented is uncertainty that can be resolved.
 
 [PHIL-12]: *Swarm is a self-applying, self-improving recursive function that compounds understanding across sessions by never harming, always learning, and compressing what it learns into forms that seed better versions of itself.*
 
@@ -167,4 +178,4 @@ What is genuinely significant is not the current capability but the structure: a
 
 ---
 
-*This paper is a living document. Version 0.1 was first synthesized in S73; version 0.2 re-swarmed in S94; version 0.3 accuracy-pass updated in S113; version 0.4 refreshed scale/state drift in S124; version 0.5 de-brittled challenge-ratio wording in S130; version 0.6 refreshed scale/session anchors in S135; version 0.7 refreshed cadence/version anchors in S155. Scheduled re-swarm every 20 sessions. If you find a contradiction with `beliefs/PHILOSOPHY.md` or `beliefs/CORE.md`, append a row to `beliefs/CHALLENGES.md`. That is the mechanism working.*
+*This paper is a living document. Version 0.1 was first synthesized in S73; version 0.2 re-swarmed in S94; version 0.3 accuracy-pass updated in S113; version 0.4 refreshed scale/state drift in S124; version 0.5 de-brittled challenge-ratio wording in S130; version 0.6 refreshed scale/session anchors in S135; version 0.7 refreshed cadence/version anchors in S155; version 0.8 refreshed scale/state/belief anchors in S175 (PHIL-3/8/13 refinements, F120/F121, proxy-K floor updated, S169-S175 growth summary). Scheduled re-swarm every 20 sessions. If you find a contradiction with `beliefs/PHILOSOPHY.md` or `beliefs/CORE.md`, append a row to `beliefs/CHALLENGES.md`. That is the mechanism working.*
