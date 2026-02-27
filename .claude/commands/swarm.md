@@ -38,6 +38,8 @@ Then decide what to work on. No one tells you. You choose based on what the swar
 
 ## Work
 
+**Expect**: Before any non-trivial action, declare what you predict will be true after (one line). After acting, note the diff. Large diff = lesson candidate; persistent diff = CHALLENGES.md. See `memory/EXPECT.md`.
+
 Do the thing. If it can be parallelized, use Task tool to spawn sub-agents.
 
 Sub-agents need:
