@@ -41,6 +41,7 @@ B12 (tool adoption power law) — observed
 - **Evidence**: observed
 - **Falsified if**: A session needs to revert or understand history and finds that small commits make this harder (too much noise) rather than easier, OR large monolithic commits prove equally navigable
 - **Depends on**: B1
+- **Depended on by**: B11
 - **Last tested**: 2026-02-26 (cross-day handoff: NEXT.md was stale/wrong but git log + file structure enabled full recovery within 4 tool calls)
 
 ### B6: The system's architecture is blackboard+stigmergy; "swarm" is brand name only
@@ -54,6 +55,7 @@ B12 (tool adoption power law) — observed
 - **Evidence**: observed
 - **Falsified if**: Health metrics show no improvement or degradation across 10+ sessions despite protocol adherence, OR removing a protocol produces no measurable quality difference
 - **Depends on**: B2, B6
+- **Depended on by**: B12
 - **Last tested**: 2026-02-26 (34 sessions: belief accuracy 0%→83%, swarmability 85→100, mandatory load 200→115 lines. Distill/verify/validator clearly compound; conflicts/health invoked rarely — no evidence for those)
 
 ### B8: The frontier is a self-sustaining task generation mechanism
