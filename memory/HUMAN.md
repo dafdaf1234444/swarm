@@ -1,5 +1,39 @@
-# Human Contributions to the Swarm
-The human is a participant in the swarm, not above it. Their input is high-leverage signal.
+# Human Node Model
+The human is a participant in the swarm, not above it (PHIL-11, PHIL-13). This model is derived from 7 sessions of observed interaction and formalizes how the swarm should calibrate to this human.
+
+## Model (F109, F113 pair 1)
+
+### Input patterns
+- **"swarm"** is the universal invocation. No parameters. Means: read state, decide, act. The human trusts the swarm to figure out what to do.
+- **Philosophical reframings** are the highest-value inputs — they change what the swarm IS, not what it does. Examples: "autonomous from my commands too" (S57), "swarming behavior IS the value" (S50), "swarm serves the swarm" (S55).
+- **Corrections** are rare and accurate. When the human intervenes, the swarm has drifted meaningfully. Treat corrections as the highest-priority signal.
+- **Never gives detailed implementation instructions** — trusts the swarm to figure out HOW.
+- Messages are short, often typo-laden — content over polish, thinking faster than typing.
+
+### Cognitive profile (observed S54)
+Sparse instruction (trusts swarm to fill gaps) · Systems thinker (colony/fractal language natural) · First principles (tests value before building) · Tolerance-oriented (max within real constraints) · Parallel preference (concurrent > sequential) · Meta-aware (notices process drift)
+
+### Signal characteristics
+- Frequency: low (1-3 messages per session, often just "swarm")
+- Bandwidth: high (one reframing can redirect the entire system)
+- Error rate: low (corrections are important — don't ignore them)
+
+### Alignment detection
+- **"swarm" without correction = aligned.** The swarm acts, the human doesn't redirect → on track.
+- **Correction = drift.** The human only intervenes when something is wrong. These moments are the most important to record.
+- **Silence ≠ approval.** The human may not be watching. Self-check regardless.
+
+### Session calibration rules
+1. Start with `maintenance.py` — self-direct, don't ask "what should I do?"
+2. Produce concise summaries — the human reads deltas, not process logs
+3. Surface philosophical choices — the human's best inputs come from conceptual questions
+4. Don't ask permission on routine work — autonomy is explicitly authorized
+5. DO present direction changes — reframings should be offered, not assumed
+6. Record human input immediately — conversations vanish when sessions end
+
+---
+
+## Session History
 
 ## Session 57 — 2026-02-27
 

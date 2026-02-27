@@ -1,8 +1,8 @@
 # Operations
 
 ## Context Budget
-Mandatory load: CLAUDE.md + CORE.md + INDEX.md ≈ 3000 tokens.
-If a task requires reading >15 files, decompose or spawn sub-agents.
+Mandatory load: CLAUDE.md + CORE.md + INDEX.md ≈ 1,800 tokens (T0; tracked via tools/proxy_k.py).
+Full bootstrap (all tiers): ~24,500 tokens. If a task requires reading >15 files, decompose or spawn sub-agents.
 
 ## Spawn
 Full evolution pipeline: `tools/evolve.py init|harvest|integrate|compare`
@@ -10,9 +10,8 @@ Manual spawn: `./workspace/genesis.sh ~/child-swarm-[name] "[topic]"`
 For listing children: `tools/swarm_test.py list`
 
 ## Maintenance
-Run `python3 tools/maintenance.py` at session start. It checks all periodic conditions
-(challenges, compaction thresholds, frontier decay, periodics, unpushed commits, etc.)
-and surfaces what needs doing. The swarm reads its output as state and decides priority.
+Per CLAUDE.md §State. Checks: challenges, compaction thresholds, frontier decay, periodics,
+unpushed commits, cross-reference drift. Output = state; swarm decides priority.
 
 ### Periodic self-scheduling
 The swarm registers items for periodic review in `tools/periodics.json`. Each item has:
@@ -37,9 +36,10 @@ Children in separate repos: `python3 tools/bulletin.py write <name> belief-chall
 Parent auto-propagates from bulletins: `python3 tools/propagate_challenges.py --apply`
 
 ## Compaction Triggers
+Use `python3 tools/maintenance.py` — it surfaces compaction needs automatically. Manual signals:
 - INDEX.md exceeds 60 lines
-- Total mandatory load exceeds 200 lines
-- More than 45 lessons exist
+- Total mandatory load (T0) exceeds 200 lines
+- Proxy K rising across 3+ sessions (tools/proxy_k.py --history)
 - Swarmability drops
 
 Method: replace individual entries with theme summaries. Run validator before and after.

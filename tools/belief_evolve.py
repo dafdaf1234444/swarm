@@ -340,6 +340,61 @@ def compute_novelty_scores(children_dirs: list[Path]) -> dict[str, float]:
     return scores
 
 
+def compute_coverage_scores(children_dirs: list[Path]) -> dict[str, float]:
+    """Compute coverage (fraction of unique beliefs) per child.
+
+    Coverage = unique_beliefs / total_beliefs where a belief is unique if
+    no other child has a similar belief (Jaccard < 0.4). See L-164, P-162.
+    """
+    all_titles = {}
+    for child_dir in children_dirs:
+        name = child_dir.name
+        all_titles[name] = _extract_belief_titles(child_dir)
+
+    scores = {}
+    for name, titles in all_titles.items():
+        if not titles:
+            scores[name] = 0.0
+            continue
+        novel_count = 0
+        for title in titles:
+            is_novel = True
+            for other_name, other_titles in all_titles.items():
+                if other_name == name:
+                    continue
+                for other_title in other_titles:
+                    if _compute_title_similarity(title, other_title) >= 0.4:
+                        is_novel = False
+                        break
+                if not is_novel:
+                    break
+            if is_novel:
+                novel_count += 1
+        scores[name] = novel_count / len(titles)
+    return scores
+
+
+def classify_quadrant(efficiency: float, coverage: float,
+                      eff_median: float, cov_median: float) -> str:
+    """Classify child into fitness quadrant (F91, P-162).
+
+    Q1: high eff + high cov (stars)
+    Q2: low eff + high cov (immune system)
+    Q3: high eff + low cov (redundant inheritors)
+    Q4: low eff + low cov (underperformers)
+    """
+    high_eff = efficiency >= eff_median
+    high_cov = coverage >= cov_median
+    if high_eff and high_cov:
+        return "Q1"
+    elif not high_eff and high_cov:
+        return "Q2"
+    elif high_eff and not high_cov:
+        return "Q3"
+    else:
+        return "Q4"
+
+
 # --- COMMANDS ---
 
 def cmd_variants():
@@ -573,7 +628,7 @@ def cmd_combine(variant_names: list):
 
 
 def cmd_evaluate_all():
-    """Evaluate all belief-* children with cross-variant novelty scoring."""
+    """Evaluate all belief-* children with cross-variant novelty and coverage scoring."""
     if not CHILDREN_DIR.exists():
         print("No children directory found.")
         sys.exit(1)
@@ -587,11 +642,14 @@ def cmd_evaluate_all():
         print("No belief-variant children found.")
         sys.exit(1)
 
-    # Compute cross-variant novelty scores first
+    # Compute cross-variant novelty and coverage scores
     novelty_scores = compute_novelty_scores(children)
-    print(f"Evaluating {len(children)} children (with novelty scoring)...\n")
+    coverage_scores = compute_coverage_scores(children)
+    print(f"Evaluating {len(children)} children (with novelty + coverage scoring)...\n")
     for child in children:
-        cmd_evaluate(child.name, novelty_score=novelty_scores.get(child.name, 0.0))
+        cmd_evaluate(child.name,
+                     novelty_score=novelty_scores.get(child.name, 0.0),
+                     coverage_score=coverage_scores.get(child.name, 0.0))
         print()
 
 
