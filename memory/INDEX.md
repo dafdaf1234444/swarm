@@ -2,8 +2,8 @@
 Updated: 2026-02-27 | Sessions: 78
 
 ## What the swarm knows
-- **161 lessons** in `memory/lessons/L-{NNN}.md`
-- **138 principles** in `memory/PRINCIPLES.md` (S76 MDL -4; S76b+/S77/S78 child integration +8)
+- **162 lessons** in `memory/lessons/L-{NNN}.md`
+- **137 principles** in `memory/PRINCIPLES.md` (S77b: P-093 removed; principles near-optimal)
 - **14 beliefs** in `beliefs/DEPS.md` | **20 frontier questions** in `tasks/FRONTIER.md`
 
 ## Structure

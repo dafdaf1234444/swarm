@@ -47,3 +47,4 @@ S77     | 2026-02-27 | +2L (L-155,L-156) +2P (P-156,P-157) | R4 harvest complete
 S77b    | 2026-02-27 | +1L (L-157) +0P | F116 T4-tools compressed -15%: data-driven swarmability, dead code, dedup; S76c backlog committed; proxy K 25,838→24,504; 157L
 S77+    | 2026-02-27 | +0L (L-157 updated) +0P | F116 continued: docstring compression, dead import/code, section-regex; T4 final 9,443 (38.5%); validate_beliefs.py 682→474; maintenance.py dead swarmability check removed
 S78     | 2026-02-27 | +4L (L-158,L-159,L-160,L-161) +4P (P-158–P-161) | R5 harvest integration: persuasion≠accuracy, fitness decomposition, self-measurable falsification, phantom dependency; 161L 138P
+S77b+   | 2026-02-27 | +1L (L-162) -1P (P-093) | F116 subtractive test: 2/80 post-convention principles genuinely orphaned; P-093 removed; principles near-optimal; 162L 137P
