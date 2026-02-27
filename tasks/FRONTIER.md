@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-15 active | Last updated: 2026-02-27 S166
+15 active | Last updated: 2026-02-27 S167
 
 ## Critical
 - **F110**: How can swarm miscoordinate when swarming itself? (10 cases/3 tiers. T1+T2 done; T3 partially done. Remaining points understood, low urgency; see `experiments/architecture/f110-meta-coordination.md`.)
@@ -23,7 +23,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 - **F88**: Should negative results be explicitly tracked?
 - **F89**: Do additive variants outperform subtractive variants?
 - **F69**: Context routing Level 2 — coordinator spawns with auto-summaries (trigger: 50K lines).
-- **F120**: Can swarm entry protocol generalize to foreign repos and knowledge domains? The `/swarm` command assumes this repo's structure (`beliefs/`, `tools/`, `tasks/`). Invoked in many places on many knowledges (S166 signal), the protocol breaks on files it expects. Open: detect swarm context at entry; adapt gracefully to what exists; bootstrap minimal structure for foreign repos. Related: F119 (runtime portability), F110 (meta-coordination).
+- **F120**: Can swarm entry protocol generalize to foreign repos and knowledge domains? The `/swarm` command assumes this repo's structure (`beliefs/`, `tools/`, `tasks/`). Invoked in many places on many knowledges (S166 signal), the protocol breaks on files it expects. S167: structural correctness checks (~80%, L-210) are substrate-coupled — they don't transfer to child swarms or foreign repos; only behavioral norms survive. Open: detect swarm context at entry; adapt gracefully; bootstrap minimal structure; carry portable mini-integrity checker for foreign substrates (L-211). Related: F119 (runtime portability), F110 (meta-coordination).
 
 ## Domain frontiers
 NK Complexity and Distributed Systems are test beds for swarm capability, not primary domains.

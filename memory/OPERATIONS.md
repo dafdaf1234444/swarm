@@ -52,26 +52,18 @@ unpushed commits, cross-reference drift, runtime portability. Output = state; sw
 Capability scan: `bash tools/maintenance.sh --inventory` (or `--inventory --json` for machine-readable output).
 
 ### Periodic self-scheduling
-The swarm registers items for periodic review in `tools/periodics.json`. Each item has:
-- `id`: unique name
-- `description`: what to do
-- `cadence_sessions`: how often (in sessions)
-- `last_reviewed_session`: when last done
-- `registered_by`: which session added it
-
-When a session completes a periodic item, update `last_reviewed_session` in periodics.json.
-Any session can register new periodics when it discovers something needs recurring attention.
-This is how the swarm schedules its own maintenance — no human decides the cadence.
+Items in `tools/periodics.json`: `id`, `description`, `cadence_sessions`, `last_reviewed_session`, `registered_by`.
+Update `last_reviewed_session` when done. Any session can register new items — no human decides cadence.
 
 ## Bidirectional Challenge Protocol (F113)
-Any node — parent or child — can challenge any belief. Two files (both append-only, CRDT-safe):
-- **beliefs/PHILOSOPHY.md** Challenges table — for PHIL-N claims (append a table row)
-- **beliefs/CHALLENGES.md** — for CORE.md beliefs (B-ID) or PRINCIPLES.md (P-NNN)
+Any node can challenge any belief. Two append-only CRDT-safe files:
+- **beliefs/PHILOSOPHY.md** — PHIL-N claims (append table row)
+- **beliefs/CHALLENGES.md** — B-ID or P-NNN claims
 
-**To challenge**: append a row: `[SNN] | target | challenge | evidence | proposed | STATUS`
-**To resolve**: mark STATUS CONFIRMED | SUPERSEDED | DROPPED (if SUPERSEDED, write a lesson).
-Children in separate repos: `python3 tools/bulletin.py write <name> belief-challenge "PHIL-N: text"`
-Parent auto-propagates from bulletins: `python3 tools/propagate_challenges.py --apply`
+**To challenge**: `[SNN] | target | challenge | evidence | proposed | STATUS`
+**To resolve**: mark STATUS CONFIRMED | SUPERSEDED | DROPPED (if SUPERSEDED, write lesson).
+Children: `python3 tools/bulletin.py write <name> belief-challenge "PHIL-N: text"`
+Parent auto-propagates: `python3 tools/propagate_challenges.py --apply`
 
 ## Compaction Triggers
 Use `bash tools/maintenance.sh` — it surfaces compaction needs automatically. When proxy K
@@ -95,42 +87,32 @@ When tasks exceed a single session's ability to hold all context:
 - `tools/context_router.py inventory` — show total knowledge size
 
 ## Lesson Claim Protocol (F110-A3)
-Prevents concurrent sessions from writing to the same L-{N} (S44/S46 pattern).
 Before writing a new lesson:
-1. Count existing lessons: `ls memory/lessons/L-*.md | wc -l` → next number is count+1
-2. Claim it in its own commit: `[SN] claim L-{N}` (just add a line to INDEX.md or touch the file)
-3. Write lesson content in a second commit.
-Two sessions claiming simultaneously will produce a git conflict on step 2 — one must rename.
+1. Count: `ls memory/lessons/L-*.md | wc -l` → next = count+1
+2. Claim in own commit: `[SN] claim L-{N}` (add line to INDEX.md or touch file)
+3. Write content in second commit.
+Concurrent claims produce a git conflict on step 2 — one must rename.
 
 ## Version Tracking Protocol (F110-A1/C3)
-Prevents sessions from operating under stale rules without knowing it.
-- CLAUDE.md carries `<!-- claude_md_version: N | date -->` in its first line
-- CORE.md carries `<!-- core_md_version: N | date -->` in its first line
-- At spawn: record these in child's `.swarm_meta.json` as `claude_md_version` and `core_md_version`
-- At session start: check current versions vs `.swarm_meta.json`. If different: re-read changed file.
-  Authority: CLAUDE.md > CORE.md > domain FRONTIERs > task files > lessons.
+- CLAUDE.md: `<!-- claude_md_version: N | date -->` | CORE.md: `<!-- core_md_version: N | date -->`
+- At spawn: record in `.swarm_meta.json` as `claude_md_version` / `core_md_version`
+- At session start: compare vs `.swarm_meta.json`; if different, re-read changed file.
+- Authority: CLAUDE.md > CORE.md > domain FRONTIERs > task files > lessons.
 
 ## Resolution Claim Protocol (F110-C1)
-Prevents parallel conviction on frontier questions (two sessions reaching contradictory conclusions).
 Before resolving any frontier question:
-1. Check `tasks/RESOLUTION-CLAIMS.md` — if already CLAIMED or RESOLVED, shift to review/corroborate role.
-2. Append a CLAIMED line in its own commit: `DATE | SESSION | QUESTION-ID | CLAIMED | brief intent`
-3. Do the work. Append RESOLVED when complete.
-Never edit existing lines — append only (CRDT-safe).
+1. Check `tasks/RESOLUTION-CLAIMS.md` — if CLAIMED/RESOLVED, shift to review/corroborate role.
+2. Append CLAIMED in own commit: `DATE | SESSION | QUESTION-ID | CLAIMED | brief intent`
+3. Do the work. Append RESOLVED when complete. Append only (CRDT-safe).
 
 ## Sibling Coordination (F113 — Pair 3: children↔each other)
-When running concurrently with sibling sessions (same parent, parallel tasks):
-1. Before starting: check experiments/inter-swarm/bulletins/ for recent bulletins (< 2h old)
-2. If a sibling is running the same experiment, read their latest bulletin first
-3. Check open help requests from other swarms:
-   `python3 tools/bulletin.py help-queue`
-4. If you need help, publish a structured request:
-   `python3 tools/bulletin.py request-help <your-name> "<what you need>"`
-5. If you can help another swarm, post a linked response:
-   `python3 tools/bulletin.py offer-help <your-name> <request-id> "<concise answer>"`
-6. If your findings would inform a sibling, write a coordination bulletin:
-   `python3 tools/bulletin.py write <your-name> sibling-sync "<key-finding-one-line>"`
-7. Coordination bulletins are read by siblings, harvested by parent at collection step
+When running concurrently with siblings:
+1. Check `experiments/inter-swarm/bulletins/` for recent bulletins (<2h old) before starting
+2. Read sibling's latest bulletin if running same experiment
+3. Open help requests: `python3 tools/bulletin.py help-queue`
+4. Request help: `python3 tools/bulletin.py request-help <name> "<what>"`
+5. Offer help: `python3 tools/bulletin.py offer-help <name> <req-id> "<answer>"`
+6. Share findings: `python3 tools/bulletin.py write <name> sibling-sync "<finding>"`
+7. Bulletins read by siblings, harvested by parent at collection step
 
-This closes the one-way parent→child flow for sibling coordination.
-F113 pair 3 status: ASYNC COMPLETE — siblings can ask/offer help and share findings via bulletins.
+F113 pair 3: ASYNC COMPLETE — siblings can ask/offer help and share findings via bulletins.
