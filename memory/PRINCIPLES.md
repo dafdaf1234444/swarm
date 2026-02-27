@@ -1,5 +1,5 @@
 # Principles — Atomic Building Blocks
-Extracted from lessons. Scan for recombination. 92 principles, 6 themes.
+Extracted from lessons. Scan for recombination. 93 principles, 6 themes.
 
 ## Architecture
 **Structure**: P-008 validate by usage not theory | P-011 flat→hierarchical when outgrown | P-030 healthy redundancy = reconstructible from raw
@@ -32,6 +32,7 @@ Extracted from lessons. Scan for recombination. 92 principles, 6 themes.
 
 ## Governance
 **Meta-governance**: P-092 governance recommendations must be workflow-embedded (CLAUDE.md) to be acted upon — recommendations in lessons/principles become dark matter
+**Hybrid evolution**: P-093 hybrid vigor peaks when parent traits remove DIFFERENT friction types (structural vs epistemic, not redundant)
 
 ---
 Full text of each principle: search `P-NNN` in `memory/lessons/` or child experiments.

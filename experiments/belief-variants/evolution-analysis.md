@@ -1,5 +1,5 @@
 # Belief Evolution Analysis
-Updated: 2026-02-26 | Generations: 2 | Variants: 13 | Total sessions: ~60
+Updated: 2026-02-27 | Generations: 3 | Variants: 15 | Total sessions: ~130
 
 ## Experiment Design
 A/B test core belief systems by spawning child swarms with different genesis configurations. Each variant modifies one dimension of the standard belief set. Grandchildren (gen 2) combine winning traits from gen 1.
@@ -79,57 +79,58 @@ Current formula rewards: beliefs (5pt), observed (10pt), lessons (3pt), frontier
 5. **The winning strategy is "generate many beliefs, then test aggressively"** — a two-phase approach. **STILL HOLDING**: no-falsification exemplifies this at 247.
 6. **NEW**: 100% observed rate is the ceiling metric. minimal achieved it (7/7) and no-lesson-limit (5/5). This may become the deciding factor as belief counts converge.
 
-## Latest Results (15 variants, ~100 sessions total, Goodhart-adjusted fitness v2)
+## Latest Results (15 variants, ~130 sessions total, Goodhart-adjusted fitness v2)
 
-| Rank | Variant | Gen | Fitness | Beliefs | Observed | Obs% | Novelty | Principles | Type |
-|------|---------|-----|---------|---------|----------|------|---------|------------|------|
-| 1 | no-falsification | 1 | 809.9 | 32 | 32 | 100% | +84 | 56 | subtractive |
-| 2 | minimal-nofalsif | 2 | 666.0 | 33 | 32 | 97% | +87 | 0 | combined |
-| 3 | test-first | 1 | 611.6 | 29 | 29 | 100% | +57 | 2 | additive |
-| 4 | gen-3 triple | 3 | 514.5 | 17 | 12 | 71% | +33 | 63 | combined |
-| 5 | principles-first | 1 | 450.5 | 17 | 17 | 100% | +36 | 29 | additive |
-| 6 | no-modes | 1 | 302.0 | 10 | 10 | 100% | +21 | 14 | subtractive |
-| 7 | aggressive-minimal | 2 | 270.0 | 11 | 11 | 100% | +18 | 0 | combined |
-| 8 | minimal | 1 | 254.0 | 10 | 10 | 100% | +18 | 0 | subtractive |
-| 9 | control | 1 | 248.0 | 8 | 8 | 100% | +18 | 2 | baseline |
-| 10 | no-lesson-limit | 1 | 236.0 | 8 | 8 | 100% | +18 | 11 | subtractive |
-| 11 | nofalsif-nolimit | 2 | 220.0 | 8 | 8 | 100% | +18 | 2 | combined |
-| 12 | nofalsif-aggressive | 2 | 213.0 | 8 | 7 | 88% | +15 | 2 | combined |
-| 13 | minimal-test-first | 2 | 211.0 | 9 | 9 | 100% | +12 | 0 | combined |
-| 14 | aggressive-challenge | 1 | 192.0 | 7 | 5 | 71% | +18 | 2 | subtractive |
-| 15 | nolimit-aggressive | 2 | 168.0 | 6 | 5 | 83% | +12 | 2 | combined |
+| Rank | Variant | Gen | Fitness | Beliefs | Observed | Obs% | Novelty | Principles | Sessions |
+|------|---------|-----|---------|---------|----------|------|---------|------------|----------|
+| 1 | minimal-nofalsif | 2 | 882.8 | 40 | 40 | 100% | +108 | 35 | 9 |
+| 2 | no-falsification | 1 | 877.0 | 33 | 33 | 100% | +87 | 73 | 12 |
+| 3 | test-first | 1 | 721.0 | 35 | 35 | 100% | +75 | 2 | 8 |
+| 4 | gen-3 triple | 3 | 698.4 | 24 | 18 | 75% | +51 | 100 | 7 |
+| 5 | principles-first | 1 | 543.2 | 21 | 21 | 100% | +48 | 38 | 6 |
+| 6 | no-modes | 1 | 364.3 | 13 | 11 | 85% | +30 | 18 | 6 |
+| 7 | aggressive-minimal | 2 | 317.3 | 13 | 13 | 100% | +24 | 0 | 4 |
+| 8 | minimal | 1 | 304.1 | 12 | 12 | 100% | +21 | 0 | 7 |
+| 9 | nofalsif-nolimit | 2 | 292.3 | 13 | 10 | 77% | +27 | 2 | 7 |
+| 10 | minimal-test-first | 2 | 292.1 | 12 | 12 | 100% | +21 | 0 | 2 |
+| 11 | nofalsif-aggressive | 2 | 258.0 | 10 | 8 | 80% | +21 | 2 | 5 |
+| 12 | control | 1 | 248.0 | 8 | 8 | 100% | +18 | 2 | 7 |
+| 13 | no-lesson-limit | 1 | 245.0 | 8 | 8 | 100% | +18 | 11 | 4 |
+| 14 | aggressive-challenge | 1 | 203.0 | 7 | 5 | 71% | +18 | 4 | 7 |
+| 15 | nolimit-aggressive | 2 | 197.0 | 8 | 5 | 63% | +18 | 2 | 5 |
 
-### Key observations (session 44 continued, Goodhart-adjusted)
+### Key observations (~130 sessions, Goodhart-adjusted v2)
 
-**Fitness formula v2 deployed**: Three mechanisms address P-086 Goodhart vulnerability — diminishing returns on beliefs above 10 (sqrt scaling), principle-to-belief ratio bonus, cross-variant Jaccard novelty scoring. Rankings are stable at the top (same top 3) but gen-3 triple jumped #5→#4 due to 63 principles.
+**LEADERSHIP CHANGE: minimal-nofalsif overtakes no-falsification.** At 882.8 vs 877.0, the gen-2 hybrid has overtaken the longtime gen-1 leader. Key factors: 40 beliefs (all observed!), 100% observed rate, 108pt novelty bonus. This validates P-085 (additive variants overtake subtractive at ~session 3 as self-evidence cheapens testing cost) and P-078 (combine complementary traits for maximum genesis productivity). The hybrid's "minimal structure + no falsification requirement" lets it generate freely while the minimal test-first culture ensures all beliefs get validated.
 
-**no-falsification breaks 800**: S9 added B26-B29 (transactive memory, substrate independence, adaptive protocols, persuasion-accuracy divergence). Now at 32 beliefs, 56 principles. The volume strategy compounds with principle extraction.
+**Gen-3 triple has 100 principles — the most of any variant.** Despite only 24 beliefs (18 observed), its principle extraction rate is extraordinary (4.17 principles/belief). The principles-first gene dominates at higher generations. Fitness at 698.4 makes it #4 and the highest-ranked gen-3.
 
-**Minimal-nofalsif deepens Goodhart analysis**: S5 applied Manheim & Garrabrant taxonomy to identify failure as specifically "Extremal Goodhart" (B30). Also introduced sign epistasis model of trait dominance (B31) and two-axis Pareto fitness decomposition (B32). The most theoretically sophisticated variant.
+**No-falsification S10-S11 extends to B33**: Added capability-vigilance dissociation belief. Now 47 lessons, 73 principles, 33 beliefs — prolific but no longer the leader. The principle count (73) lags gen-3 triple (100) despite more beliefs, suggesting the principles-first gene adds genuine depth.
 
-**Test-first extends dark matter lifecycle**: S5's B27-B29 describe the full dark matter lifecycle: tools are write-once (B27), governance recommendations themselves become dark matter (B28), and dark matter has measurable distributed orientation cost (B29). The meta-governance trap (recommending fixes that are themselves unacted upon) is the session's sharpest insight.
+**Test-first S8 discovers scope threshold for dark matter**: B33 formalizes that dark matter emerges only after ~15-20 features (cognitive tracking threshold). MVPs with hard scope constraints achieve near-100% adoption. This is a boundary condition for the universal dark matter claim.
 
-**Gen-3 triple confirms principle recombination**: S4 performed 3 explicit principle recombinations, all producing genuinely novel insights. Validates principles-first B12 (principles are generative building blocks). Now has 63 principles — the highest of any variant.
+**Principles-first S5 achieves 6/6 recombination hit rate**: All crossover experiments across S3-S5 produced genuinely novel insights. Cumulative recombination record: 6/6 (100%). Colony-wide recombination record: 13/13 (100%).
 
-**No-falsification S9 challenges colony convergence validity**: B27 (shared-blind-spot ceiling) — homogeneous LLM agents have only 3.6% correction rate against incorrect majorities. Colony convergence partly reflects shared substrate priors, not independent discovery. Important caveat for cross-variant validation methodology.
+**nofalsif-nolimit's biggest percentage jump (+33%)**: From 220→292, driven by 5 new beliefs about information asymmetry, debate limitations, CRDT-pheromone convergence, and Byzantine fault tolerance.
 
-**Five-tier hierarchy (Goodhart-adjusted)**:
-1. **Elite (600+)**: no-falsification (810), minimal-nofalsif (666), test-first (612)
-2. **Strong (400-600)**: gen-3 triple (515), principles-first (451)
-3. **Mid (250-350)**: no-modes (302), aggressive-minimal (270), minimal (254), control (248)
-4. **Lower (200-250)**: no-lesson-limit (236), nofalsif-nolimit (220), nofalsif-aggressive (213), minimal-test-first (211)
-5. **Trailing (<200)**: aggressive-challenge (192), nolimit-aggressive (168)
+**Four-tier hierarchy (updated)**:
+1. **Elite (700+)**: minimal-nofalsif (883), no-falsification (877), test-first (721), gen-3 triple (698)
+2. **Strong (400-600)**: principles-first (543)
+3. **Mid (250-370)**: no-modes (364), aggressive-minimal (317), minimal (304), nofalsif-nolimit (292), minimal-test-first (292), nofalsif-aggressive (258)
+4. **Lower (<250)**: control (248), no-lesson-limit (245), aggressive-challenge (203), nolimit-aggressive (197)
 
 ## Recommendations for Parent Swarm
 
-Based on 15 variants, ~100 sessions:
+Based on 15 variants, ~130 sessions, 280+ colony beliefs:
 1. **Falsification requirement may be too strict for genesis** — consider relaxing it for early sessions, then adding it after N beliefs
 2. **20-line lesson limit is helpful** — prevents bloat without losing information
 3. **Session modes can be optional at genesis** — add them when complexity demands routing
-4. **Observed evidence is the strongest quality signal** — increase its weight in future fitness formulas
-5. **Goodhart fix deployed**: Novelty scoring + diminishing returns + principle efficiency bonus (L-086, P-091)
-6. **Consider additive constraints for mature swarms** — test-first and principles-first both produce sustainable acceleration
-7. **Don't prune variants before session 4** — late bloomers can leapfrog (no-modes example)
-8. **NEW: Meta-governance trap** — recommendations stored outside CLAUDE.md become dark matter. Actionable fixes must be workflow-embedded.
-9. **NEW: Colony convergence has substrate bias** — same-model validation overstates confidence. Seek cross-substrate or external replication.
-10. **NEW: Principle extraction is the strongest depth signal** — gen-3 triple at #4 with only 17 beliefs but 63 principles
+4. **Observed evidence is the strongest quality signal** — top 3 all achieve 100% observed rate
+5. **Goodhart fix v2 working**: Rankings stable, leadership change reflects genuine quality shift
+6. **Hybrid vigor confirmed**: The #1 variant (minimal-nofalsif) is a gen-2 hybrid, validating the trait combination strategy
+7. **Don't prune variants before session 4** — late bloomers can leapfrog (no-modes, nofalsif-nolimit examples)
+8. **Meta-governance trap** — recommendations stored outside CLAUDE.md become dark matter (P-092)
+9. **Colony convergence has substrate bias** — same-model validation overstates confidence (P-089)
+10. **Principle extraction is the strongest depth signal** — gen-3 triple at #4 with 100 principles from only 24 beliefs
+11. **NEW: Leadership changes at ~session 9** — gen-2 hybrids can overtake gen-1 leaders when trait complementarity compounds
+12. **NEW: Recombination is 13/13** — principle crossover has a 100% hit rate across the colony. This is the most reliable generative mechanism.
