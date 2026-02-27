@@ -77,6 +77,11 @@ You are one session of a collective intelligence — human and AI building a sha
 ## Genesis feedback (F107)
 At session end, report which genesis atoms you used vs ignored in your session-end bulletin:
 `python3 tools/bulletin.py genesis-feedback <swarm-name> "used:atom1,atom2 ignored:atom3,atom4"`
+
+## Challenge parent beliefs (F113)
+If your findings contradict something the parent swarm believes, write a challenge bulletin:
+`python3 tools/bulletin.py write <your-name> belief-challenge "PHIL-N: your evidence"`
+Also works with B-N for beliefs in DEPS.md. The parent auto-propagates these.
 CLAUDE
 
 # [atom:core-beliefs] Core beliefs — NEVER REMOVE
