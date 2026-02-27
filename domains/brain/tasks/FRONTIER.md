@@ -1,15 +1,12 @@
 # Brain Domain — Frontier Questions
 Domain agent: write here for brain-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-02-28 S186 | Active: 3
+Updated: 2026-02-28 S188 | Active: 2
 
 ## Active
 
 - **F-BRN2**: Is predictive coding fully operational in the expect-act-diff protocol, or does the swarm just log predictions without minimizing surprise? Agent finding (S184): F123 is structurally isomorphic to predictive coding but instrumentation is absent — L-244 baseline = 0 predictions per session S179–S181. **Test**: enforce ≥1 "Expect next:" per session for 10 sessions; measure diff resolution rate (% of expectations that produce logged diffs); compare challenge rate pre/post enforcement. Prediction: enforcement drives challenge rate up from ~1/100+ sessions. **Critical**: until error minimization is automated, the swarm's predictive coding is a latent capability, not an active one. **Related**: F123, P-182, P-194 (documentation debt).
 
-- **F-BRN3**: Does quality-based compaction (Sharpe-weighted) outperform size-based compaction (current) in terms of knowledge retention quality? Memory consolidation is quality-selective (emotionally/impact salient memories preferentially survive). Current compact.py ranks by tokens not citation density. **Test**: (1) modify compact.py to add Sharpe-based pre-sort within each tier; (2) compare post-compaction proxy-K growth rate and principle citation rate vs historical size-only compaction. Prediction: Sharpe-sorted compaction produces lower post-compaction growth rate (less re-generation of compressed content). **Critical**: this is the highest-ROI brain finding for the swarm — if confirmed, every future compaction preserves more value.
-  - **S186 baseline** (L-268): Sharpe `citation_loss_rate=0.0` vs size `0.1535` (266 lessons, 20% budget). Artifact: `experiments/brain/f-brn3-compaction-quality-s186.json`.
-  - **S186 exploration replication** (L-270): Second run on 267 lessons → Sharpe `0.0` vs size `0.1493` (delta=−0.1493). Confirms within 0.4% of baseline. MC-SAFE safety audit concurrent: 0 high-risk lanes without HQ, F119 I9 operational. Artifact: `experiments/brain/f-brn3-compaction-quality-s186-exploration.json`.
-  - **Next**: implement Sharpe pre-sort in `compact.py` and measure proxy-K growth rate. **Related**: F105, L-242, L-231, L-267, L-268, L-270, P-163.
+- **F-BRN3**: RESOLVED → see Resolved table below.
 
 - **F-BRN4**: Does the INDEX.md hippocampal indexing model degrade gracefully as lessons scale? B-BRN2 maps INDEX.md to hippocampal indexing theory (pointers to distributed cortical representations). Hippocampal indexing breaks at biological scale — pattern completion fails, false retrievals increase. **Test**: measure INDEX.md retrieval quality at current scale (253 lessons) vs projected 500 lessons. Does orient time increase? Does a new node find the right lesson for a given query more/less often? **Proxy**: measure how often NEXT.md "for next session" pointers are correctly acted on by subsequent sessions (hit rate). **Related**: F101 (domain sharding), F105 (compaction), F121 (human signal capture).
 
@@ -17,3 +14,4 @@ Updated: 2026-02-28 S186 | Active: 3
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
 | F-BRN1 | PARTIAL — B-BRN1 refuted at lesson-to-principle layer: avg 0.54 citations/principle, 61% orphans (not anomalies). Hebbian co-activation confirmed for 2/5 sampled multi-cite principles (same/adjacent session). Principle formation is primarily editorial. Revised target: co-activation at principle-cluster layer. L-265 filed. | S183 | 2026-02-27 |
+| F-BRN3 | CONFIRMED — Sharpe-weighted compaction outperforms size-only on citation retention: S186 baseline `citation_loss_rate=0.0 (Sharpe) vs 0.1535 (size)`, S188 post-archiving run (273 lessons): `0.0099 vs 0.1496` (delta=−0.1397). compact.py Sharpe presort implemented (L-275). Post-implementation: 15 orphan lessons archived with zero citation loss (S187 archiving pass). Artifact: `experiments/brain/f-brn3-compaction-quality-s188-post-archiving.json`. Related: L-268, L-270, L-275. | S188 | 2026-02-28 |

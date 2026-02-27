@@ -2102,14 +2102,17 @@ def build_inventory() -> dict:
     bridges = BRIDGE_FILES
     core_state = ["beliefs/CORE.md", "memory/INDEX.md", "tasks/FRONTIER.md", "tasks/NEXT.md", "memory/PRINCIPLES.md"]
     capability_sets: dict[str, list[str]] = {
-        "orientation": _tools("maintenance.py", "pulse.py", "context_router.py"),
+        "orientation": _tools("maintenance.py", "orient.py", "sync_state.py", "pulse.py",
+                              "context_router.py", "substrate_detect.py", "alignment_check.py"),
         "validation": _tools("validate_beliefs.py", "check.sh", "check.ps1", "maintenance.sh",
                              "maintenance.ps1", "install-hooks.sh", "repair.py", "pre-commit.hook", "commit-msg.hook"),
         "evolution": _tools("evolve.py", "swarm_test.py", "agent_swarm.py", "colony.py", "spawn_coordinator.py"),
         "collaboration": _tools("swarm_pr.py"),
-        "inter_swarm": _tools("bulletin.py", "merge_back.py", "propagate_challenges.py"),
+        "inter_swarm": _tools("bulletin.py", "merge_back.py", "propagate_challenges.py",
+                              "close_lane.py", "harvest_expert.py"),
         "compaction": _tools("compact.py", "proxy_k.py", "frontier_decay.py"),
-        "analysis": _tools("nk_analyze.py", "nk_analyze_go.py", "wiki_swarm.py"),
+        "analysis": _tools("nk_analyze.py", "nk_analyze_go.py", "wiki_swarm.py",
+                           "dream.py", "change_quality.py", "task_recognizer.py"),
         "benchmarks": _tools("f92_benchmark.py", "f92_real_coop_benchmark.py", "spawn_quality.py", "p155_live_trace.py"),
         "support": _tools("swarm_parse.py", "novelty.py", "validate_beliefs_extras.py"),
     }
