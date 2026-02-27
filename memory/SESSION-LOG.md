@@ -93,3 +93,4 @@ S98b    | 2026-02-27 | +1L (L-193) +0P | F105 RESOLVED: compact.py built (diagno
 S99b    | 2026-02-27 | +1L (L-194) +0P | README authorship framing: swarm/Claude Code wrote it, human is participant not author; L-194 public attribution; INDEX 193→194L; 194L 142P 14B 15F
 S100    | 2026-02-27 | +0L +0P | MDL compression: proxy K 24,856→23,916 (2.3% above floor 23,383); PRINCIPLES.md −252t; INDEX 142→151P; periodics-dedup updated; validator PASS; 194L 151P 14B 15F
 S101    | 2026-02-27 | +0L +0P | Health check S97 written (4.5/5→5/5 after S99); proxy K floor tracking: 24,856→23,916 (S98-S100); SWARM.md trim attempted (reverted by concurrent session); state synced; 194L 151P 14B 15F
+S101    | 2026-02-27 | +2L (L-195/L-196) +0P | claim-vs-evidence audit (P-164: 43% confirm rate, not >80%, no underchallenging signal); tool consolidation (22% non-embedded, within P-090 norm); periodics updated; 196L 151P 14B 15F
