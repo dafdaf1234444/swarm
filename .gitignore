@@ -27,3 +27,7 @@ recordings/**/*.webm
 recordings/**/*.flac
 recordings/**/*.avi
 recordings/**/*.mkv
+
+# Session-specific swarm node state (not committed)
+.swarm_meta.json
+memory/lessons-archive/

@@ -1272,10 +1272,7 @@ def check_runtime_portability() -> list[tuple[str, str]]:
     if _is_wsl_mnt_repo() and not _git("status", "--porcelain"):
         results.append(("NOTICE", "WSL on /mnt/* repo: status/proxy-K may diverge from Windows runtime"))
 
-    # WSL corruption check: .claude/commands/swarm.md loses permissions silently on /mnt/* repos
-    # Symptom: ls shows '???????' permissions; Python open() with absolute path still works
-    # Fix: python3 -c "import os; os.remove('.claude/commands/swarm.md')" then restore from git
-    if _is_wsl_mnt_repo():
+    if _is_wsl_mnt_repo():  # WSL corruption: .claude/commands/swarm.md may lose permissions
         swarm_cmd = REPO_ROOT / ".claude" / "commands" / "swarm.md"
         try:
             content = swarm_cmd.read_text(encoding="utf-8")
@@ -1719,11 +1716,8 @@ def check_mission_constraints() -> list[tuple[str, str]]:
             "python-alias-missing": (
                 "runtime portability",
                 (r"runtime portability", r"python unavailable", r"no runnable python", r"python launcher", r"python alias"),
-                (r"bash tools/check\.sh --quick", r"bash tools/maintenance\.sh --inventory",
-                 r"pwsh -NoProfile -File tools/check\.ps1 --quick", r"pwsh -NoProfile -File tools/maintenance\.ps1 --inventory",
-                 r"powershell -ExecutionPolicy Bypass -File tools/check\.ps1 --quick", r"powershell -ExecutionPolicy Bypass -File tools/maintenance\.ps1 --inventory",
-                 r"tools/check\.ps1 --quick", r"tools/maintenance\.ps1 --inventory",
-                 r"python3 tools/maintenance\.py --quick", r"python3 tools/maintenance\.py --inventory", r"py -3"),
+                (r"bash tools/(?:check|maintenance)\.", r"(?:pwsh|powershell).*tools/(?:check|maintenance)\.",
+                 r"tools/(?:check|maintenance)\.ps1", r"python3 tools/maintenance\.py", r"py -3"),
                 _OC,
             ),
             "inter-swarm-tooling-missing": (
