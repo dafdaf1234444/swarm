@@ -5,17 +5,20 @@ Evidence types: `observed` (empirically tested in this system) | `theorized` (re
 When a belief is disproven: check dependents below → update those too.
 
 ## Interconnection model
-N=8 beliefs (8 observed, 0 theorized), target K≈1. See L-025.
+N=10 beliefs (10 observed, 0 theorized), target K≈1. See L-025.
 K=0 is frozen (no cascades, no adaptation). K=N-1 is chaotic (everything affects everything).
 
 ```
 B1 (git-as-memory)
 ├── B2 (layered memory) ──→ B7 (protocols)
-├── B3 (small commits)
+├── B3 (small commits) ──→ B11 (CRDT knowledge)
 └── B6 (architecture) ──→ B7 (protocols)
                        └── B8 (frontier)
+B7 (protocols) ──→ B12 (tool adoption power law)
 B9 (NK predictive power) ──→ B10 (cycle-count predictor)
 B10 (cycles predict unresolvable bugs) — observed
+B11 (CRDT knowledge structures) — observed
+B12 (tool adoption power law) — observed
 ```
 
 ---
@@ -71,6 +74,18 @@ B10 (cycles predict unresolvable bugs) — observed
 - **Falsified if**: A codebase with high cycle count (>5) has fewer long-lived bugs than a codebase with zero cycles but similar composite score, OR cycle count adds no predictive power beyond K_avg*N alone across 5+ packages
 - **Depends on**: B9
 - **Last tested**: 2026-02-26 (9 CPython stdlib modules: multiprocessing 19 cycles→176 open/99 long-lived bugs, email 9 cycles→156/73, asyncio 1 cycle→52/8 despite highest composite. Cycles rank-correlate with open bugs better than K_avg, K_max, or composite. See experiments/complexity-applied/b10-cycle-bug-correlation.md)
+
+### B11: Knowledge files are monotonic/CRDT-like structures — append-only with supersession markers enables safe concurrent agent writes
+- **Evidence**: observed
+- **Falsified if**: Two concurrent agents writing to the same knowledge file produce an irreconcilable conflict that append-only + supersession cannot resolve, OR a system using destructive edits on knowledge files shows better consistency than append-only
+- **Depends on**: B3
+- **Last tested**: 2026-02-27 (Cross-variant harvest R3: 6/6 top variants independently converged on this. Parent has 0 merge conflicts across 150+ commits. minimal variant: 0 conflicts in 4 sessions. The "correct, don't delete" practice is structurally a CRDT — concurrent writes are safe on append-only files. L-083)
+
+### B12: Coordination tool adoption follows a power law — workflow-embedded tools achieve ~100% adoption while invocation tools achieve <20%
+- **Evidence**: observed
+- **Falsified if**: An invocation-only tool (not mandated in CLAUDE.md session protocol) achieves >50% session adoption rate over 10+ sessions, OR embedding a low-adoption tool in CLAUDE.md does not significantly increase its adoption
+- **Depends on**: B7
+- **Last tested**: 2026-02-27 (test-first child B20-B22: 3 tools near 100% (NEXT.md, FRONTIER.md, validate_beliefs.py) vs 6 tools at <20% (bulletin.py, frontier_claim.py, colony.py, etc. ~1524 LOC total). L-084)
 
 ---
 

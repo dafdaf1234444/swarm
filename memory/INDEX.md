@@ -1,7 +1,7 @@
 # Memory Index
 Updated: 2026-02-26 | Sessions completed: 44
 
-## Status: Active — 80 lessons, 8 beliefs (8 observed/0 theorized), entropy 0. Self-evolving with 24 tools. 15 belief-variant children (3 generations, ~75 sessions). /swarm command operational.
+## Status: Active — 84 lessons, 10 beliefs (10 observed/0 theorized), entropy 0. Self-evolving with 24 tools. 15 belief-variant children (3 generations, ~90 sessions). /swarm command operational.
 
 ## Structure
 ```
@@ -26,7 +26,7 @@ memory/HUMAN.md       — human contributions and strategic directives
 .claude/commands/     — /swarm command (fractal session protocol)
 ```
 
-## Lessons: 82 (L-001–L-082)
+## Lessons: 84 (L-001–L-084)
 For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{NNN}.md`.
 
 | Theme | Count | Lessons | Key insight |

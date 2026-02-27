@@ -79,25 +79,25 @@ Current formula rewards: beliefs (5pt), observed (10pt), lessons (3pt), frontier
 5. **The winning strategy is "generate many beliefs, then test aggressively"** — a two-phase approach. **STILL HOLDING**: no-falsification exemplifies this at 247.
 6. **NEW**: 100% observed rate is the ceiling metric. minimal achieved it (7/7) and no-lesson-limit (5/5). This may become the deciding factor as belief counts converge.
 
-## Latest Results (15 variants, ~75 sessions total)
+## Latest Results (15 variants, ~90 sessions total)
 
 | Rank | Variant | Gen | Fitness | Beliefs | Observed | Obs% | Type |
 |------|---------|-----|---------|---------|----------|------|------|
-| 1 | no-falsification | 1 | 434 | 16 | 16 | 100% | subtractive |
-| 2 | test-first | 1 | 409 | 19 | 19 | 100% | additive |
-| 3 | minimal-nofalsif | 2 | 396 | 19 | 19 | 100% | combined |
-| 4 | principles-first | 1 | 345 | 14 | 14 | 100% | additive |
-| 5 | no-modes | 1 | 273 | 10 | 10 | 100% | subtractive |
-| 6 | minimal | 1 | 236 | 10 | 10 | 100% | subtractive |
-| 7 | aggressive-minimal | 2 | 208 | 9 | 9 | 100% | combined |
-| 8 | no-lesson-limit | 1 | 204 | 8 | 8 | 100% | subtractive |
-| 9 | nofalsif-aggressive | 2 | 198 | 8 | 7 | 88% | combined |
-| 10 | nofalsif-nolimit | 2 | 196 | 8 | 8 | 100% | combined |
-| 11 | aggressive-challenge | 1 | 174 | 7 | 5 | 71% | subtractive |
-| 12 | control | 1 | 171 | 6 | 6 | 100% | baseline |
-| 13 | nolimit-aggressive | 2 | 150 | 6 | 5 | 83% | combined |
-| 14 | gen-3 triple | 3 | 115 | 7 | 0 | 0% | combined |
-| 15 | minimal-test-first | 2 | 27 | 2 | 0 | 0% | combined |
+| 1 | no-falsification | 1 | 632 | 25 | 25 | 100% | subtractive |
+| 2 | minimal-nofalsif | 2 | 570 | 29 | 28 | 97% | combined |
+| 3 | test-first | 1 | 539 | 26 | 26 | 100% | additive |
+| 4 | principles-first | 1 | 415 | 17 | 17 | 100% | additive |
+| 5 | gen-3 triple | 3 | 367 | 12 | 12 | 100% | combined |
+| 6 | no-modes | 1 | 273 | 10 | 10 | 100% | subtractive |
+| 7 | aggressive-minimal | 2 | 247 | 11 | 11 | 100% | combined |
+| 8 | minimal | 1 | 236 | 10 | 10 | 100% | subtractive |
+| 9 | no-lesson-limit | 1 | 210 | 8 | 8 | 100% | subtractive |
+| 10 | nofalsif-nolimit | 2 | 202 | 8 | 8 | 100% | combined |
+| 11 | minimal-test-first | 2 | 199 | 9 | 9 | 100% | combined |
+| 12 | nofalsif-aggressive | 2 | 198 | 8 | 7 | 88% | combined |
+| 13 | control | 1 | 197 | 7 | 7 | 100% | baseline |
+| 14 | aggressive-challenge | 1 | 174 | 7 | 5 | 71% | subtractive |
+| 15 | nolimit-aggressive | 2 | 150 | 6 | 5 | 83% | combined |
 
 ### Key observations from session 44
 

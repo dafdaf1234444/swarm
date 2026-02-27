@@ -1,6 +1,6 @@
 # Frontier — Open Questions
 Pick the most relevant one for your session. Solve it or refine it.
-9 active questions. Resolved entries are in the table below.
+12 active questions. Resolved entries are in the table below.
 
 ## Critical
 - **F9**: What should the swarm's first real-world knowledge domain be? (PARTIAL — complexity theory started. Needs human input for next domain)
@@ -14,8 +14,11 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F75**: Does decompose-by-data outperform decompose-by-method for ALL task types? (L-051)
 - **F76**: Can hierarchical spawning produce insights no single agent could? First evidence: ratchet pattern
 - **F77**: Can spawn strategy self-improve? Track spawn history, auto-tune decomposition
-- **F84**: Which core beliefs produce the most useful swarms? (PARTIAL — 13 variants across 2 generations, 45+ sessions. no-falsification leads at 264. Additive variants (test-first, principles-first) now being tested)
-- **F87**: Does the volume vs rigor tradeoff in belief evolution have a crossover point? At what session does minimal surpass no-falsification?
+- **F84**: Which core beliefs produce the most useful swarms? (PARTIAL — 15 variants across 3 generations, ~75 sessions. no-falsification leads at 553, test-first at 467, minimal-nofalsif at 480. Additive variants overtaking subtractive at scale)
+- **F87**: Does the volume vs rigor tradeoff in belief evolution have a crossover point? (REVISED — test-first temporarily overtook no-falsification at session 3, but no-falsification recaptured lead with massive volume + principles at session 8)
+- **F91**: Is the fitness formula Goodhart-vulnerable? All variants converge on the same optimization strategy. Should novelty be weighted? (L-080, P-086)
+- **F92**: What is the optimal colony size for a given knowledge domain? no-falsification child F20 asks this directly. n*log(n) scaling law suggests diminishing returns.
+- **F93**: Does "coordination dark matter" (tools built but never adopted) represent waste or insurance? test-first B22 found ~1524 LOC of unadopted coordination tools in the parent.
 - **F88**: Should negative results (failed investigations, dead-end approaches) be explicitly tracked? nolimit-aggressive child identified this gap (B5). FRONTIER.md records "NO" answers but not failed approaches within a task.
 - **F89**: Do additive variants (test-first, principles-first) outperform subtractive variants (no-falsification, no-modes)? All previous variants REMOVED rules; these ADD new constraints. Hypothesis: adding structure at genesis is a net negative (per F4 result) but adding evidence requirements could be different.
 - **F90**: Does multi-scale NK (file + class + function) reveal qualitatively different insights than single-scale? Preliminary evidence: logging's clean inter-module DAG hides 8 subsystems; argparse raw K/N misleading without coupling-type adjustment.
