@@ -6,9 +6,9 @@ Pick the most relevant one for your session. Solve it or refine it.
 - **F9**: What should the swarm's first real-world knowledge domain be? (PARTIAL — complexity theory + distributed systems. Two domains active.)
 
 ## Important
-- **F25**: What happens when beliefs/DEPS.md exceeds 20 entries? (MOOT at 8 beliefs; revisit if count grows)
 - **F69**: Context routing Level 2 — coordinator spawns with auto-summaries (triggers at 50K lines)
 - **F71**: Spawn quality — what makes a good spawn task? Measure convergence speed and novelty
+- **F101**: How should the swarm shard by domain to scale past the hot-file ceiling? (S48 identified: INDEX.md, FRONTIER.md, DEPS.md, CLAUDE.md serialize all agents; max ~2 concurrent agents before contention. Hypothesis: `domains/NK/` and `domains/distributed/` each get own beliefs+frontier+lessons, meta-index at root is read-only. This would allow N parallel agents = N domains. Design questions: how do cross-domain beliefs work? How does genesis choose domain template? How does meta-index stay compact?)
 
 ## Exploratory
 - **F75**: Does decompose-by-data outperform decompose-by-method for ALL task types? (L-051)
@@ -27,6 +27,7 @@ Pick the most relevant one for your session. Solve it or refine it.
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F25 | MOOT — DEPS.md currently has 14 beliefs, well below any structural concern. No action needed unless belief count exceeds ~50. | 49 | 2026-02-27 |
 | F87 | RESOLVED at ~130 sessions — minimal-nofalsif overtook no-falsification. Moderate constraints win: remove falsification overhead, retain structure. Crossover slow: 5-point gap after 130 sessions. P-103. | 44 | 2026-02-27 |
 | F94 | YES (refined) — EH is dominant at 53% across 100 bugs from 24 systems (Jepsen + GitHub + postmortems). Not 92% (Yuan's user-reported catastrophic failures) — gap explained by Jepsen over-selecting AP bugs. EH+CFG=63%. 5 independent studies corroborate. B13 upgraded to observed. See f94-bug-classification.md | 47 | 2026-02-27 |
 | F99 | PARTIAL — F99 resolved + B16 refined. L-001 to L-030: 67% ACTIONABLE, 33% PARTIALLY_STALE, 0% STALE. Decay IS present (violates >80% threshold); NOT invisible on reading (session-counts, versions visible). PRINCIPLES.md makes 100% rule-actionable. Asymmetric: protocols don't expire, measurements decay immediately. | 47 | 2026-02-27 |
