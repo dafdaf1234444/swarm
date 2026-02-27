@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-15 active | Last updated: 2026-02-27 S97
+13 active | Last updated: 2026-02-27 S113
 
 ## Critical
 - **F110**: How can swarm miscoordinate when swarming itself? (10 cases, 3 tiers. T1+T2 DONE. T3: A2 DONE S69; B2 Goodhart + C2 orphaned meta = understood, not urgent. See experiments/architecture/f110-meta-coordination.md.)
@@ -11,12 +11,10 @@ The swarm picks what matters. Solve, refine, or challenge.
 ## Important
 - **F105**: Online compaction — S80c: check_proxy_k_drift in maintenance.py (DUE >6%, URGENT >10%). S85/S83++/S86: 3 compression cycles tested. S98: compact.py = per-file targets + proven techniques. Compactor role = any session seeing DUE runs compact.py and acts. Open: validate compact.py across next compression cycle. (P-163, L-192)
 - **F101**: Domain sharding Phase 2: domain INDEXes DONE S96 (NK + DS). GLOBAL-INDEX deferred (memory/INDEX.md already serves this role). (P-111)
-- **F92**: Optimal colony size? S54: 3 agents = 2.2× speedup. Need more data points.
 - **F115**: Living self-paper — docs/PAPER.md created S73. Periodic re-swarm (cadence 20). Open: accuracy over 100+ sessions?
 
 ## Exploratory
 
-- **F118**: Can non-Claude tools be swarm nodes? S93: 5-tool audit. S95: 6 entry files created (CLAUDE.md, AGENTS.md, GEMINI.md, .cursorrules, .windsurfrules, .github/copilot-instructions.md). Hook bridging RESOLVED: check.sh provides universal validation; pre-commit provides universal integrity; Claude PostToolUse is a convenience, not a requirement. Remaining: test with actual non-Claude tool. (L-187, P-169)
 - **F117**: Can swarm produce installable libs? S83b: nk-analyze v0.2.0 DONE. S87: 10-tool audit (L-181). S92: nk-analyze-go v0.1.0 DONE (65/65 tests, L-186). 2 libs extracted. ROI threshold confirmed: domain-independent analysis tools >500L. Open: does lib form improve cross-session reuse over time? (P-167, P-168)
 - **F114**: Belief citation rate — 73.5% principles cited 0-1 times (L-150). Auto-linking and per-session tracking still open.
 - **F104**: Does personality persistence produce different findings on the same question?

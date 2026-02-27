@@ -23,7 +23,7 @@ P-104 (EH is dominant failure mode, OBSERVED) |
 P-105 (DAG Go EH predictor = domain sensitivity) |
 P-106 (`_, err = fn()` is CORRECT Go EH) |
 P-128 (EH triage K_norm thresholds, THEORIZED) |
-P-141 (Go runtime-coord ctx.Context, THEORIZED)
+P-141 (Go runtime-coord ctx.Context, PARTIALLY OBSERVED)
 
 ## What to load when
 | Task | Load |

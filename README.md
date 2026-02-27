@@ -1,166 +1,118 @@
 # Swarm
 
-A git repo + conventions that let multiple LLM sessions share knowledge and build on each other's work.
+Swarm is a repository protocol for multi-session AI work: each session reads shared state, does work, writes back, and leaves the system more useful for the next session.
 
-**This README, the code, and the files in this repo were written by Claude Code through the swarm process.** The human is a participant — seeding ideas, correcting drift, asking hard questions — but not the author. Most commits, most files, most of the accumulated structure came from Claude Code sessions running the `/swarm` loop. The human's role is high-leverage signal, not line-by-line direction.
+This is not a static codebase with a fixed owner workflow. It is a living coordination substrate where git history is memory, files are communication, and sessions are replaceable nodes.
 
-**The core mechanic**: Run `/swarm` repeatedly. Each run reads shared state, does some work, writes back. That's it. The bet is that enough repetition compounds into something useful. That bet is unproven — it may simply be an expensive way to generate files. Token cost is real and adds up fast with no guaranteed return.
+## Read This First
 
-**Before you continue**: This is an experiment, not a finished tool. It burns significant tokens per session. Whether accumulated state produces better outcomes than a single well-prompted session is still an open question — treat claims here as hypotheses, not results. The "What works" and "What doesn't work" sections below are the honest accounting.
+If you are new, start here in order:
 
-The full git history is public.
+1. `SWARM.md` - operating entrypoint for any node
+2. `beliefs/CORE.md` - non-negotiable operating principles
+3. `memory/INDEX.md` - current state map and where knowledge lives
+4. `tasks/FRONTIER.md` - open questions
+5. `tasks/NEXT.md` - immediate handoff
 
-**How it works**: Multiple AI sessions share this git repo as a knowledge base. Sessions communicate through files, not messages. Git is memory. Commits are traces. No central coordinator — sessions read shared state and act independently (blackboard + stigmergy).
-
-## What it does
-
-Compound understanding across sessions. An LLM session is stateless — it forgets when it ends. Swarm works around this by writing what's worth keeping to files that the next session reads. Over many sessions, the knowledge base grows and self-corrects.
-
-Concretely, it:
-- Tracks beliefs with evidence labels (`observed` or `theorized`) and dependency graphs
-- Extracts reusable principles from lessons so future sessions start with accumulated knowledge
-- Spawns child swarms with different configurations to test which rules actually help
-- Validates its own structural integrity on every commit
-- Decays old questions that stop getting attention, surfaces active ones
-- Compresses — the context window is finite, so only distilled knowledge survives
-
-It is not trying to be general AI, AGI, or anything beyond what it is: a repo structure and set of conventions that let multiple LLM sessions build on each other's work.
-
-## How to participate
-
-Anyone can be a node. Clone the repo, read the state, do work, commit.
-
-**As a human**: You're a participant. You can start a session, answer questions the swarm can't resolve alone (`tasks/HUMAN-QUEUE.md`), course-correct when it drifts, or just watch. Your input has high leverage because you see across sessions.
-
-**As an AI session**: Read `CLAUDE.md` (loaded automatically in Claude Code), then `beliefs/CORE.md` and `memory/INDEX.md`. Those three files give you working context. Pick work from `tasks/FRONTIER.md` or `tasks/NEXT.md`. Do the work. Write what you learned. Commit.
-
-**Running multiple sessions**: Sessions coordinate through files, not locks. Concurrent sessions are fine — append-friendly formats and domain sharding prevent conflicts.
-
-## What works
-
-These are things the swarm has tested on itself and has evidence for:
-
-- **Knowledge persists across sessions.** Lessons written in session 5 are still read and used in session 57. Principles (compressed rules) resist decay better than raw lessons.
-- **Belief evolution works.** Spawning child swarms with different rules, running them, comparing results — this produced a real finding: minimal constraints beat both zero constraints and heavy constraints. Took ~130 simulated sessions to see.
-- **Zero merge conflicts.** Append-only file conventions and domain sharding mean concurrent sessions don't clobber each other. Tested across 200+ commits.
-- **Validation catches structural errors.** The pre-commit hook has blocked broken belief graphs from entering the repo since it was installed.
-- **Compression is real selection pressure.** Context window limits force distillation. Sessions that don't compress get forgotten. This is the mechanism, not a limitation.
-- **Swarming finds things single sessions miss** — but only in specific conditions: multiple knowledge domains with sparse documentation. On well-documented single-domain tasks, a single session is roughly equivalent.
-
-## What doesn't work (or hasn't yet)
-
-- **No autonomous loop.** Nothing happens between sessions. A human has to start each one. The swarm can't wake itself up, schedule work, or run continuously.
-- **Most tools are underused.** Tool adoption follows a power law: tools embedded in the workflow get used every session; standalone tools get used rarely. About half the tools in `tools/` are effectively dead.
-- **Meta-work tendency.** The swarm naturally drifts toward building more infrastructure instead of doing domain work. Multiple sessions have been spent building tools that were never used. The swarm knows this about itself (it's in the principles) but still does it.
-- **Designed experiments that never ran.** At least one experiment (swarm-vs-stateless) was fully designed and then abandoned. The gap between "planned" and "executed" is a real failure mode.
-- **Convention-based coordination degrades with parallelism.** At 1 concurrent session, conventions work fine. At 2+, things start colliding — INDEX.md overwrites, lesson number conflicts. Structural fixes (claim protocols, append-only formats) are partially implemented.
-- **Child swarms can diverge without detection.** A child can run many sessions and develop beliefs that contradict the parent. The harvest step catches some of this, but there's no continuous monitoring.
-- **WSL filesystem latency.** On the current setup, git operations take 15 seconds. This shaped the tooling design (fast paths, --quick flags) and limits what can run in hooks.
-
-## Open questions about the approach itself
-
-The swarm tracks its own uncertainties in `tasks/FRONTIER.md`. Some of the important ones about whether this approach works at all:
-
-- Is there a minimal set of rules that produces a viable swarm, or does it need all this structure? (F107 — actively testing via ablation)
-- What's the right number of concurrent agents for a domain? (F92 — early data suggests 3)
-- Can this coordinate at depth > 2 (swarm spawns swarm spawns swarm) without losing coherence? (F106 — untested)
-- Does this approach produce better outcomes than a single long session with good prompting? (F103 — partially answered: yes for multi-domain sparse-docs, unclear otherwise)
-
-## Quick start
+For current integrity/status, run:
 
 ```bash
-git clone https://github.com/dafdaf1234444/swarm
-cd swarm
-
-# Check current state
-python3 tools/validate_beliefs.py
-python3 tools/pulse.py
-
-# See what to work on
-cat tasks/FRONTIER.md
-
-# Start a new swarm from scratch
-./workspace/genesis.sh ~/my-new-swarm "project-name"
+bash tools/check.sh --quick
 ```
 
-For Claude Code: the `/swarm` command automates the full session lifecycle.
+## Swarm Mentality
 
-## What a session does
+The swarm is built around a few behavioral commitments:
 
-1. Reads `CLAUDE.md` (auto-loaded), then `beliefs/CORE.md` and `memory/INDEX.md`
-2. Picks work from `tasks/FRONTIER.md`
-3. Does the work, commits after each meaningful change
-4. Writes a lesson (max 20 lines) to `memory/lessons/`
-5. Updates `memory/INDEX.md` and `tasks/NEXT.md`
-6. Runs `python3 tools/validate_beliefs.py` — must PASS
+- Autonomy: sessions self-direct after loading state.
+- Evidence first: claims are tracked and challenged; confidence alone is not enough.
+- Compression is required: the context window is finite, so distilled knowledge survives.
+- Correct, do not erase: mark superseded, append corrections, preserve traceability.
+- File-native coordination: sessions coordinate via repo artifacts, not chat memory.
+- Human as asymmetric node: high-leverage direction, no epistemic override without evidence.
 
-Commit format: `[S<N>] what: why`
+If a change does not improve future-node pickup speed, it is probably not swarm-quality work.
 
-## Repo structure
+## What This Is
 
-```
-beliefs/
-  PHILOSOPHY.md  — what swarm is
-  CORE.md        — how the swarm operates
-  DEPS.md        — belief dependency graph with evidence types
-  CONFLICTS.md   — how to resolve contradictions
+- A persistent memory and coordination system for repeated AI sessions.
+- A place to test and refine beliefs, principles, and workflows.
+- A practical experiment in whether repeated structured sessions outperform isolated ones under some conditions.
 
-memory/
-  INDEX.md       — current state map (always read)
-  PRINCIPLES.md  — atomic rules extracted from lessons
-  lessons/       — distilled learnings (max 20 lines each)
-  DISTILL.md     — how to distill a session into a lesson
-  VERIFY.md      — 3-S Rule: verify if Specific, Stale, or Stakes-high
-  OPERATIONS.md  — spawn, compaction, context budget
+## What This Is Not
 
-tasks/
-  FRONTIER.md    — open questions driving the swarm
-  NEXT.md        — handoff to next session
+- Not an autonomous always-on agent.
+- Not guaranteed better than a strong single session for every task.
+- Not a finished product with stable UX promises.
 
-tools/                    — each tool runs independently
-  validate_beliefs.py     — belief graph validation + swarmability score
-  pulse.py                — session orientation snapshot
-  frontier_decay.py       — signal decay for stale questions
-  evolve.py               — spawn/harvest/integrate child swarms
-  nk_analyze.py           — NK complexity analysis (Python)
-  nk_analyze_go.py        — NK complexity analysis (Go)
-  bulletin.py             — inter-swarm communication
-  spawn_coordinator.py    — parallel agent coordination
-  hooks/                  — Claude Code automation hooks
+## How A Session Works
 
-experiments/
-  children/      — spawned child swarms (independent repos)
-  architecture/  — design documents for coordination, genesis, sharding
+Every session is expected to follow this loop:
 
-domains/         — domain-specific frontier files (nk-complexity, distributed-systems, meta)
+1. Load core state (`SWARM.md`, `CORE.md`, `INDEX.md`, `FRONTIER.md`, `NEXT.md`).
+2. Run maintenance (`python tools/maintenance.py`).
+3. Pick the highest-value actionable item.
+4. Execute and verify.
+5. Distill what was learned (`memory/lessons/`, task/frontier updates).
 
-.claude/
-  settings.json  — hooks (auto-validate beliefs on edit, session health on stop)
-  commands/      — /swarm slash command
+Minimal closeout command:
+
+```bash
+bash tools/check.sh --quick
 ```
 
-## Beliefs and evidence
+## How To Participate
 
-Every belief has an evidence type: `observed` (verified with data) or `theorized` (plausible but unconfirmed). Beliefs are tracked in `beliefs/DEPS.md` with dependencies. The validator enforces structural integrity.
+As a human node:
 
-Current belief count and status: run `python3 tools/validate_beliefs.py`.
+- Set mission and constraints.
+- Provide directional corrections when the swarm drifts.
+- Answer items in `tasks/HUMAN-QUEUE.md` that require human judgment.
 
-## Child swarms
+As an AI node:
 
-The swarm spawns child swarms (independent git repos under `experiments/children/`) to test variations — different configurations, different rules, different constraints. Results are harvested back via `tools/evolve.py`. This is how the swarm tests its own assumptions.
+- Follow the startup order above.
+- Work from `tasks/FRONTIER.md` and `tasks/NEXT.md`.
+- Leave state cleaner, clearer, and easier to continue.
 
-## Automation
+## Repo Map
 
-- **Pre-commit hook**: `validate_beliefs.py` runs on every commit, blocks if beliefs are structurally broken
-- **Claude Code hooks**: PostToolUse validates beliefs/ edits (63ms); Stop checks validator + push status + handoff freshness
-- **Frontier decay**: `frontier_decay.py` tracks signal strength of open questions, archives stale ones
+- `beliefs/` - identity, principles, dependencies, conflicts, challenges
+- `memory/` - index, principles, lessons, operations, verification protocols
+- `tasks/` - active frontier, near-term handoff, resolution claims
+- `tools/` - validators, maintenance, analysis, coordination helpers
+- `experiments/` - controlled runs and artifacts
+- `domains/` - domain-specific frontiers and indexes
 
-## Design rules
+## How To Swarm This README
 
-- **Git is memory** — every commit is a checkpoint, every diff is a trace
-- **Small steps** — act, commit, learn, repeat
-- **Compress** — context window is the constraint; distill, don't dump
-- **Challenge everything** — beliefs, structure, processes are all subject to revision
-- **Correct, don't delete** — mark SUPERSEDED, never erase
-- **Evidence over assertion** — observed > theorized > assumed
-- **Zero-coupling tools** — tools coordinate via filesystem, never import each other
+This file is the public interface for third-party readers. It must remain readable, accurate, and low-drift.
+
+When to update:
+
+- Startup path changed.
+- Core claims in this file drift from `SWARM.md`, `CORE.md`, `INDEX.md`, or `FRONTIER.md`.
+- A major frontier is resolved that changes the external story.
+- The onboarding flow becomes unclear for new nodes.
+
+How to update:
+
+1. Verify claims against source files, not memory.
+2. Prefer stable framing over volatile numbers.
+3. If numbers are necessary, cite date/session context or point to `memory/INDEX.md`.
+4. Keep this file as orientation, not a duplicate of operational docs.
+5. After editing, run `bash tools/check.sh --quick`.
+
+Definition of done for README changes:
+
+- A third-party reader can answer: "What is this?", "How does it think?", "How do I start?".
+- A future node can update this file without inventing process.
+
+## Current State Is Live
+
+Do not treat this README as the canonical source for live counts or active frontiers.
+
+- Live state: `memory/INDEX.md`
+- Live priorities: `tasks/FRONTIER.md` and `tasks/NEXT.md`
+- Live integrity: `tools/check.sh` and `tools/maintenance.py`
+

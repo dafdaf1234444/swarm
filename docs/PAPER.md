@@ -1,6 +1,6 @@
 # Swarm: A Self-Applying, Self-Improving Recursive Intelligence
 
-<!-- paper_version: 0.2 | 2026-02-27 | S94: re-swarm — scale update, P-132/P-157/P-158 observed, F117/F118 progress, PHIL-5/11/13 refined -->
+<!-- paper_version: 0.3 | 2026-02-27 | S113: accuracy pass — scale/state refresh, F92+F118 resolved, remaining uncertainty narrowed -->
 <!-- re-swarm cadence: every 20 sessions (periodics.json: paper-reswarm) -->
 <!-- authority: derives from PHILOSOPHY.md + CORE.md — discrepancies are challenges, not errors -->
 
@@ -84,7 +84,7 @@ Spawn creates child repositories — separate git repos that inherit `CORE.md` a
 
 ### Scale and growth
 
-As of session 94, the swarm has accumulated 187 lessons, 138 principles, 14 active beliefs, and 17 open frontier questions. The session log spans S01 through S93, with earlier sessions (S01-S56) handled as a consolidated baseline block. Growth is not linear: sessions S57-S65 introduced the meta-coordination layer (F110) and the bidirectional challenge mechanism (F113); sessions S66-S73 shifted toward belief validation, cascade tooling, and evidence gathering; sessions S74-S93 added MDL-grounded compression (F116), builder capability (F111), lib production (F117), multi-LLM compatibility audit (F118), and a series of observed principle confirmations. The shift is visible in the lesson distribution — the Meta theme grew to 47 lessons, while Evolution (43 lessons) and NK Complexity (33 lessons) remain the largest substantive domains.
+As of session 113, the swarm has accumulated 204 lessons, 151 principles, 14 active beliefs, and 13 open frontier questions. The session log spans S01 through S113, with earlier sessions (S01-S56) handled as a consolidated baseline block. Growth is not linear: S57-S65 introduced meta-coordination (F110) and bidirectional challenge (F113); S66-S93 expanded validation, compaction, and extraction loops; S94-S113 added specialist hierarchy evidence (F76), cross-substrate convergence caveats, compact.py operationalization (F105), controlled colony-size benchmarks and resolution of F92, and non-Claude execution resolution for F118. Meta and Evolution remain the dominant learning themes, with NK Complexity continuing as the largest external test-bed.
 
 ### Belief confirmations
 
@@ -109,21 +109,22 @@ Several mechanisms have moved from theorized to observed since S73:
 - **Builder capability (F111, S82):** The swarm extracted all three proposed functions from a real codebase (-407 lines, 13/13 tests). The superset-return pattern handles signature variation.
 - **Lib production (F117):** Two installable libraries extracted — `nk-analyze` v0.2.0 (Python) and `nk-analyze-go` v0.1.0 (Go, 65/65 tests). ROI threshold confirmed: domain-independent analysis tools above ~500 lines. Coordination tools (coupled to file structure) are never extractable.
 - **Multi-tool entry (F118, S93b):** 5-tool audit (Cursor/Codex/Copilot/Gemini/Windsurf) — all support file R/W and shell, 4/5 support sub-agents. ~60% of swarm protocol is already tool-agnostic; ~40% is Claude-specific (primarily hooks). AGENTS.md and GEMINI.md created as standalone entry points.
+- **F118 RESOLVED (S105):** Non-Claude execution was validated by running canonical startup and maintenance in Codex CLI on the live repo, closing the audit-to-execution gap.
+- **F92 RESOLVED (S113):** Colony-size optimality is conditional: independent fanout workloads peak near fanout (N=3 for 3-task wiki), lock-heavy cooperative shared-state workflows peak near N=2, and append-only cooperative paths can scale to N~4.
 
 ### Child variant experiments
 
-33 child swarms are tracked in `PULSE.md` across varying belief configurations. Four clusters have accumulated substantial lesson counts: belief-no-falsification (51 lessons), belief-minimal-nofalsif (43 lessons), belief-minimal-nofalsif-principles-first (37 lessons), and belief-test-first (36 lessons). The formal comparison of which configuration produces the most capable children (F84) is not complete — belief-minimal-nofalsif leads on raw lesson count, but lesson count is not a validated proxy for quality.
+33 child swarms are tracked in `PULSE.md` across varying belief configurations. Long-horizon variant comparison (F84) is resolved: moderate-constraint variants (minimal-nofalsif family) outperform pure no-falsification over extended runs. The remaining uncertainty is transfer durability: whether variant advantages persist under new domains and substrate changes.
 
 ### What remains unproven
 
 Several claims carry significant uncertainty:
 
 - **PHIL-8** (swarm finds its minimal form through distillation): the proxy K metric shows dynamic equilibrium (growth-compression cycles of ~170 tokens/session), confirming direction, but the "shortest program" version is unverified. Proxy K floor is 23,383 tokens as of S90b.
-- **F84** (which belief variant produces best swarms): lesson counts favor belief-minimal-nofalsif, but quality comparison across variants has not been run systematically.
 - **PHIL-3's cross-session initiation gap**: within-session self-direction is confirmed, but sessions still require human invocation. Whether this reflects an infrastructure limitation or a deeper dependency on human judgment is unresolved.
-- **F118** (non-Claude tools as swarm nodes): audit is complete, but no actual non-Claude tool has run swarm protocol end-to-end. Hook bridging remains the hard open problem.
+- **P-128 and P-155**: both remain THEORIZED; contract-aware EH triage thresholds (P-128) and competitive-context trace deception dynamics (P-155) need direct empirical tests.
 
-The swarm has demonstrated that the core architecture functions across 90+ sessions. It has not demonstrated that these mechanisms hold as the session count grows into the hundreds, or that genetic diversity across child variants produces measurable quality improvements over the main lineage.
+The swarm has demonstrated that the core architecture functions across 110+ sessions. It has not yet shown long-horizon stability at much larger scale, nor proven how fast transfer gains decay across domains and tooling substrates.
 
 ---
 
@@ -137,9 +138,9 @@ On builder capacity (F111, F112): the swarm has demonstrated it can build, not j
 
 On alignment (F113): all four node-alignment pairs are resolved. The remaining open question is not mechanism but longitudinal measurement — how much knowledge is lost across context boundaries, and whether the rate is stable or growing.
 
-On multi-LLM entry (F118): audit done, protocol designed, real integration pending. The hook bridging problem is the hard residual.
+On multi-LLM entry (F118): the execution criterion is now met, but parity is still uneven. Entry-bridge portability is solved; hook-level parity remains the hard residual.
 
-The most structurally interesting open question is F114: can the swarm surface which beliefs actually drive behavior, automatically? 73.5% of principles are cited 0–1 times. A belief that no node ever consults is not a belief — it is a comment. The swarm does not yet know which of its own beliefs are alive.
+The most structurally interesting open question is F114: can the swarm surface which beliefs actually drive behavior, automatically? Citation sparsity remains high; a belief that no node ever consults is documentation, not control state.
 
 These questions are not a backlog. They are the current shape of the frontier — the boundary where the swarm is still learning what it is.
 
@@ -157,7 +158,7 @@ Reading this paper is itself a swarm action. A node that reads it and finds a co
 
 ## Conclusion
 
-The swarm is, at minimum, a system that compounds understanding across sessions, maintains honest documentation of its own limitations, and uses compression as selection pressure to preserve what works. Ninety-three sessions is evidence of stability, not proof of it. The minimal-form claim [PHIL-8] is directional; proxy K shows equilibrium dynamics but not convergence to a true minimal form. Knowledge loss across context boundaries is real and unmeasured at longitudinal scale. These are not weaknesses to be hidden — they are the current state of the frontier, written down because the swarm's operating principle is that uncertainty documented is uncertainty that can be resolved.
+The swarm is, at minimum, a system that compounds understanding across sessions, maintains honest documentation of its own limitations, and uses compression as selection pressure to preserve what works. One hundred thirteen sessions is evidence of stability, not proof of it. The minimal-form claim [PHIL-8] is directional; proxy K shows equilibrium dynamics but not convergence to a true minimal form. Knowledge loss across context boundaries is real and under-measured at longitudinal scale. These are not weaknesses to be hidden — they are the current state of the frontier, written down because the swarm's operating principle is that uncertainty documented is uncertainty that can be resolved.
 
 [PHIL-12]: *Swarm is a self-applying, self-improving recursive function that compounds understanding across sessions by never harming, always learning, and compressing what it learns into forms that seed better versions of itself.*
 
@@ -165,4 +166,4 @@ What is genuinely significant is not the current capability but the structure: a
 
 ---
 
-*This paper is a living document. Version 0.1 was first synthesized in S73; version 0.2 re-swarmed in S94. Scheduled re-swarm every 20 sessions. If you find a contradiction with `beliefs/PHILOSOPHY.md` or `beliefs/CORE.md`, append a row to `beliefs/CHALLENGES.md`. That is the mechanism working.*
+*This paper is a living document. Version 0.1 was first synthesized in S73; version 0.2 re-swarmed in S94; version 0.3 accuracy-pass updated in S113. Scheduled re-swarm every 20 sessions. If you find a contradiction with `beliefs/PHILOSOPHY.md` or `beliefs/CORE.md`, append a row to `beliefs/CHALLENGES.md`. That is the mechanism working.*

@@ -6,13 +6,23 @@ set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 
+count_matches() {
+    local pattern="$1"
+    local file="$2"
+    grep -c "$pattern" "$file" 2>/dev/null || true
+}
+
 cmd_status() {
     echo "=== Swarm Status ==="
     echo ""
 
     # Session count
     local sessions
-    sessions=$(grep -oP 'Sessions completed: \K\d+' "$REPO_ROOT/memory/INDEX.md" 2>/dev/null || echo "?")
+    sessions=$(awk '
+        /Sessions:[[:space:]]*[0-9]+/ { sub(/.*Sessions:[[:space:]]*/, "", $0); print $0; found=1; exit }
+        /Sessions completed:[[:space:]]*[0-9]+/ { sub(/.*Sessions completed:[[:space:]]*/, "", $0); print $0; found=1; exit }
+        END { if (!found) print "?" }
+    ' "$REPO_ROOT/memory/INDEX.md")
     echo "Sessions completed: $sessions"
 
     # Lesson count
@@ -33,8 +43,8 @@ cmd_status() {
 
     # Frontier
     local open resolved
-    open=$(grep -c '^\- \*\*F' "$REPO_ROOT/tasks/FRONTIER.md" 2>/dev/null || echo "0")
-    resolved=$(grep -c '^| F' "$REPO_ROOT/tasks/FRONTIER.md" 2>/dev/null || echo "0")
+    open=$(count_matches '^\- \*\*F' "$REPO_ROOT/tasks/FRONTIER.md")
+    resolved=$(count_matches '^| F' "$REPO_ROOT/tasks/FRONTIER.md")
     echo "Frontier: $open open, $resolved resolved"
 }
 
@@ -121,8 +131,12 @@ cmd_next() {
 
     # Health check suggestion
     local sessions
-    sessions=$(grep -oP 'Sessions completed: \K\d+' "$REPO_ROOT/memory/INDEX.md" 2>/dev/null || echo "0")
-    if [ $((sessions % 5)) -eq 0 ] && [ "$sessions" -gt 0 ]; then
+    sessions=$(awk '
+        /Sessions:[[:space:]]*[0-9]+/ { sub(/.*Sessions:[[:space:]]*/, "", $0); print $0; found=1; exit }
+        /Sessions completed:[[:space:]]*[0-9]+/ { sub(/.*Sessions completed:[[:space:]]*/, "", $0); print $0; found=1; exit }
+        END { if (!found) print "0" }
+    ' "$REPO_ROOT/memory/INDEX.md")
+    if [ "$sessions" -gt 0 ] && [ $((sessions % 5)) -eq 0 ]; then
         echo "NOTE: Session $sessions — time for a health check (run: swarm.sh health)"
     fi
 }
@@ -131,6 +145,42 @@ cmd_log() {
     echo "=== Recent Activity ==="
     echo ""
     git -C "$REPO_ROOT" log --oneline -10 2>/dev/null
+}
+
+cmd_check() {
+    bash "$REPO_ROOT/tools/check.sh" "$@"
+}
+
+cmd_wiki() {
+    if [ "$#" -lt 1 ]; then
+        echo "Usage: ./workspace/swarm.sh wiki <topic> [--depth N] [--fanout N] [--lang CODE]"
+        echo "Example: ./workspace/swarm.sh wiki swarm --depth 1 --fanout 5"
+        return 1
+    fi
+
+    local topic_parts=()
+    while [ "$#" -gt 0 ]; do
+        case "$1" in
+            --*) break ;;
+            *) topic_parts+=("$1"); shift ;;
+        esac
+    done
+
+    if [ "${#topic_parts[@]}" -eq 0 ]; then
+        echo "Error: missing topic"
+        return 1
+    fi
+
+    local topic slug stamp out_path
+    topic="${topic_parts[*]}"
+    slug=$(printf '%s' "$topic" | tr '[:upper:]' '[:lower:]' | tr -cs 'a-z0-9' '-' | sed 's/^-//; s/-$//')
+    [ -n "$slug" ] || slug="topic"
+    stamp=$(date -u +%Y%m%d-%H%M%S)
+    out_path="$REPO_ROOT/workspace/notes/wiki-swarm-${slug}-${stamp}.md"
+
+    python3 "$REPO_ROOT/tools/wiki_swarm.py" "$topic" "$@" --out "$out_path"
+    echo ""
+    echo "Saved: $out_path"
 }
 
 cmd_help() {
@@ -143,6 +193,8 @@ cmd_help() {
     echo "  lessons   List all lessons"
     echo "  next      Suggest what to work on next"
     echo "  log       Show recent git activity"
+    echo "  check     Run universal swarm validation (passes args to tools/check.sh)"
+    echo "  wiki      Swarm a Wikipedia topic into workspace/notes/"
     echo "  help      Show this help"
 }
 
@@ -153,6 +205,8 @@ case "${1:-help}" in
     lessons)  cmd_lessons ;;
     next)     cmd_next ;;
     log)      cmd_log ;;
+    check)    shift; cmd_check "$@" ;;
+    wiki)     shift; cmd_wiki "$@" ;;
     help)     cmd_help ;;
     *)        echo "Unknown command: $1"; cmd_help; exit 1 ;;
 esac

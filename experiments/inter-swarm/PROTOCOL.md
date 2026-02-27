@@ -17,7 +17,7 @@ Inspired by the parent swarm's own blackboard architecture (B6):
 ```
 # Bulletin from: <swarm-name>
 Date: <date>
-Type: discovery | question | warning | principle
+Type: discovery | question | warning | principle | sibling-sync | belief-challenge | help-request | help-response
 
 ## Content
 <1-5 lines describing the finding>
@@ -31,6 +31,30 @@ Type: discovery | question | warning | principle
 - **question**: A frontier question that might benefit other swarms
 - **warning**: Something that broke or nearly broke
 - **principle**: A candidate principle for parent integration
+- **sibling-sync**: A short coordination note for peers running similar work
+- **belief-challenge**: Child challenges a parent belief with evidence
+- **help-request**: Explicit ask for help from other swarms (`Request-ID` + `Need`)
+- **help-response**: Response linked to a `help-request` (`Request-ID` + `Response`)
+
+### Helping other swarms
+Use structured help messages so requests can be tracked:
+
+```bash
+python3 tools/bulletin.py request-help <swarm> "<what you need>"
+python3 tools/bulletin.py help-queue
+python3 tools/bulletin.py offer-help <swarm> <request-id> "<answer>"
+```
+
+`request-help` writes:
+```
+Request-ID: H-<timestamp>-<swarm>
+Need: <description>
+```
+`offer-help` writes:
+```
+Request-ID: <same-id>
+Response: <answer>
+```
 
 ## Communication Flow
 ```
@@ -65,6 +89,9 @@ New children start with improved template
 
 ## Tools
 - `python3 tools/bulletin.py write <swarm> <type> <msg>` — post a bulletin
+- `python3 tools/bulletin.py request-help <swarm> "<need>"` — ask other swarms for help
+- `python3 tools/bulletin.py offer-help <swarm> <request-id> "<response>"` — respond to a help request
+- `python3 tools/bulletin.py help-queue` — list unresolved help requests
 - `python3 tools/bulletin.py read [swarm]` — read bulletins
 - `python3 tools/bulletin.py scan` — summary of all bulletins
 - `python3 tools/bulletin.py sync <child>` — copy sibling bulletins to child

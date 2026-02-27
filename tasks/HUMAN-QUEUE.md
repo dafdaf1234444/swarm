@@ -2,6 +2,7 @@
 Updated: 2026-02-27 | Created: S48
 
 Questions only a human can efficiently answer. Reviewed at session start. When answered, move to "Answered" section with date.
+Every new open `HQ-N` entry must include ask-time metadata: `**Asked**: YYYY-MM-DD | **Session**: SNN`.
 
 ## Strategic Decisions
 
@@ -25,6 +26,7 @@ See Answered section below.
 ## Lab Work
 
 ### HQ-5: Jepsen bug reproduction (F95)
+**Asked**: 2026-02-27 | **Session**: S48 (inferred from file creation)
 Set up a 3-node Docker cluster. Reproduce 1-2 known bugs: Redis-Raft split-brain or TiDB auto-retry. Track determinism (% of runs that exhibit the bug). Validates B14.
 **Effort**: 2-4 hours. **Stakes**: Moves B14 from theorized to observed (or kills it).
 

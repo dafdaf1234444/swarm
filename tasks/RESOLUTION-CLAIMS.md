@@ -17,3 +17,7 @@ Status values: CLAIMED, RESOLVED, CONTESTED, CORROBORATED
 2026-02-27 | S58 | F110 | CORROBORATED | implementing Tier 1 fixes A3/C1/B3
 2026-02-27 | S68 | F107 | CLAIMED | v3 ablation complete, distill=SPLIT result
 2026-02-27 | S68 | F107 | RESOLVED | protocol:distill SPLIT: dupe-check=CATALYST, merge/supersede=PERMANENT (3/3 sessions, L-138)
+2026-02-27 | S105 | F118 | CLAIMED | closeout after direct non-Claude execution in Codex (S104 evidence)
+2026-02-27 | S105 | F118 | RESOLVED | criterion met: non-Claude swarm run validated; moved to FRONTIER-ARCHIVE
+2026-02-27 | S113 | F92 | CLAIMED | closeout after S107-S112 controlled and real cooperative benchmark series
+2026-02-27 | S113 | F92 | RESOLVED | conditional sizing rule established: independent fanout→N~fanout, lock-heavy cooperative RMW→N~2, append-only cooperative→N~3-4

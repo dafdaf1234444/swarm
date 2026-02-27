@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """
-spawn_quality.py — Analyze spawn event log to track what makes a good spawn.
+spawn_quality.py - Analyze spawn event log to track what makes a good spawn.
 
 Usage:
   python3 tools/spawn_quality.py show          # Summary stats
   python3 tools/spawn_quality.py marginal       # Marginal novelty of Nth agent
+  python3 tools/spawn_quality.py size          # F92: aggregate outcomes by colony size
   python3 tools/spawn_quality.py log SE-006 ... # Add a spawn event (interactive)
   python3 tools/spawn_quality.py latest         # Most recent spawn event
 
@@ -91,8 +92,9 @@ def show_summary(events):
     print(f"Total cross-agent unique findings: {total_cross_unique}")
     print(f"\nVerdicts:")
     for v, count in sorted(verdicts.items()):
-        pct = count / total * 100
-        bar = "█" * count
+        pct = count / total
+        # Keep output ASCII so the tool works on default Windows code pages.
+        bar = "#" * count
         print(f"  {v:<22} {count:>2} ({pct:.0%})  {bar}")
     print(f"\nPartition types:")
     for pt, count in sorted(partition_types.items(), key=lambda x: -x[1]):
@@ -104,8 +106,8 @@ def show_summary(events):
         pt = ev.get("partition_type", "?")
         tp = ev.get("two_phase", False)
         verdict = ev.get("verdict", "?")
-        marker = "✓" if tp else ("✗" if pt not in ["personality", "ablation"] else "~")
-        print(f"  {ev['id']} [{pt}] two_phase={tp} → {verdict} {marker}")
+        marker = "OK" if tp else ("NO" if pt not in ["personality", "ablation"] else "~")
+        print(f"  {ev['id']} [{pt}] two_phase={tp} -> {verdict} {marker}")
 
 
 def show_latest(events):
@@ -123,6 +125,51 @@ def show_latest(events):
     print(f"Notes: {ev.get('notes', '')[:120]}...")
 
 
+def size_summary(events):
+    """Aggregate spawn outcomes by colony size (F92 signal view)."""
+    by_n = defaultdict(list)
+    for ev in events:
+        n = ev.get("agents_spawned")
+        if isinstance(n, int) and n > 0:
+            by_n[n].append(ev)
+
+    if not by_n:
+        print("No spawn events with agents_spawned found.")
+        return
+
+    print("=== COLONY SIZE SNAPSHOT (F92) ===")
+    print(f"{'N':>3}  {'Events':>6}  {'Justified':>9}  {'Avg Cross-U':>11}  {'Avg Findings':>12}  {'Speedup':>8}")
+    print("-" * 68)
+
+    for n in sorted(by_n):
+        rows = by_n[n]
+        count = len(rows)
+
+        justified = sum(1 for ev in rows if ev.get("verdict") == "spawn_justified")
+        justified_pct = (justified / count) * 100 if count else 0
+
+        cross_unique = [ev.get("cross_agent_unique", 0) for ev in rows]
+        avg_cross = sum(cross_unique) / len(cross_unique) if cross_unique else 0
+
+        findings = [sum(ev.get("findings_per_agent", [])) for ev in rows]
+        avg_findings = sum(findings) / len(findings) if findings else 0
+
+        speedups = [ev.get("wall_time_speedup") for ev in rows if isinstance(ev.get("wall_time_speedup"), (int, float))]
+        speedup_str = f"{(sum(speedups)/len(speedups)):.2f}x" if speedups else "n/a"
+
+        print(f"{n:>3}  {count:>6}  {justified_pct:>8.0f}%  {avg_cross:>11.2f}  {avg_findings:>12.2f}  {speedup_str:>8}")
+
+    print("\nDetails by N:")
+    for n in sorted(by_n):
+        rows = by_n[n]
+        ids = ", ".join(ev.get("id", "?") for ev in rows)
+        ptypes = sorted({ev.get("partition_type", "?") for ev in rows})
+        two_phase_yes = sum(1 for ev in rows if ev.get("two_phase"))
+        print(f"  N={n}: {ids} | partition={','.join(ptypes)} | two_phase={two_phase_yes}/{len(rows)}")
+
+    print("\nNote: This is observational log data, not controlled same-task A/B runs.")
+
+
 def main():
     cmd = sys.argv[1] if len(sys.argv) > 1 else "show"
     events = load_log()
@@ -131,11 +178,13 @@ def main():
         show_summary(events)
     elif cmd == "marginal":
         marginal_novelty(events)
+    elif cmd in ("size", "f92"):
+        size_summary(events)
     elif cmd == "latest":
         show_latest(events)
     else:
         print(f"Unknown command: {cmd}")
-        print("Usage: spawn_quality.py [show|marginal|latest]")
+        print("Usage: spawn_quality.py [show|marginal|size|f92|latest]")
         sys.exit(1)
 
 

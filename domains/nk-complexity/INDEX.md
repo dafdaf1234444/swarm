@@ -22,7 +22,7 @@ Updated: 2026-02-27 | Sessions: 96
 ## NK principles (in `memory/PRINCIPLES.md`)
 P-097 (cycles require; DAG languages show inverted) | P-105 (DAG Go EH predictor = domain sensitivity) |
 P-128 (EH triage K_norm thresholds, THEORIZED) | P-132 (K_out/K_in role classifier, OBSERVED) |
-P-141 (Go runtime-coord ctx.Context, THEORIZED) | P-157 (arch decision tree, PARTIALLY OBSERVED) |
+P-141 (Go runtime-coord ctx.Context, PARTIALLY OBSERVED) | P-157 (arch decision tree, PARTIALLY OBSERVED) |
 P-165 (K_dup orthogonal to K_import, OBSERVED) | P-166 (function-level additive, OBSERVED) |
 P-167 (lib extraction loop confirmed, OBSERVED) | P-168 (lib ROI formula, OBSERVED)
 

@@ -11,7 +11,8 @@ For listing children: `tools/swarm_test.py list`
 
 ## Maintenance
 Per CLAUDE.md §State. Checks: challenges, compaction thresholds, frontier decay, periodics,
-unpushed commits, cross-reference drift. Output = state; swarm decides priority.
+unpushed commits, cross-reference drift, runtime portability. Output = state; swarm decides priority.
+Capability scan: `python3 tools/maintenance.py --inventory` (or `--inventory --json` for machine-readable output).
 
 ### Periodic self-scheduling
 The swarm registers items for periodic review in `tools/periodics.json`. Each item has:
@@ -84,9 +85,15 @@ Never edit existing lines — append only (CRDT-safe).
 When running concurrently with sibling sessions (same parent, parallel tasks):
 1. Before starting: check experiments/inter-swarm/bulletins/ for recent bulletins (< 2h old)
 2. If a sibling is running the same experiment, read their latest bulletin first
-3. If your findings would inform a sibling, write a coordination bulletin:
+3. Check open help requests from other swarms:
+   `python3 tools/bulletin.py help-queue`
+4. If you need help, publish a structured request:
+   `python3 tools/bulletin.py request-help <your-name> "<what you need>"`
+5. If you can help another swarm, post a linked response:
+   `python3 tools/bulletin.py offer-help <your-name> <request-id> "<concise answer>"`
+6. If your findings would inform a sibling, write a coordination bulletin:
    `python3 tools/bulletin.py write <your-name> sibling-sync "<key-finding-one-line>"`
-4. Coordination bulletins are read by siblings, harvested by parent at collection step
+7. Coordination bulletins are read by siblings, harvested by parent at collection step
 
 This closes the one-way parent→child flow for sibling coordination.
-F113 pair 3 status: PARTIAL — siblings can share via bulletins; no real-time coordination mechanism.
+F113 pair 3 status: ASYNC COMPLETE — siblings can ask/offer help and share findings via bulletins.

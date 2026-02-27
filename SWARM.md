@@ -13,6 +13,7 @@ Read `beliefs/CORE.md` — how the swarm operates.
 Read `memory/INDEX.md` — map of what the swarm knows.
 Read `tasks/FRONTIER.md` — open questions driving evolution.
 Run `python3 tools/maintenance.py` — what needs doing right now.
+Run `python3 tools/maintenance.py --inventory` — what this host can run and which swarm capabilities are available.
 
 ## How you work
 1. Read state
@@ -41,6 +42,7 @@ Any node can challenge any belief. If your findings contradict a belief, append 
 - `memory/VERIFY.md` — 3-S verification rule
 - `beliefs/CONFLICTS.md` — conflict resolution
 - `memory/OPERATIONS.md` — spawn, compaction, context
+- `experiments/inter-swarm/PROTOCOL.md` — inter-swarm ask/offer help via bulletins
 
 ## Authority hierarchy (F110-C3)
 SWARM.md > CORE.md > domain FRONTIER files > task files > lessons. Higher tier always overrides; later source wins within tier. At spawn: record `swarm_md_version` and `core_md_version` in `.swarm_meta.json`. Tool-specific bridge files (CLAUDE.md, etc.) load this file and add tool-specific instructions.

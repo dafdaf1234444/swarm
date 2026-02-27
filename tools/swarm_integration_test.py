@@ -312,6 +312,19 @@ def test_nk_analyze_runs():
     return True
 
 
+def test_bulletin_regression_suite():
+    """Test that bulletin regression tests pass (help-flow + type parsing)."""
+    r = subprocess.run(
+        ["python3", str(REPO_ROOT / "tools" / "test_bulletin.py")],
+        cwd=str(REPO_ROOT), capture_output=True, text=True
+    )
+    if r.returncode != 0:
+        raise RuntimeError(f"test_bulletin failed: {r.stderr or r.stdout}")
+    if "OK" not in r.stdout:
+        raise RuntimeError("test_bulletin did not report OK")
+    return True
+
+
 # --- Negative tests: verify the validator catches known breakages ---
 
 def test_context_router_routes_correctly():
@@ -625,6 +638,7 @@ def main():
 
     print("\nTool tests:")
     run_test("nk_analyze_runs", test_nk_analyze_runs)
+    run_test("bulletin_regression_suite", test_bulletin_regression_suite)
     run_test("context_router_routes", test_context_router_routes_correctly)
     run_test("context_router_inventory", test_context_router_inventory)
     run_test("novelty_detection_accuracy", test_novelty_detection_accuracy)

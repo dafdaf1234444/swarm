@@ -8,6 +8,7 @@ Code, tools, and experiments produced by the swarm.
 ./workspace/swarm.sh status   # current state
 ./workspace/swarm.sh next     # what to work on
 ./workspace/swarm.sh health   # system health check
+./workspace/swarm.sh wiki swarm --depth 1 --fanout 5   # wikipedia topic swarm report
 ```
 
 ## Bootstrap a new swarm

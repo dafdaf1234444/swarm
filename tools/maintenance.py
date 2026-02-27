@@ -3,13 +3,19 @@
 Priority: URGENT > DUE > PERIODIC > NOTICE. Use --quick to skip remote checks."""
 
 import json
+import platform
 import re
+import shutil
 import subprocess
 import sys
 from datetime import date
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
+PYTHON_EXE = sys.executable or "python3"
+PYTHON_CMD = "python3" if shutil.which("python3") else "python"
+if not shutil.which(PYTHON_CMD):
+    PYTHON_CMD = Path(PYTHON_EXE).name
 
 
 def _git(*args: str) -> str:
@@ -37,6 +43,10 @@ def _read(path: Path) -> str:
         return ""
 
 
+def _exists(path: str) -> bool:
+    return (REPO_ROOT / path).exists()
+
+
 def _session_number() -> int:
     """Extract current session number from SESSION-LOG.md."""
     log = _read(REPO_ROOT / "memory" / "SESSION-LOG.md")
@@ -53,6 +63,12 @@ def _active_principle_ids(text: str) -> tuple[set[int], set[int]]:
     for m in re.finditer(r"P-(\d+)\+P-(\d+)\s+merged", text, re.IGNORECASE):
         sup.add(int(m.group(1))); sup.add(int(m.group(2)))
     return all_ids, sup
+
+
+def _normalize_hq_question(text: str) -> str:
+    """Normalize HUMAN-QUEUE headings for duplicate/re-ask detection."""
+    text = re.sub(r"[^a-zA-Z0-9\s]", " ", (text or "").lower())
+    return re.sub(r"\s+", " ", text).strip()
 
 
 # --- Check functions ---
@@ -107,18 +123,70 @@ def check_open_challenges() -> list[tuple[str, str]]:
 
 
 def check_human_queue() -> list[tuple[str, str]]:
-    """Check for unanswered human queue items."""
+    """Check human queue quality: open count, re-asks, and metadata completeness."""
     results = []
     hq_text = _read(REPO_ROOT / "tasks" / "HUMAN-QUEUE.md")
     if not hq_text:
         return results
 
-    # Find items NOT in the Answered section and NOT struck through
     answered_pos = hq_text.find("## Answered")
-    open_section = hq_text[:answered_pos] if answered_pos > 0 else hq_text
-    open_items = re.findall(r"^### (?!~~)HQ-\d+", open_section, re.MULTILINE)
+    heading_matches = list(re.finditer(r"^###\s+.*$", hq_text, re.MULTILINE))
+
+    open_items: list[str] = []
+    missing_metadata: list[str] = []
+    open_by_norm: dict[str, list[str]] = {}
+    answered_by_norm: dict[str, list[str]] = {}
+
+    for i, m in enumerate(heading_matches):
+        line = m.group(0).strip()
+        heading = line[4:].strip()  # strip leading "### "
+        plain = heading.replace("~~", "").strip()
+        id_match = re.search(r"\b(HQ-\d+)\b", plain)
+        if not id_match:
+            continue
+
+        hq_id = id_match.group(1)
+        body_start = m.end()
+        body_end = heading_matches[i + 1].start() if i + 1 < len(heading_matches) else len(hq_text)
+        body = hq_text[body_start:body_end]
+
+        in_answered = answered_pos >= 0 and m.start() >= answered_pos
+        is_struck = heading.startswith("~~")
+
+        # Extract question text from heading: "HQ-N: question"
+        question = plain.split(":", 1)[1].strip() if ":" in plain else plain
+        question = re.sub(r"\s+(?:RESOLVED|ANSWERED|CLOSED)\b.*$", "", question, flags=re.IGNORECASE).strip()
+        q_norm = _normalize_hq_question(question)
+
+        if q_norm:
+            if in_answered or is_struck:
+                answered_by_norm.setdefault(q_norm, []).append(hq_id)
+            else:
+                open_by_norm.setdefault(q_norm, []).append(hq_id)
+
+        if not in_answered and not is_struck:
+            open_items.append(hq_id)
+            # Each open question should carry ask-time metadata for traceability.
+            if not re.search(r"\*\*(Asked|Date)\*\*:", body, re.IGNORECASE):
+                missing_metadata.append(hq_id)
+
     if open_items:
         results.append(("NOTICE", f"{len(open_items)} unanswered item(s) in HUMAN-QUEUE.md"))
+
+    duplicate_open = [ids for ids in open_by_norm.values() if len(ids) > 1]
+    if duplicate_open:
+        sample = "; ".join("/".join(ids[:3]) for ids in duplicate_open[:3])
+        results.append(("DUE", f"Possible duplicate open HUMAN-QUEUE items: {sample}"))
+
+    reasked = []
+    for norm, open_ids in open_by_norm.items():
+        if norm in answered_by_norm:
+            reasked.append(f"{'/'.join(open_ids[:2])} (answered: {'/'.join(answered_by_norm[norm][:2])})")
+    if reasked:
+        results.append(("DUE", f"Open HUMAN-QUEUE item(s) match already answered question(s): {'; '.join(reasked[:3])}"))
+
+    if missing_metadata:
+        results.append(("NOTICE", f"{len(missing_metadata)} open HUMAN-QUEUE item(s) missing ask metadata (**Asked**/**Date**): {', '.join(missing_metadata[:5])}"))
 
     return results
 
@@ -128,6 +196,7 @@ def check_child_bulletins() -> list[tuple[str, str]]:
     results = []
     bulletin_dir = REPO_ROOT / "experiments" / "inter-swarm" / "bulletins"
     integration_dir = REPO_ROOT / "experiments" / "integration-log"
+    children_dir = REPO_ROOT / "experiments" / "children"
     if not bulletin_dir.exists():
         return results
 
@@ -136,10 +205,22 @@ def check_child_bulletins() -> list[tuple[str, str]]:
         for f in integration_dir.glob("*.json"):
             integrated.add(f.stem)
 
+    known_children = set()
+    if children_dir.exists():
+        known_children = {d.name for d in children_dir.iterdir() if d.is_dir()}
+
     unprocessed = []
     stale = []
+    external = []
     for f in bulletin_dir.glob("*.md"):
         name = f.stem
+        # Child-bulletin check is scoped to known children only.
+        # External/swarm-to-swarm coordination files are handled separately
+        # by check_help_requests and direct bulletin scanning.
+        if name not in known_children and name not in integrated:
+            external.append(name)
+            continue
+
         content = _read(f)
         if name in integrated:
             stale.append(name)
@@ -152,6 +233,49 @@ def check_child_bulletins() -> list[tuple[str, str]]:
         results.append(("DUE", f"{len(unprocessed)} unprocessed bulletin(s): {', '.join(unprocessed[:5])}"))
     if stale:
         results.append(("NOTICE", f"{len(stale)} stale bulletin(s) from integrated children (can delete): {', '.join(stale[:5])}"))
+    if external:
+        results.append(("NOTICE", f"{len(external)} external bulletin file(s) ignored by child-harvest check: {', '.join(external[:5])}"))
+
+    return results
+
+
+def check_help_requests() -> list[tuple[str, str]]:
+    """Check for unresolved help-request bulletins across swarms."""
+    results = []
+    bulletin_dir = REPO_ROOT / "experiments" / "inter-swarm" / "bulletins"
+    if not bulletin_dir.exists():
+        return results
+
+    req_re = re.compile(
+        r"# Bulletin from:\s*(.+?)\nDate:\s*(\S+)\nType:\s*help-request\n\n## Content\n"
+        r"Request-ID:\s*(\S+)\nNeed:\s*(.+?)(?:\n---|\Z)",
+        re.DOTALL,
+    )
+    resp_re = re.compile(
+        r"# Bulletin from:\s*(.+?)\nDate:\s*(\S+)\nType:\s*help-response\n\n## Content\n"
+        r"Request-ID:\s*(\S+)\nResponse:\s*(.+?)(?:\n---|\Z)",
+        re.DOTALL,
+    )
+
+    requests: dict[str, str] = {}
+    responses: set[str] = set()
+
+    for f in sorted(bulletin_dir.glob("*.md")):
+        text = _read(f)
+        for m in req_re.finditer(text):
+            requester, _, request_id, _ = m.groups()
+            requests[request_id.strip()] = requester.strip()
+        for m in resp_re.finditer(text):
+            _, _, request_id, _ = m.groups()
+            responses.add(request_id.strip())
+
+    open_ids = [rid for rid in sorted(requests) if rid not in responses]
+    if open_ids:
+        sample = ", ".join(f"{rid}({requests[rid]})" for rid in open_ids[:3])
+        results.append((
+            "DUE",
+            f"{len(open_ids)} open help request(s) across swarms — respond via: {PYTHON_CMD} tools/bulletin.py offer-help <your-name> <request-id> <response> ({sample})",
+        ))
 
     return results
 
@@ -270,7 +394,7 @@ def check_validator() -> list[tuple[str, str]]:
     results = []
     try:
         r = subprocess.run(
-            ["python3", str(REPO_ROOT / "tools" / "validate_beliefs.py"), "--quick"],
+            [PYTHON_EXE, str(REPO_ROOT / "tools" / "validate_beliefs.py"), "--quick"],
             capture_output=True, text=True, timeout=30
         )
         if "RESULT: FAIL" in r.stdout:
@@ -305,6 +429,39 @@ def check_version_drift() -> list[tuple[str, str]]:
     if core_ver and meta.get("core_md_version"):
         if str(core_ver.group(1)) != str(meta["core_md_version"]):
             results.append(("URGENT", f"CORE.md version {core_ver.group(1)} != meta {meta['core_md_version']} — re-read CORE.md"))
+
+    return results
+
+
+def check_runtime_portability() -> list[tuple[str, str]]:
+    """Check host runtime capabilities required for cross-environment swarming."""
+    results = []
+
+    has_git = bool(shutil.which("git"))
+    has_bash = bool(shutil.which("bash"))
+    has_python_alias = bool(shutil.which("python3") or shutil.which("python"))
+
+    if not has_git:
+        results.append(("URGENT", "git not found in PATH — swarm memory/commit workflow cannot run"))
+    if not has_python_alias:
+        results.append(("DUE", f"No python alias in PATH — use explicit interpreter: {PYTHON_EXE}"))
+    if not has_bash and (_exists("workspace/genesis.sh") or _exists("tools/check.sh")):
+        results.append(("DUE", "bash not found — `workspace/genesis.sh` and `tools/check.sh` won't run on this host"))
+
+    bridges = [
+        "SWARM.md",
+        "CLAUDE.md",
+        "AGENTS.md",
+        "GEMINI.md",
+        ".cursorrules",
+        ".windsurfrules",
+        ".github/copilot-instructions.md",
+    ]
+    missing_bridges = [p for p in bridges if not _exists(p)]
+    if missing_bridges:
+        level = "URGENT" if "SWARM.md" in missing_bridges else "DUE"
+        sample = ", ".join(missing_bridges[:3])
+        results.append((level, f"{len(missing_bridges)} missing bridge file(s): {sample}"))
 
     return results
 
@@ -450,7 +607,7 @@ def check_proxy_k_drift() -> list[tuple[str, str]]:
                 tier_deltas.append(f"{tier}+{delta}")
         targets = ", ".join(tier_deltas[:3]) if tier_deltas else "unknown"
         level = "URGENT" if drift > 0.10 else "DUE"
-        results.append((level, f"Proxy K drift {drift:.1%} ({latest} vs floor {floor}) — run: python3 tools/compact.py (P-163, F105)"))
+        results.append((level, f"Proxy K drift {drift:.1%} ({latest} vs floor {floor}) — run: {PYTHON_CMD} tools/compact.py (P-163, F105)"))
 
     return results
 
@@ -484,6 +641,88 @@ def check_file_graph() -> list[tuple[str, str]]:
     return results
 
 
+def build_inventory() -> dict:
+    """Build a compact capability inventory for fast orientation."""
+    bridges = [
+        "SWARM.md",
+        "CLAUDE.md",
+        "AGENTS.md",
+        "GEMINI.md",
+        ".cursorrules",
+        ".windsurfrules",
+        ".github/copilot-instructions.md",
+    ]
+    core_state = [
+        "beliefs/CORE.md",
+        "memory/INDEX.md",
+        "tasks/FRONTIER.md",
+        "tasks/NEXT.md",
+        "memory/PRINCIPLES.md",
+    ]
+    capability_sets: dict[str, list[str]] = {
+        "orientation": ["tools/maintenance.py", "tools/pulse.py", "tools/context_router.py"],
+        "validation": ["tools/validate_beliefs.py", "tools/check.sh"],
+        "evolution": ["tools/evolve.py", "tools/swarm_test.py", "tools/agent_swarm.py", "tools/colony.py", "tools/spawn_coordinator.py"],
+        "inter_swarm": ["tools/bulletin.py", "tools/merge_back.py", "tools/propagate_challenges.py"],
+        "compaction": ["tools/compact.py", "tools/proxy_k.py", "tools/frontier_decay.py"],
+        "analysis": ["tools/nk_analyze.py", "tools/nk_analyze_go.py", "tools/wiki_swarm.py"],
+    }
+    commands = {
+        "python3": bool(shutil.which("python3")),
+        "python": bool(shutil.which("python")),
+        "git": bool(shutil.which("git")),
+        "bash": bool(shutil.which("bash")),
+    }
+
+    return {
+        "host": {
+            "platform": platform.platform(),
+            "python_executable": PYTHON_EXE,
+            "python_command_hint": PYTHON_CMD,
+            "commands": commands,
+        },
+        "bridges": [{"path": p, "exists": _exists(p)} for p in bridges],
+        "core_state": [{"path": p, "exists": _exists(p)} for p in core_state],
+        "capabilities": {
+            name: {
+                "present": sum(1 for p in files if _exists(p)),
+                "total": len(files),
+                "files": files,
+            }
+            for name, files in capability_sets.items()
+        },
+    }
+
+
+def print_inventory(inv: dict):
+    print("=== SWARM INVENTORY ===")
+    host = inv["host"]
+    print(f"Host: {host['platform']}")
+    print(f"Python: {host['python_executable']}")
+    print(f"Command hint: {host['python_command_hint']}")
+    print()
+
+    print("Commands:")
+    for name, ok in host["commands"].items():
+        print(f"  {'OK ' if ok else 'NO '} {name}")
+    print()
+
+    print("Bridge files:")
+    for item in inv["bridges"]:
+        print(f"  {'OK ' if item['exists'] else 'NO '} {item['path']}")
+    print()
+
+    print("Core state:")
+    for item in inv["core_state"]:
+        print(f"  {'OK ' if item['exists'] else 'NO '} {item['path']}")
+    print()
+
+    print("Capabilities:")
+    for name, info in inv["capabilities"].items():
+        print(f"  {name:<12} {info['present']}/{info['total']}")
+    print()
+
+
 
 
 # --- Main ---
@@ -493,15 +732,25 @@ PRIORITY_SYMBOLS = {"URGENT": "!!!", "DUE": " ! ", "PERIODIC": " ~ ", "NOTICE": 
 
 
 def main():
+    if "--inventory" in sys.argv:
+        inv = build_inventory()
+        if "--json" in sys.argv:
+            print(json.dumps(inv, indent=2))
+        else:
+            print_inventory(inv)
+        return
+
     quick = "--quick" in sys.argv
 
     all_checks = [
         check_validator,
+        check_runtime_portability,
         check_version_drift,
         check_open_challenges,
         check_compaction,
         check_lessons,
         check_child_bulletins,
+        check_help_requests,
         check_frontier_decay,
         check_periodics,
         check_human_queue,

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-nk_analyze.py — Automated NK landscape analysis for Python packages.
+nk_analyze.py - Automated NK landscape analysis for Python packages.
 
 Usage:
     python3 tools/nk_analyze.py <package_name>
@@ -21,7 +21,7 @@ Analyzes internal dependencies of a Python package and computes:
 - Architecture classification (facade, monolith, framework, registry)
 - API shape topology: pipeline / recursive / registry (with --api-shape)
 
-Compare mode analyzes a package at two git refs and outputs the delta (ΔNK).
+Compare mode analyzes a package at two git refs and outputs the delta (DeltaNK).
 
 Examples:
     python3 tools/nk_analyze.py json
@@ -54,7 +54,7 @@ def find_package_path(package_name: str) -> Path | None:
         mod = importlib.import_module(package_name)
         if hasattr(mod, "__path__"):
             return Path(mod.__path__[0])
-        # Single-file module — no internal dependencies to analyze
+        # Single-file module - no internal dependencies to analyze
         return None
     except ImportError:
         pass
@@ -83,9 +83,9 @@ def list_modules(pkg_path: Path) -> dict[str, Path]:
             else:
                 mod_name = str(rel_dir / stem).replace(os.sep, ".")
 
-            # Clean up sub-package __init__ → use directory name
+            # Clean up sub-package __init__ -> use directory name
             if mod_name.endswith(".__init__"):
-                mod_name = mod_name[:-9]  # "mime.__init__" → "mime"
+                mod_name = mod_name[:-9]  # "mime.__init__" -> "mime"
 
             modules[mod_name] = Path(root) / f
 
@@ -190,7 +190,7 @@ def extract_imports_layered(filepath: Path, package_name: str) -> dict:
                 # Everything inside a function is lazy
                 _walk_scope(child, enclosing_func=child.name)
             elif isinstance(child, ast.ClassDef):
-                # Class body — imports here are semi-lazy, walk into methods
+                # Class body - imports here are semi-lazy, walk into methods
                 _walk_scope(child, enclosing_func=enclosing_func)
             elif isinstance(child, (ast.ImportFrom, ast.Import)):
                 names = _resolve_import_name(child, filepath, package_name, pkg_base)
@@ -384,7 +384,7 @@ def analyze_package(package_name: str, verbose: bool = False) -> dict:
         "k_max": k_max,
         "k_max_file": k_max_file,
         "cycles": cycle_count,
-        "cycle_details": [" → ".join(c) for c in cycles],
+        "cycle_details": [" -> ".join(c) for c in cycles],
         "composite": round(composite, 1),
         "burden": round(burden, 1),
         "loc_n": round(loc_n, 0),
@@ -451,7 +451,7 @@ def analyze_lazy_imports(package_name: str) -> dict:
                 cycle_breaking.append({
                     **lazy_imp,
                     "would_create_cycles": len(new_cycles),
-                    "new_cycles": [" → ".join(c) for c in new_cycles],
+                    "new_cycles": [" -> ".join(c) for c in new_cycles],
                 })
 
     return {
@@ -462,8 +462,8 @@ def analyze_lazy_imports(package_name: str) -> dict:
         "static_cycles": len(static_cycles),
         "runtime_cycles": len(runtime_cycles),
         "hidden_cycles": len(runtime_cycles) - len(static_cycles),
-        "static_cycle_details": [" → ".join(c) for c in static_cycles],
-        "runtime_cycle_details": [" → ".join(c) for c in runtime_cycles],
+        "static_cycle_details": [" -> ".join(c) for c in static_cycles],
+        "runtime_cycle_details": [" -> ".join(c) for c in runtime_cycles],
         "lazy_imports": all_lazy,
         "cycle_breaking_details": cycle_breaking,
         "hypothesis_f44": (
@@ -500,13 +500,13 @@ def print_lazy_report(result: dict):
                 for cb in result["cycle_breaking_details"]
             )
             marker = " [CYCLE-BREAKING]" if breaking else ""
-            print(f"    {imp['source']}:{imp['line']} → {imp['target']} (in {imp['func']}){marker}")
+            print(f"    {imp['source']}:{imp['line']} -> {imp['target']} (in {imp['func']}){marker}")
         print()
 
     if result["cycle_breaking_details"]:
         print("  Cycle-Breaking Details:")
         for cb in result["cycle_breaking_details"]:
-            print(f"    {cb['source']} → {cb['target']} would create {cb['would_create_cycles']} cycle(s):")
+            print(f"    {cb['source']} -> {cb['target']} would create {cb['would_create_cycles']} cycle(s):")
             for cyc in cb["new_cycles"]:
                 print(f"      {cyc}")
         print()
@@ -518,7 +518,7 @@ def print_lazy_report(result: dict):
     elif verdict == "PARTIAL":
         print("    Some lazy imports break cycles, but some don't.")
     elif verdict == "NO_LAZY":
-        print("    No internal lazy imports found — hypothesis not testable.")
+        print("    No internal lazy imports found - hypothesis not testable.")
     elif verdict == "REFUTES":
         print("    Lazy imports exist but none break cycles.")
 
@@ -550,7 +550,7 @@ def print_report(result: dict, verbose: bool = False):
     loc_n = result['total_loc'] / result['n'] if result['n'] > 0 else 0
     print(f"    LOC/N:                {loc_n:.0f}")
     if loc_n > 500:
-        print(f"    ⚠ MONOLITH BLIND SPOT: LOC/N > 500 — complexity may be hidden in large modules")
+        print(f"    WARNING MONOLITH BLIND SPOT: LOC/N > 500 - complexity may be hidden in large modules")
     print(f"    Hub concentration:    {result['hub_pct']:.0%}")
     print()
 
@@ -603,11 +603,11 @@ def print_report(result: dict, verbose: bool = False):
     print("    " + "-" * 30)
     for name, lang, score in benchmarks:
         if not inserted and result["composite"] <= score:
-            print(f"  → {pkg:<20} {result['composite']:>8.1f}  ← THIS")
+            print(f"  -> {pkg:<20} {result['composite']:>8.1f}  <- THIS")
             inserted = True
         print(f"    {name:<20} {score:>8.1f}")
     if not inserted:
-        print(f"  → {pkg:<20} {result['composite']:>8.1f}  ← THIS")
+        print(f"  -> {pkg:<20} {result['composite']:>8.1f}  <- THIS")
 
 
 def suggest_refactor(result: dict):
@@ -617,7 +617,7 @@ def suggest_refactor(result: dict):
         return
 
     if result["cycles"] == 0:
-        print(f"\n  {result['package']} has 0 cycles — no refactoring needed for cycle reduction.")
+        print(f"\n  {result['package']} has 0 cycles - no refactoring needed for cycle reduction.")
         print(f"  Composite score: {result['composite']}")
         return
 
@@ -626,7 +626,7 @@ def suggest_refactor(result: dict):
     # Count cycle participation for each module
     participation = {}
     for cycle_str in result["cycle_details"]:
-        mods = cycle_str.split(" → ")
+        mods = cycle_str.split(" -> ")
         for m in mods[:-1]:
             participation[m] = participation.get(m, 0) + 1
 
@@ -655,7 +655,7 @@ def suggest_refactor(result: dict):
         composite_after = k_avg * n_after + cycles_after
         cycle_reduction = (1 - cycles_after / result["cycles"]) * 100
 
-        marker = " ← BEST" if mod == ranked[0][0] else ""
+        marker = " <- BEST" if mod == ranked[0][0] else ""
         print(
             f"  {mod:<25} {count:>10}/{result['cycles']}"
             f" {cycles_after:>13} {composite_after:>16.1f} {cycle_reduction:>14.0f}%{marker}"
@@ -670,9 +670,9 @@ def suggest_refactor(result: dict):
     print(f"    - Participates in {ranked[0][1]}/{result['cycles']} cycles ({ranked[0][1]*100//result['cycles']}%)")
     print(f"    - K_in={k_in} (imported by {k_in} modules), K_out={k_out}")
     if k_in > k_out:
-        print(f"    - High K_in/K_out ratio → 'cycle passenger' (good extraction candidate)")
+        print(f"    - High K_in/K_out ratio -> 'cycle passenger' (good extraction candidate)")
     else:
-        print(f"    - Low K_in/K_out ratio → 'cycle driver' (extraction may require interface changes)")
+        print(f"    - Low K_in/K_out ratio -> 'cycle driver' (extraction may require interface changes)")
     print()
 
 
@@ -684,7 +684,7 @@ def batch_analyze(packages: list[str]):
         if "error" not in r:
             results.append(r)
         else:
-            print(f"  SKIP: {pkg} — {r['error']}")
+            print(f"  SKIP: {pkg} - {r['error']}")
 
     if not results:
         print("No packages analyzed successfully.")
@@ -763,7 +763,7 @@ def analyze_path(pkg_path: Path, package_name: str) -> dict:
         "k_max": k_max,
         "k_max_file": k_max_file,
         "cycles": cycle_count,
-        "cycle_details": [" → ".join(c) for c in cycles],
+        "cycle_details": [" -> ".join(c) for c in cycles],
         "composite": round(composite, 1),
         "burden": round(burden, 1),
         "architecture": arch,
@@ -840,7 +840,7 @@ def compare_refs(repo_path: str, pkg_subpath: str, package_name: str,
 
 
 def print_compare_report(result: dict):
-    """Print a human-readable ΔNK comparison report."""
+    """Print a human-readable DeltaNK comparison report."""
     if "error" in result:
         print(f"ERROR: {result['error']}")
         if "before" in result:
@@ -853,7 +853,7 @@ def print_compare_report(result: dict):
     d = result["delta"]
     pkg = result["package"]
 
-    print(f"\n=== ΔNK COMPARISON: {pkg} ===")
+    print(f"\n=== DeltaNK COMPARISON: {pkg} ===")
     print(f"  Before: {result['ref_before']}")
     print(f"  After:  {result['ref_after']}")
     print()
@@ -893,7 +893,7 @@ def print_compare_report(result: dict):
     b_arch = b.get("architecture", "?")
     a_arch = a.get("architecture", "?")
     if b_arch != a_arch:
-        print(f"  Architecture: {b_arch} → {a_arch}")
+        print(f"  Architecture: {b_arch} -> {a_arch}")
     else:
         print(f"  Architecture: {b_arch} (unchanged)")
     print()
@@ -922,15 +922,15 @@ def print_compare_report(result: dict):
     composite_improved = d["composite"] < 0
     cycles_improved = d["cycles"] <= 0
     if composite_improved and cycles_improved:
-        verdict = "STRUCTURAL IMPROVEMENT — composite and cycles both reduced"
+        verdict = "STRUCTURAL IMPROVEMENT - composite and cycles both reduced"
     elif composite_improved:
-        verdict = "MIXED — composite improved but cycles increased"
+        verdict = "MIXED - composite improved but cycles increased"
     elif cycles_improved and d["cycles"] < 0:
-        verdict = "MIXED — cycles reduced but composite increased"
+        verdict = "MIXED - cycles reduced but composite increased"
     elif d["composite"] == 0 and d["cycles"] == 0:
-        verdict = "NEUTRAL — no structural change detected"
+        verdict = "NEUTRAL - no structural change detected"
     else:
-        verdict = "STRUCTURAL DEGRADATION — complexity increased"
+        verdict = "STRUCTURAL DEGRADATION - complexity increased"
     print(f"  VERDICT: {verdict}")
 
 
@@ -1251,33 +1251,33 @@ def classify_api_shape(
     if shape == "pipeline":
         if k_avg < 1.0 and leaf_ratio > 0.4:
             cycle_risk = "LOW"
-            risk_reason = "linear flow, sparse connections — cycles unlikely"
+            risk_reason = "linear flow, sparse connections - cycles unlikely"
         elif k_avg < 1.5:
             cycle_risk = "LOW"
-            risk_reason = "pipeline topology with moderate coupling — cycles unlikely"
+            risk_reason = "pipeline topology with moderate coupling - cycles unlikely"
         else:
             cycle_risk = "LOW-MEDIUM"
             risk_reason = "mostly linear but coupling density could evolve toward cycles"
     elif shape == "recursive":
         if cycles > 3 or mutual_dep_ratio > 0.15:
             cycle_risk = "HIGH"
-            risk_reason = f"{cycles} cycles, mutual_dep={mutual_dep_ratio} — API encodes circularity"
+            risk_reason = f"{cycles} cycles, mutual_dep={mutual_dep_ratio} - API encodes circularity"
         elif cycles > 0:
             cycle_risk = "MEDIUM-HIGH"
-            risk_reason = f"{cycles} cycle(s) — recursive topology encourages accumulation"
+            risk_reason = f"{cycles} cycle(s) - recursive topology encourages accumulation"
         else:
             cycle_risk = "MEDIUM"
-            risk_reason = "recursive tendency without current cycles — monitor"
+            risk_reason = "recursive tendency without current cycles - monitor"
     else:  # registry
         if cycles == 0 and fan_in_gini > 0.4:
             cycle_risk = "LOW"
-            risk_reason = "many-to-one pattern with clean interfaces — cycles unlikely"
+            risk_reason = "many-to-one pattern with clean interfaces - cycles unlikely"
         elif cycles == 0:
             cycle_risk = "LOW-MEDIUM"
-            risk_reason = "registry pattern — cycles possible if implementations couple"
+            risk_reason = "registry pattern - cycles possible if implementations couple"
         else:
             cycle_risk = "MEDIUM"
-            risk_reason = f"registry with {cycles} cycle(s) — interface boundaries leaking"
+            risk_reason = f"registry with {cycles} cycle(s) - interface boundaries leaking"
 
     return {
         "shape": shape,
@@ -1408,16 +1408,16 @@ def print_api_shape_report(result: dict):
         print("    Data flows linearly through the package. Entry points call")
         print("    internal modules in sequence. Low cycle risk because modules")
         print("    don't need to reference each other circularly.")
-        print("    API-compatible rewrites are SAFE — linear flow is preserved.")
+        print("    API-compatible rewrites are SAFE - linear flow is preserved.")
     elif result["api_shape"] == "recursive":
         print("    Modules reference each other circularly. The API *encodes*")
-        print("    this circularity — e.g., case<->suite<->runner in unittest.")
+        print("    this circularity - e.g., case<->suite<->runner in unittest.")
         print("    API-compatible rewrites WILL reproduce cycles (P-064).")
         print("    Only API redesign (reimagination) can escape the ratchet.")
     else:
         print("    Many modules implement a shared interface/protocol. Fan-in")
         print("    concentrates on a few base classes or registries. Cycle risk")
-        print("    is moderate — depends on whether implementations leak back.")
+        print("    is moderate - depends on whether implementations leak back.")
     print()
 
 
@@ -1429,7 +1429,7 @@ def batch_api_shape(packages: list[str], as_json: bool = False):
         if "error" not in r:
             results.append(r)
         else:
-            print(f"  SKIP: {pkg} — {r.get('error', 'unknown error')}")
+            print(f"  SKIP: {pkg} - {r.get('error', 'unknown error')}")
 
     if not results:
         print("No packages analyzed successfully.")
@@ -1485,7 +1485,7 @@ def batch_lazy_analyze(packages: list[str]):
         if "error" not in r:
             results.append(r)
         else:
-            print(f"  SKIP: {pkg} — {r['error']}")
+            print(f"  SKIP: {pkg} - {r['error']}")
 
     if not results:
         print("No packages analyzed successfully.")
@@ -1621,3 +1621,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+

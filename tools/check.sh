@@ -2,12 +2,14 @@
 # Universal swarm validation — call from any tool at session start/end.
 # Replaces tool-specific hooks for non-Claude tools.
 # Usage: bash tools/check.sh [--quick]
-set -e
+set -euo pipefail
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$REPO_ROOT"
 
 QUICK=""
-[ "$1" = "--quick" ] && QUICK="--quick"
+if [ "${1:-}" = "--quick" ]; then
+    QUICK="--quick"
+fi
 
 echo "=== SWARM CHECK ==="
 
@@ -20,10 +22,20 @@ fi
 echo "  Beliefs: PASS"
 
 # 2. Maintenance (informational)
-python3 tools/maintenance.py 2>/dev/null
+python3 tools/maintenance.py $QUICK 2>/dev/null
 echo ""
 
-# 3. Proxy K (if not quick)
+# 3. Bulletin regression suite (if not quick)
+if [ -z "$QUICK" ] && [ -f "tools/test_bulletin.py" ]; then
+    if ! python3 tools/test_bulletin.py >/dev/null 2>&1; then
+        echo "FAIL: Bulletin regression suite failed."
+        python3 tools/test_bulletin.py
+        exit 1
+    fi
+    echo "  Bulletin regression: PASS"
+fi
+
+# 4. Proxy K (if not quick)
 if [ -z "$QUICK" ]; then
     python3 tools/proxy_k.py 2>/dev/null
 fi

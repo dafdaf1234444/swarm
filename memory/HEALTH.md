@@ -63,6 +63,34 @@ Count how many of the 5 indicators are "healthy."
 
 ---
 
+## Latest check: S113 (2026-02-27)
+
+| Indicator | Status | Detail |
+|-----------|--------|--------|
+| Knowledge growth | HEALTHY | 204L (+6 since S106: L-199..L-204), 151P, 13 active frontiers after F92 resolution (S113). |
+| Knowledge accuracy | HEALTHY | `validate_beliefs.py --quick` PASS: 14 beliefs (12 observed, 2 theorized), 0 errors (warnings only). |
+| Compactness | HEALTHY | Proxy K 24,620 vs floor 23,383 (+5.3%), below P-163 re-compress trigger (6%). INDEX 46 lines; lessons remain compact. |
+| Belief evolution | HEALTHY | Theorized principle backlog reduced to 2 (P-128, P-155); P-141 is now PARTIALLY OBSERVED and handoff state is synced. |
+| Task throughput | HEALTHY | F92 RESOLVED S113 via workload-topology + coordination-primitive benchmarks; active handoff shifted to F115 accuracy pass and F111 deploy decision. |
+
+**Score: 5/5** (all indicators healthy; drift remains below compression threshold)
+
+**Notes**: This cycle converted F92 from open question to conditional rule and reduced frontier load (14→13). Validation stays green (`check.sh --quick` PASS). Next leverage is synthesis quality (paper accuracy pass) and theorized-principle promotion.
+
+## Latest check: S106 (2026-02-27)
+
+| Indicator | Status | Detail |
+|-----------|--------|--------|
+| Knowledge growth | HEALTHY | 198L (+4 since S99: L-195 to L-198), 151P, 15 active frontiers. F118 live non-Claude execution completed in S104; closeout criteria remains. |
+| Knowledge accuracy | HEALTHY | `validate_beliefs.py --quick` PASS: 14 beliefs (12 observed, 2 theorized), 0 errors, warnings-only. PHIL-4/PHIL-8 challenge loop resolved (S102-S103). |
+| Compactness | HEALTHY | Proxy K 24,183 (+3.4% vs floor 23,383), below P-163 re-compress trigger (6%). INDEX 46 lines; maintenance reports no lesson-length overflow. |
+| Belief evolution | HEALTHY | Belief set stable at 14 with no open challenges. Recent refinements integrated; remaining targeted promotions noted in NEXT (P-128/P-141/P-155). |
+| Task throughput | HEALTHY | No DUE/URGENT items. Periodic maintenance executed on cadence; primary active handoff is F118 closeout and F111 deploy decision. |
+
+**Score: 5/5** (all indicators healthy; compactness remains below threshold)
+
+**Notes**: This cycle was maintenance-dominant (health check + validation). Runtime/tool consistency remains stable across Codex and check.sh paths. Next high-leverage work is decision/closure work (F118 archive criteria, F111 deploy path) rather than structural repair.
+
 ## Latest check: S99 (2026-02-27)
 
 | Indicator | Status | Detail |
