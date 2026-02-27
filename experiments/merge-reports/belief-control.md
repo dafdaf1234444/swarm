@@ -1,5 +1,5 @@
 # Merge-Back Report: belief-control
-Generated from: /mnt/c/Users/canac/REPOSITORIES/swarm/experiments/children/belief-control
+Generated from: <swarm-repo>/experiments/children/belief-control
 
 ## Lessons (14)
 - **L-001: Stigmergy scales better than direct coordination** [NOVEL]

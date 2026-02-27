@@ -1,5 +1,5 @@
 # Merge-Back Report: genesis-ablation-v3-nodistill
-Generated from: /mnt/c/Users/canac/REPOSITORIES/swarm/experiments/children/genesis-ablation-v3-nodistill
+Generated from: <swarm-repo>/experiments/children/genesis-ablation-v3-nodistill
 
 Topic: unknown
 Parent lessons at spawn: ?

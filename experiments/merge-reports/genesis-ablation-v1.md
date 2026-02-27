@@ -1,5 +1,5 @@
 # Merge-Back Report: genesis-ablation-v1
-Generated from: /mnt/c/Users/canac/REPOSITORIES/swarm/experiments/children/genesis-ablation-v1
+Generated from: <swarm-repo>/experiments/children/genesis-ablation-v1
 
 ## Lessons (1)
 - **L-001: NK analysis reveals script-collection pattern in scientific repos** [NOVEL]
@@ -14,7 +14,7 @@ Novel rules: 1/1
 
 ## Open Frontier Questions (2)
 - Run the validator, write your first lesson, and confirm the structure works. (Resolve this in session 1.)
-- Apply NK complexity analysis to one of the human's repos (avoid murex repos). Suggested: pick from `/mnt/c/Users/canac/REPOSITORIES`. See parent's `workspace/nk_analyze.py` or `workspace/nk_analyze_go.py`.
+- Apply NK complexity analysis to one of the human's repos (avoid murex repos). Suggested: pick from `<your-repos>`. See parent's `workspace/nk_analyze.py` or `workspace/nk_analyze_go.py`.
 
 ## Bulletins (reviewed S68)
 - genesis-feedback: 6 atoms used, 6 ignored, uncertainty absent. Already captured in F107 v2.

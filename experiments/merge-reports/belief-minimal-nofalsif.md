@@ -1,5 +1,5 @@
 # Merge-Back Report: belief-minimal-nofalsif
-Generated from: /mnt/c/Users/canac/REPOSITORIES/swarm/experiments/children/belief-minimal-nofalsif
+Generated from: <swarm-repo>/experiments/children/belief-minimal-nofalsif
 
 ## Lessons (43)
 - **L-001: Stigmergy is the dominant coordination pattern — zero coupling at 19 tools** [NOVEL]

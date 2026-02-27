@@ -1,5 +1,5 @@
 # Merge-Back Report: concurrent-b
-Generated from: /mnt/c/Users/canac/REPOSITORIES/swarm/experiments/children/concurrent-b
+Generated from: <swarm-repo>/experiments/children/concurrent-b
 
 ## Lessons (1)
 - **L-001: K/N is scale-dependent -- K_avg and cycle count tell more than K/N alone** [NOVEL]

@@ -1,5 +1,5 @@
 # Merge-Back Report: concurrent-a
-Generated from: /mnt/c/Users/canac/REPOSITORIES/swarm/experiments/children/concurrent-a
+Generated from: <swarm-repo>/experiments/children/concurrent-a
 
 ## Lessons (1)
 - **L-001: NK analysis of http.client reveals hidden coupling behind low K/N** [NOVEL]

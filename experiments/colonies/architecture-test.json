@@ -17,13 +17,13 @@
       "name": "architecture-test-baseline",
       "topic": "baseline",
       "status": "spawned",
-      "path": "/mnt/c/Users/canac/REPOSITORIES/swarm/experiments/children/architecture-test-baseline"
+      "path": "<swarm-repo>/experiments/children/architecture-test-baseline"
     },
     {
       "name": "architecture-test-minimal",
       "topic": "minimal-structure-test",
       "status": "spawned",
-      "path": "/mnt/c/Users/canac/REPOSITORIES/swarm/experiments/children/architecture-test-minimal"
+      "path": "<swarm-repo>/experiments/children/architecture-test-minimal"
     }
   ]
 }

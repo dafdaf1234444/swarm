@@ -1,5 +1,5 @@
 # Merge-Back Report: edge-of-chaos
-Generated from: /mnt/c/Users/canac/REPOSITORIES/swarm/experiments/children/edge-of-chaos
+Generated from: <swarm-repo>/experiments/children/edge-of-chaos
 
 Topic: test-swarm-architecture-by-running-5-sessions
 Parent lessons at spawn: 31

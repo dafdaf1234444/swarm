@@ -461,14 +461,22 @@ def check_utility() -> list[tuple[str, str]]:
     all_ids, superseded = _active_principle_ids(principles_text)
     active_ids = all_ids - superseded
 
-    # Citations in lessons, frontier, next, session-log (not PRINCIPLES.md itself)
+    # Citations anywhere in repo except PRINCIPLES.md itself
     cited: set[int] = set()
-    source_files = list((REPO_ROOT / "memory" / "lessons").glob("L-*.md")) + [
-        REPO_ROOT / "tasks" / "FRONTIER.md",
-        REPO_ROOT / "tasks" / "NEXT.md",
-        REPO_ROOT / "memory" / "SESSION-LOG.md",
-    ]
-    for f in source_files:
+    principles_path = REPO_ROOT / "memory" / "PRINCIPLES.md"
+    for f in REPO_ROOT.rglob("*.md"):
+        if f == principles_path or ".git" in f.parts:
+            continue
+        for m in re.finditer(r"\bP-(\d+)\b", _read(f)):
+            cited.add(int(m.group(1)))
+    for f in REPO_ROOT.rglob("*.py"):
+        if ".git" in f.parts:
+            continue
+        for m in re.finditer(r"\bP-(\d+)\b", _read(f)):
+            cited.add(int(m.group(1)))
+    for f in REPO_ROOT.rglob("*.json"):
+        if ".git" in f.parts:
+            continue
         for m in re.finditer(r"\bP-(\d+)\b", _read(f)):
             cited.add(int(m.group(1)))
 

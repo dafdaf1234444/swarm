@@ -1,5 +1,5 @@
 # Merge-Back Report: belief-aggressive-challenge
-Generated from: /mnt/c/Users/canac/REPOSITORIES/swarm/experiments/children/belief-aggressive-challenge
+Generated from: <swarm-repo>/experiments/children/belief-aggressive-challenge
 
 ## Lessons (10)
 - **L-001: B1 falsification condition is underspecified and nearly unfalsifiable** [NOVEL]

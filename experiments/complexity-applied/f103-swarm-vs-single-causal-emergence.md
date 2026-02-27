@@ -6,7 +6,7 @@ Analyze the user's `complexity_ising_idea` project (causal emergence early warni
 
 ## Setup
 
-**Target**: `/mnt/c/Users/canac/REPOSITORIES/complexity_ising_idea/`
+**Target**: `<your-repos>/complexity_ising_idea/`
 **State at analysis**: v5 + P1 complete (5 iterations; EI ratio = artifact, Excess E(k=1) = recommended)
 **Agents spawned**: 3 parallel sub-agents (wall time: ~120s)
 

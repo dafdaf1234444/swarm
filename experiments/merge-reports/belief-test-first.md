@@ -1,5 +1,5 @@
 # Merge-Back Report: belief-test-first
-Generated from: /mnt/c/Users/canac/REPOSITORIES/swarm/experiments/children/belief-test-first
+Generated from: <swarm-repo>/experiments/children/belief-test-first
 
 ## Lessons (36)
 - **L-001: Genesis beliefs must be upgraded — test-first variant rejects theorized seeds** [NOVEL]

@@ -2,7 +2,7 @@
 **Session**: S53 | **Date**: 2026-02-27 | **Status**: Analysis complete, fixes in progress
 
 ## Repo
-`/mnt/c/Users/canac/REPOSITORIES/dutch` — TypeScript/Astro language-learning site
+`<your-repos>/dutch` — TypeScript/Astro language-learning site
 Live: https://dafdaf1234444.github.io/dutch/
 
 ## Agents Spawned (Analysis Phase — Parallel)

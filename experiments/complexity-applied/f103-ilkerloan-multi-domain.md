@@ -9,7 +9,7 @@ Previous F103 test (S52, complexity_ising_idea) found swarm was "additive not tr
 
 ## Setup
 
-**Target**: `/mnt/c/Users/canac/REPOSITORIES/ilkerloan/` (217 lines, 1 Python file, no README, no comments on legal/tax reasoning)
+**Target**: `<your-repos>/ilkerloan/` (217 lines, 1 Python file, no README, no comments on legal/tax reasoning)
 **Domains**: Dutch contract law, Dutch/Belgian tax law, Python code quality
 **Agents spawned**: 3 parallel sub-agents
 

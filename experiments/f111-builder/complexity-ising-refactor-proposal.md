@@ -2,7 +2,7 @@
 Session: S73b+ | Date: 2026-02-27 | Status: PROPOSAL (read-only per HQ-2)
 
 ## Target
-`/mnt/c/Users/canac/REPOSITORIES/complexity_ising_idea/` — 12,251 lines Python.
+`<your-repos>/complexity_ising_idea/` — 12,251 lines Python.
 Ising model + Effective Information research. 7 src/ modules, 18 experiment scripts, 2 test files.
 
 ## Problem: Hidden coupling via copy-paste (L-143)

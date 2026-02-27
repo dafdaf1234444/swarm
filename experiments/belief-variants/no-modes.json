@@ -3,5 +3,5 @@
   "description": "Remove session modes \u2014 flat structure",
   "hypothesis": "Without modes, sessions are more flexible but less structured",
   "spawned": "2026-02-26",
-  "child_dir": "/mnt/c/Users/canac/REPOSITORIES/swarm/experiments/children/belief-no-modes"
+  "child_dir": "<swarm-repo>/experiments/children/belief-no-modes"
 }

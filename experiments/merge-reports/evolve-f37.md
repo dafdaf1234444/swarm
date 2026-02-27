@@ -1,5 +1,5 @@
 # Merge-Back Report: evolve-f37
-Generated from: /mnt/c/Users/canac/REPOSITORIES/swarm/experiments/children/evolve-f37
+Generated from: <swarm-repo>/experiments/children/evolve-f37
 
 ## Lessons (1)
 - **L-001: Entropy detection is diagnostic, not predictive -- unless extended** [NOVEL]

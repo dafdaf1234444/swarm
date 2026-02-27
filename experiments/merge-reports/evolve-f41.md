@@ -1,5 +1,5 @@
 # Merge-Back Report: evolve-f41
-Generated from: /mnt/c/Users/canac/REPOSITORIES/swarm/experiments/children/evolve-f41
+Generated from: <swarm-repo>/experiments/children/evolve-f41
 
 ## Lessons (1)
 - **L-001: K/N ratio alone fails to predict bug counts; total coupling (K_avg*N) works better** [NOVEL]

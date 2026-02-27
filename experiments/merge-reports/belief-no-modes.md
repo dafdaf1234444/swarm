@@ -1,5 +1,5 @@
 # Merge-Back Report: belief-no-modes
-Generated from: /mnt/c/Users/canac/REPOSITORIES/swarm/experiments/children/belief-no-modes
+Generated from: <swarm-repo>/experiments/children/belief-no-modes
 
 ## Lessons (16)
 - **L-001: Three coordination patterns recur across collective intelligence systems** [NOVEL]

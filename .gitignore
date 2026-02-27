@@ -12,6 +12,7 @@ workspace/requests/
 workspace/black/
 workspace/fiber/
 workspace/gin/
-tools/__pycache__/
+**/__pycache__/
+**/*.pyc
 .claude/worktrees/
 workspace/etcd/

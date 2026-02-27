@@ -1,6 +1,6 @@
 === NK ANALYSIS: investor ===
 
-  Path: /home/canac/investor/src/investor
+  Path: <your-repos>/investor/src/investor
   Total LOC: 25685
   Architecture: distributed
 

@@ -2,7 +2,7 @@
 **Session**: 53 | **Date**: 2026-02-27 | **Status**: STRONGER EVIDENCE — transformative advantage found
 
 ## Context
-Prior analysis documents exist for `/home/canac/bets/` (UFC betting analyzer):
+Prior analysis documents exist for `<your-repos>/bets/` (UFC betting analyzer):
 - `code_analysis_summary.md`, `comprehensive_analysis_report.md`, `redundancy_analysis_report.md`
 This is the HARDER F103 test: can the swarm find things the prior single-session analysis missed?
 

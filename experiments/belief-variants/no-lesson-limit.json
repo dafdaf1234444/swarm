@@ -3,5 +3,5 @@
   "description": "Remove 20-line lesson limit",
   "hypothesis": "Without the limit, lessons are more detailed but context window fills faster",
   "spawned": "2026-02-26",
-  "child_dir": "/mnt/c/Users/canac/REPOSITORIES/swarm/experiments/children/belief-no-lesson-limit"
+  "child_dir": "<swarm-repo>/experiments/children/belief-no-lesson-limit"
 }

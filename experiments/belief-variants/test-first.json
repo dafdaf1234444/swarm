@@ -3,5 +3,5 @@
   "description": "Require empirical evidence before any belief is added",
   "hypothesis": "Forcing evidence-first produces fewer but higher-quality beliefs",
   "spawned": "2026-02-26",
-  "child_dir": "/mnt/c/Users/canac/REPOSITORIES/swarm/experiments/children/belief-test-first"
+  "child_dir": "<swarm-repo>/experiments/children/belief-test-first"
 }

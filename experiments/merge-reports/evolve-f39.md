@@ -1,5 +1,5 @@
 # Merge-Back Report: evolve-f39
-Generated from: /mnt/c/Users/canac/REPOSITORIES/swarm/experiments/children/evolve-f39
+Generated from: <swarm-repo>/experiments/children/evolve-f39
 
 ## Lessons (1)
 - **L-001: K/N drops ~50% when granularity moves from module to class/function level** [NOVEL]

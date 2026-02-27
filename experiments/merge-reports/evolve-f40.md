@@ -1,5 +1,5 @@
 # Merge-Back Report: evolve-f40
-Generated from: /mnt/c/Users/canac/REPOSITORIES/swarm/experiments/children/evolve-f40
+Generated from: <swarm-repo>/experiments/children/evolve-f40
 
 ## Lessons (0)
 Novel rules: 0/0

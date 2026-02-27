@@ -1,5 +1,5 @@
 # Merge-Back Report: belief-principles-first
-Generated from: /mnt/c/Users/canac/REPOSITORIES/swarm/experiments/children/belief-principles-first
+Generated from: <swarm-repo>/experiments/children/belief-principles-first
 
 ## Lessons (22)
 - **L-001: File-based CI systems are blackboard+stigmergy hybrids, not swarms** [NOVEL]

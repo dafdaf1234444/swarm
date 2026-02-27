@@ -1,7 +1,7 @@
 # investor/src — NK Analysis Summary
 
 **Analyzed**: 2026-02-27
-**Source**: `/home/canac/investor/src` (read-only, copy at `workspace/investor-src/`)
+**Source**: `<your-repos>/investor/src` (read-only, copy at `workspace/investor-src/`)
 **NK output**: `workspace/investor-src-nk.txt`
 
 ---

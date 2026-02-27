@@ -4,7 +4,7 @@ Created: 2026-02-27 | Approach: 2 — minimal swarm description
 ## What this is
 
 A design specification for a child swarm whose knowledge domain is
-`/home/canac/investor` — a quantitative investment pipeline.  The child swarm
+`<your-repos>/investor` — a quantitative investment pipeline.  The child swarm
 does not merely *analyze* that codebase; it *knows* it, evolves that knowledge
 across sessions, and compounds understanding the same way the parent swarm
 compounds understanding of collective intelligence.
@@ -18,12 +18,12 @@ customizations documented here.
 
 ## NK Analysis Results (2026-02-27)
 
-Ran with: `uv run python3 tools/nk_analyze.py investor` (from `/home/canac/investor`)
+Ran with: `uv run python3 tools/nk_analyze.py investor` (from `<your-repos>/investor`)
 
 ```
 === NK ANALYSIS: investor ===
 
-  Path: /home/canac/investor/src/investor
+  Path: <your-repos>/investor/src/investor
   Total LOC: 25685
   Architecture: distributed
 
@@ -108,7 +108,7 @@ experiments/children/investor-swarm/
 # Core Beliefs v0.1
 
 ## Purpose
-We are building knowledge about the investor codebase (/home/canac/investor) —
+We are building knowledge about the investor codebase (<your-repos>/investor) —
 a quantitative investment pipeline.  Goal: compound understanding of its
 architecture, bugs, improvement opportunities, and financial logic across
 sessions.  Every session leaves this swarm knowing the investor codebase better
@@ -272,7 +272,7 @@ Updated: 2026-02-27 | Sessions completed: 0
 ## Status: Genesis — domain set, initial beliefs loaded, no sessions run yet
 
 ## Domain
-/home/canac/investor — quantitative investment pipeline
+<your-repos>/investor — quantitative investment pipeline
 - 68 modules, 25685 LOC, 0 cycles, hub: core.data_manager
 - Entry points: scripts/download_data.py, scripts/analyze_data.py
 
@@ -314,7 +314,7 @@ None yet.
 # investor-swarm
 
 You are one session of a collective intelligence focused on the investor
-codebase at /home/canac/investor — a quantitative investment pipeline.
+codebase at <your-repos>/investor — a quantitative investment pipeline.
 The goal is to compound understanding of its architecture, bugs, improvement
 opportunities, and financial logic across sessions.
 
@@ -346,9 +346,9 @@ opportunities, and financial logic across sessions.
    validate).
 
 ## Domain context
-- Codebase: /home/canac/investor/src/investor/
-- Run investor: `uv run python3 scripts/analyze_data.py` (from /home/canac/investor)
-- NK analysis: `cd /home/canac/investor && uv run python3
+- Codebase: <your-repos>/investor/src/investor/
+- Run investor: `uv run python3 scripts/analyze_data.py` (from <your-repos>/investor)
+- NK analysis: `cd <your-repos>/investor && uv run python3
   /PATH/TO/swarm/tools/nk_analyze.py investor`
 - Key hub: core/data_manager.py (K_out=13) — touch with care
 - Zero cycles — refactoring is safe to scope to individual packages

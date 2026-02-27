@@ -1,5 +1,5 @@
 # Merge-Back Report: belief-no-falsification
-Generated from: /mnt/c/Users/canac/REPOSITORIES/swarm/experiments/children/belief-no-falsification
+Generated from: <swarm-repo>/experiments/children/belief-no-falsification
 
 ## Lessons (51)
 - **L-001: Three collective intelligence systems share the same coordination backbone** [NOVEL]
