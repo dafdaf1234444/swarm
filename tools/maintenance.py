@@ -102,6 +102,13 @@ F119_TRANSITION_OUTCOME_PATTERNS = (
 F119_RECENT_REASON_ACTIVITY_WINDOW = 6
 
 
+def _truncated(items, n=3, sep=", ", fmt=None):
+    """Join items[:n] with sep, append '...' if truncated. Optional fmt callable per item."""
+    show = items[:n]
+    parts = [fmt(x) for x in show] if fmt else [str(x) for x in show]
+    return sep.join(parts) + ("..." if len(items) > n else "")
+
+
 def _command_exists(cmd: str) -> bool:
     return bool(shutil.which(cmd))
 
@@ -221,8 +228,7 @@ def _session_number() -> int:
     return max(int(n) for n in numbers) if numbers else 0
 
 
-def _active_principle_ids(text: str) -> tuple[set[int], set[int]]:
-    return parse_active_principle_ids(text)
+_active_principle_ids = parse_active_principle_ids
 
 
 def _normalize_hq_question(text: str) -> str:

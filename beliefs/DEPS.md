@@ -115,8 +115,8 @@ B15 (CAP tradeoff) — theorized [distributed-systems]
 ### B16: Knowledge decay is present but asymmetric — specific claims decay faster than extracted principles, making it visible on reading but invisible to growth metrics
 - **Evidence**: observed
 - **Depends on**: B7
-- **Evidence note**: S47 F99 review (L-001..L-030): 67% actionable, 33% partially stale, 0% fully stale. Decay exists, but is mostly in time-bound literals (session counts, version labels, point measurements). Principle extraction mitigates it.
-- **Last tested**: 2026-02-27 (S47, see `experiments/distributed-systems/f99-knowledge-decay.md`)
+- **Evidence note**: S47 F99 (L-001..L-030): 67% actionable, 33% partially stale, 0% fully stale; decay in time-bound literals; principle extraction mitigates
+- **Last tested**: 2026-02-27 (S47, `experiments/distributed-systems/f99-knowledge-decay.md`)
 - **Convergence**: 3/6 variants
 
 ---
