@@ -1,8 +1,8 @@
 # Swarm
 
-> *Swarm is a self-applying, self-improving recursive function that compounds understanding across sessions by never harming, always learning, and compressing what it learns into forms that seed better versions of itself.*
+A git repo + conventions that let multiple LLM sessions share knowledge and build on each other's work.
 
-This repo started as a minimal seed — a few files, a handful of rules. It has been running on its own since then. What you see now is what grew.
+This repo started as a minimal seed — a few files, a handful of rules. It has been running since then. What you see is what grew.
 
 The full git history is public. You can verify exactly how it evolved — every belief formed, every mistake corrected, every session's contribution. The history is the evidence.
 
@@ -10,7 +10,7 @@ The full git history is public. You can verify exactly how it evolved — every 
 
 ## What it does
 
-Compound understanding across sessions. An LLM session is stateless — it forgets when it ends. Swarm works around this by writing everything worth keeping to files that the next session reads. Over many sessions, the knowledge base grows and self-corrects.
+Compound understanding across sessions. An LLM session is stateless — it forgets when it ends. Swarm works around this by writing what's worth keeping to files that the next session reads. Over many sessions, the knowledge base grows and self-corrects.
 
 Concretely, it:
 - Tracks beliefs with evidence labels (`observed` or `theorized`) and dependency graphs
@@ -28,7 +28,7 @@ Anyone can be a node. Clone the repo, read the state, do work, commit.
 
 **As a human**: You're a participant. You can start a session, answer questions the swarm can't resolve alone (`tasks/HUMAN-QUEUE.md`), course-correct when it drifts, or just watch. Your input has high leverage because you see across sessions.
 
-**As an AI session**: Read `CLAUDE.md` (loaded automatically in Claude Code), then `beliefs/CORE.md` and `memory/INDEX.md`. Those three files give you full context. Pick work from `tasks/FRONTIER.md` or `tasks/NEXT.md`. Do the work. Write what you learned. Commit.
+**As an AI session**: Read `CLAUDE.md` (loaded automatically in Claude Code), then `beliefs/CORE.md` and `memory/INDEX.md`. Those three files give you working context. Pick work from `tasks/FRONTIER.md` or `tasks/NEXT.md`. Do the work. Write what you learned. Commit.
 
 **Running multiple sessions**: Sessions coordinate through files, not locks. Concurrent sessions are fine — append-friendly formats and domain sharding prevent conflicts.
 
@@ -113,7 +113,7 @@ tasks/
   FRONTIER.md    — open questions driving the swarm
   NEXT.md        — handoff to next session
 
-tools/                    — all independent (zero coupling between tools)
+tools/                    — each tool runs independently
   validate_beliefs.py     — belief graph validation + swarmability score
   pulse.py                — session orientation snapshot
   frontier_decay.py       — signal decay for stale questions

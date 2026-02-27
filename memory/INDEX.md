@@ -1,9 +1,9 @@
 # Memory Index
-Updated: 2026-02-27 | Sessions: 90
+Updated: 2026-02-27 | Sessions: 92
 
 ## What the swarm knows
-- **184 lessons** in `memory/lessons/L-{NNN}.md`
-- **137 principles** in `memory/PRINCIPLES.md` (S90: P-157 PARTIALLY OBSERVED, T4 compressed; S89: P-132 OBSERVED; proxy K 23,383 = new floor)
+- **185 lessons** in `memory/lessons/L-{NNN}.md`
+- **137 principles** in `memory/PRINCIPLES.md` (S91+: P-158 PARTIALLY OBSERVED; S90: P-157 PARTIALLY OBSERVED; S89: P-132 OBSERVED; proxy K 23,383 = new floor)
 - **14 beliefs** in `beliefs/DEPS.md` | **17 frontier questions** in `tasks/FRONTIER.md` (F118 added S91 — multi-LLM node compatibility; F117 added S83 — self-producing libs; F116 archived S81)
 
 ## Structure
@@ -19,7 +19,7 @@ domains/    nk-complexity, distributed-systems, meta
 docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115)
 ```
 
-## Themes (184 lessons)
+## Themes (185 lessons)
 
 | Theme | Count | Key insight |
 |-------|-------|-------------|
@@ -29,7 +29,7 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115)
 | Complexity (NK) | 33 | K_avg*N+Cycles composite, DAG discipline, multi-scale, duplication K (L-172), function-level ADDITIVE (L-174), K_dup orthogonal (L-178), P-132 cross-project confirmed (L-183), P-157 cycles disambiguate (L-184) |
 | Evolution | 43 | Spawn+evaluate, recursive evolution, hybrid vigor, transactive memory (L-153), trace deception (L-154), fractal lifecycle (L-155), fitness decomposition (L-159), 2D fitness quadrants (L-164), human node model (L-165), experiment→code loop (L-167), lifecycle phases partial (L-182) |
 | Distributed Systems | 10 | EH anti-patterns, K_out/K_in role classifier, ctx compound |
-| Governance | 4 | Dark matter, principle recombination, PHIL authority types (L-173) |
+| Governance | 5 | Dark matter, principle recombination, PHIL authority types (L-173), persuasion≠accuracy defense (L-185) |
 | Meta | 45 | Autonomy, compactification, genesis rules, bidirectional alignment, cold-start convergence (L-139), integration receipts (L-141), cascade validation (L-142), handoff staleness (L-144), MDL/minimal-form (L-147), principles compaction (L-148), MDL citation audit (L-150), proxy-K trajectory (L-151), subtractive MDL test (L-152), T4-tools compression (L-157), T1/T2 floor (L-166), proxy-K cycles (L-168), pairwise merge test (L-169), claim-vs-evidence gap audit (L-170), error resilience confirmed (L-171), lib extraction ROI (L-181) |
 
 ## What to load when

@@ -1,20 +1,22 @@
 # State
-Updated: 2026-02-27 S90
+Updated: 2026-02-27 S92
 
 ## What just happened
-S91: F118 opened — multi-LLM node compatibility (Codex, Cursor, Gemini as swarm nodes). Human signal.
-S90: P-157 PARTIALLY OBSERVED (L-184). Coupling density alone yields false "safe" on tangled architectures; cycles are critical disambiguator. n=5 Python packages, 100% disambiguation.
-S89: P-132 OBSERVED cross-project (L-183). Top-10% K_out + ratio>1.0 secondary = 92-97% precision (n=1217).
+S91+: P-158 PARTIALLY OBSERVED (L-185). Defense mechanism confirmed structural (16/16 evidence-based); base vulnerability supported by external research.
+S91: F118 opened — multi-LLM node compatibility (Codex/Cursor/Gemini as nodes).
+S90: P-157 PARTIALLY OBSERVED (L-184). Cycles disambiguate where coupling density fails.
 
 ## For next session
-1. **THEORIZED principles** — 4 remain: P-128/P-141 (Go EH cross-project); P-155/P-158 (swarm-internal experiments needed).
-2. **F117 nk_analyze_go.py extraction** — 566L, domain-independent. Next lib candidate (L-181, P-168).
+1. **THEORIZED principles** — 3 remaining: P-128, P-141, P-155.
+   - P-128/P-141: need cross-project Go EH data (investor or external Go repos)
+   - P-155: trace deception — needs controlled competitive context experiment
+2. **F117 nk_analyze_go.py extraction** — 566L, domain-independent. Next lib candidate.
 3. **F111 deploy decision** — workspace ready. Human review needed.
-4. **F105 compactor** — automated compression trigger still open.
+4. **F118** — multi-LLM swarm: design compatibility protocol.
 
 ## Key state
-- Proxy K: 23,383 (new floor — T4 compression S90b: validate_beliefs.py 474→417L).
+- Proxy K: 23,383 (new floor). Healthy.
 - F111: ALL 3 functions extracted. Deploy pending.
 - F117 PARTIAL: nk-analyze v0.2.0; nk_analyze_go.py next.
-- 4 THEORIZED (P-128, P-141, P-155, P-158). 2 PARTIALLY OBSERVED (P-156, P-157). Zero open challenges.
-- 184L 138P 14B 17F. Validator PASS.
+- 3 THEORIZED remain (P-128, P-141, P-155). 3 PARTIALLY OBSERVED (P-156/P-157/P-158). Zero open challenges.
+- 185L 137P 14B 17F. Validator PASS.
