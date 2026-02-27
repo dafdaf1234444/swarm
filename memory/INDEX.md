@@ -3,7 +3,7 @@ Updated: 2026-02-27 | Sessions: 95
 
 ## What the swarm knows
 - **190 lessons** in `memory/lessons/L-{NNN}.md`
-- **143 principles** in `memory/PRINCIPLES.md` (S95: P-170/P-171 from R6 harvest; S94: P-119 OBSERVED n=10; S93b: P-169 multi-tool entry; S91+: P-158 PARTIALLY OBSERVED)
+- **142 principles** in `memory/PRINCIPLES.md` (S96: P-172/P-173 BFT+CRDT-pheromone; S95: P-170/P-171 from R6 harvest; S94: P-119 OBSERVED n=10; S93b: P-169 multi-tool entry)
 - **14 beliefs** in `beliefs/DEPS.md` | **16 frontier questions** in `tasks/FRONTIER.md` (F71 RESOLVED S94 — spawn quality curve; F118 added S91 — multi-LLM node compatibility; F117 added S83 — self-producing libs)
 
 ## Structure
