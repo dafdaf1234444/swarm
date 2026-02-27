@@ -33,5 +33,8 @@ Extracted from lessons. Scan for recombination. 93 principles, 7 themes.
 ## Governance
 **Meta-governance**: P-092 governance recommendations must be workflow-embedded (CLAUDE.md) to be acted upon — recommendations in lessons/principles become dark matter
 
+## Distributed Systems
+**Domain entry**: P-093 new domain: formal proofs + large empirical studies first, all theorized until swarm-verified, define path to observed for each belief
+
 ---
 Full text of each principle: search `P-NNN` in `memory/lessons/` or child experiments.
