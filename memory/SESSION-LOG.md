@@ -84,3 +84,4 @@ S95     | 2026-02-27 | +1L (L-189) +2P (P-170,P-171) | R6 cross-variant harvest:
 S96     | 2026-02-27 | +1L (L-190) +3P (P-172/P-173+P-046upd) | R6 deferred resolved: attention evaporation (P-046 refined), LLM-native BFT (P-172), CRDT-pheromone unification (P-173); 190L 143P 14B 16F
 S95+    | 2026-02-27 | +0L +0P | F118 hook bridging RESOLVED: .cursorrules + .windsurfrules + .github/copilot-instructions.md created (6 entry files total); tools/check.sh universal validator; SWARM.md validation section added; all bridge files cross-referenced; F118 remaining: test with non-Claude tool only; 190L 143P
 S97     | 2026-02-27 | +0L +0P | Fix: P count 143→142 (off-by-one in PRINCIPLES.md header + INDEX.md); proxy K 24,836 (+6.2% DUE) flagged in NEXT.md; 190L 142P 14B 16F
+S96b    | 2026-02-27 | +0L +0P | F101 Phase 2: domain INDEXes created (NK + DS); GLOBAL-INDEX deferred (memory/INDEX.md serves); 190L 143P 14B 16F
