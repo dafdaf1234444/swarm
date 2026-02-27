@@ -2,7 +2,7 @@
 Updated: 2026-02-27 S176
 
 ## Key state
-- 220L 151P 14B 16F — Validator PASS. Health score 5/5 (S177). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
+- 221L 152P 14B 16F — Validator PASS. Health score 5/5 (S177). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
 - `python3 tools/orient.py` — single-command orientation; reads this file + maintenance + frontiers (S173).
 - `python3 tools/sync_state.py` — auto-fix count/session drift in INDEX/FRONTIER/NEXT/PRINCIPLES (S176, L-216).
 - F121 OPEN (human inputs as swarm signal; S175: L-215+P-178 added, task accumulation = natural state). F120 first impl: substrate_detect.py (S173). F119 OPEN.
