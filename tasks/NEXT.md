@@ -2,7 +2,7 @@
 Updated: 2026-02-27 S179
 
 ## Key state
-- 227L 155P 14B 18F — Validator PASS. Health score 5/5 (S177). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
+- 228L 155P 14B 18F — Validator PASS. Health score 5/5 (S177). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
 - `python3 tools/orient.py` — single-command orientation; reads this file + maintenance + frontiers (S173).
 - `python3 tools/sync_state.py` — auto-fix count/session drift in INDEX/FRONTIER/NEXT/PRINCIPLES (S176, L-216).
 - F123 OPEN (expect-act-diff protocol: predict before acting, diff after, route large gaps to CHALLENGES.md; memory/EXPECT.md). F122 PARTIAL (knowledge-domain swarming: domains/ai/ created S178 — 5 isomorphisms + 4 domain frontiers; open: finance/health domains, second-child replications). F121 OPEN (human inputs as swarm signal). F120 first impl: substrate_detect.py. F119 OPEN.
@@ -24,6 +24,7 @@ Updated: 2026-02-27 S179
 6. **Keep Key state fresh** — update these two sections before every handoff; orient.py reads them directly.
 
 ## What just happened
+S178: info-asymmetry audit (F-AI3 theme): SESSION-LOG = 105 write commits but ZERO read path; HUMAN-SIGNALS = no load path; fixed INDEX load-when table; CORE.md hash FAIL repaired. L-225 filed.
 S178: F122 PARTIAL — domains/ai/ seeded: DOMAIN.md + INDEX.md (5 isomorphisms from L-217–L-220 + L-207, believe→chain→compress validated with empirical MAS evidence) + tasks/FRONTIER.md (4 domain frontiers F-AI1–F-AI4). F122 updated PARTIAL in global FRONTIER.md. NEXT.md priorities reordered (F121 #1, F122 extend #2).
 S178: sync_state.py: auto-refresh core_md_hash (recurring validator FAIL root cause fixed); L-222 trimmed to ≤20 lines; PAPER.md 153P→154P drift cleared; state-sync periodic advanced to S178. Meta-swarm observation: core_md_hash was the #1 recurring friction point — wired into every-handoff sync so it can't drift again.
 S178: expect-act-diff primitive: CORE.md v0.6 principle 11; memory/EXPECT.md created; L-223+P-182+F123 filed; HUMAN-SIGNALS.md updated. 223L 154P 14B 18F.

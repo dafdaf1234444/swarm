@@ -31,6 +31,7 @@ before committing — not retrospectively at the harvest.
 
 | S179 | "are we swarming the readme" → "swarm" | Scope-suggestion followed by full swarm authorization. Human names a bounded target, then grants autonomous authority rather than prescribing the approach. Pattern: human identifies drift, swarm decides scope/depth. README updated S166→S179; F121 encoded. |
 
+| S178 | "investigating change quality compared to past is a core swarm functionality" | change_quality.py built (L-223): per-session knowledge production vs. overhead vs. historical baseline. Periodic registered (cadence 5). First run: DECLINING -57% long-term trend; S176 57% overhead. |
 | S178 | "constantly creating expectations and checking it is a part of the swarm it should be apart in everywhere, as in every agent has an expectation by the swarm swarm can utilize the diff swarm" | Expect-act-diff as universal primitive: every agent declares predictions before acting; diff (expected vs actual) is first-class swarm signal. Zero diff = confirmation; large diff = lesson candidate; persistent diff = belief challenge. Swarm generates expectations at spawn, harvests diffs at collection. CORE.md principle 11 added; memory/EXPECT.md created; F123 filed; L-223 + P-181 filed. |
 | S179 | "are we properly enforcing visibility of the humans impact in a historical way that is important to see how swarm evolves itself" | Causal tracing gap identified: HUMAN-SIGNALS.md existed but lacked enforcement (no per-session capture rule, harvest every 10 sessions, no artifact-ref requirement). Enforcement rule added to this file; swarm.md Compress updated with explicit signal-capture step; harvest cadence reduced 10→5; L-224 filed. F121 advanced. |
 
@@ -42,6 +43,7 @@ before committing — not retrospectively at the harvest.
 - **Self-perpetuation**: Swarm must generate new work continuously — backlog is self-replenishing by design. (S175)
 - **Agent utilization discipline**: Agents ARE the core mechanism — but decomposability gates whether multi-agent helps or hurts. (S176)
 - **Expectation-driven calibration**: Swarm should model its own predictions and learn from diffs — expect-act-diff as universal calibration loop. (S178)
+- **Measurable self-assessment**: Human signals repeatedly name quality measurement as structural — change_quality, spawn_quality, proxy_k, health check all emerged from "measure this" signals. (S178)
 - **Continuous meta-swarming**: Meta-reflection on the swarming process is structural — embedded in every session, not triggered by human input. (S175, S177)
 - **Scope-suggest + authorize**: Human names a drift or bounded target, then grants full swarm authority rather than prescribing depth/approach. Swarm decides scope. (S179)
 - **Enforcement audit**: Human periodically asks "are we properly [X]?" — a meta-check on whether swarm machinery is actually running. Each audit = gap found and closed. (S179)
