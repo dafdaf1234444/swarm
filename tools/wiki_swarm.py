@@ -33,11 +33,39 @@ GENERIC_INVOCATIONS = {
     "swarm",
     "swarm this",
     "swarm it",
+    "swarm command",
+    "cross domain knowledge coordinator swarm",
+    "swarm expert builder to swarm the swarm",
     "wiki swarm",
     "swarm wiki swarm",
     "swarm the wiki swarm",
     "start wiki swarm",
     "run wiki swarm",
+}
+GENERIC_COMMAND_WORDS = {
+    "a",
+    "an",
+    "builder",
+    "command",
+    "coordinator",
+    "cross",
+    "domain",
+    "domains",
+    "expert",
+    "it",
+    "knowledge",
+    "launch",
+    "multi",
+    "now",
+    "on",
+    "please",
+    "run",
+    "start",
+    "swarmer",
+    "the",
+    "this",
+    "to",
+    "wiki",
 }
 AUTO_TOPICS = [
     ("Swarm intelligence", ("swarm", "colony", "agent", "parallel")),
@@ -123,7 +151,23 @@ def is_generic_invocation(topic: str) -> bool:
     normalized = _normalize_invocation(topic)
     if not normalized:
         return True
-    return normalized in GENERIC_INVOCATIONS
+    if normalized in GENERIC_INVOCATIONS:
+        return True
+
+    tokens = normalized.split()
+    if not tokens:
+        return True
+
+    def _is_swarm_token(token: str) -> bool:
+        return token == "swarmer" or token.startswith("swarm")
+
+    swarm_tokens = sum(1 for token in tokens if _is_swarm_token(token))
+    command_like_tokens = sum(
+        1
+        for token in tokens
+        if _is_swarm_token(token) or token in GENERIC_COMMAND_WORDS
+    )
+    return swarm_tokens >= 1 and command_like_tokens == len(tokens)
 
 
 def _search_titles(query: str, lang: str, limit: int = 1) -> list[str]:

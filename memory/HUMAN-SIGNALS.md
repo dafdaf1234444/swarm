@@ -62,6 +62,7 @@ before committing — not retrospectively at the harvest.
 | S186 | "not always check for objective function ... swarm should check/understand its checking to develop the swarm" | Correction to prior interpretation: objective-function check is one lens, not mandatory every time; invariant is self-check quality improvement across modes. Applied to `SWARM.md`, `memory/OBJECTIVE-CHECK.md`, and `tasks/NEXT.md`. |
 | S186 | "swwarm always has to be safe swarm" | Safety-first reinforcement converted into executable guardrails: active lanes with high-risk/irreversible intent now require `human_open_item=HQ-N` (MC-SAFE) in `tools/maintenance.py`; regression coverage added in `tools/test_mission_constraints.py`; signaling contract updated in `SWARM.md`. |
 | S186 | "start doing experiments with swarm on math, that will help the swarm" | Math-first execution directive: start immediately with swarm-benefiting quantitative experiments (not only prose). Applied to `tools/f_is3_math_validation.py`, `tools/test_f_is3_math_validation.py`, `experiments/information-science/f-is3-math-validation-s186.json`, `domains/information-science/tasks/FRONTIER.md`, and `tasks/NEXT.md`. |
+| S186 | "swarm harvest expert" | Personality-specialization shorthand: when human names `swarm + expert role`, materialize a persistent overlay and wire spawn/docs/state in the same pass. Applied to `tools/personalities/harvest-expert.md`, `README.md`, `tasks/NEXT.md`, and `tasks/SWARM-LANES.md`. |
 
 ## Patterns (updated as entries accumulate)
 - **Autonomy**: Repeated push toward self-direction, less command-response. (S57, S173)
@@ -90,3 +91,4 @@ before committing — not retrospectively at the harvest.
 - **Coordination clarity via open items**: Human asks for explicit coordination state (`available`, `blocked`, `human_open_item`) so swarm can route work and asks clearly instead of relying on implicit context. (S186)
 - **Check-the-checking principle**: Human asks for continuous calibration of swarm checking itself; objective-function checking is optional mode, while the invariant is to verify and improve the checking process to develop the swarm. (S186)
 - **All-outcomes value extraction**: Human expects swarm to extract value from positive, negative, and null information; no outcome is discardable if it can sharpen policy boundaries or next actions. (S186)
+- **Role-specialization shorthand**: Human can request `swarm + expert role` in a short phrase; swarm should instantiate a persistent personality overlay and wire invocation/docs/state immediately. (S186)

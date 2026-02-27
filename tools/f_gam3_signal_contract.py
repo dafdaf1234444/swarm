@@ -28,6 +28,7 @@ CLOSED_STATUSES = {"MERGED", "ABANDONED"}
 PROGRESS_STATUSES = {"CLAIMED", "ACTIVE", "BLOCKED", "MERGED", "ABANDONED"}
 CONTRACT_KEYS = ("setup", "focus", "available", "blocked", "next_step", "human_open_item")
 LEGACY_CONTRACT_KEYS = ("available", "blocked", "human_open_item")
+F121_CONTRACT_KEYS = ("capabilities", "available", "blocked", "next_step", "human_open_item")
 MATURE_READY_WINDOW_SESSIONS = 1
 DEFAULT_MIN_MATURITY_SESSIONS = 2
 IMPACT_DELTA_EPSILON = 1e-4
@@ -113,6 +114,62 @@ def suppress_same_session_status_noops(rows: list[dict[str, str]]) -> tuple[list
         {
             "input_row_count": len(rows),
             "output_row_count": len(key_order),
+            "suppressed_row_count": suppressed,
+        },
+    )
+
+
+def apply_latest_session_holdout(
+    rows: list[dict[str, str]],
+    *,
+    holdout_latest_sessions: int,
+) -> tuple[list[dict[str, str]], dict[str, int | None]]:
+    """Drop rows from the latest N sessions to reduce same-session censoring."""
+    if holdout_latest_sessions <= 0:
+        return (
+            rows,
+            {
+                "holdout_latest_sessions": 0,
+                "max_session": None,
+                "session_cutoff": None,
+                "input_row_count": len(rows),
+                "output_row_count": len(rows),
+                "suppressed_row_count": 0,
+            },
+        )
+
+    parsed_sessions = [_parse_session(row.get("session", "")) for row in rows]
+    session_values = [s for s in parsed_sessions if s is not None]
+    if not session_values:
+        return (
+            rows,
+            {
+                "holdout_latest_sessions": holdout_latest_sessions,
+                "max_session": None,
+                "session_cutoff": None,
+                "input_row_count": len(rows),
+                "output_row_count": len(rows),
+                "suppressed_row_count": 0,
+            },
+        )
+
+    max_session = max(session_values)
+    session_cutoff = max_session - holdout_latest_sessions
+    filtered = [
+        row
+        for row in rows
+        if (_parse_session(row.get("session", "")) is None)
+        or (int(_parse_session(row.get("session", "")) or 0) <= session_cutoff)
+    ]
+    suppressed = len(rows) - len(filtered)
+    return (
+        filtered,
+        {
+            "holdout_latest_sessions": holdout_latest_sessions,
+            "max_session": max_session,
+            "session_cutoff": session_cutoff,
+            "input_row_count": len(rows),
+            "output_row_count": len(filtered),
             "suppressed_row_count": suppressed,
         },
     )
@@ -246,6 +303,7 @@ def _adoption_trend(rows: list[dict[str, str]], *, tail_sessions: int = 12) -> l
     active_by_session: dict[int, int] = defaultdict(int)
     strict_by_session: dict[int, int] = defaultdict(int)
     legacy_by_session: dict[int, int] = defaultdict(int)
+    f121_by_session: dict[int, int] = defaultdict(int)
 
     for row in rows:
         if row.get("status", "") not in ACTIVE_STATUSES:
@@ -258,6 +316,8 @@ def _adoption_trend(rows: list[dict[str, str]], *, tail_sessions: int = 12) -> l
             strict_by_session[session] += 1
         if has_contract(row, required_keys=LEGACY_CONTRACT_KEYS):
             legacy_by_session[session] += 1
+        if has_contract(row, required_keys=F121_CONTRACT_KEYS):
+            f121_by_session[session] += 1
 
     sessions = sorted(active_by_session.keys())[-max(1, tail_sessions) :]
     trend: list[dict[str, Any]] = []
@@ -265,14 +325,17 @@ def _adoption_trend(rows: list[dict[str, str]], *, tail_sessions: int = 12) -> l
         active = active_by_session[session]
         strict = strict_by_session.get(session, 0)
         legacy = legacy_by_session.get(session, 0)
+        f121 = f121_by_session.get(session, 0)
         trend.append(
             {
                 "session": session,
                 "active_rows": active,
                 "strict_contract_rows": strict,
                 "legacy_contract_rows": legacy,
+                "f121_contract_rows": f121,
                 "strict_rate": round(strict / active, 4) if active else 0.0,
                 "legacy_rate": round(legacy / active, 4) if active else 0.0,
+                "f121_rate": round(f121 / active, 4) if active else 0.0,
             }
         )
     return trend
@@ -302,6 +365,8 @@ def analyze(rows: list[dict[str, str]], *, min_maturity_sessions: int = DEFAULT_
         latest = seq[-1]
         contract_seen_on_active = False
         legacy_contract_seen_on_active = False
+        f121_contract_seen_on_active = False
+        capabilities_seen_on_active = False
 
         for row in seq:
             status = row.get("status", "")
@@ -311,6 +376,10 @@ def analyze(rows: list[dict[str, str]], *, min_maturity_sessions: int = DEFAULT_
                 contract_seen_on_active = True
             if status in ACTIVE_STATUSES and has_contract(row, required_keys=LEGACY_CONTRACT_KEYS):
                 legacy_contract_seen_on_active = True
+            if status in ACTIVE_STATUSES and has_contract(row, required_keys=F121_CONTRACT_KEYS):
+                f121_contract_seen_on_active = True
+            if status in ACTIVE_STATUSES and "capabilities" in _parse_tags(row.get("etc", "")):
+                capabilities_seen_on_active = True
             if first_ready is None and status == "READY":
                 first_ready = row
             if first_progress is None and status in PROGRESS_STATUSES:
@@ -350,6 +419,8 @@ def analyze(rows: list[dict[str, str]], *, min_maturity_sessions: int = DEFAULT_
                 "lane": lane,
                 "contract_explicit": contract_seen_on_active,
                 "legacy_contract_explicit": legacy_contract_seen_on_active,
+                "f121_contract_explicit": f121_contract_seen_on_active,
+                "capabilities_explicit": capabilities_seen_on_active,
                 "first_active_status": (first_active or {}).get("status"),
                 "first_active_session": active_session,
                 "first_ready_session": ready_session,
@@ -369,14 +440,22 @@ def analyze(rows: list[dict[str, str]], *, min_maturity_sessions: int = DEFAULT_
 
     contract = [row for row in lane_rows if row["contract_explicit"]]
     legacy_contract_count = sum(1 for row in lane_rows if row["legacy_contract_explicit"])
+    f121_contract_count = sum(1 for row in lane_rows if row["f121_contract_explicit"])
+    capabilities_count = sum(1 for row in lane_rows if row["capabilities_explicit"])
     matured_rows = [row for row in lane_rows if row["matured"]]
     matured_contract_count = sum(1 for row in matured_rows if row["contract_explicit"])
+    matured_f121_count = sum(1 for row in matured_rows if row["f121_contract_explicit"])
 
     all_ab = _cohort_ab(lane_rows, max_session=max_session)
     matured_ab = _cohort_ab(matured_rows, max_session=max_session)
+    f121_all_ab = _cohort_ab(lane_rows, max_session=max_session, contract_key="f121_contract_explicit")
+    f121_matured_ab = _cohort_ab(matured_rows, max_session=max_session, contract_key="f121_contract_explicit")
     matured_contract_n = int(matured_ab["contract_group"]["lane_count"])
     matured_free_form_n = int(matured_ab["free_form_group"]["lane_count"])
     matured_viable = matured_contract_n > 0 and matured_free_form_n > 0
+    f121_matured_contract_n = int(f121_matured_ab["contract_group"]["lane_count"])
+    f121_matured_free_form_n = int(f121_matured_ab["free_form_group"]["lane_count"])
+    f121_matured_viable = f121_matured_contract_n > 0 and f121_matured_free_form_n > 0
 
     return {
         "max_session": max_session,
@@ -387,14 +466,35 @@ def analyze(rows: list[dict[str, str]], *, min_maturity_sessions: int = DEFAULT_
             "legacy_contract_lanes": legacy_contract_count,
             "strict_contract_rate": round(len(contract) / len(lane_rows), 4) if lane_rows else 0.0,
             "legacy_contract_rate": round(legacy_contract_count / len(lane_rows), 4) if lane_rows else 0.0,
+            "f121_contract_lanes": f121_contract_count,
+            "f121_contract_rate": round(f121_contract_count / len(lane_rows), 4) if lane_rows else 0.0,
+            "capabilities_tagged_lanes": capabilities_count,
+            "capabilities_tagged_rate": round(capabilities_count / len(lane_rows), 4) if lane_rows else 0.0,
             "matured_lanes": len(matured_rows),
             "matured_strict_contract_lanes": matured_contract_count,
             "matured_strict_contract_rate": round(matured_contract_count / len(matured_rows), 4)
             if matured_rows
             else 0.0,
+            "matured_f121_contract_lanes": matured_f121_count,
+            "matured_f121_contract_rate": round(matured_f121_count / len(matured_rows), 4) if matured_rows else 0.0,
         },
         "all_lanes_ab": all_ab,
         "matured_lanes_ab": matured_ab,
+        "f121_contract_ab": {
+            "contract_keys": list(F121_CONTRACT_KEYS),
+            "all_lanes": f121_all_ab,
+            "matured_lanes": f121_matured_ab,
+            "matured_cohort_viability": {
+                "contract_lane_count": f121_matured_contract_n,
+                "free_form_lane_count": f121_matured_free_form_n,
+                "viable_for_ab": f121_matured_viable,
+                "reason": (
+                    "both cohorts populated"
+                    if f121_matured_viable
+                    else "insufficient matured cohort coverage for F121 contract A/B"
+                ),
+            },
+        },
         "matured_cohort_viability": {
             "contract_lane_count": matured_contract_n,
             "free_form_lane_count": matured_free_form_n,
@@ -418,15 +518,44 @@ def run(
     out_path: Path,
     *,
     min_maturity_sessions: int = DEFAULT_MIN_MATURITY_SESSIONS,
+    holdout_latest_sessions: int = 0,
     suppress_noop_rows: bool = False,
 ) -> dict[str, Any]:
     rows = parse_rows(lanes_path.read_text(encoding="utf-8", errors="replace"))
     preprocessing = {
+        "holdout_latest_sessions": max(0, int(holdout_latest_sessions)),
+        "holdout_input_row_count": len(rows),
+        "holdout_output_row_count": len(rows),
+        "holdout_suppressed_row_count": 0,
+        "holdout_max_session": None,
+        "holdout_session_cutoff": None,
         "suppress_noop_rows": bool(suppress_noop_rows),
         "input_row_count": len(rows),
         "output_row_count": len(rows),
         "suppressed_row_count": 0,
     }
+    if holdout_latest_sessions > 0:
+        rows, holdout_stats = apply_latest_session_holdout(
+            rows,
+            holdout_latest_sessions=max(0, int(holdout_latest_sessions)),
+        )
+        preprocessing.update(
+            {
+                "holdout_latest_sessions": holdout_stats["holdout_latest_sessions"],
+                "holdout_input_row_count": holdout_stats["input_row_count"],
+                "holdout_output_row_count": holdout_stats["output_row_count"],
+                "holdout_suppressed_row_count": holdout_stats["suppressed_row_count"],
+                "holdout_max_session": holdout_stats["max_session"],
+                "holdout_session_cutoff": holdout_stats["session_cutoff"],
+            }
+        )
+        preprocessing.update(
+            {
+                "input_row_count": len(rows),
+                "output_row_count": len(rows),
+                "suppressed_row_count": 0,
+            }
+        )
     if suppress_noop_rows:
         rows, stats = suppress_same_session_status_noops(rows)
         preprocessing.update(stats)
@@ -438,6 +567,7 @@ def run(
         "input": str(lanes_path).replace("\\", "/"),
         "contract_keys": list(CONTRACT_KEYS),
         "legacy_contract_keys": list(LEGACY_CONTRACT_KEYS),
+        "f121_contract_keys": list(F121_CONTRACT_KEYS),
         "preprocessing": preprocessing,
         "analysis": analysis,
         "interpretation": {
@@ -482,6 +612,12 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Collapse repeated same lane/session/status rows before analysis.",
     )
+    parser.add_argument(
+        "--holdout-latest-sessions",
+        type=int,
+        default=0,
+        help="Exclude rows from the latest N sessions before analysis.",
+    )
     return parser.parse_args()
 
 
@@ -491,6 +627,7 @@ def main() -> int:
         args.lanes,
         args.out,
         min_maturity_sessions=max(0, args.min_maturity_sessions),
+        holdout_latest_sessions=max(0, args.holdout_latest_sessions),
         suppress_noop_rows=bool(args.suppress_noop_rows),
     )
     cg = result["analysis"]["all_lanes_ab"]["contract_group"]
@@ -518,7 +655,24 @@ def main() -> int:
         "matured_free_form_update_density=",
         mf["mean_updates_per_lifecycle_session"],
     )
+    f121 = result["analysis"]["f121_contract_ab"]["all_lanes"]
+    print(
+        "f121_contract_lanes=",
+        f121["contract_group"]["lane_count"],
+        "f121_free_form_lanes=",
+        f121["free_form_group"]["lane_count"],
+        "f121_mean_updates_delta=",
+        f121["deltas_contract_minus_free_form"]["mean_updates_per_lane"],
+    )
     pre = result.get("preprocessing", {})
+    print(
+        "holdout_latest_sessions=",
+        pre.get("holdout_latest_sessions", 0),
+        "holdout_suppressed_rows=",
+        pre.get("holdout_suppressed_row_count", 0),
+        "holdout_session_cutoff=",
+        pre.get("holdout_session_cutoff"),
+    )
     print(
         "suppressed_rows=",
         pre.get("suppressed_row_count", 0),

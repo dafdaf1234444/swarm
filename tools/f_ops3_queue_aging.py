@@ -278,6 +278,75 @@ def analyze(
     }
 
 
+SWEEP_AGING_WEIGHTS = [0.1, 0.25, 0.5, 0.75, 1.0, 1.5, 2.0, 3.0]
+SWEEP_STALE_THRESHOLDS = [1, 2, 3]
+
+
+def run_sweep(
+    lanes_path: Path,
+    out_path: Path,
+    *,
+    session_min: int = 150,
+    aging_weights: list[float] | None = None,
+    stale_thresholds: list[int] | None = None,
+) -> dict[str, Any]:
+    if aging_weights is None:
+        aging_weights = SWEEP_AGING_WEIGHTS
+    if stale_thresholds is None:
+        stale_thresholds = SWEEP_STALE_THRESHOLDS
+
+    rows = parse_lane_rows(lanes_path.read_text(encoding="utf-8", errors="replace"))
+    jobs = build_jobs(rows, session_min=session_min)
+
+    sweep_results: list[dict[str, Any]] = []
+    for weight in aging_weights:
+        for threshold in stale_thresholds:
+            analysis = analyze(jobs, stale_threshold=threshold, aging_weight=weight)
+            policies_by_name = {p["policy"]: p for p in analysis.get("policies", [])}
+            recency = policies_by_name.get("recency_bias", {})
+            aging = policies_by_name.get("queue_aging", {})
+            recency_score = recency.get("score", 0.0)
+            aging_score = aging.get("score", 0.0)
+            if recency_score > aging_score:
+                winner = "recency_bias"
+                margin = round(recency_score - aging_score, 4)
+            elif aging_score > recency_score:
+                winner = "queue_aging"
+                margin = round(aging_score - recency_score, 4)
+            else:
+                winner = "tie"
+                margin = 0.0
+            sweep_results.append(
+                {
+                    "aging_weight": weight,
+                    "stale_threshold": threshold,
+                    "recency_score": recency_score,
+                    "aging_score": aging_score,
+                    "winner": winner,
+                    "margin": margin,
+                    "recency_metrics": recency.get("metrics", {}),
+                    "aging_metrics": aging.get("metrics", {}),
+                }
+            )
+
+    payload = {
+        "frontier_id": "F-OPS3",
+        "title": "Queue-aging policy sweep over aging_weight × stale_threshold",
+        "inputs": {
+            "lanes": str(lanes_path).replace("\\", "/"),
+            "session_min": session_min,
+            "aging_weights": aging_weights,
+            "stale_thresholds": stale_thresholds,
+        },
+        "job_count": len(jobs),
+        "sweep": sweep_results,
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
+    }
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return payload
+
+
 def run(
     lanes_path: Path,
     out_path: Path,
@@ -317,11 +386,33 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--session-min", type=int, default=150)
     parser.add_argument("--stale-threshold", type=int, default=2)
     parser.add_argument("--aging-weight", type=float, default=1.0)
+    parser.add_argument(
+        "--sweep",
+        action="store_true",
+        help="Run a grid sweep over aging_weight × stale_threshold and write summary JSON.",
+    )
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
+    if args.sweep:
+        payload = run_sweep(
+            args.lanes,
+            args.out,
+            session_min=args.session_min,
+        )
+        print(f"Wrote {args.out}")
+        sweep = payload.get("sweep", [])
+        aging_wins = [r for r in sweep if r["winner"] == "queue_aging"]
+        print(f"sweep_combinations={len(sweep)}, queue_aging_wins={len(aging_wins)}")
+        if aging_wins:
+            best = max(aging_wins, key=lambda r: r["aging_score"])
+            print(
+                f"best_aging_combo: weight={best['aging_weight']} threshold={best['stale_threshold']}"
+                f" aging_score={best['aging_score']} margin={best['margin']}"
+            )
+        return 0
     payload = run(
         args.lanes,
         args.out,

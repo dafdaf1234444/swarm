@@ -18,6 +18,32 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+CORE_SWARM_TOOLS = (
+    "tools/orient.py",
+    "tools/maintenance.py",
+    "tools/sync_state.py",
+    "tools/validate_beliefs.py",
+    "tools/check.sh",
+    "tools/check.ps1",
+    "tools/maintenance.sh",
+    "tools/maintenance.ps1",
+    "tools/compact.py",
+    "tools/proxy_k.py",
+    "tools/frontier_decay.py",
+    "tools/swarm_pr.py",
+    "tools/bulletin.py",
+    "tools/merge_back.py",
+    "tools/propagate_challenges.py",
+    "tools/spawn_coordinator.py",
+    "tools/colony.py",
+    "tools/swarm_test.py",
+    "tools/swarm_parse.py",
+    "tools/change_quality.py",
+    "tools/session_tracker.py",
+    "tools/context_router.py",
+    "tools/substrate_detect.py",
+    "tools/kill_switch.py",
+)
 
 
 def run_maintenance():
@@ -169,6 +195,30 @@ def check_stale_experiments():
     return stale
 
 
+def check_underused_core_tools(log_text, window_sessions=20):
+    """Find core swarm tools not referenced in recent session-log entries."""
+    rows = []
+    for raw in log_text.splitlines():
+        m = re.match(r"^S(\d+)\b", raw)
+        if m:
+            rows.append((int(m.group(1)), raw.lower().replace("\\", "/")))
+    if not rows:
+        return [], None, None
+
+    latest_session = max(sid for sid, _ in rows)
+    start_session = max(1, latest_session - window_sessions + 1)
+    haystack = "\n".join(text for sid, text in rows if sid >= start_session)
+
+    underused = []
+    for tool in CORE_SWARM_TOOLS:
+        normalized = tool.lower().replace("\\", "/")
+        filename = Path(normalized).name
+        pattern = rf"(?<![A-Za-z0-9_])(?:{re.escape(normalized)}|{re.escape(filename)})(?![A-Za-z0-9_])"
+        if not re.search(pattern, haystack):
+            underused.append(tool)
+    return underused, latest_session, start_session
+
+
 def main():
     brief = "--brief" in sys.argv
 
@@ -176,7 +226,7 @@ def main():
     index_text = read_file("memory/INDEX.md")
     next_text = read_file("tasks/NEXT.md")
     frontier_text = read_file("tasks/FRONTIER.md")
-    log_text = read_file("memory/SESSION-LOG.md") if not brief else ""
+    log_text = read_file("memory/SESSION-LOG.md")
 
     session, counts = extract_state_line(index_text)
     maint_level = classify_maint(maint_out)
@@ -226,6 +276,17 @@ def main():
         print(f"--- Unrun domain experiments ({len(stale_experiments)}) ---")
         for e in stale_experiments[:6]:
             print(f"  ○ {e}")
+        print()
+
+    # Underused core tools (session-log execution signal)
+    underused_tools, latest_sid, start_sid = check_underused_core_tools(log_text)
+    if underused_tools:
+        window = "recent sessions"
+        if latest_sid is not None and start_sid is not None:
+            window = f"S{start_sid}..S{latest_sid}"
+        print(f"--- Underused core tools ({len(underused_tools)} in {window}) ---")
+        for tool in underused_tools[:6]:
+            print(f"  ○ {tool}")
         print()
 
     # Recent commits — collision-avoidance for concurrent nodes (L-251)

@@ -124,11 +124,17 @@ When spawning a child swarm with `tools/agent_swarm.py`, you can load a persiste
 ```bash
 python3 tools/agent_swarm.py create <child-name> "<task-description>" --personality commit-expert
 python3 tools/agent_swarm.py create <child-name> "<task-description>" --personality commit-swarmer
+python3 tools/agent_swarm.py create <child-name> "<task-description>" --personality usage-identifier-expert
+python3 tools/agent_swarm.py create <child-name> "<task-description>" --personality harvest-expert
+python3 tools/agent_swarm.py create <child-name> "<task-description>" --personality swarm-expert-builder
 ```
 
 Profiles are sourced from `tools/personalities/` and copied into the child as `personality.md`.
 The `commit-expert` profile is designed for high-commit phases: it applies adaptive backlog triggers, prioritizes lane/NEXT signaling, and pushes cohesive checkpoint commits before new scope expansion.
 The `commit-swarmer` profile is the aggressive variant for "too many commits" phases: it escalates at lower soft/hard thresholds and enforces saturation cleanup before new frontier work.
+The `usage-identifier-expert` profile is for traceability phases: it enforces explicit lane/frontier/artifact identifiers and reduces ambiguous handoff wording before promotion.
+The `harvest-expert` profile is for merge/harvest phases: it enforces expect/actual/diff capture, all-outcomes signal retention, and artifact-grounded routing before promotion.
+The `swarm-expert-builder` profile is for meta-capacity phases: it builds deployable specialist profiles tied to real lanes, with explicit expect/actual/diff evidence for whether expert generation improved coordination.
 
 ## Cross-Swarm Communication
 
@@ -157,6 +163,17 @@ The swarm runs on any tool that can read files and commit git. Each tool has a b
 - Windsurf: `.windsurfrules`
 
 Core state (beliefs, lessons, principles, frontiers) is tool-agnostic markdown. Bridge files add only tool-specific startup instructions — the protocol is the same everywhere.
+
+## Main MDs Are Swarmed
+
+Main bridge docs are considered "swarmed" only when they stay protocol-synced with `SWARM.md`:
+
+- Active-lane updates carry an explicit check mode.
+- Work follows expect-act-diff (expectation before action, diff after action).
+- Positive, negative, and null outcomes are all treated as first-class evidence.
+- Active work is default-execute; anything not executed is explicitly marked `blocked`/`reassigned`/`abandoned` with a next step.
+
+If one bridge file receives protocol-critical guidance, mirror it across all bridge entry files in the same session.
 
 ## How To Participate
 

@@ -10,6 +10,14 @@ import f_ai1_evidence_surfacing as mod
 
 
 class TestFAI1EvidenceSurfacing(unittest.TestCase):
+    def test_query_title_confidence_alignment(self):
+        exact = mod._query_title_confidence("Swarm intelligence", "Swarm intelligence")
+        typo = mod._query_title_confidence("Swarm inteligence", "Swarm intelligence")
+        mismatch = mod._query_title_confidence("Distributed systems", "Stigmergy")
+
+        self.assertGreater(exact, 0.9)
+        self.assertGreater(typo, mismatch)
+
     def test_confidence_policy(self):
         self.assertEqual(mod._choose_with_evidence("A", "A", False), "A")
         self.assertEqual(mod._choose_with_evidence("A", "B", False), "A")

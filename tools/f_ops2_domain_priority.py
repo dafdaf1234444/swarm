@@ -22,6 +22,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import re
 from dataclasses import dataclass
 from pathlib import Path
@@ -31,6 +32,29 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 ACTIVE_LANE_STATUSES = {"CLAIMED", "ACTIVE", "BLOCKED", "READY"}
 DISPATCHABLE_LANE_STATUSES = {"CLAIMED", "ACTIVE", "READY"}
 POLICIES = ("fifo", "risk_first", "value_density", "hybrid")
+DOMAIN_KNOWLEDGE_RULES: tuple[tuple[str, tuple[tuple[str, float], ...]], ...] = (
+    (
+        "meta",
+        (
+            (r"\bgenesis\b", 1.0),
+            (r"\bkolmogorov\b", 1.2),
+            (r"\bminimal viable\b", 0.8),
+            (r"\bgenesis\.sh\b", 0.9),
+            (r"\bswarm[- ]for[- ]swarm\b", 0.7),
+            (r"\bswarm the swarm\b", 0.6),
+        ),
+    ),
+    (
+        "operations-research",
+        (
+            (r"\bexpert[- ]generator\b", 1.2),
+            (r"\bdomain[- ]expert\b", 1.0),
+            (r"\bautomability\b", 0.8),
+            (r"\bslot[- ]assignment\b", 0.6),
+            (r"\bdispatch(?:able)? capacity\b", 0.6),
+        ),
+    ),
+)
 
 
 @dataclass
@@ -44,6 +68,8 @@ class DomainState:
     next_priority_weight: float = 0.0
     finding_mentions: int = 0
     finding_priority_weight: float = 0.0
+    knowledge_mentions: int = 0
+    knowledge_priority_weight: float = 0.0
     active_lane_pressure: int = 0
 
     def to_json(self) -> dict:
@@ -58,6 +84,8 @@ class DomainState:
             "next_priority_weight": round(self.next_priority_weight, 3),
             "finding_mentions": self.finding_mentions,
             "finding_priority_weight": round(self.finding_priority_weight, 3),
+            "knowledge_mentions": self.knowledge_mentions,
+            "knowledge_priority_weight": round(self.knowledge_priority_weight, 3),
             "active_lane_pressure": self.active_lane_pressure,
         }
 
@@ -139,6 +167,8 @@ def load_domain_frontiers(domains_root: Path, current_session: int) -> tuple[lis
                 next_priority_weight=0.0,
                 finding_mentions=0,
                 finding_priority_weight=0.0,
+                knowledge_mentions=0,
+                knowledge_priority_weight=0.0,
                 active_lane_pressure=0,
             )
         )
@@ -222,6 +252,79 @@ def parse_findings_demand(
             mentions[domain] = mentions.get(domain, 0) + 1
             weights[domain] = weights.get(domain, 0.0) + line_weight
 
+    return mentions, weights
+
+
+def _apply_domain_knowledge_rules(
+    line: str,
+    *,
+    base_weight: float,
+    mentions: dict[str, int],
+    weights: dict[str, float],
+) -> None:
+    low = line.lower()
+    for domain, rules in DOMAIN_KNOWLEDGE_RULES:
+        matched_rules = 0
+        score = 0.0
+        for pattern, weight in rules:
+            if re.search(pattern, low):
+                matched_rules += 1
+                score += weight
+        if matched_rules <= 0:
+            continue
+        mentions[domain] = mentions.get(domain, 0) + matched_rules
+        weights[domain] = weights.get(domain, 0.0) + base_weight * score
+
+
+def parse_domain_knowledge_demand(
+    next_text: str,
+    *,
+    max_finding_lines: int = 20,
+) -> tuple[dict[str, int], dict[str, float]]:
+    """Extract non-frontier domain demand from strategic swarm terminology."""
+    mentions: dict[str, int] = {}
+    weights: dict[str, float] = {}
+
+    next_section = re.search(r"## For next session(.*?)(?:\n## |\Z)", next_text, re.DOTALL)
+    if next_section:
+        rank = 0
+        for raw in next_section.group(1).splitlines():
+            line = raw.strip()
+            if not line:
+                continue
+            numbered = re.match(r"^(\d+)\.\s+(.*)$", line)
+            if not numbered:
+                continue
+            rank += 1
+            base_weight = max(1.0, 5.0 - rank)
+            _apply_domain_knowledge_rules(
+                numbered.group(2),
+                base_weight=base_weight,
+                mentions=mentions,
+                weights=weights,
+            )
+
+    findings = re.search(r"## What just happened(.*?)(?:\n## |\Z)", next_text, re.DOTALL)
+    if not findings:
+        return mentions, weights
+
+    line_count = 0
+    for raw in findings.group(1).splitlines():
+        line = raw.strip()
+        if not line:
+            continue
+        if not re.match(r"^S\d+:", line):
+            continue
+        line_count += 1
+        if line_count > max_finding_lines:
+            break
+        recency_weight = max(0.5, 5.0 - 0.2 * (line_count - 1))
+        _apply_domain_knowledge_rules(
+            line,
+            base_weight=recency_weight,
+            mentions=mentions,
+            weights=weights,
+        )
     return mentions, weights
 
 
@@ -321,6 +424,140 @@ def parse_dispatchable_capacity(lanes_text: str, frontier_to_domain: dict[str, s
     return capacity
 
 
+def _is_domain_expert_row(row: dict[str, str]) -> bool:
+    lane = row.get("lane", "").lower()
+    fields = _parse_etc_fields(row.get("etc", ""))
+    dispatch = fields.get("dispatch", "")
+    return "domex" in lane or "domain-expert" in dispatch or "expert-generator" in dispatch
+
+
+def parse_domain_expert_coverage(
+    lanes_text: str,
+    frontier_to_domain: dict[str, str],
+) -> tuple[dict[str, float], dict[str, int]]:
+    """Estimate active and dispatchable capacity from domain-expert lanes only."""
+    capacity: dict[str, float] = {}
+    active_counts: dict[str, int] = {}
+    for row in _latest_lane_rows(lanes_text):
+        status = row.get("status", "")
+        if status not in ACTIVE_LANE_STATUSES:
+            continue
+        if not _is_domain_expert_row(row):
+            continue
+
+        domain = _domain_from_lane_row(row, frontier_to_domain)
+        if domain is None:
+            continue
+
+        active_counts[domain] = active_counts.get(domain, 0) + 1
+        if status not in DISPATCHABLE_LANE_STATUSES:
+            continue
+
+        fields = _parse_etc_fields(row.get("etc", ""))
+        blocked = fields.get("blocked", "none")
+        available = fields.get("available", "yes")
+        if blocked != "none":
+            continue
+
+        slot_capacity = 0.0
+        if available == "yes":
+            slot_capacity = 1.0
+        elif available == "partial":
+            slot_capacity = 0.5
+        if slot_capacity <= 0:
+            continue
+
+        capacity[domain] = capacity.get(domain, 0.0) + slot_capacity
+    return capacity, active_counts
+
+
+def _domain_lane_code(domain: str) -> str:
+    token = re.sub(r"[^a-z0-9]+", "-", domain.lower()).strip("-")
+    token = token.replace("-", "")
+    return token[:12].upper() or "GEN"
+
+
+def build_expert_generator(
+    states: list[DomainState],
+    recommended_alloc: dict[str, int],
+    dispatchable_capacity: dict[str, float],
+    domain_expert_capacity: dict[str, float],
+    domain_expert_active_counts: dict[str, int],
+    current_session: int,
+) -> dict:
+    """Emit spawn requests when recommended slots exceed current expert coverage."""
+    by_name = {s.name: s for s in states}
+    requests: list[dict] = []
+    total_experts = 0
+
+    ranked_domains = sorted(
+        recommended_alloc.keys(),
+        key=lambda name: (recommended_alloc.get(name, 0), name),
+        reverse=True,
+    )
+    for domain in ranked_domains:
+        requested_slots = int(recommended_alloc.get(domain, 0))
+        if requested_slots <= 0:
+            continue
+        st = by_name.get(domain)
+        if st is None:
+            continue
+
+        total_capacity = float(dispatchable_capacity.get(domain, 0.0))
+        expert_capacity = float(domain_expert_capacity.get(domain, 0.0))
+        expert_active = int(domain_expert_active_counts.get(domain, 0))
+
+        total_shortfall = max(0.0, requested_slots - total_capacity)
+        expert_shortfall = max(0.0, requested_slots - expert_capacity)
+        if total_shortfall <= 0.0 and expert_shortfall <= 0.0 and expert_active > 0:
+            continue
+
+        spawn_count = int(max(1, math.ceil(max(total_shortfall, expert_shortfall))))
+        total_experts += spawn_count
+
+        frontier_hint = "/".join(st.active_frontiers[:2]) if st.active_frontiers else "none"
+        lane_code = _domain_lane_code(domain)
+        lane_ids = [
+            f"L-S{current_session}-DOMEX-GEN-{lane_code}-{idx + 1}"
+            for idx in range(spawn_count)
+        ]
+
+        triggers: list[str] = []
+        if total_shortfall > 0.0:
+            triggers.append("dispatch_capacity_shortfall")
+        if expert_shortfall > 0.0:
+            triggers.append("domain_expert_coverage_shortfall")
+        if expert_active <= 0:
+            triggers.append("no_active_domain_expert_lane")
+
+        requests.append(
+            {
+                "domain": domain,
+                "requested_slots": requested_slots,
+                "dispatchable_capacity": round(total_capacity, 3),
+                "domain_expert_capacity": round(expert_capacity, 3),
+                "active_domain_expert_lanes": expert_active,
+                "spawn_count": spawn_count,
+                "trigger_reasons": triggers,
+                "lane_ids": lane_ids,
+                "scope_key": st.frontier_path,
+                "etc_template": (
+                    f"setup=<swarm-setup>, focus=domains/{domain}, frontier={frontier_hint}, "
+                    f"dispatch=expert-generator-s{current_session}, progress=queued, "
+                    "available=yes, blocked=none, next_step=execute-domain-expert-lane, "
+                    f"human_open_item=none, domain_sync=queued, memory_target={st.frontier_path}"
+                ),
+            }
+        )
+
+    return {
+        "spawn_required": bool(requests),
+        "triggered_domains": len(requests),
+        "total_new_experts": total_experts,
+        "requests": requests,
+    }
+
+
 def compute_automability(
     allocations: dict[str, int],
     dispatchable_capacity: dict[str, float],
@@ -395,17 +632,24 @@ def policy_score(policy: str, state: DomainState) -> float:
             + state.age_sessions
             + state.next_mentions
             + 1.25 * state.finding_mentions
+            + 0.75 * state.knowledge_mentions
             - state.active_lane_pressure
         )
     if policy == "value_density":
         # Value per expected coordination unit.
-        value = 3.0 * state.next_priority_weight + 2.0 * state.finding_priority_weight + len(state.active_frontiers)
+        value = (
+            3.0 * state.next_priority_weight
+            + 2.0 * state.finding_priority_weight
+            + 1.5 * state.knowledge_priority_weight
+            + len(state.active_frontiers)
+        )
         return value / (1.0 + state.active_lane_pressure)
     if policy == "hybrid":
         # Balanced policy: demand + findings + load + freshness normalized by lane pressure.
         value = (
             2.0 * state.next_priority_weight
             + 1.5 * state.finding_priority_weight
+            + state.knowledge_priority_weight
             + len(state.active_frontiers)
             + 0.5 * state.age_sessions
         )
@@ -468,6 +712,7 @@ def evaluate_policy(
         value_proxy = (
             3.0 * st.next_priority_weight
             + 2.0 * st.finding_priority_weight
+            + 1.2 * st.knowledge_priority_weight
             + len(st.active_frontiers)
             + 0.5 * st.age_sessions
         )
@@ -589,14 +834,25 @@ def main() -> int:
         frontier_to_domain,
         max_lines=max(1, args.findings_window),
     )
-    lane_pressure = parse_active_lane_pressure(_read(lanes_path), frontier_to_domain)
-    dispatchable_capacity = parse_dispatchable_capacity(_read(lanes_path), frontier_to_domain)
+    knowledge_counts, knowledge_weights = parse_domain_knowledge_demand(
+        next_text,
+        max_finding_lines=max(1, args.findings_window),
+    )
+    lanes_text = _read(lanes_path)
+    lane_pressure = parse_active_lane_pressure(lanes_text, frontier_to_domain)
+    dispatchable_capacity = parse_dispatchable_capacity(lanes_text, frontier_to_domain)
+    domain_expert_capacity, domain_expert_active_counts = parse_domain_expert_coverage(
+        lanes_text,
+        frontier_to_domain,
+    )
 
     for st in states:
         st.next_mentions = mention_counts.get(st.name, 0)
         st.next_priority_weight = mention_weights.get(st.name, 0.0)
         st.finding_mentions = finding_counts.get(st.name, 0)
         st.finding_priority_weight = finding_weights.get(st.name, 0.0)
+        st.knowledge_mentions = knowledge_counts.get(st.name, 0)
+        st.knowledge_priority_weight = knowledge_weights.get(st.name, 0.0)
         st.active_lane_pressure = lane_pressure.get(st.name, 0)
 
     selected_policies = list(POLICIES) if args.policy == "all" else [args.policy]
@@ -639,6 +895,14 @@ def main() -> int:
     )
     recommended_alloc = policy_payload[recommended_policy]["allocations"]
     recommended_plan = build_slot_plan(states, recommended_alloc, recommended_policy)
+    expert_generator = build_expert_generator(
+        states,
+        recommended_alloc,
+        dispatchable_capacity=dispatchable_capacity,
+        domain_expert_capacity=domain_expert_capacity,
+        domain_expert_active_counts=domain_expert_active_counts,
+        current_session=current_session,
+    )
 
     payload = {
         "session": current_session,
@@ -658,9 +922,18 @@ def main() -> int:
         "dispatchable_capacity": {
             domain: round(cap, 3) for domain, cap in sorted(dispatchable_capacity.items()) if cap > 0
         },
+        "domain_expert_coverage": {
+            "dispatchable_capacity": {
+                domain: round(cap, 3) for domain, cap in sorted(domain_expert_capacity.items()) if cap > 0
+            },
+            "active_lane_count": {
+                domain: count for domain, count in sorted(domain_expert_active_counts.items()) if count > 0
+            },
+        },
         "policies": policy_payload,
         "recommended_policy": recommended_policy,
         "recommended_plan": recommended_plan,
+        "expert_generator": expert_generator,
     }
 
     if args.json_out is not None:
@@ -678,6 +951,12 @@ def main() -> int:
         f"effective_net={rec_metrics['effective_net_score']:.3f} "
         f"gain={rec_metrics['projected_gain']:.3f} risk={rec_metrics['collision_risk']:.3f}"
     )
+    if expert_generator["spawn_required"]:
+        print(
+            "expert_generator="
+            f"spawn_required domains={expert_generator['triggered_domains']} "
+            f"new_experts={expert_generator['total_new_experts']}"
+        )
     return 0
 
 

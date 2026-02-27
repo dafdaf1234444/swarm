@@ -19,6 +19,17 @@ class TestWikiSwarm(unittest.TestCase):
         self.assertTrue(wiki_swarm.is_generic_invocation("wiki swarm"))
         self.assertTrue(wiki_swarm.is_generic_invocation("swarm the wiki swarm"))
         self.assertTrue(wiki_swarm.is_generic_invocation("Swarm, the wiki swarm!"))
+        self.assertTrue(
+            wiki_swarm.is_generic_invocation("swarm expert builder to swarm the swarm")
+        )
+        self.assertTrue(
+            wiki_swarm.is_generic_invocation(
+                "swarm domain expert on the swarm command to swarm it swarmer"
+            )
+        )
+
+    def test_generic_invocation_does_not_capture_specific_topic(self):
+        self.assertFalse(wiki_swarm.is_generic_invocation("swarm intelligence"))
 
     def test_main_uses_auto_for_generic_phrase(self):
         with patch.object(

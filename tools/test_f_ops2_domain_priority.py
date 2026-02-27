@@ -80,6 +80,49 @@ S185: F-EVO2 baseline merged.
         self.assertAlmostEqual(capacity.get("finance", 0.0), 1.5)
         self.assertAlmostEqual(capacity.get("information-science", 0.0), 1.0)
 
+    def test_parse_domain_expert_coverage_filters_to_domex_lanes(self):
+        lanes_text = """| Date | Lane | Session | Agent | Branch | PR | Model | Platform | Scope-Key | Etc | Status | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2026-02-27 | L-S186-DOMEX-AI | S186 | codex | local | - | GPT-5 | codex-cli | domains/ai/tasks/FRONTIER.md | setup=x; available=yes; blocked=none; dispatch=domain-expert-swarm-s186 | READY | a |
+| 2026-02-27 | L-S186-DOMEX-AI | S186 | codex | local | - | GPT-5 | codex-cli | domains/ai/tasks/FRONTIER.md | setup=x; available=partial; blocked=none; dispatch=domain-expert-swarm-s186 | ACTIVE | b |
+| 2026-02-27 | L-S186-DOMEX-OPS | S186 | codex | local | - | GPT-5 | codex-cli | domains/operations-research/tasks/FRONTIER.md | setup=x; available=yes; blocked=await-human; dispatch=domain-expert-swarm-s186 | READY | c |
+| 2026-02-27 | L-OTHER | S186 | codex | local | - | GPT-5 | codex-cli | domains/ai/tasks/FRONTIER.md | setup=x; available=yes; blocked=none | READY | d |
+"""
+        capacity, active_counts = mod.parse_domain_expert_coverage(lanes_text, {})
+        self.assertAlmostEqual(capacity.get("ai", 0.0), 0.5)
+        self.assertEqual(active_counts.get("ai"), 1)
+        self.assertEqual(active_counts.get("operations-research"), 1)
+        self.assertNotIn("operations-research", capacity)
+
+    def test_build_expert_generator_flags_shortfall(self):
+        states = [
+            mod.DomainState(
+                name="ai",
+                frontier_path="domains/ai/tasks/FRONTIER.md",
+                active_frontiers=["F-AI1", "F-AI2"],
+                updated_session=186,
+                age_sessions=0,
+                next_mentions=2,
+                next_priority_weight=6.0,
+                active_lane_pressure=0,
+            )
+        ]
+        generator = mod.build_expert_generator(
+            states,
+            recommended_alloc={"ai": 2},
+            dispatchable_capacity={"ai": 0.0},
+            domain_expert_capacity={"ai": 0.0},
+            domain_expert_active_counts={},
+            current_session=186,
+        )
+        self.assertTrue(generator["spawn_required"])
+        self.assertEqual(generator["triggered_domains"], 1)
+        self.assertGreaterEqual(generator["total_new_experts"], 1)
+        req = generator["requests"][0]
+        self.assertIn("no_active_domain_expert_lane", req["trigger_reasons"])
+        self.assertIn("dispatch_capacity_shortfall", req["trigger_reasons"])
+        self.assertTrue(req["lane_ids"][0].startswith("L-S186-DOMEX-GEN-AI"))
+
     def test_compute_automability_uses_capacity_cap(self):
         allocations = {"finance": 2, "information-science": 1, "ai": 1}
         dispatchable_capacity = {"finance": 1.5, "information-science": 0.5}
