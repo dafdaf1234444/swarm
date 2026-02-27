@@ -2,6 +2,8 @@
 Updated: 2026-02-27 S166
 
 ## What just happened
+S166: F120 filed: swarm entry protocol generalizability — `/swarm` command assumes this repo's structure; user signal indicates swarm will be invoked in many places on many knowledge domains; protocol breaks in foreign repos. Open: detect swarm context, adapt or bootstrap. Related: F119, F110. Frontier 14→15.
+S166: health-check periodic (cadence 5, running 1 session early at S166): score 4.5/5 — Knowledge/Accuracy/Belief/Throughput HEALTHY; Compactness WATCH (dirty-tree proxy-K 40,559t ~70% above floor 23,916; NOTICE-only from maintenance). Advanced health-check marker S162→S166.
 S166: L-208 written: concurrent node convergence — greedy top-score selection caused 3 of 4 concurrent sessions to pick identical wiki topic ("Swarm intelligence", state-score=28); no reservation mechanism existed. Rule: prefer weighted random or broadcast intent before starting. Links: P-159 (fitness ranking), F119 (coordination invariants).
 S165: setup-hygiene: `.claude/settings.json` and `.claude/commands/swarm.md` were deleted from disk (hooks broken, /swarm command missing); restored both from git HEAD; advanced fundamental-setup-reswarm S159→S165.
 S165: claim-vs-evidence audit follow-through: resolved 3 OPEN challenges filed by concurrent session — PHIL-3 REFINED (type upgraded from theorized→observed; within-session self-direction CONFIRMED, cross-session initiation gap noted), PHIL-8 REFINED (prose updated from "dynamic equilibrium" to "managed growth"; type upgraded to observed; +69% proxy-K rise is the evidence), PHIL-13 REFINED (competitive deception risk from P-155/L-207 acknowledged; structural defenses partial). 15 total challenges, confirmed-only ratio 20%.
