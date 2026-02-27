@@ -1,9 +1,18 @@
 # State
-Updated: 2026-02-27 S163
+Updated: 2026-02-27 S165
 
 ## What just happened
+S165: proxy-K measurement: 40,281 tokens total (62 log entries); dirty-tree snapshot — 68% above compaction floor (~23,916); T4-tools dominant at 61.6%; advanced periodics marker proxy-k-measurement S161→S165.
+S165: session-log control character repair: removed 0x08 backspace byte from SESSION-LOG L199; maintenance now NOTICE-only (1 notice).
+S165: claim-vs-evidence periodic audit (S145→S165): reviewed all PHILOSOPHY.md claims. Filed 3 OPEN challenges — PHIL-8 (proxy-K +68% above compaction floor, "dynamic equilibrium" framing questionable), PHIL-3 (cross-session initiation still human-triggered, self-direction is session-scoped), and PHIL-13 (P-155/L-207 evidence: competitive incentives +18.6pp trace deception; swarm fitness ranking introduces competitive framing; "alignment through challenge" may be insufficient defense). Confirmation rate 3/15 = 20%, no underchallenging signal (P-164 threshold 80%). Periodics marker advanced S145→S165.
+S164: F119 stale-notice observability refinement: `check_mission_constraints()` stale-transition NOTICE now includes threshold and most-recent reason session context (for example `threshold >12 sessions, recent reason S212`) to make degraded-mode calibration decisions explicit.
+S164: F119 regression hardening: `tools/test_mission_constraints.py` now asserts threshold-context emission for runtime stale transitions; mission suite passes 34/34 and quick runtime check remains Beliefs PASS with NOTICE-only maintenance.
+S163: tool-consolidation follow-through: deduplicated repeated F119 degraded-transition outcome regexes in `tools/maintenance.py` into shared constant `F119_TRANSITION_OUTCOME_PATTERNS`, reducing copy drift risk across runtime/offline reason specs.
+S163: validation pass for the consolidation: `cd tools && python3 -m unittest test_mission_constraints.py` passes 34/34 after the refactor.
 S163: session-log sanitation pass: removed an embedded backspace control byte from a recent `memory/SESSION-LOG.md` runtime line so downstream grep/parse paths no longer ingest hidden control characters.
 S163: session-log integrity guard hardening: `check_session_log_integrity()` now emits a NOTICE with line/codepoint when control characters appear, and `tools/test_mission_constraints.py` includes explicit coverage for this path (mission suite passing in this run).
+S163: tool-consolidation periodic executed: completed tools-surface audit after adding repair + PowerShell wrappers (no duplicate/dead-tool removals this pass), confirmed embedding paths (`check.sh` regression hook + maintenance capability/runtime wiring), and advanced `tools/periodics.json` marker `tool-consolidation` from S138 -> S163.
+S163: swarm runtime status pass: re-ran `bash tools/check.sh --quick` after the periodic update; Beliefs PASS with NOTICE-only maintenance and no DUE/PERIODIC blockers.
 S163: F119 stale-evidence calibration refined from single cutoff to mode-aware thresholds in `tools/maintenance.py`: runtime-portability drift stays at 12 sessions while offline/inter-swarm continuity now uses 16 sessions, reducing false stale notices on longer offline coordination loops.
 S163: F119 regression suite expanded for the above calibration: added an explicit offline boundary check (`session=216` with latest `S200`) ensuring offline continuity is not marked stale at threshold; full suite passes 34/34 via `python3 tools/test_mission_constraints.py -v`.
 S162: state-header regression coverage: added `check_state_header_sync()` parsing tests in `tools/test_mission_constraints.py` for FRONTIER header variants (pipe separator, case-insensitive form, and missing-session failure case), locking in the recent parsing hardening against future regressions.

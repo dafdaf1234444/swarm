@@ -484,31 +484,39 @@ class TestMissionConstraintDegradedRuntime(unittest.TestCase):
         self.assertTrue(any("offline continuity artifacts missing" in msg for _, msg in results))
 
     def test_runtime_portability_stale_transition_is_flagged_with_recent_reason_signal(self):
+        base_session = 200
+        stale_limit = maintenance.F119_STALE_EVIDENCE_SESSIONS["python-alias-missing"]
+        current_session = base_session + stale_limit + 1
+        recent_reason_session = current_session - 1
         lines = [
             "F119 validation pass",
-            "S200: runtime portability no runnable python alias; fallback via bash tools/check.sh --quick; Beliefs PASS NOTICE-only",
+            f"S{base_session}: runtime portability no runnable python alias; fallback via bash tools/check.sh --quick; Beliefs PASS NOTICE-only",
         ]
         results = self._run_check(
             next_lines=lines,
-            session_log_lines=lines + ["S212: runtime portability python alias still missing on this host"],
-            session=213,
+            session_log_lines=lines + [f"S{recent_reason_session}: runtime portability python alias still missing on this host"],
+            session=current_session,
             python_status={"python3": False, "python": False},
             py_launcher=False,
             bash_available=True,
         )
         stale_msgs = [msg for _, msg in results if "runtime portability degraded transition evidence stale" in msg]
         self.assertTrue(stale_msgs)
-        self.assertTrue(any("threshold >12 sessions" in msg for msg in stale_msgs))
+        self.assertTrue(any(f"threshold >{stale_limit} sessions" in msg for msg in stale_msgs))
 
     def test_offline_continuity_stale_transition_is_flagged_with_recent_reason_signal(self):
+        base_session = 200
+        stale_limit = maintenance.F119_STALE_EVIDENCE_SESSIONS["inter-swarm-tooling-missing"]
+        current_session = base_session + stale_limit + 1
+        recent_reason_session = current_session - 1
         lines = [
             "F119 validation pass",
-            "S200: inter-swarm continuity offline queue sync via tasks/PR-QUEUE.json and tasks/SWARM-LANES.md; Beliefs PASS NOTICE-only",
+            f"S{base_session}: inter-swarm continuity offline queue sync via tasks/PR-QUEUE.json and tasks/SWARM-LANES.md; Beliefs PASS NOTICE-only",
         ]
         results = self._run_check(
             next_lines=lines,
-            session_log_lines=lines + ["S212: inter-swarm continuity offline mode on constrained host"],
-            session=217,
+            session_log_lines=lines + [f"S{recent_reason_session}: inter-swarm continuity offline mode on constrained host"],
+            session=current_session,
             python_status={"python3": True, "python": False},
             py_launcher=False,
             bash_available=True,
@@ -518,17 +526,22 @@ class TestMissionConstraintDegradedRuntime(unittest.TestCase):
                 "tools/propagate_challenges.py": False,
             },
         )
-        self.assertTrue(any("offline/inter-swarm continuity degraded transition evidence stale" in msg for _, msg in results))
+        stale_msgs = [msg for _, msg in results if "offline/inter-swarm continuity degraded transition evidence stale" in msg]
+        self.assertTrue(stale_msgs)
+        self.assertTrue(any(f"threshold >{stale_limit} sessions" in msg for msg in stale_msgs))
 
     def test_runtime_portability_stale_transition_is_suppressed_without_recent_reason_signal(self):
+        base_session = 200
+        stale_limit = maintenance.F119_STALE_EVIDENCE_SESSIONS["python-alias-missing"]
+        current_session = base_session + stale_limit + 8
         lines = [
             "F119 validation pass",
-            "S200: runtime portability no runnable python alias; fallback via bash tools/check.sh --quick; Beliefs PASS NOTICE-only",
+            f"S{base_session}: runtime portability no runnable python alias; fallback via bash tools/check.sh --quick; Beliefs PASS NOTICE-only",
         ]
         results = self._run_check(
             next_lines=lines,
             session_log_lines=lines,
-            session=220,
+            session=current_session,
             python_status={"python3": False, "python": False},
             py_launcher=False,
             bash_available=True,
@@ -536,14 +549,17 @@ class TestMissionConstraintDegradedRuntime(unittest.TestCase):
         self.assertFalse(any("runtime portability degraded transition evidence stale" in msg for _, msg in results))
 
     def test_offline_continuity_stale_transition_is_suppressed_without_recent_reason_signal(self):
+        base_session = 200
+        stale_limit = maintenance.F119_STALE_EVIDENCE_SESSIONS["inter-swarm-tooling-missing"]
+        current_session = base_session + stale_limit + 8
         lines = [
             "F119 validation pass",
-            "S200: inter-swarm continuity offline queue sync via tasks/PR-QUEUE.json and tasks/SWARM-LANES.md; Beliefs PASS NOTICE-only",
+            f"S{base_session}: inter-swarm continuity offline queue sync via tasks/PR-QUEUE.json and tasks/SWARM-LANES.md; Beliefs PASS NOTICE-only",
         ]
         results = self._run_check(
             next_lines=lines,
             session_log_lines=lines,
-            session=220,
+            session=current_session,
             python_status={"python3": True, "python": False},
             py_launcher=False,
             bash_available=True,
@@ -556,14 +572,17 @@ class TestMissionConstraintDegradedRuntime(unittest.TestCase):
         self.assertFalse(any("offline/inter-swarm continuity degraded transition evidence stale" in msg for _, msg in results))
 
     def test_runtime_portability_transition_at_threshold_is_not_stale(self):
+        base_session = 200
+        stale_limit = maintenance.F119_STALE_EVIDENCE_SESSIONS["python-alias-missing"]
+        current_session = base_session + stale_limit
         lines = [
             "F119 validation pass",
-            "S200: runtime portability no runnable python alias; fallback via bash tools/check.sh --quick; Beliefs PASS NOTICE-only",
+            f"S{base_session}: runtime portability no runnable python alias; fallback via bash tools/check.sh --quick; Beliefs PASS NOTICE-only",
         ]
         results = self._run_check(
             next_lines=lines,
             session_log_lines=lines,
-            session=212,
+            session=current_session,
             python_status={"python3": False, "python": False},
             py_launcher=False,
             bash_available=True,
@@ -571,14 +590,17 @@ class TestMissionConstraintDegradedRuntime(unittest.TestCase):
         self.assertFalse(any("runtime portability degraded transition evidence stale" in msg for _, msg in results))
 
     def test_offline_continuity_transition_at_threshold_is_not_stale(self):
+        base_session = 200
+        stale_limit = maintenance.F119_STALE_EVIDENCE_SESSIONS["inter-swarm-tooling-missing"]
+        current_session = base_session + stale_limit
         lines = [
             "F119 validation pass",
-            "S200: inter-swarm continuity offline queue sync via tasks/PR-QUEUE.json and tasks/SWARM-LANES.md; Beliefs PASS NOTICE-only",
+            f"S{base_session}: inter-swarm continuity offline queue sync via tasks/PR-QUEUE.json and tasks/SWARM-LANES.md; Beliefs PASS NOTICE-only",
         ]
         results = self._run_check(
             next_lines=lines,
             session_log_lines=lines,
-            session=216,
+            session=current_session,
             python_status={"python3": True, "python": False},
             py_launcher=False,
             bash_available=True,

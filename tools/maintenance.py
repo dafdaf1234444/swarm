@@ -109,6 +109,13 @@ F119_STALE_EVIDENCE_SESSIONS = {
     "python-alias-missing": 12,
     "inter-swarm-tooling-missing": 16,
 }
+F119_TRANSITION_OUTCOME_PATTERNS = (
+    r"Beliefs:? PASS",
+    r"NOTICE-only",
+    r"no DUE",
+    r"no URGENT",
+    r"verification pass",
+)
 # Only emit stale degraded-transition notices when there is recent reason-only
 # activity (prevents noisy reminders for long-lived, unchanged degraded runtimes).
 F119_RECENT_REASON_ACTIVITY_WINDOW = 6
@@ -1372,13 +1379,7 @@ def check_mission_constraints() -> list[tuple[str, str]]:
                     r"python3 tools/maintenance\.py --inventory",
                     r"py -3",
                 ),
-                "outcome_patterns": (
-                    r"Beliefs:? PASS",
-                    r"NOTICE-only",
-                    r"no DUE",
-                    r"no URGENT",
-                    r"verification pass",
-                ),
+                "outcome_patterns": F119_TRANSITION_OUTCOME_PATTERNS,
             },
             "inter-swarm-tooling-missing": {
                 "label": "offline/inter-swarm continuity",
@@ -1393,13 +1394,7 @@ def check_mission_constraints() -> list[tuple[str, str]]:
                     r"tasks/PR-QUEUE\.json",
                     r"tasks/SWARM-LANES\.md",
                 ),
-                "outcome_patterns": (
-                    r"Beliefs:? PASS",
-                    r"NOTICE-only",
-                    r"no DUE",
-                    r"no URGENT",
-                    r"verification pass",
-                ),
+                "outcome_patterns": F119_TRANSITION_OUTCOME_PATTERNS,
             },
         }
 
@@ -1912,6 +1907,8 @@ def build_inventory() -> dict:
         "inter_swarm": _tools("bulletin.py", "merge_back.py", "propagate_challenges.py"),
         "compaction": _tools("compact.py", "proxy_k.py", "frontier_decay.py"),
         "analysis": _tools("nk_analyze.py", "nk_analyze_go.py", "wiki_swarm.py"),
+        "benchmarks": _tools("f92_benchmark.py", "f92_real_coop_benchmark.py", "spawn_quality.py", "p155_live_trace.py"),
+        "support": _tools("swarm_parse.py", "novelty.py", "validate_beliefs_extras.py"),
     }
     commands = {
         "python3": _python_command_runs("python3"),

@@ -11,7 +11,7 @@
       "id": "tool-consolidation",
       "description": "Tool consolidation: audit tools/ for duplicates, dead code, lost-embedding (P-134)",
       "cadence_sessions": 25,
-      "last_reviewed_session": 138,
+      "last_reviewed_session": 163,
       "registered_by": "S69"
     },
     {
@@ -32,14 +32,14 @@
       "id": "proxy-k-measurement",
       "description": "Measure proxy K (python tools/proxy_k.py --save): track bootstrap description length across sessions (F116, PHIL-8)",
       "cadence_sessions": 10,
-      "last_reviewed_session": 161,
+      "last_reviewed_session": 165,
       "registered_by": "S75"
     },
     {
       "id": "claim-vs-evidence-audit",
       "description": "Gap audit: test each PHILOSOPHY.md claim against git history, session log, and quantitative evidence. File challenges for any claim where evidence contradicts the stated belief. P-164: confirmation rate >80% = underchallenging signal.",
       "cadence_sessions": 20,
-      "last_reviewed_session": 145,
+      "last_reviewed_session": 165,
       "registered_by": "S81b"
     },
     {
