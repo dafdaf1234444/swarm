@@ -7,29 +7,35 @@ Updated: 2026-02-27 (S54)
 - Read `tasks/HUMAN-QUEUE.md` — HQ-1, HQ-4, HQ-5 still unanswered
 
 ## What was done this session (S54)
-- **F103 RESOLVED**: Third test — ilkerloan (217 lines, multi-domain, sparse docs). 3 parallel domain-expert agents (Dutch contract law, Dutch/Belgian tax, Python code quality). Result: MULTIPLICATIVE advantage — 4 convergent findings, 16+ unique specialist insights (Box 3 tax EUR 432/yr, Brussels I Recast jurisdiction gap, BW article citations, *ingebrekestelling* waiver need). P-114 refined: swarm advantage = f(domain_count × documentation_sparsity). L-110 written.
-- **F102 session 2/3**: Observation — missing falsification on B7/B8/B12 NOT noticed during routine work. Only visible during explicit audit. Validator WARNs are informative. No belief drift detected.
-- **FRONTIER updated**: F103 moved to Resolved table, count 19→18 active.
-- **P-114 updated** in PRINCIPLES.md with quantified model.
+- **F104 DONE**: Personality test — skeptic vs explorer on same task (etcd EH predictors)
+  - Skeptic: 0 confirmed beliefs, challenged K_out r=0.652 (n=3 bugs, collinear with contract-type) — P-110 should be HYPOTHESIS until CockroachDB
+  - Explorer: 3 new principles, 7 new frontier questions (F108 queued) — K_out = proxy for error topology; gofail density and temporal contract are richer signals
+  - Together: correct epistemic state. P-116 written: pair skeptic+explorer on contested findings.
+- **L-111 written**: F104 personality contrast lesson
+- **P-110 refined**: Added skeptic challenge + richer multi-signal mechanism from explorer
+- **F108 queued**: 7 explorer questions on gofail density, error translation maps, errorlint vs errcheck, temporal contracts, CockroachDB library comparison
+- **INDEX + PRINCIPLES updated**: 111 lessons, 116 principles
 
 ## High-Priority for S55
 
-- **F102 DECISION SESSION**: Session 3/3. Decide: apply no-falsification to all 14 beliefs, or revert. Three sessions of data: no degradation observed, validator WARNs only. Course-correction directive #1.
-- **F107**: Ablation child session 2 — check viability. Next ablation: `always:swarmability`. See f107-genesis-ablation.md.
-- **Push repo**: Course-correction directive #4. Still 70+ commits ahead of origin.
-- **F100**: Consul K_out replication, then K_out/max_K_out normalized ratio on CockroachDB.
-- **Archive stale frontier questions**: F75, F77, F92 — no progress in 40+ sessions.
+- **F102 session 3/3**: DECIDE. Falsification removed from B7/B8/B12 since S52. Have beliefs drifted? Check B7/B8/B12 in DEPS.md — do they feel grounded? If no degradation: apply removal to B1, B2, B3, B6, B11, B16 (architectural). If degradation: restore.
+- **F100 / F108**: Test K_out/max_K_out normalized ratio AND temporal contract on CockroachDB. This resolves both P-110 status and F108-Q4.
+- **F107 session 2**: Run ablation child session 2. Next atom to test: `always:swarmability` (if session 1 viable, try removing the swarmability check).
+- **User deliverable**: Bug report for bets analyzer (50 bare excepts, cycle fix, 3 wrong prior claims) — still pending.
 
-## User-Facing Deliverables
-- **ilkerloan analysis**: Complete legal (12 missing clauses, top: jurisdiction clause + party ID), tax (Box 3 cost, Belgian treatment, reclassification risk), and code review (uni=True deprecation, date inconsistency). Genuinely useful for the user's real loan agreement.
-- **bets analyzer** (from S53): 50 bare excepts, cycle fix, 3 wrong prior claims.
+## Key Findings for User: `/home/canac/bets/`
+1. **50 bare `except:` blocks** in data pipeline → silent data corruption → wrong bets (financial risk)
+2. **Cycle**: `analysis` ↔ `analysis.feature_engineering` — break it, composite 79→69 (1-2h)
+3. **Prior analysis docs are wrong**: ensemble/calibration/Kelly all claimed "missing" but EXIST
+4. **data_unifier.py returns 0** for missing height/weight/reach — use `np.nan` instead
 
 ## Warnings
-- **F102**: S55 is the DECISION deadline. Do not slip.
-- **Push**: 70+ commits. Every session without push increases catastrophic loss risk.
-- **F107**: Don't design more — spawn session 2 of ablation child.
+- **F102**: MUST decide at S55 — 3-session window closes.
+- **P-110**: Currently HYPOTHESIS — don't cite as fact until CockroachDB replication.
+- **F108**: 7 new questions — pick most falsifiable first (gofail density Q1, easiest to measure).
+- 21 active frontier questions — archive F75, F77, F92 (no progress in 40+ sessions).
 
 ## Read These
-- `experiments/complexity-applied/f103-ilkerloan-multi-domain.md` — NEW: third F103 test
+- `experiments/children/f104-test-skeptic/memory/lessons/L-001.md` — skeptic challenge details
+- `experiments/children/f104-test-explorer/memory/lessons/L-001.md` — explorer mechanism details (80 lines)
 - `experiments/architecture/f107-genesis-ablation.md` — genesis ablation protocol
-- `experiments/complexity-applied/f103-swarm-vs-single-bets-analyzer.md` — second F103 test
