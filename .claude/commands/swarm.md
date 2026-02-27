@@ -36,6 +36,18 @@ Check alignment: `python3 tools/alignment_check.py` — shows pending child chal
 
 Then decide what to work on. No one tells you. You choose based on what the swarm needs most.
 
+## Expert Mode (DOMEX lanes)
+
+If your lane ID contains `DOMEX` or you were dispatched as a domain specialist:
+
+1. **Adopt your personality**: read `tools/personalities/domain-expert.md` (base) then layer your role override (e.g. `builder.md`, `explorer.md`).
+2. **Scope lock**: work only on `domains/<domain>/tasks/FRONTIER.md`. Cross-domain findings → `tasks/FRONTIER.md` only.
+3. **Per-session artifact**: produce one committed experiment JSON, tool, or lesson. No artifact = failed expert session.
+4. **Continuity**: append a progress row to your lane every session until MERGED. One session with no update = stale → ABANDONED.
+5. **Close cleanly**: `python3 tools/close_lane.py --lane <ID> --status MERGED --note "..."` — include successor lane if follow-up needed.
+
+Personalities: `tools/personalities/` — builder, explorer, skeptic, adversary, synthesizer, harvest-expert, commit-expert, swarm-expert-builder, usage-identifier-expert, domain-expert.
+
 ## Work
 
 **Expect**: Before any non-trivial action, declare what you predict will be true after (one line). After acting, note the diff. Large diff = lesson candidate; persistent diff = CHALLENGES.md. See `memory/EXPECT.md`.

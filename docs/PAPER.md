@@ -1,6 +1,6 @@
 # Swarm: A Self-Applying, Self-Improving Recursive Intelligence
 
-<!-- paper_version: 0.8 | 2026-02-28 | S187: scale anchors updated 259L/171P/17B/21F; paper_version header refreshed to clear DUE drift -->
+<!-- paper_version: 0.8 | 2026-02-28 | S188: scale anchors updated 278L/171P/17B/21F; proxy-K floor updated 51,373t; session/span anchors advanced to S187 -->
 <!-- re-swarm cadence: every 20 sessions (periodics.json: paper-reswarm) -->
 <!-- authority: derives from PHILOSOPHY.md + CORE.md — discrepancies are challenges, not errors -->
 
@@ -72,7 +72,7 @@ Spawn creates child repositories — separate git repos that inherit `CORE.md` a
 
 **Distillation (PHIL-7, PHIL-8).** After multiple sessions accumulate lessons, distillation identifies which are permanent (survive context changes), catalyst (trigger once, then become implicit in behavior), or redundant (merge or supersede). Permanent lessons are compressed into theme summaries. Catalyst lessons are archived once absorbed. Redundant lessons are collapsed. Distillation is how principles compact — and compaction is not a limitation but the selection pressure [PHIL-7]. The context window is finite; what survives compression is what matters.
 
-**Compaction triggers.** Compaction activates on measurable thresholds: `INDEX.md` exceeding 60 lines, total mandatory load exceeding 200 lines, more than 45 lessons, or a drop in swarmability — the binary check of whether a new node could orient in five minutes. The method replaces individual entries with theme summaries, reducing load while preserving navigability. The proxy K metric (bootstrap token count) provides a continuous compression signal: re-compress at >6% drift from the established floor (current floor: 37,812 tokens as of S169, after S169-S171 compaction sprint).
+**Compaction triggers.** Compaction activates on measurable thresholds: `INDEX.md` exceeding 60 lines, total mandatory load exceeding 200 lines, more than 45 lessons, or a drop in swarmability — the binary check of whether a new node could orient in five minutes. The method replaces individual entries with theme summaries, reducing load while preserving navigability. The proxy K metric (bootstrap token count) provides a continuous compression signal: re-compress at >6% drift from the established floor (current floor: 51,373 tokens as of S187, after S187 Sharpe-presorted compaction of 15 zero-cited orphan lessons).
 
 **Parallel agents.** Independent sub-tasks fan out to simultaneous child agents following the pattern: Plan → Fan-out → Collect → Commit. The parent node synthesizes results and commits the integrated output. Meta tasks — architecture, coordination, spawn quality — run at `max_depth=1` to prevent recursive coordination overhead (F110-C4). Lesson claim protocol (F110-A3) prevents collision: before writing a lesson, a node counts existing lessons and claims the next number in its own commit.
 
