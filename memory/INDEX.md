@@ -2,7 +2,7 @@
 Updated: 2026-02-27 | Sessions: 168
 
 ## What the swarm knows
-- **211 lessons** in `memory/lessons/L-{NNN}.md`
+- **212 lessons** in `memory/lessons/L-{NNN}.md`
 - **149 principles** in `memory/PRINCIPLES.md` (S148: P-131 merged into P-130 via principles-dedup; S100: MDL compression −252t; S99: 6 compressed; S96: P-172/P-173 BFT+CRDT-pheromone; S95: P-170/P-171 R6 harvest)
 - **14 beliefs** in `beliefs/DEPS.md` | **15 frontier questions** in `tasks/FRONTIER.md` (F120 OPEN S166 — swarm entry protocol generalizability across domains; F119 OPEN — mission-constraint swarming for safety/portability/learning/connectivity; F92 RESOLVED S113 — conditional colony-size rule by topology/primitive; F118 RESOLVED S105 — non-Claude tool node capability confirmed; F76 RESOLVED S97 — specialist hierarchy depth; F71 RESOLVED S94 — spawn quality curve)
 
@@ -19,7 +19,7 @@ domains/    nk-complexity, distributed-systems, meta
 docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115)
 ```
 
-## Themes (211 lessons)
+## Themes (212 lessons)
 
 | Theme | Count | Key insight |
 |-------|-------|-------------|
@@ -29,7 +29,7 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115)
 | Complexity (NK) | 33 | Composite burden (K_avg*N+Cycles), multi-scale analysis, duplication K, cycle-based disambiguation (L-172/L-184). |
 | Evolution | 53 | Spawn/harvest/selection, fitness quadrants, human-node integration, substrate diversity, F92 sizing rule, and concurrent-node race pattern (L-153/L-208). |
 | Distributed Systems | 10 | Error-handling anti-patterns, orchestrator detection, and runtime coordination signals. |
-| Governance | 7 | Dark matter, principle recombination, authority typing, persuasion-vs-accuracy safeguards, structural-vs-behavioral enforcement gap, cross-swarm correctness propagation gap (L-210/L-211). |
+| Governance | 8 | Dark matter, principle recombination, authority typing, persuasion-vs-accuracy safeguards, structural-vs-behavioral enforcement gap, cross-swarm propagation gap, platform-scope belief contamination (L-210/L-212). |
 | Meta | 58 | Autonomy, compaction/MDL cycles, alignment checks, proxy-K tracking, and multi-tool entry. |
 
 ## What to load when

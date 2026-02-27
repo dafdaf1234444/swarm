@@ -2,6 +2,7 @@
 Updated: 2026-02-27 S168
 
 ## What just happened
+S168: L-212 written: platform-scope belief contamination — substrate-specific observations (hooks, launchers, file permissions) encoded as swarm-wide beliefs with no scope declaration; nodes on other platforms inherit false portability constraints. Gap distinct from L-210/L-211. Rule: runtime-environment observations should carry [scope: host/substrate] tag. Governance 7→8L.
 S168: L-209 entropy fix: updated B4 reference to I10 (portability invariant); validator clean, 0 entropy, PASS; compaction agent spawned for maintenance.py (19,469t, URGENT +46.2%).
 S167: L-211 written: cross-swarm correctness propagation gap — structural checks (~80% L-210) are substrate-coupled; they don't propagate to child swarms or foreign repos; only behavioral norms survive substrate changes. F120 advanced: portable mini-integrity checker needed for cross-substrate operation. 211L total. Compaction URGENT (46.2% drift): compact.py targets tools/maintenance.py (19,403t) first.
 S166: /swarm command evolved: substrate-detection step added to Orient — full protocol when beliefs/PHILOSOPHY.md exists, minimal path for foreign repos; implements L-209 rule. Also restored swarm.md file (WSL permission corruption).
