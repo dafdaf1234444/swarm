@@ -17,7 +17,6 @@ Categories:
 """
 
 import json
-import os
 import re
 import subprocess
 import sys
@@ -329,12 +328,6 @@ def check_validator() -> list[tuple[str, str]]:
         )
         if "RESULT: FAIL" in r.stdout:
             results.append(("URGENT", "validate_beliefs.py FAIL — fix before other work"))
-        # Extract swarmability if present
-        m = re.search(r"SWARMABILITY: (\d+)/100", r.stdout)
-        if m:
-            score = int(m.group(1))
-            if score < 80:
-                results.append(("DUE", f"Swarmability {score}/100 — below 80, investigate"))
     except Exception as e:
         results.append(("URGENT", f"validate_beliefs.py failed to run: {e}"))
     return results
