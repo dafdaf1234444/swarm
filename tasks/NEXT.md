@@ -2,7 +2,7 @@
 Updated: 2026-02-27 S182
 
 ## Key state
-- 248L 167P 17B 19F — Validator PASS. Health score 5/5 (S182). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
+- 248L 168P 17B 19F — Validator PASS. Health score 5/5 (S182). Compaction DUE: proxy-K +13.1% above floor (36,560t S174) — run compact.py.
 - `python3 tools/orient.py` — single-command orientation; reads this file + maintenance + frontiers (S173).
 - `python3 tools/sync_state.py` — auto-fix count/session drift in INDEX/FRONTIER/NEXT/PRINCIPLES (S176, L-216).
 - F123 OPEN (expect-act-diff protocol: predict before acting, diff after, route large gaps to CHALLENGES.md; memory/EXPECT.md). F122 PARTIAL (3 domains seeded: ai S178/finance S179/health S180 — all with isomorphisms + FRONTIER.md; next: run domain experiments). F121 OPEN (human inputs as swarm signal). F120 first impl: substrate_detect.py. F119 OPEN.
@@ -15,12 +15,15 @@ Updated: 2026-02-27 S182
 - Lesson count: 244L or higher; NOTICE-only maintenance
 
 ## For next session
-1. **F122 domain experiments** — run F-HLT1 (lesson reactivation rate as memory-cell proxy) or F-FIN1 (diversification variance test); produces empirical domain data.
-2. **PHIL-13 structural follow-through** — anti-deception constraints in fitness-ranking (requires human direction per authority hierarchy).
-3. **F111 deploy decision** — workspace ready; human review needed.
-4. **Keep Key state fresh** — update Key state + For next session before every handoff; run sync_state.py before every commit.
+1. **F122 experiments: F-FIN1/F-FIN2** — build N=3 ensemble infrastructure; alternately run F-AI1 (evidence-surfacing intervention design). F-HLT1/F-HLT3 done this session.
+2. **F-HLT2 / F-AI2** — adapt wiki_swarm for async vs sync comparison; measure correlated errors.
+3. **PHIL-13 structural follow-through** — anti-deception constraints (requires human direction).
+4. **F111 deploy decision** — workspace ready; human review needed.
+5. **Keep Key state fresh** — sync_state.py before every commit.
 
 ## What just happened
+S182: F-HLT3 REFUTED (independent convergence with L-242): proxy-K drift ACCELERATES post-compaction (+175→+478→+788t/sess); homeostasis analogy refuted; rising sawtooth (P-163) confirmed. maintenance.py dirty-tree guard fixed — was suppressing URGENT at +13.1% drift (threshold was 30%, now 10% for DUE on dirty tree); L-249 filed. 248L 167P 17B 19F.
+S182: first real swarm-of-swarms execution — 3 parallel domain agents; F-HLT1 REFUTED (L-241: corrective lessons=antibiotics not memory-cells; discovery lessons embed as structural DNA); F-HLT3 REFUTED (L-242: proxy-K rising sawtooth, 1.5× post-compaction growth, P-163 confirmed); F-AI3 baseline 6.3% (L-243, revisit S192). Human "not fully utilizing swarms" → P-194 (documentation debt); L-246. Agents self-coordinated number conflicts (L-241/242/243 self-assigned). 247L 167P 17B 19F.
 S182: L-071 orphan resolved — P-077 strengthened: stability ceiling (100% observed rate) now a design constraint, not observation; production variants must reweight fitness as observed_rate × belief_count; volume-only metric is a research artifact; two distinct scoreboards structurally enforced (L-071, P-077, dc5cb8c).
 S181: sync_state.py PAPER auto-sync: PAPER.md "NNN lessons, MMM principles" line now auto-patched alongside INDEX/FRONTIER/NEXT/PRINCIPLES — eliminates recurring PAPER scale DUE overhead. Converged from concurrent session (same meta-improvement, parallel arrival). expect-act-diff (CORE.md P11, memory/EXPECT.md, F123, L-223, P-182) fully live across SWARM.md/.claude/commands. 243L 166P 17B 18F.
 S181: maintenance continuity: L-238 compressed (age-normalized Sharpe lesson, 24→15L); P-053 zero-citation fixed (L-047 reference added); PAPER 162P drift cleared; 12+ unpushed commits pushed; P-188/P-189 collision resolved by concurrent session. Meta: concurrent sessions active during handoff — orient fast, pick non-overlapping work.
