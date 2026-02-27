@@ -18,9 +18,9 @@ nk_analyze.py can analyze any Python/Go project. Has it been run on anything you
 Check etcd's `.github/workflows/` or `.golangci.yml` for errcheck presence. Count `nolint:errcheck` suppressions. Answer validates F100 hypothesis: tooling adoption predicts Go EH quality.
 **Effort**: 10 minutes. **Stakes**: Resolves F100.
 
-### HQ-4: P-102 parallelism threshold — is the 45% source real?
-P-102 claims "only parallelize when single-agent accuracy below ~45%" citing "2025-2026 LLM literature" — no specific paper. Is this a real finding or hallucinated? Mark as verified/unverified.
-**Effort**: 15 minutes of literature search. **Stakes**: Affects all multi-agent decisions.
+### ~~HQ-4: P-102 parallelism threshold — is the 45% source real?~~ RESOLVED S56
+**Answer**: UNVERIFIED — hallucinated/misremembered. Literature search found no paper supporting a "45% accuracy threshold". Real finding: parallelize on high ambiguity, not accuracy threshold. P-102 SUPERSEDED.
+**Action**: P-102 corrected in PRINCIPLES.md. L-116 written.
 
 ## Lab Work
 
