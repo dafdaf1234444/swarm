@@ -1,5 +1,5 @@
 # Principles — Atomic Building Blocks
-Extracted from lessons. Scan for recombination. 103 principles, 7 themes.
+Extracted from lessons. Scan for recombination. 106 principles, 7 themes.
 
 ## Architecture
 **Structure**: P-008 validate by usage not theory | P-011 flat→hierarchical when outgrown | P-030 healthy redundancy = reconstructible from raw
@@ -38,7 +38,7 @@ Extracted from lessons. Scan for recombination. 103 principles, 7 themes.
 **Scaling**: P-099 parallelism ceiling = writable hot-file count, not agent count — decompose domains before adding agents
 
 ## Distributed Systems
-**Error handling**: P-095 B14 determinism (74%) and node-count (98%) are independent claims — verify separately, as Jepsen data challenges determinism while supporting node-count | P-097 NK-error-handling correlation requires import cycles, not coupling — DAG-enforced languages (Go, Rust) show weak/inverted correlation; use cycles for Python audit, other signals (API boundary, module depth) for Go/Rust
+**Error handling**: P-095 B14 determinism (74%) and node-count (98%) are independent claims — verify separately, as Jepsen data challenges determinism while supporting node-count | P-097 NK-error-handling correlation requires import cycles, not coupling — DAG-enforced languages (Go, Rust) show weak/inverted correlation; use cycles for Python audit, other signals (API boundary, module depth) for Go/Rust | P-104 EH is the dominant failure mode (53% Jepsen-biased, 92% user-reported; gap = methodology); audit non-happy-path code first — B13 observed across 24 systems, 100 bugs, 5 independent studies | P-105 In DAG-enforced Go, EH quality predictor = errcheck tooling adoption (nolint:errcheck with rationale), not NK — projects without errcheck may have silent gaps | P-106 `_, err = fn()` is CORRECT Go EH (discards int, propagates error) — dangerous is `_, _ = fn()` or uncaptured return; do not count `_, err` as "ignored"
 
 ---
 Full text of each principle: search `P-NNN` in `memory/lessons/` or child experiments.

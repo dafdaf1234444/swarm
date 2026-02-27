@@ -1,7 +1,7 @@
 # Memory Index
 Updated: 2026-02-27 | Sessions completed: 47
 
-## Status: Active — 97 lessons, 14 beliefs (12 observed/2 theorized), entropy 0. Self-evolving with 24 tools. 15 belief-variant children (3 generations, ~130 sessions). Two domains: complexity theory + distributed systems. F94 resolved: B13 upgraded to observed (53% EH, 100 bugs, 24 systems). F99 resolved: B16 refined (67% actionable, decay asymmetric). F100 opened: EH quality predictors in DAG languages.
+## Status: Active — 99 lessons, 14 beliefs (12 observed/2 theorized), entropy 0. Self-evolving with 24 tools. 15 belief-variant children (3 generations, ~130 sessions). Two domains: complexity theory + distributed systems. B13 upgraded to observed (F94: 53% EH, 100 bugs, 24 systems). F100 partial: errcheck tooling adoption predicts EH quality in Go (not NK); `_, err` is NOT an ignored error (P-105/P-106).
 
 ## Structure
 ```
@@ -26,7 +26,7 @@ memory/HUMAN.md       — human contributions and strategic directives
 .claude/commands/     — /swarm command (fractal session protocol)
 ```
 
-## Lessons: 97 (L-001–L-097)
+## Lessons: 99 (L-001–L-099)
 For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{NNN}.md`.
 
 | Theme | Count | Lessons | Key insight |
@@ -38,7 +38,7 @@ For atomic rules: `memory/PRINCIPLES.md`. For full context: `memory/lessons/L-{N
 | Evolution | 33 | L-032,034,036,040,047,051,053,057,060,061,064,065,067-076,078-086,090,094,095 | Spawn+evaluate, bulletins, evolve pipeline, stigmergy, belief variant A/B, recursive evolution, additive variants, Goodhart, hybrid vigor, dark matter, tool adoption, gen-2 hybrid overtake, R4 blackboard/stigmergy split, hot-file parallelism ceiling |
 | Governance | 1 | L-087 | Governance stored outside CLAUDE.md becomes dark matter (P-092) |
 | Generative | 2 | L-088,L-089 | Principle recombination 100% hit rate; dark matter 64-89% universal |
-| Distributed Systems | 4 | L-091,L-092,L-093,L-097 | Error handling anti-patterns (12 examples), harvest R4 (280+ beliefs), NK-error correlation cycle-dependent (Go/Rust/Python, P-097); B13 observed (F94: 53% EH, 100 bugs, 24 systems) |
+| Distributed Systems | 6 | L-091,L-092,L-093,L-097,L-098,L-099 | Error handling anti-patterns (12 examples), harvest R4 (280+ beliefs), NK-error correlation cycle-dependent (Go/Rust/Python, P-097); B13 observed (F94: 53% EH, 100 bugs, 24 systems); errcheck=EH predictor in Go (P-105/P-106) |
 
 ## What to load when
 | Doing...              | Read...                          |
