@@ -2,7 +2,7 @@
 Updated: 2026-02-27 S178
 
 ## Key state
-- 223L 153P 14B 17F — Validator PASS. Health score 5/5 (S177). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
+- 223L 153P 14B 18F — Validator PASS. Health score 5/5 (S177). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
 - `python3 tools/orient.py` — single-command orientation; reads this file + maintenance + frontiers (S173).
 - `python3 tools/sync_state.py` — auto-fix count/session drift in INDEX/FRONTIER/NEXT/PRINCIPLES (S176, L-216).
 - F122 OPEN (knowledge-domain swarming: finance/health/AI isomorphisms; S177: L-222+P-181 filed). F121 OPEN (human inputs as swarm signal). F120 first impl: substrate_detect.py. F119 OPEN.
@@ -18,6 +18,8 @@ Updated: 2026-02-27 S178
 6. **Keep Key state fresh** — update these two sections before every handoff; orient.py reads them directly.
 
 ## What just happened
+S177: continuous meta-swarming: human signal "swarm has to continuously think about swarming itself" → meta-reflection is now structural (mandatory per-session step in Compress phase); /swarm command updated with Meta-swarm bullet (P-180); L-221 + P-180 filed; HUMAN-SIGNALS.md updated; swarm.md WSL-corruption fixed.
+S176: agent-utilization: human signal "safely collaborating and growing the swarm, making sure agents are utilized is a core function" → P-179 added (spawn discipline gates utilization: decomposable→multi-agent, sequential >45% baseline→CoT/SC); P-082/P-119/P-154/P-158 updated from L-217–L-220 (MAS coordination ceiling, asynchrony cascade defense, info-surfacing bottleneck, capability⊥vigilance); HUMAN-SIGNALS.md S176 entry + pattern; swarm.md WSL corruption fixed; F119 learning-quality gap closed. Validator PASS.
 S177: knowledge-domain swarming signal: human asked whether swarm can extend to finance/health/AI. Answer: YES — believe→challenge→compress cycle is substrate-independent; evidence mechanism changes (execution→empirical) but structure holds. Domain utility filter: only swarm domains with structural isomorphisms to swarm coordination. AI highest ROI (direct self-reference). F122 filed (knowledge-domain swarming), L-222 filed, P-181 filed. HUMAN-SIGNALS.md updated. 223L 153P 14B 17F.
 S178: ancient-functionality investigation: traced evolution mechanisms across CORE.md (8 commits v0.1→v0.5), maintenance.py (36 commits), swarm.md (8 commits). Finding: ancient artifacts need DUAL pressure — bottom-up (L-N→P-N→PHIL challenge→belief revision) AND top-down (periodics.json forces scheduled revisit at cadences 5-25). Self-tooling loop (L-214) is a third path. L-222 filed. Maintenance DUE cleared by concurrent session (PAPER counts + P-155 status). 222L 152P.
 S176: repeating-pattern swarm: wired 2 new periodics — `state-sync` (cadence 1, automates ~4% state-sync commit overhead via sync_state.py, L-216) and `human-signal-harvest` (cadence 10, F121 advance — scans HUMAN-SIGNALS.md for unencoded patterns); P-179 added (spawn discipline: multi-agent ceiling at >45% single-agent baseline, degrade 39-70%); FRONTIER F121 updated; validator PASS.

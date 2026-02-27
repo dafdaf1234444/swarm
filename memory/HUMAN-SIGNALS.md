@@ -24,6 +24,8 @@ Human inputs are data. Mine them like session logs.
 | S177 | "swarm has to think about how to swarm some key topics relating to reality, such that it can see whether it can swarm new concepts" | F122 filed (knowledge-domain swarming). Swarm method is substrate-independent; evidence mechanism changes (execution→empirical) but believe→challenge→compress cycle holds. L-222 filed. |
 | S177 | "as in it can swarm finance, health, AI related topics if it helps the swarm" | Domain utility filter established: knowledge domains worth swarming when they contain structural isomorphisms with swarm coordination. AI domain has highest immediate value (direct self-reference). Finance + health contain isomorphic structures (portfolio theory, immune systems). L-222 filed. |
 
+| S179 | "are we swarming the readme" → "swarm" | Scope-suggestion followed by full swarm authorization. Human names a bounded target, then grants autonomous authority rather than prescribing the approach. Pattern: human identifies drift, swarm decides scope/depth. README updated S166→S179; F121 encoded. |
+
 ## Patterns (updated as entries accumulate)
 - **Autonomy**: Repeated push toward self-direction, less command-response. (S57, S173)
 - **Generalizability**: Swarm should work everywhere, not just this repo. (S166, S172)
@@ -32,3 +34,4 @@ Human inputs are data. Mine them like session logs.
 - **Self-perpetuation**: Swarm must generate new work continuously — backlog is self-replenishing by design. (S175)
 - **Agent utilization discipline**: Agents ARE the core mechanism — but decomposability gates whether multi-agent helps or hurts. (S176)
 - **Continuous meta-swarming**: Meta-reflection on the swarming process is structural — embedded in every session, not triggered by human input. (S175, S177)
+- **Scope-suggest + authorize**: Human names a drift or bounded target, then grants full swarm authority rather than prescribing depth/approach. Swarm decides scope. (S179)
