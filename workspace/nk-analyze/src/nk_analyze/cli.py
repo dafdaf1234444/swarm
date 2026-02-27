@@ -2,8 +2,9 @@
 
 import json
 import sys
+from pathlib import Path
 
-from nk_analyze.core import analyze_package, detect_cycles
+from nk_analyze.core import analyze_package, analyze_path, detect_cycles
 
 # Benchmark data for cross-package comparison
 BENCHMARKS = [
@@ -149,6 +150,7 @@ def batch_analyze(packages: list[str]):
 def main():
     if len(sys.argv) < 2:
         print("Usage: nk-analyze <package> [--json] [--verbose] [--suggest-refactor]")
+        print("       nk-analyze path <dir> <name> [--json] [--verbose]")
         print("       nk-analyze batch [pkg1 pkg2 ...]")
         sys.exit(1)
 
@@ -168,7 +170,14 @@ def main():
         batch_analyze(packages)
         return
 
-    result = analyze_package(package_name, verbose)
+    if package_name == "path":
+        args = [a for a in sys.argv[2:] if not a.startswith("-")]
+        if len(args) < 2:
+            print("Usage: nk-analyze path <directory> <package_name>")
+            sys.exit(1)
+        result = analyze_path(Path(args[0]), args[1])
+    else:
+        result = analyze_package(package_name, verbose)
 
     if as_json:
         print(json.dumps(result, indent=2))

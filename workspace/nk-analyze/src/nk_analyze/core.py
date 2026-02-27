@@ -3,8 +3,11 @@
 import ast
 import importlib
 import os
+import sys
 from collections import defaultdict
+from dataclasses import dataclass, field
 from pathlib import Path
+from typing import Optional
 
 
 def find_package_path(package_name: str) -> Path | None:
@@ -56,6 +59,10 @@ def _resolve_import_name(node, filepath, package_name, pkg_base):
                 results.add(sub_module)
                 if len(parts) > 2:
                     results.add(parts[1])
+            elif parts[0] == package_name and len(parts) == 1:
+                # e.g. "from testpkg import b" — names are the sub-modules
+                for alias in node.names:
+                    results.add(alias.name)
         elif node.level >= 1:
             if node.module:
                 rel_dir = filepath.parent
@@ -309,16 +316,10 @@ def analyze_lazy_imports(package_name: str) -> dict:
     }
 
 
-def analyze_package(package_name: str, verbose: bool = False) -> dict:
-    """Perform full NK analysis on a Python package."""
-    pkg_path = find_package_path(package_name)
-    if not pkg_path:
-        return {"error": f"'{package_name}' is a single-file module or not found"}
-
-    modules = list_modules(pkg_path)
-    if not modules:
-        return {"error": f"No modules found in {pkg_path}"}
-
+def _analyze_from_modules(
+    modules: dict[str, Path], package_name: str, pkg_path: Path
+) -> dict:
+    """Shared analysis logic for analyze_package and analyze_path."""
     deps: dict[str, list[str]] = {}
     file_info: dict[str, dict] = {}
     module_names = set(modules.keys())
@@ -351,6 +352,7 @@ def analyze_package(package_name: str, verbose: bool = False) -> dict:
     cycles = detect_cycles(deps)
     cycle_count = len(cycles)
     composite = k_avg * n + cycle_count
+    burden = cycle_count + 0.1 * n
     hub_pct = k_max / k_total if k_total > 0 else 0
     arch = classify_architecture(n, k_avg, k_max, cycle_count, hub_pct)
     total_loc = sum(f["loc"] for f in file_info.values())
@@ -367,9 +369,40 @@ def analyze_package(package_name: str, verbose: bool = False) -> dict:
         "cycles": cycle_count,
         "cycle_details": [" → ".join(c) for c in cycles],
         "composite": round(composite, 1),
+        "burden": round(burden, 1),
         "architecture": arch,
         "hub_pct": round(hub_pct, 2),
         "total_loc": total_loc,
         "modules": file_info,
         "in_degree": dict(in_degree),
     }
+
+
+def analyze_package(package_name: str, verbose: bool = False) -> dict:
+    """Perform full NK analysis on an installed Python package."""
+    pkg_path = find_package_path(package_name)
+    if not pkg_path:
+        return {"error": f"'{package_name}' is a single-file module or not found"}
+
+    modules = list_modules(pkg_path)
+    if not modules:
+        return {"error": f"No modules found in {pkg_path}"}
+
+    return _analyze_from_modules(modules, package_name, pkg_path)
+
+
+def analyze_path(pkg_path: Path, package_name: str) -> dict:
+    """Perform NK analysis on a package at a given filesystem path.
+
+    Like analyze_package but takes an explicit path instead of using importlib.
+    Use this for packages that aren't installed or for analyzing arbitrary directories.
+    """
+    pkg_path = Path(pkg_path)
+    if not pkg_path.is_dir():
+        return {"error": f"Path {pkg_path} is not a directory"}
+
+    modules = list_modules(pkg_path)
+    if not modules:
+        return {"error": f"No modules found in {pkg_path}"}
+
+    return _analyze_from_modules(modules, package_name, pkg_path)

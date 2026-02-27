@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nk-analyze"
-version = "0.1.0"
+version = "0.2.0"
 description = "NK landscape analysis for Python packages — measure coupling, cycles, and architectural complexity"
 requires-python = ">=3.10"
 license = {text = "MIT"}
