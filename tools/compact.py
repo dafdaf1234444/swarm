@@ -123,6 +123,62 @@ def _measure() -> dict:
     return {"files": files, "tiers": tiers, "total": total}
 
 
+def _lesson_sharpe_candidates(top_n: int = 20) -> list[dict]:
+    """Return lessons ranked by ascending citation-density (Sharpe) — safe compaction order.
+
+    Lessons with zero citations and low Sharpe are the safest to archive/merge.
+    Based on L-268: Sharpe presort achieves zero citation-loss vs 15.4% for size-only.
+    """
+    lessons_dir = REPO_ROOT / "memory" / "lessons"
+    lesson_files = sorted(lessons_dir.glob("L-*.md"))
+    if not lesson_files:
+        return []
+
+    # Build citation map: count L-NNN refs in all tracked files (excluding self-file)
+    citation_counts: dict[str, int] = {}
+    scan_paths = list((REPO_ROOT / "memory").glob("*.md")) + [
+        REPO_ROOT / "tasks" / "NEXT.md",
+        REPO_ROOT / "tasks" / "FRONTIER.md",
+        REPO_ROOT / "beliefs" / "DEPS.md",
+        REPO_ROOT / "memory" / "PRINCIPLES.md",
+        REPO_ROOT / "memory" / "INDEX.md",
+    ]
+    for sp in scan_paths:
+        text = _read(sp)
+        for m in re.finditer(r"L-(\d+)", text):
+            lid = f"L-{m.group(1)}"
+            citation_counts[lid] = citation_counts.get(lid, 0) + 1
+
+    # Extract session number from each lesson header
+    import json as _json
+    numbers_in_log = re.findall(r"^S(\d+)", _read(REPO_ROOT / "memory" / "SESSION-LOG.md"), re.MULTILINE)
+    max_session = max((int(n) for n in numbers_in_log), default=186)
+
+    candidates = []
+    for lf in lesson_files:
+        lid = lf.stem
+        text = _read(lf)
+        tokens = len(text) // 4
+        # Parse session from header line
+        m = re.search(r"Session:\s*S(\d+)", text)
+        session = int(m.group(1)) if m else 0
+        age = max(max_session - session, 1)
+        citations = citation_counts.get(lid, 0)
+        # Sharpe = citations / age (lower = safer to compact)
+        sharpe = citations / age
+        # Is it absorbed into a principle?
+        in_principles = bool(re.search(rf"\b{re.escape(lid)}\b", _read(REPO_ROOT / "memory" / "PRINCIPLES.md")))
+        candidates.append({
+            "lesson_id": lid, "session": session, "age": age,
+            "tokens": tokens, "citations": citations,
+            "in_principles": in_principles, "sharpe": round(sharpe, 6),
+        })
+
+    # Sort ascending by Sharpe (orphans first), then ascending by tokens (smallest first)
+    candidates.sort(key=lambda x: (x["sharpe"], x["tokens"]))
+    return candidates[:top_n]
+
+
 def _section_sizes(filepath: str) -> list[tuple[str, int]]:
     """Return (section_name, token_count) for markdown ## sections."""
     path = REPO_ROOT / filepath
@@ -202,6 +258,18 @@ def analyze():
         for t in techs:
             print(f"      - {t}")
         shown += 1
+
+    # Sharpe-ranked lesson compaction candidates (L-268: zero citation-loss ordering)
+    candidates = _lesson_sharpe_candidates(top_n=15)
+    if candidates:
+        zero = [c for c in candidates if c["citations"] == 0]
+        print(f"\n  Sharpe-ranked lesson candidates ({len(zero)} zero-cited of top-15):")
+        print(f"  {'ID':<8} {'Age':>5} {'Tok':>5} {'Cite':>5} {'InP':>5}  Sharpe")
+        for c in candidates:
+            flag = " *" if c["citations"] == 0 else ""
+            inp = "yes" if c["in_principles"] else "no"
+            print(f"  {c['lesson_id']:<8} {c['age']:>5} {c['tokens']:>5} {c['citations']:>5} {inp:>5}  {c['sharpe']:.4f}{flag}")
+        print(f"  (* = zero-cited orphan — safe to archive; 'InP=yes' = absorbed into principle)")
 
     return m, drift
 

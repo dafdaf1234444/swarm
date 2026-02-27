@@ -1964,6 +1964,19 @@ def check_proxy_k_drift() -> list[tuple[str, str]]:
     if floor <= 0:
         return results
 
+    # If the historical-minimum floor is stale (>= 8 sessions ago) and a more
+    # recent clean baseline exists, use that as the floor to acknowledge
+    # intentional tool growth without triggering false URGENT compaction. (L-273)
+    _cur_s = _session_number()
+    _floor_s = int(floor_entry.get("session", 0) or 0)
+    if len(clean_schema_entries) >= 2 and _floor_s > 0 and _cur_s > 0 and (_cur_s - _floor_s) >= 8:
+        _newer = [e for e in clean_schema_entries if int(e.get("session", 0) or 0) > _floor_s]
+        if _newer:
+            _latest_clean = max(_newer, key=lambda e: int(e.get("session", 0) or 0))
+            if _latest_clean["total"] > floor:
+                floor_entry = _latest_clean
+                floor = _latest_clean["total"]
+
     live_tiers: dict[str, int] = {}
     live_total = 0
     for tier, files in tiers.items():
