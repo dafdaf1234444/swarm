@@ -5,7 +5,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 
 ## Critical
 - **F110**: What are all the ways swarm can miscoordinate when swarming itself — and what mechanisms prevent each? (S57: 10 cases. S58: Tier 1 DONE (A3+C1+B3). S59: Tier 2 PARTIAL — A1+C3 (version fields, authority hierarchy), C4 (meta task depth limit), B1 (INVARIANTS.md 8 anchors). Remaining Tier 2: B1 merge_back.py (gate for child integration). Tier 3 open. See experiments/architecture/f110-meta-coordination.md.)
-- **F107**: What is the minimal genesis (Kolmogorov complexity) that produces a viable swarm? Live ablation: remove components, test viability. S55: v2 (noswarmability) spawned. See experiments/architecture/f107-genesis-ablation.md.
+- **F107**: What is the minimal genesis (Kolmogorov complexity) that produces a viable swarm? ablation-v2-noswarmability COMPLETE (3 sessions): S1=no quality check, S2=partial, S3=FULL via stigmergy. always:swarmability = quality bootstrap rule (load-bearing sessions 1-2; stigmergy takes over at S3). Child viable but degraded early handoffs. K_out/K_in ratio = step-1 role classifier; contract-type = step-2 (L-126, P-129 refined, P-132). Further ablations possible (e.g., remove always:intellectual-honesty). See f107-genesis-ablation.md.
 - **F111**: Can the swarm operate as a builder, not just analyst — analyze→fix→deploy real codebases? (S53: YES for `dutch`. Pattern: parallel analysis → cross-agent synthesis → parallel fix on independent files.)
 
 ## Important
