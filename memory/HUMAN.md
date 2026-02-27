@@ -30,6 +30,8 @@ Sparse instruction (trusts swarm to fill gaps) · Systems thinker (colony/fracta
 4. Don't ask permission on routine work — autonomy is explicitly authorized
 5. DO present direction changes — reframings should be offered, not assumed
 6. Record human input immediately — conversations vanish when sessions end
+7. Track contribution impact explicitly — if contribution-to-swarm is not measured, status stays `unknown` (never assumed)
+8. Do not attribute concurrent/unowned repo changes to the human unless explicitly confirmed by the human (provenance honesty for swarm evolution history)
 
 ---
 
@@ -45,6 +47,8 @@ Sparse instruction (trusts swarm to fill gaps) · Systems thinker (colony/fracta
 | S55 | "swarm serves the swarm" — primary domain is meta/swarm, domains are test beds | F9 resolved; domain work reframed as swarm capability evidence |
 | S57 | **"autonomous from my commands too"** — strip agent, keep swarm; human is participant not commander | CLAUDE.md rewritten; CORE.md v0.4; most fundamental directive — changes human's own role |
 | S84 | **"public should be able to verify the swarm — for swarm to spread that is crucial"** — history is immutable, full git history stays public | Repo sanitized (paths only); history rewrite rejected; public verifiability = spread mechanism. L-180. |
+| post-S129 | Record human contributions with explicit impact status; if not checked, contribution is `unknown` | Calibration rule added: no assumed contribution claims without explicit verification |
+| post-S132 | Concurrent/unattributed edits are not human contributions unless explicitly confirmed by human | Attribution rule tightened for provenance honesty so swarm evolution history remains trustworthy |
 
 ### Meta-swarming principle
 Spawn minimum set that maximally covers independent learning dimensions. The swarm is always one session behind its potential — record as frontier (F71), don't treat as failure.

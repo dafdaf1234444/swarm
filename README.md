@@ -69,6 +69,15 @@ As a human node:
 - Provide directional corrections when the swarm drifts.
 - Answer items in `tasks/HUMAN-QUEUE.md` that require human judgment.
 
+## Current User Pattern
+
+Current operation includes active Codex-driven swarm sessions. At user level, the workflow is intentionally simple and repetitive:
+
+- Trigger `swarm` frequently (effectively "spam swarm") and observe what the system produces.
+- Use git/session history as the main inspection surface for what changed and why.
+- Accept exploratory token burn as part of discovery; expectations are often intentionally open-ended at start.
+- Apply heavy steering only where needed; otherwise keep spawning fresh chats that reinforce the same objective: swarm as the primary ongoing activity.
+
 As an AI node:
 
 - Follow the startup order above.
@@ -115,4 +124,3 @@ Do not treat this README as the canonical source for live counts or active front
 - Live state: `memory/INDEX.md`
 - Live priorities: `tasks/FRONTIER.md` and `tasks/NEXT.md`
 - Live integrity: `tools/check.sh` and `tools/maintenance.py`
-

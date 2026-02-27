@@ -12,6 +12,8 @@ Lower = more compressed. But too low = information loss (MDL tradeoff).
 """
 
 import json
+import hashlib
+import subprocess
 import sys
 from datetime import date
 from pathlib import Path
@@ -44,6 +46,8 @@ TIERS = {
     "T4-tools": [
         "tools/validate_beliefs.py",
         "tools/maintenance.py",
+        "tools/paper_drift.py",
+        "tools/swarm_parse.py",
     ],
 }
 
@@ -56,22 +60,43 @@ GENESIS_FILES = [
 LOG_PATH = REPO_ROOT / "experiments" / "proxy-k-log.json"
 
 
+def _read(path: Path) -> str:
+    """Read text as UTF-8 across runtimes/locales."""
+    try:
+        return path.read_text(encoding="utf-8", errors="replace")
+    except Exception:
+        return ""
+
+
 def _tokens(path: Path) -> int:
     """Estimate token count (chars / 4)."""
-    try:
-        return len(path.read_text()) // 4
-    except Exception:
-        return 0
+    return len(_read(path)) // 4
 
 
 def _session_number() -> int:
+    text = _read(REPO_ROOT / "memory" / "SESSION-LOG.md")
+    import re
+    numbers = re.findall(r"^S(\d+)", text, re.MULTILINE)
+    return max(int(n) for n in numbers) if numbers else 0
+
+
+def _is_dirty_tree() -> bool:
     try:
-        text = (REPO_ROOT / "memory" / "SESSION-LOG.md").read_text()
-        import re
-        numbers = re.findall(r"^S(\d+)", text, re.MULTILINE)
-        return max(int(n) for n in numbers) if numbers else 0
+        r = subprocess.run(
+            ["git", "-C", str(REPO_ROOT), "status", "--porcelain"],
+            capture_output=True,
+            text=True,
+            timeout=10,
+        )
+        return bool((r.stdout or "").strip())
     except Exception:
-        return 0
+        return False
+
+
+def _tier_schema() -> str:
+    """Stable fingerprint for the current TIERS definition."""
+    payload = json.dumps(TIERS, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()
 
 
 def measure():
@@ -105,13 +130,15 @@ def save(m):
     log = []
     if LOG_PATH.exists():
         try:
-            log = json.loads(LOG_PATH.read_text())
+            log = json.loads(_read(LOG_PATH))
         except Exception:
             pass
 
     entry = {
         "date": date.today().isoformat(),
         "session": _session_number(),
+        "dirty_tree": _is_dirty_tree(),
+        "tier_schema": _tier_schema(),
         **m,
     }
     log.append(entry)
@@ -119,6 +146,8 @@ def save(m):
     LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
     LOG_PATH.write_text(json.dumps(log, indent=2))
     print(f"\nSaved to {LOG_PATH} ({len(log)} entries)")
+    if entry["dirty_tree"]:
+        print("NOTE: saved from dirty tree; use clean snapshot for compaction triggers.")
 
 
 def history():
@@ -126,15 +155,19 @@ def history():
         print("No history yet. Run with --save first.")
         return
 
-    log = json.loads(LOG_PATH.read_text())
+    log = json.loads(_read(LOG_PATH))
     print("=== PROXY K HISTORY ===\n")
     print(f"  {'Session':>8s}  {'Total':>8s}  {'Genesis':>8s}  {'T4-tools':>8s}  {'Date':>12s}")
     print(f"  {'--------':>8s}  {'--------':>8s}  {'--------':>8s}  {'--------':>8s}  {'------------':>12s}")
 
     for entry in log:
         t4 = entry.get("tiers", {}).get("T4-tools", 0)
-        session = str(entry.get('session', '?'))
-        print(f"  S{session:>6s}  {entry['total']:>8d}  {entry['genesis']:>8d}  {t4:>8d}  {entry['date']:>12s}")
+        session = str(entry.get("session", "?"))
+        total = int(entry.get("total", 0) or 0)
+        genesis = int(entry.get("genesis", 0) or 0)
+        when = str(entry.get("date", "?"))
+        dirty = " *" if entry.get("dirty_tree") else ""
+        print(f"  S{session:>6s}  {total:>8d}  {genesis:>8d}  {t4:>8d}  {when:>12s}{dirty}")
 
     if len(log) >= 2:
         first, last = log[0], log[-1]

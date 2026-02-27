@@ -1,8 +1,20 @@
 #!/bin/bash
 # Swarm belief integrity check
 if [ -f "beliefs/DEPS.md" ]; then
-    python3 tools/validate_beliefs.py
-    if [ $? -ne 0 ]; then
+    PYTHON_CMD=""
+    if command -v python3 >/dev/null 2>&1 && python3 -c "import sys" >/dev/null 2>&1; then
+        PYTHON_CMD="python3"
+    elif command -v python >/dev/null 2>&1 && python -c "import sys" >/dev/null 2>&1; then
+        PYTHON_CMD="python"
+    fi
+
+    if [ -z "$PYTHON_CMD" ]; then
+        echo ""
+        echo "COMMIT BLOCKED: No runnable python interpreter found (python3/python)."
+        exit 1
+    fi
+
+    if ! "$PYTHON_CMD" tools/validate_beliefs.py; then
         echo ""
         echo "COMMIT BLOCKED: Belief graph has integrity issues."
         echo "Fix the issues above before committing."

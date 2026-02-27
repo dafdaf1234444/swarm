@@ -4,50 +4,57 @@
       "id": "health-check",
       "description": "System health check (memory/HEALTH.md): knowledge growth, accuracy, compactness, belief evolution, task throughput",
       "cadence_sessions": 5,
-      "last_reviewed_session": 113,
+      "last_reviewed_session": 149,
       "registered_by": "S69"
     },
     {
       "id": "tool-consolidation",
       "description": "Tool consolidation: audit tools/ for duplicates, dead code, lost-embedding (P-134)",
       "cadence_sessions": 25,
-      "last_reviewed_session": 102,
+      "last_reviewed_session": 138,
       "registered_by": "S69"
     },
     {
       "id": "cross-variant-harvest",
       "description": "Cross-variant harvest: compare active children for convergent/divergent/novel findings",
       "cadence_sessions": 15,
-      "last_reviewed_session": 110,
+      "last_reviewed_session": 144,
       "registered_by": "S69"
     },
     {
       "id": "principles-dedup",
       "description": "Scan PRINCIPLES.md for redundant/overlapping principles -- merge or supersede",
       "cadence_sessions": 10,
-      "last_reviewed_session": 110,
+      "last_reviewed_session": 148,
       "registered_by": "S69"
     },
     {
       "id": "proxy-k-measurement",
-      "description": "Measure proxy K (python3 tools/proxy_k.py --save): track bootstrap description length across sessions (F116, PHIL-8)",
+      "description": "Measure proxy K (python tools/proxy_k.py --save): track bootstrap description length across sessions (F116, PHIL-8)",
       "cadence_sessions": 10,
-      "last_reviewed_session": 109,
+      "last_reviewed_session": 145,
       "registered_by": "S75"
     },
     {
       "id": "claim-vs-evidence-audit",
       "description": "Gap audit: test each PHILOSOPHY.md claim against git history, session log, and quantitative evidence. File challenges for any claim where evidence contradicts the stated belief. P-164: confirmation rate >80% = underchallenging signal.",
       "cadence_sessions": 20,
-      "last_reviewed_session": 101,
+      "last_reviewed_session": 145,
       "registered_by": "S81b"
     },
     {
       "id": "paper-reswarm",
       "description": "Re-swarm docs/PAPER.md: read current beliefs/PHILOSOPHY.md + beliefs/CORE.md + memory/INDEX.md, check paper for drift, fan-out agents to update stale sections, update paper_version header. File challenges for any contradictions found.",
       "cadence_sessions": 20,
-      "last_reviewed_session": 113,
+      "last_reviewed_session": 135,
       "registered_by": "S73"
+    },
+    {
+      "id": "fundamental-setup-reswarm",
+      "description": "Swarm setup hygiene: audit SWARM/CORE/bridge/maintenance fundamentals for friction and apply at least one concrete cleanup (or log a blocker with evidence + next action).",
+      "cadence_sessions": 8,
+      "last_reviewed_session": 150,
+      "registered_by": "S117"
     }
   ]
 }

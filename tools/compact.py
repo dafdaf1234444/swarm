@@ -10,6 +10,7 @@ Usage:
 """
 
 import json
+import hashlib
 import re
 import sys
 from pathlib import Path
@@ -22,7 +23,7 @@ TIERS = {
     "T2-protocols": ["memory/DISTILL.md", "memory/VERIFY.md", "memory/OPERATIONS.md",
                       "beliefs/CONFLICTS.md"],
     "T3-knowledge": ["memory/PRINCIPLES.md", "tasks/FRONTIER.md"],
-    "T4-tools": ["tools/validate_beliefs.py", "tools/maintenance.py"],
+    "T4-tools": ["tools/validate_beliefs.py", "tools/maintenance.py", "tools/paper_drift.py", "tools/swarm_parse.py"],
 }
 
 LOG_PATH = REPO_ROOT / "experiments" / "proxy-k-log.json"
@@ -52,30 +53,52 @@ TECHNIQUES = {
         "Combine small check functions with shared patterns",
         "Inline utility functions used only once",
     ],
+    "tools/paper_drift.py": [
+        "Keep parser rules compact; avoid duplicate regex/scan paths",
+        "Prefer small helpers reused across checks over repeated inline logic",
+    ],
+    "tools/swarm_parse.py": [
+        "Keep parser helpers single-purpose and shared across tools",
+        "Prefer table-driven regex extraction over duplicated per-tool variants",
+    ],
 }
 
 
-def _tokens(path: Path) -> int:
+def _read(path: Path) -> str:
+    """Read text as UTF-8 across runtimes/locales."""
     try:
-        return len(path.read_text()) // 4
+        return path.read_text(encoding="utf-8", errors="replace")
     except Exception:
-        return 0
+        return ""
+
+
+def _tier_schema() -> str:
+    payload = json.dumps(TIERS, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()
+
+
+def _tokens(path: Path) -> int:
+    return len(_read(path)) // 4
 
 
 def _lines(path: Path) -> int:
-    try:
-        return len(path.read_text().splitlines())
-    except Exception:
-        return 0
+    return len(_read(path).splitlines())
 
 
 def _find_floor() -> dict | None:
     if not LOG_PATH.exists():
         return None
     try:
-        entries = json.loads(LOG_PATH.read_text())
+        entries = json.loads(_read(LOG_PATH))
     except Exception:
         return None
+    schema = _tier_schema()
+    schema_entries = [e for e in entries if e.get("tier_schema") == schema]
+    if len(schema_entries) >= 2:
+        entries = schema_entries
+    else:
+        return None
+
     if len(entries) < 2:
         return entries[0] if entries else None
     floor_idx = 0
@@ -103,9 +126,8 @@ def _measure() -> dict:
 def _section_sizes(filepath: str) -> list[tuple[str, int]]:
     """Return (section_name, token_count) for markdown ## sections."""
     path = REPO_ROOT / filepath
-    try:
-        text = path.read_text()
-    except Exception:
+    text = _read(path)
+    if not text:
         return []
     sections = []
     name = "(header)"
@@ -164,7 +186,7 @@ def analyze():
                 # Section breakdown for large .md files
                 if filepath.endswith(".md") and info["tokens"] > 500:
                     for name, tokens in _section_sizes(filepath)[:3]:
-                        print(f"      └─ {name:36s}  {tokens:5,}t")
+                        print(f"      |- {name:36s}  {tokens:5,}t")
 
     # Compression recommendations
     print("\n  Techniques (proven):")
@@ -189,22 +211,20 @@ def save(m):
     log = []
     if LOG_PATH.exists():
         try:
-            log = json.loads(LOG_PATH.read_text())
+            log = json.loads(_read(LOG_PATH))
         except Exception:
             pass
 
     # Get session number
-    try:
-        text = (REPO_ROOT / "memory" / "SESSION-LOG.md").read_text()
-        numbers = re.findall(r"^S(\d+)", text, re.MULTILINE)
-        session = max(int(n) for n in numbers) if numbers else 0
-    except Exception:
-        session = 0
+    text = _read(REPO_ROOT / "memory" / "SESSION-LOG.md")
+    numbers = re.findall(r"^S(\d+)", text, re.MULTILINE)
+    session = max(int(n) for n in numbers) if numbers else 0
 
     from datetime import date
     entry = {
         "date": date.today().isoformat(),
         "session": session,
+        "tier_schema": _tier_schema(),
         "tiers": m["tiers"],
         "total": m["total"],
         "genesis": sum(

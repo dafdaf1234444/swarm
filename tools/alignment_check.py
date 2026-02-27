@@ -25,11 +25,19 @@ BULLETINS_DIR = REPO / "experiments" / "inter-swarm" / "bulletins"
 PHILOSOPHY = REPO / "beliefs" / "PHILOSOPHY.md"
 
 
+def _read(path: Path) -> str:
+    """Read UTF-8 text robustly across host defaults."""
+    try:
+        return path.read_text(encoding="utf-8", errors="replace")
+    except Exception:
+        return ""
+
+
 def parse_beliefs(deps_path: Path) -> list[dict]:
     """Extract beliefs from a DEPS.md file."""
     if not deps_path.exists():
         return []
-    text = deps_path.read_text()
+    text = _read(deps_path)
     beliefs = []
     current = None
     for line in text.split("\n"):
@@ -55,11 +63,11 @@ def get_pending_challenges() -> list[dict]:
     """Find belief-challenge bulletins not yet in PHILOSOPHY.md."""
     if not BULLETINS_DIR.exists():
         return []
-    phil_text = PHILOSOPHY.read_text() if PHILOSOPHY.exists() else ""
+    phil_text = _read(PHILOSOPHY) if PHILOSOPHY.exists() else ""
     pending = []
     for f in sorted(BULLETINS_DIR.glob("*.md")):
         child = f.stem
-        text = f.read_text()
+        text = _read(f)
         for m in re.finditer(
             r"# Bulletin from: .+?\nDate: \S+\nType: belief-challenge\n\n## Content\n(.+?)(?:\n---|\Z)",
             text, re.DOTALL,

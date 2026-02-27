@@ -28,6 +28,8 @@ GENERIC_INVOCATIONS = {
     "swarm this",
     "swarm it",
     "wiki swarm",
+    "swarm wiki swarm",
+    "swarm the wiki swarm",
     "start wiki swarm",
     "run wiki swarm",
 }
@@ -84,6 +86,19 @@ def _request_json(url: str, timeout: int = 15) -> dict:
 def _clean_text(text: str) -> str:
     text = re.sub(r"\s+", " ", text or "").strip()
     return text if text else "(no summary available)"
+
+
+def _normalize_invocation(text: str) -> str:
+    text = re.sub(r"[^a-z0-9\s]+", " ", (text or "").lower())
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def is_generic_invocation(topic: str) -> bool:
+    """Return True when input is a generic wiki-swarm command."""
+    normalized = _normalize_invocation(topic)
+    if not normalized:
+        return True
+    return normalized in GENERIC_INVOCATIONS
 
 
 def _search_titles(query: str, lang: str, limit: int = 1) -> list[str]:
@@ -345,7 +360,7 @@ def main(argv: list[str] | None = None) -> int:
     depth = max(0, min(args.depth, 3))
     fanout = max(1, min(args.fanout, 20))
     lang = args.lang.strip() or "en"
-    use_auto = args.auto or not topic or topic.lower() in GENERIC_INVOCATIONS
+    use_auto = args.auto or is_generic_invocation(topic)
     topic_source = "manual"
 
     if use_auto:

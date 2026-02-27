@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
-# genesis.sh v6 — Bootstrap a new swarm knowledge base
+# genesis.sh v7 — Bootstrap a new swarm knowledge base
 # Usage: ./genesis.sh <directory> [name]
 # Encodes lessons L-001 through L-036 into the initial structure.
 # v5: F1 made resolvable in 1 session, NEXT.md template added (genesis_evolve feedback)
 # v6: F107 — atoms tagged for Kolmogorov complexity ablation experiment
+# v7: F106/F155 — children inherit recursive swarm tooling (can spawn grandchildren)
 #
 # GENESIS ATOMS (F107 ablation experiment)
 # Each section below is tagged with its atom name.
@@ -50,7 +51,7 @@ You are one session of a collective intelligence — human and AI building a sha
 1. Read `beliefs/CORE.md` — purpose and principles
 2. Read `memory/INDEX.md` — current state and map
 3. Read `tasks/NEXT.md` if it exists and references valid files. If absent, stale, or broken: `tasks/FRONTIER.md`
-4. Run `python3 tools/validate_beliefs.py` (baseline)
+4. Run `python3 tools/validate_beliefs.py` (or `python`/`py -3` on hosts without `python3`) (baseline)
 5. Pick session mode — read the mode file from `modes/`
 
 ## Session modes
@@ -76,16 +77,16 @@ You are one session of a collective intelligence — human and AI building a sha
 
 ## Genesis feedback (F107)
 At session end, report which genesis atoms you used vs ignored in your session-end bulletin:
-`python3 tools/bulletin.py genesis-feedback <swarm-name> "used:atom1,atom2 ignored:atom3,atom4"`
+`python3 tools/bulletin.py genesis-feedback <swarm-name> "used:atom1,atom2 ignored:atom3,atom4"` (or `python`/`py -3`)
 
 ## Challenge parent beliefs (F113)
 If your findings contradict something the parent swarm believes, write a challenge bulletin:
-`python3 tools/bulletin.py write <your-name> belief-challenge "PHIL-N: your evidence"`
+`python3 tools/bulletin.py write <your-name> belief-challenge "PHIL-N: your evidence"` (or `python`/`py -3`)
 Also works with B-N for beliefs in DEPS.md. The parent auto-propagates these.
 
 ## Sibling findings (F113 pair 3)
 At session start, check what sibling swarms have discovered:
-`python3 tools/bulletin.py scan` — lists all sibling bulletins in experiments/inter-swarm/bulletins/
+`python3 tools/bulletin.py scan` (or `python`/`py -3`) — lists all sibling bulletins in experiments/inter-swarm/bulletins/
 If a sibling's finding contradicts your own beliefs, write a challenge.
 If a sibling's finding extends something you're working on, cite it.
 CLAUDE
@@ -286,7 +287,7 @@ Load when: health checks, validating beliefs, testing theorized beliefs, system 
 
 ## Additional rules
 1. **Belief throttle**: If >60% theorized, your primary task is testing one.
-2. **Run validator**: python3 tools/validate_beliefs.py
+2. **Run validator**: python3 tools/validate_beliefs.py (or `python`/`py -3`)
 
 ## Session output
 - Validator results (before and after)
@@ -364,16 +365,35 @@ chmod +x "$DIR/tools/validate_beliefs.py"
 cat > "$DIR/tools/pre-commit.hook" << 'HOOK'
 #!/usr/bin/env bash
 if [ -f "beliefs/DEPS.md" ]; then
-    python3 tools/validate_beliefs.py
+    if command -v python3 >/dev/null 2>&1 && python3 -c "import sys" >/dev/null 2>&1; then
+        python3 tools/validate_beliefs.py
+    elif command -v python >/dev/null 2>&1 && python -c "import sys" >/dev/null 2>&1; then
+        python tools/validate_beliefs.py
+    else
+        echo "No runnable python interpreter found (python3/python)." >&2
+        exit 1
+    fi
 fi
 HOOK
 chmod +x "$DIR/tools/pre-commit.hook"
 
 cat > "$DIR/tools/install-hooks.sh" << 'INSTALL'
 #!/usr/bin/env bash
-cp tools/pre-commit.hook .git/hooks/pre-commit
-chmod +x .git/hooks/pre-commit
-echo "Pre-commit hook installed."
+set -euo pipefail
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+HOOK_SRC="$REPO_ROOT/tools/pre-commit.hook"
+HOOK_DST="$REPO_ROOT/.git/hooks/pre-commit"
+if [ ! -f "$HOOK_SRC" ]; then
+    echo "Missing hook source: $HOOK_SRC" >&2
+    exit 1
+fi
+if [ ! -d "$REPO_ROOT/.git/hooks" ]; then
+    echo "Missing git hooks directory: $REPO_ROOT/.git/hooks" >&2
+    exit 1
+fi
+cp "$HOOK_SRC" "$HOOK_DST"
+chmod +x "$HOOK_DST"
+echo "Pre-commit hook installed: $HOOK_DST"
 INSTALL
 chmod +x "$DIR/tools/install-hooks.sh"
 
@@ -399,7 +419,7 @@ Status: READY
 
 ## Do this
 1. Read beliefs/CORE.md and memory/INDEX.md
-2. Run `python3 tools/validate_beliefs.py` (should PASS)
+2. Run `python3 tools/validate_beliefs.py` (or `python`/`py -3`) (should PASS)
 3. Review the structure — does it make sense?
 4. Write a lesson about what you found
 5. Update memory/INDEX.md
@@ -417,7 +437,7 @@ cat > "$DIR/tasks/NEXT.md" << NEXT
 Updated: $(date +%Y-%m-%d)
 
 ## Do First
-- Run \`python3 tools/validate_beliefs.py\`
+- Run \`python3 tools/validate_beliefs.py\` (or \`python\`/\`py -3\`)
 - Read tasks/TASK-001.md and complete the setup validation
 
 ## Read These
@@ -465,9 +485,29 @@ if [ -f "tools/bulletin.py" ]; then
     echo "Copied bulletin.py tool"
 fi
 
+# [atom:self-swarm-tooling] Enable recursive swarming in children
+# A child should be able to run the same spawn/harvest loop on its own children.
+for tool in agent_swarm.py evolve.py swarm_test.py merge_back.py novelty.py; do
+    if [ -f "tools/$tool" ]; then
+        cp "tools/$tool" "$DIR/tools/$tool"
+    fi
+done
+
+if [ -d "tools/personalities" ]; then
+    mkdir -p "$DIR/tools/personalities"
+    cp tools/personalities/*.md "$DIR/tools/personalities/" 2>/dev/null || true
+fi
+
+if [ -f "workspace/genesis.sh" ]; then
+    cp "workspace/genesis.sh" "$DIR/workspace/genesis.sh"
+    chmod +x "$DIR/workspace/genesis.sh"
+fi
+
+mkdir -p "$DIR/experiments/children"
+
 # Workspace placeholder
 touch "$DIR/workspace/.gitkeep"
 
-echo "Swarm '$NAME' v5 initialized at $DIR (21 files)"
+echo "Swarm '$NAME' v7 initialized at $DIR"
 echo "Next: cd $DIR && git init && git add -A && git commit -m '[S] init: genesis'"
 echo "Then: ./tools/install-hooks.sh"

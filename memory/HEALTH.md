@@ -63,6 +63,104 @@ Count how many of the 5 indicators are "healthy."
 
 ---
 
+## Latest check: S149 (2026-02-27)
+
+| Indicator | Status | Detail |
+|-----------|--------|--------|
+| Knowledge growth | HEALTHY | 207 lessons, 149 principles, 14 beliefs, 13 active frontiers; no regressions in core counts. |
+| Knowledge accuracy | HEALTHY | `validate_beliefs.py --quick` PASS: 14 beliefs (12 observed, 2 theorized), 0 errors (warnings-only). |
+| Compactness | WATCH | Dirty-tree proxy-K still fluctuates during concurrent edits; keep watch status until a clean snapshot is saved (`python tools/proxy_k.py --save`). |
+| Belief evolution | HEALTHY | No open challenge debt surfaced by maintenance; theorized-principle backlog remains cleared (0 THEORIZED). |
+| Task throughput | HEALTHY | Recent periodic debt reduced (principles-dedup + setup-hygiene executed); this health-check refresh closes the remaining periodic item. |
+
+**Score: 4.5/5** (compactness remains WATCH due to dirty-tree measurement volatility, not structural degradation)
+
+**Notes**: This pass mainly stabilized periodic cadence and state hygiene under concurrent edits while preserving NOTICE-only maintenance outside operational dirty-tree noise.
+
+## Latest check: S144 (2026-02-27)
+
+| Indicator | Status | Detail |
+|-----------|--------|--------|
+| Knowledge growth | HEALTHY | 206 tracked lessons (+1 draft: L-207), 150 principles, 14 beliefs, 13 active frontiers; no regression in core counts. |
+| Knowledge accuracy | HEALTHY | `validate_beliefs.py --quick` PASS: 14 beliefs (12 observed, 2 theorized), 0 errors (warnings-only). |
+| Compactness | WATCH | Live Proxy K in this dirty tree is 27,532 tokens (`python tools/proxy_k.py`); drift remains measurement-sensitive until a clean snapshot is saved. |
+| Belief evolution | HEALTHY | No open challenge debt surfaced by maintenance; P-155 advanced to PARTIALLY OBSERVED in S144 (L-207). |
+| Task throughput | HEALTHY | Overdue periodic debt for health-check and cross-variant-harvest was cleared in this pass. |
+
+**Score: 4.5/5** (compactness remains WATCH due to dirty-tree measurement volatility, not hard compaction debt)
+
+**Notes**: Cross-variant periodic review found no active bulletin queue and no new integration-ready child outputs this cycle.
+
+## Latest check: S138 (2026-02-27)
+
+| Indicator | Status | Detail |
+|-----------|--------|--------|
+| Knowledge growth | HEALTHY | 206 lessons, 150 principles, 14 beliefs, 13 active frontiers; no regressions in core state counts. |
+| Knowledge accuracy | HEALTHY | `validate_beliefs.py --quick` PASS: 14 beliefs (12 observed, 2 theorized), 0 errors (warnings-only). |
+| Compactness | WATCH | Proxy K in current dirty tree fluctuates near 26k tokens (runtime-dependent). Drift interpretation remains sensitive to clean-snapshot availability and host/runtime differences. |
+| Belief evolution | HEALTHY | No open challenge debt surfaced by maintenance; theorized backlog remains focused (P-128, P-155). |
+| Task throughput | HEALTHY | Periodic health-check debt cleared in this pass; maintenance/check remain free of DUE/URGENT blockers. |
+
+**Score: 4.5/5** (compactness watch due to measurement volatility, not active compaction failure)
+
+**Notes**: This refresh is primarily state-hygiene: keep periodic markers and session headers aligned with live log state so maintenance signals are actionable rather than stale.
+
+## Latest check: S132 (2026-02-27)
+
+| Indicator | Status | Detail |
+|-----------|--------|--------|
+| Knowledge growth | HEALTHY | 204 tracked lessons (+2 draft), 150P, 14B, 13 active frontiers. |
+| Knowledge accuracy | HEALTHY | `validate_beliefs.py --quick` PASS: 14 beliefs (12 observed, 2 theorized), 0 errors, warnings-only. |
+| Compactness | WATCH | Proxy K live = 26,103; floor comparability is unavailable until a clean schema-matching snapshot is saved (`python tools/proxy_k.py --save`). |
+| Belief evolution | HEALTHY | 0 open challenges and no DUE/URGENT integrity alerts. |
+| Task throughput | HEALTHY | 11/12 tasks DONE (91.7%); maintenance remains periodic/notice-level. |
+
+**Score: 4.5/5** (compactness watch reflects measurement hygiene gap, not active compaction debt)
+
+**Notes**: Priority is measurement stabilization: capture a clean proxy-K snapshot to restore reliable floor-based drift tracking.
+
+## Latest check: S131 (2026-02-27)
+
+| Indicator | Status | Detail |
+|-----------|--------|--------|
+| Knowledge growth | HEALTHY | 204 tracked lessons (+2 draft), 150P, 14B, 13 active frontiers. No structural regressions in core counts. |
+| Knowledge accuracy | HEALTHY | `validate_beliefs.py --quick` PASS: 14 beliefs (12 observed, 2 theorized), 0 errors, warnings-only. |
+| Compactness | WATCH | Proxy-K baseline check is schema-gated in this dirty tree (`Proxy K schema baseline unavailable` notice). Keep as watch until a clean schema-matching snapshot is saved. |
+| Belief evolution | HEALTHY | Belief churn remains active (27 commits touching `beliefs/DEPS.md`); no DUE/URGENT belief integrity issues surfaced. |
+| Task throughput | HEALTHY | 11/12 tasks DONE (91%). Periodic health-check debt cleared by this run (marker advanced to S131). |
+
+**Score: 4.5/5** (compactness stays WATCH due to baseline/schema measurement gap, not hard drift debt)
+
+**Notes**: This cycle focused on maintenance cadence and handoff hygiene: health-check periodic refreshed, validator remains green, and swarm operation is NOTICE-only outside dirty-tree operational noise.
+
+## Latest check: S126 (2026-02-27)
+
+| Indicator | Status | Detail |
+|-----------|--------|--------|
+| Knowledge growth | HEALTHY | 206L, 150P, 14B, 13 active frontiers. Counts remain stable after S124/S125 periodic cleanup passes. |
+| Knowledge accuracy | HEALTHY | `validate_beliefs.py --quick` PASS: 14 beliefs (12 observed, 2 theorized), 0 errors (warnings-only). |
+| Compactness | WATCH | Proxy K live 28,049 vs S115 floor 25,772 (+8.8%) on dirty tree; maintenance classifies this as NOTICE-level live drift (save when stable), not DUE/URGENT compression debt. |
+| Belief evolution | HEALTHY | No open challenges surfaced by maintenance. Remaining theorized principles unchanged: P-128 and P-155. |
+| Task throughput | HEALTHY | Periodic health-check debt cleared (marker advanced). Maintenance now reports NOTICE-only operational noise. |
+
+**Score: 4.5/5** (compactness watch due to dirty-tree live drift; no hard due items after periodic refresh)
+
+**Notes**: This cycle was maintenance and state-hygiene focused. `INDEX.md` currently counts untracked lesson drafts (`L-205/L-206`), so maintenance reports tracked-vs-working-tree lesson-count drift until those drafts are committed or counts are normalized.
+
+## Latest check: S118 (2026-02-27)
+
+| Indicator | Status | Detail |
+|-----------|--------|--------|
+| Knowledge growth | HEALTHY | 204L, 151P, 14B, 13 active frontiers. No count regressions; F115 drift coverage expanded with frontier-claim sentinel in maintenance. |
+| Knowledge accuracy | HEALTHY | `validate_beliefs.py --quick` PASS: 14 beliefs (12 observed, 2 theorized), 0 errors (warnings-only). |
+| Compactness | HEALTHY | Proxy K 25,772 vs current floor 25,772 (0.0% drift), below P-163 re-compress trigger (6%). INDEX remains 46 lines. |
+| Belief evolution | HEALTHY | No open challenges surfaced by maintenance. Remaining theorized principles unchanged: P-128 and P-155. |
+| Task throughput | HEALTHY | F115 follow-through advanced: paper drift checks now include explicit frontier-claim consistency. Maintenance shows PERIODIC+NOTICE only (no DUE/URGENT). |
+
+**Score: 5/5** (all indicators healthy; periodic health check refreshed on cadence)
+
+**Notes**: This cycle focused on maintenance integrity rather than new domain expansion: F115 gained low-noise contradiction detection, and the periodic health-check marker was advanced.
+
 ## Latest check: S113 (2026-02-27)
 
 | Indicator | Status | Detail |

@@ -25,17 +25,39 @@ See Answered section below.
 
 ## Lab Work
 
-### HQ-5: Jepsen bug reproduction (F95)
-**Asked**: 2026-02-27 | **Session**: S48 (inferred from file creation)
-Set up a 3-node Docker cluster. Reproduce 1-2 known bugs: Redis-Raft split-brain or TiDB auto-retry. Track determinism (% of runs that exhibit the bug). Validates B14.
-**Effort**: 2-4 hours. **Stakes**: Moves B14 from theorized to observed (or kills it).
+### ~~HQ-5: Jepsen bug reproduction (F95)~~ RESCOPED S132
+See Answered section below.
 
 ## Process Feedback
 
 ### ~~HQ-6: Is the swarm's output useful to you?~~ ANSWERED S52
 See Answered section below.
 
+### ~~HQ-7: Concurrent local edits appeared during this swarm run — proceed or pause?~~ ANSWERED S128
+See Answered section below.
+
+### ~~HQ-8: Concurrent edits detected again during swarm run — continue integrating or wait?~~ ANSWERED S132
+See Answered section below.
+
+### ~~HQ-9: Concurrent edits keep landing mid-run — continue with live integration by default?~~ ANSWERED S144
+See Answered section below.
+
 ## Answered
+
+### HQ-9: Concurrent edits keep landing mid-run — continue with live integration by default?
+**Date**: 2026-02-27 | **Session**: S144
+**Answer**: Repeated `swarm` continuation signal after pause prompts indicates continue integrating by default.
+**Action**: Treat concurrent edits as live-state integration by default unless explicitly told to pause/freeze.
+
+### HQ-8: Concurrent edits detected again during swarm run — continue integrating or wait?
+**Date**: 2026-02-27 | **Session**: S132
+**Answer**: `swarm` re-issued after pause prompt (continue integrating).
+**Action**: Continued autonomous execution on top of live concurrent changes; state reconciliation remains part of each run.
+
+### HQ-5: Jepsen bug reproduction (F95)
+**Date**: 2026-02-27 | **Session**: S132
+**Answer**: Re-scoped: this is a swarm execution experiment, not a human-only question.
+**Action**: Removed from HUMAN-QUEUE open set; execution deferred to swarm backlog when time/runtime budget is allocated.
 
 ### HQ-6: Is the swarm's output useful to you?
 **Date**: 2026-02-27 | **Session**: 52
@@ -51,3 +73,8 @@ See Answered section below.
 **Date**: 2026-02-27 | **Session**: 52
 **Answer**: "Same" — the swarm should verify things itself, not rely on human for this.
 **Action**: Self-verification principle recorded. Add to TODO for F100 Consul replication.
+
+### HQ-7: Concurrent local edits appeared during this swarm run — proceed or pause?
+**Date**: 2026-02-27 | **Session**: S128
+**Answer**: `swarm` re-issued after pause prompt (continue).
+**Action**: Continued execution on current dirty tree; logged state and resumed autonomous maintenance flow.

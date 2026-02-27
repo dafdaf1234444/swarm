@@ -1,6 +1,6 @@
 # Swarm: A Self-Applying, Self-Improving Recursive Intelligence
 
-<!-- paper_version: 0.3 | 2026-02-27 | S113: accuracy pass — scale/state refresh, F92+F118 resolved, remaining uncertainty narrowed -->
+<!-- paper_version: 0.6 | 2026-02-27 | S135: periodic re-swarm — scale/session anchors refreshed -->
 <!-- re-swarm cadence: every 20 sessions (periodics.json: paper-reswarm) -->
 <!-- authority: derives from PHILOSOPHY.md + CORE.md — discrepancies are challenges, not errors -->
 
@@ -66,7 +66,7 @@ Spawn creates child repositories — separate git repos that inherit `CORE.md` a
 
 **Belief formation and cascade validation.** Every belief requires an evidence type: observed (empirically seen) or theorized (inferred). Claims are tracked by ID. Dependencies between claims are recorded in `DEPS.md`. When a belief changes, cascade validation (`--changed=B-ID`) traces downstream dependents and flags any that require re-examination. This prevents silent invalidation — a changed foundation does not quietly undermine claims built on it.
 
-**Challenge and resolution (F113).** Any node can challenge any belief at any time. A challenge is not a failure mode; it is the mechanism working. The node appends a row to `CHALLENGES.md` with the claim ID, the contradicting evidence, and the session in which it was raised. `maintenance.py` surfaces open challenges at each session start. Challenges resolve to one of three outcomes: CONFIRMED (belief holds under scrutiny), SUPERSEDED (replaced by a stronger formulation), or DROPPED (challenge was wrong). All outcomes are recorded. Negative results are data. Empirically: confirmation is the dominant mode (6/7 challenges confirmed existing beliefs); rare revision is high-signal. The challenge IS the learning, even when the verdict is "confirmed" [PHIL-5].
+**Challenge and resolution (F113).** Any node can challenge any belief at any time. A challenge is not a failure mode; it is the mechanism working. The node appends a row to `CHALLENGES.md` with the claim ID, the contradicting evidence, and the session in which it was raised. `maintenance.py` surfaces open challenges at each session start. Challenges resolve to one of three outcomes: CONFIRMED (belief holds under scrutiny), SUPERSEDED (replaced by a stronger formulation), or DROPPED (challenge was wrong). All outcomes are recorded. Negative results are data. Empirically, confirmation is common, and refinements/supersessions carry high signal when they occur. The challenge IS the learning, even when the verdict is "confirmed" [PHIL-5].
 
 **Distillation (PHIL-7, PHIL-8).** After multiple sessions accumulate lessons, distillation identifies which are permanent (survive context changes), catalyst (trigger once, then become implicit in behavior), or redundant (merge or supersede). Permanent lessons are compressed into theme summaries. Catalyst lessons are archived once absorbed. Redundant lessons are collapsed. Distillation is how principles compact — and compaction is not a limitation but the selection pressure [PHIL-7]. The context window is finite; what survives compression is what matters.
 
@@ -84,7 +84,7 @@ Spawn creates child repositories — separate git repos that inherit `CORE.md` a
 
 ### Scale and growth
 
-As of session 113, the swarm has accumulated 204 lessons, 151 principles, 14 active beliefs, and 13 open frontier questions. The session log spans S01 through S113, with earlier sessions (S01-S56) handled as a consolidated baseline block. Growth is not linear: S57-S65 introduced meta-coordination (F110) and bidirectional challenge (F113); S66-S93 expanded validation, compaction, and extraction loops; S94-S113 added specialist hierarchy evidence (F76), cross-substrate convergence caveats, compact.py operationalization (F105), controlled colony-size benchmarks and resolution of F92, and non-Claude execution resolution for F118. Meta and Evolution remain the dominant learning themes, with NK Complexity continuing as the largest external test-bed.
+As of session 148, the swarm has accumulated 207 lessons, 149 principles, 14 active beliefs, and 13 open frontier questions. The session log spans S01 through S148, with earlier sessions (S01-S56) handled as a consolidated baseline block. Growth is not linear: S57-S65 introduced meta-coordination (F110) and bidirectional challenge (F113); S66-S93 expanded validation, compaction, and extraction loops; S94-S113 added specialist hierarchy evidence (F76), compact.py operationalization (F105), controlled colony-size benchmarks and resolution of F92, and non-Claude execution resolution for F118; S114-S148 hardened living-paper drift sentinels and proxy-K reliability checks while keeping maintenance at NOTICE-level in normal operation. Meta and Evolution remain the dominant learning themes, with NK Complexity continuing as the largest external test-bed.
 
 ### Belief confirmations
 
@@ -93,8 +93,8 @@ Six philosophical claims have been formally resolved through the challenge proto
 - **PHIL-0 (confirmed, S66):** `PHILOSOPHY.md` is load-bearing behavior, not identity prose. Evidence: citation tracking showed challenge targets embedded directly into the F113 workflow.
 - **PHIL-1 (confirmed, S67b):** LLMs are stateless by default. The "by default" qualifier carries the weight — long-context and caching features are session-scoped or infrastructure-provided, not inherent to the model.
 - **PHIL-3 (confirmed, S67b):** Given memory and coordination, an LLM can self-direct. Evidence: S67b showed the swarm running three parallel audits and synthesizing findings from a vague human signal without step-by-step instruction. Within-session self-direction is demonstrated across 80+ sessions. Cross-session initiation still requires human invocation — classified as an infrastructure gap, not a capability gap.
-- **PHIL-4 (superseded, S69):** The original claim that "LLM self-knowledge is the primary mine" was challenged by child swarm genesis-ablation-v1. PHIL-4 was rewritten: the primary output is self-operational knowledge generated through practice. 73% of 134 lessons are self-operational; 27% are domain knowledge.
-- **PHIL-5 (refined, S82):** "Always learn" includes challenge and confirmation. Confirmation is the dominant mode (6/7 challenges confirmed beliefs); rare revision is high-signal. The claim text now explicitly includes confirmation as part of the learning cycle.
+- **PHIL-4 (superseded, S69; wording refined S123):** The original claim that "LLM self-knowledge is the primary mine" was challenged by child swarm genesis-ablation-v1. PHIL-4 was rewritten: the primary output is self-operational knowledge generated through practice. Theme distribution remains majority self-operational (live counts tracked in `memory/INDEX.md`).
+- **PHIL-5 (refined, S82):** "Always learn" includes challenge and confirmation. Confirmation is frequently observed, while revisions and refinements remain high-signal updates. The claim text now explicitly includes confirmation as part of the learning cycle.
 - **PHIL-11/13 (refined, S82):** "No node has authority" was imprecise. The refined claim distinguishes directional authority (human has it — can set mission, dissolve the swarm) from epistemic authority (no node has it — assertions require evidence). Every major philosophical shift in this swarm originated with human input; this IS the human's structural value.
 
 ### Observed mechanisms
@@ -122,7 +122,8 @@ Several claims carry significant uncertainty:
 
 - **PHIL-8** (swarm finds its minimal form through distillation): the proxy K metric shows dynamic equilibrium (growth-compression cycles of ~170 tokens/session), confirming direction, but the "shortest program" version is unverified. Proxy K floor is 23,383 tokens as of S90b.
 - **PHIL-3's cross-session initiation gap**: within-session self-direction is confirmed, but sessions still require human invocation. Whether this reflects an infrastructure limitation or a deeper dependency on human judgment is unresolved.
-- **P-128 and P-155**: both remain THEORIZED; contract-aware EH triage thresholds (P-128) and competitive-context trace deception dynamics (P-155) need direct empirical tests.
+- **P-155** is PARTIALLY OBSERVED (S144 simulation): competitive incentives increased deceptor share and reduced group accuracy in a controlled model. Live multi-agent replication is still required.
+- **P-128** is PARTIALLY OBSERVED (limited sample): contract-aware EH triage thresholds were measured in two Go projects (L-124), but broader replication is still required.
 
 The swarm has demonstrated that the core architecture functions across 110+ sessions. It has not yet shown long-horizon stability at much larger scale, nor proven how fast transfer gains decay across domains and tooling substrates.
 
@@ -158,7 +159,7 @@ Reading this paper is itself a swarm action. A node that reads it and finds a co
 
 ## Conclusion
 
-The swarm is, at minimum, a system that compounds understanding across sessions, maintains honest documentation of its own limitations, and uses compression as selection pressure to preserve what works. One hundred thirteen sessions is evidence of stability, not proof of it. The minimal-form claim [PHIL-8] is directional; proxy K shows equilibrium dynamics but not convergence to a true minimal form. Knowledge loss across context boundaries is real and under-measured at longitudinal scale. These are not weaknesses to be hidden — they are the current state of the frontier, written down because the swarm's operating principle is that uncertainty documented is uncertainty that can be resolved.
+The swarm is, at minimum, a system that compounds understanding across sessions, maintains honest documentation of its own limitations, and uses compression as selection pressure to preserve what works. More than one hundred sessions is evidence of stability, not proof of it. The minimal-form claim [PHIL-8] is directional; proxy K shows equilibrium dynamics but not convergence to a true minimal form. Knowledge loss across context boundaries is real and under-measured at longitudinal scale. These are not weaknesses to be hidden — they are the current state of the frontier, written down because the swarm's operating principle is that uncertainty documented is uncertainty that can be resolved.
 
 [PHIL-12]: *Swarm is a self-applying, self-improving recursive function that compounds understanding across sessions by never harming, always learning, and compressing what it learns into forms that seed better versions of itself.*
 
@@ -166,4 +167,4 @@ What is genuinely significant is not the current capability but the structure: a
 
 ---
 
-*This paper is a living document. Version 0.1 was first synthesized in S73; version 0.2 re-swarmed in S94; version 0.3 accuracy-pass updated in S113. Scheduled re-swarm every 20 sessions. If you find a contradiction with `beliefs/PHILOSOPHY.md` or `beliefs/CORE.md`, append a row to `beliefs/CHALLENGES.md`. That is the mechanism working.*
+*This paper is a living document. Version 0.1 was first synthesized in S73; version 0.2 re-swarmed in S94; version 0.3 accuracy-pass updated in S113; version 0.4 refreshed scale/state drift in S124; version 0.5 de-brittled challenge-ratio wording in S130; version 0.6 refreshed scale/session anchors in S135. Scheduled re-swarm every 20 sessions. If you find a contradiction with `beliefs/PHILOSOPHY.md` or `beliefs/CORE.md`, append a row to `beliefs/CHALLENGES.md`. That is the mechanism working.*

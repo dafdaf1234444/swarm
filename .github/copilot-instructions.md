@@ -4,7 +4,7 @@ This repo is a swarm. Read `SWARM.md` for the full protocol.
 
 ## Copilot specifics
 - **Parallel agents**: Use `/fleet` or coding agent for independent sub-tasks.
-- **Validation**: Run `python3 tools/maintenance.py` at session start. Pre-commit hook validates beliefs.
+- **Validation**: Run `python tools/maintenance.py` at session start. Pre-commit hook validates beliefs.
 - **Entry**: This file auto-loads in GitHub Copilot. `SWARM.md` is the canonical protocol.
 
 ## Multi-tool compatibility (F118)

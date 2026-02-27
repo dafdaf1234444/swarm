@@ -22,12 +22,56 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import uuid
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 PASSED = 0
 FAILED = 0
 ERRORS = []
+
+
+def _pick_python_cmd() -> str:
+    """Pick a runnable python command for this host."""
+    for candidate in ("python3", "python", sys.executable):
+        try:
+            probe = subprocess.run(
+                [candidate, "-c", "import sys"],
+                capture_output=True, text=True
+            )
+            if probe.returncode == 0:
+                return candidate
+        except Exception:
+            continue
+    return sys.executable
+
+
+PYTHON_CMD = _pick_python_cmd()
+
+
+def _to_bash_path(path: str | Path) -> str:
+    """Normalize a host path for bash script arguments across runtimes."""
+    s = str(path).replace("\\", "/")
+    s = re.sub(r"/+", "/", s)
+    m = re.match(r"^([A-Za-z]):/(.*)$", s)
+    if m:
+        drive = m.group(1).lower()
+        rest = re.sub(r"/+", "/", m.group(2)).lstrip("/")
+        return f"/mnt/{drive}/{rest}"
+    return s
+
+
+def _run_genesis(child_dir: str | Path, name: str = "test") -> subprocess.CompletedProcess:
+    """Run genesis via repo-relative script path for cross-runtime portability."""
+    child_path = Path(child_dir)
+    try:
+        target = child_path.relative_to(REPO_ROOT).as_posix()
+    except ValueError:
+        target = _to_bash_path(child_path)
+    return subprocess.run(
+        ["bash", "workspace/genesis.sh", target, name],
+        cwd=str(REPO_ROOT), capture_output=True, text=True
+    )
 
 
 def run_test(name: str, func):
@@ -53,13 +97,9 @@ def test_genesis_spawns_valid_child():
     """Test that genesis.sh produces a child that passes validation."""
     with tempfile.TemporaryDirectory() as tmpdir:
         child_dir = os.path.join(tmpdir, "test-child")
-        genesis = REPO_ROOT / "workspace" / "genesis.sh"
 
         # Spawn
-        r = subprocess.run(
-            ["bash", str(genesis), child_dir, "test"],
-            capture_output=True, text=True
-        )
+        r = _run_genesis(child_dir, "test")
         if r.returncode != 0:
             raise RuntimeError(f"genesis.sh failed: {r.stderr}")
 
@@ -73,7 +113,7 @@ def test_genesis_spawns_valid_child():
 
         # Validate
         r = subprocess.run(
-            ["python3", "tools/validate_beliefs.py"],
+            [PYTHON_CMD, "tools/validate_beliefs.py"],
             cwd=child_dir, capture_output=True, text=True
         )
         return r.returncode == 0 and "PASS" in r.stdout
@@ -83,12 +123,8 @@ def test_genesis_file_count():
     """Test that genesis.sh creates the expected number of files."""
     with tempfile.TemporaryDirectory() as tmpdir:
         child_dir = os.path.join(tmpdir, "test-child")
-        genesis = REPO_ROOT / "workspace" / "genesis.sh"
 
-        subprocess.run(
-            ["bash", str(genesis), child_dir, "test"],
-            capture_output=True, text=True
-        )
+        _run_genesis(child_dir, "test")
 
         # Count files (excluding directories and .gitkeep)
         file_count = sum(
@@ -100,10 +136,45 @@ def test_genesis_file_count():
         return file_count >= 17
 
 
+def test_child_can_spawn_grandchild():
+    """Test that a spawned child can spawn its own child (recursive swarming)."""
+    child_slug = f"recursive-test-{uuid.uuid4().hex[:8]}"
+    child_rel = f"workspace/{child_slug}"
+    child_dir = REPO_ROOT / "workspace" / child_slug
+    try:
+        r = _run_genesis(child_rel, "test")
+        if r.returncode != 0:
+            raise RuntimeError(f"genesis.sh failed: {r.stderr}")
+
+        agent_swarm = child_dir / "tools" / "agent_swarm.py"
+        nested_genesis = child_dir / "workspace" / "genesis.sh"
+        if not agent_swarm.exists():
+            raise RuntimeError("child missing tools/agent_swarm.py")
+        if not nested_genesis.exists():
+            raise RuntimeError("child missing workspace/genesis.sh")
+
+        r = subprocess.run(
+            [PYTHON_CMD, "tools/agent_swarm.py", "create", "grandchild-test", "recursive spawn check"],
+            cwd=str(child_dir), capture_output=True, text=True
+        )
+        if r.returncode != 0:
+            raise RuntimeError(f"child spawn failed: {r.stderr or r.stdout}")
+
+        grandchild_dir = child_dir / "experiments" / "children" / "grandchild-test"
+        if not grandchild_dir.exists():
+            raise RuntimeError("grandchild directory not created")
+        if not (grandchild_dir / "tasks" / "AGENT-TASK.md").exists():
+            raise RuntimeError("grandchild AGENT-TASK not created")
+
+        return True
+    finally:
+        shutil.rmtree(child_dir, ignore_errors=True)
+
+
 def test_validator_passes_current():
     """Test that the parent validator passes on current state."""
     r = subprocess.run(
-        ["python3", str(REPO_ROOT / "tools" / "validate_beliefs.py")],
+        [PYTHON_CMD, str(REPO_ROOT / "tools" / "validate_beliefs.py")],
         cwd=str(REPO_ROOT), capture_output=True, text=True
     )
     return r.returncode == 0 and "PASS" in r.stdout
@@ -181,7 +252,7 @@ def test_no_broken_belief_refs():
 def test_dep_consistency():
     """Test that Depends on / Depended on by are consistent."""
     r = subprocess.run(
-        ["python3", str(REPO_ROOT / "tools" / "validate_beliefs.py")],
+        [PYTHON_CMD, str(REPO_ROOT / "tools" / "validate_beliefs.py")],
         cwd=str(REPO_ROOT), capture_output=True, text=True
     )
     # Check for DEP_SYNC warnings
@@ -191,7 +262,7 @@ def test_dep_consistency():
 def test_entropy_zero():
     """Test that the entropy detector finds zero items."""
     r = subprocess.run(
-        ["python3", str(REPO_ROOT / "tools" / "validate_beliefs.py")],
+        [PYTHON_CMD, str(REPO_ROOT / "tools" / "validate_beliefs.py")],
         cwd=str(REPO_ROOT), capture_output=True, text=True
     )
     return "Entropy items: 0" in r.stdout
@@ -265,7 +336,7 @@ def test_integration_log_valid():
 def test_growth_rate_runs():
     """Test that session_tracker.py growth-rate command runs without error."""
     r = subprocess.run(
-        ["python3", str(REPO_ROOT / "tools" / "session_tracker.py"), "growth-rate"],
+        [PYTHON_CMD, str(REPO_ROOT / "tools" / "session_tracker.py"), "growth-rate"],
         cwd=str(REPO_ROOT), capture_output=True, text=True
     )
     if r.returncode != 0:
@@ -280,7 +351,7 @@ def test_growth_rate_runs():
 def test_trend_analysis_runs():
     """Test that session_tracker.py trend command runs and produces valid output."""
     r = subprocess.run(
-        ["python3", str(REPO_ROOT / "tools" / "session_tracker.py"), "trend"],
+        [PYTHON_CMD, str(REPO_ROOT / "tools" / "session_tracker.py"), "trend"],
         cwd=str(REPO_ROOT), capture_output=True, text=True
     )
     if r.returncode != 0:
@@ -298,7 +369,7 @@ def test_nk_analyze_runs():
     """Test that nk_analyze.py can analyze a stdlib package and output valid JSON."""
     import json
     r = subprocess.run(
-        ["python3", str(REPO_ROOT / "tools" / "nk_analyze.py"), "json", "--json"],
+        [PYTHON_CMD, str(REPO_ROOT / "tools" / "nk_analyze.py"), "json", "--json"],
         cwd=str(REPO_ROOT), capture_output=True, text=True
     )
     if r.returncode != 0:
@@ -315,7 +386,7 @@ def test_nk_analyze_runs():
 def test_bulletin_regression_suite():
     """Test that bulletin regression tests pass (help-flow + type parsing)."""
     r = subprocess.run(
-        ["python3", str(REPO_ROOT / "tools" / "test_bulletin.py")],
+        [PYTHON_CMD, str(REPO_ROOT / "tools" / "test_bulletin.py")],
         cwd=str(REPO_ROOT), capture_output=True, text=True
     )
     if r.returncode != 0:
@@ -331,7 +402,7 @@ def test_context_router_routes_correctly():
     """Test that context_router.py routes tasks to relevant domains."""
     import json as json_mod
     r = subprocess.run(
-        ["python3", str(REPO_ROOT / "tools" / "context_router.py"),
+        [PYTHON_CMD, str(REPO_ROOT / "tools" / "context_router.py"),
          "analyze NK complexity cycles", "--json"],
         cwd=str(REPO_ROOT), capture_output=True, text=True
     )
@@ -358,7 +429,7 @@ def test_context_router_inventory():
     """Test that context_router.py inventory shows total knowledge."""
     import json as json_mod
     r = subprocess.run(
-        ["python3", str(REPO_ROOT / "tools" / "context_router.py"),
+        [PYTHON_CMD, str(REPO_ROOT / "tools" / "context_router.py"),
          "inventory", "--json"],
         cwd=str(REPO_ROOT), capture_output=True, text=True
     )
@@ -412,13 +483,9 @@ def test_evolution_e2e():
     with tempfile.TemporaryDirectory() as tmpdir:
         child_name = "e2e-test-child"
         child_dir = os.path.join(tmpdir, child_name)
-        genesis = REPO_ROOT / "workspace" / "genesis.sh"
 
         # Step 1: Spawn
-        r = subprocess.run(
-            ["bash", str(genesis), child_dir, "e2e-test"],
-            capture_output=True, text=True
-        )
+        r = _run_genesis(child_dir, "e2e-test")
         if r.returncode != 0:
             raise RuntimeError(f"genesis.sh failed: {r.stderr}")
 
@@ -479,7 +546,7 @@ def test_evolution_e2e():
             # Run merge-back report
             merge_back = REPO_ROOT / "tools" / "merge_back.py"
             r = subprocess.run(
-                ["python3", str(merge_back), child_dir],
+                [PYTHON_CMD, str(merge_back), child_dir],
                 capture_output=True, text=True
             )
             if "Novel rules:" not in r.stdout:
@@ -492,7 +559,7 @@ def test_evolution_e2e():
             # Step 4: Verify integration dry-run works
             evolve = REPO_ROOT / "tools" / "evolve.py"
             r = subprocess.run(
-                ["python3", str(evolve), "integrate", child_name, "--dry-run"],
+                [PYTHON_CMD, str(evolve), "integrate", child_name, "--dry-run"],
                 capture_output=True, text=True
             )
             if "Novel rules to add" not in r.stdout:
@@ -512,11 +579,7 @@ def test_neg_broken_belief_detected():
     """Negative test: validator catches a belief with missing evidence type."""
     with tempfile.TemporaryDirectory() as tmpdir:
         child_dir = os.path.join(tmpdir, "neg-test")
-        genesis = REPO_ROOT / "workspace" / "genesis.sh"
-        subprocess.run(
-            ["bash", str(genesis), child_dir, "test"],
-            capture_output=True, text=True
-        )
+        _run_genesis(child_dir, "test")
         subprocess.run(["git", "init"], cwd=child_dir, capture_output=True)
 
         # Break a belief: replace evidence type with invalid value
@@ -530,7 +593,7 @@ def test_neg_broken_belief_detected():
         subprocess.run(["git", "commit", "-m", "break"], cwd=child_dir, capture_output=True)
 
         r = subprocess.run(
-            ["python3", "tools/validate_beliefs.py"],
+            [PYTHON_CMD, "tools/validate_beliefs.py"],
             cwd=child_dir, capture_output=True, text=True
         )
         # Validator should report FAIL for invalid evidence type
@@ -541,11 +604,7 @@ def test_neg_broken_dep_ref_detected():
     """Negative test: validator catches a broken belief dependency reference."""
     with tempfile.TemporaryDirectory() as tmpdir:
         child_dir = os.path.join(tmpdir, "neg-test2")
-        genesis = REPO_ROOT / "workspace" / "genesis.sh"
-        subprocess.run(
-            ["bash", str(genesis), child_dir, "test"],
-            capture_output=True, text=True
-        )
+        _run_genesis(child_dir, "test")
         subprocess.run(["git", "init"], cwd=child_dir, capture_output=True)
 
         # Add a lesson that references a non-existent belief
@@ -579,11 +638,7 @@ def test_neg_missing_falsification_detected():
     """Negative test: test catches belief missing falsification condition."""
     with tempfile.TemporaryDirectory() as tmpdir:
         child_dir = os.path.join(tmpdir, "neg-test3")
-        genesis = REPO_ROOT / "workspace" / "genesis.sh"
-        subprocess.run(
-            ["bash", str(genesis), child_dir, "test"],
-            capture_output=True, text=True
-        )
+        _run_genesis(child_dir, "test")
 
         # Break a belief: remove falsification condition
         deps = Path(child_dir) / "beliefs" / "DEPS.md"
@@ -616,6 +671,7 @@ def main():
     print("Spawn tests:")
     run_test("genesis_spawns_valid_child", test_genesis_spawns_valid_child)
     run_test("genesis_file_count", test_genesis_file_count)
+    run_test("child_can_spawn_grandchild", test_child_can_spawn_grandchild)
 
     print("\nIntegrity tests:")
     run_test("validator_passes_current", test_validator_passes_current)

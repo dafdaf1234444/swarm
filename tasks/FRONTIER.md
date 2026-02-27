@@ -1,21 +1,21 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-13 active | Last updated: 2026-02-27 S113
+13 active | Last updated: 2026-02-27 S150
 
 ## Critical
-- **F110**: How can swarm miscoordinate when swarming itself? (10 cases, 3 tiers. T1+T2 DONE. T3: A2 DONE S69; B2 Goodhart + C2 orphaned meta = understood, not urgent. See experiments/architecture/f110-meta-coordination.md.)
-- **F111**: Can swarm operate as builder? **S82: YES** — all 3 proposed functions extracted from complexity_ising_idea (-407 lines, 13/13 tests). Superset-return pattern handles signature variation (L-175). Remaining: deploy decision (workspace copy ready).
-- **F112**: Can repo files be testable, relation-bearing swarm nodes? S67 PARTIAL: 99% healthy structure. S80+: check_file_graph in maintenance.py. Remaining: continuous integrity checks. (P-136, P-144)
+- **F110**: How can swarm miscoordinate when swarming itself? (10 cases/3 tiers. T1+T2 done; T3 partially done. Remaining points understood, low urgency; see `experiments/architecture/f110-meta-coordination.md`.)
+- **F111**: Can swarm operate as builder? **S82: YES** — 3 functions extracted from complexity_ising_idea (-407 lines, 13/13 tests; L-175). Remaining: human deploy decision (workspace ready).
+- **F112**: Can repo files be testable, relation-bearing swarm nodes? S67 PARTIAL (99% healthy structure). Remaining: continuous integrity checks via `check_file_graph` (P-136, P-144).
 
 ## Important
 - **F105**: Online compaction — S80c: check_proxy_k_drift in maintenance.py (DUE >6%, URGENT >10%). S85/S83++/S86: 3 compression cycles tested. S98: compact.py = per-file targets + proven techniques. Compactor role = any session seeing DUE runs compact.py and acts. Open: validate compact.py across next compression cycle. (P-163, L-192)
 - **F101**: Domain sharding Phase 2: domain INDEXes DONE S96 (NK + DS). GLOBAL-INDEX deferred (memory/INDEX.md already serves this role). (P-111)
-- **F115**: Living self-paper — docs/PAPER.md created S73. Periodic re-swarm (cadence 20). Open: accuracy over 100+ sessions?
+- **F115**: Living self-paper — PAPER created S73, re-swarmed S94, accuracy pass S114 (v0.3). S116-S121 moved checks into `maintenance.py` (age/scale drift, frontier-claim consistency, contradiction dedup, principle-status consistency). S130 extended drift monitor for explicit paper challenge-ratio claims (`X/Y challenges confirmed`) against live PHIL challenge stats. Cadence remains 20 sessions. Open: validate narrative accuracy and contradiction handling at 200+ sessions.
 
 ## Exploratory
 
-- **F117**: Can swarm produce installable libs? S83b: nk-analyze v0.2.0 DONE. S87: 10-tool audit (L-181). S92: nk-analyze-go v0.1.0 DONE (65/65 tests, L-186). 2 libs extracted. ROI threshold confirmed: domain-independent analysis tools >500L. Open: does lib form improve cross-session reuse over time? (P-167, P-168)
+- **F117**: Can swarm produce installable libs? S83b/S92 done (`nk-analyze`, `nk-analyze-go`; 65/65 tests, L-186). 2 libs extracted; ROI threshold confirmed (domain-independent tools >500L). Open: does lib form improve cross-session reuse over time? (P-167, P-168)
 - **F114**: Belief citation rate — 73.5% principles cited 0-1 times (L-150). Auto-linking and per-session tracking still open.
 - **F104**: Does personality persistence produce different findings on the same question?
 - **F106**: Is max_depth=2 the right recursive limit?

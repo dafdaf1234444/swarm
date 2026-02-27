@@ -30,10 +30,14 @@ def spawn(name: str, topic: str = "general") -> Path:
         print(f"Error: {child_dir} already exists")
         sys.exit(1)
 
-    genesis = REPO_ROOT / "workspace" / "genesis.sh"
+    genesis = Path("workspace/genesis.sh")
+    try:
+        child_target = child_dir.relative_to(REPO_ROOT).as_posix()
+    except ValueError:
+        child_target = child_dir.as_posix()
     result = subprocess.run(
-        ["bash", str(genesis), str(child_dir), topic],
-        capture_output=True, text=True
+        ["bash", genesis.as_posix(), child_target, topic],
+        cwd=str(REPO_ROOT), capture_output=True, text=True
     )
     if result.returncode != 0:
         print(f"Genesis failed: {result.stderr}")

@@ -33,6 +33,18 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 CHILDREN_DIR = REPO_ROOT / "experiments" / "children"
 
 
+def _configure_console_errors():
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            try:
+                stream.reconfigure(errors="replace")
+            except Exception:
+                pass
+
+
+_configure_console_errors()
+
+
 def get_next_principle_id() -> int:
     """Find the next available P-NNN id."""
     principles = REPO_ROOT / "memory" / "PRINCIPLES.md"

@@ -36,10 +36,14 @@ def create_agent_swarm(child_name: str, task_description: str, personality: str 
 
     # Spawn if not exists
     if not child_dir.exists():
-        genesis = REPO_ROOT / "workspace" / "genesis.sh"
+        genesis = Path("workspace/genesis.sh")
+        try:
+            child_target = child_dir.relative_to(REPO_ROOT).as_posix()
+        except ValueError:
+            child_target = child_dir.as_posix()
         r = subprocess.run(
-            ["bash", str(genesis), str(child_dir), child_name],
-            capture_output=True, text=True
+            ["bash", genesis.as_posix(), child_target, child_name],
+            cwd=str(REPO_ROOT), capture_output=True, text=True
         )
         if r.returncode != 0:
             print(f"Genesis failed: {r.stderr}")

@@ -9,6 +9,35 @@ Full evolution pipeline: `tools/evolve.py init|harvest|integrate|compare`
 Manual spawn: `./workspace/genesis.sh ~/child-swarm-[name] "[topic]"`
 For listing children: `tools/swarm_test.py list`
 
+## Swarm Everywhere (Portability + Resource Reality)
+Goal: run swarm on any supported tool/host while respecting finite context, compute, and coordination budget.
+
+### 0) Confirm substrate reality first
+1. Host/runtime capabilities: `python tools/maintenance.py --inventory`
+2. Active tool constraints: read bridge file (`AGENTS.md`, `CLAUDE.md`, etc.) and confirm parallel-agent support.
+3. Human boundary/context: `memory/HUMAN.md`, `tasks/HUMAN-QUEUE.md`
+
+### 1) Classify task topology before choosing N
+- **Independent fanout**: separable subtasks with minimal shared writes
+- **Cooperative lock-heavy/RMW**: shared mutable state, transactional contention
+- **Cooperative append-only/idempotent**: shared file/log append with integrity guardrails
+- **Context-heavy deep analysis**: broad read surface (>15 files) where partition quality dominates speed
+
+### 2) Size colony by topology (F92, L-200..L-204)
+- Independent fanout: start `N ~= fanout`; test `N+1` only for compute-heavy partitions.
+- Lock-heavy cooperative paths: cap near `N=2` unless the coordination primitive is redesigned.
+- Append-only/idempotent cooperative paths: `N=3..4` can scale if integrity checks pass first.
+- Unknown topology: run a short discovery pass (small N), then reclassify.
+
+### 3) Gate confidence by substrate diversity (L-192, P-089)
+- Same-substrate convergence (same model family/tooling) = **test-level confidence**.
+- Adopt-level confidence requires cross-substrate corroboration (different model/tool or human replication).
+
+### 4) Enforce budget guardrails (L-113, P-163)
+- If task needs reading >15 files, decompose/spawn instead of single-node deep load.
+- If proxy-K drift is >6%, run compaction before expanding swarm width.
+- Optimize for learning-diversity per added node, not raw agent count.
+
 ## Maintenance
 Per CLAUDE.md §State. Checks: challenges, compaction thresholds, frontier decay, periodics,
 unpushed commits, cross-reference drift, runtime portability. Output = state; swarm decides priority.
