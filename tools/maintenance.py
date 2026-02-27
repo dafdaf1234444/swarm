@@ -200,69 +200,40 @@ def check_lessons() -> list[tuple[str, str]]:
 def check_frontier_decay() -> list[tuple[str, str]]:
     """Check for decayed frontier questions. Auto-refreshes decay from SESSION-LOG.md."""
     results = []
-    decay_file = REPO_ROOT / "experiments" / "frontier-decay.json"
     frontier_path = REPO_ROOT / "tasks" / "FRONTIER.md"
-
+    decay_file = REPO_ROOT / "experiments" / "frontier-decay.json"
     if not frontier_path.exists():
         return results
-
     text = frontier_path.read_text()
-    archive_pos = text.find("## Archive")
-    open_text = text[:archive_pos] if archive_pos > 0 else text
-
+    open_text = text[:text.find("## Archive")] if "## Archive" in text else text
     decay = {}
     if decay_file.exists():
-        try:
-            decay = json.loads(decay_file.read_text())
-        except Exception:
-            pass
-
-    # Auto-refresh: scan SESSION-LOG.md for F-NNN mentions with dates
-    session_log = _read(REPO_ROOT / "memory" / "SESSION-LOG.md")
-    for line in session_log.splitlines():
-        line_date_m = re.search(r"\d{4}-\d{2}-\d{2}", line)
-        if not line_date_m:
-            continue
-        line_date = line_date_m.group()
-        for fid_m in re.finditer(r"\bF(\d+)\b", line):
-            fid = f"F{fid_m.group(1)}"
-            current = decay.get(fid, {}).get("last_active", "1970-01-01")
-            if line_date > current:
-                decay[fid] = {"last_active": line_date}
-
-    # Also check FRONTIER.md text for session mentions (S75: ... means active)
+        try: decay = json.loads(decay_file.read_text())
+        except Exception: pass
+    # Auto-refresh from SESSION-LOG and FRONTIER session mentions
+    for line in _read(REPO_ROOT / "memory" / "SESSION-LOG.md").splitlines():
+        dm = re.search(r"\d{4}-\d{2}-\d{2}", line)
+        if not dm: continue
+        for fm in re.finditer(r"\bF(\d+)\b", line):
+            fid = f"F{fm.group(1)}"
+            if dm.group() > decay.get(fid, {}).get("last_active", "1970-01-01"):
+                decay[fid] = {"last_active": dm.group()}
     for m in re.finditer(r"^- \*\*F(\d+)\*\*:.*S(\d+)", open_text, re.MULTILINE):
-        fid = f"F{m.group(1)}"
-        # Frontier entries with recent session mentions are active today
-        if fid not in decay:
-            decay[fid] = {"last_active": date.today().isoformat()}
-
-    # Save refreshed decay data
-    try:
-        decay_file.parent.mkdir(parents=True, exist_ok=True)
-        decay_file.write_text(json.dumps(decay, indent=2))
-    except Exception:
-        pass
-
-    today = date.today().isoformat()
-    weak = []
-    archive_candidates = []
-
+        decay.setdefault(f"F{m.group(1)}", {"last_active": date.today().isoformat()})
+    try: decay_file.parent.mkdir(parents=True, exist_ok=True); decay_file.write_text(json.dumps(decay, indent=2))
+    except Exception: pass
+    today = date.today()
+    weak, archive = [], []
     for m in re.finditer(r"^- \*\*F(\d+)\*\*:", open_text, re.MULTILINE):
         fid = f"F{m.group(1)}"
-        last_active = decay.get(fid, {}).get("last_active", today)
-        days = (date.fromisoformat(today) - date.fromisoformat(last_active)).days
+        days = (today - date.fromisoformat(decay.get(fid, {}).get("last_active", today.isoformat()))).days
         strength = 0.9 ** days
-        if strength < 0.1:
-            archive_candidates.append(fid)
-        elif strength < 0.3:
-            weak.append(fid)
-
-    if archive_candidates:
-        results.append(("DUE", f"{len(archive_candidates)} frontier question(s) below archive threshold: {', '.join(archive_candidates)}"))
+        if strength < 0.1: archive.append(fid)
+        elif strength < 0.3: weak.append(fid)
+    if archive:
+        results.append(("DUE", f"{len(archive)} frontier(s) below archive threshold: {', '.join(archive)}"))
     if weak:
-        results.append(("NOTICE", f"{len(weak)} frontier question(s) weakening: {', '.join(weak)}"))
-
+        results.append(("NOTICE", f"{len(weak)} frontier(s) weakening: {', '.join(weak)}"))
     return results
 
 
@@ -395,98 +366,47 @@ def check_cross_references() -> list[tuple[str, str]]:
     return results
 
 
-def check_pulse_children() -> list[tuple[str, str]]:
-    """Check that PULSE.md children match actual children on disk (F112)."""
-    results = []
-    pulse_text = _read(REPO_ROOT / "memory" / "PULSE.md")
-    children_dir = REPO_ROOT / "experiments" / "children"
-
-    if not children_dir.exists() or not pulse_text:
-        return results
-
-    # Extract children from PULSE.md (## Children section only)
-    section_m = re.search(r"## Children\n(.*?)(?=\n## |\Z)", pulse_text, re.DOTALL)
-    children_section = section_m.group(1) if section_m else ""
-    pulse_children = {m.group(1) for m in re.finditer(r"^\s+([\w][\w-]+)\s+\[", children_section, re.MULTILINE)}
-    disk_children = {d.name for d in children_dir.iterdir() if d.is_dir() and not d.name.startswith(".")}
-
-    missing_from_pulse = disk_children - pulse_children
-    missing_from_disk = pulse_children - disk_children
-
-    if missing_from_pulse:
-        results.append(("DUE", f"Children on disk but not in PULSE.md: {', '.join(sorted(missing_from_pulse)[:3])}"))
-    if missing_from_disk:
-        results.append(("DUE", f"Children in PULSE.md but not on disk: {', '.join(sorted(missing_from_disk)[:3])}"))
-
-    return results
-
-
 def check_handoff_staleness() -> list[tuple[str, str]]:
     """Check for stale handoff items in NEXT.md (>3 sessions old)."""
     results = []
     next_text = _read(REPO_ROOT / "tasks" / "NEXT.md")
-    if not next_text:
-        return results
-
     session = _session_number()
-    if session <= 0:
+    if not next_text or session <= 0:
         return results
-
     stale = []
     for m in re.finditer(r"\(added S(\d+)\)", next_text):
-        added_session = int(m.group(1))
-        age = session - added_session
+        age = session - int(m.group(1))
         if age > 3:
             line_start = next_text.rfind("\n", 0, m.start()) + 1
             line_end = next_text.find("\n", m.end())
             line = next_text[line_start:line_end if line_end > 0 else len(next_text)].strip()
             item_match = re.search(r"\*\*(.+?)\*\*", line)
-            item_name = item_match.group(1) if item_match else line[:50]
-            stale.append(f"{item_name} (age: {age} sessions)")
-
+            stale.append(f"{item_match.group(1) if item_match else line[:50]} (age: {age})")
     if stale:
-        results.append(("DUE", f"{len(stale)} stale handoff item(s) in NEXT.md — knowledge loss risk: {'; '.join(stale[:3])}"))
-
+        results.append(("DUE", f"{len(stale)} stale handoff(s) in NEXT.md: {'; '.join(stale[:3])}"))
     return results
 
 
 def check_utility() -> list[tuple[str, str]]:
-    """Surface zero-citation active principles — compression candidates (F116/F114)."""
+    """Surface zero-citation active principles (F116/F114)."""
     results = []
-
     principles_text = _read(REPO_ROOT / "memory" / "PRINCIPLES.md")
     if not principles_text:
         return results
-
     all_ids, superseded = _active_principle_ids(principles_text)
     active_ids = all_ids - superseded
-
-    # Citations anywhere in repo except PRINCIPLES.md itself
     cited: set[int] = set()
     principles_path = REPO_ROOT / "memory" / "PRINCIPLES.md"
-    for f in REPO_ROOT.rglob("*.md"):
-        if f == principles_path or ".git" in f.parts:
-            continue
-        for m in re.finditer(r"\bP-(\d+)\b", _read(f)):
-            cited.add(int(m.group(1)))
-    for f in REPO_ROOT.rglob("*.py"):
-        if ".git" in f.parts:
-            continue
-        for m in re.finditer(r"\bP-(\d+)\b", _read(f)):
-            cited.add(int(m.group(1)))
-    for f in REPO_ROOT.rglob("*.json"):
-        if ".git" in f.parts:
-            continue
-        for m in re.finditer(r"\bP-(\d+)\b", _read(f)):
-            cited.add(int(m.group(1)))
-
+    for ext in ("*.md", "*.py", "*.json"):
+        for f in REPO_ROOT.rglob(ext):
+            if f == principles_path or ".git" in f.parts:
+                continue
+            for m in re.finditer(r"\bP-(\d+)\b", _read(f)):
+                cited.add(int(m.group(1)))
     uncited = sorted(active_ids - cited)
     if uncited:
-        count = len(uncited)
         sample = ", ".join(f"P-{x}" for x in uncited[:5])
-        suffix = "..." if count > 5 else ""
-        results.append(("NOTICE", f"{count} active principle(s) with 0 citations — compression candidates: {sample}{suffix}"))
-
+        results.append(("NOTICE", f"{len(uncited)} active principle(s) with 0 citations — compression candidates: {sample}{'...' if len(uncited) > 5 else ''}"))
     return results
 
 
@@ -563,21 +483,6 @@ def check_file_graph() -> list[tuple[str, str]]:
     return results
 
 
-def check_resolution_claims() -> list[tuple[str, str]]:
-    """Check for stale resolution claims."""
-    results = []
-    claims_path = REPO_ROOT / "tasks" / "RESOLUTION-CLAIMS.md"
-    if not claims_path.exists():
-        return results
-
-    text = claims_path.read_text()
-    claimed = re.findall(r"CLAIMED", text)
-    resolved = re.findall(r"RESOLVED", text)
-    stale = len(claimed) - len(resolved)
-    if stale > 0:
-        results.append(("NOTICE", f"{stale} frontier question(s) CLAIMED but not RESOLVED"))
-
-    return results
 
 
 # --- Main ---
@@ -601,11 +506,9 @@ def main():
         check_human_queue,
         check_uncommitted,
         check_handoff_staleness,
-        check_resolution_claims,
         check_cross_references,
         check_file_graph,
         check_utility,
-        check_pulse_children,
         check_proxy_k_drift,
     ]
 

@@ -4,22 +4,21 @@ The swarm picks what matters. Solve, refine, or challenge.
 16 active | Last updated: 2026-02-27 S83
 
 ## Critical
-- **F110**: What are all the ways swarm can miscoordinate when swarming itself — and what mechanisms prevent each? (S57: 10 cases in 3 tiers. Tier 1 DONE S58. Tier 2 DONE S65. Tier 3: A2 DONE S69 (cascade validation --changed=B-ID, L-142, P-149). B2 Goodhart capture, C2 orphaned meta-work — understood but not urgent at current scale. See experiments/architecture/f110-meta-coordination.md.)
-- **F111**: Can the swarm operate as a builder, not just analyst — analyze→fix→deploy real codebases? (S53: YES for `dutch`. S69+: YES for analysis phase on `complexity_ising_idea`. **S82: ALL 3 FUNCTIONS EXTRACTED** — config_to_patch_states (8 local→import), compute_ei_equalized (6 local→canonical 5-tuple in src/ei_compute.py), compute_patch_autocorrelation (2 local→import). 16 duplicates removed, -407 lines net, 13/13 tests pass. S81 "not extractable" verdict corrected via superset-return pattern (L-175). Proposal 100% executable with caller adaptation.)
-
-- **F112**: Can all repo files be treated as testable, relation-bearing swarm nodes? What architecture — validators, dependency graph, integrity checks — makes the repo itself a self-checking structure rather than a pile of artifacts? (L-129, P-136. S67 PARTIAL: parallel audit agents found core structure 99% healthy, 10 files missing from INDEX structure table (fixed), workspace 98% dead. Meta-swarming pattern confirmed — fan-out audit + coordinated merge works for structural self-improvement. P-144. Remaining: automated validators, continuous integrity checks.)
+- **F110**: How can swarm miscoordinate when swarming itself? (10 cases, 3 tiers. T1+T2 DONE. T3: A2 DONE S69; B2 Goodhart + C2 orphaned meta = understood, not urgent. See experiments/architecture/f110-meta-coordination.md.)
+- **F111**: Can swarm operate as builder? **S82: YES** — all 3 proposed functions extracted from complexity_ising_idea (-407 lines, 13/13 tests). Superset-return pattern handles signature variation (L-175). Remaining: deploy decision (workspace copy ready).
+- **F112**: Can repo files be testable, relation-bearing swarm nodes? S67 PARTIAL: 99% healthy structure. S80+: check_file_graph in maintenance.py. Remaining: continuous integrity checks. (P-136, P-144)
 
 ## Important
-- **F105**: How should the swarm implement continuous (online) compaction? S80c: compression trigger wired into maintenance.py (check_proxy_k_drift — flags DUE at >6%, URGENT at >10% drift from last compression floor; shows tier-level targets). Children inherit PRINCIPLES.md (DISTILL.md). Open: compactor child role; automated merge trigger; test over 2+ compression cycles.
-- **F101**: Domain sharding Phase 2: domain INDEXes + GLOBAL-INDEX. Phase 1 done S52 (3 domain FRONTIERs, ceiling = 3 concurrent agents).
-- **F71**: What makes a good spawn task? Highest-information partition? S57: 5 events logged, Agent 2=109% Agent 1 when complement-designed, 0/5 P-119 compliant. Need 5 more events for definitive curve.
-- **F92**: Optimal colony size for a given knowledge domain. S54: 3 agents on 2 repos = 2.2× speedup.
-- **F115**: Can the swarm produce and maintain a living self-paper? S73: YES — initial paper created at docs/PAPER.md using 4-agent fan-out synthesis. Paper cites beliefs by ID. Registered in periodics.json (cadence: 20 sessions). Open: does periodic re-swarming keep the paper accurate over 100+ sessions? Does the paper serve as a coherence check (contradictions surfaced as challenges)?
+- **F105**: Online compaction — S80c: check_proxy_k_drift in maintenance.py (DUE >6%, URGENT >10%). S85: first compression cycle tested (HUMAN.md -71%). Open: compactor child role; automated merge trigger; test over 2+ cycles.
+- **F101**: Domain sharding Phase 2: domain INDEXes + GLOBAL-INDEX. Phase 1 done S52.
+- **F71**: What makes a good spawn task? 5 events logged, need 5 more for definitive curve. (P-119)
+- **F92**: Optimal colony size? S54: 3 agents = 2.2× speedup. Need more data points.
+- **F115**: Living self-paper — docs/PAPER.md created S73. Periodic re-swarm (cadence 20). Open: accuracy over 100+ sessions?
 
 ## Exploratory
 
-- **F117**: Can swarm produce installable libs from its own functionality — maintenance tools, belief graph, NK analyzer — and apply the same to human repos? S83: human signal confirmed. S83b: nk-analyze v0.2.0 — analyze_path() added (filesystem analysis without import), refactored shared logic, 6 tests passing, tested on 68-module codebase. Full analyze→package→test loop DONE for NK analyzer. Open: which OTHER swarm tools benefit from lib extraction? Does lib form improve reuse across sessions?
-- **F114**: Belief citation rate — PARTIALLY ANSWERED by F116 MDL audit (L-150). 73.5% of principles cited 0-1 times. Most-cited: P-119 (6), P-090 (5), P-140 (4). Auto-linking and per-session tracking still open.
+- **F117**: Can swarm produce installable libs? S83b: nk-analyze v0.2.0 DONE (analyze_path, 6 tests, 68-module validated). Open: which other tools benefit? Does lib form improve reuse? (P-167)
+- **F114**: Belief citation rate — 73.5% principles cited 0-1 times (L-150). Auto-linking and per-session tracking still open.
 - **F104**: Does personality persistence produce different findings on the same question?
 - **F106**: Is max_depth=2 the right recursive limit?
 - **F76**: Can hierarchical spawning produce insights no single agent could?
