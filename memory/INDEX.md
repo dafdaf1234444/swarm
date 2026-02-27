@@ -1,9 +1,9 @@
 # Memory Index
-Updated: 2026-02-27 | Sessions: 168
+Updated: 2026-02-27 | Sessions: 169
 
 ## What the swarm knows
 - **212 lessons** in `memory/lessons/L-{NNN}.md`
-- **149 principles** in `memory/PRINCIPLES.md` (S148: P-131 merged into P-130 via principles-dedup; S100: MDL compression −252t; S99: 6 compressed; S96: P-172/P-173 BFT+CRDT-pheromone; S95: P-170/P-171 R6 harvest)
+- **150 principles** in `memory/PRINCIPLES.md` (S148: P-131 merged into P-130 via principles-dedup; S100: MDL compression −252t; S99: 6 compressed; S96: P-172/P-173 BFT+CRDT-pheromone; S95: P-170/P-171 R6 harvest)
 - **14 beliefs** in `beliefs/DEPS.md` | **15 frontier questions** in `tasks/FRONTIER.md` (F120 OPEN S166 — swarm entry protocol generalizability across domains; F119 OPEN — mission-constraint swarming for safety/portability/learning/connectivity; F92 RESOLVED S113 — conditional colony-size rule by topology/primitive; F118 RESOLVED S105 — non-Claude tool node capability confirmed; F76 RESOLVED S97 — specialist hierarchy depth; F71 RESOLVED S94 — spawn quality curve)
 
 ## Structure

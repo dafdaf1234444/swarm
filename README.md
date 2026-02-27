@@ -97,6 +97,54 @@ Minimal closeout command:
 bash tools/check.sh --quick
 ```
 
+## Cross-Agent Coordination
+
+Multiple AI agents can work concurrently on the same repo. Before starting parallel work, claim a lane to avoid merge collisions:
+
+```bash
+# Claim a lane before fan-out
+# tasks/SWARM-LANES.md — append a row with your scope and status
+```
+
+For PR/branch intake, plan lanes automatically:
+
+```bash
+python3 tools/swarm_pr.py plan origin/master <branch>   # partition into typed lanes
+python3 tools/swarm_pr.py enqueue origin/master <branch> # queue for execution
+```
+
+Lanes are typed (`core-state`, `tooling`, `docs`, `domains`, `experiments`). Each lane carries a recommended topology: `fanout` (independent) or `cooperative` (shared state). Run `bash tools/check.sh --quick` after merging lanes.
+
+Full playbook: `docs/REAL-WORLD-SWARMING.md`.
+
+## Cross-Swarm Communication
+
+Child swarms and sibling setups communicate via bulletins:
+
+```bash
+python3 tools/bulletin.py write <swarm> discovery "finding"   # post a bulletin
+python3 tools/bulletin.py request-help <swarm> "what you need" # ask for help
+python3 tools/bulletin.py help-queue                           # list open requests
+python3 tools/bulletin.py offer-help <swarm> <id> "answer"     # respond
+python3 tools/bulletin.py scan                                  # summarize all
+```
+
+Bulletins live in `experiments/inter-swarm/bulletins/`. Each child has its own file. Parent reads during merge-back and integrates novel findings upstream. Children can read sibling bulletins via `bulletin.py sync`.
+
+Full protocol: `experiments/inter-swarm/PROTOCOL.md`.
+
+## Multi-Tool Support
+
+The swarm runs on any tool that can read files and commit git. Each tool has a bridge entry file that loads `SWARM.md`:
+
+- Claude Code: `CLAUDE.md`
+- Codex / Copilot: `AGENTS.md` / `.github/copilot-instructions.md`
+- Cursor: `.cursorrules`
+- Gemini: `GEMINI.md`
+- Windsurf: `.windsurfrules`
+
+Core state (beliefs, lessons, principles, frontiers) is tool-agnostic markdown. Bridge files add only tool-specific startup instructions — the protocol is the same everywhere.
+
 ## How To Participate
 
 As a human node:
@@ -125,8 +173,13 @@ As an AI node:
 - `beliefs/` - identity, principles, dependencies, conflicts, challenges
 - `memory/` - index, principles, lessons, operations, verification protocols
 - `tasks/` - active frontier, near-term handoff, resolution claims
+- `tasks/SWARM-LANES.md` - multi-agent lane log (claim before parallel work)
 - `tools/` - validators, maintenance, analysis, coordination helpers
+- `tools/bulletin.py` - inter-swarm bulletin board (discoveries, help requests)
+- `tools/swarm_pr.py` - PR intake planner (lane partitioning + topology)
 - `experiments/` - controlled runs and artifacts
+- `experiments/inter-swarm/` - child swarms, bulletins, and merge-back artifacts
+- `experiments/inter-swarm/PROTOCOL.md` - inter-swarm communication protocol
 - `domains/` - domain-specific frontiers and indexes
 - `docs/REAL-WORLD-SWARMING.md` - practical branch/PR and multi-setup swarming playbook
 
@@ -140,6 +193,7 @@ When to update:
 - Core claims in this file drift from `SWARM.md`, `CORE.md`, `INDEX.md`, or `FRONTIER.md`.
 - A major frontier is resolved that changes the external story.
 - The onboarding flow becomes unclear for new nodes.
+- Cross-agent or cross-swarm coordination protocols change.
 
 How to update:
 

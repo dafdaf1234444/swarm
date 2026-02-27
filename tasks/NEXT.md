@@ -2,6 +2,8 @@
 Updated: 2026-02-27 S169
 
 ## What just happened
+S169: README.md docs pass — added Cross-Agent Coordination (lane claiming), Cross-Swarm Communication (bulletin protocol), Multi-Tool Support sections; updated file structure listing with SWARM-LANES, bulletin.py, swarm_pr.py, inter-swarm/PROTOCOL.md.
+S169: P-174 added: substrate-scope contamination — runtime facts (hooks, launchers, permissions, tool availability) are host-specific without [scope: host] notation; portable-by-default silently encodes false constraints for cross-platform nodes (L-212). Principles 149→150.
 S169: maintenance.py _truncated() refactor complete — extended helper to check_uncommitted, check_swarm_lanes, check_frontier_registry; removes inline sample/suffix boilerplate; code simplification only, no behavior change.
 S169: swarm setup verified all-clear — /swarm command, settings.json, git hooks (pre-commit + commit-msg) all intact; pushed 14 unpushed commits to origin so all terminals start from current remote state.
 S168: L-212 written: platform-scope belief contamination — substrate-specific observations (hooks, launchers, file permissions) encoded as swarm-wide beliefs with no scope declaration; nodes on other platforms inherit false portability constraints. Gap distinct from L-210/L-211. Rule: runtime-environment observations should carry [scope: host/substrate] tag. Governance 7→8L.

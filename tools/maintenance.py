@@ -903,10 +903,7 @@ def check_runtime_portability() -> list[tuple[str, str]]:
         results.append(("URGENT", "git not found in PATH — swarm memory/commit workflow cannot run"))
     if not has_python_alias:
         if has_bash_wrappers and has_pwsh_wrappers:
-            results.append((
-                "NOTICE",
-                "No python alias in active shell; use wrappers (`bash tools/check.sh --quick` or `pwsh -NoProfile -File tools/check.ps1 --quick`)",
-            ))
+            results.append(("NOTICE", "No python alias in active shell; use wrappers (`bash tools/check.sh --quick` or `pwsh -NoProfile -File tools/check.ps1 --quick`)"))
         elif has_bash_wrappers:
             results.append(("NOTICE", "No python alias in active shell; use bash wrappers (`bash tools/check.sh --quick`, `bash tools/maintenance.sh --inventory`)"))
         else:
@@ -915,10 +912,7 @@ def check_runtime_portability() -> list[tuple[str, str]]:
         if has_python_alias and has_pwsh_wrappers:
             results.append(("NOTICE", "bash not found — use PowerShell wrappers (`pwsh -NoProfile -File tools/check.ps1 --quick`, `pwsh -NoProfile -File tools/maintenance.ps1 --inventory`)"))
         elif has_python_alias:
-            results.append((
-                "NOTICE",
-                f"bash not found — use direct python entrypoints (`{PYTHON_CMD} tools/maintenance.py --quick`, `{PYTHON_CMD} tools/maintenance.py --inventory`)",
-            ))
+            results.append(("NOTICE", f"bash not found — use direct python entrypoints (`{PYTHON_CMD} tools/maintenance.py --quick`, `{PYTHON_CMD} tools/maintenance.py --inventory`)"))
         else:
             results.append(("DUE", "bash not found and no python alias — portable startup path is broken"))
     if has_bash and not has_maintenance_wrapper_sh:
@@ -946,29 +940,22 @@ def check_runtime_portability() -> list[tuple[str, str]]:
         results.append((level, f"{len(missing_bridges)} missing bridge file(s): {sample}"))
 
     swarm_ref_re = re.compile(r"\bswarm\.md\b", re.IGNORECASE)
-    bridge_without_swarm_ref = []
+    swarm_signal_re = re.compile(r"\bswarm signaling\b", re.IGNORECASE)
+    no_ref, no_signal = [], []
     for path in bridges:
         if path == "SWARM.md" or path in missing_bridges:
             continue
-        if not swarm_ref_re.search(_read(REPO_ROOT / path)):
-            bridge_without_swarm_ref.append(path)
-    if bridge_without_swarm_ref:
-        sample = ", ".join(bridge_without_swarm_ref[:3])
-        results.append(("DUE", f"{len(bridge_without_swarm_ref)} bridge file(s) missing SWARM.md protocol reference: {sample}"))
-
-    swarm_signal_re = re.compile(r"\bswarm signaling\b", re.IGNORECASE)
+        content = _read(REPO_ROOT / path)
+        if not swarm_ref_re.search(content):
+            no_ref.append(path)
+        if not swarm_signal_re.search(content):
+            no_signal.append(path)
+    if no_ref:
+        results.append(("DUE", f"{len(no_ref)} bridge file(s) missing SWARM.md protocol reference: {', '.join(no_ref[:3])}"))
     if "SWARM.md" not in missing_bridges and not swarm_signal_re.search(_read(REPO_ROOT / "SWARM.md")):
         results.append(("DUE", "SWARM.md missing explicit swarm signaling rule"))
-
-    bridge_without_swarm_signal = []
-    for path in bridges:
-        if path == "SWARM.md" or path in missing_bridges:
-            continue
-        if not swarm_signal_re.search(_read(REPO_ROOT / path)):
-            bridge_without_swarm_signal.append(path)
-    if bridge_without_swarm_signal:
-        sample = ", ".join(bridge_without_swarm_signal[:3])
-        results.append(("DUE", f"{len(bridge_without_swarm_signal)} bridge file(s) missing swarm signaling guidance: {sample}"))
+    if no_signal:
+        results.append(("DUE", f"{len(no_signal)} bridge file(s) missing swarm signaling guidance: {', '.join(no_signal[:3])}"))
 
     return results
 
@@ -1042,18 +1029,10 @@ def check_cross_references() -> list[tuple[str, str]]:
         lesson_paths = list(lessons_dir.glob("L-*.md"))
         actual = len(lesson_paths)
         tracked_raw = _git("ls-files", "--", "memory/lessons")
-        tracked_lessons = []
-        if tracked_raw:
-            tracked_lessons = [
-                l.strip() for l in tracked_raw.splitlines()
-                if re.search(r"memory/lessons/L-\d+\.md$", l.strip())
-            ]
-        if not tracked_lessons:
-            tracked_dir_raw = _git("ls-files", "--", "memory/lessons")
-            tracked_lessons = [
-                l for l in tracked_dir_raw.splitlines()
-                if re.fullmatch(r"memory/lessons/L-\d+\.md", l.strip())
-            ]
+        tracked_lessons = [
+            l.strip() for l in (tracked_raw or "").splitlines()
+            if re.fullmatch(r"memory/lessons/L-\d+\.md", l.strip())
+        ]
         tracked = len(tracked_lessons) if tracked_lessons else actual
         tracked_set = {p.replace("\\", "/") for p in tracked_lessons}
         untracked_names = []
@@ -1275,11 +1254,9 @@ def check_mission_constraints() -> list[tuple[str, str]]:
             + "\n".join(_read(REPO_ROOT / "memory" / "SESSION-LOG.md").splitlines()[-80:])
         )
         if not has_python_alias and not fallback_ready:
-            results.append((
-                "DUE",
+            results.append(("DUE",
                 "F119 degraded runtime continuity broken: no python alias and no wrapper path "
-                "(`tools/check.sh` + `tools/maintenance.sh` or `tools/check.ps1` + `tools/maintenance.ps1`)",
-            ))
+                "(`tools/check.sh` + `tools/maintenance.sh` or `tools/check.ps1` + `tools/maintenance.ps1`)"))
 
         _OC = F119_TRANSITION_OUTCOME_PATTERNS
         reason_specs = {
@@ -1318,44 +1295,26 @@ def check_mission_constraints() -> list[tuple[str, str]]:
             )
 
             if not action_sessions:
-                results.append((
-                    "NOTICE",
-                    f"F119 {label} degraded mode lacks reason+action transition evidence in NEXT/SESSION-LOG",
-                ))
+                results.append(("NOTICE", f"F119 {label} degraded mode lacks reason+action transition evidence in NEXT/SESSION-LOG"))
                 continue
             if not outcome_sessions:
-                results.append((
-                    "NOTICE",
-                    f"F119 {label} degraded mode lacks reason+outcome evidence in NEXT/SESSION-LOG",
-                ))
+                results.append(("NOTICE", f"F119 {label} degraded mode lacks reason+outcome evidence in NEXT/SESSION-LOG"))
                 continue
 
             joined_sessions = sorted(action_sessions & outcome_sessions)
             if not joined_sessions:
-                results.append((
-                    "NOTICE",
-                    f"F119 {label} transition evidence is split across sessions (action/outcome not co-located)",
-                ))
+                results.append(("NOTICE", f"F119 {label} transition evidence is split across sessions (action/outcome not co-located)"))
                 continue
 
             latest = max(joined_sessions)
-            stale_limit = F119_STALE_EVIDENCE_SESSIONS.get(
-                reason,
-                max(F119_STALE_EVIDENCE_SESSIONS.values()),
-            )
+            stale_limit = F119_STALE_EVIDENCE_SESSIONS.get(reason, max(F119_STALE_EVIDENCE_SESSIONS.values()))
             if session > 0 and (session - latest) > stale_limit:
-                has_recent_reason_signal = any(
-                    (session - s) <= F119_RECENT_REASON_ACTIVITY_WINDOW for s in reason_sessions
-                )
-                if not has_recent_reason_signal:
+                if not any((session - s) <= F119_RECENT_REASON_ACTIVITY_WINDOW for s in reason_sessions):
                     continue
                 recent_reason = max(reason_sessions) if reason_sessions else latest
-                results.append((
-                    "NOTICE",
+                results.append(("NOTICE",
                     f"F119 {label} degraded transition evidence stale "
-                    f"(latest S{latest}, current S{session}, threshold >{stale_limit} sessions, "
-                    f"recent reason S{recent_reason})",
-                ))
+                    f"(latest S{latest}, current S{session}, threshold >{stale_limit} sessions, recent reason S{recent_reason})"))
 
         if "inter-swarm-tooling-missing" in degraded_reasons:
             continuity_artifacts = ["tasks/PR-QUEUE.json", "tasks/SWARM-LANES.md"]
@@ -1404,11 +1363,7 @@ def check_mission_constraints() -> list[tuple[str, str]]:
         has_lesson_delta = any(re.fullmatch(r"memory/lessons/L-\d+\.md", p) for p in tracked_paths)
         has_knowledge_delta = has_lesson_delta or any(p in knowledge_state_paths for p in tracked_paths)
         if len(tracked_paths) >= 5 and not has_knowledge_delta:
-            results.append((
-                "DUE",
-                "F119 learning-quality gap: tracked deltas without knowledge-state update "
-                "(NEXT/SESSION-LOG/INDEX/FRONTIER/PRINCIPLES/lessons)",
-            ))
+            results.append(("DUE", "F119 learning-quality gap: tracked deltas without knowledge-state update (NEXT/SESSION-LOG/INDEX/FRONTIER/PRINCIPLES/lessons)"))
 
         commands = {
             "python3": _python_command_runs("python3"),
@@ -1428,14 +1383,9 @@ def check_mission_constraints() -> list[tuple[str, str]]:
             has_continuity_delta = any(p in {"tasks/NEXT.md", "memory/SESSION-LOG.md"} for p in tracked_paths)
             if not has_continuity_delta:
                 missing = connectivity.get("missing", [])
-                missing_sample = ", ".join(str(x) for x in missing[:3]) if isinstance(missing, list) else ""
-                suffix = "..." if isinstance(missing, list) and len(missing) > 3 else ""
-                detail = f" ({missing_sample}{suffix})" if missing_sample else ""
-                results.append((
-                    "NOTICE",
-                    "F119 continuity risk: degraded inter-swarm connectivity"
-                    f"{detail} with no local handoff/log delta (tasks/NEXT.md or memory/SESSION-LOG.md)",
-                ))
+                detail = f" ({_truncated(missing)})" if isinstance(missing, list) and missing else ""
+                results.append(("NOTICE",
+                    f"F119 continuity risk: degraded inter-swarm connectivity{detail} with no local handoff/log delta (tasks/NEXT.md or memory/SESSION-LOG.md)"))
 
     return results
 

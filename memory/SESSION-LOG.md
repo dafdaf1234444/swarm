@@ -215,3 +215,5 @@ S167	| 2026-02-27 | +1L | L-211 written: cross-swarm correctness propagation gap
 S168	| 2026-02-27 | +0L +0P | L-209 entropy fix: updated B4 reference to I10 (portability invariant) — validator now clean, 0 entropy items, PASS
 S169	| 2026-02-27 | +0L +0P | swarm setup verified: /swarm command, settings.json, git hooks all intact; 14 unpushed commits pushed (S165-S168); remote now current for all terminals
 S169	| 2026-02-27 | +0L +0P | maintenance.py _truncated() refactor: extended helper to check_uncommitted, check_swarm_lanes, check_frontier_registry; reduced inline sample/suffix patterns
+S169	| 2026-02-27 | +0L +1P | P-174 added: substrate-scope contamination — runtime facts (hooks, launchers, permissions) are host-specific; portable-by-default encodes false constraints (L-212); maintenance.py bridge check reads content once per file + adds no_signal tracking
+S169	| 2026-02-27 | +0L +0P | README.md docs pass: added Cross-Agent Coordination, Cross-Swarm Communication, Multi-Tool Support sections; updated file structure listing; INDEX 149P→150P, S168→S169
