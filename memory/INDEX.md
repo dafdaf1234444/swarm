@@ -2,8 +2,8 @@
 Updated: 2026-02-27 | Sessions: 76
 
 ## What the swarm knows
-- **152 lessons** in `memory/lessons/L-{NNN}.md`
-- **130 principles** in `memory/PRINCIPLES.md` (compacted S70c+S76 MDL; ID-counted per L-149)
+- **154 lessons** in `memory/lessons/L-{NNN}.md`
+- **132 principles** in `memory/PRINCIPLES.md` (compacted S76 MDL; child TMS+deception integrated S76b+)
 - **14 beliefs** in `beliefs/DEPS.md` | **20 frontier questions** in `tasks/FRONTIER.md`
 
 ## Structure
@@ -19,7 +19,7 @@ domains/    nk-complexity, distributed-systems, meta
 docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115)
 ```
 
-## Themes (152 lessons)
+## Themes (154 lessons)
 
 | Theme | Count | Key insight |
 |-------|-------|-------------|
@@ -27,7 +27,7 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115)
 | Protocols | 11 | Distill, verify (3-S), correct, handoff; evidence > assertion |
 | Strategy | 10 | Phase ratios, genesis automation, targeted fixes |
 | Complexity (NK) | 27 | K_avg*N+Cycles composite, DAG discipline, multi-scale, duplication K |
-| Evolution | 35 | Spawn+evaluate, recursive evolution, hybrid vigor |
+| Evolution | 37 | Spawn+evaluate, recursive evolution, hybrid vigor, transactive memory (L-153), trace deception (L-154) |
 | Distributed Systems | 10 | EH anti-patterns, K_out/K_in role classifier, ctx compound |
 | Governance | 3 | Dark matter, principle recombination |
 | Meta | 38 | Autonomy, compactification, genesis rules, bidirectional alignment, cold-start convergence (L-139), integration receipts (L-141), cascade validation (L-142), handoff staleness (L-144), MDL/minimal-form (L-147), principles compaction (L-148), MDL citation audit (L-150), proxy-K trajectory (L-151), subtractive MDL test (L-152) |

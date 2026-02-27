@@ -63,18 +63,6 @@ def parse_beliefs(path: str) -> list[dict]:
             })
         return beliefs
 
-    # Fallback: parse markdown table (legacy format)
-    row_pattern = re.compile(r"^\|\s*(B\d+)\s*\|(.+)$", re.MULTILINE)
-    for m in row_pattern.finditer(text):
-        cols = [c.strip() for c in m.group(2).split("|")]
-        beliefs.append({
-            "id": m.group(1),
-            "statement": cols[0] if cols else "",
-            "evidence": "",
-            "falsification": "",
-            "depends_on": [],
-            "last_tested": "",
-        })
     return beliefs
 
 
@@ -197,13 +185,6 @@ def _line_count(path: Path) -> int:
         return 9999
 
 
-def _char_count(path: Path) -> int:
-    try:
-        return len(path.read_text())
-    except Exception:
-        return 999999
-
-
 def score_onboarding(existence_ok: bool) -> tuple[int, list[str]]:
     pts, notes = 0, []
     claude_md = REPO_ROOT / "CLAUDE.md"
@@ -323,8 +304,6 @@ def score_context_efficiency() -> tuple[int, list[str]]:
     index_md = REPO_ROOT / "memory" / "INDEX.md"
     core_md = REPO_ROOT / "beliefs" / "CORE.md"
 
-    combined_chars = sum(_char_count(f) for f in [claude_md, index_md, core_md])
-    approx_tokens = combined_chars // 4
     combined_lines = sum(_line_count(f) for f in [claude_md, index_md, core_md])
 
     if combined_lines < 450:
@@ -474,36 +453,22 @@ def detect_entropy(beliefs: list[dict]) -> list[str]:
                         f"  {f.name}: references superseded {', '.join(stale)}"
                     )
 
-    # 3. Protocol files in memory/ not referenced by any .md outside themselves
-    ref_corpus = ""
-    for md_file in REPO_ROOT.rglob("*.md"):
-        # Skip lessons (they're outputs, not structure) and the file itself
-        rel = md_file.relative_to(REPO_ROOT)
-        if str(rel).startswith("memory/lessons/"):
-            continue
+    # 3. Protocol files in memory/ not referenced by CLAUDE.md or INDEX.md
+    structural_refs = ""
+    for ref_file in [REPO_ROOT / "CLAUDE.md", REPO_ROOT / "memory" / "INDEX.md"]:
         try:
-            ref_corpus += md_file.read_text() + "\n"
+            structural_refs += ref_file.read_text()
         except Exception:
             pass
 
     memory_dir = REPO_ROOT / "memory"
-    skip = {"INDEX.md", "PRINCIPLES.md"}  # meta-files, always relevant
+    skip = {"INDEX.md", "PRINCIPLES.md", "SESSION-LOG.md", "PULSE.md", "HEALTH.md"}
     if memory_dir.exists():
         for f in sorted(memory_dir.glob("*.md")):
             if f.name in skip:
                 continue
-            # Check if filename appears in the corpus (excluding self-references)
-            self_text = ""
-            try:
-                self_text = f.read_text()
-            except Exception:
-                pass
-            # Remove self-content from corpus for this check
-            corpus_without_self = ref_corpus.replace(self_text, "")
-            if f.name not in corpus_without_self:
-                findings.append(
-                    f"  {f.relative_to(REPO_ROOT)}: not referenced by any structural file"
-                )
+            if f.name not in structural_refs:
+                findings.append(f"  {f.relative_to(REPO_ROOT)}: not referenced by CLAUDE.md or INDEX.md")
 
     return findings
 

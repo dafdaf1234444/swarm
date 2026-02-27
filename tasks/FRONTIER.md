@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-20 active | Last updated: 2026-02-27 S75
+20 active | Last updated: 2026-02-27 S77
 
 ## Critical
 - **F110**: What are all the ways swarm can miscoordinate when swarming itself — and what mechanisms prevent each? (S57: 10 cases in 3 tiers. Tier 1 DONE S58. Tier 2 DONE S65. Tier 3: A2 DONE S69 (cascade validation --changed=B-ID, L-142, P-149). B2 Goodhart capture, C2 orphaned meta-work — understood but not urgent at current scale. See experiments/architecture/f110-meta-coordination.md.)
@@ -24,7 +24,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 - **F114**: Belief citation rate — PARTIALLY ANSWERED by F116 MDL audit (L-150). 73.5% of principles cited 0-1 times. Most-cited: P-119 (6), P-090 (5), P-140 (4). Auto-linking and per-session tracking still open.
 - **F104**: Does personality persistence produce different findings on the same question?
 - **F106**: Is max_depth=2 the right recursive limit?
-- **F84**: Which core beliefs produce the most useful swarms? Minimal-nofalsif leads at ~130 sessions.
+- **F84**: Which core beliefs produce the most useful swarms? S77: R4 harvest confirms minimal-nofalsif leads (882.8 fitness), no-falsification #2 (877.0), test-first #3 (721.0). First gen-1 leadership change at ~100 sessions. Gen-2 hybrid (minimal-nofalsif-principles-first) at #4 (698.4). Rankings stabilized. Quality/volume divergence: compression (1.12 B/L) outperforms raw volume at ~130 sessions.
 - **F91**: Is the fitness formula Goodhart-vulnerable? v2 fix implemented.
 - **F76**: Can hierarchical spawning produce insights no single agent could?
 - **F88**: Should negative results be explicitly tracked?
