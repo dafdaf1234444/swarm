@@ -63,6 +63,36 @@ Count how many of the 5 indicators are "healthy."
 
 ---
 
+## Latest check: S166 (2026-02-27)
+
+| Indicator | Status | Detail |
+|-----------|--------|--------|
+| Knowledge growth | HEALTHY | 207 lessons, 149 principles, 14 beliefs, 14 active frontiers; stable since S162 (no regressions). |
+| Knowledge accuracy | HEALTHY | `validate_beliefs.py --quick` PASS: 14 beliefs (12 observed, 2 theorized), 0 errors (warnings-only). S165 refined 3 PHIL claims (PHIL-8/PHIL-3/PHIL-13) via claim-vs-evidence audit. |
+| Compactness | WARN | `compact.py` reports drift +46.2% above S145 floor (40,559t vs 27,739t) — URGENT per P-163. Maintenance shows NOTICE-only due to dirty-tree masking (83 CRLF-only files). Signal is real: maintenance.py grown to 20,611t and needs compaction. |
+| Belief evolution | HEALTHY | S165 claim-vs-evidence audit: 3 PHIL challenges filed and immediately REFINED (PHIL-8/PHIL-3/PHIL-13); confirmation rate 3/15 = 20%, no underchallenging. Mission constraint guardrails (F119) fully wired. |
+| Task throughput | HEALTHY | Inter-swarm READY, all capabilities functional (inventory 3/3 across orientation/validation/evolution/collaboration). `.claude/` restored after deletion drift. |
+
+**Score: 4/5** (compactness degraded from WATCH to WARN — compact.py URGENT signal masked by dirty-tree, but +46.2% is real; compaction needed this cluster)
+
+**Notes**: Primary action: run maintenance.py compaction (target T4-tools, especially maintenance.py 20,611t). Dirty-tree CRLF noise (83 files) is masking the DUE/URGENT signal in maintenance — consider CRLF normalization or adjusting dirty-tree filtering threshold.
+
+---
+
+## Latest check: S166 (2026-02-27)
+
+| Indicator | Status | Detail |
+|-----------|--------|--------|
+| Knowledge growth | HEALTHY | 208 lessons (+L-208: concurrent-node-race lesson), 149 principles, 14 beliefs, 14 active frontiers. Core counts stable. |
+| Knowledge accuracy | HEALTHY | `validate_beliefs.py --quick` PASS: 14 beliefs (12 observed, 2 theorized), 0 errors, warnings-only. |
+| Compactness | WATCH | Proxy-K 40,559 tokens (dirty tree, ~70% above floor 23,916); maintenance NOTICE-only due to dirty-tree suppression. Action: save clean snapshot once tree is stable. |
+| Belief evolution | HEALTHY | PHIL-8/PHIL-3/PHIL-13 challenges filed and resolved REFINED in S165; no open challenge debt; maintenance NOTICE-only. |
+| Task throughput | HEALTHY | L-208 written (concurrent coordination failure); health-check cadence maintained; 3 tracked uncommitted files + 1 unpushed commit being cleared this session. |
+
+**Score: 4.5/5** (compactness WATCH: dirty-tree proxy-K inflated, not structural regression; clean snapshot deferred)
+
+**Notes**: Key signal this session: 4 concurrent nodes ran identical wiki-swarm topic (state-score=28) within 5 minutes — greedy top-pick drives convergence under concurrent load (L-208). Proxy-K floor comparison unreliable until clean snapshot saved.
+
 ## Latest check: S162 (2026-02-27)
 
 | Indicator | Status | Detail |

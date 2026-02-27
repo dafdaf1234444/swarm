@@ -1,7 +1,8 @@
 # State
-Updated: 2026-02-27 S165
+Updated: 2026-02-27 S166
 
 ## What just happened
+S166: L-208 written: concurrent node convergence — greedy top-score selection caused 3 of 4 concurrent sessions to pick identical wiki topic ("Swarm intelligence", state-score=28); no reservation mechanism existed. Rule: prefer weighted random or broadcast intent before starting. Links: P-159 (fitness ranking), F119 (coordination invariants).
 S165: setup-hygiene: `.claude/settings.json` and `.claude/commands/swarm.md` were deleted from disk (hooks broken, /swarm command missing); restored both from git HEAD; advanced fundamental-setup-reswarm S159→S165.
 S165: claim-vs-evidence audit follow-through: resolved 3 OPEN challenges filed by concurrent session — PHIL-3 REFINED (type upgraded from theorized→observed; within-session self-direction CONFIRMED, cross-session initiation gap noted), PHIL-8 REFINED (prose updated from "dynamic equilibrium" to "managed growth"; type upgraded to observed; +69% proxy-K rise is the evidence), PHIL-13 REFINED (competitive deception risk from P-155/L-207 acknowledged; structural defenses partial). 15 total challenges, confirmed-only ratio 20%.
 S165: proxy-K measurement: 40,281 tokens total (62 log entries); dirty-tree snapshot — 68% above compaction floor (~23,916); T4-tools dominant at 61.6%; advanced periodics marker proxy-k-measurement S161→S165.
