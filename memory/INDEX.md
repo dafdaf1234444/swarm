@@ -39,6 +39,7 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115)
 | A specific task       | + relevant frontier/task files    |
 | Updating beliefs      | + beliefs/DEPS.md                |
 | Learning from past    | + PRINCIPLES.md or relevant lesson |
+| Spawning with context limit | `python3 tools/context_router.py <task>` — select relevant files within budget |
 
 Session log: `memory/SESSION-LOG.md` (append-only, F110-A3)
 

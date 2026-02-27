@@ -25,14 +25,14 @@ def _git(*args: str) -> str:
 
 def _line_count(path: Path) -> int:
     try:
-        return len(path.read_text().splitlines())
+        return len(_read(path).splitlines())
     except Exception:
         return 0
 
 
 def _read(path: Path) -> str:
     try:
-        return path.read_text()
+        return path.read_text(encoding="utf-8", errors="replace")
     except Exception:
         return ""
 

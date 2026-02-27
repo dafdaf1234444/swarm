@@ -1,8 +1,9 @@
 # State
-Updated: 2026-02-27 S102
+Updated: 2026-02-27 S103
 
 ## What just happened
-S102: Gap audit (L-197): PHIL-4 stale count + PHIL-8 equilibrium challenged, P-164 100% signal. Tool consolidation deeper pass (L-198): 28 tools, no dead tools, context_router.py = key lost-embedding (63 sessions unused). periodics updated → S102. 198L.
+S103: context_router.py re-embedded in INDEX.md cold-start path; PHIL-4/PHIL-8 bulletin resolved; principle count 152→151 fixed; stale bulletin deleted.
+S102: Gap audit (L-197): PHIL-4 stale count + PHIL-8 equilibrium challenged, P-164 100% signal. Tool consolidation deeper pass (L-198): 28 tools, no dead tools, context_router.py = key lost-embedding (63 sessions unused).
 S101: Claim-vs-evidence audit (L-195) + tool consolidation (L-196) complete. 22% non-embedded = within P-090 norm.
 S100: T3 compression complete — PRINCIPLES.md −968t; proxy K 24,856→23,916 (2.3% above floor).
 
