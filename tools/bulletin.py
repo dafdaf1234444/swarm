@@ -30,7 +30,7 @@ import shutil
 import sys
 import time
 import os
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -180,7 +180,7 @@ def write_bulletin(swarm_name: str, bulletin_type: str, message: str):
 
 
 def _new_request_id(swarm_name: str) -> str:
-    stamp = datetime.utcnow().strftime("%Y%m%d%H%M%S")
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%d%H%M%S")
     slug = re.sub(r"[^a-z0-9]+", "-", swarm_name.lower()).strip("-") or "swarm"
     return f"H-{stamp}-{slug[:12]}"
 

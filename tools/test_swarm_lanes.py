@@ -74,7 +74,7 @@ class TestSwarmLanes(unittest.TestCase):
                 continue
             self.assertIn(status, ALLOWED_STATUSES, f"Unknown lane status: {status}")
 
-    def test_active_lanes_include_setup_and_focus_tags(self):
+    def test_active_lanes_include_required_coordination_tags(self):
         text = LANES_PATH.read_text(encoding="utf-8")
         header, rows = _parse_markdown_table(text)
         self.assertIn("Status", header, "Status column missing in SWARM-LANES.md")
@@ -85,8 +85,14 @@ class TestSwarmLanes(unittest.TestCase):
         etc_idx = header.index("Etc")
         tag_re = re.compile(r"([A-Za-z][A-Za-z0-9_-]*)\s*=\s*([^\s,;|]+)")
 
-        missing: list[str] = []
+        latest_by_lane: dict[str, list[str]] = {}
         for row in rows:
+            lane = row[lane_idx].strip()
+            if lane:
+                latest_by_lane[lane] = row
+
+        missing: list[str] = []
+        for row in latest_by_lane.values():
             status = row[status_idx].strip().upper()
             if status not in ACTIVE_STATUSES:
                 continue
@@ -96,13 +102,17 @@ class TestSwarmLanes(unittest.TestCase):
                 key for key in ("setup", "focus")
                 if tags.get(key, "") in PLACEHOLDER_VALUES
             ]
+            missing_keys.extend(
+                key for key in ("blocked", "human_open_item")
+                if key not in tags
+            )
             if missing_keys:
                 lane = row[lane_idx].strip() or "<unknown>"
                 missing.append(f"{lane}({','.join(missing_keys)})")
 
         self.assertFalse(
             missing,
-            f"Active lanes missing setup/focus tags in Etc: {', '.join(missing)}",
+            f"Active lanes missing required coordination tags in Etc: {', '.join(missing)}",
         )
 
     def test_pr_queue_schema_and_identity_invariants(self):

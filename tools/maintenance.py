@@ -3,6 +3,7 @@
 import importlib
 import json
 import hashlib
+import os
 import platform
 import re
 import shutil
@@ -71,6 +72,8 @@ FILE_REF_ALIAS_MAP = {
 }
 LANE_ACTIVE_STATUSES = {"CLAIMED", "ACTIVE", "BLOCKED", "READY"}
 LANE_PLACEHOLDERS = {"", "-", "n/a", "na", "none", "pending", "tbd", "unknown"}
+LANE_STALE_NOTICE_SESSIONS = 1
+LANE_STALE_DUE_SESSIONS = 3
 IGNORED_UNTRACKED_RUNTIME_FILES = {"tools/check.ps1", "tools/maintenance.ps1"}
 LANE_GLOBAL_FOCUS_VALUES = {"global", "system", "all", "coordination", "cross-cutting", "crosscutting"}
 F119_STALE_EVIDENCE_SESSIONS = {"python-alias-missing": 12, "inter-swarm-tooling-missing": 16}
@@ -78,6 +81,10 @@ F119_TRANSITION_OUTCOME_PATTERNS = (r"Beliefs:? PASS", r"NOTICE-only", r"no DUE"
 F119_RECENT_REASON_ACTIVITY_WINDOW = 6
 BRIDGE_FILES = ["SWARM.md", "CLAUDE.md", "AGENTS.md", "GEMINI.md",
                 ".cursorrules", ".windsurfrules", ".github/copilot-instructions.md"]
+KILL_SWITCH_PATH = REPO_ROOT / "tasks" / "KILL-SWITCH.md"
+DOMAIN_FRONTIER_ID_PATTERN = r"F(?:-[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*|\d+(?:-[A-Za-z0-9]+)?)"
+DOMAIN_FRONTIER_ID_RE = re.compile(rf"\b({DOMAIN_FRONTIER_ID_PATTERN})\b", re.IGNORECASE)
+DOMAIN_ACTIVE_BULLET_RE = re.compile(rf"^\s*-\s*(?:~~)?\*\*({DOMAIN_FRONTIER_ID_PATTERN})\*\*", re.IGNORECASE)
 
 def _truncated(items, n=3, sep=", ", fmt=None):
     """Join items[:n] with sep, append '...' if truncated. Optional fmt callable per item."""
@@ -196,6 +203,93 @@ def _parse_swarm_lane_rows(text: str) -> list[dict[str, str]]:
         rows.append(row)
     return rows
 
+def _normalize_frontier_id(frontier_id: str) -> str:
+    return (frontier_id or "").strip().upper()
+
+def _sorted_frontier_ids(frontier_ids: set[str]) -> list[str]:
+    def _id_key(frontier_id: str) -> tuple[int, str]:
+        num = re.search(r"\d+", frontier_id or "")
+        return (int(num.group(0)) if num else 10 ** 9, frontier_id)
+
+    return sorted(frontier_ids, key=_id_key)
+
+def _extract_markdown_section(text: str, heading_pattern: str) -> str | None:
+    heading = re.search(rf"^##\s*{heading_pattern}\b.*$", text, re.IGNORECASE | re.MULTILINE)
+    if not heading:
+        return None
+    start = heading.end()
+    tail = text[start:]
+    next_heading = re.search(r"^##\s+\S", tail, re.MULTILINE)
+    return tail[:next_heading.start()] if next_heading else tail
+
+def _extract_domain_frontier_active_ids(frontier_text: str) -> tuple[set[str], bool]:
+    section = _extract_markdown_section(frontier_text, "Active")
+    if section is None:
+        return set(), False
+
+    active_ids: set[str] = set()
+    for line in section.splitlines():
+        if "~~" in line and "**F" in line.upper():
+            continue
+        match = DOMAIN_ACTIVE_BULLET_RE.match(line)
+        if match:
+            active_ids.add(_normalize_frontier_id(match.group(1)))
+    return active_ids, True
+
+def _parse_domain_frontier_active_count(frontier_text: str) -> int | None:
+    match = re.search(r"\bActive:\s*(\d+)\b", frontier_text)
+    return int(match.group(1)) if match else None
+
+def _parse_domain_index_active_count(index_text: str) -> int | None:
+    for line in index_text.splitlines():
+        if not re.search(r"active frontiers?", line, re.IGNORECASE):
+            continue
+        match = re.search(r"\b(\d+)\s+active\b", line, re.IGNORECASE)
+        if match:
+            return int(match.group(1))
+        match = re.search(r":\s*(\d+)\b", line)
+        if match:
+            return int(match.group(1))
+    return None
+
+def _parse_domain_index_active_line_ids(index_text: str) -> set[str] | None:
+    for line in index_text.splitlines():
+        if not re.search(r"active frontiers?", line, re.IGNORECASE):
+            continue
+        paren = re.search(r"\(([^)]*)\)", line)
+        if not paren:
+            continue
+        body = paren.group(1)
+        if "–" in body or "..." in body or re.search(r"\bto\b", body, re.IGNORECASE):
+            continue
+        ids = {_normalize_frontier_id(m.group(1)) for m in DOMAIN_FRONTIER_ID_RE.finditer(body)}
+        if ids:
+            return ids
+    return None
+
+def _parse_domain_index_open_ids(index_text: str) -> tuple[bool, set[str]]:
+    section = _extract_markdown_section(index_text, r"What(?:['’]s| is)\s+open")
+    if section is None:
+        return False, set()
+    ids: set[str] = set()
+    for line in section.splitlines():
+        if "~~" in line and "**F" in line.upper():
+            continue
+        match = DOMAIN_ACTIVE_BULLET_RE.match(line)
+        if match:
+            ids.add(_normalize_frontier_id(match.group(1)))
+    return True, ids
+
+def _format_frontier_id_diff(expected: set[str], actual: set[str]) -> str:
+    missing = _sorted_frontier_ids(expected - actual)
+    extra = _sorted_frontier_ids(actual - expected)
+    parts: list[str] = []
+    if missing:
+        parts.append(f"missing {_truncated(missing, 4)}")
+    if extra:
+        parts.append(f"extra {_truncated(extra, 4)}")
+    return "; ".join(parts) if parts else "matched"
+
 def _reason_action_evidence_sessions(
     text: str,
     reason_patterns: tuple[str, ...],
@@ -266,6 +360,63 @@ def check_unpushed() -> list[tuple[str, str]]:
         n = int(ahead)
         return [("URGENT" if n >= 10 else "DUE" if n >= 5 else "NOTICE", f"{n} unpushed commits — git push")]
     return []
+
+def _parse_kill_switch() -> dict[str, str]:
+    if not KILL_SWITCH_PATH.exists():
+        return {}
+    text = _read(KILL_SWITCH_PATH)
+    fields: dict[str, str] = {}
+    for line in text.splitlines():
+        m = re.match(r"^\s*([A-Za-z][A-Za-z0-9_-]*)\s*:\s*(.*?)\s*$", line)
+        if not m:
+            continue
+        fields[m.group(1).strip().lower()] = m.group(2).strip()
+    return fields
+
+def check_kill_switch() -> list[tuple[str, str]]:
+    results: list[tuple[str, str]] = []
+    env_stop = (os.environ.get("SWARM_STOP", "") or "").strip().lower()
+    if env_stop in {"1", "true", "yes", "on"}:
+        results.append(("URGENT", "SWARM_STOP env var is active — halt swarm activity"))
+        return results
+
+    kill_exists = KILL_SWITCH_PATH.exists()
+    fields = _parse_kill_switch()
+    if not fields:
+        if kill_exists:
+            results.append(("DUE", "Kill switch file exists but no parseable key/value fields were found"))
+        return results
+
+    missing_required = [
+        key for key in ("status", "mode", "reason", "requested_by", "since")
+        if not (fields.get(key, "") or "").strip()
+    ]
+    if missing_required:
+        results.append(("DUE", f"Kill switch missing required field(s): {', '.join(missing_required)}"))
+        return results
+
+    status = (fields.get("status", "") or "").strip().lower()
+    if status in {"inactive", "off", "false", "0"}:
+        return results
+    if status not in {"active", "on", "true", "1"}:
+        results.append(("DUE", f"Kill switch status is invalid: {fields.get('status', '')}"))
+        return results
+
+    mode = (fields.get("mode", "halt") or "halt").strip()
+    if mode.lower() not in {"halt", "shutdown-request"}:
+        results.append(("DUE", f"Kill switch mode is invalid: {mode}"))
+        return results
+
+    reason = (fields.get("reason", "unspecified") or "unspecified").strip()
+    requested_by = (fields.get("requested_by", "unknown") or "unknown").strip()
+    since = (fields.get("since", "") or "").strip()
+    context = f"mode={mode}, requested_by={requested_by}, reason={reason}"
+    if since:
+        context += f", since={since}"
+    results.append(("URGENT", f"Kill switch ACTIVE — {context}"))
+    if mode.lower() == "shutdown-request":
+        results.append(("NOTICE", "Shutdown request is declarative only; execute shutdown manually with explicit human confirmation"))
+    return results
 
 def check_uncommitted() -> list[tuple[str, str]]:
     results = []
@@ -450,6 +601,27 @@ def check_swarm_lanes() -> list[tuple[str, str]]:
     if not active:
         return results
 
+    current_session = _session_number()
+    stale_notice: list[str] = []
+    stale_due: list[str] = []
+    if current_session > 0:
+        for row in active:
+            lane = row.get("lane", "").strip() or "<unknown>"
+            session_raw = row.get("session", "")
+            m = re.search(r"S(\d+)", session_raw)
+            if not m:
+                continue
+            lane_session = int(m.group(1))
+            age = current_session - lane_session
+            if age > LANE_STALE_DUE_SESSIONS:
+                stale_due.append(f"{lane}(S{lane_session},+{age})")
+            elif age > LANE_STALE_NOTICE_SESSIONS:
+                stale_notice.append(f"{lane}(S{lane_session},+{age})")
+    if stale_due:
+        results.append(("DUE", f"{len(stale_due)} active lane(s) stale >{LANE_STALE_DUE_SESSIONS} sessions: {_truncated(stale_due, 5)}"))
+    if stale_notice:
+        results.append(("NOTICE", f"{len(stale_notice)} active lane(s) stale >{LANE_STALE_NOTICE_SESSIONS} sessions: {_truncated(stale_notice, 5)}"))
+
     missing_meta: list[str] = []
     for row in sorted(active, key=lambda item: item.get("lane", "")):
         missing = []
@@ -500,6 +672,74 @@ def check_swarm_lanes() -> list[tuple[str, str]]:
 
     _detect_collisions("branch", "branch")
     _detect_collisions("scope_key", "scope")
+
+    return results
+
+def check_github_swarm_intake() -> list[tuple[str, str]]:
+    results: list[tuple[str, str]] = []
+    mission_path = REPO_ROOT / ".github" / "ISSUE_TEMPLATE" / "swarm-mission.yml"
+    blocker_path = REPO_ROOT / ".github" / "ISSUE_TEMPLATE" / "swarm-blocker.yml"
+    workflow_path = REPO_ROOT / ".github" / "workflows" / "swarm-pr-intake.yml"
+
+    missing_paths = [
+        str(path.relative_to(REPO_ROOT)).replace("\\", "/")
+        for path in (mission_path, blocker_path, workflow_path)
+        if not path.exists()
+    ]
+    if missing_paths:
+        results.append(("DUE", f"GitHub swarm intake file(s) missing: {_truncated(missing_paths)}"))
+        return results
+
+    def _check_template(path: Path, label: str, required_ids: set[str]) -> None:
+        text = _read(path)
+        ids = re.findall(r"^\s*id:\s*([A-Za-z0-9_-]+)\s*$", text, re.MULTILINE)
+        if not ids:
+            results.append(("NOTICE", f"{label} has no parsed input ids"))
+            return
+
+        counts: dict[str, int] = {}
+        for item in ids:
+            counts[item] = counts.get(item, 0) + 1
+        duplicate_ids = sorted(k for k, v in counts.items() if v > 1)
+        if duplicate_ids:
+            results.append(("DUE", f"{label} duplicate id(s): {_truncated(duplicate_ids)}"))
+
+        missing_ids = sorted(required_ids - set(ids))
+        if missing_ids:
+            results.append(("DUE", f"{label} missing core-alignment id(s): {_truncated(missing_ids)}"))
+
+    _check_template(
+        mission_path,
+        "swarm-mission template",
+        {
+            "objective",
+            "expectation",
+            "diff_signal",
+            "scope",
+            "acceptance",
+            "state_sync",
+            "available",
+            "blocked",
+            "human_open_item",
+        },
+    )
+    _check_template(
+        blocker_path,
+        "swarm-blocker template",
+        {
+            "blocker",
+            "unblocking_ask",
+            "state_sync",
+            "available",
+            "blocked",
+            "human_open_item",
+        },
+    )
+
+    workflow_text = _read(workflow_path)
+    for snippet in ("tools/swarm_pr.py plan", "<!-- swarm-pr-plan -->", "Swarm Intake Plan"):
+        if snippet not in workflow_text:
+            results.append(("NOTICE", f"swarm-pr-intake workflow missing marker: {snippet}"))
 
     return results
 
@@ -818,6 +1058,127 @@ def check_cross_references() -> list[tuple[str, str]]:
 
     return results
 
+def check_domain_frontier_consistency() -> list[tuple[str, str]]:
+    results: list[tuple[str, str]] = []
+    domains_dir = REPO_ROOT / "domains"
+    if not domains_dir.exists():
+        return results
+
+    frontier_header_mismatch: list[str] = []
+    index_count_mismatch: list[str] = []
+    index_active_line_mismatch: list[str] = []
+    index_open_section_mismatch: list[str] = []
+
+    for frontier_path in sorted(domains_dir.glob("*/tasks/FRONTIER.md")):
+        domain = frontier_path.parent.parent.name
+        frontier_text = _read(frontier_path)
+        if not frontier_text:
+            continue
+
+        frontier_ids, has_active_section = _extract_domain_frontier_active_ids(frontier_text)
+        frontier_count = len(frontier_ids)
+        frontier_header_count = _parse_domain_frontier_active_count(frontier_text)
+        if has_active_section and frontier_header_count is not None and frontier_header_count != frontier_count:
+            frontier_header_mismatch.append(f"{domain}(header={frontier_header_count}, parsed={frontier_count})")
+
+        index_path = frontier_path.parent.parent / "INDEX.md"
+        if not index_path.exists():
+            continue
+        index_text = _read(index_path)
+        if not index_text:
+            continue
+
+        index_count = _parse_domain_index_active_count(index_text)
+        if index_count is not None and index_count != frontier_count:
+            index_count_mismatch.append(f"{domain}(index={index_count}, frontier={frontier_count})")
+
+        active_line_ids = _parse_domain_index_active_line_ids(index_text)
+        if active_line_ids is not None and active_line_ids != frontier_ids:
+            index_active_line_mismatch.append(f"{domain}({_format_frontier_id_diff(frontier_ids, active_line_ids)})")
+
+        has_open_section, open_ids = _parse_domain_index_open_ids(index_text)
+        if has_open_section and open_ids != frontier_ids:
+            index_open_section_mismatch.append(f"{domain}({_format_frontier_id_diff(frontier_ids, open_ids)})")
+
+    if frontier_header_mismatch:
+        results.append(("NOTICE", f"Domain FRONTIER Active header mismatch: {_truncated(frontier_header_mismatch, 5)}"))
+    if index_count_mismatch:
+        results.append(("NOTICE", f"Domain INDEX active-count mismatch vs FRONTIER: {_truncated(index_count_mismatch, 5)}"))
+    if index_active_line_mismatch:
+        results.append(("NOTICE", f"Domain INDEX active frontier list mismatch: {_truncated(index_active_line_mismatch, 4)}"))
+    if index_open_section_mismatch:
+        results.append(("NOTICE", f"Domain INDEX 'What's open' mismatch: {_truncated(index_open_section_mismatch, 4)}"))
+
+    return results
+
+def check_readme_snapshot_drift() -> list[tuple[str, str]]:
+    results = []
+    readme_text = _read(REPO_ROOT / "README.md")
+    if not readme_text:
+        return results
+
+    session = _session_number()
+    index_text = _read(REPO_ROOT / "memory" / "INDEX.md")
+    index_session_match = re.search(
+        r"^Updated:\s*\d{4}-\d{2}-\d{2}\s*\|\s*Sessions:\s*(\d+)\b",
+        index_text,
+        re.MULTILINE,
+    )
+    index_session = int(index_session_match.group(1)) if index_session_match else 0
+    reference_session = index_session or session
+
+    snap_match = re.search(
+        r"^##\s+Current State Snapshot\s*\([^)]+,\s*S(\d+)\)",
+        readme_text,
+        re.MULTILINE,
+    )
+    if not snap_match:
+        results.append(("NOTICE", "README missing session-stamped 'Current State Snapshot' header"))
+        return results
+
+    snap_session = int(snap_match.group(1))
+    if reference_session > 0 and snap_session != reference_session:
+        delta = reference_session - snap_session
+        level = "DUE" if abs(delta) > 3 else "NOTICE"
+        direction = "behind" if delta > 0 else "ahead"
+        target_label = f"INDEX S{reference_session}" if index_session else f"SESSION-LOG S{reference_session}"
+        results.append((level, f"README snapshot session S{snap_session} is {abs(delta)} session(s) {direction} of {target_label}"))
+
+    scale_match = re.search(
+        r"-\s*Swarm scale:\s*(\d+)\s*lessons,\s*(\d+)\s*principles,\s*(\d+)\s*beliefs,\s*(\d+)\s*active frontier questions\.",
+        readme_text,
+    )
+    if not scale_match:
+        results.append(("NOTICE", "README 'Swarm scale' line missing or unparsable"))
+        return results
+
+    l_match = re.search(r"\*\*(\d+) lessons\*\*", index_text)
+    p_match = re.search(r"\*\*(\d+) principles\*\*", index_text)
+    b_match = re.search(r"\*\*(\d+) beliefs\*\*", index_text)
+    f_match = re.search(r"\*\*(\d+) frontier questions\*\*", index_text)
+    if not (l_match and p_match and b_match and f_match):
+        return results
+
+    readme_scale = tuple(int(scale_match.group(i)) for i in range(1, 5))
+    index_scale = (
+        int(l_match.group(1)),
+        int(p_match.group(1)),
+        int(b_match.group(1)),
+        int(f_match.group(1)),
+    )
+    if readme_scale != index_scale:
+        results.append((
+            "NOTICE",
+            "README swarm scale drift vs INDEX "
+            f"(README L/P/B/F={readme_scale[0]}/{readme_scale[1]}/{readme_scale[2]}/{readme_scale[3]}, "
+            f"INDEX={index_scale[0]}/{index_scale[1]}/{index_scale[2]}/{index_scale[3]})",
+        ))
+
+    if "tools/orient.py" not in readme_text:
+        results.append(("NOTICE", "README onboarding missing orient.py fast-path reference"))
+
+    return results
+
 def check_frontier_registry() -> list[tuple[str, str]]:
     results = []
 
@@ -1052,6 +1413,7 @@ def check_mission_constraints() -> list[tuple[str, str]]:
         "check_validator",
         "check_runtime_portability",
         "check_cross_references",
+        "check_readme_snapshot_drift",
         "check_state_header_sync",
         "check_session_log_integrity",
         "check_child_bulletins",
@@ -1445,6 +1807,7 @@ def main():
     quick = "--quick" in sys.argv
 
     all_checks = [
+        check_kill_switch,
         check_validator,
         check_mission_constraints,
         check_runtime_portability,
@@ -1459,11 +1822,14 @@ def main():
         check_periodics,
         check_human_queue,
         check_swarm_lanes,
+        check_github_swarm_intake,
         check_uncommitted,
         check_handoff_staleness,
         check_session_log_integrity,
         check_state_header_sync,
         check_cross_references,
+        check_domain_frontier_consistency,
+        check_readme_snapshot_drift,
         check_frontier_registry,
         check_file_graph,
         check_paper_accuracy,
@@ -1510,4 +1876,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

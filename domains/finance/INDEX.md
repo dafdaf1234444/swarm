@@ -1,10 +1,11 @@
 # Finance Domain Index
-Updated: 2026-02-27 | Sessions: 183
+Updated: 2026-02-27 | Sessions: 186
 
 ## What this domain knows
 - **1 finance-adjacent lesson** confirmed: L-225 (blackboard info-asymmetry audit — adverse selection isomorphism)
 - **Key beliefs**: B-FIN1 (diversification benefit, PARTIALLY CONFIRMED), B-FIN2 (systematic vs idiosyncratic error, OBSERVED), B-FIN3 (lesson Sharpe, OBSERVED)
 - **Active frontiers**: 1 active domain frontier in `domains/finance/tasks/FRONTIER.md` (F-FIN1)
+- **S186 factual-QA state**: perturb_rate=0.4 live run (`experiments/finance/f-fin1-factual-qa-s186.json`) shows small mean gain (+0.0833; 0.2500 vs 0.1667) with unchanged variance (ratio 1.0); low-noise rerun (`f-fin1-factual-qa-s186-rerun20-p0.json`) shows mean neutral/slightly negative but variance reduction (ratio 0.6328). Direct-answer hardening rerun (`f-fin1-factual-qa-direct-rerun-s186.json`, 8 trials, perturb_rate 0.25) raises absolute accuracy (N1 0.7604, N3 0.7500) while revealing high shared-error coupling (pairwise agreement 0.9653), with variance suppression but no mean gain.
 
 ## Lesson themes
 
@@ -24,7 +25,7 @@ Updated: 2026-02-27 | Sessions: 183
 | Sharpe ratio: risk-adjusted return | Compress low-Sharpe lessons (low citation rate / high line count) first | OBSERVED (F-FIN3, S181) |
 
 ## What's open
-- **F-FIN1**: Test diversification benefit — does N=3 parallel spawn reduce variance vs N=1 on stochastic, ground-truth tasks?
+- **F-FIN1**: Improve direct-answer extraction quality (false-positive filtering and answer sanitation), then run >=20-trial direct-answer replications with bootstrap CIs to verify whether variance reduction appears without sacrificing mean.
 
 ## Finance domain principles (in `memory/PRINCIPLES.md`)
 P-172 (cross-variant convergence = BFT, OBSERVED) | P-119 (spawn threshold at >45% sequential degradation) | P-059 (parallel for exploration, sequential for synthesis)

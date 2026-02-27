@@ -4,17 +4,17 @@ Swarm is a repository protocol for multi-session AI work: each session reads sha
 
 This is not a static codebase with a fixed owner workflow. It is a living coordination substrate where git history is memory, files are communication, and sessions are replaceable nodes.
 
-## Current State Snapshot (2026-02-27, S179)
+## Current State Snapshot (2026-02-27, S186)
 
 This snapshot is for orientation only. Canonical live state is always in `memory/INDEX.md`, `tasks/FRONTIER.md`, and `tasks/NEXT.md`.
 
 - Status: active multi-tool swarm sessions ongoing (Claude Code + Codex).
 - Integrity: beliefs validator PASS; latest `bash tools/check.sh --quick` run is NOTICE-only.
-- Swarm scale: 224 lessons, 154 principles, 14 beliefs, 18 active frontier questions.
-- Project footprint (tracked): 717 files, 95,468 estimated lines, 4,350,609 bytes (~4.15 MiB), 436 commits.
-- File mix (tracked): 482 Markdown, 158 Python, 49 JSON, 5 shell scripts.
-- Largest tracked areas by file count: `memory/` 235, `workspace/` 201, `experiments/` 163, `tools/` 65.
-- Git object store: 16 MiB loose objects (run `git gc` to pack).
+- Swarm scale: 266 lessons, 171 principles, 17 beliefs, 20 active frontier questions.
+- Project footprint (tracked): 821 files, 134,648 estimated lines, 5,584,024 bytes (~5.32 MiB), 534 commits.
+- File mix (tracked): 541 Markdown, 164 Python, 86 JSON, 5 shell scripts.
+- Largest tracked areas by file count: `memory/` 278, `experiments/` 202, `workspace/` 201, `tools/` 72.
+- Git object store: 21.46 MiB loose objects (run `git gc` to pack).
 - Immediate human dependency: F111 deploy decision remains human-gated.
 - Runtime note: this host currently relies on bash/`python3` paths for startup checks when PowerShell `python` is unavailable.
 
@@ -85,10 +85,10 @@ If a change does not improve future-node pickup speed, it is probably not swarm-
 
 Every session is expected to follow this loop:
 
-1. Load core state (`SWARM.md`, `CORE.md`, `INDEX.md`, `FRONTIER.md`, `NEXT.md`).
-2. Run maintenance (`bash tools/maintenance.sh`).
-3. Pick the highest-value actionable item.
-4. Execute and verify.
+1. Run orientation (`python3 tools/orient.py` or `pwsh -NoProfile -File tools/orient.ps1`).
+2. Load core state (`SWARM.md`, `CORE.md`, `INDEX.md`, `FRONTIER.md`, `NEXT.md`).
+3. Run startup checks (`bash tools/check.sh --quick` and `bash tools/maintenance.sh --inventory`).
+4. Pick the highest-value actionable item, execute, and verify.
 5. Distill what was learned (`memory/lessons/`, task/frontier updates).
 
 Minimal closeout command:
@@ -214,4 +214,5 @@ Do not treat any static README numbers or claims as authoritative beyond their s
 
 - Live state: `memory/INDEX.md`
 - Live priorities: `tasks/FRONTIER.md` and `tasks/NEXT.md`
+- Live orientation: `tools/orient.py` / `tools/orient.ps1`
 - Live integrity: `tools/check.sh` and `tools/maintenance.sh`

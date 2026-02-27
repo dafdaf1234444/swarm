@@ -63,6 +63,13 @@ def run_maintenance(quick: bool) -> str:
     return out
 
 
+def run_validator() -> str:
+    command = [PYTHON_EXE, "tools/validate_beliefs.py"]
+    r = _run_capture(command)
+    out = (r.stdout or "") + (r.stderr or "")
+    return out
+
+
 def plan_repairs(
     maintenance_output: str,
     *,
@@ -104,6 +111,19 @@ def plan_repairs(
         )
         seen.add("proxy-k-save")
 
+    identity_signal = bool(
+        re.search(r"FAIL IDENTITY:|CORE\.md changed without renewal", maintenance_output, re.IGNORECASE)
+    )
+    if identity_signal and clean_tree and "renew-identity" not in seen:
+        actions.append(
+            RepairAction(
+                action_id="renew-identity",
+                description="Refresh CORE.md identity hash in memory/INDEX.md",
+                command=(python_executable, "tools/renew_identity.py"),
+            )
+        )
+        seen.add("renew-identity")
+
     return actions
 
 
@@ -123,8 +143,17 @@ def main() -> int:
     print(baseline.strip() or "(no maintenance output)")
     print()
 
+    plan_input = baseline
+    if "validate_beliefs.py FAIL" in baseline:
+        validator = run_validator()
+        if validator.strip():
+            print("Validator detail:")
+            print(validator.strip())
+            print()
+            plan_input = f"{baseline}\n{validator}"
+
     actions = plan_repairs(
-        baseline,
+        plan_input,
         has_bash=_command_exists("bash"),
         clean_tree=_git_clean_tree(),
         python_executable=PYTHON_EXE,

@@ -36,6 +36,20 @@ fi
 
 echo "=== SWARM CHECK ==="
 
+run_suite() {
+    local label="$1"
+    local path="$2"
+    if [ ! -f "$path" ]; then
+        return 0
+    fi
+    if ! "${PYTHON_CMD[@]}" "$path" >/dev/null 2>&1; then
+        echo "FAIL: ${label} failed."
+        "${PYTHON_CMD[@]}" "$path"
+        exit 1
+    fi
+    echo "  ${label}: PASS"
+}
+
 # 1. Belief integrity (critical)
 if "${PYTHON_CMD[@]}" tools/validate_beliefs.py "${ARGS[@]}" 2>/dev/null | grep -q "RESULT: FAIL"; then
     echo "FAIL: Belief validation failed. Fix before committing."
@@ -53,95 +67,84 @@ echo ""
 
 # 3. Bulletin regression suite (if not quick)
 if [ "${#ARGS[@]}" -eq 0 ] && [ -f "tools/test_bulletin.py" ]; then
-    if ! "${PYTHON_CMD[@]}" tools/test_bulletin.py >/dev/null 2>&1; then
-        echo "FAIL: Bulletin regression suite failed."
-        "${PYTHON_CMD[@]}" tools/test_bulletin.py
-        exit 1
-    fi
-    echo "  Bulletin regression: PASS"
+    run_suite "Bulletin regression" "tools/test_bulletin.py"
 fi
 
 # 4. Wiki swarm regression suite (if not quick)
 if [ "${#ARGS[@]}" -eq 0 ] && [ -f "tools/test_wiki_swarm.py" ]; then
-    if ! "${PYTHON_CMD[@]}" tools/test_wiki_swarm.py >/dev/null 2>&1; then
-        echo "FAIL: Wiki swarm regression suite failed."
-        "${PYTHON_CMD[@]}" tools/test_wiki_swarm.py
-        exit 1
-    fi
-    echo "  Wiki swarm regression: PASS"
+    run_suite "Wiki swarm regression" "tools/test_wiki_swarm.py"
 fi
 
 # 5. Swarm parse regression suite (if not quick)
 if [ "${#ARGS[@]}" -eq 0 ] && [ -f "tools/test_swarm_parse.py" ]; then
-    if ! "${PYTHON_CMD[@]}" tools/test_swarm_parse.py >/dev/null 2>&1; then
-        echo "FAIL: Swarm parse regression suite failed."
-        "${PYTHON_CMD[@]}" tools/test_swarm_parse.py
-        exit 1
-    fi
-    echo "  Swarm parse regression: PASS"
+    run_suite "Swarm parse regression" "tools/test_swarm_parse.py"
 fi
 
 # 6. Colony regression suite (if not quick)
 if [ "${#ARGS[@]}" -eq 0 ] && [ -f "tools/test_colony.py" ]; then
-    if ! "${PYTHON_CMD[@]}" tools/test_colony.py >/dev/null 2>&1; then
-        echo "FAIL: Colony regression suite failed."
-        "${PYTHON_CMD[@]}" tools/test_colony.py
-        exit 1
-    fi
-    echo "  Colony regression: PASS"
+    run_suite "Colony regression" "tools/test_colony.py"
 fi
 
 # 7. PR intake regression suite (if not quick)
 if [ "${#ARGS[@]}" -eq 0 ] && [ -f "tools/test_swarm_pr.py" ]; then
-    if ! "${PYTHON_CMD[@]}" tools/test_swarm_pr.py >/dev/null 2>&1; then
-        echo "FAIL: Swarm PR regression suite failed."
-        "${PYTHON_CMD[@]}" tools/test_swarm_pr.py
-        exit 1
-    fi
-    echo "  Swarm PR regression: PASS"
+    run_suite "Swarm PR regression" "tools/test_swarm_pr.py"
 fi
 
 # 8. Swarm lanes regression suite (if not quick)
 if [ "${#ARGS[@]}" -eq 0 ] && [ -f "tools/test_swarm_lanes.py" ]; then
-    if ! "${PYTHON_CMD[@]}" tools/test_swarm_lanes.py >/dev/null 2>&1; then
-        echo "FAIL: Swarm lanes regression suite failed."
-        "${PYTHON_CMD[@]}" tools/test_swarm_lanes.py
-        exit 1
-    fi
-    echo "  Swarm lanes regression: PASS"
+    run_suite "Swarm lanes regression" "tools/test_swarm_lanes.py"
 fi
 
 # 9. Mission constraints regression suite (if not quick)
 if [ "${#ARGS[@]}" -eq 0 ] && [ -f "tools/test_mission_constraints.py" ]; then
-    if ! "${PYTHON_CMD[@]}" tools/test_mission_constraints.py >/dev/null 2>&1; then
-        echo "FAIL: Mission constraints regression suite failed."
-        "${PYTHON_CMD[@]}" tools/test_mission_constraints.py
-        exit 1
-    fi
-    echo "  Mission constraints regression: PASS"
+    run_suite "Mission constraints regression" "tools/test_mission_constraints.py"
 fi
 
 # 10. Repair regression suite (if not quick)
 if [ "${#ARGS[@]}" -eq 0 ] && [ -f "tools/test_repair.py" ]; then
-    if ! "${PYTHON_CMD[@]}" tools/test_repair.py >/dev/null 2>&1; then
-        echo "FAIL: Repair regression suite failed."
-        "${PYTHON_CMD[@]}" tools/test_repair.py
-        exit 1
-    fi
-    echo "  Repair regression: PASS"
+    run_suite "Repair regression" "tools/test_repair.py"
 fi
 
 # 11. NK analyze regression suite (if not quick)
 if [ "${#ARGS[@]}" -eq 0 ] && [ -f "tools/test_nk_analyze.py" ]; then
-    if ! "${PYTHON_CMD[@]}" tools/test_nk_analyze.py >/dev/null 2>&1; then
-        echo "FAIL: NK analyze regression suite failed."
-        "${PYTHON_CMD[@]}" tools/test_nk_analyze.py
-        exit 1
-    fi
-    echo "  NK analyze regression: PASS"
+    run_suite "NK analyze regression" "tools/test_nk_analyze.py"
 fi
 
-# 12. Orient.py smoke test (if not quick)
+# 12. Additional tool regressions auto-discovery (if not quick)
+if [ "${#ARGS[@]}" -eq 0 ]; then
+    CORE_TESTS=(
+        "tools/test_bulletin.py"
+        "tools/test_wiki_swarm.py"
+        "tools/test_swarm_parse.py"
+        "tools/test_colony.py"
+        "tools/test_swarm_pr.py"
+        "tools/test_swarm_lanes.py"
+        "tools/test_mission_constraints.py"
+        "tools/test_repair.py"
+        "tools/test_nk_analyze.py"
+    )
+    EXTRA_COUNT=0
+    while IFS= read -r test_path; do
+        SKIP=0
+        for core in "${CORE_TESTS[@]}"; do
+            if [ "$test_path" = "$core" ]; then
+                SKIP=1
+                break
+            fi
+        done
+        if [ "$SKIP" -eq 1 ]; then
+            continue
+        fi
+        test_name="$(basename "$test_path" .py)"
+        run_suite "Additional regression (${test_name})" "$test_path"
+        EXTRA_COUNT=$((EXTRA_COUNT + 1))
+    done < <(find tools -maxdepth 1 -type f -name 'test_*.py' | sort)
+    if [ "$EXTRA_COUNT" -gt 0 ]; then
+        echo "  Additional tool regressions: PASS (${EXTRA_COUNT} suites)"
+    fi
+fi
+
+# 13. Orient.py smoke test (if not quick)
 if [ "${#ARGS[@]}" -eq 0 ] && [ -f "tools/orient.py" ]; then
     ORIENT_OUT=$("${PYTHON_CMD[@]}" tools/orient.py --brief 2>&1)
     if echo "$ORIENT_OUT" | grep -q "=== ORIENT"; then
@@ -153,7 +156,7 @@ if [ "${#ARGS[@]}" -eq 0 ] && [ -f "tools/orient.py" ]; then
     fi
 fi
 
-# 13. Proxy K (if not quick)
+# 14. Proxy K (if not quick)
 if [ "${#ARGS[@]}" -eq 0 ]; then
     "${PYTHON_CMD[@]}" tools/proxy_k.py 2>/dev/null
 fi

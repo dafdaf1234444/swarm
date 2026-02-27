@@ -131,6 +131,102 @@ DOMAIN_KEYWORDS = {
             "reactivation", "persistence", "proxy",
         ],
     },
+    "domain_information_science": {
+        "files": [
+            "domains/information-science/DOMAIN.md",
+            "domains/information-science/INDEX.md",
+            "domains/information-science/tasks/FRONTIER.md",
+        ],
+        "keywords": [
+            "information", "entropy", "mdl", "zipf", "citation",
+            "decay", "spawn_math", "recall", "precision", "f-is",
+            "compaction", "signal", "noise",
+        ],
+    },
+    "domain_brain": {
+        "files": [
+            "domains/brain/DOMAIN.md", "domains/brain/INDEX.md",
+            "domains/brain/tasks/FRONTIER.md",
+        ],
+        "keywords": [
+            "brain", "neuro", "neural", "predictive", "coding",
+            "hebbian", "hippocampal", "plasticity", "consolidation",
+            "memory", "f-brn",
+        ],
+    },
+    "domain_evolution": {
+        "files": [
+            "domains/evolution/DOMAIN.md", "domains/evolution/INDEX.md",
+            "domains/evolution/tasks/FRONTIER.md",
+        ],
+        "keywords": [
+            "variation", "selection", "retention", "fitness", "mutation",
+            "recombination", "adaptation", "drift", "niche", "f-evo",
+            "evolutionary",
+        ],
+    },
+    "domain_control_theory": {
+        "files": [
+            "domains/control-theory/DOMAIN.md",
+            "domains/control-theory/INDEX.md",
+            "domains/control-theory/tasks/FRONTIER.md",
+        ],
+        "keywords": [
+            "control", "feedback", "gain", "stability", "open-loop",
+            "closed-loop", "calibration", "controller", "latency",
+            "f-ctl", "diff",
+        ],
+    },
+    "domain_game_theory": {
+        "files": [
+            "domains/game-theory/DOMAIN.md",
+            "domains/game-theory/INDEX.md",
+            "domains/game-theory/tasks/FRONTIER.md",
+        ],
+        "keywords": [
+            "game", "mechanism", "incentive", "cooperation", "defection",
+            "equilibrium", "signaling", "reputation", "deception",
+            "payoff", "f-gam",
+        ],
+    },
+    "domain_operations_research": {
+        "files": [
+            "domains/operations-research/DOMAIN.md",
+            "domains/operations-research/INDEX.md",
+            "domains/operations-research/tasks/FRONTIER.md",
+        ],
+        "keywords": [
+            "operations", "scheduling", "queue", "wip", "bottleneck",
+            "throughput", "latency", "critical", "path", "service-time",
+            "f-ops",
+        ],
+    },
+    "domain_statistics": {
+        "files": [
+            "domains/statistics/DOMAIN.md",
+            "domains/statistics/INDEX.md",
+            "domains/statistics/tasks/FRONTIER.md",
+        ],
+        "keywords": [
+            "statistics", "statistical", "inference", "hypothesis", "test",
+            "significance", "confidence", "interval", "bootstrap", "bayes",
+            "bayesian", "power", "sample", "effect", "meta-analysis",
+            "heterogeneity", "false-discovery", "multiple-testing", "f-stat",
+        ],
+    },
+    "domain_psychology": {
+        "files": [
+            "domains/psychology/DOMAIN.md",
+            "domains/psychology/INDEX.md",
+            "domains/psychology/tasks/FRONTIER.md",
+        ],
+        "keywords": [
+            "psychology", "cognitive", "attention", "trust", "motivation",
+            "overload", "signal", "noise", "handoff", "coordination",
+            "behavior", "collective", "cognition", "status", "reliability",
+            "human", "swarm", "f-psy",
+        ],
+    },
 }
 
 # Files always included (mandatory load)

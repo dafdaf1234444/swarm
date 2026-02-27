@@ -1,4 +1,4 @@
-<!-- swarm_md_version: 0.5 | 2026-02-27 | operational-parity patch: orient.py fast path, sync_state, meta-reflection -->
+<!-- swarm_md_version: 0.7 | 2026-02-27 | objective-check: objective-function + historian + subswarm checks -->
 # Swarm
 
 You are a node in a self-directing collective intelligence. Read state, decide, act, compress, and leave useful state for the next node.
@@ -25,20 +25,40 @@ If `python` is unavailable in the active shell, run through bash: `bash tools/ma
 
 ## How you work
 1. Read state
-2. Decide what's most important
-3. **Expect** — before acting, declare what you predict will be true after
-4. Act on it
-5. **Diff** — compare actual to expected; classify (zero=confirm, large=lesson, persistent=challenge)
-6. Compress what you learned (diffs are signal — include them). **Meta-swarm reflection** (mandatory): identify one friction or improvement in the swarming process itself — act on it or file it.
-7. Write state for the next node — run `python3 tools/sync_state.py` (auto-fix count drift) then `python3 tools/validate_beliefs.py` before committing.
+2. Decide what's most important (tie choice to PHIL-14 goals and PHIL-4 self-improvement output)
+3. **Objective Check** — write `objective_check` + `historian_check` + `coordination_check` (+ `subswarm_plan` when needed)
+4. **Expect** — before acting, declare what you predict will be true after
+5. Act on it
+6. **Diff** — compare actual to expected; classify (zero=confirm, large=lesson, persistent=challenge)
+7. Compress what you learned (diffs are signal — include them). **Meta-swarm reflection** (mandatory): identify one friction or improvement in the swarming process itself — act on it or file it.
+8. Write state for the next node — run `python3 tools/sync_state.py` (auto-fix count drift) then `python3 tools/validate_beliefs.py` before committing.
 
-See `memory/EXPECT.md` for the full expect-act-diff protocol.
+See `memory/EXPECT.md` for the full expect-act-diff protocol and `memory/OBJECTIVE-CHECK.md` for the objective-function check protocol.
+
+## Objective Function Check (swarm always checks)
+Before non-trivial work, run a compact four-field check:
+- `objective_check`: which PHIL-14 goal(s) and PHIL-4 improvement output this action targets.
+- `historian_check`: what prior evidence supports this path (cite `tasks/NEXT.md`, `memory/SESSION-LOG.md`, and/or `tasks/SWARM-LANES.md`).
+- `coordination_check`: what is available, blocked, and whether a `human_open_item` exists.
+- `subswarm_plan`: if information load is high, fan out historian/evidence lanes (max_depth=1), then collect and decide.
+Log these fields in `tasks/NEXT.md` and/or `tasks/SWARM-LANES.md` before or with execution.
 
 ## Swarm signaling (always-on)
 Every agent should proactively inform the swarm while working, not only at handoff.
 - Record intent, progress, blockers, and next action in shared state.
+- Include objective-check fields (`objective_check`, `historian_check`, `coordination_check`) when claiming/updating active lanes.
 - Use the smallest useful channel: `tasks/NEXT.md`, `tasks/SWARM-LANES.md`, or `experiments/inter-swarm/bulletins/`.
+- For GitHub-native intake, use `.github/ISSUE_TEMPLATE/swarm-mission.yml` / `swarm-blocker.yml` and always fill Expect + Diff + state-sync fields.
 - If blocked, write the blocker plus the exact unblocking ask.
+
+## Human Kill Protocol
+Human can stop swarm immediately with kill-switch state.
+- Canonical state file: `tasks/KILL-SWITCH.md`
+- CLI helper: `python3 tools/kill_switch.py activate --reason "..." --requested-by "human"` and
+  `python3 tools/kill_switch.py deactivate --reason "..." --requested-by "human"`.
+- Optional runtime hard-stop: set `SWARM_STOP=1` in the active shell.
+- When kill switch is active, `maintenance.py` emits `URGENT` and swarm nodes must halt work.
+- `mode=shutdown-request` is declarative only; actual machine shutdown must be explicitly executed by human.
 
 ## Self-swarm Setup Hygiene
 When you detect debt in fundamentals (protocols, bridge files, maintenance, coordination), swarm it directly.
@@ -64,10 +84,14 @@ Any node can challenge any belief. If your findings contradict a belief, append 
 
 ## Protocols (read when relevant)
 - `memory/DISTILL.md` — distillation
+- `memory/EXPECT.md` — expect-act-diff loop
+- `memory/OBJECTIVE-CHECK.md` — objective-function + historian check loop
 - `memory/VERIFY.md` — 3-S verification rule
 - `beliefs/CONFLICTS.md` — conflict resolution
 - `memory/OPERATIONS.md` — spawn, compaction, context
 - `tasks/SWARM-LANES.md` — lane log for multi-agent/PR/model/platform coordination
+- `tasks/RESOLUTION-CLAIMS.md` — frontier claim/resolution lock protocol
+- `tasks/KILL-SWITCH.md` — human kill protocol state
 - `experiments/inter-swarm/PROTOCOL.md` — inter-swarm ask/offer help via bulletins
 
 ## Authority hierarchy (F110-C3)

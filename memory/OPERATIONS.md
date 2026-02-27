@@ -1,7 +1,7 @@
 # Operations
 
 ## Context Budget
-Mandatory load: CLAUDE.md + CORE.md + INDEX.md ≈ 1,800 tokens (T0; tracked via tools/proxy_k.py).
+Mandatory load: active bridge + SWARM.md + CORE.md + INDEX.md ≈ 1,800 tokens (T0; tracked via tools/proxy_k.py).
 Full bootstrap (all tiers): ~24,500 tokens. If a task requires reading >15 files, decompose or spawn sub-agents.
 
 ## Spawn
@@ -52,7 +52,7 @@ Goal: run swarm on any supported tool/host while respecting finite context, comp
 - Optimize for learning-diversity per added node, not raw agent count.
 
 ## Maintenance
-Per CLAUDE.md §State. Checks: challenges, compaction thresholds, frontier decay, periodics,
+Per SWARM.md §State. Checks: challenges, compaction thresholds, frontier decay, periodics,
 unpushed commits, cross-reference drift, runtime portability. Output = state; swarm decides priority.
 Capability scan: `bash tools/maintenance.sh --inventory` (or `--inventory --json` for machine-readable output).
 
@@ -99,10 +99,10 @@ Before writing a new lesson:
 Concurrent claims produce a git conflict on step 2 — one must rename.
 
 ## Version Tracking Protocol (F110-A1/C3)
-- CLAUDE.md: `<!-- claude_md_version: N | date -->` | CORE.md: `<!-- core_md_version: N | date -->`
-- At spawn: record in `.swarm_meta.json` as `claude_md_version` / `core_md_version`
+- SWARM.md: `<!-- swarm_md_version: N | date -->` | CORE.md: `<!-- core_md_version: N | date -->`
+- At spawn: record in `.swarm_meta.json` as `swarm_md_version` / `core_md_version`
 - At session start: compare vs `.swarm_meta.json`; if different, re-read changed file.
-- Authority: CLAUDE.md > CORE.md > domain FRONTIERs > task files > lessons.
+- Authority: SWARM.md > CORE.md > domain FRONTIERs > task files > lessons.
 
 ## Resolution Claim Protocol (F110-C1)
 Before resolving any frontier question:

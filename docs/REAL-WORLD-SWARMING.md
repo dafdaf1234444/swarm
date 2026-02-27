@@ -34,11 +34,21 @@ Turn incoming work (branches, PR-style diffs, repeated contributor traffic) into
 ### A) Branch execution runner
 Add a worktree-aware executor that takes a `swarm_pr plan` and runs lanes in parallel child sessions, then collects outputs into one reconciliation pass.
 
-### B) CI-triggered intake
-Auto-run `swarm_pr plan` on PR open/update and post lane plan + mode (`fanout` / `cooperative` / `hybrid`) as machine-readable artifact.
+### B) CI-triggered intake (Implemented)
+- Workflow: `.github/workflows/swarm-pr-intake.yml`
+- Trigger: PR open/reopen/update/ready-for-review
+- Behavior:
+  - runs `python3 tools/swarm_pr.py plan <base-sha> <head-sha> --json`
+  - uploads `swarm-pr-plan.json` + rendered summary markdown as workflow artifacts
+  - posts/updates a sticky PR comment with mode + lane split
 
 ### C) Tool-native adapters
 Standardize launch wrappers for each supported tool runtime so the same intake artifact can be executed by Codex, Claude, Copilot, etc. with the same protocol and checks.
+
+### D) Baseline CI guard (Implemented)
+- Workflow: `.github/workflows/swarm-check.yml`
+- Trigger: pushes to `master/main` and all pull requests
+- Behavior: runs `bash tools/check.sh --quick` as the minimum swarm integrity gate
 
 ## Later: External Data Integration
 

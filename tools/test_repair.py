@@ -52,6 +52,23 @@ class TestRepairPlanning(unittest.TestCase):
         self.assertIn("proxy-k-save", [a.action_id for a in clean_actions])
         self.assertNotIn("proxy-k-save", [a.action_id for a in dirty_actions])
 
+    def test_plans_identity_renewal_only_when_tree_is_clean(self):
+        output = "FAIL IDENTITY: CORE.md changed without renewal"
+        clean_actions = repair.plan_repairs(
+            output,
+            has_bash=True,
+            clean_tree=True,
+            python_executable="python3",
+        )
+        dirty_actions = repair.plan_repairs(
+            output,
+            has_bash=True,
+            clean_tree=False,
+            python_executable="python3",
+        )
+        self.assertIn("renew-identity", [a.action_id for a in clean_actions])
+        self.assertNotIn("renew-identity", [a.action_id for a in dirty_actions])
+
 
 if __name__ == "__main__":
     unittest.main()

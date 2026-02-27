@@ -1,0 +1,165 @@
+{
+  "frontier_id": "F-STAT1",
+  "title": "Agent reporting quality baseline for active lanes",
+  "inputs": {
+    "lanes_path": "tasks/SWARM-LANES.md",
+    "active_statuses": [
+      "ACTIVE",
+      "BLOCKED",
+      "CLAIMED",
+      "READY"
+    ],
+    "report_keys": [
+      "capabilities",
+      "intent",
+      "progress",
+      "available",
+      "blocked",
+      "next_step",
+      "human_open_item"
+    ],
+    "weights": {
+      "capabilities": 0.2,
+      "intent": 0.2,
+      "progress": 0.15,
+      "available": 0.15,
+      "blocked": 0.1,
+      "next_step": 0.1,
+      "human_open_item": 0.1
+    }
+  },
+  "summary": {
+    "active_lanes": 6,
+    "mean_score": 1.0,
+    "median_score": 1.0,
+    "contract_ready_rate": 1.0,
+    "key_coverage": {
+      "capabilities": 1.0,
+      "intent": 1.0,
+      "progress": 1.0,
+      "available": 1.0,
+      "blocked": 1.0,
+      "next_step": 1.0,
+      "human_open_item": 1.0
+    },
+    "lowest_coverage_keys": [
+      "available",
+      "blocked",
+      "capabilities"
+    ],
+    "recommended_contract": "intent=... capabilities=setup+model+platform available=... blocked=none|... next_step=... human_open_item=none|HQ-N"
+  },
+  "session_range": {
+    "start": 186,
+    "end": 186
+  },
+  "lanes": [
+    {
+      "lane": "L-S186-DOMEX-AI",
+      "status": "READY",
+      "session": "S186",
+      "scope_key": "domains/ai/tasks/FRONTIER.md",
+      "score": 1.0,
+      "present_keys": [
+        "capabilities",
+        "intent",
+        "progress",
+        "available",
+        "blocked",
+        "next_step",
+        "human_open_item"
+      ],
+      "missing_keys": []
+    },
+    {
+      "lane": "L-S186-DOMEX-BRN",
+      "status": "READY",
+      "session": "S186",
+      "scope_key": "domains/brain/tasks/FRONTIER.md",
+      "score": 1.0,
+      "present_keys": [
+        "capabilities",
+        "intent",
+        "progress",
+        "available",
+        "blocked",
+        "next_step",
+        "human_open_item"
+      ],
+      "missing_keys": []
+    },
+    {
+      "lane": "L-S186-DOMEX-EVO",
+      "status": "READY",
+      "session": "S186",
+      "scope_key": "domains/evolution/tasks/FRONTIER.md",
+      "score": 1.0,
+      "present_keys": [
+        "capabilities",
+        "intent",
+        "progress",
+        "available",
+        "blocked",
+        "next_step",
+        "human_open_item"
+      ],
+      "missing_keys": []
+    },
+    {
+      "lane": "L-S186-DOMEX-GAM",
+      "status": "READY",
+      "session": "S186",
+      "scope_key": "domains/game-theory/tasks/FRONTIER.md",
+      "score": 1.0,
+      "present_keys": [
+        "capabilities",
+        "intent",
+        "progress",
+        "available",
+        "blocked",
+        "next_step",
+        "human_open_item"
+      ],
+      "missing_keys": []
+    },
+    {
+      "lane": "L-S186-DOMEX-IS",
+      "status": "READY",
+      "session": "S186",
+      "scope_key": "domains/information-science/tasks/FRONTIER.md",
+      "score": 1.0,
+      "present_keys": [
+        "capabilities",
+        "intent",
+        "progress",
+        "available",
+        "blocked",
+        "next_step",
+        "human_open_item"
+      ],
+      "missing_keys": []
+    },
+    {
+      "lane": "L-S186-DOMEX-OPS",
+      "status": "READY",
+      "session": "S186",
+      "scope_key": "domains/operations-research/tasks/FRONTIER.md",
+      "score": 1.0,
+      "present_keys": [
+        "capabilities",
+        "intent",
+        "progress",
+        "available",
+        "blocked",
+        "next_step",
+        "human_open_item"
+      ],
+      "missing_keys": []
+    }
+  ],
+  "interpretation": {
+    "score_band": "strong",
+    "note": "Capability/intent/progress are usually present, but explicit blocked/human-open-item fields must be filled even when value is 'none' to support reliable pickup."
+  },
+  "generated_at_utc": "2026-02-27T21:09:44Z"
+}

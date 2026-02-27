@@ -42,7 +42,8 @@ After writing a lesson and its principle:
 Children inherit `memory/PRINCIPLES.md` from the parent at spawn time. This is the minimal compressed context they need to avoid re-deriving known facts. Children should write bulletins when they find a principle worth merging back. Parent should run Step 0 when harvesting child findings.
 
 ## Step 4: Update the map
-- Update lesson/principle counts in `memory/INDEX.md` (sessions, lessons, principles line)
+- Run `python3 tools/sync_state.py` to auto-sync counts/session headers/core hash across state files
+- If `python3` is unavailable, run via your working launcher (`python`, `py -3`) or `bash tools/check.sh --quick`
 - If the lesson changes a belief, update `beliefs/DEPS.md`
 - If the lesson opens a new question, add it to `tasks/FRONTIER.md`
 

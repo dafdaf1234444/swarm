@@ -197,8 +197,10 @@ class TestSessionLogIntegrityBackfill(unittest.TestCase):
 
 
 class TestSwarmLaneCoordinationSignals(unittest.TestCase):
-    def _run_check(self, lanes_text: str) -> list[tuple[str, str]]:
-        with patch.object(maintenance, "_read", return_value=lanes_text):
+    def _run_check(self, lanes_text: str, *, session: int = 200) -> list[tuple[str, str]]:
+        with patch.object(maintenance, "_read", return_value=lanes_text), patch.object(
+            maintenance, "_session_number", return_value=session
+        ):
             return maintenance.check_swarm_lanes()
 
     def test_active_lane_missing_setup_focus_is_noticed(self):
@@ -235,6 +237,28 @@ class TestSwarmLaneCoordinationSignals(unittest.TestCase):
         )
         results = self._run_check(lanes_text)
         self.assertFalse(any("no global coordination focus" in msg for _, msg in results))
+
+    def test_stale_active_lane_notice(self):
+        lanes_text = "\n".join(
+            [
+                "| Date | Lane | Session | Agent | Branch | PR | Model | Platform | Scope-Key | Etc | Status | Notes |",
+                "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+                "| 2026-02-27 | LANE-1 | S198 | codex | feature/a | - | gpt-5 | windows | tools/maintenance.py | setup=windows focus=global | ACTIVE | work |",
+            ]
+        )
+        results = self._run_check(lanes_text, session=200)
+        self.assertTrue(any("stale >1 sessions" in msg for _, msg in results))
+
+    def test_stale_active_lane_due(self):
+        lanes_text = "\n".join(
+            [
+                "| Date | Lane | Session | Agent | Branch | PR | Model | Platform | Scope-Key | Etc | Status | Notes |",
+                "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+                "| 2026-02-27 | LANE-1 | S195 | codex | feature/a | - | gpt-5 | windows | tools/maintenance.py | setup=windows focus=global | ACTIVE | work |",
+            ]
+        )
+        results = self._run_check(lanes_text, session=200)
+        self.assertTrue(any("stale >3 sessions" in msg for _, msg in results))
 
 
 class TestMissionConstraintDegradedRuntime(unittest.TestCase):
