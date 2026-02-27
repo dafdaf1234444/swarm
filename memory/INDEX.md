@@ -3,7 +3,7 @@ Updated: 2026-02-27 | Sessions: 65
 
 ## What the swarm knows
 - **134 lessons** in `memory/lessons/L-{NNN}.md`
-- **142 principles** in `memory/PRINCIPLES.md`
+- **143 principles** in `memory/PRINCIPLES.md`
 - **14 beliefs** (12 observed, 2 theorized) in `beliefs/DEPS.md`
 - **17 active frontier questions** in `tasks/FRONTIER.md`
 
@@ -27,7 +27,7 @@ experiments/          — controlled experiments
 domains/              — domain knowledge (nk-complexity, distributed-systems, meta)
 ```
 
-## Themes (129 lessons, L-001–L-129)
+## Themes (134 lessons, L-001–L-134)
 For individual lessons: `memory/lessons/L-{NNN}.md`. For atomic rules: `memory/PRINCIPLES.md`.
 
 | Theme | Count | Key insight |
@@ -39,7 +39,7 @@ For individual lessons: `memory/lessons/L-{NNN}.md`. For atomic rules: `memory/P
 | Evolution | 35 | Spawn+evaluate, recursive evolution, hybrid vigor, spawn budget |
 | Distributed Systems | 9 | EH anti-patterns, NK-error correlation, K_out/K_in role classifier |
 | Governance + Generative | 3 | Dark matter, principle recombination |
-| Meta | 21 | Autonomy, compactification, meta-coordination, spawn quality, genesis rule classification, LLM-mining-self, invariant gate (L-132) |
+| Meta | 23 | Autonomy, compactification, meta-coordination, spawn quality, genesis rule classification, LLM-mining-self, invariant gate (L-132), bidirectional challenge (L-134) |
 
 ## What to load when
 | Doing...              | Read...                          |

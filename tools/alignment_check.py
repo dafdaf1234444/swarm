@@ -61,12 +61,18 @@ def get_pending_challenges() -> list[dict]:
         child = f.stem
         text = f.read_text()
         for m in re.finditer(
-            r"Type: belief-challenge\n\n## Content\n(.+?)(?:\n---|\Z)",
+            r"# Bulletin from: .+?\nDate: \S+\nType: belief-challenge\n\n## Content\n(.+?)(?:\n---|\Z)",
             text, re.DOTALL,
         ):
             content = m.group(1).strip()
-            # Check if already propagated
-            if child not in phil_text or content[:30] not in phil_text:
+            claim_m = re.match(r"(PHIL-\d+|B-?\d+):", content)
+            claim_id = claim_m.group(1) if claim_m else ""
+            # Check if child+claim combo already in Challenges table
+            already = bool(re.search(
+                rf"\|\s*{re.escape(claim_id)}\s*\|\s*{re.escape(child)}\s*\|",
+                phil_text,
+            )) if claim_id else False
+            if not already:
                 pending.append({"child": child, "content": content})
     return pending
 

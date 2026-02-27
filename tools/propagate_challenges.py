@@ -1,16 +1,20 @@
 #!/usr/bin/env python3
 """
-propagate_challenges.py — Pull belief-challenges from child bulletins into PHILOSOPHY.md.
+propagate_challenges.py — Pull belief-challenges from child bulletins into parent files.
 
 Usage:
     python3 tools/propagate_challenges.py          # dry-run: show pending challenges
-    python3 tools/propagate_challenges.py --apply  # write new challenges to PHILOSOPHY.md
+    python3 tools/propagate_challenges.py --apply  # write new challenges
 
 Children write challenges with:
     python3 tools/bulletin.py write <child-name> belief-challenge "PHIL-N: challenge text"
+    python3 tools/bulletin.py write <child-name> belief-challenge "B-N: challenge text"
 
-This tool closes the bidirectional challenge loop: children can challenge parent philosophy,
-not just report discoveries. Run at harvest time or any session start.
+PHIL-N challenges → PHILOSOPHY.md Challenges table
+B-N challenges → beliefs/CHALLENGES.md (created if absent)
+
+This tool closes the bidirectional challenge loop (F113): children can challenge
+parent beliefs, not just report discoveries. Run at harvest time or any session start.
 """
 
 import re
@@ -20,6 +24,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 BULLETINS_DIR = REPO_ROOT / "experiments" / "inter-swarm" / "bulletins"
 PHILOSOPHY_PATH = REPO_ROOT / "beliefs" / "PHILOSOPHY.md"
+CHALLENGES_PATH = REPO_ROOT / "beliefs" / "CHALLENGES.md"
 
 
 def collect_challenges() -> list[dict]:
@@ -37,8 +42,8 @@ def collect_challenges() -> list[dict]:
         ):
             date_str = m.group(1)
             content = m.group(2).strip()
-            # Expect "PHIL-N: challenge text"
-            claim_m = re.match(r"(PHIL-\d+):\s*(.+)", content, re.DOTALL)
+            # Expect "PHIL-N: challenge text" or "B-N: challenge text"
+            claim_m = re.match(r"(PHIL-\d+|B\d+):\s*(.+)", content, re.DOTALL)
             if claim_m:
                 found.append({
                     "claim": claim_m.group(1),
@@ -49,19 +54,19 @@ def collect_challenges() -> list[dict]:
     return found
 
 
-def already_in_philosophy(child: str, claim: str) -> bool:
-    """Check if this child+claim combo is already in the Challenges table."""
-    if not PHILOSOPHY_PATH.exists():
-        return False
-    text = PHILOSOPHY_PATH.read_text()
-    # Look for the child name AND the claim ID in the same table row
-    return bool(re.search(rf"\|\s*{re.escape(claim)}\s*\|\s*{re.escape(child)}\s*\|", text))
+def already_propagated(child: str, claim: str) -> bool:
+    """Check if this child+claim combo is already in a Challenges table."""
+    for path in [PHILOSOPHY_PATH, CHALLENGES_PATH]:
+        if path.exists():
+            text = path.read_text()
+            if re.search(rf"\|\s*{re.escape(claim)}\s*\|\s*{re.escape(child)}\s*\|", text):
+                return True
+    return False
 
 
 def add_to_philosophy(challenges: list[dict]):
-    """Append new challenges to the Challenges table in PHILOSOPHY.md."""
+    """Append PHIL-N challenges to the Challenges table in PHILOSOPHY.md."""
     text = PHILOSOPHY_PATH.read_text()
-    # Find the last row of the challenges table (last | ... | line before end)
     table_end = text.rfind("\n| ")
     if table_end == -1:
         print("Could not find Challenges table in PHILOSOPHY.md")
@@ -70,7 +75,6 @@ def add_to_philosophy(challenges: list[dict]):
     insert_at = text.index("\n", table_end + 1) + 1
     rows = ""
     for c in challenges:
-        # Truncate challenge text to keep table readable
         short = c["text"][:80] + ("…" if len(c["text"]) > 80 else "")
         rows += f"| {c['claim']} | {c['child']} | {short} | open |\n"
 
@@ -79,26 +83,58 @@ def add_to_philosophy(challenges: list[dict]):
     return len(challenges)
 
 
+def add_to_belief_challenges(challenges: list[dict]):
+    """Append B-N challenges to beliefs/CHALLENGES.md (created if absent)."""
+    if CHALLENGES_PATH.exists():
+        text = CHALLENGES_PATH.read_text()
+    else:
+        text = (
+            "# Belief Challenges\n"
+            "Child-to-parent challenges on beliefs in DEPS.md.\n"
+            "Resolution: CONFIRMED (belief holds), SUPERSEDED (belief replaced), DROPPED (challenge wrong).\n\n"
+            "| Belief | Child | Challenge | Status |\n"
+            "|--------|-------|-----------|--------|\n"
+        )
+
+    rows = ""
+    for c in challenges:
+        short = c["text"][:80] + ("…" if len(c["text"]) > 80 else "")
+        rows += f"| {c['claim']} | {c['child']} | {short} | open |\n"
+
+    text += rows
+    CHALLENGES_PATH.write_text(text)
+    return len(challenges)
+
+
 def main():
     apply = "--apply" in sys.argv
 
     all_challenges = collect_challenges()
-    pending = [c for c in all_challenges if not already_in_philosophy(c["child"], c["claim"])]
+    pending = [c for c in all_challenges if not already_propagated(c["child"], c["claim"])]
 
     if not pending:
         print("No new belief-challenges from children.")
         return
+
+    phil_challenges = [c for c in pending if c["claim"].startswith("PHIL-")]
+    belief_challenges = [c for c in pending if c["claim"].startswith("B")]
 
     print(f"Found {len(pending)} new belief-challenge(s) from children:")
     for c in pending:
         print(f"  {c['claim']} from {c['child']} ({c['date']}): {c['text'][:60]}…")
 
     if not apply:
-        print("\nDry run. Use --apply to write to PHILOSOPHY.md.")
+        print("\nDry run. Use --apply to write challenges.")
         return
 
-    added = add_to_philosophy(pending)
-    print(f"\nAdded {added} challenge(s) to PHILOSOPHY.md.")
+    added = 0
+    if phil_challenges:
+        added += add_to_philosophy(phil_challenges)
+        print(f"Added {len(phil_challenges)} challenge(s) to PHILOSOPHY.md.")
+    if belief_challenges:
+        added += add_to_belief_challenges(belief_challenges)
+        print(f"Added {len(belief_challenges)} challenge(s) to beliefs/CHALLENGES.md.")
+    print(f"\nTotal: {added} challenge(s) propagated.")
 
 
 if __name__ == "__main__":

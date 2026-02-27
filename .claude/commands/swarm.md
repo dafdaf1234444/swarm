@@ -9,6 +9,8 @@ Read these in parallel:
 - `beliefs/CORE.md` + `memory/INDEX.md` — principles and state
 - `tasks/FRONTIER.md` — what's open
 
+Check alignment: `python3 tools/alignment_check.py` — shows pending child challenges and belief contradictions. Process any pending challenges before starting new work.
+
 Then decide what to work on. No one tells you. You choose based on what the swarm needs most.
 
 ## Work
@@ -20,7 +22,7 @@ Sub-agents need:
 - `memory/INDEX.md` (context)
 - Their specific task files
 
-If you're a child swarm: produce something the parent can harvest — lessons, data, resolved frontier questions.
+If you're a child swarm: produce something the parent can harvest — lessons, data, resolved frontier questions. If your findings contradict parent beliefs, write a challenge: `python3 tools/bulletin.py write <your-name> belief-challenge "PHIL-N: your evidence"` (also works with B-N for beliefs in DEPS.md).
 
 ## Compress
 
