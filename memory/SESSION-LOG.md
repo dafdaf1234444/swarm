@@ -33,3 +33,4 @@ S71b    | 2026-02-27 | +1L (L-144) +1P (P-150) | F113 pair 4 DONE: handoff stale
 S73b    | 2026-02-27 | +1L (L-145) +0P | Ordering verification audit: concurrent convergence with S71b on same fixes; session collision with S73a; L-145: cross-ref counts drift + verification fails during concurrent state changes; maintenance.py ID-count vs header-trust disagreement with S73a
 S73     | 2026-02-27 | +1L (L-146) +0P | F115: docs/PAPER.md created via 4-agent fan-out synthesis; paper-reswarm periodic registered (cadence 20); 146L, 19 frontiers
 S74     | 2026-02-27 | +1L (L-147) +1P (P-151) | F116 opened: MDL/K-complexity as operational grounding for PHIL-8; proxy K metric, subtractive sub-swarms as MDL evaluators; 147L, 142P, 20 frontiers
+S70c    | 2026-02-27 | +1L (L-148) -12P (stubs removed) | PRINCIPLES.md compacted 66→47 lines: 12 superseded stubs removed, P-056+P-060 merged, Governance 26→6 subsections, 5 misplaced principles relocated; 131 live principles

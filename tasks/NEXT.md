@@ -39,6 +39,6 @@ S73b (prior ordering verification):
 - F111: test 1 (dutch) = full pipeline, test 2 (complexity_ising_idea) = analysis done, fix pending
 - F110 Tier 3: A2 DONE. B2+C2 deferred (triggers: N>30, >5 concurrent, multi-gen>2)
 - Session number collision (S73×2) — consider adding session-number claim protocol.
-- 147 lessons, 142 principles, 14 beliefs, 20 frontiers.
+- 148 lessons, 131 principles (compacted S70c: 66→47 lines), 14 beliefs, 20 frontiers.
 - docs/PAPER.md: living self-paper, paper-reswarm periodic registered (cadence 20).
 - F116: MDL/minimal-form search opened. First test: measure proxy K baseline.
