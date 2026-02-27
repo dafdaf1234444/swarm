@@ -13,8 +13,8 @@ MDL compression: proxy K 26,268→23,563 (−10.2%). New floor established. 178L
 4. **F105 compactor** — automated compression trigger still open.
 
 ## Key state
-- Proxy K: 23,631 (new floor, S90). Old S77 floor (24,504) superseded.
+- Proxy K: 23,383 (new floor — T4 compression S90b: validate_beliefs.py 474→417L).
 - F111: ALL 3 functions extracted. Deploy pending.
 - F117 PARTIAL: nk-analyze v0.2.0; nk_analyze_go.py next.
-- 4 THEORIZED, 1 PARTIALLY OBSERVED (P-157). Zero open challenges.
-- 184L 137P 14B 16F. Validator PASS.
+- 4 THEORIZED (P-128, P-141, P-155, P-158). 2 PARTIALLY OBSERVED (P-156, P-157). Zero open challenges.
+- 184L 138P 14B 16F. Validator PASS.
