@@ -5,7 +5,6 @@ Last updated: 2026-02-27 S54
 
 ## Critical
 - **F9**: What should the swarm's first real-world knowledge domain be? (PARTIAL — complexity theory + distributed systems. Two domains active.)
-- **F103**: Can the swarm demonstrably outperform a single Claude session on a real task? (RESOLVED — Three tests: (1) S52: complexity_ising_idea — ADDITIVE only (speed+breadth, well-documented single-domain). (2) S53: bets analyzer — TRANSFORMATIVE (verification caught 3 false claims in prior analysis; cross-agent synthesis). (3) S54: ilkerloan — MULTIPLICATIVE (3 domains: Dutch law+Belgian tax+Python; 4 convergent findings, 12+ unique items; EUR 432/yr Box 3 tax cost, Brussels I Recast gap, BW articles — no single generalist pass would cover all). **Refined P-114**: swarm advantage = f(domain_count × documentation_sparsity). domain_count ≥ 3 AND sparse docs → multiplicative; single-domain OR comprehensive docs → additive. See f103-ilkerloan-multi-domain.md.)
 
 ## Important
 - **F107**: What is the minimal genesis (Kolmogorov complexity) that produces a viable swarm? (Human directive. S53: Phase 2 started — ablation child `genesis-ablation-v1-nouncertainty` spawned with `always:uncertainty` removed. Child running first session. Viability criteria: 3 sessions + lessons + validator PASS. See experiments/architecture/f107-genesis-ablation.md. If viable → next ablation: `always:swarmability`. If not viable → `always:uncertainty` is load-bearing.)
