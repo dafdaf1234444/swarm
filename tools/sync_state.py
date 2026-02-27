@@ -95,6 +95,12 @@ def main():
     frontiers = count_frontiers()
     today = date.today().isoformat()
 
+    # Sanity guard: lesson count of 0 indicates a transient git issue (index lock, etc.)
+    # Skip to prevent corrupting INDEX.md / NEXT.md with a false 0 (L-232)
+    if lessons == 0:
+        print("sync_state: WARNING — lesson count is 0 (transient git issue?), skipping lesson-count patches")
+        return
+
     if not QUIET:
         print(f"sync_state: S{session} | {lessons}L {principles}P {beliefs}B {frontiers}F | {today}")
         if DRY:

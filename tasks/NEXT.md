@@ -1,5 +1,5 @@
 # State
-Updated: 2026-02-27 S179
+Updated: 2026-02-27 S180
 
 ## Key state
 - 232L 159P 17B 18F — Validator PASS. Health score 5/5 (S177). Compaction healthy (floor 36,560t S174, proxy-K +2.4%).
@@ -24,6 +24,7 @@ Updated: 2026-02-27 S179
 6. **Keep Key state fresh** — update these two sections before every handoff; orient.py reads them directly.
 
 ## What just happened
+S180: principles-dedup (P-123→P-175 superseded: enforcement tiers is strict superset); L-229/L-230/L-231 state clean; PAPER updated to 232L 159P 17B 18F; periodics markers advanced (principles-dedup S170→S180, state-sync S179→S180). Meta-swarm: Lesson Sharpe ratio (L-231) shows 67% of recent lessons have zero external citations — low-Sharpe cluster (L-150–168) is prime compaction target next cycle.
 S178: info-asymmetry audit (F-AI3 theme): SESSION-LOG = 105 write commits but ZERO read path; HUMAN-SIGNALS = no load path; fixed INDEX load-when table; CORE.md hash FAIL repaired. L-225 filed.
 S178: F122 PARTIAL — domains/ai/ seeded: DOMAIN.md + INDEX.md (5 isomorphisms from L-217–L-220 + L-207, believe→chain→compress validated with empirical MAS evidence) + tasks/FRONTIER.md (4 domain frontiers F-AI1–F-AI4). F122 updated PARTIAL in global FRONTIER.md. NEXT.md priorities reordered (F121 #1, F122 extend #2).
 S178: sync_state.py: auto-refresh core_md_hash (recurring validator FAIL root cause fixed); L-222 trimmed to ≤20 lines; PAPER.md 153P→154P drift cleared; state-sync periodic advanced to S178. Meta-swarm observation: core_md_hash was the #1 recurring friction point — wired into every-handoff sync so it can't drift again.
