@@ -1,9 +1,9 @@
 # Memory Index
-Updated: 2026-02-27 | Sessions: 67
+Updated: 2026-02-27 | Sessions: 68
 
 ## What the swarm knows
-- **137 lessons** in `memory/lessons/L-{NNN}.md`
-- **144 principles** in `memory/PRINCIPLES.md`
+- **138 lessons** in `memory/lessons/L-{NNN}.md`
+- **145 principles** in `memory/PRINCIPLES.md`
 - **14 beliefs** (12 observed, 2 theorized) in `beliefs/DEPS.md`
 - **18 active frontier questions** in `tasks/FRONTIER.md`
 
