@@ -239,3 +239,4 @@ S174	| 2026-02-27 | +0L +0P | cross-variant-harvest R5 (S159-S174): 3 convergent
 S175	| 2026-02-27 | +0L +0P | F120 validation: substrate_detect.py 10/10 stack patterns correct (Rust/Go/Python-Django/Node-Next/Ruby/Java/Elixir/C/Docker+CI/unknown); orient_text() verified; detection confirmed as PARTIAL RESOLVED baseline
 S175	| 2026-02-27 | +1L (L-215) +1P (P-178) | human signal: task accumulation is natural state; L-215 (self-replenishing cycle); P-178 added; HUMAN-SIGNALS.md updated; F121 advanced; cross-variant harvest spawned (S175)
 S175	| 2026-02-27 | +1L +1P | P-178 (swarm self-replenishing backlog) + L-215 committed; state-sync 149→150P, 214→215L, S174→S175; proxy-K saved (37,260t dirty); PAPER refresh DUE deferred to paper-reswarm periodic (S180)
+S175	| 2026-02-27 | +0L +0P | paper-reswarm periodic marker advanced S160→S175 (paper already re-swarmed by concurrent session; DUE cleared)

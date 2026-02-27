@@ -18,7 +18,7 @@
       "id": "cross-variant-harvest",
       "description": "Cross-variant harvest: compare active children for convergent/divergent/novel findings",
       "cadence_sessions": 15,
-      "last_reviewed_session": 174,
+      "last_reviewed_session": 175,
       "registered_by": "S69"
     },
     {
@@ -32,7 +32,7 @@
       "id": "proxy-k-measurement",
       "description": "Measure proxy K (python tools/proxy_k.py --save): track bootstrap description length across sessions (F116, PHIL-8)",
       "cadence_sessions": 10,
-      "last_reviewed_session": 165,
+      "last_reviewed_session": 175,
       "registered_by": "S75"
     },
     {
@@ -46,7 +46,7 @@
       "id": "paper-reswarm",
       "description": "Re-swarm docs/PAPER.md: read current beliefs/PHILOSOPHY.md + beliefs/CORE.md + memory/INDEX.md, check paper for drift, fan-out agents to update stale sections, update paper_version header. File challenges for any contradictions found.",
       "cadence_sessions": 20,
-      "last_reviewed_session": 160,
+      "last_reviewed_session": 175,
       "registered_by": "S73"
     },
     {

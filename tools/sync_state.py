@@ -1,0 +1,203 @@
+#!/usr/bin/env python3
+"""
+sync_state.py — Auto-sync swarm state counts and session headers.
+
+Addresses the recurring "state-sync" commit pattern (~4% of all commits):
+count drift in INDEX.md, FRONTIER.md, and NEXT.md is detected by maintenance
+but never auto-fixed. This tool reads live counts and patches the headers.
+
+Usage:
+    python3 tools/sync_state.py           # show diff + apply
+    python3 tools/sync_state.py --dry-run # show diff only
+    python3 tools/sync_state.py --quiet   # apply, no output unless changed
+"""
+
+import re
+import subprocess
+import sys
+from datetime import date
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "tools"))
+DRY = "--dry-run" in sys.argv
+QUIET = "--quiet" in sys.argv
+
+try:
+    from swarm_parse import active_principle_ids, active_frontier_ids
+except ImportError:
+    def active_principle_ids(text):
+        all_ids = {int(m.group(1)) for m in re.finditer(r"\bP-(\d+)\b", text)}
+        sup = {int(m.group(1)) for m in re.finditer(r"\bP-(\d+)→", text)}
+        for m in re.finditer(r"\(P-(\d+)\s+(?:merged|superseded|absorbed)\)", text, re.IGNORECASE):
+            sup.add(int(m.group(1)))
+        return all_ids, sup
+
+    def active_frontier_ids(text):
+        return {int(m.group(1)) for m in re.finditer(r"^- \*\*F(\d+)\*\*:", text, re.MULTILINE)}
+
+
+def _git(*args):
+    r = subprocess.run(["git", "-C", str(ROOT)] + list(args),
+                       capture_output=True, text=True)
+    return r.stdout.strip()
+
+
+def _session_number() -> int:
+    log = _git("log", "--pretty=format:%s", "-200")
+    sessions = re.findall(r"\[S(\d+)\]", log)
+    return max((int(s) for s in sessions), default=0)
+
+
+def count_lessons() -> int:
+    tracked = _git("ls-files", "memory/lessons/").splitlines()
+    return sum(1 for f in tracked if re.match(r"memory/lessons/L-\d+\.md$", f))
+
+
+def count_principles() -> int:
+    text = (ROOT / "memory" / "PRINCIPLES.md").read_text(encoding="utf-8")
+    all_ids, superseded = active_principle_ids(text)
+    return len(all_ids - superseded)
+
+
+def count_beliefs() -> int:
+    text = (ROOT / "beliefs" / "DEPS.md").read_text(encoding="utf-8")
+    # Format: "### B1: ..." headings
+    ids = set(re.findall(r"^### B(\d+)\b", text, re.MULTILINE))
+    return len(ids)
+
+
+def count_frontiers() -> int:
+    text = (ROOT / "tasks" / "FRONTIER.md").read_text(encoding="utf-8")
+    return len(active_frontier_ids(text))
+
+
+def patch_file(path: Path, old: str, new: str, label: str) -> bool:
+    """Replace old with new in file. Return True if changed."""
+    text = path.read_text(encoding="utf-8")
+    if old not in text:
+        return False
+    if not QUIET:
+        print(f"  {label}: {old!r} → {new!r}")
+    if not DRY:
+        path.write_text(text.replace(old, new, 1), encoding="utf-8")
+    return True
+
+
+def main():
+    session = _session_number()
+    lessons = count_lessons()
+    principles = count_principles()
+    beliefs = count_beliefs()
+    frontiers = count_frontiers()
+    today = date.today().isoformat()
+
+    if not QUIET:
+        print(f"sync_state: S{session} | {lessons}L {principles}P {beliefs}B {frontiers}F | {today}")
+        if DRY:
+            print("(dry-run — no files written)")
+
+    changed = []
+
+    # --- INDEX.md ---
+    index = ROOT / "memory" / "INDEX.md"
+    text = index.read_text(encoding="utf-8")
+
+    # Session header
+    m = re.search(r"Updated: \d{4}-\d{2}-\d{2} \| Sessions: (\d+)", text)
+    if m and int(m.group(1)) != session:
+        old = m.group(0)
+        new = f"Updated: {today} | Sessions: {session}"
+        if patch_file(index, old, new, "INDEX session"):
+            changed.append("INDEX session")
+
+    # Lesson count
+    m = re.search(r"\*\*(\d+) lessons\*\*", text)
+    if m and int(m.group(1)) != lessons:
+        old = m.group(0)
+        new = f"**{lessons} lessons**"
+        if patch_file(index, old, new, "INDEX lessons"):
+            changed.append("INDEX lessons")
+
+    # Principle count
+    m = re.search(r"\*\*(\d+) principles\*\*", text)
+    if m and int(m.group(1)) != principles:
+        old = m.group(0)
+        new = f"**{principles} principles**"
+        if patch_file(index, old, new, "INDEX principles"):
+            changed.append("INDEX principles")
+
+    # Belief count
+    m = re.search(r"\*\*(\d+) beliefs\*\*", text)
+    if m and int(m.group(1)) != beliefs:
+        old = m.group(0)
+        new = f"**{beliefs} beliefs**"
+        if patch_file(index, old, new, "INDEX beliefs"):
+            changed.append("INDEX beliefs")
+
+    # Frontier count
+    m = re.search(r"\*\*(\d+) frontier questions\*\*", text)
+    if m and int(m.group(1)) != frontiers:
+        old = m.group(0)
+        new = f"**{frontiers} frontier questions**"
+        if patch_file(index, old, new, "INDEX frontiers"):
+            changed.append("INDEX frontiers")
+
+    # Themes line lesson count
+    m = re.search(r"## Themes \((\d+) lessons\)", text)
+    if m and int(m.group(1)) != lessons:
+        old = m.group(0)
+        new = f"## Themes ({lessons} lessons)"
+        if patch_file(index, old, new, "INDEX themes count"):
+            changed.append("INDEX themes")
+
+    # --- FRONTIER.md ---
+    frontier = ROOT / "tasks" / "FRONTIER.md"
+    text = frontier.read_text(encoding="utf-8")
+    m = re.search(r"(\d+) active \| Last updated: \d{4}-\d{2}-\d{2} S(\d+)", text)
+    if m:
+        if int(m.group(1)) != frontiers or int(m.group(2)) != session:
+            old = m.group(0)
+            new = f"{frontiers} active | Last updated: {today} S{session}"
+            if patch_file(frontier, old, new, "FRONTIER header"):
+                changed.append("FRONTIER header")
+
+    # --- PRINCIPLES.md header ---
+    principles_md = ROOT / "memory" / "PRINCIPLES.md"
+    text = principles_md.read_text(encoding="utf-8")
+    m = re.search(r"(\d+) live principles", text)
+    if m and int(m.group(1)) != principles:
+        old = m.group(0)
+        new = f"{principles} live principles"
+        if patch_file(principles_md, old, new, "PRINCIPLES header"):
+            changed.append("PRINCIPLES header")
+
+    # --- NEXT.md ---
+    next_md = ROOT / "tasks" / "NEXT.md"
+    text = next_md.read_text(encoding="utf-8")
+    m = re.search(r"Updated: \d{4}-\d{2}-\d{2} S(\d+)", text)
+    if m and int(m.group(1)) != session:
+        old = m.group(0)
+        new = f"Updated: {today} S{session}"
+        if patch_file(next_md, old, new, "NEXT session"):
+            changed.append("NEXT session")
+
+    # Key state count line in NEXT.md (e.g. "208L 149P 14B 15F")
+    m = re.search(r"(\d+)L (\d+)P (\d+)B (\d+)F\b", text)
+    if m:
+        l, p, b, f = int(m.group(1)), int(m.group(2)), int(m.group(3)), int(m.group(4))
+        if (l, p, b, f) != (lessons, principles, beliefs, frontiers):
+            old = m.group(0)
+            new = f"{lessons}L {principles}P {beliefs}B {frontiers}F"
+            if patch_file(next_md, old, new, "NEXT counts"):
+                changed.append("NEXT counts")
+
+    if not changed:
+        if not QUIET:
+            print("  all counts in sync — no changes needed")
+    elif not DRY:
+        print(f"  patched: {', '.join(changed)}")
+
+
+if __name__ == "__main__":
+    main()
