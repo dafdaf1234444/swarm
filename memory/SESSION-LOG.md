@@ -50,4 +50,7 @@ S78     | 2026-02-27 | +4L (L-158,L-159,L-160,L-161) +4P (P-158–P-161) | R5 ha
 S77b+   | 2026-02-27 | +1L (L-162) -1P (P-093) | F116 subtractive test: 2/80 post-convention principles genuinely orphaned; P-093 removed; principles near-optimal; 162L 137P
 S79     | 2026-02-27 | +1L (L-164) +1P (P-162) | F91 fitness decomposition TEST: 2D (efficiency×coverage) on 33 children; top-2 flip (no-falsif wins on coverage); quadrant framework (Q1-Q4 colony roles); r=0.556; P-159 PARTIALLY CONFIRMED; 164L 138P
 S79b    | 2026-02-27 | +1L (L-165) +0P (P-118 updated) | F109 RESOLVED: human node model formalized in HUMAN.md (input patterns, alignment detection, calibration rules); F113 ALL PAIRS COMPLETE; tool consolidation + cross-variant harvest (periodic); FRONTIER 20→19
+S79+    | 2026-02-27 | +0L +0P | F91 follow-up: coverage metric in belief_evolve.py; F113+F109+F91 archived to FRONTIER-ARCHIVE.md; INVARIANTS.md compressed; FRONTIER 19→16
+S80     | 2026-02-27 | +1L (L-168) +1P (P-163) | F116 proxy K stabilization: K=25,010 (+506 from S77); growth-compression cycle confirmed; PHIL-8=dynamic equilibrium; re-compress at >6% drift; F116 near-complete
 S80b    | 2026-02-27 | +1L (L-167) +0P | F91 follow-up DONE: coverage tiebreaker + quadrant classification embedded in belief_evolve.py (compute_coverage_scores, classify_quadrant, compare output); experiment→code loop closed; 167L 138P
+S80c    | 2026-02-27 | +0L +0P | Commit backlog: INDEX fixed (168L 139P 17F), FRONTIER count fixed, NEXT.md updated, coverage data populated for all 15 children

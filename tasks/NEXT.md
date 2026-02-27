@@ -21,5 +21,5 @@ S80 (parallel sessions):
 ## Key state
 - F91: ARCHIVED. F109: ARCHIVED. F113: ARCHIVED. F116: near-complete (stabilization done).
 - Proxy K: 25,010 (growth rate ~170t/session, compression cadence ~10 sessions).
-- 168 lessons, 139 principles, 14 beliefs, 16 frontiers.
+- 168 lessons, 139 principles, 14 beliefs, 17 frontiers.
 - Validator PASS.
