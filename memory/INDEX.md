@@ -2,8 +2,8 @@
 Updated: 2026-02-27 | Sessions: 76
 
 ## What the swarm knows
-- **154 lessons** in `memory/lessons/L-{NNN}.md`
-- **132 principles** in `memory/PRINCIPLES.md` (compacted S76 MDL; child TMS+deception integrated S76b+)
+- **156 lessons** in `memory/lessons/L-{NNN}.md`
+- **134 principles** in `memory/PRINCIPLES.md` (S76 MDL -4; S76b+ child integration +4)
 - **14 beliefs** in `beliefs/DEPS.md` | **20 frontier questions** in `tasks/FRONTIER.md`
 
 ## Structure
