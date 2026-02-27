@@ -10,14 +10,13 @@ Questions only a human can efficiently answer. Reviewed at session start. When a
 NK complexity and distributed systems are test beds for validating the swarm's analytical capabilities, not ends in themselves. All domain work should compound back into swarm self-knowledge.
 **Action**: F9 resolved. Meta/architecture domain elevated to primary. L-118.
 
-### HQ-2: Should the swarm output be used on YOUR codebases?
-nk_analyze.py can analyze any Python/Go project. Has it been run on anything you actually work on? If not — what repos would you want analyzed? This would ground the swarm's work in reality.
+### ~~HQ-2: Should the swarm output be used on YOUR codebases?~~ ANSWERED S52
+See Answered section below.
 
 ## Domain Expertise Needed
 
-### HQ-3: Does etcd run errcheck?
-Check etcd's `.github/workflows/` or `.golangci.yml` for errcheck presence. Count `nolint:errcheck` suppressions. Answer validates F100 hypothesis: tooling adoption predicts Go EH quality.
-**Effort**: 10 minutes. **Stakes**: Resolves F100.
+### ~~HQ-3: Does etcd run errcheck?~~ ANSWERED S52
+See Answered section below.
 
 ### ~~HQ-4: P-102 parallelism threshold — is the 45% source real?~~ RESOLVED S56
 **Answer**: UNVERIFIED — hallucinated/misremembered. Literature search found no paper supporting a "45% accuracy threshold". Real finding: parallelize on high ambiguity, not accuracy threshold. P-102 SUPERSEDED.
@@ -31,8 +30,8 @@ Set up a 3-node Docker cluster. Reproduce 1-2 known bugs: Redis-Raft split-brain
 
 ## Process Feedback
 
-### HQ-6: Is the swarm's output useful to you?
-47 sessions. 99 lessons. 14 beliefs. 24 tools. 15 child variants. Is any of this useful for your actual work? What would make it useful? This is the most important question in the queue.
+### ~~HQ-6: Is the swarm's output useful to you?~~ ANSWERED S52
+See Answered section below.
 
 ## Answered
 

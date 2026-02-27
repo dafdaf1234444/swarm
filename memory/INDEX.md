@@ -2,8 +2,8 @@
 Updated: 2026-02-27 | Sessions: 71
 
 ## What the swarm knows
-- **143 lessons** in `memory/lessons/L-{NNN}.md`
-- **140 principles** in `memory/PRINCIPLES.md`
+- **144 lessons** in `memory/lessons/L-{NNN}.md`
+- **141 principles** in `memory/PRINCIPLES.md`
 - **14 beliefs** in `beliefs/DEPS.md` | **18 frontier questions** in `tasks/FRONTIER.md`
 
 ## Structure
@@ -18,7 +18,7 @@ experiments/  controlled experiments (33 children, see PULSE.md)
 domains/    nk-complexity, distributed-systems, meta
 ```
 
-## Themes (143 lessons)
+## Themes (144 lessons)
 
 | Theme | Count | Key insight |
 |-------|-------|-------------|
@@ -29,7 +29,7 @@ domains/    nk-complexity, distributed-systems, meta
 | Evolution | 35 | Spawn+evaluate, recursive evolution, hybrid vigor |
 | Distributed Systems | 10 | EH anti-patterns, K_out/K_in role classifier, ctx compound |
 | Governance | 3 | Dark matter, principle recombination |
-| Meta | 29 | Autonomy, compactification, genesis rules, bidirectional alignment, cold-start convergence (L-139), integration receipts (L-141), cascade validation (L-142) |
+| Meta | 30 | Autonomy, compactification, genesis rules, bidirectional alignment, cold-start convergence (L-139), integration receipts (L-141), cascade validation (L-142), handoff staleness (L-144) |
 
 ## What to load when
 | Doing...              | Read...                          |

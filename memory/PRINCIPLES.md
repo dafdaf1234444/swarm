@@ -1,5 +1,5 @@
 # Principles — Atomic Building Blocks
-Extracted from lessons. Scan for recombination. 140 principles, 7 themes.
+Extracted from lessons. Scan for recombination. 141 principles, 7 themes.
 
 ## Architecture
 **Structure**: P-008 validate by usage not theory | P-011 flat→hierarchical when outgrown | P-030 healthy redundancy = reconstructible from raw
