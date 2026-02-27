@@ -17,6 +17,7 @@
       "commit_count": 7
     },
     "fitness": 248.0,
+    "coverage": 0.75,
     "evaluated": "2026-02-27"
   },
   "belief-no-falsification": {
@@ -37,6 +38,7 @@
       "commit_count": 13
     },
     "fitness": 950.9901951359278,
+    "coverage": 0.8888888888888888,
     "evaluated": "2026-02-27"
   },
   "belief-minimal": {
@@ -57,6 +59,7 @@
       "commit_count": 7
     },
     "fitness": 304.14213562373095,
+    "coverage": 0.5833333333333334,
     "evaluated": "2026-02-27"
   },
   "belief-no-modes": {
@@ -77,6 +80,7 @@
       "commit_count": 6
     },
     "fitness": 364.32050807568874,
+    "coverage": 0.7692307692307693,
     "evaluated": "2026-02-27"
   },
   "belief-no-lesson-limit": {
@@ -97,6 +101,7 @@
       "commit_count": 5
     },
     "fitness": 334.0,
+    "coverage": 0.8181818181818182,
     "evaluated": "2026-02-27"
   },
   "belief-aggressive-challenge": {
@@ -117,6 +122,7 @@
       "commit_count": 7
     },
     "fitness": 203.0,
+    "coverage": 0.8571428571428571,
     "evaluated": "2026-02-27"
   },
   "belief-nofalsif-aggressive": {
@@ -137,6 +143,7 @@
       "commit_count": 5
     },
     "fitness": 258.0,
+    "coverage": 0.7,
     "evaluated": "2026-02-27"
   },
   "belief-nofalsif-nolimit": {
@@ -157,6 +164,7 @@
       "commit_count": 7
     },
     "fitness": 292.32050807568874,
+    "coverage": 0.6923076923076923,
     "evaluated": "2026-02-27"
   },
   "belief-nolimit-aggressive": {
@@ -177,6 +185,7 @@
       "commit_count": 5
     },
     "fitness": 197.0,
+    "coverage": 0.75,
     "evaluated": "2026-02-27"
   },
   "belief-minimal-nofalsif": {
@@ -197,6 +206,7 @@
       "commit_count": 8
     },
     "fitness": 947.4456264653803,
+    "coverage": 0.9069767441860465,
     "evaluated": "2026-02-27"
   },
   "belief-aggressive-minimal": {
@@ -217,6 +227,7 @@
       "commit_count": 4
     },
     "fitness": 413.0,
+    "coverage": 0.6428571428571429,
     "evaluated": "2026-02-27"
   },
   "belief-principles-first": {
@@ -237,6 +248,7 @@
       "commit_count": 6
     },
     "fitness": 655.0,
+    "coverage": 0.8076923076923077,
     "evaluated": "2026-02-27"
   },
   "belief-test-first": {
@@ -257,6 +269,7 @@
       "commit_count": 8
     },
     "fitness": 838.9615242270663,
+    "coverage": 0.7297297297297297,
     "evaluated": "2026-02-27"
   },
   "belief-minimal-nofalsif-principles-first": {
@@ -277,6 +290,7 @@
       "commit_count": 7
     },
     "fitness": 789.5889894354068,
+    "coverage": 0.7586206896551724,
     "evaluated": "2026-02-27"
   },
   "belief-minimal-test-first": {
@@ -297,6 +311,7 @@
       "commit_count": 2
     },
     "fitness": 292.14213562373095,
+    "coverage": 0.5833333333333334,
     "evaluated": "2026-02-27"
   }
 }

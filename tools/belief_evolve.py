@@ -707,7 +707,8 @@ def cmd_lineage():
             print(f"  └── {gname} (fitness={gfitness}) [parents: {', '.join(parents)}]")
 
 
-def cmd_evaluate(child_name: str, novelty_score: float = 0.0):
+def cmd_evaluate(child_name: str, novelty_score: float = 0.0,
+                  coverage_score: float = -1.0):
     """Evaluate a child swarm's outcomes."""
     child_dir = CHILDREN_DIR / child_name
     if not child_dir.exists():
@@ -727,6 +728,8 @@ def cmd_evaluate(child_name: str, novelty_score: float = 0.0):
     print(f"  Validator:        {'PASS' if metrics['validator_passes'] else 'FAIL'}")
     if novelty_score > 0:
         print(f"  Novelty bonus:    +{novelty_score:.1f}")
+    if coverage_score >= 0:
+        print(f"  Coverage:         {coverage_score:.1%}")
     print(f"\n  FITNESS SCORE:    {fitness:.1f}")
 
     # Save results
@@ -737,6 +740,7 @@ def cmd_evaluate(child_name: str, novelty_score: float = 0.0):
     results[child_name] = {
         "metrics": metrics,
         "fitness": fitness,
+        "coverage": coverage_score if coverage_score >= 0 else None,
         "evaluated": date.today().isoformat(),
     }
     RESULTS_FILE.write_text(json.dumps(results, indent=2))
@@ -763,9 +767,9 @@ def cmd_evaluate(child_name: str, novelty_score: float = 0.0):
 
 
 def cmd_compare():
-    """Compare all belief variant children."""
+    """Compare all belief variant children with quadrant classification (F91)."""
     if not RESULTS_FILE.exists():
-        print("No results. Run 'evaluate' on each child first.")
+        print("No results. Run 'evaluate-all' first (includes coverage scoring).")
 
         # Auto-evaluate all belief-* children
         children = sorted([
@@ -783,23 +787,49 @@ def cmd_compare():
         print()
 
     results = json.loads(RESULTS_FILE.read_text())
-
     lineage = _load_lineage()
 
-    print("=== BELIEF VARIANT COMPARISON ===\n")
-    print(f"{'Variant':<30} {'Gen':>4} {'Fitness':>8} {'Lessons':>8} {'Beliefs':>8} {'Observed':>9} {'Frontier':>9} {'Valid':>6}")
-    print("-" * 95)
+    # Coverage-as-tiebreaker sort: primary=fitness, tiebreaker=coverage when gap <1%
+    def sort_key(item):
+        fitness = item[1]["fitness"]
+        coverage = item[1].get("coverage") or 0.0
+        return (fitness, coverage)
 
-    sorted_results = sorted(results.items(), key=lambda x: -x[1]["fitness"])
+    sorted_results = sorted(results.items(), key=sort_key, reverse=True)
+
+    # Compute quadrants for children with coverage data
+    has_coverage = [(n, d) for n, d in sorted_results if d.get("coverage") is not None]
+    quadrants = {}
+    if has_coverage:
+        efficiencies = {}
+        coverages = {}
+        for name, data in has_coverage:
+            m = data["metrics"]
+            efficiencies[name] = m["lessons_count"] + m["beliefs_count"]
+            coverages[name] = data["coverage"]
+        eff_vals = sorted(efficiencies.values())
+        cov_vals = sorted(coverages.values())
+        eff_median = eff_vals[len(eff_vals) // 2]
+        cov_median = cov_vals[len(cov_vals) // 2]
+        for name in efficiencies:
+            quadrants[name] = classify_quadrant(
+                efficiencies[name], coverages[name], eff_median, cov_median)
+
+    print("=== BELIEF VARIANT COMPARISON ===\n")
+    print(f"{'Variant':<30} {'Gen':>4} {'Fitness':>8} {'Cov%':>6} {'Quad':>5} {'Lessons':>8} {'Beliefs':>8} {'Observed':>9} {'Valid':>6}")
+    print("-" * 100)
+
     for name, data in sorted_results:
         m = data["metrics"]
         valid = "PASS" if m["validator_passes"] else "FAIL"
-        frontier = f"{m['frontier_resolved']}/{m['frontier_open']+m['frontier_resolved']}"
         gen = lineage.get(name, {}).get("generation", 1)
+        cov = data.get("coverage")
+        cov_str = f"{cov:.0%}" if cov is not None else "—"
+        quad = quadrants.get(name, "—")
         print(
-            f"{name:<30} {gen:>4} {data['fitness']:>8.1f} {m['lessons_count']:>8} "
-            f"{m['beliefs_count']:>8} {m['observed_count']:>9} "
-            f"{frontier:>9} {valid:>6}"
+            f"{name:<30} {gen:>4} {data['fitness']:>8.1f} {cov_str:>6} {quad:>5} "
+            f"{m['lessons_count']:>8} {m['beliefs_count']:>8} "
+            f"{m['observed_count']:>9} {valid:>6}"
         )
 
     if len(sorted_results) >= 2:
@@ -807,6 +837,15 @@ def cmd_compare():
         worst = sorted_results[-1]
         print(f"\nBest:  {best[0]} (fitness={best[1]['fitness']:.1f})")
         print(f"Worst: {worst[0]} (fitness={worst[1]['fitness']:.1f})")
+
+        # Quadrant summary
+        if quadrants:
+            print("\n## Quadrant Roles (F91, P-162)")
+            labels = {"Q1": "Stars", "Q2": "Immune system", "Q3": "Redundant", "Q4": "Underperformers"}
+            for q in ("Q1", "Q2", "Q3", "Q4"):
+                members = [n for n, qv in quadrants.items() if qv == q]
+                if members:
+                    print(f"  {q} ({labels[q]}): {', '.join(m.replace('belief-', '') for m in members)}")
 
         # Identify which belief differences matter
         print("\n## Analysis")
