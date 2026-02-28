@@ -10,7 +10,7 @@ This snapshot is for orientation only. Canonical live state is always in `memory
 
 - Status: active multi-tool swarm sessions ongoing (Claude Code + Codex).
 - Integrity: beliefs validator PASS; latest `bash tools/check.sh --quick` run is NOTICE-only.
-- Swarm scale: 308 lessons, 176 principles, 17 beliefs, 29 active frontier questions.
+- Swarm scale: 309 lessons, 176 principles, 17 beliefs, 29 active frontier questions.
 - Project footprint (tracked): 1,284 files, 276,725 estimated lines, 11,178,834 bytes (~10.66 MiB), 665 commits.
 - File mix (tracked): 664 Markdown, 250 Python, 335 JSON, 5 shell scripts.
 - Largest tracked areas by file count: `experiments/` 452, `memory/` 316, `workspace/` 201, `tools/` 167.
