@@ -14,12 +14,10 @@ This makes linguistics the highest-density cross-domain isomorphism domain outsi
 ## Critical
 
 - **F-LNG1**: Can Zipf's law exponent variation across languages predict swarm lesson distribution?
-  Status: BASELINE S190 — α=0.900 (ZIPF_STRONG), R²=0.845, n=288 lessons, 94.4% cited.
-  Confirmed: swarm lesson citations follow power law, α within Zipf range (0.7–1.3).
-  Slight sub-Zipf (α<1.0): tail fatter than canonical — newer lessons cited more evenly than words.
-  Open: (1) track α over time — does growth toward 500L change exponent? (2) α>1.3 = monoculture signal;
-  α<0.7 = isolation signal; (3) compare to natural language corpora α variation by register.
-  Artifact: `experiments/linguistics/f-lng1-zipf-lessons-s190.json` | Related: ISO-8, L-306, L-299
+  Status: TRACKING S301 — S190 baseline α=0.900, R²=0.845, n=288. S301 re-measurement: α=0.847 (delta=-0.054), R²=0.824, n=311, 100% cited (was 94.4%).
+  Trend: alpha drifting downward (toward tail-flat) as corpus grows. Tail becoming flatter = newer lessons accumulate citations more evenly — opposite of monoculture. L-336 now top-cited (50) vs L-001 (40), suggesting recent lessons cite recent lessons faster than old ones.
+  Open: (1) continue tracking α at n=400, n=500 to confirm downward trend; (2) compare to natural language corpora; (3) does α stabilize or continue declining?
+  Artifacts: `experiments/linguistics/f-lng1-zipf-lessons-s190.json`, `experiments/linguistics/f-lng1-zipf-lessons-s301.json` | Related: ISO-8, L-306, L-299
 
 - **F-LNG2**: Does the critical-period threshold in language acquisition map to a proxy-K tipping point?
   Status: OPEN. Categorical perception (ISO-4) shows irreversible regime shift at critical period.
@@ -33,12 +31,13 @@ This makes linguistics the highest-density cross-domain isomorphism domain outsi
 ## Important
 
 - **F-LNG3**: Is swarm lesson distillation structurally isomorphic to creolization?
-  Status: OPEN. Creolization = rapid grammar emergence from pidgin contact; children regularize
-  irregular adult input into structured grammar. Parallel: lessons-to-principles distillation
-  regularizes unstructured L-NNN observations into structured P-NNN principles. Can the creolization
-  velocity (how fast structure emerges) predict swarm principle-formation cadence?
-  Related: ISO-6 (entropy), ISO-7 (emergence), F122. Expected artifact:
-  `experiments/linguistics/f-lng3-creolization-distillation.json`
+  Status: PARTIAL S301 — Three phases confirmed from SESSION-LOG (n=241 entries, S40-S302):
+  Phase 1 (S40-79): P/L ≈ 1.0-1.67 — creolization burst (rapid grammar emergence).
+  Phase 2 (S80-159): P/L ≈ 0 — mature creole (vocabulary grows, grammar stable).
+  Phase 3 (S160-179): P/L = 0.90 — secondary burst triggered by domain expansion (contact event).
+  Current (S180-302): P/L = 0.12 — distillation debt (65L added, 8P extracted, ~57 candidate principles).
+  Open: (1) schedule principle harvest to address debt; (2) track P/L after next domain expansion for secondary burst prediction; (3) per-session granularity (current is epoch-level).
+  Artifact: `experiments/linguistics/f-lng3-creolization-distillation-s301.json` | L-346 | Related: ISO-6, ISO-7, F122
 
 ---
 

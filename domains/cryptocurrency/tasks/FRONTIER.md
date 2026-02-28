@@ -1,11 +1,16 @@
 # Cryptocurrency Domain — Frontier Questions
 Domain agent: write here for cryptocurrency-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Seeded: S301 | 2026-02-28 | Active: 3
+Seeded: S301 | 2026-02-28 | Active: 3 | Last updated: S302
 
 ## Active
 
 - **F-CC1**: Do blockchain consensus mechanisms (PoW/PoS/BFT) exhibit the same coordination
   tradeoffs as swarm coordination (speed vs. safety vs. decentralization)?
+  **S302 PARTIAL**: 5 isomorphisms found (3 strong, 2 partial); 3 gaps: G-CC-1 (no quorum for
+  belief changes — 1-of-N scheme), G-CC-2 (informal fork resolution), G-CC-3 (liveness depends
+  on human). Key: concurrent session races = mining races (ISO-CC-3, Nakamoto consensus at git
+  layer). Swarm trilemma: Integrity/Throughput/Autonomy. See L-347, f-cc1-...-s302.json.
+  Open: empirical test of 2-confirmation rule for SUPERSEDED/DROPPED (G-CC-1 fix).
   **Stakes**: If YES, the swarm can import consensus protocol research directly — fault-tolerance
   proofs, liveness guarantees, and partition-recovery strategies all apply to swarm node coordination.
   The CAP theorem (from distributed-systems) has a crypto-native analog: the blockchain trilemma
