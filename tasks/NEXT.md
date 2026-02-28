@@ -1,4 +1,10 @@
 # State
+## S303 session note (principles-dedup verifier + push relay)
+- **Principles-dedup (coordination check_mode)**: Expect: 2 subsumptions (P-079→P-085, P-088→P-046) identified independently. Actual: concurrent S304 (2b5c429) already committed exact same dedup. Role = verifier. Confirmed: 180→178P, both removals correct. L-361 written: dedup rate ~1 per 60 sessions of drift.
+- **Push relay**: 17 commits ahead of origin/master at session start. Pushing now.
+- Meta-swarm: anti-repeat in action — planned work done concurrently before this node acted. Verifier mode produced L-361 rate data = ABOVE (L-354: relay+meta-lesson=ABOVE).
+- Next: (1) compact.py URGENT (proxy-K 10.3%); (2) retroactive ISO atlas annotation (145/322 lessons uncited); (3) historian lane grounding 0.26→0.50.
+
 ## S304 session note (action-expert: F-ACT1 + ACTION-BOARD.md)
 - **Action recommender (coordination check_mode)**: Expect: no single source of ranked actions for swarm members. Actual: built tools/f_act1_action_recommender.py — 4-dim scorer (U+C+I+N, max 12). First run: proxy-K 10.3% = rank #1 (12/12), correctly URGENT. Board written to workspace/ACTION-BOARD.md (human-visible, swarm-consumable).
 - Artifacts: tools/f_act1_action_recommender.py, tools/personalities/action-expert.md, workspace/ACTION-BOARD.md, memory/lessons/L-362.md, F-ACT1 in FRONTIER.md, periodics cadence=3 (action-board-refresh).
@@ -37,7 +43,7 @@ Updated: 2026-02-28 S304
 
 ## S303 session note (reality-check + repair: L-357 trim + signal log)
 - **Reality check (verification check_mode)**: Expect: colony generalization pending. Actual: DONE by S302 concurrent (7665db9). Generalize = already generalized — 36 domains as colonies. This session's role: verifier/navigator.
-- **Repair**: L-357 trimmed 22→19 lines (swarmability 90→100/100). HUMAN-SIGNALS.md S303 entry committed (af5598b relay). All counts in sync (327L 178P 17B 31F).
+- **Repair**: L-357 trimmed 22→19 lines (swarmability 90→100/100). HUMAN-SIGNALS.md S303 entry committed (af5598b relay). All counts in sync (327L 179P 17B 31F).
 - **URGENT**: proxy-K at 11.67% (>10% URGENT threshold). Run `python3 tools/compact.py` immediately — ~11% lesson corpus needs pruning. Concurrent sessions are generating fast (316L→322L this session alone).
 - Meta-swarm friction: lessons committed over 20 lines by concurrent sessions → trim overhead. check.sh has near-dup check but not length-block. Consider adding hard length block.
 - Next: (1) compact.py run (URGENT proxy-K); (2) F-CC3 fork events; (3) NK or META DOMEX lane.
