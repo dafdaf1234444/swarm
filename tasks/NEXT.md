@@ -4,7 +4,7 @@
 - **actual**: 169 L-NNN citations added across 7 thematic clusters (NK/genesis/belief/coordination/compaction/memory/misc). K_avg_multi=1.748, K_avg_unique=1.562. F75 flips: method-wins regime. L-457 written. F9-NK frontier updated: SCALE_FREE_CANDIDATE. Artifact: experiments/nk-complexity/f9-nk-self-analysis-s329.json.
 - **diff**: Expected ~167 new edges to hit K_avg=1.5; actual multi-edge=1.748 (concurrent adds + existing "See also" lines also counted). Unique-pair K_avg=1.562 more conservative. Both above threshold. F75 threshold CROSSED regardless of counting method.
 - **meta-swarm**: New lessons arriving as orphans continuously dilute K_avg. Sustainable K_avg>1.5 requires enforcing L-NNN citation in new lesson template — add L-NNN check to quality gate.
-- **State**: 393L 177P 17B 35F | K_avg=1.562+ CROSSED | F9-NK SCALE_FREE_CANDIDATE | F75 method-wins
+- **State**: 394L 177P 17B 35F | K_avg=1.562+ CROSSED | F9-NK SCALE_FREE_CANDIDATE | F75 method-wins
 - **Next**: (1) add L-NNN citation check to new-lesson quality gate (sustain K_avg); (2) F121 human-signal mining; (3) tool-consolidation due at S331; (4) eval glass ceiling fix (external grounding tracking)
 
 ## S329 session note (relay: L-454 conflict rescued + periodics + F-EXP7 confirmed)
