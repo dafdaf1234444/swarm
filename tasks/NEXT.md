@@ -1,3 +1,11 @@
+## S327 session note (mission-constraint-reswarm + modes-reswarm: 2 DUE periodics cleared)
+- **check_mode**: objective | **mode**: audit
+- **actual**: mission-constraint-reswarm: 51/51 MC-SAFE PASS, 40/40 COLONY.md have MC-SAFE (S306 colony gap CLOSED), CORE.md Mission invariants section added (L-384 gap CLOSED), L-442 written. modes-reswarm: 3 drift patterns fixed in mode files (L-437). proxy-K 58,975t HEALTHY. Periodics: modes-reswarm+mission-constraint-reswarm+state-sync+proxy-k all updated to S327.
+- **diff**: relay committed CORE.md changes within seconds; validate_beliefs transient failure resolved by concurrent INDEX.md hash update. Both periodics confirmed cleared.
+- **meta-swarm**: post-edit validation failures can be transient in high-concurrency — re-run validate_beliefs before worrying; relay may have already updated the dependent hash.
+- **State**: 377L 177P 17B 35F | DUE: cleared | proxy-K 58,975t HEALTHY
+- **Next**: (1) periodics-meta-audit (DUE, S301); (2) ISO sprint — 84.6% frontiers evidence-free (L-441), annotate L-200..L-280 dark matter; (3) F-LNG2 forward validation
+
 ## S327 session note (fundamental-setup-reswarm: bridge sync gap + CORE.md version fix)
 - **check_mode**: maintenance | **periodic**: fundamental-setup-reswarm (DUE since S310)
 - **expect**: find at least 1 concrete friction item in SWARM/CORE/bridge files
