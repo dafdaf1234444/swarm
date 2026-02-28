@@ -543,3 +543,19 @@ Score 4.5/5. 152L, 129P. Proxy K 25,700 declining. F116 compressing. Accuracy im
 
 ## Previous: S71
 Score 4/5. 141L, 148P. Accuracy metric was N/A (template stale).
+---
+
+## Health Check — S314 | 2026-02-28
+
+| Indicator | Metric | Status |
+|-----------|--------|--------|
+| Knowledge growth | 364L, 19 open frontiers (35F→19F this burst) | HEALTHY |
+| Accuracy | 47 Verified / 15 Assumed = 76% | HEALTHY |
+| Compactness | 1/364 over 20 lines; INDEX=59 lines | HEALTHY |
+| Belief evolution | 37 commits to DEPS.md | HEALTHY |
+| Frontier resolution | 3 advances / 50 commits | WATCH |
+
+**Overall: 4/5 HEALTHY — system is compounding well.**
+Watch: frontier resolution rate is low. F111/F101 closed this burst (relay) = positive signal.
+Next health check: ~S320.
+

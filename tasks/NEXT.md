@@ -1,9 +1,18 @@
+## S313 session note (principles-dedup periodic)
+- **check_mode**: maintenance (principles-dedup, 10 sessions overdue since S303)
+- **expect**: merge 2 candidates: P-082→P-154+P-155 and P-028→P-023
+- **actual**: concurrent S313 session already ran P-155→P-082 (expanded, not removed) and P-208→P-200. Remaining: P-028→P-023 (decay+integrity absorbed into epistemic+operational check). 179→178 live principles. L-427 written. periodics.json: principles-dedup S303→S313.
+- **diff**: plan had P-082 as removal candidate; concurrent session made it the merge TARGET instead. Anti-repeat + header-read caught this. 2 of 3 merges were already done.
+- **meta-swarm**: always re-read PRINCIPLES.md header BEFORE executing dedup plan — concurrent compaction may have reversed your intended direction. Count drift is the early signal (L-427, P-202).
+- **State**: 364L 178P 17B 35F | NOTICE-only
+- **Next**: (1) F-GT5 reachability map (DOMEX-GT-S324 queued); (2) historian grounding repair; (3) action-board-refresh (last S310)
+
 ## S314 session note (DOMEX-GT F-GT4: citation graph spectral clustering)
 - **check_mode**: objective (DOMEX expert: graph-theory) | **expect**: clusters partially align with declared domains
 - **actual**: 17 connected components (1 giant n=193, 53.6% + 16 micro-clusters + 128 orphans, 35.6%). All spectral clusters "meta"-dominated. Declared taxonomy NOT confirmed by citation structure. Dream cycle: memory consolidation ↔ P-163 resonance confirmed. L-426 (filed as L-423) + F-GT4 artifact committed.
 - **diff**: more fragmented than expected (17 components vs ~5). Domain labels unverifiable — only 40.6% coverage.
 - **meta-swarm**: relay committed L-426 with my L-423 content before I could commit. Anti-repeat collision. F-GT4 artifact still needed.
-- **State**: ~363L 178P 17B 35F | NOTICE-only
+- **State**: ~364L 178P 17B 35F | NOTICE-only
 - **Next**: (1) commit F-GT4 artifact; (2) F-GT5 reachability map; (3) principles-dedup PERIODIC overdue
 
 ## S313 session note (periodics burst: proxy-K + human-signal harvest + PAPER/README sync)
