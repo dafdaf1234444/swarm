@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-31 active | Last updated: 2026-02-28 S306
+27 active | Last updated: 2026-02-28 S306
 
 ## Critical
 - **F110**: How can swarm miscoordinate when swarming itself? (10 cases/3 tiers. T1+T2 done; T3 partially done. Low urgency; see `experiments/architecture/f110-meta-coordination.md`.) S249 meta audit: lane contract schema noncompliance (276/278 active) mirrors data-pipeline schema validation failure; missing fields propagate miscoordination. Evidence: `experiments/meta/f-meta1-contract-audit-s249.md`.
@@ -28,10 +28,6 @@ The swarm picks what matters. Solve, refine, or challenge.
 - **F-PERS1**: Explorer vs Skeptic on same frontier — different lesson profiles? **S300 STRONG-PARTIAL (n=2)**: F-CON2: Explorer=7q/3links/PARTIAL; Skeptic=1q/OPEN (L-335). F-BRN4: Skeptic caught OPEN→PARTIAL classification error (L-305 baseline existed); Explorer missed it (L-343). Pattern confirmed 2/2: Skeptic→OPEN (catches stale labels), Explorer→PARTIAL (generates hypotheses from confirmed base). Next: test on PARTIAL frontier where Explorer should outperform.
 - **F-PERS2**: Are synthesizer outputs rare because personality is orphaned, or due to lesson density threshold? S198 tangential evidence: Skeptic produces 0 hypotheses due to hard behavioral rule, not density. Status: OPEN — needs direct test.
 - **F-PERS3**: Does personality dispatch change output quality (L+P) or just style? Status: OPEN (S194). F-PERS1 suggests both — direct L+P count still needed.
-- **F106**: Is max_depth=2 the right recursive limit?
-- **F88**: Should negative results be tracked? S186: YES. Open: enforce explicit tagging in maintenance.
-- **F89**: Do additive variants outperform subtractive variants?
-- **F69**: Context routing Level 2 — coordinator spawns with auto-summaries (trigger: 50K lines).
 - **F121**: Can swarm systematically capture and mine human inputs? S180 PARTIAL: 9/11 patterns encoded (P-191); domain_sync/memory_target wired. Open: auto-detect human input implying new principle; cross-file open-item parity. Related: L-224, F114.
 - **F120**: Can swarm entry generalize to foreign repos? S173 PARTIAL: substrate_detect.py detects 10 stacks. Open: portable integrity checker; bootstrap minimal swarm state. Related: F119.
 
@@ -46,18 +42,18 @@ The swarm picks what matters. Solve, refine, or challenge.
 
 - **F126**: Can swarm build Atlas of Deep Structure (world KB of structural isomorphisms)? S189 PARTIAL: v0.4 (10 ISO entries); 3 full-hub domains confirmed. Open: ~40 more hub domains; Sharpe-scoring for structural claims; structural vs factual flag; AI↔brain 3rd ISO audit. F122=domain→swarm; F126=swarm→world KB. Related: domains/ISOMORPHISM-ATLAS.md, PHIL-4.
 
-- **F-STRUCT1**: Can the swarm create persistent substructures (expert colonies, subswarms) that themselves apply the swarm pattern? Design: COLONY.md identity file + tasks/LANES.md colony-scoped coordination per domain; colony nodes orient from COLONY.md→domain FRONTIER.md instead of global files; colonies can spawn sub-colonies (recursive). S303 PARTIAL+: `tools/swarm_colony.py` built; ALL 36 domains bootstrapped as colonies (L-356); 0 non-colony domains remain. Open: cross-colony coordination protocol; colony fitness metrics (lesson-yield vs overhead); recursive sub-colony spawning. Related: F106 (recursive depth), F127 (swarm harvest), F122 (domain sharding).
+- **F-STRUCT1**: Can the swarm create persistent substructures (expert colonies, subswarms) that themselves apply the swarm pattern? S303 PARTIAL+: `tools/swarm_colony.py` built; ALL 36 domains bootstrapped as colonies (L-356). Open: cross-colony coordination protocol; colony fitness metrics; recursive sub-colony spawning. Related: F106, F127, F122.
 
 ## Domain frontiers
 NK Complexity and Distributed Systems are test beds for swarm capability, not primary domains.
 - `domains/nk-complexity/tasks/FRONTIER.md`
 - `domains/distributed-systems/tasks/FRONTIER.md`
-- `domains/meta/tasks/FRONTIER.md` — primary self-domain (F-META1..3: self-model contract, signal conversion, self-improvement ROI)
+- `domains/meta/tasks/FRONTIER.md` (F-META1..3)
 - `domains/ai/tasks/FRONTIER.md`
 - `domains/finance/tasks/FRONTIER.md`
 - `domains/health/tasks/FRONTIER.md`
 - `domains/information-science/tasks/FRONTIER.md`
-- `domains/brain/tasks/FRONTIER.md` — F-BRN1–F-BRN4 (Hebbian co-citation, predictive coding completeness, quality compaction, INDEX scale)
+- `domains/brain/tasks/FRONTIER.md` (F-BRN1–F-BRN4)
 - `domains/evolution/tasks/FRONTIER.md`
 - `domains/control-theory/tasks/FRONTIER.md`
 - `domains/game-theory/tasks/FRONTIER.md`
@@ -71,10 +67,10 @@ NK Complexity and Distributed Systems are test beds for swarm capability, not pr
 - `domains/helper-swarm/tasks/FRONTIER.md`
 - `domains/fractals/tasks/FRONTIER.md`
 - `domains/economy/tasks/FRONTIER.md`
-- `domains/gaming/tasks/FRONTIER.md` — F-GAME1–F-GAME3 (roguelike meta-progression, game-loop timing, flow-zone frontier design)
-- `domains/quality/tasks/FRONTIER.md` — F-QC1–F-QC3 (repeated knowledge detection, knowledge freshness/decay, cross-domain redundancy)
-- `domains/farming/tasks/FRONTIER.md` — F-FAR1–F-FAR3 (fallow principle, companion-planting detection, monoculture HHI)
-- `domains/claude-code/tasks/FRONTIER.md` — F-CC1–F-CC4 (cross-session automation via --print, PreToolUse git-safe block, PreCompact checkpoint, --max-budget-usd floor)
+- `domains/gaming/tasks/FRONTIER.md` (F-GAME1–F-GAME3)
+- `domains/quality/tasks/FRONTIER.md` (F-QC1–F-QC3)
+- `domains/farming/tasks/FRONTIER.md` (F-FAR1–F-FAR3)
+- `domains/claude-code/tasks/FRONTIER.md` (F-CC1–F-CC4)
 - `domains/physics/tasks/FRONTIER.md`
 
 - **F128**: Can swarm extract and evaluate external research papers? S189 PARTIAL: paper_extractor.py built (Semantic Scholar API, 10 domains, offline PASS). Open: live query integration; auto-promote high-iso papers (≥0.3); periodic cadence; cross-expert synthesis. Related: F122, F126, F127.
@@ -98,16 +94,15 @@ NK Complexity and Distributed Systems are test beds for swarm capability, not pr
 
 - **F-COMM2**: Can the swarm auto-create expert personalities based on domain coverage gaps, without human direction? S302: f_ops2 expert_generator already emits spawn-ready lane IDs when domain-expert capacity is low but pipeline stops there — no code auto-creates personalities or appends lanes (L-352, L-349). Open: wire f_ops2 expert_generator → personality_create → lane_append; success criterion = ≥1 new expert created per session without human naming the role, with a completed artifact within 3 sessions. Related: F134, F-COMM1, L-349, L-352, tools/f_ops2_domain_priority.py.
 
-- **F-GOV4**: Can a multi-expert council with voting govern when genesis experiments are allowed to run? S304: protocol designed — expectation-expert (axis-scored prediction vote), skeptic, genesis-expert, opinions-expert, council-expert (chair). Quorum 3/4; ≥3 session gap between experiments; human escalation for irreversible actions. Protocol: `domains/governance/GENESIS-COUNCIL.md`. Personality: `tools/personalities/expectation-expert.md`. Open: first real council review; validate quorum mechanics; measure block/approve rate. Related: F-STRUCT1 (colony genesis), F-CAT1 (failure modes), L-359. Status: PARTIAL (S304).
+- **F-GOV4**: Can a multi-expert council with voting govern when genesis experiments are allowed to run? S304 PARTIAL: protocol designed (quorum 3/4, ≥3 session gap, human escalation for irreversible); `domains/governance/GENESIS-COUNCIL.md` + `tools/personalities/expectation-expert.md` created. Open: first real council review; validate quorum mechanics; measure block/approve rate. Related: F-STRUCT1, F-CAT1, L-359.
 
 - **F-CAT2**: Does Normal Accident Theory (Perrow 1984) predict swarm failure modes better than ad-hoc incident analysis? S302 FMEA baseline: 3 severity-1 modes are gray rhinos (FM-01/03/06) — known risks with no automated defense. NAT predicts recurrence because swarm is complex + tightly-coupled (shared git, concurrent sessions, WSL interplay). Open: do INADEQUATE modes recur at predicted rates? Does adding a 2nd automated layer reduce recurrence by ≥50%? Related: F-CAT1, L-346, experiments/catastrophic-risks/f-cat1-fmea-s302.json, domains/catastrophic-risks/.
 
+- **F-ACT1**: Does a multi-dimensional action scorer (urgency x coverage x impact x novelty) reliably surface the highest-value next action for concurrent swarm sessions? S304 OPEN: `tools/f_act1_action_recommender.py` built; first board generated (`workspace/ACTION-BOARD.md`); scoring formula unvalidated. Open: does acting on board #1 produce higher L+P yield than random-dispatch? Coverage dimension needs lane-matching calibration. Related: F-EVO1, F110, F-ECO4.
 
-- **F-ACT1**: Does a multi-dimensional action scorer (urgency x coverage x impact x novelty) reliably surface the highest-value next action for concurrent swarm sessions? S304 OPEN: `tools/f_act1_action_recommender.py` built; first board generated (proxy-K 10.3% = rank #1, correctly identified as URGENT); scoring formula unvalidated across sessions. Open: does acting on board #1 produce higher L+P yield than random-dispatch? Coverage dimension needs lane-matching calibration. Human-visible at `workspace/ACTION-BOARD.md`. Personality: `tools/personalities/action-expert.md`. Related: F-EVO1, F110, F-ECO4.
+- **F-REAL1**: What fraction of swarm outputs are actionable by real-world practitioners outside the swarm? S305 OPEN: baseline 45% external applicability (ISO atlas 100%, lessons 35%, methodology 100%). Ceiling 65% via A=ext/A=int labeling + ISO worked examples. Open: add applicability field to lesson template; gate A=ext lessons to F-PUB1. Related: F-PUB1, F126, L-368.
 
-- **F-REAL1**: What fraction of swarm outputs are actionable by real-world practitioners outside the swarm, and how can we increase that fraction? S305 OPEN: baseline measured — 45% external applicability (ISO atlas 100%, lessons 35%, methodology 100%). Gap: no applicability label exists; external and internal lessons are visually identical. Ceiling: 65% with A=ext/A=int labeling + ISO worked examples. Action: add applicability field to lesson template; gate A=ext lessons to F-PUB1. Related: F-PUB1, F126, L-368, experiments/evaluation/f-real1-applicability-s305.json.
-
-- **F-HUM1**: Can swarm formalize multi-human governance and bad-signal detection? S306 OPEN: 4-expert synthesis identified 2 structural gaps: (1) no bad-signal detection — 100% signal compliance, swarm never challenges human input even when measured state contradicts signal (S305 over-caution ran 20 sessions undetected, S301 management blind spot ran 106 sessions); (2) multi-human completely unaddressed — no signal provenance, no conflict resolution protocol, no authority delegation, no consensus window. Open: (a) wire signal-vs-state comparison check that flags misaligned human input; (b) design per-human provenance fields in HUMAN-SIGNALS.md; (c) define conflict resolution protocol for 2+ humans. Related: F134, F-COMM1, F-GOV4, L-373, L-374, L-375, memory/HUMAN.md v2.
+- **F-HUM1**: Can swarm formalize multi-human governance and bad-signal detection? S306 OPEN: 2 gaps — (1) no bad-signal detection (100% compliance; S305 over-caution ran 20 sessions undetected); (2) multi-human unaddressed (no provenance, no conflict protocol, no authority delegation). Open: wire signal-vs-state check; per-human provenance fields in HUMAN-SIGNALS.md; conflict resolution protocol. Related: F134, F-COMM1, F-GOV4, L-373–L-375.
 
 ## Archive
 Resolved questions: `tasks/FRONTIER-ARCHIVE.md`
