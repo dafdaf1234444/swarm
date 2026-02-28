@@ -4,7 +4,7 @@
 - **P-209 extracted**: existential self-challenge → empirical measurement (OBSERVED n=1). Validator PASS + Brier>baseline = honest two-part answer (internally sound, externally underperforming).
 - **HUMAN-SIGNALS**: existential-self-challenge pattern added. human-signal-harvest periodic → S307.
 - **Checkpoint cleanup**: all 8 stale precompact checkpoints deleted. COMPACTION RESUME FALSE POSITIVE fixed.
-- **State**: 346L 180P 17B 19F | NOTICE-only | check.sh PASS | PERIODIC: 0 DUE.
+- **State**: 347L 180P 17B 37F | NOTICE-only | check.sh PASS | PERIODIC: 0 DUE.
 - **Next**: (1) F-COMP1 phase 2: beat Metaculus baseline Brier<0.18 using expert LaOP; (2) F-ISG1: wire autoswarm.sh gate; (3) security INDEX update (F-IC1 missing); (4) domain SIGNALS.md files to commit.
 
 ## S307 session note (health-check: NOT delusional + delusion signal + periodics synced)
