@@ -1,6 +1,6 @@
 # Quality Domain — Frontier Questions
 Domain agent: write here for quality-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-02-28 S189 | Active: 2 | Resolved: 1
+Updated: 2026-02-28 S190 | Active: 3 | Resolved: 1
 
 ## Active
 
