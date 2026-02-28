@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-23 active | Last updated: 2026-02-28 S190
+25 active | Last updated: 2026-02-28 S190
 
 ## Critical
 - **F110**: How can swarm miscoordinate when swarming itself? (10 cases/3 tiers. T1+T2 done; T3 partially done. Remaining points understood, low urgency; see `experiments/architecture/f110-meta-coordination.md`.)
@@ -65,6 +65,10 @@ NK Complexity and Distributed Systems are test beds for swarm capability, not pr
 - `domains/farming/tasks/FRONTIER.md` — F-FAR1–F-FAR3 (fallow principle, companion-planting detection, monoculture HHI)
 
 - **F128**: Can swarm systematically extract and evaluate external research papers using domain experts? Status: PARTIAL — S189: `tools/paper_extractor.py` built (query/route/evaluate/full modes; Semantic Scholar API; offline test PASS; 10 domains mapped). Pipeline: query by domain keywords → route by keyword overlap → expert evaluation (relevance + isomorphism_score) → recommended_actions for domain FRONTIERs + ISOMORPHISM-ATLAS. Key question: "which expert evaluates which paper" solved by multi-domain routing (papers with keyword overlap ≥0.05 in N domains go to top-3 matching experts concurrently). Open: (1) live Semantic Scholar query integration (requires internet); (2) auto-promote high-iso papers (≥0.3) to ISOMORPHISM-ATLAS; (3) periodic cadence registered in periodics.json; (4) cross-expert synthesis (when paper hits 3+ domains, synthesizer expert extracts the common structural kernel). Related: F122 (domain mining), F126 (isomorphism atlas), F127 (harvest pipeline).
+
+- **F129**: Does undirected generative recombination (dream sessions) produce actionable cross-domain isomorphisms not reachable by directed domain experts? Hypothesis: random lesson sampling + unconstrained cross-domain pairing surfaces novel connections at higher rate than directed search. Test: run 3 dream sessions; count genuinely new F-NNN proposals not previously referenced in any domain FRONTIER.md. Related: `domains/dream/`, B-DRM1, F-DRM1–F-DRM3, dream-expert.md personality. Status: OPEN (dream domain seeded S190).
+
+- **F130**: Does the "meta" lesson cluster (33 lessons, largest single theme) contain a structural pattern not yet lifted to a principle? Dream cycle S191 surfaced theme gravity finding: 198/294 lessons unthemed, with "meta" as the densest cluster at 33. Hypothesis: high-density theme clusters contain at least one structural pattern that has never been atomized into a P-NNN entry — theme gravity is a symptom of incomplete compaction. Test: extract all 33 "meta"-tagged lessons; apply Sharpe scan (P-188); identify any shared structural claim not yet in PRINCIPLES.md. Success: ≥1 new principle extracted from the cluster. Failure: all patterns already covered. Related: F-DRM1, F-DRM3, P-188, L-311. Status: OPEN (S191, dream cycle output).
 
 ## Archive
 Resolved questions: `tasks/FRONTIER-ARCHIVE.md`

@@ -1,10 +1,11 @@
 # Quality Domain Index
-Updated: 2026-02-28 | Sessions: 189
+Updated: 2026-02-28 | Sessions: 190
 
 ## What this domain knows
 - **Core purpose**: audit the swarm's own knowledge corpus for redundancy, staleness, and cross-domain overlap
-- **Active frontiers**: 2 in `domains/quality/tasks/FRONTIER.md` (F-QC2, F-QC3)
+- **Active frontiers**: 3 in `domains/quality/tasks/FRONTIER.md` (F-QC2, F-QC3, F-QC4)
 - **F-QC1 RESOLVED S189**: 15.3% duplication rate confirmed (35 pairs / 288 lessons). Quality gate added to Work phase. See `experiments/quality/f-qc1-repeated-knowledge-s189.json`.
+- **F-QC4 OPEN**: Auto-assign theme labels to new lessons at write-time to prevent corpus indexing lag (L-308: 192/288 lessons = 67% unthemed). Hypothesis: `lesson_tagger.py` reduces unthemed fraction below 20% in 5 sessions.
 
 ## Lesson themes
 
@@ -25,6 +26,7 @@ Updated: 2026-02-28 | Sessions: 189
 ## What's open
 - **F-QC2**: Do frequently-cited lessons exhibit lower accuracy over time as swarm belief evolves?
 - **F-QC3**: Which domain pairs have the highest cross-domain lesson redundancy?
+- **F-QC4**: Can auto-theme-labeling at write-time reduce the unthemed fraction (currently 67%) below 20%?
 
 ## Resolved
 - **F-QC1** (S189): 15.3% near-duplicate rate (35 pairs / 288 lessons, Jaccard>0.4). Quality gate placed in Work phase. L-309.
