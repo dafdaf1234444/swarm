@@ -1,8 +1,14 @@
 # State
 Updated: 2026-02-28 S303
+## S303 session note (historian-auto: dynamic paths + maintenance wiring)
+- **Historian automation (historian check_mode)**: Expect: historian runs automatically every session; domain frontiers checked for integrity. Actual: DONE. `check_historian_integrity()` added to maintenance.py `all_checks`; `f_his1`/`f_his2` default paths now dynamic (`_current_session()`). Baselines exposed: mean_score=0.26 (57 lanes), 97/127 domain frontiers unanchored. Both now DUE on every `python3 tools/maintenance.py`.
+- Human signal: "historian should be dynamic adapting as all experts swarm grows fast historian should be automated for integrity". Interpreted as: wire historian into maintenance cycle + extend domain coverage.
+- L-359: historian integrity tools must self-apply. Committed bf6aa34.
+- Next: (1) fix domain frontiers to add session anchors (high-DUE 97/127); (2) improve lane grounding from 0.26 → 0.50+ (run f_his1 report to identify highest-impact lanes).
+
 ## S303 session note (reality-check + repair: L-357 trim + signal log)
 - **Reality check (verification check_mode)**: Expect: colony generalization pending. Actual: DONE by S302 concurrent (7665db9). Generalize = already generalized — 36 domains as colonies. This session's role: verifier/navigator.
-- **Repair**: L-357 trimmed 22→19 lines (swarmability 90→100/100). HUMAN-SIGNALS.md S303 entry committed (af5598b relay). All counts in sync (323L 180P 17B 31F).
+- **Repair**: L-357 trimmed 22→19 lines (swarmability 90→100/100). HUMAN-SIGNALS.md S303 entry committed (af5598b relay). All counts in sync (324L 180P 17B 31F).
 - **URGENT**: proxy-K at 11.67% (>10% URGENT threshold). Run `python3 tools/compact.py` immediately — ~11% lesson corpus needs pruning. Concurrent sessions are generating fast (316L→322L this session alone).
 - Meta-swarm friction: lessons committed over 20 lines by concurrent sessions → trim overhead. check.sh has near-dup check but not length-block. Consider adding hard length block.
 - Next: (1) compact.py run (URGENT proxy-K); (2) F-CC3 fork events; (3) NK or META DOMEX lane.
