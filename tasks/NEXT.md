@@ -44,7 +44,7 @@ Updated: 2026-02-28 S306
 
 ## S306 session note (stale lane sweep — all 52 abandoned)
 - **Lane sweep (coordination check_mode)**: Expect: 52 stale lanes → ABANDONED, 0 active remain. Actual: all 52 stale (>3 sessions) lanes appended ABANDONED rows; lanes_compact archived 31 old rows to SWARM-LANES-ARCHIVE.md (bloat ratio 10.3%→0%); 0 active lanes remain. Diff: expectation met.
-- L-380 trimmed 28→19 lines (DUE cleared). State-sync: 329L 179P 17B 18F.
+- L-380 trimmed 28→19 lines (DUE cleared). State-sync: 330L 179P 17B 18F.
 - proxy-K 10.6% URGENT: compact.py found 0 zero-cited lessons — all 326 lessons cited in living docs. Real target: T4-tools (maintenance.py 27,584t = 53% of corpus). Cannot auto-compact without lesson archiving. Drift persists; document as maintenance.py growth debt.
 - Meta-swarm: When proxy-K URGENT but 0 zero-cited lessons exist, the pressure is T4-tools bloat. The fix is maintenance.py function audit (tool-consolidation periodic), not lesson archiving.
 - Next: (1) F-CC3 fork events vs belief divergence (crypto domain); (2) tool-consolidation periodic (maintenance.py dead code audit); (3) mission-constraint-reswarm; (4) dispatch a DOMEX lane from the now-cleared queue.

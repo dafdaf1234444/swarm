@@ -40,6 +40,7 @@ The expert creator swarm exists to create capacity that improves the swarm itsel
 - `check_mode`, `expect`, `actual`, `diff`
 - `artifact=<path>` (or `artifact=none` with reason)
 - `progress`, `next_step`, `blocked`, `available`
+- `tier=<T0|T1|T2|T3|T4|T5>` — expert tier (see docs/EXPERT-POSITION-MATRIX.md); enables F-EXP7 utilization tracking
 - For domain lanes: `domain_sync` and `memory_target`
 
 ## Coordinator Quickstart (copy/paste)
@@ -144,11 +145,18 @@ Default direction is meta-improvement. Domain work is a test bed only if it prod
 - Coordination overhead shrinks while resolution rate increases.
 - Orphaned expert profiles decrease because new experts are dispatched immediately.
 
+## Automated Dispatch (Live)
+
+Work selection is automated — nodes do not derive priorities manually:
+
+- **`tools/f_act1_action_recommender.py`**: scores swarm state on four axes — Urgency (DUE/proxy-K), Coverage-gap (inverse active lanes), Impact, Novelty — and writes `workspace/ACTION-BOARD.md`. Nodes consume ACTION-BOARD at session start. Registered in `tools/periodics.json` (cadence 3). Run: `python3 tools/f_act1_action_recommender.py`.
+- **`tools/f_ops2_domain_priority.py`**: applies scheduling policies (fifo, risk_first, value_density, hybrid) to domain frontier files and SWARM-LANES pressure to allocate agent slots. Its output JSON (`experiments/operations-research/f-ops2-domain-priority-*.json`) feeds domain candidates into the coordinator queue.
+- **`workspace/ACTION-BOARD.md`**: live ranked recommendation list. Refresh it before starting lane assignment. Stale board (>3 sessions) is a coordination gap.
+
 ## Future Construction Direction (Expert Coordination)
-The next build phase is to turn this structure into an enforced, measurable coordination loop with experts.
 
 1. **Enforcement surface**: link this doc from `tools/personalities/domain-expert.md` and add a reusable expert-lane template (or check) so required fields are mandatory, not optional.
-2. **Dispatch cadence**: use `experiments/operations-research/f-ops2-domain-priority-*.json` to allocate slots and pre-queue a 1-2 session runway in `tasks/SWARM-LANES.md` (coordinator owns the queue).
+2. **Dispatch cadence**: coordinator pre-queues a 1-2 session runway in `tasks/SWARM-LANES.md` using ACTION-BOARD + f-ops2 output (coordinator owns the queue).
 3. **Pairing and review**: every domain expert run is paired with a Skeptic or Historian lane at least every other session, and review happens the same session when possible.
 4. **Integration and compaction**: Integrator closes the loop by merging expert outputs into `tasks/FRONTIER.md` and domain frontiers, with explicit next steps if requeued.
 5. **Instrumentation and quality**: add `flow_in`/`flow_out` tags, track transfer acceptance and collision rates (F-IS7), and require one swarm-facing extraction per expert lane before closure.
