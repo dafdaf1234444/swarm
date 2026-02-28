@@ -39,6 +39,37 @@ def find_latest_lane_row(lane_id: str) -> dict | None:
     return rows[-1] if rows else None
 
 
+def count_prior_rows(lane_id: str) -> int:
+    """Count existing rows for this lane in SWARM-LANES.md."""
+    count = 0
+    with open(LANES_FILE) as f:
+        for line in f:
+            if not line.startswith("|"):
+                continue
+            cols = [c.strip() for c in line.split("|")]
+            if len(cols) >= 3 and cols[2] == lane_id:
+                count += 1
+    return count
+
+
+def remove_prior_rows(lane_id: str) -> int:
+    """Remove all existing rows for lane_id from SWARM-LANES.md. Returns count removed."""
+    with open(LANES_FILE) as f:
+        lines = f.readlines()
+    kept = []
+    removed = 0
+    for line in lines:
+        if line.startswith("|"):
+            cols = [c.strip() for c in line.split("|")]
+            if len(cols) >= 3 and cols[2] == lane_id:
+                removed += 1
+                continue
+        kept.append(line)
+    with open(LANES_FILE, "w") as f:
+        f.writelines(kept)
+    return removed
+
+
 def append_closure_row(
     lane_id: str,
     status: str,
@@ -46,6 +77,7 @@ def append_closure_row(
     session: str,
     author: str,
     model: str,
+    merge: bool = True,
 ) -> None:
     today = date.today().isoformat()
     row = latest = find_latest_lane_row(lane_id)
@@ -53,7 +85,6 @@ def append_closure_row(
         print(f"WARNING: lane {lane_id} not found in SWARM-LANES.md — appending stub closure", file=sys.stderr)
         branch = "local"
         scope_key = ""
-        setup = ""
         tags = f"intent=closure, progress=closed"
     else:
         # Carry forward branch/scope from latest row
@@ -63,6 +94,11 @@ def append_closure_row(
         # Strip old next_step, add closed status
         existing_etc_clean = re.sub(r"next_step=[^\s,|]+", "", existing_etc).strip().strip(",")
         tags = f"{existing_etc_clean}, progress=closed, next_step=none".lstrip(", ")
+
+    if merge:
+        removed = remove_prior_rows(lane_id)
+        if removed:
+            print(f"Removed {removed} prior row(s) for {lane_id} (merge-on-close)")
 
     line = (
         f"| {today} | {lane_id} | {session} | {author} | {branch} | - | {model} | close_lane.py | "
@@ -82,6 +118,8 @@ def main():
     parser.add_argument("--session", default="S186", help="Current session tag, e.g. S186")
     parser.add_argument("--author", default="claude-code", help="Author identifier")
     parser.add_argument("--model", default="claude-sonnet-4-6", help="Model used")
+    parser.add_argument("--no-merge", action="store_true",
+                        help="Disable merge-on-close: keep all prior rows (append-only mode)")
     args = parser.parse_args()
 
     if not args.note:
@@ -94,6 +132,7 @@ def main():
         session=args.session,
         author=args.author,
         model=args.model,
+        merge=not args.no_merge,
     )
 
 
