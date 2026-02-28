@@ -31,3 +31,4 @@ recordings/**/*.mkv
 # Session-specific swarm node state (not committed)
 .swarm_meta.json
 memory/lessons-archive/
+experiments/conflict/f-con3-checkpoint.json
