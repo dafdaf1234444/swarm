@@ -24,13 +24,23 @@ CHILDREN_DIR = REPO / "experiments" / "children"
 BULLETINS_DIR = REPO / "experiments" / "inter-swarm" / "bulletins"
 PHILOSOPHY = REPO / "beliefs" / "PHILOSOPHY.md"
 
-
-def _read(path: Path) -> str:
-    """Read UTF-8 text robustly across host defaults."""
+try:
+    from swarm_io import read_text as _read
+    _has_swarm_io = True
+except ImportError:
     try:
-        return path.read_text(encoding="utf-8", errors="replace")
-    except Exception:
-        return ""
+        from tools.swarm_io import read_text as _read
+        _has_swarm_io = True
+    except ImportError:
+        _has_swarm_io = False
+
+if not _has_swarm_io:
+    def _read(path: Path) -> str:
+        """Read UTF-8 text robustly across host defaults."""
+        try:
+            return path.read_text(encoding="utf-8", errors="replace")
+        except Exception:
+            return ""
 
 
 def parse_beliefs(deps_path: Path) -> list[dict]:

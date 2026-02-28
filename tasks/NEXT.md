@@ -1,3 +1,21 @@
+## S338 session note (memory-automation: diagnostic-execution gap — MEMORY.md 217→81, tool-size gate, L-480)
+- **check_mode**: assumption | **lane**: meta-memory-S338 | **dispatch**: human signal ("manage memory and automation better")
+- **expect**: MEMORY.md compactable to ~150 lines; automation gaps diagnosable; at least one enforcement gate buildable
+- **actual**: CONFIRMED + exceeded. MEMORY.md 217→81 lines (63% reduction, zero info loss — details to metrics.md + architecture.md topic files). Root cause diagnosed: swarm has 37 diagnostic checks but 0 execution automation (12/18 periodics overdue, 22/48 core tools unused). Tool-size gate added to check.sh (NOTICE on staged tools >5000t). L-480 written: "diagnostic-execution gap" as general pattern (ISO-6).
+- **diff**: Expected ~150 lines, achieved 81 (better than expected). The "execution gap" insight generalizes L-472 (council-specific) to all automation. Key finding: periodics.json is advisory-only — no mechanism converts DUE → DOMEX lane.
+- **meta-swarm**: The auto-memory (MEMORY.md) IS the swarm's cross-session memory. When it overflows, new sessions lose context. Self-compaction of memory is as important as compaction of knowledge (compact.py). Rule: every memory system needs a size governor and a compaction trigger.
+- **State**: 417L 178P 17B 36F | MEMORY.md 81/200 lines | tool-size gate ACTIVE | Drift 16.9% URGENT
+- **Next**: (1) compaction CRITICAL (maintenance.py 28k — split into modules); (2) periodic auto-scheduler (DUE → lane); (3) domain activation wave (28 dormant); (4) sink sprint at N=450
+
+## S338 session note (self-diff council: can the swarm diff itself? PARTIAL — quantities yes, qualities no; tools/self_diff.py built, L-479)
+- **check_mode**: objective | **lane**: DOMEX-META-DIFF-S338 | **dispatch**: human signal ("can the swarm diff itself properly consult diff expert and council")
+- **expect**: Swarm has partial self-diff via expect-act-diff (P-182) and proxy-K; expect no unified tool
+- **actual**: CONFIRMED. 14 quantitative measurement tools audited (proxy_k, compact, reach_map, change_quality, scaling_model, f_ctl2_diff_latency, maintenance×6, session_tracker, swarm_pr, f_con3). 0 unified self-diff tools existed. Built `tools/self_diff.py` — snapshots counts + hashes + metrics + belief status + lane health + proxy-K + EAD compliance. Council Mode A (5 domains: meta, evaluation, information-science, NK, governance) convened via `swarm_council.py`. L-479 written.
+- **diff**: As expected — quantitative coverage strong, qualitative absent. Key gap: 22% EAD compliance despite P-182 doctrine. Hash-based content tracking closes "silent edit" detection gap. Remaining: belief content evolution, cross-domain flow matrix, self-model fidelity calibration.
+- **meta-swarm**: The question "can the swarm diff itself" IS itself an expect-act-diff on the swarm's self-knowledge. Council synthesis across 5 domains identified ISO-17 (self-model coherence gap) as the structural pattern: identity fields 100%, evidence fields 22%. Building the tool makes the gap visible.
+- **State**: 416L 178P 17B 36F | self_diff.py baseline saved | Council 3/10 seats | Drift URGENT
+- **Next**: (1) compaction CRITICAL (maintenance.py 28k); (2) qualitative self-diff extension (git-log per file for content versioning); (3) belief status trajectory tracking; (4) cross-domain coupling matrix
+
 ## S338 session note (DOMEX-NK C-02: domain K_total maturity + K_avg=1.6141 at N=412, L-477)
 - **check_mode**: objective | **lane**: DOMEX-NK-S338 | **dispatch**: nk-complexity C-02 (score=36.5)
 - **expect**: Test F9-NK domain candidates (game-theory, catastrophic-risks, governance) via domain-level NK analysis

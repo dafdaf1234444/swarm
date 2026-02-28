@@ -21,9 +21,19 @@ ACTIVE_STATUSES = {"READY", "CLAIMED", "ACTIVE", "BLOCKED"}
 PICKUP_START = {"READY", "CLAIMED"}
 PICKUP_DONE = {"ACTIVE", "MERGED"}
 
+try:
+    from swarm_io import read_text as _read
+    _has_swarm_io = True
+except ImportError:
+    try:
+        from tools.swarm_io import read_text as _read
+        _has_swarm_io = True
+    except ImportError:
+        _has_swarm_io = False
 
-def _read(path: Path) -> str:
-    return path.read_text(encoding="utf-8", errors="replace")
+if not _has_swarm_io:
+    def _read(path: Path) -> str:
+        return path.read_text(encoding="utf-8", errors="replace")
 
 
 def _parse_lane_rows(lanes_text: str) -> list[dict[str, str]]:

@@ -9,12 +9,22 @@ try:
 except ModuleNotFoundError:
     from swarm_parse import active_principle_ids, active_frontier_ids, archived_frontier_ids
 
-
-def _read(path: Path) -> str:
+try:
+    from swarm_io import read_text as _read
+    _has_swarm_io = True
+except ImportError:
     try:
-        return path.read_text(encoding="utf-8", errors="replace")
-    except Exception:
-        return ""
+        from tools.swarm_io import read_text as _read
+        _has_swarm_io = True
+    except ImportError:
+        _has_swarm_io = False
+
+if not _has_swarm_io:
+    def _read(path: Path) -> str:
+        try:
+            return path.read_text(encoding="utf-8", errors="replace")
+        except Exception:
+            return ""
 
 
 def _philosophy_challenge_stats(text: str) -> tuple[int, int]:

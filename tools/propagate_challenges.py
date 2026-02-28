@@ -26,10 +26,20 @@ BULLETINS_DIR = REPO_ROOT / "experiments" / "inter-swarm" / "bulletins"
 PHILOSOPHY_PATH = REPO_ROOT / "beliefs" / "PHILOSOPHY.md"
 CHALLENGES_PATH = REPO_ROOT / "beliefs" / "CHALLENGES.md"
 
+try:
+    from swarm_io import read_text as _read
+    _has_swarm_io = True
+except ImportError:
+    try:
+        from tools.swarm_io import read_text as _read
+        _has_swarm_io = True
+    except ImportError:
+        _has_swarm_io = False
 
-def _read(path: Path) -> str:
-    """Read text deterministically across runtimes/locales."""
-    return path.read_text(encoding="utf-8", errors="replace")
+if not _has_swarm_io:
+    def _read(path: Path) -> str:
+        """Read text deterministically across runtimes/locales."""
+        return path.read_text(encoding="utf-8", errors="replace")
 
 
 def _write(path: Path, text: str):

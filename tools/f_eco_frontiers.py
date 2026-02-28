@@ -19,14 +19,25 @@ from statistics import correlation, mean, stdev
 ROOT = Path(__file__).parent.parent
 ARTIFACT_DIR = ROOT / "experiments" / "economy"
 
+try:
+    from swarm_io import read_text as _read
+    _has_swarm_io = True
+except ImportError:
+    try:
+        from tools.swarm_io import read_text as _read
+        _has_swarm_io = True
+    except ImportError:
+        _has_swarm_io = False
+
 
 # ─── helpers ────────────────────────────────────────────────────────────────
 
-def _read(p: Path) -> str:
-    try:
-        return p.read_text(encoding="utf-8", errors="replace")
-    except Exception:
-        return ""
+if not _has_swarm_io:
+    def _read(p: Path) -> str:
+        try:
+            return p.read_text(encoding="utf-8", errors="replace")
+        except Exception:
+            return ""
 
 
 def _ls_md() -> list[Path]:

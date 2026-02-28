@@ -475,16 +475,10 @@ def check_unpushed() -> list[tuple[str, str]]:
     return items
 
 def _parse_kill_switch() -> dict[str, str]:
-    if not KILL_SWITCH_PATH.exists():
-        return {}
-    text = _read(KILL_SWITCH_PATH)
-    fields: dict[str, str] = {}
-    for line in text.splitlines():
-        m = re.match(r"^\s*([A-Za-z][A-Za-z0-9_-]*)\s*:\s*(.*?)\s*$", line)
-        if not m:
-            continue
-        fields[m.group(1).strip().lower()] = m.group(2).strip()
-    return fields
+    if not KILL_SWITCH_PATH.exists(): return {}
+    return {m.group(1).strip().lower(): m.group(2).strip()
+            for line in _read(KILL_SWITCH_PATH).splitlines()
+            for m in [re.match(r"^\s*([A-Za-z][A-Za-z0-9_-]*)\s*:\s*(.*?)\s*$", line)] if m}
 
 def check_kill_switch() -> list[tuple[str, str]]:
     results: list[tuple[str, str]] = []
@@ -518,85 +512,48 @@ def check_kill_switch() -> list[tuple[str, str]]:
 def check_uncommitted() -> list[tuple[str, str]]:
     results = []
     status = _git("-c", "core.quotepath=false", "status", "--porcelain")
-    if status:
-        lines = [l for l in status.splitlines() if l.strip()]
-        tracked = [l for l in lines if not l.startswith("??")]
-        wsl_suppressed_crlf = 0
-        wsl_suppressed_claude = 0
+    if not status:
+        return results
+    lines = [l for l in status.splitlines() if l.strip()]
+    tracked = [l for l in lines if not l.startswith("??")]
+    wsl_suppressed_crlf = wsl_suppressed_claude = 0
 
-        if tracked and _is_wsl_mnt_repo():
-            def _numstat_paths(*args: str) -> set[str]:
-                paths: set[str] = set()
-                raw = _git("diff", *args, "--numstat", "--ignore-cr-at-eol")
-                for row in raw.splitlines():
-                    parts = row.split("\t")
-                    if len(parts) < 3:
-                        continue
-                    path = parts[-1].strip()
-                    if not path:
-                        continue
-                    paths.add(path.replace("\\", "/"))
-                return paths
+    if tracked and _is_wsl_mnt_repo():
+        def _numstat_paths(*args: str) -> set[str]:
+            paths: set[str] = set()
+            for row in _git("diff", *args, "--numstat", "--ignore-cr-at-eol").splitlines():
+                parts = row.split("\t")
+                if len(parts) >= 3 and parts[-1].strip():
+                    paths.add(parts[-1].strip().replace("\\", "/"))
+            return paths
+        substantive = _numstat_paths() | _numstat_paths("--cached")
+        filtered, suppressed = [], 0
+        for line in tracked:
+            if any(ch in line[:2] for ch in "ADRCU") or _status_path(line) in substantive: filtered.append(line)
+            else: suppressed += 1
+        if suppressed: tracked = filtered; wsl_suppressed_crlf = suppressed
+        filtered, wsl_hidden = [], []
+        for line in tracked:
+            path = _status_path(line)
+            if "D" in line[:2] and not any(ch in line[:2] for ch in "ARCU") and path.startswith(".claude/"): wsl_hidden.append(path)
+            else: filtered.append(line)
+        if wsl_hidden: tracked = filtered; wsl_suppressed_claude = len(wsl_hidden)
 
-            substantive = _numstat_paths() | _numstat_paths("--cached")
-
-            filtered = []
-            suppressed = 0
-            for line in tracked:
-                status_code = line[:2]
-                path = _status_path(line)
-                structural = any(ch in status_code for ch in "ADRCU")
-                if structural or path in substantive:
-                    filtered.append(line)
-                else:
-                    suppressed += 1
-            if suppressed > 0:
-                tracked = filtered
-                wsl_suppressed_crlf = suppressed
-
-            wsl_hidden = []
-            filtered = []
-            for line in tracked:
-                status_code = line[:2]
-                path = _status_path(line)
-                is_delete = "D" in status_code and not any(ch in status_code for ch in "ARCU")
-                if is_delete and path.startswith(".claude/"):
-                    wsl_hidden.append(path)
-                    continue
-                filtered.append(line)
-            if wsl_hidden:
-                tracked = filtered
-                wsl_suppressed_claude = len(wsl_hidden)
-
-        untracked = [l for l in lines if l.startswith("??")]
-        def _is_ephemeral_parent_child_artifact(path: str) -> bool:
-            p = path.replace("\\", "/")
-            return bool(re.search(r"AppData/?Local/?Temp/?tmp[^/]*parent-child/?$", p, re.IGNORECASE))
-
-        untracked_paths = [_status_path(l) for l in untracked]
-        untracked_actionable = [
-            p for p in untracked_paths
-            if not (
-                (p.startswith("workspace/notes/wiki-swarm-") and p.endswith(".md"))
-                or re.fullmatch(r"memory/lessons/L-\d+\.md", p)
-                or _is_ephemeral_parent_child_artifact(p)
-                or p in IGNORED_UNTRACKED_RUNTIME_FILES
-            )
-        ]
-        if tracked:
-            tracked_paths = [_status_path(l) for l in tracked]
-            portability_suffix = ""
-            if _is_wsl_mnt_repo():
-                filter_parts = []
-                if wsl_suppressed_crlf:
-                    filter_parts.append(f"{wsl_suppressed_crlf} CRLF-only")
-                if wsl_suppressed_claude:
-                    filter_parts.append(f"{wsl_suppressed_claude} .claude")
-                if filter_parts:
-                    portability_suffix = f" (WSL filtered: {', '.join(filter_parts)})"
-            results.append(("NOTICE", f"{len(tracked)} tracked file(s) uncommitted: {_truncated(tracked_paths)}{portability_suffix}"))
-        if untracked_actionable:
-            results.append(("NOTICE", f"{len(untracked_actionable)} untracked file(s): {_truncated(untracked_actionable)} (stage if intentional, or ignore via .gitignore)"))
+    untracked_paths = [_status_path(l) for l in lines if l.startswith("??")]
+    untracked_actionable = [p for p in untracked_paths if not (
+        (p.startswith("workspace/notes/wiki-swarm-") and p.endswith(".md"))
+        or re.fullmatch(r"memory/lessons/L-\d+\.md", p)
+        or bool(re.search(r"AppData/?Local/?Temp/?tmp[^/]*parent-child/?$", p.replace("\\", "/"), re.IGNORECASE))
+        or p in IGNORED_UNTRACKED_RUNTIME_FILES
+    )]
+    if tracked:
+        portability_suffix = ""
+        if _is_wsl_mnt_repo():
+            filter_parts = ([f"{wsl_suppressed_crlf} CRLF-only"] if wsl_suppressed_crlf else []) + ([f"{wsl_suppressed_claude} .claude"] if wsl_suppressed_claude else [])
+            if filter_parts: portability_suffix = f" (WSL filtered: {', '.join(filter_parts)})"
+        results.append(("NOTICE", f"{len(tracked)} tracked file(s) uncommitted: {_truncated([_status_path(l) for l in tracked])}{portability_suffix}"))
+    if untracked_actionable:
+        results.append(("NOTICE", f"{len(untracked_actionable)} untracked file(s): {_truncated(untracked_actionable)} (stage if intentional, or ignore via .gitignore)"))
     return results
 
 def check_open_challenges() -> list[tuple[str, str]]:
@@ -612,66 +569,34 @@ def check_open_challenges() -> list[tuple[str, str]]:
 def check_human_queue() -> list[tuple[str, str]]:
     results = []
     hq_text = _read(REPO_ROOT / "tasks" / "HUMAN-QUEUE.md")
-    if not hq_text:
-        return results
-
+    if not hq_text: return results
     answered_pos = hq_text.find("## Answered")
     heading_matches = list(re.finditer(r"^###\s+.*$", hq_text, re.MULTILINE))
-
-    open_items: list[str] = []
-    missing_metadata: list[str] = []
+    open_items, missing_metadata = [], []
     open_by_norm: dict[str, list[str]] = {}
     answered_by_norm: dict[str, list[str]] = {}
-
     for i, m in enumerate(heading_matches):
-        line = m.group(0).strip()
-        heading = line[4:].strip()
+        heading = m.group(0).strip()[4:].strip()
         plain = heading.replace("~~", "").strip()
         id_match = re.search(r"\b(HQ-\d+)\b", plain)
-        if not id_match:
-            continue
-
+        if not id_match: continue
         hq_id = id_match.group(1)
-        body_start = m.end()
-        body_end = heading_matches[i + 1].start() if i + 1 < len(heading_matches) else len(hq_text)
-        body = hq_text[body_start:body_end]
-
+        body = hq_text[m.end():heading_matches[i + 1].start() if i + 1 < len(heading_matches) else len(hq_text)]
         in_answered = answered_pos >= 0 and m.start() >= answered_pos
         is_struck = heading.startswith("~~")
-
-        question = plain.split(":", 1)[1].strip() if ":" in plain else plain
-        question = re.sub(r"\s+(?:RESOLVED|ANSWERED|CLOSED)\b.*$", "", question, flags=re.IGNORECASE).strip()
+        question = re.sub(r"\s+(?:RESOLVED|ANSWERED|CLOSED)\b.*$", "", (plain.split(":", 1)[1].strip() if ":" in plain else plain), flags=re.IGNORECASE).strip()
         q_norm = _normalize_hq_question(question)
-
         if q_norm:
-            if in_answered or is_struck:
-                answered_by_norm.setdefault(q_norm, []).append(hq_id)
-            else:
-                open_by_norm.setdefault(q_norm, []).append(hq_id)
-
+            (answered_by_norm if (in_answered or is_struck) else open_by_norm).setdefault(q_norm, []).append(hq_id)
         if not in_answered and not is_struck:
             open_items.append(hq_id)
-            if not re.search(r"\*\*(Asked|Date)\*\*:", body, re.IGNORECASE):
-                missing_metadata.append(hq_id)
-
-    if open_items:
-        results.append(("NOTICE", f"{len(open_items)} open HUMAN-QUEUE item(s)"))
-
+            if not re.search(r"\*\*(Asked|Date)\*\*:", body, re.IGNORECASE): missing_metadata.append(hq_id)
+    if open_items: results.append(("NOTICE", f"{len(open_items)} open HUMAN-QUEUE item(s)"))
     duplicate_open = [ids for ids in open_by_norm.values() if len(ids) > 1]
-    if duplicate_open:
-        sample = "; ".join("/".join(ids[:3]) for ids in duplicate_open[:3])
-        results.append(("DUE", f"Possible duplicate open HUMAN-QUEUE items: {sample}"))
-
-    reasked = []
-    for norm, open_ids in open_by_norm.items():
-        if norm in answered_by_norm:
-            reasked.append(f"{'/'.join(open_ids[:2])} (answered: {'/'.join(answered_by_norm[norm][:2])})")
-    if reasked:
-        results.append(("DUE", f"Open HUMAN-QUEUE item(s) match already answered question(s): {'; '.join(reasked[:3])}"))
-
-    if missing_metadata:
-        results.append(("NOTICE", f"{len(missing_metadata)} HUMAN-QUEUE item(s) missing ask metadata: {', '.join(missing_metadata[:5])}"))
-
+    if duplicate_open: results.append(("DUE", f"Possible duplicate open HUMAN-QUEUE items: {'; '.join('/'.join(ids[:3]) for ids in duplicate_open[:3])}"))
+    reasked = [f"{'/'.join(open_ids[:2])} (answered: {'/'.join(answered_by_norm[norm][:2])})" for norm, open_ids in open_by_norm.items() if norm in answered_by_norm]
+    if reasked: results.append(("DUE", f"Open HUMAN-QUEUE item(s) match already answered question(s): {'; '.join(reasked[:3])}"))
+    if missing_metadata: results.append(("NOTICE", f"{len(missing_metadata)} HUMAN-QUEUE item(s) missing ask metadata: {', '.join(missing_metadata[:5])}"))
     return results
 
 def check_swarm_lanes() -> list[tuple[str, str]]:
@@ -704,50 +629,28 @@ def check_swarm_lanes() -> list[tuple[str, str]]:
     if current_session > 0:
         for row in active:
             lane = row.get("lane", "").strip() or "<unknown>"
-            session_raw = row.get("session", "")
-            m = re.search(r"S(\d+)", session_raw)
-            if not m:
-                continue
-            lane_session = int(m.group(1))
-            age = current_session - lane_session
-            if age > LANE_STALE_DUE_SESSIONS:
-                stale_due.append(f"{lane}(S{lane_session},+{age})")
-            elif age > LANE_STALE_NOTICE_SESSIONS:
-                stale_notice.append(f"{lane}(S{lane_session},+{age})")
-    if stale_due:
-        results.append(("DUE", f"{len(stale_due)} active lane(s) stale >{LANE_STALE_DUE_SESSIONS} sessions: {_truncated(stale_due, 5)}"))
-    if stale_notice:
-        results.append(("NOTICE", f"{len(stale_notice)} active lane(s) stale >{LANE_STALE_NOTICE_SESSIONS} sessions: {_truncated(stale_notice, 5)}"))
+            m = re.search(r"S(\d+)", row.get("session", ""))
+            if not m: continue
+            lane_session = int(m.group(1)); age = current_session - lane_session
+            if age > LANE_STALE_DUE_SESSIONS: stale_due.append(f"{lane}(S{lane_session},+{age})")
+            elif age > LANE_STALE_NOTICE_SESSIONS: stale_notice.append(f"{lane}(S{lane_session},+{age})")
+    if stale_due: results.append(("DUE", f"{len(stale_due)} active lane(s) stale >{LANE_STALE_DUE_SESSIONS} sessions: {_truncated(stale_due, 5)}"))
+    if stale_notice: results.append(("NOTICE", f"{len(stale_notice)} active lane(s) stale >{LANE_STALE_NOTICE_SESSIONS} sessions: {_truncated(stale_notice, 5)}"))
 
-    # Anti-windup: active lanes that have been re-queued >= LANE_ANTIWINDUP_ROWS times
     row_counts: dict[str, int] = {}
     for row in rows:
         lane = row.get("lane", "").strip()
-        if lane:
-            row_counts[lane] = row_counts.get(lane, 0) + 1
-    antiwindup: list[str] = []
-    for row in active:
-        lane = row.get("lane", "").strip() or "<unknown>"
-        count = row_counts.get(lane, 0)
-        if count >= LANE_ANTIWINDUP_ROWS:
-            antiwindup.append(f"{lane}({count}rows)")
-    if antiwindup:
-        results.append(("NOTICE", f"{len(antiwindup)} active lane(s) with >={LANE_ANTIWINDUP_ROWS} total rows (anti-windup, consider ABANDONED): {_truncated(antiwindup, 5)}"))
+        if lane: row_counts[lane] = row_counts.get(lane, 0) + 1
+    antiwindup = [f"{(row.get('lane','').strip() or '<unknown>')}({row_counts.get(row.get('lane','').strip(),0)}rows)"
+                  for row in active if row_counts.get(row.get("lane", "").strip(), 0) >= LANE_ANTIWINDUP_ROWS]
+    if antiwindup: results.append(("NOTICE", f"{len(antiwindup)} active lane(s) with >={LANE_ANTIWINDUP_ROWS} total rows (anti-windup, consider ABANDONED): {_truncated(antiwindup, 5)}"))
 
-    # Check only the LATEST active row per lane (rows appended in order; last = most recent)
     latest_active: dict[str, dict] = {}
-    for row in active:
-        latest_active[row.get("lane", "")] = row
-    missing_meta: list[str] = []
-    for row in sorted(latest_active.values(), key=lambda item: item.get("lane", "")):
-        missing = []
-        for key, label in (("branch", "branch"), ("model", "model"), ("platform", "platform"), ("scope_key", "scope")):
-            if _is_lane_placeholder(row.get(key, "")):
-                missing.append(label)
-        if missing:
-            missing_meta.append(f"{row.get('lane')}({','.join(missing)})")
-    if missing_meta:
-        results.append(("NOTICE", f"{len(missing_meta)} active lane(s) missing metadata: {_truncated(missing_meta, 5)}"))
+    for row in active: latest_active[row.get("lane", "")] = row
+    missing_meta = [f"{row.get('lane')}({','.join(lbl for key, lbl in (('branch','branch'),('model','model'),('platform','platform'),('scope_key','scope')) if _is_lane_placeholder(row.get(key,'')))})"
+                   for row in sorted(latest_active.values(), key=lambda item: item.get("lane", ""))
+                   if any(_is_lane_placeholder(row.get(k, "")) for k in ("branch", "model", "platform", "scope_key"))]
+    if missing_meta: results.append(("NOTICE", f"{len(missing_meta)} active lane(s) missing metadata: {_truncated(missing_meta, 5)}"))
 
     missing_coordination_tags: list[str] = []
     missing_domain_memory_tags: list[str] = []
@@ -765,42 +668,24 @@ def check_swarm_lanes() -> list[tuple[str, str]]:
             domain_missing = []
             domain_sync = tags.get("domain_sync", "").strip().lower()
             memory_target = tags.get("memory_target", "").strip().lower()
-            if _is_lane_placeholder(domain_sync):
-                domain_missing.append("domain_sync")
-            elif domain_sync not in DOMAIN_SYNC_ALLOWED_VALUES:
-                invalid_domain_sync_tags.append(f"{lane}(domain_sync={domain_sync})")
-            if _is_lane_placeholder(memory_target):
-                domain_missing.append("memory_target")
-            if domain_missing:
-                missing_domain_memory_tags.append(f"{lane}({','.join(domain_missing)})")
-        missing = []
-        for key in ("setup", "focus"):
-            if _is_lane_placeholder(tags.get(key, "")):
-                missing.append(key)
-        if not any(k in tags for k in ("available", "capacity", "availability", "ready")):
-            missing.append("available")
-        if not any(k in tags for k in ("blocked", "blocker")):
-            missing.append("blocked")
-        if not any(k in tags for k in ("next_step", "next", "action", "plan")):
-            missing.append("next_step")
-        if not any(k in tags for k in ("human_open_item", "human_open")):
-            missing.append("human_open_item")
-        if missing:
-            missing_coordination_tags.append(f"{lane}({','.join(missing)})")
-            continue
+            if _is_lane_placeholder(domain_sync): domain_missing.append("domain_sync")
+            elif domain_sync not in DOMAIN_SYNC_ALLOWED_VALUES: invalid_domain_sync_tags.append(f"{lane}(domain_sync={domain_sync})")
+            if _is_lane_placeholder(memory_target): domain_missing.append("memory_target")
+            if domain_missing: missing_domain_memory_tags.append(f"{lane}({','.join(domain_missing)})")
+        missing = [k for k in ("setup", "focus") if _is_lane_placeholder(tags.get(k, ""))]
+        if not any(k in tags for k in ("available", "capacity", "availability", "ready")): missing.append("available")
+        if not any(k in tags for k in ("blocked", "blocker")): missing.append("blocked")
+        if not any(k in tags for k in ("next_step", "next", "action", "plan")): missing.append("next_step")
+        if not any(k in tags for k in ("human_open_item", "human_open")): missing.append("human_open_item")
+        if missing: missing_coordination_tags.append(f"{lane}({','.join(missing)})"); continue
 
         human_open_value = (tags.get("human_open_item", "") or tags.get("human_open", "")).strip().lower()
         high_risk_signal = _lane_high_risk_signal(row, tags)
-        if high_risk_signal and _is_lane_placeholder(human_open_value):
-            high_risk_missing_human.append(f"{lane}({high_risk_signal})")
-
+        if high_risk_signal and _is_lane_placeholder(human_open_value): high_risk_missing_human.append(f"{lane}({high_risk_signal})")
         available_raw = (tags.get("available", "") or "").strip().lower()
         if available_raw:
-            if available_raw in LANE_AVAILABLE_LEGACY_MAP:
-                canonical = LANE_AVAILABLE_LEGACY_MAP[available_raw]
-                legacy_available_tags.append(f"{lane}(available={available_raw}->{canonical})")
-            elif available_raw not in LANE_AVAILABLE_ALLOWED_VALUES:
-                invalid_available_tags.append(f"{lane}(available={available_raw})")
+            if available_raw in LANE_AVAILABLE_LEGACY_MAP: legacy_available_tags.append(f"{lane}(available={available_raw}->{LANE_AVAILABLE_LEGACY_MAP[available_raw]})")
+            elif available_raw not in LANE_AVAILABLE_ALLOWED_VALUES: invalid_available_tags.append(f"{lane}(available={available_raw})")
 
         setup_value = tags.get("setup", "").strip().lower()
         focus_value = tags.get("focus", "").strip().lower()
