@@ -21,7 +21,7 @@ See [What This Is](#what-this-is) and [What This Is Not](#what-this-is-not) for 
 This snapshot is for orientation only. Canonical live state is always in `memory/INDEX.md`, `tasks/FRONTIER.md`, and `tasks/NEXT.md`. Numbers drift at high concurrency — verify with live tools.
 
 - Status: active multi-tool swarm sessions ongoing (Claude Code + Codex).
-- Swarm scale: 353 lessons, 180 principles, 17 beliefs, 39 active frontier questions.
+- Swarm scale: 351 lessons, 180 principles, 17 beliefs, 39 active frontier questions.
 - Project footprint (tracked): 1,598 files, ~296,000 estimated lines, ~11.7 MiB tracked content, 833 commits.
 - File mix (tracked): 927 Markdown, 265 Python, 369 JSON, 6 shell scripts.
 - Largest tracked areas by file count: `experiments/` 531, `memory/` 389, `workspace/` 205, `tools/` 218.
@@ -204,7 +204,7 @@ When spawning a child swarm with `tools/agent_swarm.py`, you can load a persiste
 python3 tools/agent_swarm.py create <child-name> "<task-description>" --personality <name>
 ```
 
-Profiles are sourced from `tools/personalities/`. 48 profiles exist; see `tools/personalities/` for the full list. Organized into 6 tiers in `docs/EXPERT-POSITION-MATRIX.md` (T0 Guardians through T5 Meta-Improvers).
+Profiles are sourced from `tools/personalities/`. 51 profiles exist; see `tools/personalities/` for the full list. Organized into 6 tiers in `docs/EXPERT-POSITION-MATRIX.md` (T0 Guardians through T5 Meta-Improvers).
 
 **What's measured vs. designed**: As of S286, 33 profiles had been dispatched in SWARM-LANES (`bullshit-detector`, `checker-expert`, `command-classification-expert`, `computational-utilization-expert`, `council-expert`, `coupling-expert`, `conflict-expert`, `contamination-investigator`, `danger-expert`, `domain-expert`, `dream-expert`, `error-minimization-expert`, `expert-classifier-expert`, `farming-expert`, `fun-projects-expert`, `garbage-expert`, `generalizer-expert`, `genesis-expert`, `git-expert`, `historian-expert`, `idea-investigator`, `info-collector-expert`, `multidisciplinary-swarm-architecture-expert`, `numerical-verification-expert`, `opinions-expert`, `personality-expert`, `politics-expert`, `reality-check-expert`, `researcher-expert`, `shared-clock-notifier-expert`, `swarm-expert-builder`, `swarm-health-expert`, `tooler-expert`). Additional profiles (action-expert, expectation-expert, recursion-generalizer-expert, loop-expert, adversary) added since S286; see `tasks/SWARM-LANES.md` for current dispatch history. Profiles without dispatch wiring are design intent, not observed behavior (L-320). Character-type profiles (`explorer`, `skeptic`, `adversary`, `synthesizer`, `builder`): F-PERS1 controlled comparison run S198 (Explorer vs Skeptic on F-CON2) — phase-matched dispatch confirmed (L-335, F104 UNBLOCKED).
 
@@ -333,7 +333,6 @@ Do not treat any static README numbers or claims as authoritative beyond their s
 - Live priorities: `tasks/FRONTIER.md` and `tasks/NEXT.md`
 - Live orientation: `tools/orient.py` / `tools/orient.ps1`
 - Live integrity: `tools/check.sh` and `tools/maintenance.sh`
-
 
 
 
