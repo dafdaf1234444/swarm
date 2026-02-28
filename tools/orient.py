@@ -169,6 +169,7 @@ def check_index_coverage(index_text):
     # Sum the Count column of the Themes table
     # Table rows look like: | Theme | Count | Key insight |
     themed = 0
+    bucket_sizes = {}
     in_theme_section = False
     for line in index_text.splitlines():
         if re.match(r"##\s+Themes", line):
@@ -180,20 +181,32 @@ def check_index_coverage(index_text):
             # Match table data rows (not header or separator)
             m_row = re.match(r"^\s*\|\s*(?![-|])\s*([^|]+?)\s*\|\s*(\d+)\s*\|", line)
             if m_row:
-                themed += int(m_row.group(2))
+                count = int(m_row.group(2))
+                themed += count
+                bucket_sizes[m_row.group(1).strip()] = count
 
     if themed == 0:
         return None
 
     coverage = themed / total
     unthemed = total - themed
+    notices = []
     if coverage < 0.80:
         pct = coverage * 100
-        return (
-            f"NOTICE: INDEX.md dark matter: {unthemed}/{total} lessons unthemed "
+        notices.append(
+            f"INDEX.md dark matter: {unthemed}/{total} lessons unthemed "
             f"({pct:.1f}% coverage) — F-BRN4: hippocampal index degraded. "
             f"Split theme buckets >40 lessons."
         )
+    oversized = [(name, n) for name, n in bucket_sizes.items() if n > 40]
+    if oversized:
+        buckets_str = ", ".join(f"{name}={n}" for name, n in oversized)
+        notices.append(
+            f"INDEX.md bucket overflow (F-BRN4): {buckets_str} — "
+            f"split each into sub-themes ≤40L."
+        )
+    if notices:
+        return "NOTICE: " + " | ".join(notices)
     return None
 
 
