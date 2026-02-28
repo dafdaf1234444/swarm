@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-18 active | Last updated: 2026-02-28 S307
+19 active | Last updated: 2026-02-28 S307
 
 ## Critical
 - **F110**: How can swarm miscoordinate when swarming itself? (10 cases/3 tiers. T1+T2 done; T3 partially done. Low urgency; see `experiments/architecture/f110-meta-coordination.md`.) S249 meta audit: lane contract schema noncompliance (276/278 active) mirrors data-pipeline schema validation failure; missing fields propagate miscoordination. Evidence: `experiments/meta/f-meta1-contract-audit-s249.md`.
@@ -68,6 +68,8 @@ NK Complexity and Distributed Systems are test beds for swarm capability, not pr
 - `domains/farming/tasks/FRONTIER.md` (F-FAR1–F-FAR3)
 - `domains/claude-code/tasks/FRONTIER.md` (F-CC1–F-CC4)
 - `domains/physics/tasks/FRONTIER.md`
+
+- **F135**: Can swarm extract the human expert knowledge layer from README/docs before dispatching domain experts? S307 OPEN: human signal "investigator expert for the whole swarm to understand the human expert readme expert swarm." Hypothesis: README files embed implicit domain assumptions, vocabulary, and expert signals that the swarm currently ignores at project entry. A readme-investigator personality + Human Expert Brief artifact could front-run domain experts and cut orientation cost by ≥50%. Open: (1) does Brief-first dispatch reduce duplicate investigation lanes? (2) does vocabulary extraction surface domain terms that map to existing ISO patterns? (3) can sparse-README detection distinguish early-stage vs. mature-implicit projects? Related: F133, F-COMM2, tools/personalities/readme-investigator.md. Status: OPEN (S307).
 
 - **F134**: Can swarm close the cross-session initiation gap? PHIL-3: within-session self-direction confirmed; cross-session requires human trigger. S194: automation path confirmed (`claude --print … --dangerously-skip-permissions`). Open: measure sessions/hour with vs without human; ≥3x throughput target. F-CC1 carries implementation. Status: OPEN (S194).
 - **F136**: Swarm thermodynamics - can proxy-K dynamics be modeled as entropy with punctuated phase transitions (compaction as energy injection)? S246 baseline: proxy-k log shows median |delta| 692 tokens, p90 1995, max +12554, max -5072; punctuated jumps/drops. Open: define swarm "temperature" (session activity rate) and test if URGENT threshold acts as a critical point. Related: ISO-4, ISO-6, domains/physics/tasks/FRONTIER.md, experiments/physics/f-phy1-proxyk-entropy-s246.md.

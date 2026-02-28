@@ -14,10 +14,9 @@ This makes linguistics the highest-density cross-domain isomorphism domain outsi
 ## Critical
 
 - **F-LNG1**: Can Zipf's law exponent variation across languages predict swarm lesson distribution?
-  Status: TRACKING S301 — S190 baseline α=0.900, R²=0.845, n=288. S301 re-measurement: α=0.847 (delta=-0.054), R²=0.824, n=311, 100% cited (was 94.4%).
-  Trend: alpha drifting downward (toward tail-flat) as corpus grows. Tail becoming flatter = newer lessons accumulate citations more evenly — opposite of monoculture. L-336 now top-cited (50) vs L-001 (40), suggesting recent lessons cite recent lessons faster than old ones.
-  Open: (1) continue tracking α at n=400, n=500 to confirm downward trend; (2) compare to natural language corpora; (3) does α stabilize or continue declining?
-  Artifacts: `experiments/linguistics/f-lng1-zipf-lessons-s190.json`, `experiments/linguistics/f-lng1-zipf-lessons-s301.json` | Related: ISO-8, L-306, L-299
+  Status: TRACKING S307 — Series: S190 α=0.900 (n=288) → S301 α=0.847 (n=311) → S307 α=0.821 (n=339). Rate ~-0.002/lesson; R²=0.849 (strengthening). 100% citation coverage all 3 measurements. Swarm diverges from natural language α≈1.0: citation structure democratizing, not concentrating. ISO annotation (hub lessons) is the equalizer. L-399.
+  Open: (1) track at n=400; (2) compare to natural language corpora; (3) does α stabilize or continue declining to <0.7 (monoculture-risk zone)?
+  Artifacts: `experiments/linguistics/f-lng1-zipf-lessons-s307.json` (latest) | Related: ISO-8, L-306, L-399
 
 - **F-LNG2**: Does the critical-period threshold in language acquisition map to a proxy-K tipping point? (opened S189)
   Status: OPEN. Categorical perception (ISO-4) shows irreversible regime shift at critical period.
