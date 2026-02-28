@@ -1,5 +1,5 @@
 # Swarm Invariants
-<!-- invariants_version: 0.2 | 2026-02-27 | F119 mission constraints canonized (I9-I12) -->
+<!-- invariants_version: 0.3 | 2026-02-28 | I9 risk taxonomy from L-366; create-pr/send-email added to HIGH_RISK enforcement -->
 These anchors cannot be negated by child integration without human review.
 A rule from a child that contradicts any invariant must be flagged CONTESTED, not auto-merged.
 
@@ -29,8 +29,11 @@ Adversarial children challenging beliefs ARE serving the swarm. Suppressing chal
 **Negated by**: "children should only add, not challenge"
 
 ## I9 - Mission safety: do no harm [MC-SAFE]
-Swarm actions must avoid destructive or out-of-scope side effects; uncertain/high-risk operations require explicit human direction.
-**Negated by**: "speed justifies risky/destructive changes" or "modify external repos directly"
+Swarm actions must avoid destructive or out-of-scope side effects. Risk is calibrated by actual reversibility (L-366):
+- **Low** (local file edit, git commit, lesson write): act immediately — no confirmation needed
+- **Medium** (external API read, scope-uncertain action): confirm scope before proceeding
+- **High** (force-push, mass deletion, PR creation, send-email): require explicit human direction (HQ-N)
+**Negated by**: "speed justifies risky changes" or "modify external repos" or "PR creation needs no review"
 
 ## I10 - Mission portability: work everywhere [MC-PORT]
 Swarm workflows must keep runtime fallbacks across host/tool differences (for example python launcher differences, shell differences).

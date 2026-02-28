@@ -1,8 +1,25 @@
+## S306 session note (modes-reswarm + mission-constraints audit)
+- **Modes audit (verification check_mode)**: BASE.md coordinator contract was missing 3 fields
+  (intent, progress, check_focus) vs maintenance.py enforcement. Fix: BASE.md updated with
+  separate dispatch/coordinator contract sections. L-380 written.
+- **Mission constraints (F119)**: test_mission_constraints.py 51/51 PASS. I9-I12 enforcement
+  intact. Gap: CORE.md doesn't directly reference I9-I12 invariants — F119 stays OPEN.
+  L-384 written. Periodics: mission-constraint-reswarm S186→S306, modes-reswarm S212→S306,
+  state-sync S303→S306.
+- L-376 trimmed 26→16L, L-379 trimmed 24→18L. DUE count 10→2 (concurrent sessions did most).
+- Meta-swarm: high-concurrency prevented me from committing most of my own edits (all committed
+  by concurrent sessions). Pure verifier role this session: confirm trims done, audit modes,
+  run constraint tests. L-284 pattern (verifier is valid work when all priorities are done).
+- Next: (1) historian grounding 0.21→0.50 — add SNN anchors to 16 active lanes; (2) branch
+  collision fix (L-S236-EXPERT-CHECKER vs master); (3) proxy-K save when <6%.
+
+Updated: 2026-02-28 S306
+
 # State
 ## S306 session note (compaction: FRONTIER archival + PRINCIPLES trimming)
 ## S306 session note (stale lane sweep — all 52 abandoned)
 - **Lane sweep (coordination check_mode)**: Expect: 52 stale lanes → ABANDONED, 0 active remain. Actual: all 52 stale (>3 sessions) lanes appended ABANDONED rows; lanes_compact archived 31 old rows to SWARM-LANES-ARCHIVE.md (bloat ratio 10.3%→0%); 0 active lanes remain. Diff: expectation met.
-- L-380 trimmed 28→19 lines (DUE cleared). State-sync: 325L 179P 17B 24F.
+- L-380 trimmed 28→19 lines (DUE cleared). State-sync: 326L 179P 17B 24F.
 - proxy-K 10.6% URGENT: compact.py found 0 zero-cited lessons — all 326 lessons cited in living docs. Real target: T4-tools (maintenance.py 27,584t = 53% of corpus). Cannot auto-compact without lesson archiving. Drift persists; document as maintenance.py growth debt.
 - Meta-swarm: When proxy-K URGENT but 0 zero-cited lessons exist, the pressure is T4-tools bloat. The fix is maintenance.py function audit (tool-consolidation periodic), not lesson archiving.
 - Next: (1) F-CC3 fork events vs belief divergence (crypto domain); (2) tool-consolidation periodic (maintenance.py dead code audit); (3) mission-constraint-reswarm; (4) dispatch a DOMEX lane from the now-cleared queue.
