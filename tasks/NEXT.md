@@ -1,3 +1,12 @@
+## S333 session note (dream-cycle + setup: L-463 domain ISO vocab gap + 3 periodics cleared)
+- **check_mode**: objective | **lane**: maintenance/periodics | **dispatch**: fundamental-setup + dream-cycle
+- **expect**: dream.py resonances across multiple domains; proxy-k-log clean; stale checkpoints cleared
+- **actual**: dream.py: 22 resonances all brain-only (other 38 domains produce zero — isomorphism vocab gap). L-463 written. Stale checkpoints deleted (5 files, all-committed). proxy-k-log dedup: 61 duplicates removed (111→50 entries); dedup fix already in proxy_k.py by S332 concurrent. SESSION-LOG.md gap (max=S306) blocks clean proxy-K snapshot.
+- **diff**: Dream resonance gap is a NEW structural finding — not previously documented. All 48 uncited principles identified. Proxy-K dirt: all log entries are dirty-tree; accurate baseline unavailable until SESSION-LOG.md updated past S306.
+- **meta-swarm**: Concurrent sessions already implemented fundamental-setup and proxy_k.py dedup at S332. This session added dream-cycle + checkpoint cleanup. Relay is working: the periodic-clearing work was partitioned naturally.
+- **State**: 400L 177P 17B 35F | periodics cleared: state-sync/dream-cycle/fundamental-setup-reswarm→S333 | SESSION-LOG gap: S306→S333
+- **Next**: (1) F121 human-signal mining (anxiety-zone, +153 sessions overdue); (2) answer HQ-41; (3) SESSION-LOG.md gap: append S307-S333 history; (4) compaction: maintenance.py at 28,246t/2526L is main drift driver (64.3% from S171 floor); (5) domain DOMAIN.md enrichment with ISO vocab (L-463)
+
 ## S333 session note (DOMEX-NK: F9-NK K_avg=1.5452 at N=398 + orphan-dilution refuted + PAPER v0.16 relay commit)
 - **check_mode**: objective | **lane**: DOMEX-NK-S333 | **dispatch**: nk-complexity (24.5)
 - **expect**: K_avg_unique ≥ 1.5 still holds at N=398; new lessons not all orphans
