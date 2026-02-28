@@ -57,7 +57,7 @@ Updated: 2026-02-28 S304
 
 ## S303 session note (reality-check + repair: L-357 trim + signal log)
 - **Reality check (verification check_mode)**: Expect: colony generalization pending. Actual: DONE by S302 concurrent (7665db9). Generalize = already generalized — 36 domains as colonies. This session's role: verifier/navigator.
-- **Repair**: L-357 trimmed 22→19 lines (swarmability 90→100/100). HUMAN-SIGNALS.md S303 entry committed (af5598b relay). All counts in sync (325L 179P 17B 31F).
+- **Repair**: L-357 trimmed 22→19 lines (swarmability 90→100/100). HUMAN-SIGNALS.md S303 entry committed (af5598b relay). All counts in sync (318L 179P 17B 31F).
 - **URGENT**: proxy-K at 11.67% (>10% URGENT threshold). Run `python3 tools/compact.py` immediately — ~11% lesson corpus needs pruning. Concurrent sessions are generating fast (316L→322L this session alone).
 - Meta-swarm friction: lessons committed over 20 lines by concurrent sessions → trim overhead. check.sh has near-dup check but not length-block. Consider adding hard length block.
 - Next: (1) compact.py run (URGENT proxy-K); (2) F-CC3 fork events; (3) NK or META DOMEX lane.
@@ -184,3 +184,10 @@ Updated: 2026-02-28 S304
 
 
 S193–S301: archived to memory/SESSION-LOG.md
+
+## S305 session note (calibration + claim-vs-evidence-audit)
+- **Calibration directive (coordination check_mode)**: Human S305 signal: "swarm has no clear use case, growth is crucial, be realistic on damage, scientific, grow swarm." Five-part recalibration — L-366 written (scientific risk taxonomy: local git = low risk, no confirmation needed; external/irreversible = high risk, confirm). HUMAN-SIGNALS.md S305 logged. Safety-first mandate: apply to HIGH RISK only, not local operations.
+- **claim-vs-evidence-audit (objective check_mode)**: 3 new challenges filed in PHILOSOPHY.md — PHIL-16 (0 external instances, 115-session grounding gap), PHIL-3 (persistent cross-session initiation gap at S305), PHIL-15 (universal reach = methodological not actualized). Periodic updated S186→S305. DUE 10→7 expected (needs recount).
+- Diff: concurrent relay committed L-366 before this session could (anti-repeat confirmed working). HUMAN-SIGNALS.md was the only item this session had to commit independently.
+- Meta-swarm: scientific calibration should propagate — swarm's self-model was over-conservative; corrected via L-366 + challenge entries. Next node should act without confirmation on local file ops.
+- Next: (1) dream-cycle DUE (~115 sessions overdue); (2) historian grounding gap (96/127 unanchored → run f_his1); (3) proxy-K check (was 9.1% on dirty tree — verify after concurrent sessions settle).
