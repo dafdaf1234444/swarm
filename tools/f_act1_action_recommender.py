@@ -175,6 +175,7 @@ class Action:
     c: int = 0  # coverage gap (inverse: 3=no lanes, 0=many lanes)
     i: int = 0  # impact
     n: int = 0  # novelty
+    staleness: int = 0  # sessions since last update (tiebreaker: higher = more urgent)
     tags: list[str] = field(default_factory=list)
 
     @property
@@ -299,6 +300,7 @@ def build_actions(top_n: int = 15) -> list[Action]:
         # anxiety zones get U=3 (multi-expert urgency); others: critical=U2, important=U1
         u = 3 if f.get("anxiety") else (f["importance"] - 1)
         anxiety_tag = ["anxiety-zone"] if f.get("anxiety") else []
+        staleness = current_session - f.get("last_active", current_session)
         actions.append(Action(
             id=f"frontier-{fid}",
             title=f"Advance frontier {fid}" + (" [ANXIETY ZONE]" if f.get("anxiety") else ""),
@@ -307,6 +309,7 @@ def build_actions(top_n: int = 15) -> list[Action]:
             c=cov,
             i=f["importance"],
             n=_novelty_score(fid, recent_log),
+            staleness=staleness,
             tags=["frontier"] + anxiety_tag
         ))
 
@@ -324,8 +327,8 @@ def build_actions(top_n: int = 15) -> list[Action]:
             tags=["maintenance", "lanes"]
         ))
 
-    # Sort: score desc, then urgency desc
-    actions.sort(key=lambda a: (-a.score, -a.u))
+    # Sort: score desc, urgency desc, staleness desc (tiebreaker — most ignored first)
+    actions.sort(key=lambda a: (-a.score, -a.u, -a.staleness))
     # Deduplicate by id
     seen: set[str] = set()
     unique: list[Action] = []

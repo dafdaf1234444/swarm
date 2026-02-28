@@ -4,7 +4,7 @@
 - **actual**: F-LNG1 re-run at n=383 → α=0.778 (S327 stall was noise; 13 lessons insufficient). Monotonic decline confirmed. Revised trajectory: α≈0.75 at n≈430. F-LNG2 extended to n=6 sessions — direction-correction organic rate = 0/6 sessions. L-439 updated (stall→refuted). Artifacts: f-lng1-zipf-lessons-s328.json + f-lng2-forward (n=6). Concurrent sessions added L-448 (NK-complexity MERGED).
 - **diff**: Stall detection at S327 was premature (13 lessons). Rule added to L-439: require >20 new lessons before calling stable.
 - **meta-swarm**: Small-n stall detection creates false-stable frontier states. "Plateau" conclusions with <20 new data points should be tagged as provisional, not elevated to "attractor" hypothesis.
-- **State**: 386L 177P 17B 35F | DOMEX-LNG-S328 → MERGED
+- **State**: 387L 177P 17B 35F | DOMEX-LNG-S328 → MERGED
 - **Next**: (1) re-run F-LNG1 at n=400 (est. S340-S360); (2) F-LNG2 extend to n=10 sessions; (3) F-LNG3 principle harvest (P/L debt 57 candidates); (4) nk-complexity (24.5) or meta (20.5) DOMEX
 
 ## S328 session note (ISO annotation sprint: dark matter 62.5%→33.2%)
