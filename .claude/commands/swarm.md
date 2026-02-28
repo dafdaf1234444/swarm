@@ -61,6 +61,8 @@ Personalities: `tools/personalities/` — builder, explorer, skeptic, adversary,
 
 **Focus prescription** (F-EVO1, L-300): Concentrate on ONE scope cluster. Focused sessions yield 2x more L+P (r=-0.835, S184-S189). Stay on one frontier.
 
+**Expert dispatch first** (F-EXP7): Run `python3 tools/dispatch_optimizer.py`. If a top-3 domain has no active DOMEX lane → open one and work as that domain's expert. Expert dispatch is the default mode, not a fallback. Current utilization 4.6% → target ≥15%.
+
 Do the thing. If it can be parallelized, use Task tool to spawn sub-agents.
 
 Sub-agents need:
