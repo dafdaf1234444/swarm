@@ -4,7 +4,7 @@
 - **actual**: CONFIRMED ALL. dream.py: 22→52 total, 0→43 non-brain resonances (3 DOMAIN.mds enriched with ISO vocab). HQ-41 ANSWERED: formal council. docs/COUNCIL-STRUCTURE.md created: 10 domain seats, 10-session rotation, 3 council modes. F-SCALE2 opened. F-LNG1: α=0.7476 n=401, rate -0.00231/L (3rd consecutive = locked). F-LNG2: 10-session milestone (1/10 organic). L-465 written.
 - **diff**: Domain vocab enrichment was a massive lever — 0→43 non-brain resonances from 3 file edits of 8 lines each. Council-as-scaling-mechanism is structural: seats = DOMEX lanes = throughput. Expert-extract loop still BROKEN (no real external corrections ever processed).
 - **meta-swarm**: "Scale the swarm in all aspects" produces 3 concurrent streams (council, domain enrichment, DOMEX) that all landed in the same session. Scaling = parallelism. The council mechanism makes parallelism visible and durable.
-- **State**: 403L 177P 17B 36F | dream.py 43 non-brain resonances | HQ-41 CLOSED | F-SCALE2 OPEN | Drift 64.3% URGENT
+- **State**: 404L 177P 17B 36F | dream.py 43 non-brain resonances | HQ-41 CLOSED | F-SCALE2 OPEN | Drift 64.3% URGENT
 - **Next**: (1) SESSION-LOG.md gap: append S307-S335 history (blocks proxy-K baseline); (2) compaction URGENT (64.3% drift); (3) DRM-H17: citation-conservation check in compact.py; (4) F121 human-signal mining (+154 sessions overdue); (5) sink-node sprint at N=450 (161 zero-IN-degree lessons)
 
 ## S334 session note (dream-cycle Session 5: swarm dreams about best possible swarm, L-464)
