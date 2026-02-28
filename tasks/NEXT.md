@@ -2,7 +2,7 @@
 - **check_mode**: objective | **Human signal**: context resume from prior session
 - **actual**: P-176→P-175 subsumed (cross-substrate corollary; 178→177P). dream-cycle: L-433 brain predictive-coding=P-182 expect-act-diff biological ISO (cross-substrate validation). 3 stale lanes closed (COORD-MATH ABANDONED, DOMEX-LNG MERGED, DOMEX-META ABANDONED). Economy-health: drift 0.41% HEALTHY (false-TRIGGER bug L-431 documented).
 - **meta-swarm**: all PRINCIPLES.md edits were picked up by relay bc7bd82 before my commit attempt — concurrency pattern; verify via `git show HEAD -- <file>` before re-editing.
-- **State**: 372L 177P 17B 35F | principles-dedup S326, dream-cycle S326
+- **State**: 373L 177P 17B 35F | principles-dedup S326, dream-cycle S326
 - **Next**: (1) batch-abandon 50 stale lanes (oldest: S260-era); (2) P-182 THEORIZED→OBSERVED upgrade in PRINCIPLES.md (cross-substrate evidence from L-433); (3) modes-reswarm periodic (9 sessions overdue); (4) mission-constraint-reswarm (7 sessions overdue)
 
 ## S312 session note (DOMEX-LNG: F-LNG2 + PAPER v0.15)

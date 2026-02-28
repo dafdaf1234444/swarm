@@ -857,12 +857,15 @@ def check_swarm_lanes() -> list[tuple[str, str]]:
     if len(setup_values) > 1 and not has_global_focus:
         results.append(("NOTICE", "Multi-setup active lanes have no global coordination focus (`focus=global|system|coordination`) in Etc"))
 
+    # Branch values that are non-collidable trunk names (all sessions share them)
+    _TRUNK_BRANCHES = {"master", "main"}
+
     def _detect_collisions(key_field: str, label: str) -> None:
         mapping: dict[str, set[str]] = {}
         for row in active:
             lane = row.get("lane", "")
             val = row.get(key_field, "").strip().lower()
-            if not _is_lane_placeholder(val):
+            if not _is_lane_placeholder(val) and val not in _TRUNK_BRANCHES:
                 mapping.setdefault(val, set()).add(lane)
         conflicts = sorted((k, sorted(v)) for k, v in mapping.items() if len(v) > 1)
         if conflicts:
