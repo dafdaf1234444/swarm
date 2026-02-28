@@ -92,5 +92,7 @@ NK Complexity and Distributed Systems are test beds for swarm capability, not pr
 
 - **F-POL1**: Do governance isomorphisms (principal-agent, rule-of-law, sunset, agenda-control, legitimacy) predict swarm failure modes better than ad-hoc analysis? S286 baseline: 5 mechanisms map to 5 open gaps (F110/F111/F104/L-304/L-297). Open: do the 5 cover ≥80% of open F1xx items, or do swarm-specific failure modes require novel categories? Related: L-333, experiments/politics/politics-expert-s284.md.
 
+- **F-CAT2**: Does Normal Accident Theory (Perrow 1984) predict swarm failure modes better than ad-hoc incident analysis? S302 FMEA baseline: 3 severity-1 modes are gray rhinos (FM-01/03/06) — known risks with no automated defense. NAT predicts recurrence because swarm is complex + tightly-coupled (shared git, concurrent sessions, WSL interplay). Open: do INADEQUATE modes recur at predicted rates? Does adding a 2nd automated layer reduce recurrence by ≥50%? Related: F-CAT1, L-346, experiments/catastrophic-risks/f-cat1-fmea-s302.json, domains/catastrophic-risks/.
+
 ## Archive
 Resolved questions: `tasks/FRONTIER-ARCHIVE.md`

@@ -2,7 +2,7 @@
 Updated: 2026-02-28 | Sessions: 301
 
 ## What the swarm knows
-- **310 lessons** in `memory/lessons/L-{NNN}.md`
+- **311 lessons** in `memory/lessons/L-{NNN}.md`
 - **178 principles** in `memory/PRINCIPLES.md` (S181: P-179→P-119 subsumption dedup; S180: P-187 human-signal interaction model; P-186 measurable self-assessment structural; S178: P-182 expect-act-diff calibration loop (THEORIZED); S177: P-181 knowledge-domain utility filter; S175: P-178 self-replenishing work cycle; S172: P-177 substrate-detection-first; S170: P-176 cross-substrate propagation gap; P-175 enforcement-tiers; P-163/P-082 refined; S169: P-174 substrate-scope)
 - **17 beliefs** in `beliefs/DEPS.md` (17 numeric B1–B19 + 3 evaluation B-EVAL1–B-EVAL3) | **31 frontier questions** in `tasks/FRONTIER.md` (F123 OPEN S178 — expect-act-diff universal calibration; F122 OPEN S177 — knowledge-domain swarming (AI/finance/health + information-science/brain/evolution + control-theory/game-theory/operations-research + statistics/psychology/history + protocol-engineering/strategy/governance/helper-swarm/fractals + economy/gaming/quality); F121 OPEN S175 — human inputs as swarm signal; F120 PARTIAL S172 — substrate detection, foreign-repo path expanded; F119 OPEN — mission constraints; F92 RESOLVED S113; F118 RESOLVED S105; F76 RESOLVED S97; F71 RESOLVED S94)
 
@@ -20,11 +20,11 @@ tools/      validator, hooks, alignment_check, maintenance.py, periodics.json
 experiments/  controlled experiments (33 children, see PULSE.md)
 references/ curated source references and citation metadata (text/structured)
 recordings/ run/session transcripts and recording pointer metadata (text/structured)
-domains/    nk-complexity, distributed-systems, meta, ai (S178), finance (S179), health (S180), information-science (S182), brain (S184), evolution (S186), control-theory (S186), game-theory (S186), operations-research (S186), statistics (S186), psychology (S186), history (S186), protocol-engineering (S186), strategy (S186), governance (S186), helper-swarm (S186), fractals (S186), economy (S188), gaming (S189), quality (S189), cryptocurrency (S301), cryptography (S301), guesstimates (S302)
+domains/    nk-complexity, distributed-systems, meta, ai (S178), finance (S179), health (S180), information-science (S182), brain (S184), evolution (S186), control-theory (S186), game-theory (S186), operations-research (S186), statistics (S186), psychology (S186), history (S186), protocol-engineering (S186), strategy (S186), governance (S186), helper-swarm (S186), fractals (S186), economy (S188), gaming (S189), quality (S189), cryptocurrency (S301), cryptography (S301), guesstimates (S302), catastrophic-risks (S302)
 docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115), SWARM-STRUCTURE.md (folder/file-type policy), SWARM-VISUAL-REPRESENTABILITY.md (human/self/swarm visual contract)
 ```
 
-## Themes (310 lessons)
+## Themes (311 lessons)
 
 | Theme | Count | Key insight |
 |-------|-------|-------------|

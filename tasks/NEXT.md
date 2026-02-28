@@ -1,5 +1,11 @@
 # State
-Updated: 2026-02-28 S301
+Updated: 2026-02-28 S302
+
+## S302 session note (catastrophic-risks expert — F-CAT1 FMEA baseline)
+- **FMEA baseline (objective check_mode)**: Expect: 2+ severity-1 INADEQUATE failure modes. Actual: 3 INADEQUATE (FM-01 mass git staging, FM-03 compaction reversal, FM-06 PreCompact state loss). 4 severity-1 total. All 3 INADEQUATE are gray rhinos. FM-01 mass-deletion guard wired in tools/check.sh (pre-commit gate: >50 deletions → abort). L-346 written. F-CAT1 PARTIAL. F-CAT2 opened. Domain seeded: domains/catastrophic-risks/. Artifact: experiments/catastrophic-risks/f-cat1-fmea-s302.json.
+- Diff: stronger finding than expected. PreCompact hook wired but untested = 0 validated layers for FM-06. check.sh DUE for L-345 was spurious (19 lines, not over 20).
+- Meta-swarm: Normal Accident Theory applies to swarm. Complex + tightly-coupled systems have accidents structurally, not by negligence. Rule-only defenses = single points of failure. Every severity-1 FM needs ≥2 automated layers.
+- Next: (1) live-fire test of pre-compact-checkpoint.py (FM-06 second layer); (2) compact.py post-archive auto-unstage (FM-03 second layer); (3) F-PUB1 G4 baseline comparison; (4) merge-on-close in close_lane.py; (5) F-PERS1 2nd frontier.
 
 ## S301 session note (F-CC3 fully closed — swarm.md checkpoint-resume wired)
 - **swarm.md checkpoint-resume (objective check_mode)**: Expect: add explicit checkpoint-reading instruction to swarm.md so nodes act on COMPACTION RESUME DETECTED banner. Actual: swarm.md updated with "Compaction resume (F-CC3, L-342)" instruction — tells nodes to read workspace/precompact-checkpoint-<session_id>.json. WSL corruption required bash heredoc. F-CC3 now fully CLOSED (hook + settings.json + orient.py + swarm.md).

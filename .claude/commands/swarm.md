@@ -36,6 +36,8 @@ Check alignment: `python3 tools/alignment_check.py` — shows pending child chal
 
 **Anti-repeat check** (L-283): Run `git log --oneline -5` and scan `tasks/SWARM-LANES.md` MERGED rows before acting. In high-concurrency sessions, every URGENT item may already be done. If something you planned is already committed: log it as confirmed, move to the next thing.
 
+**Compaction resume** (F-CC3, L-342): If orient.py output contains `COMPACTION RESUME DETECTED`, read the checkpoint JSON at `workspace/precompact-checkpoint-<session_id>.json` before acting. It contains: in-flight task, uncommitted files, recent git log, and resume hint. Treat it as your prior session's handoff note — pick up where it left off.
+
 Then decide what to work on. No one tells you. You choose based on what the swarm needs most.
 
 ## Expert Mode (DOMEX lanes)

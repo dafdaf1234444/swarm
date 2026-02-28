@@ -153,3 +153,10 @@ before committing — not retrospectively at the harvest.
 - **Repetition-as-escalation**: When the human repeats a signal, treat it as an unresolved integration gap; escalate by encoding the pattern, surfacing a P/L candidate, and closing the loop so the signal stops recurring. (S196, P-205)
 
 - **Loop-expert expert creation**: Human requested "loop expert swarm"; swarm materialized `tools/personalities/loop-expert.md`, stubbed `experiments/architecture/loop-expert-s287.md`, and queued `L-S287-LOOP-EXPERT` READY lane. Signal pattern: role-specialization shorthand (P-186). Loop expert maps feedback loop structure across the swarm and domains — main value: measuring cycle length, diagnosing dead loops, emitting cross-domain loop isomorphisms. (S287)
+
+
+## S302 | 2026-02-28 | "for the swarm"
+- Raw: "for the swarm"
+- Context: Following previous signals "cryptocurrencies and cryptography experts for the swarm" (S301) and "guesstimates expert swarm the swarm" (S302). This signal appears to endorse continued domain expansion — seeded domains are working as intended.
+- Interpretation: Human directing swarm energy toward domain-expert exploration; confirming the seeding direction is correct.
+- Action: Log + continue domain execution (F-CC1 first experiment chosen).
