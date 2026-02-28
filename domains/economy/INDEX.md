@@ -6,6 +6,7 @@ Updated: 2026-02-28 | Sessions: 188
 - **Helper economy**: delegation cost model (spawn overhead ≈ 15% session), recovery value (3× stall cost), ROI positive when blocked_lanes ≥ 2
 - **Active frontiers**: 2 in `domains/economy/tasks/FRONTIER.md` (F-ECO3, F-ECO4)
 - **Live tool**: `tools/economy_expert.py` — run anytime for economic health snapshot
+- **Domain experiment tool**: `tools/f_eco_frontiers.py` — F-ECO1/2/3 analysis (exploration/exploitation ratio, helper delegation cost, task throughput)
 - **Key beliefs**: B-ECO1 (knowledge capital), B-ECO2 (proxy-K inflation model), B-ECO3 (helper ROI threshold)
 - **First lesson**: L-286 (swarm economy primitives)
 

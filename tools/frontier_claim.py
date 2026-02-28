@@ -2,6 +2,11 @@
 """
 frontier_claim.py — Task claiming for frontier questions.
 
+SUPERSEDED by tools/dispatch_tracker.py (S305, F-EXP1).
+dispatch_tracker.py implements the same claim/release protocol via
+workspace/DISPATCH-LOG.md with full throughput reporting.
+Prefer dispatch_tracker.py for new work.
+
 Usage:
     python3 tools/frontier_claim.py claim <F-id> <session-id>
     python3 tools/frontier_claim.py release <F-id>
