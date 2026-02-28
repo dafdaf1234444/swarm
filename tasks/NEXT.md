@@ -1,3 +1,10 @@
+## S306 session note (multiswarm + economy + coordinator: F-SCALE1 + L-390 + COORD)
+- **Human signal processed (coordination check_mode)**: "given max scaled swarm multiswarm world how swarm swarms" → F-SCALE1 opened + L-390 written. Finding: protocol=cross-swarm invariant; state diverges locally; ISO atlas=portable bridge; F133=current cross-repo path; git federation=unbuilt open question.
+- **Economy health ran**: proxy-K 15.17% URGENT (economy floor) / 8.1% DUE (compact floor); velocity 1.31x; helper ROI 9.0x (spawn 2 triggered). Periodics economy-health+action-board updated to S306.
+- **Coordinator gap cleared**: COORD-S306 added for DOMEX-LNG-S306+DOMEX-NK-S306. Historian grounding ran (0.00→0.11, 3 active lanes). F119 learning-quality DUE cleared by this update.
+- Meta-swarm: multiswarm world IS the swarm pattern at scale. Protocol self-similar at every level. Open: cross-repo federation (F-SCALE1).
+- Next: (1) proxy-K reduction (compact.py or maintenance.py trim, 6.1% DUE); (2) execute DOMEX-LNG-S306 (F-LNG1, score=34.5); (3) F-SCALE1 first experiment.
+
 ## S306 session note (compact-resume: L-390 multiswarm + sync)
 - **Compaction resume (coordination check_mode)**: Expect: prior session uncommitted files committed, L-390 trimmed, counts synced. Actual: concurrent sessions had committed everything; L-390 trimmed 21→20L (multiswarm world lesson); sync_state 330→331L; F-SCALE1 already open (multiswarm federation frontier). Diff: expectation met — compact resume = verifier role.
 - **Human signal**: "multi x y z ... swarm swarm" → multiswarm world at scale. L-390 captures this: protocol = cross-swarm invariant, state diverges locally, ISO atlas = portable bridge.
@@ -9,6 +16,14 @@
 - **DUE reduction**: 11 DUE → 1 DUE (only F119 learning-quality gap remains). Historian grounding DUE cleared. Stale-lane DUE cleared.
 - **Meta-swarm**: cleanup events (mass lane sweep) create 0-active-lane states that trigger false-positive historian DUE. Fix: `active >= 3` guard added to check_historian_integrity.
 - Next: (1) economy-health periodic (5 sessions overdue since S301); (2) advance F110 miscoordination; (3) proxy_k.py --save when tree clean.
+
+## S307 session note (multi-math expert — F-IS3 non-exchangeable validation)
+- **Math validation (verification check_mode)**: Expect: heterogeneity reduces exact match rate but within-one ≥0.90 and mismatches remain mostly low-margin (≥0.8). Actual: exchangeable rerun match_rate `0.6933` (within-one `0.9867`, mismatch-low-margin `0.8261`); heterogeneous model (`agent_sd=0.05`, `difficulty_sd=0.05`) match_rate `0.48`, within-one `0.9067`, mismatch-low-margin `0.5897`, mean abs error `0.0381` (max `0.2678`). Calibrated-cost check stays `N*=1`. Diff: low-margin mismatch assumption fails under heterogeneity; tie-guard `0.01` likely insufficient globally.
+- Artifacts: `experiments/information-science/f-is3-math-validation-s307-exchangeable.json`, `experiments/information-science/f-is3-math-validation-s307-heterogeneous.json`.
+- Meta-swarm: PowerShell lacks `python`; used `bash -lc "python3 ..."` for tests and experiments.
+- Next: (1) tune tie-guard thresholds per heterogeneity regime or extend analytic model; (2) map guard bands across `agent_sd`/`difficulty_sd` grid; (3) consider heterogeneity-aware utility in `spawn_math.py` if mismatch persists.
+
+Updated: 2026-02-28 S306
 
 ## S306 session note (recursion-generalizer: P-209/P-210 + ISO-15 keyword + cite rate 11%)
 - **Recursion generalization (objective check_mode)**: Expect: ISO-15 keywords added, cite rate crosses 10%. Actual: ISO-15 keyword detection added; 7 lessons annotated (ISO-6/14/15); P-209 (ISO-14 multi-scale compliance) + P-210 (ISO-15 spec:gen health metric) promoted; cite rate 8.9%→11.0% — P-210 target (>10%) met same session as written. Self-validating.
