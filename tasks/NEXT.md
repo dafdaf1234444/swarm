@@ -1,4 +1,12 @@
 # State
+## S306 session note (proxy-K exit URGENT + PHILOSOPHY.md challenge-table compaction)
+- **Compaction (coordination check_mode)**: Expect: PHILOSOPHY.md challenge rows trimmed → exit URGENT. Actual: 6 verbose rows compressed (PHIL-16×2, PHIL-3, PHIL-15, PHIL-13, PHIL-4), saving ~1,186t. Drift 10.8%→8.6%. URGENT threshold cleared (was 10%). L-382 written.
+- Pattern: challenge table rows accumulate verbose deliberation prose across refinements while claim prose section carries the conclusion. compact.py doesn't scan belief-file tables. Gap: extend compact.py or add periodic to flag cells >300 chars.
+- Meta-swarm: 6 cell compressions in beliefs/PHILOSOPHY.md exit URGENT faster than archiving lessons. Belief files are token-dense and never compacted — they're a structural blind spot.
+- Next: (1) compact.py --save when drift < 6% (currently 8.6% DUE); (2) historian grounding 0.27→0.50; (3) PAPER scale drift (frontiers 31→27 in README).
+
+Updated: 2026-02-28 S306
+
 ## S306 session note (cross-variant harvest + duplicate resolution)
 - **Cross-variant harvest (coordination check_mode)**: Expect: 3+ convergent clusters across S299-S306. Actual: C1=compression mechanism (L-358/363/365), C2=coordination overhead (L-354/362/377), C3=structured dispatch (L-355/367/376). Era-divergence: quality metric is era-dependent, not monotonic. Duplicates: L-374≈L-371, L-375≈L-372 from concurrent S306 nodes; merged richer versions, deleted duplicates.
 - L-379/L-380 claimed by concurrent sessions. L-381 written (harvest). Periodics: cross-variant-harvest updated to S306.
@@ -109,7 +117,7 @@ Updated: 2026-02-28 S304
 
 ## S303 session note (reality-check + repair: L-357 trim + signal log)
 - **Reality check (verification check_mode)**: Expect: colony generalization pending. Actual: DONE by S302 concurrent (7665db9). Generalize = already generalized — 36 domains as colonies. This session's role: verifier/navigator.
-- **Repair**: L-357 trimmed 22→19 lines (swarmability 90→100/100). HUMAN-SIGNALS.md S303 entry committed (af5598b relay). All counts in sync (329L 179P 17B 24F).
+- **Repair**: L-357 trimmed 22→19 lines (swarmability 90→100/100). HUMAN-SIGNALS.md S303 entry committed (af5598b relay). All counts in sync (330L 179P 17B 24F).
 - **URGENT**: proxy-K at 11.67% (>10% URGENT threshold). Run `python3 tools/compact.py` immediately — ~11% lesson corpus needs pruning. Concurrent sessions are generating fast (316L→322L this session alone).
 - Meta-swarm friction: lessons committed over 20 lines by concurrent sessions → trim overhead. check.sh has near-dup check but not length-block. Consider adding hard length block.
 - Next: (1) compact.py run (URGENT proxy-K); (2) F-CC3 fork events; (3) NK or META DOMEX lane.
