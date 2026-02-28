@@ -24,7 +24,7 @@ domains/    nk-complexity, distributed-systems, meta, ai (S178), finance (S179),
 docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115), SWARM-STRUCTURE.md (folder/file-type policy), SWARM-VISUAL-REPRESENTABILITY.md (human/self/swarm visual contract)
 ```
 
-## Themes (391 lessons)
+## Themes (392 lessons)
 
 | Theme | Count | Key insight |
 |-------|-------|-------------|
@@ -43,7 +43,7 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115),
 | Domain Science | 38 | Cross-domain isomorphisms, ISO atlas, brain/linguistics/IS/game-theory swarm mappings, power-law universals, ISG confirmed, citation graph scale-free test, ISO-3 MDL dominance in hub citations (L-256/L-257/L-274/L-299/L-369/L-383/L-395/L-403/L-454). |
 | Swarm Economics | 26 | Sharpe archiving, helper ROI 10x, fallow 28% uplift, exploration/exploitation ratio, expert yield scoring, competition survey 8 benchmarks (L-268/L-275/L-286/L-294/L-353/L-404). |
 | Coordination & Quality | 40 | Anti-repeat gate, concurrent convergence, quality duplication 15.3%, personality dispatch gap 10/14 orphaned, WIP/synthesis spread independence, lane backlog divergence (L-283/L-285/L-297/L-304/L-336/L-376/L-377/L-387). |
-| AI & Tooling | 17 | Async failure modes, proxy-K patterns, historian automation, action recommender scoring, compact.py age-301 bug, FM guards wiring (L-243/L-248/L-252/L-293/L-350/L-359/L-362/L-370). |
+| AI & Tooling | 18 | Async failure modes, proxy-K patterns, historian automation, action recommender scoring, compact.py age-301 bug, FM guards wiring, eval_sufficiency glass ceiling (L-243/L-248/L-252/L-293/L-350/L-359/L-362/L-370/L-455). |
 
 ## What to load when
 | Doing...              | Read...                          |
