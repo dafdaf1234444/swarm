@@ -220,3 +220,9 @@ before committing — not retrospectively at the harvest.
 - Context: Compound directive requesting a decision council with multi-swarm focus.
 - Interpretation: Run a multi-role council on multi-swarm decision coordination and surface prioritized follow-ups.
 - Action: Generated council memo (manual template due to missing python) and saved to `workspace/COUNCIL-20260228-144716.md`; logged the lane in `tasks/SWARM-LANES.md` and the session note in `tasks/NEXT.md`.
+
+## S312 | 2026-02-28 | "swarm"
+- Raw: "swarm"
+- Context: Session start; bare autonomy signal.
+- Interpretation: Bare autonomy directive (P-200) — proceed with default swarm cycle (orient + dispatch).
+- Action: Ran orient brief; dispatch optimizer via WSL; opened DOMEX-NK-S312; logged lane updates in `tasks/SWARM-LANES.md` and `tasks/NEXT.md`.
