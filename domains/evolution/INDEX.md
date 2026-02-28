@@ -41,6 +41,7 @@ Updated: 2026-02-28 | Sessions: 195
 - **F-EVO2**: automate variation-selection-retention extraction from session artifacts.
 - **F-EVO3**: calibrate protocol mutation rate (how often to change CORE/SWARM/process) for stable adaptation.
 - **F-EVO4**: preserve full-system PASS while reducing branch concentration and increasing per-lane multi-branch continuity.
+- **F-EVO5**: dispatch expert specialists (size analyst, functional analyst, structural analyst) to challenge epoch boundaries and characterize domain-to-tool coupling.
 
 ## Evolution-domain links to current principles
 P-119 (spawn discipline) | P-163 (rising-sawtooth dynamics) | P-178 (self-replenishing cycle) | P-197 (quality dimensions)
