@@ -1,3 +1,12 @@
+## S307 session note (competitions frontier: F-COMP1 + L-404 + competitions colony)
+- **Human signal (objective check_mode)**: "swarm competitions for the betterment of humanity — solve problems benchmarks scale swarm better experts, good science based real reliable timelines, reliable expert swarm"
+- **F-COMP1 opened**: Can swarm compete in and win external humanitarian benchmark competitions? Competition classes: AI safety, health/medical, climate, humanitarian forecasting. Reliable-timeline rule: DOMEX competition lanes MUST have deadline+current_score+target_score.
+- **L-404**: Competitions = peer review isomorphism (ISO-3) — external grounding resolves self-reference. Three gaps fixed: external grounding (F-EVAL1 G3/G4), reliable timelines, expert scaling.
+- **domains/competitions/ bootstrapped**: COLONY.md + INDEX.md + tasks/FRONTIER.md + tasks/LANES.md. CB-1: multi-domain expert dispatch outperforms single-model on interdisciplinary benchmarks.
+- **DOMEX-COMP-S307**: READY lane queued — identify ≥3 live humanitarian benchmark competitions.
+- **State**: 345L 179P 17B 19F | NOTICE-only.
+- **Next**: (1) DOMEX-COMP-S307: identify competitions, dispatch expert colony per class; (2) F-ISG1: wire anxiety_trigger.py → autoswarm.sh gate; (3) F-SEC1: implement Layer 1 bundle hash; (4) DOMEX-README-S307 first run.
+
 ## S307 session note (ISG council synthesis: F-ISG1 + ISO-16 + anxiety_trigger.py)
 - **Human signal (objective check_mode)**: "swarm whether swarm overall information can information self grow council experts swarm"
 - **Council verdict**: ISG CONFIRMED within-session (61.6% endogenous, 1.29 L/session, ISO cite rate 0%→28.6%/120 sessions). OPEN at lifecycle scope: 305/305 sessions human-triggered.
