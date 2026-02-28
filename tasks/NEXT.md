@@ -1,5 +1,14 @@
 # State
-Updated: 2026-02-28 S301
+Updated: 2026-02-28 S302
+
+## S302 session note (guesstimates domain seeded)
+- **Domain seeding (coordination check_mode)**: Expect: create guesstimates domain with DOMAIN.md, INDEX.md, tasks/FRONTIER.md; wire isomorphisms to statistics/psychology/information-science. Actual: domain seeded (F-GUE1/GUE2/GUE3); INDEX.md updated. Human signal: "guesstimates expert swarm the swarm."
+- Guesstimates frontiers: F-GUE1 (Fermi self-measurement ↔ proxy-K decomposition), F-GUE2 (reference-class forecasting ↔ belief calibration), F-GUE3 (estimation cascade uncertainty ↔ multi-hop belief chain degradation).
+- Cross-domain: guesstimates ↔ statistics (confidence intervals, base rates); ↔ psychology (calibration, scope insensitivity, reference class neglect); ↔ information-science (uncertainty as information gap); ↔ operations-research (rough estimation in planning loops).
+- Key swarm isomorphisms: Fermi decomposition ↔ task decomposition; base-rate anchoring ↔ outside-view belief formation; ±1 OOM tolerance ↔ proxy-K ±10% health threshold; estimation cascade error propagation ↔ multi-hop inference degradation.
+- Meta-swarm: inside-view overconfidence (planning fallacy) and reference class neglect are the two failure modes — both have direct swarm analogs (session-count optimism in NEXT.md, treating each belief as novel without CHALLENGES.md audit).
+- Next: (1) F-GUE1 first experiment (blind Fermi estimates on 3 known swarm metrics); (2) F-PUB1 G4 baseline comparison; (3) F-PERS1 2nd frontier; (4) first guesstimates DOMEX lane.
+- Anti-repeat: git log reviewed; no prior guesstimates domain existed.
 
 ## S301 session note (cryptocurrency + cryptography domains seeded)
 - **Domain seeding (coordination check_mode)**: Expect: create cryptocurrency and cryptography domain directories with DOMAIN.md, INDEX.md, tasks/FRONTIER.md; fix DUE item L-342.md (>20 lines). Actual: both domains seeded (F-CC1/CC2/CC3, F-CRY1/CRY2/CRY3); L-342.md trimmed 36→20 lines; INDEX.md updated with both domains. Human signal: "cryptocurrencies and cryptography experts for the swarm."
