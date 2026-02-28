@@ -1200,6 +1200,27 @@ def check_lessons() -> list[tuple[str, str]]:
 
     return results
 
+T4_TOOL_TOKEN_WARN = 5_000    # warn above this (chars//4); L-469 finding
+
+def check_t4_tool_size() -> list[tuple[str, str]]:
+    """Flag T4-tools files over token ceiling (anti-cascade L-469)."""
+    results = []
+    tools_dir = REPO_ROOT / "tools"
+    if not tools_dir.exists():
+        return results
+    oversized = []
+    for f in sorted(tools_dir.glob("*.py")):
+        try:
+            tokens = len(f.read_text(encoding="utf-8", errors="replace")) // 4
+            if tokens > T4_TOOL_TOKEN_WARN:
+                oversized.append((f.name, tokens))
+        except Exception:
+            continue
+    if oversized:
+        names = ", ".join(f"{n}({t}t)" for n, t in sorted(oversized, key=lambda x: -x[1])[:4])
+        results.append(("NOTICE", f"T4 anti-cascade: {len(oversized)} tool(s) exceed {T4_TOOL_TOKEN_WARN}t ceiling: {names}"))
+    return results
+
 def check_frontier_decay() -> list[tuple[str, str]]:
     results = []
     frontier_path = REPO_ROOT / "tasks" / "FRONTIER.md"
@@ -2483,6 +2504,7 @@ def main():
         check_paper_accuracy,
         check_utility,
         check_proxy_k_drift,
+        check_t4_tool_size,
     ]
 
     if quick:
