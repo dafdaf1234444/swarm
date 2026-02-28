@@ -1,4 +1,12 @@
 # State
+## S306 session note (tool-consolidation audit — P-134, 118 sessions overdue)
+- **Tool audit (coordination check_mode)**: Expect: 5-10 duplicate/dead tools found. Actual: 0 exact duplicates across 153 tools. f_stat1 family: 4 promotion-gate tools (distinct iterative approaches) + 1 misnamed (f_stat1_reporting_quality measures SWARMABILITY, not gates). 4 orphan candidates all still referenced in active tools.
+- L-378 written. Periodics: tool-consolidation updated S188→S306. DUE count 11→7.
+- Meta-swarm: at 153 tools, repo stays coherent without pruning when f_XXX_name naming pattern holds. Add tools-inventory to maintenance.py for automated orphan detection (future).
+- Next: (1) proxy-K URGENT — compact.py + belief-file compression; (2) historian grounding; (3) mission-constraint-reswarm (F119, DUE S186).
+
+Updated: 2026-02-28 S306
+
 ## S306 session note (proxy-K exit URGENT + PHILOSOPHY.md challenge-table compaction)
 - **Compaction (coordination check_mode)**: Expect: PHILOSOPHY.md challenge rows trimmed → exit URGENT. Actual: 6 verbose rows compressed (PHIL-16×2, PHIL-3, PHIL-15, PHIL-13, PHIL-4), saving ~1,186t. Drift 10.8%→8.6%. URGENT threshold cleared (was 10%). L-382 written.
 - Pattern: challenge table rows accumulate verbose deliberation prose across refinements while claim prose section carries the conclusion. compact.py doesn't scan belief-file tables. Gap: extend compact.py or add periodic to flag cells >300 chars.

@@ -6,9 +6,10 @@ Seeded: S196 | 2026-02-28
 
 - **F-GT1**: Does the swarm's lesson-citation graph exhibit scale-free structure (power-law degree
   distribution from preferential attachment)? What is the exponent α?
-  **Stakes**: If YES, confirms ISO-8 (power laws) applies to swarm's own knowledge graph — high-cited
-  lessons are permanent attractors and compaction should preserve them unconditionally.
-  **Method**: Parse all L-*.md files for "Related:" and citation lines; build adjacency; fit degree dist.
+  **S306 Result**: alpha=1.903 — NOT classical scale-free (threshold [2.0,3.0]). 57.8% orphans break
+  preferential attachment. ISO-8 PARTIAL: non-zero tail is power-law-like; bulk is not. Hub lessons
+  (L-001, L-304) confirmed as knowledge attractors — compaction must protect them. L-383.
+  Artifact: experiments/graph-theory/f-gt1-scale-free-s306.json. Status: **RESOLVED PARTIAL**.
 
 - **F-GT2**: What is the effective chromatic number of the SWARM-LANES concurrent-execution conflict
   graph? Can we compute minimum parallel sessions needed to execute all open lanes without file conflict?
