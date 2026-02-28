@@ -153,6 +153,50 @@ def get_recent_commits(n=6):
     return commits
 
 
+def check_index_coverage(index_text):
+    """Check INDEX.md theme bucket coverage vs total lesson count. F-BRN4.
+
+    Returns a NOTICE string if coverage < 80%, or None if healthy.
+    """
+    # Extract total lesson count from INDEX.md header (e.g. "294 lessons")
+    m_total = re.search(r"(\d+)\s+lessons", index_text[:500])
+    if not m_total:
+        return None
+    total = int(m_total.group(1))
+    if total == 0:
+        return None
+
+    # Sum the Count column of the Themes table
+    # Table rows look like: | Theme | Count | Key insight |
+    themed = 0
+    in_theme_section = False
+    for line in index_text.splitlines():
+        if re.match(r"##\s+Themes", line):
+            in_theme_section = True
+            continue
+        if in_theme_section and line.startswith("##"):
+            break
+        if in_theme_section:
+            # Match table data rows (not header or separator)
+            m_row = re.match(r"^\s*\|\s*(?![-|])\s*([^|]+?)\s*\|\s*(\d+)\s*\|", line)
+            if m_row:
+                themed += int(m_row.group(2))
+
+    if themed == 0:
+        return None
+
+    coverage = themed / total
+    unthemed = total - themed
+    if coverage < 0.80:
+        pct = coverage * 100
+        return (
+            f"NOTICE: INDEX.md dark matter: {unthemed}/{total} lessons unthemed "
+            f"({pct:.1f}% coverage) — F-BRN4: hippocampal index degraded. "
+            f"Split theme buckets >40 lessons."
+        )
+    return None
+
+
 def check_stale_experiments():
     """Scan domain frontier files for active (unrun) experiments. L-246."""
     domain_dir = ROOT / "domains"
@@ -321,6 +365,12 @@ def main():
             for line in signal_lines[:10]:
                 print(f"  {line}")
             print()
+
+    # INDEX.md coverage check (F-BRN4: hippocampal index health)
+    index_notice = check_index_coverage(index_text)
+    if index_notice:
+        print(f"  {index_notice}")
+        print()
 
     # Key state
     key_state = extract_key_state(next_text)
