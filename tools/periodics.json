@@ -18,14 +18,14 @@
       "id": "cross-variant-harvest",
       "description": "Cross-variant harvest: compare active children for convergent/divergent/novel findings",
       "cadence_sessions": 15,
-      "last_reviewed_session": 175,
+      "last_reviewed_session": 189,
       "registered_by": "S69"
     },
     {
       "id": "principles-dedup",
       "description": "Scan PRINCIPLES.md for redundant/overlapping principles -- merge or supersede",
       "cadence_sessions": 10,
-      "last_reviewed_session": 180,
+      "last_reviewed_session": 189,
       "registered_by": "S69"
     },
     {
@@ -88,7 +88,7 @@
       "id": "dream-cycle",
       "description": "Swarm dreaming: free-associative corpus synthesis. Run python3 tools/dream.py \u2014 outputs theme gravity map, uncited active principles (anchoring targets), cross-domain resonances, candidate frontier questions. Act on at least one output per run: write a lesson citing an uncited principle, or add a candidate frontier to tasks/FRONTIER.md. (F125)",
       "cadence_sessions": 7,
-      "last_reviewed_session": 183,
+      "last_reviewed_session": 189,
       "registered_by": "S183"
     },
     {

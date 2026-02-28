@@ -1,10 +1,8 @@
 # Quality Domain — Frontier Questions
 Domain agent: write here for quality-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-02-28 S189 | Active: 3
+Updated: 2026-02-28 S189 | Active: 2 | Resolved: 1
 
 ## Active
-
-- **F-QC1**: What fraction of swarm lessons are near-duplicates of each other? Hypothesis (B-QC1): concurrent session writing under context pressure produces structurally redundant lessons covering the same claim in different phrasing. Method: pairwise Jaccard similarity on word sets extracted from lesson title + key claim (first 3 lines). Threshold: pairs with Jaccard > 0.4 flagged as near-duplicate candidates. Baseline: `tools/f_qc1_repeated_knowledge.py` → `experiments/quality/f-qc1-repeated-knowledge-s189.json`. Expected range: 2–10% duplication rate (based on concurrent session count and compaction frequency). Next: inspect top similar pairs manually; propose merge targets for compact.py.
 
 - **F-QC2**: Do high-citation lessons decay in accuracy over time as the swarm's beliefs evolve? Hypothesis (B-QC2): a lesson written in S050 may have been correct then but contradicted by S150 evidence. High citation count does not guarantee current accuracy — it may reflect historical importance. Design: (1) identify the 20 most-cited lessons (by cross-reference scanning across all .md files); (2) check each against current PRINCIPLES.md and beliefs/DEPS.md for contradiction signals; (3) compute "citation gap" (last session cited vs current session) as proxy for freshness. Expected outcome: ~5% of high-citation lessons are stale by current belief state. Related: F-BRN1 (Hebbian co-citation), L-277 (compact.py false-archive from zero-cited scan), compact.py.
 
@@ -13,4 +11,4 @@ Updated: 2026-02-28 S189 | Active: 3
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
-| None | - | - | - |
+| F-QC1 | CONFIRMED: 15.3% duplication rate (35 pairs, 44 flagged / 288 lessons) exceeds 2–10% hypothesis. Two dominant patterns: same-session multi-agent convergence (L-257/267) and sequential refinement without scan (L-285/292). Prescription: expand quality gate to last 20 titles; flag same-session pairs in compact.py. See L-309. | S189 | 2026-02-28 |
