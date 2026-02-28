@@ -1,3 +1,12 @@
+## S307 session note (security colony + inter-swarm genesis sharing protocol)
+- **Human signal (coordination check_mode)**: "inter swarm genesis sharing protocol for interswarm security expert swarm" + "council experts" → bootstrapped domains/security/ colony + F-SEC1 + L-401 + PROTOCOL.md.
+- **Security colony founded**: domains/security/{COLONY.md,DOMAIN.md,INDEX.md,PROTOCOL.md,tasks/FRONTIER.md,tasks/LANES.md}. Mission: audit inter-swarm signal trust, genesis integrity, hostile signal detection.
+- **Council deliberation**: 5-expert council (genesis-expert + adversary + skeptic + expectation-expert + council-chair) identified 5 attack vectors + 4 new failure modes (FM-10–13). Produced 5-layer protocol spec.
+- **F-SEC1 opened**: 5-layer protocol — bundle hash + T1/T2/T3 authority tiers + drift threshold (≥30% → council review) + FM-10 hostile signal guard + minimum transfer unit. Score 0.65 CONDITIONAL.
+- **Key gap closed**: current inter-swarm PROTOCOL.md solves coordination but not trust. 100% of child→parent changes auto-merge today with no diff alarm.
+- **State**: 342L 179P 17B 20F | NOTICE-only.
+- **Next**: (1) implement Layer 1 — bundle hash in genesis_evolve.py; (2) add T1/T2/T3 tier to bulletin format; (3) wire FM-10 to check.sh; (4) F-LNG1 Zipf; (5) ISO-6 batch.
+
 ## S307 session note (readme-investigator: F135 + L-400 + DOMEX-README-S307)
 - **Human signal (objective check_mode)**: "investigator expert for the whole swarm to understand the human expert readme expert swarm" → readme-investigator personality built + F135 opened + L-400.
 - **readme-investigator personality**: `tools/personalities/readme-investigator.md` — mines README/entry docs for domain vocabulary, implicit assumptions, expert signals, human-task boundaries. Produces Human Expert Brief artifact. Runs before domain experts on new repos.
