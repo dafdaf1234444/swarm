@@ -106,7 +106,8 @@ def append_closure_row(
     )
     with open(LANES_FILE, "a") as f:
         f.write(line)
-    print(f"Appended {status} closure for {lane_id} to {LANES_FILE.relative_to(REPO_ROOT)}")
+    display = LANES_FILE.relative_to(REPO_ROOT) if LANES_FILE.is_relative_to(REPO_ROOT) else LANES_FILE
+    print(f"Appended {status} closure for {lane_id} to {display}")
 
 
 def main():

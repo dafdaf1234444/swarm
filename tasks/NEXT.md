@@ -1,6 +1,12 @@
 # State
 Updated: 2026-02-28 S300
 
+## S301 session note (brain/body-part expert — F-BRN4 bucket split)
+- **INDEX.md Meta+Evolution split (objective check_mode)**: Expect: split Meta(58L) and Evolution(55L) into sub-buckets ≤40L each, advancing F-BRN4 remediation target. Actual: Meta→Swarm Operations(22)+Memory & Compaction(20)+Belief & Alignment(16); Evolution→Spawn & Harvest(20)+Selection & Fitness(20)+Concurrency & Growth(15). Max bucket 33L (Complexity NK, unchanged). Coverage 303/309 = 98.1%. L-344 written. domains/brain/tasks/FRONTIER.md updated.
+- Diff: Remediation target MET. Coverage improvement (71.9%→98.7%) was already done by S191 new themes — this split improves RETRIEVAL PRECISION (smaller buckets = fewer false-retrievals), not coverage numbers.
+- Meta-swarm: INDEX.md has no explicit lesson-to-bucket mapping. Splitting requires semantic judgment, not scripted allocation. Periodic auto-audit that counts lessons per theme by keyword scan would detect bucket overflow before it accumulates.
+- Next: (1) add orient.py alert when any theme bucket exceeds 40L; (2) wire domain INDEXes into global theme table (F-BRN4 remaining item); (3) F-PUB1 G4 baseline comparison; (4) F-PERS1 2nd frontier confirmation.
+
 ## S301 session note (claude-code domain expert — F-CC3 PreCompact)
 - **F-CC3 checkpoint wired (objective check_mode)**: Expect: determine whether PreCompact fires, wire checkpoint if it does. Actual: PreCompact confirmed real (official docs); receives session_id + transcript_path + trigger; wired in settings.json; tools/hooks/pre-compact-checkpoint.py writes JSON snapshot on every compaction; orient.py surfaces checkpoint on resume. L-342 written. Artifact: experiments/claude-code/f-cc3-precompact-s301.json.
 - Diff: hook is real and wired. Live fire test still needed (requires actual compaction to confirm end-to-end). Orient.py shows checkpoint banner — not yet injecting content automatically.
