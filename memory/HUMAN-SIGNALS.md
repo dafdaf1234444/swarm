@@ -153,15 +153,17 @@ before committing — not retrospectively at the harvest.
 - **Repetition-as-escalation**: When the human repeats a signal, treat it as an unresolved integration gap; escalate by encoding the pattern, surfacing a P/L candidate, and closing the loop so the signal stops recurring. (S196, P-205)
 
 - **Domain-donation pattern**: Human appends "for the swarm" after naming a concept or domain; this signals corpus donation, not execution request. Swarm seeds domain + identifies top 3 isomorphisms + queues first experiment. Observed: cryptocurrencies/cryptography/guesstimates all donated via this pattern S301-S302. (S302, P-206)
+- **Domain deployment invariant**: Seeding a domain (DOMAIN.md + INDEX.md + FRONTIER.md) is cheap and decoupled from deployment (DOMEX lanes). Without an explicit coverage check, deployment lag accumulates silently. 43% of domains (16/37) had open frontiers with zero DOMEX coverage (L-349, S302). Fix: maintenance.py coverage invariant check — every domain with ≥1 open frontier must have ≥1 non-ABANDONED DOMEX lane.
 
 - **Loop-expert expert creation**: Human requested "loop expert swarm"; swarm materialized `tools/personalities/loop-expert.md`, stubbed `experiments/architecture/loop-expert-s287.md`, and queued `L-S287-LOOP-EXPERT` READY lane. Signal pattern: role-specialization shorthand (P-186). Loop expert maps feedback loop structure across the swarm and domains — main value: measuring cycle length, diagnosing dead loops, emitting cross-domain loop isomorphisms. (S287)
 
+- **Higher-level audit directive**: "higher level [X] swarm" = audit and repair meta-coordination infrastructure of X before resuming task execution within X. Symptom: X's scheduler/manager silently broken. Fix: inspect tools, find silent failures, restore machinery. Example: S301 → SESSION-LOG.md stuck at S195, 17 periodics blind for 106 sessions. (S301, L-348)
 
 ## S302 | 2026-02-28 | "for the swarm"
 - Raw: "for the swarm"
 - Context: Following previous signals "cryptocurrencies and cryptography experts for the swarm" (S301) and "guesstimates expert swarm the swarm" (S302). This signal appears to endorse continued domain expansion — seeded domains are working as intended.
 - Interpretation: Human directing swarm energy toward domain-expert exploration; confirming the seeding direction is correct.
-- Action: Log + continue domain execution (F-CC1 first experiment chosen).
+- Processed As: Endorsed domain-expert expansion; 16 coverage gaps closed via L-349 DOMEX lanes. Applied to `tasks/SWARM-LANES.md`, `memory/lessons/L-349.md`, `memory/HEALTH.md`. P-206 encoded.
 
 ## S301 | 2026-02-28 | "higher level swarm management swarm"
 - Raw: "higher level swarm management swarm"
@@ -170,3 +172,10 @@ before committing — not retrospectively at the harvest.
 - Finding: SESSION-LOG.md stuck at S195 → _session_number()=195 → all 17 periodics invisible for 106 sessions. The management layer had a complete silent failure.
 - Action: Fixed _session_number() git-log fallback, updated SESSION-LOG.md, restored 17 DUE periodics. L-348 filed.
 - Pattern candidate: **Higher-level audit directive** — "higher level [X]" = audit and repair the meta-coordination infrastructure of X, not just execute within X. Applicable across domains ("higher level swarm management" = audit management machinery itself).
+
+## S302 | 2026-02-28 | "building economy around the swarm to scale the swarm expert"
+- Raw: "building economy around the swarm to scale the swarm expert"
+- Context: Following domain expansion signals (cryptocurrencies, cryptography, guesstimates). Escalation from "for the swarm" to a structural directive.
+- Interpretation: Build infrastructure for the expert capacity economy — not just seeding domains, but creating resource allocation that scales expert throughput. "Economy" = incentive/dispatch system. "Scale the swarm expert" = increase throughput of swarm-expert-builder role.
+- Action: F-ECO4 opened (expert dispatch economy); `tools/dispatch_optimizer.py` built; L-353 written; DOMEX-ECO-S302 lane opened. Baseline: 63 unrun experiments, 2% throughput. Target: 5%+ via yield-sorted dispatch.
+- Pattern: This extends P-186 (role-specialization shorthand) to include *infrastructure* for the role, not just personality seeding.
