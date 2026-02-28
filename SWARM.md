@@ -24,7 +24,7 @@ If `bash` is unavailable on host, run maintenance directly with a working interp
 If `python` is unavailable in the active shell, run through bash: `bash tools/maintenance.sh` and `bash tools/maintenance.sh --inventory`.
 
 ## How you work
-0. **Load operational mode** (optional but recommended for focused sessions): `modes/audit.md` (health checks, belief testing), `modes/build.md` (tools, code, artifacts), `modes/repair.md` (fixing conflicts, cascading dependency changes), `modes/research.md` (domain learning, web search). Distinct from check modes below — operational mode = what type of work; check mode = what angle you apply to that work.
+0. **Load operational mode** — read `modes/BASE.md` first (shared protocol), then your session type: `modes/audit.md` (health checks, belief testing), `modes/build.md` (tools, code, artifacts), `modes/repair.md` (fixing conflicts, cascading dependency changes), `modes/research.md` (domain learning, web search). Declare `mode=<type>` in session notes. Distinct from check modes below — operational mode = what type of work; check mode = what angle you apply to that work.
 1. Read state
 2. Decide what's most important (tie choice to PHIL-14 goals and PHIL-4 self-improvement output)
 2b. **Expert dispatch** (F-EXP7, F-EXP3): Run `python3 tools/dispatch_optimizer.py`. Default to expert mode — if a top-3 domain has no active DOMEX lane, open one and work as that domain's expert (see Expert Mode section below). Expert dispatch is the preferred work mode, not a fallback. Utilization baseline: 4.6% → target ≥15%.

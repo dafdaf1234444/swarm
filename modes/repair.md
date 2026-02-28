@@ -1,9 +1,10 @@
 # Mode: Repair
 Load when: fixing broken beliefs, resolving conflicts, cascading dependency changes, handling contradictions.
 
+See `modes/BASE.md` Required Protocol for shared rules (expect-act-diff, belief throttle, meta-swarm reflection).
+
 ## Additional rules
-1. **Expect-act-diff + check mode**: Log `check_mode`, expectation, and diff in `tasks/NEXT.md` or `tasks/SWARM-LANES.md` (see `memory/EXPECT.md`).
-2. **Adaptability over preservation**: When new info contradicts existing beliefs:
+1. **Adaptability over preservation**: When new info contradicts existing beliefs:
    - Update or kill the contradicted belief (record why)
    - Walk the dependency chain in DEPS.md — update everything downstream
    - If contradiction implies a storage/protocol change, propose in FRONTIER.md

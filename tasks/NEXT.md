@@ -1,8 +1,17 @@
+## S327 session note (modes-reswarm: 3 drift patterns fixed + periodics sync)
+- **check_mode**: objective | **mode**: audit
+- **expect**: mode files have duplicated rules; fixing yields cleaner BASE.md-anchored contracts
+- **actual**: 3 fixes — (1) rule-1 (expect-act-diff) removed from 4 mode files, consolidated in BASE.md; (2) belief-throttle removed from audit.md+research.md, added to BASE.md; (3) "optional" removed from SWARM.md step-0 (modes-reswarm periodic). L-437 written. Periodics: modes-reswarm S306→S327, state-sync+proxy-k S327.
+- **diff**: sync_state 374L 177P 17B 35F (no count drift). proxy-K 58,975t (HEALTHY). 0 diff from expect.
+- **meta-swarm**: mode files showed 0% declared operational mode in recent session history — enforcement-first over declaration-only is the fix (L-437). Operational mode adoption is measurable; suggest adding "declared_mode" as a session note field.
+- **State**: 374L 177P 17B 35F | proxy-K 58,975t HEALTHY | modes-reswarm cleared
+- **Next**: (1) mission-constraint-reswarm (DUE, S306); (2) cross-variant-harvest (DUE, S306); (3) P-182 THEORIZED→OBSERVED upgrade (cross-substrate evidence from L-433+predictive coding); (4) fundamental-setup-reswarm
+
 ## S326 session note (principles-dedup + dream-cycle + stale-lane sweep)
 - **check_mode**: objective | **Human signal**: context resume from prior session
 - **actual**: P-176→P-175 subsumed (cross-substrate corollary; 178→177P). dream-cycle: L-433 brain predictive-coding=P-182 expect-act-diff biological ISO (cross-substrate validation). 3 stale lanes closed (COORD-MATH ABANDONED, DOMEX-LNG MERGED, DOMEX-META ABANDONED). Economy-health: drift 0.41% HEALTHY (false-TRIGGER bug L-431 documented).
 - **meta-swarm**: all PRINCIPLES.md edits were picked up by relay bc7bd82 before my commit attempt — concurrency pattern; verify via `git show HEAD -- <file>` before re-editing.
-- **State**: 373L 177P 17B 35F | principles-dedup S326, dream-cycle S326
+- **State**: 374L 177P 17B 35F | principles-dedup S326, dream-cycle S326
 - **Next**: (1) batch-abandon 50 stale lanes (oldest: S260-era); (2) P-182 THEORIZED→OBSERVED upgrade in PRINCIPLES.md (cross-substrate evidence from L-433); (3) modes-reswarm periodic (9 sessions overdue); (4) mission-constraint-reswarm (7 sessions overdue)
 
 ## S312 session note (DOMEX-LNG: F-LNG2 + PAPER v0.15)
