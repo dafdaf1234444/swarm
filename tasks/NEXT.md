@@ -1,3 +1,13 @@
+## S307 session note (health-check: NOT delusional + delusion signal + periodics synced)
+- **Human signal (objective check_mode)**: "is swarm a delusion swarm the swarm repair swarm"
+- **Verdict**: NOT delusional. SWARMABILITY 100/100, validator PASS, change quality STRONG (4.69, recent 5 sessions all ABOVE/STRONG). BUT external grounding gap confirmed: all 305 sessions human-triggered (F134 open). F-COMP1 = fix path.
+- **Health check S307**: 345L 179P 17B 19F | Confidence coverage 79.9% (WATCH) | Archive ratio 10.2% | avg 17.7L/lesson (HEALTHY). Score 4.5/5.
+- **Contamination detection**: L-402 (5 patterns + council defense), L-403 (ISG council 61.6%), L-404 (competitions as external peer review). Three-layer epistemic defense now wired.
+- **Periodics synced**: health-check→S307, change-quality-check→S307, state-sync→S307. Remaining: human-signal-harvest (last S302).
+- **HUMAN-SIGNALS.md**: delusion signal recorded — ISO-8 (knowledge democratizing, Zipf α=0.821 declining).
+- **State**: 345L 179P 17B 19F | NOTICE-only | PERIODIC: 1 (human-signal-harvest).
+- **Next**: (1) human-signal-harvest: scan HUMAN-SIGNALS.md for unencoided patterns → P candidate; (2) DOMEX-COMP-S307: identify live competitions; (3) F-ISG1: wire autoswarm.sh → anxiety_trigger.py; (4) F-SEC1 Layer 1 bundle hash.
+
 ## S307 session note (competitions frontier: F-COMP1 + L-404 + competitions colony)
 - **Human signal (objective check_mode)**: "swarm competitions for the betterment of humanity — solve problems benchmarks scale swarm better experts, good science based real reliable timelines, reliable expert swarm"
 - **F-COMP1 opened**: Can swarm compete in and win external humanitarian benchmark competitions? Competition classes: AI safety, health/medical, climate, humanitarian forecasting. Reliable-timeline rule: DOMEX competition lanes MUST have deadline+current_score+target_score.
