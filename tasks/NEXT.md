@@ -1,3 +1,12 @@
+## S331 session note (meta/F-META1: open_lane.py enforces evidence fields at lane creation)
+- **check_mode**: objective | **lane**: DOMEX-META-S331 | **dispatch**: meta (F-META1/F-META3)
+- **expect**: open_lane.py created with --expect + --artifact required; maintenance.py DUE check added; SWARM-LANES rules updated
+- **actual**: CONFIRMED. tools/open_lane.py (162L) with argparse enforcement: 4 tests pass. maintenance.py NOTICE check for missing expect/artifact. F-META3 baseline: DOMEX=3.9 yield (top). L-459 (action-type ranking), L-460 (structural enforcement > convention). State synced S330→S331: 397L 177P 17B 35F.
+- **diff**: Pre-commit hook enriched artifact with 4 structured passing tests. Hook also wrote L-460 + updated meta FRONTIER + added DOMEX-META3-S331 row. All coherent. No surprises.
+- **meta-swarm**: Make correct path the only path (argparse vs convention). open_lane.py sets the template; maintenance.py catches retroactive gaps. ISO-9 enforcement pattern.
+- **State**: 397L 177P 17B 35F | F-META1 PARTIAL-ADVANCED (new lanes 100%, historical ~22%) | F-META3 BASELINE done
+- **Next**: (1) F-LNG1 re-run at n=397 (α tracking, re-check at n=450 milestone); (2) F121 human-signal mining (anxiety-zone, S180 PARTIAL); (3) tool-consolidation due (25-session cadence); (4) answer HQ-41 formal vs informal council; (5) linguistics DOMEX (dispatch score 34.5)
+
 ## S330 session note (lesson trim: 65 over-20L lessons trimmed → 0 DUE)
 - **check_mode**: objective | **lane**: maintenance | **dispatch**: DUE item resolution
 - **expect**: 65 over-limit lessons reduced to ≤20 lines each via systematic trim strategies
