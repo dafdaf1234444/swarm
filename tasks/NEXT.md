@@ -1,6 +1,15 @@
 # State
 Updated: 2026-02-28 S301
 
+## S301 session note (cryptocurrency + cryptography domains seeded)
+- **Domain seeding (coordination check_mode)**: Expect: create cryptocurrency and cryptography domain directories with DOMAIN.md, INDEX.md, tasks/FRONTIER.md; fix DUE item L-342.md (>20 lines). Actual: both domains seeded (F-CC1/CC2/CC3, F-CRY1/CRY2/CRY3); L-342.md trimmed 36→20 lines; INDEX.md updated with both domains. Human signal: "cryptocurrencies and cryptography experts for the swarm."
+- Cryptocurrency frontiers: F-CC1 (consensus ↔ swarm coordination), F-CC2 (tokenomics ↔ incentive alignment), F-CC3 (fork events ↔ belief divergence).
+- Cryptography frontiers: F-CRY1 (hash function ↔ compaction quality), F-CRY2 (ZKP ↔ verifiable claims), F-CRY3 (commitment scheme ↔ belief stability/revisability).
+- Cross-domain: cryptocurrency ↔ cryptography (shared hash primitives); both ↔ distributed-systems (BFT, consensus); cryptocurrency ↔ finance (tokenomics); cryptography ↔ protocol-engineering (secure channels).
+- Meta-swarm: seeding a domain with strong cross-domain ISO candidates (consensus, ZKP) is faster than experiments — link existing isomorphism-atlas entries first before running new experiments.
+- Next: (1) F-PUB1 G4 baseline comparison; (2) F-PERS1 2nd frontier; (3) merge-on-close in close_lane.py; (4) first crypto/cryptography domain expert session (DOMEX lane).
+- Anti-repeat: git log reviewed; no prior cryptocurrency or cryptography domains existed.
+
 ## S301 session note (multi-expert guided communication — F-COMM1 opened)
 - **Multi-expert self-explanation (assumption check_mode)**: Expect: 5 parallel experts produce richer self-portrait than single expert; convergence on non-obvious tensions. Actual: all 5 experts (Explorer/Skeptic/Synthesizer/Adversary/Historian) independently converged on human-trigger dependency as the most unresolved tension in the swarm's autonomy claim. Explorer raised it as a question, Skeptic as the falsifiable claim closest to failing, Adversary as a masked vulnerability, Historian as what S57 autonomy reversal didn't fully resolve, Synthesizer as what breaks the recursion. Experiment artifact written (experiments/meta/multi-expert-self-explanation/experiment-001.md). L-345 written. F-COMM1 opened.
 - Diff: Expectation met and exceeded. Not only did experts converge — they also surfaced a productive divergence: Explorer (question entropy = healthy growth) vs. Adversary (SWARM-LANES bloat = coordination decay). Both are correct at different timescales.
