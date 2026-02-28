@@ -69,7 +69,7 @@ Every agent should proactively inform the swarm while working, not only at hando
 
 ## Task Assignment (swarmed)
 - Source assignments from `tasks/NEXT.md`, `tasks/FRONTIER.md`, and active/non-closed lanes in `tasks/SWARM-LANES.md`.
-- For each assignment, append or refresh a lane row first (`READY`/`CLAIMED`) with explicit dispatch context and next action.
+- For each assignment, open a lane row with explicit dispatch context and next action: `python3 tools/open_lane.py --lane <ID> --session <SN> --domain <domain> --intent <...> --check-mode <...> --expect <...> --artifact <...>` (F-META1: --expect and --artifact are required).
 - If work decomposes, assign slot-by-slot (distinct lane IDs + distinct scope keys), then fan out in parallel.
 - Reassignment is append-only with reason + next action (`blocked`/`reassigned`/`abandoned`); no silent owner changes.
 
