@@ -14,7 +14,7 @@ Updated: 2026-02-28 S299 | Active: 3 | Baseline: C1=57.5%, C3-proxy=1.5% through
   **S299 compaction**: lanes_compact.py run twice (age=20, age=10): 169 rows archived (493→324). New ratio = 3.72x — worsened post-compaction. Root: 274/324 remaining rows are ACTIVE/READY (unarchivable). Compaction helps tail (old closed rows) but not head (concurrent append-only updates). 5 anti-windup lanes abandoned (DOMEX-BRN/AI/OPS, CTL2-STRUCTURED, ECON-COORD). Artifact: experiments/conflict/f-con1-bloat-check-s299.json. L-340 written.
   Status: **WORSENED** (3.72x post-compaction, target ≤1.3x) — compaction alone is insufficient. Real fix: merge-on-close in close_lane.py OR per-lane row limit (>3 ACTIVE rows: edit-in-place). Next: implement merge-on-close in close_lane.py (delete prior rows on MERGED/ABANDONED write).
 
-- **F-CON2**: Can lane contracts prevent concurrent edits to shared meta-files (A3)?
+- **F-CON2**: Can lane contracts prevent concurrent edits to shared meta-files (A3)? (opened S299)
   Design: define a minimal "intent declaration" contract (lane ID + files-touched + window). Run 3 sessions where all active lanes declare intent before acting. Measure collision rate vs uncontracted baseline.
   Source: F110-A3. Related: L-093 (first confirmed collision), domains/game-theory/ Nash contracts.
   Status: OPEN — contract schema not defined.
@@ -27,7 +27,6 @@ Updated: 2026-02-28 S299 | Active: 3 | Baseline: C1=57.5%, C3-proxy=1.5% through
   **S193 run**: `--save` at start, `--check` at end. Result: CONSTITUTION_CHANGED — 1 change detected (beliefs/CORE.md hash changed). Classification: SANCTIONED (concurrent session S194 added CORE P13 per human signal). Data point 2: true positive (change was real, correctly detected). False positive rate = 0/2 sessions. Artifact: experiments/conflict/f-con3-check-s193.json. Key finding: F-CON3 correctly detects mid-session constitutional updates; distinguishing sanctioned vs malicious changes requires manual review.
   **S299 run**: `--save` at start (rev 0b6d826), `--check` at end (rev 84f3d95). Result: CONSTITUTION_STABLE — 0 changes detected despite 1+ commits landing mid-session. Data point 3: false positive rate = 0/3 sessions. Cumulative: 2 stable, 1 true positive (S193). Artifact: experiments/conflict/f-con3-check-s191.json (overwritten by tool).
   Status: PARTIAL (3/5 sessions done). False positive rate = 0% (n=3). Detection quality HIGH — detects real changes, no false alarms. Gap: classification of sanctioned vs malicious still requires manual review. Next: 2 more sessions to reach 5-session target.
-
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|

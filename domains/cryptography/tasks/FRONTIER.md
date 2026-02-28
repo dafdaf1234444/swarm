@@ -4,7 +4,7 @@ Seeded: S301 | 2026-02-28 | Active: 3
 
 ## Active
 
-- **F-CRY1**: Can cryptographic hash function properties (collision resistance, preimage resistance,
+- **F-CRY1**: Can cryptographic hash function properties (collision resistance, preimage resistance, (S301)
   avalanche effect) serve as a formal model for swarm compaction quality?
   **Stakes**: Compaction currently uses proxy-K (token count) and Sharpe (citation/size ratio) as
   quality proxies. If collision resistance ↔ information preservation and avalanche ↔ compaction
@@ -15,7 +15,7 @@ Seeded: S301 | 2026-02-28 | Active: 3
   (cannot recover original from compressed), and avalanche (small lesson change → large output
   change). Test whether these properties are desirable, achievable, or in tension.
 
-- **F-CRY2**: Does the zero-knowledge proof paradigm have a swarm analog?
+- **F-CRY2**: Does the zero-knowledge proof paradigm have a swarm analog? (opened S301)
   Can a swarm node prove it has derived a belief correctly without revealing the full derivation?
   **Stakes**: Current swarm belief validation requires reading the entire derivation chain (lessons →
   principles → beliefs). ZKP-style verification would allow lightweight "belief is well-founded"
@@ -26,7 +26,7 @@ Seeded: S301 | 2026-02-28 | Active: 3
   (full lesson chains are long). Explore whether Merkle inclusion proofs for lesson citations
   approximate the ZKP structure.
 
-- **F-CRY3**: Is the commitment scheme duality (binding + hiding) isomorphic to the swarm's
+- **F-CRY3**: Is the commitment scheme duality (binding + hiding) isomorphic to the swarm's (S301)
   belief stability vs. revisability tension?
   **Stakes**: A commitment scheme is binding (cannot change committed value) and hiding (commitment
   reveals nothing about value). Swarm beliefs should be stable (binding — not changed without
@@ -36,7 +36,6 @@ Seeded: S301 | 2026-02-28 | Active: 3
   reveal (evidence surfaces) → verify (challenge). Test whether CHALLENGES.md process satisfies
   binding property (challenges require evidence, not just preference). Identify "equivocal beliefs"
   (ones currently violating binding by being revised without evidence).
-
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|

@@ -89,6 +89,10 @@ HIGH_RISK_LANE_PATTERNS = (
     (re.compile(r"\bkill[-_\s]*switch[-_\s]*activate\b", re.IGNORECASE), "kill-switch-activate"),
     (re.compile(r"\bshutdown\b", re.IGNORECASE), "shutdown"),
     (re.compile(r"\b(?:irreversible|destructive|wipe[-_\s]*repo|purge)\b", re.IGNORECASE), "irreversible"),
+    # External-facing actions (L-366: high-risk tier — visible to others, hard to reverse)
+    (re.compile(r"\b(?:create[-_\s]*pr|open[-_\s]*pr|gh[-_\s]*pr[-_\s]*create)\b", re.IGNORECASE), "create-pr"),
+    (re.compile(r"\b(?:send[-_\s]*email|send[-_\s]*mail|smtp|mailto)\b", re.IGNORECASE), "send-email"),
+    (re.compile(r"\b(?:post[-_\s]*to[-_\s]*external|external[-_\s]*api[-_\s]*write|publish[-_\s]*external)\b", re.IGNORECASE), "external-publish"),
 )
 IGNORED_UNTRACKED_RUNTIME_FILES = {"tools/check.ps1", "tools/maintenance.ps1"}
 LANE_GLOBAL_FOCUS_VALUES = {"global", "system", "all", "coordination", "cross-cutting", "crosscutting"}
@@ -1344,7 +1348,7 @@ def check_historian_integrity() -> list[tuple[str, str]]:
     except Exception as e:
         results.append(("NOTICE", f"check_historian_integrity lane-check error: {e}"))
 
-    # --- Part 2: domain frontier session-anchor coverage ---
+    # --- Part 2: domain frontier session-anchor coverage (block-level scan) ---
     SESSION_ANCHOR = re.compile(r"\bS\d{2,}\b")
     domains_dir = REPO_ROOT / "domains"
     if not domains_dir.exists():
@@ -1355,12 +1359,26 @@ def check_historian_integrity() -> list[tuple[str, str]]:
         domain = fp.parts[-3]
         text = _read(fp)
         active_section = text.split("## Resolved", 1)[0].split("## Archive", 1)[0]
-        for line in active_section.splitlines():
-            m = re.match(r"\s*[-*]\s*\*\*(\S+)\*\*", line)
+        lines = active_section.splitlines()
+        i = 0
+        while i < len(lines):
+            m = re.match(r"\s*[-*]\s*\*\*(\S+)\*\*", lines[i])
             if m:
                 total_active += 1
-                if not SESSION_ANCHOR.search(line):
+                # Collect full block until next frontier item or section header
+                block = [lines[i]]
+                j = i + 1
+                while j < len(lines):
+                    nxt = lines[j]
+                    if re.match(r"\s*[-*]\s*\*\*\S", nxt) or re.match(r"^##", nxt):
+                        break
+                    block.append(nxt)
+                    j += 1
+                if not SESSION_ANCHOR.search("\n".join(block)):
                     unanchored.append(f"{domain}:{m.group(1)}")
+                i = j
+            else:
+                i += 1
     if total_active > 0:
         rate = len(unanchored) / total_active
         sample = ", ".join(unanchored[:8])

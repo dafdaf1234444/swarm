@@ -25,7 +25,7 @@ Seeded: S301 | 2026-02-28 | Active: 2 | Last updated: S302
   production — F-QC1 gate hardened to check.sh; G-CC2-3 reinforces G-CC-1). See L-356,
   f-cc2-tokenomics-incentive-design-s302.json.
 
-- **F-CC3**: Are blockchain fork events isomorphic to swarm belief divergence events? Does the
+- **F-CC3**: Are blockchain fork events isomorphic to swarm belief divergence events? Does the (S301)
   "longest chain wins" rule have a swarm analog for resolving competing lesson lineages?
   **Stakes**: Swarm has no formal fork-resolution rule — concurrent sessions sometimes write
   contradictory lessons (L-343 vs earlier calibration, for example). If blockchain fork-choice
@@ -33,7 +33,6 @@ Seeded: S301 | 2026-02-28 | Active: 2 | Last updated: S302
   **Method**: Catalog known swarm belief divergences from CHALLENGES.md and SWARM-LANES history.
   Model each as a fork event. Test whether chain-weight (citation count) or age-normalized Sharpe
   predicts which belief line "wins" in practice.
-
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|

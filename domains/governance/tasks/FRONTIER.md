@@ -12,14 +12,13 @@ Updated: 2026-02-28 S304 | Active: 4
   **S302 First instance**: Minimum Swarmed Cycle missing from .cursorrules + .windsurfrules. Fixed this session. No automated scanner — drift will recur silently.
   Status: **PARTIAL** — first instance found + fixed. Scanner needed.
 
-- **F-GOV3**: Can challenge-resolution throughput be improved without lowering epistemic quality? Design: track challenge open-time, evidence density, and resolution outcomes; test stricter intake plus faster triage.
+- **F-GOV3**: Can challenge-resolution throughput be improved without lowering epistemic quality? Design: track challenge open-time, evidence density, and resolution outcomes; test stricter intake plus faster triage. (S304)
   Status: OPEN — challenge rate currently 0 pending; throughput baseline not yet measured.
 
 - **F-GOV4**: Can a multi-expert council with voting govern when genesis experiments are allowed to run? Design: council of 4 roles (expectation-expert, skeptic, genesis-expert, opinions-expert) reviews proposals; Expectation Expert casts axis-scored vote (specificity + falsifiability + evidence); quorum of 3/4 votes required; chair (council-expert) issues memo. Protocol written at `domains/governance/GENESIS-COUNCIL.md`. Timing policy: ≥3 session gap between genesis experiments; human escalation for irreversible actions.
   **S304 Baseline**: protocol designed, `expectation-expert.md` personality created, council composition defined (4 voting roles + chair). No proposals yet — 0 experiments gated.
   **S303 First Vote**: sub-colony-gov3 reviewed (4/4 roles, quorum met). Decision: CONDITIONAL. Expectation Expert APPROVE (0.89); Skeptic CONDITIONAL (need ≥1 in-flight challenge or synthetic); Genesis Expert CONDITIONAL (nested bootstrap path untested, parent registration needed). Opinions Expert NEUTRAL. 3 conditions to resolve in S307+. Artifact: `experiments/genesis/sub-colony-gov3-S303.md`.
   Status: **PARTIAL+** — first real council vote completed; CONDITIONAL decision; mechanics validated; 3 conditions pending execution.
-
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|

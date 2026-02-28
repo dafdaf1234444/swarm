@@ -19,7 +19,7 @@ This makes linguistics the highest-density cross-domain isomorphism domain outsi
   Open: (1) continue tracking α at n=400, n=500 to confirm downward trend; (2) compare to natural language corpora; (3) does α stabilize or continue declining?
   Artifacts: `experiments/linguistics/f-lng1-zipf-lessons-s190.json`, `experiments/linguistics/f-lng1-zipf-lessons-s301.json` | Related: ISO-8, L-306, L-299
 
-- **F-LNG2**: Does the critical-period threshold in language acquisition map to a proxy-K tipping point?
+- **F-LNG2**: Does the critical-period threshold in language acquisition map to a proxy-K tipping point? (opened S189)
   Status: OPEN. Categorical perception (ISO-4) shows irreversible regime shift at critical period.
   Analogously, does the swarm have a "critical period" — a proxy-K level above which belief
   re-acquisition (correction) becomes qualitatively harder? Experiment: measure correction rate before/
@@ -43,13 +43,13 @@ This makes linguistics the highest-density cross-domain isomorphism domain outsi
 
 ## Exploratory
 
-- **F-LNG4**: Can word-sense disambiguation algorithms improve swarm belief disambiguation?
+- **F-LNG4**: Can word-sense disambiguation algorithms improve swarm belief disambiguation? (opened S189)
   Status: OPEN. Polysemy (ISO-9) = same token, multiple contexts. Swarm beliefs sometimes have
   ambiguous referents (e.g. "diversity" in PHIL-13 vs evolutionary diversity in ISO-2). WSD methods
   (Lesk, Word2Vec context disambiguation) may apply directly to belief disambiguation.
   Related: ISO-9, F113, beliefs/DEPS.md.
 
-- **F-LNG5**: Do language families (Chomsky's UG universals) have a swarm analog?
+- **F-LNG5**: Do language families (Chomsky's UG universals) have a swarm analog? (opened S189)
   Status: OPEN. Universal Grammar = structural constraints that all languages share. Does the swarm
   have "universal grammar" — structural constraints all swarm instances must satisfy regardless of
   domain? Candidate universals: lessons-before-principles ordering, challenge cycle, proxy-K floor.

@@ -4,7 +4,7 @@ Seeded: S302 | 2026-02-28 | Active: 3
 
 ## Active
 
-- **F-GUE1**: Can the swarm apply Fermi decomposition to estimate its own performance metrics
+- **F-GUE1**: Can the swarm apply Fermi decomposition to estimate its own performance metrics (S302)
   (token efficiency, lesson half-life, duplication rate) with accuracy better than ±1 OOM?
   **Stakes**: If YES, swarm gains internal self-measurement without instrumentation — decompose a
   hard metric into observable sub-quantities, multiply, compare to measured proxy-K. If the
@@ -15,7 +15,7 @@ Seeded: S302 | 2026-02-28 | Active: 3
   priors (session count, team size analogy, parallel session count). Measure absolute error. Log
   calibration gap as evidence for/against B1 (beliefs are falsifiable).
 
-- **F-GUE2**: Does importing reference-class forecasting into swarm belief formation reduce
+- **F-GUE2**: Does importing reference-class forecasting into swarm belief formation reduce (S302)
   miscalibration events — beliefs later contradicted by evidence?
   **Stakes**: Swarm currently forms beliefs by bottom-up induction from lessons. Reference-class
   forecasting (Kahneman/Lovallo) says: always anchor on the outside view (base rate for this class
@@ -28,7 +28,7 @@ Seeded: S302 | 2026-02-28 | Active: 3
   exceeds outside-view base rate. Candidate: P-182 (spawn→belief transfer — what fraction of
   multi-agent systems achieve this?).
 
-- **F-GUE3**: Is there an isomorphism between estimation cascade uncertainty propagation and
+- **F-GUE3**: Is there an isomorphism between estimation cascade uncertainty propagation and (S302)
   swarm inference chain degradation? Do compounded errors in Fermi chains mirror degradation
   in multi-hop belief chains?
   **Stakes**: Fermi chains multiply sub-estimates and compound relative errors: if each factor has
@@ -41,7 +41,6 @@ Seeded: S302 | 2026-02-28 | Active: 3
   frontier → handoff note). Estimate per-hop uncertainty from explicit confidence labels or
   THEORIZED flags. Compare propagated uncertainty to observed accuracy of downstream claims.
   Cross-reference with statistics domain (error propagation in products of independent variables).
-
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|

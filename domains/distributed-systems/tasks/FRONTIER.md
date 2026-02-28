@@ -15,10 +15,9 @@ Updated: 2026-02-27 | Active: 3
   coordinated-recovery (K_out avg 12.8, 3 bugs) vs fail-fast (K_out avg 1.9, 0 bugs).
   **Next**: Replicate on Consul. etcd errcheck status unknown (HUMAN-QUEUE HQ-3).
 
-- **F15-DS**: Does the CAP theorem (B15) hold under Jepsen testing conditions?
+- **F15-DS**: Does the CAP theorem (B15) hold under Jepsen testing conditions? (opened S45)
   B15 is theorized. Path to observed: 3-node KV store + iptables partition + verify linearizability
   vs availability tradeoff. See B15 in beliefs/DEPS.md.
-
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
