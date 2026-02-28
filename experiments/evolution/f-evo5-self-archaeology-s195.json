@@ -4,15 +4,15 @@
     "date": "2026-02-28"
   },
   "current_scale": {
-    "session": 191,
-    "date": null,
-    "L": 298,
-    "P": 175,
-    "B": 17,
-    "F": 25,
-    "source": "SESSION-LOG"
+    "session": 313,
+    "date": "2026-02-28",
+    "L": 361,
+    "P": 179,
+    "B": null,
+    "F": null,
+    "source": "git-log"
   },
-  "size_timeline_sessions": 62,
+  "size_timeline_sessions": 68,
   "size_timeline": {
     "62": {
       "session": 62,
@@ -571,6 +571,60 @@
       "B": 17,
       "F": 25,
       "source": "SESSION-LOG"
+    },
+    "194": {
+      "session": 194,
+      "date": null,
+      "L": 308,
+      "P": 176,
+      "B": 17,
+      "F": 29,
+      "source": "SESSION-LOG"
+    },
+    "195": {
+      "session": 195,
+      "date": null,
+      "L": 310,
+      "P": 176,
+      "B": 17,
+      "F": 29,
+      "source": "SESSION-LOG"
+    },
+    "301": {
+      "session": 301,
+      "date": null,
+      "L": 312,
+      "P": 178,
+      "B": 17,
+      "F": 31,
+      "source": "SESSION-LOG"
+    },
+    "306": {
+      "session": 306,
+      "date": null,
+      "L": 339,
+      "P": 179,
+      "B": 17,
+      "F": 18,
+      "source": "SESSION-LOG"
+    },
+    "307": {
+      "session": 307,
+      "date": "2026-02-28",
+      "L": 347,
+      "P": 180,
+      "B": null,
+      "F": null,
+      "source": "git-log"
+    },
+    "313": {
+      "session": 313,
+      "date": "2026-02-28",
+      "L": 361,
+      "P": 179,
+      "B": null,
+      "F": null,
+      "source": "git-log"
     }
   },
   "growth_phases": [
@@ -617,7 +671,7 @@
       "L_per_session": 5.3
     }
   ],
-  "tool_births_total": 148,
+  "tool_births_total": 163,
   "tool_births_by_category": {
     "ai-behavior": 2,
     "brain": 2,
@@ -625,21 +679,76 @@
     "conflict": 2,
     "control": 6,
     "economy": 1,
-    "evolution": 9,
+    "evolution": 10,
     "finance": 2,
     "gaming": 8,
     "history": 4,
     "linguistics": 1,
-    "meta": 9,
+    "meta": 10,
     "operations": 12,
-    "ops-core": 14,
-    "ops-lane": 2,
-    "other": 65,
+    "ops-core": 15,
+    "ops-lane": 3,
+    "other": 76,
     "psychology": 2,
     "quality": 1
   },
   "tool_births_detail": {
     "other": [
+      {
+        "tool": "swarm_council.py",
+        "session": 307,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "anxiety_trigger.py",
+        "session": 307,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "dispatch_tracker.py",
+        "session": 305,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "colony_interact.py",
+        "session": 304,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "f_act1_action_recommender.py",
+        "session": 304,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "swarm_colony.py",
+        "session": 302,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "dispatch_optimizer.py",
+        "session": 301,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "contamination_investigator.py",
+        "session": 286,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "info_flow_map.py",
+        "session": 286,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "test_info_flow_map.py",
+        "session": 286,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "pre-tool-git-safe.py",
+        "session": 193,
+        "date": "2026-02-28"
+      },
       {
         "tool": "eval_sufficiency.py",
         "session": 194,
@@ -966,54 +1075,29 @@
         "date": "2026-02-26"
       }
     ],
-    "meta": [
+    "ops-lane": [
       {
-        "tool": "personality_audit.py",
-        "session": 194,
+        "tool": "test_close_lane.py",
+        "session": 299,
         "date": "2026-02-28"
       },
       {
-        "tool": "farming_expert.py",
-        "session": 189,
-        "date": "2026-02-28"
-      },
-      {
-        "tool": "paper_extractor.py",
-        "session": 188,
-        "date": "2026-02-28"
-      },
-      {
-        "tool": "economy_expert.py",
-        "session": 188,
-        "date": "2026-02-28"
-      },
-      {
-        "tool": "harvest_expert.py",
-        "session": 187,
-        "date": "2026-02-28"
-      },
-      {
-        "tool": "test_harvest_expert.py",
-        "session": 187,
-        "date": "2026-02-28"
-      },
-      {
-        "tool": "f_is6_unchallenged_beliefs.py",
+        "tool": "close_lane.py",
         "session": 186,
-        "date": "2026-02-27"
+        "date": "2026-02-28"
       },
       {
-        "tool": "test_f_is6_unchallenged_beliefs.py",
-        "session": 186,
-        "date": "2026-02-27"
-      },
-      {
-        "tool": "paper_drift.py",
-        "session": 150,
+        "tool": "test_swarm_lanes.py",
+        "session": 159,
         "date": "2026-02-27"
       }
     ],
     "ops-core": [
+      {
+        "tool": "pre-compact-checkpoint.py",
+        "session": 299,
+        "date": "2026-02-28"
+      },
       {
         "tool": "lanes_compact.py",
         "session": 192,
@@ -1085,26 +1169,64 @@
         "date": "2026-02-25"
       }
     ],
-    "conflict": [
+    "meta": [
       {
-        "tool": "f_con3_constitution_monitor.py",
-        "session": 191,
+        "tool": "generalizer_expert.py",
+        "session": 197,
         "date": "2026-02-28"
       },
       {
-        "tool": "f_con1_conflict_baseline.py",
-        "session": 188,
+        "tool": "personality_audit.py",
+        "session": 194,
         "date": "2026-02-28"
-      }
-    ],
-    "linguistics": [
+      },
       {
-        "tool": "f_lng1_zipf_lessons.py",
+        "tool": "farming_expert.py",
         "session": 189,
         "date": "2026-02-28"
+      },
+      {
+        "tool": "paper_extractor.py",
+        "session": 188,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "economy_expert.py",
+        "session": 188,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "harvest_expert.py",
+        "session": 187,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "test_harvest_expert.py",
+        "session": 187,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "f_is6_unchallenged_beliefs.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_f_is6_unchallenged_beliefs.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "paper_drift.py",
+        "session": 150,
+        "date": "2026-02-27"
       }
     ],
     "evolution": [
+      {
+        "tool": "f_evo5_self_archaeology.py",
+        "session": 194,
+        "date": "2026-02-28"
+      },
       {
         "tool": "f_evo1_lane_diversity.py",
         "session": 189,
@@ -1149,6 +1271,25 @@
         "tool": "belief_evolve.py",
         "session": 42,
         "date": "2026-02-26"
+      }
+    ],
+    "conflict": [
+      {
+        "tool": "f_con3_constitution_monitor.py",
+        "session": 191,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "f_con1_conflict_baseline.py",
+        "session": 188,
+        "date": "2026-02-28"
+      }
+    ],
+    "linguistics": [
+      {
+        "tool": "f_lng1_zipf_lessons.py",
+        "session": 189,
+        "date": "2026-02-28"
       }
     ],
     "gaming": [
@@ -1237,18 +1378,6 @@
         "tool": "bulletin.py",
         "session": null,
         "date": "2026-02-26"
-      }
-    ],
-    "ops-lane": [
-      {
-        "tool": "close_lane.py",
-        "session": 186,
-        "date": "2026-02-28"
-      },
-      {
-        "tool": "test_swarm_lanes.py",
-        "session": 159,
-        "date": "2026-02-27"
       }
     ],
     "brain": [
@@ -1416,7 +1545,7 @@
       }
     ]
   },
-  "domain_births_total": 31,
+  "domain_births_total": 39,
   "domain_births_by_session": {
     "50": [
       "distributed-systems",
@@ -1474,6 +1603,22 @@
     ],
     "194": [
       "claude-code"
+    ],
+    "196": [
+      "graph-theory"
+    ],
+    "301": [
+      "catastrophic-risks",
+      "guesstimates",
+      "cryptocurrency",
+      "cryptography"
+    ],
+    "303": [
+      "expert-swarm"
+    ],
+    "307": [
+      "human-systems",
+      "security"
     ]
   },
   "domain_burst_sessions": {
@@ -1497,6 +1642,12 @@
       "quality",
       "conflict",
       "economy"
+    ],
+    "301": [
+      "catastrophic-risks",
+      "guesstimates",
+      "cryptocurrency",
+      "cryptography"
     ]
   },
   "all_domains": {
@@ -1507,6 +1658,10 @@
     "brain": {
       "session": 182,
       "date": "2026-02-27"
+    },
+    "catastrophic-risks": {
+      "session": 301,
+      "date": "2026-02-28"
     },
     "claude-code": {
       "session": 194,
@@ -1519,6 +1674,14 @@
     "control-theory": {
       "session": 186,
       "date": "2026-02-27"
+    },
+    "cryptocurrency": {
+      "session": 301,
+      "date": "2026-02-28"
+    },
+    "cryptography": {
+      "session": 301,
+      "date": "2026-02-28"
     },
     "distributed-systems": {
       "session": 50,
@@ -1539,6 +1702,10 @@
     "evolution": {
       "session": 186,
       "date": "2026-02-27"
+    },
+    "expert-swarm": {
+      "session": 303,
+      "date": "2026-02-28"
     },
     "farming": {
       "session": 188,
@@ -1564,6 +1731,14 @@
       "session": 186,
       "date": "2026-02-27"
     },
+    "graph-theory": {
+      "session": 196,
+      "date": "2026-02-28"
+    },
+    "guesstimates": {
+      "session": 301,
+      "date": "2026-02-28"
+    },
     "health": {
       "session": 180,
       "date": "2026-02-27"
@@ -1575,6 +1750,10 @@
     "history": {
       "session": 186,
       "date": "2026-02-27"
+    },
+    "human-systems": {
+      "session": 307,
+      "date": "2026-02-28"
     },
     "information-science": {
       "session": 183,
@@ -1610,6 +1789,10 @@
     },
     "quality": {
       "session": 188,
+      "date": "2026-02-28"
+    },
+    "security": {
+      "session": 307,
       "date": "2026-02-28"
     },
     "social-media": {

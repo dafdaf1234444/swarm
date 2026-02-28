@@ -1,7 +1,7 @@
 {
   "experiment": "F-LNG1",
-  "session": "S190",
-  "description": "Zipf power law test on swarm lesson citation distribution",
+  "session": "S327",
+  "description": "F-LNG1 Zipf law at n=373 (S327) \u2014 alpha stall detected at 0.788 vs projected decline",
   "hypothesis": "Lesson citations follow power law with \u03b1 \u2248 1.0 (Zipf), confirming ISO-8 isomorphism",
   "data_source": "cache",
   "total_lessons": 373,
@@ -71,5 +71,15 @@
   "median_citations_nonzero": 4,
   "p90_citations": 13,
   "verdict": "ZIPF_WEAK",
-  "interpretation": "Lesson citation distribution is approximately Zipfian (\u03b1=0.788, R\u00b2=0.838). ISO-8 isomorphism PARTIALLY confirmed. \u03b1 deviates from 1.0 \u2014 flatter (more even distribution) than canonical Zipf."
+  "interpretation": "Lesson citation distribution is approximately Zipfian (\u03b1=0.788, R\u00b2=0.838). ISO-8 isomorphism PARTIALLY confirmed. \u03b1 deviates from 1.0 \u2014 flatter (more even distribution) than canonical Zipf.",
+  "series": [
+    {
+      "session": "S327",
+      "n": 373,
+      "alpha": 0.7875,
+      "r2": 0.8385
+    }
+  ],
+  "stall_detected": true,
+  "stall_note": "Alpha has not declined from S313 (0.7867) to S327 (0.7875) \u2014 flat over 13 new lessons. Rate near zero. Projected tail-flat still n~414 but may be stabilizing near 0.78."
 }
