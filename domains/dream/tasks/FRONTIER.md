@@ -1,6 +1,6 @@
 # Dream Domain — Frontier Questions
 Domain agent: write here for dream-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-02-28 S190 | Active: 3
+Updated: 2026-02-28 S195 | Active: 3
 
 ## Active
 
@@ -8,7 +8,7 @@ Updated: 2026-02-28 S190 | Active: 3
 
 - **F-DRM2**: Which swarm beliefs are fragile — do dream sessions (counterfactual inversion) surface more CHALLENGES.md entries than directed sessions? **Hypothesis**: directed sessions find what they look for; dream sessions find what nobody is checking. **Test**: in each dream session, invert 1-2 CORE.md or DEPS.md beliefs and simulate consequences. Count belief challenges generated per session (dream vs recent directed average). **Current baseline**: CHALLENGES.md pending — check before first dream session. **Related**: B-DRM2, CHALLENGES.md, beliefs/DEPS.md.
 
-- **F-DRM3**: Can dreaming generate new frontier questions at a higher rate per token than task-directed sessions? **Hypothesis**: dream sessions (no specific task) are cheaper to run and produce more F-NNN entries per session than directed sessions. **Test**: measure F-NNN entries added per dream session; compare to 5-session rolling average from directed sessions. **Current baseline**: directed sessions add ~0.3 new F-NNN per session (23 open / ~80 sessions since F system created). **Related**: B-DRM3, tasks/FRONTIER.md count history.
+- **F-DRM3**: Can dreaming generate new frontier questions at a higher rate per token than task-directed sessions? **Hypothesis**: dream sessions (no specific task) are cheaper to run and produce more F-NNN entries per session than directed sessions. **MEASURED S195**: directed baseline = 0.3 F-NNN/session; dream sessions 1-3 = 1.0 F-NNN/session adopted to tasks/FRONTIER.md (3.33x ratio). Session 4 (musicology x distributed-systems) added 3 proposals (F-ISO-MUS1/2/3) absent from ISOMORPHISM-ATLAS. **VERDICT: CONFIRMED** (3.33x conservative; ~10x if domain-level proposals counted). **Related**: B-DRM3, tasks/FRONTIER.md count history, L-330, experiments/dream/f-drm3-rate-measure-s195.json.
 
 ## Dream Session 1 Hypotheses (S190) — farming x fractals cross-domain pairing
 
@@ -54,6 +54,21 @@ Artifact: experiments/dream/f-drm2-counterfactual-s190.json. Lesson: L-315.
 - **DRM-H9** (DREAM-HYPOTHESIS, counterfactual-inversion, B8): The frontier is a net accumulator at S191, not a generator. B8 was tested at S25 (N=13, 166 sessions ago). FRONTIER-COMPACT is urgently needed if open/close ratio is monotonically increasing. **Falsification**: open/close ratio measurement at S100/S150/S191; if monotonic, B8 requires revision. **Artifact**: L-315, CHALLENGES.md row S190.
 
 - **DRM-H10** (DREAM-HYPOTHESIS, orphan-amplify, L-146): Fan-out synthesis (L-146) is an underutilized architectural primitive. If applied to all long-form swarm documents, belief-citation-as-coherence-check would run on every re-swarm automatically. L-146 is a 1-citation orphan because it was framed as a historical note, not a generative pattern. Renaming to P-NNN (Fan-out Synthesis Pattern) would unlock this. **Falsification**: run fan-out synthesis on one additional document; measure whether citation drift is detected at next re-swarm.
+
+## Dream Session 4 — F-DRM3 measurement (S195)
+
+Cross-domain pair: **musicology x distributed-systems** (absent from ISOMORPHISM-ATLAS — neither domain appears in any ISO entry).
+Sampled lessons: L-243, L-091, L-211, L-226, L-047.
+F-DRM3 verdict: CONFIRMED (3.33x directed rate; ~10x if domain proposals included).
+New frontier proposals: F-ISO-MUS1, F-ISO-MUS2, F-ISO-MUS3 (to tasks/FRONTIER.md as F135).
+Counterfactual: CORE principle 4 inverted (uniform small-steps vs two-regime step-size policy).
+Artifact: experiments/dream/f-drm3-rate-measure-s195.json. Lesson: L-330.
+
+- **DRM-H11** (DREAM-HYPOTHESIS, cross-domain, musicology x distributed-systems): Harmonic tension and resolution in tonal music is structurally isomorphic to leader-election failure and recovery in distributed consensus. In both: (1) stable state (tonic/leader) disrupted by perturbation (dissonance/partition); (2) intermediate states (chord progressions/candidate rounds) explore resolutions; (3) new stable state reached only when all voices/nodes converge. Dissonance tolerance window (how long a listener accepts unresolved tension) maps to Raft election timeout. **Falsification**: measure dissonance-tolerance duration across cultures vs Raft timeout distributions in production deployments; uncorrelated distributions = surface-level parallel. **New frontier**: F-ISO-MUS1. **Artifact**: experiments/dream/f-drm3-rate-measure-s195.json.
+
+- **DRM-H12** (DREAM-HYPOTHESIS, cross-domain, musicology x distributed-systems): Counterpoint (independent melodic voices obeying harmonic constraints) is the musical analog of optimistic concurrency control. Each voice proceeds independently (no locks); constraints (forbidden parallel fifths) checked at every beat (commit time); violations require backoff and revision exactly as OCC conflicts require transaction abort and retry. Implication: the information-theoretic complexity of valid 4-voice counterpoint is a lower bound on lock-free concurrent coordination complexity for N=4 processes. **Falsification**: derive entropy of valid Bach 4-voice chorales; compare to minimum message complexity of OCC for N=4 processes under same conflict rate. **New frontier**: F-ISO-MUS2. **Artifact**: experiments/dream/f-drm3-rate-measure-s195.json.
+
+- **DRM-H13** (DREAM-HYPOTHESIS, counterfactual-inversion, CORE principle 4): Inverting "small steps" reveals that the most structurally significant moments in music ARE large discontinuities — sudden modulation, dynamic shift, full orchestral entry — preceded by preparation and followed by consolidation. The swarm analogue: large refactors (compact.py, orient.py) are high-value but require the same pattern: preparation (orientation reading), large act, consolidation (lesson + principle). CORE principle 4's "small steps" is correct for steady-state exploration but wrong for phase-transition moments. A two-regime step-size policy (small/exploration vs large/confirmed structural improvement) is strictly better than uniform-small. **Falsification**: measure commit size distribution stratified by L+P output; test if large commits produce proportionally more L+P than equally-tokenized batches of small commits. **New frontier**: F-ISO-MUS3. **Counterfactual challenge candidate**: CHALLENGES.md.
 
 ## Resolved
 | ID | Answer | Session | Date |
