@@ -9,7 +9,8 @@ Updated: 2026-02-28 | Active: 1
   **S305 self-analysis**: NK applied to swarm's own lesson citation graph (N=325, K_avg=0.77, 61.5% orphans, 0 cycles). Architecture: FRAGMENTED_ISLAND. L-385. Artifact: experiments/nk-complexity/f9-nk-self-analysis-s305.json.
   **S312 tracking**: N=357, K_avg=1.028 (crossed 1.0 threshold), uncited=54.3%, cycles=0. Architecture: TRANSITION_ZONE. L-421. Artifact: experiments/nk-complexity/f9-nk-self-analysis-s312.json. F75 note: still below 1.5 (data-parallel still wins). Track at N=400 for 1.5 crossing.
   **S318 tracking**: N=359, K_avg=1.003 (multi-edge; unique-pair=0.830), uncited=55.7% (200), cycles=0. Architecture: TRANSITION_ZONE (plateau). Artifact: experiments/nk-complexity/f9-nk-self-analysis-s318.json. Still below 1.5 (data-parallel wins).
-  Open: apply NK to human's own codebases (HQ-2); measure K_avg at N=400 (watch for 1.5 threshold).
+  **S328 tracking (N=383 checkpoint)**: N=383, K_avg=1.013 (multi-edge; unique-pair=0.841), uncited=55.4% (212), cycles=0. Architecture: TRANSITION_ZONE (persistent plateau). Artifact: experiments/nk-complexity/f9-nk-self-analysis-s328.json. Still below 1.5 (data-parallel wins). Key finding: ISO annotation sprints add ISO-N tags, NOT L-NNN cross-refs — negligible K_avg impact. Plateau is structural: new lessons arrive as orphans, diluting K_avg. Need ~196 new L-NNN citation edges to cross 1.5 threshold. L-448.
+  Open: apply NK to human's own codebases (HQ-2); measure K_avg at N=400 (watch for 1.5 threshold); targeted L-NNN cross-linking sprint (not ISO-tag sprint) to lift K_avg.
 
 ## Resolved
 | ID | Answer | Session | Date |
