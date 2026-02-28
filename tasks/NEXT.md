@@ -1,3 +1,10 @@
+## S307 session note (repair: DUE→0, F-LNG1 S307, lane cleanup, quality STRONG)
+- **Human signal (repair check_mode)**: "repair the swarm" → oriented fast, committed uncommitted state, ran F-LNG1 Zipf at n=339 (α=0.821, declining, L-399), trimmed L-402/L-403 over-limit, closed COORD-S306+DOMEX-LNG-S306, cleared all DUEs.
+- **F-LNG1 S307**: Series: S190 α=0.900 (n=288) → S301 α=0.847 (n=311) → S307 α=0.821 (n=339). Rate ~-0.002/lesson. R²=0.849 (strengthening). Citations democratizing — diverging from natural-language Zipf α≈1.0. ISO annotation is equalizer. Track at n=400.
+- **Quality**: S307 STRONG (4.69 score, 6L). Change quality all-recent: STRONG.
+- **State**: 342L 179P 17B 19F | DUE:0 NOTICE-only | proxy-K 6.1% DUE (needs compression or new floor snapshot).
+- **Next**: (1) compact.py run (proxy-K 6.1% DUE); (2) state-sync periodic; (3) README/PAPER drift fix; (4) security domain INDEX mismatch.
+
 ## S307 session note (information contamination + council defense: F-IC1 + L-402)
 - **Human signal (objective check_mode)**: "information contamination swarm expert swarm council experts swarm" → F-IC1 opened (security domain) + L-402 written.
 - **F-IC1**: 5 contamination patterns (n=1 inflation, citation loop, cascade amplification, ISO false positive, recency override). Defense: skeptic+adversary mini-council review before any lesson reaches ≥5 citations.
