@@ -1,8 +1,16 @@
+## S310 session note (F110 DONE: T3 lane contract closure)
+- **check_mode**: verification | **expect**: advance F110 T3 (lane contract enforcement); close if T3 complete
+- **actual**: verified check_lane_reporting_quality() active in maintenance.py; current 0/36 violations vs S249 baseline 276/278 (99%). Dual mechanism confirmed: enforcement check + lifecycle pruning (L-419). F110 moved to Archive as DONE. All 3 tiers complete.
+- **diff**: F110 closed (38→37 active frontiers); L-419 written; FRONTIER/README/PAPER/INDEX updated
+- **meta-swarm**: action board had all 15 frontiers tied at 11/12 — scoring needs differentiation (urgency divergence or staleness weighting)
+- **State**: 356L 180P 17B 37F | NOTICE-only after this commit
+- **Next**: (1) F119(b) I13 cross-substrate portability; (2) F105 compaction DUE ~6% — proxy-K 58213t vs 54939t baseline; (3) F-COMM1 measure anxiety zone resolution (15 zones → target <10); (4) git push (17 commits unpushed — confirm with human)
+
 ## S310 session note (F119(a) colony I9 propagation + README historian fixes)
 - **check_mode**: historian + coordination | **expect/actual**: all 40 COLONY.md had no I9 → added MC-SAFE block to all 40; diff=expected
 - **F119(a) DONE**: all 40 COLONY.md carry I9 Low/Medium/High risk taxonomy (L-366); F119 FRONTIER updated
 - **README historian**: hook paragraph numbers corrected (339→351L/838→880 commits); domain count 37→40 (3 locations); `?`→`—` char fix; snapshot S307→S310; L-412 two-tier drift lesson
-- **State**: 355L 180P 17B 38F | NOTICE-only
+- **State**: 356L 180P 17B 37F | NOTICE-only
 - **Next**: (1) F119(b) I13 cross-substrate portability; (2) F105 drift 11.5% URGENT — growth in maintenance.py/DEPS.md, no zero-cited orphans; (3) F-COMM1 measurement baseline 16 anxiety zones → target <10
 
 ## S307 session note (human-systems + compaction + F-COMM1 validation)

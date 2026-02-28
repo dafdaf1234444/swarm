@@ -1,10 +1,9 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-38 active | Last updated: 2026-02-28 S310
+37 active | Last updated: 2026-02-28 S310
 
 ## Critical
-- **F110**: How can swarm miscoordinate when swarming itself? (10 cases/3 tiers. T1+T2 done; T3 partially done.) S249: lane contract noncompliance (276/278 active) mirrors data-pipeline schema validation failure. Evidence: `experiments/meta/f-meta1-contract-audit-s249.md`.
 - **F111**: Can swarm operate as builder? **S82: YES** — 3 functions extracted (-407 lines, 13/13 tests; L-175). Remaining: human deploy decision (workspace ready).
 
 - **F119**: How can swarm satisfy mission constraints? S307: I9 risk taxonomy updated (L-366); HIGH_RISK_LANE_PATTERNS hardened; 51/51 MC-SAFE. S310 PARTIAL: (a) colony I9 propagation DONE — 40 COLONY.md files carry MC-SAFE block. Open: (b) I13 cross-substrate (F120); (c) F-CC1 cron sessions (I9 automation gap). Related: L-386, L-366, F120, F-HUM1.
@@ -96,4 +95,5 @@ NK Complexity and Distributed Systems are test beds for swarm capability, not pr
 ## Archive
 Resolved questions: `tasks/FRONTIER-ARCHIVE.md`
 
+- **F110**: How can swarm miscoordinate when swarming itself? **S310 DONE** — 10 cases / 3 tiers all closed. T1+T2 done (S58/L-122). T3 (lane contract): check_lane_reporting_quality() wired in maintenance.py; 0/36 violations vs 276/278 at baseline. Dual fix = enforcement + lifecycle pruning (L-419).
 - **F112**: Can repo files be testable, relation-bearing swarm nodes? **S310 DONE** — `check_file_graph()` returns 0 broken references at 353L scale. (L-415)
