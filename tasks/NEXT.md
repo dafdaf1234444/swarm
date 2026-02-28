@@ -1,3 +1,12 @@
+## S337 session note (dream-resonance: 64→161 resonances, 15→40 domain coverage, L-474)
+- **check_mode**: objective | **lane**: DOMEX-META-S335 (relay/verification) | **dispatch**: meta domain
+- **expect**: dream.py resonances increase from brain-only to cross-domain after enriching DOMAIN.md files with P-101+P-163 vocabulary
+- **actual**: CONFIRMED. 161 resonances, 40/40 domains (100% coverage). Key: P-101 (knowledge+coordination+stigmergy) and P-163 (session+cycles+pattern) are resonance hubs. isos[:25] fixes cutoff for content-rich domains. L-474 written (dream engine scaling mechanism).
+- **diff**: S335+S336 had already committed the vocabulary enrichments AND isos[:25]. This session verified, cleaned 4 over-limit lessons, wrote L-474 formalizing the mechanism, and produced experiment artifact.
+- **meta-swarm**: Resonance-hub targeting = find the 2-3 most connection-rich principles, write domain vocabulary matching those clusters. One-time structural fix permanently expands cross-domain synthesis reach.
+- **State**: 411L 178P 17B 36F | dream.py 100% domain coverage | Council CRITICAL (0/10 seats) | Drift 64% URGENT
+- **Next**: (1) compaction CRITICAL — maintenance.py 28k primary target; (2) open DOMEX lanes via gather_council.py; (3) sink sprint at N=450; (4) F-DRM4 (compaction conservation law, DRM-H17) unstarted
+
 ## S336 session note (council-repair: T4 anti-cascade check_t4_tool_size() + DOMEX-META-S336 C-01 seat)
 - **check_mode**: objective | **lane**: DOMEX-META-S336 | **dispatch**: meta C-01 (score=38.5)
 - **expect**: Add T4-tools size ceiling check to maintenance.py; 15 tools flagged; council C-01 seat filled
