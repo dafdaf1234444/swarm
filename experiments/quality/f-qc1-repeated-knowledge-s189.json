@@ -1,0 +1,83 @@
+{
+  "session": "S189",
+  "date": "2026-02-28",
+  "frontier": "F-QC1",
+  "threshold": 0.4,
+  "total_lessons": 282,
+  "near_duplicate_pairs": 34,
+  "lessons_flagged": 42,
+  "duplication_rate": 0.1489,
+  "top_10_similar_pairs": [
+    {
+      "lesson_a": "L-257",
+      "lesson_b": "L-267",
+      "similarity": 0.5833,
+      "text_a": "# L-257: Brain domain \u2014 3 verified isomorphisms; quality-compaction gap + predictive coding instrumentation debt Session",
+      "text_b": "# L-267: Brain domain synthesis \u2014 3 agent-verified isomorphisms; quality-compaction and predictive coding gaps confirmed"
+    },
+    {
+      "lesson_a": "L-050",
+      "lesson_b": "L-052",
+      "similarity": 0.5714,
+      "text_a": "<!-- ARCHIVED S187: zero-cited orphan, Sharpe compaction --> # L-050: Structural complexity is a ratchet \u2014 feature addit",
+      "text_b": "<!-- ARCHIVED S187: zero-cited orphan, Sharpe compaction --> # L-052: The complexity ratchet is cycle-driven, not growth"
+    },
+    {
+      "lesson_a": "L-285",
+      "lesson_b": "L-292",
+      "similarity": 0.5217,
+      "text_a": "# L-285: Independent convergence as swarm correctness signal Session: S188 | Date: 2026-02-28 | Confidence: Observed | D",
+      "text_b": "# L-292: Concurrent convergence is validation \u2014 not collision \u2014 when findings are independent Session: S188 | Date: 2026"
+    },
+    {
+      "lesson_a": "L-059",
+      "lesson_b": "L-066",
+      "similarity": 0.5,
+      "text_a": "# L-059: NK has a monolith blind spot \u2014 LOC/N corrects it Date: 2026-02-26 | Task: NK stdlib spawn (S42) | Confidence: V",
+      "text_b": "# L-066: LOC/N > 500 reliably flags monolith blind spots (100% precision) Date: 2026-02-26 | Task: F85 (S42) | Confidenc"
+    },
+    {
+      "lesson_a": "L-175",
+      "lesson_b": "L-176",
+      "similarity": 0.4815,
+      "text_a": "# L-175: compute_ei_equalized IS extractable \u2014 S81 premature \"not extractable\" was wrong Session: S82 | Theme: Strategy ",
+      "text_b": "# L-176: F111 fix phase \u2014 builder pattern tested on complexity_ising_idea refactoring Session: S81 | Theme: Strategy | F"
+    },
+    {
+      "lesson_a": "L-055",
+      "lesson_b": "L-056",
+      "similarity": 0.4706,
+      "text_a": "# L-055: Cycles predict maintenance burden better than composite (rho=0.917) Session: 41 | Date: 2026-02-26 | Confidence",
+      "text_b": "# L-056: Burden score (Cycles + 0.1N) outperforms composite for prediction Session: 41 | Date: 2026-02-26 | Confidence: "
+    },
+    {
+      "lesson_a": "L-083",
+      "lesson_b": "L-092",
+      "similarity": 0.4667,
+      "text_a": "# L-083: Cross-variant harvest R3 \u2014 6 universal beliefs confirmed **Date**: 2026-02-27 | **Session**: 44 | **Confidence*",
+      "text_b": "# L-092: Harvest R4 \u2014 280+ beliefs, 22 convergent concepts, 6 conflicts **Date**: 2026-02-27 | **Session**: 44 | **Confi"
+    },
+    {
+      "lesson_a": "L-278",
+      "lesson_b": "L-285",
+      "similarity": 0.4545,
+      "text_a": "# L-278: Swarm of swarm \u2014 structural self-model at S187 Session: S187 | Date: 2026-02-28 | Confidence: Observed | Domain",
+      "text_b": "# L-285: Independent convergence as swarm correctness signal Session: S188 | Date: 2026-02-28 | Confidence: Observed | D"
+    },
+    {
+      "lesson_a": "L-285",
+      "lesson_b": "L-288",
+      "similarity": 0.4545,
+      "text_a": "# L-285: Independent convergence as swarm correctness signal Session: S188 | Date: 2026-02-28 | Confidence: Observed | D",
+      "text_b": "# L-288: Concurrent commit race as swarm health signal Date: 2026-02-28 | Session: S188 | Confidence: Observed ## What h"
+    },
+    {
+      "lesson_a": "L-052",
+      "lesson_b": "L-074",
+      "similarity": 0.45,
+      "text_a": "<!-- ARCHIVED S187: zero-cited orphan, Sharpe compaction --> # L-052: The complexity ratchet is cycle-driven, not growth",
+      "text_b": "<!-- ARCHIVED S187: zero-cited orphan, Sharpe compaction --> # L-074: no-falsification's dominance is formula-robust **D"
+    }
+  ],
+  "interpretation": "34 near-duplicate pairs found among 282 lessons (42 unique lessons flagged = 14.9% of corpus). Inspect top_10_similar_pairs for merge candidates."
+}
