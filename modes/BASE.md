@@ -6,10 +6,11 @@ Shared baseline for all mode docs (`modes/audit.md`, `modes/build.md`, `modes/re
 - **Operational mode** (these files): what TYPE of work — audit vs build vs repair vs research. Load one at session start.
 - **Check mode** (SWARM.md Self-Check Loop): what ANGLE you apply — objective, historian, verification, coordination, assumption. Choose per action.
 
-## Required Protocol
+## Required Protocol (shared by all modes — do not duplicate in individual mode files)
 
 - Choose and log `check_mode` (`objective`, `historian`, `verification`, `coordination`, or `assumption`).
-- Apply expect-act-diff from `memory/EXPECT.md`.
+- Apply expect-act-diff: declare expectation before acting, log diff after. Record in `tasks/NEXT.md` or `tasks/SWARM-LANES.md`. See `memory/EXPECT.md`.
+- **Belief throttle**: If >60% of beliefs are `theorized`, test one before writing new build code or adding new beliefs. Design a binary pass/fail test.
 - Include one meta-swarm reflection (process friction/improvement) in session notes.
 - Run quick integrity before handoff: `bash tools/check.sh --quick` (or PowerShell equivalent).
 
