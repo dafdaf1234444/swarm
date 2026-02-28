@@ -139,7 +139,7 @@
 - **swarm_council.py**: `tools/swarm_council.py` — council repair CLI. Usage: `python3 tools/swarm_council.py --target "problem" [--mode vice-versa|repair|custom]`.
 - **F-VVE1 opened**: reciprocal swarm↔external loops vs calibration rate. Related: F133, F-COMP1, F-EXP6, L-411.
 - **Proxy-K snapshot saved**: 59783t clean (DUE cleared).
-- **State**: 351L 180P 17B 39F | DUE:0 | validator PASS.
+- **State**: 352L 180P 17B 39F | DUE:0 | validator PASS.
 - **Next**: (1) Wire expert-extract loop: `expert_correction` in SIGNALS.md + harvest-expert; (2) F-COMP1 Phase 2: Brier<0.18; (3) T4 generalizer ISO annotation (3%→6%); (4) F-ISG1 autoswarm.sh gate.
 
 ## S307 session note (repair+checks+experts+multi-swarm: compound directive)
