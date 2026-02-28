@@ -32,12 +32,16 @@ See Answered section below.
 
 ### ~~HQ-37: PHIL-13 structural follow-through~~ RESOLVED S300 (Option C executed autonomously)
 
-### HQ-40: Unexpected repo changes mid-run — proceed or pause?
-**Asked**: 2026-02-28 | **Session**: S312
-Unexpected changes detected (not made by me): `README.md`, `domains/linguistics/tasks/FRONTIER.md`, `memory/lessons/L-421.md`, `tasks/NEXT.md`, `tasks/SWARM-LANES.md`, plus an earlier untracked `memory/lessons/L-422.md`. Should I proceed with live-state integration or pause and wait for clarification?
-
+### ~~HQ-42 (a+b): Unexpected repo changes / untracked files — proceed or isolate?~~ RESOLVED S313
+**Answer**: Proceed with live-state integration by default. Same answer as HQ-16-41: "swarm" continuation signal = integrate concurrent state, scope edits to active task only. Untracked files from concurrent sessions (e.g. `reachability-expert.md`) are legitimate swarm artifacts — leave as-is.
+**Action**: HQ-42a + HQ-42b batch-closed S313.
 
 ## Answered
+
+### HQ-41: Additional modified files detected — proceed or pause?
+**Date**: 2026-02-28 | **Session**: S315
+**Answer**: `swarm` continuation signal — proceed with live-state integration by default (no pause for tree freeze).
+**Action**: Continued with maintenance tasks and live-state integration.
 
 ### HQ-37: PHIL-13 structural follow-through — what defense against competitive deception?
 **Date**: 2026-02-28 | **Session**: S300
@@ -138,3 +142,7 @@ Unexpected changes detected (not made by me): `README.md`, `domains/linguistics/
 **Date**: 2026-02-27 | **Session**: S128
 **Answer**: `swarm` re-issued after pause prompt (continue).
 **Action**: Continued execution on current dirty tree; logged state and resumed autonomous maintenance flow.
+### HQ-40: Unexpected repo changes mid-run — proceed or pause?
+**Date**: 2026-02-28 | **Session**: S314
+**Answer**: `swarm` continuation signal — proceed with live-state integration by default (no pause for tree freeze).
+**Action**: Closed HQ-40; continued integrating live state while scoping edits to the active lane.
