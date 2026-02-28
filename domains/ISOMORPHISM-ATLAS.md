@@ -1,5 +1,5 @@
 # Isomorphism Atlas — Atlas of Deep Structure
-v0.5 | 2026-02-28 | S196 | ISO-11 (network diffusion / random walk) + ISO-12 (max-flow / min-cut duality) added from graph theory domain
+v0.6 | 2026-02-28 | S298 | ISO-13 (integral windup / lane backlog divergence) added from loop expert audit
 
 ## What this is
 A cross-domain atlas of structural equivalences. Each entry maps one abstract structure to its manifestations across multiple domains. This is NOT a fact database — it is a compression of world knowledge into shared structure.
@@ -272,12 +272,37 @@ disproportionate damage (network robustness vs. targeted attack asymmetry, Alber
 
 ---
 
+### ISO-13: Integral windup — unbounded accumulation without capacity to discharge
+**Structure**: A system accumulates state (error, backlog, queue) faster than it can discharge it.
+When the output stage is saturated, the integrator continues to grow without bound.
+Classic failure in PID control: the integral term winds up while the actuator is at its limit;
+upon release the system overcorrects. General cure: anti-windup clamping — stop integrating once
+output saturates; age out or abandon accumulated state after a threshold.
+
+| Domain | Manifestation | Notes |
+|--------|---------------|-------|
+| Control theory | PID integral windup | Actuator saturation + continued integration → overcorrection on release; fix = clamping |
+| Swarm / coordination | Lane backlog divergence | READY queue grows 1.57x executed history; 15+ lanes re-queued ≥3x without merging (S298) |
+| Software / queues | Task queue overflow | Unbounded queue fills faster than consumers drain; fix = bounded queue with backpressure |
+| Economics | Inventory buildup (bullwhip effect) | Supply chain overorders accumulate; demand signal amplifies upstream; fix = demand-pull |
+| Biology | Resource accumulation (toxin buildup) | Metabolic byproducts accumulate when clearance pathway saturates; pathological at scale |
+| Cognition | Decision backlog fatigue | Unresolved decisions accumulate → analysis paralysis; fix = TTL + forced closure |
+
+**Sharpe: 2** (6 domains; control-theory case mathematically proven; swarm case measured n=479;
+other domains observed pattern, not rigorous measurement; causal mechanism uniform)
+**Gaps**: Ecology (population overshoot when carrying capacity is delayed signal), Law (legislative
+backlog when court capacity is saturated), Social media (content moderation queue)
+**Inversion**: Under-accumulation is equally pathological — a system that discards state too
+aggressively loses signal. Optimal design balances accumulation rate against discharge capacity.
+
+---
+
 ## Synthesis: hub domains
 Domains appearing in 4+ entries — highest isomorphism density, swarm first:
 
 | Domain | Entries | Why hub |
 |--------|---------|---------|
-| Swarm/meta | ISO-1,2,3,4,5,6,7,8,9,10,11,12 | All twelve; ISO-11: citation diffusion; ISO-12: coordinator bottleneck |
+| Swarm/meta | ISO-1,2,3,4,5,6,7,8,9,10,11,12,13 | All thirteen; ISO-11: citation diffusion; ISO-12: coordinator bottleneck; ISO-13: lane backlog windup |
 | Economics | ISO-1,2,3,4,5,6,7,8,9,10,11,12 | All twelve; ISO-11: financial contagion; ISO-12: supply chain bottleneck |
 | Mathematics | ISO-1,3,4,7,8,10,11,12 | Eight entries; ISO-11: random walk foundation; ISO-12: Ford-Fulkerson proven |
 | Neuroscience | ISO-1,2,3,4,5,7,9,10,11 | Nine entries; ISO-11: neural signal propagation + spreading depolarization |
@@ -290,7 +315,7 @@ Domains appearing in 4+ entries — highest isomorphism density, swarm first:
 | Social science | ISO-11,12 | ISO-11: information virality; ISO-12: organizational structural holes (Burt 1992) |
 | Game theory | ISO-7,10 | ISO-10: Nash seeking convergence; emergent equilibrium without communication |
 | Cognitive science | ISO-3,7,9 | Three entries; MDL concept formation, emergence in cognition, IB working memory |
-| Control theory | ISO-1,5,10 | ISO-10: Model Predictive Control = explicit predict-error-revise at engineering scale |
+| Control theory | ISO-1,5,10,13 | ISO-10: Model Predictive Control; ISO-13: integral windup / anti-windup clamping |
 
 ---
 
@@ -310,6 +335,7 @@ F126: swarm → isomorphism atlas → world knowledge base (world is beneficiary
 Both share the mechanism. F126 inverts the directionality of value flow.
 
 ## Version history
+- v0.6 (S298): ISO-13 integral windup (PID windup / lane backlog / queue overflow / bullwhip); Control theory hub expanded to ISO-1,5,10,13; loop expert audit produced measurement basis (n=479 lanes)
 - v0.5 (S196): ISO-11 network diffusion (random walk / PageRank / epidemic / contagion); ISO-12 max-flow min-cut (Ford-Fulkerson / vascular / supply chain / org bottlenecks); hub table expanded; Computer science + Social science added as first-class hubs; Physics/Math/Neuro all expand
 - v0.4 (S189): ISO-10 predict-error-revise; independently confirmed by 3 domain experts via paper extraction
 - v0.3 (S189): ISO-9 information bottleneck; linguistics gaps in ISO-1/4/7 filled → linguistics becomes full 9/9 hub tied with Swarm + Economics; hub table expanded to 11 domains; cognitive science added; universality reach finding: 3 domains now appear in every ISO entry

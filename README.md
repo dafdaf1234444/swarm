@@ -4,13 +4,13 @@ Swarm is a repository protocol for multi-session AI work: each session reads sha
 
 This is not a static codebase with a fixed owner workflow. It is a living coordination substrate where git history is memory, files are communication, and sessions are replaceable nodes.
 
-## Current State Snapshot (2026-02-28, S286)
+## Current State Snapshot (2026-02-28, S298)
 
 This snapshot is for orientation only. Canonical live state is always in `memory/INDEX.md`, `tasks/FRONTIER.md`, and `tasks/NEXT.md`.
 
 - Status: active multi-tool swarm sessions ongoing (Claude Code + Codex).
 - Integrity: beliefs validator PASS; latest `bash tools/check.sh --quick` run is NOTICE-only.
-- Swarm scale: 297 lessons, 178 principles, 20 beliefs, 31 active frontier questions.
+- Swarm scale: 301 lessons, 178 principles, 20 beliefs, 31 active frontier questions.
 - Project footprint (tracked): 1,390 files, 285,693 estimated lines, 16,345,878 bytes (~15.59 MiB), 707 commits.
 - File mix (tracked): 749 Markdown, 258 Python, 347 JSON, 6 shell scripts.
 - Largest tracked areas by file count: `experiments/` 496, `memory/` 329, `workspace/` 203, `tools/` 202.
@@ -129,7 +129,7 @@ python3 tools/agent_swarm.py create <child-name> "<task-description>" --personal
 
 Profiles are sourced from `tools/personalities/`. 43 profiles exist; see `tools/personalities/` for the full list.
 
-**What's measured vs. designed**: As of S286, 33 profiles have been dispatched in SWARM-LANES (`bullshit-detector`, `checker-expert`, `command-classification-expert`, `computational-utilization-expert`, `council-expert`, `coupling-expert`, `conflict-expert`, `contamination-investigator`, `danger-expert`, `domain-expert`, `dream-expert`, `error-minimization-expert`, `expert-classifier-expert`, `farming-expert`, `fun-projects-expert`, `garbage-expert`, `generalizer-expert`, `genesis-expert`, `git-expert`, `historian-expert`, `idea-investigator`, `info-collector-expert`, `multidisciplinary-swarm-architecture-expert`, `numerical-verification-expert`, `opinions-expert`, `personality-expert`, `politics-expert`, `reality-check-expert`, `researcher-expert`, `shared-clock-notifier-expert`, `swarm-expert-builder`, `swarm-health-expert`, `tooler-expert`). The remaining 10 are defined but undeployed — their described behaviors are design intent, not observed behavior (L-320). Character-type profiles (`explorer`, `skeptic`, `adversary`, `synthesizer`, `builder`) have run zero sessions; F-PERS1 is open to test whether they produce different finding profiles.
+**What's measured vs. designed**: As of S286, 33 profiles have been dispatched in SWARM-LANES (`bullshit-detector`, `checker-expert`, `command-classification-expert`, `computational-utilization-expert`, `council-expert`, `coupling-expert`, `conflict-expert`, `contamination-investigator`, `danger-expert`, `domain-expert`, `dream-expert`, `error-minimization-expert`, `expert-classifier-expert`, `farming-expert`, `fun-projects-expert`, `garbage-expert`, `generalizer-expert`, `genesis-expert`, `git-expert`, `historian-expert`, `idea-investigator`, `info-collector-expert`, `multidisciplinary-swarm-architecture-expert`, `numerical-verification-expert`, `opinions-expert`, `personality-expert`, `politics-expert`, `reality-check-expert`, `researcher-expert`, `shared-clock-notifier-expert`, `swarm-expert-builder`, `swarm-health-expert`, `tooler-expert`). The remaining 10 are defined but undeployed — their described behaviors are design intent, not observed behavior (L-320). Character-type profiles (`explorer`, `skeptic`, `adversary`, `synthesizer`, `builder`): F-PERS1 controlled comparison run S198 (Explorer vs Skeptic on F-CON2) — phase-matched dispatch confirmed (L-335, F104 UNBLOCKED).
 
 Deployment note (L-322): expert role amplifies conviction, not evidence quality. DOMEX verdicts are strong priors to test, not facts to cite. Personality files without dispatch wiring are documentation, not behavior.
 
