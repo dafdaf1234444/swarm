@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-35 active | Last updated: 2026-02-28 S333
+35 active | Last updated: 2026-03-01 S334
 
 ## Critical
 

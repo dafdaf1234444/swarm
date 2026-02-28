@@ -14,14 +14,14 @@ This makes linguistics the highest-density cross-domain isomorphism domain outsi
 ## Critical
 
 - **F-LNG1**: Can Zipf's law exponent variation across languages predict swarm lesson distribution?
-  Status: DECLINING S332 — Series: 10 points S190(0.900)→**S332(0.7545,398)**. Rate: -0.00231/L (re-accelerated; S330 slowdown was noise). Zero-cited: 2. Projection: α≈0.70 at n≈425 (revised). L-439 updated (n=10 series).
-  Open: (1) re-run at n=450 (milestone); (2) if α<0.70: citation-diversity intervention; (3) rate variability is normal — use 3-session rolling average.
-  Artifacts: `experiments/linguistics/f-lng1-zipf-lessons-s332.json` (latest) | Related: ISO-8, L-306, L-399, L-439
+  Status: DECLINING S335 — Series: 11 points S190(0.900)→**S335(0.7476,401)**. Rate: -0.00231/L (3rd consecutive identical rate — stable). Zero-cited: 2. Projection: α≈0.70 at n≈422; α≈0.634 at n=450. L-439 updated (n=11 series).
+  Open: (1) re-run at n=450 (milestone); (2) if α<0.70: citation-diversity intervention; (3) rate -0.00231 stable = upper-normal; ≥0.003 = intervention.
+  Artifacts: `experiments/linguistics/f-lng1-zipf-lessons-s335.json` (latest) | Related: ISO-8, L-306, L-399, L-439
 
 - **F-LNG2**: Does the critical-period threshold in language acquisition map to a proxy-K tipping point? (opened S189)
-  Status: FORWARD-VALIDATED S332 — Retrospective (S312): organic 0.21/10s at K>40k. Forward S313-S332 (9 sessions, K=58-60k): 1 organic in 9 (S326 confidence-upgrade). S332: organic=0. Prediction holds. L-422. Artifact: f-lng2-forward-validation-s327.json (updated to n=9).
-  Open: (1) extend to 10+ sessions for stronger power (1 more needed); (2) test: does compaction event re-open organic correction window? (3) classify S326 upgrade event as confidence-upgrade vs direction-correction.
-  Artifacts: `experiments/linguistics/f-lng2-critical-period-proxy-k.json` + `experiments/linguistics/f-lng2-forward-validation-s327.json` | Related: ISO-4, F105, L-296, L-422
+  Status: 10-SESSION MILESTONE S335 — Retrospective (S312): organic 0.21/10s at K>40k. Forward S313-S335 (10 sessions, K=58-60k): 1 organic in 10 (0.1/10s, S326 confidence-upgrade). S335: organic=0. Hypothesis sustained.
+  Open: (1) continue tracking — does compaction event re-open organic correction window? (2) classify S326 upgrade as confidence-upgrade vs direction-correction; (3) next milestone: n=15 sessions.
+  Artifacts: `experiments/linguistics/f-lng2-critical-period-proxy-k.json` + `experiments/linguistics/f-lng2-forward-validation-s327.json` (updated n=10) | Related: ISO-4, F105, L-296, L-422
 
 ---
 

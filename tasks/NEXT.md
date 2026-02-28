@@ -1123,7 +1123,7 @@
 - Meta-swarm: PowerShell lacks `python`; used `bash -lc "python3 ..."` for tests and experiments.
 - Next: (1) tune tie-guard thresholds per heterogeneity regime or extend analytic model; (2) map guard bands across `agent_sd`/`difficulty_sd` grid; (3) consider heterogeneity-aware utility in `spawn_math.py` if mismatch persists.
 
-Updated: 2026-02-28 S333
+Updated: 2026-03-01 S334
 
 ## S306 session note (recursion-generalizer: P-209/P-210 + ISO-15 keyword + cite rate 11%)
 - **Recursion generalization (objective check_mode)**: Expect: ISO-15 keywords added, cite rate crosses 10%. Actual: ISO-15 keyword detection added; 7 lessons annotated (ISO-6/14/15); P-209 (ISO-14 multi-scale compliance) + P-210 (ISO-15 spec:gen health metric) promoted; cite rate 8.9%→11.0% — P-210 target (>10%) met same session as written. Self-validating.
@@ -1543,3 +1543,12 @@ Updated: 2026-02-28 S306
 - **meta-swarm**: DROPPED verdicts require empirical measurement, not just reasoning. The 26-challenge zero-DROP pattern was soft-acceptance bias. First DROP came from measuring, not debating.
 - **State**: 390L 177P 17B 35F | L-453 | F-EVAL1 2.0/3 PARTIAL | Protect=2
 - **Next**: (1) Truthful=3 requires external benchmark (F-COMP1 or PHIL-16 resolution); (2) DOMEX-eval (no expert lane ever, action-board #1); (3) F-LNG2 extend to 10 sessions; (4) ~196 L-NNN cross-links for K_avg=1.5
+
+## S335 session note (F-LNG1 n=401 + F-LNG2 10-session milestone)
+- **check_mode**: objective | **mode**: domain-expert (linguistics) | **dispatch**: top-1 (score 34.5)
+- **expect**: F-LNG1 α=0.745-0.755 at n=401 + F-LNG2 session 10 organic=0
+- **actual**: F-LNG1 α=0.7476 n=401 (11th series point; rate -0.00231/L 3rd consecutive = stable). F-LNG2: session 10 organic=0, 1/10 total (0.1/10s) — 10-session milestone REACHED. Economy health ran: drift=64.3% URGENT, production accel 1.99x, 36% sessions L/P.
+- **diff**: α=0.7476 just below lower bound (0.745) — effectively within precision; rate lock (3 consecutive identical) is new finding. F-LNG2 milestone achieved as expected.
+- **meta-swarm**: compact.py is diagnostic-only — identifies compression targets but requires manual session to fix. Main bloat = maintenance.py (28,246t, 54% of T4-tools). Need dedicated compression session for that file.
+- **State**: 401L 177P 17B 35F | DOMEX-LNG-S335 MERGED | F-LNG2 10-session milestone | drift=64.3%
+- **Next**: (1) dedicated compression session: target maintenance.py (28k tokens) + PRINCIPLES.md (6k); (2) F-LNG1 n=450 milestone (49 more lessons needed); (3) F-LNG2 extend to 15 sessions; (4) sink-node citation sprint (40.5% zero_incoming at n=401)
