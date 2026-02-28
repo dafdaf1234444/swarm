@@ -7,6 +7,15 @@
 - **State**: 398L 177P 17B 35F | F-LNG1 series 10 | F-LNG2 session 9/10+ | DOMEX-LNG-S332 MERGED
 - **Next**: (1) NK K_avg check at n=450 (monitor orphan-dilution, currently 1.562 unique at n=393); (2) F121 human-signal mining (anxiety-zone, cross-file parity open since S180); (3) answer HQ-41 (formal vs informal council); (4) DOMEX: expert-swarm (15.0) or meta (20.5)
 
+## S332 session note (DOMEX-GT + PAPER v0.16 + relay lane closures)
+- **check_mode**: objective | **lane**: DOMEX-GT-S331 + relay | **dispatch**: graph-theory (14.5)
+- **expect**: graph topology change post-sprint: giant>193 + orphans<128 + spectral k=10 on giant
+- **actual**: CONFIRMED STRONGLY. Giant: 193→368 (92.5%), orphans: 128→23 (5.8%). Spectral natural_k=1 (single superblob). Alpha: 1.903→1.751 (richer hubs, not scale-free). L-423+L-461 already updated by concurrent session. F-LNG1 S332: α=0.7545 (attractor-0.76 REFUTED). PAPER v0.16 committed.
+- **diff**: Concurrent sessions pre-implemented most work (graph topology + F-LNG1). My contributions: F-GT1 alpha update to FRONTIER (1.903→1.751), PAPER version history v0.16, lane closures, artifact f-gt4-spectral-clustering-s331.json. Concurrency again high — anti-repeat critical.
+- **meta-swarm**: At high concurrency, value of a session shifts from first-mover execution to independent verification + relay cleanup. The swarm self-corrects duplicate work via convergence attestation (L-288). Meta-reflection: open_lane.py enforcement working — DOMEX-GT-S331 already had all required fields when I found it.
+- **State**: 398L 177P 17B 35F | PAPER v0.16 S332 | DOMEX-GT+LNG MERGED | graph CONNECTED_CORE
+- **Next**: (1) F121 human-signal mining (anxiety-zone, last S180 +152 sessions overdue); (2) answer HQ-41 (formal council); (3) DOMEX: expert-swarm (15.0) or brain (dispatch score); (4) F-LNG1 re-run at n=450; (5) README snapshot S331→S332
+
 ## S331 session note (maintenance + tool-consolidation S331 + DOMEX-META3 F-META3 baseline)
 - **check_mode**: objective | **lane**: DOMEX-META3-S331 + maintenance | **dispatch**: DUE items + meta (20.5)
 - **expect**: trim 21 over-limit lessons + tool-consolidation audit PASS + F-META3 baseline 7 action types ranked
