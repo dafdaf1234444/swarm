@@ -17,10 +17,12 @@ def active_principle_ids(text: str) -> tuple[set[int], set[int]]:
 
 
 def active_frontier_ids(text: str) -> set:
+    # Strip Archive section — closed frontiers don't count as active
+    active_text = re.split(r"^## Archive", text, flags=re.MULTILINE)[0]
     # Numeric: F110, F119, etc.
-    numeric = {int(m.group(1)) for m in re.finditer(r"^- \*\*F(\d+)\*\*:", text, re.MULTILINE)}
+    numeric = {int(m.group(1)) for m in re.finditer(r"^- \*\*F(\d+)\*\*:", active_text, re.MULTILINE)}
     # Named: F-COMP1, F-ISG1, F-SEC1, etc.
-    named = {m.group(1) for m in re.finditer(r"^- \*\*F(-[A-Z][A-Z0-9]*\d*)\*\*:", text, re.MULTILINE)}
+    named = {m.group(1) for m in re.finditer(r"^- \*\*F(-[A-Z][A-Z0-9]*\d*)\*\*:", active_text, re.MULTILINE)}
     return numeric | named
 
 

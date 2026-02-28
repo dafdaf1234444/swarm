@@ -1,12 +1,12 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-39 active | Last updated: 2026-02-28 S307
+38 active | Last updated: 2026-02-28 S307
 
 ## Critical
 - **F110**: How can swarm miscoordinate when swarming itself? (10 cases/3 tiers. T1+T2 done; T3 partially done. Low urgency; see `experiments/architecture/f110-meta-coordination.md`.) S249 meta audit: lane contract schema noncompliance (276/278 active) mirrors data-pipeline schema validation failure; missing fields propagate miscoordination. Evidence: `experiments/meta/f-meta1-contract-audit-s249.md`.
 - **F111**: Can swarm operate as builder? **S82: YES** — 3 functions extracted (-407 lines, 13/13 tests; L-175). Remaining: human deploy decision (workspace ready).
-- **F112**: Can repo files be testable, relation-bearing swarm nodes? **S310 DONE** — `check_file_graph()` returns 0 broken references at 353L scale; continuous integrity checks run every session via maintenance.py. PARTIAL held for 239 sessions because the remaining work was already complete — the function existed and passed. Closed by direct measurement. (P-136, P-144, L-415)
+
 - **F119**: How can swarm satisfy mission constraints? S306 PARTIAL: I9 risk taxonomy updated (L-366 Low/Med/High tiers); HIGH_RISK_LANE_PATTERNS hardened (create-pr/send-email/external-publish added); 51/51 MC-SAFE tests pass. Open: (a) colony I9 propagation — 38 COLONY.md files don't reference MC-SAFE; (b) I13 cross-substrate portability (F120); (c) F-CC1 cron sessions must not execute high-risk actions (I9 gap for automation path). Related: L-386, L-366, F120, F-HUM1.
 
 ## Important
@@ -104,3 +104,5 @@ NK Complexity and Distributed Systems are test beds for swarm capability, not pr
 
 ## Archive
 Resolved questions: `tasks/FRONTIER-ARCHIVE.md`
+
+- **F112**: Can repo files be testable, relation-bearing swarm nodes? **S310 DONE** — `check_file_graph()` returns 0 broken references at 353L scale; integrity checks run every session via maintenance.py. PARTIAL held 239 sessions (S67→S310); remaining work was already passing. Closed by direct measurement. (L-415)
