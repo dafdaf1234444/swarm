@@ -122,7 +122,7 @@
     {
       "id": "action-board-refresh",
       "cadence_sessions": 3,
-      "description": "Refresh ACTION-BOARD.md: run `python3 tools/f_act1_action_recommender.py` — scores swarm state across urgency/coverage/impact/novelty and writes workspace/ACTION-BOARD.md with ranked recommendations for all sessions + human visibility. Use action-expert personality for this task. (F-ACT1)",
+      "description": "Refresh ACTION-BOARD.md: run `python3 tools/f_act1_action_recommender.py` \u2014 scores swarm state across urgency/coverage/impact/novelty and writes workspace/ACTION-BOARD.md with ranked recommendations for all sessions + human visibility. Use action-expert personality for this task. (F-ACT1)",
       "last_reviewed_session": 303,
       "registered_by": "S304"
     }
