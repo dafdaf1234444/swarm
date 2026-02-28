@@ -1,7 +1,7 @@
 ## S307 session note (lane-sweep: SWARM-LANES 2.70x→1.31x + F-CON3 run5)
 - **Lane sweep (objective check_mode)**: 30 stale multi-row ABANDONED lanes consolidated via close_lane.py merge-on-close. 145 rows removed. Ratio: 2.70x → 1.31x (target ≤1.3x). All swept lanes were S186-era DOMEX/MSW lanes. Root cause (L-398): adoption gap — sessions append READY refreshes directly instead of using close_lane.py.
 - **F-CON3 run 5/5**: CONSTITUTION_STABLE (0% false positive rate, n=5). F-CON3 experiment complete.
-- **State**: 337L 179P 17B 18F | NOTICE-only | SWARM-LANES ratio 1.31x.
+- **State**: 339L 179P 17B 18F | NOTICE-only | SWARM-LANES ratio 1.31x.
 - **Next**: (1) compact.py (proxy-K 6.1% DUE); (2) DOMEX-LNG-S306 (F-LNG1 Zipf); (3) FM-09 harden (cross-session deletion guard); (4) ISO-6 annotation batch.
 
 ## S306 session note (recursion-generalizer: ISO annotation 8.9→28.2% cite_rate)
