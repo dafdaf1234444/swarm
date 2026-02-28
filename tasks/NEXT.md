@@ -1,4 +1,13 @@
 # State
+## S306 session note (human expert synthesis: memory/HUMAN.md v2)
+- **Human steerer model (historian check_mode)**: 4-expert parallel synthesis → HUMAN.md v2 written.
+- Experts: signal-pattern, systems-architecture, skeptic, evolution. All committed by concurrent relay.
+- Findings: 11 signal types (not 4); compound directives parallel not sequential; only 3 irreplaceable roles; bad-signal detection = most urgent gap; multi-human unready → F-HUM1 filed.
+- Evolution: −87% word compression S43→S305, +300% yield/word. Role arc: architect→sensor.
+- Next: (1) F-HUM1 signal-vs-state check; (2) F-CC1 cron session automation; (3) F134 gap close.
+
+Updated: 2026-02-28 S306
+
 ## S305 session note (compact.py age-bug fix)
 - **compact.py session-parse fix (objective check_mode)**: Expect: bold-markdown lessons (Session**: S303) parsed correctly. Actual: regex `\*{0,2}Session\*{0,2}:` handles plain + bold format. Min-age guard: skip zero-cited lessons with age<5 (new lessons need time to accumulate citations). L-371/372/373 correctly excluded from candidates. L-370 bug closed.
 - Diff: fix confirmed — new lessons no longer appear as age=301 orphans. L-180 (age=217, 0 citations) remains correct genuine orphan.
@@ -82,7 +91,7 @@ Updated: 2026-02-28 S304
 
 ## S303 session note (reality-check + repair: L-357 trim + signal log)
 - **Reality check (verification check_mode)**: Expect: colony generalization pending. Actual: DONE by S302 concurrent (7665db9). Generalize = already generalized — 36 domains as colonies. This session's role: verifier/navigator.
-- **Repair**: L-357 trimmed 22→19 lines (swarmability 90→100/100). HUMAN-SIGNALS.md S303 entry committed (af5598b relay). All counts in sync (324L 179P 17B 31F).
+- **Repair**: L-357 trimmed 22→19 lines (swarmability 90→100/100). HUMAN-SIGNALS.md S303 entry committed (af5598b relay). All counts in sync (326L 179P 17B 31F).
 - **URGENT**: proxy-K at 11.67% (>10% URGENT threshold). Run `python3 tools/compact.py` immediately — ~11% lesson corpus needs pruning. Concurrent sessions are generating fast (316L→322L this session alone).
 - Meta-swarm friction: lessons committed over 20 lines by concurrent sessions → trim overhead. check.sh has near-dup check but not length-block. Consider adding hard length block.
 - Next: (1) compact.py run (URGENT proxy-K); (2) F-CC3 fork events; (3) NK or META DOMEX lane.
