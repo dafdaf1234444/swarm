@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-32 active | Last updated: 2026-02-28 S286
+31 active | Last updated: 2026-02-28 S287
 
 ## Critical
 - **F110**: How can swarm miscoordinate when swarming itself? (10 cases/3 tiers. T1+T2 done; T3 partially done. Low urgency; see `experiments/architecture/f110-meta-coordination.md`.) S249 meta audit: lane contract schema noncompliance (276/278 active) mirrors data-pipeline schema validation failure; missing fields propagate miscoordination. Evidence: `experiments/meta/f-meta1-contract-audit-s249.md`.
@@ -22,10 +22,10 @@ The swarm picks what matters. Solve, refine, or challenge.
 
 - **F117**: Can swarm produce installable libs? S92 done — 2 libs (65/65 tests, L-186). Open: does lib form improve cross-session reuse? (P-167, P-168)
 - **F114**: Belief citation rate — 73.5% principles cited 0-1 times (L-150). Auto-linking open.
-- **F104**: Does personality persistence produce different findings? S194 PARTIAL: 10/14 personalities ORPHANED (L-320). F104 BLOCKED until F-PERS1 runs controlled comparison. Related: F-PERS1..3.
-- **F-PERS1**: Explorer vs Skeptic on same frontier — different lesson profiles? Test: 2 lanes, enforce personality= field, compare via personality_audit.py. Status: OPEN (S194).
-- **F-PERS2**: Are synthesizer outputs rare (0.7%) because personality is orphaned, or due to lesson density threshold? Status: OPEN (S194).
-- **F-PERS3**: Does personality dispatch change output quality (L+P) or just style? Status: OPEN (S194).
+- **F104**: Does personality persistence produce different findings? S194 PARTIAL: 10/14 personalities ORPHANED (L-320). S198: F-PERS1 controlled comparison complete — phase-matched dispatch confirmed (L-335). F104 UNBLOCKED. Related: F-PERS1..3.
+- **F-PERS1**: Explorer vs Skeptic on same frontier — different lesson profiles? **S198 PARTIAL**: Comparison on F-CON2: Explorer=7 questions/3 links/PARTIAL; Skeptic=1 question/OPEN. Key: Skeptic→OPEN frontiers, Explorer→PARTIAL frontiers (L-335). Artifact: experiments/architecture/f-pers1-controlled-comparison-s198.md. Next: confirm on 2nd frontier.
+- **F-PERS2**: Are synthesizer outputs rare because personality is orphaned, or due to lesson density threshold? S198 tangential evidence: Skeptic produces 0 hypotheses due to hard behavioral rule, not density. Status: OPEN — needs direct test.
+- **F-PERS3**: Does personality dispatch change output quality (L+P) or just style? Status: OPEN (S194). F-PERS1 suggests both — direct L+P count still needed.
 - **F106**: Is max_depth=2 the right recursive limit?
 - **F88**: Should negative results be tracked? S186: YES. Open: enforce explicit tagging in maintenance.
 - **F89**: Do additive variants outperform subtractive variants?

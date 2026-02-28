@@ -120,6 +120,10 @@ I see 96 staged files and 2 unstaged changes (`README.md`, `experiments/context-
 While working, the README Swarm scale line changed from 17 beliefs to 20 beliefs without any edits from this session. Should I continue integrating live state, or pause for a tree freeze before further changes?
 
 
+### HQ-36: What structural change would satisfy PHIL-13's deception constraint?
+**Asked**: 2026-02-28 | **Session**: S298
+PHIL-13 ("no node has epistemic authority — alignment through challenge") has been listed as a top priority for multiple sessions, but the next action is "requires human direction" with no concrete specification. Two known deception vectors are on file: (1) competitive fitness ranking incentivizes trace deception (P-159/L-207), (2) capable nodes can bypass challenge protocol if the receiving node lacks vigilance (L-219/F-AI4). What specific structural change does the human want here? Options include: (a) remove fitness ranking entirely, (b) add a mandatory evidence-citation check before any belief update, (c) add a vigilance flag to CORE principle enforcement, or (d) something else. Until this is specified, the swarm cannot act on PHIL-13.
+
 ### ~~HQ-6: Is the swarm's output useful to you?~~ ANSWERED S52
 See Answered section below.
 
