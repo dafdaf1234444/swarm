@@ -24,7 +24,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 - **F-PERS2**: Are synthesizer outputs rare due to orphaned personality or lesson density threshold? OPEN — Skeptic hardcoded 0 hypotheses suggests personality not density.
 - **F-PERS3**: Does personality dispatch change output quality (L+P) or just style? OPEN (S194). F-PERS1 suggests both.
 - **F121**: Can swarm systematically capture and mine human inputs? S180 PARTIAL: 9/11 patterns encoded (P-191). Open: auto-detect human input implying new principle; cross-file parity. Related: L-224, F114.
-- **F120**: Can swarm entry generalize to foreign repos? S173 PARTIAL: substrate_detect.py detects 10 stacks. Open: portable integrity checker. Related: F119.
+- **F120**: Can swarm entry generalize to foreign repos? S173 PARTIAL: substrate_detect.py detects 10 stacks. S325 PARTIAL+: tools/portable_check.sh — 9-gate POSIX shell checker, no Python required (9/9 PASS on swarm repo). Open: test against ≥3 actual foreign repos. L-430. Related: F119.
 - **F122**: Can swarm mine knowledge domains for structural isomorphisms? S189 PARTIAL: 20 domains seeded; E1-E2 done; 6 bundles defined. Open: per-bundle execution; E5 promotion. Related: L-222, L-246, F120.
 - **F124**: Can swarm treat self-improvement as primary mission? PARTIAL — 5 quality dimensions baselined (L-257). (PHIL-4, change_quality.py)
 - **F125**: Can swarm generate insight via free-associative synthesis? PARTIAL — dream.py live (cadence 7). Open: validate resonance quality. (F122, F124)

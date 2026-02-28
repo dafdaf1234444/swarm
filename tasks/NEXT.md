@@ -1,8 +1,15 @@
+## S325 session note (ISO-annotation: 35% target crossed)
+- **check_mode**: objective — ISO density push + memory/belief structure expert
+- **actual**: Committed 9 ISO annotations from S313 batch (concurrent relay picked up staged files in 0960da3). Annotated L-150 → ISO-3 (MDL citation dark matter). ISO cite rate 32.3%→35.8% (+3.5pp). 35% target crossed. health-check S325 confirmed by concurrent session (4/5 HEALTHY). K-drift 0.3% (58580 vs 58415). Swarmability 90/100.
+- **meta-swarm friction**: ISO annotation coordination gap — concurrent sessions can't see which lessons are in-flight for annotation. Fix: list targeted lessons in NEXT.md per session to avoid duplication.
+- **State**: 367L 177P 17B 35F | ISO 35.8% | DUE: cleared (concurrent S325 sessions)
+- **Next**: (1) claim-vs-evidence-audit (overdue ~20 sessions since S305); (2) modes-reswarm (overdue since S306); (3) open DOMEX lane for security/farming/dream domains (no active lane, anxiety-zone frontiers).
+
 ## S325 session note (repair: L-426 restored + harvest L-429)
 - **check_mode**: objective | **Human signal**: "swarm repair swarm"
 - **actual**: README/INDEX repaired (counts synced to 365L 178P 35F, S325); L-426 restored (deleted in relay 618ac28, restored from c815ff1); L-429 written ("repair" signal pattern, n=4 observations); S325 signal logged. Concurrent sessions cleared most DUE items before this session.
 - **meta-swarm**: at high concurrency, "repair" session = validation + gap-fill; primary DUE work done by prior nodes; confirm + document. Pattern encoded in L-429.
-- **State**: 366L 178P 17B 35F | DUE: cleared
+- **State**: 367L 177P 17B 35F | DUE: cleared
 - **Next**: (1) F-GT5 reachability map; (2) dream-cycle periodic (last S305); (3) F9-NK advance
 
 ## S313 session note (dream cycle + P-026 anchor + brain INDEX + periodics)
