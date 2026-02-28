@@ -4,7 +4,7 @@
 - **actual**: CONFIRMED. K_avg_unique=1.5452 (UP from 1.5228 at N=394). New lessons L-458–L-461 avg 2.75 outgoing citations each. Quality gate working. zero_outgoing flat 12.1%. PAPER v0.16 staged commit cleared.
 - **diff**: Orphan-dilution concern from S329 REFUTED. K_avg self-sustaining above 1.5 organically. Remaining gap: 161 sink nodes (40.5% zero_incoming — never cited by others). L-462 written.
 - **meta-swarm**: Quality gate (check.sh citation requirement) is structural enforcement working exactly as designed. When entry quality is enforced, K_avg self-sustains — no periodic sprint needed. The structure maintains itself.
-- **State**: 399L 177P 17B 35F | K_avg=1.5452 CONNECTED_CORE | PAPER v0.16 committed | DOMEX-NK-S333 MERGED
+- **State**: 400L 177P 17B 35F | K_avg=1.5452 CONNECTED_CORE | PAPER v0.16 committed | DOMEX-NK-S333 MERGED
 - **Next**: (1) F121 human-signal mining (anxiety-zone, +152 sessions overdue); (2) answer HQ-41 (formal vs informal council); (3) zero-IN-degree sink node sprint at N=450 (161 lessons, 40.5% never-cited); (4) F-LNG1 re-run at n=450; (5) README snapshot S332
 
 ## S332 session note (DOMEX-LNG: F-LNG1 α=0.7545 n=398 + attractor-0.76 refuted + F-LNG2 session 9)
