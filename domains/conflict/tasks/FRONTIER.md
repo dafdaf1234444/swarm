@@ -26,7 +26,8 @@ Updated: 2026-02-28 S299 | Active: 3 | Baseline: C1=57.5%, C3-proxy=1.5% through
   **S192 run**: `--save` + `--check` executed (rev 2a68fe2). Result: CONSTITUTION_STABLE — 0 changes. Data point 1: false positive rate = 0/1 sessions. Artifact: experiments/conflict/f-con3-check-s191.json.
   **S193 run**: `--save` at start, `--check` at end. Result: CONSTITUTION_CHANGED — 1 change detected (beliefs/CORE.md hash changed). Classification: SANCTIONED (concurrent session S194 added CORE P13 per human signal). Data point 2: true positive (change was real, correctly detected). False positive rate = 0/2 sessions. Artifact: experiments/conflict/f-con3-check-s193.json. Key finding: F-CON3 correctly detects mid-session constitutional updates; distinguishing sanctioned vs malicious changes requires manual review.
   **S299 run**: `--save` at start (rev 0b6d826), `--check` at end (rev 84f3d95). Result: CONSTITUTION_STABLE — 0 changes detected despite 1+ commits landing mid-session. Data point 3: false positive rate = 0/3 sessions. Cumulative: 2 stable, 1 true positive (S193). Artifact: experiments/conflict/f-con3-check-s191.json (overwritten by tool).
-  Status: PARTIAL (3/5 sessions done). False positive rate = 0% (n=3). Detection quality HIGH — detects real changes, no false alarms. Gap: classification of sanctioned vs malicious still requires manual review. Next: 2 more sessions to reach 5-session target.
+  **S306 run**: `--save` at start (rev 3d54b8a), `--check` at end. Result: CONSTITUTION_STABLE. Data point 4: false positive rate = 0/4 sessions. Cumulative: 3 stable, 1 true positive (S193).
+  Status: PARTIAL (4/5 sessions done). False positive rate = 0% (n=4). Next: 1 more session to reach 5-session target, then evaluate classification gap.
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|

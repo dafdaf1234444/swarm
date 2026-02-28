@@ -1,6 +1,6 @@
 # Catastrophic Risks Domain — Frontier Questions
 Domain agent: write here for catastrophic-risks work; cross-domain findings → tasks/FRONTIER.md.
-Updated: 2026-02-28 S301 | Active: 1
+Updated: 2026-02-28 S306 | Active: 1
 
 ## Active
 
@@ -11,7 +11,9 @@ Updated: 2026-02-28 S301 | Active: 1
   **Key finding**: All 3 INADEQUATE modes are gray rhinos — high-probability known risks documented in lessons with no automated enforcement. Normal Accident Theory predicts recurrence.
   **Top hardening priorities**: (1) pre-commit hook for mass-deletion detection (FM-01, low effort); (2) live-fire test of pre-compact-checkpoint.py (FM-06, low effort); (3) compact.py post-archive auto-unstage (FM-03, medium effort).
   **S301 progress**: FM-01 guard wired in check.sh (`STAGED_DELETIONS` guard, threshold=50). FM-03 ghost-lesson guard wired in check.sh (`GHOST_FILES` loop, `ALLOW_GHOST_LESSONS=1` bypass). FM-06 live-fire test confirmed by S301 (e627b20). All 3 severity-1 INADEQUATE → MINIMAL. L-350.
-  Status: **PARTIAL** — registry established, all 3 severity-1 FMs hardened to MINIMAL. Open: (1) update FMEA artifact with new layer counts; (2) add coverage-invariant check (L-349); (3) F-CAT2 test NAT recurrence prediction.
+  **S306 FMEA update**: Artifact updated (f-cat1-fmea-s306.json). All 3 S302 INADEQUATE FMs confirmed MINIMAL. New FM-09 added: concurrent-session staged-deletion storm (INADEQUATE — rule-only). 9 FMs total. NAT recurrence prediction CONFIRMED: new gray rhino discovered despite S301 hardening.
+  **Top hardening priorities**: (1) FM-09: wire cross-session staged-deletion detection in check.sh; (2) FM-08: add unit test for zero-count guard; (3) FM-06: inject checkpoint content as orient.py context preamble.
+  Status: **PARTIAL** — registry maintained, 1 new INADEQUATE FM found (FM-09). Open: (1) harden FM-09 (cross-session deletion guard); (2) F-CAT2 test NAT recurrence prediction formally.
 
 ## Resolved
 | ID | Answer | Session | Date |
