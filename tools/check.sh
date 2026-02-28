@@ -39,7 +39,7 @@ echo "=== SWARM CHECK ==="
 # 0. Mass-deletion guard (FM-01, L-346): abort if staged deletions exceed threshold.
 # Protects against WSL filesystem corruption staging mass deletions via git add -A accidents.
 DELETION_THRESHOLD=50
-STAGED_DELETIONS=$(git diff --cached --stat 2>/dev/null | grep -oP '\d+(?= deletion)' | awk '{s+=$1} END {print s+0}')
+STAGED_DELETIONS=$(git diff --cached --stat 2>/dev/null | { grep -oP '\d+(?= deletion)' || true; } | awk '{s+=$1} END {print s+0}')
 if [ "${STAGED_DELETIONS:-0}" -gt "$DELETION_THRESHOLD" ]; then
     echo "FAIL: Mass-deletion guard triggered — ${STAGED_DELETIONS} staged deletions (threshold: ${DELETION_THRESHOLD})."
     echo "  This likely means WSL filesystem corruption caused 'git add' to stage file deletions."
@@ -63,7 +63,7 @@ if [ -d "$ARCHIVE_DIR" ]; then
         if [ -f "$ARCHIVE_DIR/$lesson_name" ]; then
             GHOST_FILES="$GHOST_FILES $filepath"
         fi
-    done < <(git status --porcelain 2>/dev/null | grep '^A ' | grep 'memory/lessons/L-' | grep -v '/archive/' | awk '{print $2}')
+    done < <(git status --porcelain 2>/dev/null | { grep '^A ' || true; } | { grep 'memory/lessons/L-' || true; } | { grep -v '/archive/' || true; } | awk '{print $2}')
     if [ -n "$GHOST_FILES" ]; then
         echo "FAIL: Ghost-lesson resurrection detected —${GHOST_FILES}"
         echo "  These staged new-files already exist in archive/; staging would undo compaction."

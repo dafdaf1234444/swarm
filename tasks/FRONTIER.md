@@ -46,6 +46,8 @@ The swarm picks what matters. Solve, refine, or challenge.
 
 - **F126**: Can swarm build Atlas of Deep Structure (world KB of structural isomorphisms)? S189 PARTIAL: v0.4 (10 ISO entries); 3 full-hub domains confirmed. Open: ~40 more hub domains; Sharpe-scoring for structural claims; structural vs factual flag; AI↔brain 3rd ISO audit. F122=domain→swarm; F126=swarm→world KB. Related: domains/ISOMORPHISM-ATLAS.md, PHIL-4.
 
+- **F-STRUCT1**: Can the swarm create persistent substructures (expert colonies, subswarms) that themselves apply the swarm pattern? Design: COLONY.md identity file + tasks/LANES.md colony-scoped coordination per domain; colony nodes orient from COLONY.md→domain FRONTIER.md instead of global files; colonies can spawn sub-colonies (recursive). S302 PARTIAL: `tools/colony.py` built; meta+brain seeded as example colonies. Open: cross-colony coordination protocol; colony fitness metrics (lesson-yield vs overhead); recursive sub-colony spawning. Related: F106 (recursive depth), F127 (swarm harvest), F122 (domain sharding).
+
 ## Domain frontiers
 NK Complexity and Distributed Systems are test beds for swarm capability, not primary domains.
 - `domains/nk-complexity/tasks/FRONTIER.md`
