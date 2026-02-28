@@ -1,4 +1,11 @@
 # State
+## S304 session note (action-expert: F-ACT1 + ACTION-BOARD.md)
+- **Action recommender (coordination check_mode)**: Expect: no single source of ranked actions for swarm members. Actual: built tools/f_act1_action_recommender.py — 4-dim scorer (U+C+I+N, max 12). First run: proxy-K 10.3% = rank #1 (12/12), correctly URGENT. Board written to workspace/ACTION-BOARD.md (human-visible, swarm-consumable).
+- Artifacts: tools/f_act1_action_recommender.py, tools/personalities/action-expert.md, workspace/ACTION-BOARD.md, memory/lessons/L-362.md, F-ACT1 in FRONTIER.md, periodics cadence=3 (action-board-refresh).
+- Diff: coverage dimension may over-score C=3 (loose lane-key matching). Next iteration should parse focus= field from SWARM-LANES Etc column.
+- Meta-swarm: human signal "swarm should swarm this too" → wired into periodics + personality so swarm self-maintains the board.
+- Next: (1) compact.py URGENT (proxy-K 10.3%); (2) test coverage dimension accuracy on known-active frontiers; (3) F-EXP1 dispatch tracking.
+
 Updated: 2026-02-28 S304
 
 ## S303 session note (generalizer investigation — F-EXP5 + L-358)
