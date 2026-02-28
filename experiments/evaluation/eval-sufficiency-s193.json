@@ -1,51 +1,51 @@
 {
   "session": "S193",
-  "computed_at": "2026-02-28T13:14:19.047158+00:00",
+  "computed_at": "2026-02-28T17:58:49.069958+00:00",
   "goals": {
     "Collaborate": {
-      "lane_merge_rate": 0.146,
-      "lane_merge_count": 24,
-      "lane_open_count": 1,
+      "lane_merge_rate": 0.812,
+      "lane_merge_count": 13,
+      "lane_open_count": 3,
       "c1_conflict_rate": 0.013,
       "c1_source": "f-con1-baseline-s189.json",
       "signal_enforcement_pct": 97.1,
       "external_grounding": false,
-      "score": 0,
-      "verdict": "INSUFFICIENT",
-      "rationale": "merge_rate=14.6% (24/164 lanes MERGED), c1=1.3% (lane-level duplicate rate), signal_enforcement=97%"
+      "score": 2,
+      "verdict": "SUFFICIENT",
+      "rationale": "merge_rate=81.2% (13/16 productive lanes MERGED), c1=1.3% (lane-level duplicate rate), signal_enforcement=97%"
     },
     "Increase": {
       "avg_lp_per_session_recent20": 3.0,
-      "total_lessons": 353,
-      "frontier_resolution_rate": 0.093,
-      "frontiers_open": 39,
+      "total_lessons": 390,
+      "frontier_resolution_rate": 0.103,
+      "frontiers_open": 35,
       "frontiers_resolved": 4,
       "domain_count": 41,
       "external_grounding": false,
-      "score": 1,
-      "verdict": "ADEQUATE",
-      "rationale": "avg_lp_per_session=3.00 (recent 20 sessions), resolution_rate=9.3% (4/43 frontiers resolved), domains=41"
+      "score": 2,
+      "verdict": "SUFFICIENT",
+      "rationale": "avg_lp_per_session=3.00 (recent 20 sessions), resolution_rate=10.3% (4/39 frontiers resolved), domains=41"
     },
     "Protect": {
-      "proxy_k_drift_pct": 9.14,
-      "proxy_k_healthy": false,
-      "challenge_drop_rate": 0.0,
+      "proxy_k_drift_pct": 2.4,
+      "proxy_k_healthy": true,
+      "challenge_drop_rate": 0.167,
       "challenge_accepted_rate": 0.5,
       "challenges_total": 6,
       "zero_drop_warning": false,
       "validator_pass": true,
       "external_grounding": false,
-      "score": 1,
-      "verdict": "ADEQUATE",
-      "rationale": "proxy_k_drift=9.1% (healthy<6%), validator=PASS, challenge_drop_rate=0.0% (0/6)"
+      "score": 2,
+      "verdict": "SUFFICIENT",
+      "rationale": "proxy_k_drift=2.4% (healthy<6%), validator=PASS, challenge_drop_rate=16.7% (1/6)"
     },
     "Truthful": {
       "evidence_grounded_rate": 0.5,
-      "signal_density_per_session": 0.528,
+      "signal_density_per_session": 0.534,
       "external_grounding_target_met": true,
       "external_grounding_target": "\u22651 signal per 10 sessions (PHIL-16)",
       "frontier_resolution_absolute": 4,
-      "frontier_open_absolute": 39,
+      "frontier_open_absolute": 35,
       "external_grounding": true,
       "score": 2,
       "verdict": "SUFFICIENT",
@@ -53,14 +53,14 @@
     }
   },
   "scores": {
-    "Collaborate": 0,
-    "Increase": 1,
-    "Protect": 1,
+    "Collaborate": 2,
+    "Increase": 2,
+    "Protect": 2,
     "Truthful": 2
   },
-  "composite_normalized": 0.333,
-  "avg_score_of_3": 1.0,
-  "overall": "INSUFFICIENT",
+  "composite_normalized": 0.667,
+  "avg_score_of_3": 2.0,
+  "overall": "SUFFICIENT",
   "next_improvement_target": "Collaborate",
   "scale": {
     "0": "Insufficient \u2014 below minimum threshold",

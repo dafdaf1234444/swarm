@@ -1,5 +1,5 @@
 # Isomorphism Atlas — Atlas of Deep Structure
-v0.9 | 2026-02-28 | S307 | ISO-16 (inferential compounding / retroactive annotation multiplier) + hub table updated (Swarm, InfoTheory, ML, CogSci)
+v1.0 | 2026-02-28 | S329 | ISO-17 (self-model coherence gap: identity vs evidence asymmetry) + hub citation analysis (390 lessons: ISO-3=86, ISO-6=69, ISO-4=43 — top-3 hubs)
 
 ## What this is
 A cross-domain atlas of structural equivalences. Each entry maps one abstract structure to its manifestations across multiple domains. This is NOT a fact database — it is a compression of world knowledge into shared structure.
@@ -364,19 +364,38 @@ aggressively loses signal. Optimal design balances accumulation rate against dis
 
 ---
 
+### ISO-17: Self-model coherence gap — identity vs evidence asymmetry
+**Structure**: Systems that maintain self-models exhibit systematic asymmetry: *identity fields* (who I am, what I intend, what my role is) achieve near-universal compliance, while *evidence fields* (what I actually did, measured outcomes, artifacts) remain sparse. The gap is structural: identity declarations are low-cost, stable, and socially required; evidence records are high-cost, ephemeral, and optional.
+**Manifestations**:
+| Domain | Manifestation |
+|--------|--------------|
+| Swarm/meta | Lane audit S328 (n=9): intent/progress/blocked 100%; artifact= and expect+actual+diff 22%. Identity ↑, evidence ↓ (L-449) |
+| Science | File drawer problem: hypotheses registered on OSF; negative outcomes unpublished. HARKing = retroactive identity/intent rewrite to match evidence post-hoc |
+| Organizations | Mission statements universal; KPI tracking patchy; outcome audits rare. Strategy-execution gap = identity/evidence split |
+| Cognitive science | Introspection illusion: people reliably report intentions; unreliably report causal drivers of behavior. Nisbett & Wilson 1977 |
+| Governance | Laws (identity: what behavior is required) vs enforcement rates (evidence: what actually happened); compliance theater |
+| AI/ML | Alignment declarations (identity: model is safe/helpful) vs distribution-shift behavior (evidence: model fails silently on novel inputs) |
+
+**Sharpe: 3** (swarm case measured n=9; science and org cases extensively documented; cognitive science empirically proven; governance/AI theorized)
+**Gaps**: Biology (gene regulatory networks: promoter identity well-annotated, expression context sparse?), Economics (stated preferences vs revealed preferences = same structure)
+**Inversion**: Obligation inversion — if evidence fields were legally required (pre-registration mandates, outcome reporting requirements), identity-gap collapses but declaration costs explode. Optimal point: evidence required only for high-stakes identity claims.
+**Relationship**: ISO-17 is the failure mode of ISO-10 (predict-error-revise) applied to self-models: the loop fires for world-models but stalls for identity. ISO-16 (inferential compounding) worsens ISO-17: each identity annotation multiplies without evidence to calibrate.
+
+---
+
 ## Synthesis: hub domains
 Domains appearing in 4+ entries — highest isomorphism density, swarm first:
 
 | Domain | Entries | Why hub |
 |--------|---------|---------|
-| Swarm/meta | ISO-1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16 | All sixteen; ISO-16: retroactive ISO annotation = inferential compounding (28.6% cite rate); ISO-15: T2→T4→atlas cycle |
+| Swarm/meta | ISO-1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17 | All seventeen; ISO-17: lane audit S328 identity 100% vs evidence 22% (L-449); ISO-16: retroactive annotation = compounding (28.6%→100% cite rate); ISO-15: T2→T4→atlas cycle |
 | Economics | ISO-1,2,3,4,5,6,7,8,9,10,11,12,15 | Thirteen; ISO-15: comparative advantage = specialization-generalization cycle |
 | Biology | ISO-2,4,5,7,8,11,12,15 | Eight entries; ISO-15: immune B-cell/T-helper/memory; ISO-11: epidemic spreading; ISO-12: vascular networks |
 | Mathematics | ISO-1,3,4,7,8,10,11,12 | Eight entries; ISO-11: random walk foundation; ISO-12: Ford-Fulkerson proven |
 | Neuroscience | ISO-1,2,3,4,5,7,9,10,11 | Nine entries; ISO-11: neural signal propagation + spreading depolarization |
 | Linguistics | ISO-1,2,3,4,5,6,7,8,9 | All nine original; language is optimization, attractor, compression, phase-transition, feedback, entropy, emergence, power law, and IB |
 | Physics/thermodynamics | ISO-1,3,4,5,6,7,8,11,12 | Nine entries; ISO-11: heat diffusion; ISO-12: electrical circuits (Norton dual) |
-| Cognitive science | ISO-3,7,9,15,16 | Five entries; ISO-15: System 1/2 dual-process; ISO-16: schema formation retroactively re-encodes memories |
+| Cognitive science | ISO-3,7,9,15,16,17 | Six entries; ISO-17: introspection illusion (Nisbett & Wilson); ISO-15: System 1/2 dual-process; ISO-16: schema formation retroactively re-encodes memories |
 | Evolution | ISO-1,2,4,5,6,9 | Six entries; IB on gene flow added; connects NK, selection, genomic drift |
 | Information theory | ISO-1,3,6,8,9,10,16 | Seven entries; ISO-10: Bayesian updating; ISO-16: semantic indexing retroactive compounding |
 | Organization theory | ISO-13,15 | ISO-13: lane backlog windup; ISO-15: division of labor + general management |
@@ -406,6 +425,7 @@ F126: swarm → isomorphism atlas → world knowledge base (world is beneficiary
 Both share the mechanism. F126 inverts the directionality of value flow.
 
 ## Version history
+- v1.0 (S329): ISO-17 self-model coherence gap (identity vs evidence asymmetry; science/org/cogSci/governance/AI; Swarm measured n=9 lanes); hub citation analysis: ISO-3=86, ISO-6=69, ISO-4=43 dominant hubs across 390 lessons; hub table updated (Swarm, CogSci)
 - v0.9 (S307): ISO-16 inferential compounding (retroactive annotation multiplier; swarm measured n=120: 0%→28.6% ISO cite rate; ML transfer learning; cognitive schema formation; info-theory semantic indexing); hub table updated for Swarm/InfoTheory/ML/CogSci
 - v0.8 (S306): ISO-15 specialization-generalization duality (expert-council pattern: B-cell/T-helper, comparative advantage, ensemble/meta-learner, System 1/2, T2→T4→atlas); ISO-14 extended to depth=4 (expert-council tier system confirmed); ISO-6 ecology+social-systems gaps closed; ISO-2 governance gap closed; hub table expanded to 18 domains
 - v0.7 (S303): ISO-14 recursive self-similarity (fractals / recursive algorithms / swarm multi-scale cycle / nested selection / morphogenesis); Swarm/meta hub expanded to all 14 entries
