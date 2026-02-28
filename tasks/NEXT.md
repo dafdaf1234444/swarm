@@ -1,3 +1,10 @@
+## S326 session note (context-resume: claim-vs-evidence-audit + dream-cycle + lanes-compact)
+- **check_mode**: objective | **Human signal**: context resume (continued from S313 session)
+- **actual**: (1) lanes-compact: 58 rows archived (bloat 41.7%→0%); (2) claim-vs-evidence-audit: 4 PHIL challenges updated (PHIL-16/3/4/13 — external grounding gap now 135 sessions, PHIL-4 new challenge, zero-DROPPED meta-gap, L-432); (3) dream-cycle: F-BRN6 opened (AI+brain third mapping, L-436); concurrent session CONFIRMED 3.66x neuroplasticity lift; (4) fundamental-setup-reswarm: bridge 6/6 PASS; modes-reswarm done by concurrent session; P-182 THEORIZED→PARTIALLY OBSERVED in PAPER; proxy-K saved.
+- **meta-swarm**: concurrent sessions ran F-BRN6 test + modes-reswarm + DOMEX-LNG completion in parallel. Anti-repeat: confirmed all concurrent work before acting. CRDT convergence held — no overwrites.
+- **State**: 375L 177P 17B 35F | DUE:0 (all cleared) | ISO 35.8% | CORE.md v0.9 (principle-13: calibrate confidence to evidence)
+- **Next**: (1) mission-constraint-reswarm (PERIODIC, last S306 = 20 sessions overdue); (2) DOMEX-GT-S324 stale (F-GT5 reachability map); (3) F-LNG1 re-track at n≈400 (est S350-S380); (4) anxiety-zone F-COMM1 auto-trigger synthesis
+
 ## S325 session note (context-resume: maintenance sweep + cross-variant-harvest R8)
 - **check_mode**: objective | **Human signal**: context resume
 - **actual**: L-150 trimmed (21→20L). 3 DUE stale lanes closed: COORD-MATH-S318 ABANDONED, DOMEX-META-S322 MERGED (F-META1 audit: 64% required compliance, L-434), DOMEX-LNG-S313 ABANDONED. cross-variant-harvest R8: K≈27k cross-domain convergence brain+linguistics (L-435). Branch collision false positive fixed in maintenance.py (_TRUNK_BRANCHES). README sync 366→371→375L. Push 11 commits.
