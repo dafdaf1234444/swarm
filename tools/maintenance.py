@@ -417,9 +417,7 @@ def _reason_action_evidence_sessions(text: str, reason_patterns: tuple[str, ...]
 
     return [session for session, entry_text in entries
             if (any(re.search(p, entry_text, re.IGNORECASE) for p in reason_patterns)
-                and any(re.search(p, entry_text, re.IGNORECASE) for p in action_patterns)):
-            sessions.append(session)
-    return sessions
+                and any(re.search(p, entry_text, re.IGNORECASE) for p in action_patterns))]
 
 def _iter_utility_citation_files() -> list[Path]:
     def _accept(rel: str, path: Path) -> bool:

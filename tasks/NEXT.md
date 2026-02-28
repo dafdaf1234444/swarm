@@ -4,7 +4,7 @@
 - **actual**: α=0.7425 at N=412 (direct scan); model prediction 0.739; error <0.004 (model VALIDATED). Rate slowed 10x (-0.00046/L vs -0.00231/L). Cache methodology revealed INCONSISTENT after DOMAIN.md enrichment. L-476. Reach map: 67.3% composite, domain activation 33% bottleneck (L-475 committed). lanes_compact archived 85 stale rows.
 - **diff**: Rate slowdown was unexpected (10x, not incremental). Likely from K_avg sprint redistributing citations. Cache vs direct scan split is a new methodological finding.
 - **meta-swarm**: MEMORY.md had stale resonance data (64/15 domains) — corrected to 161/40. Cache-based Zipf tool gives inflated α after DOMAIN.md enrichment; switching to direct scan as canonical.
-- **State**: 418L 178P 17B 36F | α=0.7425 N=412 rate=-0.00046/L | reach 67.3% | maintenance.py 25,997t (-2,472t)
+- **State**: 419L 178P 17B 36F | α=0.7425 N=412 rate=-0.00046/L | reach 67.3% | maintenance.py 25,997t (-2,472t)
 - **Next**: (1) Phase 1 maintenance.py compaction (1,432t zero-risk: _reason_action_evidence_sessions+F119 block); (2) 28 dormant domain activation wave (target 50% reach = 21 active, needs ~7 DOMEX dispatches); (3) sink sprint at N=450 (157 zero-in-degree lessons)
 
 ## S338 session note (DOMEX-META-S338: T4 compaction analysis — 4226t achievable 15.4%, L-478)
