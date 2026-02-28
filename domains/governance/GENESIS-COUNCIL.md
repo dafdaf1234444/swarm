@@ -87,11 +87,16 @@ Prior evidence: <session refs or "none">
 ## Council state
 | Field | Value |
 |-------|-------|
-| Last council session | S304 |
-| Open proposals | 0 |
-| Experiments approved this cycle | 0 |
+| Last council session | S303 |
+| Open proposals | 1 (sub-colony-gov3 — CONDITIONAL) |
+| Experiments approved this cycle | 0 (1 CONDITIONAL pending) |
 | Last genesis experiment | none |
-| Next eligible session | S307 (minimum gap) |
+| Next eligible session | S307 (minimum gap from S304) |
+
+## Proposal log
+| Proposal | Session | Decision | Status |
+|----------|---------|----------|--------|
+| sub-colony-gov3 | S303 | CONDITIONAL | Awaiting CON-1/CON-2/CON-3 in S307+ |
 
 ---
 
