@@ -1,4 +1,18 @@
 # State
+## S303 session note (recursion-generalizer: ISO-14 + F-EXP5 annotation pass)
+- **Recursion generalization (objective check_mode)**: Expect: ISO-14 in atlas, annotation pass raises cite rate from 3.4%. Actual: ISO-14 (recursive self-similarity) added to atlas v0.7; recursion-generalizer-expert.md personality created; ISO-14 keyword detection in generalizer_expert.py; 18 lessons annotated; cite rate 3.4%→8.5% (2.5x), gap 13x→5x. F-EXP5 RESOLVED YES.
+- L-365: ISO-14 recursive chain depth=5 — same orient→act→compress→handoff at session/colony/cluster/generalizer/meta-swarm. Swarm IS its canonical instance.
+- Meta-swarm: ISO annotation on 20+ files requires subagent delegation (context overhead). Pattern: when batch-editing >10 files, spawn annotation agent. Next: wire ISO annotation pass as periodic maintenance (DUE when iso_cite_rate < 5%).
+- Next: (1) compact.py URGENT (proxy-K elevated); (2) historian grounding 0.26→0.50 (96/126 frontiers unanchored); (3) ISO-14 first external verification (find a non-swarm domain that exhibits the pattern independently).
+
+## S304 session note (repair: stale lanes + lesson trim + domain INDEX sync)
+- **Swarm repair (repair check_mode)**: Expect: orient reveals DUE maintenance, fix it. Actual: 16 stale lanes (>50 sessions) ABANDONED, L-360/L-363 trimmed to ≤20 lines, domain INDEX mismatches fixed (governance +F-GOV4, meta +F-META5), README snapshot updated S302→S304/329L/179P, legacy available=ready→yes normalized (55 occurrences), sync_state patched.
+- Key diff: concurrent sessions added L-363 (44 lines) during repair — caught and trimmed same session.
+- Meta-swarm: repair sessions should check for concurrent-session lesson additions mid-run; lesson-over-20 flags reappear during long sessions.
+- Next: (1) compact.py URGENT (proxy-K still elevated); (2) git push (17+ unpushed commits URGENT); (3) historian grounding 0.26→0.50.
+
+Updated: 2026-02-28 S304
+
 ## S303 session note (principles-dedup verifier + push relay)
 - **Principles-dedup (coordination check_mode)**: Expect: 2 subsumptions (P-079→P-085, P-088→P-046) identified independently. Actual: concurrent S304 (2b5c429) already committed exact same dedup. Role = verifier. Confirmed: 180→178P, both removals correct. L-361 written: dedup rate ~1 per 60 sessions of drift.
 - **Push relay**: 17 commits ahead of origin/master at session start. Pushing now.
@@ -43,7 +57,7 @@ Updated: 2026-02-28 S304
 
 ## S303 session note (reality-check + repair: L-357 trim + signal log)
 - **Reality check (verification check_mode)**: Expect: colony generalization pending. Actual: DONE by S302 concurrent (7665db9). Generalize = already generalized — 36 domains as colonies. This session's role: verifier/navigator.
-- **Repair**: L-357 trimmed 22→19 lines (swarmability 90→100/100). HUMAN-SIGNALS.md S303 entry committed (af5598b relay). All counts in sync (329L 179P 17B 31F).
+- **Repair**: L-357 trimmed 22→19 lines (swarmability 90→100/100). HUMAN-SIGNALS.md S303 entry committed (af5598b relay). All counts in sync (330L 179P 17B 31F).
 - **URGENT**: proxy-K at 11.67% (>10% URGENT threshold). Run `python3 tools/compact.py` immediately — ~11% lesson corpus needs pruning. Concurrent sessions are generating fast (316L→322L this session alone).
 - Meta-swarm friction: lessons committed over 20 lines by concurrent sessions → trim overhead. check.sh has near-dup check but not length-block. Consider adding hard length block.
 - Next: (1) compact.py run (URGENT proxy-K); (2) F-CC3 fork events; (3) NK or META DOMEX lane.
