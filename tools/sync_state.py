@@ -35,7 +35,11 @@ except ImportError:
         return all_ids, sup
 
     def active_frontier_ids(text):
-        return {int(m.group(1)) for m in re.finditer(r"^- \*\*F(\d+)\*\*:", text, re.MULTILINE)}
+        # Numeric: F110, F119, etc.
+        numeric = {int(m.group(1)) for m in re.finditer(r"^- \*\*F(\d+)\*\*:", text, re.MULTILINE)}
+        # Named: F-COMP1, F-ISG1, F-SEC1, F-PERS1, etc.
+        named = {m.group(1) for m in re.finditer(r"^- \*\*F(-[A-Z][A-Z0-9]*\d*)\*\*:", text, re.MULTILINE)}
+        return numeric | named
 
 
 def _git(*args):

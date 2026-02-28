@@ -16,8 +16,12 @@ def active_principle_ids(text: str) -> tuple[set[int], set[int]]:
     return all_ids, superseded
 
 
-def active_frontier_ids(text: str) -> set[int]:
-    return {int(m.group(1)) for m in re.finditer(r"^- \*\*F(\d+)\*\*:", text, re.MULTILINE)}
+def active_frontier_ids(text: str) -> set:
+    # Numeric: F110, F119, etc.
+    numeric = {int(m.group(1)) for m in re.finditer(r"^- \*\*F(\d+)\*\*:", text, re.MULTILINE)}
+    # Named: F-COMP1, F-ISG1, F-SEC1, etc.
+    named = {m.group(1) for m in re.finditer(r"^- \*\*F(-[A-Z][A-Z0-9]*\d*)\*\*:", text, re.MULTILINE)}
+    return numeric | named
 
 
 def archived_frontier_ids(text: str) -> set[int]:
