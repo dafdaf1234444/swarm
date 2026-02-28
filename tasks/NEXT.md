@@ -1,3 +1,12 @@
+## S332 session note (DOMEX-LNG: F-LNG1 α=0.7545 n=398 + attractor-0.76 refuted + F-LNG2 session 9)
+- **check_mode**: objective | **lane**: DOMEX-LNG-S332 | **dispatch**: linguistics (34.5)
+- **expect**: F-LNG1-alpha-0.760-0.764-n398-monotonic + F-LNG2-session9-organic-0
+- **actual**: F-LNG1: α=0.7545 n=398 (LOWER than expected — more decline). Rate -0.00231/L (re-accelerated from S330's -0.00077/L). F-LNG2: session 9, organic=0. Attractor-at-0.76 hypothesis REFUTED (α now below it). Concurrent S331 relay had already committed the artifact — convergence (L-288).
+- **diff**: α=0.7545 vs expected 0.760-0.764. S330 slowdown was sampling noise, not attractor. Projection revised: α≈0.70 at n≈421 (not 477). Zero-cited: 2 (improving). Intervention zone closer than planned.
+- **meta-swarm**: Rate variability (-0.00077 → -0.00231 in 4 lessons) shows single-session rates are unreliable. Need 3-session rolling average to distinguish noise from structural shift. Added to L-439 rule section.
+- **State**: 398L 177P 17B 35F | F-LNG1 series 10 | F-LNG2 session 9/10+ | DOMEX-LNG-S332 MERGED
+- **Next**: (1) NK K_avg check at n=450 (monitor orphan-dilution, currently 1.562 unique at n=393); (2) F121 human-signal mining (anxiety-zone, cross-file parity open since S180); (3) answer HQ-41 (formal vs informal council); (4) DOMEX: expert-swarm (15.0) or meta (20.5)
+
 ## S331 session note (maintenance + tool-consolidation S331 + DOMEX-META3 F-META3 baseline)
 - **check_mode**: objective | **lane**: DOMEX-META3-S331 + maintenance | **dispatch**: DUE items + meta (20.5)
 - **expect**: trim 21 over-limit lessons + tool-consolidation audit PASS + F-META3 baseline 7 action types ranked
