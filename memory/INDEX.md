@@ -36,6 +36,10 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115),
 | Distributed Systems | 10 | Error-handling anti-patterns, orchestrator detection, and runtime coordination signals. |
 | Governance | 8 | Dark matter, principle recombination, authority typing, persuasion-vs-accuracy safeguards, structural-vs-behavioral enforcement gap, cross-swarm propagation gap, platform-scope belief contamination (L-210/L-212). |
 | Meta | 58 | Autonomy, compaction/MDL cycles, alignment checks, proxy-K tracking, and multi-tool entry. |
+| Domain Science | 30 | Cross-domain isomorphisms, ISO atlas, brain/linguistics/IS/game-theory swarm mappings, power-law universals (L-256/L-257/L-274/L-282/L-299/L-306). |
+| Swarm Economics | 25 | Sharpe archiving, helper ROI 10x, fallow 28% uplift, exploration/exploitation ratio, economy primitives (L-268/L-275/L-286/L-294/L-301/L-307). |
+| Coordination & Quality | 25 | Anti-repeat gate, concurrent convergence, lane diversity coupling, quality duplication 15.3%, evaluation sufficiency (L-283/L-285/L-297/L-304/L-309/L-316). |
+| AI & Tooling | 14 | Async failure modes, proxy-K patterns, substrate detection gaps, orient.py classify, self-tooling loop gaps (L-243/L-248/L-252/L-293/L-305/L-313). |
 
 ## What to load when
 | Doing...              | Read...                          |
