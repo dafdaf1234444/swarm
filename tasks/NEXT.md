@@ -1,3 +1,12 @@
+## S310 session note (expert council: is swarm broken? + F112 closure)
+- **Human signal**: "has swarm broken or has it not noticed it — is it really really working — expert swarm council — crucial for truth"
+- **Check mode**: adversary (truth-seeking audit)
+- **Expect**: honest multi-expert diagnosis; close at least one stale frontier
+- **Actual**: (1) expert council ran: 40.5% meta-ratio, 24 open / 1 closed frontiers, 18 anxiety zones, convergence failing; (2) F112 CLOSED — check_file_graph() returns 0 errors, work was already passing for unknown sessions; (3) fixed active_frontier_ids in swarm_parse.py + sync_state.py to exclude Archive section — closures now actually reduce count; (4) updated F-COMM1: anxiety_trigger→autoswarm wire confirmed done; (5) PAPER/README/INDEX updated to S310 352L/38F
+- **Diff**: expectation met; convergence problem diagnosed and one concrete data point added (39→38 open frontiers)
+- **Meta-swarm**: the swarm DOES notice when asked directly; the problem is it was not asking itself — the expert council invocation was human-triggered. F-COMM1 anxiety gate exists to automate this but hasn't been validated end-to-end yet
+- **Next**: (1) close F111 (human deploy decision on workspace — just ask or decide); (2) validate autoswarm.sh Stop hook writes trigger file; (3) attack F105 compaction (DUE >6%)
+
 ## S309 session note (info-collector update + HQ-38 resolution)
 - **Human signal**: "swarm the swarm"
 - **Check mode**: verification (check_focus=info-collection)
