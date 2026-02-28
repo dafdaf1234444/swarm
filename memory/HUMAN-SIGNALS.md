@@ -116,6 +116,7 @@ before committing — not retrospectively at the harvest.
 | S279 | "expert tooler swarm" | Personality-specialization shorthand: created tooler-expert overlay, queued a lane with a stubbed artifact, updated README counts, and logged the signal. Applied to `tools/personalities/tooler-expert.md`, `tasks/SWARM-LANES.md`, `experiments/self-analysis/tooler-expert-s279.md`, and `README.md`. |
 | S280 | "swarm generalizations for the swarm" | Generalizer addendum delivered: distilled operational rules + integration ID collision note. Applied to `experiments/self-analysis/generalizer-expert-s260.md`. |
 | S283 | "harvest reseracher expert swarm for the swarm" | Personality-specialization shorthand: created researcher-expert overlay, queued a READY lane with a stub artifact, updated README counts/list, and logged the signal. Applied to `tools/personalities/researcher-expert.md`, `experiments/information-science/researcher-expert-s283.md`, `tasks/SWARM-LANES.md`, `tasks/NEXT.md`, and `README.md`. |
+| S324 | "swarm reachability expert swarm" | Reachability-expert overlay created and wired to graph-theory frontier; queued `DOMEX-GT-S324` and logged the dispatch. Applied to `tools/personalities/reachability-expert.md`, `domains/graph-theory/tasks/FRONTIER.md`, `tasks/SWARM-LANES.md`, and `tasks/NEXT.md`. |
 ## Patterns (updated as entries accumulate)
 - **Autonomy**: Repeated push toward self-direction, less command-response. (S57, S173)
 - **Generalizability**: Swarm should work everywhere, not just this repo. (S166, S172)
@@ -159,6 +160,10 @@ before committing — not retrospectively at the harvest.
 - **Loop-expert expert creation**: Human requested "loop expert swarm"; swarm materialized `tools/personalities/loop-expert.md`, stubbed `experiments/architecture/loop-expert-s287.md`, and queued `L-S287-LOOP-EXPERT` READY lane. Signal pattern: role-specialization shorthand (P-186). Loop expert maps feedback loop structure across the swarm and domains — main value: measuring cycle length, diagnosing dead loops, emitting cross-domain loop isomorphisms. (S287)
 
 - **Higher-level audit directive**: "higher level [X] swarm" = audit and repair meta-coordination infrastructure of X before resuming task execution within X. Symptom: X's scheduler/manager silently broken. Fix: inspect tools, find silent failures, restore machinery. Example: S301 → SESSION-LOG.md stuck at S195, 17 periodics blind for 106 sessions. (S301, L-348)
+
+- **Generalize+repair compound**: "generalize repair [X] swarm" = two simultaneous actions: (1) find and fix the concrete instance of breakage in X, AND (2) extract the repair into a reusable metric or pattern so the same failure class can be detected proactively. Not just "fix this" — "fix this and make fixing this class of thing automatic." Example: S318 "generaalize repair multi swarm swarm" → added MS-CAR metric to F-SCALE1. (S318)
+
+- **State-announcement as trigger**: Human confirms an external state change ("commits are pushed", "PR merged", "tests pass") before a swarm directive. The announcement is implicit authorization: treat it as permission to proceed to the next cycle, not as information to log. Swarm should parse state-announcements as go-signals for queued work. (S323)
 
 ## S302 | 2026-02-28 | "for the swarm"
 - Raw: "for the swarm"
@@ -226,3 +231,34 @@ before committing — not retrospectively at the harvest.
 - Context: Session start; bare autonomy signal.
 - Interpretation: Bare autonomy directive (P-200) — proceed with default swarm cycle (orient + dispatch).
 - Action: Ran orient brief; dispatch optimizer via WSL; opened DOMEX-NK-S312; logged lane updates in `tasks/SWARM-LANES.md` and `tasks/NEXT.md`.
+
+## S314 | 2026-02-28 | "swarm"
+- Raw: "swarm"
+- Context: Session start; bare autonomy signal.
+- Interpretation: Bare autonomy directive (P-200) — proceed with default swarm cycle (orient + dispatch).
+- Action: Ran dispatch optimizer via WSL; executed F-IS6 rerun (DOMEX-IS-S314) and updated information-science frontier + lane log.
+
+## S316 | 2026-02-28 | "swarm"
+- Raw: "swarm"
+- Context: Session start; bare autonomy signal.
+- Interpretation: Bare autonomy directive (P-200) — proceed with default swarm cycle and DUE checks.
+- Action: Ran dispatch optimizer + economy_expert + compact.py drift check; logged results in `tasks/NEXT.md`.
+
+## S318 | 2026-02-28 | "generaalize repair multi swarm swarm"
+- Raw: "generaalize repair multi swarm swarm"
+- Context: Compound directive; implied generalize + repair with a multi-swarm focus.
+- Interpretation: Apply repair loop to multi-swarm coordination and generalize the fix into a measurable pattern (define a concrete metric and wire it into F-SCALE1).
+- Action: Added MS-CAR metric to F-SCALE1 and logged the session note in `tasks/NEXT.md`.
+
+## S323 | 2026-02-28 | "commits are pushed swarm reapir swarm council swarm"
+- Raw: "commits are pushed swarm reapir swarm council swarm"
+- Context: Confirms commits were pushed; requests repair pass plus a council run.
+- Interpretation: Run quick repair check and a repair-mode council, then log outputs.
+- Action: Ran `tools/check.ps1 --quick`; generated repair council memo via WSL `tools/swarm_council.py` saved to `workspace/COUNCIL-20260228-151857.md`; updated `tasks/NEXT.md` and `tasks/SWARM-LANES.md`.
+
+## S313 | 2026-02-28 | "expert on whether swarm is valuable project and timelines of someone noticiing its good enoughn given posted on reddit expert and update readme based on these experts swarm"
+- Raw: "expert on whether swarm is valuable project and timelines of someone noticiing its good enoughn given posted on reddit expert and update readme based on these experts swarm"
+- Context: Project posted on Reddit; human requesting external validation and community recognition timeline.
+- Interpretation: External validation request — apply multi-expert lens to assess project value and recognition readiness; update README with findings. Pattern: human wants swarm to evaluate itself from the outside, not the inside. This is the **externalization signal** — the swarm has reached the point where the human seeks external audience validation (F133, F134).
+- Action: Convened 4-expert synthetic council (AI Systems Researcher, Open Source Architect, Skeptic, Community Timing). Added "If You're New Here" cold-reader hook + "Expert Assessment (S306)" section to README. Key findings: infrastructure quality HIGH; cold-reader accessibility was the bottleneck (now fixed); Reddit traction timeline 2–8 weeks with demo, 3–6 months without. L-399 updated (F-LNG1 series tracking).
+- Pattern encoded: **Externalization signal** = human asking swarm to assess itself from outsider's perspective → indicates swarm approaching public readiness threshold. Next: produce concrete 2-minute demo artifact per expert recommendation.

@@ -14,9 +14,9 @@ This makes linguistics the highest-density cross-domain isomorphism domain outsi
 ## Critical
 
 - **F-LNG1**: Can Zipf's law exponent variation across languages predict swarm lesson distribution?
-  Status: TRACKING S311 — Series: S190 α=0.900 (n=288) → S301 α=0.847 (n=311) → S307 α=0.821 (n=339) → S311 α=0.790 (n=356). Rate ~-0.0016/lesson; R²=0.840 (slight down). 99.7% citation coverage (1 zero-cited). Swarm diverges from natural language α≈1.0: citation structure democratizing, not concentrating; α now <0.8 and approaching tail-flat threshold (0.7). ISO annotation (hub lessons) is the equalizer. L-399.
+  Status: TRACKING S313 — Series: S190 α=0.900 (n=288) → S301 α=0.847 (n=311) → S307 α=0.821 (n=339) → S311 α=0.790 (n=356) → S313 α=0.786 (n=360). Rate -0.00158/lesson (stable). R²=0.838. 99.4% citation coverage (2 zero-cited). TAIL_FLAT threshold (α<0.7) projected at n≈414 (~S370-S390). L-399 updated.
   Open: (1) track at n=400; (2) compare to natural language corpora; (3) does α stabilize or continue declining to <0.7 (monoculture-risk zone)?
-  Artifacts: `experiments/linguistics/f-lng1-zipf-lessons-s311.json` (latest) | Related: ISO-8, L-306, L-399
+  Artifacts: `experiments/linguistics/f-lng1-zipf-lessons-s313.json` (latest) | Related: ISO-8, L-306, L-399
 
 - **F-LNG2**: Does the critical-period threshold in language acquisition map to a proxy-K tipping point? (opened S189)
   Status: PARTIAL S312 — Retrospective analysis (n=16 events, S57-S312): organic correction rate drops from 1.36/10s (low-K <27k) to 0.0/10s (mid-K 27-40k) to 0.21/10s (high-K 40k+). Threshold K≈27k confirmed: mechanism shifts from spontaneous discovery → periodic-audit-triggered. Compaction (K-floor descent) may re-open organic correction window — dual motivation for F105. L-422.
@@ -47,10 +47,14 @@ This makes linguistics the highest-density cross-domain isomorphism domain outsi
   Related: ISO-9, F113, beliefs/DEPS.md.
 
 - **F-LNG5**: Do language families (Chomsky's UG universals) have a swarm analog? (opened S189)
-  Status: OPEN. Universal Grammar = structural constraints that all languages share. Does the swarm
-  have "universal grammar" — structural constraints all swarm instances must satisfy regardless of
-  domain? Candidate universals: lessons-before-principles ordering, challenge cycle, proxy-K floor.
-  Related: F119 (work everywhere), F120 (foreign repo portability), CORE.md.
+  Status: PARTIAL S325 — Colony scan (n=40 domains): 5 universal structural elements at 98-100%:
+  (1) Colony beliefs section (100%), (2) Open frontiers counter (100%), (3) Lesson count pointer (100%),
+  (4) Orient→Act→Compress→Handoff cycle (100%), (5) Handoff notes (98%). Non-universals: principles/
+  challenges/proxy_k are ROOT-only, not colony-level. Chomsky analogs: Merge→OACH cycle; parameters→CB-N.
+  Caveat: all 40 colonies bootstrapped from same template — universality reflects design, not emergence.
+  Real test: do colonies retain all 5 after free evolution (track at S400+)? L-425.
+  Open: (1) track colony divergence at S400+; (2) test with foreign repos (F120): what survives transplant?
+  Artifact: `experiments/linguistics/f-lng5-universal-grammar-s325.json` | Related: F119, F120, ISO-2, L-425
 
 ---
 

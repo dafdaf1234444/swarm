@@ -4,8 +4,8 @@
   "description": "Zipf power law test on swarm lesson citation distribution",
   "hypothesis": "Lesson citations follow power law with \u03b1 \u2248 1.0 (Zipf), confirming ISO-8 isomorphism",
   "data_source": "cache",
-  "total_lessons": 356,
-  "cited_lessons": 355,
+  "total_lessons": 359,
+  "cited_lessons": 358,
   "zero_cited_lessons": 1,
   "citation_coverage_pct": 99.7,
   "top_10": [
@@ -18,15 +18,15 @@
       42
     ],
     [
-      "L-257",
-      27
-    ],
-    [
       "L-005",
       26
     ],
     [
       "L-012",
+      26
+    ],
+    [
+      "L-257",
       26
     ],
     [
@@ -53,14 +53,14 @@
   "zero_cited_sample": [
     "L-394"
   ],
-  "power_law_alpha": 0.7897,
-  "power_law_r_squared": 0.8397,
+  "power_law_alpha": 0.7863,
+  "power_law_r_squared": 0.8383,
   "zipf_holds": true,
   "zipf_strong": false,
   "head_heavy": false,
   "tail_flat": false,
   "median_citations_nonzero": 4,
-  "p90_citations": 13,
+  "p90_citations": 14,
   "verdict": "ZIPF_WEAK",
-  "interpretation": "Lesson citation distribution is approximately Zipfian (\u03b1=0.790, R\u00b2=0.840). ISO-8 isomorphism PARTIALLY confirmed. \u03b1 deviates from 1.0 \u2014 flatter (more even distribution) than canonical Zipf."
+  "interpretation": "Lesson citation distribution is approximately Zipfian (\u03b1=0.786, R\u00b2=0.838). ISO-8 isomorphism PARTIALLY confirmed. \u03b1 deviates from 1.0 \u2014 flatter (more even distribution) than canonical Zipf."
 }

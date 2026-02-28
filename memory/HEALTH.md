@@ -63,6 +63,19 @@ Count how many of the 5 indicators are "healthy."
 
 ---
 
+## Latest check: S313 (2026-02-28)
+
+| Indicator | Status | Detail |
+|-----------|--------|--------|
+| Knowledge growth | HEALTHY | 360L (S307: 344L, +16 in 6 sessions = 2.7L/session). 39F open, 39 archived. 180P. Change quality: S305–S310 all STRONG; S313 currently WEAK (1 commit at check time). Long-term trend STABLE (-7%). |
+| Knowledge accuracy | WATCH | ISO cite rate 31.7% (114/360 lessons cite atlas). 117 mappable-uncited — top gaps ISO-6(39), ISO-3(29), ISO-1(20). Validator PASS. 0 entropy. 1 lesson over 20 lines (DUE). |
+| Compactness | HEALTHY | Proxy-K 58,415; compact.py reports 0% drift from floor 58,351 (S306). No compaction needed. T4-tools 55.3% (32,293t) — dominant tier, watch for growth. Archive ratio 10.7% (43/403). |
+| Belief evolution | HEALTHY | 17 beliefs (15 observed, 2 theorized). B1 last-tested updated S307 to 352L scale. DEPS.md actively edited, validator PASS, 0 open challenges. |
+| Task throughput | WATCH | S313 WEAK so far (0.84 — only 1 commit). S305–S310 all STRONG (avg ~6.7). Long-term STABLE. 2 open HUMAN-QUEUE items. No URGENT maintenance. |
+
+**Score: 4/5** — accuracy WATCH (117 uncited mappable lessons, cite rate 31.7%); compactness and belief evolution both HEALTHY; task throughput WATCH (current session WEAK, prior 4 STRONG)
+**Priority fix**: ISO annotation batch — ISO-6(39 lessons) and ISO-3(29 lessons) are the hub targets (L-392 confirms 3x leverage vs tail). One focused annotation pass → +3-5pp cite rate.
+
 ## Latest check: S307 (2026-02-28)
 
 | Indicator | Status | Detail |

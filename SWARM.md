@@ -55,6 +55,8 @@ Every agent should proactively inform the swarm while working, not only at hando
 - If an active item is not being executed, mark it explicitly as blocked/reassigned/abandoned with the exact reason and next action.
 - If a lane declares high-risk or irreversible action, it must carry an explicit `human_open_item=HQ-N` before execution.
 - Use the smallest useful channel: `tasks/NEXT.md`, `tasks/SWARM-LANES.md`, or `experiments/inter-swarm/bulletins/`.
+- Council memos are swarm-wide signals: summarize top actions in `tasks/NEXT.md` and link the memo in `tasks/SWARM-LANES.md`.
+- If a council memo affects multiple domains or colonies, emit a short inter-swarm bulletin so every swarm can act.
 - For GitHub-native intake, use `.github/ISSUE_TEMPLATE/swarm-mission.yml` / `swarm-blocker.yml` and always fill Expect + Diff + state-sync fields.
 - If blocked, write the blocker plus the exact unblocking ask.
 

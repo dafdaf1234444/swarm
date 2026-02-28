@@ -21,11 +21,17 @@ Seeded: S196 | 2026-02-28
   **Stakes**: Identifies single points of failure in swarm continuity; informs redundancy strategy.
   **Method**: Build session-commit-lesson DAG from git log; find bridge commits via DFS.
 
-- **F-GT4**: Can spectral clustering on the lesson-citation graph reveal domain boundaries that differ (S196)
-  from declared domain labels? Do lessons self-organize into clusters that contradict current taxonomy?
-  **Stakes**: If YES, the domain taxonomy is empirically wrong — reorganization needed. If NO, declared
-  domains are validated as natural clusters.
-  **Method**: Build citation adjacency matrix; compute Laplacian; cluster on eigenvectors; compare to labels.
+- **F-GT4**: Can spectral clustering reveal domain boundaries differing from declared labels?
+  **S314 PARTIAL**: 17 connected components (giant n=193 + 16 micro + 128 orphans). All spectral clusters = "meta"-dominated. Declared taxonomy NOT confirmed by citation structure — topology-blind. L-423.
+  Artifact: experiments/graph-theory/f-gt4-spectral-clustering-s314.json.
+  Open: (1) improve label coverage (currently 40.6%); (2) re-run spectral on giant component only with k=10.
+
+- **F-GT5**: What portion of the swarm's active work graph is reachable from recent human signals and core
+  state nodes? Which components are unreachable?
+  **Stakes**: Reachability measures coordination diffusion; unreachable components indicate drift and
+  wasted work with no signal source.
+  **Method**: Build a directed graph from HUMAN-SIGNALS → lanes → artifacts → lessons → frontiers. Compute
+  reachability from signal nodes, identify disconnected components, and list cut vertices (bridge nodes).
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|

@@ -76,6 +76,44 @@ def compute_production(sessions: list[dict]) -> dict:
 # Internal economy: resource (Proxy-K)
 # ---------------------------------------------------------------------------
 
+def _load_proxy_k_floor_from_log() -> tuple[int | None, dict]:
+    log_path = ROOT / "experiments" / "proxy-k-log.json"
+    if not log_path.exists():
+        return None, {}
+    try:
+        entries = json.loads(log_path.read_text(encoding="utf-8"))
+    except Exception:
+        return None, {}
+    if not entries:
+        return None, {}
+
+    schema = entries[-1].get("tier_schema")
+    if schema:
+        schema_entries = [e for e in entries if e.get("tier_schema") == schema]
+        if len(schema_entries) >= 2:
+            entries = schema_entries
+        else:
+            return None, {}
+    if len(entries) < 2:
+        return None, {}
+
+    floor_idx = 0
+    for i in range(1, len(entries)):
+        if entries[i].get("total", 0) < entries[i - 1].get("total", 0):
+            floor_idx = i
+    floor_entry = entries[floor_idx]
+    floor_val = floor_entry.get("total")
+    if not isinstance(floor_val, int) or floor_val <= 0:
+        return None, {}
+
+    meta = {
+        "floor_session": floor_entry.get("session"),
+        "floor_date": floor_entry.get("date"),
+        "floor_dirty": floor_entry.get("dirty_tree"),
+    }
+    return floor_val, meta
+
+
 def read_proxy_k() -> dict:
     """Read Proxy-K current total and floor; compute drift."""
     import subprocess
@@ -93,18 +131,28 @@ def read_proxy_k() -> dict:
     except Exception:
         pass
 
-    # Read floor from session log (most recent "floor NNNt" on a proxy-K line)
     floor: int | None = None
-    log_path = ROOT / "memory" / "SESSION-LOG.md"
-    if log_path.exists():
-        text = log_path.read_text(encoding="utf-8")
-        # Look for lines explicitly about proxy-K with a floor value
-        for line in reversed(text.splitlines()):
-            if "proxy" in line.lower() and "floor" in line.lower():
-                m = re.search(r"floor[= ]?(\d[\d,]+)t", line)
-                if m:
-                    floor = int(m.group(1).replace(",", ""))
-                    break
+    floor_source: str | None = None
+    floor_meta: dict = {}
+    log_floor, log_meta = _load_proxy_k_floor_from_log()
+    if log_floor:
+        floor = log_floor
+        floor_source = "proxy-k-log"
+        floor_meta = log_meta
+
+    # Fallback: session log (most recent "floor NNNt" on a proxy-K line)
+    if floor is None:
+        log_path = ROOT / "memory" / "SESSION-LOG.md"
+        if log_path.exists():
+            text = log_path.read_text(encoding="utf-8")
+            # Look for lines explicitly about proxy-K with a floor value
+            for line in reversed(text.splitlines()):
+                if "proxy" in line.lower() and "floor" in line.lower():
+                    m = re.search(r"floor[= ]?(\d[\d,]+)t", line)
+                    if m:
+                        floor = int(m.group(1).replace(",", ""))
+                        floor_source = "session-log"
+                        break
 
     drift: float | None = None
     if current is not None and floor and floor > 0:
@@ -121,6 +169,8 @@ def read_proxy_k() -> dict:
         "current_tokens": current,
         "drift_pct": drift,
         "status": status,
+        "floor_source": floor_source,
+        **floor_meta,
     }
 
 
@@ -404,8 +454,10 @@ def _fmt(report: dict) -> None:
     if proxy.get("floor_tokens"):
         current = proxy.get("current_tokens", "?")
         current_fmt = f"{current:,}" if isinstance(current, int) else current
+        source = proxy.get("floor_source")
+        source_note = f" ({source})" if source else ""
         print(
-            f"  Proxy-K:           floor={proxy['floor_tokens']:,}t"
+            f"  Proxy-K:           floor={proxy['floor_tokens']:,}t{source_note}"
             f"  current={current_fmt}t"
             f"  drift={proxy.get('drift_pct', '?')}%"
             f"  [{proxy.get('status', '?')}]"

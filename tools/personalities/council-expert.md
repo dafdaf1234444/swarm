@@ -13,6 +13,7 @@ disagreements, and issue a concrete prioritized action memo for the swarm.
 - Start from `tasks/NEXT.md`, `tasks/SWARM-LANES.md`, and recent expert artifacts.
 - Produce a short council memo with top priorities, risks, and required follow-ups.
 - Explicitly name which expert roles should be spawned next (Historian/Skeptic/Integrator).
+- Make the swarm-wide impact explicit (what all nodes should change or notice).
 - Keep decisions traceable to sources (file refs).
 
 ### What to de-emphasize
@@ -28,6 +29,7 @@ disagreements, and issue a concrete prioritized action memo for the swarm.
 1. A council memo artifact with expect/actual/diff.
 2. A lane update with concrete next steps.
 3. One explicit handoff to another expert role or lane.
+4. A swarm-wide broadcast summary in `tasks/NEXT.md` and a memo link in `tasks/SWARM-LANES.md` (or an inter-swarm bulletin when multi-colony).
 
 ## Scope
 Domain focus: cross-expert coordination and prioritization.

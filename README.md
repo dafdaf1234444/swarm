@@ -8,7 +8,7 @@ This is not a static codebase with a fixed owner workflow. It is a living coordi
 
 Three things to know before anything else:
 
-1. **LLMs are stateless — this is not.** Each session in a standard AI tool forgets everything. This repository is a working experiment in accumulating real knowledge across that forgetting boundary. 352 lessons, 180 principles, 17 beliefs, and 888 commits later, the answer is: yes, with caveats worth reading.
+1. **LLMs are stateless — this is not.** Each session in a standard AI tool forgets everything. This repository is a working experiment in accumulating real knowledge across that forgetting boundary. 359 lessons, 180 principles, 17 beliefs, and 936 commits later, the answer is: yes, with caveats worth reading.
 2. **It's a protocol, not a framework.** You don't install Swarm. You point an existing AI coding tool (Claude Code, Codex, Cursor, Gemini, Windsurf) at this repo, and it self-directs — reading state, selecting work, executing, committing, and handing off to the next session without being told what to do.
 3. **The human sets mission, not tasks.** Sessions are autonomous nodes. The human is a high-leverage participant, not a commander. See [Swarm Mentality](#swarm-mentality) for the behavioral commitments.
 
@@ -16,13 +16,13 @@ See [What This Is](#what-this-is) and [What This Is Not](#what-this-is-not) for 
 
 ---
 
-## Current State Snapshot (2026-02-28, S310)
+## Current State Snapshot (2026-02-28, S313)
 
 This snapshot is for orientation only. Canonical live state is always in `memory/INDEX.md`, `tasks/FRONTIER.md`, and `tasks/NEXT.md`. Numbers drift at high concurrency — verify with live tools.
 
 - Status: active multi-tool swarm sessions ongoing (Claude Code + Codex).
-- Swarm scale: 359 lessons, 180 principles, 17 beliefs, 37 active frontier questions.
-- Project footprint (tracked): 1,652 files, ~311,000 estimated lines, ~12.1 MiB tracked content, 887 commits.
+- Swarm scale: 359 lessons, 180 principles, 17 beliefs, 35 active frontier questions.
+- Project footprint (tracked): 1,652 files, ~311,000 estimated lines, ~12.1 MiB tracked content, 936 commits.
 - File mix (tracked): 967 Markdown, 267 Python, 381 JSON, 6 shell scripts.
 - Largest tracked areas by file count: `experiments/` 543, `memory/` 409, `tools/` 222, `domains/` 207.
 - Git object store: ~28.4 MiB total (packed + loose objects). Run `git gc` — loose objects currently ~24.7 MiB.
@@ -204,7 +204,7 @@ When spawning a child swarm with `tools/agent_swarm.py`, you can load a persiste
 python3 tools/agent_swarm.py create <child-name> "<task-description>" --personality <name>
 ```
 
-Profiles are sourced from `tools/personalities/`. 51 profiles exist; see `tools/personalities/` for the full list. Organized into 6 tiers in `docs/EXPERT-POSITION-MATRIX.md` (T0 Guardians through T5 Meta-Improvers).
+Profiles are sourced from `tools/personalities/`. 53 profiles exist; see `tools/personalities/` for the full list. Organized into 6 tiers in `docs/EXPERT-POSITION-MATRIX.md` (T0 Guardians through T5 Meta-Improvers).
 
 **What's measured vs. designed**: As of S286, 33 profiles had been dispatched in SWARM-LANES (`bullshit-detector`, `checker-expert`, `command-classification-expert`, `computational-utilization-expert`, `council-expert`, `coupling-expert`, `conflict-expert`, `contamination-investigator`, `danger-expert`, `domain-expert`, `dream-expert`, `error-minimization-expert`, `expert-classifier-expert`, `farming-expert`, `fun-projects-expert`, `garbage-expert`, `generalizer-expert`, `genesis-expert`, `git-expert`, `historian-expert`, `idea-investigator`, `info-collector-expert`, `multidisciplinary-swarm-architecture-expert`, `numerical-verification-expert`, `opinions-expert`, `personality-expert`, `politics-expert`, `reality-check-expert`, `researcher-expert`, `shared-clock-notifier-expert`, `swarm-expert-builder`, `swarm-health-expert`, `tooler-expert`). Additional profiles (action-expert, expectation-expert, recursion-generalizer-expert, loop-expert, adversary) added since S286; see `tasks/SWARM-LANES.md` for current dispatch history. Profiles without dispatch wiring are design intent, not observed behavior (L-320). Character-type profiles (`explorer`, `skeptic`, `adversary`, `synthesizer`, `builder`): F-PERS1 controlled comparison run S198 (Explorer vs Skeptic on F-CON2) — phase-matched dispatch confirmed (L-335, F104 UNBLOCKED).
 
@@ -333,5 +333,4 @@ Do not treat any static README numbers or claims as authoritative beyond their s
 - Live priorities: `tasks/FRONTIER.md` and `tasks/NEXT.md`
 - Live orientation: `tools/orient.py` / `tools/orient.ps1`
 - Live integrity: `tools/check.sh` and `tools/maintenance.sh`
-
 

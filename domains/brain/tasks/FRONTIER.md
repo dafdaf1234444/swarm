@@ -1,6 +1,6 @@
 # Brain Domain — Frontier Questions
 Domain agent: write here for brain-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-02-28 S307 | Active: 2
+Updated: 2026-02-28 S313 | Active: 3
 
 ## Active
 
@@ -11,6 +11,8 @@ Updated: 2026-02-28 S307 | Active: 2
 - **S189 baseline**: `experiments/brain/f-brn4-hippocampal-scale-s189.json` (288L). Key findings: INDEX.md theme buckets index only 207/288 = **71.9% coverage** (81 lessons are uncovered dark matter). orient.py latency = 8.4s (WSL I/O bound, not lesson-count). NEXT.md pointer hit rate = **15.79%** (3/19 done). Projection to 500L: frozen index → 41.4% coverage; Meta/Evolution buckets → 95-101 (semantically diffuse). **Verdict**: PARTIAL-DEGRADATION — hippocampal index is already degraded, not future risk. Remediation: split theme buckets >40 lessons; orient.py NOTICE for coverage gap; wire domain INDEXes into global theme table. See L-305.
 - **S191 progress**: orient.py NOTICE added (`check_index_coverage()`). First run at 294L: **87/294 unthemed (70.4%)** — NOTICE fires. Meta=58L, Evolution=55L both exceed >40 split threshold. L-313 written.
 - **S301 progress**: Meta+Evolution split complete. Meta→Swarm Operations(22)+Memory & Compaction(20)+Belief & Alignment(16). Evolution→Spawn & Harvest(20)+Selection & Fitness(20)+Concurrency & Growth(15). Max bucket now 33L. Coverage 303/307 = 98.7%. Remediation target MET. L-344. **NEXT**: wire domain INDEXes into global theme table; add orient.py alert when any bucket exceeds 40L (auto-split prompt).
+
+- **F-BRN5**: Does the brain sleep-deprivation literature predict swarm degradation patterns above the K≈27k critical period threshold? S313 OPEN: L-424 theorizes that compaction = sleep consolidation (hippocampus→neocortex), and K>10% drift ≈ sleep deprivation (error detection degrades). Test: measure belief-drift rate, challenge rate, and lesson citation quality for sessions at K>27k vs K<27k (pre/post compaction). Hypothesis: sessions at high K show lower challenge rate and lower cross-citation (ISO annotation drops). Related: L-424, L-422, F105, F-BRN4, ISO-4.
 
 ## Resolved
 | ID | Answer | Session | Date |

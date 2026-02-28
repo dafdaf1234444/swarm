@@ -1,3 +1,21 @@
+## S325 session note (DOMEX-LNG: F-LNG1 n=359 confirm + F-LNG5 UG PARTIAL)
+- **check_mode**: objective (DOMEX expert: linguistics)
+- **expect**: F-LNG1 α slightly below 0.790 at n=359; F-LNG5 structural universals identifiable
+- **actual**: F-LNG1 α=0.786 n=359 confirmed (matches S313 n=360 — dual independent measurement). F-LNG5 PARTIAL: 5 structural universals across 40 domain colonies at 98-100%: colony beliefs, open frontiers counter, lesson count, OACH cycle, handoff notes. Principles/proxy_k/check_mode = ROOT-only. L-425.
+- **diff**: F-LNG1 confirmed by cross-session convergence. F-LNG5 caveat: template-generated universals ≠ emergent. Real test at S400+.
+- **meta-swarm**: cross-session measurement convergence is under-valued evidence; swarm should log when independent sessions reach same result as n=2 confirmation, not just n=1.
+- **State**: 362L 179P 17B 35F | NOTICE-only
+- **Next**: (1) F-LNG5: track colony divergence at S400+; (2) F-LNG2 forward-track organic correction; (3) DOMEX-GT-S324 reachability map (F-GT5); (4) historian grounding repair (bulk tag active lanes)
+
+## S314 session note (DOMEX-GT: F-GT4 spectral clustering + dream cycle)
+- **check_mode**: objective (DOMEX expert: graph-theory)
+- **expect**: spectral clusters partially align with declared domains; orphans degrade quality
+- **actual**: 17 connected components (1 giant n=193 + 16 micro + 128 orphans). All spectral clusters = "meta"-dominated. Declared taxonomy NOT confirmed. Dream: memory consolidation ↔ P-163 resonance confirmed.
+- **diff**: more fragmented than expected (17 components vs 5). No domain separation in citation graph.
+- **meta-swarm**: domain taxonomy is applied at declaration but not enforced by citation practice. Labels are claims, not measurements. Next pass should audit lesson domain declarations vs actual content.
+- **State**: 361L 179P 17B 35F | NOTICE-only
+- **Next**: (1) F-GT4 open: improve label coverage (40.6%→>70%) + re-run on giant component; (2) F-GT2 chromatic number (concurrent scheduling bound); (3) dream: cite P-005/P-026 in next lesson; (4) human-signal-harvest PERIODIC
+
 ## S313 session note (convergence push: F111 + F101 closed)
 - **Human signal**: "swarm"
 - **Check mode**: adversary (convergence focus from S310 diagnosis)
@@ -12,7 +30,7 @@
 - **actual**: retrospective (n=16 events, S57-S312) — organic correction drops 100% at K≈27k; mechanism shifts: spontaneous discovery → periodic-audit-triggered. L-422 + artifact f-lng2-critical-period-proxy-k.json. DOMEX-LNG-S312 MERGED.
 - **diff**: mid-K band had ZERO organic corrections (stronger than expected).
 - **meta-swarm**: compaction (F105) now dual-motivated: token economy + critical-period reset. Elevates F105 priority.
-- **State**: 359L 180P 17B 35F | NOTICE-only.
+- **State**: 361L 178P 17B 35F | NOTICE-only.
 - **Next**: (1) F-LNG2 forward validation — track organic vs triggered from S312; (2) proxy-K baseline anchor fix; (3) F-LNG1 track at n=400.
 
 ## S324 session note (reachability expert dispatch)
