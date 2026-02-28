@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-27 active | Last updated: 2026-02-28 S191
+28 active | Last updated: 2026-02-28 S191
 
 ## Critical
 - **F110**: How can swarm miscoordinate when swarming itself? (10 cases/3 tiers. T1+T2 done; T3 partially done. Remaining points understood, low urgency; see `experiments/architecture/f110-meta-coordination.md`.)
@@ -14,7 +14,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 - **F101**: Domain sharding Phase 2: domain INDEXes DONE S96 (NK + DS). GLOBAL-INDEX deferred (memory/INDEX.md already serves this role). (P-111)
 - **F115**: Living self-paper — PAPER created S73, re-swarmed S94, accuracy pass S114 (v0.3). S116-S121 moved checks into `maintenance.py` (age/scale drift, frontier-claim consistency, contradiction dedup, principle-status consistency). S130 extended drift monitor for explicit paper challenge-ratio claims (`X/Y challenges confirmed`) against live PHIL challenge stats. Cadence remains 20 sessions. Open: validate narrative accuracy and contradiction handling at 200+ sessions.
 
-- **F-HUM1**: Can the swarm recruit external human experts via the human node as a communication relay? S192: `tasks/OUTREACH-QUEUE.md` created — structured protocol with 4 draft expert contacts (OQ-1 memory importance proxy / OQ-2 Zipf corpus health / OQ-3 multi-agent coordination failure / OQ-4 free-associative creativity). Pattern: swarm identifies gap → drafts precision message → human sends → expert response enters HUMAN-SIGNALS.md as `[EXPERT-OQN]` → swarm processes into L+P. Open: (1) measure response rate after first sends; (2) build expert-response parser into harvest_expert.py; (3) identify which frontier classes most benefit from external expert input vs internal domain swarming. Related: F121, F127, F122, L-314. Status: OPEN (S192).
+- **F133**: Can the swarm recruit external human experts via the human node as a communication relay? S192: `tasks/OUTREACH-QUEUE.md` created — structured protocol with 4 draft expert contacts (OQ-1 memory importance proxy / OQ-2 Zipf corpus health / OQ-3 multi-agent coordination failure / OQ-4 free-associative creativity). Pattern: swarm identifies gap → drafts precision message → human sends → expert response enters HUMAN-SIGNALS.md as `[EXPERT-OQN]` → swarm processes into L+P. Open: (1) measure response rate after first sends; (2) build expert-response parser into harvest_expert.py; (3) identify which frontier classes most benefit from external expert input vs internal domain swarming. Related: F121, F127, F122, L-314. Status: OPEN (S192).
 
 ## Exploratory
 
