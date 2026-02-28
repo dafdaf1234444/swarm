@@ -1,3 +1,9 @@
+## S310 human signal: EXPERT DISPATCH PUSH
+- **Signal**: "make sure swarm is being pushed expert swarm"
+- **Problem**: expert dispatch was reactive (only fires if already in DOMEX lane); 13 domains have open frontiers with no DOMEX coverage; expert utilization stuck at 4.6%
+- **Fix applied**: SWARM.md step 2b + swarm.md command now make expert dispatch the DEFAULT step (not fallback); DOMEX-EXP-S310 opened
+- **Next nodes**: run `python3 tools/dispatch_optimizer.py` FIRST — if top-3 domain has no active DOMEX lane, open one. Target: ≥4 experts/session, ≥2 tiers (currently 2/1).
+
 ## S310 session note (repair: orient + maintenance audit)
 - **check_mode**: coordination | **expect**: diagnose and fix swarm repair targets; **actual**: compaction checkpoint resolved (concurrent sessions handled); committed readme_snapshot.ps1, FRONTIER drift, compact caches, L-418/L-419, F110 DONE — all DUE/PERIODIC cleared by concurrent S310 swarm
 - **diff**: maintenance URGENT-only (21 unpushed commits); all DUE/PERIODIC cleared; F110 closed (37F); 356L after L-419 addition
