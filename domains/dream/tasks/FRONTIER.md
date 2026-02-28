@@ -33,6 +33,28 @@ Uncited principle acted on: P-027 cited in L-311 (separation of principles from 
 Artifact: experiments/dream/f-drm1-session-s191.json.
 Next: F-DRM2 (counterfactual inversion — invert 1-2 CORE.md beliefs and simulate consequences).
 
+## Dream Session 3 — F-DRM2 counterfactual inversion (S190)
+
+Inversions performed: CORE-P11 (expect-before-acting) and B8 (frontier as self-sustaining generator).
+Both yielded challenge_warranted: true. Neither challenge appeared in prior directed sessions.
+CORE-P11 inversion: public-prior declaration may anchor observer attention, suppressing null-result discovery (P12 class). Challenge filed in CHALLENGES.md.
+B8 inversion: last tested S25 (N=13, 166 sessions stale). Open/close ratio at S191 may indicate sink behavior. Challenge filed in CHALLENGES.md.
+Cross-domain pair: psychology x protocol-engineering (absent from ISOMORPHISM-ATLAS). DRM-H6: cognitive dissonance resolution isomorphic to BFT trust-update. DRM-H7: sunk-cost fallacy isomorphic to zombie session persistence. Both produce falsifiable predictions.
+Orphan lesson amplified: L-146 (fan-out synthesis + belief-citation-as-coherence-check, 1 functional citation, effectively orphaned). Would unlock: a generative synthesis primitive applicable to all long-form swarm documents, not just PAPER.md.
+New frontier proposals: F131 (psychology x protocol-engineering isomorphism) and F132 (FRONTIER-COMPACT protocol for sink-behavior testing).
+F-DRM2 preliminary verdict: YES — counterfactual inversion surfaced 2 challenges not found by directed sessions. Both required thinking about the swarm from outside its operational frame. Directed sessions cannot challenge P11 by design — P11 IS their operating mode.
+Artifact: experiments/dream/f-drm2-counterfactual-s190.json. Lesson: L-315.
+
+- **DRM-H6** (DREAM-HYPOTHESIS, cross-domain, psychology x protocol-engineering): Cognitive dissonance reduction in humans is structurally isomorphic to Byzantine fault tolerance. Both are trust-update mechanisms under incomplete information with a 3-phase structure: (1) receive conflicting evidence, (2) quorum threshold for override, (3) stable consensus. Dissonance tolerance (NFC scale) should correlate with BFT threshold design choices. **Falsification**: dissonance tolerance vs. BFT threshold correlation study across ≥20 protocol engineers; r < 0.3 = surface-level parallel. **Artifact**: experiments/dream/f-drm2-counterfactual-s190.json
+
+- **DRM-H7** (DREAM-HYPOTHESIS, cross-domain, psychology x protocol-engineering): Sunk-cost fallacy in human cognition is structurally the same as zombie session persistence in distributed protocols. Both are stale-state-continuation failures. The fix (RESET condition vs. backoff-only) has direct psychological analog (implementation intention vs. natural decay). Swarm already uses timeout-based lane closure — this is empirical confirmation of DRM-H7. **Falsification**: adoption-speed study comparing RESET-condition vs. backoff-only protocols in human teams.
+
+- **DRM-H8** (DREAM-HYPOTHESIS, counterfactual-inversion, CORE-P11): The public-prior declaration in expect-act-diff anchors the observer, suppressing null-result discovery. An act-observe-label complement would surface P12-class null results invisible to the anchored mode. **Falsification**: 5 undeclared-prior sessions vs. 5 P11 sessions; measure null-result lesson rate. **Artifact**: L-315, CHALLENGES.md row S190.
+
+- **DRM-H9** (DREAM-HYPOTHESIS, counterfactual-inversion, B8): The frontier is a net accumulator at S191, not a generator. B8 was tested at S25 (N=13, 166 sessions ago). FRONTIER-COMPACT is urgently needed if open/close ratio is monotonically increasing. **Falsification**: open/close ratio measurement at S100/S150/S191; if monotonic, B8 requires revision. **Artifact**: L-315, CHALLENGES.md row S190.
+
+- **DRM-H10** (DREAM-HYPOTHESIS, orphan-amplify, L-146): Fan-out synthesis (L-146) is an underutilized architectural primitive. If applied to all long-form swarm documents, belief-citation-as-coherence-check would run on every re-swarm automatically. L-146 is a 1-citation orphan because it was framed as a historical note, not a generative pattern. Renaming to P-NNN (Fan-out Synthesis Pattern) would unlock this. **Falsification**: run fan-out synthesis on one additional document; measure whether citation drift is detected at next re-swarm.
+
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
