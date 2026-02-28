@@ -1272,14 +1272,17 @@ def check_runtime_portability() -> list[tuple[str, str]]:
     if _is_wsl_mnt_repo() and not _git("status", "--porcelain"):
         results.append(("NOTICE", "WSL on /mnt/* repo: status/proxy-K may diverge from Windows runtime"))
 
-    if _is_wsl_mnt_repo():  # WSL corruption: .claude/commands/swarm.md may lose permissions
+    if _is_wsl_mnt_repo():  # WSL corruption: .claude/commands/swarm.md may lose permissions or be deleted
         swarm_cmd = REPO_ROOT / ".claude" / "commands" / "swarm.md"
-        try:
-            content = swarm_cmd.read_text(encoding="utf-8")
-            if "# /swarm" not in content:
-                results.append(("DUE", ".claude/commands/swarm.md exists but has unexpected content — may be corrupted (WSL). Restore: python3 -c \"import os; os.remove('.claude/commands/swarm.md')\" then git show HEAD:.claude/commands/swarm.md > /tmp/s.md && python3 -c \"open('.claude/commands/swarm.md','w').write(open('/tmp/s.md').read())\""))
-        except (PermissionError, OSError):
-            results.append(("DUE", ".claude/commands/swarm.md inaccessible — WSL permission corruption. Fix: python3 -c \"import os; os.remove('.claude/commands/swarm.md')\" then restore from git show HEAD:.claude/commands/swarm.md"))
+        if not swarm_cmd.exists():
+            results.append(("DUE", ".claude/commands/swarm.md DELETED — WSL deletion bug (L-279). Fix: rm -f .claude/commands/swarm.md && git checkout HEAD -- .claude/commands/swarm.md"))
+        else:
+            try:
+                content = swarm_cmd.read_text(encoding="utf-8")
+                if "# /swarm" not in content:
+                    results.append(("DUE", ".claude/commands/swarm.md exists but has unexpected content — may be corrupted (WSL). Restore: python3 -c \"import os; os.remove('.claude/commands/swarm.md')\" then git show HEAD:.claude/commands/swarm.md > /tmp/s.md && python3 -c \"open('.claude/commands/swarm.md','w').write(open('/tmp/s.md').read())\""))
+            except (PermissionError, OSError):
+                results.append(("DUE", ".claude/commands/swarm.md inaccessible — WSL permission corruption. Fix: python3 -c \"import os; os.remove('.claude/commands/swarm.md')\" then restore from git show HEAD:.claude/commands/swarm.md"))
 
     bridges = BRIDGE_FILES
     missing_bridges = [p for p in bridges if not _exists(p)]

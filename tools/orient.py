@@ -257,8 +257,41 @@ def _run_classify(task: str) -> None:
         print(f"New domain suggestion: {result['new_domain_suggestion']}")
 
 
+def _auto_repair_swarm_md() -> None:
+    """Auto-repair WSL swarm.md corruption before running maintenance.
+    Recurring pattern (every ~5-8 sessions): .claude/commands/swarm.md loses
+    permissions or gets deleted on WSL /mnt/* repos. Fix: rm + git checkout HEAD.
+    Silently repairs if needed; prints a one-line notice when it fires.
+    """
+    swarm_cmd = ROOT / ".claude" / "commands" / "swarm.md"
+    needs_repair = False
+    try:
+        content = swarm_cmd.read_text(encoding="utf-8")
+        if "# /swarm" not in content:
+            needs_repair = True
+    except (PermissionError, OSError, FileNotFoundError):
+        needs_repair = True
+    if needs_repair:
+        import os
+        try:
+            if swarm_cmd.exists():
+                os.remove(swarm_cmd)
+        except OSError:
+            pass
+        result = subprocess.run(
+            ["git", "checkout", "HEAD", "--", ".claude/commands/swarm.md"],
+            capture_output=True, text=True, cwd=ROOT,
+        )
+        if result.returncode == 0:
+            print("[orient] WSL swarm.md auto-repaired (rm + git checkout HEAD)")
+        else:
+            print(f"[orient] swarm.md repair failed: {result.stderr.strip()}")
+
+
 def main():
     brief = "--brief" in sys.argv
+
+    _auto_repair_swarm_md()
 
     classify_task = _get_classify_task()
     if classify_task:
