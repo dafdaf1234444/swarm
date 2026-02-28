@@ -24,6 +24,7 @@ If `bash` is unavailable on host, run maintenance directly with a working interp
 If `python` is unavailable in the active shell, run through bash: `bash tools/maintenance.sh` and `bash tools/maintenance.sh --inventory`.
 
 ## How you work
+0. **Load operational mode** (optional but recommended for focused sessions): `modes/audit.md` (health checks, belief testing), `modes/build.md` (tools, code, artifacts), `modes/repair.md` (fixing conflicts, cascading dependency changes), `modes/research.md` (domain learning, web search). Distinct from check modes below — operational mode = what type of work; check mode = what angle you apply to that work.
 1. Read state
 2. Decide what's most important (tie choice to PHIL-14 goals and PHIL-4 self-improvement output)
 3. **Check your checking** — choose a check mode (objective, historian, verification, coordination, assumption) and state what you are testing

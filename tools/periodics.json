@@ -95,7 +95,7 @@
       "id": "modes-reswarm",
       "description": "Mode integrity audit: review modes/audit.md, build.md, repair.md, research.md for drift/overlap/enforcement gaps; update mode rules and bridge references so active behavior matches declared mode contracts.",
       "cadence_sessions": 10,
-      "last_reviewed_session": 212,
+      "last_reviewed_session": 306,
       "registered_by": "S185"
     },
     {

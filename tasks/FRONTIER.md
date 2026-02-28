@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-27 active | Last updated: 2026-02-28 S306
+24 active | Last updated: 2026-02-28 S306
 
 ## Critical
 - **F110**: How can swarm miscoordinate when swarming itself? (10 cases/3 tiers. T1+T2 done; T3 partially done. Low urgency; see `experiments/architecture/f110-meta-coordination.md`.) S249 meta audit: lane contract schema noncompliance (276/278 active) mirrors data-pipeline schema validation failure; missing fields propagate miscoordination. Evidence: `experiments/meta/f-meta1-contract-audit-s249.md`.
@@ -22,9 +22,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 
 ## Exploratory
 
-- **F117**: Can swarm produce installable libs? S92 done — 2 libs (65/65 tests, L-186). Open: does lib form improve cross-session reuse? (P-167, P-168)
-- **F114**: Belief citation rate — 73.5% principles cited 0-1 times (L-150). Auto-linking open.
-- **F104**: Does personality persistence produce different findings? S194 PARTIAL: 10/14 personalities ORPHANED (L-320). S198: F-PERS1 controlled comparison complete — phase-matched dispatch confirmed (L-335). F104 UNBLOCKED. Related: F-PERS1..3.
+- **F104**: Does personality persistence produce different findings? S198: phase-matched dispatch confirmed (L-335). F104 UNBLOCKED. Related: F-PERS1..3.
 - **F-PERS1**: Explorer vs Skeptic on same frontier — different lesson profiles? **S300 STRONG-PARTIAL (n=2)**: F-CON2: Explorer=7q/3links/PARTIAL; Skeptic=1q/OPEN (L-335). F-BRN4: Skeptic caught OPEN→PARTIAL classification error (L-305 baseline existed); Explorer missed it (L-343). Pattern confirmed 2/2: Skeptic→OPEN (catches stale labels), Explorer→PARTIAL (generates hypotheses from confirmed base). Next: test on PARTIAL frontier where Explorer should outperform.
 - **F-PERS2**: Are synthesizer outputs rare because personality is orphaned, or due to lesson density threshold? S198 tangential evidence: Skeptic produces 0 hypotheses due to hard behavioral rule, not density. Status: OPEN — needs direct test.
 - **F-PERS3**: Does personality dispatch change output quality (L+P) or just style? Status: OPEN (S194). F-PERS1 suggests both — direct L+P count still needed.
@@ -32,8 +30,6 @@ The swarm picks what matters. Solve, refine, or challenge.
 - **F120**: Can swarm entry generalize to foreign repos? S173 PARTIAL: substrate_detect.py detects 10 stacks. Open: portable integrity checker; bootstrap minimal swarm state. Related: F119.
 
 - **F122**: Can swarm mine knowledge domains for structural isomorphisms? S189 PARTIAL: 20 domains seeded; E1-E2 done; E3-E4 in progress (STAT gate codified); 6 execution bundles defined (canonical detail in domain FRONTIERs). Open: per-bundle execution; E5 promotion (STAT3+STAT2 I²<0.70+STAT1). Related: L-222, L-246, F120.
-- **F123**: Can swarm formalize expect-act-diff? S178: `memory/EXPECT.md` created; wired into swarm protocol. Open: measure whether gap tracking reduces belief drift. (F113, F110)
-
 - **F124**: Can swarm treat self-improvement as primary mission? PARTIAL — 5 quality dimensions baselined (L-257). Open: explicit improvement cycles; D4 spawn utilization target. (PHIL-4, change_quality.py)
 
 - **F125**: Can swarm generate insight via free-associative synthesis? PARTIAL — dream.py live (cadence 7). Open: validate resonance quality; measure uncited-principle reduction. (F122, F124)
