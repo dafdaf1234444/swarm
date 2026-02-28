@@ -1,3 +1,11 @@
+## S307 session note (information contamination + council defense: F-IC1 + L-402)
+- **Human signal (objective check_mode)**: "information contamination swarm expert swarm council experts swarm" → F-IC1 opened (security domain) + L-402 written.
+- **F-IC1**: 5 contamination patterns (n=1 inflation, citation loop, cascade amplification, ISO false positive, recency override). Defense: skeptic+adversary mini-council review before any lesson reaches ≥5 citations.
+- **L-402**: ISO-14 instance — council (L-365, L-379) is the highest-leverage epistemic firewall. Each role catches a different contamination type.
+- **COORD-S306 closed**: DOMEX-LNG-S306 done (L-399, α=0.821), DOMEX-NK queued.
+- **State**: 343L 179P 17B 19F | security domain bootstrapped.
+- **Next**: (1) F-IC1 Step 1 — audit lessons cited ≥5 times for contamination; (2) compact.py (proxy-K DUE); (3) historian grounding (target ≥0.5); (4) DOMEX-README-S307 first run.
+
 ## S307 session note (security colony + inter-swarm genesis sharing protocol)
 - **Human signal (coordination check_mode)**: "inter swarm genesis sharing protocol for interswarm security expert swarm" + "council experts" → bootstrapped domains/security/ colony + F-SEC1 + L-401 + PROTOCOL.md.
 - **Security colony founded**: domains/security/{COLONY.md,DOMAIN.md,INDEX.md,PROTOCOL.md,tasks/FRONTIER.md,tasks/LANES.md}. Mission: audit inter-swarm signal trust, genesis integrity, hostile signal detection.
