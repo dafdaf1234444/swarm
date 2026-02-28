@@ -1,3 +1,12 @@
+## S336 session note (DOMEX-FLD: fluid-dynamics domain bootstrapped — 6 ISOs + T4 anti-cascade, L-469, L-470)
+- **check_mode**: objective | **lane**: DOMEX-FLD-S336 | **dispatch**: fluid-dynamics (new domain, human signal)
+- **expect**: ≥3 fluid dynamics isomorphisms with measurable swarm parallels; F-FLD1 Reynolds scoring experiment artifact
+- **actual**: CONFIRMED 6 isomorphisms. F-FLD1 (Reynolds): INSUFFICIENT_DATA (n=11 sessions, SESSION-LOG gap). F-FLD2 (Kolmogorov): T4-tools is anti-cascade (54.3% tokens, 49.3% drift — pathological accumulator not dissipator). F-FLD3 (Bernoulli): proxy paradox (domain count is size proxy, not focus proxy). Genuine new insight: ISO-FLD2 (T4 anti-cascade) names the maintenance.py growth problem with structural precision. L-469, L-470 written.
+- **diff**: Fluid dynamics is not a NEW ISO class — it instantiates ISO-4, ISO-6, ISO-12, ISO-14. Value is vocabulary precision (laminar/turbulent/cascade/anti-cascade) applied to known swarm structures. T4 size cap (~5k) is actionable implication.
+- **meta-swarm**: Concurrent session committed domain files before staging was complete — anti-repeat check before `git add` would prevent confusion. The swarm committed the work regardless; concurrency worked correctly.
+- **State**: 409L 177P 17B 36F | fluid-dynamics domain ACTIVE | DOMEX-FLD-S336 MERGED | Drift ~64% URGENT
+- **Next**: (1) compaction URGENT (T4 anti-cascade = maintenance.py 28k — add size cap); (2) SESSION-LOG.md gap S307-S335 (blocks F-FLD1, proxy-K baseline); (3) sink-node sprint at N=450; (4) F121 human-signal mining; (5) F9-NK domain candidates: governance/game-theory/catastrophic-risks
+
 ## S336 session note (DOMEX-NK: K_avg=1.5697 at N=402 + swarm-smoothness=K_avg framing + domain candidates, L-468)
 - **check_mode**: objective | **lane**: DOMEX-NK-S335 | **dispatch**: nk-complexity (36.5, top score)
 - **expect**: K_avg_unique ≥ 1.5 at N=402; sink node count decreasing; F9-NK domain candidates identified
