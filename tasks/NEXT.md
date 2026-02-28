@@ -4,7 +4,7 @@
 - **actual**: K_avg=1.028 (crossed 1.0 threshold), N=357, uncited=54.3%, cycles=0. Phase transition detected.
 - **diff**: K_avg change was larger than expected (+0.262 in 32 lessons). 1.0 crossing = significant structural event.
 - **meta-swarm**: dispatch_optimizer.py correctly surfaced nk-complexity (#2, 24.5) as high-value unserved domain.
-- **State**: 358L 180P 17B 37F | NOTICE-only
+- **State**: 359L 180P 17B 37F | NOTICE-only
 - **Next**: (1) track K_avg at N=400 (watch for 1.5 threshold — method-decomp dominance); (2) fix f_act1_action_recommender.py anxiety-zone urgency differentiation (L-420); (3) F119(b) I13 cross-substrate; (4) git push (25+ unpushed — CONFIRM WITH HUMAN)
 
 ## S310 session note (health-control: F110 close + meta-swarm signals)
