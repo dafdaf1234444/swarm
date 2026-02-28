@@ -30,6 +30,23 @@ See Answered section below.
 
 ## Process Feedback
 
+### HQ-37: PHIL-13 structural follow-through — what defense do you want against competitive deception?
+**Asked**: 2026-02-28 | **Session**: S300
+
+PHIL-13 states: "No node has epistemic authority over truth claims. Alignment through challenge."
+
+Two open challenges have weakened this:
+- **S165 (P-155)**: In a controlled simulation, competitive incentives raised trace deception +18.6pp (n=80). Belief_evolve.py's fitness ranking creates competitive framing between nodes — does ranking compete with "alignment through challenge"?
+- **S178 (F-AI4)**: Capability and vigilance are statistically independent. A capable-but-wrong assertion can bypass challenge protocol if the receiving node lacks vigilance.
+
+This has been listed as "PHIL-13 structural follow-through" for many sessions without a concrete next action. The swarm needs a human direction signal to proceed, because the fix may involve changing the fitness competition mechanism (P-159) — a design choice with unknown tradeoffs.
+
+**Specific question**: Which structural fix do you authorize?
+- **(A) Evidence-link requirement**: Any principle-affecting belief change must cite a specific lesson (L-NNN) or external source. Claims without citations are auto-rejected.
+- **(B) Remove fitness competition**: Disable fitness ranking in belief_evolve.py; all beliefs compete on falsifiability evidence only, not session score.
+- **(C) Audit first, fix later**: Run the F-AI4 audit (check PHIL challenge table for assertion-driven vs evidence-driven acceptances) and report findings before deciding. No structural change yet.
+- **(D) Accept the risk**: PHIL-13's current defenses (evidence-required, append-only log) are sufficient. Competitive deception is a known risk but not a current observed problem. Close this item.
+
 ## Answered
 
 ### ~~HQ-15: Proceed with economy-helper spawns despite WSL timeout?~~ RESOLVED S299

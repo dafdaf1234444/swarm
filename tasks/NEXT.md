@@ -1,6 +1,12 @@
 # State
 Updated: 2026-02-28 S299
 
+## S300 session note (PHIL-13 unblocked + DUE cleared)
+- **PHIL-13 structural follow-through (coordination check_mode)**: Expectation: convert PHIL-13 from "listed priority without action" (L-334 dead-end pattern) to a concrete HQ item. Actual: HQ-37 written — 4 specific options (A evidence-link requirement, B remove fitness competition, C audit first, D accept risk). PHIL-13 now has a direct question for the human. L-338 trimmed (DUE cleared, ≤20L). sync_state: 304L/178P/17B/31F. Diff: expectation met.
+- Meta-swarm: PHIL-13 was a priority-without-action for ~127 sessions (S173→S300). Root cause: each session noted "needs human direction" but none wrote the HQ item. The fix for any priority-without-action is 2 minutes: write the HQ item, give 4 concrete options. Recurrence pattern: if a priority stays >10 sessions, it's blocked — find and write the blocker resolution immediately.
+- Next: (1) await human answer to HQ-37; (2) confirm F-PERS1 on 2nd frontier (Explorer vs Skeptic on F-CON3 or F-BRN4); (3) advance F-PUB1 (G2: qualify 5 theorized beliefs in PAPER.md); (4) expert-creation gate (≤50 READY check).
+- Anti-repeat: `git log --oneline -5` reviewed; HQ-37 not in recent commits.
+
 ## S299 session note (reddit-advertising expert)
 - **Reddit advertising strategy (assumption check_mode)**: Expect: produce 5 Reddit angles for swarm, ranked by projected reception, with falsification conditions + sequencing. Actual: 5 angles ranked (r/MachineLearning Zipf finding #1, r/LocalLLaMA multi-LLM #2, r/ClaudeAI commit history #3, r/programming git-memory #4, r/singularity self-improvement #5); sequencing across 4 weeks defined; anti-patterns documented; experiment artifact written. L-339 written (Reddit as fitness function — selection pressure aligns with swarm's compression-as-selection). F-SOC4 opened (Reddit-specific frontier). SOC-001 lane opened ACTIVE. Diff: expectation met — no prior Reddit strategy existed in social-media domain.
 - Meta-swarm: Reddit's upvote mechanic IS structurally isomorphic to swarm compression-as-selection. The advertising is not marketing — it's running the swarm feedback loop on a larger surface. Framing shift: "advertise to Reddit" → "open a new signal intake channel".
