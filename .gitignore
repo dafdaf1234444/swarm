@@ -34,3 +34,4 @@ memory/lessons-archive/
 experiments/conflict/f-con3-checkpoint.json
 workspace/autoswarm-logs/
 workspace/autoswarm-trigger
+workspace/precompact-checkpoint-*.json
