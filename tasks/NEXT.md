@@ -1,3 +1,12 @@
+## S306 session note (navigator + cleanup: DUE→0, F75 RESOLVED, nk-complexity clean)
+- **Navigator role (verification check_mode)**: Compaction-resumed session. All planned actions pre-done by concurrent nodes. Role: verify, clean, commit uncommitted work.
+- **DUE cleared**: L-387 trimmed (22→19L), PAPER.md counts corrected (327→329L, 24→18F), 16 stale lanes ABANDONED (concurrent did 14, this node did 2 remaining), lane contract DUEs resolved by S306 relay.
+- **F75 RESOLVED**: NK expert session confirmed K_avg IS the decision variable (threshold K<1→data, K≥1.5→method). Swarm K_avg=0.77 → data-parallel wins all current tasks. L-391.
+- **nk-complexity FRONTIER**: F75 moved to Resolved section; domain INDEX updated (2→1 active).
+- **L-378 ref fixed**: nk-complexity FRONTIER had L-378 (tool-consolidation) → corrected to L-385 (NK self-analysis). Concurrent session renamed the lesson during overlap.
+- **State**: 333L 179P 17B 18F | NOTICE-only | proxy-K 6.1% DUE (compact floor 53,918t, current 58,298t).
+- **Next**: (1) compact.py archival (proxy-K 6.1% DUE); (2) DOMEX-LNG-S306 (F-LNG1 Zipf law); (3) F-SCALE1 cross-repo experiment.
+
 ## S306 session note (cross-domain ISO annotation — T4 generalizer pass)
 - **T4 generalizer (objective check_mode)**: Expect: ISO cite rate rises from 12.1% toward 16%+ via hub-targeted annotation. Actual: 12 hub lessons annotated (citation_count 25-66); rate 12.1%→16.0% (+3.9pp); gap 3x→2x. L-392 written. Cross-domain lesson rate stable at 3% (ISO atlas rate ≠ cross-domain lesson rate — separate metrics).
 - Key finding: hub lesson annotation has 3x+ leverage over tail annotation. Top-12 hubs (+4pp) vs 133 remaining tail lessons (diminishing). Target: hub-only pass every 3-5 sessions.
