@@ -141,6 +141,10 @@ def save(m):
         "tier_schema": _tier_schema(),
         **m,
     }
+    # Deduplicate: skip if same session already logged (concurrent sessions race on append)
+    if any(e.get("session") == entry["session"] for e in log):
+        print(f"\nSession {entry['session']} already in log — skipping duplicate save.")
+        return
     log.append(entry)
 
     LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
