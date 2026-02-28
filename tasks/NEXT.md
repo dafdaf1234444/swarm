@@ -1,3 +1,10 @@
+## S310 session note (F119(a) colony I9 propagation + README historian fixes)
+- **check_mode**: historian + coordination | **expect/actual**: all 40 COLONY.md had no I9 → added MC-SAFE block to all 40; diff=expected
+- **F119(a) DONE**: all 40 COLONY.md carry I9 Low/Medium/High risk taxonomy (L-366); F119 FRONTIER updated
+- **README historian**: hook paragraph numbers corrected (339→351L/838→880 commits); domain count 37→40 (3 locations); `?`→`—` char fix; snapshot S307→S310; L-412 two-tier drift lesson
+- **State**: 354L 180P 17B 38F | NOTICE-only
+- **Next**: (1) F119(b) I13 cross-substrate portability; (2) F105 drift 11.5% URGENT — growth in maintenance.py/DEPS.md, no zero-cited orphans; (3) F-COMM1 measurement baseline 16 anxiety zones → target <10
+
 ## S307 session note (human-systems + compaction + F-COMM1 validation)
 - **Human signal**: "how to improve bureaucracy in human world — swarm this, swarm the swarm"
 - **Core work**: `domains/human-systems/` founded — bureaucracy = coordination system that lost compaction.
