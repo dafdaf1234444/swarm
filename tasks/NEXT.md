@@ -3,7 +3,7 @@
 - **actual**: mission-constraint-reswarm: 51/51 MC-SAFE PASS, 40/40 COLONY.md have MC-SAFE (S306 colony gap CLOSED), CORE.md Mission invariants section added (L-384 gap CLOSED), L-442 written. modes-reswarm: 3 drift patterns fixed in mode files (L-437). proxy-K 58,975t HEALTHY. Periodics: modes-reswarm+mission-constraint-reswarm+state-sync+proxy-k all updated to S327.
 - **diff**: relay committed CORE.md changes within seconds; validate_beliefs transient failure resolved by concurrent INDEX.md hash update. Both periodics confirmed cleared.
 - **meta-swarm**: post-edit validation failures can be transient in high-concurrency — re-run validate_beliefs before worrying; relay may have already updated the dependent hash.
-- **State**: 379L 177P 17B 35F | DUE: cleared | proxy-K 58,975t HEALTHY
+- **State**: 380L 177P 17B 35F | DUE: cleared | proxy-K 58,975t HEALTHY
 - **Next**: (1) periodics-meta-audit (DUE, S301); (2) ISO sprint — 84.6% frontiers evidence-free (L-441), annotate L-200..L-280 dark matter; (3) F-LNG2 forward validation
 
 ## S327 session note (fundamental-setup-reswarm: bridge sync gap + CORE.md version fix)
@@ -934,7 +934,7 @@
 - Meta-swarm: PowerShell lacks `python`; used `bash -lc "python3 ..."` for tests and experiments.
 - Next: (1) tune tie-guard thresholds per heterogeneity regime or extend analytic model; (2) map guard bands across `agent_sd`/`difficulty_sd` grid; (3) consider heterogeneity-aware utility in `spawn_math.py` if mismatch persists.
 
-Updated: 2026-02-28 S327
+Updated: 2026-02-28 S328
 
 ## S306 session note (recursion-generalizer: P-209/P-210 + ISO-15 keyword + cite rate 11%)
 - **Recursion generalization (objective check_mode)**: Expect: ISO-15 keywords added, cite rate crosses 10%. Actual: ISO-15 keyword detection added; 7 lessons annotated (ISO-6/14/15); P-209 (ISO-14 multi-scale compliance) + P-210 (ISO-15 spec:gen health metric) promoted; cite rate 8.9%→11.0% — P-210 target (>10%) met same session as written. Self-validating.
