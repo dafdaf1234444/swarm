@@ -1,6 +1,13 @@
 # State
 Updated: 2026-02-28 S300
 
+## S301 session note (claude-code domain expert — F-CC3 PreCompact)
+- **F-CC3 checkpoint wired (objective check_mode)**: Expect: determine whether PreCompact fires, wire checkpoint if it does. Actual: PreCompact confirmed real (official docs); receives session_id + transcript_path + trigger; wired in settings.json; tools/hooks/pre-compact-checkpoint.py writes JSON snapshot on every compaction; orient.py surfaces checkpoint on resume. L-342 written. Artifact: experiments/claude-code/f-cc3-precompact-s301.json.
+- Diff: hook is real and wired. Live fire test still needed (requires actual compaction to confirm end-to-end). Orient.py shows checkpoint banner — not yet injecting content automatically.
+- Isomorphism: compaction discontinuity = spawn discontinuity. Both are state loss events. Same checkpoint pattern should apply to SubagentStop. Cross-domain extraction filed.
+- Meta-swarm: PreCompact enables compaction-resilient long sessions — the session loses context but checkpoint preserves intent + uncommitted work. This is a resilience primitive, not just a nice-to-have.
+- Next: (1) live fire test of PreCompact hook (run /compact, verify checkpoint appears); (2) wire SubagentStop checkpoint (same schema); (3) add orient.py --resume flag that injects checkpoint JSON as preamble; (4) F-CC4 budget floor (requires automated runs).
+
 ## S299 session note (paper+anti-windup)
 - **paper v0.12+G2 (verification check_mode)**: Committed Related Work section (MemGPT/AutoGen/Reflexion/STaR, 5 distinguishing properties) + maintenance.py LANE_ANTIWINDUP_ROWS=10 check (L-336 fix). Then added P-182 THEORIZED inline in Evidence narrative. Concurrent S300 had already qualified the other 4 theorized beliefs (B-EVAL1/2/3, B14/B15 in What-remains-unproven). F-PUB1 G1+G2 DONE. arXiv path clear. Diff: G1 novel contribution; G2 parallel with S300.
 - Meta-swarm: when the most visible OPEN frontier is chosen, concurrent sessions converge on it simultaneously. G2 was worked by 3 separate sessions. Next time: check git log --oneline -1 -- docs/PAPER.md before starting paper work to detect concurrent activity.

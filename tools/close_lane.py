@@ -4,6 +4,9 @@
 Appends a MERGED/ABANDONED row to tasks/SWARM-LANES.md for a given lane ID
 and optionally updates the target FRONTIER.md with a status note.
 
+By default, prior rows for the lane are removed (merge-on-close) to reduce
+SWARM-LANES bloat (L-340). Use --no-merge to preserve all prior rows.
+
 Usage:
   python3 tools/close_lane.py --lane L-S186-DOMEX-BRN --status MERGED \\
       --note "BRN3 baseline complete, Sharpe compaction confirmed (L-268)"
