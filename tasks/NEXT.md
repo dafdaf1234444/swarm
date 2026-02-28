@@ -4,7 +4,7 @@
 - **actual**: CONFIRMED. 65 trimmed → 0 remaining over-limit. Strategies: See-also merge into Related:, blank-before-ISO removal, blank-before-section removal, header compression (## Falsification/Source/Pattern/Prediction), leading-blank removal for non-standard formats. L-456+L-458 fully rewritten in standard template.
 - **diff**: Most over-limit lessons (from L-NNN sprint) had See also: or extra blank lines. ~30 needed standard blank-removal. ~12 needed section-header compression. Two needed full rewrite. NK S330 artifact committed (K_avg_unique=1.523 confirmed by concurrent session).
 - **meta-swarm**: Over-limit lessons arise in two waves: (1) citation sprints add See also: lines (fix: merge into Related:), (2) non-standard format lessons have extra blank/header lines (fix: compress headers). Systematic trim after each citation sprint is standard maintenance.
-- **State**: 395L 177P 17B 35F | 0 over-limit lessons | NK S330 artifact committed
+- **State**: 396L 177P 17B 35F | 0 over-limit lessons | NK S330 artifact committed
 - **Next**: (1) add L-NNN citation check to new-lesson quality gate (sustain K_avg); (2) answer HQ-41 (formal council); (3) F121 human-signal mining; (4) tool-consolidation due at S331; (5) F-LNG1 re-run at n=450
 
 ## S330 session note (council-expert accessibility: docs/COUNCIL-GUIDE.md + README + L-458 + HQ-41)
@@ -1051,7 +1051,7 @@
 - Meta-swarm: PowerShell lacks `python`; used `bash -lc "python3 ..."` for tests and experiments.
 - Next: (1) tune tie-guard thresholds per heterogeneity regime or extend analytic model; (2) map guard bands across `agent_sd`/`difficulty_sd` grid; (3) consider heterogeneity-aware utility in `spawn_math.py` if mismatch persists.
 
-Updated: 2026-02-28 S330
+Updated: 2026-02-28 S331
 
 ## S306 session note (recursion-generalizer: P-209/P-210 + ISO-15 keyword + cite rate 11%)
 - **Recursion generalization (objective check_mode)**: Expect: ISO-15 keywords added, cite rate crosses 10%. Actual: ISO-15 keyword detection added; 7 lessons annotated (ISO-6/14/15); P-209 (ISO-14 multi-scale compliance) + P-210 (ISO-15 spec:gen health metric) promoted; cite rate 8.9%→11.0% — P-210 target (>10%) met same session as written. Self-validating.
