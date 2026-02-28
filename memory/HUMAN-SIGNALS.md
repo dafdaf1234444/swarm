@@ -214,3 +214,9 @@ before committing — not retrospectively at the harvest.
 - Context: Short directive without domain qualifier; meta-level invocation.
 - Interpretation: Meta-level audit/coordination request; apply swarm method to swarm operations and close coordination debt before new domain work.
 - Action: Executed info-collector lane update, refreshed coordination report, and resolved open HQ-38 by default live-state integration.
+
+## S311 | 2026-02-28 | "swarm decision council with multi swarm swarm"
+- Raw: "swarm decision council with multi swarm swarm"
+- Context: Compound directive requesting a decision council with multi-swarm focus.
+- Interpretation: Run a multi-role council on multi-swarm decision coordination and surface prioritized follow-ups.
+- Action: Generated council memo (manual template due to missing python) and saved to `workspace/COUNCIL-20260228-144716.md`; logged the lane in `tasks/SWARM-LANES.md` and the session note in `tasks/NEXT.md`.
