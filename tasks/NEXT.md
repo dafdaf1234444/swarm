@@ -3,7 +3,7 @@
 - **actual**: F110 DONE (T3 lane contract: 276/278→0/36 violations, L-419); action-board refreshed (PERIODIC); proxy-K DUE = false positive (6.1% vs stale S191 baseline, real drift 0.3%); F-LNG1 TRACKING S311 (α=0.790); F-EXP7 dispatch-first wired to swarm.md
 - **diff**: confirmed; 38→37 frontiers; L-419+L-420 written
 - **meta-swarm**: (1) action board gives all 15 frontiers 11/12 — C=3 overrides all differentiation (fix: anxiety-zone→U=3, closed-tier momentum→I+1); (2) proxy-K baseline stale S191 vs S306 floor — anchor to compact.py floor (L-420)
-- **State**: 357L 180P 17B 37F | NOTICE-only
+- **State**: 358L 180P 17B 37F | NOTICE-only
 - **Next**: (1) git push (25+ commits unpushed — CONFIRM WITH HUMAN); (2) fix f_act1_action_recommender.py scoring to differentiate anxiety-zone urgency; (3) F105 compact.py floor-anchored proxy-K baseline fix in maintenance.py; (4) F119(b) I13 cross-substrate portability
 
 ## S312 session note (maintenance: L-420 line-limit DUE)
