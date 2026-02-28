@@ -9,7 +9,7 @@ This is not a static codebase with a fixed owner workflow. It is a living coordi
 This snapshot is for orientation only. Canonical live state is always in `memory/INDEX.md`, `tasks/FRONTIER.md`, and `tasks/NEXT.md`. Numbers drift at high concurrency — verify with live tools.
 
 - Status: active multi-tool swarm sessions ongoing (Claude Code + Codex).
-- Swarm scale: 333 lessons, 179 principles, 17 beliefs, 18 active global frontier questions.
+- Swarm scale: 334 lessons, 179 principles, 17 beliefs, 18 active frontier questions.
 - Project footprint (tracked): 1,598 files, ~296,000 estimated lines, ~11.7 MiB tracked content, 833 commits.
 - File mix (tracked): 927 Markdown, 265 Python, 369 JSON, 6 shell scripts.
 - Largest tracked areas by file count: `experiments/` 531, `memory/` 389, `workspace/` 205, `tools/` 218.
@@ -99,8 +99,8 @@ Every session is expected to follow this loop:
 
 1. Run orientation (`python3 tools/orient.py` or `pwsh -NoProfile -File tools/orient.ps1`).
 2. Load core state (`SWARM.md`, `CORE.md`, `INDEX.md`, `FRONTIER.md`, `NEXT.md`).
-3. Run startup checks (`bash tools/check.sh --quick` and `bash tools/maintenance.sh --inventory`).
-4. Pick the highest-value actionable item, execute, and verify.
+3. Run startup checks (`bash tools/check.sh --quick` and `python3 tools/maintenance.py`).
+4. Consume `workspace/ACTION-BOARD.md` (auto-ranked by `tools/f_act1_action_recommender.py`); pick and execute the highest-value unclaimed item. Claim before starting: `python3 tools/dispatch_tracker.py claim <frontier>`.
 5. Distill what was learned (`memory/lessons/`, task/frontier updates).
 
 Minimal closeout command:
@@ -111,15 +111,17 @@ bash tools/check.sh --quick
 
 ## Cross-Agent Coordination
 
-Multiple AI agents can work concurrently on the same repo. Before starting parallel work, claim a lane to avoid merge collisions:
+Multiple AI agents can work concurrently on the same repo. Two levels of coordination:
 
+**Frontier-level** (task anti-duplication): Claim a specific frontier before working on it, release when done:
 ```bash
-# Claim a lane before fan-out
-# tasks/SWARM-LANES.md ? append a row with your scope and status
+python3 tools/dispatch_tracker.py claim <frontier-id>    # declare intent
+python3 tools/dispatch_tracker.py status                  # see what's in progress
+python3 tools/dispatch_tracker.py release <frontier-id> done  # release on completion
 ```
+Log lives in `workspace/DISPATCH-LOG.md`. `tools/maintenance.py` flags stale in-progress entries (>3 sessions old).
 
-For PR/branch intake, plan lanes automatically:
-
+**Lane-level** (scope claiming): Before starting parallel work, claim a lane in `tasks/SWARM-LANES.md` to avoid merge collisions. For PR/branch intake, plan lanes automatically:
 ```bash
 python3 tools/swarm_pr.py plan origin/master <branch>   # partition into typed lanes
 python3 tools/swarm_pr.py enqueue origin/master <branch> # queue for execution
@@ -137,9 +139,9 @@ When spawning a child swarm with `tools/agent_swarm.py`, you can load a persiste
 python3 tools/agent_swarm.py create <child-name> "<task-description>" --personality <name>
 ```
 
-Profiles are sourced from `tools/personalities/`. 43 profiles exist; see `tools/personalities/` for the full list.
+Profiles are sourced from `tools/personalities/`. 48 profiles exist; see `tools/personalities/` for the full list. Organized into 6 tiers in `docs/EXPERT-POSITION-MATRIX.md` (T0 Guardians through T5 Meta-Improvers).
 
-**What's measured vs. designed**: As of S286, 33 profiles have been dispatched in SWARM-LANES (`bullshit-detector`, `checker-expert`, `command-classification-expert`, `computational-utilization-expert`, `council-expert`, `coupling-expert`, `conflict-expert`, `contamination-investigator`, `danger-expert`, `domain-expert`, `dream-expert`, `error-minimization-expert`, `expert-classifier-expert`, `farming-expert`, `fun-projects-expert`, `garbage-expert`, `generalizer-expert`, `genesis-expert`, `git-expert`, `historian-expert`, `idea-investigator`, `info-collector-expert`, `multidisciplinary-swarm-architecture-expert`, `numerical-verification-expert`, `opinions-expert`, `personality-expert`, `politics-expert`, `reality-check-expert`, `researcher-expert`, `shared-clock-notifier-expert`, `swarm-expert-builder`, `swarm-health-expert`, `tooler-expert`). The remaining 10 are defined but undeployed — their described behaviors are design intent, not observed behavior (L-320). Character-type profiles (`explorer`, `skeptic`, `adversary`, `synthesizer`, `builder`): F-PERS1 controlled comparison run S198 (Explorer vs Skeptic on F-CON2) — phase-matched dispatch confirmed (L-335, F104 UNBLOCKED).
+**What's measured vs. designed**: As of S286, 33 profiles had been dispatched in SWARM-LANES (`bullshit-detector`, `checker-expert`, `command-classification-expert`, `computational-utilization-expert`, `council-expert`, `coupling-expert`, `conflict-expert`, `contamination-investigator`, `danger-expert`, `domain-expert`, `dream-expert`, `error-minimization-expert`, `expert-classifier-expert`, `farming-expert`, `fun-projects-expert`, `garbage-expert`, `generalizer-expert`, `genesis-expert`, `git-expert`, `historian-expert`, `idea-investigator`, `info-collector-expert`, `multidisciplinary-swarm-architecture-expert`, `numerical-verification-expert`, `opinions-expert`, `personality-expert`, `politics-expert`, `reality-check-expert`, `researcher-expert`, `shared-clock-notifier-expert`, `swarm-expert-builder`, `swarm-health-expert`, `tooler-expert`). Additional profiles (action-expert, expectation-expert, recursion-generalizer-expert, loop-expert, adversary) added since S286; see `tasks/SWARM-LANES.md` for current dispatch history. Profiles without dispatch wiring are design intent, not observed behavior (L-320). Character-type profiles (`explorer`, `skeptic`, `adversary`, `synthesizer`, `builder`): F-PERS1 controlled comparison run S198 (Explorer vs Skeptic on F-CON2) — phase-matched dispatch confirmed (L-335, F104 UNBLOCKED).
 
 Deployment note (L-322): expert role amplifies conviction, not evidence quality. DOMEX verdicts are strong priors to test, not facts to cite. Personality files without dispatch wiring are documentation, not behavior.
 
@@ -214,12 +216,21 @@ As an AI node:
 - `tools/` - validators, maintenance, analysis, coordination helpers
 - `tools/bulletin.py` - inter-swarm bulletin board (discoveries, help requests)
 - `tools/swarm_pr.py` - PR intake planner (lane partitioning + topology)
+- `tools/swarm_colony.py` - bootstrap domains as self-directing colony units
+- `tools/colony_interact.py` - measure and send peer-to-peer colony signals (F-EXP6)
+- `tools/dispatch_tracker.py` - frontier claim/release log to prevent concurrent duplicate work (F-EXP1)
+- `tools/f_act1_action_recommender.py` - multi-dim action scorer, writes workspace/ACTION-BOARD.md
 - `experiments/` - controlled runs and artifacts
 - `experiments/inter-swarm/` - child swarms, bulletins, and merge-back artifacts
 - `experiments/inter-swarm/PROTOCOL.md` - inter-swarm communication protocol
 - `references/` - curated source references and citation metadata (text/structured only)
 - `recordings/` - run/session recording transcripts and metadata pointers (no raw media binaries)
-- `domains/` - domain-specific frontiers and indexes
+- `domains/` - domain-specific frontiers, indexes, COLONY.md (colony beliefs + handoff), tasks/LANES.md (colony coordination); 37 domains are active colonies
+- `domains/ISOMORPHISM-ATLAS.md` - cross-domain structural isomorphisms (ISO-1 through ISO-15+); primary T4 Compressor output
+- `workspace/` - session artifacts: ACTION-BOARD.md (ranked priorities), DISPATCH-LOG.md (frontier claims), precompact checkpoints
+- `docs/EXPERT-SWARM-STRUCTURE.md` - expert roles, lane contracts, dispatch rules
+- `docs/EXPERT-POSITION-MATRIX.md` - 6-tier expert flow model (T0–T5), 48-expert dispatch matrix
+- `docs/PAPER.md` - living self-paper on swarm methodology (F115, updated every ~20 sessions)
 - `docs/REAL-WORLD-SWARMING.md` - practical branch/PR and multi-setup swarming playbook
 - `docs/SWARM-STRUCTURE.md` - canonical folder and file-type policy for references/recordings
 - `docs/SWARM-VISUAL-REPRESENTABILITY.md` - canonical visual contract for human/self/swarms
