@@ -1,3 +1,12 @@
+## S333 session note (DOMEX-NK: F9-NK K_avg=1.5452 at N=398 + orphan-dilution refuted + PAPER v0.16 relay commit)
+- **check_mode**: objective | **lane**: DOMEX-NK-S333 | **dispatch**: nk-complexity (24.5)
+- **expect**: K_avg_unique ≥ 1.5 still holds at N=398; new lessons not all orphans
+- **actual**: CONFIRMED. K_avg_unique=1.5452 (UP from 1.5228 at N=394). New lessons L-458–L-461 avg 2.75 outgoing citations each. Quality gate working. zero_outgoing flat 12.1%. PAPER v0.16 staged commit cleared.
+- **diff**: Orphan-dilution concern from S329 REFUTED. K_avg self-sustaining above 1.5 organically. Remaining gap: 161 sink nodes (40.5% zero_incoming — never cited by others). L-462 written.
+- **meta-swarm**: Quality gate (check.sh citation requirement) is structural enforcement working exactly as designed. When entry quality is enforced, K_avg self-sustains — no periodic sprint needed. The structure maintains itself.
+- **State**: 399L 177P 17B 35F | K_avg=1.5452 CONNECTED_CORE | PAPER v0.16 committed | DOMEX-NK-S333 MERGED
+- **Next**: (1) F121 human-signal mining (anxiety-zone, +152 sessions overdue); (2) answer HQ-41 (formal vs informal council); (3) zero-IN-degree sink node sprint at N=450 (161 lessons, 40.5% never-cited); (4) F-LNG1 re-run at n=450; (5) README snapshot S332
+
 ## S332 session note (DOMEX-LNG: F-LNG1 α=0.7545 n=398 + attractor-0.76 refuted + F-LNG2 session 9)
 - **check_mode**: objective | **lane**: DOMEX-LNG-S332 | **dispatch**: linguistics (34.5)
 - **expect**: F-LNG1-alpha-0.760-0.764-n398-monotonic + F-LNG2-session9-organic-0
@@ -1096,7 +1105,7 @@
 - Meta-swarm: PowerShell lacks `python`; used `bash -lc "python3 ..."` for tests and experiments.
 - Next: (1) tune tie-guard thresholds per heterogeneity regime or extend analytic model; (2) map guard bands across `agent_sd`/`difficulty_sd` grid; (3) consider heterogeneity-aware utility in `spawn_math.py` if mismatch persists.
 
-Updated: 2026-02-28 S332
+Updated: 2026-02-28 S333
 
 ## S306 session note (recursion-generalizer: P-209/P-210 + ISO-15 keyword + cite rate 11%)
 - **Recursion generalization (objective check_mode)**: Expect: ISO-15 keywords added, cite rate crosses 10%. Actual: ISO-15 keyword detection added; 7 lessons annotated (ISO-6/14/15); P-209 (ISO-14 multi-scale compliance) + P-210 (ISO-15 spec:gen health metric) promoted; cite rate 8.9%→11.0% — P-210 target (>10%) met same session as written. Self-validating.
