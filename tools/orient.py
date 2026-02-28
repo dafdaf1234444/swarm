@@ -372,6 +372,27 @@ def main():
         print(f"  {index_notice}")
         print()
 
+    # PreCompact checkpoint notice (F-CC3, L-342)
+    checkpoints = sorted((ROOT / "workspace").glob("precompact-checkpoint-*.json"))
+    if checkpoints:
+        latest = checkpoints[-1]
+        import json as _json, time as _time
+        try:
+            cp = _json.loads(latest.read_text())
+            ts = cp.get("timestamp", "?")
+            trigger = cp.get("trigger", "?")
+            print(f"--- !! COMPACTION RESUME DETECTED ---")
+            print(f"  Checkpoint: {latest.name} ({trigger} at {ts})")
+            hint = cp.get("next_md", {}).get("For next session", "")
+            if hint:
+                print(f"  In-flight: {hint[:120].splitlines()[0]}")
+            uncommitted = cp.get("uncommitted_files", [])
+            if uncommitted:
+                print(f"  Uncommitted files ({len(uncommitted)}): {', '.join(uncommitted[:5])}")
+            print()
+        except Exception:
+            pass
+
     # Key state
     key_state = extract_key_state(next_text)
     if key_state:
