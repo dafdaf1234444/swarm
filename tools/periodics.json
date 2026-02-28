@@ -32,7 +32,7 @@
       "id": "proxy-k-measurement",
       "description": "Measure proxy K (python tools/proxy_k.py --save): track bootstrap description length across sessions (F116, PHIL-8)",
       "cadence_sessions": 10,
-      "last_reviewed_session": 313,
+      "last_reviewed_session": 326,
       "registered_by": "S75"
     },
     {
