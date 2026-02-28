@@ -1093,21 +1093,12 @@ def check_compaction() -> list[tuple[str, str]]:
     return results
 
 def check_lessons() -> list[tuple[str, str]]:
-    results = []
     lessons_dir = REPO_ROOT / "memory" / "lessons"
-    if not lessons_dir.exists():
-        return results
-
-    lessons = list(lessons_dir.glob("L-*.md"))
-
-    over_20 = []
-    for f in lessons:
-        if _line_count(f) > 20:
-            over_20.append(f.name)
+    if not lessons_dir.exists(): return []
+    over_20 = [f.name for f in lessons_dir.glob("L-*.md") if _line_count(f) > 20]
     if over_20:
-        results.append(("DUE", f"{len(over_20)} lesson(s) over 20 lines: {', '.join(over_20[:5])}"))
-
-    return results
+        return [("DUE", f"{len(over_20)} lesson(s) over 20 lines: {', '.join(over_20[:5])}")]
+    return []
 
 T4_TOOL_TOKEN_WARN = 5_000    # warn above this (chars//4); L-469 finding
 
@@ -1134,41 +1125,27 @@ def check_frontier_decay() -> list[tuple[str, str]]:
     results = []
     frontier_path = REPO_ROOT / "tasks" / "FRONTIER.md"
     decay_file = REPO_ROOT / "experiments" / "frontier-decay.json"
-    if not frontier_path.exists():
-        return results
-
-    text = _read(frontier_path)
-    open_text = text.split("## Archive", 1)[0]
+    if not frontier_path.exists(): return results
+    open_text = _read(frontier_path).split("## Archive", 1)[0]
     try: decay = json.loads(_read(decay_file)) if decay_file.exists() else {}
     except Exception: decay = {}
-
     open_ids = {f"F{m.group(1)}" for m in re.finditer(r"^- \*\*F(\d+)\*\*:", open_text, re.MULTILINE)}
     for fid in open_ids:
         decay.setdefault(fid, {"last_active": date.today().isoformat()})
     try:
         decay_file.parent.mkdir(parents=True, exist_ok=True)
         decay_file.write_text(json.dumps(decay, indent=2))
-    except Exception:
-        pass
-
+    except Exception: pass
     today = date.today()
     weak, archive = [], []
     for fid in sorted(open_ids):
-        meta = decay.get(fid, {})
-        last = meta.get("last_active", today.isoformat())
-        try:
-            strength = 0.9 ** ((today - date.fromisoformat(last)).days)
-        except Exception:
-            strength = 1.0
-        if strength < 0.1:
-            archive.append(fid)
-        elif strength < 0.3:
-            weak.append(fid)
-
-    if archive:
-        results.append(("DUE", f"{len(archive)} frontier(s) below archive threshold: {', '.join(archive)}"))
-    if weak:
-        results.append(("NOTICE", f"{len(weak)} frontier(s) weakening: {', '.join(weak)}"))
+        last = decay.get(fid, {}).get("last_active", today.isoformat())
+        try: strength = 0.9 ** ((today - date.fromisoformat(last)).days)
+        except Exception: strength = 1.0
+        if strength < 0.1: archive.append(fid)
+        elif strength < 0.3: weak.append(fid)
+    if archive: results.append(("DUE", f"{len(archive)} frontier(s) below archive threshold: {', '.join(archive)}"))
+    if weak: results.append(("NOTICE", f"{len(weak)} frontier(s) weakening: {', '.join(weak)}"))
     return results
 
 def check_anxiety_zones() -> list[tuple[str, str]]:
@@ -1217,39 +1194,25 @@ def check_dispatch_log() -> list[tuple[str, str]]:
 
 
 def check_domain_expert_coverage() -> list[tuple[str, str]]:
-    """Every domain with ≥1 active frontier must have ≥1 non-ABANDONED DOMEX lane (L-349, P-185)."""
-    results = []
     domains_dir = REPO_ROOT / "domains"
     lanes_path = REPO_ROOT / "tasks" / "SWARM-LANES.md"
     if not domains_dir.exists() or not lanes_path.exists():
-        return results
-
+        return []
     lanes_text = _read(lanes_path)
     uncovered = []
-    for frontier_path in sorted(domains_dir.glob("*/tasks/FRONTIER.md")):
-        domain = frontier_path.parts[-3]
-        text = _read(frontier_path)
-        active_section = text.split("## Resolved", 1)[0].split("## Archive", 1)[0]
-        has_active = bool(re.search(r"^\s*[-*]\s*\*\*F", active_section, re.MULTILINE))
-        if not has_active:
-            continue
-        # Check for non-ABANDONED DOMEX lane mentioning this domain
-        domex_rows = [r for r in lanes_text.splitlines()
-                      if "DOMEX" in r and domain.lower() in r.lower()
-                      and "ABANDONED" not in r and "MERGED" not in r]
-        if not domex_rows:
+    for fp in sorted(domains_dir.glob("*/tasks/FRONTIER.md")):
+        domain = fp.parts[-3]
+        active_section = _read(fp).split("## Resolved", 1)[0].split("## Archive", 1)[0]
+        if not re.search(r"^\s*[-*]\s*\*\*F", active_section, re.MULTILINE): continue
+        if not [r for r in lanes_text.splitlines() if "DOMEX" in r and domain.lower() in r.lower() and "ABANDONED" not in r and "MERGED" not in r]:
             uncovered.append(domain)
-
     if uncovered:
-        results.append(("NOTICE", f"Domain expert coverage gap ({len(uncovered)} domains with active frontiers but no DOMEX lane): {', '.join(uncovered)}"))
-    return results
+        return [("NOTICE", f"Domain expert coverage gap ({len(uncovered)} domains with active frontiers but no DOMEX lane): {', '.join(uncovered)}")]
+    return []
 
 
 def check_historian_integrity() -> list[tuple[str, str]]:
-    """Auto-run historian grounding checks: lane coverage + domain frontier session anchors."""
     results = []
-
-    # --- Part 1: lane grounding score via f_his1 analysis ---
     try:
         import importlib.util as _ilu
         import sys as _sys
@@ -1273,7 +1236,6 @@ def check_historian_integrity() -> list[tuple[str, str]]:
     except Exception as e:
         results.append(("NOTICE", f"check_historian_integrity lane-check error: {e}"))
 
-    # --- Part 2: domain frontier session-anchor coverage (block-level scan) ---
     SESSION_ANCHOR = re.compile(r"\bS\d{2,}\b")
     domains_dir = REPO_ROOT / "domains"
     if not domains_dir.exists():
@@ -1282,21 +1244,18 @@ def check_historian_integrity() -> list[tuple[str, str]]:
     total_active = 0
     for fp in sorted(domains_dir.glob("*/tasks/FRONTIER.md")):
         domain = fp.parts[-3]
-        text = _read(fp)
-        active_section = text.split("## Resolved", 1)[0].split("## Archive", 1)[0]
+        active_section = _read(fp).split("## Resolved", 1)[0].split("## Archive", 1)[0]
         lines = active_section.splitlines()
         i = 0
         while i < len(lines):
             m = re.match(r"\s*[-*]\s*\*\*(\S+)\*\*", lines[i])
             if m:
                 total_active += 1
-                # Collect full block until next frontier item or section header
                 block = [lines[i]]
                 j = i + 1
                 while j < len(lines):
                     nxt = lines[j]
-                    if re.match(r"\s*[-*]\s*\*\*\S", nxt) or re.match(r"^##", nxt):
-                        break
+                    if re.match(r"\s*[-*]\s*\*\*\S", nxt) or re.match(r"^##", nxt): break
                     block.append(nxt)
                     j += 1
                 if not SESSION_ANCHOR.search("\n".join(block)):
@@ -1346,8 +1305,7 @@ def check_periodics() -> list[tuple[str, str]]:
 
 def check_validator() -> list[tuple[str, str]]:
     try:
-        r = subprocess.run([PYTHON_EXE, str(REPO_ROOT / "tools" / "validate_beliefs.py"), "--quick"],
-                           capture_output=True, text=True, timeout=30)
+        r = subprocess.run([PYTHON_EXE, str(REPO_ROOT / "tools" / "validate_beliefs.py"), "--quick"], capture_output=True, text=True, timeout=30)
         return [("URGENT", "validate_beliefs.py FAIL — fix before other work")] if "RESULT: FAIL" in r.stdout else []
     except Exception as e:
         return [("URGENT", f"validate_beliefs.py failed to run: {e}")]
@@ -1366,17 +1324,12 @@ def check_version_drift() -> list[tuple[str, str]]:
 
 def check_runtime_portability() -> list[tuple[str, str]]:
     results = []
-
     has_git = _command_exists("git")
     has_bash = _command_exists("bash")
     has_pwsh = _command_exists("pwsh") or _command_exists("powershell")
     has_python_alias = _python_command_runs("python3") or _python_command_runs("python") or _py_launcher_runs()
-    has_check_wrapper_sh = _exists("tools/check.sh")
-    has_maintenance_wrapper_sh = _exists("tools/maintenance.sh")
-    has_check_wrapper_ps = _exists("tools/check.ps1")
-    has_maintenance_wrapper_ps = _exists("tools/maintenance.ps1")
-    has_bash_wrapper_pair = has_check_wrapper_sh and has_maintenance_wrapper_sh
-    has_ps_wrapper_pair = has_check_wrapper_ps and has_maintenance_wrapper_ps
+    has_bash_wrapper_pair = _exists("tools/check.sh") and _exists("tools/maintenance.sh")
+    has_ps_wrapper_pair = _exists("tools/check.ps1") and _exists("tools/maintenance.ps1")
     has_bash_wrappers = has_bash and has_bash_wrapper_pair
     has_pwsh_wrappers = has_pwsh and has_ps_wrapper_pair
 
@@ -1396,23 +1349,20 @@ def check_runtime_portability() -> list[tuple[str, str]]:
             results.append(("NOTICE", f"bash not found — use direct python entrypoints (`{PYTHON_CMD} tools/maintenance.py --quick`, `{PYTHON_CMD} tools/maintenance.py --inventory`)"))
         else:
             results.append(("DUE", "bash not found and no python alias — portable startup path is broken"))
-    if has_bash and not has_maintenance_wrapper_sh:
+    if has_bash and not _exists("tools/maintenance.sh"):
         results.append(("DUE", "tools/maintenance.sh missing — portable maintenance/inventory path is broken"))
-    if has_pwsh and not has_maintenance_wrapper_ps:
-        level = "DUE" if not has_bash else "NOTICE"
-        results.append((level, "tools/maintenance.ps1 missing — PowerShell maintenance/inventory path is degraded"))
+    if has_pwsh and not _exists("tools/maintenance.ps1"):
+        results.append(("DUE" if not has_bash else "NOTICE", "tools/maintenance.ps1 missing — PowerShell maintenance/inventory path is degraded"))
 
-    if _is_wsl_mnt_repo() and not _git("status", "--porcelain"):
-        results.append(("NOTICE", "WSL on /mnt/* repo: status/proxy-K may diverge from Windows runtime"))
-
-    if _is_wsl_mnt_repo():  # WSL corruption: .claude/commands/swarm.md may lose permissions or be deleted
+    if _is_wsl_mnt_repo():
+        if not _git("status", "--porcelain"):
+            results.append(("NOTICE", "WSL on /mnt/* repo: status/proxy-K may diverge from Windows runtime"))
         swarm_cmd = REPO_ROOT / ".claude" / "commands" / "swarm.md"
         if not swarm_cmd.exists():
             results.append(("DUE", ".claude/commands/swarm.md DELETED — WSL deletion bug (L-279). Fix: rm -f .claude/commands/swarm.md && git checkout HEAD -- .claude/commands/swarm.md"))
         else:
             try:
-                content = swarm_cmd.read_text(encoding="utf-8")
-                if "# /swarm" not in content:
+                if "# /swarm" not in swarm_cmd.read_text(encoding="utf-8"):
                     results.append(("DUE", ".claude/commands/swarm.md exists but has unexpected content — may be corrupted (WSL). Restore: python3 -c \"import os; os.remove('.claude/commands/swarm.md')\" then git show HEAD:.claude/commands/swarm.md > /tmp/s.md && python3 -c \"open('.claude/commands/swarm.md','w').write(open('/tmp/s.md').read())\""))
             except (PermissionError, OSError):
                 results.append(("DUE", ".claude/commands/swarm.md inaccessible — WSL permission corruption. Fix: python3 -c \"import os; os.remove('.claude/commands/swarm.md')\" then restore from git show HEAD:.claude/commands/swarm.md"))
@@ -1426,31 +1376,20 @@ def check_runtime_portability() -> list[tuple[str, str]]:
 
     swarm_ref_re = re.compile(r"\bswarm\.md\b", re.IGNORECASE)
     swarm_signal_re = re.compile(r"\bswarm signaling\b", re.IGNORECASE)
-    no_ref, no_signal = [], []
+    min_swarmed_re = re.compile(r"Minimum Swarmed Cycle", re.IGNORECASE)
+    no_ref, no_signal, no_min_swarmed = [], [], []
     for path in bridges:
-        if path == "SWARM.md" or path in missing_bridges:
-            continue
+        if path == "SWARM.md" or path in missing_bridges: continue
         content = _read(REPO_ROOT / path)
-        if not swarm_ref_re.search(content):
-            no_ref.append(path)
-        if not swarm_signal_re.search(content):
-            no_signal.append(path)
+        if not swarm_ref_re.search(content): no_ref.append(path)
+        if not swarm_signal_re.search(content): no_signal.append(path)
+        if not min_swarmed_re.search(content): no_min_swarmed.append(path)
     if no_ref:
         results.append(("DUE", f"{len(no_ref)} bridge file(s) missing SWARM.md protocol reference: {', '.join(no_ref[:3])}"))
     if "SWARM.md" not in missing_bridges and not swarm_signal_re.search(_read(REPO_ROOT / "SWARM.md")):
         results.append(("DUE", "SWARM.md missing explicit swarm signaling rule"))
     if no_signal:
         results.append(("DUE", f"{len(no_signal)} bridge file(s) missing swarm signaling guidance: {', '.join(no_signal[:3])}"))
-
-    # F-GOV2: required protocol sections in bridge files (L-351)
-    min_swarmed_re = re.compile(r"Minimum Swarmed Cycle", re.IGNORECASE)
-    no_min_swarmed = []
-    for path in bridges:
-        if path == "SWARM.md" or path in missing_bridges:
-            continue
-        content = _read(REPO_ROOT / path)
-        if not min_swarmed_re.search(content):
-            no_min_swarmed.append(path)
     if no_min_swarmed:
         results.append(("DUE", f"{len(no_min_swarmed)} bridge file(s) missing 'Minimum Swarmed Cycle' section (F-GOV2, L-351): {', '.join(no_min_swarmed[:3])}"))
 
@@ -1671,70 +1610,37 @@ def check_readme_snapshot_drift() -> list[tuple[str, str]]:
 
 def check_structure_layout() -> list[tuple[str, str]]:
     results: list[tuple[str, str]] = []
-
     missing_required = [path for path in STRUCTURE_REQUIRED_PATHS if not _exists(path)]
     if missing_required:
         results.append(("DUE", f"Structure policy files missing: {_truncated(missing_required, 5)}"))
-
     for folder, allowed_exts in STRUCTURE_ALLOWED_EXTENSIONS.items():
         folder_path = REPO_ROOT / folder
         if not folder_path.exists():
-            results.append(("DUE", f"Missing required structure folder: {folder}/"))
-            continue
-
-        disallowed: list[str] = []
-        for path in folder_path.rglob("*"):
-            if not path.is_file():
-                continue
-            rel = path.relative_to(REPO_ROOT).as_posix()
-            if path.name in STRUCTURE_ALLOWED_FILENAMES:
-                continue
-            ext = path.suffix.lower()
-            if ext not in allowed_exts:
-                disallowed.append(rel)
+            results.append(("DUE", f"Missing required structure folder: {folder}/")); continue
+        disallowed = [path.relative_to(REPO_ROOT).as_posix() for path in folder_path.rglob("*")
+            if path.is_file() and path.name not in STRUCTURE_ALLOWED_FILENAMES and path.suffix.lower() not in allowed_exts]
         if disallowed:
-            results.append((
-                "DUE",
-                f"{folder}/ has disallowed file types: {_truncated(disallowed, 5)} "
-                f"(allowed: {', '.join(sorted(allowed_exts))})",
-            ))
-
+            results.append(("DUE", f"{folder}/ has disallowed file types: {_truncated(disallowed, 5)} (allowed: {', '.join(sorted(allowed_exts))})"))
     return results
 
 def check_frontier_registry() -> list[tuple[str, str]]:
     results = []
-
-    active_text = _read(REPO_ROOT / "tasks" / "FRONTIER.md")
-    archived_text = _read(REPO_ROOT / "tasks" / "FRONTIER-ARCHIVE.md")
-
-    active_ids = [int(m.group(1)) for m in re.finditer(r"^- \*\*F(\d+)\*\*:", active_text, re.MULTILINE)]
-    archived_ids = [int(m.group(1)) for m in re.finditer(r"\|\s*F(\d+)\s*\|", archived_text)]
-
-    def _duplicate_counts(ids: list[int]) -> list[tuple[int, int]]:
+    active_ids = [int(m.group(1)) for m in re.finditer(r"^- \*\*F(\d+)\*\*:", _read(REPO_ROOT / "tasks" / "FRONTIER.md"), re.MULTILINE)]
+    archived_ids = [int(m.group(1)) for m in re.finditer(r"\|\s*F(\d+)\s*\|", _read(REPO_ROOT / "tasks" / "FRONTIER-ARCHIVE.md"))]
+    def _dupes(ids):
         counts: dict[int, int] = {}
-        for fid in ids:
-            counts[fid] = counts.get(fid, 0) + 1
-        return sorted((fid, count) for fid, count in counts.items() if count > 1)
-
-    active_dupes = _duplicate_counts(active_ids)
-    archived_dupes = _duplicate_counts(archived_ids)
-    if active_dupes:
-        results.append(("DUE", f"FRONTIER duplicate ID(s): {_truncated(active_dupes, 5, fmt=lambda x: f'F{x[0]} x{x[1]}')}"))
-    if archived_dupes:
-        results.append(("DUE", f"FRONTIER-ARCHIVE duplicate ID(s): {_truncated(archived_dupes, 5, fmt=lambda x: f'F{x[0]} x{x[1]}')}"))
-
+        for fid in ids: counts[fid] = counts.get(fid, 0) + 1
+        return sorted((fid, c) for fid, c in counts.items() if c > 1)
+    for label, dupes in (("FRONTIER", _dupes(active_ids)), ("FRONTIER-ARCHIVE", _dupes(archived_ids))):
+        if dupes: results.append(("DUE", f"{label} duplicate ID(s): {_truncated(dupes, 5, fmt=lambda x: f'F{x[0]} x{x[1]}')}"))
     overlap = sorted(set(active_ids) & set(archived_ids))
-    if overlap:
-        results.append(("DUE", f"Frontier ID(s) both open and archived: {_truncated(overlap, 8, fmt=lambda x: f'F{x}')}"))
-
+    if overlap: results.append(("DUE", f"Frontier ID(s) both open and archived: {_truncated(overlap, 8, fmt=lambda x: f'F{x}')}"))
     return results
 
 def check_handoff_staleness() -> list[tuple[str, str]]:
-    results = []
     next_text = _read(REPO_ROOT / "tasks" / "NEXT.md")
     session = _session_number()
-    if not next_text or session <= 0:
-        return results
+    if not next_text or session <= 0: return []
     stale = []
     for m in re.finditer(r"\(added S(\d+)\)", next_text):
         age = session - int(m.group(1))
@@ -1745,331 +1651,191 @@ def check_handoff_staleness() -> list[tuple[str, str]]:
             item_match = re.search(r"\*\*(.+?)\*\*", line)
             stale.append(f"{item_match.group(1) if item_match else line[:50]} (age: {age})")
     if stale:
-        results.append(("DUE", f"{len(stale)} stale handoff(s) in NEXT.md: {'; '.join(stale[:3])}"))
-    return results
+        return [("DUE", f"{len(stale)} stale handoff(s) in NEXT.md: {'; '.join(stale[:3])}")]
+    return []
 
 def check_state_header_sync() -> list[tuple[str, str]]:
     results = []
     session = _session_number()
-    if session <= 0:
-        return results
-
+    if session <= 0: return results
     values: dict[str, int] = {}
     parse_fail = []
-
-    next_text = _read(REPO_ROOT / "tasks" / "NEXT.md")
-    m = re.search(r"^Updated:\s*\d{4}-\d{2}-\d{2}\s+S(\d+)\b", next_text, re.MULTILINE)
-    if m:
-        values["NEXT"] = int(m.group(1))
-    else:
-        parse_fail.append("NEXT")
-
-    index_text = _read(REPO_ROOT / "memory" / "INDEX.md")
-    m = re.search(r"^Updated:\s*\d{4}-\d{2}-\d{2}\s*\|\s*Sessions:\s*(\d+)\b", index_text, re.MULTILINE)
-    if m:
-        values["INDEX"] = int(m.group(1))
-    else:
-        parse_fail.append("INDEX")
-
-    frontier_text = _read(REPO_ROOT / "tasks" / "FRONTIER.md")
-    m = re.search(
-        r"last\s+updated\s*:\s*\d{4}-\d{2}-\d{2}\s*(?:\|\s*)?S(\d+)\b",
-        frontier_text,
-        re.IGNORECASE,
-    )
-    if m:
-        values["FRONTIER"] = int(m.group(1))
-    else:
-        parse_fail.append("FRONTIER")
-
-    if parse_fail:
-        results.append(("NOTICE", f"State header parse failed: {', '.join(parse_fail)}"))
-
+    checks = [
+        ("NEXT", _read(REPO_ROOT / "tasks" / "NEXT.md"), r"^Updated:\s*\d{4}-\d{2}-\d{2}\s+S(\d+)\b"),
+        ("INDEX", _read(REPO_ROOT / "memory" / "INDEX.md"), r"^Updated:\s*\d{4}-\d{2}-\d{2}\s*\|\s*Sessions:\s*(\d+)\b"),
+        ("FRONTIER", _read(REPO_ROOT / "tasks" / "FRONTIER.md"), r"last\s+updated\s*:\s*\d{4}-\d{2}-\d{2}\s*(?:\|\s*)?S(\d+)\b"),
+    ]
+    for name, text, pat in checks:
+        m = re.search(pat, text, re.MULTILINE | re.IGNORECASE)
+        if m: values[name] = int(m.group(1))
+        else: parse_fail.append(name)
+    if parse_fail: results.append(("NOTICE", f"State header parse failed: {', '.join(parse_fail)}"))
     dirty = bool(_git("status", "--porcelain"))
     behind = [f"{name}:S{val}" for name, val in values.items() if val < session]
     ahead = [f"{name}:S{val}" for name, val in values.items() if val > session]
-
-    if behind:
-        results.append(("NOTICE", f"State header drift vs SESSION-LOG S{session}: {', '.join(behind)}"))
-    if ahead and not dirty:
-        results.append(("NOTICE", f"State header ahead of SESSION-LOG S{session}: {', '.join(ahead)}"))
-
+    if behind: results.append(("NOTICE", f"State header drift vs SESSION-LOG S{session}: {', '.join(behind)}"))
+    if ahead and not dirty: results.append(("NOTICE", f"State header ahead of SESSION-LOG S{session}: {', '.join(ahead)}"))
     return results
 
 def check_mission_constraints() -> list[tuple[str, str]]:
     results = []
-
     frontier_text = _read(REPO_ROOT / "tasks" / "FRONTIER.md")
     if not re.search(r"^- \*\*F119\*\*:", frontier_text, re.MULTILINE):
         results.append(("DUE", "F119 missing from tasks/FRONTIER.md (mission-constraint swarming)"))
-
     next_text = _read(REPO_ROOT / "tasks" / "NEXT.md")
     if "F119" not in next_text:
         results.append(("NOTICE", "F119 not tracked in tasks/NEXT.md priorities"))
-
     invariants_text = _read(REPO_ROOT / "beliefs" / "INVARIANTS.md")
     invariant_ids = re.findall(r"^##\s+(I\d+)\b", invariants_text, re.MULTILINE)
     id_counts: dict[str, int] = {}
-    for inv_id in invariant_ids:
-        id_counts[inv_id] = id_counts.get(inv_id, 0) + 1
+    for inv_id in invariant_ids: id_counts[inv_id] = id_counts.get(inv_id, 0) + 1
     duplicate_ids = sorted(inv_id for inv_id, count in id_counts.items() if count > 1)
     if duplicate_ids:
         results.append(("DUE", f"INVARIANTS duplicate ID(s): {_truncated(duplicate_ids, 5)}"))
-
     mission_rows = {
         "I9": ("mission safety (do no harm)", "MC-SAFE"),
         "I10": ("mission portability (work everywhere)", "MC-PORT"),
         "I11": ("mission learning quality (improve knowledge)", "MC-LEARN"),
         "I12": ("mission continuity (stay connected)", "MC-CONN"),
     }
-    missing_invariants = [
-        f"{inv_id} ({label})"
-        for inv_id, (label, tag) in mission_rows.items()
-        if not re.search(rf"^##\s+{re.escape(inv_id)}\b.*\[{re.escape(tag)}\]", invariants_text, re.MULTILINE)
-    ]
+    missing_invariants = [f"{inv_id} ({label})" for inv_id, (label, tag) in mission_rows.items()
+        if not re.search(rf"^##\s+{re.escape(inv_id)}\b.*\[{re.escape(tag)}\]", invariants_text, re.MULTILINE)]
     if missing_invariants:
         results.append(("DUE", f"F119 mission invariants missing: {_truncated(missing_invariants)}"))
-
     check_sh = _read(REPO_ROOT / "tools" / "check.sh")
-    portability_markers = ["choose_python()", "python3", "python", "py -3"]
-    missing_portability_markers = [m for m in portability_markers if m not in check_sh]
-    if missing_portability_markers:
-        sample = ", ".join(missing_portability_markers)
-        results.append(("NOTICE", f"F119 portability fallback drift in tools/check.sh: missing {sample}"))
+    missing_pm = [m for m in ("choose_python()", "python3", "python", "py -3") if m not in check_sh]
+    if missing_pm:
+        results.append(("NOTICE", f"F119 portability fallback drift in tools/check.sh: missing {', '.join(missing_pm)}"))
 
     has_python_alias = _python_command_runs("python3") or _python_command_runs("python") or _py_launcher_runs()
     has_bash = _command_exists("bash")
     has_pwsh = _command_exists("pwsh") or _command_exists("powershell")
-    has_check_wrapper = _exists("tools/check.sh")
-    has_maintenance_wrapper = _exists("tools/maintenance.sh")
-    has_check_wrapper_ps = _exists("tools/check.ps1")
-    has_maintenance_wrapper_ps = _exists("tools/maintenance.ps1")
     inter_swarm_tools = all(_exists(p) for p in ("tools/bulletin.py", "tools/merge_back.py", "tools/propagate_challenges.py"))
-    fallback_ready = ((has_bash and has_check_wrapper and has_maintenance_wrapper)
-                      or (has_pwsh and has_check_wrapper_ps and has_maintenance_wrapper_ps))
-
-    degraded_reasons: list[str] = []
-    if not has_python_alias:
-        degraded_reasons.append("python-alias-missing")
-    if not inter_swarm_tools:
-        degraded_reasons.append("inter-swarm-tooling-missing")
+    fallback_ready = ((has_bash and _exists("tools/check.sh") and _exists("tools/maintenance.sh"))
+                      or (has_pwsh and _exists("tools/check.ps1") and _exists("tools/maintenance.ps1")))
+    degraded_reasons = []
+    if not has_python_alias: degraded_reasons.append("python-alias-missing")
+    if not inter_swarm_tools: degraded_reasons.append("inter-swarm-tooling-missing")
 
     if degraded_reasons:
         session = _session_number()
-        continuity_text = (
-            next_text
-            + "\n"
-            + "\n".join(_read(REPO_ROOT / "memory" / "SESSION-LOG.md").splitlines()[-80:])
-        )
+        continuity_text = next_text + "\n" + "\n".join(_read(REPO_ROOT / "memory" / "SESSION-LOG.md").splitlines()[-80:])
         if not has_python_alias and not fallback_ready:
-            results.append(("DUE",
-                "F119 degraded runtime continuity broken: no python alias and no wrapper path "
-                "(`tools/check.sh` + `tools/maintenance.sh` or `tools/check.ps1` + `tools/maintenance.ps1`)"))
-
+            results.append(("DUE", "F119 degraded runtime continuity broken: no python alias and no wrapper path (`tools/check.sh` + `tools/maintenance.sh` or `tools/check.ps1` + `tools/maintenance.ps1`)"))
         _OC = F119_TRANSITION_OUTCOME_PATTERNS
         reason_specs = {
-            "python-alias-missing": (
-                "runtime portability",
+            "python-alias-missing": ("runtime portability",
                 (r"runtime portability", r"python unavailable", r"no runnable python", r"python launcher", r"python alias"),
-                (r"bash tools/(?:check|maintenance)\.", r"(?:pwsh|powershell).*tools/(?:check|maintenance)\.",
-                 r"tools/(?:check|maintenance)\.ps1", r"python3 tools/maintenance\.py", r"py -3"),
-                _OC,
-            ),
-            "inter-swarm-tooling-missing": (
-                "offline/inter-swarm continuity",
+                (r"bash tools/(?:check|maintenance)\.", r"(?:pwsh|powershell).*tools/(?:check|maintenance)\.", r"tools/(?:check|maintenance)\.ps1", r"python3 tools/maintenance\.py", r"py -3"),
+                _OC),
+            "inter-swarm-tooling-missing": ("offline/inter-swarm continuity",
                 (r"inter-swarm", r"offline", r"disconnected", r"bulletin"),
                 (r"tools/bulletin\.py (?:help-queue|request-help|offer-help|sync)", r"tasks/PR-QUEUE\.json", r"tasks/SWARM-LANES\.md"),
-                _OC,
-            ),
+                _OC),
         }
-
         for reason in degraded_reasons:
             spec = reason_specs.get(reason)
-            if not spec:
-                continue
+            if not spec: continue
             label, reason_patterns, action_patterns, outcome_patterns = spec
-
-            action_sessions = set(
-                _reason_action_evidence_sessions(continuity_text, reason_patterns, action_patterns)
-            )
-            outcome_sessions = set(
-                _reason_action_evidence_sessions(continuity_text, reason_patterns, outcome_patterns)
-            )
-            reason_sessions = set(
-                _reason_action_evidence_sessions(continuity_text, reason_patterns, (r".+",))
-            )
-
+            action_sessions = set(_reason_action_evidence_sessions(continuity_text, reason_patterns, action_patterns))
+            outcome_sessions = set(_reason_action_evidence_sessions(continuity_text, reason_patterns, outcome_patterns))
+            reason_sessions = set(_reason_action_evidence_sessions(continuity_text, reason_patterns, (r".+",)))
             if not action_sessions:
-                results.append(("NOTICE", f"F119 {label} degraded mode lacks reason+action transition evidence in NEXT/SESSION-LOG"))
-                continue
+                results.append(("NOTICE", f"F119 {label} degraded mode lacks reason+action transition evidence in NEXT/SESSION-LOG")); continue
             if not outcome_sessions:
-                results.append(("NOTICE", f"F119 {label} degraded mode lacks reason+outcome evidence in NEXT/SESSION-LOG"))
-                continue
-
+                results.append(("NOTICE", f"F119 {label} degraded mode lacks reason+outcome evidence in NEXT/SESSION-LOG")); continue
             joined_sessions = sorted(action_sessions & outcome_sessions)
             if not joined_sessions:
-                results.append(("NOTICE", f"F119 {label} transition evidence is split across sessions (action/outcome not co-located)"))
-                continue
-
+                results.append(("NOTICE", f"F119 {label} transition evidence is split across sessions (action/outcome not co-located)")); continue
             latest = max(joined_sessions)
             stale_limit = F119_STALE_EVIDENCE_SESSIONS.get(reason, max(F119_STALE_EVIDENCE_SESSIONS.values()))
             if session > 0 and (session - latest) > stale_limit:
-                if not any((session - s) <= F119_RECENT_REASON_ACTIVITY_WINDOW for s in reason_sessions):
-                    continue
+                if not any((session - s) <= F119_RECENT_REASON_ACTIVITY_WINDOW for s in reason_sessions): continue
                 recent_reason = max(reason_sessions) if reason_sessions else latest
-                results.append(("NOTICE",
-                    f"F119 {label} degraded transition evidence stale "
-                    f"(latest S{latest}, current S{session}, threshold >{stale_limit} sessions, recent reason S{recent_reason})"))
-
+                results.append(("NOTICE", f"F119 {label} degraded transition evidence stale (latest S{latest}, current S{session}, threshold >{stale_limit} sessions, recent reason S{recent_reason})"))
         if "inter-swarm-tooling-missing" in degraded_reasons:
-            continuity_artifacts = ["tasks/PR-QUEUE.json", "tasks/SWARM-LANES.md"]
-            missing_artifacts = [path for path in continuity_artifacts if not _exists(path)]
+            missing_artifacts = [p for p in ("tasks/PR-QUEUE.json", "tasks/SWARM-LANES.md") if not _exists(p)]
             if missing_artifacts:
                 results.append(("DUE", f"F119 offline continuity artifacts missing: {_truncated(missing_artifacts)}"))
 
     maintenance_text = _read(REPO_ROOT / "tools" / "maintenance.py")
-    required_checks = [
-        "check_validator",
-        "check_runtime_portability",
-        "check_cross_references",
-        "check_readme_snapshot_drift",
-        "check_structure_layout",
-        "check_state_header_sync",
-        "check_session_log_integrity",
-        "check_child_bulletins",
-        "check_help_requests",
-        "check_swarm_lanes",
-        "check_swarm_coordinator",
-        "check_lane_reporting_quality",
-    ]
-    missing_defs = [
-        name for name in required_checks
-        if not re.search(rf"^def\s+{re.escape(name)}\s*\(", maintenance_text, re.MULTILINE)
-    ]
+    required_checks = ["check_validator", "check_runtime_portability", "check_cross_references",
+        "check_readme_snapshot_drift", "check_structure_layout", "check_state_header_sync",
+        "check_session_log_integrity", "check_child_bulletins", "check_help_requests",
+        "check_swarm_lanes", "check_swarm_coordinator", "check_lane_reporting_quality"]
+    missing_defs = [n for n in required_checks if not re.search(rf"^def\s+{re.escape(n)}\s*\(", maintenance_text, re.MULTILINE)]
     if missing_defs:
         results.append(("DUE", f"F119 guard definition(s) missing in maintenance.py: {_truncated(missing_defs)}"))
-
     list_match = re.search(r"all_checks\s*=\s*\[(.*?)\]", maintenance_text, re.DOTALL)
     if list_match:
-        list_block = list_match.group(1)
-        missing_wired = [name for name in required_checks if name not in list_block]
-        if missing_wired:
-            results.append(("DUE", f"F119 guard(s) not wired in all_checks: {_truncated(missing_wired)}"))
+        missing_wired = [n for n in required_checks if n not in list_match.group(1)]
+        if missing_wired: results.append(("DUE", f"F119 guard(s) not wired in all_checks: {_truncated(missing_wired)}"))
     else:
         results.append(("NOTICE", "F119 guard wiring parse failed for all_checks list"))
 
     tracked_paths = _tracked_changed_paths()
     if tracked_paths:
-        knowledge_state_paths = {
-            "tasks/NEXT.md",
-            "memory/SESSION-LOG.md",
-            "memory/INDEX.md",
-            "tasks/FRONTIER.md",
-            "memory/PRINCIPLES.md",
-            "beliefs/CHALLENGES.md",
-            "memory/HEALTH.md",
-        }
+        knowledge_state_paths = {"tasks/NEXT.md", "memory/SESSION-LOG.md", "memory/INDEX.md",
+            "tasks/FRONTIER.md", "memory/PRINCIPLES.md", "beliefs/CHALLENGES.md", "memory/HEALTH.md"}
         has_lesson_delta = any(re.fullmatch(r"memory/lessons/L-\d+\.md", p) for p in tracked_paths)
-        has_knowledge_delta = has_lesson_delta or any(p in knowledge_state_paths for p in tracked_paths)
-        if len(tracked_paths) >= 5 and not has_knowledge_delta:
+        if len(tracked_paths) >= 5 and not (has_lesson_delta or any(p in knowledge_state_paths for p in tracked_paths)):
             results.append(("DUE", "F119 learning-quality gap: tracked deltas without knowledge-state update (NEXT/SESSION-LOG/INDEX/FRONTIER/PRINCIPLES/lessons)"))
-
-        commands = {
-            "python3": _python_command_runs("python3"),
-            "python": _python_command_runs("python"),
-            "py -3": _py_launcher_runs(),
-            "git": _command_runs("git", ["--version"]),
-            "bash": _command_runs("bash", ["--version"]),
-        }
-        inter_swarm_cap = {
-            "inter_swarm": {
-                "present": sum(1 for p in ("tools/bulletin.py", "tools/merge_back.py", "tools/propagate_challenges.py") if _exists(p)),
-                "total": 3,
-            }
-        }
+        commands = {"python3": _python_command_runs("python3"), "python": _python_command_runs("python"),
+            "py -3": _py_launcher_runs(), "git": _command_runs("git", ["--version"]), "bash": _command_runs("bash", ["--version"])}
+        inter_swarm_cap = {"inter_swarm": {"present": sum(1 for p in ("tools/bulletin.py", "tools/merge_back.py", "tools/propagate_challenges.py") if _exists(p)), "total": 3}}
         connectivity = _inter_swarm_connectivity(inter_swarm_cap, commands)
-        if not connectivity.get("ready"):
-            has_continuity_delta = any(p in {"tasks/NEXT.md", "memory/SESSION-LOG.md"} for p in tracked_paths)
-            if not has_continuity_delta:
-                missing = connectivity.get("missing", [])
-                detail = f" ({_truncated(missing)})" if isinstance(missing, list) and missing else ""
-                results.append(("NOTICE",
-                    f"F119 continuity risk: degraded inter-swarm connectivity{detail} with no local handoff/log delta (tasks/NEXT.md or memory/SESSION-LOG.md)"))
+        if not connectivity.get("ready") and not any(p in {"tasks/NEXT.md", "memory/SESSION-LOG.md"} for p in tracked_paths):
+            missing = connectivity.get("missing", [])
+            detail = f" ({_truncated(missing)})" if isinstance(missing, list) and missing else ""
+            results.append(("NOTICE", f"F119 continuity risk: degraded inter-swarm connectivity{detail} with no local handoff/log delta (tasks/NEXT.md or memory/SESSION-LOG.md)"))
 
     return results
 
 def check_session_log_integrity() -> list[tuple[str, str]]:
     results = []
     text = _read(REPO_ROOT / "memory" / "SESSION-LOG.md")
-    if not text:
-        return results
-
-    control_hits: list[tuple[int, int]] = []
-    for line_no, raw in enumerate(text.splitlines(), start=1):
-        for ch in raw:
-            code = ord(ch)
-            if code < 32 and ch not in ("\t",):
-                control_hits.append((line_no, code))
+    if not text: return results
+    control_hits = [(ln, ord(ch)) for ln, raw in enumerate(text.splitlines(), 1) for ch in raw if ord(ch) < 32 and ch != "\t"]
     if control_hits:
         results.append(("NOTICE", f"SESSION-LOG contains control character(s): {_truncated(control_hits, 5, fmt=lambda x: f'L{x[0]}:0x{x[1]:02x}')}"))
-
     rows = []
     for raw in text.splitlines():
         m = re.match(r"^S(\d+)\b", raw)
-        if not m:
-            continue
-        sid = int(m.group(1))
-        normalized = re.sub(r"\s+", " ", raw.strip())
-        rows.append((sid, normalized))
-
-    if not rows:
-        return results
-
+        if m: rows.append((int(m.group(1)), re.sub(r"\s+", " ", raw.strip())))
+    if not rows: return results
     dup_counts: dict[str, int] = {}
-    for _, row in rows:
-        dup_counts[row] = dup_counts.get(row, 0) + 1
+    for _, row in rows: dup_counts[row] = dup_counts.get(row, 0) + 1
     dup_rows = [(row, n) for row, n in dup_counts.items() if n > 1]
     if dup_rows:
         results.append(("NOTICE", f"SESSION-LOG exact duplicate row(s): {_truncated(dup_rows, fmt=lambda x: f'{x[0][:40]}... x{x[1]}')}"))
-
     recent_window = 40
     recent_rows = rows[-recent_window:]
     historical_ids = {sid for sid, _ in rows[:-recent_window]} if len(rows) > recent_window else set()
-
     non_monotonic = []
     for i in range(1, len(recent_rows)):
-        prev_sid = recent_rows[i - 1][0]
-        sid = recent_rows[i][0]
-        one_step_backfill = sid < prev_sid and (prev_sid - sid) == 1
-        benign_backfill = sid in historical_ids or one_step_backfill
-        if sid < prev_sid and not benign_backfill:
+        prev_sid, sid = recent_rows[i - 1][0], recent_rows[i][0]
+        if sid < prev_sid and not (sid in historical_ids or (prev_sid - sid) == 1):
             non_monotonic.append((prev_sid, sid))
     if non_monotonic:
         results.append(("NOTICE", f"SESSION-LOG recent non-monotonic order: {_truncated(non_monotonic, 5, fmt=lambda x: f'S{x[0]}->S{x[1]}')}"))
-
     return results
 
 def check_paper_accuracy() -> list[tuple[str, str]]:
     return run_paper_drift_check(REPO_ROOT, _session_number())
 
 def check_utility() -> list[tuple[str, str]]:
-    results = []
     principles_text = _read(REPO_ROOT / "memory" / "PRINCIPLES.md")
-    if not principles_text:
-        return results
-    all_ids, superseded = _active_principle_ids(principles_text)
-    active_ids = all_ids - superseded
-    cited: set[int] = set()
+    if not principles_text: return []
+    active_ids = _active_principle_ids(principles_text)[0] - _active_principle_ids(principles_text)[1]
     principles_path = REPO_ROOT / "memory" / "PRINCIPLES.md"
+    cited: set[int] = set()
     for f in _iter_utility_citation_files():
-        if f == principles_path:
-            continue
-        for m in PRINCIPLE_ID_RE.finditer(_read(f)):
-            cited.add(int(m.group(1)))
+        if f != principles_path:
+            for m in PRINCIPLE_ID_RE.finditer(_read(f)): cited.add(int(m.group(1)))
     uncited = sorted(active_ids - cited)
     if uncited:
-        results.append(("NOTICE", f"{len(uncited)} active principle(s) with 0 citations: {_truncated(uncited, 5, fmt=lambda x: f'P-{x}')}"))
-    return results
+        return [("NOTICE", f"{len(uncited)} active principle(s) with 0 citations: {_truncated(uncited, 5, fmt=lambda x: f'P-{x}')}")]
+    return []
 
 def check_proxy_k_drift() -> list[tuple[str, str]]:
     results = []
@@ -2142,94 +1908,59 @@ def check_proxy_k_drift() -> list[tuple[str, str]]:
     logged_drift = (latest_logged - floor) / floor
     live_drift = (live_total - floor) / floor
     dirty = bool(_git("status", "--porcelain"))
-    stale_clean_baseline = (
-        dirty
-        and floor_session > 0
-        and current_session > 0
-        and (current_session - floor_session) >= 8
-    )
+    stale_clean_baseline = dirty and floor_session > 0 and current_session > 0 and (current_session - floor_session) >= 8
 
     likely_dirty_logged = latest_marked_dirty
     if not likely_dirty_logged and dirty and latest_session > 0 and current_session > 0:
-        recent = latest_session >= max(0, current_session - 2)
-        proximity = abs(latest_logged - live_total) / max(1, live_total)
-        if recent and proximity <= 0.02:
+        if latest_session >= max(0, current_session - 2) and abs(latest_logged - live_total) / max(1, live_total) <= 0.02:
             likely_dirty_logged = True
-    same_dirty_snapshot = (
-        likely_dirty_logged
-        and dirty
-        and current_session > 0
+    same_dirty_snapshot = (likely_dirty_logged and dirty and current_session > 0
         and latest_session >= max(0, current_session - 2)
-        and abs(live_total - latest_logged) / max(1, latest_logged) <= 0.01
-    )
+        and abs(live_total - latest_logged) / max(1, latest_logged) <= 0.01)
 
     def _tier_targets() -> str:
         floor_tiers = floor_entry.get("tiers", {})
-        tier_deltas = []
-        for tier in sorted(live_tiers):
-            delta = live_tiers.get(tier, 0) - floor_tiers.get(tier, 0)
-            if delta > 0:
-                tier_deltas.append(f"{tier}+{delta}")
+        tier_deltas = [f"{tier}+{live_tiers.get(tier,0)-floor_tiers.get(tier,0)}" for tier in sorted(live_tiers) if live_tiers.get(tier,0) - floor_tiers.get(tier,0) > 0]
         return f" [{', '.join(tier_deltas[:3])}]" if tier_deltas else ""
 
     if logged_drift > 0.06:
         if dirty and live_drift <= 0.06:
-            results.append(("NOTICE",
-                f"Proxy K logged drift {logged_drift:.1%} ({latest_logged} vs {floor}) but live drift is {live_drift:.1%} on dirty tree; re-save clean snapshot: {PYTHON_CMD} tools/proxy_k.py --save"))
+            results.append(("NOTICE", f"Proxy K logged drift {logged_drift:.1%} ({latest_logged} vs {floor}) but live drift is {live_drift:.1%} on dirty tree; re-save clean snapshot: {PYTHON_CMD} tools/proxy_k.py --save"))
         elif likely_dirty_logged:
             if logged_drift > 0.10:
-                # Dirty-tree floor approximation is sufficient at high drift — escalate (L-245)
-                level = "URGENT" if logged_drift > 0.20 else "DUE"
-                results.append((level,
-                    f"Proxy K drift {logged_drift:.1%} ({latest_logged} vs {floor}) on dirty tree — compaction overdue{_tier_targets()}; run: {PYTHON_CMD} tools/compact.py"))
+                results.append(("URGENT" if logged_drift > 0.20 else "DUE", f"Proxy K drift {logged_drift:.1%} ({latest_logged} vs {floor}) on dirty tree — compaction overdue{_tier_targets()}; run: {PYTHON_CMD} tools/compact.py"))
             elif not same_dirty_snapshot:
                 qualifier = "current dirty" if (current_session > 0 and latest_session >= current_session) else f"likely dirty S{latest_session}"
-                results.append(("NOTICE",
-                    f"Proxy K logged drift {logged_drift:.1%} ({latest_logged} vs {floor}) from {qualifier}; save clean snapshot when stable: {PYTHON_CMD} tools/proxy_k.py --save"))
+                results.append(("NOTICE", f"Proxy K logged drift {logged_drift:.1%} ({latest_logged} vs {floor}) from {qualifier}; save clean snapshot when stable: {PYTHON_CMD} tools/proxy_k.py --save"))
         elif stale_clean_baseline:
-            results.append(("NOTICE",
-                f"Proxy K baseline S{floor_session} is stale on dirty tree (current S{current_session}); re-save clean snapshot: {PYTHON_CMD} tools/proxy_k.py --save"))
+            results.append(("NOTICE", f"Proxy K baseline S{floor_session} is stale on dirty tree (current S{current_session}); re-save clean snapshot: {PYTHON_CMD} tools/proxy_k.py --save"))
         else:
-            level = "URGENT" if logged_drift > 0.10 else "DUE"
-            results.append((level, f"Proxy K drift {logged_drift:.1%} ({latest_logged} vs {floor}); run: {PYTHON_CMD} tools/compact.py"))
+            results.append(("URGENT" if logged_drift > 0.10 else "DUE", f"Proxy K drift {logged_drift:.1%} ({latest_logged} vs {floor}); run: {PYTHON_CMD} tools/compact.py"))
     elif live_drift > 0.06 and dirty:
-        results.append(("NOTICE",
-            f"Proxy K live drift {live_drift:.1%} ({live_total} vs {floor}) on dirty tree{_tier_targets()}; save when stable: {PYTHON_CMD} tools/proxy_k.py --save"))
+        results.append(("NOTICE", f"Proxy K live drift {live_drift:.1%} ({live_total} vs {floor}) on dirty tree{_tier_targets()}; save when stable: {PYTHON_CMD} tools/proxy_k.py --save"))
     elif live_drift > 0.06:
-        level = "URGENT" if live_drift > 0.10 else "DUE"
-        results.append((level, f"Proxy K drift {live_drift:.1%} ({live_total} vs {floor}){_tier_targets()}; run: {PYTHON_CMD} tools/compact.py"))
+        results.append(("URGENT" if live_drift > 0.10 else "DUE", f"Proxy K drift {live_drift:.1%} ({live_total} vs {floor}){_tier_targets()}; run: {PYTHON_CMD} tools/compact.py"))
 
     return results
 
 def check_file_graph() -> list[tuple[str, str]]:
-    results = []
-    structural = [REPO_ROOT / p for p in (
-        "SWARM.md", "CLAUDE.md", "README.md", "beliefs/CORE.md",
-        "memory/INDEX.md", "memory/OPERATIONS.md", "tasks/NEXT.md")]
+    structural = [REPO_ROOT / p for p in ("SWARM.md", "CLAUDE.md", "README.md", "beliefs/CORE.md", "memory/INDEX.md", "memory/OPERATIONS.md", "tasks/NEXT.md")]
     broken = []
     seen = set()
     for sf in structural:
         text = _read(sf)
-        if not text:
-            continue
-        refs = re.findall(r"`([a-zA-Z][\w\-/]+\.(?:md|py|json|sh))`", text)
-        for ref in refs:
-            if ref.startswith("L-") or ref.startswith("P-") or ref.startswith("B-"):
-                continue
+        if not text: continue
+        for ref in re.findall(r"`([a-zA-Z][\w\-/]+\.(?:md|py|json|sh))`", text):
+            if ref.startswith(("L-", "P-", "B-")): continue
             resolved = _resolve_repo_file_ref(ref)
-            if not resolved:
-                continue
-            full = REPO_ROOT / resolved
-            if not full.exists():
-                label = f"{sf.name}→{ref}"
-                if resolved != ref:
-                    label += f" ({resolved})"
+            if not resolved: continue
+            if not (REPO_ROOT / resolved).exists():
+                label = f"{sf.name}→{ref}" + (f" ({resolved})" if resolved != ref else "")
                 if label not in seen:
-                    seen.add(label)
-                    broken.append(label)
+                    seen.add(label); broken.append(label)
     if broken:
-        results.append(("DUE", f"{len(broken)} broken file reference(s): {', '.join(broken[:5])}"))
-    return results
+        return [("DUE", f"{len(broken)} broken file reference(s): {', '.join(broken[:5])}")]
+    return []
 
 def _inter_swarm_connectivity(capabilities: dict, commands: dict[str, bool]) -> dict:
     protocol_paths = ["experiments/inter-swarm/PROTOCOL.md", "memory/OPERATIONS.md"]
