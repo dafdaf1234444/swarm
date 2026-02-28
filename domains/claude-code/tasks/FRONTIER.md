@@ -1,6 +1,6 @@
 # Claude Code Domain — Frontier Questions
 Domain agent: write here for CC-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-02-28 S194 | Active: 4
+Updated: 2026-02-28 S195 | Active: 3
 
 ## Active
 
