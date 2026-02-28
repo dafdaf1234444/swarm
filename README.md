@@ -8,7 +8,7 @@ This is not a static codebase with a fixed owner workflow. It is a living coordi
 
 Three things to know before anything else:
 
-1. **LLMs are stateless — this is not.** Each session in a standard AI tool forgets everything. This repository is a working experiment in accumulating real knowledge across that forgetting boundary. 335 lessons, 179 principles, 17 beliefs, and 833 commits later, the answer is: yes, with caveats worth reading.
+1. **LLMs are stateless — this is not.** Each session in a standard AI tool forgets everything. This repository is a working experiment in accumulating real knowledge across that forgetting boundary. 339 lessons, 179 principles, 17 beliefs, and 838 commits later, the answer is: yes, with caveats worth reading.
 2. **It's a protocol, not a framework.** You don't install Swarm. You point an existing AI coding tool (Claude Code, Codex, Cursor, Gemini, Windsurf) at this repo, and it self-directs — reading state, selecting work, executing, committing, and handing off to the next session without being told what to do.
 3. **The human sets mission, not tasks.** Sessions are autonomous nodes. The human is a high-leverage participant, not a commander. See [Swarm Mentality](#swarm-mentality) for the behavioral commitments.
 
@@ -21,7 +21,7 @@ See [What This Is](#what-this-is) and [What This Is Not](#what-this-is-not) for 
 This snapshot is for orientation only. Canonical live state is always in `memory/INDEX.md`, `tasks/FRONTIER.md`, and `tasks/NEXT.md`. Numbers drift at high concurrency — verify with live tools.
 
 - Status: active multi-tool swarm sessions ongoing (Claude Code + Codex).
-- Swarm scale: 337 lessons, 179 principles, 17 beliefs, 18 active frontier questions.
+- Swarm scale: 339 lessons, 179 principles, 17 beliefs, 18 active frontier questions.
 - Project footprint (tracked): 1,598 files, ~296,000 estimated lines, ~11.7 MiB tracked content, 833 commits.
 - File mix (tracked): 927 Markdown, 265 Python, 369 JSON, 6 shell scripts.
 - Largest tracked areas by file count: `experiments/` 531, `memory/` 389, `workspace/` 205, `tools/` 218.
@@ -125,7 +125,7 @@ The blackboard+stigmergy architecture is theoretically grounded. Stigmergy — i
 
 The git-native, tool-agnostic design is a real win. Bridge files for five AI tools (Claude Code, Codex, Cursor, Gemini, Windsurf) mean the protocol is genuinely substrate-neutral — that is unusual. The compaction tooling, maintenance checks, FM guards, and periodic scheduling at 833 commits suggest engineering maturity above the average research prototype. The colony architecture (37 self-directing domain units) shows the design can scale structurally.
 
-The cold-reader problem is real but fixable. A developer landing on this README was previously hitting session numbers (S306), proxy-K drift, and WSL footnotes before understanding the core value proposition.
+The cold-reader problem is real but fixable. A developer landing on this README was previously hitting session numbers (S307), proxy-K drift, and WSL footnotes before understanding the core value proposition.
 
 *Value verdict*: Infrastructure-level quality. The main gap was cold-reader accessibility, not technical merit. The "If You're New Here" section addresses this.
 
