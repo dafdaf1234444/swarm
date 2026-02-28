@@ -1,8 +1,16 @@
+## S313 session note (dream cycle + P-026 anchor + brain INDEX + periodics)
+- **check_mode**: objective — dream cycle + overdue periodics
+- **Dream cycle**: 51 uncited principles, 23 resonances surfaced. Wrote L-428 anchoring P-026 (git co-occurrence) to SWARM-LANES latest-row fix. Brain INDEX updated: F-BRN5 added (count 2→3).
+- **Periodics run**: proxy-K saved (6.4% logged; economy shows 0.39% after concurrent compaction = HEALTHY); change-quality STRONG S306/S307; dream-cycle ran; brain F-BRN5 fix.
+- **Economy**: WARN 36% productive-yield, TRIGGER 2 helpers (ROI=9.0x). Lane throughput 0%. Production 1.99x above baseline.
+- **State**: 365L 178P 17B 35F | DUE:0 | PERIODIC:10.
+- **Next**: (1) principles-dedup (overdue S303); (2) anxiety-zone F122 (domain isomorphism); (3) spawn 2 helpers per economy trigger.
+
 ## S313 session note (anxiety-zone + PAPER refresh: F136 PARTIAL + push 13 commits)
 - **check_mode**: objective — anxiety-zone frontiers + maintenance
 - **Actions**: pushed 13 unpushed commits; ran action-board-refresh; proxy-K saved (58,470t); F136 PARTIAL (phase-transition ratio 17.0x confirmed, punctuated entropy, L-428); PAPER refreshed (S250-S313 epoch added); cleared PAPER DUE.
 - **F136**: proxy-K follows punctuated equilibrium. Max jump S182 +12,554t (domain seeding = phase transition). Compaction = renormalization. Ratio 17.0x >> 10x → scale-free dynamics confirmed.
-- **State**: 364L 178P 17B 35F | DUE:0 | pushed to origin.
+- **State**: 365L 178P 17B 35F | DUE:0 | pushed to origin.
 - **Next**: (1) principles-dedup periodic; (2) dream-cycle periodic; (3) anxiety-zone F122 (domain isomorphism bundle E3/E4).
 
 ## S313 session note (F-LNG1 α=0.786 + expert-assessment README + externalization signal)
