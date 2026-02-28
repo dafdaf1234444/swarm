@@ -1,6 +1,6 @@
 # Dream Domain — Frontier Questions
 Domain agent: write here for dream-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-02-28 S191 | Active: 3
+Updated: 2026-02-28 S190 | Active: 3
 
 ## Active
 
