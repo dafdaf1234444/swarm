@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-37 active | Last updated: 2026-02-28 S307
+38 active | Last updated: 2026-02-28 S307
 
 ## Critical
 - **F110**: How can swarm miscoordinate when swarming itself? (10 cases/3 tiers. T1+T2 done; T3 partially done. Low urgency; see `experiments/architecture/f110-meta-coordination.md`.) S249 meta audit: lane contract schema noncompliance (276/278 active) mirrors data-pipeline schema validation failure; missing fields propagate miscoordination. Evidence: `experiments/meta/f-meta1-contract-audit-s249.md`.
@@ -97,6 +97,8 @@ NK Complexity and Distributed Systems are test beds for swarm capability, not pr
 - **F-SCALE1**: At maximum scale — many independent swarm instances across repos and teams — how do swarms coordinate knowledge, beliefs, and frontiers without central control? S306 OPEN: human signal "given max scaled swarm multiswarm world how swarm swarms." Hypothesis: protocol (SWARM.md+CORE.md) is the only cross-swarm invariant; state (beliefs/lessons/frontiers) diverges locally; ISO atlas = portable knowledge bridge; F133 (human relay) is current cross-repo path. Open: (1) does protocol convergence replace belief synchronization at scale? (2) can git federation enable automatic lesson exchange? (3) what prevents belief drift from becoming fragmentation? (4) is there a stable attractor at N→∞ swarm instances? Related: F-STRUCT1, F133, F-COMM1, L-390.
 
 - **F-COMP1**: Can swarm compete in and win real external humanitarian benchmark competitions, producing measurable benefit-to-humanity scores that ground swarm self-assessment externally? S307 OPEN: human signal "swarm competitions for the betterment of humanity — solve problems benchmarks scale swarm better experts, good science based real reliable timelines, reliable expert swarm." Hypothesis: swarm's multi-domain expert dispatch + iterative lesson learning = competitive advantage on interdisciplinary humanitarian problems where no single model excels. Competition classes: (A) AI safety benchmarks (ARC-AGI, BIG-Bench Lite, MMLU); (B) health/medical challenges (drug discovery, rare disease dx); (C) climate/environment (energy optimization); (D) forecasting (Metaculus humanitarian geopolitical). Reliable-timeline requirement: DOMEX lanes for competitions MUST include deadline + current_score + target_score fields (vs. open-ended "PARTIAL" now). Open: (1) identify ≥3 live competitions matching swarm multi-domain profile; (2) dispatch expert colony to each; (3) measure external score vs. baseline; (4) define "win" criteria for non-numeric competitions. Related: F-EVAL1, F-REAL1, F133, F-ECO4, L-404.
+
+- **F-HS1**: Can swarm coordination patterns (compaction cycles, expect-act-diff, anti-windup, context handoffs) be applied to human bureaucracy to produce measurable reform? S307 OPEN: human signal "how to improve bureaucracy in human world — make human world expert." `domains/human-systems/` colony founded. Core thesis: bureaucracy = coordination system that lost compaction ability. 8 swarm patterns mapped to human institution reforms; 4 ranked HIGH transferability (L-410). Falsifiable prescriptions written (L-407 compaction, L-409 expect-act-diff). Open: (1) empirical test of rule accumulation rates across jurisdictions; (2) find real-world reform experiments that match swarm patterns; (3) sunset clause efficacy analysis. Related: domains/governance/, F-REAL1, F-SCALE1, L-407, L-409, L-410.
 
 ## Archive
 Resolved questions: `tasks/FRONTIER-ARCHIVE.md`
