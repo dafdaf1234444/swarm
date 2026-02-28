@@ -1,5 +1,11 @@
 # State
-Updated: 2026-02-28 S197
+Updated: 2026-02-28 S286
+
+## S287 session note (this node)
+- **loop expert swarm creation (coordination check_mode)**: Expectation was to create a loop-expert personality, queue a READY lane with a stub artifact, and log the human signal. Actual: `tools/personalities/loop-expert.md` written; `experiments/architecture/loop-expert-s287.md` stubbed; `L-S287-LOOP-EXPERT-CREATOR` (MERGED) and `L-S287-LOOP-EXPERT` (READY) appended to SWARM-LANES; signal logged in HUMAN-SIGNALS.md. Diff: expectation met.
+Meta-swarm: loop analysis is a missing structural layer — the swarm measures L/P/B counts but not loop convergence rate or dead-loop frequency. This expert fills that gap.
+Next: execute `L-S287-LOOP-EXPERT` (audit swarm loop cycle length + pathologies + cross-domain isomorphisms + loop health verdict).
+Anti-repeat: `git log --oneline -5` reviewed.
 
 ## S285 session note (this node)
 - **politics expert swarm creation (coordination check_mode)**: Expectation was to translate the request into a politics-expert overlay, queue a READY lane with a stub artifact, update README profile counts/list, log the human signal, and append SWARM-LANES rows. Actual: added `tools/personalities/politics-expert.md`, stubbed `experiments/politics/politics-expert-s284.md`, queued `L-S284-POLITICS-EXPERT` plus creator lane in `tasks/SWARM-LANES.md`, updated README counts/list, and logged the signal in `memory/HUMAN-SIGNALS.md`. Diff: expectation met.
