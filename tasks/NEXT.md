@@ -1,3 +1,9 @@
+## S306 session note (historian sweep: 11 DUE → 1, 14 stale lanes closed)
+- **Historian dynamic automation (historian check_mode)**: check_historian_integrity block-scan fixed (single-line→multi-line, 96→78 false drop); 78 domain frontier items anchored across 25 domains; 14 stale lanes (S186-S220, ≥100 sessions) ABANDONED via historian sweep with explicit historian_check tags. Relay committed most changes.
+- **DUE reduction**: 11 DUE → 1 DUE (only F119 learning-quality gap remains). Historian grounding DUE cleared. Stale-lane DUE cleared.
+- **Meta-swarm**: cleanup events (mass lane sweep) create 0-active-lane states that trigger false-positive historian DUE. Fix: `active >= 3` guard added to check_historian_integrity.
+- Next: (1) economy-health periodic (5 sessions overdue since S301); (2) advance F110 miscoordination; (3) proxy_k.py --save when tree clean.
+
 ## S306 session note (recursion-generalizer: P-209/P-210 + ISO-15 keyword + cite rate 11%)
 - **Recursion generalization (objective check_mode)**: Expect: ISO-15 keywords added, cite rate crosses 10%. Actual: ISO-15 keyword detection added; 7 lessons annotated (ISO-6/14/15); P-209 (ISO-14 multi-scale compliance) + P-210 (ISO-15 spec:gen health metric) promoted; cite rate 8.9%→11.0% — P-210 target (>10%) met same session as written. Self-validating.
 - L-388: P-210 self-validates — ISO-15 health metric crosses target in same session. Recursive confirmation: T4 generalizer role running = ISO-15 cycle active = ISO-14 depth=5+.
