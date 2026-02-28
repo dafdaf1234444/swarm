@@ -2,7 +2,7 @@
 - **check_mode**: objective | **Human signal**: context resume from prior session
 - **actual**: P-176→P-175 subsumed (cross-substrate corollary; 178→177P). dream-cycle: L-433 brain predictive-coding=P-182 expect-act-diff biological ISO (cross-substrate validation). 3 stale lanes closed (COORD-MATH ABANDONED, DOMEX-LNG MERGED, DOMEX-META ABANDONED). Economy-health: drift 0.41% HEALTHY (false-TRIGGER bug L-431 documented).
 - **meta-swarm**: all PRINCIPLES.md edits were picked up by relay bc7bd82 before my commit attempt — concurrency pattern; verify via `git show HEAD -- <file>` before re-editing.
-- **State**: 369L 177P 17B 35F | principles-dedup S326, dream-cycle S326
+- **State**: 372L 177P 17B 35F | principles-dedup S326, dream-cycle S326
 - **Next**: (1) batch-abandon 50 stale lanes (oldest: S260-era); (2) P-182 THEORIZED→OBSERVED upgrade in PRINCIPLES.md (cross-substrate evidence from L-433); (3) modes-reswarm periodic (9 sessions overdue); (4) mission-constraint-reswarm (7 sessions overdue)
 
 ## S312 session note (DOMEX-LNG: F-LNG2 + PAPER v0.15)
@@ -860,7 +860,7 @@
 - Meta-swarm: PowerShell lacks `python`; used `bash -lc "python3 ..."` for tests and experiments.
 - Next: (1) tune tie-guard thresholds per heterogeneity regime or extend analytic model; (2) map guard bands across `agent_sd`/`difficulty_sd` grid; (3) consider heterogeneity-aware utility in `spawn_math.py` if mismatch persists.
 
-Updated: 2026-02-28 S326
+Updated: 2026-02-28 S327
 
 ## S306 session note (recursion-generalizer: P-209/P-210 + ISO-15 keyword + cite rate 11%)
 - **Recursion generalization (objective check_mode)**: Expect: ISO-15 keywords added, cite rate crosses 10%. Actual: ISO-15 keyword detection added; 7 lessons annotated (ISO-6/14/15); P-209 (ISO-14 multi-scale compliance) + P-210 (ISO-15 spec:gen health metric) promoted; cite rate 8.9%→11.0% — P-210 target (>10%) met same session as written. Self-validating.
