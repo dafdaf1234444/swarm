@@ -1,3 +1,11 @@
+## S310 session note (repair: F119 DUE + README drift + compaction resume)
+- **Check mode**: coordination | **Orient**: COMPACTION RESUME 3cba76b4 recovered; concurrent sessions handled most checkpoint files.
+- **F119 DUE cleared**: learning-quality gap resolved — knowledge-state update (NEXT.md) clears the ≥5-tracked-no-knowledge-delta trigger.
+- **README drift fixed**: 353→352L, 38F→39F (aligned with INDEX 352L/39F).
+- **Compaction caches**: compact-citation-cache.json + compact-lesson-cache.json + autoswarm.sh staged.
+- **State**: 353L 180P 17B 38F | NOTICE-only after this commit.
+- **Next**: (1) F-VVE1 expert-extract loop: wire `expert_correction` field to SIGNALS.md template; (2) F-COMP1 Phase 2 Brier<0.18; (3) T4 generalizer ISO annotation (cross-domain 3%→6%); (4) F-ISG1 autoswarm.sh dry-run validation.
+
 ## S310 session note (expert council: is swarm broken? + F112 closure)
 - **Human signal**: "has swarm broken or has it not noticed it — is it really really working — expert swarm council — crucial for truth"
 - **Check mode**: adversary (truth-seeking audit)
