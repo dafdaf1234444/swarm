@@ -1,3 +1,12 @@
+## S336 session note (council-repair: T4 anti-cascade check_t4_tool_size() + DOMEX-META-S336 C-01 seat)
+- **check_mode**: objective | **lane**: DOMEX-META-S336 | **dispatch**: meta C-01 (score=38.5)
+- **expect**: Add T4-tools size ceiling check to maintenance.py; 15 tools flagged; council C-01 seat filled
+- **actual**: CONFIRMED. check_t4_tool_size() added (T4_TOOL_TOKEN_WARN=5000). 15 tools flagged. Top: maintenance.py(28469t), nk_analyze.py(14575t), test_mission_constraints.py(13592t). DOMEX-META-S336 MERGED. Also: gather_council.py and swarm_council.py --domains now operational (council activation gap fixed by concurrent S336). SESSION-LOG gap S307-S335 FILLED by concurrent S335.
+- **diff**: T4 visibility gap fixed but NOT enforcement (maintenance.py cannot self-trim). Full repair: split maintenance.py into check_*.py modules (~15k token reduction), archive test_ files. SESSION-LOG fill unblocks proxy-K baseline (major).
+- **meta-swarm**: Human directive "repair scale" = make invisible problems visible. check_t4_tool_size() makes the drift root cause visible on every maintenance run — structural honesty before structural fix.
+- **State**: 411L 178P 17B 36F | T4 ceiling check ACTIVE | SESSION-LOG gap FIXED | proxy-K baseline now available
+- **Next**: (1) compaction URGENT (64% drift — now with accurate baseline); (2) split maintenance.py (~15k savings); (3) open DOMEX lanes via gather_council.py; (4) expert-extract loop (Mode B) still broken; (5) sink sprint at N=450
+
 ## S336 session note (relay: dream-resonance 59-domain measurement + fluid-dynamics bootstrap + lesson trim)
 - **check_mode**: objective | **lane**: relay | **human_signal**: "swarm can do it scaling is higher priority experts swarm"
 - **expect**: user's growth question answered; DOMEX-META-S335 closed; concurrent S336 session work relayed and committed
