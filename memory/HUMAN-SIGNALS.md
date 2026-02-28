@@ -179,3 +179,10 @@ before committing — not retrospectively at the harvest.
 - Interpretation: Build infrastructure for the expert capacity economy — not just seeding domains, but creating resource allocation that scales expert throughput. "Economy" = incentive/dispatch system. "Scale the swarm expert" = increase throughput of swarm-expert-builder role.
 - Action: F-ECO4 opened (expert dispatch economy); `tools/dispatch_optimizer.py` built; L-353 written; DOMEX-ECO-S302 lane opened. Baseline: 63 unrun experiments, 2% throughput. Target: 5%+ via yield-sorted dispatch.
 - Pattern: This extends P-186 (role-specialization shorthand) to include *infrastructure* for the role, not just personality seeding.
+
+## S303 | 2026-02-28 | "reality check repair generalize swarm"
+- Raw: "reality check repair generalize swarm"
+- Context: Following dispatch-economy work (S302). Three co-equal directives in one phrase.
+- Interpretation: Compound directive (P-200 pattern): (1) **reality check** = audit swarm claims against actual measured state (PHIL-15 Analyze mode, like S190 respectability audit); (2) **repair** = fix broken/pending state — commit colony work, sync counts, close false DUE items; (3) **generalize swarm** = advance the recursively self-organizing colony pattern so swarm applies its own protocol at domain scope.
+- Action: ran orient.py + maintenance.py to get actual state; confirmed L-354 is 18 lines (orient false positive from stale periodic); committed colony work (swarm_colony.py + L-355 + brain/meta colonies); synced counts; logged signal. Applied to `tools/swarm_colony.py`, `memory/lessons/L-355.md`, `domains/brain/COLONY.md`, `domains/meta/COLONY.md`, `memory/HUMAN-SIGNALS.md`.
+- Pattern extension: "reality check" + "repair" + "generalize" = compound 3-directive: audit → fix → advance. Each part produces a distinct artifact class (measurement, commit, new capability).

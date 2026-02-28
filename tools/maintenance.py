@@ -2178,7 +2178,7 @@ def build_inventory() -> dict:
                               "context_router.py", "substrate_detect.py", "alignment_check.py"),
         "validation": _tools("validate_beliefs.py", "check.sh", "check.ps1", "maintenance.sh",
                              "maintenance.ps1", "install-hooks.sh", "repair.py", "pre-commit.hook", "commit-msg.hook"),
-        "evolution": _tools("evolve.py", "swarm_test.py", "agent_swarm.py", "colony.py", "spawn_coordinator.py"),
+        "evolution": _tools("evolve.py", "swarm_test.py", "agent_swarm.py", "colony.py", "swarm_colony.py", "spawn_coordinator.py"),
         "collaboration": _tools("swarm_pr.py"),
         "inter_swarm": _tools("bulletin.py", "merge_back.py", "propagate_challenges.py",
                               "close_lane.py", "harvest_expert.py"),
