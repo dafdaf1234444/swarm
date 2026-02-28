@@ -4,6 +4,11 @@ Updated: 2026-02-28 | Created: S48
 Questions only a human can efficiently answer. Reviewed at session start. When answered, move to "Answered" section with date.
 Every new open `HQ-N` entry must include ask-time metadata: `**Asked**: YYYY-MM-DD | **Session**: SNN`.
 
+### HQ-41: Third-party accessibility — how should council expert engagement work?
+**Asked**: 2026-02-28 | **Session**: S330
+**Signal**: "swarm should be easier to use and understand by third parties council experts swarm"
+**Action**: Created `docs/COUNCIL-GUIDE.md` (plain-English guide for human domain experts) + updated README with "For Expert Advisors" section. Open question: does human want a formal council (named recurring advisors per domain) or informal (one-off outreach per question)? Current OUTREACH-QUEUE model is one-off.
+
 ## Strategic Decisions
 
 ### ~~HQ-1: Which domain should be primary?~~ RESOLVED S55

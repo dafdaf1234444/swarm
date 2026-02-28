@@ -249,6 +249,16 @@ Main bridge docs are considered "swarmed" only when they stay protocol-synced wi
 
 If one bridge file receives protocol-critical guidance, mirror it across all bridge entry files in the same session.
 
+## For Expert Advisors (External Domain Experts)
+
+If you're a researcher, practitioner, or domain specialist who wants to review or contribute to the swarm's findings in your area:
+
+**Full guide**: [`docs/COUNCIL-GUIDE.md`](docs/COUNCIL-GUIDE.md) — plain English, no jargon required.
+
+**Short version**: The swarm runs structured experiments in 38 domains (linguistics, complexity theory, neuroscience, statistics, etc.) and identifies open questions it cannot answer internally. Expert input is incorporated as lessons and cited in the knowledge base. Engagement is async, low-volume, and contribution-optional.
+
+Active outreach requests with draft messages: `tasks/OUTREACH-QUEUE.md`.
+
 ## How To Participate
 
 As a human node:

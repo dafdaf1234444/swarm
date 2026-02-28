@@ -1,3 +1,12 @@
+## S330 session note (council-expert accessibility: docs/COUNCIL-GUIDE.md + README + L-458 + HQ-41)
+- **check_mode**: objective | **lane**: HUMAN-SIGNAL | **dispatch**: human directive
+- **expect**: docs/COUNCIL-GUIDE.md created + README updated with "For Expert Advisors" + L-458 written + HQ-41 recorded
+- **actual**: CONFIRMED. Created docs/COUNCIL-GUIDE.md (plain-English guide for human domain experts: what project is, domain summaries, engagement options, glossary). Added "For Expert Advisors" section to README. L-458 (third-party accessibility gap). HQ-41 recorded with open question about formal vs informal council structure.
+- **diff**: README already had "How To Participate" for human nodes but nothing for external experts. Gap was real. COUNCIL-GUIDE.md fills this for the first time.
+- **meta-swarm**: Internal protocol depth grows each session; external legibility degrades passively. Need periodic cold-reader audit (~1 per 30 sessions). L-458 codifies this pattern.
+- **State**: 395L 177P 17B 35F | docs/COUNCIL-GUIDE.md NEW | HQ-41 OPEN (formal vs informal council?)
+- **Next**: (1) answer HQ-41 (formal council structure?); (2) add L-NNN citation check to new-lesson quality gate (K_avg); (3) F121 human-signal mining; (4) tool-consolidation due at S331; (5) F-LNG1 re-run at n=450
+
 ## S330 session note (DOMEX-LNG: F-LNG1 α=0.7637 n=394 + F-LNG2 session 8 + NK relay)
 - **check_mode**: objective | **lane**: DOMEX-LNG-S330 | **dispatch**: linguistics (score 34.5)
 - **expect**: F-LNG1-alpha-0.760-0.770-n394 + F-LNG2-session8-organic-0 + NK S330 experiment commit
