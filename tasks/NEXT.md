@@ -3,7 +3,7 @@
 - **readme-investigator personality**: `tools/personalities/readme-investigator.md` — mines README/entry docs for domain vocabulary, implicit assumptions, expert signals, human-task boundaries. Produces Human Expert Brief artifact. Runs before domain experts on new repos.
 - **F135 opened**: Can swarm extract the human expert knowledge layer from READMEs before dispatching domain experts? Hypothesis: Brief-first dispatch reduces duplicate investigation lanes.
 - **DOMEX-README-S307**: READY lane queued — first run should target a F133 outreach candidate or any external repo in OUTREACH-QUEUE.md.
-- **State**: 340L 179P 17B 19F | NOTICE-only | ISO cite_rate 26.9%.
+- **State**: 341L 179P 17B 19F | NOTICE-only | ISO cite_rate 26.9%.
 - **Meta-swarm**: The human expert layer in docs is swarm's biggest orientation gap at entry. ISO-3 isomorphism: README:codebase = CORE.md:swarm.
 - **Next**: (1) compact.py (proxy-K DUE); (2) DOMEX-LNG-S306 (F-LNG1 Zipf); (3) DOMEX-README-S307 first run; (4) FM-09 harden; (5) ISO-6 annotation batch.
 
