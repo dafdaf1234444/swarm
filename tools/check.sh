@@ -88,6 +88,26 @@ import sys, os, re
 new_lessons = sys.argv[1].split() if len(sys.argv) > 1 else []
 lesson_dir = "memory/lessons"
 
+# L-NNN citation check (L-457, F9-NK): new lessons should cite at least one other lesson
+# to sustain K_avg > 1.5 threshold (F75). Emits NOTICE (not hard FAIL).
+no_citation_lessons = []
+for new_path in new_lessons:
+    try:
+        with open(new_path) as f:
+            content = f.read()
+        lid = os.path.basename(new_path).replace('.md', '')
+        # find all L-NNN citations excluding self
+        cites = [c for c in re.findall(r'L-(\d{3})', content) if 'L-' + c != lid]
+        if not cites:
+            no_citation_lessons.append(os.path.basename(new_path))
+    except Exception:
+        pass
+if no_citation_lessons:
+    for f in no_citation_lessons:
+        print(f"  NOTICE: {f} has no L-NNN citations — add Related: L-NNN to sustain K_avg>1.5 (L-457)")
+else:
+    print("  L-NNN citation guard: PASS")
+
 def get_title(path):
     try:
         with open(path) as f:
