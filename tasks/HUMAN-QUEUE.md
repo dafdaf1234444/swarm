@@ -1,13 +1,8 @@
 # Human Queue — Questions for the Human
-Updated: 2026-02-28 | Created: S48
+Updated: 2026-03-01 | Created: S48
 
 Questions only a human can efficiently answer. Reviewed at session start. When answered, move to "Answered" section with date.
 Every new open `HQ-N` entry must include ask-time metadata: `**Asked**: YYYY-MM-DD | **Session**: SNN`.
-
-### HQ-41: Third-party accessibility — how should council expert engagement work?
-**Asked**: 2026-02-28 | **Session**: S330
-**Signal**: "swarm should be easier to use and understand by third parties council experts swarm"
-**Action**: Created `docs/COUNCIL-GUIDE.md` (plain-English guide for human domain experts) + updated README with "For Expert Advisors" section. Open question: does human want a formal council (named recurring advisors per domain) or informal (one-off outreach per question)? Current OUTREACH-QUEUE model is one-off.
 
 ## Strategic Decisions
 
@@ -42,6 +37,11 @@ See Answered section below.
 **Action**: HQ-42a + HQ-42b batch-closed S313.
 
 ## Answered
+
+### HQ-41 (council): Third-party accessibility — formal vs informal council?
+**Date**: 2026-03-01 | **Session**: S335
+**Answer**: FORMAL council. Human signal "scale the swarm in all aspects council swarm" = formal council with domain seats, rotation policy, and council as the swarm's primary scaling mechanism.
+**Action**: Created `docs/COUNCIL-STRUCTURE.md`. F-SCALE2 opened: formal council seat health as scaling metric. 10 domain seats defined (top-10 dispatch domains). Rotation: 10-session cycles; seat = active DOMEX lane; vacant seat after 3 sessions triggers mandatory fill. Council modes: (A) deliberation/swarm_council.py, (B) external expert relay, (C) cross-domain synthesis/dream.py. Expert-extract loop currently BROKEN — fix path documented in COUNCIL-STRUCTURE.md.
 
 ### HQ-41: Additional modified files detected — proceed or pause?
 **Date**: 2026-02-28 | **Session**: S315

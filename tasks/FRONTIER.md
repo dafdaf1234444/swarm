@@ -9,6 +9,8 @@ The swarm picks what matters. Solve, refine, or challenge.
 - **F119**: How can swarm satisfy mission constraints? S307: I9 risk taxonomy updated (L-366); HIGH_RISK_LANE_PATTERNS hardened; 51/51 MC-SAFE. S310 PARTIAL: (a) colony I9 propagation DONE — 40 COLONY.md files carry MC-SAFE block. S328: I13 cross-substrate formalized in INVARIANTS.md (v0.4) — substrate_detect.py (S173) + portable_check.sh (S325) are the enforcement tools. Open: (c) F-CC1 cron sessions — autoswarm.sh built (S195) but lifecycle scope still 0% self-initiated (F-ISG1). Related: L-386, L-366, F120, F-HUM1.
 
 ## Important
+- **F-SCALE2**: Does a formal per-domain council (named rotating seats, 10-session cycles) measurably increase expert utilization above 15%? OPEN: baseline 4.6%; council structure created S335; monitor over 10 sessions. Related: F-SCALE1, F-EXP1, L-HQ-41. Metric: DOMEX sessions per 10-session window (target ≥3).
+
 - **F-EVAL1**: Is the swarm good enough? S329 PARTIAL: 1.75/3 (corrected — prior 2.0/3 was measurement artifact). Collaborate=2, Increase=2, Protect=2, Truthful=1 (evidence_rate=33% from parser bug fix L-456: PARTIAL false match in description column inflated to 50%). Binding constraint: Truthful — need evidence_rate ≥50% (1 more evidence-grounded challenge). Glass ceiling: Collaborate+Protect capped at 2/3 (external_grounding hardcoded; max 2.5/3). Next: (a) process one QUEUED challenge with evidence → Truthful→2; (b) external benchmark for 3/3. Related: PHIL-14, PHIL-16, B-EVAL1/2/3, L-323, L-450, L-453, L-455, L-456.
 
 - **F105**: Online compaction monitor. compact.py operational (P-163, L-192). S313: drift=0.4% (healthy). Threshold: DUE>6%, URGENT>10%. No action needed; monitor each cycle.

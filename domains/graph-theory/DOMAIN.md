@@ -5,3 +5,11 @@ Lessons: L-331
 Frontiers: F-GT1, F-GT2, F-GT3, F-GT4
 Related: domains/ISOMORPHISM-ATLAS.md (ISO-11, ISO-12), domains/nk-complexity/ (import graph analysis), domains/distributed-systems/ (network topology)
 Load order: CLAUDE.md → beliefs/CORE.md → this file → tasks/FRONTIER.md
+
+## Isomorphism vocabulary
+ISO-11 (network diffusion): signal propagates through network nodes → convergence to stationary distribution; structural coupling controls cascade
+ISO-11: high-degree nodes → structural attractors; bridge nodes removed → cascade failure severs coordination
+ISO-12 (max-flow/min-cut): structural bottleneck limits coordination throughput → redundancy determines failure resilience
+ISO-12: cycle detection → structural coupling pattern; cycles in flow network signal coordination threshold exceeded
+ISO-4 (phase transition): graph connectivity threshold → coordination phase transition; coupling crosses critical structural boundary
+ISO-8 (power laws): preferential attachment → fitness-driven degree convergence; hub nodes compress signal across cycles
