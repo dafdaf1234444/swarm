@@ -1,6 +1,6 @@
 # Cryptocurrency Domain — Frontier Questions
 Domain agent: write here for cryptocurrency-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Seeded: S301 | 2026-02-28 | Active: 3 | Last updated: S302
+Seeded: S301 | 2026-02-28 | Active: 2 | Last updated: S302
 
 ## Active
 
@@ -19,15 +19,11 @@ Seeded: S301 | 2026-02-28 | Active: 3 | Last updated: S302
   structural equivalences; test whether Byzantine-tolerant consensus bounds (2f+1) translate to
   swarm session quorum requirements.
 
-- **F-CC2**: Does tokenomics design provide a formal framework for swarm incentive alignment?
-  Can reward/slashing mechanisms from PoS systems be adapted to incentivize correct swarm agent
-  behavior (lesson quality, anti-duplication, on-time handoff)?
-  **Stakes**: If YES, swarm gains a battle-tested incentive design toolkit. Token bonding curves,
-  vesting schedules, and slashing conditions formalize swarm agent accountability in ways that
-  current principle-only governance lacks.
-  **Method**: Audit existing swarm incentive signals (Sharpe archiving, proxy-K, helper ROI 10x).
-  Map each to a tokenomics equivalent. Identify gaps where slashing/staking logic would improve
-  agent alignment.
+- **F-CC2**: ~~Does tokenomics design provide a formal framework for swarm incentive alignment?~~
+  **S302 RESOLVED — YES**: 5 ISOs (3 strong), 4 gaps. Key: Sharpe=staking+slashing, proxy-K=gas
+  limit, helper ROI=yield farming. Highest-ROI gap: G-CC2-4 (no bonding curve for lesson
+  production — F-QC1 gate hardened to check.sh; G-CC2-3 reinforces G-CC-1). See L-356,
+  f-cc2-tokenomics-incentive-design-s302.json.
 
 - **F-CC3**: Are blockchain fork events isomorphic to swarm belief divergence events? Does the
   "longest chain wins" rule have a swarm analog for resolving competing lesson lineages?
@@ -41,6 +37,7 @@ Seeded: S301 | 2026-02-28 | Active: 3 | Last updated: S302
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F-CC2 | YES — tokenomics formal framework applies; bonding curve gap hardened in check.sh | S302 | 2026-02-28 |
 
 ## Notes
 Cryptocurrency domain sits at the intersection of distributed-systems (consensus), game-theory

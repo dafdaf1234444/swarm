@@ -77,6 +77,67 @@ if [ -d "$ARCHIVE_DIR" ]; then
     echo "  Ghost-lesson guard: PASS"
 fi
 
+# Near-duplicate lesson guard (G-CC2-4, F-QC1, L-356): bonding curve analog.
+# Staged new lesson files are scanned against recent lesson titles for word-overlap >50%.
+# Emits DUE warning (not hard FAIL) to enforce increasing cost for duplicate knowledge.
+STAGED_NEW_LESSONS=$(git diff --cached --diff-filter=A --name-only 2>/dev/null | { grep 'memory/lessons/L-[0-9]' || true; } | { grep -v '/archive/' || true; })
+if [ -n "$STAGED_NEW_LESSONS" ]; then
+    "${PYTHON_CMD[@]}" - "$STAGED_NEW_LESSONS" << 'PYEOF'
+import sys, os, re
+
+new_lessons = sys.argv[1].split() if len(sys.argv) > 1 else []
+lesson_dir = "memory/lessons"
+
+def get_title(path):
+    try:
+        with open(path) as f:
+            for line in f:
+                line = line.strip()
+                if line.startswith("#"):
+                    return re.sub(r"^#+\s*", "", line).lower()
+    except Exception:
+        pass
+    return ""
+
+def word_overlap(a, b):
+    wa = set(re.findall(r'\w+', a)) - {"the","a","an","is","are","was","were","to","of","in","for","and","or","L","S"}
+    wb = set(re.findall(r'\w+', b)) - {"the","a","an","is","are","was","were","to","of","in","for","and","or","L","S"}
+    if not wa or not wb:
+        return 0.0
+    return len(wa & wb) / min(len(wa), len(wb))
+
+# Get last 20 lesson titles (excluding staged files themselves)
+existing = sorted([
+    f for f in os.listdir(lesson_dir)
+    if f.startswith("L-") and f.endswith(".md") and not f.startswith("L-0")
+], reverse=True)[:40]
+
+warned = False
+for new_path in new_lessons:
+    new_title = get_title(new_path)
+    if not new_title:
+        continue
+    for existing_file in existing:
+        existing_path = os.path.join(lesson_dir, existing_file)
+        if os.path.abspath(existing_path) == os.path.abspath(new_path):
+            continue
+        existing_title = get_title(existing_path)
+        ov = word_overlap(new_title, existing_title)
+        if ov >= 0.5:
+            print(f"  NEAR-DUP WARNING: {os.path.basename(new_path)} overlaps {existing_file} ({ov:.0%})")
+            print(f"    New:      {new_title}")
+            print(f"    Existing: {existing_title}")
+            print("    Consider updating the existing lesson instead (F-QC1, G-CC2-4).")
+            warned = True
+            break
+
+if warned:
+    print("  Near-dup guard: WARN (see above) — DUE: update existing lessons before adding new ones")
+else:
+    print("  Near-dup guard: PASS")
+PYEOF
+fi
+
 run_suite() {
     local label="$1"
     local path="$2"

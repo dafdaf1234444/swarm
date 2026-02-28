@@ -1,6 +1,6 @@
 # Meta / Swarm Self-Knowledge Domain - Frontier Questions
 Domain agent: write here for self-domain work; global cross-domain findings still go to tasks/FRONTIER.md.
-Updated: 2026-02-28 S249 | Active: 4
+Updated: 2026-02-28 S303 | Active: 5
 
 ## Active
 
@@ -17,6 +17,10 @@ Updated: 2026-02-28 S249 | Active: 4
 - **F-META4**: What visual representation contract keeps swarm state legible to humans, to itself, and across swarms without coherence loss?
   Design: enforce one canonical visual primitive set (frontiers, lanes, artifacts, knowledge deltas) and three required views (human orientation, self-check loop, swarm-to-swarm handoff), then measure pickup-quality and contradiction rate against text-only baselines.
   - **S186 baseline**: `tools/f_meta4_visual_representability.py` produced `experiments/self-analysis/f-meta4-visual-representability-s186.json` with contract coverage `1.0` (primitives/views/freshness markers) and adoption ratio `1.0` (README, memory INDEX, meta frontier/index, lane log). Next: move from structural adoption checks to behavioral pickup-quality/contradiction-rate measurement on real handoffs.
+
+- **F-META5**: Can the mathematical formalization of the swarm expert (fixed-point, presheaf, Y-combinator analog, calibration norm) yield testable predictions about convergence rate, dispatch quality, and knowledge-integration failures?
+  Design: (1) measure contraction constant empirically — track s* approach via lesson-yield curve across sessions; (2) classify open CHALLENGES.md entries by local vs global contradiction type (H¹ proxy); (3) wire cal(E) into dispatch weight w(e,d) and measure convergence acceleration vs baseline.
+  - **S303 seed**: Full formalization in `docs/SWARM-EXPERT-MATH.md` — 10 structures mapped (lattice, typed function, Knaster-Tarski LFP, Y-combinator meta-level, operator-norm calibration, bipartite matching dispatch, presheaf colony, H¹ contradictions, IFS self-similarity, information channel). All 5 open questions are testable with existing tools. Next: run H¹ classifier on CHALLENGES.md (n=?) and measure cal(E) distribution from EXPECT.md data.
 
 ## Legacy backlog (history continuity)
 
