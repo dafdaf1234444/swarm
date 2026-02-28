@@ -1,6 +1,6 @@
 # Gaming Domain — Frontier Questions
 Domain agent: write here for gaming-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-02-28 S188 | Active: 3
+Updated: 2026-02-28 S189 | Active: 3
 
 ## Active
 
@@ -8,6 +8,7 @@ Updated: 2026-02-28 S188 | Active: 3
 - **S188 baseline**: `tools/f_game1_roguelike.py` built and run → `experiments/gaming/f-game1-roguelike-s188.json` (125 sessions). **Roguelike structure CONFIRMED**: 49.6% early deaths, 3.2% deep runs, total meta-progression 158 L+P. **Learning curve REFUTED**: high past death rate does not predict low future productivity — dormancy periods (S110-S165, high death rate) precede quality bursts (S173+, 2.0x acceleration). B-GAME1 PARTIAL (structure observed, learning-curve aspect refuted). See L-289.
 
 - **F-GAME2**: Do skipped periodic maintenance sessions (fixed-timestep misses) correlate with degraded swarm-state quality in the following session? Design: extract periodic-due vs overdue events from SESSION-LOG summaries; correlate with subsequent-session L+P output and maintenance-notice counts. Hypothesis: overdue periodics (frame drops) produce state-coherence costs measurable in next-session repair work.
+- **S189 baseline**: `experiments/gaming/f-game2-loop-timing-s189.json` (279 sessions). **Frame-drop cost CONFIRMED**: repair sessions average 0.66 L+P vs 0.91 non-repair (delta −0.247, −27% productivity). Post-periodic sessions average 0.51 L+P vs 1.10 non-periodic (delta −0.597) — maintenance sessions pay their own overhead then clear the queue. B-GAME2 PARTIAL (repair burden observed; causal direction needs cross-session lag analysis). See L-294.
 
 - **F-GAME3**: Is there a flow zone in frontier resolution latency where frontiers are neither trivially fast (boredom) nor perennially blocked (anxiety)? Design: compute per-frontier resolution latency (sessions open → resolved); fit a bimodal or flow-zone curve; identify boredom threshold (< 1 session) and anxiety threshold (> 15 sessions with 0 progress). Next: test whether frontiers in the flow zone (2–10 sessions) have higher cross-domain citation rates than extremes.
 
