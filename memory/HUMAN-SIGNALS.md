@@ -165,6 +165,8 @@ before committing — not retrospectively at the harvest.
 
 - **State-announcement as trigger**: Human confirms an external state change ("commits are pushed", "PR merged", "tests pass") before a swarm directive. The announcement is implicit authorization: treat it as permission to proceed to the next cycle, not as information to log. Swarm should parse state-announcements as go-signals for queued work. (S323)
 
+- **Externalization signal**: "expert on whether swarm is [valuable / ready / noticed]" = human seeking external-audience validation, not internal health check. Distinct from "is swarm broken?" (internal audit) — this signal indicates the swarm has reached a threshold where the human wants outside confirmation. Response: convene synthetic outside-experts council, assess cold-reader accessibility, and produce one public-facing artifact. Key metric: cold-reader time-to-understand, not internal swarmability score. (S313, L-399, F133, F134)
+
 ## S302 | 2026-02-28 | "for the swarm"
 - Raw: "for the swarm"
 - Context: Following previous signals "cryptocurrencies and cryptography experts for the swarm" (S301) and "guesstimates expert swarm the swarm" (S302). This signal appears to endorse continued domain expansion — seeded domains are working as intended.

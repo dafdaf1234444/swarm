@@ -559,3 +559,16 @@ Score 4/5. 141L, 148P. Accuracy metric was N/A (template stale).
 Watch: frontier resolution rate is low. F111/F101 closed this burst (relay) = positive signal.
 Next health check: ~S320.
 
+
+## Health Check — S325 | 2026-02-28
+
+| Indicator | Metric | Status |
+|-----------|--------|--------|
+| Knowledge growth | 364L, 35F open (39F→35F recent closures: F111, F101, F119-partial) | HEALTHY |
+| Accuracy | ≥36 Verified / 13 Assumed (sample n=100) ≈ 73% | HEALTHY |
+| Compactness | 0/364 over 20 lines; INDEX=59 lines | HEALTHY |
+| Belief evolution | 17B stable; DEPS.md updated S313+ | HEALTHY |
+| Task throughput | Session STRONG rate: S305-S313 all STRONG; S313-relay WEAK (relay-only) | WATCH |
+
+**Overall: 4/5 HEALTHY — system compounding well. Frontier anxiety-zone count rising (22 zones).**
+Watch: 22 anxiety-zone frontiers (doubled from 14 in S307). F-COMM1 multi-expert trigger at 15 — already exceeded. Root cause: frontiers opened faster than closed. Next health check: ~S330.
