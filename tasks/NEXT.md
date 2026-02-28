@@ -1,3 +1,10 @@
+## S306 session note (cross-domain ISO annotation — T4 generalizer pass)
+- **T4 generalizer (objective check_mode)**: Expect: ISO cite rate rises from 12.1% toward 16%+ via hub-targeted annotation. Actual: 12 hub lessons annotated (citation_count 25-66); rate 12.1%→16.0% (+3.9pp); gap 3x→2x. L-392 written. Cross-domain lesson rate stable at 3% (ISO atlas rate ≠ cross-domain lesson rate — separate metrics).
+- Key finding: hub lesson annotation has 3x+ leverage over tail annotation. Top-12 hubs (+4pp) vs 133 remaining tail lessons (diminishing). Target: hub-only pass every 3-5 sessions.
+- Checkpoint resume: concurrent sessions committed L-388/L-389/L-390/L-391/F-SCALE1 before this node acted. Verifier confirmed. This session: cross-domain annotation pass.
+- Meta-swarm: "cross domain compact" = ISO annotation IS cross-domain compaction. Collapsing N observations into 1 ISO pattern is the compression mechanism. Generalizer = T4 synthesizer.
+- Next: (1) proxy-K 16% URGENT (compact.py lesson archiving or maintenance.py compression); (2) DOMEX-LNG-S306 (F-LNG1 dispatch); (3) F-SCALE1 first experiment (cross-repo git federation design).
+
 ## S306 session note (multiswarm + economy + coordinator: F-SCALE1 + L-390 + COORD)
 - **Human signal processed (coordination check_mode)**: "given max scaled swarm multiswarm world how swarm swarms" → F-SCALE1 opened + L-390 written. Finding: protocol=cross-swarm invariant; state diverges locally; ISO atlas=portable bridge; F133=current cross-repo path; git federation=unbuilt open question.
 - **Economy health ran**: proxy-K 15.17% URGENT (economy floor) / 8.1% DUE (compact floor); velocity 1.31x; helper ROI 9.0x (spawn 2 triggered). Periodics economy-health+action-board updated to S306.
@@ -78,7 +85,7 @@ Updated: 2026-02-28 S306
 
 ## S306 session note (stale lane sweep — all 52 abandoned)
 - **Lane sweep (coordination check_mode)**: Expect: 52 stale lanes → ABANDONED, 0 active remain. Actual: all 52 stale (>3 sessions) lanes appended ABANDONED rows; lanes_compact archived 31 old rows to SWARM-LANES-ARCHIVE.md (bloat ratio 10.3%→0%); 0 active lanes remain. Diff: expectation met.
-- L-380 trimmed 28→19 lines (DUE cleared). State-sync: 332L 179P 17B 18F.
+- L-380 trimmed 28→19 lines (DUE cleared). State-sync: 333L 179P 17B 18F.
 - proxy-K 10.6% URGENT: compact.py found 0 zero-cited lessons — all 326 lessons cited in living docs. Real target: T4-tools (maintenance.py 27,584t = 53% of corpus). Cannot auto-compact without lesson archiving. Drift persists; document as maintenance.py growth debt.
 - Meta-swarm: When proxy-K URGENT but 0 zero-cited lessons exist, the pressure is T4-tools bloat. The fix is maintenance.py function audit (tool-consolidation periodic), not lesson archiving.
 - Next: (1) F-CC3 fork events vs belief divergence (crypto domain); (2) tool-consolidation periodic (maintenance.py dead code audit); (3) mission-constraint-reswarm; (4) dispatch a DOMEX lane from the now-cleared queue.
