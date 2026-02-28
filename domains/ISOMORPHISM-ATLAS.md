@@ -1,5 +1,5 @@
 # Isomorphism Atlas — Atlas of Deep Structure
-v0.1 | 2026-02-28 | S187 | Seeded from human signal + L-274
+v0.3 | 2026-02-28 | S189 | Universality reach: 3 full-hub domains (Swarm/Economics/Linguistics) confirmed across all 9 ISOs
 
 ## What this is
 A cross-domain atlas of structural equivalences. Each entry maps one abstract structure to its manifestations across multiple domains. This is NOT a fact database — it is a compression of world knowledge into shared structure.
@@ -37,9 +37,10 @@ Each entry has:
 | Neuroscience | Synaptic plasticity (LTP/LTD) | Hebbian learning = local gradient step |
 | Swarm | Belief update + lesson Sharpe selection | High-Sharpe = low loss; compaction prunes |
 | Control theory | PID controller / LQR | Explicit cost function; real-time adjustment |
+| Linguistics | Language acquisition as constraint optimization | Poverty of stimulus = data constraint; P&P parameter setting = binary optimization; statistical models (Bayesian) maximize posterior; usage-based models minimize prediction error |
 
-**Sharpe: 5** (7 domains; mathematically grounded; verified in all domains)
-**Gaps**: Linguistics (is grammar acquisition optimization?), Chemistry (is reaction kinetics optimization?)
+**Sharpe: 5** (8 domains; mathematically grounded; acquisition-as-optimization supported by generative + statistical + usage-based accounts)
+**Gaps**: Chemistry (is reaction kinetics optimization?)
 
 ---
 
@@ -90,9 +91,10 @@ Each entry has:
 | Neuroscience | Action potential (all-or-nothing) | Threshold firing is binary phase transition |
 | Economics | Market panic / bank run | Confidence crosses threshold → cascade |
 | Social systems | Tipping points (Gladwell; Schelling) | Small perturbation past threshold → cascade |
+| Linguistics | Categorical perception + critical period | VOT threshold for /b/–/p/ produces discontinuous perception (Liberman 1957); critical period for L1 acquisition is irreversible threshold — accent acquisition post-puberty qualitatively different regime |
 
-**Sharpe: 5** (8 domains; mathematically rigorous; universally observed)
-**Gaps**: Linguistics (phonological contrast thresholds?), Ecology (ecosystem collapse threshold)
+**Sharpe: 5** (9 domains; mathematically rigorous; categorical perception replicated across languages)
+**Gaps**: Ecology (ecosystem collapse threshold)
 
 ---
 
@@ -146,9 +148,10 @@ Each entry has:
 | Mathematics | Gödel incompleteness; undecidable system-level truths | Truths about system not derivable from its own axioms; arithmetic transcends its axioms |
 | Game theory | Nash equilibria without communication | Agents following local best-response converge to system-level equilibrium; coordination without coordination |
 | Computation | NP-hardness; easy micro-steps → hard macro-problem | SAT: local clauses trivial; satisfying all simultaneously exponential; complexity emerges from combination |
+| Linguistics | Grammar from usage; Nicaraguan Sign Language | NSL created by deaf children with no shared language — grammatical structure emerged across generations without a teacher; each child's gestures are micro, grammar is macro; Construction Grammar formalizes emergence of categories from usage statistics |
 
-**Sharpe: 5** (8 domains; Anderson's "More is Different" is canonical; each domain independently well-attested; swarm is a direct instance)
-**Gaps**: Linguistics (grammar emergence from language use — partially ISO-3), History (historical macro-causation from micro-actions?), Chemistry (autocatalytic networks as emergence)
+**Sharpe: 5** (9 domains; Anderson's "More is Different" is canonical; NSL is a natural emergence experiment; distinct from ISO-3 which is compression, not irreducibility)
+**Gaps**: History (historical macro-causation from micro-actions?), Chemistry (autocatalytic networks as emergence)
 
 ---
 
@@ -171,20 +174,40 @@ Each entry has:
 
 ---
 
+### ISO-9: Information bottleneck — lossy compression of relevant signal
+**Structure**: A system transmitting information through a capacity-limited channel optimally discards everything except what predicts the target output. The trade-off frontier maximizes I(representation; output) while minimizing I(input; representation). Order is preserved, noise is discarded. The bottleneck forces a choice: accuracy or compression.
+
+| Domain | Manifestation | Notes |
+|--------|---------------|-------|
+| Information theory | Rate-distortion theory; Tishby's information bottleneck (1999) | Canonical form: minimize I(X;T) subject to I(T;Y) ≥ constraint |
+| Neuroscience | Thalamic gating; selective attention; retinal compression | Retinal ganglion cells discard >99% of photoreceptor input; thalamus gates relevance; attention = dynamic bottleneck |
+| Swarm | Compaction (proxy-K); lesson Sharpe selection; CORE.md | proxy-K limits total token budget; Sharpe selects relevant lessons; CORE.md = output variable determining what survives |
+| Evolution | Phenotypic plasticity; genetic drift selection | Irrelevant traits lost under constant environment; speciation = IB on gene flow; environment = output variable |
+| Deep learning | DNN layer compression (Tishby/Schwartz-Ziv 2017) | Each layer discards input-irrelevant variance while preserving class signal; debated empirically but structurally valid |
+| Cognitive science | Working memory (7±2); chunking; attention | Miller's limit = IB capacity; chunking = high-compression encoding; attention = output-relevance filter |
+| Economics | Specialization / comparative advantage (Ricardo) | Agents discard production of non-comparative-advantage goods; relevant capacity = output-relevant information |
+| Linguistics | Translation loss; polysemy; word learning | Polysemy = many referents compressed into one token; translation discards untranslatable nuance; children learn word meanings via contrastive IB (rule out non-target referents) |
+
+**Sharpe: 4** (8 domains; information-theoretic grounding rigorous; DNN application empirically debated; domain mappings structural but mechanism varies)
+**Gaps**: Physics (renormalization group = IB of quantum degrees of freedom — strong candidate); History (historiography = IB of events — what survives the archival channel?)
+
+---
+
 ## Synthesis: hub domains
 Domains appearing in 4+ entries — highest isomorphism density, swarm first:
 
 | Domain | Entries | Why hub |
 |--------|---------|---------|
-| Swarm/meta | ISO-1,2,3,4,5,6,7,8 | Self-referential; every structure applies |
-| Economics | ISO-1,2,3,4,5,6,7,8 | All eight; rich empirical grounding |
-| Neuroscience | ISO-1,2,3,4,5,7 | Six entries; connects computation, biology, cognition |
+| Swarm/meta | ISO-1,2,3,4,5,6,7,8,9 | Self-referential; every structure applies including IB (compaction) |
+| Economics | ISO-1,2,3,4,5,6,7,8,9 | All nine; rich empirical grounding; Ricardo specialization = IB |
+| Linguistics | ISO-1,2,3,4,5,6,7,8,9 | All nine — full hub (S189); language is simultaneously optimization, attractor, compression, phase-transition, feedback, entropy, emergence, power law, and IB |
+| Neuroscience | ISO-1,2,3,4,5,7,9 | Seven entries; connects computation, biology, cognition, attention as IB |
 | Physics/thermodynamics | ISO-1,3,4,5,6,7,8 | Seven entries; canonical form for entropy, phase, emergence, power law |
-| Evolution | ISO-1,2,4,5,6 | Five entries; connects NK complexity, selection, genomic drift |
-| Linguistics | ISO-2,3,5,6,8 | Five entries; newly elevated; language as compressible adaptive system |
-| Information theory | ISO-1,3,6,8 | Four entries; mathematical grounding for entropy, MDL, power law |
+| Evolution | ISO-1,2,4,5,6,9 | Six entries; IB on gene flow added; connects NK, selection, genomic drift |
+| Information theory | ISO-1,3,6,8,9 | Five entries; mathematical grounding for entropy, MDL, power law, IB |
 | Biology | ISO-2,4,5,7,8 | Five entries; emergence, allometric scaling, homeostasis |
 | Mathematics | ISO-1,3,4,7,8 | Five entries; formal grounding across optimization, MDL, emergence, power law |
+| Cognitive science | ISO-3,7,9 | Three entries; MDL concept formation, emergence in cognition, IB working memory |
 | Control theory | ISO-1,5 | Engineering instantiation of feedback+optimization |
 
 ---
@@ -205,5 +228,6 @@ F126: swarm → isomorphism atlas → world knowledge base (world is beneficiary
 Both share the mechanism. F126 inverts the directionality of value flow.
 
 ## Version history
+- v0.3 (S189): ISO-9 information bottleneck; linguistics gaps in ISO-1/4/7 filled → linguistics becomes full 9/9 hub tied with Swarm + Economics; hub table expanded to 11 domains; cognitive science added; universality reach finding: 3 domains now appear in every ISO entry
 - v0.2 (S187): ISO-6 entropy, ISO-7 emergence, ISO-8 power laws; hub table expanded to 10 domains; physics and linguistics added as first-class hubs
 - v0.1 (S187): 5 seed entries, 7 hub domain candidates, 6 open questions

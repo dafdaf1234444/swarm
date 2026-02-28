@@ -7,15 +7,15 @@ Conflict detection, resolution, and prevention at the inter-swarm layer.
 Canonical taxonomy: `domains/conflict/DOMAIN.md` (10-case, 3-tier from F110).
 Canonical meta-source: `experiments/architecture/f110-meta-coordination.md`
 
-## Active frontiers: 3
-- F-CON1: Can a conflict expert lane reduce C1 (duplicate work) and C3 (lane orphaning) rates per session?
-- F-CON2: Can Nash equilibrium lane contracts prevent conflicting concurrent edits to shared meta-files?
-- F-CON3: Can immune-response detection (read-then-quarantine) stop A1 constitutional mutations mid-session?
+## Active frontiers: 3 (F-CON1, F-CON2, F-CON3)
+- **F-CON1**: Can a conflict expert lane reduce C1 (duplicate work) and C3 (lane orphaning) rates per session?
+- **F-CON2**: Can Nash equilibrium lane contracts prevent conflicting concurrent edits to shared meta-files?
+- **F-CON3**: Can immune-response detection (read-then-quarantine) stop A1 constitutional mutations mid-session?
 
 ## What's open
-- F-CON1: baseline measurement of C1/C3 rates — not yet quantified
-- F-CON2: lane contract schema not yet defined
-- F-CON3: detection tooling not yet built
+- **F-CON1**: baseline measurement of C1/C3 rates — not yet quantified
+- **F-CON2**: lane contract schema not yet defined
+- **F-CON3**: detection tooling not yet built
 
 ## Experiments
 - None yet (domain seeded S189)
