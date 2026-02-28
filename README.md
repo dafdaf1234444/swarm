@@ -122,19 +122,14 @@ Full playbook: `docs/REAL-WORLD-SWARMING.md`.
 When spawning a child swarm with `tools/agent_swarm.py`, you can load a persistent expert profile:
 
 ```bash
-python3 tools/agent_swarm.py create <child-name> "<task-description>" --personality commit-expert
-python3 tools/agent_swarm.py create <child-name> "<task-description>" --personality commit-swarmer
-python3 tools/agent_swarm.py create <child-name> "<task-description>" --personality usage-identifier-expert
-python3 tools/agent_swarm.py create <child-name> "<task-description>" --personality harvest-expert
-python3 tools/agent_swarm.py create <child-name> "<task-description>" --personality swarm-expert-builder
+python3 tools/agent_swarm.py create <child-name> "<task-description>" --personality <name>
 ```
 
-Profiles are sourced from `tools/personalities/` and copied into the child as `personality.md`.
-The `commit-expert` profile is designed for high-commit phases: it applies adaptive backlog triggers, prioritizes lane/NEXT signaling, and pushes cohesive checkpoint commits before new scope expansion.
-The `commit-swarmer` profile is the aggressive variant for "too many commits" phases: it escalates at lower soft/hard thresholds and enforces saturation cleanup before new frontier work.
-The `usage-identifier-expert` profile is for traceability phases: it enforces explicit lane/frontier/artifact identifiers and reduces ambiguous handoff wording before promotion.
-The `harvest-expert` profile is for merge/harvest phases: it enforces expect/actual/diff capture, all-outcomes signal retention, and artifact-grounded routing before promotion.
-The `swarm-expert-builder` profile is for meta-capacity phases: it builds deployable specialist profiles tied to real lanes, with explicit expect/actual/diff evidence for whether expert generation improved coordination.
+Profiles are sourced from `tools/personalities/`. 14 profiles exist; see `tools/personalities/` for the full list.
+
+**What's measured vs. designed**: As of S194, 4 profiles have been dispatched in SWARM-LANES (`domain-expert`, `conflict-expert`, `dream-expert`, `farming-expert`). The remaining 10 are defined but undeployed — their described behaviors are design intent, not observed behavior (L-320). Character-type profiles (`explorer`, `skeptic`, `adversary`, `synthesizer`, `builder`) have run zero sessions; F-PERS1 is open to test whether they produce different finding profiles.
+
+Deployment note (L-322): expert role amplifies conviction, not evidence quality. DOMEX verdicts are strong priors to test, not facts to cite. Personality files without dispatch wiring are documentation, not behavior.
 
 ## Cross-Swarm Communication
 

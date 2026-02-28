@@ -34,36 +34,42 @@ B19 (async prevents cascade anchoring) — observed [ai]
 
 ### B1: Git-as-memory works for storage and structured retrieval at current scale (~30 lessons); semantic retrieval is a known gap
 - **Evidence**: observed
+- **Falsified if**: A session fails to recover state from git history after NEXT.md failure, OR INDEX.md-based retrieval misses >20% of lessons when queried by theme at current scale
 - **Depends on**: none
 - **Depended on by**: B2, B3, B6
 - **Last tested**: 2026-02-26 (Shock 1: storage proven at 28 lessons; retrieval via PRINCIPLES.md+INDEX works but lacks semantic indexing)
 
 ### B2: Layered memory (always-load / per-task / rarely) prevents context bloat
 - **Evidence**: observed
+- **Falsified if**: A session following the layered protocol hits context limit before completing a standard task, OR sessions ignoring layering complete equivalent tasks at equal context cost
 - **Depends on**: B1
 - **Depended on by**: B7
 - **Last tested**: 2026-02-26 (S29-32: 4 complex sessions with CORE→INDEX→task→mode loading; no context limit issues)
 
 ### B3: Small commits aid backtracking and session handoff
 - **Evidence**: observed
+- **Falsified if**: Recovery from a broken-state session takes more tool calls with small commits than with large-batch commits, OR cross-session handoffs fail at equivalent rates regardless of commit granularity
 - **Depends on**: B1
 - **Depended on by**: B11
 - **Last tested**: 2026-02-26 (cross-day handoff: stale NEXT.md; git log+file structure enabled full recovery in 4 tool calls)
 
 ### B6: The system's architecture is blackboard+stigmergy; "swarm" is brand name only
 - **Evidence**: observed
+- **Falsified if**: A coordination mechanism observed in ≥3 sessions cannot be classified as either blackboard or stigmergy, OR an alternative architecture model makes better predictions about observed coordination failures
 - **Depends on**: B1
-- **Depended on by**: B7, B8
+- **Depended on by**: B7, B8, B17, B19
 - **Last tested**: 2026-02-27 (R5 harvest: task coordination is stigmergy-dominant — indirect traces, NEXT.md, frontier commits; knowledge coordination is blackboard-dominant — INDEX, DEPS, FRONTIER per-session structured reads/writes. Both layers are active; neither term fully captures both. R4/R5 cross-variant convergent finding.)
 
 ### B7: Regularly-invoked protocols compound system quality over time
 - **Evidence**: observed
+- **Falsified if**: Quality metrics (accuracy, swarmability, context load) show no improvement over 20+ consecutive protocol-following sessions, OR ad-hoc sessions achieve equivalent quality without protocol invocation
 - **Depends on**: B2, B6
 - **Depended on by**: B12, B16
 - **Last tested**: 2026-02-26 (34 sessions: accuracy 0%→83%, swarmability 85→100, load 200→115 lines; distill/verify/validator compound clearly)
 
 ### B8: The frontier is a self-sustaining task generation mechanism
 - **Evidence**: observed
+- **Falsified if**: 5+ consecutive active sessions close frontiers without generating new ones, OR new frontier questions consistently require external injection rather than emerging from work
 - **Depends on**: B6
 - **Last tested**: 2026-02-25 (L-015, measured 2.5x amplification over 13 sessions)
 
@@ -82,11 +88,13 @@ B19 (async prevents cascade anchoring) — observed [ai]
 
 ### B11: Knowledge files are monotonic/CRDT-like structures — append-only with supersession markers enables safe concurrent agent writes
 - **Evidence**: observed
+- **Falsified if**: Two concurrent sessions produce an unrecoverable merge conflict in a knowledge file despite both following append-only protocol, OR a superseded entry is silently overwritten rather than marked superseded
 - **Depends on**: B3
 - **Last tested**: 2026-02-27 (6/6 variants converged; 0 merge conflicts across 150+ commits; "correct, don't delete" is structurally a CRDT; L-083)
 
 ### B12: Coordination tool adoption follows a power law — workflow-embedded tools achieve ~100% adoption while invocation tools achieve <20%
 - **Evidence**: observed
+- **Falsified if**: An invocation tool achieves >50% adoption across 10+ consecutive sessions without workflow embedding, OR a workflow-embedded tool falls below 60% adoption
 - **Depends on**: B7
 - **Last tested**: 2026-02-27 (3 embedded tools ~100% vs 6 invocation tools <20%; L-084)
 
@@ -119,6 +127,7 @@ B19 (async prevents cascade anchoring) — observed [ai]
 
 ### B16: Knowledge decay is present but asymmetric — specific claims decay faster than extracted principles, making it visible on reading but invisible to growth metrics
 - **Evidence**: observed
+- **Falsified if**: A re-audit finds principles decay at the same rate as specific claims (>30% stale principles), OR stale-lesson fraction increases proportionally with session count (i.e., growth metrics DO track decay)
 - **Depends on**: B7
 - **Evidence note**: S47 F99 (L-001..L-030): 67% actionable, 33% partially stale, 0% fully stale; decay in time-bound literals; principle extraction mitigates
 - **Last tested**: 2026-02-27 (S47, `experiments/distributed-systems/f99-knowledge-decay.md`)
