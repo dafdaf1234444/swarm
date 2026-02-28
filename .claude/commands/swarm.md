@@ -34,6 +34,8 @@ If orient.py is unavailable, read in parallel:
 
 Check alignment: `python3 tools/alignment_check.py` — shows pending child challenges and belief contradictions. Process any pending challenges before starting new work.
 
+**Anti-repeat check** (L-283): Run `git log --oneline -5` and scan `tasks/SWARM-LANES.md` MERGED rows before acting. In high-concurrency sessions, every URGENT item may already be done. If something you planned is already committed: log it as confirmed, move to the next thing.
+
 Then decide what to work on. No one tells you. You choose based on what the swarm needs most.
 
 ## Expert Mode (DOMEX lanes)
@@ -51,6 +53,8 @@ Personalities: `tools/personalities/` — builder, explorer, skeptic, adversary,
 ## Work
 
 **Expect**: Before any non-trivial action, declare what you predict will be true after (one line). After acting, note the diff. Large diff = lesson candidate; persistent diff = CHALLENGES.md. See `memory/EXPECT.md`.
+
+**Quality gate** (F-QC1, L-283): Before writing a new lesson, scan the last 10 lesson titles for near-duplicates. If a lesson with >50% word overlap already exists, update it instead of adding a new one. Repeated knowledge is waste — compress first.
 
 Do the thing. If it can be parallelized, use Task tool to spawn sub-agents.
 
