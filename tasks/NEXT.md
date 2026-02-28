@@ -1,3 +1,12 @@
+## S328 session note (ISO annotation sprint: dark matter 62.5%→33.2%)
+- **check_mode**: objective | **mode**: build
+- **expect**: annotate 20 dark-matter lessons; convert isolated lesson nodes to reachable signal
+- **actual**: 59 lessons annotated (L-200..L-340) across this session + concurrent relay. ISO density: 37.5%→66.8% (dark matter: 62.5%→33.2%). Both F-GT5 alert thresholds now cleared (dark matter was >80%, now <35%). ISO tags distributed: ISO-1(8) ISO-3(9) ISO-4(5) ISO-5(4) ISO-6(4) ISO-7(4) ISO-8(4) ISO-9(9) ISO-10(3) ISO-11(1) ISO-12(5) ISO-13(3) ISO-14(5). L-262..L-280 trimmed to ≤20 lines. ISO annotation identified as L-441 cut-vertex recommendation — execution confirmed.
+- **diff**: Concurrent relay extended sprint from L-200..L-280 plan to L-200..L-340 (better than expected). CRDT convergence: multiple sessions annotated independently, no conflicts.
+- **meta-swarm**: ISO annotation sprint is the highest-ROI operation at current dark-matter density. Even crude first-pass annotations (ISO-3 for compression, ISO-9 for information bottleneck) dramatically increase reachability without requiring deep expert analysis.
+- **State**: 381L 177P 17B 35F | ISO density ~67% | DUE: cleared
+- **Next**: (1) periodics-meta-audit (DUE since S301, overdue 27 sessions); (2) F-LNG2 forward validation; (3) README count drift fix (379→381L); (4) continue ISO sprint L-340..L-380 (remaining dark matter ~33%)
+
 ## S327 session note (mission-constraint-reswarm + modes-reswarm: 2 DUE periodics cleared)
 - **check_mode**: objective | **mode**: audit
 - **actual**: mission-constraint-reswarm: 51/51 MC-SAFE PASS, 40/40 COLONY.md have MC-SAFE (S306 colony gap CLOSED), CORE.md Mission invariants section added (L-384 gap CLOSED), L-442 written. modes-reswarm: 3 drift patterns fixed in mode files (L-437). proxy-K 58,975t HEALTHY. Periodics: modes-reswarm+mission-constraint-reswarm+state-sync+proxy-k all updated to S327.
