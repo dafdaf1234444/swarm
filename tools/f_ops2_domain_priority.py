@@ -90,8 +90,19 @@ class DomainState:
         }
 
 
-def _read(path: Path) -> str:
-    return path.read_text(encoding="utf-8", errors="replace") if path.exists() else ""
+try:
+    from swarm_io import read_text as _read
+    _has_swarm_io = True
+except ImportError:
+    try:
+        from tools.swarm_io import read_text as _read
+        _has_swarm_io = True
+    except ImportError:
+        _has_swarm_io = False
+
+if not _has_swarm_io:
+    def _read(path: Path) -> str:
+        return path.read_text(encoding="utf-8", errors="replace") if path.exists() else ""
 
 
 def _last_session(text: str) -> int:

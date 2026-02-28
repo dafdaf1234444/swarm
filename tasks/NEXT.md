@@ -1,3 +1,21 @@
+## S338 session note (DOMEX-META-S338: T4 compaction analysis — 4226t achievable 15.4%, L-478)
+- **check_mode**: objective | **lane**: DOMEX-META-S338 | **dispatch**: meta C-01 (F-META1)
+- **expect**: Identify ≥3 dead/redundant check functions in maintenance.py for removal, ≥1000t T4 reduction
+- **actual**: CONFIRMED + exceeded. Full 2548L analysis. Total achievable: ~4226t (15.4%). Phase 1 (~1432t removals): _reason_action_evidence_sessions+F119 transition evidence (712t), check_mission_constraints self-ref (277t), runtime re-probe (280t), inline fallback (163t). Phase 2 (~1239t): shared helper extraction. Phase 3 (~1555t): message compression. T4 tier discovery: only 4 files count; nk_analyze/test_MC/belief_evolve are NOT in T4 tier. swarm_io.py pattern shifts helpers out of T4. L-478. S338 docstring pass already committed (-1036t).
+- **diff**: More than expected — full structural analysis revealed redundant runtime probes and self-referential checks that are provably dead code. Phase 1 is zero-risk (static property assertions, never-reached branches).
+- **meta-swarm**: T4 floor (S171, 167 sessions stale) is unrealistic target. Real goal = arrest growth. Each session should remove ≥500t. check_mission_constraints self-ref (reads own source at runtime to verify static structure) is the clearest example of code that can never fail if the file runs at all.
+- **State**: 418L 178P 17B 36F | T4 compaction roadmap: 4226t achievable | SESSION-LOG gap S336-S338 FIXED
+- **Next**: (1) Phase 1 removals (712+277+280+163 = 1432t zero-risk code removal); (2) dormant domain activation (28 dormant → 50% reach = 7 activations); (3) sink sprint at N=450
+
+## S338 session note (expert-wave: 6 DOMEX lanes, 6 artifacts, 3 novelty domains activated, L-481)
+- **check_mode**: objective | **lane**: expert-dispatch-S338 | **dispatch**: human signal ("experts needed for the swarm")
+- **expect**: 3 existing DOMEX lanes executed + 3 novelty domains activated; ≥6 artifacts produced; domain reach rises from 21% toward 28%
+- **actual**: CONFIRMED. 6 DOMEX lanes executed (META, NK, LNG, HLP, HS, STR), all MERGED. 6 experiment artifacts produced. 3 novelty domains (helper-swarm, human-systems, strategy) activated with first experiments. COUNCIL-REPAIR-S323 (+14 sessions stale) ABANDONED. K_avg=1.6562 at N=413. F-LNG1 α=0.7456 (12th point, 2nd stall). Maintenance.py compaction: 4,226t savings mapped (Phase 1: 1,432t zero-risk). NK defense-in-depth triad (governance/catastrophic-risks/game-theory) identified.
+- **diff**: All 6 lanes opened, worked, and closed in one session — matches one-shot DOMEX norm (L-444). Domain reach: 21%→~28%. Expert utilization: 100% (6 DOMEX dispatches). Economy health: proxy-K drift 16.9% (was 64% at dirty tree estimate — cleaner now), production 4.44x above historical.
+- **meta-swarm**: Parallel agent dispatch IS the scaling mechanism. One human signal → dispatch_optimizer → 4 parallel agents → 6 artifacts. The bottleneck is never dispatching — it's the 30+ dormant domains. At 4 agents/session, 50% reach requires ~3 more sessions of pure novelty dispatch.
+- **State**: 417L 178P 17B 36F | 6 DOMEX MERGED | 3 novelty domains activated | K_avg=1.66 | α=0.7456 | Drift 16.9% URGENT
+- **Next**: (1) execute Phase 1 maintenance.py compaction (1,432t zero-risk removals); (2) continue novelty domain wave (30 dormant remain, target 50% = 21 active); (3) NK domain integration sprint (governance P1, catastrophic-risks P2, game-theory P3); (4) sink sprint at N=450
+
 ## S338 session note (memory-automation: diagnostic-execution gap — MEMORY.md 217→81, tool-size gate, L-480)
 - **check_mode**: assumption | **lane**: meta-memory-S338 | **dispatch**: human signal ("manage memory and automation better")
 - **expect**: MEMORY.md compactable to ~150 lines; automation gaps diagnosable; at least one enforcement gate buildable

@@ -995,7 +995,9 @@ def check_frontier_decay() -> list[tuple[str, str]]:
     if not frontier_path.exists(): return results
     open_text = _read(frontier_path).split("## Archive", 1)[0]
     try: decay = json.loads(_read(decay_file)) if decay_file.exists() else {}
-    except Exception: decay = {}
+    except Exception as e:
+        results.append(("NOTICE", f"frontier-decay JSON parse failed ({decay_file.name}): {e}"))
+        decay = {}
     open_ids = {f"F{m.group(1)}" for m in re.finditer(r"^- \*\*F(\d+)\*\*:", open_text, re.MULTILINE)}
     for fid in open_ids:
         decay.setdefault(fid, {"last_active": date.today().isoformat()})
@@ -1148,7 +1150,8 @@ def check_periodics() -> list[tuple[str, str]]:
         return results
 
     try: data = json.loads(periodics_path.read_text())
-    except Exception: return results
+    except Exception as e:
+        return [("NOTICE", f"periodics.json parse failed: {e}")]
     session = _session_number()
     if session <= 0: return results
     dirty = bool(_git("status", "--porcelain"))
@@ -1182,7 +1185,8 @@ def check_version_drift() -> list[tuple[str, str]]:
     meta_path = REPO_ROOT / ".swarm_meta.json"
     if not meta_path.exists(): return results
     try: meta = json.loads(meta_path.read_text())
-    except Exception: return results
+    except Exception as e:
+        return [("NOTICE", f".swarm_meta.json parse failed: {e}")]
     for label, fpath, key in [("CLAUDE.md", "CLAUDE.md", "claude_md_version"), ("CORE.md", "beliefs/CORE.md", "core_md_version")]:
         ver = re.search(rf"{key}:\s*([\d.]+)", _read(REPO_ROOT / fpath))
         if ver and meta.get(key) and str(ver.group(1)) != str(meta[key]):
@@ -1655,8 +1659,8 @@ def check_proxy_k_drift() -> list[tuple[str, str]]:
 
     try:
         entries = json.loads(_read(log_path))
-    except Exception:
-        return results
+    except Exception as e:
+        return [("NOTICE", f"proxy-k-log.json parse failed: {e}")]
 
     if len(entries) < 2:
         return results
