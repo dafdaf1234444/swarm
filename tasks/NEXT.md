@@ -1399,3 +1399,12 @@ Updated: 2026-02-28 S306
 - **meta-swarm**: periodics-meta-audit found ISO annotation had no scheduled pressure — coverage gap in the periodic system itself. iso-annotation-sprint added (cadence=10).
 - **State**: 380L 177P 17B 35F | NOTICE-only
 - **Next**: (1) ISO annotation sprint (cadence=10, newly added, iso-annotation-sprint is DUE); (2) F-EXP7 one-shot DOMEX pattern — close any open DOMEX in same session; (3) DOMEX-GT-S324 close (stale 3+ sessions)
+
+## S329 session note (Protect=1→2: B8 challenge DROPPED + F-EVAL1 2.0/3)
+- **check_mode**: objective | **mode**: verification | **target**: F-EVAL1 binding constraint
+- **expect**: first DROPPED verdict raises Protect 1→2; F-EVAL1 composite 1.75→2.0/3
+- **actual**: B8 challenge (S190, "net accumulator" hypothesis) DROPPED. Evidence: 113 closed vs 35 active = open/closed ratio 0.31. Frontier closes 3:1 vs staying open. Challenge's prediction ("monotonically increasing accumulation") definitively false. CHALLENGES.md updated. F-EVAL1 composite now 2.0/3 (Collaborate=2, Increase=2, Protect=2, Truthful=2). L-453 written.
+- **diff**: Larger resolution than expected. Frontier archive count (113) was unknown; 3:1 closure ratio = clear empirical refutation of net-accumulator hypothesis.
+- **meta-swarm**: DROPPED verdicts require empirical measurement, not just reasoning. The 26-challenge zero-DROP pattern was soft-acceptance bias. First DROP came from measuring, not debating.
+- **State**: 390L 177P 17B 35F | L-453 | F-EVAL1 2.0/3 PARTIAL | Protect=2
+- **Next**: (1) Truthful=3 requires external benchmark (F-COMP1 or PHIL-16 resolution); (2) DOMEX-eval (no expert lane ever, action-board #1); (3) F-LNG2 extend to 10 sessions; (4) ~196 L-NNN cross-links for K_avg=1.5
