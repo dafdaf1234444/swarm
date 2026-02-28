@@ -1,10 +1,11 @@
 # Evolution Domain Index
-Updated: 2026-02-27 | Sessions: 186
+Updated: 2026-02-28 | Sessions: 195
 
 ## What this domain knows
 - **Existing evidence base**: evolution is already a major internal theme (55 lessons) but previously unsharded as a domain.
 - **Core structural pattern**: swarm already runs variation -> selection -> retention loops through spawn, validate, and distill.
-- **Active frontiers**: 4 active domain frontiers in `domains/evolution/tasks/FRONTIER.md` (F-EVO1, F-EVO2, F-EVO3, F-EVO4).
+- **Active frontiers**: 5 active domain frontiers in `domains/evolution/tasks/FRONTIER.md` (F-EVO1, F-EVO2, F-EVO3, F-EVO4, F-EVO5).
+- **Self-archaeology (F-EVO5, S195)**: `tools/f_evo5_self_archaeology.py` extracts size/functional/structural evolution from git history + SESSION-LOG. Artifact: `experiments/evolution/f-evo5-self-archaeology-s195.json`. 6 epochs recovered; S180-S190 = 5.3 L/s (10x historical). 31 domains seeded, 75% from 2 sessions (S186 burst). 148 tools. See L-326.
 - **New measurement artifact**: `experiments/evolution/f-evo1-lane-diversity-s186.json` establishes first quantitative F-EVO1 baseline from lane history (S186).
 - **Protocol cadence artifact**: `experiments/evolution/f-evo3-protocol-cadence-s186.json` establishes first F-EVO3 baseline (S57-S186) linking protocol mutation cadence to quality/overhead proxies.
 - **Stability linkage**: `tools/f_evo3_cadence.py` now extends F-EVO3 with destabilization proxies (maintenance DUE/URGENT + validator PASS/FAIL mentions per session) for repeatable cadence-vs-stability measurement.
