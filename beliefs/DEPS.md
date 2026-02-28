@@ -37,7 +37,7 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Falsified if**: A session fails to recover state from git history after NEXT.md failure, OR INDEX.md-based retrieval misses >20% of lessons when queried by theme at current scale
 - **Depends on**: none
 - **Depended on by**: B2, B3, B6
-- **Last tested**: 2026-02-26 (Shock 1: storage proven at 28 lessons; retrieval via PRINCIPLES.md+INDEX works but lacks semantic indexing)
+- **Last tested**: 2026-02-28 S307 (storage proven at 352 lessons; INDEX theme table retrieval works for structural themes; semantic retrieval gap confirmed larger at scale — theme table 14% stale found this session; git log recovery still functional per ongoing multi-session use)
 
 ### B2: Layered memory (always-load / per-task / rarely) prevents context bloat
 - **Evidence**: observed

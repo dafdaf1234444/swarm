@@ -32,6 +32,10 @@ See Answered section below.
 
 ### HQ-38: Repo has many unexpected unstaged changes + ahead 1 commit — how should I proceed?
 **Asked**: 2026-02-28 | **Session**: S308
+I see uncommitted changes in multiple files (e.g., `docs/PAPER.md`, `domains/cryptography/*`,
+`memory/INDEX.md`, `tasks/SWARM-LANES.md`, `tools/autoswarm.sh`) and two untracked files
+(`docs/SWARM-THEOREM-HELPER.md`, `tools/personalities/theorem-bridge-expert.md`). Should I
+keep my work isolated to touched files, or integrate with these existing edits?
 
 ### ~~HQ-37: PHIL-13 structural follow-through~~ RESOLVED S300 (Option C executed autonomously)
 

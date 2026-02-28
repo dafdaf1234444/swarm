@@ -1,3 +1,22 @@
+## S308 session note (theorem-bridge helper + expert profile)
+- **Human signal**: "help helper for swarm math theorems and interdisciplinary swarm theorems experts cross swarm swarm"
+- **Check mode**: coordination (check_focus=theorem-bridge-helper)
+- **Expect**: add a standalone theorem-helper doc, create a theorem-bridge expert personality, and queue a READY lane for the first pass
+- **Actual**: added `docs/SWARM-THEOREM-HELPER.md`, created `tools/personalities/theorem-bridge-expert.md`, and queued `L-S308-THEOREM-BRIDGE-EXPERT` in `tasks/SWARM-LANES.md`
+- **Diff**: expectation met
+- **Anti-repeat**: `git log --oneline -5` reviewed; no overlapping theorem-bridge helper/profile work
+- **Next**: (1) run theorem-bridge-expert session to emit experiment artifact in experiments/expert-swarm/; (2) update F-META5 or `domains/ISOMORPHISM-ATLAS.md` with validated bridges
+
+## S308 session note (readme snapshot integrity: repo snapshot refresh)
+- **Human signal**: "frequent update of current repo snap shot and readme integrity expert swarm"
+- **Check mode**: verification (check_focus=readme snapshot integrity)
+- **Expect**: update README snapshot counts (files/lines/size/commits, file mix, top dirs, git object store) and fix introductory counts.
+- **Actual**: README updated to 353 lessons, 180 principles, 17 beliefs, 39 frontiers; 1,652 files; ~311,000 lines; ~12.1 MiB; 887 commits; file mix 967 md/267 py/381 json/6 sh; top dirs experiments 543, memory 409, tools 222, domains 207; git objects ~28.4 MiB total (loose ~24.7 MiB).
+- **Diff**: expectation met.
+- **Anti-repeat**: `git log --oneline -5` reviewed; prior README sync commits found but counts drifted since.
+- **Meta-swarm**: snapshot refresh requires manual PowerShell tallying on python-less hosts; add a small `tools/readme_snapshot.ps1` or maintenance output to auto-emit README-ready numbers.
+- **Next**: (1) add a PowerShell snapshot helper; (2) re-run quick check when tree is clean; (3) consider `tools/proxy_k.py --save` on clean tree.
+
 ## S308 session note (cryptography domain: F-CRY1 initial mapping)
 - **Check mode**: objective (check_focus=F-CRY1 compaction-hash mapping)
 - **Expect**: derive compaction axioms from hash properties, capture as lesson, and update cryptography domain state
@@ -67,6 +86,16 @@
 - **Diff**: expectation met.
 - **Meta-swarm**: `pwsh -NoProfile -File tools/orient.ps1` timed out after 12s on this host; consider `--brief` or python fallback.
 - **Next**: dispatch Generalizer+Skeptic bundle to test ISO-11/Percolation/RG claims; publish bulletin if cross-swarm.
+
+## S307 session note (math + interdisciplinary theorems + cross-swarm experts)
+- **Human signal**: "swarm math theorems and interdisciplinary swarm theorems experts cross swarm"
+- **Check mode (assumption)**: interpret request as formal theorem inventory + cross-domain expert bundles; check_focus=theorem-intent parsing.
+- **Expect**: produce `docs/SWARM-THEOREMS.md` with math + interdisciplinary theorem candidates anchored to existing lessons; log signal in `memory/HUMAN-SIGNALS.md`; claim+close doc lane.
+- **Actual**: `docs/SWARM-THEOREMS.md` created; `memory/HUMAN-SIGNALS.md` updated; lane DOC-SWARM-THEOREMS-S307 claimed+merged.
+- **Diff**: confirm.
+- **Artifacts**: `docs/SWARM-THEOREMS.md`
+- **Meta-swarm**: theorem work now has a helper (`docs/SWARM-THEOREM-HELPER.md`) and an inventory; keep them linked to avoid duplicate edits.
+- **Next**: run the Consensus Bundle (distributed-systems + cryptocurrency + protocol-engineering) or open a mathematics domain if desired.
 
 ## S307 session note (vice-versa expert + council repair tool: F-VVE1)
 - **Human signal**: "swarm should help the swarm by helping others and vice versa a vice versa expert and swarm council repair tool up swarm"

@@ -136,10 +136,21 @@ elif command -v python &>/dev/null; then
     PYTHON_BIN="python"
 fi
 
-if [[ "$ANXIETY_RUN" == true && -n "$PYTHON_BIN" && -f "$ANXIETY_TRIGGER" ]]; then
+if [[ "$ANXIETY_ENABLED" == "true" ]]; then
+    if [[ -z "$PYTHON_BIN" ]]; then
+        log "ERROR: anxiety gate requires python (python3 or python not found)"
+        exit 1
+    fi
+    if [[ ! -f "$ANXIETY_TRIGGER" ]]; then
+        log "ERROR: anxiety gate missing $ANXIETY_TRIGGER"
+        exit 1
+    fi
     ANXIETY_JSON="$("$PYTHON_BIN" "$ANXIETY_TRIGGER" --json 2>/dev/null || true)"
-    if [[ -n "$ANXIETY_JSON" ]]; then
-        ANXIETY_PARSED="$(ANXIETY_JSON="$ANXIETY_JSON" "$PYTHON_BIN" - <<'PY'
+    if [[ -z "$ANXIETY_JSON" ]]; then
+        log "ERROR: anxiety gate produced empty JSON"
+        exit 1
+    fi
+    ANXIETY_PARSED="$(ANXIETY_JSON="$ANXIETY_JSON" "$PYTHON_BIN" - <<'PY'
 import json
 import os
 import shlex
@@ -154,7 +165,11 @@ except Exception:
     sys.exit(0)
 
 status = data.get("status", "")
-frontier = (data.get("top_frontier") or {}).get("id", "")
+top = (data.get("top_frontier") or {})
+frontier = top.get("id", "")
+desc = top.get("desc", "")
+age = top.get("age", "")
+last = top.get("last_session", "")
 prompt = ""
 cmd = data.get("dispatch_command", "")
 if cmd:
@@ -170,18 +185,16 @@ if cmd:
 print(status)
 print(frontier)
 print(prompt)
+print(desc)
+print(age)
+print(last)
 PY
 )"
 
-        if [[ -n "$ANXIETY_PARSED" ]]; then
-            IFS=$'\n' read -r ANXIETY_STATUS ANXIETY_FRONTIER ANXIETY_PROMPT <<<"$ANXIETY_PARSED"
-        fi
+    if [[ -n "$ANXIETY_PARSED" ]]; then
+        IFS=$'\n' read -r ANXIETY_STATUS ANXIETY_FRONTIER ANXIETY_PROMPT ANXIETY_DESC ANXIETY_AGE ANXIETY_LAST <<<"$ANXIETY_PARSED"
     fi
-elif [[ "$ANXIETY_RUN" == true ]]; then
-    log "WARN: anxiety_trigger unavailable; defaulting to swarm command"
-elif [[ "$ANXIETY_SKIP_REASON" == "cadence" ]]; then
-    log "INFO: anxiety_trigger skipped by cadence (count=$ANXIETY_NEXT_COUNT cadence=$ANXIETY_CADENCE)"
-elif [[ "$ANXIETY_SKIP_REASON" == "disabled" ]]; then
+else
     log "INFO: anxiety_trigger disabled (set ANXIETY_ENABLED=true)"
 fi
 
