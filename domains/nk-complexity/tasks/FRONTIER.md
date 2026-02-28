@@ -4,11 +4,6 @@ Updated: 2026-02-28 | Active: 1
 
 ## Active
 
-- **F75**: Does decompose-by-data outperform decompose-by-method for ALL task types? (L-051)
-  **S306 RESOLVED**: NO — only when K_avg < 1.0. K_avg ≥ 1.5 → method wins for sequential/refactoring.
-  Threshold confirmed across 7 conditions (1000 reps each): sequential (K=0.5→data, K=1.5→method, K=3.0→method); refactoring (K=0.5→data, K=1.5→method, K=4.0→method 3.6x). Swarm K_avg=0.77 → data-parallel wins ALL current swarm tasks. L-391. Artifact: experiments/nk-complexity/f75-decompose-all-tasktypes-s306.json.
-  **Rule**: Measure K_avg; K_avg IS the decision variable. → Resolved table below.
-
 - **F9-NK**: What additional knowledge domains should follow complexity theory?
   PARTIAL — complexity + distributed systems active. NK domain has 26 lessons, working tool (nk_analyze.py), cross-language support.
   **S305 self-analysis**: NK applied to swarm's own lesson citation graph (N=325, K_avg=0.77, 61.5% orphans, 0 cycles). Architecture: FRAGMENTED_ISLAND. L-385. Artifact: experiments/nk-complexity/f9-nk-self-analysis-s305.json.
