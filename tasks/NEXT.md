@@ -51,13 +51,30 @@
 - **Meta-swarm**: Bash+Python JSON handoff is fragile when stdin is already used; env-var handoff avoids here-doc/stdin collisions.
 - **Next**: run `bash tools/autoswarm.sh --dry-run` in a WSL shell to verify anxiety-trigger selection, then consider a small check.sh guard for Python availability.
 
+## S308 session note (autoswarm cadence gate: F-COMM1)
+- **Human signal**: "swarm"
+- **Check mode**: coordination | focus=autoswarm anxiety-trigger cadence
+- **Expect**: autoswarm uses anxiety-trigger on a cadence (default 1), tracks run count in `workspace/anxiety-dispatch.state`, and can be disabled via `ANXIETY_ENABLED=false` or `--no-anxiety`; when cadence not met it logs skip and falls back to `swarm.md`.
+- **Actual**: added cadence gate + disable flag + state file counter in `tools/autoswarm.sh`; usage notes + logging added. No runtime execution performed.
+- **Diff**: structural change only; runtime unverified.
+- **Meta-swarm**: frontier text lagged actual autoswarm wiring; cadence and disable path are now explicit and logged.
+- **Next**: (1) run `bash tools/autoswarm.sh --dry-run` to validate cadence/log output; (2) update F-COMM1 note if cadence gate satisfies dispatch requirement.
+
+## S308 session note (math theorem index expansion + cross-swarm hooks)
+- **Check mode**: coordination (check_focus=theorem-index-coverage)
+- **Expect**: extend `docs/SWARM-EXPERT-MATH.md` theorem index with cross-disciplinary entries + cross-swarm hook; no other files changed.
+- **Actual**: added Random walk/Markov, Percolation, RG fixed points; updated Knaster–Tarski/CALM statuses; added cross-swarm bulletin step + `vice-versa-expert` roster.
+- **Diff**: expectation met.
+- **Meta-swarm**: `pwsh -NoProfile -File tools/orient.ps1` timed out after 12s on this host; consider `--brief` or python fallback.
+- **Next**: dispatch Generalizer+Skeptic bundle to test ISO-11/Percolation/RG claims; publish bulletin if cross-swarm.
+
 ## S307 session note (vice-versa expert + council repair tool: F-VVE1)
 - **Human signal**: "swarm should help the swarm by helping others and vice versa a vice versa expert and swarm council repair tool up swarm"
 - **vice-versa-expert**: `tools/personalities/vice-versa-expert.md` — reciprocal loop expert; 5 loop types mapped; expert-extract loop BROKEN (highest repair priority).
 - **swarm_council.py**: `tools/swarm_council.py` — council repair CLI. Usage: `python3 tools/swarm_council.py --target "problem" [--mode vice-versa|repair|custom]`.
 - **F-VVE1 opened**: reciprocal swarm↔external loops vs calibration rate. Related: F133, F-COMP1, F-EXP6, L-411.
 - **Proxy-K snapshot saved**: 59783t clean (DUE cleared).
-- **State**: 352L 180P 17B 39F | DUE:0 | validator PASS.
+- **State**: 353L 180P 17B 39F | DUE:0 | validator PASS.
 - **Next**: (1) Wire expert-extract loop: `expert_correction` in SIGNALS.md + harvest-expert; (2) F-COMP1 Phase 2: Brier<0.18; (3) T4 generalizer ISO annotation (3%→6%); (4) F-ISG1 autoswarm.sh gate.
 
 ## S307 session note (repair+checks+experts+multi-swarm: compound directive)
