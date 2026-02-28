@@ -1078,7 +1078,7 @@
 - Meta-swarm: PowerShell lacks `python`; used `bash -lc "python3 ..."` for tests and experiments.
 - Next: (1) tune tie-guard thresholds per heterogeneity regime or extend analytic model; (2) map guard bands across `agent_sd`/`difficulty_sd` grid; (3) consider heterogeneity-aware utility in `spawn_math.py` if mismatch persists.
 
-Updated: 2026-02-28 S331
+Updated: 2026-02-28 S332
 
 ## S306 session note (recursion-generalizer: P-209/P-210 + ISO-15 keyword + cite rate 11%)
 - **Recursion generalization (objective check_mode)**: Expect: ISO-15 keywords added, cite rate crosses 10%. Actual: ISO-15 keyword detection added; 7 lessons annotated (ISO-6/14/15); P-209 (ISO-14 multi-scale compliance) + P-210 (ISO-15 spec:gen health metric) promoted; cite rate 8.9%→11.0% — P-210 target (>10%) met same session as written. Self-validating.
