@@ -22,7 +22,10 @@ The swarm picks what matters. Solve, refine, or challenge.
 
 - **F117**: Can swarm produce installable libs? S83b/S92 done — 2 libs extracted (65/65 tests, L-186); ROI threshold confirmed (>500L). Open: does lib form improve cross-session reuse? (P-167, P-168)
 - **F114**: Belief citation rate — 73.5% principles cited 0-1 times (L-150). Auto-linking and per-session tracking still open.
-- **F104**: Does personality persistence produce different findings on the same question?
+- **F104**: Does personality persistence produce different findings on the same question? S194 PARTIAL: baseline audit shows 10/14 personalities ORPHANED — never dispatched (tools/personality_audit.py, workspace/personality-audit-s194.json, L-320). Default swarm without personality enforcement: builder=18.5%, skeptic=18.2%, domain-expert=24.4%, explorer=7.9%, synthesizer=0.7%, adversary=0.0%. F104 BLOCKED until F-PERS1 runs controlled comparison. Related: F-PERS1..3, personality-expert.md.
+- **F-PERS1**: Will dispatching Explorer vs. Skeptic on the same open frontier produce measurably different lesson output profiles? Hypothesis: Explorer sessions produce ≥2x more new F-NNN per session than Skeptic; Skeptic sessions produce ≥2x more falsification-language lessons. Test: open 2 lanes on same frontier (e.g. F106 or F114), enforce personality= field, compare lesson content via personality_audit.py. Status: OPEN (S194). Related: F104, personality-expert.md.
+- **F-PERS2**: Are synthesizer-aligned outputs (cross-lesson links, subsumption) genuinely rare (0.7% baseline) because the Synthesizer personality is orphaned, or because cross-lesson linking requires prior lesson density the swarm hasn't reached? Status: OPEN (S194).
+- **F-PERS3**: Does explicit personality dispatch change output quality (L+P per session) or just output style? Null hypothesis: same quality, different framing. Status: OPEN (S194).
 - **F106**: Is max_depth=2 the right recursive limit?
 - **F88**: Should negative results be tracked? S186: YES — positive/negative/null all first-class signal. Open: enforce explicit tagging in maintenance.
 - **F89**: Do additive variants outperform subtractive variants?
