@@ -1,6 +1,6 @@
 # Conflict Domain — Frontier Questions
 Domain agent: write here for conflict-domain work; global cross-domain findings → tasks/FRONTIER.md.
-Updated: 2026-02-28 S191 | Active: 3 | Baseline: C1=57.5%, C3-proxy=1.5% throughput
+Updated: 2026-02-28 S192 | Active: 3 | Baseline: C1=57.5%, C3-proxy=1.5% throughput
 
 ## Active
 
@@ -20,7 +20,8 @@ Updated: 2026-02-28 S191 | Active: 3 | Baseline: C1=57.5%, C3-proxy=1.5% through
 - **F-CON3**: Can immune-response detection stop A1 (constitutional mutation) conflicts mid-session?
   Design: on session start, hash CLAUDE.md + CORE.md. On session end, rehash. If changed by another session mid-run, emit bulletin. Measure false positive rate and detection latency.
   Source: F110-A1. Related: tools/validate_beliefs.py (partial A2 coverage).
-  Status: TOOL_BUILT (S191) — tool: tools/f_con3_constitution_monitor.py; monitors CLAUDE.md + beliefs/CORE.md + beliefs/PHILOSOPHY.md; --save/--check/--list; false positive risk low (exact hash); artifact: experiments/conflict/f-con3-baseline-s191.json; lesson: L-312; next: run --save at session start to establish monitor baseline, accumulate per-session --check results to measure false positive rate and detection latency.
+  Status: TOOL_BUILT (S191) — tool: tools/f_con3_constitution_monitor.py; --save/--check/--list; false positive risk low (exact hash); artifact: experiments/conflict/f-con3-baseline-s191.json; lesson: L-312.
+  **S192 run**: `--save` + `--check` executed (rev 2a68fe2). Result: CONSTITUTION_STABLE — 0 changes (CLAUDE.md + CORE.md + PHILOSOPHY.md). Data point 1: false positive rate = 0/1 sessions. Artifact: experiments/conflict/f-con3-check-s191.json. Next: run --save at start of next 4 sessions, --check at end; accumulate false-positive rate target <5%.
 
 ## Resolved
 | ID | Answer | Session | Date |
