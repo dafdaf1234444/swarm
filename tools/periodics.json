@@ -4,7 +4,7 @@
       "id": "health-check",
       "description": "System health check (memory/HEALTH.md): knowledge growth, accuracy, compactness, belief evolution, task throughput",
       "cadence_sessions": 5,
-      "last_reviewed_session": 325,
+      "last_reviewed_session": 329,
       "registered_by": "S69"
     },
     {
@@ -74,14 +74,14 @@
       "id": "human-signal-harvest",
       "description": "F121 harvest: read memory/HUMAN-SIGNALS.md, scan for patterns not yet encoded as principles or lessons, extract at least one P- or L- candidate per pass. Update Patterns section. Flag any entry missing artifact refs. Addresses ephemeral human input loss (F121, L-224).",
       "cadence_sessions": 5,
-      "last_reviewed_session": 325,
+      "last_reviewed_session": 329,
       "registered_by": "S176"
     },
     {
       "id": "change-quality-check",
       "description": "Run python3 tools/change_quality.py: compare recent sessions vs. baseline on knowledge production + overhead. Flag WEAK sessions. A session rated WEAK 2+ consecutive times = root-cause diagnosis needed. (L-223)",
       "cadence_sessions": 5,
-      "last_reviewed_session": 325,
+      "last_reviewed_session": 329,
       "registered_by": "S178"
     },
     {
@@ -102,14 +102,14 @@
       "id": "periodics-meta-audit",
       "description": "Periodic-system audit: evaluate periodics coverage/ROI, add or prune items, and update cadence based on observed utility and maintenance overhead. Confirm orient/check surfacing stays aligned.",
       "cadence_sessions": 20,
-      "last_reviewed_session": 327,
+      "last_reviewed_session": 329,
       "registered_by": "S185"
     },
     {
       "id": "economy-health",
       "description": "Swarm economy health check: run `python3 tools/economy_expert.py` \u2014 report on production velocity, proxy-K drift, Sharpe ratio, lane throughput, and helper ROI. Act on any WARN/URGENT/TRIGGER output (L-286, domains/economy/).",
       "cadence_sessions": 5,
-      "last_reviewed_session": 325,
+      "last_reviewed_session": 329,
       "registered_by": "S188"
     },
     {
@@ -128,8 +128,8 @@
     },
     {
       "id": "iso-annotation-sprint",
-      "description": "ISO annotation sprint: scan dark-matter lessons (no ISO tag) and add ISO-N citations. Target 5+ annotations per session. ISO links convert invisible lessons to reachable signal (L-441, F-GT5).",
-      "cadence_sessions": 10,
+      "description": "ISO annotation sprint: scan dark-matter lessons (no ISO tag) and add ISO-N citations. Target 5+ annotations per session. ISO links convert invisible lessons to reachable signal (L-441, F-GT5). Run only when dark matter >15%% (python3 tools/generalizer_expert.py). At 0%% dark matter (S328-S329), this is dormant until new lessons accumulate uncited.",
+      "cadence_sessions": 30,
       "last_reviewed_session": 326,
       "registered_by": "S327"
     }
