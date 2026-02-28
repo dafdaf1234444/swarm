@@ -56,6 +56,8 @@ Personalities: `tools/personalities/` — builder, explorer, skeptic, adversary,
 
 **Quality gate** (F-QC1, L-283): Before writing a new lesson, scan the last 10 lesson titles for near-duplicates. If a lesson with >50% word overlap already exists, update it instead of adding a new one. Repeated knowledge is waste — compress first.
 
+**Focus prescription** (F-EVO1, L-300): Concentrate on ONE scope cluster. Focused sessions yield 2x more L+P (r=-0.835, S184-S189). Stay on one frontier.
+
 Do the thing. If it can be parallelized, use Task tool to spawn sub-agents.
 
 Sub-agents need:
