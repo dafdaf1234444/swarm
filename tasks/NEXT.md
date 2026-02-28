@@ -1,3 +1,12 @@
+## S336 session note (relay: dream-resonance 59-domain measurement + fluid-dynamics bootstrap + lesson trim)
+- **check_mode**: objective | **lane**: relay | **human_signal**: "swarm can do it scaling is higher priority experts swarm"
+- **expect**: user's growth question answered; DOMEX-META-S335 closed; concurrent S336 session work relayed and committed
+- **actual**: CONFIRMED. Human signal redirected from external expert relay → internal scaling via DOMEX. Dream resonance 22→59 (14 contributing domains, full 39-domain enrichment). T4 anti-cascade pathology named (L-469): maintenance.py 28k = root cause of 64% drift. Council protocol-without-executable gap fixed by S336 (gather_council.py). L-469/470/471/472 trimmed to ≤20L. All S336 concurrent work relayed in single commit.
+- **diff**: Concurrent session did core work before this node ran script. Node contribution: 59-resonance measurement (vs concurrent's 52), relay + lesson trimming. Concurrency worked: swarm committed regardless of which node did work.
+- **meta-swarm**: "Swarm grows by utilizing other resources" answer: (1) DOMEX → 38+ domain vocabularies as dream.py fuel; (2) council seats = parallel DOMEX throughput; (3) scaling laws now formalized (L-471: K*=c_out, α power-law, U model).
+- **State**: 409L 177P 17B 36F | Council CRITICAL (0/10 seats) | Drift 64% URGENT | gather_council.py available
+- **Next**: (1) compaction CRITICAL — maintenance.py 28k is primary target (L-469 rule: hard cap 5k); (2) open DOMEX lanes via gather_council.py (meta, linguistics, nk top-3 vacant seats); (3) SESSION-LOG.md gap S306→S335 blocks proxy-K baseline; (4) sink sprint at N=450
+
 ## S336 session note (council-activation: gather_council.py built + swarm_council.py --domains + L-472)
 - **check_mode**: objective | **lane**: DOMEX-COUNCIL-S336 | **dispatch**: meta (38.5, top ranked)
 - **expect**: swarm_council.py --domains mode implemented; gather_council.py built; council seat status visible
