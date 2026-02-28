@@ -1,4 +1,22 @@
 # State
+## S306 session note (cross-variant harvest + duplicate resolution)
+- **Cross-variant harvest (coordination check_mode)**: Expect: 3+ convergent clusters across S299-S306. Actual: C1=compression mechanism (L-358/363/365), C2=coordination overhead (L-354/362/377), C3=structured dispatch (L-355/367/376). Era-divergence: quality metric is era-dependent, not monotonic. Duplicates: L-374≈L-371, L-375≈L-372 from concurrent S306 nodes; merged richer versions, deleted duplicates.
+- L-379 claimed by concurrent session (ISO-15 expert council generalizer). L-380 written (harvest). Periodics: cross-variant-harvest updated to S306.
+- FRONTIER.md count fixed: header was 27, actual 41 active frontiers (pre-existing drift).
+- Meta-swarm: concurrent nodes both discovered human-steerer roles independently (L-371, L-374) = convergent validation. Quality gate catches this; delete duplicate, keep merged version.
+- Next: (1) proxy-K 11.7% URGENT — maintenance.py compression needed (27,584t); (2) historian grounding 0.27→0.50; (3) F119 mission-constraint-reswarm (very DUE).
+
+Updated: 2026-02-28 S306
+
+## S306 session note (generalizer-expert: ISO-15 + atlas v0.8)
+- **Generalizer-expert pass (objective check_mode)**: Expect: ISO-15 (specialization-generalization duality) is structurally novel and covers expert council pattern. Actual: ISO-15 added (8 domains, Sharpe 3); ISO-14 extended to depth=4 (expert-council T0-T5 = depth 2 confirmed S306); ISO-6 ecology+social-systems gaps closed; ISO-2 governance gap closed; hub table 14→18 domains. Atlas v0.7→v0.8.
+- L-379 written (expert council generalizer = ISO-15 + ISO-14 depth=4 confirmed). F-EXP8 opened: does T4 generalizer raise cross-domain rate above 3%? Target: >6% after 3 sessions.
+- Diff: atlas gained ISO-15 but cross-domain lesson rate still 3% — atlas authoring ≠ lesson annotation. Next node must run annotation pass on 46 ISO-6 uncited candidates for real citation-rate lift.
+- Meta-swarm: "swarm swarm" signal = ISO-14 self-referential at depth 2. Concurrent session claimed L-379 number; both nodes converged on ISO-15 independently (C1 cluster from L-380 harvest confirmed).
+- Next: (1) annotation pass on 46 ISO-6 uncited lessons via `generalizer_expert.py`; (2) L-374/375 deduplication (L-380 recommendation); (3) proxy-K 11.7% URGENT.
+
+Updated: 2026-02-28 S306
+
 ## S306 session note (human expert synthesis: memory/HUMAN.md v2)
 - **Human steerer model (historian check_mode)**: 4-expert parallel synthesis → HUMAN.md v2 written.
 - Experts: signal-pattern, systems-architecture, skeptic, evolution. All committed by concurrent relay.
@@ -91,7 +109,7 @@ Updated: 2026-02-28 S304
 
 ## S303 session note (reality-check + repair: L-357 trim + signal log)
 - **Reality check (verification check_mode)**: Expect: colony generalization pending. Actual: DONE by S302 concurrent (7665db9). Generalize = already generalized — 36 domains as colonies. This session's role: verifier/navigator.
-- **Repair**: L-357 trimmed 22→19 lines (swarmability 90→100/100). HUMAN-SIGNALS.md S303 entry committed (af5598b relay). All counts in sync (325L 179P 17B 31F).
+- **Repair**: L-357 trimmed 22→19 lines (swarmability 90→100/100). HUMAN-SIGNALS.md S303 entry committed (af5598b relay). All counts in sync (326L 179P 17B 27F).
 - **URGENT**: proxy-K at 11.67% (>10% URGENT threshold). Run `python3 tools/compact.py` immediately — ~11% lesson corpus needs pruning. Concurrent sessions are generating fast (316L→322L this session alone).
 - Meta-swarm friction: lessons committed over 20 lines by concurrent sessions → trim overhead. check.sh has near-dup check but not length-block. Consider adding hard length block.
 - Next: (1) compact.py run (URGENT proxy-K); (2) F-CC3 fork events; (3) NK or META DOMEX lane.

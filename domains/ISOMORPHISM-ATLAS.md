@@ -1,5 +1,5 @@
 # Isomorphism Atlas — Atlas of Deep Structure
-v0.7 | 2026-02-28 | S303 | ISO-14 (recursive self-similarity / fractal structure) added from recursion-generalizer session
+v0.8 | 2026-02-28 | S306 | ISO-15 (specialization-generalization duality / expert-council pattern) + ISO-14 depth=4 + ISO-6/2 gap closures
 
 ## What this is
 A cross-domain atlas of structural equivalences. Each entry maps one abstract structure to its manifestations across multiple domains. This is NOT a fact database — it is a compression of world knowledge into shared structure.
@@ -55,9 +55,10 @@ Each entry has:
 | Swarm | Belief monoculture risk | PHIL-13: competitive deception risk; challenge cycle maintains diversity |
 | Machine learning | Mode collapse (GANs) | Generator converges to single output |
 | Ecology | Island biogeography | Small populations → diversity loss |
+| Governance | Political polarization as attractor | Two-party systems: selection pressure from winner-takes-all elections; moderate positions eliminated; system locked into two attractors (red/blue) with mutual-reinforcing identity cycles |
 
-**Sharpe: 4** (6 domains; well-attested; mechanism differs by substrate)
-**Gaps**: Linguistics (dialect → standard convergence?), Governance (political polarization as attractor?)
+**Sharpe: 4** (7 domains; well-attested; mechanism differs by substrate)
+**Gaps**: Linguistics (dialect → standard convergence?)
 
 ---
 
@@ -130,8 +131,11 @@ Each entry has:
 | Linguistics | Language simplification | Without prestige pressure or literacy, languages lose morphological complexity (creolization, pidgin formation) |
 | Cognitive science | Memory decay without retrieval practice | Ebbinghaus forgetting curve; spacing effect = entropy resistance; consolidation requires energy |
 
-**Sharpe: 5** (7 domains; thermodynamic grounding is mathematically rigorous; information-theoretic isomorphism is exact; domain mappings well-attested)
-**Gaps**: Ecology (ecosystem succession as entropy gradient?), Social systems (institutional decay without maintenance?), Chemistry (reaction equilibrium and ΔG as entropy manifestation — partially covered by thermodynamics)
+| Ecology | Ecosystem succession / degradation without energy input | Without photosynthesis + nutrient cycling, complex climax communities degrade to pioneer species; fire, drought, fragmentation accelerate entropy; restoration = active entropy resistance requiring continuous external energy |
+| Social systems | Institutional decay | Organizations without active governance degrade: rules become loopholes, norms erode, coordination fails; maintenance overhead is the entropy tax; "bureaucratic sclerosis" (Mancur Olson) = institutional entropy maximization |
+
+**Sharpe: 5** (9 domains; thermodynamic grounding is mathematically rigorous; information-theoretic isomorphism is exact; ecology and social-systems cases well-attested in literature)
+**Gaps**: Chemistry (reaction equilibrium and ΔG as entropy manifestation — partially covered by thermodynamics)
 
 ---
 
@@ -307,13 +311,34 @@ aggressively loses signal. Optimal design balances accumulation rate against dis
 | Linguistics | Recursive phrase structure (Chomsky) | Center-embedding: "the rat the cat the dog chased killed ate the malt" — unbounded nesting in finite grammar |
 | Biology | Branching morphogenesis | Lung alveoli, vascular trees, neuron dendrites, leaf venation — same bifurcation rule at every scale |
 | Physics | Renormalization group theory | Same Hamiltonian form applies at different energy scales; fixed points are self-similar attractors |
-| Swarm | Multi-scale orient→act→compress→handoff | Same cycle at session, domain, colony, meta-swarm level; generalizer generalizes the generalizer; compactor is itself compacted |
+| Swarm | Multi-scale orient→act→compress→handoff | Depth=4 confirmed: (1) session node (single orient→act→compress), (2) expert-council tier dispatch (T0 guard→T1 orient→T2 act→T3 validate→T4 compress→T5 meta = same 4-phase flow via 6 roles; S306), (3) colony lifecycle (multi-session domain arc), (4) meta-swarm (colony-to-colony coordination). The T4 generalizer-expert itself exhibits ISO-14: it generalizes generalizers' outputs, and its tool (`generalizer_expert.py`) is itself the subject of generalization (ISO-15). |
 | Evolution | Nested levels of selection | Gene, organism, kin group, species — each level runs similar selection dynamics on the level below |
 | Cognition | Metacognition + recursive self-models | Thinking about thinking; agents that model themselves modeling others; recursive ToM |
 
-**Sharpe: 3** (6 domains rigorously documented; swarm instance is structurally measured S303; CS/math cases formally proven; others structural/theorized)
-**Gaps**: Chemistry (autocatalytic sets, Kauffman), Economics (fractal market hypothesis — Mandelbrot), Organizations (holacracy as fractal org design), Neuroscience (cortical column minicolumns?)
+**Sharpe: 4** (8 domains rigorously documented; swarm depth=4 chain confirmed S306; CS/math cases formally proven; expert-council tier structure measured operationally; others structural/theorized)
+**Gaps**: Chemistry (autocatalytic sets, Kauffman), Economics (fractal market hypothesis — Mandelbrot), Neuroscience (cortical column minicolumns?)
 **Inversion**: Broken self-similarity = scale discontinuity. When the rules at level N do not generalize to level N+1, the system requires separate coordination mechanisms per level — combinatorial management cost. ISO-3 (MDL compression) is only possible when self-similarity holds.
+
+---
+
+### ISO-15: Specialization-generalization duality — the expert-council pattern
+**Structure**: A population of agents partitions into specialists (maximize accuracy within a narrow domain) and generalizers (extract cross-domain transferable patterns). Neither role alone suffices: specialists without a generalizer produce siloed knowledge that does not compound across domains; generalizers without specialists have no concrete data to compress. The productive configuration is a cycle: specialists produce domain artifacts → generalizer compresses into transferable patterns → patterns seed new specialist hypotheses → repeat. The generalizer is not a meta-specialist; it is a different kind of agent operating on the specialists' outputs.
+
+| Domain | Manifestation | Notes |
+|--------|---------------|-------|
+| Biology | Immune system: B-cells + T-helper + memory cells | B-cells = specialists per antigen; T-helper cells = generalist orchestrators across immune responses; memory cells = cross-exposure compression that seeds future B-cell responses |
+| Economics | Comparative advantage + trade (Ricardo 1817) | Agents specialize by comparative advantage (specialists); markets exchange outputs (generalizer = price mechanism); result > autarky sum — total output higher than any specialist alone |
+| Science | Domain researchers + statisticians / meta-analysts | Domain scientists produce specialist findings; statisticians/philosophers of science generalize methods across fields; meta-analyses compress effect sizes across studies — the cycle produces cumulative science |
+| Machine learning | Ensemble + meta-learner (stacking) | Specialist weak learners each overfit one region; meta-learner (stacking) extracts cross-learner patterns; gradient boosting explicitly adds specialists to fix the generalizer's residuals |
+| Organization theory | Division of labor + general management (Adam Smith) | Specialists execute narrow tasks; management layer generalizes, coordinates, reallocates capacity; without generalists, specialists optimize locally and fail globally |
+| Swarm | Expert council: T2 domain-experts → T4 generalizer-expert → atlas | Domain experts produce frontier artifacts; generalizer-expert (T4) compresses to ISOMORPHISM-ATLAS + PRINCIPLES.md; promoted patterns seed new domain-expert hypotheses; without T4, lessons silo (3% cross-domain rate measured S306) |
+| Cognitive science | Dual-process theory (System 1 / System 2) | System 1 = specialists: fast, domain-specific, pattern-matched heuristics; System 2 = generalizer: slow, cross-context rule extraction and hypothesis testing; interplay produces adaptive reasoning |
+| Ecology | Guild structure + ecosystem engineers | Specialist guilds (pollinators, decomposers, top predators) optimize narrow niches; keystone species / ecosystem engineers generalize across guilds, maintaining conditions for all specialists |
+
+**Sharpe: 3** (8 domains; biology and ML cases mechanistically verified; economic case theoretically proven and empirically measured; swarm case operationally running S306; others structural/theorized)
+**Gaps**: Physics (uncertainty principle = fundamental specialist-generalizer trade-off?), History (specialist micro-historians vs grand narrative historians), Chemistry (enzyme specificity vs general acid-base catalysis)
+**Inversion**: Over-specialization = siloing (swarm example: 3% cross-domain lesson rate; domain findings don't transfer). Over-generalization = dilution (principles too abstract to drive action). The generalizer is the bottleneck in both failure modes: absent → siloing; unchecked → dilution. Measurement: track cross-domain citation rate as the health metric (target >10%; current 3%).
+**Relationship**: ISO-15 is the governance structure that makes ISO-3 (MDL compression) productive across domains. ISO-3 describes compression; ISO-15 describes who does it and why the role must be distinct from producers.
 
 ---
 
@@ -322,20 +347,24 @@ Domains appearing in 4+ entries — highest isomorphism density, swarm first:
 
 | Domain | Entries | Why hub |
 |--------|---------|---------|
-| Swarm/meta | ISO-1,2,3,4,5,6,7,8,9,10,11,12,13,14 | All fourteen; ISO-11: citation diffusion; ISO-12: coordinator bottleneck; ISO-13: lane backlog windup; ISO-14: multi-scale session cycle |
-| Economics | ISO-1,2,3,4,5,6,7,8,9,10,11,12 | All twelve; ISO-11: financial contagion; ISO-12: supply chain bottleneck |
+| Swarm/meta | ISO-1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 | All fifteen; ISO-14: depth=4 expert-council confirmed; ISO-15: T2→T4→atlas generalizer cycle |
+| Economics | ISO-1,2,3,4,5,6,7,8,9,10,11,12,15 | Thirteen; ISO-15: comparative advantage = specialization-generalization cycle |
+| Biology | ISO-2,4,5,7,8,11,12,15 | Eight entries; ISO-15: immune B-cell/T-helper/memory; ISO-11: epidemic spreading; ISO-12: vascular networks |
 | Mathematics | ISO-1,3,4,7,8,10,11,12 | Eight entries; ISO-11: random walk foundation; ISO-12: Ford-Fulkerson proven |
 | Neuroscience | ISO-1,2,3,4,5,7,9,10,11 | Nine entries; ISO-11: neural signal propagation + spreading depolarization |
 | Linguistics | ISO-1,2,3,4,5,6,7,8,9 | All nine original; language is optimization, attractor, compression, phase-transition, feedback, entropy, emergence, power law, and IB |
-| Biology | ISO-2,4,5,7,8,11,12 | Seven entries; ISO-11: epidemic spreading; ISO-12: vascular networks |
 | Physics/thermodynamics | ISO-1,3,4,5,6,7,8,11,12 | Nine entries; ISO-11: heat diffusion; ISO-12: electrical circuits (Norton dual) |
-| Computer science | ISO-11,12 | ISO-11: PageRank; ISO-12: internet routing / CDN placement |
+| Cognitive science | ISO-3,7,9,15 | Four entries; ISO-15: System 1 (specialist) / System 2 (generalizer) dual-process |
 | Evolution | ISO-1,2,4,5,6,9 | Six entries; IB on gene flow added; connects NK, selection, genomic drift |
 | Information theory | ISO-1,3,6,8,9,10 | Six entries; ISO-10: Bayesian updating = canonical predict-error-revise |
+| Organization theory | ISO-13,15 | ISO-13: lane backlog windup; ISO-15: division of labor + general management |
+| Machine learning | ISO-2,15 | ISO-2: mode collapse; ISO-15: ensemble + meta-learner stacking |
 | Social science | ISO-11,12 | ISO-11: information virality; ISO-12: organizational structural holes (Burt 1992) |
 | Game theory | ISO-7,10 | ISO-10: Nash seeking convergence; emergent equilibrium without communication |
-| Cognitive science | ISO-3,7,9 | Three entries; MDL concept formation, emergence in cognition, IB working memory |
+| Computer science | ISO-11,12 | ISO-11: PageRank; ISO-12: internet routing / CDN placement |
 | Control theory | ISO-1,5,10,13 | ISO-10: Model Predictive Control; ISO-13: integral windup / anti-windup clamping |
+| Ecology | ISO-2,6,15 | ISO-2: island biogeography; ISO-6: ecosystem succession; ISO-15: guild structure + engineers |
+| Governance | ISO-2,6 | ISO-2: political polarization attractor; ISO-6: institutional decay |
 
 ---
 
@@ -355,6 +384,7 @@ F126: swarm → isomorphism atlas → world knowledge base (world is beneficiary
 Both share the mechanism. F126 inverts the directionality of value flow.
 
 ## Version history
+- v0.8 (S306): ISO-15 specialization-generalization duality (expert-council pattern: B-cell/T-helper, comparative advantage, ensemble/meta-learner, System 1/2, T2→T4→atlas); ISO-14 extended to depth=4 (expert-council tier system confirmed); ISO-6 ecology+social-systems gaps closed; ISO-2 governance gap closed; hub table expanded to 18 domains
 - v0.7 (S303): ISO-14 recursive self-similarity (fractals / recursive algorithms / swarm multi-scale cycle / nested selection / morphogenesis); Swarm/meta hub expanded to all 14 entries
 - v0.6 (S298): ISO-13 integral windup (PID windup / lane backlog / queue overflow / bullwhip); Control theory hub expanded to ISO-1,5,10,13; loop expert audit produced measurement basis (n=479 lanes)
 - v0.5 (S196): ISO-11 network diffusion (random walk / PageRank / epidemic / contagion); ISO-12 max-flow min-cut (Ford-Fulkerson / vascular / supply chain / org bottlenecks); hub table expanded; Computer science + Social science added as first-class hubs; Physics/Math/Neuro all expand
