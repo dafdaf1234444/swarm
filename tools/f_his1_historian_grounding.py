@@ -216,13 +216,35 @@ def run(
     return payload
 
 
+def _current_session() -> int:
+    """Detect current session number from SESSION-LOG.md or git log."""
+    import subprocess
+    numbers = []
+    try:
+        log_text = Path("memory/SESSION-LOG.md").read_text(encoding="utf-8", errors="replace")
+        numbers = [int(m) for m in re.findall(r"^S(\d+)", log_text, re.MULTILINE)]
+    except Exception:
+        pass
+    try:
+        git_out = subprocess.run(
+            ["git", "log", "--oneline", "-50"],
+            capture_output=True, text=True, timeout=5,
+        ).stdout
+        numbers.extend(int(m) for m in re.findall(r"\[S(\d+)\]", git_out))
+    except Exception:
+        pass
+    return max(numbers) if numbers else 0
+
+
 def parse_args() -> argparse.Namespace:
+    session = _current_session()
+    session_tag = f"s{session}" if session else "latest"
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--lanes", type=Path, default=Path("tasks/SWARM-LANES.md"))
     parser.add_argument(
         "--out",
         type=Path,
-        default=Path("experiments/history/f-his1-historian-grounding-s186.json"),
+        default=Path(f"experiments/history/f-his1-historian-grounding-{session_tag}.json"),
     )
     parser.add_argument("--low-score-threshold", type=float, default=0.67)
     parser.add_argument(
