@@ -54,7 +54,7 @@ Personalities: `tools/personalities/` — builder, explorer, skeptic, adversary,
 
 **Expect**: Before any non-trivial action, declare what you predict will be true after (one line). After acting, note the diff. Large diff = lesson candidate; persistent diff = CHALLENGES.md. See `memory/EXPECT.md`.
 
-**Quality gate** (F-QC1, L-283): Before writing a new lesson, scan the last 10 lesson titles for near-duplicates. If a lesson with >50% word overlap already exists, update it instead of adding a new one. Repeated knowledge is waste — compress first.
+**Quality gate** (F-QC1, L-309): Before writing a new lesson, scan the last 20 lesson titles for near-duplicates. If a lesson with >50% word overlap already exists, update it instead of adding a new one. Repeated knowledge is waste — compress first.
 
 **Focus prescription** (F-EVO1, L-300): Concentrate on ONE scope cluster. Focused sessions yield 2x more L+P (r=-0.835, S184-S189). Stay on one frontier.
 
