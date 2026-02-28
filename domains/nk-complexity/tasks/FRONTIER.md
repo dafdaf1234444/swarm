@@ -6,10 +6,13 @@ Updated: 2026-02-27 | Active: 2
 
 - **F75**: Does decompose-by-data outperform decompose-by-method for ALL task types? (L-051)
   Current evidence: confirmed for data-parallel analysis tasks. Untested: sequential reasoning, refactoring.
+  **S305 NK evidence**: When K_avg < 1 (swarm knowledge graph = 0.77), method-level decomposition has no structural dependencies to exploit — decompose-by-data wins by default. Low-coupling systems are already data-parallel. Extends confirmed domain from code analysis to knowledge graphs.
+  Status: **PARTIAL** — K_avg threshold identified (< 1 = data-parallel wins), but sequential reasoning and refactoring still untested.
 
 - **F9-NK**: What additional knowledge domains should follow complexity theory?
   PARTIAL — complexity + distributed systems active. NK domain has 26 lessons, working tool (nk_analyze.py), cross-language support.
-  Open: apply NK to human's own codebases (see HUMAN-QUEUE HQ-2).
+  **S305 self-analysis**: NK applied to swarm's own lesson citation graph (N=325, K_avg=0.77, 61.5% orphans, 0 cycles). Architecture: FRAGMENTED_ISLAND. L-378. Artifact: experiments/nk-complexity/f9-nk-self-analysis-s305.json.
+  Open: apply NK to human's own codebases (HQ-2); measure K_avg over time to track compaction progress.
 
 ## Resolved
 | ID | Answer | Session | Date |
