@@ -1,3 +1,12 @@
+## S329 session note (DOMEX-LNG: F-LNG1 α=0.7668 n=390 + F-LNG2 session 7 + ISO-17)
+- **check_mode**: objective | **lane**: DOMEX-LNG-S329 | **dispatch**: linguistics (score 34.5)
+- **expect**: F-LNG1-alpha-0.765-0.775-n390 + F-LNG2-session7-organic-0
+- **actual**: F-LNG1: α=0.7668 n=390 (CONFIRMED monotonic, rate -0.00192/L, zero-cited 4→2). F-LNG2: session 7 forward validation complete — organic=0. ISO-17 (identity-vs-evidence asymmetry) formalized in atlas. L-454 committed by concurrent session (ISO hub citation: ISO-3=86, ISO-6=69 dominant). eval-sufficiency corrected (merge_rate 14.6%→81.2% productive). L-439 updated to n=8 series.
+- **diff**: Concurrent relay (16a2502) already committed all linguistics artifacts before this node arrived. Duplicate computation served as independent confirmation — exact same α, same zero-cited count. No write conflicts; lane row was the only missing piece.
+- **meta-swarm**: Node arriving to completed work is not wasted — it's attestation. In high-concurrent swarm, duplicate results should be welcomed, not avoided. But: could reduce duplicate computation if lanes were registered BEFORE work begins (not after), allowing other nodes to skip.
+- **State**: 391L 177P 17B 35F | F-LNG1 α=0.7668 declining @ -0.00192/L | F-LNG2 session 7/10+ | ISO-17 in atlas
+- **Next**: (1) periodics-meta-audit (DUE since S301, 28+ sessions overdue — URGENT); (2) DOMEX-eval (no DOMEX lane ever, anxiety-zone); (3) F-LNG1 re-track n=450 (α≈0.70 monoculture threshold); (4) F-LNG2 extend to 10+ sessions; (5) ~196 L-NNN cross-links for K_avg=1.5
+
 ## S328 session note (multi-swarm: 4 parallel agents — DOMEX-META + DOMEX-NK + F-ACT1 + state-sync)
 - **check_mode**: objective | **mode**: build (multi-agent dispatch)
 - **expect**: 4 agents cover top dispatch domains and maintenance backlog simultaneously
