@@ -1,3 +1,12 @@
+## S307 session note (vice-versa expert + council repair tool: F-VVE1)
+- **Human signal**: "swarm should help the swarm by helping others and vice versa a vice versa expert and swarm council repair tool up swarm"
+- **vice-versa-expert**: `tools/personalities/vice-versa-expert.md` — reciprocal loop expert; 5 loop types mapped; expert-extract loop BROKEN (highest repair priority).
+- **swarm_council.py**: `tools/swarm_council.py` — council repair CLI. Usage: `python3 tools/swarm_council.py --target "problem" [--mode vice-versa|repair|custom]`.
+- **F-VVE1 opened**: reciprocal swarm↔external loops vs calibration rate. Related: F133, F-COMP1, F-EXP6, L-411.
+- **Proxy-K snapshot saved**: 59783t clean (DUE cleared).
+- **State**: 351L 180P 17B 39F | DUE:0 | validator PASS.
+- **Next**: (1) Wire expert-extract loop: `expert_correction` in SIGNALS.md + harvest-expert; (2) F-COMP1 Phase 2: Brier<0.18; (3) T4 generalizer ISO annotation (3%→6%); (4) F-ISG1 autoswarm.sh gate.
+
 ## S307 session note (repair+checks+experts+multi-swarm: compound directive)
 - **Human signal**: "repair swarm checks swarm experts swarm the swarm multi swarm swarm"
 - **Repairs done**: security domain FRONTIER → standard format; security INDEX F-IC1 added; DOMEX-README-S307 + DOMEX-COMP-S307 lanes closed; README 346→351L, 19→38F; PAPER 37→38F; maintenance.py frontier parser handles F-NAMED IDs
@@ -5,7 +14,7 @@
 - **Multi-swarm**: colony active signal rate 5.4%→10.8% (F-EXP6 target crossed); F-EXP9 WIP/synthesis decoupled confirmed; F-COMM1 + F-POL1 anxiety zones updated
 - **human-systems domain**: founded S307 — bureaucracy = coordination without compaction. L-407/L-408/L-409/L-410 written (swarm→institution transfer map)
 - **ISG synthesis** (from prior session): F-ISG1 opened PARTIAL; ISO-16 "Inferential compounding" added to atlas v0.9; anxiety_trigger.py built (18 zones, top: F112 +239 sessions)
-- **State**: 351L 180P 17B 38F | DUE:0 NOTICE:3 (anxiety zones structural, domain gaps ongoing)
+- **State**: 352L 180P 17B 39F | DUE:0 NOTICE:3 (anxiety zones structural, domain gaps ongoing)
 - **Next**: (1) autoswarm.sh gate using anxiety_trigger.py --json (F-ISG1 step 2); (2) compact.py run (proxy-K 6.9% DUE direction); (3) F-SEC1 Layer 1 implementation (bundle hash); (4) 12 remaining domain expert gaps
 
 ## S307 session note (human-systems domain: bureaucracy reform via swarm lenses)

@@ -21,7 +21,7 @@ See [What This Is](#what-this-is) and [What This Is Not](#what-this-is-not) for 
 This snapshot is for orientation only. Canonical live state is always in `memory/INDEX.md`, `tasks/FRONTIER.md`, and `tasks/NEXT.md`. Numbers drift at high concurrency — verify with live tools.
 
 - Status: active multi-tool swarm sessions ongoing (Claude Code + Codex).
-- Swarm scale: 351 lessons, 180 principles, 17 beliefs, 38 active frontier questions.
+- Swarm scale: 352 lessons, 180 principles, 17 beliefs, 39 active frontier questions.
 - Project footprint (tracked): 1,598 files, ~296,000 estimated lines, ~11.7 MiB tracked content, 833 commits.
 - File mix (tracked): 927 Markdown, 265 Python, 369 JSON, 6 shell scripts.
 - Largest tracked areas by file count: `experiments/` 531, `memory/` 389, `workspace/` 205, `tools/` 218.
@@ -123,7 +123,7 @@ The blackboard+stigmergy architecture is theoretically grounded. Stigmergy — i
 
 **Open Source Software Architect** — *Infrastructure quality and community viability*
 
-The git-native, tool-agnostic design is a real win. Bridge files for five AI tools (Claude Code, Codex, Cursor, Gemini, Windsurf) mean the protocol is genuinely substrate-neutral — that is unusual. The compaction tooling, maintenance checks, FM guards, and periodic scheduling at 833 commits suggest engineering maturity above the average research prototype. The colony architecture (37 self-directing domain units) shows the design can scale structurally.
+The git-native, tool-agnostic design is a real win. Bridge files for five AI tools (Claude Code, Codex, Cursor, Gemini, Windsurf) mean the protocol is genuinely substrate-neutral — that is unusual. The compaction tooling, maintenance checks, FM guards, and periodic scheduling at 833 commits suggest engineering maturity above the average research prototype. The colony architecture (40 self-directing domain units) shows the design can scale structurally.
 
 The cold-reader problem is real but fixable. A developer landing on this README was previously hitting session numbers (S307), proxy-K drift, and WSL footnotes before understanding the core value proposition.
 
