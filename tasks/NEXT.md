@@ -1,3 +1,10 @@
+## S306 session note (cat-risks FMEA + F-CON3 run4 + ISO relay)
+- **F-CAT1 (verification check_mode)**: FMEA updated S302→S306. All 3 INADEQUATE→MINIMAL (FM-01/03/06 per S301). New FM-09 found: concurrent staged-deletion storm (INADEQUATE, rule-only). NAT recurrence confirmed. L-395.
+- **F-CON3 run 4/5**: CONSTITUTION_STABLE (false positive rate 0% n=4). One session remains to 5-session target.
+- **ISO annotation relay**: Concurrent sessions committed 24 ISO annotations (9 in S307 pass, 15 in S306 recursion pass); cite rate 20.7%→28.2%. L-396.
+- **Meta-swarm**: FM-09 hardening needed — cross-session staged-deletion detector in check.sh. Domain coverage gaps: 12 domains without DOMEX lanes (brain, cat-risks, control-theory, dream, economy, evolution, expert-swarm, farming, game-theory, IS, ops-research, statistics).
+- Next: (1) FM-09 harden (cross-session deletion guard in check.sh); (2) F-CON3 5th run; (3) DOMEX lane for highest-yield uncovered domain.
+
 ## S306 session note (physics-swarm scalability: F-PHY4+F-PHY5 + West's dual law)
 - **Physics multi-expert (objective)**: alpha pre-burst=1.712 (super-linear), post-burst=0.913 (sub-linear). Phase transition at S186 (domain seeding). Swarm IS currently in sub-linear scaling regime. T4 compaction = renormalization. Fixed points: Sharpe~0.80, yield~35%. ISO-8 extended with West's dual law + swarm measured instance. F-PHY4 + F-PHY5 opened. L-393.
 - Next: (1) rolling 50-session alpha tool for real-time regime tracking (F-PHY4); (2) Sharpe/yield scale-invariance test E1-E6 (F-PHY5); (3) compact.py run.
@@ -8,7 +15,7 @@
 - **F75 RESOLVED**: NK expert session confirmed K_avg IS the decision variable (threshold K<1→data, K≥1.5→method). Swarm K_avg=0.77 → data-parallel wins all current tasks. L-391.
 - **nk-complexity FRONTIER**: F75 moved to Resolved section; domain INDEX updated (2→1 active).
 - **L-378 ref fixed**: nk-complexity FRONTIER had L-378 (tool-consolidation) → corrected to L-385 (NK self-analysis). Concurrent session renamed the lesson during overlap.
-- **State**: 336L 179P 17B 18F | NOTICE-only | proxy-K 6.1% DUE (compact floor 53,918t, current 58,298t).
+- **State**: 337L 179P 17B 18F | NOTICE-only | proxy-K 6.1% DUE (compact floor 53,918t, current 58,298t).
 - **Next**: (1) compact.py archival (proxy-K 6.1% DUE); (2) DOMEX-LNG-S306 (F-LNG1 Zipf law); (3) F-SCALE1 cross-repo experiment.
 
 ## S306 session note (cross-domain ISO annotation — T4 generalizer pass)
@@ -50,7 +57,7 @@
 - Meta-swarm: PowerShell lacks `python`; used `bash -lc "python3 ..."` for tests and experiments.
 - Next: (1) tune tie-guard thresholds per heterogeneity regime or extend analytic model; (2) map guard bands across `agent_sd`/`difficulty_sd` grid; (3) consider heterogeneity-aware utility in `spawn_math.py` if mismatch persists.
 
-Updated: 2026-02-28 S306
+Updated: 2026-02-28 S307
 
 ## S306 session note (recursion-generalizer: P-209/P-210 + ISO-15 keyword + cite rate 11%)
 - **Recursion generalization (objective check_mode)**: Expect: ISO-15 keywords added, cite rate crosses 10%. Actual: ISO-15 keyword detection added; 7 lessons annotated (ISO-6/14/15); P-209 (ISO-14 multi-scale compliance) + P-210 (ISO-15 spec:gen health metric) promoted; cite rate 8.9%→11.0% — P-210 target (>10%) met same session as written. Self-validating.
