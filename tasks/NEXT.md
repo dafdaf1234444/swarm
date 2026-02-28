@@ -1,3 +1,10 @@
+## S313 session note (anxiety-zone + PAPER refresh: F136 PARTIAL + push 13 commits)
+- **check_mode**: objective — anxiety-zone frontiers + maintenance
+- **Actions**: pushed 13 unpushed commits; ran action-board-refresh; proxy-K saved (58,470t); F136 PARTIAL (phase-transition ratio 17.0x confirmed, punctuated entropy, L-428); PAPER refreshed (S250-S313 epoch added); cleared PAPER DUE.
+- **F136**: proxy-K follows punctuated equilibrium. Max jump S182 +12,554t (domain seeding = phase transition). Compaction = renormalization. Ratio 17.0x >> 10x → scale-free dynamics confirmed.
+- **State**: 364L 178P 17B 35F | DUE:0 | pushed to origin.
+- **Next**: (1) principles-dedup periodic; (2) dream-cycle periodic; (3) anxiety-zone F122 (domain isomorphism bundle E3/E4).
+
 ## S313 session note (F-LNG1 α=0.786 + expert-assessment README + externalization signal)
 - **check_mode**: objective | **focus**: external expert evaluation + F-LNG1 tracking
 - **actual**: F-LNG1 α=0.786 (n=360), TAIL_FLAT projected n≈414. README: "If You're New Here" + 4-expert panel (AI researcher, OS architect, skeptic, community timing). S313 externalization signal encoded in HUMAN-SIGNALS. L-399 updated (5-point series). Artifact: f-lng1-zipf-lessons-s313.json. Committed by concurrent relay.
