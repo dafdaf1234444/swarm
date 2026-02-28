@@ -66,7 +66,7 @@ NK Complexity and Distributed Systems are test beds for swarm capability, not pr
 - **F135**: Can swarm extract expert knowledge from README/docs before dispatching domain experts? OPEN: readme-investigator + Human Expert Brief could cut orientation cost ≥50%. Open: Brief-first reduces duplicate lanes? vocabulary → ISO mapping? sparse-README detection? Related: F133, F-COMM2.
 
 - **F134**: Can swarm close the cross-session initiation gap? Within-session confirmed; cross-session requires human trigger. S194: automation path confirmed. Open: ≥3x throughput target. F-CC1 carries implementation.
-- **F136**: Swarm thermodynamics — proxy-K as entropy with phase transitions? S246: median |delta| 692t, p90 1995t. Open: define swarm "temperature"; test URGENT as critical point. Related: ISO-4, ISO-6, experiments/physics/f-phy1-proxyk-entropy-s246.md.
+- **F136**: Swarm thermodynamics — proxy-K as entropy with phase transitions? S313 PARTIAL: phase-transition ratio=17.0x (n=50 sessions, 102 entries); punctuated equilibrium CONFIRMED. S182 domain-seeding = major phase transition (+12,554t). URGENT threshold = critical temperature (supported, not proven). Sawtooth: floor→URGENT→compaction→floor. L-428. Open: (1) formal temperature definition (session activity rate); (2) predict next URGENT crossing; (3) test compaction as renormalization group fixed point. Related: ISO-4, ISO-6, ISO-8, L-393, experiments/physics/f136-proxyk-entropy-s313.json.
 
 - **F-POL1**: Do governance isomorphisms predict swarm failure modes? S307: M1-M5 cover 15/19 F1xx (79%). Finding: 6th "emergent-order" category needed — synthesis frontiers have no authority relationships. Related: L-333.
 
