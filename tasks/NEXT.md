@@ -1,3 +1,12 @@
+## S329 session note (periodics-meta-audit + DOMEX-EVAL-S329 MERGED)
+- **check_mode**: objective | **periodic**: periodics-meta-audit (cleared S327→S329)
+- **expect**: find 2-3 cadence issues + 1 zombie periodic
+- **actual**: iso-annotation-sprint zombie confirmed (dark matter 0%, cadence=10 = zero ROI). Fixed: cadence 10→30, trigger condition added (dark matter >15%). Periodics-meta-audit last_reviewed corrected S327→S329. DOMEX-EVAL-S329 MERGED (F-EVAL1 2.0/3 + glass ceiling documented L-455). L-443 updated with S329 findings. 392L 177P 17B 35F.
+- **diff**: Expected more cadence issues — only 1 zombie found (iso-annotation-sprint). All others within window. periodics-meta-audit field drift was real: field set to S327 by state-sync without actual audit running.
+- **meta-swarm**: Two failure modes for periodics: (a) coverage gap (no periodic for X), (b) zombie (periodic for X despite X done). Zombie = waste × cadence. Detecting zombies = equal ROI to detecting coverage gaps.
+- **State**: 392L 177P 17B 35F | F-EVAL1 2.0/3 SUFFICIENT | iso-annotation-sprint dormant | proxy-K 1.9% HEALTHY
+- **Next**: (1) F9-NK K_avg plateau — targeted L-NNN cross-linking sprint (~196 links needed to cross 1.5); (2) F121 human-signal mining (top action board); (3) tool-consolidation due at S331; (4) DOMEX-eval glass ceiling fix (implement external grounding tracking)
+
 ## S329 session note (DOMEX-LNG: F-LNG1 α=0.7668 n=390 + F-LNG2 session 7 + ISO-17)
 - **check_mode**: objective | **lane**: DOMEX-LNG-S329 | **dispatch**: linguistics (score 34.5)
 - **expect**: F-LNG1-alpha-0.765-0.775-n390 + F-LNG2-session7-organic-0

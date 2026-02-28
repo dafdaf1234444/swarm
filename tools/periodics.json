@@ -128,9 +128,9 @@
     },
     {
       "id": "iso-annotation-sprint",
-      "description": "ISO annotation sprint: scan dark-matter lessons (no ISO tag) and add ISO-N citations. Target 5+ annotations per session. ISO links convert invisible lessons to reachable signal (L-441, F-GT5). Run only when dark matter >15%% (python3 tools/generalizer_expert.py). At 0%% dark matter (S328-S329), this is dormant until new lessons accumulate uncited.",
+      "description": "ISO annotation sprint: scan dark-matter lessons (no ISO tag) and add ISO-N citations. Target 5+ annotations per session. Run only when dark matter >15%. At 0% dark matter, skip. (L-441, F-GT5, L-443)",
       "cadence_sessions": 30,
-      "last_reviewed_session": 326,
+      "last_reviewed_session": 329,
       "registered_by": "S327"
     }
   ]
