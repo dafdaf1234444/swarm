@@ -1,0 +1,42 @@
+{
+  "schema": "precompact-checkpoint-v1",
+  "session_id": "f56c2010-8d0c-4893-be84-55db7548f0d2",
+  "session_short": "f56c2010",
+  "trigger": "auto",
+  "timestamp": "2026-02-28T11:52:15Z",
+  "transcript_path": "/home/canac/.claude/projects/-mnt-c-Users-canac-REPOSITORIES-swarm/f56c2010-8d0c-4893-be84-55db7548f0d2.jsonl",
+  "custom_instructions": null,
+  "next_md": {},
+  "uncommitted_files": [
+    "docs/PAPER.md",
+    "domains/cryptocurrency/tasks/FRONTIER.md",
+    "domains/nk-complexity/tasks/FRONTIER.md",
+    "experiments/cryptocurrency/f-cc3-fork-belief-divergence-s306.json",
+    "experiments/history/f-his1-historian-grounding-s306.json",
+    "memory/INDEX.md",
+    "memory/lessons/L-387.md",
+    "memory/lessons/L-388.md",
+    "tasks/NEXT.md",
+    "workspace/ACTION-BOARD.md",
+    "workspace/precompact-checkpoint-53379199.json",
+    "workspace/precompact-checkpoint-6e2c96a1.json",
+    "workspace/precompact-checkpoint-6ec4aade.json",
+    "workspace/precompact-checkpoint-b61a6f8e.json"
+  ],
+  "recent_workspace_files": [
+    "ACTION-BOARD.md",
+    "DISPATCH-LOG.md",
+    "autoswarm-trigger",
+    "precompact-checkpoint-53379199.json",
+    "precompact-checkpoint-6e2c96a1.json",
+    "precompact-checkpoint-6ec4aade.json"
+  ],
+  "recent_git_log": [
+    "f4f3f51 [S306] action-board: refresh S306 + top=F110",
+    "df4b34b [S306] historian-dynamic: handoff + state sync",
+    "6a482c6 [S306] F119-reswarm: harden MC-SAFE + compact 7 lessons",
+    "8e5f71b [S306] handoff: modes/mission audit notes + sync 326L S306",
+    "f82ee3e [S306] relay: L-385 NK orphan baseline + action-board refresh"
+  ],
+  "resume_hint": "Context was compacted. Read workspace/precompact-checkpoint-<id>.json to recover in-flight state. Re-run python3 tools/orient.py to re-orient."
+}

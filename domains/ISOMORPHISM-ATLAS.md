@@ -172,9 +172,11 @@ Each entry has:
 | Information theory | Kolmogorov complexity distribution | Most strings are incompressible; compressible strings follow power-law distribution |
 | Swarm / NK complexity | NK fitness landscape: complexity ∝ K^N | Exponential scaling of epistatic interactions; proxy-K as complexity exponent; lesson citation follows power law |
 | Cities / social systems | Population ∝ rank^(-1); city scaling laws | Zipf for cities; GDP per capita ∝ city population^1.15 (superlinear); West's urban scaling |
+| Swarm (measured S306) | Cumulative L ~ session^alpha; alpha cycles with structural innovations | Pre-burst (S1-S180): alpha=1.712 (super-linear, city-like); post-burst (S180-S306): alpha=0.913 (sub-linear, organism-like). Phase transition at S186 domain seeding. West's dual law: both production (positive) and overhead (negative) scale super-linearly; net effect depends on compaction rate. |
 
-**Sharpe: 4** (8 domains; mathematical grounding solid; generative mechanisms debated — multiple explanations for same exponent; cross-domain exponent identity unverified)
+**Sharpe: 4** (9 domains; mathematical grounding solid; swarm scaling measured S306 n=130; generative mechanisms debated; cross-domain exponent identity unverified)
 **Gaps**: Neuroscience (neural avalanches and self-organized criticality — likely power law); History (conflict sizes follow power law — Richardson's law); Evolution (extinction event sizes)
+**West's dual law (S306)**: In complex adaptive systems, BOTH productivity (α>1) AND coordination overhead (α>1) scale super-linearly. Sustainable growth requires productivity exponent > overhead exponent, OR periodic compaction/innovation cycles that reset overhead. Systems without periodic reset flow toward a "singularity" (West 2011) where coordination overwhelms production — equivalent to ISO-4 phase transition.
 
 ---
 
