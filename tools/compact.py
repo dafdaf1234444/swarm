@@ -15,6 +15,16 @@ import re
 import sys
 from pathlib import Path
 
+try:
+    from swarm_io import read_text as _read, token_count as _tokens, line_count as _lines
+    _has_swarm_io = True
+except ImportError:
+    try:
+        from tools.swarm_io import read_text as _read, token_count as _tokens, line_count as _lines
+        _has_swarm_io = True
+    except ImportError:
+        _has_swarm_io = False
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
 TIERS = {
@@ -66,12 +76,10 @@ TECHNIQUES = {
 }
 
 
-def _read(path: Path) -> str:
-    """Read text as UTF-8 across runtimes/locales."""
-    try:
-        return path.read_text(encoding="utf-8", errors="replace")
-    except Exception:
-        return ""
+if not _has_swarm_io:
+    def _read(path: Path) -> str:
+        try: return path.read_text(encoding="utf-8", errors="replace")
+        except Exception: return ""
 
 
 def _file_sha256(path: Path) -> str:
@@ -118,12 +126,11 @@ def _tier_schema() -> str:
     return hashlib.sha256(payload).hexdigest()
 
 
-def _tokens(path: Path) -> int:
-    return len(_read(path)) // 4
-
-
-def _lines(path: Path) -> int:
-    return len(_read(path).splitlines())
+if not _has_swarm_io:
+    def _tokens(path: Path) -> int:
+        return len(_read(path)) // 4
+    def _lines(path: Path) -> int:
+        return len(_read(path).splitlines())
 
 
 def _find_floor() -> dict | None:

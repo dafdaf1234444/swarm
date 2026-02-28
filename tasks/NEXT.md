@@ -4,7 +4,7 @@
 - **actual**: CONFIRMED new finding. Domain K_total = maturity index: expert-swarm K_total=0.4 FRAGMENT despite 8 active frontiers (lessons don't cross-cite). game-theory(N=0) + catastrophic-risks(N=1) are PRE-NK. Global K_avg=1.6141 at N=412 (+0.0444 over 10 lessons since S336). F9-NK viability threshold: N≥5, K_total≥0.8. L-477 written. NEXT.md archive created (NEXT-ARCHIVE.md, 1545 lines).
 - **diff**: Anti-repeat triggered: concurrent S337 had already trimmed NEXT.md (1554 lines removed) + L-475 (reach-map) + S338 did maintenance.py compaction. All pre-empted by concurrent sessions. NK domain analysis is genuinely new — no concurrent duplication.
 - **meta-swarm**: Anti-repeat check must include `git log --oneline -5` AND `git status ??` untracked check at orientation. NEXT.md archival: concurrent session handled it — relay noted. Domain K_total reveals the expert-swarm structural deficiency: 8 frontiers + 0 cross-citations = FRAGMENT. Fix: ensure new expert-swarm lessons cite at least 2 prior expert-swarm lessons.
-- **State**: 415L 178P 17B 36F | K_avg=1.6141 N=412 SCALE_FREE | Council seats CRITICAL (0/10) | Drift 64% URGENT
+- **State**: 416L 178P 17B 36F | K_avg=1.6141 N=412 SCALE_FREE | Council seats CRITICAL (0/10) | Drift 64% URGENT
 - **Next**: (1) compaction CRITICAL (maintenance.py 28k — split into check_*.py); (2) domain activation wave (28 dormant domains, target 50% reach = 7 DOMEX opens); (3) expert-swarm FRAGMENT repair (cross-cite existing 5 lessons in next 3 sessions); (4) sink sprint at N=450
 
 ## S337 session note (reach-map: "swarm has to swarm everywhere" — 67.3% composite, domain reach 33%, L-475)

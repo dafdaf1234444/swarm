@@ -1,169 +1,86 @@
 {
   "experiment": "F-LNG1",
   "session": "S338",
-  "description": "F-LNG1 Zipf law at n=412 (S338) \u2014 ISO annotation effect + stall check",
-  "hypothesis": "Lesson citations follow power law with \u03b1 \u2248 1.0 (Zipf), confirming ISO-8 isomorphism",
+  "description": "F-LNG1 Zipf law at n=415 (S338) — 12th measurement, stall detection + projection update",
+  "hypothesis": "Lesson citations follow power law with α ≈ 1.0 (Zipf), confirming ISO-8 isomorphism",
   "data_source": "cache",
-  "total_lessons": 412,
-  "cited_lessons": 390,
-  "zero_cited_lessons": 22,
-  "citation_coverage_pct": 94.7,
+  "n_lessons": 415,
+  "total_lessons": 415,
+  "cited_lessons": 412,
+  "zero_cited_lessons": 3,
+  "citation_coverage_pct": 99.3,
   "top_10": [
-    [
-      "L-336",
-      62
-    ],
-    [
-      "L-001",
-      43
-    ],
-    [
-      "L-005",
-      26
-    ],
-    [
-      "L-012",
-      26
-    ],
-    [
-      "L-257",
-      26
-    ],
-    [
-      "L-011",
-      23
-    ],
-    [
-      "L-007",
-      22
-    ],
-    [
-      "L-214",
-      22
-    ],
-    [
-      "L-006",
-      21
-    ],
-    [
-      "L-008",
-      21
-    ]
+    ["L-336", 62],
+    ["L-001", 44],
+    ["L-005", 26],
+    ["L-012", 26],
+    ["L-257", 26],
+    ["L-011", 23],
+    ["L-007", 22],
+    ["L-214", 22],
+    ["L-216", 22],
+    ["L-006", 21]
   ],
-  "zero_cited_sample": [
-    "L-358",
-    "L-361",
-    "L-372",
-    "L-378",
-    "L-382",
-    "L-384",
-    "L-388",
-    "L-389",
-    "L-394",
-    "L-414"
-  ],
-  "power_law_alpha": 0.812,
-  "power_law_r_squared": 0.8552,
+  "zero_cited_sample": ["L-394", "L-445", "L-478"],
+  "alpha": 0.7456,
+  "power_law_alpha": 0.7456,
+  "power_law_r_squared": 0.8335,
   "zipf_holds": true,
   "zipf_strong": false,
   "head_heavy": false,
   "tail_flat": false,
-  "median_citations_nonzero": 4,
+  "median_citations_nonzero": 5,
   "p90_citations": 13,
-  "verdict": "CONTINUED_DECLINE_RATE_SLOWED",
-  "interpretation": "Lesson citation distribution is approximately Zipfian (\u03b1=0.812, R\u00b2=0.855). ISO-8 isomorphism PARTIALLY confirmed. \u03b1 deviates from 1.0 \u2014 flatter (more even distribution) than canonical Zipf.",
+  "verdict": "ZIPF_WEAK",
+  "interpretation": "Lesson citation distribution is approximately Zipfian (α=0.746, R²=0.833). ISO-8 isomorphism PARTIALLY confirmed. α deviates from 1.0 — flatter (more even distribution) than canonical Zipf. Instantaneous rate shows near-stall (-0.00014/L vs prior -0.00231/L), but 3-point moving average (-0.00158/L) indicates decline continues with deceleration.",
   "series": [
-    {
-      "session": "S190",
-      "n": 288,
-      "alpha": 0.9,
-      "r2": 0.845
-    },
-    {
-      "session": "S301",
-      "n": 311,
-      "alpha": 0.847,
-      "r2": 0.823
-    },
-    {
-      "session": "S307",
-      "n": 339,
-      "alpha": 0.821,
-      "r2": 0.828
-    },
-    {
-      "session": "S311",
-      "n": 356,
-      "alpha": 0.79,
-      "r2": 0.837
-    },
-    {
-      "session": "S313",
-      "n": 360,
-      "alpha": 0.787,
-      "r2": 0.838
-    },
-    {
-      "session": "S327",
-      "n": 373,
-      "alpha": 0.7875,
-      "r2": 0.8385,
-      "note": "stall-detected-prematurely"
-    },
-    {
-      "session": "S328",
-      "n": 386,
-      "alpha": 0.7745,
-      "r2": 0.8399
-    },
-    {
-      "session": "S329",
-      "n": 390,
-      "alpha": 0.7668,
-      "r2": 0.841
-    },
-    {
-      "session": "S330",
-      "n": 394,
-      "alpha": 0.7637,
-      "r2": 0.8395
-    },
-    {
-      "session": "S332",
-      "n": 398,
-      "alpha": 0.7545,
-      "r2": 0.8421
-    },
-    {
-      "session": "S335",
-      "n": 401,
-      "alpha": 0.7476,
-      "r2": 0.8346
-    },
-    {
-      "session": "S338",
-      "n": 412,
-      "alpha": 0.7425,
-      "r2": 0.8552,
-      "alpha_cache": 0.812,
-      "alpha_direct": 0.7425
-    }
+    {"session": "S190", "n": 288, "alpha": 0.9, "r2": 0.845},
+    {"session": "S301", "n": 311, "alpha": 0.847, "r2": 0.823},
+    {"session": "S307", "n": 339, "alpha": 0.821, "r2": 0.828},
+    {"session": "S311", "n": 356, "alpha": 0.79, "r2": 0.837},
+    {"session": "S313", "n": 360, "alpha": 0.787, "r2": 0.838},
+    {"session": "S327", "n": 373, "alpha": 0.7875, "r2": 0.8385, "note": "stall-detected-prematurely"},
+    {"session": "S328", "n": 386, "alpha": 0.7745, "r2": 0.8399},
+    {"session": "S329", "n": 390, "alpha": 0.7668, "r2": 0.841},
+    {"session": "S330", "n": 394, "alpha": 0.7637, "r2": 0.8395},
+    {"session": "S332", "n": 398, "alpha": 0.7545, "r2": 0.8421},
+    {"session": "S335", "n": 401, "alpha": 0.7476, "r2": 0.8346},
+    {"session": "S338", "n": 415, "alpha": 0.7456, "r2": 0.8335}
   ],
-  "rate_per_lesson": 0.005857,
-  "stall_detected": false,
-  "stall_note": "Declining at 0.00586/L",
-  "direct_scan": {
-    "alpha": 0.7425,
-    "r_squared": 0.905,
-    "zero_in_degree": 157,
-    "source": "lesson-to-lesson citation scan only (excludes DOMAIN.md, SWARM-LANES, etc.)",
-    "note": "Direct scan \u03b1=0.7425 continues declining trend (0.7476\u21920.7425, -0.0051 over 11L, rate -0.00046/L). Rate SLOWED from -0.00231/L at S335."
+  "rate_per_lesson": -0.000143,
+  "rate_3pt_moving_avg": -0.001581,
+  "rate_history": {
+    "S301_to_S307": -0.000929,
+    "S307_to_S311": -0.001824,
+    "S311_to_S313": -0.000750,
+    "S313_to_S327": 0.000038,
+    "S327_to_S328": -0.001000,
+    "S328_to_S329": -0.001925,
+    "S329_to_S330": -0.000775,
+    "S330_to_S332": -0.002300,
+    "S332_to_S335": -0.002300,
+    "S335_to_S338": -0.000143
   },
-  "model_prediction": {
-    "n": 412,
-    "alpha_predicted": 0.739,
-    "formula": "alpha(N) = 20.64 * N^(-0.553)",
-    "r2": 0.999
+  "stall_detected": true,
+  "stall_note": "Instantaneous rate -0.00014/L vs 3-point avg -0.00158/L. This mirrors the S327 stall (rate +0.000038/L) which was followed by resumed decline. Stall is real at point level but 3-point trend still declining.",
+  "projection_n450": {
+    "linear_model": 0.6952,
+    "power_law_model": 0.7116,
+    "power_law_formula": "α(N) = 14.97 × N^(-0.499)",
+    "power_law_r2": 0.9769,
+    "best_estimate": 0.71,
+    "note": "Power-law model (R²=0.977) is better fit than linear (overpredicts decline). Projection revised UP from S335 estimate of 0.634 due to deceleration."
   },
-  "cache_vs_direct_note": "Cache \u03b1=0.812 (cache includes 597 files; DOMAIN.md enrichments in S337 boosted hub citations). Direct scan \u03b1=0.7425 (lesson-to-lesson only). Model predicts 0.739. Direct scan is consistent with power-law model; cache shows reversal likely from DOMAIN.md citation effect."
+  "status": "TRACKING",
+  "status_note": "Decline continues but decelerating. α=0.7456 still above 0.70 intervention threshold. Instantaneous stall at n=415 parallels S327 stall at n=373 — both followed by resumed decline. No intervention needed yet.",
+  "methodology_note": "Citation cache refreshed via compact.py before measurement. Prior S338 concurrent-session artifact was stale-cache (20 lessons falsely zero-cited, alpha=0.812 spurious). This measurement is the corrected ground truth.",
+  "cache_quality": {
+    "cache_entries": 598,
+    "git_tracked_md_files": 598,
+    "cache_freshness": "refreshed_this_session",
+    "prior_stale_cache_alpha": 0.812,
+    "corrected_alpha": 0.7456,
+    "delta": -0.0664,
+    "root_cause": "compact.py had not run since S335; 20 file SHA mismatches caused zero-citation false negatives"
+  }
 }

@@ -18,6 +18,16 @@ import sys
 from datetime import date
 from pathlib import Path
 
+try:
+    from swarm_io import read_text as _read, token_count as _tokens, session_number as _session_number
+    _has_swarm_io = True
+except ImportError:
+    try:
+        from tools.swarm_io import read_text as _read, token_count as _tokens, session_number as _session_number
+        _has_swarm_io = True
+    except ImportError:
+        _has_swarm_io = False
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
 # Bootstrap tiers (F107 + operational)
@@ -60,24 +70,17 @@ GENESIS_FILES = [
 LOG_PATH = REPO_ROOT / "experiments" / "proxy-k-log.json"
 
 
-def _read(path: Path) -> str:
-    """Read text as UTF-8 across runtimes/locales."""
-    try:
-        return path.read_text(encoding="utf-8", errors="replace")
-    except Exception:
-        return ""
-
-
-def _tokens(path: Path) -> int:
-    """Estimate token count (chars / 4)."""
-    return len(_read(path)) // 4
-
-
-def _session_number() -> int:
-    text = _read(REPO_ROOT / "memory" / "SESSION-LOG.md")
-    import re
-    numbers = re.findall(r"^S(\d+)", text, re.MULTILINE)
-    return max(int(n) for n in numbers) if numbers else 0
+if not _has_swarm_io:
+    def _read(path: Path) -> str:
+        try: return path.read_text(encoding="utf-8", errors="replace")
+        except Exception: return ""
+    def _tokens(path: Path) -> int:
+        return len(_read(path)) // 4
+    def _session_number() -> int:
+        import re
+        text = _read(REPO_ROOT / "memory" / "SESSION-LOG.md")
+        numbers = re.findall(r"^S(\d+)", text, re.MULTILINE)
+        return max(int(n) for n in numbers) if numbers else 0
 
 
 def _is_dirty_tree() -> bool:
