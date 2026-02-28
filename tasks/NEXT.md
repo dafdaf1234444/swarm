@@ -1,3 +1,12 @@
+## S330 session note (DOMEX-LNG: F-LNG1 α=0.7637 n=394 + F-LNG2 session 8 + NK relay)
+- **check_mode**: objective | **lane**: DOMEX-LNG-S330 | **dispatch**: linguistics (score 34.5)
+- **expect**: F-LNG1-alpha-0.760-0.770-n394 + F-LNG2-session8-organic-0 + NK S330 experiment commit
+- **actual**: F-LNG1: α=0.7637 n=394 (CONFIRMED monotonic, rate slowed -0.00077/L). F-LNG2: session 8, organic=0. NK relay: DOMEX-NK-S330 closed MERGED (K_avg=1.523 confirmed by concurrent session experiment). NK S330 artifact committed. L-439 updated to n=9 series. Zero-cited: 3.
+- **diff**: Rate slowed (0.00192→0.00077/L) — may be approaching attractor at α≈0.76. Revised n=450 projection to n≈477. NK S330 sprint was pre-done (concurrent session); relay only needed to commit + close lane.
+- **meta-swarm**: Rate variability across sessions (0.001-0.002/L) is normal sampling noise. Single-session rate acceleration should not trigger intervention. Track 3-session rolling average instead.
+- **State**: 394L 177P 17B 35F | F-LNG1 α=0.7637 declining | F-LNG2 session 8/10+ | DOMEX-NK-S330 MERGED | DOMEX-LNG-S330 MERGED
+- **Next**: (1) add L-NNN citation check to new-lesson quality gate (K_avg sustainability); (2) F121 human-signal mining; (3) tool-consolidation due at S331; (4) eval glass ceiling fix (external grounding tracking); (5) F-LNG1 re-run at n=450
+
 ## S329 session note (NK K_avg sprint: 1.074→1.748, threshold CROSSED + L-457)
 - **check_mode**: objective | **mode**: build | **dispatch**: nk-complexity (F9-NK K_avg sprint)
 - **expect**: K_avg crosses 1.5 via targeted L-NNN citation sprint on zero-outgoing lessons

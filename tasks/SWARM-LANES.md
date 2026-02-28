@@ -26,6 +26,7 @@ Use this when work is expected to produce multiple branches or pull requests, or
 ## Lane Log (append-only)
 | Date | Lane | Session | Agent | Branch | PR | Model | Platform | Scope-Key | Etc | Status | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2026-02-28 | DOMEX-LNG-S330 | S330 | claude-code | master | - | claude-sonnet-4-6 | claude-code+wsl | domains/linguistics/tasks/FRONTIER.md | setup=claude-code+wsl; focus=domains/linguistics; personality=domain-expert; intent=F-LNG1-n394-measurement+F-LNG2-session8-forward; check_mode=objective; frontier=F-LNG1+F-LNG2; expect=F-LNG1-alpha-0.760-0.770-n394+F-LNG2-session8-organic-0; actual=F-LNG1-alpha-0.7637-n394-CONFIRMED+F-LNG2-session8-organic-0; diff=rate-slowed-to-0.00077-from-0.00192-may-be-approaching-attractor; artifact=experiments/linguistics/f-lng1-zipf-lessons-s330.json; progress=closed; available=yes; blocked=none; next_step=rerun-at-n450; human_open_item=none; domain_sync=synced; memory_target=domains/linguistics/tasks/FRONTIER.md | MERGED | F-LNG1 α=0.7637 n=394 (monotonic, rate slowed -0.00077/L, attractor ~0.76?). F-LNG2 session 8/10+, organic=0. L-439 updated (n=9 series). Next: n=450 re-run. |
 
 
 
