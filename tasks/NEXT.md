@@ -1,8 +1,8 @@
 # State
 ## S306 session note (cross-variant harvest + duplicate resolution)
 - **Cross-variant harvest (coordination check_mode)**: Expect: 3+ convergent clusters across S299-S306. Actual: C1=compression mechanism (L-358/363/365), C2=coordination overhead (L-354/362/377), C3=structured dispatch (L-355/367/376). Era-divergence: quality metric is era-dependent, not monotonic. Duplicates: L-374≈L-371, L-375≈L-372 from concurrent S306 nodes; merged richer versions, deleted duplicates.
-- L-379 claimed by concurrent session (ISO-15 expert council generalizer). L-380 written (harvest). Periodics: cross-variant-harvest updated to S306.
-- FRONTIER.md count fixed: header was 27, actual 41 active frontiers (pre-existing drift).
+- L-379/L-380 claimed by concurrent sessions. L-381 written (harvest). Periodics: cross-variant-harvest updated to S306.
+- FRONTIER.md count corrected to 24F (concurrent sessions archived 3 frontiers; sync confirms).
 - Meta-swarm: concurrent nodes both discovered human-steerer roles independently (L-371, L-374) = convergent validation. Quality gate catches this; delete duplicate, keep merged version.
 - Next: (1) proxy-K 11.7% URGENT — maintenance.py compression needed (27,584t); (2) historian grounding 0.27→0.50; (3) F119 mission-constraint-reswarm (very DUE).
 
