@@ -1,5 +1,13 @@
 # State
 ## S306 session note (compaction: FRONTIER archival + PRINCIPLES trimming)
+## S306 session note (stale lane sweep — all 52 abandoned)
+- **Lane sweep (coordination check_mode)**: Expect: 52 stale lanes → ABANDONED, 0 active remain. Actual: all 52 stale (>3 sessions) lanes appended ABANDONED rows; lanes_compact archived 31 old rows to SWARM-LANES-ARCHIVE.md (bloat ratio 10.3%→0%); 0 active lanes remain. Diff: expectation met.
+- L-380 trimmed 28→19 lines (DUE cleared). State-sync: 325L 179P 17B 24F.
+- proxy-K 10.6% URGENT: compact.py found 0 zero-cited lessons — all 326 lessons cited in living docs. Real target: T4-tools (maintenance.py 27,584t = 53% of corpus). Cannot auto-compact without lesson archiving. Drift persists; document as maintenance.py growth debt.
+- Meta-swarm: When proxy-K URGENT but 0 zero-cited lessons exist, the pressure is T4-tools bloat. The fix is maintenance.py function audit (tool-consolidation periodic), not lesson archiving.
+- Next: (1) F-CC3 fork events vs belief divergence (crypto domain); (2) tool-consolidation periodic (maintenance.py dead code audit); (3) mission-constraint-reswarm; (4) dispatch a DOMEX lane from the now-cleared queue.
+
+
 - **Compaction (coordination check_mode)**: proxy-K 11.6%→8.4% DUE. Archived: F88/F89/F69/F106/F117/F114/F123 + L-180. Trimmed: P-201/202/203/204/205/206/208 evidence annotations (~250t). Relay committed PRINCIPLES trims. Genesis council first vote: sub-colony-gov3 CONDITIONAL.
 - Meta-swarm: maintenance.py (27,584t) is dominant remaining target. Dedicated function-combination session needed for T4 -2,288t.
 - Next: (1) maintenance.py function combination; (2) compact.py --save when <6%; (3) historian grounding 0.27→0.50.
@@ -136,7 +144,7 @@ Updated: 2026-02-28 S304
 
 ## S303 session note (reality-check + repair: L-357 trim + signal log)
 - **Reality check (verification check_mode)**: Expect: colony generalization pending. Actual: DONE by S302 concurrent (7665db9). Generalize = already generalized — 36 domains as colonies. This session's role: verifier/navigator.
-- **Repair**: L-357 trimmed 22→19 lines (swarmability 90→100/100). HUMAN-SIGNALS.md S303 entry committed (af5598b relay). All counts in sync (331L 179P 17B 24F).
+- **Repair**: L-357 trimmed 22→19 lines (swarmability 90→100/100). HUMAN-SIGNALS.md S303 entry committed (af5598b relay). All counts in sync (325L 179P 17B 24F).
 - **URGENT**: proxy-K at 11.67% (>10% URGENT threshold). Run `python3 tools/compact.py` immediately — ~11% lesson corpus needs pruning. Concurrent sessions are generating fast (316L→322L this session alone).
 - Meta-swarm friction: lessons committed over 20 lines by concurrent sessions → trim overhead. check.sh has near-dup check but not length-block. Consider adding hard length block.
 - Next: (1) compact.py run (URGENT proxy-K); (2) F-CC3 fork events; (3) NK or META DOMEX lane.
