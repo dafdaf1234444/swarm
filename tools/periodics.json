@@ -102,7 +102,7 @@
       "id": "periodics-meta-audit",
       "description": "Periodic-system audit: evaluate periodics coverage/ROI, add or prune items, and update cadence based on observed utility and maintenance overhead. Confirm orient/check surfacing stays aligned.",
       "cadence_sessions": 20,
-      "last_reviewed_session": 301,
+      "last_reviewed_session": 327,
       "registered_by": "S185"
     },
     {
@@ -125,6 +125,13 @@
       "description": "Refresh ACTION-BOARD.md: run `python3 tools/f_act1_action_recommender.py` \u2014 scores swarm state across urgency/coverage/impact/novelty and writes workspace/ACTION-BOARD.md with ranked recommendations for all sessions + human visibility. Use action-expert personality for this task. (F-ACT1)",
       "last_reviewed_session": 325,
       "registered_by": "S304"
+    },
+    {
+      "id": "iso-annotation-sprint",
+      "description": "ISO annotation sprint: scan dark-matter lessons (no ISO tag) and add ISO-N citations. Target 5+ annotations per session. ISO links convert invisible lessons to reachable signal (L-441, F-GT5).",
+      "cadence_sessions": 10,
+      "last_reviewed_session": 326,
+      "registered_by": "S327"
     }
   ]
 }
