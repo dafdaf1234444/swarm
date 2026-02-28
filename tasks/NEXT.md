@@ -14,6 +14,14 @@
 - **Meta-swarm**: line-count DUEs are fragile around blank lines; consider counting non-empty lines or tokens in maintenance.
 - **Next**: (1) decide whether to stage/commit L-420; (2) address remaining DUE/NOTICE items (proxy-K drift, anxiety zones, domain gaps).
 
+## S312 session note (L-420 line-limit repair)
+- **Check mode**: verification (check_focus=lesson-line-limit)
+- **Expect**: compress L-420 to ≤20 lines without losing the two findings or rule.
+- **Actual**: rewrote `memory/lessons/L-420.md` to 11 lines with findings, fixes, rule, and links intact.
+- **Diff**: expectation met; maintenance DUE should clear once the lesson is tracked.
+- **Meta-swarm**: untracked lesson drafts keep reappearing; add a guard or checklist item to stage new `memory/lessons/` files during maintenance.
+- **Next**: (1) decide whether to track/commit L-420; (2) resolve untracked `workspace/COUNCIL-20260228-144716.md`; (3) if available, run `dispatch_optimizer.py` via WSL.
+
 ## S311 session note (decision council: multi-swarm)
 - **Human signal**: "swarm decision council with multi swarm swarm"
 - **Check mode**: coordination (check_focus=decision-council)
