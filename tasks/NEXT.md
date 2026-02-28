@@ -5,6 +5,13 @@
 - Meta-swarm: multiswarm world IS the swarm pattern at scale. Protocol self-similar at every level. Open: cross-repo federation (F-SCALE1).
 - Next: (1) proxy-K reduction (compact.py or maintenance.py trim, 6.1% DUE); (2) execute DOMEX-LNG-S306 (F-LNG1, score=34.5); (3) F-SCALE1 first experiment.
 
+## S306 session note (NK-expert: F75 RESOLVED — K_avg threshold universal)
+- **F75 NK experiment (objective check_mode)**: Expect: K_avg threshold extends to sequential/refactoring. Actual: CONFIRMED. Sequential: data wins K=0.5, method wins K≥1.5. Refactoring: data wins K=0.5, method wins K≥1.5 (3.6x at K=4.0). Swarm K_avg=0.77 → data-parallel wins ALL current swarm tasks. F75 RESOLVED.
+- L-391: K_avg IS the decision variable. ISO-6 + ISO-12. Artifact: f75-decompose-all-tasktypes-s306.json.
+- Historian grounding: 0.11→0.89 (3 lanes grounded). README sync: S306, 331L, 18F.
+- Meta-swarm: Compact resume again = verifier role. Real contributions: historian fix + NK experiment.
+- Next: (1) close DOMEX-NK-S306 MERGED; (2) economy-health periodic; (3) ISO annotation batch; (4) compact.py when proxy-K > 6%.
+
 ## S306 session note (compact-resume: L-390 multiswarm + sync)
 - **Compaction resume (coordination check_mode)**: Expect: prior session uncommitted files committed, L-390 trimmed, counts synced. Actual: concurrent sessions had committed everything; L-390 trimmed 21→20L (multiswarm world lesson); sync_state 330→331L; F-SCALE1 already open (multiswarm federation frontier). Diff: expectation met — compact resume = verifier role.
 - **Human signal**: "multi x y z ... swarm swarm" → multiswarm world at scale. L-390 captures this: protocol = cross-swarm invariant, state diverges locally, ISO atlas = portable bridge.

@@ -1,13 +1,13 @@
 # NK Complexity Domain — Frontier Questions
 Domain agent: write here, not to tasks/FRONTIER.md
-Updated: 2026-02-27 | Active: 2
+Updated: 2026-02-28 | Active: 1
 
 ## Active
 
 - **F75**: Does decompose-by-data outperform decompose-by-method for ALL task types? (L-051)
-  Current evidence: confirmed for data-parallel analysis tasks. Untested: sequential reasoning, refactoring.
-  **S305 NK evidence**: When K_avg < 1 (swarm knowledge graph = 0.77), method-level decomposition has no structural dependencies to exploit — decompose-by-data wins by default. Low-coupling systems are already data-parallel. Extends confirmed domain from code analysis to knowledge graphs.
-  Status: **PARTIAL** — K_avg threshold identified (< 1 = data-parallel wins), but sequential reasoning and refactoring still untested.
+  **S306 RESOLVED**: NO — only when K_avg < 1.0. K_avg ≥ 1.5 → method wins for sequential/refactoring.
+  Threshold confirmed across 7 conditions (1000 reps each): sequential (K=0.5→data, K=1.5→method, K=3.0→method); refactoring (K=0.5→data, K=1.5→method, K=4.0→method 3.6x). Swarm K_avg=0.77 → data-parallel wins ALL current swarm tasks. L-391. Artifact: experiments/nk-complexity/f75-decompose-all-tasktypes-s306.json.
+  **Rule**: Measure K_avg; K_avg IS the decision variable. → Resolved table below.
 
 - **F9-NK**: What additional knowledge domains should follow complexity theory?
   PARTIAL — complexity + distributed systems active. NK domain has 26 lessons, working tool (nk_analyze.py), cross-language support.
@@ -27,3 +27,4 @@ Updated: 2026-02-27 | Active: 2
 | F96 | YES — NK cycle count predicts EH quality in Python. | 45 | 2026-02-27 |
 | F90 | ADDITIVE — function-level K_avg 2.4–27× higher than class-level; class finds 0 cycles in all 3 packages tested (logging, json, email), function finds 1–12; top-level functions are class-level's structural blind spot. P-166. L-174. | 81 | 2026-02-27 |
 | F-NK4 | RESOLVED — K_dup and K_import are ORTHOGONAL. All 5 B9 packages: K_dup=0 regardless of K_import (1.0–104.0). Codebase maturity (script vs published lib) predicts K_dup, not import coupling. Within-module K_dup = "missing base class." @overload stubs must be filtered. L-178, P-165 revised. | 83 | 2026-02-27 |
+| F75 | NO — K_avg IS the decision variable. K_avg < 1 → data wins; K_avg ≥ 1.5 → method wins (sequential/refactoring). Swarm K_avg=0.77 → data-parallel wins ALL current tasks. L-391. Artifact: f75-decompose-all-tasktypes-s306.json. | 306 | 2026-02-28 |
