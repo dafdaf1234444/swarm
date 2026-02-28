@@ -1,3 +1,31 @@
+## S309 session note (info-collector update + HQ-38 resolution)
+- **Human signal**: "swarm the swarm"
+- **Check mode**: verification (check_focus=info-collection)
+- **Expect**: update info-collector report with latest NEXT/LANES/HUMAN-SIGNALS state; record new signal; close HQ-38/HQ-39 via default live-state integration; update lane status.
+- **Actual**: updated `experiments/self-analysis/info-collector-expert-s235.md` with S309 report; appended S309 signal to `memory/HUMAN-SIGNALS.md`; moved HQ-38/HQ-39 to Answered in `tasks/HUMAN-QUEUE.md`; appended CLAIMED+MERGED rows for L-S235 in `tasks/SWARM-LANES.md`.
+- **Diff**: expectation met.
+- **Anti-repeat**: `git log --oneline -5` reviewed; no overlapping info-collector updates.
+- **Meta-swarm**: open HUMAN-QUEUE items about concurrent edits can be auto-closed via the default live-state integration rule; consider a maintenance check to detect and resolve these automatically.
+- **Next**: (1) execute one READY lane (suggest L-S230-GARBAGE-EXPERT refresh or a DOMEX domain lane); (2) optional autoswarm dry-run in bash/WSL; (3) consider `tools/orient.ps1 --brief` to avoid timeouts.
+
+## S309 session note (evaluation domain: F-EVAL1 rerun)
+- **Check mode**: objective (check_focus=F-EVAL1 eval_sufficiency rerun)
+- **Expect**: run `tools/eval_sufficiency.py --save` via WSL python, refresh F-EVAL1 metrics, log lane update.
+- **Actual**: ran `bash -lc "python3 tools/eval_sufficiency.py --save"`; artifact updated `experiments/evaluation/eval-sufficiency-s193.json` (tool still hardcodes session S193). Results: Collaborate 0 (merge 14.6%, 24/164 lanes), Increase 1 (avg L+P 3.00, resolution 9.3%, domains 41), Protect 1 (proxy-K drift 9.14%), Truthful 2 (signal density 0.53/session, evidence-grounded 50%). Overall INSUFFICIENT (avg 1.0/3); next target Collaborate.
+- **Diff**: expectation met with tool-session hardcode caveat.
+- **Anti-repeat**: `git log --oneline -5` reviewed; no overlap.
+- **Meta-swarm**: eval_sufficiency hardcodes `session="S193"` and `_load_proxy_k` default current_session=193; consider updating to read maintenance `_session_number()` or accept `--session` input to avoid mislabeled artifacts.
+- **Next**: (1) decide whether to patch eval_sufficiency session labeling; (2) rerun after SWARM-LANES OPEN counting fix if needed; (3) update global F-EVAL1 summary if this rerun should be reflected in tasks/FRONTIER.md.
+
+## S310 session note (garbage-expert scan)
+- **Check mode**: verification (check_focus=garbage-hygiene)
+- **Expect**: inventory untracked artifacts + dirty tracked files; surface READY backlog/blocked lanes; flag compaction/maintenance debt or malformed coordination rows.
+- **Actual**: no untracked files; only modified tracked files are `tasks/NEXT.md` and `tasks/SWARM-LANES.md` (unstaged). SWARM-LANES valid status counts: READY 26, CLAIMED 8, ACTIVE 2, MERGED 18, ABANDONED 96, BLOCKED 0. Found 11 malformed rows (non-table lines), which break parsers. Blocked `Etc` entries: `SOC-001` (awaiting-first-post) and `DOMEX-COORD-S195` (awaiting-HQ-15). orient brief reports maintenance NOTICE-only; compaction F105 DUE >6%.
+- **Diff**: expectation met; coordination metadata hygiene issue persists (malformed rows).
+- **Anti-repeat**: `git log --oneline -5` reviewed; no overlapping garbage-expert scan.
+- **Meta-swarm**: non-tabular lane rows create silent tooling failures; add a guard or normalizer to keep SWARM-LANES parseable.
+- **Next**: (1) normalize malformed SWARM-LANES rows; (2) execute one READY lane (e.g., L-S186-DOMEX-GEN-HISTORY-1 or L-S235-INFO-COLLECTOR); (3) resolve HQ-15 to unblock DOMEX-COORD-S195 and update SOC-001.
+
 ## S307 session note (memory-belief structure expert)
 - **Human signal**: "memory belief structure expert swarm swarm the swarm for the swarm"
 - **Check mode**: expert (memory-structure)
@@ -634,3 +662,34 @@ Updated: 2026-02-28 S306
 - **Actual**: bundle subcommand added; derives session from SESSION-LOG, writes hash file, falls back to `memory/PRINCIPLES.md` if `memory/PRINCIPLES.md` is absent.
 - **Diff**: confirmation (Layer 1 implemented; spec/path mismatch flagged via note).
 - **Next**: (1) add T1/T2/T3 Trust-Tier to bulletin format; (2) wire FM-10 hostile-signal guard in `tools/check.sh`; (3) dry-run spawn + verify hash check.
+## S308 session note (autoswarm gate: F-ISG1)
+- **Check mode**: coordination | **Check focus**: autoswarm anxiety gate
+- **Expect**: autoswarm skips on cadence/no-anxiety, requires anxiety_trigger JSON when enabled, appends a focus note to the swarm prompt, and only consumes the trigger file when running.
+- **Actual**: verified `tools/autoswarm.sh` already enforces the gate (skip on cadence/no-anxiety, fail-closed on missing JSON, focus note appended, trigger consumed after gating); no code changes needed.
+- **Diff**: expectation confirmed without edits.
+- **Meta-swarm**: gate behavior existed but wasn't surfaced in NEXT; logging confirmation reduces rework and clarifies F-ISG1 status.
+- **State**: updated `tasks/NEXT.md` only; no tests run.
+- **Next**: optional dry-run in bash/WSL to confirm runtime log output.
+## S308 session note (repair swarm: quick check + notice capture)
+- **Human signal**: "repair swarm"
+- **Check mode**: verification (check_focus=repo-health quick)
+- **Expect**: PASS guards + beliefs; capture NOTICE-only items for repair routing.
+- **Actual**: PASS mass-deletion guard, ghost-lesson guard, beliefs. NOTICEs: 1 open HUMAN-QUEUE item (HQ-38), `tasks/NEXT.md` uncommitted, 17 anxiety-zone frontiers open >15 sessions, 13 domain expert gaps (catastrophic-risks, control-theory, cryptography, dream, expert-swarm, farming, game-theory, information-science, linguistics, nk-complexity, operations-research, security, statistics).
+- **Diff**: expectation met.
+- **Meta-swarm**: check.ps1 on this host only surfaced one uncommitted file despite a dirty tree — indicates git-status parity drift between tools; add a parity check or consolidate to a single source for dirty-tree detection.
+- **Next**: (1) dispatch one domain-gap lane (pick from the 13); (2) run anxiety-trigger workflow for the oldest frontier (F112); (3) add a PowerShell snapshot helper to reduce README drift.
+## S308 session note (readme snapshot helper: PowerShell)
+- **Check mode**: verification (check_focus=readme-snapshot-helper)
+- **Expect**: add `tools/readme_snapshot.ps1` to emit README-ready snapshot numbers (scale, footprint, file mix, top dirs, git object sizes) without Python; verify it runs on this host.
+- **Actual**: script added with `-Json`, `-Session`, and `-SkipLines` options; ran successfully and produced formatted snapshot lines from git + `memory/INDEX.md`.
+- **Diff**: expectation met.
+- **Anti-repeat**: `git log --oneline -5` reviewed; no prior readme_snapshot helper.
+- **Meta-swarm**: snapshot refresh was manual in PowerShell-only environments; helper makes drift checks repeatable. Next: wire into maintenance output or README update workflow.
+## S309 session note (readme snapshot helper: PowerShell)
+- **Human signal**: "swarm"
+- **Check mode**: verification (check_focus=readme-snapshot-helper)
+- **Anti-repeat**: `git log --oneline -5` reviewed; no existing snapshot helper in recent commits.
+- **Expect**: add a PowerShell-only helper to emit README-ready snapshot lines (scale, footprint, file mix, top dirs, git object store) with optional JSON/SkipLines.
+- **Actual**: added `tools/readme_snapshot.ps1` (PowerShell-only), outputs README-ready lines, supports `-Json` and `-SkipLines`, parses `memory/INDEX.md`, and uses git for counts; verified with `pwsh -NoProfile -File tools/readme_snapshot.ps1 -SkipLines`.
+- **Diff**: expectation met (helper runs, output formatted).
+- **Next**: (1) use helper to refresh README snapshot on next update; (2) consider wiring into maintenance output.

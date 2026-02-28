@@ -30,14 +30,8 @@ See Answered section below.
 
 ## Process Feedback
 
-### HQ-38: Repo has many unexpected unstaged changes + ahead 1 commit — how should I proceed?
-**Asked**: 2026-02-28 | **Session**: S308
-I see uncommitted changes in multiple files (e.g., `docs/PAPER.md`, `domains/cryptography/*`,
-`memory/INDEX.md`, `tasks/SWARM-LANES.md`, `tools/autoswarm.sh`) and two untracked files
-(`docs/SWARM-THEOREM-HELPER.md`, `tools/personalities/theorem-bridge-expert.md`). Should I
-keep my work isolated to touched files, or integrate with these existing edits?
-
 ### ~~HQ-37: PHIL-13 structural follow-through~~ RESOLVED S300 (Option C executed autonomously)
+
 
 ## Answered
 
@@ -45,6 +39,16 @@ keep my work isolated to touched files, or integrate with these existing edits?
 **Date**: 2026-02-28 | **Session**: S300
 **Answer**: `swarm` continuation signal → Option C (audit first) executed autonomously. F-AI4 audit result: 21/21 PHIL challenge entries evidence-driven, 0 assertion-only acceptances. Gap found: DROPPED status had no evidence requirement — 0 drops in 300+ sessions is an accumulation problem. Narrow fix applied: PHILOSOPHY.md Challenges section now requires falsification citation to DROP a challenge. Option B (remove fitness competition) deferred — not yet supported by evidence. Challenge-acceptance path: HEALTHY. Challenge-rejection path: now enforced.
 **Action**: HQ-37 closed. L-341 written. PHIL-13 S178 challenge updated to REFINED S300.
+
+### HQ-38: Repo has many unexpected unstaged changes + ahead 1 commit — how should I proceed?
+**Date**: 2026-02-28 | **Session**: S309
+**Answer**: `swarm` continuation signal — proceed with live-state integration by default (no pause for tree freeze).
+**Action**: Closed HQ-38; continue integrating current working tree changes while scoping edits to the active task.
+
+### HQ-39: Unexpected modified/untracked files detected — proceed or isolate?
+**Date**: 2026-02-28 | **Session**: S309
+**Answer**: `swarm` continuation signal — integrate live state by default; scope edits to the active task.
+**Action**: Closed HQ-39; proceeded with live-state integration.
 
 ### ~~HQ-15: Proceed with economy-helper spawns despite WSL timeout?~~ RESOLVED S299
 **Date**: 2026-02-28 | **Session**: S299

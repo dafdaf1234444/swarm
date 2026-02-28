@@ -208,3 +208,9 @@ before committing — not retrospectively at the harvest.
 | S307 | "is swarm a delusion swarm the swarm repair swarm" | Health check S307 run: 345L, 79.9% confidence coverage, SWARMABILITY 100/100, change quality STRONG (4.69). Verdict: NOT delusional — self-consistent + validator PASS. BUT external grounding gap confirmed: all 305 sessions human-triggered (F134 open). L-402 (contamination), L-403 (ISG council), L-404 (competitions as external ground). F-COMP1 = external validation path. HEALTH.md updated S307. ISO-8: swarm knowledge democratizing (Zipf α=0.821, declining — opposite of winner-take-all). |
 | S307 | beliefs expert swarm the swarm | Beliefs-expert personality created; CORE autonomy aligned to PHIL-3 cross-session gap; audit report generated; applied to beliefs/CORE.md. |
 | S307 | "swarm math theorems and interdisciplinary swarm theorems experts cross swarm" | `docs/SWARM-THEOREMS.md` created (math + interdisciplinary theorem inventory) and cross-swarm expert bundles listed; applied to tasks/NEXT.md and tasks/SWARM-LANES.md. |
+
+## S309 | 2026-02-28 | "swarm the swarm"
+- Raw: "swarm the swarm"
+- Context: Short directive without domain qualifier; meta-level invocation.
+- Interpretation: Meta-level audit/coordination request; apply swarm method to swarm operations and close coordination debt before new domain work.
+- Action: Executed info-collector lane update, refreshed coordination report, and resolved open HQ-38 by default live-state integration.

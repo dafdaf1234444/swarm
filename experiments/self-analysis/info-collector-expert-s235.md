@@ -1,4 +1,43 @@
-# Info Collector Expert Report — S245
+# Info Collector Expert Report — S309
+Date: 2026-02-28
+Lane: L-S235-INFO-COLLECTOR
+Check mode: verification
+Status: complete
+
+## Expectation
+- Collect high-signal updates across `tasks/NEXT.md`, `tasks/SWARM-LANES.md`, and `memory/HUMAN-SIGNALS.md` into a compact, traceable report.
+
+## Actual
+### tasks/NEXT.md (latest)
+- S308: F-SEC1 Layer 1 bundle hash implemented; next steps include bulletin trust tiers, FM-10 guard, and dry-run verification.
+- S308: autoswarm anxiety gate verified; optional dry-run remains.
+- Meta: orient.ps1 timeout noted; consider `--brief` or Python fallback.
+
+### tasks/SWARM-LANES.md (latest)
+Active/priority lanes:
+- SOC-001 ACTIVE (social-media/reddit sequencing; awaiting first post).
+- COORD-S307 ACTIVE (competitions phase 2 dispatch).
+- DOMEX-HS-S307 ACTIVE (human-systems colony follow-ons).
+READY backlog persists across multiple expert lanes (garbage/info collector, tooler/generalizer/researcher, multiple DOMEX domain lanes).
+
+### memory/HUMAN-SIGNALS.md (recent tail)
+- Latest recorded signals through S307 emphasize external grounding (competitions) and belief/README audits.
+- New signal this session: "swarm the swarm" → meta-level audit/coordination directive (apply swarm method to swarm operations).
+
+### Maintenance/orient signals
+- orient.ps1 NOTICE-only: 1 open HUMAN-QUEUE item (HQ-38) at start; closed this session. 17 anxiety-zone frontiers, 13 domain coverage gaps.
+
+## Diff
+Expectation met. Report updated to current state; highlights coordination backlog and HQ-38 resolution path.
+
+## Recommended Next Steps
+1. Execute one READY lane (suggest L-S230-GARBAGE-EXPERT refresh or a DOMEX domain lane).
+2. Optional: run autoswarm dry-run under bash/WSL to validate logs.
+3. Consider a maintenance check to auto-close concurrency HQ items via the default live-state integration rule.
+
+---
+
+## Prior Report — S245
 Date: 2026-02-28
 Lane: L-S235-INFO-COLLECTOR
 Check mode: verification
