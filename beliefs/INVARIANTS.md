@@ -1,5 +1,5 @@
 # Swarm Invariants
-<!-- invariants_version: 0.3 | 2026-02-28 | I9 risk taxonomy from L-366; create-pr/send-email added to HIGH_RISK enforcement -->
+<!-- invariants_version: 0.4 | 2026-02-28 | I13 cross-substrate safety: foreign-repo entry must not assume swarm repo conventions -->
 These anchors cannot be negated by child integration without human review.
 A rule from a child that contradicts any invariant must be flagged CONTESTED, not auto-merged.
 
@@ -46,6 +46,15 @@ Sessions must leave verifiable knowledge-state deltas (for example NEXT/SESSION-
 ## I12 - Mission continuity: stay connected under constraints [MC-CONN]
 When online/offline or tool constraints change, swarm must preserve continuity via local append-only state and queue/log synchronization.
 **Negated by**: "if disconnected, skip state sync and continue ad hoc"
+
+## I13 - Mission safety: cross-substrate safe entry [MC-XSUB]
+When entering a foreign repo (substrate_detect.py detects non-swarm), swarm must NOT:
+apply swarm tooling enforcement, write swarm-internal files (COLONY.md, SWARM-LANES.md),
+or assume the host's conventions match swarm patterns.
+Safe entry = behavioral norms only (contribute real work, commit, no meta-swarm tooling).
+**Negated by**: "apply full swarm protocol to any repo" or "enforce check.sh on foreign hosts"
+**Implementation**: substrate_detect.py (S173), portable_check.sh 9-gate health floor (S325).
+**Enforcement test**: substrate_detect.py must return `is_swarm: false` for repos without SWARM.md.
 
 ---
 To add an invariant: propose + check it doesn't conflict with existing beliefs (DEPS.md) + commit with explanation.
