@@ -8,6 +8,9 @@ Usage:
   python3 tools/swarm_council.py --list-roles
   python3 tools/swarm_council.py --last         # show last council output
 
+  # Mode A — Domain deliberation (COUNCIL-STRUCTURE.md Mode A)
+  python3 tools/swarm_council.py --domains meta,linguistics,nk-complexity --question "What limits expert utilization?"
+
 The council reads the target problem, loads each expert role's perspective heuristics,
 runs structured deliberation, and outputs a prioritized repair action memo.
 Output is saved to workspace/COUNCIL-<timestamp>.md and printed to stdout.
@@ -25,6 +28,7 @@ ROOT = Path(__file__).parent.parent
 PERSONALITIES_DIR = ROOT / "tools" / "personalities"
 WORKSPACE_DIR = ROOT / "workspace"
 NEXT_MD = ROOT / "tasks" / "NEXT.md"
+DOMAINS_DIR = ROOT / "domains"
 
 # Default council composition for repair tasks
 DEFAULT_REPAIR_ROLES = ["skeptic", "adversary", "synthesizer", "council-expert"]
@@ -49,6 +53,139 @@ def load_personality(role: str) -> str:
     if not fname.exists():
         return f"[personality file {role}.md not found — using heuristic prompt only]"
     lines = fname.read_text().splitlines()[:30]
+    return "\n".join(lines)
+
+
+def load_domain_context(domain: str) -> dict:
+    """Load domain-specific context: DOMAIN.md vocab + top frontier question."""
+    domain_path = DOMAINS_DIR / domain
+    ctx = {"domain": domain, "vocab": "", "top_frontier": "", "iso_links": []}
+
+    domain_md = domain_path / "DOMAIN.md"
+    if domain_md.exists():
+        text = domain_md.read_text()
+        lines = text.splitlines()
+        # Extract isomorphism vocabulary section (accept → lines or ISO-N lines)
+        in_iso = False
+        vocab_lines = []
+        for line in lines:
+            if re.search(r"isomorphism|vocabulary", line, re.IGNORECASE):
+                in_iso = True
+            if in_iso and (line.strip().startswith("→") or re.match(r"ISO-\d+", line.strip())):
+                vocab_lines.append(line.strip())
+            if in_iso and len(vocab_lines) >= 5:
+                break
+        ctx["vocab"] = "\n".join(vocab_lines) or "[no isomorphism vocab — enrich DOMAIN.md]"
+        # ISO references
+        ctx["iso_links"] = list(set(re.findall(r"ISO-\d+", text)))[:5]
+
+    frontier_md = domain_path / "tasks" / "FRONTIER.md"
+    if frontier_md.exists():
+        content = frontier_md.read_text()
+        m = re.search(r"\*\*(F[^\*]+)\*\*[:\s]+(.*)", content)
+        if m:
+            ctx["top_frontier"] = f"{m.group(1)}: {m.group(2)[:120].strip()}"
+
+    return ctx
+
+
+def domain_deliberate(domains: list[str], question: str) -> dict:
+    """Run Mode A domain deliberation — each domain provides expert perspective."""
+    deliberation = {
+        "mode": "domain",
+        "question": question,
+        "domains": domains,
+        "timestamp": datetime.now().isoformat(),
+        "domain_perspectives": {},
+        "cross_domain_patterns": [],
+        "action_memo": [],
+    }
+
+    domain_contexts = [load_domain_context(d) for d in domains]
+
+    for ctx in domain_contexts:
+        vocab_note = ctx["vocab"] or "[no vocab]"
+        frontier_note = ctx["top_frontier"] or "[no open frontier]"
+        iso_note = ", ".join(ctx["iso_links"]) or "none"
+        deliberation["domain_perspectives"][ctx["domain"]] = {
+            "question_applied": question,
+            "top_frontier": frontier_note,
+            "isomorphism_vocab": vocab_note,
+            "iso_links": iso_note,
+            "contribution": f"{ctx['domain']} perspective: applies {iso_note} lenses to '{question[:60]}'",
+        }
+
+    # Cross-domain pattern detection: shared ISO references
+    all_iso = []
+    for ctx in domain_contexts:
+        all_iso.extend(ctx["iso_links"])
+    shared = [iso for iso in set(all_iso) if all_iso.count(iso) > 1]
+    if shared:
+        deliberation["cross_domain_patterns"].append(
+            f"Shared ISO patterns across domains: {', '.join(sorted(shared))} — structural convergence point"
+        )
+    else:
+        deliberation["cross_domain_patterns"].append(
+            "No shared ISO patterns found — domains are orthogonal on this question"
+        )
+
+    # Synthesize open frontiers relevant to the question
+    frontier_count = sum(1 for ctx in domain_contexts if ctx["top_frontier"])
+    deliberation["cross_domain_patterns"].append(
+        f"{frontier_count}/{len(domains)} domains have open frontiers relevant to question"
+    )
+
+    deliberation["action_memo"] = [
+        {
+            "rank": 1,
+            "action": f"Open DOMEX lane for highest-score vacant domain addressing: {question[:60]}",
+            "owner": "current-node",
+            "tool": "python3 tools/gather_council.py --session <SN>",
+        },
+        {
+            "rank": 2,
+            "action": "Run dream.py to find resonances between domain DOMAIN.md files and principles",
+            "owner": "current-node",
+            "tool": "python3 tools/dream.py",
+        },
+        {
+            "rank": 3,
+            "action": f"Cross-link findings: write synthesis lesson citing 1 lesson per domain above",
+            "owner": "current-node",
+            "tool": "Write L-N.md with Links: to domain representative lessons",
+        },
+    ]
+
+    return deliberation
+
+
+def render_domain_memo(d: dict) -> str:
+    """Render domain deliberation as council memo."""
+    lines = [
+        "# Swarm Council Domain Memo (Mode A)",
+        f"**Question**: {d['question']}",
+        f"**Domains**: {', '.join(d['domains'])}",
+        f"**Timestamp**: {d['timestamp']}",
+        "",
+        "## Domain Perspectives",
+    ]
+    for domain, p in d["domain_perspectives"].items():
+        lines.append(f"### {domain}")
+        lines.append(f"- **Top frontier**: {p['top_frontier']}")
+        lines.append(f"- **ISO links**: {p['iso_links']}")
+        lines.append(f"- **Isomorphism vocab**: {p['isomorphism_vocab'][:200]}")
+        lines.append("")
+
+    lines.append("## Cross-Domain Patterns")
+    for pat in d["cross_domain_patterns"]:
+        lines.append(f"- {pat}")
+
+    lines.append("")
+    lines.append("## Action Memo")
+    for item in d["action_memo"]:
+        lines.append(f"{item['rank']}. **{item['action']}**")
+        lines.append(f"   Tool: `{item['tool']}`")
+
     return "\n".join(lines)
 
 
@@ -213,6 +350,9 @@ def main() -> None:
     parser.add_argument("--list-roles", action="store_true", help="List available roles and exit")
     parser.add_argument("--last", action="store_true", help="Show most recent council output")
     parser.add_argument("--json", action="store_true", help="Output raw JSON instead of memo")
+    # Mode A — Domain deliberation (COUNCIL-STRUCTURE.md)
+    parser.add_argument("--domains", help="Comma-separated domain names for Mode A deliberation")
+    parser.add_argument("--question", help="Cross-domain question for Mode A deliberation")
     args = parser.parse_args()
 
     if args.list_roles:
@@ -221,6 +361,23 @@ def main() -> None:
 
     if args.last:
         show_last()
+        return
+
+    # Mode A: domain deliberation
+    if args.domains:
+        domains = [d.strip() for d in args.domains.split(",")]
+        question = args.question or "What cross-domain patterns apply to swarm coordination?"
+        deliberation = domain_deliberate(domains, question)
+        WORKSPACE_DIR.mkdir(exist_ok=True)
+        ts = datetime.now().strftime("%Y%m%d-%H%M%S")
+        out_path = WORKSPACE_DIR / f"COUNCIL-DOMAIN-{ts}.md"
+        if args.json:
+            output = json.dumps(deliberation, indent=2)
+        else:
+            output = render_domain_memo(deliberation)
+        out_path.write_text(output)
+        print(output)
+        print(f"\n[Saved to {out_path}]")
         return
 
     if not args.target:
