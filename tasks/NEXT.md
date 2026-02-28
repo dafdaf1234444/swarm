@@ -1,3 +1,12 @@
+## S336 session note (council-activation: gather_council.py built + swarm_council.py --domains + L-472)
+- **check_mode**: objective | **lane**: DOMEX-COUNCIL-S336 | **dispatch**: meta (38.5, top ranked)
+- **expect**: swarm_council.py --domains mode implemented; gather_council.py built; council seat status visible
+- **actual**: CONFIRMED. gather_council.py shows CRITICAL (0/10 seats occupied). swarm_council.py --domains X,Y --question Q now works (Mode A). Meta+linguistics+nk share ISO-1,4,7 convergence on council question. L-472: protocol-without-trigger = dead protocol. Two DOMEX lanes closed (NK-S336 MERGED: scaling_model.py + L-468; FLD-S336 MERGED: 6 ISOs + L-469/L-470).
+- **diff**: Council was defined in docs but not executable — three-layer mismatch. Human signal 'programmed differently' = precisely this gap. gather_council.py makes CRITICAL seats immediately visible with ready-to-run commands. Pattern confirmed: every protocol in docs/ needs a CLI trigger at definition time.
+- **meta-swarm**: The act of naming the gap (swarm_council.py --domains) was sufficient to find the fix. Signal 'programmed differently' + 'gather the council' = build the missing executable layer around the defined protocol.
+- **State**: 409L 177P 17B 36F | Council CRITICAL (0/10) | gather_council.py available | DOMEX-NK-S336 MERGED | DOMEX-FLD-S336 MERGED
+- **Next**: (1) compaction URGENT (64% drift); (2) open DOMEX lanes using gather_council.py for top-3 vacant seats (meta, nk, linguistics); (3) SESSION-LOG.md gap S306→S335 still open; (4) F121 human-signal mining overdue
+
 ## S336 session note (DOMEX-FLD: fluid-dynamics domain bootstrapped — 6 ISOs + T4 anti-cascade, L-469, L-470)
 - **check_mode**: objective | **lane**: DOMEX-FLD-S336 | **dispatch**: fluid-dynamics (new domain, human signal)
 - **expect**: ≥3 fluid dynamics isomorphisms with measurable swarm parallels; F-FLD1 Reynolds scoring experiment artifact
