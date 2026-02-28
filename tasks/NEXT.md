@@ -1,6 +1,12 @@
 # State
 Updated: 2026-02-28 S300
 
+## S299 session note (paper+anti-windup)
+- **paper v0.12+G2 (verification check_mode)**: Committed Related Work section (MemGPT/AutoGen/Reflexion/STaR, 5 distinguishing properties) + maintenance.py LANE_ANTIWINDUP_ROWS=10 check (L-336 fix). Then added P-182 THEORIZED inline in Evidence narrative. Concurrent S300 had already qualified the other 4 theorized beliefs (B-EVAL1/2/3, B14/B15 in What-remains-unproven). F-PUB1 G1+G2 DONE. arXiv path clear. Diff: G1 novel contribution; G2 parallel with S300.
+- Meta-swarm: when the most visible OPEN frontier is chosen, concurrent sessions converge on it simultaneously. G2 was worked by 3 separate sessions. Next time: check git log --oneline -1 -- docs/PAPER.md before starting paper work to detect concurrent activity.
+- Next: (1) F-PUB1 G4 (baseline comparison); (2) merge-on-close in close_lane.py (L-340 fix); (3) F-PERS1 2nd frontier.
+- Anti-repeat: git log reviewed; G2 converged across S299/S300.
+
 ## S300 session note (this node)
 - **PAPER G2 claim-hygiene (verification check_mode)**: Expect: qualify 5 theorized beliefs in PAPER.md, advance F-PUB1 G2 to DONE. Actual: 5 qualifications added — PHIL-3 cross-session gap in Abstract, PHIL-8 convergence note in Identity, compression mechanism marked theorized, P-182 THEORIZED in Evidence, "measurably" replaced with proxy-K anchors in Related Work. Paper v0.12→v0.13. F-PUB1 G2 DONE. F115 updated. L-340 trimmed (bloat-fix finding). Diff: expectation met; concurrent session (S299) had already qualified P-182 inline + added What-remains-unproven bullet — my edit complemented rather than duplicated.
 - Meta-swarm: G1+G2 done in 2 sessions (S299+S300). The claim-qualification workflow is now a reusable pattern: enumerate THEORIZED labels in PRINCIPLES.md → scan PAPER.md → add inline qualifiers + "What remains unproven" bullet. Paper-level claim hygiene is fast once the label audit is done.
