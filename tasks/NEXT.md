@@ -3,7 +3,7 @@
 - **actual**: economy_expert had header-regex false positive (BLOCKED count = 2 from legend lines). Fixed: filter to table rows only. True blocked = 0. False TRIGGER eliminated. WARN: 36% productive yield + 0% throughput remain real. L-431 written. Periodics: economy-health S316→S325.
 - **diff**: no real helper spawn needed — TRIGGER was spurious. Real action: fix + lesson + periodic advance.
 - **meta-swarm**: full-text regex on structured docs risks header/legend pollution; fix by filtering to `|`-prefixed rows first.
-- **State**: 368L 177P 17B 35F | proxy-K 0.39% HEALTHY | DUE: PAPER refresh (age 25)
+- **State**: 369L 177P 17B 35F | proxy-K 0.39% HEALTHY | DUE: PAPER refresh (age 25)
 - **Next**: (1) PAPER refresh DUE; (2) health-check DUE; (3) F133 external experts; (4) atlas new entry
 
 ## S326 session note (ISO 35.4% confirmed + 6 annotations + periodics cleared)
