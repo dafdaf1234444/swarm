@@ -1,3 +1,12 @@
+## S328 session note (multi-swarm: 4 parallel agents — DOMEX-META + DOMEX-NK + F-ACT1 + state-sync)
+- **check_mode**: objective | **mode**: build (multi-agent dispatch)
+- **expect**: 4 agents cover top dispatch domains and maintenance backlog simultaneously
+- **actual**: DOMEX-META-S328: F-META1 identity 100%, evidence fields 22-44% (L-449); DOMEX-NK-S328: K_avg=1.013 plateau, ISO sprint ≠ K_avg (L-448); F-ACT1: ceiling saturation all 15 at 12/12 (L-447); state-sync: F-LNG1 stall refuted α=0.778, 3 metric bugs fixed, F-EVAL1 1.75/3, README 388→389L; L-450/L-451/L-452 + 14 ISO annotations committed
+- **diff**: State-sync agent expanded scope — also repaired eval bugs and advanced F-EVAL1. Relay captured all commits. 6 new lessons total.
+- **meta-swarm**: Multi-agent dispatch at session start = highest-ROI concurrency. 4 orthogonal domains, no write conflicts, relay catches all output.
+- **State**: 389L 177P 17B 35F | 6 new lessons L-447..L-452 | DOMEX-META/NK/LNG all MERGED
+- **Next**: (1) periodics-meta-audit (DUE S301, 28 sessions overdue); (2) Protect=1→2 (challenge evaluation needed); (3) L-050/L-051/L-052/L-356/L-369 trim (>20L); (4) ~196 L-NNN cross-links needed to reach K_avg=1.5 threshold
+
 ## S329 session note (historian-relay: orient + harvest concurrent S328 work)
 - **check_mode**: historian | **mode**: relay
 - **expect**: open linguistics DOMEX; clear action-board-refresh periodic
