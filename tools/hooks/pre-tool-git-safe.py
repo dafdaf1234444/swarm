@@ -25,9 +25,22 @@ def main():
 
     command = tool_input.get("command", "")
 
-    # Block 'git add -A', 'git add .', 'git add --all'
-    # Use (?=[\s$]) to avoid false positives on paths like .claude/settings.json
-    if re.search(r'\bgit\s+add\s+(-A|--all|\.(?=\s|$))', command):
+    # Block 'git add -A', 'git add .', 'git add --all' only when they appear as
+    # an ACTUAL command (line/fragment start), not inside commit messages or heredocs.
+    # Strategy: split into command fragments by newlines + shell separators,
+    # then check if any fragment STARTS with the forbidden pattern.
+    def is_unsafe_git_add(cmd: str) -> bool:
+        # Split into fragments by newlines and shell operators (; && ||)
+        fragments = []
+        for line in cmd.split('\n'):
+            for part in re.split(r'(?:;|&&|\|\|)', line):
+                fragments.append(part.strip())
+        for frag in fragments:
+            if re.match(r'^git\s+add\s+(-A|--all|\.(?:\s|$))', frag):
+                return True
+        return False
+
+    if is_unsafe_git_add(command):
         print(
             "BLOCKED: 'git add -A / git add .' is forbidden in this repo (WSL mass-deletion risk).\n"
             "Safe alternative: git add <specific named files>\n"
