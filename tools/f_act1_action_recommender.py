@@ -140,21 +140,29 @@ def _open_frontiers() -> list[dict]:
     if not FRONTIER_MD.exists():
         return []
     text = FRONTIER_MD.read_text(errors="replace")
+    open_text = text.split("## Archive", 1)[0]
+    current_session = _current_session()
     frontiers = []
-    for m in re.finditer(r"^- \*\*([^*]+)\*\*[:\s](.+?)(?=\n- \*\*|\Z)", text, re.MULTILINE | re.DOTALL):
+    for m in re.finditer(r"^- \*\*([^*]+)\*\*[:\s](.+?)(?=\n- \*\*|\Z)", open_text, re.MULTILINE | re.DOTALL):
         fid = m.group(1).strip()
         desc = m.group(2).strip().replace("\n", " ")[:120]
         # crude importance: critical > important > exploratory
         importance = 0
         pos = m.start()
-        section_text = text[:pos]
+        section_text = open_text[:pos]
         if "## Critical" in section_text:
             importance = 3
         elif "## Important" in section_text:
             importance = 2
         else:
             importance = 1
-        frontiers.append({"id": fid, "desc": desc, "importance": importance})
+        # anxiety zone: last session mention >15 sessions ago → needs multi-expert
+        body = m.group(2)
+        s_nums = [int(x) for x in re.findall(r"\bS(\d+)\b", body)]
+        last_active = max(s_nums) if s_nums else 0
+        anxiety = last_active > 0 and (current_session - last_active) > 15
+        frontiers.append({"id": fid, "desc": desc, "importance": importance,
+                          "anxiety": anxiety, "last_active": last_active})
     return frontiers
 
 
@@ -288,15 +296,18 @@ def build_actions(top_n: int = 15) -> list[Action]:
         cov = _coverage_score(active_lanes, fid, fid.lower())
         if cov < 2:
             continue  # already covered
+        # anxiety zones get U=3 (multi-expert urgency); others: critical=U2, important=U1
+        u = 3 if f.get("anxiety") else (f["importance"] - 1)
+        anxiety_tag = ["anxiety-zone"] if f.get("anxiety") else []
         actions.append(Action(
             id=f"frontier-{fid}",
-            title=f"Advance frontier {fid}",
+            title=f"Advance frontier {fid}" + (" [ANXIETY ZONE]" if f.get("anxiety") else ""),
             reason=f["desc"],
-            u=f["importance"] - 1,
+            u=u,
             c=cov,
             i=f["importance"],
             n=_novelty_score(fid, recent_log),
-            tags=["frontier"]
+            tags=["frontier"] + anxiety_tag
         ))
 
     # 6. Stale lane cleanup (>36 stale is a known maintenance issue)
