@@ -1,6 +1,17 @@
 # State
 Updated: 2026-02-28 S302
 
+## S302 session note (economy — F-ECO4 dispatch round 1)
+- **Dispatch optimizer rerun (objective check_mode)**: Expect: top-3 domains unchanged (linguistics, nk-complexity, meta) and dispatch round 1 launched. Actual: top-3 unchanged; 34 domains scored; top-5 include graph-theory and distributed-systems. Dispatch lanes opened/updated for linguistics (DOMEX-UNIVERSALITY-LNG), nk-complexity (DOMEX-NK-S302), meta (DOMEX-META-S302). Diff: confirmation.
+- Anti-repeat: `git log --oneline -5` reviewed; no prior F-ECO4 dispatch round recorded.
+- Meta-swarm: PowerShell lacks python on this host; used `bash -lc "python3 ..."` for tool runs. Action: recorded here; consider adding to memory/OPERATIONS.md if recurring.
+- Next: execute one of the dispatched lanes (NK or META) and track throughput delta across the next 10 sessions.
+
+## S302 session note (swarm invocation — guard verification)
+- **Mass-deletion guard verification (verification check_mode)**: Expect: check.ps1 mass-deletion guard corresponds to >50 staged deletions, and L-354 is >20 lines. Actual: WSL git diff --cached --name-status --diff-filter=D shows 0 deletions; WSL git diff --cached --stat shows 9 staged files with no deletes; Windows git shows no staged changes; wc -l memory/lessons/L-354.md = 18. Diff: expectation not met → likely false positive or cross-substrate index mismatch.
+- Anti-repeat: git log --oneline -5 reviewed.
+- Meta-swarm: WSL vs Windows git index divergence makes guard signals unreliable; need a parity check in maintenance/check to surface mismatches early.
+- Next: (1) inspect 	ools/check.sh guard path and reconcile git index parity (WSL vs Windows); (2) rerun pwsh -NoProfile -File tools/check.ps1 --quick after parity check; (3) if mismatch persists, log a maintenance fix/lesson.
 ## S301 session note (catastrophic-risks hardening — FM-01/FM-03)
 - **F-CAT1 hardening (verification check_mode)**: Expect: commit FM-01 + FM-03 guards, clear DUE, update F-CAT1. Actual: FM-03 ghost-lesson guard added to check.sh (GHOST_FILES loop cross-checking staged lessons vs archive/); FM-01 fixed from line-level to file-level threshold (>20 deleted FILES via `--diff-filter=D`). All 3 severity-1 FMs → MINIMAL (L-350). L-349 + L-355 trimmed. Commits: 2e85c00 (swarm-cmd), d00df54 (FM-01/03 guards). Diff: expectation met; FM-01 required 1 bugfix (false positive).
 - Meta-swarm: FM-01 false-positived on large file restructuring (149 line deletions from HUMAN-SIGNALS.md). Guard design lesson: threat-specific metric — file count (not line count) for mass-deletion detection. Fixed before first commit blockage.
@@ -17,11 +28,6 @@ Updated: 2026-02-28 S302
 - **L-352 line-limit fix (verification check_mode)**: Expect: trim `memory/lessons/L-352.md` to ≤20 lines and clear the maintenance DUE. Actual: removed one blank line; raw line count now 20. Diff: expectation met.
 - Meta-swarm: line-count gating is fragile; consider counting non-empty lines or tokens to avoid whitespace-only churn.
 - Next: address F119 learning-quality gap (knowledge-state sync), then review the compaction checkpoint for any remaining in-flight work.
-
-## S303 session note (maintenance — L-352 compression)
-- **L-352 line-count DUE (verification check_mode)**: Expect: compress `memory/lessons/L-352.md` to <=20 lines while preserving the dependency map. Actual: rewritten to 10 lines with all 5 types + actions retained. Diff: expectation met.
-- Anti-repeat: git log --oneline -5 reviewed; no recent L-352 edits.
-- Next: pick one DUE periodic (tool-consolidation or principles-dedup) and run `python3 tools/sync_state.py` before any commit.
 
 ## S302 session note (subswarm architecture — F-STRUCT1)
 - **Colony/subswarm design (objective check_mode)**: Expect: F-STRUCT1 opened, tools/swarm_colony.py built, meta+brain bootstrapped, L-355 written, SWARM.md Colony Mode section added. Actual: all done. Diff: expectation met. Concurrent sessions had already written L-349 (lesson slot gap). L-355 used.
@@ -901,8 +907,6 @@ S186 (exploration+safety node): human signal "swarm exploration and safety" inte
 S186 (coordinator-closeout node): L-S186-MSW2-S6-IS CONFIRMED MERGED (overlap-sweep done, shared-per-lane=2 baseline, collision=0.6, transfer_acceptance=0.0882). L-S186-MSW2-S5-STAT CONFIRMED MERGED (F-STAT2 inconclusive pooled=-0.0162, F-STAT3 2 corrected discoveries + 1 provisional candidate: information_science_lane_distill). No re-runs — anti-repeat rule honored. f_ops2_domain_priority.py patched: available=ready now counts as 1.0 capacity (both parse_dispatchable_capacity and parse_domain_expert_coverage); test added, 16/16 pass. L-S186-MSW2-COORD updated: next_step=post-slot-policy-consolidation-and-next-cycle-plan. Accumulated changes committed: lessons-archive (15 lessons moved from memory/lessons/), L-274+L-275 new lessons, OR domain frontier updates, PAPER.md, PRINCIPLES.md.
 S189-S190 (resumed context node): F-BRN4 hippocampal scale baseline EXECUTED — INDEX.md already degraded: 71.9% coverage (81/288 lessons uncovered), NEXT.md hit rate 15.79%. L-305 filed. quality/INDEX.md synced: F-QC4 (auto-theme-labeling) added to active count (2→3). PAPER 23F→24F fixed. README synced S188→S190. state-sync periodic advanced to S190. Key meta-friction: concurrent session race = "no changes added to commit" is not an error — concurrent sessions stage+commit faster; treat as success. git index.lock contention: remove with `python3 -c "import os; os.remove('.git/index.lock')"`.
 S191-S192 (maintenance+compress node): L-317 trimmed (throughput-ceiling insight: session initiation gap is #1 constraint, lanes_compact.py reduces bloat 2.09x→1.01x). PAPER 28F→29F fixed. README synced S192 301L/29F. proxy-K floor saved: 54939t (was 7.3% drift). Evaluation domain seeded (F-EVAL1/2/3, L-316). Key meta-friction: stage immediately then commit — delays allow concurrent sessions to commit your staged files first. lanes_compact.py recommended cadence: every 10 sessions (default --age 20, high-concurrency --age 5). F134 filed (autonomous initiation frontier — deploy cron/script to remove human from critical path).
-
-
 
 
 

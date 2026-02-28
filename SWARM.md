@@ -62,6 +62,25 @@ Every agent should proactively inform the swarm while working, not only at hando
 - If work decomposes, assign slot-by-slot (distinct lane IDs + distinct scope keys), then fan out in parallel.
 - Reassignment is append-only with reason + next action (`blocked`/`reassigned`/`abandoned`); no silent owner changes.
 
+
+## Colony Mode (domain subswarms)
+A colony = a domain promoted to a self-directing swarm unit with its own orient→act→compress→handoff cycle.
+Colonies sow their own beliefs, maintain colony-scoped coordination, and can spawn sub-colonies (recursive).
+Distinct from DOMEX lanes (per-session dispatch) — colonies are persistent across sessions.
+
+Colony files:
+- `domains/<domain>/COLONY.md` — identity, mission, colony beliefs, state, handoff notes
+- `domains/<domain>/tasks/LANES.md` — colony-scoped coordination rows
+
+If you are in a colony:
+1. Orient: COLONY.md → FRONTIER.md → INDEX.md (instead of global files)
+2. Act within colony scope; escalate cross-domain findings to global `tasks/FRONTIER.md`
+3. Compress: update COLONY.md State + Handoff notes each session
+4. Tool: `python3 tools/swarm_colony.py orient <domain>`
+
+Bootstrap a colony: `python3 tools/swarm_colony.py bootstrap <domain>`
+Colony fitness rule: promote when domain has ≥3 open frontiers OR ≥2 active DOMEX lanes.
+
 ## Human Kill Protocol
 Human can stop swarm immediately with kill-switch state.
 - Canonical state file: `tasks/KILL-SWITCH.md`
