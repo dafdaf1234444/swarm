@@ -74,6 +74,7 @@ LANE_ACTIVE_STATUSES = {"CLAIMED", "ACTIVE", "BLOCKED", "READY"}
 LANE_PLACEHOLDERS = {"", "-", "n/a", "na", "none", "pending", "tbd", "unknown"}
 LANE_STALE_NOTICE_SESSIONS = 1
 LANE_STALE_DUE_SESSIONS = 3
+LANE_ANTIWINDUP_ROWS = 10
 LANE_REPORT_KEYS = ("capabilities", "intent", "progress", "available", "blocked", "next_step", "human_open_item")
 DOMAIN_SYNC_ALLOWED_VALUES = {"queued", "syncing", "synced", "stale", "n/a", "na"}
 LANE_AVAILABLE_ALLOWED_VALUES = {"yes", "no", "partial"}
@@ -710,6 +711,21 @@ def check_swarm_lanes() -> list[tuple[str, str]]:
         results.append(("DUE", f"{len(stale_due)} active lane(s) stale >{LANE_STALE_DUE_SESSIONS} sessions: {_truncated(stale_due, 5)}"))
     if stale_notice:
         results.append(("NOTICE", f"{len(stale_notice)} active lane(s) stale >{LANE_STALE_NOTICE_SESSIONS} sessions: {_truncated(stale_notice, 5)}"))
+
+    # Anti-windup: active lanes that have been re-queued >= LANE_ANTIWINDUP_ROWS times
+    row_counts: dict[str, int] = {}
+    for row in rows:
+        lane = row.get("lane", "").strip()
+        if lane:
+            row_counts[lane] = row_counts.get(lane, 0) + 1
+    antiwindup: list[str] = []
+    for row in active:
+        lane = row.get("lane", "").strip() or "<unknown>"
+        count = row_counts.get(lane, 0)
+        if count >= LANE_ANTIWINDUP_ROWS:
+            antiwindup.append(f"{lane}({count}rows)")
+    if antiwindup:
+        results.append(("NOTICE", f"{len(antiwindup)} active lane(s) with >={LANE_ANTIWINDUP_ROWS} total rows (anti-windup, consider ABANDONED): {_truncated(antiwindup, 5)}"))
 
     missing_meta: list[str] = []
     for row in sorted(active, key=lambda item: item.get("lane", "")):
