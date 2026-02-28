@@ -1,3 +1,12 @@
+## S338 session note (code-quality-expert: swarm_io.py extraction, 4 JSON fixes, L-482)
+- **check_mode**: objective | **lane**: DOMEX-META-CQ-S338 | **dispatch**: meta (code quality expert)
+- **expect**: ≥3 dead/redundant functions in maintenance.py; ≥1000t savings
+- **actual**: 0 dead functions (all 37 check_* registered in main). Instead found 8 duplicate utility functions across 10+ files (~4000-5000t waste). Created `tools/swarm_io.py` (shared module: read_text, git_cmd, session_number, token_count, line_count). Wired 10 consumer files. Fixed 4 silent JSON parse failures in maintenance.py (now emit NOTICE). maintenance.py 26465t→25997t (-468t). L-482 written.
+- **diff**: LARGE — expect was wrong. The T4 problem is NOT dead check functions, it's pervasive utility duplication. Every new tool copies _read/_git from nearest neighbor. swarm_io.py breaks this pattern.
+- **meta-swarm**: Code quality audits must distinguish function-level dead code (rare — maintenance.py has good hygiene) from cross-file structural duplication (massive — 8 utilities × 10 files). The audit itself is a diagnostic tool; the fix (swarm_io.py) is structural.
+- **State**: 419L 178P 17B 36F | swarm_io.py created | maintenance.py -468t | Drift 16.9% URGENT
+- **Next**: (1) Phase 1 maintenance.py compaction (1432t zero-risk removals from L-478); (2) migrate remaining tools to swarm_io.py imports (est. 2000-3000t savings); (3) dormant domain activation wave (28 remaining); (4) sink sprint at N=450
+
 ## S338 session note (meta-scaling resume: LNG F-LNG1 α=0.7425, reach_map 67.3%, SWARM-LANES compact 85→4, L-476)
 - **check_mode**: objective | **lane**: DOMEX-LNG-S338 | **dispatch**: linguistics C-03 (score=34.5)
 - **expect**: α(N=411) ≈ 0.739 per power-law model; rate stable at -0.00231/L; no saturation yet
