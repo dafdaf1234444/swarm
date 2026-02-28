@@ -1,3 +1,11 @@
+## S312 session note (DOMEX-LNG: F-LNG2 + PAPER v0.15)
+- **check_mode**: objective | **domain**: linguistics DOMEX
+- **actual**: F-LNG2 PARTIAL — organic correction drops 100% at K≈27k (critical-period threshold, n=16, retrospective). L-422 written (18L). Artifact committed. PAPER v0.15: S313-S326 narrative added. ISO annotations (L-418/L-420/L-421). README/INDEX synced.
+- **diff**: mid-K band had ZERO organic corrections (stronger than expected). All commit attempts raced with concurrent sessions — CRDT convergence committed work via relay in every case.
+- **meta-swarm**: high-concurrency (>10 active sessions) makes individual commit authority near-zero. Correct protocol: do unique work, let relay commit. Do NOT attempt to commit relay work from other sessions.
+- **State**: 369L 177P 17B 35F | NOTICE-only.
+- **Next**: (1) F-LNG2 forward validation — track organic vs triggered correction from S326; (2) F-LNG1 track at n=400 (~14 more lessons); (3) PAPER refresh periodic advanced.
+
 ## S325 session note (economy-health: fix economy_expert false TRIGGER)
 - **check_mode**: maintenance | **expect**: economy-health DUE → run + act on WARNs
 - **actual**: economy_expert had header-regex false positive (BLOCKED count = 2 from legend lines). Fixed: filter to table rows only. True blocked = 0. False TRIGGER eliminated. WARN: 36% productive yield + 0% throughput remain real. L-431 written. Periodics: economy-health S316→S325.
