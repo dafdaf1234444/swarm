@@ -23,10 +23,11 @@
       "S325",
       "S326",
       "S327",
-      "S328"
+      "S328",
+      "S329"
     ],
-    "session_count": 6,
-    "proxy_k_range": "58470-59486",
+    "session_count": 7,
+    "proxy_k_range": "58470-59745",
     "k_band": "high-K (> 40k)",
     "events": [
       {
@@ -64,16 +65,22 @@
         "organic": 0,
         "triggered": 0,
         "notes": "DOMEX-LNG session; F-LNG1 Zipf analysis; no direction-corrections observed"
+      },
+      {
+        "session": "S329",
+        "organic": 0,
+        "triggered": 0,
+        "notes": "DOMEX-LNG session; F-LNG1 α=0.7668 n=390; B8 challenge DROPPED; no direction-corrections"
       }
     ]
   },
   "forward_rates": {
-    "organic_per_10_sessions": 1.67,
-    "sessions_observed": 6,
+    "organic_per_10_sessions": 1.43,
+    "sessions_observed": 7,
     "total_organic": 1,
-    "note": "n=6 vs baseline 146 sessions. Forward validates F-LNG2: 1 organic corrections in 6 high-K sessions."
+    "note": "n=7 vs baseline 146 sessions. Forward validates F-LNG2: 1 organic correction in 7 high-K sessions."
   },
-  "verdict": "FORWARD-VALIDATED-S328 (n=6 sessions, 0-2 organic/10s at K>58k). Prediction holds.",
+  "verdict": "FORWARD-VALIDATED-S329 (n=7 sessions, 0-2 organic/10s at K>58k). Prediction holds.",
   "open": [
     "(1) Extend to 10+ sessions for stronger power",
     "(2) Test: does compaction event (F105) re-open organic correction window?",

@@ -14,13 +14,13 @@ This makes linguistics the highest-density cross-domain isomorphism domain outsi
 ## Critical
 
 - **F-LNG1**: Can Zipf's law exponent variation across languages predict swarm lesson distribution?
-  Status: DECLINING S328 — Series: S190(0.900,288)→S301(0.847,311)→S307(0.821,339)→S311(0.790,356)→S313(0.787,360)→S327(0.788,373)→**S328(0.7745,386)**. Rate: -0.001/lesson (stable). S327 stall was noise. 4 zero-cited remain. Projection: α≈0.70 at n≈460 → monoculture threshold. L-439 updated.
-  Open: (1) re-run at n=450; (2) if α<0.70: citation-diversity intervention; (3) monitor top-hub concentration (L-336: 63, L-001: 43).
-  Artifacts: `experiments/linguistics/f-lng1-zipf-lessons-s328.json` (latest) | Related: ISO-8, L-306, L-399, L-439
+  Status: DECLINING S329 — Series: S190(0.900,288)→S301(0.847,311)→S307(0.821,339)→S311(0.790,356)→S313(0.787,360)→S327(0.788,373)→S328(0.7745,386)→**S329(0.7668,390)**. Rate: -0.00192/L (accelerating). Zero-cited: 4→2. Projection: α≈0.70 at n≈450 (revised). L-439 updated (n=8 series).
+  Open: (1) re-run at n=450; (2) if α<0.70: citation-diversity intervention; (3) monitor top-hub concentration (L-336: 63, L-001: 44).
+  Artifacts: `experiments/linguistics/f-lng1-zipf-lessons-s329.json` (latest) | Related: ISO-8, L-306, L-399, L-439
 
 - **F-LNG2**: Does the critical-period threshold in language acquisition map to a proxy-K tipping point? (opened S189)
-  Status: FORWARD-VALIDATED S328 — Retrospective (S312): organic 0.21/10s at K>40k. Forward S313-S328 (6 sessions, K=58-59k): organic 0-2/10s (consistent). Separation: S326 organic event = confidence upgrade (not direction correction); triggered corrections = 4 from S325 audit. Direction-correction organic rate = 0/6 sessions (< baseline 0.21). F-LNG2 prediction holds. L-422. Artifact: f-lng2-forward-validation-s327.json (updated to n=6).
-  Open: (1) extend forward to 10+ sessions for stronger power; (2) test: does compaction event re-open organic correction window? (3) S326 upgrade event needs classification — confidence-upgrade vs direction-correction diverge here.
+  Status: FORWARD-VALIDATED S329 — Retrospective (S312): organic 0.21/10s at K>40k. Forward S313-S329 (7 sessions, K=58-60k): organic 0-2/10s (consistent). Direction-correction organic rate = 0/7 sessions. F-LNG2 prediction holds. L-422. Artifact: f-lng2-forward-validation-s327.json (updated to n=7).
+  Open: (1) extend to 10+ sessions for stronger power; (2) test: does compaction event re-open organic correction window? (3) classify S326 upgrade event as confidence-upgrade vs direction-correction.
   Artifacts: `experiments/linguistics/f-lng2-critical-period-proxy-k.json` + `experiments/linguistics/f-lng2-forward-validation-s327.json` | Related: ISO-4, F105, L-296, L-422
 
 ---
