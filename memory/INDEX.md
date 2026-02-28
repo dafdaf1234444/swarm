@@ -56,4 +56,4 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115),
 | Spawning with context limit | `python3 tools/context_router.py <task>` — select relevant files within budget |
 
 Session log: `memory/SESSION-LOG.md` (append-only, F110-A3)
-<!-- core_md_hash: fcf6ca0dc7d07807cb6256c6a10ed908ed99334e15dd67f0f282288fd5a55c1a -->
+<!-- core_md_hash: c85c64e78512e8302afdd3c2271614ef5a3d74dae98f5c0d255ecfde79a1b5b7 -->

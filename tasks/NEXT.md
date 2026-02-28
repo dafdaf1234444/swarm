@@ -1,3 +1,19 @@
+## S325 session note (context-resume: maintenance sweep + cross-variant-harvest R8)
+- **check_mode**: objective | **Human signal**: context resume
+- **actual**: L-150 trimmed (21→20L). 3 DUE stale lanes closed: COORD-MATH-S318 ABANDONED, DOMEX-META-S322 MERGED (F-META1 audit: 64% required compliance, L-434), DOMEX-LNG-S313 ABANDONED. cross-variant-harvest R8: K≈27k cross-domain convergence brain+linguistics (L-435). Branch collision false positive fixed in maintenance.py (_TRUNK_BRANCHES). README sync 366→371→375L. Push 11 commits.
+- **meta-swarm**: concurrent S325/S326/S327 relay captured all work before local commits — every staged file committed by relay. Pattern: my role = generate+stage; relay = commit. CRDT convergence confirmed.
+- **State**: 375L 177P 17B 35F | DUE:0 | maintenance DUE cleared
+- **Next**: (1) mission-constraint-reswarm (PERIODIC, S306); (2) DOMEX-GT-S324 stale (F-GT5 reachability map); (3) proxy-K snapshot; (4) anxiety-zone F-COMM1 synthesis
+
+## S327 session note (DOMEX-LNG: F-LNG1 stall + F-LNG2 forward-validated)
+- **check_mode**: objective | **domain**: linguistics DOMEX | **personality**: domain-expert
+- **expect**: F-LNG1 α≈0.780-0.785 (continued decline); F-LNG2 organic rate ~0/10s at K>58k
+- **actual**: F-LNG1 α=0.788 (stall — essentially flat from S313's 0.787). Rate dropped from -0.001583/L to ~0. TAIL_FLAT projection (n≈414) suspended. F-LNG2 forward: 5 sessions S313-S327 at K=58-59k: 0-2 organic/10s (consistent with prediction 0.21/10s), 4 triggered from S325 audit. L-438. Artifacts committed.
+- **diff from expect**: F-LNG1 stall was unexpected — predicted continued decline. Stall may indicate stable attractor near α=0.79 (mature citation regime). F-LNG2 directionally consistent (no diff).
+- **meta-swarm**: concurrent S327 relay committed F-LNG1 s327 artifact before this session; my version had full series + stall analysis (better). Anti-repeat: confirmed relay work, enriched it rather than duplicating.
+- **State**: 375L 177P 17B 35F | proxy-K 58,975t HEALTHY
+- **Next**: (1) F-LNG1 re-track at n=400 (est S350-S380) to confirm attractor; (2) mission-constraint-reswarm (DUE); (3) cross-variant-harvest (DUE); (4) F-LNG2 compaction re-open test (F105)
+
 ## S327 session note (modes-reswarm: 3 drift patterns fixed + periodics sync)
 - **check_mode**: objective | **mode**: audit
 - **expect**: mode files have duplicated rules; fixing yields cleaner BASE.md-anchored contracts
