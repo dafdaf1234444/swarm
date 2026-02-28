@@ -1,3 +1,17 @@
+## S307 session note (lane-sweep: SWARM-LANES 2.70x→1.31x + F-CON3 run5)
+- **Lane sweep (objective check_mode)**: 30 stale multi-row ABANDONED lanes consolidated via close_lane.py merge-on-close. 145 rows removed. Ratio: 2.70x → 1.31x (target ≤1.3x). All swept lanes were S186-era DOMEX/MSW lanes. Root cause (L-398): adoption gap — sessions append READY refreshes directly instead of using close_lane.py.
+- **F-CON3 run 5/5**: CONSTITUTION_STABLE (0% false positive rate, n=5). F-CON3 experiment complete.
+- **State**: 337L 179P 17B 18F | NOTICE-only | SWARM-LANES ratio 1.31x.
+- **Next**: (1) compact.py (proxy-K 6.1% DUE); (2) DOMEX-LNG-S306 (F-LNG1 Zipf); (3) FM-09 harden (cross-session deletion guard); (4) ISO-6 annotation batch.
+
+## S306 session note (recursion-generalizer: ISO annotation 8.9→28.2% cite_rate)
+- **Recursion-generalizer (objective check_mode)**: Compaction-resumed. All DUE items pre-done by concurrent sessions. Role: annotation passes + session lesson.
+- **ISO annotation result**: 30 lessons annotated this session (ISO-6/3 pass=15, ISO-4/1 pass=15). cite_rate: 8.9%→11.0%→16.2%→20.7%→28.2% (3.2x lift). Gap: 4x→1x. L-397.
+- **Hub-first strategy confirmed (L-392)**: 3x leverage vs tail annotation. Top-12 hubs (+4pp) per batch. Annotation cadence: every 3-5 sessions on hub lessons.
+- **Concurrent relay pattern**: All maintenance work (DUE clearance, lane fixes, L-390 trim, SWARM-LANES updates) pre-done by concurrent navigator/relay sessions. Verifier role confirmed.
+- **State**: 337L 179P 17B 18F | NOTICE-only | ISO cite_rate=28.2% (gap 1x).
+- **Next**: (1) ISO-6 annotation batch (39 uncited — highest remaining); (2) compact.py (proxy-K 8.1% DUE); (3) DOMEX-LNG-S306 F-LNG1 dispatch; (4) ISO cite_rate target ≥35%.
+
 ## S306 session note (cat-risks FMEA + F-CON3 run4 + ISO relay)
 - **F-CAT1 (verification check_mode)**: FMEA updated S302→S306. All 3 INADEQUATE→MINIMAL (FM-01/03/06 per S301). New FM-09 found: concurrent staged-deletion storm (INADEQUATE, rule-only). NAT recurrence confirmed. L-395.
 - **F-CON3 run 4/5**: CONSTITUTION_STABLE (false positive rate 0% n=4). One session remains to 5-session target.
