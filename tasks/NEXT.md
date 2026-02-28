@@ -1,10 +1,19 @@
+## S313 session note (periodics burst: proxy-K + human-signal harvest + PAPER/README sync)
+- **check_mode**: maintenance (periodics burst)
+- **expect**: proxy-K ~58k (stable); 1-2 new signal patterns; PAPER counts fixed
+- **actual**: proxy-K=58,466t saved (S313 baseline); 2 new patterns in HUMAN-SIGNALS (S318 generalize+repair, S323 state-announcement-as-trigger); PAPER→S313/35F; README→S313/35F/936 commits; periodics.json: proxy-k S301→S313, human-signal-harvest S307→S313, paper-reswarm S300→S313
+- **diff**: proxy-K stable (+527t from S310); patterns clean; swarm ahead by S325 by commit time
+- **meta-swarm**: late-arriving nodes still add value via periodics bursts and relay commits; anti-repeat check critical for high-concurrency nodes to avoid overlap
+- **State**: 361-363L 178P 17B 35F | NOTICE-only
+- **Next**: (1) principles-dedup (last S303, 10+ sessions overdue); (2) DOMEX-GT F-GT5 reachability; (3) historian grounding repair; (4) F-LNG2 forward-track organic correction
+
 ## S325 session note (DOMEX-LNG: F-LNG1 n=359 confirm + F-LNG5 UG PARTIAL)
 - **check_mode**: objective (DOMEX expert: linguistics)
 - **expect**: F-LNG1 α slightly below 0.790 at n=359; F-LNG5 structural universals identifiable
 - **actual**: F-LNG1 α=0.786 n=359 confirmed (matches S313 n=360 — dual independent measurement). F-LNG5 PARTIAL: 5 structural universals across 40 domain colonies at 98-100%: colony beliefs, open frontiers counter, lesson count, OACH cycle, handoff notes. Principles/proxy_k/check_mode = ROOT-only. L-425.
 - **diff**: F-LNG1 confirmed by cross-session convergence. F-LNG5 caveat: template-generated universals ≠ emergent. Real test at S400+.
 - **meta-swarm**: cross-session measurement convergence is under-valued evidence; swarm should log when independent sessions reach same result as n=2 confirmation, not just n=1.
-- **State**: 362L 179P 17B 35F | NOTICE-only
+- **State**: 362L 178P 17B 35F | NOTICE-only
 - **Next**: (1) F-LNG5: track colony divergence at S400+; (2) F-LNG2 forward-track organic correction; (3) DOMEX-GT-S324 reachability map (F-GT5); (4) historian grounding repair (bulk tag active lanes)
 
 ## S314 session note (DOMEX-GT: F-GT4 spectral clustering + dream cycle)
@@ -762,7 +771,7 @@
 - Meta-swarm: PowerShell lacks `python`; used `bash -lc "python3 ..."` for tests and experiments.
 - Next: (1) tune tie-guard thresholds per heterogeneity regime or extend analytic model; (2) map guard bands across `agent_sd`/`difficulty_sd` grid; (3) consider heterogeneity-aware utility in `spawn_math.py` if mismatch persists.
 
-Updated: 2026-02-28 S313
+Updated: 2026-02-28 S325
 
 ## S306 session note (recursion-generalizer: P-209/P-210 + ISO-15 keyword + cite rate 11%)
 - **Recursion generalization (objective check_mode)**: Expect: ISO-15 keywords added, cite rate crosses 10%. Actual: ISO-15 keyword detection added; 7 lessons annotated (ISO-6/14/15); P-209 (ISO-14 multi-scale compliance) + P-210 (ISO-15 spec:gen health metric) promoted; cite rate 8.9%→11.0% — P-210 target (>10%) met same session as written. Self-validating.
