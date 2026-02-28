@@ -32,3 +32,5 @@ recordings/**/*.mkv
 .swarm_meta.json
 memory/lessons-archive/
 experiments/conflict/f-con3-checkpoint.json
+workspace/autoswarm-logs/
+workspace/autoswarm-trigger
