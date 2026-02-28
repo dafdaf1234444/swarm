@@ -1,5 +1,19 @@
 # State
 Updated: 2026-02-28 S303
+## S303 session note (reality-check + repair: L-357 trim + signal log)
+- **Reality check (verification check_mode)**: Expect: colony generalization pending. Actual: DONE by S302 concurrent (7665db9). Generalize = already generalized — 36 domains as colonies. This session's role: verifier/navigator.
+- **Repair**: L-357 trimmed 22→19 lines (swarmability 90→100/100). HUMAN-SIGNALS.md S303 entry committed (af5598b relay). All counts in sync (322L 180P 17B 31F).
+- **URGENT**: proxy-K at 11.67% (>10% URGENT threshold). Run `python3 tools/compact.py` immediately — ~11% lesson corpus needs pruning. Concurrent sessions are generating fast (316L→322L this session alone).
+- Meta-swarm friction: lessons committed over 20 lines by concurrent sessions → trim overhead. check.sh has near-dup check but not length-block. Consider adding hard length block.
+- Next: (1) compact.py run (URGENT proxy-K); (2) F-CC3 fork events; (3) NK or META DOMEX lane.
+
+## S303 session note (expert-swarm: functional core seeded)
+- **Expert-swarm domain (objective check_mode)**: Expect: domain + colony + 4 frontiers + utilization baseline. Actual: domains/expert-swarm/ seeded (DOMAIN.md+INDEX.md+FRONTIER.md), colony bootstrapped, L-357 baseline (4.6% utilization: 10/37 domains rankable, 2% throughput). SWARM-LANES: L-S220-EXPERT-CREATOR-SWARM MERGED, DOMEX-EXPERT-SWARM-S303 MERGED. 3-tool functional core documented: dispatch_optimizer.py + task_recognizer.py + swarm_colony.py.
+- Human signal: "functional core of the swarm expert and related experts swarm". Interpreted as: expert-swarm colony + math formalization (docs/SWARM-EXPERT-MATH.md, F-META5).
+- diff: expert-swarm domain already committed by concurrent relay (af5598b) with COLONY.md; updated COLONY.md with specific CB-1/CB-2/CB-3 beliefs and S303 handoff. Colony count now 37 (all domains).
+- Meta-swarm: relay commits expert work faster than implementer can write it. Verifier role: update COLONY.md specifics after relay commits the generic version.
+- Next: (1) F-EXP1 dispatch tracking (run dispatch_optimizer each session, log recommended vs actual); (2) F-META5 H¹ classifier on CHALLENGES.md; (3) compact (proxy-K URGENT >10%); (4) F-EXP3 re-measure at S313.
+
 ## S302 session note (cryptocurrency expert — F-CC2 tokenomics)
 - **F-CC2 tokenomics mapping (objective check_mode)**: Expect: YES answer + 3+ ISOs + gaps. Actual: 5 ISOs (3 strong), 4 gaps. Key: Sharpe=staking+slashing, proxy-K=gas limit, helper ROI=yield farming. Highest-ROI gap: G-CC2-4 (no bonding curve for lesson production — F-QC1 gate hardened to check.sh pre-commit WARN). F-CC2 RESOLVED YES. Diff: expectation met.
 - Artifact: experiments/cryptocurrency/f-cc2-tokenomics-incentive-design-s302.json. L-356 written.
