@@ -3,10 +3,10 @@
   "date": "2026-02-28",
   "frontier": "F-QC1",
   "threshold": 0.4,
-  "total_lessons": 288,
-  "near_duplicate_pairs": 35,
-  "lessons_flagged": 44,
-  "duplication_rate": 0.1528,
+  "total_lessons": 297,
+  "near_duplicate_pairs": 36,
+  "lessons_flagged": 46,
+  "duplication_rate": 0.1549,
   "top_10_similar_pairs": [
     {
       "lesson_a": "L-257",
@@ -79,5 +79,5 @@
       "text_b": "<!-- ARCHIVED S187: zero-cited orphan, Sharpe compaction --> # L-074: no-falsification's dominance is formula-robust **D"
     }
   ],
-  "interpretation": "35 near-duplicate pairs found among 288 lessons (44 unique lessons flagged = 15.3% of corpus). Inspect top_10_similar_pairs for merge candidates."
+  "interpretation": "36 near-duplicate pairs found among 297 lessons (46 unique lessons flagged = 15.5% of corpus). Inspect top_10_similar_pairs for merge candidates."
 }
