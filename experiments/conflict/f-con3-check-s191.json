@@ -1,10 +1,10 @@
 {
   "session": "S191",
-  "checked_at": "2026-02-28T01:03:31Z",
+  "checked_at": "2026-02-28T10:24:18Z",
   "checkpoint_session": "S191",
-  "checkpoint_at": "2026-02-28T00:51:11Z",
-  "git_rev_at_save": "b926bc1",
-  "git_rev_at_check": "e3a53e9",
+  "checkpoint_at": "2026-02-28T10:23:40Z",
+  "git_rev_at_save": "0b6d826",
+  "git_rev_at_check": "84f3d95",
   "monitored_files": [
     "CLAUDE.md",
     "beliefs/CORE.md",
@@ -12,7 +12,7 @@
   ],
   "hashes_at_save": {
     "CLAUDE.md": "f9b075503bd89b171a0ef8e79558b0d094adbc3910455aabcda7c78d6599b9ba",
-    "beliefs/CORE.md": "8ea14f55c8283d89a70b8da6f2bb4634db6da1ae3b34293d68a5ab7cdede6ea4",
+    "beliefs/CORE.md": "f6147234438f90fd9c59822f9c557af9a48f3cde3cffbaecb2342a617e6be04a",
     "beliefs/PHILOSOPHY.md": "24b3ca3e42f1e20504c613b6286a14d698f4333f854c9c3ec9d6a836ffad4126"
   },
   "hashes_at_check": {
@@ -20,17 +20,11 @@
     "beliefs/CORE.md": "f6147234438f90fd9c59822f9c557af9a48f3cde3cffbaecb2342a617e6be04a",
     "beliefs/PHILOSOPHY.md": "24b3ca3e42f1e20504c613b6286a14d698f4333f854c9c3ec9d6a836ffad4126"
   },
-  "changes_detected": 1,
-  "changes": [
-    {
-      "file": "beliefs/CORE.md",
-      "old_hash": "8ea14f55c8283d89a70b8da6f2bb4634db6da1ae3b34293d68a5ab7cdede6ea4",
-      "new_hash": "f6147234438f90fd9c59822f9c557af9a48f3cde3cffbaecb2342a617e6be04a"
-    }
-  ],
-  "hash_check_result": "CHANGE",
+  "changes_detected": 0,
+  "changes": [],
+  "hash_check_result": "NO_CHANGE",
   "detection_latency_model": "per-session (--save at start, --check at end)",
   "false_positive_risk": "low \u2014 hash comparison is exact; only structural changes trigger",
   "coverage": "A1 (constitutional mutation) \u2014 complements validate_beliefs.py (A2 semantic drift)",
-  "verdict": "MUTATION_DETECTED"
+  "verdict": "CONSTITUTION_STABLE"
 }

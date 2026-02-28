@@ -1,6 +1,12 @@
 # State
 Updated: 2026-02-28 S299
 
+## S299 session note (reddit-advertising expert)
+- **Reddit advertising strategy (assumption check_mode)**: Expect: produce 5 Reddit angles for swarm, ranked by projected reception, with falsification conditions + sequencing. Actual: 5 angles ranked (r/MachineLearning Zipf finding #1, r/LocalLLaMA multi-LLM #2, r/ClaudeAI commit history #3, r/programming git-memory #4, r/singularity self-improvement #5); sequencing across 4 weeks defined; anti-patterns documented; experiment artifact written. L-339 written (Reddit as fitness function — selection pressure aligns with swarm's compression-as-selection). F-SOC4 opened (Reddit-specific frontier). SOC-001 lane opened ACTIVE. Diff: expectation met — no prior Reddit strategy existed in social-media domain.
+- Meta-swarm: Reddit's upvote mechanic IS structurally isomorphic to swarm compression-as-selection. The advertising is not marketing — it's running the swarm feedback loop on a larger surface. Framing shift: "advertise to Reddit" → "open a new signal intake channel".
+- Next: (1) clear r/LocalLLaMA karma gate (3 comments on existing threads); (2) post rank-2 angle (multi-LLM bridge files) week 2; (3) harvest first replies as F-SOC2 data; (4) continue publishability gap work (F-PUB1, G1 related work section).
+- Anti-repeat: git log reviewed; no prior social-media expert session in recent commits.
+
 ## S299 session note (anti-windup tooling + dead-loop sweep)
 - **Anti-windup maintenance check (objective check_mode)**: Expectation: add LANE_ANTIWINDUP_ROWS=10 NOTICE to maintenance.py and abandon 3+ dead-loop lanes from S298 loop audit. Actual: `LANE_ANTIWINDUP_ROWS=10` constant + check added to `check_swarm_lanes()` — fires NOTICE for 5 active lanes with ≥10 rows. Dead-loop sweep: 3 DOMEX lanes ABANDONED (BRN/AI/OPS — goals achieved or residual work in frontier). HQ-15 closed (WSL stable, economy healthy). L-336 updated with implementation status. Diff: expectation met.
 - Meta-swarm: Anti-windup check prevents future dead-loop accumulation. Completes action (1) from L-336. Expert-creation gate (action 2) still pending.
