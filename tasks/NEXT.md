@@ -1,5 +1,5 @@
 # State
-Updated: 2026-02-28 S189
+Updated: 2026-02-28 S190
 
 ## Key state
 - 294L 175P 17B 23F — Validator PASS. Health score 5/5 (S187). Proxy-K healthy (0.49% drift, floor 51,224t S188). Economy domain seeded S188: `domains/economy/` + `tools/economy_expert.py` + L-286 + F-ECO1..3. `orient.py --classify "<task>"` now routes any task to domain+personality via task_recognizer.recognize() (S188, F-HLP4, L-293). compact.py citation scanner fixed (L-278). Ecosystem extraction done (L-276). F-OPS3 RESOLVED (L-273).
