@@ -120,7 +120,6 @@ STRUCTURE_ALLOWED_EXTENSIONS = {
 }
 
 def _truncated(items, n=3, sep=", ", fmt=None):
-    """Join items[:n] with sep, append '...' if truncated. Optional fmt callable per item."""
     show = items[:n]
     parts = [fmt(x) for x in show] if fmt else [str(x) for x in show]
     return sep.join(parts) + ("..." if len(items) > n else "")
@@ -202,17 +201,11 @@ def _is_wsl_mnt_repo() -> bool:
     return str(REPO_ROOT).replace("\\", "/").startswith("/mnt/")
 
 def _session_number() -> int:
-    """Return current session number. Primary: SESSION-LOG.md max. Fallback: git log [SN] tags."""
     numbers = re.findall(r"^S(\d+)", _read(REPO_ROOT / "memory" / "SESSION-LOG.md"), re.MULTILINE)
     log_max = max(int(n) for n in numbers) if numbers else 0
-    # Fallback: if git log shows commits >20 sessions ahead, SESSION-LOG.md is stale.
     try:
-        git_out = subprocess.run(
-            ["git", "log", "--oneline", "-50"],
-            capture_output=True, text=True, cwd=REPO_ROOT, timeout=5
-        ).stdout
-        git_nums = [int(m) for m in re.findall(r"\[S(\d+)\]", git_out)]
-        git_max = max(git_nums) if git_nums else 0
+        git_out = subprocess.run(["git", "log", "--oneline", "-50"], capture_output=True, text=True, cwd=REPO_ROOT, timeout=5).stdout
+        git_max = max((int(m) for m in re.findall(r"\[S(\d+)\]", git_out)), default=0)
     except Exception:
         git_max = 0
     return max(log_max, git_max)
@@ -454,18 +447,13 @@ def _iter_utility_citation_files() -> list[Path]:
 
 def check_unpushed() -> list[tuple[str, str]]:
     ahead = _git("rev-list", "--count", "@{upstream}..HEAD")
-    if ahead and ahead.isdigit() and int(ahead) > 0:
-        n = int(ahead)
-        severity = "URGENT" if n >= 10 else "DUE" if n >= 5 else "NOTICE"
-        items: list[tuple[str, str]] = [(severity, f"{n} unpushed commits — git push")]
-        if n >= 20:
-            items.append((
-                "URGENT",
-                "Commit saturation detected (>=20 unpushed) — run a commit-pressure swarm "
-                "(`python3 tools/agent_swarm.py create <child> \"reduce commit backlog\" --personality commit-swarmer`)"
-            ))
-        return items
-    return []
+    if not (ahead and ahead.isdigit() and int(ahead) > 0):
+        return []
+    n = int(ahead)
+    items = [(("URGENT" if n >= 10 else "DUE" if n >= 5 else "NOTICE"), f"{n} unpushed commits — git push")]
+    if n >= 20:
+        items.append(("URGENT", "Commit saturation (>=20 unpushed) — run: python3 tools/agent_swarm.py create <child> \"reduce commit backlog\" --personality commit-swarmer"))
+    return items
 
 def _parse_kill_switch() -> dict[str, str]:
     if not KILL_SWITCH_PATH.exists():
@@ -481,45 +469,29 @@ def _parse_kill_switch() -> dict[str, str]:
 
 def check_kill_switch() -> list[tuple[str, str]]:
     results: list[tuple[str, str]] = []
-    env_stop = (os.environ.get("SWARM_STOP", "") or "").strip().lower()
-    if env_stop in {"1", "true", "yes", "on"}:
-        results.append(("URGENT", "SWARM_STOP env var is active — halt swarm activity"))
-        return results
-
-    kill_exists = KILL_SWITCH_PATH.exists()
+    if (os.environ.get("SWARM_STOP", "") or "").strip().lower() in {"1", "true", "yes", "on"}:
+        return [("URGENT", "SWARM_STOP env var is active — halt swarm activity")]
     fields = _parse_kill_switch()
     if not fields:
-        if kill_exists:
+        if KILL_SWITCH_PATH.exists():
             results.append(("DUE", "Kill switch file exists but no parseable key/value fields were found"))
         return results
-
-    missing_required = [
-        key for key in ("status", "mode", "reason", "requested_by", "since")
-        if not (fields.get(key, "") or "").strip()
-    ]
+    missing_required = [k for k in ("status", "mode", "reason", "requested_by", "since") if not (fields.get(k, "") or "").strip()]
     if missing_required:
-        results.append(("DUE", f"Kill switch missing required field(s): {', '.join(missing_required)}"))
-        return results
-
+        return [("DUE", f"Kill switch missing required field(s): {', '.join(missing_required)}")]
     status = (fields.get("status", "") or "").strip().lower()
     if status in {"inactive", "off", "false", "0"}:
         return results
     if status not in {"active", "on", "true", "1"}:
-        results.append(("DUE", f"Kill switch status is invalid: {fields.get('status', '')}"))
-        return results
-
+        return [("DUE", f"Kill switch status is invalid: {fields.get('status', '')}")]
     mode = (fields.get("mode", "halt") or "halt").strip()
     if mode.lower() not in {"halt", "shutdown-request"}:
-        results.append(("DUE", f"Kill switch mode is invalid: {mode}"))
-        return results
-
+        return [("DUE", f"Kill switch mode is invalid: {mode}")]
     reason = (fields.get("reason", "unspecified") or "unspecified").strip()
     requested_by = (fields.get("requested_by", "unknown") or "unknown").strip()
     since = (fields.get("since", "") or "").strip()
-    context = f"mode={mode}, requested_by={requested_by}, reason={reason}"
-    if since:
-        context += f", since={since}"
-    results.append(("URGENT", f"Kill switch ACTIVE — {context}"))
+    ctx = f"mode={mode}, requested_by={requested_by}, reason={reason}" + (f", since={since}" if since else "")
+    results.append(("URGENT", f"Kill switch ACTIVE — {ctx}"))
     if mode.lower() == "shutdown-request":
         results.append(("NOTICE", "Shutdown request is declarative only; execute shutdown manually with explicit human confirmation"))
     return results
@@ -612,9 +584,9 @@ def check_open_challenges() -> list[tuple[str, str]]:
     results = []
     n = len(re.findall(r"\|\s*OPEN\s*\|", _read(REPO_ROOT / "beliefs" / "CHALLENGES.md"), re.IGNORECASE))
     if n: results.append(("DUE", f"{n} open challenge(s) in CHALLENGES.md"))
-    phil_text = _read(REPO_ROOT / "beliefs" / "PHILOSOPHY.md")
-    phil_section = phil_text[phil_text.find("## Challenges"):] if "## Challenges" in phil_text else ""
-    n = len(re.findall(r"\|\s*open\s*\|", phil_section, re.IGNORECASE))
+    pt = _read(REPO_ROOT / "beliefs" / "PHILOSOPHY.md")
+    ps = pt[pt.find("## Challenges"):] if "## Challenges" in pt else ""
+    n = len(re.findall(r"\|\s*open\s*\|", ps, re.IGNORECASE))
     if n: results.append(("DUE", f"{n} open PHIL challenge(s)"))
     return results
 
@@ -818,61 +790,27 @@ def check_swarm_lanes() -> list[tuple[str, str]]:
             has_global_focus = True
 
     if missing_coordination_tags:
-        results.append((
-            "DUE",
-            f"{len(missing_coordination_tags)} active lane(s) missing coordination contract tags "
-            f"(setup/focus/available/blocked/next_step/human_open_item): {_truncated(missing_coordination_tags, 5)}",
-        ))
+        results.append(("DUE", f"{len(missing_coordination_tags)} active lane(s) missing coordination contract tags (setup/focus/available/blocked/next_step/human_open_item): {_truncated(missing_coordination_tags, 5)}"))
     if missing_domain_memory_tags:
-        results.append((
-            "DUE",
-            f"{len(missing_domain_memory_tags)} active domain-focused lane(s) missing domain-memory coordination tags "
-            f"(domain_sync/memory_target): {_truncated(missing_domain_memory_tags, 5)}",
-        ))
+        results.append(("DUE", f"{len(missing_domain_memory_tags)} active domain-focused lane(s) missing domain-memory coordination tags (domain_sync/memory_target): {_truncated(missing_domain_memory_tags, 5)}"))
     if invalid_domain_sync_tags:
-        results.append((
-            "NOTICE",
-            f"{len(invalid_domain_sync_tags)} active domain-focused lane(s) with invalid domain_sync value "
-            f"(allowed: {','.join(sorted(DOMAIN_SYNC_ALLOWED_VALUES))}): {_truncated(invalid_domain_sync_tags, 5)}",
-        ))
+        results.append(("NOTICE", f"{len(invalid_domain_sync_tags)} active domain-focused lane(s) with invalid domain_sync value (allowed: {','.join(sorted(DOMAIN_SYNC_ALLOWED_VALUES))}): {_truncated(invalid_domain_sync_tags, 5)}"))
     if invalid_available_tags:
-        results.append((
-            "DUE",
-            f"{len(invalid_available_tags)} active lane(s) with invalid available value "
-            f"(allowed: {','.join(sorted(LANE_AVAILABLE_ALLOWED_VALUES))}): {_truncated(invalid_available_tags, 5)}",
-        ))
+        results.append(("DUE", f"{len(invalid_available_tags)} active lane(s) with invalid available value (allowed: {','.join(sorted(LANE_AVAILABLE_ALLOWED_VALUES))}): {_truncated(invalid_available_tags, 5)}"))
     if legacy_available_tags:
-        results.append((
-            "NOTICE",
-            f"{len(legacy_available_tags)} active lane(s) using legacy available value "
-            f"(normalize to {','.join(sorted(LANE_AVAILABLE_ALLOWED_VALUES))}): {_truncated(legacy_available_tags, 5)}",
-        ))
+        results.append(("NOTICE", f"{len(legacy_available_tags)} active lane(s) using legacy available value (normalize to {','.join(sorted(LANE_AVAILABLE_ALLOWED_VALUES))}): {_truncated(legacy_available_tags, 5)}"))
     if high_risk_missing_human:
-        results.append((
-            "DUE",
-            f"{len(high_risk_missing_human)} active lane(s) declare high-risk intent without "
-            f"`human_open_item=HQ-N` (MC-SAFE): {_truncated(high_risk_missing_human, 5)}",
-        ))
+        results.append(("DUE", f"{len(high_risk_missing_human)} active lane(s) declare high-risk intent without `human_open_item=HQ-N` (MC-SAFE): {_truncated(high_risk_missing_human, 5)}"))
 
-    # F-META1 enforcement (S331): active lanes must include expect= and artifact= at creation time
     missing_evidence_tags: list[str] = []
     for row in active:
         lane = row.get("lane", "").strip() or "<unknown>"
         tags = _parse_lane_tags(row.get("etc", ""))
-        missing_ev = []
-        if not tags.get("expect", "").strip():
-            missing_ev.append("expect")
-        if not tags.get("artifact", "").strip():
-            missing_ev.append("artifact")
+        missing_ev = [k for k in ("expect", "artifact") if not tags.get(k, "").strip()]
         if missing_ev:
             missing_evidence_tags.append(f"{lane}({','.join(missing_ev)})")
     if missing_evidence_tags:
-        results.append((
-            "NOTICE",
-            f"{len(missing_evidence_tags)} active lane(s) missing evidence fields "
-            f"(expect/artifact — use open_lane.py to enforce at creation, F-META1 S331): "
-            f"{_truncated(missing_evidence_tags, 5)}",
-        ))
+        results.append(("NOTICE", f"{len(missing_evidence_tags)} active lane(s) missing evidence fields (expect/artifact — use open_lane.py, F-META1 S331): {_truncated(missing_evidence_tags, 5)}"))
 
     if len(setup_values) > 1 and not has_global_focus:
         results.append(("NOTICE", "Multi-setup active lanes have no global coordination focus (`focus=global|system|coordination`) in Etc"))
@@ -935,45 +873,25 @@ def check_swarm_coordinator() -> list[tuple[str, str]]:
 
     if not coordinator_rows:
         dispatch_lanes = [row.get("lane", "").strip() or "<unknown>" for row, _ in dispatch_rows]
-        results.append((
-            "DUE",
-            f"{len(dispatch_rows)} active dispatch lane(s) have no active coordinator lane: "
-            f"{_truncated(dispatch_lanes, 5)}",
-        ))
+        results.append(("DUE", f"{len(dispatch_rows)} active dispatch lane(s) have no active coordinator lane: {_truncated(dispatch_lanes, 5)}"))
         return results
 
     missing_contract: list[str] = []
     for row, tags in coordinator_rows:
         lane = row.get("lane", "").strip() or "<unknown>"
         missing: list[str] = []
-
-        if tags.get("focus", "").strip().lower() not in LANE_GLOBAL_FOCUS_VALUES:
-            missing.append("focus")
-        if not _lane_has_any_tag(tags, ("intent", "objective", "goal")):
-            missing.append("intent")
-        if not _lane_has_any_tag(tags, ("progress", "status_note", "evidence", "artifact")):
-            missing.append("progress")
-        if not _lane_has_any_tag(tags, ("available", "capacity", "availability", "ready")):
-            missing.append("available")
-        if not _lane_has_any_tag(tags, ("blocked", "blocker")):
-            missing.append("blocked")
-        if not _lane_has_any_tag(tags, ("next_step", "next", "action", "plan")):
-            missing.append("next_step")
-        if not _lane_has_any_tag(tags, ("human_open_item", "human_open")):
-            missing.append("human_open_item")
-        if not _lane_has_any_tag(tags, ("check_focus",)):
-            missing.append("check_focus")
-
-        if missing:
-            missing_contract.append(f"{lane}({','.join(missing)})")
+        if tags.get("focus", "").strip().lower() not in LANE_GLOBAL_FOCUS_VALUES: missing.append("focus")
+        if not _lane_has_any_tag(tags, ("intent", "objective", "goal")): missing.append("intent")
+        if not _lane_has_any_tag(tags, ("progress", "status_note", "evidence", "artifact")): missing.append("progress")
+        if not _lane_has_any_tag(tags, ("available", "capacity", "availability", "ready")): missing.append("available")
+        if not _lane_has_any_tag(tags, ("blocked", "blocker")): missing.append("blocked")
+        if not _lane_has_any_tag(tags, ("next_step", "next", "action", "plan")): missing.append("next_step")
+        if not _lane_has_any_tag(tags, ("human_open_item", "human_open")): missing.append("human_open_item")
+        if not _lane_has_any_tag(tags, ("check_focus",)): missing.append("check_focus")
+        if missing: missing_contract.append(f"{lane}({','.join(missing)})")
 
     if missing_contract:
-        results.append((
-            "DUE",
-            f"{len(missing_contract)} coordinator lane(s) missing coordinator contract fields "
-            f"(focus,intent,progress,available,blocked,next_step,human_open_item,check_focus): "
-            f"{_truncated(missing_contract, 5)}",
-        ))
+        results.append(("DUE", f"{len(missing_contract)} coordinator lane(s) missing coordinator contract fields (focus,intent,progress,available,blocked,next_step,human_open_item,check_focus): {_truncated(missing_contract, 5)}"))
 
     return results
 
@@ -1053,22 +971,13 @@ def check_lane_reporting_quality() -> list[tuple[str, str]]:
     dispatchable_rate = dispatchable / lane_count if lane_count else 0.0
     if missing_contract:
         severity = "DUE" if dispatchable_rate < 0.5 else "NOTICE"
-        results.append((
-            severity,
-            f"{len(missing_contract)} active lane(s) missing explicit reporting contract fields "
-            f"({dispatchable}/{lane_count} dispatchable): {_truncated(missing_contract, 5)}",
-        ))
+        results.append((severity, f"{len(missing_contract)} active lane(s) missing explicit reporting contract fields ({dispatchable}/{lane_count} dispatchable): {_truncated(missing_contract, 5)}"))
         weakest = sorted(explicit_counts.items(), key=lambda item: (item[1], item[0]))[:3]
         if weakest:
-            weakest_fmt = ", ".join(f"{key}={count}/{lane_count}" for key, count in weakest)
-            results.append(("NOTICE", f"Lane explicit-reporting weakest keys: {weakest_fmt}"))
+            results.append(("NOTICE", f"Lane explicit-reporting weakest keys: {', '.join(f'{k}={c}/{lane_count}' for k, c in weakest)}"))
 
     if missing_historian_contract:
-        results.append((
-            "DUE",
-            f"{len(missing_historian_contract)} active lane(s) with historian/objective check focus missing "
-            f"historian grounding (self+surroundings anchors): {_truncated(missing_historian_contract, 5)}",
-        ))
+        results.append(("DUE", f"{len(missing_historian_contract)} active lane(s) with historian/objective check focus missing historian grounding (self+surroundings anchors): {_truncated(missing_historian_contract, 5)}"))
 
     return results
 
@@ -1263,79 +1172,47 @@ def check_frontier_decay() -> list[tuple[str, str]]:
     return results
 
 def check_anxiety_zones() -> list[tuple[str, str]]:
-    """F-COMM1: Flag frontiers open >15 sessions without progress — anxiety zones need multi-expert attention."""
     results = []
     current = _session_number()
-    ANXIETY_THRESHOLD = 15  # sessions without update → multi-expert trigger
-
+    ANXIETY_THRESHOLD = 15
     frontier_path = REPO_ROOT / "tasks" / "FRONTIER.md"
     if not frontier_path.exists():
         return results
-
-    text = _read(frontier_path)
-    open_text = text.split("## Archive", 1)[0]
-
+    open_text = _read(frontier_path).split("## Archive", 1)[0]
     anxiety_zones = []
     for match in re.finditer(r"^- \*\*(F[^*]+)\*\*:(.*?)(?=^- \*\*F|\Z)", open_text, re.MULTILINE | re.DOTALL):
-        fid = match.group(1).strip()
-        body = match.group(2)
-        # Find the most recent session reference (highest S-number)
-        s_nums = [int(m) for m in re.findall(r"\bS(\d+)\b", body)]
-        if not s_nums:
-            continue
+        s_nums = [int(m) for m in re.findall(r"\bS(\d+)\b", match.group(2))]
+        if not s_nums: continue
         last_active = max(s_nums)
         age = current - last_active
         if age > ANXIETY_THRESHOLD:
-            anxiety_zones.append((fid, last_active, age))
-
+            anxiety_zones.append((match.group(1).strip(), last_active, age))
     if anxiety_zones:
         anxiety_zones.sort(key=lambda x: x[2], reverse=True)
         ids = ", ".join(f"{fid}(S{s},+{age})" for fid, s, age in anxiety_zones[:5])
-        results.append(("NOTICE", (
-            f"{len(anxiety_zones)} anxiety-zone frontier(s) open >{ANXIETY_THRESHOLD} sessions without update"
-            f" (F-COMM1: auto-trigger multi-expert synthesis): {ids}"
-            + (f"... +{len(anxiety_zones)-5} more" if len(anxiety_zones) > 5 else "")
-        )))
+        tail = f"... +{len(anxiety_zones)-5} more" if len(anxiety_zones) > 5 else ""
+        results.append(("NOTICE", f"{len(anxiety_zones)} anxiety-zone frontier(s) open >{ANXIETY_THRESHOLD} sessions without update (F-COMM1: auto-trigger multi-expert synthesis): {ids}{tail}"))
     return results
 
 
 def check_dispatch_log() -> list[tuple[str, str]]:
-    """F-EXP1: Check dispatch log for stale in-progress entries (helps nodes avoid duplicate work)."""
     results = []
     dispatch_log = REPO_ROOT / "workspace" / "DISPATCH-LOG.md"
     if not dispatch_log.exists():
-        results.append(("NOTICE", (
-            "workspace/DISPATCH-LOG.md missing — create with: python3 tools/dispatch_tracker.py init"
-            " (F-EXP1: dispatch tracking not instrumented)"
-        )))
-        return results
-
+        return [("NOTICE", "workspace/DISPATCH-LOG.md missing — create with: python3 tools/dispatch_tracker.py init (F-EXP1: dispatch tracking not instrumented)")]
     current = _session_number()
-    text = _read(dispatch_log)
-    STALE_THRESHOLD = 3  # sessions: in-progress for >3 sessions = likely abandoned
-
+    STALE_THRESHOLD = 3
     stale = []
-    for match in re.finditer(
-        r"^\|\s*(S\d+)\s*\|\s*([^|]+)\s*\|\s*([^|]+)\s*\|\s*([^|]+)\s*\|",
-        text, re.MULTILINE
-    ):
+    for match in re.finditer(r"^\|\s*(S\d+)\s*\|\s*([^|]+)\s*\|\s*([^|]+)\s*\|\s*([^|]+)\s*\|", _read(dispatch_log), re.MULTILINE):
         session_str, frontier, status, _ = (match.group(i).strip() for i in range(1, 5))
-        if status.lower() != "in-progress":
-            continue
+        if status.lower() != "in-progress": continue
         s_num_match = re.match(r"S(\d+)", session_str)
-        if not s_num_match:
-            continue
-        session_num = int(s_num_match.group(1))
-        age = current - session_num
+        if not s_num_match: continue
+        age = current - int(s_num_match.group(1))
         if age > STALE_THRESHOLD:
             stale.append((session_str, frontier.strip(), age))
-
     if stale:
-        stale_str = ", ".join(f"{s}:{f}(+{a})" for s, f, a in stale[:5])
-        results.append(("NOTICE", (
-            f"{len(stale)} dispatch entry(ies) stale in-progress >{STALE_THRESHOLD} sessions"
-            f" — may be abandoned (F-EXP1 tracking): {stale_str}"
-        )))
+        results.append(("NOTICE", f"{len(stale)} dispatch entry(ies) stale in-progress >{STALE_THRESHOLD} sessions — may be abandoned (F-EXP1 tracking): {', '.join(f'{s}:{f}(+{a})' for s, f, a in stale[:5])}"))
     return results
 
 
