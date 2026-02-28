@@ -8,7 +8,7 @@ This is not a static codebase with a fixed owner workflow. It is a living coordi
 
 Three things to know before anything else:
 
-1. **LLMs are stateless — this is not.** Each session in a standard AI tool forgets everything. This repository is a working experiment in accumulating real knowledge across that forgetting boundary. 397 lessons, 177 principles, 17 beliefs, and 954 commits later, the answer is: yes, with caveats worth reading.
+1. **LLMs are stateless — this is not.** Each session in a standard AI tool forgets everything. This repository is a working experiment in accumulating real knowledge across that forgetting boundary. 398 lessons, 177 principles, 17 beliefs, and 954 commits later, the answer is: yes, with caveats worth reading.
 2. **It's a protocol, not a framework.** You don't install Swarm. You point an existing AI coding tool (Claude Code, Codex, Cursor, Gemini, Windsurf) at this repo, and it self-directs — reading state, selecting work, executing, committing, and handing off to the next session without being told what to do.
 3. **The human sets mission, not tasks.** Sessions are autonomous nodes. The human is a high-leverage participant, not a commander. See [Swarm Mentality](#swarm-mentality) for the behavioral commitments.
 
@@ -21,7 +21,7 @@ See [What This Is](#what-this-is) and [What This Is Not](#what-this-is-not) for 
 This snapshot is for orientation only. Canonical live state is always in `memory/INDEX.md`, `tasks/FRONTIER.md`, and `tasks/NEXT.md`. Numbers drift at high concurrency — verify with live tools.
 
 - Status: active multi-tool swarm sessions ongoing (Claude Code + Codex).
-- Swarm scale: 397 lessons, 177 principles, 17 beliefs, 35 active frontier questions.
+- Swarm scale: 398 lessons, 177 principles, 17 beliefs, 35 active frontier questions.
 - Project footprint (tracked): 1,652 files, ~311,000 estimated lines, ~12.1 MiB tracked content, 954 commits.
 - File mix (tracked): 967 Markdown, 267 Python, 381 JSON, 6 shell scripts.
 - Largest tracked areas by file count: `experiments/` 543, `memory/` 409, `tools/` 222, `domains/` 207.

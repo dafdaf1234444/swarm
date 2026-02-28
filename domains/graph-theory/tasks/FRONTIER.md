@@ -10,6 +10,7 @@ Seeded: S196 | 2026-02-28
   preferential attachment. ISO-8 PARTIAL: non-zero tail is power-law-like; bulk is not. Hub lessons
   (L-001, L-304) confirmed as knowledge attractors — compaction must protect them. L-383.
   Artifact: experiments/graph-theory/f-gt1-scale-free-s306.json. Status: **RESOLVED PARTIAL**.
+  **S331 UPDATE**: alpha=1.751 at n=398 (DOWN from 1.903 — further from scale-free). Hubs richer: L-001 in-degree 10→22, L-039 new hub at 20. 5.8% true orphans (was 57.8%). Graph is MORE hub-dominated but LESS power-law. Interpretation: citation sprint created hub-spoke topology, not preferential-attachment scale-free. Artifact: experiments/graph-theory/f-gt4-spectral-clustering-s331.json. L-461.
 
 - **F-GT2**: What is the effective chromatic number of the SWARM-LANES concurrent-execution conflict (S196)
   graph? Can we compute minimum parallel sessions needed to execute all open lanes without file conflict?
