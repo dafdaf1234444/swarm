@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-22 active | Last updated: 2026-02-28 S188
+23 active | Last updated: 2026-02-28 S188
 
 ## Critical
 - **F110**: How can swarm miscoordinate when swarming itself? (10 cases/3 tiers. T1+T2 done; T3 partially done. Remaining points understood, low urgency; see `experiments/architecture/f110-meta-coordination.md`.)
@@ -61,6 +61,8 @@ NK Complexity and Distributed Systems are test beds for swarm capability, not pr
 - `domains/fractals/tasks/FRONTIER.md`
 - `domains/economy/tasks/FRONTIER.md`
 - `domains/gaming/tasks/FRONTIER.md` — F-GAME1–F-GAME3 (roguelike meta-progression, game-loop timing, flow-zone frontier design)
+
+- **F128**: Can swarm systematically extract and evaluate external research papers using domain experts? Status: PARTIAL — S189: `tools/paper_extractor.py` built (query/route/evaluate/full modes; Semantic Scholar API; offline test PASS; 10 domains mapped). Pipeline: query by domain keywords → route by keyword overlap → expert evaluation (relevance + isomorphism_score) → recommended_actions for domain FRONTIERs + ISOMORPHISM-ATLAS. Key question: "which expert evaluates which paper" solved by multi-domain routing (papers with keyword overlap ≥0.05 in N domains go to top-3 matching experts concurrently). Open: (1) live Semantic Scholar query integration (requires internet); (2) auto-promote high-iso papers (≥0.3) to ISOMORPHISM-ATLAS; (3) periodic cadence registered in periodics.json; (4) cross-expert synthesis (when paper hits 3+ domains, synthesizer expert extracts the common structural kernel). Related: F122 (domain mining), F126 (isomorphism atlas), F127 (harvest pipeline).
 
 ## Archive
 Resolved questions: `tasks/FRONTIER-ARCHIVE.md`
