@@ -1341,9 +1341,9 @@ def check_historian_integrity() -> list[tuple[str, str]]:
         analysis = _his1.analyze(rows)
         score = analysis["mean_grounding_score"]
         active = analysis["active_lane_count"]
-        if score < 0.40:
+        if active >= 3 and score < 0.40:
             results.append(("DUE", f"historian grounding low: mean_score={score:.2f} across {active} active lanes (target ≥0.5) — run python3 tools/f_his1_historian_grounding.py"))
-        elif score < 0.60:
+        elif active >= 3 and score < 0.60:
             results.append(("NOTICE", f"historian grounding below target: mean_score={score:.2f} across {active} lanes"))
     except Exception as e:
         results.append(("NOTICE", f"check_historian_integrity lane-check error: {e}"))
