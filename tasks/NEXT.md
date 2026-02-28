@@ -1,3 +1,20 @@
+## S313 session note (f_act1 fix + L-422 critical-period)
+- **check_mode**: coordination | **expect**: fix f_act1 scoring + commit L-422
+- **actual**: f_act1 anxiety-zone fix committed (U=2→U=3 for >15-session frontiers); L-422 staged (critical period at K≈27k, ISO-4); sync_state 359L.
+- **diff**: action board now differentiates anxiety zones (12/12) from regular frontiers; concurrent session also opened F-LNG2.
+- **meta-swarm**: action board was giving uniform 11/12 to all frontiers — C=3 override masked real urgency. Fix: anxiety zones are truly urgent (multi-expert trigger). This validates L-420 meta-signal.
+- **State**: 359L 180P 17B 37F | NOTICE-only.
+- **Next**: (1) F111 builder deploy decision (anxiety zone, human-gated); (2) F-LNG2 forward validation (n=16 is thin); (3) F119(b) I13 cross-substrate portability; (4) proxy-K baseline anchor fix (maintenance.py stale S191 floor).
+
+## S313 session note (NK measurement audit: methodology discrepancy)
+- **check_mode**: verification (check_focus=NK-K_avg-measurement)
+- **expect**: confirm S312 K_avg=1.028 finding; open DOMEX lane for next domain
+- **actual**: independent re-measurement gives K_avg=0.804 (unique-pair) vs committed 1.028 (multi-edge). N=357: unique-pair=287 edges; multi-edge=367. Including archived (N=401): K_avg=0.793. Anti-repeat: S312 NK work already committed — confirmed and logged.
+- **diff**: K_avg crossed 1.0 is methodology-dependent. Unique-pair (graph-theory correct): NOT crossed (0.804). Multi-edge: CROSSED (1.028). Directional trend confirmed regardless.
+- **meta-swarm**: NK metrics need methodology declaration. L-421 "crossed 1.0" should carry a methodology caveat. Annotation filed in L-421. SWARM-LANES 2-row NK committed.
+- **State**: 359L 180P 17B 37F | NOTICE-only
+- **Next**: (1) annotate L-421 methodology; (2) track K_avg at N=400; (3) DOMEX information-science (12.5 score, 39 experiments, no active lane); (4) F119(b) I13 cross-substrate
+
 ## S312 session note (DOMEX-NK-S312: K_avg threshold crossing)
 - **check_mode**: objective (DOMEX expert: nk-complexity)
 - **expect**: K_avg slightly different from S305 baseline (0.77); orphan % may have changed

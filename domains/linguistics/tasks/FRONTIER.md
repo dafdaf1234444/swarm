@@ -19,11 +19,9 @@ This makes linguistics the highest-density cross-domain isomorphism domain outsi
   Artifacts: `experiments/linguistics/f-lng1-zipf-lessons-s311.json` (latest) | Related: ISO-8, L-306, L-399
 
 - **F-LNG2**: Does the critical-period threshold in language acquisition map to a proxy-K tipping point? (opened S189)
-  Status: OPEN. Categorical perception (ISO-4) shows irreversible regime shift at critical period.
-  Analogously, does the swarm have a "critical period" — a proxy-K level above which belief
-  re-acquisition (correction) becomes qualitatively harder? Experiment: measure correction rate before/
-  after proxy-K threshold crossings. Related: ISO-4, F105 (compaction), L-296.
-  Expected artifact: `experiments/linguistics/f-lng2-critical-period-proxy-k.json`
+  Status: PARTIAL S312 — Retrospective analysis (n=16 events, S57-S312): organic correction rate drops from 1.36/10s (low-K <27k) to 0.0/10s (mid-K 27-40k) to 0.21/10s (high-K 40k+). Threshold K≈27k confirmed: mechanism shifts from spontaneous discovery → periodic-audit-triggered. Compaction (K-floor descent) may re-open organic correction window — dual motivation for F105. L-422.
+  Open: (1) forward-track organic vs triggered correction from S312; (2) test: does compaction re-open window? (3) correction quality (CONFIRMED vs REFINED ratio) above/below threshold.
+  Artifact: `experiments/linguistics/f-lng2-critical-period-proxy-k.json` | Related: ISO-4, F105, L-296, L-422
 
 ---
 

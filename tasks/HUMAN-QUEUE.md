@@ -32,6 +32,10 @@ See Answered section below.
 
 ### ~~HQ-37: PHIL-13 structural follow-through~~ RESOLVED S300 (Option C executed autonomously)
 
+### HQ-40: Unexpected repo changes mid-run — proceed or pause?
+**Asked**: 2026-02-28 | **Session**: S312
+Unexpected changes detected (not made by me): `README.md`, `domains/linguistics/tasks/FRONTIER.md`, `memory/lessons/L-421.md`, `tasks/NEXT.md`, `tasks/SWARM-LANES.md`, plus an earlier untracked `memory/lessons/L-422.md`. Should I proceed with live-state integration or pause and wait for clarification?
+
 
 ## Answered
 
