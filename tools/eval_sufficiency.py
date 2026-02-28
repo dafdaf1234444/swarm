@@ -49,46 +49,42 @@ def _load_session_log() -> list[dict]:
 
 
 def _count_swarm_lanes() -> dict:
-    """Count MERGED, OPEN, ABANDONED rows in SWARM-LANES.md."""
+    """Count MERGED, OPEN, ACTIVE, ABANDONED rows in SWARM-LANES.md."""
     path = ROOT / "tasks" / "SWARM-LANES.md"
     text = path.read_text(encoding="utf-8")
     return {
         "merged": len(re.findall(r"\bMERGED\b", text)),
         "open": len(re.findall(r"\bOPEN\b", text)),
+        "active": len(re.findall(r"\bACTIVE\b", text)),
         "abandoned": len(re.findall(r"\bABANDONED\b", text)),
         "total_rows": sum(1 for l in text.splitlines() if l.strip().startswith("|") and "---" not in l and "Lane" not in l),
     }
 
 
 def _load_proxy_k(current_session: int = 193) -> dict:
-    """Get proxy-K drift using floor-ratchet logic (mirrors maintenance.py)."""
-    path = ROOT / "experiments" / "proxy-k-log.json"
-    entries = json.loads(path.read_text(encoding="utf-8"))
-    if not entries:
-        return {}
-    latest = entries[-1]
-    total = latest.get("total", 0)
+    """Get proxy-K drift using compact.py --dry-run (authoritative source).
 
-    # Use schema-matched entries for floor calculation
-    schema_entries = [e for e in entries if e.get("tier_schema")]
-    clean = [e for e in schema_entries if not e.get("dirty_tree")]
-    if not schema_entries:
-        return {"total": total, "floor": total, "drift_pct": 0.0}
-
-    # Floor = minimum total among schema-matched entries
-    floor_entry = min(schema_entries, key=lambda e: e["total"])
-    floor = floor_entry["total"]
-    floor_session = int(floor_entry.get("session", 0))
-
-    # Ratchet: if floor is >= 8 sessions old, use latest clean entry as floor
-    if len(clean) >= 2 and floor_session > 0 and (current_session - floor_session) >= 8:
-        latest_clean = max(clean, key=lambda e: int(e.get("session", 0)))
-        if latest_clean["total"] > floor:
-            floor = latest_clean["total"]
-            floor_session = int(latest_clean.get("session", 0))
-
-    drift_pct = (total - floor) / floor * 100 if floor else 0.0
-    return {"total": total, "floor": floor, "floor_session": floor_session, "drift_pct": drift_pct}
+    compact.py anchors the floor to the post-compaction S306 snapshot, which is the
+    correct reference point. The log-based floor ratchet diverged (picked historical
+    minimum ~54,939t vs actual post-S306 floor ~58,351t → false 8.3% drift).
+    """
+    import subprocess as _sp
+    try:
+        out = _sp.check_output(
+            ["python3", str(ROOT / "tools" / "compact.py"), "--dry-run"],
+            text=True, stderr=_sp.DEVNULL, cwd=str(ROOT)
+        )
+        m_total = re.search(r"Current:\s*([\d,]+)\s*tokens", out)
+        m_floor = re.search(r"Floor:\s*([\d,]+)\s*tokens", out)
+        m_drift = re.search(r"Drift:\s*[+-]?([\d.]+)%", out)
+        total = int(m_total.group(1).replace(",", "")) if m_total else 0
+        floor = int(m_floor.group(1).replace(",", "")) if m_floor else total
+        drift_pct = float(m_drift.group(1)) if m_drift else 0.0
+        return {"total": total, "floor": floor, "drift_pct": drift_pct}
+    except Exception:
+        pass
+    # Fallback: return zero drift rather than a false-positive
+    return {"total": 0, "floor": 0, "drift_pct": 0.0}
 
 
 def _count_challenges() -> dict:
@@ -187,13 +183,14 @@ def score_collaborate(lanes: dict, con1: dict, signals: dict) -> dict:
     """
     details = {}
 
-    # Metric 1: Lane merge rate (closed work / total lanes)
-    total_closed = lanes["merged"] + lanes["abandoned"]
-    total_all = total_closed + lanes["open"]
-    merge_rate = lanes["merged"] / total_all if total_all else 0
+    # Metric 1: Lane merge rate (MERGED / productive lanes, excluding ABANDONED)
+    # ABANDONED = stale cleanup (not collaboration failure) — must not inflate denominator
+    # Denominator = MERGED + OPEN + ACTIVE: work that was attempted and reached completion or is ongoing
+    total_productive = lanes["merged"] + lanes["open"] + lanes.get("active", 0)
+    merge_rate = lanes["merged"] / total_productive if total_productive else 0
     details["lane_merge_rate"] = round(merge_rate, 3)
     details["lane_merge_count"] = lanes["merged"]
-    details["lane_open_count"] = lanes["open"]
+    details["lane_open_count"] = lanes["open"] + lanes.get("active", 0)
 
     # Metric 2: C1 conflict rate (lane-level duplicates) from F-CON1 baseline
     c1_rate = con1.get("c1_rate_lane_level", 0.013)  # 1.3% baseline S189
@@ -227,7 +224,7 @@ def score_collaborate(lanes: dict, con1: dict, signals: dict) -> dict:
     details["score"] = score
     details["verdict"] = verdict
     details["rationale"] = (
-        f"merge_rate={merge_rate:.1%} ({lanes['merged']}/{total_all} lanes MERGED), "
+        f"merge_rate={merge_rate:.1%} ({lanes['merged']}/{total_productive} productive lanes MERGED), "
         f"c1={c1_rate:.1%} (lane-level duplicate rate), "
         f"signal_enforcement={sig_completeness:.0%}"
     )

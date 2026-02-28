@@ -86,18 +86,18 @@ def _active_lanes() -> dict[str, int]:
 
 
 def _proxy_k() -> float | None:
-    """Try to read proxy-K from memory/INDEX.md or run proxy_k.py."""
-    index = REPO_ROOT / "memory" / "INDEX.md"
-    if index.exists():
-        m = re.search(r"proxy.K\s*[=:]\s*([\d.]+)%", index.read_text(errors="replace"), re.IGNORECASE)
-        if m:
-            return float(m.group(1))
+    """Return proxy-K drift % from compact.py --dry-run (authoritative health metric).
+
+    Rationale: proxy_k.py outputs tier percentages (T0=11.5% of total), not a health
+    score. compact.py --dry-run outputs 'Drift: +X.X% (healthy/urgent)' which is the
+    intended metric: tokens above the compaction floor.
+    """
     try:
         out = subprocess.check_output(
-            ["python3", str(REPO_ROOT / "tools" / "proxy_k.py")],
+            ["python3", str(REPO_ROOT / "tools" / "compact.py"), "--dry-run"],
             text=True, stderr=subprocess.DEVNULL, cwd=str(REPO_ROOT)
         )
-        m = re.search(r"([\d.]+)%", out)
+        m = re.search(r"Drift:\s*[+-]?([\d.]+)%", out)
         if m:
             return float(m.group(1))
     except Exception:

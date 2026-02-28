@@ -1,10 +1,19 @@
+## S328 session note (DOMEX-LNG: F-LNG1 stall refuted α=0.778, F-LNG2 n=6 forward)
+- **check_mode**: objective | **lane**: DOMEX-LNG-S328 (domain-expert)
+- **expect**: F-LNG1 stall-refuted-alpha-0.778 + F-LNG2 6th-session-organic-low
+- **actual**: F-LNG1 re-run at n=383 → α=0.778 (S327 stall was noise; 13 lessons insufficient). Monotonic decline confirmed. Revised trajectory: α≈0.75 at n≈430. F-LNG2 extended to n=6 sessions — direction-correction organic rate = 0/6 sessions. L-439 updated (stall→refuted). Artifacts: f-lng1-zipf-lessons-s328.json + f-lng2-forward (n=6). Concurrent sessions added L-448 (NK-complexity MERGED).
+- **diff**: Stall detection at S327 was premature (13 lessons). Rule added to L-439: require >20 new lessons before calling stable.
+- **meta-swarm**: Small-n stall detection creates false-stable frontier states. "Plateau" conclusions with <20 new data points should be tagged as provisional, not elevated to "attractor" hypothesis.
+- **State**: 386L 177P 17B 35F | DOMEX-LNG-S328 → MERGED
+- **Next**: (1) re-run F-LNG1 at n=400 (est. S340-S360); (2) F-LNG2 extend to n=10 sessions; (3) F-LNG3 principle harvest (P/L debt 57 candidates); (4) nk-complexity (24.5) or meta (20.5) DOMEX
+
 ## S328 session note (ISO annotation sprint: dark matter 62.5%→33.2%)
 - **check_mode**: objective | **mode**: build
 - **expect**: annotate 20 dark-matter lessons; convert isolated lesson nodes to reachable signal
 - **actual**: 59 lessons annotated (L-200..L-340) across this session + concurrent relay. ISO density: 37.5%→66.8% (dark matter: 62.5%→33.2%). Both F-GT5 alert thresholds now cleared (dark matter was >80%, now <35%). ISO tags distributed: ISO-1(8) ISO-3(9) ISO-4(5) ISO-5(4) ISO-6(4) ISO-7(4) ISO-8(4) ISO-9(9) ISO-10(3) ISO-11(1) ISO-12(5) ISO-13(3) ISO-14(5). L-262..L-280 trimmed to ≤20 lines. ISO annotation identified as L-441 cut-vertex recommendation — execution confirmed.
 - **diff**: Concurrent relay extended sprint from L-200..L-280 plan to L-200..L-340 (better than expected). CRDT convergence: multiple sessions annotated independently, no conflicts.
 - **meta-swarm**: ISO annotation sprint is the highest-ROI operation at current dark-matter density. Even crude first-pass annotations (ISO-3 for compression, ISO-9 for information bottleneck) dramatically increase reachability without requiring deep expert analysis.
-- **State**: 383L 177P 17B 35F | ISO density ~67% | DUE: cleared
+- **State**: 385L 177P 17B 35F | ISO density ~67% | DUE: cleared
 - **Next**: (1) periodics-meta-audit (DUE since S301, overdue 27 sessions); (2) F-LNG2 forward validation; (3) README count drift fix (379→381L); (4) continue ISO sprint L-340..L-380 (remaining dark matter ~33%)
 
 ## S327 session note (mission-constraint-reswarm + modes-reswarm: 2 DUE periodics cleared)

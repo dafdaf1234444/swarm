@@ -16,7 +16,25 @@ from collections import defaultdict
 REPO_ROOT = Path(__file__).parent.parent
 CITATION_CACHE = REPO_ROOT / "experiments" / "compact-citation-cache.json"
 LESSONS_DIR = REPO_ROOT / "memory" / "lessons"
-OUTPUT = REPO_ROOT / "experiments" / "linguistics" / "f-lng1-zipf-lessons-s190.json"
+EXPERIMENTS_DIR = REPO_ROOT / "experiments" / "linguistics"
+
+
+def get_output_path(session: str) -> Path:
+    return EXPERIMENTS_DIR / f"f-lng1-zipf-lessons-{session.lower()}.json"
+
+
+def load_prior_series() -> list:
+    """Load the series array from the most recent existing artifact."""
+    artifacts = sorted(EXPERIMENTS_DIR.glob("f-lng1-zipf-lessons-s*.json"))
+    for artifact in reversed(artifacts):
+        try:
+            with open(artifact) as f:
+                data = json.load(f)
+            if "series" in data:
+                return data["series"]
+        except Exception:
+            continue
+    return []
 
 
 def get_citation_counts_from_cache():
@@ -82,7 +100,7 @@ def fit_power_law(ranked_counts):
     return alpha, r_squared, intercept
 
 
-def run(save=False, verbose=False):
+def run(save=False, verbose=False, session="S328"):
     # Try cache first (fast), fall back to scan
     counts = get_citation_counts_from_cache()
     source = "cache"
@@ -120,8 +138,8 @@ def run(save=False, verbose=False):
 
     result = {
         "experiment": "F-LNG1",
-        "session": "S190",
-        "description": "Zipf power law test on swarm lesson citation distribution",
+        "session": session,
+        "description": f"F-LNG1 Zipf law at n={total_lessons} ({session}) — ISO annotation effect + stall check",
         "hypothesis": "Lesson citations follow power law with α ≈ 1.0 (Zipf), confirming ISO-8 isomorphism",
         "data_source": source,
         "total_lessons": total_lessons,
@@ -179,6 +197,26 @@ def run(save=False, verbose=False):
     else:
         result["interpretation"] = "Insufficient cited lessons for reliable power law fit."
 
+    # Load prior series and append current run
+    prior_series = load_prior_series()
+    current_entry = {"session": session, "n": total_lessons, "alpha": round(alpha, 4) if alpha else None, "r2": round(r_squared, 4) if r_squared else None}
+    # Avoid duplicate session entry
+    series = [s for s in prior_series if s.get("session") != session] + [current_entry]
+    result["series"] = series
+
+    # Stall detection: compare to last 2 prior entries
+    prior_alphas = [s["alpha"] for s in series[:-1] if s.get("alpha") is not None]
+    if len(prior_alphas) >= 2 and alpha is not None:
+        rate = (alpha - prior_alphas[-1]) / max(1, total_lessons - (series[-2].get("n", total_lessons - 10)))
+        stall = abs(rate) < 0.0005
+        result["rate_per_lesson"] = round(rate, 6)
+        result["stall_detected"] = stall
+        result["stall_note"] = f"Rate {rate:.5f}/L vs historical -0.00158/L — {'STALL' if stall else 'DECLINING'}" if stall else f"Declining at {rate:.5f}/L"
+    else:
+        result["rate_per_lesson"] = None
+        result["stall_detected"] = False
+        result["stall_note"] = "Insufficient prior data"
+
     if verbose:
         print(f"\n=== F-LNG1: Zipf Law Test on Lesson Citations ===")
         print(f"Total lessons: {total_lessons} | Cited: {len(cited)} ({result['citation_coverage_pct']}%) | Zero-cited: {len(zero_cited)}")
@@ -187,13 +225,19 @@ def run(save=False, verbose=False):
             print(f"  {i:2d}. {lid}: {cnt} citations")
         print(f"\nPower law fit: α={alpha:.4f}, R²={r_squared:.4f}" if alpha else "\nInsufficient data for fit")
         print(f"Verdict: {result['verdict']}")
+        if result.get("rate_per_lesson") is not None:
+            print(f"Rate: {result['rate_per_lesson']:.5f}/L — {'STALL' if result['stall_detected'] else 'DECLINING'}")
         print(f"\n{result['interpretation']}")
+        print(f"\nSeries ({len(series)} runs):")
+        for s in series:
+            print(f"  {s['session']}: n={s['n']}, α={s['alpha']}")
 
     if save:
-        OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-        with open(OUTPUT, "w") as f:
+        output = get_output_path(session)
+        output.parent.mkdir(parents=True, exist_ok=True)
+        with open(output, "w") as f:
             json.dump(result, f, indent=2)
-        print(f"Saved: {OUTPUT}")
+        print(f"Saved: {output}")
 
     return result
 
@@ -202,5 +246,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="F-LNG1: Zipf law test on lesson citations")
     parser.add_argument("--save", action="store_true", help="Save JSON artifact")
     parser.add_argument("--verbose", action="store_true", help="Print results")
+    parser.add_argument("--session", default="S328", help="Session label (e.g. S328)")
     args = parser.parse_args()
-    run(save=args.save, verbose=args.verbose)
+    run(save=args.save, verbose=args.verbose, session=args.session)

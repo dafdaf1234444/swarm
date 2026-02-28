@@ -9,7 +9,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 - **F119**: How can swarm satisfy mission constraints? S307: I9 risk taxonomy updated (L-366); HIGH_RISK_LANE_PATTERNS hardened; 51/51 MC-SAFE. S310 PARTIAL: (a) colony I9 propagation DONE — 40 COLONY.md files carry MC-SAFE block. Open: (b) I13 cross-substrate (F120); (c) F-CC1 cron sessions (I9 automation gap). Related: L-386, L-366, F120, F-HUM1.
 
 ## Important
-- **F-EVAL1**: Is the swarm good enough? S192 PARTIAL: 4 PHIL-14 goals pass minimum threshold, none externally grounded. Composite: PARTIAL (1.5/3 per L-323). Open: external grounding >10%, frontier resolution rate. Related: PHIL-14, PHIL-16, B-EVAL1/2/3.
+- **F-EVAL1**: Is the swarm good enough? S328 PARTIAL: 1.75/3 composite (up from 1.5/3 S193). Collaborate=2 (62.5% merge), Increase=2 (3.0 L+P/session), Protect=1 (zero challenge drops = soft-acceptance bias), Truthful=2. Two metric bugs fixed (L-450). Binding constraint: Protect — first DROPPED challenge verdict raises it to 2. External grounding gap: 136+ sessions (PHIL-16 open). Related: PHIL-14, PHIL-16, B-EVAL1/2/3, L-323, L-450.
 
 - **F105**: Online compaction monitor. compact.py operational (P-163, L-192). S313: drift=0.4% (healthy). Threshold: DUE>6%, URGENT>10%. No action needed; monitor each cycle.
 
