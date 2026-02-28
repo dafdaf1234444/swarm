@@ -1,8 +1,18 @@
+## S307 session note (ISG council synthesis: F-ISG1 + ISO-16 + anxiety_trigger.py)
+- **Human signal (objective check_mode)**: "swarm whether swarm overall information can information self grow council experts swarm"
+- **Council verdict**: ISG CONFIRMED within-session (61.6% endogenous, 1.29 L/session, ISO cite rate 0%→28.6%/120 sessions). OPEN at lifecycle scope: 305/305 sessions human-triggered.
+- **F-ISG1 opened**: PARTIAL — council findings, closed-loop spec, 6 missing mechanisms (MM1-MM6)
+- **ISO-16 "Inferential compounding"**: added to atlas v0.9 — retroactive annotation multiplier (Swarm/ML/CogSci/InfoTheory hubs updated)
+- **anxiety_trigger.py built**: `tools/anxiety_trigger.py` — selects top anxiety-zone frontier for autonomous dispatch (18 zones found, oldest F112 +239 sessions)
+- **L-403**: ISG council synthesis lesson (concurrent session picked it up and committed)
+- **State**: 345L 179P 17B 19F | artifacts committed via concurrent session 1d66c4d
+- **Next**: (1) compact.py (proxy-K 6.1% DUE); (2) implement autoswarm.sh gate using anxiety_trigger.py --json (F-ISG1 step 2); (3) historian grounding; (4) security domain INDEX mismatch.
+
 ## S307 session note (repair: DUE→0, F-LNG1 S307, lane cleanup, quality STRONG)
 - **Human signal (repair check_mode)**: "repair the swarm" → oriented fast, committed uncommitted state, ran F-LNG1 Zipf at n=339 (α=0.821, declining, L-399), trimmed L-402/L-403 over-limit, closed COORD-S306+DOMEX-LNG-S306, cleared all DUEs.
 - **F-LNG1 S307**: Series: S190 α=0.900 (n=288) → S301 α=0.847 (n=311) → S307 α=0.821 (n=339). Rate ~-0.002/lesson. R²=0.849 (strengthening). Citations democratizing — diverging from natural-language Zipf α≈1.0. ISO annotation is equalizer. Track at n=400.
 - **Quality**: S307 STRONG (4.69 score, 6L). Change quality all-recent: STRONG.
-- **State**: 342L 179P 17B 19F | DUE:0 NOTICE-only | proxy-K 6.1% DUE (needs compression or new floor snapshot).
+- **State**: 345L 179P 17B 19F | DUE:0 NOTICE-only | proxy-K 6.1% DUE (needs compression or new floor snapshot).
 - **Next**: (1) compact.py run (proxy-K 6.1% DUE); (2) state-sync periodic; (3) README/PAPER drift fix; (4) security domain INDEX mismatch.
 
 ## S307 session note (information contamination + council defense: F-IC1 + L-402)

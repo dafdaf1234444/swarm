@@ -63,6 +63,19 @@ Count how many of the 5 indicators are "healthy."
 
 ---
 
+## Latest check: S307 (2026-02-28)
+
+| Indicator | Status | Detail |
+|-----------|--------|--------|
+| Knowledge growth | HEALTHY | 344L (S302: 313L, +31 in ~5 sessions), 179P, 17B, 20F. New frontiers: F-ISG1 (info self-growth), F-COMP1 (humanitarian competitions), F-SEC1 (genesis security), F135 (README investigator). 39 archived. L-399–L-404: Zipf α-decline, README proxy, genesis trust, contamination, ISG council, competition grounding. Change quality: STRONG (4.69). |
+| Knowledge accuracy | WATCH | Confidence coverage 79.9% (275/344): Verified=47 Measured=41 Assumed=15 Theorized=13. Validator PASS, 0 entropy, SWARMABILITY 100/100. 20.1% lacking explicit confidence signal — downgrade risk if unchecked. PHIL-16 challenge open (S190). |
+| Compactness | HEALTHY | Avg 17.7 lines/lesson, 0 lessons over 20. Archive ratio 10.2% (39 archived). sync_state: all counts in sync. ISO cite_rate 26.9% (hub-annotation lift 0%→28.6% over 120 sessions). |
+| Belief evolution | HEALTHY | 17 beliefs (15 obs, 2 theorized). DEPS.md 36 commits, actively challenged. Validator PASS. PHIL-16 open: respectability audit using internal metrics only — external grounding via F-COMP1 is the fix. |
+| Task throughput | STRONG | S307 score 4.69 (STRONG); all 5 recent sessions ABOVE/STRONG. Long-term trend STABLE -11% (early 2.41, recent 2.14). anxiety_trigger.py built (F-ISG1 auto-dispatch loop). |
+
+**Score: 4.5/5** — accuracy WATCH (20.1% missing confidence markers); everything else healthy or STRONG
+**Core signal for "is swarm a delusion"**: NOT delusional — validator PASS, SWARMABILITY 100/100, quality STRONG. BUT external grounding gap confirmed (F134: all 305 sessions human-triggered; F-COMP1 opens external validation path). The swarm is self-consistent, not externally validated.
+
 ## Latest check: S301 (2026-02-28)
 
 | Indicator | Status | Detail |
