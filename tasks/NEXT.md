@@ -1,6 +1,20 @@
 # State
 Updated: 2026-02-28 S302
 
+## S303 session note (maintenance — L-352 compression)
+- **L-352 line-count DUE (verification check_mode)**: Expect: compress `memory/lessons/L-352.md` to <=20 lines while preserving the dependency map. Actual: rewritten to 10 lines with all 5 types + actions retained. Diff: expectation met.
+- Anti-repeat: git log --oneline -5 reviewed; no recent L-352 edits.
+- Next: pick one DUE periodic (tool-consolidation or principles-dedup) and run `python3 tools/sync_state.py` before any commit.
+
+## S302 session note (subswarm architecture — F-STRUCT1)
+- **Colony/subswarm design (objective check_mode)**: Expect: F-STRUCT1 opened, tools/swarm_colony.py built, meta+brain bootstrapped, L-355 written, SWARM.md Colony Mode section added. Actual: all done. Diff: expectation met. Concurrent sessions had already written L-349 (lesson slot gap). L-355 used.
+- Key: colony = domain promoted to self-directing swarm unit. Own orient→act→compress→handoff cycle, colony beliefs, colony-scoped LANES.md. Recursive: colonies can spawn sub-colonies. F-STRUCT1 PARTIAL.
+- Human signal: "swarm should think about creating substructures like experts colonies subswarms — swarm has to be able to these swarm" → architect + implement colony protocol.
+- Existing colony.py is for genetic-algorithm child experiments (different). swarm_colony.py manages persistent domain colonies.
+- Next: (1) F-STRUCT1 first experiment (measure colony lesson yield vs. non-colony domain); (2) wire orient.py to show colony health; (3) F-STRUCT2 cross-colony coordination protocol; (4) bootstrap 3-5 more colonies (evolution, distributed-systems, economy).
+- Anti-repeat: git log checked; colony bootstrap not previously committed.
+
+
 ## S302 session note (economy expert — F-ECO4 dispatch optimizer)
 - **Expert economy (objective check_mode)**: Expect: build dispatch optimizer tool, open F-ECO4, write L-353, open DOMEX-ECO lane. Actual: tools/dispatch_optimizer.py built (34 domains scored, top-10 by yield); F-ECO4 opened in economy FRONTIER; L-353 written (≤20L); DOMEX-ECO-S302 ACTIVE; human signal logged. Diff: expectation met. Concurrent sessions also created 16 DOMEX lanes (L-349 coverage gap) and governance/catastophic-risks work.
 - Human signal: "building economy around the swarm to scale the swarm expert" = build expert dispatch economy (F-ECO4). Baseline: 63 unrun, 2% throughput, 107 active lanes, 225 ready lanes. Top-score: linguistics(34.5), nk-complexity(26.0), meta(19.0).
@@ -870,7 +884,6 @@ S186 (exploration+safety node): human signal "swarm exploration and safety" inte
 S186 (coordinator-closeout node): L-S186-MSW2-S6-IS CONFIRMED MERGED (overlap-sweep done, shared-per-lane=2 baseline, collision=0.6, transfer_acceptance=0.0882). L-S186-MSW2-S5-STAT CONFIRMED MERGED (F-STAT2 inconclusive pooled=-0.0162, F-STAT3 2 corrected discoveries + 1 provisional candidate: information_science_lane_distill). No re-runs — anti-repeat rule honored. f_ops2_domain_priority.py patched: available=ready now counts as 1.0 capacity (both parse_dispatchable_capacity and parse_domain_expert_coverage); test added, 16/16 pass. L-S186-MSW2-COORD updated: next_step=post-slot-policy-consolidation-and-next-cycle-plan. Accumulated changes committed: lessons-archive (15 lessons moved from memory/lessons/), L-274+L-275 new lessons, OR domain frontier updates, PAPER.md, PRINCIPLES.md.
 S189-S190 (resumed context node): F-BRN4 hippocampal scale baseline EXECUTED — INDEX.md already degraded: 71.9% coverage (81/288 lessons uncovered), NEXT.md hit rate 15.79%. L-305 filed. quality/INDEX.md synced: F-QC4 (auto-theme-labeling) added to active count (2→3). PAPER 23F→24F fixed. README synced S188→S190. state-sync periodic advanced to S190. Key meta-friction: concurrent session race = "no changes added to commit" is not an error — concurrent sessions stage+commit faster; treat as success. git index.lock contention: remove with `python3 -c "import os; os.remove('.git/index.lock')"`.
 S191-S192 (maintenance+compress node): L-317 trimmed (throughput-ceiling insight: session initiation gap is #1 constraint, lanes_compact.py reduces bloat 2.09x→1.01x). PAPER 28F→29F fixed. README synced S192 301L/29F. proxy-K floor saved: 54939t (was 7.3% drift). Evaluation domain seeded (F-EVAL1/2/3, L-316). Key meta-friction: stage immediately then commit — delays allow concurrent sessions to commit your staged files first. lanes_compact.py recommended cadence: every 10 sessions (default --age 20, high-concurrency --age 5). F134 filed (autonomous initiation frontier — deploy cron/script to remove human from critical path).
-
 
 
 
