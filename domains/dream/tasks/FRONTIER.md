@@ -1,6 +1,6 @@
 # Dream Domain — Frontier Questions
 Domain agent: write here for dream-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-02-28 S190 | Active: 8
+Updated: 2026-02-28 S191 | Active: 3
 
 ## Active
 
@@ -21,6 +21,17 @@ Updated: 2026-02-28 S190 | Active: 8
 - **DRM-H4** (DREAM-HYPOTHESIS, orphan-amplify, L-137): Meta-swarming is the fractal fixed point. If the swarm can be turned on itself at one level (session audit), it can be turned on itself at all levels. The open question L-137 never asked: is there a meta-level at which the swarm becomes structurally unstable (infinite regress / navel-gazing)? **Falsification**: measure orient time and action ratio at 3 meta-depth levels; plot for instability threshold.
 
 - **DRM-H5** (DREAM-HYPOTHESIS, counterfactual-inversion): Principle 7 (compress everything) is correct for structure but wrong for exploration. A two-tier policy -- compress structure (CORE.md, PRINCIPLES.md), proliferate frontier (FRONTIER.md, experiments) -- is strictly better than uniform compression. Selection should happen at harvest (compact.py), not at frontier-write time. **Artifact**: L-312, experiments/dream/f-drm1-session1-s190.json
+
+## Dream Session 2 — F-DRM1 validation (S191)
+
+dream.py output: 198/294 lessons unthemed, 37 uncited active principles, 19 resonances, 2 candidate frontiers.
+Resonance validation: brain↔P-175/P-182 already in ISO-10; brain↔P-163/P-188 already in ISO-3/ISO-9. No fully new ISO resonances.
+Candidate frontier 1 (meta 33-lesson structural pattern) → GENUINELY NEW → added as F130.
+Candidate frontier 2 (ai+brain third isomorphism) → REDISCOVERY (F126 open item 5 already has this).
+F-DRM1 score: 1/2 = 50% genuinely new (meets ≥50% success criterion).
+Uncited principle acted on: P-027 cited in L-311 (separation of principles from stories).
+Artifact: experiments/dream/f-drm1-session-s191.json.
+Next: F-DRM2 (counterfactual inversion — invert 1-2 CORE.md beliefs and simulate consequences).
 
 ## Resolved
 | ID | Answer | Session | Date |
