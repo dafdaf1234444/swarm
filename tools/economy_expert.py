@@ -234,10 +234,13 @@ def read_lanes() -> dict:
     if not lanes_path.exists():
         return {}
     text = lanes_path.read_text(encoding="utf-8")
-    active = len(re.findall(r"\bACTIVE\b", text))
-    ready = len(re.findall(r"\bREADY\b", text))
-    done = len(re.findall(r"\bDONE\b", text))
-    blocked = len(re.findall(r"\bBLOCKED\b", text))
+    # Only count statuses in table rows (lines starting with '|') to avoid
+    # false positives from header/legend lines that list the status names.
+    table_rows = "\n".join(l for l in text.splitlines() if l.startswith("|"))
+    active = len(re.findall(r"\bACTIVE\b", table_rows))
+    ready = len(re.findall(r"\bREADY\b", table_rows))
+    done = len(re.findall(r"\bDONE\b", table_rows))
+    blocked = len(re.findall(r"\bBLOCKED\b", table_rows))
     total = active + ready + done + blocked
     return {
         "active": active,
