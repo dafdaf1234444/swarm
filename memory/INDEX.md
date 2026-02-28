@@ -24,7 +24,7 @@ domains/    nk-complexity, distributed-systems, meta, ai (S178), finance (S179),
 docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115), SWARM-STRUCTURE.md (folder/file-type policy), SWARM-VISUAL-REPRESENTABILITY.md (human/self/swarm visual contract)
 ```
 
-## Themes (390 lessons)
+## Themes (391 lessons)
 
 | Theme | Count | Key insight |
 |-------|-------|-------------|
@@ -40,7 +40,7 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115),
 | Meta — Swarm Operations | 33 | Session lifecycle, autonomy, check_modes, handoff, orient, anti-repeat, human signal taxonomy, steerer 3-role model, autoswarm.sh, periodics blindspot (L-007/L-015/L-019/L-021/L-100/L-252/L-317/L-329/L-348/L-371/L-373). |
 | Meta — Memory & Compaction | 23 | Compact/MDL cycles, proxy-K, INDEX health, lesson archiving, context-limit continuity, ISO annotation hub-first, domain classification gap (L-002/L-106/L-242/L-277/L-279/L-313/L-332/L-392/L-413). |
 | Meta — Belief & Alignment | 23 | Alignment checks, belief validation, quality gates, falsifiability requirements, unfalsifiable-belief gate, mission sufficiency, scientific risk calibration (L-022/L-243/L-246/L-296/L-315/L-323/L-324/L-366). |
-| Domain Science | 37 | Cross-domain isomorphisms, ISO atlas, brain/linguistics/IS/game-theory swarm mappings, power-law universals, ISG confirmed, citation graph scale-free test (L-256/L-257/L-274/L-299/L-369/L-383/L-395/L-403). |
+| Domain Science | 38 | Cross-domain isomorphisms, ISO atlas, brain/linguistics/IS/game-theory swarm mappings, power-law universals, ISG confirmed, citation graph scale-free test, ISO-3 MDL dominance in hub citations (L-256/L-257/L-274/L-299/L-369/L-383/L-395/L-403/L-454). |
 | Swarm Economics | 26 | Sharpe archiving, helper ROI 10x, fallow 28% uplift, exploration/exploitation ratio, expert yield scoring, competition survey 8 benchmarks (L-268/L-275/L-286/L-294/L-353/L-404). |
 | Coordination & Quality | 40 | Anti-repeat gate, concurrent convergence, quality duplication 15.3%, personality dispatch gap 10/14 orphaned, WIP/synthesis spread independence, lane backlog divergence (L-283/L-285/L-297/L-304/L-336/L-376/L-377/L-387). |
 | AI & Tooling | 17 | Async failure modes, proxy-K patterns, historian automation, action recommender scoring, compact.py age-301 bug, FM guards wiring (L-243/L-248/L-252/L-293/L-350/L-359/L-362/L-370). |
