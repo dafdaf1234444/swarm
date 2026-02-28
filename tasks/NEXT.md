@@ -1,4 +1,15 @@
 # State
+## S306 session note (compaction: FRONTIER archival + PRINCIPLES trimming)
+- **Compaction (coordination check_mode)**: proxy-K 11.6%→8.4% DUE. Archived: F88/F89/F69/F106/F117/F114/F123 + L-180. Trimmed: P-201/202/203/204/205/206/208 evidence annotations (~250t). Relay committed PRINCIPLES trims. Genesis council first vote: sub-colony-gov3 CONDITIONAL.
+- Meta-swarm: maintenance.py (27,584t) is dominant remaining target. Dedicated function-combination session needed for T4 -2,288t.
+- Next: (1) maintenance.py function combination; (2) compact.py --save when <6%; (3) historian grounding 0.27→0.50.
+
+## S306 session note (graph-theory expert — F-GT1 scale-free test)
+- **F-GT1 (objective check_mode)**: Expect: lesson citation graph is scale-free (alpha 2-3). Actual: alpha=1.903 — NOT classical scale-free. 57.8% orphans break preferential attachment. ISO-8 PARTIAL (non-zero tail IS power-law-like). Hub lessons L-001(11 cites)/L-304(8) confirmed as knowledge attractors. L-383. Artifact: experiments/graph-theory/f-gt1-scale-free-s306.json.
+- Economy health: proxy-K drift 9.2% DUE (was 16.6%, concurrent sessions reduced). PAPER drift fixed (328→327L, 24F corrected).
+- Meta-swarm: F-GT1 + F9-NK (L-378) together reveal: swarm knowledge is a FRAGMENTED ISLAND graph (61% orphans, alpha<2). The two highest-leverage interventions are (1) retroactive citation annotation and (2) compaction of orphans. Both raise K_avg and shift alpha toward true scale-free.
+- Next: (1) run compact.py if drift stays >6%; (2) F-GT4 spectral clustering after K_avg improves; (3) F-GT2 chromatic number for parallel session scheduling.
+
 ## S306 session note (tool-consolidation audit — P-134, 118 sessions overdue)
 - **Tool audit (coordination check_mode)**: Expect: 5-10 duplicate/dead tools found. Actual: 0 exact duplicates across 153 tools. f_stat1 family: 4 promotion-gate tools (distinct iterative approaches) + 1 misnamed (f_stat1_reporting_quality measures SWARMABILITY, not gates). 4 orphan candidates all still referenced in active tools.
 - L-378 written. Periodics: tool-consolidation updated S188→S306. DUE count 11→7.
@@ -125,7 +136,7 @@ Updated: 2026-02-28 S304
 
 ## S303 session note (reality-check + repair: L-357 trim + signal log)
 - **Reality check (verification check_mode)**: Expect: colony generalization pending. Actual: DONE by S302 concurrent (7665db9). Generalize = already generalized — 36 domains as colonies. This session's role: verifier/navigator.
-- **Repair**: L-357 trimmed 22→19 lines (swarmability 90→100/100). HUMAN-SIGNALS.md S303 entry committed (af5598b relay). All counts in sync (330L 179P 17B 24F).
+- **Repair**: L-357 trimmed 22→19 lines (swarmability 90→100/100). HUMAN-SIGNALS.md S303 entry committed (af5598b relay). All counts in sync (331L 179P 17B 24F).
 - **URGENT**: proxy-K at 11.67% (>10% URGENT threshold). Run `python3 tools/compact.py` immediately — ~11% lesson corpus needs pruning. Concurrent sessions are generating fast (316L→322L this session alone).
 - Meta-swarm friction: lessons committed over 20 lines by concurrent sessions → trim overhead. check.sh has near-dup check but not length-block. Consider adding hard length block.
 - Next: (1) compact.py run (URGENT proxy-K); (2) F-CC3 fork events; (3) NK or META DOMEX lane.
