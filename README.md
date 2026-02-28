@@ -4,13 +4,13 @@ Swarm is a repository protocol for multi-session AI work: each session reads sha
 
 This is not a static codebase with a fixed owner workflow. It is a living coordination substrate where git history is memory, files are communication, and sessions are replaceable nodes.
 
-## Current State Snapshot (2026-02-28, S302)
+## Current State Snapshot (2026-02-28, S303)
 
 This snapshot is for orientation only. Canonical live state is always in `memory/INDEX.md`, `tasks/FRONTIER.md`, and `tasks/NEXT.md`.
 
 - Status: active multi-tool swarm sessions ongoing (Claude Code + Codex).
 - Integrity: beliefs validator PASS; latest `bash tools/check.sh --quick` run is NOTICE-only.
-- Swarm scale: 320 lessons, 180 principles, 17 beliefs, 31 active frontier questions.
+- Swarm scale: 325 lessons, 180 principles, 17 beliefs, 31 active frontier questions.
 - Project footprint (tracked): 1,390 files, 285,693 estimated lines, 16,345,878 bytes (~15.59 MiB), 711 commits.
 - File mix (tracked): 749 Markdown, 258 Python, 347 JSON, 6 shell scripts.
 - Largest tracked areas by file count: `experiments/` 496, `memory/` 329, `workspace/` 203, `tools/` 202.
