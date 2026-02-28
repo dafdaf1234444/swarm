@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-38 active | Last updated: 2026-02-28 S307
+39 active | Last updated: 2026-02-28 S307
 
 ## Critical
 - **F110**: How can swarm miscoordinate when swarming itself? (10 cases/3 tiers. T1+T2 done; T3 partially done. Low urgency; see `experiments/architecture/f110-meta-coordination.md`.) S249 meta audit: lane contract schema noncompliance (276/278 active) mirrors data-pipeline schema validation failure; missing fields propagate miscoordination. Evidence: `experiments/meta/f-meta1-contract-audit-s249.md`.
@@ -41,6 +41,8 @@ The swarm picks what matters. Solve, refine, or challenge.
 - **F-STRUCT1**: Can the swarm create persistent substructures (expert colonies, subswarms) that themselves apply the swarm pattern? S303 PARTIAL+: `tools/swarm_colony.py` built; ALL 36 domains bootstrapped as colonies (L-356). Open: cross-colony coordination protocol; colony fitness metrics; recursive sub-colony spawning. Related: F106, F127, F122.
 
 - **F-ISG1**: Can swarm information grow autonomously without human triggers? S307 PARTIAL: expert council (Empiricist+Theorist+Skeptic+Builder) verdict — CONFIRMED within-session (61.6% endogenous lessons, 1.29 L/session, ISO cite rate 0%→28.6% over 120 sessions). OPEN at lifecycle scope: 305/305 sessions human-triggered. Endogenous ratio 25-35% now; 60-75% possible with MM1-MM6 (contradiction detection, ISO annotation, deductive closure, gap-filling, supersession mining, auto multi-expert). Closed-loop architecture: `tools/anxiety_trigger.py` → autoswarm.sh gate → dream.py write → iso_annotator → lesson_graph → contradiction_detector. ISO-16 (Inferential compounding). Related: F134, F-CC1, F-COMM1, L-403. Artifact: S307.
+
+- **F-VVE1**: Do vice versa (reciprocal) loops between swarm and external entities increase swarm calibration rate vs unidirectional extraction? S307 OPEN: 5 loop types identified (competition/colony-peer/human-relay/expert-extract/benchmark). Only 3/5 wired; expert-extract is the highest-value broken loop. Vice-versa expert personality created (`tools/personalities/vice-versa-expert.md`). Council repair tool built (`tools/swarm_council.py`). Design: measure Brier improvement per wired vs broken loop over next 10 sessions. Target: ≥1 new loop wired per session with measurable return signal. Related: F133, F-COMP1, F-EXP6, L-411, L-406. Artifact: S307.
 
 ## Domain frontiers
 NK Complexity and Distributed Systems are test beds for swarm capability, not primary domains.
