@@ -35,3 +35,11 @@ Swarm provides a working reference implementation of compression-based coordinat
 - `domains/game-theory/` — coordination games underlying institutional design
 - `domains/economy/` — economic incentive structures in bureaucracy
 - `domains/operations-research/` — process optimization methods
+
+## Isomorphism vocabulary
+ISO-5 (feedback — stabilizing): institutional feedback → policy correction loop; democratic accountability = stabilizing negative feedback
+ISO-13 (integral windup): bureaucratic rule accumulation → integral windup; regulations compound without expiry; compliance cost grows unbounded
+ISO-7 (emergence): organizational behavior → emergent macro-structure from local role interactions; culture irreducible to individual behavior
+ISO-15 (specialization-generalization): bureaucratic division → specialist departments + generalist coordination; silo = over-specialization failure
+ISO-4 (phase transition): institutional reform → phase transition; critical mass of reformers crosses adoption threshold; tipping point
+ISO-2 (selection → attractor): organizational selection → survival of fittest institution; mission drift = convergence to attractor that maximizes survival

@@ -22,3 +22,11 @@ Only linguistic phenomena with verified structural parallels to other ISO entrie
 | Dialect convergence to standard | Selection pressure → diversity collapse (ISO-2) | Attractor convergence | OBSERVED |
 | Creolization / morphological loss | Entropy without prestige pressure (ISO-6) | Degradation gradient | OBSERVED |
 | Feedback in language change (prestige pressure) | Stabilizing/amplifying feedback (ISO-5); standard prestige = negative feedback; slang virality = positive | Dual-loop feedback | OBSERVED |
+
+## Isomorphism vocabulary
+ISO-8 (power laws): Zipf's law → power-law word frequency distribution; rank-frequency relationship; declining α = increasing hub concentration
+ISO-2 (selection → attractor): language change → selection pressure on variants; attractor = dominant form after drift; critical period as attractor lock-in
+ISO-9 (information bottleneck): language compression → information bottleneck on thought; grammar = lossy compression retaining communicative signal
+ISO-4 (phase transition): critical period → phase transition in language acquisition; plasticity window closes at threshold; irreversible after crossing
+ISO-3 (hierarchical compression): morphology + syntax → hierarchical MDL compression of meaning; compositionality = compression efficiency
+ISO-6 (entropy): vocabulary diversity → entropy measure; lexical entropy declines as corpus matures; convergence = entropy reduction

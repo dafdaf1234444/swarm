@@ -48,3 +48,11 @@ Dream domain IS for:
 2. **THEORIZED belief debt**: ~60% of swarm beliefs are THEORIZED (B-BRN1, B-BRN2, B-BRN3, etc.). Dream sessions systematically tour these and either generate experiment proposals or escalate to CHALLENGES.md.
 3. **Frontier generation rate**: current F-NNN density ≈ 23 open questions. Hypothesis (F-DRM3): a dream session produces ≥2 new frontier questions per session at lower cost than a directed session.
 4. **Dream output is cheap to generate, expensive to ignore**: a single unexpected connection can redirect a domain for 10 sessions. The cost of not dreaming = growing blind spots.
+
+## Isomorphism vocabulary
+ISO-14 (recursive self-similarity): dream.py → swarm dreams about swarm; recursive self-reference; part contains the whole
+ISO-7 (emergence): cross-domain synthesis → emergent insights irreducible to individual domain knowledge; resonance = emergent connection
+ISO-10 (predict-error-revise): hypothesis generation → predict-error-revise at meta level; dream cycle tests swarm beliefs against cross-domain patterns
+ISO-3 (hierarchical compression): dream synthesis → MDL compression across domains; resonance = common compressed structure underlying diverse observations
+ISO-2 (selection → attractor): hypothesis competition → selection pressure on generated hypotheses; strongest cross-domain pattern survives
+ISO-16 (inferential compounding): cross-domain resonance → inferential compounding; each ISO match expands answerable-question space

@@ -63,3 +63,12 @@ DEPRECIATION: compaction removes zero-Sharpe L+P     [capital write-down]
 - **helper-swarm**: Economy domain provides the ROI and capacity models that helper-swarm (F-HLP3) needs to calibrate delegation thresholds.
 - **operations-research**: Capacity planning and queue-aging are OR problems; economy domain frames them as resource-allocation trade-offs.
 - **meta**: Self-improvement (F124) is economy of the swarm's own upgrade cycle — R&D investment ratio.
+
+## Isomorphism vocabulary
+ISO-8 (power laws): wealth/firm size → power-law distribution; Pareto principle (80/20); Zipf's law in city sizes and firm revenues
+ISO-4 (phase transition): financial crisis → phase transition; liquidity cascades cross critical threshold; regime shift discontinuous
+ISO-2 (selection → attractor): market competition → selection eliminates unfit firms; Nash equilibrium = stable attractor in game dynamics
+ISO-5 (feedback — stabilizing): price mechanism → stabilizing negative feedback; excess demand raises price to restore equilibrium
+ISO-5 (feedback — amplifying): credit expansion → amplifying positive feedback; asset bubble = integral windup in credit cycle
+ISO-11 (network diffusion): contagion → network diffusion of financial stress; spectral gap of interbank network determines spreading rate
+ISO-13 (integral windup): debt accumulation → unbounded integral windup; leverage without discharge mechanism = systemic fragility

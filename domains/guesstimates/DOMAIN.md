@@ -5,3 +5,11 @@ Lessons: (none yet)
 Frontiers: F-GUE1, F-GUE2, F-GUE3
 Related: domains/statistics/ (confidence intervals, base rates, calibration), domains/psychology/ (cognitive biases in estimation, scope insensitivity), domains/information-science/ (entropy, uncertainty propagation), domains/operations-research/ (estimation in planning)
 Load order: CLAUDE.md → beliefs/CORE.md → this file → tasks/FRONTIER.md
+
+## Isomorphism vocabulary
+ISO-3 (hierarchical compression): Fermi estimation → MDL decomposition; compress unknown into tractable sub-estimates; hierarchical reduction
+ISO-9 (information bottleneck): estimation under uncertainty → information bottleneck; discard irrelevant detail; extract signal from noisy prior
+ISO-10 (predict-error-revise): calibration training → predict-error-revise loop; Brier score = prediction error signal; revision = forecast update
+ISO-16 (inferential compounding): chained estimates → inferential compounding; each linked estimate expands answerable space; Drake equation as compounding
+ISO-6 (entropy): uncertainty quantification → entropy measure; maximum entropy prior = minimal assumption; calibration = entropy reduction
+ISO-8 (power laws): reference class forecasting → power-law base rates; large projects follow fat-tailed overrun distributions

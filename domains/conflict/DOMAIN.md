@@ -50,3 +50,11 @@ It swarms WITH other nodes — reads their state, posts to their lanes when conf
 | Immune response | Conflict detection + lane quarantine | Biology/Evolution | THEORIZED |
 | Conflict-free replicated data types (CRDT) | Append-only INDEX counters | Distributed-systems | OBSERVED (A3 fix) |
 | Adversarial collaboration | Skeptic + adversary personalities | Psychology | OBSERVED |
+
+## Isomorphism vocabulary
+ISO-5 (feedback — amplifying): escalation cycle → amplifying feedback; each defection increases defection probability; arms race = positive feedback
+ISO-5 (feedback — stabilizing): deterrence → stabilizing feedback; mutually assured destruction restores equilibrium
+ISO-4 (phase transition): war outbreak → phase transition; gradual tension crosses critical threshold triggering discontinuous shift
+ISO-2 (selection → attractor): competitive conflict → selection pressure eliminates weaker strategies; Nash equilibrium = stable attractor
+ISO-7 (emergence): collective violence → emergent macro-behavior from individual local rules; crowd dynamics irreducible to individual actors
+ISO-12 (max-flow/min-cut): supply chain warfare → min-cut in logistics network; severing bottleneck edges maximally disrupts flow

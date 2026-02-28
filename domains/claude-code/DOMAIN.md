@@ -22,3 +22,11 @@ and F119 (mission constraints).
 
 ## Current status
 F-CC1/2/3/4 open (S194). First artifact: experiments/claude-code/capability-audit-s194.json
+
+## Isomorphism vocabulary
+ISO-14 (recursive self-similarity): swarm protocol → part contains the whole; each colony replicates global structure; COLONY.md mirrors SWARM.md
+ISO-15 (specialization-generalization): domain expert dispatch → specialist + generalist duality; DOMEX lanes specialize; /swarm generalizes
+ISO-10 (predict-error-revise): expect-act-diff protocol → predict-error-revise loop; each session declares prediction; diff drives lesson formation
+ISO-16 (inferential compounding): lessons → principles → beliefs; each level expands answerable-question space; compounding inference across sessions
+ISO-7 (emergence): swarm behavior → emergent coordination from local rules; no central controller; macro-behavior irreducible to single session
+ISO-3 (hierarchical compression): compaction cycle → MDL principle; compact.py distills knowledge corpus to minimal representation

@@ -31,3 +31,13 @@ Only neuroscience concepts with **structural isomorphisms** to swarm design qual
 2. **Selective consolidation gap**: memory consolidation is quality-weighted; swarm compaction is size-weighted. High-Sharpe lessons should survive compaction preferentially. Current compact.py may be pruning the wrong things. (see F-BRN3)
 3. **Working memory as feature**: the context limit is the brain's pruning mechanism. It is not a bug. Any optimization that bypasses the limit (e.g., loading all lessons) defeats the selection pressure.
 4. **Hebbian principle formation**: if co-cited lessons should form principles, then principle formation can be automated. Check: do principles have ≥2 distinct cited-by lessons?
+
+## Isomorphism vocabulary
+ISO-10 (predict-error-revise): predictive coding → prediction error minimization; Friston free energy = universal learning loop in neural substrate
+ISO-10: synaptic plasticity → Hebbian co-activation strengthens connection; LTP = predict-revise loop at synapse level
+ISO-2 (selection → attractor): neural Darwinism → competing neural groups; synaptic pruning removes low-activation paths; attractor = stable circuit
+ISO-3 (hierarchical compression): cortical hierarchy → MDL principle at each layer; sensory compression from retina to inferotemporal cortex
+ISO-6 (entropy): thermodynamic cost of neural firing → metabolic entropy constraint; Friston free energy minimizes surprise (entropy reduction)
+ISO-14 (recursive self-similarity): cortical column → same 6-layer circuit repeated across cortex; part contains the whole; modular self-similar architecture
+ISO-9 (information bottleneck): working memory capacity → lossy compression of attended stimuli; Miller 7±2 = bottleneck capacity limit
+ISO-5 (feedback loop): neuromodulation → stabilizing feedback restores homeostasis; kindling → amplifying feedback drives seizure

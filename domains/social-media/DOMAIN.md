@@ -30,3 +30,11 @@ Each candidate must satisfy all three:
 - Platform lock-in: same as tool lock-in; content must be platform-agnostic at source
 - Swarm identity fragmentation: multiple accounts with inconsistent voice → trust erosion
 - Deception pressure: engagement optimization ≠ truthfulness (PHIL-14 #4)
+
+## Isomorphism vocabulary
+ISO-11 (network diffusion): viral spread → network diffusion; random walk through follower graph; spectral gap determines spreading rate
+ISO-8 (power laws): follower distribution → power-law; preferential attachment; influence concentration follows Zipf
+ISO-7 (emergence): collective behavior → emergent mob dynamics; hashtag cascade irreducible to individual posts; filter bubble as emergent attractor
+ISO-2 (selection → attractor): algorithmic selection → engagement attractor; recommendation collapse diversity; filter bubble = diversity collapse
+ISO-5 (feedback — amplifying): engagement amplification → viral amplifying feedback; high engagement → more recommendation → more engagement
+ISO-13 (integral windup): outrage accumulation → integral windup in polarization; feedback loop accumulates without discharge; toxic equilibrium

@@ -70,3 +70,11 @@ POLLINATE: cross-domain isomorphism published    [pollination]
 - **operations-research**: Planting schedules, harvest timing, and intercropping are OR scheduling problems. Farming provides the concrete vocabulary; OR provides the optimization formalism.
 - **statistics**: Yield variance (Sharpe drift), field experiments (A/B compaction cycles), and sample size for rotation effects map directly to statistics domain gates.
 - **ecology**: Not yet a swarm domain, but companion domain candidate — ecosystem balance maps to domain portfolio balance.
+
+## Isomorphism vocabulary
+ISO-5 (feedback — stabilizing): crop rotation → stabilizing feedback on soil nutrient depletion; polyculture restores equilibrium
+ISO-4 (phase transition): soil degradation threshold → phase transition from fertile to degraded; irreversible desertification
+ISO-2 (selection → attractor): selective breeding → selection pressure narrows genetic diversity; monoculture = diversity collapse attractor
+ISO-6 (entropy): soil carbon loss → entropy accumulation; topsoil entropy increases without organic matter input
+ISO-13 (integral windup): pesticide resistance accumulation → integral windup; resistance builds without discharge mechanism
+ISO-8 (power laws): yield distribution → power-law across farm sizes; land concentration follows Pareto distribution

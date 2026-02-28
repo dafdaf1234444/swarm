@@ -24,3 +24,11 @@ Only catastrophic-risk concepts with structural isomorphisms to swarm operation 
 - Every session: run the swiss-cheese gap audit (are all layers present for each severity-1 failure mode?)
 - Cross-domain extraction priority: hardening gaps → tasks/FRONTIER.md as F-CAT* + F-number
 - Artifact minimum: one FMEA row or bow-tie per session
+
+## Isomorphism vocabulary
+ISO-4 (phase transition): tipping point → irreversible qualitative shift; critical threshold beyond which normal recovery impossible
+ISO-4: tail risk → catastrophic phase transition at threshold; fat-tailed distributions hide critical boundary until crossed
+ISO-13 (integral windup): risk accumulation → unbounded build-up without discharge mechanism; systemic fragility accrues silently
+ISO-5 (feedback — amplifying): cascade failure → amplifying feedback loop; each failure increases probability of next failure
+ISO-6 (entropy): entropy production → degradation gradient in safety margins; order requires continuous external energy input; neglect = drift to disorder
+ISO-2 (selection → attractor): extinction event → catastrophic selection pressure; only robust variants survive attractor transition

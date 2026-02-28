@@ -22,3 +22,11 @@ Only health/immunology concepts with structural isomorphisms to swarm design qua
 | Autoimmune disease (self-attacks when sync fails) | Cascade anchoring: synchronized detection converts independent errors into correlated failures | Sync → self-attack | OBSERVED — B-HLT2 (S185) |
 | Homeostatic set point (body temperature, glucose) | Proxy-K floor (36,560t at S174): compaction seeks minimum viable representation | Set-point regulation | REFUTED — B-HLT3 (S182): compaction sets new launch pad, not floor; growth resumes at same or higher rate post-compaction |
 | Fever (systemic response to detected threat) | URGENT escalation in maintenance.py: systemic response to detected drift above threshold | Escalation response | STRUCTURAL PARALLEL |
+
+## Isomorphism vocabulary
+ISO-5 (feedback — stabilizing): homeostasis → stabilizing negative feedback; blood glucose regulation; thermoregulation; immune response
+ISO-4 (phase transition): disease transition → phase transition; infection crosses critical density threshold; tipping into chronic disease
+ISO-13 (integral windup): chronic inflammation → integral windup; low-grade inflammation accumulates without resolution; metabolic syndrome
+ISO-2 (selection → attractor): immune selection → antibody diversity; pathogen selection pressure narrows immune repertoire to attractor
+ISO-6 (entropy): aging → entropy accumulation; DNA damage accrues; biological aging = entropy production without full repair
+ISO-8 (power laws): disease burden distribution → power-law; rare diseases follow Zipf distribution; pandemic R0 threshold = phase transition

@@ -18,3 +18,11 @@ Only fractal concepts with direct structural isomorphisms to swarm operation qua
 | Bifurcation point | Small threshold changes (for example WIP caps/guards) flip stable operating regimes | Phase-transition control | OBSERVED |
 | Iterated map | Expect -> act -> diff repetition generates emergent long-run structure | Recursive dynamics | OBSERVED |
 | Attractor basin | Stable policy modes pull execution toward recurring lane-state patterns | Dynamic attractor model | THEORIZED |
+
+## Isomorphism vocabulary
+ISO-14 (recursive self-similarity): fractal → part contains the whole; self-similar structure at all scales; Mandelbrot set = recursive self-reference
+ISO-14: Hausdorff dimension → scaling exponent of recursive self-similarity; non-integer dimension = fractal signature
+ISO-8 (power laws): fractal dimension → power-law scaling; self-similar structures obey power-law size distribution
+ISO-4 (phase transition): fractal boundary → phase transition locus; Mandelbrot set boundary = transition between bounded and unbounded behavior
+ISO-7 (emergence): fractal pattern → emergent global structure from local recursive rule; complexity from simple iteration
+ISO-16 (inferential compounding): fractal inference → each scale resolves new detail; answerable-question space grows with resolution

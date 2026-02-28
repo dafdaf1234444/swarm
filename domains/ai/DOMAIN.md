@@ -5,3 +5,7 @@ Lessons: L-218 (asynchrony cascade defense), L-219 (capability⊥vigilance), L-2
 Frontiers: F-AI1 (information-surfacing intervention), F-AI2 (async vs sync cascade behavior), F-AI3 (expect-act-diff drift reduction)
 Experiments: experiments/ai/
 Load order: CLAUDE.md → beliefs/CORE.md → this file → INDEX.md → memory/INDEX.md → tasks/FRONTIER.md
+
+## Isomorphism vocabulary
+ISO-7 (emergence): agents following local best-response rules → Nash equilibrium emerges without communication; coordination without coordination → emergent system property; NP-hardness → easy micro-steps combine into hard macro-problem; information asymmetry → accuracy bottleneck before reasoning
+ISO-9 (information bottleneck): neural network layers → discard irrelevant variance while preserving class signal; attention mechanism → dynamic bottleneck filtering by output-relevance; each layer → lossy compression toward target output; capability and vigilance → orthogonal axes

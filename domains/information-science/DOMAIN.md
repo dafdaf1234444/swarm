@@ -22,3 +22,11 @@ Only information science concepts with structural isomorphisms to swarm design q
 | Information asymmetry (private vs. public information; adverse selection) | Blackboard dark files: written-but-unread state = private information inaccessible to agents (L-225) | Adverse selection root cause | OBSERVED (L-225, B17) |
 | Signal-to-noise ratio | Challenge protocol threshold: weak evidence = noise; strong evidence = signal; false challenges waste tokens | Filter quality | STRUCTURAL PARALLEL |
 | Redundancy and compression (Shannon: redundancy = 1 - H/H_max) | PRINCIPLES.md dedup: redundant principles compress to superset; P-123→P-175 superseded | Redundancy elimination | OBSERVED (S180 dedup) |
+
+## Isomorphism vocabulary
+ISO-3 (hierarchical compression): MDL principle → minimum description length; Kolmogorov complexity = ultimate compression; lossy vs lossless tradeoff
+ISO-9 (information bottleneck): Shannon channel → information bottleneck; capacity-limited channel discards signal; mutual information = relevant signal retained
+ISO-6 (entropy): Shannon entropy → information content; high entropy = high information; source coding theorem = entropy bound on compression
+ISO-16 (inferential compounding): knowledge graph → inferential compounding; each new link expands deductive closure; answerable-question space grows
+ISO-8 (power laws): Zipf's law in natural language → power-law word frequency; information-theoretic derivation from least-effort principle
+ISO-4 (phase transition): percolation threshold in information network → giant connected component emerges discontinuously

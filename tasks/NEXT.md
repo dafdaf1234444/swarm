@@ -1,10 +1,19 @@
+## S335 session note (council-swarm: scale all aspects — council structure + dream.py fix + DOMEX-LNG, L-465)
+- **check_mode**: objective | **lane**: COUNCIL-SCALE-S335 | **dispatch**: council-expert + domain-enrichment + linguistics (34.5)
+- **expect**: DRM-H16 confirmed (dream.py 0→>3 non-brain resonances); HQ-41 answered (formal council); F-LNG1 α continues declining; council memo identifies scaling gaps
+- **actual**: CONFIRMED ALL. dream.py: 22→52 total, 0→43 non-brain resonances (3 DOMAIN.mds enriched with ISO vocab). HQ-41 ANSWERED: formal council. docs/COUNCIL-STRUCTURE.md created: 10 domain seats, 10-session rotation, 3 council modes. F-SCALE2 opened. F-LNG1: α=0.7476 n=401, rate -0.00231/L (3rd consecutive = locked). F-LNG2: 10-session milestone (1/10 organic). L-465 written.
+- **diff**: Domain vocab enrichment was a massive lever — 0→43 non-brain resonances from 3 file edits of 8 lines each. Council-as-scaling-mechanism is structural: seats = DOMEX lanes = throughput. Expert-extract loop still BROKEN (no real external corrections ever processed).
+- **meta-swarm**: "Scale the swarm in all aspects" produces 3 concurrent streams (council, domain enrichment, DOMEX) that all landed in the same session. Scaling = parallelism. The council mechanism makes parallelism visible and durable.
+- **State**: 401L 177P 17B 36F | dream.py 43 non-brain resonances | HQ-41 CLOSED | F-SCALE2 OPEN | Drift 64.3% URGENT
+- **Next**: (1) SESSION-LOG.md gap: append S307-S335 history (blocks proxy-K baseline); (2) compaction URGENT (64.3% drift); (3) DRM-H17: citation-conservation check in compact.py; (4) F121 human-signal mining (+154 sessions overdue); (5) sink-node sprint at N=450 (161 zero-IN-degree lessons)
+
 ## S334 session note (dream-cycle Session 5: swarm dreams about best possible swarm, L-464)
 - **check_mode**: objective | **lane**: dream-domain | **dispatch**: dream (meta-recursive)
 - **expect**: dream.py would surface only brain resonances again (L-463 known gap); session would generate hypotheses from cross-domain recombination + counterfactual inversion
 - **actual**: Dream Session 5 complete. 5 hypotheses (DRM-H14..H18): K_avg as evolutionary fitness signal, Pareto-optimal sessions via game-theoretic NEXT.md future shadow, two-regime proliferation/compression policy, information conservation law for compact.py, latent-mining sessions (orthogonal to dream.py). 4/5 genuinely new (80%). F-DRM4 opened. L-464, artifact: experiments/dream/f-drm1-dream-session5-s334.json.
 - **diff**: Meta-recursive dream (swarm dreaming about the swarm) yielded sharper structural hypotheses than domain-pair dreams. DRM-H15 (Pareto vs Nash session optimization) and DRM-H17 (information conservation) are actionable: can be implemented as compact.py improvements.
 - **meta-swarm**: The user's direction "dream about best possible swarm" seeded the most productive dream session yet — asking the dream mechanism to dream about its own container is self-amplifying.
-- **State**: 401L 177P 17B 35F | F-DRM4 opened | SESSION-LOG gap S306→S333 still present
+- **State**: 401L 177P 17B 36F | F-DRM4 opened | SESSION-LOG gap S306→S333 still present
 - **Next**: (1) DRM-H16 test: enrich 5 domain DOMAIN.mds with ISO vocab per L-463; re-run dream.py; expect >3 non-brain resonances; (2) DRM-H17 implementation: add citation-conservation check to compact.py; (3) SESSION-LOG.md gap: append S307-S333 history; (4) compaction overdue (14% drift)
 
 ## S333 session note (dream-cycle + setup: L-463 domain ISO vocab gap + 3 periodics cleared)
@@ -1123,7 +1132,7 @@
 - Meta-swarm: PowerShell lacks `python`; used `bash -lc "python3 ..."` for tests and experiments.
 - Next: (1) tune tie-guard thresholds per heterogeneity regime or extend analytic model; (2) map guard bands across `agent_sd`/`difficulty_sd` grid; (3) consider heterogeneity-aware utility in `spawn_math.py` if mismatch persists.
 
-Updated: 2026-03-01 S334
+Updated: 2026-03-01 S335
 
 ## S306 session note (recursion-generalizer: P-209/P-210 + ISO-15 keyword + cite rate 11%)
 - **Recursion generalization (objective check_mode)**: Expect: ISO-15 keywords added, cite rate crosses 10%. Actual: ISO-15 keyword detection added; 7 lessons annotated (ISO-6/14/15); P-209 (ISO-14 multi-scale compliance) + P-210 (ISO-15 spec:gen health metric) promoted; cite rate 8.9%→11.0% — P-210 target (>10%) met same session as written. Self-validating.

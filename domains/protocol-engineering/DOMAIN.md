@@ -18,3 +18,11 @@ Only protocol concepts with direct structural isomorphisms to swarm operation qu
 | Protocol mutation cadence | Too-frequent mutation raises coordination overhead | Stability tradeoff | OBSERVED |
 | Bridge parity | Tool-specific entry drift weakens cross-tool swarmability | Portability control | OBSERVED |
 | Minimal viable protocol | Overgrown protocol reduces pickup speed | Complexity control | THEORIZED |
+
+## Isomorphism vocabulary
+ISO-5 (feedback — stabilizing): TCP congestion control → stabilizing feedback; AIMD reduces rate on congestion signal; equilibrium restoration
+ISO-13 (integral windup): TCP receive buffer → integral windup on packet queue; window saturation without discharge = head-of-line blocking
+ISO-7 (emergence): network protocol stack → emergent end-to-end behavior from layer interactions; reliability from unreliable substrate
+ISO-14 (recursive self-similarity): nested protocol encapsulation → recursive self-similar wrapper structure; each layer mirrors parent
+ISO-4 (phase transition): consensus protocol → phase transition from disagreement to agreement at quorum threshold
+ISO-12 (max-flow/min-cut): routing → max-flow/min-cut in network topology; bottleneck link = min-cut edge

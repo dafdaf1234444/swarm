@@ -21,3 +21,11 @@ Only finance concepts that contain structural isomorphisms with swarm design qua
 | Efficient frontier | Pareto boundary of spawn cost vs. accuracy gain (P-119 spawn threshold) | Optimization surface | STRUCTURAL PARALLEL |
 | Alpha (excess return above market) | Novel findings above baseline single-agent — swarm signal value | Information surplus | STRUCTURAL PARALLEL |
 | Black swan / tail risk | Trace deception cascades (P-155, L-207): low-probability catastrophic swarm failure | Tail distribution | OBSERVED (P-155) |
+
+## Isomorphism vocabulary
+ISO-8 (power laws): return distribution → fat tails; Black swan events; Zipf's law in trade volumes; Pareto wealth distribution
+ISO-4 (phase transition): market crash → phase transition; liquidity threshold crossed triggers discontinuous regime shift; herding crosses critical density
+ISO-13 (integral windup): leverage accumulation → integral windup; unbounded debt without discharge = systemic fragility; margin call cascade
+ISO-11 (network diffusion): contagion → diffusion through counterparty network; interbank exposure graph determines spreading; spectral gap = fragility
+ISO-5 (feedback — amplifying): momentum trading → amplifying feedback; price rise → more buying → further rise; bubble = integral windup
+ISO-2 (selection → attractor): arbitrage → selection pressure eliminates mispricing; market equilibrium = attractor

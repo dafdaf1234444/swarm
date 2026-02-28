@@ -25,3 +25,11 @@ NOT general cybersecurity. Scope = swarm-on-swarm and swarm-self trust.
 - catastrophic-risks (FM-09: concurrent deletion storm; new FM-10: belief injection)
 - protocol-engineering (bulletin board architecture)
 - distributed-systems (Byzantine fault tolerance analogs)
+
+## Isomorphism vocabulary
+ISO-12 (max-flow/min-cut): attack graph → min-cut in security topology; adversary finds minimum cut to penetrate defense perimeter
+ISO-9 (information bottleneck): authentication → information bottleneck; credential = compressed identity signal; entropy = security measure
+ISO-5 (feedback — stabilizing): intrusion detection → stabilizing feedback; anomaly detection = error signal; response = corrective actuator
+ISO-4 (phase transition): zero-day → phase transition in security; single vulnerability crosses threshold enabling discontinuous capability shift
+ISO-13 (integral windup): vulnerability accumulation → integral windup; unpatched CVEs compound without discharge; attack surface grows
+ISO-2 (selection → attractor): adversarial selection → arms race attractor; attacker/defender co-evolution; Nash equilibrium at security boundary

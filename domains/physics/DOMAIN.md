@@ -19,3 +19,11 @@ Only physics concepts with direct structural isomorphisms to swarm operation or 
 | Negative/positive feedback (thermostats) | Homeostasis; compound interest | Stabilizing vs amplifying loops | VERIFIED |
 | Emergence (superconductivity, crystals) | Swarm belief coherence from node commits | Macro from micro-rules | OBSERVED |
 | Power laws (1/f noise, critical phenomena) | Lesson citation; NK complexity scaling | Scale-free distribution | THEORIZED |
+
+## Isomorphism vocabulary
+ISO-4 (phase transition): thermodynamic phase transition → discontinuous qualitative shift at critical temperature; symmetry breaking; order parameter
+ISO-6 (entropy): second law → entropy production; irreversibility; Maxwell demon → information = entropy; Landauer principle
+ISO-8 (power laws): critical phenomena → power-law scaling at phase transition; scale invariance; renormalization group = ISO-14
+ISO-5 (feedback — amplifying): laser → amplifying feedback; stimulated emission above threshold; phase transition at lasing threshold
+ISO-14 (recursive self-similarity): renormalization group → recursive self-similar structure; scale invariance = ISO-14 at phase transition
+ISO-1 (optimization): least action principle → optimization-under-constraint; physical trajectories minimize action functional

@@ -22,3 +22,11 @@ Each candidate must satisfy all three:
 | Expect-act-diff closure lag | correction latency in active work | Feedback control | OBSERVED |
 | Human signal loss | ephemeral chat inputs vs persisted signals | Input observability | OBSERVED |
 | Improvement ROI uncertainty | change volume vs outcome quality | Optimization | THEORIZED |
+
+## Isomorphism vocabulary
+ISO-14 (recursive self-similarity): swarm self-model → part contains the whole; meta-layer mirrors object layer; SWARM.md describes its own application
+ISO-10 (predict-error-revise): meta-reflection → predict-error-revise at swarm level; session declares prediction; diff drives belief revision
+ISO-17 (self-model coherence gap): swarm self-assessment → identity fields (lane intent) inflate vs evidence fields (actual/diff); systematic asymmetry
+ISO-16 (inferential compounding): meta-knowledge → inferential compounding across sessions; each session expands swarm's answerable-question space
+ISO-7 (emergence): swarm protocol → emergent coordination; macro-behavior irreducible to single session; self-organization without central controller
+ISO-3 (hierarchical compression): compaction cycle → MDL principle applied recursively; swarm compresses its own knowledge representation

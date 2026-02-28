@@ -19,3 +19,11 @@ Only statistical concepts with structural isomorphisms to swarm operation qualif
 | Bayesian updating | Beliefs/frontier confidence shift as new artifacts arrive | Sequential evidence update | OBSERVED |
 | Meta-analysis | Combine independent domain/swarm runs into pooled effect estimates | Cross-run synthesis | THEORIZED |
 
+
+## Isomorphism vocabulary
+ISO-3 (hierarchical compression): MDL principle → model selection via minimum description length; AIC/BIC = MDL tradeoff; Bayesian compression
+ISO-9 (information bottleneck): sufficient statistic → information bottleneck; lossy compression retaining all information about parameter
+ISO-10 (predict-error-revise): Bayesian updating → predict-error-revise loop; prior + likelihood = posterior; each observation revises prediction
+ISO-16 (inferential compounding): causal inference chain → inferential compounding; each causal link expands estimable quantity space
+ISO-6 (entropy): maximum entropy principle → prior selection; entropy maximization = minimal assumption; Jeffreys prior as maximum entropy
+ISO-2 (selection → attractor): hypothesis testing → selection pressure on hypotheses; p-value threshold = selection boundary; attractor = accepted model

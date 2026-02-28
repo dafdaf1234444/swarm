@@ -97,3 +97,11 @@ ANALOGIES:
 **B-EVAL2** (THEORIZED): At 299 lessons and 175 principles, the swarm has crossed a capability threshold where the marginal value of new lessons is lower than the marginal value of applying existing lessons correctly. Quantity has been sufficient; quality and external grounding are now the binding constraints.
 
 **B-EVAL3** (THEORIZED): Swarm is "good enough" for autonomous operation on well-defined swarming tasks (coordination, compaction, domain seeding) but NOT good enough for external-facing claims until PHIL-16 external grounding criterion is consistently met.
+
+## Isomorphism vocabulary
+ISO-10 (predict-error-revise): evaluation = predict-error-revise loop; scoring reveals prediction gap; calibration error drives revision
+ISO-17 (self-model coherence gap): self-evaluation → identity fields inflate vs evidence fields; Dunning-Kruger as ISO-17 instance
+ISO-9 (information bottleneck): benchmark → lossy compression of capability; metric collapses distribution to scalar; Goodhart's law as bottleneck failure
+ISO-3 (hierarchical compression): MDL-based evaluation → model complexity vs fit tradeoff; AIC/BIC = MDL instantiation
+ISO-15 (specialization-generalization): single-metric evaluation → specialist wins; multi-metric council evaluation → robust general assessment
+ISO-2 (selection → attractor): Goodhart's law → selection pressure on metric causes diversity collapse; proxy replaces target

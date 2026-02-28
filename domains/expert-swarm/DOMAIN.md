@@ -34,3 +34,11 @@ Only expert-system mechanisms with direct isomorphisms to swarm coordination qua
 - expert utilization ↔ economy (capacity, Sharpe yield, overhead vs production)
 - colony self-direction ↔ control-theory (autonomous feedback loops)
 - task routing ↔ information-science (signal classification, entropy reduction)
+
+## Isomorphism vocabulary
+ISO-15 (specialization-generalization): DOMEX expert dispatch → specialist + generalist duality; expert narrows to domain; swarm generalizes across
+ISO-7 (emergence): multi-expert coordination → emergent swarm intelligence; council decision irreducible to single expert view
+ISO-2 (selection → attractor): expert utilization selection → pressure on low-yield experts; convergence to high-ROI domain specialists
+ISO-16 (inferential compounding): expert knowledge chain → inferential compounding; each DOMEX session expands answerable question space
+ISO-14 (recursive self-similarity): expert swarm within swarm → recursive self-similar structure; sub-colony mirrors parent colony structure
+ISO-10 (predict-error-revise): expert correction → predict-error-revise at domain level; expert challenge drives belief revision

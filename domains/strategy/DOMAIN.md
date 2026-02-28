@@ -18,3 +18,11 @@ Only strategy concepts with direct structural isomorphisms to swarm execution qu
 | Opportunity cost | Lane WIP caps vs throughput tradeoff | Optimization tradeoff | OBSERVED |
 | Execution debt | Designed-but-unrun items in NEXT/frontiers | Plan decay | OBSERVED |
 | Strategy resilience | Priority policy under shocks | Robust planning | THEORIZED |
+
+## Isomorphism vocabulary
+ISO-2 (selection → attractor): competitive strategy → selection pressure; market competition eliminates dominated strategies; Nash equilibrium = attractor
+ISO-4 (phase transition): strategic tipping point → phase transition; adoption crosses threshold → winner-take-all discontinuous shift
+ISO-15 (specialization-generalization): strategic portfolio → specialist vs generalist duality; niche strategy vs broad market; Blue Ocean = specialization escape
+ISO-5 (feedback — stabilizing): feedback-driven strategy → stabilizing correction; OKR/PDCA = negative feedback loop for strategic adjustment
+ISO-1 (optimization): strategic optimization → optimization-under-constraint; resource allocation across bounded portfolio
+ISO-12 (max-flow/min-cut): value chain → max-flow/min-cut; bottleneck resource = min-cut; constraint theory identifies binding limit

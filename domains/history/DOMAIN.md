@@ -18,3 +18,11 @@ Only historical-method concepts with structural isomorphisms to swarm operation 
 | Historiography conflict | Multiple summaries can disagree on causes/outcomes across runs | Interpretation conflict | THEORIZED |
 | Archival completeness | Missing references create blind spots in causal tracing | Coverage/selection bias | OBSERVED |
 | Periodization | Swarm behavior shifts across eras (for example pre/post protocol changes) | Regime segmentation | THEORIZED |
+
+## Isomorphism vocabulary
+ISO-4 (phase transition): civilizational collapse → phase transition; gradual stressor crosses critical threshold; discontinuous regime change
+ISO-2 (selection → attractor): cultural selection → stable attractor; dominant institutions survive selective pressure; extinction of alternatives
+ISO-8 (power laws): war casualties → power-law distribution (Richardson's law); city size distribution → Zipf across history
+ISO-14 (recursive self-similarity): historical cycles → recursive self-similar patterns across scales; Toynbee challenge-response at multiple levels
+ISO-5 (feedback — amplifying): imperial overextension → amplifying feedback; military commitment increases vulnerability; cascade collapse
+ISO-13 (integral windup): debt cycle → integral windup; long-cycle credit accumulation without discharge = Dalio debt supercycle

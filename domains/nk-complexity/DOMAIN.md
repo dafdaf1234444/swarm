@@ -12,3 +12,5 @@ NK landscape: coupling → fitness decay pattern; cycles in coupling structure c
 ISO-8 (power laws): fitness convergence scales with structural coupling → coordination threshold determines phase pattern
 ISO-1 (optimization): gradient convergence on fitness landscape → structural cycles block coordination optimum
 ISO-6 (entropy): without structural signal → fitness decay; coupling ratchet accumulates compression without coordination
+NK drift → compaction threshold; confirmed structural cycles force baseline reset; proxy-K drift follows growth compression sawtooth
+fitness sharpe → compaction candidate confirmed; superseded lessons follow quality compression cycles; baseline drift signal

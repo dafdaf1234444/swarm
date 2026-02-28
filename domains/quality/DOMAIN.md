@@ -53,3 +53,11 @@ CROSS-DOMAIN ANALOGY:
 - **brain**: citation-based relevance weighting (Hebbian co-citation, F-BRN1) is a parallel freshness signal.
 - **operations-research**: scheduling compact.py and quality sweeps is an OR problem (cadence optimization).
 - **information-science**: Jaccard similarity, TF-IDF, and MDL are IS methods applied here to the swarm's own corpus.
+
+## Isomorphism vocabulary
+ISO-10 (predict-error-revise): quality control → predict-error-revise; SPC = prediction error signal driving process correction
+ISO-5 (feedback — stabilizing): statistical process control → stabilizing feedback loop; control chart signals deviation; correction restores mean
+ISO-3 (hierarchical compression): quality abstraction → MDL compression of defect space; root cause analysis = compressed failure model
+ISO-13 (integral windup): technical debt → integral windup; shortcuts accumulate without correction; quality degradation = windup failure
+ISO-2 (selection → attractor): quality selection → fitness landscape; standards = selection pressure; convergence to high-quality attractor
+ISO-6 (entropy): software entropy → disorder accumulation; refactoring = entropy reduction; code rot = entropy gradient without correction

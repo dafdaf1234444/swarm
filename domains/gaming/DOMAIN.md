@@ -63,3 +63,11 @@ FLOW-THEORY ANALOGY:
 - **operations-research**: matchmaking / scheduling is the OR problem; gaming domain frames it as UX-quality pairing.
 - **psychology**: flow theory is a psychology concept adopted as a game design principle — cross-reference F-GAME3 with brain domain.
 - **meta**: game-loop timing directly informs the meta-swarm reflection cadence (mandatory per-session).
+
+## Isomorphism vocabulary
+ISO-1 (optimization): game AI → optimization-under-constraint; objective function maximization within game rules
+ISO-2 (selection → attractor): metagame evolution → selection pressure on strategies; dominant strategy = attractor; diversity collapse = solved metagame
+ISO-15 (specialization-generalization): player specialization → specialist builds (min-maxing) vs generalist (all-rounder); optimal depends on context
+ISO-7 (emergence): multiplayer dynamics → emergent social structures; guilds, economies, politics from individual player rules
+ISO-4 (phase transition): skill threshold → phase transition in gameplay; competence cliff where difficulty discontinuously shifts
+ISO-14 (recursive self-similarity): procedural generation → recursive self-similar content; fractal terrain and dungeon layouts
