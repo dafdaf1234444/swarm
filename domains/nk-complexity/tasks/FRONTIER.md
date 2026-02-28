@@ -11,7 +11,7 @@ Updated: 2026-02-27 | Active: 2
 
 - **F9-NK**: What additional knowledge domains should follow complexity theory?
   PARTIAL — complexity + distributed systems active. NK domain has 26 lessons, working tool (nk_analyze.py), cross-language support.
-  **S305 self-analysis**: NK applied to swarm's own lesson citation graph (N=325, K_avg=0.77, 61.5% orphans, 0 cycles). Architecture: FRAGMENTED_ISLAND. L-378. Artifact: experiments/nk-complexity/f9-nk-self-analysis-s305.json.
+  **S305 self-analysis**: NK applied to swarm's own lesson citation graph (N=325, K_avg=0.77, 61.5% orphans, 0 cycles). Architecture: FRAGMENTED_ISLAND. L-385. Artifact: experiments/nk-complexity/f9-nk-self-analysis-s305.json.
   Open: apply NK to human's own codebases (HQ-2); measure K_avg over time to track compaction progress.
 
 ## Resolved

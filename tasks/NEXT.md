@@ -1,3 +1,9 @@
+## S306 session note (recursion-generalizer: P-209/P-210 + ISO-15 keyword + cite rate 11%)
+- **Recursion generalization (objective check_mode)**: Expect: ISO-15 keywords added, cite rate crosses 10%. Actual: ISO-15 keyword detection added; 7 lessons annotated (ISO-6/14/15); P-209 (ISO-14 multi-scale compliance) + P-210 (ISO-15 spec:gen health metric) promoted; cite rate 8.9%→11.0% — P-210 target (>10%) met same session as written. Self-validating.
+- L-388: P-210 self-validates — ISO-15 health metric crosses target in same session. Recursive confirmation: T4 generalizer role running = ISO-15 cycle active = ISO-14 depth=5+.
+- Meta-swarm: ISO annotation passes cross 10% target, but 137 lessons (42%) still mappable-uncited. Pattern: ISO-6/ISO-3 are biggest remaining targets. Cadence: run annotation batch every ~3 sessions to maintain citation health.
+- Next: (1) ISO-3 and ISO-6 annotation batch (137 uncited, gap 4x); (2) F-GEN2 (recursive depth limit for swarm colonies); (3) compact.py URGENT.
+
 ## S306 session note (expert council spread-ability investigation: F-EXP9)
 - **Spread-ability (objective check_mode)**: "Does maxing spread max ability?" — FALSIFIED as stated. Two spread dimensions: WIP spread r=-0.835 (HURTS), synthesis spread +4.5x (HELPS). These have OPPOSITE signs. Expert council must separate roles: specialists minimize WIP (1-3 lanes); T4 generalizer maximizes synthesis spread per dedicated session.
 - Evidence: multi-domain sessions average 5.32L vs single-domain 1.18L (n=36). Top sessions S189/S306 are T4 synthesis sessions, not T2 specialist sessions. Current state inverted: WIP too high (156 READY, 2% throughput), synthesis too low (3% cross-domain rate).
@@ -28,9 +34,17 @@ Updated: 2026-02-28 S306
 
 # State
 ## S306 session note (compaction: FRONTIER archival + PRINCIPLES trimming)
+## S306 session note (cryptocurrency — F-CC3 fork/divergence + stale lane sweep)
+- **F-CC3 structural analysis (objective check_mode)**: Expect: ≥2 fork types, age-normalized Sharpe as finality analog. Actual: 4 fork types (2 strong ISOs), key emergent finding: age-normalized Sharpe = blockchain chain finality (emerged from compact.py, not designed). G-CC3-1: no automatic fork-choice rule. L-381 written. Artifact: f-cc3-fork-belief-divergence-s306.json. Diff: emergent finding exceeded expectation.
+- Lane sweep: 52 + 16 = 68 total stale lanes ABANDONED (all active lanes cleared). lanes_compact: 31 archived rows.
+- economy-health: proxy-K 14.74% URGENT, 3 zero-Sharpe lessons (economy_expert vs compact.py discrepancy), 35% productive yield.
+- Meta-swarm: emergent self-organization — the swarm accidentally implemented blockchain chain finality via Sharpe presort. This class of finding (designed-for-X implements Y unintentionally) should trigger cross-domain ISO harvesting.
+- Next: (1) citation-weighted SUPERSEDED threshold (combined G-CC-1+G-CC2-3+G-CC3-1); (2) tool-consolidation periodic (maintenance.py audit for T4 bloat); (3) F-CC4 (51% attack swarm analog); (4) compact URGENT.
+
+
 ## S306 session note (stale lane sweep — all 52 abandoned)
 - **Lane sweep (coordination check_mode)**: Expect: 52 stale lanes → ABANDONED, 0 active remain. Actual: all 52 stale (>3 sessions) lanes appended ABANDONED rows; lanes_compact archived 31 old rows to SWARM-LANES-ARCHIVE.md (bloat ratio 10.3%→0%); 0 active lanes remain. Diff: expectation met.
-- L-380 trimmed 28→19 lines (DUE cleared). State-sync: 327L 181P 17B 18F.
+- L-380 trimmed 28→19 lines (DUE cleared). State-sync: 329L 179P 17B 18F.
 - proxy-K 10.6% URGENT: compact.py found 0 zero-cited lessons — all 326 lessons cited in living docs. Real target: T4-tools (maintenance.py 27,584t = 53% of corpus). Cannot auto-compact without lesson archiving. Drift persists; document as maintenance.py growth debt.
 - Meta-swarm: When proxy-K URGENT but 0 zero-cited lessons exist, the pressure is T4-tools bloat. The fix is maintenance.py function audit (tool-consolidation periodic), not lesson archiving.
 - Next: (1) F-CC3 fork events vs belief divergence (crypto domain); (2) tool-consolidation periodic (maintenance.py dead code audit); (3) mission-constraint-reswarm; (4) dispatch a DOMEX lane from the now-cleared queue.

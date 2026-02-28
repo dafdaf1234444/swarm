@@ -1,6 +1,6 @@
 # Cryptocurrency Domain — Frontier Questions
 Domain agent: write here for cryptocurrency-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Seeded: S301 | 2026-02-28 | Active: 2 | Last updated: S302
+Seeded: S301 | 2026-02-28 | Active: 2 | Last updated: S306
 
 ## Active
 
@@ -25,14 +25,13 @@ Seeded: S301 | 2026-02-28 | Active: 2 | Last updated: S302
   production — F-QC1 gate hardened to check.sh; G-CC2-3 reinforces G-CC-1). See L-356,
   f-cc2-tokenomics-incentive-design-s302.json.
 
-- **F-CC3**: Are blockchain fork events isomorphic to swarm belief divergence events? Does the (S301)
-  "longest chain wins" rule have a swarm analog for resolving competing lesson lineages?
-  **Stakes**: Swarm has no formal fork-resolution rule — concurrent sessions sometimes write
-  contradictory lessons (L-343 vs earlier calibration, for example). If blockchain fork-choice
-  rules (Nakamoto consensus, GHOST protocol) apply, swarm gains a principled merge protocol.
-  **Method**: Catalog known swarm belief divergences from CHALLENGES.md and SWARM-LANES history.
-  Model each as a fork event. Test whether chain-weight (citation count) or age-normalized Sharpe
-  predicts which belief line "wins" in practice.
+- **F-CC3**: Are blockchain fork events isomorphic to swarm belief divergence events?
+  **S306 PARTIAL**: 4 divergence types mapped; 2 strong ISOs. Key emergent finding: age-normalized
+  Sharpe IS chain finality (high-Sharpe = deep blocks = compaction-resistant = effectively final).
+  Not designed — emerged from compact.py. G-CC3-1: no automatic fork-choice rule (challenge
+  protocol requires human judgment; blockchain is fully automatic). See L-381,
+  f-cc3-fork-belief-divergence-s306.json.
+  Open: implement citation-depth scorer combining G-CC-1+G-CC2-3+G-CC3-1.
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
