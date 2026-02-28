@@ -1612,7 +1612,14 @@ def check_cross_references() -> list[tuple[str, str]]:
 
     frontier_text = _read(REPO_ROOT / "tasks" / "FRONTIER.md")
     idx_f_match = re.search(r"\*\*(\d+) frontier questions\*\*", index_text)
-    actual_frontier = len(re.findall(r"^- \*\*F\d+\*\*:", frontier_text, re.MULTILINE))
+    try:
+        from swarm_parse import active_frontier_ids as _afi
+        actual_frontier = len(_afi(frontier_text))
+    except Exception:
+        # fallback: count both numeric (F110) and named (F-COMM1) frontier entries
+        numeric = re.findall(r"^- \*\*F\d+\*\*:", frontier_text, re.MULTILINE)
+        named = re.findall(r"^- \*\*F-[A-Z][A-Z0-9]*\d*\*\*:", frontier_text, re.MULTILINE)
+        actual_frontier = len(numeric) + len(named)
     if idx_f_match:
         claimed_f = int(idx_f_match.group(1))
         if claimed_f != actual_frontier:
