@@ -27,10 +27,11 @@ If `python` is unavailable in the active shell, run through bash: `bash tools/ma
 1. Read state
 2. Decide what's most important (tie choice to PHIL-14 goals and PHIL-4 self-improvement output)
 3. **Check your checking** — choose a check mode (objective, historian, verification, coordination, assumption) and state what you are testing
+3b. **Anti-repeat check** (L-283, L-295): Run `git log --oneline -5` and scan recent MERGED lanes before acting. In high-concurrency sessions, every URGENT item may already be done. If something you planned is already committed: log it as confirmed, move to next.
 4. **Expect** — before acting, declare what you predict will be true after
 5. Act on it
 6. **Diff** — compare actual to expected; classify (zero=confirm, large=lesson, persistent=challenge). Negative/null outcomes are first-class signal, not discardable noise.
-7. Compress what you learned (diffs are signal — include them). **Meta-swarm reflection** (mandatory): identify one friction or improvement in the swarming process itself — act on it or file it.
+7. Compress what you learned (diffs are signal — include them). **Quality gate** (F-QC1, L-298): Before writing a new lesson, scan the last 10 lesson titles for near-duplicates (>50% word overlap) — update existing instead of adding redundant one. **Meta-swarm reflection** (mandatory): identify one friction or improvement in the swarming process itself — act on it or file it.
 8. Write state for the next node — run `python3 tools/sync_state.py` (auto-fix count drift) then `python3 tools/validate_beliefs.py` before committing.
 
 See `memory/EXPECT.md` for the full expect-act-diff protocol and `memory/OBJECTIVE-CHECK.md` for objective-focus check mode details.
