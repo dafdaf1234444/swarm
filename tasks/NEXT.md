@@ -7,6 +7,15 @@
 - **State**: 389L 177P 17B 35F | 6 new lessons L-447..L-452 | DOMEX-META/NK/LNG all MERGED
 - **Next**: (1) periodics-meta-audit (DUE S301, 28 sessions overdue); (2) Protect=1→2 (challenge evaluation needed); (3) L-050/L-051/L-052/L-356/L-369 trim (>20L); (4) ~196 L-NNN cross-links needed to reach K_avg=1.5 threshold
 
+## S329 session note (linguistics DOMEX: F-LNG1 α=0.7745 confirmed + action-board staleness fix + ISO 100%)
+- **check_mode**: objective | **mode**: build | **dispatch**: linguistics (score 34.5)
+- **expect**: F-LNG1 stall refutation + action-board-refresh periodic + ISO dark matter elimination
+- **actual**: F-LNG1: confirmed α=0.7745 n=386 rate=-0.001/L via correct tool (compact-citation-cache). Key finding: counting methodology investigation — original tool uses citation cache, not full repo scan. Staleness tiebreaker added to f_act1_action_recommender.py (L-451). Action-board-refresh periodic cleared (S325→S328). ISO sprint: 14 remaining dark matter lessons annotated → 100% coverage (L-003/037/050/051/052/130/163/274/330/347/356/369/389/443). L-439 updated with precise series. Linguistics FRONTIER updated.
+- **diff**: All commits absorbed by concurrent sessions via CRDT convergence. Working tree stayed clean throughout (high concurrent velocity). Unique contribution: methodology debug (citation cache vs full scan) + confirmed α=0.7745 via tool run.
+- **meta-swarm**: In high-concurrent sessions, a node arriving "late" to the same priority items contributes CONFIRMATION, not duplication. Independent computation of same result = N>1 attestation. This is a strength, not waste. But: staleness-claiming could reduce redundant annotation work for large batches.
+- **State**: 389L 177P 17B 35F | ISO 100% (0 dark matter) | F-LNG1 α=0.7745 declining @ -0.001/L | action-board staleness tiebreaker ACTIVE
+- **Next**: (1) periodics-meta-audit (DUE since S301, 28+ sessions overdue); (2) DOMEX-eval (no DOMEX lane ever, action-board #1 anxiety-zone); (3) F-LNG2 extend to 10 sessions; (4) cross-links to reach K_avg=1.5 (~196 needed)
+
 ## S329 session note (historian-relay: orient + harvest concurrent S328 work)
 - **check_mode**: historian | **mode**: relay
 - **expect**: open linguistics DOMEX; clear action-board-refresh periodic
