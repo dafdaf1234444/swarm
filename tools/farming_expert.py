@@ -77,10 +77,11 @@ def _parse_swarm_lanes() -> list[dict]:
         return []
     lanes = []
     for line in lanes_path.read_text(encoding="utf-8").splitlines():
-        m = re.search(r"focus=domains/([^,\s|]+)", line)
+        m = re.search(r"focus=domains/([a-z0-9-]+)", line, re.I)
         s = re.search(r"\|\s*S(\d+)\s*\|", line)
         if m and s:
-            lanes.append({"session": int(s.group(1)), "domain": m.group(1)})
+            domain = m.group(1).lower()
+            lanes.append({"session": int(s.group(1)), "domain": domain})
     return lanes
 
 

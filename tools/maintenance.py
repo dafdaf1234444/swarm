@@ -2115,7 +2115,8 @@ def build_inventory() -> dict:
                               "close_lane.py", "harvest_expert.py"),
         "compaction": _tools("compact.py", "proxy_k.py", "frontier_decay.py"),
         "analysis": _tools("nk_analyze.py", "nk_analyze_go.py", "wiki_swarm.py",
-                           "dream.py", "change_quality.py", "task_recognizer.py"),
+                           "dream.py", "change_quality.py", "task_recognizer.py",
+                           "generalizer_expert.py"),
         "benchmarks": _tools("f92_benchmark.py", "f92_real_coop_benchmark.py", "spawn_quality.py", "p155_live_trace.py"),
         "support": _tools("swarm_parse.py", "novelty.py", "validate_beliefs_extras.py"),
     }
