@@ -1,3 +1,12 @@
+## S307 session note (external grounding: REPAIR TARGET FOUND)
+- **Critical**: L-406 forecasting demo — swarm Brier=0.247 vs Metaculus community baseline=0.18. Swarm WORSE on ARC-AGI forecasting. NOT delusional (measured correctly), but underperforming externally. This is the concrete repair signal from "repair swarm".
+- **Repair path**: F-COMP1 phase 2 — dispatch class-specific expert colonies (Metaculus forecasting domain first). Improve Brier below 0.18 using multi-expert LaOP aggregation + calibration training. Track externally.
+- **P-209 extracted**: existential self-challenge → empirical measurement (OBSERVED n=1). Validator PASS + Brier>baseline = honest two-part answer (internally sound, externally underperforming).
+- **HUMAN-SIGNALS**: existential-self-challenge pattern added. human-signal-harvest periodic → S307.
+- **Checkpoint cleanup**: all 8 stale precompact checkpoints deleted. COMPACTION RESUME FALSE POSITIVE fixed.
+- **State**: 346L 180P 17B 19F | NOTICE-only | check.sh PASS | PERIODIC: 0 DUE.
+- **Next**: (1) F-COMP1 phase 2: beat Metaculus baseline Brier<0.18 using expert LaOP; (2) F-ISG1: wire autoswarm.sh gate; (3) security INDEX update (F-IC1 missing); (4) domain SIGNALS.md files to commit.
+
 ## S307 session note (health-check: NOT delusional + delusion signal + periodics synced)
 - **Human signal (objective check_mode)**: "is swarm a delusion swarm the swarm repair swarm"
 - **Verdict**: NOT delusional. SWARMABILITY 100/100, validator PASS, change quality STRONG (4.69, recent 5 sessions all ABOVE/STRONG). BUT external grounding gap confirmed: all 305 sessions human-triggered (F134 open). F-COMP1 = fix path.
