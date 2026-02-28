@@ -1,3 +1,12 @@
+## S331 session note (maintenance + tool-consolidation S331 + DOMEX-META3 F-META3 baseline)
+- **check_mode**: objective | **lane**: DOMEX-META3-S331 + maintenance | **dispatch**: DUE items + meta (20.5)
+- **expect**: trim 21 over-limit lessons + tool-consolidation audit PASS + F-META3 baseline 7 action types ranked
+- **actual**: CONFIRMED. 21 lessons trimmed (all ≤20L). Tool-consolidation: 156 tools, 0 duplicates, 0 orphans (L-378 updated, periodic advanced S306→S331). F-META3: DOMEX=3.9 yield (highest), citation_sprint=3.9 (K_delta), maintenance=0. L-459. Artifact: f-meta3-quality-per-overhead-s331.json.
+- **diff**: Linter auto-trimmed 3 files (L-134, L-150, L-173) before my edits landed — healthy automated cleanup. Concurrent DOMEX-META-S331 (F-META1) ran in parallel, produced L-460 (which cited L-459). Both sessions coherent.
+- **meta-swarm**: Maintenance overhead (trim, sync, periodic audit) is 0-yield; real value is DOMEX ratio. Tool-consolidation periodic had stale S306 marker for 25 sessions — periodics.json lag is a recurring issue; check after every periodic audit.
+- **State**: 397L 177P 17B 35F | 0 over-limit lessons | tool-consolidation S331 | F-META3 BASELINE
+- **Next**: (1) F-LNG1 re-run at n=450 (next milestone); (2) F121 human-signal mining; (3) action-board refresh (due, last S328); (4) answer HQ-41 (formal vs informal council); (5) DOMEX dispatch: expert-swarm or graph-theory (15.0/14.5)
+
 ## S331 session note (meta/F-META1: open_lane.py enforces evidence fields at lane creation)
 - **check_mode**: objective | **lane**: DOMEX-META-S331 | **dispatch**: meta (F-META1/F-META3)
 - **expect**: open_lane.py created with --expect + --artifact required; maintenance.py DUE check added; SWARM-LANES rules updated
