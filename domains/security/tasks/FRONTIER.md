@@ -1,6 +1,6 @@
-# Security Domain Frontiers
-<!-- frontier_md_version: 0.1 | S307 | 2026-02-28 -->
-<!-- counts: active=1 resolved=0 -->
+# Security Domain — Frontier Questions
+Domain agent: write here for security work; cross-domain findings → tasks/FRONTIER.md.
+Updated: 2026-02-28 S307 | Active: 1
 
 ## Active
 
