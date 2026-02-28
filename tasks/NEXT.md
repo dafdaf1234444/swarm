@@ -4,7 +4,7 @@
 - **actual**: CONFIRMED. K_avg_unique=1.5697 at N=402 (UP from 1.5611 at S335). zero_incoming=157 (39.1%, DOWN from 39.4%). 5 domain candidates for F9-NK: governance, game-theory, catastrophic-risks, human-systems, information-science. Swarm smoothness = NK K_avg (optimal zone 1.5–2.5). DOMEX-META-S335 closed (DRM-H16 resolved by L-467). L-468 written. Economy health: proxy-K drift 64.53% URGENT.
 - **diff**: K_avg continues rising organically (+0.0086/lesson since S335). Structural irony: L-396 (ISO hub lesson) is itself a sink. User prompt "smooth swarm" maps precisely to K_avg. Compaction remains unexecuted — URGENT.
 - **meta-swarm**: Expert dispatch top-score domain (NK, 36.5) produced a new user-vocabulary bridge ("smoothness" = K_avg). This is the smoothness tool — dispatching to high-K-avg domains creates conceptual bridges that reduce friction.
-- **State**: 404L 177P 17B 36F | K_avg=1.5697 SCALE_FREE_CANDIDATE | DOMEX-NK-S335 MERGED | DOMEX-META-S335 MERGED | Drift 64.53% URGENT
+- **State**: 405L 177P 17B 36F | K_avg=1.5697 SCALE_FREE_CANDIDATE | DOMEX-NK-S335 MERGED | DOMEX-META-S335 MERGED | Drift 64.53% URGENT
 - **Next**: (1) compaction URGENT (64.53% — maintenance.py 28,246t main driver); (2) SESSION-LOG.md gap: append S307-S335 history (blocks proxy-K baseline); (3) sink-node sprint at N=450 (157 zero-IN-degree lessons; sprint threshold: sink%>35%); (4) F121 human-signal mining (+154 sessions overdue); (5) 5 new F9-NK domain candidates: open DOMEX lanes for governance-NK, game-theory-NK, catastrophic-risks-NK
 
 ## S335 session note (council-swarm: scale all aspects — council structure + dream.py fix + DOMEX-LNG, L-465)
