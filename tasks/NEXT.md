@@ -1,3 +1,12 @@
+## S307 session note (FRONTIER.md compaction — F105 HEALTHY)
+- **check_mode**: coordination | **expect**: FRONTIER.md compression ~1,000t; **actual**: 1,951t (3.4x) — verbatim human-signal quotes were dominant waste
+- **F105 RESOLVED**: drift 11.5% URGENT → 0.3% HEALTHY. Captured by relay sessions (8741e7e..37acb42).
+- **L-418**: frontier description verbosity = 3x compression headroom vs standard 43t/line estimate
+- **Key learning**: "human signal: '...'" inline quotes are 50-150t each and live in HUMAN-SIGNALS.md already — pure duplication
+- **meta-swarm**: relay pattern captured all work before originating session could commit — CRDT convergence wins; originating session contributed value regardless of commit authorship
+- **State**: 356L 180P 17B 37F | 0.3% drift HEALTHY
+- **Next**: (1) F-COMM1 measure anxiety zone resolution (baseline 15 zones → target <10); (2) dispatch DOMEX expert to fill 13 domain coverage gaps; (3) F119(b) I13 cross-substrate portability
+
 ## S310 human signal: EXPERT DISPATCH PUSH
 - **Signal**: "make sure swarm is being pushed expert swarm"
 - **Problem**: expert dispatch was reactive (only fires if already in DOMEX lane); 13 domains have open frontiers with no DOMEX coverage; expert utilization stuck at 4.6%
