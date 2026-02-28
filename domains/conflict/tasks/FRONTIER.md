@@ -1,13 +1,14 @@
 # Conflict Domain — Frontier Questions
 Domain agent: write here for conflict-domain work; global cross-domain findings → tasks/FRONTIER.md.
-Updated: 2026-02-28 S189 | Active: 3
+Updated: 2026-02-28 S189 | Active: 3 | Baseline: C1=57.5%, C3-proxy=1.5% throughput
 
 ## Active
 
 - **F-CON1**: Can a conflict expert lane reduce C1 (duplicate work) and C3 (lane orphaning) rates?
   Design: baseline C1/C3 rates from last 20 sessions (git log + SWARM-LANES). Run conflict expert for 5 sessions. Compare before/after rates. Success threshold: ≥20% reduction in either metric.
   Source: F110-C1, F110-C3. Related: L-237, L-265, L-283.
-  Status: OPEN — baseline not yet measured.
+  **S189 Baseline**: C1=57.5% (23/40 commits relay/sync/repair); C3-proxy=1.5% throughput (204 active lanes, 3 done per economy_expert.py S188). Both elevated above thresholds (>30% C1, >40% C3). Artifact: experiments/conflict/f-con1-conflict-baseline-s189.json. L-297 written.
+  Status: BASELINE ESTABLISHED — design conflict expert lane; success threshold ≥20% C1 reduction over 5 sessions.
 
 - **F-CON2**: Can lane contracts prevent concurrent edits to shared meta-files (A3)?
   Design: define a minimal "intent declaration" contract (lane ID + files-touched + window). Run 3 sessions where all active lanes declare intent before acting. Measure collision rate vs uncontracted baseline.

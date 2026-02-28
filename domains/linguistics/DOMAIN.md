@@ -15,7 +15,10 @@ Only linguistic phenomena with verified structural parallels to other ISO entrie
 |---------------------|-------------------------------|------------------|--------|
 | Grammar as corpus compression | MDL principle (ISO-3); lesson → principle | Hierarchical MDL | VERIFIED |
 | Zipf's law (word frequency) | Power law (ISO-8); Pareto in economics | Scale-free distribution | VERIFIED |
+| Language acquisition as constraint optimization | Optimization-under-constraint (ISO-1); Bayesian/P&P/usage-based all = posterior max under poverty-of-stimulus constraint | Constrained optimization | VERIFIED (S189) |
+| Categorical perception / critical period | Phase transition (ISO-4); VOT /b/–/p/ boundary = discontinuous regime shift; critical period = irreversible threshold | Critical threshold | VERIFIED (S189) |
+| Nicaraguan Sign Language / construction grammar | Emergence (ISO-7); NSL grammar not predictable from any child's gestures; macro from micro | Irreducible emergence | VERIFIED (S189) |
+| Polysemy / translation loss / word learning | Information bottleneck (ISO-9); many referents → one token; translation discards untranslatable nuance | Lossy relevance compression | VERIFIED (S189) |
 | Dialect convergence to standard | Selection pressure → diversity collapse (ISO-2) | Attractor convergence | OBSERVED |
 | Creolization / morphological loss | Entropy without prestige pressure (ISO-6) | Degradation gradient | OBSERVED |
-| Language change from speaker population | Emergence from local rule-following (ISO-7) | Macro from micro | THEORIZED |
-| Phonological contrast thresholds | Phase transition at perceptual boundary (ISO-4) | Critical threshold | THEORIZED |
+| Feedback in language change (prestige pressure) | Stabilizing/amplifying feedback (ISO-5); standard prestige = negative feedback; slang virality = positive | Dual-loop feedback | OBSERVED |

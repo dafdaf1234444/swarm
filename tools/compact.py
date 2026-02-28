@@ -28,6 +28,7 @@ TIERS = {
 
 LOG_PATH = REPO_ROOT / "experiments" / "proxy-k-log.json"
 CACHE_PATH = REPO_ROOT / "experiments" / "compact-citation-cache.json"
+LESSON_CACHE_PATH = REPO_ROOT / "experiments" / "compact-lesson-cache.json"
 
 # Compression techniques per file type (proven in S77b, S83++, S85, S90b)
 TECHNIQUES = {
@@ -92,6 +93,22 @@ def _load_citation_cache() -> dict:
 def _save_citation_cache(cache: dict) -> None:
     try:
         CACHE_PATH.write_text(json.dumps(cache, separators=(",", ":")), encoding="utf-8")
+    except Exception:
+        pass
+
+
+def _load_lesson_cache() -> dict:
+    if not LESSON_CACHE_PATH.exists():
+        return {}
+    try:
+        return json.loads(_read(LESSON_CACHE_PATH))
+    except Exception:
+        return {}
+
+
+def _save_lesson_cache(cache: dict) -> None:
+    try:
+        LESSON_CACHE_PATH.write_text(json.dumps(cache, separators=(",", ":")), encoding="utf-8")
     except Exception:
         pass
 
@@ -193,25 +210,44 @@ def _lesson_sharpe_candidates(top_n: int = 20) -> list[dict]:
     numbers_in_log = re.findall(r"^S(\d+)", _read(REPO_ROOT / "memory" / "SESSION-LOG.md"), re.MULTILINE)
     max_session = max((int(n) for n in numbers_in_log), default=186)
 
+    # Read PRINCIPLES.md once (not per-lesson)
+    principles_text = _read(REPO_ROOT / "memory" / "PRINCIPLES.md")
+
+    # Lesson cache: sha256 → {tokens, session} — avoids re-reading unchanged lesson files
+    lesson_cache = _load_lesson_cache()
+    lesson_cache_dirty = False
+
     candidates = []
     for lf in lesson_files:
         lid = lf.stem
-        text = _read(lf)
-        tokens = len(text) // 4
-        # Parse session from header line
-        m = re.search(r"Session:\s*S(\d+)", text)
-        session = int(m.group(1)) if m else 0
+        sha = _file_sha256(lf)
+        entry = lesson_cache.get(lid, {})
+        if sha and entry.get("sha256") == sha:
+            tokens = entry["tokens"]
+            session = entry["session"]
+        else:
+            text = _read(lf)
+            tokens = len(text) // 4
+            # Parse session from header line
+            m = re.search(r"Session:\s*S(\d+)", text)
+            session = int(m.group(1)) if m else 0
+            if sha:
+                lesson_cache[lid] = {"sha256": sha, "tokens": tokens, "session": session}
+                lesson_cache_dirty = True
         age = max(max_session - session, 1)
         citations = citation_counts.get(lid, 0)
         # Sharpe = citations / age (lower = safer to compact)
         sharpe = citations / age
         # Is it absorbed into a principle?
-        in_principles = bool(re.search(rf"\b{re.escape(lid)}\b", _read(REPO_ROOT / "memory" / "PRINCIPLES.md")))
+        in_principles = bool(re.search(rf"\b{re.escape(lid)}\b", principles_text))
         candidates.append({
             "lesson_id": lid, "session": session, "age": age,
             "tokens": tokens, "citations": citations,
             "in_principles": in_principles, "sharpe": round(sharpe, 6),
         })
+
+    if lesson_cache_dirty:
+        _save_lesson_cache(lesson_cache)
 
     # Sort ascending by Sharpe (orphans first), then ascending by tokens (smallest first)
     candidates.sort(key=lambda x: (x["sharpe"], x["tokens"]))
