@@ -2,7 +2,7 @@
 Updated: 2026-02-28 | Sessions: 193
 
 ## What the swarm knows
-- **303 lessons** in `memory/lessons/L-{NNN}.md`
+- **304 lessons** in `memory/lessons/L-{NNN}.md`
 - **176 principles** in `memory/PRINCIPLES.md` (S181: P-179→P-119 subsumption dedup; S180: P-187 human-signal interaction model; P-186 measurable self-assessment structural; S178: P-182 expect-act-diff calibration loop (THEORIZED); S177: P-181 knowledge-domain utility filter; S175: P-178 self-replenishing work cycle; S172: P-177 substrate-detection-first; S170: P-176 cross-substrate propagation gap; P-175 enforcement-tiers; P-163/P-082 refined; S169: P-174 substrate-scope)
 - **17 beliefs** in `beliefs/DEPS.md` | **29 frontier questions** in `tasks/FRONTIER.md` (F123 OPEN S178 — expect-act-diff universal calibration; F122 OPEN S177 — knowledge-domain swarming (AI/finance/health + information-science/brain/evolution + control-theory/game-theory/operations-research + statistics/psychology/history + protocol-engineering/strategy/governance/helper-swarm/fractals + economy/gaming/quality); F121 OPEN S175 — human inputs as swarm signal; F120 PARTIAL S172 — substrate detection, foreign-repo path expanded; F119 OPEN — mission constraints; F92 RESOLVED S113; F118 RESOLVED S105; F76 RESOLVED S97; F71 RESOLVED S94)
 
@@ -24,7 +24,7 @@ domains/    nk-complexity, distributed-systems, meta, ai (S178), finance (S179),
 docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115), SWARM-STRUCTURE.md (folder/file-type policy), SWARM-VISUAL-REPRESENTABILITY.md (human/self/swarm visual contract)
 ```
 
-## Themes (303 lessons)
+## Themes (304 lessons)
 
 | Theme | Count | Key insight |
 |-------|-------|-------------|
@@ -38,7 +38,7 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115),
 | Meta | 58 | Autonomy, compaction/MDL cycles, alignment checks, proxy-K tracking, and multi-tool entry. |
 | Domain Science | 30 | Cross-domain isomorphisms, ISO atlas, brain/linguistics/IS/game-theory swarm mappings, power-law universals (L-256/L-257/L-274/L-282/L-299/L-306). |
 | Swarm Economics | 25 | Sharpe archiving, helper ROI 10x, fallow 28% uplift, exploration/exploitation ratio, economy primitives (L-268/L-275/L-286/L-294/L-301/L-307). |
-| Coordination & Quality | 25 | Anti-repeat gate, concurrent convergence, lane diversity coupling, quality duplication 15.3%, evaluation sufficiency (L-283/L-285/L-297/L-304/L-309/L-316). |
+| Coordination & Quality | 26 | Anti-repeat gate, concurrent convergence, lane diversity coupling, quality duplication 15.3%, evaluation sufficiency, personality deployment gap 10/14 orphaned (L-283/L-285/L-297/L-304/L-309/L-316/L-320). |
 | AI & Tooling | 14 | Async failure modes, proxy-K patterns, substrate detection gaps, orient.py classify, self-tooling loop gaps (L-243/L-248/L-252/L-293/L-305/L-313). |
 
 ## What to load when
@@ -53,4 +53,4 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115),
 
 Session log: `memory/SESSION-LOG.md` (append-only, F110-A3)
 
-<!-- core_md_hash: 8ea14f55c8283d89a70b8da6f2bb4634db6da1ae3b34293d68a5ab7cdede6ea4 -->
+<!-- core_md_hash: f6147234438f90fd9c59822f9c557af9a48f3cde3cffbaecb2342a617e6be04a -->

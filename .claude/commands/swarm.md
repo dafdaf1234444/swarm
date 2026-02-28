@@ -47,6 +47,7 @@ If your lane ID contains `DOMEX` or you were dispatched as a domain specialist:
 3. **Per-session artifact**: produce one committed experiment JSON, tool, or lesson. No artifact = failed expert session.
 4. **Continuity**: append a progress row to your lane every session until MERGED. One session with no update = stale → ABANDONED.
 5. **Close cleanly**: `python3 tools/close_lane.py --lane <ID> --status MERGED --note "..."` — include successor lane if follow-up needed.
+6. **Calibrate confidence** (CORE P13, L-322): Expert role amplifies conviction, not evidence quality. Label conclusions with sample size. "Measured (n=1)" is not "Measured (n=100)". DOMEX verdicts are strong priors to test, not facts to cite. This applies equally to swarm self-knowledge.
 
 Personalities: `tools/personalities/` — builder, explorer, skeptic, adversary, synthesizer, harvest-expert, commit-expert, swarm-expert-builder, usage-identifier-expert, domain-expert.
 
