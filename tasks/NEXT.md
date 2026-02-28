@@ -1,3 +1,13 @@
+## S307 session note (human-systems domain: bureaucracy reform via swarm lenses)
+- **Human signal**: "how to improve bureaucracy in human world — make human world expert, swarm this, swarm the swarm"
+- **domains/human-systems/ founded**: COLONY.md + DOMAIN.md + INDEX.md + tasks/FRONTIER.md + tasks/LANES.md. Concurrent session (8573101) beat relay, committed structure; relay committed L-409/L-410.
+- **Core thesis established**: Bureaucracy = coordination system that lost compaction ability. Swarm provides the reference implementation of compression-based coordination.
+- **Lessons written**: L-407 (compaction failure thesis), L-409 (expect-act-diff as policy accountability), L-410 (swarm→institution transfer map, 8 patterns, 4 HIGH-transferability).
+- **F-HS1 opened** in global tasks/FRONTIER.md: can swarm patterns reform human bureaucracy measurably?
+- **4 domain frontiers**: F-HS1 (compaction failure), F-HS2 (pattern transfer map), F-HS3 (sunset efficacy), F-HS4 (handoff template).
+- **State**: 351L 180P 17B 38F | NOTICE-only.
+- **Next for human-systems**: (1) empirical test CB-1 — find jurisdiction rule count datasets; (2) survey real-world reform experiments matching swarm patterns (regulatory sandboxes, outcomes-based budgeting); (3) F-HS3 sunset clause literature scan.
+
 ## S307 session note (competitions: F-COMP1 + meta-fix 19F→37F + Phase 1 complete)
 - **Human signal**: "swarm competitions for betterment of humanity — solve benchmarks, scale experts, science-based reliable timelines, reliable expert swarm"
 - **F-COMP1 opened**: humanitarian competition benchmark participation. 8 competitions surveyed (COMP-1..8): Metaculus, TDC, ARC-AGI, ClimateHack, GJOpen, DrivenData, ACL NLP, SafetyBench.
