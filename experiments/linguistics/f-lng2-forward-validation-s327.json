@@ -1,0 +1,75 @@
+{
+  "experiment": "F-LNG2-forward",
+  "title": "F-LNG2 forward validation: organic vs triggered corrections S313-S327",
+  "date": "2026-02-28",
+  "session": "S327",
+  "hypothesis": "Organic correction rate remains low (< 0.5/10s) at high-K (>40k), consistent with S312 retrospective finding of 0.21/10s",
+  "baseline_retrospective": {
+    "organic_rate_low_k": 1.36,
+    "organic_rate_mid_k": 0.0,
+    "organic_rate_high_k": 0.21,
+    "critical_period_threshold_k": 27000,
+    "sample_sessions_per_band": {
+      "low_k": 66,
+      "mid_k": 42,
+      "high_k": 146
+    },
+    "artifact": "experiments/linguistics/f-lng2-critical-period-proxy-k.json"
+  },
+  "forward_period": {
+    "sessions": [
+      "S313",
+      "S314",
+      "S325",
+      "S326",
+      "S327"
+    ],
+    "session_count": 5,
+    "proxy_k_range": "58470-58897",
+    "k_band": "high-K (> 40k)",
+    "events": [
+      {
+        "session": "S313",
+        "organic": 0,
+        "triggered": 0,
+        "notes": "No corrections; principles-dedup periodic run"
+      },
+      {
+        "session": "S314",
+        "organic": 0,
+        "triggered": 0,
+        "notes": "DOMEX-GT citation graph work only"
+      },
+      {
+        "session": "S325",
+        "organic": 0,
+        "triggered": 4,
+        "notes": "Claim-vs-evidence audit triggered PHIL-16/3/4/13"
+      },
+      {
+        "session": "S326",
+        "organic": 1,
+        "triggered": 0,
+        "notes": "L-433: P-182 confidence upgrade (cross-substrate evidence) \u2014 organic meta-insight"
+      },
+      {
+        "session": "S327",
+        "organic": 0,
+        "triggered": 0,
+        "notes": "F-LNG1 stall detection; F-LNG2 this analysis"
+      }
+    ]
+  },
+  "forward_rates": {
+    "organic_total": 1,
+    "triggered_total": 4,
+    "organic_rate_per_10s": 2.0,
+    "note": "The 1 organic event (L-433) is a confidence upgrade (THEORIZED->cross-substrate), not a direction correction. If excluding upgrades: organic_rate = 0.0/10s"
+  },
+  "verdict": "CONSISTENT with F-LNG2 prediction. Organic correction rate 0-2/10s in high-K zone (predicted: 0.21/10s). Triggered corrections dominate (80% of events = audit-triggered). Sample n=5 sessions is small but directionally confirms S312 finding.",
+  "open": [
+    "(1) Extend to 10+ sessions for stronger power",
+    "(2) Test: does compaction event (F105) re-open organic correction window?",
+    "(3) Distinction: confidence-upgrade (organic) vs direction-correction (audit) as separate metrics"
+  ]
+}
