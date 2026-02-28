@@ -4,72 +4,63 @@
   "description": "Zipf power law test on swarm lesson citation distribution",
   "hypothesis": "Lesson citations follow power law with \u03b1 \u2248 1.0 (Zipf), confirming ISO-8 isomorphism",
   "data_source": "cache",
-  "total_lessons": 288,
-  "cited_lessons": 272,
-  "zero_cited_lessons": 16,
-  "citation_coverage_pct": 94.4,
+  "total_lessons": 356,
+  "cited_lessons": 355,
+  "zero_cited_lessons": 1,
+  "citation_coverage_pct": 99.7,
   "top_10": [
     [
+      "L-336",
+      62
+    ],
+    [
       "L-001",
-      38
+      42
     ],
     [
       "L-257",
+      27
+    ],
+    [
+      "L-005",
       26
     ],
     [
       "L-012",
-      25
-    ],
-    [
-      "L-214",
-      25
-    ],
-    [
-      "L-005",
-      24
-    ],
-    [
-      "L-216",
-      24
-    ],
-    [
-      "L-220",
-      24
+      26
     ],
     [
       "L-011",
       23
     ],
     [
-      "L-006",
-      21
+      "L-007",
+      22
     ],
     [
-      "L-007",
+      "L-214",
+      22
+    ],
+    [
+      "L-216",
+      22
+    ],
+    [
+      "L-006",
       21
     ]
   ],
   "zero_cited_sample": [
-    "L-102",
-    "L-103",
-    "L-112",
-    "L-282",
-    "L-285",
-    "L-291",
-    "L-295",
-    "L-296",
-    "L-297",
-    "L-298"
+    "L-394"
   ],
-  "power_law_alpha": 0.9005,
-  "power_law_r_squared": 0.8448,
+  "power_law_alpha": 0.7897,
+  "power_law_r_squared": 0.8397,
   "zipf_holds": true,
-  "zipf_strong": true,
+  "zipf_strong": false,
   "head_heavy": false,
   "tail_flat": false,
   "median_citations_nonzero": 4,
-  "p90_citations": 15,
-  "verdict": "ZIPF_STRONG",
-  "interpretation": "Lesson citation distribution closely follows Zipf's law (\u03b1=0.900 \u2248 1.0, R\u00b2=0.845). ISO-8 isomorphism CONFIRMED: swarm knowledge corpus exhibits the same scale-free power law as natural language word frequency. A small number of lessons dominate citations (~10 lessons account for most references)."
+  "p90_citations": 13,
+  "verdict": "ZIPF_WEAK",
+  "interpretation": "Lesson citation distribution is approximately Zipfian (\u03b1=0.790, R\u00b2=0.840). ISO-8 isomorphism PARTIALLY confirmed. \u03b1 deviates from 1.0 \u2014 flatter (more even distribution) than canonical Zipf."
 }
