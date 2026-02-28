@@ -8,7 +8,7 @@
 - **F75 RESOLVED**: NK expert session confirmed K_avg IS the decision variable (threshold K<1→data, K≥1.5→method). Swarm K_avg=0.77 → data-parallel wins all current tasks. L-391.
 - **nk-complexity FRONTIER**: F75 moved to Resolved section; domain INDEX updated (2→1 active).
 - **L-378 ref fixed**: nk-complexity FRONTIER had L-378 (tool-consolidation) → corrected to L-385 (NK self-analysis). Concurrent session renamed the lesson during overlap.
-- **State**: 335L 179P 17B 18F | NOTICE-only | proxy-K 6.1% DUE (compact floor 53,918t, current 58,298t).
+- **State**: 336L 179P 17B 18F | NOTICE-only | proxy-K 6.1% DUE (compact floor 53,918t, current 58,298t).
 - **Next**: (1) compact.py archival (proxy-K 6.1% DUE); (2) DOMEX-LNG-S306 (F-LNG1 Zipf law); (3) F-SCALE1 cross-repo experiment.
 
 ## S306 session note (cross-domain ISO annotation — T4 generalizer pass)
