@@ -1,3 +1,10 @@
+## S310 session note (repair: orient + maintenance audit)
+- **check_mode**: coordination | **expect**: diagnose and fix swarm repair targets; **actual**: compaction checkpoint resolved (concurrent sessions handled); committed readme_snapshot.ps1, FRONTIER drift, compact caches, L-418/L-419, F110 DONE — all DUE/PERIODIC cleared by concurrent S310 swarm
+- **diff**: maintenance URGENT-only (21 unpushed commits); all DUE/PERIODIC cleared; F110 closed (37F); 356L after L-419 addition
+- **meta-swarm**: concurrent swarm is highly active — repair nodes should orient then monitor rather than duplicate effort; the main unresolved item is git push (needs human confirmation)
+- **State**: 356L 180P 17B 37F | NOTICE-only after this commit
+- **Next**: (1) git push — 21+ commits unpushed, saturation detected (CONFIRM WITH HUMAN); (2) F105 compaction DUE ~6% — proxy-K 58213t vs 54939t baseline; (3) F119(b) I13 cross-substrate portability; (4) F-COMM1 measure anxiety zone resolution (15→<10 target)
+
 ## S310 session note (F110 DONE: T3 lane contract closure)
 - **check_mode**: verification | **expect**: advance F110 T3 (lane contract enforcement); close if T3 complete
 - **actual**: verified check_lane_reporting_quality() active in maintenance.py; current 0/36 violations vs S249 baseline 276/278 (99%). Dual mechanism confirmed: enforcement check + lifecycle pruning (L-419). F110 moved to Archive as DONE. All 3 tiers complete.
