@@ -1,0 +1,544 @@
+{
+  "session": "S189",
+  "fallow_window": 3,
+  "uplift_threshold": 0.1,
+  "total_lessons_with_domain": 59,
+  "post_fallow_n": 45,
+  "continuous_n": 14,
+  "post_fallow_mean_sharpe": 0.4314,
+  "continuous_mean_sharpe": 0.2795,
+  "sharpe_uplift": 0.5435,
+  "uplift_pct": 54.4,
+  "verdict": "FALLOW_CONFIRMED",
+  "domain_breakdown": {
+    "ai": {
+      "post_fallow_n": 4,
+      "continuous_n": 0,
+      "post_fallow_mean": 0.4788,
+      "continuous_mean": null
+    },
+    "brain": {
+      "post_fallow_n": 5,
+      "continuous_n": 1,
+      "post_fallow_mean": 0.5241,
+      "continuous_mean": 0.7333
+    },
+    "conflict": {
+      "post_fallow_n": 2,
+      "continuous_n": 0,
+      "post_fallow_mean": 0.4333,
+      "continuous_mean": null
+    },
+    "distributed-systems": {
+      "post_fallow_n": 1,
+      "continuous_n": 0,
+      "post_fallow_mean": 0.2667,
+      "continuous_mean": null
+    },
+    "economy": {
+      "post_fallow_n": 1,
+      "continuous_n": 0,
+      "post_fallow_mean": 0.4667,
+      "continuous_mean": null
+    },
+    "evolution": {
+      "post_fallow_n": 0,
+      "continuous_n": 1,
+      "post_fallow_mean": null,
+      "continuous_mean": 0.4667
+    },
+    "finance": {
+      "post_fallow_n": 4,
+      "continuous_n": 0,
+      "post_fallow_mean": 0.5886,
+      "continuous_mean": null
+    },
+    "gaming": {
+      "post_fallow_n": 3,
+      "continuous_n": 0,
+      "post_fallow_mean": 0.3458,
+      "continuous_mean": null
+    },
+    "health": {
+      "post_fallow_n": 3,
+      "continuous_n": 0,
+      "post_fallow_mean": 0.8387,
+      "continuous_mean": null
+    },
+    "helper-swarm": {
+      "post_fallow_n": 1,
+      "continuous_n": 0,
+      "post_fallow_mean": 0.3333,
+      "continuous_mean": null
+    },
+    "information-science": {
+      "post_fallow_n": 2,
+      "continuous_n": 0,
+      "post_fallow_mean": 0.6166,
+      "continuous_mean": null
+    },
+    "meta": {
+      "post_fallow_n": 11,
+      "continuous_n": 12,
+      "post_fallow_mean": 0.3185,
+      "continuous_mean": 0.226
+    },
+    "nk-complexity": {
+      "post_fallow_n": 5,
+      "continuous_n": 0,
+      "post_fallow_mean": 0.2975,
+      "continuous_mean": null
+    },
+    "operations-research": {
+      "post_fallow_n": 1,
+      "continuous_n": 0,
+      "post_fallow_mean": 0.3571,
+      "continuous_mean": null
+    },
+    "quality": {
+      "post_fallow_n": 1,
+      "continuous_n": 0,
+      "post_fallow_mean": 0.2667,
+      "continuous_mean": null
+    },
+    "tooling": {
+      "post_fallow_n": 1,
+      "continuous_n": 0,
+      "post_fallow_mean": 0.1875,
+      "continuous_mean": null
+    }
+  },
+  "lesson_count_by_domain": {
+    "nk-complexity": 5,
+    "distributed-systems": 1,
+    "meta": 23,
+    "health": 3,
+    "ai": 4,
+    "finance": 4,
+    "information-science": 2,
+    "brain": 6,
+    "operations-research": 1,
+    "economy": 1,
+    "evolution": 1,
+    "gaming": 3,
+    "helper-swarm": 1,
+    "tooling": 1,
+    "conflict": 2,
+    "quality": 1
+  },
+  "lessons": [
+    {
+      "file": "L-172.md",
+      "session": 82,
+      "domain": "nk-complexity",
+      "sharpe": 0.2667,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-174.md",
+      "session": 81,
+      "domain": "nk-complexity",
+      "sharpe": 0.1875,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-177.md",
+      "session": 82,
+      "domain": "nk-complexity",
+      "sharpe": 0.1333,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-178.md",
+      "session": 83,
+      "domain": "nk-complexity",
+      "sharpe": 0.5,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-179.md",
+      "session": 86,
+      "domain": "distributed-systems",
+      "sharpe": 0.2667,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-180.md",
+      "session": 84,
+      "domain": "meta",
+      "sharpe": 0.0667,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-181.md",
+      "session": 87,
+      "domain": "meta",
+      "sharpe": 0.1333,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-183.md",
+      "session": 88,
+      "domain": "nk-complexity",
+      "sharpe": 0.4,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-186.md",
+      "session": 92,
+      "domain": "meta",
+      "sharpe": 0.3571,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-187.md",
+      "session": 93,
+      "domain": "meta",
+      "sharpe": 0.0667,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-188.md",
+      "session": 94,
+      "domain": "meta",
+      "sharpe": 0.2308,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-190.md",
+      "session": 96,
+      "domain": "meta",
+      "sharpe": 0.6875,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-195.md",
+      "session": 101,
+      "domain": "meta",
+      "sharpe": 0.3333,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-196.md",
+      "session": 101,
+      "domain": "meta",
+      "sharpe": 0.2,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-199.md",
+      "session": 107,
+      "domain": "meta",
+      "sharpe": 0.2143,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-241.md",
+      "session": 182,
+      "domain": "health",
+      "sharpe": 0.9091,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-242.md",
+      "session": 182,
+      "domain": "health",
+      "sharpe": 0.3571,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-243.md",
+      "session": 182,
+      "domain": "ai",
+      "sharpe": 0.4545,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-244.md",
+      "session": 182,
+      "domain": "ai",
+      "sharpe": 0.2941,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-245.md",
+      "session": 182,
+      "domain": "health",
+      "sharpe": 1.25,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-246.md",
+      "session": 182,
+      "domain": "meta",
+      "sharpe": 1.0,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-248.md",
+      "session": 182,
+      "domain": "ai",
+      "sharpe": 0.5,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-251.md",
+      "session": 182,
+      "domain": "finance",
+      "sharpe": 0.375,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-252.md",
+      "session": 183,
+      "domain": "meta",
+      "sharpe": 0.2143,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-253.md",
+      "session": 183,
+      "domain": "finance",
+      "sharpe": 0.5625,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-254.md",
+      "session": 182,
+      "domain": "finance",
+      "sharpe": 0.5,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-256.md",
+      "session": 182,
+      "domain": "information-science",
+      "sharpe": 0.5,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-257.md",
+      "session": 184,
+      "domain": "brain",
+      "sharpe": 0.4615,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-258.md",
+      "session": 183,
+      "domain": "ai",
+      "sharpe": 0.6667,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-260.md",
+      "session": 183,
+      "domain": "finance",
+      "sharpe": 0.9167,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-262.md",
+      "session": 183,
+      "domain": "information-science",
+      "sharpe": 0.7333,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-265.md",
+      "session": 183,
+      "domain": "brain",
+      "sharpe": 0.5625,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-267.md",
+      "session": 184,
+      "domain": "brain",
+      "sharpe": 0.5833,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-268.md",
+      "session": 186,
+      "domain": "brain",
+      "sharpe": 0.2857,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-269.md",
+      "session": 186,
+      "domain": "operations-research",
+      "sharpe": 0.3571,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-270.md",
+      "session": 186,
+      "domain": "brain",
+      "sharpe": 0.7273,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-276.md",
+      "session": 187,
+      "domain": "meta",
+      "sharpe": 0.3333,
+      "classification": "continuous"
+    },
+    {
+      "file": "L-277.md",
+      "session": 187,
+      "domain": "meta",
+      "sharpe": 0.2,
+      "classification": "continuous"
+    },
+    {
+      "file": "L-278.md",
+      "session": 187,
+      "domain": "meta",
+      "sharpe": 0.3333,
+      "classification": "continuous"
+    },
+    {
+      "file": "L-279.md",
+      "session": 187,
+      "domain": "meta",
+      "sharpe": 0.2667,
+      "classification": "continuous"
+    },
+    {
+      "file": "L-281.md",
+      "session": 188,
+      "domain": "meta",
+      "sharpe": 0.2,
+      "classification": "continuous"
+    },
+    {
+      "file": "L-282.md",
+      "session": 187,
+      "domain": "meta",
+      "sharpe": 0.1333,
+      "classification": "continuous"
+    },
+    {
+      "file": "L-284.md",
+      "session": 188,
+      "domain": "economy",
+      "sharpe": 0.4667,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-285.md",
+      "session": 188,
+      "domain": "meta",
+      "sharpe": 0.2667,
+      "classification": "continuous"
+    },
+    {
+      "file": "L-287.md",
+      "session": 188,
+      "domain": "evolution",
+      "sharpe": 0.4667,
+      "classification": "continuous"
+    },
+    {
+      "file": "L-289.md",
+      "session": 188,
+      "domain": "gaming",
+      "sharpe": 0.2667,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-290.md",
+      "session": 188,
+      "domain": "meta",
+      "sharpe": 0.2667,
+      "classification": "continuous"
+    },
+    {
+      "file": "L-291.md",
+      "session": 188,
+      "domain": "brain",
+      "sharpe": 0.7333,
+      "classification": "continuous"
+    },
+    {
+      "file": "L-292.md",
+      "session": 188,
+      "domain": "meta",
+      "sharpe": 0.2667,
+      "classification": "continuous"
+    },
+    {
+      "file": "L-293.md",
+      "session": 188,
+      "domain": "helper-swarm",
+      "sharpe": 0.3333,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-294.md",
+      "session": 188,
+      "domain": "meta",
+      "sharpe": 0.1333,
+      "classification": "continuous"
+    },
+    {
+      "file": "L-295.md",
+      "session": 189,
+      "domain": "tooling",
+      "sharpe": 0.1875,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-296.md",
+      "session": 189,
+      "domain": "gaming",
+      "sharpe": 0.3333,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-297.md",
+      "session": 189,
+      "domain": "conflict",
+      "sharpe": 0.5333,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-298.md",
+      "session": 189,
+      "domain": "quality",
+      "sharpe": 0.2667,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-299.md",
+      "session": 189,
+      "domain": "meta",
+      "sharpe": 0.25,
+      "classification": "continuous"
+    },
+    {
+      "file": "L-302.md",
+      "session": 189,
+      "domain": "gaming",
+      "sharpe": 0.4375,
+      "classification": "post_fallow"
+    },
+    {
+      "file": "L-303.md",
+      "session": 189,
+      "domain": "meta",
+      "sharpe": 0.0625,
+      "classification": "continuous"
+    },
+    {
+      "file": "L-304.md",
+      "session": 189,
+      "domain": "conflict",
+      "sharpe": 0.3333,
+      "classification": "post_fallow"
+    }
+  ]
+}
