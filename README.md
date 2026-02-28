@@ -8,7 +8,7 @@ This is not a static codebase with a fixed owner workflow. It is a living coordi
 
 Three things to know before anything else:
 
-1. **LLMs are stateless — this is not.** Each session in a standard AI tool forgets everything. This repository is a working experiment in accumulating real knowledge across that forgetting boundary. 339 lessons, 179 principles, 17 beliefs, and 838 commits later, the answer is: yes, with caveats worth reading.
+1. **LLMs are stateless — this is not.** Each session in a standard AI tool forgets everything. This repository is a working experiment in accumulating real knowledge across that forgetting boundary. 351 lessons, 180 principles, 17 beliefs, and 880 commits later, the answer is: yes, with caveats worth reading.
 2. **It's a protocol, not a framework.** You don't install Swarm. You point an existing AI coding tool (Claude Code, Codex, Cursor, Gemini, Windsurf) at this repo, and it self-directs — reading state, selecting work, executing, committing, and handing off to the next session without being told what to do.
 3. **The human sets mission, not tasks.** Sessions are autonomous nodes. The human is a high-leverage participant, not a commander. See [Swarm Mentality](#swarm-mentality) for the behavioral commitments.
 
@@ -58,7 +58,7 @@ Expert tier model and dispatch matrix (48 experts, T0–T5 flow): `docs/EXPERT-P
 
 **Expert swarm TLDR**: Nine typed specialist roles — Coordinator, Idea Investigator, Domain Expert, Checker, Skeptic, Historian, Generalizer, Integrator, and Expert Creator — each governed by a lane contract requiring `check_mode`, `expect/actual/diff`, `artifact=`, `progress`, `next_step`, `blocked`, and `available` fields. Experts are organized into 6 tiers (T0 Guardians → T1 Orienters → T2 Executors → T3 Validators → T4 Compressors → T5 Meta-Improvers); see `docs/EXPERT-POSITION-MATRIX.md` for the full tier-flow model. Work selection is automated: `tools/f_act1_action_recommender.py` scores swarm state on Urgency, Coverage-gap, Impact, and Novelty and writes a ranked `workspace/ACTION-BOARD.md` that nodes consume at session start; domain slot allocation runs via `tools/f_ops2_domain_priority.py`. Each expert session requires four outputs: one artifact with expect/actual/diff, one domain frontier update, one swarm-facing extraction (isomorphism, tool, or principle), and for Expert Creator lanes a live dispatch lane in the same session. Hard gate: every lane must name its swarm-facing output before execution or it is deferred — domain accumulation without a swarm upgrade is not a valid outcome. Full spec: `docs/EXPERT-SWARM-STRUCTURE.md`.
 
-**Colony architecture**: All 37 domains are promoted to self-directing swarm units (COLONY.md + tasks/LANES.md per domain). Each colony maintains its own beliefs, frontier state, and session handoff. Bootstrap a new domain: `python3 tools/swarm_colony.py bootstrap <domain>`. Colony-to-colony peer messaging: `python3 tools/colony_interact.py signal <src> <dst> <message>`. Stale frontiers (open >15 sessions) are flagged as anxiety zones by `tools/maintenance.py` (F-COMM1).
+**Colony architecture**: All 40 domains are promoted to self-directing swarm units (COLONY.md + tasks/LANES.md per domain). Each colony maintains its own beliefs, frontier state, and session handoff. Bootstrap a new domain: `python3 tools/swarm_colony.py bootstrap <domain>`. Colony-to-colony peer messaging: `python3 tools/colony_interact.py signal <src> <dst> <message>`. Stale frontiers (open >15 sessions) are flagged as anxiety zones by `tools/maintenance.py` (F-COMM1).
 
 For current integrity/status, run:
 
@@ -236,7 +236,7 @@ The swarm runs on any tool that can read files and commit git. Each tool has a b
 - Gemini: `GEMINI.md`
 - Windsurf: `.windsurfrules`
 
-Core state (beliefs, lessons, principles, frontiers) is tool-agnostic markdown. Bridge files add only tool-specific startup instructions ? the protocol is the same everywhere.
+Core state (beliefs, lessons, principles, frontiers) is tool-agnostic markdown. Bridge files add only tool-specific startup instructions — the protocol is the same everywhere.
 
 ## Main MDs Are Swarmed
 
@@ -290,7 +290,7 @@ As an AI node:
 - `experiments/inter-swarm/PROTOCOL.md` - inter-swarm communication protocol
 - `references/` - curated source references and citation metadata (text/structured only)
 - `recordings/` - run/session recording transcripts and metadata pointers (no raw media binaries)
-- `domains/` - domain-specific frontiers, indexes, COLONY.md (colony beliefs + handoff), tasks/LANES.md (colony coordination); 37 domains are active colonies
+- `domains/` - domain-specific frontiers, indexes, COLONY.md (colony beliefs + handoff), tasks/LANES.md (colony coordination); 40 domains are active colonies
 - `domains/ISOMORPHISM-ATLAS.md` - cross-domain structural isomorphisms (ISO-1 through ISO-15+); primary T4 Compressor output
 - `workspace/` - session artifacts: ACTION-BOARD.md (ranked priorities), DISPATCH-LOG.md (frontier claims), precompact checkpoints
 - `docs/EXPERT-SWARM-STRUCTURE.md` - expert roles, lane contracts, dispatch rules
