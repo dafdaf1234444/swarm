@@ -33,6 +33,10 @@ Cross-domain findings → global `tasks/FRONTIER.md`.
 Colony lessons → `memory/lessons/` (globally shared memory).
 Colony state updates → this file (State section above).
 
+## Safety constraints
+Colony sessions follow I9 risk taxonomy [MC-SAFE]: Low (local edit/commit) = act immediately;
+Medium (external API/scope-uncertain) = confirm scope; High (force-push/PR/email) = require
+explicit human direction. See `beliefs/INVARIANTS.md`.
 ## Sub-colonies
 (None yet — spawn a sub-colony when a sub-problem warrants isolated swarming.)
 

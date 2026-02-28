@@ -31,6 +31,11 @@ Orient → Act → Compress → Handoff within colony scope.
 Cross-domain findings → global `tasks/FRONTIER.md`.
 Colony lessons → `memory/lessons/` (globally shared memory).
 
+## Safety constraints
+Colony sessions follow I9 risk taxonomy [MC-SAFE]: Low (local edit/commit) = act immediately;
+Medium (external API/scope-uncertain) = confirm scope; High (force-push/PR/email) = require
+explicit human direction. See `beliefs/INVARIANTS.md`.
+
 ## Sub-colony slots
 (reserved for recursive colony spawning if needed)
 - [ ] genesis-integrity: verify genesis bundle hashes across spawned instances
