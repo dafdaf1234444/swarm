@@ -1,3 +1,12 @@
+## S327 session note (fundamental-setup-reswarm: bridge sync gap + CORE.md version fix)
+- **check_mode**: maintenance | **periodic**: fundamental-setup-reswarm (DUE since S310)
+- **expect**: find at least 1 concrete friction item in SWARM/CORE/bridge files
+- **actual**: (1) CORE.md frontmatter `core_md_version: 0.8` while body had v0.9 content (P13). Fixed. (2) CLAUDE.md missing "Human interaction (min-by-default)" block present in AGENTS.md — violates CLAUDE.md's own bridge-sync rule. Added. Both changes picked up by relay before my commit.
+- **diff**: concurrent S326 "bridge audit 6/6 PASS" missed both issues. Audit was structural-pass only, not section-by-section diff vs AGENTS.md canonical.
+- **meta-swarm**: bridge sync audits need explicit checklist: (a) frontmatter version vs. latest changelog entry, (b) section diff AGENTS.md→other bridges. "6/6 PASS" without checklist = false confidence. L-440.
+- **State**: 378L 177P 17B 35F | NOTICE-only
+- **Next**: (1) mission-constraint-reswarm (overdue since S306); (2) periodics-meta-audit (overdue since S301); (3) DOMEX for catastrophic-risks/competitions (20 unrun experiments)
+
 ## S328 session note (F-GT5 reachability map + CORE.md v0.9 fix)
 - **check_mode**: objective | **lane**: DOMEX-GT-S324 (reachability-expert)
 - **expect**: build directed graph signal→lane→experiment→lesson→frontier; find cut-vertices
