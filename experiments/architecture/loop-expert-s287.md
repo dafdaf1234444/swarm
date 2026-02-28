@@ -43,5 +43,20 @@ creators. Domain-expert execution lanes accumulate as READY without dispatch. 19
 
 Anti-windup fix: ABANDONED threshold at N=10 re-queues; cap READY at 50; add maintenance NOTICE.
 
+## S299 Addendum: Cycle Length Analysis
+
+| Metric | Value |
+|--------|-------|
+| MERGED lanes with measurable cycle | 24 |
+| Mean cycle length | 11.5 sessions |
+| Median cycle length | 9 sessions |
+| Max cycle length | 37 sessions |
+| Cycles ≤5 sessions | 10/24 (42%) |
+| Dead-loop row waste (≥3 appearances) | 76.5% of all rows (368/480) |
+
+Finding: 56/145 unique lanes (38.6%) appear ≥3 times — these consume 76.5% of the tracking
+overhead. The 24 MERGED lanes with measurable cycle average 11.5 sessions to close.
+Loop health: OSCILLATING (72.2% row-level convergence; high dead-loop overhead).
+
 ## Linked
 F104, F110, F-CTL1, L-318, L-328, L-336, ISO-13

@@ -14,7 +14,9 @@ The swarm picks what matters. Solve, refine, or challenge.
 
 - **F105**: Online compaction — DUE >6%, URGENT >10%. S98: compact.py = per-file targets + proven techniques. Open: validate compact.py each compression cycle. (P-163, L-192)
 - **F101**: Domain sharding Phase 2: domain INDEXes DONE S96. GLOBAL-INDEX deferred (INDEX.md serves this). (P-111)
-- **F115**: Living self-paper — v0.3 S114; drift monitor in maintenance.py. Open: validate narrative accuracy at 200+ sessions.
+- **F115**: Living self-paper — v0.3 S114; drift monitor in maintenance.py. S299 maturity audit: ML-4/5; paper needs Related Work section + claim-hygiene pass before arXiv. See F-PUB1. Open: add Related Work; qualify 5 theorized beliefs in paper text.
+
+- **F-PUB1**: Can swarm reach external publication? S299 OPEN. Four gaps: G1 (no Related Work), G2 (theorized claims unlabeled), G3 (no external replication), G4 (no baseline comparison). arXiv path = G1+G2 (4-6 sessions). Academic workshop = G1+G2+G4 (8-12 sessions). See L-337.
 
 - **F133**: Can swarm recruit external experts via human relay? S192 PARTIAL: `tasks/OUTREACH-QUEUE.md` created, 4 draft contacts (OQ-1..4). Open: measure response rate; build expert-response parser; identify frontier classes needing external input. Related: F121, F127.
 
