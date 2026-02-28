@@ -223,9 +223,14 @@ def cmd_map() -> None:
         print("No inter-colony edges detected via INDEX.md.")
     print()
     passive_pct = round(stats['linked_colonies'] / stats['total_colonies'] * 100, 1) if stats['total_colonies'] else 0
-    print(f"Diagnosis: {passive_pct}% passive linkage (INDEX.md) but 0% active signaling (SIGNALS.md).")
-    print("Colonies know about each other but cannot actively message each other.")
-    print("F-EXP6: Active peer-to-peer inter-colony signal protocol needed.")
+    active_pct = round(stats['active_signal_files'] / stats['total_colonies'] * 100, 1) if stats['total_colonies'] else 0
+    print(f"Diagnosis: {passive_pct}% passive linkage (INDEX.md), {active_pct}% active signaling (SIGNALS.md).")
+    if active_pct == 0:
+        print("Colonies know about each other but cannot actively message each other.")
+        print("F-EXP6: Active peer-to-peer inter-colony signal protocol needed.")
+    else:
+        print(f"Active signaling started ({stats['active_signal_files']}/{stats['total_colonies']} colonies).")
+        print("F-EXP6: Compare artifact rate vs passive-only baseline at next measurement point.")
 
 
 def cmd_suggest() -> None:

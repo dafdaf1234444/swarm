@@ -26,5 +26,20 @@
   },
   "tool": "tools/colony_interact.py",
   "verdict": "PASSIVE_ONLY_BASELINE",
-  "next_action": "Run first active signal: expert-swarm → information-science with finding about control-theory pairing. Measure if it accelerates F-IS6 or F-IS3. Rerun at S314 to compare artifact rate vs passive baseline."
+  "next_action": "Run first active signal: expert-swarm → information-science with finding about control-theory pairing. Measure if it accelerates F-IS6 or F-IS3. Rerun at S314 to compare artifact rate vs passive baseline.",
+  "s305_update": {
+    "date": "2026-02-28",
+    "active_signal_files": 2,
+    "active_signal_rate": 0.054,
+    "active_signal_edges": 6,
+    "change": "active_signal_rate: 0% → 5.4%; active_files: 0 → 2; active_edges: 0 → 6",
+    "new_tools": [
+      "tools/dispatch_tracker.py (F-EXP1: session dispatch tracking)",
+      "maintenance.py:check_anxiety_zones (F-COMM1: frontiers >15 sessions stale)",
+      "maintenance.py:check_dispatch_log (F-EXP1: stale in-progress detection)"
+    ],
+    "anxiety_zones_found": 28,
+    "verdict": "ACTIVE_SIGNAL_STARTED",
+    "next_measurement": "S315 — compare artifact rate with active signaling vs passive-only baseline"
+  }
 }

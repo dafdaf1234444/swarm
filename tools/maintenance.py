@@ -1210,6 +1210,83 @@ def check_frontier_decay() -> list[tuple[str, str]]:
         results.append(("NOTICE", f"{len(weak)} frontier(s) weakening: {', '.join(weak)}"))
     return results
 
+def check_anxiety_zones() -> list[tuple[str, str]]:
+    """F-COMM1: Flag frontiers open >15 sessions without progress — anxiety zones need multi-expert attention."""
+    results = []
+    current = _session_number()
+    ANXIETY_THRESHOLD = 15  # sessions without update → multi-expert trigger
+
+    frontier_path = REPO_ROOT / "tasks" / "FRONTIER.md"
+    if not frontier_path.exists():
+        return results
+
+    text = _read(frontier_path)
+    open_text = text.split("## Archive", 1)[0]
+
+    anxiety_zones = []
+    for match in re.finditer(r"^- \*\*(F[^*]+)\*\*:(.*?)(?=^- \*\*F|\Z)", open_text, re.MULTILINE | re.DOTALL):
+        fid = match.group(1).strip()
+        body = match.group(2)
+        # Find the most recent session reference (highest S-number)
+        s_nums = [int(m) for m in re.findall(r"\bS(\d+)\b", body)]
+        if not s_nums:
+            continue
+        last_active = max(s_nums)
+        age = current - last_active
+        if age > ANXIETY_THRESHOLD:
+            anxiety_zones.append((fid, last_active, age))
+
+    if anxiety_zones:
+        anxiety_zones.sort(key=lambda x: x[2], reverse=True)
+        ids = ", ".join(f"{fid}(S{s},+{age})" for fid, s, age in anxiety_zones[:5])
+        results.append(("NOTICE", (
+            f"{len(anxiety_zones)} anxiety-zone frontier(s) open >{ANXIETY_THRESHOLD} sessions without update"
+            f" (F-COMM1: auto-trigger multi-expert synthesis): {ids}"
+            + (f"... +{len(anxiety_zones)-5} more" if len(anxiety_zones) > 5 else "")
+        )))
+    return results
+
+
+def check_dispatch_log() -> list[tuple[str, str]]:
+    """F-EXP1: Check dispatch log for stale in-progress entries (helps nodes avoid duplicate work)."""
+    results = []
+    dispatch_log = REPO_ROOT / "workspace" / "DISPATCH-LOG.md"
+    if not dispatch_log.exists():
+        results.append(("NOTICE", (
+            "workspace/DISPATCH-LOG.md missing — create with: python3 tools/dispatch_tracker.py init"
+            " (F-EXP1: dispatch tracking not instrumented)"
+        )))
+        return results
+
+    current = _session_number()
+    text = _read(dispatch_log)
+    STALE_THRESHOLD = 3  # sessions: in-progress for >3 sessions = likely abandoned
+
+    stale = []
+    for match in re.finditer(
+        r"^\|\s*(S\d+)\s*\|\s*([^|]+)\s*\|\s*([^|]+)\s*\|\s*([^|]+)\s*\|",
+        text, re.MULTILINE
+    ):
+        session_str, frontier, status, _ = (match.group(i).strip() for i in range(1, 5))
+        if status.lower() != "in-progress":
+            continue
+        s_num_match = re.match(r"S(\d+)", session_str)
+        if not s_num_match:
+            continue
+        session_num = int(s_num_match.group(1))
+        age = current - session_num
+        if age > STALE_THRESHOLD:
+            stale.append((session_str, frontier.strip(), age))
+
+    if stale:
+        stale_str = ", ".join(f"{s}:{f}(+{a})" for s, f, a in stale[:5])
+        results.append(("NOTICE", (
+            f"{len(stale)} dispatch entry(ies) stale in-progress >{STALE_THRESHOLD} sessions"
+            f" — may be abandoned (F-EXP1 tracking): {stale_str}"
+        )))
+    return results
+
+
 def check_domain_expert_coverage() -> list[tuple[str, str]]:
     """Every domain with ≥1 active frontier must have ≥1 non-ABANDONED DOMEX lane (L-349, P-185)."""
     results = []
@@ -2342,6 +2419,8 @@ def main():
         check_session_log_integrity,
         check_state_header_sync,
         check_cross_references,
+        check_anxiety_zones,
+        check_dispatch_log,
         check_domain_expert_coverage,
         check_historian_integrity,
         check_domain_frontier_consistency,
