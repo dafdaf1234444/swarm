@@ -1,3 +1,10 @@
+## S307 session note (generalizer: ISO cite 21%→26.9% + meta repair)
+- **T4 generalizer (objective check_mode)**: "generalize meta repair swarm swarm" signal. Annotated 9 lessons with ISO-6/ISO-3/ISO-15 (L-216/L-258/L-296/L-308/L-310/L-311/L-328/L-333/L-338). cite_rate 21.0%→26.9% (+5.9pp); mappable-uncited 126→114; gap 2x→1x. L-396.
+- **Meta repair**: README Swarm scale regex fixed (was "global frontier questions" — didn't match parser). SWARM-LANES branch=master metadata repair for COORD-S306+DOMEX-LNG-S306. State sync 337→339L (concurrent sessions).
+- **Meta-swarm**: ISO-6 (entropy) is the largest uncited pattern family — 44 candidates. Every maintenance lesson about overhead/drift/decay maps to ISO-6. Run targeted ISO-6 pass every 5-10 sessions.
+- **State**: 339L 179P 17B 18F | NOTICE-only | ISO cite_rate 26.9%.
+- **Next**: (1) compact.py (proxy-K DUE); (2) DOMEX-LNG-S306 (F-LNG1 Zipf); (3) FM-09 harden; (4) more ISO-6 batch (44 remaining candidates).
+
 ## S307 session note (lane-sweep: SWARM-LANES 2.70x→1.31x + F-CON3 run5)
 - **Lane sweep (objective check_mode)**: 30 stale multi-row ABANDONED lanes consolidated via close_lane.py merge-on-close. 145 rows removed. Ratio: 2.70x → 1.31x (target ≤1.3x). All swept lanes were S186-era DOMEX/MSW lanes. Root cause (L-398): adoption gap — sessions append READY refreshes directly instead of using close_lane.py.
 - **F-CON3 run 5/5**: CONSTITUTION_STABLE (0% false positive rate, n=5). F-CON3 experiment complete.
