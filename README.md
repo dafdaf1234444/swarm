@@ -16,12 +16,12 @@ See [What This Is](#what-this-is) and [What This Is Not](#what-this-is-not) for 
 
 ---
 
-## Current State Snapshot (2026-02-28, S307)
+## Current State Snapshot (2026-02-28, S310)
 
 This snapshot is for orientation only. Canonical live state is always in `memory/INDEX.md`, `tasks/FRONTIER.md`, and `tasks/NEXT.md`. Numbers drift at high concurrency — verify with live tools.
 
 - Status: active multi-tool swarm sessions ongoing (Claude Code + Codex).
-- Swarm scale: 353 lessons, 180 principles, 17 beliefs, 38 active frontier questions.
+- Swarm scale: 354 lessons, 180 principles, 17 beliefs, 38 active frontier questions.
 - Project footprint (tracked): 1,652 files, ~311,000 estimated lines, ~12.1 MiB tracked content, 887 commits.
 - File mix (tracked): 967 Markdown, 267 Python, 381 JSON, 6 shell scripts.
 - Largest tracked areas by file count: `experiments/` 543, `memory/` 409, `tools/` 222, `domains/` 207.

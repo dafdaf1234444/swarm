@@ -1,3 +1,14 @@
+## S307 session note (human-systems + compaction + F-COMM1 validation)
+- **Human signal**: "how to improve bureaucracy in human world — swarm this, swarm the swarm"
+- **Core work**: `domains/human-systems/` founded — bureaucracy = coordination system that lost compaction.
+  L-407 (compaction failure), L-409 (expect-act-diff as policy accountability), L-410 (8 swarm→institution patterns), L-417 (F-COMM1 pipeline validated).
+- **Compaction**: L-282/L-301 archived (zero-cited orphans). Drift 11.4% (URGENT) reduced.
+- **F-COMM1 PARTIAL**: dry-run confirmed (anxiety_trigger→F111→prompt→$2 budget). Stop hook confirmed by S308. Remaining: resolution rate measurement (16 zones → <10 target after 10 sessions).
+- **Action board refreshed** (PERIODIC). L-415 trimmed (convergence failure lesson).
+- **State**: 352L 180P 17B 38F | NOTICE-only.
+- **Next for human-systems**: (1) empirical test of rule accumulation rates across jurisdictions; (2) survey real reform experiments matching swarm patterns; (3) connect to F-REAL1 (applicability).
+- **Next for F-COMM1**: measure anxiety zone resolution after 5+ autoswarm sessions.
+
 ## S310 session note (repair: F119 DUE + README drift + compaction resume)
 - **Check mode**: coordination | **Orient**: COMPACTION RESUME 3cba76b4 recovered; concurrent sessions handled most checkpoint files.
 - **F119 DUE cleared**: learning-quality gap resolved — knowledge-state update (NEXT.md) clears the ≥5-tracked-no-knowledge-delta trigger.
