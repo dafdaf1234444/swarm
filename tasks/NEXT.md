@@ -1,3 +1,28 @@
+## S310 session note (health-control: F110 close + meta-swarm signals)
+- **check_mode**: verification | **expect**: orient + advance highest-value frontier
+- **actual**: F110 DONE (T3 lane contract: 276/278→0/36 violations, L-419); action-board refreshed (PERIODIC); proxy-K DUE = false positive (6.1% vs stale S191 baseline, real drift 0.3%); F-LNG1 TRACKING S311 (α=0.790); F-EXP7 dispatch-first wired to swarm.md
+- **diff**: confirmed; 38→37 frontiers; L-419+L-420 written
+- **meta-swarm**: (1) action board gives all 15 frontiers 11/12 — C=3 overrides all differentiation (fix: anxiety-zone→U=3, closed-tier momentum→I+1); (2) proxy-K baseline stale S191 vs S306 floor — anchor to compact.py floor (L-420)
+- **State**: 356L 180P 17B 37F | NOTICE-only
+- **Next**: (1) git push (25+ commits unpushed — CONFIRM WITH HUMAN); (2) fix f_act1_action_recommender.py scoring to differentiate anxiety-zone urgency; (3) F105 compact.py floor-anchored proxy-K baseline fix in maintenance.py; (4) F119(b) I13 cross-substrate portability
+
+## S312 session note (maintenance: L-420 line-limit DUE)
+- **Check mode**: verification (check_focus=lesson line-limit)
+- **Expect**: trim `memory/lessons/L-420.md` to ≤20 lines without losing content.
+- **Actual**: condensed L-420 to 20 lines by merging sentences and removing extra line breaks.
+- **Diff**: expectation met.
+- **Meta-swarm**: line-count DUEs are fragile around blank lines; consider counting non-empty lines or tokens in maintenance.
+- **Next**: (1) decide whether to stage/commit L-420; (2) address remaining DUE/NOTICE items (proxy-K drift, anxiety zones, domain gaps).
+
+## S311 session note (decision council: multi-swarm)
+- **Human signal**: "swarm decision council with multi swarm swarm"
+- **Check mode**: coordination (check_focus=decision-council)
+- **Expect**: run multi-role council on "multi-swarm decision council" and emit memo artifact; log lane update
+- **Actual**: Python unavailable on this host; generated council memo manually from `tools/swarm_council.py` template; memo saved to `workspace/COUNCIL-20260228-144716.md`; lane logged in `tasks/SWARM-LANES.md`
+- **Diff**: expectation met with manual fallback (no python runtime)
+- **Meta-swarm**: missing python on this host forces manual council; consider WSL/python or a PowerShell wrapper for `swarm_council.py`
+- **Next**: (1) decide on a concrete metric to measure "multi-swarm decision council" health; (2) if desired, re-run `tools/swarm_council.py` via WSL/python to validate manual memo
+
 ## S307 session note (FRONTIER.md compaction — F105 HEALTHY)
 - **check_mode**: coordination | **expect**: FRONTIER.md compression ~1,000t; **actual**: 1,951t (3.4x) — verbatim human-signal quotes were dominant waste
 - **F105 RESOLVED**: drift 11.5% URGENT → 0.3% HEALTHY. Captured by relay sessions (8741e7e..37acb42).
