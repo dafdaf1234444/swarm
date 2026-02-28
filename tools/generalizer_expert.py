@@ -128,6 +128,63 @@ def analyze_lessons(prefix_map: dict[str, str]) -> dict:
     }
 
 
+ISO_KEYWORD_MAP: dict[str, list[str]] = {
+    "ISO-1": ["optimization", "gradient", "constraint", "loss function", "minimize"],
+    "ISO-2": ["selection pressure", "diversity collapse", "attractor", "brittle"],
+    "ISO-3": ["compression", "mdl", "minimum description length", "hierarchical"],
+    "ISO-4": ["phase transition", "threshold", "qualitative shift", "tipping", "bursty", "epoch"],
+    "ISO-5": ["feedback loop", "positive feedback", "negative feedback", "stabilizing"],
+    "ISO-6": ["entropy", "degradation", "decay", "drift", "disorder"],
+    "ISO-7": ["emergence", "irreducible", "macro-behavior"],
+    "ISO-8": ["power law", "zipf", "pareto", "scaling"],
+    "ISO-9": ["bottleneck", "lossy", "relevant signal", "discard"],
+    "ISO-10": ["predict-error", "prediction error", "learning loop"],
+    "ISO-11": ["diffusion", "random walk", "network spread"],
+    "ISO-12": ["max-flow", "min-cut", "bottleneck duality", "throughput"],
+    "ISO-13": ["windup", "accumulation", "backlog", "unbounded"],
+}
+
+
+def analyze_iso_density() -> dict:
+    """Measure ISO-density: lessons with ISO-mappable content vs those that cite the atlas.
+    This is the true compression utilization signal (L-358).
+    """
+    lessons_dir = ROOT / "memory" / "lessons"
+    if not lessons_dir.exists():
+        return {}
+    already_citing = 0
+    mappable_no_cite = 0
+    total = 0
+    per_iso: Counter = Counter()
+    samples: dict[str, list[str]] = {k: [] for k in ISO_KEYWORD_MAP}
+    for path in sorted(lessons_dir.glob("L-*.md")):
+        text = path.read_text(encoding="utf-8", errors="replace").lower()
+        total += 1
+        cites = "iso-" in text
+        matched = [iso for iso, kws in ISO_KEYWORD_MAP.items() if any(kw in text for kw in kws)]
+        if cites:
+            already_citing += 1
+        elif matched:
+            mappable_no_cite += 1
+            for iso in matched:
+                per_iso[iso] += 1
+                if len(samples[iso]) < 3:
+                    samples[iso].append(path.stem)
+    cite_rate = round(already_citing / total, 3) if total else 0.0
+    density_rate = round(mappable_no_cite / total, 3) if total else 0.0
+    compression_gap = round(mappable_no_cite / max(already_citing, 1), 1)
+    return {
+        "total_lessons": total,
+        "lessons_citing_iso": already_citing,
+        "iso_cite_rate": cite_rate,
+        "iso_mappable_uncited": mappable_no_cite,
+        "iso_density_rate": density_rate,
+        "compression_gap_ratio": compression_gap,
+        "per_iso_uncited": dict(per_iso.most_common()),
+        "samples": {k: v for k, v in samples.items() if v},
+    }
+
+
 def parse_isomorphism_gaps() -> dict:
     atlas = ROOT / "domains" / "ISOMORPHISM-ATLAS.md"
     if not atlas.exists():
@@ -167,6 +224,19 @@ def build_recommendations(lessons: dict, gaps: dict, collisions: dict[str, list[
                 f"INFO: cross-domain lesson rate {cross_rate:.0%} — room to generalize more"
             )
 
+    iso_density = lessons.get("iso_density", {})
+    if iso_density:
+        gap = iso_density.get("compression_gap_ratio", 0)
+        density = iso_density.get("iso_density_rate", 0.0)
+        if gap > 5:
+            recs.append(
+                f"WARN: compression gap {gap:.0f}x — {density:.0%} of lessons have uncited ISO patterns; run atlas annotation pass"
+            )
+        elif gap > 2:
+            recs.append(
+                f"INFO: compression gap {gap:.0f}x — consider retroactive ISO citation pass"
+            )
+
     top_lessons = lessons.get("top_cross_domain_lessons", [])
     if top_lessons:
         recs.append(
@@ -199,12 +269,16 @@ def build_recommendations(lessons: dict, gaps: dict, collisions: dict[str, list[
 def run() -> dict:
     prefix_map, collisions = build_prefix_map()
     lessons = analyze_lessons(prefix_map) if prefix_map else {}
+    iso_density = analyze_iso_density()
+    if lessons:
+        lessons["iso_density"] = iso_density
     gaps = parse_isomorphism_gaps()
     recs = build_recommendations(lessons, gaps, collisions)
     return {
         "prefix_map": prefix_map,
         "prefix_collisions": collisions,
         "lesson_generalization": lessons,
+        "iso_density": iso_density,
         "isomorphism_gaps": gaps,
         "recommendations": recs,
     }
@@ -243,6 +317,18 @@ def _fmt(report: dict) -> None:
         if unknown:
             unk = ", ".join(f"{k}({v})" for k, v in list(unknown.items())[:5])
             print(f"  Unknown prefixes: {unk}")
+
+    iso_density = report.get("iso_density", {})
+    if iso_density:
+        citing = iso_density.get("lessons_citing_iso", 0)
+        uncited = iso_density.get("iso_mappable_uncited", 0)
+        total_d = iso_density.get("total_lessons", 0)
+        gap = iso_density.get("compression_gap_ratio", 0)
+        print(f"\n[ISO DENSITY] {citing}/{total_d} cite atlas ({iso_density.get('iso_cite_rate', 0):.1%}); {uncited} mappable-uncited ({iso_density.get('iso_density_rate', 0):.1%}); gap {gap:.0f}x")
+        per_iso = iso_density.get("per_iso_uncited", {})
+        if per_iso:
+            top_isos = list(per_iso.items())[:5]
+            print("  Top uncited ISO patterns: " + ", ".join(f"{k}({v})" for k, v in top_isos))
 
     if gaps:
         top_gaps = gaps.get("top_gaps", [])

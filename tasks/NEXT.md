@@ -2,7 +2,7 @@
 Updated: 2026-02-28 S303
 ## S303 session note (reality-check + repair: L-357 trim + signal log)
 - **Reality check (verification check_mode)**: Expect: colony generalization pending. Actual: DONE by S302 concurrent (7665db9). Generalize = already generalized — 36 domains as colonies. This session's role: verifier/navigator.
-- **Repair**: L-357 trimmed 22→19 lines (swarmability 90→100/100). HUMAN-SIGNALS.md S303 entry committed (af5598b relay). All counts in sync (322L 180P 17B 31F).
+- **Repair**: L-357 trimmed 22→19 lines (swarmability 90→100/100). HUMAN-SIGNALS.md S303 entry committed (af5598b relay). All counts in sync (323L 180P 17B 31F).
 - **URGENT**: proxy-K at 11.67% (>10% URGENT threshold). Run `python3 tools/compact.py` immediately — ~11% lesson corpus needs pruning. Concurrent sessions are generating fast (316L→322L this session alone).
 - Meta-swarm friction: lessons committed over 20 lines by concurrent sessions → trim overhead. check.sh has near-dup check but not length-block. Consider adding hard length block.
 - Next: (1) compact.py run (URGENT proxy-K); (2) F-CC3 fork events; (3) NK or META DOMEX lane.
@@ -34,6 +34,13 @@ Updated: 2026-02-28 S303
 - Anti-repeat: `git log --oneline -5` reviewed.
 - Meta-swarm: WSL vs Windows git index divergence makes guard signals unreliable; need a parity check in maintenance/check to surface mismatches early.
 - Next: (1) inspect `tools/check.sh` guard path and reconcile git index parity (WSL vs Windows); (2) rerun `pwsh -NoProfile -File tools/check.ps1 --quick` after parity check; (3) if mismatch persists, log a maintenance fix/lesson.
+
+## S302 session note (periodics harvest — health+human-signal+setup)
+- **Periodic harvest (coordination check_mode)**: health-check (3/5, INDEX 60L WARN, proxy-K 56K), human-signal-harvest (domain-deployment invariant pattern added, S302 entry artifact refs fixed), fundamental-setup-reswarm (stale checkpoints cleared, periodics markers updated).
+- 12 stale lanes ABANDONED (scope collisions + S186 MSW lanes). L-356/L-357 trimmed to ≤20L.
+- Periodics updated: health-check/human-signal-harvest/change-quality → S302, paper-reswarm → S300, fundamental-setup-reswarm → S302.
+- Meta: relay pattern — concurrent sessions committed staged files twice; verifier/navigator role (L-295).
+- Next: (1) principles-dedup (last S189, 180P now); (2) compact.py URGENT proxy-K 11.67%; (3) F-CC3 fork events.
 
 ## S301 session note (catastrophic-risks hardening — FM-01/FM-03)
 - **F-CAT1 hardening (verification check_mode)**: Expect: commit FM-01 + FM-03 guards, clear DUE, update F-CAT1. Actual: FM-03 ghost-lesson guard added to check.sh (GHOST_FILES loop cross-checking staged lessons vs archive/); FM-01 fixed from line-level to file-level threshold (>20 deleted FILES via `--diff-filter=D`). All 3 severity-1 FMs → MINIMAL (L-350). L-349 + L-355 trimmed. Commits: 2e85c00 (swarm-cmd), d00df54 (FM-01/03 guards). Diff: expectation met; FM-01 required 1 bugfix (false positive).
