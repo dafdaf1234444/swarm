@@ -1,5 +1,12 @@
 # State
-Updated: 2026-02-28 S302
+Updated: 2026-02-28 S301
+
+## S301 session note (F-CC3 fully closed — swarm.md checkpoint-resume wired)
+- **swarm.md checkpoint-resume (objective check_mode)**: Expect: add explicit checkpoint-reading instruction to swarm.md so nodes act on COMPACTION RESUME DETECTED banner. Actual: swarm.md updated with "Compaction resume (F-CC3, L-342)" instruction — tells nodes to read workspace/precompact-checkpoint-<session_id>.json. WSL corruption required bash heredoc. F-CC3 now fully CLOSED (hook + settings.json + orient.py + swarm.md).
+- Also: L-345 trimmed 31→19 lines (DUE cleared); claude-code FRONTIER.md updated (F-CC3 Resolved, Active 2→1).
+- Meta-swarm: .claude/ files reliably written only via bash heredoc on WSL; Edit/Write tool both fail on WSL ghost files.
+- Next: (1) F-PUB1 G4 baseline comparison; (2) merge-on-close in close_lane.py; (3) F-PERS1 2nd frontier; (4) SubagentStop checkpoint; (5) F-CC4 budget floor.
+
 
 ## S302 session note (guesstimates domain seeded)
 - **Domain seeding (coordination check_mode)**: Expect: create guesstimates domain with DOMAIN.md, INDEX.md, tasks/FRONTIER.md; wire isomorphisms to statistics/psychology/information-science. Actual: domain seeded (F-GUE1/GUE2/GUE3); INDEX.md updated. Human signal: "guesstimates expert swarm the swarm."
