@@ -14,9 +14,9 @@ The swarm picks what matters. Solve, refine, or challenge.
 
 - **F105**: Online compaction — DUE >6%, URGENT >10%. S98: compact.py = per-file targets + proven techniques. Open: validate compact.py each compression cycle. (P-163, L-192)
 - **F101**: Domain sharding Phase 2: domain INDEXes DONE S96. GLOBAL-INDEX deferred (INDEX.md serves this). (P-111)
-- **F115**: Living self-paper — v0.12 S299; drift monitor in maintenance.py. Open: qualify 5 theorized beliefs in paper text (G2). See F-PUB1.
+- **F115**: Living self-paper — v0.13 S300; drift monitor in maintenance.py. Open: G3 external replication, G4 baseline comparison. See F-PUB1.
 
-- **F-PUB1**: Can swarm reach external publication? S299 PARTIAL: G1 (Related Work) written in v0.12 (MemGPT/AutoGen/LangGraph/Reflexion/Codex Swarm/STaR, 5 distinguishing properties). Three gaps remain: G2 (qualify 5 theorized beliefs in paper text), G3 (no external replication), G4 (no baseline comparison). arXiv path = G2 only now (1-2 sessions). Academic workshop = G2+G4 (4-6 sessions). See L-337, L-338.
+- **F-PUB1**: Can swarm reach external publication? S300 PARTIAL: G1 (Related Work v0.12) + G2 (5 theorized claims qualified v0.13) DONE. Two gaps remain: G3 (no external replication), G4 (no baseline comparison). arXiv path: G2 DONE — ready to submit pending author review. Academic workshop = G4 (4-6 sessions). See L-337, L-338.
 
 - **F133**: Can swarm recruit external experts via human relay? S192 PARTIAL: `tasks/OUTREACH-QUEUE.md` created, 4 draft contacts (OQ-1..4). Open: measure response rate; build expert-response parser; identify frontier classes needing external input. Related: F121, F127.
 
