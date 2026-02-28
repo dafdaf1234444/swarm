@@ -27,3 +27,5 @@ ISO-8 (power laws): critical phenomena → power-law scaling at phase transition
 ISO-5 (feedback — amplifying): laser → amplifying feedback; stimulated emission above threshold; phase transition at lasing threshold
 ISO-14 (recursive self-similarity): renormalization group → recursive self-similar structure; scale invariance = ISO-14 at phase transition
 ISO-1 (optimization): least action principle → optimization-under-constraint; physical trajectories minimize action functional
+entropy accumulation → compaction trigger; proxy-K drift = thermodynamic entropy; compaction resets baseline confirmed; cycles of growth → periodic compression required; rising sawtooth
+phase transition threshold → structural enforcement; confirmed critical boundary; drift follows growth compression pattern; baseline resets after compaction cycles; qualitative shift

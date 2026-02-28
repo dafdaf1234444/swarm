@@ -13,3 +13,5 @@ ISO-12 (max-flow/min-cut): structural bottleneck limits coordination throughput 
 ISO-12: cycle detection → structural coupling pattern; cycles in flow network signal coordination threshold exceeded
 ISO-4 (phase transition): graph connectivity threshold → coordination phase transition; coupling crosses critical structural boundary
 ISO-8 (power laws): preferential attachment → fitness-driven degree convergence; hub nodes compress signal across cycles
+percolation threshold → CONNECTED_CORE; citation drift follows compaction cycles; structural connectivity confirmed; baseline orphan count resets after sprint; growth compression sawtooth
+citation diffusion → principle formation confirmed; lessons cited together follow baseline drift pattern; compaction prevents orphan accumulation; structural cycles enforce quality

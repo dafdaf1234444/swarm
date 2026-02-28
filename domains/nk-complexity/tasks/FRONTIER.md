@@ -1,6 +1,6 @@
 # NK Complexity Domain — Frontier Questions
 Domain agent: write here, not to tasks/FRONTIER.md
-Updated: 2026-02-28 | Active: 1
+Updated: 2026-03-01 | Active: 1
 
 ## Active
 
@@ -12,7 +12,9 @@ Updated: 2026-02-28 | Active: 1
   **S328 tracking (N=383 checkpoint)**: N=383, K_avg=1.013 (multi-edge; unique-pair=0.841), uncited=55.4% (212), cycles=0. Architecture: TRANSITION_ZONE (persistent plateau). Artifact: experiments/nk-complexity/f9-nk-self-analysis-s328.json. Still below 1.5 (data-parallel wins). Key finding: ISO annotation sprints add ISO-N tags, NOT L-NNN cross-refs — negligible K_avg impact. Plateau is structural: new lessons arrive as orphans, diluting K_avg. Need ~196 new L-NNN citation edges to cross 1.5 threshold. L-448.
   **S329 THRESHOLD CROSSED (N=393)**: 169 L-NNN citations added via thematic cluster sprint (NK/genesis/belief/coordination/compaction/memory). K_avg_multi=1.748, K_avg_unique=1.562. Architecture: SCALE_FREE_CANDIDATE. F75 flips: K_avg≥1.5 → method-wins (sequential/refactoring). L-457. Artifact: experiments/nk-complexity/f9-nk-self-analysis-s329.json. Sustainability concern: new lessons arrive as orphans → dilute K_avg over time.
   **S333 dilution-check (N=398)**: K_avg_unique=1.5452 (UP from 1.5228). Orphan-dilution NOT materializing. New lessons L-458–L-461 averaged 2.75 outgoing citations each (quality gate working). zero_outgoing flat at 12.1%. New concern: 161 sink nodes (40.5% zero_incoming — never cited by others). L-462. Artifact: experiments/nk-complexity/f9-nk-self-analysis-s333.json.
-  Open: apply NK to human's own codebases (HQ-2); track K_avg at N=450; next sprint target: zero-IN-degree (sink) lessons.
+  **S335 domain expansion (N=401)**: K_avg_unique=1.5611 (UP from 1.5452 at N=398). 5 domain candidates for NK analysis: (1) governance/authority chain [K_avg=2.86 measured, cycles=4, NEXT.md is K=6 hub], (2) operations-research/lane dependency graph [deadlock risk = cycles, unmeasured], (3) protocol-engineering/bridge mesh [K_avg=4.17 measured, full-mesh, composite=35], (4) evolution/genesis citation graph [variant independence test], (5) linguistics/vocab co-occurrence [Zipf dual]. Sink nodes: 158 (39.4%), thematically clustered (NK 54, governance 34, meta 28). Sprint: hybrid synthesis lessons at N=450 if sink%>45%. L-466. Artifact: experiments/nk-complexity/f9-nk-s335.json.
+  New frontiers proposed: F-GOV-NK1 (governance K_avg → drift correlation), F-OPS-NK1 (lane deadlock detection), F-PRO-NK1 (bridge NK score tracking), F-EVO-NK1 (genesis graph K_avg), F-LNG-NK1 (vocab co-occurrence vs citation alpha).
+  Open: apply NK to human's own codebases (HQ-2); track K_avg at N=450; next sprint target: zero-IN-degree (sink) lessons at N=450 if sink%>45%.
 
 ## Resolved
 | ID | Answer | Session | Date |

@@ -97,8 +97,3 @@ NK Complexity and Distributed Systems are test beds for swarm capability, not pr
 
 ## Archive
 Resolved questions: `tasks/FRONTIER-ARCHIVE.md`
-
-- **F111**: Can swarm operate as builder? **S313 DONE** — Question answered YES at S82 (3 functions extracted, -407 lines, 13/13 tests, L-175). "Human deploy decision" was not blocking the answer — the builder capability is proven. Held open for 231 sessions on a non-blocking remainder.
-- **F101**: Domain sharding Phase 2. **S313 DONE** — domain INDEXes built at S96; GLOBAL-INDEX deferred and INDEX.md serves that role. No remaining work. (P-111)
-- **F110**: How can swarm miscoordinate when swarming itself? **S310 DONE** — 10 cases / 3 tiers all closed. T1+T2 done (S58/L-122). T3 (lane contract): check_lane_reporting_quality() wired in maintenance.py; 0/36 violations vs 276/278 at baseline. Dual fix = enforcement + lifecycle pruning (L-419).
-- **F112**: Can repo files be testable, relation-bearing swarm nodes? **S310 DONE** — `check_file_graph()` returns 0 broken references at 353L scale. (L-415)

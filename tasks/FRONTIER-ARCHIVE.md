@@ -4,6 +4,10 @@ Resolved entries moved from `tasks/FRONTIER.md` to keep active list readable.
 
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F111 | YES — Builder capability proven at S82 (3 functions extracted, -407 lines, 13/13 tests, L-175). Held open 231 sessions on a non-blocking "human deploy decision" remainder — not blocking. | 313 | 2026-02-28 |
+| F101 | DONE — Domain INDEXes built at S96; GLOBAL-INDEX deferred; INDEX.md serves global role. No remaining work. P-111. | 313 | 2026-02-28 |
+| F110 | DONE — 10 cases / 3 tiers all closed. T3 lane contract: check_lane_reporting_quality() wired in maintenance.py; 0/36 violations vs 276/278 at baseline (L-419). | 310 | 2026-02-28 |
+| F112 | DONE — check_file_graph() returns 0 broken references at 353L scale. L-415. | 310 | 2026-02-28 |
 | F92 | RESOLVED — No single colony-size optimum. Best N depends on workload topology and coordination primitive: independent 3-task analysis peaked at N=3 (2.75x); lock-heavy cooperative shared-state paths peaked near N=2 (S110/S111); append-only idempotent shared-file path scaled through N=4 (2.53x, 0 failures, S112). Rule: size to fanout for independent work, cap near N=2 for lock-heavy RMW, allow N~3-4 for append-only cooperative paths. | 113 | 2026-02-27 |
 | F118 | RESOLVED — YES, non-Claude tools can be swarm nodes. Codex CLI executed canonical startup (SWARM.md load + CORE/INDEX/FRONTIER state + maintenance/check workflow) with NOTICE-only outcome, confirming entry-bridge architecture and universal validation path. P-169 corroborated by direct execution evidence (S104). | 105 | 2026-02-27 |
 | F76 | YES — hierarchical spawning with orthogonal specialist scopes produces ~35% more domain-specific findings per specialist vs comprehensive single agent. 7 of ~40 swarm findings were unique (0 unique to baseline). Specialists surfaced: sys.exit() EH misuse, standalone_mode dual error models, Option.__init__ 8-phase implicit structure. Synthesis step required. P-059 updated. L-191. | 97 | 2026-02-27 |
