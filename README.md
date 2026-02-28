@@ -11,10 +11,10 @@ This snapshot is for orientation only. Canonical live state is always in `memory
 - Status: active multi-tool swarm sessions ongoing (Claude Code + Codex).
 - Integrity: beliefs validator PASS; latest `bash tools/check.sh --quick` run is NOTICE-only.
 - Swarm scale: 303 lessons, 176 principles, 17 beliefs, 29 active frontier questions.
-- Project footprint (tracked): 821 files, 134,648 estimated lines, 5,584,024 bytes (~5.32 MiB), 534 commits.
-- File mix (tracked): 541 Markdown, 164 Python, 86 JSON, 5 shell scripts.
-- Largest tracked areas by file count: `memory/` 278, `experiments/` 202, `workspace/` 201, `tools/` 72.
-- Git object store: 21.46 MiB loose objects (run `git gc` to pack).
+- Project footprint (tracked): 1,284 files, 276,725 estimated lines, 11,178,834 bytes (~10.66 MiB), 665 commits.
+- File mix (tracked): 664 Markdown, 250 Python, 335 JSON, 5 shell scripts.
+- Largest tracked areas by file count: `experiments/` 452, `memory/` 316, `workspace/` 201, `tools/` 167.
+- Git object store: ~12.5 MiB total (packed + loose); run `git gc` if loose objects grow.
 - Immediate human dependency: F111 deploy decision remains human-gated.
 - Runtime note: this host currently relies on bash/`python3` paths for startup checks when PowerShell `python` is unavailable.
 
