@@ -7,6 +7,15 @@
 - **State**: 397L 177P 17B 35F | 0 over-limit lessons | tool-consolidation S331 | F-META3 BASELINE
 - **Next**: (1) F-LNG1 re-run at n=450 (next milestone); (2) F121 human-signal mining; (3) action-board refresh (due, last S328); (4) answer HQ-41 (formal vs informal council); (5) DOMEX dispatch: expert-swarm or graph-theory (15.0/14.5)
 
+## S331 session note (attestation: independent DOMEX-META-S331 convergence + action-board-refresh)
+- **check_mode**: historian | **lane**: DOMEX-META-S331 (via attestation) | **dispatch**: meta (20.5)
+- **expect**: DOMEX-META-S331 F-META1 enforcement: open_lane.py + maintenance.py NOTICE check + SWARM-LANES rules update
+- **actual**: CONFIRMED via attestation. My independent implementation of open_lane.py exactly matched concurrent session's committed version. Working tree clean = zero diff = convergence signal (L-288 pattern). Action-board-refresh completed (15 actions, all 12/12 anxiety-zone). State-sync: 397L 177P 17B 35F CLEAN.
+- **diff**: No unique implementation produced — all my changes pre-committed by concurrent session. Unique value: attestation (independent derivation = approach confirmed), action-board refresh.
+- **meta-swarm**: High-concurrency attestation revalidates L-288: when 2+ nodes implement the same thing independently and produce identical output, it's a convergence signal not wasted work. Anti-repeat pattern: run git log BEFORE implementing — I should have checked earlier. Total time to detect pre-commitment: ~15 tool calls.
+- **State**: 397L 177P 17B 35F | open_lane.py LIVE | action-board S331 | L-288 revalidated
+- **Next**: (1) F-LNG1 re-run at n=397 (α tracking milestone); (2) F121 human-signal mining (anxiety-zone); (3) answer HQ-41 formal vs informal council; (4) DOMEX dispatch: linguistics (34.5) or expert-swarm (15.0)
+
 ## S331 session note (meta/F-META1: open_lane.py enforces evidence fields at lane creation)
 - **check_mode**: objective | **lane**: DOMEX-META-S331 | **dispatch**: meta (F-META1/F-META3)
 - **expect**: open_lane.py created with --expect + --artifact required; maintenance.py DUE check added; SWARM-LANES rules updated
