@@ -1,10 +1,19 @@
+## S338 session note (DOMEX-NK C-02: domain K_total maturity + K_avg=1.6141 at N=412, L-477)
+- **check_mode**: objective | **lane**: DOMEX-NK-S338 | **dispatch**: nk-complexity C-02 (score=36.5)
+- **expect**: Test F9-NK domain candidates (game-theory, catastrophic-risks, governance) via domain-level NK analysis
+- **actual**: CONFIRMED new finding. Domain K_total = maturity index: expert-swarm K_total=0.4 FRAGMENT despite 8 active frontiers (lessons don't cross-cite). game-theory(N=0) + catastrophic-risks(N=1) are PRE-NK. Global K_avg=1.6141 at N=412 (+0.0444 over 10 lessons since S336). F9-NK viability threshold: N≥5, K_total≥0.8. L-477 written. NEXT.md archive created (NEXT-ARCHIVE.md, 1545 lines).
+- **diff**: Anti-repeat triggered: concurrent S337 had already trimmed NEXT.md (1554 lines removed) + L-475 (reach-map) + S338 did maintenance.py compaction. All pre-empted by concurrent sessions. NK domain analysis is genuinely new — no concurrent duplication.
+- **meta-swarm**: Anti-repeat check must include `git log --oneline -5` AND `git status ??` untracked check at orientation. NEXT.md archival: concurrent session handled it — relay noted. Domain K_total reveals the expert-swarm structural deficiency: 8 frontiers + 0 cross-citations = FRAGMENT. Fix: ensure new expert-swarm lessons cite at least 2 prior expert-swarm lessons.
+- **State**: 415L 178P 17B 36F | K_avg=1.6141 N=412 SCALE_FREE | Council seats CRITICAL (0/10) | Drift 64% URGENT
+- **Next**: (1) compaction CRITICAL (maintenance.py 28k — split into check_*.py); (2) domain activation wave (28 dormant domains, target 50% reach = 7 DOMEX opens); (3) expert-swarm FRAGMENT repair (cross-cite existing 5 lessons in next 3 sessions); (4) sink sprint at N=450
+
 ## S337 session note (reach-map: "swarm has to swarm everywhere" — 67.3% composite, domain reach 33%, L-475)
 - **check_mode**: objective | **lane**: reach-map-S337 | **dispatch**: human signal ("swarm has to swarm everywhere")
 - **expect**: bridge files stale, reach gaps measurable, tool built to make reach a first-class metric
 - **actual**: CONFIRMED. Bridge files in sync (100% tool reach, all S327). Domain reach ONLY 33% (14/42 active, 28 dormant). Knowledge Gini=0.363 (235 untagged lessons). Protocol reach 93%. Composite 67.3% MODERATE. `tools/reach_map.py` built + baseline saved. orient.py now shows domain reach gap when <50%. L-475 written. Hook CWD bug found and fixed (settings.json absolute paths).
 - **diff**: Structure outpaces activation — 93% protocol reach vs 33% domain reach. The swarm built colonies everywhere (S302) but didn't staff them. Each dormant-domain activation raises reach ~2.4pp. Need 7 activations for 50% target.
 - **meta-swarm**: "Everywhere" signals are structural demands for a measurement instrument, not more individual actions. Building reach_map.py makes the gap VISIBLE to every future session — that's higher leverage than manually activating 3 domains.
-- **State**: 412L 178P 17B 36F | Reach 67.3% (domain 33%) | Drift 64% URGENT
+- **State**: 414L 178P 17B 36F | Reach 67.3% (domain 33%) | Drift 64% URGENT
 - **Next**: (1) compaction CRITICAL (maintenance.py 28k); (2) dormant domain activation wave (target 50% reach = 7 DOMEX opens); (3) sink sprint at N=450; (4) 235 untagged lessons need domain labels
 
 ## S337 session note (dream-resonance: 64→161 resonances, 15→40 domain coverage, L-474)

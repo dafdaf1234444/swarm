@@ -48,6 +48,15 @@ if _parse_active_principle_ids is None:
 else:
     parse_active_principle_ids = _parse_active_principle_ids
 
+# Shared I/O utilities (L-476: deduplicate across 10+ tool files)
+_swarm_io = None
+for _mod_name in ("tools.swarm_io", "swarm_io"):
+    try:
+        _swarm_io = importlib.import_module(_mod_name)
+        break
+    except (ModuleNotFoundError, ImportError):
+        continue
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 PYTHON_EXE = sys.executable or "python3"
 PRINCIPLE_ID_RE = re.compile(r"\bP-(\d+)\b")
@@ -147,10 +156,14 @@ def _select_python_command() -> str:
 
 PYTHON_CMD = _select_python_command()
 
-def _git(*args: str) -> str:
-    try: return subprocess.run(["git", "-C", str(REPO_ROOT)] + list(args),
-                               capture_output=True, text=True, timeout=10).stdout.rstrip("\n")
-    except Exception: return ""
+if _swarm_io is not None:
+    def _git(*args: str) -> str:
+        return _swarm_io.git_cmd(*args)
+else:
+    def _git(*args: str) -> str:
+        try: return subprocess.run(["git", "-C", str(REPO_ROOT)] + list(args),
+                                   capture_output=True, text=True, timeout=10).stdout.rstrip("\n")
+        except Exception: return ""
 
 def _decode_git_path(path: str) -> str:
     p = path.strip()
@@ -179,17 +192,20 @@ def _tracked_changed_paths() -> list[str]:
     return [_status_path(line) for line in status.splitlines()
             if line.rstrip() and line[:2] != "??"]
 
-def _line_count(path: Path) -> int:
-    try: return len(_read(path).splitlines())
-    except Exception: return 0
-
-def _token_count(path: Path) -> int:
-    try: return len(_read(path)) // 4
-    except Exception: return 0
-
-def _read(path: Path) -> str:
-    try: return path.read_text(encoding="utf-8", errors="replace")
-    except Exception: return ""
+if _swarm_io is not None:
+    _read = _swarm_io.read_text
+    _token_count = _swarm_io.token_count
+    _line_count = _swarm_io.line_count
+else:
+    def _read(path: Path) -> str:
+        try: return path.read_text(encoding="utf-8", errors="replace")
+        except Exception: return ""
+    def _token_count(path: Path) -> int:
+        try: return len(_read(path)) // 4
+        except Exception: return 0
+    def _line_count(path: Path) -> int:
+        try: return len(_read(path).splitlines())
+        except Exception: return 0
 
 def _exists(path: str) -> bool:
     return (REPO_ROOT / path).exists()
@@ -200,15 +216,18 @@ def _is_wsl_mnt_repo() -> bool:
     if "microsoft" not in info: return False
     return str(REPO_ROOT).replace("\\", "/").startswith("/mnt/")
 
-def _session_number() -> int:
-    numbers = re.findall(r"^S(\d+)", _read(REPO_ROOT / "memory" / "SESSION-LOG.md"), re.MULTILINE)
-    log_max = max(int(n) for n in numbers) if numbers else 0
-    try:
-        git_out = subprocess.run(["git", "log", "--oneline", "-50"], capture_output=True, text=True, cwd=REPO_ROOT, timeout=5).stdout
-        git_max = max((int(m) for m in re.findall(r"\[S(\d+)\]", git_out)), default=0)
-    except Exception:
-        git_max = 0
-    return max(log_max, git_max)
+if _swarm_io is not None:
+    _session_number = _swarm_io.session_number
+else:
+    def _session_number() -> int:
+        numbers = re.findall(r"^S(\d+)", _read(REPO_ROOT / "memory" / "SESSION-LOG.md"), re.MULTILINE)
+        log_max = max(int(n) for n in numbers) if numbers else 0
+        try:
+            git_out = subprocess.run(["git", "log", "--oneline", "-50"], capture_output=True, text=True, cwd=REPO_ROOT, timeout=5).stdout
+            git_max = max((int(m) for m in re.findall(r"\[S(\d+)\]", git_out)), default=0)
+        except Exception:
+            git_max = 0
+        return max(log_max, git_max)
 
 _active_principle_ids = parse_active_principle_ids
 
@@ -997,56 +1016,19 @@ def check_github_swarm_intake() -> list[tuple[str, str]]:
         return results
 
     def _check_template(path: Path, label: str, required_ids: set[str]) -> None:
-        text = _read(path)
-        ids = re.findall(r"^\s*id:\s*([A-Za-z0-9_-]+)\s*$", text, re.MULTILINE)
-        if not ids:
-            results.append(("NOTICE", f"{label} has no parsed input ids"))
-            return
-
+        ids = re.findall(r"^\s*id:\s*([A-Za-z0-9_-]+)\s*$", _read(path), re.MULTILINE)
+        if not ids: results.append(("NOTICE", f"{label} has no parsed input ids")); return
         counts: dict[str, int] = {}
-        for item in ids:
-            counts[item] = counts.get(item, 0) + 1
-        duplicate_ids = sorted(k for k, v in counts.items() if v > 1)
-        if duplicate_ids:
-            results.append(("DUE", f"{label} duplicate id(s): {_truncated(duplicate_ids)}"))
-
+        for item in ids: counts[item] = counts.get(item, 0) + 1
+        dupes = sorted(k for k, v in counts.items() if v > 1)
+        if dupes: results.append(("DUE", f"{label} duplicate id(s): {_truncated(dupes)}"))
         missing_ids = sorted(required_ids - set(ids))
-        if missing_ids:
-            results.append(("DUE", f"{label} missing core-alignment id(s): {_truncated(missing_ids)}"))
+        if missing_ids: results.append(("DUE", f"{label} missing core-alignment id(s): {_truncated(missing_ids)}"))
 
-    _check_template(
-        mission_path,
-        "swarm-mission template",
-        {
-            "objective",
-            "expectation",
-            "diff_signal",
-            "scope",
-            "acceptance",
-            "state_sync",
-            "available",
-            "blocked",
-            "human_open_item",
-        },
-    )
-    _check_template(
-        blocker_path,
-        "swarm-blocker template",
-        {
-            "blocker",
-            "unblocking_ask",
-            "state_sync",
-            "available",
-            "blocked",
-            "human_open_item",
-        },
-    )
-
-    workflow_text = _read(workflow_path)
+    _check_template(mission_path, "swarm-mission template", {"objective", "expectation", "diff_signal", "scope", "acceptance", "state_sync", "available", "blocked", "human_open_item"})
+    _check_template(blocker_path, "swarm-blocker template", {"blocker", "unblocking_ask", "state_sync", "available", "blocked", "human_open_item"})
     for snippet in ("tools/swarm_pr.py plan", "<!-- swarm-pr-plan -->", "Swarm Intake Plan"):
-        if snippet not in workflow_text:
-            results.append(("NOTICE", f"swarm-pr-intake workflow missing marker: {snippet}"))
-
+        if snippet not in _read(workflow_path): results.append(("NOTICE", f"swarm-pr-intake workflow missing marker: {snippet}"))
     return results
 
 def check_child_bulletins() -> list[tuple[str, str]]:
@@ -1417,31 +1399,18 @@ def check_commit_hooks() -> list[tuple[str, str]]:
 def check_cross_references() -> list[tuple[str, str]]:
     results = []
     index_text = _read(REPO_ROOT / "memory" / "INDEX.md")
-
     struct_match = re.search(r"```\n(.*?)```", index_text, re.DOTALL)
-    if not struct_match:
-        return results
-
-    broken = []
-    for line in struct_match.group(1).splitlines():
-        m = re.match(r"^(\w[\w-]*/)", line.strip())
-        if not m:
-            continue
-        dir_path = m.group(1).rstrip("/")
-        full = REPO_ROOT / dir_path
-        if not full.exists():
-            broken.append(dir_path)
-
-    if broken:
-        results.append(("DUE", f"{len(broken)} broken directory(s) in INDEX.md structure: {', '.join(broken[:3])}"))
+    if not struct_match: return results
+    broken = [m.group(1).rstrip("/") for line in struct_match.group(1).splitlines()
+              for m in [re.match(r"^(\w[\w-]*/)", line.strip())] if m and not (REPO_ROOT / m.group(1).rstrip("/")).exists()]
+    if broken: results.append(("DUE", f"{len(broken)} broken directory(s) in INDEX.md structure: {', '.join(broken[:3])}"))
 
     lessons_dir = REPO_ROOT / "memory" / "lessons"
     if lessons_dir.exists():
         lesson_paths = list(lessons_dir.glob("L-*.md"))
         actual = len(lesson_paths)
         tracked_raw = _git("ls-files", "--", "memory/lessons")
-        tracked_lessons = [l.strip() for l in (tracked_raw or "").splitlines()
-                           if re.fullmatch(r"memory/lessons/L-\d+\.md", l.strip())]
+        tracked_lessons = [l.strip() for l in (tracked_raw or "").splitlines() if re.fullmatch(r"memory/lessons/L-\d+\.md", l.strip())]
         tracked = len(tracked_lessons) if tracked_lessons else actual
         tracked_set = {p.replace("\\", "/") for p in tracked_lessons}
         untracked_names = sorted(p.name for p in lesson_paths if p.relative_to(REPO_ROOT).as_posix() not in tracked_set)
@@ -1451,24 +1420,21 @@ def check_cross_references() -> list[tuple[str, str]]:
         untracked = len(untracked_names)
         count_match = re.search(r"\*\*(\d+) lessons\*\*", index_text)
         claimed = int(count_match.group(1)) if count_match else None
-        if claimed is not None:
-            if tracked != claimed and not (untracked > 0 and claimed == actual):
-                results.append(("NOTICE", f"INDEX lessons {claimed} != tracked {tracked}"))
+        if claimed is not None and tracked != claimed and not (untracked > 0 and claimed == actual):
+            results.append(("NOTICE", f"INDEX lessons {claimed} != tracked {tracked}"))
         if untracked:
-            includes = claimed == actual if claimed is not None else False
-            note = "(INDEX includes drafts; tracked count excludes them)" if includes else "(not counted in tracked lesson total)"
+            note = "(INDEX includes drafts; tracked count excludes them)" if (claimed == actual if claimed is not None else False) else "(not counted in tracked lesson total)"
             results.append(("NOTICE", f"{untracked} untracked lesson draft(s): {_truncated(untracked_names)} {note}"))
 
     principles_text = _read(REPO_ROOT / "memory" / "PRINCIPLES.md")
     all_pids, superseded_pids = _active_principle_ids(principles_text)
     actual_active_p = len(all_pids - superseded_pids)
-
-    p_header_match = re.search(r"(\d+)\s+(?:live\s+)?principles", principles_text)
-    idx_p_match = re.search(r"\*\*(\d+) principles\*\*", index_text)
-    if p_header_match and int(p_header_match.group(1)) != actual_active_p:
-        results.append(("NOTICE", f"PRINCIPLES header {p_header_match.group(1)} != ID-count {actual_active_p}"))
-    if idx_p_match and int(idx_p_match.group(1)) != actual_active_p:
-        results.append(("NOTICE", f"INDEX principles {idx_p_match.group(1)} != ID-count {actual_active_p}"))
+    p_hm = re.search(r"(\d+)\s+(?:live\s+)?principles", principles_text)
+    idx_pm = re.search(r"\*\*(\d+) principles\*\*", index_text)
+    if p_hm and int(p_hm.group(1)) != actual_active_p:
+        results.append(("NOTICE", f"PRINCIPLES header {p_hm.group(1)} != ID-count {actual_active_p}"))
+    if idx_pm and int(idx_pm.group(1)) != actual_active_p:
+        results.append(("NOTICE", f"INDEX principles {idx_pm.group(1)} != ID-count {actual_active_p}"))
 
     frontier_text = _read(REPO_ROOT / "tasks" / "FRONTIER.md")
     idx_f_match = re.search(r"\*\*(\d+) frontier questions\*\*", index_text)
@@ -1476,15 +1442,9 @@ def check_cross_references() -> list[tuple[str, str]]:
         from swarm_parse import active_frontier_ids as _afi
         actual_frontier = len(_afi(frontier_text))
     except Exception:
-        # fallback: count both numeric (F110) and named (F-COMM1) frontier entries
-        numeric = re.findall(r"^- \*\*F\d+\*\*:", frontier_text, re.MULTILINE)
-        named = re.findall(r"^- \*\*F-[A-Z][A-Z0-9]*\d*\*\*:", frontier_text, re.MULTILINE)
-        actual_frontier = len(numeric) + len(named)
-    if idx_f_match:
-        claimed_f = int(idx_f_match.group(1))
-        if claimed_f != actual_frontier:
-            results.append(("NOTICE", f"INDEX frontier count {claimed_f} != active {actual_frontier}"))
-
+        actual_frontier = len(re.findall(r"^- \*\*F\d+\*\*:", frontier_text, re.MULTILINE)) + len(re.findall(r"^- \*\*F-[A-Z][A-Z0-9]*\d*\*\*:", frontier_text, re.MULTILINE))
+    if idx_f_match and int(idx_f_match.group(1)) != actual_frontier:
+        results.append(("NOTICE", f"INDEX frontier count {idx_f_match.group(1)} != active {actual_frontier}"))
     return results
 
 def check_domain_frontier_consistency() -> list[tuple[str, str]]:
@@ -1543,69 +1503,34 @@ def check_domain_frontier_consistency() -> list[tuple[str, str]]:
 def check_readme_snapshot_drift() -> list[tuple[str, str]]:
     results = []
     readme_text = _read(REPO_ROOT / "README.md")
-    if not readme_text:
-        return results
-
+    if not readme_text: return results
     session = _session_number()
     index_text = _read(REPO_ROOT / "memory" / "INDEX.md")
-    index_session_match = re.search(
-        r"^Updated:\s*\d{4}-\d{2}-\d{2}\s*\|\s*Sessions:\s*(\d+)\b",
-        index_text,
-        re.MULTILINE,
-    )
-    index_session = int(index_session_match.group(1)) if index_session_match else 0
+    m = re.search(r"^Updated:\s*\d{4}-\d{2}-\d{2}\s*\|\s*Sessions:\s*(\d+)\b", index_text, re.MULTILINE)
+    index_session = int(m.group(1)) if m else 0
     reference_session = index_session or session
-
-    snap_match = re.search(
-        r"^##\s+Current State Snapshot\s*\([^)]+,\s*S(\d+)\)",
-        readme_text,
-        re.MULTILINE,
-    )
+    snap_match = re.search(r"^##\s+Current State Snapshot\s*\([^)]+,\s*S(\d+)\)", readme_text, re.MULTILINE)
     if not snap_match:
-        results.append(("NOTICE", "README missing session-stamped 'Current State Snapshot' header"))
-        return results
-
+        results.append(("NOTICE", "README missing session-stamped 'Current State Snapshot' header")); return results
     snap_session = int(snap_match.group(1))
     if reference_session > 0 and snap_session != reference_session:
         delta = reference_session - snap_session
-        level = "DUE" if abs(delta) > 3 else "NOTICE"
-        direction = "behind" if delta > 0 else "ahead"
         target_label = f"INDEX S{reference_session}" if index_session else f"SESSION-LOG S{reference_session}"
-        results.append((level, f"README snapshot session S{snap_session} is {abs(delta)} session(s) {direction} of {target_label}"))
-
-    scale_match = re.search(
-        r"-\s*Swarm scale:\s*(\d+)\s*lessons,\s*(\d+)\s*principles,\s*(\d+)\s*beliefs,\s*(\d+)\s*active frontier questions\.",
-        readme_text,
-    )
+        results.append(("DUE" if abs(delta) > 3 else "NOTICE", f"README snapshot session S{snap_session} is {abs(delta)} session(s) {'behind' if delta > 0 else 'ahead'} of {target_label}"))
+    scale_match = re.search(r"-\s*Swarm scale:\s*(\d+)\s*lessons,\s*(\d+)\s*principles,\s*(\d+)\s*beliefs,\s*(\d+)\s*active frontier questions\.", readme_text)
     if not scale_match:
-        results.append(("NOTICE", "README 'Swarm scale' line missing or unparsable"))
-        return results
-
-    l_match = re.search(r"\*\*(\d+) lessons\*\*", index_text)
-    p_match = re.search(r"\*\*(\d+) principles\*\*", index_text)
-    b_match = re.search(r"\*\*(\d+) beliefs\*\*", index_text)
-    f_match = re.search(r"\*\*(\d+) frontier questions\*\*", index_text)
-    if not (l_match and p_match and b_match and f_match):
-        return results
-
+        results.append(("NOTICE", "README 'Swarm scale' line missing or unparsable")); return results
+    l_m = re.search(r"\*\*(\d+) lessons\*\*", index_text)
+    p_m = re.search(r"\*\*(\d+) principles\*\*", index_text)
+    b_m = re.search(r"\*\*(\d+) beliefs\*\*", index_text)
+    f_m = re.search(r"\*\*(\d+) frontier questions\*\*", index_text)
+    if not (l_m and p_m and b_m and f_m): return results
     readme_scale = tuple(int(scale_match.group(i)) for i in range(1, 5))
-    index_scale = (
-        int(l_match.group(1)),
-        int(p_match.group(1)),
-        int(b_match.group(1)),
-        int(f_match.group(1)),
-    )
+    index_scale = (int(l_m.group(1)), int(p_m.group(1)), int(b_m.group(1)), int(f_m.group(1)))
     if readme_scale != index_scale:
-        results.append((
-            "NOTICE",
-            "README swarm scale drift vs INDEX "
-            f"(README L/P/B/F={readme_scale[0]}/{readme_scale[1]}/{readme_scale[2]}/{readme_scale[3]}, "
-            f"INDEX={index_scale[0]}/{index_scale[1]}/{index_scale[2]}/{index_scale[3]})",
-        ))
-
+        results.append(("NOTICE", f"README swarm scale drift vs INDEX (README L/P/B/F={readme_scale[0]}/{readme_scale[1]}/{readme_scale[2]}/{readme_scale[3]}, INDEX={index_scale[0]}/{index_scale[1]}/{index_scale[2]}/{index_scale[3]})"))
     if "tools/orient.py" not in readme_text:
         results.append(("NOTICE", "README onboarding missing orient.py fast-path reference"))
-
     return results
 
 def check_structure_layout() -> list[tuple[str, str]]:

@@ -2,7 +2,7 @@
 Updated: 2026-03-01 | Sessions: 338
 
 ## What the swarm knows
-- **412 lessons** in `memory/lessons/L-{NNN}.md`
+- **415 lessons** in `memory/lessons/L-{NNN}.md`
 - **178 principles** in `memory/PRINCIPLES.md` (S181: P-179→P-119 subsumption dedup; S180: P-187 human-signal interaction model; P-186 measurable self-assessment structural; S178: P-182 expect-act-diff calibration loop (THEORIZED); S177: P-181 knowledge-domain utility filter; S175: P-178 self-replenishing work cycle; S172: P-177 substrate-detection-first; S170: P-176 cross-substrate propagation gap; P-175 enforcement-tiers; P-163/P-082 refined; S169: P-174 substrate-scope)
 - **17 beliefs** in `beliefs/DEPS.md` (17 numeric B1–B19 + 3 evaluation B-EVAL1–B-EVAL3) | **36 frontier questions** in `tasks/FRONTIER.md` (F123 OPEN S178 — expect-act-diff universal calibration; F122 OPEN S177 — knowledge-domain swarming (AI/finance/health + information-science/brain/evolution + control-theory/game-theory/operations-research + statistics/psychology/history + protocol-engineering/strategy/governance/helper-swarm/fractals + economy/gaming/quality); F121 OPEN S175 — human inputs as swarm signal; F120 PARTIAL S172 — substrate detection, foreign-repo path expanded; F119 OPEN — mission constraints; F92 RESOLVED S113; F118 RESOLVED S105; F76 RESOLVED S97; F71 RESOLVED S94)
 
@@ -24,14 +24,14 @@ domains/    nk-complexity, distributed-systems, meta, ai (S178), finance (S179),
 docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115), SWARM-STRUCTURE.md (folder/file-type policy), SWARM-VISUAL-REPRESENTABILITY.md (human/self/swarm visual contract)
 ```
 
-## Themes (412 lessons)
+## Themes (415 lessons)
 
 | Theme | Count | Key insight |
 |-------|-------|-------------|
 | Architecture | 15 | Blackboard+stigmergy, sharding, and boundary-aware structure decisions (L-156/L-161). |
 | Protocols | 15 | Distill/verify/correct loop; evidence over assertion; protocol generalizability vs substrate coupling (L-158/L-209/L-213). |
 | Strategy | 13 | Phase-aware execution, targeted fixes, superset-return refactor, and lib-production loop (L-175/L-177). |
-| Complexity (NK) | 34 | Composite burden (K_avg*N+Cycles), multi-scale analysis, duplication K, NK self-analysis (L-172/L-184/L-385/L-391). |
+| Complexity (NK) | 35 | Composite burden, domain K_total maturity index (SCALE_FREE≥1.5/FRAGMENT<0.8), self-analysis K_avg=1.614 at N=414 (L-172/L-385/L-468/L-477). |
 | Evolution — Spawn & Harvest | 20 | Sub-swarm spawning, genesis evolution, child viability, context routing for multi-session tasks, automated pipeline closure (L-032/L-036/L-038/L-047/L-060). |
 | Evolution — Selection & Fitness | 20 | Fitness quadrants, NK landscape, belief variant A/B, substrate diversity, F92 sizing rule, self-improvement as primary product (L-025/L-061/L-071/L-208/L-250). |
 | Evolution — Concurrency & Growth | 15 | Concurrent-session race pattern, parallel sessions, epoch-structured growth bursts, parallel repair, self-tooling loop (L-018/L-214/L-222/L-288/L-292/L-326). |
