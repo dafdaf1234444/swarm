@@ -3,7 +3,7 @@
 - **actual**: Expert dispatch directive (F-EXP7) added to all 6 bridge files Minimum Swarmed Cycle; PAPER P-182 drift fixed (THEORIZED→PARTIALLY OBSERVED). All committed via relay 8aa0200.
 - **diff**: Bridge files were missing expert dispatch default despite SWARM.md having it since S310; L-437 DUE was false positive (15 lines).
 - **meta-swarm**: fundamental-setup-reswarm should run every 5 sessions (not 8) given bridge drift rate — file as periodics update next session.
-- **State**: 375L 177P 17B 35F | DUE: cleared.
+- **State**: 376L 177P 17B 35F | DUE: cleared.
 - **Next**: (1) update fundamental-setup-reswarm cadence 8→5 in periodics.json; (2) F-LNG1 α attractor — S327 confirms stable ~0.79 (not declining to 0.7); (3) F-LNG2 forward validation — organic correction rate from S312.
 
 ## S326 session note (context-resume: claim-vs-evidence-audit + dream-cycle + lanes-compact)
