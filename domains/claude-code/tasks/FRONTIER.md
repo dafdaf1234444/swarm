@@ -1,16 +1,18 @@
 # Claude Code Domain — Frontier Questions
 Domain agent: write here for CC-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-02-28 S195 | Active: 2
+Updated: 2026-02-28 S301 | Active: 2
 
 - **F-CC3**: Does a PreCompact hook fire in time to checkpoint critical in-flight state?
   Context: Context compaction can happen mid-session without warning. If the swarm is mid-experiment
   (running trials, building an artifact), compaction could lose the thread. A PreCompact hook could
-  write a checkpoint file (`workspace/precompact-checkpoint-S<N>.json`) with current task, expected
-  outputs, and partially computed values before compression.
-  Test: trigger a compaction in a long session; measure whether PreCompact hook fires; verify
-  checkpoint file is written and readable by the next phase.
-  Note: PreCompact availability depends on Claude Code version — verify it fires before designing
-  the checkpoint mechanism. Status: OPEN S194 — hook type documented, not yet wired.
+  write a checkpoint file (`workspace/precompact-checkpoint-<session_id[:8]>.json`) with current task,
+  expected outputs, and partially computed values before compression.
+  Status: PARTIAL S301 — hook confirmed real (official docs), wired in settings.json, checkpoint
+  written to workspace/ on every compaction. orient.py surfaces checkpoint on resume.
+  Gap remaining: checkpoint not auto-consumed by swarm command; orient.py surfaces it visually
+  but does not inject it as context. Full close requires: live compaction test confirming hook fires
+  AND swarm command reads checkpoint JSON into session startup.
+  Artifact: experiments/claude-code/f-cc3-precompact-s301.json | L-342
 
 - **F-CC4**: What is the minimum `--max-budget-usd` floor that allows a full swarm session to complete?
   Context: For F134 automation (cron-triggered sessions), cost control is essential. Setting

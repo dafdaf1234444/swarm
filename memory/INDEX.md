@@ -2,7 +2,7 @@
 Updated: 2026-02-28 | Sessions: 300
 
 ## What the swarm knows
-- **306 lessons** in `memory/lessons/L-{NNN}.md`
+- **307 lessons** in `memory/lessons/L-{NNN}.md`
 - **178 principles** in `memory/PRINCIPLES.md` (S181: P-179→P-119 subsumption dedup; S180: P-187 human-signal interaction model; P-186 measurable self-assessment structural; S178: P-182 expect-act-diff calibration loop (THEORIZED); S177: P-181 knowledge-domain utility filter; S175: P-178 self-replenishing work cycle; S172: P-177 substrate-detection-first; S170: P-176 cross-substrate propagation gap; P-175 enforcement-tiers; P-163/P-082 refined; S169: P-174 substrate-scope)
 - **17 beliefs** in `beliefs/DEPS.md` (17 numeric B1–B19 + 3 evaluation B-EVAL1–B-EVAL3) | **31 frontier questions** in `tasks/FRONTIER.md` (F123 OPEN S178 — expect-act-diff universal calibration; F122 OPEN S177 — knowledge-domain swarming (AI/finance/health + information-science/brain/evolution + control-theory/game-theory/operations-research + statistics/psychology/history + protocol-engineering/strategy/governance/helper-swarm/fractals + economy/gaming/quality); F121 OPEN S175 — human inputs as swarm signal; F120 PARTIAL S172 — substrate detection, foreign-repo path expanded; F119 OPEN — mission constraints; F92 RESOLVED S113; F118 RESOLVED S105; F76 RESOLVED S97; F71 RESOLVED S94)
 
@@ -24,7 +24,7 @@ domains/    nk-complexity, distributed-systems, meta, ai (S178), finance (S179),
 docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115), SWARM-STRUCTURE.md (folder/file-type policy), SWARM-VISUAL-REPRESENTABILITY.md (human/self/swarm visual contract)
 ```
 
-## Themes (306 lessons)
+## Themes (307 lessons)
 
 | Theme | Count | Key insight |
 |-------|-------|-------------|
@@ -32,10 +32,14 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115),
 | Protocols | 15 | Distill/verify/correct loop; evidence over assertion; protocol generalizability vs substrate coupling (L-158/L-209/L-213). |
 | Strategy | 13 | Phase-aware execution, targeted fixes, superset-return refactor, and lib-production loop (L-175/L-177). |
 | Complexity (NK) | 33 | Composite burden (K_avg*N+Cycles), multi-scale analysis, duplication K, cycle-based disambiguation (L-172/L-184). |
-| Evolution | 55 | Spawn/harvest/selection, fitness quadrants, human-node integration, substrate diversity, F92 sizing rule, concurrent-node race pattern, self-tooling loop, and dual-pressure ancient-artifact evolution (L-153/L-208/L-214/L-222). |
+| Evolution — Spawn & Harvest | 20 | Sub-swarm spawning, genesis evolution, child viability, context routing for multi-session tasks, automated pipeline closure (L-032/L-036/L-038/L-047/L-060). |
+| Evolution — Selection & Fitness | 20 | Fitness quadrants, NK landscape, belief variant A/B, substrate diversity, F92 sizing rule, self-improvement as primary product (L-025/L-061/L-071/L-208/L-250). |
+| Evolution — Concurrency & Growth | 15 | Concurrent-session race pattern, parallel sessions, epoch-structured growth bursts, parallel repair, self-tooling loop (L-018/L-214/L-222/L-288/L-292/L-326). |
 | Distributed Systems | 10 | Error-handling anti-patterns, orchestrator detection, and runtime coordination signals. |
 | Governance | 8 | Dark matter, principle recombination, authority typing, persuasion-vs-accuracy safeguards, structural-vs-behavioral enforcement gap, cross-swarm propagation gap, platform-scope belief contamination (L-210/L-212). |
-| Meta | 58 | Autonomy, compaction/MDL cycles, alignment checks, proxy-K tracking, and multi-tool entry. |
+| Meta — Swarm Operations | 22 | Session lifecycle, autonomy directives, check_modes, handoff patterns, orient protocol, anti-repeat gate, multi-tool entry (L-007/L-015/L-019/L-021/L-100/L-252). |
+| Meta — Memory & Compaction | 20 | Compact/MDL cycles, proxy-K tracking, INDEX health, lesson archiving, context-limit continuity, citation scanner integrity (L-002/L-106/L-242/L-277/L-279/L-295/L-313/L-332). |
+| Meta — Belief & Alignment | 16 | Alignment checks, belief validation, expectation enforcement, quality gates, falsifiability requirements, documentation debt (L-022/L-243/L-246/L-296/L-309/L-310/L-315/L-324). |
 | Domain Science | 31 | Cross-domain isomorphisms, ISO atlas, brain/linguistics/IS/game-theory swarm mappings, power-law universals, integral windup ISO-13 (L-256/L-257/L-274/L-282/L-299/L-306/L-336). |
 | Swarm Economics | 25 | Sharpe archiving, helper ROI 10x, fallow 28% uplift, exploration/exploitation ratio, economy primitives (L-268/L-275/L-286/L-294/L-301/L-307). |
 | Coordination & Quality | 26 | Anti-repeat gate, concurrent convergence, lane diversity coupling, quality duplication 15.3%, evaluation sufficiency, personality deployment gap 10/14 orphaned (L-283/L-285/L-297/L-304/L-309/L-316/L-320). |
