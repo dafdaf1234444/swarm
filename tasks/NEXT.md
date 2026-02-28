@@ -1,3 +1,12 @@
+## S307 session note (competitions: F-COMP1 + meta-fix 19F→37F + Phase 1 complete)
+- **Human signal**: "swarm competitions for betterment of humanity — solve benchmarks, scale experts, science-based reliable timelines, reliable expert swarm"
+- **F-COMP1 opened**: humanitarian competition benchmark participation. 8 competitions surveyed (COMP-1..8): Metaculus, TDC, ARC-AGI, ClimateHack, GJOpen, DrivenData, ACL NLP, SafetyBench.
+- **Critical calibration finding (L-406)**: swarm Brier=0.247 vs community 0.18 on ARC-AGI forecasting. Knowledge cutoff (Aug 2025) is the primary bottleneck for time-sensitive questions. Fix: human relay (F133) for current data. Static benchmarks (TDC/ARC-AGI tasks) = cutoff-irrelevant → PRIORITY.
+- **Meta-fix**: swarm_parse.py + sync_state.py only counted F-number IDs, not F-COMP1/F-ISG1/F-SEC1 etc. Real count: 37F (was showing 19F). Fixed.
+- **domains/competitions/ bootstrapped**: COLONY.md + INDEX.md + tasks/FRONTIER.md + tasks/LANES.md. CB-1: multi-domain expert dispatch outperforms single-model on interdisciplinary benchmarks [THEORIZED].
+- **State**: 347L 180P 17B 37F | NOTICE-only.
+- **Next**: (1) F-COMP1 Phase 2: dispatch TDC drug benchmark expert colony (AUROC target >0.72); (2) F-COMP1 Phase 2: ARC-AGI task-level reasoning expert; (3) F-ISG1 autoswarm.sh gate; (4) F-SEC1 Layer 1 bundle hash.
+
 ## S307 session note (external grounding: REPAIR TARGET FOUND)
 - **Critical**: L-406 forecasting demo — swarm Brier=0.247 vs Metaculus community baseline=0.18. Swarm WORSE on ARC-AGI forecasting. NOT delusional (measured correctly), but underperforming externally. This is the concrete repair signal from "repair swarm".
 - **Repair path**: F-COMP1 phase 2 — dispatch class-specific expert colonies (Metaculus forecasting domain first). Improve Brier below 0.18 using multi-expert LaOP aggregation + calibration training. Track externally.
