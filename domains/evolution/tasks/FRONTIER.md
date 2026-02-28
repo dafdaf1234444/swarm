@@ -1,12 +1,13 @@
 # Evolution Domain — Frontier Questions
 Domain agent: write here for evolution-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-02-28 S188 | Active: 4
+Updated: 2026-02-28 S189 | Active: 4
 
 ## Active
 
 - **F-EVO1**: What diversity level across parallel lanes maximizes novel insight while keeping merge collisions low? Design: run repeated multi-lane passes with explicit diversity settings (homogeneous prompts vs role-diverse prompts vs method-diverse prompts), then compare novelty yield, contradiction rate, and merge friction.
 - **S186 baseline**: first measured slice from `tasks/SWARM-LANES.md` (MERGED lanes only) is captured in `experiments/evolution/f-evo1-lane-diversity-s186.json`: 21 merged rows, 17 unique scope-keys (scope diversity ratio 0.8095), scope-collision excess 4. Directional result: diversity is high with moderate collision pressure; next test is cross-session comparison plus novelty-yield coupling.
 - **S186 policy-transfer**: `tools/f_ops2_domain_priority.py` produced a scored domain-allocation schedule (`experiments/operations-research/f-ops2-domain-priority-s186.json`) that explicitly balances diversity and pressure (4 slots spread across 3 domains with concentration only on top-demand information-science). This gives EVO1 a concrete selection-policy candidate to compare against homogeneous fan-out.
+- **S188-S189 cross-session RESOLVED**: `tools/f_evo1_lane_diversity.py` ran cross-session analysis (S184-S189, n=6). Diversity-yield correlation = **-0.835** (STRONG NEGATIVE). Counter-intuitive finding: **focused sessions outperform diverse sessions** in L+P yield. Low-diversity S186 (ratio=0.5, heavy scope reuse) yielded 13 L+P; high-diversity S188/S189 (ratio=1.0) yielded 0-6 L+P. Prescription: concentrate lanes on a single scope cluster per session to maximize knowledge output. Artifact: `experiments/evolution/f-evo1-lane-diversity-s188.json`. See L-300. F-EVO1 → PARTIAL (causal direction needs 3+ session replication with scope pinning).
 
 - **F-EVO2**: Can variation-selection-retention be extracted automatically from swarm artifacts? Design: derive candidate "mutations" from `tasks/SWARM-LANES.md` and `tasks/NEXT.md`, classify which mutations persisted at least N sessions, and compare persistence with measured quality outcomes.
 - **S186 update**: first automatic extraction implemented via `experiments/evolution/f-evo2-lane-retention-s186.json` (lane-log baseline): 40 unique lanes, selection-rate (any closed status) = 1.0, retention-rate (closed + repeated updates) = 0.10, active-residue-rate = 0.10. This operationalizes variation/selection/retention from lane artifacts, but quality linkage is still missing. Next: join lane outcomes against `change_quality` session scores to test whether retained lane patterns predict stronger sessions.
