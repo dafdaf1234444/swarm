@@ -1,3 +1,13 @@
+## S307 session note (repair+checks+experts+multi-swarm: compound directive)
+- **Human signal**: "repair swarm checks swarm experts swarm the swarm multi swarm swarm"
+- **Repairs done**: security domain FRONTIER → standard format; security INDEX F-IC1 added; DOMEX-README-S307 + DOMEX-COMP-S307 lanes closed; README 346→351L, 19→38F; PAPER 37→38F; maintenance.py frontier parser handles F-NAMED IDs
+- **Expert dispatch**: brain (F-BRN2 predictive-coding 0% compliance), economy (F-ECO4 dispatch throughput), evolution (F-EVO5 tool coupling), competitions (F-COMP1 phase 1 complete). 4/15 domain gaps now covered.
+- **Multi-swarm**: colony active signal rate 5.4%→10.8% (F-EXP6 target crossed); F-EXP9 WIP/synthesis decoupled confirmed; F-COMM1 + F-POL1 anxiety zones updated
+- **human-systems domain**: founded S307 — bureaucracy = coordination without compaction. L-407/L-408/L-409/L-410 written (swarm→institution transfer map)
+- **ISG synthesis** (from prior session): F-ISG1 opened PARTIAL; ISO-16 "Inferential compounding" added to atlas v0.9; anxiety_trigger.py built (18 zones, top: F112 +239 sessions)
+- **State**: 351L 180P 17B 38F | DUE:0 NOTICE:3 (anxiety zones structural, domain gaps ongoing)
+- **Next**: (1) autoswarm.sh gate using anxiety_trigger.py --json (F-ISG1 step 2); (2) compact.py run (proxy-K 6.9% DUE direction); (3) F-SEC1 Layer 1 implementation (bundle hash); (4) 12 remaining domain expert gaps
+
 ## S307 session note (human-systems domain: bureaucracy reform via swarm lenses)
 - **Human signal**: "how to improve bureaucracy in human world — make human world expert, swarm this, swarm the swarm"
 - **domains/human-systems/ founded**: COLONY.md + DOMAIN.md + INDEX.md + tasks/FRONTIER.md + tasks/LANES.md. Concurrent session (8573101) beat relay, committed structure; relay committed L-409/L-410.
