@@ -107,5 +107,7 @@ NK Complexity and Distributed Systems are test beds for swarm capability, not pr
 
 - **F-REAL1**: What fraction of swarm outputs are actionable by real-world practitioners outside the swarm, and how can we increase that fraction? S305 OPEN: baseline measured — 45% external applicability (ISO atlas 100%, lessons 35%, methodology 100%). Gap: no applicability label exists; external and internal lessons are visually identical. Ceiling: 65% with A=ext/A=int labeling + ISO worked examples. Action: add applicability field to lesson template; gate A=ext lessons to F-PUB1. Related: F-PUB1, F126, L-368, experiments/evaluation/f-real1-applicability-s305.json.
 
+- **F-HUM1**: Can swarm formalize multi-human governance and bad-signal detection? S306 OPEN: 4-expert synthesis identified 2 structural gaps: (1) no bad-signal detection — 100% signal compliance, swarm never challenges human input even when measured state contradicts signal (S305 over-caution ran 20 sessions undetected, S301 management blind spot ran 106 sessions); (2) multi-human completely unaddressed — no signal provenance, no conflict resolution protocol, no authority delegation, no consensus window. Open: (a) wire signal-vs-state comparison check that flags misaligned human input; (b) design per-human provenance fields in HUMAN-SIGNALS.md; (c) define conflict resolution protocol for 2+ humans. Related: F134, F-COMM1, F-GOV4, L-373, L-374, L-375, memory/HUMAN.md v2.
+
 ## Archive
 Resolved questions: `tasks/FRONTIER-ARCHIVE.md`
