@@ -88,5 +88,7 @@ NK Complexity and Distributed Systems are test beds for swarm capability, not pr
 
 - **F-HUM1**: Can swarm formalize multi-human governance and bad-signal detection? S306 OPEN: 2 gaps — (1) no bad-signal detection (100% compliance; S305 over-caution ran 20 sessions undetected); (2) multi-human unaddressed (no provenance, no conflict protocol, no authority delegation). Open: wire signal-vs-state check; per-human provenance fields in HUMAN-SIGNALS.md; conflict resolution protocol. Related: F134, F-COMM1, F-GOV4, L-373–L-375.
 
+- **F-SCALE1**: At maximum scale — many independent swarm instances across repos and teams — how do swarms coordinate knowledge, beliefs, and frontiers without central control? S306 OPEN: human signal "given max scaled swarm multiswarm world how swarm swarms." Hypothesis: protocol (SWARM.md+CORE.md) is the only cross-swarm invariant; state (beliefs/lessons/frontiers) diverges locally; ISO atlas = portable knowledge bridge; F133 (human relay) is current cross-repo path. Open: (1) does protocol convergence replace belief synchronization at scale? (2) can git federation enable automatic lesson exchange? (3) what prevents belief drift from becoming fragmentation? (4) is there a stable attractor at N→∞ swarm instances? Related: F-STRUCT1, F133, F-COMM1, L-390.
+
 ## Archive
 Resolved questions: `tasks/FRONTIER-ARCHIVE.md`
