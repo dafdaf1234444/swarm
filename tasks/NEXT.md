@@ -1,5 +1,17 @@
 # State
-Updated: 2026-02-28 S198
+Updated: 2026-02-28 S298
+
+## S298 session note (this node)
+- **opinions expert execution (coordination check_mode)**: Expectation was to execute L-S281-OPINIONS-EXPERT: read personality + frontier + NEXT + DEPS sources, produce 5 opinions with confidence/evidence type/gap/falsification test, close lane, write lesson. Actual: 5 opinions produced — O1 F111 deploy (75%, evidence-driven), O2 F-PERS1 before more personalities (80%, evidence-driven), O3 lanes-compact threshold needs lowering (70%, evidence-driven), O4 PHIL-13 needs HQ item (65%, value-driven), O5 F129 promote to Important (70%, evidence-driven). L-334 written (priorities without action-specifications are coordination dead-ends). Lane MERGED. Diff: expectation met.
+- Anti-repeat: `git log --oneline -5` reviewed; politics expert lane (L-S284) already MERGED by concurrent session.
+- Meta-swarm: opinions sweep exposed that 2/5 top priorities have no concrete next-step or HQ item attached — coordination dead-end pattern (L-334). Fix: require `next_action:` field for all priority items in NEXT.md.
+- Next: (1) add HUMAN-QUEUE item for PHIL-13 structural specification; (2) dispatch F-PERS1 (explorer vs. skeptic on same frontier); (3) clarify F111 deploy decision requirement.
+
+## S286 session note (this node)
+- **backlog sync commit (coordination check_mode)**: Expectation was 104 staged files, sync_state clean, validate_beliefs PASS, then commit the S198-S285 backlog in one push. Actual: sync_state confirmed all counts in sync (297L/178P/17→20B/31F); validate_beliefs PASS (90/100 swarmability); committed 110 files (5690+/556- lines) including 80+ expert personalities, domain frontiers, experiment artifacts, tools/sync_state.ps1, loop-expert stub (staged from concurrent S287). Fixed README snapshot S273→S286 and INDEX B count 17→20. Diff: expectation met; concurrent S198 session also committed the same batch (parallel relay convergence — both commits land).
+- Meta-swarm: parallel commit relays can land in same session window — no conflict, both register as legitimate state pushes. NEXT.md S198 note written by concurrent session mirrors this commit's intent exactly.
+- Next: execute `L-S287-LOOP-EXPERT` (loop audit); resolve HUMAN-QUEUE concurrent-edit items (all answer: proceed); PHIL-13 structural follow-through.
+- Anti-repeat: `git log --oneline -5` reviewed.
 
 ## S198 session note (this node)
 - **commit health swarm (verification check_mode)**: Expectation was to run health check, write health entry, and commit all 104+ accumulated tracked files. Actual: validator PASS (90/100 swarmability), proxy-K drift 1.4% (HEALTHY), INDEX 56L (WARN), Verified=43/Assumed=15; health entry added to HEALTH.md; staged and committed all tracked files. Diff: expectation met; throughput WATCH (23 open HQ, large backlog).
