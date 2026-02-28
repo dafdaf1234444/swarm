@@ -1,5 +1,5 @@
 # Isomorphism Atlas — Atlas of Deep Structure
-v0.4 | 2026-02-28 | S189 | ISO-10 added (predict-error-revise): independently confirmed by 3 domain experts via paper extraction
+v0.5 | 2026-02-28 | S196 | ISO-11 (network diffusion / random walk) + ISO-12 (max-flow / min-cut duality) added from graph theory domain
 
 ## What this is
 A cross-domain atlas of structural equivalences. Each entry maps one abstract structure to its manifestations across multiple domains. This is NOT a fact database — it is a compression of world knowledge into shared structure.
@@ -219,20 +219,75 @@ that predict-error-revise is a genuine universal structure, not domain-specific 
 
 ---
 
+### ISO-11: Network diffusion — random walk to stationary distribution
+**Structure**: A signal, particle, or influence propagates through a network by moving to adjacent nodes
+with transition probabilities proportional to edge weights. The long-run distribution converges to a
+stationary state determined by network topology (degree-weighted for undirected random walks). The
+mixing time — how fast local initial conditions are forgotten — is controlled by the second eigenvalue
+of the graph Laplacian (spectral gap). High-degree nodes become attractors; bridges become bottlenecks.
+
+| Domain | Manifestation | Notes |
+|--------|---------------|-------|
+| Mathematics | Random walk / Markov chain on graphs | Stationary π(v) ∝ degree(v); convergence rate = spectral gap; foundation of Markov chain Monte Carlo |
+| Physics | Heat diffusion / Brownian motion | Heat equation on graphs = graph Laplacian; diffusion coefficient maps to edge weights |
+| Computer science | PageRank | Web graph random walk with teleportation probability α; stationary = link authority; powers Google Search |
+| Biology | Epidemic spreading (SIR/SIS) | R₀ = spectral radius of contact network governs outbreak; random walk approximates early spread |
+| Neuroscience | Neural signal propagation / spreading depolarization | Action potentials along axonal networks; cortical spreading depression follows random-walk topology |
+| Economics | Financial contagion | Bank-network failure propagation; systemic risk = giant component in failure cascade (Acemoglu et al. 2015) |
+| Social science | Rumor / information virality | SIR-like dynamics on social graphs; network topology (clustering, hubs) determines virality |
+| Swarm | Lesson citation diffusion | Lessons cited in later sessions propagate knowledge; high-degree (highly-cited) lessons = attractors |
+
+**Sharpe: 4** (8 domains; spectral graph theory mathematically proven; PageRank operational at scale;
+epidemic models validated; financial contagion empirically studied; swarm citation graph measurable)
+**Gaps**: Ecology (species dispersal across landscape networks), Governance (policy diffusion across countries)
+**Inversion**: Over-diffusion homogenizes the system — high mixing time is sometimes desirable (privacy,
+partitioned systems). Not all networks should reach their stationary distribution quickly.
+
+---
+
+### ISO-12: Max-flow / min-cut — the bottleneck duality
+**Structure**: The maximum volume of flow that can be transmitted from a source to a sink in a
+capacity-constrained network equals the minimum total capacity of any edge-set whose removal
+disconnects source from sink (Ford-Fulkerson 1956). The bottleneck is structural: it is always the
+smallest cut, not a local property of any individual path. Cut vertices (bridges) are single-edge min-cuts
+— their removal alone severs flow.
+
+| Domain | Manifestation | Notes |
+|--------|---------------|-------|
+| Mathematics | Ford-Fulkerson / Menger's theorem | Max-flow = min-cut; Menger's: max disjoint paths = min vertex cut; proven 1956 |
+| Transportation | Logistics / traffic bottleneck | Highway capacity limited by minimum-width road in every route; traffic jams at structural pinchpoints |
+| Biology | Vascular blood-flow networks | Cardiac output limited by minimum cross-sectional area; capillary beds form the min-cut |
+| Computer science | Internet routing / CDN placement | ISP interconnect capacity = min-cut between AS clusters; CDN nodes placed to maximize sink proximity |
+| Social science | Organizational communication bottlenecks | Key individuals who, if absent, sever communication paths (structural holes, Burt 1992) |
+| Economics | Supply chain throughput | Production capacity limited by minimum-capacity supplier in any complete supply path |
+| Physics | Electrical circuits (Norton dual) | Maximum current from source to sink = minimum conductance cut; Kirchhoff dual of max-flow |
+| Swarm | Coordinator session bottlenecks | Coordinator nodes bridge disconnected contributor clusters; their loss blocks cross-lane information relay |
+
+**Sharpe: 4** (8 domains; theorem mathematically proven 1956; engineering applications standard; Burt
+structural holes empirically validated; electrical dual exact; swarm coordinator role observable)
+**Gaps**: Ecology (minimum landscape corridor width for species migration), Chemistry (reaction network
+rate-limiting step as min-cut in substrate→product graph)
+**Inversion**: Min-cuts can be exploited adversarially — targeted attacks on bridge nodes/edges cause
+disproportionate damage (network robustness vs. targeted attack asymmetry, Albert et al. 2000).
+
+---
+
 ## Synthesis: hub domains
 Domains appearing in 4+ entries — highest isomorphism density, swarm first:
 
 | Domain | Entries | Why hub |
 |--------|---------|---------|
-| Swarm/meta | ISO-1,2,3,4,5,6,7,8,9,10 | All ten; ISO-10 = expect-act-diff is canonical implementation |
-| Neuroscience | ISO-1,2,3,4,5,7,9,10 | Eight entries; ISO-10: predictive coding + Hebbian plasticity confirmed 2024 |
-| Economics | ISO-1,2,3,4,5,6,7,8,9,10 | All ten; ISO-10: Nash seeking = iterative predict-error-revise |
-| Linguistics | ISO-1,2,3,4,5,6,7,8,9 | All nine; language is optimization, attractor, compression, phase-transition, feedback, entropy, emergence, power law, and IB |
-| Physics/thermodynamics | ISO-1,3,4,5,6,7,8 | Seven entries; canonical form for entropy, phase, emergence, power law |
+| Swarm/meta | ISO-1,2,3,4,5,6,7,8,9,10,11,12 | All twelve; ISO-11: citation diffusion; ISO-12: coordinator bottleneck |
+| Economics | ISO-1,2,3,4,5,6,7,8,9,10,11,12 | All twelve; ISO-11: financial contagion; ISO-12: supply chain bottleneck |
+| Mathematics | ISO-1,3,4,7,8,10,11,12 | Eight entries; ISO-11: random walk foundation; ISO-12: Ford-Fulkerson proven |
+| Neuroscience | ISO-1,2,3,4,5,7,9,10,11 | Nine entries; ISO-11: neural signal propagation + spreading depolarization |
+| Linguistics | ISO-1,2,3,4,5,6,7,8,9 | All nine original; language is optimization, attractor, compression, phase-transition, feedback, entropy, emergence, power law, and IB |
+| Biology | ISO-2,4,5,7,8,11,12 | Seven entries; ISO-11: epidemic spreading; ISO-12: vascular networks |
+| Physics/thermodynamics | ISO-1,3,4,5,6,7,8,11,12 | Nine entries; ISO-11: heat diffusion; ISO-12: electrical circuits (Norton dual) |
+| Computer science | ISO-11,12 | ISO-11: PageRank; ISO-12: internet routing / CDN placement |
 | Evolution | ISO-1,2,4,5,6,9 | Six entries; IB on gene flow added; connects NK, selection, genomic drift |
 | Information theory | ISO-1,3,6,8,9,10 | Six entries; ISO-10: Bayesian updating = canonical predict-error-revise |
-| Biology | ISO-2,4,5,7,8 | Five entries; emergence, allometric scaling, homeostasis |
-| Mathematics | ISO-1,3,4,7,8,10 | Six entries; ISO-10: gradient descent + Bayes rule grounding |
+| Social science | ISO-11,12 | ISO-11: information virality; ISO-12: organizational structural holes (Burt 1992) |
 | Game theory | ISO-7,10 | ISO-10: Nash seeking convergence; emergent equilibrium without communication |
 | Cognitive science | ISO-3,7,9 | Three entries; MDL concept formation, emergence in cognition, IB working memory |
 | Control theory | ISO-1,5,10 | ISO-10: Model Predictive Control = explicit predict-error-revise at engineering scale |
@@ -255,6 +310,8 @@ F126: swarm → isomorphism atlas → world knowledge base (world is beneficiary
 Both share the mechanism. F126 inverts the directionality of value flow.
 
 ## Version history
+- v0.5 (S196): ISO-11 network diffusion (random walk / PageRank / epidemic / contagion); ISO-12 max-flow min-cut (Ford-Fulkerson / vascular / supply chain / org bottlenecks); hub table expanded; Computer science + Social science added as first-class hubs; Physics/Math/Neuro all expand
+- v0.4 (S189): ISO-10 predict-error-revise; independently confirmed by 3 domain experts via paper extraction
 - v0.3 (S189): ISO-9 information bottleneck; linguistics gaps in ISO-1/4/7 filled → linguistics becomes full 9/9 hub tied with Swarm + Economics; hub table expanded to 11 domains; cognitive science added; universality reach finding: 3 domains now appear in every ISO entry
 - v0.2 (S187): ISO-6 entropy, ISO-7 emergence, ISO-8 power laws; hub table expanded to 10 domains; physics and linguistics added as first-class hubs
 - v0.1 (S187): 5 seed entries, 7 hub domain candidates, 6 open questions
