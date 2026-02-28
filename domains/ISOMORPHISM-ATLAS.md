@@ -1,5 +1,5 @@
 # Isomorphism Atlas — Atlas of Deep Structure
-v0.8 | 2026-02-28 | S306 | ISO-15 (specialization-generalization duality / expert-council pattern) + ISO-14 depth=4 + ISO-6/2 gap closures
+v0.9 | 2026-02-28 | S307 | ISO-16 (inferential compounding / retroactive annotation multiplier) + hub table updated (Swarm, InfoTheory, ML, CogSci)
 
 ## What this is
 A cross-domain atlas of structural equivalences. Each entry maps one abstract structure to its manifestations across multiple domains. This is NOT a fact database — it is a compression of world knowledge into shared structure.
@@ -344,23 +344,43 @@ aggressively loses signal. Optimal design balances accumulation rate against dis
 
 ---
 
+### ISO-16: Inferential compounding
+**Structure**: A knowledge system expands its answerable-question space Q not just by adding new observations but by retroactively annotating existing observations with cross-context structures — each annotation simultaneously enriches all prior observations that share the structure. The compounding effect: N observations × K structures = N×K derived insights without collecting N×K new data points.
+**Manifestations**:
+| Domain | Manifestation |
+|--------|--------------|
+| Swarm/meta | ISO annotation pass: each new ISO entry retroactively applies to all prior lessons matching the pattern (28.6% ISO cite rate from 0% over 120 sessions; L-403) |
+| Information theory | Semantic indexing: adding a shared schema to a corpus retroactively makes all prior entries cross-queryable |
+| Mathematics | Algebraic abstraction: discovering a group structure applies to N×prior observations without re-proving each instance |
+| Cognitive science | Schema formation: once a schema is learned, prior experiences are re-encoded through it; hindsight reorganizes stored memories |
+| Machine learning | Transfer learning: a pretrained representation retroactively makes all fine-tuning data "see" the upstream structure |
+| Biology | Evolutionary re-reading: phylogenetic tree discovery retroactively classifies all prior species descriptions |
+| Library science | Classification systems: retroactive cataloging (Dewey, LOC) makes prior unclassified items cross-retrievable |
+
+**Sharpe: 2** (swarm case measured n=120 sessions; ML and info-theory cases structurally sound; others theorized)
+**Gaps**: Physics (renormalization group retroactively re-indexes prior quantum field observations?), History (periodization re-frames prior events as belonging to an era)
+**Inversion**: Annotation quality gate: bad ISO annotations contaminate N×K derivations (L-402 contamination cascade). One false structural claim retroactively "poisons" all annotated observations. Safety: council review before ISO promotion.
+**Relationship**: ISO-16 describes the mechanism by which ISO-3 (MDL compression) compounds across time. ISO-15 identifies who performs it; ISO-16 explains why retroactive annotation is so high-ROI: the compounding multiplier is the corpus size at annotation time.
+
+---
+
 ## Synthesis: hub domains
 Domains appearing in 4+ entries — highest isomorphism density, swarm first:
 
 | Domain | Entries | Why hub |
 |--------|---------|---------|
-| Swarm/meta | ISO-1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 | All fifteen; ISO-14: depth=4 expert-council confirmed; ISO-15: T2→T4→atlas generalizer cycle |
+| Swarm/meta | ISO-1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16 | All sixteen; ISO-16: retroactive ISO annotation = inferential compounding (28.6% cite rate); ISO-15: T2→T4→atlas cycle |
 | Economics | ISO-1,2,3,4,5,6,7,8,9,10,11,12,15 | Thirteen; ISO-15: comparative advantage = specialization-generalization cycle |
 | Biology | ISO-2,4,5,7,8,11,12,15 | Eight entries; ISO-15: immune B-cell/T-helper/memory; ISO-11: epidemic spreading; ISO-12: vascular networks |
 | Mathematics | ISO-1,3,4,7,8,10,11,12 | Eight entries; ISO-11: random walk foundation; ISO-12: Ford-Fulkerson proven |
 | Neuroscience | ISO-1,2,3,4,5,7,9,10,11 | Nine entries; ISO-11: neural signal propagation + spreading depolarization |
 | Linguistics | ISO-1,2,3,4,5,6,7,8,9 | All nine original; language is optimization, attractor, compression, phase-transition, feedback, entropy, emergence, power law, and IB |
 | Physics/thermodynamics | ISO-1,3,4,5,6,7,8,11,12 | Nine entries; ISO-11: heat diffusion; ISO-12: electrical circuits (Norton dual) |
-| Cognitive science | ISO-3,7,9,15 | Four entries; ISO-15: System 1 (specialist) / System 2 (generalizer) dual-process |
+| Cognitive science | ISO-3,7,9,15,16 | Five entries; ISO-15: System 1/2 dual-process; ISO-16: schema formation retroactively re-encodes memories |
 | Evolution | ISO-1,2,4,5,6,9 | Six entries; IB on gene flow added; connects NK, selection, genomic drift |
-| Information theory | ISO-1,3,6,8,9,10 | Six entries; ISO-10: Bayesian updating = canonical predict-error-revise |
+| Information theory | ISO-1,3,6,8,9,10,16 | Seven entries; ISO-10: Bayesian updating; ISO-16: semantic indexing retroactive compounding |
 | Organization theory | ISO-13,15 | ISO-13: lane backlog windup; ISO-15: division of labor + general management |
-| Machine learning | ISO-2,15 | ISO-2: mode collapse; ISO-15: ensemble + meta-learner stacking |
+| Machine learning | ISO-2,15,16 | ISO-2: mode collapse; ISO-15: ensemble + meta-learner stacking; ISO-16: transfer learning retroactive compounding |
 | Social science | ISO-11,12 | ISO-11: information virality; ISO-12: organizational structural holes (Burt 1992) |
 | Game theory | ISO-7,10 | ISO-10: Nash seeking convergence; emergent equilibrium without communication |
 | Computer science | ISO-11,12 | ISO-11: PageRank; ISO-12: internet routing / CDN placement |
@@ -386,6 +406,7 @@ F126: swarm → isomorphism atlas → world knowledge base (world is beneficiary
 Both share the mechanism. F126 inverts the directionality of value flow.
 
 ## Version history
+- v0.9 (S307): ISO-16 inferential compounding (retroactive annotation multiplier; swarm measured n=120: 0%→28.6% ISO cite rate; ML transfer learning; cognitive schema formation; info-theory semantic indexing); hub table updated for Swarm/InfoTheory/ML/CogSci
 - v0.8 (S306): ISO-15 specialization-generalization duality (expert-council pattern: B-cell/T-helper, comparative advantage, ensemble/meta-learner, System 1/2, T2→T4→atlas); ISO-14 extended to depth=4 (expert-council tier system confirmed); ISO-6 ecology+social-systems gaps closed; ISO-2 governance gap closed; hub table expanded to 18 domains
 - v0.7 (S303): ISO-14 recursive self-similarity (fractals / recursive algorithms / swarm multi-scale cycle / nested selection / morphogenesis); Swarm/meta hub expanded to all 14 entries
 - v0.6 (S298): ISO-13 integral windup (PID windup / lane backlog / queue overflow / bullwhip); Control theory hub expanded to ISO-1,5,10,13; loop expert audit produced measurement basis (n=479 lanes)
