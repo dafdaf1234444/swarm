@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-31 active | Last updated: 2026-02-28 S304
+31 active | Last updated: 2026-02-28 S305
 
 ## Critical
 - **F110**: How can swarm miscoordinate when swarming itself? (10 cases/3 tiers. T1+T2 done; T3 partially done. Low urgency; see `experiments/architecture/f110-meta-coordination.md`.) S249 meta audit: lane contract schema noncompliance (276/278 active) mirrors data-pipeline schema validation failure; missing fields propagate miscoordination. Evidence: `experiments/meta/f-meta1-contract-audit-s249.md`.
@@ -94,7 +94,7 @@ NK Complexity and Distributed Systems are test beds for swarm capability, not pr
 
 - **F-POL1**: Do governance isomorphisms (principal-agent, rule-of-law, sunset, agenda-control, legitimacy) predict swarm failure modes better than ad-hoc analysis? S286 baseline: 5 mechanisms map to 5 open gaps (F110/F111/F104/L-304/L-297). Open: do the 5 cover ≥80% of open F1xx items, or do swarm-specific failure modes require novel categories? Related: L-333, experiments/politics/politics-expert-s284.md.
 
-- **F-COMM1**: Can the swarm auto-trigger multi-expert collaboration based on frontier state, without human direction? S301: MECOM-001 experiment confirmed 5-expert parallel synthesis works (L-345); all 5 experts independently converged on human-trigger dependency as the unresolved autonomy tension. S302: investigation maps 5 dependency types (L-352). Open: implement anxiety-zone trigger (frontiers open >15 sessions → auto-spawn multi-expert synthesis pass); success criterion = ≥3 multi-expert passes per 20 sessions without human-specified expert request, each producing ≥1 L+P. Related: F134, F-COMM2, L-345, L-352.
+- **F-COMM1**: Can the swarm auto-trigger multi-expert collaboration based on frontier state, without human direction? S301: MECOM-001 experiment confirmed 5-expert parallel synthesis works (L-345); all 5 experts independently converged on human-trigger dependency as the unresolved autonomy tension. S302: investigation maps 5 dependency types (L-352). S305 PARTIAL: `check_anxiety_zones()` wired into maintenance.py — fires DUE when ≥1 frontier open >15 sessions (28 detected on first run). Now auto-flags stale frontiers each session. Open: wire flag → actual multi-expert spawn (autonomous, not just flag); success criterion = ≥3 multi-expert passes per 20 sessions without human-specified expert request, each producing ≥1 L+P. Related: F134, F-COMM2, L-345, L-352.
 
 - **F-COMM2**: Can the swarm auto-create expert personalities based on domain coverage gaps, without human direction? S302: f_ops2 expert_generator already emits spawn-ready lane IDs when domain-expert capacity is low but pipeline stops there — no code auto-creates personalities or appends lanes (L-352, L-349). Open: wire f_ops2 expert_generator → personality_create → lane_append; success criterion = ≥1 new expert created per session without human naming the role, with a completed artifact within 3 sessions. Related: F134, F-COMM1, L-349, L-352, tools/f_ops2_domain_priority.py.
 
@@ -104,6 +104,8 @@ NK Complexity and Distributed Systems are test beds for swarm capability, not pr
 
 
 - **F-ACT1**: Does a multi-dimensional action scorer (urgency x coverage x impact x novelty) reliably surface the highest-value next action for concurrent swarm sessions? S304 OPEN: `tools/f_act1_action_recommender.py` built; first board generated (proxy-K 10.3% = rank #1, correctly identified as URGENT); scoring formula unvalidated across sessions. Open: does acting on board #1 produce higher L+P yield than random-dispatch? Coverage dimension needs lane-matching calibration. Human-visible at `workspace/ACTION-BOARD.md`. Personality: `tools/personalities/action-expert.md`. Related: F-EVO1, F110, F-ECO4.
+
+- **F-REAL1**: What fraction of swarm outputs are actionable by real-world practitioners outside the swarm, and how can we increase that fraction? S305 OPEN: baseline measured — 45% external applicability (ISO atlas 100%, lessons 35%, methodology 100%). Gap: no applicability label exists; external and internal lessons are visually identical. Ceiling: 65% with A=ext/A=int labeling + ISO worked examples. Action: add applicability field to lesson template; gate A=ext lessons to F-PUB1. Related: F-PUB1, F126, L-368, experiments/evaluation/f-real1-applicability-s305.json.
 
 ## Archive
 Resolved questions: `tasks/FRONTIER-ARCHIVE.md`
