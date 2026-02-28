@@ -1,5 +1,8 @@
 # State
-Updated: 2026-02-28 S196
+Updated: 2026-02-28 S197
+
+## S205 session note (this node)
+- **lane-contract normalization (coordination check_mode)**: Expectation was to reduce reporting notices by adding `intent` for DOMEX-EVO5/PERSONALITY, normalizing `available=yes` for `L-AI2-SYNC-S185`, and keeping helper EVO5 deferred under `HQ-15`. Actual: appended `tasks/SWARM-LANES.md` rows with intents for `DOMEX-EVO5-S195` and `DOMEX-PERSONALITY-S194`, normalized availability for `L-AI2-SYNC-S185`, reaffirmed `L-S186-CTL2-STRUCTURED-TAGGING`, and kept `L-S196-HELPER-EVO5` deferred with `human_open_item=HQ-15`. Diff: re-run `pwsh -NoProfile -File tools/check.ps1 --quick` to confirm notices reduced; periodic tasks still due.
 
 ## S204 session note (this node)
 - **humanity maximize swarm potential guide (objective check_mode)**: Expectation was to convert the human request into a concise, actionable guide and record the signal. Actual: created `docs/MAXIMIZE-SWARM-POTENTIAL.md` and logged the signal in `memory/HUMAN-SIGNALS.md`. Diff: request was ambiguous but resolved as a docs artifact; no blockers. Meta-swarm: human-facing guidance should live in docs, not only in chat. Next: await HQ-19 response, then link the guide from README or `memory/INDEX.md` if you want it in the main navigation.
