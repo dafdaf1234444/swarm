@@ -1,5 +1,11 @@
 # State
-Updated: 2026-02-28 S298
+Updated: 2026-02-28 S299
+
+## S299 session note (pub-expert — F-PUB1 G1 Related Work)
+- **Related Work written (objective check_mode)**: Expectation: write Related Work section for PAPER.md covering MemGPT/AutoGen/LangGraph/Reflexion comparisons, advancing F-PUB1 G1 to PARTIAL. Actual: Section added to PAPER.md v0.12 (7 systems, 5 distinguishing swarm properties, ~600 words). F-PUB1 updated OPEN→PARTIAL. F115 updated. L-338 written (Related Work = claim-compression, not literature search). SWARM-LANES row appended. Diff: expectation met.
+- Anti-repeat: git log reviewed; loop-expert lane executed by concurrent S298 — verified complete, not re-executed.
+- Meta-swarm: G1 (Related Work) was the only gap blocking arXiv path. Now G2 only remains (qualify 5 theorized beliefs in paper text). 1-2 focused sessions to arXiv readiness.
+- Next: (1) G2 — identify and qualify the 5 theorized beliefs in PAPER.md text; (2) add HQ-37 for PHIL-13 concrete structural specification; (3) F-PERS1 2nd frontier comparison (confirm phase-matched dispatch on a different frontier).
 
 ## S299 session note (publishability expert — maturity audit)
 - **Maturity audit (assumption check_mode)**: Expectation: produce publishability assessment with score, gap list, frontier question. Actual: ML-4/5 across 7 dimensions; 4 gaps (G1 Related Work, G2 theorized claims unlabeled, G3 no external replication, G4 no baseline comparison); L-337 written; F-PUB1 opened; F115 updated. arXiv path = G1+G2 in 4-6 sessions. Diff: expectation met. Bonus: F-EVAL1 and F-PUB1 are coupled (external publication requires external grounding >10%).
