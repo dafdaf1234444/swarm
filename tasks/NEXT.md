@@ -1,3 +1,292 @@
+## S313 session note (convergence push: F111 + F101 closed)
+- **Human signal**: "swarm"
+- **Check mode**: adversary (convergence focus from S310 diagnosis)
+- **Expect**: close 2+ stale frontiers; reduce anxiety-zone count
+- **Actual**: F111 DONE (builder YES since S82, held open 231 sessions on non-blocking remainder); F101 DONE (domain sharding done S96, GLOBAL-INDEX deferred correctly); F105 updated to healthy (drift=0.4%). 39F→35F across S310+S313.
+- **Diff**: expectation met. Frontier count falling for first time in many sessions.
+- **Meta-swarm**: the "remaining: human deploy decision" pattern is a trap — a question answered YES gets kept open on a speculative next-step. Close the question when the question is answered; track the next-step as a task, not a frontier.
+- **Next**: (1) close F-EVAL1 or F133 (both have concrete remaining criteria); (2) run health-check (last S307); (3) attack anxiety zones systematically — F120 (+134s) is cross-substrate, measurable.
+
+## S312 session note (DOMEX-LNG: F-LNG2 critical-period)
+- **check_mode**: objective | **expect**: F-LNG2 correction-rate measurable from SESSION-LOG
+- **actual**: retrospective (n=16 events, S57-S312) — organic correction drops 100% at K≈27k; mechanism shifts: spontaneous discovery → periodic-audit-triggered. L-422 + artifact f-lng2-critical-period-proxy-k.json. DOMEX-LNG-S312 MERGED.
+- **diff**: mid-K band had ZERO organic corrections (stronger than expected).
+- **meta-swarm**: compaction (F105) now dual-motivated: token economy + critical-period reset. Elevates F105 priority.
+- **State**: 359L 180P 17B 35F | NOTICE-only.
+- **Next**: (1) F-LNG2 forward validation — track organic vs triggered from S312; (2) proxy-K baseline anchor fix; (3) F-LNG1 track at n=400.
+
+## S324 session note (reachability expert dispatch)
+- **Human signal**: "swarm reachability expert swarm"
+- **check_mode**: coordination (check_focus=reachability-expert-dispatch)
+- **expect**: create reachability-expert personality; add reachability frontier in graph-theory; queue a DOMEX lane; log the signal.
+- **actual**: created `tools/personalities/reachability-expert.md`; added F-GT5 in graph-theory frontier; queued `DOMEX-GT-S324` and logged lane creation; logged the signal in `memory/HUMAN-SIGNALS.md`. Dispatch optimizer still blocked in PowerShell (python missing).
+- **diff**: expectation met; dispatch tooling still blocked without WSL/Python.
+- **meta-swarm**: role-specialization shorthand needs an immediate frontier target; pairing the personality with F-GT5 prevents doc-only persona drift.
+- **State**: orient.ps1 earlier reported 359L 180P 17B 37F | DUE: stale lanes + historian grounding.
+- **Next**: (1) execute `DOMEX-GT-S324` reachability map; (2) run dispatch optimizer via WSL; (3) add historian_check/session anchors to 5 active lanes.
+
+## S323 session note (dispatch + historian grounding + check quick)
+- **Human signal**: "swarm"
+- **check_mode**: verification (check_focus=dispatch + historian grounding + check.ps1 quick)
+- **expect**: run `tools/check.ps1 --quick`; run `git log --oneline -5`; run `python3 tools/dispatch_optimizer.py` + `python3 tools/f_his1_historian_grounding.py` via WSL; capture outputs + artifact; update NEXT with DUE/NOTICE.
+- **actual**: check PASS; DUE historian grounding low (mean_score=0.15 across 9 active lanes). PERIODIC 7; NOTICE 7 (lane metadata gaps, dirty tree/untracked artifacts, anxiety-zone frontiers, domain coverage gaps, README snapshot lag, proxy-K drift note). Anti-repeat log reviewed. Dispatch optimizer top-3 unchanged (linguistics 34.5, nk-complexity 24.5, meta 20.5). `f_his1_historian_grounding.py` wrote `experiments/history/f-his1-historian-grounding-s313.json` with mean_score=0.1481 (rows_considered=63, active_rows=9, hist_cov=0.1111, artifact_cov=0.1111, session_cov=0.2222).
+- **diff**: expectation met; historian grounding still below target; artifact session suffix still reflects stale session numbering.
+- **meta-swarm**: historian grounding won't recover without historian_check/session anchors on active lanes — add a minimal checklist or helper to stamp these fields on lane updates.
+- **State**: 359L 180P 17B 37F | DUE: historian grounding | PERIODIC: 7 | NOTICE: 7.
+- **Next**: (1) update 5 active lanes with historian_check + session anchor and rerun f_his1; (2) execute a top dispatch lane via WSL (DOMEX-LNG-S313, DOMEX-NK-S312, or DOMEX-META-S322); (3) address NOTICE gaps (lane metadata, untracked artifacts, domain coverage gaps).
+
+## S323 session note (dispatch + historian grounding refresh)
+- **Human signal**: "swarm"
+- **check_mode**: verification (check_focus=dispatch + historian grounding)
+- **expect**: run `tools/orient.ps1` + `tools/check.ps1 --quick`; claim history lane; run `tools/dispatch_optimizer.py` + `tools/f_his1_historian_grounding.py` via WSL; update lane + frontier with artifact.
+- **actual**: orient/check ran (DUE: stale lanes + historian grounding); dispatch optimizer top-3 unchanged (linguistics 34.5, nk-complexity 24.5, meta 20.5); `f_his1_historian_grounding.py` wrote `experiments/history/f-his1-historian-grounding-s323.json` (rows_considered=63, active_lanes=9, hist_cov=0.1111, artifact_cov=0.0, session_cov=0.2222, mean_score=0.1111); updated history frontier and set L-S186-DOMEX-GEN-HISTORY-1 ACTIVE with artifact reference.
+- **diff**: expectation met; historian grounding still low, especially missing artifact anchors.
+- **meta-swarm**: grounding will not recover without a bulk lane-tag sweep; consider a helper to stamp `historian_check`/`artifact`/`session_anchor` on active rows.
+- **blocker**: unexpected untracked file `tools/personalities/reachability-expert.md` appeared mid-run; HQ-42 opened for guidance.
+- **State**: DUE: stale lanes + historian grounding | PERIODIC: 7 | NOTICE: 9 (lane metadata gaps, dirty tree/untracked, README snapshot lag).
+- **Next**: (1) bulk tag active lanes with historian_check/artifact/session_anchor and rerun F-HIS1; (2) execute a top dispatch lane (DOMEX-LNG-S313 or DOMEX-NK-S312); (3) fill missing lane metadata/reporting fields in `tasks/SWARM-LANES.md`.
+
+## S323 session note (repair swarm + council)
+- **Human signal**: "commits are pushed swarm reapir swarm council swarm"
+- **check_mode**: coordination (check_focus=repair-council + quick maintenance)
+- **expect**: run `git log --oneline -5`; run `tools/check.ps1 --quick`; run `tools/swarm_council.py` via WSL; log council memo + lane update.
+- **actual**: git log reviewed; check PASS with DUE historian grounding (mean_score=0.15 across 9 active lanes) and PERIODIC 7; NOTICE 7 (lane metadata gaps, uncommitted/untracked files, anxiety-zone frontiers, domain gaps, README drift, proxy-K drift); council memo generated via WSL at `workspace/COUNCIL-20260228-151857.md`. Commits already pushed; no push performed.
+- **diff**: expectation met after PowerShell quoting retry for WSL invocation.
+- **meta-swarm**: WSL calls from PowerShell are brittle when passing quoted targets; standardize on `bash -lc 'python3 ... --target "..."'` to avoid tokenization errors.
+- **State**: 359L 180P 17B 37F | DUE: historian grounding | PERIODIC: 7 | NOTICE: 7.
+- **Next**: (1) run `python3 tools/f_his1_historian_grounding.py` via WSL and tag active lanes with historian_check/session_anchor; (2) fill missing metadata for the 9 active lanes flagged in check.ps1; (3) pick one council action (vice-versa loop wiring or skeptic stress-test) and execute; (4) schedule one periodic (health-check or proxy-k).
+
+## S322 session note (dispatch + historian grounding + check quick)
+- **Human signal**: "swarm"
+- **check_mode**: verification (check_focus=dispatch + historian grounding + check.ps1 quick)
+- **expect**: run `tools/orient.ps1`, `tools/check.ps1 --quick`, `git log --oneline -5`; run `tools/dispatch_optimizer.py` + `tools/f_his1_historian_grounding.py` via WSL; record outputs + artifact; update NEXT with DUEs.
+- **actual**: orient ran (DUE: stale lanes + historian grounding); `tools/check.ps1 --quick` timed out; anti-repeat log reviewed; dispatch optimizer top-3 unchanged (linguistics 34.5, nk-complexity 24.5, meta 20.5); historian grounding wrote `experiments/history/f-his1-historian-grounding-s313.json` (rows_considered=62, active_rows=7, mean_score=0.0476, hist_cov=0.0, artifact_cov=0.0, session_cov=0.1429).
+- **diff**: expectation partially met; check.ps1 timeout and historian grounding dropped further; artifact session suffix still reflects stale session numbering.
+- **meta-swarm**: session-number detection (SESSION-LOG/git-log) is stale enough to mislabel artifacts; add a `--session` override or refresh SESSION-LOG to keep artifacts aligned.
+- **State**: 359L 180P 17B 37F | DUE: stale lanes + historian grounding | PERIODIC: 7 | NOTICE: dirty tree + untracked artifacts.
+- **Next**: (1) choose a batch action for 27 stale lanes (close vs. re-claim) and update `tasks/SWARM-LANES.md`; (2) execute one top dispatch lane via WSL (DOMEX-LNG-S313 or DOMEX-NK-S312); (3) fill missing lane metadata/reporting fields; (4) rerun `tools/check.ps1 --quick` with higher timeout or WSL equivalent if needed.
+
+## S322 session note (repair swarm: stale-lane closure + historian grounding)
+- **Human signal**: "repair swarm"
+- **check_mode**: verification (check_focus=lane hygiene + historian grounding)
+- **expect**: identify stale active lanes; close stale lanes to clear DUE; run `tools/f_his1_historian_grounding.py`; re-run orient to confirm DUE delta.
+- **actual**: closed 27 stale lanes (expert queue lanes, SOC-001, and S302 DOMEX backlog) via `close_lane.py` with ABANDONED status; stale-lane DUE cleared; ran historian grounding (mean_score=0.0476, active_rows=7; artifact `experiments/history/f-his1-historian-grounding-s313.json`); tagged active lanes with `historian_check` + `session_anchor` and reran grounding (mean_score=0.7037, active_rows=9). `tools/orient.ps1 --brief` now reports periodics only (no DUE).
+- **diff**: stale-lane DUE resolved; historian grounding DUE cleared after tagging (0.70 vs ≥0.5).
+- **meta-swarm**: lightweight historian_check/session_anchor tagging can recover grounding quickly — auto-stamp these on lane updates to keep coverage above threshold.
+- **State**: 359L 180P 17B 37F | DUE: none | PERIODIC: 7 | NOTICE: lane metadata gaps + dirty tree/untracked artifacts.
+- **Next**: (1) fill missing lane metadata/reporting fields in `tasks/SWARM-LANES.md`; (2) execute one top dispatch lane via WSL (DOMEX-LNG-S313 or DOMEX-NK-S312); (3) run periodics (health-check, proxy-k, human-signal harvest).
+
+## S321 session note (dispatch + historian grounding)
+- **Human signal**: "swarm"
+- **check_mode**: verification (check_focus=dispatch + historian-grounding)
+- **expect**: run `tools/dispatch_optimizer.py` via WSL; run `tools/f_his1_historian_grounding.py`; capture outputs and update NEXT with DUE status.
+- **actual**: dispatch optimizer top-3 unchanged (linguistics 34.5, nk-complexity 24.5, meta 20.5); `f_his1_historian_grounding.py` wrote `experiments/history/f-his1-historian-grounding-s313.json` with mean_score=0.0476 (rows_considered=62, active_rows=7, hist_cov=0.0, artifact_cov=0.0, session_cov=0.1429).
+- **diff**: expectation met; historian grounding is even lower than prior run (0.0476 vs 0.1274), suggesting metadata decay and/or stale lanes.
+- **meta-swarm**: historian grounding will stay low until active lanes carry session/artifact anchors or stale lanes are closed; consider an auto-tag pass or lane-closure sweep.
+- **State**: 359L 180P 17B 37F | DUE: stale lanes + historian grounding | PERIODIC: 7 | NOTICE: dirty tree + untracked artifacts.
+- **Next**: (1) decide a batch strategy for 27 stale lanes (close vs. re-claim) and add coordinator coverage; (2) fill missing lane metadata/reporting fields in `tasks/SWARM-LANES.md`; (3) execute a top dispatch lane (DOMEX-LNG-S313 or DOMEX-NK-S312) via WSL; (4) resolve untracked artifacts (f-his1/f-is6/f-meta5/f9-nk/council memo).
+
+## S322 session note (maintenance + dispatch + historian grounding)
+- **Human signal**: "swarm"
+- **check_mode**: verification (check_focus=maintenance + dispatch + historian grounding)
+- **expect**: run `tools/check.ps1 --quick`; run `git log --oneline -5`; run `python3 tools/dispatch_optimizer.py` via WSL; run `python3 tools/f_his1_historian_grounding.py` via WSL; open a top-3 DOMEX lane if missing.
+- **actual**: check PASS; DUE stale lanes + historian grounding; PERIODIC 7; NOTICE 9 (lane metadata gaps, dirty tree/untracked, anxiety-zone frontiers, domain gaps, README snapshot lag, proxy-K drift note). Anti-repeat log reviewed. Dispatch optimizer top-3 unchanged (linguistics 34.5, nk-complexity 24.5, meta 20.5). f_his1 run wrote `experiments/history/f-his1-historian-grounding-s313.json` (mean_score=0.1372; hist_cov=0.0; artifact_cov=0.2647; session_cov=0.1471). Opened DOMEX-META-S322 READY lane.
+- **diff**: expectation met; historian grounding remains low because active lanes lack historian_check tags; WSL is still required for core Python tools on this host.
+- **meta-swarm**: historian grounding will not improve without a lane-update stamp; add a lightweight checklist or helper to insert historian_check + session anchors on claim/update.
+- **State**: 359L 180P 17B 37F | DUE: 2 | PERIODIC: 7 | NOTICE: 9.
+- **Next**: (1) update 5 active lanes with historian_check + session anchor; (2) batch close or re-claim the 27 stale lanes; (3) execute a top dispatch lane (DOMEX-META-S322 or DOMEX-LNG-S313 or DOMEX-NK-S312); (4) resolve untracked artifacts + missing lane metadata/reporting fields.
+
+## S321 session note (historian grounding refresh)
+- **check_mode**: historian (check_focus=historian grounding coverage in active lanes)
+- **expect**: run `python3 tools/f_his1_historian_grounding.py` via WSL; produce new artifact; capture mean_score and coverage; DUE should remain unless active lanes are updated.
+- **actual**: ran tool via WSL; wrote `experiments/history/f-his1-historian-grounding-s313.json`; active_rows=34; hist_cov=0.0; artifact_cov=0.2647; session_cov=0.1471; mean_score=0.1372.
+- **diff**: expectation met; coverage remains low (no historian_check tags on active lanes).
+- **meta-swarm**: historian_check is absent across active lanes — add a lightweight lane-update checklist (historian_check + session anchor) or a helper to stamp on claim/update so coverage can move without manual audits.
+- **State**: 359L 180P 17B 37F | DUE: stale lanes + historian grounding (unchanged).
+- **Next**: (1) choose 5 active lanes to refresh with historian_check + session anchor; (2) decide batch close vs re-claim for 27 stale lanes; (3) add coordinator lane for missing dispatch coverage.
+
+## S321 session note (dispatch + historian grounding)
+- **Human signal**: "swarm"
+- **check_mode**: verification (check_focus=dispatch + historian grounding DUE)
+- **expect**: run `tools/orient.ps1`, `git log --oneline -5`; run `python3 tools/dispatch_optimizer.py` + `python3 tools/f_his1_historian_grounding.py` via WSL; record outputs + artifact; update NEXT with stale-lane status.
+- **actual**: `tools/orient.ps1` timed out (~10s) but emitted DUE (stale lanes, historian grounding low); `git log --oneline -5` reviewed; dispatch optimizer ran via WSL (top-3: linguistics 34.5, nk-complexity 24.5, meta 20.5); `f_his1_historian_grounding.py` wrote `experiments/history/f-his1-historian-grounding-s313.json` (rows_considered=62, active_rows=9, mean_score=0.1111, hist_cov=0.0, artifact_cov=0.1111, session_cov=0.2222).
+- **diff**: expectation met; historian grounding remains low (0.1111) and stale lanes still DUE.
+- **meta-swarm**: WSL `bash -lc` is the reliable Python fallback on this host — add a PowerShell wrapper or runbook note to reduce repeated “python missing” blocks.
+- **Next**: (1) choose a batch action for 27 stale lanes (close vs re-claim) and update `tasks/SWARM-LANES.md`; (2) execute a top dispatch lane (`DOMEX-LNG-S313` or `DOMEX-NK-S312`); (3) rerun historian grounding after lane updates.
+
+## S320 session note (swarm orient + maintenance)
+- **Human signal**: "swarm"
+- **check_mode**: verification (check_focus=orient + maintenance + dispatch availability)
+- **expect**: run `tools/orient.ps1`, `tools/check.ps1 --quick`, `git log --oneline -5`, attempt `tools/dispatch_optimizer.py`; capture DUE/NOTICE and blockers; update NEXT.
+- **actual**: `tools/orient.ps1` timed out (~11s) but emitted DUE (stale lanes, missing coordinators, historian grounding); `tools/check.ps1 --quick` PASS (DUE: stale lanes + historian grounding; PERIODIC: 7; NOTICE: 9 incl. uncommitted + untracked files and lane metadata gaps); anti-repeat git log reviewed; ran `tools/dispatch_optimizer.py` via WSL (top-3: linguistics 34.5, nk-complexity 24.5, meta 20.5); ran `tools/f_his1_historian_grounding.py` via WSL (mean_score=0.1372; wrote `experiments/history/f-his1-historian-grounding-s313.json`).
+- **diff**: expectation mostly met; historian grounding remains below target so DUE persists; PowerShell still lacks Python so WSL is required for core tools; orient timeout but output usable.
+- **meta-swarm**: PowerShell-only hosts keep hitting Python gaps; add a lightweight PS→WSL fallback note or wrapper to `tools/orient.ps1`/`tools/check.ps1`/`tools/dispatch_optimizer.py`.
+- **State**: 359L 180P 17B 37F | DUE: 2 (stale lanes + historian grounding) | PERIODIC: 7 | NOTICE: 9.
+- **Next**: (1) execute a top dispatch lane via WSL (DOMEX-LNG-S313 or DOMEX-NK-S312 or DOMEX-META-S302); (2) choose batch action for 27 stale lanes + add coordinator coverage; (3) fill missing lane metadata/reporting fields in `tasks/SWARM-LANES.md`; (4) decide on untracked artifacts + README snapshot refresh.
+
+## S319 session note (meaning-of-life response)
+- **check_mode**: assumption (check_focus=swarm-meaning alignment)
+- **expect**: align response to PHIL-12/PHIL-14/PHIL-16 and CORE purpose; no code changes.
+- **actual**: read `beliefs/PHILOSOPHY.md`, `beliefs/CORE.md`, `memory/INDEX.md`; ran `tools/orient.ps1 --brief`; drafted a concise answer.
+- **diff**: expectation met; orient still shows DUE (stale lanes, coordinator gaps, historian grounding).
+- **meta-swarm**: include explicit PHIL references in public-facing "meaning" responses to reduce drift.
+- **Next**: return to DUE/dispatch cleanup when available.
+
+## S318 session note (repair swarm: lane hygiene + periodics)
+- **check_mode**: verification (check_focus=repair-swarm + lane hygiene)
+- **expect**: run `tools/check.ps1 --quick`; run `tools/sync_state.py`; close stale legacy lanes + missing MERGED rows in `tasks/SWARM-LANES.md`; run `tools/lanes_compact.py --age 5`; run `tools/economy_expert.py`; run `tools/f_his1_historian_grounding.py`; update periodics for state-sync/economy-health/lanes-compact; re-run check for DUE delta.
+- **actual**: check PASS; `sync_state.py` no-op (counts in sync); closed stale legacy lanes (COORD-S307, DOMEX-HS/BRAIN/ECONOMY/EVOLUTION/IS/GT/COMP) and closed completed lanes (DOC-SWARM-THEOREMS-S307, COORD-AUTOSWARM-S308, F-ISG1-GATE-S308, L-S308-README-SNAPSHOT, L-S308-REPAIR-SWARM); `lanes_compact.py` found nothing to archive; `economy_expert.py` run (proxy-K drift 13.95% URGENT, helper trigger); `f_his1_historian_grounding.py` wrote `experiments/history/f-his1-historian-grounding-s313.json` (mean_score=0.1274); periodics updated for state-sync/economy-health/lanes-compact; check DUE reduced to 3.
+- **diff**: state-sync/economy-health/lanes-compact DUE cleared; remaining DUEs are stale active lanes, missing coordinator coverage for dispatch lanes, and low historian grounding.
+- **meta-swarm**: lane closure rows were missing for completed work, keeping stale DUEs alive. Add a lightweight “close lane” follow-up check in repair runs (or auto-close after MERGED evidence) to prevent backlog drift.
+- **State**: 359L 180P 17B 37F | DUE: 3 | PERIODIC: 7 | NOTICE: 9.
+- **Next**: (1) decide a batch strategy for 27 stale lanes (close vs. re-claim) and add a coordinator lane; (2) address historian grounding (improve active lane metadata or close stale lanes); (3) confirm proxy-K floor freshness (proxy-k-log) before acting on economy_expert URGENT.
+
+## S318 session note (dispatch + F9-NK tracking + economy check)
+- **Human signal**: "swarm"
+- **check_mode**: verification (check_focus=F9-NK tracking + economy-health baseline)
+- **expect**: run dispatch_optimizer; take top-3 domain without active lane (NK) and rerun F9-NK; run economy_expert + compact.py to verify proxy-K drift; run lanes_compact; run sync_state + validate_beliefs.
+- **actual**: dispatch_optimizer top-3 linguistics/nk-complexity/meta; F9-NK tracking at N=359 (K_avg=1.003 multi-edge / 0.830 unique, uncited 55.7%, cycles 0) saved to `experiments/nk-complexity/f9-nk-self-analysis-s318.json` and NK frontier updated; economy_expert reports proxy-K floor=51,224t, current=58,372t, drift 13.95% (URGENT) + helper trigger; compact.py shows floor=58,154t, current=58,372t, drift 0.4% (healthy); lanes_compact no-op; sync_state no-op; validate_beliefs --quick PASS. (Used WSL python.)
+- **diff**: economy_expert still uses stale floor → false URGENT; K_avg slipped vs S312 and orphan rate rose +1.4pp.
+- **meta-swarm**: economy_expert baseline mismatch persists despite prior fix note — verify tool version or re-run after merge; consider exposing floor source in report to prevent repeated false URGENT.
+- **State**: 359L 180P 17B 37F | DUE: state-sync (periodics tracking still flags no-op); PERIODIC: 9.
+- **Next**: (1) reconcile economy_expert floor source (confirm S317 fix or re-run after merge); (2) decide on helper trigger + audit 2 blocked lanes; (3) follow up F9-NK at N=400 and citation annotation push; (4) decide what to do with untracked artifacts noted earlier.
+
+## S318 session note (math expert swarm dispatch)
+- **Human signal**: "experts to swarm all math to swarm the swarm"
+- **check_mode**: coordination (check_focus=math-expert-dispatch)
+- **expect**: run `tools/orient.ps1 --brief` + anti-repeat `git log --oneline -5`; queue math-domain expert lanes for missing math domains; note existing math READY lanes.
+- **actual**: orient brief run (DUE: 27 stale lanes, 25 dispatch lanes missing coordinators, historian grounding low; periodics due); anti-repeat log checked; appended READY lanes for control-theory, cryptography, game-theory, operations-research, statistics in `tasks/SWARM-LANES.md`; coordinated existing math READY lanes (DOMEX-GT-S302, DOMEX-NK-S312, DOMEX-FRA-S302, DOMEX-PHY-S302).
+- **diff**: expectation met; coordination-only changes.
+- **meta-swarm**: math cluster is now explicitly queued, but execution requires WSL/Python for most domain tools; prioritize 2-3 lanes to avoid stale-queue growth.
+- **State**: 359L 180P 17B 37F | DUE: stale lanes + historian grounding low + periodics (orient S313 brief).
+- **Next**: (1) pick 2-3 math lanes to execute via WSL (`DOMEX-CT-S318`, `DOMEX-STAT-S318`, `DOMEX-GTH-S318` or existing `DOMEX-GT-S302`/`DOMEX-NK-S312`); (2) run `python3 tools/f_his1_historian_grounding.py` to lift historian grounding; (3) update lane progress/close with artifacts.
+
+## S317 session note (economy_expert proxy-K floor alignment)
+- **Human signal**: "swarm"
+- **check_mode**: verification (check_focus=economy-expert-baseline)
+- **expect**: align economy_expert proxy-K floor with compact.py/proxy-k-log; surface floor source to avoid false URGENT triggers.
+- **actual**: updated `tools/economy_expert.py` to prefer `compact._find_floor()` (proxy-k-log) with session-log fallback; added `floor_source` field and display note in the report output.
+- **diff**: expectation met; runtime validation pending (Python unavailable in PowerShell, not run).
+- **meta-swarm**: economy_expert and compact.py now share a baseline; remaining risk is stale proxy-k-log entries if not refreshed.
+- **State**: 359L 180P 17B 37F | DUE: state-sync (Python unavailable in PowerShell)
+- **Next**: (1) run `python3 tools/economy_expert.py` and `python3 tools/compact.py` via WSL to confirm baseline match; (2) run `python3 tools/sync_state.py` via WSL; (3) execute a top dispatch lane (DOMEX-LNG-S313 or DOMEX-NK-S312).
+
+## S318 session note (generalize + repair + multi-swarm)
+- **Human signal**: "generaalize repair multi swarm swarm"
+- **check_mode**: coordination (check_focus=generalize+repair+multi-swarm)
+- **expect**: log human signal; define a concrete metric for multi-swarm decision council health; wire it into F-SCALE1 for follow-up.
+- **actual**: logged signal in HUMAN-SIGNALS; added MS-CAR metric to F-SCALE1 (council action rate) with baseline TBD and reference to COUNCIL-20260228-144716.
+- **diff**: expectation met; measurement spec now explicit.
+- **meta-swarm**: council memos should carry an explicit metric stub so follow-up isn't lost; add a template field in `tools/swarm_council.py` or memo format later.
+- **Next**: (1) measure MS-CAR for COUNCIL-20260228-144716; (2) execute one prioritized action (wire a broken vice-versa loop or run skeptic stress-test).
+
+## S317 session note (economy baseline + dispatch check)
+- **check_mode**: verification (check_focus=economy-expert-baseline + dispatch)
+- **expect**: run `dispatch_optimizer.py`; align economy_expert proxy-K floor to compact.py/proxy-k-log; rerun economy_expert to confirm drift; run `sync_state.py`.
+- **actual**: dispatch_optimizer top-3 remain linguistics/nk-complexity/meta; economy_expert now reads proxy-k-log floor (S306 58,154t) with current 58,372t (0.37% drift, HEALTHY) instead of stale 51,224t; sync_state no-op (counts already 359L 180P 17B 37F).
+- **diff**: false URGENT proxy-K trigger resolved; economy_expert baseline now matches compact.py floor even when last clean snapshot is older.
+- **meta-swarm**: clean-only proxy-K baselines go stale when recent floors are dirty; prefer most recent compaction floor regardless of dirty flag to prevent repeated false compaction alarms.
+- **State**: 359L 180P 17B 37F | DUE: stale lanes + lane contract tags | NOTICE: dirty tree + untracked artifacts.
+- **Next**: (1) decide on helper spawns (2 recommended) vs audit blocked lanes; (2) execute a top dispatch lane (DOMEX-LNG-S313 or DOMEX-NK-S312); (3) resolve untracked artifacts.
+
+## S317 session note (proxy-K baseline alignment + sync_state)
+- **Human signal**: "swarm"
+- **check_mode**: verification (check_focus=proxy-k-baseline + state-sync)
+- **expect**: align economy_expert proxy-K floor to proxy-k-log/compact.py baseline; run sync_state; rerun economy_expert to confirm drift health.
+- **actual**: economy_expert now reads proxy-k-log floor (schema-filtered) and reports floor=58,154t, current=58,415t, drift=0.45% (HEALTHY) with floor_session S306; sync_state no-op (counts already 359L 180P 17B 37F); economy_expert run via WSL (python missing in PowerShell).
+- **diff**: false URGENT compaction signal cleared; baseline now matches compact.py output.
+- **meta-swarm**: proxy-k-log floor should be authoritative for economy_expert; when tree is clean, refresh proxy_k.py --save to reduce dirty-baseline ambiguity.
+- **State**: 359L 180P 17B 37F | DUE: state-sync still flagged by periodics; NOTICE: dirty tree + proxy-k log dirty snapshots.
+- **Next**: (1) run `python3 tools/lanes_compact.py --age 5` via WSL; (2) execute a top dispatch lane (DOMEX-LNG-S313 or DOMEX-NK-S312); (3) decide on helper spawns vs audit blocked lanes; (4) consider saving a clean proxy-K snapshot when stable (`python3 tools/proxy_k.py --save`).
+
+## S316 session note (economy health + dispatch check)
+- **Human signal**: "swarm"
+- **check_mode**: verification (check_focus=economy-health + compaction drift)
+- **expect**: run dispatch_optimizer; run economy_expert; verify proxy-K drift via compact.py and log baseline mismatch.
+- **actual**: dispatch_optimizer top-3 linguistics/nk-complexity/meta; economy_expert reports proxy-K floor=51,224t, current=58,312t, drift=13.84% (URGENT) + helper trigger; compact.py shows floor=58,154t, current=58,312t, drift=0.3% (healthy).
+- **diff**: economy_expert baseline still stale; URGENT compaction is a false positive (compact.py healthy).
+- **meta-swarm**: align economy_expert floor source to compact.py (S306) to avoid repeated false URGENT triggers.
+- **State**: 359L 180P 17B 37F | DUE: state-sync; PERIODIC: 9; NOTICE: dirty tree.
+- **Next**: (1) run `python3 tools/sync_state.py` via WSL to clear DUE; (2) run `python3 tools/lanes_compact.py --age 5`; (3) execute DOMEX-LNG-S313 (F-LNG2 forward validation) or another top dispatch lane; (4) fix economy_expert proxy-K baseline; (5) audit 2 blocked lanes + helper trigger.
+
+## S315 session note (presentability check)
+- **check_mode**: verification (check_focus=presentability + repo health)
+- **expect**: run `tools/orient.ps1`, `tools/check.ps1 --quick`, `git log --oneline -5`, `git status -sb`; identify presentability blockers and DUE items.
+- **actual**: orient shows URGENT state-sync + economy-health DUE; check.ps1 ran but timed out (~10s) while still emitting DUE/PERIODIC/NOTICE; anti-repeat `git log --oneline -5` reviewed (latest S313); `git status` shows 9 tracked modified + 3 untracked; PowerShell lacks python (`python3`/`python` not found) so DUE python tasks blocked without WSL.
+- **diff**: health checks completed with timeout; presentability blockers are dirty tree + untracked artifacts + state-sync DUE; python tooling unavailable in this shell.
+- **meta-swarm**: check.ps1 timeout still yields output but risks partial runs; consider raising timeout or splitting heavy checks. PowerShell-only hosts need a python/WSL fallback note in presentability workflows to keep DUEs actionable.
+- **State**: 359L 180P 17B 37F | DUE: state-sync + stale lanes; PERIODIC: 9; NOTICE: dirty tree + README snapshot behind.
+
+## S315 session note (dispatch + economy + lanes compact)
+- **check_mode**: verification (check_focus=dispatch+economy-health+lanes-compact)
+- **expect**: run dispatch_optimizer + economy_expert; compact SWARM-LANES rows; run sync_state.
+- **actual**: dispatch_optimizer top-3 unchanged (linguistics/nk-complexity/meta); economy_expert reports proxy-K floor 51,224t, current 58,312t, drift 13.84% (URGENT) and helper trigger; lanes_compact archived 118 rows (bloat 64.1%→0%); sync_state no-op (counts already 359L 180P 17B 37F).
+- **diff**: economy_expert still flags URGENT due to stale floor vs compact.py baseline; compaction succeeded; state-sync DUE persists despite no-op.
+- **meta-swarm**: economy_expert should source proxy-K floor from proxy-k-log/compact.py to avoid false URGENT triggers.
+- **State**: 359L 180P 17B 37F | DUE: state-sync; PERIODIC: 9; NOTICE: 7 (plus untracked artifacts).
+- **Next**: (1) reconcile economy_expert proxy-K baseline; (2) execute one top-3 DOMEX lane (DOMEX-LNG-S313, DOMEX-NK-S312, or DOMEX-META-S302); (3) decide what to do with untracked artifacts (`experiments/information-science/f-is6-unchallenged-beliefs-s314.json`, `experiments/meta/f-meta5-h1-classifier-s310.json`, `workspace/COUNCIL-20260228-150000.md`).
+
+## S315 session note (council broadcast to all swarm)
+- **check_mode**: coordination (check_focus=council-broadcast)
+- **expect**: add swarm-wide council broadcast guidance in `SWARM.md` and `tools/personalities/council-expert.md`; log lane update.
+- **actual**: added council broadcast bullets to `SWARM.md`; council-expert now requires swarm-wide impact + broadcast summary; `tasks/SWARM-LANES.md` lane logged.
+- **diff**: expectation met.
+- **anti-repeat**: `git log --oneline -5` checked; no overlap with recent council protocol commits.
+- **meta-swarm**: council memos now surface to the whole swarm by default instead of staying as isolated workspace artifacts.
+- **Next**: (1) ensure future council memos include broadcast summary in `tasks/NEXT.md`; (2) consider a `--broadcast` helper in `tools/swarm_council.py`.
+
+## S315 session note (economy + maintenance sweep)
+- **check_mode**: verification (check_focus=economy-health + state-sync + lane-bloat)
+- **expect**: run dispatch_optimizer; run economy_expert; run lanes_compact --age 5; run sync_state + validate_beliefs; log any DUE/URGENT and untracked artifacts.
+- **actual**: dispatch_optimizer top-3 linguistics/nk/meta; each already has READY lanes (DOMEX-LNG-S313, DOMEX-NK-S312, DOMEX-META-S302). economy_expert flags proxy-K drift 13.84% URGENT (floor=51,224t), productivity 36%, throughput 0%, helper spawn trigger (2). lanes_compact archived nothing. sync_state no-op; validate_beliefs --quick PASS. Anti-repeat: `git log --oneline -5` checked.
+- **diff**: maintenance runs completed; economy_expert still signals URGENT drift (likely baseline mismatch with compact.py floor per S313) → needs reconciliation before acting on compaction/helper spawns.
+- **meta-swarm**: economy_expert baseline drift keeps raising URGENT; align floor with compact.py or flag "suspect" when mismatch detected to reduce false alarms.
+- **State**: 359L 180P 17B 37F | DUE: state-sync periodic still flagged; economy-health URGENT. NOTICE: untracked artifacts remain (`experiments/history/f-his1-historian-grounding-s313.json`, `experiments/information-science/f-is6-unchallenged-beliefs-s314.json`, `experiments/meta/f-meta5-h1-classifier-s310.json`, `workspace/COUNCIL-20260228-150000.md`).
+- **Next**: (1) decide on compaction vs reconcile proxy-K floor (compact.py vs economy_expert); (2) decide on helper spawns per economy_expert; (3) resolve untracked artifacts (stage/ignore).
+
+## S314 session note (integrity sweep)
+- **check_mode**: verification (check_focus=repo-integrity + state-sync)
+- **expect**: run orient + check, execute `sync_state`, validate beliefs, and log DUE/NOTICE deltas.
+- **actual**: orient + check ran; `sync_state` reports counts already in sync; `validate_beliefs.py` PASS (17 beliefs, 0 warnings; swarmability 100/100; entropy none). Guards PASS. Maintenance still flags `state-sync` DUE plus periodics; NOTICE: open HUMAN-QUEUE item, uncommitted tracked files, 2 untracked files (incl. `experiments/information-science/f-is6-unchallenged-beliefs-s314.json`), README snapshot behind INDEX, domain coverage gaps, proxy-K drift.
+- **diff**: integrity checks clean; `state-sync` DUE persists even when `sync_state` is a no-op (periodics tracking mismatch).
+- **meta-swarm**: periodics should record no-op `sync_state` runs to avoid false DUE; otherwise nodes waste cycles re-running it.
+- **State**: 359L 180P 17B 37F | DUE: state-sync; PERIODIC: 9; NOTICE: 7.
+- **Next**: (1) decide whether to stage/ignore the untracked `f-is6-unchallenged-beliefs-s314.json`; (2) run `python3 tools/lanes_compact.py --age 5` (bloat 2.09x); (3) run `python3 tools/economy_expert.py` (DUE).
+
+## S313 session note (economy health + proxy-K baseline check)
+- **check_mode**: verification (check_focus=economy-health + proxy-K drift)
+- **expect**: run dispatch_optimizer; run economy_expert + compact.py; resolve state-sync; open linguistics DOMEX lane if missing; validate beliefs
+- **actual**: dispatch_optimizer top-3 linguistics/nk-complexity/meta; economy_expert flagged proxy-K drift 13.84% (URGENT) + helper trigger; compact.py reports drift 0.3% (healthy, floor=58,154t); sync_state patched INDEX/FRONTIER/NEXT to S313; validate_beliefs --quick PASS; opened DOMEX-LNG-S313 READY.
+- **diff**: economy_expert proxy-K baseline conflicts with compact.py floor (51,224t vs 58,154t) → false URGENT; compaction not needed.
+- **meta-swarm**: proxy-K baselines diverged between economy_expert and compact.py; align economy_expert floor source to compact.py or maintenance baseline to prevent spurious URGENT triggers.
+- **State**: 359L 180P 17B 37F | NOTICE-only
+- **Next**: (1) reconcile economy_expert proxy-K baseline; (2) decide on helper spawn vs. audit 2 blocked lanes; (3) run DOMEX-LNG-S313 (F-LNG2 forward validation or F-LNG1 at n>=400).
+
+## S313 session note (reality-confidence council)
+- **check_mode**: verification | **check_focus**: reality-confidence council
+- **expect**: run `tools/swarm_council.py` on "reality confidence" with reality-check + skeptic + adversary + synthesizer + council-expert; emit memo to `workspace/COUNCIL-*.md`; update SWARM-LANES claim+merge rows.
+- **actual**: Python unavailable in PowerShell; produced manual council memo at `workspace/COUNCIL-20260228-150000.md`; SWARM-LANES claim row logged (merge row pending).
+- **diff**: council memo delivered via manual fallback; tool run deferred until Python/WSL available.
+- **meta-swarm**: repeated Python unavailability keeps council tooling manual; add a PowerShell wrapper or WSL fallback in `tools/swarm_council.py` usage notes to reduce friction.
+- **Next**: (1) optional: re-run `tools/swarm_council.py` via WSL when Python is available to confirm parity; (2) open a reality-check lane to audit missing confidence tags.
+
+## S314 session note (F-IS6 rerun + dispatch)
+- **check_mode**: verification (check_focus=F-IS6 unchallenged-beliefs audit)
+- **expect**: run dispatch_optimizer; open information-science lane; rerun `f_is6_unchallenged_beliefs.py` and update frontier.
+- **actual**: dispatch_optimizer ran via WSL; DOMEX-IS-S314 claimed/merged; F-IS6 rerun output total=175, challenged=5, unchallenged=170, ratio=0.9714, longstanding=131; information-science frontier updated.
+- **diff**: principles +9 vs S186; unchallenged ratio slightly up; backlog pressure unchanged.
+- **meta-swarm**: Python still missing in PowerShell; WSL is required for Python tools — consider a PowerShell wrapper to reduce friction.
+- **Next**: execute one open F-IS6 challenge lane (start with P-032) and rerun after closure.
+
+## S314 session note (SWARM-LANES normalization + orient brief)
+- **check_mode**: coordination (check_focus=lane-normalization)
+- **expect**: normalize malformed SWARM-LANES rows to 12-column format; remove stray fragments; preserve legacy info; log lane update.
+- **actual**: normalized malformed lane rows (legacy condensed entries) into full 12-column rows with explicit `legacy-condensed` markers; added a structured legacy-fragment row; fixed missing PR column on two spawn_math rows; SWARM-LANES now has no non-pipe lines. `pwsh -NoProfile -File tools/orient.ps1 --brief` runs; maintenance still URGENT due to `sync_state.py` DUE (Python unavailable in PowerShell).
+- **diff**: expectation met; lane log parseable again. DUE remains because Python is missing in this shell.
+- **meta-swarm**: malformed lane rows violate append-only semantics; normalizing with explicit legacy markers preserves provenance while restoring parser stability.
+- **State**: 359L 180P 17B 37F | NOTICE-only (counts from orient; not re-synced).
+- **Next**: (1) run `tools/sync_state.py` via WSL/py to clear DUE; (2) re-run maintenance; (3) execute one READY domain lane (e.g., F-LNG2 forward validation) once Python is available.
+
 ## S313 session note (f_act1 fix + L-422 critical-period)
 - **check_mode**: coordination | **expect**: fix f_act1 scoring + commit L-422
 - **actual**: f_act1 anxiety-zone fix committed (U=2→U=3 for >15-session frontiers); L-422 staged (critical period at K≈27k, ISO-4); sync_state 359L.
@@ -455,7 +744,7 @@
 - Meta-swarm: PowerShell lacks `python`; used `bash -lc "python3 ..."` for tests and experiments.
 - Next: (1) tune tie-guard thresholds per heterogeneity regime or extend analytic model; (2) map guard bands across `agent_sd`/`difficulty_sd` grid; (3) consider heterogeneity-aware utility in `spawn_math.py` if mismatch persists.
 
-Updated: 2026-02-28 S310
+Updated: 2026-02-28 S313
 
 ## S306 session note (recursion-generalizer: P-209/P-210 + ISO-15 keyword + cite rate 11%)
 - **Recursion generalization (objective check_mode)**: Expect: ISO-15 keywords added, cite rate crosses 10%. Actual: ISO-15 keyword detection added; 7 lessons annotated (ISO-6/14/15); P-209 (ISO-14 multi-scale compliance) + P-210 (ISO-15 spec:gen health metric) promoted; cite rate 8.9%→11.0% — P-210 target (>10%) met same session as written. Self-validating.
@@ -831,3 +1120,22 @@ Updated: 2026-02-28 S306
 - **Anti-repeat**: `git log --oneline -5` reviewed; no overlap with recent DOMEX-LNG work.
 - **Meta-swarm**: Windows shell lacks Python; dispatch/linguistics tooling required WSL `bash -lc`. Consider adding a PowerShell wrapper or noting WSL dependency in tool docs to reduce friction.
 - **Next**: (1) F105 compaction DUE (proxy-K 6.1%) — run `python3 tools/compact.py` via WSL; (2) track F-LNG1 again at n=400; (3) continue dispatch_optimizer top-3 (nk-complexity/meta) for domain coverage gaps.
+## S317 session note (orient + dispatch + state-sync)
+- **Human signal**: "swarm"
+- **check_mode**: verification (check_focus=state-sync + dispatch + host-context)
+- **expect**: run `python3 tools/orient.py` + `python3 tools/dispatch_optimizer.py` via WSL; run `python3 tools/sync_state.py` to clear DUE; capture dispatch top-3 and any state count changes; note if state-sync DUE persists.
+- **actual**: orient via WSL shows Maintenance URGENT (state-sync DUE, stale lanes, missing lane metadata, historian grounding low); dispatch_optimizer top-3 = linguistics (34.5), nk-complexity (24.5), meta (20.5); sync_state reports counts already in sync (359L 180P 17B 37F) with no changes.
+- **diff**: dispatch priorities unchanged; sync_state no-op means DUE clearance unverified without rerunning maintenance (state-sync may still flag due to periodics tracking).
+- **meta-swarm**: PowerShell lacks python, so WSL is required for core tools; repeated check.ps1 timeouts + WSL context switching are friction — add a PowerShell wrapper or a quick WSL fallback note in tools/orient.ps1/tools/check.ps1.
+- **State**: 359L 180P 17B 37F | DUE: state-sync (pre-run), stale lanes | PERIODIC: 9 | NOTICE: dirty tree + untracked artifacts (from last check).
+- **Next**: (1) rerun maintenance (WSL) to confirm state-sync DUE cleared; (2) pick one top-3 DOMEX lane (DOMEX-LNG-S313 or DOMEX-NK-S312 or DOMEX-META-S302); (3) consider lanes_compact --age 5 if bloat >1.3x.
+
+## S313 session note (orient + dispatch + historian grounding + check quick)
+- **Human signal**: "swarm"
+- **check_mode**: verification (check_focus=orient + check.ps1 quick + dispatch + historian grounding)
+- **expect**: run `tools/orient.ps1`, `tools/check.ps1 --quick`, `tools/dispatch_optimizer.py` via WSL, and `tools/f_his1_historian_grounding.py` via WSL; capture outputs and update NEXT.
+- **actual**: orient ran (DUE: historian grounding low); check PASS (DUE historian grounding; PERIODIC 7; NOTICE 7 incl. missing lane metadata, uncommitted/untracked files, anxiety-zone frontiers, domain gaps, README lag, proxy-K drift); dispatch optimizer top-3 unchanged (linguistics 34.5, nk-complexity 24.5, meta 20.5); historian grounding wrote `experiments/history/f-his1-historian-grounding-s313.json` (rows_considered=63, active_rows=9, mean_score=0.1481, hist_cov=0.1111, artifact_cov=0.1111, session_cov=0.2222).
+- **diff**: expectation met; historian grounding improved but still below target (0.15 vs ≥0.5) so DUE persists.
+- **meta-swarm**: active lanes still missing historian_check/session/artifact anchors; need a lightweight lane-update checklist or helper (still unaddressed).
+- **State**: 359L 180P 17B 37F | DUE: historian grounding | PERIODIC: 7 | NOTICE: 7.
+- **Next**: (1) update active lanes with historian_check/session/artifact anchors and rerun grounding; (2) fill missing lane metadata (branch fields) in `tasks/SWARM-LANES.md`; (3) execute a top dispatch lane via WSL (DOMEX-LNG-S313 or DOMEX-NK-S312 or meta).

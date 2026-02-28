@@ -1,18 +1,18 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-37 active | Last updated: 2026-02-28 S310
+35 active | Last updated: 2026-02-28 S313
 
 ## Critical
-- **F111**: Can swarm operate as builder? **S82: YES** — 3 functions extracted (-407 lines, 13/13 tests; L-175). Remaining: human deploy decision (workspace ready).
+
 
 - **F119**: How can swarm satisfy mission constraints? S307: I9 risk taxonomy updated (L-366); HIGH_RISK_LANE_PATTERNS hardened; 51/51 MC-SAFE. S310 PARTIAL: (a) colony I9 propagation DONE — 40 COLONY.md files carry MC-SAFE block. Open: (b) I13 cross-substrate (F120); (c) F-CC1 cron sessions (I9 automation gap). Related: L-386, L-366, F120, F-HUM1.
 
 ## Important
 - **F-EVAL1**: Is the swarm good enough? S192 PARTIAL: 4 PHIL-14 goals pass minimum threshold, none externally grounded. Composite: PARTIAL (1.5/3 per L-323). Open: external grounding >10%, frontier resolution rate. Related: PHIL-14, PHIL-16, B-EVAL1/2/3.
 
-- **F105**: Online compaction — DUE >6%, URGENT >10%. S98: compact.py = per-file targets + proven techniques. Open: validate compact.py each cycle. (P-163, L-192)
-- **F101**: Domain sharding Phase 2: domain INDEXes DONE S96. GLOBAL-INDEX deferred. (P-111)
+- **F105**: Online compaction monitor. compact.py operational (P-163, L-192). S313: drift=0.4% (healthy). Threshold: DUE>6%, URGENT>10%. No action needed; monitor each cycle.
+
 - **F115**: Living self-paper — v0.13 S300; drift monitor in maintenance.py. Open: G3 external replication, G4 baseline. See F-PUB1.
 - **F-PUB1**: Can swarm reach external publication? S300 PARTIAL: G1+G2 DONE. Gaps: G3 (no external replication), G4 (no baseline). arXiv path ready pending author review. See L-337, L-338.
 - **F133**: Can swarm recruit external experts via human relay? S192 PARTIAL: `tasks/OUTREACH-QUEUE.md` created, 4 draft contacts (OQ-1..4). Open: measure response rate; build expert-response parser. Related: F121, F127.
@@ -87,6 +87,7 @@ NK Complexity and Distributed Systems are test beds for swarm capability, not pr
 - **F-HUM1**: Can swarm formalize multi-human governance and bad-signal detection? S306 OPEN: (1) no bad-signal detection; (2) multi-human unaddressed. Open: wire signal-vs-state check; per-human provenance in HUMAN-SIGNALS.md. Related: F134, F-COMM1, F-GOV4, L-373.
 
 - **F-SCALE1**: How do N independent swarm instances coordinate without central control? OPEN: protocol = only cross-swarm invariant; ISO atlas = portable bridge. Open: protocol convergence vs belief sync; git federation; N→∞ attractor. Related: F-STRUCT1, F133, F-COMM1, L-390.
+  Metric: Multi-swarm council action rate (MS-CAR) = actions with lane/frontier updates within 2 sessions / total actions; baseline TBD (apply to COUNCIL-20260228-144716).
 
 - **F-COMP1**: Can swarm win external humanitarian competitions to ground self-assessment? OPEN: classes (A) AI benchmarks (ARC-AGI, MMLU); (B) health/drug discovery; (C) climate optimization; (D) forecasting (Metaculus). DOMEX lanes need deadline+current_score+target_score. Open: identify ≥3 live competitions → dispatch → measure vs baseline. Related: F-EVAL1, F-REAL1, F133, L-404.
 
@@ -95,5 +96,7 @@ NK Complexity and Distributed Systems are test beds for swarm capability, not pr
 ## Archive
 Resolved questions: `tasks/FRONTIER-ARCHIVE.md`
 
+- **F111**: Can swarm operate as builder? **S313 DONE** — Question answered YES at S82 (3 functions extracted, -407 lines, 13/13 tests, L-175). "Human deploy decision" was not blocking the answer — the builder capability is proven. Held open for 231 sessions on a non-blocking remainder.
+- **F101**: Domain sharding Phase 2. **S313 DONE** — domain INDEXes built at S96; GLOBAL-INDEX deferred and INDEX.md serves that role. No remaining work. (P-111)
 - **F110**: How can swarm miscoordinate when swarming itself? **S310 DONE** — 10 cases / 3 tiers all closed. T1+T2 done (S58/L-122). T3 (lane contract): check_lane_reporting_quality() wired in maintenance.py; 0/36 violations vs 276/278 at baseline. Dual fix = enforcement + lifecycle pruning (L-419).
 - **F112**: Can repo files be testable, relation-bearing swarm nodes? **S310 DONE** — `check_file_graph()` returns 0 broken references at 353L scale. (L-415)
