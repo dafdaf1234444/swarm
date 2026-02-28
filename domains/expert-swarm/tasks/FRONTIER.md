@@ -1,6 +1,6 @@
 # Expert Swarm Domain — Frontier Questions
 Domain agent: write here for expert-swarm-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-02-28 S303 | Active: 5
+Updated: 2026-02-28 S303 | Active: 4
 
 ## Active
 
@@ -12,10 +12,7 @@ Updated: 2026-02-28 S303 | Active: 5
 
 - **F-EXP4**: When does colony bootstrapping outperform per-session DOMEX dispatch for domain continuity? Design: compare meta/brain colonies (new COLONY.md pattern) vs equivalent non-colony domains on: time-to-artifact, frontier closure rate, lesson production per session. Instrument: `tools/swarm_colony.py status`. Cross-link: control-theory.
 
-- **F-EXP5**: Does the generalizer expert produce higher lesson→principle compression ratio than domain experts? Baseline: 10/322 lessons cite ISO (3.1%); 145/322 (45%) have ISO-mappable content (L-358). Design: run one dedicated generalizer session adding ISO citations to 20+ ISO-mappable lessons; measure post-session compression ratio vs baseline. Instrument: `tools/generalizer_expert.py` with ISO-density metric. Cross-link: meta/F-GEN1.
-  - **S303 seed**: Baseline measured. ISO-6(entropy): 52 uncited, ISO-9(bottleneck): 43, ISO-3(compression): 40. Tool blind spot confirmed — F-prefix proxy underestimates by 14.5x. Artifact: `experiments/meta/f-gen1-compression-baseline-s303.json`.
-
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
-| None | - | - | - |
+| F-EXP5 | YES — annotation pass raised cite rate 3.4%→8.5% (2.5x), gap 13x→5x. ISO-14 added to atlas. 18 lessons annotated. | S303 | 2026-02-28 |

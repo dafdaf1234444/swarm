@@ -1,5 +1,5 @@
 # Isomorphism Atlas — Atlas of Deep Structure
-v0.6 | 2026-02-28 | S298 | ISO-13 (integral windup / lane backlog divergence) added from loop expert audit
+v0.7 | 2026-02-28 | S303 | ISO-14 (recursive self-similarity / fractal structure) added from recursion-generalizer session
 
 ## What this is
 A cross-domain atlas of structural equivalences. Each entry maps one abstract structure to its manifestations across multiple domains. This is NOT a fact database — it is a compression of world knowledge into shared structure.
@@ -297,12 +297,32 @@ aggressively loses signal. Optimal design balances accumulation rate against dis
 
 ---
 
+### ISO-14: Recursive self-similarity — the part contains the whole
+**Structure**: A process or structure that contains scaled copies of itself, such that the rules governing the whole also govern the parts at every level of resolution. Self-similarity is not mere repetition — the embedded copies are structurally identical, only scaled.
+
+| Domain | Manifestation | Notes |
+|--------|---------------|-------|
+| Mathematics / Fractals | Mandelbrot set, Koch snowflake, Sierpinski triangle | Infinitely self-similar under magnification; dimension is non-integer |
+| Computer science | Recursive algorithms and data structures | Quicksort, tree traversal, divide-and-conquer — the algorithm calls itself on a smaller instance |
+| Linguistics | Recursive phrase structure (Chomsky) | Center-embedding: "the rat the cat the dog chased killed ate the malt" — unbounded nesting in finite grammar |
+| Biology | Branching morphogenesis | Lung alveoli, vascular trees, neuron dendrites, leaf venation — same bifurcation rule at every scale |
+| Physics | Renormalization group theory | Same Hamiltonian form applies at different energy scales; fixed points are self-similar attractors |
+| Swarm | Multi-scale orient→act→compress→handoff | Same cycle at session, domain, colony, meta-swarm level; generalizer generalizes the generalizer; compactor is itself compacted |
+| Evolution | Nested levels of selection | Gene, organism, kin group, species — each level runs similar selection dynamics on the level below |
+| Cognition | Metacognition + recursive self-models | Thinking about thinking; agents that model themselves modeling others; recursive ToM |
+
+**Sharpe: 3** (6 domains rigorously documented; swarm instance is structurally measured S303; CS/math cases formally proven; others structural/theorized)
+**Gaps**: Chemistry (autocatalytic sets, Kauffman), Economics (fractal market hypothesis — Mandelbrot), Organizations (holacracy as fractal org design), Neuroscience (cortical column minicolumns?)
+**Inversion**: Broken self-similarity = scale discontinuity. When the rules at level N do not generalize to level N+1, the system requires separate coordination mechanisms per level — combinatorial management cost. ISO-3 (MDL compression) is only possible when self-similarity holds.
+
+---
+
 ## Synthesis: hub domains
 Domains appearing in 4+ entries — highest isomorphism density, swarm first:
 
 | Domain | Entries | Why hub |
 |--------|---------|---------|
-| Swarm/meta | ISO-1,2,3,4,5,6,7,8,9,10,11,12,13 | All thirteen; ISO-11: citation diffusion; ISO-12: coordinator bottleneck; ISO-13: lane backlog windup |
+| Swarm/meta | ISO-1,2,3,4,5,6,7,8,9,10,11,12,13,14 | All fourteen; ISO-11: citation diffusion; ISO-12: coordinator bottleneck; ISO-13: lane backlog windup; ISO-14: multi-scale session cycle |
 | Economics | ISO-1,2,3,4,5,6,7,8,9,10,11,12 | All twelve; ISO-11: financial contagion; ISO-12: supply chain bottleneck |
 | Mathematics | ISO-1,3,4,7,8,10,11,12 | Eight entries; ISO-11: random walk foundation; ISO-12: Ford-Fulkerson proven |
 | Neuroscience | ISO-1,2,3,4,5,7,9,10,11 | Nine entries; ISO-11: neural signal propagation + spreading depolarization |
@@ -335,6 +355,7 @@ F126: swarm → isomorphism atlas → world knowledge base (world is beneficiary
 Both share the mechanism. F126 inverts the directionality of value flow.
 
 ## Version history
+- v0.7 (S303): ISO-14 recursive self-similarity (fractals / recursive algorithms / swarm multi-scale cycle / nested selection / morphogenesis); Swarm/meta hub expanded to all 14 entries
 - v0.6 (S298): ISO-13 integral windup (PID windup / lane backlog / queue overflow / bullwhip); Control theory hub expanded to ISO-1,5,10,13; loop expert audit produced measurement basis (n=479 lanes)
 - v0.5 (S196): ISO-11 network diffusion (random walk / PageRank / epidemic / contagion); ISO-12 max-flow min-cut (Ford-Fulkerson / vascular / supply chain / org bottlenecks); hub table expanded; Computer science + Social science added as first-class hubs; Physics/Math/Neuro all expand
 - v0.4 (S189): ISO-10 predict-error-revise; independently confirmed by 3 domain experts via paper extraction

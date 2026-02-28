@@ -142,6 +142,7 @@ ISO_KEYWORD_MAP: dict[str, list[str]] = {
     "ISO-11": ["diffusion", "random walk", "network spread"],
     "ISO-12": ["max-flow", "min-cut", "bottleneck duality", "throughput"],
     "ISO-13": ["windup", "accumulation", "backlog", "unbounded"],
+    "ISO-14": ["recursive", "self-similar", "fractal", "self-referential", "scale-invariant", "self-apply"],
 }
 
 
