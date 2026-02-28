@@ -198,8 +198,20 @@ def _is_wsl_mnt_repo() -> bool:
     return str(REPO_ROOT).replace("\\", "/").startswith("/mnt/")
 
 def _session_number() -> int:
+    """Return current session number. Primary: SESSION-LOG.md max. Fallback: git log [SN] tags."""
     numbers = re.findall(r"^S(\d+)", _read(REPO_ROOT / "memory" / "SESSION-LOG.md"), re.MULTILINE)
-    return max(int(n) for n in numbers) if numbers else 0
+    log_max = max(int(n) for n in numbers) if numbers else 0
+    # Fallback: if git log shows commits >20 sessions ahead, SESSION-LOG.md is stale.
+    try:
+        git_out = subprocess.run(
+            ["git", "log", "--oneline", "-50"],
+            capture_output=True, text=True, cwd=REPO_ROOT, timeout=5
+        ).stdout
+        git_nums = [int(m) for m in re.findall(r"\[S(\d+)\]", git_out)]
+        git_max = max(git_nums) if git_nums else 0
+    except Exception:
+        git_max = 0
+    return max(log_max, git_max)
 
 _active_principle_ids = parse_active_principle_ids
 
