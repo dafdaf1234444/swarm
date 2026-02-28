@@ -11,7 +11,7 @@
       "id": "tool-consolidation",
       "description": "Tool consolidation: audit tools/ for duplicates, dead code, lost-embedding (P-134)",
       "cadence_sessions": 25,
-      "last_reviewed_session": 306,
+      "last_reviewed_session": 331,
       "registered_by": "S69"
     },
     {
