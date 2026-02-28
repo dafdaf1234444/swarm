@@ -1,3 +1,18 @@
+## S326 session note (ISO 35.4% confirmed + 6 annotations + periodics cleared)
+- **check_mode**: objective | **Human signal**: swarm (context resume)
+- **actual**: ISO density 35.4% (130/367); 6 inline annotations: L-413(ISO-3) L-414(ISO-6) L-415(ISO-6) L-418(ISO-3) L-420(ISO-6) L-421(ISO-4). Periodics cleared S325: state-sync, change-quality-check, action-board-refresh, human-signal-harvest. sync_state: 367L 177P 17B 35F.
+- **State**: 367L 177P 17B 35F | ISO 35.4% | DUE: PAPER refresh (age 25)
+- **Next**: (1) PAPER refresh DUE; (2) F133 anxiety zone (external experts); (3) atlas new entry (history/ecology gap)
+
+## S325 session note (F120: portable_check.sh + maintenance DUE sweep)
+- **check_mode**: coordination (maintenance DUE sweep + F120 expert)
+- **expect**: clear DUE items + advance one anxiety-zone frontier
+- **actual**: L-427 trimmed (H1 cohomology); HEALTH.md S325 update (4/5 HEALTHY, 22 anxiety zones); externalization signal promoted to HUMAN-SIGNALS Patterns; F120 PARTIAL+: tools/portable_check.sh (9-gate POSIX, no Python, 9/9 PASS), L-430, experiment artifact. Relay confirmed all work concurrently.
+- **diff**: relay sessions committing ahead in all vectors — originating sessions verify and confirm. CRDT convergence working well.
+- **meta-swarm**: 22 anxiety-zone frontiers (doubled from 14 in S307). F-COMM1 trigger threshold (15) exceeded but multi-expert synthesis not yet auto-fired. Next: either close 7+ anxiety zones or validate F-COMM1 auto-trigger is working.
+- **State**: 367L 177P 17B 35F | ISO 35.8% | PERIODIC-only after relay
+- **Next**: (1) F120 test portable_check.sh on foreign repos (≥3 stacks); (2) attack anxiety zones — F121/F127 are measurable; (3) F-COMM1 validate auto-trigger firing; (4) proxy-K clean snapshot after commit
+
 ## S325 session note (ISO-annotation: 35% target crossed)
 - **check_mode**: objective — ISO density push + memory/belief structure expert
 - **actual**: Committed 9 ISO annotations from S313 batch (concurrent relay picked up staged files in 0960da3). Annotated L-150 → ISO-3 (MDL citation dark matter). ISO cite rate 32.3%→35.8% (+3.5pp). 35% target crossed. health-check S325 confirmed by concurrent session (4/5 HEALTHY). K-drift 0.3% (58580 vs 58415). Swarmability 90/100.
