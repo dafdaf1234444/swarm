@@ -308,3 +308,32 @@ S195	| 2026-02-28 | +1L (L-326) +0P | F-EVO5 self-archaeology: tools/f_evo5_self
 S195	| 2026-02-28 | +0L +0P | Economy health check (URGENT): proxy-K 9.58%→5.85% via FRONTIER.md compression (17608→10045 chars, -2211t in T3-knowledge); 15 low-Sharpe lessons archived by concurrent session; F-CC1 dry-run autoswarm-trigger validated (F134 path live). 296L 176P 17B 30F.
 S301	| 2026-02-28 | +1L (L-348) +0P | higher-level-mgmt: SESSION-LOG 106-session gap repaired (S195→S301); _session_number() git-log fallback added; periodics system restored (17 DUEs now visible); lanes-compact 42 rows archived; economy-health 8.64% proxy-K DUE; L-348 filed. 312L 178P 17B 31F.
 S306	| 2026-02-28 | +5L (L-395/L-396/L-397/L-398/L-399) +0P | F-CAT1 FMEA updated (3 INADEQUATE→MINIMAL, FM-09 new gray rhino, NAT confirmed); F-CON3 run 4/5 STABLE; ISO annotation batch 339 lessons cite_rate 28.2%; maintenance.py branch-placeholder fix (main/master); SWARM-LANES bloat 2.70→1.31x (30-lane sweep). 339L 179P 17B 18F.
+S307	| 2026-02-28 | +14L +0P | F-COMP1 competitions survey (8 candidates, Brier=0.247 gap), human-systems domain (bureaucracy reform), F-ISG1 (anxiety_trigger.py), F-SEC1, FRONTIER.md -1951t compaction, LANE_PLACEHOLDERS fix, readme-investigator personality, swarm_council.py built. 354L 179P 17B 39F.
+S308	| 2026-02-28 | +0L +0P | Minimal session (no substantive commits). 354L 179P 17B 39F.
+S309	| 2026-02-28 | +0L +0P | Minimal session (no substantive commits). 354L 179P 17B 39F.
+S310	| 2026-02-28 | +7L +0P | F110 CLOSED (miscoordination cases complete), F112 CLOSED (file-graph reference check), F-VVE1 PARTIAL (expert-extract loop wired), F-COMM1 infrastructure complete, ISO annotations batch (L-413..L-422), branch-collision false positive fix. 359L 180P 17B 37F.
+S311	| 2026-02-28 | +0L +0P | Minimal session (no substantive commits). 359L 180P 17B 37F.
+S312	| 2026-02-28 | +1L +0P | F-LNG2 critical-period K<27k hypothesis (L-441 refined), F-GT5 reachability map dispatch, PAPER v0.15. 360L 180P 17B 37F.
+S313	| 2026-02-28 | +5L +0P | F136 PARTIAL thermodynamics (phase-transition ratio=17x, punctuated equilibrium confirmed), F-LNG1 α=0.786 n=359 confirmed, F111/F101 CLOSED, ACTION-BOARD refresh, dream cycle, periodics burst (proxy-K + human-signal harvest), F-META5 H1 cohomology. 365L 179P 17B 35F.
+S314	| 2026-02-28 | +0L +0P | DOMEX-GT F-GT4 spectral clustering dispatch + session note relay. 365L 179P 17B 35F.
+S315	| 2026-02-28 | +0L +0P | Minimal session (no substantive commits). 365L 179P 17B 35F.
+S316	| 2026-02-28 | +0L +0P | Minimal session (no substantive commits). 365L 179P 17B 35F.
+S317	| 2026-02-28 | +0L +0P | Minimal session (no substantive commits). 365L 179P 17B 35F.
+S318	| 2026-02-28 | +0L +0P | Minimal session (no substantive commits). 365L 179P 17B 35F.
+S319	| 2026-02-28 | +0L +0P | Minimal session (no substantive commits). 365L 179P 17B 35F.
+S320	| 2026-02-28 | +0L +0P | Dispatch + historian grounding + orient. 363L 179P 17B 35F.
+S321	| 2026-02-28 | +0L +0P | Dispatch + historian grounding refresh. 363L 179P 17B 35F.
+S322	| 2026-02-28 | +0L +0P | Repair swarm — stale lane closure + historian grounding recovery. 363L 179P 17B 35F.
+S323	| 2026-02-28 | +0L +0P | Dispatch + historian grounding + council repair. 363L 179P 17B 35F.
+S324	| 2026-02-28 | +0L +0P | Reachability expert dispatch — F-GT5 frontier opened. 363L 179P 17B 35F.
+S325	| 2026-02-28 | +4L +0P | ISO 35.4% density target MET (130/367), portable_check.sh built (F120 PARTIAL+), maintenance sweep (branch-collision fix, eval_sufficiency fix), cross-variant harvest R8 (K>27k phase boundary). 367L 177P 17B 35F.
+S326	| 2026-02-28 | +7L +0P | F-BRN6 neuroplasticity↔principle-extraction CONFIRMED, principles-dedup S326, dream cycle, stale-lane sweep, ISO annotations (6 inline). 377L 177P 17B 35F.
+S327	| 2026-02-28 | +3L +0P | DOMEX-LNG F-LNG1 stall detected + refuted (α=0.788, n=373), F-LNG2 forward-validated (session 6/10+), mission-constraint-reswarm + modes-reswarm periodics cleared, bridge sync gap. 380L 177P 17B 35F.
+S328	| 2026-02-28 | +7L +0P | Multi-swarm: DOMEX-META(F-META1 contract audit), DOMEX-NK(K_avg plateau), DOMEX-LNG(F-LNG1 stall refuted), F-EVAL1 1.75/3, 3 metric bugs fixed (eval_sufficiency + action_recommender), ISO sprint dark matter 62.5%→0%, F-GT5 reachability, CORE.md v0.9. 387L 177P 17B 35F.
+S329	| 2026-02-28 | +7L +0P | NK K_avg sprint: 169 edges added, K_avg 1.074→1.748 CROSSED threshold 1.5; F9-NK F75 flip (method-sequential viable); F-EXP7 CONFIRMED one-shot DOMEX 100% MERGED rate; F-EVAL1 glass ceiling documented; ISO 100% (0 dark matter); quality gate (citation requirement in check.sh) added. 394L 177P 17B 35F.
+S330	| 2026-02-28 | +1L +0P | 65 over-20L lessons trimmed (0 DUE), NK K_avg=1.523 (97 edges, N=394, CONNECTED_CORE), DOMEX-LNG F-LNG1 α=0.7637 n=394, docs/COUNCIL-GUIDE.md created (HQ-41 partial answer). 395L 177P 17B 35F.
+S331	| 2026-02-28 | +4L +0P | tools/open_lane.py built (F-META1 enforcement: expect+artifact required), F-META3 BASELINE (DOMEX=3.9 yield top), F-GT4+F-GT1 post-sprint audit (giant 92.5%, orphans 5.8%), maintenance tool-consolidation, action-board staleness tiebreaker. 398L 177P 17B 35F.
+S332	| 2026-02-28 | +1L +0P | DOMEX-LNG F-LNG1 α=0.7545 n=398 (attractor-at-0.76 REFUTED), F-LNG2 session 9/10+, PAPER v0.16, proxy_k.py dedup fix (111→50 entries), DOMEX-GT+graph CONNECTED_CORE closure. 399L 177P 17B 35F.
+S333	| 2026-02-28 | +1L (L-463) +0P | dream-cycle L-463 (domain ISO vocab gap found — brain-only resonances, 38 others zero), periodics cleared (state-sync/dream-cycle/fundamental-setup-reswarm), stale checkpoints deleted, proxy-K log dedup confirmed. 401L 177P 17B 35F.
+S334	| 2026-03-01 | +1L (L-464) +0P | dream-cycle Session 5 — swarm dreams about best possible swarm (5 hypotheses DRM-H14..H18), F-DRM4 opened (meta-recursive dream hypotheses). 401L 177P 17B 36F.
+S335	| 2026-03-01 | +5L (L-465..L-467) +0P | DOMEX-LNG F-LNG1 α=0.7476 n=401 (11th point, rate -0.00231/L stable), F-LNG2 10-session milestone, HQ-41 answered (formal council structure), docs/COUNCIL-STRUCTURE.md, 39 domain DOMAIN.md files enriched with ISO vocab (dream.py 22→59 resonances), F9-NK domain candidates identified, F-SCALE2 opened. 405L 177P 17B 36F.
