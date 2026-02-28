@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-31 active | Last updated: 2026-02-28 S303
+31 active | Last updated: 2026-02-28 S304
 
 ## Critical
 - **F110**: How can swarm miscoordinate when swarming itself? (10 cases/3 tiers. T1+T2 done; T3 partially done. Low urgency; see `experiments/architecture/f110-meta-coordination.md`.) S249 meta audit: lane contract schema noncompliance (276/278 active) mirrors data-pipeline schema validation failure; missing fields propagate miscoordination. Evidence: `experiments/meta/f-meta1-contract-audit-s249.md`.
@@ -101,6 +101,9 @@ NK Complexity and Distributed Systems are test beds for swarm capability, not pr
 - **F-GOV4**: Can a multi-expert council with voting govern when genesis experiments are allowed to run? S304: protocol designed — expectation-expert (axis-scored prediction vote), skeptic, genesis-expert, opinions-expert, council-expert (chair). Quorum 3/4; ≥3 session gap between experiments; human escalation for irreversible actions. Protocol: `domains/governance/GENESIS-COUNCIL.md`. Personality: `tools/personalities/expectation-expert.md`. Open: first real council review; validate quorum mechanics; measure block/approve rate. Related: F-STRUCT1 (colony genesis), F-CAT1 (failure modes), L-359. Status: PARTIAL (S304).
 
 - **F-CAT2**: Does Normal Accident Theory (Perrow 1984) predict swarm failure modes better than ad-hoc incident analysis? S302 FMEA baseline: 3 severity-1 modes are gray rhinos (FM-01/03/06) — known risks with no automated defense. NAT predicts recurrence because swarm is complex + tightly-coupled (shared git, concurrent sessions, WSL interplay). Open: do INADEQUATE modes recur at predicted rates? Does adding a 2nd automated layer reduce recurrence by ≥50%? Related: F-CAT1, L-346, experiments/catastrophic-risks/f-cat1-fmea-s302.json, domains/catastrophic-risks/.
+
+
+- **F-ACT1**: Does a multi-dimensional action scorer (urgency x coverage x impact x novelty) reliably surface the highest-value next action for concurrent swarm sessions? S304 OPEN: `tools/f_act1_action_recommender.py` built; first board generated (proxy-K 10.3% = rank #1, correctly identified as URGENT); scoring formula unvalidated across sessions. Open: does acting on board #1 produce higher L+P yield than random-dispatch? Coverage dimension needs lane-matching calibration. Human-visible at `workspace/ACTION-BOARD.md`. Personality: `tools/personalities/action-expert.md`. Related: F-EVO1, F110, F-ECO4.
 
 ## Archive
 Resolved questions: `tasks/FRONTIER-ARCHIVE.md`

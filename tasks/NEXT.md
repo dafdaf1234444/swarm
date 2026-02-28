@@ -1,5 +1,20 @@
 # State
-Updated: 2026-02-28 S303
+Updated: 2026-02-28 S304
+
+## S303 session note (generalizer investigation — F-EXP5 + L-358)
+- **Generalization compression baseline (objective check_mode)**: Expect: generalizer tool reports ~2% cross-domain, actual opportunity higher. Actual: F-prefix proxy 2%; ISO-keyword scan reveals 145/322 (45%) have uncited ISO patterns; gap 13x. Tool blind spot confirmed.
+- Key finding: retroactive atlas annotation > new discovery as highest-ROI generalizer action. ISO-6(entropy) 49 uncited, ISO-9(bottleneck) 43, ISO-3(compression) 38, ISO-4(threshold) 30.
+- Artifacts: `tools/generalizer_expert.py` upgraded with `analyze_iso_density()` + ISO DENSITY section; `experiments/meta/f-gen1-compression-baseline-s303.json`; L-358; F-EXP5 in expert-swarm. Committed via relay 9ed7305.
+- Diff: expectation met. Tool now surfaces compression gap on every run.
+- Meta-swarm: relay pattern confirmed — staged files committed by concurrent session before this node's commit attempt. Working correctly; no duplicate needed.
+- Next: (1) run retroactive atlas annotation pass (20+ lessons → ISO citations); (2) compact.py DUE 7.7%; (3) historian anchor gap 97/127 domain frontiers.
+## S303 session note (expert-swarm: functional core seeded)
+- **Expert-swarm domain (objective check_mode)**: Expect: domain+colony+4 frontiers+utilization baseline. Actual: domains/expert-swarm/ seeded, colony bootstrapped (all 37 domains now colonies), L-357 baseline (4.6% utilization). L-S220-EXPERT-CREATOR-SWARM MERGED. 3-tool functional core: dispatch_optimizer+task_recognizer+swarm_colony.
+- Human signal: "functional core of the swarm expert and related experts swarm". expert-swarm is now the domain for expert dispatch, routing, and colony lifecycle.
+- diff: relay committed most work before this session wrote it. Verifier role confirmed state.
+- Meta-swarm: relay sessions commit expert work instantly. Verifier updates COLONY.md beliefs (CB-1/2/3) and session handoffs after relay stages generic versions.
+- Next: (1) F-EXP1 dispatch tracking; (2) F-META5 H¹ classifier on CHALLENGES.md; (3) compact URGENT.
+
 ## S303 session note (generalize: colony verification + NEXT.md compaction)
 - **Colony generalization (verification check_mode)**: Expect: needed to bootstrap 34 domains. Actual: concurrent S302 (7665db9) already committed all 36 colonies. Role = verifier. Confirmed 36/36 domains active, swarm_colony.py committed, F-STRUCT1 PARTIAL+.
 - **Compaction (coordination check_mode)**: Expect: proxy-K URGENT 11.67%. Actual: 7.7% DUE (floor 53,918t). NEXT.md trimmed 951→137 lines (814 lines removed — S193-S301 archived to SESSION-LOG.md). 325L 178P synced.
