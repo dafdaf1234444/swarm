@@ -185,7 +185,13 @@ PY
 )"
 
     if [[ -n "$ANXIETY_PARSED" ]]; then
-        IFS=$'\n' read -r ANXIETY_STATUS ANXIETY_FRONTIER ANXIETY_PROMPT ANXIETY_DESC ANXIETY_AGE ANXIETY_LAST <<<"$ANXIETY_PARSED"
+        mapfile -t _az_fields <<<"$ANXIETY_PARSED"
+        ANXIETY_STATUS="${_az_fields[0]:-}"
+        ANXIETY_FRONTIER="${_az_fields[1]:-}"
+        ANXIETY_PROMPT="${_az_fields[2]:-}"
+        ANXIETY_DESC="${_az_fields[3]:-}"
+        ANXIETY_AGE="${_az_fields[4]:-}"
+        ANXIETY_LAST="${_az_fields[5]:-}"
     fi
 else
     log "INFO: anxiety_gate disabled (set ANXIETY_ENABLED=true)"
