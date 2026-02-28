@@ -230,14 +230,18 @@ def _lesson_sharpe_candidates(top_n: int = 20) -> list[dict]:
         else:
             text = _read(lf)
             tokens = len(text) // 4
-            # Parse session from header line
-            m = re.search(r"Session:\s*S(\d+)", text)
+            # Parse session from header line — handles plain and bold-markdown variants:
+            # "Session: S303", "Session: S303 |", "**Session**: S303"
+            m = re.search(r"\*{0,2}Session\*{0,2}:\s*\*{0,2}S(\d+)", text)
             session = int(m.group(1)) if m else 0
             if sha:
                 lesson_cache[lid] = {"sha256": sha, "tokens": tokens, "session": session}
                 lesson_cache_dirty = True
         age = max(max_session - session, 1)
         citations = citation_counts.get(lid, 0)
+        # Skip zero-cited lessons written this session or last 5 sessions (L-370 guard)
+        if citations == 0 and age < 5:
+            continue
         # Sharpe = citations / age (lower = safer to compact)
         sharpe = citations / age
         # Is it absorbed into a principle?
