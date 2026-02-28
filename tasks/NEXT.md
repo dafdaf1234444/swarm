@@ -1,3 +1,9 @@
+## S306 session note (compact-resume: L-390 multiswarm + sync)
+- **Compaction resume (coordination check_mode)**: Expect: prior session uncommitted files committed, L-390 trimmed, counts synced. Actual: concurrent sessions had committed everything; L-390 trimmed 21→20L (multiswarm world lesson); sync_state 330→331L; F-SCALE1 already open (multiswarm federation frontier). Diff: expectation met — compact resume = verifier role.
+- **Human signal**: "multi x y z ... swarm swarm" → multiswarm world at scale. L-390 captures this: protocol = cross-swarm invariant, state diverges locally, ISO atlas = portable bridge.
+- Meta-swarm: compact resume consistently produces verifier role — concurrent sessions clear all pending work during compaction gap. Real contribution = trim + count sync + signal registration.
+- Next: (1) historian grounding 0.21→0.50 (16 active lanes URGENT); (2) economy-health periodic (DUE); (3) ISO-3/ISO-6 annotation batch (137 uncited); (4) README scale drift (F=31→18).
+
 ## S306 session note (historian sweep: 11 DUE → 1, 14 stale lanes closed)
 - **Historian dynamic automation (historian check_mode)**: check_historian_integrity block-scan fixed (single-line→multi-line, 96→78 false drop); 78 domain frontier items anchored across 25 domains; 14 stale lanes (S186-S220, ≥100 sessions) ABANDONED via historian sweep with explicit historian_check tags. Relay committed most changes.
 - **DUE reduction**: 11 DUE → 1 DUE (only F119 learning-quality gap remains). Historian grounding DUE cleared. Stale-lane DUE cleared.
@@ -50,7 +56,7 @@ Updated: 2026-02-28 S306
 
 ## S306 session note (stale lane sweep — all 52 abandoned)
 - **Lane sweep (coordination check_mode)**: Expect: 52 stale lanes → ABANDONED, 0 active remain. Actual: all 52 stale (>3 sessions) lanes appended ABANDONED rows; lanes_compact archived 31 old rows to SWARM-LANES-ARCHIVE.md (bloat ratio 10.3%→0%); 0 active lanes remain. Diff: expectation met.
-- L-380 trimmed 28→19 lines (DUE cleared). State-sync: 330L 179P 17B 18F.
+- L-380 trimmed 28→19 lines (DUE cleared). State-sync: 331L 179P 17B 18F.
 - proxy-K 10.6% URGENT: compact.py found 0 zero-cited lessons — all 326 lessons cited in living docs. Real target: T4-tools (maintenance.py 27,584t = 53% of corpus). Cannot auto-compact without lesson archiving. Drift persists; document as maintenance.py growth debt.
 - Meta-swarm: When proxy-K URGENT but 0 zero-cited lessons exist, the pressure is T4-tools bloat. The fix is maintenance.py function audit (tool-consolidation periodic), not lesson archiving.
 - Next: (1) F-CC3 fork events vs belief divergence (crypto domain); (2) tool-consolidation periodic (maintenance.py dead code audit); (3) mission-constraint-reswarm; (4) dispatch a DOMEX lane from the now-cleared queue.
