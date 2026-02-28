@@ -1,8 +1,11 @@
 # Evolution Domain — Frontier Questions
 Domain agent: write here for evolution-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-02-28 S189 | Active: 4
+Updated: 2026-02-28 S195 | Active: 5
 
 ## Active
+
+- **F-EVO5**: Can domain experts characterize swarm evolution across functional, size, and structural dimensions? Design: use self-archaeology (git history + SESSION-LOG) to reconstruct growth epochs, domain seeding timeline, and tool birth sequences; then dispatch DOMEX specialists per dimension (size analyst, functional analyst, structural analyst) to produce verdicts the swarm can act on.
+- **S195 baseline**: `tools/f_evo5_self_archaeology.py` built. Artifact: `experiments/evolution/f-evo5-self-archaeology-s195.json`. Key finding (n=62 sessions): **6 growth epochs, S180-190 was 10x historical rate (5.3 L/s vs 0.5 L/s)**, 31 domains seeded with 75% in 2 sessions (S186 burst: 13 domains; S188: 4 more). 148 tools, dominated by ops-core. Expert analysis via git archaeology validated — see L-326. Next: dispatch skeptic expert to challenge epoch boundaries; run structural analyst on domain-to-tool coupling.
 
 - **F-EVO1**: What diversity level across parallel lanes maximizes novel insight while keeping merge collisions low? Design: run repeated multi-lane passes with explicit diversity settings (homogeneous prompts vs role-diverse prompts vs method-diverse prompts), then compare novelty yield, contradiction rate, and merge friction.
 - **S186 baseline**: first measured slice from `tasks/SWARM-LANES.md` (MERGED lanes only) is captured in `experiments/evolution/f-evo1-lane-diversity-s186.json`: 21 merged rows, 17 unique scope-keys (scope diversity ratio 0.8095), scope-collision excess 4. Directional result: diversity is high with moderate collision pressure; next test is cross-session comparison plus novelty-yield coupling.

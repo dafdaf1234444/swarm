@@ -14,13 +14,9 @@ Updated: 2026-02-28 S194 | Active: 4
   Status: OPEN S194 — automation path confirmed, implementation not built.
 
 - **F-CC2**: Can a PreToolUse hook reliably block `git add -A` / `git add .` patterns?
-  Context: WSL mass-deletion bug (MEMORY.md, L-179) is caught only by convention. A PreToolUse
-  hook matching Bash tool calls containing `git add -A` could block them at the execution layer
-  and print an error explaining the safe alternative (`git add <named files>`).
-  Test: add PreToolUse hook with `git_safe_add_check.py`; attempt `git add -A` in a test session;
-  confirm block fires and error message is shown to the LLM before execution.
-  Success: block fires 100% of the time for `git add -A` / `git add .` in this repo.
-  Related: MEMORY.md WSL bug section, L-179, L-234. Status: OPEN S194 — design ready.
+  Status: RESOLVED S195 — `tools/hooks/pre-tool-git-safe.py` wired in `.claude/settings.json`
+  as PreToolUse matcher on Bash. Blocks `git add -A`, `git add .`, `git add --all` with exit 2.
+  L-325. Related: MEMORY.md WSL bug section, L-179, L-234.
 
 - **F-CC3**: Does a PreCompact hook fire in time to checkpoint critical in-flight state?
   Context: Context compaction can happen mid-session without warning. If the swarm is mid-experiment
@@ -45,3 +41,4 @@ Updated: 2026-02-28 S194 | Active: 4
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
 | CAP-1 | Capability audit complete — 4 frontiers opened, F134 path confirmed | S194 | 2026-02-28 |
+| F-CC2 | PreToolUse git-block wired (pre-tool-git-safe.py) — blocks git add -A/. at execution layer | S195 | 2026-02-28 |

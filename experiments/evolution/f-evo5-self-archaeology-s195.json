@@ -4,14 +4,15 @@
     "date": "2026-02-28"
   },
   "current_scale": {
-    "session": 188,
-    "date": "2026-02-28",
-    "L": 294,
+    "session": 191,
+    "date": null,
+    "L": 298,
     "P": 175,
-    "B": null,
-    "F": null
+    "B": 17,
+    "F": 25,
+    "source": "SESSION-LOG"
   },
-  "size_timeline_sessions": 14,
+  "size_timeline_sessions": 62,
   "size_timeline": {
     "62": {
       "session": 62,
@@ -19,7 +20,8 @@
       "L": 129,
       "P": 137,
       "B": null,
-      "F": null
+      "F": null,
+      "source": "git-log"
     },
     "69": {
       "session": 69,
@@ -27,7 +29,8 @@
       "L": 142,
       "P": 149,
       "B": null,
-      "F": null
+      "F": null,
+      "source": "git-log"
     },
     "72": {
       "session": 72,
@@ -35,7 +38,89 @@
       "L": 144,
       "P": 141,
       "B": null,
-      "F": null
+      "F": null,
+      "source": "git-log"
+    },
+    "75": {
+      "session": 75,
+      "date": null,
+      "L": 152,
+      "P": 129,
+      "B": null,
+      "F": null,
+      "source": "SESSION-LOG"
+    },
+    "76": {
+      "session": 76,
+      "date": null,
+      "L": 150,
+      "P": 133,
+      "B": null,
+      "F": null,
+      "source": "SESSION-LOG"
+    },
+    "77": {
+      "session": 77,
+      "date": null,
+      "L": 162,
+      "P": 137,
+      "B": null,
+      "F": null,
+      "source": "SESSION-LOG"
+    },
+    "78": {
+      "session": 78,
+      "date": null,
+      "L": 161,
+      "P": 138,
+      "B": null,
+      "F": null,
+      "source": "SESSION-LOG"
+    },
+    "79": {
+      "session": 79,
+      "date": null,
+      "L": 164,
+      "P": 138,
+      "B": null,
+      "F": null,
+      "source": "SESSION-LOG"
+    },
+    "80": {
+      "session": 80,
+      "date": null,
+      "L": 167,
+      "P": 138,
+      "B": null,
+      "F": null,
+      "source": "SESSION-LOG"
+    },
+    "81": {
+      "session": 81,
+      "date": null,
+      "L": 170,
+      "P": 139,
+      "B": null,
+      "F": null,
+      "source": "SESSION-LOG"
+    },
+    "82": {
+      "session": 82,
+      "date": null,
+      "L": 176,
+      "P": 141,
+      "B": null,
+      "F": null,
+      "source": "SESSION-LOG"
+    },
+    "83": {
+      "session": 83,
+      "date": null,
+      "L": 177,
+      "P": 142,
+      "B": null,
+      "F": null,
+      "source": "SESSION-LOG"
     },
     "84": {
       "session": 84,
@@ -43,7 +128,17 @@
       "L": 178,
       "P": 140,
       "B": null,
-      "F": null
+      "F": null,
+      "source": "git-log"
+    },
+    "85": {
+      "session": 85,
+      "date": null,
+      "L": 178,
+      "P": 140,
+      "B": null,
+      "F": null,
+      "source": "SESSION-LOG"
     },
     "86": {
       "session": 86,
@@ -51,7 +146,26 @@
       "L": 179,
       "P": 140,
       "B": null,
-      "F": null
+      "F": null,
+      "source": "SESSION-LOG"
+    },
+    "87": {
+      "session": 87,
+      "date": null,
+      "L": 179,
+      "P": 140,
+      "B": null,
+      "F": null,
+      "source": "SESSION-LOG"
+    },
+    "88": {
+      "session": 88,
+      "date": null,
+      "L": 182,
+      "P": 137,
+      "B": null,
+      "F": null,
+      "source": "SESSION-LOG"
     },
     "89": {
       "session": 89,
@@ -59,15 +173,44 @@
       "L": 183,
       "P": 137,
       "B": null,
-      "F": null
+      "F": null,
+      "source": "SESSION-LOG"
+    },
+    "90": {
+      "session": 90,
+      "date": null,
+      "L": 184,
+      "P": 137,
+      "B": null,
+      "F": null,
+      "source": "SESSION-LOG"
+    },
+    "91": {
+      "session": 91,
+      "date": null,
+      "L": 184,
+      "P": 138,
+      "B": 14,
+      "F": 17,
+      "source": "SESSION-LOG"
+    },
+    "93": {
+      "session": 93,
+      "date": null,
+      "L": 186,
+      "P": 137,
+      "B": null,
+      "F": null,
+      "source": "SESSION-LOG"
     },
     "94": {
       "session": 94,
       "date": "2026-02-27",
-      "L": 188,
+      "L": 187,
       "P": 138,
       "B": null,
-      "F": null
+      "F": null,
+      "source": "SESSION-LOG"
     },
     "95": {
       "session": 95,
@@ -75,15 +218,251 @@
       "L": 189,
       "P": 140,
       "B": null,
-      "F": null
+      "F": null,
+      "source": "SESSION-LOG"
+    },
+    "96": {
+      "session": 96,
+      "date": null,
+      "L": 190,
+      "P": 143,
+      "B": 14,
+      "F": 16,
+      "source": "SESSION-LOG"
+    },
+    "97": {
+      "session": 97,
+      "date": null,
+      "L": 190,
+      "P": 142,
+      "B": 14,
+      "F": 16,
+      "source": "SESSION-LOG"
+    },
+    "98": {
+      "session": 98,
+      "date": null,
+      "L": 192,
+      "P": 142,
+      "B": 14,
+      "F": 15,
+      "source": "SESSION-LOG"
+    },
+    "99": {
+      "session": 99,
+      "date": null,
+      "L": 192,
+      "P": 142,
+      "B": 14,
+      "F": 15,
+      "source": "SESSION-LOG"
+    },
+    "100": {
+      "session": 100,
+      "date": null,
+      "L": 194,
+      "P": 151,
+      "B": 14,
+      "F": 15,
+      "source": "SESSION-LOG"
+    },
+    "101": {
+      "session": 101,
+      "date": null,
+      "L": 194,
+      "P": 151,
+      "B": 14,
+      "F": 15,
+      "source": "SESSION-LOG"
     },
     "102": {
       "session": 102,
       "date": "2026-02-27",
-      "L": 194,
+      "L": 197,
       "P": 151,
+      "B": 14,
+      "F": 15,
+      "source": "SESSION-LOG"
+    },
+    "103": {
+      "session": 103,
+      "date": null,
+      "L": 198,
+      "P": 151,
+      "B": 14,
+      "F": 15,
+      "source": "SESSION-LOG"
+    },
+    "104": {
+      "session": 104,
+      "date": null,
+      "L": 198,
+      "P": 151,
+      "B": 14,
+      "F": 15,
+      "source": "SESSION-LOG"
+    },
+    "105": {
+      "session": 105,
+      "date": null,
+      "L": 198,
+      "P": 151,
+      "B": 14,
+      "F": 14,
+      "source": "SESSION-LOG"
+    },
+    "107": {
+      "session": 107,
+      "date": null,
+      "L": 199,
+      "P": 151,
+      "B": 14,
+      "F": 14,
+      "source": "SESSION-LOG"
+    },
+    "108": {
+      "session": 108,
+      "date": null,
+      "L": 200,
+      "P": 151,
+      "B": 14,
+      "F": 14,
+      "source": "SESSION-LOG"
+    },
+    "109": {
+      "session": 109,
+      "date": null,
+      "L": 201,
+      "P": 151,
+      "B": 14,
+      "F": 14,
+      "source": "SESSION-LOG"
+    },
+    "110": {
+      "session": 110,
+      "date": null,
+      "L": 202,
+      "P": 151,
+      "B": 14,
+      "F": 14,
+      "source": "SESSION-LOG"
+    },
+    "111": {
+      "session": 111,
+      "date": null,
+      "L": 203,
+      "P": 151,
+      "B": 14,
+      "F": 14,
+      "source": "SESSION-LOG"
+    },
+    "112": {
+      "session": 112,
+      "date": null,
+      "L": 204,
+      "P": 151,
+      "B": 14,
+      "F": 14,
+      "source": "SESSION-LOG"
+    },
+    "113": {
+      "session": 113,
+      "date": null,
+      "L": 204,
+      "P": 151,
+      "B": 14,
+      "F": 13,
+      "source": "SESSION-LOG"
+    },
+    "114": {
+      "session": 114,
+      "date": null,
+      "L": 204,
+      "P": 151,
+      "B": 14,
+      "F": 13,
+      "source": "SESSION-LOG"
+    },
+    "116": {
+      "session": 116,
+      "date": null,
+      "L": 204,
+      "P": 151,
+      "B": 14,
+      "F": 13,
+      "source": "SESSION-LOG"
+    },
+    "117": {
+      "session": 117,
+      "date": null,
+      "L": 204,
+      "P": 151,
+      "B": 14,
+      "F": 13,
+      "source": "SESSION-LOG"
+    },
+    "118": {
+      "session": 118,
+      "date": null,
+      "L": 204,
+      "P": 151,
+      "B": 14,
+      "F": 13,
+      "source": "SESSION-LOG"
+    },
+    "119": {
+      "session": 119,
+      "date": null,
+      "L": 204,
+      "P": 151,
+      "B": 14,
+      "F": 13,
+      "source": "SESSION-LOG"
+    },
+    "120": {
+      "session": 120,
+      "date": null,
+      "L": 205,
+      "P": 151,
+      "B": 14,
+      "F": 13,
+      "source": "SESSION-LOG"
+    },
+    "125": {
+      "session": 125,
+      "date": null,
+      "L": 206,
+      "P": 150,
+      "B": 14,
+      "F": 13,
+      "source": "SESSION-LOG"
+    },
+    "144": {
+      "session": 144,
+      "date": null,
+      "L": 206,
+      "P": 150,
+      "B": 14,
+      "F": 13,
+      "source": "SESSION-LOG"
+    },
+    "176": {
+      "session": 176,
+      "date": null,
+      "L": 220,
+      "P": 150,
       "B": null,
-      "F": null
+      "F": null,
+      "source": "SESSION-LOG"
+    },
+    "178": {
+      "session": 178,
+      "date": null,
+      "L": 223,
+      "P": 153,
+      "B": null,
+      "F": null,
+      "source": "SESSION-LOG"
     },
     "180": {
       "session": 180,
@@ -91,48 +470,151 @@
       "L": 236,
       "P": 160,
       "B": null,
-      "F": null
+      "F": null,
+      "source": "git-log"
     },
     "181": {
       "session": 181,
       "date": "2026-02-27",
-      "L": 243,
-      "P": 166,
+      "L": 238,
+      "P": 161,
       "B": 17,
-      "F": 18
+      "F": 18,
+      "source": "SESSION-LOG"
     },
     "182": {
       "session": 182,
       "date": "2026-02-27",
-      "L": 260,
-      "P": 170,
-      "B": null,
-      "F": null
+      "L": 253,
+      "P": 169,
+      "B": 17,
+      "F": 19,
+      "source": "SESSION-LOG"
     },
     "183": {
       "session": 183,
       "date": "2026-02-27",
-      "L": 256,
+      "L": 254,
       "P": 169,
-      "B": null,
-      "F": null
+      "B": 17,
+      "F": 19,
+      "source": "SESSION-LOG"
+    },
+    "184": {
+      "session": 184,
+      "date": null,
+      "L": 264,
+      "P": 169,
+      "B": 17,
+      "F": 20,
+      "source": "SESSION-LOG"
+    },
+    "185": {
+      "session": 185,
+      "date": null,
+      "L": 265,
+      "P": 170,
+      "B": 17,
+      "F": 20,
+      "source": "SESSION-LOG"
+    },
+    "186": {
+      "session": 186,
+      "date": null,
+      "L": 271,
+      "P": 171,
+      "B": 17,
+      "F": 20,
+      "source": "SESSION-LOG"
+    },
+    "187": {
+      "session": 187,
+      "date": null,
+      "L": 277,
+      "P": 171,
+      "B": 17,
+      "F": 21,
+      "source": "SESSION-LOG"
     },
     "188": {
       "session": 188,
       "date": "2026-02-28",
-      "L": 294,
+      "L": 282,
+      "P": 171,
+      "B": 17,
+      "F": 22,
+      "source": "SESSION-LOG"
+    },
+    "189": {
+      "session": 189,
+      "date": null,
+      "L": 281,
+      "P": 171,
+      "B": 17,
+      "F": 23,
+      "source": "SESSION-LOG"
+    },
+    "190": {
+      "session": 190,
+      "date": null,
+      "L": 289,
+      "P": 173,
+      "B": 17,
+      "F": 23,
+      "source": "SESSION-LOG"
+    },
+    "191": {
+      "session": 191,
+      "date": null,
+      "L": 298,
       "P": 175,
-      "B": null,
-      "F": null
+      "B": 17,
+      "F": 25,
+      "source": "SESSION-LOG"
     }
   },
   "growth_phases": [
     {
       "s_start": 62,
-      "s_end": 181,
-      "dL": 114,
-      "dP": 29,
-      "L_per_session": 0.96
+      "s_end": 82,
+      "dL": 47,
+      "dP": 4,
+      "L_per_session": 2.35
+    },
+    {
+      "s_start": 82,
+      "s_end": 93,
+      "dL": 10,
+      "dP": -4,
+      "L_per_session": 0.91
+    },
+    {
+      "s_start": 93,
+      "s_end": 103,
+      "dL": 12,
+      "dP": 14,
+      "L_per_session": 1.2
+    },
+    {
+      "s_start": 103,
+      "s_end": 114,
+      "dL": 6,
+      "dP": 0,
+      "L_per_session": 0.55
+    },
+    {
+      "s_start": 114,
+      "s_end": 180,
+      "dL": 32,
+      "dP": 9,
+      "L_per_session": 0.48
+    },
+    {
+      "s_start": 180,
+      "s_end": 190,
+      "dL": 53,
+      "dP": 13,
+      "L_per_session": 5.3
     }
   ],
   "tool_births_total": 148,

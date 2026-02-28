@@ -16,14 +16,39 @@ def run(cmd):
 
 
 def extract_size_timeline():
-    """Parse L/P/B/F counts embedded in git commit messages."""
-    log = run(["git", "log", "--format=%H|%s|%ad", "--date=short", "-1000"])
+    """Parse L/P/B/F counts from SESSION-LOG.md and git commit messages."""
     sessions = {}
+
+    # Source 1: SESSION-LOG.md cumulative anchors
+    log_path = Path(__file__).parent.parent / "memory" / "SESSION-LOG.md"
+    if log_path.exists():
+        content = log_path.read_text()
+        # Patterns like "S182: 253L 169P" or within lines "253L 169P 17B 19F"
+        for line in content.splitlines():
+            sm = re.match(r"S(\d+)", line.strip())
+            if not sm:
+                continue
+            s = int(sm.group(1))
+            lm = re.search(r"(\d+)L\s+(\d+)P", line)
+            bm = re.search(r"(\d+)B\s+(\d+)F", line)
+            if lm and s not in sessions:
+                sessions[s] = {
+                    "session": s,
+                    "date": None,
+                    "L": int(lm.group(1)),
+                    "P": int(lm.group(2)),
+                    "B": int(bm.group(1)) if bm else None,
+                    "F": int(bm.group(2)) if bm else None,
+                    "source": "SESSION-LOG",
+                }
+
+    # Source 2: git commit messages
+    log = run(["git", "log", "--format=%s|%ad", "--date=short", "-1000"])
     for line in log.splitlines():
-        parts = line.split("|", 2)
-        if len(parts) < 3:
+        parts = line.rsplit("|", 1)
+        if len(parts) < 2:
             continue
-        sha, msg, date = parts
+        msg, date = parts
         sm = re.search(r"\[S(\d+)\]", msg)
         lm = re.search(r"(\d+)L\s+(\d+)P", msg)
         bm = re.search(r"(\d+)B\s+(\d+)F", msg)
@@ -37,7 +62,11 @@ def extract_size_timeline():
                     "P": int(lm.group(2)),
                     "B": int(bm.group(1)) if bm else None,
                     "F": int(bm.group(2)) if bm else None,
+                    "source": "git-log",
                 }
+            elif sessions[s]["date"] is None:
+                sessions[s]["date"] = date
+
     return dict(sorted(sessions.items()))
 
 
