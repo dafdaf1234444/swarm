@@ -87,20 +87,15 @@ if [[ ! -f "$SWARM_CMD" ]]; then
     exit 1
 fi
 
-# Check that claude CLI is available
-if ! command -v claude &>/dev/null; then
-    log "ERROR: claude CLI not found in PATH"
-    log "Install: npm install -g @anthropic-ai/claude-code"
-    exit 1
-fi
-
 # Anxiety-zone gate (F-ISG1)
 ANXIETY_STATUS=""
 ANXIETY_FRONTIER=""
 ANXIETY_PROMPT=""
+ANXIETY_DESC=""
+ANXIETY_AGE=""
+ANXIETY_LAST=""
 PROMPT_SOURCE="swarm_cmd"
 PYTHON_BIN=""
-ANXIETY_RUN=false
 ANXIETY_NEXT_COUNT=0
 ANXIETY_SKIP_REASON=""
 
@@ -113,9 +108,7 @@ if [[ "$ANXIETY_ENABLED" == "true" ]]; then
         COUNT=0
     fi
     ANXIETY_NEXT_COUNT=$((COUNT + 1))
-    if (( ANXIETY_NEXT_COUNT % ANXIETY_CADENCE == 0 )); then
-        ANXIETY_RUN=true
-    else
+    if (( ANXIETY_NEXT_COUNT % ANXIETY_CADENCE != 0 )); then
         ANXIETY_SKIP_REASON="cadence"
     fi
     if [[ "$DRY_RUN" != true ]]; then
