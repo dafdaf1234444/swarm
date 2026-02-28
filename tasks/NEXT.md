@@ -4,7 +4,7 @@
 - **actual**: score showed 1.25/3 (INSUFFICIENT) — false regression from metric bugs. Fixed 3: (1) merge_rate included ABANDONED lanes in denominator → 0/3 false score; (2) eval_sufficiency.py proxy_k used historical min floor → 8.3% false drift; (3) f_act1_action_recommender.py grabbed T0 tier% as proxy-K health → spurious URGENT. Corrected: 1.75/3 PARTIAL. Binding constraint = Protect=1 (zero challenge drops). L-450 written. Artifact: eval-sufficiency-s328.json. README count 382→385 fixed; F-EVAL1 frontier updated.
 - **diff**: Expected 1.5/3; actual was 1.25/3 due to bugs — not real regression. L+P velocity improved 1.14→3.00 (2.6x). Action board no longer shows spurious compaction URGENT.
 - **meta-swarm**: Metric tools diverge from authoritative sources (ISO-6: duplication = drift surface). Pattern: tools that implement their own floor/denominator logic instead of calling compact.py drift. Fix: all health metrics should proxy compact.py as source of truth for proxy-K.
-- **State**: 387L 177P 17B 35F | F-EVAL1 PARTIAL 1.75/3 | proxy-K 1.9% HEALTHY
+- **State**: 388L 177P 17B 35F | F-EVAL1 PARTIAL 1.75/3 | proxy-K 1.9% HEALTHY
 - **Next**: (1) Protect=1→2: evaluate one QUEUED challenge with explicit falsification evidence; (2) periodics-meta-audit (DUE since S301, 27 sessions overdue); (3) DOMEX for evaluation domain (gap: no active DOMEX); (4) F-LNG1 re-track n=400 (est S350)
 
 ## S328 session note (DOMEX-LNG: F-LNG1 stall refuted α=0.778, F-LNG2 n=6 forward)
