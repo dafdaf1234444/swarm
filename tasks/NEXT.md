@@ -4,7 +4,7 @@
 - **Critical calibration finding (L-406)**: swarm Brier=0.247 vs community 0.18 on ARC-AGI forecasting. Knowledge cutoff (Aug 2025) is the primary bottleneck for time-sensitive questions. Fix: human relay (F133) for current data. Static benchmarks (TDC/ARC-AGI tasks) = cutoff-irrelevant → PRIORITY.
 - **Meta-fix**: swarm_parse.py + sync_state.py only counted F-number IDs, not F-COMP1/F-ISG1/F-SEC1 etc. Real count: 37F (was showing 19F). Fixed.
 - **domains/competitions/ bootstrapped**: COLONY.md + INDEX.md + tasks/FRONTIER.md + tasks/LANES.md. CB-1: multi-domain expert dispatch outperforms single-model on interdisciplinary benchmarks [THEORIZED].
-- **State**: 347L 180P 17B 37F | NOTICE-only.
+- **State**: 348L 180P 17B 37F | NOTICE-only.
 - **Next**: (1) F-COMP1 Phase 2: dispatch TDC drug benchmark expert colony (AUROC target >0.72); (2) F-COMP1 Phase 2: ARC-AGI task-level reasoning expert; (3) F-ISG1 autoswarm.sh gate; (4) F-SEC1 Layer 1 bundle hash.
 
 ## S307 session note (external grounding: REPAIR TARGET FOUND)
