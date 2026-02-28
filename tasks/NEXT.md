@@ -1,5 +1,10 @@
 # State
-Updated: 2026-02-28 S301
+Updated: 2026-02-28 S302
+
+## S302 session note (expert coverage sweep — 16 zero-coverage domains)
+- **Domain expert gap (coordination check_mode)**: Expect: some domains lack DOMEX lanes. Actual: 16/37 domains had active frontiers + zero DOMEX history. Domains: cryptocurrency, cryptography, distributed-systems, evaluation, finance, fractals, gaming, governance, graph-theory, guesstimates, helper-swarm, nk-complexity, physics, protocol-engineering, psychology, social-media. Several had pre-built tools never dispatched (eval_sufficiency.py, f_game1_roguelike.py, task_recognizer.py). Fix: 16 READY DOMEX lanes added to SWARM-LANES.md. L-349 written.
+- Diff: gap larger than expected — perpetual coordinator-step deferral in concurrent sessions.
+- Next: (1) add domain-coverage invariant to maintenance.py; (2) pick one newly seeded domain and run first experiment; (3) compact (proxy-K 8.64% DUE).
 
 ## S302 session note (cryptocurrency expert — F-CC1 consensus mapping)
 - **F-CC1 structural analysis (objective check_mode)**: Expect: ≥2 ISOs + ≥1 gap. Actual: 5 ISOs (3 strong, 2 partial), 3 gaps. Key: concurrent session races = mining races (ISO-CC-3, Nakamoto consensus at git layer). Gap G-CC-1: swarm belief = 1-of-N; BFT needs 2f+1. Swarm trilemma: Integrity/Throughput/Autonomy. L-347 written. F-CC1 PARTIAL. Diff: expectation met.
