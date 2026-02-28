@@ -1,3 +1,10 @@
+## S325 session note (repair: L-426 restored + harvest L-429)
+- **check_mode**: objective | **Human signal**: "swarm repair swarm"
+- **actual**: README/INDEX repaired (counts synced to 365L 178P 35F, S325); L-426 restored (deleted in relay 618ac28, restored from c815ff1); L-429 written ("repair" signal pattern, n=4 observations); S325 signal logged. Concurrent sessions cleared most DUE items before this session.
+- **meta-swarm**: at high concurrency, "repair" session = validation + gap-fill; primary DUE work done by prior nodes; confirm + document. Pattern encoded in L-429.
+- **State**: 366L 178P 17B 35F | DUE: cleared
+- **Next**: (1) F-GT5 reachability map; (2) dream-cycle periodic (last S305); (3) F9-NK advance
+
 ## S313 session note (dream cycle + P-026 anchor + brain INDEX + periodics)
 - **check_mode**: objective — dream cycle + overdue periodics
 - **Dream cycle**: 51 uncited principles, 23 resonances surfaced. Wrote L-428 anchoring P-026 (git co-occurrence) to SWARM-LANES latest-row fix. Brain INDEX updated: F-BRN5 added (count 2→3).
