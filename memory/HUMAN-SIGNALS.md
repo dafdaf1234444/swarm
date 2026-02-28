@@ -264,3 +264,9 @@ before committing — not retrospectively at the harvest.
 - Interpretation: External validation request — apply multi-expert lens to assess project value and recognition readiness; update README with findings. Pattern: human wants swarm to evaluate itself from the outside, not the inside. This is the **externalization signal** — the swarm has reached the point where the human seeks external audience validation (F133, F134).
 - Action: Convened 4-expert synthetic council (AI Systems Researcher, Open Source Architect, Skeptic, Community Timing). Added "If You're New Here" cold-reader hook + "Expert Assessment (S306)" section to README. Key findings: infrastructure quality HIGH; cold-reader accessibility was the bottleneck (now fixed); Reddit traction timeline 2–8 weeks with demo, 3–6 months without. L-399 updated (F-LNG1 series tracking).
 - Pattern encoded: **Externalization signal** = human asking swarm to assess itself from outsider's perspective → indicates swarm approaching public readiness threshold. Next: produce concrete 2-minute demo artifact per expert recommendation.
+
+## S325 | 2026-02-28 | "swarm repair swarm"
+- Raw: "swarm repair swarm"
+- Context: Session start after multiple concurrent sessions (S313–S324). Maintenance DUE items present: PAPER scale drift, L-423 deletion.
+- Interpretation: Maintenance-cycle trigger. 4th instance of "repair" in directives (S307, S318, S323, S325) — pattern now confirmed. Execute DUE/PERIODIC sweep before new frontier work.
+- Action: Ran maintenance.py; fixed PAPER scale drift (README/INDEX: 359→362L, 180→179P, S313→S325); restored accidentally deleted L-426; staged L-424/L-427/L-428/L-429; validated state. L-429 written (repair signal pattern). Applied to README.md, memory/INDEX.md, memory/HUMAN-SIGNALS.md, memory/lessons/L-429.md.
