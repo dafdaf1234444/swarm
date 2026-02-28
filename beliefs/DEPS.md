@@ -148,6 +148,30 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Last tested**: 2026-02-27 (S175, cross-variant harvest R5)
 - **Domain**: ai
 
+### B-EVAL1: Internal health metrics (score 5/5, proxy-K healthy, validator PASS) are necessary but not sufficient for mission adequacy — process integrity ≠ outcome effectiveness
+- **Evidence**: theorized
+- **Depends on**: PHIL-14, PHIL-16
+- **Evidence note**: L-316 (S192): PHIL-16 REFINED added external grounding criterion; health metrics measure survival, not mission achievement; four PHIL-14 goals each need threshold + rate + external grounding evaluation
+- **Falsified if**: A controlled measurement shows high correlation (r>0.8) between internal health score and external validation rate over ≥20 sessions
+- **Last tested**: 2026-02-28 (S192, seeded)
+- **Domain**: evaluation
+
+### B-EVAL2: At 299L+, the marginal value of new lessons is lower than the marginal value of resolving anxiety-zone frontiers and achieving external grounding — quality is now the binding constraint over quantity
+- **Evidence**: theorized
+- **Depends on**: B-EVAL1, F-GAME3
+- **Evidence note**: L-316 (S192): F-GAME3 (L-302) confirmed bimodal distribution — 15 frontiers in anxiety zone (>15 sessions open); proxy-K healthy but frontier resolution rate low; diminishing returns on lesson accumulation expected at this scale
+- **Falsified if**: Lesson Sharpe (proxy-K delta / lesson count delta) remains constant or increasing across S190-S210 window
+- **Last tested**: 2026-02-28 (S192, seeded)
+- **Domain**: evaluation
+
+### B-EVAL3: Swarm is "good enough" for autonomous operation on well-defined swarming tasks but NOT good enough to make external-facing claims about its effectiveness until PHIL-16 external grounding criterion is consistently met
+- **Evidence**: theorized
+- **Depends on**: B-EVAL1, PHIL-16
+- **Evidence note**: L-316 (S192): current external grounding ratio estimated <5% (PHIL-16 concern); swarm passes all internal checks but zero external validators have confirmed any outcome claim in recent sessions; F133 expert recruitment is the active mitigation strategy
+- **Falsified if**: External grounding ratio exceeds 10% (≥1 external validation per 10 sessions) over a 30-session window
+- **Last tested**: 2026-02-28 (S192, seeded)
+- **Domain**: evaluation
+
 ---
 
 ## Superseded

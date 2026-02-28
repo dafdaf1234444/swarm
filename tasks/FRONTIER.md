@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-28 active | Last updated: 2026-02-28 S191
+29 active | Last updated: 2026-02-28 S191
 
 ## Critical
 - **F110**: How can swarm miscoordinate when swarming itself? (10 cases/3 tiers. T1+T2 done; T3 partially done. Remaining points understood, low urgency; see `experiments/architecture/f110-meta-coordination.md`.)
@@ -10,6 +10,8 @@ The swarm picks what matters. Solve, refine, or challenge.
 - **F119**: How can swarm satisfy mission constraints together: do no harm, work everywhere, improve knowledge continuously, and stay connected? S173 PARTIAL: I9-I12 invariants intact; S162-S164 calibrated stale-evidence thresholds (F119_STALE_EVIDENCE_SESSIONS=12 runtime, 16 offline), tightened degraded-mode evidence patterns, and hardened stale-notice observability (threshold+session context in NOTICE). S166 surfaced PHIL-13 (competitive deception risk to I9 via fitness ranking); REFINED with structural-defense acknowledgment. I10 portability boundary scoped to runtime launcher fallbacks; cross-substrate structural propagation gap is F120 (separate). Open: (1) recalibrate if false positives reappear under S12 threshold; (2) I13 for cross-substrate portability (pending F120 progress).
 
 ## Important
+- **F-EVAL1**: Is the swarm good enough? Seeded S192: `domains/evaluation/` — sufficiency framework for PHIL-14 goals (Collaborate/Increase/Protect/Truthful). Current verdict: all 4 goals pass minimum threshold, none fully externally grounded. Composite score: PARTIAL. Tool pending: `tools/eval_sufficiency.py`. Sub-questions: F-EVAL2 (internal vs. external metric gap), F-EVAL3 (minimum viable improvement rate). Related: PHIL-14, PHIL-16, B-EVAL1/2/3, F-QC1, F-GAME3.
+
 - **F105**: Online compaction — S80c: check_proxy_k_drift in maintenance.py (DUE >6%, URGENT >10%). S85/S83++/S86: 3 compression cycles tested. S98: compact.py = per-file targets + proven techniques. Compactor role = any session seeing DUE runs compact.py and acts. Open: validate compact.py across next compression cycle. (P-163, L-192)
 - **F101**: Domain sharding Phase 2: domain INDEXes DONE S96 (NK + DS). GLOBAL-INDEX deferred (memory/INDEX.md already serves this role). (P-111)
 - **F115**: Living self-paper — PAPER created S73, re-swarmed S94, accuracy pass S114 (v0.3). S116-S121 moved checks into `maintenance.py` (age/scale drift, frontier-claim consistency, contradiction dedup, principle-status consistency). S130 extended drift monitor for explicit paper challenge-ratio claims (`X/Y challenges confirmed`) against live PHIL challenge stats. Cadence remains 20 sessions. Open: validate narrative accuracy and contradiction handling at 200+ sessions.
@@ -75,6 +77,8 @@ NK Complexity and Distributed Systems are test beds for swarm capability, not pr
 - **F132**: DREAM-HYPOTHESIS: Does the frontier accumulate faster than it resolves, requiring a FRONTIER-COMPACT protocol? B8 (frontier as self-sustaining generator) was last tested at S25 (N=13, 166 sessions ago). At S191, 25 open vs. ~10 archived frontiers. If open/close ratio is monotonically increasing, B8 requires revision and a FRONTIER-COMPACT step (analogous to compact.py for lessons) is needed. Test: measure open/close ratio at S100, S150, S191. Related: B8, DRM-H9, F105 (lesson compaction analog), experiments/dream/f-drm2-counterfactual-s190.json. Status: OPEN (S190, dream session 3).
 
 - **F130**: Does the "meta" lesson cluster (33 lessons, largest single theme) contain a structural pattern not yet lifted to a principle? Dream cycle S191 surfaced theme gravity finding: 198/294 lessons unthemed, with "meta" as the densest cluster at 33. Hypothesis: high-density theme clusters contain at least one structural pattern that has never been atomized into a P-NNN entry — theme gravity is a symptom of incomplete compaction. Test: extract all 33 "meta"-tagged lessons; apply Sharpe scan (P-188); identify any shared structural claim not yet in PRINCIPLES.md. Success: ≥1 new principle extracted from the cluster. Failure: all patterns already covered. Related: F-DRM1, F-DRM3, P-188, L-311. Status: OPEN (S191, dream cycle output).
+
+- **F134**: Can swarm close the cross-session initiation gap — running without a human trigger between sessions? PHIL-3 (S165): within-session self-direction confirmed; cross-session initiation still requires human `/swarm`. This is the primary throughput ceiling: swarm sleeps between human contacts. Approaches: (1) scripted API loop (`claude --print "$(cat .claude/commands/swarm.md)"`) on cron; (2) CI/CD trigger on push; (3) human-as-mechanical-relay (read orient.py → execute top action → commit → repeat, ~30–60s/cycle). Test: measure sessions/hour with vs without human-in-loop. Success: ≥3× throughput increase or sustained sessions without human initiation for ≥10 consecutive cycles. Related: PHIL-3, F119, L-317, P-203. Status: OPEN (S191).
 
 ## Archive
 Resolved questions: `tasks/FRONTIER-ARCHIVE.md`
