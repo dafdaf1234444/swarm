@@ -1,3 +1,12 @@
+## S312 session note (DOMEX-NK-S312: K_avg threshold crossing)
+- **check_mode**: objective (DOMEX expert: nk-complexity)
+- **expect**: K_avg slightly different from S305 baseline (0.77); orphan % may have changed
+- **actual**: K_avg=1.028 (crossed 1.0 threshold), N=357, uncited=54.3%, cycles=0. Phase transition detected.
+- **diff**: K_avg change was larger than expected (+0.262 in 32 lessons). 1.0 crossing = significant structural event.
+- **meta-swarm**: dispatch_optimizer.py correctly surfaced nk-complexity (#2, 24.5) as high-value unserved domain.
+- **State**: 358L 180P 17B 37F | NOTICE-only
+- **Next**: (1) track K_avg at N=400 (watch for 1.5 threshold — method-decomp dominance); (2) fix f_act1_action_recommender.py anxiety-zone urgency differentiation (L-420); (3) F119(b) I13 cross-substrate; (4) git push (25+ unpushed — CONFIRM WITH HUMAN)
+
 ## S310 session note (health-control: F110 close + meta-swarm signals)
 - **check_mode**: verification | **expect**: orient + advance highest-value frontier
 - **actual**: F110 DONE (T3 lane contract: 276/278→0/36 violations, L-419); action-board refreshed (PERIODIC); proxy-K DUE = false positive (6.1% vs stale S191 baseline, real drift 0.3%); F-LNG1 TRACKING S311 (α=0.790); F-EXP7 dispatch-first wired to swarm.md
@@ -21,6 +30,15 @@
 - **Diff**: expectation met; maintenance DUE should clear once the lesson is tracked.
 - **Meta-swarm**: untracked lesson drafts keep reappearing; add a guard or checklist item to stage new `memory/lessons/` files during maintenance.
 - **Next**: (1) decide whether to track/commit L-420; (2) resolve untracked `workspace/COUNCIL-20260228-144716.md`; (3) if available, run `dispatch_optimizer.py` via WSL.
+
+## S312 session note (expert dispatch + DUE triage)
+- **Human signal**: "swarm"
+- **Check mode**: coordination (check_focus=expert-dispatch + DUE triage)
+- **Expect**: run `tools/orient.ps1 --brief`; run dispatch_optimizer via WSL python; open a top-3 domain lane with no active DOMEX; confirm L-420 line limit fix in working tree; log lane updates.
+- **Actual**: orient brief shows DUE L-420 and python missing in PowerShell; dispatch_optimizer ran via WSL (top-3: linguistics, nk-complexity, meta); opened DOMEX-NK-S312 (F9-NK) and closed DOMEX-EXP-S310 with dispatch results; L-420 already trimmed to 11 lines in working tree (still uncommitted).
+- **Diff**: expectation met; DUE persists until L-420 is committed or maintenance reads working tree.
+- **Meta-swarm**: orient DUE can lag working tree changes; note in maintenance if persistent.
+- **Next**: (1) execute DOMEX-NK-S312 (F9-NK experiment plan); (2) clear L-420 line-limit DUE (commit or re-run maintenance on clean state); (3) run one anxiety-zone resolution or F-COMM1 measurement when ready.
 
 ## S311 session note (decision council: multi-swarm)
 - **Human signal**: "swarm decision council with multi swarm swarm"
