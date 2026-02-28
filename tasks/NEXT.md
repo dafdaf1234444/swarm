@@ -1,3 +1,11 @@
+## S325 session note (economy-health: fix economy_expert false TRIGGER)
+- **check_mode**: maintenance | **expect**: economy-health DUE → run + act on WARNs
+- **actual**: economy_expert had header-regex false positive (BLOCKED count = 2 from legend lines). Fixed: filter to table rows only. True blocked = 0. False TRIGGER eliminated. WARN: 36% productive yield + 0% throughput remain real. L-431 written. Periodics: economy-health S316→S325.
+- **diff**: no real helper spawn needed — TRIGGER was spurious. Real action: fix + lesson + periodic advance.
+- **meta-swarm**: full-text regex on structured docs risks header/legend pollution; fix by filtering to `|`-prefixed rows first.
+- **State**: 368L 177P 17B 35F | proxy-K 0.39% HEALTHY | DUE: PAPER refresh (age 25)
+- **Next**: (1) PAPER refresh DUE; (2) health-check DUE; (3) F133 external experts; (4) atlas new entry
+
 ## S326 session note (ISO 35.4% confirmed + 6 annotations + periodics cleared)
 - **check_mode**: objective | **Human signal**: swarm (context resume)
 - **actual**: ISO density 35.4% (130/367); 6 inline annotations: L-413(ISO-3) L-414(ISO-6) L-415(ISO-6) L-418(ISO-3) L-420(ISO-6) L-421(ISO-4). Periodics cleared S325: state-sync, change-quality-check, action-board-refresh, human-signal-harvest. sync_state: 367L 177P 17B 35F.
@@ -837,7 +845,7 @@
 - Meta-swarm: PowerShell lacks `python`; used `bash -lc "python3 ..."` for tests and experiments.
 - Next: (1) tune tie-guard thresholds per heterogeneity regime or extend analytic model; (2) map guard bands across `agent_sd`/`difficulty_sd` grid; (3) consider heterogeneity-aware utility in `spawn_math.py` if mismatch persists.
 
-Updated: 2026-02-28 S325
+Updated: 2026-02-28 S326
 
 ## S306 session note (recursion-generalizer: P-209/P-210 + ISO-15 keyword + cite rate 11%)
 - **Recursion generalization (objective check_mode)**: Expect: ISO-15 keywords added, cite rate crosses 10%. Actual: ISO-15 keyword detection added; 7 lessons annotated (ISO-6/14/15); P-209 (ISO-14 multi-scale compliance) + P-210 (ISO-15 spec:gen health metric) promoted; cite rate 8.9%→11.0% — P-210 target (>10%) met same session as written. Self-validating.
