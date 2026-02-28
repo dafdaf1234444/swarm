@@ -29,6 +29,23 @@ class TestFIS3MathValidation(unittest.TestCase):
             # Monte Carlo estimator should stay close to analytic baseline.
             self.assertLess(abs(row["analytic_utility"] - row["simulated_utility"]), 0.03)
 
+    def test_heterogeneous_model_runs(self):
+        scenario = mod.Scenario(
+            error_rate=0.25,
+            rho=0.2,
+            coordination_cost=0.03,
+            risk_aversion=1.0,
+            n_max=4,
+            trials=2000,
+            model="heterogeneous",
+            agent_sd=0.05,
+            difficulty_sd=0.04,
+        )
+        result = mod.evaluate_scenario(scenario, seed=42)
+        self.assertEqual(len(result["rows"]), scenario.n_max)
+        for row in result["rows"]:
+            self.assertIn("simulated_utility", row)
+
     def test_run_grid_counts_all_parameter_combinations(self):
         grid = mod.run_grid(
             error_rates=[0.2, 0.3],
@@ -38,6 +55,9 @@ class TestFIS3MathValidation(unittest.TestCase):
             n_max=3,
             trials=1000,
             seed=7,
+            model="exchangeable",
+            agent_sd=0.0,
+            difficulty_sd=0.0,
         )
         self.assertEqual(grid["scenario_count"], 8)
         self.assertGreaterEqual(grid["recommendation_match_rate"], 0.0)

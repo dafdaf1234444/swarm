@@ -28,6 +28,9 @@ class Scenario:
     risk_aversion: float
     n_max: int
     trials: int
+    model: str = "exchangeable"
+    agent_sd: float = 0.0
+    difficulty_sd: float = 0.0
 
 
 def _round(value: float, digits: int = 6) -> float:
@@ -40,6 +43,10 @@ def _mean_std(values: list[float]) -> tuple[float, float]:
     mean = sum(values) / len(values)
     var = sum((x - mean) ** 2 for x in values) / len(values)
     return mean, math.sqrt(max(0.0, var))
+
+
+def _clamp(value: float, lo: float = 0.0, hi: float = 1.0) -> float:
+    return max(lo, min(hi, float(value)))
 
 
 def _simulate_quality_samples(
@@ -58,8 +65,8 @@ def _simulate_quality_samples(
     This gives pairwise error correlation exactly rho.
     """
     samples: list[float] = []
-    p = max(0.0, min(1.0, error_rate))
-    r = max(0.0, min(1.0, rho))
+    p = _clamp(error_rate)
+    r = _clamp(rho)
     t = max(1, int(trials))
 
     for _ in range(t):
@@ -76,6 +83,43 @@ def _simulate_quality_samples(
     return samples
 
 
+def _simulate_quality_samples_heterogeneous(
+    *,
+    n: int,
+    error_rate: float,
+    rho: float,
+    trials: int,
+    rng: Random,
+    agent_sd: float,
+    difficulty_sd: float,
+) -> list[float]:
+    """Non-exchangeable model with persistent agent heterogeneity + shared difficulty shocks."""
+    samples: list[float] = []
+    p = _clamp(error_rate)
+    r = _clamp(rho)
+    t = max(1, int(trials))
+    agent_sd = max(0.0, float(agent_sd))
+    difficulty_sd = max(0.0, float(difficulty_sd))
+
+    agent_offsets = [rng.gauss(0.0, agent_sd) for _ in range(max(1, n))]
+
+    for _ in range(t):
+        difficulty = rng.gauss(0.0, difficulty_sd) if difficulty_sd > 0.0 else 0.0
+        if rng.random() < r:
+            mean_p = sum(_clamp(p + offset + difficulty) for offset in agent_offsets) / max(1, n)
+            shared_error = 1.0 if rng.random() < mean_p else 0.0
+            team_quality = 1.0 - shared_error
+        else:
+            correct = 0
+            for offset in agent_offsets:
+                p_i = _clamp(p + offset + difficulty)
+                if rng.random() >= p_i:
+                    correct += 1
+            team_quality = correct / max(1, n)
+        samples.append(team_quality)
+    return samples
+
+
 def simulated_utility_for_n(
     *,
     n: int,
@@ -85,14 +129,28 @@ def simulated_utility_for_n(
     risk_aversion: float,
     trials: int,
     rng: Random,
+    model: str,
+    agent_sd: float,
+    difficulty_sd: float,
 ) -> dict:
-    samples = _simulate_quality_samples(
-        n=n,
-        error_rate=error_rate,
-        rho=rho,
-        trials=trials,
-        rng=rng,
-    )
+    if model == "heterogeneous":
+        samples = _simulate_quality_samples_heterogeneous(
+            n=n,
+            error_rate=error_rate,
+            rho=rho,
+            trials=trials,
+            rng=rng,
+            agent_sd=agent_sd,
+            difficulty_sd=difficulty_sd,
+        )
+    else:
+        samples = _simulate_quality_samples(
+            n=n,
+            error_rate=error_rate,
+            rho=rho,
+            trials=trials,
+            rng=rng,
+        )
     mean_quality, std_quality = _mean_std(samples)
     utility = mean_quality - risk_aversion * std_quality - coordination_cost * (n - 1)
     return {
@@ -131,6 +189,9 @@ def evaluate_scenario(scenario: Scenario, *, seed: int) -> dict:
             risk_aversion=scenario.risk_aversion,
             trials=scenario.trials,
             rng=rng,
+            model=scenario.model,
+            agent_sd=scenario.agent_sd,
+            difficulty_sd=scenario.difficulty_sd,
         )
         sim_u = float(sim["utility"])
         row = {
@@ -165,6 +226,9 @@ def evaluate_scenario(scenario: Scenario, *, seed: int) -> dict:
             "n_max": scenario.n_max,
             "trials": scenario.trials,
             "seed": seed,
+            "model": scenario.model,
+            "agent_sd": scenario.agent_sd,
+            "difficulty_sd": scenario.difficulty_sd,
         },
         "recommendation": {
             "analytic_best_n": best_analytic_n,
@@ -200,6 +264,9 @@ def run_grid(
     n_max: int,
     trials: int,
     seed: int,
+    model: str,
+    agent_sd: float,
+    difficulty_sd: float,
 ) -> dict:
     scenarios: list[dict] = []
     matches = 0
@@ -219,6 +286,9 @@ def run_grid(
                     risk_aversion=risk_aversion,
                     n_max=n_max,
                     trials=trials,
+                    model=model,
+                    agent_sd=agent_sd,
+                    difficulty_sd=difficulty_sd,
                 )
                 result = evaluate_scenario(scenario, seed=seed + idx)
                 idx += 1
@@ -283,6 +353,9 @@ def run(args: argparse.Namespace) -> dict:
         n_max=int(args.n_max),
         trials=int(args.trials),
         seed=int(args.seed),
+        model=str(args.model),
+        agent_sd=float(args.agent_sd),
+        difficulty_sd=float(args.difficulty_sd),
     )
 
     calibrated_path = Path(args.calibrated_model)
@@ -296,6 +369,9 @@ def run(args: argparse.Namespace) -> dict:
         risk_aversion=calibrated_scenario.risk_aversion,
         n_max=calibrated_scenario.n_max,
         trials=int(args.trials),
+        model=str(args.model),
+        agent_sd=float(args.agent_sd),
+        difficulty_sd=float(args.difficulty_sd),
     )
     calibrated_result = evaluate_scenario(calibrated_scenario, seed=int(args.seed) + 10000)
 
@@ -312,6 +388,9 @@ def run(args: argparse.Namespace) -> dict:
             "trials": int(args.trials),
             "seed": int(args.seed),
             "calibrated_model": str(calibrated_path),
+            "model": str(args.model),
+            "agent_sd": float(args.agent_sd),
+            "difficulty_sd": float(args.difficulty_sd),
         },
         "summary": {
             "grid": {
@@ -328,7 +407,7 @@ def run(args: argparse.Namespace) -> dict:
         "calibrated_model_check": calibrated_result,
         "interpretation": (
             "If match rate is high and utility error is low, the closed-form spawn_math "
-            "utility is a reliable decision proxy under the exchangeable-error model."
+            "utility is a reliable decision proxy under the chosen error model."
         ),
     }
 
@@ -355,6 +434,24 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--trials", type=int, default=3000)
     parser.add_argument("--seed", type=int, default=186)
     parser.add_argument(
+        "--model",
+        default="exchangeable",
+        choices=("exchangeable", "heterogeneous"),
+        help="Simulation model for error structure.",
+    )
+    parser.add_argument(
+        "--agent-sd",
+        type=float,
+        default=0.0,
+        help="Std dev of per-agent error offsets (heterogeneous model).",
+    )
+    parser.add_argument(
+        "--difficulty-sd",
+        type=float,
+        default=0.0,
+        help="Std dev of shared difficulty shocks per trial (heterogeneous model).",
+    )
+    parser.add_argument(
         "--calibrated-model",
         default="experiments/information-science/f-is3-spawn-math-s186-cost-calibrated.json",
         help="Spawn-math artifact used as a real-parameter consistency check.",
@@ -372,6 +469,7 @@ def main() -> int:
         f"scenarios={summary['scenario_count']}",
         f"match_rate={summary['recommendation_match_rate']:.4f}",
         f"mean_abs_error={summary['mean_abs_utility_error']:.4f}",
+        f"model={payload['inputs']['model']}",
         f"calibrated_best_n={calibrated['analytic_best_n']}/{calibrated['simulated_best_n']}",
     )
     return 0
