@@ -27,3 +27,5 @@ ISO-10 (predict-error-revise): Bayesian updating → predict-error-revise loop; 
 ISO-16 (inferential compounding): causal inference chain → inferential compounding; each causal link expands estimable quantity space
 ISO-6 (entropy): maximum entropy principle → prior selection; entropy maximization = minimal assumption; Jeffreys prior as maximum entropy
 ISO-2 (selection → attractor): hypothesis testing → selection pressure on hypotheses; p-value threshold = selection boundary; attractor = accepted model
+## Isomorphism vocabulary (S337 resonance expansion)
+ISO-10: Bayesian knowledge coordination → structural evidence coupling via stigmergy; session cycles determine calibration quality; convergence signal pattern

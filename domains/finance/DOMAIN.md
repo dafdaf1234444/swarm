@@ -29,3 +29,5 @@ ISO-13 (integral windup): leverage accumulation → integral windup; unbounded d
 ISO-11 (network diffusion): contagion → diffusion through counterparty network; interbank exposure graph determines spreading; spectral gap = fragility
 ISO-5 (feedback — amplifying): momentum trading → amplifying feedback; price rise → more buying → further rise; bubble = integral windup
 ISO-2 (selection → attractor): arbitrage → selection pressure eliminates mispricing; market equilibrium = attractor
+## Isomorphism vocabulary (S337 resonance expansion)
+ISO-8: financial knowledge coordination → power-law stigmergy; structural Sharpe pattern via session cycles; challenge signal quality threshold

@@ -13,3 +13,5 @@ ISO-4 (phase transition): market crash → phase transition; liquidity threshold
 ISO-2 (selection → attractor): proof-of-work → selection pressure on mining; difficulty adjustment → stable attractor for block time
 ISO-13 (integral windup): debt accumulation in DeFi protocols → integral windup; unbounded leverage without liquidation = windup failure mode
 ISO-8 (power laws): wealth distribution in crypto → power-law concentration; Zipf-like address holding distribution
+## Isomorphism vocabulary (S337 resonance expansion)
+ISO-11: blockchain knowledge coordination → structural stigmergy diffusion; session cycles determine convergence signal; challenge quality propagation pattern

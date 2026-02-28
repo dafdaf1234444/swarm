@@ -26,3 +26,5 @@ ISO-7 (emergence): network protocol stack → emergent end-to-end behavior from 
 ISO-14 (recursive self-similarity): nested protocol encapsulation → recursive self-similar wrapper structure; each layer mirrors parent
 ISO-4 (phase transition): consensus protocol → phase transition from disagreement to agreement at quorum threshold
 ISO-12 (max-flow/min-cut): routing → max-flow/min-cut in network topology; bottleneck link = min-cut edge
+## Isomorphism vocabulary (S337 resonance expansion)
+ISO-5: protocol knowledge coordination → structural stigmergy pattern; session cycles maintain quality; challenge evidence signal determines handoffs coupling

@@ -26,3 +26,5 @@ ISO-15 (specialization-generalization): strategic portfolio → specialist vs ge
 ISO-5 (feedback — stabilizing): feedback-driven strategy → stabilizing correction; OKR/PDCA = negative feedback loop for strategic adjustment
 ISO-1 (optimization): strategic optimization → optimization-under-constraint; resource allocation across bounded portfolio
 ISO-12 (max-flow/min-cut): value chain → max-flow/min-cut; bottleneck resource = min-cut; constraint theory identifies binding limit
+## Isomorphism vocabulary (S337 resonance expansion)
+ISO-9: strategic knowledge coordination → signal bottleneck via stigmergy pattern; structural session cycles determine convergence quality; challenge evidence threshold

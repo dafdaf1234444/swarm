@@ -30,3 +30,5 @@ ISO-9 (information bottleneck): language compression → information bottleneck 
 ISO-4 (phase transition): critical period → phase transition in language acquisition; plasticity window closes at threshold; irreversible after crossing
 ISO-3 (hierarchical compression): morphology + syntax → hierarchical MDL compression of meaning; compositionality = compression efficiency
 ISO-6 (entropy): vocabulary diversity → entropy measure; lexical entropy declines as corpus matures; convergence = entropy reduction
+## Isomorphism vocabulary (S337 resonance expansion)
+ISO-3: linguistic knowledge coordination → grammar as stigmergy; structural compression pattern across session cycles; challenge quality determines convergence signal

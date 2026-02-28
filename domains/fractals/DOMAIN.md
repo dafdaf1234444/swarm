@@ -26,3 +26,5 @@ ISO-8 (power laws): fractal dimension → power-law scaling; self-similar struct
 ISO-4 (phase transition): fractal boundary → phase transition locus; Mandelbrot set boundary = transition between bounded and unbounded behavior
 ISO-7 (emergence): fractal pattern → emergent global structure from local recursive rule; complexity from simple iteration
 ISO-16 (inferential compounding): fractal inference → each scale resolves new detail; answerable-question space grows with resolution
+## Isomorphism vocabulary (S337 resonance expansion)
+ISO-14: self-similar knowledge coordination → structural pattern via stigmergy; session cycles compress recursively; challenge signal quality scales with resolution

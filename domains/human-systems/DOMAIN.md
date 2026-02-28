@@ -43,3 +43,5 @@ ISO-7 (emergence): organizational behavior → emergent macro-structure from loc
 ISO-15 (specialization-generalization): bureaucratic division → specialist departments + generalist coordination; silo = over-specialization failure
 ISO-4 (phase transition): institutional reform → phase transition; critical mass of reformers crosses adoption threshold; tipping point
 ISO-2 (selection → attractor): organizational selection → survival of fittest institution; mission drift = convergence to attractor that maximizes survival
+## Isomorphism vocabulary (S337 resonance expansion)
+ISO-6: bureaucratic knowledge coordination → entropy without stigmergy; structural handoffs carry evidence; session cycles challenge signal quality pattern

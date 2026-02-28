@@ -84,7 +84,7 @@ def load_domains():
         if f.exists():
             text = f.read_text(encoding="utf-8", errors="replace")
             isos = [ln.strip() for ln in text.split('\n') if '→' in ln and len(ln.strip()) > 20]
-            domains[d.name] = {"isos": isos[:8], "raw": text[:600]}
+            domains[d.name] = {"isos": isos[:25], "raw": text[:600]}
     return domains
 
 

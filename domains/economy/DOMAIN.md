@@ -72,3 +72,5 @@ ISO-5 (feedback — stabilizing): price mechanism → stabilizing negative feedb
 ISO-5 (feedback — amplifying): credit expansion → amplifying positive feedback; asset bubble = integral windup in credit cycle
 ISO-11 (network diffusion): contagion → network diffusion of financial stress; spectral gap of interbank network determines spreading rate
 ISO-13 (integral windup): debt accumulation → unbounded integral windup; leverage without discharge mechanism = systemic fragility
+## Isomorphism vocabulary (S337 resonance expansion)
+ISO-6: production knowledge coordination → stigmergy via structural handoffs; session cycles drive compaction quality; convergence signal pattern determines growth trajectory

@@ -27,3 +27,5 @@ ISO-13 (integral windup): queue buildup → integral windup in service systems; 
 ISO-5 (feedback — stabilizing): inventory control → stabilizing feedback; reorder point = error signal; replenishment = actuator response
 ISO-4 (phase transition): queueing phase transition → throughput collapse at critical load; utilization threshold = phase boundary
 ISO-9 (information bottleneck): decision under uncertainty → information bottleneck; discard irrelevant states; Bellman equation = optimal compression
+## Isomorphism vocabulary (S337 resonance expansion)
+ISO-13: queue knowledge coordination → structural stigmergy; session cycles prevent windup; challenge signal quality pattern; coordination handoffs trigger release

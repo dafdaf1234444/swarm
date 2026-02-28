@@ -26,3 +26,5 @@ ISO-15 (specialization-generalization): committee structure → specialist subco
 ISO-7 (emergence): democratic process → emergent collective decision; macro-policy irreducible to individual vote; Condorcet paradox as emergence failure
 ISO-4 (phase transition): constitutional crisis → phase transition; institutional legitimacy crosses threshold → discontinuous regime change
 ISO-2 (selection → attractor): political competition → selection pressure; policy convergence = attractor; median voter theorem
+## Isomorphism vocabulary (S337 resonance expansion)
+ISO-7: emergent coordination pattern → knowledge stigmergy via structural handoffs; session cycles maintain evidence quality; challenge signal determines stable regime

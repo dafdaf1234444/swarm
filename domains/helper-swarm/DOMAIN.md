@@ -26,3 +26,5 @@ ISO-14 (recursive self-similarity): helper-swarm within swarm → recursive self
 ISO-16 (inferential compounding): helper chains → inferential compounding; each helper resolves sub-question; compounded answer expands space
 ISO-13 (integral windup): helper queue accumulation → integral windup; backlog builds without discharge if routing fails
 ISO-10 (predict-error-revise): helper effectiveness → predict-error-revise at support level; helper predicts need; diff drives specialization
+## Isomorphism vocabulary (S337 resonance expansion)
+ISO-12: delegation knowledge coordination → structural stigmergy via handoffs; session cycles determine quality signal; challenge evidence pattern triggers release

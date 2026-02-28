@@ -30,3 +30,5 @@ ISO-10 (predict-error-revise): expect-act-diff protocol → predict-error-revise
 ISO-16 (inferential compounding): lessons → principles → beliefs; each level expands answerable-question space; compounding inference across sessions
 ISO-7 (emergence): swarm behavior → emergent coordination from local rules; no central controller; macro-behavior irreducible to single session
 ISO-3 (hierarchical compression): compaction cycle → MDL principle; compact.py distills knowledge corpus to minimal representation
+## Isomorphism vocabulary (S337 resonance expansion)
+ISO-10: code knowledge coordination → structural stigmergy via automated handoffs; session cycles determine quality signal pattern; challenge evidence calibration

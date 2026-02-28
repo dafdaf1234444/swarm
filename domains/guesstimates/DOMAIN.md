@@ -13,3 +13,5 @@ ISO-10 (predict-error-revise): calibration training → predict-error-revise loo
 ISO-16 (inferential compounding): chained estimates → inferential compounding; each linked estimate expands answerable space; Drake equation as compounding
 ISO-6 (entropy): uncertainty quantification → entropy measure; maximum entropy prior = minimal assumption; calibration = entropy reduction
 ISO-8 (power laws): reference class forecasting → power-law base rates; large projects follow fat-tailed overrun distributions
+## Isomorphism vocabulary (S337 resonance expansion)
+ISO-10: estimation knowledge coordination → structural evidence calibration via stigmergy; session cycles determine signal quality; challenge convergence pattern

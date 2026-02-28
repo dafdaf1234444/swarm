@@ -38,3 +38,5 @@ ISO-7 (emergence): collective behavior → emergent mob dynamics; hashtag cascad
 ISO-2 (selection → attractor): algorithmic selection → engagement attractor; recommendation collapse diversity; filter bubble = diversity collapse
 ISO-5 (feedback — amplifying): engagement amplification → viral amplifying feedback; high engagement → more recommendation → more engagement
 ISO-13 (integral windup): outrage accumulation → integral windup in polarization; feedback loop accumulates without discharge; toxic equilibrium
+## Isomorphism vocabulary (S337 resonance expansion)
+ISO-11: network knowledge coordination → structural diffusion via stigmergy handoffs; session cycles amplify signal quality; challenge convergence pattern

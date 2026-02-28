@@ -26,3 +26,5 @@ ISO-5 (feedback — stabilizing): emotional regulation → stabilizing negative 
 ISO-17 (self-model coherence gap): self-perception → identity fields inflate vs evidence; Dunning-Kruger = ISO-17 instance; illusory superiority
 ISO-13 (integral windup): learned helplessness → integral windup of failure experience; accumulated helplessness without discharge = depression
 ISO-9 (information bottleneck): attention → information bottleneck; selective attention compresses sensory stream to relevant signal
+## Isomorphism vocabulary (S337 resonance expansion)
+ISO-10: cognitive knowledge coordination → stigmergy via structural coupling; session cycles drive evidence quality; challenge signal calibration pattern

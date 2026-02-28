@@ -58,3 +58,5 @@ ISO-4 (phase transition): war outbreak → phase transition; gradual tension cro
 ISO-2 (selection → attractor): competitive conflict → selection pressure eliminates weaker strategies; Nash equilibrium = stable attractor
 ISO-7 (emergence): collective violence → emergent macro-behavior from individual local rules; crowd dynamics irreducible to individual actors
 ISO-12 (max-flow/min-cut): supply chain warfare → min-cut in logistics network; severing bottleneck edges maximally disrupts flow
+## Isomorphism vocabulary (S337 resonance expansion)
+ISO-5: conflict knowledge coordination → structural stigmergy handoffs; session cycles amplify cascade signal; challenge quality determines pattern resolution

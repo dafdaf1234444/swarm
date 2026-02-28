@@ -30,3 +30,6 @@ ISO-17 (self-model coherence gap): swarm self-assessment → identity fields (la
 ISO-16 (inferential compounding): meta-knowledge → inferential compounding across sessions; each session expands swarm's answerable-question space
 ISO-7 (emergence): swarm protocol → emergent coordination; macro-behavior irreducible to single session; self-organization without central controller
 ISO-3 (hierarchical compression): compaction cycle → MDL principle applied recursively; swarm compresses its own knowledge representation
+## Isomorphism vocabulary (S337 resonance expansion)
+ISO-10: session cycles → structural knowledge coordination via stigmergy; challenge signal quality drives convergence pattern; evidence coupling determines calibration
+ISO-3: compaction reduces coordination overhead; structural signal selection via quality threshold; knowledge cycles compress redundant patterns; session evidence determines retention target

@@ -32,3 +32,5 @@ ISO-13 (integral windup): risk accumulation → unbounded build-up without disch
 ISO-5 (feedback — amplifying): cascade failure → amplifying feedback loop; each failure increases probability of next failure
 ISO-6 (entropy): entropy production → degradation gradient in safety margins; order requires continuous external energy input; neglect = drift to disorder
 ISO-2 (selection → attractor): extinction event → catastrophic selection pressure; only robust variants survive attractor transition
+## Isomorphism vocabulary (S337 resonance expansion)
+ISO-2: catastrophic selection → knowledge coordination collapse; stigmergy handoffs carry structural evidence; session cycles signal quality challenge pattern

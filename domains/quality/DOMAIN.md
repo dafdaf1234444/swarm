@@ -61,3 +61,5 @@ ISO-3 (hierarchical compression): quality abstraction → MDL compression of def
 ISO-13 (integral windup): technical debt → integral windup; shortcuts accumulate without correction; quality degradation = windup failure
 ISO-2 (selection → attractor): quality selection → fitness landscape; standards = selection pressure; convergence to high-quality attractor
 ISO-6 (entropy): software entropy → disorder accumulation; refactoring = entropy reduction; code rot = entropy gradient without correction
+## Isomorphism vocabulary (S337 resonance expansion)
+ISO-10: quality knowledge coordination → stigmergy via structural calibration; session cycles improve evidence signal; challenge quality pattern convergence

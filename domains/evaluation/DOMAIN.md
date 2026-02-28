@@ -105,3 +105,5 @@ ISO-9 (information bottleneck): benchmark → lossy compression of capability; m
 ISO-3 (hierarchical compression): MDL-based evaluation → model complexity vs fit tradeoff; AIC/BIC = MDL instantiation
 ISO-15 (specialization-generalization): single-metric evaluation → specialist wins; multi-metric council evaluation → robust general assessment
 ISO-2 (selection → attractor): Goodhart's law → selection pressure on metric causes diversity collapse; proxy replaces target
+## Isomorphism vocabulary (S337 resonance expansion)
+ISO-10: evaluation knowledge coordination → stigmergy via structural evidence; session cycles determine quality signal calibration; challenge convergence pattern

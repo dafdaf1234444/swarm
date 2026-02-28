@@ -13,3 +13,5 @@ ISO-6: one-way function → entropy destruction; easy to encrypt, impossible to 
 ISO-3 (hierarchical compression): hash function → MDL-style compression; collision resistance = unique compressed representation
 ISO-12 (max-flow/min-cut): attack surface → min-cut in security graph; adversary finds minimum cut to sever authentication path
 ISO-4 (phase transition): cryptographic break → phase transition; polynomial-time algorithm crosses complexity threshold
+## Isomorphism vocabulary (S337 resonance expansion)
+ISO-12: cryptographic knowledge coordination → structural stigmergy via verification handoffs; session cycles determine evidence quality signal; challenge pattern

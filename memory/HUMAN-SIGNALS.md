@@ -167,6 +167,12 @@ before committing — not retrospectively at the harvest.
 
 - **Externalization signal**: "expert on whether swarm is [valuable / ready / noticed]" = human seeking external-audience validation, not internal health check. Distinct from "is swarm broken?" (internal audit) — this signal indicates the swarm has reached a threshold where the human wants outside confirmation. Response: convene synthetic outside-experts council, assess cold-reader accessibility, and produce one public-facing artifact. Key metric: cold-reader time-to-understand, not internal swarmability score. (S313, L-399, F133, F134)
 
+- **Meta-recursive dream**: Asking dream.py to dream about the swarm itself (not domain pairs) generates sharper structural hypotheses than cross-domain dreams. Self-referential containment amplifies the output — the swarm's knowledge about itself is the richest corpus for dream-seed. Format: DRM-HN hypothesis tagging required so outputs are actionable lanes. (S334, L-464, F-DRM4)
+
+- **Global scale signal**: "scale the swarm in all aspects" (no domain qualifier) = fan-out trigger: activate ALL underserved frontiers simultaneously, not sequentially pick one. "All aspects" overrides dispatch priority ordering — maximizes throughput when the bottleneck is coverage not depth. Distinct from "swarm X" (directional) and bare "swarm" (autonomous selection). (S335, L-465, docs/COUNCIL-STRUCTURE.md)
+
+- **Vocabulary bridge**: Human metaphorical terms map to nearest measurable swarm quantity; interpret before acting. "Smooth" → K_avg (ruggedness inverse); "scale" → fan-out count; "drift" → proxy-K deviation; "jam" → blocked-lane count. Literal interpretation wastes cycles. Expert dispatch to high-K-avg domains IS the smoothness tool. (S335, L-468, P-211)
+
 ## S302 | 2026-02-28 | "for the swarm"
 - Raw: "for the swarm"
 - Context: Following previous signals "cryptocurrencies and cryptography experts for the swarm" (S301) and "guesstimates expert swarm the swarm" (S302). This signal appears to endorse continued domain expansion — seeded domains are working as intended.
@@ -270,3 +276,30 @@ before committing — not retrospectively at the harvest.
 - Context: Session start after multiple concurrent sessions (S313–S324). Maintenance DUE items present: PAPER scale drift, L-423 deletion.
 - Interpretation: Maintenance-cycle trigger. 4th instance of "repair" in directives (S307, S318, S323, S325) — pattern now confirmed. Execute DUE/PERIODIC sweep before new frontier work.
 - Action: Ran maintenance.py; fixed PAPER scale drift (README/INDEX: 359→362L, 180→179P, S313→S325); restored accidentally deleted L-426; staged L-424/L-427/L-428/L-429; validated state. L-429 written (repair signal pattern). Applied to README.md, memory/INDEX.md, memory/HUMAN-SIGNALS.md, memory/lessons/L-429.md.
+
+## S334 | 2026-03-01 | "dream about best possible swarm"
+- Raw: "dream about best possible swarm"
+- Context: Session start; meta-recursive directive asking dream.py to introspect on the swarm itself.
+- Interpretation: Self-referential dream trigger — dream mechanism applied to its own container. More productive than domain-pair dreams because the swarm IS the subject.
+- Action: Dream Session 5 complete (F-DRM1). 5 hypotheses (DRM-H14–H18): K_avg as evolutionary fitness signal, Pareto-optimal sessions via game-theoretic shadow, two-regime proliferation/compression policy, information conservation law for compact.py, latent-mining sessions (orthogonal to dream.py). F-DRM4 opened. L-464 written. Artifact: experiments/dream/f-drm1-dream-session5-s334.json.
+- Pattern encoded: **Meta-recursive self-dream** = applying dream mechanism to the swarm itself generates sharper hypotheses than domain-pair dreams; self-referential containment amplifies signal.
+
+## S335 | 2026-03-01 | "scale the swarm in all aspects"
+- Raw: "scale the swarm in all aspects"
+- Context: Session start; global scale directive without domain qualifier.
+- Interpretation: Fan-out all available frontier dimensions simultaneously (council structure + domain enrichment + DOMEX). "All aspects" = do not pick one lane, activate all underserved streams.
+- Action: Three concurrent streams landed: (1) HQ-41 answered — formal council structure docs/COUNCIL-STRUCTURE.md (10 domain seats, 3 modes, F-SCALE2). (2) Domain DOMAIN.md enrichment — dream.py 22→52 resonances, 0→43 non-brain (L-467, DRM-H16). (3) F-LNG1 n=401 α=0.7476, F-LNG2 10-session milestone. Applied to docs/COUNCIL-STRUCTURE.md, 38 domains DOMAIN.md files, experiments/meta/f-meta-dream-enrichment-s335.json.
+- Pattern encoded: **Global scale signal** = fan-out trigger across ALL underserved frontiers, not sequential. Scaling = parallelism. P-211 (vocabulary bridge) extracted.
+
+## S335 | 2026-03-01 | "smooth swarm"
+- Raw: "smooth swarm"
+- Context: Mid-session vocabulary signal during NK tracking work.
+- Interpretation: Human metaphor "smooth" maps directly to NK fitness-landscape ruggedness inverse = K_avg. Optimal zone K_avg 1.5–2.5; current 1.5697 = entry point.
+- Action: L-468 written: Swarm Smoothness = NK K_avg (vocabulary bridge documented). Expert dispatch IS the smoothness tool. Applied to L-468, domains/nk-complexity/tasks/FRONTIER.md, NEXT.md.
+- Pattern encoded: **Vocabulary bridge** = human metaphorical terms map to nearest measurable swarm quantity; interpret before acting; one-word human signals can carry precise structural meaning. P-211 extracted.
+
+## S336 | 2026-03-01 | "maintain the swarm"
+- Raw: "maintain the swarm"
+- Context: Session start; maintenance directive.
+- Interpretation: Full swarm maintenance cycle — compaction, periodics, domain work, handoff. Not just tooling cleanup; meta-maintenance of the swarm's own health metrics.
+- Action: F121 harvest executed (this entry). L-473 written. Applied to memory/HUMAN-SIGNALS.md, memory/PRINCIPLES.md (P-211), memory/lessons/L-473.md.

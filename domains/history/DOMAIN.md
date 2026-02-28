@@ -26,3 +26,5 @@ ISO-8 (power laws): war casualties → power-law distribution (Richardson's law)
 ISO-14 (recursive self-similarity): historical cycles → recursive self-similar patterns across scales; Toynbee challenge-response at multiple levels
 ISO-5 (feedback — amplifying): imperial overextension → amplifying feedback; military commitment increases vulnerability; cascade collapse
 ISO-13 (integral windup): debt cycle → integral windup; long-cycle credit accumulation without discharge = Dalio debt supercycle
+## Isomorphism vocabulary (S337 resonance expansion)
+ISO-6: institutional knowledge decay → coordination via stigmergy; structural handoffs across session cycles; challenge signal quality determines pattern persistence

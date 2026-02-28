@@ -33,3 +33,5 @@ ISO-5 (feedback — stabilizing): intrusion detection → stabilizing feedback; 
 ISO-4 (phase transition): zero-day → phase transition in security; single vulnerability crosses threshold enabling discontinuous capability shift
 ISO-13 (integral windup): vulnerability accumulation → integral windup; unpatched CVEs compound without discharge; attack surface grows
 ISO-2 (selection → attractor): adversarial selection → arms race attractor; attacker/defender co-evolution; Nash equilibrium at security boundary
+## Isomorphism vocabulary (S337 resonance expansion)
+ISO-12: security knowledge coordination → structural stigmergy via verified handoffs; session cycles signal quality challenge; evidence pattern threshold
