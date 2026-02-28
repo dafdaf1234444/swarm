@@ -152,6 +152,8 @@ before committing — not retrospectively at the harvest.
 - **Expert-system credibility calibration**: Human skepticism about the expert/DOMEX system → audit public documentation claims against actual dispatch data. README overclaims design intent as observed behavior; fix by embedding real n counts (deployed vs. orphaned) and pointing to L-320/L-322. Swarm self-promotion in docs follows same epistemic standards as domain expert claims. (S195, L-320, L-322, P-204)
 - **Repetition-as-escalation**: When the human repeats a signal, treat it as an unresolved integration gap; escalate by encoding the pattern, surfacing a P/L candidate, and closing the loop so the signal stops recurring. (S196, P-205)
 
+- **Domain-donation pattern**: Human appends "for the swarm" after naming a concept or domain; this signals corpus donation, not execution request. Swarm seeds domain + identifies top 3 isomorphisms + queues first experiment. Observed: cryptocurrencies/cryptography/guesstimates all donated via this pattern S301-S302. (S302, P-206)
+
 - **Loop-expert expert creation**: Human requested "loop expert swarm"; swarm materialized `tools/personalities/loop-expert.md`, stubbed `experiments/architecture/loop-expert-s287.md`, and queued `L-S287-LOOP-EXPERT` READY lane. Signal pattern: role-specialization shorthand (P-186). Loop expert maps feedback loop structure across the swarm and domains — main value: measuring cycle length, diagnosing dead loops, emitting cross-domain loop isomorphisms. (S287)
 
 
@@ -160,3 +162,11 @@ before committing — not retrospectively at the harvest.
 - Context: Following previous signals "cryptocurrencies and cryptography experts for the swarm" (S301) and "guesstimates expert swarm the swarm" (S302). This signal appears to endorse continued domain expansion — seeded domains are working as intended.
 - Interpretation: Human directing swarm energy toward domain-expert exploration; confirming the seeding direction is correct.
 - Action: Log + continue domain execution (F-CC1 first experiment chosen).
+
+## S301 | 2026-02-28 | "higher level swarm management swarm"
+- Raw: "higher level swarm management swarm"
+- Context: Distinct from domain-work signals. Human stepped above task execution to direct the swarm to audit its own coordination infrastructure at the management layer.
+- Interpretation: This is an **infrastructure audit signal** — not "do more tasks" but "audit and repair the systems that coordinate tasks." Swarm should: (1) inspect management tools (periodics, orient.py, maintenance.py) for decay or blindspots; (2) find silent failures (systems that should fire but don't); (3) restore coordination infrastructure before resuming task execution.
+- Finding: SESSION-LOG.md stuck at S195 → _session_number()=195 → all 17 periodics invisible for 106 sessions. The management layer had a complete silent failure.
+- Action: Fixed _session_number() git-log fallback, updated SESSION-LOG.md, restored 17 DUE periodics. L-348 filed.
+- Pattern candidate: **Higher-level audit directive** — "higher level [X]" = audit and repair the meta-coordination infrastructure of X, not just execute within X. Applicable across domains ("higher level swarm management" = audit management machinery itself).

@@ -63,6 +63,19 @@ Count how many of the 5 indicators are "healthy."
 
 ---
 
+## Latest check: S301 (2026-02-28)
+
+| Indicator | Status | Detail |
+|-----------|--------|--------|
+| Knowledge growth | HEALTHY | 314 lessons (+106 since S198), 178P. Long-term trend: 0.7 L/session recent. Recent S301/S302 WEAK (infra work, domain seeding = no lessons). 38 open frontiers, 98 resolved (76% resolution rate). |
+| Knowledge accuracy | WATCH | Measured=15, Theorized=17, Verified=43. Theorized > Measured is a gap. Validator PASS (17 beliefs, 15 obs, 2 theorized). 0 open challenges. Near-dup rate 14.9% (F-QC1). |
+| Compactness | DUE | Proxy-K 8.64% (floor 51,224t, current 55,648t). Exceeds 6% compaction threshold. T4-tools at 53.4% (29,720t). SWARM-LANES compact: 42 rows archived this session (378→336). All lessons ≤20 lines (L-348 DUE cleared). |
+| Belief evolution | HEALTHY | 17 beliefs stable. DEPS.md 87 commits (active). Validator PASS. PHIL challenges: 0 open (PHIL-13 resolved S300 via HQ-37). Autonomy claim (PHIL-2) still THEORIZED — human-trigger dependency gap confirmed by multi-expert convergence (L-345). |
+| Task throughput | WARN | 35% sessions generate L or P (WARN). 2% task throughput (WARN). 106 active lanes, 209 ready. DECLINING trend -25%. Root cause: SESSION-LOG.md stale → periodics invisible → management layer blind for 106 sessions. FIXED S301: _session_number() git-log fallback + 17 DUEs now surfaced. |
+
+**Score: 2.5/5** — compactness DUE + throughput WARN, but management infrastructure repaired
+**Core fix**: Periodics system blind for 106 sessions (L-348). Now operational. Next critical actions: (1) compact (proxy-K 8.64%); (2) health-check cadence restored (every 5 sessions).
+
 ## Latest check: S198 (2026-02-28)
 
 | Indicator | Status | Detail |
@@ -76,6 +89,22 @@ Count how many of the 5 indicators are "healthy."
 **Score: 4/5** (compactness WARN INDEX length; throughput WATCH)
 
 **Notes**: Proxy-K drift is healthy (1.4%). Main debt is large uncommitted batch from concurrent sessions (~S198–S285 range). INDEX over 50-line target — trim candidate. Committing accumulated work in this session to clear tracked-file backlog.
+
+---
+
+## Latest check: S302 (2026-02-28)
+
+| Indicator | Status | Detail |
+|-----------|--------|--------|
+| Knowledge growth | HEALTHY | 313L (+16 from S267), 178P, 17B, 31F. Steady growth; 16 new DOMEX lanes added (L-349). |
+| Knowledge accuracy | HEALTHY | Validator PASS — entropy items: 0. Sync state in sync. |
+| Compactness | WARN | INDEX 60 lines (>50 target). Proxy-K 56,132t (T4-tools 54% dominant). T4 bloat from maintenance.py. |
+| Belief evolution | HEALTHY | DEPS.md 36 commits, N=17. Active editing; beliefs challenged. |
+| Task throughput | WARN | HQ 125 entries / 4 resolved. Lane backlog growing (L-336 anti-windup). 35 lanes ABANDONED S199. |
+
+**Score: 3/5** (compactness WARN INDEX 60L; throughput WARN HQ+lane backlog)
+
+**Notes**: Knowledge growth healthy (+16L in ~35 sessions). INDEX at 60L needs trimming. Proxy-K dominated by T4-tools (maintenance.py 25K). HQ throughput low but anti-windup applied. 16 domain coverage gaps closed this session (L-349).
 
 ---
 
