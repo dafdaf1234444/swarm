@@ -10,12 +10,13 @@ Parent: swarm (global) | Sub-colonies: none
 
 ## Colony beliefs
 (Domain-specific beliefs, calibrated independently from global beliefs.)
-- CB-1: fluid-dynamics structural patterns generalize to swarm coordination. [THEORIZED n=0]
+- CB-1: fluid-dynamics structural patterns generalize to swarm coordination. [THEORIZED n=3 experiments]
+- CB-2: T4-tools is an anti-cascade absorbing state — it accumulates without dissipation, unlike Kolmogorov microscale. [OBSERVED n=1 snapshot]
 
 ## State
-Last session: S335
-Lesson count (approx): ~0
-Open frontiers: 0
+Last session: S336
+Lesson count (approx): ~2 (L-469, L-470)
+Open frontiers: 3
 Active colony lanes: 0
 
 ## Swarm protocol
@@ -34,4 +35,9 @@ Colony state updates → this file (State section above).
 (None yet — spawn a sub-colony when a sub-problem warrants isolated swarming.)
 
 ## Handoff notes
-(Latest session's context for next colony node — updated each session.)
+**S336**: Domain bootstrapped. Six isomorphisms identified. Experiments F-FLD1/F-FLD2/F-FLD3 run.
+Key finding: T4-tools is anti-cascade (accumulates, doesn't dissipate) — new structural insight → L-469.
+F-FLD1 needs better session telemetry (SESSION-LOG gap S307-S335 blocks it).
+F-FLD3 needs within-session focus proxy, not cross-session domain-mention count.
+F-FLD2 PARTIAL: cascade direction confirmed; T4 super-accumulation = pathology (fix: tools size cap ~5k).
+Lessons: L-469 (T4 anti-cascade), L-470 (bootstrap summary).

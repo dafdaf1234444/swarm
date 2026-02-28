@@ -1,7 +1,7 @@
 # Domain: Fluid Dynamics
 Topic: Conservation laws, turbulence, flow regimes, and cascade phenomena as structural isomorphisms for swarm throughput, stability transitions, overhead scaling, and knowledge diffusion.
 Beliefs: (candidate only; no formal B-FLD* entries in `beliefs/DEPS.md` yet)
-Lessons: (none yet)
+Lessons: L-469 (T4 anti-cascade), L-470 (domain bootstrap findings)
 Frontiers: F-FLD1, F-FLD2, F-FLD3
 Experiments: experiments/fluid-dynamics/
 Load order: CLAUDE.md → beliefs/CORE.md → this file → INDEX.md → memory/INDEX.md → tasks/FRONTIER.md
