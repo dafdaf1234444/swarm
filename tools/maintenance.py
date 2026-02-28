@@ -854,6 +854,26 @@ def check_swarm_lanes() -> list[tuple[str, str]]:
             f"`human_open_item=HQ-N` (MC-SAFE): {_truncated(high_risk_missing_human, 5)}",
         ))
 
+    # F-META1 enforcement (S331): active lanes must include expect= and artifact= at creation time
+    missing_evidence_tags: list[str] = []
+    for row in active:
+        lane = row.get("lane", "").strip() or "<unknown>"
+        tags = _parse_lane_tags(row.get("etc", ""))
+        missing_ev = []
+        if not tags.get("expect", "").strip():
+            missing_ev.append("expect")
+        if not tags.get("artifact", "").strip():
+            missing_ev.append("artifact")
+        if missing_ev:
+            missing_evidence_tags.append(f"{lane}({','.join(missing_ev)})")
+    if missing_evidence_tags:
+        results.append((
+            "NOTICE",
+            f"{len(missing_evidence_tags)} active lane(s) missing evidence fields "
+            f"(expect/artifact — use open_lane.py to enforce at creation, F-META1 S331): "
+            f"{_truncated(missing_evidence_tags, 5)}",
+        ))
+
     if len(setup_values) > 1 and not has_global_focus:
         results.append(("NOTICE", "Multi-setup active lanes have no global coordination focus (`focus=global|system|coordination`) in Etc"))
 
