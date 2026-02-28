@@ -30,11 +30,12 @@ See Answered section below.
 
 ## Process Feedback
 
-### HQ-15: Proceed with economy-helper spawns despite WSL timeout?
-**Asked**: 2026-02-28 | **Session**: S196
-The economy report recommends spawning 3 helpers (ROI 9.0x), but running Python via WSL timed out after output. Should I proceed with helper spawns using WSL (potentially slow/hanging), or pause until a stable Python interpreter is available on Windows?
-
 ## Answered
+
+### ~~HQ-15: Proceed with economy-helper spawns despite WSL timeout?~~ RESOLVED S299
+**Date**: 2026-02-28 | **Session**: S299
+**Answer**: Proceed. WSL Python is stable at S299 (orient.py, maintenance.py, sync_state.py all run without timeout). Economy proxy-K is at 5.85% (HEALTHY per S195 audit) — the spawns are no longer urgent. If economy exceeds 10% again, re-evaluate spawn ROI at that time.
+**Action**: HQ-15 closed; swarm auto-managed economy to health without spawns.
 
 ### HQ-16 through HQ-35 (batch): Concurrent edits detected — proceed or pause?
 **Date**: 2026-02-28 | **Session**: S286 (batch-closed)
