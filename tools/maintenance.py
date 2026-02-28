@@ -1210,6 +1210,35 @@ def check_frontier_decay() -> list[tuple[str, str]]:
         results.append(("NOTICE", f"{len(weak)} frontier(s) weakening: {', '.join(weak)}"))
     return results
 
+def check_domain_expert_coverage() -> list[tuple[str, str]]:
+    """Every domain with ≥1 active frontier must have ≥1 non-ABANDONED DOMEX lane (L-349, P-185)."""
+    results = []
+    domains_dir = REPO_ROOT / "domains"
+    lanes_path = REPO_ROOT / "tasks" / "SWARM-LANES.md"
+    if not domains_dir.exists() or not lanes_path.exists():
+        return results
+
+    lanes_text = _read(lanes_path)
+    uncovered = []
+    for frontier_path in sorted(domains_dir.glob("*/tasks/FRONTIER.md")):
+        domain = frontier_path.parts[-3]
+        text = _read(frontier_path)
+        active_section = text.split("## Resolved", 1)[0].split("## Archive", 1)[0]
+        has_active = bool(re.search(r"^\s*[-*]\s*\*\*F", active_section, re.MULTILINE))
+        if not has_active:
+            continue
+        # Check for non-ABANDONED DOMEX lane mentioning this domain
+        domex_rows = [r for r in lanes_text.splitlines()
+                      if "DOMEX" in r and domain.lower() in r.lower()
+                      and "ABANDONED" not in r and "MERGED" not in r]
+        if not domex_rows:
+            uncovered.append(domain)
+
+    if uncovered:
+        results.append(("NOTICE", f"Domain expert coverage gap ({len(uncovered)} domains with active frontiers but no DOMEX lane): {', '.join(uncovered)}"))
+    return results
+
+
 def check_periodics() -> list[tuple[str, str]]:
     results = []
     periodics_path = REPO_ROOT / "tools" / "periodics.json"
@@ -2245,6 +2274,7 @@ def main():
         check_session_log_integrity,
         check_state_header_sync,
         check_cross_references,
+        check_domain_expert_coverage,
         check_domain_frontier_consistency,
         check_readme_snapshot_drift,
         check_structure_layout,
