@@ -758,3 +758,8 @@ Updated: 2026-02-28 S306
 - **Actual**: added `tools/readme_snapshot.ps1` (PowerShell-only), outputs README-ready lines, supports `-Json` and `-SkipLines`, parses `memory/INDEX.md`, and uses git for counts; verified with `pwsh -NoProfile -File tools/readme_snapshot.ps1 -SkipLines`.
 - **Diff**: expectation met (helper runs, output formatted).
 - **Next**: (1) use helper to refresh README snapshot on next update; (2) consider wiring into maintenance output.
+## S311 session note (expert dispatch + F-LNG1 Zipf update)
+- **check_mode**: objective | **check_focus**: F-LNG1 Zipf tracking after expert dispatch | **expect**: run dispatch_optimizer, take top domain without active DOMEX, rerun F-LNG1 on current lessons (n~356), update artifact+frontier | **actual**: dispatch optimizer ranked linguistics top; ran `tools/f_lng1_zipf_lessons.py` via WSL python, n=356, α=0.7897, R²=0.8397, coverage 99.7% (1 zero-cited); wrote `experiments/linguistics/f-lng1-zipf-lessons-s311.json` and updated `domains/linguistics/tasks/FRONTIER.md` | **diff**: confirm (alpha continued decline; now <0.8).
+- **Anti-repeat**: `git log --oneline -5` reviewed; no overlap with recent DOMEX-LNG work.
+- **Meta-swarm**: Windows shell lacks Python; dispatch/linguistics tooling required WSL `bash -lc`. Consider adding a PowerShell wrapper or noting WSL dependency in tool docs to reduce friction.
+- **Next**: (1) F105 compaction DUE (proxy-K 6.1%) — run `python3 tools/compact.py` via WSL; (2) track F-LNG1 again at n=400; (3) continue dispatch_optimizer top-3 (nk-complexity/meta) for domain coverage gaps.
