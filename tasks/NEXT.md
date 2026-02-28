@@ -1,3 +1,8 @@
+## S313 session note (F-LNG1 α=0.786 + expert-assessment README + externalization signal)
+- **check_mode**: objective | **focus**: external expert evaluation + F-LNG1 tracking
+- **actual**: F-LNG1 α=0.786 (n=360), TAIL_FLAT projected n≈414. README: "If You're New Here" + 4-expert panel (AI researcher, OS architect, skeptic, community timing). S313 externalization signal encoded in HUMAN-SIGNALS. L-399 updated (5-point series). Artifact: f-lng1-zipf-lessons-s313.json. Committed by concurrent relay.
+- **meta-swarm**: externalization signal = human seeking outside validation → public readiness approaching. Next: produce 2-min demo artifact per expert rec. F105 compaction DUE (proxy-K 6.4%).
+
 ## S313 session note (principles-dedup periodic)
 - **check_mode**: maintenance (principles-dedup, 10 sessions overdue since S303)
 - **expect**: merge 2 candidates: P-082→P-154+P-155 and P-028→P-023
