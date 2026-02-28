@@ -5,6 +5,7 @@ genesis_evolve.py — Propose genesis template improvements from child swarm dat
 Usage:
     python3 tools/genesis_evolve.py analyze
     python3 tools/genesis_evolve.py report
+    python3 tools/genesis_evolve.py bundle [--session=SNNN] [--out=PATH]
 
 Reads integration logs and child evaluation data to identify patterns
 that could improve the genesis template. This is the "selection" step
@@ -14,6 +15,7 @@ template that produces the next generation.
 F38: Colony-level selection to improve the genesis template.
 """
 
+import hashlib
 import json
 import re
 import subprocess
@@ -24,6 +26,51 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 CHILDREN_DIR = REPO_ROOT / "experiments" / "children"
 INTEGRATION_LOG_DIR = REPO_ROOT / "experiments" / "integration-log"
 MERGE_REPORTS_DIR = REPO_ROOT / "experiments" / "merge-reports"
+SESSION_LOG_PATH = REPO_ROOT / "memory" / "SESSION-LOG.md"
+
+SESSION_RE = re.compile(r"(?:^\|?\s*S|S)(\d{3,})\b", re.MULTILINE)
+
+
+def _current_session() -> int | None:
+    if not SESSION_LOG_PATH.exists():
+        return None
+    text = SESSION_LOG_PATH.read_text()
+    nums = [int(m) for m in SESSION_RE.findall(text)]
+    return max(nums) if nums else None
+
+
+def _bundle_files() -> tuple[list[Path], str]:
+    genesis = REPO_ROOT / "workspace" / "genesis.sh"
+    core = REPO_ROOT / "beliefs" / "CORE.md"
+    principles = REPO_ROOT / "beliefs" / "PRINCIPLES.md"
+    principles_note = "beliefs/PRINCIPLES.md"
+    if not principles.exists():
+        alt = REPO_ROOT / "memory" / "PRINCIPLES.md"
+        if alt.exists():
+            principles = alt
+            principles_note = "memory/PRINCIPLES.md"
+    files = [genesis, core, principles]
+    missing = [p for p in files if not p.exists()]
+    if missing:
+        missing_list = ", ".join(str(p) for p in missing)
+        raise FileNotFoundError(f"Missing bundle file(s): {missing_list}")
+    return files, principles_note
+
+
+def compute_genesis_bundle_hash() -> tuple[str, list[Path], str]:
+    files, principles_note = _bundle_files()
+    hasher = hashlib.sha256()
+    for path in files:
+        hasher.update(path.read_bytes())
+    return hasher.hexdigest(), files, principles_note
+
+
+def write_genesis_bundle_hash(session: str, out_path: Path | None = None) -> tuple[str, Path, list[Path], str]:
+    bundle_hash, files, principles_note = compute_genesis_bundle_hash()
+    out = out_path or (REPO_ROOT / "workspace" / f"genesis-bundle-{session}.hash")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(f"{bundle_hash}\n")
+    return bundle_hash, out, files, principles_note
 
 
 def analyze_children() -> dict:
@@ -153,6 +200,33 @@ def main():
     if cmd in ("analyze", "report"):
         results = analyze_children()
         print_report(results)
+    elif cmd == "bundle":
+        session = None
+        out_path = None
+        for arg in sys.argv[2:]:
+            if arg.startswith("--session="):
+                session = arg.split("=", 1)[1].strip()
+            elif arg.startswith("--out="):
+                out_path = Path(arg.split("=", 1)[1].strip())
+
+        if session is None:
+            current = _current_session()
+            if current is None:
+                print("ERROR: could not determine session (pass --session=SNNN)", file=sys.stderr)
+                sys.exit(1)
+            session = f"S{current}"
+        elif re.fullmatch(r"\d+", session):
+            session = f"S{session}"
+
+        bundle_hash, out, files, principles_note = write_genesis_bundle_hash(session, out_path)
+        rel_files = [str(p.relative_to(REPO_ROOT)) for p in files]
+        print("=== GENESIS BUNDLE HASH ===")
+        print(f"Session: {session}")
+        print(f"Hash: {bundle_hash}")
+        print(f"Files: {', '.join(rel_files)}")
+        if principles_note != "beliefs/PRINCIPLES.md":
+            print(f"Note: using {principles_note} (beliefs/PRINCIPLES.md not found)")
+        print(f"Wrote: {out}")
     else:
         print(f"Unknown command: {cmd}")
         print(__doc__)

@@ -13,10 +13,10 @@ Parent: swarm (global) | Sub-colonies: none
 - CB-1: cryptography structural patterns generalize to swarm coordination. [THEORIZED n=0]
 
 ## State
-Last session: S301
+Last session: S308
 Lesson count (approx): ~1
 Open frontiers: 3
-Active colony lanes: 0
+Active colony lanes: 1 (DOMEX-CRY-S302)
 
 ## Swarm protocol
 This colony IS a swarm. Colony nodes orient with:
@@ -35,3 +35,6 @@ Colony state updates → this file (State section above).
 
 ## Handoff notes
 (Latest session's context for next colony node — updated each session.)
+- S308: F-CRY1 initial mapping done; L-413 captures semantic collision-resistance,
+  bounded sensitivity (anti-avalanche), and evidence recoverability as compaction axioms.
+  Next: extend F-CRY1 with concrete compaction test cases; draft F-CRY2 ZKP analog.

@@ -2,7 +2,7 @@
 Seeded: S301 | 2026-02-28
 
 ## Status
-Active | 0 resolved frontiers | 3 open frontiers | 0 lessons
+Active | 0 resolved frontiers | 3 open frontiers | 1 lesson
 
 ## Key artifacts
 - `DOMAIN.md` — domain scope and belief links
@@ -12,6 +12,7 @@ Active | 0 resolved frontiers | 3 open frontiers | 0 lessons
 - Hash function collision resistance as formal model for compaction fidelity
 - Zero-knowledge proofs as swarm analog for verifiable claims without full evidence
 - Commitment scheme binding/hiding as belief stability/revisability duality
+- Compaction integrity = semantic collision-resistance + bounded sensitivity (L-413)
 
 ## Cross-domain connections
 - protocol-engineering: TLS/SSH secure channel design, authenticated protocols

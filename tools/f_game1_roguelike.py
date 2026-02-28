@@ -14,6 +14,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+from datetime import date
 from collections import Counter
 from pathlib import Path
 from statistics import mean, stdev
@@ -148,18 +149,23 @@ def run_roguelike_analysis(sessions: list[dict]) -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser(description="F-GAME1: roguelike meta-progression analysis")
     parser.add_argument("--out", default="experiments/gaming/f-game1-roguelike-s189.json", help="Output artifact path")
+    parser.add_argument("--session", help="Override session id (default: last session in SESSION-LOG)")
+    parser.add_argument("--date", help="Override session date (YYYY-MM-DD; default: last session date)")
     args = parser.parse_args()
 
     sessions = parse_sessions(ROOT / "memory" / "SESSION-LOG.md")
     result = run_roguelike_analysis(sessions)
+    last_session = sessions[-1] if sessions else None
+    session_id = args.session or (last_session["id"] if last_session else "S0")
+    session_date = args.date or (last_session["date"] if last_session else date.today().isoformat())
 
     out_path = ROOT / args.out
     out_path.parent.mkdir(parents=True, exist_ok=True)
     artifact = {
         "experiment": "F-GAME1",
         "title": "Roguelike meta-progression model for swarm sessions",
-        "session": "S188",
-        "date": "2026-02-28",
+        "session": session_id,
+        "date": session_date,
         **result,
     }
     out_path.write_text(json.dumps(artifact, indent=2), encoding="utf-8")

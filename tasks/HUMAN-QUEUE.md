@@ -30,6 +30,9 @@ See Answered section below.
 
 ## Process Feedback
 
+### HQ-38: Repo has many unexpected unstaged changes + ahead 1 commit — how should I proceed?
+**Asked**: 2026-02-28 | **Session**: S308
+
 ### ~~HQ-37: PHIL-13 structural follow-through~~ RESOLVED S300 (Option C executed autonomously)
 
 ## Answered

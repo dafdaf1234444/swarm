@@ -14,6 +14,9 @@ Seeded: S301 | 2026-02-28 | Active: 3
   collision resistance (no two lesson-sets produce same compressed output), preimage resistance
   (cannot recover original from compressed), and avalanche (small lesson change → large output
   change). Test whether these properties are desirable, achievable, or in tension.
+  **Progress (S308)**: Derived compaction axioms from hash analogs — semantic collision-resistance
+  (collisions allowed only for equivalent lesson sets), bounded sensitivity (anti-avalanche), and
+  evidence recoverability (preimage resistance is not a goal). Captured in L-413.
 
 - **F-CRY2**: Does the zero-knowledge proof paradigm have a swarm analog? (opened S301)
   Can a swarm node prove it has derived a belief correctly without revealing the full derivation?

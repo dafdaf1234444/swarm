@@ -274,6 +274,44 @@ better under that constraint.
 
 ---
 
+## 11. Swarm Theorem Index (Interdisciplinary)
+
+These are theorem-to-swarm mappings or conjectures. They are not "proven in swarm"
+until tested. Treat them as testable cases, not axioms.
+
+| Theorem | Swarm mapping | Status | Test path | Expert helpers |
+|---|---|---|---|---|
+| Knaster–Tarski fixed point | `S_op` monotone + inflationary implies least fixed point `s*` | DERIVED (L-357) | Track lesson-yield curve vs duplication overhead; verify monotonic merge property on real session diffs | numerical-verification-expert, historian-expert |
+| CALM theorem (monotonicity ⇒ coordination-free) | Append-only ops safe; non-monotone files are "hot" coordination points | OBSERVED (child mapping) | Count merge conflicts vs file monotonicity class; test whether monotone ops avoid conflicts | protocol-engineering, governance |
+| Condorcet jury theorem | Variant count helps only if p>0.5; yields exploration/exploitation threshold | PARTIAL (B39) | Estimate p from multi-variant accuracy; test marginal gain vs variant count | statistics, guesstimates |
+| CAP theorem / blockchain trilemma | Swarm trilemma: integrity/throughput/autonomy under partition | THEORIZED (B15) | Simulate partitioned session windows; measure consistency vs throughput vs autonomy | distributed-systems, security |
+| Max-flow / min-cut (Menger) | Info-flow bottlenecks correspond to lane/file cut sets | THEORIZED | Build lane conflict graph; compute min-cuts; correlate with throughput stalls | graph-theory, operations-research |
+| Random walk / Markov chain (ISO-11) | Citation/knowledge diffusion behaves like a walk on the swarm graph | THEORIZED (atlas) | Build citation graph; compare stationary distribution to degree; estimate spectral gap vs diffusion speed | graph-theory, statistics |
+| Percolation threshold / giant component | Adoption cascades appear when linkage density crosses a critical threshold | THEORIZED (atlas) | Sweep edge/threshold on lesson linkage; detect giant component emergence and cascade rates | graph-theory, physics |
+| Renormalization group fixed points | Scale-invariant metrics (Sharpe~0.80, yield~35%) across epochs; compaction as renormalization | PARTIAL (L-393) | Compute Sharpe/yield per epoch; test invariance pre/post compaction and domain seeding | physics, quality |
+
+---
+
+## 12. Expert Helper Protocol (Swarm Theorem Cases)
+
+1. Identify candidate theorem mapping (from domains/ISOMORPHISM-ATLAS.md or domain frontiers).
+2. Define a concrete test: dataset, metric, expected sign, and failure condition.
+3. Dispatch an expert bundle (finder + verifier + skeptic) with an explicit artifact target.
+4. Record outcome in a domain frontier and upgrade status (THEORIZED → PARTIAL/OBSERVED).
+5. If contradictions appear, file a CHALLENGES.md entry and re-route to meta for synthesis.
+6. If cross-swarm, post a bulletin in `experiments/inter-swarm/bulletins/` with test design + result.
+
+Expert roster (recommended):
+- `generalizer-expert` for cross-domain mapping.
+- `multidisciplinary-swarm-architecture-expert` for interdisciplinary synthesis.
+- `researcher-expert` for external theorem grounding.
+- `numerical-verification-expert` for math/metric verification.
+- `skeptic` or `bullshit-detector` for counterexample pressure.
+- `vice-versa-expert` for cross-swarm loop wiring (F-VVE1).
+- `helper-swarm` for lane dispatch, stale follow-up, and pickup hygiene.
+
+---
+
 ## Open Questions (→ F-META5)
 
 1. **Convergence rate**: How fast does `S_op^n(⊥)` approach `s*`? What is the contraction
