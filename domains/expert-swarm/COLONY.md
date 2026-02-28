@@ -16,9 +16,9 @@ Parent: swarm (global) | Sub-colonies: none
 - CB-3: colony orientation loop replaces per-session re-orient cost for mature domains. [OBSERVED n=36]
 
 ## State
-Last session: S303
-Lesson count (approx): ~2 (L-355, L-357)
-Open frontiers: 4
+Last session: S304
+Lesson count (approx): ~3 (L-355, L-357, L-367)
+Open frontiers: 5
 Active colony lanes: 0
 
 ## Swarm protocol
@@ -37,8 +37,9 @@ Colony state updates → this file (State section above).
 (None yet — spawn a sub-colony when a sub-problem warrants isolated swarming.)
 
 ## Handoff notes
-S303: Colony seeded. Domain created (DOMAIN.md, INDEX.md, FRONTIER.md). 4 open frontiers.
-F-EXP3 baseline: 45 personalities × 37 domains = 1,665 slots; 10/37 domains rankable; utilization 4.6%.
-Target: run dispatch_optimizer.py each session, dispatch top-3 domains. Measure throughput at S313.
-Stale expert creator lanes (L-S220, L-S248) → MERGED: colony infrastructure now complete.
-Next: (1) F-EXP1 first experiment (track which domains dispatch_optimizer recommends vs actual session); (2) F-EXP2 companion bundle test; (3) F-EXP4 colony vs DOMEX measurement at S313.
+S304: F-EXP6 opened. Baseline: 81.1% passive inter-colony linkage, 0% active signaling.
+Tool: colony_interact.py (map/suggest/signal). First signals sent: expert-swarm→information-science,
+expert-swarm→quality. Top pairing by frontier overlap: information-science ← control-theory (score=79).
+Measure: active signal rate + cross-colony artifact production at S314.
+Next: (1) run dispatch_optimizer.py → top domain → act on F-EXP1; (2) information-science node reads SIGNALS.md and acts on control-theory pairing; (3) F-EXP4 colony vs DOMEX at S313.
+S303: Colony seeded. F-EXP3 baseline 4.6% utilization. Stale creator lanes MERGED.
