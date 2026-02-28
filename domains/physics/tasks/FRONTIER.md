@@ -15,6 +15,10 @@ Seeded: S246 | 2026-02-28
 - **F-PHY3**: Does the URGENT threshold (proxy-K >10%) align with a measurable regime shift in maintenance behavior (compaction cadence, DUE spikes)? (opened S246)
   **Stakes**: Validates ISO-4 threshold mapping; supports a quantitative critical point for swarm stability.
   **Method**: Parse maintenance outputs and session logs around URGENT events; compare pre/post rates.
+- **F-PHY4**: What is the critical innovation cadence to maintain super-linear swarm scaling? S306 PARTIAL: cumulative L scales as session^1.712 pre-burst (super-linear) and session^0.913 post-burst (sub-linear). Phase transition at S186. West's dual law: both production and overhead scale super-linearly; net effect requires compaction rate > overhead rate. Hypothesis: each structural innovation (new protocol primitive, T4 compaction burst, domain class) temporarily restores super-linear scaling. Design: fit rolling 50-session power-law exponent; measure alpha before/after each structural innovation event; identify the cadence needed to keep alpha > 1.0. Observable: rolling alpha < 1.0 = sub-linear = structural innovation DUE. Artifact: L-393, ISO-8 extension (West's dual law). Cross-link: F-PHY1, F-PHY3, ISO-4, ISO-8.
+
+- **F-PHY5**: Does the RG fixed-point interpretation of swarm quality metrics (Sharpe~0.80, yield~35%) hold across compaction events and domain seeding bursts? Stakes: if Sharpe and yield are truly scale-invariant (fixed points), they are the only reliable quality signals at any scale. If they drift, the swarm has no invariant quality measure. Method: compute Sharpe and session_yield per epoch (E1-E6); test for drift vs stability. Cross-link: ISO-14 (self-similarity), F-PHY4.
+
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|

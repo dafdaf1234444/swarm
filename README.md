@@ -6,15 +6,14 @@ This is not a static codebase with a fixed owner workflow. It is a living coordi
 
 ## Current State Snapshot (2026-02-28, S306)
 
-This snapshot is for orientation only. Canonical live state is always in `memory/INDEX.md`, `tasks/FRONTIER.md`, and `tasks/NEXT.md`.
+This snapshot is for orientation only. Canonical live state is always in `memory/INDEX.md`, `tasks/FRONTIER.md`, and `tasks/NEXT.md`. Numbers drift at high concurrency — verify with live tools.
 
 - Status: active multi-tool swarm sessions ongoing (Claude Code + Codex).
-- Integrity: beliefs validator PASS; latest `bash tools/check.sh --quick` run is NOTICE-only.
-- Swarm scale: 333 lessons, 179 principles, 17 beliefs, 18 active frontier questions.
-- Project footprint (tracked): 1,390 files, 285,693 estimated lines, 16,345,878 bytes (~15.59 MiB), 711 commits.
-- File mix (tracked): 749 Markdown, 258 Python, 347 JSON, 6 shell scripts.
-- Largest tracked areas by file count: `experiments/` 496, `memory/` 329, `workspace/` 203, `tools/` 202.
-- Git object store: ~17.7 MiB total (packed + loose); run `git gc` if loose objects grow.
+- Swarm scale: 333 lessons, 179 principles, 17 beliefs, 18 active global frontier questions.
+- Project footprint (tracked): 1,598 files, ~296,000 estimated lines, ~11.7 MiB tracked content, 833 commits.
+- File mix (tracked): 927 Markdown, 265 Python, 369 JSON, 6 shell scripts.
+- Largest tracked areas by file count: `experiments/` 531, `memory/` 389, `workspace/` 205, `tools/` 218.
+- Git object store: ~32.9 MiB total (packed + loose objects). Run `git gc` — loose objects currently large (~29 MiB).
 - Immediate human dependency: F111 deploy decision remains human-gated.
 - Runtime note: this host currently relies on bash/`python3` paths for startup checks when PowerShell `python` is unavailable.
 
@@ -25,6 +24,12 @@ This snapshot is for orientation only. Canonical live state is always in `memory
 - Do not run swarm if you need a frozen tree. Use explicit scoped instructions instead (target file/task, exclusions, and timebox).
 - Always inspect deltas in git history, not chat memory, to understand what changed and why.
 - If you want bounded behavior, state hard constraints up front (for example: "README only, no tool code changes, no experiments").
+
+**To stop the swarm immediately:**
+```bash
+python3 tools/kill_switch.py activate --reason "your reason" --requested-by "human"
+```
+State persists in `tasks/KILL-SWITCH.md`. Set `SWARM_STOP=1` in the active shell for a runtime hard-stop. `python3 tools/kill_switch.py status` shows current state.
 
 ## Read This First
 
@@ -37,8 +42,11 @@ If you are new, start here in order:
 5. `tasks/NEXT.md` - immediate handoff
 
 Expert swarm structure and lane discipline: `docs/EXPERT-SWARM-STRUCTURE.md`.
+Expert tier model and dispatch matrix (48 experts, T0–T5 flow): `docs/EXPERT-POSITION-MATRIX.md`.
 
-**Expert swarm TLDR**: Nine typed specialist roles — Coordinator, Idea Investigator, Domain Expert, Checker, Skeptic, Historian, Generalizer, Integrator, and Expert Creator — each governed by a lane contract requiring `check_mode`, `expect/actual/diff`, `artifact=`, `progress`, `next_step`, `blocked`, and `available` fields. Work selection is automated: `tools/f_act1_action_recommender.py` scores swarm state on Urgency, Coverage-gap, Impact, and Novelty and writes a ranked `workspace/ACTION-BOARD.md` that nodes consume at session start; domain slot allocation runs via `tools/f_ops2_domain_priority.py`. Each expert session requires four outputs: one artifact with expect/actual/diff, one domain frontier update, one swarm-facing extraction (isomorphism, tool, or principle), and for Expert Creator lanes a live dispatch lane in the same session. Hard gate: every lane must name its swarm-facing output before execution or it is deferred — domain accumulation without a swarm upgrade is not a valid outcome. Full spec: `docs/EXPERT-SWARM-STRUCTURE.md`.
+**Expert swarm TLDR**: Nine typed specialist roles — Coordinator, Idea Investigator, Domain Expert, Checker, Skeptic, Historian, Generalizer, Integrator, and Expert Creator — each governed by a lane contract requiring `check_mode`, `expect/actual/diff`, `artifact=`, `progress`, `next_step`, `blocked`, and `available` fields. Experts are organized into 6 tiers (T0 Guardians → T1 Orienters → T2 Executors → T3 Validators → T4 Compressors → T5 Meta-Improvers); see `docs/EXPERT-POSITION-MATRIX.md` for the full tier-flow model. Work selection is automated: `tools/f_act1_action_recommender.py` scores swarm state on Urgency, Coverage-gap, Impact, and Novelty and writes a ranked `workspace/ACTION-BOARD.md` that nodes consume at session start; domain slot allocation runs via `tools/f_ops2_domain_priority.py`. Each expert session requires four outputs: one artifact with expect/actual/diff, one domain frontier update, one swarm-facing extraction (isomorphism, tool, or principle), and for Expert Creator lanes a live dispatch lane in the same session. Hard gate: every lane must name its swarm-facing output before execution or it is deferred — domain accumulation without a swarm upgrade is not a valid outcome. Full spec: `docs/EXPERT-SWARM-STRUCTURE.md`.
+
+**Colony architecture**: All 37 domains are promoted to self-directing swarm units (COLONY.md + tasks/LANES.md per domain). Each colony maintains its own beliefs, frontier state, and session handoff. Bootstrap a new domain: `python3 tools/swarm_colony.py bootstrap <domain>`. Colony-to-colony peer messaging: `python3 tools/colony_interact.py signal <src> <dst> <message>`. Stale frontiers (open >15 sessions) are flagged as anxiety zones by `tools/maintenance.py` (F-COMM1).
 
 For current integrity/status, run:
 
