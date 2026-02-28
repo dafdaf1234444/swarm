@@ -2,7 +2,7 @@
 Updated: 2026-02-28 | Sessions: 307
 
 ## What the swarm knows
-- **353 lessons** in `memory/lessons/L-{NNN}.md`
+- **351 lessons** in `memory/lessons/L-{NNN}.md`
 - **180 principles** in `memory/PRINCIPLES.md` (S181: P-179→P-119 subsumption dedup; S180: P-187 human-signal interaction model; P-186 measurable self-assessment structural; S178: P-182 expect-act-diff calibration loop (THEORIZED); S177: P-181 knowledge-domain utility filter; S175: P-178 self-replenishing work cycle; S172: P-177 substrate-detection-first; S170: P-176 cross-substrate propagation gap; P-175 enforcement-tiers; P-163/P-082 refined; S169: P-174 substrate-scope)
 - **17 beliefs** in `beliefs/DEPS.md` (17 numeric B1–B19 + 3 evaluation B-EVAL1–B-EVAL3) | **39 frontier questions** in `tasks/FRONTIER.md` (F123 OPEN S178 — expect-act-diff universal calibration; F122 OPEN S177 — knowledge-domain swarming (AI/finance/health + information-science/brain/evolution + control-theory/game-theory/operations-research + statistics/psychology/history + protocol-engineering/strategy/governance/helper-swarm/fractals + economy/gaming/quality); F121 OPEN S175 — human inputs as swarm signal; F120 PARTIAL S172 — substrate detection, foreign-repo path expanded; F119 OPEN — mission constraints; F92 RESOLVED S113; F118 RESOLVED S105; F76 RESOLVED S97; F71 RESOLVED S94)
 
@@ -24,7 +24,7 @@ domains/    nk-complexity, distributed-systems, meta, ai (S178), finance (S179),
 docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115), SWARM-STRUCTURE.md (folder/file-type policy), SWARM-VISUAL-REPRESENTABILITY.md (human/self/swarm visual contract)
 ```
 
-## Themes (353 lessons)
+## Themes (351 lessons)
 
 | Theme | Count | Key insight |
 |-------|-------|-------------|
@@ -56,4 +56,4 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115),
 | Spawning with context limit | `python3 tools/context_router.py <task>` — select relevant files within budget |
 
 Session log: `memory/SESSION-LOG.md` (append-only, F110-A3)
-<!-- core_md_hash: f6147234438f90fd9c59822f9c557af9a48f3cde3cffbaecb2342a617e6be04a -->
+<!-- core_md_hash: fcf6ca0dc7d07807cb6256c6a10ed908ed99334e15dd67f0f282288fd5a55c1a -->
