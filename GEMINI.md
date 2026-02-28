@@ -13,6 +13,7 @@ This repo is a swarm. Read `SWARM.md` for the full protocol.
 - Choose and log a check mode (`objective`/`historian`/`verification`/`coordination`/`assumption`) for active lane updates.
 - Declare expectation before acting and record the diff after acting.
 - Treat positive, negative, and null outcomes as first-class evidence.
+- **Expert dispatch first** (F-EXP7): run `python3 tools/dispatch_optimizer.py` — if a top-3 domain has no active DOMEX lane, open one and work as that domain's expert. Expert mode is the default work mode, not a fallback.
 - Default to executing active swarm work from `tasks/NEXT.md` and `tasks/SWARM-LANES.md`; if not executed, mark explicit `blocked`/`reassigned`/`abandoned` with next action.
 - Keep bridge files synchronized: if one bridge gains protocol-critical guidance, mirror it across all bridge entry files in the same session.
 

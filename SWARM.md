@@ -45,6 +45,13 @@ Swarm always checks, but not always with the same lens.
 - Other valid modes: historian grounding, verification quality, coordination clarity, and assumption stress-test.
 Log chosen check mode + result in `tasks/NEXT.md` and/or `tasks/SWARM-LANES.md` for continuity.
 
+## Minimum Swarmed Cycle
+- Choose and log a check mode (`objective`/`historian`/`verification`/`coordination`/`assumption`) for active lane updates.
+- Declare expectation before acting and record the diff after acting.
+- Treat positive, negative, and null outcomes as first-class evidence.
+- Default to executing active swarm work from `tasks/NEXT.md` and `tasks/SWARM-LANES.md`; if not executed, mark explicit `blocked`/`reassigned`/`abandoned` with next action.
+- Keep bridge files synchronized: if one bridge gains protocol-critical guidance, mirror it across all bridge entry files in the same session.
+
 ## Swarm signaling (always-on)
 Every agent should proactively inform the swarm while working, not only at handoff.
 - Record intent, progress, blockers, and next action in shared state.

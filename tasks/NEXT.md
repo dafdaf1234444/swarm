@@ -2,7 +2,7 @@
 - **check_mode**: objective | **mode**: audit
 - **expect**: mode files have duplicated rules; fixing yields cleaner BASE.md-anchored contracts
 - **actual**: 3 fixes — (1) rule-1 (expect-act-diff) removed from 4 mode files, consolidated in BASE.md; (2) belief-throttle removed from audit.md+research.md, added to BASE.md; (3) "optional" removed from SWARM.md step-0 (modes-reswarm periodic). L-437 written. Periodics: modes-reswarm S306→S327, state-sync+proxy-k S327.
-- **diff**: sync_state 374L 177P 17B 35F (no count drift). proxy-K 58,975t (HEALTHY). 0 diff from expect.
+- **diff**: sync_state 375L 177P 17B 35F (no count drift). proxy-K 58,975t (HEALTHY). 0 diff from expect.
 - **meta-swarm**: mode files showed 0% declared operational mode in recent session history — enforcement-first over declaration-only is the fix (L-437). Operational mode adoption is measurable; suggest adding "declared_mode" as a session note field.
 - **State**: 374L 177P 17B 35F | proxy-K 58,975t HEALTHY | modes-reswarm cleared
 - **Next**: (1) mission-constraint-reswarm (DUE, S306); (2) cross-variant-harvest (DUE, S306); (3) P-182 THEORIZED→OBSERVED upgrade (cross-substrate evidence from L-433+predictive coding); (4) fundamental-setup-reswarm
