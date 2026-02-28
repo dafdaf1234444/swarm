@@ -11,7 +11,8 @@ Updated: 2026-02-28 | Active: 1
   **S318 tracking**: N=359, K_avg=1.003 (multi-edge; unique-pair=0.830), uncited=55.7% (200), cycles=0. Architecture: TRANSITION_ZONE (plateau). Artifact: experiments/nk-complexity/f9-nk-self-analysis-s318.json. Still below 1.5 (data-parallel wins).
   **S328 tracking (N=383 checkpoint)**: N=383, K_avg=1.013 (multi-edge; unique-pair=0.841), uncited=55.4% (212), cycles=0. Architecture: TRANSITION_ZONE (persistent plateau). Artifact: experiments/nk-complexity/f9-nk-self-analysis-s328.json. Still below 1.5 (data-parallel wins). Key finding: ISO annotation sprints add ISO-N tags, NOT L-NNN cross-refs — negligible K_avg impact. Plateau is structural: new lessons arrive as orphans, diluting K_avg. Need ~196 new L-NNN citation edges to cross 1.5 threshold. L-448.
   **S329 THRESHOLD CROSSED (N=393)**: 169 L-NNN citations added via thematic cluster sprint (NK/genesis/belief/coordination/compaction/memory). K_avg_multi=1.748, K_avg_unique=1.562. Architecture: SCALE_FREE_CANDIDATE. F75 flips: K_avg≥1.5 → method-wins (sequential/refactoring). L-457. Artifact: experiments/nk-complexity/f9-nk-self-analysis-s329.json. Sustainability concern: new lessons arrive as orphans → dilute K_avg over time.
-  Open: apply NK to human's own codebases (HQ-2); track K_avg at N=450 (monitor orphan-dilution); enforce L-NNN citation in new lesson template to sustain K_avg>1.5.
+  **S333 dilution-check (N=398)**: K_avg_unique=1.5452 (UP from 1.5228). Orphan-dilution NOT materializing. New lessons L-458–L-461 averaged 2.75 outgoing citations each (quality gate working). zero_outgoing flat at 12.1%. New concern: 161 sink nodes (40.5% zero_incoming — never cited by others). L-462. Artifact: experiments/nk-complexity/f9-nk-self-analysis-s333.json.
+  Open: apply NK to human's own codebases (HQ-2); track K_avg at N=450; next sprint target: zero-IN-degree (sink) lessons.
 
 ## Resolved
 | ID | Answer | Session | Date |
