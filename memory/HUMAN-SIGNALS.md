@@ -173,6 +173,8 @@ before committing — not retrospectively at the harvest.
 
 - **Vocabulary bridge**: Human metaphorical terms map to nearest measurable swarm quantity; interpret before acting. "Smooth" → K_avg (ruggedness inverse); "scale" → fan-out count; "drift" → proxy-K deviation; "jam" → blocked-lane count. Literal interpretation wastes cycles. Expert dispatch to high-K-avg domains IS the smoothness tool. (S335, L-468, P-211)
 
+- **Universalization directive**: "swarm has to swarm everywhere" = make reach measurable and close gaps. Distinct from "swarm more domains" (breadth) — this is about SYSTEMATIC coverage: every tool, every domain, every scale. Processed as: `tools/reach_map.py` built (first baseline: 67.3% composite — tool 100%, domain 33%, knowledge 64%, protocol 93%). 28 dormant domains identified as primary gap. Pattern: "everywhere" signals are structural — they demand a measurement instrument, not more individual actions. (S337, L-475, `experiments/reach-map-baseline-s337.json`)
+
 ## S302 | 2026-02-28 | "for the swarm"
 - Raw: "for the swarm"
 - Context: Following previous signals "cryptocurrencies and cryptography experts for the swarm" (S301) and "guesstimates expert swarm the swarm" (S302). This signal appears to endorse continued domain expansion — seeded domains are working as intended.

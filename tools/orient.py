@@ -466,6 +466,19 @@ def main():
                 print(f"  {entry[:120]}")
             print()
 
+    # Reach map (quick domain-reach score)
+    try:
+        from reach_map import measure_domain_reach
+        dr = measure_domain_reach()
+        pct = dr["score"]
+        dormant = dr["dormant"]
+        total = dr["total"]
+        if pct < 0.5:
+            print(f"--- Reach: {pct:.0%} domain activation ({dr['active']}/{total} active, {dormant} dormant) ---")
+            print()
+    except Exception:
+        pass
+
     # Suggested action
     print("--- Suggested next action ---")
     if "URGENT" in maint_out:

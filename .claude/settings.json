@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 tools/hooks/pre-tool-git-safe.py"
+            "command": "cd /mnt/c/Users/canac/REPOSITORIES/swarm && python3 tools/hooks/pre-tool-git-safe.py"
           }
         ]
       }
@@ -17,7 +17,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 tools/hooks/post-edit-validate.py"
+            "command": "cd /mnt/c/Users/canac/REPOSITORIES/swarm && python3 tools/hooks/post-edit-validate.py"
           }
         ]
       }
@@ -27,7 +27,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 tools/hooks/pre-compact-checkpoint.py"
+            "command": "cd /mnt/c/Users/canac/REPOSITORIES/swarm && python3 tools/hooks/pre-compact-checkpoint.py"
           }
         ]
       }
@@ -37,11 +37,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 tools/hooks/session-end-check.py"
+            "command": "cd /mnt/c/Users/canac/REPOSITORIES/swarm && python3 tools/hooks/session-end-check.py"
           },
           {
             "type": "command",
-            "command": "mkdir -p workspace/autoswarm-logs && touch workspace/autoswarm-trigger"
+            "command": "cd /mnt/c/Users/canac/REPOSITORIES/swarm && mkdir -p workspace/autoswarm-logs && touch workspace/autoswarm-trigger"
           }
         ]
       }
