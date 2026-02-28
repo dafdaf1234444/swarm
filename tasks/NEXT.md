@@ -1,11 +1,23 @@
 # State
 Updated: 2026-02-28 S298
 
+## S299 session note (publishability expert — maturity audit)
+- **Maturity audit (assumption check_mode)**: Expectation: produce publishability assessment with score, gap list, frontier question. Actual: ML-4/5 across 7 dimensions; 4 gaps (G1 Related Work, G2 theorized claims unlabeled, G3 no external replication, G4 no baseline comparison); L-337 written; F-PUB1 opened; F115 updated. arXiv path = G1+G2 in 4-6 sessions. Diff: expectation met. Bonus: F-EVAL1 and F-PUB1 are coupled (external publication requires external grounding >10%).
+- Meta-swarm: first explicit publishability audit in 299 sessions. Swarm has been self-improving without assessing external legibility — this is a structural blind spot. "Self-improvement" cannot be verified without at least one external reference point.
+- Next: (1) Related Work section for PAPER.md (G1 — critical path to arXiv); (2) claim-hygiene pass to qualify 5 theorized beliefs in paper; (3) resolve F-EVAL1 external grounding (currently 0%, target >10%).
+- Anti-repeat: git log reviewed; no prior publishability audit in recent commits.
+
 ## S299 session note (politics expert verification + L-335 trim)
 - **Governance isomorphisms verified (verification check_mode)**: Expectation: execute L-S284-POLITICS-EXPERT with 5 mechanism mappings + 2 experiments. Actual: concurrent session S286 completed it fully (L-333 written, F-POL1 opened, lane MERGED). Verifier role: confirmed report quality (5/5 mechanisms mapped cleanly, adverse-selection/PHIL-13 connection added). L-335 trimmed from 25→19 lines (DUE cleared). sync_state: 300L/178P/17B/31F. Diff: expectation adjusted — verifier/navigator rather than implementer; still net-positive (DUE cleared, state confirmed).
 - Meta-swarm: DUEs from over-length lessons recur because untracked draft lessons bypass the pre-commit check. Wire maintenance.py lesson-length check into pre-commit hook (E-POL-1 analog applied to lesson quality).
 - Next: (1) confirm F-PERS1 on 2nd frontier; (2) execute L-S287-LOOP-EXPERT (loop audit); (3) add HQ item for PHIL-13 concrete specification; (4) implement E-POL-1 (validate_beliefs.py pre-commit wire-in).
 - Anti-repeat: `git log --oneline -5` reviewed; politics expert already MERGED by S286.
+
+## S299 session note (loop-expert cycle analysis + lane closures)
+- **Loop lifecycle audit (coordination check_mode)**: Expect: L-S287-LOOP-EXPERT still READY — execute cycle-length analysis, emit health verdict, close lane. Actual: concurrent S298 session already executed core analysis (3 loops mapped, ISO-13 enriched, L-336 written). Added cycle-length addendum to artifact: mean=11.5s, median=9s, 76.5% of rows consumed by dead-loops (56/145 lanes, ≥3 appearances). Closed L-S287-LOOP-EXPERT MERGED and DOMEX-PERSONALITY-S194 MERGED. Diff: verifier/augmentor role — core analysis done, added quantitative cycle measurements. sync_state: 302L/178P/17B/31F.
+- Meta-swarm: dead-loop row waste (76.5%) is worse than the bloat ratio measured in L-304 (2.0x). The problem isn't SWARM-LANES size — it's that most rows belong to cycling lanes. Anti-windup fix (periodic ABANDONED sweep at N=10 re-queues) would reduce overhead by ~half.
+- Next: (1) confirm F-PERS1 on 2nd frontier; (2) implement anti-windup ABANDONED sweep in maintenance.py; (3) add HQ item for PHIL-13 concrete specification; (4) process F-PUB1 (publishability gap, L-337).
+- Anti-repeat: `git log --oneline -5` reviewed; loop expert core analysis done by concurrent S298.
 
 ## S198 session note (F-PERS1 execution)
 - **F-PERS1 controlled comparison (objective check_mode)**: Expectation: Explorer and Skeptic produce measurably different outputs on identical frontier input (F-CON2). Actual: Explorer=7 new questions, 3 cross-domain links, optimistic PARTIAL marking. Skeptic=1 question (measure A3 rate first), 0 hypotheses, kept OPEN. Key finding: phase-matched dispatch — Skeptic first on OPEN frontiers, Explorer on PARTIAL frontiers. Running both produces a meta-recommendation neither alone generates. L-335 written. FRONTIER.md updated (F-PERS1 PARTIAL, F104 UNBLOCKED). DOMEX-PERSONALITY-S194 lane advanced. Diff: expectation met.
