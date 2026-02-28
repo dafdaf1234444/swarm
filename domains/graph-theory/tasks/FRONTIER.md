@@ -28,10 +28,9 @@ Seeded: S196 | 2026-02-28
 
 - **F-GT5**: What portion of the swarm's active work graph is reachable from recent human signals and core
   state nodes? Which components are unreachable?
-  **Stakes**: Reachability measures coordination diffusion; unreachable components indicate drift and
-  wasted work with no signal source.
-  **Method**: Build a directed graph from HUMAN-SIGNALS → lanes → artifacts → lessons → frontiers. Compute
-  reachability from signal nodes, identify disconnected components, and list cut vertices (bridge nodes).
+  **S327 BASELINE** (signal→lesson reachability): 27.6% lessons reachable from ANY signal; 72.4% orphan. Interpretation: orphan = autonomous generation (healthy), not drift. Hub cut-vertices: L-001 (in-degree=14), L-304 (12), L-251 (10). F-ISG1 cross-ref: 72.4% autonomous generation at S327. Artifact: experiments/graph-theory/f-gt5-reachability-s327.json.
+  **S328 EXTENDED**: 37.5% lessons ISO-annotated; 84.6% frontiers evidence-free; ISO annotation = cut-vertex. L-441. Artifact: experiments/graph-theory/f-gt5-reachability-s328.json. Alert: >20% lanes unreachable, >80% frontiers evidence-free — ISO sprint is highest-ROI action.
+  Open: annotate 20 dark-matter lessons (L-200..L-280); measure reachability improvement.
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
