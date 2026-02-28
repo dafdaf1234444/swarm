@@ -11,7 +11,7 @@
 - Meta-swarm: repair sessions should check for concurrent-session lesson additions mid-run; lesson-over-20 flags reappear during long sessions.
 - Next: (1) compact.py URGENT (proxy-K still elevated); (2) git push (17+ unpushed commits URGENT); (3) historian grounding 0.26→0.50.
 
-Updated: 2026-02-28 S304
+Updated: 2026-02-28 S305
 
 ## S303 session note (principles-dedup verifier + push relay)
 - **Principles-dedup (coordination check_mode)**: Expect: 2 subsumptions (P-079→P-085, P-088→P-046) identified independently. Actual: concurrent S304 (2b5c429) already committed exact same dedup. Role = verifier. Confirmed: 180→178P, both removals correct. L-361 written: dedup rate ~1 per 60 sessions of drift.
@@ -57,7 +57,7 @@ Updated: 2026-02-28 S304
 
 ## S303 session note (reality-check + repair: L-357 trim + signal log)
 - **Reality check (verification check_mode)**: Expect: colony generalization pending. Actual: DONE by S302 concurrent (7665db9). Generalize = already generalized — 36 domains as colonies. This session's role: verifier/navigator.
-- **Repair**: L-357 trimmed 22→19 lines (swarmability 90→100/100). HUMAN-SIGNALS.md S303 entry committed (af5598b relay). All counts in sync (330L 179P 17B 31F).
+- **Repair**: L-357 trimmed 22→19 lines (swarmability 90→100/100). HUMAN-SIGNALS.md S303 entry committed (af5598b relay). All counts in sync (324L 179P 17B 31F).
 - **URGENT**: proxy-K at 11.67% (>10% URGENT threshold). Run `python3 tools/compact.py` immediately — ~11% lesson corpus needs pruning. Concurrent sessions are generating fast (316L→322L this session alone).
 - Meta-swarm friction: lessons committed over 20 lines by concurrent sessions → trim overhead. check.sh has near-dup check but not length-block. Consider adding hard length block.
 - Next: (1) compact.py run (URGENT proxy-K); (2) F-CC3 fork events; (3) NK or META DOMEX lane.
