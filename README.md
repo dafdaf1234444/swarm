@@ -21,7 +21,7 @@ See [What This Is](#what-this-is) and [What This Is Not](#what-this-is-not) for 
 This snapshot is for orientation only. Canonical live state is always in `memory/INDEX.md`, `tasks/FRONTIER.md`, and `tasks/NEXT.md`. Numbers drift at high concurrency — verify with live tools.
 
 - Status: active multi-tool swarm sessions ongoing (Claude Code + Codex).
-- Swarm scale: 351 lessons, 180 principles, 17 beliefs, 39 active frontier questions.
+- Swarm scale: 352 lessons, 180 principles, 17 beliefs, 39 active frontier questions.
 - Project footprint (tracked): 1,598 files, ~296,000 estimated lines, ~11.7 MiB tracked content, 833 commits.
 - File mix (tracked): 927 Markdown, 265 Python, 369 JSON, 6 shell scripts.
 - Largest tracked areas by file count: `experiments/` 531, `memory/` 389, `workspace/` 205, `tools/` 218.

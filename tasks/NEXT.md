@@ -1,3 +1,21 @@
+## S308 session note (cryptography domain: F-CRY1 initial mapping)
+- **Check mode**: objective (check_focus=F-CRY1 compaction-hash mapping)
+- **Expect**: derive compaction axioms from hash properties, capture as lesson, and update cryptography domain state
+- **Actual**: mapped collision resistance to semantic equivalence, reframed preimage resistance as evidence recoverability, flagged avalanche as anti-goal; wrote L-413 and updated cryptography domain files + lanes
+- **Diff**: expectation met
+- **Meta-swarm**: analogies become actionable when converted into explicit compaction axioms; next step is test-case validation against recent compactions (F105)
+- **Next**: (1) extend F-CRY1 with concrete compaction test cases; (2) draft F-CRY2 ZKP analog (Merkle inclusion proof sketch); (3) update DOMEX-CRY-S302 lane status after validation
+
+## S308 session note (coordination check_mode: theorem-helper)
+- **Human signal**: "swarm help meta level for swarm cases expert help helper for swarm math theorems and interdisciplinary swarm theorems experts cross swarm swarm"
+- **Check mode**: coordination (check_focus=theorem-helper)
+- **Expect**: add a swarm theorem index + expert helper protocol to `docs/SWARM-EXPERT-MATH.md`; no other repo edits.
+- **Actual**: added an interdisciplinary theorem index table plus a helper protocol/roster in `docs/SWARM-EXPERT-MATH.md`.
+- **Diff**: expectation met.
+- **Anti-repeat**: `git log --oneline -5` reviewed; no overlapping theorem-index work.
+- **Meta-swarm**: theorem candidates were scattered across merge reports and the atlas; a single index improves pickup. Next improvement: add a periodic or lane trigger for stale THEORIZED entries.
+- **Next**: (1) run H¹ classifier on `beliefs/CHALLENGES.md` (F-META5 step); (2) compute `cal(E)` distribution from `memory/EXPECT.md` and wire to dispatch weights; (3) open a helper-swarm lane to test one theorem end-to-end (CALM or CAP).
+
 ## S307 session note (verification check_mode: check.ps1 --quick)
 - **Check mode**: verification (check_focus=repo-health quick)
 - **Expect**: PASS guards + beliefs; maintenance NOTICE-only (anxiety zones, domain gaps, proxy-K drift)
@@ -6,13 +24,40 @@
 - **Meta-swarm**: proxy-K drift notice repeats because clean snapshots are sporadic; make a deliberate snapshot step part of each clean-tree session
 - **Next**: (1) run `python3 tools/proxy_k.py --save` on a clean tree; (2) dispatch one domain-gap lane; (3) wire F-ISG1 autoswarm gate
 
+## S307 session note (beliefs expert: autonomy alignment)
+- **Human signal**: "beliefs expert swarm the swarm"
+- **Check mode**: verification (beliefs consistency)
+- **Expect**: find ≥1 belief statement conflicting with documented challenges and align minimally.
+- **Actual**: CORE autonomy overstated cross-session self-direction; refined to session-scoped autonomy (PHIL-3 challenge S305).
+- **Diff**: expectation met; no other contradictions found in scanned belief files.
+- **Changes**: added `tools/personalities/beliefs-expert.md`; report `experiments/self-analysis/beliefs-expert-s307.md`; CORE autonomy aligned; README personality count updated.
+- **Next**: (1) Re-test B8 per open challenge S190; (2) consider README autonomy qualifier if drift recurs.
+
+## S308 session note (gaming F-GAME1 rerun + tool metadata)
+- **Check mode (objective)**: F-GAME1 roguelike rerun with updated SESSION-LOG.
+- **Expect**: early-death ~50%, deep-run ~3%, learning curve still refuted; recent acceleration >1x.
+- **Actual**: 131 sessions (through S306); early deaths 47.3%, deep runs 3.0%, mean L+P 1.305, recent 20-session avg L+P 3.05 (2.34x). Learning curve still refuted. Artifact: `experiments/gaming/f-game1-roguelike-s308.json`. Frontier updated.
+- **Diff**: confirmation; slight early-death rate drop + strong recent acceleration.
+- **Tooling**: `tools/f_game1_roguelike.py` now supports `--session`/`--date` and defaults to last SESSION-LOG entry to reduce metadata drift.
+- **Meta-swarm**: SESSION-LOG lag creates stale experiment metadata; added overrides as first-step mitigation. Next: update SESSION-LOG to include S307+ before next rerun.
+- **Anti-repeat**: `git log --oneline -5` checked.
+
+## S308 session note (F-COMM1 autoswarm anxiety gate)
+- **Check mode**: coordination | **Check focus**: autoswarm anxiety-trigger gate (F-COMM1)
+- **Anti-repeat**: `git log --oneline -5` reviewed; no prior autoswarm anxiety-gate wiring.
+- **Expect**: `tools/autoswarm.sh` uses `tools/anxiety_trigger.py --json` to select the top anxiety-zone frontier and runs that prompt; logs `prompt_source`/`frontier`; dry-run reflects selection.
+- **Actual**: autoswarm now calls `anxiety_trigger.py`, extracts the dispatch prompt, falls back to `swarm.md` when none/invalid, and logs `prompt_source`/`frontier` in both dry-run and live runs.
+- **Diff**: confirmation.
+- **Meta-swarm**: Bash+Python JSON handoff is fragile when stdin is already used; env-var handoff avoids here-doc/stdin collisions.
+- **Next**: run `bash tools/autoswarm.sh --dry-run` in a WSL shell to verify anxiety-trigger selection, then consider a small check.sh guard for Python availability.
+
 ## S307 session note (vice-versa expert + council repair tool: F-VVE1)
 - **Human signal**: "swarm should help the swarm by helping others and vice versa a vice versa expert and swarm council repair tool up swarm"
 - **vice-versa-expert**: `tools/personalities/vice-versa-expert.md` — reciprocal loop expert; 5 loop types mapped; expert-extract loop BROKEN (highest repair priority).
 - **swarm_council.py**: `tools/swarm_council.py` — council repair CLI. Usage: `python3 tools/swarm_council.py --target "problem" [--mode vice-versa|repair|custom]`.
 - **F-VVE1 opened**: reciprocal swarm↔external loops vs calibration rate. Related: F133, F-COMP1, F-EXP6, L-411.
 - **Proxy-K snapshot saved**: 59783t clean (DUE cleared).
-- **State**: 351L 180P 17B 39F | DUE:0 | validator PASS.
+- **State**: 352L 180P 17B 39F | DUE:0 | validator PASS.
 - **Next**: (1) Wire expert-extract loop: `expert_correction` in SIGNALS.md + harvest-expert; (2) F-COMP1 Phase 2: Brier<0.18; (3) T4 generalizer ISO annotation (3%→6%); (4) F-ISG1 autoswarm.sh gate.
 
 ## S307 session note (repair+checks+experts+multi-swarm: compound directive)
@@ -529,3 +574,9 @@ S193–S301: archived to memory/SESSION-LOG.md
 - Next: (1) proxy-K ~8.5% DUE approaching — run compact.py; (2) historian grounding 0.27 → 0.50 (systematic, not per-lane); (3) PAPER scale drift frontiers 31→27; (4) 27 anxiety-zone frontiers need multi-expert synthesis (oldest: F112 since S67).
 
 Updated: 2026-02-28 S306
+## S308 session note (F-SEC1 Layer 1: genesis bundle hash)
+- **Check mode**: verification (check_focus=F-SEC1-layer1 integrity)
+- **Expect**: `genesis_evolve.py bundle` writes `workspace/genesis-bundle-SNNN.hash` from genesis.sh + CORE.md + PRINCIPLES.md.
+- **Actual**: bundle subcommand added; derives session from SESSION-LOG, writes hash file, falls back to `memory/PRINCIPLES.md` if `memory/PRINCIPLES.md` is absent.
+- **Diff**: confirmation (Layer 1 implemented; spec/path mismatch flagged via note).
+- **Next**: (1) add T1/T2/T3 Trust-Tier to bulletin format; (2) wire FM-10 hostile-signal guard in `tools/check.sh`; (3) dry-run spawn + verify hash check.
