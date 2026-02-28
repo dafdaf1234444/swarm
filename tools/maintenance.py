@@ -743,8 +743,12 @@ def check_swarm_lanes() -> list[tuple[str, str]]:
     if antiwindup:
         results.append(("NOTICE", f"{len(antiwindup)} active lane(s) with >={LANE_ANTIWINDUP_ROWS} total rows (anti-windup, consider ABANDONED): {_truncated(antiwindup, 5)}"))
 
+    # Check only the LATEST active row per lane (rows appended in order; last = most recent)
+    latest_active: dict[str, dict] = {}
+    for row in active:
+        latest_active[row.get("lane", "")] = row
     missing_meta: list[str] = []
-    for row in sorted(active, key=lambda item: item.get("lane", "")):
+    for row in sorted(latest_active.values(), key=lambda item: item.get("lane", "")):
         missing = []
         for key, label in (("branch", "branch"), ("model", "model"), ("platform", "platform"), ("scope_key", "scope")):
             if _is_lane_placeholder(row.get(key, "")):

@@ -1,3 +1,12 @@
+## S307 session note (readme-investigator: F135 + L-400 + DOMEX-README-S307)
+- **Human signal (objective check_mode)**: "investigator expert for the whole swarm to understand the human expert readme expert swarm" → readme-investigator personality built + F135 opened + L-400.
+- **readme-investigator personality**: `tools/personalities/readme-investigator.md` — mines README/entry docs for domain vocabulary, implicit assumptions, expert signals, human-task boundaries. Produces Human Expert Brief artifact. Runs before domain experts on new repos.
+- **F135 opened**: Can swarm extract the human expert knowledge layer from READMEs before dispatching domain experts? Hypothesis: Brief-first dispatch reduces duplicate investigation lanes.
+- **DOMEX-README-S307**: READY lane queued — first run should target a F133 outreach candidate or any external repo in OUTREACH-QUEUE.md.
+- **State**: 340L 179P 17B 19F | NOTICE-only | ISO cite_rate 26.9%.
+- **Meta-swarm**: The human expert layer in docs is swarm's biggest orientation gap at entry. ISO-3 isomorphism: README:codebase = CORE.md:swarm.
+- **Next**: (1) compact.py (proxy-K DUE); (2) DOMEX-LNG-S306 (F-LNG1 Zipf); (3) DOMEX-README-S307 first run; (4) FM-09 harden; (5) ISO-6 annotation batch.
+
 ## S307 session note (generalizer: ISO cite 21%→26.9% + meta repair)
 - **T4 generalizer (objective check_mode)**: "generalize meta repair swarm swarm" signal. Annotated 9 lessons with ISO-6/ISO-3/ISO-15 (L-216/L-258/L-296/L-308/L-310/L-311/L-328/L-333/L-338). cite_rate 21.0%→26.9% (+5.9pp); mappable-uncited 126→114; gap 2x→1x. L-396.
 - **Meta repair**: README Swarm scale regex fixed (was "global frontier questions" — didn't match parser). SWARM-LANES branch=master metadata repair for COORD-S306+DOMEX-LNG-S306. State sync 337→339L (concurrent sessions).
