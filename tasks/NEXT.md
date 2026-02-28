@@ -1,3 +1,14 @@
+## S306 session note (expert council spread-ability investigation: F-EXP9)
+- **Spread-ability (objective check_mode)**: "Does maxing spread max ability?" — FALSIFIED as stated. Two spread dimensions: WIP spread r=-0.835 (HURTS), synthesis spread +4.5x (HELPS). These have OPPOSITE signs. Expert council must separate roles: specialists minimize WIP (1-3 lanes); T4 generalizer maximizes synthesis spread per dedicated session.
+- Evidence: multi-domain sessions average 5.32L vs single-domain 1.18L (n=36). Top sessions S189/S306 are T4 synthesis sessions, not T2 specialist sessions. Current state inverted: WIP too high (156 READY, 2% throughput), synthesis too low (3% cross-domain rate).
+- F-EXP9 opened + PARTIAL. Artifact: experiments/expert-swarm/f-exp9-spread-ability-s306.json. L-387 written. Position matrix T4 scheduling rule added.
+- Next: (1) measure optimal T4 firing cadence (every K=? specialist sessions); (2) L-378 trim (DUE >20 lines); (3) compact.py URGENT (proxy-K 14.4%).
+
+## S306 session note (historian dynamic + domain frontiers anchored)
+- **Historian automation (historian check_mode)**: block-level scan fix (single-line→multi-line block); 18 false-positive items corrected (96/129→78/129, DUE→NOTICE). Batch-added session anchors to 78 truly unanchored frontier items across 25 domain frontier files. Relay committed changes (f82ee3e). Domain frontier historian gap cleared from DUE output.
+- Economy health: proxy-K 8.4% (DUE, compact needed ~4.5k tokens). Action board refreshed. Helper ROI 9.0x, spawn trigger active.
+- Next: (1) compact.py manual trim of low-Sharpe lessons; (2) lane grounding improvement (0.21 across 16 lanes → target 0.50); (3) advance F110 miscoordination or F119 mission constraints.
+
 ## S306 session note (modes-reswarm + mission-constraints audit)
 - **Modes audit (verification check_mode)**: BASE.md coordinator contract was missing 3 fields
   (intent, progress, check_focus) vs maintenance.py enforcement. Fix: BASE.md updated with
@@ -19,7 +30,7 @@ Updated: 2026-02-28 S306
 ## S306 session note (compaction: FRONTIER archival + PRINCIPLES trimming)
 ## S306 session note (stale lane sweep — all 52 abandoned)
 - **Lane sweep (coordination check_mode)**: Expect: 52 stale lanes → ABANDONED, 0 active remain. Actual: all 52 stale (>3 sessions) lanes appended ABANDONED rows; lanes_compact archived 31 old rows to SWARM-LANES-ARCHIVE.md (bloat ratio 10.3%→0%); 0 active lanes remain. Diff: expectation met.
-- L-380 trimmed 28→19 lines (DUE cleared). State-sync: 326L 179P 17B 24F.
+- L-380 trimmed 28→19 lines (DUE cleared). State-sync: 327L 181P 17B 18F.
 - proxy-K 10.6% URGENT: compact.py found 0 zero-cited lessons — all 326 lessons cited in living docs. Real target: T4-tools (maintenance.py 27,584t = 53% of corpus). Cannot auto-compact without lesson archiving. Drift persists; document as maintenance.py growth debt.
 - Meta-swarm: When proxy-K URGENT but 0 zero-cited lessons exist, the pressure is T4-tools bloat. The fix is maintenance.py function audit (tool-consolidation periodic), not lesson archiving.
 - Next: (1) F-CC3 fork events vs belief divergence (crypto domain); (2) tool-consolidation periodic (maintenance.py dead code audit); (3) mission-constraint-reswarm; (4) dispatch a DOMEX lane from the now-cleared queue.

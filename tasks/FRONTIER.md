@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-24 active | Last updated: 2026-02-28 S306
+18 active | Last updated: 2026-02-28 S306
 
 ## Critical
 - **F110**: How can swarm miscoordinate when swarming itself? (10 cases/3 tiers. T1+T2 done; T3 partially done. Low urgency; see `experiments/architecture/f110-meta-coordination.md`.) S249 meta audit: lane contract schema noncompliance (276/278 active) mirrors data-pipeline schema validation failure; missing fields propagate miscoordination. Evidence: `experiments/meta/f-meta1-contract-audit-s249.md`.
@@ -69,24 +69,12 @@ NK Complexity and Distributed Systems are test beds for swarm capability, not pr
 - `domains/claude-code/tasks/FRONTIER.md` (F-CC1–F-CC4)
 - `domains/physics/tasks/FRONTIER.md`
 
-- **F128**: Can swarm extract and evaluate external research papers? S189 PARTIAL: paper_extractor.py built (Semantic Scholar API, 10 domains, offline PASS). Open: live query integration; auto-promote high-iso papers (≥0.3); periodic cadence; cross-expert synthesis. Related: F122, F126, F127.
-
-- **F129**: Does undirected recombination (dream) produce isomorphisms unreachable by directed experts? S190 PARTIAL; S195 UPDATE: 4 sessions complete. F-DRM3 CONFIRMED (3.33x directed rate). Session 4 (musicology x distributed-systems): 3 new proposals (F135) absent from ISOMORPHISM-ATLAS. Open: does counterfactual mode produce more challenges/session? Related: `domains/dream/`, F-DRM1–F-DRM3, L-330, experiments/dream/f-drm3-rate-measure-s195.json.
-
-- **F131**: DREAM-HYPOTHESIS: Is cognitive dissonance resolution isomorphic to Byzantine fault tolerance? Both: conflicting evidence → quorum threshold → stable consensus. Cross-domain: psychology × protocol-engineering. Status: OPEN (S190). Related: DRM-H6, F-DRM2.
-
-- **F132**: DREAM-HYPOTHESIS: Does frontier accumulate faster than it resolves — requiring FRONTIER-COMPACT? B8 last tested S25 (166 sessions ago). Open/close ratio needs measurement at S100/S150/S191. Related: B8, F105. Status: OPEN (S190).
-
-- **F130**: Does the "meta" theme cluster (33 lessons) contain a structural pattern not yet lifted to a principle? Dream cycle S191 surfaced this. Open: extract 33 meta lessons; Sharpe scan (P-188); identify uncovered structural claim. Related: F-DRM1, L-311. Status: OPEN (S191).
-
 - **F134**: Can swarm close the cross-session initiation gap? PHIL-3: within-session self-direction confirmed; cross-session requires human trigger. S194: automation path confirmed (`claude --print … --dangerously-skip-permissions`). Open: measure sessions/hour with vs without human; ≥3x throughput target. F-CC1 carries implementation. Status: OPEN (S194).
-
-- **F135**: DREAM-HYPOTHESIS cluster: musicology x distributed-systems structural isomorphisms (3 proposals from S195 dream session 4). (1) F-ISO-MUS1: harmonic tension/resolution is isomorphic to leader-election failure/recovery — dissonance tolerance window maps to Raft election timeout; (2) F-ISO-MUS2: counterpoint (independent voices + harmonic constraints checked at beat) is isomorphic to optimistic concurrency control (independent transactions + conflict check at commit) — 4-voice counterpoint complexity lower-bounds lock-free N=4 coordination; (3) F-ISO-MUS3: CORE principle 4 (small steps) challenged by two-regime step-size policy (small/exploration vs large/phase-transition) — large musical discontinuities (modulation, full-orchestra entry) require preparation + consolidation, exactly as large swarm refactors do. All three absent from ISOMORPHISM-ATLAS. Status: OPEN (S195, dream session 4). Related: DRM-H11, DRM-H12, DRM-H13, F129, F-DRM3, experiments/dream/f-drm3-rate-measure-s195.json, domains/ISOMORPHISM-ATLAS.md (musicology gap).
 - **F136**: Swarm thermodynamics - can proxy-K dynamics be modeled as entropy with punctuated phase transitions (compaction as energy injection)? S246 baseline: proxy-k log shows median |delta| 692 tokens, p90 1995, max +12554, max -5072; punctuated jumps/drops. Open: define swarm "temperature" (session activity rate) and test if URGENT threshold acts as a critical point. Related: ISO-4, ISO-6, domains/physics/tasks/FRONTIER.md, experiments/physics/f-phy1-proxyk-entropy-s246.md.
 
 - **F-POL1**: Do governance isomorphisms (principal-agent, rule-of-law, sunset, agenda-control, legitimacy) predict swarm failure modes better than ad-hoc analysis? S286 baseline: 5 mechanisms map to 5 open gaps (F110/F111/F104/L-304/L-297). Open: do the 5 cover ≥80% of open F1xx items, or do swarm-specific failure modes require novel categories? Related: L-333, experiments/politics/politics-expert-s284.md.
 
-- **F-COMM1**: Can the swarm auto-trigger multi-expert collaboration based on frontier state, without human direction? S301: MECOM-001 experiment confirmed 5-expert parallel synthesis works (L-345); all 5 experts independently converged on human-trigger dependency as the unresolved autonomy tension. S302: investigation maps 5 dependency types (L-352). S305 PARTIAL: `check_anxiety_zones()` wired into maintenance.py — fires DUE when ≥1 frontier open >15 sessions (28 detected on first run). Now auto-flags stale frontiers each session. Open: wire flag → actual multi-expert spawn (autonomous, not just flag); success criterion = ≥3 multi-expert passes per 20 sessions without human-specified expert request, each producing ≥1 L+P. Related: F134, F-COMM2, L-345, L-352.
+- **F-COMM1**: Can the swarm auto-trigger multi-expert collaboration based on frontier state, without human direction? S301: 5-expert synthesis confirmed (L-345); S302: 5 dependency types mapped (L-352); S305 PARTIAL: `check_anxiety_zones()` wired — auto-flags stale frontiers each session. Open: wire flag → actual multi-expert spawn; target ≥3 autonomous passes per 20 sessions each producing ≥1 L+P. Related: F134, F-COMM2, L-345, L-352.
 
 - **F-COMM2**: Can the swarm auto-create expert personalities based on domain coverage gaps, without human direction? S302: f_ops2 expert_generator already emits spawn-ready lane IDs when domain-expert capacity is low but pipeline stops there — no code auto-creates personalities or appends lanes (L-352, L-349). Open: wire f_ops2 expert_generator → personality_create → lane_append; success criterion = ≥1 new expert created per session without human naming the role, with a completed artifact within 3 sessions. Related: F134, F-COMM1, L-349, L-352, tools/f_ops2_domain_priority.py.
 

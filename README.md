@@ -38,6 +38,8 @@ If you are new, start here in order:
 
 Expert swarm structure and lane discipline: `docs/EXPERT-SWARM-STRUCTURE.md`.
 
+**Expert swarm TLDR**: A coordinated network of typed specialist roles — Coordinator, Domain Expert, Skeptic, Historian, Generalizer, Integrator, and Expert Creator — each running one scoped experiment per session and producing one committed artifact. The Coordinator assigns domains and enforces lane contracts; Domain Experts run frontier experiments and emit cross-domain isomorphisms; Skeptic/Historian prevent repeats and falsify claims; Integrator merges outputs into global state. Every lane declares `expect/actual/diff` and an `artifact=` path. The default direction: expert work should improve the swarm itself, not just accumulate domain results.
+
 For current integrity/status, run:
 
 ```bash
