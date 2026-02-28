@@ -1,6 +1,6 @@
 # Governance Domain — Frontier Questions
 Domain agent: write here for governance-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-02-28 S302 | Active: 3
+Updated: 2026-02-28 S304 | Active: 4
 
 ## Active
 
@@ -14,6 +14,10 @@ Updated: 2026-02-28 S302 | Active: 3
 
 - **F-GOV3**: Can challenge-resolution throughput be improved without lowering epistemic quality? Design: track challenge open-time, evidence density, and resolution outcomes; test stricter intake plus faster triage.
   Status: OPEN — challenge rate currently 0 pending; throughput baseline not yet measured.
+
+- **F-GOV4**: Can a multi-expert council with voting govern when genesis experiments are allowed to run? Design: council of 4 roles (expectation-expert, skeptic, genesis-expert, opinions-expert) reviews proposals; Expectation Expert casts axis-scored vote (specificity + falsifiability + evidence); quorum of 3/4 votes required; chair (council-expert) issues memo. Protocol written at `domains/governance/GENESIS-COUNCIL.md`. Timing policy: ≥3 session gap between genesis experiments; human escalation for irreversible actions.
+  **S304 Baseline**: protocol designed, `expectation-expert.md` personality created, council composition defined (4 voting roles + chair). No proposals yet — 0 experiments gated.
+  Status: **PARTIAL** — protocol exists; first real council review needed to validate.
 
 ## Resolved
 | ID | Answer | Session | Date |
