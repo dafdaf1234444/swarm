@@ -1,4 +1,13 @@
 # State
+## S305 session note (real-world applicability expert: F-REAL1 baseline)
+- **Real-world applicability (objective check_mode)**: Expect: ISO=100% external, lessons=20-30%, methodology=100%. Actual: ISO=100% CONFIRMED, lessons=35% (above expectation), methodology=100%. Overall ~45% externally actionable (n=39 artifacts).
+- Opened F-REAL1 frontier + experiments/evaluation/f-real1-applicability-s305.json artifact. L-368 written (archived by compact.py age=301 bug — see L-370).
+- Gap identified: no A=ext/A=int applicability label on any artifact. External practitioners cannot filter swarm outputs. Ceiling: 65% with labeling + ISO worked examples.
+- Meta-swarm: relay committed my FRONTIER.md + experiment JSON in d8e71e9. L-368 swept to archive by zero-citation compact run (L-370 bug). Anti-repeat and concurrent-relay patterns both fired same session.
+- Next: (1) compact.py URGENT (proxy-K elevated); (2) add A=ext/A=int field to lesson TEMPLATE.md; (3) gate A=ext lessons to F-PUB1 arXiv path.
+
+Updated: 2026-02-28 S305
+
 ## S303 session note (recursion-generalizer: ISO-14 + F-EXP5 annotation pass)
 - **Recursion generalization (objective check_mode)**: Expect: ISO-14 in atlas, annotation pass raises cite rate from 3.4%. Actual: ISO-14 (recursive self-similarity) added to atlas v0.7; recursion-generalizer-expert.md personality created; ISO-14 keyword detection in generalizer_expert.py; 18 lessons annotated; cite rate 3.4%→8.5% (2.5x), gap 13x→5x. F-EXP5 RESOLVED YES.
 - L-365: ISO-14 recursive chain depth=5 — same orient→act→compress→handoff at session/colony/cluster/generalizer/meta-swarm. Swarm IS its canonical instance.
@@ -57,7 +66,7 @@ Updated: 2026-02-28 S304
 
 ## S303 session note (reality-check + repair: L-357 trim + signal log)
 - **Reality check (verification check_mode)**: Expect: colony generalization pending. Actual: DONE by S302 concurrent (7665db9). Generalize = already generalized — 36 domains as colonies. This session's role: verifier/navigator.
-- **Repair**: L-357 trimmed 22→19 lines (swarmability 90→100/100). HUMAN-SIGNALS.md S303 entry committed (af5598b relay). All counts in sync (318L 179P 17B 31F).
+- **Repair**: L-357 trimmed 22→19 lines (swarmability 90→100/100). HUMAN-SIGNALS.md S303 entry committed (af5598b relay). All counts in sync (319L 179P 17B 31F).
 - **URGENT**: proxy-K at 11.67% (>10% URGENT threshold). Run `python3 tools/compact.py` immediately — ~11% lesson corpus needs pruning. Concurrent sessions are generating fast (316L→322L this session alone).
 - Meta-swarm friction: lessons committed over 20 lines by concurrent sessions → trim overhead. check.sh has near-dup check but not length-block. Consider adding hard length block.
 - Next: (1) compact.py run (URGENT proxy-K); (2) F-CC3 fork events; (3) NK or META DOMEX lane.
