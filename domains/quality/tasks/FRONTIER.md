@@ -8,6 +8,8 @@ Updated: 2026-02-28 S189 | Active: 2 | Resolved: 1
 
 - **F-QC3**: Which domain pairs have the highest cross-domain lesson redundancy? Hypothesis (B-QC3): domain pairs that share an isomorphism in ISOMORPHISM-ATLAS will also share near-duplicate lessons — the same structural insight gets written twice, once per domain vocabulary. Method: (1) extract domain assignments from each lesson's citation header; (2) run Jaccard similarity within and across domain groups; (3) compute cross-domain redundancy matrix (N_domains x N_domains); (4) compare top-redundancy pairs against ISOMORPHISM-ATLAS entries. Expected: evolution↔meta, brain↔ai, and game-theory↔operations-research show highest overlap. Related: F-QC1 (near-duplicate detection), F126 (isomorphism atlas), domains/ISOMORPHISM-ATLAS.md.
 
+- **F-QC4**: Can swarm auto-assign theme labels to new lessons at write-time to prevent corpus indexing lag? Problem (L-308): 192/288 lessons (67%) are unthemed; dream.py theme gravity covers only ~33% of corpus. Theme assignment is 100% manual — it lags by design. Hypothesis: a lightweight classifier (keywords → theme bucket) integrated into the lesson-writing workflow would reduce unthemed fraction below 20% within 5 sessions. Design: (1) build theme keyword map from existing themed lessons; (2) auto-suggest theme at lesson-write time via `compact.py` or a new `lesson_tagger.py`; (3) measure unthemed fraction at S195 vs S190 baseline. Success = <20% unthemed. Related: F125 (dream cycle), L-308 (corpus indexing lag), P-011 (flat→hierarchical when outgrown).
+
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
