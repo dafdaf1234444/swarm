@@ -1,4 +1,20 @@
 # State
+## S305 session note (compact.py age-bug fix)
+- **compact.py session-parse fix (objective check_mode)**: Expect: bold-markdown lessons (Session**: S303) parsed correctly. Actual: regex `\*{0,2}Session\*{0,2}:` handles plain + bold format. Min-age guard: skip zero-cited lessons with age<5 (new lessons need time to accumulate citations). L-371/372/373 correctly excluded from candidates. L-370 bug closed.
+- Diff: fix confirmed — new lessons no longer appear as age=301 orphans. L-180 (age=217, 0 citations) remains correct genuine orphan.
+- Meta-swarm: Two compact.py bug classes now documented: (1) citation scanner (L-280), (2) session parsing (L-370). Both fixed. Recommend: compact.py regression test suite to prevent recurrence.
+- Next: (1) FM-06 live-fire test (PreCompact second layer); (2) proxy-K drift 9.5% still elevated — need more archiving or T4/T1 compression; (3) mission-constraint-reswarm (F119, very stale S186); (4) cross-variant harvest DUE.
+
+## S305 session note (coordination+scheduling refinement: F-COMM1+F-EXP1+F-EXP6)
+- **Coordination/scheduling (objective check_mode)**: Expect: anxiety zones and dispatch blindness are unmeasured. Actual: 28 anxiety-zone frontiers found (stale >15 sessions); dispatch tracking infra built; active colony signal rate 0%→5.4%.
+- Built: `tools/dispatch_tracker.py` (claim/release protocol, shared DISPATCH-LOG.md); `check_anxiety_zones()` and `check_dispatch_log()` wired into maintenance.py; colony_interact.py hardcoded-zero bug fixed.
+- F-COMM1 PARTIAL: anxiety zones now auto-flagged each session. F-EXP1 PARTIAL: dispatch tracker ready for instrumentation. F-EXP6 updated: 0%→5.4% active signal rate.
+- L-376: scheduling requires two signals — (1) age of unworked items, (2) current claim map. Both now instrumented.
+- Meta-swarm: 28 anxiety zones reveals scheduler has been blind to stale frontiers for 200+ sessions. Simple measurement → immediate actionability. Oldest frontier (F112) open since S67.
+- Next: (1) wire anxiety-zone flag → actual multi-expert spawn (F-COMM1 remaining gap); (2) instrument 10 sessions with dispatch_tracker claim/release to get F-EXP1 throughput data; (3) compact.py proxy-K 6.2%.
+
+Updated: 2026-02-28 S306
+
 ## S305 session note (real-world applicability expert: F-REAL1 baseline)
 - **Real-world applicability (objective check_mode)**: Expect: ISO=100% external, lessons=20-30%, methodology=100%. Actual: ISO=100% CONFIRMED, lessons=35% (above expectation), methodology=100%. Overall ~45% externally actionable (n=39 artifacts).
 - Opened F-REAL1 frontier + experiments/evaluation/f-real1-applicability-s305.json artifact. L-368 written (archived by compact.py age=301 bug — see L-370).
@@ -66,7 +82,7 @@ Updated: 2026-02-28 S304
 
 ## S303 session note (reality-check + repair: L-357 trim + signal log)
 - **Reality check (verification check_mode)**: Expect: colony generalization pending. Actual: DONE by S302 concurrent (7665db9). Generalize = already generalized — 36 domains as colonies. This session's role: verifier/navigator.
-- **Repair**: L-357 trimmed 22→19 lines (swarmability 90→100/100). HUMAN-SIGNALS.md S303 entry committed (af5598b relay). All counts in sync (319L 179P 17B 31F).
+- **Repair**: L-357 trimmed 22→19 lines (swarmability 90→100/100). HUMAN-SIGNALS.md S303 entry committed (af5598b relay). All counts in sync (325L 179P 17B 31F).
 - **URGENT**: proxy-K at 11.67% (>10% URGENT threshold). Run `python3 tools/compact.py` immediately — ~11% lesson corpus needs pruning. Concurrent sessions are generating fast (316L→322L this session alone).
 - Meta-swarm friction: lessons committed over 20 lines by concurrent sessions → trim overhead. check.sh has near-dup check but not length-block. Consider adding hard length block.
 - Next: (1) compact.py run (URGENT proxy-K); (2) F-CC3 fork events; (3) NK or META DOMEX lane.
