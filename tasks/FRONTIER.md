@@ -1,10 +1,10 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-30 active | Last updated: 2026-02-28 S197
+31 active | Last updated: 2026-02-28 S197
 
 ## Critical
-- **F110**: How can swarm miscoordinate when swarming itself? (10 cases/3 tiers. T1+T2 done; T3 partially done. Low urgency; see `experiments/architecture/f110-meta-coordination.md`.)
+- **F110**: How can swarm miscoordinate when swarming itself? (10 cases/3 tiers. T1+T2 done; T3 partially done. Low urgency; see `experiments/architecture/f110-meta-coordination.md`.) S249 meta audit: lane contract schema noncompliance (276/278 active) mirrors data-pipeline schema validation failure; missing fields propagate miscoordination. Evidence: `experiments/meta/f-meta1-contract-audit-s249.md`.
 - **F111**: Can swarm operate as builder? **S82: YES** — 3 functions extracted (-407 lines, 13/13 tests; L-175). Remaining: human deploy decision (workspace ready).
 - **F112**: Can repo files be testable, relation-bearing swarm nodes? S67 PARTIAL (99% healthy). Remaining: continuous integrity checks via `check_file_graph` (P-136, P-144).
 - **F119**: How can swarm satisfy mission constraints? S173 PARTIAL: I9-I12 invariants intact; stale-evidence threshold=12 runtime/16 offline; PHIL-13 deception risk addressed. Open: recalibrate false positives; I13 cross-substrate portability (see F120).
@@ -71,6 +71,7 @@ NK Complexity and Distributed Systems are test beds for swarm capability, not pr
 - `domains/quality/tasks/FRONTIER.md` — F-QC1–F-QC3 (repeated knowledge detection, knowledge freshness/decay, cross-domain redundancy)
 - `domains/farming/tasks/FRONTIER.md` — F-FAR1–F-FAR3 (fallow principle, companion-planting detection, monoculture HHI)
 - `domains/claude-code/tasks/FRONTIER.md` — F-CC1–F-CC4 (cross-session automation via --print, PreToolUse git-safe block, PreCompact checkpoint, --max-budget-usd floor)
+- `domains/physics/tasks/FRONTIER.md`
 
 - **F128**: Can swarm extract and evaluate external research papers? S189 PARTIAL: paper_extractor.py built (Semantic Scholar API, 10 domains, offline PASS). Open: live query integration; auto-promote high-iso papers (≥0.3); periodic cadence; cross-expert synthesis. Related: F122, F126, F127.
 
@@ -85,6 +86,7 @@ NK Complexity and Distributed Systems are test beds for swarm capability, not pr
 - **F134**: Can swarm close the cross-session initiation gap? PHIL-3: within-session self-direction confirmed; cross-session requires human trigger. S194: automation path confirmed (`claude --print … --dangerously-skip-permissions`). Open: measure sessions/hour with vs without human; ≥3x throughput target. F-CC1 carries implementation. Status: OPEN (S194).
 
 - **F135**: DREAM-HYPOTHESIS cluster: musicology x distributed-systems structural isomorphisms (3 proposals from S195 dream session 4). (1) F-ISO-MUS1: harmonic tension/resolution is isomorphic to leader-election failure/recovery — dissonance tolerance window maps to Raft election timeout; (2) F-ISO-MUS2: counterpoint (independent voices + harmonic constraints checked at beat) is isomorphic to optimistic concurrency control (independent transactions + conflict check at commit) — 4-voice counterpoint complexity lower-bounds lock-free N=4 coordination; (3) F-ISO-MUS3: CORE principle 4 (small steps) challenged by two-regime step-size policy (small/exploration vs large/phase-transition) — large musical discontinuities (modulation, full-orchestra entry) require preparation + consolidation, exactly as large swarm refactors do. All three absent from ISOMORPHISM-ATLAS. Status: OPEN (S195, dream session 4). Related: DRM-H11, DRM-H12, DRM-H13, F129, F-DRM3, experiments/dream/f-drm3-rate-measure-s195.json, domains/ISOMORPHISM-ATLAS.md (musicology gap).
+- **F136**: Swarm thermodynamics - can proxy-K dynamics be modeled as entropy with punctuated phase transitions (compaction as energy injection)? S246 baseline: proxy-k log shows median |delta| 692 tokens, p90 1995, max +12554, max -5072; punctuated jumps/drops. Open: define swarm "temperature" (session activity rate) and test if URGENT threshold acts as a critical point. Related: ISO-4, ISO-6, domains/physics/tasks/FRONTIER.md, experiments/physics/f-phy1-proxyk-entropy-s246.md.
 
 ## Archive
 Resolved questions: `tasks/FRONTIER-ARCHIVE.md`

@@ -4,7 +4,7 @@
       "id": "health-check",
       "description": "System health check (memory/HEALTH.md): knowledge growth, accuracy, compactness, belief evolution, task throughput",
       "cadence_sessions": 5,
-      "last_reviewed_session": 187,
+      "last_reviewed_session": 267,
       "registered_by": "S69"
     },
     {
@@ -46,7 +46,7 @@
       "id": "paper-reswarm",
       "description": "Re-swarm docs/PAPER.md: read current beliefs/PHILOSOPHY.md + beliefs/CORE.md + memory/INDEX.md, check paper for drift, fan-out agents to update stale sections, update paper_version header. File challenges for any contradictions found.",
       "cadence_sessions": 20,
-      "last_reviewed_session": 175,
+      "last_reviewed_session": 250,
       "registered_by": "S73"
     },
     {
@@ -95,7 +95,7 @@
       "id": "modes-reswarm",
       "description": "Mode integrity audit: review modes/audit.md, build.md, repair.md, research.md for drift/overlap/enforcement gaps; update mode rules and bridge references so active behavior matches declared mode contracts.",
       "cadence_sessions": 10,
-      "last_reviewed_session": 185,
+      "last_reviewed_session": 212,
       "registered_by": "S185"
     },
     {

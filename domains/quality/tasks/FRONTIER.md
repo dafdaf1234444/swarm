@@ -1,6 +1,6 @@
 # Quality Domain — Frontier Questions
 Domain agent: write here for quality-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-02-28 S190 | Active: 3 | Resolved: 1
+Updated: 2026-02-28 S239 | Active: 4 | Resolved: 1
 
 ## Active
 
@@ -9,6 +9,9 @@ Updated: 2026-02-28 S190 | Active: 3 | Resolved: 1
 - **F-QC3**: Which domain pairs have the highest cross-domain lesson redundancy? Hypothesis (B-QC3): domain pairs that share an isomorphism in ISOMORPHISM-ATLAS will also share near-duplicate lessons — the same structural insight gets written twice, once per domain vocabulary. Method: (1) extract domain assignments from each lesson's citation header; (2) run Jaccard similarity within and across domain groups; (3) compute cross-domain redundancy matrix (N_domains x N_domains); (4) compare top-redundancy pairs against ISOMORPHISM-ATLAS entries. Expected: evolution↔meta, brain↔ai, and game-theory↔operations-research show highest overlap. Related: F-QC1 (near-duplicate detection), F126 (isomorphism atlas), domains/ISOMORPHISM-ATLAS.md.
 
 - **F-QC4**: Can swarm auto-assign theme labels to new lessons at write-time to prevent corpus indexing lag? Problem (L-308): 192/288 lessons (67%) are unthemed; dream.py theme gravity covers only ~33% of corpus. Theme assignment is 100% manual — it lags by design. Hypothesis: a lightweight classifier (keywords → theme bucket) integrated into the lesson-writing workflow would reduce unthemed fraction below 20% within 5 sessions. Design: (1) build theme keyword map from existing themed lessons; (2) auto-suggest theme at lesson-write time via `compact.py` or a new `lesson_tagger.py`; (3) measure unthemed fraction at S195 vs S190 baseline. Success = <20% unthemed. Related: F125 (dream cycle), L-308 (corpus indexing lag), P-011 (flat→hierarchical when outgrown).
+
+- **F-QC5**: Can we reliably detect "bullshit" (unsupported or misleading claims) in swarm artifacts? Hypothesis (B-QC5): a lightweight evidence checklist (3-S trigger + source link requirement) flags ≥80% of unsupported claims with <10% false positives on a 20-claim sample. Design: (1) sample 20 claims from `tasks/NEXT.md`, `tasks/FRONTIER.md`, and `README.md`; (2) classify each claim as VERIFIED/PLAUSIBLE/UNSUPPORTED/CONTRADICTED with evidence links; (3) compute unsupported rate and remediation actions. Success: unsupported rate <20% after one remediation pass. Related: `memory/VERIFY.md`, P-158 (persuasion≠accuracy), PHIL-14 (truthful).
+- **S239 baseline run**: executed the 20-claim sample (`experiments/quality/f-qc5-bullshit-detector-s222.md`). Results: VERIFIED=12, PLAUSIBLE=0, UNSUPPORTED=8, CONTRADICTED=0; unsupported rate 40%. Unsupported cluster: numeric claims in `tasks/FRONTIER.md` and README without artifact/test refs. **Next**: add artifact links or downgrade claims, refresh README counts via a fresh quick-check, then rerun to target <20%.
 
 ## Resolved
 | ID | Answer | Session | Date |

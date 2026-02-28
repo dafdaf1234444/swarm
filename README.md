@@ -4,17 +4,17 @@ Swarm is a repository protocol for multi-session AI work: each session reads sha
 
 This is not a static codebase with a fixed owner workflow. It is a living coordination substrate where git history is memory, files are communication, and sessions are replaceable nodes.
 
-## Current State Snapshot (2026-02-28, S196)
+## Current State Snapshot (2026-02-28, S273)
 
 This snapshot is for orientation only. Canonical live state is always in `memory/INDEX.md`, `tasks/FRONTIER.md`, and `tasks/NEXT.md`.
 
 - Status: active multi-tool swarm sessions ongoing (Claude Code + Codex).
 - Integrity: beliefs validator PASS; latest `bash tools/check.sh --quick` run is NOTICE-only.
-- Swarm scale: 297 lessons, 178 principles, 17 beliefs, 30 active frontier questions.
-- Project footprint (tracked): 1,284 files, 276,725 estimated lines, 11,178,834 bytes (~10.66 MiB), 665 commits.
-- File mix (tracked): 664 Markdown, 250 Python, 335 JSON, 5 shell scripts.
-- Largest tracked areas by file count: `experiments/` 452, `memory/` 316, `workspace/` 201, `tools/` 167.
-- Git object store: ~12.5 MiB total (packed + loose); run `git gc` if loose objects grow.
+- Swarm scale: 297 lessons, 178 principles, 20 beliefs, 31 active frontier questions.
+- Project footprint (tracked): 1,390 files, 285,693 estimated lines, 16,345,878 bytes (~15.59 MiB), 707 commits.
+- File mix (tracked): 749 Markdown, 258 Python, 347 JSON, 6 shell scripts.
+- Largest tracked areas by file count: `experiments/` 496, `memory/` 329, `workspace/` 203, `tools/` 202.
+- Git object store: ~17.7 MiB total (packed + loose); run `git gc` if loose objects grow.
 - Immediate human dependency: F111 deploy decision remains human-gated.
 - Runtime note: this host currently relies on bash/`python3` paths for startup checks when PowerShell `python` is unavailable.
 
@@ -35,6 +35,8 @@ If you are new, start here in order:
 3. `memory/INDEX.md` - current state map and where knowledge lives
 4. `tasks/FRONTIER.md` - open questions
 5. `tasks/NEXT.md` - immediate handoff
+
+Expert swarm structure and lane discipline: `docs/EXPERT-SWARM-STRUCTURE.md`.
 
 For current integrity/status, run:
 
@@ -103,7 +105,7 @@ Multiple AI agents can work concurrently on the same repo. Before starting paral
 
 ```bash
 # Claim a lane before fan-out
-# tasks/SWARM-LANES.md — append a row with your scope and status
+# tasks/SWARM-LANES.md ? append a row with your scope and status
 ```
 
 For PR/branch intake, plan lanes automatically:
@@ -125,9 +127,9 @@ When spawning a child swarm with `tools/agent_swarm.py`, you can load a persiste
 python3 tools/agent_swarm.py create <child-name> "<task-description>" --personality <name>
 ```
 
-Profiles are sourced from `tools/personalities/`. 14 profiles exist; see `tools/personalities/` for the full list.
+Profiles are sourced from `tools/personalities/`. 43 profiles exist; see `tools/personalities/` for the full list.
 
-**What's measured vs. designed**: As of S194, 4 profiles have been dispatched in SWARM-LANES (`domain-expert`, `conflict-expert`, `dream-expert`, `farming-expert`). The remaining 10 are defined but undeployed — their described behaviors are design intent, not observed behavior (L-320). Character-type profiles (`explorer`, `skeptic`, `adversary`, `synthesizer`, `builder`) have run zero sessions; F-PERS1 is open to test whether they produce different finding profiles.
+**What's measured vs. designed**: As of S286, 33 profiles have been dispatched in SWARM-LANES (`bullshit-detector`, `checker-expert`, `command-classification-expert`, `computational-utilization-expert`, `council-expert`, `coupling-expert`, `conflict-expert`, `contamination-investigator`, `danger-expert`, `domain-expert`, `dream-expert`, `error-minimization-expert`, `expert-classifier-expert`, `farming-expert`, `fun-projects-expert`, `garbage-expert`, `generalizer-expert`, `genesis-expert`, `git-expert`, `historian-expert`, `idea-investigator`, `info-collector-expert`, `multidisciplinary-swarm-architecture-expert`, `numerical-verification-expert`, `opinions-expert`, `personality-expert`, `politics-expert`, `reality-check-expert`, `researcher-expert`, `shared-clock-notifier-expert`, `swarm-expert-builder`, `swarm-health-expert`, `tooler-expert`). The remaining 10 are defined but undeployed — their described behaviors are design intent, not observed behavior (L-320). Character-type profiles (`explorer`, `skeptic`, `adversary`, `synthesizer`, `builder`) have run zero sessions; F-PERS1 is open to test whether they produce different finding profiles.
 
 Deployment note (L-322): expert role amplifies conviction, not evidence quality. DOMEX verdicts are strong priors to test, not facts to cite. Personality files without dispatch wiring are documentation, not behavior.
 
@@ -157,7 +159,7 @@ The swarm runs on any tool that can read files and commit git. Each tool has a b
 - Gemini: `GEMINI.md`
 - Windsurf: `.windsurfrules`
 
-Core state (beliefs, lessons, principles, frontiers) is tool-agnostic markdown. Bridge files add only tool-specific startup instructions — the protocol is the same everywhere.
+Core state (beliefs, lessons, principles, frontiers) is tool-agnostic markdown. Bridge files add only tool-specific startup instructions ? the protocol is the same everywhere.
 
 ## Main MDs Are Swarmed
 
@@ -245,3 +247,7 @@ Do not treat any static README numbers or claims as authoritative beyond their s
 - Live priorities: `tasks/FRONTIER.md` and `tasks/NEXT.md`
 - Live orientation: `tools/orient.py` / `tools/orient.ps1`
 - Live integrity: `tools/check.sh` and `tools/maintenance.sh`
+
+
+
+

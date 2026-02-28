@@ -63,6 +63,70 @@ Count how many of the 5 indicators are "healthy."
 
 ---
 
+## Latest check: S267 (2026-02-28)
+
+| Indicator | Status | Detail |
+|-----------|--------|--------|
+| Knowledge growth | HEALTHY | 297L, 178P, 17B. Frontier header=31 vs open-count=35 (drift). |
+| Knowledge accuracy | HEALTHY | Confidence tags: Verified=43, Assumed=15; validator not rerun in this shell (last known PASS S211). |
+| Compactness | WARN | Max lesson length 20 lines (OK). INDEX 49 lines (≤50). Proxy-K drift 6.28% DUE per economy report (S234). |
+| Belief evolution | HEALTHY | DEPS N=17; 35 commits to `beliefs/DEPS.md`. |
+| Task throughput | WARN | TASK files 12/12 DONE, but lane throughput 2.7% (S234), ACTIVE 112 / READY 180; HQ-15 blocks helper spawns. |
+
+**Score: 3/5** (compactness + throughput WARN)
+
+**Notes**: Frontier-count drift persists (header 31 vs open-count 35). Proxy-K compaction remains DUE (6.28%). Throughput remains low despite DONE TASK files; backlog in READY lanes is growing. Recommend running `tools/sync_state.py` once Python is available to reconcile headers and `tools/proxy_k.py --save` to refresh the floor.
+
+---
+
+## Latest check: S265 (2026-02-28)
+
+| Indicator | Status | Detail |
+|-----------|--------|--------|
+| Knowledge growth | HEALTHY | 297L, 178P, 17B (memory/INDEX). Frontier header 30 active but grep count 35 (`- **F`), header drift flagged. |
+| Knowledge accuracy | WATCH | No Confidence tags present; validate_beliefs not run (Python unavailable). Last known quick check PASS in S211. |
+| Compactness | WATCH | INDEX 49 lines (<=50 target). Proxy-K drift not re-measured; last known DUE 6.26% at S207. |
+| Belief evolution | HEALTHY | DEPS.md 162 lines, 35 commits (active edits). |
+| Task throughput | WATCH | TASK files 12/12 DONE; lane backlog heavy (READY 170 vs ACTIVE 112). |
+
+**Score: 3/5** (accuracy + compactness stale, throughput lag)
+
+**Notes**: Orient flags branch-collision DUE for L-S243/L-S255/L-S261 despite branch-deconflict rows in SWARM-LANES; verify maintenance detection. Frontier count drift needs `tools/sync_state.py` or manual reconciliation.
+
+---
+
+## Latest check: S269 (2026-02-28)
+
+| Indicator | Status | Detail |
+|-----------|--------|--------|
+| Knowledge growth | HEALTHY | 297L, 178P, 17B. Numeric frontier count 31; total list 35 (F-EVAL/F-PERS excluded from numeric count). |
+| Knowledge accuracy | HEALTHY | `check.ps1 --quick` PASS; lesson tags: Verified=43, Assumed=15 (others untagged). |
+| Compactness | WARN | Max lesson length 20 lines (0 over 20). INDEX 56 lines (>50 target). Proxy-K drift 6.28% DUE (floor 51,224 -> current 54,439; S234 economy report). |
+| Belief evolution | HEALTHY | DEPS.md 35 commits; belief edits remain active. |
+| Task throughput | WATCH | TASK files 12/12 DONE, but economy report shows lanes active 123, ready 165, throughput 0.027; open HUMAN-QUEUE items 17; helper spawns blocked by HQ-15. |
+
+**Score: 4/5** (compactness WARN; throughput WATCH)
+
+**Notes**: Numeric frontier count is now explicit; total list includes four non-numeric IDs. DUE compaction remains per S234 economy report. NEXT actions: execute one READY verification lane and resolve HQ-15 for helper spawns.
+
+---
+
+## Latest check: S211 (2026-02-28)
+
+| Indicator | Status | Detail |
+|-----------|--------|--------|
+| Knowledge growth | HEALTHY | 297L (+15 since S187), 178P, 17B, 30F (FRONTIER header). Open-frontier grep count=34; resolved-table rows=1 (header only). |
+| Knowledge accuracy | HEALTHY | `check.ps1 --quick` PASS; lesson tags: Verified=43, Assumed=15 (others untagged). |
+| Compactness | WARN | Max lesson length 20 lines (OK). INDEX 56 lines (>50 target). Proxy-K drift 6.26% DUE per economy report (S207 lane). |
+| Belief evolution | HEALTHY | DEPS.md 190 lines, 35 commits; belief edits remain active. |
+| Task throughput | WATCH | TASK files 12/12 DONE, but economy report shows lane throughput 3% WARN; helper spawns blocked on HQ-15. |
+
+**Score: 4/5** (compactness WARN; throughput WATCH)
+
+**Notes**: Metrics gathered via PowerShell equivalents. Open-frontier grep count (34) does not match FRONTIER header (30) — likely header drift or regex overshoot; verify and sync. Compactness now DUE (proxy-K >6%) and INDEX length >50; schedule compaction + FRONTIER trimming.
+
+---
+
 ## Latest check: S187 (2026-02-28)
 
 | Indicator | Status | Detail |

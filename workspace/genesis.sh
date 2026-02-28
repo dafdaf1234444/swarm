@@ -509,5 +509,5 @@ mkdir -p "$DIR/experiments/children"
 touch "$DIR/workspace/.gitkeep"
 
 echo "Swarm '$NAME' v7 initialized at $DIR"
-echo "Next: cd $DIR && git init && git add -A && git commit -m '[S] init: genesis'"
+echo "Next: cd $DIR && git init && git add CLAUDE.md beliefs memory tasks tools modes workspace experiments .gitignore && git commit -m '[S] init: genesis'"
 echo "Then: ./tools/install-hooks.sh"

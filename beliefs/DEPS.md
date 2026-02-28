@@ -5,8 +5,8 @@ Evidence types: `observed` (empirically tested in this system) | `theorized` (re
 When a belief is disproven: check dependents below → update those too.
 
 ## Interconnection model
-N=17 beliefs (15 observed, 2 theorized), target K≈1 (L-025). K=0 freezes adaptation;
-K=N-1 is unstable.
+N=20 beliefs (17 numeric B1–B19 + 3 evaluation B-EVAL1–B-EVAL3; 15 observed, 5 theorized), target K≈1 (L-025). K=0 freezes adaptation;
+K=N-1 is unstable. Note: validate_beliefs.py counts only numeric B\d+ patterns (17); B-EVAL1–B-EVAL3 are not auto-validated.
 
 ```
 B1 (git-as-memory)

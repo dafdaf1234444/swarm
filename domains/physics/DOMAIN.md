@@ -2,9 +2,9 @@
 Topic: Fundamental physical laws as canonical instantiations of cross-domain structural isomorphisms — entropy, phase transitions, emergence, optimization, feedback, and power laws.
 Beliefs: (candidate only; no formal B-PHY* entries in `beliefs/DEPS.md` yet)
 Lessons: L-281
-Frontiers: F126
-Experiments: none yet
-Load order: CLAUDE.md -> beliefs/CORE.md -> this file -> memory/INDEX.md -> domains/ISOMORPHISM-ATLAS.md
+Frontiers: F-PHY1, F-PHY2, F-PHY3 (domain); F126 (atlas)
+Experiments: F-PHY1 baseline (S246)
+Load order: CLAUDE.md -> beliefs/CORE.md -> this file -> tasks/FRONTIER.md -> domains/ISOMORPHISM-ATLAS.md
 
 ## Domain filter
 Only physics concepts with direct structural isomorphisms to swarm operation or other domains qualify. Physics provides the canonical mathematical form; domain value is as anchor for cross-domain mappings.

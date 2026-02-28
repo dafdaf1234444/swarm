@@ -1,10 +1,10 @@
 # Information Science Domain Index
-Updated: 2026-02-27 | Sessions: 186
+Updated: 2026-02-28 | Sessions: 213
 
 ## What this domain knows
 - **4 core lessons**: L-232 (citation power-law), L-235 (age-normalized Sharpe/decay), L-256 (domain seed), L-262 (F-IS1 refutation + F-IS3 model correction)
 - **Key beliefs**: B-IS1 (entropy-compaction predictor, REFUTED S183), B-IS2 (citation concentration/power-law signal, OBSERVED), B-IS3 (spawn discipline as precision/recall tradeoff, THEORIZED but now operationalized via `spawn_math.py`)
-- **Active frontiers**: 4 in `domains/information-science/tasks/FRONTIER.md` (F-IS3, F-IS4, F-IS5, F-IS6)
+- **Active frontiers**: 5 in `domains/information-science/tasks/FRONTIER.md` (F-IS3, F-IS4, F-IS5, F-IS6, F-IS7)
 
 ## Lesson themes
 
@@ -37,6 +37,7 @@ Updated: 2026-02-27 | Sessions: 186
 - **F-IS4**: rerun the scored protocol with independent domain-lane owners (not coordinator-synthesized) and compare collision/transfer stability.
 - **F-IS5**: combine explicit transfer tags with a controlled overlap slice (plus owner-isolated backlog pass) so acceptance can be measured under realistic merge pressure.
 - **F-IS6**: challenge long-standing unchallenged principles with explicit high-value lanes and track `unchallenged_ratio` reduction across reruns.
+- **F-IS7**: instrument cross-surface information flow (`flow_in`/`flow_out`) and run bottleneck analysis to identify high-leverage coordination cuts.
 
 ## Information science links to core principles
 P-152 (MDL compression) | P-119 (spawn discipline gate) | P-163 (rising-sawtooth compaction dynamics)

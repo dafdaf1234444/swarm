@@ -3,7 +3,7 @@
 swarm_test.py — Spawn and evaluate child swarms as integration tests.
 
 Usage:
-    python3 tools/swarm_test.py spawn <name> [topic]
+    python3 tools/swarm_test.py spawn <name> [topic] [--personality <name>]
     python3 tools/swarm_test.py evaluate <swarm-dir>
     python3 tools/swarm_test.py list
 
@@ -52,7 +52,32 @@ def _pick_python_cmd() -> str:
 PYTHON_CMD = _pick_python_cmd()
 
 
-def spawn(name: str, topic: str = "general") -> Path:
+def _apply_personality_overlay(child_dir: Path, child_name: str, personality: str) -> None:
+    """Write personality.md and wire CLAUDE.md to load it."""
+    personalities_dir = REPO_ROOT / "tools" / "personalities"
+    template_path = personalities_dir / f"{personality}.md"
+    if not template_path.exists():
+        available = [p.stem for p in personalities_dir.glob("*.md")]
+        print(f"Personality '{personality}' not found. Available: {available}")
+        sys.exit(1)
+
+    content = template_path.read_text().replace("{{COLONY_NAME}}", child_name)
+    (child_dir / "personality.md").write_text(content)
+
+    claude_path = child_dir / "CLAUDE.md"
+    if claude_path.exists():
+        claude = claude_path.read_text()
+        if "Read `personality.md`" not in claude:
+            old_line = "1. Read `beliefs/CORE.md` — purpose and principles"
+            new_lines = (
+                "0. Read `personality.md` — your persistent character for this colony\n"
+                "1. Read `beliefs/CORE.md` — purpose and principles"
+            )
+            if old_line in claude:
+                claude_path.write_text(claude.replace(old_line, new_lines))
+
+
+def spawn(name: str, topic: str = "general", personality: str = None) -> Path:
     """Spawn a child swarm and return its path."""
     child_dir = CHILDREN_DIR / name
     if child_dir.exists():
@@ -84,6 +109,11 @@ def spawn(name: str, topic: str = "general") -> Path:
 
     print(f"Child swarm '{name}' spawned at {child_dir}")
     print(f"Topic: {topic}")
+    if personality:
+        print(f"Personality: {personality}")
+
+    if personality:
+        _apply_personality_overlay(child_dir, name, personality)
 
     # Write spawn metadata
     meta = {
@@ -94,8 +124,15 @@ def spawn(name: str, topic: str = "general") -> Path:
         "spawned_from_belief_count": _count_parent_beliefs(),
         "genesis_version": _get_genesis_version(),
     }
+    if personality:
+        meta["personality"] = personality
     meta_path = child_dir / ".swarm_meta.json"
     meta_path.write_text(json.dumps(meta, indent=2))
+    if personality:
+        subprocess.run(
+            ["git", "add", "personality.md", "CLAUDE.md"],
+            cwd=str(child_dir), capture_output=True
+        )
     subprocess.run(
         ["git", "add", ".swarm_meta.json"],
         cwd=str(child_dir), capture_output=True
@@ -287,11 +324,20 @@ def main():
 
     if cmd == "spawn":
         if len(sys.argv) < 3:
-            print("Usage: swarm_test.py spawn <name> [topic]")
+            print("Usage: swarm_test.py spawn <name> [topic] [--personality <name>]")
             sys.exit(1)
         name = sys.argv[2]
-        topic = sys.argv[3] if len(sys.argv) > 3 else "general"
-        spawn(name, topic)
+        args = sys.argv[3:]
+        personality = None
+        if "--personality" in args:
+            idx = args.index("--personality")
+            if idx + 1 >= len(args):
+                print("Error: --personality requires a value")
+                sys.exit(1)
+            personality = args[idx + 1]
+            args = args[:idx] + args[idx + 2:]
+        topic = args[0] if args else "general"
+        spawn(name, topic, personality)
 
     elif cmd == "evaluate":
         if len(sys.argv) < 3:

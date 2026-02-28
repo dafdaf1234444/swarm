@@ -1,11 +1,12 @@
 # Meta / Swarm Self-Knowledge Domain - Frontier Questions
 Domain agent: write here for self-domain work; global cross-domain findings still go to tasks/FRONTIER.md.
-Updated: 2026-02-27 S186 | Active: 4
+Updated: 2026-02-28 S249 | Active: 4
 
 ## Active
 
 - **F-META1**: What minimal self-model contract keeps swarm state coherent across `tasks/NEXT.md`, `tasks/SWARM-LANES.md`, and domain frontiers?
   Design: define required self-model fields (`intent`, `progress`, `blocked`, `next_step`, `check_focus`, artifact refs) and add drift checks that quantify missing/contradictory fields per session.
+  - **S249 evidence**: Contract audit found 276/278 active lanes missing at least one required field; domain lanes missing domain_sync/memory_target = 87/134. Top missing fields: expect/actual/diff, artifact, check_mode. Evidence: `experiments/meta/f-meta1-contract-audit-s249.md`. Next: enforce schema via tests/maintenance or auto-tag legacy lanes.
 
 - **F-META2**: How can swarm convert human and self-generated signals into action-ready updates with less signal loss?
   Design: mine `memory/HUMAN-SIGNALS.md`, `tasks/HUMAN-QUEUE.md`, and "What just happened" entries for unencoded directives; measure conversion rate into principles/frontiers/lanes within 1-2 sessions.
@@ -30,3 +31,4 @@ Updated: 2026-02-27 S186 | Active: 4
 | F101-P1 | DONE - domain FRONTIER files created; later evolved into broad domain-sharding baseline. | 52 | 2026-02-27 |
 | F87 | moderate constraints outperformed no-falsification over longer horizon. | 44 | 2026-02-27 |
 | F86 | recursive belief evolution works; second-generation descendants remained viable. | 42 | 2026-02-26 |
+

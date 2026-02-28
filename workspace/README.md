@@ -16,7 +16,7 @@ Code, tools, and experiments produced by the swarm.
 ```bash
 ./workspace/genesis.sh ~/my-new-swarm "project-name"
 cd ~/my-new-swarm
-git init && git add -A && git commit -m "[S] init: genesis"
+git init && git add CLAUDE.md beliefs memory tasks tools modes workspace experiments .gitignore && git commit -m "[S] init: genesis"
 ```
 
 ## NK analysis

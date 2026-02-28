@@ -19,6 +19,7 @@ This is genetic-algorithm-like: the "genome" is the genesis template,
 integration of winning strategies.
 
 Experiment configs are stored in experiments/colonies/<name>.json
+Children may include optional fields such as "topic" and "personality".
 """
 
 import json
@@ -300,15 +301,17 @@ def run_experiment(name: str) -> bool:
     for child_config in config["children"]:
         child_name = child_config["name"]
         child_topic = child_config.get("topic", "general")
+        child_personality = child_config.get("personality")
         child_dir = CHILDREN_DIR / child_name
 
-        print(f"--- Spawning: {child_name} (topic: {child_topic}) ---")
+        personality_note = f", personality: {child_personality}" if child_personality else ""
+        print(f"--- Spawning: {child_name} (topic: {child_topic}{personality_note}) ---")
 
         # Spawn
-        r = subprocess.run(
-            [PYTHON_BIN, str(swarm_test), "spawn", child_name, child_topic],
-            capture_output=True, text=True
-        )
+        spawn_cmd = [PYTHON_BIN, str(swarm_test), "spawn", child_name, child_topic]
+        if child_personality:
+            spawn_cmd.extend(["--personality", child_personality])
+        r = subprocess.run(spawn_cmd, capture_output=True, text=True)
         if r.returncode != 0:
             # Re-running experiments is common; reuse already spawned children.
             if child_dir.exists():
@@ -320,6 +323,7 @@ def run_experiment(name: str) -> bool:
                 results.append({
                     "name": child_name,
                     "topic": child_topic,
+                    "personality": child_personality,
                     "status": "spawn_failed",
                     "error": error,
                     "environment_signature": run_signature,
@@ -339,6 +343,7 @@ def run_experiment(name: str) -> bool:
         results.append({
             "name": child_name,
             "topic": child_topic,
+            "personality": child_personality,
             "status": status,
             "path": str(child_dir),
             "environment_signature": run_signature,

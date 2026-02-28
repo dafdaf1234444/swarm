@@ -19,6 +19,14 @@ Swarm potential is bounded by input quality, authority availability, and feedbac
 - Provide 1-3 constraints if needed.
 - Provide references or experts to contact when a gap is outside the swarm.
 
+## Swarm Expert Mindset
+- Think in artifacts: every request should yield a concrete file, tool, or lane update.
+- Make expectations explicit: ask for an expect-act-diff loop on every change.
+- Keep coordination tight: require `scope-key`, `check_focus`, and `next_step` clarity.
+- Favor parallelism: split work into independent, non-colliding scopes.
+- Optimize for compounding: prefer protocol/tool improvements that reduce future friction.
+- Adopt a "swarms mindset": treat the swarm itself as the primary system to improve.
+
 ## How To Maximize Throughput
 - Ensure a stable runtime (Python and bash when possible).
 - Encourage parallelizable tasks by naming independent sub-questions.
