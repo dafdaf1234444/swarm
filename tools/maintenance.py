@@ -391,21 +391,12 @@ def _parse_domain_index_open_ids(index_text: str) -> tuple[bool, set[str]]:
     return True, ids
 
 def _format_frontier_id_diff(expected: set[str], actual: set[str]) -> str:
-    missing = _sorted_frontier_ids(expected - actual)
-    extra = _sorted_frontier_ids(actual - expected)
-    parts: list[str] = []
-    if missing:
-        parts.append(f"missing {_truncated(missing, 4)}")
-    if extra:
-        parts.append(f"extra {_truncated(extra, 4)}")
+    parts = []
+    if (m := _sorted_frontier_ids(expected - actual)): parts.append(f"missing {_truncated(m, 4)}")
+    if (x := _sorted_frontier_ids(actual - expected)): parts.append(f"extra {_truncated(x, 4)}")
     return "; ".join(parts) if parts else "matched"
 
-def _reason_action_evidence_sessions(
-    text: str,
-    reason_patterns: tuple[str, ...],
-    action_patterns: tuple[str, ...],
-) -> list[int]:
-    sessions: list[int] = []
+def _reason_action_evidence_sessions(text: str, reason_patterns: tuple[str, ...], action_patterns: tuple[str, ...]) -> list[int]:
     current_session: int | None = None
     current_lines: list[str] = []
     entries: list[tuple[int, str]] = []
@@ -414,27 +405,18 @@ def _reason_action_evidence_sessions(
         nonlocal current_session, current_lines
         if current_session is not None and current_lines:
             entries.append((current_session, "\n".join(current_lines)))
-        current_session = None
-        current_lines = []
+        current_session = None; current_lines = []
 
     for raw in (text or "").splitlines():
         line = raw.strip()
-        if not line:
-            flush_entry()
-            continue
+        if not line: flush_entry(); continue
         m = re.search(r"\bS(\d+)\b", line)
-        if m:
-            flush_entry()
-            current_session = int(m.group(1))
-            current_lines = [line]
-            continue
-        if current_session is not None:
-            current_lines.append(line)
-
+        if m: flush_entry(); current_session = int(m.group(1)); current_lines = [line]; continue
+        if current_session is not None: current_lines.append(line)
     flush_entry()
 
-    for session, entry_text in entries:
-        if (any(re.search(p, entry_text, re.IGNORECASE) for p in reason_patterns)
+    return [session for session, entry_text in entries
+            if (any(re.search(p, entry_text, re.IGNORECASE) for p in reason_patterns)
                 and any(re.search(p, entry_text, re.IGNORECASE) for p in action_patterns)):
             sessions.append(session)
     return sessions
@@ -1796,60 +1778,34 @@ def _inter_swarm_connectivity(capabilities: dict, commands: dict[str, bool]) -> 
             "protocols": protocol_state, "missing": missing}
 
 def build_inventory() -> dict:
-    def _tools(*names: str) -> list[str]:
-        return [f"tools/{name}" for name in names]
-
-    bridges = BRIDGE_FILES
-    core_state = ["beliefs/CORE.md", "memory/INDEX.md", "tasks/FRONTIER.md", "tasks/NEXT.md", "memory/PRINCIPLES.md"]
-    capability_sets: dict[str, list[str]] = {
-        "orientation": _tools("maintenance.py", "orient.py", "sync_state.py", "pulse.py",
-                              "context_router.py", "substrate_detect.py", "alignment_check.py"),
-        "validation": _tools("validate_beliefs.py", "check.sh", "check.ps1", "maintenance.sh",
-                             "maintenance.ps1", "install-hooks.sh", "repair.py", "pre-commit.hook", "commit-msg.hook"),
-        "evolution": _tools("evolve.py", "swarm_test.py", "agent_swarm.py", "colony.py", "swarm_colony.py", "spawn_coordinator.py"),
-        "collaboration": _tools("swarm_pr.py"),
-        "inter_swarm": _tools("bulletin.py", "merge_back.py", "propagate_challenges.py",
-                              "close_lane.py", "harvest_expert.py"),
-        "compaction": _tools("compact.py", "proxy_k.py", "frontier_decay.py"),
-        "analysis": _tools("nk_analyze.py", "nk_analyze_go.py", "wiki_swarm.py",
-                           "dream.py", "change_quality.py", "task_recognizer.py",
-                           "generalizer_expert.py", "contamination_investigator.py"),
-        "benchmarks": _tools("f92_benchmark.py", "f92_real_coop_benchmark.py", "spawn_quality.py", "p155_live_trace.py"),
-        "support": _tools("swarm_parse.py", "novelty.py", "validate_beliefs_extras.py"),
+    T = lambda *ns: [f"tools/{n}" for n in ns]
+    cap_sets: dict[str, list[str]] = {
+        "orientation": T("maintenance.py", "orient.py", "sync_state.py", "pulse.py", "context_router.py", "substrate_detect.py", "alignment_check.py"),
+        "validation": T("validate_beliefs.py", "check.sh", "check.ps1", "maintenance.sh", "maintenance.ps1", "install-hooks.sh", "repair.py", "pre-commit.hook", "commit-msg.hook"),
+        "evolution": T("evolve.py", "swarm_test.py", "agent_swarm.py", "colony.py", "swarm_colony.py", "spawn_coordinator.py"),
+        "collaboration": T("swarm_pr.py"),
+        "inter_swarm": T("bulletin.py", "merge_back.py", "propagate_challenges.py", "close_lane.py", "harvest_expert.py"),
+        "compaction": T("compact.py", "proxy_k.py", "frontier_decay.py"),
+        "analysis": T("nk_analyze.py", "nk_analyze_go.py", "wiki_swarm.py", "dream.py", "change_quality.py", "task_recognizer.py", "generalizer_expert.py", "contamination_investigator.py"),
+        "benchmarks": T("f92_benchmark.py", "f92_real_coop_benchmark.py", "spawn_quality.py", "p155_live_trace.py"),
+        "support": T("swarm_parse.py", "novelty.py", "validate_beliefs_extras.py"),
     }
-    commands = {
-        "python3": _python_command_runs("python3"),
-        "python": _python_command_runs("python"),
-        "git": _command_runs("git", ["--version"]),
-        "bash": _command_runs("bash", ["--version"]),
-    }
+    commands = {"python3": _python_command_runs("python3"), "python": _python_command_runs("python"),
+                "git": _command_runs("git", ["--version"]), "bash": _command_runs("bash", ["--version"])}
     if platform.system().lower().startswith("windows") or _command_exists("pwsh"):
         commands["pwsh"] = _command_runs("pwsh", ["-NoProfile", "-Command", "$PSVersionTable.PSVersion.Major"], timeout=8)
     elif _command_exists("powershell"):
         commands["powershell"] = _command_runs("powershell", ["-NoProfile", "-Command", "$PSVersionTable.PSVersion.Major"], timeout=8)
     if platform.system().lower().startswith("windows") or _command_exists("py"):
         commands["py -3"] = _py_launcher_runs()
-    capabilities = {
-        name: {
-            "present": sum(1 for p in files if _exists(p)),
-            "total": len(files),
-            "files": files,
-        }
-        for name, files in capability_sets.items()
-    }
-    inter_swarm_connectivity = _inter_swarm_connectivity(capabilities, commands)
-
+    capabilities = {name: {"present": sum(1 for p in files if _exists(p)), "total": len(files), "files": files}
+                    for name, files in cap_sets.items()}
     return {
-        "host": {
-            "platform": platform.platform(),
-            "python_executable": PYTHON_EXE,
-            "python_command_hint": PYTHON_CMD,
-            "commands": commands,
-        },
-        "bridges": [{"path": p, "exists": _exists(p)} for p in bridges],
-        "core_state": [{"path": p, "exists": _exists(p)} for p in core_state],
+        "host": {"platform": platform.platform(), "python_executable": PYTHON_EXE, "python_command_hint": PYTHON_CMD, "commands": commands},
+        "bridges": [{"path": p, "exists": _exists(p)} for p in BRIDGE_FILES],
+        "core_state": [{"path": p, "exists": _exists(p)} for p in ("beliefs/CORE.md", "memory/INDEX.md", "tasks/FRONTIER.md", "tasks/NEXT.md", "memory/PRINCIPLES.md")],
         "capabilities": capabilities,
-        "inter_swarm_connectivity": inter_swarm_connectivity,
+        "inter_swarm_connectivity": _inter_swarm_connectivity(capabilities, commands),
     }
 
 def print_inventory(inv: dict):
