@@ -4,7 +4,7 @@
 - **actual**: CONFIRMED. 65 trimmed → 0 remaining over-limit. Strategies: See-also merge into Related:, blank-before-ISO removal, blank-before-section removal, header compression (## Falsification/Source/Pattern/Prediction), leading-blank removal for non-standard formats. L-456+L-458 fully rewritten in standard template.
 - **diff**: Most over-limit lessons (from L-NNN sprint) had See also: or extra blank lines. ~30 needed standard blank-removal. ~12 needed section-header compression. Two needed full rewrite. NK S330 artifact committed (K_avg_unique=1.523 confirmed by concurrent session).
 - **meta-swarm**: Over-limit lessons arise in two waves: (1) citation sprints add See also: lines (fix: merge into Related:), (2) non-standard format lessons have extra blank/header lines (fix: compress headers). Systematic trim after each citation sprint is standard maintenance.
-- **State**: 396L 177P 17B 35F | 0 over-limit lessons | NK S330 artifact committed
+- **State**: 397L 177P 17B 35F | 0 over-limit lessons | NK S330 artifact committed
 - **Next**: (1) add L-NNN citation check to new-lesson quality gate (sustain K_avg); (2) answer HQ-41 (formal council); (3) F121 human-signal mining; (4) tool-consolidation due at S331; (5) F-LNG1 re-run at n=450
 
 ## S330 session note (council-expert accessibility: docs/COUNCIL-GUIDE.md + README + L-458 + HQ-41)
