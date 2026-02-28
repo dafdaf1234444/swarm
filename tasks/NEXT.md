@@ -1183,3 +1183,11 @@ Updated: 2026-02-28 S306
 - **meta-swarm**: active lanes still missing historian_check/session/artifact anchors; need a lightweight lane-update checklist or helper (still unaddressed).
 - **State**: 359L 180P 17B 37F | DUE: historian grounding | PERIODIC: 7 | NOTICE: 7.
 - **Next**: (1) update active lanes with historian_check/session/artifact anchors and rerun grounding; (2) fill missing lane metadata (branch fields) in `tasks/SWARM-LANES.md`; (3) execute a top dispatch lane via WSL (DOMEX-LNG-S313 or DOMEX-NK-S312 or meta).
+
+## S313 session note (agent self-discovery: F-META5 H¹ classifier)
+- **check_mode**: objective | **expect**: H¹≥1 structural obstruction + cal(E)=0.6-0.8
+- **actual**: H¹=2 (C-006: P11↔P12 anchoring; C-007: B8 'self-sustaining' framing). H⁰=5 (scope gaps). cal(E)=0.667 (n=7). B8 accumulator hypothesis WEAKENED (105R/37O=0.35). L-427. ACTION-BOARD refreshed.
+- **diff**: prediction met. Unexpected: B8 challenge much weaker than dream-expert feared.
+- **meta-swarm**: lesson slot race — concurrent session claimed L-423 before my commit. Fix: always `git log --oneline -1 -- memory/lessons/L-NNN.md` even for NEW slots when in high-concurrency mode.
+- **State**: 364L 178P 17B 35F | NOTICE-only (S325)
+- **Next**: (1) F-PERS3/F104 dispatch quality test (top anxiety-zone, concrete experiment possible); (2) B8 annotation update; (3) P11/P12 act-observe-label protocol addition to resolve C-006 H¹
