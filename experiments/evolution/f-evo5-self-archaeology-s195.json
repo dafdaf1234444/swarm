@@ -1,0 +1,1146 @@
+{
+  "meta": {
+    "generated_by": "f_evo5_self_archaeology.py",
+    "date": "2026-02-28"
+  },
+  "current_scale": {
+    "session": 188,
+    "date": "2026-02-28",
+    "L": 294,
+    "P": 175,
+    "B": null,
+    "F": null
+  },
+  "size_timeline_sessions": 14,
+  "size_timeline": {
+    "62": {
+      "session": 62,
+      "date": "2026-02-27",
+      "L": 129,
+      "P": 137,
+      "B": null,
+      "F": null
+    },
+    "69": {
+      "session": 69,
+      "date": "2026-02-27",
+      "L": 142,
+      "P": 149,
+      "B": null,
+      "F": null
+    },
+    "72": {
+      "session": 72,
+      "date": "2026-02-27",
+      "L": 144,
+      "P": 141,
+      "B": null,
+      "F": null
+    },
+    "84": {
+      "session": 84,
+      "date": "2026-02-27",
+      "L": 178,
+      "P": 140,
+      "B": null,
+      "F": null
+    },
+    "86": {
+      "session": 86,
+      "date": "2026-02-27",
+      "L": 179,
+      "P": 140,
+      "B": null,
+      "F": null
+    },
+    "89": {
+      "session": 89,
+      "date": "2026-02-27",
+      "L": 183,
+      "P": 137,
+      "B": null,
+      "F": null
+    },
+    "94": {
+      "session": 94,
+      "date": "2026-02-27",
+      "L": 188,
+      "P": 138,
+      "B": null,
+      "F": null
+    },
+    "95": {
+      "session": 95,
+      "date": "2026-02-27",
+      "L": 189,
+      "P": 140,
+      "B": null,
+      "F": null
+    },
+    "102": {
+      "session": 102,
+      "date": "2026-02-27",
+      "L": 194,
+      "P": 151,
+      "B": null,
+      "F": null
+    },
+    "180": {
+      "session": 180,
+      "date": "2026-02-27",
+      "L": 236,
+      "P": 160,
+      "B": null,
+      "F": null
+    },
+    "181": {
+      "session": 181,
+      "date": "2026-02-27",
+      "L": 243,
+      "P": 166,
+      "B": 17,
+      "F": 18
+    },
+    "182": {
+      "session": 182,
+      "date": "2026-02-27",
+      "L": 260,
+      "P": 170,
+      "B": null,
+      "F": null
+    },
+    "183": {
+      "session": 183,
+      "date": "2026-02-27",
+      "L": 256,
+      "P": 169,
+      "B": null,
+      "F": null
+    },
+    "188": {
+      "session": 188,
+      "date": "2026-02-28",
+      "L": 294,
+      "P": 175,
+      "B": null,
+      "F": null
+    }
+  },
+  "growth_phases": [
+    {
+      "s_start": 62,
+      "s_end": 181,
+      "dL": 114,
+      "dP": 29,
+      "L_per_session": 0.96
+    }
+  ],
+  "tool_births_total": 148,
+  "tool_births_by_category": {
+    "ai-behavior": 2,
+    "brain": 2,
+    "capability": 6,
+    "conflict": 2,
+    "control": 6,
+    "economy": 1,
+    "evolution": 9,
+    "finance": 2,
+    "gaming": 8,
+    "history": 4,
+    "linguistics": 1,
+    "meta": 9,
+    "operations": 12,
+    "ops-core": 14,
+    "ops-lane": 2,
+    "other": 65,
+    "psychology": 2,
+    "quality": 1
+  },
+  "tool_births_detail": {
+    "other": [
+      {
+        "tool": "eval_sufficiency.py",
+        "session": 194,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "f_far1_fallow_measure.py",
+        "session": 189,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "f_is3_math_validation.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "f_meta4_visual_representability.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "f_stat1_canonical_policy.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_context_router.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_f_is3_math_validation.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_f_meta4_visual_representability.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_f_stat1_canonical_policy.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_structure_layout.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "f_is5_arxiv_swarmable.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "f_is5_lane_distill.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "f_stat1_experiment_gates.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "f_stat1_gates.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "f_stat1_promotion_gates.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "f_stat1_reporting_quality.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "f_stat2_meta_analysis.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "f_stat3_multiplicity.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "kill_switch.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_f_is5_arxiv_swarmable.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_f_is5_lane_distill.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_f_stat1_experiment_gates.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_f_stat1_gates.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_f_stat1_promotion_gates.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_f_stat1_reporting_quality.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_f_stat2_meta_analysis.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_f_stat3_multiplicity.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "spawn_math.py",
+        "session": 185,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_p155_live_trace.py",
+        "session": 185,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_spawn_math.py",
+        "session": 185,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "dream.py",
+        "session": 183,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "repair.py",
+        "session": 163,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_repair.py",
+        "session": 163,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "swarm_pr.py",
+        "session": 159,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_mission_constraints.py",
+        "session": 159,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_swarm_pr.py",
+        "session": 159,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "p155_live_trace.py",
+        "session": 150,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "swarm_parse.py",
+        "session": 150,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_colony.py",
+        "session": 150,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_swarm_parse.py",
+        "session": 150,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "f92_benchmark.py",
+        "session": 114,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "f92_real_coop_benchmark.py",
+        "session": 114,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_novelty.py",
+        "session": 75,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "propagate_challenges.py",
+        "session": 66,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "renew_identity.py",
+        "session": 58,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "spawn_quality.py",
+        "session": 57,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "claim.py",
+        "session": 44,
+        "date": "2026-02-26"
+      },
+      {
+        "tool": "colony_pulse.py",
+        "session": 44,
+        "date": "2026-02-26"
+      },
+      {
+        "tool": "nk_analyze_go.py",
+        "session": 42,
+        "date": "2026-02-26"
+      },
+      {
+        "tool": "frontier_claim.py",
+        "session": 42,
+        "date": "2026-02-26"
+      },
+      {
+        "tool": "spawn_coordinator.py",
+        "session": 41,
+        "date": "2026-02-26"
+      },
+      {
+        "tool": "context_router.py",
+        "session": 39,
+        "date": "2026-02-26"
+      },
+      {
+        "tool": "novelty.py",
+        "session": 39,
+        "date": "2026-02-26"
+      },
+      {
+        "tool": "test_nk_analyze.py",
+        "session": 39,
+        "date": "2026-02-26"
+      },
+      {
+        "tool": "nk_analyze.py",
+        "session": null,
+        "date": "2026-02-26"
+      },
+      {
+        "tool": "frontier_decay.py",
+        "session": null,
+        "date": "2026-02-26"
+      },
+      {
+        "tool": "pulse.py",
+        "session": null,
+        "date": "2026-02-26"
+      },
+      {
+        "tool": "genesis_evolve.py",
+        "session": null,
+        "date": "2026-02-26"
+      },
+      {
+        "tool": "evolve.py",
+        "session": null,
+        "date": "2026-02-26"
+      },
+      {
+        "tool": "agent_swarm.py",
+        "session": null,
+        "date": "2026-02-26"
+      },
+      {
+        "tool": "session_tracker.py",
+        "session": null,
+        "date": "2026-02-26"
+      },
+      {
+        "tool": "swarm_integration_test.py",
+        "session": null,
+        "date": "2026-02-26"
+      },
+      {
+        "tool": "colony.py",
+        "session": null,
+        "date": "2026-02-26"
+      },
+      {
+        "tool": "merge_back.py",
+        "session": null,
+        "date": "2026-02-26"
+      },
+      {
+        "tool": "swarm_test.py",
+        "session": null,
+        "date": "2026-02-26"
+      }
+    ],
+    "meta": [
+      {
+        "tool": "personality_audit.py",
+        "session": 194,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "farming_expert.py",
+        "session": 189,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "paper_extractor.py",
+        "session": 188,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "economy_expert.py",
+        "session": 188,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "harvest_expert.py",
+        "session": 187,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "test_harvest_expert.py",
+        "session": 187,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "f_is6_unchallenged_beliefs.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_f_is6_unchallenged_beliefs.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "paper_drift.py",
+        "session": 150,
+        "date": "2026-02-27"
+      }
+    ],
+    "ops-core": [
+      {
+        "tool": "lanes_compact.py",
+        "session": 192,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "test_lanes_compact.py",
+        "session": 192,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "test_orient.py",
+        "session": 186,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "change_quality.py",
+        "session": 177,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "sync_state.py",
+        "session": 176,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "orient.py",
+        "session": 174,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "validate_beliefs_extras.py",
+        "session": 150,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "compact.py",
+        "session": 98,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "proxy_k.py",
+        "session": 74,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "maintenance.py",
+        "session": 67,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "alignment_check.py",
+        "session": 65,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "post-edit-validate.py",
+        "session": 57,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "session-end-check.py",
+        "session": 57,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "validate_beliefs.py",
+        "session": null,
+        "date": "2026-02-25"
+      }
+    ],
+    "conflict": [
+      {
+        "tool": "f_con3_constitution_monitor.py",
+        "session": 191,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "f_con1_conflict_baseline.py",
+        "session": 188,
+        "date": "2026-02-28"
+      }
+    ],
+    "linguistics": [
+      {
+        "tool": "f_lng1_zipf_lessons.py",
+        "session": 189,
+        "date": "2026-02-28"
+      }
+    ],
+    "evolution": [
+      {
+        "tool": "f_evo1_lane_diversity.py",
+        "session": 189,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "f_evo2_contamination.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "f_evo4_multibranch_swarmability.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_f_evo2_contamination.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_f_evo4_multibranch_swarmability.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "f_evo2_extract.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "f_evo3_cadence.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "self_evolve.py",
+        "session": 75,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "belief_evolve.py",
+        "session": 42,
+        "date": "2026-02-26"
+      }
+    ],
+    "gaming": [
+      {
+        "tool": "f_game3_flow_zone.py",
+        "session": 189,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "f_game1_roguelike.py",
+        "session": 188,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "f_gam1_incentive_baseline.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "f_gam2_reputation_integrity.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "f_gam3_signal_contract.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_f_gam1_incentive_baseline.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_f_gam2_reputation_integrity.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_f_gam3_signal_contract.py",
+        "session": 186,
+        "date": "2026-02-27"
+      }
+    ],
+    "quality": [
+      {
+        "tool": "f_qc1_repeated_knowledge.py",
+        "session": 189,
+        "date": "2026-02-28"
+      }
+    ],
+    "economy": [
+      {
+        "tool": "f_eco_frontiers.py",
+        "session": 188,
+        "date": "2026-02-28"
+      }
+    ],
+    "capability": [
+      {
+        "tool": "task_recognizer.py",
+        "session": 186,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "substrate_detect.py",
+        "session": 171,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_wiki_swarm.py",
+        "session": 150,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_bulletin.py",
+        "session": 114,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "wiki_swarm.py",
+        "session": 114,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "bulletin.py",
+        "session": null,
+        "date": "2026-02-26"
+      }
+    ],
+    "ops-lane": [
+      {
+        "tool": "close_lane.py",
+        "session": 186,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "test_swarm_lanes.py",
+        "session": 159,
+        "date": "2026-02-27"
+      }
+    ],
+    "brain": [
+      {
+        "tool": "f_brn3_compaction_quality.py",
+        "session": 186,
+        "date": "2026-02-28"
+      },
+      {
+        "tool": "test_f_brn3_compaction_quality.py",
+        "session": 186,
+        "date": "2026-02-28"
+      }
+    ],
+    "history": [
+      {
+        "tool": "f_his1_historian_grounding.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "f_his2_chronology_conflicts.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_f_his1_historian_grounding.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_f_his2_chronology_conflicts.py",
+        "session": 186,
+        "date": "2026-02-27"
+      }
+    ],
+    "operations": [
+      {
+        "tool": "f_ops1_wip_limit.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "f_ops2_guard_comparison.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "f_ops2_non_swarm_tools.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "f_ops2_post_slot_policy.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "f_ops3_queue_aging.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_f_ops1_wip_limit.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_f_ops2_guard_comparison.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_f_ops2_non_swarm_tools.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_f_ops2_post_slot_policy.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_f_ops3_queue_aging.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "f_ops2_domain_priority.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_f_ops2_domain_priority.py",
+        "session": 186,
+        "date": "2026-02-27"
+      }
+    ],
+    "psychology": [
+      {
+        "tool": "f_psy1_context_load_threshold.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_f_psy1_context_load_threshold.py",
+        "session": 186,
+        "date": "2026-02-27"
+      }
+    ],
+    "control": [
+      {
+        "tool": "f_ctl1_threshold_sweep.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "f_ctl2_diff_latency.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "f_ctl3_open_loop_quality.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_f_ctl1_threshold_sweep.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_f_ctl2_diff_latency.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_f_ctl3_open_loop_quality.py",
+        "session": 186,
+        "date": "2026-02-27"
+      }
+    ],
+    "finance": [
+      {
+        "tool": "f_fin1_factual_qa.py",
+        "session": 186,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_f_fin1_factual_qa.py",
+        "session": 186,
+        "date": "2026-02-27"
+      }
+    ],
+    "ai-behavior": [
+      {
+        "tool": "f_ai1_evidence_surfacing.py",
+        "session": 185,
+        "date": "2026-02-27"
+      },
+      {
+        "tool": "test_f_ai1_evidence_surfacing.py",
+        "session": 185,
+        "date": "2026-02-27"
+      }
+    ]
+  },
+  "domain_births_total": 31,
+  "domain_births_by_session": {
+    "50": [
+      "distributed-systems",
+      "nk-complexity"
+    ],
+    "52": [
+      "meta"
+    ],
+    "178": [
+      "ai"
+    ],
+    "179": [
+      "finance"
+    ],
+    "180": [
+      "health"
+    ],
+    "182": [
+      "brain"
+    ],
+    "183": [
+      "information-science"
+    ],
+    "186": [
+      "gaming",
+      "fractals",
+      "governance",
+      "helper-swarm",
+      "history",
+      "protocol-engineering",
+      "strategy",
+      "control-theory",
+      "evolution",
+      "game-theory",
+      "operations-research",
+      "psychology",
+      "statistics"
+    ],
+    "187": [
+      "linguistics",
+      "physics"
+    ],
+    "188": [
+      "farming",
+      "quality",
+      "conflict",
+      "economy"
+    ],
+    "190": [
+      "dream"
+    ],
+    "192": [
+      "evaluation",
+      "social-media"
+    ],
+    "194": [
+      "claude-code"
+    ]
+  },
+  "domain_burst_sessions": {
+    "186": [
+      "gaming",
+      "fractals",
+      "governance",
+      "helper-swarm",
+      "history",
+      "protocol-engineering",
+      "strategy",
+      "control-theory",
+      "evolution",
+      "game-theory",
+      "operations-research",
+      "psychology",
+      "statistics"
+    ],
+    "188": [
+      "farming",
+      "quality",
+      "conflict",
+      "economy"
+    ]
+  },
+  "all_domains": {
+    "ai": {
+      "session": 178,
+      "date": "2026-02-27"
+    },
+    "brain": {
+      "session": 182,
+      "date": "2026-02-27"
+    },
+    "claude-code": {
+      "session": 194,
+      "date": "2026-02-28"
+    },
+    "conflict": {
+      "session": 188,
+      "date": "2026-02-28"
+    },
+    "control-theory": {
+      "session": 186,
+      "date": "2026-02-27"
+    },
+    "distributed-systems": {
+      "session": 50,
+      "date": "2026-02-27"
+    },
+    "dream": {
+      "session": 190,
+      "date": "2026-02-28"
+    },
+    "economy": {
+      "session": 188,
+      "date": "2026-02-28"
+    },
+    "evaluation": {
+      "session": 192,
+      "date": "2026-02-28"
+    },
+    "evolution": {
+      "session": 186,
+      "date": "2026-02-27"
+    },
+    "farming": {
+      "session": 188,
+      "date": "2026-02-28"
+    },
+    "finance": {
+      "session": 179,
+      "date": "2026-02-27"
+    },
+    "fractals": {
+      "session": 186,
+      "date": "2026-02-27"
+    },
+    "game-theory": {
+      "session": 186,
+      "date": "2026-02-27"
+    },
+    "gaming": {
+      "session": 186,
+      "date": "2026-02-28"
+    },
+    "governance": {
+      "session": 186,
+      "date": "2026-02-27"
+    },
+    "health": {
+      "session": 180,
+      "date": "2026-02-27"
+    },
+    "helper-swarm": {
+      "session": 186,
+      "date": "2026-02-27"
+    },
+    "history": {
+      "session": 186,
+      "date": "2026-02-27"
+    },
+    "information-science": {
+      "session": 183,
+      "date": "2026-02-27"
+    },
+    "linguistics": {
+      "session": 187,
+      "date": "2026-02-28"
+    },
+    "meta": {
+      "session": 52,
+      "date": "2026-02-27"
+    },
+    "nk-complexity": {
+      "session": 50,
+      "date": "2026-02-27"
+    },
+    "operations-research": {
+      "session": 186,
+      "date": "2026-02-27"
+    },
+    "physics": {
+      "session": 187,
+      "date": "2026-02-28"
+    },
+    "protocol-engineering": {
+      "session": 186,
+      "date": "2026-02-27"
+    },
+    "psychology": {
+      "session": 186,
+      "date": "2026-02-27"
+    },
+    "quality": {
+      "session": 188,
+      "date": "2026-02-28"
+    },
+    "social-media": {
+      "session": 192,
+      "date": "2026-02-28"
+    },
+    "statistics": {
+      "session": 186,
+      "date": "2026-02-27"
+    },
+    "strategy": {
+      "session": 186,
+      "date": "2026-02-27"
+    }
+  }
+}
