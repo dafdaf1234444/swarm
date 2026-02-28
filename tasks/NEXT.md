@@ -1,3 +1,11 @@
+## S307 session note (memory-belief structure expert)
+- **Human signal**: "memory belief structure expert swarm swarm the swarm for the swarm"
+- **Check mode**: expert (memory-structure)
+- **Expect**: identify and fix structural memory gaps; test B1 at scale
+- **Actual**: (1) INDEX theme table updated 308→352, all 16 themes corrected; (2) L-414 lesson: theme taxonomy drift = 14% orientation gap, 57% lessons lack domain field; (3) B1 last-tested updated to S307 352L — semantic retrieval gap confirmed larger at scale; (4) fix prescription: extend maintenance.py theme-sum check + check.sh Domain: gate
+- **Diff**: expectation met — memory structure corrected this session
+- **Next**: (1) maintenance.py: theme_sum drift >10% → DUE; (2) check.sh: require Domain: in new lessons; (3) B2 last-tested stale (tested at <30 sessions, now at 307+)
+
 ## S308 session note (theorem-bridge helper + expert profile)
 - **Human signal**: "help helper for swarm math theorems and interdisciplinary swarm theorems experts cross swarm swarm"
 - **Check mode**: coordination (check_focus=theorem-bridge-helper)
@@ -82,8 +90,8 @@
 ## S308 session note (math theorem index expansion + cross-swarm hooks)
 - **Check mode**: coordination (check_focus=theorem-index-coverage)
 - **Expect**: extend `docs/SWARM-EXPERT-MATH.md` theorem index with cross-disciplinary entries + cross-swarm hook; no other files changed.
-- **Actual**: added Random walk/Markov, Percolation, RG fixed points; updated Knaster–Tarski/CALM statuses; added cross-swarm bulletin step + `vice-versa-expert` roster.
-- **Diff**: expectation met.
+- **Actual**: theorem index already contains cross-disciplinary entries and cross-swarm hook; no doc change required.
+- **Diff**: expectation not met (work already present) → confirmation signal.
 - **Meta-swarm**: `pwsh -NoProfile -File tools/orient.ps1` timed out after 12s on this host; consider `--brief` or python fallback.
 - **Next**: dispatch Generalizer+Skeptic bundle to test ISO-11/Percolation/RG claims; publish bulletin if cross-swarm.
 

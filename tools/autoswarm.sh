@@ -195,34 +195,66 @@ PY
         IFS=$'\n' read -r ANXIETY_STATUS ANXIETY_FRONTIER ANXIETY_PROMPT ANXIETY_DESC ANXIETY_AGE ANXIETY_LAST <<<"$ANXIETY_PARSED"
     fi
 else
-    log "INFO: anxiety_trigger disabled (set ANXIETY_ENABLED=true)"
+    log "INFO: anxiety_gate disabled (set ANXIETY_ENABLED=true)"
 fi
 
 SELECTED_PROMPT="$(cat "$SWARM_CMD")"
-if [[ "$ANXIETY_STATUS" == "anxiety_zone_found" && -n "$ANXIETY_PROMPT" ]]; then
-    SELECTED_PROMPT="$ANXIETY_PROMPT"
-    PROMPT_SOURCE="anxiety_trigger"
-    log "INFO: anxiety_trigger selected frontier=$ANXIETY_FRONTIER"
-elif [[ "$ANXIETY_STATUS" == "no_anxiety_zones" ]]; then
-    log "INFO: anxiety_trigger found no anxiety zones; defaulting to swarm command"
-elif [[ -n "$ANXIETY_STATUS" ]]; then
-    log "WARN: anxiety_trigger status=$ANXIETY_STATUS; defaulting to swarm command"
+if [[ "$ANXIETY_ENABLED" == "true" ]]; then
+    if [[ -z "$ANXIETY_STATUS" ]]; then
+        log "ERROR: anxiety gate produced empty status"
+        exit 1
+    fi
+    if [[ "$ANXIETY_STATUS" == "no_anxiety_zones" ]]; then
+        log "SKIP: anxiety gate found no anxiety zones"
+        exit 0
+    fi
+    if [[ "$ANXIETY_STATUS" != "anxiety_zone_found" ]]; then
+        log "ERROR: anxiety gate unexpected status=$ANXIETY_STATUS"
+        exit 1
+    fi
+    if [[ -z "$ANXIETY_FRONTIER" ]]; then
+        log "ERROR: anxiety gate missing frontier id"
+        exit 1
+    fi
+    PROMPT_SOURCE="anxiety_gate"
+    FOCUS_NOTE="AUTOSWARM GATE (F-ISG1): Focus on ${ANXIETY_FRONTIER}"
+    if [[ -n "$ANXIETY_AGE" ]]; then
+        FOCUS_NOTE="$FOCUS_NOTE (+${ANXIETY_AGE} sessions)"
+    fi
+    if [[ -n "$ANXIETY_LAST" ]]; then
+        FOCUS_NOTE="$FOCUS_NOTE; last active S${ANXIETY_LAST}"
+    fi
+    FOCUS_NOTE="$FOCUS_NOTE."
+    if [[ -n "$ANXIETY_DESC" ]]; then
+        FOCUS_NOTE="$FOCUS_NOTE $ANXIETY_DESC"
+    fi
+    SELECTED_PROMPT="$SELECTED_PROMPT"$'\n\n'"$FOCUS_NOTE"
+    log "INFO: anxiety_gate selected frontier=$ANXIETY_FRONTIER"
+else
+    log "INFO: anxiety_gate disabled; using swarm command"
+fi
+
+if [[ "$DRY_RUN" == true ]]; then
+    log "DRY-RUN: prompt_source=$PROMPT_SOURCE"
+    if [[ "$PROMPT_SOURCE" == "anxiety_gate" ]]; then
+        log "DRY-RUN: frontier=$ANXIETY_FRONTIER"
+    fi
+    log "DRY-RUN: would invoke: claude --print \"$SELECTED_PROMPT\" --dangerously-skip-permissions --max-budget-usd 2"
+    log "DRY-RUN: log would be written to $LOGFILE"
+    exit 0
+fi
+
+# Check that claude CLI is available
+if ! command -v claude &>/dev/null; then
+    log "ERROR: claude CLI not found in PATH"
+    log "Install: npm install -g @anthropic-ai/claude-code"
+    exit 1
 fi
 
 # Remove trigger file if present (consume the trigger)
 if [[ -f "$TRIGGER_FILE" ]]; then
     log "INFO: consumed trigger file $TRIGGER_FILE"
     rm -f "$TRIGGER_FILE"
-fi
-
-if [[ "$DRY_RUN" == true ]]; then
-    log "DRY-RUN: prompt_source=$PROMPT_SOURCE"
-    if [[ "$PROMPT_SOURCE" == "anxiety_trigger" ]]; then
-        log "DRY-RUN: frontier=$ANXIETY_FRONTIER"
-    fi
-    log "DRY-RUN: would invoke: claude --print \"$SELECTED_PROMPT\" --dangerously-skip-permissions --max-budget-usd 2"
-    log "DRY-RUN: log would be written to $LOGFILE"
-    exit 0
 fi
 
 # Write lockfile
@@ -232,7 +264,7 @@ log "START: autoswarm session initiated"
 log "INFO: repo=$REPO_ROOT"
 log "INFO: logfile=$LOGFILE"
 log "INFO: prompt_source=$PROMPT_SOURCE"
-if [[ "$PROMPT_SOURCE" == "anxiety_trigger" ]]; then
+if [[ "$PROMPT_SOURCE" == "anxiety_gate" ]]; then
     log "INFO: frontier=$ANXIETY_FRONTIER"
 fi
 
