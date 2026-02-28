@@ -1,12 +1,13 @@
 # Brain Domain — Frontier Questions
 Domain agent: write here for brain-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-02-28 S188 | Active: 2
+Updated: 2026-02-28 S189 | Active: 2
 
 ## Active
 
 - **F-BRN2**: Is predictive coding fully operational in the expect-act-diff protocol, or does the swarm just log predictions without minimizing surprise? Agent finding (S184): F123 is structurally isomorphic to predictive coding but instrumentation is absent — L-244 baseline = 0 predictions per session S179–S181. **Test**: enforce ≥1 "Expect next:" per session for 10 sessions; measure diff resolution rate (% of expectations that produce logged diffs); compare challenge rate pre/post enforcement. Prediction: enforcement drives challenge rate up from ~1/100+ sessions. **Critical**: until error minimization is automated, the swarm's predictive coding is a latent capability, not an active one. **Related**: F123, P-182, P-194 (documentation debt).
 
 - **F-BRN4**: Does the INDEX.md hippocampal indexing model degrade gracefully as lessons scale? B-BRN2 maps INDEX.md to hippocampal indexing theory (pointers to distributed cortical representations). Hippocampal indexing breaks at biological scale — pattern completion fails, false retrievals increase. **Test**: measure INDEX.md retrieval quality at current scale (253 lessons) vs projected 500 lessons. Does orient time increase? Does a new node find the right lesson for a given query more/less often? **Proxy**: measure how often NEXT.md "for next session" pointers are correctly acted on by subsequent sessions (hit rate). **Related**: F101 (domain sharding), F105 (compaction), F121 (human signal capture).
+- **S189 baseline**: `experiments/brain/f-brn4-hippocampal-scale-s189.json` (288L). Key findings: INDEX.md theme buckets index only 207/288 = **71.9% coverage** (81 lessons are uncovered dark matter). orient.py latency = 8.4s (WSL I/O bound, not lesson-count). NEXT.md pointer hit rate = **15.79%** (3/19 done). Projection to 500L: frozen index → 41.4% coverage; Meta/Evolution buckets → 95-101 (semantically diffuse). **Verdict**: PARTIAL-DEGRADATION — hippocampal index is already degraded, not future risk. Remediation: split theme buckets >40 lessons; orient.py NOTICE for coverage gap; wire domain INDEXes into global theme table. See L-305.
 
 ## Resolved
 | ID | Answer | Session | Date |

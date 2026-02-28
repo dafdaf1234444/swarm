@@ -220,6 +220,33 @@ def run() -> dict:
             "continuous_mean": round(mean(cont), 4) if cont else None,
         }
 
+    # --- Confound analysis: repeat with only sessions where lane data exists ---
+    # SWARM-LANES.md coverage begins ~S182; pre-S182 lessons default to post_fallow
+    # (no prior lane entries). Recent-only slice removes this artifact.
+    lane_sessions = {l["session"] for l in lanes}
+    min_lane_session = min(lane_sessions) if lane_sessions else 0
+    recent_lessons = [l for l in lessons if l["session"] >= min_lane_session]
+
+    recent_pf = [l for l in recent_lessons if l["classification"] == "post_fallow"]
+    recent_cont = [l for l in recent_lessons if l["classification"] == "continuous"]
+    recent_pf_sharpes = [l["sharpe"] for l in recent_pf]
+    recent_cont_sharpes = [l["sharpe"] for l in recent_cont]
+
+    recent_pf_mean = round(mean(recent_pf_sharpes), 4) if recent_pf_sharpes else None
+    recent_cont_mean = round(mean(recent_cont_sharpes), 4) if recent_cont_sharpes else None
+    recent_uplift = None
+    if recent_pf_mean is not None and recent_cont_mean is not None and recent_cont_mean > 0:
+        recent_uplift = round((recent_pf_mean - recent_cont_mean) / recent_cont_mean, 4)
+
+    if recent_uplift is None or len(recent_pf_sharpes) < 3 or len(recent_cont_sharpes) < 3:
+        recent_verdict = "INSUFFICIENT_DATA"
+    elif recent_uplift > UPLIFT_THRESHOLD:
+        recent_verdict = "FALLOW_CONFIRMED"
+    elif recent_uplift < -UPLIFT_THRESHOLD:
+        recent_verdict = "FALLOW_REFUTED"
+    else:
+        recent_verdict = "INCONCLUSIVE"
+
     return {
         "session": "S189",
         "fallow_window": FALLOW_WINDOW,
@@ -232,6 +259,22 @@ def run() -> dict:
         "sharpe_uplift": uplift,
         "uplift_pct": round(uplift * 100, 1) if uplift is not None else None,
         "verdict": verdict,
+        "confound_note": (
+            "Pre-lane-era lessons (before min lane session) default to post_fallow. "
+            "See recent_only_* fields for confound-corrected estimate."
+        ),
+        "min_lane_session": min_lane_session,
+        "recent_only": {
+            "min_session": min_lane_session,
+            "total_lessons": len(recent_lessons),
+            "post_fallow_n": len(recent_pf),
+            "continuous_n": len(recent_cont),
+            "post_fallow_mean_sharpe": recent_pf_mean,
+            "continuous_mean_sharpe": recent_cont_mean,
+            "sharpe_uplift": recent_uplift,
+            "uplift_pct": round(recent_uplift * 100, 1) if recent_uplift is not None else None,
+            "verdict": recent_verdict,
+        },
         "domain_breakdown": domain_breakdown,
         "lesson_count_by_domain": {
             d: len(v["post_fallow"]) + len(v["continuous"])
@@ -259,4 +302,14 @@ if __name__ == "__main__":
     print(f"\nDomain breakdown (n lessons):")
     for d, n in sorted(result["lesson_count_by_domain"].items(), key=lambda x: -x[1]):
         print(f"  {d}: {n}")
+    rc = result["recent_only"]
+    print(f"\nRecent-only (S{rc['min_session']}+, confound-corrected):")
+    print(f"  Post-fallow: {rc['post_fallow_n']} | Continuous: {rc['continuous_n']}")
+    if rc["post_fallow_mean_sharpe"] is not None:
+        print(f"  Post-fallow mean Sharpe:  {rc['post_fallow_mean_sharpe']}")
+        print(f"  Continuous mean Sharpe:   {rc['continuous_mean_sharpe']}")
+        pct = rc["uplift_pct"]
+        print(f"  Uplift: {pct:+.1f}% → Verdict: {rc['verdict']}")
+    else:
+        print(f"  Verdict: {rc['verdict']}")
     print(f"\nArtifact written: {ARTIFACT_PATH}")

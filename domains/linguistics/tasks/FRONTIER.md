@@ -14,10 +14,12 @@ This makes linguistics the highest-density cross-domain isomorphism domain outsi
 ## Critical
 
 - **F-LNG1**: Can Zipf's law exponent variation across languages predict swarm lesson distribution?
-  Status: OPEN. Zipf exponent α ≈ 1.0 in all natural languages but varies ±0.2. If swarm lesson
-  citation distribution also follows Zipf (power law), does the exponent drift signal health or
-  brittleness? Experiment: measure lesson citation distribution, fit power law, track α over time.
-  Related: ISO-8, F122, L-296. Expected artifact: `experiments/linguistics/f-lng1-zipf-lessons.json`
+  Status: BASELINE S190 — α=0.900 (ZIPF_STRONG), R²=0.845, n=288 lessons, 94.4% cited.
+  Confirmed: swarm lesson citations follow power law, α within Zipf range (0.7–1.3).
+  Slight sub-Zipf (α<1.0): tail fatter than canonical — newer lessons cited more evenly than words.
+  Open: (1) track α over time — does growth toward 500L change exponent? (2) α>1.3 = monoculture signal;
+  α<0.7 = isolation signal; (3) compare to natural language corpora α variation by register.
+  Artifact: `experiments/linguistics/f-lng1-zipf-lessons-s190.json` | Related: ISO-8, L-306, L-299
 
 - **F-LNG2**: Does the critical-period threshold in language acquisition map to a proxy-K tipping point?
   Status: OPEN. Categorical perception (ISO-4) shows irreversible regime shift at critical period.

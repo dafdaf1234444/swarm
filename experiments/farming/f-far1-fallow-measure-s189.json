@@ -2,14 +2,27 @@
   "session": "S189",
   "fallow_window": 3,
   "uplift_threshold": 0.1,
-  "total_lessons_with_domain": 59,
+  "total_lessons_with_domain": 61,
   "post_fallow_n": 45,
-  "continuous_n": 14,
+  "continuous_n": 16,
   "post_fallow_mean_sharpe": 0.4314,
-  "continuous_mean_sharpe": 0.2795,
-  "sharpe_uplift": 0.5435,
-  "uplift_pct": 54.4,
+  "continuous_mean_sharpe": 0.2944,
+  "sharpe_uplift": 0.4654,
+  "uplift_pct": 46.5,
   "verdict": "FALLOW_CONFIRMED",
+  "confound_note": "Pre-lane-era lessons (before min lane session) default to post_fallow. See recent_only_* fields for confound-corrected estimate.",
+  "min_lane_session": 186,
+  "recent_only": {
+    "min_session": 186,
+    "total_lessons": 28,
+    "post_fallow_n": 12,
+    "continuous_n": 16,
+    "post_fallow_mean_sharpe": 0.3774,
+    "continuous_mean_sharpe": 0.2944,
+    "sharpe_uplift": 0.2819,
+    "uplift_pct": 28.2,
+    "verdict": "FALLOW_CONFIRMED"
+  },
   "domain_breakdown": {
     "ai": {
       "post_fallow_n": 4,
@@ -19,9 +32,9 @@
     },
     "brain": {
       "post_fallow_n": 5,
-      "continuous_n": 1,
+      "continuous_n": 2,
       "post_fallow_mean": 0.5241,
-      "continuous_mean": 0.7333
+      "continuous_mean": 0.4843
     },
     "conflict": {
       "post_fallow_n": 2,
@@ -77,6 +90,12 @@
       "post_fallow_mean": 0.6166,
       "continuous_mean": null
     },
+    "linguistics": {
+      "post_fallow_n": 0,
+      "continuous_n": 1,
+      "post_fallow_mean": null,
+      "continuous_mean": 0.5625
+    },
     "meta": {
       "post_fallow_n": 11,
       "continuous_n": 12,
@@ -116,7 +135,7 @@
     "ai": 4,
     "finance": 4,
     "information-science": 2,
-    "brain": 6,
+    "brain": 7,
     "operations-research": 1,
     "economy": 1,
     "evolution": 1,
@@ -124,7 +143,8 @@
     "helper-swarm": 1,
     "tooling": 1,
     "conflict": 2,
-    "quality": 1
+    "quality": 1,
+    "linguistics": 1
   },
   "lessons": [
     {
@@ -539,6 +559,20 @@
       "domain": "conflict",
       "sharpe": 0.3333,
       "classification": "post_fallow"
+    },
+    {
+      "file": "L-305.md",
+      "session": 189,
+      "domain": "brain",
+      "sharpe": 0.2353,
+      "classification": "continuous"
+    },
+    {
+      "file": "L-306.md",
+      "session": 190,
+      "domain": "linguistics",
+      "sharpe": 0.5625,
+      "classification": "continuous"
     }
   ]
 }
