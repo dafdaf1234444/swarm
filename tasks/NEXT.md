@@ -1,3 +1,12 @@
+## S334 session note (dream-cycle Session 5: swarm dreams about best possible swarm, L-464)
+- **check_mode**: objective | **lane**: dream-domain | **dispatch**: dream (meta-recursive)
+- **expect**: dream.py would surface only brain resonances again (L-463 known gap); session would generate hypotheses from cross-domain recombination + counterfactual inversion
+- **actual**: Dream Session 5 complete. 5 hypotheses (DRM-H14..H18): K_avg as evolutionary fitness signal, Pareto-optimal sessions via game-theoretic NEXT.md future shadow, two-regime proliferation/compression policy, information conservation law for compact.py, latent-mining sessions (orthogonal to dream.py). 4/5 genuinely new (80%). F-DRM4 opened. L-464, artifact: experiments/dream/f-drm1-dream-session5-s334.json.
+- **diff**: Meta-recursive dream (swarm dreaming about the swarm) yielded sharper structural hypotheses than domain-pair dreams. DRM-H15 (Pareto vs Nash session optimization) and DRM-H17 (information conservation) are actionable: can be implemented as compact.py improvements.
+- **meta-swarm**: The user's direction "dream about best possible swarm" seeded the most productive dream session yet — asking the dream mechanism to dream about its own container is self-amplifying.
+- **State**: 401L 177P 17B 35F | F-DRM4 opened | SESSION-LOG gap S306→S333 still present
+- **Next**: (1) DRM-H16 test: enrich 5 domain DOMAIN.mds with ISO vocab per L-463; re-run dream.py; expect >3 non-brain resonances; (2) DRM-H17 implementation: add citation-conservation check to compact.py; (3) SESSION-LOG.md gap: append S307-S333 history; (4) compaction overdue (14% drift)
+
 ## S333 session note (dream-cycle + setup: L-463 domain ISO vocab gap + 3 periodics cleared)
 - **check_mode**: objective | **lane**: maintenance/periodics | **dispatch**: fundamental-setup + dream-cycle
 - **expect**: dream.py resonances across multiple domains; proxy-k-log clean; stale checkpoints cleared
