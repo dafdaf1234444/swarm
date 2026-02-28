@@ -28,6 +28,18 @@ from pathlib import Path
 ROOT = Path(__file__).parent.parent
 
 
+def _get_current_session() -> str:
+    """Read current session number from INDEX.md (avoids hardcoded stale session labels)."""
+    try:
+        text = (ROOT / "memory" / "INDEX.md").read_text(encoding="utf-8")
+        m = re.search(r"Sessions:\s*(\d+)", text)
+        if m:
+            return f"S{m.group(1)}"
+    except Exception:
+        pass
+    return "S?"
+
+
 # ---------------------------------------------------------------------------
 # Data loaders
 # ---------------------------------------------------------------------------
@@ -91,17 +103,27 @@ def _count_challenges() -> dict:
     """Count CHALLENGES.md status distribution (one row per data row)."""
     path = ROOT / "beliefs" / "CHALLENGES.md"
     text = path.read_text(encoding="utf-8")
-    # Only count data rows (start with | S or | s and contain session reference)
+    # Only count data rows (start with | S and contain session reference)
     data_rows = [l for l in text.splitlines() if l.startswith("| S") and "---" not in l and "Session" not in l]
-    confirmed = sum(1 for r in data_rows if "CONFIRMED" in r)
-    superseded = sum(1 for r in data_rows if "SUPERSEDED" in r)
-    dropped = sum(1 for r in data_rows if "DROPPED" in r)
-    partial = sum(1 for r in data_rows if "PARTIAL" in r and "CONFIRMED" not in r)
-    queued = sum(1 for r in data_rows if "QUEUED" in r)
-    open_ = sum(1 for r in data_rows if "OPEN" in r)
+
+    def _status(row: str) -> str:
+        """Extract status column (second-to-last |field|). Avoids false matches in description."""
+        parts = row.split("|")
+        return parts[-2].strip() if len(parts) >= 3 else ""
+
+    statuses = [_status(r) for r in data_rows]
+    confirmed = sum(1 for s in statuses if s.startswith("CONFIRMED"))
+    superseded = sum(1 for s in statuses if s.startswith("SUPERSEDED"))
+    dropped = sum(1 for s in statuses if s.startswith("DROPPED"))
+    # PARTIAL = evidence-driven progress (partial closure); exclude "PARTIALLY OBSERVED" in description
+    partial = sum(1 for s in statuses if s.startswith("PARTIAL") and "CONFIRMED" not in s)
+    queued = sum(1 for s in statuses if s.startswith("QUEUED"))
+    open_ = sum(1 for s in statuses if s.startswith("OPEN"))
     total = len(data_rows)
-    # Evidence-grounded = confirmed + superseded (evidence drove closure)
-    evidence_grounded = confirmed + superseded + partial  # PARTIAL = evidence-driven progress
+    # Evidence-grounded = confirmed + superseded + partial + dropped
+    # DROPPED = challenge falsified by evidence (design: must show evidence before dropping)
+    # All terminal outcomes are evidence-grounded; only OPEN/QUEUED are not resolved
+    evidence_grounded = confirmed + superseded + partial + dropped
     return {
         "confirmed": confirmed, "superseded": superseded, "partial": partial,
         "dropped": dropped, "open": open_, "queued": queued,
@@ -368,8 +390,16 @@ def score_truthful(challenges: dict, signals: dict, frontiers: dict) -> dict:
     # Estimate sessions from signal count trend (50 signals / ~130 sessions ≈ 0.38 signals/session)
     # External grounding = signals that were catalyzed by external evidence (L-276, F-EVAL2)
     total_sig = signals["total"]
-    # Use 193 as current session; ratio = signals / sessions
-    estimated_sessions = 193
+    # Read current session from INDEX.md (avoid hardcoded stale value)
+    estimated_sessions = 193  # fallback
+    try:
+        index_text = (ROOT / "memory" / "INDEX.md").read_text(encoding="utf-8")
+        import re as _re
+        m = _re.search(r"Sessions:\s*(\d+)", index_text)
+        if m:
+            estimated_sessions = int(m.group(1))
+    except Exception:
+        pass
     signal_density = total_sig / estimated_sessions
     external_grounding_ok = signal_density >= 0.1  # ≥1 per 10 sessions target
     details["signal_density_per_session"] = round(signal_density, 3)
@@ -465,7 +495,7 @@ def compute_sufficiency() -> dict:
         overall = "EXCELLENT"
 
     return {
-        "session": "S193",
+        "session": _get_current_session(),
         "computed_at": datetime.now(timezone.utc).isoformat(),
         "goals": {
             "Collaborate": collaborate,
