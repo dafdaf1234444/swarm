@@ -171,7 +171,9 @@ def _lesson_sharpe_candidates(top_n: int = 20) -> list[dict]:
     Based on L-268: Sharpe presort achieves zero citation-loss vs 15.4% for size-only.
     """
     lessons_dir = REPO_ROOT / "memory" / "lessons"
-    lesson_files = sorted(lessons_dir.glob("L-*.md"))
+    archive_dir = lessons_dir / "archive"
+    already_archived = {f.stem for f in archive_dir.glob("L-*.md")} if archive_dir.exists() else set()
+    lesson_files = sorted(f for f in lessons_dir.glob("L-*.md") if f.stem not in already_archived)
     if not lesson_files:
         return []
 
