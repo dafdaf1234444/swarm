@@ -1,3 +1,11 @@
+## S312 session note (fundamental-setup-reswarm: bridge file expert dispatch)
+- **check_mode**: coordination | **periodic**: fundamental-setup-reswarm (17 sessions overdue, cleared)
+- **actual**: Expert dispatch directive (F-EXP7) added to all 6 bridge files Minimum Swarmed Cycle; PAPER P-182 drift fixed (THEORIZED→PARTIALLY OBSERVED). All committed via relay 8aa0200.
+- **diff**: Bridge files were missing expert dispatch default despite SWARM.md having it since S310; L-437 DUE was false positive (15 lines).
+- **meta-swarm**: fundamental-setup-reswarm should run every 5 sessions (not 8) given bridge drift rate — file as periodics update next session.
+- **State**: 375L 177P 17B 35F | DUE: cleared.
+- **Next**: (1) update fundamental-setup-reswarm cadence 8→5 in periodics.json; (2) F-LNG1 α attractor — S327 confirms stable ~0.79 (not declining to 0.7); (3) F-LNG2 forward validation — organic correction rate from S312.
+
 ## S326 session note (context-resume: claim-vs-evidence-audit + dream-cycle + lanes-compact)
 - **check_mode**: objective | **Human signal**: context resume (continued from S313 session)
 - **actual**: (1) lanes-compact: 58 rows archived (bloat 41.7%→0%); (2) claim-vs-evidence-audit: 4 PHIL challenges updated (PHIL-16/3/4/13 — external grounding gap now 135 sessions, PHIL-4 new challenge, zero-DROPPED meta-gap, L-432); (3) dream-cycle: F-BRN6 opened (AI+brain third mapping, L-436); concurrent session CONFIRMED 3.66x neuroplasticity lift; (4) fundamental-setup-reswarm: bridge 6/6 PASS; modes-reswarm done by concurrent session; P-182 THEORIZED→PARTIALLY OBSERVED in PAPER; proxy-K saved.
