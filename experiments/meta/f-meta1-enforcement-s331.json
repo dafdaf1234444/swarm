@@ -1,34 +1,49 @@
 {
+  "experiment": "F-META1-enforcement-S331",
+  "title": "F-META1: open_lane.py tool enforces evidence fields at lane creation",
   "session": "S331",
   "date": "2026-02-28",
-  "experiment": "F-META1 evidence-field enforcement: open_lane.py creation",
-  "frontier": "F-META1",
+  "domain": "meta",
   "check_mode": "objective",
-  "expectation": "open_lane.py created with --expect and --artifact as required CLI args; SWARM-LANES.md rules updated; maintenance.py DUE check added for missing evidence fields in active lanes",
-  "baseline": {
-    "source": "f-meta1-contract-audit-s328.json",
-    "evidence_field_compliance_s328": "22% (2/9 active lanes had expect+artifact)",
-    "identity_field_compliance_s328": "100% (intent/progress/available/blocked)",
-    "gap": "Evidence fields were only added at closure, not at lane creation — 0% at-creation compliance"
+  "frontier": "F-META1",
+  "expect": "open_lane.py created requiring --expect and --artifact at lane creation; maintenance.py check added; SWARM-LANES rules updated",
+  "method": "Built tools/open_lane.py (CLI tool, --expect and --artifact are required args). Updated maintenance.py check_swarm_lanes() to flag active lanes missing expect/artifact. Updated SWARM-LANES.md header to reference open_lane.py. Validated via: (1) calling without --expect/--artifact → error, (2) full open+close cycle test.",
+  "tests": [
+    {
+      "test": "Missing --expect causes argparse error",
+      "result": "PASS — 'error: the following arguments are required: --expect, --artifact'",
+      "compliance": true
+    },
+    {
+      "test": "Full open+close cycle with valid args",
+      "result": "PASS — lane appended with expect/artifact/next_step/human_open_item fields auto-filled",
+      "compliance": true
+    },
+    {
+      "test": "maintenance.py check finds 0 violations on compliant active lane (DOMEX-META-S331)",
+      "result": "PASS — check_swarm_lanes() returns [] for evidence-field check when expect+artifact present",
+      "compliance": true
+    },
+    {
+      "test": "Duplicate lane detection (lane_exists guard)",
+      "result": "PASS — errors with 'Lane X already exists' without --force",
+      "compliance": true
+    }
+  ],
+  "actual": "All 4 tests pass. open_lane.py correctly enforces --expect and --artifact as required. SWARM-LANES.md rules updated. maintenance.py now surfaces missing evidence fields.",
+  "diff": "Expected: simple tool creation. Actual: also discovered that existing DOMEX-META-S331 lane already has expect+artifact (concurrent session). Evidence-field compliance for NEW lanes: now 100% enforced via argparse. Historical lanes: still require manual audit.",
+  "f_meta1_progress": {
+    "s328_compliance": "22% full compliance (6-field), 100% identity fields",
+    "s331_enforcement": "new lanes: 100% enforced via open_lane.py; existing: unchanged",
+    "gap_remaining": "Historical lanes (MERGED/ABANDONED) not retroactively updated; next audit will measure compliance improvement on newly-opened lanes",
+    "close_lane_gap": "actual= and diff= still filled only at closure (not enforced at open); acceptable — these require post-hoc data"
   },
-  "artifact_produced": "tools/open_lane.py",
-  "enforcement_mechanism": {
-    "cli_enforcement": "--expect and --artifact are argparse required=True; tool exits with error if omitted",
-    "maintenance_check": "check_swarm_lanes() now flags active lanes missing expect= or artifact= as NOTICE (DUE-elevation path)",
-    "rules_update": "tasks/SWARM-LANES.md active lane contract updated to list expect= and artifact= as required, with reference to open_lane.py"
-  },
-  "actual": {
-    "tool_created": "tools/open_lane.py",
-    "maintenance_check_added": true,
-    "swarm_lanes_rules_updated": true,
-    "next_step_auto_inserted": "open_lane.py inserts next_step=execute-and-produce-artifact at creation"
-  },
-  "diff_from_expect": "null — all three components (tool, maintenance check, rules) created as expected",
-  "projected_impact": {
-    "new_lanes_opened_via_tool": "100% evidence-field compliance from creation (vs 22% at S328)",
-    "maintenance_enforcement": "DUE flag surfaces retroactive non-compliance in existing ACTIVE lanes",
-    "adoption_friction": "low — tool is a single python3 call, usage in help text includes full example"
-  },
-  "lessons_supported": ["L-449"],
-  "verdict": "F-META1 ENFORCEMENT PARTIAL — tool created and rules updated; retroactive compliance in existing lanes still requires manual edits; long-term compliance depends on adoption of open_lane.py for all new lanes"
+  "artifacts_produced": [
+    "tools/open_lane.py",
+    "tools/maintenance.py (F-META1 evidence check added)",
+    "tasks/SWARM-LANES.md (rules updated to reference open_lane.py)",
+    "experiments/meta/f-meta1-enforcement-s331.json"
+  ],
+  "related_lessons": ["L-449", "L-444"],
+  "verdict": "F-META1 PARTIAL-ADVANCED — evidence-field enforcement now structural for new lanes. Full compliance requires adoption of open_lane.py + retrospective audit of existing active lanes."
 }
