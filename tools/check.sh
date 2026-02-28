@@ -36,21 +36,22 @@ fi
 
 echo "=== SWARM CHECK ==="
 
-# 0. Mass-deletion guard (FM-01, L-346): abort if staged deletions exceed threshold.
-# Protects against WSL filesystem corruption staging mass deletions via git add -A accidents.
-DELETION_THRESHOLD=50
-STAGED_DELETIONS=$(git diff --cached --stat 2>/dev/null | { grep -oP '\d+(?= deletion)' || true; } | awk '{s+=$1} END {print s+0}')
-if [ "${STAGED_DELETIONS:-0}" -gt "$DELETION_THRESHOLD" ]; then
-    echo "FAIL: Mass-deletion guard triggered — ${STAGED_DELETIONS} staged deletions (threshold: ${DELETION_THRESHOLD})."
+# 0. Mass-deletion guard (FM-01, L-346, L-350): abort if staged FILE deletions exceed threshold.
+# Protects against WSL filesystem corruption staging mass file deletions via git add -A accidents.
+# Counts DELETED FILES (D status), not line-level deletions — avoids false positives on large edits.
+FILE_DELETION_THRESHOLD=20
+STAGED_FILE_DELETIONS=$(git diff --cached --diff-filter=D --name-only 2>/dev/null | wc -l | tr -d ' ')
+if [ "${STAGED_FILE_DELETIONS:-0}" -gt "$FILE_DELETION_THRESHOLD" ]; then
+    echo "FAIL: Mass-deletion guard triggered — ${STAGED_FILE_DELETIONS} staged file deletions (threshold: ${FILE_DELETION_THRESHOLD})."
     echo "  This likely means WSL filesystem corruption caused 'git add' to stage file deletions."
-    echo "  Run: git diff --cached --stat | head -20 — to inspect the staged changes."
+    echo "  Run: git diff --cached --diff-filter=D --name-only | head -20 — to inspect."
     echo "  If intentional (compaction archive), set env ALLOW_MASS_DELETION=1 to bypass."
     if [ "${ALLOW_MASS_DELETION:-0}" != "1" ]; then
         exit 1
     fi
     echo "  ALLOW_MASS_DELETION=1 set — bypassing mass-deletion guard."
 fi
-echo "  Mass-deletion guard: PASS (${STAGED_DELETIONS:-0} staged deletions)"
+echo "  Mass-deletion guard: PASS (${STAGED_FILE_DELETIONS:-0} staged file deletions)"
 
 # FM-03: Ghost-lesson resurrection guard (L-346).
 # After 'git mv memory/lessons/L-NNN.md memory/lessons/archive/L-NNN.md', WSL may leave

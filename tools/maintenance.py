@@ -1366,6 +1366,18 @@ def check_runtime_portability() -> list[tuple[str, str]]:
     if no_signal:
         results.append(("DUE", f"{len(no_signal)} bridge file(s) missing swarm signaling guidance: {', '.join(no_signal[:3])}"))
 
+    # F-GOV2: required protocol sections in bridge files (L-351)
+    min_swarmed_re = re.compile(r"Minimum Swarmed Cycle", re.IGNORECASE)
+    no_min_swarmed = []
+    for path in bridges:
+        if path == "SWARM.md" or path in missing_bridges:
+            continue
+        content = _read(REPO_ROOT / path)
+        if not min_swarmed_re.search(content):
+            no_min_swarmed.append(path)
+    if no_min_swarmed:
+        results.append(("DUE", f"{len(no_min_swarmed)} bridge file(s) missing 'Minimum Swarmed Cycle' section (F-GOV2, L-351): {', '.join(no_min_swarmed[:3])}"))
+
     return results
 
 def check_commit_hooks() -> list[tuple[str, str]]:
