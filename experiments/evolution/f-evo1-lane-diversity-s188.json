@@ -1,0 +1,102 @@
+{
+  "frontier_id": "F-EVO1",
+  "session": 188,
+  "created_on": "2026-02-28",
+  "description": "Cross-session diversity vs novelty-yield coupling (S175-S188)",
+  "n_sessions_analyzed": 6,
+  "n_sessions_eligible": 6,
+  "diversity_yield_correlation": -0.8354,
+  "hhi_yield_correlation": -0.1257,
+  "interpretation": {
+    "diversity_yield": "positive = diverse sessions produce more L+P; negative = focus wins",
+    "hhi_yield": "negative = diverse focus (low HHI) produces more L+P"
+  },
+  "mean_scope_diversity": 0.8114,
+  "mean_yield_lp": 5.5,
+  "per_session": [
+    {
+      "session": "S184",
+      "yield_lp": 0,
+      "merged_lanes": 9,
+      "unique_scope_keys": 8,
+      "scope_diversity_ratio": 0.8889,
+      "focus_hhi": 0.6543,
+      "frontier_count": 0,
+      "focus_distribution": {
+        "global": 7,
+        "tools/p155": 2
+      }
+    },
+    {
+      "session": "S185",
+      "yield_lp": 4,
+      "merged_lanes": 16,
+      "unique_scope_keys": 13,
+      "scope_diversity_ratio": 0.8125,
+      "focus_hhi": 1.0,
+      "frontier_count": 0,
+      "focus_distribution": {
+        "global": 16
+      }
+    },
+    {
+      "session": "S186",
+      "yield_lp": 13,
+      "merged_lanes": 208,
+      "unique_scope_keys": 104,
+      "scope_diversity_ratio": 0.5,
+      "focus_hhi": 0.1762,
+      "frontier_count": 0,
+      "focus_distribution": {
+        "global": 71,
+        "domains/operations-research": 34,
+        "domains/game-theory": 21,
+        "domains/statistics": 19,
+        "domains/information-science": 17
+      }
+    },
+    {
+      "session": "S187",
+      "yield_lp": 10,
+      "merged_lanes": 6,
+      "unique_scope_keys": 4,
+      "scope_diversity_ratio": 0.6667,
+      "focus_hhi": 1.0,
+      "frontier_count": 0,
+      "focus_distribution": {
+        "global": 6
+      }
+    },
+    {
+      "session": "S188",
+      "yield_lp": 6,
+      "merged_lanes": 5,
+      "unique_scope_keys": 5,
+      "scope_diversity_ratio": 1.0,
+      "focus_hhi": 0.28,
+      "frontier_count": 0,
+      "focus_distribution": {
+        "tooling": 2,
+        "global": 1,
+        "domains/helper-swarm": 1,
+        "domains/economy": 1
+      }
+    },
+    {
+      "session": "S189",
+      "yield_lp": 0,
+      "merged_lanes": 4,
+      "unique_scope_keys": 4,
+      "scope_diversity_ratio": 1.0,
+      "focus_hhi": 0.375,
+      "frontier_count": 0,
+      "focus_distribution": {
+        "tooling": 2,
+        "global": 1,
+        "domains/gaming": 1
+      }
+    }
+  ],
+  "s186_baseline_ref": "experiments/evolution/f-evo1-lane-diversity-s186.json",
+  "next_step": "If |diversity_yield_corr| < 0.3: inconclusive (need more sessions); if positive: bias toward heterogeneous lane allocation; if negative: tight-focus allocation preferred"
+}
