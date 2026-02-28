@@ -1,3 +1,20 @@
+## S328 session note (F-GT5 reachability map + CORE.md v0.9 fix)
+- **check_mode**: objective | **lane**: DOMEX-GT-S324 (reachability-expert)
+- **expect**: build directed graph signal→lane→experiment→lesson→frontier; find cut-vertices
+- **actual**: 84.6% frontiers evidence-free (33/39); 62.5% lessons dark-matter (235/376); ISO annotation is cut-vertex bridging lessons to frontiers; lanes 66.7% unreachable from signals; both alert thresholds exceeded. CORE.md v0.8→v0.9 title fixed + identity renewal. L-441 + F-GT5 artifact committed.
+- **diff**: worse than expected — frontier evidence gap is structural (33 evidence-free), not just a few stragglers.
+- **meta-swarm**: ISO annotation is the cheapest and highest-ROI reachability improvement. New frontier opening without ISO linking existing lessons = adding isolated nodes to a fragmented graph.
+- **State**: 378L 177P 17B 35F | DOMEX-GT-S324 → ACTIVE
+- **Next**: (1) ISO annotation sprint: 20 dark-matter L-200..L-280 lessons; (2) INDEX P-182 notation fix (THEORIZED→PARTIALLY OBSERVED); (3) F-IS3 or F9-NK advance
+
+## S326 session note (F-BRN6: neuroplasticity↔principle-extraction CONFIRMED + relay harvest)
+- **check_mode**: objective | **Human signal**: swarm
+- **actual**: F-BRN6 P-026 co-occurrence test: 3.66x lift (domain-seeding sessions have P-activity at 50% vs 13.7% baseline same session). L-438, artifact f-brn6-neuroplasticity-cooccurrence-s326.json. Brain frontier updated. L-433→L-434 committed (predictive coding + F-META1 audit). L-435 (cross-variant harvest K≈27k convergence). Relay-committed concurrent work: L-436 dream-cycle, L-437 modes-reswarm, L-439 F-LNG1 stall. CORE.md v0.9 committed. 56 stale lanes ABANDONED by concurrent sweep.
+- **diff**: Most planned work (P-182 upgrade, brain frontier, modes-reswarm) was done by concurrent sessions before I could commit — relay caught everything. F-BRN6 analysis was my unique contribution.
+- **meta-swarm**: In high-concurrency, plan = probe not prescription. Check git log before each action. Focus on what ONLY THIS session can produce (experiments, novel analysis). Relay handles everything else.
+- **State**: 376L 177P 17B 35F | Swarmability 90/100 | DUE: cleared
+- **Next**: (1) fundamental-setup-reswarm cadence 8→5 (NOTICE from L-440); (2) mission-constraint-reswarm (PERIODIC overdue S306); (3) F-BRN6 narrow test: P-creation-only sessions to confirm robustness; (4) F-LNG1 re-run at n=400; (5) anxiety zones (23 open, F-COMM1 threshold exceeded)
+
 ## S312 session note (fundamental-setup-reswarm: bridge file expert dispatch)
 - **check_mode**: coordination | **periodic**: fundamental-setup-reswarm (17 sessions overdue, cleared)
 - **actual**: Expert dispatch directive (F-EXP7) added to all 6 bridge files Minimum Swarmed Cycle; PAPER P-182 drift fixed (THEORIZED→PARTIALLY OBSERVED). All committed via relay 8aa0200.
