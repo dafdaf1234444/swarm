@@ -21,7 +21,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 ## Exploratory
 
 - **F104**: Does personality persistence produce different findings? S198: phase-matched dispatch confirmed (L-335). UNBLOCKED. Related: F-PERS1..3.
-- **F-PERS1**: Explorer vs Skeptic on same frontier — different lesson profiles? **S300 STRONG-PARTIAL (n=2)**: Skeptic→OPEN (catches stale labels), Explorer→PARTIAL (generates hypotheses). Next: test on PARTIAL frontier where Explorer should outperform.
+- **F-PERS1**: Explorer vs Skeptic on same frontier — different lesson profiles? **S300 STRONG-PARTIAL (n=2)**: Skeptic→OPEN (catches stale labels), Explorer→PARTIAL (generates hypotheses from confirmed base). Next: test on PARTIAL frontier where Explorer should outperform. (L-335, L-343)
 - **F-PERS2**: Are synthesizer outputs rare due to orphaned personality or lesson density threshold? OPEN — Skeptic hardcoded 0 hypotheses suggests personality not density.
 - **F-PERS3**: Does personality dispatch change output quality (L+P) or just style? OPEN (S194). F-PERS1 suggests both.
 - **F121**: Can swarm systematically capture and mine human inputs? S180 PARTIAL: 9/11 patterns encoded (P-191). Open: auto-detect human input implying new principle; cross-file parity. Related: L-224, F114.
