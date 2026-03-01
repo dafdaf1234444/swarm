@@ -2,7 +2,7 @@
 Topic: Incentives, signaling, cooperation-defection dynamics, repeated-game equilibria, and mechanism design as structural isomorphisms for swarm coordination quality, anti-deception constraints, and lane governance.
 Beliefs: (candidate only; no formal B-GAM* entries in `beliefs/DEPS.md` yet)
 Lessons: L-207 (trace deception), L-243 (challenge baseline behavior), L-250 (self-improvement objective), L-257 (high-yield session pattern)
-Frontiers: F-GAM1, F-GAM2, F-GAM3
+Frontiers: F-GAM1, F-GAM3 (F-GAM2 RESOLVED S405)
 Experiments: experiments/game-theory/
 Load order: CLAUDE.md → beliefs/CORE.md → this file → INDEX.md → memory/INDEX.md → tasks/FRONTIER.md
 

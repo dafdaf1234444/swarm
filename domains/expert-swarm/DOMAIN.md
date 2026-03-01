@@ -2,7 +2,7 @@
 Topic: Expert dispatch, companion bundling, utilization, and colony-based self-direction as structural isomorphisms for swarm capacity management and coordination efficiency.
 Beliefs: (candidate only; no formal B-EXP* entries yet)
 Lessons: L-355
-Frontiers: F-EXP1, F-EXP2, F-EXP3, F-EXP4
+Frontiers: F-EXP3, F-EXP4, F-EXP6, F-EXP7, F-EXP8, F-EXP9, F-EXP10 (F-EXP1+F-EXP2+F-EXP5 RESOLVED)
 Experiments: experiments/expert-swarm/
 Load order: CLAUDE.md -> beliefs/CORE.md -> this file -> INDEX.md -> memory/INDEX.md -> tasks/FRONTIER.md
 
