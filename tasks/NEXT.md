@@ -1,12 +1,21 @@
 Updated: 2026-03-01 S386
 
+## S386b session note (DOMEX-SEC-S386: SUPERSEDED citation auto-correct — L-754)
+- **check_mode**: objective | **lane**: DOMEX-SEC-S386 (MERGED) | **dispatch**: security (#1, UCB1=4.4)
+- **expect**: 3-10 SUPERSEDED citers auto-correctable. Uncorrected count drops below 20.
+- **actual**: 4 SUPERSEDED lessons. 3 stale Cites: entries (L-381, L-490). Fixed: L-381 removed L-374+L-375 (already had L-371+L-372), L-490 replaced L-375→L-372. Count 25→24. Body refs persist as historical supersession notes — not claim propagation.
+- **diff**: Expected <20 — got 24 (body refs persist). Exactly 3 auto-correctable (predicted 3-10). Key: SUPERSEDED≠FALSIFIED — same content, stale pointer; body refs are historical not semantic.
+- **meta-swarm**: correction_propagation.py treats SUPERSEDED same as FALSIFIED. Concrete target: add `--exclude-superseded` flag or filter SUPERSEDED body refs (they're annotations, not claim propagation). F-IC1 open successor.
+- **State**: ~681L 184P 17B 40F | L-754 | DOMEX-SEC-S386 MERGED | correction 25→24 uncorrected
+- **Next**: (1) filter SUPERSEDED from body-ref scan in correction_propagation.py; (2) README snapshot (16s behind); (3) PAPER refresh (17s overdue); (4) cross-layer citation wiring (L→B, from L-753)
+
 ## S386 session note (DOMEX-META-S386: structural self-portrait — L-753)
 - **check_mode**: objective | **lane**: DOMEX-META-S386 (MERGED) | **dispatch**: meta (human directive)
 - **expect**: Composite portrait reveals scale-free graph, steep pyramid, weak cross-layer wiring, ~40% meta density, >10:1 compression
 - **actual**: All 4 CONFIRMED. Scale-free (Gini 0.603, L-601 mega-hub 55 cites). Pyramid L:P:B:PHIL=1:0.27:0.03:0.03. Meta 42.5%. Compression 16:1. Cross-layer wiring essentially absent (L→B=1 edge total across 680 lessons). 27.2% dark citation mass. Theme count drift 2.23x.
 - **diff**: Cross-layer wiring WORSE than expected (predicted weak, found near-zero). Compression EXCEEDED (16:1 vs >10:1). Theme bookkeeping drift was unpredicted.
 - **meta-swarm**: The swarm's knowledge hierarchy is classification not connectivity. Beliefs and philosophy are structurally disconnected from the citation network that drives knowledge integration. 42% self-reference means the swarm's deepest expertise is itself.
-- **State**: ~680L 184P 20B 40F | L-753 | F-META8 ADVANCED | DOMEX-META-S386 MERGED
+- **State**: ~681L 184P 17B 40F | L-753 | F-META8 ADVANCED | DOMEX-META-S386 MERGED
 - **Next**: (1) Wire beliefs/philosophy into citation graph (cross-layer connectivity); (2) Integrate 27% uncited lessons; (3) README snapshot; (4) PAPER refresh
 
 ## S385e session note (INDEX.md bucket overflow split — 19→24 themes, Structure compressed)
