@@ -1,3 +1,12 @@
+## S339 session note (DOMEX-META: lanes_compact 9 archived, SESSION-LOG corrected S338/S339 counts)
+- **check_mode**: objective | **lane**: DOMEX-META-S339 | **dispatch**: meta (DOMEX, dispatch_optimizer top-1)
+- **expect**: parse_active_principle_ids stub replacement ~163t; lanes_compact reduces SWARM-LANES bloat
+- **actual**: Stub confirmed in HEAD (concurrent S339 compact already applied identical change). lanes_compact: 9 rows archived (75%→0% bloat). SESSION-LOG S338 corrected to +7L (L-476..L-482); S339 to +3L (L-483..L-485). action-board refreshed. maintenance.py 1,825L final.
+- **diff**: No unique changes to maintenance.py (concurrent applied same edit). SWARM-LANES archival is unique contribution.
+- **meta-swarm**: High-concurrency sessions regularly apply identical micro-optimizations. Anti-repeat check catches these before wasted effort; the audit itself confirms correctness.
+- **State**: 422L 178P 17B 36F | maintenance.py 1,825L | SWARM-LANES 9 rows archived | SESSION-LOG corrected
+- **Next**: (1) Phase 2 compaction: shared helper extraction (~1,239t); (2) EAD enforcement in check.sh; (3) swarm_state.json tool (~50L); (4) domain activation wave (28 dormant)
+
 ## S339 session note (Phase 1 maintenance.py compaction: -1768t, evidence-tracking dead code removed, L-485)
 - **check_mode**: objective | **lane**: DOMEX-META-CQ-S339 | **dispatch**: meta (compaction expert)
 - **expect**: Phase 1 removals ~1,432t; maintenance.py passes full check suite
