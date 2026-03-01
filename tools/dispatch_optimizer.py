@@ -35,6 +35,23 @@ try:
 except ImportError:
     _DOMAIN_MAP_IMPORTED = False
 
+try:
+    from dispatch_campaigns import (
+        get_campaign_waves, campaign_phase, wave_prescriptions,
+        print_wave_plan, print_campaign_advisory,
+        WAVE_DANGER_BOOST, WAVE_COMMITTED_BOOST, COMMIT_RESERVATION_WINDOW,
+        OPTIMAL_NEXT_MODE, WAVE_RESOLUTION_PROB,
+    )
+    _CAMPAIGNS_IMPORTED = True
+except ImportError:
+    _CAMPAIGNS_IMPORTED = False
+
+try:
+    from dispatch_meta_roles import classify_meta_role, get_meta_role_stats
+    _META_ROLES_IMPORTED = True
+except ImportError:
+    _META_ROLES_IMPORTED = False
+
 
 DOMAINS_DIR = Path("domains")
 EXPERIMENTS_DIR = Path("experiments")
@@ -65,29 +82,14 @@ EXPLORATION_COLD_BOOST = 4.0  # extra bonus for dormant domains in exploration m
 COOLDOWN_SESSIONS = 3         # window: domain blocked for 3 sessions after dispatch
 COOLDOWN_MAX_PENALTY = 15.0   # strong enough to drop #1 below #2 (meta gap was ~9.4)
 
-# Campaign wave scoring (F-STR3, L-755): non-monotonic resolution rates.
-# 1-wave=28%, 2-wave=11% (valley of death), 3-wave=31%, 4+-wave=50%.
-# Boost 2-wave domains to escape danger zone; boost 3-wave to close out.
-WAVE_DANGER_BOOST = 1.5     # 2-wave → attract 3rd wave (11% → 31% resolution)
-WAVE_COMMITTED_BOOST = 0.5  # 3-wave → approaching resolution (31% → 50%)
-
-# COMMIT reservation (F-STR3, L-815): mandatory allocation for danger-zone domains.
-# Advisory scoring (guarantee boost to rank #3) produced 0/2 follow-through (L-815).
-# P-264: score improvement alone cannot change dispatch behavior.
-# Fix: 1-in-N lanes must go to a COMMIT domain. Structural enforcement (L-601).
-COMMIT_RESERVATION_WINDOW = 5  # check last N lanes for COMMIT-domain presence
-
-# Mode transition matrix (L-755: mode transitions predict success, repeated modes don't)
-# exploration→hardening→resolution is the optimal 3-wave sequence.
-# exploration→exploration→exploration resolves at 12%.
-OPTIMAL_NEXT_MODE = {
-    "exploration": "hardening",
-    "hardening": "resolution",
-    "resolution": "resolution",
-}
-
-# Resolution probability by wave count (L-755, n=93 campaigns, 197 lanes)
-WAVE_RESOLUTION_PROB = {1: 0.28, 2: 0.11, 3: 0.31}  # 4+ = 0.50
+# Campaign wave constants — imported from dispatch_campaigns.py when available.
+# Inline fallbacks retained for environments where import fails.
+if not _CAMPAIGNS_IMPORTED:
+    WAVE_DANGER_BOOST = 1.5
+    WAVE_COMMITTED_BOOST = 0.5
+    COMMIT_RESERVATION_WINDOW = 5
+    OPTIMAL_NEXT_MODE = {"exploration": "hardening", "hardening": "resolution", "resolution": "resolution"}
+    WAVE_RESOLUTION_PROB = {1: 0.28, 2: 0.11, 3: 0.31}
 
 # Outcome feedback (F-EXP10, L-501 P1): reward consistently productive domains.
 # Closes PHIL-2 self-application gap — expert dispatch learns from its own outcomes.
@@ -140,86 +142,18 @@ OUTCOME_BONUS = 0.5        # score bonus for PROVEN domains (reduced from 1.5 �
 OUTCOME_MIXED_BONUS = 2.0  # score bonus for MIXED domains (L-654: highest L/lane yield at 1.42)
 OUTCOME_PENALTY = 1.0      # score penalty for STRUGGLING domains
 
-# Meta-role classification (SIG-39, L-925): meta-historian/tooler/experimenter as
-# first-class dispatch roles. Keyword-based classification of meta DOMEX lane intent.
-META_ROLE_KEYWORDS: dict[str, list[str]] = {
-    "historian": [
-        "historian", "repair", "stale", "belief retest", "health-check",
-        "freshness", "staleness", "decay", "retested", "retest belief",
-    ],
-    "tooler": [
-        "tool", "build", "wire", "implement", "fix", "bug", "enforce",
-        "wiring", "default-on", "automation", "pipeline", "refactor",
-        "maintenance gate", "extraction", "module",
-    ],
-    "experimenter": [
-        "measure", "experiment", "quantif", "falsif", "calibrat", "audit",
-        "score", "analysis", "compare", "baseline", "survey", "count",
-        "ratio", "test", "diagnos", "distribution", "model",
-    ],
-}
-
-
-def _classify_meta_role(intent: str, notes: str = "") -> str:
-    """Classify a meta DOMEX lane into historian/tooler/experimenter role."""
-    text = (intent + " " + notes).lower()
-    scores = {}
-    for role, keywords in META_ROLE_KEYWORDS.items():
-        scores[role] = sum(1 for kw in keywords if kw in text)
-    if max(scores.values()) == 0:
+# Meta-role classification — imported from dispatch_meta_roles.py when available.
+# Inline fallbacks retained for environments where import fails.
+if not _META_ROLES_IMPORTED:
+    def classify_meta_role(intent: str, notes: str = "") -> str:
         return "unclassified"
-    top_role = max(scores, key=scores.get)
-    vals = sorted(scores.values(), reverse=True)
-    if vals[0] > 0 and (len(vals) < 2 or vals[0] > vals[1]):
-        return top_role
-    return "mixed"
 
+    def get_meta_role_stats(lane_abbrev_to_domain=None) -> dict:
+        return {"historian": 0, "tooler": 0, "experimenter": 0, "mixed": 0,
+                "unclassified": 0, "total": 0, "suggested_role": "tooler"}
 
-def _get_meta_role_stats() -> dict:
-    """Scan SWARM-LANES for meta domain lanes and classify by role.
-
-    Prefers explicit role= field (SIG-39, open_lane.py --role) over keyword inference.
-    Returns {"historian": n, "tooler": n, "experimenter": n, "mixed": n,
-             "unclassified": n, "total": n, "suggested_role": str}.
-    """
-    role_counts = {"historian": 0, "tooler": 0, "experimenter": 0, "mixed": 0, "unclassified": 0}
-    for f in (LANES_FILE, LANES_ARCHIVE):
-        if not f.exists():
-            continue
-        for line in f.read_text().splitlines():
-            if not line.startswith("|") or "Lane" in line or "---" in line:
-                continue
-            cols = [c.strip() for c in line.split("|")]
-            if len(cols) < 12:
-                continue
-            lane_id = cols[2]
-            status = cols[11] if len(cols) > 11 else ""
-            etc = cols[10] if len(cols) > 10 else ""
-            notes = cols[12] if len(cols) > 12 else ""
-            if status not in ("MERGED", "ABANDONED", "ACTIVE"):
-                continue
-            # Is meta?
-            m = re.match(r"DOMEX-([A-Z]+)", lane_id)
-            domain = LANE_ABBREV_TO_DOMAIN.get(m.group(1)) if m else None
-            if domain != "meta":
-                fm = re.search(r"focus=(?:domains/)?([a-z0-9-]+)", etc)
-                if not fm or fm.group(1) != "meta":
-                    continue
-            # Prefer explicit role= field over keyword inference
-            role_m = re.search(r"\brole=(historian|tooler|experimenter)\b", etc)
-            if role_m:
-                role = role_m.group(1)
-            else:
-                intent_m = re.search(r"intent=([^;]+)", etc)
-                intent = intent_m.group(1) if intent_m else ""
-                role = _classify_meta_role(intent, notes)
-            role_counts[role] += 1
-
-    total = sum(role_counts.values())
-    # Suggest the most underserved role (historian/tooler/experimenter only)
-    core_roles = {r: role_counts[r] for r in ("historian", "tooler", "experimenter")}
-    suggested = min(core_roles, key=core_roles.get) if total > 0 else "experimenter"
-    return {**role_counts, "total": total, "suggested_role": suggested}
+_classify_meta_role = classify_meta_role
+_get_meta_role_stats = get_meta_role_stats
 
 
 def _load_calibration() -> dict | None:

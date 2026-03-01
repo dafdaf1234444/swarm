@@ -226,6 +226,35 @@ def main():
             if patch_file(next_md, old, new, "NEXT counts"):
                 changed.append("NEXT counts")
 
+    # --- README.md snapshot ---
+    readme_md = ROOT / "README.md"
+    if readme_md.exists():
+        rtext = readme_md.read_text(encoding="utf-8")
+        # "N sessions later, this repo contains X lessons, Y principles, Z beliefs, W active knowledge domains, and M commits"
+        m = re.search(r"(\d+) sessions later, this repo contains (\d+) lessons, (\d+) principles, (\d+) beliefs, (\d+) active knowledge domains, and ([\d,]+)\+? commits", rtext)
+        if m:
+            rs, rl, rp, rb, rd = int(m.group(1)), int(m.group(2)), int(m.group(3)), int(m.group(4)), int(m.group(5))
+            # Count commits
+            try:
+                commit_count = int(_git("rev-list", "--count", "HEAD"))
+                commit_bucket = f"{(commit_count // 100) * 100:,}+"
+            except Exception:
+                commit_count = 0
+                commit_bucket = m.group(6) + "+"
+            needs_update = (rs != session or rl != lessons or rp != principles or rb != beliefs)
+            if needs_update:
+                old = m.group(0)
+                new = f"{session} sessions later, this repo contains {lessons} lessons, {principles} principles, {beliefs} beliefs, {rd} active knowledge domains, and {commit_bucket} commits"
+                if patch_file(readme_md, old, new, "README snapshot"):
+                    changed.append("README snapshot")
+            # "Session N builds on what session N-1 discovered, which built on N-2"
+            m2 = re.search(r"Session (\d+) builds on what session (\d+) discovered, which built on (\d+)", rtext)
+            if m2 and int(m2.group(1)) != session:
+                old2 = m2.group(0)
+                new2 = f"Session {session} builds on what session {session-1} discovered, which built on {session-2}"
+                if patch_file(readme_md, old2, new2, "README session ref"):
+                    changed.append("README session ref")
+
     # --- PAPER.md scale line ---
     paper_md = ROOT / "docs" / "PAPER.md"
     if paper_md.exists():

@@ -810,18 +810,45 @@ def print_report(result: dict) -> None:
     """Human-readable report."""
     print(f"=== PHIL-14 Mission Sufficiency — {result['session']} ===\n")
     print(f"Overall: {result['overall']} (discrete {result['avg_score_of_3']}/3, continuous {result['continuous_composite']:.0%})")
+    if result.get("overall_note"):
+        print(f"  Note: {result['overall_note']}")
     print(f"Next improvement target: {result['next_improvement_target']}\n")
 
     for goal, data in result["goals"].items():
         bar = "█" * data["score"] + "░" * (3 - data["score"])
         c_score = data.get("continuous_score", float(data["score"]))
-        print(f"  {goal:12s} [{bar}] {data['score']}/3 (c={c_score:.2f}) — {data['verdict']}")
+        adj_marker = " *" if data.get("adjustment") else ""
+        print(f"  {goal:12s} [{bar}] {data['score']}/3 (c={c_score:.2f}) — {data['verdict']}{adj_marker}")
         print(f"    {data['rationale']}")
+        if data.get("adjustment"):
+            print(f"    >> {data['adjustment']}")
+        if data.get("margin_warning"):
+            print(f"    ~~ {data['margin_warning']}")
         if data.get("note"):
-            print(f"    ⚠ {data['note']}")
+            print(f"    !! {data['note']}")
         print()
 
-    print(f"Scale: 0=Insufficient, 1=Adequate, 2=Sufficient, 3=Excellent")
+    # Stratified scores
+    strat = result.get("stratified_scores", {})
+    if strat:
+        domex = strat.get("DOMEX", {})
+        non_domex = strat.get("non_DOMEX", {})
+        print(f"  Stratified L+P: DOMEX={domex.get('avg_lp', 0):.1f} (n={domex.get('n_sessions', 0)}), "
+              f"non-DOMEX={non_domex.get('avg_lp', 0):.1f} (n={non_domex.get('n_sessions', 0)}), "
+              f"ratio={strat.get('ratio', 0):.1f}x")
+
+    if result.get("adjustments"):
+        print(f"\n  Adjustments ({len(result['adjustments'])}):")
+        for adj in result["adjustments"]:
+            print(f"    >> {adj}")
+
+    if result.get("margin_warnings"):
+        print(f"\n  Margin warnings ({len(result['margin_warnings'])}):")
+        for mw in result["margin_warnings"]:
+            print(f"    ~~ {mw}")
+
+    print(f"\nScale: 0=Insufficient, 1=Adequate, 2=Sufficient, 3=Excellent")
+    print(f"  * = continuous scoring adjusted discrete verdict")
     print(f"Related: {', '.join(result['related'])}")
 
 
