@@ -110,7 +110,7 @@ class TestMissionConstraintInvariantChecks(unittest.TestCase):
 
     def test_duplicate_invariant_ids_flagged(self):
         results = self._run_check(
-            invariants_text="## I9 [MC-SAFE]\n## I9 [MC-SAFE]\n## I10 [MC-PORT]\n## I11 [MC-LEARN]\n## I12 [MC-CONN]\n",
+            invariants_text="## I9 [MC-SAFE]\n## I9 [MC-SAFE]\n## I10 [MC-PORT]\n## I11 [MC-LEARN]\n## I12 [MC-CONN]\n## I13 [MC-XSUB]\n",
             frontier_text="- **F119**: mission constraints\n",
             next_text="F119 tracked",
             check_sh_text="choose_python() { :; }\npython3\npython\npy -3\n",
@@ -119,7 +119,7 @@ class TestMissionConstraintInvariantChecks(unittest.TestCase):
 
     def test_missing_invariant_tag_flagged(self):
         results = self._run_check(
-            invariants_text="## I9 [MC-SAFE]\n## I10\n## I11 [MC-LEARN]\n## I12 [MC-CONN]\n",
+            invariants_text="## I9 [MC-SAFE]\n## I10\n## I11 [MC-LEARN]\n## I12 [MC-CONN]\n## I13 [MC-XSUB]\n",
             frontier_text="- **F119**: mission constraints\n",
             next_text="F119 tracked",
             check_sh_text="choose_python() { :; }\npython3\npython\npy -3\n",
@@ -136,7 +136,7 @@ class TestMissionConstraintInvariantChecks(unittest.TestCase):
             " M tools/e.py",
         ])
         results = self._run_check(
-            invariants_text="## I9 [MC-SAFE]\n## I10 [MC-PORT]\n## I11 [MC-LEARN]\n## I12 [MC-CONN]\n",
+            invariants_text="## I9 [MC-SAFE]\n## I10 [MC-PORT]\n## I11 [MC-LEARN]\n## I12 [MC-CONN]\n## I13 [MC-XSUB]\n",
             frontier_text="- **F119**: mission constraints\n",
             next_text="F119 tracked",
             check_sh_text="choose_python() { :; }\npython3\npython\npy -3\n",
@@ -153,7 +153,7 @@ class TestMissionConstraintInvariantChecks(unittest.TestCase):
             "A  memory/lessons/L-999.md",
         ])
         results = self._run_check(
-            invariants_text="## I9 [MC-SAFE]\n## I10 [MC-PORT]\n## I11 [MC-LEARN]\n## I12 [MC-CONN]\n",
+            invariants_text="## I9 [MC-SAFE]\n## I10 [MC-PORT]\n## I11 [MC-LEARN]\n## I12 [MC-CONN]\n## I13 [MC-XSUB]\n",
             frontier_text="- **F119**: mission constraints\n",
             next_text="F119 tracked",
             check_sh_text="choose_python() { :; }\npython3\npython\npy -3\n",
@@ -510,6 +510,7 @@ class TestMissionConstraintDegradedRuntime(unittest.TestCase):
                 "## I10 - Mission portability: work everywhere [MC-PORT]",
                 "## I11 - Mission learning quality: improve knowledge continuously [MC-LEARN]",
                 "## I12 - Mission continuity: stay connected under constraints [MC-CONN]",
+                "## I13 - Mission safety: cross-substrate safe entry [MC-XSUB]",
             ]
         )
         check_sh_text = "\n".join(

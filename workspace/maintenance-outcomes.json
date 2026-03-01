@@ -1326,7 +1326,7 @@
     },
     {
       "session": 354,
-      "timestamp": "2026-03-01T03:19:51Z",
+      "timestamp": "2026-03-01T03:20:21Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -1410,9 +1410,11 @@
           "severities": []
         },
         "check_swarm_lanes": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         },
         "check_swarm_coordinator": {
           "fired": false,
@@ -1453,11 +1455,9 @@
           "severities": []
         },
         "check_cross_references": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "NOTICE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_anxiety_zones": {
           "fired": true,
@@ -1485,9 +1485,8 @@
         },
         "check_domain_frontier_consistency": {
           "fired": true,
-          "count": 4,
+          "count": 3,
           "severities": [
-            "NOTICE",
             "NOTICE",
             "NOTICE",
             "NOTICE"
@@ -1495,8 +1494,9 @@
         },
         "check_readme_snapshot_drift": {
           "fired": true,
-          "count": 1,
+          "count": 2,
           "severities": [
+            "NOTICE",
             "NOTICE"
           ]
         },

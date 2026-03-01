@@ -1,5 +1,5 @@
 # Swarm Invariants
-<!-- invariants_version: 0.4 | 2026-02-28 | I13 cross-substrate safety: foreign-repo entry must not assume swarm repo conventions -->
+<!-- invariants_version: 0.5 | 2026-03-01 | S353 reswarm: CORE.md I13 sync, I13 enforcement in check_mission_constraints() -->
 These anchors cannot be negated by child integration without human review.
 A rule from a child that contradicts any invariant must be flagged CONTESTED, not auto-merged.
 

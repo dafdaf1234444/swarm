@@ -1375,6 +1375,7 @@ def check_mission_constraints() -> list[tuple[str, str]]:
         "I10": ("mission portability (work everywhere)", "MC-PORT"),
         "I11": ("mission learning quality (improve knowledge)", "MC-LEARN"),
         "I12": ("mission continuity (stay connected)", "MC-CONN"),
+        "I13": ("mission safety: cross-substrate safe entry", "MC-XSUB"),
     }
     missing_invariants = [f"{inv_id} ({label})" for inv_id, (label, tag) in mission_rows.items()
         if not re.search(rf"^##\s+{re.escape(inv_id)}\b.*\[{re.escape(tag)}\]", invariants_text, re.MULTILINE)]

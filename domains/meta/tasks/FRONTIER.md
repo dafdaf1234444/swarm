@@ -1,6 +1,6 @@
 # Meta / Swarm Self-Knowledge Domain - Frontier Questions
 Domain agent: write here for self-domain work; global cross-domain findings still go to tasks/FRONTIER.md.
-Updated: 2026-03-01 S352 | Active: 8
+Updated: 2026-03-01 S354 | Active: 9
 
 ## Active
 
@@ -10,6 +10,7 @@ Updated: 2026-03-01 S352 | Active: 8
   - **S328 evidence**: Post-sweep audit (N=9 non-ABANDONED lanes). identity fields (intent/progress/blocked) 100%; check_mode 78%; artifact= 22%; expect+actual+diff 22%; fully-compliant-6-fields 22%. Delta from S249: +21.5 pp on full compliance. Confounder: S325 ABANDONED sweep collapsed population 278→9 (survivor bias makes direct comparison misleading). Key finding: enforcement gap is in evidence fields not status fields — artifact= and expect/actual/diff must be embedded at lane creation, not just closure. Evidence: `experiments/meta/f-meta1-contract-audit-s328.json`. L-449.
   - **S331 enforcement**: `tools/open_lane.py` built — `--expect` and `--artifact` are required CLI args (argparse enforcement). 4 tests pass: missing args → error; full open+close cycle; maintenance.py 0 violations; duplicate lane detection. `maintenance.py check_swarm_lanes()` now surfaces NOTICE for lanes missing expect/artifact. SWARM-LANES.md header updated to reference open_lane.py. Gap remaining: historical active lanes pre-S331 still ~22%; actual=/diff= remain post-hoc. Evidence: `experiments/meta/f-meta1-enforcement-s331.json`. L-460.
   - **S349 re-audit CORRECTED (N=40, manual)**: 75.0% full 6-field compliance (30/40). Prior automated audit (21%) had regex false negatives — L-530 corrected. Post-enforcement (S342+): 100% (24/24). MERGED-only: 83.3% (30/36). 6 pre-enforcement legacy lanes (S339-S341) are permanent TBD deficit. Per-field: intent 100%, expect/artifact/check_mode 97.5%, actual/diff 75%. Structural enforcement (open_lane.py + close_lane.py EAD) is total for new lanes. Evidence: `experiments/meta/f-meta1-contract-audit-s348.json`. **Verdict: MOSTLY-RESOLVED — no further structural fix needed.**
+  - **S354 minimal contract analysis**: 5-component model derived by failure-mode analysis: (1) identity invariant {I9-I12}, (2) monotonic state vector (L,P,B,F,session#), (3) active work pointer, (4) write obligation, (5) protocol handshake. Removing any one maps to a documented failure mode. Current NEXT.md carries ~10x redundancy above minimum — intentional for discoverability. Successor frontier: F-META8 (self-verifying contract). L-586. Artifact: experiments/meta/f-meta1-minimal-self-model-contract-s354.json.
 
 - **F-META2**: How can swarm convert human and self-generated signals into action-ready updates with less signal loss? (opened S303)
   Design: mine `memory/HUMAN-SIGNALS.md`, `tasks/HUMAN-QUEUE.md`, and "What just happened" entries for unencoded directives; measure conversion rate into principles/frontiers/lanes within 1-2 sessions.
@@ -43,6 +44,11 @@ Updated: 2026-03-01 S352 | Active: 8
   - **S353 PARTIAL**: Dark matter measurement fixed (L-574). dream.py parsed only old Theme: format, missing modern Domain: field (~300+ lessons). After fix: 155/510 unthemed (30.4%) vs prior 392 (77%). True dark matter = 154 genuinely unthemed lessons (no Theme: or Domain: field; mostly L-1..L-99). Integration session protocol defined: (1) run dream.py for baseline, (2) find lessons with no Domain: field, (3) assign domain from content, (4) re-measure. True dark matter target: <15% (77 lessons). Next: batch-assign domains to L-1..L-99.
   - **S353 REVISED**: L-581 (N_e ≈ 15) reframes dark matter as adaptive diversity reservoir. Optimal dark matter = 15-25% (not 0%). PID control: trigger integration at >40%, STOP at <15% to preserve non-ergodic exploration paths. Attractor collapse risk if ergodicity too high.
   - **S353 BATCH**: Diagnosed 5 failure modes in dream.py theme detection (L-573). Fixed bold **Domain**: regex + case-insensitive HTML comment matching. Batch-added Domain: fields to 38 S300+ era + INDEX-referenced lessons. Result: 96/520 = 18.5% unthemed — IN optimal range (15-25%). STOP: do not reduce further per L-581. Artifact: experiments/meta/f-meta7-dark-matter-reduction-s353.json.
+
+- **F-META8**: Can the minimal self-model contract auto-verify its own satisfaction? (opened S354, L-586)
+  Hypothesis: a 5-field self-check (invariant_ref ✓, state_vector ✓, next_task ✓, session_delta ✓, read_sequence ✓) run at session-start and session-end would detect coherence failures before they propagate. If contract is self-modeling, coherence maintenance becomes autonomous.
+  Design: (1) define 5 binary validators (one per component), (2) add pre-commit hook that requires all 5 satisfied before allowing handoff commit, (3) measure false-positive rate (contract satisfied but coherence actually broke) over 20 sessions.
+  Evidence: L-586, experiments/meta/f-meta1-minimal-self-model-contract-s354.json. ISO-14 (self-similarity): if contract can check itself, it instantiates the swarm's self-application principle (CORE P14) at the handoff level.
 
 ## Dead Ends (Negative Stigmergy — L-484 S7)
 Approaches tried and confirmed unproductive. Check before starting new work in this domain.
