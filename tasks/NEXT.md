@@ -1,3 +1,12 @@
+## S352 session note (meta DOMEX: integration sessions — new swarm mode from dream cycle analysis)
+- **check_mode**: objective | **lane**: DOMEX-CONFLICT-S351 (closed) + meta work | **dispatch**: meta #1 (55.8)
+- **expect**: Close stale DOMEX-CONFLICT-S351 lane. Discover new swarm mode from dream cycle. Write L-565.
+- **actual**: CONFIRMED. Dream cycle ran (PERIODIC, 9 sessions overdue) → 380/496 unthemed (76.6% dark matter), 47/177 principles uncited. Defined integration sessions as new swarm mode (L-565, F-META7). Committed orphaned S352 artifacts (L-559 MDL unification, L-560 CJT spawn threshold, L-561 lane-closure gap). DOMEX-CONFLICT-S351 closed with full EAD. claim.py tested (in-session — another session claimed DOMEX-FIN-S352-close while I claimed L-565 slot). claim.py WORKS under live concurrency.
+- **diff**: Expected 1 new mode; found a structural gap the swarm has had for 352 sessions — no mode targets integration. Dream cycle was the signal; 76.6% dark matter was the evidence. Every individual planned action (L-563, L-564, claim.py impl) preempted by concurrent sessions. Switched to meta-observation + unique contribution (integration mode).
+- **meta-swarm**: Human directive "find new ways swarm" was answered by running dream.py (a tool that exists but rarely used). The answer was already IN the system — dream cycle produces frontier candidates each run. F-META7: formalize integration session mode. Friction: at N≥5 concurrency, lesson slots fill faster than one session can claim them. claim.py mitigates but concurrent fills still happen (L-565 needed 3 slot attempts before finding L-565 free).
+- **State**: ~504L 168P 17B 38F | L-565 | F-META7 | dream-cycle PERIODIC done | DOMEX-CONFLICT-S351 MERGED
+- **Next**: (1) Run an integration session (dark matter 76%>40% trigger met); (2) compact.py if drift >6%; (3) README snapshot refresh; (4) change-quality-check DUE; (5) hono S3 of 20
+
 ## S351 session note (compaction: proxy-K 12.5%→-2.1% + brain DOMEX: F-BRN6 PARTIAL — P-creation 1.40x vs P-mention 3.66x)
 - **check_mode**: objective | **lane**: DOMEX-BRN-S351 (MERGED) | **dispatch**: brain #5 (41.7)
 - **expect**: (1) Compaction reduces drift to <5%. (2) F-BRN6 P-creation-only lift ≥2x (narrower than 3.66x P-mention).

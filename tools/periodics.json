@@ -37,7 +37,7 @@
     },
     {
       "id": "claim-vs-evidence-audit",
-      "description": "Gap audit: test each PHILOSOPHY.md claim against git history, session log, and quantitative evidence. File challenges for any claim where evidence contradicts the stated belief. P-164: confirmation rate >80% = underchallenging signal. S349: 3 challenges filed (PHIL-14/17/6), challenge rate 52%→67%, 0/31 DROPPED persists.",
+      "description": "Gap audit: test each PHILOSOPHY.md claim against git history, session log, and quantitative evidence. File challenges for any claim where evidence contradicts the stated belief. P-164: confirmation rate >80% = underchallenging signal. S349: 3 challenges filed (PHIL-14/17/6), challenge rate 52%\u219267%, 0/31 DROPPED persists.",
       "cadence_sessions": 20,
       "last_reviewed_session": 349,
       "registered_by": "S81b"
@@ -74,14 +74,14 @@
       "id": "human-signal-harvest",
       "description": "F121 harvest: read memory/HUMAN-SIGNALS.md, scan for patterns not yet encoded as principles or lessons, extract at least one P- or L- candidate per pass. Update Patterns section. Flag any entry missing artifact refs. Addresses ephemeral human input loss (F121, L-224).",
       "cadence_sessions": 5,
-      "last_reviewed_session": 341,
+      "last_reviewed_session": 352,
       "registered_by": "S176"
     },
     {
       "id": "change-quality-check",
       "description": "Run python3 tools/change_quality.py: compare recent sessions vs. baseline on knowledge production + overhead. Flag WEAK sessions. A session rated WEAK 2+ consecutive times = root-cause diagnosis needed. (L-223)",
       "cadence_sessions": 5,
-      "last_reviewed_session": 340,
+      "last_reviewed_session": 352,
       "registered_by": "S178"
     },
     {
@@ -130,7 +130,7 @@
       "id": "action-board-refresh",
       "cadence_sessions": 3,
       "description": "Refresh ACTION-BOARD.md: run `python3 tools/f_act1_action_recommender.py` \u2014 scores swarm state across urgency/coverage/impact/novelty and writes workspace/ACTION-BOARD.md with ranked recommendations for all sessions + human visibility. Use action-expert personality for this task. (F-ACT1)",
-      "last_reviewed_session": 345,
+      "last_reviewed_session": 352,
       "registered_by": "S304"
     },
     {
