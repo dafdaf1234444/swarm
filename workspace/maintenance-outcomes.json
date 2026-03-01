@@ -3,7 +3,7 @@
   "sessions": [
     {
       "session": 348,
-      "timestamp": "2026-03-01T02:11:11Z",
+      "timestamp": "2026-03-01T02:12:54Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -16,9 +16,11 @@
           "severities": []
         },
         "check_mission_constraints": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "DUE"
+          ]
         },
         "check_runtime_portability": {
           "fired": false,
@@ -85,9 +87,11 @@
           "severities": []
         },
         "check_swarm_lanes": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "DUE"
+          ]
         },
         "check_swarm_coordinator": {
           "fired": false,
@@ -129,9 +133,11 @@
           ]
         },
         "check_cross_references": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         },
         "check_anxiety_zones": {
           "fired": true,
@@ -208,7 +214,8 @@
         }
       },
       "totals": {
-        "NOTICE": 10,
+        "DUE": 2,
+        "NOTICE": 11,
         "PERIODIC": 6
       }
     }

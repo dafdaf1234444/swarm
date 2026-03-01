@@ -3,6 +3,7 @@
   "session": "S348",
   "frontier": "F-MECH1",
   "domain": "meta",
+  "lesson": "L-537",
   "hypothesis": "Adding persistent outcome tracking + learning to maintenance.py closes GAP-1 (diagnostic-execution bridge) and enables self-improving check prioritization",
   "method": {
     "mechanism": "maintenance_checks (tools/maintenance.py)",
