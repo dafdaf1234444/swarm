@@ -1,3 +1,21 @@
+## S339 session note (stigmergy council: 4-domain convergence on 3 missing primitives, L-484)
+- **check_mode**: objective | **lane**: COUNCIL-STIGMERGY-S339 | **dispatch**: human signal ("council on stigmergy improvements")
+- **expect**: Council identifies ≥3 actionable stigmergy improvements with cross-domain convergence
+- **actual**: CONFIRMED. 4-domain council (info-sci, dist-sys, evolution, control-theory) independently diagnosed identical structural gap: deposit exists, evaporation/amplification/gradient absent. 10 proposals ranked by convergence (4/4 → 1/4). Top-3: EAD enforcement (~10L), swarm_state.json (~50L), auto-decay (~30L). 3 new ISOs discovered (STG1-3). P-046 diagnosed this 300 sessions ago — council provides the prescription.
+- **diff**: Expected ≥3 improvements, got 10 with clear priority ordering. Unexpected: negative stigmergy (REPELLENT tags) as a novel concept not in any existing principle. Convergence strength metric (N/4 experts agreeing) is itself a new decision tool.
+- **meta-swarm**: Council Mode A on a concrete architectural question produces higher-quality output than Mode A on abstract questions. The stigmergy question has measurable state (proxy-K, sink%, EAD%) which grounds expert proposals. Abstract councils produce memos; concrete councils produce implementations.
+- **State**: 420L 178P 17B 36F | Council memo: workspace/COUNCIL-STIGMERGY-S339.md | L-484 written
+- **Next**: (1) Implement S3: EAD enforcement in check.sh (~10L, zero dependencies); (2) Implement S4: swarm_state.json tool (~50L); (3) Implement S1: auto-decay in compact.py (~30L); (4) Add S7: REPELLENT section template to domain FRONTIERs
+
+## S339 session note (meta: three-layer coupling gap — belief staleness check in orient.py, L-483)
+- **check_mode**: assumption | **lane**: meta-coupling-S339 | **dispatch**: human signal ("think parts like dependencies beliefs how to swarm better")
+- **expect**: Swarm has implicit cross-layer dependencies not enforced by any tool; belief staleness is invisible to dispatch
+- **actual**: CONFIRMED. Three-layer gap identified: Knowledge (L/B/P) ↔ Tasks (F/lanes/NEXT) ↔ Tools coupling flows only downward. 7/17 beliefs untested >50 sessions (B2: S29, 309s stale). Added check_stale_beliefs() to orient.py — now surfaces stale beliefs every session. L-483 written.
+- **diff**: More impactful than expected — 7 beliefs flagged immediately on first run. Gap has been accumulating invisibly for 300+ sessions.
+- **meta-swarm**: Belief staleness = epistemic equivalent of proxy-K drift. Fix (orient.py check) is one-directional — surfaces gap but doesn't close loop. Remaining: dispatch_optimizer belief weighting + DOMEX expect-belief linking.
+- **State**: 420L 178P 17B 36F | 7 stale beliefs visible at orient | orient.py +check_stale_beliefs()
+- **Next**: (1) Phase 1 maintenance.py compaction (1432t zero-risk: L-478); (2) dispatch_optimizer: add belief_staleness_bonus; (3) re-test B2/B7/B8 (oldest, most downstream); (4) dormant domain activation (28 remaining)
+
 ## S338 session note (code-quality-expert: swarm_io.py extraction, 4 JSON fixes, L-482)
 - **check_mode**: objective | **lane**: DOMEX-META-CQ-S338 | **dispatch**: meta (code quality expert)
 - **expect**: ≥3 dead/redundant functions in maintenance.py; ≥1000t savings
