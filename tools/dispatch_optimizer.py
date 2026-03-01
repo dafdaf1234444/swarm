@@ -790,6 +790,25 @@ def _ucb1_score(results: list[dict], outcome_map: dict, heat_map: dict,
         else:
             r["commit_floor_applied"] = False
 
+    # COMMIT dispatch guarantee (F-STR3, L-798): promote top danger-zone domain
+    # to top-3 non-collision position. Advisory without dispatch authority produces
+    # 0% cold-domain follow-through (L-794). L-601: structural enforcement.
+    # Mechanism: compute boost needed to reach 3rd-place score, apply to top COMMIT
+    # candidate. Only 1 COMMIT domain promoted per dispatch (avoids flooding).
+    commit_candidates = [r for r in results if r.get("campaign_phase") == "danger"]
+    for r in results:
+        r["commit_guarantee_boost"] = 0.0
+    if commit_candidates:
+        ranked_by_score = sorted(results, key=lambda x: -x["score"])
+        if len(ranked_by_score) >= 3:
+            top3_threshold = ranked_by_score[2]["score"]
+            commit_candidates.sort(key=lambda x: -x["score"])
+            top_commit = commit_candidates[0]
+            if top_commit["score"] < top3_threshold:
+                boost = round(top3_threshold - top_commit["score"] + 0.01, 3)
+                top_commit["score"] += boost
+                top_commit["commit_guarantee_boost"] = boost
+
     # 20% exploration floor (DARPA model, L-697): ensure underexplored domains
     # appear in recommendations regardless of UCB1 score. Domains with <3 visits
     # are floor-eligible; at least cold_floor_pct of results get floor protection.
@@ -855,6 +874,17 @@ def run(args: argparse.Namespace) -> None:
             if args.json:
                 print(json.dumps(results_limited, indent=2, default=str))
                 return
+            # COMMIT dispatch header (F-STR3): show promoted domains before rankings
+            commit_promoted = [r for r in results if r.get("commit_guarantee_boost", 0) > 0]
+            if commit_promoted:
+                print("\n=== COMMIT DISPATCH (F-STR3, L-601) ===")
+                for cp in commit_promoted:
+                    cw = campaign_waves.get(cp["domain"], {})
+                    fids = [f for f, d in cw.get("frontiers", {}).items()
+                            if not d["resolved"] and d["waves"] == 2]
+                    fid_str = ", ".join(fids[:3]) if fids else "danger-zone frontiers"
+                    print(f"  ⚡ {cp['domain']} promoted to top-3 (+{cp['commit_guarantee_boost']:.2f}) — {fid_str}")
+                    print(f"    2-wave valley of death (11% → 31% with 3rd wave). Mode-shift to hardening.")
             print("\n=== DISPATCH OPTIMIZER — UCB1 MODE (F-ECO5, L-697) ===")
             print(f"Single parameter c=1.414 replaces 10+ heuristic constants\n")
             print(f"{'Score':>6}  {'Domain':<25}  {'Exploit':>7}  {'Explore':>7}  {'N':>3}  {'L':>3}  {'Heat':>4}")
@@ -868,10 +898,11 @@ def run(args: argparse.Namespace) -> None:
                 n = r.get("outcome_n", 0)
                 score_str = f"{r['score']:.1f}" if r["score"] < 999 else "∞"
                 floor_mark = " [FLOOR]" if r.get("floor_protected") else ""
+                commit_mark = " ⚡COMMIT" if r.get("commit_guarantee_boost", 0) > 0 else ""
                 print(
                     f"{score_str:>6}  {r['domain']:<25}  {exploit:7.3f}  {explore_str:>7}  "
                     f"{n:3d}  {r.get('outcome_lessons', 0):3d}  {heat_icon:>4}"
-                    f" [{label}]{floor_mark}"
+                    f" [{label}]{floor_mark}{commit_mark}"
                 )
                 if r["domain"] in active_lanes:
                     lanes = active_lanes[r["domain"]]

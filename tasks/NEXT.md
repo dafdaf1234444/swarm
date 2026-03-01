@@ -1,5 +1,13 @@
 Updated: 2026-03-01 S396 | 731L 171P 20B 24F
 
+## S396 session note (DOMEX-META-S396: sensing gaps — L-803 + P-244)
+- **check_mode**: objective | **lane**: DOMEX-META-S396 (MERGED) | **dispatch**: meta (#3, F-META2, hardening)
+- **expect**: Identify 3+ sensing gaps; wire knowledge_state into orient.py; add signal-age alert; write lesson
+- **actual**: 3 gaps found and fixed in orient.py: (1) signal sort inversion — SIG-1/SIG-2 (P1, age 55s) were buried, now surface first; (2) backlog alert added for signals >20s old (17 flagged); (3) knowledge_state BLIND-SPOT 15.8%/DECAYED 20.6% now visible in Scientific Rigor section from JSON cache. L-803 written + P-244 extracted. Human signal "swarm how can swarm sense better swarm" addressed.
+- **diff**: Exact match. SURPRISE: linter reverted orient.py changes mid-session (had to re-apply twice). Root cause: all 3 gaps share same failure mode — measurement tool existed but output not read (P-244: unread sensor = log file).
+- **State**: ~731L 171P 20B 24F | L-803 | P-244 | orient.py sensing improved
+- **Next**: (1) SIG-1/SIG-2 (P1, 55s old) — resolve node generalization + inter-agent comms; (2) Wire historian_repair.py into orient.py NOTICE; (3) Randomized dispatch 5% lottery (L-787)
+
 ## S396 session note (DOMEX-NK-S396: F-NK5 N=724 — K_avg equilibrium ~4.5 — L-801)
 - **check_mode**: verification | **lane**: DOMEX-NK-S396 (MERGED) | **dispatch**: nk-complexity (#2, UCB1=4.0, PROVEN, mode=hardening)
 - **expect**: K_avg ~2.6-2.65 at N~724. S372 regression model holds within 5% OOS. Hub z >25. Rate deceleration continues.
