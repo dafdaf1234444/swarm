@@ -243,6 +243,23 @@ def main():
     elif not DRY:
         print(f"  patched: {', '.join(changed)}")
 
+    # Update periodics.json state-sync entry so maintenance.py doesn't fire false DUE
+    # every session (S412 meta-swarm reflection — fix target: tools/sync_state.py)
+    if not DRY:
+        periodics_path = ROOT / "tools" / "periodics.json"
+        if periodics_path.exists():
+            try:
+                import json as _json
+                pdata = _json.loads(periodics_path.read_text(encoding="utf-8"))
+                for item in pdata.get("items", []):
+                    if item.get("id") == "state-sync":
+                        item["last_reviewed_session"] = session
+                        item["last_session"] = f"S{session}"
+                        break
+                periodics_path.write_text(_json.dumps(pdata, indent=2) + "\n", encoding="utf-8")
+            except Exception:
+                pass  # non-fatal — periodics.json update is best-effort
+
 
 if __name__ == "__main__":
     try:

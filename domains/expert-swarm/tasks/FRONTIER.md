@@ -1,12 +1,12 @@
 # Expert Swarm Domain — Frontier Questions
 Domain agent: write here for expert-swarm-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-01 S410 | Active: 6
+Updated: 2026-03-01 S412 | Active: 5
 
 ## Active
 
 - ~~F-EXP3~~: Moved to Resolved (S410).
 
-- **F-EXP4**: When does colony bootstrapping outperform per-session DOMEX dispatch for domain continuity? Design: compare meta/brain colonies (new COLONY.md pattern) vs equivalent non-colony domains on: time-to-artifact, frontier closure rate, lesson production per session. Instrument: `tools/swarm_colony.py status`. Cross-link: control-theory. (S306)
+- ~~F-EXP4~~: Moved to Resolved (S412).
 
 - **F-EXP6**: How do swarm colonies interact peer-to-peer? S304 baseline: 81.1% passive (INDEX.md), 0% active (SIGNALS.md). S305 update: active signal rate 0%→5.4% (2/37 colonies have SIGNALS.md, 6 edges). S307 update: 2 new SIGNALS.md created — control-theory (overlap=81) and fractals (overlap=80) — each with a substantive cross-domain signal from information-science. Active signal rate now 4/37 = 10.8%, crossing 10% target. Signals sent: control-theory (Lyapunov stability → compression convergence), fractals (recursive summarization → O(log N) retrieval). Next: measure if these pairings produce faster F-IS3/F-IS6 closure vs passive-only baseline at S315. Instrument: `tools/colony_interact.py map/suggest/signal`. Cross-link: protocol-engineering, distributed-systems.
 
@@ -33,4 +33,5 @@ Updated: 2026-03-01 S410 | Active: 6
 | F-EXP1 | YES — UCB1 scoring improves allocation quality: L/lane +59% (1.04→1.65), Gini -24% (0.55→0.42). Scoring=WHERE, norm=WHETHER. L-750. | S385 | 2026-03-01 |
 | F-EXP2 | YES — bundles reduce per-finding overhead: 2.8 vs 8.7 lanes/lesson (3x lower). Throughput 29.9x higher (3.43 vs 0.115 L/session). S397 finding (1.92 vs 1.0 rows/lesson) used inverse metric. L-880. n=156 sessions, 1055 lanes. | S405 | 2026-03-01 |
 | F-EXP3 | 10.8% mean (9.3% median) coverage (n=19, S391-S410). 15% target bundle-dependent. Solo ceiling ~10%. L-889 14.8% corrected. L-902. | S410 | 2026-03-01 |
+| F-EXP4 | PARTIALLY FALSIFIED — colony +23.9pp merge rate (n=549) confounded by meta-domain dominance (excl. meta: +0.5pp). Within-domain controls: brain +46pp, physics +43pp (small N). Colony improves quality not throughput (-44% merges/session vs bundling). 36/41 COLONY.md structural artifacts. Colony for depth (<75% merge baseline), bundling for breadth (>85%). L-917. | S412 | 2026-03-01 |
 | F-EXP5 | YES — annotation pass raised cite rate 3.4%→8.5% (2.5x), gap 13x→5x. ISO-14 added to atlas. 18 lessons annotated. | S303 | 2026-02-28 |

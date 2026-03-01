@@ -45,7 +45,7 @@ def staged_lessons():
     """Return {number: Path} for L-NNN.md that are staged (git add'd)."""
     try:
         out = subprocess.check_output(
-            ["git", "diff", "--cached", "--name-only", "--diff-filter=ACM",
+            ["git", "diff", "--cached", "--name-only", "--diff-filter=AC",
              "--", "memory/lessons/"],
             cwd=ROOT, text=True, stderr=subprocess.DEVNULL)
     except subprocess.CalledProcessError:
