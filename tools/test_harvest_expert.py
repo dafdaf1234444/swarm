@@ -27,8 +27,8 @@ NOVEL_LESSON_TEXT = (
     "mechanism converge on append-only logs as the single source of truth."
 )
 
-# A principle text that already exists in PRINCIPLES.md (P-012 excerpt).
-KNOWN_PRINCIPLE_TEXT = "never delete, mark SUPERSEDED"
+# A principle text that already exists in PRINCIPLES.md (P-013 excerpt).
+KNOWN_PRINCIPLE_TEXT = "review-after dates, not expiration"
 
 # A novel principle not present in the home swarm.
 NOVEL_PRINCIPLE_TEXT = (

@@ -53,12 +53,12 @@ VALID_TIERS = {"T1", "T2", "T3"}
 #   T3: sibling to sibling (advisory only, logged not integrated)
 TYPE_PATTERN = re.compile(r"Type:\s*([a-zA-Z][a-zA-Z0-9-]*)")
 HELP_REQUEST_PATTERN = re.compile(
-    r"# Bulletin from:\s*(.+?)\nDate:\s*(\S+)\nType:\s*help-request\n\n## Content\n"
+    r"# Bulletin from:\s*(.+?)\nDate:\s*(\S+)\nType:\s*help-request(?:\nTrust-Tier:\s*\S+)?\n\n## Content\n"
     r"Request-ID:\s*(\S+)\nNeed:\s*(.+?)(?:\n---|\Z)",
     re.DOTALL,
 )
 HELP_RESPONSE_PATTERN = re.compile(
-    r"# Bulletin from:\s*(.+?)\nDate:\s*(\S+)\nType:\s*help-response\n\n## Content\n"
+    r"# Bulletin from:\s*(.+?)\nDate:\s*(\S+)\nType:\s*help-response(?:\nTrust-Tier:\s*\S+)?\n\n## Content\n"
     r"Request-ID:\s*(\S+)\nResponse:\s*(.+?)(?:\n---|\Z)",
     re.DOTALL,
 )

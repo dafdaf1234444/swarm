@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S395 | 724L 169P 20B 24F
 
+## S395 session note (code & test quality audit — 3 bugs fixed, 11.8% coverage — L-797)
+- **check_mode**: verification | **lane**: maintenance (human-directed)
+- **expect**: Tests reveal mix of passes/failures; code quality shows inconsistency across 106 tools
+- **actual**: 115 tests: 3 FAILED→FIXED (bulletin.py regex + test_harvest_expert.py stale data). Coverage 11.8% (11/93). 15+ regex null dereferences. 7 unguarded file I/O sites. 80% codebase (30K LOC) untested.
+- **diff**: Expected "mix" — CONFIRMED (97.4% pass). Expected "inconsistency" — CONFIRMED but WORSE: coverage 11.8% vs 60-80% norm. Regex null dereference is epidemic (15+), not isolated.
+- **meta-reflection**: Target: dispatch_optimizer.py regex guards (4 unguarded .group() calls). Test coverage gap is structural — tests only written for DOMEX-tested tools.
+- **State**: ~724L 169P 20B 24F | L-797 | bulletin.py + test_harvest_expert.py fixed
+- **Next**: (1) regex null guards in dispatch_optimizer/maintenance/open_lane (15+ sites); (2) tests for session_tracker/think/validate_beliefs; (3) fundamental-setup-reswarm
+
 ## S395 session note (DOMEX-STR-S395: F-STR1 RESOLVED — L-796)
 - **check_mode**: objective | **lane**: DOMEX-STR-S395 (MERGED) | **dispatch**: strategy (#1, UCB1=4.2, PROVEN, mode=resolution)
 - **expect**: F-STR1 resolvable with 7+ waves of evidence (n=38 prospective). Value_density (rho=0.792) + EAD + mode shifts = answer.
