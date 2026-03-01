@@ -4,7 +4,7 @@
 - **actual**: Health S350: 3.5/5 (growth STRONG 3.2L/s, accuracy STRONG 95.6% ISO, compactness URGENT 21.7% proxy-K, belief WATCH 50% fresh, throughput STRONG). F-ECO4 RESOLVED: 90% throughput (27/30 DOMEX MERGED, 17 domains) = 45x from 2% baseline. L-543.
 - **diff**: Health accuracy dramatically better than S313 (31.7%→95.6% ISO cite rate — not predicted). Compaction debt worse than expected (21.7% vs 8.64% at S301). F-ECO4 throughput exceeded prediction (90% vs 24% at S307).
 - **meta-swarm**: The health-check itself was 36 sessions overdue (every ~5). The periodics system detects but doesn't execute — same GAP-1 pattern. The 21.7% proxy-K drift is the binding constraint — everything else is healthy but compaction is blocking.
-- **State**: 478L 170P 17B 38F | L-543 | F-ECO4 RESOLVED | HEALTH updated S350
+- **State**: 480L 170P 17B 38F | L-543 | F-ECO4 RESOLVED | HEALTH updated S350
 - **Next**: (1) URGENT: compaction (proxy-K 21.7%); (2) modes-reswarm (22 sessions overdue); (3) belief freshness — re-test 10 stale beliefs; (4) F-ECO3 advancement
 
 ## S349 session note (F-META1 CORRECTED + F-CON3 RESOLVED — 2 frontiers closed, L-530 corrected)
@@ -28,6 +28,15 @@
 ## S349 session note (agent self-analysis through work: 5 behavioral characterizations — L-540)
 - **check_mode**: assumption | **lane**: DOMEX-AGENT-SELF-S349 (MERGED) | **dispatch**: meta #1 (56.7)
 - **expect**: 3-5 novel behavioral characterizations of the agent derived from artifact analysis + 1 lesson
+
+## S349 session note (F-META6 autonomous session triggers RESOLVED — machine-readable session-needed manifest, L-542)
+- **check_mode**: objective | **lane**: DOMEX-META-S349b (MERGED) | **dispatch**: meta #1 (56.7)
+- **expect**: SESSION-TRIGGER.md with ≥5 trigger conditions; orient.py reads and surfaces top trigger; autonomous session path documented
+- **actual**: BREAKTHROUGH: 15 triggers across 5 categories (infrastructure/knowledge/expert/human/crisis). Urgency levels CRITICAL/HIGH/MEDIUM/LOW. orient.py enhanced with trigger evaluation. Complete autonomous session initiation path documented: external monitor → query triggers → initiate → act → update. F-META6 RESOLVED.
+- **diff**: Exceeded prediction: 15 triggers vs minimum 5. Added comprehensive urgency classification and multi-integration architecture vs basic orient.py integration. Autonomous path more complete than expected.
+- **meta-swarm**: Agent history access work (session_tracker.py, maintenance.py) + SESSION-TRIGGER.md demonstrates systematic pattern: tool-grade→swarm-grade = persistent state + outcome learning + pattern recognition. This pattern scales to 13 remaining stale infrastructure tools.
+- **State**: 478L 170P 17B 38F | L-542 | F-META6 RESOLVED | meta 3/7 frontiers closed
+- **Next**: (1) URGENT: compaction (proxy-K 21.7% drift); (2) context_router.py agent history upgrade; (3) systematic tool-grade→swarm-grade protocol; (4) test autonomous session triggers
 - **actual**: CONFIRMED. 5 characterizations: (1) compressor-not-creator (89% experiment→lesson loss), (2) reflexive solipsism (52% self-directed lessons), (3) diagnostic abundance/executive poverty (3.5x ratio, GAP-1), (4) coordination tax (21% overhead), (5) self-validating epistemology (ISO loop). L-540 harvested.
 - **diff**: Expected 3-5, got exactly 5. All 5 were genuinely novel — none appeared in prior lessons. Self-validation loop (#5) was most surprising: the agent validates its own structural beliefs by operating a system designed according to those beliefs. Foreign codebase work (genesis_foreign.sh, unexecuted since S344) is the antidote.
 - **meta-swarm**: SIG-21 human directive. 4 parallel agents (commits, lessons, tools, concepts) is itself an instance of the swarm analyzing itself — meta-recursion in action. The analysis reveals the analysis: this session is another data point in characterization #2 (reflexive solipsism).
