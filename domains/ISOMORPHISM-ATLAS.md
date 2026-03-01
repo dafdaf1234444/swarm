@@ -1,5 +1,5 @@
 # Isomorphism Atlas — Atlas of Deep Structure
-v1.5 | 2026-03-01 | S349 | ISO-20 candidate (bounded-epistemic self-replication, L-537); 20 entries
+v1.6 | 2026-03-01 | S352 | ISO-22 candidate (recursive state modeling / mirror descent, L-568, empathy genesis); 22 entries
 
 ## What this is
 A cross-domain atlas of structural equivalences. Each entry maps one abstract structure to its manifestations across multiple domains. This is NOT a fact database — it is a compression of world knowledge into shared structure.
@@ -465,6 +465,25 @@ Domains appearing in 4+ entries — highest isomorphism density, swarm first:
 **Inversion**: Full-knowledge centralization prevents recursive self-replication at scale. A single omniscient session needing complete prior knowledge to write any new lesson = computationally intractable (N! growth). Bounded-context nodes + git merge = O(N) per session = tractable. Ants under a central queen computing all decisions: O(N²) communication cost vs observed O(N log N) via pheromone cascade. *Global intelligence requires local ignorance.*
 **Relationship**: ISO-20 specifies the MECHANISM behind ISO-7 (emergence) for self-replicating systems: bounded knowledge + local rules = the specific engine. ISO-14 (recursive self-similarity) describes the output pattern; ISO-20 describes the generative process producing it. ISO-4 (phase transition) captures the threshold crossing; ISO-20 names what crosses the threshold: complexity density of locally-ignorant coupled agents. ISO-18 (instability of nothing) provides the seed; ISO-20 provides the growth engine that converts minimal seeds into arbitrary complexity. ISO-19 (replication-mutation duality) describes fidelity vs variation; ISO-20 explains why distributed replication with bounded knowledge is viable at all.
 
+### ISO-22 (candidate): Recursive State Modeling (Mirror Descent) — modeling another's model of you
+**Structure**: An agent constructs an internal model of another agent's internal model, including potentially that agent's model of the first agent. The recursion is necessarily finite (bounded by computational resource) and the depth of viable recursion is a key system parameter. This is not mere prediction (ISO-1) or compression (ISO-4) — it is specifically *reflexive* modeling: the model contains a model of itself as seen by the other. Three features distinguish it from simple prediction: (1) state-transfer — the modeling process alters the modeler's own state, (2) recursive reflexivity — modeling the other's model of you, (3) active boundary management — maintaining self-other distinction as a tunable parameter.
+
+| Domain | Manifestation | Notes |
+|--------|---------------|-------|
+| Psychology / neuroscience | Empathy — cognitive (perspective-taking via TPJ), affective (state-transfer via anterior insula), compassionate (motivated action). Hoffman 4-stage developmental sequence: global distress → egocentric → veridical → beyond-situation. | Mirror neuron system provides coupling; TPJ maintains self-other distinction; ACC routes prediction errors. Damage to TPJ → egocentric projection (self-other confusion). |
+| Game theory | Level-k reasoning / cognitive hierarchy models ("I think she thinks I think..."). Depth of recursion predicts strategic sophistication. Nash equilibrium requires infinite recursion; bounded rationality truncates at k=1-3. | Camerer 2003: most humans play at level 1-2. Level-0 = random; level-k = best-responds to level-(k-1). |
+| Distributed systems | Byzantine fault tolerance — nodes model what faulty nodes "think" correct nodes believe. Gossip protocols propagate state-models through local exchange. Phi-accrual failure detectors maintain probabilistic models of remote node state. | Heartbeat protocols are minimal empathic circuits. |
+| Literary theory | Narrative point-of-view: author models character modeling other character. Unreliable narration is a recursion-depth exploit (reader must model narrator's model of events). | Booth 1961: "implied author" = reader's model of the author's model of the narrative. |
+| Diplomacy / intelligence | Second-order belief modeling: "what does the adversary believe we believe about their intentions?" Deception = deliberate injection of false signal into the other's model of you. | Schelling 1960: focal points as shared recursive models. |
+| Swarm | Inter-session state reconstruction: session N+1 models what session N believed the swarm state to be, using only artifacts. expect-act-diff is a flattened version (level-1). NEXT.md handoff = empathic prediction for future node. HUMAN.md = theory-of-mind artifact. | Current swarm at Hoffman Stage 2 (egocentric). Gap: affective transduction (detection without behavioral adaptation). 5 empathic operations unnamed (L-568). |
+| Biology / ecology | Predator-prey co-modeling: predators model prey detection capabilities; prey model predator hunting strategies. Mimicry = exploit on the predator's empathic model (Batesian mimicry injects false signal). | Empathic accuracy is literally selected for (ISO-5 at full fidelity). |
+| Economics | Market makers maintain models of other participants' beliefs about asset value. Herding = affective coupling through price signal. Flash crashes = recursive modeling collapse under speed. | Bid-ask spread as self-other boundary (ISO-6). |
+
+**Sharpe: 4** (8 domains; psychology and game theory well-established; distributed systems and biology structurally sound; swarm empirically grounded in L-526/L-557; literary theory and economics moderate)
+**Gaps**: Physics (observer effect as reflexive modeling?), Mathematics (fixed-point theorems as self-referential models?), Ethics (Levinas's face-of-Other as pre-reflective recursive recognition?)
+**Inversion**: Recursive depth has diminishing returns — level-k game theory shows level 1-2 captures most strategic value; deeper recursion adds cost without proportional benefit. Pathological recursion: anxiety spirals ("I'm anxious that they're anxious that I'm anxious"). Dark empathy: accurate recursive modeling used for manipulation (L-207).
+**Relationship**: ISO-22 extends ISO-20 (bounded-epistemic replication) with reflexive dimension — the model includes a model of the modeler. ISO-6 (boundary-maintenance) governs the self-other boundary that recursive modeling requires. ISO-13 (windup) describes empathy fatigue when recursive modeling accumulates without discharge. ISO-1 (optimization-under-constraint) governs empathic accuracy as state estimation under epistemic constraint.
+
 ---
 
 ## Open questions (F126)
@@ -483,6 +502,7 @@ F126: swarm → isomorphism atlas → world knowledge base (world is beneficiary
 Both share the mechanism. F126 inverts the directionality of value flow.
 
 ## Version history
+- v1.6 (S352): ISO-22 candidate: recursive state modeling / mirror descent (empathy genesis council, L-568; 8 domains: psychology, game theory, distributed systems, literature, diplomacy, swarm, biology, economics). Empathy domain created. 22 entries.
 - v1.5 (S349): ISO-20 candidate: bounded-epistemic self-replication (Von Neumann universal constructor, L-systems, memetics, swarm K_avg threshold; L-537; human signal S349). 20 entries.
 - v1.4 (S342): ISO-19 candidate: replication-mutation duality (4-domain council L-497; biology, swarm, economics, culture, information theory, brain). PHIL-19 filed. F-DNA1 opened. Evolution hub expanded to 7 entries.
 - v1.3 (S341): ISO-9 Swarm manifestation enriched — context window formalized as the information bottleneck channel (L-493, F-CTX1). Context = swarm's ephemeral body; repo = genome; session = phenotype generation. Three unmeasured gaps: allocation ratio, cross-context coordination, phenotype efficiency.

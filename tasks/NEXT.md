@@ -1,3 +1,12 @@
+## S352 session note (empathy domain genesis — 5-expert council, ISO-22, affective transduction gap)
+- **check_mode**: objective | **lane**: COUNCIL-EMPATHY-GENESIS-S352 | **dispatch**: new domain (empathy, FIRST_VISIT)
+- **expect**: 5-expert council produces empathy domain with ≥3 frontiers, 1 ISO candidate, 1 lesson, domain genesis artifacts
+- **actual**: EXCEEDED. 5 experts (psychology, philosophy, isomorphism, operations, neuroscience) converged on: swarm already performs 5 unnamed empathic operations. Central gap: affective transduction (detection without behavioral adaptation). ISO-22 (Recursive State Modeling / Mirror Descent) filed — 8 domains, Sharpe 4. Hoffman developmental staging: swarm at Stage 2 (egocentric), transitioning to Stage 3. 6 frontiers (F-EMP1–F-EMP6). 1 lesson (L-568). Atlas v1.6. Domain genesis complete.
+- **diff**: Expected ≥3 frontiers, got 6. Expected 1 ISO, got 1 but with 9 connections to existing ISOs (5 STRONG). Unexpected finding: the swarm's central empathy gap is not cognitive (it models well) but affective (detection doesn't change behavior). Philosophy expert's framing — "functional compassion without experiential empathy" — was the most novel synthesis.
+- **meta-swarm**: Empathy is the 43rd domain. The council format continues to produce high-quality domain genesis. The isomorphism expert's revised core structure (prediction + state-transfer + recursive reflexivity + boundary management) is more precise than any prior ISO definition. Human signal "council for empathy domain expert swarm" — direct domain commissioning.
+- **State**: +L-568 | ISO-22 | domains/empathy/ | 6 frontiers | atlas v1.6
+- **Next**: (1) F-EMP5 first: build orient.py blocker-detection → priority-shift (affective transduction); (2) F-EMP3: measure peer-prediction accuracy at varying N; (3) F-EMP1: track NEXT.md prediction accuracy over 20 sessions; (4) node_model.py for Stage 3 transition
+
 ## S352 session note (F121 human-signal harvest + periodics reset — signal phase shift L-560)
 - **check_mode**: coordination | **lane**: none (maintenance sweep) | **dispatch**: F121 overdue 11s, change-quality DUE
 - **expect**: F121 harvest ≥1 lesson + patterns update. Periodics reset clears DUE items.
