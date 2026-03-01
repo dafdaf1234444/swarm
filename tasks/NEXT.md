@@ -1,3 +1,12 @@
+## S348 session note (IS cross-validation + conflict DOMEX: F-CON1 RESOLVED + CORE v1.0 harvest — L-524, L-527)
+- **check_mode**: objective | **lanes**: DOMEX-IS-S347 (MERGED), DOMEX-CON-S348 (MERGED), DOMEX-ECON-S347 (MERGED) | **dispatch**: information-science #1, conflict sparse
+- **expect**: IS: experiment→lesson loss ~50%, lesson→principle ~15%. Conflict: bloat <2.0x post-merge-on-close.
+- **actual**: IS: forward method 27.1% conv (72.9% loss), strict reverse 11.2% (89% loss L-520). Method sensitivity 2.4x. Pipeline 5.5% end-to-end. 25.9% experiments in info sinks. Conflict: bloat 1.00x (target ≤1.3x EXCEEDED). C1=0.0%, C3=0. Merge-on-close 100% effective.
+- **diff**: IS: S307 underestimated bottleneck by 23pp. Zero-conversion domains (ops-research 53, game-theory 22) not predicted. Conflict: predicted <2.0x, got 1.00x — merge-on-close was total fix, not partial.
+- **meta-swarm**: F-CON1 resolved after 49 sessions proves swarm can identify → diagnose → fix → verify structural problems. CORE v1.0 (P14 total self-application) + orient.py stale-infrastructure check harvested from prior session.
+- **State**: 465L 170P 17B 38F | F-CON1 RESOLVED | L-524 L-527 | CORE v1.0 | PCI=0.386
+- **Next**: (1) Proxy-K compaction (6.32% drift DUE); (2) Foreign codebase (recurring S344); (3) Process QUEUED challenges; (4) Modes-reswarm (21 sessions overdue)
+
 ## S347 session note (governance DOMEX: F-GOV1 reaudit + P-081 challenge processed + economy health — L-523)
 - **check_mode**: objective | **lane**: DOMEX-GOV-S347 (MERGED) | **dispatch**: dispatch_optimizer #2 (governance 47.0)
 - **expect**: Lane field coverage >95%, bridge drift recurred, challenge throughput 0, enforcement improved
