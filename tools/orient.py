@@ -51,11 +51,14 @@ CORE_SWARM_TOOLS = (
 
 def run_maintenance():
     """Run maintenance --quick and return stdout."""
-    result = subprocess.run(
-        [sys.executable, str(ROOT / "tools" / "maintenance.py"), "--quick"],
-        capture_output=True, text=True, cwd=ROOT
-    )
-    return result.stdout + result.stderr
+    try:
+        result = subprocess.run(
+            [sys.executable, str(ROOT / "tools" / "maintenance.py"), "--quick"],
+            capture_output=True, text=True, cwd=ROOT, timeout=30
+        )
+        return result.stdout + result.stderr
+    except subprocess.TimeoutExpired:
+        return "[NOTICE] maintenance.py timed out (>30s)"
 
 
 def read_file(relpath):
@@ -452,8 +455,14 @@ def check_stale_infrastructure(current_session: int, stale_threshold: int = 50) 
     return stale
 
 
-def evaluate_session_triggers(current_session: int):
-    """Read SESSION-TRIGGER.md and evaluate trigger conditions."""
+def evaluate_session_triggers(current_session: int, maint_out: str = "",
+                               stale_infra: list | None = None):
+    """Read SESSION-TRIGGER.md and evaluate trigger conditions.
+
+    Accepts pre-computed maint_out and stale_infra to avoid redundant subprocess
+    calls (orient.py already runs these in main). Before this fix, maintenance.py
+    was called 3 times per orient — ~60s on WSL. Now: 1 call, result reused.
+    """
     trigger_path = ROOT / "domains" / "meta" / "SESSION-TRIGGER.md"
     if not trigger_path.exists():
         return None, []
@@ -488,29 +497,22 @@ def evaluate_session_triggers(current_session: int):
         triggered = False
 
         if trigger_name == "maintenance_due":
-            # Check if any DUE items exist
-            maint_out = run_maintenance()
             if "[DUE]" in maint_out:
                 triggered = True
 
         elif trigger_name == "stale_tools":
-            # Check infrastructure staleness
-            stale = check_stale_infrastructure(current_session, 50)
+            stale = stale_infra if stale_infra is not None else check_stale_infrastructure(current_session, 50)
             if len(stale) > 10:
                 triggered = True
 
         elif trigger_name == "periodics_due":
-            # Check if periodics are overdue
-            maint_out = run_maintenance()
             if "[PERIODIC]" in maint_out and maint_out.count("~") > 5:
                 triggered = True
 
         elif trigger_name == "dispatch_imbalance":
-            # Could integrate with dispatch_optimizer.py but simplified for now
             triggered = True  # Common case - there are usually unworked domains
 
         elif trigger_name == "belief_staleness":
-            # Check stale beliefs
             stale_beliefs = check_stale_beliefs(current_session, 100)
             if len(stale_beliefs) > 0:
                 triggered = True
@@ -705,7 +707,7 @@ def check_experiment_harvest_gap(threshold: int = 5) -> list:
     for lesson_file in lesson_dir.glob("L-*.md"):
         try:
             text = lesson_file.read_text(encoding="utf-8", errors="ignore")
-            m = re.search(r"Domain:\s*([^\n]+)", text)
+            m = re.search(r"Domain:\s*([^|\n]+)", text)
             if not m:
                 continue
             for d in re.split(r"[,/]", m.group(1)):
@@ -716,9 +718,14 @@ def check_experiment_harvest_gap(threshold: int = 5) -> list:
         except Exception:
             continue
 
+    # Only flag domains that have a real domain directory
+    known_domains = {d.name for d in (ROOT / "domains").iterdir() if d.is_dir()} if (ROOT / "domains").exists() else set()
+
     gaps = []
     for domain, exp_count in sorted(exp_counts.items(), key=lambda x: -x[1]):
         if exp_count < threshold:
+            continue
+        if domain not in known_domains:
             continue
         lesson_count = lesson_domains.get(domain.lower(), 0)
         if lesson_count == 0:
@@ -767,7 +774,7 @@ def main():
     try:
         sess_num_m = re.search(r"S(\d+)", session)
         if sess_num_m:
-            top_trigger, active_triggers = evaluate_session_triggers(int(sess_num_m.group(1)))
+            top_trigger, active_triggers = evaluate_session_triggers(int(sess_num_m.group(1)), maint_out=maint_out)
             if top_trigger:
                 print("--- Session Triggers (F-META6) ---")
                 print(f"  🔴 {top_trigger[2]}: {top_trigger[0]} — {top_trigger[1][:80]}")
