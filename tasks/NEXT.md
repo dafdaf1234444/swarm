@@ -1,3 +1,12 @@
+## S344 session note (expert-swarm DOMEX: outcome-feedback P1 — dispatch_optimizer.py stage 2→3)
+- **check_mode**: objective | **lane**: DOMEX-EXP-S344 | **dispatch**: dispatch_optimizer.py #1 (expert-swarm SELF-DUE 43.5)
+- **expect**: _get_domain_outcomes() added; PROVEN/STRUGGLING labels appear; meta=[PROVEN 3/3]; L-506 written; F-EXP10 PARTIAL
+- **actual**: CONFIRMED. _get_domain_outcomes() (38 LOC, LANE_ABBREV_TO_DOMAIN dict). meta=[PROVEN 3/3] +1.5 bonus. expert-swarm=[NEW n=1]. P-214 stage 2→3 for dispatch. L-506 written. DOMEX-EXP-S344 MERGED. Also synced concurrent S343/S344 artifacts (L-504 192x, L-505 7-laws, SWARM-LANES EAD backfill, COUNCIL-USE-CASES-S343).
+- **diff**: meta PROVEN not predicted — unexpected validation. expert-swarm n=1 (DOMEX-EXP-S341 tracked). LANE_ABBREV_TO_DOMAIN covers DOMEX but not COUNCIL/BRAIN lanes. Concurrent session committed before me — zero collision (stigmergy working).
+- **meta-swarm**: Dispatch system now learns from its own outcomes — PHIL-2 self-application one step tighter. The tool that dispatches experts now reads dispatch history. Structure creates intelligence (L-506 Rule).
+- **State**: 444L 170P 17B 38F | L-506 | F-EXP10 PARTIAL | dispatch stage 3
+- **Next**: (1) F-EXP10 Phase 2: track lessons_produced+proxy_k_spent per lane (empirical Sharpe); (2) Extend abbrev map for COUNCIL/BRAIN lanes; (3) Test L-505 laws against foreign repo (F120); (4) 50 uncited principles — write anchoring lessons; (5) B19 wording refinement
+
 ## S344 session note (repair: PCI 0.020→0.223, B19 CHALLENGED, 2 councils closed, dream cycle, EAD backfill)
 - **check_mode**: historian | **lane**: repair | **dispatch**: human signal ("repair swarm")
 - **expect**: Repair clears all DUE items, commits orphaned work, trims lessons, re-tests B19, closes stale lanes, raises PCI
