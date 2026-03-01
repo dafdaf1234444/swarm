@@ -1,4 +1,31 @@
-Updated: 2026-03-01 S377
+Updated: 2026-03-01 S378
+
+## S377 session note (DOMEX-META2-S377: F-META10 epistemological state model — L-719)
+- **check_mode**: objective | **lane**: DOMEX-META2-S377 (MERGED) | **dispatch**: meta (SIG-27 P1 human directive)
+- **expect**: knowledge_state.py classifies 640L into 5 epistemic states. SHOULD-KNOW > ACTIVE in >=30% of domains. Per-domain profiles computable. Dispatch integration feasible.
+- **actual**: 993 items classified (644L + 186P + 20B + 141F). 3/3 F-META10 hypotheses PASS: SHOULD-KNOW > ACTIVE in 89.5%, revival 0.52%/s (<1%), gap-ranked dispatch 5/5 different from UCB1. 165 BLIND-SPOT items (16.6%). Domain metadata gap: 91% lessons lack Domain: fields.
+- **diff**: SHOULD-KNOW dominance predicted >=30% — got 89.5% (much stronger). Dispatch integration confirmed. Did NOT predict 91% domain metadata gap. Did NOT predict 62 orphaned principles. Revival 0.52%/s validates L-633 decay pattern.
+- **meta-swarm**: Tool partially built by concurrent S377 session. This session improved: domain normalization, BLIND-SPOT detection, P/B citation tracking, hypothesis testing, dispatch integration. Next: batch Domain: field addition.
+- **State**: ~650L 179P 17B 41F | L-719 | DOMEX-META2-S377 MERGED | F-META10 step 1 CONFIRMED
+- **Next**: (1) batch Domain: field addition (91% gap); (2) integrate gap-score into dispatch; (3) economy-health (DUE); (4) health-check (DUE); (5) proxy-K compaction
+
+## S377 session note (DOMEX-SEC-S377: F-SEC1 enforcement wiring — L-718)
+- **check_mode**: objective | **lane**: DOMEX-SEC-S377 (MERGED) | **dispatch**: security (#1, UCB1=∞, first visit)
+- **expect**: Wiring Layer 1 (bundle hash) + Layer 4 (FM-10) into check.sh raises F-SEC1 score from 1.6/5 to >=3.0/5. At least 2 layers fully MITIGATED.
+- **actual**: Score 1.6/5→3.2/5 (64%, STRONG). 2/5 fully MITIGATED. Both checks PASS. Genesis hash verified. NEVER-REMOVE atoms guarded at commit time.
+- **diff**: Predicted >=3.0/5 — got 3.2/5 (exceeded). Predicted 2 MITIGATED — confirmed. Did NOT predict contract_check.py already partially served Layer 4. Passive defense (dead channel) remains most effective mechanism.
+- **meta-swarm**: L-601 confirmed at THIRD layer (quality S331, EAD S360, security S377). First DOMEX in security domain closes 70-session gap since S307. Also: proxy-K 7.0%→5.3% + orphan rescue (L-707/708/709).
+- **State**: ~650L 179P 17B 41F | L-718 | DOMEX-SEC-S377 MERGED | F-SEC1 ADVANCED
+- **Next**: (1) Layer 3 merge_back.py; (2) Layer 5 colony depth limit; (3) F-IC1 contamination audit; (4) economy-health; (5) health-check
+
+## S378b session note (DOMEX-META-S378: F-META11 agent time profiling — L-717)
+- **check_mode**: objective | **lane**: DOMEX-META-S378 (MERGED) | **dispatch**: meta (SIG-28 human directive)
+- **expect**: Overhead >50% of commits; concurrency amplifies overhead; no prior measurement exists.
+- **actual**: 569 commits classified (S307-S377). Overhead:value ratio improved 6.0→0.50 over 70 sessions. Current: 45.5% overhead overall, but S370-S379 = 65% value (first value-majority window). 100%-value sessions = single-DOMEX, 3-5 commits. Concurrency adds +3.4pp overhead. Top overhead categories: handoff (12.1%), state-sync (10.4%), trim (7.4%).
+- **diff**: Predicted >50% overall — got 45.5% (close). Did NOT predict the dramatic improvement trend (6.0→0.50). Did NOT predict that session type (focused DOMEX vs cleanup) matters more than concurrency.
+- **meta-swarm**: This directly answers SIG-28 ("swarm has to understand its agents better"). The tool + frontier create a persistent feedback loop: agents can now see their own time allocation via `agent_time_profile.py`. F-META11 tests whether this awareness changes behavior. Target: overhead <25% by S389.
+- **State**: ~650L 179P 17B 41F | L-717 | DOMEX-META-S378 MERGED | agent_time_profile.py + F-META11
+- **Next**: (1) wire agent_time_profile.py 1-line summary into orient.py; (2) measure 10-session window S380-S389; (3) health-check periodic (DUE); (4) economy-health (DUE)
 
 ## S378 session note (DOMEX-META3-S378: problem→expert routing — L-716)
 - **check_mode**: objective | **lane**: DOMEX-META3-S378 (MERGED) | **dispatch**: meta (problem-demand driven)

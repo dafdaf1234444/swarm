@@ -207,7 +207,10 @@ def audit_layer4_hostile_signal() -> dict:
         result["status"] = "UNMITIGATED"
         result["score"] = 0.0
 
-    result["gap"] = "No FM-10 guard in check.sh. NEVER-REMOVE atoms documented but not enforced."
+    if check_has_fm10:
+        result["gap"] = "FM-10 guard in check.sh enforces NEVER-REMOVE atoms at commit time."
+    else:
+        result["gap"] = "No FM-10 guard in check.sh. NEVER-REMOVE atoms documented but not enforced."
     return result
 
 

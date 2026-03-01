@@ -1,6 +1,6 @@
 # Meta / Swarm Self-Knowledge Domain - Frontier Questions
 Domain agent: write here for self-domain work; global cross-domain findings still go to tasks/FRONTIER.md.
-Updated: 2026-03-01 S364 | Active: 9
+Updated: 2026-03-01 S378 | Active: 10
 
 ## Active
 
@@ -64,6 +64,12 @@ Updated: 2026-03-01 S364 | Active: 9
   Hypothesis: The swarm has 8 fragmented knowledge-quality mechanisms (B1 retrieval, L-633 decay, L-700 compaction, L-609 challenge gap, L-622 citations, L-689 blind spots, think.py staleness, think.py gaps) but no unified model. Building one will reveal: (a) SHOULD-KNOW is the most underserved state (frontiers conflate questions with knowledge gaps), (b) per-domain knowledge-state profiles predict dispatch value better than visit count alone, (c) DECAYED→ACTIVE transition rate is near zero (no revival mechanism).
   Design: (1) build knowledge_state.py — classify each L/P/B into a state using citation recency (<50s = ACTIVE), operational dependency (boot/tool reference = MUST-KNOW), mechanism validity (superseded tool = DECAYED), external grounding (0 = BLIND-SPOT candidate); (2) compute per-domain state profiles; (3) integrate profiles into dispatch_optimizer.py as a scoring dimension; (4) measure state transition rates over 20 sessions.
   Testability: (a) SHOULD-KNOW count > ACTIVE count in ≥30% of domains; (b) DECAYED→ACTIVE transitions < 1% per session; (c) dispatch incorporating knowledge-state profiles changes top-5 recommendations in ≥2/5 cases vs baseline.
+
+- **F-META11**: Can real-time agent time profiling reduce overhead below 25%? (opened S378, L-717, SIG-28)
+  Hypothesis: Agents spend ~45% of commits on overhead (handoff, state-sync, trim, fix, orphan-rescue). The overhead:value ratio has improved from 6.0 to 0.50 over 70 sessions, but 100%-value sessions share a specific pattern (single-DOMEX, 3-5 commits). If agents can see their own time profile at orient-time, they may self-correct toward the efficient pattern.
+  Design: (1) Wire agent_time_profile.py summary into orient.py output; (2) measure overhead% per 10-session window; (3) compare S380-S389 (with profiling) vs S370-S379 (without).
+  Testability: overhead <25% sustained over 10-session window. Tool: `tools/agent_time_profile.py`.
+  Evidence: L-717 (S378 baseline), L-711 (overhead has zero independent predictive power), L-713 (Reynolds analog).
 
 ## Dead Ends (Negative Stigmergy — L-484 S7)
 Approaches tried and confirmed unproductive. Check before starting new work in this domain.

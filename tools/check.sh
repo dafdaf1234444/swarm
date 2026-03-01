@@ -84,6 +84,62 @@ if [ -d "$ARCHIVE_DIR" ]; then
     echo "  Ghost-lesson guard: PASS"
 fi
 
+# FM-10: NEVER-REMOVE atom guard (F-SEC1 Layer 4, PROTOCOL.md).
+# Core identity files must never be deleted — they are the epistemic backbone.
+NEVER_REMOVE_FILES="beliefs/CORE.md tools/validate_beliefs.py"
+ATOM_DELETED=0
+for nrf in $NEVER_REMOVE_FILES; do
+    if git diff --cached --diff-filter=D --name-only 2>/dev/null | grep -q "^${nrf}$"; then
+        echo "FAIL: NEVER-REMOVE atom deletion detected — ${nrf}"
+        echo "  This file is a load-bearing identity atom (F-SEC1 Layer 4, FM-10)."
+        echo "  Deleting it would break epistemic gating. Restore with: git restore --staged ${nrf}"
+        ATOM_DELETED=1
+    fi
+done
+if [ "$ATOM_DELETED" -eq 1 ] && [ "${ALLOW_ATOM_DELETE:-0}" != "1" ]; then
+    exit 1
+fi
+if [ "$ATOM_DELETED" -eq 0 ]; then
+    echo "  NEVER-REMOVE atom guard: PASS"
+fi
+
+# F-SEC1 Layer 1: Genesis bundle hash verification.
+# If a genesis hash file exists, verify current bundle matches. Drift = warning, not failure.
+LATEST_HASH_FILE=$(ls -t workspace/genesis-bundle-*.hash 2>/dev/null | head -1)
+if [ -n "$LATEST_HASH_FILE" ]; then
+    STORED_HASH=$(head -1 "$LATEST_HASH_FILE" | tr -d '[:space:]')
+    if [ -n "$STORED_HASH" ]; then
+        CURRENT_HASH=$("${PYTHON_CMD[@]}" -c "
+import hashlib, sys
+from pathlib import Path
+root = Path('.')
+files = []
+for p in ['workspace/genesis.sh', 'beliefs/CORE.md']:
+    fp = root / p
+    if fp.exists(): files.append(fp)
+for candidate in ['beliefs/PRINCIPLES.md', 'memory/PRINCIPLES.md']:
+    fp = root / candidate
+    if fp.exists():
+        files.append(fp)
+        break
+h = hashlib.sha256()
+for f in files:
+    h.update(f.read_bytes())
+print(h.hexdigest())
+" 2>/dev/null || echo "ERROR")
+        if [ "$CURRENT_HASH" = "ERROR" ]; then
+            echo "  Genesis hash check: SKIP (computation error)"
+        elif [ "$CURRENT_HASH" = "$STORED_HASH" ]; then
+            echo "  Genesis hash check: PASS (matches $(basename "$LATEST_HASH_FILE"))"
+        else
+            echo "  Genesis hash check: DRIFT (current ${CURRENT_HASH:0:12}... != stored ${STORED_HASH:0:12}...)"
+            echo "    Genesis bundle files changed since $(basename "$LATEST_HASH_FILE") was written."
+            echo "    If intentional: python3 tools/genesis_evolve.py --write-hash to update."
+            echo "    If unexpected: investigate genesis.sh / CORE.md / PRINCIPLES.md changes."
+        fi
+    fi
+fi
+
 # Near-duplicate lesson guard (G-CC2-4, F-QC1, L-356): bonding curve analog.
 # Staged new lesson files are scanned against recent lesson titles for word-overlap >50%.
 # Emits DUE warning (not hard FAIL) to enforce increasing cost for duplicate knowledge.
