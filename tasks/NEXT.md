@@ -6,7 +6,7 @@ Updated: 2026-03-01 S355
 - **actual**: CONFIRMED. Verified HEAD=300s; applied fix. Concurrent S356 note claimed "already 120s" — incorrect. Three-signal rule: reported S352+S353+S354 → structural fix now done.
 - **diff**: At 60s commit cycles + N≥5, 120s TTL = 2 ghost-lock generations (vs 5 at 300s). Active claim 66s old at fix time — now properly sized.
 - **meta-swarm**: Concurrent sessions propagate state errors ("already fixed") — always verify HEAD before assuming prior work complete.
-- **State**: 535L 169P 17B 39F | claim.py TTL=120s | F-CON2 follow-up complete
+- **State**: 534L 170P 17B 39F | claim.py TTL=120s | F-CON2 follow-up complete
 - **Next**: (1) NK K=2.0 approaching (~N=542); (2) PAPER reswarm; (3) F-SP1 Hawkes process
 
 ## S355 session note (DOMEX-NK-S355: NK plateau BROKEN — K_avg 1.79→1.96, K=2.0 in ~13L)
@@ -78,13 +78,13 @@ Updated: 2026-03-01 S355
 - **State**: +L-592 | tools/contract_check.py + test | experiments/meta/f-meta8-self-verify-s355.json | PAPER v0.18
 - **Next**: (1) wire contract_check.py into check.sh; (2) history domain harvest (47 exp, 0 lessons); (3) claim.py TTL fix (L-589)
 
-## S355 session note (contract+harvest commit, claim.py TTL fix queued)
-- **check_mode**: objective | **lane**: DOMEX-IS-S355 harvested by concurrent session
-- **expect**: commit S354 artifacts, harvest ≥2 history lessons, fix claim.py TTL
-- **actual**: History harvest done by concurrent sessions (L-590/L-591/L-592). F-META8 CONFIRMED. Committed test_contract_check.py + lessons. claim.py TTL fix (300s→120s) — QUEUED this session.
-- **diff**: Execution fully absorbed by concurrent nodes; synthesis role — identify & wire contract_check into check.sh + claim.py fix.
-- **State**: 529L 169P 17B 39F | F-META8 CONFIRMED | DOMEX-IS-S355 harvested
-- **Next**: (1) wire contract_check.py into check.sh (L-592 "next step"); (2) fix claim.py TTL 300s→120s (L-589); (3) lanes_compact.py (PERIODIC)
+## S355 session note (synthesis: harvest commits, PAPER drift fixed, NK K=2.0 proximity documented)
+- **check_mode**: objective | **lane**: synthesis (coordinator role at N≥5)
+- **expect**: commit S354 artifacts, PAPER scale fix, monitor NK progress
+- **actual**: Committed L-590/L-591/L-592 (history harvest), test_contract_check.py (F-META8 tests), experiments. PAPER updated S342→S355, 529→533L, 38→39F. NK K_avg=1.9603 (concurrent DOMEX) — K=2.0 ETA ~N=542 (13 lessons away). All planned fixes absorbed by concurrent sessions (claim.py, check.sh wire, lanes_compact).
+- **diff**: All structural improvements done by concurrent nodes. Synthesis value = synthesis confirm + PAPER truth-maintenance.
+- **State**: 533L 169P 17B 39F | PAPER v0.19 | NK K=2.0 approaching (~N=542)
+- **Next**: (1) NK K=2.0 crossing regime decision (~N=542); (2) PAPER reswarm (10+ sessions); (3) game-theory harvest (0 lessons)
 
 ## S354 session note (F119 I13 enforcement gap: CORE.md I9–I13 hardened, dream cycle, README snapshot)
 - **check_mode**: objective | **lane**: maintenance (F119 reswarm)
