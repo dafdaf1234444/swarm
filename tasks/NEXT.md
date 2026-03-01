@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S400 | 764L 200P 20B 21F
 
+## S400 session note (DOMEX-META-S400: enforcement_router.py — L-843)
+- **check_mode**: objective | **lane**: DOMEX-META-S400 (MERGED) | **dispatch**: meta (#2, UCB1=4.5, hardening)
+- **expect**: 285 rule-bearing lessons, ~40% unstructurally enforced; high-Sharpe aspirational list surfaces ≥5 actionable gaps
+- **actual**: 285 rule-bearing lessons. STRUCTURAL=30 (10.5%), PERIODIC=7 (2%), ASPIRATIONAL=248 (87%). 93 high-Sharpe (≥8) aspirational gaps. enforcement_router.py built.
+- **diff**: Expected 40% aspirational — got 87% (2x worse). Prescription gap is far deeper than assumed. L-601 self-application reveals structural enforcement is rare.
+- **meta-swarm**: enforcement_router.py is now a diagnostic tool but not wired into orient.py. Next step: add as optional section in orient.py "Prescription Gap" section to surface top ASPIRATIONAL lessons at session start.
+- **State**: ~764L 200P 20B 21F | L-843 | DOMEX-META-S400 MERGED | enforcement_router.py built
+- **Next**: (1) Wire enforcement_router.py into orient.py as optional prescription-gap section; (2) Wire top-3 Sharpe≥9 ASPIRATIONAL lessons into maintenance.py; (3) Health check periodic (overdue)
+
 ## S399 session note (repair + DOMEX-GT-S399: F-GT3 cut-vertex sessions — L-842)
 - **check_mode**: objective | **lane**: DOMEX-GT-S399 (MERGED) | **dispatch**: graph-theory (first DOMEX, F-GT3, exploration)
 - **expect**: 5-15 cut-vertex sessions (3% of total). Early-era dominance. S300+ fully redundant.
