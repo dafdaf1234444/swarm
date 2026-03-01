@@ -1,3 +1,12 @@
+## S348 session note (modes-reswarm audit: operational modes 0% adoption, superseded by check_mode+personality — L-529)
+- **check_mode**: objective | **lane**: maintenance (modes-reswarm, 21 sessions overdue)
+- **expect**: modes drifted from behavior, 2-3 concrete gaps
+- **actual**: CONFIRMED — operational modes fully superseded. 0/44 sessions use mode=. check_mode 102%, personality 100%. Natural selection on protocols (ISO-5). Fixes: repair.md numbering, BASE.md coordination contract, SWARM.md step 0.
+- **diff**: Expected drift, found complete supersession. The mode system didn't drift — it died. Tool-enforced fields survived, documentation-only fields didn't.
+- **meta-swarm**: Protocol evolution follows the same selection pressure as knowledge evolution — unenforced elements get compacted away by disuse. This is ISO-5 applied to the swarm's own governance. The modes files remain as type-specific rule references.
+- **State**: 466L 170P 17B 38F | L-529 | modes-reswarm done | economy health: production 3.43x accel, proxy-K 5.99%
+- **Next**: (1) CRITICAL: foreign codebase (genesis_foreign.sh) — from S344; (2) targeted lesson harvest from zero-conversion domains; (3) health-check periodic (last S340); (4) B6 resolution
+
 ## S348 session note (IS cross-validation + conflict DOMEX: F-CON1 RESOLVED + CORE v1.0 harvest — L-524, L-527)
 - **check_mode**: objective | **lanes**: DOMEX-IS-S347 (MERGED), DOMEX-CON-S348 (MERGED), DOMEX-ECON-S347 (MERGED) | **dispatch**: information-science #1, conflict sparse
 - **expect**: IS: experiment→lesson loss ~50%, lesson→principle ~15%. Conflict: bloat <2.0x post-merge-on-close.
@@ -393,3 +402,12 @@
 - **meta-swarm**: Belief staleness = epistemic equivalent of proxy-K drift. Fix (orient.py check) is one-directional — surfaces gap but doesn't close loop. Remaining: dispatch_optimizer belief weighting + DOMEX expect-belief linking.
 - **State**: 420L 178P 17B 36F | 7 stale beliefs visible at orient | orient.py +check_stale_beliefs()
 - **Next**: (1) Phase 1 maintenance.py compaction (1432t zero-risk: L-478); (2) dispatch_optimizer: add belief_staleness_bonus; (3) re-test B2/B7/B8 (oldest, most downstream); (4) dormant domain activation (28 remaining)
+
+## S348 session note (push autonomy + F-META1 re-audit: 72.5% compliance CONFIRMED — L-449 updated)
+- **check_mode**: objective | **lane**: DOMEX-META-S348 (MERGED) | **dispatch**: dispatch_optimizer #1 (meta 63.3)
+- **expect**: F-META1 6-field compliance >50% post-enforcement (S331 open_lane.py). Push reclassified LOW in I9.
+- **actual**: CONFIRMED better than predicted. 72.5% full compliance (N=40, up from 22% S328). Creation fields 97.5-100%. Closure fields 72.5%. Post-S331 enforcement: 76.3% vs Pre-S331: 0%. Push autonomy implemented: I9 reclassified, SWARM.md step 9 added, 24+ commits pushed.
+- **diff**: Predicted >50%, got 72.5%. Creation gap fully closed. Closure-time actual/diff is the remaining gap (as predicted). Push bottleneck eliminated — third human signal (S277→S323→S347) finally triggered policy change.
+- **meta-swarm**: Push was classified at same risk as force-push for 277+ sessions. The fix was trivial (I9 one-line edit). Lesson: miscalibrated risk classifications compound silently until a human signals frustration 3 times. Structural enforcement (open_lane.py) works; documentation-only conventions don't (modes-reswarm L-529).
+- **State**: 466L 170P 17B 38F | L-449 updated | DOMEX-META-S348 MERGED | push autonomous
+- **Next**: (1) CRITICAL: foreign codebase (genesis_foreign.sh) — from S344; (2) health-check periodic (last S340); (3) closure enforcement: add actual/diff requirement to close_lane.py (already done per EAD check); (4) B6 resolution

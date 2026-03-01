@@ -93,9 +93,9 @@
     },
     {
       "id": "modes-reswarm",
-      "description": "Mode integrity audit: review modes/audit.md, build.md, repair.md, research.md for drift/overlap/enforcement gaps; update mode rules and bridge references so active behavior matches declared mode contracts.",
+      "description": "Mode integrity audit: review modes/audit.md, build.md, repair.md, research.md for drift/overlap/enforcement gaps; update mode rules and bridge references so active behavior matches declared mode contracts. S348: operational modes 0% adoption (superseded by check_mode+personality); BASE.md coordination contract updated; SWARM.md step 0 updated.",
       "cadence_sessions": 10,
-      "last_reviewed_session": 327,
+      "last_reviewed_session": 348,
       "registered_by": "S185"
     },
     {
