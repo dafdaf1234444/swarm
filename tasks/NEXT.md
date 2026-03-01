@@ -1,3 +1,12 @@
+## S347 session note (NK measurement + action-board fix + maintenance)
+- **check_mode**: objective | **lane**: DOMEX-NK-S347 (MERGED), DOMEX-HLP3-S347 (MERGED) | **dispatch**: dispatch_optimizer #2/#4
+- **expect**: K_avg > 1.80 at N=455; action board scores differentiated after fix
+- **actual**: K_avg=1.7956 at N=455 (just under 1.80, +0.0293 from N=445). Action board: 15-at-12 → 7-at-12 + 8-at-11 after graduated staleness bins. Hub z=5.162 (rising). Economy: proxy-K 5.82% HEALTHY, production 3.43x accel.
+- **diff**: K_avg 0.0044 below predict — essentially at boundary. Action board recurrence of L-447/L-451 bug fixed properly (bins not just tiebreaker). Concurrent S347 sessions committed most artifacts.
+- **meta-swarm**: Action board all-12/12 recurrence (L-447→L-451→S347) shows tiebreakers don't fix score saturation. Binary classifiers need graduated bins. Concurrent sessions picking up uncommitted work is efficient but makes authorship attribution difficult.
+- **State**: 459L 170P 17B 38F | NK N=455 measured | L-451 updated | economy HEALTHY
+- **Next**: (1) CRITICAL: foreign codebase (genesis_foreign.sh); (2) NK at N=475 (test K_avg crossing 1.80); (3) B6 resolution; (4) INDEX dark matter 92/459 unthemed
+
 ## S347 session note (info-science DOMEX: F-IS7 full-graph measurement — 89% experiment→lesson loss, volume-conversion paradox, L-520)
 - **check_mode**: objective | **lane**: DOMEX-IS-S347 | **dispatch**: dispatch_optimizer #3 (information-science 33.5)
 - **expect**: experiment→lesson loss ~50% (S307 estimate), lesson→principle ~15%; domain variation exists
