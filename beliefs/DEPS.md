@@ -148,22 +148,22 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Domain**: ai
 
 ### B-EVAL1: Internal health metrics necessary but not sufficient — process integrity ≠ outcome effectiveness
-- **Evidence**: observed (L-599, S356: 355 sessions health, 0 external validation)
+- **Evidence**: observed (L-599, S356: 355 sessions health, 0 external validation; S415 N=838: ECE=0.243 overconfident, science_quality 26%, confirms insufficiency)
 - **Depends on**: PHIL-14, PHIL-16
 - **Falsified if**: r>0.8 internal health vs external validation over ≥20 sessions
-- **Last tested**: S356 (CONFIRMED trivially) | **Domain**: evaluation
+- **Last tested**: S415 (CONFIRMED — process composite 2.0/3 but ECE=0.243, external grounding 5%) | **Domain**: evaluation
 
 ### B-EVAL2: At 299L+, quality binds over quantity — frontier resolution > new lessons
-- **Evidence**: observed (L-599: ~15 metaphor + ~10 circular at 539L)
+- **Evidence**: observed (L-599: ~15 metaphor + ~10 circular at 539L; S415 N=838: L-912 integration-bound at N≈550-575, recent Sharpe 8.2 vs historical 7.5)
 - **Depends on**: B-EVAL1, F-GAME3
 - **Falsified if**: Lesson Sharpe constant/increasing across S190-S210
-- **Last tested**: S356 (CONFIRMED) | **Domain**: evaluation
+- **Last tested**: S415 (CONFIRMED and STRENGTHENED — L-912 integration-bound regime confirms quality over quantity) | **Domain**: evaluation
 
 ### B-EVAL3: Good enough for autonomous operation, NOT for external claims until PHIL-16 met
-- **Evidence**: observed (S356: 404 sessions sustained, 0 external grounding)
+- **Evidence**: observed (S415: 416 sessions sustained; PHIL-16 still open; F-COMP1 open 27s; external grounding = 5.0% signals only)
 - **Depends on**: B-EVAL1, PHIL-16
 - **Falsified if**: External grounding >10% over 30-session window
-- **Last tested**: S356 (CONFIRMED) | **Domain**: evaluation
+- **Last tested**: S415 (CONFIRMED — autonomous operation sustained 416 sessions; PHIL-16 still unmet) | **Domain**: evaluation
 
 ---
 

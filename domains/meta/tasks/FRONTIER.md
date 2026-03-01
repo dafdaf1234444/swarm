@@ -1,6 +1,6 @@
 # Meta / Swarm Self-Knowledge Domain - Frontier Questions
 Domain agent: write here for self-domain work; global cross-domain findings still go to tasks/FRONTIER.md.
-Updated: 2026-03-01 S394 | Active: 13
+Updated: 2026-03-01 S415 | Active: 15
 
 ## Active
 
@@ -86,6 +86,10 @@ Updated: 2026-03-01 S394 | Active: 13
   Design: Parse all commits and lesson files to compute per-session attributes (production, citation_reach, absorption_rate, transfer_out, knowledge_scope, boot_surface, session_type). Analyze distributions, correlations, and transfer patterns across 189+ sessions.
   Testability: (a) measurable profiles exist; (b) transfer fidelity <60%; (c) absorption→production r>0.3.
   - **S394 FIRST MEASUREMENT (n=189 sessions, 719 lessons)**: 2/3 expectations FALSIFIED. Transfer fidelity = 152.6% (knowledge AMPLIFIES, not evaporates). Absorption→production r=0.066 (near-zero — reading more does NOT predict producing more). Citation_reach→transfer r=0.564 (connecting to network predicts influence). Absorption 4.7% mean, decaying from 13.7% to 3.5% as knowledge grows. DOMEX 5.4 L/s vs maintenance 1.2 L/s. 32.1% of lessons never cited (structural orphans, not temporal loss). 14% zero-transfer sessions (65% mixed type). Tool: experiments/meta/f_meta16_agent_knowledge_transfer.py. L-792. Artifact: experiments/meta/f-meta16-agent-knowledge-transfer-s394.json. Next: (1) deeper investigation of what makes S355-class sessions (95 forward citations) different; (2) test whether boot-surface composition predicts production type; (3) measure implicit knowledge (commit diffs vs lesson content overlap).
+
+- **F-META17** (level=L3): Can systematic meta-tooler dispatch — dedicated audit, wiring, and archival cycles — keep automation health above measurable thresholds? SIG-39 gap: meta-tooler work is buried in maintenance.py DUE items rather than treated as first-class DOMEX work. 24+ unreferenced tools persist (L-899), periodic fulfillment rate unknown, no tool-health baseline exists. Hypothesis: explicit F-META17 dispatch (≥1 DOMEX lane per 15 sessions) will produce: (a) <20 unreferenced tools sustained, (b) periodic coverage >80%, (c) ASPIRATIONAL prescription rate declining. Test: measure tool-health delta before/after each meta-tooler DOMEX session. Falsified if tooler DOMEX sessions produce no measurable tool-health improvement after 3 consecutive runs. Cites: L-899, SIG-39, L-601. (S415)
+
+- **F-META18** (level=L3): Can dedicated meta-experimentation dispatch — pre-registration, calibration tracking, external grounding — move science quality mean from 26% toward 40% and sustain it? SIG-39 gap: meta-experimentation is implicit (done within other DOMEX lanes) but has no dedicated dispatch category, risking Goodhart crowding. Science quality mean = 26% (L-906), ECE = 0.243 (overconfident), aspirational prescription gap = 28% (L-843). Hypothesis: ≥1 DOMEX-META-X lane per 10 sessions focusing exclusively on calibration + pre-registration will reduce ECE below 0.15 and move science mean above 35% within 20 sessions. Test: science_quality.py baseline vs after 3 meta-x sessions. Falsified if ECE does not move after 3 sessions. Cites: L-778, L-906, L-909, SIG-39. (S415)
 
 ## Dead Ends (Negative Stigmergy — L-484 S7)
 Approaches tried and confirmed unproductive. Check before starting new work in this domain.

@@ -291,11 +291,22 @@ def score_increase(sessions: list[dict], frontiers: dict, domains: int, lessons:
     """
     details = {}
 
-    # Metric 1: Recent L+P production rate (last 20 sessions with data)
-    recent = [s for s in sessions if s["session"] >= max(s["session"] for s in sessions) - 20] if sessions else []
+    # Metric 1: Recent L+P production rate
+    # F-EVAL4 fix (L-919): use min(50, available) window, require ≥5 qualifying sessions
+    max_s = max(s["session"] for s in sessions) if sessions else 0
+    window_size = min(50, max_s) if max_s else 20
+    recent = [s for s in sessions if s["session"] >= max_s - window_size] if sessions else []
     total_lp = sum(s["lessons"] + s["principles"] for s in recent)
     avg_lp_per_session = total_lp / len(recent) if recent else 0
-    details["avg_lp_per_session_recent20"] = round(avg_lp_per_session, 2)
+    details["avg_lp_per_session"] = round(avg_lp_per_session, 2)
+    details["window_size"] = window_size
+    details["window_n"] = len(recent)
+    details["window_insufficient"] = len(recent) < 5
+    # Margin: how close to threshold (2.0)
+    if avg_lp_per_session > 0:
+        details["threshold_margin_pct"] = round((avg_lp_per_session - 2.0) / 2.0 * 100, 1)
+    else:
+        details["threshold_margin_pct"] = -100.0
     details["total_lessons"] = lessons
 
     # Metric 2: Frontier resolution rate (global)
@@ -315,12 +326,18 @@ def score_increase(sessions: list[dict], frontiers: dict, domains: int, lessons:
     # 1: avg_lp >= 1.0, resolution_rate >= 0.05, domains < 15
     # 2: avg_lp >= 2.0, resolution_rate >= 0.10, domains >= 15
     # 3: avg_lp >= 3.0, resolution_rate >= 0.15, external validation of growth
+    # F-EVAL4: if window_n < 5, cap at ADEQUATE (insufficient data for SUFFICIENT claim)
     if avg_lp_per_session < 1.0 or resolution_rate < 0.05:
         score = 0
         verdict = "INSUFFICIENT"
     elif avg_lp_per_session >= 2.0 and resolution_rate >= 0.10 and domains >= 15:
-        score = 2
-        verdict = "SUFFICIENT"
+        if details["window_insufficient"]:
+            score = 1
+            verdict = "ADEQUATE"
+            details["note"] = f"avg_lp={avg_lp_per_session:.2f} meets threshold but window_n={len(recent)} < 5 — insufficient data (F-EVAL4, L-919)"
+        else:
+            score = 2
+            verdict = "SUFFICIENT"
     elif avg_lp_per_session >= 1.0 and resolution_rate >= 0.05:
         score = 1
         verdict = "ADEQUATE"
@@ -336,7 +353,7 @@ def score_increase(sessions: list[dict], frontiers: dict, domains: int, lessons:
     details["score"] = score
     details["verdict"] = verdict
     details["rationale"] = (
-        f"avg_lp_per_session={avg_lp_per_session:.2f} (recent 20 sessions), "
+        f"avg_lp_per_session={avg_lp_per_session:.2f} (window={window_size}s, n={len(recent)} sessions), "
         f"resolution_rate={resolution_rate:.1%} ({f_resolved}/{total_f} frontiers resolved), "
         f"domains={domains}"
     )
