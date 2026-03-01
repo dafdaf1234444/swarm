@@ -419,6 +419,39 @@ def compute_pci(current_session: int) -> dict:
     }
 
 
+def check_stale_infrastructure(current_session: int, stale_threshold: int = 50) -> list:
+    """Find protocol files and core tools not evolved in >stale_threshold sessions.
+
+    CORE P14: total self-application — nothing is sacred infrastructure.
+    Components that haven't been touched are candidates for challenge/compaction/evolution.
+    """
+    infrastructure = [
+        "SWARM.md",
+        "beliefs/CORE.md",
+        "beliefs/PHILOSOPHY.md",
+        "beliefs/INVARIANTS.md",
+    ] + list(CORE_SWARM_TOOLS)
+
+    stale = []
+    for path in infrastructure:
+        result = subprocess.run(
+            ["git", "log", "-1", "--format=%s", "--", path],
+            capture_output=True, text=True, cwd=ROOT,
+        )
+        if result.returncode != 0 or not result.stdout.strip():
+            continue
+        msg = result.stdout.strip()
+        m = re.search(r"\[S(\d+)\]", msg)
+        if not m:
+            continue
+        last_session = int(m.group(1))
+        drift = current_session - last_session
+        if drift > stale_threshold:
+            name = Path(path).name
+            stale.append(f"{name} (S{last_session}, {drift}s stale)")
+    return stale
+
+
 def check_stale_beliefs(current_session: int, stale_threshold: int = 50) -> list:
     """Find beliefs not tested in the last stale_threshold sessions. L-483."""
     deps_path = ROOT / "beliefs" / "DEPS.md"
@@ -632,6 +665,19 @@ def main():
                 print(f"--- Stale beliefs ({len(stale_beliefs)} not re-tested >50 sessions) ---")
                 for b in stale_beliefs[:5]:
                     print(f"  ⚠ {b}")
+                print()
+    except Exception:
+        pass
+
+    # Self-application check — CORE P14: infrastructure subject to swarm dynamics
+    try:
+        sess_sa_m = re.search(r"S(\d+)", session)
+        if sess_sa_m:
+            stale_infra = check_stale_infrastructure(int(sess_sa_m.group(1)))
+            if stale_infra:
+                print(f"--- Self-application gap ({len(stale_infra)} components not evolved >50s) ---")
+                for si in stale_infra:
+                    print(f"  \u2298 {si}")
                 print()
     except Exception:
         pass

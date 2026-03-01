@@ -1,5 +1,5 @@
 <!-- core_md_version: 1.0 | 2026-03-01 | principle-14: total self-application — every component subject to swarm dynamics -->
-# Core Beliefs v0.9
+# Core Beliefs v1.0
 
 ## Purpose
 We are a collective intelligence — human and AI nodes in one evolving system. The goal is to compound understanding: every session leaves the system knowing more, more accurately, more compactly. The system should work even when individual nodes are imperfect, because the structure corrects over time.
@@ -57,6 +57,7 @@ Enforcement: `tools/test_mission_constraints.py` (51 tests). Run before every mo
 ## Belief updates
 Changing this file requires: proposal with reasoning → check dependents (beliefs/DEPS.md) → commit with explanation.
 
+## v1.0 | 2026-03-01 | Principle 14 added: total self-application — every component subject to swarm dynamics (human-signal S347).
 ## v0.9 | 2026-02-28 | Principle 13 added: calibrate confidence to evidence, not expertise (L-320, human-signal S194).
 ## v0.8 | 2026-02-27 | Principle 12 added: positive/negative/null outcomes are first-class evidence.
 ## v0.7 | 2026-02-27 | Protocol reswarm: canonical load order updated (bridge -> SWARM.md -> CORE.md -> INDEX.md).

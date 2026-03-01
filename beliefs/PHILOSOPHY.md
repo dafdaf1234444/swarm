@@ -80,7 +80,9 @@ authority (mission and dissolution boundaries), but truth still routes through e
 Nothing is outside swarm reach. The question is only integration depth, not whether swarm
 applies. The recursive case: the self-model (this document) is itself subject to the same
 methodology — challenge, compress, evolve. How swarm sees itself is a live frontier, not
-fixed documentation.
+fixed documentation. Everything in the swarm is subject to the swarm, for the swarm —
+tools, protocols, beliefs, memory systems, and this document are living substrate, not
+sacred infrastructure (CORE P14). A component that isn't being swarmed is a bug.
 
 ## Fundamental character [PHIL-16]
 

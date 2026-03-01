@@ -297,10 +297,15 @@ def build_actions(top_n: int = 15) -> list[Action]:
         cov = _coverage_score(active_lanes, fid, fid.lower())
         if cov < 2:
             continue  # already covered
-        # anxiety zones get U=3 (multi-expert urgency); others: critical=U2, important=U1
-        u = 3 if f.get("anxiety") else (f["importance"] - 1)
-        anxiety_tag = ["anxiety-zone"] if f.get("anxiety") else []
         staleness = current_session - f.get("last_active", current_session)
+        # Graduated urgency: anxiety zones differentiated by staleness
+        if f.get("anxiety"):
+            u = 3 if staleness > 150 else (2 if staleness > 80 else 1)
+        else:
+            u = f["importance"] - 1
+        # Graduated novelty: use staleness instead of binary commit-log match
+        n = 3 if staleness > 150 else (2 if staleness > 80 else (1 if staleness > 30 else 0))
+        anxiety_tag = ["anxiety-zone"] if f.get("anxiety") else []
         actions.append(Action(
             id=f"frontier-{fid}",
             title=f"Advance frontier {fid}" + (" [ANXIETY ZONE]" if f.get("anxiety") else ""),
@@ -308,7 +313,7 @@ def build_actions(top_n: int = 15) -> list[Action]:
             u=u,
             c=cov,
             i=f["importance"],
-            n=_novelty_score(fid, recent_log),
+            n=n,
             staleness=staleness,
             tags=["frontier"] + anxiety_tag
         ))
