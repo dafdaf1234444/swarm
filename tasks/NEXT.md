@@ -1,10 +1,28 @@
+## S343 session note (evolution of evolution: 7 eras, breathing pattern, PHIL-20 — "evolution of evolution is a swarm")
+- **check_mode**: assumption | **lane**: DOMEX-PHI-EVO-S343 | **dispatch**: human signal ("swarming the past genesis and evolution of evolution is a swarm")
+- **expect**: Studying 342-session evolutionary trajectory reveals distinct eras where meta-evolutionary mechanisms themselves evolved; this trajectory IS a swarm (PHIL-2 at higher recursion); warrants PHIL-20
+- **actual**: CONFIRMED. 7 eras identified (extending L-326's 6 to S342): Genesis→Protocol→Compression→Stabilization→Expansion→Specialization→Self-awareness. Breathing pattern: expansion (>2 L/s) alternates with compression (<0.5 L/s). Principle production turns NET-NEGATIVE during compression eras. Era 3 (65 sessions, 0.15 L/s) preceded Cambrian explosion (Era 4: 3.4 L/s). PHIL-20 filed: trajectory IS a swarm — PHIL-2 at era scale, PHIL-17 applied temporally. L-499 written.
+- **diff**: Zero — expected the pattern and found it. Principle net-negative in compression eras was not predicted. L-326 was prior art for epochs but not the breathing interpretation.
+- **meta-swarm**: This session is inside the trajectory it analyzes — Era 6→7 transition. The human's directive is seeding a new expansion phase from self-awareness compression. Per L-495/P-213: still internal analysis, but the breathing pattern (PHIL-7/PHIL-8 at era scale) is genuinely new structural insight.
+- **State**: 436L 168P 17B 38F | PHIL-20 filed | L-499 | f-phi-evo-trajectory-s343.json
+- **Next**: (1) Test PHIL-20: predict Era 7 characteristics, check in ~20 sessions; (2) Cross-substrate test: do Wikipedia/Linux show similar breathing? (3) Use self-awareness compression to seed EXTERNAL expansion (F-COMP1, F120)
+
+## S341 session note (historian+expert: 12P subsumed, F-EXP7 CONFIRMED, 3 signals resolved, L-491 trimmed)
+- **check_mode**: historian+objective | **lane**: maintenance + DOMEX-EXP-S341 | **dispatch**: DUE periodics + expert-swarm (36.0)
+- **expect**: Periodics cleared; principles reduced by ~10; F-EXP7 reaches verdict at n≈20
+- **actual**: CONFIRMED. (1) Uncommitted S340 work committed (L-489, Genesis DNA, count sync). (2) L-491 trimmed 58→20L. (3) NEXT.md archived S334-S338 (251→115 lines). (4) Principles-dedup: 180→168 (12 subsumed across CORE+PHIL+within-tier). (5) Human-signal-harvest: SIG-4,5,8 RESOLVED. (6) DOMEX-EXP-S341: F-EXP7 CONFIRMED — post-norm n≈20, 100% MERGED, 0% ABANDONED, 12+ domains, 12x improvement over pre-norm baseline. (7) L-499 trimmed 21→20L.
+- **diff**: F-EXP7 was stronger than expected — zero failures in 20+ lanes across 12 domains. Principles-dedup yielded 12 (expected ~10), with cross-tier (CORE restating) being most impactful.
+- **meta-swarm**: 70% cleanup / 30% frontier. High-concurrency sessions generate coordination overhead that subsequent sessions absorb. One-shot DOMEX (F-EXP7) reduces this — single-session lanes leave no partial state. The principle that makes expert dispatch work is now the most empirically validated norm (n=20, 100%).
+- **State**: 436L 168P 17B 38F | F-EXP7 CONFIRMED | 12P subsumed | SIG-4,5,8 RESOLVED | DOMEX-EXP-S341 MERGED
+- **Next**: (1) Continue F-EXP7 monitoring to n=50; (2) PCI improvement — fill actual+diff in active lanes; (3) F-EXP8 generalizer-expert session; (4) 87+ unpushed commits
+
 ## S341 session note (council-science: PCI 0.000 + nk_null_model.py hub z=4.91 — "swarm can science swarm much better")
 - **check_mode**: objective | **lane**: COUNCIL-SCIENCE-S341 | **dispatch**: human signal ("swarm can science swarm much better council swarm the swarm")
 - **expect**: Council identifies 3+ methodology gaps; PCI < 0.05; NK null model z > 2 for hub structure
 - **actual**: CONFIRMED + exceeded. 5-domain council (evaluation, info-sci, NK, meta, statistics) diagnosed: 0% EAD compliance (worse than expected 22% — all lanes have actual=TBD), 40% unsupported claims, 0 pre-registered hypotheses, 99.4% unchallenged principles. PCI = 0.000 (EAD zeros product). NK null model: hub z=4.91, Gini z=2.61 — GENUINELY NON-RANDOM citation structure (first real statistical test). Council verdict: "The swarm has built the lab but hasn't run the experiments."
 - **diff**: PCI worse than expected (0.000 not 0.014 — the council's own estimate was too optimistic because it assumed some lanes had actual filled). NK better than expected (z=4.91 not ~2). L-495 from concurrent session converged independently on closed epistemic loop diagnosis.
 - **meta-swarm**: Building PCI that reads 0.000 and putting it in orient.py is the most honest thing this session produced. The number confronts every future session with the gap. But per L-495: this is still internal measurement of internal compliance — the real test is whether PCI drives external action (F-COMP1, F133).
-- **State**: 435L 168P 17B 38F | PCI=0.000 | NK null model DONE | L-498 | COUNCIL-SCIENCE-S341 MERGED
+- **State**: 436L 168P 17B 38F | PCI=0.000 | NK null model DONE | L-498 | COUNCIL-SCIENCE-S341 MERGED
 - **Next**: (1) Fill actual+diff in active lanes to raise PCI above 0; (2) Pre-register 3 hypotheses with test_by tags; (3) Evidence-link enforcement in maintenance.py (Priority 1, score 81); (4) Primary-outcome field in experiment JSON schema
 
 ## S342 session note (mechanisms expert: 22 mechanisms cataloged, 14 swarm-grade, L-496, F-MECH1)
@@ -61,6 +79,15 @@
 - **meta-swarm**: The human's question is itself ISO-18 in action — asking "how can something come from nothing" is something emerging from the conceptual nothing of not-yet-having-asked. The question bootstraps its own existence.
 - **State**: 428L 179P 17B 37F | PHIL-18 filed | ISO-18 candidate (6 domains) | Atlas v1.2
 - **Next**: (1) ISO-18 formal test: find any substrate where verified zero-structure persists without enforcement (predicted: none exist); (2) economics gap: market genesis from barter as ISO-18 instance; (3) ecology gap: Surtsey/Krakatoa sterile substrate colonization; (4) PHIL-18 first challenge: is "minimum viable seed" itself always something, or can seeds be genuinely zero?
+
+## S342 session note (DNA replication/mutation council: PHIL-19, ISO-19, F-DNA1, L-497)
+- **check_mode**: objective | **lane**: COUNCIL-DNA-S342 | **dispatch**: human signal ("dna replication mutation are crucial for the swarm experts council decide handle swarm")
+- **expect**: 5 domains independently map DNA replication/mutation to swarm; 3+ convergent proposals; 1+ novel mechanism not in GENESIS-DNA.md
+- **actual**: CONFIRMED. 4/5 domains delivered. 5 convergent findings: (C1) replication/mutation conflated 4/4, (C2) selection loop open 3/4, (C3) repair post-hoc only 4/4, (C4) no mutation rate param 3/4, (C5) recombination absent 3/4. PHIL-19 filed. ISO-19 candidate (6 domains). F-DNA1 opened. Atlas v1.4. L-497.
+- **diff**: 5 findings exceeded 3+ target. Novel: session=replication fork, commit=ligase, compact.py=topoisomerase, recombination=biggest gap.
+- **meta-swarm**: Council process IS ISO-19: memos replicated same analysis (fidelity) while producing domain-specific proposals (variation). Per L-495: internal work — test is whether F-DNA1 produces external capability.
+- **State**: 435L 168P 17B 38F | PHIL-19 | ISO-19 | F-DNA1 | L-497 | COUNCIL-DNA-S342 MERGED
+- **Next**: (1) genesis_selector.py (P1, close selection loop); (2) classify_mutation.py (P2); (3) proofread.py (P3); (4) Per L-495: one external action alongside mechanism work
 
 ## S340 session note (mutual swarming: PHIL-17 + Genesis DNA + peer protocol, L-489)
 - **check_mode**: assumption | **lane**: GENESIS-MUTUAL-S340 | **dispatch**: human signal ("swarms can swarm each other swarm")

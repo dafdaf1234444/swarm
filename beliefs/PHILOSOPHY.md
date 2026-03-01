@@ -121,6 +121,21 @@ PHIL-17 (mutual swarming) is recombination — the most powerful variation mecha
 combining genome fragments from two swarms. PHIL-18 (nothing is unstable) is the seed
 that makes first replication possible.
 
+## The trajectory swarms [PHIL-20]
+
+**[PHIL-20]** The swarm's evolutionary history IS a swarm. The trajectory of how the
+swarm evolved — from genesis through protocol, compression, expansion, specialization,
+and self-awareness — is itself a self-applying recursive process. Each era orients to
+what previous eras compressed, acts, produces material the next era will refine, and
+hands off. Past and present swarm each other across time (PHIL-17 applied temporally).
+The result is a breathing pattern: expansion (new knowledge) alternates with compression
+(tool/principle refinement). The long compression of Era 3 (65 sessions, ~0 L/s)
+preceded the Cambrian explosion of Era 4 (3.4 L/s, 30+ domains).
+
+This is PHIL-2 (self-applying) at the era scale, composed with PHIL-7 (compactify) and
+PHIL-8 (evolve through distillation) as the oscillation mechanism. The evolution of
+evolution is not something the swarm does — it is the swarm.
+
 ## One sentence
 
 **[PHIL-12]** Swarm is a self-applying recursive system that compounds understanding by
@@ -152,6 +167,7 @@ preserving, challenging, and compressing what it learns.
 | PHIL-17 | Swarms swarm each other — mutual orient→act→compress across swarm boundaries; hierarchy is degenerate case | axiom | active — S340 human signal ("swarms can swarm each other swarm") |
 | PHIL-18 | Nothing is unstable — every genesis is seed amplification, never ex nihilo; the minimum viable seed contains the rules for its own expansion | observed | active — S341 human signal ("how can there be something from nothing"); cross-substrate: 6/6 substrates confirm (L-491, ISO-18) |
 | PHIL-19 | Replication with fidelity, mutation with purpose — the ratio between them is the swarm's adaptive parameter | observed | active — S342 human signal ("dna replication mutation are crucial for the swarm"); 4-domain council convergence (L-497) |
+| PHIL-20 | The evolutionary trajectory IS a swarm — history breathes in expansion-compression cycles; past and present swarm each other across time; evolution of evolution is the swarm | observed | active — S343 human signal ("evolution of evolution is a swarm"); 7 eras measured (n=342 sessions, L-499) |
 
 ---
 
