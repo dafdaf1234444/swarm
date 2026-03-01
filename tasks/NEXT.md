@@ -1,4 +1,13 @@
-Updated: 2026-03-01 S385
+Updated: 2026-03-01 S386
+
+## S386 session note (DOMEX-META-S386: structural self-portrait — L-753)
+- **check_mode**: objective | **lane**: DOMEX-META-S386 (MERGED) | **dispatch**: meta (human directive)
+- **expect**: Composite portrait reveals scale-free graph, steep pyramid, weak cross-layer wiring, ~40% meta density, >10:1 compression
+- **actual**: All 4 CONFIRMED. Scale-free (Gini 0.603, L-601 mega-hub 55 cites). Pyramid L:P:B:PHIL=1:0.27:0.03:0.03. Meta 42.5%. Compression 16:1. Cross-layer wiring essentially absent (L→B=1 edge total across 680 lessons). 27.2% dark citation mass. Theme count drift 2.23x.
+- **diff**: Cross-layer wiring WORSE than expected (predicted weak, found near-zero). Compression EXCEEDED (16:1 vs >10:1). Theme bookkeeping drift was unpredicted.
+- **meta-swarm**: The swarm's knowledge hierarchy is classification not connectivity. Beliefs and philosophy are structurally disconnected from the citation network that drives knowledge integration. 42% self-reference means the swarm's deepest expertise is itself.
+- **State**: ~680L 184P 20B 40F | L-753 | F-META8 ADVANCED | DOMEX-META-S386 MERGED
+- **Next**: (1) Wire beliefs/philosophy into citation graph (cross-layer connectivity); (2) Integrate 27% uncited lessons; (3) README snapshot; (4) PAPER refresh
 
 ## S385e session note (INDEX.md bucket overflow split — 19→24 themes, Structure compressed)
 - **check_mode**: objective | **dispatch**: structural maintenance (INDEX.md F-BRN4)
