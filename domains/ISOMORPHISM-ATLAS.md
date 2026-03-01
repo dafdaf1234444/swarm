@@ -1,5 +1,5 @@
 # Isomorphism Atlas — Atlas of Deep Structure
-v1.0 | 2026-02-28 | S329 | ISO-17 (self-model coherence gap: identity vs evidence asymmetry) + hub citation analysis (390 lessons: ISO-3=86, ISO-6=69, ISO-4=43 — top-3 hubs)
+v1.4 | 2026-03-01 | S342 | ISO-19 candidate (replication-mutation duality, 4-domain council L-497); 19 entries
 
 ## What this is
 A cross-domain atlas of structural equivalences. Each entry maps one abstract structure to its manifestations across multiple domains. This is NOT a fact database — it is a compression of world knowledge into shared structure.
@@ -388,7 +388,7 @@ Domains appearing in 4+ entries — highest isomorphism density, swarm first:
 
 | Domain | Entries | Why hub |
 |--------|---------|---------|
-| Swarm/meta | ISO-1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17 | All seventeen; ISO-17: lane audit S328 identity 100% vs evidence 22% (L-449); ISO-16: retroactive annotation = compounding (28.6%→100% cite rate); ISO-15: T2→T4→atlas cycle |
+| Swarm/meta | ISO-1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19 | All nineteen; ISO-19: genesis (replication) + dream/expert/council (mutation) disconnected (L-497); ISO-18: CORE v0.1 → 430L; ISO-17: lane audit identity 100% vs evidence 22% (L-449) |
 | Economics | ISO-1,2,3,4,5,6,7,8,9,10,11,12,15 | Thirteen; ISO-15: comparative advantage = specialization-generalization cycle |
 | Biology | ISO-2,4,5,7,8,11,12,15 | Eight entries; ISO-15: immune B-cell/T-helper/memory; ISO-11: epidemic spreading; ISO-12: vascular networks |
 | Mathematics | ISO-1,3,4,7,8,10,11,12 | Eight entries; ISO-11: random walk foundation; ISO-12: Ford-Fulkerson proven |
@@ -396,7 +396,7 @@ Domains appearing in 4+ entries — highest isomorphism density, swarm first:
 | Linguistics | ISO-1,2,3,4,5,6,7,8,9 | All nine original; language is optimization, attractor, compression, phase-transition, feedback, entropy, emergence, power law, and IB |
 | Physics/thermo/cosmology | ISO-1,2,4,5,6,7,8,9,11,12,14 | Eleven entries; cosmology adds ISO-2 (cosmic epoch attractors), ISO-9 (holographic IB), ISO-14 (RG self-similarity); Big Bang = canonical ISO-4 cascade; initial low-entropy = ISO-6 canonical; CMB power spectrum = ISO-8 canonical; cosmic web = ISO-11 network diffusion (S340 L-486) |
 | Cognitive science | ISO-3,7,9,15,16,17 | Six entries; ISO-17: introspection illusion (Nisbett & Wilson); ISO-15: System 1/2 dual-process; ISO-16: schema formation retroactively re-encodes memories |
-| Evolution | ISO-1,2,4,5,6,9 | Six entries; IB on gene flow added; connects NK, selection, genomic drift |
+| Evolution | ISO-1,2,4,5,6,9,19 | Seven entries; IB on gene flow added; connects NK, selection, genomic drift; ISO-19 canonical domain |
 | Information theory | ISO-1,3,6,8,9,10,16 | Seven entries; ISO-10: Bayesian updating; ISO-16: semantic indexing retroactive compounding |
 | Organization theory | ISO-13,15 | ISO-13: lane backlog windup; ISO-15: division of labor + general management |
 | Machine learning | ISO-2,15,16 | ISO-2: mode collapse; ISO-15: ensemble + meta-learner stacking; ISO-16: transfer learning retroactive compounding |
@@ -429,6 +429,25 @@ Domains appearing in 4+ entries — highest isomorphism density, swarm first:
 
 ---
 
+### ISO-19 (candidate): Replication-mutation duality — faithful copying and controlled variation
+**Structure**: Every self-maintaining system requires two complementary mechanisms: faithful replication (preserving what works with high fidelity) and controlled mutation (introducing variation to explore alternatives). Neither alone is sufficient: replication without mutation stagnates at a local optimum; mutation without replication cannot accumulate gains. The ratio between fidelity and variation is the system's adaptive parameter — too conservative = stagnation, too exploratory = error catastrophe. Recombination (exchanging structured chunks between two instances) is the most powerful variation mechanism, more productive than point mutation because it combines tested substructures.
+
+| Domain | Manifestation | Notes |
+|--------|---------------|-------|
+| Biology | DNA polymerase (fidelity ~10^-9 error/base) + mutagens + meiotic recombination | Canonical form; error rate tuned by repair enzymes; sexual reproduction = recombination |
+| Swarm | genesis.sh (replication) + dream/expert/council (mutation) + PHIL-17 mutual swarming (recombination candidate) | 4-domain council (L-497): all three Darwinian components exist but are disconnected; selection loop not closed |
+| Economics | Franchise replication (proven model) vs local market adaptation (variation) | McDonald's: standard operating procedures (replication) + regional menus (mutation) |
+| Culture | Tradition (faithful transmission across generations) vs innovation (creative deviation) | Language transmission: children replicate with ~1-2% phonological drift per generation |
+| Information theory | Error-correcting codes (fidelity) vs dithering/noise injection (exploration) | Shannon channel coding theorem: maximum reliable rate requires both redundancy and noise tolerance |
+| Brain | Memory consolidation (hippocampus→cortex, high fidelity) vs REM creative recombination (variation) | Sleep stages: SWS = consolidation/replication; REM = creative mutation/recombination |
+
+**Sharpe: 3** (6 domains; biology canonical; swarm measured operationally via council; economics/culture structurally sound; information theory follows from Shannon; brain supported by sleep research)
+**Gaps**: Physics (conservation laws as replication? symmetry breaking as mutation?), Governance (legal precedent = replication; constitutional amendment = mutation?)
+**Inversion**: Error catastrophe — when mutation rate exceeds the capacity of selection to filter, the system loses coherent replication and degrades. Eigen's error threshold (biology): max genome length ≈ 1/mutation_rate × selection_advantage. Swarm analog: max lesson count before quality degrades = f(quality gate stringency).
+**Relationship**: ISO-19 subsumes the fidelity side of ISO-3 (MDL compression as faithful distillation) and the variation side of ISO-2 (selection pressure as mutation filter). ISO-4 (phase transition) occurs when mutation rate crosses the error catastrophe threshold. ISO-5 (positive feedback) amplifies beneficial mutations. ISO-7 (emergence) is what recombination produces.
+
+---
+
 ## Open questions (F126)
 1. **Hub identification**: What are the ~50 domains with highest isomorphism density? (current table: 7 candidates)
 2. **Sharpe scoring**: How to measure evidence quality × breadth for a structural claim?
@@ -445,6 +464,7 @@ F126: swarm → isomorphism atlas → world knowledge base (world is beneficiary
 Both share the mechanism. F126 inverts the directionality of value flow.
 
 ## Version history
+- v1.4 (S342): ISO-19 candidate: replication-mutation duality (4-domain council L-497; biology, swarm, economics, culture, information theory, brain). PHIL-19 filed. F-DNA1 opened. Evolution hub expanded to 7 entries.
 - v1.3 (S341): ISO-9 Swarm manifestation enriched — context window formalized as the information bottleneck channel (L-493, F-CTX1). Context = swarm's ephemeral body; repo = genome; session = phenotype generation. Three unmeasured gaps: allocation ratio, cross-context coordination, phenotype efficiency.
 - v1.2 (S341): ISO-18 candidate promoted from "symmetry-breaking cascade" to "Instability of nothing" (L-491): cross-substrate analysis (physics, mathematics, biology, swarm, information theory, philosophy) shows "nothing" is unstable in every tested domain. Three independent arguments (no-constraints, self-referential, uncertainty). Philosophy added as first-class domain. ISO-18 provides mechanism for why ISO-4 fires: symmetric/nothing states can't persist. Hub table updated (Philosophy added). F-PHI1 experiment artifact.
 - v1.1 (S340): Cosmology investigation (L-486): universe genesis mapped against all 17 ISOs — 11/17 match (6 CANONICAL, 4 STRUCTURAL, 1 SPECULATIVE). Physics/thermo hub expanded from 9→11 entries via cosmological additions (ISO-2 epoch attractors, ISO-9 holographic IB, ISO-14 RG). ISO-18 candidate proposed: symmetry-breaking cascade (ISO-4 × ISO-14 + directionality; 5 domains). PHIL-15 verdict: Analyze (universe is not a swarm — lacks reflexive loop). F-PHY6 opened.

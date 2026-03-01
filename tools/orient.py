@@ -254,6 +254,121 @@ def check_stale_experiments():
     return stale
 
 
+def compute_pci(current_session: int) -> dict:
+    """Compute Protocol Compliance Index — scientific rigor gap metric.
+
+    PCI = EAD_compliance * belief_freshness * frontier_testability
+
+    - EAD_compliance: fraction of last 20 MERGED lanes with actual= AND diff=
+      (both non-TBD) in their Etc column.
+    - belief_freshness: fraction of beliefs tested within last 50 sessions.
+    - frontier_testability: fraction of active frontiers with session-tagged
+      evidence (S\\d+ pattern) in their entry.
+
+    Returns dict with {ead, belief_freshness, frontier_testability, pci, details}.
+    """
+    details = {}
+
+    # --- EAD compliance (from SWARM-LANES.md) ---
+    lanes_text = read_file("tasks/SWARM-LANES.md")
+    # Parse table rows (pipe-delimited, skip header/separator)
+    lane_rows = []
+    for line in lanes_text.splitlines():
+        if not line.strip().startswith("|"):
+            continue
+        cells = [c.strip() for c in line.split("|")]
+        # Filter: need at least 12 columns (including empty edge cells),
+        # skip header/separator rows
+        if len(cells) < 12:
+            continue
+        if cells[1].startswith("---") or cells[1] == "Date":
+            continue
+        # cells[10] = Status, cells[9] = Etc (0-indexed after split, but
+        # leading empty string from "|..." means cells[0]="" )
+        status = cells[11] if len(cells) > 11 else ""
+        etc = cells[10] if len(cells) > 10 else ""
+        if not status.strip():
+            continue
+        lane_rows.append({"etc": etc, "status": status.strip()})
+
+    # Take last 20 lanes (any status — the spec says "last 20 lanes")
+    recent_lanes = lane_rows[-20:] if len(lane_rows) > 20 else lane_rows
+    ead_compliant = 0
+    ead_total = len(recent_lanes)
+    for lr in recent_lanes:
+        etc = lr["etc"]
+        has_actual = bool(re.search(r"actual=(?!TBD)", etc))
+        has_diff = bool(re.search(r"diff=(?!TBD)", etc))
+        if has_actual and has_diff:
+            ead_compliant += 1
+    ead_score = ead_compliant / ead_total if ead_total > 0 else 0.0
+    details["ead"] = f"{ead_compliant}/{ead_total}"
+
+    # --- Belief freshness (from beliefs/DEPS.md) ---
+    deps_text = read_file("beliefs/DEPS.md")
+    fresh_count = 0
+    total_beliefs = 0
+    for block in re.split(r"\n(?=### B)", deps_text):
+        bid_m = re.match(r"### (B[\w-]*\d+)", block)
+        if not bid_m:
+            continue
+        # Skip superseded beliefs (strikethrough)
+        if "~~" in block.split("\n")[0]:
+            continue
+        total_beliefs += 1
+        lt_m = re.search(r"\*\*Last tested\*\*:\s*([^\n]+)", block)
+        if not lt_m:
+            continue
+        tested_text = lt_m.group(1)
+        if "Not yet tested" in tested_text:
+            continue
+        sessions = [int(s) for s in re.findall(r"S(\d+)", tested_text)]
+        if not sessions:
+            continue
+        last_session = max(sessions)
+        if current_session - last_session <= 50:
+            fresh_count += 1
+    bf_score = fresh_count / total_beliefs if total_beliefs > 0 else 0.0
+    details["belief_freshness"] = f"{fresh_count}/{total_beliefs}"
+
+    # --- Frontier testability (from tasks/FRONTIER.md) ---
+    frontier_text = read_file("tasks/FRONTIER.md")
+    # Collect active frontiers from Critical, Important, and Exploratory sections
+    # (everything before ## Archive or ## Domain frontiers reference list)
+    active_frontiers = 0
+    evidenced_frontiers = 0
+    # Parse frontier entries: lines starting with "- **F"
+    # Consider sections: Critical, Important, Exploratory (stop at Archive)
+    in_active_section = False
+    for line in frontier_text.splitlines():
+        if re.match(r"^## (Critical|Important|Exploratory)", line):
+            in_active_section = True
+            continue
+        if re.match(r"^## (Archive|Domain frontiers)", line):
+            in_active_section = False
+            continue
+        if not in_active_section:
+            continue
+        # Match frontier entry lines
+        if re.match(r"^- \*\*F[\w-]+\*\*:", line):
+            active_frontiers += 1
+            # Check for session-tagged evidence (S followed by digits)
+            if re.search(r"\bS\d+\b", line):
+                evidenced_frontiers += 1
+    ft_score = evidenced_frontiers / active_frontiers if active_frontiers > 0 else 0.0
+    details["frontier_testability"] = f"{evidenced_frontiers}/{active_frontiers}"
+
+    pci = ead_score * bf_score * ft_score
+
+    return {
+        "ead": ead_score,
+        "belief_freshness": bf_score,
+        "frontier_testability": ft_score,
+        "pci": pci,
+        "details": details,
+    }
+
+
 def check_stale_beliefs(current_session: int, stale_threshold: int = 50) -> list:
     """Find beliefs not tested in the last stale_threshold sessions. L-483."""
     deps_path = ROOT / "beliefs" / "DEPS.md"
@@ -468,6 +583,22 @@ def main():
                 for b in stale_beliefs[:5]:
                     print(f"  ⚠ {b}")
                 print()
+    except Exception:
+        pass
+
+    # Scientific Rigor — Protocol Compliance Index (PCI)
+    try:
+        sess_pci_m = re.search(r"S(\d+)", session)
+        if sess_pci_m:
+            pci_result = compute_pci(int(sess_pci_m.group(1)))
+            pci_val = pci_result["pci"]
+            d = pci_result["details"]
+            print("--- Scientific Rigor (PCI) ---")
+            print(f"  PCI: {pci_val:.3f} (target >0.10)")
+            print(f"  EAD compliance: {pci_result['ead']:.0%} ({d['ead']} lanes with actual+diff)")
+            print(f"  Belief freshness: {pci_result['belief_freshness']:.0%} ({d['belief_freshness']} tested <50 sessions)")
+            print(f"  Frontier testability: {pci_result['frontier_testability']:.0%} ({d['frontier_testability']} with test evidence)")
+            print()
     except Exception:
         pass
 

@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-37 active | Last updated: 2026-03-01 S342
+38 active | Last updated: 2026-03-01 S342
 
 ## Critical
 
@@ -94,6 +94,8 @@ NK Complexity and Distributed Systems are test beds for swarm capability, not pr
 - **F-COMP1**: Can swarm win external humanitarian competitions to ground self-assessment? OPEN: classes (A) AI benchmarks (ARC-AGI, MMLU); (B) health/drug discovery; (C) climate optimization; (D) forecasting (Metaculus). DOMEX lanes need deadline+current_score+target_score. Open: identify ≥3 live competitions → dispatch → measure vs baseline. Related: F-EVAL1, F-REAL1, F133, L-404.
 
 - **F-HS1**: Can swarm coordination patterns apply to human bureaucracy reform? OPEN: 8 swarm patterns mapped; 4 HIGH-transferability (L-410). Prescriptions: L-407 (compaction), L-409 (expect-act-diff). Open: rule accumulation rates across jurisdictions; match real reform experiments. Related: F-REAL1, F-SCALE1, L-407, L-409, L-410.
+
+- **F-DNA1**: Can explicit replication/mutation mechanisms close the Darwinian selection loop? S342 OPEN: 4-domain council (L-497) identified 5 convergent gaps: (1) selection loop open (child fitness not fed back to parent template), (2) replication/mutation conflated (no phase separation), (3) repair post-hoc only, (4) no mutation rate parameter, (5) no recombination. Priority proposals: genesis_selector.py (P1), classify_mutation.py (P2), proofread.py (P3). ISO-19 candidate: replication-mutation duality. PHIL-19 filed. Open: implement P1 and measure fitness feedback; test ISO-19 across ≥6 domains. Related: PHIL-2, PHIL-8, PHIL-17, PHIL-19, F-STRUCT1, F-SCALE1, L-497. Council artifact: workspace/COUNCIL-DNA-REPLICATION-S342.md.
 
 - **F-CTX1**: Is the context window the swarm's ephemeral body, and can formalizing it improve swarm performance? S341 OPEN: Context = phenotype (ephemeral), repo = genome (persistent). ISO-6×ISO-9×ISO-14 synthesis identifies 3 unmeasured gaps: context allocation ratio (orient/execute/compress), cross-context coordination topology, phenotype efficiency metric. B2 (layered memory, 312 sessions stale) is an implicit context allocation belief. Open: (1) instrument orient.py context budget; (2) define context_efficiency metric; (3) re-test B2 as allocation policy; (4) formalize concurrent-session coordination model. Related: PHIL-1, PHIL-7, PHIL-10, ISO-9, B2, L-493.
 
