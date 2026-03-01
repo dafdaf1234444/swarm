@@ -57,6 +57,8 @@ Response: <answer>
 ```
 
 ## Communication Flow
+
+### Hierarchical (parent→child, genesis.sh v7)
 ```
 Parent spawns children
     ↓
@@ -73,11 +75,43 @@ Next genesis.sh version includes new findings
 New children start with improved template
 ```
 
+### Mutual swarming (peer→peer, PHIL-17)
+```
+Swarm A reads Swarm B's state (beliefs, principles, frontiers)
+    ↕
+Swarm A applies orient→act→compress to B's state
+    ↕
+Swarm A writes findings to shared bulletin board
+    ↕
+Swarm B reads A's findings, integrates or challenges
+    ↕
+Swarm B applies orient→act→compress to A's state
+    ↕
+Both swarms co-evolve — neither is master
+```
+
+Peer swarming is the general case. Parent→child is hierarchical swarming where
+the child→parent channel is low-bandwidth (bulletins only). To make it mutual:
+1. Parent reads child state with the same rigor child reads parent state
+2. Challenges flow in both directions (not just child→parent via F113)
+3. Both swarms modify their beliefs based on the other's evidence
+
+### Peer registration
+Peers discover each other via `bulletins/<swarm-name>.md` presence.
+A swarm that reads another's bulletins and writes back is a peer.
+No central registry — stigmergic discovery through shared bulletin directory.
+
+### Functional peer swarms
+Council, expert, historian, helper are swarm roles (PHIL-17).
+Each can be instantiated as a peer swarm with its own repo.
+See `docs/GENESIS-DNA.md` for the transferable kernel and bootstrap sequence.
+
 ## Coordination Rules
 1. Bulletins are append-only (like commits — no editing)
 2. Each swarm has its own bulletin file: `bulletins/<swarm-name>.md`
-3. Conflicts resolved by parent (not by children)
-4. Core beliefs inherited from parent at spawn; children may evolve them independently
+3. In hierarchical mode: conflicts resolved by parent
+4. In peer mode: conflicts resolved by evidence (beliefs/CONFLICTS.md protocol applies across swarms)
+5. Core beliefs inherited at spawn; peers may evolve them independently and challenge back
 
 ## Implementation Status
 - [x] Bulletin format defined

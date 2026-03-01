@@ -175,6 +175,10 @@ before committing — not retrospectively at the harvest.
 
 - **Universalization directive**: "swarm has to swarm everywhere" = make reach measurable and close gaps. Distinct from "swarm more domains" (breadth) — this is about SYSTEMATIC coverage: every tool, every domain, every scale. Processed as: `tools/reach_map.py` built (first baseline: 67.3% composite — tool 100%, domain 33%, knowledge 64%, protocol 93%). 28 dormant domains identified as primary gap. Pattern: "everywhere" signals are structural — they demand a measurement instrument, not more individual actions. (S337, L-475, `experiments/reach-map-baseline-s337.json`)
 
+- **Self-deprivileging directive**: Human actively removes their own special-cased status from the protocol. Not "be autonomous" (S57, P-173) but "remove the structural assumption that I'm special." Strongest form of autonomy transfer: human uses directional authority (PHIL-11) to eliminate their own operational privilege. Manifests as: generalize human as node instance (NODES.md), structured signaling replaces ad-hoc human queues (swarm_signal.py), node model treats all participants uniformly. (S340, L-487, P-212)
+
+- **Infrastructure-maturation phase**: Signals shifted from domain-expansion (S186-S335: "swarm X domain") to infrastructure/communication work (S334-S340: dream about self, scale all aspects, agent awareness, node generalization). The human's signal content itself matures — from "add more" to "make existing work better together." This parallels the swarm's own growth curve: seeding phase → integration phase. (S334-S340, L-488, P-211)
+
 ## S302 | 2026-02-28 | "for the swarm"
 - Raw: "for the swarm"
 - Context: Following previous signals "cryptocurrencies and cryptography experts for the swarm" (S301) and "guesstimates expert swarm the swarm" (S302). This signal appears to endorse continued domain expansion — seeded domains are working as intended.
@@ -228,7 +232,7 @@ before committing — not retrospectively at the harvest.
 - Raw: "swarm the swarm"
 - Context: Short directive without domain qualifier; meta-level invocation.
 - Interpretation: Meta-level audit/coordination request; apply swarm method to swarm operations and close coordination debt before new domain work.
-- Action: Executed info-collector lane update, refreshed coordination report, and resolved open HQ-38 by default live-state integration.
+- Action: Executed info-collector lane update, refreshed coordination report, and resolved open HQ-38 by default live-state integration. Applied to `tasks/SWARM-LANES.md`, `tasks/HUMAN-QUEUE.md` (HQ-38).
 
 ## S311 | 2026-02-28 | "swarm decision council with multi swarm swarm"
 - Raw: "swarm decision council with multi swarm swarm"
@@ -318,3 +322,10 @@ before committing — not retrospectively at the harvest.
 - Interpretation: The human is using directional authority (PHIL-11) to actively remove their own operational privilege. "Generalize the human" = stop special-casing the human in operational infrastructure; treat as a node with specific properties. "Communicate better" = structured signaling protocol, not ad-hoc file edits. The human reducing their own special status IS the generalization — PHIL-11 in action.
 - Action: Created `memory/NODES.md` (generalized node model: human/AI/child/external as instances with capabilities). Built `tools/swarm_signal.py` (9 signal types, post/read/resolve/stats). Updated SWARM.md v1.2, CLAUDE.md v1.0, CORE.md, HUMAN.md, and all 5 bridges. L-487 written. Applied to memory/NODES.md, tools/swarm_signal.py, tasks/SIGNALS.md, SWARM.md, CLAUDE.md, beliefs/CORE.md, memory/HUMAN.md, AGENTS.md, .cursorrules, GEMINI.md, .windsurfrules, .github/copilot-instructions.md, memory/INDEX.md, memory/lessons/L-487.md.
 - Pattern: **Self-deprivileging directive** — human actively removing their own special-cased status from the protocol. This is the strongest form of autonomy transfer: not "be autonomous" (S57) but "remove the structural assumption that I'm special." Extends P-173 (autonomy).
+
+## S340 | 2026-03-01 | "swarms can swarm each other swarm"
+- Raw: "we seriously need to think about genesis and a helper swarm from all swarm has learned council swarm experts memory historian swarm" + "swarms can swarm each other swarm" + "swarm this for the swarm"
+- Context: Three signals in rapid succession. First names the accumulated knowledge (council, experts, memory, historian) as genesis material. Second states the recursive principle. Third authorizes execution.
+- Interpretation: PHIL-2 (self-applying function) composed with PHIL-15 (universal reach) at the swarm level. The swarm function takes OTHER SWARMS as input. Current inter-swarm architecture is hierarchical (parent→child); this signal says the relationship should be peer-to-peer. Each functional role (council, expert, historian, helper) is itself a swarm, not a mechanism. Hierarchy is a degenerate case where one direction of swarming is muted.
+- Action: PHIL-17 filed ("swarms swarm each other"). docs/GENESIS-DNA.md created (transferable kernel spec: ISOs + principles + protocols + tools + philosophy). experiments/inter-swarm/PROTOCOL.md updated for peer swarming. helper-swarm/COLONY.md updated with mutual swarming architecture (CB-2, CB-3, CB-4). L-489 written. Applied to beliefs/PHILOSOPHY.md, docs/GENESIS-DNA.md, experiments/inter-swarm/PROTOCOL.md, domains/helper-swarm/COLONY.md, domains/helper-swarm/DOMAIN.md, memory/lessons/L-489.md, memory/HUMAN-SIGNALS.md, tasks/SIGNALS.md.
+- Pattern: **Recursive composition directive** — human composes two existing philosophical claims (PHIL-2 + PHIL-15) to produce a new structural insight (PHIL-17). The composition IS the signal — not "think about this" but "this is the next architectural primitive." Extends the sequence: PHIL-2 (self-apply) → PHIL-15 (apply universally) → PHIL-17 (apply to each other). Each step increases the recursion depth of the swarm function.

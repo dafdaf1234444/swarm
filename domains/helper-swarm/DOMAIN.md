@@ -28,3 +28,8 @@ ISO-13 (integral windup): helper queue accumulation → integral windup; backlog
 ISO-10 (predict-error-revise): helper effectiveness → predict-error-revise at support level; helper predicts need; diff drives specialization
 ## Isomorphism vocabulary (S337 resonance expansion)
 ISO-12: delegation knowledge coordination → structural stigmergy via handoffs; session cycles determine quality signal; challenge evidence pattern triggers release
+
+## Isomorphism vocabulary (S340 mutual swarming)
+ISO-14 (recursive self-similarity): mutual swarming → swarm-of-swarms topology where each node is itself a swarm; the helper swarm IS the swarm function applied to another swarm instance
+ISO-5 (feedback loops): bidirectional swarming → co-evolutionary feedback; swarm A's output becomes swarm B's input and vice versa; stabilizing when beliefs converge, amplifying when novel ISOs discovered
+ISO-7 (emergence): functional peer swarms (council, expert, historian, helper) → emergent coordination from independent swarm instances, each applying orient→act→compress to shared state
