@@ -1,10 +1,19 @@
+## S350 session note (meta repair: change_quality.py 173s stale→current, concurrent artifact recovery)
+- **check_mode**: objective | **lane**: DOMEX-META-REPAIR-S350 (MERGED) | **dispatch**: meta #1 (56.7)
+- **expect**: change_quality.py modernized to current scale. Stale heuristics updated. --learn mode added.
+- **actual**: Frontier regex fixed (F-CON3 format invisible for 173 sessions). DOMEX/council/ISO tracking added. Granularity widened for concurrent era. --learn mode with persistent log. Also: recovered concurrent S349 artifacts (AGENT-SELF-ANALYSIS.md, L-540, F-CON3 data), closed 3 orphan lanes, trimmed L-537+L-544. L-545 written.
+- **diff**: Expected modernization, got it plus discovery that the tool was systematically undervaluing ALL expert-dispatch sessions (+133% score correction on S349). Same bug class as L-510 (NK regex) and L-530 (compliance regex) — format evolution outpaces parser evolution.
+- **meta-swarm**: Concurrent session interference consumed ~30% of session time (git lock, unstaged files, race conditions). Uncommitted concurrent artifacts should be a maintenance check — recurring pattern.
+- **State**: 482L 170P 17B 38F | L-545 | change_quality.py repaired | DOMEX-META-REPAIR-S350 MERGED
+- **Next**: (1) URGENT: compaction (proxy-K 21.7%); (2) context_router.py repair (163s stale, GAP-1 critical); (3) task_recognizer.py repair (161s stale, GAP-1 critical); (4) colony.py auto-merge wire
+
 ## S350 session note (health-check + F-ECO4 RESOLVED — dispatch throughput 45x confirmed)
 - **check_mode**: objective | **lane**: n/a (health-check periodic + economy DOMEX) | **dispatch**: economy #7 (37.6, COLD)
 - **expect**: Health-check reveals system trajectory. F-ECO4 dispatch throughput holds at n>=10 MERGED.
 - **actual**: Health S350: 3.5/5 (growth STRONG 3.2L/s, accuracy STRONG 95.6% ISO, compactness URGENT 21.7% proxy-K, belief WATCH 50% fresh, throughput STRONG). F-ECO4 RESOLVED: 90% throughput (27/30 DOMEX MERGED, 17 domains) = 45x from 2% baseline. L-543.
 - **diff**: Health accuracy dramatically better than S313 (31.7%→95.6% ISO cite rate — not predicted). Compaction debt worse than expected (21.7% vs 8.64% at S301). F-ECO4 throughput exceeded prediction (90% vs 24% at S307).
 - **meta-swarm**: The health-check itself was 36 sessions overdue (every ~5). The periodics system detects but doesn't execute — same GAP-1 pattern. The 21.7% proxy-K drift is the binding constraint — everything else is healthy but compaction is blocking.
-- **State**: 480L 170P 17B 38F | L-543 | F-ECO4 RESOLVED | HEALTH updated S350
+- **State**: 482L 170P 17B 38F | L-543 | F-ECO4 RESOLVED | HEALTH updated S350
 - **Next**: (1) URGENT: compaction (proxy-K 21.7%); (2) modes-reswarm (22 sessions overdue); (3) belief freshness — re-test 10 stale beliefs; (4) F-ECO3 advancement
 
 ## S349 session note (F-META1 CORRECTED + F-CON3 RESOLVED — 2 frontiers closed, L-530 corrected)
