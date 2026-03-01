@@ -4,8 +4,11 @@ Parses session notes and lane Etc for expect/actual/diff records.
 Computes hit rate, direction bias, per-domain calibration, temporal trend.
 Usage: python3 tools/expect_harvest.py [--report|--json]
 """
-import argparse, json, re
+import argparse, json, re, sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from tools.domain_map import LANE_ABBREV_TO_DOMAIN, resolve_lane_domain
 
 ROOT = Path(__file__).resolve().parent.parent
 NEXT_MD, NEXT_ARCHIVE = ROOT / "tasks/NEXT.md", ROOT / "tasks/NEXT-ARCHIVE.md"
@@ -49,17 +52,32 @@ def _session(s):
     m = re.search(r"\bS(\d+)", s)
     return int(m.group(1)) if m else 0
 
+def _normalize_domain(raw: str) -> str:
+    """Map raw domain abbreviation to canonical domain name via domain_map."""
+    up = raw.upper().strip()
+    return LANE_ABBREV_TO_DOMAIN.get(up, raw.lower())
+
 def _domain_lane(text):
-    m = re.search(r"DOMEX-([A-Z]+\d*)-S\d+", text)
-    if m: return m.group(1).lower()
+    m = re.search(r"DOMEX-([A-Z]+)-S\d+", text)
+    if m:
+        resolved = resolve_lane_domain(m.group(0))
+        if resolved: return resolved
+        return _normalize_domain(m.group(1))
     m = re.search(r"\*\*dispatch\*\*:\s*(\S+)", text)
-    return m.group(1).lower() if m else "unknown"
+    if m:
+        raw = re.sub(r"[^a-zA-Z-]", "", m.group(1))
+        return _normalize_domain(raw)
+    return "unknown"
 
 def _domain_etc(etc):
     for pat in [r"intent=advance-F-([A-Z]+)", r"focus=domains/([^;]+)",
                 r"frontier=F-([A-Z]+)"]:
         m = re.search(pat, etc)
-        if m: return m.group(1).strip().lower()
+        if m:
+            raw = m.group(1).strip()
+            if "/" not in raw:
+                return _normalize_domain(raw)
+            return raw.lower().rstrip("/")
     return "unknown"
 
 def _record(src, sess, dom, lane, exp, act, diff):
@@ -145,7 +163,9 @@ def print_report(m, records):
     print(f"  Wrong:        {m['wrong_rate']:.1%}")
     print(f"  Unclassified: {m['unclassified']}")
     b = m["bias"]
+    ratio = f"{b['underconfident']/b['overconfident']:.1f}:1" if b['overconfident'] else "inf:1"
     print(f"\n  Direction bias:  over={b['overconfident']}  under={b['underconfident']}  neutral={b['neutral']}")
+    print(f"  Underconf ratio: {ratio} (target <5:1)")
     tr = m["trend"]
     if "note" not in tr:
         print(f"\n  Temporal trend: {'IMPROVING' if tr['improving'] else 'DECLINING'}")
