@@ -88,7 +88,7 @@ def _get_domain_heat() -> dict[str, int]:
 
     Returns {domain_name: last_active_session_number}.
     Used for anti-clustering: recently active domains get a score penalty.
-    Bug fix (L-617, S358): previously only read LANES_FILE, missing archive.
+    Bug fix (L-625, S358): previously only read LANES_FILE, missing archive.
     Domains with 47+ visits were classified as NEW (+13 boost). Now reads both files
     and uses DOMEX lane prefix + COUNCIL topic mapping (same as _get_domain_outcomes).
     """

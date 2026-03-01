@@ -2200,7 +2200,7 @@
     },
     {
       "session": 358,
-      "timestamp": "2026-03-01T04:05:18Z",
+      "timestamp": "2026-03-01T04:05:52Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -2213,9 +2213,11 @@
           "severities": []
         },
         "check_mission_constraints": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         },
         "check_runtime_portability": {
           "fired": false,
@@ -2243,11 +2245,9 @@
           "severities": []
         },
         "check_lessons": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "DUE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_child_bulletins": {
           "fired": true,
@@ -2332,8 +2332,9 @@
         },
         "check_cross_references": {
           "fired": true,
-          "count": 1,
+          "count": 2,
           "severities": [
+            "NOTICE",
             "NOTICE"
           ]
         },
@@ -2363,8 +2364,11 @@
         },
         "check_domain_frontier_consistency": {
           "fired": true,
-          "count": 1,
+          "count": 4,
           "severities": [
+            "NOTICE",
+            "NOTICE",
+            "NOTICE",
             "NOTICE"
           ]
         },
@@ -2419,9 +2423,9 @@
         }
       },
       "totals": {
-        "DUE": 2,
-        "NOTICE": 11,
-        "PERIODIC": 10
+        "NOTICE": 16,
+        "PERIODIC": 10,
+        "DUE": 1
       }
     }
   ],
