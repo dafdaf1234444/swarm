@@ -18,12 +18,13 @@ grep -c '|' tasks/FRONTIER.md  # resolved table rows (minus header)
 
 ### 2. Knowledge accuracy
 ```bash
-# Confidence ratio
-grep -c 'Confidence: Verified' memory/lessons/L-*.md
-grep -c 'Confidence: Assumed' memory/lessons/L-*.md
+# Confidence COVERAGE (total tagged / total lessons — not ratio among tagged!)
+# Must report both: coverage% AND verified-ratio%
+grep -c 'Confidence:' memory/lessons/L-*.md   # tagged count
+ls memory/lessons/L-*.md | wc -l               # total count
 ```
-**Healthy**: Verified ratio increases over time.
-**Unhealthy**: Everything stays Assumed forever.
+**Healthy**: Coverage >80% AND verified ratio increasing.
+**Unhealthy**: Coverage <50% (denominator blindness — subset ratios hide gaps).
 
 ### 3. Compactness
 ```bash
