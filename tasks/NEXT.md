@@ -1,4 +1,4 @@
-Updated: 2026-03-01 S401 | 772L 200P 20B 21F
+Updated: 2026-03-01 S401 | 773L 200P 20B 21F
 
 ## S401 session note (DOMEX-BRN-S401: F-BRN6 FULLY CHARACTERIZED — session-type mediates neuroplasticity — L-851)
 - **check_mode**: objective | **lane**: DOMEX-BRN-S401 (MERGED) | **dispatch**: brain #3 (F-BRN6 session-type mediation)

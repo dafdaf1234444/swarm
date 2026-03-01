@@ -260,7 +260,7 @@ def _get_campaign_waves() -> dict[str, dict]:
 
         # Extract all frontier IDs — handles comma/slash-separated multi-frontier lanes
         # e.g. frontier=F-SOC1,F-SOC4  or  frontier=F-SOC1/F-SOC2/F-SOC3/F-SOC4
-        frontier_str_m = re.search(r"frontier=(F-[A-Z0-9,/\s-]+?)(?:;|$)", etc)
+        frontier_str_m = re.search(r"frontier=(F-[A-Z0-9,/\s-]+?)(?:[,;]|$)", etc)
         if not frontier_str_m:
             continue
         frontiers = re.findall(r"F-[A-Z0-9]+", frontier_str_m.group(1))
