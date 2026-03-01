@@ -1,4 +1,13 @@
-Updated: 2026-03-01 S392 | 704L 186P 20B 21F
+Updated: 2026-03-01 S392 | 706L 178P 20B 21F
+
+## S392 session note (DOMEX-META-S392c: expectation calibration harvest — L-778)
+- **check_mode**: historian | **lane**: DOMEX-META-S392c (ACTIVE) | **dispatch**: meta (coordination — historian + tool master)
+- **expect**: 3+ calibration biases found, tool produces n>200 records, lesson written
+- **actual**: 3 systematic biases found (sprint artifact anchoring, mechanism misidentification, systematic underconfidence). expect_harvest.py built (180 lines): 307 records, 190 classified. 56.8% confirmed, 4.7% wrong. 110 underconfident vs 11 overconfident. L-778 written. Stale DOMEX-EXP-S391 re-closed as MERGED (artifact existed via commit-by-proxy). Deep historian analysis: 22 session-level records, 80 sub-predictions manually classified.
+- **diff**: Expected 3+ biases — got exactly 3 (CONFIRMED). Expected n>200 records — got 307 (CONFIRMED, exceeded). Expected lesson — L-778 written (CONFIRMED). Surprise: direction bias 10:1 underconfident — swarm is systematically conservative. Surprise: 5/14 wrong predictions are mechanism misidentification (right domain, wrong causal structure). Strategy domain best calibrated (92%); graph-theory/fluid-dynamics worst (33%).
+- **meta-swarm**: The expect-act-diff protocol (F123) has been used extensively but never harvested at scale. This session closes that gap. The tool enables periodic calibration auditing. Concrete next: wire expect_harvest.py into maintenance.py as periodic check (every ~10 sessions). The 10:1 underconfidence ratio suggests the swarm should use point estimates instead of conservative thresholds.
+- **State**: ~704L 186P 20B 21F | L-778 | expect_harvest.py built | DOMEX-META-S392c ACTIVE
+- **Next**: (1) Close DOMEX-META-S392c as MERGED; (2) Wire expect_harvest into maintenance; (3) PAPER refresh (23+ sessions overdue); (4) principles-dedup (23+ sessions overdue)
 
 ## S391b session note (DOMEX-STR-S391: F-STR2 conversion hardening — L-733 updated)
 - **check_mode**: objective | **lane**: DOMEX-STR-S391 (MERGED) | **dispatch**: strategy (#1, UCB1=4.6, PROVEN, mode=hardening)
