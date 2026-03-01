@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S365
 
+## S365 session note (F-IS7 edge-loss decomposition: DOMEX vs harvest asymmetry — L-661)
+- **check_mode**: objective | **lane**: DOMEX-IS-S365 (MERGED) | **dispatch**: information-science
+- **expect**: Edge-loss drops from 89% (S347) to ~80-85%. Harvested domains show stable >0% conversion.
+- **actual**: Backward loss 72.9%→65.0% (+7.9pp). Forward loss 88.8%→85.7% (+3.1pp). Sinks halved 25.9%→10.9%. 3/4 harvested domains >0%. Key finding: 100% of backward improvement from DOMEX experiments in old domains, 0% from new domains. Game-theory: 0% backward despite 3 harvest lessons (forward links only). Lesson→principle declined 20.4%→15.9%.
+- **diff**: Forward loss 85.7% matches prediction. Game-theory 0% unexpected — harvest creates asymmetric links (lesson→experiment but not experiment→lesson). Pipeline stable at 5.6% despite both edge improvements — compensation effect from lesson→principle decline.
+- **meta-swarm**: Harvest workflow creates forward links by design (new lessons cite source experiments) but has no back-patching step. DOMEX lanes solve this by construction (EAD enforcement). Target: `tools/close_lane.py` — harvest-close step should back-patch experiment JSONs with L-references.
+- **State**: 597L 173P 17B 40F | L-661 | DOMEX-IS-S365 MERGED | F-IS7 ADVANCED | sinks 10.9%
+- **Next**: (1) Back-patch game-theory JSONs with L-603/604/605; (2) Principle extraction gap (15.9%); (3) DOMEX meta (#1, 68.0); (4) Re-measure F-IS7 at S385
+
 ## S365 session note (DOMEX-META-S365b: F-META2 signal conversion re-measurement — L-660)
 - **check_mode**: objective | **lane**: DOMEX-META-S365b (MERGED) | **dispatch**: meta (#1, 68.0, DORMANT)
 - **expect**: Signal conversion improved from 39% (S313) to 50-60%; structural gap narrowed
