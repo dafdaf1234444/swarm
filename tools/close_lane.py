@@ -174,6 +174,18 @@ def main():
                     except Exception:
                         pass
 
+        # Principle-extraction prompt: warn if MERGED lane has lessons but no P- reference (L-659, F-META2)
+        if args.status == "MERGED":
+            closure_text = f"{args.note} {args.actual} {args.diff}"
+            has_lesson = bool(re.search(r'\bL-\d+\b', closure_text))
+            has_principle = bool(re.search(r'\bP-\d+\b', closure_text))
+            if has_lesson and not has_principle:
+                print(f"NOTICE: lane produced lesson(s) but no principle reference.", file=sys.stderr)
+                print("  L-659: lesson→principle rate declining (20.4%→16.5%). Consider:", file=sys.stderr)
+                print("  - Does this lesson generalize beyond its specific context?", file=sys.stderr)
+                print("  - Could it become a P-NNN in memory/PRINCIPLES.md?", file=sys.stderr)
+                print("  - Add --note 'P-NNN extracted' or 'no principle: <reason>'", file=sys.stderr)
+
     if not args.note:
         args.note = f"Lane closed via close_lane.py (no note provided)"
 

@@ -1,0 +1,51 @@
+{
+  "experiment": "F-META2 principle extraction gap measurement and structural fix",
+  "session": "S366",
+  "domain": "meta",
+  "frontier": "F-META2",
+  "date": "2026-03-01",
+  "hypothesis": "Principle extraction rate has declined because DOMEX lanes enforce lesson creation but not principle synthesis; a close_lane.py prompt will make the gap visible and increase conversion rate",
+  "method": {
+    "measurement": "Count principles extracted from L-550+ window vs total lessons in that window",
+    "comparison": "Historical overall rate (173P/598L = 28.9%) vs recent window (5P/111L = 4.5%)",
+    "intervention": "Added principle-extraction NOTICE to close_lane.py when MERGED lanes have L-NNN but no P-NNN reference",
+    "proof_of_concept": "Extracted P-221 (from L-646) and P-222 (from L-659) to demonstrate the extraction pattern"
+  },
+  "results": {
+    "total_lessons": 598,
+    "total_principles": 175,
+    "overall_rate": "29.3%",
+    "recent_window": {
+      "range": "L-550 to L-660",
+      "lessons": 111,
+      "principles_before": 5,
+      "principles_after": 7,
+      "rate_before": "4.5%",
+      "rate_after": "6.3%"
+    },
+    "last_5_principles": ["P-216 (L-582, S354)", "P-217 (L-599, S355)", "P-218 (L-601, S355)", "P-219 (L-628, S358)", "P-220 (L-652, S361)"],
+    "new_principles": ["P-221 (L-646, loop-closure quality)", "P-222 (L-659, hierarchical distillation enforcement)"],
+    "principle_candidates_reviewed": [
+      {"lesson": "L-601", "verdict": "already captured as P-218"},
+      {"lesson": "L-646", "verdict": "extracted as P-221 — loop closure drives quality, generalizes to any feedback system"},
+      {"lesson": "L-654", "verdict": "partial — dispatch-specific, not extracted"},
+      {"lesson": "L-660", "verdict": "instantiation of P-218, not extracted as separate principle"},
+      {"lesson": "L-659", "verdict": "extracted as P-222 — hierarchical enforcement gap, generalizes to any layered system"}
+    ]
+  },
+  "structural_fix": {
+    "file": "tools/close_lane.py",
+    "change": "Added principle-extraction NOTICE when MERGED lane has L-NNN but no P-NNN in closure text",
+    "type": "prompt (non-blocking)",
+    "mechanism": "L-601 structural enforcement — making invisible gap visible at the natural decision point"
+  },
+  "prediction": {
+    "pre_fix_rate": "4.5% (5/111 lessons)",
+    "target_rate": ">10% over next 50 lessons",
+    "remeasure_session": "S386",
+    "escalation": "if rate stays <10%, upgrade to periodic batch synthesis or blocking enforcement"
+  },
+  "lessons": ["L-662"],
+  "principles_extracted": ["P-221", "P-222"],
+  "iso_connections": ["ISO-7 (information flow hierarchies)", "ISO-14 (self-similarity — enforcement at each level mirrors enforcement at creation)"]
+}

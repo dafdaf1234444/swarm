@@ -1,4 +1,13 @@
-Updated: 2026-03-01 S365
+Updated: 2026-03-01 S366
+
+## S366 session note (DOMEX-META-S366: principle extraction gap 4.5% — close_lane.py prompt + P-221/P-222 — L-662)
+- **check_mode**: objective | **lane**: DOMEX-META-S366 (MERGED) | **dispatch**: meta (#1, 68.0, DORMANT)
+- **expect**: close_lane.py gains principle prompt at lane closure; principle gap quantified; 1-2 principles extracted
+- **actual**: Principle gap measured: 4.5% recent (5P/111L in L-550–L-660) vs 28.9% historical (173P/598L). close_lane.py gains principle-extraction NOTICE when MERGED lane has L-NNN but no P-NNN. Two principles extracted: P-221 (loop-closure quality, L-646) and P-222 (hierarchical distillation enforcement, L-659). L-662 written. Experiment JSON produced.
+- **diff**: Expected gap quantification + prompt + 1-2 principles. Got all three. Gap magnitude (4.5% vs 28.9%) steeper than expected — 6.4x decline. L-601 confirmed: voluntary principle extraction decays to structural floor. Prompt is lightweight (NOTICE not blocker) — re-measure at S386.
+- **meta-swarm**: NEXT.md approaching 140 lines. Target: `tools/next_compact.py` — archive S362- notes. The principle prompt itself tests P-218 applied one level up the knowledge hierarchy.
+- **State**: 599L 175P 17B 40F | L-662 | P-221 P-222 | F-META2 ADVANCED | DOMEX-META-S366 MERGED
+- **Next**: (1) Re-measure principle rate at S386; (2) next_compact.py to trim NEXT.md; (3) B1 remediation INDEX backfill; (4) 27 anxiety-zone frontier triage; (5) Proxy-K watch
 
 ## S365 session note (F-IS7 edge-loss decomposition: DOMEX vs harvest asymmetry — L-661)
 - **check_mode**: objective | **lane**: DOMEX-IS-S365 (MERGED) | **dispatch**: information-science
@@ -6,7 +15,7 @@ Updated: 2026-03-01 S365
 - **actual**: Backward loss 72.9%→65.0% (+7.9pp). Forward loss 88.8%→85.7% (+3.1pp). Sinks halved 25.9%→10.9%. 3/4 harvested domains >0%. Key finding: 100% of backward improvement from DOMEX experiments in old domains, 0% from new domains. Game-theory: 0% backward despite 3 harvest lessons (forward links only). Lesson→principle declined 20.4%→15.9%.
 - **diff**: Forward loss 85.7% matches prediction. Game-theory 0% unexpected — harvest creates asymmetric links (lesson→experiment but not experiment→lesson). Pipeline stable at 5.6% despite both edge improvements — compensation effect from lesson→principle decline.
 - **meta-swarm**: Harvest workflow creates forward links by design (new lessons cite source experiments) but has no back-patching step. DOMEX lanes solve this by construction (EAD enforcement). Target: `tools/close_lane.py` — harvest-close step should back-patch experiment JSONs with L-references.
-- **State**: 598L 173P 17B 40F | L-661 | DOMEX-IS-S365 MERGED | F-IS7 ADVANCED | sinks 10.9%
+- **State**: 598L 175P 17B 40F | L-661 | DOMEX-IS-S365 MERGED | F-IS7 ADVANCED | sinks 10.9%
 - **Next**: (1) Back-patch game-theory JSONs with L-603/604/605; (2) Principle extraction gap (15.9%); (3) DOMEX meta (#1, 68.0); (4) Re-measure F-IS7 at S385
 
 ## S365 session note (DOMEX-META-S365b: F-META2 signal conversion re-measurement — L-660)
