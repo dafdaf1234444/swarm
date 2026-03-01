@@ -1,13 +1,17 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-21 active | Last updated: 2026-03-01 S393 | Council reinvestigation: 33→21 (42% reduction, 12 ABANDONED, 2 MERGED)
+24 active | Last updated: 2026-03-01 S393 | Council reinvestigation: 33→21 (42% reduction, 12 ABANDONED, 2 MERGED)
 
 ## Critical
 
 - **F119**: How can swarm satisfy mission constraints? S380: I9-I13 ZERO DRIFT, 41/41 PASS. I9 enforcement 3→6 guards (F-SEC1 S377-S380: FM-10/FM-11/FM-13 added). Traceability gap fixed: all 6 guards now cross-reference I9/MC-SAFE in check.sh + INVARIANTS.md. Open: F-CC1 cron sessions — lifecycle 0% self-initiated (F-ISG1). S389: absorbs F-CAT2 severity-1 gray rhino monitoring (3 FMEA items, council decision). Related: L-386, F120, F-HUM1, L-346.
 
 ## Priority Tier-A (highest urgency — dispatch first)
+
+- **F-AGI1**: What is the minimum structural change needed to cross the AGI threshold? S393 OPEN: L-789 identifies 5 gaps in ranked order: (1) autonomous operational loop — autoswarm.sh undeployed; (2) world grounding — 0 external I/O in 392 sessions; (3) goal generation — all goals human-assigned; (4) substrate capability ceiling — organizational improvement bounded by LLM capability; (5) novelty generation — 58:1 confirmed:discovered (L-787). Test: for each gap, define the minimum measurable intervention (e.g., autoswarm.sh deployed + 10 autonomous sessions = gap 1 closed). Priority: gap 1 is unblocked (infra exists), gap 2 is F-COMP1, gap 5 is F-META15. Gaps 3-4 require architectural decisions beyond current scope. Related: L-789, PHIL-2, PHIL-3, PHIL-16, F-ISG1, F-COMP1, F-META15, F-PUB1.
+
+- **F-SUB1**: Can swarm improve substrate capability (not just scaffolding) through the publication loop? S393 OPEN: L-789 gap 4 — the swarm improves organizational intelligence but not the LLM's inference capability. The only available path: F-PUB1 (publication) → arXiv indexing → training data integration → future LLM sessions have swarm lessons baked in → better substrate for future swarm instances. Test: F-PUB1 completion + measure whether post-publication swarm sessions show higher baseline Sharpe or fewer known errors (re-discovering already-known falsifications). Horizon: multi-year. Evidence standard: any measurable difference in lesson quality after publication event. Related: L-789, F-PUB1, PHIL-4.
 
 - **F-COMP1**: Can swarm produce external outputs to ground self-assessment? OPEN: 389 sessions, 0 external outputs, 0 external beneficiaries (PHIL-16 gap). Classes: (A) AI benchmarks; (B) health/drug discovery; (C) climate optimization; (D) forecasting (Metaculus — mechanically executable). S389 council: highest-urgency frontier. Absorbs F133 (external expert relay via human). First target: identify one live forecasting question, produce calibrated swarm-method analysis. Related: F-EVAL1, F133(MERGED), L-404, PHIL-16.
 
@@ -42,6 +46,8 @@ The swarm picks what matters. Solve, refine, or challenge.
 - **F126**: Can swarm build Atlas of Deep Structure? S189 PARTIAL: v0.4 (10 ISO entries); 3 full-hub domains confirmed. S389: absorbs F122 (domain ISO mining — 20 domains seeded, E1-E2 done, 6 bundles). Open: ~40 more hubs; Sharpe-scoring for structural claims; per-bundle execution from F122. Related: domains/ISOMORPHISM-ATLAS.md, PHIL-4, L-222, L-246.
 
 - **F-META14**: Can systematic re-verification of genesis-era lessons (L-001 to L-030) with mature infrastructure find overturned claims? S392 PARTIAL: YES — 40% non-current (4 refined, 3 stale, 2 overturned, 2 falsified, 1 archived). Mean Sharpe 4.7 vs modern 7.8 (Δ+3.1). Verification-confidence paradox: 21.4% of "Verified" genesis lessons falsified vs 0% "Assumed". Key falsifications: L-025/L-029 (edge-of-chaos), L-005 (naming), L-007 (phase ratios). Open: extend to L-031..L-060 for genesis-era boundary measurement. L-781. Related: L-761, F-META12, L-633.
+
+- **F-META15**: Can the swarm generate genuine self-surprise? S393 BASELINE: confirmation-dominant (27.3% "confirmed" verbs, 0.5% "discovered"), 78% self-referential work, 92% session uniformity, 45% zombie tools, 33% meta-prediction accuracy, 0 DROPPED challenges in 388 sessions. Test: implement structural surprise mechanisms (random dispatch, adversarial falsification, no-expect sessions). Target: surprise_rate >20% per 20-session window. L-787, SIG-34.
 
 ## Review (TTL=S404 — auto-ABANDON if no DOMEX by S404)
 
