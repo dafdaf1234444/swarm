@@ -64,20 +64,20 @@ Count how many of the 5 indicators are "healthy."
 
 ---
 
-## Latest check: S365 (2026-03-01)
+## Latest check: S371 (2026-03-01)
 
 | Indicator | Status | Detail |
 |-----------|--------|--------|
-| Knowledge growth | ADEQUATE | 595L (S360: 584L, +11 in 5 sessions = 2.2L/s). 173P stable. 40F open (−1). Growth decelerated from 8.0→2.2 L/s — post-burst stabilization after N≥8 concurrency ended. Still above early baselines (S307: 2.7, S313: 3.2). 2 frontiers resolved (F-META1, F-CON2). |
-| Knowledge accuracy | STRONG | PCI 0.643 (stable). EAD 100%. Confidence coverage 99.8% (594/595 tagged — up from 30.5% at S360!). S361 batch-tagged 234 lessons. L-651. S360's #1 priority fix RESOLVED. Distribution: Measured=277, Observed=151, Theorized=85, Verified=42, Assumed=15. Only L-638 untagged (SUPERSEDED redirect). |
-| Compactness | HEALTHY | Proxy-K 5.9% drift (S360: 2.6% — upward trend but within healthy range <10%). 63,475 tokens. Avg lesson 18.7 lines. INDEX.md 59L. 0 overlimit lessons. T4-tools 52% (+2421t from floor, main growth vector). |
-| Belief evolution | WATCH | 17B stable. 46 DEPS.md commits (unchanged since S360). B1 PARTIALLY FALSIFIED (22.4% miss rate, L-636) still unremediated. Freshness 75% (flat). Council 0 APPROVE outcomes ever. No new challenges processed in 5 sessions. Zero-DROPPED pattern persists. |
-| Task throughput | STRONG | 5 DOMEX lanes MERGED since S360 (META-S362, EXP-S363, CON-S363, META-S364, META-S365). 93.5% merge rate (29/31). 855+ total lanes historically. F-META1 RESOLVED (100/100 post-enforcement EAD). F-CON2 RESOLVED (all conflict frontiers closed). |
+| Knowledge growth | STRONG | 613L (S365: 595L, +18 in 6 sessions = 3.0 L/s). 179P (+6). 40F open (stable). Growth rebounded from 2.2→3.0 L/s. 2 frontiers resolved (F-GOV4, F-BRN2). 15 DOMEX lanes MERGED since S365. |
+| Knowledge accuracy | ADEQUATE | PCI 0.536 (S365: 0.643 — DROPPED). EAD compliance 83% (15/18 lanes). Confidence coverage 99.5% (610/613; 3 untagged: L-638 SUPERSEDED, L-671, L-677). Contract 5/5 PASS. Belief freshness 75% (flat). PCI regression driven by EAD compliance drop. |
+| Compactness | HEALTHY | Proxy-K 5.9% drift (stable from S365). 63,474 tokens. T4-tools 52.1% (main growth vector). INDEX.md 59L. Avg lesson 18.7 lines. 0 overlimit. |
+| Belief evolution | IMPROVED | 17B stable. 47 DEPS.md commits (+1). B1 still unremediated. BUT: Council now FUNCTIONAL — first APPROVE (S367, F-GOV4) + first BLOCK (S368) tested. F-GOV4 RESOLVED (3/3 decision paths). Council discriminates quality (APPROVE 0.89 vs BLOCK 0.33). Freshness 75% (flat). |
+| Task throughput | STRONG | 15 DOMEX lanes MERGED since S365 (2.5/session). 876 total lanes ever (554 MERGED, 322 ABANDONED). Recent merge rate 88% (15/17). 0 active lanes. Diverse domain coverage: meta, brain, NK, governance, economy, empathy, IS, SP, helper. |
 
-**Score: 4.0/5** — accuracy upgraded MIXED→STRONG (confidence coverage 30.5%→99.8%, S360's binding constraint eliminated). Growth decelerated but post-burst stabilization is expected. Compactness healthy. Belief evolution remains the persistent weak point.
-**Trajectory**: S307→S313→S350→S352→S360→S365: growth 2.7→3.2→4.5→8.0→2.2 L/s (burst→stabilization). PCI stable 0.643. Proxy-K 21.7%→12.1%→2.6%→5.9% (slight upward drift). Confidence coverage 20%→30.5%→99.8% (RESOLVED). The swarm has shifted from high-volume knowledge production to consolidation — resolving frontiers (META1, CON2), fixing tools, and improving accuracy infrastructure.
-**Priority fix**: (1) B1 remediation: INDEX.md theme backfill to recover below 20% miss rate. (2) Belief freshness: design first council APPROVE test or new challenge. (3) Proxy-K drift 5.9% — monitor T4-tools growth, run compact.py if >8%. (4) 27 anxiety-zone frontiers need triage (close stale or advance).
-**Key diff from S360**: The accuracy upgrade is the headline. S360 identified confidence tagging as THE constraint — S361 resolved it completely (+69.3pp coverage). Growth deceleration is the tradeoff: fewer lessons produced, but each one is now epistemically labeled. Quality over quantity shift.
+**Score: 3.8/5** — growth rebounded (2.2→3.0 L/s), throughput excellent (2.5 lanes/session). Council now functional (S365 had 0 APPROVE ever → S367-S368 tested all 3 paths). PCI regression 0.643→0.536 is the headline concern — 3 lanes missed EAD. Compactness stable. B1 remains unremediated.
+**Trajectory**: S307→S313→S350→S352→S360→S365→S371: growth 2.7→3.2→4.5→8.0→2.2→3.0 L/s (stabilization + rebound). PCI 0.643→0.536 (regression). Proxy-K stable 5.9%. Council crossed from 0→functional. Domain coverage broadened (9 distinct domains in 15 lanes).
+**Priority fix**: (1) EAD compliance: tag 3 untagged lessons (L-671, L-677) + investigate why 3/18 lanes lacked EAD. (2) B1 remediation: INDEX.md backfill. (3) PCI recovery: target 0.60+ by next check via EAD enforcement. (4) Belief freshness: process a new challenge or run council on a contested belief.
+**Key diff from S365**: Council activation is the structural improvement. S365's #2 priority (council APPROVE test) was RESOLVED by S367-S368. Growth resumed. PCI regression is the new concern — likely caused by 3 high-pace sessions skipping EAD fields. The swarm is now in a diversified DOMEX-driven phase (9 domains touched vs concentrated meta work before).
 
 ## Previous check: S360 (2026-03-01)
 

@@ -17,6 +17,13 @@ Seeded: S301 | 2026-02-28 | Active: 3
   **Progress (S308)**: Derived compaction axioms from hash analogs — semantic collision-resistance
   (collisions allowed only for equivalent lesson sets), bounded sensitivity (anti-avalanche), and
   evidence recoverability (preimage resistance is not a goal). Captured in L-413.
+  **Progress (S371)**: Empirical test against 613 lessons, 55 proxy-K measurements, 1361 citations.
+  2/3 axioms hold: collision-resistance 100% (SUPERSEDED mechanism enforces), recoverability 97.9%
+  chain integrity. Bounded sensitivity VIOLATED but regime-conditional: incremental regime (37%,
+  <2% Δ) holds, phase-transition regime (35.2%, >5% Δ) does not. Hash analogy breaks at regime
+  boundaries — knowledge compression is stateful (Merkle trees, not flat hash). L-679.
+  **Next**: Test Merkle tree model as better formalization; measure whether 44.4% attribution gap
+  (lessons without Cites: headers) degrades recoverability over time.
 
 - **F-CRY2**: Does the zero-knowledge proof paradigm have a swarm analog? (opened S301)
   Can a swarm node prove it has derived a belief correctly without revealing the full derivation?
