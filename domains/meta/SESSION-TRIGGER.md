@@ -1,53 +1,69 @@
-# Session Trigger Manifest
-
-Machine-readable session-trigger conditions for autonomous swarm initiation.
-Updated by orient.py; read by automation layer.
+# SESSION-TRIGGER.md
+<!-- auto-updated by orient.py each run -->
+<!-- machine-readable: any executor can read this to decide if a session is needed -->
+<!-- human-readable: shows current swarm health at a glance -->
+<!-- F-META6 artifact | S349 | DOMEX-META-S349b -->
 
 ## Schema
-Each trigger: condition | urgency | trigger_source | last_checked | threshold
+Each trigger row: `| ID | condition | urgency | state | last_checked | auto_action |`
+- **urgency**: HIGH (session needed now) / MEDIUM (soon) / LOW (when available)
+- **state**: FIRING (condition true) / CLEAR (condition false) / UNKNOWN (not yet checked)
+- **last_checked**: session number when state was last evaluated
 
 ## Active Triggers
+| ID | Condition | Urgency | State | Last Checked | Auto Action |
+|----|-----------|---------|-------|--------------|-------------|
+| T1-STALE-LANE | ACTIVE lane opened >3 sessions ago, no update | HIGH | FIRING | S352 | close or execute lane |
+| T2-ARTIFACT-MISSING | ACTIVE lane has artifact= path but file missing on disk | HIGH | FIRING | S352 | execute lane or ABANDON |
+| T3-MAINTENANCE-DUE | orient.py DUE items present (>0) | MEDIUM | FIRING | S352 | run DUE maintenance task |
+| T4-ANXIETY-ZONE | Frontier open >15 sessions without update | MEDIUM | UNKNOWN | S349 | open DOMEX or CLOSE |
+| T5-DISPATCH-GAP | Top-3 dispatch domain has no active DOMEX lane | MEDIUM | UNKNOWN | S349 | open DOMEX for top domain |
+| T6-HEALTH-CHECK | Health-check periodic overdue by >2 intervals | LOW | UNKNOWN | S349 | run health check |
+| T7-PROXY-K-DRIFT | Proxy-K drift > 10% from last clean snapshot | LOW | UNKNOWN | S349 | run compact.py |
 
-### Infrastructure Triggers
-- **maintenance_due**: Any DUE maintenance items exist | HIGH | maintenance.py | 2026-03-01T03:20:00Z | count > 0
-- **compaction_needed**: Proxy-K drift >15% or lesson count >500 | HIGH | proxy_k.py | 2026-03-01T03:20:00Z | drift > 15% OR lessons > 500
-- **stale_tools**: Infrastructure components >50 sessions without evolution | MEDIUM | orient.py | 2026-03-01T03:20:00Z | count > 10
-- **periodics_due**: Periodic maintenance overdue >2x cadence | MEDIUM | maintenance.py | 2026-03-01T03:20:00Z | overdue_ratio > 2.0
+## Detection Commands (run to evaluate each trigger)
+```bash
+# T1 + T2: stale lanes and missing artifacts
+python3 tools/orient.py 2>&1 | grep "Stale lanes\|artifact missing"
 
-### Knowledge Triggers
-- **frontier_stagnation**: Open frontiers >30 sessions without progress | MEDIUM | frontier_monitor.py | 2026-03-01T03:20:00Z | max_age > 30
-- **challenge_backlog**: CHALLENGES.md entries >10 sessions old | MEDIUM | challenges.py | 2026-03-01T03:20:00Z | count > 0 AND age > 10
-- **belief_staleness**: Core beliefs not validated >100 sessions | LOW | validate_beliefs.py | 2026-03-01T03:20:00Z | max_age > 100
-- **knowledge_overflow**: Lessons created but not compacted >20 in 5 sessions | MEDIUM | lesson_monitor.py | 2026-03-01T03:20:00Z | rate > 4/session
+# T3: maintenance DUE items  
+python3 tools/orient.py 2>&1 | grep "\[DUE\]" -A 10
 
-### Expert Triggers
-- **dispatch_imbalance**: Top-3 domains without active DOMEX lanes | HIGH | dispatch_optimizer.py | 2026-03-01T03:20:00Z | unclaimed_top3 > 0
-- **expert_starvation**: No expert utilization >5 sessions | MEDIUM | expert_monitor.py | 2026-03-01T03:20:00Z | sessions_since_expert > 5
+# T4: anxiety-zone frontiers
+python3 tools/orient.py 2>&1 | grep "anxiety-zone"
 
-### Human Interface Triggers
-- **human_queue**: Unanswered human signals >3 sessions old | HIGH | human_queue.py | 2026-03-01T03:20:00Z | count > 0 AND age > 3
-- **human_signal_backlog**: HUMAN-SIGNALS.md >20 unprocessed entries | MEDIUM | signal_processor.py | 2026-03-01T03:20:00Z | unprocessed > 20
+# T5: dispatch gap
+python3 tools/dispatch_optimizer.py 2>&1 | head -20
 
-### Crisis Triggers
-- **git_corruption**: Repository integrity check fails | CRITICAL | git_check.py | 2026-03-01T03:20:00Z | status != "clean"
-- **belief_contradiction**: Core philosophy contradicts measured evidence | HIGH | belief_validator.py | 2026-03-01T03:20:00Z | contradictions > 0
-- **cascade_failure**: Multiple critical tools failing simultaneously | CRITICAL | cascade_detector.py | 2026-03-01T03:20:00Z | failing_tools > 3
+# T6: health check overdue
+python3 tools/orient.py 2>&1 | grep "health-check"
 
-## Urgency Levels
-- **CRITICAL**: Immediate session required (swarm integrity at risk)
-- **HIGH**: Session needed within 1 hour
-- **MEDIUM**: Session beneficial within 6 hours
-- **LOW**: Session optional, schedule when convenient
+# T7: proxy-K drift
+python3 tools/proxy_k.py --drift 2>&1 | grep "drift"
+```
 
-## Integration Points
-- orient.py updates this file each run
-- Automation layer reads highest urgency trigger
-- Human dashboard surfaces top 3 triggers
-- External schedulers query for session_needed status
+## Autonomy Gap Analysis
+Orient.py computes all of T1-T7 on every run. The gap is at the **executor layer**:
+- orient.py emits signal → nobody reads it programmatically
+- This file IS the bridge: any external trigger (cron, CI, autoswarm.sh) can `cat` this
+  file, filter for `FIRING` rows with `HIGH` urgency, and initiate a session
 
-## Autonomous Session Path
-1. External monitor queries SESSION-TRIGGER.md
-2. If urgency ≥ HIGH: initiate swarm session
-3. Session runs orient.py → updates triggers
-4. Session acts on highest priority trigger
-5. Session updates trigger status before handoff
+## Wiring Points
+1. **orient.py → SESSION-TRIGGER.md**: add `write_trigger_manifest()` call at end of orient.py
+   to update State column based on live checks (see `tools/orient.py` lines ~200-250)
+2. **autoswarm.sh → SESSION-TRIGGER.md**: read this file, if any HIGH FIRING → start session
+3. **CI/cron hook**: `grep "HIGH.*FIRING" domains/meta/SESSION-TRIGGER.md && swarm`
+
+## Evidence Base
+- T1/T2: L-515 (stale_age>3: 97.1% recall, n=428; artifact_missing: 100% recall small-n)
+- T3: L-216 (state-sync 4% overhead), L-526 (planning obsolescence at N≥3)
+- T4: F-COMM1 (anxiety-zone auto-synthesis trigger)
+- T5: F-EXP7 (expert dispatch default mode, 15% target)
+- T6: maintenance.py periodics (every 5 sessions, 9 sessions overdue at S349)
+- T7: proxy_k.py --drift (8.5% from S339, target <5%)
+
+## Next Steps (to make this actionable)
+1. [ ] Add `write_trigger_manifest()` to orient.py (updates State column each run)
+2. [ ] Wire autoswarm.sh to read HIGH FIRING triggers
+3. [ ] Test: after orient.py update, does SESSION-TRIGGER.md auto-reflect live state?
+4. [ ] Measure: does this reduce session-gap latency? (F-META6 validation)

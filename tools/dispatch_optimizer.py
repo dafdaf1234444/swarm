@@ -18,6 +18,16 @@ import re
 import sys
 from pathlib import Path
 
+try:
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from swarm_io import session_number as _session_number
+except ImportError:
+    def _session_number() -> int:
+        import subprocess
+        r = subprocess.run(["git", "log", "--oneline", "-50"], capture_output=True, text=True)
+        nums = [int(m) for m in re.findall(r"\[S(\d+)\]", r.stdout)]
+        return max(nums) if nums else 340
+
 
 DOMAINS_DIR = Path("domains")
 EXPERIMENTS_DIR = Path("experiments")
@@ -28,6 +38,7 @@ LANES_FILE = Path("tasks/SWARM-LANES.md")
 HEAT_DECAY = 0.85  # pheromone decays by 15% per session gap
 HEAT_PENALTY_MAX = 6.0  # max score penalty for hot domains
 DORMANT_BONUS = 3.0  # bonus for domains untouched >5 sessions
+FIRST_VISIT_BONUS = 5.0  # extra bonus for domains with zero DOMEX history (L-548: 90% first-visit merge rate)
 SELF_DISPATCH_INTERVAL = 10  # expert-swarm must dispatch to itself every N sessions (L-501 P6)
 
 # Outcome feedback (F-EXP10, L-501 P1): reward consistently productive domains.
@@ -86,15 +97,6 @@ def _get_domain_heat() -> dict[str, int]:
             heat[dom] = sess
     return heat
 
-
-def _get_current_session() -> int:
-    """Get current session number from INDEX.md."""
-    idx = Path("memory/INDEX.md")
-    if not idx.exists():
-        return 340
-    text = idx.read_text()[:500]
-    m = re.search(r"Sessions:\s*(\d+)", text)
-    return int(m.group(1)) if m else 340
 
 
 def _get_claimed_domains() -> set[str]:
@@ -278,7 +280,7 @@ def run(args: argparse.Namespace) -> None:
             results.append(r)
 
     # Apply domain heat (anti-clustering: S340 council finding)
-    current_session = _get_current_session()
+    current_session = _session_number()
     heat_map = _get_domain_heat()
     claimed = _get_claimed_domains()
     outcome_map = _get_domain_outcomes()
@@ -297,8 +299,13 @@ def run(args: argparse.Namespace) -> None:
             r["heat"] = "HOT"
             saturated_domains.append(dom)
         elif gap > 5:
-            r["score"] += DORMANT_BONUS
-            r["heat"] = "COLD"
+            if last_active == 0:
+                # Never visited: highest priority — 90% first-visit merge rate (L-548)
+                r["score"] += FIRST_VISIT_BONUS
+                r["heat"] = "NEW"
+            else:
+                r["score"] += DORMANT_BONUS
+                r["heat"] = "COLD"
             sparse_domains.append(dom)
         else:
             r["heat"] = "WARM"
@@ -358,7 +365,12 @@ def run(args: argparse.Namespace) -> None:
     # Domain gradient (S340 council: 4/5 convergence on visibility)
     if sparse_domains or saturated_domains:
         if sparse_domains:
-            print(f"  SPARSE (bonus +{DORMANT_BONUS}): {', '.join(sparse_domains[:6])}")
+            new_doms = [r["domain"] for r in results if r.get("heat") == "NEW"]
+            cold_doms = [r["domain"] for r in results if r.get("heat") == "COLD"]
+            if new_doms:
+                print(f"  NEW/UNVISITED (bonus +{FIRST_VISIT_BONUS}): {', '.join(new_doms[:6])}")
+            if cold_doms:
+                print(f"  DORMANT (bonus +{DORMANT_BONUS}): {', '.join(cold_doms[:6])}")
         if saturated_domains:
             print(f"  SATURATED (penalty): {', '.join(saturated_domains[:6])}")
         if claimed:
@@ -369,7 +381,7 @@ def run(args: argparse.Namespace) -> None:
     print("-" * 85)
 
     for r in results:
-        heat_icon = {"HOT": "🔥", "WARM": "~", "COLD": "❄"}.get(r.get("heat", ""), " ")
+        heat_icon = {"HOT": "🔥", "WARM": "~", "COLD": "❄", "NEW": "✨"}.get(r.get("heat", ""), " ")
         claimed_mark = " [CLAIMED]" if r.get("claimed") else (" [SELF-DUE]" if r.get("self_dispatch_due") else "")
         label = r.get("outcome_label", "NEW")
         n = r.get("outcome_n", 0)
@@ -386,7 +398,7 @@ def run(args: argparse.Namespace) -> None:
     print("\n--- Scoring formula (multi-concept, S347) ---")
     print("  Columns: Act=active frontiers, Res=resolved, ISO=isomorphisms, L=lessons, B=beliefs, P=principles, CT=concept types")
     print("  score = iso*1.5 + lessons*0.8 + beliefs*1.5 + principles*1.5 + concept_types*2.5 + resolved*2 + active*1.5 + novelty(2) + index(1)")
-    print(f"  + dormant_bonus(+{DORMANT_BONUS} if >5 sessions cold) - heat_penalty(up to -{HEAT_PENALTY_MAX} if <3 sessions)")
+    print(f"  + dormant_bonus(+{DORMANT_BONUS} if >5 sessions cold, +{FIRST_VISIT_BONUS} if never visited) - heat_penalty(up to -{HEAT_PENALTY_MAX} if <3 sessions)")
     print(f"  + outcome_bonus(+{OUTCOME_BONUS} PROVEN: ≥{OUTCOME_MIN_N} lanes, rate≥{OUTCOME_SUCCESS_THRESHOLD})")
     print(f"  - outcome_penalty(-{OUTCOME_PENALTY} STRUGGLING: ≥{OUTCOME_MIN_N} lanes, rate<{OUTCOME_FAILURE_THRESHOLD})")
     print(f"  Heat map: {len(saturated_domains)} HOT, {len(sparse_domains)} COLD, {len(claimed)} claimed")

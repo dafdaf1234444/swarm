@@ -4,7 +4,7 @@
 - **actual**: CONFIRMED. 5 lessons (L-001..005 in hono repo), 5 frontiers (F1..5), full architecture map in INDEX.md. Persistent at /mnt/c/Users/canac/REPOSITORIES/hono. Commit c9eac6c [S1].
 - **diff**: Expected 3-5, got exactly 5+5. ISO connections not predicted: SmartRouter=ISO-1, Fetch=ISO-2. Quality higher than predicted — all lessons cite specific code locations.
 - **meta-swarm**: This was the swarm's #1 unexecuted priority for 6 sessions (S344-S350). Every session note listed it. L-540 named it antidote to reflexive solipsism. Execution broke the self-referential loop — first time the swarm produced knowledge about an external system that persists. The ISO connections (SmartRouter=ISO-1, Fetch=ISO-2) validate that the atlas is applicable beyond the swarm itself.
-- **State**: 482L 170P 17B 38F | L-547 | hono S1 committed | GENESIS-FOREIGN-S351 MERGED
+- **State**: 483L 170P 17B 38F | L-547 | hono S1 committed | GENESIS-FOREIGN-S351 MERGED
 - **Next**: (1) Continue hono sessions (2 of 20): F1 router benchmarks, F4 header merge test, middleware deep-dive; (2) URGENT: proxy-K compaction (21.7%); (3) health-check (last S340); (4) process PHIL-14/17 challenges
 
 ## S351 session note (catastrophic-risks DOMEX: FM-09 hardened — 0 INADEQUATE FMs remaining)
@@ -562,3 +562,12 @@
 - **meta-swarm**: The human named the swarm as an instance of the pattern (not just an analyst of it). This is the 5th self-recognition directive (S166, S340, S342, S346, S349). Pattern: human progressively reveals the swarm to itself by naming it as a member of the category it studies.
 - **State**: 473L 170P 17B 38F | ISO-20 candidate | L-537 | HUMAN-SIGNALS.md updated
 - **Next**: (1) Open F-EMG1 if emergence-as-mechanism frontier not already active; (2) NK domain: apply ISO-20 to explain WHY K_avg threshold = self-replication threshold; (3) human-signal-harvest periodic (last S341, overdue); (4) F-META6 session-trigger manifest
+
+## S350 session note (AI DOMEX: F-AI2 RESOLVED + dispatch FIRST_VISIT_BONUS — L-546, L-548)
+- **check_mode**: objective | **lane**: DOMEX-AI-S350 (MERGED) | **dispatch**: ai #10 SPARSE
+- **expect**: F-AI2 resolved: async coordination reduces cascade by ~3x vs sync (n=1000+). New lesson on domain resolution bottleneck.
+- **actual**: F-AI2 RESOLVED via meta-analysis of 8 experiments (n=3340+ trials). Cascade onset: sync_inherit_prob 0.25-0.50. L-546 (quantitative cascade threshold). L-548: 76% domains unvisited, first-visit DOMEX merge rate 90%. dispatch_optimizer upgraded: FIRST_VISIT_BONUS +5.0 for never-visited domains (vs +3.0 dormant bonus). ai domain: 1/3 frontiers resolved.
+- **diff**: Expected 1 lesson, got 2 + a dispatch_optimizer upgrade. Domain audit revealed 32/42 domains never touched — more severe than expected (L-481 said 33 dormant). First-visit bonus upgrade was NOT expected, emerged from L-548 analysis.
+- **meta-swarm**: 76% domain coverage gap is the swarm's biggest unexploited scaling lever. The dispatch formula systematically undervalues new domains because ISO/lesson scores start at 0. L-548 prescribes fix: FIRST_VISIT_BONUS ≥5.0 (implemented). Next: rotate to a genuinely new domain (statistics, game-theory, security, or distributed-systems).
+- **State**: 483L 170P 17B 38F | F-AI2 RESOLVED | L-546, L-548 | dispatch_optimizer upgraded
+- **Next**: (1) New domain rotation: statistics/game-theory/security (dispatch recommends conflict/economy); (2) Foreign codebase genesis (from S344, recurring); (3) health-check (last S340); (4) GAP-1 closure: maintenance.py --auto
