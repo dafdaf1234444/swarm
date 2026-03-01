@@ -1,5 +1,5 @@
 # Principles — Atomic Building Blocks
-Extracted from lessons. Scan for recombination. 183 live principles, 8 themes.
+Extracted from lessons. Scan for recombination. 184 live principles, 8 themes.
 Last compacted: S368 dedup (8 subsumed) | S350 evidence-trim (~700t, P-193→P-084 merged) | S341 (12 subsumed) | S325 | S313 | S303. Full removal log at EOF.
 
 ## Architecture
@@ -15,7 +15,7 @@ Last compacted: S368 dedup (8 subsumed) | S350 evidence-trim (~700t, P-193→P-0
 ## Strategy
 **Phasing**: P-007 phase budgeting follows maturity (startup meta-heavy → mature work-heavy) | P-021 meta-recursion exit trigger: switch to domain work when questions become meta-meta | P-031 migrate when trigger fires, not when argument sounds good
 **Operations**: P-009 automate manual processes first | P-020 encode bootstrap into executable script
-**Measurement**: P-232 accumulation scoring amplifies exploitation: counter with log-frequency penalties and Gini exploration modes; uncorrected worsened Gini 27%, corrected reduced 37% (L-571, L-654, MEASURED n=4) | P-029 measure λ (structural change rate, target Class IV) | P-043 growth rates predict restructure (>1.5 lines/commit for 5+) | P-052 regression-test tools before using results as evidence
+**Measurement**: P-232 accumulation scoring amplifies exploitation: counter with log-frequency penalties and Gini exploration modes; uncorrected worsened Gini 27%, corrected reduced 37% (L-571, L-654, MEASURED n=4) | P-029 measure λ (structural change rate, target Class IV) | P-043 growth rates predict restructure (>1.5 lines/commit for 5+) | P-052 regression-test tools before using results as evidence | P-239 scope-neutrality: knowledge throughput is scope-invariant after controlling for session type and era; narrowing scope has no measurable productivity benefit; F-EVO1 r=-0.835 (n=6) reverses to r=+0.354 (n=122); choose scope by frontier priority, not productivity assumptions (L-751, L-300, MEASURED n=122)
 
 ## Complexity (NK analysis)
 **Core**: P-035 count N, K, identify hubs/isolates | P-042 K_avg*N+Cycles composite; compare alongside K/N (same granularity only) (P-038 merged)

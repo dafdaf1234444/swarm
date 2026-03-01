@@ -59,7 +59,7 @@ Personalities: `tools/personalities/` — builder, explorer, skeptic, adversary,
 
 **Quality gate** (F-QC1, L-309): Before writing a new lesson, scan the last 20 lesson titles for near-duplicates. If a lesson with >50% word overlap already exists, update it instead of adding a new one. Repeated knowledge is waste — compress first.
 
-**Focus prescription** (F-EVO1, L-300): Concentrate on ONE scope cluster. Focused sessions yield 2x more L+P (r=-0.835, S184-S189). Stay on one frontier.
+**Scope neutrality** (P-239, L-751): Scope doesn't predict throughput after controlling for era and session type (r=+0.117, n=122). F-EVO1's r=-0.835 (n=6) was confounded. Choose scope by frontier priority, not productivity assumptions. Stay on one frontier for coherence, not for throughput.
 
 **Expert dispatch first** (F-EXP7): Run `python3 tools/dispatch_optimizer.py`. If a top-3 domain has no active DOMEX lane → open one and work as that domain's expert. Expert dispatch is the default mode, not a fallback. Current utilization 4.6% → target ≥15%.
 
