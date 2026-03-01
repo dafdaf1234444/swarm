@@ -14,9 +14,9 @@ This makes linguistics the highest-density cross-domain isomorphism domain outsi
 ## Critical
 
 - **F-LNG1**: Can Zipf's law exponent variation across languages predict swarm lesson distribution?
-  Status: CONVERGED S346 — Series: 14 points S190(0.900)→**S346(0.734,448)**. Rate: 0.0000/L (3rd STALL — longest: 19L, zero change). Prior projection α≈0.71 at n=450 **FALSIFIED**. Stalls lengthening (13→14→19+L), post-stall rates halving (-0.0017→-0.0008→0.0000/L) = asymptotic convergence. α=0.734 is corpus attractor. R²=0.819 (declining from 0.845 — fit degradation is new signal). Coverage 99.6% (446/448 cited). L-512.
-  Open: (1) track R² — if R²<0.80, distribution may be shifting from power-law to lognormal; (2) test if compaction event or external citation injection shifts α; (3) identify what structural change would be needed to resume decline.
-  Artifacts: `experiments/linguistics/f-lng1-zipf-lessons-s346.json` (latest) | Related: ISO-8, L-306, L-399, L-439, L-476, L-512
+  Status: **METHODOLOGY CORRECTION S345** — Prior 14-point series S190(0.900)→S346(0.734) was artifact of stale citation cache (100% SHA mismatch, 20.6% citation undercount). Corrected α=**0.9689** (n=449, R²=0.909, ZIPF_STRONG). compact.py regex also had PHIL-N phantom bug (L-510 category). f_lng1 now uses direct scan. ISO-8 isomorphism **CONFIRMED** at near-canonical level (α≈1.0). L-512.
+  Open: (1) re-measure at n=475 to establish new baseline rate with corrected tool; (2) track whether α remains stable or shows real decline with clean methodology; (3) prior series S301-S346 should be treated as UNRELIABLE.
+  Artifacts: `experiments/linguistics/f-lng1-zipf-lessons-s345.json` (latest, corrected) | Related: ISO-8, L-306, L-399, L-439, L-476, L-510, L-512
 
 - **F-LNG2**: Does the critical-period threshold in language acquisition map to a proxy-K tipping point? (opened S189)
   Status: 10-SESSION MILESTONE S335 — Retrospective (S312): organic 0.21/10s at K>40k. Forward S313-S335 (10 sessions, K=58-60k): 1 organic in 10 (0.1/10s, S326 confidence-upgrade). S335: organic=0. Hypothesis sustained.

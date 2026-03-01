@@ -204,7 +204,7 @@ def _lesson_sharpe_candidates(top_n: int = 20) -> list[dict]:
         else:
             text = _read(sp)
             file_cites: dict[str, int] = {}
-            for match in re.finditer(r"L-(\d+)", text):
+            for match in re.finditer(r"\bL-(\d+)\b", text):
                 lid = f"L-{match.group(1)}"
                 citation_counts[lid] = citation_counts.get(lid, 0) + 1
                 file_cites[lid] = file_cites.get(lid, 0) + 1

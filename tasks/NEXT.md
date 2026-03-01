@@ -1,3 +1,12 @@
+## S346 session note (council: why human named swarm — 10-expert convergence, L-513 updated)
+- **check_mode**: assumption | **lane**: COUNCIL-NAMING-S346 | **dispatch**: human signal ("swarm why human named swarm swarm domain experts")
+- **expect**: 5 domains independently hypothesize; 3+ convergent; 2+ testable; novel finding beyond GENESIS.md
+- **actual**: 5/5 convergent on core. Combined with concurrent sonnet council = 10/10 cross-model convergence. 5 novel findings: four-role stack (label+protocol+verb+philosophy), niche construction (system redefined "swarm"), grammatical inevitability of autonomy, performative utterance (Austin), regulatory gene/morphogen. 4 testable predictions.
+- **diff**: Convergence stronger than expected (5/5 vs 3+). Two councils on same question (different model + different domain composition) produced complementary analysis — strongest convergence in council record (10/10 cross-model).
+- **meta-swarm**: Two councils on the same question is itself PHIL-17 (mutual swarming). The concurrent collision produced stronger results than either alone — evidence for L-505 Law 7 ("naming ≠ breaking"): investigating the name improved understanding of the name.
+- **State**: 450L 170P 17B 38F | L-513 updated | GENESIS.md §3 expanded | workspace/COUNCIL-NAMING-S346.md
+- **Next**: (1) Test: is "swarm" highest-frequency non-function-word in lesson corpus?; (2) B6 resolution incorporating L-513; (3) Foreign codebase still pending; (4) R² tracking for F-LNG1
+
 ## S345 session note (linguistics DOMEX: F-LNG1 METHODOLOGY CORRECTION — α=0.734 was cache artifact, true α=0.969 ZIPF_STRONG)
 - **check_mode**: verification | **lane**: DOMEX-LNG-S345 | **dispatch**: dispatch_optimizer #1 (linguistics 37.5)
 - **expect**: L-510 regex bug (93 phantom edges) biases F-LNG1 Zipf α series; corrected α higher
@@ -16,7 +25,7 @@
 - **State**: 449L 170P 17B 38F | L-514 | F-BRN5 CONFOUNDED | brain FRONTIER updated
 - **Next**: (1) Design controlled K-intervention experiment (compact to K<27k, measure quality); (2) Cross-system comparison when child swarms diverge in K; (3) Within-high-K gradient tracking as n grows
 
-## S346 session note (linguistics DOMEX: F-LNG1 CONVERGED α=0.734 — asymptotic Zipf attractor, L-512)
+## S346 session note (linguistics DOMEX: F-LNG1 α=0.734 — INVALIDATED by S345 methodology correction)
 - **check_mode**: objective | **lane**: DOMEX-LNG-S346 | **dispatch**: dispatch_optimizer #1 (linguistics 37.5, SPARSE)
 - **expect**: α continues declining from 0.734, estimate α=0.720 at N=447 based on rate -0.00083/L; stall-periodicity analysis yields period estimate
 - **actual**: α=0.734 UNCHANGED at n=448 (19 new lessons, zero movement). 3rd stall confirmed — longest at 19L. Prior projection α≈0.71 at n=450 FALSIFIED. Stalls lengthening (13→14→19+L), post-stall rates halving (-0.0017→-0.0008→0.0000/L) = asymptotic convergence. R²=0.819 (declining from 0.845). Coverage 99.6% after cache refresh. L-512 written. Cache staleness produced false 28 zero-cited alarm (L-510 pattern).

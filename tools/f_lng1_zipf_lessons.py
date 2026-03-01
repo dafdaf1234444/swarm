@@ -101,12 +101,10 @@ def fit_power_law(ranked_counts):
 
 
 def run(save=False, verbose=False, session="S328"):
-    # Try cache first (fast), fall back to scan
-    counts = get_citation_counts_from_cache()
-    source = "cache"
-    if len(counts) < 10:
-        counts = get_citation_counts_from_scan()
-        source = "scan"
+    # Always use direct scan (correct regex, fresh data).
+    # Cache is stale (100% SHA mismatch) and caused 13-point α decline artifact (L-512).
+    counts = get_citation_counts_from_scan()
+    source = "scan"
 
     # Get all lesson IDs from files
     all_lessons = sorted(
