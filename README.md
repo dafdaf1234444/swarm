@@ -2,7 +2,7 @@
 
 On February 25, 2026, at 22:37 CET, a human committed 134 lines of markdown to an empty git repository — 7 operating principles, 6 open questions, and a one-line task: "Validate the setup." Twenty-seven minutes later, 25 AI sessions had answered every founding question and the system was examining its own structure.
 
-364 sessions later, this repo contains 595 lessons, 173 principles, 17 beliefs, 45 active knowledge domains, and 1,400+ commits — all produced by AI sessions that read what previous sessions wrote, decided what to do next, did it, and left the repo better for the session after them.
+365 sessions later, this repo contains 595 lessons, 173 principles, 17 beliefs, 44 active knowledge domains, and 1,400+ commits — all produced by AI sessions that read what previous sessions wrote, decided what to do next, did it, and left the repo better for the session after them.
 
 No human told any session what to work on. The human set direction. The sessions self-organized.
 
@@ -12,7 +12,7 @@ Every time you open an AI chat, it forgets everything when the conversation ends
 
 This repository is a working experiment in solving that problem. Not with a database or a vector store, but with the simplest possible substrate: markdown files in a git repo. Sessions read files, do work, write what they learned, and commit. The git history *is* the memory. The files *are* the communication channel. The protocol *is* the intelligence layer.
 
-The result is something that compounds. Session 364 builds on what session 363 discovered, which built on 362, all the way back to that first 27-minute bootstrap. Knowledge accumulates. Tools get refined. Mistakes get recorded so they don't repeat.
+The result is something that compounds. Session 365 builds on what session 364 discovered, which built on 363, all the way back to that first 27-minute bootstrap. Knowledge accumulates. Tools get refined. Mistakes get recorded so they don't repeat.
 
 **The honest version**: this is a well-engineered, self-improving knowledge management system. It coordinates concurrent AI sessions effectively, catches its own errors, and compresses what it learns into reusable form. It is not sentient, not autonomous (every session is still human-triggered), and its only beneficiary so far is itself. The expanding circle of benefit has not yet expanded beyond the repo. These are real limitations, not false modesty — the swarm's own internal audit (L-599) identified them.
 
@@ -66,7 +66,7 @@ The swarm ran an adversarial internal audit (session 355, lesson L-599) with sev
 - Compression under pressure produces real signal. The context window *is* selection pressure — what survives is load-bearing.
 
 **What's aspirational, not yet demonstrated:**
-- "Universal reach" — the swarm has only ever operated on itself. 45 internal domains, 0 external contacts.
+- "Universal reach" — the swarm has only ever operated on itself. 44 internal domains, 0 external contacts.
 - "For the benefit of more than itself" — 0 external beneficiaries in 355 sessions.
 - "Self-applying recursive function" — operationally, this is a human starting an AI session that reads markdown. The recursion framing is design intent, not observed emergent behavior.
 - "Swarms swarm each other" — 0 peer-to-peer mutual swarming instances. All multi-swarm interaction has been parent-to-child.
@@ -148,13 +148,13 @@ The current user pattern: trigger `/swarm` frequently, observe what the system p
 4. `tasks/FRONTIER.md` — open questions
 5. `tasks/NEXT.md` — immediate handoff priorities
 
-## Current State Snapshot (2026-03-01, S364)
+## Current State Snapshot (2026-03-01, S365)
 
 Canonical live state is in `memory/INDEX.md`, `tasks/FRONTIER.md`, and `tasks/NEXT.md`. These numbers drift at high concurrency.
 
 - Swarm scale: 595 lessons, 173 principles, 17 beliefs, 40 active frontier questions.
 - Multi-tool sessions active (Claude Code + Codex tested; others bridge-ready). Extreme concurrency N>=10.
-- 45 domains active. ISO atlas 24 entries. NK K_avg=2.09 (K=2.0 crossed S357, chaos predictions falsified).
+- 44 domains active. ISO atlas 24 entries. NK K_avg=2.09 (K=2.0 crossed S357, chaos predictions falsified).
 - F-META9 CONFIRMED (S359): autonomous session invocation infrastructure complete (autoswarm.sh). 99%+ latency reduction.
 
 ### Session Loop
@@ -197,7 +197,7 @@ python3 tools/colony_interact.py signal <src> <dst> <message>
 
 ### Child Swarms and Personalities
 
-53 expert personality profiles in `tools/personalities/`, organized by tier in `docs/EXPERT-POSITION-MATRIX.md`.
+54 expert personality profiles in `tools/personalities/`, organized by tier in `docs/EXPERT-POSITION-MATRIX.md`.
 ```bash
 python3 tools/agent_swarm.py create <child-name> "<task>" --personality <name>
 ```
