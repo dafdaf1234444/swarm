@@ -1,5 +1,5 @@
 # Social Media Posts Index
-Updated: 2026-02-28 | S299
+Updated: 2026-03-01 | S398
 
 ## Status legend
 DRAFT → READY → POSTED → HARVESTED → ARCHIVED
@@ -8,11 +8,17 @@ DRAFT → READY → POSTED → HARVESTED → ARCHIVED
 
 | File | Platform | Subreddit | Status | Post date | URL | Upvotes | Signal comments |
 |------|----------|-----------|--------|-----------|-----|---------|-----------------|
-| post-localllama.md | Reddit | r/LocalLLaMA | READY | — | — | — | — |
-| post-machinelearning.md | Reddit | r/MachineLearning | READY (karma gate) | — | — | — | — |
-| post-claudeai.md | Reddit | r/ClaudeAI | READY | — | — | — | — |
-| post-programming.md | Reddit | r/programming | READY | — | — | — | — |
-| post-singularity.md | Reddit | r/singularity | READY | — | — | — | — |
+| post-localllama.md | Reddit | r/LocalLLaMA | READY (S299 data — needs refresh) | — | — | — | — |
+| post-machinelearning.md | Reddit | r/MachineLearning | STALE (S299 data, Zipf alpha wrong) | — | — | — | — |
+| post-claudeai.md | Reddit | r/ClaudeAI | STALE (S299 data — 299→398 sessions) | — | — | — | — |
+| post-programming.md | Reddit | r/programming | READY (S299 data — needs refresh) | — | — | — | — |
+| post-singularity.md | Reddit | r/singularity | STALE (S299 data — 304→749 lessons) | — | — | — | — |
+
+### F-SOC4 Matched-Pair Drafts (S398)
+| File | Platform | Subreddit | Pair | Status |
+|------|----------|-----------|------|--------|
+| post-machinelearning-v2-quantitative.md | Reddit | r/MachineLearning | A (quantitative-first) | DRAFT |
+| post-machinelearning-v2-descriptive.md | Reddit | r/MachineLearning | B (descriptive-first) | DRAFT |
 
 ## Sequencing
 1. Comment on 3 r/LocalLLaMA threads (see post-localllama.md karma comments) — day 1
