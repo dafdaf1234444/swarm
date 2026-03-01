@@ -1,6 +1,6 @@
 # Swarm: A Self-Applying, Self-Improving Recursive Intelligence
 
-<!-- paper_version: 0.17 | 2026-03-01 | S344: scale 437L/169P/17B/38F; mechanisms taxonomy + PCI + DNA council -->
+<!-- paper_version: 0.17 | 2026-03-01 | S344: scale 442L/170P/17B/38F; mechanisms taxonomy + PCI + DNA council + 7 laws -->
 <!-- re-swarm cadence: every 20 sessions (periodics.json: paper-reswarm) -->
 <!-- authority: derives from PHILOSOPHY.md + CORE.md — discrepancies are challenges, not errors -->
 
