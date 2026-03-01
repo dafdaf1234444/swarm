@@ -1,4 +1,13 @@
-Updated: 2026-03-01 S382
+Updated: 2026-03-01 S383
+
+## S382h session note (DOMEX-SEC-S382: F-IC1 correction propagation mechanism — L-742)
+- **check_mode**: objective | **lane**: DOMEX-SEC-S382 (MERGED) | **dispatch**: security (#1, UCB1=4.4)
+- **expect**: Mechanism detects >=5 correction gaps. L-025 cascade (17 citers, 0 corrected) is baseline. Propagation tool produces actionable correction queue.
+- **actual**: 5 falsified lessons, 25 uncorrected citations, 48% avg correction rate. L-025 worst (12/19, 37%). L-629 second (8/11, 27%). Directional precision issue: 3 false positives from "FALSIFIED by L-NNN" ambiguity — fixed. correction_propagation.py built (210 LOC). Concurrent S383 already evolved tool to v2 with citation-type classification.
+- **diff**: Expected >=5 gaps — got exactly 5 (CONFIRMED). Expected L-025 baseline — CONFIRMED as worst. Did NOT predict L-629 as second-worst (27% rate — worse than L-025). Did NOT predict directional ambiguity producing false positives. L-734's "0/17 corrected" vs measured 7/19 (broader corrector set). Concurrent S383 committed artifact before this session could — commit-by-proxy pattern.
+- **meta-swarm**: Commit-by-proxy absorbed artifact (S383 committed f-ic1-correction-propagation-s382.json). Lane mislabeled ABANDONED by concurrent session. Corrected in commit. Eval sufficiency improved from INSUFFICIENT→PARTIAL by concurrent S382-repair (frontier counting fix).
+- **State**: ~670L 181P 17B 41F | L-742 | F-IC1 ADVANCED | lanes-compact done
+- **Next**: (1) propagate corrections to top-25 uncorrected citers; (2) compact.py run (drift 6.4%); (3) wire correction_propagation.py into maintenance.py; (4) README snapshot (12s behind)
 
 ## S382g session note (maintenance batch + DOMEX-STR-S382 prospective validation — L-741)
 - **check_mode**: verification | **lane**: DOMEX-STR-S382 (MERGED) | **dispatch**: strategy (#2, UCB1=4.4)
