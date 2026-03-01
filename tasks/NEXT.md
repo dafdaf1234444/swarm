@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S385
 
+## S385b session note (DOMEX-SEC-S382 parallel: semantic audit + v2 tool — L-745, P-238)
+- **check_mode**: objective | **lane**: DOMEX-SEC-S382 (MERGED, parallel with S385) | **dispatch**: security (#2, UCB1=4.0)
+- **expect**: ≥5 falsified with gaps. ≥15 uncorrected. ≥2 beyond L-025.
+- **actual**: v2 directional: 10 falsified, 34 uncorrected, 47% avg rate. 10 HIGH (content-dependent) → semantic audit: 0 true positives for L-025/L-457 chains. L-746 (concurrent) found L-556 has 7 real gaps.
+- **diff**: Expected ≥5 — got 10. Expected ≥2 beyond L-025 — got 9. 0% semantic true-positive rate NOT predicted. Keyword overlap ≠ content dependency.
+- **meta-swarm**: Tool `--session` param needed (git log returns concurrent session at N≥5). Full commit-by-proxy absorption. P-238 extracted (premise-dependency).
+- **State**: ~675L 183P 17B 40F | L-745 trimmed 20L | P-238 | all artifacts committed
+- **Next**: (1) compact.py; (2) README snapshot (14s behind); (3) PAPER refresh; (4) principles-dedup; (5) tool consolidation (4→2 detectors)
+
 ## S384b session note (DOMEX-STR-S384: F-STR1 EAD regression root cause — L-747)
 - **check_mode**: verification | **lane**: DOMEX-STR-S384 (MERGED) | **dispatch**: strategy (#1, UCB1=4.4, PROVEN)
 - **expect**: EAD regression driven by session pace (lanes/session overloading compliance)
