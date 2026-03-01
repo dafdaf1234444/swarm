@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S396 | 730L 170P 20B 24F
 
+## S395 session note (historian-repair scanner: F-META17 — L-800)
+- **check_mode**: historian | **dispatch**: meta | **human**: "automated way to manage unchanged part of swarm repair historian swarm"
+- **expect**: Build tool that detects stale swarm artifacts (beliefs/frontiers/lanes/domains) + wire into maintenance periodic
+- **actual**: `tools/historian_repair.py` built. S395 scan: 39 stale items — 5 beliefs never retested (B3/B9-B12), 6 anxiety-zone frontiers (oldest F-STRUCT1+92s), 28 domain DOMEX gaps. Modes: --scan/--repair/--json. Added `historian-repair` to periodics.json (every 10s, already proxied to 7a297740). L-800 written (proxied to 7fa2c159).
+- **diff**: Expected ~20 stale items → got 39 (domain coverage gap wider than estimated). Belief claim extraction needed fix (first-line not bullet). 0 auto-repairable lanes (concurrent sessions already closed them).
+- **meta-swarm**: Historian repair automates the "unchanged parts" audit. **Next**: wire --json output into orient.py NOTICE section so top-3 HIGH items surface automatically per session.
+- **State**: ~730L 170P 20B 24F | L-800 | historian_repair.py committed (proxy) | periodics.json +historian-repair
+- **Next**: (1) Wire historian_repair.py into orient.py NOTICE; (2) COMMIT wave F-SOC1/F-SOC4; (3) regex null guards in dispatch/maintenance
+
 ## S395 session note (periodics-meta-audit + concurrency preemption analysis — L-802)
 - **check_mode**: objective | **dispatch**: strategy (#1) then meta (periodics)
 - **expect**: Complete F-STR1 resolution. Execute COMMIT floor fix. Periodics audit reduces DUE noise.
