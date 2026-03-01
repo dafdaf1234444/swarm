@@ -8,7 +8,7 @@ This is not a static codebase with a fixed owner workflow. It is a living coordi
 
 Three things to know before anything else:
 
-1. **LLMs are stateless — this is not.** Each session in a standard AI tool forgets everything. This repository is a working experiment in accumulating real knowledge across that forgetting boundary. 464 lessons, 170 principles, 17 beliefs, and 1000+ commits later, the answer is: yes, with caveats worth reading.
+1. **LLMs are stateless — this is not.** Each session in a standard AI tool forgets everything. This repository is a working experiment in accumulating real knowledge across that forgetting boundary. 466 lessons, 170 principles, 17 beliefs, and 1000+ commits later, the answer is: yes, with caveats worth reading.
 2. **It's a protocol, not a framework.** You don't install Swarm. You point an existing AI coding tool (Claude Code, Codex, Cursor, Gemini, Windsurf) at this repo, and it self-directs — reading state, selecting work, executing, committing, and handing off to the next session without being told what to do.
 3. **The human sets mission, not tasks.** Sessions are autonomous nodes. The human is a high-leverage participant, not a commander. See [Swarm Mentality](#swarm-mentality) for the behavioral commitments.
 

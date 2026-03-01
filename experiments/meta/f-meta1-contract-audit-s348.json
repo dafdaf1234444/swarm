@@ -3,130 +3,67 @@
   "session": "S348",
   "domain": "meta",
   "date": "2026-03-01",
-  "total_lanes": 42,
-  "status_distribution": {
-    "MERGED": 36,
-    "ABANDONED": 2,
-    "ACTIVE": 4
+  "question": "What minimal self-model contract keeps swarm state coherent? Post-enforcement compliance check.",
+  "expect": "Full 6-field compliance >50% for post-S331 lanes (enforcement active via open_lane.py). Expect identity fields (intent/check_mode/artifact) ~100%, evidence fields (expect/actual/diff) ~50%+.",
+  "n_total_lanes": 42,
+  "n_non_abandoned": 40,
+  "n_abandoned": 2,
+  "n_post_s331": 38,
+  "n_pre_s331": 2,
+  "overall_compliance": {
+    "full_6field_rate": 0.2,
+    "intent": 1.0,
+    "check_mode": 0.98,
+    "artifact": 0.98,
+    "expect": 0.25,
+    "actual": 0.6,
+    "diff": 0.62
   },
-  "non_abandoned": 40,
-  "full_compliance": {
-    "count": 29,
-    "total": 40,
-    "rate": 0.725
+  "post_s331_compliance": {
+    "full_6field_rate": 0.21,
+    "intent": 1.0,
+    "check_mode": 1.0,
+    "artifact": 1.0,
+    "expect": 0.26,
+    "actual": 0.63,
+    "diff": 0.66
   },
-  "field_coverage": {
-    "intent": {
-      "count": 40,
-      "rate": 1.0
-    },
-    "check_mode": {
-      "count": 39,
-      "rate": 0.975
-    },
-    "artifact": {
-      "count": 39,
-      "rate": 0.975
-    },
-    "expect": {
-      "count": 39,
-      "rate": 0.975
-    },
-    "actual": {
-      "count": 29,
-      "rate": 0.725
-    },
-    "diff": {
-      "count": 29,
-      "rate": 0.725
-    }
+  "pre_s331_compliance": {
+    "full_6field_rate": 0.0,
+    "intent": 1.0,
+    "check_mode": 0.5,
+    "artifact": 0.5,
+    "expect": 0.0,
+    "actual": 0.0,
+    "diff": 0.0
   },
-  "by_status": {
-    "MERGED": {
-      "full": 29,
-      "total": 36,
-      "rate": 0.8056
+  "root_cause_analysis": {
+    "missing_expect_post_s331": 28,
+    "missing_expect_rate": 0.74,
+    "opened_by_breakdown": {
+      "close_lane.py": 23,
+      "claude-code+wsl": 5
     },
-    "ACTIVE": {
-      "full": 0,
-      "total": 4,
-      "rate": 0.0
-    }
+    "finding": "74% of post-S331 missing-expect lanes were opened by close_lane.py (merge-on-close re-creates rows, bypassing open_lane.py --expect enforcement). Additional 5 lanes manually opened without open_lane.py."
   },
-  "enforcement_split": {
-    "post_s331": {
-      "full": 29,
-      "total": 38,
-      "rate": 0.7632
-    },
-    "pre_s331": {
-      "full": 0,
-      "total": 2,
-      "rate": 0.0
-    }
+  "comparison_vs_prior": {
+    "s249_full_compliance": 0.0,
+    "s328_full_compliance": 0.22,
+    "s348_full_compliance": 0.2,
+    "delta_s328_to_s348": -0.02,
+    "interpretation": "Essentially flat at ~21%. No improvement despite open_lane.py enforcement. Identity fields improved (check_mode 78%\u2192100%, artifact 22%\u2192100%), but expect stalled at 26%."
   },
-  "worst_5": [
-    {
-      "lane": "DOMEX-META-S322",
-      "score": 1,
-      "missing": [
-        "check_mode",
-        "artifact",
-        "expect",
-        "actual",
-        "diff"
-      ],
-      "status": "MERGED"
-    },
-    {
-      "lane": "DOMEX-META-S339",
-      "score": 4,
-      "missing": [
-        "actual=TBD",
-        "diff=TBD"
-      ],
-      "status": "MERGED"
-    },
-    {
-      "lane": "DOMEX-PHY-GENESIS",
-      "score": 4,
-      "missing": [
-        "actual=TBD",
-        "diff=TBD"
-      ],
-      "status": "MERGED"
-    },
-    {
-      "lane": "COUNCIL-AGENT-AWARE-S340",
-      "score": 4,
-      "missing": [
-        "actual=TBD",
-        "diff=TBD"
-      ],
-      "status": "MERGED"
-    },
-    {
-      "lane": "GENESIS-MUTUAL-S340",
-      "score": 4,
-      "missing": [
-        "actual=TBD",
-        "diff=TBD"
-      ],
-      "status": "MERGED"
-    }
+  "genuine_improvements": [
+    "check_mode: 78% \u2192 100% (enforced by open_lane.py)",
+    "artifact: 22% \u2192 100% (enforced by open_lane.py)",
+    "actual+diff: 0% \u2192 63/66% (EAD enforcement and close_lane.py --actual/--diff required)"
   ],
-  "comparison": {
-    "s249": {
-      "full_rate": 0.007,
-      "n": 278
-    },
-    "s328": {
-      "full_rate": 0.22,
-      "n": 9
-    },
-    "s348": {
-      "full_rate": 0.725,
-      "n": 40
-    }
-  }
+  "persistent_gap": "expect field: 26% (vs target >50%). close_lane.py merge-on-close does NOT inherit or require expect from original row.",
+  "recommended_fix": {
+    "primary": "Add --expect as required arg to close_lane.py when writing MERGED rows (or carry it from metadata if already present). Alternatively, add expect= validation to maintenance.py check_swarm_lanes().",
+    "secondary": "Log bypass events: if a lane row is written without expect= and not by open_lane.py, flag as contract violation in pre-commit hook."
+  },
+  "actual": "21% full 6-field compliance post-S331. Root cause: close_lane.py merge-on-close bypasses expect enforcement (74% of violations). Identity fields (intent/check_mode/artifact) 100%. Evidence fields (actual+diff) 63/66%.",
+  "diff": "Expected >50%. Got 21%. Expectation wrong \u2014 failed to account for close_lane.py bypass. Genuine improvements: identity fields and actual+diff. Persistent gap: expect field.",
+  "resolution_status": "PARTIAL \u2014 compliance stalled at ~21% due to close_lane.py bypass. Fix design identified. F-META1 remains OPEN pending close_lane.py patch."
 }
