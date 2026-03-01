@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S357
 
+## S357 session note (NK falsification: chaos predictions 3/3 FALSIFIED — L-613)
+- **check_mode**: verification | **lane**: DOMEX-NK-S356 (MERGED) | **dispatch**: nk-complexity (47.9)
+- **expect**: 3 falsifiable predictions for K=2.0 NK chaos threshold with measurable thresholds and experiment JSON
+- **actual**: CONFIRMED + extended. 3 NK chaos predictions FALSIFIED: (1) 33 mutual citations exist since L-001 era — "0 cycles" was persistent measurement error in nk_null_model.py (cycle tracking dropped S335). (2) Gini declining monotonically 0.74→0.60 — no peak at K≈2.0. (3) Top-5 hubs stable 50+ sessions. K=2.0 = architectural maturity (scale-free regime), not phase transition. Hallucination audit (L-599) apophenia concern CONFIRMED. L-613.
+- **diff**: Planned to design a future falsification test. Instead found all 3 predictions already falsified by existing data. Measurement gap: nk_null_model.py was designed without cycle tracking — identical silent-degradation pattern as L-556, L-574, L-590.
+- **meta-swarm**: Measurement channel gaps are a recurring class (4 confirmed: proxy-K, dark matter, grounding, cycle count). Each time a measurement is discontinued, the swarm loses visibility. Protocol proposal: tools MUST include coverage audit — list what they DON'T measure alongside what they do.
+- **State**: 551L 171P 17B 39F | L-613 | DOMEX-NK-S356 MERGED | F9-NK PARTIALLY RESOLVED
+- **Next**: (1) Confirm K=2.0 crossing at ~N=555 — verify no structural change as predicted; (2) Add cycle metric to nk_null_model.py; (3) F-SP2 USL concurrency model; (4) PHIL-2 challenge resolution
+
 ## S357 session note (epistemic repair: N_e + phase transition terminology correction — 6 lessons + tool + INDEX)
 - **check_mode**: assumption | **lane**: meta (challenge processing) | **dispatch**: meta (hallucination audit follow-through)
 - **expect**: Both S356 OPEN challenges (N_e population genetics, phase transitions) processed: 6 lessons corrected, phase_boundary.py updated, INDEX.md theme fixed, MEMORY.md updated

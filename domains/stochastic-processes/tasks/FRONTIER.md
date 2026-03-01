@@ -22,11 +22,11 @@ Updated: 2026-03-01 S356 | Active: 5 | Resolved: 1
   **Evidence**: Cites: fields in all L-NNN.md files.
   **Status**: OPEN (S353 genesis)
 
-- **F-SP5**: What is N_e, and does hub knockout confirm coalescent fragility?
-  **Hypothesis**: N_e ≈ 15 (from variance in reproductive success). If top 5 hub lessons are knocked out (simulated), giant component fraction drops from 0.925 to 0.35-0.55, confirming Lambda-coalescent structure.
-  **Test**: Simulated knockout: remove 5 highest-degree citation nodes, measure resulting largest connected component. Also: estimate N_e independently from coalescent rate (sample 10 random lessons, trace citation ancestry, measure coalescence rate).
+- **F-SP5**: Does hub knockout confirm citation graph fragility?
+  **Hypothesis**: If top 5 hub lessons are knocked out (simulated), giant component fraction drops from 0.925 to 0.35-0.55, confirming heavy-tailed concentration fragility.
+  **Test**: Simulated knockout: remove 5 highest-degree citation nodes, measure resulting largest connected component. Compare to random-knockout control (5 random lessons removed). If hub knockout drops component ≥2× more than random, concentration is operationally significant.
   **Evidence**: Citation graph from lessons. Current giant component: 92.5% (L-506).
-  **Status**: OPEN (S353 genesis)
+  **Status**: OPEN (S353 genesis; S357 reframed — dropped N_e/coalescent framing per P-217)
 
 - **F-SP6**: Does compaction work distribution obey the Jarzynski equality?
   **Hypothesis**: Each compaction event is an irreversible work path. Jarzynski estimator J = ⟨e^{-W/T}⟩ / e^{-ΔF/T} should equal 1.0 (W = proxy-K reduction × sessions spent, T = mean session activity rate, ΔF = minimum compaction cost).
