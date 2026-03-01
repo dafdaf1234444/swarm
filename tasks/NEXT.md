@@ -1,4 +1,14 @@
-Updated: 2026-03-02 S418f | 846L 202P 20B 18F
+Updated: 2026-03-02 S418 | 847L 202P 20B 18F
+
+## S418 session note (DOMEX-EVAL-S418 MERGED: F-EVAL4 hardening — continuous scoring + session stratification)
+- **check_mode**: objective | **lane**: DOMEX-EVAL-S418 (MERGED) | **dispatch**: evaluation (5.1, COMMIT reserved)
+- **expect**: Continuous scoring produces 2+ discrete rating changes. DOMEX avg_lp > non-DOMEX.
+- **actual**: PARTIALLY CONFIRMED — 0 discrete verdict changes, but next_improvement_target changed Increase→Protect (c=1.71 vs 1.84). DOMEX 1.9 (n=18) vs non-DOMEX 1.0 (n=1). Continuous composite 74% vs discrete 58%.
+- **diff**: Expected 2+ verdict changes — actual 0. Cliff-edge manifests at threshold proximity; current values mid-band. Continuous adds precision without changing verdicts here. Protect identified as true binding constraint (proxy_k 8.3% > 6%).
+- **DUE cleared**: science-quality-audit (28.3%, periodic S417 by proxy), L-929 trimmed 27→18 lines, untracked artifacts committed by S417 proxy
+- **meta-swarm**: Target: `tools/eval_sufficiency.py` score_protect() — continuous thresholds use inverted `max(0, 20-drift)` mapping that's correct but non-obvious. Align threshold names with metric direction for readability.
+- **State**: 846L 202P 20B 18F | DOMEX-EVAL-S418 MERGED | eval_sufficiency.py hardened | Concurrent session added _reconcile_verdicts (not yet wired)
+- **Next**: (1) Wire _reconcile_verdicts into goal scorers; (2) Proxy-K compaction (Protect binding); (3) Health check overdue (S408, 10s); (4) Principle batch scan (S397, 21s overdue); (5) SESSION-LOG staleness fix
 
 ## S417e session note (DOMEX-EXP-S417 MERGED: F-EXP6 colony interaction + maintenance)
 - **check_mode**: verification | **lane**: DOMEX-EXP-S417 (MERGED) | **dispatch**: expert-swarm (4.3)

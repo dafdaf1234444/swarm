@@ -368,28 +368,31 @@ def score_collaborate(lanes: dict, con1: dict, signals: dict) -> dict:
     continuous_score = min(merge_continuous, c1_continuous, sig_continuous)
     details["continuous_score"] = round(continuous_score, 2)
 
-    # Scoring: 0-3 (discrete)
+    # Scoring: 0-3 (discrete baseline before reconciliation)
     # 0: merge_rate < 0.3 OR c1 > 10%
     # 1: merge_rate >= 0.3, c1 <= 10%, signal_completeness < 80%
     # 2: merge_rate >= 0.4, c1 <= 5%, signal_completeness >= 80%
     # 3: merge_rate >= 0.5, c1 <= 2%, external collaboration evidence
     if merge_rate < 0.3 or c1_rate > 0.10:
-        score = 0
-        verdict = "INSUFFICIENT"
+        discrete_score = 0
     elif sig_completeness < 0.80:
-        score = 1
-        verdict = "ADEQUATE"
+        discrete_score = 1
     elif merge_rate >= 0.4 and c1_rate <= 0.05:
-        score = 2
-        verdict = "SUFFICIENT"
+        discrete_score = 2
     else:
-        score = 1
-        verdict = "ADEQUATE"
+        discrete_score = 1
 
-    # Check for excellent: external collaboration (no external evidence yet)
+    # F-EVAL4 (L-928): reconcile discrete and continuous verdicts
+    reconciled = _reconcile_verdicts(discrete_score, continuous_score)
     details["external_grounding"] = False
-    details["score"] = score
-    details["verdict"] = verdict
+    details["score"] = reconciled["score"]
+    details["verdict"] = reconciled["verdict"]
+    details["discrete_score"] = discrete_score
+    details["continuous_verdict"] = reconciled["continuous_verdict"]
+    if reconciled["adjusted"]:
+        details["adjustment"] = reconciled["adjustment_reason"]
+    if reconciled["margin_warning"]:
+        details["margin_warning"] = reconciled["margin_warning"]
     details["rationale"] = (
         f"merge_rate={merge_rate:.1%} ({lanes['merged']}/{total_productive} productive lanes MERGED), "
         f"c1={c1_rate:.1%} (lane-level duplicate rate), "
@@ -458,37 +461,48 @@ def score_increase(sessions: list[dict], frontiers: dict, domains: int, lessons:
         "domains": round(domain_continuous, 2),
     }
 
-    # Discrete scoring (preserved for verdict compatibility)
+    # Discrete scoring (baseline before reconciliation)
     # 0: avg_lp < 1.0 per session OR resolution_rate < 0.05
     # 1: avg_lp >= 1.0, resolution_rate >= 0.05, domains < 15
     # 2: avg_lp >= 2.0, resolution_rate >= 0.10, domains >= 15
     # 3: avg_lp >= 3.0, resolution_rate >= 0.15, external validation of growth
     # F-EVAL4: if window_n < 5, cap at ADEQUATE (insufficient data for SUFFICIENT claim)
     if avg_lp_per_session < 1.0 or resolution_rate < 0.05:
-        score = 0
-        verdict = "INSUFFICIENT"
+        discrete_score = 0
     elif avg_lp_per_session >= 2.0 and resolution_rate >= 0.10 and domains >= 15:
         if details["window_insufficient"]:
-            score = 1
-            verdict = "ADEQUATE"
+            discrete_score = 1
             details["note"] = f"avg_lp={avg_lp_per_session:.2f} meets threshold but window_n={len(recent)} < 5 — insufficient data (F-EVAL4, L-919)"
         else:
-            score = 2
-            verdict = "SUFFICIENT"
+            discrete_score = 2
     elif avg_lp_per_session >= 1.0 and resolution_rate >= 0.05:
-        score = 1
-        verdict = "ADEQUATE"
+        discrete_score = 1
     else:
-        score = 0
-        verdict = "INSUFFICIENT"
+        discrete_score = 0
 
-    if score == 2 and avg_lp_per_session >= 3.0 and resolution_rate >= 0.15:
-        score = 3
-        verdict = "EXCELLENT"
+    if discrete_score == 2 and avg_lp_per_session >= 3.0 and resolution_rate >= 0.15:
+        discrete_score = 3
+
+    # F-EVAL4 (L-928): reconcile discrete and continuous verdicts
+    reconciled = _reconcile_verdicts(discrete_score, continuous_score)
+    # Window insufficiency overrides upward adjustments (can't claim SUFFICIENT on N<5)
+    if details["window_insufficient"] and reconciled["score"] > 1:
+        reconciled["score"] = 1
+        reconciled["verdict"] = "ADEQUATE"
+        reconciled["adjustment_reason"] = (
+            f"window_n={len(recent)} < 5 caps verdict at ADEQUATE regardless of continuous score"
+        )
+        reconciled["adjusted"] = True
 
     details["external_grounding"] = False
-    details["score"] = score
-    details["verdict"] = verdict
+    details["score"] = reconciled["score"]
+    details["verdict"] = reconciled["verdict"]
+    details["discrete_score"] = discrete_score
+    details["continuous_verdict"] = reconciled["continuous_verdict"]
+    if reconciled["adjusted"]:
+        details["adjustment"] = reconciled["adjustment_reason"]
+    if reconciled.get("margin_warning"):
+        details["margin_warning"] = reconciled["margin_warning"]
     details["rationale"] = (
         f"avg_lp={avg_lp_per_session:.2f} (window={window_size}s, n={len(recent)}, "
         f"DOMEX={details['domex_avg_lp']:.1f} n={details['domex_n']}, "
@@ -533,28 +547,32 @@ def score_protect(proxy_k: dict, challenges: dict) -> dict:
     continuous_score = min(drift_continuous, drop_continuous) if details["validator_pass"] else 0.0
     details["continuous_score"] = round(continuous_score, 2)
 
-    # Scoring: 0-3 (discrete)
+    # Scoring: 0-3 (discrete baseline before reconciliation)
     # 0: proxy-K unhealthy (drift >= 20%) OR validator FAIL
     # 1: proxy-K healthy, validator PASS, but zero-drop warning active
     # 2: proxy-K healthy, validator PASS, drop_rate > 0 (healthy challenge rejection)
     # 3: proxy-K healthy, validator PASS, drop_rate > 0, external integrity audit
     if drift >= 20.0 or not details["validator_pass"]:
-        score = 0
-        verdict = "INSUFFICIENT"
+        discrete_score = 0
     elif details["zero_drop_warning"]:
-        score = 1
-        verdict = "ADEQUATE"
+        discrete_score = 1
         details["note"] = "0 challenge drops across all entries — possible soft-acceptance bias (L-219)"
     elif drift < 6.0 and drop_rate > 0:
-        score = 2
-        verdict = "SUFFICIENT"
+        discrete_score = 2
     else:
-        score = 1
-        verdict = "ADEQUATE"
+        discrete_score = 1
 
+    # F-EVAL4 (L-928): reconcile discrete and continuous verdicts
+    reconciled = _reconcile_verdicts(discrete_score, continuous_score)
     details["external_grounding"] = False
-    details["score"] = score
-    details["verdict"] = verdict
+    details["score"] = reconciled["score"]
+    details["verdict"] = reconciled["verdict"]
+    details["discrete_score"] = discrete_score
+    details["continuous_verdict"] = reconciled["continuous_verdict"]
+    if reconciled["adjusted"]:
+        details["adjustment"] = reconciled["adjustment_reason"]
+    if reconciled.get("margin_warning"):
+        details["margin_warning"] = reconciled["margin_warning"]
     details["rationale"] = (
         f"proxy_k_drift={drift:.1f}% (healthy<6%), "
         f"validator={'PASS' if details['validator_pass'] else 'FAIL'}, "
@@ -611,31 +629,34 @@ def score_truthful(challenges: dict, signals: dict, frontiers: dict) -> dict:
     continuous_score = min(evidence_continuous, signal_continuous)
     details["continuous_score"] = round(continuous_score, 2)
 
-    # Scoring: 0-3 (discrete)
+    # Scoring: 0-3 (discrete baseline before reconciliation)
     # 0: evidence_rate < 0.30 (most challenges unresolved/dropped without evidence)
     # 1: evidence_rate >= 0.30, external grounding target not met
     # 2: evidence_rate >= 0.50, external grounding target met
     # 3: evidence_rate >= 0.70, external grounding target met, zero-drop concern addressed
     if evidence_rate < 0.30:
-        score = 0
-        verdict = "INSUFFICIENT"
+        discrete_score = 0
     elif not external_grounding_ok:
-        score = 1
-        verdict = "ADEQUATE"
+        discrete_score = 1
     elif evidence_rate >= 0.50 and external_grounding_ok:
-        score = 2
-        verdict = "SUFFICIENT"
+        discrete_score = 2
     else:
-        score = 1
-        verdict = "ADEQUATE"
+        discrete_score = 1
 
-    if score == 2 and evidence_rate >= 0.70:
-        score = 3
-        verdict = "EXCELLENT"
+    if discrete_score == 2 and evidence_rate >= 0.70:
+        discrete_score = 3
 
+    # F-EVAL4 (L-928): reconcile discrete and continuous verdicts
+    reconciled = _reconcile_verdicts(discrete_score, continuous_score)
     details["external_grounding"] = external_grounding_ok
-    details["score"] = score
-    details["verdict"] = verdict
+    details["score"] = reconciled["score"]
+    details["verdict"] = reconciled["verdict"]
+    details["discrete_score"] = discrete_score
+    details["continuous_verdict"] = reconciled["continuous_verdict"]
+    if reconciled["adjusted"]:
+        details["adjustment"] = reconciled["adjustment_reason"]
+    if reconciled.get("margin_warning"):
+        details["margin_warning"] = reconciled["margin_warning"]
     details["rationale"] = (
         f"evidence_grounded_rate={evidence_rate:.1%} ({evidence_grounded}/{total} challenges), "
         f"signal_density={signal_density:.2f}/session (target ≥0.1), "
@@ -694,7 +715,7 @@ def compute_sufficiency() -> dict:
     }
     next_target = min(goal_continuous, key=goal_continuous.get)
 
-    # Overall verdict
+    # Overall verdict — uses continuous composite as tiebreaker (F-EVAL4)
     min_score = min(scores)
     avg_score = sum(scores) / len(scores)
     if min_score == 0:
@@ -708,7 +729,49 @@ def compute_sufficiency() -> dict:
     else:
         overall = "EXCELLENT"
 
-    return {
+    # F-EVAL4: continuous override — if continuous composite strongly disagrees, annotate
+    continuous_overall = _continuous_verdict(sum(continuous_scores) / len(continuous_scores))
+    overall_note = None
+    if continuous_overall != overall:
+        overall_note = (
+            f"continuous_composite={continuous_composite:.2f} suggests {continuous_overall} "
+            f"(discrete says {overall})"
+        )
+
+    # Collect margin warnings from all goals
+    margin_warnings = []
+    for goal_name, goal_data in [("Collaborate", collaborate), ("Increase", increase),
+                                  ("Protect", protect), ("Truthful", truthful)]:
+        if goal_data.get("margin_warning"):
+            margin_warnings.append(f"{goal_name}: {goal_data['margin_warning']}")
+
+    # Collect adjustments from all goals
+    adjustments = []
+    for goal_name, goal_data in [("Collaborate", collaborate), ("Increase", increase),
+                                  ("Protect", protect), ("Truthful", truthful)]:
+        if goal_data.get("adjustment"):
+            adjustments.append(f"{goal_name}: {goal_data['adjustment']}")
+
+    # F-EVAL4 (L-928): stratified scores from Increase goal (DOMEX vs non-DOMEX)
+    stratified_scores = {
+        "DOMEX": {
+            "avg_lp": increase.get("domex_avg_lp", 0),
+            "n_sessions": increase.get("domex_n", 0),
+        },
+        "non_DOMEX": {
+            "avg_lp": increase.get("non_domex_avg_lp", 0),
+            "n_sessions": increase.get("non_domex_n", 0),
+        },
+        "ratio": round(
+            increase.get("domex_avg_lp", 0) / increase.get("non_domex_avg_lp", 1)
+            if increase.get("non_domex_avg_lp", 0) > 0 else float("inf"), 2
+        ),
+        "domex_fraction": round(
+            increase.get("domex_n", 0) / max(1, increase.get("domex_n", 0) + increase.get("non_domex_n", 0)), 2
+        ),
+    }
+
+    result = {
         "session": _get_current_session(),
         "computed_at": datetime.now(timezone.utc).isoformat(),
         "goals": {
@@ -719,10 +782,12 @@ def compute_sufficiency() -> dict:
         },
         "scores": goal_scores,
         "continuous_scores": {k: round(v, 2) for k, v in goal_continuous.items()},
+        "stratified_scores": stratified_scores,
         "composite_normalized": round(composite, 3),
         "continuous_composite": round(continuous_composite, 3),
         "avg_score_of_3": round(avg_score, 2),
         "overall": overall,
+        "continuous_overall": continuous_overall,
         "next_improvement_target": next_target,
         "scale": {
             "0": "Insufficient — below minimum threshold",
@@ -732,6 +797,13 @@ def compute_sufficiency() -> dict:
         },
         "related": ["F-EVAL1", "PHIL-14", "PHIL-16", "L-316", "B-EVAL1/2/3"],
     }
+    if overall_note:
+        result["overall_note"] = overall_note
+    if margin_warnings:
+        result["margin_warnings"] = margin_warnings
+    if adjustments:
+        result["adjustments"] = adjustments
+    return result
 
 
 def print_report(result: dict) -> None:
