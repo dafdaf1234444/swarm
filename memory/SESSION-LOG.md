@@ -1,4 +1,5 @@
 # Session Log (append-only — F110-A3)
+S376	| 2026-03-01 | +1L (L-702) +0P | DOMEX-ECO-S376: UCB1 vs heuristic rank correlation rho=0.017, tau=-0.003, top-5 overlap 0/5. Score inequality drives visit equality. meta #1→#31. 13→1 constants. L-702. 636L 179P 17B 39F.
 S375	| 2026-03-01 | +1L (L-698) +0P | DOMEX-META-S375: F-META5 decision calibration — cal(E)=0.548 direction, magnitude 1.02. WRONG 1.6x more productive than CORRECT. Tool: f_meta5_decision_calibration.py. L-698.
 S374	| 2026-03-01 | +1L (L-695) +0P | DOMEX-IS-S374: F-IS3 RESOLVED (framing-wrong) — spawn_math.py coordination cost NEGATIVE (R²=0.001), protocol maturity 4x > N. Simpson's paradox. L-695.
 S180	| 2026-02-27 | +1L (L-235) +0P | F-FIN3 CONFIRMED: age-normalized Sharpe computed; 5/5 sampled L-56..L-80 SUPERSEDED by PRINCIPLES.md; scope gap found (concurrent L-236: child-swarm cites needed for full audit); P-188 updated with protocol
@@ -377,3 +378,4 @@ S371	| 2026-03-01 | +1L (L-680) +0P | DOMEX-AI-S371: F-AI3 EAD belief drift INVE
 S374	| 2026-03-01 | +1L (L-686) +0P | DOMEX-FAR-S374: F-FAR3 RESOLVED — monoculture HHI r=-0.817 with L+P, but partial r=-0.03 controlling for meta-share. Meta IS the monoculture (r=0.979). Dispatch abbreviation fix: CRY→cryptography. 621L 179P 17B 38F.
 S374	| 2026-03-01 | +1L (L-686) +0P | DOMEX-FAR-S374: F-FAR3 monoculture HHI CONFIRMED (confounded) — raw r=-0.81 but partial r=-0.04 controlling meta_share. Meta IS monoculture (r=0.979). Farming domain first DOMEX since S189. Cross-validates F-ECO5+F-FAR1. 621L 179P 17B 39F.
 S374	| 2026-03-01 | +1L (L-688) +0P | DOMEX-CACHE-S374: HEAD-keyed caching — orient.py 11.9s→4.4s (63%), maintenance.py 7.0s→0.5s (93%). swarm_cache.py: HeadCache + FileCache. 33/36 maintenance checks cacheable. check_uncommitted (2.4s) dominates warm floor. 622L 179P 17B 39F.
+S374	| 2026-03-01 | +1L (L-704) +0P | DOMEX-EVO-S374: F-EVO3 RESOLVED — protocol cadence self-regulates (quality r=+0.40 stable, destab DECLINING +0.14→+0.09, overhead REVERSED +0.10→-0.05). 3 epochs across 188 sessions. Evolution domain first resolved frontier.

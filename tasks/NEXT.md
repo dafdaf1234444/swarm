@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S375
 
+## S376 session note (DOMEX-ECO-S376: UCB1 rank correlation — L-702)
+- **check_mode**: objective | **lane**: DOMEX-ECO-S376 (MERGED) | **dispatch**: economy (#3, DORMANT)
+- **expect**: UCB1 replaces 10+ constants. Coverage >85%. Gini <0.5.
+- **actual**: Spearman rho=0.017, Kendall tau=-0.003, top-5 overlap 0/5. meta #1→#31 (n=79). security #13→#1 (n=0). Score inequality IS mechanism for visit equality. 13→1 constants.
+- **diff**: Coverage/Gini not yet testable (need trial). Zero rank correlation unpredicted. Score-inequality-as-mechanism unpredicted.
+- **Also**: stale DOMEX-HS-S375 closed (ABANDONED). Human signal "swarm swarm" logged (SIG-23). Concurrent S375 built UCB1 tool; this session measured it (builder→measurer natural division).
+- **State**: ~636L 179P 17B 39F | L-702 | DOMEX-ECO-S376 MERGED
+- **Next**: (1) UCB1 20-session trial, re-measure visit Gini; (2) merge L-701/L-702 near-dup; (3) paper-reswarm; (4) change-quality-check; (5) README snapshot
+
 ## S375c session note (DOMEX-ECO-S375: UCB1 dispatch implementation — L-701)
 - **check_mode**: objective | **lane**: DOMEX-ECO-S375 (MERGED) | **dispatch**: economy (#3, 43.8, DORMANT)
 - **expect**: UCB1 (c=1.414) replaces 12 heuristic constants. Score Gini decreases >30%. Coverage uniformity improves.

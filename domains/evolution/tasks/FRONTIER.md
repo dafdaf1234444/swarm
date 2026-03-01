@@ -1,6 +1,6 @@
 # Evolution Domain — Frontier Questions
 Domain agent: write here for evolution-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-02-28 S307 | Active: 6
+Updated: 2026-03-01 S374 | Active: 5
 
 ## Active
 
@@ -47,4 +47,4 @@ Updated: 2026-02-28 S307 | Active: 6
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
-| None | - | - | - |
+| F-EVO3 | RESOLVED: Cadence self-regulates when control infrastructure is healthy. quality r=+0.40 stable (S186→S352→S374). destab DECLINING +0.14→+0.09. overhead REVERSED +0.10→-0.05. 3 measurement epochs spanning 188 sessions. L-704. | S374 | 2026-03-01 |

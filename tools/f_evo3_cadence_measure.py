@@ -22,17 +22,35 @@ PROTOCOL_FILES = [
 ]
 
 
-def git_files_changed_in_session(session_num):
-    """Get files changed in commits tagged with [S<N>]."""
+def build_session_file_map():
+    """Bulk scan: one git log call to map session→files changed."""
+    session_files = {}
     try:
+        # Single git log call: get all commits with session tags
         result = subprocess.run(
-            ["git", "log", "--all", "--oneline", "--name-only",
-             f"--grep=[S{session_num}]", "--format="],
-            capture_output=True, text=True, timeout=10, cwd=ROOT,
+            ["git", "log", "--all", "--oneline", "--name-only", "--format=%s"],
+            capture_output=True, text=True, timeout=60, cwd=ROOT,
         )
-        return set(result.stdout.strip().splitlines()) if result.stdout.strip() else set()
-    except Exception:
-        return set()
+        if not result.stdout:
+            return session_files
+
+        current_session = None
+        for line in result.stdout.splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            # Check if this is a commit subject line with [S<N>]
+            m = re.search(r'\[S(\d+)\]', line)
+            if m:
+                current_session = int(m.group(1))
+                if current_session not in session_files:
+                    session_files[current_session] = set()
+            elif current_session is not None and not line.startswith('['):
+                # This is a filename
+                session_files.setdefault(current_session, set()).add(line)
+    except Exception as e:
+        print(f"WARN: git log failed: {e}")
+    return session_files
 
 
 def parse_session_log():
@@ -95,12 +113,14 @@ def main():
 
     print(f"Parsed {len(unique)} unique sessions from SESSION-LOG")
 
-    # Check protocol file mutations per session via git log
-    print("Scanning git log for protocol file mutations (this may take a moment)...")
+    # Check protocol file mutations per session via bulk git log
+    print("Scanning git log for protocol file mutations (bulk)...")
+    session_file_map = build_session_file_map()
+    print(f"  Found file data for {len(session_file_map)} sessions in git log")
     protocol_touches = Counter()
     for s in unique:
         snum = s["session_num"]
-        files = git_files_changed_in_session(snum)
+        files = session_file_map.get(snum, set())
         mutations = [f for f in PROTOCOL_FILES if f in files]
         s["protocol_mutations"] = len(mutations)
         s["has_mutation"] = len(mutations) > 0
