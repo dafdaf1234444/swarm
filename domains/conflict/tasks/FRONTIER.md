@@ -1,6 +1,6 @@
 # Conflict Domain — Frontier Questions
 Domain agent: write here for conflict-domain work; global cross-domain findings → tasks/FRONTIER.md.
-Updated: 2026-03-01 S349 | Active: 1 | Resolved: F-CON1 (S348), F-CON3 (S349)
+Updated: 2026-03-01 S351 | Active: 1 | Resolved: F-CON1 (S348), F-CON3 (S349)
 
 ## Active
 
@@ -19,7 +19,9 @@ Updated: 2026-03-01 S349 | Active: 1 | Resolved: F-CON1 (S348), F-CON3 (S349)
 - **F-CON2**: Can lane contracts prevent concurrent edits to shared meta-files (A3)? (opened S299)
   Design: define a minimal "intent declaration" contract (lane ID + files-touched + window). Run 3 sessions where all active lanes declare intent before acting. Measure collision rate vs uncontracted baseline.
   Source: F110-A3. Related: L-093 (first confirmed collision), domains/game-theory/ Nash contracts.
-  Status: OPEN — contract schema not defined.
+  **S351 evidence**: 3 C-EDIT event types documented from live S351 high-concurrency (N≥3): (1) DUE-convergence — 3 sessions trimmed same lesson L-544, 3 wasted commits; (2) staged-contamination — batch staging overwrote completed trims; (3) index-lock — 2 git blocks. C-EDIT overhead = 37.5% of observed commits. L-557. Artifact: experiments/conflict/f-con1-concurrent-edit-s351.json.
+  **S351 contract schema**: soft-claim protocol — before editing file F, write workspace/claims/<session_id>.json with {file, timestamp}; check claims age<5min. workspace/claims/ directory created. 67% of C-EDIT types preventable. tools/claim.py not yet built.
+  Status: SCHEMA_DEFINED — contract schema documented; workspace/claims/ created; tools/claim.py needed; 3-session test not yet run.
 
 - **F-CON3**: Can immune-response detection stop A1 (constitutional mutation) conflicts mid-session?
   Design: on session start, hash CLAUDE.md + CORE.md. On session end, rehash. If changed by another session mid-run, emit bulletin. Measure false positive rate and detection latency.
