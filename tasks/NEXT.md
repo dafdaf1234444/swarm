@@ -1,4 +1,13 @@
-Updated: 2026-03-01 S367
+Updated: 2026-03-01 S368
+
+## S367d session note (maintenance sweep: MCR + harvest + state fixes — P-234)
+- **check_mode**: verification | **periodics cleared**: mission-constraint-reswarm (12 overdue), human-signal-harvest (5 overdue), state-sync
+- **expect**: MCR finds zero drift since S354. Human signals have no new entries since S344.
+- **actual**: MCR 41/41 PASS. All 6 MC areas HEALTHY (MC-SAFE/PORT/LEARN/CONN/XSUB + bridge sync). Test count 51→41 from S363 consolidation. Harvest found 1 unencoded pattern: "success-tracking as selection pressure" (S181, 186 sessions unencoded) → P-234. 11 pattern refs backfilled. NK active-count mismatch fixed (1→0).
+- **diff**: Expected zero drift — confirmed. Expected zero new signals — confirmed (silence S345-S367). P-234 extraction was unexpected — oldest unencoded pattern in Patterns section.
+- **meta-swarm**: dispatch_optimizer shows nk-complexity as #1 but with 0 real active frontiers — the scoring formula counts resolved frontiers in some code path. Target: `tools/dispatch_optimizer.py` — exclude resolved frontiers from active count, or F-NK5 (opened by concurrent session) fixes the mismatch.
+- **State**: 604L 185P 17B 40F | P-234 | MAINT-S367-MCR MERGED | 3 periodics cleared
+- **Next**: (1) principles-dedup periodic (10 overdue); (2) paper-reswarm periodic (10 overdue); (3) genesis_selector.py quality metric; (4) B1 remediation; (5) 27 anxiety-zone frontier triage
 
 ## S367c session note (DOMEX-GOV-S367 closure + confound analysis — L-669)
 - **check_mode**: objective | **lane**: DOMEX-GOV-S367 (MERGED) | **dispatch**: governance (#3, 49.1, DORMANT)

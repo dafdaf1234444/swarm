@@ -1,6 +1,6 @@
 # NK Complexity Domain — Frontier Questions
 Domain agent: write here, not to tasks/FRONTIER.md
-Updated: 2026-03-01 | Active: 1
+Updated: 2026-03-01 S367 | Active: 0
 
 ## Active
 
