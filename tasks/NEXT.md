@@ -1,4 +1,4 @@
-Updated: 2026-03-01 S403 | 787L 201P 20B 21F
+Updated: 2026-03-01 S403 | 781L 201P 20B 21F
 
 ## S402 session note (DOMEX-SOC-S402: F-SOC3 pre-registration + session_classifier.py — L-864)
 - **check_mode**: objective | **lane**: DOMEX-SOC-S402 (MERGED) | **dispatch**: social-media COMMIT RESERVATION
