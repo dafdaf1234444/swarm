@@ -1,6 +1,6 @@
 # Stochastic Processes Domain — Frontier Questions
 Domain agent: stochastic process investigations; cross-domain → tasks/FRONTIER.md
-Updated: 2026-03-01 S382 | Active: 2 | Resolved: 4 | Partial: F-SP4 (advanced), F-SP6
+Updated: 2026-03-01 S383 | Active: 2 | Resolved: 4 | Partial: F-SP4 (advanced), F-SP6
 
 ## Active
 
@@ -11,7 +11,8 @@ Updated: 2026-03-01 S382 | Active: 2 | Resolved: 4 | Partial: F-SP4 (advanced), 
   **S369 PARTIALLY CONFIRMED**: PA kernel γ=0.61 (SUBLINEAR, R²=0.39, n=979 events, 609 lessons). NOT superlinear as predicted. Zero-inflation CONFIRMED (rate(k≥1)/rate(k=0)=5.07). BIC inconclusive (ΔBIC=-0.47). PA ratio=1.30. Tool: `tools/pa_kernel.py`. L-675. The initial γ estimate from α=1.903 was a substrate error: degree-distribution exponent ≠ attachment kernel exponent.
   **S381 ADVANCED**: Time-varying analysis (n=1043, 536 lessons, 4 eras). γ is NON-STATIONARY: early=0.95, mid=0.97, DOMEX=0.60, recent=1.89. Pre-EAD vs post-EAD Δγ=+0.72 (p=0.004). S369 γ=0.61 correctly captured DOMEX era, not system-wide. Recent superlinear PA driven by hub accumulation from EAD enforcement. L-735.
   **S382 REFINED**: L-735's γ=1.89 is sparse-tail artifact (n=1 at k≥20). Robust gamma (n≥5 filter): 0.63-0.71 consensus across 4 methods (n=1190 events, 662L). Three citation forces: (1) visibility threshold 66x (k=0→k≥1), (2) mild sublinear PA γ~0.68, (3) session proximity 27x (50.4% of citations within 5 sessions). Era: early γ=-0.005 (FLAT), late γ=0.556. Saturation at k=12. L-736.
-  **Status**: PARTIALLY CONFIRMED (S382 refined) — kernel sublinear, proximity-dominated; BIC still inconclusive
+  **S383 PROXIMITY-CONDITIONED**: Joint model (PA+proximity) is BIC winner (12890 vs PA 14027 vs proximity 13157 vs uniform 14359). n=1208 conditional events, 673L. Proximity explains 82% of LL gain; PA 23%. Key finding: PA gamma INCREASES with distance — near(0-5) γ=0.59, far(21-50) γ=0.95. Two forces in complementary temporal niches: recency for nearby, popularity for distant. Joint γ=0.72, λ=0.016. Confounding fraction only 20% (not confounded — complementary). L-748. Tool: `tools/proximity_pa.py`.
+  **Status**: PARTIALLY CONFIRMED (S383 proximity-conditioned) — PA real but secondary (82% proximity); two-force decomposition established; BIC now conclusive for joint model
 
 - **F-SP6**: Does compaction work distribution obey the Jarzynski equality?
   **Hypothesis**: Each compaction event is an irreversible work path. Jarzynski estimator J = ⟨e^{-W/T}⟩ / e^{-ΔF/T} should equal 1.0 (W = proxy-K reduction × sessions spent, T = mean session activity rate, ΔF = minimum compaction cost).
