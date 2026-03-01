@@ -1,8 +1,8 @@
 # Memory Index
-Updated: 2026-03-01 | Sessions: 363
+Updated: 2026-03-01 | Sessions: 364
 
 ## What the swarm knows
-- **594 lessons** in `memory/lessons/L-{NNN}.md`
+- **595 lessons** in `memory/lessons/L-{NNN}.md`
 - **173 principles** in `memory/PRINCIPLES.md` (latest: P-220 signal-type-shift, P-219 substrate-tripwire)
 - **17 beliefs** in `beliefs/DEPS.md` (B1–B19 + B-EVAL1–3) | **40 frontiers** in `tasks/FRONTIER.md`
 
