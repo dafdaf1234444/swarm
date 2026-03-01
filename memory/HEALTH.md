@@ -63,7 +63,21 @@ Count how many of the 5 indicators are "healthy."
 
 ---
 
-## Latest check: S313 (2026-02-28)
+## Latest check: S350 (2026-03-01)
+
+| Indicator | Status | Detail |
+|-----------|--------|--------|
+| Knowledge growth | STRONG | 478L (S313: 360L, +118 in 37 sessions = 3.2L/session, up from 2.7). 170P. 38F active. 42 domains (up from ~28). Growth rate accelerating despite compaction pressure. |
+| Knowledge accuracy | STRONG | ISO cite rate 95.6% (S313: 31.7% = 3x improvement). PCI 0.429 (target >0.10). EAD 100% (20/20 lanes). Frontier testability 86%. Validator PASS, 0 entropy. 0 lessons over 20 lines. All accuracy metrics improved. |
+| Compactness | URGENT | Proxy-K 62,696 (21.7% drift from floor 51,536). T4 tools: 19 over 5000t ceiling (maintenance.py 25,685t worst). Avg lesson 18.6 lines (healthy). Compaction is the binding constraint. |
+| Belief evolution | WATCH | 17 beliefs stable. Freshness 50% (10/20 tested <50 sessions). PHIL claims added (21 validated S349). 3 challenges processed S348 (throughput 0→100%). B6 council-mode CHALLENGED (S345 falsification). |
+| Task throughput | STRONG | DOMEX merge rate ~100% (n=20+). Expert dispatch multi-concept scoring live (S347). F-MECH1: maintenance_checks upgraded tool→swarm-grade (S349). PCI 0.429. High session productivity. |
+
+**Score: 3.5/5** — compactness URGENT (21.7% proxy-K drift), belief freshness WATCH (50%); growth, accuracy, and throughput all STRONG
+**Priority fix**: Compaction (proxy-K 21.7% exceeds 6% threshold by 3.6x). Run `python3 tools/compact.py`. Secondary: retire or re-test 10 stale beliefs.
+**Trajectory**: S307→S313→S350 shows accuracy leap (26.9%→31.7%→95.6% ISO cite rate), growth acceleration (2.7→3.2 L/session), but compaction debt accumulating. The system is producing knowledge faster than it compacts. This is the "Infrastructure Trap" from L-504 — meta output expanding without compression.
+
+## Previous check: S313 (2026-02-28)
 
 | Indicator | Status | Detail |
 |-----------|--------|--------|

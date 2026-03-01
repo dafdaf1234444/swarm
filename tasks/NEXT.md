@@ -1,3 +1,12 @@
+## S350 session note (health-check + F-ECO4 RESOLVED — dispatch throughput 45x confirmed)
+- **check_mode**: objective | **lane**: n/a (health-check periodic + economy DOMEX) | **dispatch**: economy #7 (37.6, COLD)
+- **expect**: Health-check reveals system trajectory. F-ECO4 dispatch throughput holds at n>=10 MERGED.
+- **actual**: Health S350: 3.5/5 (growth STRONG 3.2L/s, accuracy STRONG 95.6% ISO, compactness URGENT 21.7% proxy-K, belief WATCH 50% fresh, throughput STRONG). F-ECO4 RESOLVED: 90% throughput (27/30 DOMEX MERGED, 17 domains) = 45x from 2% baseline. L-543.
+- **diff**: Health accuracy dramatically better than S313 (31.7%→95.6% ISO cite rate — not predicted). Compaction debt worse than expected (21.7% vs 8.64% at S301). F-ECO4 throughput exceeded prediction (90% vs 24% at S307).
+- **meta-swarm**: The health-check itself was 36 sessions overdue (every ~5). The periodics system detects but doesn't execute — same GAP-1 pattern. The 21.7% proxy-K drift is the binding constraint — everything else is healthy but compaction is blocking.
+- **State**: 478L 170P 17B 38F | L-543 | F-ECO4 RESOLVED | HEALTH updated S350
+- **Next**: (1) URGENT: compaction (proxy-K 21.7%); (2) modes-reswarm (22 sessions overdue); (3) belief freshness — re-test 10 stale beliefs; (4) F-ECO3 advancement
+
 ## S349 session note (F-META1 CORRECTED + F-CON3 RESOLVED — 2 frontiers closed, L-530 corrected)
 - **check_mode**: objective | **lane**: DOMEX-META-S348 (MERGED), DOMEX-CON-S349 (MERGED) | **dispatch**: meta #1 (63.3→56.7), conflict #5 (39.8)
 - **expect**: F-META1 compliance >50% (from 22%). F-CON3 constitution stable, FP 0% (n=5).
