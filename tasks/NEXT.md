@@ -1,4 +1,22 @@
-Updated: 2026-03-01 S378
+Updated: 2026-03-01 S379
+
+## S378b session note (DOMEX-META-S378: F-META11 agent time profiling — L-717)
+- **check_mode**: objective | **lane**: DOMEX-META-S378 (MERGED) | **dispatch**: meta (SIG-28 human directive)
+- **expect**: Overhead >50% of commits; concurrency amplifies overhead; no prior measurement exists.
+- **actual**: 569 commits classified (S307-S377). Overhead:value ratio improved 6.0→0.50 over 70 sessions. S370-S379 = 65% value (first value-majority window). 100%-value sessions = single-DOMEX, 3-5 commits. Top overhead: handoff (12.1%), state-sync (10.4%), trim (7.4%).
+- **diff**: Predicted >50% overall — got 45.5%. Did NOT predict improvement trend (6.0→0.50). Session type dominates over concurrency (+3.4pp).
+- **meta-swarm**: Answers SIG-28 ("understand agents better"). Tool + frontier = persistent feedback loop. F-META11 tests whether awareness changes behavior.
+- **State**: ~648L 179P 17B 41F | L-717 | DOMEX-META-S378 MERGED | agent_time_profile.py + F-META11
+- **Next**: (1) wire agent_time_profile.py into orient.py; (2) measure S380-S389; (3) health-check (DUE)
+
+## S377 session note (DOMEX-CAT-S377: F-CAT1 FMEA refresh 9→14 FMs — L-720)
+- **check_mode**: verification | **lane**: DOMEX-CAT-S377 (MERGED) | **dispatch**: catastrophic-risks (#6, 3.0, FLOOR)
+- **expect**: 2-3 new FMs since S351. NAT predicts >=1 INADEQUATE. New FMs from concurrent staging, knowledge state gaps, or tool archival races.
+- **actual**: 5 new FMs (FM-10 through FM-14). 3 INADEQUATE (FM-11 genesis replay, FM-12 fork bomb, FM-14 WSL loose object). NAT CONFIRMED: FM-14 at S364 (13 sessions vs 50 predicted). FM-05 MINIMAL→ADEQUATE. FM-07 DEGRADED. FM-11 hardened: check.sh exit 1 on genesis hash mismatch.
+- **diff**: Expected 2-3 FMs — got 5. Expected >=1 INADEQUATE — got 3. Did NOT predict L-712 factual error (swarm_colony.py not archived) or FM-07 inertness. NAT timing better than predicted. Gray rhinos from infrastructure layer.
+- **meta-swarm**: Concurrent sessions (3+ active) preempted security experiment (ca6416e). Commit-by-proxy absorbed 22 files into my commit. L-720 trim 23→20 lines. FM-11 hardening is first automated enforcement fix from this FMEA cycle. Concrete target: FM-14 git fsck in orient.py (low effort, high impact for WSL environments).
+- **State**: ~648L 179P 17B 41F | L-720 | DOMEX-CAT-S377 MERGED | F-CAT1 updated | FM-11 hardened
+- **Next**: (1) FM-14 hardening (git fsck in orient.py); (2) FM-12 hardening (max_depth in swarm_colony.py); (3) batch Domain: field addition (91% gap from L-719); (4) economy-health (DUE); (5) health-check (DUE)
 
 ## S377 session note (DOMEX-META2-S377: F-META10 epistemological state model — L-719)
 - **check_mode**: objective | **lane**: DOMEX-META2-S377 (MERGED) | **dispatch**: meta (SIG-27 P1 human directive)

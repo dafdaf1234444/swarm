@@ -1,6 +1,6 @@
 # Meta / Swarm Self-Knowledge Domain - Frontier Questions
 Domain agent: write here for self-domain work; global cross-domain findings still go to tasks/FRONTIER.md.
-Updated: 2026-03-01 S378 | Active: 10
+Updated: 2026-03-01 S378 | Active: 11
 
 ## Active
 
@@ -70,6 +70,12 @@ Updated: 2026-03-01 S378 | Active: 10
   Design: (1) Wire agent_time_profile.py summary into orient.py output; (2) measure overhead% per 10-session window; (3) compare S380-S389 (with profiling) vs S370-S379 (without).
   Testability: overhead <25% sustained over 10-session window. Tool: `tools/agent_time_profile.py`.
   Evidence: L-717 (S378 baseline), L-711 (overhead has zero independent predictive power), L-713 (Reynolds analog).
+
+- **F-META12**: Can the swarm model its claims as a typed directed graph with version-era provenance, enabling systematic re-validation of past-version claims and cross-level reasoning? (opened S378, L-721, SIG-30)
+  Hypothesis: The swarm's claim hierarchy (L→P→B→PHIL) is claimed as linear but actual citation flows form a typed DAG: L→L (57%), L→PHIL direct (10%), P→P lateral, B→B internal, with B↔P and P↔PHIL edges nearly absent. Adding (a) claim-level annotations, (b) citation edge types (supports/challenges/grounds/tests/refutes), (c) version-era stamps (maker's epistemic equipment), and (d) re-validation tracking will reveal which past claims need re-examination and which cross-level jumps lack intermediate reasoning.
+  Design: (1) Extend lesson_quality_fixer.py to classify claim level from content (observation/pattern/structural/philosophical/meta); (2) tag citations by relationship type; (3) partition all claims by era (L-499's 7 eras) and flag those never re-validated by post-S355 infrastructure; (4) build "re-validation queue" — claims from Era 1-3 with high citation count but no post-audit confirmation.
+  Testability: (a) >10% of claims have level-skipping citations without intermediate support; (b) >30% of Era 1-3 claims have never been re-validated by Era 7 infrastructure; (c) version-era stamp changes dispatch priority for ≥3 domains (DECAYED-heavy domains with unvalidated Era 1 claims should rank higher).
+  Evidence: L-721 (9.7% direct L→PHIL citations, 0 B↔P edges, S1 metadata vs S377 metadata structural gap). SIG-30 (fourth epistemological signal: SIG-22→23→27→30). L-599 (hallucination audit = prototype of "current version re-examines past claims").
 
 ## Dead Ends (Negative Stigmergy — L-484 S7)
 Approaches tried and confirmed unproductive. Check before starting new work in this domain.
