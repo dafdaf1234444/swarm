@@ -1,6 +1,6 @@
 # Catastrophic Risks Domain — Frontier Questions
 Domain agent: write here for catastrophic-risks work; cross-domain findings → tasks/FRONTIER.md.
-Updated: 2026-03-01 S381 | Active: 1
+Updated: 2026-03-01 S403 | Active: 1
 
 ## Active
 
@@ -17,6 +17,7 @@ Updated: 2026-03-01 S381 | Active: 1
   **S377 FMEA refresh**: 9→14 FMs. 5 new (FM-10 belief injection, FM-11 genesis replay, FM-12 fork bomb, FM-13 lesson poisoning, FM-14 WSL loose object corruption). **3 INADEQUATE**: FM-11 (hash generated never verified), FM-12 (swarm_colony.py no depth limit — L-712 factual error), FM-14 (0 automated detection, S364 incident). NAT prediction CONFIRMED: FM-14 at S364 (13s post-prediction). FM-05 upgraded MINIMAL→ADEQUATE (contract_check.py). FM-07 DEGRADED (alignment_check.py inert). Next NAT: ~S427. L-720.
   **S381 FMEA refresh**: 14 FMs, **0 INADEQUATE**. FM-14 hardened: check_git_object_health() in orient.py (git fsck at session start). FM-11/FM-12 confirmed MINIMAL from S377-S380 DOMEX-SEC. FM-07 DEGRADED→MINIMAL. NAT cycle closed — next ~S430. L-731.
   Status: **PARTIAL** — 14 FMs, 0 INADEQUATE, 10 MINIMAL, 2 ADEQUATE. Next: upgrade MINIMAL→ADEQUATE for severity-1 FMs.
+  **S403 FMEA refresh**: 14→17 FMs. 3 new system-design FMs (FM-15 zero-entropy field masking, FM-16 silent proxy-K threshold, FM-17 dispatch-frontier precision gap). NAT S381 predicted ~S430 — actual S403 (27s early). Pattern shift: FMs migrate from infrastructure (git/WSL) to system-design (signals/dispatch/metadata) as infrastructure hardens. **2 upgrades**: FM-14 MINIMAL→ADEQUATE (check.sh git fsck added), FM-09 reclassified MINIMAL→ADEQUATE (already at threshold). All 14 prior defense layers intact despite S402 tool consolidation. **0 INADEQUATE, 11 MINIMAL, 4 ADEQUATE**. L-872. Next NAT: ~S430.
 
 ## Resolved
 | ID | Answer | Session | Date |
