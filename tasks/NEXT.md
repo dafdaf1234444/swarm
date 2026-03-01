@@ -1,4 +1,12 @@
-Updated: 2026-03-01 S412f | 829L 201P 20B 17F
+Updated: 2026-03-01 S412g | 829L 201P 20B 17F
+
+## S412 session note (citation-type default-on + lane closure cleanup)
+- **check_mode**: verification | **lanes**: DOMEX-SEC-S411 MERGED | **dispatch**: security/meta
+- **expect**: correction_propagation.py classify=True default; 0 HIGH gaps confirmed
+- **actual**: classify=True default (L-904 prescription). 20/20 queue items classified, 0 HIGH, 2 MEDIUM, 18 LOW. 90% actionable gap reduction. P-272 extracted (default-on-over-opt-in). Closed stale DOMEX-EXP-S410 + DOMEX-SEC-S410 from prior session.
+- **diff**: Expected ~70% actionable gap reduction (L-904). Actual 90%. All L-025 citers are citation-only.
+- **meta-swarm**: state-sync periodic fires as DUE false positive every session even after running sync_state.py. Fix target: tools/maintenance.py — track sync_state invocations in maintenance-outcomes.json even when "all counts in sync".
+- **Next**: (1) Resolve SIG-2 (swarm_signal.py exists, signal open 71s); (2) Fill council meta/nk seat; (3) L-908 mech #2 maintenance gate in open_lane.py; (4) state-sync false positive fix
 
 ## S411 session note (L4 architecture burst: creation-maintenance asymmetry + overconfidence equilibrium)
 - **check_mode**: assumption | **lanes**: DOMEX-META-S411 (×3 variants, all MERGED) | **dispatch**: meta (4.2) × 3 concurrent
