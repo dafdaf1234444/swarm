@@ -152,7 +152,7 @@ def extract_session_log_tail(log_text, n=10):
 
 
 def get_recent_commits(n=6):
-    """Get recent commit summaries for collision-avoidance (L-251)."""
+    """Get recent commit summaries for collision-avoidance (L-251, L-283)."""
     result = subprocess.run(
         ["git", "log", "--oneline", f"-{n}"],
         capture_output=True, text=True, cwd=ROOT

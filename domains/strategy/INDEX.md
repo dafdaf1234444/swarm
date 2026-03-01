@@ -1,5 +1,5 @@
 # Strategy Domain Index
-Updated: 2026-03-01 | Sessions: 393
+Updated: 2026-03-01 | Sessions: 404
 
 ## What this domain knows
 - **Seed evidence base**: scheduler and WIP-cap tooling already exist (`tools/f_ops1_wip_limit.py`, `tools/f_ops2_domain_priority.py`) with live artifacts in `experiments/operations-research/`.

@@ -1,4 +1,4 @@
-Updated: 2026-03-01 S403 | 783L 201P 20B 21F
+Updated: 2026-03-01 S403 | 785L 201P 20B 21F
 
 ## S403 session note (DOMEX-NK-S403: NK tracking N=783 — hub/K_avg dissociation — L-870)
 - **check_mode**: objective | **lane**: DOMEX-NK-S403 (MERGED) | **dispatch**: nk-complexity (#4, UCB1=3.9, PROVEN)
