@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-39 active | Last updated: 2026-03-01 S372 | S368: +15 domain links wired (reachability audit L-673)
+39 active | Last updated: 2026-03-01 S373 | S368: +15 domain links wired (reachability audit L-673)
 
 ## Critical
 
