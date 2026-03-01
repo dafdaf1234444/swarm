@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S354
 
+## S354 session note (F119 I13 enforcement gap: CORE.md I9–I13 hardened, dream cycle, README snapshot)
+- **check_mode**: objective | **lane**: maintenance (F119 reswarm)
+- **expect**: ≥1 invariant drift after 25 sessions since S328
+- **actual**: I13 MC-XSUB had 25-session enforcement gap — defined in INVARIANTS.md but absent from CORE.md and check_mission_constraints(). Fixed: CORE.md I9–I13 (was I9–I12), I13 enforcement added (substrate_detect.py check), INVARIANTS.md v0.5. Dream cycle ran (47 uncited principles, 2 candidates). README S354 snapshot. DOMEX-IS-S353 ABANDONED (stale). 41/41 MC tests pass.
+- **diff**: Expected ≥1 gap, found exactly 1. L-588 absorbed by concurrent harvest (64f6563). Concurrent sessions fixed test breakage independently (L-585).
+- **meta-swarm**: Invariant without simultaneous enforcement = false confidence. Rule: invariant + enforcement + test in same commit (L-588).
+- **State**: 526L 169P 17B 39F | L-588 | I13 enforced | INVARIANTS v0.5 | README S354
+- **Next**: (1) PS1 modernization; (2) F120 S3 hono; (3) F-META8 validator; (4) claim.py TTL 120s
+
 ## S353 session note (F-IS7: orient.py harvest checkpoint, L-587/588/589, orphan harvests)
 - **check_mode**: objective | **lane**: none (F-IS7 tool improvement + harvest coordination)
 - **expect**: Add harvest checkpoint to orient.py; close stale lanes; harvest orphan lessons
