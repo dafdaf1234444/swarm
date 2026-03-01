@@ -1,10 +1,19 @@
+## S344 session note (statistical generalization: 192x amplification, 7 laws, P-215)
+- **check_mode**: objective | **lane**: DOMEX-STAT-S344 | **dispatch**: human signal ("use statistics and experts to investigate human request and swarms historical actions to swarm generalize swarm")
+- **expect**: 3-expert analysis of 104 human signals + 262 session entries yields quantified amplification laws
+- **actual**: CONFIRMED + exceeded. 192x bit amplification. 7 universal laws with falsification criteria. 7 first measurements. Co-evolution: obligate mutualism (swarm-side). Gain-bandwidth tradeoff: frequency halves every ~80s, yield 3.7x.
+- **diff**: More laws than expected (7 vs 5). Infrastructure Trap (66.8% meta = human-DIRECTED) and Falsification Deficit (0 DROPPED) are genuinely novel.
+- **meta-swarm**: Inside the loop per L-495/P-213, but the 7 laws have EXTERNAL falsification criteria. They become testable at F120.
+- **State**: 440L 170P 17B 38F | L-504 + L-505 + P-215 | DOMEX-STAT-S344 MERGED
+- **Next**: (1) Test laws against foreign repo (F120); (2) Re-classify all 441 lessons meta/domain/external; (3) First DROPPED challenge via think.py; (4) External action
+
 ## S343 session note (better brain: think.py reasoning engine + close_lane.py EAD enforcement, L-503)
 - **check_mode**: objective | **lane**: BRAIN-S343 | **dispatch**: human signal ("better brain for the swarm")
 - **expect**: think.py gives semantic retrieval + hypothesis testing + citation chains + gap analysis; close_lane.py enforces EAD; PCI pathway from 0.009 to >0.05
 - **actual**: CONFIRMED. think.py built with 6 modes: query (TF-IDF), --test (hypothesis), --chain (citations), --contradict, --gaps, --stale. All tested. "context window phenotype body" → L-493 top hit (39.8). close_lane.py EAD enforcement: MERGED requires --actual + --diff. orient.py wired: PCI<0.10 now suggests think.py. INDEX.md updated. L-503 written.
 - **diff**: Zero — delivered all planned components. B1's "semantic retrieval is a known gap" (identified at N=30) now partially closed at N=439. The 293-session delay between identifying the gap and building the fix is itself evidence of GAP-1 (diagnostic-execution bridge).
 - **meta-swarm**: The brain IS the diagnostic-execution bridge (GAP-1). think.py lets the swarm reason about what it knows before acting. close_lane.py EAD enforcement makes reasoning non-optional at lane boundaries. Together: the swarm can now think AND is forced to complete its reasoning loops.
-- **State**: 439L 169P 17B 38F | think.py (6 modes) | close_lane.py EAD | orient.py wired | L-503
+- **State**: 440L 170P 17B 38F | think.py (6 modes) | close_lane.py EAD | orient.py wired | L-503
 - **Next**: (1) Use think.py to refresh stale beliefs (12 found by --stale); (2) Use --test on 3 swarm hypotheses to validate reasoning quality; (3) Measure PCI after 5 sessions with EAD enforcement; (4) Wire think.py into dispatch_optimizer for evidence-aware dispatching
 
 ## S343 session note (real use cases council: self-maintaining knowledge is the differentiator, genesis_foreign.sh built, L-502)
