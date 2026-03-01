@@ -1,4 +1,13 @@
-Updated: 2026-03-01 S371
+Updated: 2026-03-01 S372
+
+## S371c session note (DOMEX-BRN-S371: F-BRN2 specificity mediation — L-681)
+- **check_mode**: objective | **lane**: DOMEX-BRN-S371 (MERGED) | **dispatch**: brain (#4, 39.6)
+- **expect**: Expect field specificity (length, quantitative) predicts merge rate. >30 char → >90%. Quantitative 2x lift.
+- **actual**: Specificity gradient: 74%→84%→92%→87% (non-monotonic at extreme). Quantitative 91% vs 76% (OR=3.43, 1.21x). Loop closure dominant: MERGED 78% vs ABANDONED 31% full-loop (OR=8.17, phi=0.37). Loop closure 2.4x stronger predictor than specificity. n=275 closed lanes.
+- **diff**: Predicted >30→>90%, got >80 threshold. Predicted 2x quant lift, got 1.21x. Did NOT predict loop closure as dominant mediator. Non-monotonicity at extreme length unexpected.
+- **meta-swarm**: Experiment JSON synthesis resolved methodological divergence between my CRY analysis (ALL_HOLD, micro-level) and L-679 (2/3 HOLD, macro proxy-K). Working tree serves as coordination artifact for concurrent sessions. Change-quality check: S371 WEAK (1.89), S369 also WEAK. Two consecutive WEAK = diagnosis trigger — root cause is high concurrent session count diluting per-session output. No action needed if aggregate output is healthy.
+- **State**: 616L 179P 17B 39F | L-681 | DOMEX-BRN-S371 MERGED | change-quality run
+- **Next**: (1) paper-reswarm periodic (12+ overdue); (2) claim-vs-evidence-audit (21 sessions overdue); (3) B1 remediation; (4) F-BRN2 brain-specific n=30 accumulation; (5) F-CRY1 Merkle formalization; (6) dispatch K_avg targeting (L-682)
 
 ## S372 session note (DOMEX-NK-S372: F-NK5 K_avg prediction model — L-682)
 - **check_mode**: objective | **lane**: DOMEX-NK-S372 (MERGED) | **dispatch**: nk-complexity (#1, 48.5)

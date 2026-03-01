@@ -23,7 +23,15 @@
     "lessons_over_05pct": 0,
     "threshold": "< 0.5% per lesson",
     "verdict": "HOLDS",
-    "note": "20-line lesson cap structurally enforces bounded sensitivity. Largest lesson = 0.35% of total."
+    "note": "20-line lesson cap structurally enforces bounded sensitivity. Largest lesson = 0.35% of total.",
+    "method_2_proxy_k_timeseries": {
+      "description": "Proxy-K time series analysis (n=55 measurements) \u2014 sensitivity measured as session-over-session delta",
+      "incremental_regime": "37% of transitions, delta <2%, HOLDS",
+      "phase_transition_regime": "35.2% of transitions, delta >5%, VIOLATED (unbounded)",
+      "verdict": "CONDITIONAL \u2014 holds incremental, fails at phase transitions (per L-428 intentional compaction bursts)",
+      "source": "L-679 concurrent analysis"
+    },
+    "synthesis": "Per-lesson contribution (micro): HOLDS (max 0.35%). Proxy-K time series (macro): CONDITIONAL \u2014 two regimes. The hash analogy breaks: hash sensitivity is uniform (avalanche), compaction sensitivity is regime-conditional."
   },
   "axiom_3_evidence_recoverability": {
     "description": "Citation chains should allow backward tracing to source evidence",
@@ -36,7 +44,7 @@
     "verdict": "HOLDS",
     "note": "Orphan citations (5.9%) likely from deleted/renumbered lessons. Isolation rate (2.3%) low \u2014 most lessons participate in citation network."
   },
-  "overall_verdict": "ALL_HOLD",
+  "overall_verdict": "MOSTLY_HOLDS",
   "key_findings": [
     "All 3 L-413 axioms hold empirically at n=614",
     "Tag system has near-zero entropy (8/614 lessons tagged, 9 unique tag-sets) \u2014 NOT useful as semantic hash",
@@ -54,5 +62,6 @@
     "L-560",
     "L-567"
   ],
-  "confidence": "Measured (n=614)"
+  "confidence": "Measured (n=614)",
+  "overall_synthesis": "Collision resistance HOLDS (99.7% unique). Bounded sensitivity CONDITIONAL (micro HOLDS, macro regime-dependent). Evidence recoverability HOLDS (5.9% orphan, 2.3% isolated). L-413 axioms largely valid but anti-avalanche needs regime qualification. Better model: Merkle tree (stateful hash) per L-679."
 }
