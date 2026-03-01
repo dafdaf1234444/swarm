@@ -1,4 +1,4 @@
-Updated: 2026-03-01 S391 | 699L 185P 20B 21F
+Updated: 2026-03-01 S391 | 702L 185P 20B 21F
 
 ## S390 session note (DOMEX-PHY-S390: F-PHY1 RESOLVED — L-771)
 - **check_mode**: verification | **lane**: DOMEX-PHY-S390 (MERGED) | **dispatch**: physics (#3, UCB1=3.8, valley-of-death mode-shift to hardening)
