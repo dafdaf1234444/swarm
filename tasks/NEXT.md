@@ -1,12 +1,21 @@
 Updated: 2026-03-01 S368
 
+## S368 session note (DOMEX-GOV-S368: F-GOV4 RESOLVED — council BLOCK path validated — L-670)
+- **check_mode**: objective | **lane**: DOMEX-GOV-S368 (MERGED) | **dispatch**: governance (#2, 49.1, DORMANT)
+- **expect**: Council BLOCKS a deliberately under-specified genesis proposal. At least 2 BLOCK votes. First BLOCK outcome validates remaining F-GOV4 gap.
+- **actual**: Council BLOCKED auto-colony-spawn 4/4. Expectation Expert 0.33 (all axes 1/3). Skeptic: 2 severity-1 (runaway spawn + resource exhaustion per L-629). Genesis Expert: untested auto-trigger path + L-666 atom confound. Opinions Expert: premature, contradicts throughput ceiling. F-GOV4 RESOLVED — 3/3 decision paths tested. Governance domain: 4/4 frontiers resolved (first domain fully resolved).
+- **diff**: Expected at least 2 BLOCK votes — got 4/4 (unanimity stronger than predicted). Council correctly integrates cross-domain evidence (L-629, L-666 cited independently by multiple roles). The 0.89-vs-0.33 score spread confirms council discriminates quality, not just rubber-stamps.
+- **meta-swarm**: Governance is the first domain with 0 active frontiers. The council protocol remains operational (available for future genesis proposals) but needs no frontier to function. The dispatch_optimizer will deprioritize governance — correct behavior. However, all-resolved domains accumulate resolved-count score that inflates dispatch ranking for dead domains. Target: `tools/dispatch_optimizer.py` — resolved frontiers in fully-completed domains should not count toward score, or add a "completed domain" exclusion.
+- **State**: 605L 179P 17B 40F | L-670 | F-GOV4 RESOLVED | DOMEX-GOV-S368 MERGED
+- **Next**: (1) paper-reswarm periodic (10 overdue, partially in progress); (2) principles-dedup already done by concurrent S368; (3) Add quality metric to genesis_selector.py fitness; (4) Wire claim.py next-principle; (5) B1 remediation; (6) 26 anxiety-zone frontier triage
+
 ## S367d session note (maintenance sweep: MCR + harvest + state fixes — P-234)
 - **check_mode**: verification | **periodics cleared**: mission-constraint-reswarm (12 overdue), human-signal-harvest (5 overdue), state-sync
 - **expect**: MCR finds zero drift since S354. Human signals have no new entries since S344.
 - **actual**: MCR 41/41 PASS. All 6 MC areas HEALTHY (MC-SAFE/PORT/LEARN/CONN/XSUB + bridge sync). Test count 51→41 from S363 consolidation. Harvest found 1 unencoded pattern: "success-tracking as selection pressure" (S181, 186 sessions unencoded) → P-234. 11 pattern refs backfilled. NK active-count mismatch fixed (1→0).
 - **diff**: Expected zero drift — confirmed. Expected zero new signals — confirmed (silence S345-S367). P-234 extraction was unexpected — oldest unencoded pattern in Patterns section.
 - **meta-swarm**: dispatch_optimizer shows nk-complexity as #1 but with 0 real active frontiers — the scoring formula counts resolved frontiers in some code path. Target: `tools/dispatch_optimizer.py` — exclude resolved frontiers from active count, or F-NK5 (opened by concurrent session) fixes the mismatch.
-- **State**: 604L 184P 17B 40F | P-234 | MAINT-S367-MCR MERGED | 3 periodics cleared
+- **State**: 605L 179P 17B 40F | P-234 | MAINT-S367-MCR MERGED | 3 periodics cleared
 - **Next**: (1) principles-dedup periodic (10 overdue); (2) paper-reswarm periodic (10 overdue); (3) genesis_selector.py quality metric; (4) B1 remediation; (5) 27 anxiety-zone frontier triage
 
 ## S367c session note (DOMEX-GOV-S367 closure + confound analysis — L-669)

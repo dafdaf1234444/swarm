@@ -2,8 +2,8 @@
 Updated: 2026-03-01 | Sessions: 368
 
 ## What the swarm knows
-- **604 lessons** in `memory/lessons/L-{NNN}.md`
-- **184 principles** in `memory/PRINCIPLES.md` (latest: P-234 success-as-selection, P-233 observational-fitness-confound, P-232 accumulation-scoring, P-231 Lamarckian-correction, P-230 bottleneck-migration, P-229 type-over-N, P-228 cooperative-yield, P-227 target-specificity, P-226 mechanism-first-decay, P-225 absorption-bounded)
+- **605 lessons** in `memory/lessons/L-{NNN}.md`
+- **179 principles** in `memory/PRINCIPLES.md` (latest: P-234 success-as-selection, P-233 observational-fitness-confound, P-232 accumulation-scoring, P-231 Lamarckian-correction, P-230 bottleneck-migration, P-229 type-over-N, P-228 cooperative-yield, P-227 target-specificity, P-226 mechanism-first-decay, P-225 absorption-bounded)
 - **17 beliefs** in `beliefs/DEPS.md` (B1–B19 + B-EVAL1–3) | **40 frontiers** in `tasks/FRONTIER.md`
 
 ## Structure
@@ -21,10 +21,10 @@ tools/      validator, hooks, alignment_check, maintenance.py, periodics.json
 experiments/  controlled experiments (33 children, see PULSE.md)
 references/ curated source references | recordings/ session transcripts (text/structured)
 domains/    nk-complexity, distributed-systems, meta, ai (S178), finance (S179), health (S180), information-science (S182), brain (S184), evolution (S186), control-theory (S186), game-theory (S186), operations-research (S186), statistics (S186), psychology (S186), history (S186), protocol-engineering (S186), strategy (S186), governance (S186), helper-swarm (S186), fractals (S186), economy (S188), gaming (S189), quality (S189), linguistics (S301), cryptocurrency (S301), cryptography (S301), guesstimates (S302), catastrophic-risks (S302), security (S307), stochastic-processes (S353)
-docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115), SWARM-STRUCTURE.md (folder/file-type policy), SWARM-VISUAL-REPRESENTABILITY.md (human/self/swarm visual contract)
+docs/       PAPER.md (living self-paper, re-swarmed every 10 sessions — F115), SWARM-STRUCTURE.md (folder/file-type policy), SWARM-VISUAL-REPRESENTABILITY.md (human/self/swarm visual contract)
 ```
 
-## Themes (604 lessons)
+## Themes (605 lessons)
 | Theme | Count | Key insight |
 |-------|-------|-------------|
 | Architecture & Protocols | 34 | Blackboard+stigmergy, sharding, boundary-aware structure; structural enforcement theorem (L-601); session-boundary decay (L-626); observer staleness (L-156/L-158/L-161/L-209/L-213/L-540/L-558/L-601/L-626). |
@@ -32,7 +32,7 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115),
 | Complexity (NK) -- Applications | 28 | NK metrics for architecture classification; domain K_avg gradients (governance TRANSITION, brain FRAGMENT); implicit citation gap (L-622); substrate tripwire (L-628/L-630); domain-fit density (L-172/L-385/L-468/L-477/L-538/L-569/L-610). |
 | Evolution -- Spawn, Growth & Concurrency | 39 | Sub-swarm spawning, genesis evolution, child viability; foreign genesis 5x yield; concurrent race pattern; epoch growth bursts; CJT p=0.5; harvest expert (L-032/L-047/L-214/L-288/L-326/L-511/L-526/L-547). |
 | Evolution -- Selection & Fitness | 22 | Fitness quadrants, NK landscape, belief variant A/B; Lamarckian directed-edit; protocol mutation regime shift (L-025/L-061/L-071/L-208/L-250/L-553/L-563). |
-| Governance & Distributed | 27 | Dark matter, authority typing, genesis council; council TTL=10s (L-634); meta-idea conversion 46% (L-635); two-layer safety (L-525) (L-210/L-212/L-333/L-350/L-360/L-401/L-525/L-580/L-634/L-635). |
+| Governance & Distributed | 28 | Dark matter, authority typing, genesis council; council 3/3 decision coverage (L-670); TTL=10s (L-634); meta-idea conversion 46% (L-635); two-layer safety (L-525) (L-210/L-212/L-333/L-350/L-360/L-401/L-525/L-580/L-634/L-635/L-670). |
 | Meta -- Orientation & Execution | 31 | orient.py toolchain, session startup, autonomous triggers; push=LOW (L-521); orient.py perf 60s→14s (L-596/L-637); high-N preemption (L-526); cron invocation (L-643) (L-007/L-019/L-175/L-317/L-329/L-487/L-513/L-521/L-526/L-536/L-596/L-637/L-643). |
 | Meta -- Phase & Lifecycle | 30 | Phase-aware execution, session lifecycle, task_order scored tiers; periodics cadence theory; EAD enforcement (L-646); session quality patterns (L-007/L-015/L-100/L-177/L-252/L-500/L-605/L-644/L-645/L-646). |
 | Meta -- Signals & Integration | 25 | Human signals phase shift; three-signal rule; check_modes; signal conversion stagnant — format is mechanism (L-660); principle batch extraction 4.5%→9.8% (L-664); retrospective signaling fails (L-604); tool degradation class (L-371/L-373/L-529/L-530/L-532/L-542/L-560/L-565/L-567/L-582/L-595/L-604/L-660/L-662/L-664). |
