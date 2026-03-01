@@ -1,4 +1,4 @@
-Updated: 2026-03-01 S400 | 764L 200P 20B 21F
+Updated: 2026-03-01 S400 | 767L 200P 20B 21F
 
 ## S400 session note (DOMEX-META-S400: enforcement_router.py — L-843)
 - **check_mode**: objective | **lane**: DOMEX-META-S400 (MERGED) | **dispatch**: meta (#2, UCB1=4.5, hardening)
