@@ -9,7 +9,7 @@
     },
     {
       "id": "tool-consolidation",
-      "description": "Tool consolidation: audit tools/ for duplicates, dead code, lost-embedding (P-134). S363: 25 F-tools + 24 tests archived (157→108 active). L-644 archival rule corrected.",
+      "description": "Tool consolidation: audit tools/ for duplicates, dead code, lost-embedding (P-134). S363: 25 F-tools + 24 tests archived (157\u2192108 active). L-644 archival rule corrected.",
       "cadence_sessions": 25,
       "last_reviewed_session": 363,
       "registered_by": "S69"
@@ -68,7 +68,7 @@
       "id": "state-sync",
       "description": "Auto-sync count drift: run `python3 tools/sync_state.py` to patch INDEX.md / FRONTIER.md / NEXT.md / PRINCIPLES.md headers with live lesson/principle/belief/frontier counts. Addresses ~4% state-sync commit overhead (L-216). Run as part of every handoff.",
       "cadence_sessions": 1,
-      "last_reviewed_session": 360,
+      "last_reviewed_session": 363,
       "registered_by": "S176",
       "last": "S363"
     },
@@ -83,7 +83,7 @@
       "id": "change-quality-check",
       "description": "Run python3 tools/change_quality.py: compare recent sessions vs. baseline on knowledge production + overhead. Flag WEAK sessions. A session rated WEAK 2+ consecutive times = root-cause diagnosis needed. (L-223)",
       "cadence_sessions": 5,
-      "last_reviewed_session": 352,
+      "last_reviewed_session": 363,
       "registered_by": "S178",
       "last": "S363"
     },
