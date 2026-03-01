@@ -1715,6 +1715,77 @@ def check_correction_propagation() -> list[tuple[str, str]]:
     return []
 
 
+def check_observer_staleness() -> list[tuple[str, str]]:
+    """L-820, L-556: detect measurement tools with stale baselines.
+
+    Observers that compare current state to a stored baseline drift silently
+    when the baseline ages. Mean staleness was 63 sessions (L-820). This check
+    flags any observer baseline older than 50 sessions.
+    """
+    results: list[tuple[str, str]] = []
+    # Extract current session number
+    sess = 0
+    try:
+        idx = (REPO_ROOT / "memory" / "INDEX.md").read_text(encoding="utf-8", errors="replace")
+        m = re.search(r"S(\d+)", idx)
+        if m:
+            sess = int(m.group(1))
+    except Exception:
+        return []
+    if sess < 50:
+        return []
+
+    stale: list[str] = []
+    threshold = 50  # sessions
+
+    # Check proxy-K baseline in proxy-k-log
+    try:
+        pk_path = REPO_ROOT / "experiments" / "proxy-k-log.json"
+        if pk_path.exists():
+            pk_data = json.loads(pk_path.read_text(encoding="utf-8", errors="replace"))
+            if isinstance(pk_data, list) and pk_data:
+                last_entry = pk_data[-1]
+                last_sess_m = re.search(r"S(\d+)", str(last_entry.get("session", "")))
+                if last_sess_m:
+                    age = sess - int(last_sess_m.group(1))
+                    if age > threshold:
+                        stale.append(f"proxy-K({age}s)")
+    except Exception:
+        pass
+
+    # Check dispatch calibration baseline
+    try:
+        dc_path = REPO_ROOT / "workspace" / "dispatch_calibration.json"
+        if dc_path.exists():
+            dc_data = json.loads(dc_path.read_text(encoding="utf-8", errors="replace"))
+            cal_sess_m = re.search(r"S(\d+)", str(dc_data.get("calibrated_session", "")))
+            if cal_sess_m:
+                age = sess - int(cal_sess_m.group(1))
+                if age > threshold:
+                    stale.append(f"dispatch-calibration({age}s)")
+    except Exception:
+        pass
+
+    # Check compact.py floor baseline
+    try:
+        for pk_entry in reversed(pk_data if 'pk_data' in dir() else []):
+            if isinstance(pk_entry, dict) and pk_entry.get("floor"):
+                floor_sess_m = re.search(r"S(\d+)", str(pk_entry.get("session", "")))
+                if floor_sess_m:
+                    age = sess - int(floor_sess_m.group(1))
+                    if age > threshold:
+                        stale.append(f"compaction-floor({age}s)")
+                break
+    except Exception:
+        pass
+
+    if stale:
+        severity = "DUE" if len(stale) >= 2 else "NOTICE"
+        return [(severity, f"{len(stale)} observer baseline(s) stale >{threshold}s: {', '.join(stale)}. "
+                 f"Refresh to prevent drift blindness (L-820, L-556)")]
+    return []
+
+
 def _inter_swarm_connectivity(capabilities: dict, commands: dict[str, bool]) -> dict:
     protocol_paths = ["experiments/inter-swarm/PROTOCOL.md", "memory/OPERATIONS.md"]
     protocol_state = [{"path": p, "exists": _exists(p)} for p in protocol_paths]
@@ -1975,6 +2046,7 @@ def main():
         check_file_graph,
         check_claim_gc,
         check_correction_propagation,
+        check_observer_staleness,
         check_paper_accuracy,
         check_utility,
         check_proxy_k_drift,

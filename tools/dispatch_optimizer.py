@@ -901,8 +901,11 @@ def _ucb1_score(results: list[dict], outcome_map: dict, heat_map: dict,
         ranked_by_score = sorted(results, key=lambda x: -x["score"])
         if len(ranked_by_score) >= 3:
             top3_threshold = ranked_by_score[2]["score"]
-            commit_candidates.sort(key=lambda x: -x["score"])
-            top_commit = commit_candidates[0]
+            # Skip execution-blocked domains for guarantee boost (L-862)
+            executable_commits = [c for c in commit_candidates if not c.get("execution_blocked")]
+            boost_candidates = executable_commits if executable_commits else commit_candidates
+            boost_candidates.sort(key=lambda x: -x["score"])
+            top_commit = boost_candidates[0]
             if top_commit["score"] < top3_threshold:
                 boost = round(top3_threshold - top_commit["score"] + 0.01, 3)
                 top_commit["score"] += boost
@@ -1008,11 +1011,17 @@ def run(args: argparse.Namespace) -> None:
                     fids = [f for f, d in cw.get("frontiers", {}).items()
                             if not d["resolved"] and d["waves"] == 2]
                     fid_str = ", ".join(fids[:3]) if fids else "danger-zone frontiers"
-                    print(f"  -> {cr['domain']} — {fid_str}")
-                    # Execution-blocked warning (L-862): prevent infinite-hardening loops
-                    if cr.get("execution_blocked"):
-                        print(f"  ⚠ EXECUTION BLOCKED: {cr['domain']} has {cr.get('hardened_count', 0)}/{cr['active']} frontiers HARDENED but none executable.")
-                        print(f"    Escalate root dependency instead of adding more hardening.")
+                    # Execution-blocked escalation (L-862): all-blocked → escalate dependency
+                    if cr.get("commit_all_blocked"):
+                        print(f"  ⚠ ALL danger-zone domains EXECUTION BLOCKED")
+                        print(f"    {cr['domain']}: {cr.get('hardened_count', 0)}/{cr['active']} frontiers HARDENED, 0 executable.")
+                        print(f"    ESCALATE root dependency (e.g. SIG-38 human auth) instead of adding hardening.")
+                        print(f"    SKIP COMMIT — do meta/strategy/other productive work instead.")
+                    elif cr.get("execution_blocked"):
+                        print(f"  ⚠ {cr['domain']} EXECUTION BLOCKED ({cr.get('hardened_count', 0)}/{cr['active']} HARDENED)")
+                        print(f"    Skipped for COMMIT reservation. Next executable domain promoted.")
+                    else:
+                        print(f"  -> {cr['domain']} — {fid_str}")
             # COMMIT dispatch header (F-STR3): show promoted domains before rankings
             commit_promoted = [r for r in results if r.get("commit_guarantee_boost", 0) > 0]
             if commit_promoted:

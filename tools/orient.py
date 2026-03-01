@@ -533,7 +533,7 @@ def check_stale_infrastructure(current_session: int, stale_threshold: int = 50) 
 
 def evaluate_session_triggers(current_session: int, maint_out: str = "",
                                stale_infra: list | None = None):
-    """Read SESSION-TRIGGER.md and evaluate trigger conditions.
+    """Read SESSION-TRIGGER.md and evaluate trigger conditions (L-640).
 
     Accepts pre-computed maint_out and stale_infra to avoid redundant subprocess
     calls (orient.py already runs these in main). Before this fix, maintenance.py

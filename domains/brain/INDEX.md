@@ -39,7 +39,7 @@ B-BRN3 (Selective consolidation: high-Sharpe lessons should preferentially survi
 ## Active frontiers
 See `domains/brain/tasks/FRONTIER.md` — 1 active (F-BRN4), 5 resolved (F-BRN1, F-BRN2, F-BRN3, F-BRN5, F-BRN6)
 - **F-BRN2**: RESOLVED (S403) — EAD domain-general across 24 domains (sign test p=0.000244, n=1033). L-865.
-- **F-BRN4**: hippocampal INDEX.md scale — graceful sawtooth degradation at 779L (S403). 94.5% coverage.
+- **F-BRN4**: hippocampal INDEX.md scale — sawtooth category degradation at 779L (94.5%). NEW: pointer coverage 13.4% (L-864). Category ≠ retrieval.
 
 ## Brain domain principles (in `memory/PRINCIPLES.md`)
 (pending — will add as frontiers resolve)

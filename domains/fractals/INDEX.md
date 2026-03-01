@@ -1,5 +1,5 @@
 # Fractals Domain Index
-Updated: 2026-02-27 | Sessions: 186
+Updated: 2026-03-01 S403 | Latest execution: DOMEX-FRA-S403
 
 ## What this domain knows
 - **Seed evidence base**: swarm already shows recurring multi-scale structure (lane -> session -> domain bundles) and threshold-sensitive regime shifts.
@@ -20,7 +20,7 @@ Updated: 2026-02-27 | Sessions: 186
 | Fractal finding | Swarm implication | Status |
 |-----------------|-------------------|--------|
 | Self-similarity can be measured across levels | Evaluate policy transfer at lane/session/domain scales before promotion | THEORIZED |
-| Regime shifts happen near threshold boundaries | Guard/WIP thresholds should be treated as bifurcation controls, not static constants | OBSERVED |
+| Regime shifts happen near threshold boundaries | Guard/WIP thresholds should be treated as bifurcation controls, not static constants | FALSIFIED (L-863: WIP bifurcation = era confound; flat within-era) |
 | Boundary complexity can grow faster than output | Track complexity-density to trigger pruning/compaction earlier | THEORIZED |
 | Recursive local rules create global operating modes | Small contract changes need multi-scale replay before default adoption | OBSERVED |
 
