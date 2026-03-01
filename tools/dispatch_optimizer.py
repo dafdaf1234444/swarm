@@ -165,6 +165,46 @@ def _get_domain_heat() -> dict[str, int]:
 
 
 
+def _get_active_lane_domains() -> dict[str, list[str]]:
+    """Find domains with currently ACTIVE/CLAIMED/READY lanes in SWARM-LANES.md.
+
+    Returns {domain_name: [lane_id, ...]}. Used to warn about dispatch collisions
+    at N>=5 concurrent sessions (L-733, F-STR2: staleness sole abandonment cause).
+    """
+    active: dict[str, list[str]] = {}
+    if not LANES_FILE.exists():
+        return active
+    ACTIVE_STATUSES = {"ACTIVE", "CLAIMED", "READY", "BLOCKED"}
+    latest_per_lane: dict[str, dict] = {}
+    for line in LANES_FILE.read_text().splitlines():
+        if not line.startswith("|") or line.startswith("| ---") or line.startswith("| Date"):
+            continue
+        cols = [c.strip() for c in line.split("|")]
+        if len(cols) < 12:
+            continue
+        lane_id = cols[2] if len(cols) > 2 else ""
+        status = cols[11].upper() if len(cols) > 11 else ""
+        etc = cols[10] if len(cols) > 10 else ""
+        if not lane_id or lane_id == "Lane":
+            continue
+        dom = None
+        m = re.match(r"DOMEX-([A-Z]+)", lane_id)
+        if m:
+            dom = LANE_ABBREV_TO_DOMAIN.get(m.group(1))
+        if not dom:
+            focus_m = re.search(r"focus=(?:domains/)?([a-z0-9-]+)", etc)
+            if focus_m and focus_m.group(1) not in ("global", ""):
+                dom = focus_m.group(1)
+        latest_per_lane[lane_id] = {"domain": dom, "status": status}
+    for lane_id, info in latest_per_lane.items():
+        if info["status"] not in ACTIVE_STATUSES:
+            continue
+        dom = info["domain"]
+        if dom:
+            active.setdefault(dom, []).append(lane_id)
+    return active
+
+
 def _get_claimed_domains() -> set[str]:
     """Get domains currently claimed by active agents (from agent_state.py)."""
     try:
@@ -480,6 +520,7 @@ def run(args: argparse.Namespace) -> None:
     heat_map = _get_domain_heat()
     claimed = _get_claimed_domains()
     outcome_map = _get_domain_outcomes()
+    active_lanes = _get_active_lane_domains()
 
     mode = getattr(args, 'mode', 'heuristic')
     compare = getattr(args, 'compare', False)
@@ -518,8 +559,17 @@ def run(args: argparse.Namespace) -> None:
                     f"{n:3d}  {r.get('outcome_lessons', 0):3d}  {heat_icon:>4}"
                     f" [{label}]{floor_mark}"
                 )
+                if r["domain"] in active_lanes:
+                    lanes = active_lanes[r["domain"]]
+                    print(f"         ⚠ ACTIVE LANE(S): {', '.join(lanes[:3])} — collision risk")
                 if r.get("top_frontier"):
                     print(f"         → {r['top_frontier'][:72]}")
+            # Active lane summary
+            if active_lanes:
+                print(f"\n--- Active Lane Collision Warning (L-733, F-STR2) ---")
+                for dom, lanes in sorted(active_lanes.items()):
+                    print(f"  ⚠ {dom}: {', '.join(lanes)}")
+                print(f"  Tip: avoid these domains or coordinate with active session")
             # Coverage
             all_visits = [r.get("outcome_n", 0) for r in results]
             gini = _compute_gini(all_visits)

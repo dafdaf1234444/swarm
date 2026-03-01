@@ -285,7 +285,8 @@ def check_stale_lanes(current_session: int) -> list:
             artifact_exists = True
         else:
             artifact_exists = bool(artifact) and (ROOT / artifact).exists()
-        stale.append({"lane": info["lane"], "opened": info["opened"], "artifact": artifact, "has_artifact": artifact_exists})
+        gap = current_session - info["opened"]
+        stale.append({"lane": info["lane"], "opened": info["opened"], "gap": gap, "artifact": artifact, "has_artifact": artifact_exists})
     return stale
 
 
@@ -1092,10 +1093,13 @@ def main():
         if current_sess_num > 0:
             stale_lanes = check_stale_lanes(current_sess_num)
             if stale_lanes:
+                long_gap = [sl for sl in stale_lanes if sl.get("gap", 1) > 2]
                 print(f"--- Stale lanes ({len(stale_lanes)} opened in prior session — execute or close) ---")
                 for sl in stale_lanes:
                     art_note = "✗ artifact missing" if not sl["has_artifact"] else "✓ artifact exists"
-                    print(f"  ⚠ {sl['lane']} (S{sl['opened']}) — {art_note}")
+                    gap = sl.get("gap", 1)
+                    gap_warn = f" — GAP={gap}s ⚠ 67% abandon rate (L-733)" if gap > 2 else ""
+                    print(f"  ⚠ {sl['lane']} (S{sl['opened']}) — {art_note}{gap_warn}")
                 # Emit close commands for stale lanes without artifacts (GAP-1, L-561)
                 closeable = [sl for sl in stale_lanes if not sl["has_artifact"]]
                 if closeable:

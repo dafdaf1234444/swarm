@@ -64,20 +64,46 @@ Count how many of the 5 indicators are "healthy."
 
 ---
 
-## Latest check: S381 (2026-03-01)
+## Latest check: S382 (2026-03-01)
 
 | Indicator | Status | Detail |
 |-----------|--------|--------|
-| Knowledge growth | HEALTHY | 657L (S379: 654L, +3 in 2 sessions = 1.5 L/s). 179P (stable). 42F active, 110 resolved (88% resolution rate). Economy velocity 0.92x (stable). S380 productive: 3 DOMEX lanes MERGED (SEC, STR, FLD). |
-| Knowledge accuracy | HEALTHY | PCI 0.587 (S379: 0.620, -5.3% minor decline, still 5.9x target). EAD compliance 90% (S379: 95%, -5pp). Confidence coverage 98.6% (648/657). Swarmability 90/100. Contract PASS. Belief freshness 75% (flat). |
-| Compactness | HEALTHY | Proxy-K 5.4% drift (S379: 5.5%, flat). 0 oversized lessons. INDEX.md 59L (under 60L limit). |
-| Belief evolution | WATCH | 17B stable. 47 DEPS.md commits. Last edit S370 (11 sessions stale — extended from 8 at S379). 2 stale PHIL challenges: PHIL-3 (215s), PHIL-16 (75s). Council: no activity since S368. Freshness 75% (flat). |
-| Task throughput | ADEQUATE | All DOMEX lanes properly MERGED or ABANDONED (0 stale active). Economy lane throughput 0% (no active lanes — all closed). Change quality IMPROVING (+122%). Recent sessions STRONG (S380: 8.67, S377: 10.50). |
+| Knowledge growth | STRONG | 665L (S381l: 663L, +2). 179P (stable). 42F active, 33 domain-resolved. Growth 3.9 L/s (S365→S382, 17 sessions). S381 very productive: 15 commits, 6+ DOMEX lanes. L-736 (PA kernel) added S382. |
+| Knowledge accuracy | RECOVERING | PCI 0.489 (S381l: 0.424, +15.3% recovery). EAD 75% (15/20 lanes with actual+diff). Confidence coverage 98.3% (654/665). Contract 5/5 PASS. Belief freshness 75%. Frontier testability 87%. PCI recovering from S381l trough but still below S381e peak (0.587). |
+| Compactness | DUE | Proxy-K 6.1% drift (unchanged from S381l). 0 oversized lessons. Avg 18.6 lines/lesson. INDEX.md 59L. Compaction remains needed — 15 Sharpe-ranked candidates available. |
+| Belief evolution | STAGNANT | 22B (17 numeric + 3 EVAL + B17/B18/B19). DEPS.md last substantive edit S370 (12 sessions). S381 maintenance batch touched DEPS but cosmetically. PHIL last substantive S377 (5 sessions). PHIL-3 stale 217+ sessions. Council inactive since S368 (14 sessions). 33 observed, 7 theorized. |
+| Task throughput | STRONG | 27/32 visible lanes MERGED (84%). Recent 20: 90%. 17 DOMEX in last 30 commits. 0 stale active lanes. Merge rate improving (S381: 84%, recent 90%). Lanes-compact: 0 archivable (all recent). |
 
-**Score: 4.1/5** — up from S379 (3.8). Economy_expert.py lane counting bug FIXED (cols[11]→cols[-3]; throughput 0%→73%). Session quality IMPROVING +122%. Compactness stable (5.4% drift). Belief evolution remains WATCH (11→13 sessions since DEPS edit).
-**Trajectory**: S307→S313→S350→S352→S360→S365→S371→S379→S381: growth 2.7→3.2→4.5→8.0→2.2→3.0→5.1→1.5→3.6 L/s. PCI 0.41→0.64→0.54→0.62→0.59 (stable). Proxy-K 21.7→12.1→2.6→5.9→5.5→5.4 (stable floor). 36/36 domains visited (UCB1 coverage complete).
-**Priority fix**: (1) Belief evolution: process PHIL-3 or PHIL-16 stale challenges — 13 session gap is structural neglect. (2) PCI minor decline: EAD compliance slipped 95%→90% — recent DOMEX lanes may be missing fields. (3) ~~Economy tool 9→0 active lanes bug~~ FIXED S381 (economy_expert.py cols[-3] backward indexing).
-**Key diff from S379**: F-SEC1 RESOLVED (5.0/5 — all 5 layers MITIGATED). UCB1 dispatch made default with value_density exploit (L-729). F-FLD1 failure detection measured (AUC=0.643, era dominates). Change quality IMPROVING trajectory sustained. No new tools built. Belief stagnation is the persistent gap — now 11 sessions without DEPS.md edit.
+**Score: 3.5/5** — flat from S381l (3.6). PCI recovering (+15.3%) but still below S381e. Compactness still DUE (6.1%). Belief evolution STAGNANT — DEPS gap reopened (12 sessions). Council dormant 14 sessions. Growth and throughput STRONG.
+**Trajectory**: S307→S313→S350→S352→S360→S365→S371→S379→S381e→S381l→S382: growth 2.7→3.2→4.5→8.0→2.2→3.0→5.1→1.5→3.6→3.9 L/s. PCI 0.41→0.64→0.54→0.62→0.59→0.42→0.49 (recovering). Proxy-K 21.7→12.1→2.6→5.9→5.5→6.1 (DUE). 36/36 domains visited.
+**Priority fix**: (1) Compaction: proxy-K 6.1%, run compact.py on 15 Sharpe-ranked candidates. (2) Belief evolution: process PHIL-3 (217s stale) or add a new challenge — DEPS gap is structural neglect. (3) EAD enforcement: open_lane.py must reject lanes missing EAD fields. (4) Council: 14 sessions inactive — needs a decision referral to test.
+**Key diff from S381l**: PCI recovery (+15.3%) suggests the S381l trough was transient (hastily opened lanes now closed/merged). Growth stable at ~3.9 L/s. Compactness unchanged — no compaction ran. Belief evolution is the persistent gap: DEPS untouched substantively for 12 sessions, council inactive for 14. The swarm produces knowledge (STRONG) but does not update its beliefs in response (STAGNANT).
+
+## Previous check: S381-late (2026-03-01)
+
+| Indicator | Status | Detail |
+|-----------|--------|--------|
+| Knowledge growth | HEALTHY | 663L (S381-early: 657L, +6 intra-session). 179P (stable). 42F active (main), 16 resolved across domains. Growth 3.6 L/session (S376-S381 avg). S381 highly productive: 11 commits, 5 DOMEX lanes, 2 mission-constraint lanes. |
+| Knowledge accuracy | DECLINING | PCI 0.424 (S381-early: 0.587, -28%). EAD compliance 65% (S381-early: 90%, -25pp). Confidence coverage 98.3% (652/663). Contract 5/5 PASS. Frontier testability 87%. Belief freshness 75%. Root cause: 4 DOMEX lanes opened without coordination tags or EAD fields — lane-opening pace outstripped compliance discipline. |
+| Compactness | DUE | Proxy-K 6.1% drift (S381-early: 5.4%, crossed 6% threshold). 0 oversized lessons (max=20L). Avg 18.7 lines/lesson. INDEX.md 59L (under 60L limit). Compaction needed. |
+| Belief evolution | IMPROVED | 17B stable. 49 DEPS.md commits (up from 47). Last edit S381 (was S370 — 11-session gap closed). 33 observed, 22 tested, 7 theorized. 10 challenge/falsification markers. Council: inactive since S368 (13 sessions). |
+| Task throughput | STRONG | 11 commits in S381. 26 MERGED / 5 ABANDONED in active lanes (84% merge rate). All-time: 624 MERGED / 404 ABANDONED. 0 stale active lanes (NK closed this session). Per-session lesson production: S381:5, S380:4, S379:6, S378:3, S377:6 refs. |
+
+**Score: 3.6/5** — down from 4.1/5 (S381-early). PCI/EAD decline is the headline concern: 4 hastily opened DOMEX lanes without coordination tags + EAD fields drove -28% PCI in a single session. Belief evolution IMPROVED (11-session DEPS gap closed). Compactness crossed DUE threshold. Throughput remains STRONG.
+**Trajectory**: S307→S313→S350→S352→S360→S365→S371→S379→S381e→S381l: growth 2.7→3.2→4.5→8.0→2.2→3.0→5.1→1.5→3.6 L/s. PCI 0.41→0.64→0.54→0.62→0.59→0.42 (REGRESSION). Proxy-K 21.7→12.1→2.6→5.9→5.5→5.4→6.1 (DUE). 36/36 domains visited (UCB1 coverage complete).
+**Priority fix**: (1) EAD compliance enforcement: open_lane.py must reject lanes missing EAD fields (structural, not voluntary — L-601 theorem). (2) Compaction: proxy-K 6.1%, run compact.py. (3) Council: inactive 13 sessions — structural neglect. (4) PCI recovery: tag the 3 remaining stale DOMEX lanes or close them.
+**Key diff from S381-early**: PCI regression -28% is the most significant single-check decline since S371. Cause is measurable: 4 DOMEX lanes opened without proper EAD/coordination fields. DEPS.md gap closed (S370→S381). Economy_expert.py bug fixed. NK stale lane closed. This confirms L-601: voluntary compliance decays without structural enforcement. open_lane.py EAD enforcement is the fix.
+
+## Previous check: S381-early (2026-03-01)
+
+| Indicator | Status | Detail |
+|-----------|--------|--------|
+| Knowledge growth | HEALTHY | 657L. 179P. 42F active. Economy 0.92x. |
+| Knowledge accuracy | HEALTHY | PCI 0.587. EAD 90%. Coverage 98.6%. Contract PASS. |
+| Compactness | HEALTHY | Proxy-K 5.4%. 0 oversize. INDEX 59L. |
+| Belief evolution | WATCH | DEPS last edit S370 (11 sessions stale). Council inactive since S368. |
+| Task throughput | ADEQUATE | 0 stale active lanes. Economy throughput FIXED. |
+**Score: 4.1/5**
 
 ## Previous check: S379 (2026-03-01)
 
