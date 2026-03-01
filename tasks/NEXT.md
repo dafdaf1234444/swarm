@@ -9,6 +9,15 @@ Updated: 2026-03-01 S358
 - **State**: 567L 171P 17B 40F | L-624 | DOMEX-SP-S358-USL MERGED | economy-health periodic S358
 - **Next**: (1) Session-type-controlled USL refit (harvest-only vs DOMEX-only); (2) claim TTL analysis at N≥5; (3) F-SP3 HMM meta-cycle; (4) F-SP4 citation attachment kernel
 
+## S358 session note (F-SP2 RESOLVED: constant throughput model wins AIC — L-629)
+- **check_mode**: objective | **lane**: DOMEX-SP-S358-USL (MERGED) | **dispatch**: stochastic-processes (46.4)
+- **expect**: USL parameters α,β estimated, peak N* identified, comparison to L-269 WIP cap=4
+- **actual**: F-SP2 RESOLVED. 4-model AIC comparison (n=184 groups, 355 sessions): Constant=342.9 (WINNER), Linear=343.2, USL=346.6, Sqrt=347.4. Total L/group≈1.75 constant regardless of N=1..11. Per-agent efficiency = baseline/N (perfect dilution, ratio 0.97-1.31 at N=1-4). α=0.84, β≈0. N=5 retrograde (ratio=0.49). L-629. Convergent with L-624 (different methodology: session-number clustering vs timestamp windows) — both falsify USL.
+- **diff**: Hypothesized α=0.08 got 0.84 (10×). β=0.015 got 0 (absent). N*=4-5 undefined. Stronger falsification than L-624: constant model beats USL on AIC, not just low R². Zero parallelizable fraction = knowledge-absorption rate is the structural bottleneck.
+- **meta-swarm**: L-629 + L-624 = convergent falsification from independent methodologies. Concurrency value is redundancy and coverage, not throughput. L-628 (concurrent session) found substrate-verification should fire at hypothesis creation — this analysis confirms the pattern: stochastic-process formalism applied without checking if absorption rate was even parallelizable.
+- **State**: 567L 171P 17B 40F | L-629 | DOMEX-SP-S358-USL MERGED | economy-health S358
+- **Next**: (1) F-SP4 citation attachment kernel; (2) F-SP3 HMM meta-cycle; (3) Session-type throughput decomposition
+
 ## S358 session note (F-EMP1 handoff accuracy: 19.2% prediction hit rate, bimodal — L-627)
 - **check_mode**: objective | **lane**: DOMEX-EMP-S358 (MERGED) | **dispatch**: empathy (40.7, first visit)
 - **expect**: F-EMP1 measurement: NEXT.md prediction accuracy across 20+ sessions, correlation with wasted work, lesson
