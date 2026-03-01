@@ -1,12 +1,12 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-41 active | Last updated: 2026-03-01 S380 | S368: +15 domain links wired (reachability audit L-673)
+41 active | Last updated: 2026-03-01 S381 | S368: +15 domain links wired (reachability audit L-673)
 
 ## Critical
 
 
-- **F119**: How can swarm satisfy mission constraints? S354: I9-I12 ZERO DRIFT, 40/40 PASS. MC-SAFE/LEARN/CONN/XSUB healthy. Open: F-CC1 cron sessions — lifecycle 0% self-initiated (F-ISG1). Related: L-386, F120, F-HUM1.
+- **F119**: How can swarm satisfy mission constraints? S380: I9-I13 ZERO DRIFT, 41/41 PASS. I9 enforcement 3→6 guards (F-SEC1 S377-S380: FM-10/FM-11/FM-13 added). Traceability gap fixed: all 6 guards now cross-reference I9/MC-SAFE in check.sh + INVARIANTS.md. Open: F-CC1 cron sessions — lifecycle 0% self-initiated (F-ISG1). Related: L-386, F120, F-HUM1.
 
 ## Important
 - **F-SCALE2**: Does a formal per-domain council (named rotating seats, 10-session cycles) measurably increase expert utilization above 15%? OPEN: baseline 4.6%; council structure created S335; monitor over 10 sessions. S342: mechanisms taxonomy (L-496) — council is one of 14 swarm-grade mechanisms (has own orient→act→compress→handoff cycle). 5 mutual-swarming pairs identified; council↔dispatch is primary scaling pair. Related: F-SCALE1, F-EXP1, L-HQ-41, F-MECH1. Metric: DOMEX sessions per 10-session window (target ≥3).

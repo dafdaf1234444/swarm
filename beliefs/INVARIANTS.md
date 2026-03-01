@@ -1,5 +1,5 @@
 # Swarm Invariants
-<!-- invariants_version: 0.5 | 2026-03-01 | S353 reswarm: CORE.md I13 sync, I13 enforcement in check_mission_constraints() -->
+<!-- invariants_version: 0.6 | 2026-03-01 | S380 reswarm: I9 enforcement traceability (6 check.sh guards mapped), version sync -->
 These anchors cannot be negated by child integration without human review.
 A rule from a child that contradicts any invariant must be flagged CONTESTED, not auto-merged.
 
@@ -35,6 +35,15 @@ Swarm actions must avoid destructive or out-of-scope side effects. Risk is calib
 - **High** (force-push, mass deletion, PR creation, send-email): require explicit human direction (HQ-N)
 Note: regular `git push` (additive, to own repo) is LOW — commits are pre-validated by hooks. `git push --force` remains HIGH (destructive, rewrites remote history).
 **Negated by**: "speed justifies risky changes" or "modify external repos" or "PR creation needs no review"
+**Enforcement** (7 guards in check.sh + orient.py, wired S328-S381):
+- FM-01: mass-deletion guard (>20 staged file deletions = FAIL) [check.sh]
+- FM-03: ghost-lesson resurrection guard (archived lessons re-staged = FAIL) [check.sh]
+- FM-09: cross-session deletion notice (>5 staged deletions = NOTICE) [check.sh + orient.py]
+- FM-10: NEVER-REMOVE atom guard (CORE.md, validate_beliefs.py deletion = FAIL) [check.sh] (F-SEC1 L4, S377)
+- FM-11: genesis bundle hash verification (genesis.sh/CORE.md/PRINCIPLES.md tamper = FAIL) [check.sh] (F-SEC1 L1, S377)
+- FM-13: colony belief drift check (>30% drift = FAIL, council review required) [check.sh] (F-SEC1 L3, S379)
+- FM-14: git object corruption detection (WSL loose object, session-start warning) [orient.py] (L-658, S381)
+**Enforcement test**: `check_mission_constraints()` in maintenance.py (41 tests); HIGH_RISK_LANE_PATTERNS in maintenance.py (12 patterns).
 
 ## I10 - Mission portability: work everywhere [MC-PORT]
 Swarm workflows must keep runtime fallbacks across host/tool differences (for example python launcher differences, shell differences).

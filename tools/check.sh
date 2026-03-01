@@ -36,7 +36,7 @@ fi
 
 echo "=== SWARM CHECK ==="
 
-# 0. Mass-deletion guard (FM-01, L-346, L-350): abort if staged FILE deletions exceed threshold.
+# 0. Mass-deletion guard (FM-01, I9/MC-SAFE, L-346, L-350): abort if staged FILE deletions exceed threshold.
 # Protects against WSL filesystem corruption staging mass file deletions via git add -A accidents.
 # Counts DELETED FILES (D status), not line-level deletions — avoids false positives on large edits.
 FILE_DELETION_THRESHOLD=20
@@ -52,7 +52,7 @@ if [ "${STAGED_FILE_DELETIONS:-0}" -gt "$FILE_DELETION_THRESHOLD" ]; then
     fi
     echo "  ALLOW_MASS_DELETION=1 set — bypassing mass-deletion guard."
 elif [ "${STAGED_FILE_DELETIONS:-0}" -gt "$FM09_NOTICE_THRESHOLD" ]; then
-    # FM-09 cross-session notice: staged deletions above notice threshold but below hard-fail.
+    # FM-09 cross-session notice (I9/MC-SAFE): staged deletions above notice threshold but below hard-fail.
     # May indicate concurrent session left foreign deletions in the index.
     echo "  FM-09 NOTICE: ${STAGED_FILE_DELETIONS} staged file deletions (>${FM09_NOTICE_THRESHOLD}) — verify these are yours"
     echo "    If foreign (from concurrent session): git restore --staged . — then re-stage your files"
@@ -60,7 +60,7 @@ elif [ "${STAGED_FILE_DELETIONS:-0}" -gt "$FM09_NOTICE_THRESHOLD" ]; then
 fi
 echo "  Mass-deletion guard: PASS (${STAGED_FILE_DELETIONS:-0} staged file deletions)"
 
-# FM-03: Ghost-lesson resurrection guard (L-346).
+# FM-03: Ghost-lesson resurrection guard (I9/MC-SAFE, L-346).
 # After 'git mv memory/lessons/L-NNN.md memory/lessons/archive/L-NNN.md', WSL may leave
 # ghost copies in the source directory. If staged as new-file, they undo the archiving.
 ARCHIVE_DIR="memory/lessons/archive"
@@ -84,7 +84,7 @@ if [ -d "$ARCHIVE_DIR" ]; then
     echo "  Ghost-lesson guard: PASS"
 fi
 
-# FM-10: NEVER-REMOVE atom guard (F-SEC1 Layer 4, PROTOCOL.md).
+# FM-10: NEVER-REMOVE atom guard (I9/MC-SAFE, F-SEC1 Layer 4, PROTOCOL.md).
 # Core identity files must never be deleted — they are the epistemic backbone.
 NEVER_REMOVE_FILES="beliefs/CORE.md tools/validate_beliefs.py"
 ATOM_DELETED=0
@@ -103,7 +103,7 @@ if [ "$ATOM_DELETED" -eq 0 ]; then
     echo "  NEVER-REMOVE atom guard: PASS"
 fi
 
-# F-SEC1 Layer 1: Genesis bundle hash verification (FM-11 hardening S377).
+# FM-11: Genesis bundle hash verification (I9/MC-SAFE, F-SEC1 Layer 1, S377).
 # If a genesis hash file exists, verify current bundle matches. Mismatch = FAIL (was warning pre-S377).
 LATEST_HASH_FILE=$(ls -t workspace/genesis-bundle-*.hash 2>/dev/null | head -1)
 if [ -n "$LATEST_HASH_FILE" ]; then
@@ -145,7 +145,7 @@ print(h.hexdigest())
     fi
 fi
 
-# F-SEC1 Layer 3: Colony belief drift check (FM-13 hardening S379).
+# FM-13: Colony belief drift check (I9/MC-SAFE, F-SEC1 Layer 3, S379).
 # If any colony's belief drift exceeds 30%, require council review before commit.
 if [ -f "tools/merge_back.py" ]; then
     DRIFT_OUT=$("${PYTHON_CMD[@]}" tools/merge_back.py --check 2>&1)

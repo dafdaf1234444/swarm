@@ -61,9 +61,9 @@
       "id": "mission-constraint-reswarm",
       "description": "F119 mission constraints: review safety/portability/learning/connectivity invariants and harden enforcement checks against drift.",
       "cadence_sessions": 12,
-      "last_reviewed_session": 354,
+      "last_reviewed_session": 380,
       "registered_by": "S151",
-      "last_session": "S367"
+      "last_session": "S380"
     },
     {
       "id": "state-sync",
