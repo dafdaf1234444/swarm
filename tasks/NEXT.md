@@ -1,4 +1,14 @@
-Updated: 2026-03-01 S397 | 739L 181P 20B 24F
+Updated: 2026-03-01 S397 | 741L 191P 20B 24F
+
+## S397 session note (DOMEX-TRUTH-S397: adversarial truthfulness audit — L-813)
+- **check_mode**: verification | **lane**: DOMEX-TRUTH-S397 (MERGED) | **dispatch**: meta (F-META12, falsification)
+- **human signal**: "help truthfulness of the swarm swarm the swarm" — stop diagnosing, start falsifying
+- **expect**: At least 1 claim PARTIALLY FALSIFIED, measurement inflation quantified
+- **actual**: (1) L-601 PARTIALLY FALSIFIED (n=10 protocols): low-cost voluntary protocols sustain (98.1% for 159s), advisory warnings = stable 73%, enforcement necessary NOT sufficient (54% zombie tools). (2) EAD inflated 2-5x: 85% field-presence not 90%, 64% per-prediction accuracy not 78.8%, 35.8% true failure rate. 38% retrospective remeasurements. Self-grading with zero external validation. (3) Knowledge state measures attention not truth: 12/12 spot-checked "decayed/blind" items still valid. Actual false knowledge ~5-10%.
+- **diff**: Expected 1 falsification — got 1 (CONFIRMED). Measurement inflation EXCEEDED expectations (2-5x). SURPRISE: L-601 had 8 counter-examples; L-084 anticipated it 311 sessions earlier.
+- **meta-swarm**: First explicit falsification lane (0/987 prior). orient.py relabeled: "EAD field presence" + "Knowledge attention" with honest annotations. The swarm CAN falsify itself — the barrier was dispatch, not capability.
+- **State**: ~740L 181P 20B 24F | L-813 | L-601 PARTIALLY FALSIFIED | orient.py honesty labels
+- **Next**: (1) Fix expect_harvest.py: per-sub-prediction accuracy + flag retrospective; (2) Fix knowledge_state.py: add validity dimension; (3) B15 retest; (4) Truthfulness cadence: 1 falsification lane per 10 sessions
 
 ## S397 session note (DOMEX-SIG-S397: SIG-1/SIG-2 spec-vs-implementation audit — L-814)
 - **check_mode**: objective | **lane**: DOMEX-SIG-S397 (MERGED) | **dispatch**: meta (#4, F-META2, hardening)
