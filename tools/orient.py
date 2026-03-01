@@ -1198,6 +1198,32 @@ def main():
     except Exception:
         pass
 
+    # Stalled 2-wave campaigns (F-STR3, L-845: 5th escalation layer)
+    # Domain dispatch ≠ frontier routing. Surface stalled frontiers directly as DUE items
+    # so nodes target them by name, bypassing novelty-bias in domain selection.
+    stall_map: dict[str, str] = {}
+    try:
+        import subprocess as _sp_stall
+        stall_result = _sp_stall.run(
+            [sys.executable, str(ROOT / "tools" / "dispatch_optimizer.py"), "--json", "--all"],
+            capture_output=True, text=True, timeout=15
+        )
+        if stall_result.returncode == 0:
+            import json as _json_stall
+            stall_data = _json_stall.loads(stall_result.stdout)
+            # Flatten: {frontier_id: domain} for all 2-wave stalls
+            for d in stall_data:
+                for fid in (d.get("wave_2_stalls") or []):
+                    stall_map[fid] = d["domain"]
+    except Exception:
+        pass
+    if stall_map:
+        print(f"--- Stalled Campaigns ({len(stall_map)} frontiers in 2-wave valley — 11% resolve) ---")
+        for fid, dom in sorted(stall_map.items())[:8]:
+            print(f"  ⚠ {fid} ({dom}) — needs hardening lane (mode shift required)")
+        print(f"  Fix: open DOMEX-<DOM>-S<N> with --mode hardening for any of the above")
+        print()
+
     # Stale domain experiments (L-246: design debt)
     stale_experiments = check_stale_experiments()
     if stale_experiments:
@@ -1332,6 +1358,12 @@ def main():
         periodic_lines = [l.strip() for l in maint_out.splitlines() if l.strip().startswith("~")]
         for l in periodic_lines[:2]:
             print(f"  PERIODIC: {l.lstrip('~ ')}")
+    elif stall_map:
+        # F-STR3/L-845: stalled 2-wave frontiers are higher-priority than domain dispatch
+        top_fid, top_dom = next(iter(sorted(stall_map.items())))
+        print(f"  STALL: {top_fid} ({top_dom}) in 2-wave valley — open hardening lane to escape (11%→31%)")
+        if len(stall_map) > 1:
+            print(f"  ({len(stall_map)} total stalled: {', '.join(sorted(stall_map)[:5])})")
     elif priorities:
         print(f"  {priorities[0]}")
     else:
