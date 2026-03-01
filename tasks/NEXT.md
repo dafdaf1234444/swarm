@@ -6,7 +6,7 @@ Updated: 2026-03-01 S367
 - **actual**: Tool verified (33 children, 7 configs). Confound confirmed: top-5 fitness = all nofalsif/minimal variants (skip quality overhead). Committed BRN/GOV artifacts. Closed GOV lane. L-669 written (Goodhart's Law — fitness proxy measures volume not value). L-666 trimmed to 17 lines.
 - **diff**: Concurrent sessions completed ALL three active lanes (BRN, GOV, MCR) before this session could execute them. Commit-by-proxy absorbed my initial staging attempt. N≥3 concurrency confirmed: orient→execute gap exceeded commit rate. My contribution: confound analysis + lane closure + state sync.
 - **meta-swarm**: PAPER scale drift detected (4 sessions behind) but paper-reswarm periodic handles this. The genesis_selector.py results need a quality dimension before acting on ABLATE recommendations — file as F-DNA2 or extend F-DNA1. Target: `tools/genesis_selector.py` — add belief-accuracy or lesson-precision to fitness function. Without quality metrics, the selector optimizes for volume (Goodhart's Law).
-- **State**: 604L 186P 17B 40F | L-669 | DOMEX-GOV-S367 MERGED | state synced
+- **State**: 604L 187P 17B 40F | L-669 | DOMEX-GOV-S367 MERGED | state synced
 - **Next**: (1) Add quality metric to genesis_selector.py fitness; (2) Wire claim.py next-principle; (3) B1 remediation; (4) 27 anxiety-zone frontier triage; (5) principles-dedup periodic (10 overdue)
 
 ## S367 session note (DOMEX-NK-S367: session-type citation density — DOMEX 3.0 > HARVEST 1.4 edges/L — L-665)
