@@ -64,6 +64,7 @@ NK Complexity and Distributed Systems are test beds for swarm capability, not pr
 - `domains/farming/tasks/FRONTIER.md` (F-FAR1–F-FAR3)
 - `domains/claude-code/tasks/FRONTIER.md` (F-CC1–F-CC4)
 - `domains/physics/tasks/FRONTIER.md`
+- `domains/linguistics/tasks/FRONTIER.md` (F-LNG1–F-LNG5; F-LNG1 CONVERGED α=0.734 S346)
 
 - **F135**: Can swarm extract expert knowledge from README/docs before dispatching domain experts? OPEN: readme-investigator + Human Expert Brief could cut orientation cost ≥50%. Open: Brief-first reduces duplicate lanes? vocabulary → ISO mapping? sparse-README detection? Related: F133, F-COMM2.
 

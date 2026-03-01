@@ -13,10 +13,10 @@ Parent: swarm (global) | Sub-colonies: none
 - CB-1: linguistics structural patterns generalize to swarm coordination. [THEORIZED n=0]
 
 ## State
-Last session: S301
-Lesson count (approx): ~6
-Open frontiers: 5
-Active colony lanes: 0
+Last session: S346
+Lesson count (approx): ~7 (L-306, L-399, L-439, L-471, L-476, L-510-link, L-512)
+Open frontiers: 5 (F-LNG1 CONVERGED, F-LNG2 TRACKING, F-LNG3/4/5 OPEN)
+Active colony lanes: 1 (DOMEX-LNG-S346)
 
 ## Swarm protocol
 This colony IS a swarm. Colony nodes orient with:

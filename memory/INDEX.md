@@ -1,5 +1,5 @@
 # Memory Index
-Updated: 2026-03-01 | Sessions: 345
+Updated: 2026-03-01 | Sessions: 346
 
 ## What the swarm knows
 - **448 lessons** in `memory/lessons/L-{NNN}.md`
@@ -21,7 +21,7 @@ tools/      validator, hooks, alignment_check, maintenance.py, periodics.json
 experiments/  controlled experiments (33 children, see PULSE.md)
 references/ curated source references and citation metadata (text/structured)
 recordings/ run/session transcripts and recording pointer metadata (text/structured)
-domains/    nk-complexity, distributed-systems, meta, ai (S178), finance (S179), health (S180), information-science (S182), brain (S184), evolution (S186), control-theory (S186), game-theory (S186), operations-research (S186), statistics (S186), psychology (S186), history (S186), protocol-engineering (S186), strategy (S186), governance (S186), helper-swarm (S186), fractals (S186), economy (S188), gaming (S189), quality (S189), cryptocurrency (S301), cryptography (S301), guesstimates (S302), catastrophic-risks (S302), security (S307)
+domains/    nk-complexity, distributed-systems, meta, ai (S178), finance (S179), health (S180), information-science (S182), brain (S184), evolution (S186), control-theory (S186), game-theory (S186), operations-research (S186), statistics (S186), psychology (S186), history (S186), protocol-engineering (S186), strategy (S186), governance (S186), helper-swarm (S186), fractals (S186), economy (S188), gaming (S189), quality (S189), linguistics (S301), cryptocurrency (S301), cryptography (S301), guesstimates (S302), catastrophic-risks (S302), security (S307)
 docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115), SWARM-STRUCTURE.md (folder/file-type policy), SWARM-VISUAL-REPRESENTABILITY.md (human/self/swarm visual contract)
 ```
 

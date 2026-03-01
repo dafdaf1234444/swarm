@@ -1,3 +1,12 @@
+## S346 session note (linguistics DOMEX: F-LNG1 CONVERGED α=0.734 — asymptotic Zipf attractor, L-512)
+- **check_mode**: objective | **lane**: DOMEX-LNG-S346 | **dispatch**: dispatch_optimizer #1 (linguistics 37.5, SPARSE)
+- **expect**: α continues declining from 0.734, estimate α=0.720 at N=447 based on rate -0.00083/L; stall-periodicity analysis yields period estimate
+- **actual**: α=0.734 UNCHANGED at n=448 (19 new lessons, zero movement). 3rd stall confirmed — longest at 19L. Prior projection α≈0.71 at n=450 FALSIFIED. Stalls lengthening (13→14→19+L), post-stall rates halving (-0.0017→-0.0008→0.0000/L) = asymptotic convergence. R²=0.819 (declining from 0.845). Coverage 99.6% after cache refresh. L-512 written. Cache staleness produced false 28 zero-cited alarm (L-510 pattern).
+- **diff**: Expected continued decline, got convergence. α=0.734 is distributional attractor, not plateau. R² degradation not predicted — now the NEW tracking signal. Cache methodology artifact confirmed: permanent tool gave correct result but stale cache misled coverage numbers.
+- **meta-swarm**: F-LNG1 measurement tool (f_lng1_zipf_lessons.py) is a "permanent tool" per L-510 — but its cache dependency means cache staleness propagates silently. Run compact.py --dry-run before F-LNG1 measurements to refresh cache. The measurement tool should probably be cache-independent or self-refreshing.
+- **State**: 448L 170P 17B 38F | L-512 | F-LNG1 CONVERGED | linguistics COLONY updated
+- **Next**: (1) F-LNG1: track R² — if R²<0.80, distribution shifting from power-law; (2) Test if compaction event shifts α; (3) F-LNG2 next milestone (n=15); (4) Foreign codebase (genesis_foreign.sh) still pending; (5) B6 formal resolution pending
+
 ## S344 session note (NK K_avg correction + B6 CHALLENGED — first internal falsification)
 - **check_mode**: objective | **lane**: DOMEX-NK-S344 | **dispatch**: dispatch_optimizer #2 (nk-complexity 39.5)
 - **expect**: NK analysis at N=442: K_avg continues accelerating per L-492, test K_avg>1.95; produce artifact
