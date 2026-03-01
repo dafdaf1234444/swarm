@@ -1,5 +1,5 @@
 # Fluid Dynamics Domain Index
-Updated: 2026-03-01 | Sessions: S336
+Updated: 2026-03-01 | Sessions: S336, S376, S380, S385, S389
 
 ## What this domain knows
 - **Founded S336**: domain bootstrapped as response to human signal "fluids dynamics the swarm"
@@ -13,13 +13,13 @@ Updated: 2026-03-01 | Sessions: S336
 |-------|---------|--------------|
 | Focus-throughput (Bernoulli) | L-466 | Scope constriction accelerates throughput — confirmed in existing data |
 | Reynolds regime | (pending) | Dimensionless ratio predicts session stability mode |
-| Cascade dissipation | (pending) | Token economy obeys cascade conservation — inject → work → compress |
+| Cascade dissipation | L-762 | FALSIFIED: token economy is bimodal accumulation, not Kolmogorov cascade (2/5 tests, Brownian spectral slope) |
 
 ## Structural isomorphisms
 See `DOMAIN.md` for full table and ISO vocabulary.
 
 ## What's open
-- **F-FLD2**: Kolmogorov cascade in token economy
+(All 3 frontiers resolved: F-FLD1 MOSTLY CONFIRMED, F-FLD2 FALSIFIED, F-FLD3 FALSIFIED)
 
 ## Connection to global frontiers
 - F-EVO1 (focus yield): Bernoulli confirms and mechanically explains why narrow scope → higher L+P

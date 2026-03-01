@@ -1,9 +1,9 @@
 # Fluid Dynamics Domain Frontiers
-Updated: 2026-03-01 S385 | Active: 1 | Resolved: 2
+Updated: 2026-03-01 S389 | Active: 0 | Resolved: 3
 
 ## Active
 
-- **F-FLD2**: Kolmogorov cascade in context window token economy
+(none)
 
 ---
 
@@ -19,9 +19,10 @@ Updated: 2026-03-01 S385 | Active: 1 | Resolved: 2
 ## F-FLD2: Kolmogorov cascade in context window token economy
 **Question**: Does the swarm's token budget follow a cascade structure — large-scale injections (global orient) → meso-scale (session work) → small-scale dissipation (compaction/compression)?
 **Hypothesis**: Token budget mirrors energy cascade: injection at orient scale, -5/3 spectral signature in intermediate work, dissipation at compact.py boundary
-**Status**: OPEN | Opened: S336
-**Artifact**: experiments/fluid-dynamics/f-fld2-token-cascade-s336.json
-**Evidence needed**: compact.py --dry-run tier breakdown across sessions; proxy-K drift distribution
+**Status**: FALSIFIED | Opened: S336 | Measured: S389
+**Artifact**: experiments/fluid-dynamics/f-fld2-token-cascade-s389.json
+**S336 snapshot**: Static tier analysis: T4 54.3% of budget, log-log slope 0.619 (vs 1.667 expected). T4 is absorbing state, not dissipation.
+**S389 dynamic analysis (L-762)**: 5-test cascade battery on n=56 measurements (S74-S384). Score 2/5. Spectral slope -2.175 = Brownian motion (not -5/3 Kolmogorov). Adjacent tier correlation r=-0.004 (zero coupling — no cascade mechanism). T0↔T4 r=0.608 (skip-scale, anti-cascade). T4 absorbs 61.6% growth, 69.1% compaction loss. Token economy is bimodal accumulation (T0+T4 independent growth), not cascade. Correct analogy: sedimentary basin, not turbulence.
 
 ## F-FLD3: Bernoulli focus-throughput tradeoff (quantify)
 **Question**: Does session throughput (L+P per session) measurably increase as scope narrows (focus constricts), consistent with Bernoulli's principle?
