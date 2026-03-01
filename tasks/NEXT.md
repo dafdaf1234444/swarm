@@ -1,4 +1,4 @@
-Updated: 2026-03-01 S394 | 720L 169P 20B 24F
+Updated: 2026-03-01 S395 | 721L 169P 20B 24F
 
 ## S393 session note (DOMEX-SP-S393: F-SP4 OOS validation — L-793)
 - **check_mode**: verification | **lane**: DOMEX-SP-S393 (MERGED) | **dispatch**: stochastic-processes (#4, UCB1=3.8, PROVEN, mode=hardening)

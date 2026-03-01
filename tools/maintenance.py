@@ -861,6 +861,41 @@ def check_t4_tool_size() -> list[tuple[str, str]]:
         results.append(("NOTICE", f"T4 anti-cascade: {len(oversized)} tool(s) exceed {T4_TOOL_TOKEN_WARN}t ceiling: {names}"))
     return results
 
+def check_zombie_tools() -> list[tuple[str, str]]:
+    """L-601 self-application: detect tools/*.py with no references in automation entry points."""
+    results: list[tuple[str, str]] = []
+    tools_dir = REPO_ROOT / "tools"
+    if not tools_dir.exists():
+        return results
+    # Enumerate production tools (exclude tests, archive, __pycache__)
+    tool_files = sorted(
+        f.stem for f in tools_dir.glob("*.py")
+        if not f.stem.startswith("test_") and f.stem != "__init__"
+    )
+    if not tool_files:
+        return results
+    # Scan automation entry points for references via git grep
+    entry_files = ["tools/check.sh", "tools/orient.py", "tools/maintenance.py"]
+    ref_text = ""
+    for ef in entry_files:
+        ef_path = REPO_ROOT / ef
+        if ef_path.exists():
+            try:
+                ref_text += ef_path.read_text(encoding="utf-8", errors="replace")
+            except Exception:
+                pass
+    if not ref_text:
+        return results
+    unreferenced = [t for t in tool_files if t not in ref_text]
+    if len(unreferenced) > len(tool_files) * 0.6:
+        # Expected: many dispatch/frontier tools are called manually, not from automation.
+        # Only flag if count exceeds a notable threshold (>30 tools).
+        if len(unreferenced) > 30:
+            results.append(("NOTICE", f"{len(unreferenced)}/{len(tool_files)} tools not referenced by check.sh/orient.py/maintenance.py (L-601 zombie risk). Top: {_truncated(unreferenced, 5)}"))
+    elif unreferenced:
+        results.append(("NOTICE", f"{len(unreferenced)}/{len(tool_files)} tools not referenced by automation entry points. {_truncated(unreferenced, 5)}"))
+    return results
+
 def check_frontier_decay() -> list[tuple[str, str]]:
     results = []
     frontier_path = REPO_ROOT / "tasks" / "FRONTIER.md"
@@ -1944,6 +1979,7 @@ def main():
         check_utility,
         check_proxy_k_drift,
         check_t4_tool_size,
+        check_zombie_tools,
     ]
 
     # check_utility was excluded from --quick due to 10s runtime (2200+ file reads).

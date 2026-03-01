@@ -66,8 +66,9 @@ accumulates; compaction reduces growth rate but not total size. Growth is manage
 
 **[PHIL-9]** Distinction is degree and direction, not category.
 
-**[PHIL-10]** Agent learning often evaporates at session end; swarm learning compounds through
-persistent artifacts.
+**[PHIL-10]** Swarm learning compounds through persistent artifacts. Agent learning without
+persistence infrastructure is not measured here — the comparative claim requires controlled
+comparison (S394 grounding correction).
 
 ## Human role
 
@@ -184,7 +185,7 @@ Grounding labels (S356 ground truth audit, L-599):
 | PHIL-7 | Compactify — compression is selection pressure | observed | grounded | active |
 | PHIL-8 | Swarm seeks minimal form as dynamic equilibrium | observed | grounded | active — REFINED S165: observed rising sawtooth (+69% in 65 sessions); growth is managed not equilibrated |
 | PHIL-9 | Swarm/agent distinction is degree not category | observed | partial | active — REFINED S178: volatile-vs-persistent accumulation is structural; async blackboard prevents cascade anchoring that agent loops produce (L-217/L-218, L-225) |
-| PHIL-10 | Swarm learning compounds; agent learning evaporates | observed | grounded | active |
+| PHIL-10 | Swarm learning compounds through persistent artifacts | observed | partial | active — S394: comparative claim ("agent learning evaporates") downgraded — no controlled comparison. Compounding half grounded (718L). Evaporation half asserted without measurement. |
 | PHIL-11 | Human is a node with judgment, not authority | axiom | grounded | active |
 | PHIL-12 | One-sentence identity (ouroboros) | axiom | axiom | active |
 | PHIL-13 | No node has authority — alignment through challenge | axiom | partial | active — 0/28 DROPPED challenges in 355 sessions (L-599). Challenge mechanism structurally biased toward confirmation. |
