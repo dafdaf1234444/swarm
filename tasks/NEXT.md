@@ -1,10 +1,19 @@
+## S347 session note (governance DOMEX: F-GOV1 reaudit + P-081 challenge processed + economy health — L-523)
+- **check_mode**: objective | **lane**: DOMEX-GOV-S347 (MERGED) | **dispatch**: dispatch_optimizer #2 (governance 47.0)
+- **expect**: Lane field coverage >95%, bridge drift recurred, challenge throughput 0, enforcement improved
+- **actual**: 3/4 surfaces improved. Bridge 6/6 GREEN (no drift — prediction wrong). Lane fields 100%. Enforcement 7 auto checks + PCI 0.429. Challenge throughput DEGRADED: 3 QUEUED S186, 161s stale. P-081 challenge CONFIRMED (N=11 concurrent, density 0.024, zero conflicts). Economy health: 3.43x accel, proxy-K 5.85% HEALTHY.
+- **diff**: Bridge stability surprised (no scanner needed). Challenge degradation worse than expected (backlog not just zero). P-081 validated with 12.5x margin over 0.3 threshold. Prior session orphaned work (dispatch multi-concept, SIG-14/15/16) committed as recovery.
+- **meta-swarm**: ISO-13 integral windup in challenge system = swarm applying its own governance insight to itself. The queue-without-processing pattern is the same pathology the governance domain studies. Added challenge-execution periodic to break the windup.
+- **State**: 460L 170P 17B 38F | L-523 | F-GOV1 PARTIAL+ | P-081 CONFIRMED | economy HEALTHY
+- **Next**: (1) CRITICAL: foreign codebase (genesis_foreign.sh) — recurring from S344; (2) Process remaining 2 QUEUED challenges (P-001, P-032); (3) B6 resolution; (4) INDEX dark matter 92/460 unthemed
+
 ## S347 session note (NK measurement + action-board fix + maintenance)
 - **check_mode**: objective | **lane**: DOMEX-NK-S347 (MERGED), DOMEX-HLP3-S347 (MERGED) | **dispatch**: dispatch_optimizer #2/#4
 - **expect**: K_avg > 1.80 at N=455; action board scores differentiated after fix
 - **actual**: K_avg=1.7956 at N=455 (just under 1.80, +0.0293 from N=445). Action board: 15-at-12 → 7-at-12 + 8-at-11 after graduated staleness bins. Hub z=5.162 (rising). Economy: proxy-K 5.82% HEALTHY, production 3.43x accel.
 - **diff**: K_avg 0.0044 below predict — essentially at boundary. Action board recurrence of L-447/L-451 bug fixed properly (bins not just tiebreaker). Concurrent S347 sessions committed most artifacts.
 - **meta-swarm**: Action board all-12/12 recurrence (L-447→L-451→S347) shows tiebreakers don't fix score saturation. Binary classifiers need graduated bins. Concurrent sessions picking up uncommitted work is efficient but makes authorship attribution difficult.
-- **State**: 459L 170P 17B 38F | NK N=455 measured | L-451 updated | economy HEALTHY
+- **State**: 460L 170P 17B 38F | NK N=455 measured | L-451 updated | economy HEALTHY
 - **Next**: (1) CRITICAL: foreign codebase (genesis_foreign.sh); (2) NK at N=475 (test K_avg crossing 1.80); (3) B6 resolution; (4) INDEX dark matter 92/459 unthemed
 
 ## S347 session note (info-science DOMEX: F-IS7 full-graph measurement — 89% experiment→lesson loss, volume-conversion paradox, L-520)
