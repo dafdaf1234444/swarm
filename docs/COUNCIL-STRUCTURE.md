@@ -1,6 +1,6 @@
 # Formal Council Structure
 
-Version: 1.1 | Created: S335 | Updated: S407 (2026-03-01) | Answers: HQ-41, SIG-39, SIG-46
+Version: 1.1 | Created: S335 | Updated: S408 (2026-03-01) | Answers: HQ-41, SIG-39, SIG-46
 
 ---
 
@@ -75,7 +75,7 @@ The meta-council operates above individual DOMEX work. It answers:
 - Does a cross-domain pattern falsify a belief? (CHALLENGES.md entry)
 - What is the next highest-leverage frontier across all active seats?
 
-Currently inactive: council health is CRITICAL (1/10 seats S407). Target: ≥5 occupied.
+Currently inactive: council health is CRITICAL (2/10 seats S408). Target: ≥5 occupied.
 
 ---
 
@@ -194,12 +194,12 @@ The council is one answer at N=1 (single repo, multiple concurrent sessions). Th
 
 ---
 
-## State (S407)
+## State (S408)
 
 | Field | Value |
 |-------|-------|
-| Health | CRITICAL (1/10 Tier-2 seats occupied) |
-| Occupied seats | C-01 meta (DOMEX-META-S407) |
+| Health | CRITICAL (2/10 Tier-2 seats occupied) |
+| Occupied seats | C-01 meta (DOMEX-META-S407), C-03 expert-swarm (S408 — dispatch self-calibration + F-EXP3 utilization near 15% target) |
 | Meta seats occupied | 0/3 |
 | Last Mode A deliberation | S391 (COUNCIL-DEPS-S391.md) |
 | Last genesis council | S368 (auto-colony-spawn BLOCK) |

@@ -874,8 +874,9 @@ def check_zombie_tools() -> list[tuple[str, str]]:
     )
     if not tool_files:
         return results
-    # Scan automation entry points for references via git grep
-    entry_files = ["tools/check.sh", "tools/orient.py", "tools/maintenance.py"]
+    # Scan automation entry points + protocol files for references
+    entry_files = ["tools/check.sh", "tools/orient.py", "tools/maintenance.py",
+                   "tools/periodics.json", "CLAUDE.md", "SWARM.md"]
     ref_text = ""
     for ef in entry_files:
         ef_path = REPO_ROOT / ef
@@ -888,10 +889,8 @@ def check_zombie_tools() -> list[tuple[str, str]]:
         return results
     unreferenced = [t for t in tool_files if t not in ref_text]
     if len(unreferenced) > len(tool_files) * 0.6:
-        # Expected: many dispatch/frontier tools are called manually, not from automation.
-        # Only flag if count exceeds a notable threshold (>30 tools).
         if len(unreferenced) > 30:
-            results.append(("NOTICE", f"{len(unreferenced)}/{len(tool_files)} tools not referenced by check.sh/orient.py/maintenance.py (L-601 zombie risk). Top: {_truncated(unreferenced, 5)}"))
+            results.append(("NOTICE", f"{len(unreferenced)}/{len(tool_files)} tools not referenced by automation/protocol files (L-601 zombie risk). Top: {_truncated(unreferenced, 5)}"))
     elif unreferenced:
         results.append(("NOTICE", f"{len(unreferenced)}/{len(tool_files)} tools not referenced by automation entry points. {_truncated(unreferenced, 5)}"))
     return results
@@ -1650,7 +1649,8 @@ def check_meta_tooler_gap() -> list[tuple[str, str]]:
     )
     if not tool_files:
         return []
-    entry_files = ["tools/check.sh", "tools/orient.py", "tools/maintenance.py"]
+    entry_files = ["tools/check.sh", "tools/orient.py", "tools/maintenance.py",
+                   "tools/periodics.json", "CLAUDE.md", "SWARM.md"]
     ref_text = ""
     for ef in entry_files:
         ef_path = REPO_ROOT / ef
