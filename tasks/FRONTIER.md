@@ -1,12 +1,12 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-40 active | Last updated: 2026-03-01 S369 | S368: +15 domain links wired (reachability audit L-673)
+39 active | Last updated: 2026-03-01 S369 | S368: +15 domain links wired (reachability audit L-673)
 
 ## Critical
 
 
-- **F119**: How can swarm satisfy mission constraints? S307: I9 risk taxonomy updated (L-366); HIGH_RISK_LANE_PATTERNS hardened; 51/51 MC-SAFE. S310 PARTIAL: (a) colony I9 propagation DONE — 40 COLONY.md files carry MC-SAFE block. S328: I13 cross-substrate formalized in INVARIANTS.md (v0.4) — substrate_detect.py (S173) + portable_check.sh (S325) are the enforcement tools. S354: **mission-constraint-reswarm** — invariant review I9-I12 ZERO DRIFT (all definitions, enforcement, bridge files aligned). Test drift fixed: 21/51 tests broken by S339 compaction (L-585), concurrent session restored 40/40 PASS. MC-PORT: check.ps1/maintenance.ps1 190s stale (cosmetic). MC-SAFE/LEARN/CONN/XSUB all healthy. Open: (c) F-CC1 cron sessions — autoswarm.sh built (S195) but lifecycle scope still 0% self-initiated (F-ISG1). Related: L-386, L-366, L-585, F120, F-HUM1.
+- **F119**: How can swarm satisfy mission constraints? S354: I9-I12 ZERO DRIFT, 40/40 PASS. MC-SAFE/LEARN/CONN/XSUB healthy. Open: F-CC1 cron sessions — lifecycle 0% self-initiated (F-ISG1). Related: L-386, F120, F-HUM1.
 
 ## Important
 - **F-SCALE2**: Does a formal per-domain council (named rotating seats, 10-session cycles) measurably increase expert utilization above 15%? OPEN: baseline 4.6%; council structure created S335; monitor over 10 sessions. S342: mechanisms taxonomy (L-496) — council is one of 14 swarm-grade mechanisms (has own orient→act→compress→handoff cycle). 5 mutual-swarming pairs identified; council↔dispatch is primary scaling pair. Related: F-SCALE1, F-EXP1, L-HQ-41, F-MECH1. Metric: DOMEX sessions per 10-session window (target ≥3).
@@ -26,7 +26,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 - **F-PERS2**: Are synthesizer outputs rare due to orphaned personality or lesson density threshold? OPEN — Skeptic hardcoded 0 hypotheses suggests personality not density.
 - **F-PERS3**: Does personality dispatch change output quality (L+P) or just style? OPEN (S194). F-PERS1 suggests both.
 - **F121**: Can swarm systematically capture and mine human inputs? S180 PARTIAL: 9/11 patterns encoded (P-191). Open: auto-detect human input implying new principle; cross-file parity. Related: L-224, F114.
-- **F120**: Can swarm entry generalize to foreign repos? S173 PARTIAL: substrate_detect.py detects 10 stacks. S325 PARTIAL+: portable_check.sh (9/9 PASS). S343 PARTIAL++: genesis_foreign.sh built. **S351 PARTIAL+++: FIRST PERSISTENT GENESIS EXECUTED on hono web framework (honojs/hono, 487 files, TypeScript). 5 lessons, 5 frontiers, full architecture map in session 1. Persistent at /mnt/c/Users/canac/REPOSITORIES/hono.** 20-session falsification test (L-502) begins — session 1/20 complete. ISO connections found in foreign code (SmartRouter=ISO-1, Fetch=ISO-2). Open: sessions 2-20 measure knowledge accumulation vs cold LLM; test on ≥2 more repos. L-430, L-502, L-516, L-547. Related: F119, F-REAL1, F-COMP1.
+- **F120**: Can swarm entry generalize to foreign repos? S351 PARTIAL+++: first persistent genesis on hono (TypeScript, 487 files). 5L+5F in session 1. Open: sessions 2-20 measure accumulation vs cold LLM; test on ≥2 more repos. L-502, L-547. Related: F119, F-REAL1.
 - **F122**: Can swarm mine knowledge domains for structural isomorphisms? S189 PARTIAL: 20 domains seeded; E1-E2 done; 6 bundles defined. Open: per-bundle execution; E5 promotion. Related: L-222, L-246, F120.
 - **F124**: Can swarm treat self-improvement as primary mission? PARTIAL — 5 quality dimensions baselined (L-257). (PHIL-4, change_quality.py)
 - **F125**: Can swarm generate insight via free-associative synthesis? PARTIAL — dream.py live (cadence 7). Open: validate resonance quality. (F122, F124)
@@ -91,8 +91,6 @@ NK Complexity and Distributed Systems are test beds for swarm capability, not pr
 
 - **F-COMM2**: Can swarm auto-create expert personalities based on coverage gaps? OPEN: f_ops2 expert_generator emits IDs but stops there. Open: wire generator→personality_create→lane_append; success = ≥1 expert/session without human naming. Related: F134, F-COMM1, L-349, L-352.
 
-- **F-GOV4**: Can a multi-expert council govern when genesis experiments run? **S368 RESOLVED**: 3/3 decision paths tested — CONDITIONAL (S303), APPROVE (S367, genesis_selector.py), BLOCK (S368, auto-colony-spawn). Council discriminates quality: 0.89 score→APPROVE, 0.33→BLOCK. Lifecycle management validated (TTL, SUPERSEDED). L-634, L-666, L-670.
-
 - **F-CAT2**: Does Normal Accident Theory predict swarm failure modes? S302 FMEA: 3 severity-1 gray rhinos with no automated defense. Open: do INADEQUATE modes recur at predicted rates? 2nd automated layer → ≥50% recurrence reduction? Related: F-CAT1, L-346.
 
 - **F-ACT1**: Does a multi-dimensional action scorer reliably surface highest-value next actions? S304 OPEN: `tools/f_act1_action_recommender.py` built. Open: board #1 > random-dispatch? Related: F-EVO1, F110.
@@ -110,15 +108,15 @@ NK Complexity and Distributed Systems are test beds for swarm capability, not pr
 
 - **F-HS1**: Can swarm coordination patterns apply to human bureaucracy reform? OPEN: 8 swarm patterns mapped; 4 HIGH-transferability (L-410). Prescriptions: L-407 (compaction), L-409 (expect-act-diff). Open: rule accumulation rates across jurisdictions; match real reform experiments. Related: F-REAL1, F-SCALE1, L-407, L-409, L-410.
 
-- **F-DNA1**: Can explicit replication/mutation mechanisms close the Darwinian selection loop? S342 OPEN: 4-domain council (L-497) identified 5 convergent gaps: (1) selection loop open (child fitness not fed back to parent template), (2) replication/mutation conflated (no phase separation), (3) repair post-hoc only, (4) no mutation rate parameter, (5) no recombination. Priority proposals: genesis_selector.py (P1), classify_mutation.py (P2), proofread.py (P3). ISO-19 candidate: replication-mutation duality. PHIL-19 filed. **S367 P1 DONE**: genesis_selector.py built (council APPROVE 4/4, first F-GOV4 approval). Run on 33 children: fitness 0.6–4.53, 7 atom configs, 3 KEEP + 3 ABLATE-CANDIDATE. Critical: Simpson's paradox confound — "minimal" children received more experimental attention. Causal claims need matched-budget experiments. L-666. Open: P2-P7; controlled ablation experiments with matched session budgets. Related: PHIL-2, PHIL-8, PHIL-17, PHIL-19, F-STRUCT1, F-SCALE1, L-497, L-666. Council artifact: workspace/COUNCIL-DNA-REPLICATION-S342.md.
+- **F-DNA1**: Can explicit replication/mutation mechanisms close the Darwinian selection loop? S367 P1 DONE: genesis_selector.py built (33 children scored, 3 KEEP + 3 ABLATE). Simpson's paradox confound (P-233). Open: P2-P7 (classify_mutation, proofread, recombination); controlled ablation with matched session budgets. L-497, L-666.
 
-- **F-CTX1**: Is the context window the swarm's ephemeral body, and can formalizing it improve swarm performance? S341 OPEN: Context = phenotype (ephemeral), repo = genome (persistent). ISO-6×ISO-9×ISO-14 synthesis identifies 3 unmeasured gaps: context allocation ratio (orient/execute/compress), cross-context coordination topology, phenotype efficiency metric. B2 (layered memory, 312 sessions stale) is an implicit context allocation belief. Open: (1) instrument orient.py context budget; (2) define context_efficiency metric; (3) re-test B2 as allocation policy; (4) formalize concurrent-session coordination model. Related: PHIL-1, PHIL-7, PHIL-10, ISO-9, B2, L-493.
+- **F-CTX1**: Is the context window the swarm's ephemeral body? S341 OPEN: 3 unmeasured gaps: context allocation ratio, cross-context topology, phenotype efficiency. Open: instrument orient.py context budget; re-test B2 as allocation policy. Related: ISO-9, B2, L-493.
 
 - **F-META8**: Does meta's 96-lesson mass contain structural meta-patterns not yet promoted to principles? S354 OPEN: dream.py identified meta gravity (96L, 18.5% of corpus) as anomalous concentration. 46/178 principles uncited. Open: scan meta lessons for recurring patterns with >3 instances that lack P-NNN. Related: F125, F-SCALE2, L-585.
 
 - **F-BRN-NK1**: Do ai+brain isomorphisms overlap to suggest a third unidentified mapping? S354 OPEN: dream.py identified 61 cross-domain resonances; ai/brain share predictive coding (P-175) and memory consolidation (P-163). Open: test whether structural overlap predicts novel ISO entries not in atlas. Related: F122, F126, ISO-1, ISO-2.
 
-- **F-META10**: Can the swarm detect substrate violations at hypothesis creation time, not 50 sessions later? S358 OPEN: NK chaos framing (52 sessions, S305→S357) and N_e≈15 (population genetics on text files) were both caught retroactively by Sharpe 10 adversarial council. P-217 exists but is post-hoc. Both cases: formalism imported from another domain without verifying core object existence in the substrate. Proposed tripwire: when opening a frontier that imports external formalism, add an explicit "substrate compatibility check" (3-question test: core model object exists here? known mapping mechanism? null competitor without the formalism?). If answer is no to any, mark frontier aspirational and route to adversarial council within 5 sessions. Test: apply tripwire to the next 10 frontier openings; measure how many would have caught NK/N_e early. Related: L-628, L-599, L-613, P-217. Test condition: tripwire fires on ≥1 of next 10 new frontiers that import domain formalism.
+- **F-META10**: Can the swarm detect substrate violations at creation time? S358 OPEN: NK chaos + N_e caught retroactively after 50+ sessions. Proposed tripwire: 3-question substrate check at frontier opening (core object exists? mapping mechanism? null competitor?). Test: apply to next 10 frontier openings. Related: L-628, P-217.
 
 ## Archive
 Resolved questions: `tasks/FRONTIER-ARCHIVE.md`

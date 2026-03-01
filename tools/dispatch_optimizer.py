@@ -50,15 +50,43 @@ EXPLORATION_GINI_THRESHOLD = 0.45  # when visit Gini exceeds this, enter explora
 EXPLORATION_NEW_BOOST = 8.0  # extra bonus for unvisited domains in exploration mode
 EXPLORATION_COLD_BOOST = 4.0  # extra bonus for dormant domains in exploration mode
 
+# Cooldown window (F-ECO5, L-671): hard penalty for domains dispatched in last N sessions.
+# Advisory scoring (heat + saturation) was insufficient: visit Gini 0.459→0.827 (S358-S368).
+# Score fixes do NOT equal behavior fixes (L-671 core finding). Cooldown forces rotation
+# by making recently-visited domains uncompetitive regardless of structural advantage.
+# Graduated: gap=1 → full penalty, decays linearly to 0 at gap=COOLDOWN_SESSIONS+1.
+COOLDOWN_SESSIONS = 3         # window: domain blocked for 3 sessions after dispatch
+COOLDOWN_MAX_PENALTY = 15.0   # strong enough to drop #1 below #2 (meta gap was ~9.4)
+
 # Outcome feedback (F-EXP10, L-501 P1): reward consistently productive domains.
 # Closes PHIL-2 self-application gap — expert dispatch learns from its own outcomes.
 LANE_ABBREV_TO_DOMAIN = {
+    # Legacy abbreviations (S302-S340 era)
     "NK": "nk-complexity", "LNG": "linguistics", "EXP": "expert-swarm",
     "STAT": "statistics", "PHI": "philosophy", "CTX": "meta", "MECH": "meta",
     "FLD": "fluid-dynamics", "BRN": "brain", "HLP": "helper-swarm",
-    "ECO": "economy", "PHY": "physics", "SCI": "evaluation", "EVO": "philosophy",
+    "ECO": "economy", "PHY": "physics", "SCI": "evaluation", "EVO": "evolution",
     "DNA": "meta", "IS": "information-science", "HS": "human-systems",
     "COMP": "competitions", "INFO": "information-science",
+    # Full-name and common abbreviations (L-676: 33 were missing — 65% data loss)
+    "META": "meta", "SP": "stochastic-processes", "EMP": "empathy",
+    "AI": "ai", "CON": "conflict", "CONFLICT": "conflict",
+    "CAT": "catastrophic-risks", "DS": "distributed-systems",
+    "FIN": "finance", "GOV": "governance", "EVAL": "evaluation",
+    "FRA": "fractals", "FRACTALS": "fractals", "GT": "game-theory",
+    "GTH": "graph-theory", "GAME": "game-theory", "GAMING": "gaming",
+    "GUE": "guesstimates", "GAM": "game-theory", "PSY": "psychology",
+    "SOC": "social-media", "STR": "strategy", "QC": "quality",
+    "QUALITY": "quality", "OR": "operations-research", "OPS": "operations-research",
+    "FARMING": "farming", "COORD": "meta", "HUMAN": "human-systems",
+    "INFOFLOW": "information-science", "INFRA": "meta", "GEN": "meta",
+    "DREAM": "dream", "BRAIN": "brain", "ECON": "economy", "ECONOMY": "economy",
+    "EMPATHY": "empathy", "EVOLUTION": "evolution", "EXPERT": "expert-swarm",
+    "AGENT": "meta", "CT": "meta", "CTL": "control-theory",
+    "CC": "cryptocurrency", "CRY": "cryptocurrency",
+    "PRO": "protocol-engineering", "README": "meta",
+    "SCHED": "meta", "PRIORITY": "meta", "UNIVERSALITY": "meta",
+    "PERSONALITY": "psychology",
 }
 # COUNCIL-TOPIC-SN: map council topic to domain (F-EXP10 L-506: COUNCIL lanes were
 # previously unattributed, causing ~30-40% outcome data loss for meta/expert-swarm)
@@ -350,6 +378,18 @@ def run(args: argparse.Namespace) -> None:
         else:
             r["heat"] = "WARM"
 
+        # Cooldown window (F-ECO5, L-671): graduated penalty for recently-visited domains.
+        # Stacks with heat penalty. Heat = mild anti-clustering (max -6.0).
+        # Cooldown = hard rotation enforcement (max -15.0). Combined: -21.0 at gap=1.
+        if 0 < gap <= COOLDOWN_SESSIONS:
+            cooldown = COOLDOWN_MAX_PENALTY * (1.0 - (gap - 1) / COOLDOWN_SESSIONS)
+            r["score"] -= cooldown
+            r["cooldown"] = True
+            r["cooldown_penalty"] = round(cooldown, 1)
+        else:
+            r["cooldown"] = False
+            r["cooldown_penalty"] = 0.0
+
         # Self-dispatch norm (L-501 P6, PHIL-2): expert-swarm must dispatch to itself
         # every SELF_DISPATCH_INTERVAL sessions. The dispatcher dispatching to itself
         # closes the self-application gap identified by 5-domain council (S343).
@@ -453,7 +493,8 @@ def run(args: argparse.Namespace) -> None:
 
     for r in results:
         heat_icon = {"HOT": "🔥", "WARM": "~", "COLD": "❄", "NEW": "✨"}.get(r.get("heat", ""), " ")
-        claimed_mark = " [CLAIMED]" if r.get("claimed") else (" [SELF-DUE]" if r.get("self_dispatch_due") else "")
+        cooldown_mark = f" [CD-{r.get('cooldown_penalty', 0)}]" if r.get("cooldown") else ""
+        claimed_mark = " [CLAIMED]" if r.get("claimed") else (" [SELF-DUE]" if r.get("self_dispatch_due") else cooldown_mark)
         label = r.get("outcome_label", "NEW")
         n = r.get("outcome_n", 0)
         lessons_str = f" {r.get('outcome_lessons', 0)}L" if r.get("outcome_lessons", 0) > 0 else ""
@@ -481,10 +522,11 @@ def run(args: argparse.Namespace) -> None:
     if exploration_on:
         print(f"  Exploration boost: +{EXPLORATION_NEW_BOOST} unvisited, +{EXPLORATION_COLD_BOOST} dormant")
 
-    print(f"\n--- Scoring formula (multi-concept, S347 + coverage S358) ---")
+    print(f"\n--- Scoring formula (multi-concept, S347 + coverage S358 + cooldown S370) ---")
     print("  Columns: Act=active frontiers, Res=resolved, ISO=isomorphisms, L=lessons, B=beliefs, P=principles, CT=concept types")
     print("  score = iso*1.5 + lessons*0.8 + beliefs*1.5 + principles*1.5 + concept_types*2.5 + resolved*2 + active*1.5 + novelty(2) + index(1)")
     print(f"  + dormant_bonus(+{DORMANT_BONUS} if >5 sessions cold, +{FIRST_VISIT_BONUS} if never visited) - heat_penalty(up to -{HEAT_PENALTY_MAX} if <3 sessions)")
+    print(f"  - cooldown(max -{COOLDOWN_MAX_PENALTY}, linear decay over {COOLDOWN_SESSIONS} sessions) [L-671: hard rotation]")
     print(f"  - visit_saturation({VISIT_SATURATION_SCALE} × ln(1+n)) + exploration_boost(Gini>{EXPLORATION_GINI_THRESHOLD})")
     print(f"  + outcome_bonus(+{OUTCOME_BONUS} PROVEN, +{OUTCOME_MIXED_BONUS} MIXED: ≥{OUTCOME_MIN_N} lanes)")
     print(f"  - outcome_penalty(-{OUTCOME_PENALTY} STRUGGLING: ≥{OUTCOME_MIN_N} lanes, rate<{OUTCOME_FAILURE_THRESHOLD})")

@@ -113,3 +113,4 @@ Resolved entries moved from `tasks/FRONTIER.md` to keep active list readable.
 | F89 | RESOLVED — additive variants overtake subtractive at ~session 3 when evidence abundant (P-085, L-079, OBSERVED). No active test needed. | S3 est | 2026-02-27 |
 | F69 | MOOT — context routing Level 2 (coordinator auto-summaries at 50K lines). Feature never triggered; orient.py now serves startup routing. No active need. | stale | 2026-02-28 |
 | F106 | MOOT — max_depth=2 recursive limit. Colony architecture (F-STRUCT1) supersedes raw depth limit; colony boundary is the practical recursion gate. | stale | 2026-02-28 |
+| F-GOV4 | RESOLVED — 3/3 decision paths tested: CONDITIONAL (S303), APPROVE (S367, genesis_selector.py), BLOCK (S368). Council discriminates quality: 0.89→APPROVE, 0.33→BLOCK. Lifecycle mgmt validated (TTL, SUPERSEDED). L-634, L-666, L-670. | 368 | 2026-03-01 |

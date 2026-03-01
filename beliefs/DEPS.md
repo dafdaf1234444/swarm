@@ -37,14 +37,14 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Falsified if**: A session fails to recover state from git history after NEXT.md failure, OR INDEX.md-based retrieval misses >20% of lessons when queried by theme at current scale
 - **Depends on**: none
 - **Depended on by**: B2, B3, B6
-- **Last tested**: 2026-03-01 S359 (storage CONFIRMED at 572L; retrieval FALSIFIED: 22.4% miss rate > 20% threshold, margin 2.4pp. Degradation 14%→22.4% over S307→S359 at 0.038pp/lesson. Semantic gap: only 142/572 findable by L-number. Fix: theme-at-write-time F-QC4 + INDEX.md backfill. L-636.)
+- **Last tested**: 2026-03-01 S359 (storage CONFIRMED 572L; retrieval FALSIFIED: 22.4% miss > 20% threshold, 0.038pp/lesson degradation. Fix: F-QC4 + INDEX.md backfill. L-636.)
 
 ### B2: Layered memory (always-load / per-task / rarely) prevents context bloat
 - **Evidence**: observed
 - **Falsified if**: A session following the layered protocol hits context limit before completing a standard task, OR sessions ignoring layering complete equivalent tasks at equal context cost
 - **Depends on**: B1
 - **Depended on by**: B7
-- **Last tested**: 2026-03-01 S341 (N=430: always-load 124L ~1500t, full corpus 8009L ~10000+t, 85% reduction; orient.py adds synthesis layer compressing per-task into ~60L; 311 sessions of layered operation with 0 context limit hits; original S29 test at N=30 confirmed at 14x scale)
+- **Last tested**: 2026-03-01 S341 (N=430: 85% reduction; 311 sessions, 0 context limit hits; confirmed at 14x scale)
 
 ### B3: Small commits aid backtracking and session handoff
 - **Evidence**: observed
@@ -58,14 +58,14 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Falsified if**: A coordination mechanism observed in ≥3 sessions cannot be classified as either blackboard or stigmergy, OR an alternative architecture model makes better predictions about observed coordination failures
 - **Depends on**: B1
 - **Depended on by**: B7, B8, B17, B19
-- **Last tested**: 2026-03-01 S344 (CHALLENGED — falsification condition MET. Council mode is a coordination mechanism observed in 20+ sessions (S339-S344: 8 councils) that is NEITHER blackboard nor stigmergy: it involves direct multi-agent deliberation with domain-specific role assignment and structured quorum synthesis (L-379, L-465, L-507). think.py hypothesis test: 11 contradicting vs 4 supporting (UNSUPPORTED). Additional non-BB/stigmergy mechanisms: expert dispatch (active assignment with outcome tracking, L-506), dream cycle (self-triggered exploration), recursive self-application (ISO-14). The "brand name only" claim is falsified — the system has evolved coordination mechanisms that require the concept of "swarm" (self-directing, self-applying, multi-mechanism) to describe, not just BB+stigmergy. Refined wording: "blackboard+stigmergy form the base layer; council, dispatch, and self-application form emergent upper layers." Downstream B7/B8/B17/B19 unaffected — they depend on coordination capability, not label.)
+- **Last tested**: 2026-03-01 S344 (CHALLENGED — falsification condition MET. Council, dispatch, self-application are NEITHER blackboard NOR stigmergy (11 contradicting vs 4 supporting, L-379/L-465/L-507). Refined: BB+stigmergy = base layer; council/dispatch/self-application = emergent upper layers. Downstream B7/B8/B17/B19 unaffected.)
 
 ### B7: Regularly-invoked protocols compound system quality over time
 - **Evidence**: observed
 - **Falsified if**: Quality metrics (accuracy, swarmability, context load) show no improvement over 20+ consecutive protocol-following sessions, OR ad-hoc sessions achieve equivalent quality without protocol invocation
 - **Depends on**: B2, B6
 - **Depended on by**: B12, B16
-- **Last tested**: 2026-03-01 S352 (re-test at 351 sessions: ISO cite rate 95.6% S350; PCI 0.364 (target >0.10); 490L produced; EAD compliance 85%; orient.py + DOMEX protocol sequence confirmed compound quality over 34→351 sessions; original 34-session findings scale. Falsification condition NOT met — no quality plateau observed.)
+- **Last tested**: 2026-03-01 S352 (351 sessions: PCI 0.364, EAD 85%, 490L. Quality compounds. Falsification NOT met.)
 
 ### B8: The frontier is a self-sustaining task generation mechanism
 - **Evidence**: observed
@@ -122,7 +122,7 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Depends on**: none
 - **Source**: Gilbert & Lynch 2002; Brewer 2012; PACELC (Abadi 2012)
 - **Path to observed**: 3-node KV partition test: linearizable mode should block or available mode should serve stale reads
-- **Last tested**: 2026-03-01 S352 (proof-verified — Gilbert & Lynch 2002 formal proof is complete and accepted. Empirical test (3-node partition) remains out-of-scope for swarm's local git environment. Falsification condition (linearizable + available during verified partition) is formally impossible per proof. B15 remains theorized for swarm-internal evidence but externally confirmed by formal CS consensus. Upgrade path: if swarm deploys distributed components, empirical test becomes feasible.)
+- **Last tested**: 2026-03-01 S352 (proof-verified — Gilbert & Lynch 2002 formal proof. Empirical test out-of-scope for local git env. Remains theorized for swarm-internal evidence.)
 - **Domain**: distributed-systems
 
 ### B16: Knowledge decay is present but asymmetric — specific claims decay faster than extracted principles, making it visible on reading but invisible to growth metrics
@@ -154,13 +154,13 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Depends on**: B6
 - **Evidence note**: L-218, cross-variant harvest R5 (S175): async model preserves per-agent independent state; sync coordination amplifies early errors by anchoring subsequent agents to first-mover outputs
 - **Falsified if**: A controlled study shows equivalent cascade rates between synchronized and asynchronized multi-agent protocols on the same task set
-- **Last tested**: 2026-03-01 S344 (re-test: CHALLENGED — think.py hypothesis test returned UNSUPPORTED (0+ 5- 15~). L-228 limits scope: async prevents in-session anchoring but NOT commit-chain cascades. L-469: tools are anti-cascade mechanism, not async structure per se. L-402: information contamination occurs despite async. Original claim too strong — async is necessary but not sufficient for cascade prevention. Refined: async provides independent state reads (confirmed) but cascade defense requires BOTH async structure AND tool-level absorption (L-469))
+- **Last tested**: 2026-03-01 S344 (CHALLENGED — UNSUPPORTED (0+ 5- 15~). Async necessary but not sufficient; cascade defense requires async + tool-level absorption (L-469). L-228/L-402.)
 - **Domain**: ai
 
 ### B-EVAL1: Internal health metrics (score 5/5, proxy-K healthy, validator PASS) are necessary but not sufficient for mission adequacy — process integrity ≠ outcome effectiveness
 - **Evidence**: observed (S356 ground truth)
 - **Depends on**: PHIL-14, PHIL-16
-- **Evidence note**: L-316 (S192): PHIL-16 REFINED added external grounding criterion. S356 ground truth: 355 sessions of perfect internal health (validator PASS, PCI 0.489, orient.py running) with 0 external validation events. The belief is now trivially confirmed — internal health has been perfect while external effectiveness is unmeasured. Process integrity ≠ outcome effectiveness is not theorized, it is the system's actual state.
+- **Evidence note**: S356: 355 sessions perfect internal health, 0 external validation. Trivially confirmed.
 - **Falsified if**: A controlled measurement shows high correlation (r>0.8) between internal health score and external validation rate over ≥20 sessions
 - **Last tested**: 2026-03-01 (S356: CONFIRMED by L-599 hallucination audit — 355 sessions of internal health, 0 external validation; belief trivially holds)
 - **Domain**: evaluation
@@ -168,7 +168,7 @@ B19 (async prevents cascade anchoring) — observed [ai]
 ### B-EVAL2: At 299L+, the marginal value of new lessons is lower than the marginal value of resolving anxiety-zone frontiers and achieving external grounding — quality is now the binding constraint over quantity
 - **Evidence**: observed (S356 ground truth)
 - **Depends on**: B-EVAL1, F-GAME3
-- **Evidence note**: L-316 (S192): F-GAME3 (L-302) confirmed bimodal distribution. S356 ground truth: at 539L the swarm is still producing 2-8 lessons/session but L-599 audit found ~15 metaphor-as-measurement + ~10 circular lessons. Marginal lesson quality is demonstrably declining — the hallucination audit itself is evidence that quantity outran quality. Frontier resolution rate: 18/39 resolved in 355 sessions. External grounding: still 0.
+- **Evidence note**: S356: L-599 audit found ~15 metaphor-as-measurement + ~10 circular at 539L. Quality declining. External grounding: 0.
 - **Falsified if**: Lesson Sharpe (proxy-K delta / lesson count delta) remains constant or increasing across S190-S210 window
 - **Last tested**: 2026-03-01 (S356: CONFIRMED by L-599 — ~25 grounded + ~35 partial + ~15 metaphor + ~10 circular + ~8 axiom-as-obs = quality distribution confirms diminishing returns)
 - **Domain**: evaluation
@@ -176,7 +176,7 @@ B19 (async prevents cascade anchoring) — observed [ai]
 ### B-EVAL3: Swarm is "good enough" for autonomous operation on well-defined swarming tasks but NOT good enough to make external-facing claims about its effectiveness until PHIL-16 external grounding criterion is consistently met
 - **Evidence**: observed (S356 ground truth)
 - **Depends on**: B-EVAL1, PHIL-16
-- **Evidence note**: L-316 (S192): current external grounding ratio estimated <5%. S356 ground truth: ratio is exactly 0% — zero external validators in 355 sessions. The first half of the belief (good enough for autonomous operation) is confirmed by 355 sessions of sustained operation. The second half (not good enough for external claims) is confirmed by L-599 identifying ~15 metaphor-as-measurement claims that would not survive external peer review. F133 expert recruitment still at 0% execution.
+- **Evidence note**: S356: external grounding 0%. Autonomous operation confirmed (355 sessions sustained). External claims: L-599 identifies ~15 metaphor claims failing peer review.
 - **Falsified if**: External grounding ratio exceeds 10% (≥1 external validation per 10 sessions) over a 30-session window
 - **Last tested**: 2026-03-01 (S356: CONFIRMED — both halves hold. Autonomous operation: 355 sessions sustained. External claims: 0 grounding, L-599 audit identifies cargo cult science at margins)
 - **Domain**: evaluation
