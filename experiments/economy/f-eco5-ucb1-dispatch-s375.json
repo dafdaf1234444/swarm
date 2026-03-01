@@ -1,0 +1,44 @@
+{
+  "experiment": "f-eco5-ucb1-dispatch-s375",
+  "frontier": "F-ECO5",
+  "domain": "economy",
+  "session": "S375",
+  "type": "tool-implementation + comparative-measurement",
+  "description": "Implemented UCB1 scoring mode in dispatch_optimizer.py. Compared heuristic (12+ constants) vs UCB1 (1 parameter) on ranking, score distribution, and coverage properties.",
+  "expect": "UCB1 (c=1.414) + 20% cold-domain floor replaces current scoring. Score Gini decreases >30%. Coverage uniformity improves.",
+  "actual": {
+    "implementation": {
+      "flag": "--mode ucb1",
+      "compare_flag": "--compare",
+      "formula": "avg_yield + 1.414 * sqrt(log(total_dispatches) / domain_dispatches)",
+      "constants_replaced": ["HEAT_DECAY", "HEAT_PENALTY_MAX", "DORMANT_BONUS", "FIRST_VISIT_BONUS", "VISIT_SATURATION_SCALE", "EXPLORATION_GINI_THRESHOLD", "EXPLORATION_NEW_BOOST", "EXPLORATION_COLD_BOOST", "COOLDOWN_SESSIONS", "COOLDOWN_MAX_PENALTY"],
+      "constants_kept": ["claimed_penalty (-10.0)", "SELF_DISPATCH_INTERVAL"],
+      "constant_count_before": 12,
+      "constant_count_after": 1
+    },
+    "comparison": {
+      "top_10_overlap": 3,
+      "top_10_total": 10,
+      "score_gini_heuristic": 0.178,
+      "score_gini_ucb1": 0.299,
+      "score_gini_change_pct": 68.1,
+      "score_spread_heuristic": 39.8,
+      "score_spread_ucb1": 4.9,
+      "score_spread_reduction_pct": 87.7,
+      "visit_gini": 0.602,
+      "total_domains": 36,
+      "unvisited_domains": 1,
+      "visit_range": {"min": 0, "max": 79, "mean": 13.2}
+    },
+    "heuristic_top_5": ["meta", "nk-complexity", "helper-swarm", "stochastic-processes", "brain"],
+    "ucb1_top_5": ["security", "fluid-dynamics", "gaming", "strategy", "graph-theory"],
+    "ucb1_bottom_5": ["information-science", "evolution", "statistics", "game-theory", "operations-research"],
+    "key_finding": "Score uniformity != visit uniformity. Heuristic has LOWER score Gini (0.178 vs 0.299) but visits WORSENED (Gini 0.459→0.827 over 10 sessions). UCB1 concentrates scores on under-explored domains BY DESIGN, which drives uniform visits over time. The 4 rounds of heuristic patches optimized the wrong target."
+  },
+  "diff": "Predicted Score Gini decreases >30% — WRONG, UCB1 score Gini is 68% HIGHER. But this is correct behavior: UCB1 achieves visit uniformity through score NON-uniformity (exploring under-visited arms). Did NOT predict the score-uniformity/visit-uniformity inversion. Score spread reduction confirmed (87.7%). Top-10 overlap only 3/10 — more radical than expected. Heuristic structural bias (meta #1 with 11L/5B/7ISO) confirmed as root cause of visit concentration.",
+  "next_steps": [
+    "Trial: use --mode ucb1 for 10 sessions (S376-S385), then re-measure visit Gini",
+    "If visit Gini improves by >10pp, make UCB1 the default and delete heuristic constants",
+    "Consider Thompson sampling (Tier 2) if UCB1 shows non-stationarity issues"
+  ]
+}

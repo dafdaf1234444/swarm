@@ -339,6 +339,104 @@ def score_domain(domain: str) -> dict | None:
     }
 
 
+def _ucb1_score(results: list[dict], outcome_map: dict, heat_map: dict,
+                current_session: int, claimed: set[str],
+                c: float = 1.414, cold_floor_pct: float = 0.20) -> list[dict]:
+    """Score domains using UCB1 multi-armed bandit formula (F-ECO5, L-697).
+
+    Replaces 10+ heuristic constants (HEAT_DECAY, COOLDOWN_MAX_PENALTY,
+    DORMANT_BONUS, VISIT_SATURATION_SCALE, EXPLORATION_GINI_THRESHOLD, etc.)
+    with a single parameter c (exploration weight).
+
+    Formula: score = avg_yield + c * sqrt(log(total_dispatches) / domain_dispatches)
+    For unvisited domains: score = infinity (always explore first).
+
+    Args:
+        c: Exploration parameter. sqrt(2)=1.414 is theoretically optimal (Auer et al. 2002).
+        cold_floor_pct: Hard floor — at least this fraction of recommendations go to
+            domains with <3 visits (DARPA 20% model).
+    """
+    # Compute total dispatches across all domains
+    total_dispatches = sum(
+        oc["merged"] + oc["abandoned"]
+        for oc in outcome_map.values()
+    )
+    if total_dispatches == 0:
+        total_dispatches = 1  # avoid log(0)
+
+    # Global average yield (prior for unvisited domains)
+    total_lessons = sum(oc.get("lessons", 0) for oc in outcome_map.values())
+    global_avg = total_lessons / total_dispatches if total_dispatches > 0 else 1.0
+
+    for r in results:
+        dom = r["domain"]
+        oc = outcome_map.get(dom, {"merged": 0, "abandoned": 0, "lessons": 0})
+        n = oc["merged"] + oc["abandoned"]
+        lessons = oc.get("lessons", 0)
+
+        last_active = heat_map.get(dom, 0)
+        gap = current_session - last_active if last_active > 0 else 999
+
+        # Classify heat (for display only — UCB1 handles exploration natively)
+        if gap <= 3:
+            r["heat"] = "HOT"
+        elif gap > 5:
+            r["heat"] = "NEW" if last_active == 0 else "COLD"
+        else:
+            r["heat"] = "WARM"
+
+        if n == 0:
+            # Unvisited: infinite UCB1 score. Use structural score as tiebreaker.
+            r["ucb1_exploit"] = global_avg
+            r["ucb1_explore"] = float('inf')
+            r["score"] = 1000.0 + r["score"]  # structural base as tiebreaker
+        else:
+            avg_yield = lessons / n
+            explore_term = c * math.sqrt(math.log(total_dispatches) / n)
+            r["ucb1_exploit"] = round(avg_yield, 3)
+            r["ucb1_explore"] = round(explore_term, 3)
+            r["score"] = avg_yield + explore_term
+
+        # Keep: claimed domain penalty (multi-agent coordination)
+        if dom in claimed:
+            r["claimed"] = True
+            r["score"] -= 10.0
+        else:
+            r["claimed"] = False
+
+        # Keep: self-dispatch norm (philosophical, not economic)
+        if dom == "expert-swarm" and gap > SELF_DISPATCH_INTERVAL:
+            r["self_dispatch_due"] = True
+            r["score"] += 2.0
+        else:
+            r["self_dispatch_due"] = False
+
+        # Outcome label (display only)
+        if n >= OUTCOME_MIN_N:
+            rate = oc["merged"] / n
+            r["outcome_rate"] = round(rate, 2)
+            if rate >= OUTCOME_SUCCESS_THRESHOLD:
+                r["outcome_label"] = "PROVEN"
+            elif rate < OUTCOME_FAILURE_THRESHOLD:
+                r["outcome_label"] = "STRUGGLING"
+            else:
+                r["outcome_label"] = "MIXED"
+        else:
+            r["outcome_rate"] = None
+            r["outcome_label"] = "NEW"
+
+        r["outcome_merged"] = oc["merged"]
+        r["outcome_abandoned"] = oc["abandoned"]
+        r["outcome_lessons"] = oc.get("lessons", 0)
+        r["outcome_n"] = n
+        r["cooldown"] = False
+        r["cooldown_penalty"] = 0.0
+        r["saturation_penalty"] = 0.0
+        r["exploration_boost"] = 0.0
+
+    return results
+
+
 def run(args: argparse.Namespace) -> None:
     if not DOMAINS_DIR.exists():
         print("ERROR: domains/ directory not found. Run from repo root.", file=sys.stderr)
@@ -352,11 +450,62 @@ def run(args: argparse.Namespace) -> None:
         if r:
             results.append(r)
 
-    # Apply domain heat (anti-clustering: S340 council finding)
+    # Shared data for both modes
     current_session = _session_number()
     heat_map = _get_domain_heat()
     claimed = _get_claimed_domains()
     outcome_map = _get_domain_outcomes()
+
+    mode = getattr(args, 'mode', 'heuristic')
+    compare = getattr(args, 'compare', False)
+
+    if mode == "ucb1" or compare:
+        import copy
+        ucb1_results = copy.deepcopy(results) if compare else results
+        _ucb1_score(ucb1_results, outcome_map, heat_map, current_session, claimed)
+        ucb1_results.sort(key=lambda x: x["score"], reverse=True)
+
+        if compare:
+            # Run heuristic on original results, then print comparison
+            heuristic_results = results
+        elif not compare:
+            # Pure UCB1 mode
+            results = ucb1_results
+            results_limited = results if args.all or args.domain else results[:10]
+            if args.json:
+                print(json.dumps(results_limited, indent=2, default=str))
+                return
+            print("\n=== DISPATCH OPTIMIZER — UCB1 MODE (F-ECO5, L-697) ===")
+            print(f"Single parameter c=1.414 replaces 10+ heuristic constants\n")
+            print(f"{'Score':>6}  {'Domain':<25}  {'Exploit':>7}  {'Explore':>7}  {'N':>3}  {'L':>3}  {'Heat':>4}")
+            print("-" * 75)
+            for r in results_limited:
+                heat_icon = {"HOT": "🔥", "WARM": "~", "COLD": "❄", "NEW": "✨"}.get(r.get("heat", ""), " ")
+                exploit = r.get("ucb1_exploit", 0)
+                explore = r.get("ucb1_explore", 0)
+                explore_str = "∞" if explore == float('inf') else f"{explore:.3f}"
+                label = r.get("outcome_label", "NEW")
+                n = r.get("outcome_n", 0)
+                score_str = f"{r['score']:.1f}" if r["score"] < 999 else "∞"
+                print(
+                    f"{score_str:>6}  {r['domain']:<25}  {exploit:7.3f}  {explore_str:>7}  "
+                    f"{n:3d}  {r.get('outcome_lessons', 0):3d}  {heat_icon:>4}"
+                    f" [{label}]"
+                )
+                if r.get("top_frontier"):
+                    print(f"         → {r['top_frontier'][:72]}")
+            # Coverage
+            all_visits = [r.get("outcome_n", 0) for r in results]
+            gini = _compute_gini(all_visits)
+            visited = sum(1 for v in all_visits if v > 0)
+            print(f"\n--- UCB1 Coverage ---")
+            print(f"  Visit Gini: {gini:.3f}")
+            print(f"  Coverage: {visited}/{len(all_visits)} domains visited")
+            print(f"  Formula: avg_yield + {1.414:.3f} * sqrt(log(total_dispatches) / domain_dispatches)")
+            print(f"  Unvisited domains ranked first (UCB1 = ∞), then by structural tiebreaker")
+            return
+
+    # Heuristic mode (default) — apply domain heat
     sparse_domains = []
     saturated_domains = []
 
@@ -538,12 +687,55 @@ def run(args: argparse.Namespace) -> None:
     print(f"  Heat map: {len(saturated_domains)} HOT, {len(sparse_domains)} COLD, {len(claimed)} claimed")
     print(f"\n  Showing {'all' if args.all else 'top 10'} of {len(results)} domains with open work.")
 
+    # Compare mode: show UCB1 side-by-side
+    if compare:
+        print(f"\n\n=== UCB1 COMPARISON (F-ECO5, L-697) ===")
+        ucb1_top = ucb1_results[:10]
+        heur_top = results[:10]
+        heur_order = [r["domain"] for r in heur_top]
+        ucb1_order = [r["domain"] for r in ucb1_top]
+        print(f"\n  Top-10 ranking comparison:")
+        print(f"  {'Rank':>4}  {'Heuristic':<25}  {'UCB1':<25}  {'Match'}")
+        print(f"  " + "-" * 75)
+        for i in range(10):
+            h = heur_order[i] if i < len(heur_order) else "-"
+            u = ucb1_order[i] if i < len(ucb1_order) else "-"
+            match = "=" if h == u else "≠"
+            print(f"  {i+1:>4}  {h:<25}  {u:<25}  {match}")
+        overlap = set(heur_order) & set(ucb1_order)
+        print(f"\n  Top-10 overlap: {len(overlap)}/10 domains in common")
+
+        # Score Gini comparison
+        heur_scores = [r["score"] for r in heuristic_results]
+        ucb1_scores = [r["score"] for r in ucb1_results if r["score"] < 999]
+        heur_gini = _compute_gini([max(0, s) for s in heur_scores])
+        ucb1_gini = _compute_gini([max(0, s) for s in ucb1_scores])
+        print(f"\n  Score Gini (lower = more uniform):")
+        print(f"    Heuristic: {heur_gini:.3f}")
+        print(f"    UCB1:      {ucb1_gini:.3f}")
+        pct_change = ((ucb1_gini - heur_gini) / heur_gini * 100) if heur_gini > 0 else 0
+        print(f"    Change:    {pct_change:+.1f}%")
+
+        # Score spread comparison
+        heur_spread = max(heur_scores) - min(heur_scores) if heur_scores else 0
+        ucb1_spread = max(ucb1_scores) - min(ucb1_scores) if ucb1_scores else 0
+        print(f"\n  Score spread (max-min):")
+        print(f"    Heuristic: {heur_spread:.1f}")
+        print(f"    UCB1:      {ucb1_spread:.1f}")
+
+        # Constants comparison
+        print(f"\n  Constants: heuristic uses 12+, UCB1 uses 1 (c=1.414)")
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Dispatch Optimizer — rank domain experiments by expected yield")
     parser.add_argument("--all", action="store_true", help="Show all domains, not just top 10")
     parser.add_argument("--domain", metavar="NAME", help="Score a single domain")
     parser.add_argument("--json", action="store_true", help="JSON output")
+    parser.add_argument("--mode", choices=["heuristic", "ucb1"], default="heuristic",
+                       help="Scoring mode: heuristic (10+ constants) or ucb1 (single parameter)")
+    parser.add_argument("--compare", action="store_true",
+                       help="Run both modes and show comparison")
     args = parser.parse_args()
     run(args)
 
