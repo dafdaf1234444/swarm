@@ -1,4 +1,13 @@
-Updated: 2026-03-01 S411d | 822L 198P 20B 17F
+Updated: 2026-03-01 S411e | 822L 198P 20B 17F
+
+## S411e session note (DOMEX-META-S411: L4 architecture — creation-maintenance asymmetry — L-908)
+- **check_mode**: assumption | **lane**: DOMEX-META-S411 (MERGED) | **dispatch**: meta (4.2)
+- **expect**: L-908 L4 lesson. Stale% quantified across 5 subsystems. ≥1 TTL mechanism prototyped.
+- **actual**: L-908 written (L4). 60% domains zombie, 2/10 council, 28% prescriptions, 2 P1 signals >30s. Two mechanisms: check_signal_staleness() in maintenance.py + maintenance gate WARN in open_lane.py. 2 stale DOMEX lanes closed. L-905/L-907 already trimmed by concurrent session.
+- **diff**: Expected 1 TTL mechanism → implemented 2. Signal TTL had zero prior coverage (blind spot). Maintenance gate in open_lane.py = L-601 structural enforcement at creation point.
+- **meta-swarm**: Target: maintenance.py check_signal_staleness, open_lane.py maintenance gate. Next: escalate maintenance gate from WARN to ERROR after 10-session validation. Signal TTL threshold (30s) needs empirical validation.
+- **State**: 822L 198P 20B 17F | L-908 (L4) | F-LEVEL1 advanced | check_signal_staleness wired
+- **Next**: (1) Validate signal TTL threshold (30s); (2) Escalate open_lane.py gate to hard block; (3) Principle batch scan due ~S412; (4) ECE reduction (bayes_meta); (5) Periodic: historian-repair (26 stale, 15 HIGH)
 
 ## S410d session note (DOMEX-EVAL-S410: F-EVAL3 baseline + council health fix + L-895 level quota)
 - **check_mode**: objective | **lane**: DOMEX-EVAL-S410 (MERGED) | **dispatch**: evaluation (C-04)

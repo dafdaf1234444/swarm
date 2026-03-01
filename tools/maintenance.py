@@ -1015,6 +1015,36 @@ def check_council_health() -> list[tuple[str, str]]:
     return []
 
 
+def check_signal_staleness() -> list[tuple[str, str]]:
+    """L-908: TTL for signals — flag OPEN/PARTIALLY RESOLVED signals >30 sessions old."""
+    results = []
+    signals_path = REPO_ROOT / "tasks" / "SIGNALS.md"
+    if not signals_path.exists():
+        return results
+    current = _session_number()
+    if current <= 0:
+        return results
+    stale_signals = []
+    for line in _read(signals_path).splitlines():
+        if not line.startswith("|") or line.startswith("| ---") or line.startswith("| ID"):
+            continue
+        cols = [c.strip() for c in line.split("|")]
+        if len(cols) < 11:
+            continue
+        sig_id, sess, status = cols[1], cols[3], cols[9]
+        if status.upper() not in ("OPEN", "PARTIALLY RESOLVED"):
+            continue
+        m = re.search(r"S(\d+)", sess)
+        if not m:
+            continue
+        age = current - int(m.group(1))
+        if age > 30:
+            stale_signals.append(f"{sig_id}(+{age}s)")
+    if stale_signals:
+        results.append(("DUE", f"{len(stale_signals)} signal(s) >30 sessions without resolution: {', '.join(stale_signals[:5])}. Close or escalate (L-908 TTL)."))
+    return results
+
+
 def check_historian_integrity() -> list[tuple[str, str]]:
     results = []
     _his1_path = REPO_ROOT / "tools" / "f_his1_historian_grounding.py"
@@ -1717,8 +1747,9 @@ def check_level_quota() -> list[tuple[str, str]]:
         return []
     l3_count = sum(1 for s in recent_sessions if session_has_l3[s])
     if l3_count == 0:
-        return [("NOTICE", f"Level quota: 0/{len(recent_sessions)} recent sessions had L3+ "
-                 "(strategy/architecture) work (L-895). Plan a strategic session.")]
+        return [("DUE", f"Level quota: 0/{len(recent_sessions)} recent sessions had L3+ "
+                 "(strategy/architecture/paradigm) work (L-895, F-LEVEL1). Produce L3+ "
+                 "lesson this session — add level=L3/L4/L5 tag in Session: header.")]
     return []
 
 
@@ -2243,6 +2274,7 @@ def main():
         check_dispatch_log,
         check_domain_expert_coverage,
         check_council_health,
+        check_signal_staleness,
         check_historian_integrity,
         check_domain_frontier_consistency,
         check_readme_snapshot_drift,
@@ -2277,6 +2309,7 @@ def main():
         "check_kill_switch",   # env vars + KILL-SWITCH.md (could toggle anytime)
         "check_claim_gc",      # workspace/claims/ (concurrent sessions)
         "check_periodics",     # tools/periodics.json updated in working tree before commit
+        "check_level_quota",   # reads uncommitted lessons from working tree
     }
     try:
         from swarm_cache import head_cache as _hcache

@@ -28,6 +28,7 @@ LANES_FILE = REPO_ROOT / "tasks" / "SWARM-LANES.md"
 LANES_ARCHIVE = REPO_ROOT / "tasks" / "SWARM-LANES-ARCHIVE.md"
 
 VALID_MODES = ("exploration", "hardening", "replication", "resolution", "falsification")
+VALID_LEVELS = ("L1", "L2", "L3", "L4", "L5")
 
 # P-243 science quality: vague expect values that don't constitute pre-registration
 VAGUE_EXPECT_PATTERNS = [
@@ -114,6 +115,7 @@ def append_open_row(
     domain: str,
     note: str,
     mode: str = "",
+    level: str = "L2",
 ) -> None:
     today = date.today().isoformat()
 
@@ -140,6 +142,7 @@ def append_open_row(
         f"focus={focus}",
         f"intent={intent}",
         f"check_mode={check_mode}",
+        f"level={level}",
         "setup=active",
         "available=yes",
         "blocked=clear",
@@ -202,6 +205,13 @@ def main():
                         help=f"Author node type (default: {NODE_AI_SESSION}, per NODES.md)")
     parser.add_argument("--model", default="claude-sonnet-4-6", help="Model used")
     parser.add_argument("--branch", default="master", help="Branch (default: master)")
+    parser.add_argument("--level", default="L2", choices=list(VALID_LEVELS),
+                        help=(
+                            "Epistemic level of planned work (L-895, SIG-46): "
+                            "L1=observation, L2=measurement (default), L3=strategy, "
+                            "L4=architecture, L5=paradigm. L3+ lessons count as 2x in "
+                            "dispatch yield to counteract measurement gravity."
+                        ))
     parser.add_argument("--mode", default="", choices=list(VALID_MODES) + [""],
                         help=(
                             "Campaign wave mode: exploration | hardening | replication | resolution. "
@@ -216,6 +226,28 @@ def main():
         print(f"ERROR: Lane {args.lane} already exists in SWARM-LANES.md.", file=sys.stderr)
         print("Use --force to open a duplicate row (not recommended).", file=sys.stderr)
         sys.exit(1)
+
+    # L-908 maintenance gate: warn about stale ACTIVE lanes before creating new ones
+    try:
+        sess_num = int(re.search(r"\d+", args.session).group())
+        stale_active = []
+        for line in LANES_FILE.read_text().splitlines():
+            if "| ACTIVE |" not in line:
+                continue
+            cols = [c.strip() for c in line.split("|")]
+            if len(cols) < 12:
+                continue
+            lane_sess = re.search(r"S?(\d+)", cols[3])
+            if lane_sess and sess_num - int(lane_sess.group(1)) > 3:
+                stale_active.append(cols[2].strip())
+        if stale_active:
+            print(
+                f"WARN: {len(stale_active)} stale ACTIVE lane(s) from >3 sessions ago: "
+                f"{', '.join(stale_active[:3])}. Close or ABANDON before opening new lanes (L-908).",
+                file=sys.stderr,
+            )
+    except Exception:
+        pass
 
     if not args.intent:
         args.intent = f"advance-{args.frontier}" if args.frontier else "swarm-work"
@@ -327,6 +359,7 @@ def main():
         domain=args.domain,
         note=args.note,
         mode=args.mode,
+        level=args.level,
     )
 
 
