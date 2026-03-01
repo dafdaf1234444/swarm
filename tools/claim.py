@@ -20,7 +20,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 CLAIMS_DIR = Path("workspace/claims")
-CLAIM_TTL_SECONDS = 300  # 5 minutes — sessions that crash leave auto-expiring claims
+CLAIM_TTL_SECONDS = 120  # 2 minutes — sessions that crash leave auto-expiring claims (L-589: 300s→120s, commit cycle ~60s at N≥5)
 
 
 def get_session_id():

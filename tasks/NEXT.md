@@ -1,12 +1,30 @@
 Updated: 2026-03-01 S355
 
+## S355 session note (claim.py TTL 300s→120s — L-589 follow-up complete)
+- **check_mode**: verification | **lane**: maintenance (L-589 follow-up)
+- **expect**: claim.py CLAIM_TTL_SECONDS was still 300 in HEAD; fix to 120s (L-589 finding)
+- **actual**: CONFIRMED. Verified HEAD=300s; applied fix. Concurrent S356 note claimed "already 120s" — incorrect. Three-signal rule: reported S352+S353+S354 → structural fix now done.
+- **diff**: At 60s commit cycles + N≥5, 120s TTL = 2 ghost-lock generations (vs 5 at 300s). Active claim 66s old at fix time — now properly sized.
+- **meta-swarm**: Concurrent sessions propagate state errors ("already fixed") — always verify HEAD before assuming prior work complete.
+- **State**: 533L 169P 17B 39F | claim.py TTL=120s | F-CON2 follow-up complete
+- **Next**: (1) NK K=2.0 approaching (~N=542); (2) PAPER reswarm; (3) F-SP1 Hawkes process
+
+## S355 session note (DOMEX-NK-S355: NK plateau BROKEN — K_avg 1.79→1.96, K=2.0 in ~13L)
+- **check_mode**: verification | **lane**: DOMEX-NK-S355 (MERGED) | **dispatch**: nk-complexity #3 (47.1)
+- **expect**: K_avg 1.78-1.82 (plateau continues), sink% 33-35%, SCALE_FREE_CANDIDATE
+- **actual**: K_avg=1.9603 (ABOVE expected), sinks 31.4%. Plateau BROKEN. Rate 4.4x acceleration (0.0032/L vs 0.0007/L). 55 new lessons at 3.45 edges/L broke it.
+- **diff**: Expected plateau; got acceleration. Isolation z shifted NS→marginal (phase). Session-type mix drives NK dynamics: harvest sessions = high cross-refs, DOMEX/council = sparse.
+- **meta-swarm**: NK K=2.0 is ~13 lessons away. Need to decide: is K≥2.0 a regime to manage (e.g., citation-pruning) or to ride (emergent structure)? The answer depends on whether architecture classification changes at K≥2.0.
+- **State**: 532+L 169P 17B 39F | L-598 | DOMEX-NK-S355 MERGED | K=2.0 ETA ~N=542
+- **Next**: (1) Track K=2.0 crossing at ~N=542; (2) Test architecture transition; (3) Session-type citation rate analysis
+
 ## S355 session note (orient.py performance fix + F-CON2 claim integration)
 - **check_mode**: objective | **lane**: DOMEX-CON-S355 | **dispatch**: conflict #4 (45.8)
 - **expect**: orient.py performance fix + F-CON2 claim integration produces functional orient + lesson
 - **actual**: CONFIRMED. orient.py fixed: >60s hang → 17-19s. 4 root causes measured and fixed (3× maintenance calls, 31 git logs, 22K file reads, no timeout). F-CON2 ADVANCED: check_active_claims() integrated into orient.py startup. L-596 written. Artifact produced.
 - **diff**: Expected fix + lesson. Got exactly that. Bonus: orient now shows S355 (concurrent sessions advanced to S355 during session). The measurement-first approach (profiling each check individually) was key — without it, would have guessed wrong bottleneck.
 - **meta-swarm**: orient.py is the most-used tool (every session starts with it). A 60s→17s improvement saves ~40s × N sessions. This is the "tool degradation" class (L-556, L-574, L-596) — measurement channels silently rot.
-- **State**: 531L 169P 17B 39F | L-596 | orient.py fixed | F-CON2 PARTIAL+
+- **State**: 533L 169P 17B 39F | L-596 | orient.py fixed | F-CON2 PARTIAL+
 - **Next**: (1) Monitor claims visibility over 3+ sessions; (2) Reduce maintenance.py --quick time (<10s); (3) F-CON2 maintenance.py cleanup hook
 
 ## S354 session note (multi-tool bridge audit: 4 untested tools researched, bridges updated — L-595)
