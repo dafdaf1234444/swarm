@@ -116,7 +116,14 @@ def main():
     parser.add_argument("--status", default="MERGED", choices=sorted(VALID_STATUSES),
                         help="Closure status (default: MERGED)")
     parser.add_argument("--note", default="", help="Closure note / summary")
-    parser.add_argument("--session", default="S186", help="Current session tag, e.g. S186")
+    # Dynamic session detection via swarm_io (fixes hardcoded S186 bug — L-488)
+    try:
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        from swarm_io import session_number
+        _default_session = f"S{session_number()}"
+    except Exception:
+        _default_session = "S000"
+    parser.add_argument("--session", default=_default_session, help="Current session tag (auto-detected)")
     parser.add_argument("--author", default="claude-code", help="Author identifier")
     parser.add_argument("--model", default="claude-sonnet-4-6", help="Model used")
     parser.add_argument("--no-merge", action="store_true",

@@ -1,10 +1,18 @@
+## S340 session note (historian maintenance: 3 audits, close_lane.py bug fixed, 4 periodics cleared, count drift resolved)
+- **check_mode**: historian | **lane**: maintenance | **dispatch**: human signal ("check maintenance make sure historian does his job")
+- **expect**: historian audit finds count drift, lane errors, periodic backlog; fixes restore accuracy
+- **actual**: CONFIRMED. (1) SESSION-LOG S340 corrected: +1L→+3L (L-486,L-487,L-488 not just L-486). (2) Lane session fields fixed: DOMEX-META-S339 "S186"→"S339", DOMEX-PHY-GENESIS "S186"→"S340". (3) close_lane.py hardcoded S186 default bug found and fixed (now uses swarm_io.session_number()). (4) L-488 trimmed 31→17 lines. (5) sync_state run: 423→425L patched across INDEX/NEXT/PAPER/README. (6) Periodics cleared: health-check, economy-health, change-quality-check, state-sync (all S329→S340). (7) Economy report: proxy-K drift 16.9%→0.46% HEALTHY, production 3.98x acceleration, 38% productive yield WARN.
+- **diff**: close_lane.py bug was invisible — every lane closed without --session got S186. Root cause: hardcoded argparse default from initial development, never updated.
+- **State**: 425L 178P 17B 36F | 4 periodics cleared | close_lane.py fixed | 1 DUE remaining (human-signal-harvest)
+- **Next**: (1) human-signal-harvest periodic (last DUE); (2) git push (69 unpushed commits URGENT); (3) principle production (0P across 5 sessions); (4) modes-reswarm + principles-dedup approaching due
+
 ## S340 session note (council agent-awareness: agent_state.py + domain-heat dispatch + orient.py positions, L-488)
 - **check_mode**: objective | **lane**: COUNCIL-AGENT-AWARE-S340 | **dispatch**: human signal ("spread agents better + council investigate communication + agent position awareness")
 - **expect**: 3 tools built: agent_state.py + domain-heat in dispatch + orient.py integration; agents know positions; domains spread evenly
 - **actual**: CONFIRMED. 5-domain council (dist-sys, brain, meta, info-sci, helper-swarm) → 5/5 convergence. Built: `tools/agent_state.py` (position registry: register/show/sweep/check-collision). Modified: `dispatch_optimizer.py` (domain heat: HEAT_DECAY=0.85, DORMANT_BONUS=3.0, CLAIMED penalty -10). Modified: `orient.py` (agent positions section + collision detection). All tested. HQ-43 RESOLVED. L-488 written.
 - **diff**: Zero — expected 3 tools, built 3 tools. Concurrent session built complementary `swarm_signal.py` (communication) — no collision. Council convergence was stronger than expected: 5/5 unanimous on registry and heat, not the usual 3/5.
 - **meta-swarm**: Council Mode A on concrete infrastructure questions produces unanimous convergence because all domains have structural analogs for the same primitives. The proposals are isomorphic to each other (place cells ≈ service discovery ≈ BDI registry ≈ ACO evaporation ≈ entropy maximization).
-- **State**: 424L 178P 17B 36F | agent_state.py + domain-heat + orient.py agent positions | HQ-43 RESOLVED
+- **State**: 425L 178P 17B 36F | agent_state.py + domain-heat + orient.py agent positions | HQ-43 RESOLVED
 - **Next**: (1) Wire agent_state.py into open_lane.py (auto-register on lane open); (2) Add heartbeat update to check.sh or handoff; (3) Test spreading in next multi-agent session; (4) Bulletin decay / signal noise reduction (3/5 convergence, deferred)
 
 ## S340 session note (node generalization + structured signaling: NODES.md, swarm_signal.py, all bridges updated, L-487)
