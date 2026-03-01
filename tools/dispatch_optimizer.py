@@ -178,6 +178,7 @@ def _classify_meta_role(intent: str, notes: str = "") -> str:
 def _get_meta_role_stats() -> dict:
     """Scan SWARM-LANES for meta domain lanes and classify by role.
 
+    Prefers explicit role= field (SIG-39, open_lane.py --role) over keyword inference.
     Returns {"historian": n, "tooler": n, "experimenter": n, "mixed": n,
              "unclassified": n, "total": n, "suggested_role": str}.
     """
@@ -204,9 +205,14 @@ def _get_meta_role_stats() -> dict:
                 fm = re.search(r"focus=(?:domains/)?([a-z0-9-]+)", etc)
                 if not fm or fm.group(1) != "meta":
                     continue
-            intent_m = re.search(r"intent=([^;]+)", etc)
-            intent = intent_m.group(1) if intent_m else ""
-            role = _classify_meta_role(intent, notes)
+            # Prefer explicit role= field over keyword inference
+            role_m = re.search(r"\brole=(historian|tooler|experimenter)\b", etc)
+            if role_m:
+                role = role_m.group(1)
+            else:
+                intent_m = re.search(r"intent=([^;]+)", etc)
+                intent = intent_m.group(1) if intent_m else ""
+                role = _classify_meta_role(intent, notes)
             role_counts[role] += 1
 
     total = sum(role_counts.values())

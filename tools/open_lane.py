@@ -29,6 +29,9 @@ LANES_ARCHIVE = REPO_ROOT / "tasks" / "SWARM-LANES-ARCHIVE.md"
 
 VALID_MODES = ("exploration", "hardening", "replication", "resolution", "falsification")
 VALID_LEVELS = ("L1", "L2", "L3", "L4", "L5")
+# SIG-39 meta-role enforcement: creation-time role tagging for meta DOMEX lanes.
+# L-601: voluntary classification decays; creation-time enforcement sustains.
+VALID_META_ROLES = ("historian", "tooler", "experimenter")
 
 # P-243 science quality: vague expect values that don't constitute pre-registration
 VAGUE_EXPECT_PATTERNS = [
@@ -116,6 +119,7 @@ def append_open_row(
     note: str,
     mode: str = "",
     level: str = "L2",
+    role: str = "",
 ) -> None:
     today = date.today().isoformat()
 
@@ -151,6 +155,8 @@ def append_open_row(
     ]
     if mode:
         etc_parts.append(f"mode={mode}")
+    if role:
+        etc_parts.append(f"role={role}")
     if personality and personality != "domain-expert":
         etc_parts.append(f"personality={personality}")
     if frontier:
@@ -218,6 +224,11 @@ def main():
                             "Recorded as mode= in Etc; preferred over intent= keyword inference. "
                             "Required for 2nd+ wave lanes (F-STR3, L-766)."
                         ))
+    parser.add_argument("--role", default="", choices=list(VALID_META_ROLES) + [""],
+                        help=(
+                            "Meta-role for meta DOMEX lanes (SIG-39): historian | tooler | experimenter. "
+                            "Recorded as role= in Etc; read by dispatch_optimizer.py for meta-role balance."
+                        ))
     parser.add_argument("--force", action="store_true",
                         help="Open lane even if lane ID already exists (not recommended)")
     args = parser.parse_args()
@@ -248,6 +259,15 @@ def main():
             )
     except Exception:
         pass
+
+    # SIG-39 meta-role enforcement: detect meta lanes and suggest --role
+    is_meta = "META" in args.lane.upper() or args.domain == "meta"
+    if is_meta and not args.role:
+        print(
+            f"WARN: Meta DOMEX lane without --role. Meta-tooler is most underserved (13.7%). "
+            f"Add --role historian|tooler|experimenter for dispatch visibility (SIG-39, L-601).",
+            file=sys.stderr,
+        )
 
     if not args.intent:
         args.intent = f"advance-{args.frontier}" if args.frontier else "swarm-work"
@@ -360,6 +380,7 @@ def main():
         note=args.note,
         mode=args.mode,
         level=args.level,
+        role=args.role,
     )
 
 

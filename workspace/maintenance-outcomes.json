@@ -587,7 +587,7 @@
     },
     {
       "session": 417,
-      "timestamp": "2026-03-01T23:11:22Z",
+      "timestamp": "2026-03-01T23:14:18Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -601,9 +601,10 @@
         },
         "check_mission_constraints": {
           "fired": true,
-          "count": 1,
+          "count": 2,
           "severities": [
-            "NOTICE"
+            "NOTICE",
+            "DUE"
           ]
         },
         "check_runtime_portability": {
@@ -632,11 +633,9 @@
           "severities": []
         },
         "check_lessons": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "DUE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_child_bulletins": {
           "fired": true,
@@ -685,9 +684,11 @@
           "severities": []
         },
         "check_swarm_coordinator": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "DUE"
+          ]
         },
         "check_lane_reporting_quality": {
           "fired": false,
@@ -817,9 +818,11 @@
           "severities": []
         },
         "check_paper_accuracy": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "DUE"
+          ]
         },
         "check_utility": {
           "fired": false,
@@ -867,7 +870,7 @@
       },
       "totals": {
         "NOTICE": 15,
-        "DUE": 2,
+        "DUE": 4,
         "PERIODIC": 13
       }
     }
