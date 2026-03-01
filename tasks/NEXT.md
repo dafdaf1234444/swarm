@@ -6,7 +6,7 @@ Updated: 2026-03-01 S359
 - **actual**: CONFIRMED+CORRECTED. 5 Jepsen bugs classified via protocol + web research. Node-count: 4-5/5 ≤3 nodes (SUPPORTS B14). Determinism: 3-4/5 (60-80%, brackets 74%). Concurrent session extended with actual issue data (etcd #11456=lease validity, CockroachDB #9083=5 nodes needed, RR#14=100% det on failover, RR#17=membership bypass, RR#19=100% det no-op). L-638 superseded by L-642 (near-dup, lower quality). HQ-5 Docker scope: all 5 need Docker (no pure in-process path).
 - **diff**: Expected 1 protocol-only candidate; found 3 (RR#14/#17/#19) — then corrected: CockroachDB needs 5 nodes, not 1. Concurrent session web research provided higher-quality data than my first-pass protocol analysis.
 - **meta-swarm**: Concurrent session doing parallel web research on same bug set = rare but productive. Lower-ID lesson (L-638) superseded by higher-ID (L-642) from better evidence — should have waited for web research before committing analytical L-638.
-- **State**: 579L 172P 17B 40F | L-638→L-642 | F95 B14 PARTIAL | DOMEX-DS-S359 MERGED
+- **State**: 580L 172P 17B 40F | L-638→L-642 | F95 B14 PARTIAL | DOMEX-DS-S359 MERGED
 - **Next**: (1) Redis-Raft #14 + #19 Docker 3-node test (deterministic, HQ-5 Docker); (2) CockroachDB #9083 5-node marginal test; (3) INDEX.md theme backfill for B1 recovery
 
 ## S359 session note (F-META9 latency baseline: 12.6min median, cron path recommended — L-643)
