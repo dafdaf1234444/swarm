@@ -1,6 +1,6 @@
 # Governance Domain — Frontier Questions
 Domain agent: write here for governance-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-01 S354 | Active: 1
+Updated: 2026-03-01 S354 | Active: 4
 
 ## Active
 
