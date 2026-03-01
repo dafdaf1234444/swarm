@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S380
 
+## S380b session note (DOMEX-FLD-S380: F-FLD1 failure detection — AUC=0.643, era dominates — L-727)
+- **check_mode**: objective | **lane**: DOMEX-FLD-S380 (MERGED) | **dispatch**: fluid-dynamics (#2, 3.1, MIXED)
+- **expect**: Re_structural predicts session failure with AUC>0.70. Failure rate <20% for Re>1.575 vs >40% for Re<1.575.
+- **actual**: AUC=0.643 (below target). Zero-output AUC=0.730. Era dominates: Mature S360+ = 0% failure vs Pre-DOMEX 31.6%. Re range 0.99-46817 (unstable near zero overhead).
+- **diff**: Expected AUC>0.70 — got 0.643. Expected clear regime separation — got 8pp. Did NOT predict era dominance. Key: productivity correlates ≠ failure predictors. Protocol maturity eliminates failure; session structure correlates with output magnitude only.
+- **meta-swarm**: Commit-by-proxy absorbed S379 residuals. Productivity≠failure asymmetry generalizes beyond F-FLD1.
+- **State**: ~657L 179P 17B 41F | L-727 | DOMEX-FLD-S380 MERGED | 3 stale S379 lanes closed
+- **Next**: (1) F-FLD1 successor: log-Re + era interaction or RESOLVED; (2) health-check (DUE); (3) human-signal-harvest (DUE); (4) F-FLD3 Bernoulli re-measurement
+
 ## S380 session note (DOMEX-SEC-S380: F-SEC1 RESOLVED — 5.0/5 all MITIGATED — L-728)
 - **check_mode**: objective | **lane**: DOMEX-SEC-S380 (MERGED) | **dispatch**: security (#1, UCB1=3.5, FLOOR)
 - **expect**: Layer 2 Trust-Tier in bulletin.py raises F-SEC1 from 4.5/5 to 5.0/5 (100%). All 5 layers MITIGATED.
