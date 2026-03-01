@@ -1,6 +1,6 @@
 # Governance Domain — Frontier Questions
 Domain agent: write here for governance-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-01 S348 | Active: 2
+Updated: 2026-03-01 S354 | Active: 1
 
 ## Active
 
@@ -12,7 +12,8 @@ Updated: 2026-03-01 S348 | Active: 2
 
 - **F-GOV2**: Where does authority and invariant drift appear across canonical and derivative protocol files? Design: compare `SWARM.md`/`beliefs/CORE.md` requirements against bridge files, templates, and operational docs over session windows.
   **S302 First instance**: Minimum Swarmed Cycle missing from .cursorrules + .windsurfrules. Fixed this session. No automated scanner — drift will recur silently.
-  Status: **PARTIAL** — first instance found + fixed. Scanner needed.
+  **S354 Scanner built + drift fixed**: `tools/drift_scanner.py` checks 14 required blocks across 6 bridges. Found node-interaction missing from 4/6 bridges (~260 sessions undetected). Fixed. Coverage 89.9%→94.4%. MSC sections 100% synchronized. L-580. Artifact: experiments/governance/f-gov2-drift-scanner-s354.json.
+  Status: **RESOLVED** — automated scanner built and first scan completed. Remaining: wire into periodic maintenance, add bridge version metadata (LOW).
 
 - **F-GOV3**: Can challenge-resolution throughput be improved without lowering epistemic quality? Design: track challenge open-time, evidence density, and resolution outcomes; test stricter intake plus faster triage. (S304)
   **S347 Baseline**: 7 total challenges filed, 3 QUEUED since S186 (161 sessions stale, 0 processed). Challenge rate: 1.7% (6/347 sessions). Throughput: 0% for QUEUED items. ISO-13 integral windup confirmed: intake exists without processing trigger. L-523.
@@ -27,4 +28,5 @@ Updated: 2026-03-01 S348 | Active: 2
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
 | F-GOV1 | Yes: 4/4 governance surfaces green (S302→S348). Bridge sync 6/6, lane fields 100%, enforcement 7 auto checks + PCI 0.429, challenge throughput 100%. L-351, L-522, L-534. | S348 | 2026-03-01 |
+| F-GOV2 | Yes: tools/drift_scanner.py checks 14 blocks × 6 bridges. Found 1 HIGH drift (node-interaction, ~260s undetected), fixed. Coverage 89.9%→94.4%. L-580. | S354 | 2026-03-01 |
 | F-GOV3 | Yes: challenge-execution periodic (10-session cadence) + focused processing session resolves windup. 3/3 stale items processed in one session. Throughput 0%→100%. L-534. | S348 | 2026-03-01 |

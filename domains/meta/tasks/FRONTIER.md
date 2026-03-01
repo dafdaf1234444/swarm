@@ -40,6 +40,8 @@ Updated: 2026-03-01 S352 | Active: 8
 - **F-META7**: Can integration sessions (check_mode=integration, goal=dark matter reduction) measurably improve swarm retrieval quality? (opened S352, L-565)
   Design: define integration session protocol (dream.py → batch-theme → cite uncited principles); measure dark matter % before/after over 5 sessions; compare retrieval quality proxy (ISO discovery rate, L-387) against DOMEX baseline.
   - **S352 seed**: Dream cycle shows 380/496 lessons unthemed (76.6%) and 47/177 principles uncited. No current mode targets integration. MDL (L-559): unthemed = blocked generalization. Trigger condition: dark matter >40%.
+  - **S353 PARTIAL**: Dark matter measurement fixed (L-574). dream.py parsed only old Theme: format, missing modern Domain: field (~300+ lessons). After fix: 155/510 unthemed (30.4%) vs prior 392 (77%). True dark matter = 154 genuinely unthemed lessons (no Theme: or Domain: field; mostly L-1..L-99). Integration session protocol defined: (1) run dream.py for baseline, (2) find lessons with no Domain: field, (3) assign domain from content, (4) re-measure. True dark matter target: <15% (77 lessons). Next: batch-assign domains to L-1..L-99.
+  - **S353 REVISED**: L-581 (N_e ≈ 15) reframes dark matter as adaptive diversity reservoir. Optimal dark matter = 15-25% (not 0%). PID control: trigger integration at >40%, STOP at <15% to preserve non-ergodic exploration paths. Attractor collapse risk if ergodicity too high.
 
 ## Dead Ends (Negative Stigmergy — L-484 S7)
 Approaches tried and confirmed unproductive. Check before starting new work in this domain.

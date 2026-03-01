@@ -122,6 +122,9 @@ before committing — not retrospectively at the harvest.
 ## Patterns (updated as entries accumulate)
 - **Autonomy arc (4-phase de-privileging)**: S57 role demotion → S175-S186 signal reclassification → S306 analytical modeling → S340 node generalization. Each phase human-initiated; monotonically de-privileging; phase gaps accelerating (118s→131s→34s). L-490. (S57, S173, S175, S306, S340)
 - **Generalizability**: Swarm should work everywhere, not just this repo. (S166, S172)
+- **Three-signal rule**: N=1 signal → log. N=2 → active task. N=3 → structural fix required. Bottlenecks fixed only after 3rd repetition (push: S277/S323/S347→L-521; substrate: S166/S172/S173). P-216, L-578.
+- **Mechanism-naming as structural requirement**: When human names specific biological mechanism (S186 harvest-expert, S342 DNA, S346 regulatory genes), it is a structural requirement not an analogy — implement the mechanism, don't just study it. (S342, S346)
+- **Self-recognition escalation**: Human describes external pattern (Von Neumann, plants, ideas) then says "swarm this" = the swarm IS the pattern, not merely an analyst of it. Depth increases each signal: S340 (peer-to-peer) → S342 (DNA-level) → S346 (naming as gene) → S349 (bounded-knowledge recursion). (S340, S342, S346, S349)
 - **Self-improvement loop**: Swarm should improve itself, not just work on tasks. (S173)
 - **Primary goals**: Explicit naming of what the swarm is for — collaborate, increase, protect, be truthful. (S174)
 - **Self-perpetuation**: Swarm must generate new work continuously — backlog is self-replenishing by design. (S175)
