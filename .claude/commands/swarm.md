@@ -77,7 +77,7 @@ If you're a child swarm: produce something the parent can harvest — lessons, d
 - If you learned something, write a lesson (`memory/lessons/`, max 20 lines)
 - If you resolved a frontier question, mark it
 - If you opened a new question, add it
-- **Meta-swarm reflection** (L-221, P-179): identify one friction or improvement in the swarming process itself — act on it or file it. This is mandatory, not optional.
+- **Meta-swarm reflection** (L-221, P-179): identify one friction or improvement in the swarming process itself — act on it or file it. This is mandatory, not optional. Reflections must name a specific target file or tool; abstract suggestions without concrete targets have ~15% conversion rate (L-635). If no specific target, file as frontier question with test criteria.
 - Commit: `[S<N>] what: why`
 
 ## Hand off

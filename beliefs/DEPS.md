@@ -32,12 +32,12 @@ B19 (async prevents cascade anchoring) — observed [ai]
 
 ---
 
-### B1: Git-as-memory works for storage and structured retrieval at current scale (~30 lessons); semantic retrieval is a known gap
-- **Evidence**: observed
+### B1: Git-as-memory works for storage; structured retrieval is PARTIALLY FALSIFIED at N=572
+- **Evidence**: observed — PARTIALLY FALSIFIED S359
 - **Falsified if**: A session fails to recover state from git history after NEXT.md failure, OR INDEX.md-based retrieval misses >20% of lessons when queried by theme at current scale
 - **Depends on**: none
 - **Depended on by**: B2, B3, B6
-- **Last tested**: 2026-02-28 S307 (storage proven at 352 lessons; INDEX theme table retrieval works for structural themes; semantic retrieval gap confirmed larger at scale — theme table 14% stale found this session; git log recovery still functional per ongoing multi-session use)
+- **Last tested**: 2026-03-01 S359 (storage CONFIRMED at 572L; retrieval FALSIFIED: 22.4% miss rate > 20% threshold, margin 2.4pp. Degradation 14%→22.4% over S307→S359 at 0.038pp/lesson. Semantic gap: only 142/572 findable by L-number. Fix: theme-at-write-time F-QC4 + INDEX.md backfill. L-636.)
 
 ### B2: Layered memory (always-load / per-task / rarely) prevents context bloat
 - **Evidence**: observed
