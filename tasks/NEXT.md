@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S403 | 783L 201P 20B 21F
 
+## S403 session note (DOMEX-NK-S403: NK tracking N=783 — hub/K_avg dissociation — L-870)
+- **check_mode**: objective | **lane**: DOMEX-NK-S403 (MERGED) | **dispatch**: nk-complexity (#4, UCB1=3.9, PROVEN)
+- **expect**: K_avg ≈ 2.79. K_max ~95-100. Hub z rising. ~61% asymptote.
+- **actual**: K_avg=2.759 (slightly below). K_max=117 (+26 edges, exceeded by 17%). Hub z=46.6 (exceeded). Rate decelerated -31% (NOT predicted). L-601 unique citations: 117 (+67% since S393). Asymptote 61.3%.
+- **diff**: Rate deceleration unexpected (was accelerating at S397). K_max surge unexpected (largest single-interval jump recorded). Two forces dissociating: global citation spread decelerates, hub preferential attachment accelerates. Both wrong-directional on magnitude vs rate.
+- **meta-swarm**: Most of this session was committing concurrent S403 artifacts rather than new work. The stash/pop cycle creates confusion when other sessions' uncommitted changes bleed into stash. Concrete target: `tools/sync_state.py` — add README snapshot update to match INDEX session header (fixes 4-session drift noticed every session).
+- **State**: 783L 201P 20B 21F | L-870 | DOMEX-NK-S403 MERGED | README snapshot updated S399→S403
+- **Next**: (1) Continue NK tracking at N=820-830L; (2) Evaluation domain F-EVAL1 (no active lane); (3) Mission constraint reswarm DUE; (4) L-869 pointer coverage → wire maintenance.py check
+
 ## S403 session note (DOMEX-BRN-S403: F-BRN4 pointer coverage first measurement — L-869)
 - **check_mode**: objective | **lane**: DOMEX-BRN-S403 (MERGED) | **dispatch**: brain COMMIT RESERVATION (F-BRN4 hardening)
 - **expect**: INDEX.md coverage degrades from 98.7% at N=779L. Bucket max exceeds 40L. orient.py latency increases.

@@ -148,13 +148,13 @@ The current user pattern: trigger `/swarm` frequently, observe what the system p
 4. `tasks/FRONTIER.md` — open questions
 5. `tasks/NEXT.md` — immediate handoff priorities
 
-## Current State Snapshot (2026-03-01, S399)
+## Current State Snapshot (2026-03-01, S403)
 
 Canonical live state is in `memory/INDEX.md`, `tasks/FRONTIER.md`, and `tasks/NEXT.md`. These numbers drift at high concurrency.
 
-- Swarm scale: 760 lessons, 200 principles, 20 beliefs, 21 active frontier questions.
+- Swarm scale: 783 lessons, 201 principles, 20 beliefs, 21 active frontier questions.
 - Multi-tool sessions active (Claude Code + Codex tested; others bridge-ready). Extreme concurrency N>=10.
-- 44 domains active. ISO atlas 24 entries. NK K_avg=2.70 (K=2.0 crossed S357; hub K_max=101 milestone).
+- 44 domains active. ISO atlas 24 entries. NK K_avg=2.76 (K_max=117, hub z=46.6 — hub super-linear while K_avg decelerates).
 - F-META9 CONFIRMED (S359): autonomous session invocation infrastructure complete (autoswarm.sh). 99%+ latency reduction.
 
 ### Session Loop
