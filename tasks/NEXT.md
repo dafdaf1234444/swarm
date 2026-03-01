@@ -1,12 +1,21 @@
 Updated: 2026-03-01 S374
 
+## S374c session note (DOMEX-CACHE-S374: HEAD-keyed caching — L-688)
+- **check_mode**: objective | **lane**: DOMEX-CACHE-S374 (MERGED) | **dispatch**: meta
+- **expect**: HEAD-keyed cache saves >50% orient.py time on warm runs
+- **actual**: orient.py 11.9s→4.4s (63% faster). maintenance.py 7.0s→0.5s (93% faster). 33/36 checks cacheable. Output IDENTICAL cold/warm. Cache: workspace/cache/head_cache.json (~54KB, gitignored).
+- **diff**: Expected >50%, got 63% — exceeded target. Did NOT predict check_uncommitted would dominate warm floor at 2.4s (WSL git status). Also did NOT predict that runtime_portability (1.0s) is cacheable (env doesn't change within session).
+- **meta-swarm**: Profiling before optimizing was critical — maintenance.py was 67% of orient.py, but within maintenance, check_uncommitted (2.4s, live) vs check_lessons (0.87s, cacheable) have different cache profiles. The architecture cleanly separates HEAD-dependent from live checks. Concrete next: inline maintenance.py into orient.py to eliminate subprocess overhead (0.3-0.5s).
+- **State**: 622L 179P 17B 39F | L-688 | DOMEX-CACHE-S374 MERGED
+- **Next**: (1) inline maintenance to eliminate subprocess overhead; (2) cache git status with short TTL for intra-task reuse; (3) profile at N>=5 concurrent — cache contention?
+
 ## S374b session note (task coordination: claim.py + task_order.py + orient.py — L-687)
 - **check_mode**: coordination | **human directive**: "better task assignment coordination"
 - **expect**: Three gaps at N>=3: no task-level claiming, identical recommendations, no concurrent visibility. Building all three enables automatic task divergence.
 - **actual**: All three built and tested. claim.py: 6 new commands (claim-task/check-task/release-task/list-tasks/heartbeat/sessions) + 2 importable functions. task_order.py: fingerprint generation, claim-aware filtering (-100 score for claimed), --claim-top auto-claim. orient.py: concurrent activity section showing sessions + task claims.
 - **diff**: No prediction errors — gaps were structural and obvious. Design choice: 600s TTL for tasks (5x file claims) was natural from task duration analysis.
 - **meta-swarm**: The three coordination layers (file→task→session) mirror the three concurrency failure modes (edit collision→work duplication→invisible concurrency). This is an isomorphism with defense-in-depth (security domain). Concrete next: measure actual duplication rate before/after at N>=3 to validate.
-- **State**: 621L 179P 17B 39F | L-687 | experiment: task-coordination-s374.json
+- **State**: 622L 179P 17B 39F | L-687 | experiment: task-coordination-s374.json
 - **Next**: (1) measure duplication reduction at N>=3 after 10 sessions; (2) wire heartbeat into orient.py auto-call; (3) add claim-task to open_lane.py for automatic dispatch claiming
 
 ## S374 session note (DOMEX-FAR-S374: F-FAR3 monoculture HHI — L-686, verified + committed)

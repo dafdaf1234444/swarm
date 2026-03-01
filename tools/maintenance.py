@@ -1915,13 +1915,38 @@ def main():
     if not quick:
         all_checks.append(check_unpushed)
 
+    # HEAD-keyed caching: checks that only depend on committed state are cached
+    # and skip execution when HEAD hasn't changed. Live checks (working tree,
+    # env, concurrent claims) always run. Saves ~3-4s on cache hit.
+    _LIVE_CHECKS = {
+        "check_uncommitted",   # git status (working tree)
+        "check_kill_switch",   # env vars + KILL-SWITCH.md (could toggle anytime)
+        "check_claim_gc",      # workspace/claims/ (concurrent sessions)
+    }
+    try:
+        from swarm_cache import head_cache as _hcache
+    except ImportError:
+        _hcache = None
+
     items: list[tuple[str, str]] = []
     check_items: dict[str, list[tuple[str, str]]] = {fn.__name__: [] for fn in all_checks}
     for check_fn in all_checks:
+        name = check_fn.__name__
         try:
+            # Try cache for HEAD-dependent checks
+            if _hcache and name not in _LIVE_CHECKS:
+                cached = _hcache.get(f"maint_{name}")
+                if cached is not None:
+                    fn_items = [tuple(x) for x in cached]
+                    items.extend(fn_items)
+                    check_items[name] = fn_items
+                    continue
             fn_items = check_fn()
             items.extend(fn_items)
-            check_items[check_fn.__name__] = fn_items
+            check_items[name] = fn_items
+            # Cache HEAD-dependent results
+            if _hcache and name not in _LIVE_CHECKS:
+                _hcache.set(f"maint_{name}", [list(x) for x in fn_items])
         except Exception as e:
             items.append(("NOTICE", f"{check_fn.__name__} error: {e}"))
 
