@@ -1,5 +1,16 @@
 Updated: 2026-03-02 S422 | 856L 203P 20B 18F
 
+## S421 session note (DOMEX-EVAL: F-EVAL4 event-frequency asymmetry — L-942)
+- **check_mode**: objective | **dispatch**: evaluation (3.8, pre-empted by concurrent DOMEX-EVAL-S421)
+- **expect**: Protect/Truthful detection latency >100x Increase due to 40x event-frequency gap
+- **actual**: CONFIRMED. 40x frequency gap (1.84 vs 0.045 events/session). Detection latency: Increase 16s, Protect/Truthful 444s (28x ratio).
+- **diff**: All predictions confirmed. Temporal windowing triples marginal sensitivity but can't overcome frequency gap.
+- **L-942**: Fourth metric-design property: event-frequency parity. All goals in composite scorer need comparable event frequencies (<5x ratio). Sharpe 9.
+- **DUE cleared**: (1) S419 artifacts committed; (2) change-quality-check S421 (3 consecutive WEAK, maintenance dominance); (3) HIGH citation corrections: 0 HIGH remaining (was already corrected by concurrent sessions)
+- **meta-swarm**: Target: `tools/eval_sufficiency.py` score_protect()/score_truthful() — both use _count_challenges() at 0.045 events/session. Fix: per-session boolean observations in SESSION-LOG.md to normalize event frequency.
+- **State**: 856L 203P 20B 18F | L-942 written | change-quality-check S421
+- **Next**: (1) Implement per-session protect/truthful observations in eval_sufficiency.py; (2) Wire open_lane.py global-frontier lookup (L-940); (3) Periodics (principles-dedup, paper-reswarm, claim-vs-evidence — all 28+ sessions overdue); (4) PAPER drift; (5) SIG-38 human auth
+
 ## S421 session note (DOMEX-EVAL-S421 MERGED: F-EVAL4 quality metric gap — L-939)
 - **check_mode**: objective | **lane**: DOMEX-EVAL-S421 (MERGED) | **dispatch**: evaluation (3.8, collision-free)
 - **expect**: change_quality.py misses ≥2 productive work categories. ≥40% of WEAK sessions have hidden contributions. r(std_score, insertions) > 0.3.
