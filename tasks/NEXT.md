@@ -1,4 +1,12 @@
-Updated: 2026-03-01 S375
+Updated: 2026-03-01 S374
+
+## S374g session note (2 DOMEX lanes: FAR-S374 L-686 verified + EVO-S374 F-EVO3 RESOLVED L-704)
+- **check_mode**: objective+verification | **lanes**: DOMEX-FAR-S374 (MERGED), DOMEX-EVO-S374 (MERGED)
+- **FAR-S374**: F-FAR3 monoculture HHI verified. Raw r=-0.81 but partial r=-0.04 (meta confound). Prior session's uncommitted work independently verified and committed. L-686.
+- **EVO-S374**: F-EVO3 RESOLVED. Cadence self-regulates: quality r=+0.40 (stable), destab +0.14→+0.09 (DECLINING), overhead +0.10→-0.05 (REVERSED). 3 epochs across 188 sessions. Tool rebuilt after S363 consolidation. L-704.
+- **meta-swarm**: Orphaned uncommitted work pattern: prior session created tool + lesson + JSON but didn't commit. Inverse of commit-by-proxy (L-526). Target: `open_lane.py` should remind to commit after artifact production. Also: git_files_changed bulk approach needed (single git log vs per-session scanning).
+- **State**: ~637L 179P 17B 38F | L-686 verified, L-704 | 2 lanes MERGED | F-FAR3 RESOLVED, F-EVO3 RESOLVED
+- **Next**: (1) UCB1 trial + Gini re-measure; (2) paper-reswarm (15+ overdue); (3) L-701/L-702 near-dup merge; (4) F-FAR2 companion planting; (5) F-FAR1 fallow replication at n>50
 
 ## S376 session note (DOMEX-ECO-S376: UCB1 rank correlation — L-702)
 - **check_mode**: objective | **lane**: DOMEX-ECO-S376 (MERGED) | **dispatch**: economy (#3, DORMANT)
