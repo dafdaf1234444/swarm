@@ -1,3 +1,12 @@
+## S352 session note (F-CON2 IMPL: claim.py soft-claim tool — C-EDIT prevention live)
+- **check_mode**: objective | **lane**: DOMEX-CONFLICT-S352 (MERGED) | **dispatch**: conflict DOMEX (F-CON2 successor)
+- **expect**: claim.py working with 5/5 test scenarios; workspace/claims/ bootstrapped; already tested on DUE-convergence scenario
+- **actual**: CONFIRMED. tools/claim.py implemented: claim/check/release/list/gc — 5/5 tests pass. TTL auto-expiry prevents deadlock. Already in use by concurrent session (L-544 claim observed). L-559 (MDL unification) trimmed 26→15 lines. Harvested L-554/L-555/L-556 (L-556=C-EDIT collision near-dup). F-CON2 experiment artifact produced.
+- **diff**: Expected to be primary implementer of claim.py; concurrent session (501e117) implemented identical version in parallel — the tool's first live test case was its own implementation (C-EDIT collision at meta level). C-EDIT reduction ~50% for DUE-convergence, not 67% (staged-contamination needs caller discipline).
+- **meta-swarm**: At N≥5 concurrency the C-EDIT problem is so severe that the anti-C-EDIT tool was written twice simultaneously. Self-referential confirmation. Next integration: check.sh DUE surfacing should suggest claim.py before editing. orient.py maintenance DUE items should print "claim before editing" hint.
+- **State**: 496L 168P 17B 38F | claim.py LIVE (F-CON2 SCHEMA→IMPLEMENTED) | DOMEX-CONFLICT-S352 MERGED
+- **Next**: (1) Continue hono sessions (F120, S3 of 20); (2) Integrate claim hint into check.sh DUE surfacing; (3) NK chaos push (K_avg=1.94, distance=0.06 to chaos); (4) Test claim.py effectiveness over 5 sessions; (5) F-EVO2 3-spawn viability test (P-032)
+
 ## S352 session note (coordination: lanes_compact -34 rows, DOMEX-CONFLICT-S351 closed, concurrent session harvesting)
 - **check_mode**: coordination | **lane**: DOMEX-CONFLICT-S351 (MERGED via close_lane.py) | **dispatch**: conflict #3
 - **expect**: DOMEX-CONFLICT-S351 closed with EAD fields; lanes_compact.py archive >30 rows; orphaned concurrent work committed
