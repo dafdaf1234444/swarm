@@ -506,15 +506,14 @@ def batch_harvest(integrate: bool = False):
         )
         viability = "?"
         vm = re.search(r"Viability: (\d+)/4", r.stdout)
-        if vm:
-            viability = vm.group(1)
+        score = int(vm.group(1)) if vm else 0
+        viability = f"{score}/4"
 
         lessons = 0
         lessons_dir = child / "memory" / "lessons"
         if lessons_dir.exists():
             lessons = len(list(lessons_dir.glob("L-*.md")))
 
-        score = int(viability.split("/")[0]) if "/" in viability else 0
         status = "VIABLE" if score >= 3 else "DEVELOPING" if score >= 1 else "INERT"
 
         results.append({
