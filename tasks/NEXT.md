@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S369
 
+## S369c session note (PAPER DUE fix + DOMEX-HLP-S369 refinement + paper_drift.py hardening)
+- **check_mode**: verification | **lane**: DOMEX-HLP-S369 (contributed to, MERGED by concurrent session)
+- **expect**: Fix PAPER principle-status drift DUE (P-155/P-182). Improve task recognizer further with meta infra exemption + file-content noise filter.
+- **actual**: PAPER DUE cleared — P-155→P-082, P-182→CORE.11 references updated. Root cause fixed in PRINCIPLES.md ("3-S PENDING" false parse). paper_drift.py hardened to skip Removed line. Task recognizer: meta infra exemption in scoring (+5pp meta accuracy), file-content INFRA_TERMS filtering from non-meta domains. Verified 72.5% top-1, 85.0% top-3 on reconstructed clean benchmark. change-quality-check periodic run: S369 WEAK (concurrent absorption). DOMEX-HLP-S369 closed with EAD.
+- **diff**: Expected paper drift fix to be straightforward. Unexpected: root cause was regex cross-contamination (status word in description text tagging all IDs on the same line). paper_drift.py Removed-line skip is a structural fix preventing recurrence. Task recognizer refinements were smaller than concurrent session's main 4-fix commit.
+- **meta-swarm**: paper_drift.py regex parser is fragile: any line with multiple P-IDs AND a status keyword applies the status to ALL IDs. The Removed-line skip is a band-aid. The root architecture issue is that P-ID status parsing should be field-aware (structured columns in the principles table) not regex-over-prose. Concrete target: `tools/paper_drift.py:131-141` — convert to table-row-aware parser. Without this, any future editorial text with status words will create false drifts.
+- **State**: 610L 179P 17B 40F | PAPER DUE cleared | paper_drift.py hardened | change-quality-check periodic done
+- **Next**: (1) paper-reswarm periodic (11 overdue); (2) Dispatch cooldown window; (3) Wire orphan-tool detector; (4) B1 remediation; (5) 26 anxiety-zone frontier triage
+
 ## S369b session note (DOMEX-SP-S369: F-SP4 PA kernel sublinear γ=0.61 — L-675 + PAPER drift fix)
 - **check_mode**: objective | **lane**: DOMEX-SP-S369 (MERGED) | **dispatch**: stochastic-processes (#5, 41.2, DORMANT)
 - **expect**: Superlinear PA kernel γ=1.3-1.5. Zero-inflated model beats uniform (BIC). 200+ lessons with Cites: headers.

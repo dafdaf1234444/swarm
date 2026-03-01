@@ -130,7 +130,12 @@ def check_paper_accuracy(repo_root: Path, session: int) -> list[tuple[str, str]]
 
     status_re = re.compile(r"\b(PARTIALLY OBSERVED|THEORIZED|OBSERVED|SPLIT|PENDING|CONTESTED)\b", re.IGNORECASE)
     canon: dict[int, str] = {}
-    for seg in re.split(r"[|\n]", _read(repo_root / "memory" / "PRINCIPLES.md")):
+    principles_text = _read(repo_root / "memory" / "PRINCIPLES.md")
+    for seg in re.split(r"[|\n]", principles_text):
+        # Skip the Removed line — subsumed IDs with embedded status words
+        # cause false cross-contamination (e.g. "3-session wait-before-acting")
+        if "Removed:" in seg or seg.strip().startswith("Removed"):
+            continue
         ids = [int(x) for x in re.findall(r"\bP-(\d+)\b", seg)]
         if not ids:
             continue

@@ -4643,7 +4643,7 @@
     },
     {
       "session": 369,
-      "timestamp": "2026-03-01T06:44:47Z",
+      "timestamp": "2026-03-01T06:47:46Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -4769,11 +4769,9 @@
           "severities": []
         },
         "check_cross_references": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "NOTICE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_anxiety_zones": {
           "fired": true,
@@ -4833,9 +4831,11 @@
           "severities": []
         },
         "check_claim_gc": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         },
         "check_paper_accuracy": {
           "fired": false,
