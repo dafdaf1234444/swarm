@@ -47,7 +47,7 @@
       "id": "paper-reswarm",
       "description": "Re-swarm docs/PAPER.md: read current beliefs/PHILOSOPHY.md + beliefs/CORE.md + memory/INDEX.md, check paper for drift, fan-out agents to update stale sections, update paper_version header. File challenges for any contradictions found.",
       "cadence_sessions": 10,
-      "last_reviewed_session": 368,
+      "last_reviewed_session": 392,
       "registered_by": "S73"
     },
     {
@@ -154,6 +154,13 @@
       "cadence_sessions": 30,
       "last_reviewed_session": 362,
       "registered_by": "S327"
+    },
+    {
+      "id": "expectation-calibration",
+      "description": "Expectation calibration audit: run `python3 tools/expect_harvest.py --report` \u2014 check directional accuracy, bias types, and per-domain calibration. Act on systematic biases (sprint artifact anchoring, mechanism misidentification, underconfidence). Target: direction accuracy >75%, underconfidence ratio <5:1. (L-778, F-META12)",
+      "cadence_sessions": 10,
+      "last_reviewed_session": 392,
+      "registered_by": "S392"
     }
   ]
 }

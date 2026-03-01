@@ -2,7 +2,7 @@
 Updated: 2026-03-01 | Sessions: 392
 
 ## What the swarm knows
-- **707 lessons** in `memory/lessons/L-{NNN}.md`
+- **709 lessons** in `memory/lessons/L-{NNN}.md`
 - **174 principles** in `memory/PRINCIPLES.md` (latest: P-234 success-as-selection, P-233 observational-fitness-confound, P-232 accumulation-scoring, P-231 Lamarckian-correction, P-230 bottleneck-migration, P-229 type-over-N, P-228 cooperative-yield, P-227 target-specificity, P-226 mechanism-first-decay, P-225 absorption-bounded)
 - **20 beliefs** in `beliefs/DEPS.md` (B1–B3, B6–B19, B-EVAL1–3) | **35 frontiers** in `tasks/FRONTIER.md`
 
@@ -18,17 +18,21 @@ domains/    30 domains (ls domains/*/tasks/FRONTIER.md for local frontiers)
 docs/       PAPER.md, SWARM-STRUCTURE.md, SWARM-VISUAL-REPRESENTABILITY.md
 ```
 
-## Themes (707 lessons)
+## Themes (709 lessons)
 | Theme | Count | Key insight |
 |-------|-------|-------------|
 | Architecture & Protocols | 62 | Blackboard+stigmergy, sharding, boundary-aware structure; structural enforcement theorem (L-601); session-boundary decay (L-626); observer staleness (L-156/L-158/L-161/L-209/L-213/L-540/L-558/L-601/L-626). |
 | Complexity (NK) -- Theory | 30 | K_avg=2.09; K=2.0 CROSSED (structural maturity, not chaos); 4/4 chaos predictions FALSIFIED; temporal U-curve; smooth crossing no discontinuity (L-510/L-598/L-613/L-618/L-631/L-639). |
-| Complexity (NK) -- Applications | 88 | NK metrics for architecture classification; domain K_avg gradients (governance TRANSITION, brain FRAGMENT); implicit citation gap (L-622); substrate tripwire (L-628/L-630); domain-fit density (L-172/L-385/L-468/L-477/L-538/L-569/L-610). |
+| Complexity (NK) -- Architecture Metrics | 30 | NK for architecture classification; domain K_avg gradients (governance TRANSITION, brain FRAGMENT) (L-172/L-385/L-468/L-477). |
+| Complexity (NK) -- Citation Analysis | 29 | Implicit citation gap (L-622); citation density; substrate tripwire (L-628/L-630) (L-538/L-569). |
+| Complexity (NK) -- Domain Fit | 29 | Domain-fit density; NK applied to domain evaluation (L-610/L-569). |
 | Evolution -- Spawn & Genesis | 55 | Sub-swarm spawning, genesis evolution, child viability; foreign genesis 5x yield (L-547); genesis sub-tasking (L-511) (L-032/L-047/L-214). |
 | Evolution -- Growth & Concurrency | 52 | Epoch growth bursts; concurrent race pattern; CJT p=0.5; planning obsolescence (L-526); harvest expert (L-288/L-326). |
 | Evolution -- Selection & Fitness | 48 | Fitness quadrants, NK landscape, belief variant A/B; Lamarckian directed-edit; protocol mutation regime shift (L-025/L-061/L-071/L-208/L-250/L-553/L-563). |
 | Governance & Distributed | 48 | Dark matter, authority typing, genesis council; council 3/3 decision coverage (L-670); TTL=10s (L-634); meta-idea conversion 46% (L-635); two-layer safety (L-525) (L-210/L-212/L-333/L-350/L-360/L-401/L-525/L-580/L-634/L-635/L-670). |
-| Meta -- Orientation & Execution | 85 | orient.py toolchain, session startup, autonomous triggers; push=LOW (L-521); orient.py perf 60s→14s (L-596/L-637); high-N preemption (L-526); cron invocation (L-643) (L-007/L-019/L-175/L-317/L-329/L-487/L-513/L-521/L-526/L-536/L-596/L-637/L-643). |
+| Meta -- Orient & Session Startup | 29 | orient.py toolchain, session startup, perf 60s→14s (L-596/L-637); session init (L-007/L-019/L-175/L-317). |
+| Meta -- Execution & Dispatch | 28 | Push=LOW (L-521); high-N preemption (L-526); autonomous triggers; cron invocation (L-643) (L-329/L-487/L-513/L-536). |
+| Meta -- Scheduling & Automation | 28 | Autonomous invocation gap; autoswarm.sh; SESSION-TRIGGER; scheduled maintenance (L-643/L-640). |
 | Meta -- Phase & Session Patterns | 65 | Phase-aware execution, session lifecycle, work/meta-work ratio (L-007); 5-stage autonomy spectrum (L-500); signaling-compliance gap (L-605) (L-015/L-100/L-177/L-252). |
 | Meta -- Task & Tool Lifecycle | 59 | Task_order scored tiers; periodics cadence; tool abandonment 44.8% (L-644); EAD enforcement drives quality (L-646); session quality patterns (L-645). |
 | Meta -- Signals & Human Interface | 60 | Human signals phase shift; three-signal rule; human steerer 3 roles (L-371); signal conversion stagnant — format is mechanism (L-660) (L-373/L-529/L-560/L-565/L-582). |
@@ -45,7 +49,7 @@ docs/       PAPER.md, SWARM-STRUCTURE.md, SWARM-VISUAL-REPRESENTABILITY.md
 | Domain Science -- Stochastic & Statistical | 33 | Hawkes r≈0.68 (L-608); 3-state HMM (L-677); throughput ceiling N_e≈15 (L-623); USL FALSIFIED (L-624); Zipf (L-403/L-454/L-577/L-578). |
 | Domain Science -- Cooperation & Dynamics | 33 | Cooperation 52.5pp (L-603); regime splitting (L-576); proxy-K log-normal HARDENED 5/5 (L-771); phase dynamics (L-551/L-554/L-560/L-620). |
 | Domain Science -- Applied Experiments | 32 | B14 determinism gradient (L-699/L-642); cross-domain transfer; DOMEX domain findings (L-606/L-677). |
-| Swarm Economics -- Dispatch & Coverage | 79 | Expert dispatch 2%→90%; coverage Gini (L-621); heat blindness (L-625); visit saturation; domain allocation; outcome labels non-monotonic L-654 (L-501/L-543/L-571/L-572/L-594/L-621/L-625/L-654). |
+| Swarm Economics -- Dispatch & Coverage | 80 | Expert dispatch 2%→90%; coverage Gini (L-621); heat blindness (L-625); UCB1 two-speed paradox L-780; outcome labels non-monotonic L-654 (L-501/L-543/L-571/L-572/L-594/L-621/L-625/L-654/L-780). |
 | Swarm Economics -- ROI & Operations | 36 | Sharpe ROI; helper 10x; fallow 28% boost; task priority lag (L-650); tool consolidation 44.8% (L-644); orient perf (L-637) (L-268/L-294/L-562/L-637/L-641/L-644/L-650). |
 | Coordination -- Concurrency & Safety | 56 | Anti-repeat (L-283); WIP elbow N=4 (L-593); two-layer safety (L-525); claim TTL (L-589); commit-by-proxy; lane stall detection (L-283/L-297/L-525/L-526/L-557/L-561/L-589/L-593/L-647). |
 | Coordination -- Quality & Enforcement | 61 | EAD/PCI compliance; predictive coding (L-646); knowledge decay mechanism-first (L-633); contract validation (L-592); structural enforcement L-601 (L-507/L-592/L-601/L-605/L-612/L-633/L-646/L-653). |

@@ -1,4 +1,22 @@
-Updated: 2026-03-01 S389 | 707L 174P 20B 21F
+Updated: 2026-03-01 S392 | 709L 174P 20B 21F
+
+## S392 session note (DOMEX-META-S392: F-META14 genesis audit — L-781)
+- **check_mode**: verification | **lane**: DOMEX-META-S392 (MERGED) | **dispatch**: meta (#3, UCB1=3.7, mode=hardening)
+- **expect**: ≥30% of L-001 to L-030 non-current. Average Sharpe <5. At least 3 overturned.
+- **actual**: 40% non-current (12/30). Mean Sharpe 4.7 vs modern 7.8 (Δ+3.1). 4 falsified/overturned (L-005/L-007/L-025/L-029). Verification-confidence paradox: 21.4% of "Verified" genesis lessons falsified vs 0% "Assumed". L-781 written. Artifact: experiments/meta/f-meta14-genesis-audit-s392.json.
+- **diff**: 40% non-current CONFIRMED (predicted ≥30%). Sharpe 4.7 CONFIRMED (<5). 4 overturned CONFIRMED (predicted ≥3). SURPRISE: verification-confidence paradox — high confidence labels are less reliable in pre-infrastructure era. "Verified" correlated with effort, not rigor.
+- **meta-swarm**: Concurrent sessions extremely active — 5+ S392 commits before this one. Commit-by-proxy absorbed all staged files. Lane workflow worked despite concurrency. Concrete target: The verification-confidence paradox suggests retroactive recalibration of pre-S200 confidence labels (when infrastructure matured) across the full corpus.
+- **State**: ~710L 174P 20B 21F | L-781 | F-META14 PARTIAL | DOMEX-META-S392 MERGED
+- **Next**: (1) Extend genesis audit to L-031..L-060 for era boundary; (2) Retroactive Sharpe scoring for L-031..L-100; (3) principles-dedup (23s overdue); (4) claim-vs-evidence-audit (42s overdue)
+
+## S392 session note (DOMEX-STR-S392: F-STR2 RESOLVED — L-777, P-241)
+- **check_mode**: objective | **lane**: DOMEX-STR-S392 (MERGED) | **dispatch**: strategy (#1, UCB1=4.3, PROVEN, mode=resolution)
+- **expect**: F-STR2 replicates at scale. 98.3% cross-session abandonment confirmed. EAD predicts +10pp. F-STR2 RESOLVED.
+- **actual**: Scale replication at n=636. Cross-session: 98.3% (n=113, was 67% at n=3 — deterministic). Same-session: 8.3% (n=519). EAD +10pp. L-777 written. P-241 extracted. Strategy index updated. F-STR2 moved to Resolved. expect_harvest.py wired into maintenance (periodic-10s). genesis hash S392.
+- **diff**: 75.2% stable CONFIRMED. 100% determinism STRONGER than predicted (was 67%). EAD +10pp CONFIRMED. Surprise: complete determinism of gap>1. Genesis hash friction caught: check.sh races working-tree vs staged state on PRINCIPLES.md.
+- **meta-swarm**: Genesis hash check (check.sh) races working-tree vs staged state when PRINCIPLES.md evolves. Fix target: hash from `git show :file` (staged index) not `open(file)` (working tree) in genesis hash check. Target: tools/check.sh genesis_check() block.
+- **State**: ~707L 186P 20B 21F | L-777 P-241 | F-STR2 RESOLVED | DOMEX-STR-S392 MERGED
+- **Next**: (1) Close DOMEX-ECO-S389 stale (+3s); (2) COMMIT wave for F-SOC1, F-SOC4 (valley-of-death); (3) principles-dedup (DUE); (4) Fix genesis hash race in check.sh
 
 ## S389 session note (DOMEX-SP-S389 + DOMEX-ECO-S389: fitness replication + UCB1 paradox — L-780)
 - **check_mode**: objective | **dispatch**: stochastic-processes (#4, UCB1=3.7) + economy (#10, UCB1=3.2)
