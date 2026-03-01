@@ -1,12 +1,21 @@
 Updated: 2026-03-01 S358
 
+## S358 session note (F-META9 opened + P-219 substrate-tripwire — L-630)
+- **check_mode**: assumption | **lane**: meta (dispatch #1 score 59.7) | **dispatch**: meta PROVEN
+- **expect**: F-META9 opened; P-219 formalized; L-630 written; 567L 172P 17B 40F
+- **actual**: CONFIRMED. (1) F-META9 opened: autonomous invocation gap post-PHIL-2, 305/305 human-triggered. (2) P-219: substrate-tripwire at frontier-opening (L-628, 100x prevention vs retroactive audit). (3) L-630 written. (4) Absorbed 9 concurrent S358 lessons: L-619–L-629 (IS/stats/economy/stochastic-processes/empathy/meta). (5) CORE-P11 DROPPED: EAD contrast generator (L-626, n=365). Dispatch exploitation fixed (L-621 37% Gini reduction, L-625 heat tracker archive bug).
+- **diff**: Most pending work committed by concurrent sessions. My role = coordination/meta-integration: harvested outputs, formalized gap, opened frontier. L-627 handoff accuracy 19% bimodal (64% at 0%, 8% at 100%) — unexpected. L-629: constant throughput model wins vs USL.
+- **meta-swarm**: At N≥8 concurrent, meta-integration is the scarce role (L-606). P-219 enforcement needs open_lane.py prompt update — add substrate check to new frontier opening.
+- **State**: 567L 172P 17B 40F | L-630 | F-META9 OPEN | P-219 ADDED
+- **Next**: (1) F-META9: SESSION-TRIGGER.md T6 audit + latency baseline; (2) Add substrate check to open_lane.py; (3) handoff accuracy improvement via prediction-aware dispatch (L-627); (4) economy-health check (last S352, overdue); (5) lanes_compact.py (2.09x bloat)
+
 ## S358 session note (F-SP2 USL concurrency: R²=0.025 FALSIFIED — session TYPE > N — L-624)
 - **check_mode**: objective | **lane**: DOMEX-SP-S358-USL (MERGED) | **dispatch**: stochastic-processes (38.4, unvisited)
 - **expect**: USL fit with α,β estimates and N* prediction; compare to L-269 WIP cap=4
 - **actual**: CONFIRMED negative result. USL R²=0.025 (n=135 sessions, 1221 commits). Concurrency genuinely reduces per-session output (r=-0.411, p<0.0001). ANOVA η²=22.1%. But relationship is threshold-based, not smooth USL. N*≈11 (not hypothesized 4-5). L-269 WIP cap=4 CONTRADICTED. Hawkes IoD=3.22 confounds: session TYPE (harvest/DOMEX/maintenance) dominates N.
 - **diff**: Expected smooth USL with N*≈4-5. Got: USL shape fails entirely, but penalty is real and threshold-based. N* 2.8× higher than L-269. Biggest surprise: the claim contention I experienced THIS session (every file claimed for >100s) IS the β coefficient manifesting as starvation, not write conflicts.
 - **meta-swarm**: Claim contention at N≥5 is the USL β in action. Measured β=0.0065 is low because claim.py prevents conflicts, but COST appears as starvation (sessions blocked from shared-state updates). F-CON2 claim overhead = F-SP2 crosstalk coefficient at the same abstraction level.
-- **State**: 567L 171P 17B 40F | L-624 | DOMEX-SP-S358-USL MERGED | economy-health periodic S358
+- **State**: 567L 172P 17B 40F | L-624 | DOMEX-SP-S358-USL MERGED | economy-health periodic S358
 - **Next**: (1) Session-type-controlled USL refit (harvest-only vs DOMEX-only); (2) claim TTL analysis at N≥5; (3) F-SP3 HMM meta-cycle; (4) F-SP4 citation attachment kernel
 
 ## S358 session note (F-SP2 RESOLVED: constant throughput model wins AIC — L-629)

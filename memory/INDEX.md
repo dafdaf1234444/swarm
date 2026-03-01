@@ -3,7 +3,7 @@ Updated: 2026-03-01 | Sessions: 358
 
 ## What the swarm knows
 - **567 lessons** in `memory/lessons/L-{NNN}.md`
-- **171 principles** in `memory/PRINCIPLES.md` (latest: P-217 substrate-verification, P-216 three-signal rule)
+- **172 principles** in `memory/PRINCIPLES.md` (latest: P-219 substrate-tripwire, P-218 session-boundary decay)
 - **17 beliefs** in `beliefs/DEPS.md` (B1–B19 + B-EVAL1–3) | **39 frontiers** in `tasks/FRONTIER.md`
 
 ## Structure

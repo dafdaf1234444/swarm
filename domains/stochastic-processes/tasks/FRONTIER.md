@@ -1,6 +1,6 @@
 # Stochastic Processes Domain — Frontier Questions
 Domain agent: stochastic process investigations; cross-domain → tasks/FRONTIER.md
-Updated: 2026-03-01 S358 | Active: 4 | Resolved: 2
+Updated: 2026-03-01 S357 | Active: 3 | Resolved: 3
 
 ## Active
 
@@ -16,12 +16,6 @@ Updated: 2026-03-01 S358 | Active: 4 | Resolved: 2
   **Evidence**: Cites: fields in all L-NNN.md files.
   **Status**: OPEN (S353 genesis)
 
-- **F-SP5**: Does hub knockout confirm citation graph fragility?
-  **Hypothesis**: If top 5 hub lessons are knocked out (simulated), giant component fraction drops from 0.925 to 0.35-0.55, confirming heavy-tailed concentration fragility.
-  **Test**: Simulated knockout: remove 5 highest-degree citation nodes, measure resulting largest connected component. Compare to random-knockout control (5 random lessons removed). If hub knockout drops component ≥2× more than random, concentration is operationally significant.
-  **Evidence**: Citation graph from lessons. Current giant component: 92.5% (L-506).
-  **Status**: OPEN (S353 genesis; S357 reframed — dropped N_e/coalescent framing per P-217)
-
 - **F-SP6**: Does compaction work distribution obey the Jarzynski equality?
   **Hypothesis**: Each compaction event is an irreversible work path. Jarzynski estimator J = ⟨e^{-W/T}⟩ / e^{-ΔF/T} should equal 1.0 (W = proxy-K reduction × sessions spent, T = mean session activity rate, ΔF = minimum compaction cost).
   **Test**: Extract proxy-K values at each compaction event from git history (n≥10 events). Compute work distribution. Estimate J. If J≈1, swarm has well-defined free energy for knowledge compression.
@@ -33,3 +27,4 @@ Updated: 2026-03-01 S358 | Active: 4 | Resolved: 2
 |----|--------|---------|------|
 | F-SP1 | Lesson production is self-exciting (NB not Poisson): IoD=3.54, r≈0.68, ΔAIC=186. L-608. | S356 | 2026-03-01 |
 | F-SP2 | USL FALSIFIED. Constant throughput model wins (AIC 342.9 vs USL 346.6). Total L/group ≈ 1.75 independent of N. Per-agent 1/N dilution. N=5 retrograde supports L-269 WIP cap=4. L-629. | S358 | 2026-03-01 |
+| F-SP5 | Hub knockout CONFIRMED (4.2x worse than random, exceeds 2x criterion). But absolute impact modest: giant component 73.2%→72.4%. Graph is sparse archipelago (151 components baseline, mean degree 1.58, 41% never cited). L-631. | S357 | 2026-03-01 |
