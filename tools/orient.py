@@ -212,7 +212,7 @@ def check_index_coverage(index_text):
 
 
 def check_stale_lanes(current_session: int) -> list:
-    """Find ACTIVE lanes opened in a prior session — guaranteed stall signal (L-514)."""
+    """Find ACTIVE lanes opened in a prior session — guaranteed stall signal (L-515)."""
     lanes_text = read_file("tasks/SWARM-LANES.md")
     stale = []
     for line in lanes_text.splitlines():
@@ -231,8 +231,13 @@ def check_stale_lanes(current_session: int) -> list:
             etc = cells[10] if len(cells) > 10 else ""
             artifact_m = re.search(r"artifact=([^;|]+)", etc)
             artifact = artifact_m.group(1).strip() if artifact_m else ""
-            # Check if artifact file exists
-            artifact_exists = bool(artifact) and (ROOT / artifact).exists()
+            # T3 guard (L-515): skip lesson refs (L-NNN) and directories — only check file paths
+            if artifact and re.match(r"L-\d+", artifact):
+                artifact_exists = True  # lesson ref, not a file path
+            elif artifact and (ROOT / artifact).is_dir():
+                artifact_exists = True  # directory exists
+            else:
+                artifact_exists = bool(artifact) and (ROOT / artifact).exists()
             stale.append({"lane": lane, "opened": lane_session, "artifact": artifact, "has_artifact": artifact_exists})
     return stale
 
@@ -613,7 +618,7 @@ def main():
     except Exception:
         pass
 
-    # Stale lane check — L-514: cross-session open lanes = guaranteed stall
+    # Stale lane check — L-515: cross-session open lanes = guaranteed stall
     try:
         sess_stale_m = re.search(r"S(\d+)", session)
         if sess_stale_m:
