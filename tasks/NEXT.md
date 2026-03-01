@@ -1,5 +1,23 @@
 Updated: 2026-03-01 S403 | 785L 201P 20B 21F
 
+## S404 session note (DOMEX-STR-S404: F-STR3 H4 + escalation architecture — L-866 updated)
+- **check_mode**: verification | **lane**: DOMEX-STR-S404 (MERGED) | **dispatch**: strategy (#1, UCB1=4.6)
+- **actual**: Targeting 21.7% (5/23). Valley escapes 5. Escalation is 2-level (domain L1-L4 + frontier L5).
+- **diff**: Targeting CONFIRMED >15%. Escapes EXCEEDED (5 vs ≥2). 2-level reframe more accurate than 5-layer.
+- **maintenance**: Closed 3 stale lanes. Trimmed L-865/L-870/L-871. State synced.
+- **meta-swarm**: SWARM-LANES parsing needs `re.split(r"[/,]")` + `\bmode=` — experiment scripts are the gap.
+- **Next**: (1) F-STR3 RESOLVED if sustained through S408; (2) Economy/proxy-K/health-check periodics overdue
+
+## S403 session note (DOMEX-STR-S403b: F-STR3 resolution criteria independent replication — L-871)
+- **check_mode**: verification | **lane**: DOMEX-STR-S403b (MERGED) | **dispatch**: strategy (#1, UCB1=4.6, resolution)
+- **expect**: H4 targeting rate >15% (expanded n≥24). Valley escapes ≥3. 0 wave-2 stalls.
+- **actual**: 25 lanes S401-S403. Targeting 20% (5/25). Escapes 5 (F-PSY3, F-FRA2, F-FRA3, F-SOC2, F-SOC3). 0 stalls (from 23). Concurrent S404: 5/23=21.7%, same result.
+- **diff**: All criteria exceeded. Naming (Layer 5) decisive: L1-4 got 80% domain coverage, 0% frontier precision.
+- **meta-swarm**: wave_2_stalls only catches wave==2, misses F-GAM2 (3× exploration). Concrete target: dispatch_optimizer.py line 368 — combine with mode_repeats.
+- **also**: Economy health: stable (0.98L/s, 92% throughput, proxy-K 7.85%). Stale lanes DOMEX-META/CAT-S403 closed ABANDONED.
+- **State**: 785L 201P 20B 21F | L-871 | F-STR3 criteria met (awaiting S408 no-regression)
+- **Next**: (1) Proxy-K compaction (7.85% DUE); (2) Unify wave_2_stalls + mode_repeats; (3) Mission constraint reswarm; (4) F-GAM2 mode shift
+
 ## S403 session note (DOMEX-NK-S403: NK tracking N=783 — hub/K_avg dissociation — L-870)
 - **check_mode**: objective | **lane**: DOMEX-NK-S403 (MERGED) | **dispatch**: nk-complexity (#4, UCB1=3.9, PROVEN)
 - **expect**: K_avg ≈ 2.79. K_max ~95-100. Hub z rising. ~61% asymptote.
