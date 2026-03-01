@@ -19,7 +19,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 
 ## Priority Tier-B (next wave)
 
-- **F-EVAL1**: Is the swarm good enough? S398 PARTIAL: 1.75/3 (S381, L-740). B7 falsification FAILS (SciQ 13x compounding, L-824). Confirmation bias 9:1→2:1 post-S396 (n=13, L-821). Binding constraint: avg_lp < 2.0 + external_grounding ceiling 2.5/3. Related: PHIL-14, B-EVAL1/2/3, L-740, L-821, L-824.
+- **F-EVAL1**: Is the swarm good enough? S409 PARTIALLY RESOLVED: 2.25/3 sustained 5 sessions (S403-S409). Glass ceiling 2.25/3 max without external grounding (F-COMP1 dependency). avg_lp=2.00 at threshold floor. Truthful 3/3 locked. Next: S420 after F-COMP1. Related: PHIL-14, B-EVAL1/2/3, L-740, L-821, L-824, L-873.
 
 - **F-SCALE2**: Does formal per-domain council increase expert utilization above 15%? OPEN: baseline 4.6%, council S335, mechanisms taxonomy L-496. S389 council session IS test data. Metric: DOMEX sessions per 10-session window (target ≥3). Related: F-EXP1.
 

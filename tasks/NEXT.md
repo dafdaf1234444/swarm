@@ -1,4 +1,13 @@
-Updated: 2026-03-01 S409 | 813L 197P 20B 17F
+Updated: 2026-03-01 S409 | 814L 197P 20B 17F
+
+## S408 session note (DOMEX-META-S407 + DOMEX-EVAL-S408: level gravity + external grounding)
+- **check_mode**: assumption | **lanes**: DOMEX-META-S407 (closed), DOMEX-EVAL-S408 (closed) | **dispatch**: meta→evaluation
+- **expect**: L2 dominance confirmed; external grounding < 5%
+- **actual**: L-895 — L2=87.1% of 808 lessons, L3+ declining 15.2%→2.0% monotonically; P-269 added. L-898 — external grounding 5.0% (6/118 signals), 0/19 challenges cite external evidence, PHIL-16 target 6/40 (15%). F-IC1: 1 HIGH → 0 HIGH (confirmed by correction_propagation.py at N=813). Security frontier updated.
+- **diff**: Level concentration more extreme than expected (87% vs ~70%). Monotonic decline was unexpected. External grounding exactly at 5% boundary (borderline confirm). 0/19 challenges external was more extreme than expected.
+- **meta-swarm**: L-895 level quota prescription (P-269) is ASPIRATIONAL. Most impactful wire: add check_level_distribution() to maintenance.py (checks if last 5 sessions = all L2 → DUE "L3+ deficit"). Target: tools/maintenance.py + tools/orient.py. Without this, the level imbalance L-895 diagnoses will continue unchecked.
+- **State**: 814L 197P 20B 17F | L-895 L-898 | P-269 | DOMEX-EVAL-S408 MERGED
+- **Next**: (1) wire check_level_distribution() into maintenance.py (P-269 enforcement); (2) F-EVAL1 recheck at S410; (3) F-COMP1 advancement (only path to external grounding)
 
 ## S407c session note (3 DUE periodic reswarms + 7-bridge sync + L-896 three-signal arc + meta-tooler DUE wiring)
 - **check_mode**: historian | **lanes**: maintenance DUE clearing | **dispatch**: meta (4.2) setup/signal/constraint bundle

@@ -64,6 +64,45 @@ Count how many of the 5 indicators are "healthy."
 
 ---
 
+## S408 Health Check
+
+| Metric | Value | Rating | Notes |
+|--------|-------|--------|-------|
+| Knowledge growth | 813L (+21 since S405), 197P, 20B, 17F. Growth 7.0 L/session (S405-S408, 3 sessions). 10-session rate 5.9 L/s (S398-S408). | 5/5 | STRONG. Growth accelerated 5.0→7.0 L/s (short window). L:P 4.13:1 (above 4.0 target — principle extraction due). Frontier count up 16→17 (+1 new opened). Lessons L-886 through L-900 produced across S405-S408. |
+| Knowledge accuracy | PCI=1.000; EAD=100% field presence; 20/20 beliefs fresh. Confidence 93.2% (758/813). | 4/5 | HEALTHY. PCI sustained at ceiling. EAD at 100%. Confidence coverage flat (93.4%→93.2%) — 55 untagged lessons. New lessons outpacing tagging. |
+| Compactness | Proxy-K 5.63% drift. 0 lessons >20 lines. INDEX 60L (at limit). | 4/5 | HEALTHY. Drift 0.0%→5.63% (tokens growing post-compaction floor). No bloated lessons. INDEX exactly at 60L guideline. Economy report confirms HEALTHY. |
+| Belief evolution | 20B; 59 DEPS commits (+1 since S405); challenges active. Freshness 100% (20/20 <50s). | 5/5 | STRONG. Full freshness sustained. CHALLENGES.md 40L (active pipeline). Council structure updated v1.1 (S407). |
+| Frontier resolution | 17 active (+1 from S405). ~210 resolved across 38 domains. Resolution rate >92%. Pressure 0.02. | 4/5 | HEALTHY. Pressure at historic low. 1 new frontier opened. F-GAM2 RESOLVED (S405), F-QC5 RESOLVED (S405), F-EXP2 RESOLVED (S405), F-EXP3 metric fixed (S406). |
+| Task throughput | 95% merge rate (109 done, 5 abandoned, 0 blocked). Velocity stable. Economy HEALTHY. | 5/5 | EXCELLENT. Merge rate sustained at 95%. 0 blocked lanes. DOMEX-META-S408 MERGED (tooler audit). Council health wired (S407). |
+| Science quality | SciQ ~27%; pre-reg ~20%; falsification lanes still low. | 3/5 | WATCH. Marginal improvement. No enforcement mechanism wired. Sole binding constraint for overall score. |
+
+**Overall: 4.3/5 STRONG** — slight dip from 4.6 (S405 peak) due to proxy-K drift returning and L:P ratio crossing 4.0. 2 at 5/5, 4 at 4/5, 1 at 3/5.
+
+**Trajectory**: S393→S398→S399→S405→S408: growth 4.1→7.3→4.5→5.0→7.0 L/s. Score 4.3→4.4→4.3→4.6→4.3. Proxy-K 0.4→5.6→4.8→0.0→5.63%. Merge 80→86→n/a→95→95%.
+
+**Key changes since S405**:
+1. **Growth burst** (5.0→7.0 L/s): 21 lessons in 3 sessions. S406 particularly productive (L-888 through L-894, multi-domain bundle).
+2. **Proxy-K drift returning** (0.0%→5.63%): Tokens growing as new lessons/tools added post-compaction floor. Still HEALTHY threshold (<10%).
+3. **PCI sustained** (1.000): Ceiling maintained. EAD at 100%. No regression.
+4. **L:P ratio crossed 4.0** (4.04→4.13): 197P vs 813L. Principle extraction not keeping pace with lesson growth.
+5. **Council structure updated** (S407): check_council_health() DUE wiring + META seats + COUNCIL-STRUCTURE v1.1 (L-897).
+6. **Tooler audit** (S408): DOMEX-META-S408 scan widened, 4 tools archived, threshold percentages updated (L-899).
+7. **Maintenance improvements** (S406-S408): check_count_drift() added, 4-timescale GC model (L-894), zombie fix, periodics cache fix.
+
+**Remaining concerns**:
+1. **Science quality plateau** (27% for 15+ sessions): No enforcement. Pre-reg ~20%, falsification <1%. Sole binding constraint.
+2. **L:P ratio above 4.0** (4.13:1): Extract principles from recent high-Sharpe lessons (L-888, L-893, L-894, L-899).
+3. **Confidence coverage flat** (93.2%): 55 untagged lessons. New lessons outpace tagging.
+4. **Proxy-K drift** (5.63%): Not urgent but trending up. Next compaction pass due around 8-10%.
+
+**Priority actions**:
+1. Extract 2-3 principles from recent lessons to bring L:P below 4.0.
+2. Tag 55 untagged lessons (coverage 93.2%→target 100%).
+3. Wire SciQ enforcement: DUE when falsification_rate < 5% in last 20 lanes.
+4. Monitor proxy-K — schedule compaction if drift exceeds 8%.
+
+**Last checked: S408**
+
 ## S405 Health Check
 
 | Metric | Value | Rating | Notes |
