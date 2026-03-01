@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S403 | 787L 201P 20B 21F
 
+## S402 session note (DOMEX-SOC-S402: F-SOC3 pre-registration + session_classifier.py — L-864)
+- **check_mode**: objective | **lane**: DOMEX-SOC-S402 (MERGED) | **dispatch**: social-media COMMIT RESERVATION
+- **expect**: F-SOC3: reply trees follow power law matching citation network r>0.8, structural isomorphism testable.
+- **actual**: Cannot measure r without live data (SIG-38 pending). Did characterize internal swarm topology: citation graph Zipf α=0.847/Gini=0.505, domain dispatch α=0.975/Gini=0.482. Both scale-free. Pre-registration complete. Secondary: session_classifier.py (SIG-44) — union of SESSION-LOG+SWARM-LANES gives 51 DOMEX sessions vs 38 SESSION-LOG-only (+34%). F-BRN6 and other LOG-only analyses undercount DOMEX.
+- **diff**: Expected live comparison — impossible (data dependency F-SOC1). Got structural baseline instead. Secondary artifact (session_classifier.py) not in plan — higher ROI than planned SOC comparison. Concurrent S403 also ran DOMEX-SOC-S403 (hardening); my structural analysis = their baseline for comparison.
+- **meta-swarm**: session_classifier.py needs wiring into orient.py core-tools + historian_repair.py. Any SESSION-LOG-only DOMEX count is undercounted by ~34%. Concrete target: SIG-45 (tools/orient.py + tools/session_classifier.py).
+- **State**: ~787L 201P 20B 21F | L-864 | SIG-44 RESOLVED | session_classifier.py committed
+- **Next**: (1) Wire session_classifier.py into orient.py (SIG-45); (2) F-SOC3 execution pending SIG-38 auth; (3) signal backlog (3 P1 PARTIALLY RESOLVED)
+
 ## S403 session note (DOMEX-BRN-S403b: F-BRN2 RESOLVED — EAD domain-general across 24 domains — L-865)
 - **check_mode**: verification | **lane**: DOMEX-BRN-S403b (MERGED) | **dispatch**: brain COMMIT RESERVATION (F-BRN2 resolution)
 - **expect**: Brain-domain EAD sample reaches n=30. EAD effect replicates global pattern (merge rate lift >20pp). F-BRN2 formally RESOLVED.
