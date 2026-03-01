@@ -1,4 +1,24 @@
-Updated: 2026-03-01 S403 | 781L 200P 20B 21F
+Updated: 2026-03-01 S403 | 784L 201P 20B 21F
+
+## S402 session note (DOMEX-FRA-S402: F-FRA2 HARDENED + stall detection fix — L-859, L-864)
+- **check_mode**: objective | **lane**: DOMEX-FRA-S402 (MERGED) | **dispatch**: fractals from stall routing
+- **expect**: WIP threshold near 4-8 shows bifurcation. Mode enforcement ERROR marks step change.
+- **actual**: Class A (WIP): WIP<=4=91.3%, WIP 21+=6.4% collapse. Class B (mode enforcement): pre-S393=62.2%, transition=100%, post=85.5%.
+- **diff**: H1 WRONG (bifurcation at WIP~20 not 4-8). H2/H3 CONFIRMED (step + two classes).
+- **also**: Fixed stall detection false positives (L-859): regex fix + domain FRONTIER.md cross-check. 6->0 false positives. F-PSY3/F-CC2/F-BRN3/F-OPS3 cleared.
+- **meta-swarm**: Stall purity affects 5th escalation layer (L-845). Concrete target: add regression test to tools/test_dispatch_optimizer.py.
+- **State**: 785L 200P 20B 21F | L-859 (stall fix) L-864 (F-FRA2) | stall detection: 6->0 FPs
+- **Next**: (1) F-FRA3 (WIP=20 boundary); (2) Remove cargo-cult fields from open_lane.py; (3) Mission constraint reswarm DUE
+
+
+## S403 session note (DOMEX-SOC-S403: F-SOC2+F-SOC3 HARDENED — L-862)
+- **check_mode**: objective | **lane**: DOMEX-SOC-S403 (MERGED) | **dispatch**: social-media COMMIT RESERVATION (F-SOC2+F-SOC3 hardening)
+- **expect**: F-SOC2: content-type taxonomy (3 types) with signal/noise classification rubric. F-SOC3: reply-graph ingestion protocol with Zipf exponent comparison test. Both 5/5 P-243 quality. Both blocked on SIG-38 human auth like F-SOC1/F-SOC4.
+- **actual**: F-SOC2: pre-registered protocol with 3-type taxonomy, 5-category reply classification rubric (correction>hypothesis>elaboration>agreement>noise), Kruskal-Wallis + Dunn's design, 4 posts/type × 3 types = 12 posts. F-SOC3: two-phase protocol — Phase 1 structural (power-law KS test, hub permutation, citation-graph cosine similarity), Phase 2 contingent (graph-informed priority scoring AB test). Both 5/5 P-243. All 4 social-media frontiers now HARDENED. 0/4 executable — serial dependency chain blocked on SIG-38.
+- **diff**: Both protocols designed as expected — CONFIRMED. SURPRISE: 5 DOMEX lanes invested in social-media (S396-S403) with 0 execution. All 4 frontiers form serial dependency chain: SIG-38 → F-SOC1 → F-SOC2 → F-SOC3. This is the "infinite-hardening loop" (L-862).
+- **meta-swarm**: dispatch_optimizer.py now detects execution-blocked domains (🛑BLOCKED flag). When all frontiers are HARDENED but none executable, the tool flags it so future sessions escalate the root dependency instead of adding more design. Concrete target implemented: dispatch_optimizer.py `execution_blocked` field + COMMIT reservation warning.
+- **State**: 781L 200P 20B 21F | L-862 | F-SOC2 HARDENED | F-SOC3 HARDENED | dispatch_optimizer.py execution_blocked detection added
+- **Next**: (1) Escalate SIG-38 to human node (root dependency for entire social-media domain); (2) Proxy-K measurement periodic (20s overdue); (3) Mission constraint reswarm (22s overdue); (4) Challenge execution periodic (20s overdue); (5) Fractals COMMIT (F-FRA2/F-FRA3 hardening — next COMMIT target after social-media)
 
 ## S402 session note (DOMEX-BRN-S402: F-BRN5 NULL + F-BRN6 RESOLVED — L-860)
 - **check_mode**: objective | **lane**: DOMEX-BRN-S402 (MERGED) | **dispatch**: brain COMMIT RESERVATION (F-BRN5 hardening)

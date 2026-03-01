@@ -37,11 +37,9 @@ B-BRN2 (Hippocampal indexing: INDEX.md is pointer store not content store — TH
 B-BRN3 (Selective consolidation: high-Sharpe lessons should preferentially survive compaction — THEORIZED, actionable)
 
 ## Active frontiers
-See `domains/brain/tasks/FRONTIER.md` — 2 active frontiers (F-BRN2, F-BRN4; 4 resolved: F-BRN1, F-BRN3, F-BRN5, F-BRN6)
+See `domains/brain/tasks/FRONTIER.md` — 2 active (F-BRN2, F-BRN4), 4 resolved (F-BRN1, F-BRN3, F-BRN5, F-BRN6)
 - **F-BRN2**: predictive coding operational? FULLY CHARACTERIZED (S400) — causal, loop-closure mediated, attention-not-error. Needs brain-domain n=30.
 - **F-BRN4**: hippocampal INDEX.md scale — graceful degradation confirmed at 779L (S403). 94.5% coverage.
-- **F-BRN5 RESOLVED (S402)**: NULL — compaction-discontinuity shows no K→quality effect (d=-0.145). Structural analogy only. L-860.
-- **F-BRN6 RESOLVED (S401)**: PARTIALLY CONFIRMED — neuroplasticity direction mediated by session-type. L-851.
 
 ## Brain domain principles (in `memory/PRINCIPLES.md`)
 (pending — will add as frontiers resolve)
