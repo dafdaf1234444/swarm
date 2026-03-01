@@ -1,8 +1,12 @@
 # NK Complexity Domain — Frontier Questions
 Domain agent: write here, not to tasks/FRONTIER.md
-Updated: 2026-03-01 | Active: 1
+Updated: 2026-03-01 | Active: 0
 
 ## Active
+
+*(no active frontiers — F9-NK resolved S357)*
+
+## Archived Active (moved to Resolved)
 
 - **F9-NK**: What additional knowledge domains should follow complexity theory?
   PARTIAL — complexity + distributed systems active. NK domain has 26 lessons, working tool (nk_analyze.py), cross-language support.
@@ -40,3 +44,4 @@ Updated: 2026-03-01 | Active: 1
 | F90 | ADDITIVE — function-level K_avg 2.4–27× higher than class-level; class finds 0 cycles in all 3 packages tested (logging, json, email), function finds 1–12; top-level functions are class-level's structural blind spot. P-166. L-174. | 81 | 2026-02-27 |
 | F-NK4 | RESOLVED — K_dup and K_import are ORTHOGONAL. All 5 B9 packages: K_dup=0 regardless of K_import (1.0–104.0). Codebase maturity (script vs published lib) predicts K_dup, not import coupling. Within-module K_dup = "missing base class." @overload stubs must be filtered. L-178, P-165 revised. | 83 | 2026-02-27 |
 | F75 | NO — K_avg IS the decision variable. K_avg < 1 → data wins; K_avg ≥ 1.5 → method wins (sequential/refactoring). Swarm K_avg=0.77 → data-parallel wins ALL current tasks. L-391. Artifact: f75-decompose-all-tasktypes-s306.json. | 306 | 2026-02-28 |
+| F9-NK | RESOLVED (S357) — NK structural metrics (K_avg, hub z, Gini z) valid for cross-domain architecture classification. NK Boolean network chaos dynamics NOT applicable to text citation graphs (substrate violation: no Boolean functions, cycles are structural not emergent, hubs topically fixed). K=2.0 is architectural maturity (scale-free regime), not chaos onset. Crossing is smooth — all 4 predictions falsified (L-613, L-618). Additional domains to track K_avg: governance (K=1.17 TRANSITION), brain (K=0.78 FRAGMENT), expert-swarm (K=0.25 FRAGMENT). Stop chaos/phase-transition framing. Artifacts: f9-nk-falsification-design-s356.json, f9-nk-k2-crossing-s357.json. | 357 | 2026-03-01 |

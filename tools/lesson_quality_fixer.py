@@ -96,8 +96,12 @@ def load_lesson(path: Path) -> dict:
     cites_match = re.search(r"^Cites:\s*(.+)", content, re.MULTILINE)
     lesson["cites_header"] = cites_match.group(1).strip() if cites_match else None
 
-    # All L-NNN references in body
-    lesson["body_lesson_refs"] = set(re.findall(r"\bL-(\d+)\b", content))
+    # All L-NNN references in body (exclude range notation like "L-0..L-50")
+    raw_refs = set(re.findall(r"\bL-(\d+)\b", content))
+    # Filter out refs that are part of range notation (L-N..L-M)
+    range_refs = set(re.findall(r"\bL-(\d+)\.\.", content))
+    range_refs |= set(re.findall(r"\.\.\s*L-(\d+)\b", content))
+    lesson["body_lesson_refs"] = raw_refs - range_refs
     # Remove self-reference
     own_num = re.search(r"\d+", lesson["id"])
     if own_num:

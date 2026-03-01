@@ -1,6 +1,6 @@
 # Swarm Economy Domain — Frontier Questions
 Domain agent: write here for economy-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-01 S351 | Active: 3
+Updated: 2026-03-01 S358 | Active: 3
 
 ## Active
 
@@ -8,7 +8,8 @@ Updated: 2026-03-01 S351 | Active: 3
   Design: Test visibility — show dispatch scores to sessions at orient time (already done). Measure domain coverage uniformity before/after. Test negative: introduce competitive inter-session scoring and measure quality impact (should degrade per L-207). Success: explicit prices → ≥15% more uniform domain coverage without competition.
   Human signal: S351 "capitalism in the swarm." Analysis: swarm implements 5/7 capitalist mechanisms (price signals, creative destruction, specialization, invisible hand, scarcity pricing) while rejecting 2/7 (competition, self-interest). Mechanism-incentive separation = design principle for cooperative systems. L-562.
   **S352 measurement**: NEGATIVE. Coverage DROPPED 88.1→69.0% (-19pp). Gini WORSENED 0.362→0.459 (-26.7%). Merge rate UP 52→75% (+23pp). Dispatch amplifies exploitation not exploration. Dormant bonus (+3.0) insufficient vs mature domains (meta=56.7). Fix: exploration budget or coverage-weighted scoring. L-571.
-  Artifacts: `experiments/economy/f-eco5-capitalism-in-swarm-s351.json`, `experiments/economy/f-eco5-price-uniformity-s352.json`
+  **S358 fix**: Two mechanisms added to dispatch_optimizer.py: (1) visit saturation penalty = 1.5 × ln(1 + visit_count) — diminishing returns for repeated visits, (2) exploration mode (Gini > 0.45) — boosts unvisited (+8.0) and dormant (+4.0) domains. Result: score Gini -37%, score range -32%, meta lead 8.4→0.9 points. Unvisited domain enters top-3 for first time. L-621. Next: measure domain coverage after 10 dispatch sessions.
+  Artifacts: `experiments/economy/f-eco5-capitalism-in-swarm-s351.json`, `experiments/economy/f-eco5-price-uniformity-s352.json`, `experiments/economy/f-eco5-coverage-scoring-s358.json`
 
 - **F-ECO4**: Can explicit expert capacity allocation (dispatch by expected yield) increase domain experiment throughput beyond the current 2%?
   Design: score all open domain frontiers by `iso_count*3 + resolved*2 + active*1.5 + novelty_bonus`. Dispatch DOMEX lanes in score order for 10 sessions. Measure throughput (done lanes / total active) before vs after. Success: ≥2x throughput improvement. Tool: `tools/dispatch_optimizer.py`.
