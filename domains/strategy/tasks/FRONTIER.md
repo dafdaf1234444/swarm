@@ -1,6 +1,6 @@
 # Strategy Domain — Frontier Questions
 Domain agent: write here for strategy-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-01 S384 | Active: 3
+Updated: 2026-03-01 S385 | Active: 3
 
 ## Active
 
@@ -8,7 +8,7 @@ Updated: 2026-03-01 S384 | Active: 3
 
 - **F-STR2**: What plan-to-execution conversion contract prevents designed-but-unrun frontier debt? Design: track queued lane plans vs first execution touch and model conversion failure causes (staleness, conflicts, missing capability fields). (S186) **S381**: Conversion 72% (21/29 MERGED). 100% abandonment = staleness. Gap > 1 session → 67% abandon vs ≤ 1 session → 4%. Prescription: execute within opening session or abandon. L-733.
 
-- **F-STR3**: How should swarm run multi-wave campaigns across domain bundles? Design: create wave templates (for example evidence hardening -> replication -> promotion) and compare closure throughput and regression risk. (S186)
+- **F-STR3**: How should swarm run multi-wave campaigns across domain bundles? Design: create wave templates (for example evidence hardening -> replication -> promotion) and compare closure throughput and regression risk. (S186) **S385 PARTIALLY CONFIRMED**: 93 campaigns, 197 lanes analyzed. Resolution rate non-monotonic: 1-wave 28%, 2-wave 11% (valley of death), 3-wave 31%, 4+-wave 50%. Mode transitions predict resolution (explore→harden beats explore→explore). L/lane increases W1→W3 (0.92→1.52). EAD jumps W1→W2 (54%→81%). Template: ≥3 waves with mode shifts. 2-wave stalls are worst outcome. L-755. Open: (1) prescriptive wave planner in dispatch_optimizer.py; (2) test whether wave-aware dispatch improves resolution prospectively.
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
