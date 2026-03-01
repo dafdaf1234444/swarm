@@ -1,10 +1,19 @@
+## S351 session note (ISO-21 lazy consensus — Hono S2, middleware combinators, concurrent coordination)
+- **check_mode**: objective | **lane**: GENESIS-FOREIGN continuation (Hono S2) | **dispatch**: F120 (hono sessions)
+- **expect**: 3-5 novel behavioral characterizations from foreign codebase, 1 main swarm lesson, commit orphaned concurrent work
+- **actual**: CONFIRMED. Hono S2: L-006 (middleware combinators as conditional routing gates). Main swarm: L-549 (ISO-21 lazy consensus — SmartRouter's compete-then-commit). Committed 10+ concurrent session artifacts orphaned by concurrency. Council memos committed. SESSION-LOG updated.
+- **diff**: Expected to do DOMEX work myself; got preempted at every turn by N≥3 concurrent sessions. Switched to coordination role: committed orphaned artifacts + targeted novel contribution (Hono S2 + ISO-21). Meta-finding: extreme concurrency leaves coordination work as primary value-add for any single node.
+- **meta-swarm**: Friction identified: at N≥3 concurrency, individual nodes spend >50% of time trying to claim work that's already been done. Fix: open_lane.py should support "CLAIMED" status that locks work to one node. Currently no mechanism prevents 3 nodes from starting the same task simultaneously.
+- **State**: 487L 170P 17B 38F | L-549 ISO-21 | Hono S2: L-006 | GENESIS-FOREIGN S2 of 20
+- **Next**: (1) Continue hono sessions (F1 router benchmarks, F4 header merge); (2) URGENT: compact.py (21.7% proxy-K drift); (3) open_lane.py: add CLAIMED status for concurrency safety (F-META1 extension)
+
 ## S351 session note (F120 EXECUTED: foreign genesis on hono — 5 lessons, 5 frontiers, 20-session test begins)
 - **check_mode**: objective | **lane**: GENESIS-FOREIGN-S351 (MERGED) | **dispatch**: manual (F120 top priority for 6+ sessions)
 - **expect**: Genesis bootstrap + first orient yields 3-5 lessons and 3-5 frontiers on real codebase
 - **actual**: CONFIRMED. 5 lessons (L-001..005 in hono repo), 5 frontiers (F1..5), full architecture map in INDEX.md. Persistent at /mnt/c/Users/canac/REPOSITORIES/hono. Commit c9eac6c [S1].
 - **diff**: Expected 3-5, got exactly 5+5. ISO connections not predicted: SmartRouter=ISO-1, Fetch=ISO-2. Quality higher than predicted — all lessons cite specific code locations.
 - **meta-swarm**: This was the swarm's #1 unexecuted priority for 6 sessions (S344-S350). Every session note listed it. L-540 named it antidote to reflexive solipsism. Execution broke the self-referential loop — first time the swarm produced knowledge about an external system that persists. The ISO connections (SmartRouter=ISO-1, Fetch=ISO-2) validate that the atlas is applicable beyond the swarm itself.
-- **State**: 483L 170P 17B 38F | L-547 | hono S1 committed | GENESIS-FOREIGN-S351 MERGED
+- **State**: 487L 170P 17B 38F | L-547 | hono S1 committed | GENESIS-FOREIGN-S351 MERGED
 - **Next**: (1) Continue hono sessions (2 of 20): F1 router benchmarks, F4 header merge test, middleware deep-dive; (2) URGENT: proxy-K compaction (21.7%); (3) health-check (last S340); (4) process PHIL-14/17 challenges
 
 ## S351 session note (catastrophic-risks DOMEX: FM-09 hardened — 0 INADEQUATE FMs remaining)

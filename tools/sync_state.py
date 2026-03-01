@@ -52,10 +52,13 @@ def _git(*args):
     return r.stdout.strip()
 
 
-def _session_number() -> int:
-    log = _git("log", "--pretty=format:%s", "-200")
-    sessions = re.findall(r"\[S(\d+)\]", log)
-    return max((int(s) for s in sessions), default=0)
+try:
+    from swarm_io import session_number as _session_number
+except ImportError:
+    def _session_number() -> int:
+        log = _git("log", "--pretty=format:%s", "-200")
+        sessions = re.findall(r"\[S(\d+)\]", log)
+        return max((int(s) for s in sessions), default=0)
 
 
 def count_lessons() -> int:

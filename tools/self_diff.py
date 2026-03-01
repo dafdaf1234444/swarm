@@ -45,20 +45,16 @@ STATE_FILES = [
 ]
 
 
-def _current_session() -> int:
-    """Get session number from recent git log."""
-    try:
-        r = subprocess.run(
-            ["git", "log", "--oneline", "-10"],
-            capture_output=True, text=True, cwd=ROOT,
-        )
+try:
+    from swarm_io import session_number as _current_session
+except ImportError:
+    def _current_session() -> int:
+        r = subprocess.run(["git", "log", "--oneline", "-10"], capture_output=True, text=True, cwd=ROOT)
         for line in r.stdout.splitlines():
             m = re.search(r"\[S(\d+)\]", line)
             if m:
                 return int(m.group(1))
-    except Exception:
-        pass
-    return 0
+        return 0
 
 
 def _count_artifacts() -> dict:
