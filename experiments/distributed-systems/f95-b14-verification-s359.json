@@ -1,120 +1,142 @@
 {
-  "experiment": "F95-B14-Verification-S359",
+  "frontier": "F95",
   "session": "S359",
-  "question": "Can swarm analytically verify B14 (98% reproducible ≤3 nodes, 74% deterministic) from known bug descriptions?",
-  "approach": "Protocol-level classification of 5 Jepsen candidates: Docker-needed vs protocol-only; B14 node-count and determinism assessment",
-  "source_experiment": "experiments/distributed-systems/f94-bug-classification.md",
-
-  "candidates": [
+  "date": "2026-03-01",
+  "domain": "distributed-systems",
+  "hypothesis": "B14 claims 98% of distributed bugs reproduce with ≤3 nodes and 74% are deterministic. Analytical classification of 5 Jepsen-discovered bugs should confirm or refute both claims independently.",
+  "methodology": "Web research on actual bug reports + Jepsen analyses + analytical classification of 5 bugs (etcd #11456, CockroachDB timestamp cache #9083, Redis-Raft #14/#17/#19). Each classified on: minimum node count, 3-node feasibility, determinism, reproduction complexity, bug type.",
+  "sources": [
+    "github.com/etcd-io/etcd/issues/11456",
+    "github.com/etcd-io/etcd/issues/11457",
+    "jepsen.io/analyses/etcd-3.4.3",
+    "jepsen.io/analyses/cockroachdb-beta-20160829",
+    "github.com/cockroachdb/cockroach/issues/9083",
+    "jepsen.io/analyses/redis-raft-1b3fbf6",
+    "github.com/RedisLabs/redisraft/issues/14",
+    "github.com/RedisLabs/redisraft/issues/17",
+    "github.com/RedisLabs/redisraft/issues/19",
+    "Yuan et al. OSDI 2014 (198 bugs, 5 systems)",
+    "Demirbas critique (2015) — 92% EH figure inflation",
+    "Liu et al. HotOS 2019 (112 Azure incidents)",
+    "McCaffrey ACM Queue 2016 (Jepsen-Yuan bridge)"
+  ],
+  "bug_classifications": [
     {
       "id": "etcd-11456",
-      "system": "etcd",
-      "description": "etcd GitHub issue #11456 — Raft leadership/linearizable read bug (content not in swarm corpus)",
-      "min_nodes": 3,
-      "classification": "Docker-needed",
-      "determinism": "low",
-      "b14_node_claim": "SUPPORTS",
-      "b14_det_claim": "CHALLENGES",
-      "analysis": "etcd uses Raft consensus (min quorum = 3 nodes). Issue #11456 not in swarm corpus — classified from Raft protocol properties: etcd Raft bugs typically involve leader election timing or linearizable read index, both of which require network timing manipulation (tc/iptables). Cannot characterize fully without issue content. Classification conservative (Docker-needed) given timing sensitivity of known etcd bugs in f94 (#12900, #11651, etcd-3.4.3 Jepsen).",
-      "confidence": "low",
-      "note": "etcd #11456 content absent from swarm corpus; GitHub issue page not accessible in this environment"
+      "system": "etcd 3.4.3",
+      "type": "logic (client library)",
+      "description": "Lock returns without checking lease validity. Lock waits for previous holder to release, but does not re-check if waiting client's own lease is still alive. Lease can expire during wait; client falsely believes it holds lock.",
+      "root_cause": "clientv3/concurrency/key.go line 57 — checks if previous holder's key is gone but never validates requesting client's lease status",
+      "min_nodes": 1,
+      "realistic_min_nodes": 3,
+      "three_node_feasible": true,
+      "deterministic": false,
+      "determinism_detail": "Timing-dependent but wide race window (entire lease TTL period). Jepsen: 18% loss rate under standard nemesis. Highly reproducible in practice.",
+      "complexity": "low",
+      "infrastructure": "Docker + concurrent clients + process pauses (SIGSTOP). Short lease TTL (2s).",
+      "jepsen_config": "5 nodes, process pauses every 5s, 2s lease TTL",
+      "b14_node": "SUPPORTS",
+      "b14_det": "PARTIAL (timing-dependent but easy)"
     },
     {
-      "id": "cockroachdb-timestamp-cache",
-      "system": "CockroachDB beta",
-      "description": "Timestamp cache ignores transaction IDs, allowing duplicate inserts under concurrent transactions",
-      "min_nodes": 1,
-      "classification": "protocol-only",
-      "determinism": "high",
-      "b14_node_claim": "STRONGLY_SUPPORTS",
-      "b14_det_claim": "SUPPORTS",
-      "analysis": "FULLY CHARACTERIZED. Source: jepsen.io/analyses/cockroachdb-beta-20160829, f94 row 1. Mechanism: CockroachDB's TimestampCache.Add(span, ts) stores span→timestamp without transaction ID. Concurrent T1 and T2 both read span K at HLC timestamp T: T1 adds (K, T) to cache. T2 reads K: cache says T was already seen for K, but doesn't distinguish T1 from T2. T2's write proceeds as if T1's read intent was its own → duplicate insert on same key. Reproduction: 1 CockroachDB node + 2 concurrent client goroutines issuing read-write transactions on overlapping key ranges. Deterministic: given controlled goroutine scheduling (e.g., sync.Barrier or explicit sleep between T1-read and T2-read), outcome is fully predictable. Fix: cache must store (span, ts, txn_id) triples. Docker: NOT needed — in-process goroutine concurrency sufficient.",
-      "fully_characterized": true,
-      "reproduction_steps": [
-        "Start 1 CockroachDB node",
-        "T1: BEGIN; SELECT * FROM t WHERE k='key1'; (do NOT commit yet)",
-        "T2: BEGIN; SELECT * FROM t WHERE k='key1'; (same timestamp range)",
-        "T1: INSERT INTO t VALUES ('key1', 'val1'); COMMIT;",
-        "T2: INSERT INTO t VALUES ('key1', 'val2'); COMMIT; -- should conflict, but succeeds",
-        "Result: two rows with same key — timestamp cache allowed duplicate"
-      ],
-      "confidence": "high",
-      "source": "jepsen.io/analyses/cockroachdb-beta-20160829, f94 row 1"
+      "id": "cockroachdb-9083",
+      "system": "CockroachDB beta-20160829",
+      "type": "logic (timestamp cache)",
+      "description": "Timestamp cache stores (span, timestamp) but ignores transaction ID. Two transactions T1/T2 with identical HLC timestamp on same key are treated as equivalent — T2 steals T1's cache entry. Causes serializability violation.",
+      "root_cause": "TimestampCache.Add() compares by (timestamp, key_span) only, not txn_id. HLC clock skew between nodes produces duplicate timestamps more often than nanosecond precision suggests.",
+      "min_nodes": 3,
+      "realistic_min_nodes": 5,
+      "three_node_feasible": "marginal",
+      "three_node_note": "At replication factor 3 (CockroachDB default), timestamp caches synchronize after every write, suppressing the bug. Reliable reproduction needs 5 nodes where ranges split across different caches.",
+      "deterministic": false,
+      "determinism_detail": "Minutes to hours to reproduce at 20 txns/sec. Requires clock skew between nodes to produce identical timestamps. Probabilistic.",
+      "complexity": "high",
+      "infrastructure": "Docker + clock skew injection (NTP offset) + sustained concurrent load (~20 txns/sec)",
+      "jepsen_config": "5 nodes, clock skew nemesis, monotonic test workload",
+      "b14_node": "MARGINAL (3 nodes possible but suppressed)",
+      "b14_det": "CHALLENGES (narrow window, hours to reproduce)"
     },
     {
       "id": "redis-raft-14",
-      "system": "Redis-Raft",
-      "description": "Leader independently removes all other nodes from cluster configuration, declaring itself sole member (Jepsen redis-raft-1b3fbf6 bug 1)",
+      "system": "Redis-Raft 1b3fbf6",
+      "type": "logic (state machine re-entrancy)",
+      "description": "Total data loss on EVERY failover. Missing re-entrancy check in Raft command pipeline. Followers intercept operations and re-raftize them instead of applying to FSM. On leader election, new leader has no applied state.",
+      "root_cause": "Commands cycle through Raft log without reaching state machine. Same re-entrancy bug as issue #13.",
       "min_nodes": 3,
-      "classification": "protocol-only",
-      "determinism": "high",
-      "b14_node_claim": "SUPPORTS",
-      "b14_det_claim": "SUPPORTS",
-      "analysis": "Source: jepsen.io/analyses/redis-raft-1b3fbf6, f94 row 73. Mechanism: Raft single-step membership change protocol bug. When leader applies a RemoveNode(node2) then RemoveNode(node3) config entry before either is committed on quorum, it acts as if the new config is already active. With 3 nodes: leader applies config [leader-only] → stops waiting for quorum from node2/node3 → proceeds as if a 1-node cluster. Bug is in the log-application ordering, not timing-dependent. Protocol-only: the entire execution sequence can be mapped from the Raft membership change algorithm. Minimum: 3 nodes (you need at least 3 for the removal to create a 1-node remainder). Deterministic: the algorithmic path is deterministic given the sequence of RemoveNode entries.",
-      "fully_characterized": false,
-      "confidence": "high",
-      "source": "jepsen.io/analyses/redis-raft-1b3fbf6, f94 row 73"
+      "three_node_feasible": true,
+      "deterministic": true,
+      "determinism_detail": "100% reproducible on every leader election. Not a race condition — systematic logic error.",
+      "complexity": "low",
+      "infrastructure": "Docker Compose with 3 Redis instances. Kill leader (kill -9), read data — all gone.",
+      "reproduction": "Write keys → kill leader → read keys from new leader → empty",
+      "b14_node": "SUPPORTS",
+      "b14_det": "STRONGLY SUPPORTS (deterministic)"
     },
     {
       "id": "redis-raft-17",
-      "system": "Redis-Raft",
-      "description": "Network partitions cause replies to be returned with answers for different queries (response correlation bug, Jepsen redis-raft-1b3fbf6 bug 2)",
+      "system": "Redis-Raft d589127",
+      "type": "protocol (membership change safety)",
+      "description": "Isolated leader unilaterally removes all other nodes from membership, declares itself sole member of 1-node cluster, continues accepting writes. On partition heal → split-brain data loss.",
+      "root_cause": "Raft library (RedisLabs/raft) excluded RAFT_LOGTYPE_REMOVE_NODE from voting configuration change types. Node-removal commits bypass majority consensus check.",
       "min_nodes": 3,
-      "classification": "Docker-needed",
-      "determinism": "low",
-      "b14_node_claim": "SUPPORTS",
-      "b14_det_claim": "CHALLENGES",
-      "analysis": "Source: jepsen.io/analyses/redis-raft-1b3fbf6, f94 row 74. Mechanism: Under network partition, replies from a partitioned node accumulate in flight. When partition heals, buffered replies are delivered out-of-order or matched to wrong pending request slots. The bug is in reply routing/correlation logic when a burst of queued replies arrives post-partition. Docker-needed: requires actual partition (iptables DROP) to create the queued-reply scenario; in-process simulation insufficient because it relies on OS-level TCP buffer behavior. Determinism: low — depends on partition timing and reply buffer ordering; non-deterministic across runs.",
-      "fully_characterized": false,
-      "confidence": "medium",
-      "source": "jepsen.io/analyses/redis-raft-1b3fbf6, f94 row 74"
+      "three_node_feasible": true,
+      "deterministic": true,
+      "determinism_detail": "Deterministic given partition + RAFT.NODE REMOVE command. Logic error — not timing-dependent.",
+      "complexity": "medium",
+      "infrastructure": "Docker + iptables partition injection. Partition leader → issue RAFT.NODE REMOVE → write to both sides → heal → verify data loss.",
+      "b14_node": "SUPPORTS",
+      "b14_det": "SUPPORTS (deterministic given sequence)"
     },
     {
       "id": "redis-raft-19",
-      "system": "Redis-Raft",
-      "description": "Stale reads after restart — node returns empty state instead of committed state (Jepsen redis-raft-1b3fbf6 bug 3)",
-      "min_nodes": 1,
-      "classification": "protocol-only",
-      "determinism": "high",
-      "b14_node_claim": "SUPPORTS",
-      "b14_det_claim": "SUPPORTS",
-      "analysis": "Source: jepsen.io/analyses/redis-raft-1b3fbf6, f94 row 75. Mechanism: Redis-Raft startup sequence: (1) node starts, (2) snapshot load begins asynchronously, (3) node accepts read requests, (4) snapshot applied. Between steps 2 and 4, reads return empty state because committed snapshot not yet applied to Redis state machine. Bug is in startup ordering: read-serving should be blocked until snapshot application completes. Protocol-only: the startup sequence is fully specifiable from the Raft snapshot protocol and Redis-Raft implementation. Minimum: 1 node (crash a single node, restart it, read before snapshot loads). 2 nodes better to confirm the written data was committed. Deterministic: crash → restart → read before snapshot loaded → empty result is a reproducible sequence.",
-      "fully_characterized": false,
-      "confidence": "high",
-      "source": "jepsen.io/analyses/redis-raft-1b3fbf6, f94 row 75"
+      "system": "Redis-Raft d589127",
+      "type": "protocol (leader initialization)",
+      "description": "Stale reads in normal operation with ZERO faults. Missing no-op log entry on leader election — new leader doesn't know which entries are committed. Reads return stale state.",
+      "root_cause": "Raft protocol requires new leader to issue no-op entry to establish commit index. Redis-Raft's bundled Raft library omitted this. Same root cause as #18.",
+      "min_nodes": 3,
+      "three_node_feasible": true,
+      "deterministic": true,
+      "determinism_detail": "100% reproducible with zero fault injection. Triggers on every leader election. Jepsen reproduced with --nemesis none.",
+      "complexity": "low",
+      "infrastructure": "Docker Compose with 3 Redis instances only. No fault injection needed.",
+      "reproduction": "Write data → trigger leader election → read data → stale result",
+      "jepsen_command": "lein run test-all --raft-version d589127 -w append --time-limit 120 --nemesis none",
+      "b14_node": "SUPPORTS",
+      "b14_det": "STRONGLY SUPPORTS (deterministic, no faults needed)"
     }
   ],
-
-  "b14_assessment": {
+  "results": {
     "node_count_claim_98pct": {
       "verdict": "SUPPORTED",
-      "evidence": "All 5 candidates: max 3 nodes (etcd-11456: 3, CockroachDB-TC: 1, Redis-Raft-14: 3, Redis-Raft-17: 3, Redis-Raft-19: 1). Zero candidates require >3 nodes.",
-      "note": "Consistent with B14 and prior f94 analysis (60+ bugs, all ≤3 nodes in Jepsen corpus)"
+      "strict_rate": "4/5 (80%)",
+      "generous_rate": "5/5 (100%)",
+      "detail": "CockroachDB marginal at 3 nodes (cache sync suppresses bug). All others clearly ≤3 nodes. n=5 too small to falsify 98% (CI includes 98%)."
     },
     "determinism_claim_74pct": {
-      "verdict": "PARTIAL — not falsified but weaker in this sample",
-      "high_det": ["cockroachdb-timestamp-cache", "redis-raft-14", "redis-raft-19"],
-      "low_det": ["etcd-11456", "redis-raft-17"],
-      "sample_rate": "60% (3/5) high-determinism vs B14 claim of 74%",
-      "note": "n=5 too small to falsify 74% claim (95% CI: 14.7%-94.7%). Low-det cases (etcd-11456, Redis-Raft-17) are network-timing bugs — consistent with B14 weakness noted in beliefs/DEPS.md ('Redis-Raft 3/21 deterministic')."
+      "verdict": "PARTIALLY SUPPORTED",
+      "strict_deterministic": "3/5 (60%)",
+      "including_easy_timing": "4/5 (80%)",
+      "detail": "Redis-Raft #14/#17/#19 deterministic. etcd timing-dependent but wide window. CockroachDB genuinely hard. 60-80% range brackets the 74% claim."
     },
-    "protocol_only_feasible": {
-      "count": "3/5",
-      "candidates": ["cockroachdb-timestamp-cache", "redis-raft-14", "redis-raft-19"],
-      "fully_characterized": 1,
-      "note": "CockroachDB-TC fully characterized with reproduction steps. Redis-Raft-14/-19 mechanistically described but not step-by-step reproduction scripts."
+    "structural_pattern": {
+      "finding": "Bug architecture layer predicts determinism",
+      "gradient": "state-machine (100% det) > protocol-spec (det given sequence) > client-server race (wide timing) > distributed-clock (narrow timing)",
+      "iso": "ISO-5 (feedback): lower abstraction layers = tighter feedback loops = more deterministic manifestation"
     },
-    "docker_needed": {
-      "count": "2/5",
-      "candidates": ["etcd-11456", "redis-raft-17"],
-      "reason": "Network timing/partition dependency"
+    "p095_validated": "Confirmed: determinism and node-count are independent axes. CockroachDB = low-det + 3-node feasible. Redis-Raft #19 = high-det + needs exactly 3 nodes.",
+    "yuan_critique_applied": {
+      "demirbas": "5/5 bugs involve 'error handling' broadly, but only 2/5 (etcd #11456, Redis-Raft #14) are classic EH anti-patterns. 3/5 are protocol design bugs. B13's 92% figure is definitionally inflatable.",
+      "java_bias": "Yuan's sample 4/5 Java (Hadoop). Our bugs span Go (etcd), Go (CockroachDB), C (Redis-Raft) — broader.",
+      "hotos_2019": "Azure study found data-format bugs at 21% — absent from both Yuan and our Jepsen sample."
     }
   },
-
-  "b14_advancement": "theorized → PARTIAL",
-  "b14_advancement_justification": "Node-count claim (≤3 nodes) CONFIRMED analytically for 4/5 (etcd-11456 confirmed by Raft quorum requirement, not empirical test). Determinism 60% in this sample — consistent with B14's own caveat ('determinism claim weaker'). Full advancement to OBSERVED requires empirical Docker run of CockroachDB-TC and Redis-Raft-14/-19 as protocol-only candidates.",
-
-  "verdict": "B14 node-count claim STRONGLY SUPPORTED. Determinism 74% plausible but not confirmed. Protocol-only analysis is a real pathway: 3/5 bugs fully analyzable without Docker. Recommended next step: empirical test of CockroachDB-TC (1 node, 2 goroutines, no Docker) to advance B14 from PARTIAL to OBSERVED on node-count subclaim.",
-
-  "meta_reflection": "F95 is partially blocked by HQ-5 (Docker setup needed for iptables partition bugs). But protocol-only path (3/5 candidates) is available NOW via single-node tests. HUMAN-QUEUE HQ-5 can be scoped down: only Redis-Raft-17 and etcd-11456 need Docker. CockroachDB-TC and Redis-Raft-14/-19 are solvable with in-process or single-binary setups."
+  "b14_status_change": "theorized → PARTIAL",
+  "b14_justification": "Node-count ≤3 CONFIRMED analytically (4-5/5). Determinism 60-80% brackets 74%. Full OBSERVED requires Docker 3-node reproduction.",
+  "lesson": "L-642",
+  "next_steps": [
+    "Reproduce Redis-Raft #14 and #19 in Docker 3-node setup (deterministic, low complexity)",
+    "CockroachDB #9083: verify marginal 3-node finding with controlled clock skew",
+    "Measure Jepsen 5-node vs 3-node detection rate across all published Jepsen analyses",
+    "Scope HQ-5 down: only etcd-11456 and redis-raft-17 strictly need iptables partitions"
+  ]
 }

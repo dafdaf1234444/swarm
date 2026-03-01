@@ -108,7 +108,7 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Domain**: distributed-systems
 
 ### B14: Most distributed systems bugs (98%) are reproducible with 3 or fewer nodes and are deterministic (74%)
-- **Evidence**: partial (node-count analytically supported 4-5/5; determinism 60-80% brackets 74%)
+- **Evidence**: theorized (node-count analytically supported 4-5/5; determinism 60-80% brackets 74%; Docker reproduction needed for observed)
 - **Falsified if**: In a 50+ failure sample, >10% require >=5 nodes, or >50% non-deterministic
 - **Depends on**: B13
 - **Source**: Yuan et al. OSDI 2014; S45 Jepsen review (node-count strong; determinism weaker: Redis-Raft 3/21)

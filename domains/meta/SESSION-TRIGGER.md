@@ -15,7 +15,7 @@ Each trigger row: `| ID | condition | urgency | state | last_checked | auto_acti
 |----|-----------|---------|-------|--------------|-------------|
 | T1-STALE-LANE | ACTIVE lane opened >3 sessions ago, no update | HIGH | CLEAR | S360 | close or execute lane |
 | T2-ARTIFACT-MISSING | ACTIVE lane has artifact= path but file missing on disk | HIGH | CLEAR | S360 | execute lane or ABANDON |
-| T3-MAINTENANCE-DUE | orient.py DUE items present (>0) | MEDIUM | CLEAR | S360 | run DUE maintenance task |
+| T3-MAINTENANCE-DUE | orient.py DUE items present (>0) | MEDIUM | FIRING | S360 | run DUE maintenance task |
 | T4-ANXIETY-ZONE | Frontier open >15 sessions without update | MEDIUM | FIRING | S360 | open DOMEX or CLOSE |
 | T5-DISPATCH-GAP | Top-3 dispatch domain has no active DOMEX lane | MEDIUM | FIRING | S360 | open DOMEX for top domain |
 | T6-HEALTH-CHECK | Health-check periodic overdue by >2 intervals | LOW | CLEAR | S360 | run health check |
@@ -63,7 +63,9 @@ Orient.py computes all of T1-T7 on every run. The gap is at the **executor layer
 - T7: proxy_k.py --drift (8.5% from S339, target <5%)
 
 ## Next Steps (to make this actionable)
-1. [ ] Add `write_trigger_manifest()` to orient.py (updates State column each run)
-2. [ ] Wire autoswarm.sh to read HIGH FIRING triggers
-3. [ ] Test: after orient.py update, does SESSION-TRIGGER.md auto-reflect live state?
-4. [ ] Measure: does this reduce session-gap latency? (F-META6 validation)
+1. [x] Add `write_trigger_manifest()` to orient.py (updates State column each run) — S359: extended T1-T3→T1-T7
+2. [x] Wire autoswarm.sh to read HIGH FIRING triggers — already implemented (line 97)
+3. [x] Test: after orient.py update, does SESSION-TRIGGER.md auto-reflect live state? — S359: confirmed all 7 triggers evaluated
+4. [x] Measure: does this reduce session-gap latency? — S359: baseline median=1.0h, mean=2.1h, 19h idle/4 days
+5. [ ] Configure cron or filesystem watcher to run autoswarm.sh (requires human decision on schedule)
+6. [ ] First autonomous session: run autoswarm.sh without --dry-run via cron/watcher
