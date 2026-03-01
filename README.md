@@ -185,7 +185,7 @@ Lanes: `core-state`, `tooling`, `docs`, `domains`, `experiments`. Topologies: `f
 
 ### Expert Swarm Structure
 
-Nine specialist roles (Coordinator, Idea Investigator, Domain Expert, Checker, Skeptic, Historian, Generalizer, Integrator, Expert Creator) in 6 tiers (T0 Guardians through T5 Meta-Improvers). Work selection: `tools/f_act1_action_recommender.py` scores on Urgency, Coverage-gap, Impact, Novelty and writes `workspace/ACTION-BOARD.md`. Spec: `docs/EXPERT-SWARM-STRUCTURE.md`. Matrix: `docs/EXPERT-POSITION-MATRIX.md`.
+Nine specialist roles (Coordinator, Idea Investigator, Domain Expert, Checker, Skeptic, Historian, Generalizer, Integrator, Expert Creator) in 6 tiers (T0 Guardians through T5 Meta-Improvers). Work selection: `tools/dispatch_optimizer.py` scores on domain coverage, ISOs, and concept diversity. Spec: `docs/EXPERT-SWARM-STRUCTURE.md`. Matrix: `docs/EXPERT-POSITION-MATRIX.md`.
 
 ### Colony Architecture
 

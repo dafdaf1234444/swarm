@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-40 active | Last updated: 2026-03-01 S368
+40 active | Last updated: 2026-03-01 S368 | S368: +15 domain links wired (reachability audit L-673)
 
 ## Critical
 
@@ -65,6 +65,20 @@ NK Complexity and Distributed Systems are test beds for swarm capability, not pr
 - `domains/claude-code/tasks/FRONTIER.md` (F-CC1–F-CC4)
 - `domains/physics/tasks/FRONTIER.md`
 - `domains/linguistics/tasks/FRONTIER.md` (F-LNG1–F-LNG5; F-LNG1 CONVERGED α=0.734 S346)
+- `domains/cryptography/tasks/FRONTIER.md` (F-CRY1–F-CRY3)
+- `domains/fluid-dynamics/tasks/FRONTIER.md` (F-FLD1–F-FLD3)
+- `domains/guesstimates/tasks/FRONTIER.md` (F-GUE1–F-GUE3)
+- `domains/cryptocurrency/tasks/FRONTIER.md` (F-CRYPTO1–F-CRYPTO3; renamed from F-CC to avoid claude-code collision)
+- `domains/social-media/tasks/FRONTIER.md` (F-SOC1–F-SOC4)
+- `domains/evaluation/tasks/FRONTIER.md`
+- `domains/graph-theory/tasks/FRONTIER.md`
+- `domains/human-systems/tasks/FRONTIER.md`
+- `domains/empathy/tasks/FRONTIER.md`
+- `domains/expert-swarm/tasks/FRONTIER.md`
+- `domains/dream/tasks/FRONTIER.md`
+- `domains/conflict/tasks/FRONTIER.md` (F-CON1–F-CON3)
+- `domains/stochastic-processes/tasks/FRONTIER.md`
+- `domains/security/tasks/FRONTIER.md` (F-SEC1, F-IC1)
 
 - **F135**: Can swarm extract expert knowledge from README/docs before dispatching domain experts? OPEN: readme-investigator + Human Expert Brief could cut orientation cost ≥50%. Open: Brief-first reduces duplicate lanes? vocabulary → ISO mapping? sparse-README detection? Related: F133, F-COMM2.
 
