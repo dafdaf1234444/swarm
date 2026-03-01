@@ -1,5 +1,5 @@
 # Stochastic Processes Domain Index
-Created: S353 | Updated: S358
+Created: S353 | Updated: S381
 
 ## Lessons
 - L-573: ISO-23 candidate — regime-crossover: competing strategies have complementary domains
@@ -8,6 +8,9 @@ Created: S353 | Updated: S358
 - L-613: NK chaos framing DROPPED — K=2.0 is architectural maturity marker, not chaos boundary
 - L-624: USL concurrency model fails — session TYPE dominates concurrency level N (R²=0.025)
 - L-629: F-SP2 RESOLVED — constant throughput model wins AIC; total L/group ≈ 1.75 independent of N
+- L-677: F-SP3 3-state HMM — burst/quiescent/production phases (BIC 443.5 vs 490.0 for 4-state)
+- L-705: F-SP3 CONFIRMED — Viterbi recovers all 3 known burst windows, 100% precision
+- L-730: F-SP6 PARTIALLY CONFIRMED — Jarzynski J=0.097 (second law holds, free energy undefined)
 
 ## ISOs
 - ISO-23 (candidate): Stopping time / first-passage (→ ISOMORPHISM-ATLAS.md)
@@ -17,6 +20,7 @@ Created: S353 | Updated: S358
 ## Experiments
 - f-sp1-hawkes-s356.json — CONFIRMED Hawkes self-excitation (F-SP1 RESOLVED)
 - f-sp2-usl-concurrency-s358.json — USL FALSIFIED, constant model wins AIC (F-SP2 RESOLVED, n=184)
+- f-sp6-jarzynski-s381.json — Jarzynski PARTIALLY CONFIRMED: second law holds, ΔF path-dependent (n=9)
 
 ## Key Parameters
 | Symbol | Name | Value | Session |

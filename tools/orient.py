@@ -750,6 +750,35 @@ def check_foreign_staged_deletions():
         pass
 
 
+def check_git_object_health():
+    """FM-14 guard: detect loose object corruption at session start.
+
+    WSL can corrupt git objects under heavy concurrent I/O (S364, L-658).
+    Early detection prevents cascading failures during the session.
+    """
+    try:
+        result = subprocess.run(
+            ["git", "fsck", "--no-dangling", "--connectivity-only"],
+            capture_output=True, text=True, timeout=30, cwd=str(ROOT),
+        )
+        # fsck outputs errors to stderr
+        errors = result.stderr.strip() if result.stderr else ""
+        if result.returncode != 0 or errors:
+            error_lines = [l for l in errors.splitlines()
+                           if l.strip() and not l.startswith("Checking")]
+            if error_lines:
+                print(f"--- !! FM-14: git object corruption detected ---")
+                for line in error_lines[:10]:
+                    print(f"    {line}")
+                if len(error_lines) > 10:
+                    print(f"    ... and {len(error_lines) - 10} more")
+                print("  Fix: git reflog expire --expire=now --all && git gc --prune=now")
+                print("  Or:  git clone <remote> fresh-copy (nuclear option)")
+                print()
+    except Exception:
+        pass
+
+
 def _scan_lesson_domains(lesson_dir: Path) -> dict:
     """Scan all lesson files and count domain tags."""
     lesson_domains: dict[str, int] = {}
@@ -892,6 +921,9 @@ def main():
 
     # F-CON2: show active claims from concurrent sessions (collision prevention)
     check_active_claims()
+
+    # FM-14: detect git object corruption at session start (WSL loose object, F-CAT1)
+    check_git_object_health()
 
     classify_task = _get_classify_task()
     if classify_task:

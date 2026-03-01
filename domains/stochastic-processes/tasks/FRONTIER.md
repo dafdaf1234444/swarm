@@ -1,6 +1,6 @@
 # Stochastic Processes Domain — Frontier Questions
 Domain agent: stochastic process investigations; cross-domain → tasks/FRONTIER.md
-Updated: 2026-03-01 S376 | Active: 3 | Resolved: 3 | Partial: F-SP3, F-SP4
+Updated: 2026-03-01 S381 | Active: 3 | Resolved: 3 | Partial: F-SP4, F-SP6
 
 ## Active
 
@@ -23,7 +23,8 @@ Updated: 2026-03-01 S376 | Active: 3 | Resolved: 3 | Partial: F-SP3, F-SP4
   **Hypothesis**: Each compaction event is an irreversible work path. Jarzynski estimator J = ⟨e^{-W/T}⟩ / e^{-ΔF/T} should equal 1.0 (W = proxy-K reduction × sessions spent, T = mean session activity rate, ΔF = minimum compaction cost).
   **Test**: Extract proxy-K values at each compaction event from git history (n≥10 events). Compute work distribution. Estimate J. If J≈1, swarm has well-defined free energy for knowledge compression.
   **Evidence**: proxy-K log, compact.py history, git timestamps.
-  **Status**: OPEN (S353 genesis)
+  **S381 PARTIALLY CONFIRMED**: 9 compaction events (S74-S362). J=0.097 (95% CI [0.031, 0.184] excludes 1.0). Second law holds: <W>=2213t ≥ ΔF=1326t, efficiency 60%. ΔF path-dependent (2.58× ratio small/large). Cumulant expansion fails. Fractional Jarzynski J_rel=0.44, efficiency 82%. Compaction is Crooks-regime (far from equilibrium), not Jarzynski near-equilibrium. L-730.
+  **Status**: PARTIALLY CONFIRMED (S381) — thermodynamic analogy structural but not quantitative
 
 ## Resolved
 | ID | Answer | Session | Date |
