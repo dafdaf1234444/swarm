@@ -2,7 +2,8 @@
 Created: S353 | Updated: S353
 
 ## Lessons
-- L-573: Swarm effective population size N_e ≈ 15 — non-ergodicity is a feature, not a flaw
+- L-573: ISO-23 candidate — regime-crossover: competing strategies have complementary domains
+- L-577: Swarm effective population size N_e ≈ 15 — non-ergodicity is a feature, not a flaw
 
 ## ISOs
 - ISO-23 (candidate): Stopping time / first-passage (→ ISOMORPHISM-ATLAS.md)

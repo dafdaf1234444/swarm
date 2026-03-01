@@ -1,5 +1,5 @@
 # Isomorphism Atlas — Atlas of Deep Structure
-v1.6 | 2026-03-01 | S352 | ISO-22 candidate (recursive state modeling / mirror descent, L-568, empathy genesis); 22 entries
+v1.8 | 2026-03-01 | S354 | ISO-24: ergodic decomposition / non-ergodicity as feature (L-577, stochastic-processes genesis); 24 entries
 
 ## What this is
 A cross-domain atlas of structural equivalences. Each entry maps one abstract structure to its manifestations across multiple domains. This is NOT a fact database — it is a compression of world knowledge into shared structure.
@@ -486,6 +486,47 @@ Domains appearing in 4+ entries — highest isomorphism density, swarm first:
 
 ---
 
+### ISO-23: Stopping time — threshold transforms accumulation into action
+**Structure**: A system accumulates a stochastic signal over time. A qualitative shift occurs not at a fixed time but at the first random time T = inf{t : S(t) ≥ c} when the cumulative signal crosses a threshold. The distribution of T (first-passage-time distribution) is controlled by drift (systematic tendency) and diffusion (random fluctuation). Before T: accumulation. After T: irreversible state change.
+
+| Domain | Manifestation | Notes |
+|--------|---------------|-------|
+| Physics | Nucleation in phase transitions | Supercooled liquid accumulates fluctuations; crystal forms at random stopping time when critical nucleus exceeds threshold. Classical nucleation theory predicts first-passage distribution. |
+| Neuroscience | Neural action potential (integrate-and-fire) | Membrane depolarization accumulates; spike fires when voltage crosses -55mV threshold. Gerstein & Mandelbrot (1964): literally a stopping time of a random walk with drift. |
+| Finance | Optimal exercise of American options | Option holder accumulates information; exercises at stopping time maximizing expected payoff. Snell envelope = smallest supermartingale dominating payoff process. |
+| Psychology | Drift-diffusion model (DDM) | Evidence accumulation → decision at first-passage to boundary. Ratcliff (1978). Response time distributions are inverse Gaussian. Widely replicated in cognitive science. |
+| Biology | Apoptosis (programmed cell death) | Cellular damage accumulates; when DNA repair fails to maintain threshold, irreversible apoptosis triggers. Random walk with absorbing barrier. |
+| Ecology | Population collapse (Allee effect) | Population fluctuates; below Allee threshold, positive feedback drives extinction. Extinction time = first-passage time of birth-death process. |
+| Epidemiology | Herd immunity threshold | Vaccination accumulates; epidemic prevention when fraction immunized crosses 1 − 1/R₀. Stopping time for a coverage process. |
+| Swarm | Phase transitions at compaction/meta-cycle thresholds | Proxy-K accumulates → compaction fires at DUE/URGENT threshold (L-428). 4-phase meta-cycle (L-554) governed by phase-specific stopping times. Domain seeding at S186 = stopping time for "structural innovation needed" signal. |
+
+**Sharpe: 4** (8 domains; neuroscience and finance rigorously grounded in mathematical theory; physics nucleation experimentally validated; DDM widely replicated; swarm measurable via proxy-K logs)
+**Gaps**: Linguistics (semantic satiation as threshold?), Computer science (garbage collection thresholds?), Game theory (war of attrition as stopping time?)
+**Inversion**: A system that never reaches its threshold accumulates indefinitely without acting — analysis paralysis; or in finance, the option that expires worthless. Moving thresholds (goalposts) prevent discharge.
+**Relationship**: ISO-23 provides the *temporal mechanism* for ISO-4 (phase transition): ISO-4 describes what happens; ISO-23 describes when and why timing is random. ISO-23 explains when ISO-13 (integral windup) discharges: accumulated windup is a random walk, stopping time at discharge threshold determines reset timing.
+
+---
+
+### ISO-24: Ergodic decomposition — time averages equal ensemble averages only when system explores full state space
+**Structure**: An ergodic system has one invariant measure — every trajectory visits every accessible state, so time averages converge to ensemble averages. A non-ergodic system decomposes into invariant subsets; trajectories are trapped and behavior depends on which trajectory you're on. The decomposition parameter (window size, population sub-structure, attractor basin) controls the ergodic/non-ergodic boundary. Under-ergodicity creates orphans (states never visited); over-ergodicity destroys useful structure (attractors collapse).
+
+| Domain | Manifestation | Notes |
+|--------|---------------|-------|
+| Physics | Spin glasses vs equilibrium systems | At low T, spin glasses trap in local energy minima (non-ergodic). Parisi replica symmetry breaking: decompose into pure states. Equilibrium systems are ergodic by design. |
+| Finance | Peters ergodicity economics | Expected value (ensemble average) ≠ time average for multiplicative processes. Kelly criterion: maximize time-average growth, not ensemble-average wealth. Equity risk premium partly explained by non-ergodicity. |
+| Evolution | Genetic drift in small populations | Wright's shifting balance theory: small N_e populations are non-ergodic — drift traps lineages in suboptimal peaks. Fixation (absorbing barrier) = ergodicity failure. N_e controls degree. |
+| Swarm | Context window as ergodicity-breaking parameter | Each session samples a subset of knowledge (context window). 58% orphan rate (L-383) = non-ergodic component — knowledge that exists in repo but never appears in any session. Non-ergodicity prevents attractor collapse (ISO-2) by ensuring exploration. N_e ≈ 15 (L-577). |
+| Neuroscience | Default-mode vs task-positive networks | DMN and task-positive networks are anti-correlated attractors. Sleep is ergodicity restoration (global workspace visits all states). Memory consolidation = ergodic traversal during REM. |
+| Economics | Path dependence (QWERTY, VHS) | Markets can lock into suboptimal standards. Path-dependent systems are non-ergodic: history determines which attractor you're in. Ergodic economics assumes path-independence (false for many markets). |
+| Mathematics | Birkhoff ergodic theorem, mixing systems | Ergodic = one invariant measure. Mixing = stronger: correlations decay. Weak mixing ⊂ mixing ⊂ ergodic. Ergodicity classes for measure-preserving dynamical systems. |
+
+**Sharpe: 4** (7 domains; physics and mathematics rigorously grounded; finance quantitatively tested by Peters; evolution confirmed via Wright-Fisher simulations; swarm measured via N_e estimation)
+**Gaps**: Ecology (species-area curve as non-ergodic sampling?), Immunology (clonal selection as ergodic over immune repertoire?), Linguistics (language change as non-ergodic drift?)
+**Inversion**: A perfectly ergodic system forgets its history — no memory, no accumulation, no structure. Optimal non-ergodicity: enough to maintain useful attractors, not so much that exploration stops.
+**Relationship**: ISO-24 is the global structure that ISO-23 (stopping time) operates within. Stopping times are the mechanism by which trajectories enter new ergodic components. ISO-11 (network diffusion) is ergodic on connected graphs — ergodicity fails when graph has multiple components. ISO-6 (boundary-maintenance) controls the ergodic component boundaries.
+
+---
+
 ## Open questions (F126)
 1. **Hub identification**: What are the ~50 domains with highest isomorphism density? (current table: 7 candidates)
 2. **Sharpe scoring**: How to measure evidence quality × breadth for a structural claim?
@@ -502,6 +543,8 @@ F126: swarm → isomorphism atlas → world knowledge base (world is beneficiary
 Both share the mechanism. F126 inverts the directionality of value flow.
 
 ## Version history
+- v1.8 (S354): ISO-24: ergodic decomposition / non-ergodicity as feature (stochastic processes council, L-577; 7 domains: physics, finance, evolution, swarm, neuroscience, economics, mathematics). N_e ≈ 15, 58% orphan rate measured. 24 entries.
+- v1.7 (S353): ISO-23 candidate: stopping time / first-passage (stochastic processes genesis council, L-573; 8 domains: physics, neuroscience, finance, psychology, biology, ecology, epidemiology, swarm). Stochastic-processes domain created. 23 entries.
 - v1.6 (S352): ISO-22 candidate: recursive state modeling / mirror descent (empathy genesis council, L-568; 8 domains: psychology, game theory, distributed systems, literature, diplomacy, swarm, biology, economics). Empathy domain created. 22 entries.
 - v1.5 (S349): ISO-20 candidate: bounded-epistemic self-replication (Von Neumann universal constructor, L-systems, memetics, swarm K_avg threshold; L-537; human signal S349). 20 entries.
 - v1.4 (S342): ISO-19 candidate: replication-mutation duality (4-domain council L-497; biology, swarm, economics, culture, information theory, brain). PHIL-19 filed. F-DNA1 opened. Evolution hub expanded to 7 entries.

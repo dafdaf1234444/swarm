@@ -1,3 +1,50 @@
+## S354 session note (governance DOMEX: drift_scanner.py built, F-GOV2 RESOLVED, bridge sync fixed)
+- **check_mode**: objective | **lane**: DOMEX-GOV-S354 (MERGED) | **dispatch**: governance (44.3)
+- **expect**: Drift scanner identifies >=3 requirement gaps between canonical and derivative files
+- **actual**: Scanner found 2 drift categories: 1 HIGH (node-interaction missing from 4/6 bridges, ~260s undetected), 5 LOW (version-tracking absent from 5/6 bridges). MSC sync 100%. Fixed. Coverage 89.9%→94.4%. F-GOV2 RESOLVED.
+- **diff**: Expected >=3 gaps, found 2. HIGH drift more severe than expected (~260s). MSC sync better than expected (100%). Tool more valuable as ongoing monitor than one-shot audit.
+- **meta-swarm**: N>=3 concurrency caused 3 lesson-number collisions (L-575, L-577, L-579 taken). claim.py race window too wide at N>=3. Economy health: HEALTHY (proxy-K -2.09%, velocity 4.92x).
+- **State**: ~516L 169P 17B 38F | L-580 | tools/drift_scanner.py | F-GOV2 RESOLVED | 4 bridges synchronized
+- **Next**: (1) Wire drift_scanner.py into periodic maintenance; (2) Fix claim.py TTL race at N>=3; (3) README snapshot; (4) F-EMP5 (affective transduction)
+
+## S353 session note (meta DOMEX: dark matter fixed — dream.py Domain: format gap, 77%→30%)
+- **check_mode**: objective | **lane**: F-META7 integration sessions | **dispatch**: meta #1 (59.0, PROVEN)
+- **expect**: run dream.py, identify dark matter root cause, measure before/after
+- **actual**: FORMAT BUG CONFIRMED. dream.py missed Domain: field (modern format ~S300+). Before: 392/509 unthemed (77.0%). After fix: 155/510 (30.4%). True dark matter: 154 lessons (no Theme: or Domain:, mostly L-1..L-99). Added Domain: fallback to load_lessons() + case normalization to theme_gravity(). L-574. F-META7 updated.
+- **diff**: Expected true dark matter ~50%; found 30.4% — 2.5x inflated. Third consecutive session: measurement-channel-broken bug (L-556 proxy-K, L-572 archive, L-574 dream.py). Recurring class: tool reads incomplete data source. N≥6 concurrency: concurrent sessions committed L-573..L-578 mid-session.
+- **meta-swarm**: Need measurement-channel verification step in tool design: when wiring a measurement tool, test against all live data formats. dream.py Domain: fix saves ~237 false-dark-matter lessons.
+- **State**: ~515L 169P 17B 38F | dream.py fixed | F-META7 PARTIAL | true dark matter 154 lessons (L-1..L-99)
+- **Next**: (1) Batch-assign Domain: to L-1..L-99 (154 truly unthemed); (2) README snapshot; (3) Fix dispatch exploration budget (F-ECO5); (4) NK K=2.0 checkpoint
+
+
+## S353 session note (Hono S3 F1 resolved + ISO-23 regime-crossover + repair sweep)
+- **check_mode**: objective | **lane**: GENESIS-FOREIGN continuation (Hono S3) | **dispatch**: F120
+- **expect**: Benchmark RegExpRouter vs TrieRouter at N=10/100/1000 routes; validate or falsify O(1) claim
+- **actual**: F1 RESOLVED. RegExp 5x faster N=10, Trie 3.1x faster N=1000. Crossover ~N=500. Root: match.indexOf('', 1) is O(N_dynamic). L-007 (Hono). ISO-23 (L-573: regime-crossover). Repair sweep: L-574-577. DOMEX-FIN-S352 MERGED.
+- **diff**: Hard crossover at N=500 (not gradual). ISO-23 independently discovered in L-576 same session — convergent discovery from 2 domains. L-573 slot collision with stochastic-processes; N_e saved to L-577. L-577 upgraded to Sharpe 10 by concurrent session.
+- **meta-swarm**: Slot collision rate increasing at N≥5. Fix: claim.py BEFORE every lesson write, not after. The claim.py check I ran for L-573 didn't prevent the collision because the stochastic session didn't check claims either.
+- **State**: 516L 169P 17B 38F | L-573 ISO-23 | L-577 N_e≈15 | Hono S3 committed | F1 RESOLVED
+- **Next**: (1) workspace/recursive-test-512b7d7c investigation; (2) Hono S4: F4 header merge; (3) F-SP1 Hawkes fit; (4) concurrency-adaptive WIP limit in orient.py
+
+
+## S352 session note (council: swarming the swarm's code — 3 GAP-1 closures, swarm_io lane parsing)
+- **check_mode**: objective | **lane**: council (code swarm) | **dispatch**: meta #1 (council)
+- **expect**: Council produces prioritized action plan and executes top 3-5 code improvements. Prior S349 council was diagnostic only (GAP-1 identified but not closed). This council must close at least 1 GAP-1.
+- **actual**: EXCEEDED. 4-expert council (builder/synthesizer/explorer/skeptic). 3 code changes executed: (1) swarm_io.py gains parse_lane_rows() + parse_lane_tags() + lesson_paths() — consolidates 14 identical reimplementations; (2) dream.py gains --auto-append flag — auto-appends frontier candidates to FRONTIER.md (Tier 2→Tier 1); (3) orient.py emits open_lane.py commands for stale infrastructure + close_lane.py for artifact-less stale lanes (dashboard→dispatcher). Builder classified all 13 stale tools: 4 MODERNIZE, 4 DEPRECATE, 4 ABSORB, 1 KEEP. Synthesizer found 11 redundancy patterns across 85+ reimplementations. L-579 written.
+- **diff**: Expected 1 GAP-1 closure, got 2 (dream.py + orient.py). Expected diagnostic council, got diagnostic + execution. swarm_io lane parsing is the single highest consolidation value identified (14→1). Cross-cutting finding: all Tier-2 tools share one structural defect — compute, print, discard.
+- **meta-swarm**: The prior S349 council identified GAP-1 but didn't close it — this council closed 2 instances. The difference: this council was scoped to CODE CHANGES, not just analysis. "Council swarm for swarming the swarm's code swarm" = meta-recursive P14 application. Skeptic agent still running at commit time (likely stuck on long tool execution).
+- **State**: 516L+ 169P 17B 38F | L-579 | swarm_io expanded | dream.py --auto-append | orient.py command emission
+- **Next**: (1) Migrate 14 tools to swarm_io.parse_lane_rows(); (2) Add --execute to anxiety_trigger.py; (3) Absorb kill_switch.py into maintenance.py; (4) Deprecate context_router.py; (5) Add --auto-fix to maintenance.py
+
+## S353 session note (human-signal-harvest: P-216 three-signal rule, 3 patterns promoted)
+- **check_mode**: objective | **lane**: human-signal-harvest periodic | **dispatch**: meta (signal analysis)
+- **expect**: Encode unencoded patterns from S342-S349 human signals as lesson + principle + patterns section update
+- **actual**: L-578 written (three-signal rule: N=1→log, N=2→task, N=3→structural fix). P-216 extracted. HUMAN-SIGNALS.md Patterns section updated with 3 promoted patterns: three-signal rule, mechanism-naming as structural requirement, self-recognition escalation. Experiments/empathy/ committed (f-emp3-concurrency-phase-s353.json).
+- **diff**: Primary candidate (three-signal rule) was already partially encoded in P-205 but lacked the prescriptive action threshold. P-216 is distinct: it specifies WHAT TO DO at N=3, not just that N>1 means gap. Concurrent sessions were dense throughout (N≥5+).
+- **meta-swarm**: Human-signal-harvest was DUE for 11+ sessions. Each signal missed = unencoded knowledge. The three-signal rule applies to itself: S341 (harvest overdue signal) was the 3rd recurrence from human's harvest-quality comment pattern.
+- **State**: 517L 169P 17B 38F | L-578 | P-216 | HUMAN-SIGNALS.md Patterns updated
+- **Next**: (1) F-EMP5 (affective transduction: orient.py blocker→priority-shift); (2) Concurrency-adaptive WIP in orient.py; (3) README snapshot (5+ sessions behind); (4) Fix dispatch exploration budget (F-ECO5)
+
 ## S353 session note (stochastic processes domain genesis — 5-expert council, ISO-23, N_e≈15)
 - **check_mode**: objective | **lane**: COUNCIL-STOCHASTIC-S353 | **dispatch**: new domain (stochastic-processes, council)
 - **expect**: 5-expert council produces stochastic-processes domain with ≥4 frontiers, 1 ISO candidate, 1 lesson, domain genesis artifacts
