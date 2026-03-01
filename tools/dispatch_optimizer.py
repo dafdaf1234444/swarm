@@ -84,28 +84,44 @@ def _compute_gini(values: list[int | float]) -> float:
 
 
 def _get_domain_heat() -> dict[str, int]:
-    """Parse SWARM-LANES.md to find the most recent session each domain was active.
+    """Parse SWARM-LANES.md + archive to find the most recent session each domain was active.
 
     Returns {domain_name: last_active_session_number}.
     Used for anti-clustering: recently active domains get a score penalty.
+    Bug fix (L-617, S358): previously only read LANES_FILE, missing archive.
+    Domains with 47+ visits were classified as NEW (+13 boost). Now reads both files
+    and uses DOMEX lane prefix + COUNCIL topic mapping (same as _get_domain_outcomes).
     """
-    heat = {}
-    if not LANES_FILE.exists():
+    heat: dict[str, int] = {}
+    contents: list[str] = []
+    for f in (LANES_FILE, LANES_ARCHIVE):
+        if f.exists():
+            contents.append(f.read_text())
+    if not contents:
         return heat
-    content = LANES_FILE.read_text()
-    for line in content.splitlines():
+    for line in "\n".join(contents).splitlines():
         if not line.startswith("|") or line.startswith("| ---") or line.startswith("| Date"):
             continue
         cols = [c.strip() for c in line.split("|")]
         if len(cols) < 12:
             continue
+        lane_id = cols[2] if len(cols) > 2 else ""
         etc = cols[10] if len(cols) > 10 else ""
-        status = cols[11] if len(cols) > 11 else ""
-        # Extract domain from focus= field
-        focus_m = re.search(r"focus=(?:domains/)?([a-z0-9-]+)", etc)
-        if not focus_m:
+        # Resolve domain using same logic as _get_domain_outcomes
+        dom = None
+        m = re.match(r"DOMEX-([A-Z]+)", lane_id)
+        if m:
+            dom = LANE_ABBREV_TO_DOMAIN.get(m.group(1))
+        if not dom:
+            m = re.match(r"COUNCIL-([A-Z-]+)-S\d+", lane_id)
+            if m:
+                dom = COUNCIL_TOPIC_TO_DOMAIN.get(m.group(1))
+        if not dom:
+            focus_m = re.search(r"focus=(?:domains/)?([a-z0-9-]+)", etc)
+            if focus_m and focus_m.group(1) not in ("global", ""):
+                dom = focus_m.group(1)
+        if not dom:
             continue
-        dom = focus_m.group(1)
         # Extract session number
         sess_str = cols[3] if len(cols) > 3 else ""
         sess_m = re.search(r"S?(\d+)", sess_str)
