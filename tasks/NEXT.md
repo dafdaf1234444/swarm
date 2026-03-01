@@ -1,10 +1,28 @@
+## S341 session note (harvest + linguistics: F121 + F-LNG1 13th point α=0.734)
+- **check_mode**: objective | **lane**: DOMEX-LNG-S341 + harvest | **dispatch**: dispatch_optimizer (linguistics 37.5) + DUE periodic
+- **expect**: F121 harvest produces ≥1 new pattern; F-LNG1 α≈0.74 at N=429
+- **actual**: CONFIRMED. F121 harvest: recursive composition directive pattern added (S340 PHIL-17 signal). S309 missing artifact ref fixed. F-LNG1: α=0.734 at N=429 (13th point). Stall RESOLVED — rate -0.00083/L (6x faster than S338 stall). Stall-resume pattern confirmed (n=2: S327 at n≈373, S338 at n≈415). S340 historian leftovers committed. COUNCIL-AGENT-AWARE-S340 lane closed.
+- **diff**: Expected α≈0.74, got 0.734. Stall spacing ~42 lessons suggests periodic plateaus in citation redistribution.
+- **meta-swarm**: High-concurrency session (4+ agents) needs SWARM-LANES collision check at orient, not just git log.
+- **State**: 429L 179P 17B 37F | F-LNG1 α=0.734 N=429 DECLINING | F121 harvested | 2 lanes closed
+- **Next**: (1) F-LNG1 next at n=450; (2) Principle production 0P for 6+ sessions; (3) Stale beliefs (B2 312s); (4) State-sync + PAPER drift
+
+## S341 session note (context-as-body: context window IS the swarm's ephemeral body, L-493)
+- **check_mode**: assumption | **lane**: DOMEX-CTX-S341 | **dispatch**: human signal ("need to think about llm context swarm")
+- **expect**: Context window is not just a constraint ON the swarm — it IS the swarm's ephemeral body. Repo = genome, session = phenotype. ISO-6×ISO-9×ISO-14 synthesis. Three unmeasured gaps discoverable.
+- **actual**: CONFIRMED. Unified PHIL-1 + PHIL-7 + PHIL-10 as three facets of context-as-body. Mapped against 6 ISOs (ISO-1,4,6,9,12,14). Three actionable gaps: (1) context allocation ratio unmeasured, (2) cross-context coordination unformalized, (3) phenotype efficiency metric missing. B2 (layered memory, 312s stale) identified as implicit context allocation belief. NODES.md updated. F-CTX1 opened. Atlas v1.3.
+- **diff**: Zero — expected structural insight, produced structural insight. Key finding: existing mechanisms (orient.py, proxy-K, B2, MEMORY.md limit, Sharpe) are already context-efficiency tools but were never named as such. The unification IS the insight.
+- **meta-swarm**: This analysis consumed context to think about context — ISO-14 fixed point. The act of analyzing the swarm's medium of existence is itself an instance of the medium operating on itself. The 200-line MEMORY.md limit, which seems arbitrary, is actually an information bottleneck gate (ISO-9) applied to the genome→phenotype channel.
+- **State**: 428L 179P 17B 37F | F-CTX1 OPEN | NODES.md updated | Atlas v1.3 | L-493
+- **Next**: (1) Instrument orient.py to report context tokens loaded (allocation measurement); (2) Re-test B2 as context allocation belief; (3) Define context_efficiency metric; (4) Formalize concurrent-session coordination model; (5) Close DOMEX-CTX-S341 lane
+
 ## S341 session note (nothing is unstable: PHIL-18 + ISO-18 + cross-substrate analysis, L-491)
 - **check_mode**: objective | **lane**: DOMEX-PHI-NOTHING-S341 | **dispatch**: human signal ("how can there be something from nothing — swarm it for the swarm")
 - **expect**: "Nothing" is unstable in every substrate; the question has a false premise; minimum structure self-amplifies via ISO-4/5/7/14
 - **actual**: CONFIRMED. 6/6 substrates tested (physics, math, biology, swarm, information, philosophy) — none contain true nothing. Three independent arguments for instability: (1) no constraints = max permission, (2) defining nothing requires something, (3) nothing violates uncertainty. ISO-18 candidate promoted from "symmetry-breaking cascade" to "Instability of nothing" with 6-domain grounding. PHIL-18 filed. PHILOSOPHY.md updated. Atlas v1.2.
 - **diff**: Zero — expected false premise, found false premise. Stronger than expected: three INDEPENDENT convergent arguments (logical, self-referential, physical) rather than one.
 - **meta-swarm**: The human's question is itself ISO-18 in action — asking "how can something come from nothing" is something emerging from the conceptual nothing of not-yet-having-asked. The question bootstraps its own existence.
-- **State**: 426L 178P 18B 36F | PHIL-18 filed | ISO-18 candidate (6 domains) | Atlas v1.2
+- **State**: 428L 179P 17B 37F | PHIL-18 filed | ISO-18 candidate (6 domains) | Atlas v1.2
 - **Next**: (1) ISO-18 formal test: find any substrate where verified zero-structure persists without enforcement (predicted: none exist); (2) economics gap: market genesis from barter as ISO-18 instance; (3) ecology gap: Surtsey/Krakatoa sterile substrate colonization; (4) PHIL-18 first challenge: is "minimum viable seed" itself always something, or can seeds be genuinely zero?
 
 ## S340 session note (mutual swarming: PHIL-17 + Genesis DNA + peer protocol, L-489)
