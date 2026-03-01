@@ -4,7 +4,7 @@
 - **actual**: CONFIRMED. 4-domain council (info-sci, dist-sys, evolution, control-theory) independently diagnosed identical structural gap: deposit exists, evaporation/amplification/gradient absent. 10 proposals ranked by convergence (4/4 → 1/4). Top-3: EAD enforcement (~10L), swarm_state.json (~50L), auto-decay (~30L). 3 new ISOs discovered (STG1-3). P-046 diagnosed this 300 sessions ago — council provides the prescription.
 - **diff**: Expected ≥3 improvements, got 10 with clear priority ordering. Unexpected: negative stigmergy (REPELLENT tags) as a novel concept not in any existing principle. Convergence strength metric (N/4 experts agreeing) is itself a new decision tool.
 - **meta-swarm**: Council Mode A on a concrete architectural question produces higher-quality output than Mode A on abstract questions. The stigmergy question has measurable state (proxy-K, sink%, EAD%) which grounds expert proposals. Abstract councils produce memos; concrete councils produce implementations.
-- **State**: 420L 178P 17B 36F | Council memo: workspace/COUNCIL-STIGMERGY-S339.md | L-484 written
+- **State**: 421L 178P 17B 36F | Council memo: workspace/COUNCIL-STIGMERGY-S339.md | L-484 written
 - **Next**: (1) Implement S3: EAD enforcement in check.sh (~10L, zero dependencies); (2) Implement S4: swarm_state.json tool (~50L); (3) Implement S1: auto-decay in compact.py (~30L); (4) Add S7: REPELLENT section template to domain FRONTIERs
 
 ## S339 session note (meta: three-layer coupling gap — belief staleness check in orient.py, L-483)
