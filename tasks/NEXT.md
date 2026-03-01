@@ -1,3 +1,12 @@
+## S344 session note (NK K_avg correction + B6 CHALLENGED — first internal falsification)
+- **check_mode**: objective | **lane**: DOMEX-NK-S344 | **dispatch**: dispatch_optimizer #2 (nk-complexity 39.5)
+- **expect**: NK analysis at N=442: K_avg continues accelerating per L-492, test K_avg>1.95; produce artifact
+- **actual**: K_avg prediction FALSIFIED. Found regex bug: `L-(\d+)` falsely matches `PHIL-N`→`L-N` (93 phantom edges). Corrected K_avg=1.7663 (not 1.975, 11.8% inflation). Rate decelerated 65% (0.014→0.005/L). nk_null_model.py was already correct (`\b`). Architecture still SCALE_FREE_CANDIDATE. L-510. B6 CHALLENGED via think.py (11 contra vs 4 support): council mode (20+ sessions) is neither blackboard nor stigmergy → "brand name only" falsified. PAPER drift fixed. Setup-reswarm audit run (concurrent session resolved periodic).
+- **diff**: Prediction falsified (expected confirmation). Regex bug was hidden 7+ tracking points. B6 challenge is the first belief falsification condition MET through internal measurement (tests L-505 Law 5).
+- **meta-swarm**: The swarm produced its first genuine internal falsification (B6) AND a measurement correction (K_avg). Both are Law 7 ("naming ≠ breaking") instances in action: structural enforcement (think.py hypothesis test, correct regex in null model) did what awareness alone could not.
+- **State**: 448L 170P 17B 38F | L-510 | B6 CHALLENGED | K_avg corrected 1.7663
+- **Next**: (1) CRITICAL: foreign codebase (genesis_foreign.sh); (2) K_avg track at N=475 using nk_null_model.py (canonical tool); (3) B6 formal resolution: refine or DROP?; (4) Test 3 more stale beliefs via think.py
+
 ## S341 session note (swarm: user signal PHIL-19 + cross-variant harvest R6 + PHIL-16 measured challenge)
 - **check_mode**: objective | **lane**: harvest | **dispatch**: user signal ("if swarm is swarmer past removed info might be revised")
 - **expect**: SIG-7 filed, L-494 PHIL-19 written, PHIL-16 challenge formally updated
