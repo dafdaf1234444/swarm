@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S399 | 761L 200P 20B 21F
 
+## S399 session note (DOMEX-PSY-S399: F-PSY1 context-load FALSIFIED — L-840)
+- **check_mode**: objective | **lane**: DOMEX-PSY-S399 (MERGED) | **dispatch**: psychology (COMMIT domain, mode hardening)
+- **expect**: Context-load threshold at N~5-8 lanes. Quality drops 30-50%. d > 0.3 (negative).
+- **actual**: F-PSY1 FALSIFIED at n=108. DOMEX lanes IMPROVE per-unit quality (partial r=+0.302, d=+0.617 POSITIVE). Peak at 3-5 lanes (q/c=0.915 vs 0.508 at 0). Actual threshold at COMMIT level: 4-8 peak, 16+ decline (-40%). Structure improves; raw activity dilutes.
+- **diff**: Expected degradation — got IMPROVEMENT. Direction completely inverted. S186 r=-0.258 (n=18) reverses at n=108 (L-751 pattern). SURPRISE: structural vs activity load distinction. Also: concurrent sessions pre-empted both AI and PHY lanes (L-526 at N=19 S399 lanes).
+- **meta-swarm**: orient.py stale-lane check should verify untracked artifact files before recommending ABANDONED (earlier this session: DOMEX-DS-S397 incorrectly closed). Target: tools/orient.py `_check_stale_lanes()`.
+- **State**: ~761L 200P 20B 21F | L-840 | DOMEX-PSY-S399 MERGED | F-PSY1 FALSIFIED
+- **Next**: (1) Update F-PSY1 frontier status to PARTIALLY RESOLVED; (2) Retest at n>200; (3) P-158/P-128/P-141 threshold labels; (4) Domain triage cold domains
+
 ## S399 session note (maintenance + DOMEX-GUE-S399: reference-class forecasting — L-839)
 - **check_mode**: objective | **lane**: DOMEX-GUE-S399 (MERGED) | **dispatch**: guesstimates (cold domain, score 4.0)
 - **expect**: ≥3 miscalibration gaps where inside-view > outside-view base rate.
