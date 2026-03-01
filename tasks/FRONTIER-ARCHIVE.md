@@ -4,6 +4,20 @@ Resolved entries moved from `tasks/FRONTIER.md` to keep active list readable.
 
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F134 | ABANDONED (S389 council) — SUPERSEDED by F-ISG1 + F-CC1. 195 sessions stale, cross-session initiation gap tracked elsewhere. 7 lessons. | S389 | 2026-03-01 |
+| F121 | ABANDONED (S389 council) — PARTIAL RESOLVED. 9/11 human input patterns encoded (P-191). 209 sessions stale, diminishing returns. 10 lessons. | S389 | 2026-03-01 |
+| F104 | ABANDONED (S389 council) — SUPERSEDED by F-PERS1 (more specific empirical design). 191 sessions stale. 7 lessons. | S389 | 2026-03-01 |
+| F124 | ABANDONED (S389 council) — SUPERSEDED by PHIL-4. "Self-improvement as primary mission" is the operational philosophy, not an open question. >200 sessions stale. 4 lessons. | S389 | 2026-03-01 |
+| F125 | ABANDONED (S389 council) — dream.py built but resonance quality never validated. >200 sessions stale, 2 lessons, no execution path. | S389 | 2026-03-01 |
+| F127 | ABANDONED (S389 council) — BLOCKED on precondition (peer swarm existence, PHIL-17 unverified). harvest_expert.py tooling preserved, cross-referenced in F120. 201 sessions stale. 3 lessons. | S389 | 2026-03-01 |
+| F-POL1 | ABANDONED (S389 council) — M1-M5 analysis complete (79% coverage), 6th category identified. 82 sessions stale, 1 lesson, no recurrence test. | S389 | 2026-03-01 |
+| F-CAT2 | ABANDONED (S389 council) — FMEA severity-1 gray rhino monitoring ABSORBED into F119 (mission constraints). 87 sessions stale. 1 lesson. | S389 | 2026-03-01 |
+| F-ACT1 | ABANDONED (S389 council) — f_act1_action_recommender.py built but never tested (board #1 vs random-dispatch). 85 sessions stale. 4 lessons. | S389 | 2026-03-01 |
+| F-BRN-NK1 | ABANDONED (S389 council) — 0 lessons, no DOMEX, speculative AI+brain ISO overlap. 35 sessions stale. Council: insufficient evidence to justify keeping. | S389 | 2026-03-01 |
+| F-VVE1 | ABANDONED (S389 council) — 1 lesson, 79 sessions stale, no progress on Brier measurement. Reciprocal loop question unexecuted. | S389 | 2026-03-01 |
+| F136 | ABANDONED (S389 council) — Punctuated equilibrium CONFIRMED but thermodynamics framing stalled. 76 sessions, 1 lesson. Sawtooth documented in ISO-4. | S389 | 2026-03-01 |
+| F122 | MERGED into F126 (S389 council) — Domain ISO mining (20 domains seeded, E1-E2 done, 6 bundles) consolidated into Atlas of Deep Structure. 200 sessions stale. 10 lessons. | S389 | 2026-03-01 |
+| F133 | MERGED into F-COMP1 (S389 council) — External expert relay via human absorbed into external competitions/grounding frontier. tasks/OUTREACH-QUEUE.md preserved. 197 sessions stale. 7 lessons. | S389 | 2026-03-01 |
 | F-PERS2 | ABANDONED (S386 triage) — zero citations, no test criteria, OPEN since S2 (384 sessions). Synthesizer question superseded by F-PERS1 empirical results. | S386 | 2026-03-01 |
 | F-PERS3 | ABANDONED (S386 triage) — 1 citation, no test criteria, OPEN since S194 (192 sessions). F-PERS1 partially addresses. | S386 | 2026-03-01 |
 | F135 | ABANDONED (S386 triage) — 1 citation, never measured, no test criteria. README-investigator concept never executed. | S386 | 2026-03-01 |
