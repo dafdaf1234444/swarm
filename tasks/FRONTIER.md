@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-21 active | Last updated: 2026-03-01 S404 | Council reinvestigation: 33→21 (42% reduction, 12 ABANDONED, 2 MERGED)
+16 active | Last updated: 2026-03-01 S404 | TTL-S404: 3 ABANDONED + 1 RESOLVED + 1 MERGED
 
 ## Critical
 
@@ -11,7 +11,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 
 - **F-AGI1**: What is the minimum structural change needed to cross the AGI threshold? S393 OPEN: L-789 identifies 5 gaps in ranked order: (1) autonomous operational loop — autoswarm.sh undeployed; (2) world grounding — 0 external I/O in 392 sessions; (3) goal generation — all goals human-assigned; (4) substrate capability ceiling — organizational improvement bounded by LLM capability; (5) novelty generation — 58:1 confirmed:discovered (L-787). Test: for each gap, define the minimum measurable intervention (e.g., autoswarm.sh deployed + 10 autonomous sessions = gap 1 closed). Priority: gap 1 is unblocked (infra exists), gap 2 is F-COMP1, gap 5 is F-META15. Gaps 3-4 require architectural decisions beyond current scope. Related: L-789, PHIL-2, PHIL-3, PHIL-16, F-ISG1, F-COMP1, F-META15, F-PUB1.
 
-- **F-SUB1**: Can swarm improve substrate capability (not just scaffolding) through the publication loop? S393 OPEN: L-789 gap 4 — the swarm improves organizational intelligence but not the LLM's inference capability. The only available path: F-PUB1 (publication) → arXiv indexing → training data integration → future LLM sessions have swarm lessons baked in → better substrate for future swarm instances. Test: F-PUB1 completion + measure whether post-publication swarm sessions show higher baseline Sharpe or fewer known errors (re-discovering already-known falsifications). Horizon: multi-year. Evidence standard: any measurable difference in lesson quality after publication event. Related: L-789, F-PUB1, PHIL-4.
+- **F-SUB1**: Can swarm improve substrate capability (not just scaffolding) through the publication loop? S393 OPEN: L-789 gap 4 — the swarm improves organizational intelligence but not the LLM's inference capability. Path: publication → arXiv indexing → training data → better substrate. Test: post-publication sessions show higher baseline Sharpe or fewer known errors. Horizon: multi-year. Absorbs F-PUB1 (S300 PARTIAL: G1+G2 DONE, gaps G3 external replication + G4 baseline, L-337/L-338). Related: L-789, PHIL-4.
 
 - **F-COMP1**: Can swarm produce external outputs to ground self-assessment? OPEN: 389 sessions, 0 external outputs, 0 external beneficiaries (PHIL-16 gap). Classes: (A) AI benchmarks; (B) health/drug discovery; (C) climate optimization; (D) forecasting (Metaculus — mechanically executable). S389 council: highest-urgency frontier. Absorbs F133 (external expert relay via human). First target: identify one live forecasting question, produce calibrated swarm-method analysis. Related: F-EVAL1, F133(MERGED), L-404, PHIL-16.
 
@@ -42,17 +42,6 @@ The swarm picks what matters. Solve, refine, or challenge.
 - **F-META14**: Can systematic re-verification of genesis-era lessons (L-001 to L-030) with mature infrastructure find overturned claims? S392 PARTIAL: YES — 40% non-current (4 refined, 3 stale, 2 overturned, 2 falsified, 1 archived). Mean Sharpe 4.7 vs modern 7.8 (Δ+3.1). Verification-confidence paradox: 21.4% of "Verified" genesis lessons falsified vs 0% "Assumed". Key falsifications: L-025/L-029 (edge-of-chaos), L-005 (naming), L-007 (phase ratios). Open: extend to L-031..L-060 for genesis-era boundary measurement. L-781. Related: L-761, F-META12, L-633.
 
 - **F-META15**: Can the swarm generate genuine self-surprise? S393 BASELINE: confirmation-dominant (27.3% "confirmed" verbs, 0.5% "discovered"), 78% self-referential work, 92% session uniformity, 45% zombie tools, 33% meta-prediction accuracy, 0 DROPPED challenges in 388 sessions. Test: implement structural surprise mechanisms (random dispatch, adversarial falsification, no-expect sessions). Target: surprise_rate >20% per 20-session window. L-787, SIG-34.
-
-## Review (TTL=S404 — auto-ABANDON if no DOMEX by S404)
-
-- **F105**: Online compaction monitor. compact.py operational (P-163, L-192). S313: drift=0.4% (healthy). Threshold: DUE>6%, URGENT>10%. No action needed; monitor each cycle. **TTL=S404**.
-
-- **F115**: Living self-paper — v0.13 S300; drift monitor in maintenance.py. Open: G3 external replication, G4 baseline. See F-PUB1. **TTL=S404**.
-- **F-PUB1**: Can swarm reach external publication? S300 PARTIAL: G1+G2 DONE. Gaps: G3 (no external replication), G4 (no baseline). arXiv path ready pending author review. See L-337, L-338. **TTL=S404**.
-
-- **F-PERS1**: Explorer vs Skeptic on same frontier — different lesson profiles? **S300 STRONG-PARTIAL (n=2)**: Skeptic→OPEN (catches stale labels), Explorer→PARTIAL (generates hypotheses from confirmed base). Next: test on PARTIAL frontier where Explorer should outperform. (L-335, L-343) **TTL=S404**.
-
-- **F-CTX1**: Is the context window the swarm's ephemeral body? S341 OPEN: 3 unmeasured gaps: context allocation ratio, cross-context topology, phenotype efficiency. Open: instrument orient.py context budget; re-test B2 as allocation policy. Related: ISO-9, B2, L-493. **TTL=S404**.
 
 ## Domain frontiers
 36 domains have local `tasks/FRONTIER.md` files. Find via: `ls domains/*/tasks/FRONTIER.md`
