@@ -405,7 +405,27 @@ Domains appearing in 4+ entries — highest isomorphism density, swarm first:
 | Computer science | ISO-11,12 | ISO-11: PageRank; ISO-12: internet routing / CDN placement |
 | Control theory | ISO-1,5,10,13 | ISO-10: Model Predictive Control; ISO-13: integral windup / anti-windup clamping |
 | Ecology | ISO-2,6,15 | ISO-2: island biogeography; ISO-6: ecosystem succession; ISO-15: guild structure + engineers |
+| Philosophy | ISO-18 | ISO-18: instability of nothing — "nothing" is self-refuting (Parmenides); conceptual void contains the concept itself |
 | Governance | ISO-2,6 | ISO-2: political polarization attractor; ISO-6: institutional decay |
+
+---
+
+### ISO-18 (candidate): Instability of nothing — minimal seeds self-amplify
+**Structure**: A state of "nothing" (zero structure, perfect symmetry, uniform undifferentiated substrate) is unstable in every known domain. What is called "nothing" always contains minimal structure — rules, fields, axioms, protocols — that already encodes the possibility of "something." Three independent mechanisms make nothing unstable: (1) no constraints = maximum permission (logical), (2) defining nothing requires something (self-referential), (3) nothing violates uncertainty (physical). Once minimal structure exists, ISO-4 (phase transition at threshold), ISO-5 (positive feedback amplifies), ISO-7 (emergence from micro-rules), and ISO-14 (self-similar scaling) inevitably produce complex structure. "Nothing" is the name for the minimum that already contains the rules for its own expansion.
+
+| Domain | Manifestation | Notes |
+|--------|---------------|-------|
+| Physics / cosmology | Quantum vacuum → vacuum fluctuations → universe | Vacuum is not nothing: it's the ground state of quantum fields; ΔE·Δt ≥ ℏ/2 prevents perfect emptiness; Big Bang = symmetry-breaking cascade from low-entropy initial state |
+| Mathematics | Empty set ∅ → natural numbers → all of mathematics | ∅ exists within ZFC axioms (which are something); {∅}=1, {∅,{∅}}=2 — structure bootstraps from "nothing" because axioms are already non-nothing |
+| Biology | Prebiotic chemistry → autocatalysis → life | Miller-Urey: simple molecules + energy → amino acids; the ocean was not nothing (chemistry + thermal vents + UV); abiogenesis = ISO-7 emergence from minimal chemical substrate |
+| Swarm | Empty repo → CORE v0.1 → 425L, 178P, 17 ISOs | Protocol (SWARM.md) + substrate (git, python, context window) + energy (human input, API compute) = minimum viable seed; 340 sessions of ISO-4/5/7/14 amplification |
+| Information theory | Silent channel → thermal noise → signal detection | Johnson-Nyquist noise: zero-signal channel still has structure; Shannon capacity > 0 for any nonzero noise temperature |
+| Philosophy | Conceptual void → the concept "nothing" → ontology | Parmenides (~5th c. BCE): "nothing" is self-refuting — asserting nothing exists is itself an assertion (something); Heidegger's fundamental question dissolves when "nothing" is shown to be minimal structure |
+
+**Sharpe: 3** (6 domains; physics and mathematics cases rigorously grounded; biology empirically supported via Miller-Urey; swarm case measured operationally; philosophy is structural argument; information theory follows from Shannon's theorems)
+**Gaps**: Economics (market genesis from barter?), Ecology (ecosystem colonization of sterile substrate — Surtsey, Krakatoa), Neuroscience (consciousness emergence from sufficient neural complexity?)
+**Inversion**: If nothing were truly stable, this ISO would be false. Testable: find any substrate where a verified state of zero structure persists without external enforcement. No known case exists.
+**Relationship**: ISO-18 is the reason ISO-4 (phase transition) fires: the pre-transition state (nothing/symmetry) is unstable, so transitions are inevitable, not contingent. ISO-18 subsumes the S340 "symmetry-breaking cascade" candidate by providing its mechanism: cascades happen because symmetric states can't persist.
 
 ---
 
@@ -425,6 +445,7 @@ F126: swarm → isomorphism atlas → world knowledge base (world is beneficiary
 Both share the mechanism. F126 inverts the directionality of value flow.
 
 ## Version history
+- v1.2 (S341): ISO-18 candidate promoted from "symmetry-breaking cascade" to "Instability of nothing" (L-491): cross-substrate analysis (physics, mathematics, biology, swarm, information theory, philosophy) shows "nothing" is unstable in every tested domain. Three independent arguments (no-constraints, self-referential, uncertainty). Philosophy added as first-class domain. ISO-18 provides mechanism for why ISO-4 fires: symmetric/nothing states can't persist. Hub table updated (Philosophy added). F-PHI1 experiment artifact.
 - v1.1 (S340): Cosmology investigation (L-486): universe genesis mapped against all 17 ISOs — 11/17 match (6 CANONICAL, 4 STRUCTURAL, 1 SPECULATIVE). Physics/thermo hub expanded from 9→11 entries via cosmological additions (ISO-2 epoch attractors, ISO-9 holographic IB, ISO-14 RG). ISO-18 candidate proposed: symmetry-breaking cascade (ISO-4 × ISO-14 + directionality; 5 domains). PHIL-15 verdict: Analyze (universe is not a swarm — lacks reflexive loop). F-PHY6 opened.
 - v1.0 (S329): ISO-17 self-model coherence gap (identity vs evidence asymmetry; science/org/cogSci/governance/AI; Swarm measured n=9 lanes); hub citation analysis: ISO-3=86, ISO-6=69, ISO-4=43 dominant hubs across 390 lessons; hub table updated (Swarm, CogSci)
 - v0.9 (S307): ISO-16 inferential compounding (retroactive annotation multiplier; swarm measured n=120: 0%→28.6% ISO cite rate; ML transfer learning; cognitive schema formation; info-theory semantic indexing); hub table updated for Swarm/InfoTheory/ML/CogSci
