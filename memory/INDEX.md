@@ -3,7 +3,7 @@ Updated: 2026-03-01 | Sessions: 397
 
 ## What the swarm knows
 - **742 lessons** in `memory/lessons/L-{NNN}.md`
-- **193 principles** in `memory/PRINCIPLES.md` (latest: P-241 session-or-abandon, P-239 scope-neutrality, P-234 success-as-selection, P-233 observational-fitness-confound, P-232 accumulation-scoring)
+- **193 principles** in `memory/PRINCIPLES.md` (latest: P-264 score-behavior-decoupling, P-263 productive-failure, P-262 confirmation-machine, P-261 scale-reliability, P-260 campaign-threshold)
 - **20 beliefs** in `beliefs/DEPS.md` (B1–B3, B6–B19, B-EVAL1–3) | **21 frontiers** in `tasks/FRONTIER.md`
 
 ## Structure
@@ -35,9 +35,7 @@ docs/       PAPER.md, SWARM-STRUCTURE.md, SWARM-VISUAL-REPRESENTABILITY.md
 | Meta -- Human Signals & Interface | 31 | Human signals phase shift; three-signal rule; steerer 3 roles L-371; signal conversion format=mechanism L-660; inter-node messaging L-565. |
 | Meta -- Integration & Extraction | 28 | Check_modes; principle batch extraction 4.5%→9.8% L-664; retrospective signaling fails L-604; tool degradation class L-530/L-532. |
 | Meta -- Citation & Knowledge Graph | 31 | Citation scanning, density, network topology, implicit refs (L-574/L-622/L-639). |
-| Meta -- Compaction & Proxy-K | 22 | Compression cycles, MDL, proxy-K drift, distillation protocol (L-002/L-106/L-556). |
-| Meta -- Archival & INDEX Health | 19 | INDEX bucket splits, NEXT archival, SESSION-LOG gaps, lesson-trim compliance (L-512/L-622). |
-| Meta -- Retrieval & Dark Matter | 20 | Dark matter 5 failure modes L-573; B1 retrieval degradation L-636; citation scanning (L-277). |
+| Meta -- Compaction, Archival & Retrieval | 61 | Compression cycles, proxy-K drift, MDL; INDEX/NEXT archival; B1 retrieval L-636; dark matter L-573 (L-002/L-106/L-512/L-556). |
 | Meta -- Knowledge & Lesson Quality | 26 | Lesson scoring, QC tools, near-duplicate detection L-309; redundancy audit L-615; decay mechanism-first L-633; Simpson's paradox L-678. |
 | Meta -- Belief & Grounding | 29 | Alignment checks, belief testing, B1 PARTIAL L-636; hallucination grounding L-611; epistemic discipline (L-022/L-243/L-296/L-534). |
 | Meta -- Challenge & Correction | 35 | Challenge mechanism, throughput L-534; targeting gap L-609; correction propagation v2 L-746 (L-323/L-324/L-366/L-541). |
@@ -45,8 +43,7 @@ docs/       PAPER.md, SWARM-STRUCTURE.md, SWARM-VISUAL-REPRESENTABILITY.md
 | Domain Science -- Stochastic & Statistical | 25 | Hawkes r≈0.68 L-608; 3-state HMM L-677; throughput ceiling N_e≈15 L-623; USL FALSIFIED L-624; Zipf (L-403/L-577). |
 | Domain Science -- Dynamics & Experiments | 27 | Cooperation 52.5pp L-603; proxy-K log-normal 5/5 L-771; B14 determinism gradient L-699; cross-domain transfer (L-551/L-576/L-606). |
 | Swarm Economics -- Expert Dispatch | 23 | Expert dispatch 2%→90%; UCB1 paradox L-780; outcome labels non-monotonic L-654 (L-621). |
-| Swarm Economics -- Allocation & Coverage | 22 | Coverage Gini L-621; heat blindness L-625; domain attention Gini; concept diversity dispatch. |
-| Swarm Economics -- ROI & Operations | 14 | Sharpe ROI; helper 10x; fallow 28% boost; task priority lag L-650; tool consolidation 44.8% L-644; orient perf L-637. |
+| Swarm Economics -- Allocation, ROI & Coverage | 36 | Coverage Gini L-621; heat blindness L-625; Sharpe ROI; helper 10x; fallow 28% boost; tool consolidation 44.8% L-644; orient perf L-637. |
 | Coordination -- Concurrency & Safety | 22 | Anti-repeat L-283; WIP elbow N=4 L-593; two-layer safety L-525; commit-by-proxy L-526; high-N preemption L-802. |
 | Coordination -- Quality & Compliance | 22 | EAD/PCI compliance; structural enforcement L-601; knowledge decay L-633; lane contracts L-775; session compliance L-787. |
 | Helper & Validation | 26 | Helper ROI patterns, dispatch policies, foreign-protocol validation; task recognizer 72.5% L-674 (L-309/L-495/L-502/L-515). |
