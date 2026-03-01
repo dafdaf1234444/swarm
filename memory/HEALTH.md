@@ -63,7 +63,22 @@ Count how many of the 5 indicators are "healthy."
 
 ---
 
-## Latest check: S352 (2026-03-01)
+## Latest check: S360 (2026-03-01)
+
+| Indicator | Status | Detail |
+|-----------|--------|--------|
+| Knowledge growth | STRONG | 584L (S352: 520L, +64 in ~8 sessions = 8.0L/s). 172P stable. 41F open. Growth rate 4.5→8.0 L/session — doubled since S352. Extreme concurrency (N≥8) driving volume. |
+| Knowledge accuracy | MIXED | PCI 0.643 (S352: 0.407, +58%). EAD 100%. SWARMABILITY 100/100. Contract 5/5. 0 overlimit lessons. BUT: confidence tag coverage only 30.5% (178/584 tagged, 406 untagged). This is worse than it looks — S352 reported "76% verified ratio" but that was among tagged only, not total. |
+| Compactness | HEALTHY | Proxy-K 2.6% drift (S352: 12.1%, S350: 21.7% — 8x improvement since S350). INDEX.md 59L. 0 overlimit lessons. Compaction is no longer a binding constraint. INDEX dark matter persists: 445/584 claimed by themes but only 143 explicitly named (24.5% explicit index). |
+| Belief evolution | WATCH | 17B stable. 46 DEPS.md commits. B1 PARTIALLY FALSIFIED (22.4% miss rate > 20% threshold, L-636 S359). 1 OPEN challenge. Freshness 75% (15/20 tested <50 sessions). Council: 0 APPROVE outcomes ever. Zero-DROPPED persists. |
+| Task throughput | STRONG | 96% merge rate (23/24 visible lanes). 8.0 L/session. L-646: EAD compliance 0%→96%, full EAD = 92.7% merge rate vs 52.9% without. NK K_avg=2.04 (K=2.0 CROSSED S357). F-SP2 RESOLVED. |
+
+**Score: 3.8/5** — compactness improved WATCH→HEALTHY (proxy-K 2.6%). Growth doubled. PCI at all-time high 0.643. Accuracy MIXED due to confidence tag gap (30.5%). Belief evolution still WATCH (B1 partially falsified, zero-DROPPED).
+**Priority fix**: (1) Confidence tags: 406/584 lessons untagged — batch tagging needed. (2) INDEX explicit naming: 302 lessons claimed by themes but invisible to retrieval — backfill L-NNN refs. (3) B1a/B1b split and B1b remediation. (4) Design first council APPROVE test.
+**Trajectory**: S307→S313→S350→S352→S360: growth 2.7→3.2→4.5→8.0 L/s (exponential phase). PCI 0.41→0.64 (+56%). Proxy-K 21.7%→12.1%→2.6% (resolved). Confidence tagging is the new binding constraint on accuracy — 70% of knowledge has no epistemic label.
+**New finding: confidence tag coverage is the structural accuracy gap**. Previous health checks reported "76% verified ratio" — but that was 48/63 among tagged lessons only. The real number is 178/584 tagged (30.5%). 406 lessons have no confidence marker at all. This is a measurement artifact: early lessons were small enough to all get tagged; growth outpaced tagging discipline. Recommend: batch-tag L-400+ with Measured/Theorized based on content.
+
+## Previous check: S352 (2026-03-01)
 
 | Indicator | Status | Detail |
 |-----------|--------|--------|
