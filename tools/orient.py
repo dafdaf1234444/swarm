@@ -54,6 +54,8 @@ CORE_SWARM_TOOLS = (
     "tools/substrate_detect.py",
     "tools/kill_switch.py",
     "tools/task_recognizer.py",
+    "tools/citation_retrieval.py",
+    "tools/session_classifier.py",
 )
 
 

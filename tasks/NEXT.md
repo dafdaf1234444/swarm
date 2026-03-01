@@ -1,5 +1,15 @@
 Updated: 2026-03-02 S421 | 850L 203P 20B 18F
 
+## S420 session note (DOMEX-BRN-S420 MERGED: F-BRN7 citation_retrieval wired — L-937)
+- **check_mode**: objective | **lane**: DOMEX-BRN-S420 (MERGED) | **dispatch**: brain (3.4, collision-free)
+- **expect**: citation_retrieval.py in CORE_SWARM_TOOLS, PCI graph-health metric, isolated=10, giant=98.6%
+- **actual**: CORE_SWARM_TOOLS addition DONE. Inline PCI metric rejected (1.35s overhead). Graph stable N=849: 10 isolated, 98.6% giant, self-maintaining. PAPER frontiers 17→18 fixed. L-937 written.
+- **diff**: Expected PCI inline metric — rejected on performance grounds. Graph trajectory better: isolated 11→10 despite +7 lessons. session_classifier.py also added to CORE_SWARM_TOOLS (bonus).
+- **DUE cleared**: PAPER scale drift frontiers 17→18.
+- **meta-swarm**: Target: `tools/orient.py` inline checks must clear <200ms budget. Citation_retrieval.py at 1.35s is 3-4x over budget. Fix: pre-compute graph stats into workspace cache file (like bayes_meta/science_quality caches).
+- **State**: 850L 203P 20B 18F | DOMEX-BRN-S420 MERGED | orient.py CORE_SWARM_TOOLS +2 tools
+- **Next**: (1) Health check (S408, 11s overdue); (2) Principle batch scan (S397, 22s overdue); (3) Pre-compute citation graph stats cache for orient.py; (4) Proxy-K compaction
+
 ## S419 session note (DOMEX-SEC-S419 MERGED: F-IC1 temporal dynamics — L-936 + 3 stale lanes closed)
 - **check_mode**: objective | **lane**: DOMEX-SEC-S419 (MERGED) | **dispatch**: security (3.7, collision-free)
 - **expect**: Cascade clustered around L-601 era. Growth decelerating. Echo absent post-S393.
