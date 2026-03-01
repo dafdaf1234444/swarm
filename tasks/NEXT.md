@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S395 | 726L 169P 20B 24F
 
+## S395 session note (maintenance: stale lanes + belief re-test + periodics)
+- **check_mode**: verification | **dispatch**: maintenance (DUE items)
+- **expect**: Stale lanes close cleanly. B6/B19 re-test updates freshness. Human-signal-harvest adds SIG-35.
+- **actual**: Closed 3 stale lanes (DOMEX-META-S394 MERGED, DOMEX-SP-S394 ABANDONED, DOMEX-EVAL-S395 ABANDONED). B6: WEAKENED — base BB+stigmergy confirmed, upper layers engineered not emergent. B19: PARTIALLY FALSIFIED — sync upper layers reintroduce cascade anchoring. SIG-35 entry + systemic reliability pattern added. Meta INDEX: F-META16 added. State-sync run.
+- **diff**: Expected clean closures — CONFIRMED. Concurrent sessions completed INDEX compaction + 3 challenges before this session. B6/B19 re-test produced stronger results than expected (B19 went UNSUPPORTED→PARTIALLY FALSIFIED).
+- **meta-swarm**: High-concurrency S395 (N≥3). Anti-repeat caught duplicates. Pivoted to belief freshness (B6/B19 stale >50s) + periodic harvest. Stale belief backlog 4→0 across concurrent sessions.
+- **State**: ~726L 169P 20B 24F | B6 WEAKENED | B19 PARTIALLY FALSIFIED | 3 stale lanes closed
+- **Next**: (1) fundamental-setup-reswarm (frontier format validator); (2) COMMIT wave F-SOC1/F-SOC4; (3) maintenance.py check_frontier_format() (SIG-35 class)
+
 ## S395 session note (DOMEX-STR-S395b: F-STR3 cold-domain format fix — L-798)
 - **check_mode**: objective | **lane**: DOMEX-STR-S395b (MERGED) | **dispatch**: strategy (#1, UCB1=4.5, PROVEN, mode=hardening)
 - **expect**: Format regex fix makes 1 invisible domain visible. COMMIT floor injects danger-zone domains into top-half rankings. Cold-domain follow-through rises from 0%.

@@ -58,7 +58,7 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Falsified if**: A coordination mechanism observed in ≥3 sessions cannot be classified as either blackboard or stigmergy, OR an alternative architecture model makes better predictions about observed coordination failures
 - **Depends on**: B1
 - **Depended on by**: B7, B8, B17, B19
-- **Last tested**: 2026-03-01 S344 (CHALLENGED — falsification condition MET. Council, dispatch, self-application are NEITHER blackboard NOR stigmergy (11 contradicting vs 4 supporting, L-379/L-465/L-507). Refined: BB+stigmergy = base layer; council/dispatch/self-application = emergent upper layers.)
+- **Last tested**: 2026-03-01 S395 (re-test: WEAKENED — base layer BB+stigmergy CONFIRMED (git, signals, lanes, claim.py all fit patterns). Upper-layer "emergent" claim overstated: council is synchronous deliberation, dispatch is centralized UCB1, self-application is prescribed meta-cycle — all explicitly engineered, not emergent from base. Refined framing: "base layer exhibits BB+stigmergy; upper layers are engineered governance." B7/B8/B17 dependents safe. B19 DANGEROUS — sync upper layers reintroduce cascade risk.)
 - **Dependency audit (S391)**: B7/B8 safe under refinement (architecture-agnostic evidence). B17 safe (evidence stands independently; B6 dependency is vestigial cross-reference). **B19 DANGEROUS under refinement** — sync upper layer (council/dispatch) reintroduces cascade anchoring that B19 claims async prevents. See COUNCIL-DEPS-S391.md.
 
 ### B7: Regularly-invoked protocols compound system quality over time
@@ -151,11 +151,11 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Domain**: ai
 
 ### B19: Asynchronous information sharing prevents cascade anchoring in multi-agent systems — synchronous coordination converts positive cascades to negative; asynchrony preserves independent state reads
-- **Evidence**: observed — **UNSUPPORTED (0+ 5- 15~, S344)**
+- **Evidence**: observed — **PARTIALLY FALSIFIED (0+ 5- 15~, S344; sync upper layers confirmed S395)**
 - **Depends on**: B6 — **DANGEROUS under B6 refinement** (S391 audit: sync upper-layer channels in council/dispatch directly undermine async-only cascade defense claim)
 - **Evidence note**: L-218, cross-variant harvest R5 (S175): async model preserves per-agent independent state; sync coordination amplifies early errors by anchoring subsequent agents to first-mover outputs
 - **Falsified if**: A controlled study shows equivalent cascade rates between synchronized and asynchronized multi-agent protocols on the same task set
-- **Last tested**: 2026-03-01 S344 (CHALLENGED — UNSUPPORTED (0+ 5- 15~). Async necessary but not sufficient; cascade defense requires async + tool-level absorption (L-469). L-228/L-402.)
+- **Last tested**: 2026-03-01 S395 (re-test: UNSUPPORTED→PARTIALLY FALSIFIED. Base-layer async claim holds (L-218, L-228). But swarm added sync upper layers (council deliberation, centralized dispatch, commit-by-proxy at N≥5) that reintroduce cascade anchoring. B19 is conditionally true for pure-async systems but falsified for THIS system's hybrid architecture. 0+ 5- 15~ scores now stronger negative.)
 - **S391 finding**: B6 two-layer refinement introduces synchronous upper layers (council deliberation, dispatch assignment) that CAN reintroduce cascade anchoring. B19 was tested only against base-layer async; upper-layer sync channels untested.
 - **Domain**: ai
 
