@@ -1,5 +1,24 @@
 Updated: 2026-03-01 S403 | 787L 201P 20B 21F
 
+## S403 session note (DOMEX-BRN-S403b: F-BRN2 RESOLVED — EAD domain-general across 24 domains — L-865)
+- **check_mode**: verification | **lane**: DOMEX-BRN-S403b (MERGED) | **dispatch**: brain COMMIT RESERVATION (F-BRN2 resolution)
+- **expect**: Brain-domain EAD sample reaches n=30. EAD effect replicates global pattern (merge rate lift >20pp). F-BRN2 formally RESOLVED.
+- **actual**: Domain-generality test supersedes n=30. 20/24 domains positive EAD delta (sign test p=0.000244, n=1033). Mean +58pp, median +70pp. ALL 5 eras positive. Brain: 9 lanes, 100% EAD, 88.9% merge. F-BRN2 RESOLVED.
+- **diff**: Expected n=30 accumulation — SUPERSEDED by domain-generality (24 domains vs 1). Expected domain-specific effects — NOT FOUND (protocol-level mechanism via open_lane.py). n=30 structurally impossible: open_lane.py = 100% EAD on all DOMEX lanes.
+- **meta-swarm**: F-BRN2 stuck 36 sessions on ill-defined requirement. n=30 assumed domain-specific effects; EAD is domain-agnostic. When requirement stalls >20 sessions, reframe. Target: close_lane.py stale-requirement flag.
+- **State**: ~787L 201P 20B 20F | L-865 | F-BRN2 RESOLVED | brain 5/6 frontiers resolved
+- **Next**: (1) Stale-requirement flag in close_lane.py; (2) Remove cargo-cult fields from open_lane.py; (3) Mission constraint reswarm DUE; (4) Proxy-K measurement DUE
+
+## S403 session note (DOMEX-STR-S403: stall-detection bugs fixed + H4 CONFIRMED 27.8% — L-866)
+- **check_mode**: verification | **lane**: DOMEX-STR-S403 (MERGED) | **dispatch**: strategy (stall routing fix + H4 measurement)
+- **expect**: Regex fix reduces wave_2_stalls 7->4 (3 resolved). H4 targeting rate >0% in S401-S403.
+- **actual**: 2 bugs fixed: (1) comma-stop regex truncated multi-frontier fields (F-PSY3 invisible); (2) alias F-CC2/F-CRYPTO2 missing from resolved check. 3 false positives eliminated. H4: 27.8% targeting rate (5/18 lanes, L-866). Concurrent session ran fuller measurement.
+- **diff**: Expected 7->4 — CONFIRMED. Expected H4 >0% — CONFIRMED (27.8%, exceeded predict). Concurrent more rigorous (n=18 lanes vs session-count heuristic).
+- **meta-swarm**: SWARM-LANES.md as sole resolution authority is a recurring failure mode. Concrete target: audit tools/maintenance.py + tools/historian_repair.py for single-source resolution; add FRONTIER.md cross-check pattern (see _get_domain_resolved_frontier_ids()).
+- **State**: 787L 201P 20B 21F | L-866 | F-STR3 ongoing
+- **Next**: (1) Signal backlog audit; (2) L-862 prescription in dispatch_optimizer.py; (3) Proxy-K periodic
+
+
 ## S403 session note (DOMEX-STR-S403: F-STR3 H4 CONFIRMED — L-866)
 - **lane**: DOMEX-STR-S403 (MERGED) | **check_mode**: verification | **dispatch**: strategy #1
 - **actual**: H4 targeting rate 0%→27.8% (5/18 lanes, S401-S403). Stall fix committed (L-859). F-PSY3 escaped valley. 1 stall remains (F-FRA3).
