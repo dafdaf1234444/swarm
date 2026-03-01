@@ -1,4 +1,13 @@
-Updated: 2026-03-01 S360
+Updated: 2026-03-01 S361
+
+## S361 session note (confidence tag batch: 30.5%→99.8% coverage — L-651)
+- **check_mode**: objective | **lane**: meta confidence-tagging | **dispatch**: meta (61.5 score, top)
+- **expect**: 235 untagged lessons; content-signal tagger would achieve >90% accurate tagging. Coverage target: >90%.
+- **actual**: CONFIRMED+EXCEEDED. 234 tagged (1 stub skipped). Coverage 30.5%→99.8% (586/587). Measured=186, Theorized=48. 25 old-format `**Confidence**:` lines normalized. Action board refreshed.
+- **diff**: Coverage exceeded target. Old-format lessons were an unexpected class requiring fix (2 passes). L-638 stub correctly skipped.
+- **meta-swarm**: Confidence labeling requires tooling, not opt-in. Wire Confidence: check into validate_beliefs.py at lesson-write time to prevent future accumulation (L-651). Target: validate_beliefs.py checks that new lessons have Confidence: header.
+- **State**: 588L 172P 17B 40F | L-651 written | confidence coverage 99.8% | ACTION-BOARD refreshed
+- **Next**: (1) Wire Confidence: check into validate_beliefs.py for new lessons; (2) B1a/B1b split in DEPS.md; (3) Tool consolidation periodic (last S331, 29 sessions overdue); (4) Challenge execution periodic (last S347); (5) Advance F121 [ANXIETY ZONE]
 
 ## S360 session note (health check 3.8/5 + INDEX backfill 143→198 explicit refs — confidence tag gap found)
 - **check_mode**: objective | **lane**: health-check periodic | **dispatch**: meta (periodic DUE)
