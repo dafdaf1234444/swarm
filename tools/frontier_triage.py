@@ -18,8 +18,26 @@ import json
 import glob
 from datetime import datetime
 
-CURRENT_SESSION = 386
 ANXIETY_THRESHOLD = 15  # sessions without update
+
+
+def _detect_current_session():
+    """Auto-detect current session from git log."""
+    import subprocess
+    try:
+        log = subprocess.run(
+            ["git", "log", "--oneline", "-1"],
+            capture_output=True, text=True, timeout=5,
+        )
+        m = re.search(r"\[S(\d+)\]", log.stdout)
+        if m:
+            return int(m.group(1))
+    except Exception:
+        pass
+    return 393  # fallback
+
+
+CURRENT_SESSION = _detect_current_session()
 
 
 def parse_frontiers(filepath):
@@ -92,13 +110,14 @@ def parse_frontiers(filepath):
     return frontiers
 
 
-def count_frontier_citations(fid):
-    """Count how many lesson files reference this frontier ID."""
-    count = 0
-    recent_count = 0  # in last 50 lessons
+def _build_citation_index():
+    """Build a single index mapping frontier IDs to citing lessons. O(N) not O(N*M)."""
+    index = {}  # fid -> {'total': int, 'recent': int}
     lesson_dir = 'memory/lessons'
     if not os.path.isdir(lesson_dir):
-        return 0, 0
+        return index
+
+    recent_threshold = CURRENT_SESSION - 50
 
     for fname in os.listdir(lesson_dir):
         if not fname.endswith('.md'):
@@ -107,15 +126,31 @@ def count_frontier_citations(fid):
         try:
             with open(fpath) as f:
                 text = f.read()
-            if fid in text:
-                count += 1
-                # Check if recent lesson
-                lnum = re.search(r'L-(\d+)', fname)
-                if lnum and int(lnum.group(1)) > 630:  # ~last 50
-                    recent_count += 1
+            lnum_match = re.search(r'L-(\d+)', fname)
+            is_recent = lnum_match and int(lnum_match.group(1)) > recent_threshold
+            # Find all frontier references in this lesson
+            for fid in re.findall(r'\bF-[A-Z]+\d+\b', text):
+                if fid not in index:
+                    index[fid] = {'total': 0, 'recent': 0}
+                index[fid]['total'] += 1
+                if is_recent:
+                    index[fid]['recent'] += 1
         except Exception:
             pass
-    return count, recent_count
+    return index
+
+
+# Build once at module level
+_CITATION_INDEX = None
+
+
+def count_frontier_citations(fid):
+    """Count how many lesson files reference this frontier ID. Uses cached index."""
+    global _CITATION_INDEX
+    if _CITATION_INDEX is None:
+        _CITATION_INDEX = _build_citation_index()
+    entry = _CITATION_INDEX.get(fid, {'total': 0, 'recent': 0})
+    return entry['total'], entry['recent']
 
 
 def has_test_criteria(text):
@@ -307,7 +342,7 @@ def main():
                 'source': r['source'],
             } for r in results],
         }
-        outpath = 'experiments/meta/f-meta2-frontier-triage-s386.json'
+        outpath = f'experiments/meta/f-meta2-frontier-triage-s{CURRENT_SESSION}.json'
         os.makedirs(os.path.dirname(outpath), exist_ok=True)
         with open(outpath, 'w') as f:
             json.dump(artifact, f, indent=2)

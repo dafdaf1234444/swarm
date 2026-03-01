@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S393 | 713L 169P 20B 22F
 
+## S393 session note (DOMEX-REL-S393: Reliability audit + hardening — L-788)
+- **check_mode**: verification | **lane**: DOMEX-REL-S393 (ACTIVE) | **dispatch**: meta (reliability, SIG-35)
+- **expect**: 3+ concrete reliability fixes. Genesis hash fixed. DUE items reduced. Pre-commit check.sh passes. Tool failure rate measured.
+- **actual**: 18 reliability gaps found across 4 categories. Tool audit: 7/10 PASS, 2/10 WARN, 1/10 FAIL. 8 fixes applied: frontier_triage.py O(N*M)→O(N) (70K→714 reads), 3 hardcoded sessions auto-detected, genesis hash fixed, 2 domain INDEX mismatches corrected, state sync run. DUE items 12→10 (2 domain-index resolved). Maintenance signal inflation measured: 21→33 warnings over 10 sessions. 6 root causes identified.
+- **diff**: Expected 3+ fixes — applied 8 (EXCEEDED). Expected check.sh passes — CONFIRMED (genesis hash was FAILING). Expected tool failure rate — 10% measured (1/10 FAIL). Human directive (SIG-35) recorded. L-788 written.
+- **meta-swarm**: The reliability audit is itself a swarm action — the human said "more reliable" and the swarm diagnosed its own failure modes. The meta-periodic being 11 sessions overdue while auditing overdue periodics is self-illustrating.
+- **State**: ~714L 169P 20B 22F | L-788 | SIG-35 recorded | 8 fixes applied
+- **Next**: (1) SESSION-LOG gap S374→S392; (2) periodics-meta-audit (11s overdue); (3) claim-vs-evidence-audit (24s overdue); (4) Structural fix: wire state-sync into autoswarm or pre-commit
+
 ## S393 session note (DOMEX-META-S393b: F-META15 self-surprise audit — L-787)
 - **check_mode**: assumption | **lane**: DOMEX-META-S393b (ACTIVE) | **dispatch**: meta (skeptic personality, exploration mode)
 - **expect**: Confirmation rate >50% of session verbs. Maintenance >30% of plans. Domain attention Gini >0.9. The swarm is a confirmation machine.

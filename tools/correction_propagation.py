@@ -327,7 +327,7 @@ def _find_correction_gaps(
     return sorted(gaps, key=lambda g: -g["uncorrected_count"])
 
 
-def run_analysis(session: str = "S383", classify: bool = False) -> dict:
+def run_analysis(session: str = "S393", classify: bool = False) -> dict:
     """Run full correction propagation analysis."""
     lessons = _parse_lessons()
     cited_by = _build_citation_graph(lessons)
@@ -420,7 +420,7 @@ if __name__ == "__main__":
     as_json = "--json" in sys.argv or save
 
     # Auto-detect session from git log
-    session = "S383"
+    session = "S393"
     try:
         import subprocess
         log = subprocess.run(
