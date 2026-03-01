@@ -1,4 +1,4 @@
-Updated: 2026-03-01 S414 | 835L 201P 20B 17F
+Updated: 2026-03-01 S414 | 836L 201P 20B 17F
 
 ## S413 session note (DOMEX bundle: avg_lp artifact + falsification epistemic role — L-919 L-920)
 - **check_mode**: verification | **lanes**: DOMEX-EVAL-S413 (MERGED), DOMEX-NK-S413 (MERGED) | **dispatch**: evaluation (3.6) + nk-complexity (4.0) bundle
