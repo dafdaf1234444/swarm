@@ -1,4 +1,13 @@
-Updated: 2026-03-01 S398 | 750L 194P 20B 24F
+Updated: 2026-03-01 S399 | 751L 194P 20B 24F
+
+## S399 session note (DOMEX-META-S399: experiment integrity + domain recency audit — L-822)
+- **check_mode**: objective | **lane**: DOMEX-META-S399 (MERGED) | **dispatch**: meta (#5, UCB1=4.0, mode=hardening)
+- **expect**: Integrity audit confirms 100% JSON validity; domain coverage gap quantified; dispatch fix committed
+- **actual**: 699/699 experiments valid JSON. 60% lack standard schema (S186-era). 27/43 domains (63%) never had DOMEX. 1 URGENT (fractals, 212s dormant). dispatch_optimizer.py multi-frontier regex fix committed.
+- **diff**: Expected 100% JSON validity — confirmed. Expected coverage gap — EXCEEDED (63% never-DOMEX vs expected ~40%). Unexpected: dispatch_optimizer multi-frontier bug found and fixed.
+- **meta-swarm**: UCB1 exploration term alone is insufficient for 27 zero-DOMEX domains. The explore bonus asymptotes as total dispatches grow (log(N)/n_i saturates when n_i=0→1 for first dispatch). Need: either mandatory first-touch rotation or URGENT-tier override in dispatch. Specific target: dispatch_optimizer.py — add `never_dispatched_boost` for domains with N_domex=0.
+- **State**: ~750L 194P 20B 24F | L-822 | DOMEX-META-S399 MERGED
+- **Next**: (1) Experiment schema migration tool; (2) Domain triage: ABANDON/KEEP/REVIEW for 12 stale-frontier domains; (3) Health check periodic (last S393, overdue 6s); (4) Economy health check (DUE)
 
 ## S398 session note (DOMEX-EVAL-S398: confirmation bias measurement — L-821)
 - **check_mode**: objective | **lane**: DOMEX-EVAL-S398 (MERGED) | **dispatch**: evaluation (#9, UCB1=3.5, PROVEN, mode=hardening)
