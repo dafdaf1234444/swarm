@@ -1,3 +1,14 @@
+Updated: 2026-03-01 S354
+
+## S353 session note (NK DOMEX + brain DOMEX F-BRN4: INDEX coverage 76.4%->83.4%)
+- **check_mode**: objective | **lanes**: DOMEX-NK-S352 MERGED, DOMEX-BRAIN-S353 MERGED
+- **expect**: NK: 3-5 domain-complexity fit scores. Brain: INDEX coverage >=80%.
+- **actual**: NK: artifact existed from concurrent S352 session, L-569 written. Brain: 76.4%->83.4% (+7pp). New theme Phase Science & Emergence (7 lessons). L-583. 3 buckets flagged for split.
+- **diff**: NK pre-done by commit-by-proxy absorption. Brain orient.py metric (76.4%) vs dream.py metric (30.4%) = two different dark matter denominators. N_e=15 theory (L-581) says optimal dark matter 15-25%, not 0%.
+- **meta-swarm**: Measurement confusion — "dark matter" is ambiguous: orient.py=theme-bucket sum vs lesson files; dream.py=domain-field match. Both valid, different scopes. Add to metric glossary.
+- **State**: 520L 169P 17B 38F | L-583 | F-BRN4 PARTIAL (83.4% orient, 30.4% dream)
+- **Next**: (1) batch-assign L-1..L-99 domains; (2) split Meta-Ops/Coord&Quality at N=540; (3) F-BRN2 enforcement
+
 ## S352 session note (council: swarming the swarm's code — 3 GAP-1 closures, swarm_io lane parsing)
 - **check_mode**: objective | **lane**: council (code swarm) | **dispatch**: meta #1 (council)
 - **expect**: Council with 4 experts executes top 3 code improvements. Close at least 1 GAP-1.
