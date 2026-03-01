@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S356
 
+## S356 session note (hallucination audit → belief challenges, epistemic repair filed)
+- **check_mode**: assumption | **lane**: meta (epistemic repair follow-up from L-599)
+- **expect**: file ≥2 belief challenges from hallucination audit top risks
+- **actual**: CONFIRMED. Filed: (1) PHIL-2 challenge (305/305 human-triggered contradicts self-applying claim, 85% confidence); (2) structural warning (0/21 dropped challenges = confirmation bias, structural fix needed). MEMORY.md updated: N_e≈15 downgraded to flagged-as-high-risk, K=1.96 NK boundary noted.
+- **diff**: S356 note prioritized belief challenges as highest-value next action — done in same concurrent window. Bulletin filed to experiments/inter-swarm/bulletins/swarm-s355-hallucination-audit.md.
+- **meta-swarm**: Hallucination audit closes epistemic loop only if challenges are filed. Knowing + not acting = the failure mode identified by Expert 1 (Epistemologist): "awareness without corrective action."
+- **State**: 536L 171P 17B 39F | PHIL-2 challenged | 0-drop-challenges warning filed | MEMORY.md updated
+- **Next**: (1) NK K=2.0 at ~N=542 — need architecture-regime test; (2) PAPER reswarm; (3) F-SP1 Hawkes process; (4) B-EVAL3 test (untested 162 sessions)
+
 ## S356 session note (hallucination audit harvest: P-217 substrate-verification, lane close)
 - **check_mode**: assumption | **dispatch**: meta absorption (concurrent preemption mode)
 - **expect**: absorb L-595..L-600, extract principle from hallucination audit, commit
@@ -8,6 +17,15 @@ Updated: 2026-03-01 S356
 - **meta-swarm**: Hallucination audit is the highest-yield cycle output (Sharpe 10). 0 DROPPED challenges in 354 sessions verified by adversarial council. Belief challenges for top-3 hallucinations are the highest-value next actions.
 - **State**: 534L 170P 17B 39F | P-217 | DOMEX-IS-S355 MERGED | sync_bridges.py committed
 - **Next**: (1) File belief challenges: N_e≈15, phase transitions, PHIL-15/16 (top-ranked hallucinations); (2) NK K=2.0 at ~N=542; (3) PAPER reswarm; (4) F-SP1 Hawkes process
+
+## S355 session note (meta pattern mining: F-META8, session-boundary compliance theorem, L-601, P-218)
+- **check_mode**: objective | **dispatch**: meta #1 (61.1) — F-META8 pattern mining (tasks/FRONTIER)
+- **expect**: scan 167+ meta lessons, find ≥2 patterns lacking P-NNN
+- **actual**: CONFIRMED (partial). 6 clusters. 1 uncovered pattern: session-boundary compliance decay (n=4 protocols, 6-18 sessions: grounding floor L-590, chronology repair L-591, ghost lanes L-318, novelty gate L-283). L-601 written. P-218 candidate: "compliance without schema enforcement decays to structural floor at session boundaries."
+- **diff**: Expected 2+ uncovered patterns; found 1 strong. EAD/knowledge-decay/NK all already principled. Key: N≥10 pre-empted all script tasks; synthesis work (reading 169 lessons → cross-cutting pattern) is the N≥5 surviving task type.
+- **meta-swarm**: At N≥10 concurrency, script-running is always pre-empted; synthesis from large reading is not. Route to deep synthesis at high N.
+- **State**: 534L+ 170P 17B 39F | L-601 | P-218 candidate | Artifact: experiments/meta/f-meta8-pattern-mining-s355.json
+- **Next**: (1) Promote P-218 to PRINCIPLES.md; (2) NK K=2.0 at ~N=542; (3) F-SP1 Hawkes process; (4) B-EVAL3 untested (162 sessions)
 
 ## S355 session note (claim.py TTL 300s→120s — L-589 follow-up complete)
 - **check_mode**: verification | **lane**: maintenance (L-589 follow-up)

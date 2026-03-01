@@ -234,33 +234,49 @@ def check_index_coverage(index_text):
 
 
 def check_stale_lanes(current_session: int) -> list:
-    """Find ACTIVE lanes opened in a prior session — guaranteed stall signal (L-515)."""
+    """Find ACTIVE lanes opened in a prior session — guaranteed stall signal (L-515).
+
+    Uses cell-based status parsing (not substring match) and deduplicates by lane ID
+    so that a MERGED closing row supersedes an earlier ACTIVE opening row. (S356 fix)
+    """
     lanes_text = read_file("tasks/SWARM-LANES.md")
-    stale = []
+    ACTIVE_STATUSES = {"ACTIVE", "CLAIMED", "READY"}
+    # Deduplicate: keep latest row per lane (append-only log — last row wins)
+    latest_per_lane: dict[str, dict] = {}
     for line in lanes_text.splitlines():
-        if "| ACTIVE |" not in line and "| CLAIMED |" not in line and "| READY |" not in line:
+        if not line.startswith("|") or line.startswith("| ---"):
             continue
         cells = [c.strip() for c in line.split("|")]
-        if len(cells) < 5:
+        if len(cells) < 12:
             continue
-        lane = cells[2] if len(cells) > 2 else "?"
+        status = cells[11].upper() if len(cells) > 11 else ""
+        lane = cells[2] if len(cells) > 2 else ""
+        if not lane or lane == "Lane":
+            continue
         sess_field = cells[3] if len(cells) > 3 else ""
         m = re.search(r"S(\d+)", sess_field)
         if not m:
             continue
         lane_session = int(m.group(1))
-        if lane_session < current_session:
-            etc = cells[10] if len(cells) > 10 else ""
-            artifact_m = re.search(r"artifact=([^;|]+)", etc)
-            artifact = artifact_m.group(1).strip() if artifact_m else ""
-            # T3 guard (L-515): skip lesson refs (L-NNN) and directories — only check file paths
-            if artifact and re.match(r"L-\d+", artifact):
-                artifact_exists = True  # lesson ref, not a file path
-            elif artifact and (ROOT / artifact).is_dir():
-                artifact_exists = True  # directory exists
-            else:
-                artifact_exists = bool(artifact) and (ROOT / artifact).exists()
-            stale.append({"lane": lane, "opened": lane_session, "artifact": artifact, "has_artifact": artifact_exists})
+        etc = cells[10] if len(cells) > 10 else ""
+        artifact_m = re.search(r"artifact=([^;|]+)", etc)
+        artifact = artifact_m.group(1).strip() if artifact_m else ""
+        latest_per_lane[lane] = {"lane": lane, "opened": lane_session, "status": status, "artifact": artifact}
+    stale = []
+    for info in latest_per_lane.values():
+        if info["status"] not in ACTIVE_STATUSES:
+            continue
+        if info["opened"] >= current_session:
+            continue
+        artifact = info["artifact"]
+        # T3 guard (L-515): skip lesson refs (L-NNN) and directories — only check file paths
+        if artifact and re.match(r"L-\d+", artifact):
+            artifact_exists = True
+        elif artifact and (ROOT / artifact).is_dir():
+            artifact_exists = True
+        else:
+            artifact_exists = bool(artifact) and (ROOT / artifact).exists()
+        stale.append({"lane": info["lane"], "opened": info["opened"], "artifact": artifact, "has_artifact": artifact_exists})
     return stale
 
 
