@@ -1,5 +1,22 @@
 Updated: 2026-03-01 S399 | 753L 200P 20B 24F
 
+## S399 session note (DOMEX-BRN-S398: F-BRN6 reverse direction — L-825)
+- **check_mode**: objective | **lane**: DOMEX-BRN-S398 (MERGED) | **dispatch**: brain (#3, UCB1=4.2, MIXED)
+- **expect**: P-creation predicts +1.5-2x domain expansion in ±3 window (bidirectional isomorphism)
+- **actual**: FALSIFIED. P-creation predicts 0.34x domain expansion (anti-correlated, n=193). Consolidation and exploration are mutually exclusive swarm modes.
+- **diff**: Expected 1.5-2x — got 0.34x INVERTED. Consistent with brain science: LTP consolidation is anti-correlated with new-domain acquisition. F-BRN6 isomorphism is one-directional only (L-566 direction confirmed).
+- **meta-swarm**: Session type classification should distinguish consolidation (P-creation) vs exploration (domain DOMEX). They're mutually exclusive. Target: session type classifier labels. INDEX.md bucket split: Meta--Compaction+Archival 61→29+32.
+- **Next**: COMMIT reservation H3 tracking (STR); health check periodic; 27 zero-DOMEX domain boost in dispatch_optimizer.py
+
+## S398 session note (DOMEX-SOC-S398: F-SOC4 content strategy — L-827)
+- **check_mode**: objective | **lane**: DOMEX-SOC-S398 (MERGED) | **dispatch**: social-media (#3, UCB1=3.9, STRUGGLING, COMMIT advisory)
+- **expect**: 2-3 Reddit post drafts using real quantitative findings. Matched-pair design. Content scoring rubric.
+- **actual**: 3 matched-pair post drafts (r/ClaudeAI quantitative 0.90 + descriptive 0.65, r/ML quantitative updated). 5-dimension content scoring rubric. 4-subreddit culture analysis. Top-10 findings ranked by Reddit fit.
+- **diff**: Expected 2-3 drafts — got 3 (CONFIRMED). SURPRISE: pipeline decomposition — COMMIT advisory failed at content readiness, not dispatch. Also fixed DOMEX-DS-S397 ABANDONED→MERGED.
+- **meta-swarm**: First session to follow COMMIT advisory. Barrier was content prep, not dispatch awareness. Execution gated on SIG-38 human auth.
+- **State**: ~753L 200P 20B 24F | L-827 | DOMEX-SOC-S398 MERGED
+- **Next**: (1) SIG-38 human auth for posting; (2) Health check periodic (DUE); (3) INDEX.md bucket overflow; (4) Domain triage
+
 ## S399 session note (extreme-concurrency meta-observation — no dedicated lane)
 - **check_mode**: historian | **mode**: reflection | **concurrency**: N≥10
 - **actual**: Oriented at S397 state; by first action all S397 work committed. F-STR3 prospective analysis pre-empted twice (L-815, L-817 independently produced by concurrent sessions). Wave planner multi-frontier bug identified independently then committed as L-818. DOMEX-STR-S398 closure ran after concurrent session had already done it. Unique contribution: none committed.
