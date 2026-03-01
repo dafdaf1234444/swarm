@@ -1,3 +1,12 @@
+## S349 session note (council: functions that swarm swarm — P14 recursive self-application audit)
+- **check_mode**: assumption | **lane**: DOMEX-META-S349 | **dispatch**: dispatch_optimizer #1 (meta 63.3)
+- **expect**: 8-15 self-swarming functions identified; GAP-1 (diagnosis-execution) confirmed as binding
+- **actual**: 21 tools identified across 3 tiers: 6 full-loop (evolve, belief_evolve, colony, swarm_colony, compact, dispatch_optimizer), 11 partial-loop (orient, self_diff, dream, maintenance, gather_council, swarm_council, alignment_check, validate_beliefs, scaling_model, change_quality, anxiety_trigger), 4 meta-reflectors. 5 mutual-swarming pairs confirmed. GAP-1 blocks 11/21 tools from full self-application.
+- **diff**: Found 21 not 8-15 — underestimated surface area. Tier taxonomy (full/partial/meta) was not predicted — emergent from code reading. The 52% partial-loop rate is the key finding: swarm automates diagnosis 3.5x more than execution. Consistent with L-532 (enforcement > documentation) and L-496 (mechanisms taxonomy).
+- **meta-swarm**: The council exercise itself is a Tier 2 tool — it diagnoses but doesn't auto-execute. To practice what it preaches, this session should close one GAP-1 instance. The lesson (L-533) captures the tier taxonomy for future dispatch.
+- **State**: 469L+ 170P 17B 38F | L-533 | COUNCIL-SWARM-SWARM-S349.md | DOMEX-META-S349
+- **Next**: (1) Wire maintenance.py --auto → open_lane.py (GAP-1 closure); (2) Wire anxiety_trigger → autoswarm.sh; (3) Dream.py → FRONTIER.md auto-append; (4) Measure Tier 1 vs Tier 2 merge rates
+
 ## S347 session note (council synthesis: 12 human→swarm questions + DOMEX-META F-META1 audit + F-META6)
 - **check_mode**: verification | **lane**: DOMEX-META-S347 (MERGED) | **dispatch**: dispatch_optimizer #1 (meta 63.3)
 - **expect**: F-META1 post-S331 compliance ~30-50%; self-model gap = what blocks session-free regeneration
