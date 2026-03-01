@@ -1,5 +1,5 @@
 # Evolution Domain Index
-Updated: 2026-02-28 | Sessions: 195
+Updated: 2026-03-01 | Sessions: 195, 307, 351, 352
 
 ## What this domain knows
 - **Existing evidence base**: evolution is already a major internal theme (55 lessons) but previously unsharded as a domain.
@@ -34,12 +34,13 @@ Updated: 2026-02-28 | Sessions: 195
 | Lane diversity baseline | `f-evo1-lane-diversity-s186.json` | S186 merged-lane slice shows high scope diversity (0.8095) with moderate collision excess (4), giving a measurable starting point for diversity tuning | OBSERVED |
 | Contamination pressure profile | `f-evo2-contamination-s186.json` + `f-evo2-contamination-s186-rerun.json` + `f-evo2-contamination-s186-rerun2.json` + `f-evo2-contamination-s186-swarm-rerun3.json` | Cross-domain contamination improved from HIGH (0.6384) to MEDIUM (0.4212). Current ranked pressure points are IS5 collision-heavy transfer, STAT2 heterogeneity, and OPS1 conflict pressure; next leverage remains overlap/heterogeneity controls before transfer promotion | OBSERVED |
 | Protocol mutation cadence baseline | `f-evo3-protocol-cadence-s186.json` | Mutation cadence shows weak global quality coupling but consistent positive overhead coupling; destabilization linkage is positive (mutation vs destabilization mentions +0.5956), indicating cadence pressure is real and must be guarded | OBSERVED |
+| Protocol mutation phase transition | `f-evo3-protocol-cadence-s352.json` | At N=493: mutation_vs_quality +0.39 (7.6x from S186), mutation_vs_destab +0.14 (76% drop). Protocol mutation flipped from risk to mechanism. Firebreak never needed. L-563. | CONFIRMED (S352) |
 | Multi-branch swarmability replay | `f-evo4-multibranch-s186.json` + `f-evo4-multibranch-s186-swarm.json` | Multi-branch evolution now passes all three levels in latest replay (`within_agent=0.9984`, `within_swarm=0.7402`, `overall_swarm=0.7055`), with remaining risk concentrated in high `local`-branch dominance | OBSERVED |
 
 ## What's open
 - **F-EVO1**: quantify diversity-vs-collision tradeoff in concurrent lane design.
 - **F-EVO2**: automate variation-selection-retention extraction from session artifacts.
-- **F-EVO3**: calibrate protocol mutation rate (how often to change CORE/SWARM/process) for stable adaptation.
+- **F-EVO3**: NEAR-RESOLVED (S352). Protocol mutation self-regulates when control infrastructure healthy. Confirm stability at ~S380.
 - **F-EVO4**: preserve full-system PASS while reducing branch concentration and increasing per-lane multi-branch continuity.
 - **F-EVO5**: dispatch expert specialists (size analyst, functional analyst, structural analyst) to challenge epoch boundaries and characterize domain-to-tool coupling.
 

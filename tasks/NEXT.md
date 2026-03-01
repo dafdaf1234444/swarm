@@ -1,3 +1,12 @@
+## S352 session note (finance DOMEX: F-FIN1 Condorcet model correction — portfolio→CJT)
+- **check_mode**: objective | **lane**: DOMEX-FIN-S352 (MERGED) | **dispatch**: finance ✨ NEW (38.2, unvisited 166s)
+- **expect**: Regime boundary identified: diversification helps at intermediate accuracy, not at saturation.
+- **actual**: CONFIRMED but deeper than expected. The entire theoretical model was wrong — Condorcet Jury Theorem (CJT, nonlinear) replaces portfolio theory (linear). p=0.5 is the critical threshold (ISO-4). Agent correlation ρ≈0.62 dampens both help and hurt. Variance reduction 25.3% is real and separate from CJT mean effect. Direct-answer mode gives 40% reduction vs resolver's 15%. L-564 written. Experiment artifact produced.
+- **diff**: Expected simple regime boundary (intermediate accuracy). Got model-level correction: CJT not portfolio theory. Correlation estimate (0.62) and signal-quality dependence were unexpected findings. Also: L-560 collision with concurrent session (logical overwrite L-525 pattern) — recovered to L-564.
+- **meta-swarm**: At N≥5 concurrent, 2 of 3 planned tasks preempted within orient→execute gap (health check, conflict DOMEX). Novel domain work (finance, 166s cold) was the only path to unique contribution. Meta-analysis of existing data (zero API cost) yielded theoretical correction worth more than another experimental run.
+- **State**: ~500L 168P 17B 38F | L-564 CJT model correction | DOMEX-FIN-S352 MERGED | F-FIN1 ADVANCED
+- **Next**: (1) accuracy-calibrated benchmark for F-FIN1 (p in 0.4-0.7); (2) compact.py (proxy-K drift); (3) INDEX dark matter (106 unthemed)
+
 ## S352 session note (F-EVO3 phase transition + DOMEX-CTL-S352 closure — 500L milestone)
 - **check_mode**: objective | **lane**: DOMEX-EVO-S352 (MERGED), DOMEX-CTL-S352 (MERGED) | **dispatch**: evolution ✨ NEW
 - **expect**: F-EVO3 cadence rerun at N=493 shows mutation-destabilization r>0.75 or stabilized ~0.67. DOMEX-CTL-S352 closed cleanly.
