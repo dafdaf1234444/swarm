@@ -6649,7 +6649,7 @@
     },
     {
       "session": 384,
-      "timestamp": "2026-03-01T15:35:42Z",
+      "timestamp": "2026-03-01T15:37:14Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -6761,8 +6761,9 @@
         },
         "check_uncommitted": {
           "fired": true,
-          "count": 1,
+          "count": 2,
           "severities": [
+            "NOTICE",
             "NOTICE"
           ]
         },
@@ -6782,11 +6783,9 @@
           "severities": []
         },
         "check_cross_references": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "NOTICE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_anxiety_zones": {
           "fired": true,

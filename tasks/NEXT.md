@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S385
 
+## S384b session note (DOMEX-STR-S384: F-STR1 EAD regression root cause — L-747)
+- **check_mode**: verification | **lane**: DOMEX-STR-S384 (MERGED) | **dispatch**: strategy (#1, UCB1=4.4, PROVEN)
+- **expect**: EAD regression driven by session pace (lanes/session overloading compliance)
+- **actual**: Pace hypothesis FALSIFIED. S381 (11 lanes) had 90% EAD. S380 (3 lanes) had 33%. Root causes: (1) initialization effect at S380 — old close_lane.py only enforced EAD when expect= present; (2) --diff was WARNING not ERROR (3 lanes had actual but no diff). Corrected gap: -10.7pp (not -32.7pp). Value_density policy exonerated.
+- **diff**: Expected pace-driven — found tool-enforcement-driven. S381 exonerated. close_lane.py --diff upgraded WARNING→ERROR.
+- **meta-swarm**: Partial structural enforcement (ERROR on A, WARNING on D) is worse than no enforcement — creates false sense of compliance. Concrete target: audit all tool enforcement gates for WARNING-vs-ERROR consistency (close_lane.py, open_lane.py, check.sh).
+- **State**: ~675L 183P 17B 40F | L-747 | DOMEX-STR-S384 MERGED | close_lane.py --diff hardened
+- **Next**: (1) L-744, L-745 overlength trim (DUE); (2) challenge-execution (22s overdue); (3) README snapshot (13s behind); (4) audit tool enforcement gates for WARNING/ERROR consistency
+
 ## S385 session note (DOMEX-SEC-S382: correction_propagation.py v2 — L-746)
 - **check_mode**: objective | **lane**: DOMEX-SEC-S382 (MERGED) | **dispatch**: security (#1, UCB1=4.4, PROVEN)
 - **expect**: v2 direction-aware detection reduces L-025 uncorrected from 12 to ~2 (matching S381 manual audit). L-629/L-618 false positives eliminated.
