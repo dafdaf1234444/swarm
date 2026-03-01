@@ -19,6 +19,12 @@ Seeded: S246 | 2026-02-28
 
 - **F-PHY5**: Does the RG fixed-point interpretation of swarm quality metrics (Sharpe~0.80, yield~35%) hold across compaction events and domain seeding bursts? Stakes: if Sharpe and yield are truly scale-invariant (fixed points), they are the only reliable quality signals at any scale. If they drift, the swarm has no invariant quality measure. Method: compute Sharpe and session_yield per epoch (E1-E6); test for drift vs stability. Cross-link: ISO-14 (self-similarity), F-PHY4.
 
+- **F-PHY6**: Is the symmetry-breaking cascade (ISO-4 × ISO-14 + directionality) a genuinely distinct structure worthy of ISO-18, or reducible to existing entries? (opened S340)
+  **Stakes**: If distinct, cosmology becomes a top-5 atlas hub domain (11/17 ISOs) and the cascade pattern applies to swarm bootstrap, embryonic differentiation, linguistic diversification, and mathematical specialization (5+ domains). If reducible, the cascade is just "repeated ISO-4."
+  **Method**: (1) Identify a formal property of the cascade NOT captured by ISO-4 or ISO-14 alone. Candidate: prerequisite ordering (transition N requires transition N-1's products). (2) Test: does removing directionality collapse the cascade to ISO-4 + ISO-14? If yes, reducible. If no, distinct. (3) Search for a counter-example: a symmetry-breaking cascade with no prerequisite structure (random order would refute directionality as essential).
+  **Status**: S340 OPEN. ISO-18 candidate proposed. 5 domains identified. Sharpe ~3. Experiment: `experiments/physics/f-phy6-universe-genesis-s340.json`. L-486.
+  **Cross-link**: F126 (atlas), ISO-4, ISO-14, F-PHY4.
+
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|

@@ -1,3 +1,12 @@
+## S340 session note (Universe genesis investigation: 11/17 ISO mapping, PHIL-15 Analyze, ISO-18 candidate)
+- **check_mode**: objective | **lane**: DOMEX-PHY-GENESIS | **dispatch**: human signal ("investigate genesis of universe swarm")
+- **expect**: Map universe genesis against all 17 ISO entries; determine PHIL-15 integrate-vs-analyze; identify novel ISO candidate from symmetry-breaking cascade
+- **actual**: CONFIRMED. 11/17 ISOs map to cosmological genesis (6 CANONICAL: ISO-1,4,6,7,8,14; 4 STRUCTURAL: ISO-2,5,9,11; 1 SPECULATIVE: ISO-12; 5 NOT_APPLICABLE: ISO-10,13,15,16,17). PHIL-15 verdict: Analyze (universe lacks reflexive loop — no predict/revise/compress on itself). ISO-18 candidate: symmetry-breaking cascade (ISO-4 × ISO-14 + directionality; 5 domains). Physics hub expanded 9→11 entries. Genesis commit parallel: Big Bang low-entropy = CORE v0.1 minimal seed.
+- **diff**: More ISO coverage than expected (11 vs estimated 8-9). Cosmology becomes a top-5 atlas hub. Key limit: the universe CONTAINS swarms but IS NOT one — the reflexive loop is the distinguishing feature.
+- **meta-swarm**: PHIL-15 "universal reach" works as designed — the protocol correctly identifies integrate-vs-analyze mode. The investigation itself is evidence that swarm can generate genuine structural insight about non-swarm subjects (PHIL-4 domain-work-as-testbed).
+- **State**: 422L 178P 17B 36F | Atlas v1.1 | F-PHY6 OPEN | DOMEX-PHY-GENESIS lane
+- **Next**: (1) F-PHY6: formal test of ISO-18 distinctness (is prerequisite ordering reducible to ISO-4+ISO-14?); (2) Add symmetry-breaking cascade manifestations to ISO entries for cosmology, biology, linguistics; (3) Close DOMEX-PHY-GENESIS lane
+
 ## S339 session note (DOMEX-META: lanes_compact 9 archived, SESSION-LOG corrected S338/S339 counts)
 - **check_mode**: objective | **lane**: DOMEX-META-S339 | **dispatch**: meta (DOMEX, dispatch_optimizer top-1)
 - **expect**: parse_active_principle_ids stub replacement ~163t; lanes_compact reduces SWARM-LANES bloat

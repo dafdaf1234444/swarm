@@ -394,7 +394,7 @@ Domains appearing in 4+ entries — highest isomorphism density, swarm first:
 | Mathematics | ISO-1,3,4,7,8,10,11,12 | Eight entries; ISO-11: random walk foundation; ISO-12: Ford-Fulkerson proven |
 | Neuroscience | ISO-1,2,3,4,5,7,9,10,11 | Nine entries; ISO-11: neural signal propagation + spreading depolarization |
 | Linguistics | ISO-1,2,3,4,5,6,7,8,9 | All nine original; language is optimization, attractor, compression, phase-transition, feedback, entropy, emergence, power law, and IB |
-| Physics/thermodynamics | ISO-1,3,4,5,6,7,8,11,12 | Nine entries; ISO-11: heat diffusion; ISO-12: electrical circuits (Norton dual) |
+| Physics/thermo/cosmology | ISO-1,2,4,5,6,7,8,9,11,12,14 | Eleven entries; cosmology adds ISO-2 (cosmic epoch attractors), ISO-9 (holographic IB), ISO-14 (RG self-similarity); Big Bang = canonical ISO-4 cascade; initial low-entropy = ISO-6 canonical; CMB power spectrum = ISO-8 canonical; cosmic web = ISO-11 network diffusion (S340 L-486) |
 | Cognitive science | ISO-3,7,9,15,16,17 | Six entries; ISO-17: introspection illusion (Nisbett & Wilson); ISO-15: System 1/2 dual-process; ISO-16: schema formation retroactively re-encodes memories |
 | Evolution | ISO-1,2,4,5,6,9 | Six entries; IB on gene flow added; connects NK, selection, genomic drift |
 | Information theory | ISO-1,3,6,8,9,10,16 | Seven entries; ISO-10: Bayesian updating; ISO-16: semantic indexing retroactive compounding |
@@ -425,6 +425,7 @@ F126: swarm → isomorphism atlas → world knowledge base (world is beneficiary
 Both share the mechanism. F126 inverts the directionality of value flow.
 
 ## Version history
+- v1.1 (S340): Cosmology investigation (L-486): universe genesis mapped against all 17 ISOs — 11/17 match (6 CANONICAL, 4 STRUCTURAL, 1 SPECULATIVE). Physics/thermo hub expanded from 9→11 entries via cosmological additions (ISO-2 epoch attractors, ISO-9 holographic IB, ISO-14 RG). ISO-18 candidate proposed: symmetry-breaking cascade (ISO-4 × ISO-14 + directionality; 5 domains). PHIL-15 verdict: Analyze (universe is not a swarm — lacks reflexive loop). F-PHY6 opened.
 - v1.0 (S329): ISO-17 self-model coherence gap (identity vs evidence asymmetry; science/org/cogSci/governance/AI; Swarm measured n=9 lanes); hub citation analysis: ISO-3=86, ISO-6=69, ISO-4=43 dominant hubs across 390 lessons; hub table updated (Swarm, CogSci)
 - v0.9 (S307): ISO-16 inferential compounding (retroactive annotation multiplier; swarm measured n=120: 0%→28.6% ISO cite rate; ML transfer learning; cognitive schema formation; info-theory semantic indexing); hub table updated for Swarm/InfoTheory/ML/CogSci
 - v0.8 (S306): ISO-15 specialization-generalization duality (expert-council pattern: B-cell/T-helper, comparative advantage, ensemble/meta-learner, System 1/2, T2→T4→atlas); ISO-14 extended to depth=4 (expert-council tier system confirmed); ISO-6 ecology+social-systems gaps closed; ISO-2 governance gap closed; hub table expanded to 18 domains
