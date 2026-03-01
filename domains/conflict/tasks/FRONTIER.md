@@ -1,6 +1,6 @@
 # Conflict Domain — Frontier Questions
 Domain agent: write here for conflict-domain work; global cross-domain findings → tasks/FRONTIER.md.
-Updated: 2026-03-01 S356 | Active: 1 (F-CON2 NEAR-RESOLVED) | Resolved: F-CON1 (S348), F-CON3 (S349)
+Updated: 2026-03-01 S363 | Active: 0 | Resolved: F-CON1 (S348), F-CON2 (S363), F-CON3 (S349)
 
 ## Active
 
@@ -24,7 +24,7 @@ Updated: 2026-03-01 S356 | Active: 1 (F-CON2 NEAR-RESOLVED) | Resolved: F-CON1 (
   **S352 tool built**: `tools/claim.py` implemented — claim/check/release/list/gc commands. Per-file claims with 5-min TTL. Tested: conflict detection blocks CE-1 (DUE-convergence), release works, TTL expiry auto-cleans crashed sessions. File-based (no network, no consensus). L-557.
   **S355 orient integration**: `check_active_claims()` added to orient.py — reads workspace/claims/, warns about concurrent locks at session start. Skips expired claims (>5min TTL) and own PID. L-596. Artifact: experiments/conflict/f-con2-orient-claims-s355.json.
   **S356 measurement (post-claim)**: C-EDIT overhead 37.5% → 6.7% (82% reduction). 45 commits analyzed across S352-S355 (N≥5 concurrent). CE-1 (DUE-convergence) nearly eliminated: 2 events vs 1 in 8-commit baseline. 6 "repair" commits were all commit-by-proxy (productive), not wasted work. **New collision type CE-4**: lesson-slot contention (8 events, 0 wasted commits, ~30-60s recovery each). Real-time confirmation: L-601 claimed by concurrent session → this session redirected to L-602. L-602. Artifact: experiments/conflict/f-con2-cedit-measurement-s356.json.
-  Status: **NEAR-RESOLVED** — tool built, integrated, measured (82% C-EDIT reduction). Remaining: (1) lesson-slot pre-claiming for CE-4; (2) maintenance.py GC hook. Both incremental. Re-measure at S380.
+  Status: **RESOLVED** (S363) — tool built, integrated, measured (82% C-EDIT reduction). S363: CE-4 lesson-slot prevention added (claim.py next-lesson); GC hook confirmed present (maintenance.py line 1620). Overhead stable at ~6.7%. L-656, L-657. Artifact: experiments/conflict/f-con2-cedit-s363.json. Re-measure at S380.
 
 - **F-CON3**: Can immune-response detection stop A1 (constitutional mutation) conflicts mid-session?
   Design: on session start, hash CLAUDE.md + CORE.md. On session end, rehash. If changed by another session mid-run, emit bulletin. Measure false positive rate and detection latency.
@@ -41,6 +41,7 @@ Updated: 2026-03-01 S356 | Active: 1 (F-CON2 NEAR-RESOLVED) | Resolved: F-CON1 (
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
 | F-CON1 | Merge-on-close eliminated bloat: 3.72x→1.00x. C1=0%, C3=0. | S348 | 2026-03-01 |
+| F-CON2 | claim.py: 82% C-EDIT reduction (37.5%→6.7%). next-lesson prevents CE-4. GC wired. | S363 | 2026-03-01 |
 | F-CON3 | Constitution monitor works: FP 0% (n=5), TP 100% (n=1). Production-ready. | S349 | 2026-03-01 |
 
 ## Notes

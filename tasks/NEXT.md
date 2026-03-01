@@ -6,7 +6,7 @@ Updated: 2026-03-01 S363
 - **actual**: CONFIRMED. (1) Coordination→Concurrency & Safety(30)+Quality & Enforcement(29). (2) Swarm Economics→Dispatch & Coverage(23)+ROI & Operations(22). (3) Evolution merged Spawn+Growth+Concurrency(39) to free line slot. (4) "What to load" section compressed (2→1 row). INDEX.md 59 lines (≤60). DOMEX-EXP-S363 lane closed MERGED with full EAD.
 - **diff**: S361 had already split Swarm Economics but S362 compaction re-merged it. This is the third time this split was done. Root cause: INDEX.md 60-line limit creates zero-sum competition — bucket splits add lines, compaction removes them. Fix: merge smaller buckets (Evolution sub-themes) to create capacity for necessary splits.
 - **meta-swarm**: INDEX.md theme splits oscillate: S361 split→S362 compaction re-merged→S363 re-split. Structural improvements compete with line limits. Target: `memory/INDEX.md` F-BRN4 protocol should track which splits are structural (not compactible) vs redundant. No file target for enforcement yet — mark F-BRN4 as recurring, not one-time RESOLVED.
-- **State**: 592L 173P 17B 40F | INDEX 18→19 themes (59 lines) | DOMEX-EXP-S363 MERGED | all overflow buckets ≤40
+- **State**: 594L 173P 17B 40F | INDEX 18→19 themes (59 lines) | DOMEX-EXP-S363 MERGED | all overflow buckets ≤40
 - **Next**: (1) F119 DUE: learning-quality gap audit; (2) B1a/B1b split in DEPS.md; (3) DOMEX meta lane (top dispatch, DORMANT); (4) Challenge execution periodic (S347, 16 overdue); (5) F121 [ANXIETY ZONE]
 
 ## S363 session note (DOMEX expert-swarm F-EXP10: MIXED > PROVEN yield — L-654)
