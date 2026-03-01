@@ -75,17 +75,27 @@ def _tool_tokens(path: Path) -> int:
         return 0
 
 
-def _git_last_session(path: Path) -> int | None:
-    """Find the session number of the last commit touching this file."""
+def _git_last_sessions() -> dict[str, int]:
+    """Batch: find last session number for all tool files in one git call."""
     try:
         r = subprocess.run(
-            ["git", "log", "--oneline", "-1", "--", str(path.relative_to(ROOT))],
-            capture_output=True, text=True, cwd=str(ROOT), timeout=10
+            ["git", "log", "--oneline", "--name-only", "-300", "--", "tools/*.py"],
+            capture_output=True, text=True, cwd=str(ROOT), timeout=15
         )
-        m = re.search(r"\[S(\d+)\]", r.stdout)
-        return int(m.group(1)) if m else None
+        # Parse: each commit line has [S<N>], followed by file path lines
+        result: dict[str, int] = {}
+        current_session = 0
+        for line in r.stdout.splitlines():
+            m = re.search(r"\[S(\d+)\]", line)
+            if m:
+                current_session = int(m.group(1))
+            elif line.startswith("tools/") and line.endswith(".py"):
+                stem = Path(line).stem
+                if stem not in result:  # first occurrence = most recent
+                    result[stem] = current_session
+        return result
     except (subprocess.TimeoutExpired, OSError):
-        return None
+        return {}
 
 
 def scan_oversized() -> list[Finding]:
@@ -125,11 +135,12 @@ def scan_unreferenced() -> list[Finding]:
 
 
 def scan_stale() -> list[Finding]:
-    """Tools not modified in many sessions."""
+    """Tools not modified in many sessions (batched git query)."""
     current = _session_number()
+    last_sessions = _git_last_sessions()
     findings = []
     for f in _tool_files():
-        last = _git_last_session(f)
+        last = last_sessions.get(f.stem)
         if last is not None:
             gap = current - last
             if gap > STALE_SESSION_THRESHOLD:
