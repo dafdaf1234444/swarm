@@ -1,5 +1,5 @@
 # Principles — Atomic Building Blocks
-Extracted from lessons. Scan for recombination. 169 live principles, 8 themes.
+Extracted from lessons. Scan for recombination. 171 live principles, 8 themes.
 Last compacted: S392c dedup (5 subsumed) | S392 dedup (12 subsumed) | S368 dedup (8 subsumed) | S350 evidence-trim (~700t, P-193→P-084 merged) | S341 (12 subsumed) | S325 | S313 | S303. Full removal log at EOF.
 
 ## Architecture
@@ -8,7 +8,9 @@ Last compacted: S392c dedup (5 subsumed) | S392 dedup (12 subsumed) | S368 dedup
 **Knowledge systems**: P-016 integrate into existing sections | P-017 git forking free, merge-back is hard | P-025 check belief coupling K — measure by git co-occurrence not intended coupling (P-026 merged) | P-101 knowledge coordination is blackboard-dominant; task handoffs are stigmergy-dominant | P-136 files are swarm nodes — validate file relations as internal topology (L-129, OBSERVED) | P-161 belief graph dependencies are nominal (provenance), not functional (entailment) — useful for citation, not cascade analysis (L-161, OBSERVED)
 
 ## Protocols
+**Sensing**: P-244 a sensor that isn't read is not a sensor — it is a log file; wiring measurement output into the primary sense organ (orient.py) IS the sensing act; unread measurement tools decay to write-only artifacts (L-601, L-803, OBSERVED orient.py: 3 gaps fixed S396)
 **Verification**: P-001 verify generated files | P-010 refine scope, don't binary accept/reject | P-022 never claim "proven" without majority observed | P-158 persuasion ≠ accuracy: stylistic confidence overrides evidential weight; verbosity 90-120w optimal; defense requires evidence not votes (L-158, PARTIALLY OBSERVED) | P-160 falsification must be locally testable — ratios over external snapshots; founding cohort decays 40% vs 0% — audit founding beliefs first (L-160, OBSERVED) | P-238 falsification propagates through premise-dependency not citation-dependency: superseded-duplicate, independent-confirmation, and contextual-reference citations survive falsification without correction; keyword overlap ≠ content dependency (L-745, L-739, MEASURED n=671)
+**Science quality**: P-243 science = discovery of what the swarm doesn't already believe; confirmation ratio >10:1 = science failure; enforce: (1) pre-register falsifiable hypothesis + quantitative threshold BEFORE opening DOMEX lane, (2) 1-in-5 lanes mode=falsification targeting a specific belief, (3) every n>10 experiment reports effect size + significance, (4) test against external systems every 20 sessions; post-hoc thresholds and qualitative "expect CONFIRMED" are methodology violations (L-804, L-787, SIG-36, MEASURED n=683 experiments)
 **Lifecycle**: P-003 baselines early | P-013 review-after dates, not expiration
 **Operations**: P-004 define conflict resolution before conflicts | P-015 monitor open/resolved ratio | P-023 check epistemic + operational axes (operational: integrity + decay) | P-177 foreign-repo entry: detect substrate → read entry files → orient → contribute; blind entry wastes tokens (L-213, F120, OBSERVED) | P-184 external validation upgrades confidence: independent confirmation → upgrade to observed; external gap → open test frontier (L-227, OBSERVED)
 

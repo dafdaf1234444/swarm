@@ -907,8 +907,9 @@ def _extract_open_signals(signals_text: str, current_session: int = 0) -> list:
             age = current_session - int(m.group(1))
         results.append({"id": sig_id, "session": sess, "priority": priority,
                          "content": content, "age": age, "type": sig_type})
-    # Sort: P1 first, then by age ascending (most recent first)
-    results.sort(key=lambda x: (0 if x["priority"] == "P1" else 1, x["age"]))
+    # Sort: P1 first, then by age DESCENDING (oldest/most-neglected first within priority)
+    # L-803: prior ascending sort buried 55-session-old P1 directives behind recent ones
+    results.sort(key=lambda x: (0 if x["priority"] == "P1" else 1, -x["age"]))
     return results
 
 
@@ -970,6 +971,7 @@ def main():
         pass
 
     # Open signals — L-703: SIGNALS.md was write-only / dead. Wire into orient.
+    # L-803: sort oldest-first so neglected P1 signals surface; add backlog alert
     try:
         signals_text = read_file("tasks/SIGNALS.md")
         open_signals = _extract_open_signals(signals_text, current_session=int(re.search(r"S(\d+)", session).group(1)) if re.search(r"S(\d+)", session) else 0)
@@ -980,6 +982,12 @@ def main():
                 print(f"  {'📢' if sig['priority'] == 'P1' else '📋'} {sig['id']}{age_tag}: {sig['content'][:90]}")
             if len(open_signals) > 5:
                 print(f"  ... and {len(open_signals) - 5} more")
+            neglected = [s for s in open_signals if s.get("age", 0) > 20]
+            if neglected:
+                p1_neg = [s for s in neglected if s["priority"] == "P1"]
+                tag = f" including {len(p1_neg)} P1" if p1_neg else ""
+                print(f"  ⚠ BACKLOG: {len(neglected)} signals >20s old{tag} — sensing without acting")
+                print(f"    Oldest: {neglected[0]['id']} (age {neglected[0]['age']}s): {neglected[0]['content'][:60]}")
             print()
     except Exception:
         pass
@@ -1123,6 +1131,23 @@ def main():
             print(f"  EAD compliance: {pci_result['ead']:.0%} ({d['ead']} lanes with actual+diff)")
             print(f"  Belief freshness: {pci_result['belief_freshness']:.0%} ({d['belief_freshness']} tested <50 sessions)")
             print(f"  Frontier testability: {pci_result['frontier_testability']:.0%} ({d['frontier_testability']} with test evidence)")
+            # Knowledge state from cached artifact — L-803: sensor must be read to sense
+            try:
+                import json as _json_pci
+                ks_files = sorted((ROOT / "experiments" / "meta").glob("knowledge-state-s*.json"))
+                if ks_files:
+                    ks_data = _json_pci.loads(ks_files[-1].read_text())
+                    ks_m = re.search(r"knowledge-state-s(\d+)", ks_files[-1].name)
+                    ks_age = (int(sess_pci_m.group(1)) - int(ks_m.group(1))) if ks_m else -1
+                    if 0 <= ks_age <= 20:
+                        dist = ks_data.get("global_states", {})
+                        total = sum(dist.values()) or 1
+                        blind = dist.get("BLIND-SPOT", 0)
+                        decayed = dist.get("DECAYED", 0)
+                        age_note = f"S{ks_m.group(1)}" + (f", {ks_age}s ago" if ks_age > 0 else "")
+                        print(f"  Knowledge state ({age_note}): BLIND-SPOT {blind/total:.1%} | DECAYED {decayed/total:.1%} | refresh: python3 tools/knowledge_state.py --json")
+            except Exception:
+                pass
             if pci_val < 0.10:
                 print(f"  Tip: use `python3 tools/think.py --stale` to find untested beliefs,")
                 print(f"       `python3 tools/think.py --test \"hypothesis\"` to test claims with evidence")
