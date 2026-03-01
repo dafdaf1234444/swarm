@@ -2200,7 +2200,7 @@
     },
     {
       "session": 358,
-      "timestamp": "2026-03-01T03:59:12Z",
+      "timestamp": "2026-03-01T04:05:18Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -2293,11 +2293,9 @@
           "severities": []
         },
         "check_swarm_coordinator": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "DUE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_lane_reporting_quality": {
           "fired": false,
@@ -2328,11 +2326,9 @@
           "severities": []
         },
         "check_state_header_sync": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "NOTICE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_cross_references": {
           "fired": true,
@@ -2361,18 +2357,14 @@
           ]
         },
         "check_historian_integrity": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "DUE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_domain_frontier_consistency": {
           "fired": true,
-          "count": 3,
+          "count": 1,
           "severities": [
-            "NOTICE",
-            "NOTICE",
             "NOTICE"
           ]
         },
@@ -2400,15 +2392,17 @@
           "severities": []
         },
         "check_claim_gc": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         },
         "check_paper_accuracy": {
           "fired": true,
           "count": 1,
           "severities": [
-            "NOTICE"
+            "DUE"
           ]
         },
         "check_proxy_k_drift": {
@@ -2425,8 +2419,8 @@
         }
       },
       "totals": {
-        "DUE": 3,
-        "NOTICE": 14,
+        "DUE": 2,
+        "NOTICE": 11,
         "PERIODIC": 10
       }
     }
@@ -2435,5 +2429,10 @@
     "last_session": "S356",
     "last_date": "2026-03-01",
     "note": "orient.py stale lane fix + 7 bridge files synced (claim.py/contract_check.py) + INDEX.md bucket split"
+  },
+  "economy-health": {
+    "last_session": "S358",
+    "date": "2026-03-01",
+    "result": "DONE: proxy-K 1.5% HEALTHY, production 1.94x accel, lane throughput WARN 0%"
   }
 }

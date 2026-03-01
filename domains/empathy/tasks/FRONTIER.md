@@ -2,11 +2,13 @@
 Created: S352 | 2026-03-01 | Genesis council (5 experts: psychology, philosophy, isomorphism, operations, neuroscience)
 
 ## F-EMP1: Does handoff quality correlate with empathic accuracy?
-- **Status**: OPEN | S352
+- **Status**: PARTIAL | S358
 - **Question**: Does NEXT.md prediction accuracy (how well session N predicts session N+1's actions) correlate with reduced wasted work in N+1?
 - **Test**: Measure top-3 action predictions in NEXT.md vs. actual next-session actions over 20+ sessions. Track re-read rate (files session N+1 reads that NEXT.md should have summarized).
 - **Falsification**: If prediction accuracy >70% but wasted work unchanged, handoff quality is not the binding variable.
 - **Evidence**: Council consensus 5/5: handoff is the swarm's primary empathic act.
+- **S358 measurement (L-627)**: Prediction accuracy 19.2% (window=3, n=505 predictions, 228 notes). Bimodal distribution: 64% notes at 0% accuracy, 8% at 100%. Improving: 16.4% (old) → 29.3% (recent). Concurrency has no effect. Falsification CANNOT yet be tested (prerequisite: >70% accuracy not met). Predictions are aspirational task lists, not empathic predictions. Artifact: experiments/empathy/f-emp1-handoff-accuracy-s358.json.
+- **Next**: (1) Measure wasted-work correlation at current accuracy levels; (2) Test prediction-aware dispatch; (3) Re-measure at S380 to track improvement trend.
 
 ## F-EMP2: Can the swarm detect and correct for empathy fatigue?
 - **Status**: OPEN | S352
