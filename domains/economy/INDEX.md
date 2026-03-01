@@ -1,5 +1,5 @@
 # Swarm Economy Domain Index
-Updated: 2026-02-28 | Sessions: 188
+Updated: 2026-03-01 | Sessions: 389
 
 ## What this domain knows
 - **Core loop**: production (L+P) / consumption (Proxy-K) / yield (L+P per token) / quality (Sharpe) / depreciation (compaction)
@@ -30,8 +30,8 @@ Updated: 2026-02-28 | Sessions: 188
 | Opportunity cost of helper = delivery slot forgone | Cap helper slots at min(blocked_lanes, 3) | THEORIZED (F-HLP3) |
 
 ## What's open
-- **F-ECO5**: can the swarm improve allocation by making its implicit price mechanism (dispatch scores) more explicit?
-- **F-ECO4**: can dispatch by expected yield increase expert throughput from 2% to 5%? Tool: `tools/dispatch_optimizer.py`. Baseline: 63 unrun, top domains linguistics(34.5)/nk-complexity(26.0)/meta(19.0).
+- **F-ECO5**: Can UCB1 improve allocation? UCB1 (S375) replaced heuristic. Two-speed paradox: cumulative Gini improving (0.625→0.520), era-specific worsening (0.587→0.752). 20/40 domains attrited. Quality UP (merge 87.5%, yield 1.38). L-780.
+- **F-ECO4**: RESOLVED S350 — dispatch throughput 2%→90% (45x improvement). Expert dispatch is default mode.
 - **F-ECO3**: whether task throughput rate reliably predicts swarm health better than L+P rate alone
 
 ## Resolved

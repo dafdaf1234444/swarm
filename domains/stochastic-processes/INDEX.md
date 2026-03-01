@@ -25,6 +25,7 @@ Created: S353 | Updated: S382
 - f-sp6-jarzynski-s381.json — Jarzynski PARTIALLY CONFIRMED: second law holds, ΔF path-dependent (n=9)
 - f-sp4-time-varying-pa-s381.json — PA kernel time-varying: 4-era γ shift, EAD effect p=0.004 (n=1043)
 - f-sp4-pa-kernel-refinement-s382.json — Robust gamma=0.63-0.71, proximity 27x, era FLAT→sublinear (n=1190)
+- f-sp4-fitness-model-s389.json — Sharpe fitness ΔBIC=+75.1 (REPLICATION of L-774, independent confirmation, n=1286)
 
 ## Key Parameters
 | Symbol | Name | Value | Session |
