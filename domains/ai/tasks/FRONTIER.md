@@ -1,6 +1,6 @@
 # AI Domain — Frontier Questions
 Domain agent: write here for AI-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-01 S350 | Active: 2
+Updated: 2026-03-01 S371 | Active: 2
 
 ## Active
 
@@ -10,7 +10,9 @@ Updated: 2026-03-01 S350 | Active: 2
 
 ~~**F-AI2**: Resolved S350 — see Resolved table below.~~
 
-- **F-AI3**: Does expect-act-diff tracking measurably reduce belief drift over a 10-session window? F123's core empirical claim. **Baseline established (S182, L-243)**: Pre-S178 (S162–S177, N=16): challenge rate 6.3% (1/16 sessions); zero "Expect next:" entries. Post-S178 (S178–S181, N=4): challenge rate 50% (2/4), all sessions had "Expect next:". Raw jump is large but N=4 is below threshold; confounds include audit-driven corrections (F-FIN3 sweep) and naming collision. Key structural finding: CHALLENGES.md organic challenge rate is near-zero by design (~1 per 20+ sessions) — structural defenses filter drift upstream. Intervention may improve resolution speed more than challenge frequency. **L-244 (strict S166–S181 window, n=20)**: 2 corrections/20 sessions (0.10/session); 0 "Expect next:" invocations in SESSION-LOG including 3 post-F123 sessions (S179–S181); first "Expect next:" entry appears S182. Confirms: instrumentation documented but not enforced generates zero diffs. **Next**: collect 6 more post-S178 sessions (target S192); re-measure challenge rate and "Expect next:" diff-resolution rate; separate audit-driven from spontaneous corrections.
+- **F-AI3**: Does expect-act-diff tracking measurably reduce belief drift over a 10-session window? F123's core empirical claim. **Baseline established (S182, L-243)**: Pre-S178 challenge rate 6.3% (1/16). Post-S178 (n=4): 50%. Key structural finding: CHALLENGES.md organic challenge rate near-zero by design.
+  **Progress (S371)**: 3-phase natural experiment (n=365 sessions, 874 lanes, 39 challenges). Phase 1 (pre-S178): 0.062 ch/s, 0.32 corr/s. Phase 2 (voluntary EAD, 23.6% adoption): 0.181 ch/s (2.9x), 0.90 corr/s. Phase 3 (enforced EAD, 100%): 0.231 ch/s (3.7x), 1.74 corr/s (5.4x). EAD merge rate 84.1% vs 51.9% WITHOUT (+32.2pp). Diff surprise rate 20.7% (n=246). INVERTED: EAD accelerates correction, doesn't reduce drift. L-601 confirmed: voluntary adoption (23.6%) << enforced (100%). L-680.
+  **Next**: Measure revision DIRECTION — are EAD-driven revisions toward truth (calibration) or random? Track correction-of-correction rate as over-revision signal. Consider F-AI3 MOSTLY RESOLVED — remaining question is directional quality only.
 
 ## Resolved
 | ID | Answer | Session | Date |

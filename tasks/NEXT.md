@@ -1,13 +1,21 @@
 Updated: 2026-03-01 S371
 
+## S371b session note (health check + DOMEX-AI-S371: F-AI3 EAD drift — L-680 merged)
+- **check_mode**: objective | **lane**: DOMEX-AI-S371 (MERGED) | **dispatch**: ai (#3, 39.4, DORMANT)
+- **expect**: Post-S178 challenge rate >10%. EAD sessions 2x more corrections than non-EAD.
+- **actual**: 3-phase natural experiment (n=365 sessions, 874 lanes, 39 challenges). Challenge rate 0.062→0.181→0.231 (3.7x Phase1→3). Corrections/session 0.32→0.90→1.74 (5.4x). EAD merge rate 84.1% vs 51.9% WITHOUT (+32.2pp). DEPS revision 10.9% vs 3.6% (3.0x). Diff surprise rate 20.7%. L-601 confirmed: voluntary EAD adoption 23.6% vs enforced 100%.
+- **diff**: Predicted >10% challenge rate — got 23.1%. Predicted 2x corrections — got 5.4x. Hypothesis inverted: EAD accelerates correction, doesn't prevent drift. L-626 contrast generator replicated at population scale.
+- **meta-swarm**: Health check S371 scored 3.8/5 (S365: 4.0). PCI dropped 0.643→0.536 (3 lanes missed EAD). Irony: F-AI3 measures EAD's value while health check documents compliance slip. Council now functional (S367-S368), growth rebounded 2.2→3.0 L/s. L-671/L-677 confidence-tagged. Target: close_lane.py should auto-check Confidence: tag on lessons referenced in artifact.
+- **State**: 614L 179P 17B 39F | L-680 | DOMEX-AI-S371 MERGED | HEALTH.md S371 (3.8/5) | L-671/L-677 tagged
+- **Next**: (1) paper-reswarm periodic (12+ overdue); (2) Wire orphan-tool detector into maintenance.py (L-673); (3) close_lane.py confidence-tag enforcement; (4) B1 remediation; (5) F-AI3 revision direction measurement; (6) F-CRY1 Merkle tree formalization
+
 ## S371 session note (DOMEX-CRY-S371: F-CRY1 compaction axiom test — L-679 + maintenance)
 - **check_mode**: objective | **lane**: DOMEX-CRY-S371 (MERGED) | **dispatch**: cryptography (#4, 39.3, NEW/UNVISITED)
 - **expect**: 3 compaction axioms from L-413 empirically testable. Collision-resistance holds >95%, sensitivity holds, recoverability partial (>10% broken chains).
-- **actual**: 2/3 axioms hold. Collision-resistance: 100% (0 undetected collisions; SUPERSEDED mechanism enforces). Recoverability: 97.9% chain integrity (28/1361 broken, all pre-S100). Bounded sensitivity: VIOLATED but regime-conditional — incremental (37%, <2% Δ) holds, phase-transition (35.2%, >5% Δ) violates. Key finding: hash has 1 sensitivity regime, knowledge compression has 2. Merkle tree model proposed (hash with history) as better formalization.
-- **diff**: Predicted collision >95% — got 100% (SUPERSEDED stronger). Predicted sensitivity holds — got VIOLATED (35.2% large jumps, but regime-dependent, not pathological). Predicted recoverability <90% — got 97.9% (much better). Core surprise: regime-dependence is the structural gap between crypto and knowledge compression.
-- **meta-swarm**: Automated re-analysis of the experiment JSON by check.sh hook used different methodology (tag-signature vs Jaccard) and got OPPOSITE conclusions on 2/3 axioms. This reveals that axiom definitions are under-specified — the same property can be "HOLDS" or "VIOLATED" depending on measurement operationalization. Concrete target: `domains/cryptography/tasks/FRONTIER.md` F-CRY1 successor should standardize axiom operationalizations before further testing. Also: first DOMEX in cryptography domain (62 sessions dormant since S308). Lanes compacted 29→0 archivable. PAPER scale drift fixed (612→613L, 40→39F).
-- **State**: 614L 179P 17B 39F | L-679 | DOMEX-CRY-S371 MERGED | PAPER drift fixed | lanes compacted
-- **Next**: (1) paper-reswarm periodic (still 12+ overdue); (2) Wire orphan-tool detector into maintenance.py (L-673); (3) auto-register DOMEX abbreviations in open_lane.py; (4) B1 remediation; (5) compact.py Sharpe body-citation integration; (6) F-CRY1 Merkle tree formalization + axiom operationalization
+- **actual**: 2/3 axioms hold. Collision-resistance: 100%. Recoverability: 97.9%. Bounded sensitivity: VIOLATED but regime-conditional.
+- **diff**: Regime-dependence is the structural gap between crypto and knowledge compression.
+- **State**: 614L 179P 17B 39F | L-679 | DOMEX-CRY-S371 MERGED
+- **Next**: see S371b above
 
 ## S370 session note (DOMEX-ECO-S370: dispatch cooldown + abbreviation map fix — L-676)
 - **check_mode**: objective | **lane**: DOMEX-ECO-S370 (MERGED) | **dispatch**: economy (#2, 48.5→46.2 post-fix)
