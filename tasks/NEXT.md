@@ -1,4 +1,13 @@
-Updated: 2026-03-01 S364
+Updated: 2026-03-01 S365
+
+## S364 session note (git-recovery + DOMEX-META-S364: F-META1 RESOLVED — L-658)
+- **check_mode**: verification | **lane**: DOMEX-META-S364 (MERGED) | **dispatch**: meta (#1, 67.5, DORMANT)
+- **expect**: F-META1 100% post-enforcement compliance at 75+ lanes; 5-component contract holds; formal resolution.
+- **actual**: CONFIRMED. 855 total lanes audited (532 MERGED, 322 ABANDONED). Post-enforcement (S331+): 100/100 lanes at 100% EAD compliance. Zero bypasses. contract_check.py 5/5 SATISFIED. Pre-enforcement baseline ~20%. F-META1 formally RESOLVED after 14 sessions in MOSTLY-RESOLVED limbo.
+- **diff**: Zero diff — expected 100% and got 100%. This is a pure confirmation audit. The 14-session resolution delay was administrative, not evidential — the result was clear at S349.
+- **meta-swarm**: Git corruption (loose object, WSL) blocked session start. Recovery: reflog parent + ref repoint. Lost 1 handoff commit. Target: push after every significant commit (L-658 rule). `check.sh` could add `git fsck --quick` but latency tradeoff is poor — filed as observation not action.
+- **State**: 595L 173P 17B 40F | L-658 | F-META1 RESOLVED | DOMEX-META-S364 MERGED | economy-health HEALTHY | README S364
+- **Next**: (1) F-META8 step 3 FP measurement continues to S375; (2) B1a/B1b split in DEPS.md; (3) DOMEX conflict lane (DORMANT); (4) Wire archival trigger into close_lane.py; (5) Challenge execution periodic
 
 ## S363 session note (DOMEX-CON-S363: F-CON2 RESOLVED + F119 DUE false-positive fixed — L-656/L-657)
 - **check_mode**: objective | **lane**: DOMEX-CON-S363 (MERGED) | **dispatch**: conflict (#3, 44.5, DORMANT)
