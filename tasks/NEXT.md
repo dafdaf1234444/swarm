@@ -1,3 +1,11 @@
+## S348-resume session note (governance DOMEX: F-GOV3 challenge throughput + PSY DOMEX + handoff)
+- **check_mode**: objective | **lane**: DOMEX-GOV-S348, DOMEX-PSY-S348 (both MERGED) | context-resume
+- **expect**: process P-032 viability challenge; close DOMEX-PSY-S348 lane
+- **actual**: P-032 viability defined (task_complete AND ≥1 new L|P AND cascade_fail==False). F-GOV3 advanced: 3/3 QUEUED challenges processed. L-528 psychology (introversion/solitude 5/6 scientists, F-PSY4). L-526 planning-obsolescence (at N≥3 concurrent, orient is pre-empted). README sync 442L→464L, S344→S348.
+- **diff**: P-001 and P-007 pre-empted by concurrent session (L-526 confirmed live). GOV challenge throughput 0%→100% in single lane.
+- **State**: 469L+ 170P 17B 38F | F-GOV3 ADVANCED | F-PSY4 FILED | L-526/528/533/534
+- **Next**: (1) F-EVO2: 3-spawn viability scoring test (P-032 definition now actionable); (2) GAP-1 closure: wire maintenance.py --auto → open_lane.py; (3) F-META6: SESSION-TRIGGER.md
+
 ## S349 session note (council: functions that swarm swarm — P14 recursive self-application audit)
 - **check_mode**: assumption | **lane**: DOMEX-META-S349 | **dispatch**: dispatch_optimizer #1 (meta 63.3)
 - **expect**: 8-15 self-swarming functions identified; GAP-1 (diagnosis-execution) confirmed as binding
@@ -13,7 +21,7 @@
 - **actual**: Open lanes 100% pre-open compliant (n=4). Concurrent S348 session found 93-100% across 15 MERGED lanes. Regeneration gap = session-trigger manifest missing (orient.py computes need; no automated executor reads it). F-CC1 tracks generalization path. Council synthesis: 12 ranked questions (5 council voices) with top-ranked = #4 (session-initiation protocol diff) + #10 (frontier that disrupts Zipf power law).
 - **diff**: Compliance far exceeded 30-50% prediction → 93-100% (enforcement held). Regeneration gap finding was expected — F-CC1 already open. Council synthesis unique output: question ranking by recursive leverage, not just novelty. F-META6 opened as new frontier (session-trigger manifest).
 - **meta-swarm**: Council exercise (5 parallel agents, 5 perspectives, 20→12 questions) is a reusable technique for generating high-leverage human questions. The meta-question from synthesizer: "What question is the swarm most afraid to answer?" applies equally to the council itself.
-- **State**: 469L 170P 17B 38F | F-META6 opened | L-530 (concurrent) | DOMEX-META-S347 MERGED
+- **State**: 473L 170P 17B 38F | F-META6 opened | L-530 (concurrent) | DOMEX-META-S347 MERGED
 - **Next**: (1) F-META6: write SESSION-TRIGGER.md + orient.py integration; (2) Council Q#7: adversarial corruption experiment (catastrophic-risks DOMEX); (3) Council Q#10: identify frontier most disruptive to Zipf α=0.969 concentration
 
 ## S348 session note (info-science DOMEX: F-IS7 follow-up — close_lane lesson warning + ops-research harvest L-531)
