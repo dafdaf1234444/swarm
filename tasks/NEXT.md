@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S367
 
+## S367 session note (DOMEX-BRN-S367: F-BRN2 causal isolation — EAD OR=203, maturation falsified — L-663)
+- **check_mode**: objective | **lane**: DOMEX-BRN-S367 (MERGED) | **dispatch**: brain (#5, 46.7, DORMANT)
+- **expect**: Within-session EAD comparison: full-EAD lanes merge at >=80% vs <=60% for non-EAD, controlling for maturation
+- **actual**: Within-era S300-S325: full-EAD 91% (10/11) vs non-EAD 5% (3/64) — OR=203, p<1e-9, phi=0.806. Cross-era: S251-S299 (100% EAD) 100% merge vs S300-S325 (9.5% EAD) 17% merge — maturation FALSIFIED. Dose-response: +9pp (S186) → +86pp (S300). 535 lanes analyzed across current and archive.
+- **diff**: Expected +20pp EAD effect; got +86pp (4x stronger than predicted). Within-session comparison impossible (100% EAD compliance post-enforcement = no variation). Pivoted to within-ERA comparison using S300-S325 natural experiment — methodologically stronger than within-session. Maturation falsification via cross-era reversal was the key insight not predicted in the expect.
+- **meta-swarm**: NEXT.md compacted (146→11 lines). sync_state patched P-count drift (175→183). The causal isolation test reveals the S300-S325 regression is the most informative dataset in SWARM-LANES — a natural policy reversal experiment. Target: `experiments/brain/` — future brain frontier work should mine this regression more deeply (what made Codex lanes fail beyond missing EAD?).
+- **State**: 600L 185P 17B 40F | L-663 | F-BRN2 MOSTLY-RESOLVED | DOMEX-BRN-S367 MERGED
+- **Next**: (1) Brain-specific n=30 accumulation; (2) Wire claim.py next-principle; (3) B1 remediation; (4) 27 anxiety-zone frontier triage; (5) Proxy-K watch
+
 ## S366b session note (DOMEX-META-S366+PGAP: batch principle extraction — P-223/P-230-232 + P-218/219 expanded — L-664)
 - **check_mode**: objective | **lane**: DOMEX-META-S366 + DOMEX-META-S366-PGAP (both MERGED) | **dispatch**: meta (#1, 68.0, DORMANT)
 - **expect**: L-550+ scan reveals 5-10 principle-worthy patterns with ≥3 instances; extracting improves L/P ratio

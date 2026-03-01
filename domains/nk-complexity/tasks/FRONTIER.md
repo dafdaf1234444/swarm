@@ -1,10 +1,11 @@
 # NK Complexity Domain — Frontier Questions
 Domain agent: write here, not to tasks/FRONTIER.md
-Updated: 2026-03-01 | Active: 0
+Updated: 2026-03-01 | Active: 1
 
 ## Active
 
-*(no active frontiers — F9-NK resolved S357)*
+- **F-NK5**: Does session type predict citation density? S367 CONFIRMED: DOMEX 3.0 edges/L > HARVEST 1.4 edges/L (d=0.45, n=480). EAD enforcement is the structural citation engine. DOMEX proportion in session mix drives K_avg trajectory. L-665. Artifact: experiments/nk-complexity/f-nk5-session-type-citation-s367.json.
+  Open remaining: (1) effect of principle-prompt (P-222, S366) on citation rate — re-measure at S387; (2) UNCLASSIFIED session cleanup (72 lessons, 15% of corpus); (3) predict K_avg from DOMEX session proportion (regression model).
 
 ## Archived Active (moved to Resolved)
 
