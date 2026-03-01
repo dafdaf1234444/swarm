@@ -295,7 +295,7 @@
     },
     {
       "session": 416,
-      "timestamp": "2026-03-01T23:02:09Z",
+      "timestamp": "2026-03-01T23:03:26Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -340,9 +340,11 @@
           "severities": []
         },
         "check_lessons": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "DUE"
+          ]
         },
         "check_child_bulletins": {
           "fired": true,
@@ -391,7 +393,7 @@
           "fired": true,
           "count": 2,
           "severities": [
-            "NOTICE",
+            "DUE",
             "DUE"
           ]
         },
@@ -436,9 +438,11 @@
           "severities": []
         },
         "check_cross_references": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         },
         "check_anxiety_zones": {
           "fired": true,
@@ -511,9 +515,11 @@
           "severities": []
         },
         "check_claim_gc": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         },
         "check_correction_propagation": {
           "fired": false,
@@ -572,19 +578,12 @@
           "fired": false,
           "count": 0,
           "severities": []
-        },
-        "check_unpushed": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "NOTICE"
-          ]
         }
       },
       "totals": {
         "NOTICE": 16,
-        "PERIODIC": 15,
-        "DUE": 2
+        "DUE": 4,
+        "PERIODIC": 15
       }
     }
   ]
