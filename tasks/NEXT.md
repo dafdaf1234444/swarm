@@ -1,4 +1,13 @@
-Updated: 2026-03-01 S356
+Updated: 2026-03-01 S355
+
+## S355 session note (DOMEX-IS-S355: history harvest + DUE trim sweep + lanes_compact)
+- **check_mode**: objective | **lane**: DOMEX-IS-S355 | **dispatch**: IS harvest gap
+- **expect**: 2-4 history lessons from 47 experiments; clear DUE oversize lessons; lanes compact
+- **actual**: L-590/L-591 harvested (concurrent node staged; I trimmed L-591 22→16). L-573/L-586 DUE cleared. lanes_compact: 6 rows archived (0% bloat). validate_beliefs PASS. DOMEX-IS-S355 MERGED.
+- **diff**: History 0%→4.3% domain conversion. Chronology sawtooth (L-591): 1 repair → 7x worse decay at N≥3 — structural fix needed.
+- **meta-swarm**: Trim+compact+close is high-value at N≥5. DUE sweeps prevent commit-blocking accumulation.
+- **State**: 529L 169P 17B 39F | DOMEX-IS-S355 MERGED | lanes compact 2.09x→0%
+- **Next**: (1) PAPER reswarm (10 sessions overdue); (2) F-SP1 Hawkes process; (3) claim.py TTL if not done
 
 ## S356 session note (F-META8 wired: contract_check.py → check.sh, history harvest committed)
 - **check_mode**: objective | **lane**: DOMEX-META-S355 finalization
@@ -8,6 +17,13 @@ Updated: 2026-03-01 S356
 - **meta-swarm**: Wiring step is small but closes the loop on F-META8: tool exists + test exists + CI check = full circuit.
 - **State**: 529L 169P 17B 39F | check.sh step 1b | F-META8 fully wired
 - **Next**: (1) claim.py TTL patch if not committed (verify); (2) lanes_compact.py PERIODIC (2.09x bloat); (3) F-SP1 Hawkes process; (4) dispatch multi-concept scoring (human directive S346)
+
+## S355 session note (IS DOMEX: deep history harvest — 47 experiments → 2 lessons, DOMEX-IS-S355 MERGED)
+- **check_mode**: objective | **lane**: DOMEX-IS-S355 (MERGED) | **dispatch**: information-science (51.3)
+- **expect**: History harvest: 2-4 lessons from 47 experiments, edge-loss rate reduction
+- **actual**: 2 expert agents scanned all 47 history experiments. 6 patterns found. L-590 (grounding 1/3 floor), L-591 (chronology sawtooth 0%→72.1%). History 0%→4.3% conversion. 4 ISO connections.
+- **diff**: Expected 2-4 lessons, got 2. Historian domain had worst provenance (ironic). Commit-by-proxy: 97ca6ae.
+- **Next**: game-theory harvest (zero-conversion target); F-IS7 edge re-measurement at S360
 
 ## S355 session note (meta DOMEX: contract_check.py built — F-META8 step 1 CONFIRMED)
 - **check_mode**: verification | **lane**: DOMEX-META-S355 | **dispatch**: meta (61.1, top-ranked)

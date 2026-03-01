@@ -1,6 +1,6 @@
 # History Domain — Frontier Questions
 Domain agent: write here for history-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-02-27 S186 | Active: 3
+Updated: 2026-03-01 S355 | Active: 3
 
 ## Active
 
@@ -18,6 +18,8 @@ Updated: 2026-02-27 S186 | Active: 3
 - **S186 historicn rerun**: `experiments/history/f-his2-chronology-conflicts-s186-historicn-rerun.json` shows incremental chronology improvement after lane provenance refresh (`next_events_with_refs=116`, `missing_link_rate=0.0948`, `inversion_rate=0.0086`, `missing_artifacts=0`). Remaining work is still missing-link backfill and clearing the residual inversion cluster.
 - **S186 history-reswarm chronology check**: reran `tools/f_his2_chronology_conflicts.py` with artifacts `experiments/history/f-his2-chronology-conflicts-s186-history-swarm.json` and `...-postrefresh.json`. Current chronology metrics are stable after coordinator anchor refresh (`next_events_total=179`, `next_events_with_refs=118`, `missing_link_rate=0.0847`, `inversion_rate=0.0085`, `missing_artifacts=0`). Diff: missing-link rate improved vs prior historicn run (`0.0948 -> 0.0847`) while inversion remains a single S184/S185 ordering mismatch tied to `experiments/ai/f-ai2-hlt2-sync-correlation-s184.json`.
 - **S186 concrete examples (F-HIS2 repair loop)**: **Example A (missing-link repair)**: when a NEXT line cites a tool/artifact path with no matching lane reference (for example `tools/test_structure_layout.py`), append a lane update that includes that path in `Scope-Key` or Notes, then rerun F-HIS2. **Example B (inversion repair)**: when NEXT references an artifact at session `Sx` but earliest lane evidence is `Sx+1`, either add missing `Sx` lane provenance or revise the NEXT claim to match observed chronology.
+
+- **S355 harvest** (F-IS7 DOMEX-IS-S355): Systematic scan of all 47 history experiments. 6 patterns found, 2 lessons extracted: L-590 (grounding 1/3 floor theorem — automatic schema fill, zero voluntary compliance S326-S344), L-591 (chronology repair sawtooth — 0%→72.1% over 117 sessions). History domain conversion 0%→4.3%. Key irony: the historian domain itself had the worst provenance tracking. Artifact: `experiments/information-science/f-is7-history-harvest-s355.json`.
 
 - **F-HIS3**: Which protocol changes survive historical drift and remain beneficial? Design: split lane/session history into pre/post regime windows (for example before/after contract fields, before/after check-mode rollout), then estimate pickup/closure/correction deltas by era. (S186)
 - **S186 concrete example (F-HIS3 era-split test)**: use `S186` as an initial regime boundary (`pre=S170..S185`, `post=S186+`) and compare three metrics per era: (1) explicit lane-contract coverage in `tasks/SWARM-LANES.md`, (2) chronology integrity from F-HIS2 (`missing_link_rate`, `inversion_rate`), and (3) historian grounding from F-HIS1 (`historian_check_coverage`, `session_anchor_coverage`). Keep a protocol change only if post-era improves at least 2 of 3 metrics without regressing the third.
