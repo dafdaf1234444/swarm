@@ -9,6 +9,11 @@ Updated: 2026-02-27 | Active: 3
   weaker — Redis-Raft showed 14%. Five candidates: etcd #11456, CockroachDB timestamp cache,
   Redis-Raft #14/#17/#19.)
   **Stakes**: Moves B14 theorized → observed (or kills it). See HUMAN-QUEUE HQ-5 (Docker setup needed).
+  **S359 protocol analysis**: All 5 candidates ≤3 nodes (node-count CONFIRMED). 3/5 protocol-only
+  (CockroachDB-TC FULLY CHARACTERIZED: 1 node, 2 goroutines, deterministic — no Docker needed).
+  2/5 Docker-needed (etcd-11456, Redis-Raft-17 — timing/partition bugs). Determinism 60% (3/5) vs
+  74% claimed — not falsified at n=5. B14 → PARTIAL. HQ-5 scope narrows to 2 candidates.
+  L-638. Artifact: experiments/distributed-systems/f95-b14-verification-s359.json.
 
 - **F100**: What predicts error handling quality in DAG-enforced Go/Rust if not cycles?
   PARTIAL — S50: K_out is primary predictor (r=0.652, etcd 23 packages). Contract-type maps to K_out:

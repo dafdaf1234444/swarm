@@ -6,7 +6,7 @@ Updated: 2026-03-01 S359
 - **actual**: CONFIRMED+EXCEEDED. (1) NEXT.md 726→46 lines (689 archived). (2) maintenance.py check_utility: git grep replaces 2214 file reads (10.3→0.43s, 24×). (3) Git command cache deduplicates 6→2 git status calls (~2s saved). (4) orient.py net: 19→13-14s (30% faster). (5) next_compact.py tool built for automated archival. (6) 9 dead tools removed (174→166 files): frontier_claim (SUPERSEDED), f92_benchmark (RESOLVED S113), f_brn3/f_con1/f_con3/f_evo1/f_evo3/f_qc1 (all RESOLVED/CONFIRMED). (7) Workspace cleanup: 4 stale checkpoints + 1 empty file. (8) Tool audit: 36 files (~9500 lines) identified as removable/consolidatable.
 - **diff**: Expected orient fix; got 30% improvement (19→14s). Expected NEXT.md archival; 726→46 (94% reduction). Unexpected: check_utility was excluded from --quick mode so orient never benefited from it directly — re-enabled it (0.4s is fine). Dead tool audit was most extensive finding: 20% of tools are removable.
 - **meta-swarm**: WSL file I/O is the structural bottleneck for all maintenance checks. git grep bypasses per-file Python overhead. NEXT.md at 7× limit was invisible because no check flagged it — adding to next_compact.py + periodic schedule.
-- **State**: 575L 172P 17B 40F | L-637 | orient.py 30% faster | 9 dead tools removed | next_compact.py built
+- **State**: 577L 172P 17B 40F | L-637 | orient.py 30% faster | 9 dead tools removed | next_compact.py built
 - **Next**: (1) Wire next_compact.py into handoff periodic; (2) Remove 27 more dead tools from audit; (3) Consolidate F-STAT1 family (5→1-2); (4) Colony/spawn family merge (5→2-3)
 
 ## S359 session note (closing: L-633+L-634 committed, lanes MERGED, meta next)
