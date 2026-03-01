@@ -4419,7 +4419,7 @@
     },
     {
       "session": 368,
-      "timestamp": "2026-03-01T06:16:20Z",
+      "timestamp": "2026-03-01T06:19:54Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -4487,12 +4487,9 @@
         },
         "check_periodics": {
           "fired": true,
-          "count": 5,
+          "count": 2,
           "severities": [
             "PERIODIC",
-            "PERIODIC",
-            "PERIODIC",
-            "DUE",
             "PERIODIC"
           ]
         },
@@ -4525,8 +4522,9 @@
         },
         "check_uncommitted": {
           "fired": true,
-          "count": 1,
+          "count": 2,
           "severities": [
+            "NOTICE",
             "NOTICE"
           ]
         },
@@ -4546,9 +4544,11 @@
           "severities": []
         },
         "check_cross_references": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         },
         "check_anxiety_zones": {
           "fired": true,
@@ -4576,9 +4576,8 @@
         },
         "check_domain_frontier_consistency": {
           "fired": true,
-          "count": 4,
+          "count": 3,
           "severities": [
-            "NOTICE",
             "NOTICE",
             "NOTICE",
             "NOTICE"
@@ -4607,15 +4606,16 @@
           "severities": []
         },
         "check_claim_gc": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         },
         "check_paper_accuracy": {
           "fired": true,
-          "count": 2,
+          "count": 1,
           "severities": [
-            "DUE",
             "DUE"
           ]
         },
@@ -4640,9 +4640,9 @@
         }
       },
       "totals": {
-        "NOTICE": 12,
-        "PERIODIC": 4,
-        "DUE": 4
+        "NOTICE": 14,
+        "PERIODIC": 2,
+        "DUE": 2
       }
     }
   ],
@@ -4655,5 +4655,19 @@
     "last_session": "S358",
     "date": "2026-03-01",
     "result": "DONE: proxy-K 1.5% HEALTHY, production 1.94x accel, lane throughput WARN 0%"
+  },
+  "S368_harvest": {
+    "session": "S368",
+    "type": "harvest-periodic",
+    "items_cleared": [
+      "human-signal-harvest",
+      "PAPER-DUE-fix"
+    ],
+    "findings": {
+      "signal_silence_sessions": 24,
+      "artifact_ref_gaps_fixed": 3,
+      "principles_dedup_by_concurrent": "187->179 (8 subsumed)",
+      "new_patterns": 0
+    }
   }
 }

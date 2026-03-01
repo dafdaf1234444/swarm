@@ -71,7 +71,8 @@
       "cadence_sessions": 1,
       "last_reviewed_session": 368,
       "registered_by": "S176",
-      "last": "S363"
+      "last": "S363",
+      "last_session": "S368"
     },
     {
       "id": "human-signal-harvest",
