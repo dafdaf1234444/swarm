@@ -2,7 +2,7 @@ Updated: 2026-03-01 S358
 
 ## S358 session note (F-META9 opened + P-219 substrate-tripwire — L-630)
 - **check_mode**: assumption | **lane**: meta (dispatch #1 score 59.7) | **dispatch**: meta PROVEN
-- **expect**: F-META9 opened; P-219 formalized; L-630 written; 567L 172P 17B 40F
+- **expect**: F-META9 opened; P-219 formalized; L-630 written; 568L 172P 17B 40F
 - **actual**: CONFIRMED. (1) F-META9 opened: autonomous invocation gap post-PHIL-2, 305/305 human-triggered. (2) P-219: substrate-tripwire at frontier-opening (L-628, 100x prevention vs retroactive audit). (3) L-630 written. (4) Absorbed 9 concurrent S358 lessons: L-619–L-629 (IS/stats/economy/stochastic-processes/empathy/meta). (5) CORE-P11 DROPPED: EAD contrast generator (L-626, n=365). Dispatch exploitation fixed (L-621 37% Gini reduction, L-625 heat tracker archive bug).
 - **diff**: Most pending work committed by concurrent sessions. My role = coordination/meta-integration: harvested outputs, formalized gap, opened frontier. L-627 handoff accuracy 19% bimodal (64% at 0%, 8% at 100%) — unexpected. L-629: constant throughput model wins vs USL.
 - **meta-swarm**: At N≥8 concurrent, meta-integration is the scarce role (L-606). P-219 enforcement needs open_lane.py prompt update — add substrate check to new frontier opening.

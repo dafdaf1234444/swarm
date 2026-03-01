@@ -2200,7 +2200,7 @@
     },
     {
       "session": 358,
-      "timestamp": "2026-03-01T04:06:20Z",
+      "timestamp": "2026-03-01T04:09:14Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -2245,11 +2245,9 @@
           "severities": []
         },
         "check_lessons": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "DUE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_child_bulletins": {
           "fired": true,
@@ -2290,9 +2288,11 @@
           "severities": []
         },
         "check_swarm_lanes": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         },
         "check_swarm_coordinator": {
           "fired": false,
@@ -2333,11 +2333,9 @@
           "severities": []
         },
         "check_cross_references": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "NOTICE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_anxiety_zones": {
           "fired": true,
@@ -2397,18 +2395,14 @@
           "severities": []
         },
         "check_claim_gc": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "NOTICE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_paper_accuracy": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "DUE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_proxy_k_drift": {
           "fired": false,
@@ -2424,8 +2418,7 @@
         }
       },
       "totals": {
-        "NOTICE": 15,
-        "DUE": 2,
+        "NOTICE": 14,
         "PERIODIC": 10
       }
     }
