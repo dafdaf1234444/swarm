@@ -1030,10 +1030,11 @@ def run(args: argparse.Namespace) -> None:
                 floor_mark = " [FLOOR]" if r.get("floor_protected") else ""
                 commit_mark = " ⚡COMMIT" if r.get("commit_guarantee_boost", 0) > 0 else ""
                 reservation_mark = " 🚨RESERVED" if r.get("commit_reservation") else ""
+                blocked_mark = " 🛑BLOCKED" if r.get("execution_blocked") else ""
                 print(
                     f"{score_str:>6}  {r['domain']:<25}  {exploit:7.3f}  {explore_str:>7}  "
                     f"{n:3d}  {r.get('outcome_lessons', 0):3d}  {heat_icon:>4}"
-                    f" [{label}]{floor_mark}{commit_mark}{reservation_mark}"
+                    f" [{label}]{floor_mark}{commit_mark}{reservation_mark}{blocked_mark}"
                 )
                 if r["domain"] in active_lanes:
                     lanes = active_lanes[r["domain"]]
