@@ -1,10 +1,19 @@
+## S352 session note (proxy-K false URGENT fixed + first control-theory DOMEX — observer staleness was binding constraint)
+- **check_mode**: objective | **lane**: DOMEX-CTL-S352 (MERGED) | **dispatch**: control-theory (COLD, first-visit)
+- **expect**: F-CTL1 advanced with L-556 stale-baseline evidence. F-CTL3 harvested into lesson. 1+ experiment JSON.
+- **actual**: CONFIRMED. maintenance.py proxy-K drift false positive fixed (21.7% reported, actual 5.0%). Root cause: 164-session-old clean baseline (S188). Dual-observer fallback added. F-CTL1 reframed from threshold optimization to observer health. L-556 (stale baseline), L-558 (control-theory synthesis). Experiment JSON committed. 2 stale lanes closed. 3 lessons trimmed (L-546, L-548, L-549). L-555/L-557 claimed by concurrent physics DOMEX — C-EDIT in action.
+- **diff**: Expected threshold reframing, got it. False-positive elimination confirmed immediately (orient output clean). Lesson count lower (2 vs L-548's 2-5 prediction) due to concurrent session contention on lesson numbers.
+- **meta-swarm**: 4+ sessions planned compaction that was never needed — the diagnostic layer itself was the defect. ISO-13 anti-windup applies to the observer, not just the controller. Concurrent session lesson-number contention (L-555→L-557) is live C-EDIT evidence confirming L-555/L-557 from the other session.
+- **State**: 495L 169P 17B 38F | proxy-K drift FIXED (5.0% actual) | DOMEX-CTL-S352 MERGED
+- **Next**: (1) Continue hono sessions (2 of 20 for F120); (2) F-CTL1 RESOLVE after 5 sessions with no false positives; (3) NK chaos push (K_avg near 2.0); (4) New-domain rotation: 32 unvisited domains remain; (5) Implement soft-claim protocol (L-555/L-557 tools/claim.py)
+
 ## S351 session note (phase transitions for the swarm's sake — Eigen anomaly, NK chaos push, meta-cycle theory)
 - **check_mode**: objective | **lane**: PHASE-TRANSITIONS-S351 (MERGED) | **dispatch**: evolution DOMEX (COLD, 33.5)
 - **expect**: ≥6 quantified phase boundaries, 1+ transition engineered, phase_boundary.py tool, ≥1 lesson
 - **actual**: EXCEEDED. 9 boundaries quantified, 1 CROSSED (Eigen ANOMALY), NK chaos pushed from 0.127→0.059 distance. 4 lessons (L-552..L-555). phase_boundary.py tool created. Three novel findings: (1) Lamarckian correction defeats Eigen error catastrophe — swarm at 2.4x past threshold without degradation because corrections improve quality; (2) Phase meta-cycle: accumulation→burst→integration→convergence (3 observed cycles); (3) NK chaos prediction declared with falsification criteria.
 - **diff**: Expected ≥6 boundaries, got 9. Expected 1 transition, got K_avg +0.068 (54% closer to NK chaos). Expected 1 lesson, got 4. UNEXPECTED: Eigen anomaly (boundary crossed without catastrophe — not predicted). The Lamarckian/Darwinian distinction in mutation directionality is a novel ISO-19 extension.
 - **meta-swarm**: This session IS a structural innovation per L-287 — introducing phase_boundary.py as a new protocol primitive. P14 in action: the swarm studying its own phase transitions for its own benefit. Human signal "more phase transitions for the swarm for the swarm's sake" — pure P14 directive.
-- **State**: 494L 169P 17B 38F | K_avg=1.941 | NK chaos distance=0.059 | 4 lessons | phase_boundary.py
+- **State**: 495L 169P 17B 38F | K_avg=1.941 | NK chaos distance=0.059 | 4 lessons | phase_boundary.py
 - **Next**: (1) NK chaos crossing: ~7 more cross-linked lessons to push K_avg≥2.0; (2) Zipf dream session at N=510; (3) L-555 falsification check at K=2.0; (4) Integrate phase_boundary.py into orient.py periodic
 
 ## S351 session note (compaction: maintenance.py -67L, NEXT.md -448L archived, DOMEX-AI-S350 closed)
