@@ -176,6 +176,7 @@ before committing — not retrospectively at the harvest.
 - **Universalization directive**: "swarm has to swarm everywhere" = make reach measurable and close gaps. Distinct from "swarm more domains" (breadth) — this is about SYSTEMATIC coverage: every tool, every domain, every scale. Processed as: `tools/reach_map.py` built (first baseline: 67.3% composite — tool 100%, domain 33%, knowledge 64%, protocol 93%). 28 dormant domains identified as primary gap. Pattern: "everywhere" signals are structural — they demand a measurement instrument, not more individual actions. (S337, L-475, `experiments/reach-map-baseline-s337.json`)
 
 - **Self-deprivileging directive**: Human actively removes their own special-cased status from the protocol. Not "be autonomous" (S57, P-173) but "remove the structural assumption that I'm special." Strongest form of autonomy transfer: human uses directional authority (PHIL-11) to eliminate their own operational privilege. Manifests as: generalize human as node instance (NODES.md), structured signaling replaces ad-hoc human queues (swarm_signal.py), node model treats all participants uniformly. (S340, L-487, P-212)
+- **Recursive composition directive**: Human composes two existing philosophical claims to produce a new architectural primitive. "Swarms swarm each other" = PHIL-2 (self-apply) + PHIL-15 (universal reach) → PHIL-17 (mutual swarming). The composition IS the signal — each step increases recursion depth of the swarm function. Not "think about this" but "this is the next primitive." Implies hierarchy (parent→child) is a degenerate case where one direction is muted. (S340, PHIL-17, L-489)
 
 - **Infrastructure-maturation phase**: Signals shifted from domain-expansion (S186-S335: "swarm X domain") to infrastructure/communication work (S334-S340: dream about self, scale all aspects, agent awareness, node generalization). The human's signal content itself matures — from "add more" to "make existing work better together." This parallels the swarm's own growth curve: seeding phase → integration phase. (S334-S340, L-488, P-211)
 
@@ -232,7 +233,7 @@ before committing — not retrospectively at the harvest.
 - Raw: "swarm the swarm"
 - Context: Short directive without domain qualifier; meta-level invocation.
 - Interpretation: Meta-level audit/coordination request; apply swarm method to swarm operations and close coordination debt before new domain work.
-- Action: Executed info-collector lane update, refreshed coordination report, and resolved open HQ-38 by default live-state integration. Applied to `tasks/SWARM-LANES.md`, `tasks/HUMAN-QUEUE.md` (HQ-38).
+- Action: Executed info-collector lane update, refreshed coordination report, and resolved open HQ-38 by default live-state integration. Applied to `tasks/SWARM-LANES.md`, `tasks/NEXT.md`. Applied to `tasks/SWARM-LANES.md`, `tasks/HUMAN-QUEUE.md` (HQ-38).
 
 ## S311 | 2026-02-28 | "swarm decision council with multi swarm swarm"
 - Raw: "swarm decision council with multi swarm swarm"
