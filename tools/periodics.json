@@ -110,7 +110,7 @@
       "id": "economy-health",
       "description": "Swarm economy health check: run `python3 tools/economy_expert.py` \u2014 report on production velocity, proxy-K drift, Sharpe ratio, lane throughput, and helper ROI. Act on any WARN/URGENT/TRIGGER output (L-286, domains/economy/).",
       "cadence_sessions": 5,
-      "last_reviewed_session": 352,
+      "last_reviewed_session": 357,
       "registered_by": "S188"
     },
     {
@@ -131,7 +131,7 @@
       "id": "action-board-refresh",
       "cadence_sessions": 3,
       "description": "Refresh ACTION-BOARD.md: run `python3 tools/f_act1_action_recommender.py` \u2014 scores swarm state across urgency/coverage/impact/novelty and writes workspace/ACTION-BOARD.md with ranked recommendations for all sessions + human visibility. Use action-expert personality for this task. (F-ACT1)",
-      "last_reviewed_session": 352,
+      "last_reviewed_session": 357,
       "registered_by": "S304"
     },
     {

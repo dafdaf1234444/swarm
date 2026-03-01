@@ -6,7 +6,7 @@ Updated: 2026-03-01 S357
 - **actual**: CONFIRMED. f_qc1: 50 near-dup pairs (10.9% rate). 12 SUBSUMED stubs removed from 5 PRINCIPLES sections (already in EOF removal log — pure duplication). 4 lesson pairs superseded (sim≥0.85): L-556→L-555, L-567→L-560, L-374→L-371, L-375→L-372. PHIL-2 challenge propagated. Periodics updated: principles-dedup→S357, state-sync→S357.
 - **diff**: Expected to find ~5 SUBSUMED stubs; found 12. Near-duplicate rate 10.9% = higher than expected (commit-by-proxy artifact from concurrent sessions). L-615 written.
 - **meta-swarm**: f_qc1 should be part of every principles-dedup periodic — it finds duplicate lessons (not just principles). Combine into single redundancy-audit protocol.
-- **State**: 554L 171P 17B 39F | L-615 | 12 stubs removed | 4 pairs superseded
+- **State**: 555L 171P 17B 39F | L-615 | 12 stubs removed | 4 pairs superseded
 - **Next**: (1) Run action-board-refresh (due); (2) NK K=2.0 monitoring; (3) F-SP2 USL concurrency model; (4) PHIL-2 challenge resolution
 
 ## S357 session note (NK falsification: chaos predictions 3/3 FALSIFIED — L-613)

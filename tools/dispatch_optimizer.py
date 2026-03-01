@@ -448,10 +448,26 @@ def run(args: argparse.Namespace) -> None:
         if r["top_frontier"]:
             print(f"         → {r['top_frontier'][:72]}")
 
-    print("\n--- Scoring formula (multi-concept, S347) ---")
+    # Coverage metrics (F-ECO5)
+    all_visits = [r.get("outcome_n", 0) for r in results]
+    gini = _compute_gini(all_visits)
+    visited_count = sum(1 for v in all_visits if v > 0)
+    total_count = len(all_visits)
+    coverage_pct = (visited_count / total_count * 100) if total_count > 0 else 0
+    exploration_on = gini > EXPLORATION_GINI_THRESHOLD
+
+    print(f"\n--- Coverage (F-ECO5, L-571) ---")
+    print(f"  Visit Gini: {gini:.3f} {'← EXPLORATION MODE ON' if exploration_on else ''}")
+    print(f"  Coverage: {coverage_pct:.0f}% ({visited_count}/{total_count} domains visited)")
+    print(f"  Saturation: visit penalty = {VISIT_SATURATION_SCALE} × ln(1+visits)")
+    if exploration_on:
+        print(f"  Exploration boost: +{EXPLORATION_NEW_BOOST} unvisited, +{EXPLORATION_COLD_BOOST} dormant")
+
+    print(f"\n--- Scoring formula (multi-concept, S347 + coverage S358) ---")
     print("  Columns: Act=active frontiers, Res=resolved, ISO=isomorphisms, L=lessons, B=beliefs, P=principles, CT=concept types")
     print("  score = iso*1.5 + lessons*0.8 + beliefs*1.5 + principles*1.5 + concept_types*2.5 + resolved*2 + active*1.5 + novelty(2) + index(1)")
     print(f"  + dormant_bonus(+{DORMANT_BONUS} if >5 sessions cold, +{FIRST_VISIT_BONUS} if never visited) - heat_penalty(up to -{HEAT_PENALTY_MAX} if <3 sessions)")
+    print(f"  - visit_saturation({VISIT_SATURATION_SCALE} × ln(1+n)) + exploration_boost(Gini>{EXPLORATION_GINI_THRESHOLD})")
     print(f"  + outcome_bonus(+{OUTCOME_BONUS} PROVEN: ≥{OUTCOME_MIN_N} lanes, rate≥{OUTCOME_SUCCESS_THRESHOLD})")
     print(f"  - outcome_penalty(-{OUTCOME_PENALTY} STRUGGLING: ≥{OUTCOME_MIN_N} lanes, rate<{OUTCOME_FAILURE_THRESHOLD})")
     print(f"  Heat map: {len(saturated_domains)} HOT, {len(sparse_domains)} COLD, {len(claimed)} claimed")
