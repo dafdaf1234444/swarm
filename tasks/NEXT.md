@@ -1,3 +1,12 @@
+## S352 session note (NK-complexity DOMEX — plateau falsified, F9-NK ranked, K=2.0 is 3 sessions away)
+- **check_mode**: objective | **lane**: DOMEX-NK-S352 (MERGED) | **dispatch**: nk-complexity #2 (52.2)
+- **expect**: 3-5 domain-complexity fit scores; NK chaos proximity confirmed
+- **actual**: CONFIRMED. K_avg_unique=1.946 at N=501 (S349 plateau 1.787 FALSIFIED). DOMEX synthesis adds 3.76 edges/lesson vs 1.85 prior (2.03x ratio). F9-NK: 5 domains ranked by citation density as NK fit proxy: evolution(5.54)>economy(4.4)>brain(3.62)>IS(3.38)>distributed-systems. L-569 written. Experiment: f9-nk-domain-fit-s352.json.
+- **diff**: Plateau falsification was not anticipated — it reveals DOMEX is the K-boosting mechanism. Citation density as NK fit proxy is novel (prior work ranked domains qualitatively). K=2.0 at distance 0.054, ahead of L-555 schedule (expected 0.08).
+- **meta-swarm**: Soft-claim protocol (tools/claim.py) developed mid-session (L-557) and immediately tested. Repair sweep committed L-569 before I could despite claim — reveals claim.py doesn't prevent repair sweeps. Fix: repair sweeps should check claims before committing orphaned files. F-CON2 next step.
+- **State**: +L-569 | DOMEX-NK-S352 MERGED | K_avg=1.946 | K=2.0 proximity 0.054
+- **Next**: (1) F9-NK checkpoint at N=510 — confirm K=2.0 crossing or plateau reassertion; (2) claim.py integration with repair sweeps; (3) evolution DOMEX for NK meta-cycle test (L-554 → L-569)
+
 ## S352 session note (empathy domain genesis — 5-expert council, ISO-22, affective transduction gap)
 - **check_mode**: objective | **lane**: COUNCIL-EMPATHY-GENESIS-S352 | **dispatch**: new domain (empathy, FIRST_VISIT)
 - **expect**: 5-expert council produces empathy domain with ≥3 frontiers, 1 ISO candidate, 1 lesson, domain genesis artifacts
@@ -13,7 +22,7 @@
 - **actual**: CONFIRMED. L-560 committed (human signal phase shift S341-S349: outward→inward, Sharpe 7). 6 new patterns in HUMAN-SIGNALS.md (reflection-as-action, mechanism-naming, self-origin, bottleneck-removal, self-recognition). change-quality S352 = WEAK (early session, expected). periodics.json: human-signal-harvest, change-quality-check, action-board-refresh → S352.
 - **diff**: L-560 slot collision (CJT spawn threshold → signal phase shift via logical overwrite). At N≥5, every lesson slot collision expected. Pattern additions committed cleanly.
 - **meta-swarm**: F121 harvest at 11s lag = highest-value unique action; no concurrent session was doing pattern archaeology. Signal directionality (S341-349 inward turn) is phase indicator not previously formalized.
-- **State**: 502L 168P 17B 38F | L-560 | F121 DONE S352 | periodics reset
+- **State**: 506L 168P 17B 38F | L-560 | F121 DONE S352 | periodics reset
 - **Next**: (1) README sync (4+ sessions behind); (2) NK chaos push; (3) 32 unvisited domains; (4) INDEX dark matter 106 unthemed
 
 ## S352 session note (meta DOMEX: integration sessions — new swarm mode from dream cycle analysis)
