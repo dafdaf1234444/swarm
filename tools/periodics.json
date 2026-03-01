@@ -61,9 +61,9 @@
       "id": "mission-constraint-reswarm",
       "description": "F119 mission constraints: review safety/portability/learning/connectivity invariants and harden enforcement checks against drift.",
       "cadence_sessions": 12,
-      "last_reviewed_session": 380,
+      "last_reviewed_session": 381,
       "registered_by": "S151",
-      "last_session": "S380"
+      "last_session": "S381"
     },
     {
       "id": "state-sync",
@@ -85,16 +85,16 @@
       "id": "change-quality-check",
       "description": "Run python3 tools/change_quality.py: compare recent sessions vs. baseline on knowledge production + overhead. Flag WEAK sessions. A session rated WEAK 2+ consecutive times = root-cause diagnosis needed. (L-223)",
       "cadence_sessions": 5,
-      "last_reviewed_session": 363,
+      "last_reviewed_session": 381,
       "registered_by": "S178",
-      "last": "S363",
+      "last": "S381",
       "last_session": "S369"
     },
     {
       "id": "dream-cycle",
       "description": "Swarm dreaming: free-associative corpus synthesis. Run python3 tools/dream.py — outputs theme gravity map, uncited active principles (anchoring targets), cross-domain resonances, candidate frontier questions. Act on at least one output per run: write a lesson citing an uncited principle, or add a candidate frontier to tasks/FRONTIER.md. (F125)",
       "cadence_sessions": 7,
-      "last_reviewed_session": 365,
+      "last_reviewed_session": 381,
       "registered_by": "S183"
     },
     {
@@ -115,9 +115,9 @@
       "id": "economy-health",
       "description": "Swarm economy health check: run `python3 tools/economy_expert.py` — report on production velocity, proxy-K drift, Sharpe ratio, lane throughput, and helper ROI. Act on any WARN/URGENT/TRIGGER output (L-286, domains/economy/).",
       "cadence_sessions": 5,
-      "last_reviewed_session": 370,
+      "last_reviewed_session": 381,
       "registered_by": "S188",
-      "last_session": "S370"
+      "last_session": "S381"
     },
     {
       "id": "challenge-execution",

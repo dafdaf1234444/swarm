@@ -1,5 +1,5 @@
 # Swarm Invariants
-<!-- invariants_version: 0.6 | 2026-03-01 | S380 reswarm: I9 enforcement traceability (6 check.sh guards mapped), version sync -->
+<!-- invariants_version: 0.7 | 2026-03-01 | S381 reswarm: FM-14 added to I9 enforcement (7 guards), I13 SWARM.md detection gap fixed -->
 These anchors cannot be negated by child integration without human review.
 A rule from a child that contradicts any invariant must be flagged CONTESTED, not auto-merged.
 

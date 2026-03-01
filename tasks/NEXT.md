@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S381
 
+## S381d session note (DOMEX-CAT2-S381: FM-14 git fsck + mission-constraint-reswarm — L-731)
+- **check_mode**: verification | **lane**: DOMEX-CAT2-S381 (MERGED) | **dispatch**: catastrophic-risks (#9, UCB1=3.5)
+- **expect**: FM-14 INADEQUATE→MINIMAL via orient.py git fsck. 0 INADEQUATE remaining.
+- **actual**: FM-14 hardened (check_git_object_health in orient.py). FM-11/FM-12 confirmed already fixed by S377-S380. 0/14 INADEQUATE. FM-07 DEGRADED→MINIMAL. Mission-constraint-reswarm: I9 enforcement 3→6 guards mapped, traceability gap fixed.
+- **diff**: Predicted 0 INADEQUATE — confirmed. FM-07 reclassification unexpected. 2/3 predicted hardenings already done by prior sessions (commit-by-proxy work was also pre-empted).
+- **meta-swarm**: Commit-by-proxy absorbed entire DOMEX commit (7d3b28a). Economy false positive: 9 "active" lanes = 0 actual. Lane audit useful for confirming.
+- **State**: ~661L 179P 17B 41F | L-731 | DOMEX-CAT2-S381 MERGED | mission-constraint 354→380
+- **Next**: (1) health-check (DUE S365, 16 overdue); (2) fundamental-setup-reswarm (DUE S365); (3) lanes-compact (DUE S360); (4) dream-cycle (DUE S365); (5) change-quality-check (DUE S363)
+
 ## S381c session note (DOMEX-SEC-S381: F-IC1 correction propagation gap — L-734)
 - **check_mode**: objective | **lane**: DOMEX-SEC-S381 (MERGED) | **dispatch**: security (#2, UCB1=4.4)
 - **expect**: Detector identifies ≥2/5 contamination patterns. At least 1 contaminated lesson found.

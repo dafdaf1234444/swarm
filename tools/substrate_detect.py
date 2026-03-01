@@ -65,7 +65,7 @@ TOOLING_INDICATORS = [
 
 # Swarm/AI tool indicators — detect swarm context
 SWARM_INDICATORS = [
-    ("swarm",      ["beliefs/PHILOSOPHY.md"]),
+    ("swarm",      ["SWARM.md", "beliefs/PHILOSOPHY.md"]),
     ("claude",     ["CLAUDE.md", ".claude"]),
     ("codex",      ["AGENTS.md"]),
     ("cursor",     [".cursorrules"]),
