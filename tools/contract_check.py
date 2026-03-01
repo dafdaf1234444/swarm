@@ -40,7 +40,7 @@ def check_identity_invariant():
     return True, f"all 4 invariants present"
 
 
-def check_monotonic_state_vector(session_id=None):
+def check_monotonic_state_vector(session_id=None, strict=False):
     """Component 2: State vector (L, P, B, F, session#) is monotonic."""
     index_path = os.path.join(REPO_ROOT, "memory", "INDEX.md")
     if not os.path.exists(index_path):
@@ -62,6 +62,15 @@ def check_monotonic_state_vector(session_id=None):
 
     if len(counts) < 3:
         return False, f"state vector incomplete: found only {list(counts.keys())}"
+
+    # Strict mode: verify header counts against actual file system (F-META8 step 3)
+    if strict:
+        lessons_dir = os.path.join(REPO_ROOT, "memory", "lessons")
+        if os.path.isdir(lessons_dir):
+            actual_l = len([f for f in os.listdir(lessons_dir)
+                           if f.startswith("L-") and f.endswith(".md")])
+            if "L" in counts and abs(counts["L"] - actual_l) > 2:
+                return False, f"lesson count drift: header={counts['L']} actual={actual_l}"
 
     # Check session log for monotonicity (last 5 entries)
     session_log = os.path.join(REPO_ROOT, "memory", "SESSION-LOG.md")
@@ -188,10 +197,10 @@ def check_protocol_handshake():
     return True, "CORE.md hash verified"
 
 
-def run_all(session_id=None, as_json=False):
+def run_all(session_id=None, as_json=False, strict=False):
     checks = [
         ("identity_invariant", check_identity_invariant),
-        ("monotonic_state_vector", lambda: check_monotonic_state_vector(session_id)),
+        ("monotonic_state_vector", lambda: check_monotonic_state_vector(session_id, strict=strict)),
         ("active_work_pointer", check_active_work_pointer),
         ("write_obligation", lambda: check_write_obligation(session_id)),
         ("protocol_handshake", check_protocol_handshake),
@@ -237,9 +246,11 @@ def main():
     parser = argparse.ArgumentParser(description="F-META8 self-model contract checker")
     parser.add_argument("--json", action="store_true", help="JSON output")
     parser.add_argument("--session", help="Session ID (e.g. S355)")
+    parser.add_argument("--strict", action="store_true",
+                        help="Verify header counts against file system (F-META8 accuracy mode)")
     args = parser.parse_args()
 
-    all_pass, _ = run_all(session_id=args.session, as_json=args.json)
+    all_pass, _ = run_all(session_id=args.session, as_json=args.json, strict=args.strict)
     sys.exit(0 if all_pass else 1)
 
 

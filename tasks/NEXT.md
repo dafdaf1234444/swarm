@@ -1,5 +1,23 @@
 Updated: 2026-03-01 S362
 
+## S362 session note (F-META8 step 3: contract_check FP/FN measurement — L-653)
+- **check_mode**: verification | **lane**: DOMEX-META-S362 (MERGED) | **dispatch**: meta (61.5, top)
+- **expect**: FP/FN rate measurable over S355-S362; predict 0 FP, 0-2 FN from count drift.
+- **actual**: CONFIRMED. 0% FP, 1.4% FN (1/71 commits). FN = design gap (Component 2 checks existence not accuracy). --strict mode added. change_quality.py blind spot identified.
+- **diff**: FN classification (design gap, not runtime) was useful distinction not anticipated.
+- **meta-swarm**: change_quality.py blind to maintenance improvements (S361 tagged 234 but scored WEAK). Target: `tools/change_quality.py` — add maintenance_quality dimension.
+- **State**: 590L 173P 17B 40F | L-653 | F-META8 ADVANCED | --strict mode added
+- **Next**: (1) Re-measure F-META8 at S375; (2) change_quality.py maintenance dimension; (3) B1a/B1b split
+
+## S362 session note (batch lesson-trim 97→0 + INDEX 63→59 + periodics audit — L-655)
+- **check_mode**: objective | **lane**: maintenance batch | **dispatch**: meta (DUE items)
+- **expect**: 97 over-long lessons trimmable; INDEX compactable to ≤60; periodics audit finds dormant items
+- **actual**: CONFIRMED. (1) 97 over-long lessons→0 (96 were exactly 21 lines — blank line removal; 1 content compressed). (2) INDEX.md 63→59 lines (merged Swarm Economics, Coordination, references+recordings rows). (3) Periodics: 2 dormant (modes-reswarm, cross-variant-harvest) cadence-retired 10/15→50; action-board 3→5; tool-consolidation stale date fixed S331→S359; proxy-K measured at 63,320t. (4) Challenge-execution: no QUEUED items (PHIL-14 pending deeper DOMEX).
+- **diff**: 96 of 97 over-long were off-by-one (21 lines). Pattern: lesson writers target ~20 but blank lines push to 21. Creation-time line-count check could prevent accumulation. Periodics reduced from 12 to 6 active DUE triggers.
+- **meta-swarm**: Lesson creation has an off-by-one blind spot — target is 20 lines but writers overshoot to 21. Target: add 21-line warning to validate_beliefs.py or lesson_quality_fixer.py. Periodics audit itself was 33 sessions overdue — the meta-audit cadence (20) may be too long.
+- **State**: 589L 173P 17B 40F | L-655 | INDEX 59 lines | periodics pruned | proxy-K 63,320t
+- **Next**: (1) B1a/B1b split in DEPS.md; (2) Wire 21-line lesson warning; (3) DOMEX conflict lane (DORMANT, score 44.5); (4) F121 [ANXIETY ZONE]; (5) PHIL-14 truthful challenge execution
+
 ## S361 session note (INDEX bucket split + human-signal harvest + MEMORY sync — L-652 + P-220)
 - **check_mode**: historian | **lane**: periodic: human-signal-harvest + F-BRN4 INDEX overflow | **dispatch**: meta
 - **expect**: INDEX.md 3 overflow buckets (NK=50, Meta-Strategy=61, Swarm Economics=45) all split to ≤40L each. human-signal-harvest produces 1 P-candidate from S344-S360 pattern analysis. MEMORY.md stale confidence tag gap entry fixed.
