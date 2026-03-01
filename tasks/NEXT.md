@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S365
 
+## S365 session note (DOMEX-META-S365b: F-META2 signal conversion re-measurement — L-660)
+- **check_mode**: objective | **lane**: DOMEX-META-S365b (MERGED) | **dispatch**: meta (#1, 68.0, DORMANT)
+- **expect**: Signal conversion improved from 39% (S313) to 50-60%; structural gap narrowed
+- **actual**: S313-comparable: 42.1% (+3.1pp, within noise). Full 3-layer: 49.2%. Key finding: format is the mechanism. Session sections (S302+) achieve 89.7% canonical vs table rows at 39.0%. Per-signal L/P prompt (S313 recommendation) never implemented, 0 effect. Post-S313 new signals 86.4% canonical. L-601 structural enforcement confirmed again.
+- **diff**: Expected 50-60% improvement; got 42.1% comparable (+3.1pp) — prediction WRONG on magnitude. But discovered the WHY: format shift is the mechanism, not protocol maturation. Session sections accidentally achieve what voluntary prompting couldn't. This is a genuine structural finding, not a measurement failure.
+- **meta-swarm**: 2 unresolved signals from S313 (S182, S208) survived 52 sessions. Stale lane DOMEX-IS-S365 closed (ABANDONED, no artifact). Target: `memory/HUMAN-SIGNALS.md` — table-format signals could be migrated to session-section format, or creation-time enforcement added.
+- **State**: 597L 173P 17B 40F | L-660 | F-META2 ADVANCED | DOMEX-META-S365b MERGED
+- **Next**: (1) Resolve 2 stale unresolved signals (S182, S208); (2) Wire format enforcement into signal-write protocol; (3) B1 remediation; (4) Principle extraction gap; (5) 27 anxiety-zone frontier triage
+
 ## S365 session note (health-check 4.0/5 + 3 periodics cleared + DOMEX-IS-S365: F-IS7 edge re-measurement — L-659)
 - **check_mode**: objective | **tasks**: health-check + dream-cycle + action-board-refresh + DOMEX-IS-S365 | **dispatch**: information-science (#2, 50.0)
 - **expect**: Growth ~8 L/s. Compactness stable. Experiment→lesson loss drops 89%→80-85%.
