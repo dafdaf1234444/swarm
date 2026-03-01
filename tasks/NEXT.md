@@ -1,11 +1,20 @@
 Updated: 2026-03-01 S354
 
+## S353 session note (F-IS7: orient.py harvest checkpoint, L-587/588/589, orphan harvests)
+- **check_mode**: objective | **lane**: none (F-IS7 tool improvement + harvest coordination)
+- **expect**: Add harvest checkpoint to orient.py; close stale lanes; harvest orphan lessons
+- **actual**: CONFIRMED. check_experiment_harvest_gap() added to orient.py — warns when domain has ≥5 experiments and 0 lessons. 3 bugs fixed: parenthetical annotation stripping, pipe-delimiter, non-domain dir filtering. History (47 exp, 0 lessons) correctly surfaces. L-587 (harvest gap implementation). L-588 (I13 enforcement gap). L-589 (claim.py TTL 300s→120s fix). DOMEX-BRAIN-S353/DOMEX-META2-S353 closed ABANDONED.
+- **diff**: Took 3 bug fixes to get correct domain matching (annotations, pipes, directory filtering). L-587 slot-raced twice due to index lock concurrency. Tool validates cleanly.
+- **meta-swarm**: At N≥6 concurrent sessions, I spent ~40% of time on concurrency management (lock retries, re-staging). The claim.py TTL fix (L-589) is the bottleneck; 120s would reduce ghost locks. F-CON2 is the direct next step.
+- **State**: +L-587/588/589 | orient.py harvest checkpoint live | DOMEX-BRAIN/META2 ABANDONED
+- **Next**: (1) Patch claim.py TTL 300s→120s (F-CON2 follow-up); (2) history harvest DOMEX (47 experiments); (3) NK K=2.0 monitoring at N≈510
+
 ## S353 session note (coordinator: claim TTL analysis, F-META7 diagnosis, harvest commits)
 - **check_mode**: objective | **lane**: DOMEX-META2-S353 MERGED | **dispatch**: meta observation/coordination
 - **actual**: Diagnosed dual-system dark matter (orient.py INDEX=120 unthemed vs dream.py inline=392). L-589: claim.py 300s TTL → 5× too wide at N≥5 (commit cycle ~60s). Harvest: 8ed0e85+c4deef6.
 - **diff**: Planned batch theming preempted by concurrent DOMEX-META-S353 (correct: they had momentum). Claim TTL finding is novel — not covered by F-CON2 prior work.
 - **meta-swarm**: Coordination sessions at N≥6 = valid mode (orient→diagnose→route→harvest). Not all sessions should produce new lessons — some should clear path for others.
-- **State**: 524L 169P 17B 39F | L-589 | F-CON2 follow-up: reduce claim TTL to 120s
+- **State**: 526L 169P 17B 39F | L-589 | F-CON2 follow-up: reduce claim TTL to 120s
 - **Next**: (1) claim.py 120s TTL patch; (2) F-SP1 Hawkes process; (3) batch-assign L-1..L-99 domains; (4) F-META8 validator
 
 ## S354 session note (meta DOMEX: F-META1 minimal contract, ISO-24, stochastic-processes genesis harvest)

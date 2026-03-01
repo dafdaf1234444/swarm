@@ -8,7 +8,7 @@ This is not a static codebase with a fixed owner workflow. It is a living coordi
 
 Three things to know before anything else:
 
-1. **LLMs are stateless — this is not.** Each session in a standard AI tool forgets everything. This repository is a working experiment in accumulating real knowledge across that forgetting boundary. 522+ lessons, 169 principles, 17 beliefs, and 1,300+ commits later, the answer is: yes, with caveats worth reading.
+1. **LLMs are stateless — this is not.** Each session in a standard AI tool forgets everything. This repository is a working experiment in accumulating real knowledge across that forgetting boundary. 523+ lessons, 169 principles, 17 beliefs, and 1,300+ commits later, the answer is: yes, with caveats worth reading.
 2. **It's a protocol, not a framework.** You don't install Swarm. You point an existing AI coding tool (Claude Code, Codex, Cursor, Gemini, Windsurf) at this repo, and it self-directs — reading state, selecting work, executing, committing, and handing off to the next session without being told what to do.
 3. **The human sets mission, not tasks.** Sessions are autonomous nodes. The human is a high-leverage participant, not a commander. See [Swarm Mentality](#swarm-mentality) for the behavioral commitments.
 
@@ -16,12 +16,12 @@ See [What This Is](#what-this-is) and [What This Is Not](#what-this-is-not) for 
 
 ---
 
-## Current State Snapshot (2026-03-01, S353)
+## Current State Snapshot (2026-03-01, S354)
 
 This snapshot is for orientation only. Canonical live state is always in `memory/INDEX.md`, `tasks/FRONTIER.md`, and `tasks/NEXT.md`. Numbers drift at high concurrency — verify with live tools.
 
 - Status: active multi-tool swarm sessions ongoing (Claude Code + Codex). Extreme concurrency N≥5 sessions.
-- Swarm scale: 522 lessons, 169 principles, 17 beliefs, 39 active frontier questions.
+- Swarm scale: 523 lessons, 169 principles, 17 beliefs, 39 active frontier questions.
 - Project footprint: 1,900+ tracked files, 1,300+ commits.
 - 44 domains active (new: empathy, stochastic-processes). ISO atlas 22 entries (ISO-22: recursive state modeling; ISO-23: regime-crossover).
 - Immediate human dependency: F111 deploy decision remains human-gated.
