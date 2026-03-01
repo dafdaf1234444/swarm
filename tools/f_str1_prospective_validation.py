@@ -283,12 +283,17 @@ def run_statistical_tests(baseline: dict, treatment: dict) -> dict:
             "error": f"insufficient data (baseline n={len(b_lessons)}, treatment n={len(t_lessons)})"
         }
 
-    # Domain diversity comparison (simple ratio)
+    # Domain diversity comparison (simple ratio + per-lane normalized)
+    b_per_lane = baseline["n_domains"] / baseline["n_lanes"] if baseline["n_lanes"] > 0 else 0
+    t_per_lane = treatment["n_domains"] / treatment["n_lanes"] if treatment["n_lanes"] > 0 else 0
     results["domain_diversity"] = {
         "baseline_domains": baseline["n_domains"],
         "treatment_domains": treatment["n_domains"],
         "ratio": round(treatment["n_domains"] / baseline["n_domains"], 3)
             if baseline["n_domains"] > 0 else None,
+        "baseline_domains_per_lane": round(b_per_lane, 3),
+        "treatment_domains_per_lane": round(t_per_lane, 3),
+        "note": "Raw count comparison confounded by unequal window size (10 vs 3 sessions). Per-lane ratio is more informative.",
     }
 
     # EAD compliance comparison (Fisher exact)
@@ -337,15 +342,18 @@ def determine_verdict(baseline: dict, treatment: dict, stats: dict) -> dict:
         else:
             neutral.append(f"lesson_yield delta={delta:+.2f}")
 
-    # Domain diversity
+    # Domain diversity (per-lane normalized to account for unequal window size)
     d_base = baseline["n_domains"]
     d_treat = treatment["n_domains"]
-    if d_treat > d_base:
-        improvements.append(f"domain_diversity {d_base}->{d_treat}")
-    elif d_treat < d_base:
-        regressions.append(f"domain_diversity {d_base}->{d_treat}")
+    b_per_lane = d_base / baseline["n_lanes"] if baseline["n_lanes"] > 0 else 0
+    t_per_lane = d_treat / treatment["n_lanes"] if treatment["n_lanes"] > 0 else 0
+    d_delta = t_per_lane - b_per_lane
+    if d_delta > 0.05:
+        improvements.append(f"domain_diversity_per_lane {b_per_lane:.2f}->{t_per_lane:.2f}")
+    elif d_delta < -0.05:
+        regressions.append(f"domain_diversity_per_lane {b_per_lane:.2f}->{t_per_lane:.2f}")
     else:
-        neutral.append(f"domain_diversity unchanged at {d_base}")
+        neutral.append(f"domain_diversity_per_lane {b_per_lane:.2f}->{t_per_lane:.2f} (delta={d_delta:+.2f})")
 
     # EAD compliance
     if baseline["ead_rate"] is not None and treatment["ead_rate"] is not None:

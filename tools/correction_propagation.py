@@ -113,31 +113,60 @@ def _find_correction_gaps(
     """Find lessons that cite falsified content without acknowledging corrections."""
     gaps = []
 
-    # Known falsified lessons and their corrections (from lesson text analysis)
-    falsified_corrections = {}
+    # Build falsified→correctors map using directional patterns.
+    # Key insight: "X falsified by Y" means X is falsified, Y is corrector.
+    # "Y falsified X" also means X is falsified, Y is corrector.
+    # But "Y: X predictions FALSIFIED" means Y reports that X is wrong (Y is corrector).
+    # Ambiguity: "FALSIFIED...L-NNN" can match both directions.
+    # Fix: a lesson that CONTAINS FALSIFIED in its own title is a CORRECTOR, not falsified.
+    falsified_corrections: dict[str, set[str]] = {}
+
     for lid, data in lessons.items():
         text = data["text"]
         if not FALSIFIED_MARKERS.search(text):
             continue
 
-        # This lesson mentions FALSIFIED — it's either the corrector or the corrected
-        # Check if it says "L-NNN ... FALSIFIED" (this lesson falsifies L-NNN)
-        for ref in data["all_refs"]:
-            # Check if the falsification is about ref
-            context = text
-            if re.search(
-                rf"(?:{re.escape(ref)}.*?(?:FALSIFIED|falsified|wrong|incorrect))"
-                rf"|(?:(?:FALSIFIED|falsified).*?{re.escape(ref)})",
-                context,
-            ):
-                if ref not in falsified_corrections:
-                    falsified_corrections[ref] = set()
-                falsified_corrections[ref].add(lid)
+        title = data["title"]
+        # If FALSIFIED is in the title, this lesson is a corrector reporting falsification
+        lid_is_corrector = bool(re.search(
+            r"FALSIFIED|falsified|wrong|incorrect", title
+        ))
 
-    # Also add manually known cases
-    if "L-025" not in falsified_corrections:
-        falsified_corrections["L-025"] = set()
-    falsified_corrections["L-025"].update({"L-613", "L-618"})
+        for ref in data["all_refs"]:
+            # Directional patterns: "ref ... falsified" = ref is falsified, lid corrects
+            fwd = re.search(
+                rf"{re.escape(ref)}.*?(?:FALSIFIED|falsified|wrong\b|incorrect\b)",
+                text,
+            )
+            # Reverse: "falsified by ref" = lid is falsified, ref corrects
+            rev = re.search(
+                rf"(?:falsified|corrected|superseded)\s+(?:by\s+)?{re.escape(ref)}",
+                text,
+                re.IGNORECASE,
+            )
+
+            if rev and not lid_is_corrector:
+                # "falsified by ref" — lid is falsified, ref is corrector
+                falsified_corrections.setdefault(lid, set()).add(ref)
+            elif fwd and lid_is_corrector:
+                # This lesson (a corrector) mentions ref near FALSIFIED — ref is falsified
+                falsified_corrections.setdefault(ref, set()).add(lid)
+            elif fwd:
+                # Ambiguous but forward match: assume ref is the falsified target
+                falsified_corrections.setdefault(ref, set()).add(lid)
+
+    # Manually known cases as seed
+    falsified_corrections.setdefault("L-025", set()).update({"L-613", "L-618"})
+
+    # Remove false positives: correctors should not appear as falsified
+    corrector_ids = set()
+    for correctors in falsified_corrections.values():
+        corrector_ids.update(correctors)
+    for cid in corrector_ids:
+        if cid in falsified_corrections:
+            # Only remove if every reference to this lesson's falsification
+            # comes from it being a corrector for something else
+            del falsified_corrections[cid]
 
     # For each falsified lesson, check its citers
     for falsified_lid, correctors in sorted(falsified_corrections.items()):

@@ -158,7 +158,10 @@
     "domain_diversity": {
       "baseline_domains": 21,
       "treatment_domains": 9,
-      "ratio": 0.429
+      "ratio": 0.429,
+      "baseline_domains_per_lane": 0.538,
+      "treatment_domains_per_lane": 0.529,
+      "note": "Raw count comparison confounded by unequal window size (10 vs 3 sessions). Per-lane ratio is more informative."
     },
     "ead_compliance_fisher": {
       "contingency_table": [
@@ -182,11 +185,11 @@
     "improvements": [],
     "regressions": [
       "merge_rate -12.5%",
-      "domain_diversity 21->9",
       "ead_compliance -32.7%"
     ],
     "neutral": [
-      "lesson_yield delta=+0.09"
+      "lesson_yield delta=+0.09",
+      "domain_diversity_per_lane 0.54->0.53 (delta=-0.01)"
     ],
     "any_statistically_significant": true,
     "caveat": "Observational study with small treatment window (3 sessions). Confounders include session maturity, concurrent tooling changes, and domain selection effects. Causal attribution requires longer observation."

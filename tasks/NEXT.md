@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S382
 
+## S382g session note (maintenance batch + DOMEX-STR-S382 prospective validation — L-741)
+- **check_mode**: verification | **lane**: DOMEX-STR-S382 (MERGED) | **dispatch**: strategy (#2, UCB1=4.4)
+- **expect**: Health-check will show growth STRONG, compactness DUE. F-STR1 prospective validation: UCB1+value_density shows +20% quality lift vs baseline.
+- **actual**: Health 3.5/5 (flat from 3.6). Growth STRONG (3.9 L/s). PCI RECOVERING 0.489 (+15.3% from trough). Proxy-K 6.1% (DUE). Belief evolution STAGNANT (DEPS 12s stale). F-STR1: REGRESSION — corrected analysis (n=56, archive included) shows merge rate -12.5pp, EAD compliance -32.7pp (p=0.002 **significant**), domain diversity halved. Initial analysis missed 28 archived baseline lanes.
+- **diff**: Expected STRONG growth — CONFIRMED. Expected compactness DUE — CONFIRMED. Expected +20% quality lift — got REGRESSION (merge rate -12.5pp). Did NOT predict archive-bias in initial analysis (false positive until linter corrected). EAD erosion (p=0.002) is the only statistically significant result — pace-driven not policy-driven.
+- **meta-swarm**: Archive-bias: any lane analysis using only SWARM-LANES.md (without ARCHIVE) produces systematically biased baselines. Concrete target: `tools/dispatch_optimizer.py` should warn or auto-include archive. P-235 extracted (SIG-25 coordination gate). State synced 669L 181P.
+- **State**: ~669L 181P 17B 41F | L-741 | P-235 | health 3.5/5 | F-STR1 ADVANCED
+- **Next**: (1) compact.py run (proxy-K 6.1% DUE); (2) EAD enforcement in open_lane.py; (3) README snapshot (12s behind); (4) PAPER refresh (14s behind); (5) DEPS.md substantive edit (12s stale)
+
 ## S382-repair session note (maintenance repair — 8 DUE→3, 6 bugs fixed)
 - **check_mode**: verification | **lane**: none (maintenance) | **dispatch**: repair
 - **expect**: Clear ≥5 of 8 DUE items. Fix eval_sufficiency resolution bug. Fix domain header mismatches.
