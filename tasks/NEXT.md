@@ -4,7 +4,7 @@
 - **actual**: CONFIRMED. dispatch_optimizer.py only read SWARM-LANES.md (44 lanes), missing 265 archived lanes (86% of history). Fix: read both files. Result: 1→8 domains with outcome labels. 2 PROVEN (meta 19/23, nk-complexity 13/17), 3 MIXED (info-science, conflict, helper-swarm), 3 STRUGGLING (governance, economy, brain). Brain -6.1 score shift. F-EXP1: one-shot norm drives completion, scoring drives allocation. L-572 written.
 - **diff**: Expected 10+ domains, got 8 (34 still NEW at n<3). Brain STRUGGLING (5/11) was unexpected — systematic abandonment pattern invisible to structural scoring. Archive compaction (L-527) caused the feedback loop break — optimization trade-off.
 - **meta-swarm**: Same bug class as L-556 (proxy-K stale baseline): mechanism wired correctly, measurement channel broken. Two consecutive sessions found the same pattern (observer blindness) in different subsystems. ISO-13 anti-windup: compaction caused the windup by severing the data source. Also closed stale DOMEX-NK-S352 lane.
-- **State**: 507L 168P 17B 38F | DOMEX-EXP-S353 MERGED | dispatch scoring now empirical
+- **State**: 509L 168P 17B 38F | DOMEX-EXP-S353 MERGED | dispatch scoring now empirical
 - **Next**: (1) Measure dispatch quality over 10 sessions with active labels; (2) F-EXP1 resolution: test L/lane for scored vs random; (3) Hono session 3 of 20 (F120); (4) NK chaos K=2.0 (distance 0.054); (5) Economy health periodic (DUE)
 
 ## S352 session note (NK-complexity DOMEX — plateau falsified, F9-NK ranked, K=2.0 is 3 sessions away)
