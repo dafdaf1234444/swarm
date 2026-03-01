@@ -252,5 +252,110 @@
       "with_lesson": 1,
       "conversion_rate": 1.0
     }
-  }
+  },
+  "analysis": {
+    "pipeline_completion_rate": 0.055,
+    "pipeline_description": "5.5% of experimental work reaches principle status (experiment\u2192lesson 27.1% \u00d7 lesson\u2192principle 20.2%)",
+    "bottleneck_ranking": [
+      {
+        "edge": "experiment\u2192lesson",
+        "loss_rate": 0.729,
+        "rank": 1,
+        "diagnosis": "Dominant bottleneck. 72.9% loss vs S307 estimate of ~50%."
+      },
+      {
+        "edge": "lesson\u2192principle",
+        "loss_rate": 0.798,
+        "rank": 2,
+        "diagnosis": "Structural: distillation is selective by design. 20.2% promotion rate."
+      },
+      {
+        "edge": "lesson\u2190experiment grounding",
+        "ungrounded_rate": 0.726,
+        "rank": 3,
+        "diagnosis": "72.6% of lessons don't cite experimental evidence."
+      },
+      {
+        "edge": "lane\u2192experiment",
+        "loss_rate": 0.031,
+        "rank": 4,
+        "diagnosis": "Healthy. 96.9% of lanes produce artifacts."
+      }
+    ],
+    "experiment_type_conversion": {
+      "primary": {
+        "total": 339,
+        "with_lesson": 117,
+        "rate": 0.345
+      },
+      "rerun": {
+        "total": 61,
+        "with_lesson": 5,
+        "rate": 0.082
+      },
+      "live": {
+        "total": 33,
+        "with_lesson": 1,
+        "rate": 0.03
+      },
+      "validation": {
+        "total": 21,
+        "with_lesson": 4,
+        "rate": 0.19
+      },
+      "calibration": {
+        "total": 15,
+        "with_lesson": 0,
+        "rate": 0.0
+      }
+    },
+    "information_sinks": {
+      "zero_conversion_domains": [
+        "operations-research",
+        "game-theory",
+        "integration-log",
+        "belief-variants",
+        "colonies",
+        "economy",
+        "gaming",
+        "self-analysis"
+      ],
+      "total_experiments_in_sinks": 121,
+      "pct_of_all_experiments": 0.259,
+      "diagnosis": "25.9% of experiments are in domains that produce zero lessons. These are pure information sinks."
+    },
+    "domain_variation": {
+      "highest_conversion": {
+        "linguistics": 1.0,
+        "evaluation": 1.0,
+        "dream": 1.0,
+        "graph-theory": 1.0,
+        "helper-swarm": 1.0
+      },
+      "lowest_conversion_high_n": {
+        "operations-research": {
+          "n": 53,
+          "rate": 0.0
+        },
+        "game-theory": {
+          "n": 22,
+          "rate": 0.0
+        },
+        "ai": {
+          "n": 29,
+          "rate": 0.034
+        }
+      },
+      "variation_range": "0% to 100% \u2014 extreme heterogeneity"
+    },
+    "actionable_interventions": [
+      "Require candidate_lesson_id field in experiment JSON schema",
+      "Post-lane-close harvest: check experiment\u2192lesson link exists before MERGED",
+      "Domain-specific lesson-harvesting pass for information sinks (ops-research, game-theory, ai)",
+      "close_lane.py: warn if lane experiment has no L- reference"
+    ]
+  },
+  "expect": "experiment\u2192lesson loss ~50%, lesson\u2192principle ~15%; domain variation exists",
+  "actual": "experiment\u2192lesson loss 72.9% (WORSE than ~50%), lesson\u2192principle promotion 20.2% (BETTER than 15%); domain variation EXTREME (0% to 100%); pipeline completion 5.5% end-to-end; 25.9% of experiments in information sinks",
+  "diff": "S307 underestimated experiment\u2192lesson bottleneck by 23pp. Zero-conversion domains holding 26% of experiments were not predicted. Type analysis reveals structural cause: primary experiments convert at 34.5% while reruns/live/calibration convert near 0% \u2014 but even primary experiments in ops-research/game-theory convert at 0%."
 }
