@@ -1,7 +1,7 @@
 {
   "tools": {
-    "nodes": 71,
-    "edges": 112,
+    "nodes": 76,
+    "edges": 121,
     "graph": {
       "alignment_check": [
         "propagate_challenges"
@@ -34,6 +34,15 @@
         "maintenance",
         "orient"
       ],
+      "f_sec1_security_audit": [
+        "bulletin",
+        "contract_check",
+        "genesis_evolve",
+        "merge_back",
+        "orient",
+        "swarm_colony",
+        "validate_beliefs"
+      ],
       "gather_council": [
         "dispatch_optimizer",
         "open_lane"
@@ -41,6 +50,9 @@
       "genesis_subtask": [
         "agent_swarm",
         "evolve"
+      ],
+      "knowledge_state": [
+        "swarm_io"
       ],
       "maintenance": [
         "agent_swarm",
@@ -122,6 +134,9 @@
       "swarm_cycle": [
         "orient"
       ],
+      "swarm_dependency_map": [
+        "xxx"
+      ],
       "swarm_signal": [
         "signal"
       ],
@@ -190,6 +205,10 @@
         11
       ],
       [
+        "f_sec1_security_audit",
+        7
+      ],
+      [
         "test_orient",
         7
       ],
@@ -208,20 +227,28 @@
       [
         "session_tracker",
         4
-      ],
-      [
-        "task_order",
-        4
       ]
     ],
     "top_in_degree": [
       [
         "validate_beliefs",
-        9
+        10
       ],
       [
         "maintenance",
         7
+      ],
+      [
+        "merge_back",
+        5
+      ],
+      [
+        "orient",
+        5
+      ],
+      [
+        "bulletin",
+        5
       ],
       [
         "proxy_k",
@@ -240,33 +267,21 @@
         4
       ],
       [
-        "merge_back",
+        "swarm_io",
         4
-      ],
-      [
-        "orient",
-        4
-      ],
-      [
-        "bulletin",
-        4
-      ],
-      [
-        "paper_drift",
-        3
       ]
     ],
     "orphans": [
       "anxiety_trigger",
       "colony_interact",
       "contamination_investigator",
-      "contract_check",
       "drift_scanner",
       "economy_expert",
       "eval_sufficiency",
       "f_eco_frontiers",
       "f_far3_monoculture_hhi",
       "f_fin1_complementarity",
+      "f_fld1_reynolds_predictor",
       "f_game3_citation_impact",
       "f_is3_empirical_grounding",
       "f_meta5_decision_calibration",
@@ -285,7 +300,6 @@
       "scaling_model",
       "self_diff",
       "swarm_cache",
-      "swarm_dependency_map",
       "swarm_profiler",
       "sync_bridges",
       "test_bulletin",
@@ -301,20 +315,23 @@
     "hubs": [
       "validate_beliefs",
       "maintenance",
+      "merge_back",
+      "orient",
+      "bulletin",
       "proxy_k"
     ]
   },
   "lessons": {
-    "nodes": 642,
+    "nodes": 641,
     "edges": 1464,
-    "citing_lessons": 589,
-    "cited_lessons": 461,
-    "orphans_count": 14,
-    "orphan_rate": 0.022,
+    "citing_lessons": 590,
+    "cited_lessons": 459,
+    "orphans_count": 13,
+    "orphan_rate": 0.02,
     "top_cited": [
       [
         601,
-        31
+        34
       ],
       [
         1,
@@ -395,13 +412,13 @@
         9
       ]
     ],
-    "k_avg": 2.28
+    "k_avg": 2.284
   },
   "frontiers": {
-    "total_frontiers": 145,
+    "total_frontiers": 146,
     "with_cross_refs": 40,
     "total_edges": 107,
-    "implicit_rate": 0.724,
+    "implicit_rate": 0.726,
     "cross_domain_edges": 39,
     "same_domain_edges": 28,
     "cross_domain_pairs": [
@@ -419,15 +436,15 @@
       ],
       [
         "F-DRM4",
-        "F-EXP7",
-        "dream",
-        "expert-swarm"
-      ],
-      [
-        "F-DRM4",
         "F-GT1",
         "dream",
         "graph-theory"
+      ],
+      [
+        "F-DRM4",
+        "F-EXP7",
+        "dream",
+        "expert-swarm"
       ],
       [
         "F-ECO4",
@@ -467,13 +484,25 @@
       ],
       [
         "F-IS7",
-        "F-GAM3",
+        "F-STAT1",
+        "information-science",
+        "statistics"
+      ],
+      [
+        "F-IS7",
+        "F-GAM2",
         "information-science",
         "game-theory"
       ],
       [
         "F-IS7",
-        "F-STAT1",
+        "F-STAT2",
+        "information-science",
+        "statistics"
+      ],
+      [
+        "F-IS7",
+        "F-STAT3",
         "information-science",
         "statistics"
       ],
@@ -491,27 +520,15 @@
       ],
       [
         "F-IS7",
-        "F-GAM2",
-        "information-science",
-        "game-theory"
-      ],
-      [
-        "F-IS7",
         "F-HIS2",
         "information-science",
         "history"
       ],
       [
         "F-IS7",
-        "F-STAT3",
+        "F-GAM3",
         "information-science",
-        "statistics"
-      ],
-      [
-        "F-IS7",
-        "F-STAT2",
-        "information-science",
-        "statistics"
+        "game-theory"
       ],
       [
         "F-META8",
@@ -564,7 +581,7 @@
         2
       ],
       [
-        "F-EXP7",
+        "F-GT1",
         2
       ]
     ],
@@ -635,7 +652,250 @@
       "F-STR1",
       "F-STR2",
       "F-STR3",
-      "F-STRUCT1"
+      "F-STRUCT1",
+      "F-VVE1"
+    ]
+  },
+  "lanes": {
+    "total_lanes_parsed": 575,
+    "active_lanes": 2,
+    "merged_lanes": 454,
+    "active_conflict_edges": 1,
+    "active_chromatic_number": 2,
+    "active_coloring": {
+      "DOMEX-META2-S377": 0,
+      "DOMEX-META3-S378": 1
+    },
+    "historical_conflict_edges": 662,
+    "historical_components": 257,
+    "largest_component": 17,
+    "session_window_chi": [
+      {
+        "session": 186,
+        "lanes": 193,
+        "chi": 13
+      },
+      {
+        "session": 341,
+        "lanes": 7,
+        "chi": 6
+      },
+      {
+        "session": 359,
+        "lanes": 8,
+        "chi": 5
+      },
+      {
+        "session": 375,
+        "lanes": 9,
+        "chi": 5
+      },
+      {
+        "session": 346,
+        "lanes": 6,
+        "chi": 4
+      },
+      {
+        "session": 350,
+        "lanes": 4,
+        "chi": 4
+      },
+      {
+        "session": 353,
+        "lanes": 9,
+        "chi": 4
+      },
+      {
+        "session": 369,
+        "lanes": 4,
+        "chi": 4
+      },
+      {
+        "session": 185,
+        "lanes": 12,
+        "chi": 3
+      },
+      {
+        "session": 342,
+        "lanes": 3,
+        "chi": 3
+      }
+    ],
+    "scope_hotspots": [
+      [
+        "close_lane.py",
+        112
+      ],
+      [
+        "claude-code+wsl",
+        94
+      ],
+      [
+        "wsl",
+        31
+      ],
+      [
+        "codex-cli+powershell",
+        21
+      ],
+      [
+        "tasks/NEXT.md",
+        15
+      ],
+      [
+        "tools/f_ops2_domain_priority.py",
+        13
+      ],
+      [
+        "tools/f_gam3_signal_contract.py",
+        13
+      ],
+      [
+        "tools/maintenance.py",
+        9
+      ],
+      [
+        "tools/wiki_swarm.py",
+        7
+      ],
+      [
+        "codex-cli+WSL",
+        7
+      ]
+    ],
+    "max_historical_chi": 13,
+    "mean_historical_chi": 1.66
+  },
+  "cross_layer": {
+    "tool_to_frontier_edges": 76,
+    "tools_referencing_frontiers": 41,
+    "top_tool_frontier_refs": [
+      [
+        "orient",
+        8
+      ],
+      [
+        "maintenance",
+        6
+      ],
+      [
+        "sync_state",
+        4
+      ],
+      [
+        "change_quality",
+        3
+      ],
+      [
+        "dispatch_optimizer",
+        3
+      ],
+      [
+        "eval_sufficiency",
+        3
+      ],
+      [
+        "f_eco_frontiers",
+        3
+      ],
+      [
+        "farming_expert",
+        3
+      ],
+      [
+        "swarm_parse",
+        3
+      ],
+      [
+        "test_wiki_swarm",
+        3
+      ]
+    ],
+    "lesson_to_tool_edges": 71,
+    "lessons_referencing_tools": 67,
+    "top_lesson_tool_refs": [
+      [
+        "L-125",
+        2
+      ],
+      [
+        "L-209",
+        2
+      ],
+      [
+        "L-281",
+        2
+      ],
+      [
+        "L-293",
+        2
+      ],
+      [
+        "L-122",
+        1
+      ],
+      [
+        "L-199",
+        1
+      ],
+      [
+        "L-200",
+        1
+      ],
+      [
+        "L-203",
+        1
+      ],
+      [
+        "L-204",
+        1
+      ],
+      [
+        "L-213",
+        1
+      ]
+    ],
+    "most_referenced_frontiers_by_tools": [
+      [
+        "F-ISG1",
+        4
+      ],
+      [
+        "F-META1",
+        3
+      ],
+      [
+        "F-CON2",
+        3
+      ],
+      [
+        "F-SEC1",
+        3
+      ],
+      [
+        "F-COMP1",
+        3
+      ],
+      [
+        "F-IS7",
+        2
+      ],
+      [
+        "F-META8",
+        2
+      ],
+      [
+        "F-EXP1",
+        2
+      ],
+      [
+        "F-GOV2",
+        2
+      ],
+      [
+        "F-FAR3",
+        2
+      ]
     ]
   },
   "domain_coupling": {
@@ -650,15 +910,15 @@
       ],
       [
         [
-          "game-theory",
-          "information-science"
+          "information-science",
+          "statistics"
         ],
         3
       ],
       [
         [
-          "information-science",
-          "statistics"
+          "game-theory",
+          "information-science"
         ],
         3
       ],
@@ -686,14 +946,14 @@
       [
         [
           "dream",
-          "expert-swarm"
+          "graph-theory"
         ],
         1
       ],
       [
         [
           "dream",
-          "graph-theory"
+          "expert-swarm"
         ],
         1
       ],
@@ -714,20 +974,20 @@
     ]
   },
   "unified": {
-    "total_nodes": 858,
-    "total_edges": 1683,
-    "density": 0.002289,
+    "total_nodes": 863,
+    "total_edges": 1839,
+    "density": 0.002472,
     "layer_sizes": {
       "tools": {
-        "nodes": 71,
-        "edges": 112
+        "nodes": 76,
+        "edges": 121
       },
       "lessons": {
-        "nodes": 642,
+        "nodes": 641,
         "edges": 1464
       },
       "frontiers": {
-        "nodes": 145,
+        "nodes": 146,
         "edges": 107
       }
     },
@@ -735,7 +995,9 @@
       "tools": [
         "validate_beliefs",
         "maintenance",
-        "proxy_k"
+        "merge_back",
+        "orient",
+        "bulletin"
       ],
       "lessons": [
         "L-601",
@@ -745,7 +1007,9 @@
         "L-25"
       ]
     },
-    "cross_layer_gap": "No explicit tool\u2192frontier or lesson\u2192frontier edges tracked",
-    "frontier_implicit_rate": 0.724
+    "cross_layer_edges": 147,
+    "frontier_implicit_rate": 0.726,
+    "lane_chromatic_number": 2,
+    "max_safe_parallel_sessions": 2
   }
 }

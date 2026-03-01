@@ -2,23 +2,16 @@
 """
 swarm_dependency_map.py — Unified dependency graph for the swarm.
 
-Maps four dependency layers:
+Maps six dependency layers:
   1. Tool→tool (subprocess calls + Python imports)
-  2. Lesson→lesson (citation graph, reuses nk_null_model logic)
+  2. Lesson→lesson (citation graph)
   3. Frontier→frontier (cross-references between F-XXX IDs)
-  4. Domain→domain (via frontier cross-refs and lesson citations)
+  4. Domain→domain (via frontier cross-refs)
+  5. Lane conflicts (F-GT2: chromatic number for concurrent scheduling)
+  6. Cross-layer (tool→frontier, lesson→tool)
 
-Outputs: hub/bottleneck analysis, disconnected components, critical paths.
+Outputs: hub/bottleneck analysis, chromatic number, cross-layer edges.
 Produces JSON artifact for experiment tracking.
-
-Usage:
-    python3 tools/swarm_dependency_map.py
-    python3 tools/swarm_dependency_map.py --layer tools
-    python3 tools/swarm_dependency_map.py --layer lessons
-    python3 tools/swarm_dependency_map.py --layer frontiers
-    python3 tools/swarm_dependency_map.py --json experiments/graph-theory/output.json
-
-Extended with F-GT2 lane conflict graph (chromatic number) and cross-layer edges.
 
 Usage:
     python3 tools/swarm_dependency_map.py
@@ -226,19 +219,35 @@ def _extract_focus(etc: str) -> str:
     return m.group(1).strip() if m else ""
 
 
+_FALSE_SCOPES = {"close_lane.py", "claude-code+wsl", "wsl", "codex-cli+powershell",
+                  "codex-windows+powershell+bash", "master", ""}
+
+
+def _effective_scope(lane: dict) -> str:
+    """Return the real write surface: prefer focus= over Scope-Key, skip false scopes."""
+    focus = _extract_focus(lane["etc"])
+    sk = lane["scope_key"]
+    if sk in _FALSE_SCOPES:
+        return focus if focus else ""
+    return sk if sk else focus
+
+
 def _scope_overlaps(l1: dict, l2: dict) -> bool:
     """Check if two lanes have overlapping write surfaces."""
-    s1, s2 = l1["scope_key"], l2["scope_key"]
-    f1, f2 = _extract_focus(l1["etc"]), _extract_focus(l2["etc"])
-    # Direct scope-key match
-    if s1 and s2 and s1 == s2:
+    e1, e2 = _effective_scope(l1), _effective_scope(l2)
+    if not e1 or not e2:
+        return False
+    # Exact match
+    if e1 == e2:
         return True
-    # Both target global scope
-    if f1 == "global" and f2 == "global":
+    # Both target global
+    if e1 == "global" and e2 == "global":
         return True
-    # Same domain focus
-    if f1 and f2 and f1 != "global" and f2 != "global":
-        if f1.split("/")[0] == f2.split("/")[0]:
+    # Same domain directory
+    if e1.startswith("domains/") and e2.startswith("domains/"):
+        d1 = e1.split("/")[1] if "/" in e1 else ""
+        d2 = e2.split("/")[1] if "/" in e2 else ""
+        if d1 and d2 and d1 == d2:
             return True
     return False
 
@@ -558,7 +567,7 @@ def print_report(tool_data, lesson_data, frontier_data, unified, domain_data,
 
 def main():
     ap = argparse.ArgumentParser(description="Unified swarm dependency map")
-    ap.add_argument("--layer", choices=["tools", "lessons", "frontiers", "all"], default="all")
+    ap.add_argument("--layer", choices=["tools", "lessons", "frontiers", "lanes", "all"], default="all")
     ap.add_argument("--json", help="Write JSON artifact to this path")
     args = ap.parse_args()
 
@@ -569,12 +578,19 @@ def main():
         results["lessons"] = map_lesson_deps()
     if args.layer in ("frontiers", "all"):
         results["frontiers"] = map_frontier_deps()
+    if args.layer in ("lanes", "all"):
+        results["lanes"] = map_lane_conflicts()
 
     if args.layer == "all":
+        results["cross_layer"] = map_cross_layer(results["tools"], results["lessons"], results["frontiers"])
         results["domain_coupling"] = map_domain_coupling(results["frontiers"], results["lessons"])
-        results["unified"] = compute_unified(results["tools"], results["lessons"], results["frontiers"])
+        results["unified"] = compute_unified(
+            results["tools"], results["lessons"], results["frontiers"],
+            cross_layer=results["cross_layer"], lane_data=results.get("lanes"),
+        )
         print_report(results["tools"], results["lessons"], results["frontiers"],
-                    results["unified"], results["domain_coupling"])
+                    results["unified"], results["domain_coupling"],
+                    cross_layer=results["cross_layer"], lane_data=results.get("lanes"))
     else:
         print(json.dumps(results, indent=2, default=str))
 

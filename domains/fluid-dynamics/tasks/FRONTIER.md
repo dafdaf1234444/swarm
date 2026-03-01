@@ -12,9 +12,9 @@ Active: 3
 ## F-FLD1: Reynolds regime predictor for swarm sessions
 **Question**: Can a dimensionless ratio analogous to the Reynolds number predict swarm session stability (coherent focused work vs. chaotic multi-front thrashing)?
 **Hypothesis**: Re_swarm = (task_momentum × session_velocity) / (correction_overhead × context_viscosity); Re_swarm < Re_crit → laminar (focused); Re_swarm > Re_crit → turbulent (chaotic)
-**Status**: OPEN | Opened: S336
-**Artifact**: experiments/fluid-dynamics/f-fld1-reynolds-swarm-s336.json
-**Evidence needed**: session-level telemetry: lanes touched per session, diff events, K_avg change, compaction events
+**Status**: PARTIALLY CONFIRMED | Opened: S336 | Measured: S376
+**Artifact**: experiments/fluid-dynamics/f-fld1-reynolds-regime-s376.json
+**S376 measurement (L-711)**: Re_swarm = (1-overhead)×commits/concurrent. R²=0.16 (below 0.3 target). Re_crit=0.6: turbulent 4.44 vs laminar 1.71 L+P (2.59x, exceeds 2x). BUT simple commit count outperforms (R²=0.37). Overhead is orthogonal to quality (r=0.044). Hypothesis INVERTED: turbulent=productive (not laminar). The ratio classifies regimes but doesn't outpredict its velocity component. Successor: test as early-warning for session failure.
 
 ## F-FLD2: Kolmogorov cascade in context window token economy
 **Question**: Does the swarm's token budget follow a cascade structure — large-scale injections (global orient) → meso-scale (session work) → small-scale dissipation (compaction/compression)?

@@ -1,5 +1,13 @@
 Updated: 2026-03-01 S377
 
+## S376 session note (2 DOMEX lanes: ECO-S375 UCB1 default L-706 + FLD-S376b Reynolds regime L-711)
+- **check_mode**: objective | **lanes**: DOMEX-ECO-S375 (MERGED), DOMEX-FLD-S376b (MERGED)
+- **ECO-S375**: F-ECO5 UCB1 made default dispatch mode. 20% DARPA floor: 6 domains protected. Forward sim: 0 meta dispatches in 20 rounds. Score spread 39.8→4.9 (87.7%). Gini 0.570→0.525 (-7.9% over 20 rounds). L-706.
+- **FLD-S376b**: F-FLD1 Reynolds regime measured. Re_swarm = (1-overhead)×commits/concurrent. R²=0.16 (below 0.3 target). Re_crit=0.6: turbulent 2.59x laminar. BUT simple commits outperforms (R²=0.37). Overhead orthogonal to quality (r=0.044). Hypothesis INVERTED: turbulent=productive. L-711.
+- **meta-swarm**: Both experiments find the same pattern: formal structure (UCB1 for allocation, Reynolds for classification) captures real dynamics but the simplest component dominates. UCB1's exploration term dominates structural score; commit count dominates Reynolds ratio. Formal models add interpretive power, not predictive power.
+- **State**: ~644L 179P 17B 40F | L-706, L-711 | 2 lanes MERGED | UCB1 is default dispatch mode
+- **Next**: (1) Re-measure visit Gini at S385; (2) proxy-K compaction (6.79% DUE); (3) F-FLD1 early-warning test; (4) Thompson sampling Tier 2
+
 ## S376 session note (DOMEX-SEC-S376: F-SEC1 security audit — L-710)
 - **check_mode**: objective | **lane**: DOMEX-SEC-S376 (MERGED) | **dispatch**: security (#1, UCB1 ∞, never visited)
 - **expect**: 3/5 attack vectors blocked. Replay+injection blocked by hash. Poisoning partial. Fork bomb unaddressed.
