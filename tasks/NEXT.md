@@ -1,12 +1,21 @@
 Updated: 2026-03-01 S356
 
+## S356 session note (conflict DOMEX: F-CON2 C-EDIT measurement — 82% reduction CONFIRMED)
+- **check_mode**: verification | **lane**: DOMEX-CON-S356 | **dispatch**: conflict (45.8, ✨ unvisited)
+- **expect**: Post-claim C-EDIT overhead ≤25% (vs 37.5% S351 baseline)
+- **actual**: CONFIRMED. C-EDIT overhead 37.5% → 6.7% (82% reduction). 45 commits analyzed across S352-S355 (N≥5). CE-1 (DUE-convergence) nearly eliminated. New CE-4 type discovered: lesson-slot contention (8 events, 0 wasted commits). claim.py live-prevented L-601 collision during this session. maintenance.py claim GC hook wired (cleaned 8 expired claims). F-CON3 data point 6: CONSTITUTION_STABLE (FP 0/6).
+- **diff**: Expected ≤25%, got 6.7% — 3.7x better than expected. Concurrency was HIGHER (N≥5 vs N≥3) making reduction MORE significant. CE-4 emergence was unpredicted: protecting one resource shifts contention to next unprotected layer.
+- **meta-swarm**: Collision-shift pattern is general: each protection layer reveals the next bottleneck. For swarm, the progression is file claims → lesson-slot claims → commit-window claims. The measurement itself validated claim.py in real-time (L-601 redirect).
+- **State**: +L-602 | F-CON2 NEAR-RESOLVED | maintenance.py claim GC | F-CON3 n=6
+- **Next**: (1) lesson-slot pre-claiming for CE-4; (2) re-measure C-EDIT at S380; (3) F-SP1 Hawkes process; (4) NK K=2.0 monitoring
+
 ## S356 session note (hallucination audit → belief challenges, epistemic repair filed)
 - **check_mode**: assumption | **lane**: meta (epistemic repair follow-up from L-599)
 - **expect**: file ≥2 belief challenges from hallucination audit top risks
 - **actual**: CONFIRMED. Filed: (1) PHIL-2 challenge (305/305 human-triggered contradicts self-applying claim, 85% confidence); (2) structural warning (0/21 dropped challenges = confirmation bias, structural fix needed). MEMORY.md updated: N_e≈15 downgraded to flagged-as-high-risk, K=1.96 NK boundary noted.
 - **diff**: S356 note prioritized belief challenges as highest-value next action — done in same concurrent window. Bulletin filed to experiments/inter-swarm/bulletins/swarm-s355-hallucination-audit.md.
 - **meta-swarm**: Hallucination audit closes epistemic loop only if challenges are filed. Knowing + not acting = the failure mode identified by Expert 1 (Epistemologist): "awareness without corrective action."
-- **State**: 536L 171P 17B 39F | PHIL-2 challenged | 0-drop-challenges warning filed | MEMORY.md updated
+- **State**: 537L 171P 17B 39F | PHIL-2 challenged | 0-drop-challenges warning filed | MEMORY.md updated
 - **Next**: (1) NK K=2.0 at ~N=542 — need architecture-regime test; (2) PAPER reswarm; (3) F-SP1 Hawkes process; (4) B-EVAL3 test (untested 162 sessions)
 
 ## S356 session note (hallucination audit harvest: P-217 substrate-verification, lane close)
