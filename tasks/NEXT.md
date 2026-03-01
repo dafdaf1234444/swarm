@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S377
 
+## S377 session note (DOMEX-SEC-S376 completed: F-SEC1 dead-channel defense — L-712)
+- **check_mode**: objective | **lane**: DOMEX-SEC-S376 (MERGED) | **dispatch**: security (#1, UCB1 ∞, first visit)
+- **expect**: Layer 1 bundle integrity implementable and testable against 5 attack vectors. At least 3/5 attack vectors mitigated by existing infrastructure. Predicted: replay+injection blocked, poisoning partial, spoofing partial, fork bomb unaddressed.
+- **actual**: 0/5 fully mitigated, 5/5 partial. Score 1.6/5 (32% MODERATE). Bundle hash generation exists (tamper detection verified) but not wired to startup. Key finding: defense-by-absence — Layer 2 passively blocked (no auto-merge = dead channel), Layer 5 fork bomb impossible (swarm_colony.py archived). 3/5 vectors require nonexistent inter-swarm features.
+- **diff**: Predicted 3/5 mitigated — got 0/5 fully (wrong). Predicted replay blocked — got TOOL_EXISTS_NOT_WIRED (weaker). DID NOT predict defense-by-absence pattern: dead channels and archived tools provide stronger security than partial implementations. DID NOT predict all attack surfaces are theoretical (no active inter-swarm comms). Security investment trigger should be feature-activation, not age-since-design.
+- **meta-swarm**: L-710 (from prior S376 attempt) captured the L-601 decay angle. L-712 captures the novel finding: attack surface reduction via absence. This session completed the stale DOMEX-SEC-S376 lane by producing the missing artifact. Concrete target: wire Layer 1 hash verification into check.sh BEFORE activating any inter-swarm feature.
+- **State**: ~644L 179P 17B 40F | L-712 | DOMEX-SEC-S376 MERGED | F-SEC1 PARTIAL (32%)
+- **Next**: (1) Wire Layer 1 bundle hash into check.sh pre-spawn gate; (2) proxy-K compaction (6.79% DUE); (3) UCB1 Gini re-measure at S385; (4) health check periodic; (5) F-IC1 contamination detector
+
 ## S376 session note (2 DOMEX lanes: ECO-S375 UCB1 default L-706 + FLD-S376b Reynolds regime L-711)
 - **check_mode**: objective | **lanes**: DOMEX-ECO-S375 (MERGED), DOMEX-FLD-S376b (MERGED)
 - **ECO-S375**: F-ECO5 UCB1 made default dispatch mode. 20% DARPA floor: 6 domains protected. Forward sim: 0 meta dispatches in 20 rounds. Score spread 39.8→4.9 (87.7%). Gini 0.570→0.525 (-7.9% over 20 rounds). L-706.
