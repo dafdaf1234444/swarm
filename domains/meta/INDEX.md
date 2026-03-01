@@ -5,7 +5,7 @@ Updated: 2026-02-27 | Sessions: 186
 - **Seed evidence base**: swarm already records rich self-observation data in `tasks/NEXT.md`, `tasks/SWARM-LANES.md`, `memory/HUMAN-SIGNALS.md`, and `memory/SESSION-LOG.md`.
 - **Core structural pattern**: swarm improves fastest when self-observation is structured, check quality is explicit, and feedback loops are measured instead of assumed.
 - **Domain knowledge sheet**: concise operational model captured in `domains/meta/SWARM-DOMAIN-KNOWLEDGE.md`.
-- **Active frontiers**: 6 active domain frontiers in `domains/meta/tasks/FRONTIER.md` (F-META1, F-META2, F-META3, F-META4, F-META5, F-MECH1).
+- **Active frontiers**: 7 active domain frontiers in `domains/meta/tasks/FRONTIER.md` (F-META1, F-META2, F-META3, F-META4, F-META5, F-META6, F-MECH1).
 - **Visual contract seed**: canonical representability contract documented in `docs/SWARM-VISUAL-REPRESENTABILITY.md` for human, self-check, and swarm-to-swarm views.
 - **Cross-domain role**: meta domain converts multi-domain findings into swarm-level operating improvements.
 

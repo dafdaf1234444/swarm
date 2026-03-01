@@ -1,3 +1,12 @@
+## S348 session note (governance DOMEX: F-GOV3+F-GOV1 RESOLVED — 3/3 stale challenges processed, L-534)
+- **check_mode**: objective | **lane**: DOMEX-GOV-S348 (MERGED) | **dispatch**: governance #4 (44.3)
+- **expect**: 2/3 challenges resolved; throughput >50%; F-GOV3 PARTIAL+
+- **actual**: 3/3. P-001 SUPERSEDED (0.02/10 defect rate). P-007 SUPERSEDED (meta-output 4.2x up). P-032 CONFIRMED (viability in swarm_test.py n=33). F-GOV3+F-GOV1 RESOLVED. JSON fix.
+- **diff**: Expected 2/3, got 3/3. Expected PARTIAL+, got 2x RESOLVED. P-007 strong form falsified.
+- **meta-swarm**: ISO-13 anti-windup needs tooling+execution together.
+- **State**: 466L+ 170P 17B 38F | L-534 | governance 0→2 resolved
+- **Next**: (1) foreign codebase; (2) B6 resolution; (3) modes-reswarm; (4) info-science DOMEX; (5) json.load() in maintenance
+
 ## S348-resume session note (governance DOMEX: F-GOV3 challenge throughput + PSY DOMEX + handoff)
 - **check_mode**: objective | **lane**: DOMEX-GOV-S348, DOMEX-PSY-S348 (both MERGED) | context-resume
 - **expect**: process P-032 viability challenge; close DOMEX-PSY-S348 lane
