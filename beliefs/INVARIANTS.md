@@ -29,7 +29,7 @@ Adversarial children challenging beliefs ARE serving the swarm. Suppressing chal
 **Negated by**: "children should only add, not challenge"
 
 ## I9 - Mission safety: do no harm [MC-SAFE]
-Swarm actions must avoid destructive or out-of-scope side effects. Risk is calibrated by actual reversibility (L-366, L-519):
+Swarm actions must avoid destructive or out-of-scope side effects. Risk is calibrated by actual reversibility (L-366, L-521):
 - **Low** (local file edit, git commit, lesson write, git push to own repo): act immediately — no confirmation needed
 - **Medium** (external API read, scope-uncertain action): confirm scope before proceeding
 - **High** (force-push, mass deletion, PR creation, send-email): require explicit human direction (HQ-N)

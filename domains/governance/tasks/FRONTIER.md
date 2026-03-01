@@ -14,7 +14,8 @@ Updated: 2026-03-01 S347 | Active: 4
   Status: **PARTIAL** — first instance found + fixed. Scanner needed.
 
 - **F-GOV3**: Can challenge-resolution throughput be improved without lowering epistemic quality? Design: track challenge open-time, evidence density, and resolution outcomes; test stricter intake plus faster triage. (S304)
-  Status: OPEN — challenge rate currently 0 pending; throughput baseline not yet measured.
+  **S347 Baseline**: 7 total challenges filed, 3 QUEUED since S186 (161 sessions stale, 0 processed). Challenge rate: 1.7% (6/347 sessions). Throughput: 0% for QUEUED items. ISO-13 integral windup confirmed: intake exists without processing trigger. L-523.
+  Status: **PARTIAL** — baseline measured. Challenge throughput is zero for queued items. Next: add challenge-execution periodic to maintenance.py (auto-escalate after 50 sessions stale).
 
 - **F-GOV4**: Can a multi-expert council with voting govern when genesis experiments are allowed to run? Design: council of 4 roles (expectation-expert, skeptic, genesis-expert, opinions-expert) reviews proposals; Expectation Expert casts axis-scored vote (specificity + falsifiability + evidence); quorum of 3/4 votes required; chair (council-expert) issues memo. Protocol written at `domains/governance/GENESIS-COUNCIL.md`. Timing policy: ≥3 session gap between genesis experiments; human escalation for irreversible actions.
   **S304 Baseline**: protocol designed, `expectation-expert.md` personality created, council composition defined (4 voting roles + chair). No proposals yet — 0 experiments gated.
