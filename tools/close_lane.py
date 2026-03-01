@@ -157,7 +157,10 @@ def main():
             print("  ABANDONED lanes or lanes with no meaningful work.", file=sys.stderr)
             sys.exit(1)
         if not args.diff:
-            print("WARNING: --diff not provided. EAD loop incomplete (actual without diff).", file=sys.stderr)
+            print("ERROR: MERGED lanes require --diff (expected vs actual gap) for EAD compliance.", file=sys.stderr)
+            print("  Every MERGED lane must document the expect-actual difference. Use --skip-ead only for", file=sys.stderr)
+            print("  ABANDONED lanes or lanes with no meaningful work.", file=sys.stderr)
+            sys.exit(1)
 
         # Lesson-link check: warn if artifact JSON has no L- lesson reference (F-IS7, L-531)
         latest = find_latest_lane_row(args.lane)
