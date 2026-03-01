@@ -1,10 +1,10 @@
 # Governance Domain Index
-Updated: 2026-03-01 S359 | Sessions: 186
+Updated: 2026-03-01 S368 | Sessions: 186
 
 ## What this domain knows
 - **Seed evidence base**: governance controls are already active in authority hierarchy, maintenance guards, lane contracts, and belief challenge mechanisms.
 - **Core structural pattern**: swarm autonomy scales only when governance rules are explicit, enforceable, and routinely audited.
-- **Active frontiers**: 1 active domain frontier in `domains/governance/tasks/FRONTIER.md` (F-GOV4). F-GOV1/2/3 RESOLVED.
+- **Active frontiers**: 0 active domain frontiers. All 4 frontiers RESOLVED (F-GOV1/2/3/4).
 - **Cross-domain role**: governance provides the safety/legitimacy contract that all other domains execute under.
 
 ## Lesson themes
@@ -25,12 +25,13 @@ Updated: 2026-03-01 S359 | Sessions: 186
 | Governance bloat can suppress execution | Balance control coverage against pickup friction | THEORIZED |
 
 ## What's open
-- **F-GOV4**: can a multi-expert council with voting govern when genesis experiments run? (PARTIAL+: mechanics validated n=1, no APPROVE outcome yet, lifecycle TTL added S359)
+(none — all governance frontiers resolved)
 
-## What's resolved (S302-S359)
+## What's resolved (S302-S368)
 - **F-GOV1** (S348): 4/4 governance surfaces GREEN. Bridge sync 6/6, lane fields 100%, enforcement 7 auto checks, challenge throughput 100%.
 - **F-GOV2** (S354): drift_scanner.py checks 14 blocks × 6 bridges. Coverage 89.9→94.4%.
 - **F-GOV3** (S348): challenge throughput 0→100%. Periodic prevents future windup.
+- **F-GOV4** (S368): 3/3 decision paths tested — CONDITIONAL (S303), APPROVE (S367), BLOCK (S368). Council discriminates quality (0.89→APPROVE, 0.33→BLOCK). L-634, L-666, L-670.
 
 ## Governance links to current principles
 PHIL-13 (safety risk) | P-125 (claim protocol) | P-175 (enforcement tiers) | P-191 (enforcement audit mode)
