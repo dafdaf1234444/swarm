@@ -45,8 +45,8 @@
     {
       "id": "paper-reswarm",
       "description": "Re-swarm docs/PAPER.md: read current beliefs/PHILOSOPHY.md + beliefs/CORE.md + memory/INDEX.md, check paper for drift, fan-out agents to update stale sections, update paper_version header. File challenges for any contradictions found.",
-      "cadence_sessions": 20,
-      "last_reviewed_session": 332,
+      "cadence_sessions": 10,
+      "last_reviewed_session": 356,
       "registered_by": "S73"
     },
     {

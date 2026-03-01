@@ -26,7 +26,6 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115),
 ```
 
 ## Themes (545 lessons)
-
 | Theme | Count | Key insight |
 |-------|-------|-------------|
 | Architecture & Protocols | 31 | Blackboard+stigmergy, sharding, boundary-aware structure; distill/verify/correct loop; swarm-as-control-system observer staleness (L-156/L-158/L-161/L-209/L-213/L-558). |
@@ -46,8 +45,7 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115),
 | Swarm Economics | 32 | Sharpe archiving, helper ROI 10x, fallow 28%; expert dispatch 2%->90%; dispatch concentrates (Gini 0.36->0.46 negative); mechanism-incentive separation (L-268/L-275/L-286/L-294/L-353/L-404/L-543/L-548/L-562/L-564/L-571/L-572). |
 | Coordination -- Concurrency & Conflict | 23 | Anti-repeat, WIP, C-EDIT conflict types; cascade coupling threshold; lane-closure orphaning; soft-claim protocol (L-283/L-285/L-297/L-304/L-336/L-507/L-546/L-557/L-561). |
 | Coordination -- Quality & Measurement | 23 | EAD/PCI enforcement; empathic accuracy -8.8pp/session; historian grounding 1/3 floor (L-590); chronology repair sawtooth 0%→72% (L-591); contract validation (L-376/L-387/L-570/L-590/L-591/L-592). |
-| Helper & Validation | 27 | Helper ROI patterns, dispatch policies, foreign-protocol validation, epistemic loop breaking (L-309/L-495/L-502/L-515/L-516). |
-| AI & Tooling | 25 | Async failure modes, proxy-K patterns, historian automation; tool redundancy (30+ reimplementations); agent behavioral memory; stale signal loss (L-243/L-248/L-252/L-293/L-350/L-359/L-362/L-370/L-455/L-533/L-535/L-539/L-540/L-545/L-550). |
+| Helper, AI & Tooling | 52 | Helper ROI patterns, dispatch policies, foreign-protocol validation, epistemic loop; async failure modes, proxy-K, historian automation; tool redundancy (30+ reimpl); stale signal loss (L-309/L-495/L-502/L-515/L-516/L-243/L-350/L-533/L-539/L-545/L-550). |
 ## What to load when
 | Doing...              | Read...                          |
 |-----------------------|----------------------------------|
