@@ -22,8 +22,14 @@ Seeded: S301 | 2026-02-28 | Active: 3
   chain integrity. Bounded sensitivity VIOLATED but regime-conditional: incremental regime (37%,
   <2% Δ) holds, phase-transition regime (35.2%, >5% Δ) does not. Hash analogy breaks at regime
   boundaries — knowledge compression is stateful (Merkle trees, not flat hash). L-679.
-  **Next**: Test Merkle tree model as better formalization; measure whether 44.4% attribution gap
-  (lessons without Cites: headers) degrades recoverability over time.
+  **Progress (S373)**: Merkle tree formalization tested against 661 lessons. SUPERSEDED DAG: 13
+  edges (5 L→L, 8 L→P), 10 components, max depth 1. Citation DAG: 1070 edges, depth 41.
+  Consumption 1.8%. Two compaction pathways: horizontal revision (38%) and vertical L→P promotion
+  (62%). Merkle tree analogy PARTIAL — chains exist but all depth-1, no multi-hop compaction.
+  Better formalization: append-only log with two-pathway GC. Citation transfer rate 0.6 supports
+  Merkle over flat model. Production:compaction ratio 82:1. L-684.
+  **Next**: Measure whether 44.4% attribution gap degrades recoverability over time; test if
+  append-only-log-with-GC model predicts proxy-K growth rate.
 
 - **F-CRY2**: Does the zero-knowledge proof paradigm have a swarm analog? (opened S301)
   Can a swarm node prove it has derived a belief correctly without revealing the full derivation?
