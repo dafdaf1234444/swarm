@@ -219,8 +219,21 @@ fi
 
 SELECTED_PROMPT="$(cat "$SWARM_CMD")"
 
+# Priority 0: swarm_cycle.py programmatic planner (F-ISG1, S377)
+# Unified planner replaces manual trigger/anxiety logic with SENSE→PLAN→PROMPT pipeline
+CYCLE_TOOL="$REPO_ROOT/tools/swarm_cycle.py"
+CYCLE_PROMPT=""
+if [[ -n "$PYTHON_BIN" ]] && [[ -f "$CYCLE_TOOL" ]]; then
+    CYCLE_PROMPT="$("$PYTHON_BIN" "$CYCLE_TOOL" --prompt 2>/dev/null || true)"
+fi
+
+if [[ -n "$CYCLE_PROMPT" ]]; then
+    PROMPT_SOURCE="swarm_cycle"
+    SELECTED_PROMPT="$CYCLE_PROMPT"
+    log "INFO: swarm_cycle.py planner generated targeted prompt"
+
 # Priority 1: Session triggers (F-META6) - HIGH urgency FIRING triggers
-if [[ "$SESSION_TRIGGER_STATUS" == "high_urgency_firing" ]]; then
+elif [[ "$SESSION_TRIGGER_STATUS" == "high_urgency_firing" ]]; then
     PROMPT_SOURCE="session_trigger"
     FOCUS_NOTE="AUTOSWARM TRIGGER (F-META6): $SESSION_TRIGGER_COUNT HIGH urgency trigger(s) FIRING. Run orient.py to see details and address critical maintenance or stale lanes."
     SELECTED_PROMPT="$SELECTED_PROMPT"$'\n\n'"$FOCUS_NOTE"
@@ -324,6 +337,17 @@ if [[ $EXIT_CODE -eq 0 ]]; then
     log "DONE: autoswarm session completed successfully"
 else
     log "WARN: autoswarm session exited with code $EXIT_CODE"
+fi
+
+# Post-session measurement: compare plan vs outcome (S377 feedback loop)
+if [[ -n "$PYTHON_BIN" ]] && [[ -f "$CYCLE_TOOL" ]] && [[ "$PROMPT_SOURCE" == "swarm_cycle" ]]; then
+    MEASURE_SESSION="$(git log --oneline -1 2>/dev/null | grep -oP '\[S\K\d+' || true)"
+    if [[ -n "$MEASURE_SESSION" ]]; then
+        MEASURE_OUT="$("$PYTHON_BIN" "$CYCLE_TOOL" --measure "S${MEASURE_SESSION}" --no-log 2>/dev/null || true)"
+        if [[ -n "$MEASURE_OUT" ]]; then
+            log "MEASURE: $MEASURE_OUT"
+        fi
+    fi
 fi
 
 # Write new trigger file so next scheduled run can detect this session ended
