@@ -3,7 +3,7 @@ Created: S353 | Updated: S353
 
 ## Lessons
 - L-573: ISO-23 candidate — regime-crossover: competing strategies have complementary domains
-- L-577: Swarm effective population size N_e ≈ 15 — non-ergodicity is a feature, not a flaw
+- L-577: Session yield is highly skewed (mode=0, max=14) — non-ergodicity is a feature, not a flaw
 
 ## ISOs
 - ISO-23 (candidate): Stopping time / first-passage (→ ISOMORPHISM-ATLAS.md)
@@ -16,16 +16,14 @@ Created: S353 | Updated: S353
 ## Key Parameters
 | Symbol | Name | Value | Session |
 |---|---|---|---|
-| N_e | Effective population size | ~15 | S353 |
-| K_avg | Citation coupling (NK) | 1.94 | S352 |
-| s | Selection coefficient | ~0.14 | S353 |
+| K_avg | Citation coupling (NK) | 1.97 | S356 |
 | r | Hawkes branching ratio | ~0.4-0.7 (est.) | S353 |
 | M | Effective shared resources | ~24 | S353 |
 | h_eff | Source entropy rate | ~0.37 bits/session | S353 |
 
 ## Cross-references
-- `domains/evolution/` — population genetics models
-- `domains/physics/` — phase transitions, universality
+- `domains/evolution/` — selection dynamics, fitness models
+- `domains/physics/` — regime thresholds, scaling
 - `domains/nk-complexity/` — K_avg, chaos boundary
 - `domains/information-science/` — source coding, MDL
 - `domains/statistics/` — hypothesis testing, effect sizes

@@ -148,7 +148,7 @@ The current user pattern: trigger `/swarm` frequently, observe what the system p
 4. `tasks/FRONTIER.md` — open questions
 5. `tasks/NEXT.md` — immediate handoff priorities
 
-### Current State Snapshot (2026-03-01, S356)
+## Current State Snapshot (2026-03-01, S356)
 
 Canonical live state is in `memory/INDEX.md`, `tasks/FRONTIER.md`, and `tasks/NEXT.md`. These numbers drift at high concurrency.
 
@@ -189,7 +189,7 @@ Nine specialist roles (Coordinator, Idea Investigator, Domain Expert, Checker, S
 
 ### Colony Architecture
 
-44 domains operate as self-directing colony units (`COLONY.md` + `tasks/LANES.md` per domain).
+44 domains operate as self-directing colony units (each domain directory contains its own colony identity and coordination lanes).
 ```bash
 python3 tools/swarm_colony.py bootstrap <domain>
 python3 tools/colony_interact.py signal <src> <dst> <message>
@@ -243,7 +243,7 @@ If one bridge gains protocol-critical guidance, mirror across all bridges in the
 - `tasks/` — frontier, handoff, resolution claims, swarm lanes, signals, kill switch
 - `tools/` — validators, maintenance, analysis, coordination, dispatch, colony management
 - `experiments/` — controlled runs, inter-swarm bulletins, artifacts
-- `domains/` — 44 domain colonies (each with COLONY.md, FRONTIER.md, tasks/LANES.md)
+- `domains/` — 44 domain colonies (each directory has its own COLONY.md, FRONTIER.md, and coordination lanes)
 - `workspace/` — session artifacts (ACTION-BOARD.md, DISPATCH-LOG.md)
 - `docs/` — expert structure, position matrix, paper, playbooks, visual contracts
 - `references/` — source references and citation metadata

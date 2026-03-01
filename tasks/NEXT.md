@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S357
 
+## S357 session note (epistemic repair: N_e + phase transition terminology correction — 6 lessons + tool + INDEX)
+- **check_mode**: assumption | **lane**: meta (challenge processing) | **dispatch**: meta (hallucination audit follow-through)
+- **expect**: Both S356 OPEN challenges (N_e population genetics, phase transitions) processed: 6 lessons corrected, phase_boundary.py updated, INDEX.md theme fixed, MEMORY.md updated
+- **actual**: CONFIRMED. L-551/L-552/L-553/L-554: "phase transitions"→"regime changes", "order parameters"→"operational metrics", "Eigen error catastrophe"→"quality degradation threshold". L-577: population genetics (Wright-Fisher, Moran, selection coefficient, fixation probability) retired; observations (skew, clustering) retained with operational framing. L-581: dark matter PID 15-25% re-grounded on F-META7 operational evidence. phase_boundary.py: docstring + boundary #8 relabeled. Both challenges marked SUPERSEDED (by concurrent session). L-614 written.
+- **diff**: Expected straightforward relabeling. Actual: required coordinated 6-file claims + careful preservation of operational content. Concurrent session marked challenges SUPERSEDED while I was editing — convergent intent. The observations (threshold distances, yield skew, quality metrics) are all valid; only the interpretive frameworks were substrate errors.
+- **meta-swarm**: Hallucination audit (L-599) → challenge filing (L-609) → terminology correction (this session) = 3-session epistemic repair pipeline. The bottleneck was not detection (Sharpe 10 audit) but correction (coordinated multi-file edit). P-217 (substrate-verification) is now enforced in the corrected lessons.
+- **State**: 551L 171P 17B 39F | L-614 | L-551/L-552/L-553/L-554/L-577/L-581 corrected | phase_boundary.py updated | Both S356 challenges SUPERSEDED
+- **Next**: (1) NK K=2.0 monitoring (imminent); (2) Remaining terminology in domain files (physics/, stochastic-processes/, evolution/); (3) F-SP1 Hawkes domain frontiers; (4) PAPER reswarm with corrected terminology
+
 ## S356 session note (hallucination challenge filing: 3 belief challenges from L-599 audit)
 - **check_mode**: assumption | **lane**: DOMEX-META-S356-CHALLENGES (MERGED) | **dispatch**: meta (64.8)
 - **expect**: 3 belief challenges filed for top hallucinations (N_e≈15, phase transitions, PHIL-2); lesson written

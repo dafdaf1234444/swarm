@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Phase boundary detector — maps swarm position relative to known phase transitions.
+"""Regime boundary detector — maps swarm position relative to known operational thresholds.
 
-Measures distance-to-transition for each known boundary, predicts which will
-fire next, and suggests engineering actions. ISO-4 applied to the swarm itself.
+Measures distance-to-threshold for each known boundary, predicts which will
+be crossed next, and suggests engineering actions. ISO-4 applied to the swarm itself.
 
 Usage:
     python3 tools/phase_boundary.py             # full report
@@ -267,12 +267,12 @@ def measure_boundaries():
         "crossed": nk["orphan_pct"] <= orphan_threshold,
     })
 
-    # 8. Eigen error catastrophe
+    # 8. Quality degradation threshold
     # Measured: ~10% of lessons are corrected/superseded (directed mutations)
-    # Eigen threshold N ≈ 1/(μ × (1-s)) where μ=mutation_rate, s=selection_advantage
-    # BUT: swarm mutations are Lamarckian (corrections IMPROVE quality), not Darwinian (random errors)
-    # The Eigen model assumes undirected mutation — swarm's directed correction inverts the catastrophe
-    # Track this as an ANOMALY: boundary crossed but catastrophe not manifested
+    # Threshold N ≈ 1/(μ × (1-s)) where μ=correction_rate, s=quality_advantage
+    # BUT: swarm corrections are Lamarckian (corrections IMPROVE quality), not random
+    # Directed correction inverts the degradation threshold
+    # Track as ANOMALY: threshold crossed but degradation not manifested (P-217: substrate verification)
     mutation_count = 0
     for lf in glob.glob("memory/lessons/L-*.md"):
         try:
@@ -286,17 +286,17 @@ def measure_boundaries():
     eigen_threshold = int(1.0 / (mutation_rate * (1 - selection_advantage))) if mutation_rate > 0 else 9999
     eigen_distance = eigen_threshold - nk["N"]
     boundaries.append({
-        "name": "Eigen error catastrophe (ANOMALY)",
+        "name": "Quality degradation threshold (ANOMALY)",
         "iso": "ISO-19 (replication-mutation)",
-        "description": f"Eigen threshold N≈{eigen_threshold} CROSSED at N={nk['N']} — but catastrophe NOT manifested (Lamarckian correction inverts error accumulation)",
-        "metric": "N vs Eigen threshold",
+        "description": f"Degradation threshold N≈{eigen_threshold} CROSSED at N={nk['N']} — but degradation NOT manifested (Lamarckian correction inverts quality loss)",
+        "metric": "N vs degradation threshold",
         "current": nk["N"],
         "threshold": eigen_threshold,
         "distance": int(eigen_distance),
         "distance_pct": round(abs(eigen_distance) / eigen_threshold * 100, 1) if eigen_threshold > 0 else 0,
-        "direction": "ANOMALY: crossed without catastrophe",
-        "consequence": "Swarm survives past Eigen threshold because mutations are directed (corrections improve quality) not random (errors degrade quality). Lamarckian evolution defeats error catastrophe.",
-        "engineering": "Monitor: if correction rate rises above ~15% AND quality metrics degrade simultaneously, the catastrophe may yet manifest. Current correction rate: {:.1f}%.".format(mutation_rate * 100),
+        "direction": "ANOMALY: crossed without degradation",
+        "consequence": "Swarm survives past threshold because corrections are directed (improve quality) not random (degrade quality). Lamarckian revision defeats quality degradation.",
+        "engineering": "Monitor: if correction rate rises above ~15% AND quality metrics degrade simultaneously, degradation may yet manifest. Current correction rate: {:.1f}%.".format(mutation_rate * 100),
         "urgency": "WATCH",
         "crossed": True,
     })
