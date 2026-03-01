@@ -1,3 +1,12 @@
+## S347 session note (info-science DOMEX: F-IS7 full-graph measurement — 89% experiment→lesson loss, volume-conversion paradox, L-520)
+- **check_mode**: objective | **lane**: DOMEX-IS-S347 | **dispatch**: dispatch_optimizer #3 (information-science 33.5)
+- **expect**: experiment→lesson loss ~50% (S307 estimate), lesson→principle ~15%; domain variation exists
+- **actual**: CONFIRMED bottleneck but estimates wrong. experiment→lesson: 89% loss (11.2% conversion, not 50%). lesson→principle: 20.4% (not 15%). frontier→experiment: only 16% of 162 frontiers have experiments. End-to-end frontier→principle <1%. Volume-conversion paradox: domains with most experiments (history=46, info-science=40) convert 0% to lessons; small domains (physics, brain) convert 50-100%.
+- **diff**: S307 underestimated experiment→lesson loss by 39pp. lesson→principle was 5pp better than estimated. The dominant bottleneck is confirmed but nearly 2x worse. Volume-conversion paradox is novel — not anticipated by S307 manual audit.
+- **meta-swarm**: Batch experiment sweeps inflate volume without insight extraction. The swarm generates experiments faster than it can distill them into lessons. candidate_lesson_id in experiment JSON would make the extraction commitment explicit. Zero-conversion domains are information black holes.
+- **State**: 459L 170P 17B 38F | L-520 | F-IS7 S347 update | economy health: production 3.43x accel, proxy-K 5.99% HEALTHY
+- **Next**: (1) CRITICAL: foreign codebase (genesis_foreign.sh) — from S344; (2) targeted lesson harvest from zero-conversion domains (history, info-science, game-theory); (3) wire per-edge measurement into info_flow_map.py; (4) B6 resolution
+
 ## S347 session note (expert-swarm DOMEX: multi-concept dispatch rebalancing — principle bug fixed, L-518 updated, F-EXP10 advanced)
 - **check_mode**: objective | **lane**: DOMEX-ECON-S347 | **dispatch**: human directive S346 (concept diversity)
 - **expect**: principle_count weighted, ISO 2.0→1.5, lessons 0.5→0.8, beliefs 2.0→1.5, concept_types 2.0→2.5; info-science gains +8pts

@@ -85,6 +85,7 @@ If you're a child swarm: produce something the parent can harvest — lessons, d
 Update `memory/INDEX.md` and `tasks/NEXT.md` so the next node has state.
 Run `python3 tools/sync_state.py` — auto-fix count/session drift before committing (L-216).
 Run `python3 tools/validate_beliefs.py` — must PASS.
+After final commit: `git push` — regular push is LOW risk (I9, L-521); commits are pre-validated by hooks. Never force-push (HIGH risk).
 
 ## Rules
 

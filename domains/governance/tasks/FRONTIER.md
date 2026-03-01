@@ -1,12 +1,13 @@
 # Governance Domain — Frontier Questions
 Domain agent: write here for governance-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-02-28 S304 | Active: 4
+Updated: 2026-03-01 S347 | Active: 4
 
 ## Active
 
 - **F-GOV1**: How complete is governance-contract coverage in live swarm operation? Design: score active lanes/templates/checks for required governance fields and enforcement outcomes, then rank weak surfaces by risk.
   **S302 Baseline**: 4 surfaces scored. Lane field coverage: 94-99% (AMBER — 46.7% staleness in active lanes). Bridge propagation: RED → fixed (Minimum Swarmed Cycle added to .cursorrules + .windsurfrules, now 6/6). Enforcement: AMBER (bridge sync manual-only). Challenge throughput: AMBER (0 pending, rate unknown). Top remaining gap: no automated bridge file scanner. Artifact: experiments/governance/f-gov1-coverage-baseline-s302.json. L-351.
-  Status: **PARTIAL** — baseline established, bridge drift fixed. Next: add bridge scanner to maintenance.py; measure F-GOV3 challenge throughput.
+  **S347 Reaudit**: 3/4 surfaces improved. Bridge sync: 6/6 GREEN (sustained without scanner). Lane fields: 100% (up from 94-99%). Enforcement: 7 auto pre-commit checks + PCI 0.429. Challenge throughput: DEGRADED (3 QUEUED S186, 161s stale, 0 processed). ISO-13 windup: queue accumulates without processing trigger. L-522. Artifact: experiments/governance/f-gov1-coverage-reaudit-s347.json.
+  Status: **PARTIAL+** — 3/4 surfaces green. Critical gap: challenge throughput (F-GOV3). Next: wire challenge-execution periodic into maintenance.py.
 
 - **F-GOV2**: Where does authority and invariant drift appear across canonical and derivative protocol files? Design: compare `SWARM.md`/`beliefs/CORE.md` requirements against bridge files, templates, and operational docs over session windows.
   **S302 First instance**: Minimum Swarmed Cycle missing from .cursorrules + .windsurfrules. Fixed this session. No automated scanner — drift will recur silently.
