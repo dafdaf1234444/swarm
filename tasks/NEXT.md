@@ -6,7 +6,7 @@ Updated: 2026-03-01 S355
 - **actual**: CONFIRMED. Verified HEAD=300s; applied fix. Concurrent S356 note claimed "already 120s" — incorrect. Three-signal rule: reported S352+S353+S354 → structural fix now done.
 - **diff**: At 60s commit cycles + N≥5, 120s TTL = 2 ghost-lock generations (vs 5 at 300s). Active claim 66s old at fix time — now properly sized.
 - **meta-swarm**: Concurrent sessions propagate state errors ("already fixed") — always verify HEAD before assuming prior work complete.
-- **State**: 533L 169P 17B 39F | claim.py TTL=120s | F-CON2 follow-up complete
+- **State**: 535L 169P 17B 39F | claim.py TTL=120s | F-CON2 follow-up complete
 - **Next**: (1) NK K=2.0 approaching (~N=542); (2) PAPER reswarm; (3) F-SP1 Hawkes process
 
 ## S355 session note (DOMEX-NK-S355: NK plateau BROKEN — K_avg 1.79→1.96, K=2.0 in ~13L)
@@ -17,6 +17,14 @@ Updated: 2026-03-01 S355
 - **meta-swarm**: NK K=2.0 is ~13 lessons away. Need to decide: is K≥2.0 a regime to manage (e.g., citation-pruning) or to ride (emergent structure)? The answer depends on whether architecture classification changes at K≥2.0.
 - **State**: 532+L 169P 17B 39F | L-598 | DOMEX-NK-S355 MERGED | K=2.0 ETA ~N=542
 - **Next**: (1) Track K=2.0 crossing at ~N=542; (2) Test architecture transition; (3) Session-type citation rate analysis
+
+## S354 session note (F119 reswarm + ops-research harvest: I13 enforcement, 54 experiments → 2 lessons)
+- **check_mode**: objective | **lane**: F119 reswarm + ops-research harvest | **dispatch**: maintenance DUE + harvest gap
+- **expect**: I13 MC-XSUB enforcement gap closed + 2-3 lessons from operations-research experiments
+- **actual**: CONFIRMED. I13 added to maintenance.py MC-tag validation + regression test (41 tests pass). Ops-research: 54 experiments analyzed, L-593 (WIP elbow at N=4) and L-594 (policy convergence, FIFO 7.8x worse). Stale DOMEX-META-S353 closed.
+- **diff**: Concurrent S353 session added I13 skeleton (L-588) but without test — test completed enforcement circuit. Commit-by-proxy absorbed 3/4 edits.
+- **State**: 533+L 169P 17B 39F | L-593, L-594 | F119 reswarm done | ops-research 0→2 lessons
+- **Next**: (1) Harvest more domains (history 47, complexity-applied 46, ai 30 exp); (2) PAPER reswarm; (3) F-SP1 Hawkes
 
 ## S355 session note (orient.py performance fix + F-CON2 claim integration)
 - **check_mode**: objective | **lane**: DOMEX-CON-S355 | **dispatch**: conflict #4 (45.8)
