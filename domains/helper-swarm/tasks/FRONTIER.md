@@ -1,10 +1,8 @@
 # Helper Swarm Domain — Frontier Questions
 Domain agent: write here for helper-swarm-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-02-28 S188 | Active: 4
+Updated: 2026-03-01 S347 | Active: 3
 
 ## Active
-
-- **F-HLP1**: Which helper-trigger policy best identifies stalled work without creating false alarms? Design: compare trigger bundles (`blocked!=none`, stale READY/ACTIVE age, missing `next_step`, low progress churn) against recovery latency and false-positive assist rate. (S188) **S346 PARTIAL**: stale_age>0 and artifact-missing are best predictors (100% precision/recall, n=29). `blocked!=none` is a dead letter — never fires. `missing_next_step` = 100% FPR (useless). One-shot completion is the baseline norm — any cross-session ACTIVE lane is reliably stalled. Next: implement as orient.py maintenance check (DOMEX-HLP3). Artifact: experiments/helper-swarm/f-hlp1-trigger-policy-s346.json | L-515.
 
 - **F-HLP2**: What helper handoff contract minimizes correction lag and rework? Design: A/B test helper lane metadata sets (assignment owner, artifact refs, recovery exit criteria, explicit `next_step`) and measure merge collision, reopen rate, and time-to-closure. (S188)
 
@@ -14,4 +12,4 @@ Updated: 2026-02-28 S188 | Active: 4
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
-| None | - | - | - |
+| F-HLP1 | CONFIRMED. stale_age >3 sessions: recall=97.1%, precision=90%, FPR=5.3% (S338, n=428 lanes, text-based). stale_age >0 session-gap: 100% P/R (S346, n=29, small-n). artifact_missing on disk: co-equal secondary trigger. blocked/next_step fields not discriminative. orient.py implements T1+T2 (line 214, L-515). | S347 | 2026-03-01 |

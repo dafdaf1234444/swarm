@@ -154,6 +154,24 @@ def get_recent_commits(n=6):
     return commits
 
 
+def get_current_session_from_git() -> int:
+    """Derive current session number from git log (last committed session + 1).
+
+    Fixes stale-lane detection bug: INDEX.md Sessions: N lags by one session,
+    so lanes from session N aren't flagged as stale until sync_state.py runs.
+    Using git log directly gives the correct boundary. (L-515, S347)
+    """
+    result = subprocess.run(
+        ["git", "log", "--oneline", "-1"],
+        capture_output=True, text=True, cwd=ROOT
+    )
+    if result.returncode == 0:
+        m = re.search(r"\[S(\d+)\]", result.stdout)
+        if m:
+            return int(m.group(1)) + 1
+    return 0
+
+
 def check_index_coverage(index_text):
     """Check INDEX.md theme bucket coverage vs total lesson count. F-BRN4.
 
@@ -619,10 +637,14 @@ def main():
         pass
 
     # Stale lane check — L-515: cross-session open lanes = guaranteed stall
+    # Use git-log session (not INDEX.md) so lanes from last session are correctly flagged
+    # before sync_state.py runs. (Bug fix S347: INDEX.md lags by one session.)
     try:
+        git_session = get_current_session_from_git()
         sess_stale_m = re.search(r"S(\d+)", session)
-        if sess_stale_m:
-            stale_lanes = check_stale_lanes(int(sess_stale_m.group(1)))
+        current_sess_num = git_session if git_session > 0 else (int(sess_stale_m.group(1)) if sess_stale_m else 0)
+        if current_sess_num > 0:
+            stale_lanes = check_stale_lanes(current_sess_num)
             if stale_lanes:
                 print(f"--- Stale lanes ({len(stale_lanes)} opened in prior session — execute or close) ---")
                 for sl in stale_lanes:
