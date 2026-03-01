@@ -2,7 +2,7 @@
 Updated: 2026-03-01 | Sessions: 359
 
 ## What the swarm knows
-- **576 lessons** in `memory/lessons/L-{NNN}.md`
+- **578 lessons** in `memory/lessons/L-{NNN}.md`
 - **172 principles** in `memory/PRINCIPLES.md` (latest: P-219 substrate-tripwire, P-218 session-boundary decay)
 - **17 beliefs** in `beliefs/DEPS.md` (B1–B19 + B-EVAL1–3) | **40 frontiers** in `tasks/FRONTIER.md`
 
@@ -25,7 +25,7 @@ domains/    nk-complexity, distributed-systems, meta, ai (S178), finance (S179),
 docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115), SWARM-STRUCTURE.md (folder/file-type policy), SWARM-VISUAL-REPRESENTABILITY.md (human/self/swarm visual contract)
 ```
 
-## Themes (576 lessons)
+## Themes (578 lessons)
 | Theme | Count | Key insight |
 |-------|-------|-------------|
 | Architecture & Protocols | 31 | Blackboard+stigmergy, sharding, boundary-aware structure; distill/verify/correct loop; swarm-as-control-system observer staleness (L-156/L-158/L-161/L-209/L-213/L-558). |

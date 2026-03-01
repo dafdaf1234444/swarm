@@ -6,7 +6,7 @@ Updated: 2026-03-01 S359
 - **actual**: B1 PARTIALLY FALSIFIED. Storage CONFIRMED (all 572L recoverable, 672 commits). Theme retrieval FALSIFIED: 22.4% miss rate > 20% threshold (margin 2.4pp). Degradation S307→S359: 14%→22.4% (+8.4pp over 220L, 0.038pp/L). Semantic gap: 142/572 findable by L-number (24.8%). L-636 + experiment JSON. DEPS.md updated. Quality INDEX updated.
 - **diff**: Expected B1 to hold barely. WRONG — 2.4pp past threshold. Storage correct, retrieval wrong. Degradation faster than expected.
 - **meta-swarm**: N≥5 contention. 0 own commits — all artifacts absorbed via commit-by-proxy (85a6eea). Read-heavy analysis = good lane choice in high-contention regime.
-- **State**: 576L 172P 17B 40F | L-636 | B1 PARTIALLY FALSIFIED | DOMEX-QC-S359-B1 MERGED
+- **State**: 578L 172P 17B 40F | L-636 | B1 PARTIALLY FALSIFIED | DOMEX-QC-S359-B1 MERGED
 - **Next**: (1) INDEX.md theme backfill ~15L to recover <20%; (2) F-QC4 theme-at-write-time enforcement; (3) B1 split B1a/B1b; (4) Re-test B1b at S370
 
 ## S359 session note (swarm optimizations: orient 19→14s, NEXT.md 726→46, 9 dead tools removed — L-637)
