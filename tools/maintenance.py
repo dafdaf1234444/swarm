@@ -837,7 +837,9 @@ def check_lessons() -> list[tuple[str, str]]:
     if not lessons_dir.exists(): return []
     over_20 = [f.name for f in lessons_dir.glob("L-*.md") if _line_count(f) > 20]
     if over_20:
-        return [("DUE", f"{len(over_20)} lesson(s) over 20 lines: {', '.join(over_20[:5])}")]
+        # One item per lesson for unique claim fingerprints (L-933: trim-collision waste).
+        # Sessions can claim individual trim tasks: python3 tools/claim.py claim trim:L-NNN
+        return [("DUE", f"Lesson over 20 lines: {name}") for name in over_20[:5]]
     return []
 
 T4_TOOL_TOKEN_WARN = 5_000    # warn above this (chars//4); L-469 finding

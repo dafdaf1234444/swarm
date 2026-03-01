@@ -43,6 +43,95 @@ def _continuous_score(value: float, thresholds: list[float]) -> float:
     return float(len(thresholds) - 1)
 
 
+_VERDICT_LABELS = {0: "INSUFFICIENT", 1: "ADEQUATE", 2: "SUFFICIENT", 3: "EXCELLENT"}
+
+
+def _continuous_verdict(continuous: float) -> str:
+    """Map continuous 0.0-3.0 score to verdict label using midpoints as boundaries.
+
+    F-EVAL4 (L-928): verdict derived from continuous score, not cliff-edge thresholds.
+    Boundaries at 0.5, 1.5, 2.5 — so a score of 1.84 = SUFFICIENT (not ADEQUATE).
+    """
+    if continuous < 0.5:
+        return "INSUFFICIENT"
+    elif continuous < 1.5:
+        return "ADEQUATE"
+    elif continuous < 2.5:
+        return "SUFFICIENT"
+    else:
+        return "EXCELLENT"
+
+
+def _reconcile_verdicts(discrete_score: int, continuous: float) -> dict:
+    """Reconcile discrete and continuous verdicts, producing final adjudicated result.
+
+    F-EVAL4 (L-928): when discrete and continuous disagree, the continuous score
+    can adjust the discrete verdict by at most 1 level, with explicit annotation.
+    This eliminates cliff-edge artifacts where a metric at 1.99 scores ADEQUATE
+    but at 2.01 scores SUFFICIENT.
+
+    Returns dict with: score (int), verdict (str), continuous_verdict (str),
+    adjusted (bool), adjustment_reason (str|None), margin_warning (str|None).
+    """
+    c_verdict = _continuous_verdict(continuous)
+    c_level = {"INSUFFICIENT": 0, "ADEQUATE": 1, "SUFFICIENT": 2, "EXCELLENT": 3}[c_verdict]
+    result = {
+        "continuous_verdict": c_verdict,
+        "adjusted": False,
+        "adjustment_reason": None,
+        "margin_warning": None,
+    }
+
+    # Detect near-boundary: within 0.3 of a midpoint threshold
+    for boundary in [0.5, 1.5, 2.5]:
+        if abs(continuous - boundary) < 0.3:
+            lower = _VERDICT_LABELS[int(boundary - 0.5)]
+            upper = _VERDICT_LABELS[int(boundary + 0.5)]
+            result["margin_warning"] = (
+                f"continuous={continuous:.2f} is within 0.3 of {lower}/{upper} boundary ({boundary:.1f})"
+            )
+            break
+
+    # If discrete and continuous verdicts agree, no adjustment needed
+    if discrete_score == c_level:
+        result["score"] = discrete_score
+        result["verdict"] = _VERDICT_LABELS[discrete_score]
+        return result
+
+    # Continuous can adjust discrete by at most 1 level
+    diff = c_level - discrete_score
+    if abs(diff) == 1:
+        # Continuous pulls discrete by 1 level — adopt continuous verdict
+        adjusted_score = c_level
+        result["score"] = adjusted_score
+        result["verdict"] = _VERDICT_LABELS[adjusted_score]
+        result["adjusted"] = True
+        direction = "up" if diff > 0 else "down"
+        result["adjustment_reason"] = (
+            f"continuous={continuous:.2f} ({c_verdict}) adjusted discrete={discrete_score} "
+            f"({_VERDICT_LABELS[discrete_score]}) {direction} by 1 level"
+        )
+    elif abs(diff) > 1:
+        # Large disagreement: cap adjustment at 1 level toward continuous
+        step = 1 if diff > 0 else -1
+        adjusted_score = discrete_score + step
+        result["score"] = adjusted_score
+        result["verdict"] = _VERDICT_LABELS[adjusted_score]
+        result["adjusted"] = True
+        direction = "up" if step > 0 else "down"
+        result["adjustment_reason"] = (
+            f"continuous={continuous:.2f} ({c_verdict}) vs discrete={discrete_score} "
+            f"({_VERDICT_LABELS[discrete_score]}) — capped adjustment {direction} by 1 level "
+            f"(gap={abs(diff)} levels)"
+        )
+    else:
+        # diff == 0 already handled above; defensive fallback
+        result["score"] = discrete_score
+        result["verdict"] = _VERDICT_LABELS[discrete_score]
+
+    return result
+
+
 def _get_current_session() -> str:
     """Read current session number from INDEX.md (avoids hardcoded stale session labels)."""
     try:
@@ -516,7 +605,13 @@ def score_truthful(challenges: dict, signals: dict, frontiers: dict) -> dict:
     details["frontier_resolution_absolute"] = f_resolved
     details["frontier_open_absolute"] = f_open
 
-    # Scoring: 0-3
+    # F-EVAL4 hardening: continuous sub-scores
+    evidence_continuous = _continuous_score(evidence_rate, [0.0, 0.30, 0.50, 0.70])
+    signal_continuous = _continuous_score(signal_density, [0.0, 0.05, 0.10, 0.20])
+    continuous_score = min(evidence_continuous, signal_continuous)
+    details["continuous_score"] = round(continuous_score, 2)
+
+    # Scoring: 0-3 (discrete)
     # 0: evidence_rate < 0.30 (most challenges unresolved/dropped without evidence)
     # 1: evidence_rate >= 0.30, external grounding target not met
     # 2: evidence_rate >= 0.50, external grounding target met
@@ -544,7 +639,7 @@ def score_truthful(challenges: dict, signals: dict, frontiers: dict) -> dict:
     details["rationale"] = (
         f"evidence_grounded_rate={evidence_rate:.1%} ({evidence_grounded}/{total} challenges), "
         f"signal_density={signal_density:.2f}/session (target ≥0.1), "
-        f"external_grounding_ok={external_grounding_ok}"
+        f"external_grounding_ok={external_grounding_ok}, continuous={continuous_score:.2f}"
     )
     return details
 
@@ -571,18 +666,33 @@ def compute_sufficiency() -> dict:
     protect = score_protect(proxy_k, challenges)
     truthful = score_truthful(challenges, signals, frontiers)
 
-    # Composite score
+    # Composite score (discrete + continuous)
     scores = [collaborate["score"], increase["score"], protect["score"], truthful["score"]]
     composite = sum(scores) / (len(scores) * 3)  # normalize to 0-1
 
-    # Lowest-scoring goal = next improvement target
+    # F-EVAL4 hardening: continuous composite reveals margin that discrete hides
+    continuous_scores = [
+        collaborate.get("continuous_score", float(collaborate["score"])),
+        increase.get("continuous_score", float(increase["score"])),
+        protect.get("continuous_score", float(protect["score"])),
+        truthful.get("continuous_score", float(truthful["score"])),
+    ]
+    continuous_composite = sum(continuous_scores) / (len(continuous_scores) * 3)
+
+    # Lowest-scoring goal = next improvement target (use continuous for precision)
     goal_scores = {
         "Collaborate": collaborate["score"],
         "Increase": increase["score"],
         "Protect": protect["score"],
         "Truthful": truthful["score"],
     }
-    next_target = min(goal_scores, key=goal_scores.get)
+    goal_continuous = {
+        "Collaborate": collaborate.get("continuous_score", float(collaborate["score"])),
+        "Increase": increase.get("continuous_score", float(increase["score"])),
+        "Protect": protect.get("continuous_score", float(protect["score"])),
+        "Truthful": truthful.get("continuous_score", float(truthful["score"])),
+    }
+    next_target = min(goal_continuous, key=goal_continuous.get)
 
     # Overall verdict
     min_score = min(scores)
@@ -608,7 +718,9 @@ def compute_sufficiency() -> dict:
             "Truthful": truthful,
         },
         "scores": goal_scores,
+        "continuous_scores": {k: round(v, 2) for k, v in goal_continuous.items()},
         "composite_normalized": round(composite, 3),
+        "continuous_composite": round(continuous_composite, 3),
         "avg_score_of_3": round(avg_score, 2),
         "overall": overall,
         "next_improvement_target": next_target,
@@ -625,12 +737,13 @@ def compute_sufficiency() -> dict:
 def print_report(result: dict) -> None:
     """Human-readable report."""
     print(f"=== PHIL-14 Mission Sufficiency — {result['session']} ===\n")
-    print(f"Overall: {result['overall']} (avg {result['avg_score_of_3']}/3, composite {result['composite_normalized']:.0%})")
+    print(f"Overall: {result['overall']} (discrete {result['avg_score_of_3']}/3, continuous {result['continuous_composite']:.0%})")
     print(f"Next improvement target: {result['next_improvement_target']}\n")
 
     for goal, data in result["goals"].items():
         bar = "█" * data["score"] + "░" * (3 - data["score"])
-        print(f"  {goal:12s} [{bar}] {data['score']}/3 — {data['verdict']}")
+        c_score = data.get("continuous_score", float(data["score"]))
+        print(f"  {goal:12s} [{bar}] {data['score']}/3 (c={c_score:.2f}) — {data['verdict']}")
         print(f"    {data['rationale']}")
         if data.get("note"):
             print(f"    ⚠ {data['note']}")

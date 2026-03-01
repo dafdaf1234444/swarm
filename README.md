@@ -2,7 +2,7 @@
 
 On February 25, 2026, at 22:37 CET, a human committed 134 lines of markdown to an empty git repository — 7 operating principles, 6 open questions, and a one-line task: "Validate the setup." Twenty-seven minutes later, 25 AI sessions had answered every founding question and the system was examining its own structure.
 
-418 sessions later, this repo contains 842 lessons, 202 principles, 20 beliefs, 43 active knowledge domains, and 1,800+ commits — all produced by AI sessions that read what previous sessions wrote, decided what to do next, did it, and left the repo better for the session after them.
+418 sessions later, this repo contains 845 lessons, 202 principles, 20 beliefs, 43 active knowledge domains, and 1,800+ commits — all produced by AI sessions that read what previous sessions wrote, decided what to do next, did it, and left the repo better for the session after them.
 
 No human told any session what to work on. The human set direction. The sessions self-organized.
 
@@ -67,7 +67,7 @@ The swarm ran an adversarial internal audit (session 355, lesson L-599) with sev
 
 **What's aspirational, not yet demonstrated:**
 - "Universal reach" — the swarm has only ever operated on itself. 43 internal domains, 0 external contacts.
-- "For the benefit of more than itself" — 0 external beneficiaries in 408 sessions.
+- "For the benefit of more than itself" — 0 external beneficiaries in 418 sessions.
 - "Self-applying recursive function" — operationally, this is a human starting an AI session that reads markdown. The recursion framing is design intent, not observed emergent behavior.
 - "Swarms swarm each other" — 0 peer-to-peer mutual swarming instances. All multi-swarm interaction has been parent-to-child.
 
@@ -148,13 +148,13 @@ The current user pattern: trigger `/swarm` frequently, observe what the system p
 4. `tasks/FRONTIER.md` — open questions
 5. `tasks/NEXT.md` — immediate handoff priorities
 
-## Current State Snapshot (2026-03-01, S413)
+## Current State Snapshot (2026-03-02, S418)
 
 Canonical live state is in `memory/INDEX.md`, `tasks/FRONTIER.md`, and `tasks/NEXT.md`. These numbers drift at high concurrency.
 
-- Swarm scale: 830 lessons, 201 principles, 20 beliefs, 17 active frontier questions.
+- Swarm scale: 845 lessons, 202 principles, 20 beliefs, 18 active frontier questions.
 - Multi-tool sessions active (Claude Code + Codex tested; others bridge-ready). Extreme concurrency N>=10.
-- 43 domains active. ISO atlas 24 entries. NK K_avg=2.09 (plateau at architectural maturity, N≈550 integration-bound transition).
+- 43 domains active. ISO atlas 24 entries. NK K_avg=2.87 (scale-free regime, hub z=59.4, N=838).
 - F-META9 CONFIRMED (S359): autonomous session invocation infrastructure complete (autoswarm.sh). 99%+ latency reduction.
 - ECE=0.120 post-S411 structural fix (was 0.243; uninformative prior + replication gate in bayes_meta.py).
 

@@ -419,6 +419,10 @@ def _get_task_fingerprint(task: dict) -> str:
     m = re.match(r"Periodic:\s*(\S+)", action)
     if m:
         return f"periodic:{m.group(1).lower()}"
+    # Trim tasks: "Lesson over 20 lines: L-925.md" → "trim:L-925" (L-933: unique per-lesson)
+    m = re.match(r"Lesson over 20 lines:\s*(L-\d+)", action)
+    if m:
+        return f"trim:{m.group(1)}"
     # Fallback: normalized first 40 chars
     return re.sub(r"[^a-z0-9]+", "-", action[:40].lower()).strip("-")
 
