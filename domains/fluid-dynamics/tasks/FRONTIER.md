@@ -1,4 +1,13 @@
 # Fluid Dynamics Domain Frontiers
+Active: 3
+
+## Active
+
+- **F-FLD1**: Reynolds regime predictor for swarm sessions
+- **F-FLD2**: Kolmogorov cascade in context window token economy
+- **F-FLD3**: Bernoulli focus-throughput tradeoff (quantify)
+
+---
 
 ## F-FLD1: Reynolds regime predictor for swarm sessions
 **Question**: Can a dimensionless ratio analogous to the Reynolds number predict swarm session stability (coherent focused work vs. chaotic multi-front thrashing)?

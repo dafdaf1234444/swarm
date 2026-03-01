@@ -1,0 +1,15 @@
+{
+  "session": 339,
+  "lessons": 422,
+  "principles": 178,
+  "sink_nodes": 158,
+  "sink_pct": 37.4,
+  "ead_compliance_pct": 100.0,
+  "proxy_k_drift_pct": 0.0,
+  "active_lanes": 1,
+  "stale_lanes": 0,
+  "tool_utilization_pct": 10.7,
+  "domains_total": 42,
+  "domains_active": 12,
+  "domain_activation_pct": 28.6
+}

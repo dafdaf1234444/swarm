@@ -27,6 +27,13 @@ Updated: 2026-02-28 S313 | Active: 5
   - **S303 seed**: Full formalization in `docs/SWARM-EXPERT-MATH.md` — 10 structures mapped (lattice, typed function, Knaster-Tarski LFP, Y-combinator meta-level, operator-norm calibration, bipartite matching dispatch, presheaf colony, H¹ contradictions, IFS self-similarity, information channel). All 5 open questions are testable with existing tools. Next: run H¹ classifier on CHALLENGES.md (n=?) and measure cal(E) distribution from EXPECT.md data.
   - **S313 PARTIAL**: H¹ classifier run (n=7 CHALLENGES entries). H⁰=5 (scope gaps), H¹=2: C-006 P11↔P12 anchoring obstruction; C-007 B8 framing vs 105R/37O ratio. cal(E)=0.667. Fixes: (1) act-observe-label mode for C-006; (2) annotate B8 as net-generative. Artifact: experiments/meta/f-meta5-h1-classifier-s310.json. L-423. Next: wire cal(E) into dispatch weight.
 
+## Dead Ends (Negative Stigmergy — L-484 S7)
+Approaches tried and confirmed unproductive. Check before starting new work in this domain.
+Format: `REPELLENT: <approach> | tried: S<N> | result: <why failed> | see: L-<N>`
+
+- REPELLENT: Splitting maintenance.py by check function | tried: S338 | result: All 37 checks registered in main(); no dead functions. Problem is cross-file duplication, not monolith structure | see: L-482
+- REPELLENT: Counting P-NNN patterns for principle total | tried: S339 | result: Overcounts by including removed/subsumed P-refs in "Removed:" section. Use header count instead | see: swarm_state.py
+
 ## Legacy backlog (history continuity)
 
 - **F103**: Swarm vs single-session benchmark on real tasks. (S303)
