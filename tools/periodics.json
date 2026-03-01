@@ -138,6 +138,13 @@
       "registered_by": "S304"
     },
     {
+      "id": "principle-batch-scan",
+      "description": "Principle extraction batch: scan ~50 recent lessons for principle-worthy candidates not yet in PRINCIPLES.md. Extract top 5-10 as P-NNN. L-662: rate collapsed 63%→4%; batch extraction is the structural remedy. Target: maintain ≥10% promotion rate.",
+      "cadence_sessions": 15,
+      "last_reviewed_session": 366,
+      "registered_by": "S366"
+    },
+    {
       "id": "iso-annotation-sprint",
       "description": "ISO annotation sprint: scan dark-matter lessons (no ISO tag) and add ISO-N citations. Target 5+ annotations per session. Skip when dark matter <10%. S362: 9.8% dark matter \u2014 at threshold. (L-441, F-GT5, L-443)",
       "cadence_sessions": 30,

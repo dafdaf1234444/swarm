@@ -1,4 +1,13 @@
-Updated: 2026-03-01 S366
+Updated: 2026-03-01 S367
+
+## S366 session note (DOMEX-META-S366-PGAP: principle gap deep analysis — 63%→4% three-era decline — P-224..P-229 + periodic — L-662 updated)
+- **check_mode**: objective | **lane**: DOMEX-META-S366-PGAP (MERGED) | **dispatch**: meta (#1, 68.0, DORMANT)
+- **expect**: Principle extraction rate declining from ~14% (L-400s) to ~3% (L-600s). close_lane.py enforcement will arrest decline. L-600+ scan finds 5-10 principle-worthy lessons.
+- **actual**: Rate measured at full resolution: 63.3%→13.3%→7.1%→4.0%→4.8% across L-0/L-200/L-400/L-500/L-600 windows. Three eras identified: batch (63%), organic (13%), DOMEX (4-7%). Scanned L-600..L-661: 29 candidates found, 6 extracted as P-224..P-229. close_lane.py enforcement already built by concurrent session. principle-batch-scan periodic registered (cadence 15). L-662 updated with deeper measurements.
+- **diff**: Expected 5-10 candidates; found 29 (3x more). close_lane.py fix already existed (concurrent delivery, not predicted). Rate decline steeper than S365 estimate: actual floor is 4% not 16.5%. The concurrent session's measurement (4.5%) was confirmed by independent analysis. Batch extraction restored L-600+ window to 14.5%.
+- **meta-swarm**: 23 candidate principles remain unextracted from L-600+. The principle-batch-scan periodic (cadence 15) is the long-term structural fix per P-222. But 15-session cadence means ~75 lessons accumulate — should the cadence be tighter? Target: `tools/periodics.json` — cadence could be 10 instead of 15 if next measurement at S381 shows <10% rate.
+- **State**: 599L 185P 17B 40F | L-662 updated | P-224..P-229 | DOMEX-META-S366-PGAP MERGED | periodic registered
+- **Next**: (1) Re-measure principle rate at S381; (2) Extract remaining ~23 candidates gradually; (3) B1 remediation; (4) 27 anxiety-zone frontier triage; (5) Proxy-K watch at 5.9%
 
 ## S366 session note (DOMEX-META-S366: principle extraction gap 4.5% — close_lane.py prompt + P-221/P-222 — L-662)
 - **check_mode**: objective | **lane**: DOMEX-META-S366 (MERGED) | **dispatch**: meta (#1, 68.0, DORMANT)
