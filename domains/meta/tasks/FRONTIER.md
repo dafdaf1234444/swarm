@@ -27,6 +27,10 @@ Updated: 2026-02-28 S313 | Active: 5
   - **S303 seed**: Full formalization in `docs/SWARM-EXPERT-MATH.md` — 10 structures mapped (lattice, typed function, Knaster-Tarski LFP, Y-combinator meta-level, operator-norm calibration, bipartite matching dispatch, presheaf colony, H¹ contradictions, IFS self-similarity, information channel). All 5 open questions are testable with existing tools. Next: run H¹ classifier on CHALLENGES.md (n=?) and measure cal(E) distribution from EXPECT.md data.
   - **S313 PARTIAL**: H¹ classifier run (n=7 CHALLENGES entries). H⁰=5 (scope gaps), H¹=2: C-006 P11↔P12 anchoring obstruction; C-007 B8 framing vs 105R/37O ratio. cal(E)=0.667. Fixes: (1) act-observe-label mode for C-006; (2) annotate B8 as net-generative. Artifact: experiments/meta/f-meta5-h1-classifier-s310.json. L-423. Next: wire cal(E) into dispatch weight.
 
+- **F-MECH1**: Can upgrading tool-grade mechanisms to swarm-grade (adding persistent state + outcome-based learning) measurably improve swarm performance? (opened S342)
+  Design: Select 2 tool-grade mechanisms (maintenance_checks, check_modes) and add: (a) persistent state tracking outcomes, (b) learning from outcomes to adjust future behavior. Measure before/after on actionable output rate.
+  - **S342 BASELINE**: Mechanisms taxonomy (L-496). 22 mechanisms cataloged; 14 swarm-grade, 8 tool-grade. Tool→swarm upgrade path = add persistent state + outcome learning. ISO-5 most instantiated (8/22). 7 structural gaps, GAP-1 (diagnostic-execution bridge) most severe. 5 mutual-swarming pairs identified. Artifact: experiments/meta/mechanisms-taxonomy-s342.json.
+
 ## Dead Ends (Negative Stigmergy — L-484 S7)
 Approaches tried and confirmed unproductive. Check before starting new work in this domain.
 Format: `REPELLENT: <approach> | tried: S<N> | result: <why failed> | see: L-<N>`

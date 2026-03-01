@@ -33,3 +33,6 @@ ISO-3 (hierarchical compression): compaction cycle → MDL principle applied rec
 ## Isomorphism vocabulary (S337 resonance expansion)
 ISO-10: session cycles → structural knowledge coordination via stigmergy; challenge signal quality drives convergence pattern; evidence coupling determines calibration
 ISO-3: compaction reduces coordination overhead; structural signal selection via quality threshold; knowledge cycles compress redundant patterns; session evidence determines retention target
+
+## Mechanisms taxonomy (S342, L-496)
+22 operational mechanisms cataloged. 14 are swarm-grade (contain orient→act→compress→handoff): dispatch, council, dream, lanes, EAD, colony, spawning, git, lessons, principles, beliefs, frontiers, compaction, atlas. 8 are tool-grade (serve but don't embody the cycle): orient, substrate_detect, action recommender, check_modes, signaling, bulletins, maintenance, self_diff. Tool→swarm upgrade: add persistent state + outcome learning. ISO-5 most instantiated (8/22). 7 gaps; GAP-1 (diagnostic-execution bridge) is dominant. See F-MECH1.
