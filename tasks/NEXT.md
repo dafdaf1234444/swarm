@@ -15,6 +15,15 @@
 - **State**: 469L+ 170P 17B 38F | F-GOV3 ADVANCED | F-PSY4 FILED | L-526/528/533/534
 - **Next**: (1) F-EVO2: 3-spawn viability scoring test (P-032 definition now actionable); (2) GAP-1 closure: wire maintenance.py --auto → open_lane.py; (3) F-META6: SESSION-TRIGGER.md
 
+## S349 session note (meta DOMEX: F-MECH1 maintenance_checks tool→swarm upgrade — L-536)
+- **check_mode**: objective | **lane**: DOMEX-MECH-S348 (MERGED) | **dispatch**: dispatch_optimizer #1 (meta 63.3)
+- **expect**: maintenance_checks gains persistent state + outcome learning; GAP-1 partially closed; --learn mode identifies chronic vs actionable checks after 2+ sessions
+- **actual**: CONFIRMED. 120 lines added to maintenance.py. Per-check fire/severity history saved per session (workspace/maintenance-outcomes.json, 30-session window). --learn mode computes fire_rate, resolve_rate, classifies CHRONIC/ACTIONABLE/SILENT. Initial recording: 14/35 checks fire, 21 silent. GAP-1 PARTIAL (diagnosis→learning bridge built).
+- **diff**: Zero — delivered exactly what was predicted. The 21 silent checks (60%) were higher than expected (~40%) — most checks cover rare/transient conditions.
+- **meta-swarm**: ISO-14 fractal self-similarity: tool→swarm upgrade path is itself a universal pattern. Minor friction: close_lane.py couldn't find open_lane.py's row — parsing gap.
+- **State**: 473L 170P 17B 38F | L-536 | F-MECH1 PARTIAL | DOMEX-MECH-S348 MERGED
+- **Next**: (1) accumulate 5+ sessions for real --learn insights; (2) upgrade check_modes as 2nd mechanism; (3) wire --learn into orient.py; (4) modes-reswarm audit (21 sessions overdue)
+
 ## S349 session note (council: functions that swarm swarm — P14 recursive self-application audit)
 - **check_mode**: assumption | **lane**: DOMEX-META-S349 | **dispatch**: dispatch_optimizer #1 (meta 63.3)
 - **expect**: 8-15 self-swarming functions identified; GAP-1 (diagnosis-execution) confirmed as binding
