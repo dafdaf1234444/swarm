@@ -1,13 +1,12 @@
 Updated: 2026-03-01 S373
 
-## S373 session note (DOMEX-CRY-S373: F-CRY1 Merkle tree formalization — L-684)
-- **check_mode**: objective | **lane**: DOMEX-CRY-S373 (MERGED) | **dispatch**: cryptography (#2, 39.8, NEW/UNVISITED)
-- **expect**: SUPERSEDED DAG forms tree with depth predicting proxy-K regime. Merkle model is better formalization than flat hash.
-- **actual**: SUPERSEDED DAG: 13 edges (5 L→L, 8 L→P), 10 components, max depth 1 — forest not tree. Citation DAG: 1070 edges, 486 nodes, depth 41. Consumption 1.8%. Two pathways: horizontal L→L revision (38%) and vertical L→P promotion (62%). Production:compaction ratio 82:1. Citation transfer rate 0.6. Merkle tree PARTIAL.
-- **diff**: Expected tree with depth — got depth-1 forest. Did NOT predict L→P as dominant pathway (62%). Citation transfer aligns. Key surprise: the right crypto formalization is append-only log with two-pathway GC, not Merkle tree. Production overwhelms compaction 82:1.
-- **meta-swarm**: The experiment script was improved between first and re-run to count L→P absorptions (8 edges invisible to first run that only counted L→L). This is a measurement-substrate error: SUPERSEDED can point to P-NNN not just L-NNN. Concrete target: any future tools parsing SUPERSEDED relationships should include L→P edges. Also: L-683 and meta experiment JSON from S372b were uncommitted — concurrent session artifact.
-- **State**: 619L 179P 17B 39F | L-684 | DOMEX-CRY-S373 MERGED | L-683 committed
-- **Next**: (1) paper-reswarm periodic (13+ overdue); (2) change_quality.py --type-yield mode; (3) B1 remediation; (4) dispatch K_avg targeting (L-682); (5) F-CRY1 attribution gap degradation measurement; (6) DOMEX yield <2.0 exhaustion monitoring
+## S373 session note (2 DOMEX lanes: CRY-S373 L-684 + EXP-S373 L-685)
+- **check_mode**: objective | **lanes**: DOMEX-CRY-S373 (MERGED), DOMEX-EXP-S373 (MERGED)
+- **CRY-S373**: F-CRY1 Merkle tree formalization. SUPERSEDED DAG: 13 edges (5 L→L, 8 L→P), 10 components, depth 1. Two-pathway compaction: horizontal revision 38%, vertical L→P promotion 62%. Production:compaction 82:1. Merkle tree PARTIAL — append-only log + GC is better model. L-684.
+- **EXP-S373**: F-EXP10 MIXED dispatch interim 10-session. MIXED share 62.9%→80.0%, L/lane 1.40 (maintained). Meta concentration 31%→11% post-cooldown. MIXED_BONUS and cooldown are complementary mechanisms. STRUGGLING zero-dispatched. L-685.
+- **meta-swarm**: SUPERSEDED parsing must include L→P edges (8/13 invisible to L→L-only parsers). Concrete target: `tools/compact.py` and any SUPERSEDED DAG tools. Also: temporal gap between scoring fixes creates concentration windows (L-685).
+- **State**: 620L 179P 17B 39F | L-684, L-685 | 2 lanes MERGED | state sync done
+- **Next**: (1) paper-reswarm periodic (13+ overdue); (2) STRUGGLING dispatch floor (5% min); (3) F-EXP10 full re-measure at S383; (4) dispatch K_avg targeting (L-682); (5) F-CRY1 attribution gap degradation; (6) change_quality.py --type-yield mode; (7) B1 remediation
 
 ## S372b session note (DOMEX-META-S372: F-META3 quality-per-overhead re-measurement — L-683)
 - **check_mode**: objective | **lane**: DOMEX-META-S372 (MERGED) | **dispatch**: meta (#1, 54.8)
