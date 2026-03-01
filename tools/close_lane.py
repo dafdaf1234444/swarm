@@ -1,14 +1,19 @@
 #!/usr/bin/env python3
-"""close_lane.py — F-META: reduce friction in lane closure.
+"""close_lane.py — F-META: reduce friction in lane closure + EAD enforcement.
 
 Appends a MERGED/ABANDONED row to tasks/SWARM-LANES.md for a given lane ID
 and optionally updates the target FRONTIER.md with a status note.
+
+EAD enforcement (PCI improvement): when closing as MERGED, requires
+--actual and --diff arguments so the expect-act-diff loop is completed.
+Use --skip-ead only when abandoning or when lane had no expect field.
 
 By default, prior rows for the lane are removed (merge-on-close) to reduce
 SWARM-LANES bloat (L-340). Use --no-merge to preserve all prior rows.
 
 Usage:
-  python3 tools/close_lane.py --lane L-S186-DOMEX-BRN --status MERGED \\
+  python3 tools/close_lane.py --lane DOMEX-BRN-S331 --status MERGED \\
+      --actual "BRN3 at 60% operational" --diff "small: 60% vs expected 50-70%" \\
       --note "BRN3 baseline complete, Sharpe compaction confirmed (L-268)"
 """
 
@@ -78,6 +83,8 @@ def append_closure_row(
     author: str,
     model: str,
     merge: bool = True,
+    actual: str = "",
+    diff: str = "",
 ) -> None:
     today = date.today().isoformat()
     row = latest = find_latest_lane_row(lane_id)
@@ -91,6 +98,11 @@ def append_closure_row(
         branch = row[5] if len(row) > 5 else "local"
         scope_key = row[8] if len(row) > 8 else ""
         existing_etc = row[10] if len(row) > 10 else ""
+        # Update actual and diff fields in Etc (replace TBD placeholders)
+        if actual:
+            existing_etc = re.sub(r"actual=TBD", f"actual={actual}", existing_etc)
+        if diff:
+            existing_etc = re.sub(r"diff=TBD", f"diff={diff}", existing_etc)
         # Strip old next_step, add closed status
         existing_etc_clean = re.sub(r"next_step=[^\s,|]+", "", existing_etc).strip().strip(",")
         tags = f"{existing_etc_clean}, progress=closed, next_step=none".lstrip(", ")
@@ -126,9 +138,25 @@ def main():
     parser.add_argument("--session", default=_default_session, help="Current session tag (auto-detected)")
     parser.add_argument("--author", default="claude-code", help="Author identifier")
     parser.add_argument("--model", default="claude-sonnet-4-6", help="Model used")
+    parser.add_argument("--actual", default="", help="What actually happened (EAD: actual outcome)")
+    parser.add_argument("--diff", default="", help="Diff between expected and actual (EAD: gap analysis)")
+    parser.add_argument("--skip-ead", action="store_true",
+                        help="Skip EAD enforcement (use for ABANDONED or lanes without expect)")
     parser.add_argument("--no-merge", action="store_true",
                         help="Disable merge-on-close: keep all prior rows (append-only mode)")
     args = parser.parse_args()
+
+    # EAD enforcement: MERGED lanes must complete the expect-act-diff loop
+    if args.status == "MERGED" and not args.skip_ead:
+        latest = find_latest_lane_row(args.lane)
+        has_expect = latest and "expect=" in (latest[10] if len(latest) > 10 else "")
+        if has_expect and not args.actual:
+            print("ERROR: MERGED lanes require --actual (what happened) for EAD compliance.", file=sys.stderr)
+            print("  The lane has expect= set. Complete the loop: --actual '...' --diff '...'", file=sys.stderr)
+            print("  Use --skip-ead only if lane had no meaningful expect.", file=sys.stderr)
+            sys.exit(1)
+        if has_expect and not args.diff:
+            print("WARNING: --diff not provided. EAD loop incomplete (actual without diff).", file=sys.stderr)
 
     if not args.note:
         args.note = f"Lane closed via close_lane.py (no note provided)"
@@ -141,6 +169,8 @@ def main():
         author=args.author,
         model=args.model,
         merge=not args.no_merge,
+        actual=args.actual,
+        diff=args.diff,
     )
 
 

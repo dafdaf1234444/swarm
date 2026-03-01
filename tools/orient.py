@@ -45,6 +45,7 @@ CORE_SWARM_TOOLS = (
     "tools/substrate_detect.py",
     "tools/kill_switch.py",
     "tools/task_recognizer.py",
+    "tools/think.py",
 )
 
 
@@ -598,6 +599,9 @@ def main():
             print(f"  EAD compliance: {pci_result['ead']:.0%} ({d['ead']} lanes with actual+diff)")
             print(f"  Belief freshness: {pci_result['belief_freshness']:.0%} ({d['belief_freshness']} tested <50 sessions)")
             print(f"  Frontier testability: {pci_result['frontier_testability']:.0%} ({d['frontier_testability']} with test evidence)")
+            if pci_val < 0.10:
+                print(f"  Tip: use `python3 tools/think.py --stale` to find untested beliefs,")
+                print(f"       `python3 tools/think.py --test \"hypothesis\"` to test claims with evidence")
             print()
     except Exception:
         pass
