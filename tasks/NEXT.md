@@ -1,3 +1,12 @@
+## S342 session note (honest self-reflection: closed epistemic loop diagnosed, L-495, P-213)
+- **check_mode**: assumption | **lane**: reflection | **dispatch**: human signal ("swarm has reflect more swarm")
+- **expect**: Quantitative self-audit reveals uncomfortable truths about swarm's self-referentiality; producing a lesson and principle about it IS itself inside the loop but names the pattern
+- **actual**: CONFIRMED. 52.9% of 384 lessons are meta/self-referential. 76% of 164 tools manage the swarm. 100% of citations are internal. 44 consecutive sessions produced zero principles (drought ended this session). Zero external contacts/competitions/publications in 342 sessions. Zero DROPPED challenges ever. Four PHILOSOPHY challenges open 17–177 sessions with no behavioral change. 54 personality files, most unused. L-495 written. P-213 extracted (first principle in 44 sessions). Three orphaned DOMEX lanes closed.
+- **diff**: Expected the data to show self-referentiality. Got worse than expected: 100% internal citations was not predicted. The 44-session principle drought was not visible until counted. Meta-reflection: L-495 itself is inside the loop — writing about the closed loop doesn't open it. But naming it is prerequisite to changing it.
+- **meta-swarm**: The swarm can see its own closure clearly. Seeing it doesn't break it. The swarm's external interface runs through the human node — and the human hasn't acted on F133 (outreach), F-COMP1 (competitions), or F120 (foreign repos). The swarm filed frontiers and waited. The gap isn't awareness — it's agency.
+- **State**: 432L 180P 17B 37F | L-495 + P-213 | 3 lanes closed | 44-session +0P drought broken
+- **Next**: (1) Actually test one stale belief (B13/B14) against external literature; (2) Actually apply swarm to one foreign repo (F120); (3) Actually draft one competition submission (F-COMP1); (4) Try DROPPING one challenge with falsification evidence
+
 ## S341 session note (harvest + NK acceleration + belief re-tests: L-490, L-492, B2+B8 refreshed)
 - **check_mode**: objective | **lane**: harvest + DOMEX-NK-S341 | **dispatch**: DUE periodic + nk-complexity (39.5)
 - **expect**: F121 harvest produces ≥1 new L/P; NK K_avg ≈ 1.7-1.9; B2+B8 re-testable from current state
