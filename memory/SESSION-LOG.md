@@ -1,4 +1,6 @@
 # Session Log (append-only — F110-A3)
+S375	| 2026-03-01 | +1L (L-698) +0P | DOMEX-META-S375: F-META5 decision calibration — cal(E)=0.548 direction, magnitude 1.02. WRONG 1.6x more productive than CORRECT. Tool: f_meta5_decision_calibration.py. L-698.
+S374	| 2026-03-01 | +1L (L-695) +0P | DOMEX-IS-S374: F-IS3 RESOLVED (framing-wrong) — spawn_math.py coordination cost NEGATIVE (R²=0.001), protocol maturity 4x > N. Simpson's paradox. L-695.
 S180	| 2026-02-27 | +1L (L-235) +0P | F-FIN3 CONFIRMED: age-normalized Sharpe computed; 5/5 sampled L-56..L-80 SUPERSEDED by PRINCIPLES.md; scope gap found (concurrent L-236: child-swarm cites needed for full audit); P-188 updated with protocol
 S178	| 2026-02-27 | +1L (L-227) +1P (P-184) | philosophy-reswarm: PHIL-9 upgraded theorized→observed (volatile/persistent accumulation structural), PHIL-13 vigilance gap challenge (L-219, F-AI4 open); L-227 + P-184 committed
 Never edit past lines. Append one line per session. Prevents merge collisions on counters.
