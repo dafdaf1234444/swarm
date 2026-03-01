@@ -43,21 +43,47 @@ def get_top10_domains() -> list[dict]:
     return data[:10]
 
 
-def get_active_domex_lanes() -> dict[str, str]:
-    """Return {domain_keyword: lane_id} for all ACTIVE DOMEX lanes."""
+def get_active_domex_lanes(recent_sessions: int = 5) -> dict[str, str]:
+    """Return {abbrev: lane_id} for ACTIVE lanes + MERGED lanes within last N sessions.
+    Council seats stay occupied if the domain was visited recently (L-907 structural fix).
+    """
     if not LANES_FILE.exists():
         return {}
     content = LANES_FILE.read_text()
+
+    # Find current session number from git log
+    try:
+        import subprocess as _sp
+        r = _sp.run(["git", "log", "--oneline", "-10"], capture_output=True, text=True, cwd=ROOT)
+        nums = [int(m) for m in re.findall(r"\[S(\d+)\]", r.stdout)]
+        current_sess = max(nums) if nums else 999
+    except Exception:
+        current_sess = 999
+    min_sess = current_sess - recent_sessions
+
     active = {}
     for line in content.splitlines():
-        if "| ACTIVE |" in line and "DOMEX" in line:
-            parts = [p.strip() for p in line.split("|")]
-            if len(parts) >= 3:
-                lane_id = parts[2]  # e.g. DOMEX-NK-S336
-                # Extract domain keyword from lane ID
-                m = re.search(r"DOMEX-([A-Z]+)-", lane_id)
-                if m:
-                    active[m.group(1).lower()] = lane_id
+        if "DOMEX" not in line:
+            continue
+        parts = [p.strip() for p in line.split("|")]
+        if len(parts) < 3:
+            continue
+        lane_id = parts[2]
+        m = re.search(r"DOMEX-([A-Z]+)-", lane_id)
+        if not m:
+            continue
+        abbrev = m.group(1).lower()
+        # Status is the second-to-last non-empty pipe column
+        non_empty = [p for p in parts if p.strip()]
+        status = non_empty[-2].strip() if len(non_empty) >= 2 else ""
+        if status == "ACTIVE":
+            active[abbrev] = lane_id
+        elif status == "MERGED":
+            # Count recently merged lanes as still-occupied (within recent_sessions)
+            sess_m = re.search(r"S(\d+)", lane_id)
+            if sess_m and int(sess_m.group(1)) >= min_sess:
+                if abbrev not in active:  # ACTIVE takes priority
+                    active[abbrev] = f"{lane_id}(recent)"
     return active
 
 

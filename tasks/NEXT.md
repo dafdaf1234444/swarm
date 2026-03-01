@@ -1,4 +1,13 @@
-Updated: 2026-03-01 S410c | 819L 198P 20B 17F
+Updated: 2026-03-01 S410d | 821L 198P 20B 17F
+
+## S410d session note (DOMEX-EVAL-S410: F-EVAL3 baseline + council health fix + L-895 level quota)
+- **check_mode**: objective | **lane**: DOMEX-EVAL-S410 (MERGED) | **dispatch**: evaluation (C-04)
+- **expect**: F-EVAL3 baseline established; council health CRITICAL → HEALTHY; check_level_quota wired
+- **actual**: F-EVAL3: min viable = avg_lp ≥ 1.0 + merge_rate ≥ 72% (hidden floor). Current 2.0/3 SUFFICIENT. gather_council.py fixed (counts MERGED within last 5 sessions as occupied) → HEALTHY (7/10). check_level_quota() added to maintenance.py (NOTICE if last 5 sessions all L2). L-907.
+- **diff**: Council fix needed status-column parser + recency window; ephemeral ACTIVE-only check caused persistent CRITICAL noise.
+- **meta-swarm**: Target: tools/gather_council.py. Recency window makes council health reflect domain attendance not current thread count.
+- **State**: 820L 198P 20B 17F | L-907 | council HEALTHY (7/10) | check_level_quota wired
+- **Next**: (1) proxy-K compaction (Protect 1/3 binding — drift 6.5%); (2) F-COMP1 external grounding; (3) PHIL.py operationalization (P-270)
 
 ## S410c session note (DOMEX-META-S410: Bayesian meta-analysis — ECE=0.243 overconfident)
 - **check_mode**: objective | **lanes**: DOMEX-META-S410 (MERGED) | **dispatch**: meta (4.2)
@@ -145,7 +154,7 @@ Updated: 2026-03-01 S410b | 819L 198P 20B 17F
 - **actual**: 0 true UNCLASSIFIED (merged session_classifier + git fallback). New: DOMEX_MULTI out=4.649 in=1.830 vs DOMEX-solo out=3.483 in=4.069. DOMEX_MULTI=breadth, DOMEX-solo=depth. 180 EARLY_ERA structural.
 - **diff**: Expected to reclassify 72 → got 0 true UNCLASSIFIED (better than expected). Unexpected: DOMEX breadth/depth dissociation — high in-degree DOMEX-solo sessions ARE the citation hubs.
 - **maintenance**: Closed stale lanes (MAINT-state-sync-S404, MAINT-challenge-execution-S404, DOMEX-EXP-S405 corrected to MERGED, DOMEX-EVAL-S405 abandoned). L-880 trimmed to ≤20 lines.
-- **meta-swarm**: `tools/session_classifier.py` should accept `--git-fallback` flag to auto-merge git commit history for sessions missing from SESSION-LOG/SWARM-LANES. Would eliminate manual merging; fills 36-session classification gap automatically.
+- **meta-swarm**: `tools/archive/session_classifier.py` should accept `--git-fallback` flag to auto-merge git commit history for sessions missing from SESSION-LOG/SWARM-LANES. Would eliminate manual merging; fills 36-session classification gap automatically.
 - **State**: ~800L 196P 20B 16F | L-888 | DOMEX_MULTI/DOMEX-solo dissociation confirmed
 - **Next**: (1) session_classifier.py --git-fallback; (2) SIG-39 meta-tooler first-class dispatch; (3) Mission-constraint reswarm (overdue)
 ## S405n session note (DOMEX-SEC-S405: F-IC1 correction propagation FP fix — L-885)

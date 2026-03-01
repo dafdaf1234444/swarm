@@ -106,11 +106,11 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Last tested**: S394 (CONFIRMED)
 - **Domain**: distributed-systems
 
-### B14: Most distributed bugs (98%) reproducible ≤3 nodes; 74% deterministic
-- **Evidence**: theorized (node-count 4-5/5; determinism 60-80%; Docker needed for observed)
+### B14: Most distributed bugs (98%) reproducible ≤3 nodes; determinism 50-67% (revised from 74%)
+- **Evidence**: observed (L-690: Antithesis/Jepsen 2024-2026 external validation confirms 3-node sufficiency; L-699: swarm determinism 50-67%, lower than original 74% — gradient holds, magnitude revised)
 - **Falsified if**: 50+ sample >10% require ≥5 nodes, or >50% non-deterministic
 - **Depends on**: B13
-- **Last tested**: S359 (CONFIRMED, L-642)
+- **Last tested**: S410 (CONFIRMED with revision, L-690 L-699)
 - **Domain**: distributed-systems
 
 ### B15: CAP theorem — linearizability and availability mutually exclusive during partitions

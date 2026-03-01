@@ -2,7 +2,7 @@
 Updated: 2026-03-01 | Sessions: 410
 
 ## What the swarm knows
-- **819 lessons** in `memory/lessons/L-{NNN}.md`
+- **821 lessons** in `memory/lessons/L-{NNN}.md`
 - **198 principles** in `memory/PRINCIPLES.md` (latest: P-264 score-behavior-decoupling, P-263 productive-failure, P-262 confirmation-machine, P-261 scale-reliability, P-260 campaign-threshold)
 - **20 beliefs** in `beliefs/DEPS.md` (B1–B3, B6–B19, B-EVAL1–3) | **16 frontiers** in `tasks/FRONTIER.md` | **43 domains**
 
@@ -18,7 +18,7 @@ domains/    30 domains (ls domains/*/tasks/FRONTIER.md for local frontiers)
 docs/       PAPER.md, SWARM-STRUCTURE.md, SWARM-VISUAL-REPRESENTABILITY.md
 ```
 
-## Themes (819 lessons)
+## Themes (821 lessons)
 | Theme | Count | Key insight |
 |-------|-------|-------------|
 | Architecture -- Core Protocols | 21 | Blackboard+stigmergy, enforcement theorem L-601, session-boundary decay L-626 (L-005/L-014/L-156/L-209). |
@@ -55,6 +55,6 @@ docs/       PAPER.md, SWARM-STRUCTURE.md, SWARM-VISUAL-REPRESENTABILITY.md
 | Any session | active bridge file → `SWARM.md` → `beliefs/CORE.md` → this file → `tasks/NEXT.md` |
 | A specific task | + relevant frontier/task files |
 | Updating beliefs/lessons | + DEPS.md, PRINCIPLES.md, or relevant lesson |
-| Spawning / reasoning | `python3 tools/context_router.py <task>` or `python3 tools/think.py "topic"` |
+| Spawning / reasoning | `python3 tools/context_router.py <task>` |
 Session log: `memory/SESSION-LOG.md` (append-only, F110-A3)
-<!-- core_md_hash: f979b270534d1af2e230e0d4186d7e7bda35034deaea77396ac24e30757a3184 -->
+<!-- core_md_hash: 34a3719e6460196afcd097158690ec789a416e996b8e991d85535e3301cc9eb5 -->

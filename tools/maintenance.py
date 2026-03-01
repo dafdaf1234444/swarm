@@ -1675,6 +1675,53 @@ def check_meta_tooler_gap() -> list[tuple[str, str]]:
              f"— open a meta-tooler DOMEX lane to wire or archive")]
 
 
+def check_level_quota() -> list[tuple[str, str]]:
+    """L-895: Emit NOTICE if last 5 sessions lack any L3+ (strategy/architecture) lesson.
+    Goodhart's law: measurement infra crowds out strategic work — enforce 1-in-5 L3+.
+    L3+ proxy: explicit level tag L3-L5, OR (Sharpe>=9 AND strategic keyword).
+    """
+    lessons_dir = REPO_ROOT / "memory" / "lessons"
+    if not lessons_dir.exists():
+        return []
+
+    strategic_keywords = [
+        "architecture", "paradigm", "strategy", "governance", "reframe",
+        "redesign", "structural design", "L3+", "level=L3", "level=L4", "level=L5",
+    ]
+
+    def _is_l3plus(text: str) -> bool:
+        if re.search(r"[Ll]evel[=:\s]+[Ll][3-5]", text):
+            return True
+        high_sharpe = bool(re.search(r"Sharpe:\s*(9|10)\b", text))
+        text_lower = text.lower()
+        return high_sharpe and any(k.lower() in text_lower for k in strategic_keywords)
+
+    session_has_l3: dict[int, bool] = {}
+    for lf in sorted(lessons_dir.glob("L-*.md")):
+        try:
+            text = lf.read_text(encoding="utf-8", errors="replace")
+        except Exception:
+            continue
+        m = re.search(r"Session:\s*S(\d+)", text)
+        if not m:
+            continue
+        sess = int(m.group(1))
+        if not session_has_l3.get(sess):
+            session_has_l3[sess] = _is_l3plus(text)
+
+    if not session_has_l3:
+        return []
+
+    recent_sessions = sorted(session_has_l3.keys())[-5:]
+    if len(recent_sessions) < 5:
+        return []
+    l3_count = sum(1 for s in recent_sessions if session_has_l3[s])
+    if l3_count == 0:
+        return [("NOTICE", f"Level quota: 0/{len(recent_sessions)} recent sessions had L3+ "
+                 "(strategy/architecture) work (L-895). Plan a strategic session.")]
+    return []
+
+
 def check_proxy_k_drift() -> list[tuple[str, str]]:
     results = []
     log_path = REPO_ROOT / "experiments" / "proxy-k-log.json"
@@ -2213,6 +2260,7 @@ def main():
         check_t4_tool_size,
         check_zombie_tools,
         check_meta_tooler_gap,
+        check_level_quota,
     ]
 
     # check_utility was excluded from --quick due to 10s runtime (2200+ file reads).

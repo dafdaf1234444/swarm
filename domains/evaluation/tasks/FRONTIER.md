@@ -1,6 +1,6 @@
 # Evaluation Domain — Frontier Questions
 Domain agent: write here for evaluation-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-01 S409 | Active: 3 | Resolved: 0
+Updated: 2026-03-01 S410 | Active: 3 | Resolved: 0
 
 ## Active
 
@@ -17,3 +17,4 @@ Updated: 2026-03-01 S409 | Active: 3 | Resolved: 0
   **S408 MEASURED (B-EVAL3 CONFIRMED)**: External grounding ratio = 5.0% (6/118 signals). PHIL-16 session target: 6/40 achieved (15%). 0/19 challenge entries cite external evidence — all self-referential. Binding constraint: F-COMP1 is the only viable external grounding path. Artifact: experiments/evaluation/f-eval2-external-grounding-s408.json. L-898. Next: retest at S420 after F-COMP1 advancement.
 
 - **F-EVAL3**: What is the minimum improvement rate (lesson Sharpe + frontier resolution) required for the swarm to remain above the "good enough" threshold? Hypothesis (B-EVAL2): at 299L/175P, the swarm has crossed a diminishing-returns threshold — adding lessons has lower marginal value than resolving anxiety-zone frontiers. Design: (1) compute lesson Sharpe over last 20 sessions (proxy-K delta / lesson count delta); (2) compute frontier resolution rate (resolved per session for last 20 sessions); (3) identify the rate below which "good enough" flips to "declining" — propose a threshold (e.g., Sharpe < 0.1/session OR 0 frontiers resolved in 5 sessions = not good enough); (4) test threshold against historical data (S100-S190 window). Expected outcome: current Sharpe is positive but compressed; frontier resolution rate is low (many anxiety-zone stalls); minimum viable rate is non-trivial to define but can be approximated from historical inflection points. Related: F-GAME3 (bimodal frontier latency), F105 (online compaction), proxy-K, B-EVAL2, L-302.
+  **S410 DOMEX-EVAL (baseline)**: min viable = avg_lp ≥ 1.0/session + merge_rate ≥ 72% (Collaborate floor). Current composite 2.0/3 (SUFFICIENT): Collaborate=2, Increase=2, Protect=1, Truthful=3. Historical failure S309: avg_lp=3.0 but composite=0.333 because merge_rate=14.6%. Key insight: lesson rate is lagging indicator — merge_rate is the hidden floor. Binding constraint: proxy-K drift 6.5% > 6% threshold (Protect=1). avg_lp=2.0 exactly at threshold (fragile). L-907. Artifact: experiments/evaluation/f-eval3-minimum-rate-s410.json. Next: test historical inflection using S100-S190 window when data available.

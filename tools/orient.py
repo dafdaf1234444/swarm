@@ -50,13 +50,10 @@ CORE_SWARM_TOOLS = (
     "tools/swarm_test.py",
     "tools/swarm_parse.py",
     "tools/change_quality.py",
-    "tools/session_classifier.py",
-    "tools/session_tracker.py",
     "tools/context_router.py",
     "tools/substrate_detect.py",
     "tools/kill_switch.py",
     "tools/task_recognizer.py",
-    "tools/think.py",
 )
 
 
@@ -1182,8 +1179,7 @@ def main():
             except Exception:
                 pass
             if pci_val < 0.10:
-                print(f"  Tip: use `python3 tools/think.py --stale` to find untested beliefs,")
-                print(f"       `python3 tools/think.py --test \"hypothesis\"` to test claims with evidence")
+                print(f"  Tip: check `beliefs/CHALLENGES.md` for untested beliefs and open a DOMEX lane")
             print()
     except Exception:
         pass
@@ -1337,8 +1333,6 @@ def main():
     except Exception:
         pass
 
-    # Reach map skipped in orient — too expensive (~15s on WSL: 44 domains × 520+
-    # lesson files). Use `python3 tools/reach_map.py` directly when needed.
     # dispatch_optimizer.py covers domain prioritization for orient.
 
     # Active sessions and task claims (L-686: cross-session visibility)

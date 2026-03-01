@@ -78,7 +78,21 @@ def score_experiment(data: dict) -> dict:
                         "conditions for failure", "drop if", "wrong if")
     scores["falsification"] = 1.0 if any(kw in text for kw in falsify_keywords) else 0.0
 
-    scores["total"] = sum(scores.values()) / 5.0
+    # Falsification outcome bonus (L-900: actual falsifications get 2.4x citation attractor —
+    # reward experiments that produced a genuine null/falsified/overturned outcome beyond just
+    # having a falsification condition planned in the design)
+    outcome_text = str(data.get("actual", data.get("verdict", ""))).lower()
+    outcome_mode = str(data.get("mode", "")).lower()
+    is_falsified_outcome = any(kw in outcome_text for kw in (
+        " falsified", "null result", "overturned", "rejected", "null:", "falsified:",
+        "falsified —", "no effect", "zero effect",
+    ))
+    is_falsification_mode = outcome_mode == "falsification"
+    scores["falsification_outcome"] = 1.0 if (is_falsified_outcome or is_falsification_mode) else 0.0
+
+    base = sum(scores[k] for k in ("pre_registration", "control", "significance",
+                                   "external_validation", "falsification")) / 5.0
+    scores["total"] = min(1.0, base + scores["falsification_outcome"] * 0.10)
     return scores
 
 
@@ -166,13 +180,15 @@ def main():
     # Aggregate statistics
     totals = [r["scores"]["total"] for r in results]
     criteria_means = {}
-    for criterion in ("pre_registration", "control", "significance", "external_validation", "falsification"):
+    for criterion in ("pre_registration", "control", "significance", "external_validation",
+                      "falsification", "falsification_outcome"):
         vals = [r["scores"][criterion] for r in results]
         criteria_means[criterion] = sum(vals) / len(vals) if vals else 0
 
     confirmed, discovered = count_confirmation_ratio()
     falsif_lanes, total_lanes = count_falsification_lanes()
 
+    n_falsif_outcome = sum(1 for r in results if r["scores"]["falsification_outcome"] > 0)
     report = {
         "n_experiments": len(results),
         "mean_quality": sum(totals) / len(totals),
@@ -180,6 +196,8 @@ def main():
         "criteria_means": criteria_means,
         "confirm_discover_ratio": f"{confirmed}:{discovered}",
         "falsification_lanes": f"{falsif_lanes}/{total_lanes}",
+        "falsification_outcome_rate": round(n_falsif_outcome / len(results), 3) if results else 0,
+        "falsification_outcome_count": n_falsif_outcome,
         "bottom_5": sorted(results, key=lambda r: r["scores"]["total"])[:5],
         "top_5": sorted(results, key=lambda r: r["scores"]["total"], reverse=True)[:5],
     }
@@ -198,8 +216,9 @@ def main():
             status = "PASS" if mean >= 0.5 else "FAIL"
             print(f"  {criterion:<25} {bar} {mean:.0%} [{status}]")
         print()
-        print(f"Confirm/discover ratio: {confirmed}:{discovered} ({confirmed/discovered:.0f}:1)")
-        print(f"Falsification lanes:    {falsif_lanes}/{total_lanes} (target: 1-in-5 = 20%)")
+        print(f"Confirm/discover ratio:    {confirmed}:{discovered} ({confirmed/discovered:.0f}:1)")
+        print(f"Falsification lanes:       {falsif_lanes}/{total_lanes} (target: 1-in-5 = 20%)")
+        print(f"Falsified outcomes (bonus): {n_falsif_outcome}/{len(results)} (L-900: +10% quality bonus)")
         print()
         print("--- Top 5 (best science) ---")
         for r in report["top_5"]:
