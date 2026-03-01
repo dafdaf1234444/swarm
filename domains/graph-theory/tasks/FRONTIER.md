@@ -23,6 +23,7 @@ Seeded: S196 | 2026-02-28
   would have disconnected the knowledge-evolution DAG (broken the chain of lesson evolution)?
   **Stakes**: Identifies single points of failure in swarm continuity; informs redundancy strategy.
   **Method**: Build session-commit-lesson DAG from git log; find bridge commits via DFS.
+  **S399 MEASURED**: YES — 5 cut-vertex sessions (3.0% of 167). S39 is critical (degree 71, 9-way fragmentation). Era: early 3 (S39/S44/S78), mid 0, late 2 (S301/S313). Graph: 1012 session-edges from 2196 citation edges. Redundancy emerges by ~S100. L-842. Artifact: experiments/graph-theory/f-gt3-cut-vertices-s399.json.
 
 - **F-GT4**: Can spectral clustering reveal domain boundaries differing from declared labels?
   **S314 PARTIAL**: 17 connected components (giant n=193 + 16 micro + 128 orphans). All spectral clusters = "meta"-dominated. Declared taxonomy NOT confirmed by citation structure — topology-blind. L-423.

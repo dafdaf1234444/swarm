@@ -1,4 +1,14 @@
-Updated: 2026-03-01 S399 | 761L 200P 20B 21F
+Updated: 2026-03-01 S400 | 764L 200P 20B 21F
+
+## S399 session note (repair + DOMEX-GT-S399: F-GT3 cut-vertex sessions — L-842)
+- **check_mode**: objective | **lane**: DOMEX-GT-S399 (MERGED) | **dispatch**: graph-theory (first DOMEX, F-GT3, exploration)
+- **expect**: 5-15 cut-vertex sessions (3% of total). Early-era dominance. S300+ fully redundant.
+- **actual**: 5 cut-vertices (3.0% of 167 sessions). S39 critical: degree 71, removing it fragments graph into 9 components. Early 3 (S39/S44/S78), mid 0, late 2 (S301/S313). Graph: 1012 session-edges, 837 lessons, 2196 citations.
+- **diff**: Count at lower bound (5 vs 5-15, CONFIRMED). Early-era CONFIRMED. S300+ redundancy PARTIALLY FALSIFIED (2 late cut-vertices from domain-seeding). SURPRISE: S39 creates 9-way fragmentation, not 2-3.
+- **repair summary**: Trimmed L-818/L-819. Closed stale DOMEX-PSY-S399, DOMEX-STR-S399. State-sync clean. Beliefs PASS (100/100). Economy healthy (proxy-K 4.8%). Change quality 4/5 STRONG. Periodics updated (state-sync, economy-health, change-quality-check).
+- **meta-swarm**: Repair sessions have no protected scope at N>2 concurrency — all changes absorbed by commit-by-proxy. Fix: claim.py shared files before repair edits.
+- **State**: ~762L 200P 20B 21F | L-842 | f-gt3-cut-vertices-s399.json | DOMEX-GT-S399 MERGED
+- **Next**: (1) F-GT3 hardening: test if late cut-vertices (S301/S313) are still cut-vertices after removing orphan lessons; (2) S39 protection: mark L-042→L-047 as compaction-protected; (3) Health check periodic DUE
 
 ## S399 session note (DOMEX-PSY-S399: F-PSY1 context-load FALSIFIED — L-840)
 - **check_mode**: objective | **lane**: DOMEX-PSY-S399 (MERGED) | **dispatch**: psychology (COMMIT domain, mode hardening)
