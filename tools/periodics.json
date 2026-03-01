@@ -26,7 +26,8 @@
       "description": "Scan PRINCIPLES.md for redundant/overlapping principles -- merge or supersede",
       "cadence_sessions": 10,
       "last_reviewed_session": 357,
-      "registered_by": "S69"
+      "registered_by": "S69",
+      "last_session": "S368"
     },
     {
       "id": "proxy-k-measurement",
@@ -139,7 +140,7 @@
     },
     {
       "id": "principle-batch-scan",
-      "description": "Principle extraction batch: scan ~50 recent lessons for principle-worthy candidates not yet in PRINCIPLES.md. Extract top 5-10 as P-NNN. L-662: rate collapsed 63%→4%; batch extraction is the structural remedy. Target: maintain ≥10% promotion rate.",
+      "description": "Principle extraction batch: scan ~50 recent lessons for principle-worthy candidates not yet in PRINCIPLES.md. Extract top 5-10 as P-NNN. L-662: rate collapsed 63%\u21924%; batch extraction is the structural remedy. Target: maintain \u226510% promotion rate.",
       "cadence_sessions": 15,
       "last_reviewed_session": 366,
       "registered_by": "S366"
