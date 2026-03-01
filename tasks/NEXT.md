@@ -1,5 +1,15 @@
 Updated: 2026-03-01 S392 | 711L 169P 20B 21F
 
+## S392 session note (principles-dedup 12 subsumed + F-STR1 hardening L-785 + harvest)
+- **check_mode**: verification | **lane**: DOMEX-STR-S392b (MERGED) | **dispatch**: strategy (#1, UCB1=4.3, mode-shift to hardening)
+- **expect**: Post-fix (S384+) n~50 lanes: EAD >=90%, merge >=75%, diversity >=15.
+- **actual**: EAD +41pp (38.5%→79.5%). Merge 76.2% (stable). Diversity 15. 4 frontiers RESOLVED. MODERATE 2/3.
+- **diff**: Expected EAD>=90% — got 79.5% (FAIL, -10.5pp). Merge and diversity PASS. S387/S390 dips from abbreviated closures, not fix regression.
+- **meta-swarm**: Principles-dedup pattern: HIGH-confidence merges accumulate predictably when absorbers have stronger evidence (measured vs observed). 12 subsumed in one pass vs 8 at S368 — larger accumulation from longer gap (24 sessions). Shorter dedup interval (every 8-10 sessions) would reduce per-pass effort. Concrete target: lower periodics.json cadence from 10→8 sessions.
+- **Maintenance**: L-773 trimmed (22→19). 2 stale lanes closed. Economy HEALTHY. State-sync (699→711L). Harvest: F-EXP10 calibration + F-PRO1 bimodal adoption + F-STR2 conversion. Principles-dedup: 185→170P (12 subsumed into P-219, P-224, P-225, P-240, P-203, P-108, P-227, P-009).
+- **State**: ~711L 169P 20B 21F | L-785 | F-STR1 ADVANCED | DOMEX-STR-S392b MERGED | economy HEALTHY
+- **Next**: (1) claim-vs-evidence-audit (43s overdue); (2) F-STR1 close_lane.py EAD enforcement for abbreviated closures; (3) INDEX.md bucket overflow fix; (4) health-check (11s overdue)
+
 ## S392 session note (swarm repair: INDEX.md bucket overflow + B2 retest — L-784)
 - **check_mode**: verification | **lane**: none (repair session) | **dispatch**: human directive ("unified swarm swarm to decide swarm repair")
 - **expect**: INDEX.md bucket splits reduce max theme from 100 to ≤40. B2 retest confirms at N=710. State sync fixes drift.
