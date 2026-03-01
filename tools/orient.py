@@ -452,6 +452,79 @@ def check_stale_infrastructure(current_session: int, stale_threshold: int = 50) 
     return stale
 
 
+def evaluate_session_triggers(current_session: int):
+    """Read SESSION-TRIGGER.md and evaluate trigger conditions."""
+    trigger_path = ROOT / "domains" / "meta" / "SESSION-TRIGGER.md"
+    if not trigger_path.exists():
+        return None, []
+
+    try:
+        trigger_text = trigger_path.read_text(encoding="utf-8")
+    except Exception:
+        return None, []
+
+    # Extract trigger definitions - look for lines with pattern "- **name**: description | urgency | ..."
+    trigger_lines = []
+    for line in trigger_text.splitlines():
+        if line.startswith("- **") and ": " in line and " | " in line:
+            trigger_lines.append(line)
+
+    active_triggers = []
+    urgency_order = {"CRITICAL": 4, "HIGH": 3, "MEDIUM": 2, "LOW": 1}
+
+    for line in trigger_lines:
+        parts = line.split(" | ")
+        if len(parts) < 2:
+            continue
+
+        name_desc = parts[0].replace("- **", "").replace("**", "")
+        if ": " not in name_desc:
+            continue
+
+        trigger_name, description = name_desc.split(": ", 1)
+        urgency = parts[1].strip()
+
+        # Simple heuristic trigger evaluation based on current state
+        triggered = False
+
+        if trigger_name == "maintenance_due":
+            # Check if any DUE items exist
+            maint_out = run_maintenance()
+            if "[DUE]" in maint_out:
+                triggered = True
+
+        elif trigger_name == "stale_tools":
+            # Check infrastructure staleness
+            stale = check_stale_infrastructure(current_session, 50)
+            if len(stale) > 10:
+                triggered = True
+
+        elif trigger_name == "periodics_due":
+            # Check if periodics are overdue
+            maint_out = run_maintenance()
+            if "[PERIODIC]" in maint_out and maint_out.count("~") > 5:
+                triggered = True
+
+        elif trigger_name == "dispatch_imbalance":
+            # Could integrate with dispatch_optimizer.py but simplified for now
+            triggered = True  # Common case - there are usually unworked domains
+
+        elif trigger_name == "belief_staleness":
+            # Check stale beliefs
+            stale_beliefs = check_stale_beliefs(current_session, 100)
+            if len(stale_beliefs) > 0:
+                triggered = True
+
+        if triggered:
+            active_triggers.append((trigger_name, description, urgency, urgency_order.get(urgency, 1)))
+
+    # Sort by urgency descending
+    active_triggers.sort(key=lambda x: x[3], reverse=True)
+
+    top_trigger = active_triggers[0] if active_triggers else None
+    return top_trigger, active_triggers[:5]
+
+
 def check_stale_beliefs(current_session: int, stale_threshold: int = 50) -> list:
     """Find beliefs not tested in the last stale_threshold sessions. L-483."""
     deps_path = ROOT / "beliefs" / "DEPS.md"
@@ -604,6 +677,20 @@ def main():
             for line in signal_lines[:10]:
                 print(f"  {line}")
             print()
+
+    # Session triggers (F-META6: autonomous session initiation)
+    try:
+        sess_num_m = re.search(r"S(\d+)", session)
+        if sess_num_m:
+            top_trigger, active_triggers = evaluate_session_triggers(int(sess_num_m.group(1)))
+            if top_trigger:
+                print("--- Session Triggers (F-META6) ---")
+                print(f"  🔴 {top_trigger[2]}: {top_trigger[0]} — {top_trigger[1][:80]}")
+                if len(active_triggers) > 1:
+                    print(f"  📋 {len(active_triggers)-1} additional triggers active")
+                print()
+    except Exception:
+        pass
 
     # INDEX.md coverage check (F-BRN4: hippocampal index health)
     index_notice = check_index_coverage(index_text)
