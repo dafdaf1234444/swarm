@@ -13,6 +13,7 @@ Usage:
     python3 tools/orient.py --classify "build X"   # route a task to domain+personality
 """
 
+import os
 import re
 import subprocess
 import sys
@@ -755,6 +756,42 @@ def check_experiment_harvest_gap(threshold: int = 5) -> list:
     return gaps
 
 
+def check_active_claims():
+    """F-CON2: warn about active file claims from concurrent sessions.
+
+    claim.py uses workspace/claims/ for soft-claim collision prevention.
+    At orient time, show what's claimed so the current session avoids editing
+    those files. Claims older than 5 min are expired (claim.py TTL).
+    """
+    import json as _json
+    claims_dir = ROOT / "workspace" / "claims"
+    if not claims_dir.exists():
+        return
+    my_pid = str(os.getpid())
+    active = []
+    for claim_file in sorted(claims_dir.glob("*.claim.json")):
+        try:
+            data = _json.loads(claim_file.read_text())
+            # Skip expired claims (>5 min)
+            import time as _time
+            age = _time.time() - data.get("timestamp", 0)
+            if age > 300:
+                continue
+            owner = data.get("pid", "?")
+            if str(owner) == my_pid:
+                continue
+            filepath = data.get("file", claim_file.stem.replace("__", "/").replace(".claim", ""))
+            active.append(f"{filepath} (pid {owner}, {int(age)}s ago)")
+        except Exception:
+            continue
+    if active:
+        print(f"--- Active claims ({len(active)} files locked by concurrent sessions) ---")
+        for c in active[:8]:
+            print(f"  🔒 {c}")
+        print(f"  Use `python3 tools/claim.py claim <file>` before editing DUE files")
+        print()
+
+
 def main():
     brief = "--brief" in sys.argv
 
@@ -762,6 +799,9 @@ def main():
 
     # FM-09: detect foreign staged deletions before any work (L-350, F-CAT1)
     check_foreign_staged_deletions()
+
+    # F-CON2: show active claims from concurrent sessions (collision prevention)
+    check_active_claims()
 
     classify_task = _get_classify_task()
     if classify_task:
@@ -1002,18 +1042,9 @@ def main():
     except Exception:
         pass
 
-    # Reach map (quick domain-reach score)
-    try:
-        from reach_map import measure_domain_reach
-        dr = measure_domain_reach()
-        pct = dr["score"]
-        dormant = dr["dormant"]
-        total = dr["total"]
-        if pct < 0.5:
-            print(f"--- Reach: {pct:.0%} domain activation ({dr['active']}/{total} active, {dormant} dormant) ---")
-            print()
-    except Exception:
-        pass
+    # Reach map skipped in orient — too expensive (~15s on WSL: 44 domains × 520+
+    # lesson files). Use `python3 tools/reach_map.py` directly when needed.
+    # dispatch_optimizer.py covers domain prioritization for orient.
 
     # Suggested action
     print("--- Suggested next action ---")

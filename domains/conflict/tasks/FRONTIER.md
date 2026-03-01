@@ -22,7 +22,8 @@ Updated: 2026-03-01 S352 | Active: 3 (F-CON2 PARTIAL) | Resolved: F-CON1 (S348),
   **S351 evidence**: 3 C-EDIT event types documented from live S351 high-concurrency (N≥3): (1) DUE-convergence — 3 sessions trimmed same lesson L-544, 3 wasted commits; (2) staged-contamination — batch staging overwrote completed trims; (3) index-lock — 2 git blocks. C-EDIT overhead = 37.5% of observed commits. L-557. Artifact: experiments/conflict/f-con1-concurrent-edit-s351.json.
   **S351 contract schema**: soft-claim protocol — before editing file F, write workspace/claims/<session_id>.json with {file, timestamp}; check claims age<5min. workspace/claims/ directory created. 67% of C-EDIT types preventable.
   **S352 tool built**: `tools/claim.py` implemented — claim/check/release/list/gc commands. Per-file claims with 5-min TTL. Tested: conflict detection blocks CE-1 (DUE-convergence), release works, TTL expiry auto-cleans crashed sessions. File-based (no network, no consensus). L-557.
-  Status: **PARTIAL** — tool built and tested. Next: integrate into orient.py (warn about active claims at session start); run 3 sessions with claims enabled; add maintenance.py cleanup hook.
+  **S355 orient integration**: `check_active_claims()` added to orient.py — reads workspace/claims/, warns about concurrent locks at session start. Skips expired claims (>5min TTL) and own PID. L-596. Artifact: experiments/conflict/f-con2-orient-claims-s355.json.
+  Status: **PARTIAL+** — tool built, tested, and integrated into orient.py. Next: run 3 sessions with claims enabled and measure C-EDIT rate; add maintenance.py cleanup hook for stale claims.
 
 - **F-CON3**: Can immune-response detection stop A1 (constitutional mutation) conflicts mid-session?
   Design: on session start, hash CLAUDE.md + CORE.md. On session end, rehash. If changed by another session mid-run, emit bulletin. Measure false positive rate and detection latency.

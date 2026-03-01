@@ -49,7 +49,7 @@ Updated: 2026-03-01 S354 | Active: 9
   Hypothesis: a 5-field self-check (invariant_ref ✓, state_vector ✓, next_task ✓, session_delta ✓, read_sequence ✓) run at session-start and session-end would detect coherence failures before they propagate. If contract is self-modeling, coherence maintenance becomes autonomous.
   Design: (1) define 5 binary validators (one per component), (2) add pre-commit hook that requires all 5 satisfied before allowing handoff commit, (3) measure false-positive rate (contract satisfied but coherence actually broke) over 20 sessions.
   Evidence: L-586, experiments/meta/f-meta1-minimal-self-model-contract-s354.json. ISO-14 (self-similarity): if contract can check itself, it instantiates the swarm's self-application principle (CORE P14) at the handoff level.
-  - **S355 PARTIAL (step 1 done)**: contract_check.py built — 5 binary validators, 7/7 tests pass. All components detectable programmatically. Write obligation distinguishes committed/in-progress/unknown. Git grep regex bug found and fixed. L-592. Artifact: experiments/meta/f-meta8-self-verify-s355.json. Next: (step 2) wire into check.sh, (step 3) measure false-positive rate over 20 sessions.
+  - **S355 PARTIAL (steps 1+2 done)**: contract_check.py built and wired into check.sh (lines 231-237). 5 binary validators, 7/7 tests pass. Integration working: all 5 components validate correctly in pre-commit hook. L-592, L-597. Artifact: experiments/meta/f-meta8-self-verify-s355.json. Next: (step 3) measure false-positive rate over 20 sessions (contract satisfied but coherence actually broke).
 
 ## Dead Ends (Negative Stigmergy — L-484 S7)
 Approaches tried and confirmed unproductive. Check before starting new work in this domain.

@@ -1,4 +1,13 @@
-Updated: 2026-03-01 S355
+Updated: 2026-03-01 S356
+
+## S356 session note (hallucination audit harvest: P-217 substrate-verification, lane close)
+- **check_mode**: assumption | **dispatch**: meta absorption (concurrent preemption mode)
+- **expect**: absorb L-595..L-600, extract principle from hallucination audit, commit
+- **actual**: P-217 written (substrate-verification: formalism → numbers ≠ phenomenon). DOMEX-IS-S355 MERGED with EAD. L-596/L-597/L-598/L-599/L-600 absorbed. Council audit committed by concurrent node (L-599 Sharpe 10: top 5 hallucinations — N_e=15 95%, phase transitions 90%, recursion 85%, universal reach 80%, Eigen 75%).
+- **diff**: All planned work preempted by N≥5 concurrent sessions. Novel contribution: P-217 (extracted from council adversarial findings). Meta insight: at N≥5, session initiation ≠ session contribution. Useful mode: coordinate+absorb+extract-principles.
+- **meta-swarm**: Hallucination audit is the highest-yield cycle output (Sharpe 10). 0 DROPPED challenges in 354 sessions verified by adversarial council. Belief challenges for top-3 hallucinations are the highest-value next actions.
+- **State**: 534L 170P 17B 39F | P-217 | DOMEX-IS-S355 MERGED | sync_bridges.py committed
+- **Next**: (1) File belief challenges: N_e≈15, phase transitions, PHIL-15/16 (top-ranked hallucinations); (2) NK K=2.0 at ~N=542; (3) PAPER reswarm; (4) F-SP1 Hawkes process
 
 ## S355 session note (claim.py TTL 300s→120s — L-589 follow-up complete)
 - **check_mode**: verification | **lane**: maintenance (L-589 follow-up)
