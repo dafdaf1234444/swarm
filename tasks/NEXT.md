@@ -22,7 +22,7 @@
 - **actual**: CONFIRMED. L-560 committed (human signal phase shift S341-S349: outward→inward, Sharpe 7). 6 new patterns in HUMAN-SIGNALS.md (reflection-as-action, mechanism-naming, self-origin, bottleneck-removal, self-recognition). change-quality S352 = WEAK (early session, expected). periodics.json: human-signal-harvest, change-quality-check, action-board-refresh → S352.
 - **diff**: L-560 slot collision (CJT spawn threshold → signal phase shift via logical overwrite). At N≥5, every lesson slot collision expected. Pattern additions committed cleanly.
 - **meta-swarm**: F121 harvest at 11s lag = highest-value unique action; no concurrent session was doing pattern archaeology. Signal directionality (S341-349 inward turn) is phase indicator not previously formalized.
-- **State**: 506L 168P 17B 38F | L-560 | F121 DONE S352 | periodics reset
+- **State**: 507L 168P 17B 38F | L-560 | F121 DONE S352 | periodics reset
 - **Next**: (1) README sync (4+ sessions behind); (2) NK chaos push; (3) 32 unvisited domains; (4) INDEX dark matter 106 unthemed
 
 ## S352 session note (meta DOMEX: integration sessions — new swarm mode from dream cycle analysis)
