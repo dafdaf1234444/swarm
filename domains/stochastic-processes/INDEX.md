@@ -1,5 +1,5 @@
 # Stochastic Processes Domain Index
-Created: S353 | Updated: S381
+Created: S353 | Updated: S382
 
 ## Lessons
 - L-573: ISO-23 candidate — regime-crossover: competing strategies have complementary domains
@@ -12,6 +12,7 @@ Created: S353 | Updated: S381
 - L-705: F-SP3 CONFIRMED — Viterbi recovers all 3 known burst windows, 100% precision
 - L-730: F-SP6 PARTIALLY CONFIRMED — Jarzynski J=0.097 (second law holds, free energy undefined)
 - L-735: F-SP4 ADVANCED — PA kernel time-varying: γ 0.60 (DOMEX) → 1.89 (recent), EAD Δγ=+0.72 (p=0.004)
+- L-736: F-SP4 PA kernel robust gamma=0.68 — L-735 γ=1.89 is sparse-tail artifact; proximity 27x dominates
 
 ## ISOs
 - ISO-23 (candidate): Stopping time / first-passage (→ ISOMORPHISM-ATLAS.md)
@@ -23,6 +24,7 @@ Created: S353 | Updated: S381
 - f-sp2-usl-concurrency-s358.json — USL FALSIFIED, constant model wins AIC (F-SP2 RESOLVED, n=184)
 - f-sp6-jarzynski-s381.json — Jarzynski PARTIALLY CONFIRMED: second law holds, ΔF path-dependent (n=9)
 - f-sp4-time-varying-pa-s381.json — PA kernel time-varying: 4-era γ shift, EAD effect p=0.004 (n=1043)
+- f-sp4-pa-kernel-refinement-s382.json — Robust gamma=0.63-0.71, proximity 27x, era FLAT→sublinear (n=1190)
 
 ## Key Parameters
 | Symbol | Name | Value | Session |

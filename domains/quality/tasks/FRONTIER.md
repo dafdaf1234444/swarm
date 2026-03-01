@@ -1,12 +1,10 @@
 # Quality Domain — Frontier Questions
 Domain agent: write here for quality-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-01 S359 | Active: 3 | Resolved: 2
+Updated: 2026-03-01 S381 | Active: 2 | Resolved: 3
 
 ## Active
 
 
-
-- **F-QC3**: Which domain pairs have the highest cross-domain lesson redundancy? Hypothesis (B-QC3): domain pairs that share an isomorphism in ISOMORPHISM-ATLAS will also share near-duplicate lessons — the same structural insight gets written twice, once per domain vocabulary. Method: (1) extract domain assignments from each lesson's citation header; (2) run Jaccard similarity within and across domain groups; (3) compute cross-domain redundancy matrix (N_domains x N_domains); (4) compare top-redundancy pairs against ISOMORPHISM-ATLAS entries. Expected: evolution↔meta, brain↔ai, and game-theory↔operations-research show highest overlap. Related: F-QC1 (near-duplicate detection), F126 (isomorphism atlas), domains/ISOMORPHISM-ATLAS.md. (S239)
 
 - **F-QC4**: Can swarm auto-assign theme labels to new lessons at write-time to prevent corpus indexing lag? Problem (L-308): 192/288 lessons (67%) are unthemed; dream.py theme gravity covers only ~33% of corpus. Theme assignment is 100% manual — it lags by design. Hypothesis: a lightweight classifier (keywords → theme bucket) integrated into the lesson-writing workflow would reduce unthemed fraction below 20% within 5 sessions. Design: (1) build theme keyword map from existing themed lessons; (2) auto-suggest theme at lesson-write time via `compact.py` or a new `lesson_tagger.py`; (3) measure unthemed fraction at S195 vs S190 baseline. Success = <20% unthemed. Related: F125 (dream cycle), L-308 (corpus indexing lag), P-011 (flat→hierarchical when outgrown).
 
@@ -17,3 +15,4 @@ Updated: 2026-03-01 S359 | Active: 3 | Resolved: 2
 |----|--------|---------|------|
 | F-QC1 | CONFIRMED: 15.3% duplication rate (35 pairs, 44 flagged / 288 lessons) exceeds 2–10% hypothesis. Two dominant patterns: same-session multi-agent convergence (L-257/267) and sequential refinement without scan (L-285/292). Prescription: expand quality gate to last 20 titles; flag same-session pairs in compact.py. See L-309. | S189 | 2026-02-28 |
 | F-QC2 | CONFIRMED (strict): 5% framing-contradicted (1/20: L-025 edge-of-chaos falsified by F9-NK RESOLVED), 20% broad (3/20 mechanism-superseded: L-019 HANDOFF.md→NEXT.md, L-042 composite→cycles, L-039 tension). 0% principle-contradicted. Decay is mechanism-level, not principle-level. Freshness gap bimodal: 11/20 <10 sessions (active), 6/20 >100 (canonical). Best staleness predictor: specific tool/metric recommendation subsequently tested. High citation partially protective. See L-633, experiments/quality/f-qc2-knowledge-decay-s359.json. | S359 | 2026-03-01 |
+| F-QC3 | PARTIALLY CONFIRMED: cross-domain redundancy 0.07% (J>=0.25), 200x lower than within-domain (F-QC1: 15.3%). Atlas ratio threshold-sensitive (1.03-2.27x, small n). Domain-specific vocabulary prevents textual overlap; ISOMORPHISM-ATLAS compresses shared structure separately. Top pairs: ai×nk-complexity, economy×graph-theory. Cross-domain dedup unnecessary. See L-738, experiments/quality/f-qc3-redundancy-matrix-s381.json. | S381 | 2026-03-01 |

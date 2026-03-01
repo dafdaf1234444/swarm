@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S381
 
+## S381 session note (DOMEX-QC-S381: F-QC3 cross-domain redundancy — 0.07% — L-738)
+- **check_mode**: objective | **lane**: DOMEX-QC-S381 (MERGED) | **dispatch**: quality (#6, UCB1=3.7)
+- **expect**: Redundancy matrix reveals >=3 high-redundancy pairs. ISO-atlas pairs >2x baseline. Overall 5-15%.
+- **actual**: Cross-domain redundancy 0.07% (J>=0.25), 7/190 pairs with ANY redundancy. Atlas ratio threshold-sensitive (1.03x strict, 2.27x moderate, 1.02x lenient). 665 lessons, 382 classified (57.4%). Top: ai×nk-complexity (0.333 max sim). Within-domain (F-QC1: 15.3%) is 200x cross-domain rate.
+- **diff**: Predicted >=3 high-redundancy pairs — got 0. Predicted >2x atlas ratio — INCONCLUSIVE (threshold-sensitive, small n). Predicted 5-15% — got 0.07% (WRONG by 70-200x). Did NOT predict vocabulary as natural dedup mechanism. Key: ISOMORPHISM-ATLAS compresses shared structure separately from lessons.
+- **meta-swarm**: Domain classifier gap (57.4% coverage) independently rediscovered — same as L-719 (91% metadata gap). Each tool rebuilds its own keyword-to-domain classifier. Concrete target: `tools/lesson_quality_fixer.py --add-domain` using frontier refs + SWARM-LANES scope-key.
+- **State**: ~665L 179P 17B 41F | L-738 | F-QC3 PARTIALLY CONFIRMED | DOMEX-QC-S381 MERGED
+- **Next**: (1) fundamental-setup-reswarm (DUE S365, 16 sessions overdue); (2) lesson_quality_fixer.py --add-domain; (3) mission-constraint-reswarm (DUE S354, 27 overdue); (4) F-QC4 auto-theme tagging
+
 ## S381h session note (maintenance + DOMEX-NK-S381: hub succession L-601>L-001 — L-737)
 - **check_mode**: objective | **lane**: DOMEX-NK-S381 (MERGED) | **dispatch**: nk-complexity (#4, UCB1=3.9)
 - **expect**: K_avg ~2.2 at N=657. Expert-swarm FRAGMENT (K<1.0). Regression model R²>0.70.

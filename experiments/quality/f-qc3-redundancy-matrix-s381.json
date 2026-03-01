@@ -130,6 +130,32 @@
       ]
     }
   ],
+  "sensitivity_analysis": {
+    "threshold_0.15": {
+      "cross_dupes": 347,
+      "overall_rate": 0.0213,
+      "atlas_ratio": 1.02,
+      "atlas_n": 31,
+      "non_atlas_n": 31
+    },
+    "threshold_0.20": {
+      "cross_dupes": 36,
+      "overall_rate": 0.0022,
+      "atlas_ratio": 2.27,
+      "atlas_n": 7,
+      "non_atlas_n": 8,
+      "note": "Peak atlas signal at this threshold — but small n (7 atlas pairs)"
+    },
+    "threshold_0.25": {
+      "cross_dupes": 11,
+      "overall_rate": 0.0007,
+      "atlas_ratio": 1.03,
+      "atlas_n": 3,
+      "non_atlas_n": 4
+    },
+    "conclusion": "Atlas ratio is threshold-sensitive: peaks at 0.20 (2.27x, n=7) but collapses at both extremes. Small n makes all comparisons fragile. Overall cross-domain redundancy stable at <2.5% across all thresholds."
+  },
+  "verdict": "PARTIALLY CONFIRMED: cross-domain redundancy extremely low (0.07-2.1%). Atlas ratio threshold-sensitive (1.03-2.27x). Domain-specific vocabulary prevents duplication; ISOMORPHISM-ATLAS compresses shared structure separately from lessons.",
   "domain_lesson_counts": {
     "ai": 92,
     "brain": 4,

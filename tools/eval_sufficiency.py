@@ -45,19 +45,23 @@ def _get_current_session() -> str:
 # ---------------------------------------------------------------------------
 
 def _load_session_log() -> list[dict]:
-    """Parse SESSION-LOG.md for per-session L+P entries."""
+    """Parse SESSION-LOG.md for per-session L+P entries.
+
+    Aggregates multiple log lines for the same session number into a single
+    entry (high-concurrency sessions produce multiple log lines per session).
+    """
     path = ROOT / "memory" / "SESSION-LOG.md"
-    sessions = []
+    by_session: dict[int, dict] = {}
     pat = re.compile(r"S(\d+)\s*[\t|].*?\+(\d+)L.*?\+(\d+)P")
     for line in path.read_text(encoding="utf-8").splitlines():
         m = pat.search(line)
         if m:
-            sessions.append({
-                "session": int(m.group(1)),
-                "lessons": int(m.group(2)),
-                "principles": int(m.group(3)),
-            })
-    return sorted(sessions, key=lambda x: x["session"])
+            s = int(m.group(1))
+            if s not in by_session:
+                by_session[s] = {"session": s, "lessons": 0, "principles": 0}
+            by_session[s]["lessons"] += int(m.group(2))
+            by_session[s]["principles"] += int(m.group(3))
+    return sorted(by_session.values(), key=lambda x: x["session"])
 
 
 def _count_swarm_lanes() -> dict:
@@ -148,28 +152,55 @@ def _count_human_signals() -> dict:
 
 
 def _count_frontiers() -> dict:
-    """Count open vs resolved frontier questions."""
+    """Count open vs resolved frontier questions.
+
+    Open frontiers: bullet entries (``- **F...**``) in active sections.
+    Resolved frontiers: table data rows in FRONTIER-ARCHIVE.md (global)
+    and ``## Resolved`` sections in domain FRONTIER.md files.
+    """
+    # --- Global open: count actual bullet entries before Archive section ---
+    # Note: the "## Domain frontiers" section contains both reference links to
+    # domain files AND actual open frontier entries, so we only stop at Archive.
     path = ROOT / "tasks" / "FRONTIER.md"
     text = path.read_text(encoding="utf-8")
-    open_match = re.search(r"(\d+) active", text)
+    active_section = re.split(r"^## Archive", text, flags=re.MULTILINE)[0]
+    global_open = len(re.findall(r"^\s*-\s*\*\*F[\w-]+\*\*", active_section, re.MULTILINE))
 
-    # Resolved frontiers are tracked in INDEX.md as "F-NNN RESOLVED" references
-    index_text = (ROOT / "memory" / "INDEX.md").read_text(encoding="utf-8")
-    global_resolved = len(re.findall(r"F\d+\s+RESOLVED", index_text))
+    # --- Global resolved: count data rows in FRONTIER-ARCHIVE.md ---
+    archive_path = ROOT / "tasks" / "FRONTIER-ARCHIVE.md"
+    global_resolved = 0
+    if archive_path.exists():
+        archive_text = archive_path.read_text(encoding="utf-8")
+        archive_rows = [
+            l for l in archive_text.splitlines()
+            if l.strip().startswith("|") and "---" not in l
+            and "ID" not in l and "Answer" not in l
+        ]
+        global_resolved = len(archive_rows)
 
-    # Domain frontiers
+    # --- Domain frontiers ---
     domain_frontier_files = list(ROOT.glob("domains/*/tasks/FRONTIER.md"))
     domain_open = 0
     domain_resolved = 0
     for f in domain_frontier_files:
         t = f.read_text(encoding="utf-8")
-        active_m = re.search(r"Active: (\d+)", t)
-        if active_m:
-            domain_open += int(active_m.group(1))
-        # Domain resolved rows have "| ID | Answer |" table format
-        domain_resolved += len(re.findall(r"^\| F-\w+", t, re.MULTILINE))
+        # Domain open: bullet entries before ## Resolved section
+        active_part = t.split("## Resolved")[0] if "## Resolved" in t else t
+        domain_open += len(re.findall(r"^\s*-\s*\*\*F-?\w+\*\*", active_part, re.MULTILINE))
+        # Domain resolved: table data rows in ## Resolved section
+        if "## Resolved" in t:
+            resolved_section = t.split("## Resolved", 1)[1]
+            # Stop at next ## section if present
+            resolved_section = re.split(r"^## ", resolved_section, flags=re.MULTILINE)[0]
+            rows = [
+                l for l in resolved_section.splitlines()
+                if l.strip().startswith("|") and "---" not in l
+                and "ID" not in l and "Answer" not in l
+                and "(none yet" not in l
+            ]
+            domain_resolved += len(rows)
     return {
-        "global_open": int(open_match.group(1)) if open_match else 0,
+        "global_open": global_open,
         "global_resolved": global_resolved,
         "domain_open": domain_open,
         "domain_resolved": domain_resolved,
