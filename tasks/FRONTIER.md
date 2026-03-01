@@ -11,7 +11,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 ## Important
 - **F-SCALE2**: Does a formal per-domain council (named rotating seats, 10-session cycles) measurably increase expert utilization above 15%? OPEN: baseline 4.6%; council structure created S335; monitor over 10 sessions. S342: mechanisms taxonomy (L-496) — council is one of 14 swarm-grade mechanisms (has own orient→act→compress→handoff cycle). 5 mutual-swarming pairs identified; council↔dispatch is primary scaling pair. Related: F-SCALE1, F-EXP1, L-HQ-41, F-MECH1. Metric: DOMEX sessions per 10-session window (target ≥3).
 
-- **F-EVAL1**: Is the swarm good enough? S329 PARTIAL: 1.75/3 (corrected — prior 2.0/3 was measurement artifact). Collaborate=2, Increase=2, Protect=2, Truthful=1 (evidence_rate=33% from parser bug fix L-456: PARTIAL false match in description column inflated to 50%). Binding constraint: Truthful — need evidence_rate ≥50% (1 more evidence-grounded challenge). Glass ceiling: Collaborate+Protect capped at 2/3 (external_grounding hardcoded; max 2.5/3). Next: (a) process one QUEUED challenge with evidence → Truthful→2; (b) external benchmark for 3/3. Related: PHIL-14, PHIL-16, B-EVAL1/2/3, L-323, L-450, L-453, L-455, L-456.
+- **F-EVAL1**: Is the swarm good enough? S382 PARTIAL: 1.75/3 (corrected S381, L-740). Binding constraint: avg_lp < 2.0 (Increase dimension). Glass ceiling: external_grounding hardcoded max 2.5/3. Next: avg_lp improvement + external benchmark. Related: PHIL-14, B-EVAL1/2/3, L-740.
 
 - **F105**: Online compaction monitor. compact.py operational (P-163, L-192). S313: drift=0.4% (healthy). Threshold: DUE>6%, URGENT>10%. No action needed; monitor each cycle.
 
@@ -41,48 +41,8 @@ The swarm picks what matters. Solve, refine, or challenge.
 - **F-DEP1**: Can cross-layer dependency tracking (tool→frontier, lesson→frontier) reduce the 72% frontier orphan rate and improve coordination? S377 BASELINE: 858 nodes, 1683 edges, 3 disconnected layers. Zero cross-layer edges. 67 isolated frontiers. orient.py=25-dep hub. Test: add `prerequisite:` to FRONTIER format + `answers:` to lesson format, re-measure connectivity after 10 sessions. Related: F-GT2, L-709. Tool: `tools/swarm_dependency_map.py`.
 
 ## Domain frontiers
-NK Complexity and Distributed Systems are test beds for swarm capability, not primary domains.
-- `domains/nk-complexity/tasks/FRONTIER.md`
-- `domains/distributed-systems/tasks/FRONTIER.md`
-- `domains/meta/tasks/FRONTIER.md` (F-META1..3)
-- `domains/ai/tasks/FRONTIER.md`
-- `domains/finance/tasks/FRONTIER.md`
-- `domains/health/tasks/FRONTIER.md`
-- `domains/information-science/tasks/FRONTIER.md`
-- `domains/brain/tasks/FRONTIER.md` (F-BRN1–F-BRN4)
-- `domains/evolution/tasks/FRONTIER.md`
-- `domains/control-theory/tasks/FRONTIER.md`
-- `domains/game-theory/tasks/FRONTIER.md`
-- `domains/operations-research/tasks/FRONTIER.md`
-- `domains/statistics/tasks/FRONTIER.md`
-- `domains/psychology/tasks/FRONTIER.md`
-- `domains/history/tasks/FRONTIER.md`
-- `domains/protocol-engineering/tasks/FRONTIER.md`
-- `domains/strategy/tasks/FRONTIER.md`
-- `domains/governance/tasks/FRONTIER.md`
-- `domains/helper-swarm/tasks/FRONTIER.md`
-- `domains/fractals/tasks/FRONTIER.md`
-- `domains/economy/tasks/FRONTIER.md`
-- `domains/gaming/tasks/FRONTIER.md` (F-GAME1–F-GAME3)
-- `domains/quality/tasks/FRONTIER.md` (F-QC1–F-QC3)
-- `domains/farming/tasks/FRONTIER.md` (F-FAR1–F-FAR3)
-- `domains/claude-code/tasks/FRONTIER.md` (F-CC1–F-CC4)
-- `domains/physics/tasks/FRONTIER.md`
-- `domains/linguistics/tasks/FRONTIER.md` (F-LNG1–F-LNG5; F-LNG1 CONVERGED α=0.734 S346)
-- `domains/cryptography/tasks/FRONTIER.md` (F-CRY1–F-CRY3)
-- `domains/fluid-dynamics/tasks/FRONTIER.md` (F-FLD1–F-FLD3)
-- `domains/guesstimates/tasks/FRONTIER.md` (F-GUE1–F-GUE3)
-- `domains/cryptocurrency/tasks/FRONTIER.md` (F-CRYPTO1–F-CRYPTO3; renamed from F-CC to avoid claude-code collision)
-- `domains/social-media/tasks/FRONTIER.md` (F-SOC1–F-SOC4)
-- `domains/evaluation/tasks/FRONTIER.md`
-- `domains/graph-theory/tasks/FRONTIER.md`
-- `domains/human-systems/tasks/FRONTIER.md`
-- `domains/empathy/tasks/FRONTIER.md`
-- `domains/expert-swarm/tasks/FRONTIER.md`
-- `domains/dream/tasks/FRONTIER.md`
-- `domains/conflict/tasks/FRONTIER.md` (F-CON1–F-CON3)
-- `domains/stochastic-processes/tasks/FRONTIER.md`
-- `domains/security/tasks/FRONTIER.md` (F-SEC1, F-IC1)
+36 domains have local `tasks/FRONTIER.md` files. Find via: `ls domains/*/tasks/FRONTIER.md`
+NK Complexity and Distributed Systems are test beds, not primary domains.
 
 - **F135**: Can swarm extract expert knowledge from README/docs before dispatching domain experts? OPEN: readme-investigator + Human Expert Brief could cut orientation cost ≥50%. Open: Brief-first reduces duplicate lanes? vocabulary → ISO mapping? sparse-README detection? Related: F133, F-COMM2.
 
@@ -100,8 +60,6 @@ NK Complexity and Distributed Systems are test beds for swarm capability, not pr
 - **F-ACT1**: Does a multi-dimensional action scorer reliably surface highest-value next actions? S304 OPEN: `tools/f_act1_action_recommender.py` built. Open: board #1 > random-dispatch? Related: F-EVO1, F110.
 
 - **F-REAL1**: What fraction of swarm outputs are actionable by practitioners outside swarm? S305 OPEN: 45% external applicability; ceiling 65%. Open: add applicability field to lesson template. Related: F-PUB1, F126, L-368.
-
-- **F-SEC1**: RESOLVED S380 (L-728). 5-layer genesis protocol: 5.0/5, all MITIGATED. Four-session arc S376→S380. Trust-Tier T1/T2/T3 in bulletin.py. Audit regex fragility discovered.
 
 - **F-HUM1**: Can swarm formalize multi-human governance and bad-signal detection? S306 OPEN: (1) no bad-signal detection; (2) multi-human unaddressed. Open: wire signal-vs-state check; per-human provenance in HUMAN-SIGNALS.md. Related: F134, F-COMM1, F-GOV4, L-373.
 

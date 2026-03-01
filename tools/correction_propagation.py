@@ -39,6 +39,12 @@ _SUPERSEDE_KW = r"(?:supersed(?:es|ed)|replac(?:es|ed)\s+by|obsolet)"
 
 CITE_PAT = re.compile(r"\bL-(\d+)\b")
 
+# Known indirect falsifications: corrector doesn't cite falsified lesson directly.
+# Format: {falsified_id: {corrector_ids}}
+_KNOWN_FALSIFICATIONS: dict[str, set[str]] = {
+    "L-025": {"L-613", "L-618"},  # edge-of-chaos → architectural maturity
+}
+
 
 def _parse_lessons() -> dict[str, dict]:
     """Parse all lessons: extract citations, title, and text."""
@@ -142,28 +148,61 @@ def _detect_falsified_lessons(
         if target in lessons:
             result.setdefault(target, set()).add(corrector)
 
+    # Merge known indirect falsifications (seed)
+    for fid, correctors in _KNOWN_FALSIFICATIONS.items():
+        if fid in lessons:
+            result.setdefault(fid, set()).update(correctors)
+
     # Remove self-falsification artifacts (lesson can't falsify itself)
     for lid in list(result):
         result[lid].discard(lid)
         if not result[lid]:
             del result[lid]
 
-    # Remove correctors from the falsified list when they appear ONLY because
-    # they describe falsifying others (not because they ARE falsified).
-    # A corrector is genuinely falsified only if a THIRD lesson says so.
+    # Remove false positives: lessons that contain FALSIFIED because they're
+    # REPORTING a falsification (correctors), not because they ARE falsified.
+    # A lesson is genuinely falsified only if it self-declares via:
+    #   - SUPERSEDED / retracted markers at the top
+    #   - "falsified by L-NNN" pattern
+    # A lesson that describes "X FALSIFIED" or "hypothesis FALSIFIED" is a
+    # corrector — remove it from the falsified list.
     all_correctors = set()
     for correctors in result.values():
         all_correctors.update(correctors)
 
     for cid in list(result.keys()):
+        own_text = lessons.get(cid, {}).get("text", "")
+
+        # Self-declares as superseded/retracted → genuinely falsified
+        if re.search(
+            r"^<!--\s*SUPERSEDED|^\s*SUPERSEDED|^\[SUPERSEDED|retracted",
+            own_text,
+            re.IGNORECASE | re.MULTILINE,
+        ):
+            continue  # keep in list
+
+        # Explicitly says "falsified by L-NNN" → genuinely falsified
+        if re.search(r"falsified\s+by\s+L-\d+", own_text, re.IGNORECASE):
+            continue  # keep in list
+
+        # In the known seed → keep
+        if cid in _KNOWN_FALSIFICATIONS:
+            continue
+
+        # If the lesson itself reports falsification of something else
+        # (e.g., "predictions FALSIFIED", "hypothesis FALSIFIED", "X FALSIFIED"),
+        # it's a corrector — not falsified.
+        if re.search(
+            r"(?:predictions?|hypothesis|model|claim)\s+FALSIFIED",
+            own_text,
+        ):
+            del result[cid]
+            continue
+
+        # If it's known as a corrector elsewhere and doesn't self-declare, remove it
         if cid in all_correctors:
-            # Check: do any of cid's correctors NOT come from cid itself
-            # being a corrector of a parent? (i.e., a third-party says cid is wrong)
-            third_party_correctors = result[cid] - {
-                target for target, cs in result.items() if cid in cs
-            }
-            if not third_party_correctors:
-                del result[cid]
+            del result[cid]
+            continue
 
     return result
 
