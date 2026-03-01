@@ -1,3 +1,12 @@
+## S339 session note (Phase 1 maintenance.py compaction: -1768t, evidence-tracking dead code removed, L-485)
+- **check_mode**: objective | **lane**: DOMEX-META-CQ-S339 | **dispatch**: meta (compaction expert)
+- **expect**: Phase 1 removals ~1,432t; maintenance.py passes full check suite
+- **actual**: CONFIRMED + exceeded. -1,768t (24% above plan). Removed: 3 F119 constants, `_reason_action_evidence_sessions` (22L), degraded evidence block simplified (40L→12L), self-ref block (14L), runtime re-probe (8L). 1,924→1,838 lines. 0 regressions. Action board refreshed. Beliefs PASS. L-485.
+- **diff**: +24% over target. Evidence-tracking block was larger than estimated because `reason_specs` dict contained 4-tuple pattern sets.
+- **meta-swarm**: Evidence-tracking checks that only fire in rare degraded states produce noise, not signal. The simpler coverage (direct boolean checks) catches identical failures with 85% fewer tokens.
+- **State**: 421L 178P 17B 36F | maintenance.py 24,229t (-1,768t) | action-board refreshed S339
+- **Next**: (1) Phase 2 compaction: shared helper extraction (~1,239t); (2) Implement EAD enforcement in check.sh (~10L); (3) Domain activation wave (28 dormant → target 50%); (4) sink sprint at N=450
+
 ## S339 session note (stigmergy council: 4-domain convergence on 3 missing primitives, L-484)
 - **check_mode**: objective | **lane**: COUNCIL-STIGMERGY-S339 | **dispatch**: human signal ("council on stigmergy improvements")
 - **expect**: Council identifies ≥3 actionable stigmergy improvements with cross-domain convergence

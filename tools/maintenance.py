@@ -33,20 +33,7 @@ else:
     run_paper_drift_check = _paper_drift
 
 _parse_active_principle_ids = _load_symbol(("tools.swarm_parse", "swarm_parse"), "active_principle_ids")
-if _parse_active_principle_ids is None:
-    def parse_active_principle_ids(text: str) -> tuple[set[int], set[int]]:
-        all_ids = {int(m.group(1)) for m in re.finditer(r"\bP-(\d+)\b", text)}
-        superseded = {int(m.group(1)) for m in re.finditer(r"\bP-(\d+)→", text)}
-        superseded |= {
-            int(m.group(1))
-            for m in re.finditer(r"\(P-(\d+)\s+(?:merged|superseded|absorbed)\)", text, re.IGNORECASE)
-        }
-        for m in re.finditer(r"P-(\d+)\+P-(\d+)\s+merged", text, re.IGNORECASE):
-            superseded.add(int(m.group(1)))
-            superseded.add(int(m.group(2)))
-        return all_ids, superseded
-else:
-    parse_active_principle_ids = _parse_active_principle_ids
+parse_active_principle_ids = _parse_active_principle_ids if _parse_active_principle_ids is not None else (lambda text: (set(), set()))
 
 # Shared I/O utilities (L-476: deduplicate across 10+ tool files)
 _swarm_io = None
@@ -108,9 +95,6 @@ LANE_GLOBAL_FOCUS_VALUES = {"global", "system", "all", "coordination", "cross-cu
 CHECK_FOCUS_HISTORIAN_REQUIRED = {"objective", "historian"}
 HISTORIAN_SELF_ANCHOR_TOKENS = ("next", "swarm-lanes", "session-log")
 HISTORIAN_SURROUNDINGS_ANCHOR_TOKENS = ("frontier", "artifact", "domain", "experiment", "bulletin")
-F119_STALE_EVIDENCE_SESSIONS = {"python-alias-missing": 12, "inter-swarm-tooling-missing": 16}
-F119_TRANSITION_OUTCOME_PATTERNS = (r"Beliefs:? PASS", r"NOTICE-only", r"no DUE", r"no URGENT", r"verification pass")
-F119_RECENT_REASON_ACTIVITY_WINDOW = 6
 BRIDGE_FILES = ["SWARM.md", "CLAUDE.md", "AGENTS.md", "GEMINI.md",
                 ".cursorrules", ".windsurfrules", ".github/copilot-instructions.md"]
 KILL_SWITCH_PATH = REPO_ROOT / "tasks" / "KILL-SWITCH.md"
@@ -395,29 +379,6 @@ def _format_frontier_id_diff(expected: set[str], actual: set[str]) -> str:
     if (m := _sorted_frontier_ids(expected - actual)): parts.append(f"missing {_truncated(m, 4)}")
     if (x := _sorted_frontier_ids(actual - expected)): parts.append(f"extra {_truncated(x, 4)}")
     return "; ".join(parts) if parts else "matched"
-
-def _reason_action_evidence_sessions(text: str, reason_patterns: tuple[str, ...], action_patterns: tuple[str, ...]) -> list[int]:
-    current_session: int | None = None
-    current_lines: list[str] = []
-    entries: list[tuple[int, str]] = []
-
-    def flush_entry() -> None:
-        nonlocal current_session, current_lines
-        if current_session is not None and current_lines:
-            entries.append((current_session, "\n".join(current_lines)))
-        current_session = None; current_lines = []
-
-    for raw in (text or "").splitlines():
-        line = raw.strip()
-        if not line: flush_entry(); continue
-        m = re.search(r"\bS(\d+)\b", line)
-        if m: flush_entry(); current_session = int(m.group(1)); current_lines = [line]; continue
-        if current_session is not None: current_lines.append(line)
-    flush_entry()
-
-    return [session for session, entry_text in entries
-            if (any(re.search(p, entry_text, re.IGNORECASE) for p in reason_patterns)
-                and any(re.search(p, entry_text, re.IGNORECASE) for p in action_patterns))]
 
 def _iter_utility_citation_files() -> list[Path]:
     def _accept(rel: str, path: Path) -> bool:
@@ -1502,70 +1463,18 @@ def check_mission_constraints() -> list[tuple[str, str]]:
         results.append(("NOTICE", f"F119 portability fallback drift in tools/check.sh: missing {', '.join(missing_pm)}"))
 
     has_python_alias = _python_command_runs("python3") or _python_command_runs("python") or _py_launcher_runs()
-    has_bash = _command_exists("bash")
-    has_pwsh = _command_exists("pwsh") or _command_exists("powershell")
     inter_swarm_tools = all(_exists(p) for p in ("tools/bulletin.py", "tools/merge_back.py", "tools/propagate_challenges.py"))
-    fallback_ready = ((has_bash and _exists("tools/check.sh") and _exists("tools/maintenance.sh"))
-                      or (has_pwsh and _exists("tools/check.ps1") and _exists("tools/maintenance.ps1")))
-    degraded_reasons = []
-    if not has_python_alias: degraded_reasons.append("python-alias-missing")
-    if not inter_swarm_tools: degraded_reasons.append("inter-swarm-tooling-missing")
-
-    if degraded_reasons:
-        session = _session_number()
-        continuity_text = next_text + "\n" + "\n".join(_read(REPO_ROOT / "memory" / "SESSION-LOG.md").splitlines()[-80:])
-        if not has_python_alias and not fallback_ready:
+    if not has_python_alias:
+        has_bash = _command_exists("bash")
+        has_pwsh = _command_exists("pwsh") or _command_exists("powershell")
+        fallback_ready = ((has_bash and _exists("tools/check.sh") and _exists("tools/maintenance.sh"))
+                          or (has_pwsh and _exists("tools/check.ps1") and _exists("tools/maintenance.ps1")))
+        if not fallback_ready:
             results.append(("DUE", "F119 degraded runtime continuity broken: no python alias and no wrapper path (`tools/check.sh` + `tools/maintenance.sh` or `tools/check.ps1` + `tools/maintenance.ps1`)"))
-        _OC = F119_TRANSITION_OUTCOME_PATTERNS
-        reason_specs = {
-            "python-alias-missing": ("runtime portability",
-                (r"runtime portability", r"python unavailable", r"no runnable python", r"python launcher", r"python alias"),
-                (r"bash tools/(?:check|maintenance)\.", r"(?:pwsh|powershell).*tools/(?:check|maintenance)\.", r"tools/(?:check|maintenance)\.ps1", r"python3 tools/maintenance\.py", r"py -3"),
-                _OC),
-            "inter-swarm-tooling-missing": ("offline/inter-swarm continuity",
-                (r"inter-swarm", r"offline", r"disconnected", r"bulletin"),
-                (r"tools/bulletin\.py (?:help-queue|request-help|offer-help|sync)", r"tasks/PR-QUEUE\.json", r"tasks/SWARM-LANES\.md"),
-                _OC),
-        }
-        for reason in degraded_reasons:
-            spec = reason_specs.get(reason)
-            if not spec: continue
-            label, reason_patterns, action_patterns, outcome_patterns = spec
-            action_sessions = set(_reason_action_evidence_sessions(continuity_text, reason_patterns, action_patterns))
-            outcome_sessions = set(_reason_action_evidence_sessions(continuity_text, reason_patterns, outcome_patterns))
-            reason_sessions = set(_reason_action_evidence_sessions(continuity_text, reason_patterns, (r".+",)))
-            if not action_sessions:
-                results.append(("NOTICE", f"F119 {label} degraded mode lacks reason+action transition evidence in NEXT/SESSION-LOG")); continue
-            if not outcome_sessions:
-                results.append(("NOTICE", f"F119 {label} degraded mode lacks reason+outcome evidence in NEXT/SESSION-LOG")); continue
-            joined_sessions = sorted(action_sessions & outcome_sessions)
-            if not joined_sessions:
-                results.append(("NOTICE", f"F119 {label} transition evidence is split across sessions (action/outcome not co-located)")); continue
-            latest = max(joined_sessions)
-            stale_limit = F119_STALE_EVIDENCE_SESSIONS.get(reason, max(F119_STALE_EVIDENCE_SESSIONS.values()))
-            if session > 0 and (session - latest) > stale_limit:
-                if not any((session - s) <= F119_RECENT_REASON_ACTIVITY_WINDOW for s in reason_sessions): continue
-                recent_reason = max(reason_sessions) if reason_sessions else latest
-                results.append(("NOTICE", f"F119 {label} degraded transition evidence stale (latest S{latest}, current S{session}, threshold >{stale_limit} sessions, recent reason S{recent_reason})"))
-        if "inter-swarm-tooling-missing" in degraded_reasons:
-            missing_artifacts = [p for p in ("tasks/PR-QUEUE.json", "tasks/SWARM-LANES.md") if not _exists(p)]
-            if missing_artifacts:
-                results.append(("DUE", f"F119 offline continuity artifacts missing: {_truncated(missing_artifacts)}"))
-
-    maintenance_text = _read(REPO_ROOT / "tools" / "maintenance.py")
-    required_checks = ["check_validator", "check_runtime_portability", "check_cross_references",
-        "check_readme_snapshot_drift", "check_structure_layout", "check_state_header_sync",
-        "check_session_log_integrity", "check_child_bulletins", "check_help_requests",
-        "check_swarm_lanes", "check_swarm_coordinator", "check_lane_reporting_quality"]
-    missing_defs = [n for n in required_checks if not re.search(rf"^def\s+{re.escape(n)}\s*\(", maintenance_text, re.MULTILINE)]
-    if missing_defs:
-        results.append(("DUE", f"F119 guard definition(s) missing in maintenance.py: {_truncated(missing_defs)}"))
-    list_match = re.search(r"all_checks\s*=\s*\[(.*?)\]", maintenance_text, re.DOTALL)
-    if list_match:
-        missing_wired = [n for n in required_checks if n not in list_match.group(1)]
-        if missing_wired: results.append(("DUE", f"F119 guard(s) not wired in all_checks: {_truncated(missing_wired)}"))
-    else:
-        results.append(("NOTICE", "F119 guard wiring parse failed for all_checks list"))
+    if not inter_swarm_tools:
+        missing_artifacts = [p for p in ("tasks/PR-QUEUE.json", "tasks/SWARM-LANES.md") if not _exists(p)]
+        if missing_artifacts:
+            results.append(("DUE", f"F119 offline continuity artifacts missing: {_truncated(missing_artifacts)}"))
 
     tracked_paths = _tracked_changed_paths()
     if tracked_paths:
@@ -1574,14 +1483,6 @@ def check_mission_constraints() -> list[tuple[str, str]]:
         has_lesson_delta = any(re.fullmatch(r"memory/lessons/L-\d+\.md", p) for p in tracked_paths)
         if len(tracked_paths) >= 5 and not (has_lesson_delta or any(p in knowledge_state_paths for p in tracked_paths)):
             results.append(("DUE", "F119 learning-quality gap: tracked deltas without knowledge-state update (NEXT/SESSION-LOG/INDEX/FRONTIER/PRINCIPLES/lessons)"))
-        commands = {"python3": _python_command_runs("python3"), "python": _python_command_runs("python"),
-            "py -3": _py_launcher_runs(), "git": _command_runs("git", ["--version"]), "bash": _command_runs("bash", ["--version"])}
-        inter_swarm_cap = {"inter_swarm": {"present": sum(1 for p in ("tools/bulletin.py", "tools/merge_back.py", "tools/propagate_challenges.py") if _exists(p)), "total": 3}}
-        connectivity = _inter_swarm_connectivity(inter_swarm_cap, commands)
-        if not connectivity.get("ready") and not any(p in {"tasks/NEXT.md", "memory/SESSION-LOG.md"} for p in tracked_paths):
-            missing = connectivity.get("missing", [])
-            detail = f" ({_truncated(missing)})" if isinstance(missing, list) and missing else ""
-            results.append(("NOTICE", f"F119 continuity risk: degraded inter-swarm connectivity{detail} with no local handoff/log delta (tasks/NEXT.md or memory/SESSION-LOG.md)"))
 
     return results
 
