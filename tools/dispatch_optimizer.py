@@ -187,11 +187,17 @@ def score_domain(domain: str) -> dict | None:
     if resolved_match:
         resolved_count = len(re.findall(r"^\| F", resolved_match.group(), re.MULTILINE))
 
-    # Unique ISO references in DOMAIN.md (cross-domain linkage)
+    # Concept counts from DOMAIN.md (multi-concept expertise — S346 human signal)
     iso_count = 0
+    lesson_count = 0
+    belief_count = 0
+    principle_count = 0
     if domain_md_path.exists():
         dm = domain_md_path.read_text()
         iso_count = len(set(re.findall(r"ISO-\d+", dm)))
+        lesson_count = len(set(re.findall(r"\bL-\d{3,4}\b", dm)))
+        belief_count = len(set(re.findall(r"\bB-?\d+\b", dm)))
+        principle_count = len(set(re.findall(r"\bP-\d{3}\b", dm)))
 
     # Experiment count (JSON artifacts produced)
     exp_dir = EXPERIMENTS_DIR / domain
@@ -203,14 +209,28 @@ def score_domain(domain: str) -> dict | None:
     has_index = index_path.exists()
 
     # --- Yield score formula ---
-    # iso_count * 3.0  : cross-domain leverage (highest multiplier)
-    # resolved * 2.0   : domain maturity (team knows how to extract lessons here)
-    # active * 1.5     : open work (demand signal)
-    # novelty +2.0     : uncharted territory bonus (exp_count == 0)
-    # has_index +1.0   : orientation artifact present
+    # Multi-concept scoring (S346 human signal: expertise beyond isomorphisms)
+    # iso_count * 2.0     : cross-domain leverage (rebalanced from 3.0)
+    # lesson_count * 0.5  : empirical grounding (domain has generated findings)
+    # belief_count * 2.0  : tested claims (high-value knowledge)
+    # resolved * 2.0      : domain maturity (team knows how to extract lessons here)
+    # active * 1.5        : open work (demand signal)
+    # novelty +2.0        : uncharted territory bonus (exp_count == 0)
+    # has_index +1.0      : orientation artifact present
+    # concept_diversity * 2.0 : breadth reward (how many concept types present)
     novelty_bonus = 2.0 if exp_count == 0 else 0.0
+    concept_types = sum([
+        iso_count > 0,
+        lesson_count > 0,
+        belief_count > 0,
+        principle_count > 0,
+        exp_count > 0,
+    ])
     score = (
-        iso_count * 3.0
+        iso_count * 2.0
+        + lesson_count * 0.5
+        + belief_count * 2.0
+        + concept_types * 2.0
         + resolved_count * 2.0
         + active_count * 1.5
         + novelty_bonus
@@ -229,6 +249,10 @@ def score_domain(domain: str) -> dict | None:
         "active": active_count,
         "resolved": resolved_count,
         "iso": iso_count,
+        "lessons": lesson_count,
+        "beliefs": belief_count,
+        "principles": principle_count,
+        "concept_types": concept_types,
         "experiments": exp_count,
         "has_index": has_index,
         "novelty_bonus": novelty_bonus > 0,
@@ -337,8 +361,8 @@ def run(args: argparse.Namespace) -> None:
             print(f"  CLAIMED (by active agent): {', '.join(claimed)}")
         print()
 
-    print(f"{'Score':>6}  {'Domain':<28}  {'Active':>6}  {'Resolved':>8}  {'ISO':>4}  {'Exps':>5}  {'Heat':>4}")
-    print("-" * 80)
+    print(f"{'Score':>6}  {'Domain':<25}  {'Act':>3}  {'Res':>3}  {'ISO':>3}  {'L':>3}  {'B':>2}  {'P':>3}  {'CT':>2}  {'Heat':>4}")
+    print("-" * 85)
 
     for r in results:
         heat_icon = {"HOT": "🔥", "WARM": "~", "COLD": "❄"}.get(r.get("heat", ""), " ")
@@ -348,8 +372,9 @@ def run(args: argparse.Namespace) -> None:
         lessons_str = f" {r.get('outcome_lessons', 0)}L" if r.get("outcome_lessons", 0) > 0 else ""
         outcome_tag = f" [{label} {r['outcome_merged']}/{n}{lessons_str}]" if n >= OUTCOME_MIN_N else ""
         print(
-            f"{r['score']:6.1f}  {r['domain']:<28}  {r['active']:6d}  "
-            f"{r['resolved']:8d}  {r['iso']:4d}  {r['experiments']:5d}  {heat_icon:>4}{claimed_mark}{outcome_tag}"
+            f"{r['score']:6.1f}  {r['domain']:<25}  {r['active']:3d}  {r['resolved']:3d}  "
+            f"{r['iso']:3d}  {r['lessons']:3d}  {r['beliefs']:2d}  {r['principles']:3d}  "
+            f"{r['concept_types']:2d}  {heat_icon:>4}{claimed_mark}{outcome_tag}"
         )
         if r["top_frontier"]:
             print(f"         → {r['top_frontier'][:72]}")

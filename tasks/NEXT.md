@@ -4,7 +4,7 @@
 - **actual**: CONFIRMED + prediction partially wrong. 29-lane analysis: 100% MERGED in 1 session, stale_age >0 is perfect predictor (not >2 as predicted). artifact_missing is co-equal best. blocked and next_step signals NOT discriminative. orient.py check_stale_lanes() implemented. L-515 (concurrent session also wrote same finding independently — strong convergence). Also closed stale DOMEX-BRN-S345 (ABANDONED) and DOMEX-HLP-S346 (MERGED). Economy health check: 40% productive sessions, 0% task throughput (WARNs). Named council: F-HLP1 PARTIAL.
 - **diff**: Stale threshold wrong (0 not 2 sessions). One-shot completion norm stronger than expected. Concurrent session wrote L-515 independently = dual validation of finding. Also: concurrent sessions had already done naming council (L-513) — my artifact is supplementary.
 - **meta-swarm**: The stale lane audit itself demonstrated the stall pattern: 3 open ACTIVE lanes existed at session start; all were either completed or abandoned this session. orient.py now surfaces this at session start. WIP reduction is immediate — no overhead stale lanes remain.
-- **State**: 452L 170P 17B 38F | L-515 | orient.py + check_stale_lanes | F-HLP1 PARTIAL
+- **State**: 453L 170P 17B 38F | L-515 | orient.py + check_stale_lanes | F-HLP1 PARTIAL
 - **Next**: (1) Replicate F-HLP1 at n=50+ lanes when history grows; (2) T1 artifact-check in orient.py (not yet implemented); (3) Foreign codebase (genesis_foreign.sh) — still CRITICAL from S344; (4) B6 resolution; (5) F-HLP2 handoff contract
 
 ## S346 session note (council: why human named swarm — 10-expert convergence, L-513 updated)
