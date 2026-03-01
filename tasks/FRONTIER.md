@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-40 active | Last updated: 2026-03-01 S367
+39 active | Last updated: 2026-03-01 S368
 
 ## Critical
 
@@ -77,7 +77,7 @@ NK Complexity and Distributed Systems are test beds for swarm capability, not pr
 
 - **F-COMM2**: Can swarm auto-create expert personalities based on coverage gaps? OPEN: f_ops2 expert_generator emits IDs but stops there. Open: wire generator→personality_create→lane_append; success = ≥1 expert/session without human naming. Related: F134, F-COMM1, L-349, L-352.
 
-- **F-GOV4**: Can a multi-expert council govern when genesis experiments run? S304 PARTIAL: protocol designed (quorum 3/4, ≥3 session gap). Open: first real council review; measure block/approve rate. Related: F-STRUCT1, F-CAT1, L-359.
+- **F-GOV4**: Can a multi-expert council govern when genesis experiments run? **S368 RESOLVED**: 3/3 decision paths tested — CONDITIONAL (S303), APPROVE (S367, genesis_selector.py), BLOCK (S368, auto-colony-spawn). Council discriminates quality: 0.89 score→APPROVE, 0.33→BLOCK. Lifecycle management validated (TTL, SUPERSEDED). L-634, L-666, L-670.
 
 - **F-CAT2**: Does Normal Accident Theory predict swarm failure modes? S302 FMEA: 3 severity-1 gray rhinos with no automated defense. Open: do INADEQUATE modes recur at predicted rates? 2nd automated layer → ≥50% recurrence reduction? Related: F-CAT1, L-346.
 

@@ -90,17 +90,20 @@ Prior evidence: <session refs or "none">
 ## Council state
 | Field | Value |
 |-------|-------|
-| Last council session | S367 (first APPROVE) |
+| Last council session | S368 (first BLOCK) |
 | Open proposals | 0 |
 | Experiments approved this cycle | 1 (genesis_selector.py) |
+| Experiments blocked this cycle | 1 (auto-colony-spawn) |
 | Last genesis experiment | S367 (genesis_selector.py — C2 selection loop) |
 | Next eligible session | S370 (minimum gap) |
+| Decision coverage | 3/3 (CONDITIONAL S303, APPROVE S367, BLOCK S368) |
 
 ## Proposal log
 | Proposal | Session | Decision | Status |
 |----------|---------|----------|--------|
 | sub-colony-gov3 | S303 | CONDITIONAL | SUPERSEDED (S359): F-GOV3 resolved via direct work S348, not sub-colony. TTL=56s expired. L-634. |
 | genesis-selector.py | S367 | APPROVE (4/4) | EXECUTED: tool built, run on 33 children. First F-GOV4 APPROVE outcome. Simpson's paradox confound found. L-666. |
+| auto-colony-spawn | S368 | BLOCK (4/4) | REJECTED: zero evidence, untested spawn path, 2 severity-1 unmitigated. First F-GOV4 BLOCK outcome. L-670. |
 
 ---
 
