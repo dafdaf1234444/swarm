@@ -1408,6 +1408,16 @@ def check_mission_constraints() -> list[tuple[str, str]]:
         if len(tracked_paths) >= 5 and not (has_lesson_delta or any(p in knowledge_state_paths for p in tracked_paths)):
             results.append(("DUE", "F119 learning-quality gap: tracked deltas without knowledge-state update (NEXT/SESSION-LOG/INDEX/FRONTIER/PRINCIPLES/lessons)"))
 
+    # I13 MC-XSUB: cross-substrate safety enforcement
+    if not _exists("tools/substrate_detect.py"):
+        results.append(("DUE", "F119 I13 cross-substrate safety: substrate_detect.py missing — foreign-repo detection unavailable"))
+    else:
+        sd_text = _read(REPO_ROOT / "tools" / "substrate_detect.py")
+        if "SWARM.md" not in sd_text and "is_swarm" not in sd_text:
+            results.append(("NOTICE", "F119 I13 cross-substrate safety: substrate_detect.py may not check for SWARM.md presence"))
+    if not re.search(r"^##\s+I13\b", invariants_text, re.MULTILINE):
+        results.append(("DUE", "F119 I13 (MC-XSUB) missing from beliefs/INVARIANTS.md"))
+
     return results
 
 def check_session_log_integrity() -> list[tuple[str, str]]:

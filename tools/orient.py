@@ -54,11 +54,11 @@ def run_maintenance():
     try:
         result = subprocess.run(
             [sys.executable, str(ROOT / "tools" / "maintenance.py"), "--quick"],
-            capture_output=True, text=True, cwd=ROOT, timeout=30
+            capture_output=True, text=True, cwd=ROOT, timeout=15
         )
         return result.stdout + result.stderr
     except subprocess.TimeoutExpired:
-        return "[NOTICE] maintenance.py timed out (>30s)"
+        return "[NOTICE] maintenance.py timed out (>15s) — check_uncommitted or check_mission_constraints likely slow on WSL"
 
 
 def read_file(relpath):
@@ -427,6 +427,9 @@ def check_stale_infrastructure(current_session: int, stale_threshold: int = 50) 
 
     CORE P14: total self-application — nothing is sacred infrastructure.
     Components that haven't been touched are candidates for challenge/compaction/evolution.
+
+    Uses a single batched git log instead of per-file calls (31 subprocess calls
+    → 1, saves ~5s on WSL cross-filesystem overhead).
     """
     infrastructure = [
         "SWARM.md",
@@ -435,19 +438,38 @@ def check_stale_infrastructure(current_session: int, stale_threshold: int = 50) 
         "beliefs/INVARIANTS.md",
     ] + list(CORE_SWARM_TOOLS)
 
+    # Batch: get last 200 commits with their changed files in one call
+    result = subprocess.run(
+        ["git", "log", "--format=%s", "--name-only", "-200"],
+        capture_output=True, text=True, cwd=ROOT, timeout=10,
+    )
+    if result.returncode != 0:
+        return []
+
+    # Parse: map each file to its most recent session number
+    file_last_session: dict[str, int] = {}
+    current_msg = ""
+    for line in result.stdout.splitlines():
+        if not line.strip():
+            continue
+        m = re.search(r"\[S(\d+)\]", line)
+        if m:
+            current_msg = line
+            continue
+        # This is a filename line
+        if current_msg:
+            msg_m = re.search(r"\[S(\d+)\]", current_msg)
+            if msg_m:
+                sess = int(msg_m.group(1))
+                fname = line.strip()
+                if fname not in file_last_session:
+                    file_last_session[fname] = sess
+
     stale = []
     for path in infrastructure:
-        result = subprocess.run(
-            ["git", "log", "-1", "--format=%s", "--", path],
-            capture_output=True, text=True, cwd=ROOT,
-        )
-        if result.returncode != 0 or not result.stdout.strip():
+        last_session = file_last_session.get(path)
+        if last_session is None:
             continue
-        msg = result.stdout.strip()
-        m = re.search(r"\[S(\d+)\]", msg)
-        if not m:
-            continue
-        last_session = int(m.group(1))
         drift = current_session - last_session
         if drift > stale_threshold:
             name = Path(path).name

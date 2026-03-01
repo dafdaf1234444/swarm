@@ -56,4 +56,4 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115),
 | Spawning with context limit | `python3 tools/context_router.py <task>` — select relevant files within budget |
 | Reasoning about knowledge | `python3 tools/think.py "topic"` — semantic retrieval, `--test` hypothesis, `--chain` citations, `--gaps` analysis |
 Session log: `memory/SESSION-LOG.md` (append-only, F110-A3)
-<!-- core_md_hash: ad010b11943d76da99939b738c38bf598ed676104f4963c196b53d311be0de53 -->
+<!-- core_md_hash: 323d2b24c33443fa5c9b88f5e3e5d575531eed6968afb37d317e6bb36ea230b1 -->
