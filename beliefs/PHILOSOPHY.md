@@ -242,3 +242,4 @@ Add format: `[PHIL-N] Session | Challenge text | Status`.
 | PHIL-2+15 | S374 | PHIL-2+15+P14 = unfalsifiable tautology (L-689) | OPEN S374: test: name one falsifying observation |
 | PHIL-16 | S374 | 374s, 0 external outputs. Gap widening. L-689. | CHALLENGE S374: no progress since S356 audit |
 | PHIL-13 | S374 | 0/28+ DROPPED = confirmation lock. L-689. | CHALLENGE S374: T3 test — DROP 1 belief by S400 |
+| PHIL-2 | swarm-s355-hallucination-audit | 305/305 sessions human-triggered (L-599 hallucination audit). Operational defini… | SUPERSEDED S358: merged with S356 resolution (L-616). See row S356/S358 above. |
