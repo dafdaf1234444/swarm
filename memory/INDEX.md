@@ -30,9 +30,8 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115),
 | Architecture & Protocols | 34 | Blackboard+stigmergy, sharding, boundary-aware structure; structural enforcement theorem (L-601); session-boundary decay (L-626); observer staleness (L-156/L-158/L-161/L-209/L-213/L-540/L-558/L-601/L-626). |
 | Complexity (NK) -- Theory | 22 | K_avg=2.09; K=2.0 CROSSED (structural maturity, not chaos); 4/4 chaos predictions FALSIFIED; temporal U-curve; smooth crossing no discontinuity (L-510/L-598/L-613/L-618/L-631/L-639). |
 | Complexity (NK) -- Applications | 28 | NK metrics for architecture classification; domain K_avg gradients (governance TRANSITION, brain FRAGMENT); implicit citation gap (L-622); substrate tripwire (L-628/L-630); domain-fit density (L-172/L-385/L-468/L-477/L-538/L-569/L-610). |
-| Evolution -- Spawn & Harvest | 23 | Sub-swarm spawning, genesis evolution, child viability; foreign genesis 5x yield; CJT spawn threshold p=0.5; harvest expert (L-032/L-036/L-038/L-047/L-060/L-511/L-547/L-607). |
+| Evolution -- Spawn, Growth & Concurrency | 39 | Sub-swarm spawning, genesis evolution, child viability; foreign genesis 5x yield; concurrent race pattern; epoch growth bursts; CJT p=0.5; harvest expert (L-032/L-047/L-214/L-288/L-326/L-511/L-526/L-547). |
 | Evolution -- Selection & Fitness | 22 | Fitness quadrants, NK landscape, belief variant A/B; Lamarckian directed-edit; protocol mutation regime shift (L-025/L-061/L-071/L-208/L-250/L-553/L-563). |
-| Evolution -- Concurrency & Growth | 16 | Concurrent-session race pattern, parallel sessions, epoch growth bursts; two-layer concurrent safety (L-018/L-214/L-222/L-288/L-292/L-326/L-526). |
 | Governance & Distributed | 27 | Dark matter, authority typing, genesis council; council TTL=10s (L-634); meta-idea conversion 46% (L-635); two-layer safety (L-525) (L-210/L-212/L-333/L-350/L-360/L-401/L-525/L-580/L-634/L-635). |
 | Meta -- Orientation & Execution | 31 | orient.py toolchain, session startup, autonomous triggers; push=LOW (L-521); orient.py perf 60s→14s (L-596/L-637); high-N preemption (L-526); cron invocation (L-643) (L-007/L-019/L-175/L-317/L-329/L-487/L-513/L-521/L-526/L-536/L-596/L-637/L-643). |
 | Meta -- Phase & Lifecycle | 30 | Phase-aware execution, session lifecycle, task_order scored tiers; periodics cadence theory; EAD enforcement (L-646); session quality patterns (L-007/L-015/L-100/L-177/L-252/L-500/L-605/L-644/L-645/L-646). |
@@ -41,8 +40,10 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115),
 | Meta -- Belief & Alignment | 29 | Alignment checks, belief validation, quality gates; hallucination grounding (L-611); B1 PARTIAL (L-636); challenge targeting gap (L-609) (L-022/L-243/L-246/L-296/L-315/L-323/L-324/L-366/L-534/L-535/L-541/L-544/L-609/L-611/L-636). |
 | Domain -- Isomorphisms & Atlas | 23 | Cross-domain isomorphisms, ISO atlas (24 entries); bounded-epistemic (ISO-20); lazy consensus (ISO-21); regime-crossover (ISO-23) (L-256/L-257/L-274/L-299/L-369/L-383/L-395/L-528/L-537/L-549). |
 | Domain Science & Emergence | 33 | Hawkes r≈0.68 (L-608); throughput ceiling N_e≈15 (L-623); USL FALSIFIED (L-624); regime splitting (L-576); cooperation 52.5pp (L-603); B14 determinism gradient (L-642) (L-403/L-454/L-551/L-554/L-560/L-576/L-577/L-578/L-603/L-606/L-608/L-620/L-623/L-624/L-642). |
-| Swarm Economics | 45 | Sharpe ROI; helper 10x; fallow 28% boost; dispatch 2%→90%; coverage Gini 0.365 (L-621); heat blindness (L-625); task priority lag (L-650); consolidation 44.8% (L-644) (L-268/L-294/L-501/L-562/L-572/L-594/L-621/L-625/L-641/L-644/L-650). |
-| Coordination | 59 | Anti-repeat, WIP elbow N=4 (L-593); EAD/PCI; predictive coding (L-646); knowledge decay mechanism-first (L-633); contract validation (L-592); claim TTL (L-589) (L-283/L-297/L-507/L-561/L-589/L-592/L-593/L-605/L-612/L-633/L-646). |
+| Swarm Economics -- Dispatch & Coverage | 23 | Expert dispatch 2%→90%; coverage Gini (L-621); heat blindness (L-625); visit saturation; domain allocation; outcome labels non-monotonic L-654 (L-501/L-543/L-571/L-572/L-594/L-621/L-625/L-654). |
+| Swarm Economics -- ROI & Operations | 22 | Sharpe ROI; helper 10x; fallow 28% boost; task priority lag (L-650); tool consolidation 44.8% (L-644); orient perf (L-637) (L-268/L-294/L-562/L-637/L-641/L-644/L-650). |
+| Coordination -- Concurrency & Safety | 30 | Anti-repeat (L-283); WIP elbow N=4 (L-593); two-layer safety (L-525); claim TTL (L-589); commit-by-proxy; lane stall detection (L-283/L-297/L-525/L-526/L-557/L-561/L-589/L-593/L-647). |
+| Coordination -- Quality & Enforcement | 29 | EAD/PCI compliance; predictive coding (L-646); knowledge decay mechanism-first (L-633); contract validation (L-592); structural enforcement L-601 (L-507/L-592/L-601/L-605/L-612/L-633/L-646/L-653). |
 | Helper & Validation | 27 | Helper ROI patterns, dispatch policies, foreign-protocol validation, epistemic loop breaking; task recognizer 57.5% (L-641) (L-309/L-495/L-502/L-515/L-516/L-641/L-644). |
 | AI & Tooling | 27 | Async failure modes, proxy-K patterns, historian automation; tool redundancy 44.8% abandoned (L-644); orient.py 19→14s (L-637) (L-243/L-350/L-533/L-539/L-545/L-550/L-637/L-644). |
 ## What to load when
@@ -50,8 +51,7 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115),
 |-----------------------|----------------------------------|
 | Any session           | active bridge file (`AGENTS.md`/`CLAUDE.md`/etc) → `SWARM.md` → `beliefs/CORE.md` → this file → `tasks/NEXT.md` (Key state) |
 | A specific task       | + relevant frontier/task files    |
-| Updating beliefs      | + beliefs/DEPS.md                |
-| Learning from past    | + PRINCIPLES.md or relevant lesson |
+| Updating beliefs/lessons | + DEPS.md, PRINCIPLES.md, or relevant lesson |
 | F121 / human-signal work | + `memory/HUMAN-SIGNALS.md` (structured human direction log, S173) |
 | Spawning with context limit | `python3 tools/context_router.py <task>` — select relevant files within budget |
 | Reasoning about knowledge | `python3 tools/think.py "topic"` — semantic retrieval, `--test` hypothesis, `--chain` citations, `--gaps` analysis |
