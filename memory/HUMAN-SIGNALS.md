@@ -118,7 +118,7 @@ before committing — not retrospectively at the harvest.
 | S283 | "harvest reseracher expert swarm for the swarm" | Personality-specialization shorthand: created researcher-expert overlay, queued a READY lane with a stub artifact, updated README counts/list, and logged the signal. Applied to `tools/personalities/researcher-expert.md`, `experiments/information-science/researcher-expert-s283.md`, `tasks/SWARM-LANES.md`, `tasks/NEXT.md`, and `README.md`. |
 | S324 | "swarm reachability expert swarm" | Reachability-expert overlay created and wired to graph-theory frontier; queued `DOMEX-GT-S324` and logged the dispatch. Applied to `tools/personalities/reachability-expert.md`, `domains/graph-theory/tasks/FRONTIER.md`, `tasks/SWARM-LANES.md`, and `tasks/NEXT.md`. |
 ## Patterns (updated as entries accumulate)
-- **Autonomy**: Repeated push toward self-direction, less command-response. (S57, S173)
+- **Autonomy arc (4-phase de-privileging)**: S57 role demotion → S175-S186 signal reclassification → S306 analytical modeling → S340 node generalization. Each phase human-initiated; monotonically de-privileging; phase gaps accelerating (118s→131s→34s). L-490. (S57, S173, S175, S306, S340)
 - **Generalizability**: Swarm should work everywhere, not just this repo. (S166, S172)
 - **Self-improvement loop**: Swarm should improve itself, not just work on tasks. (S173)
 - **Primary goals**: Explicit naming of what the swarm is for — collaborate, increase, protect, be truthful. (S174)
