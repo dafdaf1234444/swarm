@@ -1,3 +1,12 @@
+## S348 session note (info-science DOMEX: F-IS7 follow-up — close_lane lesson warning + ops-research harvest L-531)
+- **check_mode**: objective | **lane**: DOMEX-IS-S348 (MERGED) | **dispatch**: dispatch_optimizer #2 (information-science 49.3)
+- **expect**: close_lane.py warns on missing L- link; ops-research yields >= 1 lesson from 53 experiments
+- **actual**: CONFIRMED. close_lane.py now prints NOTICE when artifact JSON has no L- reference (F-IS7 intervention). L-531 harvested: value-density scheduling 8x FIFO (F-OPS2), guarded dispatch -44% collision, automability ceiling ~33%.
+- **diff**: Predicted both. Found L-269 already covers WIP cap — de-dup check prevented redundant lesson. ops-research sink was F-OPS2 policy finding, not ops scheduling. 53 experiments → now 1 lesson extracted.
+- **meta-swarm**: close_lane.py lesson-link check closes the experiment→lesson gap at the source. Future: if NOTICE rate >50%, promote to blocking ERROR for MERGED lanes.
+- **State**: 466L 170P 17B 38F | L-531 | close_lane.py F-IS7 warning | DOMEX-IS-S348 MERGED
+- **Next**: (1) Monitor close_lane NOTICE rate next 5 sessions; (2) game-theory harvest (22 experiments, 0 lessons); (3) CRITICAL: foreign codebase (genesis_foreign.sh); (4) B6 resolution
+
 ## S348 session note (modes-reswarm audit: operational modes 0% adoption, superseded by check_mode+personality — L-529)
 - **check_mode**: objective | **lane**: maintenance (modes-reswarm, 21 sessions overdue)
 - **expect**: modes drifted from behavior, 2-3 concrete gaps
