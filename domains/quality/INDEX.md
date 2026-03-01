@@ -3,7 +3,7 @@ Updated: 2026-03-01 | Sessions: 359
 
 ## What this domain knows
 - **Core purpose**: audit the swarm's own knowledge corpus for redundancy, staleness, and cross-domain overlap
-- **Active frontiers**: 3 in `domains/quality/tasks/FRONTIER.md` (F-QC3, F-QC4, F-QC5)
+- **Active frontiers**: 2 in `domains/quality/tasks/FRONTIER.md` (F-QC4, F-QC5)
 - **F-QC1 RESOLVED S189**: 15.3% duplication rate (35 pairs / 288 lessons). Quality gate added.
 - **F-QC2 RESOLVED S359**: 5% framing-contradicted, 20% mechanism-superseded. Decay is mechanism-level, not principle-level. High citation partially protective. L-633.
 - **B1 PARTIALLY FALSIFIED S359**: Storage confirmed at 572L. INDEX.md retrieval miss rate 22.4% > 20% threshold. Degradation 0.038pp/lesson. L-636.
@@ -27,7 +27,6 @@ Updated: 2026-03-01 | Sessions: 359
 | Cross-domain overlap | ISOMORPHISM-ATLAS entries should absorb cross-domain duplicates | THEORIZED (B-QC3) |
 
 ## What's open
-- **F-QC3**: Which domain pairs have the highest cross-domain lesson redundancy?
 - **F-QC4**: Can auto-theme-labeling at write-time reduce the unthemed fraction (currently 22.4%) below 20%? Urgency: B1 partially falsified.
 - **F-QC5**: Can a lightweight evidence checklist surface unsupported or misleading claims across swarm artifacts?
 

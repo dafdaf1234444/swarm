@@ -955,28 +955,30 @@ def check_domain_expert_coverage() -> list[tuple[str, str]]:
 
 def check_historian_integrity() -> list[tuple[str, str]]:
     results = []
-    try:
-        import importlib.util as _ilu
-        import sys as _sys
-        _mod_name = "f_his1_historian_grounding"
-        if _mod_name not in _sys.modules:
-            _spec = _ilu.spec_from_file_location(_mod_name, REPO_ROOT / "tools" / "f_his1_historian_grounding.py")
-            _his1 = _ilu.module_from_spec(_spec)
-            _sys.modules[_mod_name] = _his1
-            _spec.loader.exec_module(_his1)
-        else:
-            _his1 = _sys.modules[_mod_name]
-        lanes_text = _read(REPO_ROOT / "tasks" / "SWARM-LANES.md")
-        rows = _his1.parse_rows(lanes_text)
-        analysis = _his1.analyze(rows)
-        score = analysis["mean_grounding_score"]
-        active = analysis["active_lane_count"]
-        if active >= 3 and score < 0.40:
-            results.append(("DUE", f"historian grounding low: mean_score={score:.2f} across {active} active lanes (target ≥0.5) — run python3 tools/f_his1_historian_grounding.py"))
-        elif active >= 3 and score < 0.60:
-            results.append(("NOTICE", f"historian grounding below target: mean_score={score:.2f} across {active} lanes"))
-    except Exception as e:
-        results.append(("NOTICE", f"check_historian_integrity lane-check error: {e}"))
+    _his1_path = REPO_ROOT / "tools" / "f_his1_historian_grounding.py"
+    if _his1_path.exists():
+        try:
+            import importlib.util as _ilu
+            import sys as _sys
+            _mod_name = "f_his1_historian_grounding"
+            if _mod_name not in _sys.modules:
+                _spec = _ilu.spec_from_file_location(_mod_name, _his1_path)
+                _his1 = _ilu.module_from_spec(_spec)
+                _sys.modules[_mod_name] = _his1
+                _spec.loader.exec_module(_his1)
+            else:
+                _his1 = _sys.modules[_mod_name]
+            lanes_text = _read(REPO_ROOT / "tasks" / "SWARM-LANES.md")
+            rows = _his1.parse_rows(lanes_text)
+            analysis = _his1.analyze(rows)
+            score = analysis["mean_grounding_score"]
+            active = analysis["active_lane_count"]
+            if active >= 3 and score < 0.40:
+                results.append(("DUE", f"historian grounding low: mean_score={score:.2f} across {active} active lanes (target ≥0.5) — run python3 tools/f_his1_historian_grounding.py"))
+            elif active >= 3 and score < 0.60:
+                results.append(("NOTICE", f"historian grounding below target: mean_score={score:.2f} across {active} lanes"))
+        except Exception as e:
+            results.append(("NOTICE", f"check_historian_integrity lane-check error: {e}"))
 
     SESSION_ANCHOR = re.compile(r"\bS\d{2,}\b")
     domains_dir = REPO_ROOT / "domains"

@@ -5,7 +5,7 @@ Updated: 2026-02-27 | Sessions: 186
 - **Seed evidence base**: swarm already records rich self-observation data in `tasks/NEXT.md`, `tasks/SWARM-LANES.md`, `memory/HUMAN-SIGNALS.md`, and `memory/SESSION-LOG.md`.
 - **Core structural pattern**: swarm improves fastest when self-observation is structured, check quality is explicit, and feedback loops are measured instead of assumed.
 - **Domain knowledge sheet**: concise operational model captured in `domains/meta/SWARM-DOMAIN-KNOWLEDGE.md`.
-- **Active frontiers**: 9 active domain frontiers in `domains/meta/tasks/FRONTIER.md` (F-META2, F-META3, F-META4, F-META5, F-META6, F-MECH1, F-META7, F-META8, F-META9). F-META1 RESOLVED S364.
+- **Active frontiers**: 12 active domain frontiers in `domains/meta/tasks/FRONTIER.md` (F-META2, F-META3, F-META4, F-META5, F-META6, F-MECH1, F-META7, F-META8, F-META9, F-META10, F-META11, F-META12). F-META1 RESOLVED S364.
 - **Visual contract seed**: canonical representability contract documented in `docs/SWARM-VISUAL-REPRESENTABILITY.md` for human, self-check, and swarm-to-swarm views.
 - **Cross-domain role**: meta domain converts multi-domain findings into swarm-level operating improvements.
 
@@ -38,6 +38,9 @@ Updated: 2026-02-27 | Sessions: 186
 - **F-META7**: can integration sessions (check_mode=integration, goal=dark matter reduction) measurably improve swarm retrieval quality?
 - **F-META8**: can the minimal self-model contract auto-verify its own satisfaction? (self-modeling completeness, opened S354, L-586)
 - **F-META9**: can the swarm autonomously invoke itself without human trigger? (opened S358, L-616, L-630 — PHIL-2 resolved as human-mediated recursion; autonomous invocation remains open emergence claim)
+- **F-META10**: can the swarm classify its knowledge into epistemological states and use state profiles to guide expert dispatch and knowledge maintenance? (opened S377, L-707, SIG-27)
+- **F-META11**: can real-time agent time profiling reduce overhead below 25%? (opened S378, L-717, SIG-28)
+- **F-META12**: can the swarm model its claims as a typed directed graph with version-era provenance? (opened S378, L-721, SIG-30)
 
 ## Meta links to current principles
 P-178 (self-replenishing cycle) | P-179 (spawn discipline) | P-182 (expect-act-diff) | P-191 (enforcement audit mode) | P-197 (quality dimensions)

@@ -222,7 +222,7 @@ Add format: `[PHIL-N] Session | Challenge text | Status`.
 | PHIL-8 | gap-audit | "Finds minimal form" implied convergence | REFINED S102: dynamic-equilibrium wording |
 | PHIL-5 | gap-audit | Embedded ratios drifted stale | REFINED S125 |
 | PHIL-8 | S165 | Proxy-K +68% in 65s; rising sawtooth | REFINED S165: "managed growth" framing |
-| PHIL-3 | S165 | Cross-session requires human trigger | REFINED S165: within-session CONFIRMED; cross-session gap OPEN |
+| PHIL-3 | S165 | Cross-session requires human trigger | CONFIRMED S165: within-session self-direction CONFIRMED (L-137). Cross-session gap tracked by PHIL-3/S305 entry. |
 | PHIL-13 | S165 | Competitive incentives +18.6pp deception (n=80) | REFINED S165: structural defenses partial |
 | PHIL-13 | S178 | Capable-wrong bypasses challenge (L-219) | REFINED S300: 0 DROPPED = accumulation gap; falsification citation required |
 | PHIL-4 | S182 | Conflates mechanism with product | REFINED S182 (L-250) |

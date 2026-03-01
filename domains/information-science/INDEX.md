@@ -4,7 +4,7 @@ Updated: 2026-03-01 | Sessions: 374
 ## What this domain knows
 - **6 core lessons**: L-232 (citation power-law), L-235 (age-normalized Sharpe/decay), L-256 (domain seed), L-262 (F-IS1 refutation + F-IS3 model correction), L-619 (gate-capacity gap), L-620 (high-I2 pooling)
 - **Key beliefs**: B-IS1 (entropy-compaction predictor, REFUTED S183), B-IS2 (citation concentration/power-law signal, OBSERVED), B-IS3 (spawn discipline as precision/recall tradeoff, THEORIZED but now operationalized via `spawn_math.py`)
-- **Active frontiers**: 4 in `domains/information-science/tasks/FRONTIER.md` (F-IS4, F-IS5, F-IS6, F-IS7)
+- **Active frontiers**: 5 in `domains/information-science/tasks/FRONTIER.md` (F-IS3, F-IS4, F-IS5, F-IS6, F-IS7)
 
 ## Lesson themes
 

@@ -4,7 +4,7 @@
       "id": "health-check",
       "description": "System health check (memory/HEALTH.md): knowledge growth, accuracy, compactness, belief evolution, task throughput",
       "cadence_sessions": 5,
-      "last_reviewed_session": 365,
+      "last_reviewed_session": 381,
       "registered_by": "S69"
     },
     {
@@ -54,7 +54,7 @@
       "id": "fundamental-setup-reswarm",
       "description": "Swarm setup hygiene: audit SWARM/CORE/bridge/maintenance fundamentals for friction and apply at least one concrete cleanup (or log a blocker with evidence + next action).",
       "cadence_sessions": 5,
-      "last_reviewed_session": 365,
+      "last_reviewed_session": 381,
       "registered_by": "S117"
     },
     {
@@ -69,18 +69,18 @@
       "id": "state-sync",
       "description": "Auto-sync count drift: run `python3 tools/sync_state.py` to patch INDEX.md / FRONTIER.md / NEXT.md / PRINCIPLES.md headers with live lesson/principle/belief/frontier counts. Addresses ~4% state-sync commit overhead (L-216). Run as part of every handoff.",
       "cadence_sessions": 1,
-      "last_reviewed_session": 381,
+      "last_reviewed_session": 382,
       "registered_by": "S176",
       "last": "S363",
-      "last_session": 381
+      "last_session": 382
     },
     {
       "id": "human-signal-harvest",
       "description": "F121 harvest: read memory/HUMAN-SIGNALS.md, scan for patterns not yet encoded as principles or lessons, extract at least one P- or L- candidate per pass. Update Patterns section. Flag any entry missing artifact refs. Addresses ephemeral human input loss (F121, L-224).",
       "cadence_sessions": 5,
-      "last_reviewed_session": 381,
+      "last_reviewed_session": 382,
       "registered_by": "S176",
-      "last_session": 381
+      "last_session": 382
     },
     {
       "id": "change-quality-check",
@@ -116,9 +116,9 @@
       "id": "economy-health",
       "description": "Swarm economy health check: run `python3 tools/economy_expert.py` \u2014 report on production velocity, proxy-K drift, Sharpe ratio, lane throughput, and helper ROI. Act on any WARN/URGENT/TRIGGER output (L-286, domains/economy/).",
       "cadence_sessions": 5,
-      "last_reviewed_session": 381,
+      "last_reviewed_session": 382,
       "registered_by": "S188",
-      "last_session": 381
+      "last_session": 382
     },
     {
       "id": "challenge-execution",
@@ -136,9 +136,9 @@
     },
     {
       "id": "action-board-refresh",
-      "cadence_sessions": 5,
-      "description": "Refresh ACTION-BOARD.md: run `python3 tools/f_act1_action_recommender.py` \u2014 scores swarm state across urgency/coverage/impact/novelty and writes workspace/ACTION-BOARD.md with ranked recommendations for all sessions + human visibility. Use action-expert personality for this task. (F-ACT1)",
-      "last_reviewed_session": 365,
+      "cadence_sessions": 50,
+      "description": "ACTION-BOARD refresh: f_act1_action_recommender.py ARCHIVED S363 (tool consolidation). orient.py 'Suggested next action' subsumes function. Dormant until dedicated action-board tool rebuilt. (F-ACT1)",
+      "last_reviewed_session": 382,
       "registered_by": "S304"
     },
     {

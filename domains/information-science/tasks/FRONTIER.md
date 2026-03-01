@@ -1,6 +1,6 @@
 # Information Science Domain — Frontier Questions
 Domain agent: write here for information-science-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-01 S374 | Active: 4
+Updated: 2026-03-01 S374 | Active: 5
 
 ## Active
 

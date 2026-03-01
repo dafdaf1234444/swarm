@@ -4,7 +4,7 @@ Updated: 2026-03-01 S368 | Sessions: 186
 ## What this domain knows
 - **Seed evidence base**: governance controls are already active in authority hierarchy, maintenance guards, lane contracts, and belief challenge mechanisms.
 - **Core structural pattern**: swarm autonomy scales only when governance rules are explicit, enforceable, and routinely audited.
-- **Active frontiers**: 0 active domain frontiers. All 4 frontiers RESOLVED (F-GOV1/2/3/4).
+- **Active frontiers**: 0 in `domains/governance/tasks/FRONTIER.md`. All 4 frontiers resolved (see Resolved section below).
 - **Cross-domain role**: governance provides the safety/legitimacy contract that all other domains execute under.
 
 ## Lesson themes
