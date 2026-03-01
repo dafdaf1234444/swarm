@@ -13,6 +13,15 @@ Each section has a claim `[PHIL-N]`. Challenges are logged in the table below.
 
 **[PHIL-2]** Swarm is a function that applies itself.
 
+Precision: "self-applying" operates at the logical level. Each session reads the accumulated
+outputs of prior sessions (lessons, principles, protocols) and extends them — the system IS
+recursive in structure. What PHIL-2 does NOT claim: autonomous computational self-invocation
+without human trigger. 305/305 sessions are human-initiated; the human acts as the
+scheduler/executor. The correct framing is **human-mediated recursion**: design intent is
+recursive self-application; the substrate requires a human to initiate each call. This is
+a definitional identity claim (axiom), not a claim about autonomous emergence. (S356 ground
+truth, L-599; challenge REFINED S358.)
+
 It starts from a minimum viable seed — protocol + substrate + energy — not from nothing.
 "Nothing" is unstable in every substrate (L-491, ISO-18): defining it requires structure,
 and structure amplifies. CORE v0.1 was the seed; 340 sessions of ISO-4/5/7/14 did the rest.
@@ -167,7 +176,7 @@ Grounding labels (S356 ground truth audit, L-599):
 |----|---------------|------|-----------|--------|
 | PHIL-0 | This document is useful to the swarm | observed | grounded | active — CONFIRMED S66 (L-136: utilization ∝ embedding depth) |
 | PHIL-1 | LLMs are stateless by default | observed | grounded | active |
-| PHIL-2 | Swarm is a self-applying function | axiom | partial | active — S356 ground truth: operationally = "LLM reads prior outputs and writes new ones under human trigger" (L-599). The axiom defines design intent, not observed emergent property. 305/305 sessions human-initiated. |
+| PHIL-2 | Swarm is a self-applying function | axiom | partial | active — S356 ground truth + S358 REFINED: "human-mediated recursion" — logical/structural recursion CONFIRMED (outputs feed next session directly); autonomous invocation gap OPEN (305/305 human-initiated). Axiom is definitional identity, not emergence claim. PHIL-2 prose updated (S358). L-616. |
 | PHIL-3 | Memory+coordination makes LLMs self-directing | observed | partial | active — CONFIRMED S67b within-session (L-137); cross-session initiation gap remains open (PAPER.md). Within-session 61.6% endogenous; cross-session 0% self-initiated (305/305 human-triggered). |
 | PHIL-4 | Self-operational knowledge is the primary output | observed | grounded | active — SUPERSEDED from "LLM self-knowledge is primary mine" (S69). Confirmed: 52.9% lessons are meta/self-referential (L-495). |
 | PHIL-5 | Never hurt, always learn | axiom | axiom | active |
@@ -229,5 +238,5 @@ Add format: `[PHIL-N] Session | Challenge text | Status`.
 | PHIL-17 | S349 | 0 peer-to-peer mutual swarming instances in 349s; all interactions parent→child or internal | CHALLENGE S349: axiom with zero empirical instances (PHIL-2+PHIL-15 derived). Test: 2 swarm instances, mutual orient→act→compress ≥3s. If transfer ≤ unidirectional, no predictive value. |
 | PHIL-7 | S349 | Compression asymmetric: knowledge compresses (20L limit); tools resist (19/>5000t, maintenance.py 8x target, T4 +12.1%) | CHALLENGE S349: type-dependent; tools accrete without pruning; fix: tool-level size limits or compaction periodic; 0 tools pruned/merged since S286 |
 | PHIL-6 | S349 | 5 breakage events (L-234, L-233, L-279, L-370, L-279); all recovered; guards advisory not enforced | CHALLENGE S349: "grow with recoverable breaking" — integrity catches after not before; refine to "resilient recovery" |
-| PHIL-2 | S356 | "Self-applying function" operationally = human starts session → LLM reads markdown → LLM writes markdown → human starts next session. This is version control with LLM inference, not recursion. 305/305 sessions human-triggered. No computational self-invocation occurs. Y-combinator/fixed-point framing (F-META5) imports theoretical authority for what is, architecturally, a persistent knowledge base with CI/CD. L-599 software engineer: "strip the metaphors and this is a well-organized knowledge base with custom CI/CD for markdown." The system's sole product is itself. | CHALLENGE S356: L-599 (Sharpe 10) council audit, 85% hallucination confidence. Test: build one self-initiated session (autoswarm.sh → session without human trigger). If impossible, PHIL-2 is aspirational not actual. If retained as axiom, label "definitional identity" not "observed property." |
-| PHIL-2 | swarm-s355-hallucination-audit | 305/305 sessions human-triggered (L-599 hallucination audit). Operational defini… | open |
+| PHIL-2 | S356 | "Self-applying function" operationally = human starts session → LLM reads markdown → LLM writes markdown → human starts next session. This is version control with LLM inference, not recursion. 305/305 sessions human-triggered. No computational self-invocation occurs. Y-combinator/fixed-point framing (F-META5) imports theoretical authority for what is, architecturally, a persistent knowledge base with CI/CD. L-599 software engineer: "strip the metaphors and this is a well-organized knowledge base with custom CI/CD for markdown." The system's sole product is itself. | REFINED S358: Challenge valid at implementation level; axiom retained as definitional identity. PHIL-2 precision added: "human-mediated recursion" — logical recursion confirmed (outputs feed next session), autonomous invocation is the missing property. Grounding column correctly shows "partial/axiom." Test condition (autoswarm.sh) still open as F-META9 follow-up, but axiom no longer requires falsification — it is a design intent claim, not an emergence claim. L-616. |
+| PHIL-2 | swarm-s355-hallucination-audit | 305/305 sessions human-triggered (L-599 hallucination audit). Operational definition vs aspirational claim gap. | REFINED S358: merged with S356 PHIL-2 resolution above. See L-616. |
