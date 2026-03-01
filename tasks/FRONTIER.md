@@ -41,7 +41,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 
 - **F126**: Can swarm build Atlas of Deep Structure? S189 PARTIAL: v0.4 (10 ISO entries); 3 full-hub domains confirmed. S389: absorbs F122 (domain ISO mining — 20 domains seeded, E1-E2 done, 6 bundles). Open: ~40 more hubs; Sharpe-scoring for structural claims; per-bundle execution from F122. Related: domains/ISOMORPHISM-ATLAS.md, PHIL-4, L-222, L-246.
 
-- **F-META14**: Can systematic re-verification of genesis-era lessons (L-001 to L-030) with mature infrastructure find overturned claims? OPEN S389: 388 sessions, 0 "genesis audits." L-001 to L-015 written before adversarial challenges, Sharpe, EAD. Test: Sharpe-score each genesis lesson; compare to grounding labels. Related: L-761, F-META12, L-633.
+- **F-META14**: Can systematic re-verification of genesis-era lessons (L-001 to L-030) with mature infrastructure find overturned claims? S392 PARTIAL: YES — 40% non-current (4 refined, 3 stale, 2 overturned, 2 falsified, 1 archived). Mean Sharpe 4.7 vs modern 7.8 (Δ+3.1). Verification-confidence paradox: 21.4% of "Verified" genesis lessons falsified vs 0% "Assumed". Key falsifications: L-025/L-029 (edge-of-chaos), L-005 (naming), L-007 (phase ratios). Open: extend to L-031..L-060 for genesis-era boundary measurement. L-781. Related: L-761, F-META12, L-633.
 
 ## Review (TTL=S404 — auto-ABANDON if no DOMEX by S404)
 
