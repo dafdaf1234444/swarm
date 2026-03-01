@@ -40,6 +40,12 @@ LANE_ABBREV_TO_DOMAIN = {
     "DNA": "meta", "IS": "information-science", "HS": "human-systems",
     "COMP": "competitions", "INFO": "information-science",
 }
+# COUNCIL-TOPIC-SN: map council topic to domain (F-EXP10 L-506: COUNCIL lanes were
+# previously unattributed, causing ~30-40% outcome data loss for meta/expert-swarm)
+COUNCIL_TOPIC_TO_DOMAIN = {
+    "AGENT-AWARE": "meta", "SCIENCE": "evaluation", "DNA": "meta",
+    "EXPERT-SWARM": "expert-swarm", "USE-CASES": "meta",
+}
 OUTCOME_MIN_N = 3          # minimum completed lanes before feedback kicks in
 OUTCOME_SUCCESS_THRESHOLD = 0.75  # MERGED rate above which domain is PROVEN
 OUTCOME_FAILURE_THRESHOLD = 0.50  # MERGED rate below which domain is STRUGGLING
@@ -106,9 +112,11 @@ def _get_claimed_domains() -> set[str]:
 
 
 def _get_domain_outcomes() -> dict[str, dict]:
-    """Parse SWARM-LANES.md for MERGED/ABANDONED counts per domain (F-EXP10).
+    """Parse SWARM-LANES.md for MERGED/ABANDONED counts and lesson yield per domain (F-EXP10).
 
-    Returns {domain_name: {"merged": int, "abandoned": int}}.
+    Returns {domain_name: {"merged": int, "abandoned": int, "lessons": int}}.
+    - merged/abandoned: binary outcome (existing)
+    - lessons: L-NNN references in notes column (yield quality signal — L-506)
     Outcome feedback: reward proven domains, flag struggling ones.
     """
     outcomes: dict[str, dict] = {}
@@ -132,6 +140,13 @@ def _get_domain_outcomes() -> dict[str, dict]:
         if m:
             domain = LANE_ABBREV_TO_DOMAIN.get(m.group(1))
 
+        # COUNCIL-TOPIC-SN: attribute council lanes to domain (L-506: was causing
+        # ~30-40% outcome data loss for meta/expert-swarm — COUNCIL lanes unattributed)
+        if not domain:
+            m = re.match(r"COUNCIL-([A-Z-]+)-S\d+", lane_id)
+            if m:
+                domain = COUNCIL_TOPIC_TO_DOMAIN.get(m.group(1))
+
         # Fallback: focus= field (skip if "global")
         if not domain:
             etc = cols[10] if len(cols) > 10 else ""
@@ -141,8 +156,12 @@ def _get_domain_outcomes() -> dict[str, dict]:
 
         if domain:
             if domain not in outcomes:
-                outcomes[domain] = {"merged": 0, "abandoned": 0}
+                outcomes[domain] = {"merged": 0, "abandoned": 0, "lessons": 0}
             outcomes[domain]["merged" if status == "MERGED" else "abandoned"] += 1
+            # Lesson yield: count L-NNN references in notes column
+            notes = cols[12] if len(cols) > 12 else ""
+            lesson_count = len(re.findall(r"\bL-\d{3,4}\b", notes))
+            outcomes[domain]["lessons"] += lesson_count
     return outcomes
 
 
