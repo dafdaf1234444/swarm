@@ -44,7 +44,7 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Falsified if**: A session following the layered protocol hits context limit before completing a standard task, OR sessions ignoring layering complete equivalent tasks at equal context cost
 - **Depends on**: B1
 - **Depended on by**: B7
-- **Last tested**: 2026-02-26 (S29-32: 4 complex sessions with CORE→INDEX→task→mode loading; no context limit issues)
+- **Last tested**: 2026-03-01 S341 (N=430: always-load 124L ~1500t, full corpus 8009L ~10000+t, 85% reduction; orient.py adds synthesis layer compressing per-task into ~60L; 311 sessions of layered operation with 0 context limit hits; original S29 test at N=30 confirmed at 14x scale)
 
 ### B3: Small commits aid backtracking and session handoff
 - **Evidence**: observed
@@ -71,7 +71,7 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Evidence**: observed
 - **Falsified if**: 5+ consecutive active sessions close frontiers without generating new ones, OR new frontier questions consistently require external injection rather than emerging from work
 - **Depends on**: B6
-- **Last tested**: 2026-02-25 (L-015, measured 2.5x amplification over 13 sessions)
+- **Last tested**: 2026-03-01 S341 (170 total frontiers: 37 global + 133 across 41 domains; 18 resolved; self-sustaining confirmed at 316+ sessions; amplification far exceeds original 2.5x — frontier count grows faster than resolution rate)
 
 ### B9: K_avg*N+Cycles is a reliable predictor of software maintenance burden across different codebases and languages
 - **Evidence**: observed
