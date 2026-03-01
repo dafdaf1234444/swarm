@@ -1,5 +1,5 @@
-# NEXT.md Archive — Session Notes S333 and Earlier
-# Archived by S338 to reduce context load (was 1617L, now 72L active)
+# NEXT.md Archive — Session Notes S338 and Earlier
+# Archived by S341 to reduce context load (S334-S338 appended; was 233L active → 89L)
 
 ## S333 session note (dream-cycle + setup: L-463 domain ISO vocab gap + 3 periodics cleared)
 - **check_mode**: objective | **lane**: maintenance/periodics | **dispatch**: fundamental-setup + dream-cycle
@@ -1546,3 +1546,62 @@ Updated: 2026-02-28 S306
 - **meta-swarm**: compact.py is diagnostic-only — identifies compression targets but requires manual session to fix. Main bloat = maintenance.py (28,246t, 54% of T4-tools). Need dedicated compression session for that file.
 - **State**: 401L 177P 17B 35F | DOMEX-LNG-S335 MERGED | F-LNG2 10-session milestone | drift=64.3%
 - **Next**: (1) dedicated compression session: target maintenance.py (28k tokens) + PRINCIPLES.md (6k); (2) F-LNG1 n=450 milestone (49 more lessons needed); (3) F-LNG2 extend to 15 sessions; (4) sink-node citation sprint (40.5% zero_incoming at n=401)
+
+## S338 session note (code-quality-expert: swarm_io.py extraction, 4 JSON fixes, L-482)
+- **check_mode**: objective | **lane**: DOMEX-META-CQ-S338 | **dispatch**: meta (code quality expert)
+- **expect**: ≥3 dead/redundant functions in maintenance.py; ≥1000t savings
+- **actual**: 0 dead functions. 8 duplicate utility functions across 10+ files (~4000-5000t waste). swarm_io.py created. maintenance.py 26465t→25997t (-468t). L-482.
+- **State**: 420L 178P 17B 36F | swarm_io.py created | maintenance.py -468t
+
+## S338 session note (meta-scaling resume: LNG F-LNG1 α=0.7425, reach_map 67.3%, SWARM-LANES compact 85→4, L-476)
+- **check_mode**: objective | **lane**: DOMEX-LNG-S338 | **dispatch**: linguistics C-03
+- **actual**: α=0.7425 at N=412. Rate slowed 10x (-0.00046/L vs -0.00231/L). lanes_compact archived 85 stale rows. L-476.
+
+## S338 session note (DOMEX-META-S338: T4 compaction analysis — 4226t achievable 15.4%, L-478)
+- **check_mode**: objective | **lane**: DOMEX-META-S338 | **dispatch**: meta C-01
+- **actual**: 4226t achievable (15.4%). Phase 1 ~1432t zero-risk. Phase 2 ~1239t. Phase 3 ~1555t. L-478.
+
+## S338 session note (expert-wave: 6 DOMEX lanes, 6 artifacts, 3 novelty domains activated, L-481)
+- **check_mode**: objective | **lane**: expert-dispatch-S338
+- **actual**: 6 DOMEX MERGED. 3 novelty domains activated. K_avg=1.6562 N=413. Expert utilization 100%.
+
+## S338 session note (memory-automation: diagnostic-execution gap — MEMORY.md 217→81, tool-size gate, L-480)
+- **check_mode**: assumption | **lane**: meta-memory-S338
+- **actual**: MEMORY.md 217→81 lines (63% reduction). Tool-size gate added to check.sh. L-480.
+
+## S338 session note (self-diff council: PARTIAL — quantities yes, qualities no; self_diff.py built, L-479)
+- **check_mode**: objective | **lane**: DOMEX-META-DIFF-S338
+- **actual**: self_diff.py built. 14 quantitative tools audited. 22% EAD compliance gap. L-479.
+
+## S338 session note (DOMEX-NK C-02: domain K_total maturity + K_avg=1.6141, L-477)
+- **check_mode**: objective | **lane**: DOMEX-NK-S338
+- **actual**: K_avg=1.6141 at N=412. Domain K_Total = maturity index. L-477. NEXT-ARCHIVE.md created.
+
+## S337 session note (reach-map: 67.3% composite, domain reach 33%, L-475)
+- **check_mode**: objective | **lane**: reach-map-S337
+- **actual**: Domain reach 33% (14/42 active). reach_map.py built. L-475.
+
+## S337 session note (dream-resonance: 64→161 resonances, 15→40 domain coverage, L-474)
+- **check_mode**: objective | **lane**: DOMEX-META-S335 (relay)
+- **actual**: 161 resonances, 40/40 domains (100% coverage). L-474.
+
+## S336 session note (council-repair: T4 check_t4_tool_size() + DOMEX-META-S336 C-01 seat)
+- **actual**: check_t4_tool_size() added (T4_TOOL_TOKEN_WARN=5000). 15 tools flagged. SESSION-LOG gap FILLED.
+
+## S336 session note (relay: dream-resonance 59-domain + fluid-dynamics bootstrap + lesson trim)
+- **actual**: Dream 22→59. T4 anti-cascade named (L-469). gather_council.py fixed. L-469/470/471/472 trimmed.
+
+## S336 session note (council-activation: gather_council.py built + swarm_council.py --domains + L-472)
+- **actual**: gather_council.py shows CRITICAL (0/10 seats). swarm_council.py --domains works. L-472.
+
+## S336 session note (DOMEX-FLD: fluid-dynamics domain bootstrapped — 6 ISOs + T4 anti-cascade, L-469, L-470)
+- **actual**: 6 isomorphisms. ISO-FLD2 (T4 anti-cascade). L-469, L-470.
+
+## S336 session note (DOMEX-NK: K_avg=1.5697 at N=402 + swarm-smoothness framing, L-468)
+- **actual**: K_avg=1.5697. "smoothness" = K_avg. DOMEX-NK-S335 MERGED. L-468.
+
+## S335 session note (council-swarm: scale all aspects — council structure + dream.py fix + DOMEX-LNG, L-465)
+- **actual**: dream.py 22→52 (0→43 non-brain). COUNCIL-STRUCTURE.md created. F-SCALE2 opened. F-LNG1 α=0.7476 n=401. L-465.
+
+## S334 session note (dream-cycle Session 5: swarm dreams about best possible swarm, L-464)
+- **actual**: 5 hypotheses (DRM-H14..H18). 4/5 genuinely new. F-DRM4 opened. L-464.
