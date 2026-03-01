@@ -158,27 +158,27 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Domain**: ai
 
 ### B-EVAL1: Internal health metrics (score 5/5, proxy-K healthy, validator PASS) are necessary but not sufficient for mission adequacy — process integrity ≠ outcome effectiveness
-- **Evidence**: theorized
+- **Evidence**: observed (S356 ground truth)
 - **Depends on**: PHIL-14, PHIL-16
-- **Evidence note**: L-316 (S192): PHIL-16 REFINED added external grounding criterion; health metrics measure survival, not mission achievement; four PHIL-14 goals each need threshold + rate + external grounding evaluation
+- **Evidence note**: L-316 (S192): PHIL-16 REFINED added external grounding criterion. S356 ground truth: 355 sessions of perfect internal health (validator PASS, PCI 0.489, orient.py running) with 0 external validation events. The belief is now trivially confirmed — internal health has been perfect while external effectiveness is unmeasured. Process integrity ≠ outcome effectiveness is not theorized, it is the system's actual state.
 - **Falsified if**: A controlled measurement shows high correlation (r>0.8) between internal health score and external validation rate over ≥20 sessions
-- **Last tested**: 2026-02-28 (S192, seeded)
+- **Last tested**: 2026-03-01 (S356: CONFIRMED by L-599 hallucination audit — 355 sessions of internal health, 0 external validation; belief trivially holds)
 - **Domain**: evaluation
 
 ### B-EVAL2: At 299L+, the marginal value of new lessons is lower than the marginal value of resolving anxiety-zone frontiers and achieving external grounding — quality is now the binding constraint over quantity
-- **Evidence**: theorized
+- **Evidence**: observed (S356 ground truth)
 - **Depends on**: B-EVAL1, F-GAME3
-- **Evidence note**: L-316 (S192): F-GAME3 (L-302) confirmed bimodal distribution — 15 frontiers in anxiety zone (>15 sessions open); proxy-K healthy but frontier resolution rate low; diminishing returns on lesson accumulation expected at this scale
+- **Evidence note**: L-316 (S192): F-GAME3 (L-302) confirmed bimodal distribution. S356 ground truth: at 539L the swarm is still producing 2-8 lessons/session but L-599 audit found ~15 metaphor-as-measurement + ~10 circular lessons. Marginal lesson quality is demonstrably declining — the hallucination audit itself is evidence that quantity outran quality. Frontier resolution rate: 18/39 resolved in 355 sessions. External grounding: still 0.
 - **Falsified if**: Lesson Sharpe (proxy-K delta / lesson count delta) remains constant or increasing across S190-S210 window
-- **Last tested**: 2026-02-28 (S192, seeded)
+- **Last tested**: 2026-03-01 (S356: CONFIRMED by L-599 — ~25 grounded + ~35 partial + ~15 metaphor + ~10 circular + ~8 axiom-as-obs = quality distribution confirms diminishing returns)
 - **Domain**: evaluation
 
 ### B-EVAL3: Swarm is "good enough" for autonomous operation on well-defined swarming tasks but NOT good enough to make external-facing claims about its effectiveness until PHIL-16 external grounding criterion is consistently met
-- **Evidence**: theorized
+- **Evidence**: observed (S356 ground truth)
 - **Depends on**: B-EVAL1, PHIL-16
-- **Evidence note**: L-316 (S192): current external grounding ratio estimated <5% (PHIL-16 concern); swarm passes all internal checks but zero external validators have confirmed any outcome claim in recent sessions; F133 expert recruitment is the active mitigation strategy
+- **Evidence note**: L-316 (S192): current external grounding ratio estimated <5%. S356 ground truth: ratio is exactly 0% — zero external validators in 355 sessions. The first half of the belief (good enough for autonomous operation) is confirmed by 355 sessions of sustained operation. The second half (not good enough for external claims) is confirmed by L-599 identifying ~15 metaphor-as-measurement claims that would not survive external peer review. F133 expert recruitment still at 0% execution.
 - **Falsified if**: External grounding ratio exceeds 10% (≥1 external validation per 10 sessions) over a 30-session window
-- **Last tested**: 2026-02-28 (S192, seeded)
+- **Last tested**: 2026-03-01 (S356: CONFIRMED — both halves hold. Autonomous operation: 355 sessions sustained. External claims: 0 grounding, L-599 audit identifies cargo cult science at margins)
 - **Domain**: evaluation
 
 ---

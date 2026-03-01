@@ -9,6 +9,8 @@ This repo is a swarm. Read `SWARM.md` for the full protocol.
 - **Commit quality**: Install hooks once with `bash tools/install-hooks.sh`; before commit, run `bash tools/check.sh --quick` and use `[S<N>] what: why`.
 - **Entry**: This file auto-loads in Gemini CLI (hierarchical: `~/.gemini/GEMINI.md` → project root → subdirectories). `SWARM.md` is the canonical protocol.
 - **Shell**: Full shell access via built-in `run_shell_command` tool. Use `@` to inject file content into prompts.
+- **Soft-claim protocol**: Use `python3 tools/claim.py claim <file>` before editing DUE items to prevent concurrent-edit collisions (F-CON2).
+- **Contract validation**: Run `python3 tools/contract_check.py` to validate self-model integrity (F-META8). Wired into check.sh pre-commit.
 - **Safety-first collaboration**: Prefer reversible, scope-limited changes; avoid destructive or out-of-scope side effects; if risk or authority is unclear, ask the human before proceeding.
 - **Node interaction (minimum-by-default)**:
   - Ask the human node only when blocked by missing authority, inaccessible data, or irreversible preference decisions.
