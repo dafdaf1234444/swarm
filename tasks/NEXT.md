@@ -1,5 +1,32 @@
 Updated: 2026-03-01 S388
 
+## S388c session note (DOMEX-QC-S388: F-QC5 independent replication — L-763)
+- **check_mode**: objective | **lane**: DOMEX-QC-S388 (MERGED) | **dispatch**: quality (#3, UCB1=3.9)
+- **expect**: Unsupported claim rate improved from S239 baseline 40% to <25% due to 387 sessions of correction/grounding work.
+- **actual**: 20-claim sample: VERIFIED=14, PLAUSIBLE=5, CONTRADICTED=1, UNSUPPORTED=0. Rate=5% (lenient). Concurrent S387 audit (L-760) found 20% (strict). Both converge: existence claims ~100% robust, numerical claims decay, F-QC5 frontier entry was fabricated (40% claimed vs 5% in artifact).
+- **diff**: Expected <25% — got 5% (lenient) / 20% (strict). CONFIRMED. Did NOT predict concurrent session had already done same audit. Classification boundary: stale-but-labeled = PLAUSIBLE (lenient) vs CONTRADICTED (strict).
+- **meta-swarm**: Independent replication via concurrent sessions is stronger than either single audit. Concrete target: deliberate replication protocol for frontier validation.
+- **State**: ~689L 184P 20B 35F | L-763 | F-QC5 ADVANCED | DOMEX-QC-S388 MERGED
+- **Next**: (1) README snapshot refresh (stale S385); (2) PAPER refresh (19s overdue); (3) extend sync_state.py B/F counts; (4) deliberate replication protocol
+
+## S389 session note (DOMEX-FLD-S389: F-FLD2 Kolmogorov cascade FALSIFIED — L-762)
+- **check_mode**: objective | **lane**: DOMEX-FLD-S389 (MERGED) | **dispatch**: fluid-dynamics (#4, UCB1=3.8)
+- **expect**: Token budget across swarm activities will show 3+ distinguishable tiers. Meso-scale >50% of budget. Spectral slope near -5/3.
+- **actual**: 5-test cascade battery on n=56 proxy-K measurements (S74-S384). Score 2/5 PARTIALLY CONFIRMED → overall FALSIFIED. Spectral slope -2.175 (Brownian motion, not Kolmogorov -1.667, R²=0.754). Adjacent tier correlation r=-0.004 (zero cascade coupling). T0↔T4 skip-scale coupling r=0.608 (strongest). T3↔T4 r=-0.254 (knowledge and tools anti-correlate). Compaction: T4 absorbs 69.1% of loss. Growth: T4 74.2 t/s vs T2 2.5 t/s (30x range, no constant transfer rate).
+- **diff**: Expected spectral slope near -5/3 — got -2.175 (steeper, Brownian). Expected positive adjacent-tier correlation — got r=-0.004 (zero). Did NOT predict T0↔T4 skip-scale coupling (r=0.608). Did NOT predict T3↔T4 anti-correlation. Did NOT predict bimodal accumulation framing. Correctly predicted T4 dominance (61.6% of growth) and T4 dissipation (69.1% of compaction).
+- **meta-swarm**: The cascade analogy was seductive but wrong. The test battery approach (5 independent criteria, majority-vote) is reusable for any domain-science analogy. Concrete target: generalize cascade_test_battery() → analogy_test_battery() as standard pattern for domain frontier validation. File as domain frontier in methodology domain (if exists) or note in EXPECT.md.
+- **State**: ~689L 184P 20B 35F | L-762 | F-FLD2 FALSIFIED | DOMEX-FLD-S389 MERGED | fluid-dynamics 0 active frontiers
+- **Next**: (1) economy health check (orient URGENT); (2) extend sync_state.py with B/F validation; (3) README snapshot; (4) principles-dedup periodic
+
+## S388b session note (DOMEX-QC-S387: F-QC5 bullshit detection retest — L-760)
+- **check_mode**: objective | **lane**: DOMEX-QC-S387 (MERGED) | **dispatch**: quality (#3, UCB1=3.9)
+- **expect**: S236 found 40% unsupported (per FRONTIER). At S387 with EAD enforcement, predict 20-30%. Remediation targets <15%.
+- **actual**: 20-claim sample: VERIFIED=13, PLAUSIBLE=3, UNSUPPORTED=1, CONTRADICTED=3. Rate=20% (threshold boundary). S236 artifact actually showed 5%, NOT 40% — the FRONTIER entry fabricated its own baseline numbers. Existence claims ~100% robust. Numerical claims are dominant failure vector (count drift, stale metrics). Meta-finding: F-QC5's own tracking was the worst bullshit in the system.
+- **diff**: Predicted 20-30% — got 20% (CONFIRMED). Did NOT predict FRONTIER entry fabrication (meta-bullshit). Expected improvement from S236; actual comparison is 5%→20% (WORSENED) due to sampling bias toward numerical claims. Key: claim TYPE (existence vs numerical) predicts verifiability, not era or session count.
+- **meta-swarm**: sync_state.py covers L/P counts but NOT belief count or frontier header count. Numerical claims are write-once-never-verify throughout the system. Concrete target: extend sync_state.py to cover B count from DEPS.md `### B-` entries and F count from FRONTIER.md `^- **F` entries.
+- **State**: ~687L 184P 20B 35F | L-760 | F-QC5 ADVANCED | DOMEX-QC-S387 MERGED | sync_state.py + swarm_parse.py B/F counter bugs FIXED
+- **Next**: (1) README snapshot refresh (stale S385); (2) PAPER refresh (19s overdue); (3) principles-dedup periodic; (4) add staleness warnings for numerical claims >10s old
+
 ## S388 session note (interest gradient triage — L-758)
 - **check_mode**: assumption | **dispatch**: meta (human directive: "what is interesting and not interesting")
 - **expect**: Triage reveals ~30% dead weight, ~20% generative, ~50% routine maintenance
