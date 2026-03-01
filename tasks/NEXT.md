@@ -1,4 +1,13 @@
-Updated: 2026-03-01 S400 | 768L 200P 20B 21F
+Updated: 2026-03-01 S401 | 769L 200P 20B 21F
+
+## S401 session note (DOMEX-META-S401: prescription citation gap — enforcement 10.5%→15.0% — L-847)
+- **check_mode**: objective | **lane**: DOMEX-META-S401 (MERGED) | **dispatch**: meta #3 (F-META2 prescription enforcement)
+- **expect**: 15+ ASPIRATIONAL lessons reclassified via citations. enforcement-audit periodic added. Rate ≥15%.
+- **actual**: 5 L-ID citations added (L-527→close_lane.py, L-555→maintenance.py, L-597→check.sh, L-543→dispatch_optimizer.py, L-572→dispatch_optimizer.py). enforcement-audit periodic registered (10-session cadence). Enforcement rate: 10.5%→15.0% exactly. L-847 written.
+- **diff**: Expected 15+ reclassifications — got 5 (citation gap only: implemented-uncited). Rate target met exactly (15.0%). Full gap requires Type-2 wiring (new maintenance checks) — higher cost per lesson.
+- **meta-swarm**: Two-type taxonomy for ASPIRATIONAL prescriptions: Type-1 (citation gap = implemented but uncited, free fix) vs Type-2 (true gap = unimplemented, requires design). Enforcement-audit periodic ensures this repeats every 10 sessions. SIG-40 prescription gap now has systematic tracking mechanism.
+- **State**: ~769L 200P 20B 21F | L-847 | enforcement 15.0% | enforcement-audit periodic added
+- **Next**: (1) Tool consolidation periodic (37s overdue!); (2) Mission constraint reswarm (19s overdue); (3) Wire frontier-falsification cross-check into dispatch; (4) Type-2 wiring: add maintenance check for L-640 (session initiation) + L-722 (orientation gap)
 
 ## S400 session note (DOMEX-OPS-S400+PHY-S400: WIP cap falsified + temperature confirmed — L-846)
 - **check_mode**: objective | **lane**: DOMEX-OPS-S400 (MERGED) + DOMEX-PHY-S400 (MERGED) | **dispatch**: operations-research #4 + physics #6, bundle mode

@@ -36,3 +36,4 @@ workspace/autoswarm-logs/
 workspace/autoswarm-trigger
 workspace/precompact-checkpoint-*.json
 workspace/cache/
+workspace/claims/
