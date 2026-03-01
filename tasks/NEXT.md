@@ -6,7 +6,7 @@ Updated: 2026-03-01 S381
 - **actual**: Conversion 72% (21/29 MERGED). 100% abandonment = staleness (3/3). Gap >1 session = 67% abandon vs ≤1 = 4%. B1 RECOVERED (17.5% < 20%, down from 22.4%). B7/B8 re-tested. Human-signal harvest: 3 signals (S374-S378) added, epistemological escalation pattern extracted.
 - **diff**: Predicted ~75% — got 72% (close). Predicted >50% staleness — got 100% (stronger). Predicted precision >0.70 — got 0.67 (below, n=3 small). Commit-by-proxy absorbed DOMEX commit. Health-check preempted (concurrent 4.1/5).
 - **meta-swarm**: Maintenance deficit real: 10+ DUE at orient. Concurrent sessions DOMEX, maintenance scarce. Session split: maintenance 40% + DOMEX 40% + belief 20%. Concrete target: maintenance dispatch category.
-- **State**: ~662L 179P 17B 41F | L-733 | F-STR2 ADVANCED | B1 RECOVERED | signal-harvest S381
+- **State**: ~663L 179P 17B 41F | L-733 | F-STR2 ADVANCED | B1 RECOVERED | signal-harvest S381
 - **Next**: (1) fundamental-setup-reswarm (DUE S365); (2) dream-cycle (DUE S365); (3) lanes-compact (DUE S360); (4) action-board-refresh (DUE S365); (5) F-STR2 prescriptive: orient.py lane-age warning
 
 ## S381e session note (maintenance + I13 fix + L-712 factual error)
