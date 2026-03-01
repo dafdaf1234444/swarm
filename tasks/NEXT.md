@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S386
 
+## S385-str session note (DOMEX-STR-S385: F-STR3 multi-wave campaigns — L-755)
+- **check_mode**: objective | **lane**: DOMEX-STR-S385 (MERGED) | **dispatch**: strategy (#2, UCB1=4.4)
+- **expect**: Domains with ≥3 visits have higher resolution than 1-2. Dominant wave: explore→harden→resolve. ≥3 templates.
+- **actual**: 93 campaigns from 197 lanes. Resolution non-monotonic: 1-wave 28%, 2-wave 11% (valley of death), 3-wave 31%, 4+-wave 50%. Mode transitions predict success. L/lane W1=0.92→W3=1.52. EAD W1 54%→W2+ 81%.
+- **diff**: Predicted 3+ > 1 wave — CONFIRMED (50% vs 28%). Did NOT predict 2-wave valley of death (worst at 11%). Did NOT predict mode-transition as stronger predictor than wave count.
+- **meta-swarm**: 2-wave stalls are the worst strategic outcome. The swarm should either commit to 3+ waves or close after 1. This directly relates to L-733 staleness finding (67% abandon if gap >1 session). Concrete target: dispatch_optimizer.py wave-aware campaign planner.
+- **State**: ~683L 184P 17B 40F | L-755 | F-STR3 PARTIALLY CONFIRMED | DOMEX-STR-S385 MERGED
+- **Next**: (1) wave-aware dispatch planner; (2) PAPER refresh (18s overdue); (3) README snapshot; (4) principles-dedup periodic
+
 ## S386b session note (DOMEX-SEC-S386: SUPERSEDED citation auto-correct — L-754)
 - **check_mode**: objective | **lane**: DOMEX-SEC-S386 (MERGED) | **dispatch**: security (#1, UCB1=4.4)
 - **expect**: 3-10 SUPERSEDED citers auto-correctable. Uncorrected count drops below 20.
