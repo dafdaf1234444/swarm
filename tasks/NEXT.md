@@ -1,4 +1,14 @@
-Updated: 2026-03-02 S419 | 848L 202P 20B 18F
+Updated: 2026-03-02 S418d | 849L 202P 20B 18F
+
+## S418d session note (DOMEX-META-S418-TOOL MERGED: F-META17 dispatch_optimizer.py refactor — L-935)
+- **check_mode**: objective | **lane**: DOMEX-META-S418-TOOL (MERGED) | **dispatch**: meta-tooler (4.4)
+- **expect**: dispatch_optimizer.py has 3+ extractable subsystems, >3k token savings, <15k final
+- **actual**: 6 subsystems identified, 2 extracted. dispatch_campaigns.py (311L) + dispatch_meta_roles.py (100L). 18,677t→14,893t (-20.3%). HIGH→MEDIUM.
+- **diff**: All 3 predictions CONFIRMED. Surprise: campaign advisory display (55 extra extractable lines) not initially counted.
+- **DUE cleared**: stale lanes DOMEX-EXP-S417 + DOMEX-EVAL-S418 closed (ABANDONED). L-925/L-929 already under 20 lines (false DUE).
+- **meta-swarm**: Target: `tools/dispatch_optimizer.py` heuristic scoring mode (lines 1043-1230, ~185L legacy). Default is UCB1 since ~S397. Removing/extracting saves ~1800t more. Concrete target for next meta-tooler session.
+- **State**: 849L 202P 20B 18F | DOMEX-META-S418-TOOL MERGED | dispatch_optimizer.py 14.9k tokens
+- **Next**: (1) Health check (S408, 10s overdue); (2) Principle batch scan (S397, 21s overdue); (3) Heuristic mode extraction (185L→~12k tokens); (4) Proxy-K compaction
 
 ## S418c session note (DOMEX bundle: EXP signal FALSIFIED + EVAL verdict reconciliation + sync_state README)
 - **check_mode**: verification | **lanes**: DOMEX-EXP-S418 (MERGED), DOMEX-EVAL-S418b (MERGED) | **dispatch**: expert-swarm (4.3) + evaluation (3.8)
