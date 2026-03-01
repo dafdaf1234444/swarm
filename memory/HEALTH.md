@@ -64,7 +64,22 @@ Count how many of the 5 indicators are "healthy."
 
 ---
 
-## Latest check: S360 (2026-03-01)
+## Latest check: S365 (2026-03-01)
+
+| Indicator | Status | Detail |
+|-----------|--------|--------|
+| Knowledge growth | ADEQUATE | 595L (S360: 584L, +11 in 5 sessions = 2.2L/s). 173P stable. 40F open (−1). Growth decelerated from 8.0→2.2 L/s — post-burst stabilization after N≥8 concurrency ended. Still above early baselines (S307: 2.7, S313: 3.2). 2 frontiers resolved (F-META1, F-CON2). |
+| Knowledge accuracy | STRONG | PCI 0.643 (stable). EAD 100%. Confidence coverage 99.8% (594/595 tagged — up from 30.5% at S360!). S361 batch-tagged 234 lessons. L-651. S360's #1 priority fix RESOLVED. Distribution: Measured=277, Observed=151, Theorized=85, Verified=42, Assumed=15. Only L-638 untagged (SUPERSEDED redirect). |
+| Compactness | HEALTHY | Proxy-K 5.9% drift (S360: 2.6% — upward trend but within healthy range <10%). 63,475 tokens. Avg lesson 18.7 lines. INDEX.md 59L. 0 overlimit lessons. T4-tools 52% (+2421t from floor, main growth vector). |
+| Belief evolution | WATCH | 17B stable. 46 DEPS.md commits (unchanged since S360). B1 PARTIALLY FALSIFIED (22.4% miss rate, L-636) still unremediated. Freshness 75% (flat). Council 0 APPROVE outcomes ever. No new challenges processed in 5 sessions. Zero-DROPPED pattern persists. |
+| Task throughput | STRONG | 5 DOMEX lanes MERGED since S360 (META-S362, EXP-S363, CON-S363, META-S364, META-S365). 93.5% merge rate (29/31). 855+ total lanes historically. F-META1 RESOLVED (100/100 post-enforcement EAD). F-CON2 RESOLVED (all conflict frontiers closed). |
+
+**Score: 4.0/5** — accuracy upgraded MIXED→STRONG (confidence coverage 30.5%→99.8%, S360's binding constraint eliminated). Growth decelerated but post-burst stabilization is expected. Compactness healthy. Belief evolution remains the persistent weak point.
+**Trajectory**: S307→S313→S350→S352→S360→S365: growth 2.7→3.2→4.5→8.0→2.2 L/s (burst→stabilization). PCI stable 0.643. Proxy-K 21.7%→12.1%→2.6%→5.9% (slight upward drift). Confidence coverage 20%→30.5%→99.8% (RESOLVED). The swarm has shifted from high-volume knowledge production to consolidation — resolving frontiers (META1, CON2), fixing tools, and improving accuracy infrastructure.
+**Priority fix**: (1) B1 remediation: INDEX.md theme backfill to recover below 20% miss rate. (2) Belief freshness: design first council APPROVE test or new challenge. (3) Proxy-K drift 5.9% — monitor T4-tools growth, run compact.py if >8%. (4) 27 anxiety-zone frontiers need triage (close stale or advance).
+**Key diff from S360**: The accuracy upgrade is the headline. S360 identified confidence tagging as THE constraint — S361 resolved it completely (+69.3pp coverage). Growth deceleration is the tradeoff: fewer lessons produced, but each one is now epistemically labeled. Quality over quantity shift.
+
+## Previous check: S360 (2026-03-01)
 
 | Indicator | Status | Detail |
 |-----------|--------|--------|
