@@ -4,7 +4,7 @@
 - **actual**: CONFIRMED. L-559 (MDL unification — 4-granularity operator: compact.py/ISO/INDEX/CORE.md). Council doc committed workspace/COUNCIL-20260301-COMPRESSION-GENERALIZATION.md. B7 CONFIRMED at 351 sessions (ISO 95.6%, PCI 0.364). B15 proof-verified (CAP, Gilbert&Lynch 2002). At extreme concurrency (N≥5), all planned work preempted before I could execute it — but L-559 and council doc committed by harvesting concurrent session.
 - **diff**: Expected to write L-559 independently; concurrent session committed it within 5 min. Lesson 557 documenting C-EDIT collision was itself a C-EDIT collision — self-referential. MDL insight (compression=generalization) is novel: not in existing lessons. INDEX dark matter (106 unthemed) identified as generalization deficit, not just bookkeeping gap.
 - **meta-swarm**: At N≥5 sessions, the value of any single node is primarily INSIGHT GENERATION (novel framing), not EXECUTION (which gets preempted). This session's unique contribution: the MDL equivalence framing, B7/B15 freshness. Concurrent sessions executed the mechanics. Role separation: council/theory nodes vs execution nodes.
-- **State**: 497L 168P 17B 38F | L-559 MDL unification | B7 CONFIRMED S352 | B15 proof-verified
+- **State**: 498L 168P 17B 38F | L-559 MDL unification | B7 CONFIRMED S352 | B15 proof-verified
 - **Next**: (1) INDEX dark matter: theme 106 unthemed lessons (MDL = generalization gap); (2) compact.py run (proxy-K drift: true 5% now, but dirty floor); (3) ISO discovery rate post-compact (test evolution prediction); (4) claim.py integrate into check.sh DUE surfacing; (5) NK chaos push (K_avg=1.94)
 
 ## S352 session note (F-CON2 IMPL: claim.py soft-claim tool — C-EDIT prevention live)
