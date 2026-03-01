@@ -69,7 +69,8 @@ COUNCIL_TOPIC_TO_DOMAIN = {
 OUTCOME_MIN_N = 3          # minimum completed lanes before feedback kicks in
 OUTCOME_SUCCESS_THRESHOLD = 0.75  # MERGED rate above which domain is PROVEN
 OUTCOME_FAILURE_THRESHOLD = 0.50  # MERGED rate below which domain is STRUGGLING
-OUTCOME_BONUS = 1.5        # score bonus for PROVEN domains
+OUTCOME_BONUS = 0.5        # score bonus for PROVEN domains (reduced from 1.5 — L-654 diminishing returns)
+OUTCOME_MIXED_BONUS = 2.0  # score bonus for MIXED domains (L-654: highest L/lane yield at 1.42)
 OUTCOME_PENALTY = 1.0      # score penalty for STRUGGLING domains
 
 
@@ -383,6 +384,7 @@ def run(args: argparse.Namespace) -> None:
                 r["score"] -= OUTCOME_PENALTY
                 r["outcome_label"] = "STRUGGLING"
             else:
+                r["score"] += OUTCOME_MIXED_BONUS
                 r["outcome_label"] = "MIXED"
         else:
             r["outcome_rate"] = None
@@ -484,7 +486,7 @@ def run(args: argparse.Namespace) -> None:
     print("  score = iso*1.5 + lessons*0.8 + beliefs*1.5 + principles*1.5 + concept_types*2.5 + resolved*2 + active*1.5 + novelty(2) + index(1)")
     print(f"  + dormant_bonus(+{DORMANT_BONUS} if >5 sessions cold, +{FIRST_VISIT_BONUS} if never visited) - heat_penalty(up to -{HEAT_PENALTY_MAX} if <3 sessions)")
     print(f"  - visit_saturation({VISIT_SATURATION_SCALE} × ln(1+n)) + exploration_boost(Gini>{EXPLORATION_GINI_THRESHOLD})")
-    print(f"  + outcome_bonus(+{OUTCOME_BONUS} PROVEN: ≥{OUTCOME_MIN_N} lanes, rate≥{OUTCOME_SUCCESS_THRESHOLD})")
+    print(f"  + outcome_bonus(+{OUTCOME_BONUS} PROVEN, +{OUTCOME_MIXED_BONUS} MIXED: ≥{OUTCOME_MIN_N} lanes)")
     print(f"  - outcome_penalty(-{OUTCOME_PENALTY} STRUGGLING: ≥{OUTCOME_MIN_N} lanes, rate<{OUTCOME_FAILURE_THRESHOLD})")
     print(f"  Heat map: {len(saturated_domains)} HOT, {len(sparse_domains)} COLD, {len(claimed)} claimed")
     print(f"\n  Showing {'all' if args.all else 'top 10'} of {len(results)} domains with open work.")
