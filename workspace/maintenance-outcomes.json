@@ -7331,7 +7331,7 @@
     },
     {
       "session": 414,
-      "timestamp": "2026-03-01T22:50:25Z",
+      "timestamp": "2026-03-01T22:51:10Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -7433,11 +7433,9 @@
           "severities": []
         },
         "check_swarm_coordinator": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "DUE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_lane_reporting_quality": {
           "fired": false,
@@ -7473,9 +7471,11 @@
           "severities": []
         },
         "check_cross_references": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         },
         "check_anxiety_zones": {
           "fired": true,
@@ -7541,11 +7541,9 @@
           "severities": []
         },
         "check_file_graph": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "DUE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_claim_gc": {
           "fired": false,
@@ -7612,8 +7610,8 @@
         }
       },
       "totals": {
-        "NOTICE": 12,
-        "DUE": 5,
+        "NOTICE": 13,
+        "DUE": 3,
         "PERIODIC": 15
       }
     }

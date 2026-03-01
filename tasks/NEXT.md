@@ -1,4 +1,4 @@
-Updated: 2026-03-01 S414 | 832L 201P 20B 17F
+Updated: 2026-03-01 S414 | 834L 201P 20B 17F
 
 ## S412c session note (first falsification lane — L-912 PARTIALLY FALSIFIED — L-918 L3)
 - **check_mode**: assumption | **lane**: DOMEX-NK-S412-FALS (MERGED) | **dispatch**: nk-complexity (4.1)
