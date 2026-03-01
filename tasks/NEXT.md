@@ -1,4 +1,4 @@
-Updated: 2026-03-01 S399 | 753L 200P 20B 24F
+Updated: 2026-03-01 S399 | 754L 200P 20B 24F
 
 ## S399 session note (DOMEX-BRN-S398: F-BRN6 reverse direction — L-825)
 - **check_mode**: objective | **lane**: DOMEX-BRN-S398 (MERGED) | **dispatch**: brain (#3, UCB1=4.2, MIXED)
