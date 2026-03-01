@@ -15,12 +15,16 @@ Usage:
 """
 
 import argparse
+import re
 import sys
 from datetime import date
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).parent.parent
 LANES_FILE = REPO_ROOT / "tasks" / "SWARM-LANES.md"
+LANES_ARCHIVE = REPO_ROOT / "tasks" / "SWARM-LANES-ARCHIVE.md"
+
+VALID_MODES = ("exploration", "hardening", "replication", "resolution")
 
 
 def lane_exists(lane_id: str) -> bool:
@@ -32,6 +36,52 @@ def lane_exists(lane_id: str) -> bool:
             if len(cols) >= 3 and cols[2] == lane_id:
                 return True
     return False
+
+
+def get_frontier_previous_mode(frontier_id: str) -> str | None:
+    """Return the mode of the most recent lane for this frontier, or None if first wave.
+
+    Reads both active and archive lanes. Used to warn on mode repeat (F-STR3, L-766).
+    """
+    if not frontier_id:
+        return None
+    lanes: list[tuple[int, str]] = []
+    for lanes_file in (LANES_FILE, LANES_ARCHIVE):
+        if not lanes_file.exists():
+            continue
+        for line in lanes_file.read_text().splitlines():
+            if not line.startswith("|") or line.startswith("| ---") or line.startswith("| Date"):
+                continue
+            cols = [c.strip() for c in line.split("|")]
+            if len(cols) < 12:
+                continue
+            etc = cols[10] if len(cols) > 10 else ""
+            fid_m = re.search(r"frontier=(F-[A-Z0-9]+)", etc)
+            if not fid_m or fid_m.group(1) != frontier_id:
+                continue
+            sess_str = cols[3] if len(cols) > 3 else ""
+            sess_m = re.search(r"S?(\d+)", sess_str)
+            sess = int(sess_m.group(1)) if sess_m else 0
+            # Prefer explicit mode=, then fall back to keyword inference on intent
+            explicit_m = re.search(r"\bmode=(exploration|hardening|replication|resolution)\b", etc)
+            if explicit_m:
+                mode = explicit_m.group(1)
+            else:
+                intent_m = re.search(r"intent=([^;]+)", etc)
+                intent = intent_m.group(1).lower() if intent_m else ""
+                if any(kw in intent for kw in ("harden", "validat", "retest", "prospective",
+                                                "verify", "audit", "replicat", "correct")):
+                    mode = "hardening"
+                elif any(kw in intent for kw in ("resolve", "close", "final", "build",
+                                                  "implement", "integrat", "wire")):
+                    mode = "resolution"
+                else:
+                    mode = "exploration"
+            lanes.append((sess, mode))
+    if not lanes:
+        return None
+    lanes.sort(key=lambda x: x[0])
+    return lanes[-1][1]
 
 
 def append_open_row(
@@ -50,6 +100,7 @@ def append_open_row(
     branch: str,
     domain: str,
     note: str,
+    mode: str = "",
 ) -> None:
     today = date.today().isoformat()
 
@@ -75,6 +126,8 @@ def append_open_row(
         f"intent={intent}",
         f"check_mode={check_mode}",
     ]
+    if mode:
+        etc_parts.append(f"mode={mode}")
     if personality and personality != "domain-expert":
         etc_parts.append(f"personality={personality}")
     if frontier:
@@ -128,6 +181,12 @@ def main():
     parser.add_argument("--author", default="claude-code", help="Author identifier")
     parser.add_argument("--model", default="claude-sonnet-4-6", help="Model used")
     parser.add_argument("--branch", default="master", help="Branch (default: master)")
+    parser.add_argument("--mode", default="", choices=list(VALID_MODES) + [""],
+                        help=(
+                            "Campaign wave mode: exploration | hardening | replication | resolution. "
+                            "Recorded as mode= in Etc; preferred over intent= keyword inference. "
+                            "Required for 2nd+ wave lanes (F-STR3, L-766)."
+                        ))
     parser.add_argument("--force", action="store_true",
                         help="Open lane even if lane ID already exists (not recommended)")
     args = parser.parse_args()
@@ -141,6 +200,30 @@ def main():
         args.intent = f"advance-{args.frontier}" if args.frontier else "swarm-work"
     if not args.note:
         args.note = f"Lane opened via open_lane.py. Frontier: {args.frontier or 'TBD'}."
+
+    # Wave-mode enforcement: warn on mode repeat for 2nd+ wave lanes (F-STR3, L-766)
+    if args.frontier:
+        prev_mode = get_frontier_previous_mode(args.frontier)
+        if prev_mode is not None:
+            wave_mode = args.mode or "exploration"  # default if not specified
+            if not args.mode:
+                print(
+                    f"WARN: {args.frontier} has prior lane(s) (last mode: {prev_mode}). "
+                    f"Consider --mode to make campaign progression explicit.",
+                    file=sys.stderr,
+                )
+            elif wave_mode == prev_mode:
+                print(
+                    f"WARN: mode={wave_mode} repeats previous wave mode for {args.frontier}. "
+                    f"Mode-repeat is the #1 predictor of valley-of-death stalls (L-755/L-766). "
+                    f"Consider a different mode: {', '.join(m for m in VALID_MODES if m != wave_mode)}",
+                    file=sys.stderr,
+                )
+            else:
+                print(
+                    f"INFO: mode shift {prev_mode} → {wave_mode} for {args.frontier} — "
+                    f"mode transition increases resolution probability (L-755)."
+                )
 
     append_open_row(
         lane_id=args.lane,
@@ -158,6 +241,7 @@ def main():
         branch=args.branch,
         domain=args.domain,
         note=args.note,
+        mode=args.mode,
     )
 
 

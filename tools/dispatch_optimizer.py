@@ -237,13 +237,18 @@ def _get_campaign_waves() -> dict[str, dict]:
         if intent_m:
             intent = intent_m.group(1).lower()
 
-        mode = "exploration"
-        if any(kw in intent for kw in ("harden", "validat", "retest", "prospective",
-                                        "verify", "audit", "replicat", "correct")):
-            mode = "hardening"
-        elif any(kw in intent for kw in ("resolve", "close", "final", "build",
-                                          "implement", "integrat", "wire")):
-            mode = "resolution"
+        # Prefer explicit mode= field (L-766 fix); fall back to keyword inference
+        explicit_mode_m = re.search(r"\bmode=(exploration|hardening|replication|resolution)\b", etc)
+        if explicit_mode_m:
+            mode = explicit_mode_m.group(1)
+        else:
+            mode = "exploration"
+            if any(kw in intent for kw in ("harden", "validat", "retest", "prospective",
+                                            "verify", "audit", "replicat", "correct")):
+                mode = "hardening"
+            elif any(kw in intent for kw in ("resolve", "close", "final", "build",
+                                              "implement", "integrat", "wire")):
+                mode = "resolution"
 
         frontier_lanes.setdefault(frontier, []).append({
             "domain": dom, "session": sess, "status": status,
