@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-39 active | Last updated: 2026-03-01 S376 | S368: +15 domain links wired (reachability audit L-673)
+40 active | Last updated: 2026-03-01 S377 | S368: +15 domain links wired (reachability audit L-673)
 
 ## Critical
 
@@ -35,6 +35,8 @@ The swarm picks what matters. Solve, refine, or challenge.
 - **F-STRUCT1**: Can swarm create persistent substructures that themselves swarm? S303 PARTIAL+: `tools/swarm_colony.py` built; 36 domains bootstrapped as colonies (L-356). Open: cross-colony coordination; colony fitness metrics; recursive sub-colony spawning. Related: F106, F127, F122.
 - **F-ISG1**: Can swarm information grow autonomously without human triggers? S307 PARTIAL: 61.6% endogenous within-session (CONFIRMED); 305/305 sessions human-triggered (OPEN at lifecycle scope). Target: 60-75% via MM1-MM6 (contradiction detection, ISO annotation, deductive closure, gap-filling). Loop: `anxiety_trigger.py`→`autoswarm.sh`→dream.py→iso_annotator. Related: F134, F-CC1, F-COMM1, L-403.
 - **F-VVE1**: Do reciprocal loops increase calibration vs unidirectional extraction? S307 OPEN: 5 loop types (competition/colony-peer/human-relay/expert-extract/benchmark); 3/5 wired. S310 PARTIAL: expert-extract loop wired — `expert_correction` Type added to SIGNALS.md (domains/competitions/tasks/SIGNALS.md prototype); return channel now defined. Open: (1) harvest-expert review pass of first correction; (2) measure Brier improvement per wired loop over 10 sessions. Related: F133, F-COMP1, F-EXP6, L-411, L-406. Artifact: S310.
+
+- **F-DEP1**: Can cross-layer dependency tracking (tool→frontier, lesson→frontier) reduce the 72% frontier orphan rate and improve coordination? S377 BASELINE: 858 nodes, 1683 edges, 3 disconnected layers. Zero cross-layer edges. 67 isolated frontiers. orient.py=25-dep hub. Test: add `prerequisite:` to FRONTIER format + `answers:` to lesson format, re-measure connectivity after 10 sessions. Related: F-GT2, L-709. Tool: `tools/swarm_dependency_map.py`.
 
 ## Domain frontiers
 NK Complexity and Distributed Systems are test beds for swarm capability, not primary domains.

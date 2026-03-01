@@ -1,0 +1,527 @@
+{
+  "session": 377,
+  "global_states": {
+    "DECAYED": 274,
+    "MUST-KNOW": 215,
+    "ACTIVE": 169,
+    "SHOULD-KNOW": 140
+  },
+  "domain_profiles": {
+    "unknown": {
+      "DECAYED": 165,
+      "MUST-KNOW": 17,
+      "ACTIVE": 28
+    },
+    "meta": {
+      "MUST-KNOW": 73,
+      "DECAYED": 21,
+      "ACTIVE": 48,
+      "SHOULD-KNOW": 10
+    },
+    "information-science": {
+      "MUST-KNOW": 7,
+      "DECAYED": 2,
+      "ACTIVE": 4,
+      "SHOULD-KNOW": 5
+    },
+    "nk complexity": {
+      "MUST-KNOW": 2,
+      "DECAYED": 3
+    },
+    "distributed systems": {
+      "DECAYED": 1
+    },
+    "health (f-hlt1)": {
+      "DECAYED": 1
+    },
+    "health (f-hlt3)": {
+      "MUST-KNOW": 1
+    },
+    "ai (f-ai3)": {
+      "MUST-KNOW": 1,
+      "DECAYED": 1
+    },
+    "health (f-hlt1 extension)": {
+      "DECAYED": 1
+    },
+    "meta / evolution": {
+      "MUST-KNOW": 1
+    },
+    "ai (f-ai2)": {
+      "DECAYED": 2
+    },
+    "finance (f-fin1)": {
+      "MUST-KNOW": 1,
+      "DECAYED": 2
+    },
+    "meta / multi-tool": {
+      "MUST-KNOW": 1
+    },
+    "brain (f122 extension)": {
+      "MUST-KNOW": 1
+    },
+    "finance (f-fin2)": {
+      "ACTIVE": 1
+    },
+    "information-science (f-is1": {
+      "DECAYED": 1
+    },
+    "brain (b-brn1)": {
+      "ACTIVE": 1
+    },
+    "brain/information-science (f-brn3)": {
+      "MUST-KNOW": 1
+    },
+    "operations-research (f-ops1)": {
+      "ACTIVE": 1
+    },
+    "brain/safety (f-brn3": {
+      "DECAYED": 1
+    },
+    "12 equivalences in one session)": {
+      "MUST-KNOW": 1
+    },
+    "meta/information-science": {
+      "MUST-KNOW": 1
+    },
+    "meta/compaction": {
+      "MUST-KNOW": 1,
+      "DECAYED": 2
+    },
+    "meta/swarm-structure": {
+      "MUST-KNOW": 2,
+      "DECAYED": 1
+    },
+    "meta/wsl": {
+      "MUST-KNOW": 1
+    },
+    "meta/cross-swarm": {
+      "ACTIVE": 1
+    },
+    "economy / coordination (f-eco3)": {
+      "DECAYED": 1
+    },
+    "meta/swarm-behavior": {
+      "DECAYED": 1
+    },
+    "economy": {
+      "ACTIVE": 1,
+      "DECAYED": 2,
+      "MUST-KNOW": 5,
+      "SHOULD-KNOW": 3
+    },
+    "evolution": {
+      "ACTIVE": 4,
+      "MUST-KNOW": 6,
+      "SHOULD-KNOW": 6
+    },
+    "gaming": {
+      "DECAYED": 1,
+      "MUST-KNOW": 1,
+      "SHOULD-KNOW": 3
+    },
+    "meta/tooling": {
+      "DECAYED": 1,
+      "MUST-KNOW": 1,
+      "ACTIVE": 1
+    },
+    "helper-swarm / meta (f-hlp4)": {
+      "ACTIVE": 1
+    },
+    "tooling/compaction": {
+      "MUST-KNOW": 1
+    },
+    "conflict": {
+      "MUST-KNOW": 5,
+      "ACTIVE": 4,
+      "SHOULD-KNOW": 0
+    },
+    "quality/knowledge-management": {
+      "ACTIVE": 1
+    },
+    "meta/knowledge-structure (f126)": {
+      "MUST-KNOW": 1
+    },
+    "gaming/frontier-design": {
+      "DECAYED": 1
+    },
+    "knowledge-lifecycle": {
+      "DECAYED": 1
+    },
+    "conflict/coordination (f-con1)": {
+      "DECAYED": 1
+    },
+    "brain/coordination": {
+      "ACTIVE": 1
+    },
+    "linguistics (f-lng1)": {
+      "ACTIVE": 2
+    },
+    "farming (f-far1)": {
+      "DECAYED": 1
+    },
+    "quality/meta": {
+      "MUST-KNOW": 1
+    },
+    "meta/quality": {
+      "DECAYED": 2
+    },
+    "dream/meta": {
+      "DECAYED": 1
+    },
+    "brain/meta": {
+      "MUST-KNOW": 2,
+      "ACTIVE": 1
+    },
+    "meta/philosophy": {
+      "ACTIVE": 1
+    },
+    "coordination/meta": {
+      "ACTIVE": 1
+    },
+    "meta/personality": {
+      "MUST-KNOW": 1,
+      "DECAYED": 2
+    },
+    "evaluation/meta": {
+      "DECAYED": 1,
+      "MUST-KNOW": 1
+    },
+    "meta/epistemics": {
+      "DECAYED": 1
+    },
+    "meta/beliefs": {
+      "MUST-KNOW": 1
+    },
+    "claude-code/meta": {
+      "DECAYED": 2
+    },
+    "meta/operations": {
+      "DECAYED": 1
+    },
+    "dream (f-drm3)": {
+      "DECAYED": 1
+    },
+    "graph-theory": {
+      "DECAYED": 2,
+      "MUST-KNOW": 1,
+      "ACTIVE": 1,
+      "SHOULD-KNOW": 5
+    },
+    "meta/coordination": {
+      "MUST-KNOW": 2,
+      "DECAYED": 4,
+      "ACTIVE": 3
+    },
+    "architecture/coordination": {
+      "DECAYED": 1
+    },
+    "meta/quality/publication": {
+      "DECAYED": 1
+    },
+    "meta/publication": {
+      "DECAYED": 1
+    },
+    "social-media": {
+      "DECAYED": 1,
+      "SHOULD-KNOW": 0
+    },
+    "conflict/coordination": {
+      "MUST-KNOW": 1
+    },
+    "governance": {
+      "MUST-KNOW": 11,
+      "DECAYED": 2,
+      "ACTIVE": 5,
+      "SHOULD-KNOW": 0
+    },
+    "brain": {
+      "ACTIVE": 6,
+      "DECAYED": 1,
+      "MUST-KNOW": 1,
+      "SHOULD-KNOW": 4
+    },
+    "linguistics (f-lng3)": {
+      "DECAYED": 1
+    },
+    "cryptocurrency": {
+      "DECAYED": 3,
+      "SHOULD-KNOW": 3
+    },
+    "meta/management": {
+      "DECAYED": 1
+    },
+    "meta (f-gen1)": {
+      "MUST-KNOW": 1
+    },
+    "governance (f-gov4)": {
+      "MUST-KNOW": 1
+    },
+    "meta/governance": {
+      "DECAYED": 1,
+      "MUST-KNOW": 1,
+      "ACTIVE": 1
+    },
+    "coordination": {
+      "ACTIVE": 1
+    },
+    "expert-swarm (f-exp6)": {
+      "ACTIVE": 1
+    },
+    "meta (f-hum1": {
+      "MUST-KNOW": 1
+    },
+    "meta (f-hum1)": {
+      "DECAYED": 1
+    },
+    "meta (f121": {
+      "MUST-KNOW": 1
+    },
+    "expert-swarm": {
+      "ACTIVE": 5,
+      "MUST-KNOW": 5,
+      "SHOULD-KNOW": 9
+    },
+    "expert-swarm (f-comm1": {
+      "ACTIVE": 1
+    },
+    "expert-swarm / meta": {
+      "ACTIVE": 2
+    },
+    "meta (modes-reswarm)": {
+      "DECAYED": 1
+    },
+    "meta (f119)": {
+      "DECAYED": 1
+    },
+    "nk-complexity": {
+      "MUST-KNOW": 12,
+      "ACTIVE": 7,
+      "SHOULD-KNOW": 1
+    },
+    "governance/meta (f119)": {
+      "DECAYED": 1
+    },
+    "meta (iso-15": {
+      "DECAYED": 1
+    },
+    "meta/generalizer": {
+      "MUST-KNOW": 1,
+      "ACTIVE": 1,
+      "DECAYED": 1
+    },
+    "physics / meta": {
+      "ACTIVE": 1
+    },
+    "catastrophic-risks (f-cat1)": {
+      "MUST-KNOW": 1
+    },
+    "meta/swarm-lanes": {
+      "DECAYED": 1
+    },
+    "brain -->": {
+      "MUST-KNOW": 1,
+      "DECAYED": 1
+    },
+    "human-systems": {
+      "ACTIVE": 1,
+      "DECAYED": 2,
+      "SHOULD-KNOW": 4
+    },
+    "evolution -->": {
+      "DECAYED": 2
+    },
+    "meta -->": {
+      "MUST-KNOW": 1,
+      "DECAYED": 2,
+      "ACTIVE": 4
+    },
+    "` field in new lessons (check.sh": {
+      "ACTIVE": 1
+    },
+    "swarm-meta": {
+      "DECAYED": 1
+    },
+    "linguistics/meta": {
+      "MUST-KNOW": 1
+    },
+    "physics (f136)": {
+      "ACTIVE": 1
+    },
+    "meta/portability": {
+      "DECAYED": 1
+    },
+    "linguistics": {
+      "ACTIVE": 1,
+      "MUST-KNOW": 2,
+      "SHOULD-KNOW": 5
+    },
+    "meta/graph-theory": {
+      "ACTIVE": 1
+    },
+    "evaluation": {
+      "ACTIVE": 3,
+      "SHOULD-KNOW": 3
+    },
+    "dream": {
+      "ACTIVE": 1,
+      "SHOULD-KNOW": 4
+    },
+    "fluid-dynamics": {
+      "MUST-KNOW": 1,
+      "ACTIVE": 1,
+      "SHOULD-KNOW": 3
+    },
+    "physics": {
+      "ACTIVE": 1,
+      "MUST-KNOW": 1,
+      "SHOULD-KNOW": 6
+    },
+    "philosophy": {
+      "ACTIVE": 1
+    },
+    "strategy": {
+      "MUST-KNOW": 1,
+      "SHOULD-KNOW": 3
+    },
+    "statistics": {
+      "ACTIVE": 2,
+      "MUST-KNOW": 2,
+      "SHOULD-KNOW": 3
+    },
+    "helper-swarm": {
+      "MUST-KNOW": 5,
+      "ACTIVE": 1,
+      "SHOULD-KNOW": 1
+    },
+    "psychology": {
+      "MUST-KNOW": 1,
+      "SHOULD-KNOW": 4
+    },
+    "operations-research": {
+      "MUST-KNOW": 3,
+      "SHOULD-KNOW": 2
+    },
+    "ai": {
+      "ACTIVE": 1,
+      "SHOULD-KNOW": 2
+    },
+    "control-theory": {
+      "MUST-KNOW": 1,
+      "SHOULD-KNOW": 3
+    },
+    "finance": {
+      "ACTIVE": 1,
+      "SHOULD-KNOW": 1
+    },
+    "empathy (genesis)": {
+      "ACTIVE": 1
+    },
+    "empathy": {
+      "ACTIVE": 3,
+      "SHOULD-KNOW": 0
+    },
+    "field invisible to dream.py": {
+      "MUST-KNOW": 1
+    },
+    "game-theory": {
+      "ACTIVE": 1,
+      "MUST-KNOW": 3,
+      "SHOULD-KNOW": 4
+    },
+    "stochastic-processes": {
+      "MUST-KNOW": 6,
+      "ACTIVE": 2,
+      "SHOULD-KNOW": 3
+    },
+    "history": {
+      "ACTIVE": 2,
+      "SHOULD-KNOW": 3
+    },
+    "economy (f-eco5)": {
+      "MUST-KNOW": 1
+    },
+    "quality": {
+      "MUST-KNOW": 2,
+      "SHOULD-KNOW": 3
+    },
+    "distributed-systems": {
+      "MUST-KNOW": 1,
+      "SHOULD-KNOW": 0
+    },
+    "cryptography -->": {
+      "DECAYED": 2
+    },
+    "ai -->": {
+      "DECAYED": 1
+    },
+    "nk-complexity -->": {
+      "DECAYED": 1
+    },
+    "expert-swarm -->": {
+      "DECAYED": 1
+    },
+    "farming -->": {
+      "MUST-KNOW": 1
+    },
+    "distributed-systems -->": {
+      "ACTIVE": 1,
+      "MUST-KNOW": 1
+    },
+    "finance -->": {
+      "DECAYED": 3
+    },
+    "gaming -->": {
+      "DECAYED": 1
+    },
+    "information-science -->": {
+      "DECAYED": 1
+    },
+    "economy -->": {
+      "MUST-KNOW": 1,
+      "DECAYED": 3
+    },
+    "human-systems -->": {
+      "ACTIVE": 1
+    },
+    "graph-theory -->": {
+      "DECAYED": 1
+    },
+    "catastrophic-risks": {
+      "SHOULD-KNOW": 1
+    },
+    "claude-code": {
+      "SHOULD-KNOW": 1
+    },
+    "competitions": {
+      "SHOULD-KNOW": 1
+    },
+    "cryptography": {
+      "SHOULD-KNOW": 3
+    },
+    "farming": {
+      "SHOULD-KNOW": 2
+    },
+    "fractals": {
+      "SHOULD-KNOW": 3
+    },
+    "guesstimates": {
+      "SHOULD-KNOW": 3
+    },
+    "health": {
+      "SHOULD-KNOW": 0
+    },
+    "protocol-engineering": {
+      "SHOULD-KNOW": 3
+    },
+    "security": {
+      "SHOULD-KNOW": 2
+    },
+    "global": {
+      "SHOULD-KNOW": 15
+    }
+  },
+  "revival_rate": 22.00956937799043,
+  "total_items": 658,
+  "frontier_count": 140
+}

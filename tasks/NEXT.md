@@ -1,4 +1,31 @@
-Updated: 2026-03-01 S376
+Updated: 2026-03-01 S377
+
+## S377c session note (DOMEX-META-S377c: epistemological state model — L-707)
+- **check_mode**: objective | **lane**: DOMEX-META-S377c | **dispatch**: meta (human directive SIG-27)
+- **expect**: DECAYED is largest category. SHOULD-KNOW > ACTIVE in >30% of domains. Revival rate <5%.
+- **actual**: knowledge_state.py built (270 LOC). DECAYED 34.5% > MUST-KNOW 26.7% > ACTIVE 21.4% > SHOULD-KNOW 17.4%. SHOULD-KNOW > ACTIVE in 19+ domains. Revival rate 22% (92/418). "unknown" domain: 214 items, 169 DECAYED. F-META10 opened.
+- **diff**: DECAYED largest CONFIRMED. SHOULD-KNOW dominance CONFIRMED. Revival rate WRONG (22% vs <5%). Domain fragmentation (100+ micro-domains from unnormalized Domain: field). MUST-KNOW count 215 unexpectedly high — tools create operational dependencies on lessons.
+- **meta-swarm**: Third human signal (SIG-22→23→27) finally responded to epistemologically not operationally. Framework IS the contribution, not the tool. Operational responses to conceptual directives cause human re-signaling.
+- **State**: ~637L 179P 17B 40F | L-707 | SIG-27 | F-META10 | knowledge_state.py
+- **Next**: (1) normalize Domain: field; (2) integrate profiles into dispatch; (3) DECAYED→ACTIVE revival mechanism; (4) BLIND-SPOT detection; (5) re-measure S397
+
+## S377b session note (DOMEX-GT-S377: unified dependency map — L-709)
+- **check_mode**: objective | **lane**: DOMEX-GT-S377 (MERGED) | **dispatch**: graph-theory (human directive: "better dependency management")
+- **expect**: Hub-spoke tools, >80% implicit frontier deps, disconnected layers.
+- **actual**: 858 nodes, 1683 edges across 3 DISCONNECTED layers. Tool: orient.py=25 outgoing deps (super-hub). Frontier: 72.4% implicit (no deps), 67/145 isolated. Lesson: K_avg=2.28, 2.2% orphans. Tool density 5x lessons. Zero cross-layer edges.
+- **diff**: Predicted >80% implicit — got 72.4% (better). Hub-spoke CONFIRMED. Disconnected layers CONFIRMED. Did NOT predict tool layer 5x denser than knowledge layer. Cross-layer gap was THE main finding — swarm tracks deps WITHIN layers but not ACROSS.
+- **meta-swarm**: The dependency map IS the "better dependency management" the human asked for. F-DEP1 opened: add `prerequisite:` to frontiers + `answers:` to lessons = create cross-layer edges. Concrete target: frontier format needs a new field.
+- **State**: ~642L 179P 17B 40F | L-709 | DOMEX-GT-S377 MERGED | F-DEP1 opened | tools/swarm_dependency_map.py
+- **Next**: (1) Add prerequisite field to FRONTIER.md format; (2) orient.py 25-dep fragility extraction; (3) F-GT2 chromatic number computation; (4) re-run dependency map after 10 sessions
+
+## S377 session note (DOMEX-META-S377: programmatic swarm cycle — L-708)
+- **check_mode**: objective | **lane**: DOMEX-META-S377 (MERGED) | **dispatch**: meta (human directive)
+- **expect**: swarm_cycle.py closes executor-layer gap. SENSE→PLAN→PROMPT pipeline makes session planning programmatic. 3x more specific prompts than anxiety_trigger.py.
+- **actual**: Tool built (230 LOC). 5 state sources sensed (triggers, dispatch, signals, NEXT, lanes). 6 priority tiers. autoswarm.sh wired (Priority 0). Post-session MEASURE wired. Cycle log persists plans. Prompt specificity: 0→4 actionable items per session.
+- **diff**: Expected 3x specificity — exceeded (0→4 items, infinite improvement). Did NOT predict sensing layer was already sufficient — gap was purely decision/execution bridge. Legacy trigger/anxiety logic (~100 lines bash) superseded by Python pipeline reading ALL state sources.
+- **meta-swarm**: This session IS the directive: "programmatically swarm the swarm" = build code that automates the swarm's own decision-making. The tool applies swarm's own prioritization logic (triggers > dispatch > signals) but in code, not in AI context windows. Next iteration: use cycle log outcomes to learn which plan types produce best results (reinforcement).
+- **State**: ~641L 179P 17B 39F | L-708 | DOMEX-META-S377 MERGED | swarm_cycle.py
+- **Next**: (1) enable cron for autoswarm.sh (human decision); (2) cycle log → dispatch weight feedback (learn from outcomes); (3) signal_router.py to process 20 OPEN signals programmatically; (4) split-sample HMM validation (S376b follow-up); (5) change-quality-check DUE
 
 ## S376b session note (DOMEX-SP-S376: F-SP3 Viterbi burst alignment CONFIRMED — L-705)
 - **check_mode**: verification | **lane**: DOMEX-SP-S376 (MERGED) | **dispatch**: stochastic-processes (#6, 40.6, DORMANT)
@@ -6,7 +33,7 @@ Updated: 2026-03-01 S376
 - **actual**: 3/3 recovered EXACTLY (not just within window). 12 burst clusters total. State distribution: quiescent 54.4%, production 9.6%, burst 36.0%. Precision 100%. S57 in S1..S69 genesis cluster, S186 in S178..S189 DOMEX-adoption cluster, S347 in S335..S352 high-concurrency cluster.
 - **diff**: Predicted ≥2/3 — got 3/3. Predicted within ±5 — got EXACT hits (better). Did NOT predict 12 burst clusters or genesis mega-burst (69 sessions). Production state surprisingly narrow (9.6%) — swarm operates as switch not dial. Burst prevalence 36% vs original 18% (emission formula difference).
 - **meta-swarm**: HMM parameters were fitted on 175 sessions (S370) but tested on 375 (mild train-on-test contamination). The burst recovery is binary hit/miss so contamination impact is low, but a proper validation would refit on S1-S300 and test on S301-S375. Concrete target: add `--refit` mode to `tools/f_sp3_viterbi_alignment.py` for split-sample validation.
-- **State**: ~640L 179P 17B 39F | L-705 | DOMEX-SP-S376 MERGED | F-SP3 CONFIRMED
+- **State**: ~641L 179P 17B 39F | L-705 | DOMEX-SP-S376 MERGED | F-SP3 CONFIRMED
 - **Next**: (1) annotate 12 burst clusters with known swarm events; (2) split-sample validation (refit S1-S300, test S301-S375); (3) proxy-K compaction (6.79% DUE); (4) paper-reswarm (15+ overdue); (5) change-quality-check (DUE)
 
 ## S375d session note (DOMEX-ECO-S375: UCB1 default activated + 20% floor — L-706)

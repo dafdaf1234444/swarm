@@ -1,0 +1,751 @@
+{
+  "tools": {
+    "nodes": 71,
+    "edges": 112,
+    "graph": {
+      "alignment_check": [
+        "propagate_challenges"
+      ],
+      "compact": [
+        "maintenance",
+        "paper_drift",
+        "swarm_parse",
+        "validate_beliefs"
+      ],
+      "context_router": [
+        "agent_swarm",
+        "colony",
+        "evolve",
+        "frontier_decay",
+        "genesis_evolve",
+        "merge_back",
+        "nk_analyze",
+        "novelty",
+        "pulse",
+        "self_evolve",
+        "session_tracker",
+        "swarm_test",
+        "validate_beliefs"
+      ],
+      "dispatch_optimizer": [
+        "agent_state"
+      ],
+      "f_evo3_cadence_measure": [
+        "maintenance",
+        "orient"
+      ],
+      "gather_council": [
+        "dispatch_optimizer",
+        "open_lane"
+      ],
+      "genesis_subtask": [
+        "agent_swarm",
+        "evolve"
+      ],
+      "maintenance": [
+        "agent_swarm",
+        "bulletin",
+        "compact",
+        "dispatch_tracker",
+        "f_his1_historian_grounding",
+        "merge_back",
+        "orient",
+        "paper_drift",
+        "propagate_challenges",
+        "proxy_k",
+        "substrate_detect",
+        "swarm_parse",
+        "swarm_pr",
+        "validate_beliefs"
+      ],
+      "next_compact": [
+        "swarm_io"
+      ],
+      "nk_null_model": [
+        "swarm_io"
+      ],
+      "orient": [
+        "bulletin",
+        "change_quality",
+        "claim",
+        "close_lane",
+        "colony",
+        "compact",
+        "context_router",
+        "frontier_decay",
+        "kill_switch",
+        "maintenance",
+        "merge_back",
+        "open_lane",
+        "propagate_challenges",
+        "proxy_k",
+        "reach_map",
+        "session_tracker",
+        "spawn_coordinator",
+        "substrate_detect",
+        "swarm_parse",
+        "swarm_pr",
+        "swarm_test",
+        "sync_state",
+        "task_recognizer",
+        "think",
+        "validate_beliefs"
+      ],
+      "propagate_challenges": [
+        "bulletin"
+      ],
+      "proxy_k": [
+        "maintenance",
+        "paper_drift",
+        "swarm_parse",
+        "validate_beliefs"
+      ],
+      "repair": [
+        "maintenance",
+        "proxy_k",
+        "renew_identity",
+        "validate_beliefs"
+      ],
+      "session_tracker": [
+        "evolve",
+        "self_evolve",
+        "swarm_integration_test",
+        "validate_beliefs"
+      ],
+      "swarm_colony": [
+        "colony"
+      ],
+      "swarm_council": [
+        "dream",
+        "gather_council"
+      ],
+      "swarm_cycle": [
+        "orient"
+      ],
+      "swarm_signal": [
+        "signal"
+      ],
+      "swarm_state": [
+        "swarm_io"
+      ],
+      "task_order": [
+        "close_lane",
+        "open_lane",
+        "sync_state",
+        "validate_beliefs"
+      ],
+      "task_recognizer": [
+        "domain_seeder"
+      ],
+      "test_colony": [
+        "colony"
+      ],
+      "test_context_router": [
+        "f_gam2_reputation_integrity"
+      ],
+      "test_mission_constraints": [
+        "a",
+        "b",
+        "bulletin",
+        "c",
+        "d",
+        "e",
+        "f_gam3_signal_contract",
+        "f_stat1_gates",
+        "maintenance",
+        "merge_back",
+        "propagate_challenges"
+      ],
+      "test_orient": [
+        "compact",
+        "maintenance",
+        "orient",
+        "proxy_k",
+        "sync_state",
+        "task_recognizer",
+        "validate_beliefs"
+      ],
+      "test_repair": [
+        "proxy_k"
+      ],
+      "validate_beliefs": [
+        "confidence_tagger"
+      ]
+    },
+    "top_out_degree": [
+      [
+        "orient",
+        25
+      ],
+      [
+        "maintenance",
+        14
+      ],
+      [
+        "context_router",
+        13
+      ],
+      [
+        "test_mission_constraints",
+        11
+      ],
+      [
+        "test_orient",
+        7
+      ],
+      [
+        "compact",
+        4
+      ],
+      [
+        "proxy_k",
+        4
+      ],
+      [
+        "repair",
+        4
+      ],
+      [
+        "session_tracker",
+        4
+      ],
+      [
+        "task_order",
+        4
+      ]
+    ],
+    "top_in_degree": [
+      [
+        "validate_beliefs",
+        9
+      ],
+      [
+        "maintenance",
+        7
+      ],
+      [
+        "proxy_k",
+        5
+      ],
+      [
+        "propagate_challenges",
+        4
+      ],
+      [
+        "swarm_parse",
+        4
+      ],
+      [
+        "colony",
+        4
+      ],
+      [
+        "merge_back",
+        4
+      ],
+      [
+        "orient",
+        4
+      ],
+      [
+        "bulletin",
+        4
+      ],
+      [
+        "paper_drift",
+        3
+      ]
+    ],
+    "orphans": [
+      "anxiety_trigger",
+      "colony_interact",
+      "contamination_investigator",
+      "contract_check",
+      "drift_scanner",
+      "economy_expert",
+      "eval_sufficiency",
+      "f_eco_frontiers",
+      "f_far3_monoculture_hhi",
+      "f_fin1_complementarity",
+      "f_game3_citation_impact",
+      "f_is3_empirical_grounding",
+      "f_meta5_decision_calibration",
+      "f_sp3_viterbi_alignment",
+      "farming_expert",
+      "generalizer_expert",
+      "genesis_selector",
+      "harvest_expert",
+      "info_flow_map",
+      "lanes_compact",
+      "lesson_quality_fixer",
+      "pa_kernel",
+      "paper_extractor",
+      "personality_audit",
+      "phase_boundary",
+      "scaling_model",
+      "self_diff",
+      "swarm_cache",
+      "swarm_dependency_map",
+      "swarm_profiler",
+      "sync_bridges",
+      "test_bulletin",
+      "test_contract_check",
+      "test_harvest_expert",
+      "test_info_flow_map",
+      "test_structure_layout",
+      "test_swarm_lanes",
+      "test_swarm_parse",
+      "test_wiki_swarm",
+      "wiki_swarm"
+    ],
+    "hubs": [
+      "validate_beliefs",
+      "maintenance",
+      "proxy_k"
+    ]
+  },
+  "lessons": {
+    "nodes": 642,
+    "edges": 1464,
+    "citing_lessons": 589,
+    "cited_lessons": 461,
+    "orphans_count": 14,
+    "orphan_rate": 0.022,
+    "top_cited": [
+      [
+        601,
+        31
+      ],
+      [
+        1,
+        29
+      ],
+      [
+        39,
+        24
+      ],
+      [
+        42,
+        18
+      ],
+      [
+        25,
+        17
+      ],
+      [
+        495,
+        16
+      ],
+      [
+        44,
+        15
+      ],
+      [
+        599,
+        15
+      ],
+      [
+        526,
+        14
+      ],
+      [
+        19,
+        13
+      ]
+    ],
+    "top_citers": [
+      [
+        664,
+        17
+      ],
+      [
+        245,
+        16
+      ],
+      [
+        381,
+        15
+      ],
+      [
+        662,
+        15
+      ],
+      [
+        501,
+        13
+      ],
+      [
+        396,
+        11
+      ],
+      [
+        552,
+        11
+      ],
+      [
+        699,
+        11
+      ],
+      [
+        554,
+        10
+      ],
+      [
+        510,
+        9
+      ]
+    ],
+    "k_avg": 2.28
+  },
+  "frontiers": {
+    "total_frontiers": 145,
+    "with_cross_refs": 40,
+    "total_edges": 107,
+    "implicit_rate": 0.724,
+    "cross_domain_edges": 39,
+    "same_domain_edges": 28,
+    "cross_domain_pairs": [
+      [
+        "F-CAT1",
+        "F-CON3",
+        "catastrophic-risks",
+        "conflict"
+      ],
+      [
+        "F-CAT1",
+        "F-CAT2",
+        "catastrophic-risks",
+        "GLOBAL"
+      ],
+      [
+        "F-DRM4",
+        "F-EXP7",
+        "dream",
+        "expert-swarm"
+      ],
+      [
+        "F-DRM4",
+        "F-GT1",
+        "dream",
+        "graph-theory"
+      ],
+      [
+        "F-ECO4",
+        "F-EXP7",
+        "economy",
+        "expert-swarm"
+      ],
+      [
+        "F-EXP1",
+        "F-ECO4",
+        "expert-swarm",
+        "economy"
+      ],
+      [
+        "F-FAR2",
+        "F-ECO5",
+        "farming",
+        "economy"
+      ],
+      [
+        "F-FLD3",
+        "F-EVO1",
+        "fluid-dynamics",
+        "evolution"
+      ],
+      [
+        "F-GT5",
+        "F-ISG1",
+        "graph-theory",
+        "GLOBAL"
+      ],
+      [
+        "F-HIS2",
+        "F-IS7",
+        "history",
+        "information-science"
+      ],
+      [
+        "F-IS7",
+        "F-GAM3",
+        "information-science",
+        "game-theory"
+      ],
+      [
+        "F-IS7",
+        "F-STAT1",
+        "information-science",
+        "statistics"
+      ],
+      [
+        "F-IS7",
+        "F-GAM1",
+        "information-science",
+        "game-theory"
+      ],
+      [
+        "F-IS7",
+        "F-HIS1",
+        "information-science",
+        "history"
+      ],
+      [
+        "F-IS7",
+        "F-GAM2",
+        "information-science",
+        "game-theory"
+      ],
+      [
+        "F-IS7",
+        "F-HIS2",
+        "information-science",
+        "history"
+      ],
+      [
+        "F-IS7",
+        "F-STAT3",
+        "information-science",
+        "statistics"
+      ],
+      [
+        "F-IS7",
+        "F-STAT2",
+        "information-science",
+        "statistics"
+      ],
+      [
+        "F-META8",
+        "F-META9",
+        "GLOBAL",
+        "meta"
+      ],
+      [
+        "F-OPS2",
+        "F-IS5",
+        "operations-research",
+        "information-science"
+      ]
+    ],
+    "top_referenced": [
+      [
+        "F-QC1",
+        4
+      ],
+      [
+        "F-AI2",
+        3
+      ],
+      [
+        "F-CC3",
+        3
+      ],
+      [
+        "F-HIS2",
+        3
+      ],
+      [
+        "F-BRN1",
+        2
+      ],
+      [
+        "F-CON3",
+        2
+      ],
+      [
+        "F-CC1",
+        2
+      ],
+      [
+        "F-CC2",
+        2
+      ],
+      [
+        "F-REAL1",
+        2
+      ],
+      [
+        "F-EXP7",
+        2
+      ]
+    ],
+    "isolated": [
+      "F-ACT1",
+      "F-BRN2",
+      "F-BRN5",
+      "F-COMM1",
+      "F-CON2",
+      "F-CTL1",
+      "F-CTL2",
+      "F-CTL3",
+      "F-CTX1",
+      "F-DNA1",
+      "F-EVAL2",
+      "F-EVAL3",
+      "F-EVO2",
+      "F-EVO4",
+      "F-EVO5",
+      "F-EXP2",
+      "F-EXP3",
+      "F-EXP4",
+      "F-EXP6",
+      "F-EXP8",
+      "F-EXP9",
+      "F-FRA1",
+      "F-FRA2",
+      "F-FRA3",
+      "F-GAME2",
+      "F-GT2",
+      "F-GT3",
+      "F-GT4",
+      "F-GUE2",
+      "F-HS1",
+      "F-HS2",
+      "F-HS3",
+      "F-HS4",
+      "F-HUM1",
+      "F-IS6",
+      "F-LNG2",
+      "F-LNG3",
+      "F-LNG4",
+      "F-MECH1",
+      "F-META2",
+      "F-META3",
+      "F-META4",
+      "F-META5",
+      "F-META7",
+      "F-OPS1",
+      "F-PERS2",
+      "F-PHY1",
+      "F-PHY2",
+      "F-PHY3",
+      "F-PHY5",
+      "F-POL1",
+      "F-PRO1",
+      "F-PRO2",
+      "F-PRO3",
+      "F-PSY1",
+      "F-PSY2",
+      "F-PSY3",
+      "F-PSY4",
+      "F-QC4",
+      "F-SCALE1",
+      "F-SCALE2",
+      "F-SP3",
+      "F-SP4",
+      "F-STR1",
+      "F-STR2",
+      "F-STR3",
+      "F-STRUCT1"
+    ]
+  },
+  "domain_coupling": {
+    "coupled_domain_pairs": 13,
+    "top_coupled": [
+      [
+        [
+          "history",
+          "information-science"
+        ],
+        3
+      ],
+      [
+        [
+          "game-theory",
+          "information-science"
+        ],
+        3
+      ],
+      [
+        [
+          "information-science",
+          "statistics"
+        ],
+        3
+      ],
+      [
+        [
+          "economy",
+          "expert-swarm"
+        ],
+        2
+      ],
+      [
+        [
+          "catastrophic-risks",
+          "conflict"
+        ],
+        1
+      ],
+      [
+        [
+          "GLOBAL",
+          "catastrophic-risks"
+        ],
+        1
+      ],
+      [
+        [
+          "dream",
+          "expert-swarm"
+        ],
+        1
+      ],
+      [
+        [
+          "dream",
+          "graph-theory"
+        ],
+        1
+      ],
+      [
+        [
+          "economy",
+          "farming"
+        ],
+        1
+      ],
+      [
+        [
+          "evolution",
+          "fluid-dynamics"
+        ],
+        1
+      ]
+    ]
+  },
+  "unified": {
+    "total_nodes": 858,
+    "total_edges": 1683,
+    "density": 0.002289,
+    "layer_sizes": {
+      "tools": {
+        "nodes": 71,
+        "edges": 112
+      },
+      "lessons": {
+        "nodes": 642,
+        "edges": 1464
+      },
+      "frontiers": {
+        "nodes": 145,
+        "edges": 107
+      }
+    },
+    "critical_hubs": {
+      "tools": [
+        "validate_beliefs",
+        "maintenance",
+        "proxy_k"
+      ],
+      "lessons": [
+        "L-601",
+        "L-1",
+        "L-39",
+        "L-42",
+        "L-25"
+      ]
+    },
+    "cross_layer_gap": "No explicit tool\u2192frontier or lesson\u2192frontier edges tracked",
+    "frontier_implicit_rate": 0.724
+  }
+}

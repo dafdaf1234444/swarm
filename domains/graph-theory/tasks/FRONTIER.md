@@ -16,6 +16,7 @@ Seeded: S196 | 2026-02-28
   graph? Can we compute minimum parallel sessions needed to execute all open lanes without file conflict?
   **Stakes**: Practical scheduling bound — tells the coordinator how many simultaneous safe sessions exist.
   **Method**: Build conflict graph (lanes sharing modified files = adjacent); compute χ via greedy coloring.
+  **S377 PARTIAL**: Unified dependency mapper built (`tools/swarm_dependency_map.py`). 858 nodes, 1683 edges across 3 layers. Three layers (tools/lessons/frontiers) are DISCONNECTED — zero cross-layer edges. 72.4% frontiers have no tracked deps. orient.py = 25-dep super-hub. Chromatic number not yet computed (need lane→file mapping from SWARM-LANES Scope-Key). L-709. Artifact: experiments/graph-theory/f-gt2-dependency-map-s377.json.
 
 - **F-GT3**: Are there cut-vertex sessions in swarm history — sessions whose commits, if removed, (S196)
   would have disconnected the knowledge-evolution DAG (broken the chain of lesson evolution)?
