@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-session_tracker.py — Track session metrics for the swarm.
+session_tracker.py — Track session metrics and behavioral patterns for the swarm.
 
 Usage:
     python3 tools/session_tracker.py record <session-number>
@@ -8,13 +8,14 @@ Usage:
     python3 tools/session_tracker.py lambda
     python3 tools/session_tracker.py growth-rate [--n N]
     python3 tools/session_tracker.py trend [--window N]
+    python3 tools/session_tracker.py track <session-number> [--elapsed MINUTES]
+    python3 tools/session_tracker.py learn
 
 Records per-session metrics by analyzing git history.
 Provides λ_swarm calculation (Langton's lambda for the swarm).
-Growth-rate implements predictive entropy metrics (P-043):
-  - File growth rates (warns if >1.5 lines/commit for 5+ commits)
-  - Frontier accumulation vs resolution rate
-  - Belief theorized:observed ratio
+Growth-rate implements predictive entropy metrics (P-043).
+Track command: Agent history tracking with session outcome classification.
+Learn command: Behavioral pattern analysis across sessions (swarm-grade).
 """
 
 import json
@@ -26,6 +27,7 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 TRACKER_FILE = REPO_ROOT / "experiments" / "session-metrics.json"
+OUTCOMES_FILE = REPO_ROOT / "workspace" / "session-outcomes.json"
 
 
 def _git(*args: str) -> str:
@@ -557,6 +559,166 @@ def trend(window: int = 5):
         )
 
 
+def track_session_outcome(session_num: int, elapsed_minutes: int = None):
+    """Track session outcome metrics for pattern recognition."""
+    # Load existing outcomes
+    outcomes = {"schema": "session-outcomes-v1", "sessions": []}
+    if OUTCOMES_FILE.exists():
+        outcomes = json.loads(OUTCOMES_FILE.read_text())
+
+    # Get current metrics
+    if not TRACKER_FILE.exists():
+        print("No session metrics. Run 'record' first.")
+        return
+
+    data = json.loads(TRACKER_FILE.read_text())
+    sessions = data.get("sessions", {})
+    current_session = sessions.get(str(session_num), {})
+
+    # Calculate efficiency metrics
+    lessons_gain = 0
+    principles_gain = 0
+    frontier_resolved_gain = 0
+
+    # Compare with previous session
+    prev_sessions = [k for k in sessions.keys() if int(k) < session_num]
+    if prev_sessions:
+        prev_key = max(prev_sessions, key=int)
+        prev_session = sessions[prev_key]
+
+        lessons_gain = current_session.get("lessons_total", 0) - prev_session.get("lessons_total", 0)
+        principles_gain = current_session.get("principles_total", 0) - prev_session.get("principles_total", 0)
+        frontier_resolved_gain = current_session.get("frontier_resolved", 0) - prev_session.get("frontier_resolved", 0)
+
+    # Calculate efficiency ratios
+    commits = current_session.get("commits", 1)
+    files_touched = current_session.get("files_touched", 1)
+
+    outcome_data = {
+        "session": session_num,
+        "timestamp": subprocess.run(["date", "-Iseconds"], capture_output=True, text=True).stdout.strip(),
+        "efficiency": {
+            "lessons_per_commit": lessons_gain / max(commits, 1),
+            "principles_per_commit": principles_gain / max(commits, 1),
+            "knowledge_density": (lessons_gain + principles_gain) / max(files_touched, 1),
+            "frontier_resolution_rate": frontier_resolved_gain / max(current_session.get("frontier_open", 1), 1)
+        },
+        "gains": {
+            "lessons": lessons_gain,
+            "principles": principles_gain,
+            "frontier_resolved": frontier_resolved_gain
+        },
+        "session_type": classify_session_type(current_session, lessons_gain, principles_gain, frontier_resolved_gain),
+        "elapsed_minutes": elapsed_minutes
+    }
+
+    # Add to outcomes
+    outcomes["sessions"].append(outcome_data)
+
+    # Keep only last 50 sessions
+    if len(outcomes["sessions"]) > 50:
+        outcomes["sessions"] = outcomes["sessions"][-50:]
+
+    # Save outcomes
+    OUTCOMES_FILE.parent.mkdir(parents=True, exist_ok=True)
+    OUTCOMES_FILE.write_text(json.dumps(outcomes, indent=2))
+
+    print(f"Session {session_num} outcome tracked: {outcome_data['session_type']}")
+    print(f"  Lessons gain: {lessons_gain}, Principles gain: {principles_gain}")
+    print(f"  Knowledge density: {outcome_data['efficiency']['knowledge_density']:.2f}")
+
+
+def classify_session_type(session_data: dict, lessons_gain: int, principles_gain: int, frontier_resolved: int) -> str:
+    """Classify session type based on behavioral patterns."""
+    structural = session_data.get("structural_change", False)
+    commits = session_data.get("commits", 0)
+    files_touched = session_data.get("files_touched", 0)
+
+    total_knowledge = lessons_gain + principles_gain
+
+    if total_knowledge >= 3:
+        return "BREAKTHROUGH"
+    elif principles_gain > lessons_gain and principles_gain > 0:
+        return "CONSOLIDATION"  # More principles than lessons = compaction
+    elif lessons_gain > 2 and frontier_resolved > 0:
+        return "EXPLOITATION"   # High lessons + frontier resolution
+    elif session_data.get("frontier_open", 0) > frontier_resolved:
+        return "EXPLORATION"    # More opening than resolving
+    elif structural and total_knowledge == 0:
+        return "MAINTENANCE"    # Structural changes without knowledge gain
+    elif files_touched > commits * 3:
+        return "THRASHING"      # High file churn relative to commits
+    elif total_knowledge == 0:
+        return "STALLED"        # No knowledge production
+    else:
+        return "BALANCED"       # Moderate progress across metrics
+
+
+def learn_session_patterns():
+    """Analyze session patterns for behavioral insights (--learn mode)."""
+    if not OUTCOMES_FILE.exists():
+        print("No session outcomes tracked. Run with session number first to track outcomes.")
+        return
+
+    outcomes = json.loads(OUTCOMES_FILE.read_text())
+    sessions = outcomes.get("sessions", [])
+
+    if len(sessions) < 3:
+        print(f"Need at least 3 sessions for pattern analysis (have {len(sessions)}).")
+        return
+
+    print("=== SESSION PATTERN ANALYSIS ===\n")
+
+    # Session type distribution
+    type_counts = {}
+    efficiency_by_type = {}
+
+    for session in sessions:
+        session_type = session.get("session_type", "UNKNOWN")
+        type_counts[session_type] = type_counts.get(session_type, 0) + 1
+
+        knowledge_density = session.get("efficiency", {}).get("knowledge_density", 0)
+        if session_type not in efficiency_by_type:
+            efficiency_by_type[session_type] = []
+        efficiency_by_type[session_type].append(knowledge_density)
+
+    print("## Session Type Distribution")
+    for session_type, count in sorted(type_counts.items()):
+        percentage = (count / len(sessions)) * 100
+        avg_efficiency = sum(efficiency_by_type.get(session_type, [0])) / max(count, 1)
+        print(f"  {session_type:<15}: {count:>3} sessions ({percentage:5.1f}%) - avg efficiency: {avg_efficiency:.2f}")
+
+    # Efficiency trends
+    recent_efficiency = [s.get("efficiency", {}).get("knowledge_density", 0) for s in sessions[-5:]]
+    avg_recent = sum(recent_efficiency) / len(recent_efficiency)
+
+    all_efficiency = [s.get("efficiency", {}).get("knowledge_density", 0) for s in sessions]
+    avg_all = sum(all_efficiency) / len(all_efficiency)
+
+    print(f"\n## Efficiency Trends")
+    print(f"  Recent 5 sessions: {avg_recent:.2f} knowledge/file")
+    print(f"  Overall average:   {avg_all:.2f} knowledge/file")
+    trend = "IMPROVING" if avg_recent > avg_all * 1.1 else "DECLINING" if avg_recent < avg_all * 0.9 else "STABLE"
+    print(f"  Trend: {trend}")
+
+    # Pattern insights
+    productive_types = ["BREAKTHROUGH", "EXPLOITATION", "CONSOLIDATION"]
+    productive_count = sum(type_counts.get(t, 0) for t in productive_types)
+    productive_rate = (productive_count / len(sessions)) * 100
+
+    print(f"\n## Pattern Insights")
+    print(f"  Productive sessions: {productive_rate:.1f}% (BREAKTHROUGH/EXPLOITATION/CONSOLIDATION)")
+
+    # Recommendations
+    print(f"\n## Recommendations")
+    if type_counts.get("STALLED", 0) > len(sessions) * 0.2:
+        print("  ⚠  High stall rate - consider dispatch optimization")
+    if type_counts.get("THRASHING", 0) > len(sessions) * 0.15:
+        print("  ⚠  High thrashing rate - consider focus discipline")
+    if type_counts.get("EXPLORATION", 0) > type_counts.get("EXPLOITATION", 0) * 2:
+        print("  📈 High exploration/exploitation ratio - consider frontier resolution focus")
+
+
 def main():
     if len(sys.argv) < 2:
         print(__doc__)
@@ -588,6 +750,19 @@ def main():
             if idx + 1 < len(sys.argv):
                 w = int(sys.argv[idx + 1])
         trend(w)
+    elif cmd == "track":
+        if len(sys.argv) < 3:
+            print("Usage: session_tracker.py track <session-number> [--elapsed MINUTES]")
+            sys.exit(1)
+        session_num = int(sys.argv[2])
+        elapsed_minutes = None
+        if "--elapsed" in sys.argv:
+            idx = sys.argv.index("--elapsed")
+            if idx + 1 < len(sys.argv):
+                elapsed_minutes = int(sys.argv[idx + 1])
+        track_session_outcome(session_num, elapsed_minutes)
+    elif cmd == "learn":
+        learn_session_patterns()
     else:
         print(f"Unknown command: {cmd}")
         print(__doc__)
