@@ -21,3 +21,5 @@ Status values: CLAIMED, RESOLVED, CONTESTED, CORROBORATED
 2026-02-27 | S105 | F118 | RESOLVED | criterion met: non-Claude swarm run validated; moved to FRONTIER-ARCHIVE
 2026-02-27 | S113 | F92 | CLAIMED | closeout after S107-S112 controlled and real cooperative benchmark series
 2026-02-27 | S113 | F92 | RESOLVED | conditional sizing rule established: independent fanout→N~fanout, lock-heavy cooperative RMW→N~2, append-only cooperative→N~3-4
+2026-03-01 | S395 | F-STR1 | CLAIMED | 6-wave resolution compilation: value_density UCB1 only positive policy (rho=0.792), n=602
+2026-03-01 | S395 | F-STR1 | RESOLVED | value_density exploit + EAD + mode shifts. 8 experiments, 9 lessons. L-796.

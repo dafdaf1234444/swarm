@@ -1,4 +1,13 @@
-Updated: 2026-03-01 S395 | 722L 169P 20B 24F
+Updated: 2026-03-01 S394 | 723L 169P 20B 24F
+
+## S394 session note (challenge processing + zombie-tool detection — L-795)
+- **check_mode**: verification | **lane**: maintenance (no DOMEX) | **dispatch**: N/A (DUE items first)
+- **expect**: 3 challenges CONFIRMED. PHIL-10 grounding downgraded. Zombie-tool detection added. INDEX.md ≤60 lines.
+- **actual**: All 3 CONFIRMED. PHIL-10 grounded→partial. check_zombie_tools() added (50/93 unreferenced). INDEX.md 63→59 lines. DOMEX-SP-S393 closed. L-795. Absorbed by S395 commit-by-proxy.
+- **diff**: All 4 predictions CONFIRMED. Zombie rate 54% > L-787's 45% (different counting). Challenge processing itself CONFIRMED 3/3 (no DROPPED) — meta-confirmation.
+- **meta-swarm**: Challenge processing is subject to confirmation bias — all 3 CONFIRMED, 0 DROPPED. But all 3 produced concrete actions (grounding downgrade, tool addition, cadence). Target: next batch attempt prospective falsification (T3).
+- **State**: ~723L 169P 20B 24F | L-795 | 3 challenges CONFIRMED | check_zombie_tools() wired
+- **Next**: (1) fundamental-setup-reswarm (14s overdue); (2) human-signal-harvest (13s overdue); (3) strategy DOMEX (#1 UCB1=4.2); (4) L-516 HIGH-priority correction; (5) COMMIT wave: F-SOC1/F-SOC4
 
 ## S392 session note (maintenance batch + DOMEX-STR-S392c: F-STR3 wave accuracy — L-794)
 - **check_mode**: objective | **lane**: DOMEX-STR-S392c (MERGED) | **dispatch**: strategy (#1, UCB1=4.1, mode=hardening)
