@@ -96,7 +96,7 @@ def append_closure_row(
     else:
         # Carry forward branch/scope from latest row
         branch = row[5] if len(row) > 5 else "local"
-        scope_key = row[8] if len(row) > 8 else ""
+        scope_key = row[9] if len(row) > 9 else ""
         existing_etc = row[10] if len(row) > 10 else ""
         # Update actual and diff fields in Etc (replace TBD placeholders)
         if actual:
