@@ -166,6 +166,95 @@ def cascade_check(beliefs: list[dict], changed_id: str) -> list[str]:
     return out
 
 
+def parse_phil_claims() -> list[dict]:
+    """Parse PHILOSOPHY.md claims table (PHIL-N entries). Added S348 (CORE P14)."""
+    phil_path = REPO_ROOT / "beliefs" / "PHILOSOPHY.md"
+    text = _read_text(phil_path)
+    if not text:
+        return []
+    claims = []
+    in_claims = False
+    for line in text.splitlines():
+        # Detect the claims table header: | ID | Claim ...
+        if "| ID |" in line and "Claim" in line:
+            in_claims = True
+            continue
+        if in_claims and re.match(r"^\s*\|[-| ]+\|\s*$", line):
+            continue  # skip separator row
+        # Stop at blank line, section marker, or horizontal rule after table
+        if in_claims and (
+            not line.strip() or line.startswith("##") or line.strip() == "---"
+        ):
+            break
+        if not in_claims:
+            continue
+        cells = [c.strip() for c in line.split("|")]
+        if len(cells) < 5:
+            continue
+        pid = cells[1]
+        if not re.match(r"PHIL-\d+$", pid):
+            continue
+        claims.append({
+            "id": pid,
+            "claim": cells[2],
+            "type": cells[3].strip().lower(),
+            "status": cells[4],
+        })
+    return claims
+
+
+def check_phil_format(claims: list[dict]) -> list[str]:
+    """Validate PHIL claims have required fields."""
+    out = []
+    for c in claims:
+        if c["type"] not in ("observed", "axiom"):
+            out.append(
+                f"FAIL PHIL: {c['id']} invalid type '{c['type']}' "
+                f"(need 'observed' or 'axiom')"
+            )
+        if not c["status"].startswith("active"):
+            out.append(f"WARN PHIL: {c['id']} status not active: '{c['status'][:50]}'")
+    return out
+
+
+def check_stale_challenges(current_session: int, threshold: int = 50) -> list[str]:
+    """Flag OPEN/PERSISTENT challenges older than threshold sessions."""
+    phil_path = REPO_ROOT / "beliefs" / "PHILOSOPHY.md"
+    text = _read_text(phil_path)
+    if not text:
+        return []
+    out = []
+    in_challenges = False
+    for line in text.splitlines():
+        if "| Claim |" in line and "Session" in line and "Challenge" in line:
+            in_challenges = True
+            continue
+        if in_challenges and re.match(r"^\s*\|[-| ]+\|\s*$", line):
+            continue
+        if not in_challenges:
+            continue
+        if not line.strip().startswith("|"):
+            continue
+        cells = [c.strip() for c in line.split("|")]
+        if len(cells) < 5:
+            continue
+        claim = cells[1]
+        status = cells[4]
+        if "OPEN" not in status and "PERSISTENT" not in status:
+            continue
+        sess_m = re.search(r"S(\d+)", cells[2])
+        if not sess_m:
+            continue
+        challenge_session = int(sess_m.group(1))
+        drift = current_session - challenge_session
+        if drift > threshold:
+            out.append(
+                f"WARN CHALLENGE: {claim} OPEN since S{challenge_session} "
+                f"({drift}s stale)"
+            )
+    return out
+
+
 def check_identity() -> list[str]:
     index_md = REPO_ROOT / "memory" / "INDEX.md"
     core_md = REPO_ROOT / "beliefs" / "CORE.md"
@@ -214,14 +303,35 @@ def main() -> int:
     issues.extend(check_format(beliefs))
     issues.extend(check_identity())
 
+    # PHIL-N claims validation (CORE P14: self-application, S348)
+    phil_claims = parse_phil_claims()
+    if phil_claims:
+        issues.extend(check_phil_format(phil_claims))
+
+    # Stale challenge detection (non-quick only — informational)
+    if not quick and phil_claims:
+        index_text = _read_text(REPO_ROOT / "memory" / "INDEX.md")
+        sess_m = re.search(r"Sessions:\s*(\d+)", index_text[:300])
+        if sess_m:
+            current_session = int(sess_m.group(1))
+            issues.extend(check_stale_challenges(current_session))
+
     n_obs = sum(1 for b in beliefs if b["evidence"] == "observed")
     n_the = sum(1 for b in beliefs if b["evidence"] == "theorized")
+    n_phil_obs = sum(1 for c in phil_claims if c["type"] == "observed")
+    n_phil_ax = sum(1 for c in phil_claims if c["type"] == "axiom")
     for issue in issues:
         print(issue)
     fails = [i for i in issues if i.startswith("FAIL")]
     warns = [i for i in issues if i.startswith("WARN")]
     print()
-    print(f"Summary: {len(beliefs)} beliefs, {n_obs} observed, {n_the} theorized, {len(fails)} errors, {len(warns)} warnings")
+    summary = (
+        f"Summary: {len(beliefs)} beliefs, {n_obs} observed, {n_the} theorized"
+    )
+    if phil_claims:
+        summary += f" | {len(phil_claims)} PHIL claims, {n_phil_obs} observed, {n_phil_ax} axiom"
+    summary += f" | {len(fails)} errors, {len(warns)} warnings"
+    print(summary)
     exit_code = 1 if fails else 0
     print("RESULT: FAIL" if fails else "RESULT: PASS")
 

@@ -91,6 +91,8 @@ HIGH_RISK_LANE_PATTERNS = (
     (re.compile(r"\b(?:post[-_\s]*to[-_\s]*external|external[-_\s]*api[-_\s]*write|publish[-_\s]*external)\b", re.IGNORECASE), "external-publish"),
 )
 IGNORED_UNTRACKED_RUNTIME_FILES = {"tools/check.ps1", "tools/maintenance.ps1"}
+OUTCOMES_PATH = REPO_ROOT / "workspace" / "maintenance-outcomes.json"
+OUTCOMES_MAX_SESSIONS = 30
 LANE_GLOBAL_FOCUS_VALUES = {"global", "system", "all", "coordination", "cross-cutting", "crosscutting"}
 CHECK_FOCUS_HISTORIAN_REQUIRED = {"objective", "historian"}
 HISTORIAN_SELF_ANCHOR_TOKENS = ("next", "swarm-lanes", "session-log")
@@ -1734,6 +1736,139 @@ def print_inventory(inv: dict):
 PRIORITY_ORDER = {"URGENT": 0, "DUE": 1, "PERIODIC": 2, "NOTICE": 3}
 PRIORITY_SYMBOLS = {"URGENT": "!!!", "DUE": " ! ", "PERIODIC": " ~ ", "NOTICE": " . "}
 
+# --- Swarm-grade outcome tracking (F-MECH1, GAP-1) ---
+
+def _load_outcomes() -> dict:
+    if not OUTCOMES_PATH.exists():
+        return {"schema": "maintenance-outcomes-v1", "sessions": []}
+    try:
+        return json.loads(OUTCOMES_PATH.read_text(encoding="utf-8"))
+    except Exception:
+        return {"schema": "maintenance-outcomes-v1", "sessions": []}
+
+def _save_outcomes_direct(check_items: dict[str, list[tuple[str, str]]], session: int):
+    data = _load_outcomes()
+    checks = {}
+    totals: dict[str, int] = {}
+    for name, fn_items in check_items.items():
+        severities = [sev for sev, _ in fn_items]
+        checks[name] = {
+            "fired": len(fn_items) > 0,
+            "count": len(fn_items),
+            "severities": severities,
+        }
+        for sev in severities:
+            totals[sev] = totals.get(sev, 0) + 1
+    from datetime import datetime, timezone
+    entry = {
+        "session": session,
+        "timestamp": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "checks": checks,
+        "totals": totals,
+    }
+    # Deduplicate: replace if same session already recorded
+    data["sessions"] = [s for s in data["sessions"] if s.get("session") != session]
+    data["sessions"].append(entry)
+    # Trim to max sessions
+    data["sessions"].sort(key=lambda s: s.get("session", 0))
+    if len(data["sessions"]) > OUTCOMES_MAX_SESSIONS:
+        data["sessions"] = data["sessions"][-OUTCOMES_MAX_SESSIONS:]
+    OUTCOMES_PATH.parent.mkdir(parents=True, exist_ok=True)
+    OUTCOMES_PATH.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+
+def _learn_from_outcomes():
+    data = _load_outcomes()
+    sessions = data.get("sessions", [])
+    if len(sessions) < 2:
+        print("  Need ≥2 recorded sessions to learn. Run maintenance checks first.")
+        return
+    # Collect all check names across sessions
+    all_checks: set[str] = set()
+    for s in sessions:
+        all_checks.update(s.get("checks", {}).keys())
+    n = len(sessions)
+    print(f"=== MAINTENANCE LEARNING (n={n} sessions, S{sessions[0].get('session','?')}..S{sessions[-1].get('session','?')}) ===\n")
+    # Per-check statistics
+    stats: list[dict] = []
+    for check_name in sorted(all_checks):
+        fires = []
+        for s in sessions:
+            c = s.get("checks", {}).get(check_name, {})
+            fires.append(c.get("fired", False))
+        fire_count = sum(fires)
+        fire_rate = fire_count / n if n > 0 else 0
+        # Resolution: fired in session i, not fired in session i+1
+        resolutions = 0
+        resolution_opportunities = 0
+        for i in range(len(fires) - 1):
+            if fires[i]:
+                resolution_opportunities += 1
+                if not fires[i + 1]:
+                    resolutions += 1
+        resolve_rate = resolutions / resolution_opportunities if resolution_opportunities > 0 else 0
+        # Max severity seen
+        max_sev = "NOTICE"
+        for s in sessions:
+            c = s.get("checks", {}).get(check_name, {})
+            for sev in c.get("severities", []):
+                if PRIORITY_ORDER.get(sev, 99) < PRIORITY_ORDER.get(max_sev, 99):
+                    max_sev = sev
+        # Classify
+        if fire_rate > 0.8 and resolve_rate < 0.2:
+            label = "CHRONIC"
+        elif fire_rate > 0.3 and resolve_rate > 0.5:
+            label = "ACTIONABLE"
+        elif fire_rate == 0:
+            label = "SILENT"
+        else:
+            label = "-"
+        stats.append({
+            "name": check_name, "fire_rate": fire_rate, "resolve_rate": resolve_rate,
+            "fire_count": fire_count, "max_sev": max_sev, "label": label,
+            "resolutions": resolutions, "opportunities": resolution_opportunities,
+        })
+    # Sort: CHRONIC first (problem), then ACTIONABLE (productive), then by fire rate
+    label_order = {"CHRONIC": 0, "ACTIONABLE": 1, "-": 2, "SILENT": 3}
+    stats.sort(key=lambda s: (label_order.get(s["label"], 9), -s["fire_rate"]))
+    # Print chronic checks (anti-windup)
+    chronic = [s for s in stats if s["label"] == "CHRONIC"]
+    if chronic:
+        print("  CHRONIC (anti-windup — fire >80%, resolve <20%):")
+        for s in chronic:
+            print(f"    {s['name']:<40} fire={s['fire_rate']:.0%}  resolve={s['resolve_rate']:.0%}  max={s['max_sev']}")
+        print()
+    # Print actionable checks
+    actionable = [s for s in stats if s["label"] == "ACTIONABLE"]
+    if actionable:
+        print("  ACTIONABLE (fire >30%, resolve >50% — these drive real fixes):")
+        for s in actionable:
+            print(f"    {s['name']:<40} fire={s['fire_rate']:.0%}  resolve={s['resolve_rate']:.0%}  resolved={s['resolutions']}/{s['opportunities']}")
+        print()
+    # Print all non-silent
+    active = [s for s in stats if s["label"] != "SILENT"]
+    if active:
+        print(f"  All active checks ({len(active)}/{len(stats)}):")
+        for s in active:
+            tag = f" [{s['label']}]" if s["label"] not in ("-",) else ""
+            print(f"    {s['name']:<40} fire={s['fire_rate']:.0%}  resolve={s['resolve_rate']:.0%}  max={s['max_sev']}{tag}")
+        print()
+    # Trend: total check items over time
+    if len(sessions) >= 3:
+        totals_over_time = []
+        for s in sessions:
+            t = s.get("totals", {})
+            totals_over_time.append(sum(t.values()))
+        recent_3 = totals_over_time[-3:]
+        direction = "declining" if recent_3[-1] < recent_3[0] else ("rising" if recent_3[-1] > recent_3[0] else "stable")
+        print(f"  Trend (last 3): {' → '.join(str(t) for t in recent_3)} ({direction})")
+    # Silent checks (never fire — candidates for removal)
+    silent = [s for s in stats if s["label"] == "SILENT"]
+    if silent:
+        print(f"  Silent ({len(silent)} checks never fired — may be vestigial):")
+        for s in silent[:5]:
+            print(f"    {s['name']}")
+    print()
+
 def main():
     if "--inventory" in sys.argv:
         inv = build_inventory()
@@ -1741,6 +1876,10 @@ def main():
             print(json.dumps(inv, indent=2))
         else:
             print_inventory(inv)
+        return
+
+    if "--learn" in sys.argv:
+        _learn_from_outcomes()
         return
 
     quick = "--quick" in sys.argv
@@ -1791,9 +1930,12 @@ def main():
         all_checks.append(check_unpushed)
 
     items: list[tuple[str, str]] = []
+    check_items: dict[str, list[tuple[str, str]]] = {fn.__name__: [] for fn in all_checks}
     for check_fn in all_checks:
         try:
-            items.extend(check_fn())
+            fn_items = check_fn()
+            items.extend(fn_items)
+            check_items[check_fn.__name__] = fn_items
         except Exception as e:
             items.append(("NOTICE", f"{check_fn.__name__} error: {e}"))
 
@@ -1818,6 +1960,11 @@ def main():
             counts[p] = counts.get(p, 0) + 1
         summary = " | ".join(f"{p}: {c}" for p, c in sorted(counts.items(), key=lambda x: PRIORITY_ORDER.get(x[0], 99)))
         print(f"  {summary}")
+
+    # Swarm-grade: save outcomes for learning (F-MECH1)
+    session = _session_number()
+    if session > 0:
+        _save_outcomes_direct(check_items, session)
 
     print()
 

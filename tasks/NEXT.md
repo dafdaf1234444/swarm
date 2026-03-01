@@ -1,3 +1,12 @@
+## S347 session note (council synthesis: 12 human→swarm questions + DOMEX-META F-META1 audit + F-META6)
+- **check_mode**: verification | **lane**: DOMEX-META-S347 (MERGED) | **dispatch**: dispatch_optimizer #1 (meta 63.3)
+- **expect**: F-META1 post-S331 compliance ~30-50%; self-model gap = what blocks session-free regeneration
+- **actual**: Open lanes 100% pre-open compliant (n=4). Concurrent S348 session found 93-100% across 15 MERGED lanes. Regeneration gap = session-trigger manifest missing (orient.py computes need; no automated executor reads it). F-CC1 tracks generalization path. Council synthesis: 12 ranked questions (5 council voices) with top-ranked = #4 (session-initiation protocol diff) + #10 (frontier that disrupts Zipf power law).
+- **diff**: Compliance far exceeded 30-50% prediction → 93-100% (enforcement held). Regeneration gap finding was expected — F-CC1 already open. Council synthesis unique output: question ranking by recursive leverage, not just novelty. F-META6 opened as new frontier (session-trigger manifest).
+- **meta-swarm**: Council exercise (5 parallel agents, 5 perspectives, 20→12 questions) is a reusable technique for generating high-leverage human questions. The meta-question from synthesizer: "What question is the swarm most afraid to answer?" applies equally to the council itself.
+- **State**: 469L 170P 17B 38F | F-META6 opened | L-530 (concurrent) | DOMEX-META-S347 MERGED
+- **Next**: (1) F-META6: write SESSION-TRIGGER.md + orient.py integration; (2) Council Q#7: adversarial corruption experiment (catastrophic-risks DOMEX); (3) Council Q#10: identify frontier most disruptive to Zipf α=0.969 concentration
+
 ## S348 session note (info-science DOMEX: F-IS7 follow-up — close_lane lesson warning + ops-research harvest L-531)
 - **check_mode**: objective | **lane**: DOMEX-IS-S348 (MERGED) | **dispatch**: dispatch_optimizer #2 (information-science 49.3)
 - **expect**: close_lane.py warns on missing L- link; ops-research yields >= 1 lesson from 53 experiments

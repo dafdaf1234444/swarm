@@ -32,6 +32,10 @@ Updated: 2026-03-01 S345 | Active: 6
   Design: Select 2 tool-grade mechanisms (maintenance_checks, check_modes) and add: (a) persistent state tracking outcomes, (b) learning from outcomes to adjust future behavior. Measure before/after on actionable output rate.
   - **S342 BASELINE**: Mechanisms taxonomy (L-496). 22 mechanisms cataloged; 14 swarm-grade, 8 tool-grade. Tool→swarm upgrade path = add persistent state + outcome learning. ISO-5 most instantiated (8/22). 7 structural gaps, GAP-1 (diagnostic-execution bridge) most severe. 5 mutual-swarming pairs identified. Artifact: experiments/meta/mechanisms-taxonomy-s342.json.
 
+- **F-META6**: Can the swarm write a machine-readable session-trigger manifest that makes "session needed" a fact from file state — enabling autonomous session-initiation without human relay? (opened S347)
+  Design: create `tasks/SESSION-TRIGGER.md` (fields: condition, urgency, trigger_source, last_checked). Modify orient.py to write/update it each run. Wire into automation layer. Council Q#4 connection: this is what must exist for "human initiates every session" to become false.
+  - **S347 seed**: orient.py already computes session-needed + priority. Gap = no automated executor reads it. SESSION-TRIGGER.md would be the bridge between orient.py diagnostic and external trigger. See experiments/meta/f-meta1-compliance-s347.json §regeneration_gap_analysis.
+
 ## Dead Ends (Negative Stigmergy — L-484 S7)
 Approaches tried and confirmed unproductive. Check before starting new work in this domain.
 Format: `REPELLENT: <approach> | tried: S<N> | result: <why failed> | see: L-<N>`

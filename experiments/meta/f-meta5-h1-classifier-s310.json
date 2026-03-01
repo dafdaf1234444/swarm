@@ -43,7 +43,7 @@
       {
         "id": "C-007", "target": "B8", "status": "OPEN", "class": "H1",
         "obstruction": "B8 claims frontier is a 'self-sustaining task generation mechanism'. Dream-expert hypothesized this means net accumulator. Measurement: 37 open vs 105 resolved = 0.35 open/closed ratio. Evidence WEAKENS the accumulator hypothesis but does NOT resolve B8 fully: the 'self-sustaining' framing implies balanced generation+closure, and the frontier count HAS grown from ~8 (S25) to 37 now (+29). The structural tension is between B8 as 'self-balancing' (challenged by growth from 8\u219237) vs B8 as 'generative' (supported by 105 resolutions). Cross-belief: B8 interacts with convergence guarantee (Knaster-Tarski LFP) and F105 (online compaction). Partial resolution: B8 should be annotated 'net generative with resolution pressure' not 'self-sustaining' (which implies balance).",
-        "interaction_map": ["B8 \u2192 LFP convergence (inflationary ok, balanced uncertain)", "B8 \u2192 F105 (compaction pressure)")
+        "interaction_map": ["B8 \u2192 LFP convergence (inflationary ok, balanced uncertain)", "B8 \u2192 F105 (compaction pressure)"]
       }
     ]
   },

@@ -158,6 +158,22 @@ def main():
         if has_expect and not args.diff:
             print("WARNING: --diff not provided. EAD loop incomplete (actual without diff).", file=sys.stderr)
 
+        # Lesson-link check: warn if artifact JSON has no L- lesson reference (F-IS7, L-531)
+        if args.status == "MERGED":
+            etc_field = latest[10] if latest and len(latest) > 10 else ""
+            artifact_match = re.search(r"artifact=([^\s,;|]+)", etc_field)
+            if artifact_match:
+                artifact_path = REPO_ROOT / artifact_match.group(1).strip()
+                if artifact_path.suffix == ".json" and artifact_path.exists():
+                    import json as _json
+                    try:
+                        artifact_text = artifact_path.read_text()
+                        if not re.search(r'\bL-\d+\b', artifact_text):
+                            print(f"NOTICE: artifact {artifact_match.group(1)} has no L- lesson reference.", file=sys.stderr)
+                            print("  F-IS7: experiment→lesson loss is 72.9%. Link a lesson to close the loop.", file=sys.stderr)
+                    except Exception:
+                        pass
+
     if not args.note:
         args.note = f"Lane closed via close_lane.py (no note provided)"
 
