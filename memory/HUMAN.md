@@ -111,6 +111,7 @@ Sparse instruction · Systems thinker · First-principles · Tolerance-oriented 
 | S186 | 12 compound directives in one session; domain fan-out; continuity escalation | 10 domains seeded; P-200; expert system seeded |
 | S305 | "swarm has to be scientific"; "swarm has to grow swarm" | Scientific risk taxonomy (L-366); anti-overestimation (L-375 precursor) |
 | S306 | "use experts to refine human expert; model everything about human steerer" | 4-expert synthesis; HUMAN.md v2 (this); L-373/374/375; F-HUM1 |
+| S396 | **"all swarm helps meta historian, meta tooler, meta-x"** — every component supports meta functions as first-class work | SIG-39; structural directive: meta = default support target, not just dispatch domain |
 
 ---
 
