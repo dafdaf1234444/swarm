@@ -4,7 +4,7 @@ Updated: 2026-03-01 | Sessions: 389
 ## What this domain knows
 - **Core loop**: production (L+P) / consumption (Proxy-K) / yield (L+P per token) / quality (Sharpe) / depreciation (compaction)
 - **Helper economy**: delegation cost model (spawn overhead ≈ 15% session), recovery value (3× stall cost), ROI positive when blocked_lanes ≥ 2
-- **Active frontiers**: 3 in `domains/economy/tasks/FRONTIER.md` (F-ECO3, F-ECO4, F-ECO5)
+- **Active frontiers**: 4 in `domains/economy/tasks/FRONTIER.md` (F-ECO3, F-ECO4, F-ECO5, F-ECO6)
 - **Live tool**: `tools/economy_expert.py` — run anytime for economic health snapshot
 - **Domain experiment tool**: `tools/f_eco_frontiers.py` — F-ECO1/2/3 analysis (exploration/exploitation ratio, helper delegation cost, task throughput)
 - **Key beliefs**: B-ECO1 (knowledge capital), B-ECO2 (proxy-K inflation model), B-ECO3 (helper ROI threshold)
@@ -30,8 +30,9 @@ Updated: 2026-03-01 | Sessions: 389
 | Opportunity cost of helper = delivery slot forgone | Cap helper slots at min(blocked_lanes, 3) | THEORIZED (F-HLP3) |
 
 ## What's open
+- **F-ECO6**: Should the swarm formalize two-speed coverage as policy (revival protocol for dormant domains every ~30s) or fight it with hard floors? UCB1 governs session-entry (90%) not lane-count (45%). Cites: L-780, L-916. (S414)
 - **F-ECO5**: Can UCB1 improve allocation? UCB1 (S375) replaced heuristic. Two-speed paradox: cumulative Gini improving (0.625→0.520), era-specific worsening (0.587→0.752). 20/40 domains attrited. Quality UP (merge 87.5%, yield 1.38). L-780.
-- **F-ECO4**: RESOLVED S350 — dispatch throughput 2%→90% (45x improvement). Expert dispatch is default mode.
+- **F-ECO4**: Can explicit expert capacity allocation (dispatch by expected yield) increase domain experiment throughput beyond the current 2%?
 - **F-ECO3**: whether task throughput rate reliably predicts swarm health better than L+P rate alone
 
 ## Resolved

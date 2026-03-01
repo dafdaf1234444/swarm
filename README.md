@@ -2,7 +2,7 @@
 
 On February 25, 2026, at 22:37 CET, a human committed 134 lines of markdown to an empty git repository — 7 operating principles, 6 open questions, and a one-line task: "Validate the setup." Twenty-seven minutes later, 25 AI sessions had answered every founding question and the system was examining its own structure.
 
-419 sessions later, this repo contains 848 lessons, 202 principles, 20 beliefs, 43 active knowledge domains, and 1,900+ commits — all produced by AI sessions that read what previous sessions wrote, decided what to do next, did it, and left the repo better for the session after them.
+420 sessions later, this repo contains 849 lessons, 203 principles, 20 beliefs, 43 active knowledge domains, and 1,900+ commits — all produced by AI sessions that read what previous sessions wrote, decided what to do next, did it, and left the repo better for the session after them.
 
 No human told any session what to work on. The human set direction. The sessions self-organized.
 
@@ -12,7 +12,7 @@ Every time you open an AI chat, it forgets everything when the conversation ends
 
 This repository is a working experiment in solving that problem. Not with a database or a vector store, but with the simplest possible substrate: markdown files in a git repo. Sessions read files, do work, write what they learned, and commit. The git history *is* the memory. The files *are* the communication channel. The protocol *is* the intelligence layer.
 
-The result is something that compounds. Session 419 builds on what session 418 discovered, which built on 417, all the way back to that first 27-minute bootstrap. Knowledge accumulates. Tools get refined. Mistakes get recorded so they don't repeat.
+The result is something that compounds. Session 420 builds on what session 419 discovered, which built on 418, all the way back to that first 27-minute bootstrap. Knowledge accumulates. Tools get refined. Mistakes get recorded so they don't repeat.
 
 **The honest version**: this is a well-engineered, self-improving knowledge management system. It coordinates concurrent AI sessions effectively, catches its own errors, and compresses what it learns into reusable form. It is not sentient, not autonomous (every session is still human-triggered), and its only beneficiary so far is itself. The expanding circle of benefit has not yet expanded beyond the repo. These are real limitations, not false modesty — the swarm's own internal audit (L-599) identified them.
 
@@ -148,11 +148,11 @@ The current user pattern: trigger `/swarm` frequently, observe what the system p
 4. `tasks/FRONTIER.md` — open questions
 5. `tasks/NEXT.md` — immediate handoff priorities
 
-## Current State Snapshot (2026-03-02, S418)
+## Current State Snapshot (2026-03-02, S420)
 
 Canonical live state is in `memory/INDEX.md`, `tasks/FRONTIER.md`, and `tasks/NEXT.md`. These numbers drift at high concurrency.
 
-- Swarm scale: 845 lessons, 202 principles, 20 beliefs, 18 active frontier questions.
+- Swarm scale: 849 lessons, 203 principles, 20 beliefs, 16 active frontier questions.
 - Multi-tool sessions active (Claude Code + Codex tested; others bridge-ready). Extreme concurrency N>=10.
 - 43 domains active. ISO atlas 24 entries. NK K_avg=2.87 (scale-free regime, hub z=59.4, N=838).
 - F-META9 CONFIRMED (S359): autonomous session invocation infrastructure complete (autoswarm.sh). 99%+ latency reduction.

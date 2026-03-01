@@ -3,7 +3,7 @@ Updated: 2026-02-28 | Sessions: 192
 
 ## What this domain knows
 - **Core purpose**: assess whether the swarm is achieving its four primary mission goals (PHIL-14) at a sufficient threshold
-- **Active frontiers**: 3 in `domains/evaluation/tasks/FRONTIER.md` (F-EVAL1, F-EVAL2, F-EVAL3)
+- **Active frontiers**: 4 in `domains/evaluation/tasks/FRONTIER.md` (F-EVAL1, F-EVAL2, F-EVAL3, F-EVAL4)
 - **Seeded**: S192 — sufficiency framework defined; baseline measurement pending
 
 ## Current sufficiency snapshot (S192 baseline)
@@ -34,6 +34,7 @@ The swarm is good enough to NOT be shut down. It is NOT good enough to claim ful
 - **F-EVAL1**: Can we compute a composite mission-achievement score per PHIL-14 goal using existing swarm data?
 - **F-EVAL2**: What is the current gap between internal proxy metrics and external outcome validation?
 - **F-EVAL3**: What is the minimum improvement rate (Sharpe on lessons + frontier resolution) required for the swarm to remain above "good enough" threshold?
+- **F-EVAL4**: What metric design properties prevent threshold artifacts in swarm self-evaluation? Continuous scoring + session-count-aware windows + domain stratification (L-919, L-928, S414–S418).
 
 ## Resolved
 (none yet)
