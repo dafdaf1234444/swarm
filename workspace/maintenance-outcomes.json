@@ -6957,7 +6957,7 @@
     },
     {
       "session": 398,
-      "timestamp": "2026-03-01T18:03:44Z",
+      "timestamp": "2026-03-01T18:06:38Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -7002,9 +7002,11 @@
           "severities": []
         },
         "check_lessons": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "DUE"
+          ]
         },
         "check_child_bulletins": {
           "fired": true,
@@ -7044,19 +7046,26 @@
           "severities": []
         },
         "check_swarm_lanes": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "DUE"
+          ]
         },
         "check_swarm_coordinator": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "DUE"
+          ]
         },
         "check_lane_reporting_quality": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 2,
+          "severities": [
+            "DUE",
+            "NOTICE"
+          ]
         },
         "check_github_swarm_intake": {
           "fired": false,
@@ -7065,8 +7074,9 @@
         },
         "check_uncommitted": {
           "fired": true,
-          "count": 1,
+          "count": 2,
           "severities": [
+            "NOTICE",
             "NOTICE"
           ]
         },
@@ -7087,8 +7097,9 @@
         },
         "check_cross_references": {
           "fired": true,
-          "count": 1,
+          "count": 2,
           "severities": [
+            "NOTICE",
             "NOTICE"
           ]
         },
@@ -7163,7 +7174,7 @@
           "fired": true,
           "count": 1,
           "severities": [
-            "NOTICE"
+            "DUE"
           ]
         },
         "check_utility": {
@@ -7191,12 +7202,19 @@
           "severities": [
             "NOTICE"
           ]
+        },
+        "check_unpushed": {
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         }
       },
       "totals": {
-        "NOTICE": 15,
-        "PERIODIC": 8,
-        "DUE": 1
+        "NOTICE": 18,
+        "DUE": 6,
+        "PERIODIC": 8
       }
     }
   ],

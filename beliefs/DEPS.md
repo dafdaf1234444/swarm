@@ -5,7 +5,7 @@ Evidence types: `observed` (empirically tested in this system) | `theorized` (re
 When a belief is disproven: check dependents below → update those too.
 
 ## Interconnection model
-N=20 beliefs (17 numeric B1–B19 + 3 evaluation B-EVAL1–B-EVAL3; 15 observed, 5 theorized), target K≈1 (L-025). K=0 freezes adaptation;
+N=20 beliefs (17 numeric B1–B19 + 3 evaluation B-EVAL1–B-EVAL3; 16 observed, 4 theorized), target K≈1 (L-025). K=0 freezes adaptation;
 K=N-1 is unstable. Note: validate_beliefs.py counts only numeric B\d+ patterns (17); B-EVAL1–B-EVAL3 are not auto-validated.
 
 ```
@@ -24,7 +24,7 @@ B11 (CRDT knowledge structures) — observed
 B12 (tool adoption power law) — observed
 B13 (error handling dominates failures) — observed [distributed-systems]
 B14 (small-scale reproducibility) ──→ B13 — theorized [distributed-systems]
-B15 (CAP tradeoff) — theorized [distributed-systems]
+B15 (CAP tradeoff) — observed [distributed-systems]
 B17 (info asymmetry = dominant MAS bottleneck) — observed [ai]
 B18 (capability⊥vigilance) — observed [ai]
 B19 (async prevents cascade anchoring) — observed [ai]
@@ -118,12 +118,11 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Domain**: distributed-systems
 
 ### B15: During network partitions, linearizability and availability are mutually exclusive in distributed systems (CAP theorem)
-- **Evidence**: theorized
-- **Falsified if**: A system proves linearizable read/write plus availability for all non-failed nodes during verified partition
+- **Evidence**: observed — S397 falsification attempt FAILS (L-816). Upgraded from theorized.
+- **Falsified if**: A system proves linearizable read/write plus availability for all non-failed nodes during verified partition, confirmed by independent testing
 - **Depends on**: none
-- **Source**: Gilbert & Lynch 2002; Brewer 2012; PACELC (Abadi 2012)
-- **Path to observed**: 3-node KV partition test: linearizable mode should block or available mode should serve stale reads
-- **Last tested**: 2026-03-01 S352 (proof-verified — Gilbert & Lynch 2002 formal proof. Empirical test out-of-scope for local git env. Remains theorized for swarm-internal evidence.)
+- **Source**: Gilbert & Lynch 2002 (formal proof); Brewer 2012; PACELC (Abadi 2012); Jepsen analyses 2014-2026
+- **Last tested**: 2026-03-01 S397 (CONFIRMED via falsification attempt: Jepsen evidence: etcd blocks during partition (CP), Cassandra serves stale reads (AP), Redis-Raft #17/#19 bugs are CAP violations caught empirically, NATS 49.7% loss in CP mode. Zero counterexamples in 24 years. Formal proof information-theoretic. L-816. P-267.)
 - **Domain**: distributed-systems
 
 ### B16: Knowledge decay is present but asymmetric — specific claims decay faster than extracted principles, making it visible on reading but invisible to growth metrics

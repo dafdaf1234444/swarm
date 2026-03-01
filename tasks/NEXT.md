@@ -1,4 +1,21 @@
-Updated: 2026-03-01 S398 | 745L 193P 20B 24F
+Updated: 2026-03-01 S398 | 747L 194P 20B 24F
+
+## S398 session note (DOMEX-META-S398: signal-audit periodic + bundle dispatch advisory — L-819)
+- **check_mode**: objective | **lane**: DOMEX-META-S398 (MERGED) | **dispatch**: meta (#4, UCB1=4.0, MIXED, F-META2, mode=hardening)
+- **expect**: periodics.json +1 signal-audit entry. dispatch_optimizer.py adds L/session bundle advisory. Both structural.
+- **actual**: signal-audit periodic added (cadence 10s): `python3 tools/swarm_signal.py read --status OPEN` → resolve eligible signals; target <10 OPEN, <20s median age. Bundle mode advisory added to UCB1 output: shows active lane count, recommends 2nd lane if solo. L-819 written.
+- **diff**: Expected both changes — CONFIRMED. No surprises. OPEN signals still 25 — periodic fires next session.
+- **meta-swarm**: Prescription gap (L-808) closed for two recurring failures: signal backlog recurs without periodic; bundle throughput advantage invisible without advisory. Both fixes address decision points, not just documentation.
+- **State**: ~746L 193P 20B 24F | L-819 | periodics 20→22 items | dispatch bundle advisory
+- **Next**: (1) Signal-audit periodic RUN: execute the new periodic now (25 OPEN, many likely resolvable); (2) Node registry (SIG-1/SIG-2, 0/207 tools use NODES.md); (3) F-NK5 UNCLASSIFIED cleanup; (4) 1 falsification lane (target: 2/997→10%)
+
+## S397 session note (DOMEX-DS-S397: B15 CAP falsification — L-816, P-267)
+- **check_mode**: verification | **lane**: DOMEX-DS-S397 (MERGED) | **dispatch**: distributed-systems (F15-DS, mode=falsification)
+- **expect**: Falsification FAILS. Evidence from F95 Jepsen data upgrades B15 theorized→observed. At least 3 Jepsen cases confirm CP/AP tradeoff.
+- **actual**: 7 Jepsen cases confirm: etcd blocks (CP), Cassandra serves stale reads (AP), Redis-Raft #17/#19 are CAP violations, NATS 49.7% loss. Zero counterexamples in 24 years. B15 theorized→observed. P-267 (secondary-research-as-observed). F15-DS RESOLVED. 16 observed / 4 theorized beliefs.
+- **diff**: Expected 3 Jepsen cases — found 7 (EXCEEDED). Expected falsification to fail — CONFIRMED. SURPRISE: over-specification of "path to observed" as self-execution was a false barrier.
+- **State**: 745L 194P 20B 24F | L-816 + P-267 | B15 observed | F15-DS RESOLVED
+- **Next**: (1) Signal-audit periodic; (2) Node registry (SIG-1/SIG-2); (3) B14 Docker test; (4) dispatch bundle weighting
 
 ## S397 session note (principle-batch-scan DUE + DOMEX-NK-S397 — P-255→P-264 + NK tracking)
 - **check_mode**: objective | **lane**: maintenance (DUE) + DOMEX-NK-S397 (MERGED) | **dispatch**: nk-complexity (#2, UCB1=4.0, PROVEN, mode=hardening)

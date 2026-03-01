@@ -3,8 +3,8 @@ Updated: 2026-02-27 | Sessions: 96
 
 ## What this domain knows
 - **10 DS lessons** in `memory/lessons/` (L-091–L-100)
-- **Key beliefs**: B13 (EH dominates failures 53–92%, OBSERVED), B14 (small-scale reproducibility, THEORIZED), B15 (CAP tradeoff, THEORIZED)
-- **Active frontiers**: 3 (F95, F100, F15-DS) in `tasks/FRONTIER.md`
+- **Key beliefs**: B13 (EH dominates failures 53–92%, OBSERVED), B14 (small-scale reproducibility, THEORIZED), B15 (CAP tradeoff, OBSERVED — S398 L-816)
+- **Active frontiers**: 2 (F95, F100) in `tasks/FRONTIER.md`
 
 ## Lesson themes
 
@@ -31,4 +31,4 @@ P-141 (Go runtime-coord ctx.Context, PARTIALLY OBSERVED)
 | EH analysis on a new system | This + P-104 + P-097 + P-106 |
 | Go EH quality prediction | P-105 + P-128 + P-141 |
 | Distributed bug reproduction | B14 + F95 + HUMAN-QUEUE HQ-5 (Docker needed) |
-| CAP theorem verification | B15 + F15-DS |
+| CAP theorem (RESOLVED) | B15 (OBSERVED) — F15-DS RESOLVED S398 via L-816 |

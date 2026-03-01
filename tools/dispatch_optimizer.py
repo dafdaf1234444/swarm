@@ -65,6 +65,12 @@ COOLDOWN_MAX_PENALTY = 15.0   # strong enough to drop #1 below #2 (meta gap was 
 WAVE_DANGER_BOOST = 1.5     # 2-wave → attract 3rd wave (11% → 31% resolution)
 WAVE_COMMITTED_BOOST = 0.5  # 3-wave → approaching resolution (31% → 50%)
 
+# COMMIT reservation (F-STR3, L-815): mandatory allocation for danger-zone domains.
+# Advisory scoring (guarantee boost to rank #3) produced 0/2 follow-through (L-815).
+# P-264: score improvement alone cannot change dispatch behavior.
+# Fix: 1-in-N lanes must go to a COMMIT domain. Structural enforcement (L-601).
+COMMIT_RESERVATION_WINDOW = 5  # check last N lanes for COMMIT-domain presence
+
 # Mode transition matrix (L-755: mode transitions predict success, repeated modes don't)
 # exploration→hardening→resolution is the optimal 3-wave sequence.
 # exploration→exploration→exploration resolves at 12%.
@@ -252,10 +258,14 @@ def _get_campaign_waves() -> dict[str, dict]:
         etc = cols[10] if len(cols) > 10 else ""
         status = (cols[11] if len(cols) > 11 else "").upper().strip()
 
-        frontier_m = re.search(r"frontier=(F-[A-Z0-9]+)", etc)
-        if not frontier_m:
+        # Extract all frontier IDs — handles comma/slash-separated multi-frontier lanes
+        # e.g. frontier=F-SOC1,F-SOC4  or  frontier=F-SOC1/F-SOC2/F-SOC3/F-SOC4
+        frontier_str_m = re.search(r"frontier=(F-[A-Z0-9,/\s-]+?)(?:;|$)", etc)
+        if not frontier_str_m:
             continue
-        frontier = frontier_m.group(1)
+        frontiers = re.findall(r"F-[A-Z0-9]+", frontier_str_m.group(1))
+        if not frontiers:
+            continue
 
         dom = None
         m = re.match(r"DOMEX-([A-Z]+)", lane_id)
@@ -290,10 +300,11 @@ def _get_campaign_waves() -> dict[str, dict]:
                                               "implement", "integrat", "wire")):
                 mode = "resolution"
 
-        frontier_lanes.setdefault(frontier, []).append({
-            "domain": dom, "session": sess, "status": status,
-            "mode": mode, "lane_id": lane_id,
-        })
+        for frontier in frontiers:
+            frontier_lanes.setdefault(frontier, []).append({
+                "domain": dom, "session": sess, "status": status,
+                "mode": mode, "lane_id": lane_id,
+            })
 
     domain_campaigns: dict[str, dict] = {}
     for frontier, lanes in frontier_lanes.items():
@@ -365,6 +376,52 @@ def _get_active_lane_domains() -> dict[str, list[str]]:
         if dom:
             active.setdefault(dom, []).append(lane_id)
     return active
+
+
+def _get_recent_lane_domains(n: int = COMMIT_RESERVATION_WINDOW) -> list[str]:
+    """Return the domains of the most recent N closed lanes (chronological order).
+
+    Used by COMMIT reservation (F-STR3, L-815) to check whether a danger-zone
+    domain has been dispatched recently. Only counts MERGED/ABANDONED lanes
+    (completed work, not in-progress).
+    """
+    lanes: list[tuple[int, str]] = []  # (session_num, domain)
+    contents: list[str] = []
+    for f in (LANES_FILE, LANES_ARCHIVE):
+        if f.exists():
+            contents.append(f.read_text())
+    for line in "\n".join(contents).splitlines():
+        if not line.startswith("|") or line.startswith("| ---") or line.startswith("| Date"):
+            continue
+        cols = [c.strip() for c in line.split("|")]
+        if len(cols) < 12:
+            continue
+        lane_id = cols[2] if len(cols) > 2 else ""
+        status = cols[11].strip().upper() if len(cols) > 11 else ""
+        if status not in ("MERGED", "ABANDONED"):
+            continue
+        sess_str = cols[3] if len(cols) > 3 else ""
+        sess_m = re.search(r"S?(\d+)", sess_str)
+        if not sess_m:
+            continue
+        sess = int(sess_m.group(1))
+        etc = cols[10] if len(cols) > 10 else ""
+        dom = None
+        m = re.match(r"DOMEX-([A-Z]+)", lane_id)
+        if m:
+            dom = LANE_ABBREV_TO_DOMAIN.get(m.group(1))
+        if not dom:
+            m_c = re.match(r"COUNCIL-([A-Z-]+)-S\d+", lane_id)
+            if m_c:
+                dom = COUNCIL_TOPIC_TO_DOMAIN.get(m_c.group(1))
+        if not dom:
+            focus_m = re.search(r"focus=(?:domains/)?([a-z0-9-]+)", etc)
+            if focus_m and focus_m.group(1) not in ("global", ""):
+                dom = focus_m.group(1)
+        if dom:
+            lanes.append((sess, dom))
+    lanes.sort(key=lambda x: x[0])
+    return [dom for _, dom in lanes[-n:]]
 
 
 def _campaign_phase(waves: int) -> tuple[str, str]:
@@ -809,6 +866,21 @@ def _ucb1_score(results: list[dict], outcome_map: dict, heat_map: dict,
                 top_commit["score"] += boost
                 top_commit["commit_guarantee_boost"] = boost
 
+    # COMMIT reservation (F-STR3, L-815): mandatory allocation when danger-zone
+    # domains haven't been dispatched in the last COMMIT_RESERVATION_WINDOW lanes.
+    # Advisory scoring (guarantee boost to rank #3) produced 0/2 follow-through.
+    # P-264: score-behavior decoupling — improving rank doesn't change dispatch.
+    # Structural fix: flag the reservation, display as mandatory directive.
+    for r in results:
+        r["commit_reservation"] = False
+    if commit_candidates:
+        recent_domains = _get_recent_lane_domains(COMMIT_RESERVATION_WINDOW)
+        danger_domains = {r["domain"] for r in commit_candidates}
+        has_recent_commit = any(d in danger_domains for d in recent_domains)
+        if not has_recent_commit and recent_domains:
+            commit_candidates.sort(key=lambda x: -x["score"])
+            commit_candidates[0]["commit_reservation"] = True
+
     # 20% exploration floor (DARPA model, L-697): ensure underexplored domains
     # appear in recommendations regardless of UCB1 score. Domains with <3 visits
     # are floor-eligible; at least cold_floor_pct of results get floor protection.
@@ -874,6 +946,18 @@ def run(args: argparse.Namespace) -> None:
             if args.json:
                 print(json.dumps(results_limited, indent=2, default=str))
                 return
+            # COMMIT reservation (F-STR3, L-815): mandatory allocation directive
+            commit_reserved = [r for r in results if r.get("commit_reservation")]
+            if commit_reserved:
+                print("\n=== COMMIT RESERVATION (F-STR3, L-815) ===")
+                print(f"  0/{COMMIT_RESERVATION_WINDOW} recent lanes dispatched to danger-zone domains.")
+                print(f"  MANDATORY: next lane must go to a COMMIT domain (L-601 structural enforcement).")
+                for cr in commit_reserved:
+                    cw = campaign_waves.get(cr["domain"], {})
+                    fids = [f for f, d in cw.get("frontiers", {}).items()
+                            if not d["resolved"] and d["waves"] == 2]
+                    fid_str = ", ".join(fids[:3]) if fids else "danger-zone frontiers"
+                    print(f"  -> {cr['domain']} — {fid_str}")
             # COMMIT dispatch header (F-STR3): show promoted domains before rankings
             commit_promoted = [r for r in results if r.get("commit_guarantee_boost", 0) > 0]
             if commit_promoted:
@@ -899,10 +983,11 @@ def run(args: argparse.Namespace) -> None:
                 score_str = f"{r['score']:.1f}" if r["score"] < 999 else "∞"
                 floor_mark = " [FLOOR]" if r.get("floor_protected") else ""
                 commit_mark = " ⚡COMMIT" if r.get("commit_guarantee_boost", 0) > 0 else ""
+                reservation_mark = " 🚨RESERVED" if r.get("commit_reservation") else ""
                 print(
                     f"{score_str:>6}  {r['domain']:<25}  {exploit:7.3f}  {explore_str:>7}  "
                     f"{n:3d}  {r.get('outcome_lessons', 0):3d}  {heat_icon:>4}"
-                    f" [{label}]{floor_mark}{commit_mark}"
+                    f" [{label}]{floor_mark}{commit_mark}{reservation_mark}"
                 )
                 if r["domain"] in active_lanes:
                     lanes = active_lanes[r["domain"]]
@@ -983,6 +1068,20 @@ def run(args: argparse.Namespace) -> None:
                         next_mode = OPTIMAL_NEXT_MODE.get(modes[-1], "hardening")
                         print(f"    ! {dom}: {fid} ({mode_str}) -> MODE SHIFT to {next_mode}")
                 print(f"  Full plan: python3 tools/dispatch_optimizer.py --wave-plan")
+
+            # Bundle mode advisory (L-812, F-EXP2): bundles produce 10x more lessons/session.
+            # Solo sessions (1 lane) produce 0.18 L/session vs 1.85 L/session for bundles.
+            # Show current active lane count and recommend opening 2nd lane if solo.
+            n_active = sum(len(v) for v in active_lanes.values())
+            print(f"\n--- Bundle Mode (L-812, F-EXP2) ---")
+            print(f"  Active lanes this session: {n_active}")
+            if n_active == 0:
+                print(f"  Solo mode: 0.18 L/session. Open 2+ DOMEX lanes → 1.85 L/session (10x)")
+                print(f"  Tip: pick top 2 non-colliding domains from list above")
+            elif n_active == 1:
+                print(f"  1 lane open. Adding a 2nd DOMEX lane → bundle mode (10x throughput)")
+            else:
+                print(f"  Bundle mode active ({n_active} lanes). Expected: ~1.85 L/session")
             return
 
     # Heuristic mode (default) — apply domain heat

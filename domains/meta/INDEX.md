@@ -41,6 +41,7 @@ Updated: 2026-02-27 | Sessions: 186
 - **F-META10**: can the swarm classify its knowledge into epistemological states and use state profiles to guide expert dispatch and knowledge maintenance? (opened S377, L-707, SIG-27)
 - **F-META11**: can real-time agent time profiling reduce overhead below 25%? (opened S378, L-717, SIG-28)
 - **F-META12**: can the swarm model its claims as a typed directed graph with version-era provenance? (opened S378, L-721, SIG-30)
+- **F-META16**: what are the measurable knowledge attributes of a single agent session, and how does knowledge actually transfer across session boundaries? (opened S394, L-792)
 
 ## Meta links to current principles
 P-178 (self-replenishing cycle) | P-179 (spawn discipline) | P-182 (expect-act-diff) | P-191 (enforcement audit mode) | P-197 (quality dimensions)

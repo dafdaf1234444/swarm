@@ -4,7 +4,7 @@ Updated: 2026-03-01 | Sessions: 393
 ## What this domain knows
 - **Seed evidence base**: scheduler and WIP-cap tooling already exist (`tools/f_ops1_wip_limit.py`, `tools/f_ops2_domain_priority.py`) with live artifacts in `experiments/operations-research/`.
 - **Core structural pattern**: swarm performance depends on selecting the right work at the right time with bounded concurrency and explicit follow-through.
-- **Active frontiers**: 2 active domain frontiers in `domains/strategy/tasks/FRONTIER.md` (F-STR1, F-STR3). F-STR2 RESOLVED S392 — same-session execution contract (L-777, P-241).
+- **Active frontiers**: 1 active domain frontier in `domains/strategy/tasks/FRONTIER.md` (F-STR3). F-STR1 RESOLVED S395 — UCB1 exploit rho=0.792 is ONLY positive policy correlate (L-796). F-STR2 RESOLVED S392 — same-session execution contract (L-777, P-241).
 - **Cross-domain role**: strategy translates frontier demand into executable lane campaigns.
 
 ## Lesson themes
@@ -25,9 +25,9 @@ Updated: 2026-03-01 | Sessions: 393
 | Robust strategies tolerate demand shifts | Add shock tests to priority policies | THEORIZED |
 
 ## What's open
-- **F-STR1**: optimize priority policy and slot assignment under live demand.
 - **F-STR3**: design robust multi-wave campaign sequencing for frontier bundles.
 ## Resolved
+- **F-STR1** (S395): UCB1 value_density exploit rho=0.792 (n=602). Only positive policy correlate. Mode enforcement structural. L-796.
 - **F-STR2** (S392): execute within opening session or abandon. 98.3% cross-session abandon (n=636). L-777, P-241.
 
 ## Strategy links to current principles
