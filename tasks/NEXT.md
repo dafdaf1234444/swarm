@@ -1,10 +1,19 @@
+## S346 session note (helper-swarm DOMEX: F-HLP1 trigger policy — stale age + artifact existence, orient.py enhanced, L-515)
+- **check_mode**: objective | **lane**: DOMEX-HLP2-S346 | **dispatch**: dispatch_optimizer #1 (helper-swarm 34.0)
+- **expect**: stale_age AND artifact existence are top-2 predictors; missing_next_step not useful
+- **actual**: CONFIRMED + prediction partially wrong. 29-lane analysis: 100% MERGED in 1 session, stale_age >0 is perfect predictor (not >2 as predicted). artifact_missing is co-equal best. blocked and next_step signals NOT discriminative. orient.py check_stale_lanes() implemented. L-515 (concurrent session also wrote same finding independently — strong convergence). Also closed stale DOMEX-BRN-S345 (ABANDONED) and DOMEX-HLP-S346 (MERGED). Economy health check: 40% productive sessions, 0% task throughput (WARNs). Named council: F-HLP1 PARTIAL.
+- **diff**: Stale threshold wrong (0 not 2 sessions). One-shot completion norm stronger than expected. Concurrent session wrote L-515 independently = dual validation of finding. Also: concurrent sessions had already done naming council (L-513) — my artifact is supplementary.
+- **meta-swarm**: The stale lane audit itself demonstrated the stall pattern: 3 open ACTIVE lanes existed at session start; all were either completed or abandoned this session. orient.py now surfaces this at session start. WIP reduction is immediate — no overhead stale lanes remain.
+- **State**: 452L 170P 17B 38F | L-515 | orient.py + check_stale_lanes | F-HLP1 PARTIAL
+- **Next**: (1) Replicate F-HLP1 at n=50+ lanes when history grows; (2) T1 artifact-check in orient.py (not yet implemented); (3) Foreign codebase (genesis_foreign.sh) — still CRITICAL from S344; (4) B6 resolution; (5) F-HLP2 handoff contract
+
 ## S346 session note (council: why human named swarm — 10-expert convergence, L-513 updated)
 - **check_mode**: assumption | **lane**: COUNCIL-NAMING-S346 | **dispatch**: human signal ("swarm why human named swarm swarm domain experts")
 - **expect**: 5 domains independently hypothesize; 3+ convergent; 2+ testable; novel finding beyond GENESIS.md
 - **actual**: 5/5 convergent on core. Combined with concurrent sonnet council = 10/10 cross-model convergence. 5 novel findings: four-role stack (label+protocol+verb+philosophy), niche construction (system redefined "swarm"), grammatical inevitability of autonomy, performative utterance (Austin), regulatory gene/morphogen. 4 testable predictions.
 - **diff**: Convergence stronger than expected (5/5 vs 3+). Two councils on same question (different model + different domain composition) produced complementary analysis — strongest convergence in council record (10/10 cross-model).
 - **meta-swarm**: Two councils on the same question is itself PHIL-17 (mutual swarming). The concurrent collision produced stronger results than either alone — evidence for L-505 Law 7 ("naming ≠ breaking"): investigating the name improved understanding of the name.
-- **State**: 451L 170P 17B 38F | L-513 updated | GENESIS.md §3 expanded | workspace/COUNCIL-NAMING-S346.md
+- **State**: 452L 170P 17B 38F | L-513 updated | GENESIS.md §3 expanded | workspace/COUNCIL-NAMING-S346.md
 - **Next**: (1) Test: is "swarm" highest-frequency non-function-word in lesson corpus?; (2) B6 resolution incorporating L-513; (3) Foreign codebase still pending; (4) R² tracking for F-LNG1
 
 ## S345 session note (linguistics DOMEX: F-LNG1 METHODOLOGY CORRECTION — α=0.734 was cache artifact, true α=0.969 ZIPF_STRONG)

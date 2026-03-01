@@ -4,7 +4,7 @@ Updated: 2026-02-28 S188 | Active: 4
 
 ## Active
 
-- **F-HLP1**: Which helper-trigger policy best identifies stalled work without creating false alarms? Design: compare trigger bundles (`blocked!=none`, stale READY/ACTIVE age, missing `next_step`, low progress churn) against recovery latency and false-positive assist rate. (S188)
+- **F-HLP1**: Which helper-trigger policy best identifies stalled work without creating false alarms? Design: compare trigger bundles (`blocked!=none`, stale READY/ACTIVE age, missing `next_step`, low progress churn) against recovery latency and false-positive assist rate. (S188) **S346 PARTIAL**: stale_age>0 and artifact-missing are best predictors (100% precision/recall, n=29). `blocked!=none` is a dead letter — never fires. `missing_next_step` = 100% FPR (useless). One-shot completion is the baseline norm — any cross-session ACTIVE lane is reliably stalled. Next: implement as orient.py maintenance check (DOMEX-HLP3). Artifact: experiments/helper-swarm/f-hlp1-trigger-policy-s346.json | L-515.
 
 - **F-HLP2**: What helper handoff contract minimizes correction lag and rework? Design: A/B test helper lane metadata sets (assignment owner, artifact refs, recovery exit criteria, explicit `next_step`) and measure merge collision, reopen rate, and time-to-closure. (S188)
 

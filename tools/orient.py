@@ -211,6 +211,32 @@ def check_index_coverage(index_text):
     return None
 
 
+def check_stale_lanes(current_session: int) -> list:
+    """Find ACTIVE lanes opened in a prior session — guaranteed stall signal (L-514)."""
+    lanes_text = read_file("tasks/SWARM-LANES.md")
+    stale = []
+    for line in lanes_text.splitlines():
+        if "| ACTIVE |" not in line and "| CLAIMED |" not in line and "| READY |" not in line:
+            continue
+        cells = [c.strip() for c in line.split("|")]
+        if len(cells) < 5:
+            continue
+        lane = cells[2] if len(cells) > 2 else "?"
+        sess_field = cells[3] if len(cells) > 3 else ""
+        m = re.search(r"S(\d+)", sess_field)
+        if not m:
+            continue
+        lane_session = int(m.group(1))
+        if lane_session < current_session:
+            etc = cells[10] if len(cells) > 10 else ""
+            artifact_m = re.search(r"artifact=([^;|]+)", etc)
+            artifact = artifact_m.group(1).strip() if artifact_m else ""
+            # Check if artifact file exists
+            artifact_exists = bool(artifact) and (ROOT / artifact).exists()
+            stale.append({"lane": lane, "opened": lane_session, "artifact": artifact, "has_artifact": artifact_exists})
+    return stale
+
+
 def check_stale_experiments():
     """Scan domain frontier files for active (unrun) experiments. L-246."""
     domain_dir = ROOT / "domains"
@@ -583,6 +609,20 @@ def main():
                 print(f"--- Stale beliefs ({len(stale_beliefs)} not re-tested >50 sessions) ---")
                 for b in stale_beliefs[:5]:
                     print(f"  ⚠ {b}")
+                print()
+    except Exception:
+        pass
+
+    # Stale lane check — L-514: cross-session open lanes = guaranteed stall
+    try:
+        sess_stale_m = re.search(r"S(\d+)", session)
+        if sess_stale_m:
+            stale_lanes = check_stale_lanes(int(sess_stale_m.group(1)))
+            if stale_lanes:
+                print(f"--- Stale lanes ({len(stale_lanes)} opened in prior session — execute or close) ---")
+                for sl in stale_lanes:
+                    art_note = "✗ artifact missing" if not sl["has_artifact"] else "✓ artifact exists"
+                    print(f"  ⚠ {sl['lane']} (S{sl['opened']}) — {art_note}")
                 print()
     except Exception:
         pass
