@@ -2000,7 +2000,7 @@
     },
     {
       "session": 422,
-      "timestamp": "2026-03-01T23:43:32Z",
+      "timestamp": "2026-03-01T23:46:50Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -2013,11 +2013,9 @@
           "severities": []
         },
         "check_mission_constraints": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "NOTICE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_runtime_portability": {
           "fired": false,
@@ -2087,11 +2085,9 @@
           "severities": []
         },
         "check_swarm_lanes": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "NOTICE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_swarm_coordinator": {
           "fired": true,
@@ -2134,11 +2130,9 @@
           "severities": []
         },
         "check_cross_references": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "NOTICE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_anxiety_zones": {
           "fired": true,
@@ -2275,10 +2269,15 @@
           "fired": false,
           "count": 0,
           "severities": []
+        },
+        "check_unpushed": {
+          "fired": false,
+          "count": 0,
+          "severities": []
         }
       },
       "totals": {
-        "NOTICE": 14,
+        "NOTICE": 11,
         "PERIODIC": 9,
         "DUE": 1
       }
