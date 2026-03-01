@@ -1,4 +1,4 @@
-Updated: 2026-03-01 S393 | 712L 169P 20B 21F
+Updated: 2026-03-01 S393 | 713L 169P 20B 21F
 
 ## S393 session note (DOMEX-STR-S393: F-STR1 prospective validation + health-check + economy)
 - **check_mode**: objective | **lane**: DOMEX-STR-S393 (MERGED) | **dispatch**: strategy (#1, UCB1=4.3, PROVEN, mode=hardening)
