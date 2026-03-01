@@ -11,14 +11,14 @@
       "id": "tool-consolidation",
       "description": "Tool consolidation: audit tools/ for duplicates, dead code, lost-embedding (P-134)",
       "cadence_sessions": 25,
-      "last_reviewed_session": 331,
+      "last_reviewed_session": 359,
       "registered_by": "S69"
     },
     {
       "id": "cross-variant-harvest",
-      "description": "Cross-variant harvest: compare active children for convergent/divergent/novel findings",
-      "cadence_sessions": 15,
-      "last_reviewed_session": 341,
+      "description": "Cross-variant harvest: compare active children for convergent/divergent/novel findings. S362 audit: zero active children, no spawn commits in 20+ sessions. Dormant until children reactivated.",
+      "cadence_sessions": 50,
+      "last_reviewed_session": 362,
       "registered_by": "S69"
     },
     {
@@ -32,7 +32,7 @@
       "id": "proxy-k-measurement",
       "description": "Measure proxy K (python tools/proxy_k.py --save): track bootstrap description length across sessions (F116, PHIL-8)",
       "cadence_sessions": 10,
-      "last_reviewed_session": 352,
+      "last_reviewed_session": 362,
       "registered_by": "S75"
     },
     {
@@ -94,16 +94,16 @@
     },
     {
       "id": "modes-reswarm",
-      "description": "Mode integrity audit: review modes/audit.md, build.md, repair.md, research.md for drift/overlap/enforcement gaps; update mode rules and bridge references so active behavior matches declared mode contracts. S348: operational modes 0% adoption (superseded by check_mode+personality); BASE.md coordination contract updated; SWARM.md step 0 updated.",
-      "cadence_sessions": 10,
-      "last_reviewed_session": 348,
+      "description": "Mode integrity audit: review modes/ for drift/overlap. S348: 0% adoption (superseded by check_mode+personality). S362 audit: still unused — cadence 10→50, fire only if modes revived.",
+      "cadence_sessions": 50,
+      "last_reviewed_session": 362,
       "registered_by": "S185"
     },
     {
       "id": "periodics-meta-audit",
-      "description": "Periodic-system audit: evaluate periodics coverage/ROI, add or prune items, and update cadence based on observed utility and maintenance overhead. Confirm orient/check surfacing stays aligned.",
+      "description": "Periodic-system audit: evaluate periodics coverage/ROI, add or prune items, and update cadence based on observed utility and maintenance overhead. Confirm orient/check surfacing stays aligned. S362: pruned modes-reswarm+cross-variant (dormant), fixed tool-consol stale date, adjusted action-board cadence.",
       "cadence_sessions": 20,
-      "last_reviewed_session": 329,
+      "last_reviewed_session": 362,
       "registered_by": "S185"
     },
     {
@@ -130,16 +130,16 @@
     },
     {
       "id": "action-board-refresh",
-      "cadence_sessions": 3,
+      "cadence_sessions": 5,
       "description": "Refresh ACTION-BOARD.md: run `python3 tools/f_act1_action_recommender.py` \u2014 scores swarm state across urgency/coverage/impact/novelty and writes workspace/ACTION-BOARD.md with ranked recommendations for all sessions + human visibility. Use action-expert personality for this task. (F-ACT1)",
       "last_reviewed_session": 357,
       "registered_by": "S304"
     },
     {
       "id": "iso-annotation-sprint",
-      "description": "ISO annotation sprint: scan dark-matter lessons (no ISO tag) and add ISO-N citations. Target 5+ annotations per session. Run only when dark matter >15%. At 0% dark matter, skip. (L-441, F-GT5, L-443)",
+      "description": "ISO annotation sprint: scan dark-matter lessons (no ISO tag) and add ISO-N citations. Target 5+ annotations per session. Skip when dark matter <10%. S362: 9.8% dark matter — at threshold. (L-441, F-GT5, L-443)",
       "cadence_sessions": 30,
-      "last_reviewed_session": 329,
+      "last_reviewed_session": 362,
       "registered_by": "S327"
     }
   ]
