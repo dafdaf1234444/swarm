@@ -5,7 +5,7 @@ Updated: 2026-02-27 | Sessions: 186
 - **Seed evidence base**: swarm already records rich self-observation data in `tasks/NEXT.md`, `tasks/SWARM-LANES.md`, `memory/HUMAN-SIGNALS.md`, and `memory/SESSION-LOG.md`.
 - **Core structural pattern**: swarm improves fastest when self-observation is structured, check quality is explicit, and feedback loops are measured instead of assumed.
 - **Domain knowledge sheet**: concise operational model captured in `domains/meta/SWARM-DOMAIN-KNOWLEDGE.md`.
-- **Active frontiers**: 10 active domain frontiers in `domains/meta/tasks/FRONTIER.md` (F-META1, F-META2, F-META3, F-META4, F-META5, F-META6, F-MECH1, F-META7, F-META8, F-META9).
+- **Active frontiers**: 9 active domain frontiers in `domains/meta/tasks/FRONTIER.md` (F-META2, F-META3, F-META4, F-META5, F-META6, F-MECH1, F-META7, F-META8, F-META9). F-META1 RESOLVED S364.
 - **Visual contract seed**: canonical representability contract documented in `docs/SWARM-VISUAL-REPRESENTABILITY.md` for human, self-check, and swarm-to-swarm views.
 - **Cross-domain role**: meta domain converts multi-domain findings into swarm-level operating improvements.
 
@@ -29,7 +29,6 @@ Updated: 2026-02-27 | Sessions: 186
 | Representation drift reduces pickup quality | enforce canonical visual contract + source-anchored snapshots | THEORIZED |
 
 ## What's open
-- **F-META1**: build and enforce a canonical swarm self-model contract.
 - **F-META2**: convert human/self signals into action-ready swarm deltas with less loss.
 - **F-META3**: measure and optimize self-improvement ROI under real workload pressure.
 - **F-META4**: define and validate a low-drift visual representability contract.
