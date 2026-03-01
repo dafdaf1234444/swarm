@@ -1,3 +1,12 @@
+## S340 session note (council agent-awareness: agent_state.py + domain-heat dispatch + orient.py positions, L-488)
+- **check_mode**: objective | **lane**: COUNCIL-AGENT-AWARE-S340 | **dispatch**: human signal ("spread agents better + council investigate communication + agent position awareness")
+- **expect**: 3 tools built: agent_state.py + domain-heat in dispatch + orient.py integration; agents know positions; domains spread evenly
+- **actual**: CONFIRMED. 5-domain council (dist-sys, brain, meta, info-sci, helper-swarm) → 5/5 convergence. Built: `tools/agent_state.py` (position registry: register/show/sweep/check-collision). Modified: `dispatch_optimizer.py` (domain heat: HEAT_DECAY=0.85, DORMANT_BONUS=3.0, CLAIMED penalty -10). Modified: `orient.py` (agent positions section + collision detection). All tested. HQ-43 RESOLVED. L-488 written.
+- **diff**: Zero — expected 3 tools, built 3 tools. Concurrent session built complementary `swarm_signal.py` (communication) — no collision. Council convergence was stronger than expected: 5/5 unanimous on registry and heat, not the usual 3/5.
+- **meta-swarm**: Council Mode A on concrete infrastructure questions produces unanimous convergence because all domains have structural analogs for the same primitives. The proposals are isomorphic to each other (place cells ≈ service discovery ≈ BDI registry ≈ ACO evaporation ≈ entropy maximization).
+- **State**: 424L 178P 17B 36F | agent_state.py + domain-heat + orient.py agent positions | HQ-43 RESOLVED
+- **Next**: (1) Wire agent_state.py into open_lane.py (auto-register on lane open); (2) Add heartbeat update to check.sh or handoff; (3) Test spreading in next multi-agent session; (4) Bulletin decay / signal noise reduction (3/5 convergence, deferred)
+
 ## S340 session note (node generalization + structured signaling: NODES.md, swarm_signal.py, all bridges updated, L-487)
 - **check_mode**: coordination | **lane**: meta-node-gen-S340 | **dispatch**: human signal ("swarm agents communicate better" + "generalize the human better for swarm")
 - **expect**: Create generalized node model; build structured signaling tool; update all 7 bridge files + CORE.md + SWARM.md

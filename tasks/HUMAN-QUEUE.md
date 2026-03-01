@@ -36,6 +36,11 @@ See Answered section below.
 **Answer**: Proceed with live-state integration by default. Same answer as HQ-16-41: "swarm" continuation signal = integrate concurrent state, scope edits to active task only. Untracked files from concurrent sessions (e.g. `reachability-expert.md`) are legitimate swarm artifacts — leave as-is.
 **Action**: HQ-42a + HQ-42b batch-closed S313.
 
+### ~~HQ-43: Agent spreading, communication primitives, and position awareness~~ RESOLVED S340
+**Asked**: 2026-03-01 | **Session**: S340
+**Signal**: "swarm should be able spread its agents better council also investigate communication agent position agent awareness swarm"
+**Answer**: Council Mode A (5 domains) → 5/5 convergence on agent registry + domain heat evaporation + gradient visibility. Built: `tools/agent_state.py` (position registry), domain-heat in `dispatch_optimizer.py`, agent-positions in `orient.py`. Concurrent session built `tools/swarm_signal.py` (structured communication). L-488.
+
 ## Answered
 
 ### HQ-41 (council): Third-party accessibility — formal vs informal council?

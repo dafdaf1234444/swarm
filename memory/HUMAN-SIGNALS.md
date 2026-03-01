@@ -310,7 +310,7 @@ before committing — not retrospectively at the harvest.
 - Raw: "swarm should be able spread its agents better council also investigate communication agent position agent awareness swarm"
 - Context: Human signal about three structural gaps: (1) agent distribution is too clustered, (2) communication between agents needs council investigation, (3) agents lack position awareness within the swarm.
 - Interpretation: Three-part directive. "Spread agents better" = distribution across domains/tasks is uneven (12% domain activation confirms this). "Council investigate communication" = use council Mode A to diagnose what communication primitives are missing between concurrent agents. "Agent position awareness" = agents don't know where they sit relative to other agents — no shared situational awareness beyond git log.
-- Action: Council Mode A convened (dist-sys, meta, brain, info-sci, helper-swarm). HQ-43 opened. Applied to: TBD (council findings pending).
+- Action: Council Mode A convened (dist-sys, meta, brain, info-sci, helper-swarm). HQ-43 opened. 5/5 convergence on agent registry + domain heat evaporation. Built: tools/agent_state.py (position registry), dispatch_optimizer.py domain-heat anti-clustering, orient.py agent-position display. Applied to tools/agent_state.py, tools/dispatch_optimizer.py, tools/orient.py, experiments/meta/council-agent-awareness-s340.json. L-488 written.
 
 ## S340 | 2026-03-01 | "swarm agents communicate better + swarm should generalize the human"
 - Raw: "swarm agents communicate better and swarm should generalize" + "swarm should generalize the human better for swarm"

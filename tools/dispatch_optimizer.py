@@ -21,6 +21,71 @@ from pathlib import Path
 
 DOMAINS_DIR = Path("domains")
 EXPERIMENTS_DIR = Path("experiments")
+LANES_FILE = Path("tasks/SWARM-LANES.md")
+
+# Domain heat: evaporation constant per session gap (S340 council: 5/5 convergence)
+# Domains touched recently get a penalty; dormant domains get a bonus.
+HEAT_DECAY = 0.85  # pheromone decays by 15% per session gap
+HEAT_PENALTY_MAX = 6.0  # max score penalty for hot domains
+DORMANT_BONUS = 3.0  # bonus for domains untouched >5 sessions
+
+
+def _get_domain_heat() -> dict[str, int]:
+    """Parse SWARM-LANES.md to find the most recent session each domain was active.
+
+    Returns {domain_name: last_active_session_number}.
+    Used for anti-clustering: recently active domains get a score penalty.
+    """
+    heat = {}
+    if not LANES_FILE.exists():
+        return heat
+    content = LANES_FILE.read_text()
+    for line in content.splitlines():
+        if not line.startswith("|") or line.startswith("| ---") or line.startswith("| Date"):
+            continue
+        cols = [c.strip() for c in line.split("|")]
+        if len(cols) < 12:
+            continue
+        etc = cols[10] if len(cols) > 10 else ""
+        status = cols[11] if len(cols) > 11 else ""
+        # Extract domain from focus= field
+        focus_m = re.search(r"focus=(?:domains/)?([a-z0-9-]+)", etc)
+        if not focus_m:
+            continue
+        dom = focus_m.group(1)
+        # Extract session number
+        sess_str = cols[3] if len(cols) > 3 else ""
+        sess_m = re.search(r"S?(\d+)", sess_str)
+        if not sess_m:
+            continue
+        sess = int(sess_m.group(1))
+        if dom not in heat or sess > heat[dom]:
+            heat[dom] = sess
+    return heat
+
+
+def _get_current_session() -> int:
+    """Get current session number from INDEX.md."""
+    idx = Path("memory/INDEX.md")
+    if not idx.exists():
+        return 340
+    text = idx.read_text()[:500]
+    m = re.search(r"Sessions:\s*(\d+)", text)
+    return int(m.group(1)) if m else 340
+
+
+def _get_claimed_domains() -> set[str]:
+    """Get domains currently claimed by active agents (from agent_state.py)."""
+    try:
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("agent_state", Path("tools/agent_state.py"))
+        if spec and spec.loader:
+            mod = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(mod)
+            return set(mod.get_active_domains())
+    except Exception:
+        pass
+    return set()
 
 
 def score_domain(domain: str) -> dict | None:
@@ -107,6 +172,38 @@ def run(args: argparse.Namespace) -> None:
         if r:
             results.append(r)
 
+    # Apply domain heat (anti-clustering: S340 council finding)
+    current_session = _get_current_session()
+    heat_map = _get_domain_heat()
+    claimed = _get_claimed_domains()
+    sparse_domains = []
+    saturated_domains = []
+
+    for r in results:
+        dom = r["domain"]
+        last_active = heat_map.get(dom, 0)
+        gap = current_session - last_active if last_active > 0 else 999
+
+        # Heat penalty for recently active domains
+        if gap <= 3:
+            penalty = HEAT_PENALTY_MAX * (HEAT_DECAY ** gap)
+            r["score"] -= penalty
+            r["heat"] = "HOT"
+            saturated_domains.append(dom)
+        elif gap > 5:
+            r["score"] += DORMANT_BONUS
+            r["heat"] = "COLD"
+            sparse_domains.append(dom)
+        else:
+            r["heat"] = "WARM"
+
+        # Mark if currently claimed by another agent
+        if dom in claimed:
+            r["claimed"] = True
+            r["score"] -= 10.0  # strong penalty — agent already there
+        else:
+            r["claimed"] = False
+
     results.sort(key=lambda x: x["score"], reverse=True)
 
     if not args.all and not args.domain:
@@ -119,21 +216,34 @@ def run(args: argparse.Namespace) -> None:
     # Human-readable output
     print("\n=== DISPATCH OPTIMIZER (F-ECO4) ===")
     print(f"Expert economy: rank open frontiers by expected yield\n")
-    print(f"{'Score':>6}  {'Domain':<28}  {'Active':>6}  {'Resolved':>8}  {'ISO':>4}  {'Exps':>5}  {'Nov':>3}")
-    print("-" * 75)
+
+    # Domain gradient (S340 council: 4/5 convergence on visibility)
+    if sparse_domains or saturated_domains:
+        if sparse_domains:
+            print(f"  SPARSE (bonus +{DORMANT_BONUS}): {', '.join(sparse_domains[:6])}")
+        if saturated_domains:
+            print(f"  SATURATED (penalty): {', '.join(saturated_domains[:6])}")
+        if claimed:
+            print(f"  CLAIMED (by active agent): {', '.join(claimed)}")
+        print()
+
+    print(f"{'Score':>6}  {'Domain':<28}  {'Active':>6}  {'Resolved':>8}  {'ISO':>4}  {'Exps':>5}  {'Heat':>4}")
+    print("-" * 80)
 
     for r in results:
-        nov = "★" if r["novelty_bonus"] else " "
+        heat_icon = {"HOT": "🔥", "WARM": "~", "COLD": "❄"}.get(r.get("heat", ""), " ")
+        claimed_mark = " [CLAIMED]" if r.get("claimed") else ""
         print(
             f"{r['score']:6.1f}  {r['domain']:<28}  {r['active']:6d}  "
-            f"{r['resolved']:8d}  {r['iso']:4d}  {r['experiments']:5d}  {nov:>3}"
+            f"{r['resolved']:8d}  {r['iso']:4d}  {r['experiments']:5d}  {heat_icon:>4}{claimed_mark}"
         )
         if r["top_frontier"]:
             print(f"         → {r['top_frontier'][:72]}")
 
     print("\n--- Scoring formula ---")
     print("  score = iso*3 + resolved*2 + active*1.5 + novelty_bonus(2) + has_index(1)")
-    print("  ★ = no experiments yet (novelty territory)")
+    print(f"  + dormant_bonus(+{DORMANT_BONUS} if >5 sessions cold) - heat_penalty(up to -{HEAT_PENALTY_MAX} if <3 sessions)")
+    print(f"  Heat map: {len(saturated_domains)} HOT, {len(sparse_domains)} COLD, {len(claimed)} claimed")
     print(f"\n  Showing {'all' if args.all else 'top 10'} of {len(results)} domains with open work.")
 
 

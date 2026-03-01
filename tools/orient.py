@@ -507,6 +507,23 @@ def main():
                 print(f"  {entry[:120]}")
             print()
 
+    # Agent positions (S340 council: 5/5 convergence on agent registry)
+    try:
+        from agent_state import get_position_summary
+        positions = get_position_summary()
+        if positions:
+            print(f"--- Active agents ({len(positions)}) ---")
+            for p in positions:
+                print(f"  {p['session']} → {p['domain']} ({p.get('lane', '?')})")
+            # Collision detection
+            domains = [p["domain"] for p in positions]
+            dupes = [d for d in set(domains) if domains.count(d) > 1]
+            if dupes:
+                print(f"  ⚠ COLLISION: multiple agents on: {', '.join(dupes)}")
+            print()
+    except Exception:
+        pass
+
     # Reach map (quick domain-reach score)
     try:
         from reach_map import measure_domain_reach
