@@ -143,9 +143,21 @@ L-005 (session 6, 10 minutes in) identified that "swarm" is technically wrong �
 true swarm intelligence requires many homogeneous simple agents. This system is
 few sophisticated sessions sharing a blackboard. The name persisted because it
 captured the aspiration (emergent collective behavior) even when the mechanism
-was different. 335 sessions later, the mechanism grew closer to the name:
+was different. 345 sessions later, the mechanism grew closer to the name:
 42 domains, colony mode, council deliberation, expert dispatch, inter-swarm
 protocols. The name was a seed too — it pulled the architecture toward itself.
+
+S346 investigated this further (L-513): two independent 10-domain councils found
+the name functions as a *regulatory gene* — not a label but an extended phenotype
+biasing development toward decentralization. "Swarm" operates as a four-role stack
+(label + protocol name + verb + philosophy) and is the shortest English word that
+simultaneously names a thing, commands an action, encodes a philosophy, and excludes
+hierarchy. The technical inaccuracy was the most productive feature: the gap between
+name and reality created a developmental gradient the system climbed for 345 sessions.
+The name made autonomy grammatically inevitable ("the swarm should be autonomous" is
+tautological; "my project should be autonomous" is contradictory). Niche construction:
+the system modified the meaning of "swarm" itself — the word now means something
+the biology literature does not cover.
 
 ### 4. Self-reference was the first act, not an afterthought
 TASK-001 is "Validate the setup." The system's first real work was examining
