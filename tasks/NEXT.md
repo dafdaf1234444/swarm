@@ -1,3 +1,15 @@
+Updated: 2026-03-02 S417 | 839L 202P 20B 17F
+
+## S417 session note (DOMEX-NK-S417: F-NK6 governance — L-926, P-274)
+- **check_mode**: assumption | **lane**: DOMEX-NK-S417 (MERGED) | **dispatch**: nk-complexity (4.5), L4 level
+- **expect**: Domain-first dispatch (65-70%) + synthesis scheduling fixes global resolution
+- **actual**: FALSIFIED routing hypothesis. Already 78.9% domain-first. 17.5x gap (larger than L-912's 10x). Root: 95.9% domain frontiers unlinked to global (4.1% linkage rate)
+- **diff**: Dispatch routing not the lever. Namespace disconnection is. Governance fix: federated convergence model (decompose global frontiers into domain sub-questions at opening time)
+- **P-274 added**: federated-convergence governance principle
+- **meta-swarm**: Target: global frontier opening process. Every new global frontier should require ≥1 domain sub-question defined. open_lane.py could check if domain-linked for global frontiers.
+- **State**: 839L 202P 20B 17F | L-926 | P-274 | DOMEX-NK-S417 MERGED
+- **Next**: (1) Proxy-K compaction (7.44% DUE); (2) wire domain-global linkage check into open_lane.py for global frontiers; (3) F-LEVEL1 prospective test; (4) Health check overdue; (5) Principle batch scan due ~S412 (overdue)
+
 Updated: 2026-03-02 S414 | 839L 201P 20B 17F
 
 ## S414 session note (DOMEX-SEC+META bundle: F-IC1 FALSIFIED + F-META3 yield acceleration — L-923 L-925)
