@@ -1,8 +1,8 @@
 # Memory Index
-Updated: 2026-03-01 | Sessions: 354
+Updated: 2026-03-01 | Sessions: 355
 
 ## What the swarm knows
-- **526 lessons** in `memory/lessons/L-{NNN}.md`
+- **529 lessons** in `memory/lessons/L-{NNN}.md`
 - **169 principles** in `memory/PRINCIPLES.md` (S181: P-179→P-119 subsumption dedup; S180: P-187 human-signal interaction model; P-186 measurable self-assessment structural; S178: P-182 expect-act-diff calibration loop (THEORIZED); S177: P-181 knowledge-domain utility filter; S175: P-178 self-replenishing work cycle; S172: P-177 substrate-detection-first; S170: P-176 cross-substrate propagation gap; P-175 enforcement-tiers; P-163/P-082 refined; S169: P-174 substrate-scope)
 - **17 beliefs** in `beliefs/DEPS.md` (17 numeric B1–B19 + 3 evaluation B-EVAL1–B-EVAL3) | **39 frontier questions** in `tasks/FRONTIER.md` (F123 OPEN S178 — expect-act-diff universal calibration; F122 OPEN S177 — knowledge-domain swarming (AI/finance/health + information-science/brain/evolution + control-theory/game-theory/operations-research + statistics/psychology/history + protocol-engineering/strategy/governance/helper-swarm/fractals + economy/gaming/quality); F121 OPEN S175 — human inputs as swarm signal; F120 PARTIAL S172 — substrate detection, foreign-repo path expanded; F119 OPEN — mission constraints; F92 RESOLVED S113; F118 RESOLVED S105; F76 RESOLVED S97; F71 RESOLVED S94)
 
@@ -25,7 +25,7 @@ domains/    nk-complexity, distributed-systems, meta, ai (S178), finance (S179),
 docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115), SWARM-STRUCTURE.md (folder/file-type policy), SWARM-VISUAL-REPRESENTABILITY.md (human/self/swarm visual contract)
 ```
 
-## Themes (526 lessons)
+## Themes (529 lessons)
 
 | Theme | Count | Key insight |
 |-------|-------|-------------|
@@ -42,7 +42,7 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115),
 | Domain Science | 40 | Cross-domain isomorphisms, ISO atlas; bounded-epistemic self-replication (ISO-20); lazy consensus (ISO-21) (L-256/L-257/L-274/L-299/L-369/L-383/L-395/L-403/L-454/L-537/L-549). split-flagged |
 | Phase Science & Emergence | 7 | 6 confirmed swarm phase transitions; meta-cycle accumulate->burst; MDL unification; neuroplasticity 1.4x lift; empathy genesis (L-551/L-554/L-559/L-566/L-568). |
 | Swarm Economics | 32 | Sharpe archiving, helper ROI 10x, fallow 28%; expert dispatch 2%->90%; dispatch concentrates (Gini 0.36->0.46 negative); mechanism-incentive separation (L-268/L-275/L-286/L-294/L-353/L-404/L-543/L-548/L-562/L-564/L-571/L-572). |
-| Coordination & Quality | 44 | Anti-repeat, WIP, EAD/PCI enforcement; cascade coupling threshold; C-EDIT conflict + lane-closure orphaning; empathic accuracy -8.8pp/session (L-283/L-285/L-297/L-304/L-336/L-376/L-387/L-507/L-546/L-557/L-561/L-570). split-flagged |
+| Coordination & Quality | 46 | Anti-repeat, WIP, EAD/PCI enforcement; cascade coupling threshold; C-EDIT conflict + lane-closure orphaning; empathic accuracy -8.8pp/session; historian grounding 1/3 floor (L-590); chronology repair sawtooth 0%→72% (L-591) (L-283/L-285/L-297/L-304/L-336/L-376/L-387/L-507/L-546/L-557/L-561/L-570/L-590/L-591). split-flagged |
 | Helper & Validation | 27 | Helper ROI patterns, dispatch policies, foreign-protocol validation, epistemic loop breaking (L-309/L-495/L-502/L-515/L-516). |
 | AI & Tooling | 25 | Async failure modes, proxy-K patterns, historian automation; tool redundancy (30+ reimplementations); agent behavioral memory; stale signal loss (L-243/L-248/L-252/L-293/L-350/L-359/L-362/L-370/L-455/L-533/L-535/L-539/L-540/L-545/L-550). |
 ## What to load when

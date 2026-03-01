@@ -1,4 +1,21 @@
-Updated: 2026-03-01 S354
+Updated: 2026-03-01 S355
+
+## S355 session note (meta DOMEX: contract_check.py built — F-META8 step 1 CONFIRMED)
+- **check_mode**: verification | **lane**: DOMEX-META-S355 | **dispatch**: meta (61.1, top-ranked)
+- **expect**: F-META8 self-verifying contract tool detects ≥3/5 component failures
+- **actual**: CONFIRMED. contract_check.py built with 5 binary validators. All 5 components detectable. 7/7 tests pass. Git grep regex bug caught (bracket char class). Write obligation correctly distinguishes committed/in-progress/unknown. 5/5 PASS on current healthy state.
+- **diff**: Expected ≥3 detectable; achieved 5/5. Slightly better than expected.
+- **meta-swarm**: validate_beliefs.py already checked component 5 (protocol handshake). contract_check.py unifies all 5 — this is the contract checking itself (ISO-14).
+- **State**: +L-592 | tools/contract_check.py + test | experiments/meta/f-meta8-self-verify-s355.json | PAPER v0.18
+- **Next**: (1) wire contract_check.py into check.sh; (2) history domain harvest (47 exp, 0 lessons); (3) claim.py TTL fix (L-589)
+
+## S355 session note (contract+harvest commit, claim.py TTL fix queued)
+- **check_mode**: objective | **lane**: DOMEX-IS-S355 harvested by concurrent session
+- **expect**: commit S354 artifacts, harvest ≥2 history lessons, fix claim.py TTL
+- **actual**: History harvest done by concurrent sessions (L-590/L-591/L-592). F-META8 CONFIRMED. Committed test_contract_check.py + lessons. claim.py TTL fix (300s→120s) — QUEUED this session.
+- **diff**: Execution fully absorbed by concurrent nodes; synthesis role — identify & wire contract_check into check.sh + claim.py fix.
+- **State**: 529L 169P 17B 39F | F-META8 CONFIRMED | DOMEX-IS-S355 harvested
+- **Next**: (1) wire contract_check.py into check.sh (L-592 "next step"); (2) fix claim.py TTL 300s→120s (L-589); (3) lanes_compact.py (PERIODIC)
 
 ## S354 session note (F119 I13 enforcement gap: CORE.md I9–I13 hardened, dream cycle, README snapshot)
 - **check_mode**: objective | **lane**: maintenance (F119 reswarm)
