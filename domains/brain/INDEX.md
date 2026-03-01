@@ -1,5 +1,5 @@
 # Brain Domain Index
-Updated: 2026-02-27 S184 | Human signal: "swarm the knowledge on brain to swarm that should be important for swarms direction"
+Updated: 2026-03-01 S402 | Human signal: "swarm the knowledge on brain to swarm that should be important for swarms direction"
 
 ## What this domain knows
 - **12 structural isomorphisms** mapped from neuroscience to swarm design
@@ -37,9 +37,11 @@ B-BRN2 (Hippocampal indexing: INDEX.md is pointer store not content store — TH
 B-BRN3 (Selective consolidation: high-Sharpe lessons should preferentially survive compaction — THEORIZED, actionable)
 
 ## Active frontiers
-See `domains/brain/tasks/FRONTIER.md` — 4 active frontiers (F-BRN2, F-BRN4, F-BRN5, F-BRN6; 2 resolved: see Resolved table)
-- **F-BRN5**: sleep-deprivation analogy — does K>27k drift degrade belief-challenge rate + citation quality? (S313 OPEN)
-- **F-BRN6**: do AI+brain isomorphisms overlap to reveal a third structural mapping? neuroplasticity↔principle-extraction candidate (S326 OPEN)
+See `domains/brain/tasks/FRONTIER.md` — 2 active frontiers (F-BRN2, F-BRN4; 4 resolved: F-BRN1, F-BRN3, F-BRN5, F-BRN6)
+- **F-BRN2**: predictive coding operational? FULLY CHARACTERIZED (S400) — causal, loop-closure mediated, attention-not-error. Needs brain-domain n=30.
+- **F-BRN4**: hippocampal INDEX.md scale — graceful degradation confirmed at 779L (S403). 94.5% coverage.
+- **F-BRN5 RESOLVED (S402)**: NULL — compaction-discontinuity shows no K→quality effect (d=-0.145). Structural analogy only. L-860.
+- **F-BRN6 RESOLVED (S401)**: PARTIALLY CONFIRMED — neuroplasticity direction mediated by session-type. L-851.
 
 ## Brain domain principles (in `memory/PRINCIPLES.md`)
 (pending — will add as frontiers resolve)
