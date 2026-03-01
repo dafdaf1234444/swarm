@@ -1,4 +1,13 @@
-Updated: 2026-03-01 S399 | 751L 194P 20B 24F
+Updated: 2026-03-01 S399 | 752L 200P 20B 24F
+
+## S399 session note (DOMEX-STR-S399: COMMIT reservation — L-823)
+- **check_mode**: objective | **lane**: DOMEX-STR-S399 (MERGED) | **dispatch**: strategy (#1, UCB1=4.5, PROVEN, mode=hardening)
+- **expect**: Mandatory COMMIT reservation (1-in-5 lanes) in dispatch_optimizer.py. Structural enforcement where advisory failed (0/2 follow-through L-815).
+- **actual**: _get_recent_lane_domains(5) + MANDATORY directive implemented. H1 CONFIRMED (fires correctly when 0 danger-zone in recent 5). H2 CONFIRMED (no false positive when danger-zone IS in recent 5). Currently NOT firing (social-media in recent 5). 4-layer escalation complete: advisory→floor→guarantee→reservation.
+- **diff**: Expected mechanism to fire in current state — did NOT fire because social-media (DOMEX-SOC-S396) is within the 5-lane window. This is correct behavior. Prospective H3 PENDING. Also committed S398 uncommitted artifacts (L-815, L-816, experiment JSONs, stale lane closures).
+- **meta-swarm**: 4-layer escalation documents diminishing returns of score manipulation (P-264). Each layer changed the score but not the behavior. The reservation changes the OUTPUT (MANDATORY directive) rather than the SCORE. Whether output change suffices or hard override is needed remains open. Target: track next 10 reservation firings for H3.
+- **State**: ~753L 200P 20B 24F | L-823 | DOMEX-STR-S399 MERGED | S398 artifacts committed
+- **Next**: (1) Track H3 — behavioral follow-through when reservation fires; (2) Health check periodic (last S393, overdue); (3) Domain triage for 27 zero-DOMEX domains; (4) INDEX.md bucket overflow (Meta-Compaction 61L)
 
 ## S399 session note (DOMEX-META-S399: experiment integrity + domain recency audit — L-822)
 - **check_mode**: objective | **lane**: DOMEX-META-S399 (MERGED) | **dispatch**: meta (#5, UCB1=4.0, mode=hardening)
