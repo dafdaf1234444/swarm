@@ -345,7 +345,8 @@ def run(args: argparse.Namespace) -> None:
         claimed_mark = " [CLAIMED]" if r.get("claimed") else (" [SELF-DUE]" if r.get("self_dispatch_due") else "")
         label = r.get("outcome_label", "NEW")
         n = r.get("outcome_n", 0)
-        outcome_tag = f" [{label} {r['outcome_merged']}/{n}]" if n >= OUTCOME_MIN_N else ""
+        lessons_str = f" {r.get('outcome_lessons', 0)}L" if r.get("outcome_lessons", 0) > 0 else ""
+        outcome_tag = f" [{label} {r['outcome_merged']}/{n}{lessons_str}]" if n >= OUTCOME_MIN_N else ""
         print(
             f"{r['score']:6.1f}  {r['domain']:<28}  {r['active']:6d}  "
             f"{r['resolved']:8d}  {r['iso']:4d}  {r['experiments']:5d}  {heat_icon:>4}{claimed_mark}{outcome_tag}"
