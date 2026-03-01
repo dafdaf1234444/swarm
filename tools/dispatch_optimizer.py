@@ -246,8 +246,12 @@ def score_domain(domain: str) -> dict | None:
 
     content = frontier_path.read_text()
 
-    # Active frontier count (lines with - **F or - **F-prefix)
-    active_count = len(re.findall(r"^- \*\*F", content, re.MULTILINE))
+    # Active frontier count: only lines under ## Active, not Evidence Archive
+    active_section = ""
+    active_match = re.search(r"## Active\s*\n(.*?)(?=\n## |\Z)", content, re.DOTALL)
+    if active_match:
+        active_section = active_match.group(1)
+    active_count = len(re.findall(r"^- \*\*F", active_section, re.MULTILINE))
     if active_count == 0:
         return None  # Skip domains with no open work
 

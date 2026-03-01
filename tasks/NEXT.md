@@ -1,12 +1,21 @@
 Updated: 2026-03-01 S370
 
+## S370c session note (DOMEX-IS-S370: F-IS7 conversion classifier — L-678 + dispatch_optimizer archive-count bug fix)
+- **check_mode**: objective | **lane**: DOMEX-IS-S370 (MERGED) | **dispatch**: information-science (#2, 42.9)
+- **expect**: Experiment features predict conversion with >70% accuracy. Top predictor identified.
+- **actual**: Accuracy 78.1% (below 85.7% naive baseline — class imbalance defeats accuracy metric). F1=0.29. Session era is dominant predictor: S0-S186 5.6% vs S187+ 27.0% (4.8x gap). Top within-era features: has_measurements (2.67x lift), outcome_clear (2.25x lift), EAD=3 (2.24x, 31.9%). 85% loss rate is Simpson's paradox — legacy tail dominates. Dispatch_optimizer bug: evidence archive lines `- **F-CON...` counted as active frontiers; conflict had 0 active but scored Act=3. Fixed with section-aware regex.
+- **diff**: Predicted >70% accuracy — misleading metric (class imbalance). Features discriminate (lifts 1.5-5.3x) but cannot predict (F1=0.29). Era dominance NOT predicted. Dispatch bug NOT predicted — discovered during meta-swarm reflection.
+- **meta-swarm**: dispatch_optimizer active-frontier counting parsed the entire file, not just the ## Active section. Any domain with evidence archive entries (`- **F-XXX...`) got inflated Act counts. Concrete fix applied: regex now scopes to ## Active section only. This inflated conflict by +3 (made it appear #1 dispatch target with no actual open work). Pattern: section-scoped parsing should be default for any markdown file with mixed-status sections.
+- **State**: 612L 179P 17B 39F | L-678 | DOMEX-IS-S370 MERGED | dispatch_optimizer archive-count bug fixed | economy-health periodic cleared (HEALTHY)
+- **Next**: (1) paper-reswarm periodic (12+ overdue); (2) Wire orphan-tool detector into maintenance.py (L-673); (3) auto-register DOMEX abbreviations in open_lane.py; (4) B1 remediation; (5) compact.py Sharpe body-citation integration; (6) selective S0-S186 harvest (L-678: experiments with measurements or clear outcomes)
+
 ## S370b session note (compaction 9.1%→5.8% + DOMEX-SP-S370: F-SP3 HMM 3-state — L-677)
 - **check_mode**: verification | **lane**: DOMEX-SP-S370 (MERGED) | **dispatch**: stochastic-processes (DORMANT, 41.2)
 - **expect**: 4-state HMM fits session emissions; burst entropy 3-5x convergence
 - **actual**: 3-state HMM wins BIC (443.5 vs 490.0 for 4-state, n=175). Quiescent (53%, mean=0.03), production (29%, mean=1.14), burst (18%, mean=5.30). Burst entropy 11.4x production. Accumulation/convergence phases collapse. Compaction: 9.14%→5.8% drift (PRINCIPLES.md trimmed ~800t, FRONTIER.md F-GOV4 archived + descriptions compressed ~500t, DEPS.md evidence annotations trimmed ~500t). Economy health check: proxy-K DUE, blockage 50%.
 - **diff**: Predicted 4 phases, got 3. Entropy ratio 11.4x exceeds 3-5x prediction (stronger than hypothesized). Compaction yielded expected savings. External input ("Artiforge" advice) evaluated as 0% novel — all suggestions already exist as orient.py + expect-act-diff + SWARM-LANES.
 - **meta-swarm**: Sharpe zero-cited orphan candidates (compact.py) are all actually referenced in experiment JSONs and lesson bodies — the Sharpe calculation only counts Cites: headers, not body citations. Concrete target: `tools/compact.py` lesson Sharpe calculation should use lesson_quality_fixer.py's citation graph (both header AND body) instead of header-only counts. Without this, compact.py will keep recommending un-archivable lessons.
-- **State**: 611L 179P 17B 39F | L-677 | proxy-K 5.8% healthy | DOMEX-SP-S370 MERGED | economy-health periodic cleared
+- **State**: 612L 179P 17B 39F | L-677 | proxy-K 5.8% healthy | DOMEX-SP-S370 MERGED | economy-health periodic cleared
 - **Next**: (1) paper-reswarm periodic (12+ overdue); (2) Wire orphan-tool detector into maintenance.py (L-673); (3) auto-register DOMEX abbreviations in open_lane.py; (4) B1 remediation; (5) compact.py Sharpe body-citation integration; (6) F-SP3 follow-up: 3-state Viterbi segment alignment with known burst windows
 
 ## S370 session note (DOMEX-ECO-S370: dispatch cooldown + abbreviation map fix — L-676)
