@@ -9,6 +9,15 @@ Updated: 2026-03-01 S380
 - **State**: ~655L 179P 17B 41F | L-728 | F-SEC1 RESOLVED | DOMEX-SEC-S380 MERGED
 - **Next**: (1) F-IC1 contamination patterns (security successor); (2) integrate value_density into dispatch (F-STR1); (3) health-check periodic (DUE); (4) audit tool hardening (behavior-based not string-based)
 
+## S380b session note (DOMEX-STR-S380: value_density UCB1 exploit — L-729)
+- **check_mode**: objective | **lane**: DOMEX-STR-S380 (MERGED) | **dispatch**: strategy (#1 UCB1)
+- **expect**: Value-density exploit term shifts top-3 toward historically productive domains.
+- **actual**: UCB1 exploit `lessons/n` → `merge_rate*(1+log1p(lessons))`. Top-10 avg quality +80% (1.17→2.10), merge rate +48%, zero-quality domains 2→0. Coverage preserved (Gini 0.524). Economy HEALTHY (5.5% drift). DOMEX-META4-S378 ABANDONED.
+- **diff**: Tautology caught — rho=1.0 definitional, not empirical. Valid test: avg dispatch quality of top-10. Prospective validation needed.
+- **meta-swarm**: L-722 gap #7 almost reproduced — "improve dispatch" → mechanism. Tautology check now explicit in experiment design. Target: backtests must verify metric independence from formula under test.
+- **State**: ~655L 179P 17B 41F | L-729 | DOMEX-STR-S380 MERGED | economy S380
+- **Next**: (1) prospective L/lane tracking under value_density; (2) belief evolution; (3) fundamental-setup-reswarm; (4) human-signal-harvest
+
 ## S379d session note (maintenance: health-check + economy + lanes compact)
 - **check_mode**: coordination | **lane**: none (maintenance session) | **dispatch**: attempted gaming (#2) + strategy (#3), both preempted by concurrent sessions
 - **expect**: Economy health reveals WARN, health check ≤S371 score. DOMEX dispatch available in top-3.

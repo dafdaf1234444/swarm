@@ -365,9 +365,16 @@ def _ucb1_score(results: list[dict], outcome_map: dict, heat_map: dict,
     if total_dispatches == 0:
         total_dispatches = 1  # avoid log(0)
 
-    # Global average yield (prior for unvisited domains)
-    total_lessons = sum(oc.get("lessons", 0) for oc in outcome_map.values())
-    global_avg = total_lessons / total_dispatches if total_dispatches > 0 else 1.0
+    # Global average quality (prior for unvisited domains)
+    # F-STR1 (S379): value_density exploit = merge_rate * (1 + log(lessons+1))
+    # rho=0.792 vs actual outcomes; lessons/n was neutral (rho=-0.14)
+    quality_scores = []
+    for oc in outcome_map.values():
+        n_oc = oc["merged"] + oc["abandoned"]
+        if n_oc > 0:
+            mr = oc["merged"] / n_oc
+            quality_scores.append(mr * (1 + math.log1p(oc.get("lessons", 0))))
+    global_avg = sum(quality_scores) / len(quality_scores) if quality_scores else 1.0
 
     for r in results:
         dom = r["domain"]
@@ -392,11 +399,16 @@ def _ucb1_score(results: list[dict], outcome_map: dict, heat_map: dict,
             r["ucb1_explore"] = float('inf')
             r["score"] = 1000.0 + r["score"]  # structural base as tiebreaker
         else:
-            avg_yield = lessons / n
+            # Value-density exploit (F-STR1 S379, rho=0.792):
+            # quality = merge_rate * (1 + log(total_lessons + 1))
+            # Combines completion probability with knowledge yield.
+            # Replaces raw lessons/n which was UCB1-neutral (rho=-0.14).
+            merge_rate = oc["merged"] / n
+            quality = merge_rate * (1 + math.log1p(lessons))
             explore_term = c * math.sqrt(math.log(total_dispatches) / n)
-            r["ucb1_exploit"] = round(avg_yield, 3)
+            r["ucb1_exploit"] = round(quality, 3)
             r["ucb1_explore"] = round(explore_term, 3)
-            r["score"] = avg_yield + explore_term
+            r["score"] = quality + explore_term
 
         # Keep: claimed domain penalty (multi-agent coordination)
         if dom in claimed:
