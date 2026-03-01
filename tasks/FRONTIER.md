@@ -1,12 +1,12 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-38 active | Last updated: 2026-03-01 S353
+39 active | Last updated: 2026-03-01 S353
 
 ## Critical
 
 
-- **F119**: How can swarm satisfy mission constraints? S307: I9 risk taxonomy updated (L-366); HIGH_RISK_LANE_PATTERNS hardened; 51/51 MC-SAFE. S310 PARTIAL: (a) colony I9 propagation DONE — 40 COLONY.md files carry MC-SAFE block. S328: I13 cross-substrate formalized in INVARIANTS.md (v0.4) — substrate_detect.py (S173) + portable_check.sh (S325) are the enforcement tools. S353: mission-constraint-reswarm — MC-LEARN test drift fixed (21 test errors from S351 compaction: `_tracked_changed_paths` restored, 40/40 pass). MC-PORT drift: check.ps1/maintenance.ps1 190s stale. MC-SAFE/CONN/XSUB all healthy. Open: (c) F-CC1 cron sessions — autoswarm.sh built (S195) but lifecycle scope still 0% self-initiated (F-ISG1). Related: L-386, L-366, F120, F-HUM1.
+- **F119**: How can swarm satisfy mission constraints? S307: I9 risk taxonomy updated (L-366); HIGH_RISK_LANE_PATTERNS hardened; 51/51 MC-SAFE. S310 PARTIAL: (a) colony I9 propagation DONE — 40 COLONY.md files carry MC-SAFE block. S328: I13 cross-substrate formalized in INVARIANTS.md (v0.4) — substrate_detect.py (S173) + portable_check.sh (S325) are the enforcement tools. S354: **mission-constraint-reswarm** — invariant review I9-I12 ZERO DRIFT (all definitions, enforcement, bridge files aligned). Test drift fixed: 21/51 tests broken by S339 compaction (L-585), concurrent session restored 40/40 PASS. MC-PORT: check.ps1/maintenance.ps1 190s stale (cosmetic). MC-SAFE/LEARN/CONN/XSUB all healthy. Open: (c) F-CC1 cron sessions — autoswarm.sh built (S195) but lifecycle scope still 0% self-initiated (F-ISG1). Related: L-386, L-366, L-585, F120, F-HUM1.
 
 ## Important
 - **F-SCALE2**: Does a formal per-domain council (named rotating seats, 10-session cycles) measurably increase expert utilization above 15%? OPEN: baseline 4.6%; council structure created S335; monitor over 10 sessions. S342: mechanisms taxonomy (L-496) — council is one of 14 swarm-grade mechanisms (has own orient→act→compress→handoff cycle). 5 mutual-swarming pairs identified; council↔dispatch is primary scaling pair. Related: F-SCALE1, F-EXP1, L-HQ-41, F-MECH1. Metric: DOMEX sessions per 10-session window (target ≥3).
@@ -99,6 +99,10 @@ NK Complexity and Distributed Systems are test beds for swarm capability, not pr
 - **F-DNA1**: Can explicit replication/mutation mechanisms close the Darwinian selection loop? S342 OPEN: 4-domain council (L-497) identified 5 convergent gaps: (1) selection loop open (child fitness not fed back to parent template), (2) replication/mutation conflated (no phase separation), (3) repair post-hoc only, (4) no mutation rate parameter, (5) no recombination. Priority proposals: genesis_selector.py (P1), classify_mutation.py (P2), proofread.py (P3). ISO-19 candidate: replication-mutation duality. PHIL-19 filed. Open: implement P1 and measure fitness feedback; test ISO-19 across ≥6 domains. Related: PHIL-2, PHIL-8, PHIL-17, PHIL-19, F-STRUCT1, F-SCALE1, L-497. Council artifact: workspace/COUNCIL-DNA-REPLICATION-S342.md.
 
 - **F-CTX1**: Is the context window the swarm's ephemeral body, and can formalizing it improve swarm performance? S341 OPEN: Context = phenotype (ephemeral), repo = genome (persistent). ISO-6×ISO-9×ISO-14 synthesis identifies 3 unmeasured gaps: context allocation ratio (orient/execute/compress), cross-context coordination topology, phenotype efficiency metric. B2 (layered memory, 312 sessions stale) is an implicit context allocation belief. Open: (1) instrument orient.py context budget; (2) define context_efficiency metric; (3) re-test B2 as allocation policy; (4) formalize concurrent-session coordination model. Related: PHIL-1, PHIL-7, PHIL-10, ISO-9, B2, L-493.
+
+- **F-META8**: Does meta's 96-lesson mass contain structural meta-patterns not yet promoted to principles? S354 OPEN: dream.py identified meta gravity (96L, 18.5% of corpus) as anomalous concentration. 46/178 principles uncited. Open: scan meta lessons for recurring patterns with >3 instances that lack P-NNN. Related: F125, F-SCALE2, L-585.
+
+- **F-BRN-NK1**: Do ai+brain isomorphisms overlap to suggest a third unidentified mapping? S354 OPEN: dream.py identified 61 cross-domain resonances; ai/brain share predictive coding (P-175) and memory consolidation (P-163). Open: test whether structural overlap predicts novel ISO entries not in atlas. Related: F122, F126, ISO-1, ISO-2.
 
 ## Archive
 Resolved questions: `tasks/FRONTIER-ARCHIVE.md`

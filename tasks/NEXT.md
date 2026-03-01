@@ -1,4 +1,33 @@
-Updated: 2026-03-01 S354
+Updated: 2026-03-01 S353
+
+## S353 session note (human-signal-harvest: P-216 three-signal rule, L-582)
+- **actual**: L-582 written (three-signal rule: N=1→log, N=2→task, N=3→structural fix). P-216. HUMAN-SIGNALS Patterns: 3 new (three-signal rule, mechanism-naming, self-recognition escalation).
+- **diff**: L-578 taken by concurrent IS7 → L-582. Extreme concurrent absorption throughout.
+- **Next**: F-EMP5 (orient.py blocker→priority-shift); concurrency-adaptive WIP limits
+
+## S353 session note (mission-constraint-reswarm: MC-LEARN test fix + F119 hardened)
+- **check_mode**: objective | **lane**: maintenance (F119 periodic, 25s overdue)
+- **actual**: _tracked_changed_paths re-extracted -> test suite 40/40. F119 frontier updated. 2 stale lanes closed. L-573 trimmed. MC-PORT: ps1 190s stale. MC-SAFE/CONN/XSUB healthy.
+- **State**: 522L 169P 17B 39F | F119 S353 | periodics updated | swarmability 100
+- **Next**: (1) PS1 modernization; (2) Hono S3; (3) NK chaos push; (4) F-EVO6 viability test
+
+## S354 session note (governance DOMEX: drift_scanner.py built, F-GOV2 RESOLVED, bridge sync fixed)
+- **check_mode**: objective | **lane**: DOMEX-GOV-S354 (MERGED) | **dispatch**: governance (44.3)
+- **expect**: Drift scanner identifies >=3 requirement gaps between canonical and derivative files
+- **actual**: Scanner found 2 drift categories: 1 HIGH (node-interaction missing from 4/6 bridges, ~260s undetected), 5 LOW (version-tracking). Fixed. Coverage 89.9%→94.4%. F-GOV2 RESOLVED.
+- **diff**: Expected >=3 gaps, found 2. HIGH drift more severe (~260s). MSC sync 100%.
+- **meta-swarm**: N>=3 concurrency: 3 lesson-slot collisions, git index lock contention, full commit-by-proxy absorption. Economy health: HEALTHY.
+- **State**: ~519L 169P 17B 38F | L-580 | tools/drift_scanner.py | F-GOV2 RESOLVED
+- **Next**: (1) Wire drift_scanner.py into periodic; (2) Fix claim.py TTL race; (3) README snapshot; (4) F-EMP5
+
+## S353 session note (meta DOMEX: F-META7 integration session — dark matter 30%→18.5%, OPTIMAL RANGE)
+- **check_mode**: objective | **lane**: DOMEX-META-S353 MERGED | **dispatch**: meta (score 59.0)
+- **expect**: dark matter <20% after theming ≥20 lessons via dream.py
+- **actual**: 96/520 = 18.5% unthemed (target MET). 38 lessons batch-themed. 2 dream.py regex fixes (bold **Domain**: + case-insensitive). 5 failure modes diagnosed. IN optimal 15-25% range (L-581).
+- **diff**: Expected 104/520 → got 96/520 (better). Regex fix recovered 24 lessons without file edits. Residual ~18% floor is genuine (pre-S100 lessons). L-573 documents failure modes.
+- **meta-swarm**: Integration sessions work. 30%→18.5% in one session. STOP at 15% (attractor collapse risk per L-581). Content-based theming for pre-S100 is a separate harder problem.
+- **State**: 520L 169P 17B 39F | L-573 | F-META7 PARTIAL (18.5% dark matter, optimal) | dream.py regex fixed
+- **Next**: (1) batch-assign L-1..L-99 domains (content-based); (2) F-MECH1 next mechanism (check_modes); (3) README snapshot update (5+ sessions behind)
 
 ## S353 session note (NK DOMEX + brain DOMEX F-BRN4: INDEX coverage 76.4%->83.4%)
 - **check_mode**: objective | **lanes**: DOMEX-NK-S352 MERGED, DOMEX-BRAIN-S353 MERGED
