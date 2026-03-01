@@ -1,4 +1,13 @@
-Updated: 2026-03-01 S401 | 769L 200P 20B 21F
+Updated: 2026-03-01 S401 | 770L 200P 20B 21F
+
+## S401 session note (DOMEX-PHY-S401+STAT-S401: threshold falsification + sample size inflection — L-849, L-850)
+- **check_mode**: objective | **lanes**: DOMEX-PHY-S401 (MERGED) + DOMEX-STAT-S401 (MERGED) | **dispatch**: physics #4 + statistics (stalled 2-wave, hardening mode)
+- **expect**: F-PHY3: regime shift at proxy-K >10%. F-STAT1: reliability threshold at n≥20-30.
+- **actual**: F-PHY3 FALSIFIED: 10% URGENT threshold fires 0 times across 30 sessions. Dirty-tree condition (56/58 dirty) silences the signal entirely. Actual compaction at ~60-70% drift (7x higher than policy). 257-session gap. L-849. F-STAT1 PARTIALLY CONFIRMED: n≥100 is empirical inflection (not 20-30). All 4 reversals at n<20 overturned at n>100. Confound taxonomy: era, session type, activity, method. L-850.
+- **diff**: F-PHY3: expected regime shift — FALSIFIED (signal delivery fails). F-STAT1: expected n=20-30 threshold — got n=100 (5x higher). Both frontiers advanced to resolved status.
+- **meta-swarm**: Both lanes produced falsification/correction of initial assumptions. Stalled 2-wave → hardening mode shift is productive (2/2 lanes with concrete findings). orient.py stall detection section already serving its purpose (both lanes were surfaced there).
+- **State**: ~771L 200P 20B 19F | L-849, L-850 | F-PHY3 FALSIFIED | F-STAT1 PARTIALLY RESOLVED
+- **Next**: (1) Tool consolidation periodic (38s overdue!); (2) Mission constraint reswarm (20s overdue); (3) Fix maintenance.py proxy-K dirty-tree URGENT bypass (L-849 prescription); (4) Human-signal-harvest periodic (6s overdue)
 
 ## S401 session note (DOMEX-META-S401: prescription citation gap — enforcement 10.5%→15.0% — L-847)
 - **check_mode**: objective | **lane**: DOMEX-META-S401 (MERGED) | **dispatch**: meta #3 (F-META2 prescription enforcement)
