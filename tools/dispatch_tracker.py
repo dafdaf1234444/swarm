@@ -34,15 +34,21 @@ HEADER = """\
 """
 
 
-def _current_session() -> str:
-    try:
-        import subprocess
-        r = subprocess.run(["git", "log", "--oneline", "-30"],
-                           capture_output=True, text=True, cwd=ROOT)
-        nums = [int(m) for m in re.findall(r"\[S(\d+)\]", r.stdout)]
-        return f"S{max(nums) + 1}" if nums else "S?"
-    except Exception:
-        return "S?"
+try:
+    _tools_path = str(Path(__file__).resolve().parent)
+    import sys as _sys; _sys.path.insert(0, _tools_path)
+    from swarm_io import session_number as _sn_int
+    def _current_session(): return f"S{_sn_int()}"
+except ImportError:
+    def _current_session() -> str:
+        try:
+            import subprocess
+            r = subprocess.run(["git", "log", "--oneline", "-30"],
+                               capture_output=True, text=True, cwd=ROOT)
+            nums = [int(m) for m in re.findall(r"\[S(\d+)\]", r.stdout)]
+            return f"S{max(nums) + 1}" if nums else "S?"
+        except Exception:
+            return "S?"
 
 
 def _now() -> str:

@@ -22,13 +22,18 @@ SESSION_LOG_PATH = REPO_ROOT / "memory" / "SESSION-LOG.md"
 ANXIETY_THRESHOLD = 15  # sessions
 
 
-def _current_session() -> int:
-    """Read highest session number from SESSION-LOG.md (handles both | S and S\t| formats)."""
-    if not SESSION_LOG_PATH.exists():
-        return 0
-    text = SESSION_LOG_PATH.read_text()
-    nums = [int(m) for m in re.findall(r"(?:^\|?\s*S|S)(\d{3,})\b", text, re.MULTILINE)]
-    return max(nums) if nums else 0
+try:
+    _tools_path = str(Path(__file__).resolve().parent)
+    import sys as _sys; _sys.path.insert(0, _tools_path)
+    from swarm_io import session_number as _current_session
+except ImportError:
+    def _current_session() -> int:
+        """Read highest session number from SESSION-LOG.md (handles both | S and S\t| formats)."""
+        if not SESSION_LOG_PATH.exists():
+            return 0
+        text = SESSION_LOG_PATH.read_text()
+        nums = [int(m) for m in re.findall(r"(?:^\|?\s*S|S)(\d{3,})\b", text, re.MULTILINE)]
+        return max(nums) if nums else 0
 
 
 def _parse_anxiety_zones(frontier_text: str, current: int) -> list[dict]:

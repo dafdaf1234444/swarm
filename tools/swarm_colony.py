@@ -28,18 +28,24 @@ MEMORY_LESSONS = ROOT / "memory" / "lessons"
 
 # ── helpers ──────────────────────────────────────────────────────────────────
 
-def _current_session() -> str:
-    try:
-        import subprocess
-        r = subprocess.run(["git", "log", "--oneline", "-30"],
-                           capture_output=True, text=True, cwd=ROOT)
-        for line in r.stdout.splitlines():
-            m = re.search(r'\[S(\d+)\]', line)
-            if m:
-                return f"S{m.group(1)}"
-    except Exception:
-        pass
-    return "S?"
+try:
+    _tools_path = str(Path(__file__).resolve().parent)
+    import sys as _sys; _sys.path.insert(0, _tools_path)
+    from swarm_io import session_number as _sn_int
+    def _current_session(): return f"S{_sn_int()}"
+except ImportError:
+    def _current_session() -> str:
+        try:
+            import subprocess
+            r = subprocess.run(["git", "log", "--oneline", "-30"],
+                               capture_output=True, text=True, cwd=ROOT)
+            for line in r.stdout.splitlines():
+                m = re.search(r'\[S(\d+)\]', line)
+                if m:
+                    return f"S{m.group(1)}"
+        except Exception:
+            pass
+        return "S?"
 
 
 def _today() -> str:

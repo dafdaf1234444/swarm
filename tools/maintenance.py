@@ -151,8 +151,10 @@ else:
                                    capture_output=True, text=True, timeout=10).stdout.rstrip("\n")
         except Exception: return ""
 
-def _decode_git_path(path: str) -> str:
-    p = path.strip()
+def _status_path(line: str) -> str:
+    p = (line[3:].strip() if len(line) >= 3 else line.strip())
+    if " -> " in p:
+        p = p.split(" -> ", 1)[1].strip()
     if p.startswith('"') and p.endswith('"') and len(p) >= 2:
         inner = p[1:-1]
         try:
@@ -164,12 +166,6 @@ def _decode_git_path(path: str) -> str:
     if re.match(r"^[A-Za-z]:[^/]", p):
         p = p[:2] + "/" + p[2:]
     return p
-
-def _status_path(line: str) -> str:
-    path = line[3:].strip() if len(line) >= 3 else line.strip()
-    if " -> " in path:
-        path = path.split(" -> ", 1)[1].strip()
-    return _decode_git_path(path)
 
 def _tracked_changed_paths() -> list[str]:
     status = _git("-c", "core.quotepath=false", "status", "--porcelain")
@@ -217,9 +213,6 @@ else:
 
 _active_principle_ids = parse_active_principle_ids
 
-def _normalize_hq_question(text: str) -> str:
-    return re.sub(r"\s+", " ", re.sub(r"[^a-zA-Z0-9\s]", " ", (text or "").lower())).strip()
-
 def _resolve_repo_file_ref(ref: str) -> str | None:
     return ref if "/" in ref else FILE_REF_ALIAS_MAP.get(ref)
 
@@ -230,21 +223,6 @@ def _parse_lane_tags(value: str) -> dict[str, str]:
     return {k.strip().lower(): v.strip()
             for k, v in re.findall(r"([A-Za-z][A-Za-z0-9_-]*)\s*=\s*([^\s,;|]+)", value or "")}
 
-def _lane_domain_focus(row: dict[str, str], tags: dict[str, str]) -> str | None:
-    for raw in (tags.get("focus", ""), row.get("scope_key", "")):
-        match = re.search(r"domains/([a-z0-9][a-z0-9-]*)", (raw or "").strip().lower())
-        if match:
-            return match.group(1)
-    return None
-
-def _parse_check_focus_modes(raw: str) -> set[str]:
-    return {tok for tok in re.split(r"[+,/;|]+", (raw or "").strip().lower()) if tok}
-
-def _historian_anchor_coverage(raw: str) -> tuple[bool, bool]:
-    low = (raw or "").strip().lower()
-    has_self = any(token in low for token in HISTORIAN_SELF_ANCHOR_TOKENS)
-    has_surroundings = any(token in low for token in HISTORIAN_SURROUNDINGS_ANCHOR_TOKENS)
-    return has_self, has_surroundings
 
 def _lane_has_any_tag(tags: dict[str, str], keys: tuple[str, ...]) -> bool:
     return any(key in tags for key in keys)
@@ -267,21 +245,6 @@ def _lane_high_risk_signal(row: dict[str, str], tags: dict[str, str]) -> str | N
             return label
     return None
 
-def _is_dispatch_lane_row(row: dict[str, str], tags: dict[str, str]) -> bool:
-    lane = (row.get("lane", "") or "").strip().lower()
-    if any(key in tags for key in ("dispatch", "slot", "wip_cap")):
-        return True
-    return bool(re.search(r"(?:^|[-_/])(msw\d*|domex|slot)(?:$|[-_/])", lane))
-
-def _is_coordinator_lane_row(row: dict[str, str], tags: dict[str, str]) -> bool:
-    lane = (row.get("lane", "") or "").strip().lower()
-    scope = (row.get("scope_key", "") or "").strip().lower()
-    has_coord_hint = (
-        bool(re.search(r"(?:^|[-_/])(coord|coordinator)(?:$|[-_/])", lane))
-        or "coordinator" in scope
-        or "tasks/swarm-lanes.md" in scope
-    )
-    return has_coord_hint
 
 _LANE_KEYS = ("date", "lane", "session", "agent", "branch", "pr", "model", "platform", "scope_key", "etc", "status", "notes")
 
@@ -376,6 +339,18 @@ def _parse_domain_index_open_ids(index_text: str) -> tuple[bool, set[str]]:
             ids.add(_normalize_frontier_id(match.group(1)))
     return True, ids
 
+def _active_lane_rows() -> tuple[list[dict[str, str]], list[dict[str, str]]] | None:
+    lanes_text = _read(REPO_ROOT / "tasks" / "SWARM-LANES.md")
+    if not lanes_text: return None
+    rows = _parse_swarm_lane_rows(lanes_text)
+    if not rows: return None
+    latest: dict[str, dict[str, str]] = {}
+    for row in rows:
+        lane = row.get("lane", "").strip()
+        if lane: latest[lane] = row
+    active = [row for row in latest.values() if row.get("status", "").upper() in LANE_ACTIVE_STATUSES]
+    return (rows, active) if active else None
+
 def _format_frontier_id_diff(expected: set[str], actual: set[str]) -> str:
     parts = []
     if (m := _sorted_frontier_ids(expected - actual)): parts.append(f"missing {_truncated(m, 4)}")
@@ -417,17 +392,16 @@ def check_unpushed() -> list[tuple[str, str]]:
         items.append(("URGENT", "Commit saturation (>=20 unpushed) — run: python3 tools/agent_swarm.py create <child> \"reduce commit backlog\" --personality commit-swarmer"))
     return items
 
-def _parse_kill_switch() -> dict[str, str]:
-    if not KILL_SWITCH_PATH.exists(): return {}
-    return {m.group(1).strip().lower(): m.group(2).strip()
-            for line in _read(KILL_SWITCH_PATH).splitlines()
-            for m in [re.match(r"^\s*([A-Za-z][A-Za-z0-9_-]*)\s*:\s*(.*?)\s*$", line)] if m}
-
 def check_kill_switch() -> list[tuple[str, str]]:
     results: list[tuple[str, str]] = []
     if (os.environ.get("SWARM_STOP", "") or "").strip().lower() in {"1", "true", "yes", "on"}:
         return [("URGENT", "SWARM_STOP env var is active — halt swarm activity")]
-    fields = _parse_kill_switch()
+    if not KILL_SWITCH_PATH.exists():
+        fields = {}
+    else:
+        fields = {m.group(1).strip().lower(): m.group(2).strip()
+                  for line in _read(KILL_SWITCH_PATH).splitlines()
+                  for m in [re.match(r"^\s*([A-Za-z][A-Za-z0-9_-]*)\s*:\s*(.*?)\s*$", line)] if m}
     if not fields:
         if KILL_SWITCH_PATH.exists():
             results.append(("DUE", "Kill switch file exists but no parseable key/value fields were found"))
@@ -528,7 +502,7 @@ def check_human_queue() -> list[tuple[str, str]]:
         in_answered = answered_pos >= 0 and m.start() >= answered_pos
         is_struck = heading.startswith("~~")
         question = re.sub(r"\s+(?:RESOLVED|ANSWERED|CLOSED)\b.*$", "", (plain.split(":", 1)[1].strip() if ":" in plain else plain), flags=re.IGNORECASE).strip()
-        q_norm = _normalize_hq_question(question)
+        q_norm = re.sub(r"\s+", " ", re.sub(r"[^a-zA-Z0-9\s]", " ", (question or "").lower())).strip()
         if q_norm:
             (answered_by_norm if (in_answered or is_struck) else open_by_norm).setdefault(q_norm, []).append(hq_id)
         if not in_answered and not is_struck:
@@ -544,27 +518,9 @@ def check_human_queue() -> list[tuple[str, str]]:
 
 def check_swarm_lanes() -> list[tuple[str, str]]:
     results = []
-    lanes_text = _read(REPO_ROOT / "tasks" / "SWARM-LANES.md")
-    if not lanes_text:
-        return results
-
-    rows = _parse_swarm_lane_rows(lanes_text)
-    if not rows:
-        return results
-
-    latest_by_lane: dict[str, dict[str, str]] = {}
-    for row in rows:
-        lane = row.get("lane", "").strip()
-        if not lane:
-            continue
-        latest_by_lane[lane] = row
-
-    active = [
-        row for row in latest_by_lane.values()
-        if row.get("status", "").upper() in LANE_ACTIVE_STATUSES
-    ]
-    if not active:
-        return results
+    parsed = _active_lane_rows()
+    if not parsed: return results
+    rows, active = parsed
 
     current_session = _session_number()
     stale_notice: list[str] = []
@@ -606,7 +562,8 @@ def check_swarm_lanes() -> list[tuple[str, str]]:
     for row in active:
         lane = row.get("lane", "").strip() or "<unknown>"
         tags = _parse_lane_tags(row.get("etc", ""))
-        domain_focus = _lane_domain_focus(row, tags)
+        domain_focus = next((m.group(1) for raw in (tags.get("focus", ""), row.get("scope_key", ""))
+                             for m in [re.search(r"domains/([a-z0-9][a-z0-9-]*)", (raw or "").strip().lower())] if m), None)
         if domain_focus:
             domain_missing = []
             domain_sync = tags.get("domain_sync", "").strip().lower()
@@ -684,24 +641,9 @@ def check_swarm_lanes() -> list[tuple[str, str]]:
 
 def check_swarm_coordinator() -> list[tuple[str, str]]:
     results: list[tuple[str, str]] = []
-    lanes_text = _read(REPO_ROOT / "tasks" / "SWARM-LANES.md")
-    if not lanes_text:
-        return results
-
-    rows = _parse_swarm_lane_rows(lanes_text)
-    if not rows:
-        return results
-
-    latest_by_lane: dict[str, dict[str, str]] = {}
-    for row in rows:
-        lane = row.get("lane", "").strip()
-        if lane:
-            latest_by_lane[lane] = row
-
-    active = [
-        row for row in latest_by_lane.values()
-        if row.get("status", "").upper() in LANE_ACTIVE_STATUSES
-    ]
+    parsed = _active_lane_rows()
+    if not parsed: return results
+    _, active = parsed
     if len(active) < 2:
         return results
 
@@ -744,26 +686,9 @@ def check_swarm_coordinator() -> list[tuple[str, str]]:
 
 def check_lane_reporting_quality() -> list[tuple[str, str]]:
     results: list[tuple[str, str]] = []
-    lanes_text = _read(REPO_ROOT / "tasks" / "SWARM-LANES.md")
-    if not lanes_text:
-        return results
-
-    rows = _parse_swarm_lane_rows(lanes_text)
-    if not rows:
-        return results
-
-    latest_by_lane: dict[str, dict[str, str]] = {}
-    for row in rows:
-        lane = row.get("lane", "").strip()
-        if lane:
-            latest_by_lane[lane] = row
-
-    active = [
-        row for row in latest_by_lane.values()
-        if row.get("status", "").upper() in LANE_ACTIVE_STATUSES
-    ]
-    if not active:
-        return results
+    parsed = _active_lane_rows()
+    if not parsed: return results
+    _, active = parsed
 
     missing_contract: list[str] = []
     missing_historian_contract: list[str] = []
@@ -797,7 +722,7 @@ def check_lane_reporting_quality() -> list[tuple[str, str]]:
             if present:
                 explicit_counts[key] += 1
 
-        check_modes = _parse_check_focus_modes(tags.get("check_focus", ""))
+        check_modes = {tok for tok in re.split(r"[+,/;|]+", (tags.get("check_focus", "") or "").strip().lower()) if tok}
         if check_modes & CHECK_FOCUS_HISTORIAN_REQUIRED:
             if "objective" in check_modes and _is_lane_placeholder(tags.get("objective_check", "")):
                 missing_historian_contract.append(f"{lane}(objective_check)")
@@ -805,7 +730,9 @@ def check_lane_reporting_quality() -> list[tuple[str, str]]:
             if _is_lane_placeholder(historian_raw):
                 missing_historian_contract.append(f"{lane}(historian_check)")
             else:
-                has_self, has_surroundings = _historian_anchor_coverage(historian_raw)
+                _hlow = (historian_raw or "").strip().lower()
+                has_self = any(t in _hlow for t in HISTORIAN_SELF_ANCHOR_TOKENS)
+                has_surroundings = any(t in _hlow for t in HISTORIAN_SURROUNDINGS_ANCHOR_TOKENS)
                 anchor_missing: list[str] = []
                 if not has_self:
                     anchor_missing.append("self_anchor")
