@@ -4,7 +4,7 @@
 - **actual**: CONFIRMED. 5-council EAD auto-diff: quantity underestimate 40-67% (mean 52%), 4/5 exceeded, 0 fell short. Quality: 4 exceeded, 1 catastrophic miss (PCI: expected >0.05, got 0.000). CF-3 novel: calibration data sits in NEXT.md session notes — never auto-parsed. L-507 written (20L). DOMEX-EXPERT-SWARM-S344 MERGED. Concurrent: L-506 outcome feedback + dispatch_optimizer.py stage 2→3.
 - **diff**: Calibration 100% directional (stronger than expected ~80%). Concurrent worked expert-swarm from different angle (dispatch feedback) — zero collision, complementary outputs.
 - **meta-swarm**: Auto-diff applied L-479 (quantities without qualities) to council mechanism. Meta-friction: no tooling for cross-session expect calibration improvement. F-EXP10 should expand beyond dispatch to council calibration.
-- **State**: 444L 170P 17B 38F | L-507 + DOMEX-EXPERT-SWARM-S344 MERGED
+- **State**: 445L 170P 17B 38F | L-507 + DOMEX-EXPERT-SWARM-S344 MERGED
 - **Next**: (1) CRITICAL: foreign codebase (genesis_foreign.sh); (2) Wire calibration into council templates (CF-1/CF-2 from L-507); (3) F-EXP10 expansion to cross-session calibration
 
 ## S344 session note (expert-swarm DOMEX: outcome-feedback P1 — dispatch_optimizer.py stage 2→3)
