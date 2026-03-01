@@ -28,6 +28,7 @@ LANES_FILE = Path("tasks/SWARM-LANES.md")
 HEAT_DECAY = 0.85  # pheromone decays by 15% per session gap
 HEAT_PENALTY_MAX = 6.0  # max score penalty for hot domains
 DORMANT_BONUS = 3.0  # bonus for domains untouched >5 sessions
+SELF_DISPATCH_INTERVAL = 10  # expert-swarm must dispatch to itself every N sessions (L-501 P6)
 
 
 def _get_domain_heat() -> dict[str, int]:
@@ -197,6 +198,16 @@ def run(args: argparse.Namespace) -> None:
         else:
             r["heat"] = "WARM"
 
+        # Self-dispatch norm (L-501 P6, PHIL-2): expert-swarm must dispatch to itself
+        # every SELF_DISPATCH_INTERVAL sessions. The dispatcher dispatching to itself
+        # closes the self-application gap identified by 5-domain council (S343).
+        if dom == "expert-swarm" and gap > SELF_DISPATCH_INTERVAL:
+            self_bonus = DORMANT_BONUS * 2.0  # double dormant bonus for self-application
+            r["score"] += self_bonus
+            r["self_dispatch_due"] = True
+        else:
+            r["self_dispatch_due"] = False
+
         # Mark if currently claimed by another agent
         if dom in claimed:
             r["claimed"] = True
@@ -232,7 +243,7 @@ def run(args: argparse.Namespace) -> None:
 
     for r in results:
         heat_icon = {"HOT": "🔥", "WARM": "~", "COLD": "❄"}.get(r.get("heat", ""), " ")
-        claimed_mark = " [CLAIMED]" if r.get("claimed") else ""
+        claimed_mark = " [CLAIMED]" if r.get("claimed") else (" [SELF-DUE]" if r.get("self_dispatch_due") else "")
         print(
             f"{r['score']:6.1f}  {r['domain']:<28}  {r['active']:6d}  "
             f"{r['resolved']:8d}  {r['iso']:4d}  {r['experiments']:5d}  {heat_icon:>4}{claimed_mark}"

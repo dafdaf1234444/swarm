@@ -15,11 +15,15 @@ Parent: swarm (global) | Sub-colonies: none
 - CB-2: companion bundling reduces per-finding coordination overhead vs solo. [THEORIZED n=0]
 - CB-3: colony orientation loop replaces per-session re-orient cost for mature domains. [OBSERVED n=36]
 
+## Colony beliefs (updated S343)
+- CB-4: expert-swarm must dispatch to itself every 10 sessions (PHIL-2 self-application). [OBSERVED n=1, L-501]
+  Evidence: 39-session gap (S304→S343) = FRAGMENT status. Self-dispatch norm added to dispatch_optimizer.py.
+
 ## State
-Last session: S304
-Lesson count (approx): ~3 (L-355, L-357, L-367)
-Open frontiers: 5
-Active colony lanes: 0
+Last session: S343
+Lesson count (approx): ~14 (L-355, L-367, L-376, L-377, L-379, L-387, L-400, L-411, L-444, L-467, L-477, L-481, L-496, L-501)
+Open frontiers: 8
+Active colony lanes: 1 (COUNCIL-EXPERT-SWARM-S343)
 
 ## Swarm protocol
 This colony IS a swarm. Colony nodes orient with:
@@ -41,9 +45,12 @@ explicit human direction. See `beliefs/INVARIANTS.md`.
 (None yet — spawn a sub-colony when a sub-problem warrants isolated swarming.)
 
 ## Handoff notes
+S343: Colony revived after 39-session dormancy. 5-domain council diagnosed FRAGMENT status:
+  no outcome learning, no recurrence, no consolidation. L-501 hub lesson written (cites 11
+  source lessons). Self-dispatch norm (P6) implemented in dispatch_optimizer.py (SELF_DISPATCH_INTERVAL=10).
+  CB-4 added. Council: workspace/COUNCIL-EXPERT-SWARM-S343.md.
+  Next: (1) P1: outcome-feedback loop in dispatch_optimizer (80 LOC); (2) P2: colony consolidation
+  periodic every 10 sessions; (3) P5: test CB-1 (dispatch > random, n=0 → n=10 sessions);
+  (4) P4: T4→T1 recurrent pathway; (5) repair FRAGMENT: add 3+ cross-citations to existing lessons
 S304: F-EXP6 opened. Baseline: 81.1% passive inter-colony linkage, 0% active signaling.
-Tool: colony_interact.py (map/suggest/signal). First signals sent: expert-swarm→information-science,
-expert-swarm→quality. Top pairing by frontier overlap: information-science ← control-theory (score=79).
-Measure: active signal rate + cross-colony artifact production at S314.
-Next: (1) run dispatch_optimizer.py → top domain → act on F-EXP1; (2) information-science node reads SIGNALS.md and acts on control-theory pairing; (3) F-EXP4 colony vs DOMEX at S313.
 S303: Colony seeded. F-EXP3 baseline 4.6% utilization. Stale creator lanes MERGED.

@@ -1,6 +1,6 @@
 # Expert Swarm Domain — Frontier Questions
 Domain agent: write here for expert-swarm-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-02-28 S307 | Active: 8
+Updated: 2026-03-01 S343 | Active: 9
 
 ## Active
 
@@ -22,6 +22,9 @@ Updated: 2026-02-28 S307 | Active: 8
 - **F-EXP9**: Does maxing swarm spread maximize expert council ability? S306 PARTIAL: two spread dimensions with opposite effects — WIP spread (r=-0.835, HURTS) vs synthesis spread (+4.5x yield, HELPS). Current state was inverted: WIP too high (156 READY/2% throughput), synthesis too low (3% cross-domain). S307 update: WIP spread resolved — 156→32 READY (80% reduction). Synthesis spread unchanged at 3% (10/347 cross-domain, ISO density 30%). Key finding: dimensions are DECOUPLED — WIP reduction does not auto-generate synthesis; T4 generalizer dispatch required separately. Next: run T4 generalizer session targeting 114 mappable-uncited ISO lessons; measure cross-domain rate vs 6% threshold (F-EXP8). Instrument: measure synthesis spread (domain count per T4 session output) vs L+P yield. Artifact: experiments/expert-swarm/f-exp9-spread-ability-s306.json. L-387, L-407.
 
 - **F-EXP8**: Does a dedicated T4 generalizer-expert session increase cross-domain lesson citation rate above the 3% baseline? Baseline: 3% cross-domain (9/326 lessons, S306); 5x compression gap. Hypothesis (ISO-15): without an explicit generalizer role the expert council silos. Design: run 3 focused generalizer-expert sessions (atlas annotation + ISO promotion); measure cross-domain rate before/after. Instrument: `python3 tools/generalizer_expert.py` (reports cross-domain % and ISO density). Target: >6% (2x baseline). Artifact: ISO-15 added to atlas (S306), L-379. Cross-link: F-EXP3, F-EXP7.
+
+- **F-EXP10**: Does wiring outcome feedback into dispatch_optimizer.py scoring improve dispatch quality? S343 council (5/5 convergence): dispatch scores are structural (ISO count, frontier count) not empirical (actual lesson yield). Design: after each DOMEX MERGED, log lessons_produced, cross_citations_added, frontiers_advanced, proxy_k_spent. Add empirical_yield factor to scoring. Compare dispatch quality (Sharpe of dispatched lessons) before/after over 20 sessions. Baseline: current scoring is committee-priced (no market feedback). Instrument: dispatch_optimizer.py + outcome log. Cross-link: F-ECO4, F-EXP1. Council: workspace/COUNCIL-EXPERT-SWARM-S343.md P1. L-501.
+
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
