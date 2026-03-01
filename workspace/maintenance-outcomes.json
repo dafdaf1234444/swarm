@@ -6895,7 +6895,7 @@
     },
     {
       "session": 395,
-      "timestamp": "2026-03-01T17:17:32Z",
+      "timestamp": "2026-03-01T17:19:52Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -6985,9 +6985,11 @@
           "severities": []
         },
         "check_swarm_lanes": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "DUE"
+          ]
         },
         "check_swarm_coordinator": {
           "fired": false,
@@ -6995,9 +6997,12 @@
           "severities": []
         },
         "check_lane_reporting_quality": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 2,
+          "severities": [
+            "DUE",
+            "NOTICE"
+          ]
         },
         "check_github_swarm_intake": {
           "fired": false,
@@ -7134,9 +7139,9 @@
         }
       },
       "totals": {
-        "NOTICE": 12,
+        "NOTICE": 13,
         "PERIODIC": 9,
-        "DUE": 6
+        "DUE": 8
       }
     }
   ],
