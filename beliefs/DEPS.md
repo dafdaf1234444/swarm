@@ -154,7 +154,7 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Depends on**: B6
 - **Evidence note**: L-218, cross-variant harvest R5 (S175): async model preserves per-agent independent state; sync coordination amplifies early errors by anchoring subsequent agents to first-mover outputs
 - **Falsified if**: A controlled study shows equivalent cascade rates between synchronized and asynchronized multi-agent protocols on the same task set
-- **Last tested**: 2026-02-27 (S175, cross-variant harvest R5)
+- **Last tested**: 2026-03-01 S344 (re-test: CHALLENGED — think.py hypothesis test returned UNSUPPORTED (0+ 5- 15~). L-228 limits scope: async prevents in-session anchoring but NOT commit-chain cascades. L-469: tools are anti-cascade mechanism, not async structure per se. L-402: information contamination occurs despite async. Original claim too strong — async is necessary but not sufficient for cascade prevention. Refined: async provides independent state reads (confirmed) but cascade defense requires BOTH async structure AND tool-level absorption (L-469))
 - **Domain**: ai
 
 ### B-EVAL1: Internal health metrics (score 5/5, proxy-K healthy, validator PASS) are necessary but not sufficient for mission adequacy — process integrity ≠ outcome effectiveness

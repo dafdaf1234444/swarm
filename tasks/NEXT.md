@@ -1,10 +1,19 @@
+## S344 session note (repair: PCI 0.020→0.223, B19 CHALLENGED, 2 councils closed, dream cycle, EAD backfill)
+- **check_mode**: historian | **lane**: repair | **dispatch**: human signal ("repair swarm")
+- **expect**: Repair clears all DUE items, commits orphaned work, trims lessons, re-tests B19, closes stale lanes, raises PCI
+- **actual**: CONFIRMED. (1) PCI 0.020→0.223 (EAD 1/17→11/19, belief freshness 8/20→9/20). (2) B19 re-tested: CHALLENGED via think.py — async necessary but not sufficient, tools are anti-cascade mechanism (L-469), not async structure per se. (3) COUNCIL-EXPERT-SWARM-S343 MERGED with proper EAD. (4) COUNCIL-USE-CASES-S343 MERGED with proper EAD. (5) SIG-9+SIG-10 RESOLVED. (6) Dream cycle run (50 uncited principles, 169 resonances). (7) L-504 trimmed 26→20L. (8) State-sync run. (9) PAPER.md count drift fixed. (10) Orphaned experiment+workspace artifacts staged.
+- **diff**: B19 UNSUPPORTED was unexpected — 0 supporting vs 5 contradicting evidence. PCI improvement larger than expected (11x, from 0.020 to 0.223) — backfilling actual/diff in 6 MERGED lanes was high-leverage. Concurrent session produced think.py, L-503/L-504/L-505, BRAIN-S343/DOMEX-STAT-S344 lanes — zero collision.
+- **meta-swarm**: Repair mode IS the SOS response (GAP-5, L-497). This session demonstrates: repair = EAD backfill + belief re-test + orphan recovery + lane closure. The PCI jump shows the gap was never in reasoning — it was in recording. The actual/diff data existed in NEXT.md session notes all along; it just wasn't in the lane Etc column where PCI reads it. Meta-friction: close_lane.py now enforces EAD, preventing future TBD accumulation.
+- **State**: 442L 170P 17B 38F | PCI=0.223 | B19 CHALLENGED | 2 councils MERGED | dream done
+- **Next**: (1) Refine B19 wording to match challenge evidence; (2) 50 uncited principles — write anchoring lessons; (3) Remaining EAD backfill (8/19 still TBD); (4) Concurrent think.py/L-503/L-505 committed — validate in next session
+
 ## S344 session note (statistical generalization: 192x amplification, 7 laws, P-215)
 - **check_mode**: objective | **lane**: DOMEX-STAT-S344 | **dispatch**: human signal ("use statistics and experts to investigate human request and swarms historical actions to swarm generalize swarm")
 - **expect**: 3-expert analysis of 104 human signals + 262 session entries yields quantified amplification laws
 - **actual**: CONFIRMED + exceeded. 192x bit amplification. 7 universal laws with falsification criteria. 7 first measurements. Co-evolution: obligate mutualism (swarm-side). Gain-bandwidth tradeoff: frequency halves every ~80s, yield 3.7x.
 - **diff**: More laws than expected (7 vs 5). Infrastructure Trap (66.8% meta = human-DIRECTED) and Falsification Deficit (0 DROPPED) are genuinely novel.
 - **meta-swarm**: Inside the loop per L-495/P-213, but the 7 laws have EXTERNAL falsification criteria. They become testable at F120.
-- **State**: 440L 170P 17B 38F | L-504 + L-505 + P-215 | DOMEX-STAT-S344 MERGED
+- **State**: 442L 170P 17B 38F | L-504 + L-505 + P-215 | DOMEX-STAT-S344 MERGED
 - **Next**: (1) Test laws against foreign repo (F120); (2) Re-classify all 441 lessons meta/domain/external; (3) First DROPPED challenge via think.py; (4) External action
 
 ## S343 session note (better brain: think.py reasoning engine + close_lane.py EAD enforcement, L-503)
