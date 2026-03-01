@@ -10,8 +10,12 @@ Usage:
   python3 tools/change_quality.py --trend      # Full session trend table
   python3 tools/change_quality.py --session N  # Detail for session N
   python3 tools/change_quality.py --recent N   # Compare last N sessions (default 5)
+  python3 tools/change_quality.py --learn      # Save ratings + show persistent trends
+
+Evolved: S176 (initial) → S350 (frontier regex fix, DOMEX tracking, --learn mode)
 """
 
+import json
 import re
 import subprocess
 import sys
@@ -24,8 +28,16 @@ SESSION_RE = re.compile(r'\[S(\d+)\]')
 LESSON_RE = re.compile(r'\bL-(\d{3})\b')
 PRINCIPLE_RE = re.compile(r'\bP-(\d{3})\b')
 BELIEF_RE = re.compile(r'\bPHIL-(\d+)\b')
-FRONTIER_ADVANCE_RE = re.compile(r'\bF\d+\b.*\b(RESOLVED|PARTIAL)\b|\b(RESOLVED|PARTIAL)\b.*\bF\d+\b', re.IGNORECASE)
-FRONTIER_OPEN_RE = re.compile(r'\bF\d+\b.*\bOPEN\b|\bOPEN\b.*\bF\d+\b|\bF\d+\s+filed\b|\bfiled\s+F\d+\b', re.IGNORECASE)
+# Match both old (F9, F95) and new (F-CON3, F-META1, F-LNG1) frontier formats
+_FRONTIER_ID = r'\bF-?[A-Z]*\d+\b'
+FRONTIER_ADVANCE_RE = re.compile(
+    rf'{_FRONTIER_ID}.*\b(RESOLVED|PARTIAL|CONFIRMED|ADVANCED)\b'
+    rf'|\b(RESOLVED|PARTIAL|CONFIRMED|ADVANCED)\b.*{_FRONTIER_ID}',
+    re.IGNORECASE)
+FRONTIER_OPEN_RE = re.compile(
+    rf'{_FRONTIER_ID}.*\bOPEN\b|\bOPEN\b.*{_FRONTIER_ID}'
+    rf'|{_FRONTIER_ID}\s+filed\b|\bfiled\s+{_FRONTIER_ID}',
+    re.IGNORECASE)
 
 # Patterns that indicate administrative overhead (state-sync, not knowledge work)
 OVERHEAD_PATTERNS = [
@@ -44,13 +56,20 @@ OVERHEAD_RE = re.compile('|'.join(OVERHEAD_PATTERNS), re.IGNORECASE)
 KNOWLEDGE_PATTERNS = [
     r'\bL-\d{3}\b',        # lesson reference
     r'\bP-\d{3}\b',        # principle reference
-    r'\bF\d+\b.*\bOPEN\b', # frontier opened
-    r'\blessson\b',        # typo-tolerant
+    _FRONTIER_ID + r'.*\bOPEN\b',  # frontier opened
     r'\bharvest\b',
     r'\bdistill\b',
     r'\bexperiment\b',
 ]
 KNOWLEDGE_RE = re.compile('|'.join(KNOWLEDGE_PATTERNS), re.IGNORECASE)
+
+# Expert dispatch signals (DOMEX, council, ISO)
+DOMEX_RE = re.compile(r'\bDOMEX\b', re.IGNORECASE)
+COUNCIL_RE = re.compile(r'\bcouncil\b', re.IGNORECASE)
+ISO_RE = re.compile(r'\bISO-\d+\b')
+
+QUALITY_LOG = Path(__file__).parent.parent / 'workspace' / 'change-quality-log.json'
+MAX_LOG_SESSIONS = 50
 
 
 def get_commits():
@@ -86,6 +105,9 @@ def extract_session_signals(commits):
         'frontiers_opened': 0,
         'overhead_commits': 0,
         'knowledge_commits': 0,
+        'domex_commits': 0,
+        'council_commits': 0,
+        'iso_refs': set(),
         'msgs': [],
     })
 
@@ -107,6 +129,12 @@ def extract_session_signals(commits):
             d['frontier_advances'] += 1
         if FRONTIER_OPEN_RE.search(msg):
             d['frontiers_opened'] += 1
+        if DOMEX_RE.search(msg):
+            d['domex_commits'] += 1
+        if COUNCIL_RE.search(msg):
+            d['council_commits'] += 1
+        for iso in ISO_RE.findall(msg):
+            d['iso_refs'].add(iso)
         if OVERHEAD_RE.search(msg):
             d['overhead_commits'] += 1
         elif KNOWLEDGE_RE.search(msg):
@@ -121,8 +149,9 @@ def quality_score(sig):
 
     Components:
       - Knowledge production: lessons + principles touched, frontier advances
+      - Expert work: DOMEX lanes, council sessions, ISO annotations
       - Focus: low overhead ratio
-      - Commit granularity: 2-8 commits is ideal
+      - Commit granularity: 2-15 ideal (widened for concurrent-session era)
     """
     n = sig['commits']
     if n == 0:
@@ -133,27 +162,34 @@ def quality_score(sig):
     beliefs = len(sig.get('beliefs', set()))
     frontier_advances = sig['frontier_advances']
     frontiers_opened = sig['frontiers_opened']
+    domex = sig.get('domex_commits', 0)
+    council = sig.get('council_commits', 0)
+    iso_count = len(sig.get('iso_refs', set()))
     overhead_ratio = sig['overhead_commits'] / n
 
     # Knowledge production (scale: 0-8+)
     knowledge = (
         lessons * 1.2
         + principles * 0.6
-        + beliefs * 1.5          # belief changes are high-signal
+        + beliefs * 1.5
         + frontier_advances * 2.0
         + frontiers_opened * 1.5
     )
 
-    # Focus penalty: overhead > 25% is waste (baseline ~4% per L-216)
-    focus_multiplier = max(0.5, 1.0 - max(0, overhead_ratio - 0.04) * 2)
+    # Expert dispatch bonus (DOMEX/council are structured knowledge work)
+    expert_bonus = min(2.0, domex * 0.3 + council * 0.4 + iso_count * 0.15)
+    knowledge += expert_bonus
 
-    # Commit granularity bonus (too few = monolithic; too many = noise)
-    if 2 <= n <= 8:
+    # Focus penalty: overhead > 25% is waste (baseline ~18% observed)
+    focus_multiplier = max(0.5, 1.0 - max(0, overhead_ratio - 0.10) * 2)
+
+    # Commit granularity (widened: concurrent sessions produce 10-20 commits)
+    if 2 <= n <= 15:
         granularity = 1.0
     elif n == 1:
         granularity = 0.7
     else:
-        granularity = max(0.6, 1.0 - (n - 8) * 0.03)
+        granularity = max(0.6, 1.0 - (n - 15) * 0.02)
 
     return knowledge * focus_multiplier * granularity
 
@@ -303,6 +339,9 @@ def show_session_detail(sessions_data, session_num):
     print(f"Beliefs changed:     PHIL-{sorted(sig.get('beliefs', set()))} ({len(sig.get('beliefs', set()))} unique)")
     print(f"Frontier advances:   {sig['frontier_advances']}")
     print(f"Frontiers opened:    {sig['frontiers_opened']}")
+    print(f"DOMEX commits:       {sig.get('domex_commits', 0)}")
+    print(f"Council commits:     {sig.get('council_commits', 0)}")
+    print(f"ISO references:      {sorted(sig.get('iso_refs', set()))}")
     print(f"Overhead commits:    {sig['overhead_commits']} "
           f"({sig['overhead_commits']/max(1,sig['commits']):.0%})")
     print(f"Knowledge commits:   {sig['knowledge_commits']}")
@@ -311,6 +350,94 @@ def show_session_detail(sessions_data, session_num):
     for m in sig['msgs']:
         tag = '[overhead]' if OVERHEAD_RE.search(m) else '[  work  ]'
         print(f"  {tag} {m[:80]}")
+
+
+def learn_mode(sessions_data, n_recent=5):
+    """Save quality ratings persistently and show trends across sessions."""
+    sorted_s = sorted(sessions_data.keys())
+    if len(sorted_s) < 2:
+        print("Not enough session data for --learn.")
+        return
+
+    baseline = compute_baseline(sessions_data, exclude_last_n=n_recent)
+    if not baseline:
+        print("Not enough history for baseline.")
+        return
+
+    # Load existing log
+    log = {'schema': 'change-quality-log-v1', 'entries': []}
+    if QUALITY_LOG.exists():
+        try:
+            log = json.loads(QUALITY_LOG.read_text())
+        except (json.JSONDecodeError, KeyError):
+            pass
+
+    existing_sessions = {e['session'] for e in log.get('entries', [])}
+    recent = sorted_s[-n_recent:]
+    new_entries = 0
+
+    for s in recent:
+        if s in existing_sessions:
+            continue
+        sig = sessions_data[s]
+        score = quality_score(sig)
+        r = rating(score, baseline['mean_score'])
+        entry = {
+            'session': s,
+            'score': round(score, 2),
+            'rating': r,
+            'lessons': len(sig['lessons']),
+            'principles': len(sig['principles']),
+            'frontier_advances': sig['frontier_advances'],
+            'domex': sig.get('domex_commits', 0),
+            'council': sig.get('council_commits', 0),
+            'overhead_pct': round(sig['overhead_commits'] / max(1, sig['commits']), 2),
+            'commits': sig['commits'],
+        }
+        log['entries'].append(entry)
+        new_entries += 1
+
+    # Trim to MAX_LOG_SESSIONS
+    log['entries'] = sorted(log['entries'], key=lambda e: e['session'])[-MAX_LOG_SESSIONS:]
+
+    QUALITY_LOG.write_text(json.dumps(log, indent=2) + '\n')
+
+    # Analyze persistent trends
+    entries = log['entries']
+    print(f"=== CHANGE QUALITY --learn ({len(entries)} logged, {new_entries} new) ===")
+
+    if len(entries) >= 5:
+        recent_scores = [e['score'] for e in entries[-5:]]
+        older_scores = [e['score'] for e in entries[:-5]] if len(entries) > 5 else recent_scores
+        avg_recent = sum(recent_scores) / len(recent_scores)
+        avg_older = sum(older_scores) / len(older_scores) if older_scores else avg_recent
+        ratio = avg_recent / avg_older if avg_older > 0 else 1.0
+
+        if ratio >= 1.15:
+            trend = f"IMPROVING (+{(ratio-1):.0%})"
+        elif ratio <= 0.85:
+            trend = f"DECLINING ({(ratio-1):.0%})"
+        else:
+            trend = f"STABLE ({(ratio-1):+.0%})"
+
+        print(f"Persistent trend: {trend} (recent avg={avg_recent:.2f}, older avg={avg_older:.2f})")
+
+        # Consecutive WEAK detection
+        weak_streak = 0
+        for e in reversed(entries):
+            if e['rating'] == 'WEAK':
+                weak_streak += 1
+            else:
+                break
+        if weak_streak >= 2:
+            print(f"  !! WARNING: {weak_streak} consecutive WEAK sessions — root-cause diagnosis needed")
+
+        # DOMEX utilization across logged sessions
+        domex_sessions = sum(1 for e in entries if e.get('domex', 0) > 0)
+        print(f"Expert utilization: {domex_sessions}/{len(entries)} sessions have DOMEX commits "
+              f"({domex_sessions/len(entries):.0%})")
+
+    print(f"Log saved: {QUALITY_LOG.relative_to(ROOT)}")
 
 
 def main():
@@ -322,7 +449,11 @@ def main():
 
     sessions_data = extract_session_signals(commits)
 
-    if '--trend' in args:
+    if '--learn' in args:
+        show_comparison(sessions_data)
+        print()
+        learn_mode(sessions_data)
+    elif '--trend' in args:
         show_trend(sessions_data)
     elif '--session' in args:
         idx = args.index('--session')
