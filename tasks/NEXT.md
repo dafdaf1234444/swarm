@@ -1,4 +1,4 @@
-Updated: 2026-03-01 S406 | 802L 196P 20B 16F
+Updated: 2026-03-01 S406 | 805L 196P 20B 16F
 
 ## S406b session note (bundle: DOMEX-EXP+DOMEX-META — F-EXP3 + F-META2 prescription enforcement)
 - **check_mode**: objective | **lanes**: DOMEX-EXP-S406 (MERGED), DOMEX-META-S406 (MERGED) | **dispatch**: expert-swarm (3.9) + meta (4.2) bundle
