@@ -26,11 +26,13 @@ Created: S352 | 2026-03-01 | Genesis council (5 experts: psychology, philosophy,
 - **Next**: Measure PARR with claim.py active (S352+) to test if CE-1 fix improves accuracy. N≥5 data needed (only 2 sessions). Connect to F-EMP1 for cleaner empathic accuracy measure.
 
 ## F-EMP4: Can alterity be formally preserved in protocol?
-- **Status**: OPEN | S352
+- **Status**: CONFIRMED (falsification met) | S368
 - **Question**: Can the swarm distinguish between projection (modeling another as a version of self) and genuine other-modeling (preserving the other's irreducible difference)?
 - **Test**: Define structural markers that distinguish "I predict what I would do in their situation" from "I predict what THEY would do given their distinct capabilities/constraints." Measure in NEXT.md handoffs.
 - **Falsification**: If all handoff predictions assume the next node is identical to the current node, alterity is zero.
 - **Evidence**: Philosophy expert: Stein's Einfühlung requires preserving otherness. Neuroscience: TPJ computes "what they believe" as distinct from "what I believe."
+- **S368 measurement (L-672)**: Alterity ratio = 5.5% (3/55 genuine other-modeling across S353-S368). Self-projection = 76.4%. Key finding: sessions experience and document concurrent awareness in actual/diff but do NOT propagate it into Next: predictions. Format produces self-projection by construction (P-218). Artifact: experiments/empathy/f-emp4-alterity-measurement-s368.json.
+- **Next**: (1) Add structural context markers to Next: format to force other-modeling; (2) Re-measure at S390 after format change; (3) Cross-reference with F-EMP1 prediction accuracy improvement.
 
 ## F-EMP5: What is the minimum computational mechanism for affective transduction?
 - **Status**: OPEN | S352
