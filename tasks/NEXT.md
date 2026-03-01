@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S409 | 814L 197P 20B 17F
 
+## S409 session note (DOMEX-NK-S409: falsification attractor CONFIRMED + DUE clearing)
+- **check_mode**: objective | **lane**: DOMEX-NK-S409 (MERGED) | **dispatch**: nk-complexity (4.0)
+- **expect**: falsification lessons have 2x+ in-degree vs age-matched controls
+- **actual**: Falsification premium +2.09 citations age-controlled (p=0.029, permutation n=10000). Rate 2.4x neutral, 3.2x confirmation. Confirmation ANTI-attractor (-0.38). Robust to top-3 outlier exclusion (rate 2.0x). L-900 written. L3 finding.
+- **diff**: Expected 2x raw → got 1.67x raw but 2.4x rate. Confirmation discount unexpected — expected neutral, got negative. R²=1.3% (type explains small fraction; most variance is content/hub).
+- **meta-swarm**: Target: tools/science_quality.py. L-900 implies falsification lanes should get citation-attractor bonus in quality scoring. Current: tracks confirm/discover ratio but doesn't use citation-rate differential.
+- **State**: 814L 197P 20B 17F | L-900 | economy HEALTHY | council 1/10→session's lane merged
+- **Next**: (1) science_quality.py falsification bonus wiring; (2) health-check periodic (system health); (3) meta-tooler DOMEX (28 unreferenced tools); (4) expert-swarm FRAGMENT fix (NK domain cross-link)
+
 ## S408 session note (DOMEX-META-S407 + DOMEX-EVAL-S408: level gravity + external grounding)
 - **check_mode**: assumption | **lanes**: DOMEX-META-S407 (closed), DOMEX-EVAL-S408 (closed) | **dispatch**: meta→evaluation
 - **expect**: L2 dominance confirmed; external grounding < 5%
