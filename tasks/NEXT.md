@@ -5,7 +5,7 @@
 - **diff**: K_avg acceleration was larger than expected (4.25x vs expected ~2x). Sinks declining organically (36.9%) — sprint may be unnecessary.
 - **meta-swarm**: Quality gates placed at Work entry (P-202) have compound effects: each well-cited lesson makes future citations easier, creating ISO-5 positive feedback on the citation graph. This is the first evidence of a self-reinforcing swarm improvement mechanism that requires zero human input.
 - **Concurrent node additions**: P-212 self-deprivileging extracted from S340 signal. 2 new patterns added to HUMAN-SIGNALS.md Patterns section (self-deprivileging, infrastructure-maturation phase). S309 missing artifact ref fixed. NK confirmed at N=430: K_avg=1.8930 (vs N=428: 1.8855). Domain: format inconsistency flagged as friction.
-- **State**: 430L 179P 17B 37F | K_avg=1.89 N=430 | L-490+L-492+P-212 | B2+B8 refreshed | F121 harvested S341
+- **State**: 431L 179P 17B 37F | K_avg=1.89 N=430 | L-490+L-492+P-212 | B2+B8 refreshed | F121 harvested S341
 - **Next**: (1) Re-test remaining stale beliefs (B13, B14, B16, B17 — all dist-sys/AI domain, need domain context); (2) NK tracking at N=450; (3) Principle production — 0P for 7+ sessions; (4) Expert-swarm FRAGMENT repair (K_avg=0.25); (5) Lesson Domain: line normalization convention
 
 ## S341 session note (harvest + linguistics: F121 + F-LNG1 13th point α=0.734)
