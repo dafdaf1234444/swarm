@@ -1,6 +1,6 @@
 # Swarm Farming Domain — Frontier Questions
 Domain agent: write here for farming-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-02-28 S189 | Active: 3
+Updated: 2026-03-01 S374 | Active: 2
 
 ## Active
 
@@ -9,8 +9,7 @@ Updated: 2026-02-28 S189 | Active: 3
 
 - **F-FAR2**: Can companion-planting (synergistic domain pairing) be detected from cross-domain citation patterns? Hypothesis: domain pairs that frequently cite each other's lessons have higher per-session L+P yield than isolated domains. Design: parse all lesson files for domain-prefix citations (F-ECO1, F-IS5, etc.); build co-citation graph; compute mean session L+P for domains with high cross-cite degree vs. isolated domains; test if high-degree pairs have >20% L+P advantage. Next: build tools/f_far2_companion_detect.py. Related: B-FAR3, tasks/FRONTIER.md cross-domain links, ISOMORPHISM-ATLAS.md. (S189)
 
-- **F-FAR3**: Does monoculture risk exist in swarm domain coverage? Hypothesis: when >40% of sessions in a 10-session window focus on the same domain, global L+P yield and isomorphism rate decline in that window compared to diversified windows. Design: extract per-session domain focus from SESSION-LOG and SWARM-LANES; compute domain HHI (Herfindahl-Hirschman Index) per 10-session window; correlate HHI with window-level L+P rate and cross-domain frontier resolution rate. High HHI = monoculture signal. Next: build tools/f_far3_monoculture_hhi.py. Related: B-FAR1, F-FAR2, domain dispatch scheduling in tools/f_ops2_domain_priority.py. (S189)
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
-| — | — | — | — |
+| F-FAR3 | CONFIRMED (mechanism redirected): monoculture risk EXISTS (raw r=-0.817, +381% L+P in diversified windows) but is entirely mediated by meta-concentration (partial r=-0.03 controlling for meta_share). HHI and meta_share correlate at r=0.979. Diversity interventions work by replacing meta with DOMEX, not via portfolio effect. L-686. | S374 | 2026-03-01 |
