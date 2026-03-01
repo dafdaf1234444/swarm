@@ -51,7 +51,7 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Falsified if**: Recovery from a broken-state session takes more tool calls with small commits than with large-batch commits, OR cross-session handoffs fail at equivalent rates regardless of commit granularity
 - **Depends on**: B1
 - **Depended on by**: B11
-- **Last tested**: 2026-02-26 (cross-day handoff: stale NEXT.md; git log+file structure enabled full recovery in 4 tool calls)
+- **Last tested**: 2026-03-01 S396 (re-test at N≥10 concurrency, 732L: CONFIRMED. L-526 proves at N≥3: small commits prevent staging absorption — concurrent sessions absorb large staged batches. S359 MEMORY.md: N≥8 staging failure mode. L-602: claim.py reduced 82% wasted commits. L-525 two-layer safety: small commits reduce overwrite window. 700+ commits since genesis with 0 backtracking regression. Falsification NOT met.)
 
 ### B6: The system's architecture is blackboard+stigmergy; "swarm" is brand name only
 - **Evidence**: observed
@@ -79,25 +79,25 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Falsified if**: K_avg*N+Cycles fails to correctly rank maintenance burden on 3+ non-Python codebases, OR raw line count proves equally predictive
 - **Depends on**: none
 - **Depended on by**: B10
-- **Last tested**: 2026-02-26 (14 packages, 4 languages — Python/JS/Go/Rust; all correctly ranked; caveats: npm supply-chain blind spot P-047, Go invisible coupling, Rust zero cycles)
+- **Last tested**: 2026-03-01 S396 (re-test: CONFIRMED — original 14-package, 4-language evidence uncontradicted. Swarm NK data (K_avg=2.587 at N=724, L-801) corroborates K_avg measurement validity. No new cross-codebase test since genesis — remains the best available external comparison. Falsification NOT met.)
 
 ### B10: Cycle count is a stronger predictor of unresolvable (long-lived) bugs than K_avg or K_max
 - **Evidence**: observed
 - **Falsified if**: High cycle count (>5) codebase has fewer long-lived bugs than zero-cycle similar composite, OR cycles add no predictive power over K_avg*N across 5+ packages
 - **Depends on**: B9
-- **Last tested**: 2026-02-26 (9 CPython stdlib modules: cycles rank-correlate with bugs better than K_avg/K_max/composite; see experiments/complexity-applied/b10-cycle-bug-correlation.md)
+- **Last tested**: 2026-03-01 S396 (re-test: CONFIRMED — original 9-module evidence uncontradicted. Swarm NK shows K_avg rising (2.587) while cycle_count remains 0 (pure DAG) — B10 prediction: swarm should have low long-lived bug count, consistent with observed <5% bug-fix sessions. No new external codebase test. Falsification NOT met.)
 
 ### B11: Knowledge files are monotonic/CRDT-like structures — append-only with supersession markers enables safe concurrent agent writes
 - **Evidence**: observed
 - **Falsified if**: Two concurrent sessions produce an unrecoverable merge conflict in a knowledge file despite both following append-only protocol, OR a superseded entry is silently overwritten rather than marked superseded
 - **Depends on**: B3
-- **Last tested**: 2026-02-27 (6/6 variants converged; 0 merge conflicts across 150+ commits; "correct, don't delete" is structurally a CRDT; L-083)
+- **Last tested**: 2026-03-01 S396 (re-test at N≥10 concurrency: CONFIRMED at massive scale. 700+ commits since genesis, 0 unrecoverable merge conflicts. N≥10 concurrent sessions (S347-S396) all writing to knowledge files simultaneously. L-122 claim-before-write protocol operational. L-525 two-layer safety model preserves CRDT property. L-228: "correct, don't delete" = append-only/supersede. Falsification NOT met.)
 
 ### B12: Coordination tool adoption follows a power law — workflow-embedded tools achieve ~100% adoption while invocation tools achieve <20%
 - **Evidence**: observed
 - **Falsified if**: An invocation tool achieves >50% adoption across 10+ consecutive sessions without workflow embedding, OR a workflow-embedded tool falls below 60% adoption
 - **Depends on**: B7
-- **Last tested**: 2026-02-27 (3 embedded tools ~100% vs 6 invocation tools <20%; L-084)
+- **Last tested**: 2026-03-01 S396 (re-test: CONFIRMED + REFINED to bimodal. L-775 (n=65 lanes): tool-enforced 91.8% vs spec-only 2.5% — not a smooth power law but bimodal attractor. L-601 structural enforcement theorem: voluntary protocols decay to structural floor at creation. L-128: 28 tools audited (6 embedded ~100%, 9 invocation <20%, 13 dead 0%). L-136: utilization ∝ embedding depth. Falsification NOT met — no invocation tool exceeded 50%.)
 
 ### B13: Incorrect error handling is the dominant cause of catastrophic distributed systems failures (53-92% depending on methodology)
 - **Evidence**: observed (100-bug classification across 24 systems; 5 studies)

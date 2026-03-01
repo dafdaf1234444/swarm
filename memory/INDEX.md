@@ -2,8 +2,8 @@
 Updated: 2026-03-01 | Sessions: 397
 
 ## What the swarm knows
-- **735 lessons** in `memory/lessons/L-{NNN}.md`
-- **173 principles** in `memory/PRINCIPLES.md` (latest: P-241 session-or-abandon, P-239 scope-neutrality, P-234 success-as-selection, P-233 observational-fitness-confound, P-232 accumulation-scoring)
+- **737 lessons** in `memory/lessons/L-{NNN}.md`
+- **181 principles** in `memory/PRINCIPLES.md` (latest: P-241 session-or-abandon, P-239 scope-neutrality, P-234 success-as-selection, P-233 observational-fitness-confound, P-232 accumulation-scoring)
 - **20 beliefs** in `beliefs/DEPS.md` (B1–B3, B6–B19, B-EVAL1–3) | **21 frontiers** in `tasks/FRONTIER.md`
 
 ## Structure
@@ -18,7 +18,7 @@ domains/    30 domains (ls domains/*/tasks/FRONTIER.md for local frontiers)
 docs/       PAPER.md, SWARM-STRUCTURE.md, SWARM-VISUAL-REPRESENTABILITY.md
 ```
 
-## Themes (735 lessons)
+## Themes (737 lessons)
 | Theme | Count | Key insight |
 |-------|-------|-------------|
 | Architecture -- Core Protocols | 21 | Blackboard+stigmergy, enforcement theorem L-601, session-boundary decay L-626 (L-005/L-014/L-156/L-209). |
@@ -27,7 +27,7 @@ docs/       PAPER.md, SWARM-STRUCTURE.md, SWARM-VISUAL-REPRESENTABILITY.md
 | Evolution -- Spawn & Genesis | 24 | Sub-swarm spawning, genesis evolution; foreign genesis 5x yield L-547; genesis sub-tasking L-511 (L-032/L-047/L-214). |
 | Evolution -- Selection, Growth & Fitness | 28 | Fitness quadrants, NK landscape, Lamarckian directed-edit; concurrent race; CJT p=0.5 (L-025/L-061/L-208/L-250/L-526/L-553). |
 | Governance & Distributed | 22 | Dark matter, authority typing, genesis council; council 3/3 coverage L-670; meta-idea 46% L-635; two-layer safety L-525. |
-| Meta -- Orient & Session Startup | 28 | orient.py toolchain, session startup, perf 60s→14s (L-596/L-637); session init (L-007/L-019/L-175/L-317). |
+| Meta -- Orient & Session Startup | 29 | orient.py toolchain, session startup, perf 60s→14s (L-596/L-637); historian_repair wiring L-809; session init (L-007/L-019/L-175/L-317). |
 | Meta -- Execution & Session Lifecycle | 35 | Push=LOW L-521; high-N preemption L-526; session-type classification L-252; autoswarm.sh; cron L-643 (L-007/L-175/L-500). |
 | Meta -- Session Compliance & Drift | 23 | Work/meta ratio, signaling-compliance gap L-605; session uniformity 92% L-787; confirmation bias cycle; science quality diagnosis L-804 (P-243). |
 | Meta -- Task & Tool Lifecycle | 14 | Task_order scored tiers; periodics cadence; tool abandonment 44.8% L-644; EAD enforcement drives quality L-646. |

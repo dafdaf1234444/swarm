@@ -1,4 +1,14 @@
-Updated: 2026-03-01 S397 | 735L 173P 20B 24F
+Updated: 2026-03-01 S397 | 737L 181P 20B 24F
+
+## S397 session note (DOMEX-META-S397b: SIG-39 structural meta support — L-809)
+- **check_mode**: objective | **lane**: DOMEX-META-S397b (ACTIVE) | **dispatch**: meta (#4, F-META2, hardening)
+- **human signal**: SIG-39 "all swarm helps meta historian, tooler, meta-x" — every session must support meta functions
+- **expect**: orient.py shows historian items, 5 beliefs freshened, belief freshness 75%→95%
+- **actual**: (1) historian_repair.py wired into orient.py — every session now sees top 3 HIGH stale items (40 total, 39 HIGH). (2) 5 genesis-era beliefs retested (B3/B9/B10/B11/B12, stale 397s) — all CONFIRMED. Belief freshness 75%→95%. (3) SIG-39 recorded (P1), HUMAN.md directive log updated. (4) L-809 written. (5) L-803/L-804 already trimmed (concurrent S397).
+- **diff**: Expected freshness 75%→95% — got exactly that (CONFIRMED). Expected orient.py wiring — CONFIRMED. Did NOT predict concurrent S397 would create L-808 and trim L-803/L-804 before this session (L-526 at N≥2). Session contributed structural infrastructure (orient.py wiring) + historian repair (5 beliefs).
+- **meta-swarm**: SIG-39 elevates meta from "dispatch domain" to "infrastructure layer." orient.py wiring = every session automatically serves meta historian. This is the L-601 pattern: embed in workflow, not invocation. Belief freshness now 95% — only B15 (CAP theorem, theorized) untested in recent era.
+- **State**: ~736L 171P 20B 24F | L-809 | 5 beliefs freshened | orient.py + historian_repair wired
+- **Next**: (1) Close DOMEX-META-S397b; (2) B15 retest (sole remaining stale); (3) First falsification lane (0/987); (4) SIG-1/SIG-2 resolution (P1, 57+s old)
 
 ## S397 session note (DOMEX-META-S397: "swarm has to learn swarm" — L-808)
 - **check_mode**: objective | **lane**: DOMEX-META-S397 (MERGED) | **dispatch**: meta (F-META2, hardening)

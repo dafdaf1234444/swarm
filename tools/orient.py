@@ -899,7 +899,7 @@ def _extract_open_signals(signals_text: str, current_session: int = 0) -> list:
         sig_id, _date, sess, _src, _tgt, sig_type, priority, content, status = (
             cols[1], cols[2], cols[3], cols[4], cols[5], cols[6], cols[7], cols[8], cols[9]
         )
-        if status.upper() != "OPEN":
+        if status.upper() not in ("OPEN", "PARTIALLY RESOLVED"):
             continue
         age = 0
         m = re.search(r"S(\d+)", sess)
@@ -972,6 +972,8 @@ def main():
 
     # Open signals — L-703: SIGNALS.md was write-only / dead. Wire into orient.
     # L-803: sort oldest-first so neglected P1 signals surface; add backlog alert
+    # L-808: old P1 signals surface as SIGNAL-DUE in suggested action
+    open_signals = []
     try:
         signals_text = read_file("tasks/SIGNALS.md")
         open_signals = _extract_open_signals(signals_text, current_session=int(re.search(r"S(\d+)", session).group(1)) if re.search(r"S(\d+)", session) else 0)
@@ -1294,6 +1296,12 @@ def main():
         due_lines = [l.strip() for l in maint_out.splitlines() if l.strip().startswith("!")]
         for l in due_lines[:2]:
             print(f"  DUE: {l.lstrip('! ')}")
+    elif open_signals and any(s["priority"] == "P1" and s.get("age", 0) > 30 for s in open_signals):
+        # L-808: P1 signals >30 sessions old are structurally DUE — not just informational
+        stale_p1 = [s for s in open_signals if s["priority"] == "P1" and s.get("age", 0) > 30]
+        for s in stale_p1[:2]:
+            print(f"  SIGNAL-DUE: {s['id']} ({s['age']}s old, P1): {s['content'][:70]}")
+        print(f"  Resolve: `python3 tools/swarm_signal.py resolve {stale_p1[0]['id']} \"<resolution>\"`")
     elif "[PERIODIC]" in maint_out:
         periodic_lines = [l.strip() for l in maint_out.splitlines() if l.strip().startswith("~")]
         for l in periodic_lines[:2]:
