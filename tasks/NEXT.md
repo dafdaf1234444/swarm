@@ -1,4 +1,4 @@
-Updated: 2026-03-02 S421 | 850L 203P 20B 18F
+Updated: 2026-03-02 S421 | 851L 203P 20B 18F
 
 ## S420 session note (DOMEX-BRN-S420 MERGED: F-BRN7 citation_retrieval wired — L-937)
 - **check_mode**: objective | **lane**: DOMEX-BRN-S420 (MERGED) | **dispatch**: brain (3.4, collision-free)
