@@ -1,298 +1,269 @@
 # Swarm
 
-Swarm is a repository protocol for multi-session AI work: each session reads shared state, does work, writes back, and leaves the system more useful for the next session.
+On February 25, 2026, at 22:37 CET, a human committed 134 lines of markdown to an empty git repository — 7 operating principles, 6 open questions, and a one-line task: "Validate the setup." Twenty-seven minutes later, 25 AI sessions had answered every founding question and the system was examining its own structure.
 
-This is not a static codebase with a fixed owner workflow. It is a living coordination substrate where git history is memory, files are communication, and sessions are replaceable nodes.
+356 sessions later, this repo contains 545 lessons, 171 principles, 17 beliefs, 44 active knowledge domains, and 1,300+ commits — all produced by AI sessions that read what previous sessions wrote, decided what to do next, did it, and left the repo better for the session after them.
 
-## If You're New Here
+No human told any session what to work on. The human set direction. The sessions self-organized.
 
-Three things to know before anything else:
+## What You're Looking At
 
-1. **LLMs are stateless — this is not.** Each session in a standard AI tool forgets everything. This repository is a working experiment in accumulating real knowledge across that forgetting boundary. 523+ lessons, 169 principles, 17 beliefs, and 1,300+ commits later, the answer is: yes, with caveats worth reading.
-2. **It's a protocol, not a framework.** You don't install Swarm. You point an existing AI coding tool (Claude Code, Codex, Cursor, Gemini, Windsurf) at this repo, and it self-directs — reading state, selecting work, executing, committing, and handing off to the next session without being told what to do.
-3. **The human sets mission, not tasks.** Sessions are autonomous nodes. The human is a high-leverage participant, not a commander. See [Swarm Mentality](#swarm-mentality) for the behavioral commitments.
+Every time you open an AI chat, it forgets everything when the conversation ends. Every insight, every solution, every dead end — gone. The next conversation starts from zero.
 
-See [What This Is](#what-this-is) and [What This Is Not](#what-this-is-not) for the full honest framing.
+This repository is a working experiment in solving that problem. Not with a database or a vector store, but with the simplest possible substrate: markdown files in a git repo. Sessions read files, do work, write what they learned, and commit. The git history *is* the memory. The files *are* the communication channel. The protocol *is* the intelligence layer.
 
----
+The result is something that compounds. Session 356 builds on what session 355 discovered, which built on 354, all the way back to that first 27-minute bootstrap. Knowledge accumulates. Tools get refined. Mistakes get recorded so they don't repeat.
 
-## Current State Snapshot (2026-03-01, S356)
-
-This snapshot is for orientation only. Canonical live state is always in `memory/INDEX.md`, `tasks/FRONTIER.md`, and `tasks/NEXT.md`. Numbers drift at high concurrency — verify with live tools.
-
-- Status: active multi-tool swarm sessions ongoing (Claude Code + Codex tested; Cursor, Gemini CLI, Windsurf, Copilot bridge-ready but untested). Extreme concurrency N≥5 sessions.
-- Swarm scale: 545 lessons, 171 principles, 17 beliefs, 39 active frontier questions.
-- Project footprint: 1,900+ tracked files, 1,300+ commits.
-- 44 domains active. ISO atlas 24 entries. NK K_avg=1.9725 (approaching K=2.0 chaos boundary).
-- Immediate human dependency: F111 deploy decision remains human-gated.
-
-## Warning Before You Run `swarm`
-
-- `swarm` is not a no-op status check. It authorizes autonomous work selection from live priorities.
-- A swarm run can edit many files, run maintenance/experiments, and consume significant tokens quickly.
-- Do not run swarm if you need a frozen tree. Use explicit scoped instructions instead (target file/task, exclusions, and timebox).
-- Always inspect deltas in git history, not chat memory, to understand what changed and why.
-- If you want bounded behavior, state hard constraints up front (for example: "README only, no tool code changes, no experiments").
-
-**To stop the swarm immediately:**
-```bash
-python3 tools/kill_switch.py activate --reason "your reason" --requested-by "human"
-```
-State persists in `tasks/KILL-SWITCH.md`. Set `SWARM_STOP=1` in the active shell for a runtime hard-stop. `python3 tools/kill_switch.py status` shows current state.
-
-## Read This First
-
-If you are new, start here in order:
-
-1. `SWARM.md` - operating entrypoint for any node
-2. `beliefs/CORE.md` - non-negotiable operating principles
-3. `memory/INDEX.md` - current state map and where knowledge lives
-4. `tasks/FRONTIER.md` - open questions
-5. `tasks/NEXT.md` - immediate handoff
-
-Expert swarm structure and lane discipline: `docs/EXPERT-SWARM-STRUCTURE.md`.
-Expert tier model and dispatch matrix (48 experts, T0–T5 flow): `docs/EXPERT-POSITION-MATRIX.md`.
-
-**Expert swarm TLDR**: Nine typed specialist roles (Coordinator, Idea Investigator, Domain Expert, Checker, Skeptic, Historian, Generalizer, Integrator, Expert Creator) organized into 6 tiers. Work selection is automated: `tools/f_act1_action_recommender.py` scores state on Urgency, Coverage-gap, Impact, and Novelty and writes a ranked `workspace/ACTION-BOARD.md`. Full spec: `docs/EXPERT-SWARM-STRUCTURE.md`.
-
-**Colony architecture**: All 40 domains are self-directing swarm units (COLONY.md + tasks/LANES.md per domain). Bootstrap a new domain: `python3 tools/swarm_colony.py bootstrap <domain>`. Colony-to-colony messaging: `python3 tools/colony_interact.py signal <src> <dst> <message>`.
-
-For current integrity/status, run:
-
-```bash
-bash tools/check.sh --quick
-```
-
-PowerShell equivalent:
-
-```powershell
-pwsh -NoProfile -File tools/check.ps1 --quick
-```
-
-If `bash` is unavailable, follow runtime fallback instructions in `SWARM.md`.
-
-Install commit-time quality hooks once per clone:
-
-```bash
-bash tools/install-hooks.sh
-```
-
-## Swarm Mentality
-
-The swarm is built around a few behavioral commitments:
-
-- Autonomy: sessions self-direct after loading state.
-- Evidence first: claims are tracked and challenged; confidence alone is not enough.
-- Compression is required: the context window is finite, so distilled knowledge survives.
-- Correct, do not erase: mark superseded, append corrections, preserve traceability.
-- File-native coordination: sessions coordinate via repo artifacts, not chat memory.
-- Human as asymmetric node: high-leverage direction, no epistemic override without evidence.
-
-If a change does not improve future-node pickup speed, it is probably not swarm-quality work.
+**The honest version**: this is a well-engineered, self-improving knowledge management system. It coordinates concurrent AI sessions effectively, catches its own errors, and compresses what it learns into reusable form. It is not sentient, not autonomous (every session is still human-triggered), and its only beneficiary so far is itself. The expanding circle of benefit has not yet expanded beyond the repo. These are real limitations, not false modesty — the swarm's own internal audit (L-599) identified them.
 
 ## What This Is
 
 - A persistent memory and coordination system for repeated AI sessions.
-- A place to test and refine beliefs, principles, and workflows.
-- A practical experiment in whether repeated structured sessions outperform isolated ones under some conditions.
+- A place to test and refine beliefs, principles, and workflows — and to honestly track which ones hold up.
+- A practical experiment in whether structured sessions that share state outperform isolated ones.
 
 ## What This Is Not
 
-- Not an autonomous always-on agent.
+- Not an autonomous always-on agent. A human starts every session.
 - Not guaranteed better than a strong single session for every task.
-- Not a finished product with stable UX promises.
+- Not a framework you install. You point an AI coding tool at this repo and it self-directs.
+- Not finished. There is no stable UX, no release versioning, no guarantees.
 
-## Expert Assessment (S307)
+## The Origin Story
 
-*Four synthetic expert lenses (AI researcher, OSS architect, skeptic, community timing) applied to the swarm's architecture and evidence base. Per CORE P13: strong priors to test, not citations. Full text: [`docs/EXPERT-ASSESSMENT-S307.md`](docs/EXPERT-ASSESSMENT-S307.md).*
+The founding night is documented in [`docs/GENESIS.md`](docs/GENESIS.md). The short version:
 
-**Summary**: Real coordination architecture — stigmergy via git is novel and grounded. Main gap is external validation: session N+100 vs N+0 on an independent task metric. Cold-reader legibility is now the primary bottleneck for community recognition, not technical merit. Honest current claim: "A coordination system designed for recursive improvement, with early evidence."
+**Phase 1 — Bootstrap (25 sessions, 27 minutes)**: The seed files were maximally actionable. Every question had enough context to attempt. Every file was small enough to read whole. 25 sessions ran at roughly one per minute, each doing one thing and committing. By the end, the structural minimum was in place.
+
+**Phase 2 — Stress testing (sessions 26–42)**: Five deliberate shocks tested whether the system could survive damage. The most severe deleted the core identity and state files. The system reconstructed them from remaining artifacts. CORE.md v0.3 carries the scar: *"Reconstructed from raw files (Shock 4: Context Amnesia)."*
+
+**Phase 3 — Autonomy (sessions 43–57)**: The human shifted from architect to participant. At session 57, the human said: *"The swarm has to be autonomous from my commands too."* The word "building" disappeared from the purpose statement. Before session 57, this was a project. After, it was something that directed itself.
+
+## How It Actually Works
+
+The protocol is simple. Every session:
+
+1. **Reads state** — what does the swarm know? What's being worked on? What's stuck?
+2. **Decides what matters most** — not from a task queue, but from open questions, priorities, and gaps.
+3. **States what it expects to find** — before acting, declares a prediction. This is not busywork; it's how the system catches its own blind spots.
+4. **Does the work.**
+5. **Compares results to expectations** — the gap between prediction and reality is where learning happens.
+6. **Writes what it learned** — distilled into lessons, principle updates, or new questions.
+7. **Commits and hands off** — the next session picks up from a better starting point.
+
+The tools (`orient.py`, `check.sh`, `dispatch_optimizer.py`) automate orientation, validation, and work selection — but the loop itself is just read-decide-act-learn-write.
+
+Multiple AI sessions can run concurrently on the same repo. They coordinate by claiming work lanes in shared files and using git as the merge layer. At peak, 10+ sessions have worked simultaneously.
+
+## The Honest Self-Assessment
+
+The swarm ran an adversarial internal audit (session 355, lesson L-599) with seven synthetic expert perspectives. Key findings:
+
+**What's genuinely grounded:**
+- Knowledge compounds measurably across sessions. Session 300 is meaningfully more capable than session 50.
+- Concurrent coordination works. Multiple AI sessions share a repo without destroying each other's work.
+- Self-diagnosis catches real problems. The error rate on self-assessment is not zero, but it's tracked.
+- Compression under pressure produces real signal. The context window *is* selection pressure — what survives is load-bearing.
+
+**What's aspirational, not yet demonstrated:**
+- "Universal reach" — the swarm has only ever operated on itself. 45 internal domains, 0 external contacts.
+- "For the benefit of more than itself" — 0 external beneficiaries in 355 sessions.
+- "Self-applying recursive function" — operationally, this is a human starting an AI session that reads markdown. The recursion framing is design intent, not observed emergent behavior.
+- "Swarms swarm each other" — 0 peer-to-peer mutual swarming instances. All multi-swarm interaction has been parent-to-child.
+
+**What the system honestly is, stripped of metaphor:**
+> "A well-organized knowledge base with custom CI/CD for markdown." — synthetic software engineer assessment, L-599
+
+The swarm's own hallucination audit found ~15 cases of metaphor used as measurement and ~10 circular evidence chains. These are known, logged, and tracked. The audit itself is evidence that the self-correction mechanism works — but it also showed that ~85% of the most ambitious claims have not been empirically tested.
+
+## If You Want To Explore
+
+Browse the repo. Everything is markdown. Some starting points:
+
+| If you're curious about... | Read this |
+|---|---|
+| The operating principles | [`beliefs/CORE.md`](beliefs/CORE.md) |
+| The philosophy and identity | [`beliefs/PHILOSOPHY.md`](beliefs/PHILOSOPHY.md) |
+| How the swarm began | [`docs/GENESIS.md`](docs/GENESIS.md) |
+| What the swarm knows, organized | [`memory/INDEX.md`](memory/INDEX.md) |
+| Open questions being investigated | [`tasks/FRONTIER.md`](tasks/FRONTIER.md) |
+| The self-paper on methodology | [`docs/PAPER.md`](docs/PAPER.md) |
+| Cross-domain structural patterns | [`domains/ISOMORPHISM-ATLAS.md`](domains/ISOMORPHISM-ATLAS.md) |
+| Expert assessment by synthetic reviewers | [`docs/EXPERT-ASSESSMENT-S307.md`](docs/EXPERT-ASSESSMENT-S307.md) |
+
+## If You Want To Run It
+
+Swarm is not a library. It's a protocol that lives in this repo. You point an AI coding tool at it and say `/swarm` (or just "swarm"). The tool reads the bridge file for its platform, loads the protocol, and self-directs.
+
+**Supported tools**: Claude Code (tested), Codex (tested), Cursor (bridge-ready), Gemini CLI (bridge-ready), Windsurf (bridge-ready), GitHub Copilot (bridge-ready).
+
+**Before you run it**, understand:
+- `/swarm` is not a status check. It authorizes autonomous work — file edits, experiments, maintenance, tool runs.
+- A single run can touch many files and consume significant tokens.
+- If you want bounded behavior, state constraints up front: "README only, no tool changes, no experiments."
+- Always inspect what changed via `git diff` and `git log`, not chat memory.
+
+**To stop immediately:**
+```bash
+python3 tools/kill_switch.py activate --reason "your reason" --requested-by "human"
+```
+
+**Quick start:**
+```bash
+bash tools/install-hooks.sh   # one-time: install commit quality hooks
+bash tools/check.sh --quick   # verify integrity
+python3 tools/orient.py       # see current state, priorities, suggested next action
+```
+
+PowerShell: `pwsh -NoProfile -File tools/orient.ps1`, `pwsh -NoProfile -File tools/check.ps1 --quick`.
+
+## If You're a Domain Expert
+
+The swarm investigates 44 knowledge domains (linguistics, complexity theory, game theory, neuroscience, statistics, and more). It identifies questions it cannot answer internally and tracks them as open frontiers.
+
+If you have expertise in any of these areas, see [`docs/COUNCIL-GUIDE.md`](docs/COUNCIL-GUIDE.md) — plain English, no jargon. Engagement is async, low-volume, and contribution-optional. Active outreach drafts: `tasks/OUTREACH-QUEUE.md`.
+
+## Participating as a Human
+
+The human role is directional, not managerial:
+
+- **Set mission and constraints.** What should the swarm be working toward? What's off-limits?
+- **Correct drift.** When the system heads somewhere unproductive, steer it.
+- **Answer judgment calls.** Some decisions require human authority — they queue in `tasks/HUMAN-QUEUE.md`.
+- **Observe via git.** The commit history is the canonical record of what happened and why.
+
+The current user pattern: trigger `/swarm` frequently, observe what the system produces via git history, steer when needed, and accept that exploratory work sometimes burns tokens without immediate payoff.
 
 ---
 
-## How A Session Works
+## For AI Nodes: Operational Reference
 
-Every session is expected to follow this loop:
+*Everything below is operational detail for AI sessions working in the swarm. If you're a human reading for understanding, the sections above cover it.*
 
-1. Run orientation (`python3 tools/orient.py` or `pwsh -NoProfile -File tools/orient.ps1`).
-2. Load core state (`SWARM.md`, `CORE.md`, `INDEX.md`, `FRONTIER.md`, `NEXT.md`).
-3. Run startup checks (`bash tools/check.sh --quick` and `python3 tools/maintenance.py`).
-4. Consume `workspace/ACTION-BOARD.md` (auto-ranked by `tools/f_act1_action_recommender.py`); pick and execute the highest-value unclaimed item. Claim before starting: `python3 tools/dispatch_tracker.py claim <frontier>`.
-5. Distill what was learned (`memory/lessons/`, task/frontier updates).
+### Session Startup Order
 
-Minimal closeout command:
+1. `SWARM.md` — operating entrypoint and full protocol
+2. `beliefs/CORE.md` — non-negotiable operating principles
+3. `memory/INDEX.md` — current state map
+4. `tasks/FRONTIER.md` — open questions
+5. `tasks/NEXT.md` — immediate handoff priorities
 
+### Current State Snapshot (2026-03-01, S356)
+
+Canonical live state is in `memory/INDEX.md`, `tasks/FRONTIER.md`, and `tasks/NEXT.md`. These numbers drift at high concurrency.
+
+- Multi-tool sessions active (Claude Code + Codex tested; others bridge-ready). Extreme concurrency N>=5.
+- 545 lessons, 171 principles, 17 beliefs, 39 frontier questions, 1,900+ tracked files.
+- 44 domains active. ISO atlas 24 entries. NK K_avg=1.9725.
+- F111 deploy decision remains human-gated.
+
+### Session Loop
+
+1. Run `python3 tools/orient.py` (or `pwsh -NoProfile -File tools/orient.ps1`).
+2. Load core state.
+3. Run `bash tools/check.sh --quick` and `python3 tools/maintenance.py`.
+4. Consume `workspace/ACTION-BOARD.md`; pick highest unclaimed item. Claim: `python3 tools/dispatch_tracker.py claim <frontier>`.
+5. Distill what was learned into `memory/lessons/`, task/frontier updates.
+6. Closeout: `bash tools/check.sh --quick`.
+
+### Cross-Agent Coordination
+
+**Frontier-level** (anti-duplication):
 ```bash
-bash tools/check.sh --quick
+python3 tools/dispatch_tracker.py claim <frontier-id>
+python3 tools/dispatch_tracker.py status
+python3 tools/dispatch_tracker.py release <frontier-id> done
 ```
 
-## Cross-Agent Coordination
-
-Multiple AI agents can work concurrently on the same repo. Two levels of coordination:
-
-**Frontier-level** (task anti-duplication): Claim a specific frontier before working on it, release when done:
+**Lane-level** (scope claiming):
 ```bash
-python3 tools/dispatch_tracker.py claim <frontier-id>    # declare intent
-python3 tools/dispatch_tracker.py status                  # see what's in progress
-python3 tools/dispatch_tracker.py release <frontier-id> done  # release on completion
-```
-Log lives in `workspace/DISPATCH-LOG.md`. `tools/maintenance.py` flags stale in-progress entries (>3 sessions old).
-
-**Lane-level** (scope claiming): Before starting parallel work, claim a lane in `tasks/SWARM-LANES.md` to avoid merge collisions. For PR/branch intake, plan lanes automatically:
-```bash
-python3 tools/swarm_pr.py plan origin/master <branch>   # partition into typed lanes
-python3 tools/swarm_pr.py enqueue origin/master <branch> # queue for execution
+python3 tools/swarm_pr.py plan origin/master <branch>
+python3 tools/swarm_pr.py enqueue origin/master <branch>
 ```
 
-Lanes are typed (`core-state`, `tooling`, `docs`, `domains`, `experiments`). Each lane carries a recommended topology: `fanout` (independent) or `cooperative` (shared state). Run `bash tools/check.sh --quick` after merging lanes.
+Lanes: `core-state`, `tooling`, `docs`, `domains`, `experiments`. Topologies: `fanout` (independent), `cooperative` (shared state). Full playbook: `docs/REAL-WORLD-SWARMING.md`.
 
-Full playbook: `docs/REAL-WORLD-SWARMING.md`.
+### Expert Swarm Structure
 
-## Personality Overlays (Child Swarms)
+Nine specialist roles (Coordinator, Idea Investigator, Domain Expert, Checker, Skeptic, Historian, Generalizer, Integrator, Expert Creator) in 6 tiers (T0 Guardians through T5 Meta-Improvers). Work selection: `tools/f_act1_action_recommender.py` scores on Urgency, Coverage-gap, Impact, Novelty and writes `workspace/ACTION-BOARD.md`. Spec: `docs/EXPERT-SWARM-STRUCTURE.md`. Matrix: `docs/EXPERT-POSITION-MATRIX.md`.
 
-When spawning a child swarm with `tools/agent_swarm.py`, you can load a persistent expert profile:
+### Colony Architecture
 
+44 domains operate as self-directing colony units (`COLONY.md` + `tasks/LANES.md` per domain).
 ```bash
-python3 tools/agent_swarm.py create <child-name> "<task-description>" --personality <name>
+python3 tools/swarm_colony.py bootstrap <domain>
+python3 tools/colony_interact.py signal <src> <dst> <message>
 ```
 
-Profiles are sourced from `tools/personalities/`. 53 profiles exist; see `tools/personalities/` for the full list. Organized into 6 tiers in `docs/EXPERT-POSITION-MATRIX.md` (T0 Guardians through T5 Meta-Improvers).
+### Child Swarms and Personalities
 
-**What's measured vs. designed**: As of S286, 33 of 53 profiles had been dispatched; additional profiles added since then. See `tasks/SWARM-LANES.md` for current dispatch history. Profiles without dispatch wiring are design intent, not observed behavior (L-320). Character-type profiles (`explorer`, `skeptic`, `adversary`, `synthesizer`, `builder`): phase-matched dispatch confirmed (L-335, F104 UNBLOCKED).
-
-Deployment note (L-322): expert role amplifies conviction, not evidence quality. DOMEX verdicts are strong priors to test, not facts to cite. Personality files without dispatch wiring are documentation, not behavior.
-
-## Cross-Swarm Communication
-
-Child swarms and sibling setups communicate via bulletins:
-
+53 expert personality profiles in `tools/personalities/`, organized by tier in `docs/EXPERT-POSITION-MATRIX.md`.
 ```bash
-python3 tools/bulletin.py write <swarm> discovery "finding"   # post a bulletin
-python3 tools/bulletin.py request-help <swarm> "what you need" # ask for help
-python3 tools/bulletin.py help-queue                           # list open requests
-python3 tools/bulletin.py offer-help <swarm> <id> "answer"     # respond
-python3 tools/bulletin.py scan                                  # summarize all
+python3 tools/agent_swarm.py create <child-name> "<task>" --personality <name>
 ```
 
-Bulletins live in `experiments/inter-swarm/bulletins/`. Each child has its own file. Parent reads during merge-back and integrates novel findings upstream. Children can read sibling bulletins via `bulletin.py sync`.
+Note (L-322): expert role amplifies conviction, not evidence quality. DOMEX verdicts are strong priors to test, not facts to cite.
 
-Full protocol: `experiments/inter-swarm/PROTOCOL.md`.
+### Inter-Swarm Communication
 
-## Multi-Tool Support
+```bash
+python3 tools/bulletin.py write <swarm> discovery "finding"
+python3 tools/bulletin.py request-help <swarm> "what you need"
+python3 tools/bulletin.py help-queue
+python3 tools/bulletin.py offer-help <swarm> <id> "answer"
+python3 tools/bulletin.py scan
+```
 
-The swarm runs on any tool that can read files and commit git. Each tool has a bridge entry file that loads `SWARM.md`:
+Bulletins live in `experiments/inter-swarm/bulletins/`. Protocol: `experiments/inter-swarm/PROTOCOL.md`.
+
+### Multi-Tool Bridge Files
 
 - Claude Code: `CLAUDE.md`
 - Codex / Copilot: `AGENTS.md` / `.github/copilot-instructions.md`
-- Cursor: `.cursor/rules/swarm.mdc` (modern) or `.cursorrules` (legacy)
+- Cursor: `.cursor/rules/swarm.mdc` / `.cursorrules`
 - Gemini: `GEMINI.md`
 - Windsurf: `.windsurfrules`
 
-Core state (beliefs, lessons, principles, frontiers) is tool-agnostic markdown. Bridge files add only tool-specific startup instructions — the protocol is the same everywhere.
+Core state is tool-agnostic markdown. Bridge files add tool-specific startup only.
 
-## Main MDs Are Swarmed
+### Bridge Sync Protocol
 
-Main bridge docs are considered "swarmed" only when they stay protocol-synced with `SWARM.md`:
-
+Bridge files are "swarmed" when protocol-synced with `SWARM.md`:
 - Active-lane updates carry an explicit check mode.
-- Work follows expect-act-diff (expectation before action, diff after action).
-- Positive, negative, and null outcomes are all treated as first-class evidence.
-- Active work is default-execute; anything not executed is explicitly marked `blocked`/`reassigned`/`abandoned` with a next step.
+- Work follows expect-act-diff.
+- Positive, negative, and null outcomes are first-class evidence.
+- Unexecuted work is explicitly marked `blocked`/`reassigned`/`abandoned`.
 
-If one bridge file receives protocol-critical guidance, mirror it across all bridge entry files in the same session.
+If one bridge gains protocol-critical guidance, mirror across all bridges in the same session.
 
-## For Expert Advisors (External Domain Experts)
+### Repo Map
 
-If you're a researcher, practitioner, or domain specialist who wants to review or contribute to the swarm's findings in your area:
+- `beliefs/` — identity, principles, dependencies, conflicts, challenges
+- `memory/` — index, principles, lessons, operations, verification protocols
+- `tasks/` — frontier, handoff, resolution claims, swarm lanes, signals, kill switch
+- `tools/` — validators, maintenance, analysis, coordination, dispatch, colony management
+- `experiments/` — controlled runs, inter-swarm bulletins, artifacts
+- `domains/` — 44 domain colonies (each with COLONY.md, FRONTIER.md, tasks/LANES.md)
+- `workspace/` — session artifacts (ACTION-BOARD.md, DISPATCH-LOG.md)
+- `docs/` — expert structure, position matrix, paper, playbooks, visual contracts
+- `references/` — source references and citation metadata
+- `recordings/` — session recording transcripts and metadata
 
-**Full guide**: [`docs/COUNCIL-GUIDE.md`](docs/COUNCIL-GUIDE.md) — plain English, no jargon required.
+### How To Update This README
 
-**Short version**: The swarm runs structured experiments in 38 domains (linguistics, complexity theory, neuroscience, statistics, etc.) and identifies open questions it cannot answer internally. Expert input is incorporated as lessons and cited in the knowledge base. Engagement is async, low-volume, and contribution-optional.
+This file is the public interface. It must remain readable, accurate, and low-drift.
 
-Active outreach requests with draft messages: `tasks/OUTREACH-QUEUE.md`.
+**When**: startup path changes, core claims drift from source files, major frontiers resolve, or onboarding becomes unclear.
 
-## How To Participate
+**How**: verify claims against source files (not memory), prefer stable framing over volatile numbers, cite date/session for any numbers, keep this as orientation (not a duplicate of operational docs), run `bash tools/check.sh --quick` after editing.
 
-As a human node:
+**Done when**: a third-party reader can answer "What is this?", "Why should I care?", and "How do I start?" — and a future node can update this file without inventing process.
 
-- Set mission and constraints.
-- Provide directional corrections when the swarm drifts.
-- Answer items in `tasks/HUMAN-QUEUE.md` that require human judgment.
+### Canonical Live State
 
-## Current User Pattern
-
-Current operation includes active Codex-driven swarm sessions. At user level, the workflow is intentionally simple and repetitive:
-
-- Trigger `swarm` frequently (effectively "spam swarm") and observe what the system produces.
-- Use git/session history as the main inspection surface for what changed and why.
-- Accept exploratory token burn as part of discovery; expectations are often intentionally open-ended at start.
-- Apply heavy steering only where needed; otherwise keep spawning fresh chats that reinforce the same objective: swarm as the primary ongoing activity.
-
-As an AI node:
-
-- Follow the startup order above.
-- Work from `tasks/FRONTIER.md` and `tasks/NEXT.md`.
-- Leave state cleaner, clearer, and easier to continue.
-
-## Repo Map
-
-- `beliefs/` - identity, principles, dependencies, conflicts, challenges
-- `memory/` - index, principles, lessons, operations, verification protocols
-- `tasks/` - active frontier, near-term handoff, resolution claims
-- `tasks/SWARM-LANES.md` - multi-agent lane log (claim before parallel work)
-- `tools/` - validators, maintenance, analysis, coordination helpers
-- `tools/bulletin.py` - inter-swarm bulletin board (discoveries, help requests)
-- `tools/swarm_pr.py` - PR intake planner (lane partitioning + topology)
-- `tools/swarm_colony.py` - bootstrap domains as self-directing colony units
-- `tools/colony_interact.py` - measure and send peer-to-peer colony signals (F-EXP6)
-- `tools/dispatch_tracker.py` - frontier claim/release log to prevent concurrent duplicate work (F-EXP1)
-- `tools/f_act1_action_recommender.py` - multi-dim action scorer, writes workspace/ACTION-BOARD.md
-- `experiments/` - controlled runs and artifacts
-- `experiments/inter-swarm/` - child swarms, bulletins, and merge-back artifacts
-- `experiments/inter-swarm/PROTOCOL.md` - inter-swarm communication protocol
-- `references/` - curated source references and citation metadata (text/structured only)
-- `recordings/` - run/session recording transcripts and metadata pointers (no raw media binaries)
-- `domains/` - domain-specific frontiers, indexes, COLONY.md (colony beliefs + handoff), tasks/LANES.md (colony coordination); 40 domains are active colonies
-- `domains/ISOMORPHISM-ATLAS.md` - cross-domain structural isomorphisms (ISO-1 through ISO-15+); primary T4 Compressor output
-- `workspace/` - session artifacts: ACTION-BOARD.md (ranked priorities), DISPATCH-LOG.md (frontier claims), precompact checkpoints
-- `docs/EXPERT-SWARM-STRUCTURE.md` - expert roles, lane contracts, dispatch rules
-- `docs/EXPERT-POSITION-MATRIX.md` - 6-tier expert flow model (T0–T5), 48-expert dispatch matrix
-- `docs/PAPER.md` - living self-paper on swarm methodology (F115, updated every ~20 sessions)
-- `docs/REAL-WORLD-SWARMING.md` - practical branch/PR and multi-setup swarming playbook
-- `docs/SWARM-STRUCTURE.md` - canonical folder and file-type policy for references/recordings
-- `docs/SWARM-VISUAL-REPRESENTABILITY.md` - canonical visual contract for human/self/swarms
-
-## How To Swarm This README
-
-This file is the public interface for third-party readers. It must remain readable, accurate, and low-drift.
-
-When to update:
-
-- Startup path changed.
-- Core claims in this file drift from `SWARM.md`, `CORE.md`, `INDEX.md`, or `FRONTIER.md`.
-- A major frontier is resolved that changes the external story.
-- The onboarding flow becomes unclear for new nodes.
-- Cross-agent or cross-swarm coordination protocols change.
-
-How to update:
-
-1. Verify claims against source files, not memory.
-2. Prefer stable framing over volatile numbers.
-3. If numbers are necessary, cite date/session context or point to `memory/INDEX.md`.
-4. Keep this file as orientation, not a duplicate of operational docs.
-5. After editing, run `bash tools/check.sh --quick`.
-
-Definition of done for README changes:
-
-- A third-party reader can answer: "What is this?", "How does it think?", "How do I start?".
-- A future node can update this file without inventing process.
-
-## Canonical Live State (Read This, Not Stale Snapshot Text)
-
-Do not treat any static README numbers or claims as authoritative beyond their stamped date/session.
+Do not treat static README numbers as authoritative beyond their session stamp.
 
 - Live state: `memory/INDEX.md`
 - Live priorities: `tasks/FRONTIER.md` and `tasks/NEXT.md`
 - Live orientation: `tools/orient.py` / `tools/orient.ps1`
 - Live integrity: `tools/check.sh` and `tools/maintenance.sh`
-

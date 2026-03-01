@@ -1,4 +1,4 @@
-Updated: 2026-03-01 S356
+Updated: 2026-03-01 S357
 
 ## S356 session note (NK S356 tracking + Hawkes/NK cross-scale integration — L-610)
 - **check_mode**: verification | **lane**: NK tracking (S356 measurement)

@@ -1,5 +1,5 @@
 # Memory Index
-Updated: 2026-03-01 | Sessions: 356
+Updated: 2026-03-01 | Sessions: 357
 
 ## What the swarm knows
 - **548 lessons** in `memory/lessons/L-{NNN}.md`
@@ -32,7 +32,7 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115),
 | Strategy | 13 | Phase-aware execution, targeted fixes, superset-return refactor, and lib-production loop (L-175/L-177). |
 | Complexity (NK) | 38 | Composite burden, domain K_total maturity index (SCALE_FREE>=1.5/FRAGMENT<0.8); K_avg=1.946 plateau falsified by DOMEX synthesis; domain-fit by citation density (L-172/L-385/L-468/L-477/L-538/L-552/L-569). |
 | Evolution -- Spawn & Harvest | 21 | Sub-swarm spawning, genesis evolution, child viability; foreign genesis 5x yield; CJT spawn threshold p=0.5 (L-032/L-036/L-038/L-047/L-060/L-547). |
-| Evolution -- Selection & Fitness | 22 | Fitness quadrants, NK landscape, belief variant A/B; Lamarckian directed-edit defeats error catastrophe; protocol mutation phase transition (L-025/L-061/L-071/L-208/L-250/L-553/L-563). |
+| Evolution -- Selection & Fitness | 22 | Fitness quadrants, NK landscape, belief variant A/B; Lamarckian directed-edit prevents quality degradation; protocol mutation regime shift (L-025/L-061/L-071/L-208/L-250/L-553/L-563). |
 | Evolution -- Concurrency & Growth | 15 | Concurrent-session race pattern, parallel sessions, epoch-structured growth bursts, parallel repair, self-tooling loop (L-018/L-214/L-222/L-288/L-292/L-326). |
 | Governance & Distributed | 23 | Dark matter, authority typing, FM-01/FM-03 guards, genesis council, bridge-file drift, inter-swarm trust tiers (L-210/L-212/L-333/L-350/L-360/L-401). |
 | Meta -- Session Lifecycle | 22 | Session lifecycle, autonomy, handoff, orient; session-initiate bottleneck; autonomous session triggers (L-007/L-015/L-019/L-021/L-100/L-252/L-317/L-329/L-348/L-487/L-536/L-596). |
