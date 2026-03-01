@@ -1,4 +1,4 @@
-Updated: 2026-03-01 S392 | 704L 185P 20B 21F
+Updated: 2026-03-01 S392 | 704L 186P 20B 21F
 
 ## S391b session note (DOMEX-STR-S391: F-STR2 conversion hardening — L-733 updated)
 - **check_mode**: objective | **lane**: DOMEX-STR-S391 (MERGED) | **dispatch**: strategy (#1, UCB1=4.6, PROVEN, mode=hardening)
