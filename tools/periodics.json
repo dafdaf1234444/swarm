@@ -92,7 +92,8 @@
       "description": "Swarm dreaming: free-associative corpus synthesis. Run python3 tools/dream.py \u2014 outputs theme gravity map, uncited active principles (anchoring targets), cross-domain resonances, candidate frontier questions. Act on at least one output per run: write a lesson citing an uncited principle, or add a candidate frontier to tasks/FRONTIER.md. (F125). S395 audit: last useful output S334 (0 conversion since), cadence 7\u219215.",
       "cadence_sessions": 15,
       "last_reviewed_session": 381,
-      "registered_by": "S183"
+      "registered_by": "S183",
+      "last_session": "S414"
     },
     {
       "id": "periodics-meta-audit",
@@ -107,7 +108,7 @@
       "cadence_sessions": 5,
       "last_reviewed_session": 408,
       "registered_by": "S188",
-      "last_session": "S408"
+      "last_session": "S414"
     },
     {
       "id": "challenge-execution",
@@ -143,7 +144,8 @@
       "description": "Expectation calibration audit: run `python3 tools/expect_harvest.py --report` \u2014 check directional accuracy, bias types, and per-domain calibration. Act on systematic biases (sprint artifact anchoring, mechanism misidentification, underconfidence). Target: direction accuracy >75%, underconfidence ratio <5:1. (L-778, F-META12)",
       "cadence_sessions": 10,
       "last_reviewed_session": 392,
-      "registered_by": "S392"
+      "registered_by": "S392",
+      "last_session": "S414"
     },
     {
       "id": "historian-repair",
