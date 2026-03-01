@@ -25,22 +25,26 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).parent.parent
 LANES_FILE = REPO_ROOT / "tasks" / "SWARM-LANES.md"
+LANES_ARCHIVE = REPO_ROOT / "tasks" / "SWARM-LANES-ARCHIVE.md"
 
 VALID_STATUSES = {"MERGED", "ABANDONED", "SUPERSEDED"}
 
 
 def find_latest_lane_row(lane_id: str) -> dict | None:
-    """Return the most recent row for this lane from SWARM-LANES.md."""
+    """Return the most recent row for this lane from SWARM-LANES.md (or archive fallback)."""
     rows = []
-    with open(LANES_FILE) as f:
-        for line in f:
-            if not line.startswith("|"):
-                continue
-            cols = [c.strip() for c in line.split("|")]
-            if len(cols) < 13:
-                continue
-            if cols[2] == lane_id:
-                rows.append(cols)
+    for path in [LANES_FILE, LANES_ARCHIVE]:
+        if not path.exists():
+            continue
+        with open(path) as f:
+            for line in f:
+                if not line.startswith("|"):
+                    continue
+                cols = [c.strip() for c in line.split("|")]
+                if len(cols) < 13:
+                    continue
+                if cols[2] == lane_id:
+                    rows.append(cols)
     return rows[-1] if rows else None
 
 
@@ -98,11 +102,17 @@ def append_closure_row(
         branch = row[5] if len(row) > 5 else "local"
         scope_key = row[9] if len(row) > 9 else ""
         existing_etc = row[10] if len(row) > 10 else ""
-        # Update actual and diff fields in Etc (replace TBD placeholders)
+        # Update actual and diff fields in Etc (replace TBD or append if missing)
         if actual:
-            existing_etc = re.sub(r"actual=TBD", f"actual={actual}", existing_etc)
+            if "actual=TBD" in existing_etc:
+                existing_etc = re.sub(r"actual=TBD", f"actual={actual}", existing_etc)
+            elif "actual=" not in existing_etc:
+                existing_etc = f"{existing_etc}; actual={actual}"
         if diff:
-            existing_etc = re.sub(r"diff=TBD", f"diff={diff}", existing_etc)
+            if "diff=TBD" in existing_etc:
+                existing_etc = re.sub(r"diff=TBD", f"diff={diff}", existing_etc)
+            elif "diff=" not in existing_etc:
+                existing_etc = f"{existing_etc}; diff={diff}"
         # Strip old next_step, add closed status
         existing_etc_clean = re.sub(r"next_step=[^\s,|]+", "", existing_etc).strip().strip(",")
         tags = f"{existing_etc_clean}, progress=closed, next_step=none".lstrip(", ")
