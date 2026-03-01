@@ -3,7 +3,7 @@ Updated: 2026-03-01 | Sessions: 366
 
 ## What the swarm knows
 - **599 lessons** in `memory/lessons/L-{NNN}.md`
-- **175 principles** in `memory/PRINCIPLES.md` (latest: P-222 hierarchical-distillation-enforcement, P-221 loop-closure-quality)
+- **185 principles** in `memory/PRINCIPLES.md` (latest: P-229 type-over-N, P-228 cooperative-yield, P-227 target-specificity, P-226 mechanism-first-decay, P-225 absorption-bounded-throughput, P-224 self-exciting-production)
 - **17 beliefs** in `beliefs/DEPS.md` (B1–B19 + B-EVAL1–3) | **40 frontiers** in `tasks/FRONTIER.md`
 
 ## Structure
