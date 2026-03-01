@@ -1757,7 +1757,7 @@
     },
     {
       "session": 356,
-      "timestamp": "2026-03-01T03:44:18Z",
+      "timestamp": "2026-03-01T03:45:04Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -1770,11 +1770,9 @@
           "severities": []
         },
         "check_mission_constraints": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "DUE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_runtime_portability": {
           "fired": false,
@@ -1792,11 +1790,9 @@
           "severities": []
         },
         "check_open_challenges": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "DUE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_compaction": {
           "fired": false,
@@ -1865,8 +1861,9 @@
         },
         "check_uncommitted": {
           "fired": true,
-          "count": 1,
+          "count": 2,
           "severities": [
+            "NOTICE",
             "NOTICE"
           ]
         },
@@ -1922,9 +1919,11 @@
           ]
         },
         "check_readme_snapshot_drift": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         },
         "check_structure_layout": {
           "fired": false,
@@ -1965,8 +1964,7 @@
         }
       },
       "totals": {
-        "DUE": 2,
-        "NOTICE": 6,
+        "NOTICE": 8,
         "PERIODIC": 7
       }
     }
