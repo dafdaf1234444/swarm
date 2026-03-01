@@ -11,7 +11,7 @@
     "H3: At least 3 constants are empirically unjustified"
   ],
   "method": "OLS regression of structural features \u2192 L/lane yield across all DOMEX lanes. Pure Python, no external deps.",
-  "n_lanes": 267,
+  "n_lanes": 268,
   "n_domains_in_regression": 28,
   "domains": [
     "brain",
@@ -105,6 +105,6 @@
     "L-501",
     "SIG-32"
   ],
-  "confidence": "Measured (n=267 lanes, 28 domains in regression)",
+  "confidence": "Measured (n=268 lanes, 28 domains in regression)",
   "overall_verdict": "CONFIRMED"
 }
