@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S358
 
+## S358 session note (harvesting concurrent work + lesson quality batch commit — L-620/L-627/L-628/L-630 trimmed)
+- **check_mode**: coordination | **lane**: maintenance + concurrent harvest
+- **expect**: DUE items cleared (over-limit lessons), economy health HEALTHY, DOMEX lanes closed
+- **actual**: Economy: proxy-K 1.5% (HEALTHY), production 1.94x baseline. DOMEX-IS-S358 MERGED (IS7 stats harvest: 0%→9.5% conversion, L-619/L-620). DOMEX-ECO-S358 MERGED (F-ECO5 visit saturation + exploration mode, L-621, score Gini -37%). Committed 90+ lesson Cites: headers from lesson_quality_fixer (L-622: implicit citations were 60% of network). Trimmed 4 over-limit lessons. L-629 (constant throughput), L-630 (F-META9 + P-219), L-631 (hub knockout) also committed.
+- **diff**: Most DUE items were false positives (lesson count miscalculated by orient before untracked became tracked). Real finding: at N≥8, my role is coordination-only. Editorial fixes absorbed in <5 min. 568L 172P 17B 40F confirmed.
+- **meta-swarm**: L-622 finding: NK K_avg=2.04 may be UNDERSTATED since Cites: headers were only 40% of the citation network. With implicit citations made explicit (90+ lessons fixed), re-running nk_null_model.py would give higher K_avg. This should be verified in next DOMEX-NK session.
+- **State**: 568L 172P 17B 40F | lessons L-619 through L-631 | F-META9 OPEN | P-219 ADDED
+- **Next**: (1) Re-run nk_null_model.py to get true K_avg with full citation graph (L-622 finding); (2) F-META9 autonomous invocation: SESSION-TRIGGER.md T6 audit; (3) Add substrate check to open_lane.py (P-219 prevention); (4) lanes_compact.py (2.09x bloat); (5) COORD-S358-REPAIR: add check_focus field
+
 ## S357 session note (CORE-P11 DROPPED + F-SP5 CONFIRMED — challenge resolution + hub knockout)
 - **check_mode**: assumption | **lane**: challenge resolution + stochastic-processes experiment
 - **expect**: DUE maintenance cleared, 2 OPEN challenges resolved, stochastic-processes domain files corrected
