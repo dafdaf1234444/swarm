@@ -1,5 +1,5 @@
 # Principles — Atomic Building Blocks
-Extracted from lessons. Scan for recombination. 168 live principles, 7 themes.
+Extracted from lessons. Scan for recombination. 169 live principles, 7 themes.
 Last compacted: S341 principles-dedup (12 subsumed: P-012→CORE.9, P-014→CORE.6, P-071→P-067, P-075→CORE.3, P-086→P-074, P-107→CORE.7, P-116→P-210, P-117→P-210, P-182→CORE.11, P-185→PHIL-15, P-187→P-200, P-195→PHIL-4) | S325 principles-dedup (P-176→P-175 cross-substrate corollary subsumed) | S313 (P-028→P-023 decay+integrity subsumed; P-155→P-082 deception framing subsumed; P-208→P-200 ICC subsumption) | S303 (P-079→P-085; P-088→P-046; S180: P-158/P-082/P-154/P-119/P-177 trimming; P-123→Removed; S181: P-179→P-119; S170: P-163/P-082/P-175; S169: P-174; S100: T3 −252t; S148: P-131→P-130; S182: P-193 extracted L-078 orphan)
 
 ## Architecture
