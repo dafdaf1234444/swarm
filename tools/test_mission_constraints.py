@@ -126,6 +126,15 @@ class TestMissionConstraintInvariantChecks(unittest.TestCase):
         )
         self.assertTrue(any("mission invariants missing" in msg for _, msg in results))
 
+    def test_missing_i13_xsub_tag_flagged(self):
+        results = self._run_check(
+            invariants_text="## I9 [MC-SAFE]\n## I10 [MC-PORT]\n## I11 [MC-LEARN]\n## I12 [MC-CONN]\n## I13\n",
+            frontier_text="- **F119**: mission constraints\n",
+            next_text="F119 tracked",
+            check_sh_text="choose_python() { :; }\npython3\npython\npy -3\n",
+        )
+        self.assertTrue(any("I13" in msg and "mission invariants missing" in msg for _, msg in results))
+
     def test_learning_quality_gap_detected(self):
         # 5+ tracked changes with no knowledge-state file
         git_status = "\n".join([
