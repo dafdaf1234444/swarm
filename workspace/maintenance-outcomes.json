@@ -295,7 +295,7 @@
     },
     {
       "session": 416,
-      "timestamp": "2026-03-01T22:58:56Z",
+      "timestamp": "2026-03-01T22:59:56Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -363,7 +363,7 @@
         },
         "check_periodics": {
           "fired": true,
-          "count": 19,
+          "count": 17,
           "severities": [
             "PERIODIC",
             "PERIODIC",
@@ -372,14 +372,12 @@
             "PERIODIC",
             "PERIODIC",
             "PERIODIC",
-            "DUE",
             "PERIODIC",
             "PERIODIC",
             "PERIODIC",
             "DUE",
             "PERIODIC",
             "PERIODIC",
-            "DUE",
             "DUE",
             "PERIODIC",
             "PERIODIC",
@@ -392,9 +390,11 @@
           "severities": []
         },
         "check_swarm_lanes": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         },
         "check_swarm_coordinator": {
           "fired": false,
@@ -413,9 +413,8 @@
         },
         "check_uncommitted": {
           "fired": true,
-          "count": 2,
+          "count": 1,
           "severities": [
-            "NOTICE",
             "NOTICE"
           ]
         },
@@ -430,18 +429,14 @@
           "severities": []
         },
         "check_state_header_sync": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "NOTICE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_cross_references": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "NOTICE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_anxiety_zones": {
           "fired": true,
@@ -494,11 +489,9 @@
           ]
         },
         "check_count_drift": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "DUE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_structure_layout": {
           "fired": false,
@@ -580,9 +573,9 @@
         }
       },
       "totals": {
-        "NOTICE": 16,
+        "NOTICE": 14,
         "PERIODIC": 15,
-        "DUE": 5
+        "DUE": 2
       }
     }
   ]
