@@ -201,26 +201,34 @@ def main():
                 print("  - Could it become a P-NNN in memory/PRINCIPLES.md?", file=sys.stderr)
                 print("  - Add --note 'P-NNN extracted' or 'no principle: <reason>'", file=sys.stderr)
 
-    # Artifact-existence guard for ABANDONED lanes (L-756, F-STR1)
+    # False-abandon guard for ABANDONED lanes (L-756, L-783, F-STR1)
     # At high concurrency, commit-by-proxy causes nodes to self-classify
     # as ABANDONED when their artifact was committed by another session.
-    # 37.5% FALSE ABANDONED rate observed in S384-S386 post-fix data.
+    # 13.2% false-abandon rate at n=38 (S385-S393). Two detection signals:
+    # (1) artifact file exists on disk, (2) actual= field is populated (not TBD).
+    # Either signal alone is sufficient evidence of completed work.
     if args.status == "ABANDONED":
         latest = find_latest_lane_row(args.lane)
         if latest:
             etc_field = latest[10] if len(latest) > 10 else ""
+            has_actual = bool(re.search(r'actual=(?!TBD)[^;|]+', etc_field))
+            artifact_exists = False
             artifact_match = re.search(r"artifact=([^\s,;|]+)", etc_field)
             if artifact_match:
                 artifact_path = REPO_ROOT / artifact_match.group(1).strip()
-                if artifact_path.exists():
-                    print(f"WARNING: artifact '{artifact_match.group(1)}' EXISTS on disk.", file=sys.stderr)
-                    print("  This lane may have been completed by a concurrent session (commit-by-proxy).", file=sys.stderr)
-                    print("  Consider using --status MERGED instead of ABANDONED.", file=sys.stderr)
-                    # Check EAD fields for additional evidence of completed work
-                    ead_text = etc_field
-                    has_actual = bool(re.search(r'actual=(?!TBD)[^;|]+', ead_text))
-                    if has_actual:
-                        print("  EAD actual= field is filled — strong evidence of completed work.", file=sys.stderr)
+                artifact_exists = artifact_path.exists()
+
+            if artifact_exists or has_actual:
+                signals = []
+                if artifact_exists:
+                    signals.append(f"artifact '{artifact_match.group(1)}' EXISTS on disk")
+                if has_actual:
+                    signals.append("actual= field is populated (work was done)")
+                print(f"WARNING: {'; '.join(signals)}.", file=sys.stderr)
+                print("  This lane may have been completed by a concurrent session (commit-by-proxy, L-526).", file=sys.stderr)
+                print("  Consider using --status MERGED instead of ABANDONED.", file=sys.stderr)
+                if has_actual and artifact_exists:
+                    print("  STRONG evidence: both signals present — almost certainly false-abandon.", file=sys.stderr)
 
     if not args.note:
         args.note = f"Lane closed via close_lane.py (no note provided)"

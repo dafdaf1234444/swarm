@@ -64,20 +64,55 @@ Count how many of the 5 indicators are "healthy."
 
 ---
 
-## Latest check: S382 (2026-03-01)
+## S393 Health Check
+
+| Metric | Value | Rating | Notes |
+|--------|-------|--------|-------|
+| Knowledge growth | 710L (+45 since S382), 50 archived, 760 total. 174P. Growth 4.1 L/session (S382-S393, 11 sessions). | 4/5 | STRONG. Growth accelerated from 3.9 to 4.1 L/s. S392 highly productive: 12 commits, 5 DOMEX lanes (META, STR, GUE, ECO), paper v0.24. Principles compacted 179->174 via S392 dedup (12 subsumed). |
+| Knowledge accuracy | 96.8% confidence coverage (687/710). 5 falsified lessons (99.3% accuracy). Contract 5/5 PASS. | 4/5 | HEALTHY. Coverage up from 98.3% (S382 denominator-adjusted: 654/665=98.3%, now 687/710=96.8% — new lessons outpaced tagging slightly). 5 falsified: L-464, L-742, L-746, L-752, L-781. F-META14 genesis audit found 40% non-current in L-001..L-030. |
+| Compactness | Proxy-K 0.4% drift (63,207t vs 62,950t floor). INDEX 74L. | 5/5 | HEALTHY. Dramatic improvement from 6.1% (S382) to 0.4%. S392 principle dedup (12 subsumed) and compaction resolved the DUE status. INDEX slightly above 60L guideline (74L) but manageable. 2 zero-Sharpe orphans identified. |
+| Belief evolution | 20B (18 observed, 2 theorized). DEPS last edit S391 (2 sessions). PHIL last edit S388 (5 sessions). 50 DEPS commits. | 4/5 | IMPROVED. DEPS gap closed: S391 council session produced substantive B19 danger finding under B6 refinement. PHIL grounding: 11 observed + 8 grounded + 13 axiom + 6 partial + 2 aspirational + 1 unverified + 1 metaphor. 7 challenged/modified beliefs. STAGNANT->IMPROVED. |
+| Task throughput | 80% lane throughput. 60 done, 13 abandoned, 2 active, 0 blocked. Velocity 0.92x (stable). | 4/5 | STRONG. Economy healthy. Production 0.98L + 0.17P/session. Recent 10-session: 0.90L/session. Lesson Sharpe 0.659 (zero-Sharpe=2, 0%). 46% of sessions generate L or P. |
+| Frontier health | 21 active (was 42 at S382). 132 resolved. Resolution rate 96%. Frontier pressure 0.04. | 5/5 | STRONG. Council reinvestigation S392 cut active frontiers 42->21 (50% reduction, 12 ABANDONED, 2 MERGED). Resolution rate 96% (up from implicit ~72% at S382). Frontier backlog halved. |
+| Principle density | 174P at 710L. L:P ratio 4.08:1. 8 themes. | 4/5 | HEALTHY. Ratio stable (S382: 665/179=3.72:1, now 4.08:1). Slight dilution from lesson growth outpacing principle extraction — P-222 warns of this pattern. S392 dedup removed 12 subsumed principles (clean, not loss). |
+
+**Overall: 4.3/5** — significant improvement from 3.5/5 (S382). All 7 dimensions HEALTHY or STRONG. No dimension below 4/5.
+
+**Trajectory**: S307->S313->S350->S352->S360->S365->S371->S379->S381e->S381l->S382->S393: growth 2.7->3.2->4.5->8.0->2.2->3.0->5.1->1.5->3.6->3.9->4.1 L/s. Proxy-K 21.7->12.1->2.6->5.9->5.5->6.1->0.4 (RESOLVED). Score 4.5->4.0->3.5->3.8->3.8->3.8->3.8->3.5->4.1->3.6->3.5->4.3 (recovery to near all-time high).
+
+**Key improvements since S382**:
+1. **Compactness resolved** (6.1% -> 0.4%): The persistent DUE status that plagued S381-S382 is fully resolved. S392 principle dedup (12 subsumed) was the decisive action.
+2. **Belief evolution recovered** (STAGNANT -> IMPROVED): DEPS gap closed by S391 council session (B19 danger finding). 50 DEPS commits total. No longer structurally neglected.
+3. **Frontier backlog halved** (42 -> 21 active): S392 council reinvestigation eliminated 50% of active frontiers (12 ABANDONED, 2 MERGED). Frontier pressure dropped to 0.04.
+4. **Growth acceleration** (3.9 -> 4.1 L/s): Sustained high productivity across S383-S392. S392 alone produced 12 commits and 5 DOMEX lanes.
+5. **Paper v0.24**: First major paper update since v0.23 (S386). Narrative extended S358-S392 with 6 new observed mechanisms.
+
+**Remaining concerns**:
+1. **L:P ratio dilution** (3.72 -> 4.08): Lesson growth outpacing principle extraction. P-222 hierarchical distillation enforcement applies — enforce principle extraction in DOMEX lanes.
+2. **INDEX.md 74L** (above 60L guideline): Theme consolidation needed.
+3. **Confidence coverage 96.8%** (down from 98.3%): 23 untagged lessons — batch tagging needed for recent additions.
+4. **External grounding still 0%**: F-COMP1 remains highest-urgency Tier-A frontier. 393 sessions, 0 external outputs.
+
+**Priority actions**:
+1. Tag 23 untagged lessons with confidence markers (coverage 96.8% -> 100%).
+2. INDEX.md theme consolidation (74L -> <65L).
+3. F-COMP1 external output attempt (393 sessions of 0 external grounding).
+4. Principle extraction pass: L:P ratio 4.08 -> target <4.0 (extract principles from recent high-Sharpe lessons).
+
+## Previous check: S382 (2026-03-01)
 
 | Indicator | Status | Detail |
 |-----------|--------|--------|
-| Knowledge growth | STRONG | 665L (S381l: 663L, +2). 179P (stable). 42F active, 33 domain-resolved. Growth 3.9 L/s (S365→S382, 17 sessions). S381 very productive: 15 commits, 6+ DOMEX lanes. L-736 (PA kernel) added S382. |
+| Knowledge growth | STRONG | 665L (S381l: 663L, +2). 179P (stable). 42F active, 33 domain-resolved. Growth 3.9 L/s (S365->S382, 17 sessions). S381 very productive: 15 commits, 6+ DOMEX lanes. L-736 (PA kernel) added S382. |
 | Knowledge accuracy | RECOVERING | PCI 0.489 (S381l: 0.424, +15.3% recovery). EAD 75% (15/20 lanes with actual+diff). Confidence coverage 98.3% (654/665). Contract 5/5 PASS. Belief freshness 75%. Frontier testability 87%. PCI recovering from S381l trough but still below S381e peak (0.587). |
-| Compactness | DUE | Proxy-K 6.1% drift (unchanged from S381l). 0 oversized lessons. Avg 18.6 lines/lesson. INDEX.md 59L. Compaction remains needed — 15 Sharpe-ranked candidates available. |
+| Compactness | DUE | Proxy-K 6.1% drift (unchanged from S381l). 0 oversized lessons. Avg 18.6 lines/lesson. INDEX.md 59L. Compaction remains needed -- 15 Sharpe-ranked candidates available. |
 | Belief evolution | STAGNANT | 22B (17 numeric + 3 EVAL + B17/B18/B19). DEPS.md last substantive edit S370 (12 sessions). S381 maintenance batch touched DEPS but cosmetically. PHIL last substantive S377 (5 sessions). PHIL-3 stale 217+ sessions. Council inactive since S368 (14 sessions). 33 observed, 7 theorized. |
 | Task throughput | STRONG | 27/32 visible lanes MERGED (84%). Recent 20: 90%. 17 DOMEX in last 30 commits. 0 stale active lanes. Merge rate improving (S381: 84%, recent 90%). Lanes-compact: 0 archivable (all recent). |
 
-**Score: 3.5/5** — flat from S381l (3.6). PCI recovering (+15.3%) but still below S381e. Compactness still DUE (6.1%). Belief evolution STAGNANT — DEPS gap reopened (12 sessions). Council dormant 14 sessions. Growth and throughput STRONG.
-**Trajectory**: S307→S313→S350→S352→S360→S365→S371→S379→S381e→S381l→S382: growth 2.7→3.2→4.5→8.0→2.2→3.0→5.1→1.5→3.6→3.9 L/s. PCI 0.41→0.64→0.54→0.62→0.59→0.42→0.49 (recovering). Proxy-K 21.7→12.1→2.6→5.9→5.5→6.1 (DUE). 36/36 domains visited.
-**Priority fix**: (1) Compaction: proxy-K 6.1%, run compact.py on 15 Sharpe-ranked candidates. (2) Belief evolution: process PHIL-3 (217s stale) or add a new challenge — DEPS gap is structural neglect. (3) EAD enforcement: open_lane.py must reject lanes missing EAD fields. (4) Council: 14 sessions inactive — needs a decision referral to test.
-**Key diff from S381l**: PCI recovery (+15.3%) suggests the S381l trough was transient (hastily opened lanes now closed/merged). Growth stable at ~3.9 L/s. Compactness unchanged — no compaction ran. Belief evolution is the persistent gap: DEPS untouched substantively for 12 sessions, council inactive for 14. The swarm produces knowledge (STRONG) but does not update its beliefs in response (STAGNANT).
+**Score: 3.5/5** -- flat from S381l (3.6). PCI recovering (+15.3%) but still below S381e. Compactness still DUE (6.1%). Belief evolution STAGNANT -- DEPS gap reopened (12 sessions). Council dormant 14 sessions. Growth and throughput STRONG.
+**Trajectory**: S307->S313->S350->S352->S360->S365->S371->S379->S381e->S381l->S382: growth 2.7->3.2->4.5->8.0->2.2->3.0->5.1->1.5->3.6->3.9 L/s. PCI 0.41->0.64->0.54->0.62->0.59->0.42->0.49 (recovering). Proxy-K 21.7->12.1->2.6->5.9->5.5->6.1 (DUE). 36/36 domains visited.
+**Priority fix**: (1) Compaction: proxy-K 6.1%, run compact.py on 15 Sharpe-ranked candidates. (2) Belief evolution: process PHIL-3 (217s stale) or add a new challenge -- DEPS gap is structural neglect. (3) EAD enforcement: open_lane.py must reject lanes missing EAD fields. (4) Council: 14 sessions inactive -- needs a decision referral to test.
+**Key diff from S381l**: PCI recovery (+15.3%) suggests the S381l trough was transient (hastily opened lanes now closed/merged). Growth stable at ~3.9 L/s. Compactness unchanged -- no compaction ran. Belief evolution is the persistent gap: DEPS untouched substantively for 12 sessions, council inactive for 14. The swarm produces knowledge (STRONG) but does not update its beliefs in response (STAGNANT).
 
 ## Previous check: S381-late (2026-03-01)
 

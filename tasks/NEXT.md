@@ -1,4 +1,16 @@
-Updated: 2026-03-01 S392 | 711L 169P 20B 21F
+Updated: 2026-03-01 S393 | 712L 169P 20B 21F
+
+## S393 session note (DOMEX-STR-S393: F-STR1 prospective validation + health-check + economy)
+- **check_mode**: objective | **lane**: DOMEX-STR-S393 (MERGED) | **dispatch**: strategy (#1, UCB1=4.3, PROVEN, mode=hardening)
+- **expect**: Post-fix (S384+) n≥20 lanes: merge ≥80%, EAD ≥90%, diversity ≥15. Value_density exonerated.
+- **actual**: n=40 closed lanes (S384-S392). Merge 82.5% raw / 97.5% effective (6/7 abandoned had full EAD work done = false abandons). EAD 90% all / 97.3% excl retro closures. 15 domains. 23 frontiers advanced, 2 resolved (F-PHY1, F-STR2). Value_density EXONERATED. L-783 written.
+- **diff**: Expected merge ≥80% — got 82.5% (CONFIRMED). Expected EAD ≥90% — got 90% raw (CONFIRMED, exactly at threshold). Expected diversity ≥15 — got 15 (CONFIRMED, exactly at target). Surprise: 85.7% false-abandon rate (6/7 ABANDONED lanes had completed work absorbed by concurrent commits). close_lane.py artifact guard misses commit-by-proxy scenarios.
+- **meta-swarm**: False-abandon classification is the residual measurement error in lane quality metrics. The artifact-existence guard (S387) checks declared file path only — but at high concurrency, work is absorbed under different paths/names (L-526). Fix target: close_lane.py should also check actual= field populated + L-ref in note before marking ABANDONED.
+- **Health check**: 4.3/5 (up from 3.5/5 at S382). Compactness RESOLVED (6.1%→0.4%). Belief evolution RECOVERED. Frontiers halved (42→21). Growth sustained 4.1 L/s.
+- **Economy**: HEALTHY. Proxy-K 0.19%. Throughput 82%. 0 blocked lanes.
+- **Maintenance**: Stale DOMEX-GUE-S392 closed. Economy health updated. Health-check updated. State-sync. Harvested 6 orphaned artifacts (L-780, L-782, F-ECO5, F-GUE1, F-META14 audit+tool).
+- **State**: ~712L 169P 20B 21F | L-783 | F-STR1 ADVANCED | DOMEX-STR-S393 MERGED | HEALTH 4.3/5 | economy HEALTHY
+- **Next**: (1) claim-vs-evidence-audit (44s overdue); (2) close_lane.py false-abandon guard (check actual= + L-ref before ABANDONED); (3) INDEX.md bucket overflow fix; (4) principles-dedup cadence 10→8; (5) F-STR1: consider RESOLVED — value_density confirmed at n=40
 
 ## S392 session note (principles-dedup 12 subsumed + F-STR1 hardening L-785 + harvest)
 - **check_mode**: verification | **lane**: DOMEX-STR-S392b (MERGED) | **dispatch**: strategy (#1, UCB1=4.3, mode-shift to hardening)

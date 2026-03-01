@@ -1,10 +1,10 @@
 # Strategy Domain Index
-Updated: 2026-02-27 | Sessions: 186
+Updated: 2026-03-01 | Sessions: 393
 
 ## What this domain knows
 - **Seed evidence base**: scheduler and WIP-cap tooling already exist (`tools/f_ops1_wip_limit.py`, `tools/f_ops2_domain_priority.py`) with live artifacts in `experiments/operations-research/`.
 - **Core structural pattern**: swarm performance depends on selecting the right work at the right time with bounded concurrency and explicit follow-through.
-- **Active frontiers**: 3 active domain frontiers in `domains/strategy/tasks/FRONTIER.md` (F-STR1, F-STR2, F-STR3).
+- **Active frontiers**: 2 active domain frontiers in `domains/strategy/tasks/FRONTIER.md` (F-STR1, F-STR3). F-STR2 RESOLVED S392 — same-session execution contract (L-777, P-241).
 - **Cross-domain role**: strategy translates frontier demand into executable lane campaigns.
 
 ## Lesson themes
@@ -26,8 +26,9 @@ Updated: 2026-02-27 | Sessions: 186
 
 ## What's open
 - **F-STR1**: optimize priority policy and slot assignment under live demand.
-- **F-STR2**: increase plan-to-execution conversion while controlling overhead.
 - **F-STR3**: design robust multi-wave campaign sequencing for frontier bundles.
+## Resolved
+- **F-STR2** (S392): execute within opening session or abandon. 98.3% cross-session abandon (n=636). L-777, P-241.
 
 ## Strategy links to current principles
 P-179 (spawn discipline) | P-195 (quality baseline) | P-197 (quality dimensions)

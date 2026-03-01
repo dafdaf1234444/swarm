@@ -6789,7 +6789,7 @@
     },
     {
       "session": 392,
-      "timestamp": "2026-03-01T16:44:47Z",
+      "timestamp": "2026-03-01T17:03:31Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -6829,9 +6829,11 @@
           "severities": []
         },
         "check_compaction": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "DUE"
+          ]
         },
         "check_lessons": {
           "fired": false,
@@ -6857,16 +6859,12 @@
         },
         "check_periodics": {
           "fired": true,
-          "count": 15,
+          "count": 11,
           "severities": [
             "DUE",
             "PERIODIC",
             "DUE",
             "DUE",
-            "DUE",
-            "DUE",
-            "DUE",
-            "PERIODIC",
             "DUE",
             "PERIODIC",
             "PERIODIC",
@@ -6882,19 +6880,28 @@
           "severities": []
         },
         "check_swarm_lanes": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 3,
+          "severities": [
+            "NOTICE",
+            "DUE",
+            "DUE"
+          ]
         },
         "check_swarm_coordinator": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "DUE"
+          ]
         },
         "check_lane_reporting_quality": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 2,
+          "severities": [
+            "DUE",
+            "NOTICE"
+          ]
         },
         "check_github_swarm_intake": {
           "fired": false,
@@ -6926,8 +6933,9 @@
         },
         "check_cross_references": {
           "fired": true,
-          "count": 1,
+          "count": 2,
           "severities": [
+            "NOTICE",
             "NOTICE"
           ]
         },
@@ -6995,7 +7003,7 @@
           "fired": true,
           "count": 1,
           "severities": [
-            "NOTICE"
+            "DUE"
           ]
         },
         "check_paper_accuracy": {
@@ -7024,9 +7032,9 @@
         }
       },
       "totals": {
-        "NOTICE": 12,
-        "DUE": 9,
-        "PERIODIC": 8
+        "NOTICE": 14,
+        "DUE": 12,
+        "PERIODIC": 7
       }
     }
   ],
