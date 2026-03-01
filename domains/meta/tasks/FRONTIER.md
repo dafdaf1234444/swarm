@@ -1,16 +1,8 @@
 # Meta / Swarm Self-Knowledge Domain - Frontier Questions
 Domain agent: write here for self-domain work; global cross-domain findings still go to tasks/FRONTIER.md.
-Updated: 2026-03-01 S358 | Active: 10
+Updated: 2026-03-01 S364 | Active: 9
 
 ## Active
-
-- **F-META1**: What minimal self-model contract keeps swarm state coherent across `tasks/NEXT.md`, `tasks/SWARM-LANES.md`, and domain frontiers? (opened S303)
-  Design: define required self-model fields (`intent`, `progress`, `blocked`, `next_step`, `check_focus`, artifact refs) and add drift checks that quantify missing/contradictory fields per session.
-  - **S249 evidence**: Contract audit found 276/278 active lanes missing at least one required field; domain lanes missing domain_sync/memory_target = 87/134. Top missing fields: expect/actual/diff, artifact, check_mode. Evidence: `experiments/meta/f-meta1-contract-audit-s249.md`.
-  - **S328 evidence**: Post-sweep audit (N=9 non-ABANDONED lanes). identity fields (intent/progress/blocked) 100%; check_mode 78%; artifact= 22%; expect+actual+diff 22%; fully-compliant-6-fields 22%. Delta from S249: +21.5 pp on full compliance. Confounder: S325 ABANDONED sweep collapsed population 278→9 (survivor bias makes direct comparison misleading). Key finding: enforcement gap is in evidence fields not status fields — artifact= and expect/actual/diff must be embedded at lane creation, not just closure. Evidence: `experiments/meta/f-meta1-contract-audit-s328.json`. L-449.
-  - **S331 enforcement**: `tools/open_lane.py` built — `--expect` and `--artifact` are required CLI args (argparse enforcement). 4 tests pass: missing args → error; full open+close cycle; maintenance.py 0 violations; duplicate lane detection. `maintenance.py check_swarm_lanes()` now surfaces NOTICE for lanes missing expect/artifact. SWARM-LANES.md header updated to reference open_lane.py. Gap remaining: historical active lanes pre-S331 still ~22%; actual=/diff= remain post-hoc. Evidence: `experiments/meta/f-meta1-enforcement-s331.json`. L-460.
-  - **S349 re-audit CORRECTED (N=40, manual)**: 75.0% full 6-field compliance (30/40). Prior automated audit (21%) had regex false negatives — L-530 corrected. Post-enforcement (S342+): 100% (24/24). MERGED-only: 83.3% (30/36). 6 pre-enforcement legacy lanes (S339-S341) are permanent TBD deficit. Per-field: intent 100%, expect/artifact/check_mode 97.5%, actual/diff 75%. Structural enforcement (open_lane.py + close_lane.py EAD) is total for new lanes. Evidence: `experiments/meta/f-meta1-contract-audit-s348.json`. **Verdict: MOSTLY-RESOLVED — no further structural fix needed.**
-  - **S354 minimal contract analysis**: 5-component model derived by failure-mode analysis: (1) identity invariant {I9-I12}, (2) monotonic state vector (L,P,B,F,session#), (3) active work pointer, (4) write obligation, (5) protocol handshake. Removing any one maps to a documented failure mode. Current NEXT.md carries ~10x redundancy above minimum — intentional for discoverability. Successor frontier: F-META8 (self-verifying contract). L-586. Artifact: experiments/meta/f-meta1-minimal-self-model-contract-s354.json.
 
 - **F-META2**: How can swarm convert human and self-generated signals into action-ready updates with less signal loss? (opened S303)
   Design: mine `memory/HUMAN-SIGNALS.md`, `tasks/HUMAN-QUEUE.md`, and "What just happened" entries for unencoded directives; measure conversion rate into principles/frontiers/lanes within 1-2 sessions.
@@ -80,6 +72,7 @@ Format: `REPELLENT: <approach> | tried: S<N> | result: <why failed> | see: L-<N>
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F-META1 | RESOLVED — 5-component minimal contract (L-586) + structural enforcement (open_lane.py S331) = 100% compliance over 100 post-enforcement lanes (0 bypasses). contract_check.py 5/5 SATISFIED. Pre-enforcement legacy: ~20%. Successor: F-META8. L-658 audit. | 364 | 2026-03-01 |
 | F101-P1 | DONE - domain FRONTIER files created; later evolved into broad domain-sharding baseline. | 52 | 2026-02-27 |
 | F87 | moderate constraints outperformed no-falsification over longer horizon. | 44 | 2026-02-27 |
 | F86 | recursive belief evolution works; second-generation descendants remained viable. | 42 | 2026-02-26 |
