@@ -379,8 +379,9 @@ def run(args: argparse.Namespace) -> None:
         if r["top_frontier"]:
             print(f"         → {r['top_frontier'][:72]}")
 
-    print("\n--- Scoring formula ---")
-    print("  score = iso*3 + resolved*2 + active*1.5 + novelty_bonus(2) + has_index(1)")
+    print("\n--- Scoring formula (multi-concept, S346) ---")
+    print("  Columns: Act=active frontiers, Res=resolved, ISO=isomorphisms, L=lessons, B=beliefs, P=principles, CT=concept types")
+    print("  score = iso*2 + lessons*0.5 + beliefs*2 + concept_types*2 + resolved*2 + active*1.5 + novelty(2) + index(1)")
     print(f"  + dormant_bonus(+{DORMANT_BONUS} if >5 sessions cold) - heat_penalty(up to -{HEAT_PENALTY_MAX} if <3 sessions)")
     print(f"  + outcome_bonus(+{OUTCOME_BONUS} PROVEN: ≥{OUTCOME_MIN_N} lanes, rate≥{OUTCOME_SUCCESS_THRESHOLD})")
     print(f"  - outcome_penalty(-{OUTCOME_PENALTY} STRUGGLING: ≥{OUTCOME_MIN_N} lanes, rate<{OUTCOME_FAILURE_THRESHOLD})")
