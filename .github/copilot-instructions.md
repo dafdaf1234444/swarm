@@ -1,3 +1,4 @@
+<!-- bridge_version: 1.0 | 2026-03-01 | bridge-version-sync -->
 # Copilot Bridge
 
 This repo is a swarm. Read `SWARM.md` for the full protocol.
