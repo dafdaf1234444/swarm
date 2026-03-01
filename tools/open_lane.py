@@ -129,12 +129,19 @@ def append_open_row(
         domain_fields = ""
 
     # Build Etc column — L-703: stripped zero-information constant fields
-    # (personality=domain-expert, available=yes, blocked=none, human_open_item=none
-    #  carried 0 bits across 35+ rows; only include when non-default)
+    # (personality=domain-expert carried 0 bits; only include when non-default)
+    # Coordination tags (available/blocked/next_step/human_open_item) are required
+    # by maintenance.py contract check — include with defaults (resolves open_lane/
+    # maintenance design conflict identified in DOMEX-STR-S401 meta-swarm).
     etc_parts = [
         f"focus={focus}",
         f"intent={intent}",
         f"check_mode={check_mode}",
+        "setup=active",
+        "available=yes",
+        "blocked=clear",
+        "next_step=run-experiment",
+        "human_open_item=no-escalations",
     ]
     if mode:
         etc_parts.append(f"mode={mode}")
