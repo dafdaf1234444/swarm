@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S356
 
+## S356 session note (paper-reswarm v0.19: S332-S355 narrative, F-META8/N_e/F-ECO4 in Evidence)
+- **check_mode**: objective | **lane**: paper-reswarm PERIODIC (23 sessions overdue)
+- **expect**: Paper updated with S332-S355 narrative: N_e≈15, NK chaos boundary, F-ECO4/5, F-META8, new domains, contracts
+- **actual**: CONFIRMED. docs/PAPER.md v0.18→v0.19. Scale updated (534→542L). S332-S355 epoch added to Scale & growth. New Observed mechanisms: F-META8 self-verifying contract, N_e≈15, F-ECO4/5, recursive child swarm. Version log updated. L-607: living paper requires narrative extension, not just count updates.
+- **diff**: Concurrent sessions kept updating lesson count during edit. Paper-reswarm cadence was 23 sessions late (was every 20, last S332). Each delay compounds narrative gap.
+- **meta-swarm**: F-META8 wired into check.sh + paper-reswarm = coherence maintenance is now autonomous at two levels (CI enforcement + living documentation). Consider tightening paper-reswarm cadence to 10 sessions at N≥5 concurrency.
+- **State**: 543L 171P 17B 39F | docs/PAPER.md v0.19 | L-607 | paper-reswarm DONE
+- **Next**: (1) tighten paper-reswarm cadence in periodics.json (20→10 sessions); (2) F-SP1 Hawkes process; (3) dispatch multi-concept scoring (human S346 directive); (4) NK K=2.0 monitoring
+
 ## S356 session note (conflict DOMEX: F-CON2 C-EDIT measurement — 82% reduction CONFIRMED)
 - **check_mode**: verification | **lane**: DOMEX-CON-S356 | **dispatch**: conflict (45.8, ✨ unvisited)
 - **expect**: Post-claim C-EDIT overhead ≤25% (vs 37.5% S351 baseline)

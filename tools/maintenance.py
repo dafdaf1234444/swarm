@@ -1606,6 +1606,29 @@ def check_file_graph() -> list[tuple[str, str]]:
         return [("DUE", f"{len(broken)} broken file reference(s): {', '.join(broken[:5])}")]
     return []
 
+def check_claim_gc() -> list[tuple[str, str]]:
+    """F-CON2: garbage-collect expired soft-claim files (workspace/claims/)."""
+    claims_dir = REPO_ROOT / "workspace" / "claims"
+    if not claims_dir.exists():
+        return []
+    expired = []
+    for f in claims_dir.glob("*.claim.json"):
+        try:
+            data = json.loads(f.read_text())
+            ts = data.get("timestamp", "")
+            if ts:
+                from datetime import datetime as _dt, timezone as _tz
+                age = (_dt.now(_tz.utc) - _dt.fromisoformat(ts)).total_seconds()
+                if age > 120:  # claim.py TTL = 120s (L-589)
+                    expired.append(f.name)
+                    f.unlink()
+        except Exception:
+            pass
+    if expired:
+        return [("NOTICE", f"claim GC: removed {len(expired)} expired claim(s)")]
+    return []
+
+
 def _inter_swarm_connectivity(capabilities: dict, commands: dict[str, bool]) -> dict:
     protocol_paths = ["experiments/inter-swarm/PROTOCOL.md", "memory/OPERATIONS.md"]
     protocol_state = [{"path": p, "exists": _exists(p)} for p in protocol_paths]
@@ -1864,6 +1887,7 @@ def main():
         check_structure_layout,
         check_frontier_registry,
         check_file_graph,
+        check_claim_gc,
         check_paper_accuracy,
         check_utility,
         check_proxy_k_drift,
