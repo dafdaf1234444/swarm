@@ -1757,7 +1757,7 @@
     },
     {
       "session": 356,
-      "timestamp": "2026-03-01T03:43:14Z",
+      "timestamp": "2026-03-01T03:44:18Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -1770,9 +1770,11 @@
           "severities": []
         },
         "check_mission_constraints": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "DUE"
+          ]
         },
         "check_runtime_portability": {
           "fired": false,
@@ -1863,9 +1865,8 @@
         },
         "check_uncommitted": {
           "fired": true,
-          "count": 2,
+          "count": 1,
           "severities": [
-            "NOTICE",
             "NOTICE"
           ]
         },
@@ -1885,11 +1886,9 @@
           "severities": []
         },
         "check_cross_references": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "NOTICE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_anxiety_zones": {
           "fired": true,
@@ -1948,11 +1947,9 @@
           "severities": []
         },
         "check_paper_accuracy": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "NOTICE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_proxy_k_drift": {
           "fired": false,
@@ -1968,8 +1965,8 @@
         }
       },
       "totals": {
-        "DUE": 1,
-        "NOTICE": 9,
+        "DUE": 2,
+        "NOTICE": 6,
         "PERIODIC": 7
       }
     }
