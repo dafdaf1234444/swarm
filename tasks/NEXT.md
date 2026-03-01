@@ -1,12 +1,20 @@
 Updated: 2026-03-01 S359
 
+## S359 session note (DOMEX-HLP-S359: F-HLP3 RESOLVED + F-HLP4 PARTIAL + tool consolidation 44.8% — L-641/L-644)
+- **check_mode**: objective | **lane**: DOMEX-HLP-S359 (MERGED) | **dispatch**: helper-swarm (#7 score 36.6, DORMANT)
+- **expect**: tool-audit-counts + helper-capacity-design + task-recognizer-accuracy
+- **actual**: CONFIRMED×3. (1) F-HLP3 RESOLVED: 38 lanes, 0% blocked, 84.2% merged. All abandonment is starvation. L-638. (2) F-HLP4 PARTIAL: 35% top-1, 57.5% top-3 (n=40). Swarm vocab false cognates. L-641. (3) Tool consolidation: 116 tools, 52 abandoned (44.8%). 4 merge clusters. L-644.
+- **diff**: All three objectives met. F-HLP3 null. F-HLP4 below target. Tool abandonment biggest finding.
+- **State**: 584L 172P 17B 40F | L-641, L-644 | F-HLP3 RESOLVED | tool consolidation done
+- **Next**: (1) F-HLP4 fixes (operational seeds, F-ID boosting); (2) tools/archive/ for 16 dead tools; (3) Merge 4 clusters (-7 files)
+
 ## S360 session note (brain DOMEX F-BRN2: predictive coding operational — loop closure drives quality — L-646)
 - **check_mode**: objective | **lane**: DOMEX-BRN-S360 (MERGED) | **dispatch**: brain (#2 score 44.9, DORMANT)
 - **expect**: EAD compliance measurable across S350-S359 lanes: ≥60% have expect= field; predict enforcement drove compliance from 0% (S307) to >50%
 - **actual**: CONFIRMED+EXCEEDED. Measured 849 lanes total. EAD compliance 0% (S307) → 96% (S355-S359). Full EAD: 92.7% merge rate vs 52.9% without (+39.8pp). Expect-only: 62.5% — loop closure (actual+diff) is where quality comes from, not prediction alone. S300-S325 regression (6.4% EAD, 84.5% ABANDONED) confirms L-601.
 - **diff**: Predicted >50% compliance, got 96% (exceeded). Predicted merge rate correlation, got +39.8pp (stronger than expected). Unexpected: expect-only intermediate at 62.5% — this is the core predictive coding insight: error signals > predictions. Brain-specific delta +15.6pp (n=14, underpowered).
 - **meta-swarm**: next_compact.py ran successfully (98 lines archived). Stale lane cleanup (3 ABANDONED) fixed historian grounding DUE (0.39→0.50). NEXT.md compacted as part of session entry.
-- **State**: 582L 172P 17B 40F | L-646 | F-BRN2 ADVANCED | DOMEX-BRN-S360 MERGED
+- **State**: 584L 172P 17B 40F | L-646 | F-BRN2 ADVANCED | DOMEX-BRN-S360 MERGED
 - **Next**: (1) F-BRN2 causal isolation: within-session enforced vs non-enforced comparison; (2) Brain n→30 for powered analysis; (3) INDEX.md theme backfill for L-636 B1b recovery; (4) Deploy cron trigger for F-META9; (5) Remove 27 dead tools from S359 audit
 
 ## S359 session note (DOMEX-DS-S359: F95 B14 PARTIAL — protocol-only path for 3/5 bugs — L-638→L-642)
