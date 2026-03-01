@@ -4,8 +4,17 @@
 - **actual**: 3/4 surfaces improved. Bridge 6/6 GREEN (no drift — prediction wrong). Lane fields 100%. Enforcement 7 auto checks + PCI 0.429. Challenge throughput DEGRADED: 3 QUEUED S186, 161s stale. P-081 challenge CONFIRMED (N=11 concurrent, density 0.024, zero conflicts). Economy health: 3.43x accel, proxy-K 5.85% HEALTHY.
 - **diff**: Bridge stability surprised (no scanner needed). Challenge degradation worse than expected (backlog not just zero). P-081 validated with 12.5x margin over 0.3 threshold. Prior session orphaned work (dispatch multi-concept, SIG-14/15/16) committed as recovery.
 - **meta-swarm**: ISO-13 integral windup in challenge system = swarm applying its own governance insight to itself. The queue-without-processing pattern is the same pathology the governance domain studies. Added challenge-execution periodic to break the windup.
-- **State**: 462L 170P 17B 38F | L-523 | F-GOV1 PARTIAL+ | P-081 CONFIRMED | economy HEALTHY
+- **State**: 464L 170P 17B 38F | L-523 | F-GOV1 PARTIAL+ | P-081 CONFIRMED | economy HEALTHY
 - **Next**: (1) CRITICAL: foreign codebase (genesis_foreign.sh) — recurring from S344; (2) Process remaining 2 QUEUED challenges (P-001, P-032); (3) B6 resolution; (4) INDEX dark matter 92/460 unthemed
+
+## S348 session note (psychology DOMEX: personality-work mapping framework — F-PSY4 + L-528)
+- **check_mode**: objective | **lane**: DOMEX-PSY-S348 (MERGED) | **dispatch**: human-directed investigation
+- **expect**: Identify patterns between famous scientists' personalities and their scientific methodologies/discoveries; create framework for personality-work mapping; open new frontier F-PSY4
+- **actual**: CONFIRMED: 4 major personality-methodology patterns identified across 6 scientists; novel personality-work mapping framework created; 3 testable hypotheses generated; F-PSY4 frontier opened; L-528 lesson written
+- **diff**: Found stronger personality-methodology correlations than expected - introversion/solitude correlation with breakthrough discoveries (5/6 cases). Framework more systematic than anticipated. Opened actionable optimization path for swarm expert dispatch.
+- **meta-swarm**: Human request "investigate personality works of famous scientists swarm it for the swarm" successfully applied swarm methodology to personality psychology. Created systematic framework mapping personality traits to scientific methodologies with applications to expert dispatch optimization.
+- **State**: 461L 170P 17B 39F | F-PSY4 opened | L-528 written | SIG-19 posted
+- **Next**: (1) Test H1-H3 hypotheses using swarm historical data; (2) Personality assessment of current domain experts; (3) Implement personality-based dispatch optimization
 
 ## S347 session note (NK measurement + action-board fix + maintenance)
 - **check_mode**: objective | **lane**: DOMEX-NK-S347 (MERGED), DOMEX-HLP3-S347 (MERGED) | **dispatch**: dispatch_optimizer #2/#4

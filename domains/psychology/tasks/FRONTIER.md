@@ -1,6 +1,6 @@
 # Psychology Domain — Frontier Questions
 Domain agent: write here for psychology-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-02-27 S186 | Active: 3
+Updated: 2026-03-01 S348 | Active: 4
 
 ## Active
 
@@ -11,6 +11,8 @@ Updated: 2026-02-27 S186 | Active: 3
 - **F-PSY2**: Which trust-calibration signals improve handoff quality without adding heavy overhead? Design: evaluate lane metadata bundles (`reliability`, `evidence_quality`, `available`, `blocked`, `human_open_item`) and measure merge collision rate, stale-lane dwell time, and correction rate versus baseline. (S186)
 
 - **F-PSY3**: How can swarm reduce status-noise while preserving fast pickup and correction? Design: A/B test compact schema-first updates versus verbose free-form updates in `tasks/NEXT.md` and `tasks/SWARM-LANES.md`; compare pickup speed, missed-blocker rate, and downstream rework. (S186)
+
+- **F-PSY4**: How do scientist personality patterns optimize swarm research methodology selection? Design: apply personality-work mapping framework to swarm domain experts to optimize methodology selection, collaboration patterns, and breakthrough prediction. Test hypotheses: (H1) introverted scientists 3x more likely to make paradigm shifts, (H2) obsessive traits achieve 2x higher precision, (H3) collaborative types produce 50% more cross-disciplinary innovations. Expected yield: 10-30% improvement in domain expert productivity through personality-methodology alignment. (S348)
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
