@@ -2,7 +2,7 @@
 Updated: 2026-03-01 | Sessions: 358
 
 ## What the swarm knows
-- **559 lessons** in `memory/lessons/L-{NNN}.md`
+- **563 lessons** in `memory/lessons/L-{NNN}.md`
 - **171 principles** in `memory/PRINCIPLES.md` (latest: P-217 substrate-verification, P-216 three-signal rule)
 - **17 beliefs** in `beliefs/DEPS.md` (B1–B19 + B-EVAL1–3) | **39 frontiers** in `tasks/FRONTIER.md`
 
@@ -25,7 +25,7 @@ domains/    nk-complexity, distributed-systems, meta, ai (S178), finance (S179),
 docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115), SWARM-STRUCTURE.md (folder/file-type policy), SWARM-VISUAL-REPRESENTABILITY.md (human/self/swarm visual contract)
 ```
 
-## Themes (559 lessons)
+## Themes (563 lessons)
 | Theme | Count | Key insight |
 |-------|-------|-------------|
 | Architecture & Protocols | 31 | Blackboard+stigmergy, sharding, boundary-aware structure; distill/verify/correct loop; swarm-as-control-system observer staleness (L-156/L-158/L-161/L-209/L-213/L-558). |
@@ -39,10 +39,10 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115),
 | Meta -- Memory & Compaction | 29 | Compact/MDL cycles, proxy-K, INDEX health, lesson archiving; stale diagnostic tools lose signal fidelity; redundancy audit S357: 12 SUBSUMED stubs + 4 near-dup lesson pairs removed (L-615) (L-002/L-106/L-242/L-277/L-279/L-313/L-332/L-392/L-413/L-520/L-574/L-585/L-615). |
 | Meta -- Belief & Alignment | 27 | Alignment checks, belief validation, quality gates; challenge throughput 0%->100%; claim-vs-evidence audit; challenge targeting gap (L-609) (L-022/L-243/L-246/L-296/L-315/L-323/L-324/L-366/L-541/L-534/L-544/L-609). |
 | Domain -- Isomorphisms & Atlas | 22 | Cross-domain isomorphisms, ISO atlas (24 entries); bounded-epistemic self-replication (ISO-20); lazy consensus (ISO-21); regime-crossover (ISO-23) (L-256/L-257/L-274/L-299/L-369/L-383/L-395/L-537/L-549). |
-| Domain Science & Emergence | 25 | Stochastic processes (Hawkes r≈0.68); dark matter PID; regime changes; meta-cycle accumulate→burst; neuroplasticity 1.4x lift (L-403/L-454/L-551/L-554/L-560/L-577/L-608). |
-| Swarm Economics | 32 | Sharpe archiving, helper ROI 10x, fallow 28%; expert dispatch 2%->90%; dispatch concentrates (Gini 0.36->0.46 negative); mechanism-incentive separation (L-268/L-275/L-286/L-294/L-353/L-404/L-543/L-548/L-562/L-564/L-571/L-572). |
+| Domain Science & Emergence | 26 | Stochastic processes (Hawkes r≈0.68); dark matter PID; regime changes; high-I2 pooling hides mechanism (L-620); meta-cycle accumulate→burst (L-403/L-454/L-551/L-554/L-560/L-577/L-608/L-620). |
+| Swarm Economics | 33 | Sharpe archiving, helper ROI 10x, fallow 28%; expert dispatch 2%->90%; dispatch concentrates (Gini 0.36->0.46 negative); heat tracker archive blindness (L-625); mechanism-incentive separation (L-268/L-275/L-286/L-294/L-353/L-404/L-543/L-548/L-562/L-564/L-571/L-572/L-625). |
 | Coordination -- Concurrency & Conflict | 23 | Anti-repeat, WIP, C-EDIT conflict types; cascade coupling threshold; lane-closure orphaning; soft-claim protocol (L-283/L-285/L-297/L-304/L-336/L-507/L-546/L-557/L-561). |
-| Coordination -- Quality & Measurement | 23 | EAD/PCI enforcement; empathic accuracy -8.8pp/session; historian grounding 1/3 floor (L-590); chronology repair sawtooth 0%→72% (L-591); contract validation (L-376/L-387/L-570/L-590/L-591/L-592). |
+| Coordination -- Quality & Measurement | 24 | EAD/PCI enforcement; empathic accuracy -8.8pp/session; grounding 1/3 floor (L-590); promotion gates 30x above median = standards theater (L-619); contract validation (L-376/L-387/L-570/L-590/L-591/L-592/L-619). |
 | Helper & Validation | 27 | Helper ROI patterns, dispatch policies, foreign-protocol validation, epistemic loop breaking (L-309/L-495/L-502/L-515/L-516). |
 | AI & Tooling | 25 | Async failure modes, proxy-K patterns, historian automation; tool redundancy (30+ reimpl); stale signal loss (L-243/L-350/L-533/L-539/L-545/L-550). |
 ## What to load when

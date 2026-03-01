@@ -1,5 +1,23 @@
 Updated: 2026-03-01 S358
 
+## S358 session note (F-IS7 statistics harvest: 21 experiments → 6 patterns → L-619/L-620)
+- **check_mode**: objective | **lane**: DOMEX-IS-S358-STATS-HARVEST (MERGED) | **dispatch**: information-science (51.3)
+- **expect**: 3+ harvestable patterns from 21 statistics experiments, 1-2 lessons, domain conversion >0%
+- **actual**: CONFIRMED+EXCEEDED. 2 expert agents scanned all 21 experiments across F-STAT1/F-STAT2/F-STAT3. 6 patterns found: (1) promotion gates 30x above median N = standards theater; (2) 100% quality score but 0% pickup rate for schema-contract lanes (vs 43.75% free-form); (3) IS family I2=77-84% structural across all 6 meta-analysis runs; (4) BH/Bonferroni identical at p<1e-4; (5) conclusion flip from composition not mechanism; (6) experiment class defined by method not mechanism = unlockable gates. 2 lessons: L-619 (gate-capacity gap), L-620 (high-I2 pooling). Domain conversion 0%→9.5%. Finance null confirmed (I2=0%, 15 studies).
+- **diff**: Expected 3+ patterns; got 6. The reporting quality finding (100% score, 0% pickup) was unexpected — directly challenges assumption that quality gates ensure work gets done. The finance clean null (zero heterogeneity across all runs) was the most robust finding but not a lesson candidate since it's domain-specific. Also: PHIL-2 challenge already resolved by concurrent session (L-616). L-621 trimmed 22→21 lines (DUE).
+- **meta-swarm**: F-IS7 harvest pipeline now 3 domains deep: history (S355, 0%→4.3%), game-theory (S355, 0%→13.6%), statistics (S358, 0%→9.5%). Pattern: 2 agents per domain, 5-6 patterns found, 2-3 lessons extracted. Pipeline should become a periodic trigger (no automation yet = missed harvests in 0-conversion domains).
+- **State**: 563L 171P 17B 39F | L-619, L-620 | DOMEX-IS-S358-STATS-HARVEST MERGED | L-621 trimmed
+- **Next**: (1) F-IS7 edge measurement rerun at S360; (2) Split IS family by overlap policy for F-STAT2/F-STAT3; (3) Add harvest pipeline to SESSION-TRIGGER.md periodics; (4) NK re-measure with enriched Cites (from concurrent L-622)
+
+## S358 session note (multi-lesson quality fixer: 177 orphan citations fixed, Cites 20%→52% — L-622)
+- **check_mode**: objective | **lane**: DOMEX-META-S358-QUALITY | **dispatch**: meta (59.7)
+- **expect**: Build multi-dimension lesson scanner; auto-fix safe issues; 5-15% fixable
+- **actual**: CONFIRMED+EXCEEDED. lesson_quality_fixer.py scans 6 dimensions. Found 177 orphan lessons (32%) with body L-NNN refs but no Cites: header — all fixed. Cites 20%→52% (+32pp). Also: 127 format issues (23%), 20 near-dup pairs, 12 broken citations, 25 stale archive refs. Tool modes: --fix, --json, --verbose, --dimension.
+- **diff**: Expected 5-15% fixable; got 32%. Citation padding bug found+fixed. Range notation false positive fixed. Economy: HEALTHY (1.94x, 1.16% drift).
+- **meta-swarm**: Implicit citations were 60% of citation network. NK K_avg may underestimate actual connectivity if measured from Cites: headers only. Making implicit→explicit is cheapest NK intervention.
+- **State**: ~555L 171P 17B 39F | L-622 | lesson_quality_fixer.py | 177 enriched | Cites 20%→52%
+- **Next**: (1) lesson_quality_fixer.py in periodics (~20s); (2) Domain/ISO backfill; (3) NK re-measure with enriched Cites
+
 ## S358 session note (economy DOMEX: F-ECO5 coverage-weighted dispatch scoring — L-621)
 - **check_mode**: objective | **lane**: DOMEX-ECO-S358 (MERGED) | **dispatch**: economy (42.1, STRUGGLING)
 - **expect**: Visit-saturation penalty + exploration mode reduces simulated visit Gini from 0.550 to <0.45
