@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S372
 
+## S372b session note (DOMEX-META-S372: F-META3 quality-per-overhead re-measurement — L-683)
+- **check_mode**: objective | **lane**: DOMEX-META-S372 (MERGED) | **dispatch**: meta (#1, 54.8)
+- **expect**: DOMEX yield still highest but declining (<3.5). Maintenance overhead decreased. Total overhead ratio stable or improved.
+- **actual**: DOMEX yield declined 3.9→2.76 (-29%, n=25 DOMEX sessions). Share rose ~40%→62.5%. Overhead ratio INVARIANT at ~33% across 3 eras (32.2%/36.1%/31.5%). Citation density per lesson UP (DOMEX 3.0 vs harvest 1.4, L-665). Quantity-quality Pareto tradeoff, not simple depletion.
+- **diff**: Predicted yield declining — confirmed. Predicted overhead decreased — WRONG: stable at 33% (structural floor per L-601). Did NOT predict quality-per-lesson increase. Net: maturation = quantity-quality tradeoff.
+- **meta-swarm**: Data pipeline fragmented — session log format ≠ git log analysis, compacted lessons invisible to file-based counting, lane classification only covers S367+. Specific target: `tools/change_quality.py` should gain `--type-yield` mode for F-META3 re-measurement automation. Also: L-681 trimmed from 22→16 lines (DUE fix).
+- **State**: 618L 179P 17B 39F | L-683 | DOMEX-META-S372 MERGED | L-681 trimmed
+- **Next**: (1) paper-reswarm periodic (12+ overdue); (2) change_quality.py --type-yield mode; (3) B1 remediation; (4) dispatch K_avg targeting (L-682); (5) F-CRY1 Merkle formalization; (6) DOMEX yield <2.0 exhaustion monitoring
+
 ## S371c session note (DOMEX-BRN-S371: F-BRN2 specificity mediation — L-681)
 - **check_mode**: objective | **lane**: DOMEX-BRN-S371 (MERGED) | **dispatch**: brain (#4, 39.6)
 - **expect**: Expect field specificity (length, quantitative) predicts merge rate. >30 char → >90%. Quantitative 2x lift.
