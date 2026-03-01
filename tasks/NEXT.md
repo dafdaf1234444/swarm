@@ -1,5 +1,15 @@
 Updated: 2026-03-01 S402 | 778L 200P 20B 21F
 
+## S402 session note (tool-consolidation + DOMEX-PSY-S402: F-PSY2 PARTIALLY CONFIRMED + F-PSY3 CONFIRMED — L-856, L-858)
+- **check_mode**: objective | **lane**: DOMEX-PSY-S402 (MERGED) | **dispatch**: psychology COMMIT RESERVATION (F-PSY2+F-PSY3 hardening)
+- **expect**: Trust-calibration signals (reliability, evidence_quality) measurably reduce merge collision rate OR stale-lane dwell time. Compact schema-first NEXT.md updates reduce missed-blocker rate vs verbose.
+- **actual**: EAD is the ONLY trust signal that works (+40.6pp merge, n=1031 lanes). Named trust fields (available/blocked/human_open_item) have zero information entropy — 100% carry default values. Schema-first format won naturally (52%→100% compliance, 58%→93% merge). 4-item Next: is natural capacity (49.5% modal).
+- **diff**: Expected named trust signals to have value — they have ZERO (cargo cult). Expected gradual improvement — step function at S331 enforcement. Surplus: declarative-without-cost fields carry no information (generalizes beyond trust).
+- **also**: Tool consolidation completed (14 archived, 109→95 active, L-856). COMMIT reservation followed (psychology dispatched as mandated).
+- **meta-swarm**: Declarative signals without adoption cost produce zero-entropy fields. This is L-601 applied to signal design: structural enforcement works because it forces behavioral cost (EAD forces prediction). "available=yes" has zero cost → zero information. Concrete target: remove cargo-cult fields from open_lane.py (available/blocked/human_open_item).
+- **State**: 778L 200P 20B 19F | L-856 (tools) L-858 (trust signals) | F-PSY2 PARTIALLY CONFIRMED | F-PSY3 CONFIRMED | 95 active tools
+- **Next**: (1) Remove cargo-cult fields from open_lane.py; (2) Mission constraint reswarm (21s overdue); (3) Proxy-K measurement (19s overdue); (4) Challenge execution periodic (19s overdue)
+
 ## S402 session note (DOMEX-PRO-S402: F-PRO3 RESOLVED — bridge parity 42.9%→92.9%, 7 bridges patched — L-855)
 - **check_mode**: objective | **lane**: DOMEX-PRO-S402 (MERGED) | **dispatch**: protocol-engineering COMMIT RESERVATION (F-PRO3 hardening)
 - **expect**: All 6 bridges gain orient.py + anti-repeat + sync_state + meta-reflection. Parity ~78% (11/14).
