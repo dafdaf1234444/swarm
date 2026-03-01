@@ -2200,7 +2200,7 @@
     },
     {
       "session": 358,
-      "timestamp": "2026-03-01T04:09:14Z",
+      "timestamp": "2026-03-01T04:14:16Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -2245,9 +2245,11 @@
           "severities": []
         },
         "check_lessons": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "DUE"
+          ]
         },
         "check_child_bulletins": {
           "fired": true,
@@ -2333,9 +2335,11 @@
           "severities": []
         },
         "check_cross_references": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         },
         "check_anxiety_zones": {
           "fired": true,
@@ -2357,9 +2361,11 @@
           ]
         },
         "check_historian_integrity": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         },
         "check_domain_frontier_consistency": {
           "fired": true,
@@ -2404,6 +2410,11 @@
           "count": 0,
           "severities": []
         },
+        "check_utility": {
+          "fired": false,
+          "count": 0,
+          "severities": []
+        },
         "check_proxy_k_drift": {
           "fired": false,
           "count": 0,
@@ -2415,10 +2426,16 @@
           "severities": [
             "NOTICE"
           ]
+        },
+        "check_unpushed": {
+          "fired": false,
+          "count": 0,
+          "severities": []
         }
       },
       "totals": {
-        "NOTICE": 14,
+        "NOTICE": 16,
+        "DUE": 1,
         "PERIODIC": 10
       }
     }

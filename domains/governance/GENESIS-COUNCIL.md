@@ -1,5 +1,5 @@
 # Genesis Council Protocol
-<!-- genesis_council_version: 0.1 | founded: S304 | 2026-02-28 -->
+<!-- genesis_council_version: 0.2 | founded: S304 | updated: S359 | 2026-03-01 -->
 
 ## Purpose
 A genesis experiment creates or substantially restructures a swarm instance (colony bootstrap,
@@ -36,6 +36,8 @@ Quorum: 3 of 4 voting roles must cast a vote. Chair casts tiebreaker only.
 - Expectation Expert vote 0.50–0.74: dry-run first, then re-vote
 - Genesis Expert: viability blocker exists but has a known fix → fix, then re-vote
 - Any role: BLOCK on scope → narrow scope and re-submit
+- **TTL**: CONDITIONAL proposals expire after 10 sessions if conditions unmet → auto-retire as ABANDONED
+- **Superseded**: if original objective is achieved another way, mark SUPERSEDED immediately
 
 ### BLOCK (halt until resolved)
 - Expectation Expert vote < 0.5 (outcome not well-specified)
@@ -70,8 +72,9 @@ Prior evidence: <session refs or "none">
 4. Council Expert tallies: APPROVE / CONDITIONAL / BLOCK.
 5. Decision written to `domains/governance/tasks/FRONTIER.md` under F-GOV4.
 6. If APPROVE: genesis-expert executes. Council Expert records outcome.
-7. If CONDITIONAL: list conditions, re-vote when met.
+7. If CONDITIONAL: list conditions, re-vote when met. Start TTL=10 session clock.
 8. If BLOCK: record reason, escalate unresolvable blockers to `tasks/FRONTIER.md` as `human_open_item`.
+9. Each session: check if any CONDITIONAL proposal has (a) TTL expired → mark ABANDONED, or (b) objective achieved another way → mark SUPERSEDED.
 
 ---
 
@@ -87,16 +90,16 @@ Prior evidence: <session refs or "none">
 ## Council state
 | Field | Value |
 |-------|-------|
-| Last council session | S303 |
-| Open proposals | 1 (sub-colony-gov3 — CONDITIONAL) |
-| Experiments approved this cycle | 0 (1 CONDITIONAL pending) |
+| Last council session | S359 (staleness audit) |
+| Open proposals | 0 |
+| Experiments approved this cycle | 0 |
 | Last genesis experiment | none |
-| Next eligible session | S307 (minimum gap from S304) |
+| Next eligible session | S362 (minimum gap) |
 
 ## Proposal log
 | Proposal | Session | Decision | Status |
 |----------|---------|----------|--------|
-| sub-colony-gov3 | S303 | CONDITIONAL | Awaiting CON-1/CON-2/CON-3 in S307+ |
+| sub-colony-gov3 | S303 | CONDITIONAL | SUPERSEDED (S359): F-GOV3 resolved via direct work S348, not sub-colony. TTL=56s expired. L-634. |
 
 ---
 
