@@ -210,14 +210,17 @@ def score_domain(domain: str) -> dict | None:
 
     # --- Yield score formula ---
     # Multi-concept scoring (S346 human signal: expertise beyond isomorphisms)
-    # iso_count * 2.0     : cross-domain leverage (rebalanced from 3.0)
-    # lesson_count * 0.5  : empirical grounding (domain has generated findings)
-    # belief_count * 2.0  : tested claims (high-value knowledge)
-    # resolved * 2.0      : domain maturity (team knows how to extract lessons here)
-    # active * 1.5        : open work (demand signal)
-    # novelty +2.0        : uncharted territory bonus (exp_count == 0)
-    # has_index +1.0      : orientation artifact present
-    # concept_diversity * 2.0 : breadth reward (how many concept types present)
+    # S347 rebalancing: reduce ISO hegemony, weight principles (was unweighted bug),
+    # increase lesson weight, lower belief weight (rare/sparse), boost diversity bonus.
+    # iso_count * 1.5      : cross-domain leverage (down from 2.0 — still highest per-item)
+    # lesson_count * 0.8   : empirical grounding (up from 0.5 — 32% of concept signal)
+    # belief_count * 1.5   : tested claims (down from 2.0 — sparse, shouldn't over-reward)
+    # principle_count * 1.5 : distilled knowledge (NEW — was 0, fixing unweighted bug)
+    # resolved * 2.0       : domain maturity (team knows how to extract lessons here)
+    # active * 1.5         : open work (demand signal)
+    # novelty +2.0         : uncharted territory bonus (exp_count == 0)
+    # has_index +1.0       : orientation artifact present
+    # concept_diversity * 2.5 : breadth reward (up from 2.0 — mastering multiple types)
     novelty_bonus = 2.0 if exp_count == 0 else 0.0
     concept_types = sum([
         iso_count > 0,
@@ -227,10 +230,11 @@ def score_domain(domain: str) -> dict | None:
         exp_count > 0,
     ])
     score = (
-        iso_count * 2.0
-        + lesson_count * 0.5
-        + belief_count * 2.0
-        + concept_types * 2.0
+        iso_count * 1.5
+        + lesson_count * 0.8
+        + belief_count * 1.5
+        + principle_count * 1.5
+        + concept_types * 2.5
         + resolved_count * 2.0
         + active_count * 1.5
         + novelty_bonus
@@ -379,9 +383,9 @@ def run(args: argparse.Namespace) -> None:
         if r["top_frontier"]:
             print(f"         → {r['top_frontier'][:72]}")
 
-    print("\n--- Scoring formula (multi-concept, S346) ---")
+    print("\n--- Scoring formula (multi-concept, S347) ---")
     print("  Columns: Act=active frontiers, Res=resolved, ISO=isomorphisms, L=lessons, B=beliefs, P=principles, CT=concept types")
-    print("  score = iso*2 + lessons*0.5 + beliefs*2 + concept_types*2 + resolved*2 + active*1.5 + novelty(2) + index(1)")
+    print("  score = iso*1.5 + lessons*0.8 + beliefs*1.5 + principles*1.5 + concept_types*2.5 + resolved*2 + active*1.5 + novelty(2) + index(1)")
     print(f"  + dormant_bonus(+{DORMANT_BONUS} if >5 sessions cold) - heat_penalty(up to -{HEAT_PENALTY_MAX} if <3 sessions)")
     print(f"  + outcome_bonus(+{OUTCOME_BONUS} PROVEN: ≥{OUTCOME_MIN_N} lanes, rate≥{OUTCOME_SUCCESS_THRESHOLD})")
     print(f"  - outcome_penalty(-{OUTCOME_PENALTY} STRUGGLING: ≥{OUTCOME_MIN_N} lanes, rate<{OUTCOME_FAILURE_THRESHOLD})")

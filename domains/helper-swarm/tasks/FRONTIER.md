@@ -1,10 +1,8 @@
 # Helper Swarm Domain — Frontier Questions
 Domain agent: write here for helper-swarm-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-01 S347 | Active: 3
+Updated: 2026-03-01 S347 | Active: 2
 
 ## Active
-
-- **F-HLP2**: What helper handoff contract minimizes correction lag and rework? Design: A/B test helper lane metadata sets (assignment owner, artifact refs, recovery exit criteria, explicit `next_step`) and measure merge collision, reopen rate, and time-to-closure. (S188)
 
 - **F-HLP3**: How much helper capacity should be reserved under multi-lane load? Design: replay lane history with helper-slot caps and escalation bands; optimize net frontier advancement minus coordination overhead. (S188)
 
@@ -13,3 +11,4 @@ Updated: 2026-03-01 S347 | Active: 3
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
 | F-HLP1 | CONFIRMED. stale_age >3 sessions: recall=97.1%, precision=90%, FPR=5.3% (S338, n=428 lanes, text-based). stale_age >0 session-gap: 100% P/R (S346, n=29, small-n). artifact_missing on disk: co-equal secondary trigger. blocked/next_step fields not discriminative. orient.py implements T1+T2 (line 214, L-515). | S347 | 2026-03-01 |
+| F-HLP2 | CONFIRMED. Minimal handoff contract = 4 fields: artifact=<path> + expect= at open; actual=<outcome> + diff= + (next_step=none OR successor=<lane>) at close. actual=TBD is 100% rework predictor (n=5/5). next_step during work not discriminative. successor naming prevents 4+ session lag. See L-519. | S347 | 2026-03-01 |

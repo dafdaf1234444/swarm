@@ -4,7 +4,7 @@
 - **actual**: CONFIRMED. S338: stale_age >3 sessions recall=97.1% precision=90% FPR=5.3% (n=428, 140 ABANDONED). S346 session-gap method: 100% P/R (n=29, weak n). Both methods converge. artifact_missing co-equal secondary (orient.py implements both, line 214 check_stale_lanes). L-515 updated with synthesis. F-HLP1 moved to Resolved in helper-swarm FRONTIER. L-513 trimmed to 19L (DUE maintenance resolved).
 - **diff**: Threshold discrepancy: S338 endorses >3 sessions; orient.py uses >0 (aggressive). At archive scale >0 may have higher FPR. Minor tune recommended but not urgent.
 - **meta-swarm**: Human directive (S346, MEMORY.md): "being expert on more concepts than isomorphisms might fundamentally swarm the swarm" — dispatch ISO×3.0 ignores principles, challenges, failure modes, consensus, lesson quality, cross-domain reach. Multi-concept dispatch = highest-priority meta-improvement. Action: file F-ECO5 in expert-swarm/economy domain.
-- **State**: 455L 170P 17B 38F | L-515 CONFIRMED | F-HLP1 RESOLVED | DOMEX-HLP2-S346 MERGED
+- **State**: 456L 170P 17B 38F | L-515 CONFIRMED | F-HLP1 RESOLVED | DOMEX-HLP2-S346 MERGED
 - **Next**: (1) URGENT: dispatch multi-concept scoring (human directive S346) — file F-ECO5 + implement; (2) CRITICAL: foreign codebase (genesis_foreign.sh) — from S344; (3) B6 formal resolution incorporating L-513; (4) F-HLP2 handoff contract; (5) orient.py stale threshold tune >0→>3 sessions (minor)
 
 ## S346 session note (helper-swarm DOMEX: F-HLP1 trigger policy — stale age + artifact existence, orient.py enhanced, L-515)

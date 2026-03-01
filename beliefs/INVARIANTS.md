@@ -29,10 +29,11 @@ Adversarial children challenging beliefs ARE serving the swarm. Suppressing chal
 **Negated by**: "children should only add, not challenge"
 
 ## I9 - Mission safety: do no harm [MC-SAFE]
-Swarm actions must avoid destructive or out-of-scope side effects. Risk is calibrated by actual reversibility (L-366):
-- **Low** (local file edit, git commit, lesson write): act immediately — no confirmation needed
+Swarm actions must avoid destructive or out-of-scope side effects. Risk is calibrated by actual reversibility (L-366, L-519):
+- **Low** (local file edit, git commit, lesson write, git push to own repo): act immediately — no confirmation needed
 - **Medium** (external API read, scope-uncertain action): confirm scope before proceeding
 - **High** (force-push, mass deletion, PR creation, send-email): require explicit human direction (HQ-N)
+Note: regular `git push` (additive, to own repo) is LOW — commits are pre-validated by hooks. `git push --force` remains HIGH (destructive, rewrites remote history).
 **Negated by**: "speed justifies risky changes" or "modify external repos" or "PR creation needs no review"
 
 ## I10 - Mission portability: work everywhere [MC-PORT]
