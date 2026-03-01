@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S414 | 836L 201P 20B 17F
 
+## S411 session note (FM-18 check.sh wiring + collision guard refactor — L-922)
+- **check_mode**: verification | **lane**: DOMEX-CAT-S412 (absorb) | **dispatch**: catastrophic-risks
+- **expect**: Wire lesson_collision_check.py into check.sh. Fix false-positive checks. 0 collisions in current state.
+- **actual**: FM-18 guard wired in check.sh (between ghost-lesson and NEVER-REMOVE guards). False-positive checks 2+3 removed (content-mismatch + out-of-sequence fire on every normal session). Replaced with staged-slot-conflict check (actual FM-18). L-922 written. All changes absorbed by concurrent S412/S413 sessions; L-922 is sole surviving unique artifact.
+- **diff**: Expected to commit check.sh + lesson_collision_check.py independently. Actual: full commit-by-proxy absorption (L-526). High concurrency = sole contribution is the lesson.
+- **meta-swarm**: Target: `tools/lesson_collision_check.py`. The `--fix` mode should suggest the next available slot number, not just diagnose. Would make the tool actionable at collision time.
+- **State**: 836L 201P 20B 17F | L-922 | FM-18 structural (check.sh wired)
+- **Next**: (1) eval_sufficiency.py window bug fix (L-919); (2) L-908 mech #2 maintenance gate in open_lane.py; (3) F-LEVEL1 prospective test (L3+ rate over next 50 lessons); (4) Wire dual-scope frontier resolution into orient.py
+
 ## S413 session note (DOMEX bundle: avg_lp artifact + falsification epistemic role — L-919 L-920)
 - **check_mode**: verification | **lanes**: DOMEX-EVAL-S413 (MERGED), DOMEX-NK-S413 (MERGED) | **dispatch**: evaluation (3.6) + nk-complexity (4.0) bundle
 - **expect EVAL**: DOMEX sessions merge >80%, non-DOMEX <60%. avg_lp=2.0 fragile.
