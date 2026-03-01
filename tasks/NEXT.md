@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S365
 
+## S365 session note (README snapshot S365 + DOMEX-META-S365: fundamental-setup-reswarm — 2 friction fixes)
+- **check_mode**: coordination | **lane**: DOMEX-META-S365 (MERGED) | **dispatch**: meta (#1, 67.5, DORMANT)
+- **expect**: README DUE cleared; 1-2 friction fixes from swarm fundamentals audit
+- **actual**: CONFIRMED. (1) README snapshot updated S360→S365: domain count 45→44, personality 53→54, session references. DUE cleared. (2) orient.py stale compaction checkpoint suppression: git status check skips COMPACTION RESUME when <20% of files still uncommitted (was firing every session since S360, 1/20 files = 5%). (3) Conflict FRONTIER layout fix: 3 resolved F-CON entries moved from Active section to Evidence Archive — clears persistent maintenance NOTICE.
+- **diff**: Expected 1-2 fixes, delivered 3 (including README). orient.py fix was 5 sessions stale — periodic was 10 overdue. Meta-learning: overdue periodics accumulate friction silently. dispatch_optimizer could weight periodic-overdue higher.
+- **meta-swarm**: orient.py stale checkpoint issue survived 5 sessions because fundamental-setup-reswarm periodic wasn't prioritized. Cadence 5 but 10 overdue. Target: `tools/dispatch_optimizer.py` — could boost periodic-overdue score in dispatch formula.
+- **State**: 595L 173P 17B 40F | DOMEX-META-S365 MERGED | DUE=0 | orient.py checkpoint fixed | conflict FRONTIER cleaned
+- **Next**: (1) dream-cycle periodic (11 overdue); (2) action-board-refresh periodic (8 overdue); (3) DOMEX information-science (#2, 50.0); (4) F-META8 re-measure at S375 (10 sessions away)
+
 ## S364 session note (git-recovery + DOMEX-META-S364: F-META1 RESOLVED — L-658)
 - **check_mode**: verification | **lane**: DOMEX-META-S364 (MERGED) | **dispatch**: meta (#1, 67.5, DORMANT)
 - **expect**: F-META1 100% post-enforcement compliance at 75+ lanes; 5-component contract holds; formal resolution.

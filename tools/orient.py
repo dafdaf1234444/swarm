@@ -872,20 +872,31 @@ def main():
     checkpoints = sorted((ROOT / "workspace").glob("precompact-checkpoint-*.json"))
     if checkpoints:
         latest = checkpoints[-1]
-        import json as _json, time as _time
+        import json as _json, subprocess as _sp
         try:
             cp = _json.loads(latest.read_text())
             ts = cp.get("timestamp", "?")
             trigger = cp.get("trigger", "?")
-            print(f"--- !! COMPACTION RESUME DETECTED ---")
-            print(f"  Checkpoint: {latest.name} ({trigger} at {ts})")
-            hint = cp.get("next_md", {}).get("For next session", "")
-            if hint:
-                print(f"  In-flight: {hint[:120].splitlines()[0]}")
             uncommitted = cp.get("uncommitted_files", [])
+            # Staleness check: verify how many files are actually still uncommitted
             if uncommitted:
-                print(f"  Uncommitted files ({len(uncommitted)}): {', '.join(uncommitted[:5])}")
-            print()
+                status_out = _sp.run(["git", "status", "--short"], capture_output=True, text=True, cwd=str(ROOT)).stdout
+                status_files = {line.split()[-1] for line in status_out.strip().split("\n") if line.strip()}
+                still_uncommitted = [f for f in uncommitted if f in status_files]
+                stale_ratio = 1 - (len(still_uncommitted) / len(uncommitted)) if uncommitted else 1
+            else:
+                still_uncommitted = []
+                stale_ratio = 1
+            # Suppress if <20% of files are still uncommitted (checkpoint is stale)
+            if stale_ratio < 0.8:
+                print(f"--- !! COMPACTION RESUME DETECTED ---")
+                print(f"  Checkpoint: {latest.name} ({trigger} at {ts})")
+                hint = cp.get("next_md", {}).get("For next session", "")
+                if hint:
+                    print(f"  In-flight: {hint[:120].splitlines()[0]}")
+                if still_uncommitted:
+                    print(f"  Uncommitted files ({len(still_uncommitted)}/{len(uncommitted)}): {', '.join(still_uncommitted[:5])}")
+                print()
         except Exception:
             pass
 
