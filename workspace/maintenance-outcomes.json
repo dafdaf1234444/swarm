@@ -877,7 +877,7 @@
     },
     {
       "session": 418,
-      "timestamp": "2026-03-01T23:20:07Z",
+      "timestamp": "2026-03-01T23:21:39Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -968,11 +968,9 @@
           "severities": []
         },
         "check_swarm_lanes": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "DUE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_swarm_coordinator": {
           "fired": true,
@@ -1015,9 +1013,11 @@
           "severities": []
         },
         "check_cross_references": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         },
         "check_anxiety_zones": {
           "fired": true,
@@ -1154,9 +1154,9 @@
         }
       },
       "totals": {
-        "NOTICE": 13,
+        "NOTICE": 14,
         "PERIODIC": 10,
-        "DUE": 6
+        "DUE": 5
       }
     }
   ]
