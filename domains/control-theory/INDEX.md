@@ -1,14 +1,13 @@
 # Control Theory Domain Index
-Updated: 2026-02-27 | Sessions: 186
+Updated: 2026-03-01 | Sessions: S186, S352
 
 ## What this domain knows
-- **Seed evidence base**: existing swarm artifacts already expose feedback-loop behavior through expect-act-diff, maintenance thresholds, and quality regressions.
 - **Core structural pattern**: swarm quality is a closed-loop control problem with noisy observation and delayed actuation.
-- **Active frontiers**: 3 active domain frontiers in `domains/control-theory/tasks/FRONTIER.md` (F-CTL1, F-CTL2, F-CTL3).
-- **New artifacts**: F-CTL1 threshold sweeps and sensitivity summary now live in `experiments/control-theory/` (`f-ctl1-threshold-sweep-s186*.json` + `f-ctl1-threshold-sensitivity-s186.json`).
-- **Latest execution (S186)**: F-CTL3 open-vs-closed loop comparison (`experiments/control-theory/f-ctl3-open-loop-vs-closed-loop-s186.json`) shows higher mean quality under closed-loop-tagged sessions (2.9943 vs 1.2155; matched-pair delta +0.5026), with commit-log classification caveat.
-- **Latest execution (S186)**: F-CTL2 diff-latency rerun (`experiments/control-theory/f-ctl2-diff-latency-s186.json`) reports `diff_events=4`, `resolved=4`, `unresolved=0`, and `mean lag=1.0` session with `within_1_session_rate=1.0`; auto-routing replay at route-after=1 shows no further reduction in this slice.
-- **Latest execution (S186)**: F-CTL2 structured lane-tag pass (`experiments/control-theory/f-ctl2-diff-latency-s186-structured.json`) records explicit non-proxy telemetry from SWARM-LANES tags (`source=lanes`): `diff_events=1`, `resolved=1`, `mean lag=0.0`. Next requirement is cross-session tag accumulation to avoid same-session optimism.
+- **Key finding (S352)**: Observer health precedes threshold tuning. F-CTL1 reframed from "what thresholds?" to "is the observer seeing reality?" (L-556, L-558).
+- **Active frontiers**: 3 in `domains/control-theory/tasks/FRONTIER.md` (F-CTL1, F-CTL2, F-CTL3).
+- **S352 breakthrough** (L-556): 164-session-old clean baseline caused 4 false URGENT signals (S349-S352). Dual-observer fallback fix eliminated false positives without threshold changes. Experiment: `f-ctl1-stale-baseline-s352.json`.
+- **S352 synthesis** (L-558): Three control patterns govern swarm monitoring — observer staleness (F-CTL1), open-loop penalty 2.5x (F-CTL3), anti-windup via ISO-13.
+- **S186 baselines**: F-CTL1 threshold sweeps (sensitive to event-detector); F-CTL2 diff-latency mean=1.0 session; F-CTL3 closed-loop 2.99 vs open-loop 1.22.
 
 ## Lesson themes
 
@@ -25,13 +24,14 @@ Updated: 2026-02-27 | Sessions: 186
 | Closed-loop control outperforms open-loop under disturbance | Expect-act-diff + periodic checks should gate high-risk actions | OBSERVED |
 | Mis-tuned gains cause oscillation or sluggish response | Thresholds and cadences need empirical retuning, not fixed constants | OBSERVED |
 | Detector uncertainty dominates tuning | Threshold recommendations vary with compaction-event detector settings; calibrate detector before policy changes | OBSERVED |
-| Integrator windup causes delayed recovery | Stale unresolved backlog must be bounded with explicit anti-windup policies | THEORIZED |
+| Observer staleness > threshold tuning | Stale baselines (164 sessions) caused 4 false URGENTs; fix = dual-observer fallback | CONFIRMED (S352) |
+| Integrator windup causes delayed recovery | Stale observer → phantom drift → unnecessary corrective planning = anti-windup (ISO-13) | CONFIRMED (S352) |
 | State estimation quality limits controller performance | Improve signal quality in NEXT/SWARM-LANES before adding more control layers | THEORIZED |
 
 ## What's open
-- **F-CTL1**: validate threshold recommendation against additional compaction events and wider windows, then decide whether to update maintenance defaults.
-- **F-CTL2**: reduce diff-to-correction latency in expect-act-diff.
-- **F-CTL3**: quantify failure rates of open-loop sessions versus closed-loop sessions.
+- **F-CTL1**: Observer staleness identified as binding constraint (S352). Next: monitor dual-observer fix over 10+ sessions; rerun threshold sweep only after stable baseline established.
+- **F-CTL2**: reduce diff-to-correction latency in expect-act-diff. Cross-session tag accumulation needed.
+- **F-CTL3**: closed-loop 2.5x quality confirmed (S186). Next: explicit closed-loop markers to reduce classification ambiguity.
 
 ## Control-theory links to current principles
 P-182 (expect-act-diff loop) | P-163 (non-homeostatic growth dynamics) | P-197 (session quality dimensions)

@@ -891,7 +891,7 @@
     },
     {
       "session": 352,
-      "timestamp": "2026-03-01T02:48:14Z",
+      "timestamp": "2026-03-01T02:51:56Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -980,9 +980,11 @@
           "severities": []
         },
         "check_swarm_lanes": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         },
         "check_swarm_coordinator": {
           "fired": true,
@@ -1027,9 +1029,12 @@
           ]
         },
         "check_cross_references": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 2,
+          "severities": [
+            "NOTICE",
+            "NOTICE"
+          ]
         },
         "check_anxiety_zones": {
           "fired": true,
@@ -1051,9 +1056,11 @@
           ]
         },
         "check_historian_integrity": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         },
         "check_domain_frontier_consistency": {
           "fired": true,
@@ -1107,7 +1114,7 @@
         }
       },
       "totals": {
-        "NOTICE": 13,
+        "NOTICE": 17,
         "PERIODIC": 8,
         "DUE": 5
       }

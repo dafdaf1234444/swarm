@@ -73,6 +73,15 @@
     }
   },
   "actual": "3 C-EDIT events observed: DUE-convergence (CE-1), staged-contamination (CE-2), index-lock (CE-3). Soft-claim protocol would prevent 2/3 types. C-EDIT overhead = 37.5% of S351 commits in observed window.",
-  "diff": "Expected 2-3 patterns — found exactly 3. Soft-claim prevention rate (67%) exceeds threshold for protocol worthiness. C-EDIT is a DISTINCT conflict type from F-CON1's bloat/orphaning — requires separate mechanism. F-CON2 PARTIAL: contract schema defined, implementation NOT YET built.",
-  "next": "Implement soft-claim protocol in tools/claim.py; integrate into orient.py warn path; run 3 sessions with claims enabled to measure CE-1 prevention rate"
+  "diff": "Expected 2-3 patterns — found exactly 3. Soft-claim prevention rate (67%) exceeds threshold for protocol worthiness. C-EDIT is a DISTINCT conflict type from F-CON1's bloat/orphaning — requires separate mechanism. F-CON2 PARTIAL → tools/claim.py BUILT S352.",
+  "s352_implementation": {
+    "tool": "tools/claim.py",
+    "session": "S352",
+    "commands": ["claim", "check", "release", "list", "gc"],
+    "claim_storage": "workspace/claims/<safe_filename>.claim.json",
+    "ttl_seconds": 300,
+    "tested": ["conflict detection blocks CE-1", "release clears claims", "TTL auto-expires crashed sessions", "list shows active claims with age"],
+    "status": "BUILT — tested locally, ready for 3-session integration test"
+  },
+  "next": "Integrate claim.py into orient.py (warn about active claims at session start); run 3 sessions with claims enabled; add maintenance.py gc hook"
 }

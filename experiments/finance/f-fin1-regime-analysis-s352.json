@@ -2,6 +2,7 @@
   "experiment": "F-FIN1",
   "title": "Meta-analysis: Condorcet Jury Theorem vs portfolio theory for spawn diversification",
   "session": "S352",
+  "lesson": "L-560",
   "date": "2026-03-01",
   "method": "Regime analysis across 17 F-FIN1 experimental runs (S182-S186). Filtered to n>=10 trials for stability. Compared observed N=3 majority vote accuracy against Condorcet Jury Theorem (CJT) prediction and portfolio variance reduction theory.",
   "data_n_gte_10": [
