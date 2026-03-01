@@ -644,10 +644,42 @@ def _auto_repair_swarm_md() -> None:
             print(f"[orient] swarm.md repair failed: {result.stderr.strip()}")
 
 
+def check_foreign_staged_deletions():
+    """FM-09 guard: detect staged file deletions at session start.
+
+    At orient time the node has not staged anything yet, so any staged
+    deletions are foreign (left by a concurrent/interrupted session).
+    """
+    try:
+        result = subprocess.run(
+            ["git", "diff", "--cached", "--diff-filter=D", "--name-only"],
+            capture_output=True, text=True, timeout=10,
+        )
+        if result.returncode != 0:
+            return
+        deleted = [l for l in result.stdout.strip().splitlines() if l.strip()]
+        if not deleted:
+            return
+        count = len(deleted)
+        print(f"--- !! FM-09: {count} foreign staged file deletion(s) detected ---")
+        print("  These were staged by a concurrent/interrupted session, not by you.")
+        for f in deleted[:10]:
+            print(f"    D {f}")
+        if count > 10:
+            print(f"    ... and {count - 10} more")
+        print("  Fix: git restore --staged . — to clear foreign staged state")
+        print()
+    except Exception:
+        pass
+
+
 def main():
     brief = "--brief" in sys.argv
 
     _auto_repair_swarm_md()
+
+    # FM-09: detect foreign staged deletions before any work (L-350, F-CAT1)
+    check_foreign_staged_deletions()
 
     classify_task = _get_classify_task()
     if classify_task:
@@ -892,6 +924,44 @@ def main():
         print(f"  {priorities[0]}")
     else:
         print("  State clean — pick a frontier or run a periodic")
+
+    # F-META6: write trigger manifest so external executors can read session-needed state
+    try:
+        _write_trigger_manifest(
+            current_sess_num if 'current_sess_num' in locals() else 0,
+            maint_out,
+            stale_lanes if 'stale_lanes' in locals() else []
+        )
+    except Exception:
+        pass
+
+
+def _write_trigger_manifest(current_session: int, maint_out: str, stale_lanes: list) -> None:
+    """Update domains/meta/SESSION-TRIGGER.md with live trigger states (F-META6)."""
+    trigger_path = ROOT / "domains" / "meta" / "SESSION-TRIGGER.md"
+    if not trigger_path.exists():
+        return
+    try:
+        content = trigger_path.read_text()
+        now_sess = f"S{current_session}"
+
+        def update_row(text: str, tid: str, state: str) -> str:
+            import re as _re
+            pattern = rf"(\| {_re.escape(tid)} \|[^|]+\|[^|]+\| ?)(FIRING|CLEAR|UNKNOWN)( ?\| S\d+)"
+            repl = rf"\g<1>{state}\g<3>"
+            new = _re.sub(pattern, repl, text)
+            pattern2 = rf"(\| {_re.escape(tid)} \|[^|]+\|[^|]+\| ?(?:FIRING|CLEAR|UNKNOWN) ?\| )S\d+( \|)"
+            return _re.sub(pattern2, rf"\g<1>{now_sess}\g<2>", new)
+
+        t1 = "FIRING" if any(sl.get("opened", current_session) < current_session for sl in stale_lanes) else "CLEAR"
+        content = update_row(content, "T1-STALE-LANE", t1)
+        t2 = "FIRING" if any(not sl.get("has_artifact") and sl.get("artifact") for sl in stale_lanes) else "CLEAR"
+        content = update_row(content, "T2-ARTIFACT-MISSING", t2)
+        t3 = "FIRING" if "[DUE]" in maint_out and "!" in maint_out else "CLEAR"
+        content = update_row(content, "T3-MAINTENANCE-DUE", t3)
+        trigger_path.write_text(content)
+    except Exception:
+        pass  # trigger manifest is informational; never crash orient.py
 
 
 if __name__ == "__main__":

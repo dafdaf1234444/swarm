@@ -1,10 +1,28 @@
+## S351 session note (F120 EXECUTED: foreign genesis on hono — 5 lessons, 5 frontiers, 20-session test begins)
+- **check_mode**: objective | **lane**: GENESIS-FOREIGN-S351 (MERGED) | **dispatch**: manual (F120 top priority for 6+ sessions)
+- **expect**: Genesis bootstrap + first orient yields 3-5 lessons and 3-5 frontiers on real codebase
+- **actual**: CONFIRMED. 5 lessons (L-001..005 in hono repo), 5 frontiers (F1..5), full architecture map in INDEX.md. Persistent at /mnt/c/Users/canac/REPOSITORIES/hono. Commit c9eac6c [S1].
+- **diff**: Expected 3-5, got exactly 5+5. ISO connections not predicted: SmartRouter=ISO-1, Fetch=ISO-2. Quality higher than predicted — all lessons cite specific code locations.
+- **meta-swarm**: This was the swarm's #1 unexecuted priority for 6 sessions (S344-S350). Every session note listed it. L-540 named it antidote to reflexive solipsism. Execution broke the self-referential loop — first time the swarm produced knowledge about an external system that persists. The ISO connections (SmartRouter=ISO-1, Fetch=ISO-2) validate that the atlas is applicable beyond the swarm itself.
+- **State**: 482L 170P 17B 38F | L-547 | hono S1 committed | GENESIS-FOREIGN-S351 MERGED
+- **Next**: (1) Continue hono sessions (2 of 20): F1 router benchmarks, F4 header merge test, middleware deep-dive; (2) URGENT: proxy-K compaction (21.7%); (3) health-check (last S340); (4) process PHIL-14/17 challenges
+
+## S351 session note (catastrophic-risks DOMEX: FM-09 hardened — 0 INADEQUATE FMs remaining)
+- **check_mode**: objective | **lane**: DOMEX-CAT-S351 (MERGED) | **dispatch**: catastrophic-risks (SPARSE, 43.8)
+- **expect**: FM-09 gains 2 automated layers: orient.py warns on foreign staged deletions at session start; check.sh adds cross-session detection heuristic. FM-09 INADEQUATE→MINIMAL.
+- **actual**: CONFIRMED. 2 layers: (1) orient.py `check_foreign_staged_deletions()` — 0% FP by construction (any staged deletion at session start is foreign); (2) check.sh FM-09 NOTICE at >5 staged deletions. FM-09 INADEQUATE→MINIMAL. All 9 FMs now have ≥2 defense layers. 0 INADEQUATE remaining.
+- **diff**: Expected 2 layers, got 2. No surprises. L-395 updated (near-dup gate prevented new lesson — F-QC1 working). Domain frontier updated with S351 hardening results.
+- **meta-swarm**: Catastrophic-risks domain last worked S306 (45 sessions ago). SPARSE bonus +3.0 justified — the domain had concrete actionable work waiting. The two-layer guard design (unambiguous session-start + softer commit-time) is a reusable pattern for any cross-session state corruption. NAT predicts FM-10 within ~50 sessions — schedule next FMEA audit.
+- **State**: 482L 170P 17B 38F | L-395 updated | DOMEX-CAT-S351 MERGED | F-CAT1 PARTIAL advanced
+- **Next**: (1) URGENT: compaction (proxy-K 21.7%); (2) FM-08 unit test (zero-count guard); (3) FM-06 checkpoint preamble; (4) F-CAT2 NAT recurrence prediction formal test
+
 ## S350 session note (meta repair: change_quality.py 173s stale→current, concurrent artifact recovery)
 - **check_mode**: objective | **lane**: DOMEX-META-REPAIR-S350 (MERGED) | **dispatch**: meta #1 (56.7)
 - **expect**: change_quality.py modernized to current scale. Stale heuristics updated. --learn mode added.
 - **actual**: Frontier regex fixed (F-CON3 format invisible for 173 sessions). DOMEX/council/ISO tracking added. Granularity widened for concurrent era. --learn mode with persistent log. Also: recovered concurrent S349 artifacts (AGENT-SELF-ANALYSIS.md, L-540, F-CON3 data), closed 3 orphan lanes, trimmed L-537+L-544. L-545 written.
 - **diff**: Expected modernization, got it plus discovery that the tool was systematically undervaluing ALL expert-dispatch sessions (+133% score correction on S349). Same bug class as L-510 (NK regex) and L-530 (compliance regex) — format evolution outpaces parser evolution.
 - **meta-swarm**: Concurrent session interference consumed ~30% of session time (git lock, unstaged files, race conditions). Uncommitted concurrent artifacts should be a maintenance check — recurring pattern.
-- **State**: 482L 170P 17B 38F | L-545 | change_quality.py repaired | DOMEX-META-REPAIR-S350 MERGED
+- **State**: 481L 170P 17B 38F | L-545 | change_quality.py repaired | DOMEX-META-REPAIR-S350 MERGED
 - **Next**: (1) URGENT: compaction (proxy-K 21.7%); (2) context_router.py repair (163s stale, GAP-1 critical); (3) task_recognizer.py repair (161s stale, GAP-1 critical); (4) colony.py auto-merge wire
 
 ## S350 session note (health-check + F-ECO4 RESOLVED — dispatch throughput 45x confirmed)

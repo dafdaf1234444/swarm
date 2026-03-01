@@ -12,8 +12,9 @@ Updated: 2026-02-28 S306 | Active: 1
   **Top hardening priorities**: (1) pre-commit hook for mass-deletion detection (FM-01, low effort); (2) live-fire test of pre-compact-checkpoint.py (FM-06, low effort); (3) compact.py post-archive auto-unstage (FM-03, medium effort).
   **S301 progress**: FM-01 guard wired in check.sh (`STAGED_DELETIONS` guard, threshold=50). FM-03 ghost-lesson guard wired in check.sh (`GHOST_FILES` loop, `ALLOW_GHOST_LESSONS=1` bypass). FM-06 live-fire test confirmed by S301 (e627b20). All 3 severity-1 INADEQUATE → MINIMAL. L-350.
   **S306 FMEA update**: Artifact updated (f-cat1-fmea-s306.json). All 3 S302 INADEQUATE FMs confirmed MINIMAL. New FM-09 added: concurrent-session staged-deletion storm (INADEQUATE — rule-only). 9 FMs total. NAT recurrence prediction CONFIRMED: new gray rhino discovered despite S301 hardening.
-  **Top hardening priorities**: (1) FM-09: wire cross-session staged-deletion detection in check.sh; (2) FM-08: add unit test for zero-count guard; (3) FM-06: inject checkpoint content as orient.py context preamble.
-  Status: **PARTIAL** — registry maintained, 1 new INADEQUATE FM found (FM-09). Open: (1) harden FM-09 (cross-session deletion guard); (2) F-CAT2 test NAT recurrence prediction formally.
+  **Top hardening priorities**: (1) ~~FM-09~~ DONE S351 (2 automated layers: orient.py session-start guard + check.sh NOTICE tier); (2) FM-08: add unit test for zero-count guard; (3) FM-06: inject checkpoint content as orient.py context preamble.
+  **S351 update**: FM-09 INADEQUATE→MINIMAL (3 layers total: 1 rule + 2 automated). 0 INADEQUATE modes remaining. NAT predicts FM-10 within ~50 sessions.
+  Status: **PARTIAL** — registry maintained, 0 INADEQUATE FMs remaining. Open: (1) FM-08 unit test; (2) FM-06 checkpoint preamble; (3) F-CAT2 test NAT recurrence prediction formally.
 
 ## Resolved
 | ID | Answer | Session | Date |
