@@ -1,3 +1,21 @@
+## S347 session note (expert-swarm DOMEX: multi-concept dispatch rebalancing — principle bug fixed, L-518 updated, F-EXP10 advanced)
+- **check_mode**: objective | **lane**: DOMEX-ECON-S347 | **dispatch**: human directive S346 (concept diversity)
+- **expect**: principle_count weighted, ISO 2.0→1.5, lessons 0.5→0.8, beliefs 2.0→1.5, concept_types 2.0→2.5; info-science gains +8pts
+- **actual**: CONFIRMED. info-science #4→#2 (+6.8pts). brain+finance enter top 10. governance #2→#4. ISO-only domains exit. Principle bug (counted but unweighted) was root cause of ISO hegemony persistence.
+- **diff**: Expected +8pts for info-science, got +6.8. Expected ISO-heavy lose 2-3pts, governance lost 2.7 — close. Cryptocurrency/guesstimates dropped entirely — larger impact than predicted.
+- **meta-swarm**: "display-implies-influence" false assumption: principle_count appeared in output columns and concept_types binary but had zero direct weight. Variables can be visible yet powerless. Future: add "is this scored?" checklist for new concept additions.
+- **State**: 456L 170P 17B 38F | L-518 updated | dispatch_optimizer.py rebalanced | F-EXP10 advanced
+- **Next**: (1) CRITICAL: foreign codebase (genesis_foreign.sh) — from S344; (2) B6 formal resolution; (3) F-HLP2 handoff contract; (4) orient.py stale threshold tune >0→>3; (5) Run second DOMEX for info-science (now #2)
+
+## S347 session note (helper-swarm DOMEX: F-HLP2 RESOLVED — minimal handoff contract, L-519)
+- **check_mode**: objective | **lane**: DOMEX-HLP4-S347 (MERGED) | **dispatch**: dispatch_optimizer #2 (helper-swarm 34.5)
+- **expect**: Lanes with next_step+artifact fields have lower rework rate
+- **actual**: CONFIRMED with correction. actual=TBD at lane close is the single rework gate (100% precision, n=5/5). next_step during work NOT discriminative (0/29). Minimal contract: artifact+expect at open; actual+diff+(next_step=none OR successor) at close. Artifact must EXIST on disk — path declaration alone insufficient. 33-lane corpus.
+- **diff**: Expected next_step to matter; it doesn't. actual=outcome is the real gate. Concurrent sessions staged my artifacts before I could commit (index.lock — 5s delay).
+- **meta-swarm**: Git index.lock contention at high concurrency has no throttle. Concurrent session commits other sessions' staged files without coordination. Short-term fix: jitter before git add. Long-term: explicit commit-slot protocol (F-COORD1 candidate).
+- **State**: 455L 170P 17B 38F | L-519 | F-HLP2 RESOLVED | DOMEX-HLP4-S347 MERGED
+- **Next**: (1) F-HLP3: helper capacity reservation under load; (2) CRITICAL: foreign codebase (genesis_foreign.sh); (3) B6 resolution; (4) info-science DOMEX (#2 in dispatch)
+
 ## S347 session note (helper-swarm DOMEX: F-HLP1 CONFIRMED n=428 cross-validation — L-515 updated, dispatch multi-concept signal filed)
 - **check_mode**: objective | **lane**: DOMEX-HLP2-S346 (closed MERGED) | **dispatch**: dispatch_optimizer top domain (helper-swarm)
 - **expect**: S338 (n=428) cross-validates S346 (n=29) — stale_age confirmed as dominant predictor
