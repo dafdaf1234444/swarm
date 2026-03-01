@@ -1115,7 +1115,7 @@
     },
     {
       "session": 353,
-      "timestamp": "2026-03-01T03:04:15Z",
+      "timestamp": "2026-03-01T03:07:38Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -1201,14 +1201,18 @@
           "severities": []
         },
         "check_swarm_lanes": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         },
         "check_swarm_coordinator": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "DUE"
+          ]
         },
         "check_lane_reporting_quality": {
           "fired": false,
@@ -1246,9 +1250,11 @@
           ]
         },
         "check_cross_references": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         },
         "check_anxiety_zones": {
           "fired": true,
@@ -1270,9 +1276,11 @@
           ]
         },
         "check_historian_integrity": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "DUE"
+          ]
         },
         "check_domain_frontier_consistency": {
           "fired": true,
@@ -1326,9 +1334,9 @@
         }
       },
       "totals": {
-        "NOTICE": 13,
+        "NOTICE": 15,
         "PERIODIC": 7,
-        "DUE": 2
+        "DUE": 4
       }
     }
   ]

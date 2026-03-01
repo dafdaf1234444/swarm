@@ -32,11 +32,17 @@ def load_lessons():
                     key=lambda p: int(re.search(r'\d+', p.stem).group())):
         text = f.read_text(encoding="utf-8", errors="replace")
         num = int(re.search(r'\d+', f.stem).group())
-        # Support both bold header (**Theme**: X) and pipe-separated (| Theme: X |)
+        # Support bold header (**Theme**: X), pipe-separated (| Theme: X |),
+        # and modern Domain: field (Session: ... | Domain: X, Y | ...)
         theme_m = re.search(r'\*\*Theme\*\*:\s*([^\n|*]+)', text)
         if not theme_m:
             theme_m = re.search(r'\|\s*Theme:\s*([^|\n]+)', text)
-        theme = theme_m.group(1).strip() if theme_m else ""
+        if theme_m:
+            theme = theme_m.group(1).strip()
+        else:
+            # Modern format: use first Domain: value as theme
+            domain_m = re.search(r'(?:^|\|)\s*Domain:\s*([^|\n,]+)', text, re.MULTILINE)
+            theme = domain_m.group(1).strip() if domain_m else ""
         cited = list(set(re.findall(r'P-\d+', text)))
         lessons.append({"id": f"L-{num}", "num": num, "theme": theme, "cited": cited})
     return lessons
@@ -91,7 +97,8 @@ def load_domains():
 
 def theme_gravity(lessons):
     """Show where knowledge mass is concentrated."""
-    counts = Counter(l["theme"] for l in lessons if l["theme"])
+    # Normalize case: lowercase for grouping, but keep display name as most common casing
+    counts = Counter(l["theme"].lower() for l in lessons if l["theme"])
     total = len(lessons)
     unthemed = sum(1 for l in lessons if not l["theme"])
     print(f"\n--- Theme gravity ({total} lessons) ---")
