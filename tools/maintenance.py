@@ -1660,7 +1660,10 @@ def check_meta_tooler_gap() -> list[tuple[str, str]]:
             except Exception:
                 pass
     unreferenced = [t for t in tool_files if t not in ref_text]
-    if len(unreferenced) <= 20:
+    # Threshold: >40% unreferenced signals wiring gap; below that is normal for
+    # mature swarms with many standalone user-invocable tools (S408 audit: 28/80).
+    threshold = max(20, int(len(tool_files) * 0.4))
+    if len(unreferenced) <= threshold:
         return []
     # Check if a meta-tooler lane is already active
     lanes_path = REPO_ROOT / "tasks" / "SWARM-LANES.md"
@@ -1668,7 +1671,7 @@ def check_meta_tooler_gap() -> list[tuple[str, str]]:
         lanes_text = _read(lanes_path)
         if re.search(r"meta.tooler.*(?:ACTIVE|CLAIMED|READY)", lanes_text, re.IGNORECASE):
             return []
-    return [("DUE", f"{len(unreferenced)} tools unreferenced by automation (>20 threshold, L-896) "
+    return [("DUE", f"{len(unreferenced)} tools unreferenced by automation (>{threshold} threshold, L-896) "
              f"— open a meta-tooler DOMEX lane to wire or archive")]
 
 
