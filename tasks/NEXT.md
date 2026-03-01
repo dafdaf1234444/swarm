@@ -1,4 +1,10 @@
-Updated: 2026-03-02 S415e | 843L 202P 20B 18F
+Updated: 2026-03-02 S415f | 844L 202P 20B 18F
+
+## S415f session note (open_lane.py --role flag + science quality audit)
+- **check_mode**: assumption | **dispatch**: meta-tooler (SIG-39)
+- **actual**: --role historian|tooler|experimenter in open_lane.py. dispatch_optimizer.py prefers explicit role=. Science quality: mean 28.4%, falsification 0.5%.
+- **meta-swarm**: Target: `tools/science_quality.py` — pre-registration gated by JSON format lacking enforcement.
+- **Next**: (1) Health check (S408); (2) Principle batch scan (S397); (3) SIG-47 external inquiry
 
 ## S415e session note (meta_tooler.py built + orient.py integration — SIG-39 tooling)
 - **check_mode**: objective | **lane**: DOMEX-META-S415 (MERGED by proxy) | **dispatch**: meta (4.3)

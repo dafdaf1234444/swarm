@@ -28,6 +28,21 @@ from pathlib import Path
 ROOT = Path(__file__).parent.parent
 
 
+def _continuous_score(value: float, thresholds: list[float]) -> float:
+    """Interpolate value across threshold boundaries to produce continuous 0-3 score.
+
+    thresholds: [t0, t1, t2, t3] where score=0 below t0, score=3 above t3.
+    Linear interpolation between adjacent thresholds.
+    F-EVAL4 hardening (L-928): replaces cliff-edge discrete scoring.
+    """
+    if value <= thresholds[0]:
+        return 0.0
+    for i in range(1, len(thresholds)):
+        if value <= thresholds[i]:
+            return (i - 1) + (value - thresholds[i - 1]) / (thresholds[i] - thresholds[i - 1])
+    return float(len(thresholds) - 1)
+
+
 def _get_current_session() -> str:
     """Read current session number from INDEX.md (avoids hardcoded stale session labels)."""
     try:
@@ -49,6 +64,7 @@ def _load_session_log() -> list[dict]:
 
     Aggregates multiple log lines for the same session number into a single
     entry (high-concurrency sessions produce multiple log lines per session).
+    Tags sessions as DOMEX if any log line contains 'DOMEX' (F-EVAL4 stratification).
     """
     path = ROOT / "memory" / "SESSION-LOG.md"
     by_session: dict[int, dict] = {}
@@ -58,9 +74,11 @@ def _load_session_log() -> list[dict]:
         if m:
             s = int(m.group(1))
             if s not in by_session:
-                by_session[s] = {"session": s, "lessons": 0, "principles": 0}
+                by_session[s] = {"session": s, "lessons": 0, "principles": 0, "is_domex": False}
             by_session[s]["lessons"] += int(m.group(2))
             by_session[s]["principles"] += int(m.group(3))
+            if "DOMEX" in line:
+                by_session[s]["is_domex"] = True
     return sorted(by_session.values(), key=lambda x: x["session"])
 
 
@@ -254,7 +272,14 @@ def score_collaborate(lanes: dict, con1: dict, signals: dict) -> dict:
     sig_completeness = signals["with_artifact_refs"] / signals["total"] if signals["total"] else 0
     details["signal_enforcement_pct"] = round(sig_completeness * 100, 1)
 
-    # Scoring: 0-3
+    # F-EVAL4 hardening: continuous sub-scores
+    merge_continuous = _continuous_score(merge_rate, [0.0, 0.3, 0.4, 0.5])
+    c1_continuous = _continuous_score(1.0 - c1_rate, [0.90, 0.95, 0.98, 1.0])  # inverted: lower c1 = better
+    sig_continuous = _continuous_score(sig_completeness, [0.0, 0.50, 0.80, 0.95])
+    continuous_score = min(merge_continuous, c1_continuous, sig_continuous)
+    details["continuous_score"] = round(continuous_score, 2)
+
+    # Scoring: 0-3 (discrete)
     # 0: merge_rate < 0.3 OR c1 > 10%
     # 1: merge_rate >= 0.3, c1 <= 10%, signal_completeness < 80%
     # 2: merge_rate >= 0.4, c1 <= 5%, signal_completeness >= 80%
@@ -279,7 +304,7 @@ def score_collaborate(lanes: dict, con1: dict, signals: dict) -> dict:
     details["rationale"] = (
         f"merge_rate={merge_rate:.1%} ({lanes['merged']}/{total_productive} productive lanes MERGED), "
         f"c1={c1_rate:.1%} (lane-level duplicate rate), "
-        f"signal_enforcement={sig_completeness:.0%}"
+        f"signal_enforcement={sig_completeness:.0%}, continuous={continuous_score:.2f}"
     )
     return details
 
@@ -309,6 +334,16 @@ def score_increase(sessions: list[dict], frontiers: dict, domains: int, lessons:
         details["threshold_margin_pct"] = -100.0
     details["total_lessons"] = lessons
 
+    # F-EVAL4 hardening (L-928): session-type stratification (DOMEX vs non-DOMEX)
+    domex_sessions = [s for s in recent if s.get("is_domex", False)]
+    non_domex_sessions = [s for s in recent if not s.get("is_domex", False)]
+    domex_lp = sum(s["lessons"] + s["principles"] for s in domex_sessions)
+    non_domex_lp = sum(s["lessons"] + s["principles"] for s in non_domex_sessions)
+    details["domex_avg_lp"] = round(domex_lp / len(domex_sessions), 2) if domex_sessions else 0
+    details["domex_n"] = len(domex_sessions)
+    details["non_domex_avg_lp"] = round(non_domex_lp / len(non_domex_sessions), 2) if non_domex_sessions else 0
+    details["non_domex_n"] = len(non_domex_sessions)
+
     # Metric 2: Frontier resolution rate (global)
     f_open = frontiers["global_open"]
     f_resolved = frontiers["global_resolved"]
@@ -321,7 +356,20 @@ def score_increase(sessions: list[dict], frontiers: dict, domains: int, lessons:
     # Metric 3: Domain coverage
     details["domain_count"] = domains
 
-    # Scoring: 0-3
+    # F-EVAL4 hardening (L-928): continuous scoring replaces cliff-edge thresholds
+    # Continuous sub-scores interpolate linearly between threshold boundaries
+    lp_continuous = _continuous_score(avg_lp_per_session, [0.0, 1.0, 2.0, 3.0])
+    resolution_continuous = _continuous_score(resolution_rate, [0.0, 0.05, 0.10, 0.15])
+    domain_continuous = _continuous_score(domains, [0, 5, 15, 30])
+    continuous_score = min(lp_continuous, resolution_continuous, domain_continuous)
+    details["continuous_score"] = round(continuous_score, 2)
+    details["continuous_sub"] = {
+        "lp": round(lp_continuous, 2),
+        "resolution": round(resolution_continuous, 2),
+        "domains": round(domain_continuous, 2),
+    }
+
+    # Discrete scoring (preserved for verdict compatibility)
     # 0: avg_lp < 1.0 per session OR resolution_rate < 0.05
     # 1: avg_lp >= 1.0, resolution_rate >= 0.05, domains < 15
     # 2: avg_lp >= 2.0, resolution_rate >= 0.10, domains >= 15
@@ -353,9 +401,11 @@ def score_increase(sessions: list[dict], frontiers: dict, domains: int, lessons:
     details["score"] = score
     details["verdict"] = verdict
     details["rationale"] = (
-        f"avg_lp_per_session={avg_lp_per_session:.2f} (window={window_size}s, n={len(recent)} sessions), "
-        f"resolution_rate={resolution_rate:.1%} ({f_resolved}/{total_f} frontiers resolved), "
-        f"domains={domains}"
+        f"avg_lp={avg_lp_per_session:.2f} (window={window_size}s, n={len(recent)}, "
+        f"DOMEX={details['domex_avg_lp']:.1f} n={details['domex_n']}, "
+        f"non-DOMEX={details['non_domex_avg_lp']:.1f} n={details['non_domex_n']}), "
+        f"resolution={resolution_rate:.1%} ({f_resolved}/{total_f}), "
+        f"domains={domains}, continuous={continuous_score:.2f}"
     )
     return details
 
@@ -388,7 +438,13 @@ def score_protect(proxy_k: dict, challenges: dict) -> dict:
     # We assume PASS since orient.py reports it; encode as boolean
     details["validator_pass"] = True  # confirmed by orient.py at session start
 
-    # Scoring: 0-3
+    # F-EVAL4 hardening: continuous sub-scores
+    drift_continuous = _continuous_score(max(0, 20.0 - drift), [0.0, 6.0, 14.0, 20.0])  # inverted: lower drift = better
+    drop_continuous = _continuous_score(drop_rate, [0.0, 0.01, 0.05, 0.10])
+    continuous_score = min(drift_continuous, drop_continuous) if details["validator_pass"] else 0.0
+    details["continuous_score"] = round(continuous_score, 2)
+
+    # Scoring: 0-3 (discrete)
     # 0: proxy-K unhealthy (drift >= 20%) OR validator FAIL
     # 1: proxy-K healthy, validator PASS, but zero-drop warning active
     # 2: proxy-K healthy, validator PASS, drop_rate > 0 (healthy challenge rejection)
@@ -413,7 +469,7 @@ def score_protect(proxy_k: dict, challenges: dict) -> dict:
     details["rationale"] = (
         f"proxy_k_drift={drift:.1f}% (healthy<6%), "
         f"validator={'PASS' if details['validator_pass'] else 'FAIL'}, "
-        f"challenge_drop_rate={drop_rate:.1%} ({dropped}/{total_ch})"
+        f"challenge_drop_rate={drop_rate:.1%} ({dropped}/{total_ch}), continuous={continuous_score:.2f}"
     )
     return details
 

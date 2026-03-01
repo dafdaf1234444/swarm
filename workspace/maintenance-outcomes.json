@@ -587,7 +587,7 @@
     },
     {
       "session": 417,
-      "timestamp": "2026-03-01T23:14:18Z",
+      "timestamp": "2026-03-01T23:15:14Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -601,10 +601,9 @@
         },
         "check_mission_constraints": {
           "fired": true,
-          "count": 2,
+          "count": 1,
           "severities": [
-            "NOTICE",
-            "DUE"
+            "NOTICE"
           ]
         },
         "check_runtime_portability": {
@@ -633,9 +632,11 @@
           "severities": []
         },
         "check_lessons": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "DUE"
+          ]
         },
         "check_child_bulletins": {
           "fired": true,

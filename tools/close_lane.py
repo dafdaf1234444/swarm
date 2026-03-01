@@ -233,6 +233,28 @@ def main():
     if not args.note:
         args.note = f"Lane closed via close_lane.py (no note provided)"
 
+    # Concurrent-overwrite guard (L-525): check if lane already MERGED in HEAD.
+    # If another session committed a MERGED closure before us, skip to prevent
+    # the second session from silently overwriting the first session's EAD docs.
+    try:
+        import subprocess as _sp
+        head_lanes = _sp.check_output(
+            ["git", "show", "HEAD:tasks/SWARM-LANES.md"],
+            cwd=str(REPO_ROOT), text=True, stderr=_sp.DEVNULL
+        )
+        # Pattern: | LANE_ID | ... | MERGED | ...
+        already_merged = bool(re.search(
+            r"\|\s*" + re.escape(args.lane) + r"\s*\|[^|]*\|\s*MERGED\s*\|",
+            head_lanes
+        ))
+        if already_merged and args.status == "MERGED":
+            print(f"NOTICE: {args.lane} is already MERGED in HEAD (concurrent session committed first).")
+            print("  Skipping close to prevent EAD overwrite (L-525 concurrent-close guard).")
+            print("  Your close_lane.py invocation was valid — the other session beat you to it.")
+            return
+    except Exception:
+        pass  # git show failed (no HEAD, etc.) — proceed normally
+
     append_closure_row(
         lane_id=args.lane,
         status=args.status,
