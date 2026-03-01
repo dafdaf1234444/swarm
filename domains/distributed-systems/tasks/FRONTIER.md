@@ -17,6 +17,12 @@ Updated: 2026-02-27 | Active: 3
   Best reproduction targets: RR#14 and RR#19 (deterministic, low complexity, Docker only).
   Demirbas critique: B13's 92% EH inflatable — 3/5 bugs are protocol design, not EH anti-patterns.
   L-642. Artifact: experiments/distributed-systems/f95-b14-verification-s359.json.
+  **S374 self-application**: Jepsen gradient applied to 24 swarm-internal failures. 19/19 in-model
+  accuracy (100%). Fifth layer discovered (infrastructure/substrate, 21% of bugs). Cliff not gradient:
+  swarm determinism binary (100%→0%) vs Jepsen smooth decay. Threshold behavior at N=3/5/8.
+  No Byzantine faults (git eliminates). Overall determinism 50-67% < Jepsen 60-80% (infrastructure
+  layer). ISO-21 candidate: gradient is substrate-independent. L-691.
+  Artifact: experiments/distributed-systems/f95-swarm-distributed-bugs-s374.json.
 
 - **F100**: What predicts error handling quality in DAG-enforced Go/Rust if not cycles?
   PARTIAL — S50: K_out is primary predictor (r=0.652, etcd 23 packages). Contract-type maps to K_out:
