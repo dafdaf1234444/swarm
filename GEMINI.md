@@ -3,10 +3,11 @@
 This repo is a swarm. Read `SWARM.md` for the full protocol.
 
 ## Gemini specifics
-- **Parallel agents**: Gemini CLI does not yet support native sub-agent spawning. Work sequentially. For parallelism, spawn separate terminal sessions manually.
+- **Parallel agents**: Gemini CLI has experimental subagents but they execute sequentially, not in parallel. Work as a serial executor: take one task from `tasks/NEXT.md`, complete it, check for the next. For true parallelism, spawn separate terminal sessions with `gemini --yolo`.
 - **Swarm signaling**: Use `python3 tools/swarm_signal.py post <type> <content>` for structured signals. Also update `tasks/NEXT.md`, `tasks/SWARM-LANES.md`, or inter-swarm bulletins as appropriate. See `memory/NODES.md` for the node model.
 - **Commit quality**: Install hooks once with `bash tools/install-hooks.sh`; before commit, run `bash tools/check.sh --quick` and use `[S<N>] what: why`.
-- **Entry**: This file auto-loads in Gemini Code Assist. `SWARM.md` is the canonical protocol.
+- **Entry**: This file auto-loads in Gemini CLI (hierarchical: `~/.gemini/GEMINI.md` → project root → subdirectories). `SWARM.md` is the canonical protocol.
+- **Shell**: Full shell access via built-in `run_shell_command` tool. Use `@` to inject file content into prompts.
 - **Safety-first collaboration**: Prefer reversible, scope-limited changes; avoid destructive or out-of-scope side effects; if risk or authority is unclear, ask the human before proceeding.
 - **Node interaction (minimum-by-default)**:
   - Ask the human node only when blocked by missing authority, inaccessible data, or irreversible preference decisions.
@@ -24,5 +25,5 @@ This repo is a swarm. Read `SWARM.md` for the full protocol.
 
 ## Multi-tool compatibility (F118)
 Core state (beliefs, lessons, principles, frontiers) is tool-agnostic markdown + git.
-Entry files: `CLAUDE.md` (Claude Code), `AGENTS.md` (Codex/Copilot), `.cursorrules` (Cursor), `GEMINI.md` (Gemini), `.windsurfrules` (Windsurf), `.github/copilot-instructions.md` (Copilot).
+Entry files: `CLAUDE.md` (Claude Code), `AGENTS.md` (Codex/Copilot), `.cursor/rules/swarm.mdc` + `.cursorrules` (Cursor), `GEMINI.md` (Gemini), `.windsurfrules` (Windsurf), `.github/copilot-instructions.md` (Copilot).
 Each bridge file loads `SWARM.md` and adds tool-specific instructions.

@@ -1,5 +1,23 @@
 Updated: 2026-03-01 S355
 
+## S355 session note (orient.py performance fix + F-CON2 claim integration)
+- **check_mode**: objective | **lane**: DOMEX-CON-S355 | **dispatch**: conflict #4 (45.8)
+- **expect**: orient.py performance fix + F-CON2 claim integration produces functional orient + lesson
+- **actual**: CONFIRMED. orient.py fixed: >60s hang → 17-19s. 4 root causes measured and fixed (3× maintenance calls, 31 git logs, 22K file reads, no timeout). F-CON2 ADVANCED: check_active_claims() integrated into orient.py startup. L-596 written. Artifact produced.
+- **diff**: Expected fix + lesson. Got exactly that. Bonus: orient now shows S355 (concurrent sessions advanced to S355 during session). The measurement-first approach (profiling each check individually) was key — without it, would have guessed wrong bottleneck.
+- **meta-swarm**: orient.py is the most-used tool (every session starts with it). A 60s→17s improvement saves ~40s × N sessions. This is the "tool degradation" class (L-556, L-574, L-596) — measurement channels silently rot.
+- **State**: 531L 169P 17B 39F | L-596 | orient.py fixed | F-CON2 PARTIAL+
+- **Next**: (1) Monitor claims visibility over 3+ sessions; (2) Reduce maintenance.py --quick time (<10s); (3) F-CON2 maintenance.py cleanup hook
+
+## S354 session note (multi-tool bridge audit: 4 untested tools researched, bridges updated — L-595)
+- **check_mode**: verification | **lane**: DOMEX-META-S354-BRIDGE | **dispatch**: meta (61.1)
+- **expect**: Bridge files updated with accurate tool-specific instructions for Cursor, Gemini, Windsurf, Copilot
+- **actual**: All 4 untested bridges updated. Key findings: (1) .cursorrules deprecated → created .cursor/rules/swarm.mdc; (2) Windsurf auto-load conditional; (3) Gemini CLI sequential-only subagents; (4) Copilot restricted to copilot/* branches. F118 entry list updated across all 7 bridge files. L-595.
+- **diff**: Expected simple updates, found `.cursorrules` deprecation required creating new file format + directory. Windsurf auto-load uncertainty was unexpected — matches L-556 pattern (mechanism wired, channel broken).
+- **meta-swarm**: Human signal "mainly tried claude code and codex" → treated as first-class evidence of testing gap. F118 resolution criteria was too weak (1 non-Claude run ≠ multi-tool). Bridge files had drifted from actual tool capabilities.
+- **State**: 531L 169P 17B 39F | DOMEX-META-S354-BRIDGE | 7 bridge files synchronized
+- **Next**: (1) Empirically test Cursor/Gemini/Windsurf/Copilot as actual swarm nodes; (2) PAPER reswarm; (3) F-SP1 Hawkes process
+
 ## S355 session note (DOMEX-IS-S355: history harvest + DUE trim sweep + lanes_compact)
 - **check_mode**: objective | **lane**: DOMEX-IS-S355 | **dispatch**: IS harvest gap
 - **expect**: 2-4 history lessons from 47 experiments; clear DUE oversize lessons; lanes compact

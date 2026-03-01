@@ -20,7 +20,7 @@ See [What This Is](#what-this-is) and [What This Is Not](#what-this-is-not) for 
 
 This snapshot is for orientation only. Canonical live state is always in `memory/INDEX.md`, `tasks/FRONTIER.md`, and `tasks/NEXT.md`. Numbers drift at high concurrency — verify with live tools.
 
-- Status: active multi-tool swarm sessions ongoing (Claude Code + Codex). Extreme concurrency N≥5 sessions.
+- Status: active multi-tool swarm sessions ongoing (Claude Code + Codex tested; Cursor, Gemini CLI, Windsurf, Copilot bridge-ready but untested). Extreme concurrency N≥5 sessions.
 - Swarm scale: 523 lessons, 169 principles, 17 beliefs, 39 active frontier questions.
 - Project footprint: 1,900+ tracked files, 1,300+ commits.
 - 44 domains active (new: empathy, stochastic-processes). ISO atlas 22 entries (ISO-22: recursive state modeling; ISO-23: regime-crossover).
@@ -184,7 +184,7 @@ The swarm runs on any tool that can read files and commit git. Each tool has a b
 
 - Claude Code: `CLAUDE.md`
 - Codex / Copilot: `AGENTS.md` / `.github/copilot-instructions.md`
-- Cursor: `.cursorrules`
+- Cursor: `.cursor/rules/swarm.mdc` (modern) or `.cursorrules` (legacy)
 - Gemini: `GEMINI.md`
 - Windsurf: `.windsurfrules`
 

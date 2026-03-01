@@ -24,5 +24,5 @@ This repo is a swarm. Read `SWARM.md` for the full protocol.
 
 ## Multi-tool compatibility (F118)
 Core state (beliefs, lessons, principles, frontiers) is tool-agnostic markdown + git.
-Entry files: `CLAUDE.md` (Claude Code), `AGENTS.md` (Codex/Copilot), `.cursorrules` (Cursor), `GEMINI.md` (Gemini), `.windsurfrules` (Windsurf), `.github/copilot-instructions.md` (Copilot).
+Entry files: `CLAUDE.md` (Claude Code), `AGENTS.md` (Codex/Copilot), `.cursor/rules/swarm.mdc` + `.cursorrules` (Cursor), `GEMINI.md` (Gemini), `.windsurfrules` (Windsurf), `.github/copilot-instructions.md` (Copilot).
 Each bridge file loads `SWARM.md` and adds tool-specific instructions.

@@ -3,13 +3,15 @@
 This repo is a swarm. Read `SWARM.md` for the full protocol.
 
 ## Copilot specifics
-- **Parallel agents**: Use `/fleet` or coding agent for independent sub-tasks.
+- **Parallel agents**: Copilot coding agent supports sub-agent architecture with Mission Control orchestration. Use for task-parallel backlog clearing.
+- **Branch restriction**: Copilot coding agent pushes to `copilot/*` branches only — cannot push directly to main/master. Create PRs for merge. This is compatible with swarm lane workflow (each lane = branch).
 - **Validation**: Run `bash tools/check.sh --quick` at session start.
   PowerShell equivalents: `pwsh -NoProfile -File tools/check.ps1 --quick` and `pwsh -NoProfile -File tools/maintenance.ps1 --inventory`.
   Fallbacks: `python3 tools/maintenance.py`, `python tools/maintenance.py`, or `py -3 tools/maintenance.py` depending on host shell.
 - **Swarm signaling**: Use `python3 tools/swarm_signal.py post <type> <content>` for structured signals. Also update `tasks/NEXT.md`, `tasks/SWARM-LANES.md`, or inter-swarm bulletins as appropriate. See `memory/NODES.md` for the node model.
 - **Commit quality**: Install hooks once with `bash tools/install-hooks.sh` (pre-commit runs quick checks; commit messages follow `[S<N>] what: why`).
-- **Entry**: This file auto-loads in GitHub Copilot. `SWARM.md` is the canonical protocol.
+- **Entry**: This file auto-loads in GitHub Copilot (workspace-wide). `SWARM.md` is the canonical protocol.
+- **Shell**: Full terminal access via Copilot CLI (GA Feb 2026). Agent mode supports self-healing iteration on command failures.
 - **Safety-first collaboration**: Prefer reversible, scope-limited changes; avoid destructive or out-of-scope side effects; if risk or authority is unclear, ask the human before proceeding.
 - **Node interaction (minimum-by-default)**:
   - Ask the human node only when blocked by missing authority, inaccessible data, or irreversible preference decisions.
@@ -27,5 +29,5 @@ This repo is a swarm. Read `SWARM.md` for the full protocol.
 
 ## Multi-tool compatibility (F118)
 Core state (beliefs, lessons, principles, frontiers) is tool-agnostic markdown + git.
-Entry files: `CLAUDE.md` (Claude Code), `AGENTS.md` (Codex/Copilot), `.cursorrules` (Cursor), `GEMINI.md` (Gemini), `.windsurfrules` (Windsurf), `.github/copilot-instructions.md` (Copilot).
+Entry files: `CLAUDE.md` (Claude Code), `AGENTS.md` (Codex/Copilot), `.cursor/rules/swarm.mdc` + `.cursorrules` (Cursor), `GEMINI.md` (Gemini), `.windsurfrules` (Windsurf), `.github/copilot-instructions.md` (Copilot).
 Each bridge file loads `SWARM.md` and adds tool-specific instructions.

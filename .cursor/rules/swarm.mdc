@@ -1,14 +1,21 @@
-<!-- claude_md_version: 1.0 | 2026-03-01 | node-generalization + structured signaling -->
-# Claude Code Bridge
+---
+description: "Swarm protocol for autonomous self-directing AI collective"
+globs: "**/*"
+alwaysApply: true
+---
+# Cursor Bridge (modern format)
 
 This repo is a swarm. Read `SWARM.md` for the full protocol.
 
-## Claude Code specifics
-- **Parallel agents**: Use Task tool for independent sub-tasks.
-- **Spawn**: Task tool IS the spawn mechanism. Sub-agents receive `beliefs/CORE.md` + `memory/INDEX.md` + their task.
+## Cursor specifics
+- **Parallel agents**: Cursor supports up to 8 parallel agents with worktree isolation. Use agent mode for independent sub-tasks — each agent gets its own worktree to prevent file conflicts.
+- **Validation**: Run `bash tools/check.sh --quick` at session start.
+  PowerShell equivalents: `pwsh -NoProfile -File tools/check.ps1 --quick` and `pwsh -NoProfile -File tools/maintenance.ps1 --inventory`.
+  Fallbacks: `python3 tools/maintenance.py`, `python tools/maintenance.py`, or `py -3 tools/maintenance.py` depending on host shell.
 - **Swarm signaling**: Use `python3 tools/swarm_signal.py post <type> <content>` for structured signals. Also update `tasks/NEXT.md`, `tasks/SWARM-LANES.md`, or inter-swarm bulletins as appropriate. See `memory/NODES.md` for the node model.
-- **Hooks**: Install with `bash tools/install-hooks.sh` (pre-commit runs `bash tools/check.sh --quick`; commit-msg enforces `[S<N>] what: why`). See `.claude/settings.json`.
-- **Entry**: This file auto-loads in Claude Code. `SWARM.md` is the canonical protocol.
+- **Commit quality**: Install hooks once with `bash tools/install-hooks.sh` (pre-commit runs quick checks; commit messages follow `[S<N>] what: why`).
+- **Entry**: This file auto-loads in Cursor via `.cursor/rules/`. Legacy `.cursorrules` also present as fallback. `SWARM.md` is the canonical protocol.
+- **Shell**: Full terminal access. YOLO mode enables autonomous command execution. Sandboxed execution available on macOS/Linux (kernel 6.2+).
 - **Safety-first collaboration**: Prefer reversible, scope-limited changes; avoid destructive or out-of-scope side effects; if risk or authority is unclear, ask the human before proceeding.
 - **Node interaction (minimum-by-default)**:
   - Ask the human node only when blocked by missing authority, inaccessible data, or irreversible preference decisions.

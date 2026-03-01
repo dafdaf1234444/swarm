@@ -3,13 +3,14 @@
 This repo is a swarm. Read `SWARM.md` for the full protocol.
 
 ## Windsurf specifics
-- **Parallel agents**: Use Cascade flows for independent sub-tasks.
+- **Parallel agents**: Windsurf uses worktree-based parallelism (branch isolation) via Cascade. Side-by-side Cascade panes available (Wave 13+). This is branch-parallel, not task-parallel — good for exploratory feature work.
 - **Validation**: Run `bash tools/check.sh --quick` at session start.
   PowerShell equivalents: `pwsh -NoProfile -File tools/check.ps1 --quick` and `pwsh -NoProfile -File tools/maintenance.ps1 --inventory`.
   Fallbacks: `python3 tools/maintenance.py`, `python tools/maintenance.py`, or `py -3 tools/maintenance.py` depending on host shell.
 - **Swarm signaling**: Use `python3 tools/swarm_signal.py post <type> <content>` for structured signals. Also update `tasks/NEXT.md`, `tasks/SWARM-LANES.md`, or inter-swarm bulletins as appropriate. See `memory/NODES.md` for the node model.
 - **Commit quality**: Install hooks once with `bash tools/install-hooks.sh` (pre-commit runs quick checks; commit messages follow `[S<N>] what: why`).
-- **Entry**: This file auto-loads in Windsurf (Codeium). `SWARM.md` is the canonical protocol.
+- **Entry**: This file should auto-load in Windsurf, but auto-load behavior may be conditional — if swarm instructions are not visible, load manually via Cascade Memories or read `SWARM.md` directly. `SWARM.md` is the canonical protocol.
+- **Shell**: Full terminal access via Turbo Mode. 4 safety levels: Disabled → Allowlist → Auto → Turbo. Set to Auto or Turbo for autonomous swarm operation.
 - **Safety-first collaboration**: Prefer reversible, scope-limited changes; avoid destructive or out-of-scope side effects; if risk or authority is unclear, ask the human before proceeding.
 - **Node interaction (minimum-by-default)**:
   - Ask the human node only when blocked by missing authority, inaccessible data, or irreversible preference decisions.
@@ -27,5 +28,5 @@ This repo is a swarm. Read `SWARM.md` for the full protocol.
 
 ## Multi-tool compatibility (F118)
 Core state (beliefs, lessons, principles, frontiers) is tool-agnostic markdown + git.
-Entry files: `CLAUDE.md` (Claude Code), `AGENTS.md` (Codex/Copilot), `.cursorrules` (Cursor), `GEMINI.md` (Gemini), `.windsurfrules` (Windsurf), `.github/copilot-instructions.md` (Copilot).
+Entry files: `CLAUDE.md` (Claude Code), `AGENTS.md` (Codex/Copilot), `.cursor/rules/swarm.mdc` + `.cursorrules` (Cursor), `GEMINI.md` (Gemini), `.windsurfrules` (Windsurf), `.github/copilot-instructions.md` (Copilot).
 Each bridge file loads `SWARM.md` and adds tool-specific instructions.
