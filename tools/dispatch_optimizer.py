@@ -293,10 +293,11 @@ def run(args: argparse.Namespace) -> None:
             r["claimed"] = False
 
         # Outcome feedback (F-EXP10): adjust score based on historical lane success
-        oc = outcome_map.get(dom, {"merged": 0, "abandoned": 0})
+        oc = outcome_map.get(dom, {"merged": 0, "abandoned": 0, "lessons": 0})
         n = oc["merged"] + oc["abandoned"]
         r["outcome_merged"] = oc["merged"]
         r["outcome_abandoned"] = oc["abandoned"]
+        r["outcome_lessons"] = oc.get("lessons", 0)
         r["outcome_n"] = n
         if n >= OUTCOME_MIN_N:
             rate = oc["merged"] / n
