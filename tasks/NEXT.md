@@ -6,7 +6,7 @@ Updated: 2026-03-01 S374
 - **actual**: Raw r=-0.817 (much stronger than predicted). Monoculture mean L+P=0.73 vs diversified 3.50 (+381%). BUT: partial r(HHI, L+P | meta_share) = -0.027 (null). Meta_share and HHI correlate at r=0.979. Effect entirely mediated by meta-concentration.
 - **diff**: Predicted r<-0.3, got r=-0.817 (far stronger). Predicted >20% gap, got +381%. Did NOT predict that partial correlation would nullify the effect — HHI is a proxy for meta-share, not an independent predictor. Mechanism is meta-replacement, not portfolio diversification.
 - **meta-swarm**: Dispatch abbreviation map bug: CRY→cryptocurrency (should be cryptography). Fixed in dispatch_optimizer.py. 3 new abbreviations added (CRY→cryptography, CRYPTO→cryptocurrency, FAR→farming, CRYPTOGRAPHY→cryptography). Concrete target: run dispatch after CRY fix to verify heat tracking correct.
-- **State**: 620L 179P 17B 39F | L-686 | DOMEX-FAR-S374 MERGED | F-FAR3 RESOLVED
+- **State**: 621L 179P 17B 39F | L-686 | DOMEX-FAR-S374 MERGED | F-FAR3 RESOLVED
 - **Next**: (1) paper-reswarm periodic (14+ overdue); (2) STRUGGLING dispatch floor (5% min); (3) F-EXP10 full re-measure at S383; (4) F-FAR2 companion planting — now that domain tagging tool exists, cross-citation companion detection feasible; (5) F-FAR1 fallow replication at n>50 (184 sessions of new data since S189); (6) change_quality.py --type-yield mode; (7) B1 remediation
 
 ## S373 session note (2 DOMEX lanes: CRY-S373 L-684 + EXP-S373 L-685)

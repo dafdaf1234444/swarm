@@ -20,6 +20,15 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+
+try:
+    from swarm_cache import head_cache as _hcache
+except ImportError:
+    try:
+        sys.path.insert(0, str(ROOT / "tools"))
+        from swarm_cache import head_cache as _hcache
+    except ImportError:
+        _hcache = None
 CORE_SWARM_TOOLS = (
     "tools/orient.py",
     "tools/maintenance.py",
@@ -282,6 +291,10 @@ def check_stale_lanes(current_session: int) -> list:
 
 def check_stale_experiments():
     """Scan domain frontier files for active (unrun) experiments. L-246."""
+    if _hcache:
+        cached = _hcache.get("stale_experiments")
+        if cached is not None:
+            return cached
     domain_dir = ROOT / "domains"
     if not domain_dir.exists():
         return []
@@ -321,6 +334,8 @@ def check_stale_experiments():
                 continue
             stale.append(f"{domain}/{eid}")
             seen.add(eid)
+    if _hcache:
+        _hcache.set("stale_experiments", stale)
     return stale
 
 
@@ -456,6 +471,23 @@ def check_stale_infrastructure(current_session: int, stale_threshold: int = 50) 
     ] + list(CORE_SWARM_TOOLS)
 
     # Batch: get last 200 commits with their changed files in one call
+    # HEAD-cached: git log only changes on new commits
+    cache_key = f"git_log_name_only_200_s{stale_threshold}"
+    if _hcache:
+        cached = _hcache.get(cache_key)
+        if cached is not None:
+            file_last_session = cached
+            stale = []
+            for path in infrastructure:
+                last_session = file_last_session.get(path)
+                if last_session is None:
+                    continue
+                drift = current_session - last_session
+                if drift > stale_threshold:
+                    name = Path(path).name
+                    stale.append(f"{name} (S{last_session}, {drift}s stale)")
+            return stale
+
     result = subprocess.run(
         ["git", "log", "--format=%s", "--name-only", "-200"],
         capture_output=True, text=True, cwd=ROOT, timeout=10,
@@ -481,6 +513,10 @@ def check_stale_infrastructure(current_session: int, stale_threshold: int = 50) 
                 fname = line.strip()
                 if fname not in file_last_session:
                     file_last_session[fname] = sess
+
+    # Cache the parsed file→session map
+    if _hcache:
+        _hcache.set(cache_key, file_last_session)
 
     stale = []
     for path in infrastructure:
@@ -714,6 +750,24 @@ def check_foreign_staged_deletions():
         pass
 
 
+def _scan_lesson_domains(lesson_dir: Path) -> dict:
+    """Scan all lesson files and count domain tags."""
+    lesson_domains: dict[str, int] = {}
+    for lesson_file in lesson_dir.glob("L-*.md"):
+        try:
+            text = lesson_file.read_text(encoding="utf-8", errors="ignore")
+            m = re.search(r"Domain:\s*([^|\n]+)", text)
+            if not m:
+                continue
+            for d in re.split(r"[,/]", m.group(1)):
+                d = re.sub(r"\s*\(.*?\)", "", d).strip().lower()
+                if d:
+                    lesson_domains[d] = lesson_domains.get(d, 0) + 1
+        except Exception:
+            continue
+    return lesson_domains
+
+
 def check_experiment_harvest_gap(threshold: int = 5) -> list:
     """F-IS7: warn when a domain has ≥threshold experiments but 0 lessons.
 
@@ -741,21 +795,16 @@ def check_experiment_harvest_gap(threshold: int = 5) -> list:
         if count > 0:
             exp_counts[domain] = count
 
-    # Count lesson domain tags per domain
-    lesson_domains: dict[str, int] = {}
-    for lesson_file in lesson_dir.glob("L-*.md"):
-        try:
-            text = lesson_file.read_text(encoding="utf-8", errors="ignore")
-            m = re.search(r"Domain:\s*([^|\n]+)", text)
-            if not m:
-                continue
-            for d in re.split(r"[,/]", m.group(1)):
-                # Strip parenthetical annotations like "(F-AI3)" or "(GENESIS)"
-                d = re.sub(r"\s*\(.*?\)", "", d).strip().lower()
-                if d:
-                    lesson_domains[d] = lesson_domains.get(d, 0) + 1
-        except Exception:
-            continue
+    # Count lesson domain tags per domain (HEAD-cached: lessons only change on commit)
+    if _hcache:
+        cached_ld = _hcache.get("lesson_domain_counts")
+        if cached_ld is not None:
+            lesson_domains = cached_ld
+        else:
+            lesson_domains = _scan_lesson_domains(lesson_dir)
+            _hcache.set("lesson_domain_counts", lesson_domains)
+    else:
+        lesson_domains = _scan_lesson_domains(lesson_dir)
 
     # Only flag domains that have a real domain directory
     known_domains = {d.name for d in (ROOT / "domains").iterdir() if d.is_dir()} if (ROOT / "domains").exists() else set()
@@ -1072,6 +1121,26 @@ def main():
     # Reach map skipped in orient — too expensive (~15s on WSL: 44 domains × 520+
     # lesson files). Use `python3 tools/reach_map.py` directly when needed.
     # dispatch_optimizer.py covers domain prioritization for orient.
+
+    # Active sessions and task claims (L-686: cross-session visibility)
+    try:
+        sys.path.insert(0, str(ROOT / "tools"))
+        from claim import get_active_sessions, get_active_task_claims
+        sessions = get_active_sessions()
+        task_claims = get_active_task_claims()
+        if sessions or task_claims:
+            print("--- Concurrent activity ---")
+            if sessions:
+                for s in sessions[:5]:
+                    label = s.get("current_task", "(idle)")
+                    if s.get("description"):
+                        label += f": {s['description'][:40]}"
+                    print(f"  {s['session']:15s} {s['age_s']:4d}s ago  {label}")
+            if task_claims:
+                print(f"  Task claims: {', '.join(task_claims.keys())}")
+            print()
+    except Exception:
+        pass  # graceful degradation
 
     # Suggested action
     print("--- Suggested next action ---")

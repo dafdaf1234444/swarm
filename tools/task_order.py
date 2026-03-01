@@ -273,6 +273,74 @@ def get_meta_tasks() -> list[dict]:
     ]
 
 
+def _get_task_fingerprint(task: dict) -> str:
+    """Generate a stable fingerprint from a task for claim deconfliction.
+
+    Fingerprints map tasks to claim.py task claims so concurrent sessions
+    avoid duplicating work (L-686).
+    """
+    action = task["action"]
+    # Extract bracketed label from maintenance items: "[state-sync]" → "state-sync"
+    m = re.match(r".*\[([^\]]+)\]", action)
+    if m:
+        return m.group(1).lower().strip()
+    # Dispatch tasks: "Open DOMEX lane for cryptography" → "dispatch:cryptography"
+    m = re.search(r"DOMEX.*?for\s+(\S+)", action)
+    if m:
+        return f"dispatch:{m.group(1).lower()}"
+    # Close tasks: "Close lane DOMEX-CRY-S373" → "close:domex-cry-s373"
+    m = re.search(r"Close lane\s+(\S+)", action)
+    if m:
+        return f"close:{m.group(1).lower()}"
+    # Periodic tasks: "Periodic: health-check" → "periodic:health-check"
+    m = re.match(r"Periodic:\s*(\S+)", action)
+    if m:
+        return f"periodic:{m.group(1).lower()}"
+    # Fallback: normalized first 40 chars
+    return re.sub(r"[^a-z0-9]+", "-", action[:40].lower()).strip("-")
+
+
+def _check_task_claims(tasks: list[dict]) -> list[dict]:
+    """Mark tasks claimed by other sessions (L-686).
+
+    Imports claim.py to check active task claims. Claimed tasks get
+    deprioritized (score -100) so concurrent sessions pick different work.
+    """
+    try:
+        sys.path.insert(0, str(ROOT / "tools"))
+        from claim import get_active_task_claims, get_session_id
+        my_session = get_session_id()
+        claimed = get_active_task_claims(exclude_session=my_session)
+    except Exception:
+        return tasks  # graceful degradation if claim.py unavailable
+
+    for task in tasks:
+        fp = _get_task_fingerprint(task)
+        task["fingerprint"] = fp
+        if fp in claimed:
+            claim_data = claimed[fp]
+            task["claimed_by"] = claim_data["session"]
+            task["score"] -= 100  # push to bottom
+            task["tier"] = f"{task['tier']} [CLAIMED]"
+    return tasks
+
+
+def _auto_claim_task(task: dict) -> None:
+    """Automatically claim the top task (L-686).
+
+    Called when --claim-top is used. Claims the task fingerprint so
+    concurrent sessions will see it as taken.
+    """
+    fp = task.get("fingerprint") or _get_task_fingerprint(task)
+    try:
+        sys.path.insert(0, str(ROOT / "tools"))
+        from claim import cmd_claim_task, get_session_id
+        session = get_session_id()
+        cmd_claim_task(fp, session, task["action"][:80])
+    except Exception:
+        pass  # best-effort
+
+
 def build_task_list(top_n: int = 8) -> list[dict]:
     """Build ranked task list for current session."""
     all_tasks = []
@@ -282,6 +350,9 @@ def build_task_list(top_n: int = 8) -> list[dict]:
     all_tasks.extend(get_dispatch_tasks())
     all_tasks.extend(get_periodic_tasks())
     all_tasks.extend(get_meta_tasks())
+
+    # Check task claims from other sessions (L-686)
+    all_tasks = _check_task_claims(all_tasks)
 
     # Sort: priority tier first, then score descending
     all_tasks.sort(key=lambda t: (t["priority"], -t["score"]))
@@ -315,9 +386,20 @@ def main():
     parser = argparse.ArgumentParser(description="Session task ordering for swarm nodes")
     parser.add_argument("--json", action="store_true", help="JSON output")
     parser.add_argument("--top", type=int, default=8, help="Number of tasks to show")
+    parser.add_argument("--claim-top", action="store_true",
+                        help="Auto-claim the top unclaimed task (L-686)")
     args = parser.parse_args()
 
     tasks = build_task_list(top_n=args.top)
+
+    if args.claim_top:
+        # Find first unclaimed task and claim it
+        for task in tasks:
+            if "claimed_by" not in task:
+                _auto_claim_task(task)
+                if not args.json:
+                    print(f"AUTO-CLAIMED: {task.get('fingerprint', '?')} → {task['action'][:60]}")
+                break
 
     if args.json:
         print(json.dumps({"tasks": tasks}, indent=2))
@@ -334,17 +416,28 @@ def main():
     except Exception:
         session = "?"
 
-    print(f"\n=== TASK ORDER S{session} ({len(tasks)} items) ===\n")
+    # Count claimed tasks
+    claimed_count = sum(1 for t in tasks if "claimed_by" in t)
+    header = f"\n=== TASK ORDER S{session} ({len(tasks)} items"
+    if claimed_count:
+        header += f", {claimed_count} claimed by others"
+    header += ") ===\n"
+    print(header)
 
     for i, task in enumerate(tasks, 1):
         tier = task["tier"]
-        color = TIER_COLORS.get(tier, "")
+        # Strip [CLAIMED] suffix for color lookup
+        base_tier = tier.replace(" [CLAIMED]", "")
+        color = TIER_COLORS.get(base_tier, TIER_COLORS.get(tier, ""))
         score = task["score"]
         action = task["action"]
         detail = task.get("detail", "")
         cmd = task.get("command", "")
+        claimed = task.get("claimed_by", "")
 
         print(f"  [{i}] {color}[{tier}]{RESET} (score={score:.0f}) {action}")
+        if claimed:
+            print(f"       ⚠ claimed by {claimed}")
         if detail:
             print(f"       → {detail}")
         if cmd:
@@ -352,6 +445,7 @@ def main():
         print()
 
     print("Focus on [1] first. Declare expectation before acting.")
+    print("Use --claim-top to auto-claim [1] and prevent concurrent duplication.")
     print("Run python3 tools/task_order.py after each task to re-rank.\n")
 
 
