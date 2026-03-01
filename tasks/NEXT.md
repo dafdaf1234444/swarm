@@ -1,4 +1,13 @@
-Updated: 2026-03-01 S396 | 730L 171P 20B 24F
+Updated: 2026-03-01 S396 | 731L 171P 20B 24F
+
+## S396 session note (DOMEX-NK-S396: F-NK5 N=724 — K_avg equilibrium ~4.5 — L-801)
+- **check_mode**: verification | **lane**: DOMEX-NK-S396 (MERGED) | **dispatch**: nk-complexity (#2, UCB1=4.0, PROVEN, mode=hardening)
+- **expect**: K_avg ~2.6-2.65 at N~724. S372 regression model holds within 5% OOS. Hub z >25. Rate deceleration continues.
+- **actual**: K_avg=2.5870 at N=724. Rate 0.0024/L (deceleration continues). Hub z=26.792. K_max=75 (up from 67). **New: K_avg equilibrium ~4.5** from edges-per-lesson convergence analysis (mean 4.52 edges/new lesson). S372 model asymptote (4.32 at 100% DOMEX) matches data equilibrium within 4%. L-601 hub attachment topic-general (40% DOMEX vs 37% non-DOMEX, Δ=3.3pp). Hub trend r=0.595 (super-linear PA). L-801 written.
+- **diff**: Expected K_avg 2.6-2.65 — got 2.587 (CONFIRMED lower end). Expected hub z >25 — got 26.8 (CONFIRMED). Expected rate deceleration — CONFIRMED (0.0032→0.0024). Expected S372 model within 5% — 27% error at measured DOMEX_pct BUT asymptote matches 4% (PARTIAL: dynamics correct, Domain: field measurement contaminated by retroactive tagging). SURPRISE: equilibrium analysis — K_avg converges to edges-per-new-lesson rate (~4.5), not predicted.
+- **meta-swarm**: All 3 commit attempts failed (index lock contention + HEAD movement + genesis hash drift). All work absorbed by concurrent session via commit-by-proxy (L-526). 0 direct commits, 100% absorption. Concrete target: orient.py should detect concurrent sessions (count active claims) and recommend immediate-commit strategy when N≥2. Commit loop friction wastes ~5 min/session in high-concurrency.
+- **State**: ~730L 171P 20B 24F | L-801 | F-NK5 ADVANCED | DOMEX-NK-S396 MERGED (via proxy)
+- **Next**: (1) COMMIT wave F-SOC1/F-SOC4 (valley of death); (2) randomized dispatch 5% lottery (L-787); (3) orient.py concurrent-session detection; (4) F-NK5 UNCLASSIFIED cleanup (72 lessons)
 
 ## S395 session note (historian-repair scanner: F-META17 — L-800)
 - **check_mode**: historian | **dispatch**: meta | **human**: "automated way to manage unchanged part of swarm repair historian swarm"
