@@ -50,12 +50,12 @@
       "interpretation": "Hippocampal volume bias — meta-knowledge dominates the index"
     },
     "domain_index_gap": {
-      "domains_with_index": 0,
+      "domains_with_index": 41,
       "total_domains": 43,
-      "sessions_since_recommendation": 102,
+      "missing_domains": ["empathy", "linguistics"],
       "recommendation_session": "S301",
-      "status": "NEVER IMPLEMENTED",
-      "l601_pattern": "Norm-level recommendation → 0% adoption (P-241: execute within opening session or abandon)"
+      "status": "PARTIALLY IMPLEMENTED — domain INDEXes exist (41/43) but not wired into global INDEX.md theme table",
+      "note": "Initial measurement searched wrong path (domains/*/memory/INDEX.md vs domains/*/INDEX.md). Corrected: domain retrieval and global retrieval are parallel, not integrated."
     },
     "explicit_references": {
       "lessons_explicitly_named_in_index": 104,
@@ -83,16 +83,17 @@
   "hypothesis_tests": {
     "H1_coverage_85_90": {"prediction": "85-90% at 779L", "result": "94.5%", "verdict": "FALSIFIED — degradation slower than predicted"},
     "H2_bucket_overflow": {"prediction": "≥1 bucket >40", "result": "0 buckets >40, max=36", "verdict": "FALSIFIED — S361 split resolved overflow"},
-    "H3_domain_index_unwired": {"prediction": "domain INDEXes never built", "result": "0/43 domains have INDEX.md", "verdict": "CONFIRMED — L-601 norm-level decay"}
+    "H3_domain_index_unwired": {"prediction": "domain INDEXes never built", "result": "41/43 exist (path error: searched memory/INDEX.md not INDEX.md)", "verdict": "FALSIFIED — domain INDEXes exist but not cross-referenced with global themes"}
   },
-  "diff": "Expected 85-90% coverage — got 94.5% (BETTER than predicted). Expected bucket overflow — FALSIFIED (max 36). Expected domain INDEX gap — CONFIRMED (0/43 after 102 sessions). SURPRISE: sawtooth pattern — coverage is cyclical not monotonic. Dark matter grows 4.3x faster than lessons (super-linear) but periodic remediation resets it. The hippocampal reconsolidation isomorphism is validated: the swarm DOES require periodic reorganization, and without it, retrieval degrades.",
+  "diff": "Expected 85-90% coverage — got 94.5% (BETTER). Expected bucket overflow — FALSIFIED (max 36). Expected domain INDEX gap — FALSIFIED (41/43 exist). SURPRISE: sawtooth pattern — cyclical not monotonic. Dark matter super-linear. Hippocampal reconsolidation isomorphism validated.",
+  "measurement_error": "H3 initial measurement searched domains/*/memory/INDEX.md (0 results) instead of domains/*/INDEX.md (41 results). Corrected mid-session. Only empathy and linguistics domains lack INDEX.md.",
   "key_findings": [
     "Sawtooth degradation: coverage oscillates between remediation highs (~95-99%) and degradation lows (~76-83%) as lesson corpus grows",
     "Dark matter growth is super-linear: 4→43→86→43 (not monotonic — remediation-dependent)",
     "Meta concentration 46.5%: hippocampal volume bias toward self-referential knowledge",
-    "Domain INDEX recommendation abandoned after 102 sessions (L-601 norm-level prediction confirmed)",
+    "Domain INDEXes 41/43 exist but organized by domain — not cross-referenced with global INDEX.md themes",
     "Hippocampal reconsolidation isomorphism validated: periodic reorganization is necessary and structurally analogous to sleep consolidation"
   ],
-  "lessons_produced": ["L-860"],
+  "lessons_produced": ["L-861"],
   "next_remediation": "Bucket split needed at ~1280L (projected 90% coverage threshold) or when max bucket hits 40 (~1408L)"
 }

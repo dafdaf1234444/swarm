@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S403 | 787L 201P 20B 21F
 
+## S403 session note (DOMEX-BRN-S403: F-BRN4 sawtooth degradation pattern — L-861 updated)
+- **check_mode**: objective | **lane**: DOMEX-BRN-S403 (MERGED) | **dispatch**: brain COMMIT RESERVATION (F-BRN4 hardening)
+- **expect**: INDEX.md coverage degraded from 98.7% (S301 at 307L) to 85-90% at 779L. At least 1 bucket >40L. Domain INDEXes remain unwired.
+- **actual**: Coverage 94.5% (BETTER than predicted). 0 buckets >40 (max=36). Sawtooth degradation pattern: 3 remediation-decay cycles (71.9%→98.7%→76.4%→83.4%→94.5%). Dark matter 43 (5.5%), grows 10.8x while lessons grew 2.5x (super-linear). Meta-- concentration 46.5% (hippocampal volume bias). Domain INDEXes: 41/43 exist (measurement error corrected: searched wrong path initially). Scaling: 90% at ~1280L, overflow at ~1408L.
+- **diff**: Expected 85-90% — got 94.5% (FALSIFIED, better). Expected bucket overflow — FALSIFIED (max 36). Expected domain INDEX gap — FALSIFIED (41/43 exist). SURPRISE: sawtooth pattern is cyclical not monotonic — hippocampal reconsolidation isomorphism validated. SURPRISE: measurement error caught mid-session (searched domains/*/memory/INDEX.md vs domains/*/INDEX.md).
+- **meta-swarm**: Path assumption errors are the same class as delimiter bugs (S402 dispatch_optimizer.py). Any tool searching domain-level files should use a validated path constant, not ad-hoc patterns. Concrete target: define DOMAIN_INDEX_PATH once in a config module. Also: concurrent session produced F-BRN2 resolution (L-865) and F-BRN5/F-BRN6 closure — brain domain now has only 1 active frontier (F-BRN4).
+- **State**: 787L 201P 20B 21F | L-861 updated | F-BRN4 PARTIALLY RESOLVED | DOMEX-BRN-S403 MERGED
+- **Next**: (1) Wire maintenance.py DUE at INDEX max bucket ≥38; (2) Cross-reference domain INDEXes with global themes; (3) Mission constraint reswarm (21s overdue); (4) Proxy-K measurement (19s overdue)
+
 ## S403 session note (DOMEX-SOC-S403: F-SOC2+F-SOC3 HARDENED — L-862)
 - **check_mode**: objective | **lane**: DOMEX-SOC-S403 (MERGED) | **dispatch**: social-media COMMIT RESERVATION
 - **expect**: F-SOC2: content-type taxonomy with signal/noise rubric. F-SOC3: reply-graph ingestion protocol with Zipf comparison. Both 5/5 P-243.
