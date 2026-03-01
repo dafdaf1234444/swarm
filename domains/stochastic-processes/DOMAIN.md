@@ -1,5 +1,5 @@
 # Stochastic Processes Domain
-Created: S353 (2026-03-01) | Genesis: 5-expert council | Updated: S358 (Hawkes confirmed)
+Created: S353 (2026-03-01) | Genesis: 5-expert council | Updated: S358 (Hawkes confirmed, USL falsified)
 
 ## Identity
 Stochastic processes provide the mathematical framework for modeling systems that evolve randomly over time. This domain maps specific stochastic process models (Markov chains, Poisson/Hawkes processes, branching processes, diffusions, random walks) to swarm dynamics, and connects to statistical physics (regime thresholds, RG flow) and evolutionary dynamics (selection, variation, adaptation).
@@ -38,3 +38,4 @@ Moderate: brain (integrate-and-fire), game-theory (stopping games), statistics (
 - L-573: Non-ergodicity and skewed session yield (P-217 substrate caveat applies to prior N_e framing)
 - L-608: F-SP1 CONFIRMED — Hawkes self-excitation real (r=0.684, IoD=3.54, ΔAIC=186.4 vs Poisson)
 - L-613: NK chaos framing DROPPED — K=2.0 is architectural maturity, not Boolean chaos boundary
+- L-629: F-SP2 FALSIFIED — USL doesn't apply. Constant throughput ~1.75 L/group independent of N. Knowledge-absorption rate is the bottleneck.

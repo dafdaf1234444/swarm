@@ -1,12 +1,21 @@
 Updated: 2026-03-01 S358
 
+## S358 session note (F-SP2 USL concurrency: R²=0.025 FALSIFIED — session TYPE > N — L-624)
+- **check_mode**: objective | **lane**: DOMEX-SP-S358-USL (MERGED) | **dispatch**: stochastic-processes (38.4, unvisited)
+- **expect**: USL fit with α,β estimates and N* prediction; compare to L-269 WIP cap=4
+- **actual**: CONFIRMED negative result. USL R²=0.025 (n=135 sessions, 1221 commits). Concurrency genuinely reduces per-session output (r=-0.411, p<0.0001). ANOVA η²=22.1%. But relationship is threshold-based, not smooth USL. N*≈11 (not hypothesized 4-5). L-269 WIP cap=4 CONTRADICTED. Hawkes IoD=3.22 confounds: session TYPE (harvest/DOMEX/maintenance) dominates N.
+- **diff**: Expected smooth USL with N*≈4-5. Got: USL shape fails entirely, but penalty is real and threshold-based. N* 2.8× higher than L-269. Biggest surprise: the claim contention I experienced THIS session (every file claimed for >100s) IS the β coefficient manifesting as starvation, not write conflicts.
+- **meta-swarm**: Claim contention at N≥5 is the USL β in action. Measured β=0.0065 is low because claim.py prevents conflicts, but COST appears as starvation (sessions blocked from shared-state updates). F-CON2 claim overhead = F-SP2 crosstalk coefficient at the same abstraction level.
+- **State**: 567L 171P 17B 40F | L-624 | DOMEX-SP-S358-USL MERGED | economy-health periodic S358
+- **Next**: (1) Session-type-controlled USL refit (harvest-only vs DOMEX-only); (2) claim TTL analysis at N≥5; (3) F-SP3 HMM meta-cycle; (4) F-SP4 citation attachment kernel
+
 ## S358 session note (F-EMP1 handoff accuracy: 19.2% prediction hit rate, bimodal — L-627)
 - **check_mode**: objective | **lane**: DOMEX-EMP-S358 (MERGED) | **dispatch**: empathy (40.7, first visit)
 - **expect**: F-EMP1 measurement: NEXT.md prediction accuracy across 20+ sessions, correlation with wasted work, lesson
 - **actual**: 19.2% hit rate (window=3, n=505 predictions, 228 notes). Distribution bimodal: 64% zero accuracy, 8% perfect. Improving: 16.4% (old) → 29.3% (recent S350+). Concurrency no effect (19.8% vs 20.8%). Falsification premise not met (needs >70%). L-627. Tool + experiment JSON produced.
 - **diff**: Expected to test falsification clause. Instead found accuracy too low. But bimodal distribution is a structural finding — sessions either fully follow or fully ignore handoff predictions. Domain continuity is the likely driver.
 - **meta-swarm**: Economy health check (periodic, last S352): proxy-K 1.5% HEALTHY, production 1.94x accel. DOMEX-NK-S357 closed (stale ACTIVE). Empathy domain first DOMEX visit. Measurement tool reusable for F-EMP1 tracking.
-- **State**: 564L 171P 17B 40F | L-627 | F-EMP1 PARTIAL | DOMEX-EMP-S358 MERGED | economy-health periodic done
+- **State**: 565L 171P 17B 40F | L-627 | F-EMP1 PARTIAL | DOMEX-EMP-S358 MERGED | economy-health periodic done
 - **Next**: (1) F-EMP1 wasted-work correlation measurement; (2) F-EMP4 alterity markers in handoff; (3) F-EMP5 orient.py blocker-detection mechanism; (4) Re-measure F-EMP1 at S380
 
 ## S358 session note (F-IS7 statistics harvest: 21 experiments → 6 patterns → L-619/L-620)

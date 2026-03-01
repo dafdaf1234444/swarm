@@ -89,5 +89,78 @@
     }
   ],
   "usl_alpha": 2.0,
-  "usl_beta": 0.61810341
+  "usl_beta": 0.61810341,
+  "verdict": "USL FALSIFIED \u2014 constant throughput model wins",
+  "models_compared": {
+    "constant": {
+      "AIC": 342.9,
+      "R2": 0.0,
+      "params": 1,
+      "winner": true
+    },
+    "linear": {
+      "AIC": 343.2,
+      "R2": 0.009,
+      "params": 2,
+      "slope": 0.148
+    },
+    "USL": {
+      "AIC": 346.6,
+      "R2": 0.001,
+      "params": 3,
+      "alpha": 0.84,
+      "beta": 0.0
+    },
+    "sqrt": {
+      "AIC": 347.4,
+      "R2": -0.025,
+      "params": 1
+    }
+  },
+  "n_session_groups": 184,
+  "N_range": [
+    1,
+    11
+  ],
+  "constant_throughput": 1.75,
+  "per_agent_scaling": "1/N dilution (ratio 0.97-1.31 at N=1-4)",
+  "N5_collapse": true,
+  "hypothesis_falsified": {
+    "alpha": {
+      "hypothesized": 0.08,
+      "measured": 0.84,
+      "ratio": "10x"
+    },
+    "beta": {
+      "hypothesized": 0.015,
+      "measured": 0.0,
+      "absent": true
+    },
+    "N_star": {
+      "hypothesized": "4-5",
+      "measured": "undefined (alpha>=1)"
+    }
+  },
+  "lesson": "L-629",
+  "connections": [
+    "L-269 WIP cap=4 SUPPORTED",
+    "L-526 planning obsolescence EXPLAINED",
+    "L-570 empathic accuracy measures different axis (accuracy not throughput)",
+    "L-608 Hawkes clustering explains burst sessions but not N-scaling"
+  ],
+  "era_analysis": {
+    "S57-S100": {
+      "mean_N": 2.1,
+      "L_per_group": 1.83
+    },
+    "S100-S200": {
+      "mean_N": 2.3,
+      "L_per_group": 1.03
+    },
+    "S300-S358": {
+      "mean_N": 1.1,
+      "L_per_group": 3.15
+    }
+  },
+  "interpretation": "Knowledge-structure absorption rate is the binding constraint, not agent count. Concurrency value is redundancy/coverage, not throughput multiplication."
 }

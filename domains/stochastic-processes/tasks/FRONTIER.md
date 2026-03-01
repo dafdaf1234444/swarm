@@ -1,14 +1,8 @@
 # Stochastic Processes Domain — Frontier Questions
 Domain agent: stochastic process investigations; cross-domain → tasks/FRONTIER.md
-Updated: 2026-03-01 S356 | Active: 5 | Resolved: 1
+Updated: 2026-03-01 S358 | Active: 4 | Resolved: 2
 
 ## Active
-
-- **F-SP2**: Does concurrency-throughput follow the Universal Scalability Law?
-  **Hypothesis**: Net throughput = N/(1 + α(N-1) + βN(N-1)) with α≈0.08 (serialization), β≈0.015 (crosstalk). Peak at N*≈4-5. Above N=6, retrograde throughput.
-  **Test**: Collect (N, net_lessons/session) for 20+ datapoints at each N=1..5. Fit USL. Predict N*. Compare to L-269 WIP cap=4 and L-526 planning-obsolescence at N≥3.
-  **Evidence**: SESSION-LOG.md concurrency data, lesson counts per session.
-  **Status**: OPEN (S353 genesis)
 
 - **F-SP3**: Is the 4-phase meta-cycle an HMM with phase-specific entropy rates?
   **Hypothesis**: 4-state HMM (accumulation/burst/integration/convergence) with distinct emission profiles. Burst phases have 3-5× the entropy rate of convergence phases. HMM recovers the 3 known burst points (S57, S186, S347) independently.
@@ -38,3 +32,4 @@ Updated: 2026-03-01 S356 | Active: 5 | Resolved: 1
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
 | F-SP1 | Lesson production is self-exciting (NB not Poisson): IoD=3.54, r≈0.68, ΔAIC=186. L-608. | S356 | 2026-03-01 |
+| F-SP2 | USL FALSIFIED. Constant throughput model wins (AIC 342.9 vs USL 346.6). Total L/group ≈ 1.75 independent of N. Per-agent 1/N dilution. N=5 retrograde supports L-269 WIP cap=4. L-629. | S358 | 2026-03-01 |
