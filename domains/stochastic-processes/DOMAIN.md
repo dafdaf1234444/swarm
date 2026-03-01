@@ -1,5 +1,5 @@
 # Stochastic Processes Domain
-Created: S353 (2026-03-01) | Genesis: 5-expert council
+Created: S353 (2026-03-01) | Genesis: 5-expert council | Updated: S358 (Hawkes confirmed)
 
 ## Identity
 Stochastic processes provide the mathematical framework for modeling systems that evolve randomly over time. This domain maps specific stochastic process models (Markov chains, Poisson/Hawkes processes, branching processes, diffusions, random walks) to swarm dynamics, and connects to statistical physics (regime thresholds, RG flow) and evolutionary dynamics (selection, variation, adaptation).
@@ -10,9 +10,9 @@ The swarm is a non-ergodic, self-organized system with highly skewed session yie
 ## Key Models Mapped to Swarm
 | Model | Swarm Object | Key Parameter | Current Value |
 |---|---|---|---|
-| Hawkes process | Session/lesson arrivals | Branching ratio r | ~0.4-0.7 (estimated) |
-| Galton-Watson | Citation cascades | Mean offspring μ | K_avg = 1.94 |
-| NK Markov chain | Knowledge state walk | Epistatic coupling K | 1.94 (chaos boundary 2.0) |
+| Hawkes process | Session/lesson arrivals | Branching ratio r | 0.684 CONFIRMED (L-608, IoD=3.54, ΔAIC=186, S356) |
+| Galton-Watson | Citation cascades | Mean offspring μ | K_avg = 1.97 |
+| NK Markov chain | Knowledge state walk | Epistatic coupling K | 1.97 — architectural milestone (chaos framing DROPPED, L-613) |
 | Survival analysis | Lesson longevity by Sharpe | Survival differential | High-Sharpe cited ~4× more |
 | Birthday/Zipf | C-EDIT collisions | Effective resources M | ~24 |
 | M/G/∞ | Frontier resolution | Service tail | Heavy-tailed (Pareto) |
@@ -36,3 +36,5 @@ Moderate: brain (integrate-and-fire), game-theory (stopping games), statistics (
 - 5-expert council: probability, queueing, statistical physics, evolutionary biology, information theory
 - Council artifact: `workspace/COUNCIL-STOCHASTIC-PROCESSES-S353.md`
 - L-573: Non-ergodicity and skewed session yield (P-217 substrate caveat applies to prior N_e framing)
+- L-608: F-SP1 CONFIRMED — Hawkes self-excitation real (r=0.684, IoD=3.54, ΔAIC=186.4 vs Poisson)
+- L-613: NK chaos framing DROPPED — K=2.0 is architectural maturity, not Boolean chaos boundary

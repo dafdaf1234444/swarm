@@ -1972,7 +1972,7 @@
     },
     {
       "session": 357,
-      "timestamp": "2026-03-01T03:52:50Z",
+      "timestamp": "2026-03-01T03:54:40Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -2015,11 +2015,9 @@
           "severities": []
         },
         "check_lessons": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "DUE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_child_bulletins": {
           "fired": true,
@@ -2060,14 +2058,18 @@
           "severities": []
         },
         "check_swarm_lanes": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         },
         "check_swarm_coordinator": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "DUE"
+          ]
         },
         "check_lane_reporting_quality": {
           "fired": false,
@@ -2104,9 +2106,8 @@
         },
         "check_cross_references": {
           "fired": true,
-          "count": 2,
+          "count": 1,
           "severities": [
-            "NOTICE",
             "NOTICE"
           ]
         },
@@ -2130,9 +2131,11 @@
           ]
         },
         "check_historian_integrity": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         },
         "check_domain_frontier_consistency": {
           "fired": true,
@@ -2165,9 +2168,11 @@
           "severities": []
         },
         "check_claim_gc": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         },
         "check_paper_accuracy": {
           "fired": false,
@@ -2188,9 +2193,9 @@
         }
       },
       "totals": {
-        "DUE": 1,
-        "NOTICE": 11,
-        "PERIODIC": 10
+        "NOTICE": 13,
+        "PERIODIC": 10,
+        "DUE": 1
       }
     }
   ],

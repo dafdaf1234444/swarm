@@ -13,6 +13,7 @@ Usage:
 
 import argparse
 import json
+import math
 import os
 import re
 import sys
@@ -42,6 +43,13 @@ DORMANT_BONUS = 3.0  # bonus for domains untouched >5 sessions
 FIRST_VISIT_BONUS = 5.0  # extra bonus for domains with zero DOMEX history (L-548: 90% first-visit merge rate)
 SELF_DISPATCH_INTERVAL = 10  # expert-swarm must dispatch to itself every N sessions (L-501 P6)
 
+# Visit saturation (F-ECO5, L-571): diminishing returns for repeatedly visiting same domains.
+# Dispatch without this amplifies exploitation, not exploration (Gini 0.36→0.55).
+VISIT_SATURATION_SCALE = 1.5  # penalty = scale * ln(1 + visit_count)
+EXPLORATION_GINI_THRESHOLD = 0.45  # when visit Gini exceeds this, enter exploration mode
+EXPLORATION_NEW_BOOST = 8.0  # extra bonus for unvisited domains in exploration mode
+EXPLORATION_COLD_BOOST = 4.0  # extra bonus for dormant domains in exploration mode
+
 # Outcome feedback (F-EXP10, L-501 P1): reward consistently productive domains.
 # Closes PHIL-2 self-application gap — expert dispatch learns from its own outcomes.
 LANE_ABBREV_TO_DOMAIN = {
@@ -63,6 +71,16 @@ OUTCOME_SUCCESS_THRESHOLD = 0.75  # MERGED rate above which domain is PROVEN
 OUTCOME_FAILURE_THRESHOLD = 0.50  # MERGED rate below which domain is STRUGGLING
 OUTCOME_BONUS = 1.5        # score bonus for PROVEN domains
 OUTCOME_PENALTY = 1.0      # score penalty for STRUGGLING domains
+
+
+def _compute_gini(values: list[int | float]) -> float:
+    """Compute Gini coefficient of a list of non-negative values. 0=equal, 1=max inequality."""
+    n = len(values)
+    if n == 0 or sum(values) == 0:
+        return 0.0
+    sorted_vals = sorted(values)
+    numerator = sum((2 * i - n - 1) * v for i, v in enumerate(sorted_vals, 1))
+    return numerator / (n * sum(sorted_vals))
 
 
 def _get_domain_heat() -> dict[str, int]:
@@ -353,6 +371,36 @@ def run(args: argparse.Namespace) -> None:
         else:
             r["outcome_rate"] = None
             r["outcome_label"] = "NEW"
+
+        # Visit saturation penalty (F-ECO5, L-571): diminishing returns for repeated visits.
+        # log(1+n) grows slowly: n=4→2.4, n=12→3.9, n=24→4.8, n=33→5.3
+        if n > 0:
+            sat_penalty = VISIT_SATURATION_SCALE * math.log(1 + n)
+            r["score"] -= sat_penalty
+            r["saturation_penalty"] = round(sat_penalty, 1)
+        else:
+            r["saturation_penalty"] = 0.0
+
+    # Exploration mode (F-ECO5): when visit concentration exceeds threshold,
+    # boost undervisited domains to counteract exploitation amplification.
+    all_visit_counts = [r.get("outcome_n", 0) for r in results]
+    visit_gini = _compute_gini(all_visit_counts)
+    exploration_mode = visit_gini > EXPLORATION_GINI_THRESHOLD
+
+    if exploration_mode:
+        for r in results:
+            heat = r.get("heat", "")
+            if heat == "NEW":
+                r["score"] += EXPLORATION_NEW_BOOST
+                r["exploration_boost"] = EXPLORATION_NEW_BOOST
+            elif heat in ("COLD", "❄"):
+                r["score"] += EXPLORATION_COLD_BOOST
+                r["exploration_boost"] = EXPLORATION_COLD_BOOST
+            else:
+                r["exploration_boost"] = 0.0
+    else:
+        for r in results:
+            r["exploration_boost"] = 0.0
 
     results.sort(key=lambda x: x["score"], reverse=True)
 
