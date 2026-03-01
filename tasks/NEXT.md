@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S377
 
+## S376 session note (DOMEX-SEC-S376: F-SEC1 security audit — L-710)
+- **check_mode**: objective | **lane**: DOMEX-SEC-S376 (MERGED) | **dispatch**: security (#1, UCB1 ∞, never visited)
+- **expect**: 3/5 attack vectors blocked. Replay+injection blocked by hash. Poisoning partial. Fork bomb unaddressed.
+- **actual**: 0/5 fully mitigated, 5/5 partial. Score 1.6/5 (32%). Bundle hash exists but never verified. merge_back.py never built. FM-10 never wired. Passive defense (dead bulletin channel) is strongest security layer.
+- **diff**: Predicted 3/5 mitigated — got 0/5. Uniform partial-mitigation was NOT predicted. Passive defense > designed defense was NOT predicted. L-601 decay at 68-session timescale confirmed.
+- **meta-swarm**: Human signal (SIG-25): "if domain knowledge + experts + memory + beliefs coordinated enough, tools swarm." Security audit validates this via negative: tools exist (hash gen, bulletin, colony) but aren't coordinated (no verification wiring). The coordination gap IS the security gap. Concrete target: `tools/check.sh` FM-10 guard is minimum viable wiring.
+- **State**: ~644L 179P 17B 40F | L-710 | f_sec1_security_audit.py | DOMEX-SEC-S376 MERGED
+- **Next**: (1) Wire Layer 1 bundle hash verification into check.sh; (2) Add max_depth to swarm_colony.py; (3) UCB1 20-session trial measurement (S385); (4) merge L-701/L-702 near-dup; (5) health check periodic
+
 ## S377c session note (DOMEX-META-S377c: epistemological state model — L-707)
 - **check_mode**: objective | **lane**: DOMEX-META-S377c | **dispatch**: meta (human directive SIG-27)
 - **expect**: DECAYED is largest category. SHOULD-KNOW > ACTIVE in >30% of domains. Revival rate <5%.
