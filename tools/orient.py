@@ -254,6 +254,34 @@ def check_stale_experiments():
     return stale
 
 
+def check_stale_beliefs(current_session: int, stale_threshold: int = 50) -> list:
+    """Find beliefs not tested in the last stale_threshold sessions. L-483."""
+    deps_path = ROOT / "beliefs" / "DEPS.md"
+    if not deps_path.exists():
+        return []
+    deps_text = deps_path.read_text(encoding="utf-8")
+    stale = []
+    for block in re.split(r"\n(?=### B\d)", deps_text):
+        bid_m = re.match(r"### (B\d+)[^:]*: ([^\n]+)", block)
+        if not bid_m:
+            continue
+        bid, desc = bid_m.group(1), bid_m.group(2)
+        lt_m = re.search(r"\*\*Last tested\*\*: ([^\n]+)", block)
+        if not lt_m:
+            continue
+        tested_text = lt_m.group(1)
+        if "Not yet tested" in tested_text:
+            continue
+        sessions = [int(s) for s in re.findall(r"S(\d+)", tested_text)]
+        if not sessions:
+            continue
+        last_session = max(sessions)
+        drift = current_session - last_session
+        if drift > stale_threshold:
+            stale.append(f"{bid}: {desc[:45].strip()} (S{last_session}, {drift}s ago)")
+    return stale
+
+
 def check_underused_core_tools(log_text, window_sessions=20):
     """Find core swarm tools not referenced in recent session-log entries."""
     rows = []
@@ -429,6 +457,19 @@ def main():
         for f in frontiers:
             print(f"  • {f}")
         print()
+
+    # Stale beliefs — beliefs untested >50 sessions are invisible dispatch debt (L-483)
+    try:
+        sess_num_m = re.search(r"S(\d+)", session)
+        if sess_num_m:
+            stale_beliefs = check_stale_beliefs(int(sess_num_m.group(1)))
+            if stale_beliefs:
+                print(f"--- Stale beliefs ({len(stale_beliefs)} not re-tested >50 sessions) ---")
+                for b in stale_beliefs[:5]:
+                    print(f"  ⚠ {b}")
+                print()
+    except Exception:
+        pass
 
     # Stale domain experiments (L-246: design debt)
     stale_experiments = check_stale_experiments()
