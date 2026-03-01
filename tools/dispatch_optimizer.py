@@ -541,12 +541,13 @@ def score_domain(domain: str) -> dict | None:
 
     content = frontier_path.read_text()
 
-    # Active frontier count: only lines under ## Active, not Evidence Archive
+    # Active frontier count: only lines under ## Active (or ## Open), not Evidence Archive
     active_section = ""
-    active_match = re.search(r"## Active\s*\n(.*?)(?=\n## |\Z)", content, re.DOTALL)
+    active_match = re.search(r"## (?:Active|Open)\s*\n(.*?)(?=\n## |\Z)", content, re.DOTALL)
     if active_match:
         active_section = active_match.group(1)
-    active_count = len(re.findall(r"^- \*\*F", active_section, re.MULTILINE))
+    # Match both list format (- **F-XXX**) and heading format (### F-XXX)
+    active_count = len(re.findall(r"(?:^- \*\*F|^### F)", active_section, re.MULTILINE))
     if active_count == 0:
         return None  # Skip domains with no open work
 
@@ -774,6 +775,20 @@ def _ucb1_score(results: list[dict], outcome_map: dict, heat_map: dict,
             r["campaign_boost"] = WAVE_COMMITTED_BOOST
         else:
             r["campaign_boost"] = 0.0
+
+    # COMMIT floor (F-STR3, L-794): danger-zone domains (2-wave valley of death)
+    # get a score floor = median of all domain scores. Without this, cold domains
+    # with UCB1 exploit=0 never get dispatched despite wave planner recommending
+    # COMMIT. Advisory-without-dispatch gap: wave planner diagnoses correctly but
+    # cannot override UCB1 for zero-exploit domains.
+    all_scores = sorted([r["score"] for r in results])
+    median_score = all_scores[len(all_scores) // 2] if all_scores else 0.0
+    for r in results:
+        if r.get("campaign_phase") == "danger" and r["score"] < median_score:
+            r["commit_floor_applied"] = True
+            r["score"] = median_score
+        else:
+            r["commit_floor_applied"] = False
 
     # 20% exploration floor (DARPA model, L-697): ensure underexplored domains
     # appear in recommendations regardless of UCB1 score. Domains with <3 visits
