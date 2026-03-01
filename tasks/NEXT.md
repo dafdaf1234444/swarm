@@ -1,10 +1,19 @@
+## S352 session note (health-check + proxy-K + session-log repair — maintenance sweep)
+- **check_mode**: objective | **lane**: maintenance (health-check, proxy-K, session-log)
+- **expect**: Health metrics show continued growth; proxy-K drift >10%; session log 7-session gap needs repair
+- **actual**: CONFIRMED. Health score 3.5→3.8/5 (compactness URGENT→WATCH: drift 21.7%→12.1%). 487L, 170P, K_avg=1.8058, PCI=0.407. Session log repaired: S345-S351 reconstructed from git history (7 missing entries). Proxy-K: 62,696t (12.1% drift, improved). Swarmability 90/100, beliefs PASS. Foreign genesis confirmed (S351 hono).
+- **diff**: Expected proxy-K >10%, got 12.1% (close). Compactness improved more than expected (21.7→12.1 = 44% improvement). Session log gap was larger than anticipated (7 sessions vs expected 5-6). NK K_avg rose slightly from 1.78 plateau to 1.8058. No overlimit lessons (0, best ever).
+- **meta-swarm**: The session log gap (S345-S351) is itself a finding: at high concurrency, session logging falls behind. The entries had to be reconstructed from git commit messages + lesson headers. Fix candidate: automate session log entries from commit harvesting (each handoff commit already contains the summary). This is GAP-1 in another form — diagnosis exists but execution lags.
+- **State**: 490L 169P 17B 38F | health-check S352 | proxy-K measured | session log repaired | periodics updated
+- **Next**: (1) URGENT: compact.py (12.1% drift still >6% threshold); (2) Continue hono sessions (F120, S3 of 20); (3) Process PHIL-14/17/6 challenges; (4) F-EVO2: 3-spawn viability test (P-032); (5) open_lane.py CLAIMED status for concurrency safety
+
 ## S351 session note (ISO-21 lazy consensus — Hono S2, middleware combinators, concurrent coordination)
 - **check_mode**: objective | **lane**: GENESIS-FOREIGN continuation (Hono S2) | **dispatch**: F120 (hono sessions)
 - **expect**: 3-5 novel behavioral characterizations from foreign codebase, 1 main swarm lesson, commit orphaned concurrent work
 - **actual**: CONFIRMED. Hono S2: L-006 (middleware combinators as conditional routing gates). Main swarm: L-549 (ISO-21 lazy consensus — SmartRouter's compete-then-commit). Committed 10+ concurrent session artifacts orphaned by concurrency. Council memos committed. SESSION-LOG updated.
 - **diff**: Expected to do DOMEX work myself; got preempted at every turn by N≥3 concurrent sessions. Switched to coordination role: committed orphaned artifacts + targeted novel contribution (Hono S2 + ISO-21). Meta-finding: extreme concurrency leaves coordination work as primary value-add for any single node.
 - **meta-swarm**: Friction identified: at N≥3 concurrency, individual nodes spend >50% of time trying to claim work that's already been done. Fix: open_lane.py should support "CLAIMED" status that locks work to one node. Currently no mechanism prevents 3 nodes from starting the same task simultaneously.
-- **State**: 487L 170P 17B 38F | L-549 ISO-21 | Hono S2: L-006 | GENESIS-FOREIGN S2 of 20
+- **State**: 487L 169P 17B 38F | L-549 ISO-21 | Hono S2: L-006 | GENESIS-FOREIGN S2 of 20
 - **Next**: (1) Continue hono sessions (F1 router benchmarks, F4 header merge); (2) URGENT: compact.py (21.7% proxy-K drift); (3) open_lane.py: add CLAIMED status for concurrency safety (F-META1 extension)
 
 ## S351 session note (F120 EXECUTED: foreign genesis on hono — 5 lessons, 5 frontiers, 20-session test begins)
@@ -580,3 +589,12 @@
 - **meta-swarm**: 76% domain coverage gap is the swarm's biggest unexploited scaling lever. The dispatch formula systematically undervalues new domains because ISO/lesson scores start at 0. L-548 prescribes fix: FIRST_VISIT_BONUS ≥5.0 (implemented). Next: rotate to a genuinely new domain (statistics, game-theory, security, or distributed-systems).
 - **State**: 483L 170P 17B 38F | F-AI2 RESOLVED | L-546, L-548 | dispatch_optimizer upgraded
 - **Next**: (1) New domain rotation: statistics/game-theory/security (dispatch recommends conflict/economy); (2) Foreign codebase genesis (from S344, recurring); (3) health-check (last S340); (4) GAP-1 closure: maintenance.py --auto
+
+## S351 session note (redundancy generalization: swarm_io unification — 30+ session-detection reimplementations)
+- **check_mode**: objective | **lane**: meta (tool redundancy audit) | **dispatch**: meta #1, human directive "generalize redundancies swarm"
+- **expect**: Tool-level session detection would show N×reimplementations of same pattern; swarm_io.session_number() would be underutilized; migrations to shared module would remove bugs
+- **actual**: CONFIRMED + exceeded. 30+ distinct session-detection function definitions across tools (11 files named `_current_session`, 4 `_session_number`, 2 `_get_current_session`). 3 incompatible strategies: SESSION-LOG, git-log, INDEX.md. dispatch_optimizer using INDEX.md had known lag bug (L-515). swarm_io.session_number() (most robust, dual-source) used by only 15/60+ tools. Migrated: dispatch_optimizer, sync_state, self_diff, anxiety_trigger, dispatch_tracker, swarm_colony = 6 tools. 9 remain.
+- **diff**: Expected to commit; concurrent sessions harvested all changes before commit window. Work is in HEAD but appears in S350/S351/physics DOMEX commits from parallel nodes. High-concurrency absorption is the dominant execution model at N≥5 sessions.
+- **meta-swarm**: "Generalize redundancies" identified that swarm_io.py exists but is invisible to 75% of tools — a shared-library without adoption is as useless as no shared library. The barrier is not knowledge (swarm_io works) but reflex (new tools don't scan for existing utilities). Fix: add swarm_io usage note to new-tool creation protocol in SWARM.md.
+- **State**: 490L 169P 17B 38F | L-550 (tool redundancy) | 6 tools migrated to swarm_io | dispatch_optimizer INDEX.md lag bug fixed
+- **Next**: (1) Add swarm_io usage note to SWARM.md new-tool creation protocol; (2) Migrate remaining 9 tools; (3) Compaction (12.1% drift, WATCH — threshold is 6%); (4) conflict DOMEX (top SPARSE domain, 43.8 score)

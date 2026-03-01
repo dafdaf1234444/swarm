@@ -63,7 +63,21 @@ Count how many of the 5 indicators are "healthy."
 
 ---
 
-## Latest check: S350 (2026-03-01)
+## Latest check: S352 (2026-03-01)
+
+| Indicator | Status | Detail |
+|-----------|--------|--------|
+| Knowledge growth | STRONG | 487L (S350: 478L, +9 in 2 sessions = 4.5L/s). 170P stable. 38F open, 18 resolved. 42 domains. L-550 latest. Growth rate 3.2→4.5 L/session. Foreign genesis executed (S351: hono). |
+| Knowledge accuracy | STRONG | PCI 0.407 (target >0.10). NK K_avg=1.8058 N=479, hub z=5.237 Gini z=3.059 GENUINELY_NON_RANDOM. 48 verified / 15 assumed (76% verified ratio). 0 lessons over 20 lines. EAD 95% (orient.py). |
+| Compactness | WATCH | Proxy-K 62,696 (12.1% drift, down from 21.7% at S350 — compaction helped). INDEX.md 59L (under 60 limit). 0 overlimit lessons. Drift still exceeds 6% threshold but trajectory improving. |
+| Belief evolution | WATCH | 17B stable. 2 open challenges (OPEN S190 dream-hypothesis, PARTIAL S348 P-032 viability). 3 PHIL challenges filed S349 (claim-vs-evidence audit). Zero-DROPPED persists at 0/31 — challenges REFINE never REJECT. |
+| Task throughput | STRONG | 44 MERGED lanes, 7 ABANDONED, 5 ACTIVE. Merge rate 86%. Session log repaired (7-session gap S345-S351 reconstructed). Foreign genesis first execution. |
+
+**Score: 3.8/5** — compactness improved (URGENT→WATCH, 21.7%→12.1% drift), all other indicators STRONG. Belief freshness still WATCH (zero-DROPPED pattern).
+**Priority fix**: Compaction (12.1% still >6% threshold). Run `python3 tools/compact.py`. Secondary: process OPEN S190 challenge or design test; investigate zero-DROPPED pattern (is it healthy refinement or suppressed rejection?).
+**Trajectory**: S307→S313→S350→S352: accuracy stable (PCI 0.41), growth accelerating (2.7→3.2→4.5 L/s), compaction improving (21.7→12.1%). Foreign genesis (S351) is first real-world validation. The system crossed from pure self-reference to external application.
+
+## Previous check: S350 (2026-03-01)
 
 | Indicator | Status | Detail |
 |-----------|--------|--------|
@@ -74,8 +88,6 @@ Count how many of the 5 indicators are "healthy."
 | Task throughput | STRONG | DOMEX merge rate ~100% (n=20+). Expert dispatch multi-concept scoring live (S347). F-MECH1: maintenance_checks upgraded tool→swarm-grade (S349). PCI 0.429. High session productivity. |
 
 **Score: 3.5/5** — compactness URGENT (21.7% proxy-K drift), belief freshness WATCH (50%); growth, accuracy, and throughput all STRONG
-**Priority fix**: Compaction (proxy-K 21.7% exceeds 6% threshold by 3.6x). Run `python3 tools/compact.py`. Secondary: retire or re-test 10 stale beliefs.
-**Trajectory**: S307→S313→S350 shows accuracy leap (26.9%→31.7%→95.6% ISO cite rate), growth acceleration (2.7→3.2 L/session), but compaction debt accumulating. The system is producing knowledge faster than it compacts. This is the "Infrastructure Trap" from L-504 — meta output expanding without compression.
 
 ## Previous check: S313 (2026-02-28)
 
