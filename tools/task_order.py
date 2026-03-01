@@ -28,9 +28,10 @@ LANES_FILE = ROOT / "tasks" / "SWARM-LANES.md"
 P_COMMIT   = 0   # uncommitted done work
 P_DUE      = 1   # DUE maintenance items
 P_CLOSE    = 2   # active lanes with artifacts ready to merge
-P_DISPATCH = 3   # top dispatch domain for new DOMEX
-P_PERIODIC = 4   # periodic maintenance
-P_META     = 5   # meta-reflection suggestions
+P_STRATEGY = 3   # L3+ strategic work (activated by level imbalance — L-601 enforcement)
+P_DISPATCH = 4   # top dispatch domain for new DOMEX
+P_PERIODIC = 5   # periodic maintenance
+P_META     = 6   # meta-reflection suggestions
 
 
 def _git(args: list[str]) -> str:
@@ -157,6 +158,62 @@ def get_closeable_lanes() -> list[dict]:
                 "detail": "Lane ACTIVE but no artifact — do the experiment",
                 "command": None,
             })
+    return tasks
+
+
+def get_strategy_tasks() -> list[dict]:
+    """Generate L3+ strategy task when level imbalance fires (L-601 enforcement).
+
+    The level imbalance (L-895, SIG-46) means 0 recent L3+ lessons. The swarm's
+    pipeline (dispatch→DOMEX→measurement) structurally excludes strategic work.
+    This function injects a STRATEGY-tier task that scores above DISPATCH,
+    creating a structural path for L3+ work per L-601 (voluntary → enforcement).
+    """
+    tasks = []
+    lessons_dir = ROOT / "memory" / "lessons"
+    if not lessons_dir.exists():
+        return tasks
+
+    # Check recent 10 lessons for L3+ keywords (mirrors orient.py logic)
+    lesson_files = sorted(lessons_dir.glob("L-*.md"), key=lambda f: f.stat().st_mtime, reverse=True)[:10]
+    l3plus_kw = ["strategy", "campaign", "architecture", "organizational",
+                 "paradigm", "redesign", "direction", "what should", "reframing",
+                 "missing layer", "system design", "philosophy", "identity"]
+    l3plus_count = 0
+    for lf in lesson_files:
+        try:
+            txt = lf.read_text()[:600].lower()
+            if any(k in txt for k in l3plus_kw):
+                l3plus_count += 1
+        except Exception:
+            pass
+
+    if l3plus_count > 0:
+        return tasks  # no imbalance — skip
+
+    # Gather strategy topics from open signals and frontiers
+    topics = []
+    signals_file = ROOT / "tasks" / "SIGNALS.md"
+    if signals_file.exists():
+        try:
+            for line in signals_file.read_text().splitlines():
+                if "OPEN" in line and ("SIG-" in line):
+                    m = re.search(r"(SIG-\d+).*?:\s*(.{10,60})", line)
+                    if m:
+                        topics.append(f"{m.group(1)}: {m.group(2).strip()}")
+        except Exception:
+            pass
+
+    topic_hint = topics[0] if topics else "architectural review of swarm pipeline or belief challenge"
+
+    tasks.append({
+        "priority": P_STRATEGY,
+        "tier": "STRATEGY",
+        "score": 78,
+        "action": f"Produce L3+ lesson (strategy/architecture/paradigm) — level imbalance critical",
+        "detail": f"0/{len(lesson_files)} recent lessons at L3+. Suggested topic: {topic_hint}",
+        "command": None,
+    })
     return tasks
 
 
@@ -347,6 +404,7 @@ def build_task_list(top_n: int = 8) -> list[dict]:
     all_tasks.extend(get_untracked_artifacts())
     all_tasks.extend(get_due_items())
     all_tasks.extend(get_closeable_lanes())
+    all_tasks.extend(get_strategy_tasks())
     all_tasks.extend(get_dispatch_tasks())
     all_tasks.extend(get_periodic_tasks())
     all_tasks.extend(get_meta_tasks())
@@ -373,6 +431,7 @@ TIER_COLORS = {
     "COMMIT":   "\033[91m",  # red
     "DUE":      "\033[93m",  # yellow
     "CLOSE":    "\033[92m",  # green
+    "STRATEGY": "\033[95m",  # magenta — L3+ strategic work
     "ACTIVE":   "\033[96m",  # cyan
     "DISPATCH": "\033[94m",  # blue
     "DISPATCH [DORMANT]": "\033[94m",
