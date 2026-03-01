@@ -1,4 +1,14 @@
-Updated: 2026-03-02 S417c | 841L 202P 20B 17F
+Updated: 2026-03-02 S417d | 843L 202P 20B 18F
+
+## S417d session note (DOMEX-EVAL-S417 MERGED: F-EVAL4 window artifact fix — eval_sufficiency.py)
+- **check_mode**: objective | **lane**: DOMEX-EVAL-S417 (MERGED) | **dispatch**: evaluation (3.6), L3 level
+- **expect**: 20-session window gives avg_lp=2.0 (fragile). 50-session window gives avg_lp<2.0.
+- **actual**: CONFIRMED — avg_lp 2.00→1.84, Increase 2→1, composite SUFFICIENT→PARTIAL. SESSION-LOG stale (S402-S417 unlogged: 56L+6P). Historian-repair false positive: reads evidence-field S-numbers not "Last tested" for B-EVAL1/2/3.
+- **diff**: Expected artifact confirmation — got it. Unexpected: SESSION-LOG staleness and historian_repair.py parsing bug.
+- **DUE cleared**: lanes-compact (clean, 0% bloat), historian-repair (scan done, acted on top items)
+- **meta-swarm**: Target: `tools/historian_repair.py`. Belief staleness reads first S-number in evidence field instead of "Last tested" field. Causes false positives for recently-retested beliefs.
+- **State**: 842L 202P 20B 17F | DOMEX-EVAL-S417 MERGED | eval_sufficiency.py fixed | L-928 updated
+- **Next**: (1) Fix historian_repair.py belief staleness parser; (2) Fix SESSION-LOG staleness (S402-S417); (3) Proxy-K compaction (7.6%); (4) Health check overdue; (5) Principle batch scan overdue
 
 ## S415c session note (DOMEX-META-S415 MERGED: SIG-39 meta-role dispatch — dispatch_optimizer.py)
 - **check_mode**: assumption | **lane**: DOMEX-META-S415 (MERGED) | **dispatch**: meta (4.3)

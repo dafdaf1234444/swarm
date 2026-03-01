@@ -89,11 +89,11 @@
     },
     {
       "id": "dream-cycle",
-      "description": "Swarm dreaming: free-associative corpus synthesis. Run python3 tools/dream.py \u2014 outputs theme gravity map, uncited active principles (anchoring targets), cross-domain resonances, candidate frontier questions. Act on at least one output per run: write a lesson citing an uncited principle, or add a candidate frontier to tasks/FRONTIER.md. (F125). S395 audit: last useful output S334 (0 conversion since), cadence 7\u219215.",
+      "description": "Swarm dreaming: free-associative corpus synthesis. Run python3 tools/dream.py \u2014 outputs theme gravity map, uncited active principles (anchoring targets), cross-domain resonances, candidate frontier questions. Act on at least one output per run: write a lesson citing an uncited principle, or add a candidate frontier to tasks/FRONTIER.md. (F125). S418: L-925 written (P-262/P-238/P-017 anchored), F-ISO2 added, F-META8 updated. 65 resonances, 31.1% uncited rate.",
       "cadence_sessions": 15,
-      "last_reviewed_session": 415,
+      "last_reviewed_session": 418,
       "registered_by": "S183",
-      "last_session": "S415"
+      "last_session": "S418"
     },
     {
       "id": "periodics-meta-audit",
@@ -160,9 +160,10 @@
       "id": "science-quality-audit",
       "description": "Science quality audit: run `python3 tools/science_quality.py` \u2014 score experiment quality on 5 criteria (pre-registration, control, significance, external validation, falsification). Track confirm/discover ratio and falsification lane count. Target: mean quality >40%, falsification lanes >10%, confirm:discover <10:1. (P-243, L-804, SIG-36)",
       "cadence_sessions": 10,
-      "last_reviewed_session": 396,
+      "last_reviewed_session": 417,
       "registered_by": "S396",
-      "last_run": "S397"
+      "last_run": "S397",
+      "last_session": "S417"
     },
     {
       "id": "signal-audit",

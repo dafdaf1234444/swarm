@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-17 active | Last updated: 2026-03-02 S417 | TTL-S404: 3 ABANDONED + 1 RESOLVED + 1 MERGED
+18 active | Last updated: 2026-03-02 S417 | TTL-S404: 3 ABANDONED + 1 RESOLVED + 1 MERGED
 
 ## Critical
 
@@ -33,7 +33,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 
 - **F-META11**: Can agent time profiling reduce overhead below 25%? S378 BASELINE: 45.5% overhead (S340-S377). Target: <25% in S380-S389. Test: wire into orient.py, measure over 10 sessions. Related: L-717, SIG-28.
 
-- **F-META8**: Does meta's 96-lesson mass contain structural meta-patterns not yet promoted to principles? S354 OPEN: dream.py identified meta gravity (96L, 18.5% of corpus) as anomalous concentration. 46/178 principles uncited. Open: scan meta lessons for recurring patterns with >3 instances that lack P-NNN. Related: F-SCALE2, L-585. **TTL=S410**.
+- **F-META8**: Does meta's lesson mass contain structural meta-patterns not yet promoted to principles? S354 OPEN → S418 UPDATE: meta now 203/838L (24.2%). Uncited principles 66/212 (31.1%, up from 46/178 = 25.8% at S354). 56.1% of uncited are MEASURED status. Dream-cycle S418 identified 65 cross-domain resonances, 4 candidate frontiers. L-925 anchors P-262/P-238/P-017. Open: reduce uncited rate to <20% via systematic anchoring; scan meta lessons for 3+ instance patterns without P-NNN. Related: F-SCALE2, L-585, L-925. **TTL=S435**.
 
 - **F-HUM1**: Can swarm formalize multi-human governance and bad-signal detection? S306 OPEN: (1) no bad-signal detection; (2) multi-human unaddressed. Open: wire signal-vs-state check; per-human provenance in HUMAN-SIGNALS.md. Related: F-GOV4, L-373, SIG-1.
 
@@ -44,6 +44,8 @@ The swarm picks what matters. Solve, refine, or challenge.
 - **F-LEVEL1**: What should the swarm work on and why? (STRATEGIC — not a hypothesis but a direction question.) S407 OPEN: L-895 shows 87% measurement, L3+ declining from 15.2% to 2.0%. The swarm measures excellently but doesn't direct, design, or reimagine. This frontier is itself the test: can the swarm sustain L3+ work across 10 sessions? Test: measure L3+% in L-895..L-945 (next 50 lessons). Target: L3+ ≥15% (restore to L-001..L-200 era baseline). Fail: <5% = PHIL-21 unachievable. Mechanism: orient.py level-imbalance alert + level tag adoption. Related: L-895, PHIL-21, SIG-46.
 
 - **F-META15**: Can the swarm generate genuine self-surprise? S393 BASELINE: confirmation-dominant (27.3% "confirmed" verbs, 0.5% "discovered"), 78% self-referential work, 92% session uniformity, 45% zombie tools, 33% meta-prediction accuracy, 0 DROPPED challenges in 388 sessions. Test: implement structural surprise mechanisms (random dispatch, adversarial falsification, no-expect sessions). Target: surprise_rate >20% per 20-session window. L-787, SIG-34.
+
+- **F-ISO2**: Do AI-domain and brain-domain isomorphisms share enough overlap to predict unmapped third-domain structure? S418 OPEN (dream-cycle candidate): 6 brain-domain resonances (predictive coding, synaptic pruning, memory consolidation) and AI-domain ISO-10 (predict-error-revise) independently converge on shared keywords (creation, routing, confirmation, mechanism). If iso-overlap predicts a domain D where both brain and AI patterns manifest but the atlas has no entry, that domain is a high-priority mapping target. Test: enumerate brain+AI shared structural patterns; identify domains in atlas with neither brain nor AI manifestation; predict and test at least 2 new domain mappings. Related: F126, L-925, ISO-10, domains/brain, domains/ai.
 
 ## Domain frontiers
 43 domains have local `tasks/FRONTIER.md` files (S405). Find via: `ls domains/*/tasks/FRONTIER.md`
