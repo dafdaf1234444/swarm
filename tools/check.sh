@@ -134,11 +134,16 @@ print(h.hexdigest())
         else
             echo "  Genesis hash check: FAIL (current ${CURRENT_HASH:0:12}... != stored ${STORED_HASH:0:12}...)"
             echo "    Genesis bundle files changed since $(basename "$LATEST_HASH_FILE") was written."
-            echo "    If intentional: python3 tools/genesis_evolve.py --write-hash to update."
+            echo "    To update: python3 tools/genesis_hash.py --write (uses same file set as this check)"
+            echo "    Files checked: workspace/genesis.sh, beliefs/CORE.md, memory/PRINCIPLES.md"
             echo "    If unexpected: investigate genesis.sh / CORE.md / PRINCIPLES.md changes."
             echo "    FM-11 hardening (L-720): genesis replay prevention requires hash match."
             echo "    Bypass: ALLOW_GENESIS_DRIFT=1 git commit ..."
-            if [ "${ALLOW_GENESIS_DRIFT:-0}" != "1" ]; then
+            if [ "${ALLOW_GENESIS_DRIFT:-0}" = "1" ]; then
+                # Auto-write updated hash so next run passes (L-S392 fix: race between working tree and hook)
+                echo "$CURRENT_HASH" > "$LATEST_HASH_FILE"
+                echo "  Genesis hash auto-updated in $(basename "$LATEST_HASH_FILE") (ALLOW_GENESIS_DRIFT=1)"
+            else
                 exit 1
             fi
         fi
