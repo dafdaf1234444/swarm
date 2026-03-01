@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-33 active | Last updated: 2026-03-01 S388 | S368: +15 domain links wired (reachability audit L-673)
+35 active | Last updated: 2026-03-01 S388 | S368: +15 domain links wired (reachability audit L-673)
 
 ## Critical
 
@@ -66,6 +66,8 @@ NK Complexity and Distributed Systems are test beds, not primary domains.
 - **F-BRN-NK1**: Do ai+brain isomorphisms overlap to suggest a third unidentified mapping? S354 OPEN: dream.py identified 61 cross-domain resonances; ai/brain share predictive coding (P-175) and memory consolidation (P-163). Open: test whether structural overlap predicts novel ISO entries not in atlas. Related: F122, F126, ISO-1, ISO-2.
 
 - **F-META10**: Can the swarm detect substrate violations at creation time? S358 OPEN: NK chaos + N_e caught retroactively after 50+ sessions. Proposed tripwire: 3-question substrate check at frontier opening (core object exists? mapping mechanism? null competitor?). Test: apply to next 10 frontier openings. Related: L-628, P-217.
+
+- **F-META14**: Can systematic re-verification of genesis-era lessons (L-001 to L-030) with mature infrastructure find overturned claims? OPEN S389: 388 sessions, 0 "genesis audits." L-001 to L-015 written before adversarial challenges, Sharpe, EAD. Most likely CONFIRMED but unverified. Test: Sharpe-score each genesis lesson; compare to grounding labels; identify any with outdated mechanism (mech-decay pattern: L-633). Related: L-761, F-META12, L-633.
 
 ## Archive
 Resolved questions: `tasks/FRONTIER-ARCHIVE.md`
