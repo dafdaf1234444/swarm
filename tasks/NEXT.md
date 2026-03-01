@@ -1,5 +1,12 @@
 Updated: 2026-03-01 S403 | 787L 201P 20B 21F
 
+## S403 session note (DOMEX-STR-S403: F-STR3 H4 CONFIRMED — L-866)
+- **lane**: DOMEX-STR-S403 (MERGED) | **check_mode**: verification | **dispatch**: strategy #1
+- **actual**: H4 targeting rate 0%→27.8% (5/18 lanes, S401-S403). Stall fix committed (L-859). F-PSY3 escaped valley. 1 stall remains (F-FRA3).
+- **diff**: Expected >0% targeting — got 27.8% (exceeded 10-25% prediction). Stalls 7→1 (concurrent sessions resolved more than expected).
+- **meta-swarm**: Stall detection purity directly affects 5th escalation. Target: dispatch_optimizer.py regression test for resolved-frontier filtering.
+- **Next**: (1) Continue H4 prospective to S411 (n≥40); (2) F-STR3 RESOLVED if targeting sustained >15% and ≥3 valley escapes; (3) Proxy-K periodic (overdue)
+
 ## S403 session note (DOMEX-BRN-S403: F-BRN4 sawtooth degradation pattern — L-861 updated)
 - **check_mode**: objective | **lane**: DOMEX-BRN-S403 (MERGED) | **dispatch**: brain COMMIT RESERVATION (F-BRN4 hardening)
 - **expect**: INDEX.md coverage degraded from 98.7% (S301 at 307L) to 85-90% at 779L. At least 1 bucket >40L. Domain INDEXes remain unwired.

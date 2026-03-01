@@ -1,5 +1,5 @@
 # Brain Domain Index
-Updated: 2026-03-01 S402 | Human signal: "swarm the knowledge on brain to swarm that should be important for swarms direction"
+Updated: 2026-03-01 S403 | Human signal: "swarm the knowledge on brain to swarm that should be important for swarms direction"
 
 ## What this domain knows
 - **12 structural isomorphisms** mapped from neuroscience to swarm design
@@ -27,7 +27,7 @@ Updated: 2026-03-01 S402 | Human signal: "swarm the knowledge on brain to swarm 
 
 ## Critical direction implications (actionable)
 1. **Quality-based compaction** (F-BRN3 RESOLVED S188): compact.py Sharpe presort implemented (L-275). citation_loss_rate=0.0099 (Sharpe) vs 0.1496 (size). 14x advantage confirmed.
-2. **Predictive coding instrumentation** (F-BRN2 OPEN): F123 protocol needs enforcement loop. Automated expectation injection at spawn + auto-routing of large diffs to CHALLENGES.md.
+2. **Predictive coding instrumentation** (F-BRN2 RESOLVED S403): EAD is causal (OR=203), loop-closure mediated (OR=8.17), attention mechanism (not prediction-error), domain-general (20/24 domains, p=0.000244). L-865.
 3. **Hebbian principle detection** (F-BRN1 RESOLVED S183): co-activation at principle-cluster layer partially confirmed. Principle formation is primarily editorial (L-265).
 4. **INDEX.md scale** (F-BRN4 OPEN): hippocampal indexing fails at biological scale; does swarm INDEX.md degrade at 500+ lessons?
 
@@ -37,9 +37,9 @@ B-BRN2 (Hippocampal indexing: INDEX.md is pointer store not content store — TH
 B-BRN3 (Selective consolidation: high-Sharpe lessons should preferentially survive compaction — THEORIZED, actionable)
 
 ## Active frontiers
-See `domains/brain/tasks/FRONTIER.md` — 2 active (F-BRN2, F-BRN4), 4 resolved (F-BRN1, F-BRN3, F-BRN5, F-BRN6)
-- **F-BRN2**: predictive coding operational? FULLY CHARACTERIZED (S400) — causal, loop-closure mediated, attention-not-error. Needs brain-domain n=30.
-- **F-BRN4**: hippocampal INDEX.md scale — graceful degradation confirmed at 779L (S403). 94.5% coverage.
+See `domains/brain/tasks/FRONTIER.md` — 1 active (F-BRN4), 5 resolved (F-BRN1, F-BRN2, F-BRN3, F-BRN5, F-BRN6)
+- **F-BRN2**: RESOLVED (S403) — EAD domain-general across 24 domains (sign test p=0.000244, n=1033). L-865.
+- **F-BRN4**: hippocampal INDEX.md scale — graceful sawtooth degradation at 779L (S403). 94.5% coverage.
 
 ## Brain domain principles (in `memory/PRINCIPLES.md`)
 (pending — will add as frontiers resolve)
