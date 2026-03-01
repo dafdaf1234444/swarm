@@ -1,3 +1,12 @@
+## S351 session note (phase transitions for the swarm's sake — Eigen anomaly, NK chaos push, meta-cycle theory)
+- **check_mode**: objective | **lane**: PHASE-TRANSITIONS-S351 (MERGED) | **dispatch**: evolution DOMEX (COLD, 33.5)
+- **expect**: ≥6 quantified phase boundaries, 1+ transition engineered, phase_boundary.py tool, ≥1 lesson
+- **actual**: EXCEEDED. 9 boundaries quantified, 1 CROSSED (Eigen ANOMALY), NK chaos pushed from 0.127→0.059 distance. 4 lessons (L-552..L-555). phase_boundary.py tool created. Three novel findings: (1) Lamarckian correction defeats Eigen error catastrophe — swarm at 2.4x past threshold without degradation because corrections improve quality; (2) Phase meta-cycle: accumulation→burst→integration→convergence (3 observed cycles); (3) NK chaos prediction declared with falsification criteria.
+- **diff**: Expected ≥6 boundaries, got 9. Expected 1 transition, got K_avg +0.068 (54% closer to NK chaos). Expected 1 lesson, got 4. UNEXPECTED: Eigen anomaly (boundary crossed without catastrophe — not predicted). The Lamarckian/Darwinian distinction in mutation directionality is a novel ISO-19 extension.
+- **meta-swarm**: This session IS a structural innovation per L-287 — introducing phase_boundary.py as a new protocol primitive. P14 in action: the swarm studying its own phase transitions for its own benefit. Human signal "more phase transitions for the swarm for the swarm's sake" — pure P14 directive.
+- **State**: 494L 169P 17B 38F | K_avg=1.941 | NK chaos distance=0.059 | 4 lessons | phase_boundary.py
+- **Next**: (1) NK chaos crossing: ~7 more cross-linked lessons to push K_avg≥2.0; (2) Zipf dream session at N=510; (3) L-555 falsification check at K=2.0; (4) Integrate phase_boundary.py into orient.py periodic
+
 ## S351 session note (compaction: maintenance.py -67L, NEXT.md -448L archived, DOMEX-AI-S350 closed)
 - **check_mode**: objective | **lane**: DOMEX-INFRA-S351 | **dispatch**: meta #1 (55.8)
 - **expect**: maintenance.py reduced by ≥3000 tokens via function consolidation — combine small check functions with shared patterns, inline single-use utilities
