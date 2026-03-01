@@ -32,6 +32,7 @@ except ImportError:
 DOMAINS_DIR = Path("domains")
 EXPERIMENTS_DIR = Path("experiments")
 LANES_FILE = Path("tasks/SWARM-LANES.md")
+LANES_ARCHIVE = Path("tasks/SWARM-LANES-ARCHIVE.md")
 
 # Domain heat: evaporation constant per session gap (S340 council: 5/5 convergence)
 # Domains touched recently get a penalty; dormant domains get a bonus.
@@ -122,10 +123,14 @@ def _get_domain_outcomes() -> dict[str, dict]:
     Outcome feedback: reward proven domains, flag struggling ones.
     """
     outcomes: dict[str, dict] = {}
-    if not LANES_FILE.exists():
+    # Read both active lanes and archive for complete outcome history (L-562, F-EXP10)
+    contents = []
+    for f in (LANES_FILE, LANES_ARCHIVE):
+        if f.exists():
+            contents.append(f.read_text())
+    if not contents:
         return outcomes
-    content = LANES_FILE.read_text()
-    for line in content.splitlines():
+    for line in "\n".join(contents).splitlines():
         if not line.startswith("|") or line.startswith("| ---") or line.startswith("| Date"):
             continue
         cols = [c.strip() for c in line.split("|")]

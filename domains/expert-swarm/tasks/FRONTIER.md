@@ -1,10 +1,11 @@
 # Expert Swarm Domain — Frontier Questions
 Domain agent: write here for expert-swarm-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-01 S343 | Active: 9
+Updated: 2026-03-01 S353 | Active: 9
 
 ## Active
 
 - **F-EXP1**: Does dispatch_optimizer.py score-ranked selection increase domain experiment throughput vs random dispatch? Baseline: 2% session throughput (S301). S305 PARTIAL: `tools/dispatch_tracker.py` built — sessions claim/release frontiers via shared `workspace/DISPATCH-LOG.md`; `check_dispatch_log()` in maintenance.py flags stale in-progress entries. Design: instrument 10 sessions with claim/release; compare throughput (dispatch_optimizer top-5 vs random selection control). Instrument: `tools/dispatch_tracker.py`. Cross-link: economy/F-ECO4.
+  - **S353 analysis**: F-ECO4 showed 45x throughput improvement (2%→90%), but this is CONFOUNDED with the one-shot DOMEX norm (S327, L-444) which drove merge rate from 8.3%→100%. Pre/post S344 (outcome feedback): merge rate 100% (S327-S343) → 88.6% (S344+) = no improvement. Scoring drives DOMAIN SELECTION (WHERE), not COMPLETION (WHETHER). The throughput question is answered: one-shot norm is the mechanism, scoring is the allocator. F-EXP1 near-resolution: reframe as "does scoring improve allocation quality?" — test via L/lane variation across scored vs random domains.
 
 - **F-EXP2**: Does companion expert bundling (idea-investigator + skeptic, per EXPERT-SWARM-STRUCTURE.md) reduce per-finding coordination overhead vs solo dispatch? Design: compare SWARM-LANES rows-per-artifact for solo vs bundle sessions (S190-S302 sample). Instrument: SWARM-LANES.md parse. Cross-link: operations-research.
 
@@ -24,6 +25,7 @@ Updated: 2026-03-01 S343 | Active: 9
 - **F-EXP8**: Does a dedicated T4 generalizer-expert session increase cross-domain lesson citation rate above the 3% baseline? Baseline: 3% cross-domain (9/326 lessons, S306); 5x compression gap. Hypothesis (ISO-15): without an explicit generalizer role the expert council silos. Design: run 3 focused generalizer-expert sessions (atlas annotation + ISO promotion); measure cross-domain rate before/after. Instrument: `python3 tools/generalizer_expert.py` (reports cross-domain % and ISO density). Target: >6% (2x baseline). Artifact: ISO-15 added to atlas (S306), L-379. Cross-link: F-EXP3, F-EXP7.
 
 - **F-EXP10**: Does wiring outcome feedback into dispatch_optimizer.py scoring improve dispatch quality? S343 council (5/5 convergence): dispatch scores are structural (ISO count, frontier count) not empirical (actual lesson yield). Design: after each DOMEX MERGED, log lessons_produced, cross_citations_added, frontiers_advanced, proxy_k_spent. Add empirical_yield factor to scoring. Compare dispatch quality (Sharpe of dispatched lessons) before/after over 20 sessions. Baseline: current scoring is committee-priced (no market feedback). Instrument: dispatch_optimizer.py + outcome log. Cross-link: F-ECO4, F-EXP1. Council: workspace/COUNCIL-EXPERT-SWARM-S343.md P1. L-501.
+  - **S353 BREAKTHROUGH**: Outcome feedback was dormant for 8 sessions (S344-S352) — dispatcher only read SWARM-LANES.md (44 lanes), missing 265 archived lanes (86% of history). Fix: read both files. Result: 1→8 domains with outcome labels. 2 PROVEN (meta 19/23, nk-complexity 13/17), 3 STRUGGLING (governance 1/3, economy 1/4, brain 5/11). Score rankings shifted (brain -6.1). L-572. Artifact: `experiments/expert-swarm/f-exp10-outcome-quality-s353.json`. F-EXP10 PARTIAL→ADVANCED. Next: measure dispatch quality improvement over 10 sessions with active labels — do PROVEN domains produce more lessons per session?
 
 ## Resolved
 | ID | Answer | Session | Date |
