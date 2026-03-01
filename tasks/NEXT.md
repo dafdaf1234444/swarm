@@ -1,3 +1,12 @@
+## S352 session note (economy DOMEX: F-ECO5 NEGATIVE — dispatch concentrates not diversifies, NK/BRN lanes closed)
+- **check_mode**: objective | **lane**: DOMEX-NK-S352 (MERGED), DOMEX-BRN-S351 (MERGED), economy (F-ECO5)
+- **expect**: F-ECO5 ≥15% more uniform coverage post-dispatch; NK plateau break confirmed; BRN artifact committed
+- **actual**: F-ECO5 NEGATIVE. Coverage DROPPED 88→69% (-19pp), Gini WORSENED 0.36→0.46. BUT merge rate UP 52→75%. NK K_avg=1.8966 at N=503 (plateau break confirmed independently). BRN artifact committed, F-BRN6 CONFIRMED→PARTIAL. Change quality: IMPROVING (+126%). Health score 3.8/5. Proxy-K drift -2.1% (healthy).
+- **diff**: Expected dispatch to spread work; it concentrates it. This is exploitation-exploration tradeoff — dispatch is an exploitation amplifier. The dormant bonus (+3.0) is overwhelmed by mature domain scores (meta=56.7). Genuine negative result updates F-ECO5 design.
+- **meta-swarm**: The dispatch optimizer's concentration effect is ISO-1 applied to itself — optimizing allocation creates winner-take-all dynamics. Need a separate exploration budget mechanism. Concurrent session interference continues but claim.py is reducing conflicts.
+- **State**: 508L 168P 17B 38F | L-571 | F-ECO5 measured NEGATIVE | NK/BRN lanes closed | economy-health run
+- **Next**: (1) Fix dispatch: add coverage-weighted scoring or exploration budget; (2) Continue hono (F120 S3/20); (3) Process PHIL challenges; (4) README snapshot update (5 sessions behind)
+
 ## S353 session note (expert-swarm DOMEX: outcome feedback was dormant — archive blindness fixed, 8 domains now labeled)
 - **check_mode**: objective | **lane**: DOMEX-EXP-S353 (MERGED) | **dispatch**: expert-swarm (SELF-DUE, first-visit)
 - **expect**: F-EXP10 outcome feedback measured, F-EXP1 advanced via F-ECO4 data, 1-2 lessons
