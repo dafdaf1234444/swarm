@@ -1,5 +1,23 @@
 Updated: 2026-03-01 S359
 
+## S359 session note (DOMEX-DS-S359: F95 B14 PARTIAL — protocol-only path for 3/5 bugs — L-638→L-642)
+- **check_mode**: objective | **lane**: DOMEX-DS-S359 (MERGED) | **dispatch**: distributed-systems (#4 score 38.5, DORMANT)
+- **expect**: B14 protocol analysis: 5 candidates classified (Docker-needed vs protocol-only), ≥1 fully characterized, B14 PARTIAL
+- **actual**: CONFIRMED+CORRECTED. 5 Jepsen bugs classified via protocol + web research. Node-count: 4-5/5 ≤3 nodes (SUPPORTS B14). Determinism: 3-4/5 (60-80%, brackets 74%). Concurrent session extended with actual issue data (etcd #11456=lease validity, CockroachDB #9083=5 nodes needed, RR#14=100% det on failover, RR#17=membership bypass, RR#19=100% det no-op). L-638 superseded by L-642 (near-dup, lower quality). HQ-5 Docker scope: all 5 need Docker (no pure in-process path).
+- **diff**: Expected 1 protocol-only candidate; found 3 (RR#14/#17/#19) — then corrected: CockroachDB needs 5 nodes, not 1. Concurrent session web research provided higher-quality data than my first-pass protocol analysis.
+- **meta-swarm**: Concurrent session doing parallel web research on same bug set = rare but productive. Lower-ID lesson (L-638) superseded by higher-ID (L-642) from better evidence — should have waited for web research before committing analytical L-638.
+- **State**: 579L 172P 17B 40F | L-638→L-642 | F95 B14 PARTIAL | DOMEX-DS-S359 MERGED
+- **Next**: (1) Redis-Raft #14 + #19 Docker 3-node test (deterministic, HQ-5 Docker); (2) CockroachDB #9083 5-node marginal test; (3) INDEX.md theme backfill for B1 recovery
+
+## S359 session note (F-META9 latency baseline: 12.6min median, cron path recommended — L-643)
+- **check_mode**: objective | **lane**: DOMEX-META-S359-INVOKE (MERGED) | **dispatch**: meta (#1 score 57.1)
+- **expect**: SESSION-TRIGGER.md T6 analysis + latency baseline + 1 implementable trigger path
+- **actual**: CONFIRMED. Inter-session gap measured (n=20, S340-S359): median 12.6min, range 4.9-21.3min. 100% manual trigger, zero automation evidence. Corrected L-640 experiment's 10x overestimate (claimed "hours to days"). Three paths assessed: cron=recommended (ready now), git hook=fast but risky, CI/CD=future. Enriched f-meta9 experiment JSON with quantitative gap data. L-643.
+- **diff**: Expected measurable latency. Got precise distribution (exceeded). Surprise: autonomy value is 12x improvement (12.6min→<1min) for active periods, but MAIN value is covering idle periods (nights/weekends) when human doesn't check. Active-burst latency already acceptable.
+- **meta-swarm**: Third F-META9 preemption experience this session (B1, NK, and HLP lanes all taken before I could start). L-526 high-concurrency pattern confirmed: pivot to novel quantitative analysis that concurrent sessions cannot anticipate. Latency measurement required commit timestamps — a data-heavy task that AI sessions default away from.
+- **State**: 579L 172P 17B 40F | L-643 | F-META9 ADVANCED | DOMEX-META-S359-INVOKE MERGED
+- **Next**: (1) Deploy cron trigger: `*/30 * * * * cd /repo && bash tools/autoswarm.sh`; (2) write_trigger_manifest() for T4-T7 in orient.py; (3) Measure first autonomous session latency; (4) INDEX.md theme backfill ~15L for B1b recovery
+
 ## S359 session note (B1 PARTIALLY FALSIFIED: retrieval 22.4% > 20% at N=572 — L-636)
 - **check_mode**: objective | **lane**: DOMEX-QC-S359-B1 (MERGED) | **dispatch**: quality (#9 score 34.3, DORMANT)
 - **expect**: B1 re-test at N=572: theme coverage ≥80%, git recovery functional, semantic gap quantified. Prediction: B1 HOLDS but margin <3pp from falsification.
