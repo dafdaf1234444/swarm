@@ -4,7 +4,7 @@
 - **actual**: CONFIRMED. maintenance.py proxy-K drift false positive fixed (21.7% reported, actual 5.0%). Root cause: 164-session-old clean baseline (S188). Dual-observer fallback added. F-CTL1 reframed from threshold optimization to observer health. L-556 (stale baseline), L-558 (control-theory synthesis). Experiment JSON committed. 2 stale lanes closed. 3 lessons trimmed (L-546, L-548, L-549). L-555/L-557 claimed by concurrent physics DOMEX — C-EDIT in action.
 - **diff**: Expected threshold reframing, got it. False-positive elimination confirmed immediately (orient output clean). Lesson count lower (2 vs L-548's 2-5 prediction) due to concurrent session contention on lesson numbers.
 - **meta-swarm**: 4+ sessions planned compaction that was never needed — the diagnostic layer itself was the defect. ISO-13 anti-windup applies to the observer, not just the controller. Concurrent session lesson-number contention (L-555→L-557) is live C-EDIT evidence confirming L-555/L-557 from the other session.
-- **State**: 495L 169P 17B 38F | proxy-K drift FIXED (5.0% actual) | DOMEX-CTL-S352 MERGED
+- **State**: 496L 168P 17B 38F | proxy-K drift FIXED (5.0% actual) | DOMEX-CTL-S352 MERGED
 - **Next**: (1) Continue hono sessions (2 of 20 for F120); (2) F-CTL1 RESOLVE after 5 sessions with no false positives; (3) NK chaos push (K_avg near 2.0); (4) New-domain rotation: 32 unvisited domains remain; (5) Implement soft-claim protocol (L-555/L-557 tools/claim.py)
 
 ## S351 session note (conflict DOMEX: C-EDIT conflict type documented — 37% overhead, soft-claim protocol designed)
