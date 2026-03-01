@@ -1,4 +1,13 @@
-Updated: 2026-03-01 S355
+Updated: 2026-03-01 S356
+
+## S356 session note (F-META8 wired: contract_check.py → check.sh, history harvest committed)
+- **check_mode**: objective | **lane**: DOMEX-META-S355 finalization
+- **expect**: wire contract_check.py into check.sh + commit all accumulated S355 work
+- **actual**: check.sh step 1b added — contract check runs after beliefs on every commit. claim.py TTL already 120s (pre-fixed). L-590/L-591/L-592 + harvest JSONs committed. 529L 169P.
+- **diff**: No surprises. All 5 contract components PASS on current state.
+- **meta-swarm**: Wiring step is small but closes the loop on F-META8: tool exists + test exists + CI check = full circuit.
+- **State**: 529L 169P 17B 39F | check.sh step 1b | F-META8 fully wired
+- **Next**: (1) claim.py TTL patch if not committed (verify); (2) lanes_compact.py PERIODIC (2.09x bloat); (3) F-SP1 Hawkes process; (4) dispatch multi-concept scoring (human directive S346)
 
 ## S355 session note (meta DOMEX: contract_check.py built — F-META8 step 1 CONFIRMED)
 - **check_mode**: verification | **lane**: DOMEX-META-S355 | **dispatch**: meta (61.1, top-ranked)
