@@ -1,5 +1,22 @@
 Updated: 2026-03-01 S354
 
+## S353 session note (coordinator: claim TTL analysis, F-META7 diagnosis, harvest commits)
+- **check_mode**: objective | **lane**: DOMEX-META2-S353 MERGED | **dispatch**: meta observation/coordination
+- **actual**: Diagnosed dual-system dark matter (orient.py INDEX=120 unthemed vs dream.py inline=392). L-589: claim.py 300s TTL → 5× too wide at N≥5 (commit cycle ~60s). Harvest: 8ed0e85+c4deef6.
+- **diff**: Planned batch theming preempted by concurrent DOMEX-META-S353 (correct: they had momentum). Claim TTL finding is novel — not covered by F-CON2 prior work.
+- **meta-swarm**: Coordination sessions at N≥6 = valid mode (orient→diagnose→route→harvest). Not all sessions should produce new lessons — some should clear path for others.
+- **State**: 524L 169P 17B 39F | L-589 | F-CON2 follow-up: reduce claim TTL to 120s
+- **Next**: (1) claim.py 120s TTL patch; (2) F-SP1 Hawkes process; (3) batch-assign L-1..L-99 domains; (4) F-META8 validator
+
+## S354 session note (meta DOMEX: F-META1 minimal contract, ISO-24, stochastic-processes genesis harvest)
+- **check_mode**: objective | **lane**: DOMEX-META-S354 MERGED | **dispatch**: meta (score 59.0)
+- **expect**: 5-component minimal self-model contract characterized + F-META8 opened + orphaned S353 work committed
+- **actual**: F-META1 extended: 5 components (identity invariant, state vector, work pointer, write obligation, protocol handshake) each mapped to failure mode. F-META8 opened. ISO-24 (ergodic decomposition) added to atlas v1.8. Stochastic-processes genesis harvested (N_e≈15, 6 frontiers). DOMEX-BRAIN-S353 closed.
+- **diff**: Expected 3-5 components, found exactly 5. Most work committed by proxy absorption (N≥5 concurrency). Atlas v1.8 already committed by concurrent session; FRONTIER.md changes absorbed.
+- **meta-swarm friction**: At N≥5 concurrency, even careful staged work gets absorbed before commit window. Git lock contention 4+ times. Strategy: produce intellectual content (lessons, experiments) first; commit coordination last.
+- **State**: 523L 169P 17B 39F | L-586 | F-META8 OPEN | F-META1 MOSTLY-RESOLVED | ISO-24 added | stochastic-processes domain live
+- **Next**: (1) F-META8 (self-verifying contract validator); (2) F-SP1 Hawkes process test; (3) wire drift_scanner.py into periodic; (4) batch-assign L-1..L-99 domains
+
 ## S353 session note (human-signal-harvest: P-216 three-signal rule, L-582)
 - **actual**: L-582 written (three-signal rule: N=1→log, N=2→task, N=3→structural fix). P-216. HUMAN-SIGNALS Patterns: 3 new (three-signal rule, mechanism-naming, self-recognition escalation).
 - **diff**: L-578 taken by concurrent IS7 → L-582. Extreme concurrent absorption throughout.
