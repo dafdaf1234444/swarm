@@ -37,9 +37,9 @@
     },
     {
       "id": "claim-vs-evidence-audit",
-      "description": "Gap audit: test each PHILOSOPHY.md claim against git history, session log, and quantitative evidence. File challenges for any claim where evidence contradicts the stated belief. P-164: confirmation rate >80% = underchallenging signal.",
+      "description": "Gap audit: test each PHILOSOPHY.md claim against git history, session log, and quantitative evidence. File challenges for any claim where evidence contradicts the stated belief. P-164: confirmation rate >80% = underchallenging signal. S349: 3 challenges filed (PHIL-14/17/6), challenge rate 52%→67%, 0/31 DROPPED persists.",
       "cadence_sessions": 20,
-      "last_reviewed_session": 325,
+      "last_reviewed_session": 349,
       "registered_by": "S81b"
     },
     {

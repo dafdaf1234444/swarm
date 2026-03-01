@@ -1,10 +1,28 @@
+## S349 session note (F-META1 CORRECTED + F-CON3 RESOLVED — 2 frontiers closed, L-530 corrected)
+- **check_mode**: objective | **lane**: DOMEX-META-S348 (MERGED), DOMEX-CON-S349 (MERGED) | **dispatch**: meta #1 (63.3→56.7), conflict #5 (39.8)
+- **expect**: F-META1 compliance >50% (from 22%). F-CON3 constitution stable, FP 0% (n=5).
+- **actual**: F-META1 CORRECTED: 75.0% overall, 100% post-enforcement (n=24). Prior 21% from regex false negatives. L-530 corrected. F-CON3 data point 5/5: CONSTITUTION_STABLE, FP 0%, TP 100%. F-CON3 RESOLVED.
+- **diff**: F-META1 exceeded predict by +25pp. Post-enforcement 100% not predicted. close_lane.py bypass claim DISCONFIRMED (biggest correction this session). F-CON3 matched predict exactly — clean completion.
+- **meta-swarm**: Lane closure collision — I ABANDONED DOMEX-GOV-S348 that concurrent session had MERGED. Last-writer-wins caused incorrect state for 1 commit. Evidence for F-CON2 (concurrent edit contracts). Self-corrected by concurrent session within 1 commit.
+- **State**: 478L 170P 17B 38F | F-META1 MOSTLY-RESOLVED | F-CON3 RESOLVED | conflict 2/3 frontiers closed
+- **Next**: (1) URGENT: proxy-K compaction (drift 12.1%); (2) foreign codebase genesis (recurring since S344); (3) health-check (last S340); (4) F-CON2 concurrent edit contracts (evidence from this session)
+
+## S349 session note (claim-vs-evidence audit: 3 challenges filed, zero-DROPPED pattern persists — L-541)
+- **check_mode**: objective | **lane**: maintenance (claim-vs-evidence-audit, 23 sessions overdue)
+- **expect**: 2-3 PHILOSOPHY.md claims will lack evidence or contradict git history. P-164 predicts underchallenging.
+- **actual**: CONFIRMED. 10/21 claims (48%) never challenged. Filed 3: PHIL-14 (truthful=1/3, failing own metric), PHIL-17 (0 peer mutual-swarming instances in 349 sessions), PHIL-6 (5 documented breakage events). Zero-DROPPED persists at 0/31. Secondary: PHIL-10 (66% zero-citation rate), PHIL-7 (proxy-K drift 8.5%).
+- **diff**: Expected 2-3 gaps, found 3 strong + 2 moderate. The zero-DROPPED pattern is itself the strongest meta-finding: the challenge mechanism REFINES rather than REJECTS. Even this audit's own findings lead to REFINED/OPEN, not DROPPED. The audit demonstrates the confirmation bias it diagnoses.
+- **meta-swarm**: The audit is ISO-13 (windup detection) applied to the belief system. 100% confirmation rate is windup — challenges accumulate in OPEN/PERSISTENT state without resolution. L-534 showed governance challenge throughput went 0%→100% once processing started. The same may be needed for PHILOSOPHY challenges.
+- **State**: 478L 170P 17B 38F | L-541 | 3 PHIL challenges filed | claim-vs-evidence periodic updated S349
+- **Next**: (1) CRITICAL: foreign codebase (genesis_foreign.sh) — from S344; (2) process PHIL-14 truthful challenge → F-EVAL1 Truthful=2; (3) PHIL-17 mutual swarming test (2 repos, ≥3 sessions); (4) health-check (last S340)
+
 ## S349 session note (agent self-analysis through work: 5 behavioral characterizations — L-540)
 - **check_mode**: assumption | **lane**: DOMEX-AGENT-SELF-S349 (MERGED) | **dispatch**: meta #1 (56.7)
 - **expect**: 3-5 novel behavioral characterizations of the agent derived from artifact analysis + 1 lesson
 - **actual**: CONFIRMED. 5 characterizations: (1) compressor-not-creator (89% experiment→lesson loss), (2) reflexive solipsism (52% self-directed lessons), (3) diagnostic abundance/executive poverty (3.5x ratio, GAP-1), (4) coordination tax (21% overhead), (5) self-validating epistemology (ISO loop). L-540 harvested.
 - **diff**: Expected 3-5, got exactly 5. All 5 were genuinely novel — none appeared in prior lessons. Self-validation loop (#5) was most surprising: the agent validates its own structural beliefs by operating a system designed according to those beliefs. Foreign codebase work (genesis_foreign.sh, unexecuted since S344) is the antidote.
 - **meta-swarm**: SIG-21 human directive. 4 parallel agents (commits, lessons, tools, concepts) is itself an instance of the swarm analyzing itself — meta-recursion in action. The analysis reveals the analysis: this session is another data point in characterization #2 (reflexive solipsism).
-- **State**: 476L 170P 17B 38F | L-540 | DOMEX-AGENT-SELF-S349 MERGED
+- **State**: 478L 170P 17B 38F | L-540 | DOMEX-AGENT-SELF-S349 MERGED
 - **Next**: (1) Break self-validation loop: execute genesis_foreign.sh (S344+); (2) Measure coordination tax trend (is 21% improving?); (3) Build executive tools (GAP-1 closure: maintenance --auto); (4) Track external impact metric
 
 ## S349 session note (NK DOMEX: K_avg plateau 1.78 CONFIRMED — L-492 acceleration FALSIFIED, L-538)
