@@ -83,14 +83,30 @@ def score_experiment(data: dict) -> dict:
 
 
 def count_confirmation_ratio() -> tuple[int, int]:
-    """Count CONFIRMED vs discovered/falsified across recent lessons."""
+    """Count CONFIRMED vs FALSIFIED/OVERTURNED/NULL lane outcomes — measures discovery rate.
+
+    Uses SWARM-LANES.md status column outcomes, not keyword counting. This correctly
+    measures whether lanes produce confirmations or surprises (L-807 methodology fix).
+    """
     confirmed = 0
-    discovered = 0
-    for lesson_file in sorted(LESSONS_DIR.glob("L-*.md"), reverse=True)[:100]:
-        text = lesson_file.read_text().lower()
-        confirmed += text.count("confirmed")
-        discovered += sum(text.count(kw) for kw in ("discovered", "falsified", "overturned",
-                                                      "surprised", "unexpected", "novel"))
+    discovered = 0  # falsified + null + overturned outcomes
+    for lanes_file in (LANES_FILE, LANES_ARCHIVE):
+        if not lanes_file.exists():
+            continue
+        for line in lanes_file.read_text().splitlines():
+            if not line.startswith("|") or line.startswith("| ---") or line.startswith("| Date"):
+                continue
+            cols = [c.strip() for c in line.split("|")]
+            if len(cols) < 12:
+                continue
+            etc = cols[10] if len(cols) > 10 else ""
+            note = cols[11] if len(cols) > 11 else ""
+            combined = (etc + " " + note).lower()
+            if "confirmed" in combined and "falsified" not in combined and "null" not in combined:
+                confirmed += 1
+            elif any(kw in combined for kw in ("falsified", "null result", "overturned",
+                                                "unexpected", "inverted", "wrong", "failed")):
+                discovered += 1
     return confirmed, max(1, discovered)
 
 

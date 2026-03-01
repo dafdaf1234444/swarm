@@ -1148,6 +1148,21 @@ def main():
                         print(f"  Knowledge state ({age_note}): BLIND-SPOT {blind/total:.1%} | DECAYED {decayed/total:.1%} | refresh: python3 tools/knowledge_state.py --json")
             except Exception:
                 pass
+            # Science quality from cached artifact — L-807: wired immediately (L-803 principle)
+            try:
+                sq_files = sorted((ROOT / "experiments" / "meta").glob("science-quality-s*.json"))
+                if sq_files:
+                    sq_data = _json_pci.loads(sq_files[-1].read_text())
+                    sq_m = re.search(r"science-quality-s(\d+)", sq_files[-1].name)
+                    sq_age = (int(sess_pci_m.group(1)) - int(sq_m.group(1))) if sq_m else -1
+                    if -5 <= sq_age <= 30:
+                        mean_q = sq_data.get("mean_quality", 0)
+                        pre_reg = sq_data.get("criteria_means", {}).get("pre_registration", 0)
+                        falsif = sq_data.get("falsification_lanes", "?/0")
+                        age_note = f"S{sq_m.group(1)}" + (f", {sq_age}s ago" if sq_age > 0 else "")
+                        print(f"  Science quality ({age_note}): mean {mean_q:.0%} | pre-reg {pre_reg:.0%} | falsif lanes {falsif} | refresh: python3 tools/science_quality.py --json")
+            except Exception:
+                pass
             if pci_val < 0.10:
                 print(f"  Tip: use `python3 tools/think.py --stale` to find untested beliefs,")
                 print(f"       `python3 tools/think.py --test \"hypothesis\"` to test claims with evidence")
@@ -1242,6 +1257,30 @@ def main():
             print()
     except Exception:
         pass  # graceful degradation
+
+    # Historian repair — SIG-39: all swarm helps meta historian/tooler/meta-x
+    try:
+        import subprocess as _sp_hist
+        hr_result = _sp_hist.run(
+            ["python3", "tools/historian_repair.py", "--json"],
+            capture_output=True, text=True, cwd=str(ROOT), timeout=15
+        )
+        if hr_result.returncode == 0:
+            import json as _json_hist
+            hr_data = _json_hist.loads(hr_result.stdout)
+            high_items = [i for i in hr_data.get("items", []) if i.get("severity") == "HIGH"]
+            if high_items:
+                print(f"--- Historian repair ({hr_data.get('total', 0)} stale, {len(high_items)} HIGH) ---")
+                cat_icons = {"beliefs": "🔴", "frontiers": "🟡", "domains": "⚪"}
+                for item in high_items[:3]:
+                    icon = cat_icons.get(item.get("category", ""), "○")
+                    print(f"  {icon} [{item['item_id']}] {item['category']} — stale {item['sessions_stale']}s — {item['description'][:60]}")
+                if len(high_items) > 3:
+                    print(f"  ... and {len(high_items) - 3} more HIGH items")
+                print(f"  Run: python3 tools/historian_repair.py")
+                print()
+    except Exception:
+        pass
 
     # Suggested action
     print("--- Suggested next action ---")

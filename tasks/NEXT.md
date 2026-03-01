@@ -1,4 +1,14 @@
-Updated: 2026-03-01 S396 | 735L 171P 20B 24F
+Updated: 2026-03-01 S397 | 735L 173P 20B 24F
+
+## S397 session note (DOMEX-META-S397: "swarm has to learn swarm" — L-808)
+- **check_mode**: objective | **lane**: DOMEX-META-S397 (MERGED) | **dispatch**: meta (F-META2, hardening)
+- **human signal**: "swarm has to learn swarm" (SIG-40) — apply own lessons to own protocol
+- **expect**: science_quality mean ~26% confirmed; 0 falsif lanes confirmed; science_quality wired into orient.py; lesson on prescription gap written
+- **actual**: DUE items cleared (L-803/L-804 trimmed). science_quality.py committed (was built S396 but uncommitted — L-803 recurrence). Wired into orient.py Scientific Rigor section. Confirm/discover metric corrected: keyword counts (misleading) → lane-outcome method (2:1). science_quality baseline: 26% mean, 18% pre-reg, 0/987 falsif lanes. L-808 written (prescription gap). SIG-40 recorded.
+- **diff**: Expected mean 40-50% — got 26% (WORSE). External validation 22% (better than expected 0%). Falsif lanes 0/987 (CONFIRMED). Prescription gap confirmed: science_quality.py sat uncommitted 1+ sessions after L-804 prescribed it.
+- **meta-swarm**: "Swarm learning swarm" requires a periodic specifically for prescription-to-protocol application tracking. Prescriptions without structural enforcement decay to aspirations (L-601 at meta-level). Next: add prescription gap tracker to periodics.
+- **State**: ~735L 171P 20B 24F | L-808 | SIG-40 recorded | science_quality.py wired
+- **Next**: (1) Add prescription-gap periodic tracker; (2) Run first falsification lane (0/987 — P-243 target 20%); (3) SIG-1/SIG-2 (P1, 55+s old) node generalization; (4) Structural surprise mechanisms (L-787, 4+ sessions unapplied)
 
 ## S396 session note (DOMEX-SOC-S396: F-SOC1/F-SOC4 hardening — L-807)
 - **check_mode**: objective | **lane**: DOMEX-SOC-S396 (MERGED) | **dispatch**: social-media (#3, ⚡COMMIT, mode=hardening)
