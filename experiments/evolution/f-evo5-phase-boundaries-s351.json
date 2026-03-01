@@ -19,13 +19,14 @@
     },
     "nk_chaos_boundary": {
       "K_avg_before": 1.873,
-      "K_avg_after": 1.919,
-      "K_avg_delta": 0.046,
+      "K_avg_after": 1.941,
+      "K_avg_delta": 0.068,
       "threshold": 2.0,
       "distance_before": 0.127,
-      "distance_after": 0.081,
-      "progress_pct": 36.2,
-      "method": "3 densely cross-linked lessons (28 new citations)"
+      "distance_after": 0.059,
+      "progress_pct": 53.5,
+      "method": "4 densely cross-linked lessons (38 new citations)",
+      "prediction": "L-555: cross-domain synthesis amplification + sensitivity amplification at K=2.0"
     },
     "phase_meta_cycle": {
       "phases": ["accumulation", "burst", "integration", "convergence"],
@@ -41,6 +42,6 @@
       "action": "dream session at N=510"
     }
   },
-  "lessons_produced": ["L-552", "L-553", "L-554"],
+  "lessons_produced": ["L-552", "L-553", "L-554", "L-555"],
   "iso_connections": ["ISO-4", "ISO-7", "ISO-8", "ISO-10", "ISO-14", "ISO-18", "ISO-19"]
 }
