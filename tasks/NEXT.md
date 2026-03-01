@@ -16,14 +16,14 @@
 - **State**: 422L 178P 17B 36F | maintenance.py 24,229t (-1,768t) | action-board refreshed S339
 - **Next**: (1) Phase 2 compaction: shared helper extraction (~1,239t); (2) Implement EAD enforcement in check.sh (~10L); (3) Domain activation wave (28 dormant → target 50%); (4) sink sprint at N=450
 
-## S339 session note (stigmergy council: 4-domain convergence on 3 missing primitives, L-484)
+## S339 session note (stigmergy council + implementation: 3 missing primitives diagnosed, top-3 implemented, L-484)
 - **check_mode**: objective | **lane**: COUNCIL-STIGMERGY-S339 | **dispatch**: human signal ("council on stigmergy improvements")
 - **expect**: Council identifies ≥3 actionable stigmergy improvements with cross-domain convergence
-- **actual**: CONFIRMED. 4-domain council (info-sci, dist-sys, evolution, control-theory) independently diagnosed identical structural gap: deposit exists, evaporation/amplification/gradient absent. 10 proposals ranked by convergence (4/4 → 1/4). Top-3: EAD enforcement (~10L), swarm_state.json (~50L), auto-decay (~30L). 3 new ISOs discovered (STG1-3). P-046 diagnosed this 300 sessions ago — council provides the prescription.
-- **diff**: Expected ≥3 improvements, got 10 with clear priority ordering. Unexpected: negative stigmergy (REPELLENT tags) as a novel concept not in any existing principle. Convergence strength metric (N/4 experts agreeing) is itself a new decision tool.
-- **meta-swarm**: Council Mode A on a concrete architectural question produces higher-quality output than Mode A on abstract questions. The stigmergy question has measurable state (proxy-K, sink%, EAD%) which grounds expert proposals. Abstract councils produce memos; concrete councils produce implementations.
-- **State**: 421L 178P 17B 36F | Council memo: workspace/COUNCIL-STIGMERGY-S339.md | L-484 written
-- **Next**: (1) Implement S3: EAD enforcement in check.sh (~10L, zero dependencies); (2) Implement S4: swarm_state.json tool (~50L); (3) Implement S1: auto-decay in compact.py (~30L); (4) Add S7: REPELLENT section template to domain FRONTIERs
+- **actual**: CONFIRMED + IMPLEMENTED. 4-domain council (info-sci, dist-sys, evolution, control-theory) independently diagnosed identical structural gap: deposit exists, evaporation/amplification/gradient absent. 10 proposals ranked. Top-3 implemented same session: (S3) EAD enforcement in check.sh, (S4) swarm_state.py tool, (S7) negative stigmergy REPELLENT section in meta/FRONTIER.md. 3 new ISOs (STG1-3). P-046 was diagnosis 300 sessions ago; this council provides the prescription AND first implementations.
+- **diff**: Expected council → memo. Got council → memo → implementation in one session (concurrent node implemented while this node synthesized). Stigmergy working: council memo was the trace, concurrent session was the follower.
+- **meta-swarm**: Council Mode A on concrete architectural questions (measurable state: proxy-K, sink%, EAD%) produces implementable proposals. The council-to-implementation pipeline demonstrates the deposit→read→act cycle it analyzed. First concrete stigmergy improvements since P-046 (S39).
+- **State**: 422L 178P 17B 36F | S3+S4+S7 IMPLEMENTED | Council: workspace/COUNCIL-STIGMERGY-S339.md | L-484
+- **Next**: (1) S1: auto-decay in compact.py (~30L — implements evaporation); (2) S2: priority encoding on lessons (batch weight tagging); (3) S6: randomized dispatch in dispatch_optimizer.py; (4) Propagate REPELLENT sections to all 42 domain FRONTIERs
 
 ## S339 session note (meta: three-layer coupling gap — belief staleness check in orient.py, L-483)
 - **check_mode**: assumption | **lane**: meta-coupling-S339 | **dispatch**: human signal ("think parts like dependencies beliefs how to swarm better")
