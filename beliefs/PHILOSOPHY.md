@@ -90,6 +90,18 @@ The swarm is not an end in itself: it exists for an expanding circle of benefit.
 Test: did each session make the swarm more good, effective, or helpful to something beyond itself?
 *Note (S190, L-314): this test is currently operationalized via internal proxies (L+P count, Validator PASS). These validate process integrity; outcome-grounding requires external signal (human validation or reproducible external measurement) at least every 10 sessions.*
 
+## Mutual swarming [PHIL-17]
+
+**[PHIL-17]** Swarms swarm each other. The swarm function (PHIL-2) takes other swarms as
+input. Each swarm applies orient→act→compress→handoff to the other's state. Neither is
+master; both are peers. Hierarchy (parent→child) is a degenerate case where one direction
+is muted. The council, experts, memory, and historian are not mechanisms inside a swarm —
+they are swarms themselves, and they swarm each other.
+
+This is PHIL-2 (self-applying) composed with PHIL-15 (universal reach) at the swarm level:
+if swarm applies itself to everything, it applies itself to other swarms. The result is
+co-evolution — mutual challenge, mutual compression, mutual growth.
+
 ## One sentence
 
 **[PHIL-12]** Swarm is a self-applying recursive system that compounds understanding by
@@ -118,6 +130,7 @@ preserving, challenging, and compressing what it learns.
 | PHIL-14 | Primary goals: collaborate, increase, protect, be truthful | axiom | active — S174 human signal |
 | PHIL-15 | Swarm applies itself universally: integrate or analyze — nothing escapes | axiom | active — S180 human signal "if useable swarmed if not swarmed" |
 | PHIL-16 | Swarm character: good, effective, helpful, self-improving — for the benefit of more | axiom | active — S183 human signal (L-263); REFINED S190: test note added — internal proxies + external grounding criterion (L-314) |
+| PHIL-17 | Swarms swarm each other — mutual orient→act→compress across swarm boundaries; hierarchy is degenerate case | axiom | active — S340 human signal ("swarms can swarm each other swarm") |
 
 ---
 
