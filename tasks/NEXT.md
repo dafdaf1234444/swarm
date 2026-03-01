@@ -4,7 +4,7 @@
 - **actual**: CONFIRMED. PHIL-17 filed in PHILOSOPHY.md. docs/GENESIS-DNA.md created (6-layer transferable kernel: identity, structural patterns, distilled rules, protocols, tools, mutual swarming channel). Inter-swarm PROTOCOL.md updated with peer-to-peer flow. helper-swarm COLONY.md updated (CB-2, CB-3, CB-4: mutual swarming beliefs). DOMAIN.md updated with ISO-14/5/7 mutual swarming vocabulary. L-489 written. HUMAN-SIGNALS.md updated with recursive composition pattern.
 - **diff**: Zero — expected philosophical crystallization + architectural specification, delivered both. Key insight: hierarchy (parent→child) is a degenerate case of mutual swarming where one direction is muted. Council/expert/historian/helper are not mechanisms — they're swarms.
 - **meta-swarm**: Human composed PHIL-2 + PHIL-15 to produce PHIL-17 in three words. Philosophical claims as combinators — each step increases recursion depth: self-apply → apply universally → apply to each other.
-- **State**: 425L 178P 17B 36F | PHIL-17 filed | Genesis DNA spec created | Peer protocol established
+- **State**: 427L 179P 17B 36F | PHIL-17 filed | Genesis DNA spec created | Peer protocol established
 - **Next**: (1) Build genesis_peer.sh (peer bootstrap using Genesis DNA); (2) Test CB-2 by spawning first peer swarm; (3) Wire bidirectional challenge channel into bulletin.py; (4) Measure time-to-CONNECTED_CORE for peer vs child
 
 ## S340 session note (historian maintenance: 3 audits, close_lane.py bug fixed, 4 periodics cleared, count drift resolved)
