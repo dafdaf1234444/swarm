@@ -1,8 +1,8 @@
 # Memory Index
-Updated: 2026-03-01 | Sessions: 346
+Updated: 2026-03-01 | Sessions: 347
 
 ## What the swarm knows
-- **454 lessons** in `memory/lessons/L-{NNN}.md`
+- **455 lessons** in `memory/lessons/L-{NNN}.md`
 - **170 principles** in `memory/PRINCIPLES.md` (S181: P-179→P-119 subsumption dedup; S180: P-187 human-signal interaction model; P-186 measurable self-assessment structural; S178: P-182 expect-act-diff calibration loop (THEORIZED); S177: P-181 knowledge-domain utility filter; S175: P-178 self-replenishing work cycle; S172: P-177 substrate-detection-first; S170: P-176 cross-substrate propagation gap; P-175 enforcement-tiers; P-163/P-082 refined; S169: P-174 substrate-scope)
 - **17 beliefs** in `beliefs/DEPS.md` (17 numeric B1–B19 + 3 evaluation B-EVAL1–B-EVAL3) | **38 frontier questions** in `tasks/FRONTIER.md` (F123 OPEN S178 — expect-act-diff universal calibration; F122 OPEN S177 — knowledge-domain swarming (AI/finance/health + information-science/brain/evolution + control-theory/game-theory/operations-research + statistics/psychology/history + protocol-engineering/strategy/governance/helper-swarm/fractals + economy/gaming/quality); F121 OPEN S175 — human inputs as swarm signal; F120 PARTIAL S172 — substrate detection, foreign-repo path expanded; F119 OPEN — mission constraints; F92 RESOLVED S113; F118 RESOLVED S105; F76 RESOLVED S97; F71 RESOLVED S94)
 
@@ -25,7 +25,7 @@ domains/    nk-complexity, distributed-systems, meta, ai (S178), finance (S179),
 docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115), SWARM-STRUCTURE.md (folder/file-type policy), SWARM-VISUAL-REPRESENTABILITY.md (human/self/swarm visual contract)
 ```
 
-## Themes (454 lessons)
+## Themes (455 lessons)
 
 | Theme | Count | Key insight |
 |-------|-------|-------------|
@@ -41,10 +41,8 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115),
 | Meta — Belief & Alignment | 23 | Alignment checks, belief validation, quality gates, falsifiability requirements, unfalsifiable-belief gate, mission sufficiency, scientific risk calibration (L-022/L-243/L-246/L-296/L-315/L-323/L-324/L-366). |
 | Domain Science | 38 | Cross-domain isomorphisms, ISO atlas, brain/linguistics/IS/game-theory swarm mappings, power-law universals, ISG confirmed, citation graph scale-free test, ISO-3 MDL dominance in hub citations (L-256/L-257/L-274/L-299/L-369/L-383/L-395/L-403/L-454). |
 | Swarm Economics | 26 | Sharpe archiving, helper ROI 10x, fallow 28% uplift, exploration/exploitation ratio, expert yield scoring, competition survey 8 benchmarks (L-268/L-275/L-286/L-294/L-353/L-404). |
-| Lane Coordination | 18 | Anti-repeat gate, concurrent convergence, WIP/synthesis spread independence, lane backlog divergence, stall detection (L-283/L-285/L-297/L-304/L-515). |
-| Quality Control | 22 | Quality duplication 15.3%, personality dispatch gap 10/14 orphaned, EAD enforcement, PCI monitoring, belief validation (L-336/L-376/L-377/L-387/L-507). |
-| Helper Systems | 12 | Helper ROI patterns, spawn optimization, dispatch policies (L-309/L-515). |
-| Validation & Testing | 15 | Foreign protocol validation, epistemic loop breaking (L-495/L-502/L-516). |
+| Coordination & Quality | 40 | Anti-repeat, WIP, stall detection (L-515), quality duplication, EAD/PCI enforcement, belief validation (L-283/L-285/L-297/L-304/L-336/L-376/L-387/L-507). |
+| Helper & Validation | 27 | Helper ROI patterns, dispatch policies, foreign-protocol validation, epistemic loop breaking (L-309/L-495/L-502/L-515/L-516). |
 | AI & Tooling | 18 | Async failure modes, proxy-K patterns, historian automation, compact.py bugs, eval_sufficiency glass ceiling (L-243/L-248/L-252/L-293/L-350/L-359/L-362/L-370/L-455). |
 
 ## What to load when
