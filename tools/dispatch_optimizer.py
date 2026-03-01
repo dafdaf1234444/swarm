@@ -756,6 +756,15 @@ def run(args: argparse.Namespace) -> None:
     active_lanes = _get_active_lane_domains()
     campaign_waves = _get_campaign_waves()
 
+    # Wave plan mode: standalone prescriptive output
+    if getattr(args, 'wave_plan', False):
+        prescriptions = _wave_prescriptions(campaign_waves)
+        if args.json:
+            print(json.dumps(prescriptions, indent=2, default=str))
+        else:
+            _print_wave_plan(prescriptions)
+        return
+
     mode = getattr(args, 'mode', 'heuristic')
     compare = getattr(args, 'compare', False)
 
@@ -831,23 +840,31 @@ def run(args: argparse.Namespace) -> None:
                     modes = fdata.get("all_modes", [])
                     mode_stall_items.append((r["domain"], fid, modes))
 
+            # Prescriptive wave plan summary (F-STR3, L-755)
+            prescriptions = _wave_prescriptions(campaign_waves)
+            commits = [p for p in prescriptions if p["action"] == "COMMIT"]
+            closes = [p for p in prescriptions if p["action"] == "CLOSE"]
+
             if danger_doms or committed_doms or veteran_doms or mode_stall_items:
                 print(f"\n--- Campaign Advisory (F-STR3, L-755) ---")
                 print(f"  Resolution: 1w=28%, 2w=11% (valley), 3w=31%, 4w+=50%")
-                if danger_doms:
+                if commits:
+                    print(f"  COMMIT ({len(commits)} frontiers in valley of death — 11% -> 31%):")
+                    for p in commits:
+                        mode_str = " -> ".join(p["modes"])
+                        shift = " !" if p["mode_shift_needed"] else ""
+                        print(f"    ⚠ {p['domain']}: {p['frontier']} ({mode_str}) -> {p['next_mode']}{shift}")
+                elif danger_doms:
                     print(f"  Valley of death (2 waves — 11% resolution):")
                     for r in danger_doms:
-                        stalls = r.get("wave_2_stalls", [])
-                        if stalls:
-                            for fid in stalls:
-                                cw = campaign_waves.get(r["domain"], {})
-                                fdata = cw.get("frontiers", {}).get(fid, {})
-                                last_mode = fdata.get("last_mode", "?")
-                                next_mode = "hardening" if last_mode == "exploration" else "resolution"
-                                print(f"    ⚠ {r['domain']}: {fid} ({' -> '.join(fdata.get('all_modes', []))}) -> recommend {next_mode}")
-                        else:
-                            print(f"    ⚠ {r['domain']} — {r['campaign_rx']}")
-                if committed_doms:
+                        print(f"    ⚠ {r['domain']} — {r['campaign_rx']}")
+                if closes:
+                    print(f"  CLOSE ({len(closes)} frontiers approaching resolution — 31% -> 50%):")
+                    for p in closes:
+                        mode_str = " -> ".join(p["modes"][:3])
+                        shift = " !" if p["mode_shift_needed"] else ""
+                        print(f"    -> {p['domain']}: {p['frontier']} ({mode_str}) -> {p['next_mode']}{shift}")
+                elif committed_doms:
                     print(f"  Approaching resolution (3 waves — 31%):")
                     for r in committed_doms:
                         print(f"    -> {r['domain']} — {r['campaign_rx']}")
@@ -862,8 +879,9 @@ def run(args: argparse.Namespace) -> None:
                     print(f"  Mode stalls (same mode >=2 consecutive waves):")
                     for dom, fid, modes in mode_stall_items[:5]:
                         mode_str = " -> ".join(modes)
-                        next_mode = "hardening" if modes[-1] == "exploration" else "resolution"
+                        next_mode = OPTIMAL_NEXT_MODE.get(modes[-1], "hardening")
                         print(f"    ! {dom}: {fid} ({mode_str}) -> MODE SHIFT to {next_mode}")
+                print(f"  Full plan: python3 tools/dispatch_optimizer.py --wave-plan")
             return
 
     # Heuristic mode (default) — apply domain heat
