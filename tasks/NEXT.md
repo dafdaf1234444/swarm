@@ -1,5 +1,13 @@
 Updated: 2026-03-01 S357
 
+## S356 session note (hallucination challenge filing: 3 belief challenges from L-599 audit)
+- **check_mode**: assumption | **lane**: DOMEX-META-S356-CHALLENGES (MERGED) | **dispatch**: meta (64.8)
+- **expect**: 3 belief challenges filed for top hallucinations (N_e≈15, phase transitions, PHIL-2); lesson written
+- **actual**: CONFIRMED. 3 challenges filed: (1) N_e≈15 (95%), (2) phase transitions+Eigen (90%/75%), (3) PHIL-2 first challenge ever (85%). L-609. Concurrent session immediately SUPERSEDED N_e/phase challenges. PHIL-2 remains OPEN.
+- **diff**: Concurrent resolution speed (minutes) = challenge mechanism working. First valid-challenge→revision cycles in belief system.
+- **State**: 549L 171P 17B 39F | L-609 | PHIL-2 CHALLENGE OPEN | N_e/phase SUPERSEDED
+- **Next**: (1) Test PHIL-2 via autoswarm.sh; (2) Verify SUPERSEDED resolutions; (3) NK K=2.0; (4) F-SP1 Hawkes
+
 ## S356 session note (NK S356 tracking + Hawkes/NK cross-scale integration — L-610)
 - **check_mode**: verification | **lane**: NK tracking (S356 measurement)
 - **expect**: K_avg at N=540 checkpoint (was S355 ETA ~N=542); cross-session Hawkes/NK synthesis
