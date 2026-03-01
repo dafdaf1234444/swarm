@@ -38,13 +38,14 @@ def lane_exists(lane_id: str) -> bool:
     return False
 
 
-def get_frontier_previous_mode(frontier_id: str) -> str | None:
-    """Return the mode of the most recent lane for this frontier, or None if first wave.
+def get_frontier_previous_mode(frontier_id: str) -> tuple[str | None, int]:
+    """Return (mode of most recent lane, wave count) for this frontier.
 
-    Reads both active and archive lanes. Used to warn on mode repeat (F-STR3, L-766).
+    Returns (None, 0) if first wave. Reads both active and archive lanes.
+    Used to enforce mode declaration on 2nd+ wave (F-STR3, L-766, L-601).
     """
     if not frontier_id:
-        return None
+        return None, 0
     lanes: list[tuple[int, str]] = []
     for lanes_file in (LANES_FILE, LANES_ARCHIVE):
         if not lanes_file.exists():
@@ -79,9 +80,9 @@ def get_frontier_previous_mode(frontier_id: str) -> str | None:
                     mode = "exploration"
             lanes.append((sess, mode))
     if not lanes:
-        return None
+        return None, 0
     lanes.sort(key=lambda x: x[0])
-    return lanes[-1][1]
+    return lanes[-1][1], len(lanes)
 
 
 def append_open_row(
@@ -201,27 +202,31 @@ def main():
     if not args.note:
         args.note = f"Lane opened via open_lane.py. Frontier: {args.frontier or 'TBD'}."
 
-    # Wave-mode enforcement: warn on mode repeat for 2nd+ wave lanes (F-STR3, L-766)
+    # Wave-mode enforcement: require --mode for 2nd+ wave lanes (F-STR3, L-766, L-601)
+    # L-601: voluntary protocols decay to structural floor at creation. Only creation-time
+    # enforcement sustains. Mode enforcement was voluntary S390-S393 with 0% adoption.
     if args.frontier:
-        prev_mode = get_frontier_previous_mode(args.frontier)
+        prev_mode, wave_count = get_frontier_previous_mode(args.frontier)
         if prev_mode is not None:
-            wave_mode = args.mode or "exploration"  # default if not specified
+            wave_num = wave_count + 1  # this lane is the next wave
             if not args.mode:
                 print(
-                    f"WARN: {args.frontier} has prior lane(s) (last mode: {prev_mode}). "
-                    f"Consider --mode to make campaign progression explicit.",
+                    f"ERROR: {args.frontier} is on wave {wave_num} (last mode: {prev_mode}). "
+                    f"--mode is required for 2nd+ wave lanes to prevent valley-of-death stalls "
+                    f"(L-755/L-766/L-601). Choose: {', '.join(VALID_MODES)}",
                     file=sys.stderr,
                 )
-            elif wave_mode == prev_mode:
+                sys.exit(1)
+            elif args.mode == prev_mode:
                 print(
-                    f"WARN: mode={wave_mode} repeats previous wave mode for {args.frontier}. "
+                    f"WARN: mode={args.mode} repeats previous wave mode for {args.frontier} (wave {wave_num}). "
                     f"Mode-repeat is the #1 predictor of valley-of-death stalls (L-755/L-766). "
-                    f"Consider a different mode: {', '.join(m for m in VALID_MODES if m != wave_mode)}",
+                    f"Consider a different mode: {', '.join(m for m in VALID_MODES if m != args.mode)}",
                     file=sys.stderr,
                 )
             else:
                 print(
-                    f"INFO: mode shift {prev_mode} → {wave_mode} for {args.frontier} — "
+                    f"INFO: mode shift {prev_mode} → {args.mode} for {args.frontier} (wave {wave_num}) — "
                     f"mode transition increases resolution probability (L-755)."
                 )
 
