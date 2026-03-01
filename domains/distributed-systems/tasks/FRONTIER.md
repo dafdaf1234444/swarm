@@ -1,6 +1,6 @@
 # Distributed Systems Domain — Frontier Questions
 Domain agent: write here, not to tasks/FRONTIER.md
-Updated: 2026-02-27 | Active: 3
+Updated: 2026-03-01 S374 (external: 8 Jepsen 2024-2026, Antithesis validates 3-node, DistFuzz NDSS 2025) | Active: 3
 
 ## Active
 
@@ -23,6 +23,7 @@ Updated: 2026-02-27 | Active: 3
   No Byzantine faults (git eliminates). Overall determinism 50-67% < Jepsen 60-80% (infrastructure
   layer). ISO-21 candidate: gradient is substrate-independent. L-699.
   Artifact: experiments/distributed-systems/f95-swarm-distributed-bugs-s374.json.
+  **S374 external survey (L-690 + f95-jepsen-external-s374.json)**: 8 new Jepsen analyses 2024-2026. NATS 49.7% write loss (most severe ever). Antithesis: 830h on 3+1 nodes, $105M Series A. DistFuzz (NDSS 2025): blackbox fuzzing, 28 bugs, no instrumentation. Redis-Raft dormant since 2023-07-18. Four novel bug classes extend gradient to 6 tiers: spec/protocol > client-library > state-machine > consensus > client-server > clock. **Next**: DistFuzz as reproduction tool; NATS fsync bug as new candidate.
 
 - **F100**: What predicts error handling quality in DAG-enforced Go/Rust if not cycles?
   PARTIAL — S50: K_out is primary predictor (r=0.652, etcd 23 packages). Contract-type maps to K_out:

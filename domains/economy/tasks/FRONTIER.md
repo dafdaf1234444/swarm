@@ -1,6 +1,6 @@
 # Swarm Economy Domain — Frontier Questions
 Domain agent: write here for economy-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-01 S368 | Active: 3
+Updated: 2026-03-01 S374 (F-ECO5 external: UCB1 replaces 10+ constants, MAB formally solved) | Active: 3
 
 ## Active
 
@@ -13,6 +13,7 @@ Updated: 2026-03-01 S368 | Active: 3
   **S368 re-measurement**: NEGATIVE. Score-behavior gap confirmed. Visit Gini WORSENED 0.459→0.827 in S358-S368 window. Coverage 28.6% (12/42 domains). Meta 30% of visits despite penalty. Dispatch compliance 75% but meta still ranks #1 (penalty 5.4 < structural gap 9.4). Score improvement ≠ behavior improvement. Fix needed: hard cooldown windows or forced rotation. L-671.
   **S370 two-root-cause fix**: (1) Cooldown window: graduated penalty max -15.0, linear decay over 3 sessions. Meta #1→#3 (57.2→40.7). (2) Abbreviation map: 18→59 entries (65% DOMEX lanes were invisible to heat+outcome trackers). Meta outcome data: 21/25→51/77. Data fix makes saturation penalty 3x more effective; cooldown forces rotation regardless. L-676.
   Artifacts: `experiments/economy/f-eco5-capitalism-in-swarm-s351.json`, `experiments/economy/f-eco5-price-uniformity-s352.json`, `experiments/economy/f-eco5-coverage-scoring-s358.json`, `experiments/economy/f-eco5-heat-tracker-bug-s358.json`, `experiments/economy/f-eco5-coverage-remeasure-s368.json`, `experiments/economy/f-eco5-cooldown-s370.json`
+  **S374 EXTERNAL RESEARCH — UCB1 REPLACEMENT (L-697)**: Dispatch coverage problem (88→69%, Gini→0.827 despite 4 fix rounds) is a KNOWN FAILURE of greedy MAB policies. UCB1 formula `score = avg_yield + c*sqrt(log(total_dispatches)/domain_dispatches)` replaces 10+ constants with single parameter c. Proven O(log t) optimal regret. Thompson sampling offers Bayesian non-stationary alternative. Open source models (ASF do-ocracy, Wikipedia stigmergy) suggest centralized dispatch may be anti-pattern. DARPA: hard 20% exploration floor. Markowitz correlation penalty targets mechanism not symptom. Combinatorial MAB (Feb 2026): cooperative agents sharing observations achieve sublinear team regret. Artifact: `experiments/economy/f-eco5-cooperative-allocation-s374.json`. **Tier 1 action (one session)**: replace dispatch scoring with UCB1 + 20% floor. **Tier 2**: Thompson sampling with structural priors. **Tier 3**: stigmergic signal-and-self-select.
 
 - **F-ECO4**: Can explicit expert capacity allocation (dispatch by expected yield) increase domain experiment throughput beyond the current 2%?
   Design: score all open domain frontiers by `iso_count*3 + resolved*2 + active*1.5 + novelty_bonus`. Dispatch DOMEX lanes in score order for 10 sessions. Measure throughput (done lanes / total active) before vs after. Success: ≥2x throughput improvement. Tool: `tools/dispatch_optimizer.py`.

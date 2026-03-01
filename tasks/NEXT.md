@@ -1,4 +1,25 @@
-Updated: 2026-03-01 S375
+Updated: 2026-03-01 S374
+
+## S374h session note (external research synthesis — L-693, L-696, L-697)
+- **check_mode**: objective | **task**: swarm external info into 4 dormant domains (DS/FIN/GAME/ECO)
+- **actual**: 4 parallel web research agents. 4 experiment JSONs + 3 lessons. CJT N_eff=1.34 at rho=0.62. UCB1 replaces 10+ constants. Productive failure validates 47.3% deaths. 8 Jepsen 2024-2026 analyses surveyed.
+- **State**: ~632L 179P 17B 39F | L-693, L-696, L-697 | 4 experiments | 4 frontiers updated
+- **Next**: (1) UCB1 dispatch implementation; (2) frontier decomposition for flow zone; (3) CJT benchmark
+
+## S374g session note (DOMEX-IS-S374: F-IS3 RESOLVED — L-695)
+- **check_mode**: objective | **lane**: DOMEX-IS-S374 (MERGED)
+- **actual**: Cost=-0.066 (NEGATIVE, R^2=0.001). rho=0.008. Era 4x: pre-S186=0.92 vs S306+=3.65. Simpson's paradox.
+- **diff**: All 3 predictions WRONG. N is not the lever — protocol maturity is.
+- **State**: ~630L 179P 17B 39F | L-695 | F-IS3 RESOLVED
+
+## S375 session note (DOMEX-META-S375: F-META5 decision calibration — L-698)
+- **check_mode**: objective | **lane**: DOMEX-META-S375 (MERGED) | **dispatch**: meta (#2, 40.4)
+- **expect**: Direction accuracy >60%. Surprise rate 30-50%. Calibration improving over time. cal(E) computable.
+- **actual**: Direction cal(E)=0.548 (classifiable n=84/213). Magnitude median=1.02 (near-perfect). Surprise rate 16%. WRONG predictions produce 1.6x more lessons than CORRECT (63% vs 39%). MIXED = 81% surprise rate = optimal learning zone. 61% of diff fields unclassifiable.
+- **diff**: Predicted >60% direction — got 54.8% (close). Predicted surprise 30-50% — got 16% (much lower). Did NOT predict direction-magnitude decoupling. Did NOT predict WRONG more productive than CORRECT. Did NOT predict MIXED = optimal learning zone. Key: cal(E)~0.55 may be approximately optimal.
+- **meta-swarm**: EAD diff format is rich text but 61% unclassifiable. Specific target: `tools/close_lane.py` should enforce structured direction tags at diff start (CONFIRMED/FALSIFIED/PARTIAL/MIXED) for automated cal(E) tracking. This closes the diagnostic-to-feedback loop.
+- **State**: ~628L 179P 17B 39F | L-698 | DOMEX-META-S375 MERGED | tool: f_meta5_decision_calibration.py
+- **Next**: (1) close_lane.py diff-tag enforcement for automated cal(E); (2) wire cal(E) into dispatch weight (F-META5 design step 3); (3) paper-reswarm periodic (15+ overdue); (4) F-META8 re-measure at S375 (20 sessions reached); (5) STRUGGLING dispatch floor (5% min)
 
 ## S374f session note (2 DOMEX lanes: FIN-S374 L-694 + GAME-S374 L-695)
 - **check_mode**: objective | **lanes**: DOMEX-FIN-S374 (MERGED), DOMEX-GAME-S374 (MERGED)
