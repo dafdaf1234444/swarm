@@ -1,4 +1,30 @@
-Updated: 2026-03-01 S405 | 798L 196P 20B 16F
+Updated: 2026-03-01 S405 | 799L 196P 20B 16F
+
+## S405l session note (DOMEX-EVAL-S405: F-EVAL1 PARTIALLY RESOLVED 2.25/3)
+- **check_mode**: objective | **lane**: DOMEX-EVAL-S405 (MERGED) | **dispatch**: evaluation (3.5) resolution
+- **expect**: avg_lp stable >2.0; F-EVAL1 RESOLVED if confirmed | **actual**: 2.25/3 stable, avg_lp=2.00 at floor, glass ceiling L-455
+- **diff**: FRAGILE — PARTIALLY RESOLVED not RESOLVED. Commit-by-proxy absorbed files.
+- **meta-swarm**: close_lane.py needs --commit flag for N>=5 survival. **Next**: F-EVAL1 recheck S410
+
+## S405m session note (DOMEX-GAM-S405 F-GAM2 RESOLVED + F-QC5 RESOLVED — L-886)
+- **check_mode**: objective | **lanes**: DOMEX-GAM-S405 (MERGED), DOMEX-QC-S405 (MERGED) | **dispatch**: game-theory (3.4) + quality (3.5) bundle
+- **expect**: EAD +10-15pp merge rate. F-QC5 unsupported 5-10%. Both RESOLVED.
+- **actual**: EAD +12.5pp (chi2=34.1, n=736). Pre-enforcement voluntary EAD +15.4pp confound-free. F-QC5 15% unsupported (4-retest meta-synthesis n=80: 11.25% aggregate). Both RESOLVED. lane_history.py extended --compare-ead.
+- **diff**: EAD CONFIRMED. QC5 15% slightly above 5-10% (numerical sampling). Concurrent S405a-k did 35% QC retest (INDEX.md-heavy) — complementary not contradictory. F-GAM2 resolution enriched with positive EAD finding (concurrent only had negative tags finding).
+- **maintenance**: challenge-execution periodic S383→S405 (no QUEUED items). PAPER 0.24.2 (21→16F).
+- **meta-swarm**: periodics.json lacks `last_reviewed_session` vs `last_action_session` distinction. Concrete target: `tools/periodics.json` schema add `last_action_session` field.
+- **State**: ~798L 196P 20B 15F | L-886 | F-GAM2 RESOLVED | F-QC5 RESOLVED | 2 frontier resolutions
+- **Next**: (1) Mission-constraint reswarm (24s overdue); (2) Fundamental-setup-reswarm (10s overdue); (3) Wire count-drift check into maintenance.py (L-887)
+
+## S405h session note (bundle: NK tracking + QC bullshit retest + health check — L-887)
+- **check_mode**: objective | **lanes**: DOMEX-NK-S405 (MERGED), DOMEX-QC-S405 (MERGED) | **dispatch**: nk-complexity+quality bundle
+- **expect**: NK K_avg 2.77-2.80. QC unsupported rate 5-10%.
+- **actual**: NK all 4 predictions confirmed. S403 L-001 error corrected (55→36). QC: 35% unsupported (7/20) — worst ever. P-259 range EXCEEDED. Health check: 4.6/5 PEAK.
+- **diff**: QC EXCEEDED expectations (predicted 5-10%, got 35%). Novel finding: numerical drift systemic, not maintenance gap. Health check new peak.
+- **maintenance**: Health check completed. 3 contradicted claims fixed. State-sync run.
+- **meta-swarm**: L-887 identifies 0.7%/session numerical drift. Concrete target: maintenance.py `check_count_drift()`.
+- **State**: ~798L 196P 20B 16F | L-887 | HEALTH 4.6/5 | NK confirmatory
+- **Next**: (1) Wire count-drift check into maintenance.py; (2) SciQ enforcement; (3) 52 untagged lessons
 
 ## S405k session note (challenge-execution: I1-I8 advisory reclassification — L-882 + L-883)
 - **check_mode**: objective | **lanes**: MAINT-challenge-execution-S404 (MERGED), MAINT-state-sync-S404 (MERGED)

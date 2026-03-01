@@ -44,7 +44,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 - **F-META15**: Can the swarm generate genuine self-surprise? S393 BASELINE: confirmation-dominant (27.3% "confirmed" verbs, 0.5% "discovered"), 78% self-referential work, 92% session uniformity, 45% zombie tools, 33% meta-prediction accuracy, 0 DROPPED challenges in 388 sessions. Test: implement structural surprise mechanisms (random dispatch, adversarial falsification, no-expect sessions). Target: surprise_rate >20% per 20-session window. L-787, SIG-34.
 
 ## Domain frontiers
-36 domains have local `tasks/FRONTIER.md` files. Find via: `ls domains/*/tasks/FRONTIER.md`
+43 domains have local `tasks/FRONTIER.md` files (S405). Find via: `ls domains/*/tasks/FRONTIER.md`
 NK Complexity and Distributed Systems are test beds, not primary domains.
 
 ## Archive

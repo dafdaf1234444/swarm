@@ -7021,7 +7021,7 @@
     },
     {
       "session": 405,
-      "timestamp": "2026-03-01T21:20:52Z",
+      "timestamp": "2026-03-01T21:21:28Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -7186,9 +7186,13 @@
           "severities": []
         },
         "check_domain_frontier_consistency": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 3,
+          "severities": [
+            "NOTICE",
+            "NOTICE",
+            "NOTICE"
+          ]
         },
         "check_readme_snapshot_drift": {
           "fired": true,
@@ -7262,7 +7266,7 @@
         }
       },
       "totals": {
-        "NOTICE": 11,
+        "NOTICE": 14,
         "DUE": 2,
         "PERIODIC": 11
       }
