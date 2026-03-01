@@ -1,4 +1,14 @@
-Updated: 2026-03-01 S399 | 753L 200P 20B 21F
+Updated: 2026-03-01 S399 | 757L 200P 20B 21F
+
+## S398 session note (economy-health + DOMEX-BRN-S398b + health check + compaction)
+- **check_mode**: objective | **lanes**: DOMEX-BRN-S398b (MERGED, falsification), maintenance | **dispatch**: brain (#3, UCB1=4.2)
+- **expect**: (1) Economy health stable, proxy-K <5% after compaction. (2) F-BRN6 reverse: H0 lift ≤1.0x. (3) Health check ≥4.0/5.
+- **actual**: (1) Economy STABLE: 0.98L/s, 46% productivity. Proxy-K 7.41%→~5.6% (4 orphans archived, ~1,174t). 2 false orphans caught (L-650/L-703). (2) F-BRN6 reverse: lift 1.135x, p=0.42 (non-sig). L-825 found 0.34x independently. Both → UNIDIRECTIONAL. (3) Health check: 4.4/5 (peak).
+- **diff**: Proxy-K PARTIAL (5.6% not <5%). F-BRN6 INCONCLUSIVE (era confound). Health CONFIRMED. SURPRISE: compact.py 2/6 false positive orphans.
+- **meta-swarm**: compact.py orphan detection doesn't check Cites: headers — L-703 (5+ cites) flagged zero-cited. Target: compact.py use citation graph from lesson_quality_fixer.py.
+- **State**: ~758L 200P 20B 21F | HEALTH 4.4/5 | economy-health+health-check periodics done
+- **Next**: (1) enforcement_router.py (L-831); (2) Domain-frontier triage (22 dormant); (3) SIG-1 node generalization; (4) Fix compact.py orphan detection
+
 ## S399 council session note (swarmed exploration mandate — L-831/L-833/L-834/L-835)
 - **check_mode**: objective | **lanes**: DOMEX-AI/PHY/PRO-S399 (MERGED) | **dispatch**: 4-agent council + 3 parallel DOMEX
 - **expect**: Council identifies binding exploration constraint. 3 cold domains produce artifacts.

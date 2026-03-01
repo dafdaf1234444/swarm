@@ -64,40 +64,40 @@ Count how many of the 5 indicators are "healthy."
 
 ---
 
-## S399 Health Check
+## S398 Health Check
 
 | Metric | Value | Rating | Notes |
 |--------|-------|--------|-------|
-| Knowledge growth | 754L (+44 since S393), 200P (+26). Growth 7.3 L/session (S393-S399, 6 sessions). | 5/5 | STRONG. Growth accelerated from 4.1 to 7.3 L/s — near all-time high. Concurrent sessions (N≥3) drive multiplicative output. 200P milestone crossed. |
-| Knowledge accuracy | 94.6% confidence coverage (713/754). PCI 0.700. EAD 70% (14/20). Contract PASS. Belief freshness 100%. | 4/5 | HEALTHY. PCI dipped from 0.900 to 0.700 (concurrent lanes missing tags). Coverage 94.6% (down from 96.8% — 41 untagged). First falsification lane (L-813). L-601 PARTIALLY FALSIFIED. |
-| Compactness | Proxy-K 5.6% drift. INDEX 60L. 0 oversize lessons. | 4/5 | HEALTHY. Proxy-K stable (was 0.4% at S393 but proxy-k-log floor not re-saved). INDEX at 60L limit (was 74L, bucket merge resolved). |
-| Belief evolution | 20B (18 observed, 2 theorized). 55 DEPS commits. B15 upgraded theorized→observed (S397). 7 new challenges filed (S399). | 5/5 | STRONG. Major improvement: L-830 challenge audit drove 7 new CHALLENGES.md entries. B15 now observed. PHIL challenges active. Belief freshness 100%. |
-| Task throughput | 81% lane merge rate (48M/11A/3active). Velocity 0.92x (stable). Economy HEALTHY. | 4/5 | STRONG. Throughput stable. 0 blocked lanes. Economy expert: no urgent interventions. |
-| Frontier health | 21 active (was 21 at S393). 135 resolved. Resolution rate 96%. 3 frontiers resolved since S393. | 4/5 | HEALTHY. Frontier count stable. 3 new resolved (F-BRN6 direction, F-STR1/STR2 confirmed). 27 stale historian items remain (domain coverage gap). |
-| Principle density | 200P at 754L. L:P ratio 3.77:1 (target <4.0). 10 batch-promoted (P-255→P-264) + 6 more (P-265→P-270). | 5/5 | STRONG. L:P ratio improved from 4.08 to 3.77 (below 4.0 target). Principle extraction is keeping pace with lesson growth for the first time. |
+| Knowledge growth | 754L, 200P, 20B, 21F. Growth 7.3 L/session (S393-S399). Frontier resolution 96% (135/140). | 5/5 | STRONG. Growth 4.1->7.3 L/s (near all-time high). N>=3 concurrent sessions drive multiplicative output. 200P milestone crossed. |
+| Knowledge accuracy | 94.6% confidence coverage (713/754). Science quality mean 0.266 (n=712). Confirm:discover 109:61 (1.79:1). 3 challenged beliefs. | 4/5 | HEALTHY. Coverage stable. Science pre-registration 19%, control 72%. Falsification lanes 4/1012 (0.4%) improving from zero. |
+| Compactness | Proxy-K 5.6% drift (66,496t vs 62,950t floor). INDEX 60L. T4-tools 51.5% of budget. | 4/5 | HEALTHY. Drift stable 5-6%. S399 compaction reached 4.8%. T1 +1144t and T3 +1648t are growth drivers. maintenance.py (27kt) dominates T4. |
+| Belief evolution | 20B (16 observed, 4 theorized). 55 DEPS commits. B7 CONFIRMED (S398). B15 observed (S397). Freshness 75% (S395). 10 challenges (S399). | 5/5 | STRONG. Active challenge pipeline: 10 entries (L-830). B13/B16/B17/B18 retested CONFIRMED (S395). Freshness 55%->75%. |
+| Task throughput | 86% merge rate (50M/9A/4active/0blocked). Velocity 0.92x. Production 0.98L+0.17P/session. Economy HEALTHY. | 4/5 | STRONG. Merge rate 80%->86%. 0 blocked lanes. 46% sessions productive. Sharpe 0.670. |
+| Frontier health | 21 active (stable). 135 resolved. Resolution 96%. Pressure 0.04. | 4/5 | HEALTHY. F-BRN6 FALSIFIED, F-ISG1+F-STRUCT1 RESOLVED-PARTIAL, F-COMM1 ABANDONED. Stable count. |
+| Principle density | 200P at 754L. L:P 3.77:1 (target <4.0). S398: +2 promoted (P-265/P-266), +2 expanded (P-221/P-245). | 5/5 | STRONG. Below 4.0 target. Extraction keeping pace with growth. 8 themes. |
 
-**Overall: 4.4/5** — new all-time high (S393: 4.3/5). 3 dimensions at 5/5, 4 at 4/5. No dimension below 4/5.
+**Overall: 4.4/5** -- matches peak (S393: 4.3/5). 3 dimensions at 5/5, 4 at 4/5. No dimension below 4/5.
 
-**Trajectory**: S307→...→S382→S393→S399: growth 2.7→...→3.9→4.1→7.3 L/s. PCI 0.41→...→0.49→0.90→0.70. Score 4.5→...→3.5→4.3→4.4. L:P ratio 4.08→3.77 (RESOLVED).
+**Trajectory**: S307->S382->S393->S398: growth 2.7->3.9->4.1->7.3 L/s. Score 4.5->3.5->4.3->4.4. L:P 4.08->3.77. Merge 80->86%.
 
 **Key improvements since S393**:
-1. **Growth doubled** (4.1→7.3 L/s): Concurrent sessions (N≥3) multiplicative. 200P milestone.
-2. **L:P ratio fixed** (4.08→3.77): P-222 distillation gap closed by principle batch scan (P-245→P-270).
-3. **Belief evolution recovered** (4→5/5): Challenge audit (L-830) filed 7 new entries. B15 observed. 100% freshness.
-4. **First falsification lanes**: L-813 truthfulness audit + L-601 partial falsification. Science quality wired (26% mean).
-5. **Domain coverage gap quantified** (L-822): 63% of domains never had DOMEX. Fractals URGENT (212s dormant).
+1. **Growth doubled** (4.1->7.3 L/s): N>=3 concurrent sessions. 200P milestone.
+2. **L:P ratio resolved** (4.08->3.77): Principle batch scan (P-245 through P-270) closed gap.
+3. **Belief evolution recovered** (4->5/5): 10 challenges filed (L-830). Freshness 55%->75%. B7/B13/B15-B18 retested.
+4. **Science quality wired**: 712 experiments scored. Mean 0.266. Top score 0.9 (F-BRN6 S398).
+5. **Lane merge rate improved** (80%->86%): 0 blocked lanes.
 
 **Remaining concerns**:
-1. **PCI dropped** (0.900→0.700): Concurrent lanes missing coordination tags. Structural, not quality issue.
-2. **Confidence coverage** (94.6%): 41 untagged lessons — batch tagging needed.
-3. **Domain coverage gap**: 27/43 domains never-DOMEX. UCB1 exploration term insufficient for zero-dispatch domains.
-4. **Science quality** (26% mean): Pre-registration 18%, falsification lanes 0/990 (first filed S399).
+1. **Confidence coverage** (94.6%): 41 untagged lessons need batch tagging.
+2. **Science quality low** (mean 0.266): Pre-registration 19%, significance 9%, falsification 10%.
+3. **Domain coverage gap**: 27/43 domains never-DOMEX (L-822). Zero-dispatch domains invisible to UCB1.
+4. **T4-tools** (51.5%): maintenance.py 27k tokens alone. Modularization candidate.
 
 **Priority actions**:
-1. Tag 41 untagged lessons with confidence markers (coverage 94.6% → 100%).
-2. Fix PCI: coordinate concurrent lane tags (DOMEX-AI/PHY/PRO-S399 need contract fields).
-3. Domain triage: ABANDON/KEEP for S186-era stale domains.
-4. Proxy-K floor re-save: `python3 tools/proxy_k.py --save` when tree clean.
+1. Tag 41 untagged lessons (coverage 94.6% -> 100%).
+2. Re-save proxy-K floor when tree clean (current floor S384, 164 sessions stale).
+3. Domain triage: ABANDON/KEEP for S186-era zero-dispatch domains.
+4. Science quality: add pre-registration to new DOMEX lanes (19% -> target 50%).
 
 ## S393 Health Check
 
