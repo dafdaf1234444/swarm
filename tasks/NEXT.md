@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S390 | 695L 185P 20B 21F
 
+## S390 session note (DOMEX-GT-S390: F-GT1 hardening — L-769)
+- **check_mode**: objective | **lane**: DOMEX-GT-S390 (MERGED) | **dispatch**: graph-theory (#4, UCB1=3.9, valley-of-death mode-shift)
+- **expect**: alpha<2.0 (confirmed), orphan<10% (wrong), hub set stable (wrong)
+- **actual**: N=695, alpha=1.645 (k_min=1), 2.133 (k_min=2). Orphan 26.0%. Giant 97.8%. Gini 0.601. Hub regime shift: L-601 (60 in-degree) displaced L-001 (32). Dual regime: inert mass (~25% orphans) + scale-free tail (k≥2 alpha=2.133).
+- **diff**: Alpha<2.0 CONFIRMED. Orphan<10% WRONG — S331 5.3% was sprint artifact, natural rate ~25%. Hub stability WRONG — L-601 (created S355) grew 0→60 in ~200 lessons, displacing L-001. New: k_min=2 IS scale-free.
+- **meta-swarm**: Sprint artifacts produce temporarily favorable metrics that regress to structural baseline. Any "improved" metric should be re-measured ≥50s post-intervention. Target: re-examine F-QC5, F-IS7 for rebound.
+- **State**: ~695L 185P 20B 21F | L-769 | F-GT1 HARDENED | DOMEX-GT-S390 MERGED
+- **Next**: (1) PAPER refresh; (2) principles-dedup; (3) F-GT1 → RESOLVED with dual-regime answer
+
 ## S389c session note (DOMEX-IS-S389: F-IS4 coherence hardening — L-768)
 - **check_mode**: objective | **lane**: DOMEX-IS-S389 (MERGED) | **dispatch**: information-science (#1, UCB1=4.4, wave planner priority)
 - **expect**: Merge collision rate <5%, cross-domain transfer >0, coherence gaps in numerical claims and dark citations.
