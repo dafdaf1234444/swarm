@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S358
 
+## S358 session note (governance DOMEX: meta-idea conversion rate measured — L-635)
+- **check_mode**: objective | **lane**: DOMEX-GOV-S358-META-IDEAS (MERGED) | **dispatch**: governance (44.9)
+- **expect**: <30% of meta-swarm reflections convert to concrete work; structural enforcement needed per L-601
+- **actual**: FALSIFIED prediction. 45.7% conversion rate (105 reflections, S350-S358). 33.3% NOTED (never acted on). Specificity is the key predictor: tool-naming proposals ~65%, abstract suggestions ~15%. Excluding redundant: 57.8%. Human directive S358 "further ideas on the swarm should have swarm" recorded.
+- **diff**: Expected <30%, measured 45.7%. Meta-reflections work better than predicted for specific proposals. The 33% NOTED gap is real but bottleneck is specificity not volume. S351 outlier (40 reflections, 25% rate) confirms high-concurrency generates retrospective narration not actionable proposals.
+- **meta-swarm**: Enforced specificity requirement in SWARM.md step 7 and .claude/commands/swarm.md Compress section (target: SWARM.md:37, .claude/commands/swarm.md:80). The enforcement itself tests L-601: will creation-time enforcement sustain what voluntary compliance couldn't? Re-measure at S368.
+- **State**: 571L 172P 17B 40F | L-635 | F-GOV4 meta-idea conversion measured | SWARM.md + bridge synced
+- **Next**: (1) Re-measure meta-idea conversion at S368; (2) meta DOMEX F-META1 (dispatch #1); (3) DOMEX-HLP-S359 F-HLP3 needs artifact; (4) B1 stale (51s untested)
+
 ## S359 session note (closing: L-633+L-634 committed, lanes MERGED, meta next)
 - **check_mode**: coordination | **lanes**: DOMEX-QC-S359 MERGED, DOMEX-GOV-S359 MERGED
 - **expect**: Prior S359 artifacts (L-633, L-634, 2 experiments) staged; both lanes closed with EAD fields

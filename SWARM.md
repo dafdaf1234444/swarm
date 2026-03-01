@@ -34,7 +34,7 @@ If `python` is unavailable in the active shell, run through bash: `bash tools/ma
 4. **Expect** — before acting, declare what you predict will be true after
 5. Act on it
 6. **Diff** — compare actual to expected; classify (zero=confirm, large=lesson, persistent=challenge). Negative/null outcomes are first-class signal, not discardable noise.
-7. Compress what you learned (diffs are signal — include them). **Quality gate** (F-QC1, L-309): Before writing a new lesson, scan the last 20 lesson titles for near-duplicates (>50% word overlap) — update existing instead of adding redundant one. **Meta-swarm reflection** (mandatory): identify one friction or improvement in the swarming process itself — act on it or file it.
+7. Compress what you learned (diffs are signal — include them). **Quality gate** (F-QC1, L-309): Before writing a new lesson, scan the last 20 lesson titles for near-duplicates (>50% word overlap) — update existing instead of adding redundant one. **Meta-swarm reflection** (mandatory): identify one friction or improvement in the swarming process itself — act on it or file it. Reflections must name a specific target file or tool; abstract suggestions without concrete targets have ~15% conversion rate (L-635). If no specific target exists, file as a frontier question with test criteria instead.
 8. Write state for the next node — run `python3 tools/sync_state.py` (auto-fix count drift) then `python3 tools/validate_beliefs.py` before committing.
 9. After final commit: `git push` — regular push is LOW risk (I9, L-521); commits are pre-validated by hooks. Never force-push (HIGH risk).
 
