@@ -1,5 +1,5 @@
 # Isomorphism Atlas — Atlas of Deep Structure
-v1.4 | 2026-03-01 | S342 | ISO-19 candidate (replication-mutation duality, 4-domain council L-497); 19 entries
+v1.5 | 2026-03-01 | S349 | ISO-20 candidate (bounded-epistemic self-replication, L-537); 20 entries
 
 ## What this is
 A cross-domain atlas of structural equivalences. Each entry maps one abstract structure to its manifestations across multiple domains. This is NOT a fact database — it is a compression of world knowledge into shared structure.
@@ -448,6 +448,25 @@ Domains appearing in 4+ entries — highest isomorphism density, swarm first:
 
 ---
 
+### ISO-20 (candidate): Bounded-epistemic self-replication — local ignorance enables global recursion
+**Structure**: A system whose components act on local rules with no access to global state can self-replicate and produce structures of arbitrary complexity — provided component count and coupling exceed a critical threshold. The bounded knowledge of each component is not a deficit to overcome; it is the mechanism by which top-down fragility is avoided. Central controllers with full knowledge would require exponentially growing computation to coordinate; local-rule agents with bounded knowledge climb complexity gradients that no central planner could navigate. The threshold crossing (local-rules × component-density ≥ K_critical) enables recursive self-replication.
+
+| Domain | Manifestation | Notes |
+|--------|---------------|-------|
+| Mathematics / CS | Von Neumann universal constructor (1940s) | Any machine containing its own complete description can self-replicate. Threshold ≈ 100,000 components. No component reads the whole description — each executes its local rule. Later formalized in Game of Life (Conway 1970): glider guns produce infinite copies from 5-cell seed. |
+| Biology | L-systems (Lindenmayer 1968): plant branching / leaf venation / phyllotaxis spirals | Each plant cell follows: IF neighbor-count = K AND resource-signal ≥ threshold THEN divide. No cell knows the final leaf shape. Global fractal pattern (ISO-14) is the emergent output of ISO-20's bounded-local process. |
+| Memetics / social science | Idea-carriers transmit partial understanding; meme evolves without any carrier knowing its full structure | Dawkins 1976: a meme propagates because each host replicates a local copy with variation. The host does not need to understand the meme's fitness landscape — bounded partial knowledge IS the propagation engine. Sperber: "epidemiology of representations." |
+| Network science | Internet routing (BGP): each router knows only its neighbor table | Global connectivity from bounded local decisions. No router has the full topology. Failure at one node reroutes around it — because no global plan exists to break. Bounded epistemic state = the anti-fragility mechanism. |
+| Swarm | Each session has bounded context window; git convergence produces coherent belief evolution | No session "knows" the complete swarm state. Sessions commit local lessons; git merge produces the global belief network. K_avg = 1.7956 at N=465 (S348) — measured threshold crossing from FRAGMENTED_ISLAND → SCALE_FREE_CANDIDATE (L-457, F75). |
+| Biology (colony) | Ant colonies / termite mounds: pheromone gradients encode local signal, no ant holds global blueprint | Structures exceeding 2 meters built from ~1mm agents. The colony's complexity exceeds any individual's model of it. Analogous to swarm: no node = colony; sessions = ants; git history = pheromone field. |
+
+**Sharpe: 3** (6 domains; Von Neumann canonical and formally proven; L-systems formally defined; swarm K_avg threshold empirically measured S329 n=393; memetics/network/colony structurally sound)
+**Gaps**: Economics (Adam Smith's "invisible hand" as bounded-epistemic market = ISO-20 instance?), Neuroscience (cortical columns with bounded local connectivity producing global cognition?), Physics (quantum decoherence as bounded-epistemic self-organization?)
+**Inversion**: Full-knowledge centralization prevents recursive self-replication at scale. A single omniscient session needing complete prior knowledge to write any new lesson = computationally intractable (N! growth). Bounded-context nodes + git merge = O(N) per session = tractable. Ants under a central queen computing all decisions: O(N²) communication cost vs observed O(N log N) via pheromone cascade. *Global intelligence requires local ignorance.*
+**Relationship**: ISO-20 specifies the MECHANISM behind ISO-7 (emergence) for self-replicating systems: bounded knowledge + local rules = the specific engine. ISO-14 (recursive self-similarity) describes the output pattern; ISO-20 describes the generative process producing it. ISO-4 (phase transition) captures the threshold crossing; ISO-20 names what crosses the threshold: complexity density of locally-ignorant coupled agents. ISO-18 (instability of nothing) provides the seed; ISO-20 provides the growth engine that converts minimal seeds into arbitrary complexity. ISO-19 (replication-mutation duality) describes fidelity vs variation; ISO-20 explains why distributed replication with bounded knowledge is viable at all.
+
+---
+
 ## Open questions (F126)
 1. **Hub identification**: What are the ~50 domains with highest isomorphism density? (current table: 7 candidates)
 2. **Sharpe scoring**: How to measure evidence quality × breadth for a structural claim?
@@ -464,6 +483,7 @@ F126: swarm → isomorphism atlas → world knowledge base (world is beneficiary
 Both share the mechanism. F126 inverts the directionality of value flow.
 
 ## Version history
+- v1.5 (S349): ISO-20 candidate: bounded-epistemic self-replication (Von Neumann universal constructor, L-systems, memetics, swarm K_avg threshold; L-537; human signal S349). 20 entries.
 - v1.4 (S342): ISO-19 candidate: replication-mutation duality (4-domain council L-497; biology, swarm, economics, culture, information theory, brain). PHIL-19 filed. F-DNA1 opened. Evolution hub expanded to 7 entries.
 - v1.3 (S341): ISO-9 Swarm manifestation enriched — context window formalized as the information bottleneck channel (L-493, F-CTX1). Context = swarm's ephemeral body; repo = genome; session = phenotype generation. Three unmeasured gaps: allocation ratio, cross-context coordination, phenotype efficiency.
 - v1.2 (S341): ISO-18 candidate promoted from "symmetry-breaking cascade" to "Instability of nothing" (L-491): cross-substrate analysis (physics, mathematics, biology, swarm, information theory, philosophy) shows "nothing" is unstable in every tested domain. Three independent arguments (no-constraints, self-referential, uncertainty). Philosophy added as first-class domain. ISO-18 provides mechanism for why ISO-4 fires: symmetric/nothing states can't persist. Hub table updated (Philosophy added). F-PHI1 experiment artifact.

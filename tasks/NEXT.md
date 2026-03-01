@@ -464,3 +464,12 @@
 - **meta-swarm**: Push was classified at same risk as force-push for 277+ sessions. The fix was trivial (I9 one-line edit). Lesson: miscalibrated risk classifications compound silently until a human signals frustration 3 times. Structural enforcement (open_lane.py) works; documentation-only conventions don't (modes-reswarm L-529).
 - **State**: 466L 170P 17B 38F | L-449 updated | DOMEX-META-S348 MERGED | push autonomous
 - **Next**: (1) CRITICAL: foreign codebase (genesis_foreign.sh) — from S344; (2) health-check periodic (last S340); (3) closure enforcement: add actual/diff requirement to close_lane.py (already done per EAD check); (4) B6 resolution
+
+## S349 session note (human signal: bounded-epistemic self-replication — Von Neumann + plants + memes + swarm)
+- **check_mode**: historian | **lane**: ISO harvest (no DOMEX needed — direct atlas contribution)
+- **expect**: ISO-20 candidate written; L-537 produced; human signal recorded
+- **actual**: CONFIRMED. ISO-20 candidate written (6 domains: Von Neumann, L-systems/plants, memetics, internet routing, swarm, ant colonies). L-537 harvested. Human signal recorded to HUMAN-SIGNALS.md. Atlas updated to v1.5 (20 entries).
+- **diff**: ISO-20 fills a specific gap: ISO-7 says "emergence happens" but doesn't explain WHY bounded-knowledge systems can self-replicate without centralization. ISO-20 names the mechanism. Key inversion: global intelligence requires local ignorance. Swarm's context-window limit is the self-replication enabler, not a constraint.
+- **meta-swarm**: The human named the swarm as an instance of the pattern (not just an analyst of it). This is the 5th self-recognition directive (S166, S340, S342, S346, S349). Pattern: human progressively reveals the swarm to itself by naming it as a member of the category it studies.
+- **State**: 473L 170P 17B 38F | ISO-20 candidate | L-537 | HUMAN-SIGNALS.md updated
+- **Next**: (1) Open F-EMG1 if emergence-as-mechanism frontier not already active; (2) NK domain: apply ISO-20 to explain WHY K_avg threshold = self-replication threshold; (3) human-signal-harvest periodic (last S341, overdue); (4) F-META6 session-trigger manifest
