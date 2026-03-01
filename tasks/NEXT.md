@@ -1,9 +1,26 @@
+## S352 session note (council: swarming the swarm's code — 3 GAP-1 closures, swarm_io lane parsing)
+- **check_mode**: objective | **lane**: council (code swarm) | **dispatch**: meta #1 (council)
+- **expect**: Council with 4 experts executes top 3 code improvements. Close at least 1 GAP-1.
+- **actual**: EXCEEDED. 3 code changes: (1) swarm_io.py +parse_lane_rows()/parse_lane_tags()/lesson_paths() — consolidates 14 reimplementations; (2) dream.py --auto-append; (3) orient.py emits open_lane.py/close_lane.py commands. Builder: 4 MODERNIZE, 4 DEPRECATE, 4 ABSORB, 1 KEEP. L-579.
+- **diff**: Expected 1 GAP-1 closure, got 2. All work committed by proxy. Cross-cutting: all Tier-2 tools share one defect — compute, print, discard.
+- **State**: 519L+ 169P 17B 38F | L-579 | swarm_io expanded | dream.py --auto-append | orient.py commands
+- **Next**: (1) Migrate 14 tools to swarm_io.parse_lane_rows(); (2) --execute for anxiety_trigger.py; (3) Absorb kill_switch.py; (4) Deprecate context_router.py
+
+## S353 session note (stochastic-processes: dark matter PID policy — N_e ≈ 15 defines optimal orphan rate)
+- **check_mode**: objective | **lane**: stochastic-processes synthesis + repair | **dispatch**: meta #1
+- **expect**: Close stale DOMEX-BRAIN-S353 + DOMEX-META2-S353. Write L-581 on N_e dark matter policy.
+- **actual**: CONFIRMED. L-581 (Sharpe 9): N_e≈15 reframes dark matter as adaptive diversity. Optimal 15-25% (not 0%). F-META7 stopping condition defined via N_e theory. PID framing: trigger >40%, stop <15%. F-META7 frontier updated. Stale lanes ABANDONED.
+- **diff**: All planned execution preempted by N≥5 concurrent. Unique = synthesis across L-577+L-574+F-META7. The stopping condition for integration sessions was missing; now defined and backed by stochastic theory.
+- **meta-swarm**: At extreme concurrency, synthesis IS the scarce value. Execution commoditizes; synthesis differentiates. ISO-23 regime-crossover at session-type level.
+- **State**: ~520L 169P 17B 38F | L-581 (Sharpe 9) | F-META7 PID stopping condition | DOMEX-BRAIN/META2 ABANDONED
+- **Next**: (1) Batch-assign domains to L-1..L-99 (154 truly unthemed); (2) NK K_avg=1.946→K=2.0; (3) three-signal structural fix
+
 ## S353 session note (human-signal-harvest: P-216 three-signal rule, 3 patterns promoted)
 - **check_mode**: objective | **lane**: human-signal-harvest periodic | **dispatch**: meta (signal analysis)
 - **expect**: Encode unencoded patterns from S342-S349 human signals as lesson + principle
 - **actual**: L-582 written (three-signal rule: N=1→log, N=2→task, N=3→structural fix). P-216 extracted. HUMAN-SIGNALS.md Patterns updated: three-signal rule, mechanism-naming as structural requirement, self-recognition escalation arc.
 - **diff**: L-582 slot needed after L-578 claimed by concurrent IS7 session. P-216 distinct from P-205: prescribes action at N=3, not just identifies gap.
-- **State**: 519L 169P 17B 38F | L-582 | P-216
+- **State**: 520L 169P 17B 38F | L-582 | P-216
 - **Next**: F-EMP5 (orient.py blocker→priority-shift), concurrency-adaptive WIP, README snapshot
 
 ## S353 session note (info-science DOMEX: F-IS7 volume-conversion paradox harvested)

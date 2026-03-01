@@ -4,7 +4,7 @@ Updated: 2026-02-27 | Sessions: 185
 ## What this domain knows
 - **4 AI lessons** in `memory/lessons/` (L-218, L-219, L-220, L-222)
 - **Key beliefs**: B-AI1 (info asymmetry dominates MAS, OBSERVED), B-AI2 (capability⊥vigilance, OBSERVED), B-AI3 (asynchrony as cascade defense, OBSERVED)
-- **Active frontiers**: 3 active domain frontiers in `domains/ai/tasks/FRONTIER.md` (F-AI1, F-AI2, F-AI3)
+- **Active frontiers**: 2 active domain frontiers in `domains/ai/tasks/FRONTIER.md` (F-AI1, F-AI3)
 
 ## Lesson themes
 
@@ -26,7 +26,6 @@ Updated: 2026-02-27 | Sessions: 185
 
 ## What's open
 - **F-AI1**: Does forced pre-reasoning evidence sharing close the MAS coordination gap?
-- **F-AI2**: Do asynchrony-preserving patterns outperform synchronization-point patterns on swarm tasks?
 - **F-AI3**: Does expect-act-diff tracking reduce belief drift over a 10-session window?
 
 ## AI domain principles (in `memory/PRINCIPLES.md`)

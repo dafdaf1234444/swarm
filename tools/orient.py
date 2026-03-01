@@ -673,6 +673,59 @@ def check_foreign_staged_deletions():
         pass
 
 
+def check_experiment_harvest_gap(threshold: int = 5) -> list:
+    """F-IS7: warn when a domain has ≥threshold experiments but 0 lessons.
+
+    Addresses the volume-conversion paradox (L-578): batch sweeps produce many
+    experiments without triggering lesson extraction. Early warning prevents
+    knowledge burial in zero-conversion domains.
+    """
+    exp_dir = ROOT / "experiments"
+    lesson_dir = ROOT / "memory" / "lessons"
+    if not exp_dir.exists() or not lesson_dir.exists():
+        return []
+
+    # Non-domain experiment subdirs to skip
+    _EXP_SKIP = {"merge-reports", "complexity-applied", "inter-swarm", "spawn-quality",
+                 "self-analysis", "children"}
+
+    # Count experiments per domain
+    exp_counts: dict[str, int] = {}
+    for domain_dir in sorted(exp_dir.iterdir()):
+        if not domain_dir.is_dir() or domain_dir.name in _EXP_SKIP:
+            continue
+        domain = domain_dir.name
+        count = sum(1 for f in domain_dir.iterdir()
+                    if f.is_file() and f.suffix in (".json", ".md", ".py"))
+        if count > 0:
+            exp_counts[domain] = count
+
+    # Count lesson domain tags per domain
+    lesson_domains: dict[str, int] = {}
+    for lesson_file in lesson_dir.glob("L-*.md"):
+        try:
+            text = lesson_file.read_text(encoding="utf-8", errors="ignore")
+            m = re.search(r"Domain:\s*([^\n]+)", text)
+            if not m:
+                continue
+            for d in re.split(r"[,/]", m.group(1)):
+                # Strip parenthetical annotations like "(F-AI3)" or "(GENESIS)"
+                d = re.sub(r"\s*\(.*?\)", "", d).strip().lower()
+                if d:
+                    lesson_domains[d] = lesson_domains.get(d, 0) + 1
+        except Exception:
+            continue
+
+    gaps = []
+    for domain, exp_count in sorted(exp_counts.items(), key=lambda x: -x[1]):
+        if exp_count < threshold:
+            continue
+        lesson_count = lesson_domains.get(domain.lower(), 0)
+        if lesson_count == 0:
+            gaps.append((domain, exp_count))
+    return gaps
+
+
 def main():
     brief = "--brief" in sys.argv
 
@@ -863,6 +916,17 @@ def main():
         for e in stale_experiments[:6]:
             print(f"  ○ {e}")
         print()
+
+    # Experiment harvest gap (F-IS7, L-578: volume-conversion paradox)
+    try:
+        harvest_gaps = check_experiment_harvest_gap(threshold=5)
+        if harvest_gaps:
+            print(f"--- Experiment harvest gap ({len(harvest_gaps)} domains: ≥5 experiments, 0 lessons) ---")
+            for domain, count in harvest_gaps[:6]:
+                print(f"  📦 {domain} ({count} experiments) — no lessons extracted yet")
+            print()
+    except Exception:
+        pass
 
     # Underused core tools (session-log execution signal)
     underused_tools, latest_sid, start_sid = check_underused_core_tools(log_text)

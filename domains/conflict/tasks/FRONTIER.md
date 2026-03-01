@@ -1,6 +1,6 @@
 # Conflict Domain — Frontier Questions
 Domain agent: write here for conflict-domain work; global cross-domain findings → tasks/FRONTIER.md.
-Updated: 2026-03-01 S352 | Active: 1 (F-CON2 PARTIAL) | Resolved: F-CON1 (S348), F-CON3 (S349)
+Updated: 2026-03-01 S352 | Active: 3 (F-CON2 PARTIAL) | Resolved: F-CON1 (S348), F-CON3 (S349)
 
 ## Active
 

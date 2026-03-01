@@ -166,6 +166,10 @@ def _status_path(line: str) -> str:
         p = p[:2] + "/" + p[2:]
     return p
 
+def _tracked_changed_paths() -> list[str]:
+    status = _git("-c", "core.quotepath=false", "status", "--porcelain")
+    return [_status_path(l) for l in status.splitlines() if l.rstrip() and l[:2] != "??"] if status else []
+
 if _swarm_io is not None:
     _read = _swarm_io.read_text
     _token_count = _swarm_io.token_count
@@ -1395,8 +1399,7 @@ def check_mission_constraints() -> list[tuple[str, str]]:
         if missing_artifacts:
             results.append(("DUE", f"F119 offline continuity artifacts missing: {_truncated(missing_artifacts)}"))
 
-    _tc_status = _git("-c", "core.quotepath=false", "status", "--porcelain")
-    tracked_paths = [_status_path(l) for l in _tc_status.splitlines() if l.rstrip() and l[:2] != "??"] if _tc_status else []
+    tracked_paths = _tracked_changed_paths()
     if tracked_paths:
         knowledge_state_paths = {"tasks/NEXT.md", "memory/SESSION-LOG.md", "memory/INDEX.md",
             "tasks/FRONTIER.md", "memory/PRINCIPLES.md", "beliefs/CHALLENGES.md", "memory/HEALTH.md"}

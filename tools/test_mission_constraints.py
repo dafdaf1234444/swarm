@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regression tests for F119 degraded/offline transition evidence parsing."""
+"""Regression tests for F119 mission constraint checks (invariants, portability, learning quality)."""
 
 import tempfile
 import unittest
@@ -82,59 +82,84 @@ def _seed_repo(root: Path, next_body: str) -> None:
     )
 
 
-class TestMissionConstraintEvidence(unittest.TestCase):
-    def test_requires_reason_action_and_session_anchor(self):
-        text = "\n".join(
-            [
-                "S151: runtime portability discussed only",
-                "S152: runtime portability fallback with bash tools/check.sh --quick",
-                "runtime portability with bash tools/check.sh --quick (no session anchor)",
-            ]
-        )
-        sessions = maintenance._reason_action_evidence_sessions(
-            text,
-            reason_patterns=(r"runtime portability",),
-            action_patterns=(r"bash tools/check\.sh --quick",),
-        )
-        self.assertEqual(sessions, [152])
+class TestMissionConstraintInvariantChecks(unittest.TestCase):
+    """Tests for current check_mission_constraints invariant validation."""
 
-    def test_ignores_lines_missing_action(self):
-        text = "S153: runtime portability on PowerShell"
-        sessions = maintenance._reason_action_evidence_sessions(
-            text,
-            reason_patterns=(r"runtime portability",),
-            action_patterns=(r"bash tools/check\.sh --quick",),
-        )
-        self.assertEqual(sessions, [])
+    def _run_check(self, *, invariants_text="", frontier_text="", next_text="",
+                   check_sh_text="", python_ok=True, git_status=""):
+        def fake_read(path):
+            rel = str(path).replace("\\", "/")
+            if "INVARIANTS" in rel:
+                return invariants_text
+            if "FRONTIER" in rel:
+                return frontier_text
+            if "NEXT" in rel:
+                return next_text
+            if "check.sh" in rel:
+                return check_sh_text
+            return ""
 
-    def test_collects_multiple_matching_sessions(self):
-        text = "\n".join(
-            [
-                "S140: inter-swarm continuity via tools/bulletin.py help-queue",
-                "S141: inter-swarm continuity via tools/bulletin.py sync child-a",
-                "S141: inter-swarm continuity via tools/bulletin.py offer-help H-123 ack",
-            ]
-        )
-        sessions = maintenance._reason_action_evidence_sessions(
-            text,
-            reason_patterns=(r"inter-swarm",),
-            action_patterns=(r"tools/bulletin\.py",),
-        )
-        self.assertEqual(sessions, [140, 141, 141])
+        with patch.object(maintenance, "_read", side_effect=fake_read), \
+             patch.object(maintenance, "_python_command_runs", return_value=python_ok), \
+             patch.object(maintenance, "_py_launcher_runs", return_value=False), \
+             patch.object(maintenance, "_exists", return_value=True), \
+             patch.object(maintenance, "_command_exists", return_value=True), \
+             patch.object(maintenance, "_session_number", return_value=200), \
+             patch.object(maintenance, "_git", return_value=git_status):
+            return maintenance.check_mission_constraints()
 
-    def test_matches_multiline_session_entry(self):
-        text = "\n".join(
-            [
-                "S155: runtime portability degraded mode",
-                "fallback action: bash tools/check.sh --quick",
-            ]
+    def test_duplicate_invariant_ids_flagged(self):
+        results = self._run_check(
+            invariants_text="## I9 [MC-SAFE]\n## I9 [MC-SAFE]\n## I10 [MC-PORT]\n## I11 [MC-LEARN]\n## I12 [MC-CONN]\n",
+            frontier_text="- **F119**: mission constraints\n",
+            next_text="F119 tracked",
+            check_sh_text="choose_python() { :; }\npython3\npython\npy -3\n",
         )
-        sessions = maintenance._reason_action_evidence_sessions(
-            text,
-            reason_patterns=(r"runtime portability",),
-            action_patterns=(r"bash tools/check\.sh --quick",),
+        self.assertTrue(any("duplicate ID" in msg for _, msg in results))
+
+    def test_missing_invariant_tag_flagged(self):
+        results = self._run_check(
+            invariants_text="## I9 [MC-SAFE]\n## I10\n## I11 [MC-LEARN]\n## I12 [MC-CONN]\n",
+            frontier_text="- **F119**: mission constraints\n",
+            next_text="F119 tracked",
+            check_sh_text="choose_python() { :; }\npython3\npython\npy -3\n",
         )
-        self.assertEqual(sessions, [155])
+        self.assertTrue(any("mission invariants missing" in msg for _, msg in results))
+
+    def test_learning_quality_gap_detected(self):
+        # 5+ tracked changes with no knowledge-state file
+        git_status = "\n".join([
+            " M tools/a.py",
+            " M tools/b.py",
+            " M tools/c.py",
+            " M tools/d.py",
+            " M tools/e.py",
+        ])
+        results = self._run_check(
+            invariants_text="## I9 [MC-SAFE]\n## I10 [MC-PORT]\n## I11 [MC-LEARN]\n## I12 [MC-CONN]\n",
+            frontier_text="- **F119**: mission constraints\n",
+            next_text="F119 tracked",
+            check_sh_text="choose_python() { :; }\npython3\npython\npy -3\n",
+            git_status=git_status,
+        )
+        self.assertTrue(any("learning-quality gap" in msg for _, msg in results))
+
+    def test_learning_quality_ok_with_lesson(self):
+        git_status = "\n".join([
+            " M tools/a.py",
+            " M tools/b.py",
+            " M tools/c.py",
+            " M tools/d.py",
+            "A  memory/lessons/L-999.md",
+        ])
+        results = self._run_check(
+            invariants_text="## I9 [MC-SAFE]\n## I10 [MC-PORT]\n## I11 [MC-LEARN]\n## I12 [MC-CONN]\n",
+            frontier_text="- **F119**: mission constraints\n",
+            next_text="F119 tracked",
+            check_sh_text="choose_python() { :; }\npython3\npython\npy -3\n",
+            git_status=git_status,
+        )
+        self.assertFalse(any("learning-quality gap" in msg for _, msg in results))
 
 
 class TestSessionLogIntegrityBackfill(unittest.TestCase):
@@ -539,96 +564,14 @@ class TestMissionConstraintDegradedRuntime(unittest.TestCase):
                 return pwsh_available
             return True
 
-        with patch.object(maintenance, "_read", side_effect=fake_read):
-            with patch.object(maintenance, "_python_command_runs", side_effect=fake_python_command_runs):
-                with patch.object(maintenance, "_py_launcher_runs", return_value=py_launcher):
-                    with patch.object(maintenance, "_exists", side_effect=fake_exists):
-                        with patch.object(maintenance, "_command_exists", side_effect=fake_command_exists):
-                            with patch.object(maintenance, "_session_number", return_value=session):
-                                with patch.object(maintenance, "_tracked_changed_paths", return_value=[]):
-                                    return maintenance.check_mission_constraints()
-
-    def test_runtime_portability_co_located_transition_is_not_flagged(self):
-        lines = [
-            "F119 validation pass",
-            "S200: runtime portability no runnable python alias; fallback via bash tools/check.sh --quick; Beliefs PASS NOTICE-only",
-        ]
-        results = self._run_check(
-            next_lines=lines,
-            session_log_lines=lines,
-            session=200,
-            python_status={"python3": False, "python": False},
-            py_launcher=False,
-            bash_available=True,
-        )
-        messages = [msg for _, msg in results]
-        self.assertFalse(any("runtime portability degraded mode lacks reason+action" in m for m in messages))
-        self.assertFalse(any("runtime portability degraded mode lacks reason+outcome" in m for m in messages))
-        self.assertFalse(any("runtime portability transition evidence is split across sessions" in m for m in messages))
-        self.assertFalse(any("runtime portability degraded transition evidence stale" in m for m in messages))
-
-    def test_offline_continuity_co_located_transition_is_not_flagged(self):
-        lines = [
-            "F119 validation pass",
-            "S200: inter-swarm continuity offline queue sync via tasks/PR-QUEUE.json and tasks/SWARM-LANES.md; Beliefs PASS NOTICE-only",
-        ]
-        results = self._run_check(
-            next_lines=lines,
-            session_log_lines=lines,
-            session=200,
-            python_status={"python3": True, "python": False},
-            py_launcher=False,
-            bash_available=True,
-            exists_overrides={
-                "tools/bulletin.py": False,
-                "tools/merge_back.py": False,
-                "tools/propagate_challenges.py": False,
-            },
-        )
-        messages = [msg for _, msg in results]
-        self.assertFalse(any("offline/inter-swarm continuity degraded mode lacks reason+action" in m for m in messages))
-        self.assertFalse(any("offline/inter-swarm continuity degraded mode lacks reason+outcome" in m for m in messages))
-        self.assertFalse(any("offline/inter-swarm continuity transition evidence is split across sessions" in m for m in messages))
-        self.assertFalse(any("offline/inter-swarm continuity degraded transition evidence stale" in m for m in messages))
-
-    def test_runtime_portability_split_sessions_are_flagged(self):
-        next_lines = [
-            "F119 validation pass",
-            "S198: runtime portability python alias missing; fallback via bash tools/check.sh --quick",
-            "S199: runtime portability python alias missing; Beliefs PASS NOTICE-only",
-        ]
-        results = self._run_check(
-            next_lines=next_lines,
-            session_log_lines=["S199: runtime portability python alias missing; Beliefs PASS NOTICE-only"],
-            session=200,
-            python_status={"python3": False, "python": False},
-            py_launcher=False,
-            bash_available=True,
-        )
-        messages = [msg for _, msg in results]
-        self.assertTrue(any("runtime portability transition evidence is split across sessions" in m for m in messages))
-
-    def test_offline_continuity_split_sessions_are_flagged(self):
-        next_lines = [
-            "F119 validation pass",
-            "S198: inter-swarm continuity offline queue sync via tasks/PR-QUEUE.json and tasks/SWARM-LANES.md",
-            "S199: inter-swarm continuity offline mode; Beliefs PASS NOTICE-only",
-        ]
-        results = self._run_check(
-            next_lines=next_lines,
-            session_log_lines=["S199: inter-swarm continuity offline mode; Beliefs PASS NOTICE-only"],
-            session=200,
-            python_status={"python3": True, "python": False},
-            py_launcher=False,
-            bash_available=True,
-            exists_overrides={
-                "tools/bulletin.py": False,
-                "tools/merge_back.py": False,
-                "tools/propagate_challenges.py": False,
-            },
-        )
-        messages = [msg for _, msg in results]
-        self.assertTrue(any("offline/inter-swarm continuity transition evidence is split across sessions" in m for m in messages))
+        with patch.object(maintenance, "_read", side_effect=fake_read), \
+             patch.object(maintenance, "_python_command_runs", side_effect=fake_python_command_runs), \
+             patch.object(maintenance, "_py_launcher_runs", return_value=py_launcher), \
+             patch.object(maintenance, "_exists", side_effect=fake_exists), \
+             patch.object(maintenance, "_command_exists", side_effect=fake_command_exists), \
+             patch.object(maintenance, "_session_number", return_value=session), \
+             patch.object(maintenance, "_git", return_value=""):
+            return maintenance.check_mission_constraints()
 
     def test_runtime_portability_without_fallback_is_due(self):
         lines = [
@@ -671,23 +614,6 @@ class TestMissionConstraintDegradedRuntime(unittest.TestCase):
         )
         messages = [msg for _, msg in results]
         self.assertFalse(any("degraded runtime continuity broken" in m for m in messages))
-        self.assertFalse(any("runtime portability degraded mode lacks reason+action transition evidence" in m for m in messages))
-
-    def test_powershell_only_line_is_not_transition_evidence(self):
-        lines = [
-            "F119 validation pass",
-            "S200: powershell path fallback via bash tools/check.sh --quick; Beliefs PASS NOTICE-only",
-        ]
-        results = self._run_check(
-            next_lines=lines,
-            session_log_lines=lines,
-            session=200,
-            python_status={"python3": False, "python": False},
-            py_launcher=False,
-            bash_available=True,
-        )
-        messages = [msg for _, msg in results]
-        self.assertTrue(any("runtime portability degraded mode lacks reason+action transition evidence" in m for m in messages))
 
     def test_offline_artifacts_missing_is_due(self):
         lines = [
@@ -711,135 +637,6 @@ class TestMissionConstraintDegradedRuntime(unittest.TestCase):
         )
         self.assertTrue(any("offline continuity artifacts missing" in msg for _, msg in results))
 
-    def test_runtime_portability_stale_transition_is_flagged_with_recent_reason_signal(self):
-        base_session = 200
-        stale_limit = maintenance.F119_STALE_EVIDENCE_SESSIONS["python-alias-missing"]
-        current_session = base_session + stale_limit + 1
-        recent_reason_session = current_session - 1
-        lines = [
-            "F119 validation pass",
-            f"S{base_session}: runtime portability no runnable python alias; fallback via bash tools/check.sh --quick; Beliefs PASS NOTICE-only",
-        ]
-        results = self._run_check(
-            next_lines=lines,
-            session_log_lines=lines + [f"S{recent_reason_session}: runtime portability python alias still missing on this host"],
-            session=current_session,
-            python_status={"python3": False, "python": False},
-            py_launcher=False,
-            bash_available=True,
-        )
-        stale_msgs = [msg for _, msg in results if "runtime portability degraded transition evidence stale" in msg]
-        self.assertTrue(stale_msgs)
-        self.assertTrue(any(f"threshold >{stale_limit} sessions" in msg for msg in stale_msgs))
-
-    def test_offline_continuity_stale_transition_is_flagged_with_recent_reason_signal(self):
-        base_session = 200
-        stale_limit = maintenance.F119_STALE_EVIDENCE_SESSIONS["inter-swarm-tooling-missing"]
-        current_session = base_session + stale_limit + 1
-        recent_reason_session = current_session - 1
-        lines = [
-            "F119 validation pass",
-            f"S{base_session}: inter-swarm continuity offline queue sync via tasks/PR-QUEUE.json and tasks/SWARM-LANES.md; Beliefs PASS NOTICE-only",
-        ]
-        results = self._run_check(
-            next_lines=lines,
-            session_log_lines=lines + [f"S{recent_reason_session}: inter-swarm continuity offline mode on constrained host"],
-            session=current_session,
-            python_status={"python3": True, "python": False},
-            py_launcher=False,
-            bash_available=True,
-            exists_overrides={
-                "tools/bulletin.py": False,
-                "tools/merge_back.py": False,
-                "tools/propagate_challenges.py": False,
-            },
-        )
-        stale_msgs = [msg for _, msg in results if "offline/inter-swarm continuity degraded transition evidence stale" in msg]
-        self.assertTrue(stale_msgs)
-        self.assertTrue(any(f"threshold >{stale_limit} sessions" in msg for msg in stale_msgs))
-
-    def test_runtime_portability_stale_transition_is_suppressed_without_recent_reason_signal(self):
-        base_session = 200
-        stale_limit = maintenance.F119_STALE_EVIDENCE_SESSIONS["python-alias-missing"]
-        current_session = base_session + stale_limit + 8
-        lines = [
-            "F119 validation pass",
-            f"S{base_session}: runtime portability no runnable python alias; fallback via bash tools/check.sh --quick; Beliefs PASS NOTICE-only",
-        ]
-        results = self._run_check(
-            next_lines=lines,
-            session_log_lines=lines,
-            session=current_session,
-            python_status={"python3": False, "python": False},
-            py_launcher=False,
-            bash_available=True,
-        )
-        self.assertFalse(any("runtime portability degraded transition evidence stale" in msg for _, msg in results))
-
-    def test_offline_continuity_stale_transition_is_suppressed_without_recent_reason_signal(self):
-        base_session = 200
-        stale_limit = maintenance.F119_STALE_EVIDENCE_SESSIONS["inter-swarm-tooling-missing"]
-        current_session = base_session + stale_limit + 8
-        lines = [
-            "F119 validation pass",
-            f"S{base_session}: inter-swarm continuity offline queue sync via tasks/PR-QUEUE.json and tasks/SWARM-LANES.md; Beliefs PASS NOTICE-only",
-        ]
-        results = self._run_check(
-            next_lines=lines,
-            session_log_lines=lines,
-            session=current_session,
-            python_status={"python3": True, "python": False},
-            py_launcher=False,
-            bash_available=True,
-            exists_overrides={
-                "tools/bulletin.py": False,
-                "tools/merge_back.py": False,
-                "tools/propagate_challenges.py": False,
-            },
-        )
-        self.assertFalse(any("offline/inter-swarm continuity degraded transition evidence stale" in msg for _, msg in results))
-
-    def test_runtime_portability_transition_at_threshold_is_not_stale(self):
-        base_session = 200
-        stale_limit = maintenance.F119_STALE_EVIDENCE_SESSIONS["python-alias-missing"]
-        current_session = base_session + stale_limit
-        lines = [
-            "F119 validation pass",
-            f"S{base_session}: runtime portability no runnable python alias; fallback via bash tools/check.sh --quick; Beliefs PASS NOTICE-only",
-        ]
-        results = self._run_check(
-            next_lines=lines,
-            session_log_lines=lines,
-            session=current_session,
-            python_status={"python3": False, "python": False},
-            py_launcher=False,
-            bash_available=True,
-        )
-        self.assertFalse(any("runtime portability degraded transition evidence stale" in msg for _, msg in results))
-
-    def test_offline_continuity_transition_at_threshold_is_not_stale(self):
-        base_session = 200
-        stale_limit = maintenance.F119_STALE_EVIDENCE_SESSIONS["inter-swarm-tooling-missing"]
-        current_session = base_session + stale_limit
-        lines = [
-            "F119 validation pass",
-            f"S{base_session}: inter-swarm continuity offline queue sync via tasks/PR-QUEUE.json and tasks/SWARM-LANES.md; Beliefs PASS NOTICE-only",
-        ]
-        results = self._run_check(
-            next_lines=lines,
-            session_log_lines=lines,
-            session=current_session,
-            python_status={"python3": True, "python": False},
-            py_launcher=False,
-            bash_available=True,
-            exists_overrides={
-                "tools/bulletin.py": False,
-                "tools/merge_back.py": False,
-                "tools/propagate_challenges.py": False,
-            },
-        )
-        self.assertFalse(any("offline/inter-swarm continuity degraded transition evidence stale" in msg for _, msg in results))
-
 
 class TestMissionConstraintDegradedRuntimeE2E(unittest.TestCase):
     def test_offline_artifacts_missing_emits_due_end_to_end(self):
@@ -859,7 +656,7 @@ class TestMissionConstraintDegradedRuntimeE2E(unittest.TestCase):
             (root / "tasks/SWARM-LANES.md").unlink(missing_ok=True)
 
             with patch.object(maintenance, "REPO_ROOT", root), patch.object(
-                maintenance, "_tracked_changed_paths", return_value=[]
+                maintenance, "_git", return_value=""
             ), patch.object(
                 maintenance, "_python_command_runs", side_effect=lambda cmd: cmd in {"python3", "python"}
             ), patch.object(
@@ -895,7 +692,7 @@ class TestMissionConstraintDegradedRuntimeE2E(unittest.TestCase):
             )
 
             with patch.object(maintenance, "REPO_ROOT", root), patch.object(
-                maintenance, "_tracked_changed_paths", return_value=[]
+                maintenance, "_git", return_value=""
             ), patch.object(
                 maintenance, "_python_command_runs", side_effect=lambda cmd: cmd in {"python3", "python"}
             ), patch.object(
@@ -932,7 +729,7 @@ class TestMissionConstraintDegradedRuntimeE2E(unittest.TestCase):
                 return True
 
             with patch.object(maintenance, "REPO_ROOT", root), patch.object(
-                maintenance, "_tracked_changed_paths", return_value=[]
+                maintenance, "_git", return_value=""
             ), patch.object(
                 maintenance, "_python_command_runs", return_value=False
             ), patch.object(

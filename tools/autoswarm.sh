@@ -87,7 +87,27 @@ if [[ ! -f "$SWARM_CMD" ]]; then
     exit 1
 fi
 
-# Anxiety-zone gate (F-ISG1)
+# Session trigger gate (F-META6) - check HIGH urgency triggers first
+TRIGGER_MANIFEST="$REPO_ROOT/domains/meta/SESSION-TRIGGER.md"
+SESSION_TRIGGER_STATUS=""
+SESSION_TRIGGER_COUNT=0
+
+if [[ -f "$TRIGGER_MANIFEST" ]]; then
+    # Count HIGH urgency FIRING triggers
+    SESSION_TRIGGER_COUNT="$(grep -c "HIGH.*FIRING" "$TRIGGER_MANIFEST" 2>/dev/null || echo 0)"
+    if (( SESSION_TRIGGER_COUNT > 0 )); then
+        SESSION_TRIGGER_STATUS="high_urgency_firing"
+        log "INFO: session trigger manifest found $SESSION_TRIGGER_COUNT HIGH FIRING trigger(s)"
+    else
+        SESSION_TRIGGER_STATUS="no_high_firing"
+        log "INFO: session trigger manifest has no HIGH FIRING triggers"
+    fi
+else
+    SESSION_TRIGGER_STATUS="manifest_missing"
+    log "WARN: session trigger manifest not found at $TRIGGER_MANIFEST"
+fi
+
+# Anxiety-zone gate (F-ISG1) - fallback if no session triggers firing
 ANXIETY_STATUS=""
 ANXIETY_FRONTIER=""
 ANXIETY_PROMPT=""
@@ -198,13 +218,22 @@ else
 fi
 
 SELECTED_PROMPT="$(cat "$SWARM_CMD")"
-if [[ "$ANXIETY_ENABLED" == "true" ]]; then
+
+# Priority 1: Session triggers (F-META6) - HIGH urgency FIRING triggers
+if [[ "$SESSION_TRIGGER_STATUS" == "high_urgency_firing" ]]; then
+    PROMPT_SOURCE="session_trigger"
+    FOCUS_NOTE="AUTOSWARM TRIGGER (F-META6): $SESSION_TRIGGER_COUNT HIGH urgency trigger(s) FIRING. Run orient.py to see details and address critical maintenance or stale lanes."
+    SELECTED_PROMPT="$SELECTED_PROMPT"$'\n\n'"$FOCUS_NOTE"
+    log "INFO: session_trigger gate activated: $SESSION_TRIGGER_COUNT HIGH FIRING trigger(s)"
+
+# Priority 2: Anxiety triggers (F-ISG1) - fallback if no session triggers
+elif [[ "$ANXIETY_ENABLED" == "true" ]]; then
     if [[ -z "$ANXIETY_STATUS" ]]; then
         log "ERROR: anxiety gate produced empty status"
         exit 1
     fi
     if [[ "$ANXIETY_STATUS" == "no_anxiety_zones" ]]; then
-        log "SKIP: anxiety gate found no anxiety zones"
+        log "SKIP: both session triggers and anxiety gate found no work"
         exit 0
     fi
     if [[ "$ANXIETY_STATUS" != "anxiety_zone_found" ]]; then
@@ -229,13 +258,22 @@ if [[ "$ANXIETY_ENABLED" == "true" ]]; then
     fi
     SELECTED_PROMPT="$SELECTED_PROMPT"$'\n\n'"$FOCUS_NOTE"
     log "INFO: anxiety_gate selected frontier=$ANXIETY_FRONTIER"
+
+# Priority 3: No triggers - skip session
 else
-    log "INFO: anxiety_gate disabled; using swarm command"
+    if [[ "$ANXIETY_ENABLED" == "true" ]]; then
+        log "SKIP: no session triggers or anxiety zones found"
+    else
+        log "SKIP: no session triggers found and anxiety gate disabled"
+    fi
+    exit 0
 fi
 
 if [[ "$DRY_RUN" == true ]]; then
     log "DRY-RUN: prompt_source=$PROMPT_SOURCE"
-    if [[ "$PROMPT_SOURCE" == "anxiety_gate" ]]; then
+    if [[ "$PROMPT_SOURCE" == "session_trigger" ]]; then
+        log "DRY-RUN: trigger_count=$SESSION_TRIGGER_COUNT"
+    elif [[ "$PROMPT_SOURCE" == "anxiety_gate" ]]; then
         log "DRY-RUN: frontier=$ANXIETY_FRONTIER"
     fi
     log "DRY-RUN: would invoke: claude --print \"$SELECTED_PROMPT\" --dangerously-skip-permissions --max-budget-usd 2"
@@ -263,7 +301,9 @@ log "START: autoswarm session initiated"
 log "INFO: repo=$REPO_ROOT"
 log "INFO: logfile=$LOGFILE"
 log "INFO: prompt_source=$PROMPT_SOURCE"
-if [[ "$PROMPT_SOURCE" == "anxiety_gate" ]]; then
+if [[ "$PROMPT_SOURCE" == "session_trigger" ]]; then
+    log "INFO: trigger_count=$SESSION_TRIGGER_COUNT"
+elif [[ "$PROMPT_SOURCE" == "anxiety_gate" ]]; then
     log "INFO: frontier=$ANXIETY_FRONTIER"
 fi
 

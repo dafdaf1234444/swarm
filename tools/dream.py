@@ -41,7 +41,8 @@ def load_lessons():
             theme = theme_m.group(1).strip()
         else:
             # Modern format: use first Domain: value as theme
-            domain_m = re.search(r'(?:^|\|)\s*Domain:\s*([^|\n,]+)', text, re.MULTILINE)
+            # Handles plain (Domain: X), bold (**Domain**: X), and HTML comment (domain: X)
+            domain_m = re.search(r'(?:^|\|)\s*(?:\*\*)?domain(?:\*\*)?\s*:\s*([^|\n,*>]+)', text, re.MULTILINE | re.IGNORECASE)
             theme = domain_m.group(1).strip() if domain_m else ""
         cited = list(set(re.findall(r'P-\d+', text)))
         lessons.append({"id": f"L-{num}", "num": num, "theme": theme, "cited": cited})

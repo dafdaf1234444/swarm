@@ -4,7 +4,7 @@ Updated: 2026-03-01 | Sessions: 195, 307, 351, 352
 ## What this domain knows
 - **Existing evidence base**: evolution is already a major internal theme (55 lessons) but previously unsharded as a domain.
 - **Core structural pattern**: swarm already runs variation -> selection -> retention loops through spawn, validate, and distill.
-- **Active frontiers**: 5 active domain frontiers in `domains/evolution/tasks/FRONTIER.md` (F-EVO1, F-EVO2, F-EVO3, F-EVO4, F-EVO5).
+- **Active frontiers**: 6 active domain frontiers in `domains/evolution/tasks/FRONTIER.md` (F-EVO1, F-EVO2, F-EVO3, F-EVO4, F-EVO5, F-EVO6).
 - **Self-archaeology (F-EVO5, S195)**: `tools/f_evo5_self_archaeology.py` extracts size/functional/structural evolution from git history + SESSION-LOG. Artifact: `experiments/evolution/f-evo5-self-archaeology-s195.json`. 6 epochs recovered; S180-S190 = 5.3 L/s (10x historical). 31 domains seeded, 75% from 2 sessions (S186 burst). 148 tools. See L-326.
 - **New measurement artifact**: `experiments/evolution/f-evo1-lane-diversity-s186.json` establishes first quantitative F-EVO1 baseline from lane history (S186).
 - **Protocol cadence artifact**: `experiments/evolution/f-evo3-protocol-cadence-s186.json` establishes first F-EVO3 baseline (S57-S186) linking protocol mutation cadence to quality/overhead proxies.
@@ -43,6 +43,7 @@ Updated: 2026-03-01 | Sessions: 195, 307, 351, 352
 - **F-EVO3**: NEAR-RESOLVED (S352). Protocol mutation self-regulates when control infrastructure healthy. Confirm stability at ~S380.
 - **F-EVO4**: preserve full-system PASS while reducing branch concentration and increasing per-lane multi-branch continuity.
 - **F-EVO5**: dispatch expert specialists (size analyst, functional analyst, structural analyst) to challenge epoch boundaries and characterize domain-to-tool coupling.
+- **F-EVO6**: does the operational viability definition for spawned children yield stable scores across 3+ spawn executions?
 
 ## Evolution-domain links to current principles
 P-119 (spawn discipline) | P-163 (rising-sawtooth dynamics) | P-178 (self-replenishing cycle) | P-197 (quality dimensions)

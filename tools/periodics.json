@@ -61,7 +61,8 @@
       "description": "F119 mission constraints: review safety/portability/learning/connectivity invariants and harden enforcement checks against drift.",
       "cadence_sessions": 12,
       "last_reviewed_session": 328,
-      "registered_by": "S151"
+      "registered_by": "S151",
+      "last_session": 353
     },
     {
       "id": "state-sync",

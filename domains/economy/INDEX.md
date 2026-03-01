@@ -4,7 +4,7 @@ Updated: 2026-02-28 | Sessions: 188
 ## What this domain knows
 - **Core loop**: production (L+P) / consumption (Proxy-K) / yield (L+P per token) / quality (Sharpe) / depreciation (compaction)
 - **Helper economy**: delegation cost model (spawn overhead ≈ 15% session), recovery value (3× stall cost), ROI positive when blocked_lanes ≥ 2
-- **Active frontiers**: 2 in `domains/economy/tasks/FRONTIER.md` (F-ECO3, F-ECO4)
+- **Active frontiers**: 3 in `domains/economy/tasks/FRONTIER.md` (F-ECO3, F-ECO4, F-ECO5)
 - **Live tool**: `tools/economy_expert.py` — run anytime for economic health snapshot
 - **Domain experiment tool**: `tools/f_eco_frontiers.py` — F-ECO1/2/3 analysis (exploration/exploitation ratio, helper delegation cost, task throughput)
 - **Key beliefs**: B-ECO1 (knowledge capital), B-ECO2 (proxy-K inflation model), B-ECO3 (helper ROI threshold)
@@ -30,6 +30,7 @@ Updated: 2026-02-28 | Sessions: 188
 | Opportunity cost of helper = delivery slot forgone | Cap helper slots at min(blocked_lanes, 3) | THEORIZED (F-HLP3) |
 
 ## What's open
+- **F-ECO5**: can the swarm improve allocation by making its implicit price mechanism (dispatch scores) more explicit?
 - **F-ECO4**: can dispatch by expected yield increase expert throughput from 2% to 5%? Tool: `tools/dispatch_optimizer.py`. Baseline: 63 unrun, top domains linguistics(34.5)/nk-complexity(26.0)/meta(19.0).
 - **F-ECO3**: whether task throughput rate reliably predicts swarm health better than L+P rate alone
 

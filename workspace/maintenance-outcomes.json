@@ -1115,7 +1115,7 @@
     },
     {
       "session": 353,
-      "timestamp": "2026-03-01T03:07:38Z",
+      "timestamp": "2026-03-01T03:15:23Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -1160,9 +1160,11 @@
           "severities": []
         },
         "check_lessons": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "DUE"
+          ]
         },
         "check_child_bulletins": {
           "fired": true,
@@ -1201,18 +1203,14 @@
           "severities": []
         },
         "check_swarm_lanes": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "NOTICE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_swarm_coordinator": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "DUE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_lane_reporting_quality": {
           "fired": false,
@@ -1250,11 +1248,9 @@
           ]
         },
         "check_cross_references": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "NOTICE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_anxiety_zones": {
           "fired": true,
@@ -1276,27 +1272,19 @@
           ]
         },
         "check_historian_integrity": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "DUE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_domain_frontier_consistency": {
-          "fired": true,
-          "count": 4,
-          "severities": [
-            "NOTICE",
-            "NOTICE",
-            "NOTICE",
-            "NOTICE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_readme_snapshot_drift": {
           "fired": true,
-          "count": 2,
+          "count": 1,
           "severities": [
-            "DUE",
             "NOTICE"
           ]
         },
@@ -1334,9 +1322,9 @@
         }
       },
       "totals": {
-        "NOTICE": 15,
-        "PERIODIC": 7,
-        "DUE": 4
+        "NOTICE": 9,
+        "DUE": 2,
+        "PERIODIC": 7
       }
     }
   ]
