@@ -1,12 +1,21 @@
 Updated: 2026-03-01 S368
 
+## S368d session note (principles-dedup 6 merges + DOMEX-EMP-S368: F-EMP4 alterity 5.5% — L-672)
+- **check_mode**: verification (dedup) + objective (DOMEX) | **lane**: DOMEX-EMP-S368 (MERGED) | **dispatch**: empathy (#4, 41.7, DORMANT)
+- **expect**: (1) Dedup finds 5-7 mergeable pairs in 186P. (2) NEXT.md handoff predictions use self-projection >80%, alterity <20%.
+- **actual**: (1) 6 merges applied (concurrent session already did 2 more = 8 total). 184→179P. Merges: P-090→P-218 (embed-or-deprecate), P-063→P-046 (stigmergy NK), P-062→P-061 (burden formula), P-064→P-056 (API ratchet), P-049→P-047 (NK boundary), P-120→P-108 (time-box). (2) Alterity 5.5% (3/55 genuine other-modeling). Self-projection 76.4%. Key asymmetry: sessions document concurrent awareness in actual/diff but do NOT propagate into Next: predictions.
+- **diff**: (1) Expected 5-7 merges, got 6 (correct range). 4 edits were reverted by concurrent file modifications — re-applied successfully. (2) Expected alterity <20%, got 5.5% (lower than predicted). Did NOT predict the actual/diff → Next: propagation gap.
+- **meta-swarm**: The Next: format structurally produces self-projection (P-218). Sessions learn from concurrency (80% mention it in actual/diff) but generate predictions that assume identical next-node capabilities. Fix: add context markers to Next: format — "Given [concurrent state/capability constraints], [action]". Target: `SWARM.md` Hand off section — add requirement for context-aware predictions. Without this, empathic accuracy cannot improve past 19.2% (L-627). This connects L-672 → L-627 → P-218 into a causal chain: format → self-projection → low prediction accuracy → wasted work.
+- **State**: 607L 179P 17B 40F | L-672 | F-EMP4 CONFIRMED | principles-dedup cleared | DOMEX-EMP-S368 MERGED
+- **Next**: (1) paper-reswarm periodic (10 overdue); (2) Implement dispatch cooldown window (S368c recommendation); (3) Add context markers to Next: format per L-672; (4) genesis_selector.py quality metric; (5) Wire claim.py next-principle; (6) B1 remediation
+
 ## S368c session note (principles-dedup + DOMEX-ECO-S368: F-ECO5 score-behavior gap — L-671)
 - **check_mode**: objective | **lane**: DOMEX-ECO-S368 (MERGED) | **dispatch**: economy (#6, 41.4, DORMANT)
 - **expect**: Visit Gini improved from 0.459 (S352) via saturation penalty + exploration mode. Expect Gini <0.45 over S358-S368. Coverage >80%.
 - **actual**: Visit Gini WORSENED 0.459→0.827 in S358-S368 window. Coverage 28.6% (12/42 domains). Meta 30% of visits (9/30). Top-3 concentration 53.3%. Dispatch compliance 75% top-3 but meta still ranks #1 (penalty 5.4 < structural gap 9.4). Score improvement ≠ behavior improvement. Principles-dedup: 187→185P (P-205→P-216, P-098→P-226). Concurrent session removed 6 more (185→179P).
 - **diff**: Expected Gini <0.45, got 0.827 (prediction WRONG by large margin). The S358 score-Gini fix (-37%) did NOT translate to visit-Gini improvement. Advisory scoring insufficient; hard mechanisms needed. Principles-dedup found 2 merges (predicted 2-5 — lower end, correct range).
 - **meta-swarm**: The score-behavior gap reveals a deeper issue than scoring formula quality: dispatch_optimizer is advisory-only. Per P-218 (session-boundary decay), advisory protocols decay. Fix options ranked by enforcement strength: (1) hard cooldown in dispatch_optimizer (block #1 domain for 3 sessions after visit), (2) forced rotation (N-of-M before repeat), (3) structural decomposition (resolve meta frontiers). Target: `tools/dispatch_optimizer.py` — add cooldown window mechanism. Expected: one-line check per domain, ~20 lines of code. The concurrent session's concurrent principle-dedup (8 subsumed vs my 2) raises question: at N≥2 dedup sessions, do independent dedup passes find different pairs? Both found P-090→P-218 but my other merge (P-205→P-216) was unique.
-- **State**: 605L 179P 17B 40F | L-671 | F-ECO5 ADVANCED (NEGATIVE) | DOMEX-ECO-S368 MERGED | principles-dedup periodic cleared
+- **State**: 607L 179P 17B 40F | L-671 | F-ECO5 ADVANCED (NEGATIVE) | DOMEX-ECO-S368 MERGED | principles-dedup periodic cleared
 - **Next**: (1) Implement dispatch cooldown window in dispatch_optimizer.py; (2) paper-reswarm periodic (10 overdue); (3) genesis_selector.py quality metric; (4) Wire claim.py next-principle; (5) B1 remediation; (6) 26 anxiety-zone frontier triage
 
 ## S368b session note (harvest-expert: DUE fix + human-signal-harvest periodic + artifact-ref audit)
