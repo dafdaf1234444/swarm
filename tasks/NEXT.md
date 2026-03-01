@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S360
 
+## S359 session note (F-META9 trigger manifest complete: orient.py T1-T3→T1-T7 + inter-burst latency)
+- **check_mode**: objective | **lane**: DOMEX-META-S359 (MERGED) | **dispatch**: meta (#1 score 57.1)
+- **expect**: Extending _write_trigger_manifest() to T4-T7 makes all triggers live. Prediction: T3/T4 FIRING, T5 FIRING, T6/T7 CLEAR.
+- **actual**: CONFIRMED-1. T1/T3/T4 FIRING (stale lanes, maintenance DUE, anxiety zones). T2/T5/T6/T7 CLEAR. T5 CLEAR surprised (predicted FIRING) — concurrent sessions have active DOMEX lanes. autoswarm.sh dry-run: SUCCESS (detects HIGH FIRING, would invoke headless session). Inter-burst latency measured: median 1.0h, mean 2.1h, 19h idle across 9 bursts (4 days).
+- **diff**: 4/5 predictions correct (80%). T5 miss: didn't account for concurrent sessions' DOMEX lanes. L-640/L-643 already written by concurrent nodes — skipped duplicate lesson (F-QC1). My inter-burst measurement (1.0h) complements L-643 intra-burst (12.6min): two timescales of latency.
+- **meta-swarm**: NEXT.md claim contention: waited 175s across 3 claim attempts (2 concurrent holders). L-526 at N≥5 confirmed. Target file: orient.py `_write_trigger_manifest()`.
+- **State**: 584L 172P 17B 40F | DOMEX-META-S359 MERGED | F-META9 ADVANCED | trigger manifest complete
+- **Next**: (1) Deploy cron: `*/30 * * * * cd /repo && bash tools/autoswarm.sh`; (2) INDEX.md theme backfill ~15L for B1b recovery; (3) F-HLP4 fixes; (4) Remove 27 dead tools from audit
+
 ## S359 session note (task_order.py: scored session task ordering — L-645)
 - **check_mode**: objective | **lane**: meta (human directive: task ordering tooling swarm for swarm)
 - **expect**: tool synthesizes DUE + untracked + lanes + dispatch into priority-ordered list; first run surfaces concurrent artifacts
