@@ -915,44 +915,14 @@ def check_frontier_registry() -> list[tuple[str, str]]:
     return _impl(REPO_ROOT, _read, _truncated)
 
 def check_handoff_staleness() -> list[tuple[str, str]]:
-    next_text = _read(REPO_ROOT / "tasks" / "NEXT.md")
-    session = _session_number()
-    if not next_text or session <= 0: return []
-    stale = []
-    for m in re.finditer(r"\(added S(\d+)\)", next_text):
-        age = session - int(m.group(1))
-        if age > 3:
-            line_start = next_text.rfind("\n", 0, m.start()) + 1
-            line_end = next_text.find("\n", m.end())
-            line = next_text[line_start:line_end if line_end > 0 else len(next_text)].strip()
-            item_match = re.search(r"\*\*(.+?)\*\*", line)
-            stale.append(f"{item_match.group(1) if item_match else line[:50]} (age: {age})")
-    if stale:
-        return [("DUE", f"{len(stale)} stale handoff(s) in NEXT.md: {'; '.join(stale[:3])}")]
-    return []
+    # Extracted to maintenance_state.py (S422 distillation)
+    from maintenance_state import check_handoff_staleness as _impl
+    return _impl(REPO_ROOT, _read, _session_number)
 
 def check_state_header_sync() -> list[tuple[str, str]]:
-    results = []
-    session = _session_number()
-    if session <= 0: return results
-    values: dict[str, int] = {}
-    parse_fail = []
-    checks = [
-        ("NEXT", _read(REPO_ROOT / "tasks" / "NEXT.md"), r"^Updated:\s*\d{4}-\d{2}-\d{2}\s+S(\d+)\b"),
-        ("INDEX", _read(REPO_ROOT / "memory" / "INDEX.md"), r"^Updated:\s*\d{4}-\d{2}-\d{2}\s*\|\s*Sessions:\s*(\d+)\b"),
-        ("FRONTIER", _read(REPO_ROOT / "tasks" / "FRONTIER.md"), r"last\s+updated\s*:\s*\d{4}-\d{2}-\d{2}\s*(?:\|\s*)?S(\d+)\b"),
-    ]
-    for name, text, pat in checks:
-        m = re.search(pat, text, re.MULTILINE | re.IGNORECASE)
-        if m: values[name] = int(m.group(1))
-        else: parse_fail.append(name)
-    if parse_fail: results.append(("NOTICE", f"State header parse failed: {', '.join(parse_fail)}"))
-    dirty = bool(_git("status", "--porcelain"))
-    behind = [f"{name}:S{val}" for name, val in values.items() if val < session]
-    ahead = [f"{name}:S{val}" for name, val in values.items() if val > session]
-    if behind: results.append(("NOTICE", f"State header drift vs SESSION-LOG S{session}: {', '.join(behind)}"))
-    if ahead and not dirty: results.append(("NOTICE", f"State header ahead of SESSION-LOG S{session}: {', '.join(ahead)}"))
-    return results
+    # Extracted to maintenance_state.py (S422 distillation)
+    from maintenance_state import check_state_header_sync as _impl
+    return _impl(REPO_ROOT, _read, _git, _session_number)
 
 def check_mission_constraints() -> list[tuple[str, str]]:
     results = []
@@ -1024,33 +994,9 @@ def check_mission_constraints() -> list[tuple[str, str]]:
     return results
 
 def check_session_log_integrity() -> list[tuple[str, str]]:
-    results = []
-    text = _read(REPO_ROOT / "memory" / "SESSION-LOG.md")
-    if not text: return results
-    control_hits = [(ln, ord(ch)) for ln, raw in enumerate(text.splitlines(), 1) for ch in raw if ord(ch) < 32 and ch != "\t"]
-    if control_hits:
-        results.append(("NOTICE", f"SESSION-LOG contains control character(s): {_truncated(control_hits, 5, fmt=lambda x: f'L{x[0]}:0x{x[1]:02x}')}"))
-    rows = []
-    for raw in text.splitlines():
-        m = re.match(r"^S(\d+)\b", raw)
-        if m: rows.append((int(m.group(1)), re.sub(r"\s+", " ", raw.strip())))
-    if not rows: return results
-    dup_counts: dict[str, int] = {}
-    for _, row in rows: dup_counts[row] = dup_counts.get(row, 0) + 1
-    dup_rows = [(row, n) for row, n in dup_counts.items() if n > 1]
-    if dup_rows:
-        results.append(("NOTICE", f"SESSION-LOG exact duplicate row(s): {_truncated(dup_rows, fmt=lambda x: f'{x[0][:40]}... x{x[1]}')}"))
-    recent_window = 40
-    recent_rows = rows[-recent_window:]
-    historical_ids = {sid for sid, _ in rows[:-recent_window]} if len(rows) > recent_window else set()
-    non_monotonic = []
-    for i in range(1, len(recent_rows)):
-        prev_sid, sid = recent_rows[i - 1][0], recent_rows[i][0]
-        if sid < prev_sid and not (sid in historical_ids or (prev_sid - sid) == 1):
-            non_monotonic.append((prev_sid, sid))
-    if non_monotonic:
-        results.append(("NOTICE", f"SESSION-LOG recent non-monotonic order: {_truncated(non_monotonic, 5, fmt=lambda x: f'S{x[0]}->S{x[1]}')}"))
-    return results
+    # Extracted to maintenance_state.py (S422 distillation)
+    from maintenance_state import check_session_log_integrity as _impl
+    return _impl(REPO_ROOT, _read, _truncated)
 
 def check_paper_accuracy() -> list[tuple[str, str]]:
     return run_paper_drift_check(REPO_ROOT, _session_number())

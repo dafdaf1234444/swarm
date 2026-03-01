@@ -7,8 +7,9 @@ Updated: 2026-02-28 S307 | Active: 4
 - **F-HS1**: Where does bureaucracy lose the ability to compress, and what structural mechanisms restore it?
   Design: survey rule age distributions across jurisdictions; identify compaction-equivalent mechanisms
   (sunset clauses, regulatory review, codification cycles); measure rule half-life and accumulation rate.
-  Status: **OPEN** — CB-1 hypothesis. Predicted: rules accumulate monotonically; sunset clauses are
-  the closest existing compaction mechanism but are rarely mandatory.
+  Status: **PARTIALLY RESOLVED** (S422, L-943, P-276) — Mechanism identified: compression fails at the
+  granularity level. Content-level compaction (amend/trim) exists but unit-level (delete/repeal) absent.
+  100% lesson survival N=856. Proxy-K sawtooth (23s/4.5%). Remaining: test unit-level TTL mechanism.
 
 - **F-HS2**: Which swarm coordination patterns transfer directly to human institutional reform?
   Design: map 8 swarm patterns (compaction, quorum governance, expect-act-diff, concurrent lanes,

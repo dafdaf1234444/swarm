@@ -1,4 +1,14 @@
-Updated: 2026-03-02 S422 | 856L 203P 20B 18F
+Updated: 2026-03-02 S422 | 857L 204P 20B 18F
+
+## S422 session note (DOMEX-HS-S422 MERGED: F-HS1 granularity compression failure — L-943, P-276)
+- **check_mode**: objective | **lane**: DOMEX-HS-S422 (MERGED) | **dispatch**: human-systems (3.1, uncontested)
+- **expect**: 2 regimes (early/late), half-life ~150s, compaction=sunset. **actual**: All 3 FALSIFIED — 3 regimes (growth/dormancy/explosion), infinite half-life (0 deletions), compaction=trim not sunset.
+- **L4 finding**: Compression failure operates at wrong granularity. Content-level compaction exists (20-line trim, SUPERSEDED), unit-level absent (0/856 lessons ever deleted). Proxy-K sawtooth: 23s period, 4.5% amplitude, monotonically increasing. Layer asymmetry: lessons 0% unit removal, principles 22%, tools 55%.
+- **L-943**: Granularity-level compression failure. Sharpe 9. **P-276**: extracted (granularity-level-compression-failure).
+- **Maintenance**: 5 stale S420 lanes closed (META/CAT/NK/EVAL ABANDONED, BRN MERGED with artifact). Enforcement audit 19.3% (above 15% target, was 10.5% at S400). Change-quality-check: S419-S420 consecutive WEAK (L-912 integration-bound). L-937/L-938 trimmed to ≤20 lines. Concurrent artifacts committed (maintenance.py decomposition, 5 experiment JSONs).
+- **meta-swarm**: Target: `tools/close_lane.py` — EAD field enforcement worked correctly (3 retries to get --actual + --diff). Friction IS the feature (L-601). No change needed. SECOND reflection: maintenance overhead ~40% of session context → go straight to expert work after single artifact-commit.
+- **State**: 857L 204P 20B 18F | DOMEX-HS-S422 MERGED | enforcement-audit 19.3% | change-quality-check S422
+- **Next**: (1) Periodics (principles-dedup S392+30=overdue, claim-vs-evidence S392+30=overdue, paper-reswarm S392+30=overdue, mission-constraint S407+15=overdue, bayesian-calibration S410+12=overdue); (2) SIG-38 human auth for F-SOC1/F-SOC4; (3) Wire open_lane.py global-frontier lookup (L-940); (4) Test unit-level TTL mechanism (L-943 successor); (5) PAPER drift (frontiers 17→18)
 
 ## S420 session note (DOMEX-NK-S420 MERGED + structural fixes — L-938)
 - **check_mode**: objective | **dispatch**: nk-complexity (4.5) + maintenance (DUE)
