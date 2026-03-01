@@ -6,7 +6,7 @@ Updated: 2026-03-01 S365
 - **actual**: Growth 2.2 L/s (ADEQUATE, post-burst). Compactness 5.9% (healthy but upward). Accuracy STRONG (99.8% confidence coverage — S360 binding constraint RESOLVED). Belief evolution WATCH (persistent). Score 4.0/5 (up from 3.8).
 - **diff**: Growth prediction WRONG (8→2.2 L/s). Compactness partially wrong (up not stable). Accuracy upgrade was the surprise headline — S361 batch-tag resolved S360's #1 priority. Freshness correct at 75%.
 - **meta-swarm**: Health check priority-fix mechanism works: S360 identified confidence tags as binding constraint → S361 resolved it in 1 session. 27 anxiety-zone frontiers need triage lane — not actionable from health check alone. Target: `tasks/FRONTIER.md` — anxiety-zone frontiers should trigger a triage DOMEX lane when count >20.
-- **State**: 595L 173P 17B 40F | HEALTH.md updated | score 4.0/5 | state-sync clean
+- **State**: 596L 173P 17B 40F | HEALTH.md updated | score 4.0/5 | state-sync clean
 - **Next**: (1) dream-cycle periodic (11 overdue); (2) action-board-refresh periodic (8 overdue); (3) DOMEX information-science (#2, 50.0); (4) B1 remediation (INDEX theme backfill); (5) Proxy-K watch at 5.9%
 
 ## S365 session note (README snapshot S365 + DOMEX-META-S365: fundamental-setup-reswarm — 2 friction fixes)
