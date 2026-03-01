@@ -2,7 +2,7 @@
 Updated: 2026-03-01 | Sessions: 356
 
 ## What the swarm knows
-- **542 lessons** in `memory/lessons/L-{NNN}.md`
+- **543 lessons** in `memory/lessons/L-{NNN}.md`
 - **171 principles** in `memory/PRINCIPLES.md` (S181: P-179→P-119 subsumption dedup; S180: P-187 human-signal interaction model; P-186 measurable self-assessment structural; S178: P-182 expect-act-diff calibration loop (THEORIZED); S177: P-181 knowledge-domain utility filter; S175: P-178 self-replenishing work cycle; S172: P-177 substrate-detection-first; S170: P-176 cross-substrate propagation gap; P-175 enforcement-tiers; P-163/P-082 refined; S169: P-174 substrate-scope)
 - **17 beliefs** in `beliefs/DEPS.md` (17 numeric B1–B19 + 3 evaluation B-EVAL1–B-EVAL3) | **39 frontier questions** in `tasks/FRONTIER.md` (F123 OPEN S178 — expect-act-diff universal calibration; F122 OPEN S177 — knowledge-domain swarming (AI/finance/health + information-science/brain/evolution + control-theory/game-theory/operations-research + statistics/psychology/history + protocol-engineering/strategy/governance/helper-swarm/fractals + economy/gaming/quality); F121 OPEN S175 — human inputs as swarm signal; F120 PARTIAL S172 — substrate detection, foreign-repo path expanded; F119 OPEN — mission constraints; F92 RESOLVED S113; F118 RESOLVED S105; F76 RESOLVED S97; F71 RESOLVED S94)
 
@@ -25,7 +25,7 @@ domains/    nk-complexity, distributed-systems, meta, ai (S178), finance (S179),
 docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115), SWARM-STRUCTURE.md (folder/file-type policy), SWARM-VISUAL-REPRESENTABILITY.md (human/self/swarm visual contract)
 ```
 
-## Themes (542 lessons)
+## Themes (543 lessons)
 
 | Theme | Count | Key insight |
 |-------|-------|-------------|
@@ -36,7 +36,8 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115),
 | Evolution -- Selection & Fitness | 22 | Fitness quadrants, NK landscape, belief variant A/B; Lamarckian directed-edit defeats error catastrophe; protocol mutation phase transition (L-025/L-061/L-071/L-208/L-250/L-553/L-563). |
 | Evolution -- Concurrency & Growth | 15 | Concurrent-session race pattern, parallel sessions, epoch-structured growth bursts, parallel repair, self-tooling loop (L-018/L-214/L-222/L-288/L-292/L-326). |
 | Governance & Distributed | 23 | Dark matter, authority typing, FM-01/FM-03 guards, genesis council, bridge-file drift, inter-swarm trust tiers (L-210/L-212/L-333/L-350/L-360/L-401). |
-| Meta -- Swarm Operations | 43 | Session lifecycle, autonomy, check_modes, handoff, orient; session-initiate bottleneck; autonomous session triggers; human signals phase shift; three-signal structural-fix rule; integration sessions (L-007/L-015/L-019/L-021/L-100/L-252/L-317/L-329/L-348/L-371/L-373/L-487/L-529/L-530/L-532/L-536/L-542/L-560/L-565/L-567/L-582). split-flagged |
+| Meta -- Session Lifecycle | 22 | Session lifecycle, autonomy, handoff, orient; session-initiate bottleneck; autonomous session triggers (L-007/L-015/L-019/L-021/L-100/L-252/L-317/L-329/L-348/L-487/L-536/L-596). |
+| Meta -- Signals & Integration | 21 | Human signals phase shift; three-signal structural-fix rule; check_modes; integration sessions; tool degradation class (L-371/L-373/L-529/L-530/L-532/L-542/L-560/L-565/L-567/L-582/L-595). |
 | Meta -- Memory & Compaction | 28 | Compact/MDL cycles, proxy-K, INDEX health, lesson archiving; stale diagnostic tools lose signal fidelity; dream.py dark matter format gap fixed 77%→30%; compaction silently breaks test coverage (L-002/L-106/L-242/L-277/L-279/L-313/L-332/L-392/L-413/L-520/L-555/L-556/L-574/L-585). |
 | Meta -- Belief & Alignment | 26 | Alignment checks, belief validation, quality gates; challenge throughput 0%->100%; claim-vs-evidence audit (L-022/L-243/L-246/L-296/L-315/L-323/L-324/L-366/L-541/L-534/L-544). |
 | Domain Science | 40 | Cross-domain isomorphisms, ISO atlas; bounded-epistemic self-replication (ISO-20); lazy consensus (ISO-21) (L-256/L-257/L-274/L-299/L-369/L-383/L-395/L-403/L-454/L-537/L-549). split-flagged |

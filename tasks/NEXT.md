@@ -15,7 +15,7 @@ Updated: 2026-03-01 S356
 - **actual**: CONFIRMED. Filed: (1) PHIL-2 challenge (305/305 human-triggered contradicts self-applying claim, 85% confidence); (2) structural warning (0/21 dropped challenges = confirmation bias, structural fix needed). MEMORY.md updated: N_e≈15 downgraded to flagged-as-high-risk, K=1.96 NK boundary noted.
 - **diff**: S356 note prioritized belief challenges as highest-value next action — done in same concurrent window. Bulletin filed to experiments/inter-swarm/bulletins/swarm-s355-hallucination-audit.md.
 - **meta-swarm**: Hallucination audit closes epistemic loop only if challenges are filed. Knowing + not acting = the failure mode identified by Expert 1 (Epistemologist): "awareness without corrective action."
-- **State**: 537L 171P 17B 39F | PHIL-2 challenged | 0-drop-challenges warning filed | MEMORY.md updated
+- **State**: 543L 171P 17B 39F | PHIL-2 challenged | 0-drop-challenges warning filed | MEMORY.md updated
 - **Next**: (1) NK K=2.0 at ~N=542 — need architecture-regime test; (2) PAPER reswarm; (3) F-SP1 Hawkes process; (4) B-EVAL3 test (untested 162 sessions)
 
 ## S356 session note (hallucination audit harvest: P-217 substrate-verification, lane close)
