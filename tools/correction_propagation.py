@@ -15,7 +15,7 @@ Usage:
   python3 tools/correction_propagation.py                  # report mode
   python3 tools/correction_propagation.py --json           # machine-readable
   python3 tools/correction_propagation.py --save           # save artifact
-  python3 tools/correction_propagation.py --classify       # show citation-type breakdown
+  python3 tools/correction_propagation.py --no-classify     # skip citation-type breakdown
 
 Related: F-IC1, L-734, L-739, L-025, L-613
 """
@@ -265,7 +265,7 @@ def _classify_citation_type(
 def _find_correction_gaps(
     lessons: dict[str, dict],
     cited_by: dict[str, set[str]],
-    classify: bool = False,
+    classify: bool = True,
 ) -> list[dict]:
     """Find lessons that cite falsified content without acknowledging corrections."""
     falsified_map = _detect_falsified_lessons(lessons)
@@ -341,7 +341,7 @@ def _find_correction_gaps(
     return sorted(gaps, key=lambda g: -g["uncorrected_count"])
 
 
-def run_analysis(session: str = "S393", classify: bool = False) -> dict:
+def run_analysis(session: str = "S393", classify: bool = True) -> dict:
     """Run full correction propagation analysis."""
     lessons = _parse_lessons()
     cited_by = _build_citation_graph(lessons)
@@ -429,9 +429,9 @@ def print_report(result: dict) -> None:
 
 
 if __name__ == "__main__":
-    classify = "--classify" in sys.argv
     save = "--save" in sys.argv
     as_json = "--json" in sys.argv or save
+    classify = "--no-classify" not in sys.argv  # always-on by default (L-904)
 
     # Auto-detect session from git log
     session = "S393"

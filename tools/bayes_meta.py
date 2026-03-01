@@ -208,6 +208,11 @@ def compute_frontier_posteriors(
             prior = posterior
 
         final_p = round(prior, 3)
+        # L-909 replication gate: cap posterior at 0.85 with <3 experiments
+        replication_capped = False
+        if len(exps_sorted) < 3 and final_p > 0.85:
+            final_p = 0.85
+            replication_capped = True
         if final_p >= 0.8:
             conclusion = "STRONG CONFIRM"
         elif final_p >= 0.65:
@@ -231,6 +236,7 @@ def compute_frontier_posteriors(
             },
             "mean_quality": round(sum(e["quality"] for e in exps) / len(exps), 2),
             "conclusion": conclusion,
+            "replication_capped": replication_capped,
             "trace": trace,
         }
     return posteriors
@@ -477,14 +483,14 @@ def main():
     parser.add_argument("--json", action="store_true", help="Output JSON")
     parser.add_argument("--frontier", help="Trace a single frontier")
     parser.add_argument("--domain", help="Filter by domain")
-    parser.add_argument("--uninformative", action="store_true",
-                        help="Use 0.5 prior instead of empirical base rate")
+    parser.add_argument("--empirical", action="store_true",
+                        help="Use empirical base rate instead of uninformative 0.5 prior (L-909: uninformative default)")
     parser.add_argument("--no-quality-weight", action="store_true",
                         help="Disable quality-weighted Bayes factors")
     args = parser.parse_args()
 
     experiments = load_experiments()
-    base_prior = 0.5 if args.uninformative else compute_empirical_prior(experiments)
+    base_prior = compute_empirical_prior(experiments) if args.empirical else 0.5
     quality_weighted = not args.no_quality_weight
 
     posteriors = compute_frontier_posteriors(experiments, base_prior, quality_weighted)

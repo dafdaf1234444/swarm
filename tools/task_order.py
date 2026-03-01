@@ -217,6 +217,72 @@ def get_strategy_tasks() -> list[dict]:
     return tasks
 
 
+def get_signal_tasks() -> list[dict]:
+    """Route stale/partially-resolved signals to actionable tasks (SIG-2 closure).
+
+    Closes the signal-to-action gap identified in SIG-2 (71 sessions PARTIALLY
+    RESOLVED): signals inform but don't trigger lanes or actions. This function
+    reads SIGNALS.md and generates specific tasks for signals that need work.
+    """
+    tasks = []
+    signals_file = ROOT / "tasks" / "SIGNALS.md"
+    if not signals_file.exists():
+        return tasks
+
+    try:
+        # Get current session number for age calculation
+        log_out = _git(["log", "--oneline", "-3"])
+        sn_m = re.search(r"\[S(\d+)\]", log_out)
+        current_session = int(sn_m.group(1)) if sn_m else 400
+
+        for line in signals_file.read_text().splitlines():
+            if not line.startswith("| SIG-"):
+                continue
+            cols = [c.strip() for c in line.split("|")]
+            if len(cols) < 11:
+                continue
+            sig_id = cols[1]
+            session_str = cols[3]
+            sig_type = cols[6]   # directive, observation, question
+            priority = cols[7]
+            content = cols[8][:80]
+            status = cols[9]
+            resolution = cols[10] if len(cols) > 10 else ""
+
+            sess_m = re.search(r"S?(\d+)", session_str)
+            sig_session = int(sess_m.group(1)) if sess_m else 0
+            age = current_session - sig_session
+
+            # Route PARTIALLY RESOLVED signals with identified gaps
+            if status == "PARTIALLY RESOLVED" and age > 15:
+                gap_m = re.search(r"[Gg]ap:\s*(.{10,80})", resolution)
+                gap = gap_m.group(1).rstrip(". |") if gap_m else "incomplete implementation"
+                score = 76 if priority == "P1" else 72
+                tasks.append({
+                    "priority": P_STRATEGY,
+                    "tier": "SIGNAL-ACTION",
+                    "score": score,
+                    "action": f"Close {sig_id} gap ({age}s stale): {gap[:60]}",
+                    "detail": f"[{sig_type}] {content}",
+                    "command": None,
+                })
+
+            # Route OPEN question signals targeting human
+            elif status == "OPEN" and sig_type == "question":
+                tasks.append({
+                    "priority": P_DUE,
+                    "tier": "SIGNAL-QUESTION",
+                    "score": 82,
+                    "action": f"Escalate {sig_id} to human: {content[:50]}",
+                    "detail": f"OPEN question signal, age {age}s — needs human decision",
+                    "command": None,
+                })
+    except Exception:
+        pass
+
+    return tasks[:5]  # cap at 5 signal-derived tasks
+
+
 def get_dispatch_tasks() -> list[dict]:
     """Get top-3 dispatch recommendations that don't have active lanes."""
     tasks = []
@@ -405,6 +471,7 @@ def build_task_list(top_n: int = 8) -> list[dict]:
     all_tasks.extend(get_due_items())
     all_tasks.extend(get_closeable_lanes())
     all_tasks.extend(get_strategy_tasks())
+    all_tasks.extend(get_signal_tasks())
     all_tasks.extend(get_dispatch_tasks())
     all_tasks.extend(get_periodic_tasks())
     all_tasks.extend(get_meta_tasks())
@@ -432,6 +499,8 @@ TIER_COLORS = {
     "DUE":      "\033[93m",  # yellow
     "CLOSE":    "\033[92m",  # green
     "STRATEGY": "\033[95m",  # magenta — L3+ strategic work
+    "SIGNAL-ACTION": "\033[95m",  # magenta — signal gap closure
+    "SIGNAL-QUESTION": "\033[93m",  # yellow — human decision needed
     "ACTIVE":   "\033[96m",  # cyan
     "DISPATCH": "\033[94m",  # blue
     "DISPATCH [DORMANT]": "\033[94m",

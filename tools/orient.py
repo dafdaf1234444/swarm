@@ -1229,8 +1229,14 @@ def main():
             l3plus_count = 0
             for lf in recent_n:
                 try:
-                    txt = Path(lf).read_text()[:600].lower()
-                    if any(k in txt for k in l3plus_kw):
+                    txt = Path(lf).read_text()
+                    # Explicit level tag (highest signal — matches maintenance.py)
+                    if re.search(r"[Ll]evel[=:\s]+L[3-5]", txt):
+                        l3plus_count += 1
+                        continue
+                    # Keyword scan on full text (not truncated to 600 chars)
+                    txt_lower = txt.lower()
+                    if any(k in txt_lower for k in l3plus_kw):
                         l3plus_count += 1
                 except Exception:
                     pass

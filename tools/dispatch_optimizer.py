@@ -597,9 +597,10 @@ def _get_claimed_domains() -> set[str]:
 def _get_domain_outcomes() -> dict[str, dict]:
     """Parse SWARM-LANES.md for MERGED/ABANDONED counts and lesson yield per domain (F-EXP10).
 
-    Returns {domain_name: {"merged": int, "abandoned": int, "lessons": int}}.
+    Returns {domain_name: {"merged": int, "abandoned": int, "lessons": int, "lessons_l3plus": int}}.
     - merged/abandoned: binary outcome (existing)
     - lessons: L-NNN references in notes column (yield quality signal — L-506)
+    - lessons_l3plus: lessons from lanes tagged level=L3/L4/L5 (L-895, SIG-46)
     Outcome feedback: reward proven domains, flag struggling ones.
     """
     outcomes: dict[str, dict] = {}
@@ -621,6 +622,8 @@ def _get_domain_outcomes() -> dict[str, dict]:
         if status not in ("MERGED", "ABANDONED"):
             continue
 
+        etc = cols[10] if len(cols) > 10 else ""
+
         # Try domain from DOMEX lane name: DOMEX-ABBREV-SN
         domain = None
         m = re.match(r"DOMEX-([A-Z]+)", lane_id)
@@ -636,19 +639,22 @@ def _get_domain_outcomes() -> dict[str, dict]:
 
         # Fallback: focus= field (skip if "global")
         if not domain:
-            etc = cols[10] if len(cols) > 10 else ""
             fm = re.search(r"focus=(?:domains/)?([a-z0-9-]+)", etc)
             if fm and fm.group(1) not in ("global", ""):
                 domain = fm.group(1)
 
         if domain:
             if domain not in outcomes:
-                outcomes[domain] = {"merged": 0, "abandoned": 0, "lessons": 0}
+                outcomes[domain] = {"merged": 0, "abandoned": 0, "lessons": 0, "lessons_l3plus": 0}
             outcomes[domain]["merged" if status == "MERGED" else "abandoned"] += 1
             # Lesson yield: count L-NNN references in notes column
             notes = cols[12] if len(cols) > 12 else ""
             lesson_count = len(re.findall(r"\bL-\d{3,4}\b", notes))
             outcomes[domain]["lessons"] += lesson_count
+            # Level-weighted yield (L-895, SIG-46): L3+ lanes get bonus lesson credit
+            level_m = re.search(r"\blevel=L([1-5])\b", etc)
+            if level_m and int(level_m.group(1)) >= 3:
+                outcomes[domain]["lessons_l3plus"] += lesson_count
     return outcomes
 
 
@@ -837,8 +843,12 @@ def _ucb1_score(results: list[dict], outcome_map: dict, heat_map: dict,
             # quality = merge_rate * (1 + log(total_lessons + 1))
             # Combines completion probability with knowledge yield.
             # Replaces raw lessons/n which was UCB1-neutral (rho=-0.14).
+            # L-895/SIG-46: L3+ lessons count double to counteract measurement gravity.
+            # Without this, UCB1 is level-blind and structurally favors L2 output.
             merge_rate = oc["merged"] / n
-            quality = merge_rate * (1 + math.log1p(lessons))
+            lessons_l3plus = oc.get("lessons_l3plus", 0)
+            lessons_weighted = lessons + lessons_l3plus  # L3+ counted 2x total
+            quality = merge_rate * (1 + math.log1p(lessons_weighted))
             explore_term = c * math.sqrt(math.log(total_dispatches) / n)
             r["ucb1_exploit"] = round(quality, 3)
             r["ucb1_explore"] = round(explore_term, 3)
