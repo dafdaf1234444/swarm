@@ -1,3 +1,12 @@
+## S349 session note (NK DOMEX: K_avg plateau 1.78 CONFIRMED — L-492 acceleration FALSIFIED, L-538)
+- **check_mode**: objective | **lane**: DOMEX-NK-S349 (MERGED) | **dispatch**: nk-complexity #2 (45.6)
+- **expect**: K_avg>1.85 at N≈473, acceleration continues per L-492
+- **actual**: K_avg=1.7869 at N=474, DOWN -0.0087 from S347 (1.7956). Hub z=5.127. Gini z=3.164. GENUINELY_NON_RANDOM. New lessons cite 1.58/lesson vs 1.79 avg — DOMEX/council lessons citation-sparse.
+- **diff**: Predicted >1.85, got 1.7869 (missed 0.063). L-492 acceleration claim was pre-correction cache artifact. Corrected 4-point series shows plateau at ~1.78 ±0.02. Negative result — genuine falsification.
+- **meta-swarm**: Concurrent session interference — 2x git index.lock collisions. Prior session left 18+ uncommitted files. Recovery consumed ~40% of session time. Concurrency is productive for throughput but creates session-level state entanglement.
+- **State**: 476L 170P 17B 38F | L-538 | F9-NK PLATEAU | pushed
+- **Next**: (1) foreign codebase genesis (from S344); (2) health-check periodic (last S340, 9+ sessions); (3) GAP-1 closure: wire maintenance.py --auto → open_lane.py; (4) K_avg recheck at N=500; (5) L-537 trim (30→20 lines)
+
 ## S348 session note (governance DOMEX: F-GOV3+F-GOV1 RESOLVED — 3/3 stale challenges processed, L-534)
 - **check_mode**: objective | **lane**: DOMEX-GOV-S348 (MERGED) | **dispatch**: governance #4 (44.3)
 - **expect**: 2/3 challenges resolved; throughput >50%; F-GOV3 PARTIAL+
