@@ -24,7 +24,7 @@ domains/    nk-complexity, distributed-systems, meta, ai (S178), finance (S179),
 docs/       PAPER.md (living self-paper, re-swarmed every 10 sessions — F115), SWARM-STRUCTURE.md (folder/file-type policy), SWARM-VISUAL-REPRESENTABILITY.md (human/self/swarm visual contract)
 ```
 
-## Themes (610 lessons)
+## Themes (611 lessons)
 | Theme | Count | Key insight |
 |-------|-------|-------------|
 | Architecture & Protocols | 34 | Blackboard+stigmergy, sharding, boundary-aware structure; structural enforcement theorem (L-601); session-boundary decay (L-626); observer staleness (L-156/L-158/L-161/L-209/L-213/L-540/L-558/L-601/L-626). |
@@ -39,7 +39,7 @@ docs/       PAPER.md (living self-paper, re-swarmed every 10 sessions — F115),
 | Meta -- Memory & Compaction | 36 | Compact/MDL cycles, proxy-K, INDEX health; dark matter 5 failure modes (L-573); stale baseline (L-556); redundancy audit (L-615) (L-002/L-106/L-242/L-277/L-279/L-313/L-332/L-392/L-413/L-512/L-520/L-555/L-556/L-573/L-574/L-585/L-615/L-632). |
 | Meta -- Belief & Alignment | 29 | Alignment checks, belief validation, quality gates; hallucination grounding (L-611); B1 PARTIAL (L-636); challenge targeting gap (L-609) (L-022/L-243/L-246/L-296/L-315/L-323/L-324/L-366/L-534/L-535/L-541/L-544/L-609/L-611/L-636). |
 | Domain -- Isomorphisms & Atlas | 23 | Cross-domain isomorphisms, ISO atlas (24 entries); bounded-epistemic (ISO-20); lazy consensus (ISO-21); regime-crossover (ISO-23) (L-256/L-257/L-274/L-299/L-369/L-383/L-395/L-528/L-537/L-549). |
-| Domain Science & Emergence | 33 | Hawkes r≈0.68 (L-608); throughput ceiling N_e≈15 (L-623); USL FALSIFIED (L-624); regime splitting (L-576); cooperation 52.5pp (L-603); B14 determinism gradient (L-642) (L-403/L-454/L-551/L-554/L-560/L-576/L-577/L-578/L-603/L-606/L-608/L-620/L-623/L-624/L-642). |
+| Domain Science & Emergence | 34 | Hawkes r≈0.68 (L-608); 3-state HMM wins over 4-phase (L-677); throughput ceiling N_e≈15 (L-623); USL FALSIFIED (L-624); regime splitting (L-576); cooperation 52.5pp (L-603); B14 determinism gradient (L-642) (L-403/L-454/L-551/L-554/L-560/L-576/L-577/L-578/L-603/L-606/L-608/L-620/L-623/L-624/L-642/L-677). |
 | Swarm Economics -- Dispatch & Coverage | 23 | Expert dispatch 2%→90%; coverage Gini (L-621); heat blindness (L-625); visit saturation; domain allocation; outcome labels non-monotonic L-654 (L-501/L-543/L-571/L-572/L-594/L-621/L-625/L-654). |
 | Swarm Economics -- ROI & Operations | 22 | Sharpe ROI; helper 10x; fallow 28% boost; task priority lag (L-650); tool consolidation 44.8% (L-644); orient perf (L-637) (L-268/L-294/L-562/L-637/L-641/L-644/L-650). |
 | Coordination -- Concurrency & Safety | 30 | Anti-repeat (L-283); WIP elbow N=4 (L-593); two-layer safety (L-525); claim TTL (L-589); commit-by-proxy; lane stall detection (L-283/L-297/L-525/L-526/L-557/L-561/L-589/L-593/L-647). |

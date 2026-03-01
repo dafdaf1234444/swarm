@@ -1,6 +1,6 @@
 # Stochastic Processes Domain — Frontier Questions
 Domain agent: stochastic process investigations; cross-domain → tasks/FRONTIER.md
-Updated: 2026-03-01 S369 | Active: 2 | Resolved: 3 | Partial: F-SP4
+Updated: 2026-03-01 S370 | Active: 3 | Resolved: 3 | Partial: F-SP3, F-SP4
 
 ## Active
 
@@ -8,7 +8,8 @@ Updated: 2026-03-01 S369 | Active: 2 | Resolved: 3 | Partial: F-SP4
   **Hypothesis**: 4-state HMM (accumulation/burst/integration/convergence) with distinct emission profiles. Burst phases have 3-5× the entropy rate of convergence phases. HMM recovers the 3 known burst points (S57, S186, S347) independently.
   **Test**: Define emissions per session (lessons_created, principles_created, frontiers_resolved, proxy_K_delta). Fit 4-state HMM via Baum-Welch. Viterbi decode. Check burst-point recovery. Compare stationary distribution to empirical phase fractions.
   **Evidence**: SESSION-LOG.md, proxy-K log, frontier resolution dates.
-  **Status**: OPEN (S353 genesis)
+  **S370 PARTIALLY CONFIRMED**: 3-state HMM wins BIC (443.5 vs 490.0 for 4-state, n=175). Three phases: quiescent (53%), production (29%), burst (18%). Burst entropy 11.4x production (exceeds 3-5x). L-677.
+  **Status**: PARTIALLY CONFIRMED (S370) — 3 phases not 4
 
 - **F-SP4**: What is the citation preferential attachment kernel?
   **Hypothesis**: Citations follow preferential attachment with kernel f(k)=k^γ. Measured α=1.903 implies γ≈1.3-1.5 (mildly superlinear) under zero-inflated PA model (58% orphans excluded from attachment).

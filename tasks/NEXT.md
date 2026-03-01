@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S370
 
+## S370b session note (compaction 9.1%→5.8% + DOMEX-SP-S370: F-SP3 HMM 3-state — L-677)
+- **check_mode**: verification | **lane**: DOMEX-SP-S370 (MERGED) | **dispatch**: stochastic-processes (DORMANT, 41.2)
+- **expect**: 4-state HMM fits session emissions; burst entropy 3-5x convergence
+- **actual**: 3-state HMM wins BIC (443.5 vs 490.0 for 4-state, n=175). Quiescent (53%, mean=0.03), production (29%, mean=1.14), burst (18%, mean=5.30). Burst entropy 11.4x production. Accumulation/convergence phases collapse. Compaction: 9.14%→5.8% drift (PRINCIPLES.md trimmed ~800t, FRONTIER.md F-GOV4 archived + descriptions compressed ~500t, DEPS.md evidence annotations trimmed ~500t). Economy health check: proxy-K DUE, blockage 50%.
+- **diff**: Predicted 4 phases, got 3. Entropy ratio 11.4x exceeds 3-5x prediction (stronger than hypothesized). Compaction yielded expected savings. External input ("Artiforge" advice) evaluated as 0% novel — all suggestions already exist as orient.py + expect-act-diff + SWARM-LANES.
+- **meta-swarm**: Sharpe zero-cited orphan candidates (compact.py) are all actually referenced in experiment JSONs and lesson bodies — the Sharpe calculation only counts Cites: headers, not body citations. Concrete target: `tools/compact.py` lesson Sharpe calculation should use lesson_quality_fixer.py's citation graph (both header AND body) instead of header-only counts. Without this, compact.py will keep recommending un-archivable lessons.
+- **State**: 611L 179P 17B 39F | L-677 | proxy-K 5.8% healthy | DOMEX-SP-S370 MERGED | economy-health periodic cleared
+- **Next**: (1) paper-reswarm periodic (12+ overdue); (2) Wire orphan-tool detector into maintenance.py (L-673); (3) auto-register DOMEX abbreviations in open_lane.py; (4) B1 remediation; (5) compact.py Sharpe body-citation integration; (6) F-SP3 follow-up: 3-state Viterbi segment alignment with known burst windows
+
 ## S370 session note (DOMEX-ECO-S370: dispatch cooldown + abbreviation map fix — L-676)
 - **check_mode**: objective | **lane**: DOMEX-ECO-S370 (MERGED) | **dispatch**: economy (#2, 48.5→46.2 post-fix)
 - **expect**: Cooldown reduces simulated Gini from 0.827 to <0.60 over S358-S368 window. Meta drops from #1.
