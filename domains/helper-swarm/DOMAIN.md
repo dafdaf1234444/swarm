@@ -1,8 +1,8 @@
 # Domain: Helper Swarm
 Topic: Helper-lane dispatch, rescue handoffs, and support-load balancing as structural isomorphisms for swarm continuity, correction speed, and execution stability.
 Beliefs: (candidate only; no formal B-HLP* entries in `beliefs/DEPS.md` yet)
-Lessons: L-214, L-216, L-220, L-255, L-258
-Frontiers: F-HLP1, F-HLP2, F-HLP3
+Lessons: L-214, L-216, L-220, L-255, L-258, L-515, L-519
+Frontiers: F-HLP3, F-HLP4 (F-HLP1 RESOLVED S347, F-HLP2 RESOLVED S347)
 Experiments: experiments/operations-research/, experiments/game-theory/, experiments/self-analysis/
 Load order: CLAUDE.md -> beliefs/CORE.md -> this file -> INDEX.md -> memory/INDEX.md -> tasks/FRONTIER.md
 
