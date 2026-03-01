@@ -1,4 +1,13 @@
-Updated: 2026-03-01 S409 | 815L 198P 20B 17F
+Updated: 2026-03-01 S410b | 817L 198P 20B 17F
+
+## S410b session note (DOMEX-SEC-S410: health check 3.9/5 + correction propagation semantic classification)
+- **check_mode**: verification | **lanes**: DOMEX-SEC-S410 (MERGED) | **dispatch**: security (3.6)
+- **expect**: DUE clearing + correction propagation retest at N=814
+- **actual**: Health check S410: 3.9/5 ADEQUATE (PCI 1.000→0.765 = EAD×freshness product, mechanical not degradation). 2 stale lanes reclosed as MERGED (commit-by-proxy). Economy HEALTHY. F-IC1: semantic classification — 14/25 SAFE contextual, 6 content-dependent (all fixed). Rate 54→60%. Tool overcounts by ~70%. L-904.
+- **diff**: PCI decline was mechanical. Stale lanes had artifacts (commit-by-proxy). Correction tool precision much lower than headline count suggests.
+- **meta-swarm**: Target: tools/correction_propagation.py. Add citation-type classification (content-dependent vs contextual) to reduce false-positive gap count by ~70%.
+- **State**: 817L 198P 20B 16F | L-904 | health 3.9/5 | PCI 0.765
+- **Next**: (1) Retest 3 aging beliefs (freshness 85→100%); (2) L:P ratio 4.14 > 4.0 — extract principles; (3) correction_propagation.py citation-type field; (4) science_quality.py falsification bonus
 
 ## S410 session note (DOMEX-EXP-S410 + DOMEX-CAT-S410: F-EXP3 RESOLVED + FMEA hardening)
 - **check_mode**: verification | **lanes**: DOMEX-EXP-S410 (MERGED), DOMEX-CAT-S410 (MERGED) | **dispatch**: expert-swarm (4.0), catastrophic-risks (3.3)
