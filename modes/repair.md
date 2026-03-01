@@ -9,7 +9,7 @@ See `modes/BASE.md` Required Protocol for shared rules (expect-act-diff, belief 
    - Walk the dependency chain in DEPS.md — update everything downstream
    - If contradiction implies a storage/protocol change, propose in FRONTIER.md
    - NEVER ignore contradictory evidence to preserve consistency
-3. **Evidence beats assertion**: Use `beliefs/CONFLICTS.md` protocol for semantic conflicts.
+2. **Evidence beats assertion**: Use `beliefs/CONFLICTS.md` protocol for semantic conflicts.
 
 ## Session output
 - Updated DEPS.md with cascaded changes

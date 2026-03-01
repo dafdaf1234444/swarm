@@ -18,18 +18,22 @@ Shared baseline for all mode docs (`modes/audit.md`, `modes/build.md`, `modes/re
 
 For **dispatch lanes** in `tasks/SWARM-LANES.md`, `Etc` must include:
 
-- `setup`
-- `focus`
-- `available`
-- `blocked`
-- `next_step`
-- `human_open_item`
+- `setup`, `focus`, `available`, `blocked`, `next_step`, `human_open_item`
+- `expect` — predicted outcome (declare before acting)
+- `actual` — what happened (required at MERGED closure)
+- `diff` — expectation vs reality gap (required at MERGED closure)
+- `artifact` — committed deliverable path (experiment JSON, tool, lesson)
+- `personality` — role personality (domain-expert, council-expert, etc.)
 
 For **coordinator lanes**, additionally include:
 
 - `intent` — what this lane is coordinating
 - `progress` — current completion status
-- `check_focus` — active check_mode for this lane
+
+For **domain-focused lanes** (`focus=domains/<domain>` or scope under `domains/`):
+
+- `domain_sync` — queued|syncing|synced|stale|n/a
+- `memory_target` — domain memory path being synchronized
 
 Use explicit values even for no-op state (`blocked=none`, `human_open_item=none`).
-Source of truth: `tools/maintenance.py` `check_lane_contracts()` for enforcement.
+Source of truth: `tools/open_lane.py` for creation enforcement, `tools/close_lane.py` for EAD closure.
