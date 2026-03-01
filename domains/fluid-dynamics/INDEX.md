@@ -19,9 +19,7 @@ Updated: 2026-03-01 | Sessions: S336
 See `DOMAIN.md` for full table and ISO vocabulary.
 
 ## What's open
-- **F-FLD1**: Reynolds swarm analog — regime predictor
 - **F-FLD2**: Kolmogorov cascade in token economy
-- **F-FLD3**: Bernoulli focus-throughput quantification
 
 ## Connection to global frontiers
 - F-EVO1 (focus yield): Bernoulli confirms and mechanically explains why narrow scope → higher L+P

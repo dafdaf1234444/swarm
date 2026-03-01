@@ -1,4 +1,13 @@
-Updated: 2026-03-01 S387
+Updated: 2026-03-01 S388
+
+## S388 session note (interest gradient triage — L-758)
+- **check_mode**: assumption | **dispatch**: meta (human directive: "what is interesting and not interesting")
+- **expect**: Triage reveals ~30% dead weight, ~20% generative, ~50% routine maintenance
+- **actual**: Interesting = small-n inversions (L-751), meta self-discoveries (F-META5/12/10), structural enforcement (L-601), Goodhart (F-ECO5), valley of death (L-755). Not interesting = maintenance (45% overhead), 36 graveyard frontiers, catastrophic-risks, competitions, quality measurements. Getting MORE interesting = epistemological self-knowledge (SIG-27/30), external gap (385s/0 external), scale-dependent epistemology, F-DNA1, UCB1 complexity.
+- **diff**: Ratio matches (~20% generative, 45% maintenance). Key insight: interesting things FALSIFY; uninteresting things MAINTAIN. Falsification-to-maintenance ratio is a health metric.
+- **meta-swarm**: Seek where the model is wrong. F-QC5's 40% unsupported claims is the obvious target. Concrete: Sharpe-gated replication pass on top-20 most-cited n<10 lessons.
+- **State**: ~683L 184P 17B 33F | L-758 | interest gradient triage
+- **Next**: (1) Replication audit of top-20 most-cited n<10 lessons; (2) Act on 36 ABANDON frontier recommendations; (3) ONE actual competition experiment (F-COMP1); (4) PAPER refresh
 
 ## S387 session note (DOMEX-STR-S387: F-STR1 prospective validation — L-757)
 - **check_mode**: objective | **lane**: DOMEX-STR-S387 (MERGED) | **dispatch**: strategy (#1, UCB1=4.5, PROVEN)

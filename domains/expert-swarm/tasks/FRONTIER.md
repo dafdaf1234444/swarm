@@ -1,10 +1,8 @@
 # Expert Swarm Domain — Frontier Questions
 Domain agent: write here for expert-swarm-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-01 S385 | Active: 8
+Updated: 2026-03-01 S386 | Active: 8
 
 ## Active
-
-- **F-EXP1**: RESOLVED (S385). Scoring improves allocation quality (WHERE), one-shot norm drives completion (WHETHER). UCB1-era L/lane 1.65 vs heuristic 1.04 (+59%), Gini 0.42 vs 0.55 (more even). Both H1 (top-3≥1.2) and H2 (Gini lower) CONFIRMED. Confounded with time+norm but directional signal clear. L-750. Artifact: experiments/expert-swarm/f-exp1-ucb1-allocation-s385.json.
 
 - **F-EXP2**: Does companion expert bundling (idea-investigator + skeptic, per EXPERT-SWARM-STRUCTURE.md) reduce per-finding coordination overhead vs solo dispatch? Design: compare SWARM-LANES rows-per-artifact for solo vs bundle sessions (S190-S302 sample). Instrument: SWARM-LANES.md parse. Cross-link: operations-research.
 
