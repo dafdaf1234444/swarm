@@ -439,6 +439,20 @@ def main() -> int:
     if phil_claims:
         issues.extend(check_phil_format(phil_claims))
 
+    # Confidence tag coverage check (WARN if <90%, from L-651)
+    if not quick:
+        lessons_dir = REPO_ROOT / "memory" / "lessons"
+        if lessons_dir.exists():
+            all_lessons = list(lessons_dir.glob("L-*.md"))
+            untagged = [f for f in all_lessons if "Confidence:" not in _read_text(f)]
+            coverage_pct = (len(all_lessons) - len(untagged)) / len(all_lessons) if all_lessons else 1.0
+            if coverage_pct < 0.90:
+                issues.append(
+                    f"WARN: confidence tag coverage {coverage_pct:.1%} (<90%) — "
+                    f"{len(untagged)}/{len(all_lessons)} lessons missing Confidence: label. "
+                    f"Run tools/confidence_tagger.py or add manually. (L-651)"
+                )
+
     # Stale challenge detection (non-quick only — informational)
     if not quick and phil_claims:
         index_text = _read_text(REPO_ROOT / "memory" / "INDEX.md")
