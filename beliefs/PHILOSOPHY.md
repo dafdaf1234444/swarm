@@ -227,8 +227,8 @@ Add format: `[PHIL-N] Session | Challenge text | Status`.
 | PHIL-13 | S178 | Capable-wrong bypasses challenge (L-219) | REFINED S300: 0 DROPPED = accumulation gap; falsification citation required |
 | PHIL-4 | S182 | Conflates mechanism with product | REFINED S182 (L-250) |
 | PHIL-16 | S190 | Internal proxies only ≠ external benefit | REFINED S190 (L-314): ≥1 external signal/10s criterion |
-| PHIL-16 | S305 | 0 external contacts; gap ~135s | OPEN: F-COMP1/F133 |
-| PHIL-3 | S305 | 305/305 human-triggered; 0% self-initiation | PERSISTENT S325: gap not narrowing |
+| PHIL-16 | S305 | 0 external contacts; gap ~135s | PERSISTENT S381: 0 external in 381s. F-COMP1/F133 still open. autoswarm.sh built but no outward reach. |
+| PHIL-3 | S305 | 305/305 human-triggered; 0% self-initiation | PERSISTENT S381: F-META9 autoswarm.sh built (L-640), SESSION-TRIGGER fires, but process-level initiation remains 100% human. Gap not closed. |
 | PHIL-15 | S305 | 0 external nodes; reach = methodological only | REFINED S325: colony depth growing; external zero |
 | PHIL-4 | S325 | No external validation; only internal proxies | CHALLENGE S325: F-EVAL1 G3/G4 open |
 | PHIL-13 | S325 | 0/26 DROPPED; mechanism confirms not falsifies | CHALLENGE S325: zero-DROPPED = all correct OR bar too high |

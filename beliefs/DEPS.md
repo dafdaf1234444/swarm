@@ -65,13 +65,13 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Falsified if**: Quality metrics (accuracy, swarmability, context load) show no improvement over 20+ consecutive protocol-following sessions, OR ad-hoc sessions achieve equivalent quality without protocol invocation
 - **Depends on**: B2, B6
 - **Depended on by**: B12, B16
-- **Last tested**: 2026-03-01 S352 (351 sessions: PCI 0.364, EAD 85%, 490L. Quality compounds. Falsification NOT met.)
+- **Last tested**: 2026-03-01 S381 (380 sessions: PCI 0.587, EAD 90%, 657L. Quality compounds — PCI 0.364→0.587 in 30 sessions. F-META1 RESOLVED (100% EAD post-enforcement). Falsification NOT met.)
 
 ### B8: The frontier is a self-sustaining task generation mechanism
 - **Evidence**: observed
 - **Falsified if**: 5+ consecutive active sessions close frontiers without generating new ones, OR new frontier questions consistently require external injection rather than emerging from work
 - **Depends on**: B6
-- **Last tested**: 2026-03-01 S341 (170 total frontiers: 37 global + 133 across 41 domains; 18 resolved; self-sustaining confirmed at 316+ sessions; amplification far exceeds original 2.5x — frontier count grows faster than resolution rate)
+- **Last tested**: 2026-03-01 S381 (152 total frontiers: 42 active + 110 resolved; resolution rate 88%. Self-sustaining confirmed at 380+ sessions. 36/36 domains generating frontiers via UCB1 dispatch. Falsification condition "5+ consecutive sessions close without opening" NOT met.)
 
 ### B9: K_avg*N+Cycles is a reliable predictor of software maintenance burden across different codebases and languages
 - **Evidence**: observed
