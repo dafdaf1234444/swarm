@@ -93,8 +93,8 @@ SESSION_TRIGGER_STATUS=""
 SESSION_TRIGGER_COUNT=0
 
 if [[ -f "$TRIGGER_MANIFEST" ]]; then
-    # Count HIGH urgency FIRING triggers
-    SESSION_TRIGGER_COUNT="$(grep -c "HIGH.*FIRING" "$TRIGGER_MANIFEST" 2>/dev/null || echo 0)"
+    # Count HIGH urgency FIRING triggers (table rows only, not documentation)
+    SESSION_TRIGGER_COUNT="$(grep -cE "^\| T[0-9].*\| HIGH \| FIRING \|" "$TRIGGER_MANIFEST" 2>/dev/null || echo 0)"
     if (( SESSION_TRIGGER_COUNT > 0 )); then
         SESSION_TRIGGER_STATUS="high_urgency_firing"
         log "INFO: session trigger manifest found $SESSION_TRIGGER_COUNT HIGH FIRING trigger(s)"

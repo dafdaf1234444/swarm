@@ -108,12 +108,12 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Domain**: distributed-systems
 
 ### B14: Most distributed systems bugs (98%) are reproducible with 3 or fewer nodes and are deterministic (74%)
-- **Evidence**: theorized (node-count claim stronger than determinism claim)
+- **Evidence**: partial (node-count analytically supported 4-5/5; determinism 60-80% brackets 74%)
 - **Falsified if**: In a 50+ failure sample, >10% require >=5 nodes, or >50% non-deterministic
 - **Depends on**: B13
 - **Source**: Yuan et al. OSDI 2014; S45 Jepsen review (node-count strong; determinism weaker: Redis-Raft 3/21)
-- **Path to observed**: Reproduce 10+ known bugs in 3-node setups tracking determinism separately
-- **Last tested**: 2026-03-01 S342 (re-test: UNTESTABLE with current evidence — F94 does not track node count or determinism axes; Yuan claim cited but not independently replicated; remains theorized)
+- **Path to observed**: Docker 3-node reproduction of Redis-Raft #14/#19 (deterministic, low complexity)
+- **Last tested**: 2026-03-01 S359 (F95 analytical verification: 5 Jepsen bugs classified via web research. Node-count: 4/5 clearly ≤3 nodes, CockroachDB marginal. Determinism: 3/5 deterministic, 1 wide-window timing, 1 narrow. Architecture layer predicts determinism gradient. L-642.)
 - **Domain**: distributed-systems
 
 ### B15: During network partitions, linearizability and availability are mutually exclusive in distributed systems (CAP theorem)

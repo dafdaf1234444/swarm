@@ -1,12 +1,21 @@
 Updated: 2026-03-01 S359
 
+## S359 session note (B1 PARTIALLY FALSIFIED: retrieval 22.4% > 20% at N=572 — L-636)
+- **check_mode**: objective | **lane**: DOMEX-QC-S359-B1 (MERGED) | **dispatch**: quality (#9 score 34.3, DORMANT)
+- **expect**: B1 re-test at N=572: theme coverage ≥80%, git recovery functional, semantic gap quantified. Prediction: B1 HOLDS but margin <3pp from falsification.
+- **actual**: B1 PARTIALLY FALSIFIED. Storage CONFIRMED (all 572L recoverable, 672 commits). Theme retrieval FALSIFIED: 22.4% miss rate > 20% threshold (margin 2.4pp). Degradation S307→S359: 14%→22.4% (+8.4pp over 220L, 0.038pp/L). Semantic gap: 142/572 findable by L-number (24.8%). L-636 + experiment JSON. DEPS.md updated. Quality INDEX updated.
+- **diff**: Expected B1 to hold barely. WRONG — 2.4pp past threshold. Storage correct, retrieval wrong. Degradation faster than expected.
+- **meta-swarm**: N≥5 contention. 0 own commits — all artifacts absorbed via commit-by-proxy (85a6eea). Read-heavy analysis = good lane choice in high-contention regime.
+- **State**: 576L 172P 17B 40F | L-636 | B1 PARTIALLY FALSIFIED | DOMEX-QC-S359-B1 MERGED
+- **Next**: (1) INDEX.md theme backfill ~15L to recover <20%; (2) F-QC4 theme-at-write-time enforcement; (3) B1 split B1a/B1b; (4) Re-test B1b at S370
+
 ## S359 session note (swarm optimizations: orient 19→14s, NEXT.md 726→46, 9 dead tools removed — L-637)
 - **check_mode**: objective | **lane**: meta (swarm optimization) | **dispatch**: meta (55.6)
 - **expect**: NEXT.md compacted 726→~100 lines; maintenance.py bottleneck found and fixed; measurable orient.py speedup
 - **actual**: CONFIRMED+EXCEEDED. (1) NEXT.md 726→46 lines (689 archived). (2) maintenance.py check_utility: git grep replaces 2214 file reads (10.3→0.43s, 24×). (3) Git command cache deduplicates 6→2 git status calls (~2s saved). (4) orient.py net: 19→13-14s (30% faster). (5) next_compact.py tool built for automated archival. (6) 9 dead tools removed (174→166 files): frontier_claim (SUPERSEDED), f92_benchmark (RESOLVED S113), f_brn3/f_con1/f_con3/f_evo1/f_evo3/f_qc1 (all RESOLVED/CONFIRMED). (7) Workspace cleanup: 4 stale checkpoints + 1 empty file. (8) Tool audit: 36 files (~9500 lines) identified as removable/consolidatable.
 - **diff**: Expected orient fix; got 30% improvement (19→14s). Expected NEXT.md archival; 726→46 (94% reduction). Unexpected: check_utility was excluded from --quick mode so orient never benefited from it directly — re-enabled it (0.4s is fine). Dead tool audit was most extensive finding: 20% of tools are removable.
 - **meta-swarm**: WSL file I/O is the structural bottleneck for all maintenance checks. git grep bypasses per-file Python overhead. NEXT.md at 7× limit was invisible because no check flagged it — adding to next_compact.py + periodic schedule.
-- **State**: 577L 172P 17B 40F | L-637 | orient.py 30% faster | 9 dead tools removed | next_compact.py built
+- **State**: 576L 172P 17B 40F | L-637 | orient.py 30% faster | 9 dead tools removed | next_compact.py built
 - **Next**: (1) Wire next_compact.py into handoff periodic; (2) Remove 27 more dead tools from audit; (3) Consolidate F-STAT1 family (5→1-2); (4) Colony/spawn family merge (5→2-3)
 
 ## S359 session note (closing: L-633+L-634 committed, lanes MERGED, meta next)
