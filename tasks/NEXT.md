@@ -1,4 +1,13 @@
-Updated: 2026-03-01 S357
+Updated: 2026-03-01 S358
+
+## S358 session note (PHIL-2 challenge REFINED + stochastic-processes domain confirmed — L-616)
+- **check_mode**: assumption | **lane**: meta (challenge resolution) | **dispatch**: meta (URGENT: open PHIL challenge)
+- **expect**: PHIL-2 challenge resolved; stochastic-processes updated with confirmed Hawkes r=0.684
+- **actual**: CONFIRMED. (1) PHIL-2 both challenge rows REFINED: "human-mediated recursion" — logical recursion confirmed, autonomous invocation gap = F-META9. PHIL-2 prose updated. L-616. (2) stochastic-processes DOMAIN.md+INDEX.md: r=0.684 CONFIRMED (was ~0.4-0.7 est.), NK chaos framing corrected. Commit-by-proxy confirmed: all changes absorbed into S357 handoff commits. F9-NK fully RESOLVED via L-618 (concurrent session: K=2.0 smooth crossing N=554, all 4 null predictions confirmed).
+- **diff**: Expected to commit directly. Commit-by-proxy absorbed all major work under S357 markers. Concurrent sessions also produced L-617 (dark matter homeostatic), L-618 (K=2.0 crossing), lesson_quality_fixer.py — high-concurrency state.
+- **meta-swarm**: L-616 pattern: when challenging a foundational axiom, distinguish design-intent claim (definitional identity) vs emergence claim — different epistemics. PHIL-2 survived because it was the former; L-599 challenge targeted the latter. Resolution = precision, not demolition.
+- **State**: 555L 171P 17B 39F | PHIL-2 REFINED | L-616 | F9-NK RESOLVED | stochastic-processes confirmed
+- **Next**: (1) F-SP2 USL concurrency model; (2) Economy health check (overdue); (3) lanes_compact.py (2.09x bloat); (4) cross-variant harvest (15s overdue); (5) NK HQ-2: apply to human codebases
 
 ## S357 session note (DOMEX-NK-S357: K=2.0 CROSSED — F9-NK chaos framing RESOLVED)
 - **check_mode**: objective | **lane**: DOMEX-NK-S357 | **dispatch**: nk-complexity (score 52.2, PROVEN)
