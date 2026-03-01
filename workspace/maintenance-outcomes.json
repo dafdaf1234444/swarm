@@ -2661,7 +2661,7 @@
     },
     {
       "session": 360,
-      "timestamp": "2026-03-01T04:32:26Z",
+      "timestamp": "2026-03-01T04:33:24Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -2729,9 +2729,8 @@
         },
         "check_periodics": {
           "fired": true,
-          "count": 11,
+          "count": 10,
           "severities": [
-            "PERIODIC",
             "PERIODIC",
             "PERIODIC",
             "PERIODIC",
@@ -2793,11 +2792,9 @@
           "severities": []
         },
         "check_cross_references": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "NOTICE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_anxiety_zones": {
           "fired": true,
@@ -2881,8 +2878,8 @@
         }
       },
       "totals": {
-        "NOTICE": 10,
-        "PERIODIC": 11
+        "NOTICE": 9,
+        "PERIODIC": 10
       }
     }
   ],

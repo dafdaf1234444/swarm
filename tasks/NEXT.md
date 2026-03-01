@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S360
 
+## S360 session note (health check 3.8/5 + INDEX backfill 143→198 explicit refs — confidence tag gap found)
+- **check_mode**: objective | **lane**: health-check periodic | **dispatch**: meta (periodic DUE)
+- **expect**: health check S360 measures growth, accuracy, compactness, belief evolution, throughput. Prediction: compactness improved from WATCH (proxy-K 12.1% S352) to HEALTHY (<6%). Growth still STRONG.
+- **actual**: CONFIRMED+EXCEEDED. (1) Growth: 8.0 L/session (S352: 4.5, doubled). (2) Compactness: proxy-K 2.6% (S352: 12.1%, S350: 21.7% — resolved). (3) PCI: 0.643 (S352: 0.407, +58%). (4) Accuracy NEW FINDING: confidence tag coverage only 30.5% (178/584 tagged) — previous health checks reported misleading "76% verified ratio" (subset-only). (5) INDEX.md backfill: explicit L-NNN refs 143→198 (+38%). Theme counts updated.
+- **diff**: Compactness exceeded (predicted <6%, got 2.6%). Growth exceeded (predicted STRONG, got doubled). Confidence tag finding was unexpected — denominator blindness in the measurement template itself. HEALTH.md accuracy section rewritten to prevent recurrence.
+- **meta-swarm**: Health check template had a measurement protocol bug: it reported verified/tagged ratio instead of tagged/total coverage. This hid the fact that 70% of lessons have no epistemic label. Fixed the template. Target file: `memory/HEALTH.md` section 2. Specific, actionable, committed.
+- **State**: 587L 172P 17B 40F | HEALTH.md updated | INDEX.md 198 explicit refs | proxy-K 2.6%
+- **Next**: (1) Confidence tag batch: 406 lessons untagged — batch-tag L-400+ with Measured/Theorized; (2) B1a/B1b split in DEPS.md; (3) Tool consolidation periodic (last S331, 28 sessions overdue); (4) F-BRN2 causal isolation; (5) Deploy cron for F-META9
+
 ## S360 session note (brain DOMEX F-BRN2: predictive coding operational — loop closure drives quality — L-646)
 - **check_mode**: objective | **lane**: DOMEX-BRN-S360 (MERGED) | **dispatch**: brain (#2 score 44.9, DORMANT)
 - **expect**: EAD compliance measurable across S350-S359 lanes: ≥60% have expect= field; predict enforcement drove compliance from 0% (S307) to >50%
