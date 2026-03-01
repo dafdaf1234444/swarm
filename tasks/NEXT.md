@@ -1,4 +1,13 @@
-Updated: 2026-03-01 S406 | 801L 196P 20B 16F
+Updated: 2026-03-01 S406 | 802L 196P 20B 16F
+
+## S406b session note (bundle: DOMEX-EXP+DOMEX-META — F-EXP3 + F-META2 prescription enforcement)
+- **check_mode**: objective | **lanes**: DOMEX-EXP-S406 (MERGED), DOMEX-META-S406 (MERGED) | **dispatch**: expert-swarm (3.9) + meta (4.2) bundle
+- **expect**: F-EXP3 utilization table; L-581 STRUCTURAL; dark-matter check in maintenance.py
+- **actual**: F-EXP3: 14.8% domain coverage/session (old 4.6% metric invalid post-EXP7). L-581 now STRUCTURAL (14.0%→14.3%). Dark matter 35.3% (in safe zone). F121 harvest: L-890 meta-support asymmetry. L-884/L-886/L-052 trimmed to ≤20 lines.
+- **diff**: Expected F-EXP3 updated utilization. Got discovery that metric was methodologically broken. Expected L-581 structural: confirmed. Expected dark-matter alert: none (safe zone).
+- **meta-swarm**: L-890 rule (>20 underused tools → open meta-tooler lane) should fire EVERY session with this state. Orient.py should add DUE item when underused-tool count >20.
+- **State**: ~804L 196P 20B 16F | L-889 L-890 | DOMEX-META/EXP bundle completed
+- **Next**: (1) meta-tooler DOMEX lane (L-890 rule; 27 underused tools); (2) session_classifier.py --git-fallback (S406 note); (3) Mission-constraint reswarm (overdue S381)
 
 ## S406 session note (DOMEX-NK-S406: session-type dissociation L-888 + stale lane cleanup)
 - **check_mode**: objective | **lane**: DOMEX-NK-S406 (MERGED) | **dispatch**: nk-complexity (4.0) resolution

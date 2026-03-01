@@ -1518,6 +1518,40 @@ def check_utility() -> list[tuple[str, str]]:
         return [("NOTICE", f"{len(uncited)} active principle(s) with 0 citations: {_truncated(uncited, 5, fmt=lambda x: f'P-{x}')}")]
     return []
 
+def check_dark_matter() -> list[tuple[str, str]]:
+    """L-581 (Sh=9): dark matter PID control — orphan lessons 15-25% optimal.
+
+    Dark matter = lessons with no outbound Cites: header (no explicit citations).
+    Above 40%: knowledge graph fragmenting — run integration session.
+    Below 15%: citations dense — diversity being eroded, pause citation sprints.
+    15-25%: optimal range per L-581 F-META7 operational evidence.
+    """
+    lessons_dir = REPO_ROOT / "memory" / "lessons"
+    if not lessons_dir.exists():
+        return []
+    total = 0
+    no_cites = 0
+    for f in lessons_dir.glob("L-*.md"):
+        try:
+            content = f.read_text(encoding="utf-8", errors="replace")
+        except Exception:
+            continue
+        total += 1
+        if not re.search(r"^Cites:\s*\S", content, re.MULTILINE):
+            no_cites += 1
+    if total == 0:
+        return []
+    pct = no_cites / total * 100
+    if pct > 40.0:
+        return [("URGENT", f"dark matter {pct:.1f}% > 40% threshold (L-581): "
+                 f"{no_cites}/{total} lessons have no outbound citations — run integration session")]
+    if pct < 15.0:
+        return [("NOTICE", f"dark matter {pct:.1f}% < 15% threshold (L-581): "
+                 f"citations dense ({no_cites}/{total} orphans) — consider pausing citation sprints")]
+    return [("NOTICE", f"dark matter {pct:.1f}% ({no_cites}/{total} lessons have no outbound citations) "
+             f"— within 15-40% safe zone (L-581; optimal 15-25%)")]
+
+
 def check_proxy_k_drift() -> list[tuple[str, str]]:
     results = []
     log_path = REPO_ROOT / "experiments" / "proxy-k-log.json"
@@ -2049,6 +2083,7 @@ def main():
         check_observer_staleness,
         check_paper_accuracy,
         check_utility,
+        check_dark_matter,
         check_proxy_k_drift,
         check_t4_tool_size,
         check_zombie_tools,

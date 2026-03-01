@@ -3,6 +3,7 @@
 enforcement_router.py — Map meta-prescriptions to structural implementations.
 
 L-831: L-601 not applied to itself — prescriptions without enforcement decay.
+L-847: Before adding checks, scan for type-1 gaps (rule wired without L-ID). Add # L-NNN.
 Finds lessons with ## Rule sections and classifies each as:
   STRUCTURAL  — lesson ID referenced in core tool files (enforced in code)
   PERIODIC    — lesson ID referenced in periodics.json / maintenance periodic section
@@ -35,6 +36,7 @@ STRUCTURAL_FILES = [
     "tools/dispatch_optimizer.py",
     "tools/contract_check.py",
     "tools/validate_beliefs.py",
+    "tools/enforcement_router.py",  # L-847: self-reference — this file enforces prescription tracking
 ]
 
 # Periodic-tier files (softer enforcement)
