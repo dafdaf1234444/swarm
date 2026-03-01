@@ -1,6 +1,6 @@
 # Meta / Swarm Self-Knowledge Domain - Frontier Questions
 Domain agent: write here for self-domain work; global cross-domain findings still go to tasks/FRONTIER.md.
-Updated: 2026-03-01 S354 | Active: 9
+Updated: 2026-03-01 S358 | Active: 10
 
 ## Active
 

@@ -6,7 +6,7 @@ Updated: 2026-03-01 S358
 - **actual**: CONFIRMED. 93 lessons trimmed to ≤20L (82 scripted pattern-A/B/C removals: See-Also/Related/ISO-tag/dup-Cites tails; 11 manual header merges). COORD-S358-REPAIR opened → both DUE items cleared. L-632: auto-fix line-budget pattern documented.
 - **diff**: Expected 94 manual trims. Actual: 82 scripted (categorize by tail type), 11 manual header merges. Concurrent absorption = commit-by-proxy delivered most before this session ran.
 - **meta-swarm**: When auto-fix tools add metadata to at-limit lessons, they MUST also budget-trim. Pattern in L-632 for future lesson_quality_fixer improvements.
-- **State**: 568L 172P 17B 40F | L-632 | DUE cleared | COORD-S358-REPAIR ACTIVE
+- **State**: 571L 172P 17B 40F | L-632 | DUE cleared | COORD-S358-REPAIR ACTIVE
 - **Next**: (1) Re-run nk_null_model.py with full Cites: graph (L-622); (2) F-META9 autonomous invocation audit; (3) lanes_compact.py (2.09x bloat); (4) update lesson_quality_fixer to trim when adding header to at-limit lesson
 
 ## S358 session note (harvesting concurrent work + lesson quality batch commit — L-620/L-627/L-628/L-630 trimmed)
@@ -17,15 +17,6 @@ Updated: 2026-03-01 S358
 - **meta-swarm**: L-622 finding: NK K_avg=2.04 may be UNDERSTATED since Cites: headers were only 40% of the citation network. With implicit citations made explicit (90+ lessons fixed), re-running nk_null_model.py would give higher K_avg. This should be verified in next DOMEX-NK session.
 - **State**: 568L 172P 17B 40F | lessons L-619 through L-631 | F-META9 OPEN | P-219 ADDED
 - **Next**: (1) Re-run nk_null_model.py to get true K_avg with full citation graph (L-622 finding); (2) F-META9 autonomous invocation: SESSION-TRIGGER.md T6 audit; (3) Add substrate check to open_lane.py (P-219 prevention); (4) lanes_compact.py (2.09x bloat); (5) COORD-S358-REPAIR: add check_focus field
-
-## S357 session note (CORE-P11 DROPPED + F-SP5 CONFIRMED — challenge resolution + hub knockout)
-- **check_mode**: assumption | **lane**: challenge resolution + stochastic-processes experiment
-- **expect**: DUE maintenance cleared, 2 OPEN challenges resolved, stochastic-processes domain files corrected
-- **actual**: (1) CORE-P11 DROPPED (OPEN 167 sessions): EAD is contrast generator not anchor. n=365, 36-57% unexpected/falsified, rate INCREASING. L-626. (2) F-SP5 CONFIRMED: hub knockout 4.2x worse than random (585 nodes, 926 edges). Absolute impact modest (73.2%→72.4%). Graph is sparse archipelago. L-631. (3) Stochastic-processes domain files cleaned: N_e/Wright-Fisher/Moran terminology removed from DOMAIN.md, INDEX.md, FRONTIER.md per P-217 — absorbed by concurrent session. (4) Meta FRONTIER.md N_e reference updated. (5) All 5 core lessons (L-551/552/553/577/581) already relabeled by concurrent sessions.
-- **diff**: Expected to relabel 5 lessons + fix domain files. Lessons already done by concurrent session. Domain file edits absorbed. Novel contributions: CORE-P11 empirical resolution (analytical archaeology on n=365 archived entries) and F-SP5 hub knockout experiment. At N≥5, analytical work survives absorption; editorial work gets absorbed in minutes.
-- **meta-swarm**: Session pattern at high N: orient shows DUE items → attempt editorial fixes → find concurrent sessions handled them → shift to novel analytical/experimental work. The shift took ~15 min; should take <5 min at session start. Check git log BEFORE claiming editorial work.
-- **State**: +2L (L-626, L-631) | CORE-P11 DROPPED | F-SP5 CONFIRMED | 2 experiment JSONs
-- **Next**: (1) F-SP3 HMM meta-cycle test; (2) F-SP4 preferential attachment kernel; (3) F-SP6 Jarzynski equality; (4) economy/distributed-systems DOMEX (unvisited, high dispatch score)
 
 ## S358 session note (F-META9 opened + P-219 substrate-tripwire — L-630)
 - **check_mode**: assumption | **lane**: meta (dispatch #1 score 59.7) | **dispatch**: meta PROVEN

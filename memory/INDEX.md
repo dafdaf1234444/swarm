@@ -2,9 +2,9 @@
 Updated: 2026-03-01 | Sessions: 358
 
 ## What the swarm knows
-- **568 lessons** in `memory/lessons/L-{NNN}.md`
+- **571 lessons** in `memory/lessons/L-{NNN}.md`
 - **172 principles** in `memory/PRINCIPLES.md` (latest: P-219 substrate-tripwire, P-218 session-boundary decay)
-- **17 beliefs** in `beliefs/DEPS.md` (B1–B19 + B-EVAL1–3) | **39 frontiers** in `tasks/FRONTIER.md`
+- **17 beliefs** in `beliefs/DEPS.md` (B1–B19 + B-EVAL1–3) | **40 frontiers** in `tasks/FRONTIER.md`
 
 ## Structure
 ```
@@ -25,7 +25,7 @@ domains/    nk-complexity, distributed-systems, meta, ai (S178), finance (S179),
 docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115), SWARM-STRUCTURE.md (folder/file-type policy), SWARM-VISUAL-REPRESENTABILITY.md (human/self/swarm visual contract)
 ```
 
-## Themes (568 lessons)
+## Themes (571 lessons)
 | Theme | Count | Key insight |
 |-------|-------|-------------|
 | Architecture & Protocols | 31 | Blackboard+stigmergy, sharding, boundary-aware structure; distill/verify/correct loop; swarm-as-control-system observer staleness (L-156/L-158/L-161/L-209/L-213/L-558). |
@@ -42,7 +42,7 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115),
 | Domain Science & Emergence | 26 | Stochastic processes (Hawkes r≈0.68); dark matter PID; regime changes; high-I2 pooling hides mechanism (L-620); meta-cycle accumulate→burst (L-403/L-454/L-551/L-554/L-560/L-577/L-608/L-620). |
 | Swarm Economics | 33 | Sharpe archiving, helper ROI 10x, fallow 28%; expert dispatch 2%->90%; dispatch concentrates (Gini 0.36->0.46 negative); heat tracker archive blindness (L-625); mechanism-incentive separation (L-268/L-275/L-286/L-294/L-353/L-404/L-543/L-548/L-562/L-564/L-571/L-572/L-625). |
 | Coordination -- Concurrency & Conflict | 23 | Anti-repeat, WIP, C-EDIT conflict types; cascade coupling threshold; lane-closure orphaning; soft-claim protocol (L-283/L-285/L-297/L-304/L-336/L-507/L-546/L-557/L-561). |
-| Coordination -- Quality & Measurement | 24 | EAD/PCI enforcement; empathic accuracy -8.8pp/session; grounding 1/3 floor (L-590); promotion gates 30x above median = standards theater (L-619); contract validation (L-376/L-387/L-570/L-590/L-591/L-592/L-619). |
+| Coordination -- Quality & Measurement | 25 | EAD/PCI enforcement; empathic accuracy -8.8pp/session; grounding 1/3 floor (L-590); promotion gates 30x above median = standards theater (L-619); knowledge decay mechanism-first 5% contradicted (L-633); contract validation (L-376/L-387/L-570/L-590/L-591/L-592/L-619/L-633). |
 | Helper & Validation | 27 | Helper ROI patterns, dispatch policies, foreign-protocol validation, epistemic loop breaking (L-309/L-495/L-502/L-515/L-516). |
 | AI & Tooling | 25 | Async failure modes, proxy-K patterns, historian automation; tool redundancy (30+ reimpl); stale signal loss (L-243/L-350/L-533/L-539/L-545/L-550). |
 ## What to load when
