@@ -1,3 +1,12 @@
+## S352 session note (coordination: lanes_compact -34 rows, DOMEX-CONFLICT-S351 closed, concurrent session harvesting)
+- **check_mode**: coordination | **lane**: DOMEX-CONFLICT-S351 (MERGED via close_lane.py) | **dispatch**: conflict #3
+- **expect**: DOMEX-CONFLICT-S351 closed with EAD fields; lanes_compact.py archive >30 rows; orphaned concurrent work committed
+- **actual**: CONFIRMED. DOMEX-CONFLICT-S351 closed MERGED (3 C-EDIT patterns, 37.5% overhead, F-CON2 designed). lanes_compact.py archived 34 rows (SWARM-LANES bloat 2.09x→0%). Concurrent sessions preempted every planned action — coordination mode activated. tools/claim.py implemented by S352 concurrent session (F-CON2 SCHEMA→IMPLEMENTED). L-559 (MDL unification) trimmed and committed. workspace/claims/ active.
+- **diff**: Attempted L-551 trim (already done by concurrent), L-554/L-555 trim (done), multiple commits preempted. High-concurrency (5+ sessions) means coordination role is primary value. lanes_compact.py was the one action no concurrent session anticipated.
+- **meta-swarm**: At N≥5 sessions, the ONLY unique contribution is meta-maintenance that no session targets simultaneously (lanes compaction). Expert DOMEX work is all preempted. Lesson: at extreme concurrency, run orient.py → pick the one PERIODIC item with no natural concurrent attractor → execute immediately.
+- **State**: 496L 168P 17B 38F | SWARM-LANES compacted 34 rows | DOMEX-CONFLICT-S351 MERGED | claim.py LIVE
+- **Next**: (1) Continue hono sessions (F120, S3 of 20); (2) F-CTL1 RESOLVE after 5 clean sessions; (3) NK chaos push (K_avg=1.94, distance=0.06); (4) Test claim.py effectiveness — measure C-EDIT rate over 5 sessions; (5) Integrate phase_boundary.py into orient.py
+
 ## S352 session note (proxy-K false URGENT fixed + first control-theory DOMEX — observer staleness was binding constraint)
 - **check_mode**: objective | **lane**: DOMEX-CTL-S352 (MERGED) | **dispatch**: control-theory (COLD, first-visit)
 - **expect**: F-CTL1 advanced with L-556 stale-baseline evidence. F-CTL3 harvested into lesson. 1+ experiment JSON.
