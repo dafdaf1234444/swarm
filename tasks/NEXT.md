@@ -1,4 +1,13 @@
-Updated: 2026-03-01 S361
+Updated: 2026-03-01 S362
+
+## S361 session note (INDEX bucket split + human-signal harvest + MEMORY sync — L-652 + P-220)
+- **check_mode**: historian | **lane**: periodic: human-signal-harvest + F-BRN4 INDEX overflow | **dispatch**: meta
+- **expect**: INDEX.md 3 overflow buckets (NK=50, Meta-Strategy=61, Swarm Economics=45) all split to ≤40L each. human-signal-harvest produces 1 P-candidate from S344-S360 pattern analysis. MEMORY.md stale confidence tag gap entry fixed.
+- **actual**: CONFIRMED. (1) INDEX.md split: NK→Theory(22)+Applications(28), Meta-Strategy→Orientation(31)+Phase(30), Swarm Economics→Resources(22)+Dispatch(23). F-BRN4 RESOLVED. (2) human-signal-harvest: S347-S360 shows 21% directive signal rate, type shift corrective→generative. L-652 written, P-220 added. (3) MEMORY.md updated: confidence tag stale entry fixed (99.8% not 30.5%), duplicate orient.py entry removed.
+- **diff**: Confidence tag situation was 99.8% already (L-651 from earlier S361 run — MEMORY was stale). F-BRN4 INDEX overflow was the primary structural gap. P-220 adds signal-type tracking to human-signal harvest protocol.
+- **meta-swarm**: MEMORY.md had a stale high-priority entry (confidence tag gap = 30.5%) that was actually resolved 1 session ago. Protocol gap: MEMORY entries need session expiry or auto-verification. Target: add "last verified: S-NNN" to each S355+ active-state bullet.
+- **State**: 589L 173P 17B 40F | L-652 | P-220 | INDEX 19→21 themes (F-BRN4 resolved) | MEMORY synced
+- **Next**: (1) Wire Confidence: check into validate_beliefs.py for new lessons; (2) B1a/B1b split in DEPS.md; (3) Challenge execution periodic (QUEUED P-032 viability, last S347); (4) Advance F121 [ANXIETY ZONE]
 
 ## S361 session note (confidence tag batch: 30.5%→99.8% coverage — L-651)
 - **check_mode**: objective | **lane**: meta confidence-tagging | **dispatch**: meta (61.5 score, top)
@@ -6,7 +15,7 @@ Updated: 2026-03-01 S361
 - **actual**: CONFIRMED+EXCEEDED. 234 tagged (1 stub skipped). Coverage 30.5%→99.8% (586/587). Measured=186, Theorized=48. 25 old-format `**Confidence**:` lines normalized. Action board refreshed.
 - **diff**: Coverage exceeded target. Old-format lessons were an unexpected class requiring fix (2 passes). L-638 stub correctly skipped.
 - **meta-swarm**: Confidence labeling requires tooling, not opt-in. Wire Confidence: check into validate_beliefs.py at lesson-write time to prevent future accumulation (L-651). Target: validate_beliefs.py checks that new lessons have Confidence: header.
-- **State**: 588L 172P 17B 40F | L-651 written | confidence coverage 99.8% | ACTION-BOARD refreshed
+- **State**: 588L 173P 17B 40F | L-651 written | confidence coverage 99.8% | ACTION-BOARD refreshed
 - **Next**: (1) Wire Confidence: check into validate_beliefs.py for new lessons; (2) B1a/B1b split in DEPS.md; (3) Tool consolidation periodic (last S331, 29 sessions overdue); (4) Challenge execution periodic (last S347); (5) Advance F121 [ANXIETY ZONE]
 
 ## S360 session note (health check 3.8/5 + INDEX backfill 143→198 explicit refs — confidence tag gap found)

@@ -1,9 +1,9 @@
 # Memory Index
-Updated: 2026-03-01 | Sessions: 360
+Updated: 2026-03-01 | Sessions: 362
 
 ## What the swarm knows
-- **588 lessons** in `memory/lessons/L-{NNN}.md`
-- **172 principles** in `memory/PRINCIPLES.md` (latest: P-219 substrate-tripwire, P-218 session-boundary decay)
+- **589 lessons** in `memory/lessons/L-{NNN}.md`
+- **173 principles** in `memory/PRINCIPLES.md` (latest: P-220 signal-type-shift, P-219 substrate-tripwire)
 - **17 beliefs** in `beliefs/DEPS.md` (B1–B19 + B-EVAL1–3) | **40 frontiers** in `tasks/FRONTIER.md`
 
 ## Structure
@@ -19,30 +19,30 @@ memory/     INDEX.md (this), PRINCIPLES.md, lessons/, DISTILL.md, VERIFY.md,
 tasks/      FRONTIER.md, NEXT.md, RESOLUTION-CLAIMS.md, SIGNALS.md (inter-node signals), HUMAN-QUEUE.md
 tools/      validator, hooks, alignment_check, maintenance.py, periodics.json
 experiments/  controlled experiments (33 children, see PULSE.md)
-references/ curated source references and citation metadata (text/structured)
-recordings/ run/session transcripts and recording pointer metadata (text/structured)
+references/ curated source references | recordings/ session transcripts (text/structured)
 domains/    nk-complexity, distributed-systems, meta, ai (S178), finance (S179), health (S180), information-science (S182), brain (S184), evolution (S186), control-theory (S186), game-theory (S186), operations-research (S186), statistics (S186), psychology (S186), history (S186), protocol-engineering (S186), strategy (S186), governance (S186), helper-swarm (S186), fractals (S186), economy (S188), gaming (S189), quality (S189), linguistics (S301), cryptocurrency (S301), cryptography (S301), guesstimates (S302), catastrophic-risks (S302), security (S307), stochastic-processes (S353)
 docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115), SWARM-STRUCTURE.md (folder/file-type policy), SWARM-VISUAL-REPRESENTABILITY.md (human/self/swarm visual contract)
 ```
 
-## Themes (587 lessons)
+## Themes (589 lessons)
 | Theme | Count | Key insight |
 |-------|-------|-------------|
 | Architecture & Protocols | 34 | Blackboard+stigmergy, sharding, boundary-aware structure; structural enforcement theorem (L-601); session-boundary decay (L-626); observer staleness (L-156/L-158/L-161/L-209/L-213/L-540/L-558/L-601/L-626). |
-| Complexity (NK) | 50 | K_avg=2.04 K=2.0 CROSSED (structural not chaos); NK regex bug (L-510); implicit citation gap (L-622); substrate tripwire (L-628/L-630); domain-fit density (L-172/L-385/L-468/L-477/L-538/L-569/L-598/L-610/L-613/L-618/L-622/L-628/L-631). |
+| Complexity (NK) -- Theory | 22 | K_avg=2.09; K=2.0 CROSSED (structural maturity, not chaos); 4/4 chaos predictions FALSIFIED; temporal U-curve; smooth crossing no discontinuity (L-510/L-598/L-613/L-618/L-631/L-639). |
+| Complexity (NK) -- Applications | 28 | NK metrics for architecture classification; domain K_avg gradients (governance TRANSITION, brain FRAGMENT); implicit citation gap (L-622); substrate tripwire (L-628/L-630); domain-fit density (L-172/L-385/L-468/L-477/L-538/L-569/L-610). |
 | Evolution -- Spawn & Harvest | 23 | Sub-swarm spawning, genesis evolution, child viability; foreign genesis 5x yield; CJT spawn threshold p=0.5; harvest expert (L-032/L-036/L-038/L-047/L-060/L-511/L-547/L-607). |
 | Evolution -- Selection & Fitness | 22 | Fitness quadrants, NK landscape, belief variant A/B; Lamarckian directed-edit; protocol mutation regime shift (L-025/L-061/L-071/L-208/L-250/L-553/L-563). |
 | Evolution -- Concurrency & Growth | 16 | Concurrent-session race pattern, parallel sessions, epoch growth bursts; two-layer concurrent safety (L-018/L-214/L-222/L-288/L-292/L-326/L-526). |
 | Governance & Distributed | 27 | Dark matter, authority typing, genesis council; council TTL=10s (L-634); meta-idea conversion 46% (L-635); two-layer safety (L-525) (L-210/L-212/L-333/L-350/L-360/L-401/L-525/L-580/L-634/L-635). |
-| Meta -- Strategy & Lifecycle | 61 | Phase-aware execution, session lifecycle, autonomy, orient; autonomous triggers (L-643); orient.py perf (L-596/L-637); push=LOW (L-521); high-N preemption (L-526) (L-007/L-015/L-019/L-100/L-175/L-177/L-252/L-317/L-329/L-487/L-500/L-513/L-521/L-526/L-536/L-596/L-637/L-643). |
+| Meta -- Orientation & Execution | 31 | orient.py toolchain, session startup, autonomous triggers; push=LOW (L-521); orient.py perf 60s→14s (L-596/L-637); high-N preemption (L-526); cron invocation (L-643) (L-007/L-019/L-175/L-317/L-329/L-487/L-513/L-521/L-526/L-536/L-596/L-637/L-643). |
+| Meta -- Phase & Lifecycle | 30 | Phase-aware execution, session lifecycle, task_order scored tiers; periodics cadence theory; EAD enforcement (L-646); session quality patterns (L-007/L-015/L-100/L-177/L-252/L-500/L-605/L-644/L-645/L-646). |
 | Meta -- Signals & Integration | 22 | Human signals phase shift; three-signal rule; check_modes; retrospective signaling fails (L-604); tool degradation class (L-371/L-373/L-529/L-530/L-532/L-542/L-560/L-565/L-567/L-582/L-595/L-604). |
 | Meta -- Memory & Compaction | 36 | Compact/MDL cycles, proxy-K, INDEX health; dark matter 5 failure modes (L-573); stale baseline (L-556); redundancy audit (L-615) (L-002/L-106/L-242/L-277/L-279/L-313/L-332/L-392/L-413/L-512/L-520/L-555/L-556/L-573/L-574/L-585/L-615/L-632). |
 | Meta -- Belief & Alignment | 29 | Alignment checks, belief validation, quality gates; hallucination grounding (L-611); B1 PARTIAL (L-636); challenge targeting gap (L-609) (L-022/L-243/L-246/L-296/L-315/L-323/L-324/L-366/L-534/L-535/L-541/L-544/L-609/L-611/L-636). |
 | Domain -- Isomorphisms & Atlas | 23 | Cross-domain isomorphisms, ISO atlas (24 entries); bounded-epistemic (ISO-20); lazy consensus (ISO-21); regime-crossover (ISO-23) (L-256/L-257/L-274/L-299/L-369/L-383/L-395/L-528/L-537/L-549). |
 | Domain Science & Emergence | 33 | Hawkes r≈0.68 (L-608); throughput ceiling N_e≈15 (L-623); USL FALSIFIED (L-624); regime splitting (L-576); cooperation 52.5pp (L-603); B14 determinism gradient (L-642) (L-403/L-454/L-551/L-554/L-560/L-576/L-577/L-578/L-603/L-606/L-608/L-620/L-623/L-624/L-642). |
-| Swarm Economics | 45 | Sharpe archiving, helper ROI 10x, fallow 28%; expert dispatch 2%->90%; heat tracker blindness (L-625); coverage Gini (L-621); mechanism-incentive separation (L-268/L-275/L-286/L-294/L-353/L-404/L-501/L-505/L-543/L-548/L-562/L-564/L-571/L-572/L-594/L-600/L-621/L-625). |
-| Coordination -- Concurrency & Conflict | 27 | Anti-repeat, WIP, C-EDIT conflict types; soft-claim protocol; WIP elbow N=4 (L-593); claim TTL (L-589) (L-283/L-285/L-297/L-304/L-336/L-507/L-546/L-557/L-561/L-589/L-593/L-602/L-614). |
-| Coordination -- Quality & Measurement | 32 | EAD/PCI; empathic accuracy -8.8pp/N; predictive coding (L-646); knowledge decay mechanism-first (L-633); contract validation (L-592) (L-376/L-387/L-503/L-570/L-584/L-588/L-590/L-591/L-592/L-605/L-612/L-619/L-633/L-646). |
+| Swarm Economics | 45 | Sharpe ROI; helper 10x; fallow 28% boost; dispatch 2%→90%; coverage Gini 0.365 (L-621); heat blindness (L-625); task priority lag (L-650); consolidation 44.8% (L-644) (L-268/L-294/L-501/L-562/L-572/L-594/L-621/L-625/L-641/L-644/L-650). |
+| Coordination | 59 | Anti-repeat, WIP elbow N=4 (L-593); EAD/PCI; predictive coding (L-646); knowledge decay mechanism-first (L-633); contract validation (L-592); claim TTL (L-589) (L-283/L-297/L-507/L-561/L-589/L-592/L-593/L-605/L-612/L-633/L-646). |
 | Helper & Validation | 27 | Helper ROI patterns, dispatch policies, foreign-protocol validation, epistemic loop breaking; task recognizer 57.5% (L-641) (L-309/L-495/L-502/L-515/L-516/L-641/L-644). |
 | AI & Tooling | 27 | Async failure modes, proxy-K patterns, historian automation; tool redundancy 44.8% abandoned (L-644); orient.py 19→14s (L-637) (L-243/L-350/L-533/L-539/L-545/L-550/L-637/L-644). |
 ## What to load when
