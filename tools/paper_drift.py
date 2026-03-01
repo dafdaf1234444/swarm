@@ -149,7 +149,7 @@ def check_paper_accuracy(repo_root: Path, session: int) -> list[tuple[str, str]]
             s = found[-1].upper()
             for pid in ids:
                 claimed[pid] = s
-    mismatch = sorted(pid for pid, c in claimed.items() if pid in canon and canon[pid] != c)
+    mismatch = sorted(pid for pid, c in claimed.items() if pid in canon and canon[pid] != c and pid not in superseded)
     if mismatch:
         sample = ", ".join(f"P-{pid}({claimed[pid]}!={canon[pid]})" for pid in mismatch[:5])
         results.append(("DUE", f"PAPER principle-status drift: {sample}"))

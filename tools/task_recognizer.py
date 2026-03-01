@@ -72,36 +72,49 @@ PERSONALITY_VERBS = {
 
 # ---------- domain keyword seeds (augmented by file content) -----------------
 # These seeds catch tasks even if frontier files are sparse
+# Fix 1 (L-641): operational vocabulary added alongside textbook terms
 DOMAIN_SEEDS = {
     "ai": [
         "ai", "machine learning", "neural", "llm", "language model",
         "coordination", "agent", "multi-agent", "wiki", "surfacing",
         "classification", "inference", "embedding", "vector",
+        "perturbation", "info-asymmetry", "reasoning",
     ],
     "brain": [
         "brain", "neuroscience", "cognitive", "memory", "learning",
         "plasticity", "neural network", "perception", "attention",
-        "consciousness", "decision", "neuron",
+        "consciousness", "decision", "neuron", "predictive coding",
+        "cortical", "hippocampal",
+    ],
+    "conflict": [
+        "conflict", "collision", "concurrent edit", "claim",
+        "ghost lock", "merge-on-close", "c-edit", "bloat",
+        "contention", "race condition",
     ],
     "control-theory": [
         "control", "feedback", "pid", "latency", "clock", "diff",
         "stability", "controller", "signal", "response", "oscillation",
-        "regulation", "setpoint",
+        "regulation", "setpoint", "anti-windup",
     ],
     "distributed-systems": [
         "distributed", "consensus", "replication", "consistency",
         "partition", "fault tolerance", "orchestration", "cluster",
-        "quorum", "raft", "paxos", "sharding",
+        "quorum", "raft", "paxos", "sharding", "jepsen",
     ],
     "economy": [
         "economy", "market", "price", "supply", "demand",
         "trade", "resource", "allocation", "cost", "incentive",
-        "utility", "welfare", "equilibrium",
+        "utility", "welfare", "equilibrium", "dispatch scoring",
+        "visit saturation", "coverage weighted",
+    ],
+    "empathy": [
+        "empathy", "other-modeling", "alterity", "prediction accuracy",
+        "handoff prediction", "perspective taking", "empathic",
     ],
     "evolution": [
         "evolution", "selection", "fitness", "mutation", "spawn",
-        "harvest", "generation", "population", "genetic", "adaptation",
-        "drift", "speciation",
+        "generation", "population", "genetic", "adaptation",
+        "speciation", "lamarckian",
     ],
     "finance": [
         "finance", "financial", "investment", "portfolio", "risk",
@@ -109,37 +122,39 @@ DOMAIN_SEEDS = {
         "asset", "factual", "qa",
     ],
     "fractals": [
-        "fractal", "self-similar", "recursive", "mandelbrot",
-        "dimension", "scaling", "iteration", "chaos",
+        "fractal", "self-similar", "mandelbrot",
+        "dimension", "scaling", "iteration",
     ],
     "game-theory": [
         "game", "strategy", "nash", "equilibrium", "signaling",
-        "coordination", "cooperation", "prisoner", "dominant",
+        "cooperation", "prisoner", "dominant",
         "reputation", "contract",
     ],
     "governance": [
-        "governance", "policy", "authority", "rule", "enforcement",
-        "constraint", "compliance", "accountability", "decision",
-        "protocol", "standard", "kill switch",
+        "governance", "policy", "authority", "enforcement",
+        "compliance", "accountability",
+        "standard", "kill switch", "council", "drift scanner",
+        "constitution", "quorum",
     ],
     "health": [
         "health", "medical", "clinical", "diagnosis", "treatment",
-        "biology", "physiology", "disease", "symptoms", "measurement",
+        "biology", "physiology", "disease", "symptoms",
         "patient",
     ],
     "helper-swarm": [
-        "helper", "assist", "handoff", "stall", "trigger",
+        "helper", "assist", "stall", "trigger",
         "recovery", "blocker", "support", "secondary",
-        "routing", "recognizer", "dispatch",
+        "routing", "recognizer", "task recognizer",
     ],
     "history": [
         "history", "chronology", "timeline", "event", "sequence",
-        "causal", "past", "record", "conflict", "inversion",
+        "causal", "past", "record", "inversion", "grounding floor",
     ],
     "information-science": [
-        "information", "entropy", "index", "citation", "search",
-        "knowledge", "information theory", "relevance", "retrieval",
-        "compression", "is", "signal",
+        "information", "entropy", "citation", "search",
+        "information theory", "relevance", "retrieval",
+        "dark matter", "volume conversion", "simpson paradox",
+        "index coverage",
     ],
     "linguistics": [
         "language", "grammar", "syntax", "morphology", "zipf",
@@ -147,17 +162,24 @@ DOMAIN_SEEDS = {
         "nlp", "semantic", "discourse",
     ],
     "meta": [
-        "meta", "swarm", "protocol", "compaction", "proxy",
-        "maintenance", "session", "lesson", "principle", "belief",
-        "frontier", "orient", "handoff", "coordination",
+        "meta", "swarm", "compaction", "proxy-k",
+        "maintenance", "orient", "paper-reswarm",
+        "bridge", "contract check", "sync state",
+        "validate beliefs", "reswarm", "self-model",
+        "session-log", "index-md", "paper drift",
+        "lesson quality", "ead compliance", "dedup",
+        "archive", "trim", "handoff notes", "periodic",
     ],
     "nk-complexity": [
-        "complexity", "nk", "landscape", "epistasis", "rugged",
+        "nk", "landscape", "epistasis", "rugged",
         "local optima", "modularity", "interdependence",
+        "k-avg", "k_avg", "citation density", "hub z-score",
+        "gini z-score", "chaos boundary",
     ],
     "operations-research": [
         "operations", "queue", "scheduling", "throughput", "bottleneck",
         "optimization", "wip", "flow", "capacity", "worklist",
+        "wip cap", "elbow",
     ],
     "protocol-engineering": [
         "protocol", "specification", "state machine", "handshake",
@@ -165,17 +187,61 @@ DOMAIN_SEEDS = {
     ],
     "psychology": [
         "psychology", "cognitive", "behavior", "trust", "bias",
-        "motivation", "load", "stress", "decision", "human",
+        "motivation", "load", "stress", "human",
     ],
     "statistics": [
         "statistics", "regression", "p-value", "significance",
         "sample", "variance", "distribution", "hypothesis",
         "bayesian", "confidence interval", "meta-analysis",
     ],
+    "stochastic-processes": [
+        "stochastic", "hawkes", "self-excitation", "usl",
+        "poisson", "hmm", "baum-welch", "preferential attachment",
+        "jarzynski", "iod", "aic", "throughput model",
+    ],
     "strategy": [
         "strategy", "planning", "roadmap", "phase", "priority",
-        "tradeoff", "decision", "alignment", "goal",
+        "tradeoff", "alignment", "goal",
     ],
+}
+
+# ---------- F-ID prefix to domain mapping (Fix 2, L-641) -------------------
+# Tasks containing F-SP1, F-NK5, etc. should boost the matching domain
+FID_DOMAIN_MAP = {
+    "SP": "stochastic-processes",
+    "NK": "nk-complexity",
+    "CON": "conflict",
+    "META": "meta",
+    "HLP": "helper-swarm",
+    "IS": "information-science",
+    "EMP": "empathy",
+    "GOV": "governance",
+    "ECO": "economy",
+    "EXP": "expert-swarm",
+    "AI": "ai",
+    "BRN": "brain",
+    "LNG": "linguistics",
+    "FIN": "finance",
+    "FAR": "farming",
+    "COMP": "competitions",
+    "CAT": "catastrophic-risks",
+    "CC": "cryptocurrency",
+    "GT": "game-theory",
+    "QC": "quality",
+    "STAT": "statistics",
+    "STRUCT": "distributed-systems",
+    "DRM": "meta",
+    "EVO": "evolution",
+    "OPS": "operations-research",
+}
+
+# ---------- infrastructure terms (Fix 4, L-641) ----------------------------
+# Generic swarm terms that appear in almost every task — weight reduced
+INFRA_TERMS = {
+    "harvest", "frontier", "dispatch", "claim", "lesson", "principle",
+    "belief", "session", "orient", "maintenance", "handoff",
+    "measurement", "experiment", "domex", "lane",
+    "domain", "compaction", "drift", "dedup", "periodic",
 }
 
 
@@ -223,8 +289,11 @@ def build_domain_index() -> dict[str, set[str]]:
         if domain_md.exists():
             text = domain_md.read_text(errors="replace")
             toks = tokenize(text[:3000])  # cap to avoid noise
-            index[domain].update(toks)
-            index[domain].update(bigrams(toks))
+            # Filter: skip infra terms from file content (they add noise)
+            # Meta domain keeps them since infra IS its vocabulary
+            filtered = [t for t in toks if domain == "meta" or t not in INFRA_TERMS]
+            index[domain].update(filtered)
+            index[domain].update(bigrams(filtered))
 
         # read tasks/FRONTIER.md if present
         frontier_md = domain_dir / "tasks" / "FRONTIER.md"
@@ -239,8 +308,9 @@ def build_domain_index() -> dict[str, set[str]]:
                     # continue collecting text after a frontier heading
                     relevant.append(line)
             toks = tokenize(" ".join(relevant[:200]))  # cap
-            index[domain].update(toks)
-            index[domain].update(bigrams(toks))
+            filtered = [t for t in toks if domain == "meta" or t not in INFRA_TERMS]
+            index[domain].update(filtered)
+            index[domain].update(bigrams(filtered))
 
     # also augment from global FRONTIER.md
     global_frontier = REPO_ROOT / "tasks" / "FRONTIER.md"
@@ -257,14 +327,31 @@ def build_domain_index() -> dict[str, set[str]]:
 
 # ---------- scorer -----------------------------------------------------------
 
+def extract_fid_domains(task: str) -> dict[str, int]:
+    """Fix 2 (L-641): extract F-ID prefixes from task and map to domains.
+    Returns {domain: boost_count}."""
+    boosts: dict[str, int] = defaultdict(int)
+    for m in re.finditer(r"\bF-([A-Z]+)\d+\b", task.upper()):
+        prefix = m.group(1)
+        domain = FID_DOMAIN_MAP.get(prefix)
+        if domain:
+            boosts[domain] += 1
+    return dict(boosts)
+
+
 def score_task(
     task_tokens: list[str],
     task_bigrams: list[str],
     domain_index: dict[str, set[str]],
+    fid_boosts: Optional[dict[str, int]] = None,
 ) -> list[tuple[str, float, list[str]]]:
     """
     Score a task against all domains.
     Returns [(domain, score, matched_tokens), ...] sorted by score desc.
+
+    Fix 4 (L-641): infrastructure terms weighted 0.3x.
+    Fix 2 (L-641): F-ID prefix boosts applied.
+    Fix 3 (L-641): raw scores used (no min(1.0) cap); caller normalizes.
     """
     query = set(task_tokens) | set(task_bigrams)
     results = []
@@ -272,10 +359,20 @@ def score_task(
     for domain, keywords in domain_index.items():
         hits = sorted(query & keywords)
         if not hits:
+            # still check F-ID boost
+            if fid_boosts and domain in fid_boosts:
+                results.append((domain, fid_boosts[domain] * 3.0, ["[F-ID boost]"]))
             continue
-        # score = hit count normalized by sqrt(query size), capped at 1.0
-        raw = len(hits)
-        score = min(1.0, raw / max(1.0, len(query) ** 0.5))
+        # Fix 4: infra terms get 0.3x weight, domain-specific get 1.0x
+        # Exception: meta domain owns infra terms (they ARE its vocabulary)
+        raw = sum(0.3 if (h in INFRA_TERMS and domain != "meta") else 1.0
+                  for h in hits)
+        # Fix 2: F-ID prefix boost (+3.0 per F-ID match)
+        if fid_boosts and domain in fid_boosts:
+            raw += fid_boosts[domain] * 3.0
+            hits.append("[F-ID boost]")
+        # Fix 3: no min(1.0) cap — raw score normalized by sqrt(query)
+        score = raw / max(1.0, len(query) ** 0.5)
         results.append((domain, score, hits))
 
     results.sort(key=lambda x: x[1], reverse=True)
@@ -352,9 +449,20 @@ def recognize(task: str, domain_index: Optional[dict] = None) -> dict:
 
     tokens = tokenize(task)
     bigs = bigrams(tokens)
-    scores = score_task(tokens, bigs, domain_index)
+    # Fix 2: extract F-ID domain boosts
+    fid_boosts = extract_fid_domains(task)
+    scores = score_task(tokens, bigs, domain_index, fid_boosts)
 
-    recognized = bool(scores and scores[0][1] >= CONFIDENCE_THRESHOLD)
+    # Fix 3 (L-641): relative confidence = top1 / (top1 + top2)
+    # Replaces saturated min(1.0, ...) with discriminative signal
+    if len(scores) >= 2:
+        confidence = scores[0][1] / (scores[0][1] + scores[1][1])
+    elif scores:
+        confidence = 1.0
+    else:
+        confidence = 0.0
+
+    recognized = bool(scores and confidence >= CONFIDENCE_THRESHOLD)
 
     routes = []
     for domain, score, evidence in scores[:TOP_N_DOMAINS]:
@@ -377,7 +485,7 @@ def recognize(task: str, domain_index: Optional[dict] = None) -> dict:
     return {
         "task": task,
         "recognized": recognized,
-        "confidence": round(scores[0][1], 4) if scores else 0.0,
+        "confidence": round(confidence, 4),
         "personality": personality,
         "routes": routes,
         "new_domain_suggestion": new_domain,
