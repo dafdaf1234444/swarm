@@ -1,4 +1,4 @@
-Updated: 2026-03-02 S424 | 862L 205P 20B 18F
+Updated: 2026-03-02 S424 | 863L 205P 20B 18F
 
 ## S424 session note (DOMEX-NK-S424 MERGED: F-NK6 crosslink enforcement validation — L-949)
 - **check_mode**: objective | **lane**: DOMEX-NK-S424 (MERGED) | **dispatch**: nk-complexity (4.6, uncontested)
