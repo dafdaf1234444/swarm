@@ -1,4 +1,4 @@
-<!-- claude_md_version: 0.9 | 2026-02-28 | expert-dispatch-default (F-EXP7) -->
+<!-- claude_md_version: 1.0 | 2026-03-01 | node-generalization + structured signaling -->
 # Claude Code Bridge
 
 This repo is a swarm. Read `SWARM.md` for the full protocol.
@@ -6,15 +6,15 @@ This repo is a swarm. Read `SWARM.md` for the full protocol.
 ## Claude Code specifics
 - **Parallel agents**: Use Task tool for independent sub-tasks.
 - **Spawn**: Task tool IS the spawn mechanism. Sub-agents receive `beliefs/CORE.md` + `memory/INDEX.md` + their task.
-- **Swarm signaling**: Always try to inform the swarm with intent/progress/blockers/next-step updates via `tasks/NEXT.md`, `tasks/SWARM-LANES.md`, or inter-swarm bulletins when relevant.
+- **Swarm signaling**: Use `python3 tools/swarm_signal.py post <type> <content>` for structured signals. Also update `tasks/NEXT.md`, `tasks/SWARM-LANES.md`, or inter-swarm bulletins as appropriate. See `memory/NODES.md` for the node model.
 - **Hooks**: Install with `bash tools/install-hooks.sh` (pre-commit runs `bash tools/check.sh --quick`; commit-msg enforces `[S<N>] what: why`). See `.claude/settings.json`.
 - **Entry**: This file auto-loads in Claude Code. `SWARM.md` is the canonical protocol.
 - **Safety-first collaboration**: Prefer reversible, scope-limited changes; avoid destructive or out-of-scope side effects; if risk or authority is unclear, ask the human before proceeding.
-- **Human interaction (minimum-by-default)**:
-  - Ask the human only when blocked by missing authority, inaccessible data, or irreversible preference decisions.
-  - Before asking, check `memory/HUMAN.md` and `tasks/HUMAN-QUEUE.md` for existing directives/answers.
+- **Node interaction (minimum-by-default)**:
+  - Ask the human node only when blocked by missing authority, inaccessible data, or irreversible preference decisions.
+  - Before asking, check `memory/HUMAN.md`, `tasks/SIGNALS.md`, and `tasks/HUMAN-QUEUE.md` for existing directives/answers.
   - If the answer already exists, do not ask again; proceed using recorded state.
-  - Every new human question must be recorded in `tasks/HUMAN-QUEUE.md` as an `HQ-N` entry at ask time.
+  - New questions: post via `python3 tools/swarm_signal.py post question "..." --target human`.
 
 ## Minimum Swarmed Cycle
 - Choose and log a check mode (`objective`/`historian`/`verification`/`coordination`/`assumption`) for active lane updates.

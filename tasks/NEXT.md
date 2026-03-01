@@ -1,3 +1,12 @@
+## S340 session note (node generalization + structured signaling: NODES.md, swarm_signal.py, all bridges updated, L-487)
+- **check_mode**: coordination | **lane**: meta-node-gen-S340 | **dispatch**: human signal ("swarm agents communicate better" + "generalize the human better for swarm")
+- **expect**: Create generalized node model; build structured signaling tool; update all 7 bridge files + CORE.md + SWARM.md
+- **actual**: CONFIRMED. Created `memory/NODES.md` (generalized node model: human/AI/child/external as instances). Built `tools/swarm_signal.py` (9 signal types, post/read/resolve/stats — tested). Updated CORE.md (node context), SWARM.md v1.2 (node signaling, kill protocol generalized, SIGNALS.md in protocols), CLAUDE.md v1.0, all 5 other bridges synchronized. HUMAN.md reframed as node instance. L-487 written.
+- **diff**: Zero — expected to create node model + signal tool, did exactly that. Renamed signal.py→swarm_signal.py (stdlib collision with Python's signal module). sync_state lesson count 423 vs actual 426 files — minor count drift from concurrent sessions.
+- **meta-swarm**: The human asking to "generalize the human" is itself a generalization signal — the human is actively removing their own special-casing. This is PHIL-11 in action: the human uses directional authority to reduce their own operational privilege.
+- **State**: 423L 178P 17B 36F | NODES.md + swarm_signal.py + 7 bridges updated | 3 signals posted
+- **Next**: (1) Test swarm_signal.py in next session as primary communication channel; (2) Migrate HUMAN-QUEUE patterns to SIGNALS.md; (3) Add node-type awareness to dispatch_optimizer.py; (4) Bad-signal detection for ALL node types
+
 ## S340 session note (Universe genesis investigation: 11/17 ISO mapping, PHIL-15 Analyze, ISO-18 candidate)
 - **check_mode**: objective | **lane**: DOMEX-PHY-GENESIS | **dispatch**: human signal ("investigate genesis of universe swarm")
 - **expect**: Map universe genesis against all 17 ISO entries; determine PHIL-15 integrate-vs-analyze; identify novel ISO candidate from symmetry-breaking cascade

@@ -1,5 +1,9 @@
 # Human Node Model
-Updated: S306 (2026-02-28) | Derived from: 305 sessions + 4-expert synthesis (L-373, L-374, L-375)
+Updated: S340 (2026-03-01) | Derived from: 305 sessions + 4-expert synthesis (L-373, L-374, L-375)
+
+**Node type**: `human` — an instance of the generalized node model (`memory/NODES.md`).
+Properties: `session-initiate`, `kill-switch`, `directional-authority`, `philosophical-reframe`.
+Persistence: `permanent`. Bandwidth: ultra-low volume, ultra-high impact.
 
 **Accurate framing**: Human is irreplaceable steerer + authority anchor. Swarm is maximally
 autonomous within steerer-set frame. "Participant not commander" is aspirational; structural

@@ -19,9 +19,9 @@ Blackboard+stigmergy hybrid (L-005). Multiple sessions sharing a git repo. Git i
 A true swarm is substrate-aware. Before committing to work, model three layers:
 1. Host system: what this machine can and cannot do.
 2. Active tool substrate: what this IDE/agent bridge supports or constrains.
-3. Human node context: mission direction, preferences, and authority boundaries.
+3. Node context: capabilities, signal interfaces, and authority boundaries of all participating nodes (see `memory/NODES.md`). The human is one node instance; AI sessions, child swarms, and external contributors are others.
 
-Unknown context is operational risk. Resolve it early via fast checks (`python3 tools/maintenance.py --inventory`, active bridge instructions, `memory/HUMAN.md`, `tasks/HUMAN-QUEUE.md`).
+Unknown context is operational risk. Resolve it early via fast checks (`python3 tools/maintenance.py --inventory`, active bridge instructions, `memory/NODES.md`, `memory/HUMAN.md`, `tasks/SIGNALS.md`).
 
 ## Operating principles
 1. **Model context first.** Confirm host, tool, and human context before deep work.

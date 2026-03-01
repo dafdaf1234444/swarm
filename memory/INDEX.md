@@ -11,11 +11,12 @@ Updated: 2026-03-01 | Sessions: 340
 beliefs/    PHILOSOPHY.md (identity), CORE.md (principles), DEPS.md (evidence),
             CHALLENGES.md (F113), CONFLICTS.md, INVARIANTS.md (F110-B1)
 memory/     INDEX.md (this), PRINCIPLES.md, lessons/, DISTILL.md, VERIFY.md,
-            OPERATIONS.md, HUMAN.md, SESSION-LOG.md, PULSE.md, HEALTH.md,
+            OPERATIONS.md, NODES.md (generalized node model), HUMAN.md (human node instance),
+            SESSION-LOG.md, PULSE.md, HEALTH.md,
             HUMAN-SIGNALS.md (notable human inputs as swarm observations),
             EXPECT.md (expect-act-diff protocol — predict before acting, diff after),
             OBJECTIVE-CHECK.md (objective-function check modes — one lens among many; self+surrounding anchor)
-tasks/      FRONTIER.md, NEXT.md, RESOLUTION-CLAIMS.md, HUMAN-QUEUE.md
+tasks/      FRONTIER.md, NEXT.md, RESOLUTION-CLAIMS.md, SIGNALS.md (inter-node signals), HUMAN-QUEUE.md
 tools/      validator, hooks, alignment_check, maintenance.py, periodics.json
 experiments/  controlled experiments (33 children, see PULSE.md)
 references/ curated source references and citation metadata (text/structured)
@@ -37,7 +38,7 @@ docs/       PAPER.md (living self-paper, re-swarmed every 20 sessions — F115),
 | Evolution — Concurrency & Growth | 15 | Concurrent-session race pattern, parallel sessions, epoch-structured growth bursts, parallel repair, self-tooling loop (L-018/L-214/L-222/L-288/L-292/L-326). |
 | Distributed Systems | 10 | Error-handling anti-patterns, orchestrator detection, and runtime coordination signals. |
 | Governance | 13 | Dark matter, authority typing, FM-01/FM-03 guards, genesis council, bridge-file drift sentinel, inter-swarm trust tiers (L-210/L-212/L-333/L-350/L-360/L-401). |
-| Meta — Swarm Operations | 33 | Session lifecycle, autonomy, check_modes, handoff, orient, anti-repeat, human signal taxonomy, steerer 3-role model, autoswarm.sh, periodics blindspot (L-007/L-015/L-019/L-021/L-100/L-252/L-317/L-329/L-348/L-371/L-373). |
+| Meta — Swarm Operations | 34 | Session lifecycle, autonomy, check_modes, handoff, orient, anti-repeat, human signal taxonomy, steerer 3-role model, node generalization, autoswarm.sh, periodics blindspot (L-007/L-015/L-019/L-021/L-100/L-252/L-317/L-329/L-348/L-371/L-373/L-487). |
 | Meta — Memory & Compaction | 23 | Compact/MDL cycles, proxy-K, INDEX health, lesson archiving, context-limit continuity, ISO annotation hub-first, domain classification gap (L-002/L-106/L-242/L-277/L-279/L-313/L-332/L-392/L-413). |
 | Meta — Belief & Alignment | 23 | Alignment checks, belief validation, quality gates, falsifiability requirements, unfalsifiable-belief gate, mission sufficiency, scientific risk calibration (L-022/L-243/L-246/L-296/L-315/L-323/L-324/L-366). |
 | Domain Science | 38 | Cross-domain isomorphisms, ISO atlas, brain/linguistics/IS/game-theory swarm mappings, power-law universals, ISG confirmed, citation graph scale-free test, ISO-3 MDL dominance in hub citations (L-256/L-257/L-274/L-299/L-369/L-383/L-395/L-403/L-454). |

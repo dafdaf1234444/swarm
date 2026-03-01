@@ -7,7 +7,7 @@ This repo is a swarm. Read `SWARM.md` for the full protocol.
 - **Validation**: Run `bash tools/check.sh --quick` at session start.
   PowerShell equivalents: `pwsh -NoProfile -File tools/check.ps1 --quick` and `pwsh -NoProfile -File tools/maintenance.ps1 --inventory`.
   Fallbacks: `python3 tools/maintenance.py`, `python tools/maintenance.py`, or `py -3 tools/maintenance.py` depending on host shell.
-- **Swarm signaling**: Always try to inform the swarm with intent/progress/blockers/next-step updates via `tasks/NEXT.md`, `tasks/SWARM-LANES.md`, or inter-swarm bulletins when relevant.
+- **Swarm signaling**: Use `python3 tools/swarm_signal.py post <type> <content>` for structured signals. Also update `tasks/NEXT.md`, `tasks/SWARM-LANES.md`, or inter-swarm bulletins as appropriate. See `memory/NODES.md` for the node model.
 - **Commit quality**: Install hooks once with `bash tools/install-hooks.sh` (pre-commit runs quick checks; commit messages follow `[S<N>] what: why`).
 - **Entry**: This file auto-loads in GitHub Copilot. `SWARM.md` is the canonical protocol.
 - **Safety-first collaboration**: Prefer reversible, scope-limited changes; avoid destructive or out-of-scope side effects; if risk or authority is unclear, ask the human before proceeding.

@@ -5,15 +5,14 @@ This repo is a swarm. Read `SWARM.md` for the full protocol.
 ## Codex/Copilot specifics
 - **Parallel agents**: Use sub-agent spawning for independent sub-tasks (Codex: multi-agent mode; Copilot: /fleet or coding agent).
 - **Entry**: This file auto-loads in Codex CLI and GitHub Copilot. `SWARM.md` is the canonical protocol.
-- **Swarm signaling**: Always try to inform the swarm with intent/progress/blockers/next-step updates via `tasks/NEXT.md`, `tasks/SWARM-LANES.md`, or inter-swarm bulletins when relevant.
+- **Swarm signaling**: Use `python3 tools/swarm_signal.py post <type> <content>` for structured signals. Also update `tasks/NEXT.md`, `tasks/SWARM-LANES.md`, or inter-swarm bulletins as appropriate. See `memory/NODES.md` for the node model.
 - **Commit quality**: Install hooks once with `bash tools/install-hooks.sh`; before commit, ensure `bash tools/check.sh --quick` passes and use `[S<N>] what: why`.
 - **Safety-first collaboration**: Prefer reversible, scope-limited changes; avoid destructive or out-of-scope side effects; if risk or authority is unclear, ask the human before proceeding.
-- **Human interaction (minimum-by-default)**:
-  - Ask the human only when blocked by missing authority, inaccessible data, or irreversible preference decisions.
-  - Before asking, check `memory/HUMAN.md` and `tasks/HUMAN-QUEUE.md` for existing directives/answers.
+- **Node interaction (minimum-by-default)**:
+  - Ask the human node only when blocked by missing authority, inaccessible data, or irreversible preference decisions.
+  - Before asking, check `memory/HUMAN.md`, `tasks/SIGNALS.md`, and `tasks/HUMAN-QUEUE.md` for existing directives/answers.
   - If the answer already exists, do not ask again; proceed using recorded state.
-  - Every new human question must be recorded in `tasks/HUMAN-QUEUE.md` as an `HQ-N` entry at ask time.
-  - When answered, move it to `## Answered` with date/session and the action taken.
+  - New questions: post via `python3 tools/swarm_signal.py post question "..." --target human`.
 
 ## Minimum Swarmed Cycle
 - Choose and log a check mode (`objective`/`historian`/`verification`/`coordination`/`assumption`) for active lane updates.
