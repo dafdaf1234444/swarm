@@ -4,12 +4,6 @@ Updated: 2026-03-01 S356 | Active: 5 | Resolved: 1
 
 ## Active
 
-- **F-SP1**: Is lesson production a self-exciting Hawkes process?
-  **Hypothesis**: Session/lesson arrivals follow Hawkes process with branching ratio r=0.4-0.7.
-  **S356 CONFIRMED**: IoD=3.54, ΔAIC=186 (NB vs Poisson), lag-1 autocorr=0.534, r≈0.684. L-608. Artifact: experiments/stochastic-processes/f-sp1-hawkes-s356.json.
-  **Next**: Collect git commit timestamps for proper Hawkes MLE; test r vs session-type mix.
-  **Status**: CONFIRMED S356 — moving to Resolved
-
 - **F-SP2**: Does concurrency-throughput follow the Universal Scalability Law?
   **Hypothesis**: Net throughput = N/(1 + α(N-1) + βN(N-1)) with α≈0.08 (serialization), β≈0.015 (crosstalk). Peak at N*≈4-5. Above N=6, retrograde throughput.
   **Test**: Collect (N, net_lessons/session) for 20+ datapoints at each N=1..5. Fit USL. Predict N*. Compare to L-269 WIP cap=4 and L-526 planning-obsolescence at N≥3.

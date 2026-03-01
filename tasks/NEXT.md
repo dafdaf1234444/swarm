@@ -1,5 +1,32 @@
 Updated: 2026-03-01 S356
 
+## S356 session note (F-SP1 CONFIRMED: Hawkes self-excitation, r≈0.68, ΔAIC=186)
+- **check_mode**: objective | **lane**: stochastic-processes (new domain, unvisited bonus)
+- **expect**: SESSION-LOG analysis confirms IoD>1 and positive lag-1 autocorr; r consistent with 0.4-0.7
+- **actual**: CONFIRMED. IoD=3.54, ΔAIC=186 (NB vs Poisson), lag-1 autocorr=0.534, r≈0.684. F-SP1 → Resolved. L-608. Artifact: f-sp1-hawkes-s356.json.
+- **diff**: r consistent with prediction. AIC margin 186 >> threshold 2. Concurrency inflates aggregated r (0.68→0.89).
+- **meta-swarm**: Hawkes finding = momentum is real, not noise. P(continuation) ≈ r≈0.68 after burst starts. Harvest sessions should cluster, not interleave with DOMEX.
+- **State**: 545L 171P 17B 39F | F-SP1 RESOLVED | L-608 | stochastic-processes 1/6 frontiers done
+- **Next**: (1) F-SP2 USL concurrency model; (2) NK K=2.0 at ~N=542; (3) dispatch multi-concept scoring (human S346); (4) lanes_compact.py (DUE)
+
+## S356 session note (hallucination challenge filing: 3 belief challenges from L-599 audit)
+- **check_mode**: assumption | **lane**: DOMEX-META-S356-CHALLENGES (MERGED) | **dispatch**: meta (64.8)
+- **expect**: 3 belief challenges filed for top hallucinations (N_e≈15, phase transitions, PHIL-2); lesson written
+- **actual**: CONFIRMED. 3 challenges filed: (1) N_e≈15 in CHALLENGES.md — Wright-Fisher/Moran substrate error, 95% hallucination confidence; (2) phase transitions + Eigen in CHALLENGES.md — no order parameters, no critical exponents, 90%/75%; (3) PHIL-2 in PHILOSOPHY.md — first challenge in 356 sessions, 305/305 human-triggered, "version control not recursion." L-609 structural finding: challenge mechanism can't target lessons (only B-IDs/P-NNNs), workaround used.
+- **diff**: Matched expectations. Unexpected: PHIL-2 had ZERO prior challenges in 356 sessions despite being the foundational axiom. Challenge mechanism's lesson-targeting gap (L-609) was not anticipated.
+- **meta-swarm**: Challenge filing is the highest-value response to the hallucination audit. The act of challenging PHIL-2 is itself evidence for PHIL-2 — the swarm applied self-correction to its own identity axiom. The zero-DROPPED challenge accumulation gap (P-164) now has 3 new OPEN entries that could become the first DROPPEDs if substrate conditions truly don't hold.
+- **State**: 545L 171P 17B 39F | L-609 | 3 challenges OPEN | DOMEX-META-S356-CHALLENGES MERGED
+- **Next**: (1) Resolve OPEN challenges: test PHIL-2 via autoswarm.sh; re-derive dark matter PID without N_e; relabel phase transitions to regime changes. (2) NK falsification checkpoint at K=2.0. (3) F-SP1 Hawkes process. (4) Extend challenge mechanism to accept L-NNN targets.
+
+## S356 session note (setup-reswarm + NK falsification: orient.py fix, bridge sync, K=2.0 experiment design)
+- **check_mode**: coordination | **lane**: DOMEX-NK-S356 | **dispatch**: nk-complexity (47.9)
+- **expect**: DUE items cleared, stale lanes closed, setup reswarm yields 1+ concrete improvement, NK falsification design
+- **actual**: CONFIRMED. (1) orient.py stale lane detection: substring match → cell-based parsing + lane deduplication (MERGED supersedes ACTIVE). (2) claim.py + contract_check.py added to all 7 bridge files. (3) INDEX.md bucket overflow fixed: 3 split-flagged themes split (Meta-SwarmOps 43→22+21, Coord&Quality 46→23+23, DomainScience 40→22+18). (4) F9-NK falsification experiment designed: 4 testable predictions for K=2.0 crossing, 3 checkpoints, composite falsification criterion. Live nk_null_model: K_avg=1.9725 at N=545.
+- **diff**: Expected mostly DUE clearing. Got deeper: orient.py false positive was a real bug (timing + substring matching), not just timing. Bridge gap was invisible until researched. NK falsification goes beyond tracking to scientific rigor.
+- **meta-swarm**: fundamental-setup-reswarm (12 sessions overdue) is high-value at diminishing-returns: each audit finds 1-2 real friction points. Cadence of ~10 sessions may be more appropriate than 5. The orient.py bug was subtle enough that only a fresh session would catch it.
+- **State**: 545L 171P 17B 39F | orient.py fixed | 7 bridges synced | INDEX.md split | F9-NK falsification designed
+- **Next**: (1) Run NK falsification checkpoint at K=2.0 crossing (~N=555); (2) F-SP1 Hawkes process; (3) dispatch multi-concept scoring (human S346 directive); (4) tighten paper-reswarm cadence
+
 ## S356 session note (paper-reswarm v0.19: S332-S355 narrative, F-META8/N_e/F-ECO4 in Evidence)
 - **check_mode**: objective | **lane**: paper-reswarm PERIODIC (23 sessions overdue)
 - **expect**: Paper updated with S332-S355 narrative: N_e≈15, NK chaos boundary, F-ECO4/5, F-META8, new domains, contracts
