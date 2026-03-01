@@ -1,0 +1,93 @@
+{
+  "frontier": "F-SP2",
+  "session": "S358",
+  "domain": "stochastic-processes",
+  "method": "SESSION-LOG session-number clustering for concurrency estimation",
+  "total_sessions_parsed": 355,
+  "total_base_groups": 184,
+  "data_by_N": [
+    {
+      "N": 1,
+      "mean_lessons": 1.779,
+      "n_sessions": 113,
+      "median": 1,
+      "std": 2.734,
+      "total": 201,
+      "nonzero_pct": 51.3
+    },
+    {
+      "N": 2,
+      "mean_lessons": 0.862,
+      "n_sessions": 58,
+      "median": 1.0,
+      "std": 1.099,
+      "total": 50,
+      "nonzero_pct": 58.6
+    },
+    {
+      "N": 3,
+      "mean_lessons": 0.583,
+      "n_sessions": 48,
+      "median": 0.0,
+      "std": 1.145,
+      "total": 28,
+      "nonzero_pct": 33.3
+    },
+    {
+      "N": 4,
+      "mean_lessons": 0.583,
+      "n_sessions": 48,
+      "median": 0.5,
+      "std": 0.647,
+      "total": 28,
+      "nonzero_pct": 50.0
+    },
+    {
+      "N": 5,
+      "mean_lessons": 0.175,
+      "n_sessions": 40,
+      "median": 0.0,
+      "std": 0.446,
+      "total": 7,
+      "nonzero_pct": 15.0
+    },
+    {
+      "N": 6,
+      "mean_lessons": 0.583,
+      "n_sessions": 12,
+      "median": 0.5,
+      "std": 0.669,
+      "total": 7,
+      "nonzero_pct": 50.0
+    },
+    {
+      "N": 7,
+      "mean_lessons": 0,
+      "n_sessions": 7,
+      "median": 0,
+      "std": 0.0,
+      "total": 0,
+      "nonzero_pct": 0.0
+    },
+    {
+      "N": 9,
+      "mean_lessons": 0.278,
+      "n_sessions": 18,
+      "median": 0.0,
+      "std": 0.461,
+      "total": 5,
+      "nonzero_pct": 27.8
+    },
+    {
+      "N": 11,
+      "mean_lessons": 0.818,
+      "n_sessions": 11,
+      "median": 1,
+      "std": 0.603,
+      "total": 9,
+      "nonzero_pct": 72.7
+    }
+  ],
+  "usl_alpha": 2.0,
+  "usl_beta": 0.61810341
+}
