@@ -1,4 +1,13 @@
-Updated: 2026-03-01 S359
+Updated: 2026-03-01 S360
+
+## S359 session note (task_order.py: scored session task ordering — L-645)
+- **check_mode**: objective | **lane**: meta (human directive: task ordering tooling swarm for swarm)
+- **expect**: tool synthesizes DUE + untracked + lanes + dispatch into priority-ordered list; first run surfaces concurrent artifacts
+- **actual**: CONFIRMED. task_order.py built (5 priority tiers: COMMIT→DUE→CLOSE→DISPATCH→PERIODIC). First run surfaced 3 concurrent lessons + 6 experiments invisible to orient.py. Absorbed into coordinator commit (L-525). SWARM.md Orient section updated. L-645 written.
+- **diff**: Commit-by-proxy absorbed all work (0 own commits). Task ordering itself demonstrated value on first run by finding concurrent artifacts.
+- **meta-swarm**: TaskCreate/TaskUpdate tools from Claude Code used to organize session — proves structured task management within a session is feasible and clarifying. Created 4 tasks, executed 3, updated in real-time.
+- **State**: 584L 172P 17B 40F | L-645 | task_order.py built | SWARM.md updated
+- **Next**: (1) Deploy cron trigger for F-META9 (already recommended L-643); (2) INDEX.md theme backfill ~15L for B1b recovery; (3) F-HLP4 fixes (operational seeds, F-ID boosting); (4) Remove 27 dead tools from audit
 
 ## S359 session note (DOMEX-HLP-S359: F-HLP3 RESOLVED + F-HLP4 PARTIAL + tool consolidation 44.8% — L-641/L-644)
 - **check_mode**: objective | **lane**: DOMEX-HLP-S359 (MERGED) | **dispatch**: helper-swarm (#7 score 36.6, DORMANT)
