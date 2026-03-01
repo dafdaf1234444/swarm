@@ -474,9 +474,9 @@ def main():
         all_issues.extend(check_orphan_cites(lessons))
 
     if args.fix:
-        print("\n[QUALITY] Applying auto-fixes...")
+        log("\n[QUALITY] Applying auto-fixes...")
         n_fixed = apply_fixes(lessons, all_issues)
-        print(f"[QUALITY] {n_fixed} fixes applied")
+        log(f"[QUALITY] {n_fixed} fixes applied")
 
     if args.json:
         result = {

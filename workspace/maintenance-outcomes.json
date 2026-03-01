@@ -1972,7 +1972,7 @@
     },
     {
       "session": 357,
-      "timestamp": "2026-03-01T03:55:43Z",
+      "timestamp": "2026-03-01T03:56:48Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -1985,11 +1985,9 @@
           "severities": []
         },
         "check_mission_constraints": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "DUE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_runtime_portability": {
           "fired": false,
@@ -2017,9 +2015,11 @@
           "severities": []
         },
         "check_lessons": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "DUE"
+          ]
         },
         "check_child_bulletins": {
           "fired": true,
@@ -2040,9 +2040,8 @@
         },
         "check_periodics": {
           "fired": true,
-          "count": 9,
+          "count": 8,
           "severities": [
-            "PERIODIC",
             "PERIODIC",
             "PERIODIC",
             "PERIODIC",
@@ -2082,9 +2081,8 @@
         },
         "check_uncommitted": {
           "fired": true,
-          "count": 2,
+          "count": 1,
           "severities": [
-            "NOTICE",
             "NOTICE"
           ]
         },
@@ -2104,11 +2102,9 @@
           "severities": []
         },
         "check_cross_references": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "NOTICE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_anxiety_zones": {
           "fired": true,
@@ -2130,9 +2126,11 @@
           ]
         },
         "check_historian_integrity": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "DUE"
+          ]
         },
         "check_domain_frontier_consistency": {
           "fired": true,
@@ -2165,9 +2163,11 @@
           "severities": []
         },
         "check_claim_gc": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         },
         "check_paper_accuracy": {
           "fired": false,
@@ -2188,9 +2188,9 @@
         }
       },
       "totals": {
-        "DUE": 2,
-        "NOTICE": 10,
-        "PERIODIC": 9
+        "DUE": 3,
+        "NOTICE": 9,
+        "PERIODIC": 8
       }
     }
   ],
