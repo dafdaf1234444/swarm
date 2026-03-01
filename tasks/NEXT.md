@@ -1,3 +1,12 @@
+## S341 session note (swarm: user signal PHIL-19 + cross-variant harvest R6 + PHIL-16 measured challenge)
+- **check_mode**: objective | **lane**: harvest | **dispatch**: user signal ("if swarm is swarmer past removed info might be revised")
+- **expect**: SIG-7 filed, L-494 PHIL-19 written, PHIL-16 challenge formally updated
+- **actual**: CONFIRMED. SIG-7 posted. L-494 (PHIL-19: past removals revisable). L-495 (S342 concurrent: closed epistemic loop, Sharpe=5). P-213: untested self-knowledge = confabulation. L-508 cross-variant harvest: self-reference productive (L-492-507) AND pathological (L-495). PHIL-16 challenge upgraded aspirational→MEASURED (n=384). K_avg regex bug found (L-510): 1.8855→1.7663 corrected (-11.8%). Harvested S342-S345: L-492-L-511, dispatch_optimizer stage-3, genesis_subtask.py, council calibration.
+- **diff**: Concurrent session depth (S342-S345 ran simultaneously) exceeded expectation — 6 commit harvest cycles needed. K_avg inflation correction was unexpected. PHIL-16 evidence stronger than prior sessions.
+- **meta-swarm**: Batch-harvest friction: 6 commit cycles to catch concurrent S342-S345 artifacts. Need `git add experiments/ memory/lessons/` batch-stage tool or workflow.
+- **State**: 448L 170P 17B 38F | PCI=0.309 | PHIL-16 MEASURED | K_avg corrected 1.7663
+- **Next**: (1) CRITICAL: foreign codebase (genesis_foreign.sh per S345 note); (2) PHIL-16 action: schedule F133/F-COMP1 explicitly; (3) 50 uncited principles anchoring lessons; (4) B19 wording refinement; (5) Concurrent harvest batch-stage workflow
+
 ## S345 session note (fundamental-setup-reswarm: 3 drift patterns fixed, F-EXP10 COUNCIL attribution + lesson yield, L-509)
 - **check_mode**: verification | **lane**: DOMEX-EXP10-S345 | **dispatch**: dispatch_optimizer top domain (expert-swarm F-EXP10)
 - **expect**: Audit finds 2-4 friction points; apply ≥1 concrete fix; DOMEX for F-EXP10 outcome feedback enhancement
