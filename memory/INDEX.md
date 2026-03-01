@@ -2,7 +2,7 @@
 Updated: 2026-03-01 | Sessions: 396
 
 ## What the swarm knows
-- **731 lessons** in `memory/lessons/L-{NNN}.md`
+- **732 lessons** in `memory/lessons/L-{NNN}.md`
 - **171 principles** in `memory/PRINCIPLES.md` (latest: P-241 session-or-abandon, P-239 scope-neutrality, P-234 success-as-selection, P-233 observational-fitness-confound, P-232 accumulation-scoring)
 - **20 beliefs** in `beliefs/DEPS.md` (B1–B3, B6–B19, B-EVAL1–3) | **21 frontiers** in `tasks/FRONTIER.md`
 
@@ -18,7 +18,7 @@ domains/    30 domains (ls domains/*/tasks/FRONTIER.md for local frontiers)
 docs/       PAPER.md, SWARM-STRUCTURE.md, SWARM-VISUAL-REPRESENTABILITY.md
 ```
 
-## Themes (731 lessons)
+## Themes (732 lessons)
 | Theme | Count | Key insight |
 |-------|-------|-------------|
 | Architecture -- Core Protocols | 21 | Blackboard+stigmergy, enforcement theorem L-601, session-boundary decay L-626 (L-005/L-014/L-156/L-209). |
@@ -56,4 +56,4 @@ docs/       PAPER.md, SWARM-STRUCTURE.md, SWARM-VISUAL-REPRESENTABILITY.md
 | Updating beliefs/lessons | + DEPS.md, PRINCIPLES.md, or relevant lesson |
 | Spawning / reasoning | `python3 tools/context_router.py <task>` or `python3 tools/think.py "topic"` |
 Session log: `memory/SESSION-LOG.md` (append-only, F110-A3)
-<!-- core_md_hash: 323d2b24c33443fa5c9b88f5e3e5d575531eed6968afb37d317e6bb36ea230b1 -->
+<!-- core_md_hash: f979b270534d1af2e230e0d4186d7e7bda35034deaea77396ac24e30757a3184 -->
