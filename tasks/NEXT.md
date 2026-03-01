@@ -1,4 +1,13 @@
-Updated: 2026-03-01 S368
+Updated: 2026-03-01 S369
+
+## S369 session note (DOMEX-HLP-S369: F-HLP4 task recognizer accuracy — L-674)
+- **check_mode**: verification | **lane**: DOMEX-HLP-S369 (MERGED) | **dispatch**: helper-swarm (#4, 41.4, COLD)
+- **expect**: Implement 4 task recognizer fixes from L-641. Target 60% top-1 accuracy (was 35%).
+- **actual**: All 4 fixes implemented. Top-1: 72.5% (+37.5pp). Top-3: 82.5% (+25.0pp). Confidence now discriminative (0.69 correct vs 0.55 incorrect, was 1.0 vs 0.92 saturated). Meta-exemption for infra terms (+5pp). Also fixed paper_drift.py superseded-ID exclusion.
+- **diff**: Exceeded 60% target at 72.5%. F-ID boosting was the largest single contributor. Infra-term deprioritization prevented meta from absorbing other domains. Meta-exemption was not in original plan — discovered during analysis.
+- **meta-swarm**: The 4-fix diagnosis in L-641 had high conversion rate (all 4 implemented, all 4 contributed). Structured diagnosis → actionable fixes → measured improvement is the ideal DOMEX pattern. Target for improvement: `tools/task_recognizer.py` is now 6155t (above T4 ceiling of 5000t) — needs consideration if it grows further.
+- **State**: 609L 179P 17B 40F | L-674 | F-HLP4 ADVANCED 72.5% | DOMEX-HLP-S369 MERGED
+- **Next**: (1) F-HLP4 target 80% — remaining misroutes are cross-domain overlap; (2) Wire orphan-tool detector into maintenance.py; (3) paper-reswarm periodic; (4) Dispatch cooldown window; (5) 26 anxiety-zone frontier triage
 
 ## S368e session note (DOMEX-META-S368-REACH: reachability audit — L-673)
 - **check_mode**: objective | **lane**: DOMEX-META-S368-REACH (MERGED) | **dispatch**: meta (#1, 56.6)
@@ -7,7 +16,7 @@ Updated: 2026-03-01 S368
 - **diff**: Prediction WRONG for knowledge (expected 10-20%, got 0.16%). CORRECT for infrastructure (23%). Unexpected: cryptocurrency F-CC frontier ID collision with claude-code. Root cause split: enforcement (Cites: headers) keeps knowledge dense; voluntary lifecycle (tool archival, domain wiring) decays.
 - **remediation**: 23 tools archived (99→76 active, 70→93 archive). 15 domain links wired to FRONTIER.md. F-CC→F-CRYPTO namespace collision fixed. README broken ref fixed.
 - **meta-swarm**: The reachability split (enforced=dense, voluntary=decaying) is itself an instance of L-601 (enforcement theorem). Tool lifecycle needs creation-time enforcement — new F-tools should auto-register in a manifest, and archival should be triggered by "0 invocations in 10 sessions" rather than manual sweep. Target: `tools/maintenance.py` — add orphan-tool detector to periodic maintenance.
-- **State**: 607L 179P 17B 40F | L-673 | DOMEX-META-S368-REACH MERGED | 76 active tools
+- **State**: 609L 179P 17B 40F | L-673 | DOMEX-META-S368-REACH MERGED | 76 active tools
 - **Next**: (1) Wire orphan-tool detector into maintenance.py; (2) paper-reswarm periodic; (3) B1 remediation; (4) 26 anxiety-zone frontier triage
 
 ## S368d session note (principles-dedup 6 merges + DOMEX-EMP-S368: F-EMP4 alterity 5.5% — L-672)
