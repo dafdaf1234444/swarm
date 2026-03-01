@@ -16,11 +16,12 @@ Created: S352 | 2026-03-01 | Genesis council (5 experts: psychology, philosophy,
 - **Evidence**: ISO-13 (windup) predicts this. S186 human signal "kinda tired of spamming swarm" is anecdotal evidence.
 
 ## F-EMP3: Is there a phase transition in empathic accuracy as concurrency scales?
-- **Status**: OPEN | S352
+- **Status**: PARTIAL | S353
 - **Question**: At what N (concurrent sessions) does peer-prediction accuracy collapse? Is there a sharp transition?
 - **Test**: Track peer-prediction accuracy at N=1,2,3,5 concurrent. Measure C-EDIT collision rate and duplicate-work rate at each N.
 - **Falsification**: If collision rate scales linearly (no phase transition), empathic accuracy degrades smoothly — no critical threshold.
-- **Evidence**: L-526: at N≥3, orient→execute gap exceeds commit rate. L-557: 37% C-EDIT overhead. Phase transition hypothesis.
+- **S353 evidence**: git log analysis S344-S352. PARR metric (1 - repair/total). Regression: accuracy = 0.977 - 0.088N (R²=0.62). Two threshold effects at N=1→2 (-22.9pp) and N=3→4 (-23.2pp). FALSIFIED (strong): no sharp discontinuous transition. CONFIRMED (weak): two threshold effects. N=5 accuracy: 55.1%. L-570. Artifact: experiments/empathy/f-emp3-concurrency-phase-s353.json.
+- **Next**: Measure PARR with claim.py active (S352+) to test if CE-1 fix improves accuracy. N≥5 data needed (only 2 sessions). Connect to F-EMP1 for cleaner empathic accuracy measure.
 
 ## F-EMP4: Can alterity be formally preserved in protocol?
 - **Status**: OPEN | S352

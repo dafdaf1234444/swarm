@@ -13,6 +13,7 @@ Output is actionable: routes to FRONTIER.md, memory/lessons/, CHALLENGES.md.
 Run as periodic (cadence 7) or on-demand. (F125, L-256)
 """
 
+import argparse
 import re
 import sys
 from pathlib import Path
@@ -165,7 +166,57 @@ def candidate_frontiers(theme_counts, lessons, domains):
     return candidates
 
 
-def dream():
+def auto_append_frontiers(candidates):
+    """Append dream-generated frontier candidates to FRONTIER.md (GAP-1 closure).
+
+    Deduplicates by checking if key theme words already appear in existing frontiers.
+    Returns count of appended candidates.
+    """
+    frontier_path = ROOT / "tasks" / "FRONTIER.md"
+    if not frontier_path.exists() or not candidates:
+        return 0
+    text = frontier_path.read_text(encoding="utf-8", errors="replace")
+
+    # Find highest F-number
+    existing_ids = [int(m) for m in re.findall(r"\bF(\d+)\b", text)]
+    next_id = max(existing_ids, default=0) + 1
+
+    # Find existing frontier text for dedup
+    existing_lower = text.lower()
+
+    appended = []
+    for candidate in candidates:
+        # Extract key words (5+ chars) for dedup check
+        key_words = {w for w in re.findall(r'\b\w{5,}\b', candidate.lower())}
+        key_words -= {"lesson", "lessons", "which", "there", "these", "about",
+                      "pattern", "should", "would", "could", "where", "domain"}
+        overlap = sum(1 for w in key_words if w in existing_lower)
+        if overlap >= 3:
+            continue  # likely duplicate
+        entry = f"- **F{next_id}**: {candidate} OPEN (dream.py auto-generated S352).\n"
+        appended.append(entry)
+        next_id += 1
+
+    if not appended:
+        return 0
+
+    # Insert before "## Domain frontiers" section or append to Exploratory
+    insert_marker = "## Domain frontiers"
+    if insert_marker in text:
+        pos = text.index(insert_marker)
+        text = text[:pos] + "\n".join(appended) + "\n" + text[pos:]
+    else:
+        text = text.rstrip() + "\n\n" + "\n".join(appended) + "\n"
+
+    # Update active count in header
+    new_count = len(re.findall(r"^- \*\*F", text, re.MULTILINE))
+    text = re.sub(r"(\d+) active", f"{new_count} active", text, count=1)
+
+    frontier_path.write_text(text, encoding="utf-8")
+    return len(appended)
+
+
+def dream(auto_append=False):
     print("=== SWARM DREAM CYCLE ===")
     print("Associative synthesis from corpus. Not goal-directed. Output = swarm input.")
 
@@ -188,10 +239,22 @@ def dream():
         print(f"  Write lessons that cite: {', '.join(p['id'] for p in uncited[:4])}")
     if resonances:
         print(f"  Cross-domain: validate {len(resonances)} resonances against FRONTIER.md")
-    if candidates:
-        print(f"  Add strongest candidates to tasks/FRONTIER.md")
+
+    if auto_append and candidates:
+        n = auto_append_frontiers(candidates)
+        if n:
+            print(f"  AUTO-APPENDED {n} candidate(s) to tasks/FRONTIER.md")
+        else:
+            print(f"  All candidates already covered in FRONTIER.md (dedup filter)")
+    elif candidates:
+        print(f"  Add strongest candidates to tasks/FRONTIER.md (or use --auto-append)")
+
     print(f"\nDream complete. Act on what resonates; ignore what doesn't.")
 
 
 if __name__ == "__main__":
-    dream()
+    parser = argparse.ArgumentParser(description="Swarm dream cycle")
+    parser.add_argument("--auto-append", action="store_true",
+                        help="Auto-append frontier candidates to FRONTIER.md (GAP-1 closure)")
+    args = parser.parse_args()
+    dream(auto_append=args.auto_append)

@@ -1,46 +1,19 @@
 {
   "meta": {
     "generated_by": "f_evo5_self_archaeology.py",
-    "date": "2026-02-28"
+    "date": "2026-03-01"
   },
   "current_scale": {
-    "session": 313,
-    "date": "2026-02-28",
-    "L": 361,
-    "P": 179,
-    "B": null,
-    "F": null,
-    "source": "git-log"
+    "session": 352,
+    "date": "2026-03-01",
+    "L": 495,
+    "P": 169,
+    "B": 17,
+    "F": 38,
+    "source": "SESSION-LOG"
   },
-  "size_timeline_sessions": 68,
+  "size_timeline_sessions": 109,
   "size_timeline": {
-    "62": {
-      "session": 62,
-      "date": "2026-02-27",
-      "L": 129,
-      "P": 137,
-      "B": null,
-      "F": null,
-      "source": "git-log"
-    },
-    "69": {
-      "session": 69,
-      "date": "2026-02-27",
-      "L": 142,
-      "P": 149,
-      "B": null,
-      "F": null,
-      "source": "git-log"
-    },
-    "72": {
-      "session": 72,
-      "date": "2026-02-27",
-      "L": 144,
-      "P": 141,
-      "B": null,
-      "F": null,
-      "source": "git-log"
-    },
     "75": {
       "session": 75,
       "date": null,
@@ -611,67 +584,491 @@
     "307": {
       "session": 307,
       "date": "2026-02-28",
-      "L": 347,
+      "L": 354,
+      "P": 179,
+      "B": 17,
+      "F": 39,
+      "source": "SESSION-LOG"
+    },
+    "308": {
+      "session": 308,
+      "date": null,
+      "L": 354,
+      "P": 179,
+      "B": 17,
+      "F": 39,
+      "source": "SESSION-LOG"
+    },
+    "309": {
+      "session": 309,
+      "date": null,
+      "L": 354,
+      "P": 179,
+      "B": 17,
+      "F": 39,
+      "source": "SESSION-LOG"
+    },
+    "310": {
+      "session": 310,
+      "date": null,
+      "L": 359,
       "P": 180,
-      "B": null,
-      "F": null,
-      "source": "git-log"
+      "B": 17,
+      "F": 37,
+      "source": "SESSION-LOG"
+    },
+    "311": {
+      "session": 311,
+      "date": null,
+      "L": 359,
+      "P": 180,
+      "B": 17,
+      "F": 37,
+      "source": "SESSION-LOG"
+    },
+    "312": {
+      "session": 312,
+      "date": null,
+      "L": 360,
+      "P": 180,
+      "B": 17,
+      "F": 37,
+      "source": "SESSION-LOG"
     },
     "313": {
       "session": 313,
       "date": "2026-02-28",
-      "L": 361,
+      "L": 365,
       "P": 179,
-      "B": null,
-      "F": null,
-      "source": "git-log"
+      "B": 17,
+      "F": 35,
+      "source": "SESSION-LOG"
+    },
+    "314": {
+      "session": 314,
+      "date": null,
+      "L": 365,
+      "P": 179,
+      "B": 17,
+      "F": 35,
+      "source": "SESSION-LOG"
+    },
+    "315": {
+      "session": 315,
+      "date": null,
+      "L": 365,
+      "P": 179,
+      "B": 17,
+      "F": 35,
+      "source": "SESSION-LOG"
+    },
+    "316": {
+      "session": 316,
+      "date": null,
+      "L": 365,
+      "P": 179,
+      "B": 17,
+      "F": 35,
+      "source": "SESSION-LOG"
+    },
+    "317": {
+      "session": 317,
+      "date": null,
+      "L": 365,
+      "P": 179,
+      "B": 17,
+      "F": 35,
+      "source": "SESSION-LOG"
+    },
+    "318": {
+      "session": 318,
+      "date": null,
+      "L": 365,
+      "P": 179,
+      "B": 17,
+      "F": 35,
+      "source": "SESSION-LOG"
+    },
+    "319": {
+      "session": 319,
+      "date": null,
+      "L": 365,
+      "P": 179,
+      "B": 17,
+      "F": 35,
+      "source": "SESSION-LOG"
+    },
+    "320": {
+      "session": 320,
+      "date": null,
+      "L": 363,
+      "P": 179,
+      "B": 17,
+      "F": 35,
+      "source": "SESSION-LOG"
+    },
+    "321": {
+      "session": 321,
+      "date": null,
+      "L": 363,
+      "P": 179,
+      "B": 17,
+      "F": 35,
+      "source": "SESSION-LOG"
+    },
+    "322": {
+      "session": 322,
+      "date": null,
+      "L": 363,
+      "P": 179,
+      "B": 17,
+      "F": 35,
+      "source": "SESSION-LOG"
+    },
+    "323": {
+      "session": 323,
+      "date": null,
+      "L": 363,
+      "P": 179,
+      "B": 17,
+      "F": 35,
+      "source": "SESSION-LOG"
+    },
+    "324": {
+      "session": 324,
+      "date": null,
+      "L": 363,
+      "P": 179,
+      "B": 17,
+      "F": 35,
+      "source": "SESSION-LOG"
+    },
+    "325": {
+      "session": 325,
+      "date": null,
+      "L": 367,
+      "P": 177,
+      "B": 17,
+      "F": 35,
+      "source": "SESSION-LOG"
+    },
+    "326": {
+      "session": 326,
+      "date": null,
+      "L": 377,
+      "P": 177,
+      "B": 17,
+      "F": 35,
+      "source": "SESSION-LOG"
+    },
+    "327": {
+      "session": 327,
+      "date": null,
+      "L": 380,
+      "P": 177,
+      "B": 17,
+      "F": 35,
+      "source": "SESSION-LOG"
+    },
+    "328": {
+      "session": 328,
+      "date": null,
+      "L": 387,
+      "P": 177,
+      "B": 17,
+      "F": 35,
+      "source": "SESSION-LOG"
+    },
+    "329": {
+      "session": 329,
+      "date": null,
+      "L": 394,
+      "P": 177,
+      "B": 17,
+      "F": 35,
+      "source": "SESSION-LOG"
+    },
+    "330": {
+      "session": 330,
+      "date": "2026-02-28",
+      "L": 395,
+      "P": 177,
+      "B": 17,
+      "F": 35,
+      "source": "SESSION-LOG"
+    },
+    "331": {
+      "session": 331,
+      "date": "2026-02-28",
+      "L": 398,
+      "P": 177,
+      "B": 17,
+      "F": 35,
+      "source": "SESSION-LOG"
+    },
+    "332": {
+      "session": 332,
+      "date": null,
+      "L": 399,
+      "P": 177,
+      "B": 17,
+      "F": 35,
+      "source": "SESSION-LOG"
+    },
+    "333": {
+      "session": 333,
+      "date": null,
+      "L": 401,
+      "P": 177,
+      "B": 17,
+      "F": 35,
+      "source": "SESSION-LOG"
+    },
+    "334": {
+      "session": 334,
+      "date": null,
+      "L": 401,
+      "P": 177,
+      "B": 17,
+      "F": 36,
+      "source": "SESSION-LOG"
+    },
+    "335": {
+      "session": 335,
+      "date": "2026-03-01",
+      "L": 405,
+      "P": 177,
+      "B": 17,
+      "F": 36,
+      "source": "SESSION-LOG"
+    },
+    "336": {
+      "session": 336,
+      "date": null,
+      "L": 410,
+      "P": 178,
+      "B": 17,
+      "F": 36,
+      "source": "SESSION-LOG"
+    },
+    "337": {
+      "session": 337,
+      "date": null,
+      "L": 412,
+      "P": 178,
+      "B": 17,
+      "F": 36,
+      "source": "SESSION-LOG"
+    },
+    "338": {
+      "session": 338,
+      "date": null,
+      "L": 419,
+      "P": 178,
+      "B": 17,
+      "F": 36,
+      "source": "SESSION-LOG"
+    },
+    "339": {
+      "session": 339,
+      "date": null,
+      "L": 422,
+      "P": 178,
+      "B": 17,
+      "F": 36,
+      "source": "SESSION-LOG"
+    },
+    "340": {
+      "session": 340,
+      "date": "2026-03-01",
+      "L": 425,
+      "P": 178,
+      "B": 17,
+      "F": 36,
+      "source": "SESSION-LOG"
+    },
+    "341": {
+      "session": 341,
+      "date": "2026-03-01",
+      "L": 429,
+      "P": 179,
+      "B": 17,
+      "F": 37,
+      "source": "SESSION-LOG"
+    },
+    "342": {
+      "session": 342,
+      "date": "2026-03-01",
+      "L": 435,
+      "P": 168,
+      "B": 17,
+      "F": 38,
+      "source": "SESSION-LOG"
+    },
+    "343": {
+      "session": 343,
+      "date": "2026-03-01",
+      "L": 436,
+      "P": 168,
+      "B": 17,
+      "F": 38,
+      "source": "SESSION-LOG"
+    },
+    "344": {
+      "session": 344,
+      "date": "2026-03-01",
+      "L": 441,
+      "P": 170,
+      "B": 17,
+      "F": 38,
+      "source": "SESSION-LOG"
+    },
+    "345": {
+      "session": 345,
+      "date": null,
+      "L": 447,
+      "P": 170,
+      "B": 17,
+      "F": 38,
+      "source": "SESSION-LOG"
+    },
+    "346": {
+      "session": 346,
+      "date": "2026-03-01",
+      "L": 455,
+      "P": 170,
+      "B": 17,
+      "F": 38,
+      "source": "SESSION-LOG"
+    },
+    "347": {
+      "session": 347,
+      "date": "2026-03-01",
+      "L": 473,
+      "P": 170,
+      "B": 17,
+      "F": 38,
+      "source": "SESSION-LOG"
+    },
+    "348": {
+      "session": 348,
+      "date": "2026-03-01",
+      "L": 469,
+      "P": 170,
+      "B": 17,
+      "F": 38,
+      "source": "SESSION-LOG"
+    },
+    "349": {
+      "session": 349,
+      "date": "2026-03-01",
+      "L": 478,
+      "P": 170,
+      "B": 17,
+      "F": 38,
+      "source": "SESSION-LOG"
+    },
+    "350": {
+      "session": 350,
+      "date": "2026-03-01",
+      "L": 482,
+      "P": 170,
+      "B": 17,
+      "F": 38,
+      "source": "SESSION-LOG"
+    },
+    "351": {
+      "session": 351,
+      "date": null,
+      "L": 483,
+      "P": 170,
+      "B": 17,
+      "F": 38,
+      "source": "SESSION-LOG"
+    },
+    "352": {
+      "session": 352,
+      "date": "2026-03-01",
+      "L": 495,
+      "P": 169,
+      "B": 17,
+      "F": 38,
+      "source": "SESSION-LOG"
     }
   },
   "growth_phases": [
     {
-      "s_start": 62,
-      "s_end": 82,
-      "dL": 47,
-      "dP": 4,
-      "L_per_session": 2.35
+      "s_start": 75,
+      "s_end": 85,
+      "dL": 26,
+      "dP": 11,
+      "L_per_session": 2.6
     },
     {
-      "s_start": 82,
-      "s_end": 93,
-      "dL": 10,
-      "dP": -4,
-      "L_per_session": 0.91
-    },
-    {
-      "s_start": 93,
-      "s_end": 103,
+      "s_start": 85,
+      "s_end": 96,
       "dL": 12,
-      "dP": 14,
-      "L_per_session": 1.2
+      "dP": 3,
+      "L_per_session": 1.09
     },
     {
-      "s_start": 103,
-      "s_end": 114,
-      "dL": 6,
+      "s_start": 96,
+      "s_end": 107,
+      "dL": 9,
+      "dP": 8,
+      "L_per_session": 0.82
+    },
+    {
+      "s_start": 107,
+      "s_end": 118,
+      "dL": 5,
       "dP": 0,
-      "L_per_session": 0.55
+      "L_per_session": 0.45
     },
     {
-      "s_start": 114,
-      "s_end": 180,
-      "dL": 32,
-      "dP": 9,
-      "L_per_session": 0.48
+      "s_start": 118,
+      "s_end": 183,
+      "dL": 50,
+      "dP": 18,
+      "L_per_session": 0.77
     },
     {
-      "s_start": 180,
-      "s_end": 190,
-      "dL": 53,
-      "dP": 13,
-      "L_per_session": 5.3
+      "s_start": 183,
+      "s_end": 195,
+      "dL": 56,
+      "dP": 7,
+      "L_per_session": 4.67
+    },
+    {
+      "s_start": 195,
+      "s_end": 314,
+      "dL": 55,
+      "dP": 3,
+      "L_per_session": 0.46
+    },
+    {
+      "s_start": 314,
+      "s_end": 324,
+      "dL": -2,
+      "dP": 0,
+      "L_per_session": -0.2
+    },
+    {
+      "s_start": 324,
+      "s_end": 334,
+      "dL": 38,
+      "dP": -2,
+      "L_per_session": 3.8
+    },
+    {
+      "s_start": 334,
+      "s_end": 344,
+      "dL": 40,
+      "dP": -7,
+      "L_per_session": 4.0
     }
   ],
-  "tool_births_total": 163,
+  "tool_births_total": 176,
   "tool_births_by_category": {
     "ai-behavior": 2,
     "brain": 2,
@@ -688,12 +1085,82 @@
     "operations": 12,
     "ops-core": 15,
     "ops-lane": 3,
-    "other": 76,
+    "other": 89,
     "psychology": 2,
     "quality": 1
   },
   "tool_births_detail": {
     "other": [
+      {
+        "tool": "claim.py",
+        "session": 352,
+        "date": "2026-03-01"
+      },
+      {
+        "tool": "phase_boundary.py",
+        "session": 350,
+        "date": "2026-03-01"
+      },
+      {
+        "tool": "genesis_subtask.py",
+        "session": 341,
+        "date": "2026-03-01"
+      },
+      {
+        "tool": "think.py",
+        "session": 343,
+        "date": "2026-03-01"
+      },
+      {
+        "tool": "nk_null_model.py",
+        "session": 341,
+        "date": "2026-03-01"
+      },
+      {
+        "tool": "agent_state.py",
+        "session": 340,
+        "date": "2026-03-01"
+      },
+      {
+        "tool": "swarm_signal.py",
+        "session": 340,
+        "date": "2026-03-01"
+      },
+      {
+        "tool": "swarm_state.py",
+        "session": 339,
+        "date": "2026-03-01"
+      },
+      {
+        "tool": "self_diff.py",
+        "session": 338,
+        "date": "2026-03-01"
+      },
+      {
+        "tool": "swarm_io.py",
+        "session": 338,
+        "date": "2026-03-01"
+      },
+      {
+        "tool": "reach_map.py",
+        "session": 337,
+        "date": "2026-03-01"
+      },
+      {
+        "tool": "gather_council.py",
+        "session": 336,
+        "date": "2026-03-01"
+      },
+      {
+        "tool": "scaling_model.py",
+        "session": 336,
+        "date": "2026-03-01"
+      },
+      {
+        "tool": "open_lane.py",
+        "session": 331,
+        "date": "2026-02-28"
+      },
       {
         "tool": "swarm_council.py",
         "session": 307,
@@ -978,11 +1445,6 @@
         "tool": "spawn_quality.py",
         "session": 57,
         "date": "2026-02-27"
-      },
-      {
-        "tool": "claim.py",
-        "session": 44,
-        "date": "2026-02-26"
       },
       {
         "tool": "colony_pulse.py",
@@ -1545,7 +2007,7 @@
       }
     ]
   },
-  "domain_births_total": 39,
+  "domain_births_total": 40,
   "domain_births_by_session": {
     "50": [
       "distributed-systems",
@@ -1619,6 +2081,9 @@
     "307": [
       "human-systems",
       "security"
+    ],
+    "335": [
+      "fluid-dynamics"
     ]
   },
   "domain_burst_sessions": {
@@ -1714,6 +2179,10 @@
     "finance": {
       "session": 179,
       "date": "2026-02-27"
+    },
+    "fluid-dynamics": {
+      "session": 335,
+      "date": "2026-03-01"
     },
     "fractals": {
       "session": 186,

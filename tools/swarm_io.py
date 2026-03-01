@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Shared I/O utilities for swarm tools.
 
-Eliminates duplication of _read(), _git(), _session_number(), _token_count()
-across 10+ tool files (L-476). Import from here instead of redefining.
+Eliminates duplication of _read(), _git(), _session_number(), _token_count(),
+parse_lane_rows(), parse_lane_tags() across 30+ tool files (L-476, L-561).
+Import from here instead of redefining.
 """
 
 import re
@@ -76,3 +77,56 @@ def line_count(path: Path) -> int:
         return len(read_text(path).splitlines())
     except Exception:
         return 0
+
+
+# --- SWARM-LANES parsing (consolidates 14 reimplementations, L-561) ---
+
+LANE_KEYS = (
+    "date", "lane", "session", "agent", "branch", "pr",
+    "model", "platform", "scope_key", "etc", "status", "notes",
+)
+
+_HEADER_RE = re.compile(r"^\|\s*(Date\s*\||[-: ]+\|)", re.IGNORECASE)
+
+
+def parse_lane_rows(text: str) -> list[dict[str, str]]:
+    """Parse SWARM-LANES.md markdown table into list of row dicts.
+
+    Returns dicts keyed by LANE_KEYS with status uppercased.
+    Skips header/separator rows automatically.
+    """
+    rows: list[dict[str, str]] = []
+    for raw in text.splitlines():
+        line = raw.strip()
+        if not line.startswith("|") or _HEADER_RE.match(line):
+            continue
+        parts = [p.strip() for p in line.strip("|").split("|")]
+        if len(parts) < len(LANE_KEYS):
+            continue
+        row = dict(zip(LANE_KEYS, parts))
+        row["status"] = row["status"].upper()
+        rows.append(row)
+    return rows
+
+
+def parse_lane_tags(etc_value: str) -> dict[str, str]:
+    """Parse key=value pairs from the Etc column of a lane row.
+
+    Handles semicolon, comma, and whitespace delimiters.
+    Returns lowercase keys mapped to values.
+    """
+    return {
+        k.strip().lower(): v.strip()
+        for k, v in re.findall(
+            r"([A-Za-z][A-Za-z0-9_-]*)\s*=\s*([^\s,;|]+)", etc_value or ""
+        )
+    }
+
+
+def lesson_paths() -> list[Path]:
+    """Return sorted list of lesson file paths (L-*.md)."""
+    d = REPO_ROOT / "memory" / "lessons"
+    if not d.exists():
+        return []
+    return sorted(d.glob("L-*.md"),
+                  key=lambda p: int(re.search(r"\d+", p.stem).group()))

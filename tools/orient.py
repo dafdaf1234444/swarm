@@ -792,11 +792,22 @@ def main():
     try:
         sess_sa_m = re.search(r"S(\d+)", session)
         if sess_sa_m:
-            stale_infra = check_stale_infrastructure(int(sess_sa_m.group(1)))
+            cur_s = int(sess_sa_m.group(1))
+            stale_infra = check_stale_infrastructure(cur_s)
             if stale_infra:
                 print(f"--- Self-application gap ({len(stale_infra)} components not evolved >50s) ---")
                 for si in stale_infra:
                     print(f"  \u2298 {si}")
+                # Emit actionable commands for top 3 stale tools (GAP-1 closure, L-561)
+                if len(stale_infra) >= 1:
+                    print(f"  Suggested (pick 1):")
+                    for si in stale_infra[:3]:
+                        tool_name = si.split("(")[0].strip().replace(" ", "-")
+                        print(f"    python3 tools/open_lane.py --lane EVOLVE-{tool_name}-S{cur_s}"
+                              f" --session S{cur_s}"
+                              f" --expect 'modernize-{tool_name}'"
+                              f" --artifact 'tools/{si.split('(')[0].strip()}'"
+                              f" --intent 'P14: evolve stale infrastructure'")
                 print()
     except Exception:
         pass
@@ -815,6 +826,13 @@ def main():
                 for sl in stale_lanes:
                     art_note = "✗ artifact missing" if not sl["has_artifact"] else "✓ artifact exists"
                     print(f"  ⚠ {sl['lane']} (S{sl['opened']}) — {art_note}")
+                # Emit close commands for stale lanes without artifacts (GAP-1, L-561)
+                closeable = [sl for sl in stale_lanes if not sl["has_artifact"]]
+                if closeable:
+                    print(f"  Close stale (no artifact):")
+                    for sl in closeable[:3]:
+                        print(f"    python3 tools/close_lane.py --lane {sl['lane']}"
+                              f" --status ABANDONED --note 'stale — no artifact produced'")
                 print()
     except Exception:
         pass
