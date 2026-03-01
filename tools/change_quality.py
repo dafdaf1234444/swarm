@@ -68,6 +68,12 @@ DOMEX_RE = re.compile(r'\bDOMEX\b', re.IGNORECASE)
 COUNCIL_RE = re.compile(r'\bcouncil\b', re.IGNORECASE)
 ISO_RE = re.compile(r'\bISO-\d+\b')
 
+# Non-lesson production signals (L-939: 25% of commits carry invisible production)
+LANE_CLOSE_RE = re.compile(r'\b(MERGED|ABANDONED|close_lane|close:)\b', re.IGNORECASE)
+TOOL_CHANGE_RE = re.compile(r'\btools/\S+\.py\b')
+CORRECTION_RE = re.compile(r'\b(correction|corrected|propagat|citation.*fix)\b', re.IGNORECASE)
+ARTIFACT_RE = re.compile(r'\bartifact|experiments/\S+\.json\b', re.IGNORECASE)
+
 QUALITY_LOG = Path(__file__).parent.parent / 'workspace' / 'change-quality-log.json'
 MAX_LOG_SESSIONS = 50
 
@@ -108,6 +114,10 @@ def extract_session_signals(commits):
         'domex_commits': 0,
         'council_commits': 0,
         'iso_refs': set(),
+        'lane_closures': 0,
+        'tool_changes': 0,
+        'corrections': 0,
+        'artifact_refs': 0,
         'msgs': [],
     })
 
@@ -135,6 +145,14 @@ def extract_session_signals(commits):
             d['council_commits'] += 1
         for iso in ISO_RE.findall(msg):
             d['iso_refs'].add(iso)
+        if LANE_CLOSE_RE.search(msg):
+            d['lane_closures'] += 1
+        if TOOL_CHANGE_RE.search(msg):
+            d['tool_changes'] += 1
+        if CORRECTION_RE.search(msg):
+            d['corrections'] += 1
+        if ARTIFACT_RE.search(msg):
+            d['artifact_refs'] += 1
         if OVERHEAD_RE.search(msg):
             d['overhead_commits'] += 1
         elif KNOWLEDGE_RE.search(msg):
@@ -179,6 +197,16 @@ def quality_score(sig):
     # Expert dispatch bonus (DOMEX/council are structured knowledge work)
     expert_bonus = min(2.0, domex * 0.3 + council * 0.4 + iso_count * 0.15)
     knowledge += expert_bonus
+
+    # Non-lesson production bonus (L-939: 25% of commits carry invisible production)
+    lane_closures = sig.get('lane_closures', 0)
+    tool_changes = sig.get('tool_changes', 0)
+    corrections = sig.get('corrections', 0)
+    artifact_refs = sig.get('artifact_refs', 0)
+    production_bonus = min(3.0,
+        tool_changes * 0.8 + lane_closures * 0.5 +
+        corrections * 0.3 + artifact_refs * 0.6)
+    knowledge += production_bonus
 
     # Focus penalty: overhead > 25% is waste (baseline ~18% observed)
     focus_multiplier = max(0.5, 1.0 - max(0, overhead_ratio - 0.10) * 2)
