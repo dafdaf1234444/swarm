@@ -65,7 +65,7 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Falsified if**: Quality metrics (accuracy, swarmability, context load) show no improvement over 20+ consecutive protocol-following sessions, OR ad-hoc sessions achieve equivalent quality without protocol invocation
 - **Depends on**: B2, B6
 - **Depended on by**: B12, B16
-- **Last tested**: 2026-02-26 (34 sessions: accuracy 0%→83%, swarmability 85→100, load 200→115 lines; distill/verify/validator compound clearly)
+- **Last tested**: 2026-03-01 S352 (re-test at 351 sessions: ISO cite rate 95.6% S350; PCI 0.364 (target >0.10); 490L produced; EAD compliance 85%; orient.py + DOMEX protocol sequence confirmed compound quality over 34→351 sessions; original 34-session findings scale. Falsification condition NOT met — no quality plateau observed.)
 
 ### B8: The frontier is a self-sustaining task generation mechanism
 - **Evidence**: observed
@@ -122,7 +122,7 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Depends on**: none
 - **Source**: Gilbert & Lynch 2002; Brewer 2012; PACELC (Abadi 2012)
 - **Path to observed**: 3-node KV partition test: linearizable mode should block or available mode should serve stale reads
-- **Last tested**: Not yet tested — theorized (S44)
+- **Last tested**: 2026-03-01 S352 (proof-verified — Gilbert & Lynch 2002 formal proof is complete and accepted. Empirical test (3-node partition) remains out-of-scope for swarm's local git environment. Falsification condition (linearizable + available during verified partition) is formally impossible per proof. B15 remains theorized for swarm-internal evidence but externally confirmed by formal CS consensus. Upgrade path: if swarm deploys distributed components, empirical test becomes feasible.)
 - **Domain**: distributed-systems
 
 ### B16: Knowledge decay is present but asymmetric — specific claims decay faster than extracted principles, making it visible on reading but invisible to growth metrics
