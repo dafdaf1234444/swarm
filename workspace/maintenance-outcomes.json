@@ -295,7 +295,7 @@
     },
     {
       "session": 416,
-      "timestamp": "2026-03-01T22:59:56Z",
+      "timestamp": "2026-03-01T23:02:09Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -363,7 +363,7 @@
         },
         "check_periodics": {
           "fired": true,
-          "count": 17,
+          "count": 15,
           "severities": [
             "PERIODIC",
             "PERIODIC",
@@ -375,10 +375,8 @@
             "PERIODIC",
             "PERIODIC",
             "PERIODIC",
-            "DUE",
             "PERIODIC",
             "PERIODIC",
-            "DUE",
             "PERIODIC",
             "PERIODIC",
             "PERIODIC"
@@ -391,15 +389,18 @@
         },
         "check_swarm_lanes": {
           "fired": true,
-          "count": 1,
+          "count": 2,
           "severities": [
-            "NOTICE"
+            "NOTICE",
+            "DUE"
           ]
         },
         "check_swarm_coordinator": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "DUE"
+          ]
         },
         "check_lane_reporting_quality": {
           "fired": false,
@@ -413,8 +414,9 @@
         },
         "check_uncommitted": {
           "fired": true,
-          "count": 1,
+          "count": 2,
           "severities": [
+            "NOTICE",
             "NOTICE"
           ]
         },
@@ -570,10 +572,17 @@
           "fired": false,
           "count": 0,
           "severities": []
+        },
+        "check_unpushed": {
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         }
       },
       "totals": {
-        "NOTICE": 14,
+        "NOTICE": 16,
         "PERIODIC": 15,
         "DUE": 2
       }

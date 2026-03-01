@@ -144,9 +144,9 @@
       "id": "expectation-calibration",
       "description": "Expectation calibration audit: run `python3 tools/expect_harvest.py --report` \u2014 check directional accuracy, bias types, and per-domain calibration. Act on systematic biases (sprint artifact anchoring, mechanism misidentification, underconfidence). Target: direction accuracy >75%, underconfidence ratio <5:1. (L-778, F-META12)",
       "cadence_sessions": 10,
-      "last_reviewed_session": 415,
+      "last_reviewed_session": 416,
       "registered_by": "S392",
-      "last_session": "S415"
+      "last_session": "S416"
     },
     {
       "id": "historian-repair",
