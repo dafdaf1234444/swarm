@@ -1,6 +1,6 @@
 # Fractals Domain — Frontier Questions
 Domain agent: write here for fractal-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-01 S403 | Active: 3
+Updated: 2026-03-01 S403 | Active: 2
 
 ## Active
 
