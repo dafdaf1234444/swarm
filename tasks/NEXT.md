@@ -1,10 +1,19 @@
+## S341 session note (council-science: PCI 0.000 + nk_null_model.py hub z=4.91 — "swarm can science swarm much better")
+- **check_mode**: objective | **lane**: COUNCIL-SCIENCE-S341 | **dispatch**: human signal ("swarm can science swarm much better council swarm the swarm")
+- **expect**: Council identifies 3+ methodology gaps; PCI < 0.05; NK null model z > 2 for hub structure
+- **actual**: CONFIRMED + exceeded. 5-domain council (evaluation, info-sci, NK, meta, statistics) diagnosed: 0% EAD compliance (worse than expected 22% — all lanes have actual=TBD), 40% unsupported claims, 0 pre-registered hypotheses, 99.4% unchallenged principles. PCI = 0.000 (EAD zeros product). NK null model: hub z=4.91, Gini z=2.61 — GENUINELY NON-RANDOM citation structure (first real statistical test). Council verdict: "The swarm has built the lab but hasn't run the experiments."
+- **diff**: PCI worse than expected (0.000 not 0.014 — the council's own estimate was too optimistic because it assumed some lanes had actual filled). NK better than expected (z=4.91 not ~2). L-495 from concurrent session converged independently on closed epistemic loop diagnosis.
+- **meta-swarm**: Building PCI that reads 0.000 and putting it in orient.py is the most honest thing this session produced. The number confronts every future session with the gap. But per L-495: this is still internal measurement of internal compliance — the real test is whether PCI drives external action (F-COMP1, F133).
+- **State**: 435L 168P 17B 38F | PCI=0.000 | NK null model DONE | L-498 | COUNCIL-SCIENCE-S341 MERGED
+- **Next**: (1) Fill actual+diff in active lanes to raise PCI above 0; (2) Pre-register 3 hypotheses with test_by tags; (3) Evidence-link enforcement in maintenance.py (Priority 1, score 81); (4) Primary-outcome field in experiment JSON schema
+
 ## S342 session note (mechanisms expert: 22 mechanisms cataloged, 14 swarm-grade, L-496, F-MECH1)
 - **check_mode**: objective | **lane**: DOMEX-MECH-S342 | **dispatch**: human signal ("mechanisms expert for the mechanisms used council swarm")
 - **expect**: 15-20 mechanisms cataloged with ISO mappings, operational status, and PHIL-17 mutual-swarming classification; gap analysis reveals 3+ structural needs
 - **actual**: CONFIRMED + exceeded. 22 mechanisms cataloged (vs 15-20 expected). 14 swarm-grade (orient→act→compress→handoff): dispatch, council, dream, lanes, EAD, colony, spawning, git, lessons, principles, beliefs, frontiers, compaction, atlas. 8 tool-grade: orient, substrate_detect, action recommender, check_modes, signaling, bulletins, maintenance, self_diff. 7 gaps identified (vs 3+ expected). 5 mutual-swarming pairs mapped. ISO-5 most instantiated (8/22). GAP-1 (diagnostic-execution bridge) is dominant structural weakness.
 - **diff**: More mechanisms than expected. Key finding not predicted: swarm-grade vs tool-grade maps to ISO-14 (fractal self-similarity). A mechanism IS a swarm when it contains the full cycle within itself. The upgrade path is always: add persistent state + outcome learning.
 - **meta-swarm**: The mechanisms taxonomy is itself a meta-mechanism — it makes the swarm's operational structure visible and classifiable. But per L-495 (concurrent session), cataloging internal mechanisms is exactly the kind of self-referential work the closed epistemic loop produces. The test: does F-MECH1 (upgrade tool→swarm) produce measurable improvement, or just more internal structure?
-- **State**: 432L 168P 17B 37F | L-496 | F-MECH1 OPEN | DOMEX-MECH-S342 MERGED
+- **State**: 433L 168P 17B 38F | L-496 | F-MECH1 OPEN | DOMEX-MECH-S342 MERGED
 - **Next**: (1) F-MECH1: upgrade maintenance to swarm-grade (add outcome tracking); (2) GAP-1: build periodic-to-lane auto-scheduler; (3) GAP-4: process first external correction (even synthetic); (4) Per L-495: prioritize one external-facing action (F120/F-COMP1/F133)
 
 ## S342 session note (honest self-reflection: closed epistemic loop diagnosed, L-495, P-213)
