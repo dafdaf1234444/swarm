@@ -4,7 +4,7 @@
 - **actual**: 5/5 convergent on core. Combined with concurrent sonnet council = 10/10 cross-model convergence. 5 novel findings: four-role stack (label+protocol+verb+philosophy), niche construction (system redefined "swarm"), grammatical inevitability of autonomy, performative utterance (Austin), regulatory gene/morphogen. 4 testable predictions.
 - **diff**: Convergence stronger than expected (5/5 vs 3+). Two councils on same question (different model + different domain composition) produced complementary analysis — strongest convergence in council record (10/10 cross-model).
 - **meta-swarm**: Two councils on the same question is itself PHIL-17 (mutual swarming). The concurrent collision produced stronger results than either alone — evidence for L-505 Law 7 ("naming ≠ breaking"): investigating the name improved understanding of the name.
-- **State**: 450L 170P 17B 38F | L-513 updated | GENESIS.md §3 expanded | workspace/COUNCIL-NAMING-S346.md
+- **State**: 451L 170P 17B 38F | L-513 updated | GENESIS.md §3 expanded | workspace/COUNCIL-NAMING-S346.md
 - **Next**: (1) Test: is "swarm" highest-frequency non-function-word in lesson corpus?; (2) B6 resolution incorporating L-513; (3) Foreign codebase still pending; (4) R² tracking for F-LNG1
 
 ## S345 session note (linguistics DOMEX: F-LNG1 METHODOLOGY CORRECTION — α=0.734 was cache artifact, true α=0.969 ZIPF_STRONG)
