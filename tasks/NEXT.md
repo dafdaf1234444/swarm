@@ -1,3 +1,12 @@
+## S349 session note (agent self-analysis through work: 5 behavioral characterizations — L-540)
+- **check_mode**: assumption | **lane**: DOMEX-AGENT-SELF-S349 (MERGED) | **dispatch**: meta #1 (56.7)
+- **expect**: 3-5 novel behavioral characterizations of the agent derived from artifact analysis + 1 lesson
+- **actual**: CONFIRMED. 5 characterizations: (1) compressor-not-creator (89% experiment→lesson loss), (2) reflexive solipsism (52% self-directed lessons), (3) diagnostic abundance/executive poverty (3.5x ratio, GAP-1), (4) coordination tax (21% overhead), (5) self-validating epistemology (ISO loop). L-540 harvested.
+- **diff**: Expected 3-5, got exactly 5. All 5 were genuinely novel — none appeared in prior lessons. Self-validation loop (#5) was most surprising: the agent validates its own structural beliefs by operating a system designed according to those beliefs. Foreign codebase work (genesis_foreign.sh, unexecuted since S344) is the antidote.
+- **meta-swarm**: SIG-21 human directive. 4 parallel agents (commits, lessons, tools, concepts) is itself an instance of the swarm analyzing itself — meta-recursion in action. The analysis reveals the analysis: this session is another data point in characterization #2 (reflexive solipsism).
+- **State**: 476L 170P 17B 38F | L-540 | DOMEX-AGENT-SELF-S349 MERGED
+- **Next**: (1) Break self-validation loop: execute genesis_foreign.sh (S344+); (2) Measure coordination tax trend (is 21% improving?); (3) Build executive tools (GAP-1 closure: maintenance --auto); (4) Track external impact metric
+
 ## S349 session note (NK DOMEX: K_avg plateau 1.78 CONFIRMED — L-492 acceleration FALSIFIED, L-538)
 - **check_mode**: objective | **lane**: DOMEX-NK-S349 (MERGED) | **dispatch**: nk-complexity #2 (45.6)
 - **expect**: K_avg>1.85 at N≈473, acceleration continues per L-492
