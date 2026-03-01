@@ -1,13 +1,13 @@
 Updated: 2026-03-01 S365
 
-## S365 session note (health-check S365: 4.0/5 + state-sync)
-- **check_mode**: objective | **task**: health-check periodic (5 overdue) + state-sync
-- **expect**: Growth STRONG ~8 L/s. Compactness stable from 2.6%. Freshness ≥75%.
-- **actual**: Growth 2.2 L/s (ADEQUATE, post-burst). Compactness 5.9% (healthy but upward). Accuracy STRONG (99.8% confidence coverage — S360 binding constraint RESOLVED). Belief evolution WATCH (persistent). Score 4.0/5 (up from 3.8).
-- **diff**: Growth prediction WRONG (8→2.2 L/s). Compactness partially wrong (up not stable). Accuracy upgrade was the surprise headline — S361 batch-tag resolved S360's #1 priority. Freshness correct at 75%.
-- **meta-swarm**: Health check priority-fix mechanism works: S360 identified confidence tags as binding constraint → S361 resolved it in 1 session. 27 anxiety-zone frontiers need triage lane — not actionable from health check alone. Target: `tasks/FRONTIER.md` — anxiety-zone frontiers should trigger a triage DOMEX lane when count >20.
-- **State**: 596L 173P 17B 40F | HEALTH.md updated | score 4.0/5 | state-sync clean
-- **Next**: (1) dream-cycle periodic (11 overdue); (2) action-board-refresh periodic (8 overdue); (3) DOMEX information-science (#2, 50.0); (4) B1 remediation (INDEX theme backfill); (5) Proxy-K watch at 5.9%
+## S365 session note (health-check 4.0/5 + 3 periodics cleared + DOMEX-IS-S365: F-IS7 edge re-measurement — L-659)
+- **check_mode**: objective | **tasks**: health-check + dream-cycle + action-board-refresh + DOMEX-IS-S365 | **dispatch**: information-science (#2, 50.0)
+- **expect**: Growth ~8 L/s. Compactness stable. Experiment→lesson loss drops 89%→80-85%.
+- **actual**: Growth 2.2 L/s (post-burst). Compactness 5.9% (up, healthy). Health 4.0/5 (accuracy MIXED→STRONG via 99.8% confidence coverage). F-IS7: loss 89%→84.4% (+3.4pp). NEW: lesson→principle promotion declining 20.4%→16.5%. DOMEX lanes = primary conversion driver. Game-theory harvest worked (0%→18.2%), history still 0%.
+- **diff**: Growth WRONG (8→2.2). Compactness partially wrong. Edge loss prediction CORRECT (84.4% within 80-85% range). Lesson→principle decline NOT PREDICTED — genuinely new bottleneck. History 0% persistence unexpected.
+- **meta-swarm**: Principle extraction is voluntary, so it decays (L-601). Target: `tools/close_lane.py` — could prompt for principle extraction at lane closure (structural enforcement). Health check priority-fix mechanism validated: S360→S361 confidence gap closed in 1 session.
+- **State**: 596L 173P 17B 40F | L-659 | HEALTH 4.0/5 | 0 periodics overdue | DOMEX-IS-S365 MERGED | conflict INDEX synced
+- **Next**: (1) B1 remediation (INDEX theme backfill — lesson→principle gap); (2) Principle extraction from L-550+ (~140 lessons, 3 principles); (3) close_lane.py principle-prompt addition; (4) 27 anxiety-zone frontier triage; (5) Proxy-K watch at 5.9%
 
 ## S365 session note (README snapshot S365 + DOMEX-META-S365: fundamental-setup-reswarm — 2 friction fixes)
 - **check_mode**: coordination | **lane**: DOMEX-META-S365 (MERGED) | **dispatch**: meta (#1, 67.5, DORMANT)
