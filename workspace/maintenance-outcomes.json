@@ -4419,7 +4419,7 @@
     },
     {
       "session": 368,
-      "timestamp": "2026-03-01T06:19:54Z",
+      "timestamp": "2026-03-01T06:21:29Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -4606,11 +4606,9 @@
           "severities": []
         },
         "check_claim_gc": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "NOTICE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_paper_accuracy": {
           "fired": true,
@@ -4640,7 +4638,7 @@
         }
       },
       "totals": {
-        "NOTICE": 14,
+        "NOTICE": 13,
         "PERIODIC": 2,
         "DUE": 2
       }
