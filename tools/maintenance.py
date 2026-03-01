@@ -1413,8 +1413,12 @@ def check_mission_constraints() -> list[tuple[str, str]]:
     if tracked_paths:
         knowledge_state_paths = {"tasks/NEXT.md", "memory/SESSION-LOG.md", "memory/INDEX.md",
             "tasks/FRONTIER.md", "memory/PRINCIPLES.md", "beliefs/CHALLENGES.md", "memory/HEALTH.md"}
-        has_lesson_delta = any(re.fullmatch(r"memory/lessons/L-\d+\.md", p) for p in tracked_paths)
-        if len(tracked_paths) >= 5 and not (has_lesson_delta or any(p in knowledge_state_paths for p in tracked_paths)):
+        # Exclude operational cache/log files — they accumulate between commits and are not session work
+        _cache_pats = (r"experiments/compact-.*-cache\.json", r"experiments/proxy-k-log\.json",
+                       r"workspace/maintenance-outcomes\.json", r"domains/.*/SESSION-TRIGGER\.md")
+        substantive = [p for p in tracked_paths if not any(re.fullmatch(cp, p) for cp in _cache_pats)]
+        has_lesson_delta = any(re.fullmatch(r"memory/lessons/L-\d+\.md", p) for p in substantive)
+        if len(substantive) >= 5 and not (has_lesson_delta or any(p in knowledge_state_paths for p in substantive)):
             results.append(("DUE", "F119 learning-quality gap: tracked deltas without knowledge-state update (NEXT/SESSION-LOG/INDEX/FRONTIER/PRINCIPLES/lessons)"))
 
     # I13 MC-XSUB: cross-substrate safety enforcement
