@@ -32,8 +32,7 @@ if _paper_drift is None:
 else:
     run_paper_drift_check = _paper_drift
 
-_parse_active_principle_ids = _load_symbol(("tools.swarm_parse", "swarm_parse"), "active_principle_ids")
-parse_active_principle_ids = _parse_active_principle_ids if _parse_active_principle_ids is not None else (lambda text: (set(), set()))
+_active_principle_ids = _load_symbol(("tools.swarm_parse", "swarm_parse"), "active_principle_ids") or (lambda text: (set(), set()))
 
 # Shared I/O utilities (L-476: deduplicate across 10+ tool files)
 _swarm_io = None
@@ -167,13 +166,6 @@ def _status_path(line: str) -> str:
         p = p[:2] + "/" + p[2:]
     return p
 
-def _tracked_changed_paths() -> list[str]:
-    status = _git("-c", "core.quotepath=false", "status", "--porcelain")
-    if not status:
-        return []
-    return [_status_path(line) for line in status.splitlines()
-            if line.rstrip() and line[:2] != "??"]
-
 if _swarm_io is not None:
     _read = _swarm_io.read_text
     _token_count = _swarm_io.token_count
@@ -211,10 +203,6 @@ else:
             git_max = 0
         return max(log_max, git_max)
 
-_active_principle_ids = parse_active_principle_ids
-
-def _resolve_repo_file_ref(ref: str) -> str | None:
-    return ref if "/" in ref else FILE_REF_ALIAS_MAP.get(ref)
 
 def _is_lane_placeholder(value: str) -> bool:
     return (value or "").strip().lower() in LANE_PLACEHOLDERS
@@ -651,9 +639,11 @@ def check_swarm_coordinator() -> list[tuple[str, str]]:
     coordinator_rows: list[tuple[dict[str, str], dict[str, str]]] = []
     for row in active:
         tags = _parse_lane_tags(row.get("etc", ""))
-        if _is_dispatch_lane_row(row, tags):
+        lane_low = (row.get("lane", "") or "").strip().lower()
+        if any(k in tags for k in ("dispatch", "slot", "wip_cap")) or re.search(r"(?:^|[-_/])(msw\d*|domex|slot)(?:$|[-_/])", lane_low):
             dispatch_rows.append((row, tags))
-        if _is_coordinator_lane_row(row, tags):
+        scope_low = (row.get("scope_key", "") or "").strip().lower()
+        if re.search(r"(?:^|[-_/])(coord|coordinator)(?:$|[-_/])", lane_low) or "coordinator" in scope_low or "tasks/swarm-lanes.md" in scope_low:
             coordinator_rows.append((row, tags))
 
     # Single dispatch lane can run without a dedicated coordinator row; fan-out swarms cannot.
@@ -1405,7 +1395,8 @@ def check_mission_constraints() -> list[tuple[str, str]]:
         if missing_artifacts:
             results.append(("DUE", f"F119 offline continuity artifacts missing: {_truncated(missing_artifacts)}"))
 
-    tracked_paths = _tracked_changed_paths()
+    _tc_status = _git("-c", "core.quotepath=false", "status", "--porcelain")
+    tracked_paths = [_status_path(l) for l in _tc_status.splitlines() if l.rstrip() and l[:2] != "??"] if _tc_status else []
     if tracked_paths:
         knowledge_state_paths = {"tasks/NEXT.md", "memory/SESSION-LOG.md", "memory/INDEX.md",
             "tasks/FRONTIER.md", "memory/PRINCIPLES.md", "beliefs/CHALLENGES.md", "memory/HEALTH.md"}
@@ -1516,6 +1507,21 @@ def check_proxy_k_drift() -> list[tuple[str, str]]:
                 floor_entry = _latest_clean
                 floor = _latest_clean["total"]
 
+    # If floor is very stale (>50 sessions), check dirty entries for more
+    # recent post-compaction baselines (where total decreased from prior).
+    # Prevents false URGENT signals from legitimate tool growth. (L-550)
+    _floor_s_post = int(floor_entry.get("session", 0) or 0)
+    if _cur_s > 0 and _floor_s_post > 0 and (_cur_s - _floor_s_post) > 50:
+        for i in range(len(schema_entries) - 1, 0, -1):
+            if schema_entries[i]["total"] < schema_entries[i - 1]["total"]:
+                _df = schema_entries[i]
+                _df_total = _df["total"]
+                _df_s = int(_df.get("session", 0) or 0)
+                if _df_total > floor and _df_s > _floor_s_post:
+                    floor_entry = _df
+                    floor = _df_total
+                break
+
     live_tiers: dict[str, int] = {}
     live_total = 0
     for tier, files in tiers.items():
@@ -1576,7 +1582,7 @@ def check_file_graph() -> list[tuple[str, str]]:
         if not text: continue
         for ref in re.findall(r"`([a-zA-Z][\w\-/]+\.(?:md|py|json|sh))`", text):
             if ref.startswith(("L-", "P-", "B-")): continue
-            resolved = _resolve_repo_file_ref(ref)
+            resolved = ref if "/" in ref else FILE_REF_ALIAS_MAP.get(ref)
             if not resolved: continue
             if not (REPO_ROOT / resolved).exists():
                 label = f"{sf.name}→{ref}" + (f" ({resolved})" if resolved != ref else "")

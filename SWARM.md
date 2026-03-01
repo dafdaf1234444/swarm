@@ -111,6 +111,7 @@ When you detect debt in fundamentals (protocols, bridge files, maintenance, coor
 - Do not stop at redirects.
 - Run: Plan -> Fan-out -> Collect -> apply one concrete cleanup.
 - If blocked, record blocker + next action in swarm state with evidence.
+- **New tools: use `tools/swarm_io.py`** for common operations: `session_number()`, `git_cmd()`, `read_text()`, `token_count()`. Do NOT reimplement these locally — 30+ tools have independent session-detection functions (L-550). Pattern: `try: from swarm_io import session_number except ImportError: [fallback]`.
 
 ## Challenge beliefs (F113)
 Any node can challenge any belief. If your findings contradict a belief, append a row to
