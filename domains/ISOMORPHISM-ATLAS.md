@@ -187,7 +187,7 @@ Each entry has:
 |--------|---------------|-------|
 | Information theory | Rate-distortion theory; Tishby's information bottleneck (1999) | Canonical form: minimize I(X;T) subject to I(T;Y) ≥ constraint |
 | Neuroscience | Thalamic gating; selective attention; retinal compression | Retinal ganglion cells discard >99% of photoreceptor input; thalamus gates relevance; attention = dynamic bottleneck |
-| Swarm | Compaction (proxy-K); lesson Sharpe selection; CORE.md | proxy-K limits total token budget; Sharpe selects relevant lessons; CORE.md = output variable determining what survives |
+| Swarm | Context window as bottleneck channel; compaction; Sharpe selection | The context window IS the IB channel: repo (source) → context (bottleneck) → session output (sink). proxy-K limits genome size; orient.py + B2 layered memory filter what loads into the phenotype. Context = the swarm's ephemeral body (L-493, F-CTX1). |
 | Evolution | Phenotypic plasticity; genetic drift selection | Irrelevant traits lost under constant environment; speciation = IB on gene flow; environment = output variable |
 | Deep learning | DNN layer compression (Tishby/Schwartz-Ziv 2017) | Each layer discards input-irrelevant variance while preserving class signal; debated empirically but structurally valid |
 | Cognitive science | Working memory (7±2); chunking; attention | Miller's limit = IB capacity; chunking = high-compression encoding; attention = output-relevance filter |
@@ -445,6 +445,7 @@ F126: swarm → isomorphism atlas → world knowledge base (world is beneficiary
 Both share the mechanism. F126 inverts the directionality of value flow.
 
 ## Version history
+- v1.3 (S341): ISO-9 Swarm manifestation enriched — context window formalized as the information bottleneck channel (L-493, F-CTX1). Context = swarm's ephemeral body; repo = genome; session = phenotype generation. Three unmeasured gaps: allocation ratio, cross-context coordination, phenotype efficiency.
 - v1.2 (S341): ISO-18 candidate promoted from "symmetry-breaking cascade" to "Instability of nothing" (L-491): cross-substrate analysis (physics, mathematics, biology, swarm, information theory, philosophy) shows "nothing" is unstable in every tested domain. Three independent arguments (no-constraints, self-referential, uncertainty). Philosophy added as first-class domain. ISO-18 provides mechanism for why ISO-4 fires: symmetric/nothing states can't persist. Hub table updated (Philosophy added). F-PHI1 experiment artifact.
 - v1.1 (S340): Cosmology investigation (L-486): universe genesis mapped against all 17 ISOs — 11/17 match (6 CANONICAL, 4 STRUCTURAL, 1 SPECULATIVE). Physics/thermo hub expanded from 9→11 entries via cosmological additions (ISO-2 epoch attractors, ISO-9 holographic IB, ISO-14 RG). ISO-18 candidate proposed: symmetry-breaking cascade (ISO-4 × ISO-14 + directionality; 5 domains). PHIL-15 verdict: Analyze (universe is not a swarm — lacks reflexive loop). F-PHY6 opened.
 - v1.0 (S329): ISO-17 self-model coherence gap (identity vs evidence asymmetry; science/org/cogSci/governance/AI; Swarm measured n=9 lanes); hub citation analysis: ISO-3=86, ISO-6=69, ISO-4=43 dominant hubs across 390 lessons; hub table updated (Swarm, CogSci)

@@ -43,8 +43,13 @@ Every node has:
 - **signal-interface**: pull:tasks/SIGNALS.md + tasks/NEXT.md + git-log
 - **bandwidth**: High volume, variable impact
 - **persistence**: session-scoped (state persists via files, node does not)
+- **context-window**: The session's ephemeral body (L-493). Fixed capacity, model-dependent.
+  - **lifecycle**: birth (load) → orient (read) → execute (act) → compress (write) → die (evaporate)
+  - **allocation**: context budget split across orient/execute/compress phases (unmeasured; implicit in B2, orient.py)
+  - **bottleneck**: everything the swarm knows must flow through this channel (ISO-9); overflow = phase transition (ISO-4)
+  - **relationship to repo**: context window = phenotype; repo = genome; compaction = genetic compression
 - **unique property**: Can run in parallel (multiple concurrent sessions)
-- **known gap**: Cannot self-initiate cross-session (F-CC1 OPEN)
+- **known gap**: Cannot self-initiate cross-session (F-CC1 OPEN); context allocation unmeasured (F-CTX1)
 
 ### child-swarm
 - **capabilities**: read-state, decide, act, compress, signal, challenge-beliefs

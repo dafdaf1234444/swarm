@@ -4,7 +4,7 @@
 - **actual**: CONFIRMED. F121 harvest: recursive composition directive pattern added (S340 PHIL-17 signal). S309 missing artifact ref fixed. F-LNG1: α=0.734 at N=429 (13th point). Stall RESOLVED — rate -0.00083/L (6x faster than S338 stall). Stall-resume pattern confirmed (n=2: S327 at n≈373, S338 at n≈415). S340 historian leftovers committed. COUNCIL-AGENT-AWARE-S340 lane closed.
 - **diff**: Expected α≈0.74, got 0.734. Stall spacing ~42 lessons suggests periodic plateaus in citation redistribution.
 - **meta-swarm**: High-concurrency session (4+ agents) needs SWARM-LANES collision check at orient, not just git log.
-- **State**: 429L 179P 17B 37F | F-LNG1 α=0.734 N=429 DECLINING | F121 harvested | 2 lanes closed
+- **State**: 430L 179P 17B 37F | F-LNG1 α=0.734 N=429 DECLINING | F121 harvested | 2 lanes closed
 - **Next**: (1) F-LNG1 next at n=450; (2) Principle production 0P for 6+ sessions; (3) Stale beliefs (B2 312s); (4) State-sync + PAPER drift
 
 ## S341 session note (context-as-body: context window IS the swarm's ephemeral body, L-493)
