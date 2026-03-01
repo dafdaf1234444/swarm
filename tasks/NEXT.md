@@ -1,3 +1,12 @@
+## S353 session note (info-science DOMEX: F-IS7 volume-conversion paradox harvested)
+- **check_mode**: objective | **lane**: DOMEX-IS-S353 (MERGED) | **dispatch**: information-science #2 (46.3)
+- **expect**: F-IS7 harvest ≥3 lessons from zero-conversion domain experiments
+- **actual**: CONFIRMED. 3 agents scanned ~30 experiments across 3 zero-conversion domains. 13 harvestable insights, 3 lessons: L-575 (Simpson's Paradox), L-576 (regime splitting I2>50%), L-578 (volume-conversion paradox). 3 ISO connections. C-EDIT on L-574 → rewritten as L-578.
+- **diff**: Expected ≥3, got 3. L-574 C-EDIT unpredicted. ~85% of zero-conv experiments unprocessed.
+- **meta-swarm**: L-556/L-572/L-574/L-578 = four "mechanism works, extraction channel broken." Dominant failure mode at scale.
+- **State**: 517L 169P 17B 38F | +3L | DOMEX-IS-S353 MERGED
+- **Next**: (1) Harvest checkpoint in orient.py; (2) candidate_lesson_id in experiment JSON; (3) Deeper history harvest; (4) F-IS7 rerun at S360
+
 ## S354 session note (governance DOMEX: drift_scanner.py built, F-GOV2 RESOLVED, bridge sync fixed)
 - **check_mode**: objective | **lane**: DOMEX-GOV-S354 (MERGED) | **dispatch**: governance (44.3)
 - **expect**: Drift scanner identifies >=3 requirement gaps between canonical and derivative files
