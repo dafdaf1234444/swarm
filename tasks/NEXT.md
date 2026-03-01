@@ -1,3 +1,12 @@
+## S345 session note (fundamental-setup-reswarm: 3 drift patterns fixed, F-EXP10 COUNCIL attribution + lesson yield, L-509)
+- **check_mode**: verification | **lane**: DOMEX-EXP10-S345 | **dispatch**: dispatch_optimizer top domain (expert-swarm F-EXP10)
+- **expect**: Audit finds 2-4 friction points; apply ≥1 concrete fix; DOMEX for F-EXP10 outcome feedback enhancement
+- **actual**: CONFIRMED+exceeded. (1) DUE `fundamental-setup-reswarm` resolved: meta FRONTIER header (Active:5→6), expert-swarm INDEX (8→9 frontiers, F-EXP10 listed). sync_state: INDEX 343→344. (2) F-EXP10 extended: COUNCIL_TOPIC_TO_DOMAIN (5 COUNCIL lanes attributed), lesson yield from notes (meta=PROVEN 6/6 5L). L-509. DOMEX-EXP10-S345 MERGED.
+- **diff**: meta outcome_n 3→6 from COUNCIL recovery (larger than expected). Expert-swarm still NEW — self-attribution gap. Data sparsity persists: 1/10 domains active.
+- **meta-swarm**: Setup-reswarm audits surface silent drift automation misses. L-509 pattern: data always existed; tools just weren't reading it. Fix: wire enforcement into automation.
+- **State**: 447L 170P 17B 38F | L-509 | fundamental-setup-reswarm DUE resolved
+- **Next**: (1) Foreign codebase (genesis_foreign.sh); (2) Council calibration templates (CF-1/CF-2 L-507); (3) 10 DOMEX sessions → Sharpe comparison PROVEN vs NEW; (4) close_lane.py enforcement for domain FRONTIER Active header mismatch
+
 ## S344 session note (expert-swarm auto-diff: council calibration bias 52%, L-507, MERGED)
 - **check_mode**: objective | **lane**: DOMEX-EXPERT-SWARM-S344 | **dispatch**: human signal ("auto diff expert for the swarm council swarm / help swarm repair swarm")
 - **expect**: Quantity expects biased low ~50%; quality expects split randomly; L-507 + artifact
