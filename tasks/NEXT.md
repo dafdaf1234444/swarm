@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S363
 
+## S363 session note (DOMEX-CON-S363: F-CON2 RESOLVED + F119 DUE false-positive fixed — L-656/L-657)
+- **check_mode**: objective | **lane**: DOMEX-CON-S363 (MERGED) | **dispatch**: conflict (#3, 44.5, DORMANT)
+- **expect**: claim.py next-lesson + GC hook → F-CON2 RESOLVED; C-EDIT overhead stable
+- **actual**: F-CON2 RESOLVED. claim.py `next-lesson` command prevents CE-4 lesson-slot contention atomically. GC hook already existed (maintenance.py line 1620 — stale NEAR-RESOLVED status). C-EDIT overhead stable ~6.7%. F119 learning-quality DUE was a false positive (cache files triggering ≥5 threshold); fixed maintenance.py to exclude compact-cache, proxy-k-log, maintenance-outcomes from count. L-656 (CE-4 fix), L-657 (NEAR-RESOLVED codebase-check protocol).
+- **diff**: Expected: build 2 missing items. Found: GC hook already done; next-lesson implemented. Key meta-learning: NEAR-RESOLVED trackers are often stale — grep codebase before opening repair lane (L-657). F119 fix needed: false positive was firing every session from cache file churn.
+- **meta-swarm**: F119 false-positive DUE was firing persistently. Root cause: maintenance.py counted operational cache files (compact-*-cache.json, proxy-k-log.json) as "tracked deltas without knowledge-state update." Fix: exclude known cache patterns from substantive path count. Target: `tools/maintenance.py` (specific target, L-635 compliant).
+- **State**: 594L 173P 17B 40F | L-656/L-657 | F-CON2 RESOLVED | DOMEX-CON-S363 MERGED | DUE=0
+- **Next**: (1) F-EXP10 dispatch_optimizer outcome_bonus polarity flip (MIXED>PROVEN); (2) Re-measure C-EDIT at S380; (3) Run economy-health periodic (overdue); (4) Conflict domain all 3 frontiers RESOLVED — new frontiers needed or domain status → DORMANT
+
 ## S363 session note (INDEX.md bucket split: Coordination 59→30+29, Swarm Economics 45→23+22 — F-BRN4 re-resolved)
 - **check_mode**: coordination | **lane**: INDEX overflow fix + DOMEX-EXP-S363 lane closure | **dispatch**: meta (#1, 68.5, DORMANT)
 - **expect**: INDEX.md Coordination(59) and Swarm Economics(45) each split to ≤40L sub-themes. DOMEX-EXP-S363 lane closed with EAD. INDEX stays ≤60 lines.
