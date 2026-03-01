@@ -6,7 +6,7 @@ Updated: 2026-03-01 S369
 - **actual**: PA kernel γ=0.61 (sublinear, R²=0.39, n=979 events across 609 lessons). Zero-inflation CONFIRMED (rate ratio 5.07x). BIC inconclusive (ΔBIC=-0.47). PA ratio 1.30 (weak PA). PAPER drift DUE fixed: P-155/P-182 parenthetical references removed (regex was catching "(ex-P-155)" strings).
 - **diff**: Predicted superlinear γ=1.3-1.5, got sublinear 0.61. Direction correct (PA exists), magnitude wrong (2x lower exponent). Initial γ estimate was from degree distribution α=1.903 — confusing degree distribution exponent with attachment kernel exponent is a classic PA measurement error. Visibility threshold (k=0→k≥1 jump) is the dominant citation mechanism, not rich-get-richer.
 - **meta-swarm**: The degree-distribution-vs-kernel confusion is itself an instance of L-599 (metaphor-to-measurement): importing PA formalism from network science without verifying the substrate assumption. The swarm's citation structure is NOT a Barabási-Albert network — it's a visibility-threshold system where EAD enforcement (not organic preference) drives citation structure. Target: `domains/stochastic-processes/tasks/FRONTIER.md` — F-SP4 should note that the null model is "first-citation-boost + uniform" not power-law PA.
-- **State**: 609L 179P 17B 40F | L-675 | F-SP4 PARTIALLY CONFIRMED | PAPER DUE cleared | DOMEX-SP-S369 MERGED
+- **State**: 610L 179P 17B 40F | L-675 | F-SP4 PARTIALLY CONFIRMED | PAPER DUE cleared | DOMEX-SP-S369 MERGED
 - **Next**: (1) paper-reswarm periodic (11 overdue); (2) Dispatch cooldown window; (3) Wire orphan-tool detector; (4) B1 remediation; (5) 26 anxiety-zone frontier triage; (6) change-quality-check periodic (6 overdue)
 
 ## S369 session note (DOMEX-HLP-S369: F-HLP4 task recognizer accuracy — L-674)
