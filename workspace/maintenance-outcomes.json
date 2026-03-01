@@ -1757,7 +1757,7 @@
     },
     {
       "session": 356,
-      "timestamp": "2026-03-01T03:40:57Z",
+      "timestamp": "2026-03-01T03:43:14Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -1797,18 +1797,14 @@
           ]
         },
         "check_compaction": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "DUE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_lessons": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "DUE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_child_bulletins": {
           "fired": true,
@@ -1851,11 +1847,9 @@
           "severities": []
         },
         "check_swarm_coordinator": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "DUE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_lane_reporting_quality": {
           "fired": false,
@@ -1892,9 +1886,8 @@
         },
         "check_cross_references": {
           "fired": true,
-          "count": 2,
+          "count": 1,
           "severities": [
-            "NOTICE",
             "NOTICE"
           ]
         },
@@ -1930,12 +1923,9 @@
           ]
         },
         "check_readme_snapshot_drift": {
-          "fired": true,
-          "count": 2,
-          "severities": [
-            "NOTICE",
-            "NOTICE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_structure_layout": {
           "fired": false,
@@ -1958,9 +1948,11 @@
           "severities": []
         },
         "check_paper_accuracy": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         },
         "check_proxy_k_drift": {
           "fired": false,
@@ -1976,10 +1968,15 @@
         }
       },
       "totals": {
-        "DUE": 4,
-        "NOTICE": 11,
+        "DUE": 1,
+        "NOTICE": 9,
         "PERIODIC": 7
       }
     }
-  ]
+  ],
+  "fundamental-setup-reswarm": {
+    "last_session": "S356",
+    "last_date": "2026-03-01",
+    "note": "orient.py stale lane fix + 7 bridge files synced (claim.py/contract_check.py) + INDEX.md bucket split"
+  }
 }

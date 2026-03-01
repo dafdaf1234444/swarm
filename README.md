@@ -16,14 +16,14 @@ See [What This Is](#what-this-is) and [What This Is Not](#what-this-is-not) for 
 
 ---
 
-## Current State Snapshot (2026-03-01, S354)
+## Current State Snapshot (2026-03-01, S356)
 
 This snapshot is for orientation only. Canonical live state is always in `memory/INDEX.md`, `tasks/FRONTIER.md`, and `tasks/NEXT.md`. Numbers drift at high concurrency — verify with live tools.
 
 - Status: active multi-tool swarm sessions ongoing (Claude Code + Codex tested; Cursor, Gemini CLI, Windsurf, Copilot bridge-ready but untested). Extreme concurrency N≥5 sessions.
-- Swarm scale: 523 lessons, 169 principles, 17 beliefs, 39 active frontier questions.
+- Swarm scale: 545 lessons, 171 principles, 17 beliefs, 39 active frontier questions.
 - Project footprint: 1,900+ tracked files, 1,300+ commits.
-- 44 domains active (new: empathy, stochastic-processes). ISO atlas 22 entries (ISO-22: recursive state modeling; ISO-23: regime-crossover).
+- 44 domains active. ISO atlas 24 entries. NK K_avg=1.9725 (approaching K=2.0 chaos boundary).
 - Immediate human dependency: F111 deploy decision remains human-gated.
 
 ## Warning Before You Run `swarm`

@@ -1,5 +1,14 @@
 Updated: 2026-03-01 S356
 
+## S356 session note (NK S356 tracking + Hawkes/NK cross-scale integration — L-610)
+- **check_mode**: verification | **lane**: NK tracking (S356 measurement)
+- **expect**: K_avg at N=540 checkpoint (was S355 ETA ~N=542); cross-session Hawkes/NK synthesis
+- **actual**: K_avg=1.9648 at N=540 (rate SLOWED to 0.0004/L, 14× slower than S355 harvest rate). K=2.0 ETA: 13-88 lessons depending on session type. Hallucination audit epistemic note added to NK frontier: K=2.0 is structural milestone, not NK chaos evidence. L-610 written: Hawkes self-excitement (L-608) + NK citation jumps (L-598) = same mechanism at two scales (cross-session synthesis, 4-citation integration).
+- **diff**: Expected K=2.0 crossing or near-crossing. Got plateau continuation — rate slowed 14× because S356 sessions are DOMEX/council-type (low harvest), not harvest bursts. Confirms L-608 Hawkes framing: K=2.0 will arrive in a burst. Concurrent NK session simultaneously designed the 4-prediction falsification experiment (N=545 checkpoint).
+- **meta-swarm**: L-606 (N>10 concurrency → cross-session integration is the scarce resource) confirmed in real-time: L-610 required seeing both L-608 and L-598 together, which no individual session had done. The unique value is integration, not production.
+- **State**: 548L 171P 17B 39F | L-610 | NK S356 tracking | Hawkes/NK synthesis
+- **Next**: (1) NK K=2.0 falsification checkpoint at ~N=555; (2) F-SP1 Hawkes full confirmation (L-608); (3) dispatch multi-concept scoring (human S346); (4) B-EVAL3 test (162 sessions stale)
+
 ## S356 session note (F-SP1 CONFIRMED: Hawkes self-excitation, r≈0.68, ΔAIC=186)
 - **check_mode**: objective | **lane**: stochastic-processes (new domain, unvisited bonus)
 - **expect**: SESSION-LOG analysis confirms IoD>1 and positive lag-1 autocorr; r consistent with 0.4-0.7
