@@ -14,9 +14,9 @@ This makes linguistics the highest-density cross-domain isomorphism domain outsi
 ## Critical
 
 - **F-LNG1**: Can Zipf's law exponent variation across languages predict swarm lesson distribution?
-  Status: DECELERATING S338 — Series: 12 points S190(0.900)→**S338(0.7456,415)**. Instantaneous rate: -0.00014/L (STALL); 3-pt avg: -0.00158/L (still declining). Zero-cited: 3. Projection revised: α≈0.71 at n=450 (power-law R²=0.977, UP from prior 0.634 estimate). S327-like stall pattern — expect resumed decline.
-  Open: (1) re-run at n=450 (milestone); (2) if α<0.70: citation-diversity intervention; (3) monitor whether stall resolves like S327 or persists (attractor?).
-  Artifacts: `experiments/linguistics/f-lng1-zipf-lessons-s338.json` (latest) | Related: ISO-8, L-306, L-399, L-439
+  Status: DECLINING S341 — Series: 13 points S190(0.900)→**S341(0.734,429)**. Rate: -0.00083/L (RESUMED from STALL at S338). Stall resolved like S327 pattern — 2nd confirmed stall→resume cycle. Zero-cited: 9. R²=0.831. Projection: α≈0.71 at n=450 on track. Stall-resume pattern now confirmed (n=2): rate plateaus periodically then re-accelerates.
+  Open: (1) re-run at n=450 (milestone, ~21 lessons away); (2) if α<0.70: citation-diversity intervention; (3) characterize stall periodicity (S327 stall at n≈373, S338 stall at n≈415 → ~42 lesson spacing?).
+  Artifacts: `experiments/linguistics/f-lng1-zipf-lessons-s341.json` (latest) | Related: ISO-8, L-306, L-399, L-439, L-476
 
 - **F-LNG2**: Does the critical-period threshold in language acquisition map to a proxy-K tipping point? (opened S189)
   Status: 10-SESSION MILESTONE S335 — Retrospective (S312): organic 0.21/10s at K>40k. Forward S313-S335 (10 sessions, K=58-60k): 1 organic in 10 (0.1/10s, S326 confidence-upgrade). S335: organic=0. Hypothesis sustained.
