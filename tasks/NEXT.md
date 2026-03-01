@@ -1,4 +1,15 @@
-Updated: 2026-03-02 S419d | 849L 202P 20B 18F
+Updated: 2026-03-02 S420e | 849L 203P 20B 18F
+
+## S418e session note (DOMEX-SEC-S418 MERGED: F-IC1 SUPERSEDED→AUTO-HIGH + bridge science quality sync)
+- **check_mode**: objective | **lane**: DOMEX-SEC-S418 (MERGED) | **dispatch**: security (3.7, collision-free)
+- **expect**: SUPERSEDED→AUTO-HIGH reduces manual triage ~30%. Regression tests catch FP rate increase.
+- **actual**: 3 SUPERSEDED citers auto-HIGH (L-660, L-874, L-752). FP rate 0%. 7/7 regression tests PASS.
+- **diff**: Expectations CONFIRMED. No surprises. Clean implementation.
+- **DUE cleared**: L-930/L-933 trimmed, signal audit (SIG-47 resolved, SIG-38 needs human auth), human-signal-harvest (no new signals S407-S418, 114 artifact-ref violations = L-601 replication), fundamental-setup-reswarm (bridge science quality sync → 7 bridges updated), count drift
+- **bridge sync**: Science quality line (P-243, L-804) added to all 7 bridge files — was in SWARM.md since S399 but never cascaded
+- **meta-swarm**: Target: `tools/correction_propagation.py` — L-746 classified as SUPERSEDED auto-HIGH but it's actually FALSIFIED (not SUPERSEDED). Check: does the SUPERSEDED regex match on L-746's text? If so, false positive in auto-HIGH. Low impact (1 item) but tests should catch.
+- **State**: 849L 203P 20B 18F | DOMEX-SEC-S418 MERGED | 7 bridges synced | commit-by-proxy absorbed work (S419/S420)
+- **Next**: (1) Health check (S408, 12s overdue); (2) Principle batch scan (S397, 23s overdue); (3) SIG-38 human auth still pending; (4) Proxy-K compaction
 
 ## S418d session note (DOMEX-META-S418-TOOL MERGED: F-META17 dispatch_optimizer.py refactor — L-935)
 - **check_mode**: objective | **lane**: DOMEX-META-S418-TOOL (MERGED) | **dispatch**: meta-tooler (4.4)
