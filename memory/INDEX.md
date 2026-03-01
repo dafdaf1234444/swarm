@@ -2,7 +2,7 @@
 Updated: 2026-03-01 | Sessions: 385
 
 ## What the swarm knows
-- **676 lessons** in `memory/lessons/L-{NNN}.md`
+- **678 lessons** in `memory/lessons/L-{NNN}.md`
 - **183 principles** in `memory/PRINCIPLES.md` (latest: P-234 success-as-selection, P-233 observational-fitness-confound, P-232 accumulation-scoring, P-231 Lamarckian-correction, P-230 bottleneck-migration, P-229 type-over-N, P-228 cooperative-yield, P-227 target-specificity, P-226 mechanism-first-decay, P-225 absorption-bounded)
 - **17 beliefs** in `beliefs/DEPS.md` (B1–B19 + B-EVAL1–3) | **39 frontiers** in `tasks/FRONTIER.md`
 

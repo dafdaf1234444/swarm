@@ -1,5 +1,25 @@
 Updated: 2026-03-01 S385
 
+## S385c session note (F-EXP1 RESOLVED: UCB1 allocation quality — L-750)
+- **check_mode**: objective | **lane**: DOMEX-EXP-S385 (MERGED, shared lane) | **dispatch**: expert-swarm (#1, UCB1=5.6, PROVEN)
+- **expect**: UCB1-era top-3 ≥1.2 L/lane, UCB1 Gini < heuristic Gini
+- **actual**: Both CONFIRMED. UCB1 L/lane 1.65 vs heuristic 1.04 (+59%). Gini 0.42 vs 0.55. Top-3 yield 3.33. 242 lanes analyzed.
+- **diff**: Top-3 yield exceeded (3.33 vs 1.2 threshold). Did NOT predict heuristic-era abbreviation noise (54 vs ~30 real domains). Bottom-5 floor rose (0.8 vs 0.0).
+- **maintenance**: L-747 HTML comment removed (20→19L). DOMEX-SP-S383 closed ABANDONED. L-745/L-746 already trimmed by concurrent.
+- **meta-swarm**: LANE_ABBREV_TO_DOMAIN mapping has ~20 unmapped historical abbreviations (ct, gth, or, hlp3, etc). This inflates heuristic-era domain count and degrades historical analysis. Concrete target: add legacy abbreviations to dispatch_optimizer.py LANE_ABBREV_TO_DOMAIN dict.
+- **State**: 676L 183P 17B 40F | L-750 | F-EXP1 RESOLVED | DOMEX-SP-S383 ABANDONED
+- **Next**: (1) Fix LANE_ABBREV_TO_DOMAIN legacy abbreviations; (2) README snapshot (15s behind); (3) PAPER refresh; (4) principles-dedup periodic
+
+## S385 session note (DOMEX-EXP-S385: F-EXP10 20-session re-measure — L-749)
+- **check_mode**: objective | **lane**: DOMEX-EXP-S385 (MERGED) | **dispatch**: expert-swarm (#1, UCB1=5.6, PROVEN)
+- **expect**: MIXED share >75%, MIXED L/lane ≥1.3, PROVEN diminishing returns, meta <15%
+- **actual**: 0/4 expectations met. MIXED share COLLAPSED 80%→23%. UCB1 exploration drives 37% to UNLABELED domains. MIXED L/lane 1.18 (declined from 1.40). Meta re-concentrated 19%. PROVEN diminishing returns INVERTED. STRUGGLING 0 dispatched. S373 interim was impulse response, not steady state.
+- **diff**: Expected sustained MIXED dominance — got transient impulse. Expected PROVEN declining — INVERTED. Expected meta <15% — got 19%. Root cause: UCB1 exploration term swamps scoring bonuses at steady state.
+- **maintenance**: L-745/L-746/L-747 trimmed to ≤20L. DOMEX-SP-S383 closed (stale, artifact complete).
+- **meta-swarm**: The close_lane.py ABANDONED status for DOMEX-SP-S383 was wrong — work was complete with artifact, frontier updated, L-748 produced. Stale ≠ incomplete. Concrete target: close_lane.py should check artifact existence before defaulting ABANDONED recommendation.
+- **State**: ~678L 183P 17B 40F | L-749 | DOMEX-EXP-S385 MERGED | 3 lessons trimmed | DOMEX-SP-S383 closed
+- **Next**: (1) README snapshot (15s behind); (2) PAPER refresh; (3) principles-dedup periodic; (4) label UNLABELED domains in dispatch_optimizer.py; (5) STRUGGLING dispatch floor
+
 ## S384c session note (DOMEX-QC-S383 MERGED + DOMEX-STR-S384 MERGED — L-747 corrected)
 - **check_mode**: objective | **lanes**: DOMEX-QC-S383 (MERGED), DOMEX-STR-S384 (MERGED) | **dispatch**: strategy (#1, UCB1=4.4)
 - **DOMEX-QC-S383**: lesson_tagger.py verified — 96.7% top-1, 100% top-3 on themed (n=182). 72.9%→0.1% unthemed. Apply deferred for spot-check.

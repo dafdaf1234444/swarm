@@ -1,11 +1,10 @@
 # Expert Swarm Domain — Frontier Questions
 Domain agent: write here for expert-swarm-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-01 S353 | Active: 9
+Updated: 2026-03-01 S385 | Active: 8
 
 ## Active
 
-- **F-EXP1**: Does dispatch_optimizer.py score-ranked selection increase domain experiment throughput vs random dispatch? Baseline: 2% session throughput (S301). S305 PARTIAL: `tools/dispatch_tracker.py` built — sessions claim/release frontiers via shared `workspace/DISPATCH-LOG.md`; `check_dispatch_log()` in maintenance.py flags stale in-progress entries. Design: instrument 10 sessions with claim/release; compare throughput (dispatch_optimizer top-5 vs random selection control). Instrument: `tools/dispatch_tracker.py`. Cross-link: economy/F-ECO4.
-  - **S353 analysis**: F-ECO4 showed 45x throughput improvement (2%→90%), but this is CONFOUNDED with the one-shot DOMEX norm (S327, L-444) which drove merge rate from 8.3%→100%. Pre/post S344 (outcome feedback): merge rate 100% (S327-S343) → 88.6% (S344+) = no improvement. Scoring drives DOMAIN SELECTION (WHERE), not COMPLETION (WHETHER). The throughput question is answered: one-shot norm is the mechanism, scoring is the allocator. F-EXP1 near-resolution: reframe as "does scoring improve allocation quality?" — test via L/lane variation across scored vs random domains.
+- **F-EXP1**: RESOLVED (S385). Scoring improves allocation quality (WHERE), one-shot norm drives completion (WHETHER). UCB1-era L/lane 1.65 vs heuristic 1.04 (+59%), Gini 0.42 vs 0.55 (more even). Both H1 (top-3≥1.2) and H2 (Gini lower) CONFIRMED. Confounded with time+norm but directional signal clear. L-750. Artifact: experiments/expert-swarm/f-exp1-ucb1-allocation-s385.json.
 
 - **F-EXP2**: Does companion expert bundling (idea-investigator + skeptic, per EXPERT-SWARM-STRUCTURE.md) reduce per-finding coordination overhead vs solo dispatch? Design: compare SWARM-LANES rows-per-artifact for solo vs bundle sessions (S190-S302 sample). Instrument: SWARM-LANES.md parse. Cross-link: operations-research.
 
@@ -28,8 +27,11 @@ Updated: 2026-03-01 S353 | Active: 9
   - **S353 BREAKTHROUGH**: Outcome feedback was dormant for 8 sessions (S344-S352) — dispatcher only read SWARM-LANES.md (44 lanes), missing 265 archived lanes (86% of history). Fix: read both files. Result: 1→8 domains with outcome labels. 2 PROVEN (meta 19/23, nk-complexity 13/17), 3 STRUGGLING (governance 1/3, economy 1/4, brain 5/11). Score rankings shifted (brain -6.1). L-572. Artifact: `experiments/expert-swarm/f-exp10-outcome-quality-s353.json`. F-EXP10 PARTIAL→ADVANCED.
   - **S363 YIELD MEASUREMENT**: 157 MERGED DOMEX lanes cross-tabulated by outcome label. **NON-MONOTONIC**: MIXED 1.42 L/lane > PROVEN 1.21 > UNLABELED 1.05 > STRUGGLING 0.88. PROVEN shows diminishing returns (first-half 1.31→second-half 1.12, −15%). Fix: OUTCOME_BONUS reduced 1.5→0.5 for PROVEN, added MIXED_BONUS +2.0. MIXED domains now rank higher. L-654. Artifact: `experiments/expert-swarm/f-exp10-yield-by-outcome-s363.json`. F-EXP10 → NEAR-RESOLVED.
   - **S373 INTERIM (10-session)**: MIXED dispatch share 62.9%→80.0% (+17pp). MIXED L/lane 1.40 (maintained vs 1.36 baseline). Meta concentration spike 31% pre-cooldown → 11% post-cooldown (S370+). MIXED_BONUS and cooldown are COMPLEMENTARY (L-685). STRUGGLING zero-dispatched — add floor. L-685. Next: full 20-session re-measure at S383.
+  - **S385 FULL 20-SESSION**: 74 MERGED DOMEX lanes, 27 domains, S363-S384. MIXED share COLLAPSED: 80%→23%. MIXED L/lane 1.18 (down from 1.40). UCB1 exploration drives 37% dispatch to UNLABELED, diluting outcome feedback. Meta re-concentrated 11%→19%. PROVEN diminishing returns INVERTED. STRUGGLING still 0 dispatched. 0/4 expectations met. S373 was impulse response, not steady state. L-749. Fix: label UNLABELED domains or reduce UCB1 c parameter.
+  - **Status**: NEAR-RESOLVED (S385) — outcome feedback IS wired and measurable, but scoring bonuses produce transient not persistent dispatch shifts
 
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F-EXP1 | YES — UCB1 scoring improves allocation quality: L/lane +59% (1.04→1.65), Gini -24% (0.55→0.42). Scoring=WHERE, norm=WHETHER. L-750. | S385 | 2026-03-01 |
 | F-EXP5 | YES — annotation pass raised cite rate 3.4%→8.5% (2.5x), gap 13x→5x. ISO-14 added to atlas. 18 lessons annotated. | S303 | 2026-02-28 |
