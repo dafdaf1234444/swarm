@@ -30,8 +30,10 @@ Updated: 2026-03-01 | Sessions: S186, S352
 
 ## What's open
 - **F-CTL1**: Observer staleness identified as binding constraint (S352). Next: monitor dual-observer fix over 10+ sessions; rerun threshold sweep only after stable baseline established.
-- **F-CTL2**: PARTIALLY RESOLVED S402. Diff-to-lesson lag=0 sessions (98.4%, n=63). S186 floor=1.0 was proxy artifact. Remaining: diff-to-behavioral-change lag (structural, >=1 session). L-854.
 - **F-CTL3**: closed-loop 2.5x quality confirmed (S186). Next: explicit closed-loop markers to reduce classification ambiguity.
+
+## Partially resolved
+- **F-CTL2**: PARTIALLY RESOLVED S402. Diff-to-lesson lag=0 (98.4%, n=63); S186 floor=1.0 was proxy artifact. Remaining: diff-to-behavioral-change lag (structural, >=1 session). L-854.
 
 ## Control-theory links to current principles
 P-182 (expect-act-diff loop) | P-163 (non-homeostatic growth dynamics) | P-197 (session quality dimensions)

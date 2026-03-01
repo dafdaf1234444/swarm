@@ -5,7 +5,7 @@ Updated: 2026-02-27 | Sessions: 186
 - **Seed evidence base**: protocol drift, contract-adoption checks, and bridge parity signals already exist in `tools/maintenance.py`, `tools/f_gam3_signal_contract.py`, and `tools/f_evo3_cadence.py`.
 - **Core structural pattern**: swarm quality depends on protocol contracts being explicit, measurable, and stable enough to survive multi-tool execution.
 - **Automability dependency**: automation reliability is bounded by contract completeness; free-form updates reduce machine-dispatchability and increase manual coordination load.
-- **Active frontiers**: 1 active domain frontier in `domains/protocol-engineering/tasks/FRONTIER.md` (F-PRO1). F-PRO2 PARTIALLY RESOLVED S402 (optimal band FALSIFIED, L-857). F-PRO3 RESOLVED S402 (bridge parity 92.9%, L-855).
+- **Active frontiers**: 2 active domain frontiers in `domains/protocol-engineering/tasks/FRONTIER.md` (F-PRO1, F-PRO2). F-PRO3 RESOLVED S402 (bridge parity 92.9%, L-855).
 - **Cross-domain role**: protocol engineering is the reliability substrate for all domain lanes and bridges.
 
 ## Lesson themes
@@ -28,8 +28,10 @@ Updated: 2026-02-27 | Sessions: 186
 
 ## What's open
 - **F-PRO1**: quantify lane/intake protocol adoption, regression risk, and automability coverage.
-- **F-PRO2**: PARTIALLY RESOLVED S402. Optimal band FALSIFIED — mutations are reactive/trailing indicators, not tunable. L-857.
-- **F-PRO3**: RESOLVED S402. Bridge parity 42.9%→92.9%. L-855.
+- **F-PRO2**: optimal mutation band FALSIFIED (monotone positive, era-confounded). Remaining: classify mutation triggers for prescriptive value. L-857.
+
+## Resolved
+- **F-PRO3**: RESOLVED S402. Bridge parity 42.9%→92.9% (+50pp). L-855.
 
 ## Protocol-engineering links to current principles
 P-002 (single protocol source) | P-175 (enforcement tiers) | P-191 (enforcement audit mode)
