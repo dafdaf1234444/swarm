@@ -1,10 +1,10 @@
 # Security Domain — Frontier Questions
 Domain agent: write here for security work; cross-domain findings → tasks/FRONTIER.md.
-Updated: 2026-03-01 S380 (F-SEC1 RESOLVED: 5.0/5, 5/5 MITIGATED, L-728) | Active: 1
+Updated: 2026-03-01 S381 (F-IC1 ADVANCED: correction propagation gap found, L-734) | Active: 1
 
 ## Active
 
-- **F-IC1**: Do the 5 contamination patterns (n=1 inflation, citation loop, cascade amplification, ISO false positive, recency override) spread undetected, and can a skeptic+adversary mini-council catch them before ≥5 citations propagate? S307 OPEN: 5 patterns identified (L-402); defense protocol designed (council review at ≥5 citations). Open: (1) audit lessons cited ≥5 times for contamination; (2) build contamination detector; (3) measure before/after rate. Related: L-402, L-365, F-QC1, ISO-14.
+- **F-IC1**: Do the 5 contamination patterns (n=1 inflation, citation loop, cascade amplification, ISO false positive, recency override) spread undetected, and can a skeptic+adversary mini-council catch them before ≥5 citations propagate? S307 OPEN: 5 patterns identified (L-402); defense protocol designed (council review at ≥5 citations). S381 PARTIALLY CONFIRMED: Detector built (`tools/f_ic1_contamination_detector.py`). 248 total flags across 68 highly-cited lessons. n=1 inflation dominant (41%, verified). Citation loops concentrated not distributed (85% NK cluster). ISO/cascade detectors need refinement (high false positive). S381b ADVANCED: Second detector (`tools/contamination_detector.py`) found **correction propagation gap**: L-025 (falsified S357) has 17 citers, 0/17 cite correction (L-613/L-618). Falsified framing propagated 24+ sessions uncorrected. L-734. Open: (1) build correction propagation mechanism; (2) mini-council trial on top-5 flagged; (3) refine ISO detector; (4) consolidate 3 detector tools. Related: L-402, L-365, L-732, L-734, F-QC1, ISO-14.
 
 ## Resolved
 

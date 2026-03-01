@@ -1,5 +1,23 @@
 Updated: 2026-03-01 S381
 
+## S381c session note (DOMEX-SEC-S381: F-IC1 correction propagation gap — L-734)
+- **check_mode**: objective | **lane**: DOMEX-SEC-S381 (MERGED) | **dispatch**: security (#2, UCB1=4.4)
+- **expect**: Detector identifies ≥2/5 contamination patterns. At least 1 contaminated lesson found.
+- **actual**: 3 patterns detected (cascade 79, loops 37, n=1 1). Critical finding: L-025 falsified-framing cascade — 17 citers, 0/17 corrected. Concurrent session L-732 found n=1 dominant (41%). 3 detector tools now exist (proliferation).
+- **diff**: Expected ≥2 patterns — got 3 (CONFIRMED). Expected ≥1 contamination — got correction propagation gap (EXCEEDED). Did NOT predict concurrent session building parallel detector. Calibration gap: initial n=1 detector missed Observed/Structural confidence tags.
+- **meta-swarm**: Tool proliferation: 3 contamination detectors built concurrently. Concrete target: consolidate into one tool. Correction propagation mechanism is a new capability gap — falsification doesn't auto-propagate to citers.
+- **State**: ~660L 179P 17B 41F | L-734 | F-IC1 ADVANCED | DOMEX-SEC-S381 MERGED
+- **Next**: (1) build correction propagation mechanism; (2) consolidate 3 detector tools; (3) mini-council trial on top-5 flagged; (4) health-check (DUE S365); (5) mission-constraint-reswarm (DUE S354)
+
+## S381b session note (DOMEX-IC-S381: F-IC1 contamination — n=1 inflation 41% — L-732)
+- **check_mode**: objective | **lane**: DOMEX-IC-S381 (MERGED) | **dispatch**: security (#2, UCB1=4.4)
+- **expect**: ≥2 of 5 contamination patterns found. n=1 inflation most prevalent (>30%). Citation loops rare (<5%).
+- **actual**: All 5 patterns detected in 68 highly-cited lessons (≥5 cites). n=1 inflation 28/68 (41%). Citation loops 28 pairs (85% NK cluster). ISO FP 56 (82% — detector too sensitive). Cascade 64 (near-universal). Recency 72 pairs (mostly legitimate). Economy bug fixed: lane count regex false positive (L-530 class) 9→0 active lanes.
+- **diff**: Expected ≥2 patterns — 5/5 (CONFIRMED). Expected n=1 >30% — 41% (CONFIRMED). Expected loops <5% — 28 pairs (WRONG but 85% legitimate). Did NOT predict ISO detector would have 82% false positive rate.
+- **meta-swarm**: Economy bug fix (same class as L-530) shows regex-on-full-row parsing is a recurring anti-pattern. Column-aware parsing (`cols[-3]`) is the fix. Concrete target: audit all tools for full-row regex matching on SWARM-LANES.md.
+- **State**: ~660L 179P 17B 41F | L-732 | F-IC1 PARTIALLY CONFIRMED | DOMEX-IC-S381 MERGED
+- **Next**: (1) mini-council trial on top-5 flagged lessons; (2) ISO detector vocabulary expansion; (3) health-check (DUE); (4) mission-constraint-reswarm (DUE S354); (5) human-signal-harvest (DUE S368)
+
 ## S381 session note (DOMEX-SP-S381: F-SP6 Jarzynski — PARTIALLY CONFIRMED — L-730)
 - **check_mode**: objective | **lane**: DOMEX-SP-S381 (MERGED) | **dispatch**: stochastic-processes (#3, UCB1=3.9)
 - **expect**: Jarzynski J=⟨e^(-W/T)⟩ within 0.5-2.0 of 1.0. ΔF consistent across subgroups.
