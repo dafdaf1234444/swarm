@@ -30,6 +30,22 @@ HEAT_PENALTY_MAX = 6.0  # max score penalty for hot domains
 DORMANT_BONUS = 3.0  # bonus for domains untouched >5 sessions
 SELF_DISPATCH_INTERVAL = 10  # expert-swarm must dispatch to itself every N sessions (L-501 P6)
 
+# Outcome feedback (F-EXP10, L-501 P1): reward consistently productive domains.
+# Closes PHIL-2 self-application gap — expert dispatch learns from its own outcomes.
+LANE_ABBREV_TO_DOMAIN = {
+    "NK": "nk-complexity", "LNG": "linguistics", "EXP": "expert-swarm",
+    "STAT": "statistics", "PHI": "philosophy", "CTX": "meta", "MECH": "meta",
+    "FLD": "fluid-dynamics", "BRN": "brain", "HLP": "helper-swarm",
+    "ECO": "economy", "PHY": "physics", "SCI": "evaluation", "EVO": "philosophy",
+    "DNA": "meta", "IS": "information-science", "HS": "human-systems",
+    "COMP": "competitions", "INFO": "information-science",
+}
+OUTCOME_MIN_N = 3          # minimum completed lanes before feedback kicks in
+OUTCOME_SUCCESS_THRESHOLD = 0.75  # MERGED rate above which domain is PROVEN
+OUTCOME_FAILURE_THRESHOLD = 0.50  # MERGED rate below which domain is STRUGGLING
+OUTCOME_BONUS = 1.5        # score bonus for PROVEN domains
+OUTCOME_PENALTY = 1.0      # score penalty for STRUGGLING domains
+
 
 def _get_domain_heat() -> dict[str, int]:
     """Parse SWARM-LANES.md to find the most recent session each domain was active.
@@ -87,6 +103,47 @@ def _get_claimed_domains() -> set[str]:
     except Exception:
         pass
     return set()
+
+
+def _get_domain_outcomes() -> dict[str, dict]:
+    """Parse SWARM-LANES.md for MERGED/ABANDONED counts per domain (F-EXP10).
+
+    Returns {domain_name: {"merged": int, "abandoned": int}}.
+    Outcome feedback: reward proven domains, flag struggling ones.
+    """
+    outcomes: dict[str, dict] = {}
+    if not LANES_FILE.exists():
+        return outcomes
+    content = LANES_FILE.read_text()
+    for line in content.splitlines():
+        if not line.startswith("|") or line.startswith("| ---") or line.startswith("| Date"):
+            continue
+        cols = [c.strip() for c in line.split("|")]
+        if len(cols) < 12:
+            continue
+        lane_id = cols[2] if len(cols) > 2 else ""
+        status = cols[11] if len(cols) > 11 else ""
+        if status not in ("MERGED", "ABANDONED"):
+            continue
+
+        # Try domain from DOMEX lane name: DOMEX-ABBREV-SN
+        domain = None
+        m = re.match(r"DOMEX-([A-Z]+)", lane_id)
+        if m:
+            domain = LANE_ABBREV_TO_DOMAIN.get(m.group(1))
+
+        # Fallback: focus= field (skip if "global")
+        if not domain:
+            etc = cols[10] if len(cols) > 10 else ""
+            fm = re.search(r"focus=(?:domains/)?([a-z0-9-]+)", etc)
+            if fm and fm.group(1) not in ("global", ""):
+                domain = fm.group(1)
+
+        if domain:
+            if domain not in outcomes:
+                outcomes[domain] = {"merged": 0, "abandoned": 0}
+            outcomes[domain]["merged" if status == "MERGED" else "abandoned"] += 1
+    return outcomes
 
 
 def score_domain(domain: str) -> dict | None:
@@ -177,6 +234,7 @@ def run(args: argparse.Namespace) -> None:
     current_session = _get_current_session()
     heat_map = _get_domain_heat()
     claimed = _get_claimed_domains()
+    outcome_map = _get_domain_outcomes()
     sparse_domains = []
     saturated_domains = []
 
@@ -215,6 +273,27 @@ def run(args: argparse.Namespace) -> None:
         else:
             r["claimed"] = False
 
+        # Outcome feedback (F-EXP10): adjust score based on historical lane success
+        oc = outcome_map.get(dom, {"merged": 0, "abandoned": 0})
+        n = oc["merged"] + oc["abandoned"]
+        r["outcome_merged"] = oc["merged"]
+        r["outcome_abandoned"] = oc["abandoned"]
+        r["outcome_n"] = n
+        if n >= OUTCOME_MIN_N:
+            rate = oc["merged"] / n
+            r["outcome_rate"] = round(rate, 2)
+            if rate >= OUTCOME_SUCCESS_THRESHOLD:
+                r["score"] += OUTCOME_BONUS
+                r["outcome_label"] = "PROVEN"
+            elif rate < OUTCOME_FAILURE_THRESHOLD:
+                r["score"] -= OUTCOME_PENALTY
+                r["outcome_label"] = "STRUGGLING"
+            else:
+                r["outcome_label"] = "MIXED"
+        else:
+            r["outcome_rate"] = None
+            r["outcome_label"] = "NEW"
+
     results.sort(key=lambda x: x["score"], reverse=True)
 
     if not args.all and not args.domain:
@@ -244,9 +323,12 @@ def run(args: argparse.Namespace) -> None:
     for r in results:
         heat_icon = {"HOT": "🔥", "WARM": "~", "COLD": "❄"}.get(r.get("heat", ""), " ")
         claimed_mark = " [CLAIMED]" if r.get("claimed") else (" [SELF-DUE]" if r.get("self_dispatch_due") else "")
+        label = r.get("outcome_label", "NEW")
+        n = r.get("outcome_n", 0)
+        outcome_tag = f" [{label} {r['outcome_merged']}/{n}]" if n >= OUTCOME_MIN_N else ""
         print(
             f"{r['score']:6.1f}  {r['domain']:<28}  {r['active']:6d}  "
-            f"{r['resolved']:8d}  {r['iso']:4d}  {r['experiments']:5d}  {heat_icon:>4}{claimed_mark}"
+            f"{r['resolved']:8d}  {r['iso']:4d}  {r['experiments']:5d}  {heat_icon:>4}{claimed_mark}{outcome_tag}"
         )
         if r["top_frontier"]:
             print(f"         → {r['top_frontier'][:72]}")
@@ -254,6 +336,8 @@ def run(args: argparse.Namespace) -> None:
     print("\n--- Scoring formula ---")
     print("  score = iso*3 + resolved*2 + active*1.5 + novelty_bonus(2) + has_index(1)")
     print(f"  + dormant_bonus(+{DORMANT_BONUS} if >5 sessions cold) - heat_penalty(up to -{HEAT_PENALTY_MAX} if <3 sessions)")
+    print(f"  + outcome_bonus(+{OUTCOME_BONUS} PROVEN: ≥{OUTCOME_MIN_N} lanes, rate≥{OUTCOME_SUCCESS_THRESHOLD})")
+    print(f"  - outcome_penalty(-{OUTCOME_PENALTY} STRUGGLING: ≥{OUTCOME_MIN_N} lanes, rate<{OUTCOME_FAILURE_THRESHOLD})")
     print(f"  Heat map: {len(saturated_domains)} HOT, {len(sparse_domains)} COLD, {len(claimed)} claimed")
     print(f"\n  Showing {'all' if args.all else 'top 10'} of {len(results)} domains with open work.")
 
