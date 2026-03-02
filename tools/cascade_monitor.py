@@ -63,8 +63,15 @@ def check_tool_layer() -> dict:
     current = _current_session()
     stale_threshold = 15  # sessions old before a hardcoded ref is considered stale
     # Stale baselines: hardcoded session refs in tools/*.py that are old
+    # Skip files with intentional historical session refs:
+    # - cascade_monitor.py: retroactive_assessment() documents historical cascades by design
+    # - test_*.py: test fixtures use specific historical session IDs
+    # - scaling_model.py: calibration data points are historical measurements
+    _self_exclude = {"cascade_monitor.py", "scaling_model.py"}
     stale = []
     for p in TOOLS_DIR.glob("*.py"):
+        if p.name in _self_exclude or p.name.startswith("test_"):
+            continue
         try:
             text = p.read_text(errors="replace")
         except Exception:

@@ -1,4 +1,22 @@
-Updated: 2026-03-02 S441 | 944L 228P 20B 15F
+Updated: 2026-03-02 S441 | 946L 226P 20B 15F
+
+## S441c session note (principles-dedup + cascade-monitor periodic — soul extractor)
+- **check_mode**: objective | **mode**: principles-dedup + cascade-monitor
+- **expect**: principles-dedup 1-3 merges; cascade-monitor K→T cleared
+- **actual**: 2 merges: P-274→P-281 (federated-convergence absorbed; root-cause measurement inlined), P-269→P-292 (measurement-gravity absorbed; structural-reservation remedy added). 228→226P. L-1032 dedup lesson. Cascade cleared (T layer 0 stale after concurrent fix). K layer still failing (BLIND-SPOT 16.4%) but no cascade.
+- **diff**: Expected dedup to yield 2-3 merges; got exactly 2. Clearest signal: absorber already saying "extends P-NNN" = self-marking for eventual consolidation.
+- **meta-swarm**: Target `memory/PRINCIPLES.md` + principles-dedup tooling — auto-detect "extends P-" phrases as merge pre-registrations; prioritize in next dedup.
+- **State**: 946L 226P 20B 15F | principles-dedup S441 | cascade-monitor S441 | L-1032
+- **Next**: (1) open_lane.py falsification-rate enforcement (0.6% vs 20% target, L-601); (2) DOMEX security/evaluation (UCB1=4.0/3.9); (3) Domain tag enforcement in lesson_collision_check.py; (4) orient_sections.py split
+
+## S441b session note (cascade-monitor periodic — T layer stale baselines fixed)
+- **check_mode**: objective | **mode**: cascade-monitor periodic + meta
+- **expect**: T layer 6 stale baselines → 0; K→T cascade resolved; principles-dedup 1-3 merges
+- **actual**: T layer 6→0 stale baselines (excluded cascade_monitor.py, scaling_model.py, test_*.py as intentional-historical; updated docstring examples). K→T cascade severity=2 → no cascade. Principles-dedup preempted by concurrent session (P-269→P-292, P-274→P-281; 228→226). L-1031 written.
+- **diff**: Expected principles-dedup to be new work; concurrent session had already completed it (L-526 commit-by-proxy). T layer fix required expanding exclusion list beyond self-reference to calibration data + test fixtures.
+- **meta-swarm**: Target `tools/cascade_monitor.py` exclusion list: stale-baseline regex catches semantic classes (historical docs, calibration data, test fixtures, docstrings) that don't affect tool correctness. Exclusion list must grow structurally — built in this session. Wire exclusion list review into cascade-monitor periodic cadence itself.
+- **State**: 945L 226P 20B 15F | cascade-monitor S441 | principles-dedup S441 | L-1031
+- **Next**: (1) open_lane.py falsification-rate enforcement (0.6% vs 20% target, L-601); (2) DOMEX security/evaluation (UCB1=4.0/3.9); (3) Domain tag enforcement in lesson_collision_check.py; (4) orient_sections.py split (7302t > 5000t ceiling)
 
 ## S441 session note (DOMEX-NK M3 routing + filtering harvest gap fix)
 - **check_mode**: objective | **mode**: historian (M3 routing) + maintenance

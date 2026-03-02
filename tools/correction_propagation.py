@@ -360,7 +360,7 @@ def _find_correction_gaps(
     return sorted(gaps, key=lambda g: -g["uncorrected_count"])
 
 
-def run_analysis(session: str = "S393", classify: bool = True) -> dict:
+def run_analysis(session: str = "S000", classify: bool = True) -> dict:
     """Run full correction propagation analysis."""
     lessons = _parse_lessons()
     cited_by = _build_citation_graph(lessons)
@@ -453,7 +453,7 @@ if __name__ == "__main__":
     classify = "--no-classify" not in sys.argv  # always-on by default (L-904)
 
     # Auto-detect session from git log
-    session = "S393"
+    session = "S000"
     try:
         import subprocess
         log = subprocess.run(

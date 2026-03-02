@@ -33,7 +33,7 @@ LESSONS_DIR = REPO_ROOT / "memory" / "lessons"
 
 
 def extract_session_number(filename: str) -> int:
-    """Extract session number from filename like f-str1-hardening-s393.json."""
+    """Extract session number from filename like f-str1-hardening-sNNN.json."""
     m = re.search(r"[sS](\d+)", filename)
     return int(m.group(1)) if m else 0
 

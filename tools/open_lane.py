@@ -7,11 +7,11 @@ addressing the F-META1 finding that evidence fields (22% compliance
 at S328) must be embedded at lane open, not only at closure.
 
 Usage:
-  python3 tools/open_lane.py --lane DOMEX-BRN-S331 --session S331 \\
+  python3 tools/open_lane.py --lane DOMEX-BRN-SXXX --session SXXX \\
       --frontier F-BRN2 --focus domains/brain \\
       --intent "F-BRN2 predictive coding audit" \\
       --expect "pred-coding-50-70%-operational" \\
-      --artifact "experiments/brain/f-brn2-audit-s331.json"
+      --artifact "experiments/brain/f-brn2-audit-sXXX.json"
 """
 
 import argparse
