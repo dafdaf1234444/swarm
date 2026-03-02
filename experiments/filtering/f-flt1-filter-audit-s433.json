@@ -5,8 +5,8 @@
     "domain": "filtering",
     "date": "2026-03-02",
     "expect": "9 swarm filters identified, >=6 with measured FPR/FNR, 1 novel cross-layer prediction",
-    "actual": "14 filters identified across 6 layers, 7 with measured selectivity, 1 novel cascade prediction (retention != accessibility)",
-    "diff": "Exceeded filter count (14 vs 9). Met selectivity target (7 vs 6). Novel prediction: BLIND-SPOT 16.1% dominates aggregate FNR, not compaction 0%. Filter cascade shows retention (knowledge layer) and accessibility (attention layer) are independent — 0% loss at one can coexist with 16.1% invisibility at another.",
+    "actual": "105 filters identified across 6 layers (comprehensive audit: Context=7, Knowledge=8, Attention=19, Quality=42, Temporal=17, Epistemic=12). 11 with quantified selectivity, 7 with partial measurement. 87 (82.9%) have no quantified selectivity. Quality layer dominates (40% of all filters). 1 novel cascade prediction (retention != accessibility). Context layer has zero measured filters despite being most impactful.",
+    "diff": "Exceeded filter count 11.7x (105 vs 9). Exceeded selectivity target (11 vs 6). Comprehensive audit reveals Quality layer dominance (42/105=40%), Context layer measurement gap (0/7 measured), and filter cascade vulnerability. Novel: cross-layer failure propagation (L-556 example) is unmeasured and unmonitored.",
     "filter_inventory": {
         "context_filters": [
             {
