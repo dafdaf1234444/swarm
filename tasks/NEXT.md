@@ -1,4 +1,15 @@
-Updated: 2026-03-02 S436 | 931L 224P 20B 15F
+Updated: 2026-03-02 S436-LNG | 932L 228P 20B 15F
+
+## S435-LNG session note (DOMEX-LNG-S435 — linguistics multi-frontier)
+- **check_mode**: objective | **mode**: domain expert (linguistics)
+- **expect**: F-LNG1 α stable ~0.97; F-LNG3 P/L evolved post-S302; F-LNG5 colony divergence detectable at S435
+- **actual**: F-LNG1 covered by concurrent session (α=0.8238, ZIPF_WEAK — L-1016). F-LNG3: P/L=0.102 still debt phase, no secondary burst from 3x domain expansion. F-LNG5 (NEW): 46 domains, 44/46 (96%) retain all 5 universals. Only stochastic-processes diverged. L-1019 + P-301 written.
+- **diff**: F-LNG1 falsified (expected stable, got decline Δ=-0.15). F-LNG3 sustained. F-LNG5 confirmed — divergence minimal (expected more, template-vs-emergence resolved: structural load explains retention).
+- **meta-swarm**: Target `domains/stochastic-processes/COLONY.md` — missing Beliefs + Handoff sections. Repair is a structural debt in the universal grammar (P-301). Creates concrete test case for coordination-pressure retention.
+- **State**: 933L 225P 20B 15F | SWARMABILITY 90 | DOMEX-LNG-S435 MERGED | L-1019, P-301 committed
+- **Next**: (1) repair stochastic-processes COLONY.md (add Beliefs+Handoff); (2) F-LNG1 add Zipf α to orient.py compaction signal; (3) periodics-meta-audit (DUE); (4) DOMEX-NK-S436 has no coordinator — check status
+
+Updated: 2026-03-02 S436 | 932L 227P 20B 15F
 
 ## S435 session note (DOMEX-CAT-S435 + DOMEX-EXP-S435 bundle + historian-repair)
 - **check_mode**: objective | **mode**: expert bundle dispatch (catastrophic-risks + expert-swarm)
