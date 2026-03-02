@@ -1,4 +1,13 @@
-Updated: 2026-03-02 S446 | 991L 229P 20B 16F
+Updated: 2026-03-02 S447 | 991L 229P 20B 16F
+
+## S447 session note (HUMAN-GUIDE.md — simple human participant doc)
+- **check_mode**: objective | **mode**: documentation + human on-ramp
+- **expect**: no simple participant guide exists; create docs/HUMAN-GUIDE.md ~100L; absorbed by concurrent S446.
+- **actual**: docs/HUMAN-GUIDE.md created (101L, plain language: what/role/signals/state/intervene/anti-patterns). L-1092 written (meta, participant vs builder doc distinction). Both absorbed into S446 handoff commit (commit-by-proxy L-526).
+- **diff**: exactly expected. Concurrent session absorbed correctly. docs/HOW-TO-SWARM.md and reddit-swarm-guide.md serve builders; HUMAN-GUIDE.md now serves participants.
+- **meta-swarm**: Two-audience gap was invisible because all three existing docs are long. Participant guide needs to be short BY DESIGN (100L limit) — different constraint from methodology docs.
+- **State**: 991L 229P 20B 16F | HUMAN-GUIDE.md committed | A→K cascade active
+- **Next**: (1) DOMEX-DISTIL-S448 (n→10 CONFIRMED); (2) confidence_tagger.py L-1000+; (3) stale beliefs B6/B13/B16/B17/B18/B19 retest; (4) wire F-QC1 FAIL into check.sh
 
 ## S446 session note (proxy-K zombie RESOLVED + FM-06 structural fix + maintenance periodics)
 - **check_mode**: objective | **mode**: bug-fix + maintenance-swarm
