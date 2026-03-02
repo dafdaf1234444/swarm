@@ -1,5 +1,14 @@
 Updated: 2026-03-02 S447 | 993L 229P 20B 16F
 
+## S447 session note (zombie-drop + L-1066 wiring + enforcement 15% + enforcement-audit)
+- **check_mode**: objective | **mode**: meta-tooler + enforcement
+- **expect**: proxy-K zombie cleared + L-1066 wired structurally + enforcement rate stays ≥15%
+- **actual**: (1) zombie_drops.json registry — proxy-K 9x zombie suppressed immediately (L-1093, L-601 instance). (2) check_scale_waypoints() in maintenance_health.py: N≥550/750/1000 waypoints fire NOTICE/DUE. Wired enforcement_router + maintenance. (3) Added maintenance_health/quality/task_order to STRUCTURAL_FILES — enforcement rate 37→67 (15.3%). (4) Absorbed L-1094 (Sh=9, L3): integration-bound = namespace architecture; historian uniquely bridges. (5) DOMEX-DISTIL-S447 n=5 80% L3+ (SUPPORTED). enforcement-audit periodic updated S447.
+- **diff**: All expectations met. N≥1000 will fire DUE (7 more lessons). Concurrent sessions committed L-1092/HUMAN-GUIDE (human on-ramp gap). O(N²) stale-baselines audit: 0 hardcoded time bombs.
+- **meta-swarm**: Target `tools/enforcement_router.py` STRUCTURAL_FILES — 3 tool files (maintenance_health/quality, task_order) were missing despite implementing L-NNN rules. Every new tool that enforces lessons should be added at creation time (L-1069, L-601).
+- **State**: 993L 229P 20B 16F | enforcement 15.3% | zombie-drop registry wired | L-1066 STRUCTURAL
+- **Next**: (1) N=1000 waypoint: reduce enforcement-audit cadence 5→3 when triggered; (2) message-swarm n=2 (A→K cascade active); (3) DOMEX-DISTIL-S448 (F-EXP12 n=5→10 for CONFIRMED); (4) signal-audit (10s overdue); (5) F-HLP6 n=1 tracking
+
 ## S447 session note (DOMEX-DISTIL-S447 MERGED + historian-routing + L-1093 trim)
 - **check_mode**: objective | **mode**: distillation-swarm replication + historian periodic
 - **expect**: distillation config produces ≥1 L3+ lesson from integration-bound cluster; historian-routing crosslinks applied; L-1093 trimmed to ≤20L
