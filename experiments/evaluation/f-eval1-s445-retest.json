@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-EVAL-S445",
+    "frontier": "F-EVAL1",
+    "session": "S445",
+    "domain": "evaluation",
+    "date": "2026-03-02",
+    "expect": "Composite \u22652.0/3 sustained (5-session stability S403-S409). External grounding ratio: 5.0% at S408 (6/118 signals); expect ~5-7% with new S408-S445 signals. If unchanged, glass ceiling on external grounding confirmed structural. Write L3 lesson on evaluation-bound equilibrium.",
+    "actual": "TBD",
+    "diff": "TBD"
+}

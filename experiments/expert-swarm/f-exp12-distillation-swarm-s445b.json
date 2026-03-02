@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-DISTIL-S445",
+    "frontier": "F-EXP12",
+    "session": "S445",
+    "domain": "expert-swarm",
+    "date": "2026-03-02",
+    "expect": "Distillation config (synthesizer personality, L3+ target) produces \u22651 L3+ lesson. Falsifiable: if lesson produced is L2, abstraction-level routing failed this session. Baseline: 2.0% L3+ standard sessions (L-895); S444 n=2: 100%.",
+    "actual": "TBD",
+    "diff": "TBD"
+}

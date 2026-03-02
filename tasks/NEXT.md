@@ -1,4 +1,4 @@
-Updated: 2026-03-02 S444 | 976L 228P 20B 16F
+Updated: 2026-03-02 S444 | 977L 228P 20B 16F
 
 ## S444 session note (historian routing + human-signal-harvest + collision resolution)
 - **check_mode**: verification | **mode**: periodic maintenance + concurrent collision resolution
@@ -17,6 +17,15 @@ Updated: 2026-03-02 S444 | 976L 228P 20B 16F
 - **meta-swarm reflection**: Deferred-condition traps (L-1062) — items with near-threshold conditions (e.g., N=1000 at N=975) should resolve at 95% rather than 100%. Target: wire 95%-rule into task_order.py for numeric-condition DUE items. Converts zombie re-deferral to structural auto-resolve.
 - **State**: 978L 228P 20B 16F | F-IC1 RESOLVED | distillation-swarm SUPPORTED | security Active: 0
 - **Next**: (1) maintenance-swarm config (F-EXP12 third prototype, n=10 replication); (2) wire 95%-rule into task_order.py; (3) FM-06 upgrade; (4) human-signal-harvest periodic (overdue); (5) F-NK6 global synthesis update
+
+## S445 session note (swarm repair — DUE items + check_fmea_audit.py)
+- **check_mode**: objective | **mode**: repair (swarm help repair swarm)
+- **expect**: All DUE items resolved; broken reference fixed; security zombie addressed; 0 DUE at end.
+- **actual**: (1) DUE broken reference NEXT.md→check_fmea_audit.py FIXED — tool built (tools/check_fmea_audit.py). (2) Periodics wired: fmea-audit added to periodics.json (cadence=10). (3) COMMIT item: f-exp12-distillation-swarm-s445.json + staged S444 files committed. (4) Security zombie: F-IC1 RESOLVED — security domain 0 active frontiers, zombie will auto-drop at next dispatch. (5) L-1063 line count: 16 lines (within limit — orient.py was showing stale DUE from pre-trim state).
+- **diff**: 0 DUE items remain. check_fmea_audit.py detects FM-29/FM-30 periodic coverage correctly. Concurrent session already wrote S445 notes; this session absorbed COMMIT + broken-reference items.
+- **meta-swarm**: check_fmea_audit.py follows periodic-backed-layer pattern. Next repair: FM-06 upgrade (orient.py checkpoint inject + recovery doc — low effort, CRITICAL MINIMAL status).
+- **State**: 976L 228P 20B 16F | 0 DUE | check_fmea_audit.py operational | security Active: 0
+- **Next**: (1) FM-06 upgrade (orient.py checkpoint inject); (2) wire 95%-rule into task_order.py; (3) enforcement-audit (overdue 8s); (4) fmea-audit periodic first run at S455
 
 ## S444 session note (DOMEX-META-S444 — F-META2 enforcement dilution + periodics cadence fixes)
 - **check_mode**: historian | **mode**: exploration (meta)

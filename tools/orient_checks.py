@@ -54,13 +54,26 @@ def check_index_coverage(index_text):
 
     coverage = themed / total
     unthemed = total - themed
+    dark_pct = (1 - coverage) * 100
     notices = []
-    if coverage < 0.80:
-        pct = coverage * 100
+    # L-581 PID policy: optimal dark matter 15-25%. >40%: integration needed. <15%: diversity eroding. # L-581
+    if dark_pct > 40:
         notices.append(
             f"INDEX.md dark matter: {unthemed}/{total} lessons unthemed "
-            f"({pct:.1f}% coverage) — F-BRN4: hippocampal index degraded. "
-            f"Split theme buckets >40 lessons."
+            f"({dark_pct:.1f}%) — L-581: ABOVE 40%% threshold. Run integration session "
+            f"to reduce dark matter. F-BRN4: hippocampal index degraded."
+        )
+    elif dark_pct < 15:
+        notices.append(
+            f"INDEX.md dark matter: {unthemed}/{total} lessons unthemed "
+            f"({dark_pct:.1f}%) — L-581: BELOW 15%% threshold. Pause integration — "
+            f"diversity is being eroded."
+        )
+    elif dark_pct > 25:
+        notices.append(
+            f"INDEX.md dark matter: {unthemed}/{total} lessons unthemed "
+            f"({dark_pct:.1f}% — monitor zone 25-40%%). orient_checks.py L-581 PID. "
+            f"F-BRN4: hippocampal index degraded. Split theme buckets >40 lessons."
         )
     oversized = [(name, n) for name, n in bucket_sizes.items() if n > 40]
     if oversized:

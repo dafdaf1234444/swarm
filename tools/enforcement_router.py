@@ -247,6 +247,11 @@ def main() -> None:
         "--actionable-only", action="store_true",
         help="Filter ASPIRATIONAL output to actionable prescriptions only (L-875)"
     )
+    parser.add_argument(
+        "--top-wirable", action="store_true",
+        help="Show top 5 ASPIRATIONAL Sharpe>=8 lessons ordered by wirability score "
+             "with concrete wiring targets (tool file + missing feature). S444 meta-swarm target."
+    )
     args = parser.parse_args()
 
     lessons_dir = REPO_ROOT / "memory" / "lessons"
@@ -356,6 +361,34 @@ def main() -> None:
                 print(f"    missing: {miss}")
     else:
         print("\nNo high-Sharpe aspirational prescriptions found.")
+
+    if args.top_wirable:
+        # S444 meta-swarm: output top-5 high-Sharpe ASPIRATIONAL ordered by wirability score
+        # so sessions can execute wiring directly without a separate audit step.
+        candidates = sorted(
+            [r for r in high_sharpe_asp],
+            key=lambda x: (-x["wirability"]["score"], -x["sharpe"])
+        )[:5]
+        print("\n=== TOP WIRABLE (Sharpe>=8, sorted by wirability score) ===")
+        for r in candidates:
+            w = r["wirability"]
+            act_tag = "[ACT]" if r["actionable"] else "[OBS]"
+            print(f"\n  {r['lesson']} Sh={r['sharpe']} W{w['score']}/3 {act_tag} ({r['domain']})")
+            print(f"  Rule: {r['rule'][:90]}")
+            if w["missing"]:
+                print(f"  Missing features: {', '.join(w['missing'])}")
+                hints = []
+                if "tool_target" in w["missing"]:
+                    hints.append("Add tool file reference (e.g. 'orient_checks.py') to Rule section")
+                if "metric_threshold" in w["missing"]:
+                    hints.append("Add concrete numeric threshold to Rule section")
+                if "lesson_grounding" in w["missing"]:
+                    hints.append("Add L-NNN citation to Rule section")
+                for h in hints:
+                    print(f"  → {h}")
+            else:
+                print(f"  → All features present. Wire by adding # L-{r['lesson'].split('-')[1]} to target tool.")
+        return
 
     if aspirational:
         print(

@@ -235,6 +235,15 @@
       "registered_by": "S441",
       "last_session": "S441",
       "last_date": "2026-03-02"
+    },
+    {
+      "id": "fmea-audit",
+      "description": "FMEA periodic coverage audit: run `python3 tools/check_fmea_audit.py --verbose` \u2014 cross-check periodics.json against FMEA defense layers. Detects undercounted periodic-backed layers (FM-30 case: cascade-monitor periodic S436 missed by S441 manual auditor). Report upgrade candidates. L-601: manual auditors miss pre-existing periodic registrations. (Built S445, L-1063 meta-target).",
+      "cadence_sessions": 10,
+      "last_reviewed_session": 445,
+      "registered_by": "S445",
+      "last_session": "S445",
+      "last_date": "2026-03-02"
     }
   ]
 }
