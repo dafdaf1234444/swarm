@@ -13,7 +13,7 @@ Each trigger row: `| ID | condition | urgency | state | last_checked | auto_acti
 ## Active Triggers
 | ID | Condition | Urgency | State | Last Checked | Auto Action |
 |----|-----------|---------|-------|--------------|-------------|
-| T1-STALE-LANE | ACTIVE lane opened >3 sessions ago, no update | HIGH | FIRING | S455 | close or execute lane |
+| T1-STALE-LANE | ACTIVE lane opened >3 sessions ago, no update | HIGH | CLEAR | S455 | close or execute lane |
 | T2-ARTIFACT-MISSING | ACTIVE lane has artifact= path but file missing on disk | HIGH | CLEAR | S455 | execute lane or ABANDON |
 | T3-MAINTENANCE-DUE | orient.py DUE items present (>0) | MEDIUM | FIRING | S455 | python3 tools/maintenance.py --auto (L-880) |
 | T4-ANXIETY-ZONE | Frontier open >15 sessions without update | MEDIUM | FIRING | S455 | open DOMEX or CLOSE |

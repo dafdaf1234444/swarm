@@ -8258,7 +8258,7 @@
     },
     {
       "session": 454,
-      "timestamp": "2026-03-02T23:47:25Z",
+      "timestamp": "2026-03-02T23:50:27Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -8271,9 +8271,11 @@
           "severities": []
         },
         "check_mission_constraints": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         },
         "check_runtime_portability": {
           "fired": false,
@@ -8392,9 +8394,11 @@
           "severities": []
         },
         "check_cross_references": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         },
         "check_anxiety_zones": {
           "fired": true,
@@ -8453,9 +8457,11 @@
           ]
         },
         "check_count_drift": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "DUE"
+          ]
         },
         "check_structure_layout": {
           "fired": false,
@@ -8541,17 +8547,20 @@
           "severities": []
         },
         "check_scale_waypoints": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "NOTICE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
+        },
+        "check_unpushed": {
+          "fired": false,
+          "count": 0,
+          "severities": []
         }
       },
       "totals": {
-        "NOTICE": 15,
+        "NOTICE": 16,
         "PERIODIC": 13,
-        "DUE": 1
+        "DUE": 2
       }
     }
   ]

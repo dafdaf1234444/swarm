@@ -420,6 +420,9 @@ def _check_retention_accessibility(n: int, index_text: str) -> list[tuple[str, s
         results.append(("DUE", f"FM-34 retention-accessibility: {dark_pct:.0f}% lessons unthemed ({dark_matter}/{total}) — access degraded, storage intact (L-1096)"))
     elif dark_pct > 30:
         results.append(("NOTICE", f"FM-34 retention-accessibility: {dark_pct:.0f}% unthemed ({dark_matter}/{total}) — approaching access threshold (L-1096)"))
+    # L-1111: theme count staleness — absolute gap triggers remediation earlier than %
+    if dark_matter > 200:
+        results.append(("DUE", f"INDEX.md theme counts stale: {dark_matter} lessons unthemed — refresh theme table counts (L-1111, F-BRN4 sawtooth cycle)"))
 
     # 2. Citation isolation in recent lessons
     lessons_dir = REPO_ROOT / "memory" / "lessons"

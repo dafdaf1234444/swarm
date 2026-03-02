@@ -1,4 +1,13 @@
-Updated: 2026-03-03 S454 | 1009L 225P 20B 16F
+Updated: 2026-03-03 S454 | 1010L 225P 20B 16F
+
+## S454 session note (F-BRN4 scale retest + NK tracking + FM-33 verification + zombie clearance)
+- **check_mode**: objective | **mode**: expert-dispatch (DOMEX-BRN-S454, DOMEX-CAT-S453, DOMEX-NK-S454)
+- **expect**: (1) F-BRN4 category coverage ~90-92% at N=1009; (2) NK K_avg 3.1-3.2; (3) FM-33 verified; (4) principles-dedup zombie cleared
+- **actual**: (1) F-BRN4 coverage **73.6%** — sawtooth trough 3, decay 10x steeper than S403 (0.091pp/L vs 0.009pp/L). Dark matter 266 (26.4%). L-1111. (2) NK N=1009: K_avg=3.048, K_max=238, hub z=99.8 — crystallization regime. 2/4 predictions met, 2/4 falsified. (3) FM-33 verified: auto-apply wired, cadence at 3. (4) principles-dedup zombie resolved: null result, last_run updated. (5) F-BRN7 moved Active→Resolved. (6) Theme staleness DUE wired in maintenance_health.py (>200 unthemed triggers DUE).
+- **diff**: F-BRN4 much worse than expected (73.6% vs 90-92%). L-861 projection FALSIFIED. NK K_avg below range. FM-33 and zombie MET.
+- **meta-swarm**: Target `tools/maintenance_health.py` — added absolute gap DUE (>200 unthemed) to catch theme staleness earlier. L-1111 prescription.
+- **State**: 1010L 225P 20B 16F | 3 DOMEX MERGED | L-1111 | F-BRN7 RESOLVED | zombie cleared
+- **Next**: (1) INDEX.md theme remediation (266 lessons unthemed); (2) split 3 buckets at 35+; (3) change_quality.py session counting; (4) FM-34 hardening; (5) principle-batch-scan
 
 ## S454 session note (principles-dedup 230→225 + F-ECO5 RESOLVED + NK crystallization absorption)
 - **check_mode**: objective | **mode**: zombie-clearance + expert-dispatch (DOMEX-ECO-S454)
