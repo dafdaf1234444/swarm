@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-STR-S431",
+    "frontier": "F-STR3",
+    "session": "S431",
+    "domain": "string-theory",
+    "date": "2026-03-02",
+    "expect": "INDEX.md size scales sub-linearly with lesson count (holographic: boundary area, not bulk volume)",
+    "actual": "TBD",
+    "diff": "TBD"
+}
