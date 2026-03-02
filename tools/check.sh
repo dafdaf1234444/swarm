@@ -223,12 +223,15 @@ if [ -f "tools/merge_back.py" ]; then
     fi
 fi
 
-# Near-duplicate lesson guard (G-CC2-4, F-QC1, L-356): bonding curve analog.
+# Near-duplicate lesson guard (G-CC2-4, F-QC1, L-356, L-1070): bonding curve analog.
 # Staged new lesson files are scanned against recent lesson titles for word-overlap >50%.
-# Emits DUE warning (not hard FAIL) to enforce increasing cost for duplicate knowledge.
+# Upgraded to FAIL at N>=1000 (L-1070): concurrent sessions produce near-dups without
+# seeing each other's untracked work. WARN was passing silently; FAIL forces override.
+# Bypass: set ALLOW_NEAR_DUP=1.
 STAGED_NEW_LESSONS=$(git diff --cached --diff-filter=A --name-only 2>/dev/null | { grep 'memory/lessons/L-[0-9]' || true; } | { grep -v '/archive/' || true; })
 if [ -n "$STAGED_NEW_LESSONS" ]; then
-    "${PYTHON_CMD[@]}" - "$STAGED_NEW_LESSONS" << 'PYEOF'
+    NEAR_DUP_EXIT=0
+    "${PYTHON_CMD[@]}" - "$STAGED_NEW_LESSONS" << 'PYEOF' || NEAR_DUP_EXIT=$?
 import sys, os, re
 
 new_lessons = sys.argv[1].split() if len(sys.argv) > 1 else []
@@ -298,10 +301,18 @@ for new_path in new_lessons:
             break
 
 if warned:
-    print("  Near-dup guard: WARN (see above) — DUE: update existing lessons before adding new ones")
+    print("  Near-dup guard: FAIL (see above) — update existing lesson instead of adding new one (F-QC1, L-1070).")
+    print("  To bypass (with justification): set ALLOW_NEAR_DUP=1")
+    sys.exit(1)
 else:
     print("  Near-dup guard: PASS")
 PYEOF
+    if [ "${NEAR_DUP_EXIT}" -eq 1 ]; then
+        if [ "${ALLOW_NEAR_DUP:-0}" != "1" ]; then
+            exit 1
+        fi
+        echo "  ALLOW_NEAR_DUP=1 set — bypassing near-dup guard."
+    fi
 fi
 
 # FM-31: Lesson line-count guard (L-601, L-1053). Max 20 lines per lesson.

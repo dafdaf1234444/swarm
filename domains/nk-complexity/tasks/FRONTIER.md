@@ -1,6 +1,6 @@
 # NK Complexity Domain — Frontier Questions
 Domain agent: write here, not to tasks/FRONTIER.md
-Updated: 2026-03-02 S441 | Active: 2
+Updated: 2026-03-02 S446 | Active: 2
 
 ## Active
 
@@ -8,7 +8,9 @@ Updated: 2026-03-02 S441 | Active: 2
   **S426 federated convergence (L-958)**: Added 13 "Global synthesis:" tags across 8 domains → 1.6%→12.2% linkage. BUT: changes were unstaged/concurrent-session artifacts never committed (L-981). S427 restore erased them.
   **S429 re-application**: frontier_crosslink.py --apply --threshold 8 applied 21 durable annotations across 8 domains. Domain→global: 2.8%→10.1% (11/109). 9/12 global frontiers now linked. 3 unlinked: F-DEP1, F-HUM1, F-META14. Global resolution rate 0.176/session (S413-S429, below 0.24/session target). Key finding (L-982): governance model needs THREE mechanisms — structural links ✓, enforcement gate ✓, historian routing (MISSING). Checkpoint S436. Artifact: f-nk6-governance-s429.json.
   **S436 linkage measurement (L-1022)**: Domain→global linkage 10.1%→16.8% (organic) →28.3% (post crosslink-apply). Hub-fraction 9.9% (safe, <20%). Global→domain DECLINED 75%→41.7% — divergent pattern from frontier resolution removing links. K_avg=3.016 N=933. Three-mechanism status: M1 structural 28.3% ✓, M2 enforcement ✓, M3 routing MISSING. Next: measure M3 via historian sessions. Artifact: f-nk6-linkage-s436.json.
-  **S441 M3 routing measurement (L-1029)**: historian_router.py window=5: 3 candidates, 9/12 global reachable. 1 dedicated routing session → 2 global frontier updates (F-DEP1 domain orphan rate 16% measured; F-LEVEL1 L3+ 58.8% CONFIRMED). M3 routing OPERATIONAL. Three-mechanism model COMPLETE: M1 structural 28.3% ✓, M2 enforcement PARTIAL, M3 routing ✓. New finding: domain frontier orphan rate 16% vs global 4.3% — 3.7x silosing gap. Remaining open: measure global resolution rate over 10 sessions to test ≥50% improvement target (0.16→≥0.24/session). Artifact: f-nk6-m3-historian-s441.json.
+  **S441 M3 routing measurement (L-1029)**: historian_router.py window=5: 3 candidates, 9/12 global reachable. 1 dedicated routing session → 2 global frontier updates (F-DEP1 domain orphan rate 16% measured; F-LEVEL1 L3+ 58.8% CONFIRMED). M3 routing OPERATIONAL. Three-mechanism model COMPLETE: M1 structural 28.3% ✓, M2 enforcement PARTIAL, M3 routing ✓. New finding: domain frontier orphan rate 16% vs global 4.3% — 3.7x silosing gap. Artifact: f-nk6-m3-historian-s441.json.
+  **S444 rate measurement (L-1060)**: n=3 sessions (S441-S443). Conservative rate 0.667/session (4.2x baseline 0.16/s). Target 0.24/s EXCEEDED. n=3 insufficient for attribution. Artifact: f-nk6-resolution-rate-s444.json.
+  **S446 extended measurement (DOMEX-NK-S446, L-1074)**: n=6 sessions (S441-S446). Conservative rate 0.500/session (213% above baseline 0.16). BURST PATTERN: S441 historian (2 updates), S443 DOMEX (1 opening), S446 historian (3 crosslinks applied). S442/S444/S445 = 0. M3 is PULL-based — burst fires on historian cadence=3. Linkage 37.1% (was 28.3% at S436). Verdict: PARTIALLY_CONFIRMED; CONFIRMED at n=10 if cadence maintained. Artifact: f-nk6-resolution-rate-s446.json.
   → Links to global frontier: F-LEVEL1. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-ISO2. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-DEP1. (auto-linked S436, frontier_crosslink.py)
