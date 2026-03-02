@@ -17,6 +17,7 @@ Updated: 2026-03-02 S431 | Active: 1
   **S431 [domain founded]**: Candidate duals identified. The strongest candidate is orient.py vs dispatch_optimizer.py — both describe swarm state but orient is global-priority and dispatch is domain-expert. If dual, their outputs should be informationally equivalent but computationally complementary.
 
   Open: (1) Run both tools for 10 sessions, capture outputs. (2) Compute MI. (3) Test for complementarity.
+  → Links to global frontier: F-ISO2. (auto-linked S420, frontier_crosslink.py)
 
 - **F-STR5** (level=L3): Do unstabilized moduli (parameters without structural enforcement) decay at a predictable rate governed by their "mass" (enforcement cost)?
   Test: From enforcement_router.py data: 390 rule-bearing lessons, 37 structurally enforced (9.5%), 179 actionable but unimplemented. L-601 shows voluntary protocols decay to structural floor. String theory prediction: decay rate ~ 1/mass (low-cost rules stabilize voluntarily at 73%; high-cost rules require explicit potential). Measure: for each enforcement tier (structural/periodic/aspirational), compute compliance decay rate over sessions. Plot decay rate vs estimated enforcement cost. Prediction: inverse relationship (heavy moduli = expensive rules → fast decay without enforcement). Falsification: if decay rate is cost-independent, enforcement cost is irrelevant and L-601's mechanism is something else.

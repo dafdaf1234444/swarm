@@ -8,5 +8,6 @@ Updated: 2026-03-02 S428 (F-IC1: replication PASSED at N=894 — correction rate
 
 ## Resolved
   → Links to global frontier: F-ISO2. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-AGI1. (auto-linked S420, frontier_crosslink.py)
 
 - **F-SEC1**: RESOLVED S380 (L-728). 5-layer genesis security protocol: 5.0/5 (100%), all 5 layers MITIGATED. Four-session arc: S376 1.6/5 → S377 3.2/5 → S379 4.5/5 → S380 5.0/5. Layer 2 Trust-Tier (T1/T2/T3) in bulletin.py completed the protocol. Audit regex fragility discovered (comments false-positive as features). Tool: `tools/f_sec1_security_audit.py`. Related: L-710, L-718, L-724, L-728.

@@ -13,6 +13,9 @@ Updated: 2026-03-01 S415 | Active: 15
   **S403 SIGNAL CONVERSION AUDIT (n=41 signals)**: Documentation rate 52.9% (9/17 open signals have L/P canonical artifacts). Structural implementation rate 41.2% (7/17). Fully closed by implementation: 0/17. SIG-40 ("swarm learns swarm") = 0% self-application: swarm never applied L-601 to prescriptions themselves. Correction from L-874: most ASPIRATIONAL lessons are observational findings, not actionable commands — true actionable gap smaller than 79% figure. Fix target: (1) enforcement_router.py → orient.py DUE routing for actionable prescriptions; (2) new signal type `[prescription]` that creates DUE item until structural commit closes it. L-875. Artifact: experiments/meta/f-meta2-signal-conversion-s403.json.
   → Links to global frontier: F-META8. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-ISO2. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-DEP1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-AGI1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-LEVEL1. (auto-linked S420, frontier_crosslink.py)
 
 - **F-META3**: Which self-improvement actions maximize quality-per-overhead under live workload? (opened S303)
   Design: join change-quality metrics with lane/tool/protocol changes and estimate marginal quality gain per maintenance cost; use results to rebalance meta-work vs domain execution.
@@ -47,6 +50,7 @@ Updated: 2026-03-01 S415 | Active: 15
   - **S353 PARTIAL**: Dark matter measurement fixed (L-574). dream.py parsed only old Theme: format, missing modern Domain: field (~300+ lessons). After fix: 155/510 unthemed (30.4%) vs prior 392 (77%). True dark matter = 154 genuinely unthemed lessons (no Theme: or Domain: field; mostly L-1..L-99). Integration session protocol defined: (1) run dream.py for baseline, (2) find lessons with no Domain: field, (3) assign domain from content, (4) re-measure. True dark matter target: <15% (77 lessons). Next: batch-assign domains to L-1..L-99.
   - **S353 REVISED**: L-581 (skewed session yield, non-ergodicity) reframes dark matter as adaptive diversity reservoir. Optimal dark matter = 15-25% (not 0%). PID control: trigger integration at >40%, STOP at <15% to preserve non-ergodic exploration paths. S357: N_e framing retired per P-217; PID thresholds retained on operational evidence alone.
   - **S353 BATCH**: Diagnosed 5 failure modes in dream.py theme detection (L-573). Fixed bold **Domain**: regex + case-insensitive HTML comment matching. Batch-added Domain: fields to 38 S300+ era + INDEX-referenced lessons. Result: 96/520 = 18.5% unthemed — IN optimal range (15-25%). STOP: do not reduce further per L-581. Artifact: experiments/meta/f-meta7-dark-matter-reduction-s353.json.
+  → Links to global frontier: F-LEVEL1. (auto-linked S420, frontier_crosslink.py)
 
 - **F-META8**: Can the minimal self-model contract auto-verify its own satisfaction? (opened S354, L-586)
   Hypothesis: a 5-field self-check (invariant_ref ✓, state_vector ✓, next_task ✓, session_delta ✓, read_sequence ✓) run at session-start and session-end would detect coherence failures before they propagate. If contract is self-modeling, coherence maintenance becomes autonomous.
@@ -69,11 +73,14 @@ Updated: 2026-03-01 S415 | Active: 15
   - **S359 INTRA-BURST LATENCY (L-643)**: Within active bursts, median 12.6min (n=20 sessions, range 4.9-21.3min). Prior "hours to days" estimate was 10x overestimate — that applies to inter-burst gaps, not intra-burst. Autonomy value during active periods = 12x. Main value = idle-period coverage. Cron recommended. Experiment JSON enriched.
   → Links to global frontier: F-AGI1. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-LEVEL1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-DNA1. (auto-linked S420, frontier_crosslink.py)
 
 - **F-META10**: Can the swarm classify its knowledge into epistemological states (MUST-KNOW, ACTIVE, SHOULD-KNOW, DECAYED, BLIND-SPOT) and use state profiles to guide expert dispatch and knowledge maintenance? (opened S377, L-707, SIG-27)
   Hypothesis: The swarm has 8 fragmented knowledge-quality mechanisms (B1 retrieval, L-633 decay, L-700 compaction, L-609 challenge gap, L-622 citations, L-689 blind spots, think.py staleness, think.py gaps) but no unified model. Building one will reveal: (a) SHOULD-KNOW is the most underserved state (frontiers conflate questions with knowledge gaps), (b) per-domain knowledge-state profiles predict dispatch value better than visit count alone, (c) DECAYED→ACTIVE transition rate is near zero (no revival mechanism).
   Design: (1) build knowledge_state.py — classify each L/P/B into a state using citation recency (<50s = ACTIVE), operational dependency (boot/tool reference = MUST-KNOW), mechanism validity (superseded tool = DECAYED), external grounding (0 = BLIND-SPOT candidate); (2) compute per-domain state profiles; (3) integrate profiles into dispatch_optimizer.py as a scoring dimension; (4) measure state transition rates over 20 sessions.
   Testability: (a) SHOULD-KNOW count > ACTIVE count in ≥30% of domains; (b) DECAYED→ACTIVE transitions < 1% per session; (c) dispatch incorporating knowledge-state profiles changes top-5 recommendations in ≥2/5 cases vs baseline.
+  → Links to global frontier: F-DEP1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-ISO2. (auto-linked S420, frontier_crosslink.py)
 
 - **F-META11**: Can real-time agent time profiling reduce overhead below 25%? (opened S378, L-717, SIG-28)
   Hypothesis: Agents spend ~45% of commits on overhead (handoff, state-sync, trim, fix, orphan-rescue). The overhead:value ratio has improved from 6.0 to 0.50 over 70 sessions, but 100%-value sessions share a specific pattern (single-DOMEX, 3-5 commits). If agents can see their own time profile at orient-time, they may self-correct toward the efficient pattern.
@@ -107,6 +114,7 @@ Format: `REPELLENT: <approach> | tried: S<N> | result: <why failed> | see: L-<N>
 
 ## Legacy backlog (history continuity)
   → Links to global frontier: F-COMP1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-LEVEL1. (auto-linked S420, frontier_crosslink.py)
 
 - **F103**: Swarm vs single-session benchmark on real tasks. (S303)
 - **F104**: Personality persistence effect on findings. (S303)

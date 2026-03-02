@@ -59,3 +59,8 @@ Updated: 2026-03-01 | S403
 (none yet — first domain expert session)
   → Links to global frontier: F-COMP1. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-AGI1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-DEP1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-SUB1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-EVAL1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-LEVEL1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-ISO2. (auto-linked S420, frontier_crosslink.py)

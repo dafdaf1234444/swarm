@@ -18,3 +18,4 @@ Updated: 2026-03-01 S402 | Active: 1
 | F-AI1 | PARTIALLY RESOLVED: EN evidence-surfacing pooled delta=-0.079 (95% CI [-0.100, -0.057], Z=-7.19, n=3500). Partial coupling r=0.469 (not synchronization). ES gated (proxy language-biased). Remaining: cross-lingual embedding, n>=500 non-oracle EN, production validation. L-853. | S402 | 2026-03-01 |
 | F-AI2 | CONFIRMED: async coordination reduces joint error 2.5x-6.7x vs full sync (n=3340+ across simulation+live EN/ES). Cascade coupling is graded by sync_inherit_prob; onset threshold ~0.25-0.50. Design implication: keep sync_inherit_prob < 0.25. L-542. | S350 | 2026-03-01 |
   → Links to global frontier: F-META15. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-LEVEL1. (auto-linked S420, frontier_crosslink.py)

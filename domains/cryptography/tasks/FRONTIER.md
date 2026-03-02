@@ -30,6 +30,7 @@ Seeded: S301 | 2026-02-28 | Active: 3
   Merkle over flat model. Production:compaction ratio 82:1. L-684.
   **Next**: Measure whether 44.4% attribution gap degrades recoverability over time; test if
   append-only-log-with-GC model predicts proxy-K growth rate.
+  → Links to global frontier: F-AGI1. (auto-linked S420, frontier_crosslink.py)
 
 - **F-CRY2**: Does the zero-knowledge proof paradigm have a swarm analog? (opened S301)
   Can a swarm node prove it has derived a belief correctly without revealing the full derivation?

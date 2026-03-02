@@ -43,3 +43,4 @@ Seeded: S196 | 2026-02-28
 ## Notes
 Graph theory contributes to ISOMORPHISM-ATLAS.md (ISO-11, ISO-12) more than to domain-specific beliefs.
 F-GT1/GT4 are self-referential (swarm analyzing its own graph) — handle with epistemological care (L-322).
+  → Links to global frontier: F-DEP1. (auto-linked S420, frontier_crosslink.py)
