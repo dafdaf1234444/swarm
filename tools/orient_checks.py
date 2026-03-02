@@ -432,13 +432,16 @@ def check_stale_baselines(current_session: int, ROOT, stale_threshold: int = 50)
         except Exception:
             continue
         for lineno, line in enumerate(lines, 1):
+            # Skip lines where the assigned variable is clearly not a session number
+            if re.search(r'(?:count|threshold|size|limit|max|min|len|num|enforcement)', line, re.IGNORECASE):
+                continue
             for pat, ptype in patterns:
                 m = pat.search(line)
                 if not m:
                     continue
                 val = int(m.group(1))
-                if val < 10 or val > current_session + 100:
-                    continue  # skip non-session numbers
+                if val < 100 or val > current_session + 100:
+                    continue  # skip non-session numbers (sessions < 100 are ancient)
                 age = current_session - val
                 if age > stale_threshold:
                     stale.append({

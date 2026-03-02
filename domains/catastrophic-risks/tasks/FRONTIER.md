@@ -1,6 +1,6 @@
 # Catastrophic Risks Domain — Frontier Questions
 Domain agent: write here for catastrophic-risks work; cross-domain findings → tasks/FRONTIER.md.
-Updated: 2026-03-01 S410 | Active: 1
+Updated: 2026-03-02 S429 | Active: 1
 
 ## Active
 
@@ -22,6 +22,7 @@ Updated: 2026-03-01 S410 | Active: 1
   **S410 FMEA refresh**: 17→18 FMs. FM-18 new (concurrent lesson number collision — observed live: two sessions wrote L-901 simultaneously, last writer wins). FM-01 upgraded MINIMAL→ADEQUATE (mass-staging guard >100 files in check.sh). NAT at S410 (20s early vs S430). FM timing accelerating: S381→S403=22s, S403→S410=7s. Pattern continues: infrastructure→system-design→concurrency layer migration. L-903. Next NAT: ~S430.
   **S415 FM-18 hardening**: FM-18 INADEQUATE→MINIMAL. 3 defense layers: L-903 rule (voluntary), lesson_collision_check.py --staged in check.sh (enforced pre-commit), claim.py next-lesson (advisory slot reservation). Swiss Cheese: 1 enforced automated layer (ADEQUATE requires 2). Upgrade path: enforce slot reservation in lesson-creation flow. **0 INADEQUATE, 11 MINIMAL, 5 ADEQUATE**. L-922. Artifact: f-cat1-fm18-hardening-s415.json.
   **S422 FM-19 hardening**: Collision surface measured (n=173 events, 50 commits, 10 sessions). 5 files = 74.5% of contention. NEXT.md alone = 34.7%. Built stale_write_check.py: content-loss BLOCK for APPEND/MIXED, WARN for REPLACE. Wired into check.sh pre-commit. FM-19 CRITICAL UNMITIGATED→MINIMAL (0→1 automated layer). Swiss Cheese gap: needs 2nd layer (PostToolUse hook). Prospective test: measure collision rate reduction at S442. L-952. Artifact: f-cat1-fm19-hardening-s422.json.
+  **S429 FM-22 hardening**: Creation-maintenance asymmetry measured: 81.4% domain frontier staleness (35/43 >15s stale), but lane merge rate 91.8% (n=73). Asymmetry is in frontier maintenance, not lane lifecycle. Gate added to open_lane.py: BLOCK new DOMEX for domains >50s stale (47%, 20/43), WARN >30s (9%, 4/43). FM-22 HIGH UNMITIGATED→MINIMAL (1 automated creation-time gate). L-987. Artifact: f-cat1-fm22-hardening-s429.json.
 
 ## Resolved
 | ID | Answer | Session | Date |

@@ -43,7 +43,7 @@ STANDARD_CONFIDENCE = {
 }
 
 # Dimensions
-DIMENSIONS = ["meta", "citations", "format", "duplicates", "stale", "orphans"]
+DIMENSIONS = ["meta", "citations", "format", "duplicates", "stale", "orphans", "cross-domain"]
 
 
 def load_lesson(path: Path) -> dict:
@@ -341,6 +341,84 @@ def check_duplicates(lessons: dict, threshold: float = 0.4) -> list:
     return issues[:20]  # Top 20 pairs only
 
 
+def check_cross_domain_body_text(lessons: dict) -> tuple:
+    """F-EXP11: measure cross-domain body-text integration rate.
+
+    Two metrics (L-964, P-290):
+    1. RAW rate: fraction of lessons with any cross-domain L-NNN in section body
+       (replicates L-932/L-964 0.1% baseline at N=843)
+    2. CITES rate: of lessons with cross-domain Cites:, fraction with body-text mention
+       (deeper integration signal — 32.5% at N=900)
+
+    Issues = lessons with cross-domain Cites: but no body-text mention (actionable flag).
+    """
+    issues = []
+    # Build domain map
+    domain_map = {lid: lesson.get("domain") for lid, lesson in lessons.items()}
+
+    raw_with_xd_body = 0  # metric 1: has any cross-domain L-NNN in section body
+    cites_total = 0        # metric 2 denominator: cross-domain cites
+    cites_integrated = 0   # metric 2 numerator
+
+    for lid, lesson in lessons.items():
+        src_domain = lesson.get("domain")
+        if not src_domain:
+            continue
+
+        content = lesson.get("content", "")
+        section_start = re.search(r"^##\s+", content, re.MULTILINE)
+        section_body = content[section_start.start():].lower() if section_start else ""
+
+        # Metric 1: any cross-domain L-NNN in section body (replicates L-932 raw rate)
+        body_refs = set(re.findall(r"\bl-(\d+)\b", section_body))
+        has_xd = any(
+            domain_map.get(f"L-{n.zfill(3)}") not in (None, src_domain)
+            for n in body_refs
+        )
+        if has_xd:
+            raw_with_xd_body += 1
+
+        # Metric 2: cross-domain Cites: header vs body mention
+        cites_header = lesson.get("cites_header") or ""
+        header_refs = set(re.findall(r"\bL-(\d+)\b", cites_header))
+        for ref_num in header_refs:
+            cited_lid = f"L-{ref_num.zfill(3)}"
+            cited_domain = domain_map.get(cited_lid)
+            if not cited_domain or cited_domain == src_domain:
+                continue
+            cites_total += 1
+            in_body = bool(re.search(rf"\bl-0*{int(ref_num)}\b", section_body))
+            if in_body:
+                cites_integrated += 1
+            else:
+                issues.append({
+                    "lesson": lid,
+                    "dimension": "cross-domain",
+                    "type": "missing_body_text_integration",
+                    "detail": (
+                        f"Cites cross-domain {cited_lid} ({cited_domain}) "
+                        "but body text doesn't discuss it"
+                    ),
+                    "cited": cited_lid,
+                    "cited_domain": cited_domain,
+                    "fixable": False,
+                })
+
+    n = len(lessons)
+    raw_rate = raw_with_xd_body / n if n > 0 else 0
+    cites_rate = cites_integrated / cites_total if cites_total > 0 else 0
+    baseline = {
+        "n_lessons": n,
+        "raw_cross_domain_body_rate": round(raw_rate, 4),
+        "raw_with_xd_body": raw_with_xd_body,
+        "cites_total_cross_domain": cites_total,
+        "cites_integrated": cites_integrated,
+        "cites_body_text_rate": round(cites_rate, 4),
+        "note": "raw_rate replicates L-932/L-964 0.1% baseline; cites_rate = deeper integration check",
+    }
+    return issues, baseline
+
+
 def apply_fixes(lessons: dict, issues: list) -> int:
     """Apply auto-fixes for fixable issues. Returns count of fixes applied."""
     fixes_applied = 0
@@ -480,6 +558,16 @@ def main():
         log("[QUALITY] Checking orphan citations...")
         all_issues.extend(check_orphan_cites(lessons))
 
+    cross_domain_baseline = {}
+    if "cross-domain" in dimensions_to_run:
+        log("[QUALITY] Checking cross-domain body-text integration (F-EXP11)...")
+        cd_issues, cross_domain_baseline = check_cross_domain_body_text(lessons)
+        all_issues.extend(cd_issues)
+        rate = cross_domain_baseline.get("body_text_integration_rate", 0)
+        total_cd = cross_domain_baseline.get("total_cross_domain_cites", 0)
+        integrated = cross_domain_baseline.get("integrated_in_body", 0)
+        log(f"[QUALITY] Cross-domain integration: {integrated}/{total_cd} = {rate:.1%} (F-EXP11 baseline: 0.1%)")
+
     if args.fix:
         log("\n[QUALITY] Applying auto-fixes...")
         n_fixed = apply_fixes(lessons, all_issues)
@@ -492,6 +580,7 @@ def main():
             "total_issues": len(all_issues),
             "fixable_issues": sum(1 for i in all_issues if i.get("fixable")),
             "issues_by_dimension": {},
+            "cross_domain_baseline": cross_domain_baseline,
             "issues": all_issues,
         }
         for dim in DIMENSIONS:

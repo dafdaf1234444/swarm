@@ -15,6 +15,7 @@ Usage:
 """
 
 import argparse
+import json
 import re
 import sys
 from datetime import date
@@ -277,6 +278,38 @@ def main():
             f"Add --role historian|tooler|experimenter for dispatch visibility (SIG-39, L-601).",
             file=sys.stderr,
         )
+
+    # FM-22 maintenance gate: check domain frontier staleness before creating new work
+    # L-908: creation-maintenance asymmetry is the meta-failure-mode.
+    # 81.4% of domain frontiers are >15s stale (S429 baseline).
+    # Structural enforcement: block lane creation for deeply stale domains.
+    if args.domain:
+        try:
+            domain_frontier = REPO_ROOT / "domains" / args.domain / "tasks" / "FRONTIER.md"
+            if domain_frontier.exists():
+                header_text = domain_frontier.read_text()[:500]
+                sess_m = re.search(r"S(\d+)", header_text)
+                if sess_m:
+                    last_update = int(sess_m.group(1))
+                    frontier_age = int(re.search(r"\d+", args.session).group()) - last_update
+                    if frontier_age > 50 and not args.force:
+                        print(
+                            f"BLOCKED: Domain '{args.domain}' frontier is {frontier_age} sessions stale "
+                            f"(last update S{last_update}). FM-22 maintenance gate requires frontier "
+                            f"maintenance before new work. Update the domain frontier first, or use "
+                            f"--force to override (L-908, FM-22).",
+                            file=sys.stderr,
+                        )
+                        sys.exit(1)
+                    elif frontier_age > 30:
+                        print(
+                            f"WARN: Domain '{args.domain}' frontier is {frontier_age} sessions stale "
+                            f"(last update S{last_update}). Consider updating domain FRONTIER.md "
+                            f"before opening new work (FM-22, L-908).",
+                            file=sys.stderr,
+                        )
+        except Exception:
+            pass
 
     # P-274 creation-time enforcement: suggest matching global frontiers for domain lanes (L-938)
     if args.domain and not args.frontier:
