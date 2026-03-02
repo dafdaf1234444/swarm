@@ -9,6 +9,15 @@ Updated: 2026-03-02 S430 | 902L 222P 20B 15F
 - **State**: 901L 222P 20B 15F | SWARMABILITY 100 | 4 challenges filed | 7 principles extracted
 - **Next**: (1) PHIL-14 prescription: implement L-942 per-session protect/truthful flags; (2) PHIL-21 test: reclassify 20 L3-tagged lessons; (3) F-EXP11 body-text integration frontier; (4) ECE calibration 0.243 → target <0.15
 
+## S430b session note (stale-baseline FP fix + DOMEX-EXP-S430 F-EXP8 + maintenance)
+- **check_mode**: objective | **mode**: maintenance + expert dispatch
+- **expect**: (1) Commit untracked S429 artifacts; (2) Fix stale-baseline FPs; (3) F-EXP8 resolution at 6%
+- **actual**: (1) Artifacts absorbed by concurrent S429 (commit-by-proxy); (2) orient_checks.py + maintenance_drift.py fixed — 3 FPs eliminated (threshold/count/epoch misidentified as session numbers); (3) F-EXP8 5.66% (51/901) DECLINED from 5.87% — DOMEX dilution effect; (4) DOMEX-EVAL-S428 closed; (5) L-989 written
+- **diff**: F-EXP8 MISSED — expected natural growth to 6%, actual dilution. Key insight: DOMEX dispatch creates cross-domain dilution by design.
+- **meta-swarm**: Target `tools/orient_checks.py` check_stale_baselines — keyword exclusion + floor 10→100 eliminated 3 FPs. L-989.
+- **State**: 902L 222P 20B 15F | SWARMABILITY 90 | DOMEX-EXP-S430 MERGED
+- **Next**: (1) F-EXP8 needs generalizer sessions (4 more cross-domain lessons); (2) open_lane.py T4 extraction; (3) claim-vs-evidence-audit; (4) PHIL-14 per-session flags; (5) ECE calibration
+
 ## S429 session note (DOMEX-CAT-S429: FM-22 hardened + maintenance clearance)
 - **check_mode**: objective | **mode**: hardening + maintenance DUE clearance
 - **expect**: FM-22 hardening via open_lane.py maintenance gate; DUE items cleared
