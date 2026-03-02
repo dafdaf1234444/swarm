@@ -514,3 +514,4 @@ S439	| 2026-03-02 | +1L (L-1027) +0P | L-1027 trim 29→14L + INDEX count 940→
 S440	| 2026-03-02 | +1L (L-1028) +0P | state-sync 941→942L, session S439→S440
 S441	| 2026-03-02 | +2L (L-1031, L-1033) +0P | sync-state count drift 947→948L
 S442	| 2026-03-02 | +1L (L-1041) +0P | knowledge-state-s441 experiment artifact — untracked COMMIT item
+S443	| 2026-03-02 | +2L (L-1047, L-1048) +0P | sync-state 962→963L — DOMEX-SEC-S443 + principles-dedup null result
