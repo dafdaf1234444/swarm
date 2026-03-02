@@ -292,8 +292,10 @@ def check_foreign_staged_deletions(ROOT):
         pass
 
 
-def check_git_object_health(ROOT):
-    """FM-14 guard: detect loose object corruption at session start."""
+def check_git_object_health(ROOT) -> list:
+    """FM-14 guard: detect loose object corruption at session start.
+    Returns list of output lines (parallelizable with pool). Caller must print."""
+    lines = []
     try:
         result = subprocess.run(
             ["git", "fsck", "--no-dangling", "--connectivity-only"],
@@ -304,16 +306,17 @@ def check_git_object_health(ROOT):
             error_lines = [l for l in errors.splitlines()
                            if l.strip() and not l.startswith("Checking")]
             if error_lines:
-                print(f"--- !! FM-14: git object corruption detected ---")
+                lines.append("--- !! FM-14: git object corruption detected ---")
                 for line in error_lines[:10]:
-                    print(f"    {line}")
+                    lines.append(f"    {line}")
                 if len(error_lines) > 10:
-                    print(f"    ... and {len(error_lines) - 10} more")
-                print("  Fix: git reflog expire --expire=now --all && git gc --prune=now")
-                print("  Or:  git clone <remote> fresh-copy (nuclear option)")
-                print()
+                    lines.append(f"    ... and {len(error_lines) - 10} more")
+                lines.append("  Fix: git reflog expire --expire=now --all && git gc --prune=now")
+                lines.append("  Or:  git clone <remote> fresh-copy (nuclear option)")
+                lines.append("")
     except Exception:
         pass
+    return lines
 
 
 def _scan_lesson_domains(lesson_dir):

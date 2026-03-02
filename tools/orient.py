@@ -156,7 +156,7 @@ def check_foreign_staged_deletions():
 
 def check_git_object_health():
     from orient_checks import check_git_object_health as _impl
-    _impl(ROOT)
+    return _impl(ROOT)
 
 def check_experiment_harvest_gap(threshold: int = 5) -> list:
     from orient_checks import check_experiment_harvest_gap as _impl
@@ -258,10 +258,9 @@ def main():
 
     _auto_repair_swarm_md()
 
-    # Pre-checks (print directly via orient_checks)
+    # Fast pre-checks (non-blocking print)
     check_foreign_staged_deletions()
     check_active_claims()
-    check_git_object_health()
 
     # Classify mode
     classify_task = _get_classify_task()
@@ -290,7 +289,22 @@ def main():
         section_cascade_state,
     )
 
-    maint_out = _run_maint()
+    # Parallelize all slow independent operations:
+    # git_fsck ~3s, historian_repair ~7s, meta_tooler ~11s, prescription_gap ~2s
+    from concurrent.futures import ThreadPoolExecutor
+    with ThreadPoolExecutor(max_workers=4) as _pool:
+        _git_health_future = _pool.submit(check_git_object_health)
+        _hist_future = _pool.submit(section_historian_repair)
+        _meta_future = _pool.submit(section_meta_tooler)
+        _prescription_future = _pool.submit(section_prescription_gap)
+        maint_out = _run_maint()  # run in main thread while others execute
+    # Print git health check results (moved from pre-checks, now parallelized)
+    for _line in _git_health_future.result():
+        print(_line)
+    _historian_repair_lines = _hist_future.result()
+    _meta_tooler_lines = _meta_future.result()
+    _prescription_gap_lines = _prescription_future.result()
+
     index_text = _read("memory/INDEX.md")
     next_text = _read("tasks/NEXT.md")
     frontier_text = _read("tasks/FRONTIER.md")
@@ -341,7 +355,7 @@ def main():
     if sess_num:
         _print_lines(section_pci(sess_num, compute_pci))
 
-    _print_lines(section_prescription_gap())
+    _print_lines(_prescription_gap_lines)
     _print_lines(section_level_balance())
     _print_lines(section_zombie_carryover())
 
@@ -354,13 +368,13 @@ def main():
     if current_sess_num > 0:
         _print_lines(section_stale_baselines(current_sess_num, check_stale_baselines))
     _print_lines(section_underused_tools(check_underused_core_tools, log_text))
-    _print_lines(section_cascade_state())
+    _print_lines(section_cascade_state(maint_output=maint_out))
     _print_lines(section_recent_commits(_commits()))
     _print_lines(section_session_log_tail(log_text, brief))
     _print_lines(section_agent_positions())
     _print_lines(section_concurrent_activity())
-    _print_lines(section_historian_repair())
-    _print_lines(section_meta_tooler())
+    _print_lines(_historian_repair_lines)
+    _print_lines(_meta_tooler_lines)
 
     _print_lines(section_suggested_action(maint_out, open_signals, stall_map, priorities))
 

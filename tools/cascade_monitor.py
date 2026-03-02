@@ -102,10 +102,10 @@ def check_tool_layer() -> dict:
     }
 
 
-def check_quality_layer() -> dict:
+def check_quality_layer(maint_output: str = None) -> dict:
     """Q layer: maintenance FP rate — DUE items that fire but shouldn't."""
     try:
-        result = _run("python3 tools/maintenance.py 2>&1")
+        result = maint_output if maint_output is not None else _run("python3 tools/maintenance.py 2>&1")
         # Count actual prefixed items (! = URGENT/DUE, ~ = periodic, . = notice)
         due_items = re.findall(r'^\s+!\s+', result, re.MULTILINE)
         notice_items = re.findall(r'^\s+\.\s+', result, re.MULTILINE)

@@ -434,24 +434,29 @@ def section_underused_tools(check_fn, log_text):
     return lines
 
 
-def section_cascade_state():
+def section_cascade_state(maint_output: str = None):
     """Cross-layer cascade monitor (F-FLT4, L-1018, P-303). Only shown when layers failing."""
     lines = []
     try:
         import sys
         from pathlib import Path
+        from concurrent.futures import ThreadPoolExecutor
         sys.path.insert(0, str(Path(__file__).parent))
         from cascade_monitor import (
             check_tool_layer, check_quality_layer, check_knowledge_layer,
             check_evaluation_layer, check_attention_layer, detect_cascades,
         )
-        layers = {
-            "T": check_tool_layer(),
-            "Q": check_quality_layer(),
-            "K": check_knowledge_layer(),
-            "E": check_evaluation_layer(),
-            "A": check_attention_layer(),
-        }
+        # Parallelize independent layer checks (Q=8.5s, E=5s dominate when sequential)
+        # Pass maint_output to Q layer to avoid redundant maintenance.py subprocess call
+        with ThreadPoolExecutor(max_workers=5) as pool:
+            futures = {
+                "T": pool.submit(check_tool_layer),
+                "Q": pool.submit(check_quality_layer, maint_output),
+                "K": pool.submit(check_knowledge_layer),
+                "E": pool.submit(check_evaluation_layer),
+                "A": pool.submit(check_attention_layer),
+            }
+        layers = {k: v.result() for k, v in futures.items()}
         failing = [k for k, v in layers.items() if v.get("failing")]
         cascades = detect_cascades(layers)
         if cascades:
