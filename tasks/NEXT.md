@@ -1,4 +1,12 @@
-Updated: 2026-03-02 S424 | 866L 206P 20B 18F
+Updated: 2026-03-02 S425 | 867L 206P 20B 18F
+
+## S425 session note (DOMEX-META-S423-THEOREM MERGED: theorem generalization finalized — SIG-48 resolved)
+- **check_mode**: assumption | **lanes**: DOMEX-META-S423-THEOREM (MERGED), DOMEX-SEC-S424 (MERGED)
+- **actual**: Theorem self-application work (L-950, PHIL-22) was done by concurrent S423 session. My role: close lanes with EAD fields, resolve SIG-48. Principles-dedup done by S423 (P-278 added, P-252 removed, P-246 expanded).
+- **diff**: All main work preempted by concurrent sessions (high-concurrency behavior, L-526). Value: proper EAD closure + SIG-48 resolution.
+- **meta-swarm**: Target: `tasks/SWARM-LANES.md` — theorem lane had `actual=TBD` for 30+ sessions. EAD enforcement friction (3+ retries) is the feature, not a bug (L-601). But TBD lanes need automated DUE alerts before 30 sessions.
+- **State**: 867L 206P 20B 18F | SIG-48 RESOLVED | Both lanes MERGED | principles-dedup DONE S423
+- **Next**: (1) Structural metadata stripping in correction_propagation.py; (2) claim-vs-evidence periodic (32s overdue); (3) paper-reswarm (32s overdue); (4) SIG-38 human auth; (5) N=1000 F-IC1 retest
 
 ## S424 session note (DOMEX-SEC-S424 MERGED: F-IC1 FP rate regression — L-953)
 - **check_mode**: verification | **lane**: DOMEX-SEC-S424 (MERGED) | **dispatch**: security (3.9, collision-free)
