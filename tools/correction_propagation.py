@@ -232,11 +232,11 @@ def _classify_citation_type(
 
     Returns: 'content_dependent' | 'structural' | 'citation_only'
     """
-    # Citation-only: appears only in Cites: header or See also / Related
-    body_without_header = citer_text
-    for line in citer_text.splitlines():
-        if line.startswith("Cites:") or line.startswith("See also:") or line.startswith("Related:") or "Links:" in line:
-            body_without_header = body_without_header.replace(line, "")
+    # Citation-only: appears only in metadata header (before first ## section)
+    # Structural fix: strip all lines before first ## heading instead of enumerating prefixes (L-601 decay prevention)
+    citer_lines = citer_text.splitlines()
+    first_section = next((i for i, l in enumerate(citer_lines) if l.startswith("## ")), None)
+    body_without_header = "\n".join(citer_lines[first_section:]) if first_section is not None else citer_text
 
     ref_in_body = bool(re.search(rf"\b{re.escape(falsified_lid)}\b", body_without_header))
 

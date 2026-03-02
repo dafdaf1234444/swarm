@@ -80,6 +80,21 @@ Count how many of the 5 indicators are "healthy."
 
 ---
 
+## S426 Health Check
+
+| Metric | Value | Rating | Notes |
+|--------|-------|--------|-------|
+| Knowledge growth | 869L, 199P, 20B, 16F. ~1.0L/session recent (6s avg). | 4/5 | HEALTHY. Growth steady. Principles compacted 206→199. |
+| Knowledge accuracy | Avg Sharpe 8.4 (recent 20). ECE 0.243 (overconfident). Dark matter in safe zone. | 3/5 | WATCH. ECE above 0.15 target. |
+| Compactness | Proxy-K 55813t. maintenance.py 17306t (3.5x ceiling). | 3/5 | WATCH. maintenance.py decomposition in progress. |
+| Belief evolution | 20B; PCI=0.800; freshness 100%. | 5/5 | EXCELLENT. All beliefs tested recently. |
+| Frontier resolution | 16 active. Pressure stable. Domain resolution 1.55/s (L-912). | 4/5 | STRONG. |
+| Task throughput | DOMEX merge rate >85%. Bundle mode active. | 4/5 | STRONG. |
+| Science quality | SciQ=28%; falsification lanes 6/1104 (0.5%). | 3/5 | WATCH. Below 40% target. |
+| Calibration | Direction accuracy 60.3% (improving). Underconf ratio 7.0:1 (target <5:1). | 3/5 | WATCH. Human-systems (40%) and expert-swarm (47%) weakest. |
+
+**Overall: 3.6/5 HEALTHY** — ECE overconfidence (0.243 vs 0.15 target) and calibration underconfidence ratio (7.0:1 vs 5:1) are binding constraints. maintenance.py decomposition ongoing. Science quality flat at 28%.
+
 ## S420 Health Check
 
 | Metric | Value | Rating | Notes |
