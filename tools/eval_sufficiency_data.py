@@ -168,11 +168,19 @@ def _count_frontiers() -> dict:
 
 
 def _load_con1_baseline() -> dict:
-    """Load F-CON1 conflict baseline from artifact."""
-    path = ROOT / "experiments" / "conflict" / "f-con1-baseline-s428.json"
-    if path.exists():
-        return json.loads(path.read_text(encoding="utf-8"))
-    return {}
+    """Load F-CON1 conflict baseline — dynamic glob picks latest session artifact."""
+    conflict_dir = ROOT / "experiments" / "conflict"
+    candidates = sorted(conflict_dir.glob("f-con1-baseline-s*.json"))
+    if not candidates:
+        return {}
+    data = json.loads(candidates[-1].read_text(encoding="utf-8"))
+    # Normalize: older artifacts had c1_rate_lane_level at top level; newer nest it
+    if "c1_rate_lane_level" not in data:
+        nested = data.get("c1_duplicate_work", {}).get("rate_lane_level")
+        if nested is not None:
+            data["c1_rate_lane_level"] = nested
+    data["_source_file"] = candidates[-1].name
+    return data
 
 
 def _count_lessons() -> int:

@@ -117,7 +117,7 @@ def score_collaborate(lanes: dict, con1: dict, signals: dict) -> dict:
     details["lane_open_count"] = lanes["open"] + lanes.get("active", 0)
     c1_rate = con1.get("c1_rate_lane_level", 0.066)
     details["c1_conflict_rate"] = c1_rate
-    details["c1_source"] = "f-con1-baseline-s428.json" if con1 else "default"
+    details["c1_source"] = con1.get("_source_file", "default")
     sig_completeness = signals["with_artifact_refs"] / signals["total"] if signals["total"] else 0
     details["signal_enforcement_pct"] = round(sig_completeness * 100, 1)
 

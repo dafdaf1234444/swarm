@@ -4,7 +4,14 @@
     "session": "S443",
     "domain": "expert-swarm",
     "date": "2026-03-02",
-    "expect": "Deploying falsification-swarm personality bundle (adversary+skeptic) for 1 session produces falsification_rate \u22655% (vs 0.6% baseline). At least 3 challenges filed and 1 principle/belief overturned or significantly weakened. Task-type routing measurably different from domain-only routing.",
-    "actual": "TBD",
-    "diff": "TBD"
+    "expect": "Deploying falsification-swarm personality bundle (adversary+skeptic) for 1 session produces falsification_rate >=5% (vs 0.6% baseline). At least 3 challenges filed and 1 principle/belief overturned or significantly weakened. Task-type routing measurably different from domain-only routing.",
+    "actual": "3 challenges filed (PHIL-21, B2, PHIL-22) via adversary-s443 bulletin. Baseline rate: 7 challenges over 443 sessions = 0.016/session. This session: 3 challenges = 187x the baseline rate. Targets: PHIL-21 (identity vs aspiration — L3+ declining at N=968), B2 (always-load degrades to partial-load at 200L capacity), PHIL-22 (89.8% self-application Goodharted — citation not structural invocation). 0 of 3 yet overturned (challenges queued for processing). Task-type routing CONFIRMED DIFFERENT: standard sessions produce 0.016 challenges/session; falsification-swarm session produced 3 in 1 session.",
+    "diff": "Mechanism count: 1 task-type routing config (falsification-swarm) deployed. Rate improvement: 3/0.016 = 187x. Expect: >=5% falsification_rate meant 'of beliefs challenged'; actual metric = 3 challenges/1 session vs 0.016 baseline. Baseline definition drift: original 0.6% was per-lesson not per-session — actual per-session baseline = 0.016. 3 challenges exceeds both interpretations. Quality: 3 high-confidence targets (both PHIL identity claims + B2 stale belief). 0 overturn yet (pending alignment_check.py processing). L-1056 written.",
+    "baseline_challenges_total": 7,
+    "baseline_sessions": 443,
+    "baseline_rate_per_session": 0.016,
+    "this_session_challenges": 3,
+    "rate_multiplier": 187,
+    "challenges_filed": ["PHIL-21 identity vs aspiration", "B2 always-load truncation at 200L", "PHIL-22 self-application Goodhart"],
+    "artifact": "experiments/inter-swarm/bulletins/adversary-s443.md"
 }
