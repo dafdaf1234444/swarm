@@ -178,8 +178,30 @@ def check_swarm_coordinator(
         return results
 
     if not coordinator_rows:
-        dispatch_lanes = [row.get("lane", "").strip() or "<unknown>" for row, _ in dispatch_rows]
-        results.append(("DUE", f"{len(dispatch_rows)} active dispatch lane(s) have no active coordinator lane: {_truncated(dispatch_lanes, 5)}"))
+        # L-1074 meta-fix: lanes whose experiment artifacts have actual != "TBD" are effectively
+        # complete — downgrade to NOTICE (ready to close) rather than DUE (needs coordinator).
+        import json, os
+        complete_lanes, incomplete_lanes = [], []
+        for row, _ in dispatch_rows:
+            lane_name = row.get("lane", "").strip() or "<unknown>"
+            artifact = None
+            for tag_str in (row.get("etc", ""),):
+                m = re.search(r'artifact=([^\s;|]+)', tag_str)
+                if m:
+                    artifact = m.group(1)
+            if artifact and os.path.exists(artifact):
+                try:
+                    d = json.loads(open(artifact).read())
+                    if str(d.get("actual", "TBD")).strip() != "TBD":
+                        complete_lanes.append(lane_name)
+                        continue
+                except Exception:
+                    pass
+            incomplete_lanes.append(lane_name)
+        if incomplete_lanes:
+            results.append(("DUE", f"{len(incomplete_lanes)} active dispatch lane(s) have no active coordinator lane: {_truncated(incomplete_lanes, 5)}"))
+        elif complete_lanes:
+            results.append(("NOTICE", f"{len(complete_lanes)} dispatch lane(s) complete but not closed: {_truncated(complete_lanes, 5)}"))
         return results
 
     missing_contract: list[str] = []
