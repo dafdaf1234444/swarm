@@ -21,7 +21,8 @@
       "cadence_sessions": 15,
       "last_reviewed_session": 426,
       "registered_by": "S69",
-      "last_session": "S426"
+      "last_session": "S426",
+      "last_review_session": "S430"
     },
     {
       "id": "proxy-k-measurement",
@@ -136,7 +137,8 @@
       "cadence_sessions": 15,
       "last_reviewed_session": 430,
       "registered_by": "S366",
-      "last_session": "S430"
+      "last_session": "S430",
+      "last_review_session": "S430"
     },
     {
       "id": "iso-annotation-sprint",
