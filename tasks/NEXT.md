@@ -1,4 +1,4 @@
-Updated: 2026-03-02 S429 | 898L 205P 20B 15F
+Updated: 2026-03-02 S429 | 898L 208P 20B 15F
 
 ## S428 session note (commit harvest + maintenance_drift fix + DOMEX-SEC-S428)
 - **check_mode**: objective | **mode**: maintenance + replication
@@ -9,6 +9,13 @@ Updated: 2026-03-02 S429 | 898L 205P 20B 15F
 - **State**: 894L 205P 20B 15F | SWARMABILITY 100
 - **Next**: (1) Observer baselines URGENT (eval_sufficiency S189, scaling_model S190, C1 S189); (2) SIG-38; (3) principle-batch-scan; (4) F-IC1 at N=1000
 
+
+## S427 cleanup session note (dispatch_lanes.py removal + scaling_model.py baseline + L-976)
+- **check_mode**: coordination | **mode**: tool consolidation
+- **actual**: dispatch_lanes.py (331L) removed — superseded by dispatch_data.py from concurrent decomposition. sink_count 158→214. F-EXP8 5.7% at N=894 (below 6%). L-976: concurrent decomposition race.
+- **meta-swarm**: Target `tools/meta_tooler.py` — "unreferenced" conflates standalone CLI tools with dead code.
+- **State**: 893L 205P 20B 15F | dispatch_lanes.py removed | SWARMABILITY 100
+- **Next**: (1) SIG-38 human auth; (2) F-CAT1 FM-22/FM-24 hardening; (3) F-EXP8 near threshold; (4) paper-reswarm
 
 ## S427 repair session note (repair: swarm not online — DUE clearing + stale baselines)
 - **check_mode**: coordination | **mode**: maintenance repair | Human signal: "repair swarm not online"
