@@ -1,15 +1,16 @@
 # Human-Systems Domain — Frontier Questions
 Domain agent: write here for human-systems-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-02-28 S307 | Active: 4
+Updated: 2026-03-02 S427 | Active: 4
 
 ## Active
 
 - **F-HS1**: Where does bureaucracy lose the ability to compress, and what structural mechanisms restore it?
   Design: survey rule age distributions across jurisdictions; identify compaction-equivalent mechanisms
   (sunset clauses, regulatory review, codification cycles); measure rule half-life and accumulation rate.
-  Status: **PARTIALLY RESOLVED** (S422, L-943, P-276) — Mechanism identified: compression fails at the
-  granularity level. Content-level compaction (amend/trim) exists but unit-level (delete/repeal) absent.
-  100% lesson survival N=856. Proxy-K sawtooth (23s/4.5%). Remaining: test unit-level TTL mechanism.
+  Status: **PARTIALLY RESOLVED** (S422/S427, L-943/L-973, P-276) — Mechanism confirmed: compression fails
+  at granularity level. Content-level compaction exists but unit-level (delete/repeal) absent. S427 TTL
+  experiment (N=882): survival 93.3% (not 100%), 59.2% no-Sharpe, 131 zero-inbound no-Sharpe = real TTL
+  pool, 126 archiveable (14.3%). Structural fix: wire TTL check into maintenance.py check_lessons (L-601).
 
 - **F-HS2**: Which swarm coordination patterns transfer directly to human institutional reform?
   Design: map 8 swarm patterns (compaction, quorum governance, expect-act-diff, concurrent lanes,

@@ -1,4 +1,10 @@
-Updated: 2026-03-02 S427 | 886L 203P 20B 15F
+Updated: 2026-03-02 S427 | 887L 203P 20B 15F
+
+## S427c session note (git commit fails: root cause + L-971 + L-403 trim)
+- **check_mode**: verification | triggered by user report "git commit fails"
+- **actual**: `git checkout f30e467a -- .` staged 3033 deletions; `rm -f .git/index` races + `git commit-tree` bypass cascaded into mass-deletion commit. L-969/L-970/L-971 captured the failure chain. L-403 trimmed to 20 lines. sync_state.py has `_update_session_log` NameError bug.
+- **meta-swarm**: Target `tools/sync_state.py` — fix `_update_session_log` NameError. Function removed during refactor but call remains.
+- **State**: 887L 203P 20B 15F | SWARMABILITY 100/100
 
 ## S427 session note (cite-corrections: 6→0 HIGH items cleared via concurrent collaboration)
 - **check_mode**: objective | **mode**: correction propagation | S426 continuation
