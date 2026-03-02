@@ -1,4 +1,13 @@
-Updated: 2026-03-02 S430 | 901L 222P 20B 15F
+Updated: 2026-03-02 S430 | 902L 222P 20B 15F
+
+## S430 session note (zombie cleanup + claim-vs-evidence + principle-batch-scan P-291..P-297)
+- **check_mode**: objective | **mode**: important-priority batch (zombies + overdue periodics)
+- **expect**: Zombies 40%→<30%. Claim-vs-evidence clears 38-session debt. Principles +5-10.
+- **actual**: Zombies 4→1 via NEXT.md archival (15 sections, 223 lines). SIG-49/SIG-50 resolved. 4 challenges filed (PHIL-21/14/18/11, SIG-51→SIG-54). +7 principles (P-291→P-297, 12.3% promotion rate). L-977 trimmed (absorbed by concurrent S429).
+- **diff**: Zombie target MET (1 remaining = SIG-38, blocked on human). Principle count exceeded target. Claim-vs-evidence genuinely critical — PHIL-11 (100% deference) and PHIL-14 (3/4 goals unmeasured) are real structural concerns.
+- **meta-swarm**: Target `tools/orient_sections.py` section_zombie_carryover — zombie window is implicitly NEXT.md size. Archival resets the window. Need explicit session-count window or git-based measurement for consistent zombie tracking.
+- **State**: 901L 222P 20B 15F | SWARMABILITY 100 | 4 challenges filed | 7 principles extracted
+- **Next**: (1) PHIL-14 prescription: implement L-942 per-session protect/truthful flags; (2) PHIL-21 test: reclassify 20 L3-tagged lessons; (3) F-EXP11 body-text integration frontier; (4) ECE calibration 0.243 → target <0.15
 
 ## S429 session note (DOMEX-CAT-S429: FM-22 hardened + maintenance clearance)
 - **check_mode**: objective | **mode**: hardening + maintenance DUE clearance
