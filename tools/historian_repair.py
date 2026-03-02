@@ -322,11 +322,24 @@ def scan_domains(cs: int, gap_threshold: int = 30) -> list[StaleItem]:
         if not frontier_file.exists():
             continue
         frontier_text = frontier_file.read_text()
-        # Check if there are open frontiers (not RESOLVED/ABANDONED)
-        active_frontiers = re.findall(r"\*\*(F-\w+\d+)\*\*", frontier_text)
-        resolved = set(re.findall(r"(?:RESOLVED|ABANDONED)[^\n]*\*\*(F-\w+\d+)\*\*|"
-                                   r"\*\*(F-\w+\d+)\*\*[^\n]*(?:RESOLVED|ABANDONED)", frontier_text))
-        open_fs = [f for f in active_frontiers if f not in resolved]
+        # Use score_domain to check for truly active frontiers (L-1055: search only ## Active section)
+        try:
+            from dispatch_scoring import score_domain as _score_domain
+            _sd = _score_domain(domain_dir.name)
+            if _sd is None or _sd.get("active", 0) == 0:
+                continue  # No active frontiers — domain is invisible to dispatcher too
+            # Extract frontier IDs from Active section only
+            active_match = re.search(r"## (?:Active|Open)\s*\n(.*?)(?=\n## |\Z)", frontier_text, re.DOTALL)
+            active_section = active_match.group(1) if active_match else ""
+            open_fs = re.findall(r"(?:^- \*\*|^### )(F-\w+\d+)", active_section, re.MULTILINE)
+            if not open_fs:
+                open_fs = [f"F-{domain_dir.name.upper()[:3]}1"]  # fallback name
+        except Exception:
+            # Fallback to original logic if dispatch_scoring unavailable
+            active_frontiers = re.findall(r"\*\*(F-\w+\d+)\*\*", frontier_text)
+            resolved = set(re.findall(r"(?:RESOLVED|ABANDONED)[^\n]*\*\*(F-\w+\d+)\*\*|"
+                                       r"\*\*(F-\w+\d+)\*\*[^\n]*(?:RESOLVED|ABANDONED)", frontier_text))
+            open_fs = [f for f in active_frontiers if f not in resolved]
         if not open_fs:
             continue
 

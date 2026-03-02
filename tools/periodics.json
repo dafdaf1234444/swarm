@@ -123,7 +123,7 @@
       "cadence_sessions": 10,
       "last_reviewed_session": 433,
       "registered_by": "S188",
-      "last_session": "S433",
+      "last_session": 443,
       "note": "S437 audit: cadence 5\u219210. production velocity tracked by change-quality-check at cadence=5."
     },
     {

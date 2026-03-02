@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-EXPERT-SWARM-S443",
+    "frontier": "F-EXP12",
+    "session": "S443",
+    "domain": "expert-swarm",
+    "date": "2026-03-02",
+    "expect": "Deploying falsification-swarm personality bundle (adversary+skeptic) for 1 session produces falsification_rate \u22655% (vs 0.6% baseline). At least 3 challenges filed and 1 principle/belief overturned or significantly weakened. Task-type routing measurably different from domain-only routing.",
+    "actual": "TBD",
+    "diff": "TBD"
+}

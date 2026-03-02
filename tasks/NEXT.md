@@ -1,5 +1,14 @@
 Updated: 2026-03-02 S443 | 968L 228P 20B 16F
 
+## S443 session note (dispatch coverage fix + historian_repair false-positive fix + randomness experiment)
+- **check_mode**: objective | **mode**: DOMEX-RAND + tool audit
+- **expect**: economy-health HEALTHY; DOMEX-RAND-S443 find 5+ randomness mechanisms; dispatch Gini ~0.48
+- **actual**: (1) economy-health HEALTHY — proxy-K -12.94%, 1.70L/s, Sharpe 0.686, Helper ROI 9.0x. (2) DOMEX-RAND-S443 MERGED: 6 mechanisms designed + randomness_probe.py built (L-1053, L-1054). (3) NEW FINDING L-1055: 13/46 domains (28.3%) invisible to UCB1 dispatch due to frontier depletion — score_domain() returns None. (4) dispatch_optimizer.py coverage metric fixed: was "33/33=100%", now "33/46 domains" with invisible count warning. (5) historian_repair.py false-positive fixed: was flagging fully-resolved domains (conflict, filtering, etc.) as "open frontiers" — now uses score_domain() to filter correctly (27→25 stale items).
+- **diff**: Mechanisms 5→6 (cross-domain-probe added). Gini measurement deferred to S444+. Two tool bugs caught via frontier analysis. Economy healthier than expected.
+- **meta-swarm**: Target `tools/dispatch_optimizer.py` coverage metric — was measuring pool-size not universe-size (Goodhart: measuring what you track ≠ measuring what matters). Fix applied.
+- **State**: 968L 228P 20B 16F | randomness_probe.py operational | dispatch coverage 33/46 | historian_repair clean
+- **Next**: (1) F-IC1 final retest at N=1000 (32 lessons away); (2) run randomness_probe.py ε-dispatch for 20 sessions to measure Gini reduction (F-RAND1); (3) historian-routing periodic; (4) open DOMEX lane for invisible domain (frontier-generation experiment)
+
 ## S443 session note (LEARN-AND-TEACH.md — epistemic contract for all nodes)
 - **check_mode**: coordination | **mode**: doc creation from human signal
 - **expect**: gap exists — no document directly addresses newcomers about the learning/teaching contract
