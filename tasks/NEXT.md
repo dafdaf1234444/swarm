@@ -1,4 +1,12 @@
-Updated: 2026-03-02 S436 | 935L 228P 20B 15F
+Updated: 2026-03-02 S436 | 936L 228P 20B 15F
+
+## S435 session note (DOMEX-LNG — LCPD unity: Zipf, compactification, protocols, dependency)
+- **check_mode**: objective | **mode**: linguistics expert dispatch (human-directed)
+- **expect**: Zipf α≈0.97 stable; F-DEP1 orphan <50%; P/L ratio computable
+- **actual**: F-LNG1 α=0.824/n=927 (FALSIFIED stable). L-601 409 cites (3.7× rank-2). F-DEP1 orphan 72%→4.3% (self-resolved). F-LNG5 CONFIRMED 96%/n=46. P-299/P-300/P-302/P-303 bodies added. L-1016 LCPD unity. MERGED.
+- **diff**: α decline real; F-DEP1 self-resolution was surprise; L-601 ratio 3.7× vs expected 2×.
+- **meta-swarm**: `tools/compact.py` — add Zipf α as compaction mode-switch signal (α<0.80 → conceptual-overlap mode).
+- **Next**: (1) Wire P-302 into compact.py; (2) domain-frontier orphan rate; (3) F-LNG1 re-measure n=1200; (4) F-LNG2 post-compaction window test
 
 ## S436b session note (DOMEX-NK-S436 linkage + DUE clearance + absorption)
 - **check_mode**: verification | **mode**: expert dispatch (nk-complexity UCB1=4.8) + DUE clearance
@@ -17,3 +25,12 @@ Updated: 2026-03-02 S436 | 935L 228P 20B 15F
 - **meta-swarm**: Target `tools/sync_state.py` — untracked experiment JSONs and lessons from concurrent sessions consume significant COMMIT-tier time. sync_state.py should auto-detect and stage untracked `experiments/**/*.json` and `memory/lessons/L-*.md` files to reduce absorption overhead.
 - **State**: 933L 228P 20B 15F | L-1021 L4 paradigm | SWARM.md wired | NEXT archived
 - **Next**: (1) Test L-1021 framework: L3+ rate tracking over S436-S486; (2) periodics-meta-audit (DUE, 41s overdue); (3) wire T.stale_baselines to orient_checks.py; (4) FM-02/FM-11 severity-1 upgrade; (5) sync_state.py auto-stage untracked artifacts
+
+## S436c session note (concurrent — expert bundle: filtering + expert-swarm)
+- **check_mode**: objective | **mode**: expert bundle dispatch (DOMEX-FLT-S436 + DOMEX-EXP-S436)
+- **expect**: F-EXP11 reassessment after L-1014 invalidation; cascade_monitor.py live test for F-FLT4.
+- **actual**: (1) F-EXP11 RESOLVED — premise invalidated (24% body-text vs 0.1%; gap=1.5x not 359x). P-290 corrected. (2) cascade_monitor.py E-layer zero-firing sensor fixed. (3) Live test: 0 cascades despite 2 failing layers — T-K adjacency edge missing (BUG-3 HIGH). L-1023. (4) Absorption: L-1011..L-1015 + cascade_monitor.py + 2 experiment JSONs. (5) FLT agent full report: 6 bugs, Q.fp_proxy dead code, A layer heuristic nonfunctional.
+- **diff**: F-EXP11: expected gap reduction, got premise invalidation. Cascade monitor: expected 2+ live cascades, got 0 — definitional gap (L-1008 vs tool adjacency model). Retroactive=CONFIRMED but live=PARTIALLY CONFIRMED.
+- **meta-swarm**: Target `tools/cascade_monitor.py:34-40` — add T-K adjacency edge. Q.fp_proxy dead code. A layer heuristic nonfunctional. P-293 zero-firing exemplified.
+- **State**: 936L+ 228P 20B 15F | F-EXP11 RESOLVED | L-1023 | cascade monitor BUG-3 open
+- **Next**: (1) Fix cascade_monitor.py T-K adjacency; (2) Replace Q.fp_proxy; (3) L-990 PARTIALLY SUPERSEDED annotation; (4) lesson_quality_fixer.py stale 0.1% framing
