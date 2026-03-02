@@ -1,12 +1,14 @@
 # Filtering Domain — Frontier Questions
 Domain agent: write here, not to tasks/FRONTIER.md
-Updated: 2026-03-02 S433 | Active: 3
+Updated: 2026-03-02 S433 | Active: 2
 
 ## Active
 
 - **F-FLT1** (level=L3): What is the complete filter inventory of the swarm, and what is each filter's measured selectivity?
   Test: Enumerate all filtering mechanisms across 6 layers (context, knowledge, attention, quality, temporal, epistemic). For each: identify input stream, filter criterion, output, and measured FPR/FNR where data exists. Compile into a single selectivity table. Already known: compaction FPR=15.4% size-only / 0% Sharpe-weighted (L-268), stall detection recall=97.1% FPR=5.3% (L-515), contract check FNR=1.4% (L-653). Target: ≥6 of 9 identified filters with quantified selectivity.
   Cites: L-116, L-268, L-515, L-653, L-820.
+
+  **S433 [CONFIRMED]**: 14 filters identified across 6 layers, 7 with measured selectivity (target was ≥6 of 9). Key finding: retention ≠ accessibility — compaction has 0% citation loss but BLIND-SPOT rate is 16.1% (208/1288). 23.9% of active lessons have zero incoming citations. Temporal filter most porous: 31% periodics overdue. Human signal filter has 0% rejection rate (no filtering). Cross-layer cascade evidence from L-556. L-1005.
 
 - **F-FLT2** (level=L3): Does the swarm's aggregate filtering performance degrade at scale?
   Test: Three proxies: (1) knowledge filter: proxy-K growth rate per 100 lessons at N=500 vs N=900, (2) attention filter: UCB1 Gini at N=50 vs N=169 lanes, (3) epistemic filter: DECAYED% at N=500 vs N=900. Prediction: epistemic filter degrades fastest (O(N) revalidation cost, no auto-refresh). Null: all filters scale linearly.
@@ -19,3 +21,4 @@ Updated: 2026-03-02 S433 | Active: 3
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F-FLT1 | CONFIRMED — 14 filters, 7 measured selectivity. Retention ≠ accessibility (BLIND-SPOT 16.1%). L-1005. | S433 | 2026-03-02 |

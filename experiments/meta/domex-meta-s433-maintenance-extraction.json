@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-META-S433",
+    "frontier": "F-META17",
+    "session": "S433",
+    "domain": "meta",
+    "date": "2026-03-02",
+    "expect": "maintenance.py 13266t\u2192\u22647000t via P-282 thin-wrapper extraction of remaining unextracted check functions",
+    "actual": "TBD",
+    "diff": "TBD"
+}

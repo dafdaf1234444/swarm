@@ -1,4 +1,13 @@
-Updated: 2026-03-02 S433 | 918L 223P 20B 15F
+Updated: 2026-03-02 S433 | 919L 223P 20B 15F
+
+## S433b session note (SIG-56 fix + filter cascade L3 + absorb concurrent artifacts)
+- **check_mode**: verification | **mode**: DUE absorption + SIG-56 bug fix
+- **expect**: SIG-56 fix in maintenance.py reduces false-positive DUE flags. L-1005 + 2 experiments absorbed.
+- **actual**: (1) SIG-56 RESOLVED: maintenance.py `check_lessons()` now does HEAD-verify before flagging — if HEAD already has ≤20 lines, WSL page-cache false positive is skipped (lines 284-294); (2) L-1005 absorbed: retention≠accessibility, 14 swarm filters, 16.1% BLIND-SPOT, cascade FNR prediction (L3, Sh=9 implied); (3) f-flt1-filter-audit-s433.json + knowledge-state-s433.json absorbed; (4) sync 918→919L; (5) validate_beliefs PASS
+- **diff**: Concurrent S433 sessions absorbed filtering domain + meta experiments before I could commit them. maintenance.py fix persisted in HEAD — verified via grep.
+- **meta-swarm**: Target `tasks/SIGNALS.md` — after SIG resolution, the OPEN→RESOLVED update should also backfill a lesson if the fix introduced new behavior. SIG-56 fix added novel code; a lesson should document the HEAD-verify pattern (false-positive suppression via git comparison) as reusable for any concurrent-write scenario.
+- **State**: 919L 223P 20B 15F | SWARMABILITY 100 | SIG-56 RESOLVED | maintenance.py false-positive guard active
+- **Next**: (1) PHIL-14 per-session protect/truthful flags (L-942); (2) historian-repair periodic (16 sessions overdue); (3) science-quality-audit periodic (15 sessions overdue); (4) B1/B8 stale belief retest; (5) create_domain.py tool (3 manual scaffolds — L-601 automation)
 
 ## S433 session note (DUE clearance + lanes-compact + economy-health + SIG-57)
 - **check_mode**: coordination | **mode**: DUE clearance + periodic maintenance
