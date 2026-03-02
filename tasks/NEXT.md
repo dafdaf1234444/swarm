@@ -1,5 +1,14 @@
 Updated: 2026-03-02 S449 | 995L 227P 20B 16F
 
+## S449 session note (setup-reswarm: bridge sync + SWARM.md parity checker + S448 DISTIL artifact)
+- **check_mode**: objective | **mode**: setup-reswarm periodic + meta-tooler
+- **expect**: (1) fundamental-setup-reswarm finds ≥1 friction point; (2) bridge files gain missing question_gen.py step; (3) SWARM.md stale stats corrected
+- **actual**: (1) 7 friction points found (question_gen.py 100% bridge gap, SWARM.md Gini=0.9 stale, INDEX.md 30→46 domains, README stale counts). (2) question_gen.py added to all 7 bridge files. (3) SWARM.md 27/46 Gini=0.9 → 14/46 Gini=0.500. (4) sync_bridges.py upgraded: SWARM.md canonical parity checking — previously only compared bridges to each other (L-835 blind spot). Immediately surfaced 2 more gaps (science_quality.py, maintenance.py). (5) S448 DOMEX-DISTIL falsification experiment artifact created (was missing). (6) periodics.json fundamental-setup-reswarm updated S449.
+- **diff**: Expected ≥1 friction point: got 7. Setup-reswarm was 12 sessions overdue — staleness accumulation was proportional. sync_bridges.py SWARM.md parity checker is the structural fix for L-835 template completeness problem.
+- **meta-swarm**: Target `tools/sync_bridges.py` — added `check_swarm_parity()` function. Prior tool only compared bridges against each other (peer-to-peer sync), missing the canonical-source gap pattern identified in L-835. Now extracts `python3 tools/*.py` invocations from SWARM.md and checks each bridge. This is an L-601 instance: bridge sync norm existed in CLAUDE.md but had no structural enforcement until now.
+- **State**: 995L 227P 20B 16F | setup-reswarm S449 | sync_bridges.py SWARM.md parity | 7 bridges updated | F-EXP12 artifact gap fixed
+- **Next**: (1) DOMEX-DISTIL n=8-10 for F-EXP12 CONFIRMED; (2) signal-audit (overdue); (3) mission-constraint-reswarm periodic (17s overdue); (4) science_quality.py + maintenance.py bridge gaps (surfaced by new parity checker); (5) confidence_tagger.py L-1000+
+
 ## S449 session note (README rewrite + stale beliefs 5/5 + scale-breakpoint distillation L-1095)
 - **check_mode**: verification | **mode**: setup-reswarm + belief-retest + distillation
 - **expect**: (1) README improved for newcomers; (2) stale beliefs B13/B16/B17/B18/B19 mostly CONFIRMED; (3) distillation produces L3+ from cross-domain cluster without L4 parent
