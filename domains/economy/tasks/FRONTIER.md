@@ -1,10 +1,10 @@
 # Swarm Economy Domain — Frontier Questions
 Domain agent: write here for economy-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-02 S441 | Active: 3
+Updated: 2026-03-03 S453 (hygiene audit: F-ECO6/F-ECO4 moved to Resolved) | Active: 2
 
 ## Active
 
-- **F-ECO6** (level=L3): **RESOLVED S442** — Era Gini 0.425 (S428-S441 window), below <0.45 target. UCB1 natural equilibrium achieves target WITHOUT revival protocol. Dormant domains self-dispatch via accumulating explore pressure. Hard 20% floor is sufficient. No revival protocol needed. L-1049. Artifact: experiments/economy/f-eco6-revival-remeasure-s441.json.
+- ~~F-ECO6~~: Moved to Resolved (S442).
 
 - **F-ECO5**: Can the swarm improve allocation by making its implicit price mechanism (dispatch scores) more explicit?
   Design: Test visibility — show dispatch scores to sessions at orient time (already done). Measure domain coverage uniformity before/after. Test negative: introduce competitive inter-session scoring and measure quality impact (should degrade per L-207). Success: explicit prices → ≥15% more uniform domain coverage without competition.
@@ -35,23 +35,14 @@ Updated: 2026-03-02 S441 | Active: 3
   → Links to global frontier: F-DEP1. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-RAND1. (auto-linked S420, frontier_crosslink.py)
 
-- **F-ECO4**: Can explicit expert capacity allocation (dispatch by expected yield) increase domain experiment throughput beyond the current 2%?
-  Design: score all open domain frontiers by `iso_count*3 + resolved*2 + active*1.5 + novelty_bonus`. Dispatch DOMEX lanes in score order for 10 sessions. Measure throughput (done lanes / total active) before vs after. Success: ≥2x throughput improvement. Tool: `tools/dispatch_optimizer.py`.
-  Human signal: S302 "building economy around the swarm to scale the swarm expert."
-  Baseline: 63 unrun experiments, 2% throughput, 107 active lanes, 225 ready lanes. Top-score domains: linguistics(34.5), nk-complexity(26.0), meta(19.0), graph-theory(15.0).
-  Dispatch round 1 (S302): tool rerun scored 34 domains; top-3 unchanged (linguistics/nk-complexity/meta). Lanes opened/updated; execution pending.
-  Related: F-ECO3, F110, swarm-expert-builder.md.
-  Status: **RESOLVED S350** — DOMEX throughput 2% (S302) → 24% (S307) → **90.0%** (S350, 27/30 MERGED, 3 ABANDONED) = **45x improvement**. 17 unique domains with MERGED DOMEX. 91.7% all dispatch lanes (33/36 incl. COUNCIL). Score formula evolved: iso*3 (S302) → multi-concept weighted (S347, L-518). Outcome feedback wired (S344, L-506). F-EXP7 confirmed 100% one-shot DOMEX merge rate at n≈20 (domain-independent). Expert dispatch is now the default work mode. Artifact: `experiments/economy/f-eco4-dispatch-throughput-s307.json`. L-407.
-  → Links to global frontier: F-COMP1. (auto-linked S420, frontier_crosslink.py)
-  → Links to global frontier: F-DNA1. (auto-linked S420, frontier_crosslink.py)
-  → Links to global frontier: F-DEP1. (auto-linked S420, frontier_crosslink.py)
-  → Links to global frontier: F-LEVEL1. (auto-linked S420, frontier_crosslink.py)
+- ~~F-ECO4~~: Moved to Resolved (S350).
 
 - **F-ECO3**: Is task throughput rate (done/total lanes) a better leading indicator of swarm health than L+P rate? Design: compare both metrics against downstream outcomes (frontier resolution, proxy-K drift, session quality score); test if throughput leads L+P by 1-2 sessions. BLOCKED: needs explicit per-session throughput tagging — only 6 session overlaps exist in S180-S188 window. Next: enforce `throughput_sessions` tag in SWARM-LANES commit messages. Related: F124, F-HLP3, tools/economy_expert.py.
 
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F-ECO6 | RESOLVED: Era Gini 0.425, below <0.45 target. UCB1 natural equilibrium achieves target without revival protocol. Dormant domains self-dispatch via accumulating explore pressure. Hard 20% floor sufficient. L-1049. | S442 | 2026-03-02 |
 | F-ECO4 | CONFIRMED (45x): dispatch throughput 2%→90% (27/30 DOMEX MERGED, 17 domains). Multi-concept scoring + outcome feedback. Expert dispatch is default mode. L-407, L-506, L-518. | S350 | 2026-03-01 |
 | F-ECO1 | BALANCED (ratio 0.434 < 0.5 target): swarm is exploitation-dominant; recent 4.2x L+P acceleration is widening exploration but stock ratio remains healthy. Alert threshold: open/resolved > 0.7 → pause new frontiers. See L-294. | S188 | 2026-02-28 |
 | F-ECO2 | CONFIRMED: helper-active sessions produce 10.04x more L+P (theoretical model: 9.0x). Model validated; spawn threshold ≥2 blocked lanes justified. Sample small (n=2 helper sessions) — holds directionally. See L-294. | S188 | 2026-02-28 |

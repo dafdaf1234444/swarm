@@ -364,10 +364,10 @@ class TestSwarmLaneCoordinationSignals(unittest.TestCase):
             [
                 "| Date | Lane | Session | Agent | Branch | PR | Model | Platform | Scope-Key | Etc | Status | Notes |",
                 "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
-                "| 2026-02-27 | LANE-1 | S198 | codex | feature/a | - | gpt-5 | windows | tools/maintenance.py | setup=windows focus=global | ACTIVE | work |",
+                "| 2026-02-27 | LANE-1 | S450 | codex | feature/a | - | gpt-5 | windows | tools/maintenance.py | setup=windows focus=global | ACTIVE | work |",
             ]
         )
-        results = self._run_check(lanes_text, session=200)
+        results = self._run_check(lanes_text, session=452)
         self.assertTrue(any("stale >1 sessions" in msg for _, msg in results))
 
     def test_stale_active_lane_due(self):
@@ -375,10 +375,10 @@ class TestSwarmLaneCoordinationSignals(unittest.TestCase):
             [
                 "| Date | Lane | Session | Agent | Branch | PR | Model | Platform | Scope-Key | Etc | Status | Notes |",
                 "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
-                "| 2026-02-27 | LANE-1 | S195 | codex | feature/a | - | gpt-5 | windows | tools/maintenance.py | setup=windows focus=global | ACTIVE | work |",
+                "| 2026-02-27 | LANE-1 | S447 | codex | feature/a | - | gpt-5 | windows | tools/maintenance.py | setup=windows focus=global | ACTIVE | work |",
             ]
         )
-        results = self._run_check(lanes_text, session=200)
+        results = self._run_check(lanes_text, session=452)
         self.assertTrue(any("stale >3 sessions" in msg for _, msg in results))
 
 
@@ -595,7 +595,7 @@ class TestMissionConstraintDegradedRuntime(unittest.TestCase):
         results = self._run_check(
             next_lines=lines,
             session_log_lines=lines,
-            session=200,
+            session=452,
             python_status={"python3": False, "python": False},
             py_launcher=False,
             bash_available=False,
@@ -614,7 +614,7 @@ class TestMissionConstraintDegradedRuntime(unittest.TestCase):
         results = self._run_check(
             next_lines=lines,
             session_log_lines=lines,
-            session=200,
+            session=452,
             python_status={"python3": False, "python": False},
             py_launcher=False,
             bash_available=False,
@@ -637,7 +637,7 @@ class TestMissionConstraintDegradedRuntime(unittest.TestCase):
         results = self._run_check(
             next_lines=lines,
             session_log_lines=lines,
-            session=200,
+            session=452,
             python_status={"python3": True, "python": False},
             py_launcher=False,
             bash_available=True,

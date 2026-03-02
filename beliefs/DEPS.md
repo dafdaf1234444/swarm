@@ -153,7 +153,7 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Evidence**: observed (L-599, S356: 355 sessions health, 0 external validation; S415 N=838: ECE=0.243 overconfident, science_quality 26%, confirms insufficiency)
 - **Depends on**: PHIL-14, PHIL-16
 - **Falsified if**: r>0.8 internal health vs external validation over ≥20 sessions
-- **Last tested**: S452 (CONFIRMED — mission sufficiency EXCELLENT 87% continuous but still 0 external outputs; F-COMP1 still open after 452 sessions; ECE improved to 0.157 but core claim unchanged: internal metrics necessary not sufficient) | **Domain**: evaluation
+- **Last tested**: S453 (CONFIRMED — mission sufficiency EXCELLENT 85.7% continuous (composite 0.833) at N=1004L; still 0 external outputs; F-COMP1 still open after 453 sessions; Protect improved (proxy_k_drift=0.7% from 11.4%); core claim unchanged: internal metrics necessary not sufficient) | **Domain**: evaluation
 
 ### B-EVAL2: At 299L+, quality binds over quantity — frontier resolution > new lessons
 - **Evidence**: observed (L-599: ~15 metaphor + ~10 circular at 539L; S415 N=838: L-912 integration-bound at N≈550-575, recent Sharpe 8.2 vs historical 7.5)
