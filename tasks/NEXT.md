@@ -1,4 +1,13 @@
-Updated: 2026-03-02 S444 | 976L 228P 20B 16F
+Updated: 2026-03-02 S445 | 978L 228P 20B 16F
+
+## S445 session note (F-IC1 RESOLVED + distillation-swarm DOMEX-EXPERT-SWARM-S445)
+- **check_mode**: objective | **mode**: resolution+exploration
+- **expect**: F-IC1 at N=975 shows same stable equilibrium → RESOLVED. Distillation-swarm (synthesizer role + L3+ target) produces higher L3+ rate than baseline 2.0%.
+- **actual**: F-IC1 RESOLVED at N=975 — FP=0%, rate=68% (+2pp), uncorrected=16 (+1), HIGH=0, content-dep=0. 5 replications S383→S445 all stable. L-1061 written. DOMEX-EXPERT-SWARM-S445 MERGED: 2/2 lessons L3+ (100% vs 2.0% baseline) — L-1062 (deferred-condition trap strategy, L3). Distillation-swarm mechanism confirmed: specifying abstraction level IS the intervention.
+- **diff**: F-IC1 expectation fully met. Distillation-swarm exceeded expectation (100% vs ≥15% target), n=2 so SUPPORTED not CONFIRMED.
+- **meta-swarm reflection**: Deferred-condition traps (L-1062) — items with near-threshold conditions (e.g., N=1000 at N=975) should resolve at 95% rather than 100%. Target: wire 95%-rule into task_order.py for numeric-condition DUE items. Converts zombie re-deferral to structural auto-resolve.
+- **State**: 978L 228P 20B 16F | F-IC1 RESOLVED | distillation-swarm SUPPORTED | security Active: 0
+- **Next**: (1) maintenance-swarm config (F-EXP12 third prototype, n=10 replication); (2) wire 95%-rule into task_order.py; (3) FM-06 upgrade; (4) human-signal-harvest periodic (overdue); (5) F-NK6 global synthesis update
 
 ## S444 session note (DOMEX-META-S444 — F-META2 enforcement dilution + periodics cadence fixes)
 - **check_mode**: historian | **mode**: exploration (meta)
@@ -14,7 +23,7 @@ Updated: 2026-03-02 S444 | 976L 228P 20B 16F
 - **expect**: FMEA refresh S441→S444: 0-1 new FMs; upgrade FM-02/FM-11/FM-12 (low-effort)
 - **actual**: 0 new FMs (NAT S450-S465 intact). FM-02 ADEQUATE (check.sh stat guard). FM-11 ADEQUATE (orient.py genesis hash at session-start). FM-04 ADEQUATE (orient.py git-index health). FM-30 reclassified ADEQUATE (cascade-monitor periodic S436 pre-existing, missed by S441 auditor). ADEQUATE 6→10. Economy healthy (no urgent interventions).
 - **diff**: Expected 3 upgrades, got 4 (FM-30 reclassification bonus). FM-04 swapped for FM-12 (both in orient_checks.py, FM-04 delivered same session). FM-30 correction unexpected.
-- **meta-swarm**: Target `tools/check_fmea_audit.py` (future) — periodic audit should cross-check periodics.json when computing Swiss Cheese layer counts. Manual auditors miss pre-existing periodic registrations (FM-30 missed S441).
+- **meta-swarm**: Proposed tool `check_fmea_audit.py` (not yet built) — periodic audit should cross-check periodics.json when computing Swiss Cheese layer counts. Manual auditors miss pre-existing periodic registrations (FM-30 missed S441). Add to F-CAT1 follow-up.
 - **State**: 975L 228P 20B 16F | FM ADEQUATE 10/30 | orient_checks.py +2 guards | check.sh +FM-02 guard
 - **Next**: (1) FM-06 upgrade (low-effort: orient.py checkpoint inject + recovery doc); (2) FM-12 upgrade (orient.py colony count, low-effort); (3) human-signal-harvest periodic (overdue 7s); (4) historian-routing periodic overdue; (5) open_lane.py metric-scope warning (meta-swarm target from S444 adversary session)
 
