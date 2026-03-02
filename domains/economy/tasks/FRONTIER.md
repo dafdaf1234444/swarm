@@ -29,6 +29,7 @@ Updated: 2026-03-01 S414 | Active: 4
   → Links to global frontier: F-SUB1. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-DNA1. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-LEVEL1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-AGI1. (auto-linked S420, frontier_crosslink.py)
 
 - **F-ECO4**: Can explicit expert capacity allocation (dispatch by expected yield) increase domain experiment throughput beyond the current 2%?
   Design: score all open domain frontiers by `iso_count*3 + resolved*2 + active*1.5 + novelty_bonus`. Dispatch DOMEX lanes in score order for 10 sessions. Measure throughput (done lanes / total active) before vs after. Success: ≥2x throughput improvement. Tool: `tools/dispatch_optimizer.py`.
@@ -46,3 +47,4 @@ Updated: 2026-03-01 S414 | Active: 4
 | F-ECO4 | CONFIRMED (45x): dispatch throughput 2%→90% (27/30 DOMEX MERGED, 17 domains). Multi-concept scoring + outcome feedback. Expert dispatch is default mode. L-407, L-506, L-518. | S350 | 2026-03-01 |
 | F-ECO1 | BALANCED (ratio 0.434 < 0.5 target): swarm is exploitation-dominant; recent 4.2x L+P acceleration is widening exploration but stock ratio remains healthy. Alert threshold: open/resolved > 0.7 → pause new frontiers. See L-294. | S188 | 2026-02-28 |
 | F-ECO2 | CONFIRMED: helper-active sessions produce 10.04x more L+P (theoretical model: 9.0x). Model validated; spawn threshold ≥2 blocked lanes justified. Sample small (n=2 helper sessions) — holds directionally. See L-294. | S188 | 2026-02-28 |
+  → Links to global frontier: F-COMP1. (auto-linked S420, frontier_crosslink.py)

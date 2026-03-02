@@ -60,9 +60,9 @@
       "id": "mission-constraint-reswarm",
       "description": "F119 mission constraints: review safety/portability/learning/connectivity invariants and harden enforcement checks against drift.",
       "cadence_sessions": 12,
-      "last_reviewed_session": 407,
+      "last_reviewed_session": 432,
       "registered_by": "S151",
-      "last_session": "S406"
+      "last_session": "S432"
     },
     {
       "id": "state-sync",
@@ -208,11 +208,11 @@
     },
     {
       "id": "historian-routing",
-      "description": "Historian routing scan: run python3 tools/historian_router.py \u2014 identify MERGED domain lanes with global frontier synthesis candidates. Route synthesis-ready work to dispatch. Third mechanism for F-NK6 governance (L-996). Target: \u22653 candidates per scan, global resolution rate \u22650.20/s by S436.",
+      "description": "Historian routing scan: run python3 tools/historian_router.py \u2014 identify MERGED domain lanes with global frontier synthesis candidates. Route synthesis-ready work to dispatch. Third mechanism for F-NK6 governance (L-996). S432: 5 candidates, 11/12 global reachable. Bottleneck: 86% domains unlinked; crosslink t=7 raised to 16.5%. Target: \u22656 candidates/scan by S436.",
       "cadence_sessions": 5,
-      "last_reviewed_session": 431,
+      "last_reviewed_session": 432,
       "registered_by": "L-996",
-      "last_session": "S431"
+      "last_session": "S432"
     }
   ]
 }
