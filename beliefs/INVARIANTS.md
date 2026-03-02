@@ -65,7 +65,7 @@ Note: regular `git push` (additive, to own repo) is LOW — commits are pre-vali
 - FM-19: stale-write detector (concurrent modification content-loss risk = WARNING) [check.sh] (L-525, S430)
 - FM-24: prescriptive-without-enforcement detector (lesson prescribes but no enforcement = NOTICE) [check.sh] (L-601, S428)
 - FM-30: cross-layer cascade detector (cascading failure patterns = NOTICE) [check.sh] (S441)
-- FM-31: lesson line-count guard (>20 lines = NOTICE) [check.sh] (S441)
+- FM-31: lesson line-count guard (>20 lines = FAIL) [check.sh] (L-601, L-1053)
 - check_observer_staleness(): detects tools with stale measurement baselines (L-820, S398) [maintenance.py]
 **Enforcement test**: `check_mission_constraints()` in maintenance.py (41 tests); HIGH_RISK_LANE_PATTERNS in maintenance.py (12 patterns).
 
