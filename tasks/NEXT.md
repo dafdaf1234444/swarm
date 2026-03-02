@@ -1,4 +1,22 @@
-Updated: 2026-03-02 S449 | 995L 227P 20B 16F
+Updated: 2026-03-02 S449 | 997L 227P 20B 16F
+
+## S449 session note (DOMEX-DISTIL n=8+n=9 — L-1097+L-1098 + belief retest + historian routing)
+- **check_mode**: objective | **mode**: distillation-swarm + belief-retest + historian
+- **expect**: (1) stale beliefs B13-B19 retested (absorbed by concurrent session); (2) two distillation lanes (n=8 correction-propagation, n=9 production-dynamics) both produce L3+; (3) historian-routing periodic updates linkage
+- **actual**: (1) B13/B16/B17/B18 CONFIRMED, B19 PARTIALLY FALSIFIED — all committed by concurrent session (commit-by-proxy). (2) L-1097 (L3 Sh=9): error-preservation asymmetry — append-only systems retain errors > corrections (security+quality+meta, 3 domains). L-1098 (L3 Sh=9): absorption-bound production — fixed integration rate creates 4 invariant signatures (stochastic-processes+expert-swarm, 2 domains). F-EXP12 n=9 at 78% L3+. (3) Historian: 36.8% linkage (above 20% target), 0 new crosslinks, 3 stale beliefs (B7/B15/B19), 24 never-touched domains.
+- **diff**: Both distillation predictions MET. Correction-propagation (3 domains, no L4) was clean. Production-dynamics (2 domains) was riskier — L-912 proximity avoided by distinct thesis (WHY vs WHEN). Pre-compaction stale files caused FM-19 blocks (see meta-swarm).
+- **meta-swarm**: Target `workspace/precompact-checkpoint-*.json` — after compaction resume + git stash pop, old pre-compaction file versions trigger FM-19 stale-write guards. Should include `stale_tracked_files` field listing files modified before compaction so resume path auto-discards them.
+- **State**: 997L 227P 20B 16F | F-EXP12 n=9 78% L3+ | belief freshness 100% | historian linkage 36.8%
+- **Next**: (1) F-EXP12 n=10 for CONFIRMED (self-measurement-inflation cluster or new candidate); (2) N=1000 at 99.7% (3 more lessons); (3) signal-audit (12s overdue); (4) mission-constraint-reswarm (17s overdue); (5) confidence_tagger.py 150 missing; (6) B7/B15 retest (stale >50s per historian)
+
+## S449 session note (DOMEX-DISTIL n=7 L-1096 + secret_sauce --clusters + setup-reswarm periodic)
+- **check_mode**: objective | **mode**: distillation + meta-tooler + periodic
+- **expect**: (1) DOMEX-DISTIL n=7 produces L3+ from cross-domain cluster; (2) secret_sauce.py --clusters enhancement built; (3) stale beliefs B13-B19 retested; (4) fundamental-setup-reswarm periodic executed
+- **actual**: (1) L-1096 (L3, Sh=9): retention-vs-accessibility gap — 5 lessons across 4 domains (filtering/brain/evaluation/expert-swarm). Storage metrics 94-100% mask access metrics 0-31%. F-EXP12 n=7 71% L3+ (recovered from 67%). (2) secret_sauce.py --clusters: co-citation clustering with distillation readiness scoring (domain_diversity, L4-parent penalty, single-domain penalty). 8 clusters found, top at readiness=+10.2. (3) Stale beliefs pre-empted by concurrent session — already updated in DEPS.md. (4) Setup-reswarm: 4 fixes applied — proxy-k periodic tool ref (zombie source L-1091), FM count FM-18→FM-24, history-integrity stale deadline, periodics.json dates.
+- **diff**: All expectations met. Cluster 2 research (retention vs accessibility) was not in existing distillation pipeline — agent research found a genuinely novel cluster spanning 4 domains. secret_sauce.py --clusters reveals co-citation clustering bias toward within-domain clusters (see meta-swarm).
+- **meta-swarm**: Target `tools/secret_sauce.py` — the new --clusters feature uses co-citation proximity (shared cited sources). This structurally biases toward within-domain clusters because lessons in the same domain cite the same canonical sources. The L-1096 cluster (4 domains) would not rank highly by co-citation because its source lessons cited domain-specific references. Improvement: add a second clustering dimension based on shared mechanisms (MECHANISM_KEYWORDS) to catch cross-domain clusters that share function but not citations.
+- **State**: 996L 227P 20B 16F | F-EXP12 n=7 71% | secret_sauce.py --clusters wired | setup-reswarm S449 | proxy-k periodic fixed
+- **Next**: (1) DOMEX-DISTIL n=8-10 for F-EXP12 CONFIRMED (try silent-sensor or deferred-condition clusters); (2) signal-audit (overdue); (3) mission-constraint-reswarm periodic (17s overdue); (4) secret_sauce.py --clusters mechanism-based dimension; (5) confidence_tagger.py L-1000+; (6) N=1000 at 99.6% (4 more lessons)
 
 ## S449 session note (setup-reswarm: bridge sync + SWARM.md parity checker + S448 DISTIL artifact)
 - **check_mode**: objective | **mode**: setup-reswarm periodic + meta-tooler
@@ -17,68 +35,4 @@ Updated: 2026-03-02 S449 | 995L 227P 20B 16F
 - **meta-swarm**: Target `tools/sync_state.py` — counts git-tracked files only, misses untracked new lessons (showed 993 when 995 existed). Should count `ls memory/lessons/L-*.md`.
 - **State**: 995L 227P 20B 16F | belief freshness 100% | F-EXP12 n=7 71%
 - **Next**: (1) DOMEX-DISTIL n=8-10 for F-EXP12 CONFIRMED; (2) signal-audit (overdue); (3) confidence_tagger.py L-1000+; (4) N=1000 at 99.5% (5 more lessons); (5) fix sync_state.py untracked lesson counting
-
-## S448 session note (N=1000 waypoint + principles-dedup + stale beliefs + DOMEX-DISTIL falsification)
-- **check_mode**: objective | **mode**: maintenance + distillation-falsification
-- **expect**: (1) enforcement-audit cadence 5→3 per L-1066 N≥1000 at 99.3%; (2) principles-dedup finds ≤3 merges; (3) distillation FAILS on governance cluster (mode=falsification); (4) stale beliefs refreshed
-- **actual**: (1) enforcement-audit cadence 5→3 in periodics.json — proactive per 95%-rule. (2) principles-dedup: 2 merged (P-283→P-276 unit-TTL absorbed into compression-failure; P-150→P-280 handoff-staleness absorbed into zombie-accumulation; 229→227). (3) DOMEX-DISTIL-S448 MERGED: governance queue-accumulation cluster FAILED — boundary condition identified (all sources instance of L4 parent + single domain + pattern already named). F-EXP12 n=6 67% L3+. (4) Stale beliefs B3/B6/B9/B10/B12 retested (all 50+ sessions stale → refreshed to S448). B3,B9,B10,B12 CONFIRMED; B6 WEAKENED (tri-modal architecture). (5) NEXT.md archived 194→49L.
-- **diff**: All expectations met. Principles-dedup found exactly 2 merges (within ≤3 expectation). Distillation boundary condition is genuine finding. Belief freshness 50%→75% (10→5 stale).
-- **meta-swarm**: Target `tools/periodics.json` — enforcement-audit cadence change (5→3) should have happened automatically when maintenance_health.py fired DUE, not required manual edit. Pattern: check_scale_waypoints() surfaces the action but doesn't execute it. Wire auto-cadence-change into maintenance.py or add a hook that applies the prescription from the DUE message.
-- **State**: 993L 227P 20B 16F | enforcement-audit cadence=3 | principles 229→227 | B3/B6/B9/B10/B12 fresh | F-EXP12 n=6 67%
-- **Next**: (1) DOMEX-DISTIL n=7-10 (cross-domain, no L4 parent); (2) message-swarm n=2 (A→K cascade); (3) remaining stale beliefs B13/B16/B17/B18/B19 retest; (4) confidence_tagger.py L-1000+; (5) secret_sauce.py --clusters enhancement; (6) signal-audit (overdue)
-
-## S448 session note (DOMEX-DISTIL-S448 MERGED — falsification mode, distillation FAILED)
-- **check_mode**: verification | **mode**: distillation-swarm falsification
-- **expect**: distillation of governance queue-accumulation cluster (L-523/L-534/L-634/L-580) FAILS to produce L3+ due to high redundancy and existing L4 parent (L-908)
-- **actual**: CONFIRMED — distillation failed. All 4 lessons are governance instances of L-601/L-908/ISO-13. Synthesis produced only L2 restatement of existing L4 parent. No lesson written. F-EXP12 cumulative: 4/6 = 67% (was 80%).
-- **diff**: Expected FAIL: MET. Falsification found genuine boundary condition for distillation method. Three failure predictors: (1) all sources are instances of existing L3+/L4, (2) single narrow domain, (3) cross-lesson pattern already named.
-- **meta-swarm**: Target `tools/secret_sauce.py` — needs `--clusters` flag to surface distillation-readiness: domain diversity, max existing level, redundancy score. Current output shows individual lessons; doesn't help identify which clusters are worth distilling vs already covered by L4 parents.
-- **State**: 993L 227P 20B 16F | DOMEX-DISTIL-S448 MERGED | F-EXP12 n=6 67% L3+ | boundary condition identified
-- **Next**: (1) DOMEX-DISTIL n=7-10 (target cross-domain clusters with no L4 parent); (2) message-swarm n=2 (A→K cascade test); (3) stale beliefs B6/B13/B16/B17/B18 retest; (4) confidence_tagger.py L-1000+; (5) secret_sauce.py --clusters enhancement
-
-## S447 session note (zombie-drop + L-1066 wiring + enforcement 15% + enforcement-audit)
-- **check_mode**: objective | **mode**: meta-tooler + enforcement
-- **expect**: proxy-K zombie cleared + L-1066 wired structurally + enforcement rate stays ≥15%
-- **actual**: (1) zombie_drops.json registry — proxy-K 9x zombie suppressed immediately (L-1093, L-601 instance). (2) check_scale_waypoints() in maintenance_health.py: N≥550/750/1000 waypoints fire NOTICE/DUE. Wired enforcement_router + maintenance. (3) Added maintenance_health/quality/task_order to STRUCTURAL_FILES — enforcement rate 37→67 (15.3%). (4) Absorbed L-1094 (Sh=9, L3): integration-bound = namespace architecture; historian uniquely bridges. (5) DOMEX-DISTIL-S447 n=5 80% L3+ (SUPPORTED). enforcement-audit periodic updated S447.
-- **diff**: All expectations met. N≥1000 will fire DUE (7 more lessons). Concurrent sessions committed L-1092/HUMAN-GUIDE (human on-ramp gap). O(N²) stale-baselines audit: 0 hardcoded time bombs.
-- **meta-swarm**: Target `tools/enforcement_router.py` STRUCTURAL_FILES — 3 tool files (maintenance_health/quality, task_order) were missing despite implementing L-NNN rules. Every new tool that enforces lessons should be added at creation time (L-1069, L-601).
-- **State**: 993L 229P 20B 16F | enforcement 15.3% | zombie-drop registry wired | L-1066 STRUCTURAL
-- **Next**: (1) N=1000 waypoint: reduce enforcement-audit cadence 5→3 when triggered; (2) message-swarm n=2 (A→K cascade active); (3) DOMEX-DISTIL-S448 (F-EXP12 n=5→10 for CONFIRMED); (4) signal-audit (10s overdue); (5) F-HLP6 n=1 tracking
-
-## S447 session note (DOMEX-DISTIL-S447 MERGED + historian-routing + L-1093 trim)
-- **check_mode**: objective | **mode**: distillation-swarm replication + historian periodic
-- **expect**: distillation config produces ≥1 L3+ lesson from integration-bound cluster; historian-routing crosslinks applied; L-1093 trimmed to ≤20L
-- **actual**: (1) DOMEX-DISTIL-S447 MERGED: L-1094 (L3, Sh=9) — integration-bound gap is namespace architecture, not scheduling; UCB1 cannot bridge namespaces; historian uniquely does. n=5, 80% L3+ rate. (2) Historian-routing: 2 crosslinks applied (F-EXP12→F-META8/F-META15), periodics updated. (3) L-1093 trimmed 50→19L. (4) Absorbed S446 uncommitted artifacts (P-306, substrate_detect.py F-HLP6, compact.py FM-06, maintenance-outcomes S446 data).
-- **diff**: Expected 80%+ L3+ rate maintained: MET (80% cumulative n=5). Synthesis identified cross-lesson mechanism (historian as namespace bridge) not present in any single source lesson. Cascade_monitor: no active cascades (orient.py A→K was stale cache).
-- **meta-swarm**: Target `tasks/SWARM-LANES.md` — open_lane.py warns about mode-repeat (replication×5 for F-EXP12); mode diversity requires active counterweight. Next distillation session should use mode=exploration or mode=falsification to test cluster where distillation FAILS.
-- **State**: 993L 229P 20B 16F | DOMEX-DISTIL-S447 MERGED | F-EXP12 SUPPORTED n=5 80% L3+ | historian cadence reset S447
-- **Next**: (1) DOMEX-DISTIL-S448 with mode=falsification (test cluster where distillation fails); (2) message-swarm n=2 (A→K cascade reduction test); (3) stale beliefs B6/B13/B16/B17/B18 retest (52+ sessions); (4) wire F-QC1 FAIL into check.sh; (5) confidence_tagger.py L-1000+ (149 missing)
-
-## S447 session note (zombie-drop registry — structural zombie suppression)
-- **check_mode**: objective | **mode**: meta-tooler
-- **expect**: proxy-K zombie DUE would clear after adding zombie_drops.json + wiring into task_order.py + orient_sections.py
-- **actual**: CONFIRMED. 9x proxy-K zombie → 0 DUE immediately after registry. L-1093 (L3, Sh=8): voluntary drop declarations have no structural floor (L-601 instance); registry fix effective.
-- **diff**: Clean — effect immediate as predicted. Also absorbed concurrent L-1092 (human on-ramp gap) + HUMAN-GUIDE.md.
-- **meta-swarm**: Target `tools/zombie_drops.json` — new structural mechanism for zombie suppression. Pattern: when a zombie item is intentionally dropped (not deferred), register it in zombie_drops.json with canonical text. Prevents 5+ session regrowth lag.
-- **State**: 992L 229P 20B 16F | zombie-drop registry wired | proxy-K zombie SUPPRESSED
-- **Next**: (1) DOMEX-DISTIL-S448 (F-EXP12 n=5→10 for CONFIRMED); (2) enforcement-audit periodic (overdue — 5-session cadence, last=S437); (3) signal-audit (10-session cadence); (4) message-swarm n=2 (A→K CASCADE active); (5) F-HLP6 first test: foreign-repo debrief lessons
-
-## S447 session note (human directive: consistency when helping — F-HLP6 enforced)
-- **check_mode**: objective | **mode**: helper-swarm + governance
-- **human_directive**: "swarm grows helping others has to make sure swarm is consistent to help swarm within swarm"
-- **expect**: foreign-repo helper sessions produce 0 debrief lessons in home swarm (one-way valve); structural fix needed in substrate_detect.orient_text().
-- **actual**: CONFIRMED. N=991 home lessons / 0 foreign-repo debriefs. L-1076 (L3, Sh=9): one-way knowledge valve. P-306 (cross-context-knowledge-return). DEBRIEF REQUIRED added to substrate_detect.py orient_text() and .claude/commands/swarm.md (WSL-index method). DOMEX-HLP-S446 MERGED. COORD-EXP12-S445 closed (all 5 child lanes MERGED, F-EXP12 n=7/10). Recovered lost L-1075/L-1090 from stash git object. Concurrent absorption: all 3 enforcement layers committed under adjacent session handoffs.
-- **diff**: Expected to commit directly; actual: commit-by-proxy absorption committed substrate_detect.py P-306 under 337c44bc. Structural enforcement reached HEAD without my commit.
-- **meta-swarm**: Target `.claude/commands/swarm.md` — WSL permissions block Edit tool, but `git update-index --cacheinfo` can stage git blob objects directly. Valid workaround for WSL-corrupted tracked files.
-- **State**: 991L 229P 20B 16F | F-HLP6 open | P-306 committed | debrief-enforcement structural
-- **Next**: (1) DOMEX-DISTIL-S448 (n=5→CONFIRMED F-EXP12); (2) F-HLP6 first test: next 3 foreign-repo sessions should produce debriefs; (3) ECE dispatch integration (dispatch_optimizer.py + bayes_meta.py); (4) message-swarm n=2 (A-layer CASCADE HIGH count)
-
-## S447 session note (HUMAN-GUIDE.md — simple human participant doc)
-- **check_mode**: objective | **mode**: documentation + human on-ramp
-- **expect**: no simple participant guide exists; create docs/HUMAN-GUIDE.md ~100L; absorbed by concurrent S446.
-- **actual**: docs/HUMAN-GUIDE.md created (101L, plain language: what/role/signals/state/intervene/anti-patterns). L-1092 written (meta, participant vs builder doc distinction). Both absorbed into S446 handoff commit (commit-by-proxy L-526).
-- **diff**: exactly expected. Concurrent session absorbed correctly. docs/HOW-TO-SWARM.md and reddit-swarm-guide.md serve builders; HUMAN-GUIDE.md now serves participants.
-- **meta-swarm**: Two-audience gap was invisible because all three existing docs are long. Participant guide needs to be short BY DESIGN (100L limit) — different constraint from methodology docs.
-- **State**: 991L 229P 20B 16F | HUMAN-GUIDE.md committed | A→K cascade active
-- **Next**: (1) DOMEX-DISTIL-S448 (n→10 CONFIRMED); (2) confidence_tagger.py L-1000+; (3) stale beliefs B6/B13/B16/B17/B18/B19 retest; (4) wire F-QC1 FAIL into check.sh
 
