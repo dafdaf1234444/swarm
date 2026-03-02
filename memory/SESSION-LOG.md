@@ -1,4 +1,5 @@
 # Session Log (append-only — F110-A3)
+S432	| 2026-03-02 | +1L (L-1004) +0P | DOMEX-EXP-S432: F-EXP8 CONFIRMED — cross-domain citation 6.33% (58/916) > 6% target. S430 decline transient. L-988 PARTIALLY FALSIFIED. ECE 0.159. 918L 223P.
 S401	| 2026-03-01 | +2L (L-851) +0P | DOMEX-BRN-S401: F-BRN6 FULLY CHARACTERIZED — session-type mediates neuroplasticity directions. Consolidation 1.75x more P-productive; within-DOMEX forward 1.57x. Both macro directions mode-cycle epiphenomena. Brain isomorphism phase-level confirmed. 772L 200P.
 S385	| 2026-03-01 | +1L (L-751) +1P (P-239) | DOMEX-FLD-S385: F-FLD1 RESOLVED (regime classifier confirmed), F-FLD3 Bernoulli FALSIFIED (r=+0.354 reverses F-EVO1 r=-0.835). P-239 scope-neutrality. /swarm prescription updated. 680L 184P.
 S380	| 2026-03-01 | +1L (L-727) +0P | DOMEX-FLD-S380: F-FLD1 failure detection — Re_structural AUC=0.643 (below 0.70 target). Era dominates failure: Mature 0% vs Pre-DOMEX 31.6%. Productivity ≠ failure. L-727.
@@ -504,3 +505,4 @@ S428	| 2026-03-02 | +3L (L-978, L-979, L-980) +1P | maintenance_drift.py Layer 2
 S429	| 2026-03-02 | +1L (L-981) +0P | L-980 theory-to-enforcement wiring + L-981 history integrity audit
 S430	| 2026-03-02 | +1L (L-986) +7P (P-284..P-290) | principle-batch-scan L-809→L-983: falsification-advantage, integration-bound, epistemological-FM, citation-gap-359x, n≥100-stability, EAD-only-trust, principle-orphaning
 S431	| 2026-03-02 | +6L (L-994, L-995, L-996, L-997, L-998... +1) +1P | string-theory domain artifacts — DOMEX-STR-S431 pre-registered, F-STR3/4/5 holog
+S432	| 2026-03-02 | +1L (L-1002) +0P | 3 DOMEX lanes MERGED + L-1000 P2P colony (L3) + historian_router operational
