@@ -11,8 +11,17 @@ import json
 import os
 import re
 import subprocess
+import sys
 import time
 from pathlib import Path
+
+# Use centralized metadata parser (L-1035: parallel-parser antipattern fix)
+try:
+    sys.path.insert(0, str(Path(__file__).parent))
+    from lesson_meta import parse_meta as _parse_lesson_meta
+    _HAS_LESSON_META = True
+except ImportError:
+    _HAS_LESSON_META = False
 
 
 def check_index_coverage(index_text):
@@ -325,10 +334,14 @@ def _scan_lesson_domains(lesson_dir):
     for lesson_file in lesson_dir.glob("L-*.md"):
         try:
             text = lesson_file.read_text(encoding="utf-8", errors="ignore")
-            m = re.search(r"\*{0,2}Domain\*{0,2}:\s*([^|\n]+)", text)
-            if not m:
+            if _HAS_LESSON_META:
+                domain_raw = _parse_lesson_meta(text).get("domain") or ""
+            else:
+                m = re.search(r"\*{0,2}Domain\*{0,2}:\s*([^|\n]+)", text)
+                domain_raw = m.group(1) if m else ""
+            if not domain_raw:
                 continue
-            for d in re.split(r"[,/]", m.group(1)):
+            for d in re.split(r"[,/]", domain_raw):
                 d = re.sub(r"\s*\(.*?\)", "", d).strip().lower()
                 if d:
                     lesson_domains[d] = lesson_domains.get(d, 0) + 1
