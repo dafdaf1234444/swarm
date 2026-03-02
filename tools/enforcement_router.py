@@ -47,6 +47,9 @@ STRUCTURAL_FILES = [
     "tools/orient_checks.py",       # L-581: dark matter PID, L-515: stale lane detection, etc.
     "tools/citation_retrieval.py",  # L-929: citation graph primary retrieval; INDEX cold-start fallback
     "tools/orient_sections.py",     # many L-NNN wired via orient.py subsections
+    "tools/maintenance_health.py",  # L-1066: scale-waypoint checks; L-1057: memory size
+    "tools/maintenance_quality.py", # L-581: dark matter; L-583: correction propagation
+    "tools/task_order.py",          # L-978: zombie DUE; L-1062: deferred-condition traps; L-1093: zombie-drop registry
 ]
 
 # Periodic-tier files (softer enforcement)

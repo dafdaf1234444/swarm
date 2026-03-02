@@ -291,3 +291,43 @@ def check_memory_md_size() -> list[tuple[str, str]]:
     except Exception:
         pass
     return []
+
+
+def check_scale_waypoints() -> list[tuple[str, str]]:
+    """Detect crossed scale-break waypoints requiring architectural action (L-1066).
+
+    Three measured waypoints: N≈550 (integration-bound), N≈750 (reliability-break),
+    N≈1000 (enforcement-dilution). Each shifts the binding constraint.
+    """
+    results = []
+    try:
+        index_text = _read(REPO_ROOT / "memory" / "INDEX.md")
+        m = re.search(r"\*\*(\d+) lessons\*\*", index_text)
+        if not m:
+            return results
+        n = int(m.group(1))
+
+        # Waypoint 3: N≥1000 — enforcement dilution (L-1066, L-1062)
+        # Action: reduce enforcement-audit cadence from 5 to 3 sessions
+        if n >= 1000:
+            periodics_path = REPO_ROOT / "tools" / "periodics.json"
+            try:
+                import json as _json
+                data = _json.loads(periodics_path.read_text(encoding="utf-8"))
+                enf = next((e for e in data.get("items", []) if e.get("id") == "enforcement-audit"), None)
+                if enf and enf.get("cadence_sessions", 5) > 3:
+                    results.append(("DUE", f"L-1066 N≥1000 waypoint: enforcement-dilution — scale enforcement-audit cadence 5→3 (python3 tools/enforcement_router.py, tools/periodics.json)"))
+            except Exception:
+                results.append(("DUE", f"L-1066 N≥1000 waypoint: enforcement-dilution — scale enforcement-audit cadence (L-1066, L-1062)"))
+
+        # Waypoint 2: N≥750 — reliability-break, O(N²) and hardcoded value audit (L-1066, L-788)
+        elif n >= 750:
+            results.append(("NOTICE", f"L-1066 N≥750 waypoint ({n}L): O(N²) tool audit — run python3 tools/enforcement_router.py + check_stale_baselines for hardcoded values (L-788)"))
+
+        # Waypoint 1: N≥550 — integration-bound, route ≥1/3 sessions to historian-mode (L-1066, L-912)
+        elif n >= 550:
+            results.append(("NOTICE", f"L-1066 N≥550 waypoint ({n}L): integration-bound — route ≥1/3 dispatch sessions to historian-mode (L-912, tools/historian_router.py)"))
+
+    except Exception:
+        pass
+    return results
