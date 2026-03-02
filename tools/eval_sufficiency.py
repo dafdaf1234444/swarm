@@ -601,8 +601,8 @@ def score_truthful(challenges: dict, signals: dict, frontiers: dict) -> dict:
     # Estimate sessions from signal count trend (50 signals / ~130 sessions ≈ 0.38 signals/session)
     # External grounding = signals that were catalyzed by external evidence (L-276, F-EVAL2)
     total_sig = signals["total"]
-    # Read current session from INDEX.md (avoid hardcoded stale value)
-    estimated_sessions = 193  # fallback
+    # Read current session from INDEX.md (avoid hardcoded stale value — FM-20)
+    estimated_sessions = 1  # safe fallback: avoids division-by-zero, produces conservative density
     try:
         index_text = (ROOT / "memory" / "INDEX.md").read_text(encoding="utf-8")
         import re as _re

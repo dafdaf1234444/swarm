@@ -404,6 +404,21 @@ def section_experiment_harvest_gap(check_fn):
     return lines
 
 
+def section_stale_baselines(session_num, check_fn):
+    """Stale hardcoded baselines in tools (FM-20, L-820)."""
+    lines = []
+    try:
+        stale = check_fn(session_num)
+        if stale:
+            lines.append(f"--- Stale baselines ({len(stale)} hardcoded session values >50s behind) ---")
+            for s in stale[:5]:
+                lines.append(f"  ! {s['file']}:{s['line']} = {s['value']} ({s['age']}s stale, {s['pattern']})")
+            lines.append("")
+    except Exception:
+        pass
+    return lines
+
+
 def section_underused_tools(check_fn, log_text):
     """Underused core tools."""
     lines = []

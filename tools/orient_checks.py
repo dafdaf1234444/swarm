@@ -404,3 +404,49 @@ def check_active_claims(ROOT):
             print(f"  🔒 {c}")
         print(f"  Use `python3 tools/claim.py claim <file>` before editing DUE files")
         print()
+
+
+def check_stale_baselines(current_session: int, ROOT, stale_threshold: int = 50) -> list:
+    """Scan tool Python files for hardcoded session-number fallbacks (FM-20, L-820).
+
+    Detects hardcoded session-number fallbacks and epoch constants in tool source
+    and flags those more than stale_threshold sessions behind current_session.
+    Returns list of {file, line, value, age, pattern} dicts.
+    """
+    if current_session <= 0:
+        return []
+    tools_dir = ROOT / "tools"
+    stale = []
+    # Patterns that indicate hardcoded session numbers used as baselines/fallbacks
+    patterns = [
+        (re.compile(r'(?:return|=)\s+(\d{2,4})\s*#.*(?:fallback|baseline|from S)'), "fallback_comment"),
+        (re.compile(r'(?:SESSION|session|EPOCH|epoch)\s*=\s*(\d{2,4})\b'), "session_constant"),
+        (re.compile(r'estimated_sessions\s*=\s*(\d{2,4})\b'), "estimated_sessions"),
+        (re.compile(r'current_sess(?:ion)?\s*=\s*(\d{2,4})\b'), "session_default"),
+    ]
+    for pyfile in sorted(tools_dir.glob("*.py")):
+        if pyfile.name.startswith("archive"):
+            continue
+        try:
+            lines = pyfile.read_text(encoding="utf-8").splitlines()
+        except Exception:
+            continue
+        for lineno, line in enumerate(lines, 1):
+            for pat, ptype in patterns:
+                m = pat.search(line)
+                if not m:
+                    continue
+                val = int(m.group(1))
+                if val < 10 or val > current_session + 100:
+                    continue  # skip non-session numbers
+                age = current_session - val
+                if age > stale_threshold:
+                    stale.append({
+                        "file": pyfile.name,
+                        "line": lineno,
+                        "value": val,
+                        "age": age,
+                        "pattern": ptype,
+                    })
+    stale.sort(key=lambda x: x["age"], reverse=True)
+    return stale

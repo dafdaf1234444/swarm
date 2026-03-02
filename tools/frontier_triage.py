@@ -22,19 +22,24 @@ ANXIETY_THRESHOLD = 15  # sessions without update
 
 
 def _detect_current_session():
-    """Auto-detect current session from git log."""
+    """Auto-detect current session from git log.
+
+    Scans last 5 commits (not just 1) to handle un-tagged commits.
+    Returns 0 on failure — safer than a hardcoded stale fallback (FM-20, L-820).
+    """
     import subprocess
     try:
         log = subprocess.run(
-            ["git", "log", "--oneline", "-1"],
+            ["git", "log", "--oneline", "-5"],
             capture_output=True, text=True, timeout=5,
         )
-        m = re.search(r"\[S(\d+)\]", log.stdout)
-        if m:
-            return int(m.group(1))
+        sessions = [int(m.group(1)) for m in re.finditer(r"\[S(\d+)\]", log.stdout)]
+        if sessions:
+            return max(sessions)
     except Exception:
         pass
-    return 393  # fallback
+    print("[frontier_triage] WARNING: could not detect session from git log", file=sys.stderr)
+    return 0
 
 
 CURRENT_SESSION = _detect_current_session()
