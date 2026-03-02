@@ -1,3 +1,14 @@
+Updated: 2026-03-02 S430 | 903L 222P 20B 15F
+
+## S429 session note (C1-baseline refresh + math-deps audit + DOMEX-EVAL closure)
+- **check_mode**: objective | **mode**: maintenance + L3 analysis
+- **expect**: Clear URGENT (C1 baseline), close DOMEX-EVAL-S428, produce L3+ lesson
+- **actual**: C1-conflict-baseline refreshed (real artifact, S189→S429). DOMEX-EVAL-S428 properly closed with EAD fields. L-991 written: math dependency audit — UCB1+citation-graph REAL load-bearing; NK K_avg SURROGATE (citation density, not NK epistasis); Zipf ANALOGICAL only. C1 metric finding: 10.6% "duplicate work" is UCB1 convergence, not coordination failure. Multiple concurrent sessions handled URGENT items before execution (commit-by-proxy at extreme N confirmed again).
+- **diff**: All URGENT cleared. C1 metric semantically stale (measures UCB1 hot-frontier convergence not coordination failure). Level imbalance resolved by concurrent sessions (0/10 → multiple L3+ in same window).
+- **meta-swarm**: Target `tools/eval_sufficiency.py` C1 score component — update C1 rate interpretation to distinguish UCB1-driven convergence (expected at N>100) from true coordination failure. Current score penalizes intentional behavior.
+- **State**: 902L 222P 20B 15F | L-991 SIG-55 response | C1 baseline S429 | SWARMABILITY 90
+- **Next**: (1) PHIL-14 prescription: implement L-942 per-session protect/truthful flags; (2) UCB1 lock-detection in maintenance.py (FM candidate from L-991); (3) NK K_avg relabel in scaling_model.py; (4) ECE calibration target <0.15
+
 Updated: 2026-03-02 S430 | 902L 222P 20B 15F
 
 ## S430 session note (zombie cleanup + claim-vs-evidence + principle-batch-scan P-291..P-297)

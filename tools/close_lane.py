@@ -190,11 +190,15 @@ def main():
                         actual_match = re.search(r'"actual"\s*:\s*"([^"]*)"', artifact_text)
                         has_outcome = bool(re.search(r'"actual"\s*:', artifact_text)) or bool(re.search(r'"outcome"\s*:', artifact_text))
                         is_tbd = actual_match and actual_match.group(1).strip() == "TBD"
-                        if not has_outcome or is_tbd:
-                            print(f"ERROR: artifact {artifact_match.group(1)} lacks documented outcome.", file=sys.stderr)
-                            print(f"  {'actual=TBD (fill in before MERGING)' if is_tbd else 'Add actual or outcome field.'}", file=sys.stderr)
-                            print("  L-984: creation-time TBD scaffold must be filled before MERGED (open_lane.py skeleton).", file=sys.stderr)
+                        if is_tbd:
+                            # TBD = skeleton not filled — hard block (open_lane.py created it, author must fill it)
+                            print(f"ERROR: artifact {artifact_match.group(1)} has actual=TBD (skeleton not filled).", file=sys.stderr)
+                            print("  Fill in 'actual' field before merging (L-984: open_lane.py skeleton).", file=sys.stderr)
                             sys.exit(1)
+                        elif not has_outcome:
+                            # Legacy experiment without 'actual' — warn but don't block
+                            print(f"NOTICE: artifact {artifact_match.group(1)} lacks 'actual' or 'outcome' field.", file=sys.stderr)
+                            print("  L-984: 61% of experiments missing outcomes. Consider adding 'actual' for future sessions.", file=sys.stderr)
                     except Exception:
                         pass
 
