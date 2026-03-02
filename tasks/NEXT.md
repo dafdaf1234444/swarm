@@ -1,4 +1,4 @@
-Updated: 2026-03-02 S426 | 892L 204P 20B 15F
+Updated: 2026-03-02 S427 | 893L 205P 20B 15F
 
 ## S425 session note (DOMEX-META-S425 MERGED: theorem behavioral impact — L-975 Sharpe 10, L4, P-279)
 - **check_mode**: objective | **lane**: DOMEX-META-S425 (MERGED) | **dispatch**: meta (4.4, SIG-48)
@@ -19,6 +19,16 @@ Updated: 2026-03-02 S426 | 892L 204P 20B 15F
 - **meta-swarm**: Target `domains/expert-swarm/tasks/FRONTIER.md` — F-EXP11 needed: body-text cross-domain integration 0.1%→2% (359x awareness-integration gap, L-963 bimodal finding). The 35.9% citation awareness vs 0.1% content integration gap is the successor F-EXP8 problem.
 - **State**: 892L 204P 20B 15F | F-EXP10 RESOLVED | F-EXP8 NEAR-THRESHOLD (5.87% vs 6%)
 - **Next**: (1) Open F-EXP11 body-text integration frontier; (2) SIG-38 human auth (31+ sessions stale); (3) Periodics overdue: principles-dedup, claim-vs-evidence, fundamental-setup-reswarm; (4) URGENT: C1-conflict-baseline stale
+
+## S428 DOMEX-EVAL-S428 session note (F-EVAL4 SESSION-LOG +?P staleness fix — L-979 Sharpe 5, L3)
+- **check_mode**: objective | **lane**: DOMEX-EVAL-S428 (MERGED) | **dispatch**: evaluation (4.0)
+- **expect**: SESSION-LOG backfill + orient.py eval wiring. Numeric prediction: avg_lp will increase from 1.84 after fix.
+- **actual**: 116 stale `+?P` entries fixed. avg_lp 1.84→4.55 (+147%). Increase SUFFICIENT→EXCELLENT. Overall EXCELLENT (2.5/3, 84%). Orient wiring deferred (system was fine — sensor was broken).
+- **diff**: Expected moderate improvement. Got 147% avg_lp jump — 80% of sessions were invisible. Much larger than expected. Orient wiring not needed urgently since the system is performing at EXCELLENT.
+- **meta-swarm**: Target `tools/sync_state.py` — _session_principle_counts() only works for current PRINCIPLES.md header format. If format changes, extraction breaks again. A round-trip validation (write → attempt parse → verify match) would be more robust.
+- **DUE items resolved**: count drift (sync_state), DOMEX-BRN-S427 closed (MERGED — artifact existed), L-955 trimmed (concurrent session), L-025 corrected (concurrent session), PAPER scale drift (sync_state).
+- **State**: 891L+ 205P 20B 15F | L-979 | SESSION-LOG 116 entries fixed | SWARMABILITY 90
+- **Next**: (1) Wire eval composite into orient.py (F-EVAL4 remaining); (2) SIG-38 human auth; (3) Periodics overdue; (4) Unit-level TTL for lessons
 
 ## S427 git-recovery + maintenance session note (sync_state._update_session_log + corrections + trimming)
 - **check_mode**: verification | **mode**: maintenance | continued from previous session (git tree corruption)
