@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-NK-S432",
+    "frontier": "F-NK6",
+    "session": "S432",
+    "domain": "nk-complexity",
+    "date": "2026-03-02",
+    "expect": "Wiring historian_router.py into periodics and enhancing domain\u2192global link detection will raise synthesis coverage from 4 to \u22656 domains within 5 sessions",
+    "actual": "TBD",
+    "diff": "TBD"
+}
