@@ -287,6 +287,7 @@ def main():
         section_underused_tools, section_recent_commits, section_session_log_tail,
         section_agent_positions, section_concurrent_activity, section_historian_repair,
         section_meta_tooler, section_zombie_carryover, section_suggested_action,
+        section_cascade_state,
     )
 
     maint_out = _run_maint()
@@ -353,6 +354,7 @@ def main():
     if current_sess_num > 0:
         _print_lines(section_stale_baselines(current_sess_num, check_stale_baselines))
     _print_lines(section_underused_tools(check_underused_core_tools, log_text))
+    _print_lines(section_cascade_state())
     _print_lines(section_recent_commits(_commits()))
     _print_lines(section_session_log_tail(log_text, brief))
     _print_lines(section_agent_positions())

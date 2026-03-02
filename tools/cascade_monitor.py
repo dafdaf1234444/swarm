@@ -48,20 +48,34 @@ def _run(cmd: str) -> str:
         return ""
 
 
+def _current_session() -> int:
+    """Infer current session number from git log or lessons count."""
+    log = _run("git log --oneline -1")
+    m = re.search(r'\[S(\d+)\]', log)
+    if m:
+        return int(m.group(1))
+    return 435  # fallback
+
+
 def check_tool_layer() -> dict:
     """T layer: stale baselines and zero-firing sensors."""
-    # Stale baselines: hardcoded session refs in tools/*.py
+    current = _current_session()
+    stale_threshold = 15  # sessions old before a hardcoded ref is considered stale
+    # Stale baselines: hardcoded session refs in tools/*.py that are old
     stale = []
     for p in TOOLS_DIR.glob("*.py"):
         try:
             text = p.read_text(errors="replace")
         except Exception:
             continue
-        # Hardcoded S-NNN references (not in comments or strings used as patterns)
+        # Match quoted S-NNN default values (e.g. session = "S393")
         refs = re.findall(r'["\'](?:s|S)(\d{3,4})["\']', text)
-        refs += re.findall(r'f-[a-z0-9]+-s(\d{3,4})', text, re.I)
-        if refs:
-            stale.append({"file": p.name, "refs": refs[:3]})
+        # Match hardcoded artifact paths like f-con1-baseline-s189
+        refs += re.findall(r'f-[a-z0-9]+-[a-z0-9]+-s(\d{3,4})', text, re.I)
+        # Filter: exclude placeholder S000 and recent sessions
+        old_refs = [r for r in refs if r != "000" and (current - int(r)) > stale_threshold]
+        if old_refs:
+            stale.append({"file": p.name, "refs": old_refs[:3]})
 
     # Zero-firing sensors: checks that haven't triggered in >10 sessions
     # Use orient_checks output if available
@@ -117,12 +131,15 @@ def check_quality_layer() -> dict:
 def check_knowledge_layer() -> dict:
     """K layer: BLIND-SPOT and DECAYED rates from knowledge_state.py."""
     try:
-        sys.path.insert(0, str(TOOLS_DIR))
-        result = _run("python3 tools/knowledge_state.py --json 2>&1")
-        data = json.loads(result)
-        total = sum(data.get("counts", {}).values()) or 1
-        blind = data.get("counts", {}).get("BLIND-SPOT", 0)
-        decayed = data.get("counts", {}).get("DECAYED", 0)
+        # knowledge_state.py --json writes to file, not stdout; find latest
+        ks_files = sorted(REPO_ROOT.glob("experiments/meta/knowledge-state-s*.json"))
+        if not ks_files:
+            return {"layer": "K", "failing": False, "evidence": "no knowledge-state file"}
+        data = json.loads(ks_files[-1].read_text())
+        states = data.get("global_states", {})
+        total = sum(states.values()) or 1
+        blind = states.get("BLIND-SPOT", 0)
+        decayed = states.get("DECAYED", 0)
         blind_rate = blind / total
         decay_rate = decayed / total
         failing = blind_rate >= THRESHOLDS["K_blind_spot_rate"] or \
@@ -143,7 +160,8 @@ def check_evaluation_layer() -> dict:
     try:
         result = _run("python3 tools/eval_sufficiency.py --json 2>&1")
         data = json.loads(result) if result.strip().startswith("{") else {}
-        avg_lp = data.get("avg_lp", 2.0)
+        # avg_lp is nested under goals.Increase.avg_lp_per_session, not top-level
+        avg_lp = data.get("goals", {}).get("Increase", {}).get("avg_lp_per_session", 2.0)
         failing = avg_lp < 1.5
         return {
             "layer": "E",

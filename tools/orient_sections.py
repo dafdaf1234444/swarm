@@ -434,6 +434,39 @@ def section_underused_tools(check_fn, log_text):
     return lines
 
 
+def section_cascade_state():
+    """Cross-layer cascade monitor (F-FLT4, L-1018, P-303). Only shown when layers failing."""
+    lines = []
+    try:
+        import sys
+        from pathlib import Path
+        sys.path.insert(0, str(Path(__file__).parent))
+        from cascade_monitor import (
+            check_tool_layer, check_quality_layer, check_knowledge_layer,
+            check_evaluation_layer, check_attention_layer, detect_cascades,
+        )
+        layers = {
+            "T": check_tool_layer(),
+            "Q": check_quality_layer(),
+            "K": check_knowledge_layer(),
+            "E": check_evaluation_layer(),
+            "A": check_attention_layer(),
+        }
+        failing = [k for k, v in layers.items() if v.get("failing")]
+        cascades = detect_cascades(layers)
+        if cascades:
+            lines.append(f"--- CASCADE ALERT ({len(cascades)} active cascades) ---")
+            for c in cascades:
+                lines.append(f"  ! {c['layers']} (severity={c['severity']})")
+            lines.append("")
+        elif failing:
+            failing_str = ", ".join(f"{k}:{layers[k].get('evidence','')}" for k in failing)
+            lines.append(f"  NOTICE: cascade layers failing (no cascade yet): {failing_str}")
+    except Exception:
+        pass
+    return lines
+
+
 def section_recent_commits(recent_commits):
     """Recent commits for collision avoidance (L-251)."""
     lines = []
