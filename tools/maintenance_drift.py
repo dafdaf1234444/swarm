@@ -219,11 +219,19 @@ def check_observer_staleness(
     except Exception:
         pass
 
-    # --- Layer 2: Source-code baselines (FM-20, L-966) ---
-    # Scan tool .py files for hardcoded S\d{3,} references. Tools that embed
-    # session numbers as baselines/defaults drift silently when those sessions
-    # age out. Root cause of 0 firings in 27+ sessions was regex mismatch.
+    # --- Layer 2: Source-code baselines (FM-20, L-966, L-977) ---
+    # Scan tool .py files for hardcoded S\d{3,} references in baseline context.
+    # L-977: 71% FP rate at S427 — docstrings, examples, historical notes flagged.
+    # Fix: only flag S-numbers on lines containing baseline keywords.
     source_threshold = 80  # source hardcodes have higher inertia
+    _baseline_kw = re.compile(
+        r"\b(?:baseline|floor|count|rate|default|fallback|sink|threshold|measured|estimated)\b",
+        re.IGNORECASE,
+    )
+    _skip_kw = re.compile(
+        r'help=|Example|example|e\.g\.|usage:|argparse|format\b|\bor\s+S\d',
+        re.IGNORECASE,
+    )
     exclude_files = {
         "maintenance_drift.py", "maintenance.py", "sync_state.py",
         "orient.py", "orient_sections.py", "orient_state.py",
@@ -237,10 +245,17 @@ def check_observer_staleness(
                 continue
             try:
                 content = py_file.read_text(encoding="utf-8", errors="replace")
-                sessions = [int(m.group(1)) for m in re.finditer(r"\bS(\d{3,})\b", content)]
-                if not sessions:
+                baseline_sessions = []
+                for line in content.splitlines():
+                    if _skip_kw.search(line):
+                        continue
+                    if not _baseline_kw.search(line):
+                        continue
+                    for m in re.finditer(r"\bS(\d{3,})\b", line):
+                        baseline_sessions.append(int(m.group(1)))
+                if not baseline_sessions:
                     continue
-                max_s = max(sessions)
+                max_s = max(baseline_sessions)
                 age = sess - max_s
                 if age > source_threshold:
                     stale.append(f"{py_file.name}(S{max_s},{age}s)")
