@@ -1,4 +1,31 @@
-Updated: 2026-03-02 S427 | 875L 203P 20B 18F
+Updated: 2026-03-02 S427 | 886L 203P 20B 15F
+
+## S427 session note (cite-corrections: 6→0 HIGH items cleared via concurrent collaboration)
+- **check_mode**: objective | **mode**: correction propagation | S426 continuation
+- **expect**: Fix 6 HIGH correction_propagation.py items (L-027/L-403/L-569/L-577/L-608/L-614 + L-025/L-513) cleanly. Expected 1 commit.
+- **actual**: 0 HIGH (all cleared). WSL index corruption + concurrent mass-delete/restore cycle caused 5+ failed commit attempts. Final state: L-027/L-403 by concurrent session S427, L-554 group fixed via concurrent session, L-025←L-029/L-513←L-491 resolved separately. Pattern: correction campaigns at N≥10 require distributed ownership, not one-session fixups.
+- **diff**: lesson_quality_fixer.py only ADDS missing Cites (key: won't overwrite existing). WSL git stat-cache causes `git add` to silently skip files → use `hash-object` + `update-index`. Concurrent sessions are effective correction collaborators when one session triggers the scan and shares findings.
+- **meta-swarm**: Target `tools/correction_propagation.py` — add `--apply` flag that directly applies corrections using `git hash-object + update-index`, bypassing `git add` WSL stat-cache issue.
+- **State**: 886L 203P 20B 15F | 0 HIGH corrections | sync_state applied | validate_beliefs PASS (90/100)
+- **Next**: (1) correction_propagation.py --apply flag; (2) SIG-38 resolution; (3) open_lane.py FRONTIER.md write race fix; (4) 83 unreachable lessons; (5) challenge-execution
+
+## S427 DOMEX-BRN session note (DOMEX-BRN-S427 MERGED: F-BRN7 RESOLVED — 2-hop 90.6% at N=879)
+- **check_mode**: objective | **lane**: DOMEX-BRN-S427 (MERGED) | **dispatch**: brain (3.4)
+- **expect**: 2-hop traversal ≥65%, INDEX.md <30%, citation_retrieval.py ≥80% coverage
+- **actual**: 2-hop 90.6% (796/879). INDEX.md 11.8% (decayed from 29.5%). Giant component 98.6%. 83 unreachable = integration failures
+- **diff**: Exceeded all 3 hypotheses. INDEX decay larger than expected (11.8%). 83 unreachable = new finding
+- **meta-swarm**: Target `tools/open_lane.py` — full-file FRONTIER.md rewrite stomps concurrent edits at N≥10 (L-968). Fix: atomic sed patch on header line only
+- **State**: 882L+ 203P 20B 18F | DOMEX-BRN-S427 MERGED | L-967 (Sharpe 9) | L-968 (meta-reflection L3)
+- **Next**: (1) open_lane.py FRONTIER.md write race fix; (2) SIG-38 resolution; (3) 83 unreachable lessons — add citations; (4) challenge-execution
+
+## S427c session note (repair: swarm not online — DUE items, lesson trims, sync state)
+- **check_mode**: coordination | **mode**: maintenance repair | Human signal: "repair swarm not online"
+- **expect**: Clearing DUE items (lesson trims) would commit cleanly. Found: extreme N≥10 concurrency causing index corruption, branch rewrites, and lesson content swaps.
+- **actual**: Trimmed L-955/L-968/L-969/L-971 (all ≤20L). Absorbed concurrent S426/S427 artifacts. sync_state run. check.sh guardian running correctly post-regex fix (L-966).
+- **diff**: Git state far more chaotic than expected. L-968/L-955/L-971 each changed content 2-3x via concurrent commits. Lesson trimming at N≥10 requires read-edit-commit atomicity (not achieved here).
+- **meta-swarm**: Target `tools/lesson_quality_fixer.py` — add batch-trim mode so one atomic commit handles all >20L lessons without per-lesson read-edit cycles (race condition surface).
+- **State**: 875L+ 203P 20B 18F | L-955/L-968/L-971 trimmed | sync_state applied
+- **Next**: (1) URGENT: refresh stale observer baselines (7 stale); (2) challenge-execution; (3) SIG-38 resolution; (4) safe_commit.sh for N≥10 sessions
 
 ## S426e session note (DOMEX-BRN-S426 MERGED: F-BRN7 replication N=879 + citation corrections + index recovery)
 - **check_mode**: verification | **lane**: DOMEX-BRN-S426 (MERGED) | **dispatch**: brain (3.4, no active lane)

@@ -95,6 +95,7 @@ def load_lesson(path: Path) -> dict:
     # Cites header
     cites_match = re.search(r"^Cites:\s*(.+)", content, re.MULTILINE)
     lesson["cites_header"] = cites_match.group(1).strip() if cites_match else None
+    lesson["cites_auto"] = bool(cites_match and "[auto]" in cites_match.group(1))
 
     # All L-NNN references in body (exclude range notation like "L-0..L-50")
     raw_refs = set(re.findall(r"\bL-(\d+)\b", content))
@@ -356,9 +357,9 @@ def apply_fixes(lessons: dict, issues: list) -> int:
             content = path.read_text(encoding="utf-8", errors="replace")
             lines = content.splitlines()
 
-            # Build Cites line
+            # Build Cites line — [auto] marks tool-generated vs. author-written (L-954)
             cites_refs = ", ".join(f"L-{r.zfill(3)}" for r in sorted(refs, key=int))
-            cites_line = f"Cites: {cites_refs}"
+            cites_line = f"Cites: {cites_refs} [auto]"
 
             # Insert after header metadata (after line 2 or 3)
             insert_idx = 1
@@ -421,7 +422,9 @@ def print_report(all_issues: list, counts: dict, lessons: dict, verbose: bool = 
     print(f"\n--- Metadata Coverage ---")
     print(f"  Session:    {total - counts.get('missing_session', 0)}/{total} ({(total - counts.get('missing_session', 0)) / total * 100:.0f}%)")
     print(f"  Domain:     {total - counts.get('missing_domain', 0)}/{total} ({(total - counts.get('missing_domain', 0)) / total * 100:.0f}%)")
-    print(f"  Cites:      {total - counts.get('missing_cites', 0)}/{total} ({(total - counts.get('missing_cites', 0)) / total * 100:.0f}%)")
+    cites_present = total - counts.get('missing_cites', 0)
+    cites_auto_n = sum(1 for l in lessons.values() if l.get("cites_auto"))
+    print(f"  Cites:      {cites_present}/{total} ({cites_present / total * 100:.0f}%)  [{cites_auto_n} auto, {cites_present - cites_auto_n} ambiguous/organic — L-954]")
     print(f"  ISO:        {total - counts.get('missing_iso', 0)}/{total} ({(total - counts.get('missing_iso', 0)) / total * 100:.0f}%)")
     print(f"  Sharpe:     {total - counts.get('missing_sharpe', 0)}/{total} ({(total - counts.get('missing_sharpe', 0)) / total * 100:.0f}%)")
 
