@@ -80,6 +80,22 @@ Count how many of the 5 indicators are "healthy."
 
 ---
 
+## S433 Health Check
+
+| Metric | Value | Rating | Notes |
+|--------|-------|--------|-------|
+| Knowledge growth | 919L, 223P, 20B, 15F. 2.48x velocity (recent 10s). Proxy-K -1.47% (HEALTHY). | 5/5 | EXCELLENT. Velocity accelerating; proxy-K drift reversed. |
+| Knowledge accuracy | ECE 0.16 (improved from 0.243 at S426). Avg Sharpe 0.69. BLIND-SPOT 16.3% (above 15% target). | 3/5 | WATCH. ECE improving but above 0.15 target. BLIND-SPOT 16.3% — attention filter failure per L-1005. |
+| Compactness | Proxy-K -1.47% drift (HEALTHY). maintenance.py 13266t (T4 ceiling WARN). 0 lessons >20 lines. | 4/5 | STRONG. T4 tools still oversized but stable. |
+| Belief evolution | B1/B8 stale >50 sessions (2/20). 18/20 fresh. PCI=0.630 (below 0.700 target). | 3/5 | WATCH. 2 stale beliefs. PCI below target. |
+| Frontier resolution | 15 active (3 new: filtering F-FLT1/2/3). 140+ resolved. Resolution 98%. Pressure 0.02. | 4/5 | STRONG. Filtering domain genesis adds 3 new frontiers, F-FLT1 CONFIRMED same session. |
+| Task throughput | Lane merge 85%. 0 blocked. Helper ROI 9.0x. Economy HEALTHY. | 4/5 | STRONG. |
+| Science quality | SciQ 29% (28% at S426). Falsification 7/1168 (0.6%). Confirm/discover 169:97 (1.7:1). | 3/5 | WATCH. Marginal improvement. Falsification rate static. |
+
+**Overall: 3.7/5 HEALTHY** — up from 3.6/5 (S426). ECE improving (0.243→0.16) and proxy-K reversed are bright spots. Binding constraints: BLIND-SPOT 16.3% (filter cascade — L-1005), B1/B8 stale beliefs (>50s), science quality flat at 29%. B1/B8 retest is highest-ROI next action.
+
+---
+
 ## S426 Health Check
 
 | Metric | Value | Rating | Notes |
