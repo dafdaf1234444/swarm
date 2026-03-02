@@ -143,8 +143,31 @@ def check_knowledge_layer() -> dict:
         ks_files = sorted(REPO_ROOT.glob("experiments/meta/knowledge-state-s*.json"))
         if not ks_files:
             return {"layer": "K", "failing": False, "evidence": "no knowledge-state file"}
-        data = json.loads(ks_files[-1].read_text())
+        raw = ks_files[-1].read_text()
+        # Handle mixed text+JSON files (knowledge_state.py sometimes writes text before JSON)
+        try:
+            data = json.loads(raw)
+        except json.JSONDecodeError:
+            # Scan for embedded JSON object with global_states key
+            decoder = json.JSONDecoder()
+            data = {}
+            for i, ch in enumerate(raw):
+                if ch == '{':
+                    try:
+                        obj, _ = decoder.raw_decode(raw, i)
+                        if "global_states" in obj:
+                            data = obj
+                            break
+                    except json.JSONDecodeError:
+                        continue
         states = data.get("global_states", {})
+        # Fallback: parse text output if JSON had no global_states
+        if not states:
+            for line in raw.splitlines():
+                for state in ("BLIND-SPOT", "DECAYED", "MUST-KNOW", "ACTIVE", "SHOULD-KNOW"):
+                    m = re.search(rf"\b{state}\b\s+(\d+)", line)
+                    if m:
+                        states[state] = states.get(state, 0) + int(m.group(1))
         total = sum(states.values()) or 1
         blind = states.get("BLIND-SPOT", 0)
         decayed = states.get("DECAYED", 0)

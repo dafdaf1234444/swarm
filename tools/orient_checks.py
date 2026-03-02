@@ -57,6 +57,7 @@ def check_index_coverage(index_text):
     dark_pct = (1 - coverage) * 100
     notices = []
     # L-581 PID policy: optimal dark matter 15-25%. >40%: integration needed. <15%: diversity eroding. # L-581
+    # L-565: Integration sessions protocol — check_mode=integration, goal=dark matter reduction. # L-565
     if dark_pct > 40:
         notices.append(
             f"INDEX.md dark matter: {unthemed}/{total} lessons unthemed "

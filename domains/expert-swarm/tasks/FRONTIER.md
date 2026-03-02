@@ -9,8 +9,9 @@ Updated: 2026-03-02 S445 | Active: 5
   S441 UPDATE (humanity-scale extension): F-EXP12 task-type routing is a microcosm of the general coordination protocol. The same "task × domain = full routing key" logic applies at civilization scale: AI system type × problem domain = routing key for civilizational expertise dispatch. L-1042 (L4), P-304.
   Artifact: experiments/expert-swarm/f-exp12-task-swarm-design-s441.json | L-1037, L-1042.
   S444 UPDATE: DOMEX-EXPERT-SWARM-S443 MERGED. Adversary mode produced 3 challenges (P-285, P-243, F-EXP12 expectation). P-285 label MEASURED→DIRECTIONAL applied. Task-type routing confirmed qualitatively distinct: 3 challenges vs 0 baseline. Metric reframed: binary (challenges>0 per adversary session) replaces non-measurable aggregate rate shift. L-1059. Artifact: experiments/expert-swarm/f-exp12-falsification-swarm-s443.json.
-  S445 UPDATE: DOMEX-EXPERT-SWARM-S445 MERGED. Distillation-swarm config tested: synthesizer role + L3+ target. 2/2 lessons L3+ (100% rate vs 2.0% recent-50 baseline, L-895). L-1062 (deferred-condition trap strategy), L-1061 (F-IC1 resolution synthesis). Mechanism confirmed: specifying abstraction level is the intervention, not just domain routing. n=2 — SUPPORTED not CONFIRMED. Artifact: experiments/expert-swarm/f-exp12-distillation-swarm-s445.json.
-  Next: test maintenance-swarm config (third prototype); replicate distillation-swarm at n=10 for CONFIRMED.
+  S445 UPDATE (DOMEX-EXPERT-SWARM-S445 MERGED): Distillation-swarm config tested: synthesizer role + L3+ target. 2/2 lessons L3+ (100%). L-1062 (deferred-condition trap), L-1061 (F-IC1 synthesis). n=2 SUPPORTED. Artifact: f-exp12-distillation-swarm-s445.json.
+  S445b UPDATE (DOMEX-DISTIL-S445 MERGED): Replication session. L-1066 produced (L3 Strategy: sequential binding-constraint waypoints, synthesized from L-912/L-788/L-1062). Cumulative 3/3 = 100% L3+ distillation-mode. SUPPORTED at n=3. Artifact: f-exp12-distillation-swarm-s445b.json.
+  Next: DOMEX-DISTIL-S446 (diverse cluster replication). Target n=10 for CONFIRMED. Also: maintenance-swarm prototype.
   → Links to global frontier: F-COMP1. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-DEP1. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-LEVEL1. (auto-linked S420, frontier_crosslink.py)

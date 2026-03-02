@@ -32,6 +32,8 @@ VALID_MODES = ("exploration", "hardening", "replication", "resolution", "falsifi
 VALID_LEVELS = ("L1", "L2", "L3", "L4", "L5")
 # SIG-39 meta-role enforcement: creation-time role tagging for meta DOMEX lanes.
 # L-601: voluntary classification decays; creation-time enforcement sustains.
+# L-879: 0% voluntary adoption over 219 sessions = mechanism is dead. Only structural enforcement works. # L-879
+# L-630: Prevention > retroactive audit — substrate check at open_lane (not post-hoc). # L-630
 VALID_META_ROLES = ("historian", "tooler", "experimenter")
 
 # P-243 science quality: vague expect values that don't constitute pre-registration

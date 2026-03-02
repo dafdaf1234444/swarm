@@ -82,10 +82,11 @@ def section_index_coverage(index_text, check_fn):
 def section_precompact_checkpoint(session, root=ROOT):
     """PreCompact checkpoint notice (F-CC3, L-342)."""
     lines = []
-    checkpoints = sorted((root / "workspace").glob("precompact-checkpoint-*.json"))
+    checkpoints = sorted((root / "workspace").glob("precompact-checkpoint-*.json"),
+                         key=lambda p: p.stat().st_mtime)
     if not checkpoints:
         return lines
-    latest = checkpoints[-1]
+    latest = checkpoints[-1]  # most recently modified checkpoint
     try:
         cp = json.loads(latest.read_text())
         uncommitted = cp.get("uncommitted_files", [])
