@@ -18,7 +18,7 @@ domains/    30 domains (ls domains/*/tasks/FRONTIER.md for local frontiers)
 docs/       PAPER.md, SWARM-STRUCTURE.md, SWARM-VISUAL-REPRESENTABILITY.md
 ```
 
-## Themes (959 lessons)
+## Themes (960 lessons)
 | Theme | Count | Key insight |
 |-------|-------|-------------|
 | Architecture -- Core Protocols | 21 | Blackboard+stigmergy, enforcement theorem L-601, session-boundary decay L-626 (L-005/L-014/L-156/L-209). |
