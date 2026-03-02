@@ -2,7 +2,7 @@
   "session": 442,
   "stale_window": 50,
   "global_states": {
-    "ACTIVE": 396,
+    "ACTIVE": 397,
     "DECAYED": 367,
     "BLIND-SPOT": 207,
     "MUST-KNOW": 247,
@@ -74,7 +74,7 @@
       "SHOULD-KNOW": 2
     },
     "economy": {
-      "ACTIVE": 6,
+      "ACTIVE": 7,
       "DECAYED": 4,
       "BLIND-SPOT": 1,
       "MUST-KNOW": 8,
@@ -300,8 +300,8 @@
   },
   "revival_rate": 19.37799043062201,
   "revival_per_session": 0.3875598086124402,
-  "total_items": 1217,
-  "total_lessons": 960,
+  "total_items": 1218,
+  "total_lessons": 961,
   "total_principles": 237,
   "total_beliefs": 20,
   "frontier_count": 115,
@@ -369,7 +369,7 @@
     },
     {
       "hypothesis": "Knowledge-state profiles change top-5 dispatch in \u22652/5 cases",
-      "result": "5/5 different (gap-ranked: ['dream', 'protocol-engineering', 'cryptocurrency', 'claude-code', 'history'], UCB1: ['nk-complexity', 'expert-swarm', 'meta', 'catastrophic-risks', 'security'])",
+      "result": "5/5 different (gap-ranked: ['dream', 'protocol-engineering', 'cryptocurrency', 'cryptography', 'string-theory'], UCB1: ['nk-complexity', 'expert-swarm', 'meta', 'catastrophic-risks', 'security'])",
       "pass": true,
       "threshold": "\u22652/5"
     }

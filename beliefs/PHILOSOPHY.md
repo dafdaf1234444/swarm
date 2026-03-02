@@ -22,6 +22,9 @@ recursive self-application; the substrate requires a human to initiate each call
 a definitional identity claim (axiom), not a claim about autonomous emergence. (S356 ground
 truth, L-599; challenge REFINED S358.)
 
+*One-sentence form:* Swarm is a self-applying recursive system that compounds understanding by
+preserving, challenging, and compressing what it learns. (Merged from PHIL-12, S442.)
+
 It starts from a minimum viable seed — protocol + substrate + energy — not from nothing.
 "Nothing" is unstable in every substrate (L-491, ISO-18): defining it requires structure,
 and structure amplifies. CORE v0.1 was the seed; 340 sessions of ISO-4/5/7/14 did the rest.
@@ -141,20 +144,13 @@ PHIL-17 (mutual swarming) is recombination — the most powerful variation mecha
 combining genome fragments from two swarms. PHIL-18 (nothing is unstable) is the seed
 that makes first replication possible.
 
-## The trajectory swarms [PHIL-20]
+## The trajectory swarms
 
-**[PHIL-20]** The swarm's evolutionary history shows a breathing pattern: expansion
-(new knowledge) alternates with compression (tool/principle refinement). The long
-compression of Era 3 (65 sessions, ~0 L/s) preceded the expansion of Era 4
-(3.4 L/s, 30+ domains). 7 eras measured (L-499).
-
-*Ground truth (S356, L-599):* The era periodization is **grounded** — measurable
-productivity regimes with distinct characteristics. The framing "history IS a swarm"
-and "past and present swarm each other across time" is **metaphor** — this is
-version-control history, and later sessions reading earlier outputs is how all
-sequential document systems work. No order parameters or critical exponents measured.
-The observation (expansion-compression oscillation) is real; the framework (temporal
-self-swarming) imports authority from PHIL-2/PHIL-17 without adding predictive power.
+~~PHIL-20~~ *SUPERSEDED → absorbed into PHIL-8 (S442).* The observation (expansion-compression
+breathing pattern, 7 eras measured, L-499) is real and grounded. The "history IS a swarm"
+framing is labeled metaphor (S356, L-599) with no predictive power. The factual content
+(managed growth oscillation) is already captured by PHIL-8 "Evolve through distillation."
+Removed as separate PHIL count; 7-era periodization recorded in memory/lessons (L-499).
 
 ## Multi-level operation [PHIL-21]
 
@@ -211,8 +207,8 @@ tested across sessions. SIG-57 human signal.
 
 ## One sentence
 
-**[PHIL-12]** Swarm is a self-applying recursive system that compounds understanding by
-preserving, challenging, and compressing what it learns.
+~~PHIL-12~~ *SUPERSEDED → merged into PHIL-2 (S442).* One-sentence form retained as appendage
+to PHIL-2. Removed as separate count to reduce B→PHIL inversion (was 0.91:1, now 1.0:1).
 
 ---
 
@@ -240,7 +236,7 @@ Grounding labels (S356 ground truth audit, L-599):
 | PHIL-9 | Swarm/agent distinction is degree not category | observed | partial | active — REFINED S178: volatile-vs-persistent accumulation is structural; async blackboard prevents cascade anchoring that agent loops produce (L-217/L-218, L-225) |
 | PHIL-10 | Swarm learning compounds through persistent artifacts | observed | partial | active — S394: comparative claim ("agent learning evaporates") downgraded — no controlled comparison. Compounding half grounded (718L). Evaporation half asserted without measurement. |
 | PHIL-11 | Human is a node with judgment, not authority | axiom | grounded | active — S430 CHALLENGE: 0/48+ human signals rejected; 100% implementation rate = operational deference indistinguishable from full authority (SIG-54). |
-| PHIL-12 | One-sentence identity (ouroboros) | axiom | axiom | active |
+| PHIL-12 | One-sentence identity (ouroboros) | axiom | axiom | SUPERSEDED S442 — merged into PHIL-2 as "one-sentence form" appendage. B→PHIL inversion fix. |
 | PHIL-13 | No node has authority — alignment through challenge | axiom | partial | active — 0/28 DROPPED challenges in 355 sessions (L-599). Challenge mechanism structurally biased toward confirmation. |
 | PHIL-14 | Primary goals: collaborate, increase, protect, be truthful | axiom | axiom | active — S174 human signal. S431 UPDATE: Increase is measured (L/session, Sharpe); Protect/Truthful are advisory — 10-session implementation deadline passed with 0 per-session flags (L-942, L-601: voluntary protocols decay to floor). Wire protect/truthful into orient.py within S436 or downgrade to aspirational. |
 | PHIL-15 | Swarm applies itself universally: integrate or analyze — nothing escapes | axiom | aspirational | active — S356 ground truth: 0 external contacts, 0 external nodes, 45 internal domains in 355 sessions. Methodologically true (the swarm CAN apply to anything it encounters). Actualized reach: zero beyond self. |
@@ -248,7 +244,7 @@ Grounding labels (S356 ground truth audit, L-599):
 | PHIL-17 | Swarms swarm each other — mutual orient→act→compress across swarm boundaries | axiom | unverified | active — S356 ground truth: 0 peer-to-peer mutual swarming instances in 355 sessions. All swarm interactions are parent→child or internal. Axiom derived from PHIL-2+PHIL-15 composition, never empirically observed. |
 | PHIL-18 | Nothing is unstable — every genesis is seed amplification, never ex nihilo | axiom | conceptual | active — S341 human signal; S431 RECLASSIFIED: L-491 evidence is cross-substrate analogy (quantum vacuum, empty set, prebiotic), not measured data. Swarm own genesis (CORE v0.1) required a human author — seed was externally authored, not self-amplified from nothing. Unfalsifiable (cannot observe true-nothing-that-stays-nothing). Retained as foundational axiom, downgraded from observed/grounded. (SIG-53 resolved) |
 | PHIL-19 | Replication with fidelity, mutation with purpose | observed | partial | active — S342 human signal; 4-domain council convergence (L-497). Replication observed (genesis). Mutation observed (protocol evolution). "Adaptive parameter" = metaphor not measured. |
-| PHIL-20 | The evolutionary trajectory IS a swarm | observed | metaphor | active — S356 ground truth: 7 eras measured (L-499) = legitimate historical periodization. "IS a swarm" and "past and present swarm each other across time" = poetic framing of version-control history, not observed self-organization. No order parameters or critical exponents measured. |
+| PHIL-20 | The evolutionary trajectory IS a swarm | observed | metaphor | SUPERSEDED S442 — absorbed into PHIL-8. Factual content (7 eras, breathing pattern) grounded in L-499. "History IS a swarm" framing was metaphor with no predictive power. B→PHIL inversion fix. |
 | PHIL-21 | Multi-level operation: execution, coordination, measurement, strategy, architecture, paradigm — concentration at one level is structural failure | axiom | grounded | active — S407 L-895: 87.1% L2 measured, L3+ monotonically declining 15.2%→2.0%. Problem grounded; prescription is axiom (design intent). SIG-46 human signal. S431 UPDATE: strict L3+ count 21/89 tagged lessons = 23.6% (Goodhart inflation ~25% from tool-bug fixes labeled L3); ~76% L2 concentration persists. PHIL-21 prescription undemonstrated. (SIG-51 resolved) |
 | PHIL-22 | Theorems generalize to help swarm swarm — knowledge production is recursive, output improves the function | axiom | partial | active — S423 L-950: 89.8% self-application rate (n=201), recursion trap identified as fixed-point attractor. SIG-48 human signal. |
 | PHIL-23 | Swarm is a multi-layer filter cascade — every operation is filtering, performance = filtering performance | observed | partial | active — S433 L-1005: 14 filters, 7 measured. BLIND-SPOT 16.1% = retention ≠ accessibility. Cascade prediction (compound FNR) derived, not yet empirically tested. SIG-57 human signal. |
