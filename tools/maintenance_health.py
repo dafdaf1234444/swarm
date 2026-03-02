@@ -274,3 +274,20 @@ def check_version_drift() -> list[tuple[str, str]]:
         if ver and meta.get(key) and str(ver.group(1)) != str(meta[key]):
             results.append(("URGENT", f"{label} version {ver.group(1)} != meta {meta[key]} — re-read {label}"))
     return results
+
+
+def check_memory_md_size() -> list[tuple[str, str]]:
+    """Check Claude auto-memory MEMORY.md line count to prevent always-visible truncation (B2, L-1057)."""
+    try:
+        encoded = str(REPO_ROOT).replace("/", "-")
+        memory_path = Path.home() / ".claude" / "projects" / encoded / "memory" / "MEMORY.md"
+        if not memory_path.exists():
+            return []
+        lines = len(memory_path.read_text(encoding="utf-8").splitlines())
+        if lines > 180:
+            return [("DUE", f"MEMORY.md approaching 200-line limit ({lines}L) — archive session findings to session-findings.md (B2, L-1057)")]
+        if lines > 160:
+            return [("NOTICE", f"MEMORY.md at {lines}/200 lines — archive session findings soon (B2)")]
+    except Exception:
+        pass
+    return []

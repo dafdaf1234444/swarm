@@ -88,6 +88,10 @@ def check_version_drift() -> list[tuple[str, str]]:
     from maintenance_health import check_version_drift as _impl
     return _impl()
 
+def check_memory_md_size() -> list[tuple[str, str]]:
+    from maintenance_health import check_memory_md_size as _impl
+    return _impl()
+
 # ---------------------------------------------------------------------------
 # Delegation stubs — maintenance_quality.py (S433 extraction)
 # ---------------------------------------------------------------------------
@@ -377,6 +381,7 @@ def main():
         check_zombie_tools,
         check_meta_tooler_gap,
         check_level_quota,
+        check_memory_md_size,
     ]
 
     if not quick:

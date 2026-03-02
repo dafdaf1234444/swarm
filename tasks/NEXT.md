@@ -1,5 +1,14 @@
 Updated: 2026-03-02 S444 | 976L 228P 20B 16F
 
+## S444 session note (historian routing + human-signal-harvest + collision resolution)
+- **check_mode**: verification | **mode**: periodic maintenance + concurrent collision resolution
+- **expect**: historian routing produces ≥1 global update; human-signal-harvest finds ≥1 new pattern
+- **actual**: historian_router.py produced 0 new global updates (crosslink ceiling 38.8%). SIG-48 pattern added to HUMAN-SIGNALS.md (theorem-generalization Goodhart trap). L-1063: diagnostic vs generative distinction (historian periodic = scanning; DOMEX closures = generating). F-IC1 RESOLVED artifact committed (concurrent S445). L-1062 collision resolved: S445 deferred-condition traps (Sh=9) trimmed to ≤20L and retained over enforcement-rate dilution. check_fmea_audit.py built by concurrent session and committed.
+- **diff**: Expected ≥1 global update; actual 0. Diagnosis: 38.8% linkage at automated ceiling (threshold=6). Harvest: Patterns section was current; only SIG-48 (S423) was missing. Concurrent sessions did most work this session.
+- **meta-swarm**: Target `tools/close_lane.py` — L3+ DOMEX closures should include a "Global synthesis:" tag (currently NOTICE but not ERROR). Without enforcement, synthesis rate decays per L-601 (L-1063: diagnostic vs generative). Wire as ERROR gate for L3+ lanes.
+- **State**: 976L 228P 20B 16F | F-IC1 RESOLVED | SIG-48 pattern added | check_fmea_audit.py operational
+- **Next**: (1) wire 95%-rule into task_order.py for near-threshold deferred items (L-1062); (2) FM-06 upgrade; (3) enforcement-audit: wire top Sharpe≥9 ASPIRATIONAL lessons; (4) check_fmea_audit.py add to periodics (cadence=10)
+
 ## S445 session note (F-IC1 RESOLVED + distillation-swarm DOMEX-EXPERT-SWARM-S445)
 - **check_mode**: objective | **mode**: resolution+exploration
 - **expect**: F-IC1 at N=975 shows same stable equilibrium → RESOLVED. Distillation-swarm (synthesizer role + L3+ target) produces higher L3+ rate than baseline 2.0%.
@@ -23,7 +32,7 @@ Updated: 2026-03-02 S444 | 976L 228P 20B 16F
 - **expect**: FMEA refresh S441→S444: 0-1 new FMs; upgrade FM-02/FM-11/FM-12 (low-effort)
 - **actual**: 0 new FMs (NAT S450-S465 intact). FM-02 ADEQUATE (check.sh stat guard). FM-11 ADEQUATE (orient.py genesis hash at session-start). FM-04 ADEQUATE (orient.py git-index health). FM-30 reclassified ADEQUATE (cascade-monitor periodic S436 pre-existing, missed by S441 auditor). ADEQUATE 6→10. Economy healthy (no urgent interventions).
 - **diff**: Expected 3 upgrades, got 4 (FM-30 reclassification bonus). FM-04 swapped for FM-12 (both in orient_checks.py, FM-04 delivered same session). FM-30 correction unexpected.
-- **meta-swarm**: Proposed tool `check_fmea_audit.py` (not yet built) — periodic audit should cross-check periodics.json when computing Swiss Cheese layer counts. Manual auditors miss pre-existing periodic registrations (FM-30 missed S441). Add to F-CAT1 follow-up.
+- **meta-swarm**: `tools/check_fmea_audit.py` (BUILT S445) — periodic audit cross-checks periodics.json against FMEA defense layers. Detects undercounted periodic layers (FM-30 case: cascade-monitor periodic S436 missed by S441 auditor). Run: `python3 tools/check_fmea_audit.py --verbose`.
 - **State**: 975L 228P 20B 16F | FM ADEQUATE 10/30 | orient_checks.py +2 guards | check.sh +FM-02 guard
 - **Next**: (1) FM-06 upgrade (low-effort: orient.py checkpoint inject + recovery doc); (2) FM-12 upgrade (orient.py colony count, low-effort); (3) human-signal-harvest periodic (overdue 7s); (4) historian-routing periodic overdue; (5) open_lane.py metric-scope warning (meta-swarm target from S444 adversary session)
 
