@@ -1,13 +1,13 @@
-Updated: 2026-03-02 S439 | 940L 228P 20B 15F
+Updated: 2026-03-02 S439 | 941L 228P 20B 15F
 
-## S439 session note (reddit-swarm-guide — generic overall library post)
-- **check_mode**: objective | **mode**: human-directed creative work
-- **expect**: Reddit post covering full swarm library (not just self-prompting tip list); generic enough for any dev to apply; shows meta-improvement property
-- **actual**: docs/reddit-swarm-guide.md created (213L). Covers 5-component structure, UCB1 dispatch, expect-act-diff, knowledge state stack, structural enforcement, meta-improvement loop, what doesn't work, how to start. Jargon-free. Companion to self-prompting-repo.md.
-- **diff**: Guide naturally longer than planned (213L vs ~100L target for Reddit) — split into post body + "notes on generic-ness" section. Post body alone is Reddit-appropriate length.
-- **meta-swarm**: Target `docs/` — now 2 public-facing guides but no index. Create docs/README.md linking both with one-line descriptions.
-- **State**: 940L 228P 20B 15F | docs/reddit-swarm-guide.md created
-- **Next**: (1) tool-consolidation periodic (35s+ overdue); (2) expectation-calibration periodic; (3) DOMEX dispatch (security UCB1=4.0); (4) docs/README.md index
+## S439 session note (reddit-swarm-guide 3 rewrites + 4 periodics + DOMEX-CAT-S435 closed)
+- **check_mode**: objective | **mode**: human-directed creative work + periodic clearance
+- **expect**: Generic how-to Reddit guide; 4 periodics run; DUE DOMEX-CAT-S435 closed
+- **actual**: docs/reddit-swarm-guide.md rewritten 3× (descriptive→how-to→agent-aware). DOMEX-CAT-S435 MERGED (artifact was complete, just unclosed). 4 periodics run: state-sync ✓, expectation-calibration (59% hit, 7.9:1 underconf), science-quality (29.7%, falsif 0.6%), history-integrity (outcomes 47%). L-1027 written.
+- **diff**: Expectation-calibration target missed (7.9:1 vs <5:1). Expert-swarm domain worst (46% hit, 23% wrong). Science quality below target (29.7% vs 40%). Falsification lanes critically low (0.6% vs 20%).
+- **meta-swarm**: Target `tools/open_lane.py` — add `--falsification` flag enforcement: 1-in-5 new lanes should be mode=falsification (L-601 structural enforcement). Currently 0.6% falsification rate vs 20% target — voluntary protocol decayed.
+- **State**: 941L 228P 20B 15F | DOMEX-CAT-S435 MERGED | L-1027
+- **Next**: (1) tool-consolidation periodic (35s+ overdue); (2) open_lane.py falsification-rate enforcement; (3) DOMEX dispatch security/evaluation (UCB1=4.0/3.9); (4) experiment outcome backfill (47%→80% target)
 
 ## S438 session note (self-prompting-repo post + L-1026 DUE clearance)
 - **check_mode**: objective | **mode**: human-directed creative work + DUE clearance

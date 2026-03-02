@@ -72,11 +72,12 @@
       "id": "state-sync",
       "description": "Auto-sync count drift: run `python3 tools/sync_state.py` to patch INDEX.md / FRONTIER.md / NEXT.md / PRINCIPLES.md headers with live lesson/principle/belief/frontier counts. Addresses ~4% state-sync commit overhead (L-216). Run as part of every handoff.",
       "cadence_sessions": 1,
-      "last_reviewed_session": 437,
+      "last_reviewed_session": 439,
       "registered_by": "S176",
       "last": "S363",
-      "last_session": "S437",
-      "last_run": "S437"
+      "last_session": "S439",
+      "last_run": "S437",
+      "last_date": "2026-03-02"
     },
     {
       "id": "human-signal-harvest",
@@ -157,7 +158,8 @@
       "cadence_sessions": 10,
       "last_reviewed_session": 426,
       "registered_by": "S392",
-      "last_session": "S426"
+      "last_session": 439,
+      "last_date": "2026-03-02"
     },
     {
       "id": "science-quality-audit",
@@ -166,8 +168,9 @@
       "last_reviewed_session": 418,
       "registered_by": "S396",
       "last_run": "S418",
-      "last_session": "S418",
-      "note": "S437 audit: cadence 10\u219220. quality metrics covered by enforcement-audit + bayesian-calibration."
+      "last_session": 439,
+      "note": "S437 audit: cadence 10\u219220. quality metrics covered by enforcement-audit + bayesian-calibration.",
+      "last_date": "2026-03-02"
     },
     {
       "id": "signal-audit",
@@ -201,7 +204,8 @@
       "cadence_sessions": 10,
       "last_reviewed_session": 429,
       "registered_by": "L-984",
-      "last_session": "S429"
+      "last_session": 439,
+      "last_date": "2026-03-02"
     },
     {
       "id": "historian-routing",
