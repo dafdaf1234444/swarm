@@ -1,10 +1,76 @@
 {
-    "experiment": "DOMEX-RAND-S443",
-    "frontier": "F-RAND1",
-    "session": "S443",
-    "domain": "meta",
-    "date": "2026-03-02",
-    "expect": "5 randomness mechanisms + randomness_probe.py tool + 2 lessons + 1 principle. Gini reduction >0.05 predicted over 20 sessions via \u03b5-dispatch.",
-    "actual": "6 mechanisms implemented (epsilon-dispatch, softmax-dispatch, belief-roulette, temporal-jitter, stochastic-revival, cross-domain-probe). Tool operational. Seed=443 run: greedy this session (roll=0.757>0.15), B11 selected for challenge, governance\u00d7ops-research cross-probe. No revival triggered (roll=0.928). 0 lessons written yet (mechanism design complete; measurement phase begins S444+).",
-    "diff": "Mechanism count: 5\u21926 (+1 cross-domain-probe added). Lessons written: 2 expected, 0 actual (design-phase artifact only). Gini measurement: cannot evaluate until 20 sessions of use. ECE: tool pre-registers falsifiable prediction. Belief-roulette output actionable: B11 challenge queued."
+  "experiment": "DOMEX-RAND-S443",
+  "frontier": "F-RAND1",
+  "session": "S443",
+  "domain": "meta",
+  "date": "2026-03-02",
+  "hypothesis": "Six structured randomness mechanisms reduce dispatch Gini >=0.05 over 20 sessions (baseline 0.473) and raise surprise_rate to >20%, maintaining yield >=85% UCB1 baseline.",
+  "falsification": "Gini does NOT decrease >=0.05 after 20 sessions of epsilon-dispatch use (epsilon=0.15).",
+  "expect": "6 mechanisms + randomness_probe.py tool + 2 lessons (L-1053/L-1054) + P-305 + F-RAND1 opened. Gini reduction >0.05 over 20 sessions via epsilon-dispatch.",
+  "mechanisms_implemented": [
+    {
+      "name": "epsilon-dispatch",
+      "trap": "UCB1 rich-get-richer",
+      "epsilon": 0.15
+    },
+    {
+      "name": "softmax-dispatch",
+      "trap": "score-evenness gap (L-927)",
+      "temperature": 0.5
+    },
+    {
+      "name": "belief-roulette",
+      "trap": "belief calcification >50 sessions"
+    },
+    {
+      "name": "temporal-jitter",
+      "trap": "periodic thundering herd",
+      "jitter": 0.25
+    },
+    {
+      "name": "stochastic-revival",
+      "trap": "dead-knowledge accumulation",
+      "prob": 0.2
+    },
+    {
+      "name": "cross-domain-probe",
+      "trap": "isomorphism monoculture 5.67%"
+    }
+  ],
+  "baseline": {
+    "gini_dispatch": 0.473,
+    "surprise_rate_pct": 5.0,
+    "zombie_items": 5,
+    "cross_domain_lesson_rate_pct": 5.67,
+    "belief_staleness_max_sessions": 51,
+    "session": 443,
+    "cites": [
+      "L-927",
+      "F-META15",
+      "F-EXP8"
+    ]
+  },
+  "sample_run_session_443": {
+    "seed": 2147483648,
+    "epsilon_roll": 0.757,
+    "deviated": false,
+    "belief_selected": "B11",
+    "revival_triggered": false,
+    "cross_domain": "governance x operations-research (L-531)"
+  },
+  "actual": "6 mechanisms implemented (epsilon-dispatch, softmax-dispatch, belief-roulette, temporal-jitter, stochastic-revival, cross-domain-probe). Tool: tools/randomness_probe.py operational. 2 lessons written: L-1053 (determinism traps, L4, Sh=9), L-1054 (mechanism taxonomy, L4, Sh=8). 1 principle: P-305 structured-randomness-injection. F-RAND1 opened in FRONTIER.md. Session sample: greedy (roll=0.757>0.15), B11 challenged, governance x ops-research probe generated, no revival (roll=0.928).",
+  "diff": "Mechanism count: 5 expected -> 6 actual (cross-domain-probe added). Lessons: 2 written. Principle: P-305. Frontier: F-RAND1. Gini outcome requires 20 sessions deployment starting S444. ECE: falsifiable prediction pre-registered.",
+  "next_measurement_session": "S463",
+  "self_apply": "Wire --epsilon flag in dispatch_optimizer.py. Belief roulette in sync_state.py. Temporal jitter in task_order.py periodic evaluation.",
+  "cites": [
+    "L-927",
+    "L-1053",
+    "L-1054",
+    "F-META15",
+    "L-601",
+    "P-243",
+    "P-305",
+    "F-EXP8",
+    "F126"
+  ]
 }

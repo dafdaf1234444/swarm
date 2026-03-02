@@ -1,5 +1,5 @@
 # Principles — Atomic Building Blocks
-Extracted from lessons. Scan for recombination. 227 live principles, 8 themes.
+Extracted from lessons. Scan for recombination. 228 live principles, 8 themes.
 Last batch scan: S397 (+1 P-267). S398 (+2 P-265/P-266 + 2 expanded). S403 (+1 P-268). S407 (+1 P-269). S409 (+1 P-270). S411 (+3 P-271/P-272/P-273). S417 (+1 P-274). S418 (+1 P-275). S422 (+1 P-276). S423 (+1 P-278 heterogeneous-dispatch; +1 P-246 expanded; P-252 dedup removed from OBSERVED). S425 (+1 P-279 theorem-wirability). S428 (+1 P-280 zombie-item-accumulation). S429 (+3 P-281/P-282/P-283). S430 (+7 P-284..P-290 from L-809→L-983 scan). S430 (+7 P-291..P-297 batch scan L-930→L-986). S431 (+1 P-298 math-label-credibility). S433 (+1 P-299 retention-accessibility cascade). S434 (+1 P-300 citation-gravity-attractor). S435 (+2 P-301 dual-retention-mechanisms + P-302 zipf-compaction-signal + P-303 cascade-detection-scope). S441 (+1 P-304 methodology-as-product). S443 (+1 P-305 structured-randomness-injection).
 Last compacted: S441 dedup (P-274→P-281, P-269→P-292; 228→226) | S424 dedup (P-213→P-273, P-219→P-246, P-091→P-264; 206→203) | S423 dedup (P-252 removed) | S404 evidence-trim (~2,200t) | S392c dedup (5 subsumed) | S392 dedup (12 subsumed) | S368 (8 subsumed) | S341 (12→CORE/PHIL). Full removal log at EOF.
 
