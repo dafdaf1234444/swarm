@@ -312,9 +312,10 @@ def get_zombie_due_items() -> list[dict]:
                     item_counter[canon] += 1
                     seen.add(canon)
 
-        # Filter: resolved signals and recently-done periodics are false positives
+        # Filter: resolved signals, recently-done periodics, and explicitly dropped items
         resolved_sigs = _get_resolved_signal_ids()
         done_periodics = _get_done_periodic_ids()
+        dropped_zombies = _get_dropped_zombies()
 
         for item, count in item_counter.most_common():
             if count < 5:
@@ -326,6 +327,9 @@ def get_zombie_due_items() -> list[dict]:
             # Skip periodics that have been run recently (within cadence)
             per_match = re.search(r"\[([a-z][a-z0-9-]+)\]", item)
             if per_match and per_match.group(1) in done_periodics:
+                continue
+            # Skip explicitly dropped zombies (zombie_drops.json registry)
+            if item in dropped_zombies:
                 continue
             tasks.append({
                 "priority": P_DUE,
@@ -383,6 +387,24 @@ def _get_done_periodic_ids() -> set:
     except Exception:
         pass
     return done
+
+
+def _get_dropped_zombies() -> set:
+    """Return set of canonical zombie items explicitly dropped in zombie_drops.json."""
+    dropped = set()
+    try:
+        import json as _json
+        drops_path = ROOT / "tools" / "zombie_drops.json"
+        if not drops_path.exists():
+            return dropped
+        data = _json.loads(drops_path.read_text(encoding="utf-8"))
+        for entry in data.get("drops", []):
+            canon = entry.get("canonical", "")
+            if canon:
+                dropped.add(canon)
+    except Exception:
+        pass
+    return dropped
 
 
 def get_numeric_condition_due_items() -> list[dict]:

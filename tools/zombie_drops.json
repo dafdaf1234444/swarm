@@ -1,0 +1,11 @@
+{
+  "description": "Explicitly dropped zombie items — suppressed from task_order.py and orient zombie detector.",
+  "drops": [
+    {
+      "canonical": "proxy-K compaction",
+      "reason": "Drift -11.4% = EXCELLENT. Zombie was caused by sign error in proxy_k.py metric (L-1091). No compaction needed.",
+      "session": "S446",
+      "date": "2026-03-02"
+    }
+  ]
+}

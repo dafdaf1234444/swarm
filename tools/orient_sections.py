@@ -635,9 +635,20 @@ def section_zombie_carryover(root=ROOT):
                     item_counter[canon] += 1
                     seen.add(canon)
 
-        # Zombie items: appearing in 5+ sessions (TG-2)
+        # Load explicitly dropped zombies (zombie_drops.json)
+        dropped_zombies: set[str] = set()
+        try:
+            import json as _json
+            drops_path = root / "tools" / "zombie_drops.json"
+            if drops_path.exists():
+                drops_data = _json.loads(drops_path.read_text(encoding="utf-8"))
+                dropped_zombies = {e.get("canonical", "") for e in drops_data.get("drops", []) if e.get("canonical")}
+        except Exception:
+            pass
+
+        # Zombie items: appearing in 5+ sessions (TG-2), excluding dropped
         zombies = [(item, count) for item, count in item_counter.most_common()
-                   if count >= 5]
+                   if count >= 5 and item not in dropped_zombies]
 
         # Carried-over% for latest session (TG-4)
         latest = notes[-1]
