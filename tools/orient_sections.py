@@ -554,6 +554,64 @@ def section_meta_tooler(root=ROOT):
     return lines
 
 
+def section_zombie_carryover(root=ROOT):
+    """Zombie items + carried-over% from NEXT.md session trails (L-978 TG-2/TG-4)."""
+    lines = []
+    try:
+        sys.path.insert(0, str(root / "tools"))
+        from trails_generalizer import parse_session_notes, canonicalize
+        next_path = root / "tasks" / "NEXT.md"
+        if not next_path.exists():
+            return lines
+        text = next_path.read_text(encoding="utf-8")
+        notes = parse_session_notes(text)
+        if len(notes) < 2:
+            return lines
+
+        # Count canonical recurrences across all parsed sessions
+        from collections import Counter
+        item_counter = Counter()
+        for note in notes:
+            seen: set[str] = set()
+            for item in note["next_items"]:
+                canon = canonicalize(item)
+                if canon not in seen:
+                    item_counter[canon] += 1
+                    seen.add(canon)
+
+        # Zombie items: appearing in 5+ sessions (TG-2)
+        zombies = [(item, count) for item, count in item_counter.most_common()
+                   if count >= 5]
+
+        # Carried-over% for latest session (TG-4)
+        latest = notes[-1]
+        prior_items: set[str] = set()
+        for note in notes[-6:-1]:  # previous 5 sessions
+            for item in note["next_items"]:
+                prior_items.add(canonicalize(item))
+        latest_items = [canonicalize(it) for it in latest["next_items"]]
+        if latest_items:
+            carried = sum(1 for it in latest_items if it in prior_items)
+            pct = carried / len(latest_items) * 100
+        else:
+            pct = 0.0
+
+        if zombies or pct >= 30:
+            lines.append(f"--- Zombie Items (L-978 TG-2/TG-4) ---")
+            if pct >= 30:
+                lines.append(f"  \u26a0 Carried-over: {pct:.0f}% ({carried}/{len(latest_items)}) — target <30%")
+            else:
+                lines.append(f"  Carried-over: {pct:.0f}% ({carried}/{len(latest_items)})")
+            if zombies:
+                lines.append(f"  Zombies ({len(zombies)} items recurring 5+ sessions):")
+                for item, count in zombies[:5]:
+                    lines.append(f"    \U0001f480 {count:3d}x  {item[:60]}")
+            lines.append("")
+    except Exception:
+        pass
+    return lines
+
+
 def section_suggested_action(maint_out, open_signals, stall_map, priorities):
     """Suggested next action."""
     lines = ["--- Suggested next action ---"]

@@ -283,6 +283,51 @@ def get_signal_tasks() -> list[dict]:
     return tasks[:5]  # cap at 5 signal-derived tasks
 
 
+def get_zombie_due_items() -> list[dict]:
+    """Surface zombie Next: items as DUE tasks (L-978 TG-2).
+
+    Items recurring 5+ sessions in 'Next:' lists are structural deferrals.
+    Naming ≠ executing. Auto-elevating them to DUE creates structural pressure
+    to either execute or explicitly drop them.
+    """
+    tasks = []
+    try:
+        sys.path.insert(0, str(ROOT / "tools"))
+        from trails_generalizer import parse_session_notes, canonicalize
+        from collections import Counter
+
+        next_path = ROOT / "tasks" / "NEXT.md"
+        if not next_path.exists():
+            return tasks
+        notes = parse_session_notes(next_path.read_text(encoding="utf-8"))
+        if len(notes) < 3:
+            return tasks
+
+        item_counter = Counter()
+        for note in notes:
+            seen: set[str] = set()
+            for item in note["next_items"]:
+                canon = canonicalize(item)
+                if canon not in seen:
+                    item_counter[canon] += 1
+                    seen.add(canon)
+
+        for item, count in item_counter.most_common():
+            if count < 5:
+                break
+            tasks.append({
+                "priority": P_DUE,
+                "tier": "DUE",
+                "score": min(85, 70 + count),
+                "action": f"Zombie ({count}x): {item[:60]} — execute or drop",
+                "detail": f"Recurring {count} sessions without resolution (L-978 TG-2)",
+                "command": None,
+            })
+    except Exception:
+        pass
+    return tasks[:5]
+
+
 def get_dispatch_tasks() -> list[dict]:
     """Get top-3 dispatch recommendations that don't have active lanes."""
     tasks = []
@@ -473,6 +518,7 @@ def build_task_list(top_n: int = 8) -> list[dict]:
     all_tasks = []
     all_tasks.extend(get_untracked_artifacts())
     all_tasks.extend(get_due_items())
+    all_tasks.extend(get_zombie_due_items())
     all_tasks.extend(get_closeable_lanes())
     all_tasks.extend(get_strategy_tasks())
     all_tasks.extend(get_signal_tasks())

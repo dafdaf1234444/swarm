@@ -286,7 +286,7 @@ def main():
         section_stale_experiments, section_experiment_harvest_gap, section_stale_baselines,
         section_underused_tools, section_recent_commits, section_session_log_tail,
         section_agent_positions, section_concurrent_activity, section_historian_repair,
-        section_meta_tooler, section_suggested_action,
+        section_meta_tooler, section_zombie_carryover, section_suggested_action,
     )
 
     maint_out = _run_maint()
@@ -342,6 +342,7 @@ def main():
 
     _print_lines(section_prescription_gap())
     _print_lines(section_level_balance())
+    _print_lines(section_zombie_carryover())
 
     # Stalled campaigns — need stall_map for suggested action
     stall_lines, stall_map = section_stalled_campaigns()
