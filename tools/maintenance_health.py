@@ -1,0 +1,239 @@
+#!/usr/bin/env python3
+"""maintenance_health.py — Operational/runtime health checks extracted from maintenance.py (P-282)."""
+
+import json
+import os
+import re
+import subprocess
+from pathlib import Path
+
+from maintenance_common import (
+    REPO_ROOT, PYTHON_EXE,
+    KILL_SWITCH_PATH, T4_TOOL_TOKEN_WARN,
+    IGNORED_UNTRACKED_RUNTIME_FILES,
+    _git, _read, _status_path, _is_wsl_mnt_repo, _truncated,
+    _line_count,
+)
+
+
+def check_unpushed() -> list[tuple[str, str]]:
+    ahead = _git("rev-list", "--count", "@{upstream}..HEAD")
+    if not (ahead and ahead.isdigit() and int(ahead) > 0):
+        return []
+    n = int(ahead)
+    items = [(("URGENT" if n >= 10 else "DUE" if n >= 5 else "NOTICE"), f"{n} unpushed commits — git push")]
+    if n >= 20:
+        items.append(("URGENT", "Commit saturation (>=20 unpushed) — run: python3 tools/agent_swarm.py create <child> \"reduce commit backlog\" --personality commit-swarmer"))
+    return items
+
+
+def check_kill_switch() -> list[tuple[str, str]]:
+    results: list[tuple[str, str]] = []
+    if (os.environ.get("SWARM_STOP", "") or "").strip().lower() in {"1", "true", "yes", "on"}:
+        return [("URGENT", "SWARM_STOP env var is active — halt swarm activity")]
+    if not KILL_SWITCH_PATH.exists():
+        fields = {}
+    else:
+        fields = {m.group(1).strip().lower(): m.group(2).strip()
+                  for line in _read(KILL_SWITCH_PATH).splitlines()
+                  for m in [re.match(r"^\s*([A-Za-z][A-Za-z0-9_-]*)\s*:\s*(.*?)\s*$", line)] if m}
+    if not fields:
+        if KILL_SWITCH_PATH.exists():
+            results.append(("DUE", "Kill switch file exists but no parseable key/value fields were found"))
+        return results
+    missing_required = [k for k in ("status", "mode", "reason", "requested_by", "since") if not (fields.get(k, "") or "").strip()]
+    if missing_required:
+        return [("DUE", f"Kill switch missing required field(s): {', '.join(missing_required)}")]
+    status = (fields.get("status", "") or "").strip().lower()
+    if status in {"inactive", "off", "false", "0"}:
+        return results
+    if status not in {"active", "on", "true", "1"}:
+        return [("DUE", f"Kill switch status is invalid: {fields.get('status', '')}")]
+    mode = (fields.get("mode", "halt") or "halt").strip()
+    if mode.lower() not in {"halt", "shutdown-request"}:
+        return [("DUE", f"Kill switch mode is invalid: {mode}")]
+    reason = (fields.get("reason", "unspecified") or "unspecified").strip()
+    requested_by = (fields.get("requested_by", "unknown") or "unknown").strip()
+    since = (fields.get("since", "") or "").strip()
+    ctx = f"mode={mode}, requested_by={requested_by}, reason={reason}" + (f", since={since}" if since else "")
+    results.append(("URGENT", f"Kill switch ACTIVE — {ctx}"))
+    if mode.lower() == "shutdown-request":
+        results.append(("NOTICE", "Shutdown request is declarative only; execute shutdown manually with explicit human confirmation"))
+    return results
+
+
+def check_uncommitted() -> list[tuple[str, str]]:
+    results = []
+    status = _git("-c", "core.quotepath=false", "status", "--porcelain")
+    if not status:
+        return results
+    lines = [l for l in status.splitlines() if l.strip()]
+    tracked = [l for l in lines if not l.startswith("??")]
+    wsl_suppressed_crlf = wsl_suppressed_claude = 0
+
+    if tracked and _is_wsl_mnt_repo():
+        def _numstat_paths(*args: str) -> set[str]:
+            paths: set[str] = set()
+            for row in _git("diff", *args, "--numstat", "--ignore-cr-at-eol").splitlines():
+                parts = row.split("\t")
+                if len(parts) >= 3 and parts[-1].strip():
+                    paths.add(parts[-1].strip().replace("\\", "/"))
+            return paths
+        substantive = _numstat_paths() | _numstat_paths("--cached")
+        filtered, suppressed = [], 0
+        for line in tracked:
+            if any(ch in line[:2] for ch in "ADRCU") or _status_path(line) in substantive: filtered.append(line)
+            else: suppressed += 1
+        if suppressed: tracked = filtered; wsl_suppressed_crlf = suppressed
+        filtered, wsl_hidden = [], []
+        for line in tracked:
+            path = _status_path(line)
+            if "D" in line[:2] and not any(ch in line[:2] for ch in "ARCU") and path.startswith(".claude/"): wsl_hidden.append(path)
+            else: filtered.append(line)
+        if wsl_hidden: tracked = filtered; wsl_suppressed_claude = len(wsl_hidden)
+
+    untracked_paths = [_status_path(l) for l in lines if l.startswith("??")]
+    untracked_actionable = [p for p in untracked_paths if not (
+        (p.startswith("workspace/notes/wiki-swarm-") and p.endswith(".md"))
+        or re.fullmatch(r"memory/lessons/L-\d+\.md", p)
+        or bool(re.search(r"AppData/?Local/?Temp/?tmp[^/]*parent-child/?$", p.replace("\\", "/"), re.IGNORECASE))
+        or p in IGNORED_UNTRACKED_RUNTIME_FILES
+    )]
+    if tracked:
+        portability_suffix = ""
+        if _is_wsl_mnt_repo():
+            filter_parts = ([f"{wsl_suppressed_crlf} CRLF-only"] if wsl_suppressed_crlf else []) + ([f"{wsl_suppressed_claude} .claude"] if wsl_suppressed_claude else [])
+            if filter_parts: portability_suffix = f" (WSL filtered: {', '.join(filter_parts)})"
+        results.append(("NOTICE", f"{len(tracked)} tracked file(s) uncommitted: {_truncated([_status_path(l) for l in tracked])}{portability_suffix}"))
+    if untracked_actionable:
+        results.append(("NOTICE", f"{len(untracked_actionable)} untracked file(s): {_truncated(untracked_actionable)} (stage if intentional, or ignore via .gitignore)"))
+    return results
+
+
+def check_compaction() -> list[tuple[str, str]]:
+    results = []
+    idx = _line_count(REPO_ROOT / "memory" / "INDEX.md")
+    if idx > 60: results.append(("DUE", f"INDEX.md is {idx} lines (>60)"))
+    mandatory = sum(_line_count(REPO_ROOT / p) for p in [Path("CLAUDE.md"), Path("beliefs") / "CORE.md", Path("memory") / "INDEX.md"])
+    if mandatory > 200: results.append(("DUE", f"Mandatory load is {mandatory} lines (>200)"))
+    return results
+
+
+def check_lessons() -> list[tuple[str, str]]:
+    lessons_dir = REPO_ROOT / "memory" / "lessons"
+    if not lessons_dir.exists(): return []
+    over_20 = []
+    for f in lessons_dir.glob("L-*.md"):
+        if _line_count(f) > 20:
+            # SIG-56: WSL page-cache can return stale content after concurrent trim.
+            # If HEAD already has ≤20 lines, the working-tree count is a caching artifact.
+            rel = str(f.relative_to(REPO_ROOT))
+            committed = _git("show", f"HEAD:{rel}")
+            if committed and len(committed.splitlines()) <= 20:
+                continue  # already trimmed in HEAD — skip false positive
+            over_20.append(f.name)
+    if over_20:
+        # One item per lesson for unique claim fingerprints (L-933: trim-collision waste).
+        # Sessions can claim individual trim tasks: python3 tools/claim.py claim trim:L-NNN
+        return [("DUE", f"Lesson over 20 lines: {name}") for name in over_20[:5]]
+    return []
+
+
+def check_t4_tool_size() -> list[tuple[str, str]]:
+    """Flag T4-tools files over token ceiling (anti-cascade L-469)."""
+    results = []
+    tools_dir = REPO_ROOT / "tools"
+    if not tools_dir.exists():
+        return results
+    oversized = []
+    for f in sorted(tools_dir.glob("*.py")):
+        try:
+            tokens = len(f.read_text(encoding="utf-8", errors="replace")) // 4
+            if tokens > T4_TOOL_TOKEN_WARN:
+                oversized.append((f.name, tokens))
+        except Exception:
+            continue
+    if oversized:
+        names = ", ".join(f"{n}({t}t)" for n, t in sorted(oversized, key=lambda x: -x[1])[:4])
+        results.append(("NOTICE", f"T4 anti-cascade: {len(oversized)} tool(s) exceed {T4_TOOL_TOKEN_WARN}t ceiling: {names}"))
+    return results
+
+
+def check_zombie_tools() -> list[tuple[str, str]]:
+    """L-601 self-application: detect tools/*.py with no references in automation entry points."""
+    results: list[tuple[str, str]] = []
+    tools_dir = REPO_ROOT / "tools"
+    if not tools_dir.exists():
+        return results
+    # Enumerate production tools (exclude tests, archive, __pycache__)
+    tool_files = sorted(
+        f.stem for f in tools_dir.glob("*.py")
+        if not f.stem.startswith("test_") and f.stem != "__init__"
+    )
+    if not tool_files:
+        return results
+    # Scan automation entry points + protocol files for references
+    entry_files = ["tools/check.sh", "tools/orient.py", "tools/maintenance.py",
+                   "tools/periodics.json", "CLAUDE.md", "SWARM.md"]
+    ref_text = ""
+    for ef in entry_files:
+        ef_path = REPO_ROOT / ef
+        if ef_path.exists():
+            try:
+                ref_text += ef_path.read_text(encoding="utf-8", errors="replace")
+            except Exception:
+                pass
+    if not ref_text:
+        return results
+    unreferenced = [t for t in tool_files if t not in ref_text]
+    if len(unreferenced) > len(tool_files) * 0.6:
+        if len(unreferenced) > 30:
+            results.append(("NOTICE", f"{len(unreferenced)}/{len(tool_files)} tools not referenced by automation/protocol files (L-601 zombie risk). Top: {_truncated(unreferenced, 5)}"))
+    elif unreferenced:
+        results.append(("NOTICE", f"{len(unreferenced)}/{len(tool_files)} tools not referenced by automation entry points. {_truncated(unreferenced, 5)}"))
+    return results
+
+
+def check_claim_gc() -> list[tuple[str, str]]:
+    """F-CON2: garbage-collect expired soft-claim files (workspace/claims/)."""
+    claims_dir = REPO_ROOT / "workspace" / "claims"
+    if not claims_dir.exists():
+        return []
+    expired = []
+    for f in claims_dir.glob("*.claim.json"):
+        try:
+            data = json.loads(f.read_text())
+            ts = data.get("timestamp", "")
+            if ts:
+                from datetime import datetime as _dt, timezone as _tz
+                age = (_dt.now(_tz.utc) - _dt.fromisoformat(ts)).total_seconds()
+                if age > 120:  # claim.py TTL = 120s (L-589)
+                    expired.append(f.name)
+                    f.unlink()
+        except Exception:
+            pass
+    if expired:
+        return [("NOTICE", f"claim GC: removed {len(expired)} expired claim(s)")]
+    return []
+
+
+def check_validator() -> list[tuple[str, str]]:
+    try:
+        r = subprocess.run([PYTHON_EXE, str(REPO_ROOT / "tools" / "validate_beliefs.py"), "--quick"], capture_output=True, text=True, timeout=30)
+        return [("URGENT", "validate_beliefs.py FAIL — fix before other work")] if "RESULT: FAIL" in r.stdout else []
+    except Exception as e:
+        return [("URGENT", f"validate_beliefs.py failed to run: {e}")]
+
+
+def check_version_drift() -> list[tuple[str, str]]:
+    results = []
+    meta_path = REPO_ROOT / ".swarm_meta.json"
+    if not meta_path.exists(): return results
+    try: meta = json.loads(meta_path.read_text())
+    except Exception as e:
+        return [("NOTICE", f".swarm_meta.json parse failed: {e}")]
+    for label, fpath, key in [("CLAUDE.md", "CLAUDE.md", "claude_md_version"), ("CORE.md", "beliefs/CORE.md", "core_md_version")]:
+        ver = re.search(rf"{key}:\s*([\d.]+)", _read(REPO_ROOT / fpath))
+        if ver and meta.get(key) and str(ver.group(1)) != str(meta[key]):
+            results.append(("URGENT", f"{label} version {ver.group(1)} != meta {meta[key]} — re-read {label}"))
+    return results
