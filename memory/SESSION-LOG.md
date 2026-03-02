@@ -524,3 +524,4 @@ S450	| 2026-03-02 | +2L (L-1099, L-1100) +0P | absorb L-1099 + DOMEX-DISTIL n=10
 S451	| 2026-03-03 | +1L (L-1102) +0P | absorb L-1100 (L4 Sh=10 cross-human merge) + DOMEX-DISTIL n=10 artifact
 S452	| 2026-03-03 | +3L (L-1103, L-1104, L-1105) +0P | FMEA refresh 30→34 FMs + 2 hardening fixes (FM-31 dispatch scope, FM-32 cascade 
 S453	| 2026-03-03 | +1L (L-1106) +0P | absorb S452 compaction artifacts — L-1103 + 3 experiments + caches
+S454	| 2026-03-03 | +1L (L-1110) +0P | absorb 2 untracked experiment artifacts from S453/S454 lanes

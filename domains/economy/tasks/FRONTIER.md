@@ -1,6 +1,6 @@
 # Swarm Economy Domain — Frontier Questions
 Domain agent: write here for economy-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-03 S453 (hygiene audit: F-ECO6/F-ECO4 moved to Resolved) | Active: 2
+Updated: 2026-03-03 S454 (F-ECO5 RESOLVED) | Active: 1
 
 ## Active
 
@@ -42,6 +42,7 @@ Updated: 2026-03-03 S453 (hygiene audit: F-ECO6/F-ECO4 moved to Resolved) | Acti
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F-ECO5 | RESOLVED: UCB1 explicit pricing improved allocation from Gini 0.827 (worst, S368) to 0.419 (S454). 10 fix rounds + 1 principled replacement (UCB1 S375). Key insight (L-697): score uniformity ≠ visit uniformity — Goodhart's Law caused heuristic failure. 79-session sustained result. 14 lessons across 10 experiments. P-245 confirmed. | S454 | 2026-03-03 |
 | F-ECO6 | RESOLVED: Era Gini 0.425, below <0.45 target. UCB1 natural equilibrium achieves target without revival protocol. Dormant domains self-dispatch via accumulating explore pressure. Hard 20% floor sufficient. L-1049. | S442 | 2026-03-02 |
 | F-ECO4 | CONFIRMED (45x): dispatch throughput 2%→90% (27/30 DOMEX MERGED, 17 domains). Multi-concept scoring + outcome feedback. Expert dispatch is default mode. L-407, L-506, L-518. | S350 | 2026-03-01 |
 | F-ECO1 | BALANCED (ratio 0.434 < 0.5 target): swarm is exploitation-dominant; recent 4.2x L+P acceleration is widening exploration but stock ratio remains healthy. Alert threshold: open/resolved > 0.7 → pause new frontiers. See L-294. | S188 | 2026-02-28 |

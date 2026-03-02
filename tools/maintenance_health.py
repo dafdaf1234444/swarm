@@ -314,8 +314,10 @@ def check_scale_waypoints() -> list[tuple[str, str]]:
         # Waypoint 3: N≥1000 — enforcement dilution (L-1066, L-1062)
         # Action: auto-reduce enforcement-audit cadence to 3 sessions
         # FM-33 hardening (S453): auto-apply instead of advisory DUE (L-601)
+        # FM-34 hardening (S455): retention-vs-accessibility audit (L-1096)
         if n >= 1000:
             results.extend(_auto_apply_enforcement_cadence(n))
+            results.extend(_check_retention_accessibility(n, index_text))
 
         # Waypoint 2: N≥750 — reliability-break, O(N²) and hardcoded value audit (L-1066, L-788)
         elif n >= 750:
@@ -370,5 +372,74 @@ def _auto_apply_enforcement_cadence(n: int) -> list[tuple[str, str]]:
             periodics_path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
         except Exception as e:
             results.append(("URGENT", f"FM-33 auto-apply FAILED: cannot write periodics.json: {e} — manual fix required"))
+
+    return results
+
+
+def _check_retention_accessibility(n: int, index_text: str) -> list[tuple[str, str]]:
+    """FM-34 (L-1096): detect retention-accessibility divergence at N≥1000.
+
+    Storage completeness masks access degradation. Five independent findings
+    show storage stays near 100% while access degrades to 5-31% — and the
+    system reports only the storage metric.
+
+    Measures:
+    1. Dark matter (unthemed lessons): retained but not indexed for retrieval.
+    2. Citation isolation: recent lessons that cite 0 prior lessons — knowledge
+       stored but not connected.
+    """
+    results: list[tuple[str, str]] = []
+
+    # 1. Dark matter: unthemed lessons = stored without access infrastructure
+    total_match = re.search(r"\*\*(\d+) lessons\*\*", index_text)
+    if not total_match:
+        return results
+    total = int(total_match.group(1))
+
+    themed_count = 0
+    in_themes = False
+    for line in index_text.splitlines():
+        if re.match(r"^## Themes", line):
+            in_themes = True
+            continue
+        if in_themes and line.startswith("## "):
+            break
+        if in_themes and line.startswith("|") and not line.startswith("| Theme") and not line.startswith("| ---"):
+            cols = [c.strip() for c in line.split("|")]
+            # Table format: | Theme | Count | Key insight |
+            if len(cols) >= 3:
+                try:
+                    themed_count += int(cols[2])
+                except (ValueError, IndexError):
+                    pass
+
+    dark_matter = total - themed_count
+    dark_pct = (dark_matter / total * 100) if total > 0 else 0
+
+    if dark_pct > 40:
+        results.append(("DUE", f"FM-34 retention-accessibility: {dark_pct:.0f}% lessons unthemed ({dark_matter}/{total}) — access degraded, storage intact (L-1096)"))
+    elif dark_pct > 30:
+        results.append(("NOTICE", f"FM-34 retention-accessibility: {dark_pct:.0f}% unthemed ({dark_matter}/{total}) — approaching access threshold (L-1096)"))
+
+    # 2. Citation isolation in recent lessons
+    lessons_dir = REPO_ROOT / "memory" / "lessons"
+    if lessons_dir.exists():
+        lesson_files = sorted(lessons_dir.glob("L-*.md"), key=lambda f: f.stem)
+        recent = lesson_files[-50:] if len(lesson_files) >= 50 else lesson_files
+        isolated = 0
+        for lf in recent:
+            try:
+                content = lf.read_text(encoding="utf-8", errors="replace")
+                # Check Cites: header for L-NNN references to other lessons
+                cites_match = re.search(r"^Cites:(.+)$", content, re.MULTILINE)
+                if cites_match:
+                    if re.search(r"L-\d+", cites_match.group(1)):
+                        continue
+                isolated += 1
+            except Exception:
+                continue
+        iso_pct = (isolated / len(recent) * 100) if recent else 0
+        if iso_pct > 50:
+            results.append(("NOTICE", f"FM-34 citation isolation: {iso_pct:.0f}% of last {len(recent)} lessons cite 0 prior lessons — knowledge stored but disconnected (L-1096)"))
 
     return results
