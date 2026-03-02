@@ -24,3 +24,4 @@ Updated: 2026-03-02 S430 | Active: 2
 | ID | Answer | Session | Date |
 |-------|--------|---------|------|
 | (none) | | | |
+  → Links to global frontier: F-DEP1. (auto-linked S420, frontier_crosslink.py)

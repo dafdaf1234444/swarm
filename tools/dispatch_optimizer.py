@@ -113,6 +113,17 @@ def run(args: argparse.Namespace) -> None:
             heuristic_results = results
         elif not compare:
             results = ucb1_results
+            # ε-greedy override (F-RAND1): with prob ε, swap top domain with a random pick
+            epsilon = getattr(args, "epsilon", 0.0)
+            epsilon_note = None
+            if epsilon > 0.0 and len(results) > 1:
+                import random as _random
+                _rng = _random.Random(current_session)
+                if _rng.random() < epsilon:
+                    rand_idx = _rng.randint(1, len(results) - 1)
+                    results[0], results[rand_idx] = results[rand_idx], results[0]
+                    epsilon_note = (f"⚡ ε-dispatch (ε={epsilon}): swapped top domain to "
+                                   f"'{results[0]['domain']}' (was '{results[rand_idx]['domain']}')")
             results_limited = results if args.all or args.domain else results[:10]
             for r in results:
                 if r["domain"] == "meta":
@@ -122,6 +133,8 @@ def run(args: argparse.Namespace) -> None:
             if args.json:
                 print(json.dumps(results_limited, indent=2, default=str))
                 return
+            if epsilon_note:
+                print(f"\n{epsilon_note}")
             _print_ucb1_output(results, results_limited, active_lanes, session_merged,
                                current_session, campaign_waves)
             return
@@ -263,12 +276,17 @@ def _print_ucb1_output(results, results_limited, active_lanes, session_merged,
     av = [r.get("outcome_n", 0) for r in results]
     gini = compute_gini(av)
     fd = [r["domain"] for r in results if r.get("floor_protected")]
+    import os as _os
+    total_all = len([d for d in _os.listdir(DOMAINS_DIR) if (DOMAINS_DIR / d).is_dir()]) if DOMAINS_DIR.exists() else len(results)
+    invisible = total_all - len(results)
     print(f"\n--- UCB1 Coverage ---")
     print(f"  Visit Gini: {gini:.3f}")
-    print(f"  Coverage: {sum(1 for v in av if v > 0)}/{len(av)} domains visited")
+    print(f"  Coverage: {sum(1 for v in av if v > 0)}/{total_all} domains ({len(results)} with active frontiers, {invisible} invisible — empty active sections, L-1055)")
     print(f"  Floor (20%): {len(fd)} domains protected ({', '.join(fd[:5])})")
     print(f"  Formula: avg_yield + 1.414 * sqrt(log(total_dispatches) / domain_dispatches)")
     print(f"  Unvisited domains ranked first (UCB1 = ∞), then by structural tiebreaker")
+    if invisible > 0:
+        print(f"  ⚠ {invisible} domains frontier-depleted (all active frontiers resolved). Run historian_repair.py to detect.")
     if _CAMPAIGNS_IMPORTED:
         print_campaign_advisory(results, campaign_waves)
     na = sum(len(v) for v in active_lanes.values())
@@ -337,6 +355,8 @@ def main() -> None:
     parser.add_argument("--recalibrate", action="store_true", help="Re-derive weights")
     parser.add_argument("--label-at-session", type=int, metavar="N",
                         help="Show outcome labels as they were at session N (label_at_time — L-946/L-963)")
+    parser.add_argument("--epsilon", type=float, default=0.0, metavar="E",
+                        help="ε-greedy dispatch: with prob E bypass UCB1 and pick randomly (F-RAND1)")
     args = parser.parse_args()
     if args.recalibrate:
         cal = recalibrate()

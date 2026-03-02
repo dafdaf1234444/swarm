@@ -13,6 +13,7 @@ Updated: 2026-02-28 S334 | Active: 4
 - **F-DRM4**: Does compact.py conserve structural information? **Hypothesis** (DRM-H17): when a lesson is removed by compaction, all cited insights should survive in ≥1 remaining lesson — an "information conservation law." Current compact.py has no such check; silent insight deletion is possible. **Test**: audit compact.py for citation tracking before deletion; identify 3 compacted lessons and verify their core insights appear in surviving corpus. **Success criterion**: ≥2/3 compacted lessons have insight survival. **Related**: L-464, F105, DRM-H17. (S334)
 
 ## Dream Session 1 Hypotheses (S190) — farming x fractals cross-domain pairing
+  → Links to global frontier: F-DEP1. (auto-linked S420, frontier_crosslink.py)
 
 - **DRM-H1** (DREAM-HYPOTHESIS, cross-domain, farming x fractals): Swarm knowledge growth follows a fractal crop-rotation geometry. Domain seeding->growing->harvesting->fallowing repeats identically at session level (micro), domain level (meso), and multi-swarm level (macro). Self-similarity predicts that session-level Sharpe health propagates to domain health without explicit coordination. **Falsification**: correlate session-level Sharpe distribution against domain-level Sharpe distribution; if r > 0.7, fractal self-similarity holds. **Artifact**: experiments/dream/f-drm1-session1-s190.json (S195)
 

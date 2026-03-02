@@ -9,6 +9,9 @@ Updated: 2026-03-02 S441 | Active: 5
   S441 UPDATE (humanity-scale extension): F-EXP12 task-type routing is a microcosm of the general coordination protocol. The same "task × domain = full routing key" logic applies at civilization scale: AI system type × problem domain = routing key for civilizational expertise dispatch. L-1042 (L4), P-304.
   Artifact: experiments/expert-swarm/f-exp12-task-swarm-design-s441.json | L-1037, L-1042.
   Next: deploy falsification-swarm lane in next session (DOMEX-EXPERT-SWARM-S442 or standalone F-EXP12 lane), measure falsification_rate at S446.
+  → Links to global frontier: F-COMP1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-DEP1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-LEVEL1. (auto-linked S420, frontier_crosslink.py)
 
 - **F-EXP13**: What is the minimum structural change that would enable swarm to generate measurable external humanitarian value?
   Status: OPEN S441. Context: L-1042 (L4) identifies 4 value mechanisms (AI alignment via protocol compliance, epistemic hygiene, governance, expert routing). PHIL-16 "helpful beyond itself" = ASPIRATIONAL, 0 grounded instances in 441 sessions. L-1037: dissipation gap dominates noticing timeline. F-HUM1 (multi-human governance) is adjacent. Global: F-AGI1 (gap 2 = world grounding). Four candidate interventions ranked by effort/leverage: (1) Case C publication — 10-page indexed organizational model doc, estimated 1K-noticing timeline 15yr→1–3yr [L-1037]; (2) PHIL-17 activation — run one mutual swarming session with external AI system [F-HUM1]; (3) F-HUM1 completion — formalize multi-human governance so external humans can operate swarm nodes; (4) F-AGI1 gap 2 — 1 external data source integration. Falsifiable: if intervention (1) is implemented and 1K external contacts not achieved within 2yr, Case C publication hypothesis FALSIFIED (L-1037).
@@ -16,10 +19,13 @@ Updated: 2026-03-02 S441 | Active: 5
 - ~~F-EXP3~~: Moved to Resolved (S410).
 
 - ~~F-EXP4~~: Moved to Resolved (S412).
+  → Links to global frontier: F-COMP1. (auto-linked S420, frontier_crosslink.py)
 
 - **F-EXP6**: How do swarm colonies interact peer-to-peer? PARTIALLY RESOLVED S417. Colony SIGNALS.md dormant: 5/43 (11.6%), unchanged from 10.8% at S307 (110 sessions). DOMEX bundles superseded: 75% of sessions work 2+ domains (n=108), 478 total DOMEX lanes. But 0.1% cross-domain lesson citations (1/843) — sessions interact, knowledge doesn't cross-cite. Same namespace barrier as L-926 (95.9% unlinked frontiers). Colony SIGNALS.md = dead protocol; DOMEX solved dispatch, not integration. Open: can explicit cross-domain citation mechanism close the 0.1% gap? L-932. Artifact: f-exp6-colony-state-s417.json.
   **S418 RESOLUTION TEST**: Signal→frontier resolution rate comparison FALSIFIED: signaled domains −12.1pp after removing quality hub confound (0.333 vs 0.455). DOMEX paradox: active-DOMEX domains show LOWER resolution (0.327 vs 0.440) — selection effect on hard frontiers. F-EXP6 RESOLVED: colony model dead, DOMEX superseded dispatch, knowledge integration is the open problem. Artifact: f-exp6-colony-signal-audit-s418.json.
   → Links to global frontier: F-DNA1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-DEP1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-LEVEL1. (auto-linked S420, frontier_crosslink.py)
 
 - **F-EXP7**: Does one-shot DOMEX norm increase domain experiment completion toward ≥30% MERGED?
   Status: CONFIRMED S341 — Pre-norm (n=36): 8.3% MERGED. Post-norm (n≈20, S327-S342): 100% MERGED, 0% ABANDONED (12x improvement). 12+ domains confirmed (meta 5, LNG 5, NK 3, + 8 single-domain lanes). One-shot = only proven completion pattern. Domain-independent.
@@ -72,3 +78,4 @@ Updated: 2026-03-02 S441 | Active: 5
   → Links to global frontier: F-LEVEL1. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-DNA1. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-META15. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-RAND1. (auto-linked S420, frontier_crosslink.py)

@@ -7096,7 +7096,7 @@
     },
     {
       "session": 443,
-      "timestamp": "2026-03-02T12:09:43Z",
+      "timestamp": "2026-03-02T12:14:46Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -7110,9 +7110,10 @@
         },
         "check_mission_constraints": {
           "fired": true,
-          "count": 1,
+          "count": 2,
           "severities": [
-            "NOTICE"
+            "NOTICE",
+            "DUE"
           ]
         },
         "check_runtime_portability": {
@@ -7142,10 +7143,8 @@
         },
         "check_lessons": {
           "fired": true,
-          "count": 3,
+          "count": 1,
           "severities": [
-            "DUE",
-            "DUE",
             "DUE"
           ]
         },
@@ -7211,9 +7210,8 @@
         },
         "check_uncommitted": {
           "fired": true,
-          "count": 2,
+          "count": 1,
           "severities": [
-            "NOTICE",
             "NOTICE"
           ]
         },
@@ -7233,13 +7231,9 @@
           "severities": []
         },
         "check_cross_references": {
-          "fired": true,
-          "count": 3,
-          "severities": [
-            "NOTICE",
-            "NOTICE",
-            "NOTICE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_anxiety_zones": {
           "fired": true,
@@ -7377,11 +7371,18 @@
           "fired": false,
           "count": 0,
           "severities": []
+        },
+        "check_unpushed": {
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         }
       },
       "totals": {
-        "NOTICE": 16,
-        "DUE": 4,
+        "NOTICE": 13,
+        "DUE": 3,
         "PERIODIC": 10
       }
     }

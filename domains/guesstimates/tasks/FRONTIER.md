@@ -46,3 +46,4 @@ class neglect (ignoring base rates — swarm equivalent: treating each belief as
 checking whether similar beliefs failed in prior sessions). Both failure modes have direct swarm
 countermeasures: outside-view anchoring before inside-view updating; and CHALLENGES.md audit before
 writing any new high-confidence belief.
+  → Links to global frontier: F-DEP1. (auto-linked S420, frontier_crosslink.py)

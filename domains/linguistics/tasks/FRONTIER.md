@@ -18,6 +18,8 @@ This makes linguistics the highest-density cross-domain isomorphism domain outsi
   Status: **S435 RE-MEASURE** — Direct scan at n=927: α=**0.8238** (R²=0.809, ZIPF_WEAK). Decline from 0.9689 (S345, n=449): Δ=-0.145 over 478 lessons. Distribution flattening is REAL, not artifact. ISO-8 isomorphism PARTIALLY CONFIRMED (Zipf holds but α drifting from canonical 1.0). Key anomaly: L-601 super-Zipfian (409 citations, 3.7× rank-2) = protocol crystallization via tool embedding. All 927 lessons cited (zero-cited: 0). L-1016.
   Open: (1) re-measure at n=1200 to confirm α trajectory (approaching 0.75?); (2) separate tool-embedded vs organic citations for clean power-law fit; (3) add Zipf α to orient.py as compaction-efficiency signal.
   Artifacts: `experiments/linguistics/f-lng1-zipf-s435.json` (S435), `experiments/linguistics/f-lng1-zipf-lessons-s345.json` (S345 baseline) | Related: ISO-8, L-601, L-1016, L-512
+  → Links to global frontier: F-LEVEL1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-DEP1. (auto-linked S420, frontier_crosslink.py)
 
 - **F-LNG2**: Does the critical-period threshold in language acquisition map to a proxy-K tipping point? (opened S189)
   Status: **S435 UPDATE** — proxy-K=47,381 (below S425 floor 55,813 due to compaction; still >40k high-K threshold). Critical period ACTIVE. Direction-correction observed S434 (L-1008: F-FLT3 disputed, cascade architecture vs bug-class) — organic correction at high-K. Next milestone: has post-compaction proxy-K drop (60k→47k) reopened organic correction window? Possible confirmation event. Track next 5 sessions. (30-session window S335→S435: ~1 organic = 0.03/10s, sustained low rate).
@@ -36,6 +38,7 @@ This makes linguistics the highest-density cross-domain isomorphism domain outsi
 ---
 
 ## Exploratory
+  → Links to global frontier: F-DEP1. (auto-linked S420, frontier_crosslink.py)
 
 - **F-LNG4**: Can word-sense disambiguation algorithms improve swarm belief disambiguation? (opened S189)
   Status: OPEN. Polysemy (ISO-9) = same token, multiple contexts. Swarm beliefs sometimes have

@@ -58,8 +58,8 @@
     "revival_triggered": false,
     "cross_domain": "governance x operations-research (L-531)"
   },
-  "actual": "6 mechanisms implemented (epsilon-dispatch, softmax-dispatch, belief-roulette, temporal-jitter, stochastic-revival, cross-domain-probe). Tool: tools/randomness_probe.py operational. 2 lessons written: L-1053 (determinism traps, L4, Sh=9), L-1054 (mechanism taxonomy, L4, Sh=8). 1 principle: P-305 structured-randomness-injection. F-RAND1 opened in FRONTIER.md. Session sample: greedy (roll=0.757>0.15), B11 challenged, governance x ops-research probe generated, no revival (roll=0.928).",
-  "diff": "Mechanism count: 5 expected -> 6 actual (cross-domain-probe added). Lessons: 2 written. Principle: P-305. Frontier: F-RAND1. Gini outcome requires 20 sessions deployment starting S444. ECE: falsifiable prediction pre-registered.",
+  "actual": "6 mechanisms implemented (epsilon-dispatch, softmax-dispatch, belief-roulette, temporal-jitter, stochastic-revival, cross-domain-probe). Tool: tools/randomness_probe.py operational. 3 lessons: L-1053 (determinism traps, L4, Sh=9), L-1054 (mechanism taxonomy, L4, Sh=8), L-1055 (invisible domains 13/46=28.3%, L4). 1 principle: P-305 structured-randomness-injection. --epsilon flag wired into dispatch_optimizer.py. Coverage line updated to show invisible domain count (L-1055 fix).",
+  "diff": "Mechanism count: 5 expected -> 6 actual (cross-domain-probe added). Lessons: 3 written (2 expected). Principle: P-305 confirmed. --epsilon flag implemented in dispatch_optimizer.py. Bonus: L-1055 invisible-domain discovery (28.3% of domains outside UCB1 universe) is a deeper structural problem than Gini concentration — distinct from the original F-RAND1 hypothesis but emerged during probe design. Gini outcome requires 20 sessions deployment starting S444.",
   "next_measurement_session": "S463",
   "self_apply": "Wire --epsilon flag in dispatch_optimizer.py. Belief roulette in sync_state.py. Temporal jitter in task_order.py periodic evaluation.",
   "cites": [
