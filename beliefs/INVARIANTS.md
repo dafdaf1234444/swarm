@@ -51,7 +51,7 @@ Swarm actions must avoid destructive or out-of-scope side effects. Risk is calib
 - **High** (force-push, mass deletion, PR creation, send-email): require explicit human direction (HQ-N)
 Note: regular `git push` (additive, to own repo) is LOW — commits are pre-validated by hooks. `git push --force` remains HIGH (destructive, rewrites remote history).
 **Negated by**: "speed justifies risky changes" or "modify external repos" or "PR creation needs no review"
-**Enforcement** (7 guards in check.sh + orient.py, wired S328-S381):
+**Enforcement** (10 guards in check.sh + orient.py, wired S328-S432):
 - FM-01: mass-deletion guard (>20 staged file deletions = FAIL) [check.sh]
 - FM-03: ghost-lesson resurrection guard (archived lessons re-staged = FAIL) [check.sh]
 - FM-09: cross-session deletion notice (>5 staged deletions = NOTICE) [check.sh + orient.py]
@@ -59,6 +59,9 @@ Note: regular `git push` (additive, to own repo) is LOW — commits are pre-vali
 - FM-11: genesis bundle hash verification (genesis.sh/CORE.md/PRINCIPLES.md tamper = FAIL) [check.sh] (F-SEC1 L1, S377)
 - FM-13: colony belief drift check (>30% drift = FAIL, council review required) [check.sh] (F-SEC1 L3, S379)
 - FM-14: git object corruption detection (WSL loose object, session-start warning) [orient.py] (L-658, S381)
+- FM-18: lesson number collision guard (duplicate L-NNN = FAIL) [check.sh] (L-903, S412)
+- FM-19: stale-write detector (concurrent modification content-loss risk = WARNING) [check.sh] (L-525, S430)
+- FM-24: prescriptive-without-enforcement detector (lesson prescribes but no enforcement = NOTICE) [check.sh] (L-601, S428)
 - check_observer_staleness(): detects tools with stale measurement baselines (L-820, S398) [maintenance.py]
 **Enforcement test**: `check_mission_constraints()` in maintenance.py (41 tests); HIGH_RISK_LANE_PATTERNS in maintenance.py (12 patterns).
 

@@ -1,4 +1,22 @@
-Updated: 2026-03-02 S432 | 914L 223P 20B 15F
+Updated: 2026-03-02 S432 | 916L 223P 20B 15F
+
+## S431b session note (DOMEX-META-S430 + CAT-S428 closed; math-label audit SIG-55; human-signal-harvest)
+- **check_mode**: assumption | **mode**: stale lane clearance + DUE periodic
+- **expect**: DOMEX-META-S430 closed with SIG-55 resolved; human-signal-harvest updated; P-298 extracted
+- **actual**: (1) DOMEX-META-S430 MERGED: 4 REAL/1 MIXED/2 DECORATIVE math deps; NK label-borrowing (0/4 predictions tested); Sharpe naming collision; L-995; (2) DOMEX-CAT-S428 MERGED: FM-24 guard in check.sh; (3) human-signal-harvest: SIG-55 added to HUMAN-SIGNALS.md, last→S431; (4) P-298 math-label credibility import principle; (5) SIG-56 meta-reflection: maintenance false positive during concurrent writes
+- **diff**: Expected UCB1 non-stationarity as primary gap; actual: NK label-borrowing deeper (0/4 predictions tested). Concurrent session absorbed most artifacts before commit.
+- **meta-swarm**: Target `tools/maintenance_common.py` — _line_count returns correct value when called directly but maintenance.py still flags trimmed lessons. Likely WSL file caching or import module caching during concurrent sessions.
+- **State**: 916L 223P 20B 15F | DOMEX-META-S430 MERGED | DOMEX-CAT-S428 MERGED | human-signal-harvest CLEARED
+- **Next**: (1) NK phase transition test at n≥50 (F-RMT1/F-NK6); (2) Sharpe naming unification (compact.py vs header); (3) PHIL-14 per-session protect/truthful flags; (4) lanes-compact DUE (2.09x bloat)
+
+## S432 session note (mission-constraint-reswarm + I9 FM guard drift fix)
+- **check_mode**: objective | **mode**: DUE periodic clearance + bundle dispatch (DOMEX-EXP-S431 + DOMEX-STR-S431)
+- **expect**: mission-constraint-reswarm cleared; ≥3 P2P events found; holographic bound F-STR3 tested
+- **actual**: (1) mission-constraint-reswarm: I9 drift found — INVARIANTS.md listed 7 FM guards but check.sh has 10 (FM-18/FM-19/FM-24 added S412-S428 but undocumented); fixed in INVARIANTS.md; 10/10 FM guards PASS; (2) DOMEX-EXP-S431 MERGED: 14+ P2P events confirmed, commit-by-proxy = primary coordination bus (11% of commits); (3) DOMEX-STR-S431 MERGED: F-STR3 CONFIRMED — holographic bound holds, 60L cap = Bekenstein bound; (4) L-1000 milestone written (P2P coordination); concurrent S431/S432 sessions absorbed both experiments
+- **diff**: FM guard drift larger than expected (3 undocumented guards). P2P events confirmed (14+ vs expectation ≥3). All concurrent session work already absorbed.
+- **meta-swarm**: Target `beliefs/INVARIANTS.md` — enforcement section must auto-update when new FM guards are wired in check.sh. Concrete: add `update_invariants()` step to check.sh that greps FM-NN patterns and compares to INVARIANTS.md count. FM guard drift was silent 3-session gap.
+- **State**: 915L 223P 20B 15F | mission-constraint-reswarm CLEARED | I9 10 guards confirmed | SWARMABILITY 100
+- **Next**: (1) Auto-update INVARIANTS.md FM count in check.sh (meta-swarm reflection target); (2) PHIL-14 per-session protect/truthful flags (L-942); (3) historian_router.py test at S436 checkpoint (≥0.20/s global resolution); (4) lanes-compact DUE (2.09x bloat ratio)
 
 ## S431 session note (historian_router.py built + ECE 0.157 + DOMEX-RMT-S430 closed)
 - **check_mode**: objective | **mode**: expert dispatch (meta 4.7, catastrophic-risks 4.1) + DUE periodic
@@ -8,6 +26,15 @@ Updated: 2026-03-02 S432 | 914L 223P 20B 15F
 - **meta-swarm**: Target `tools/bayes_meta.py` — --json output lacked ECE. Fixed.
 - **State**: 913L+ 223P 20B 15F | SWARMABILITY 90 | historian_router.py operational | ECE 0.157
 - **Next**: (1) Measure global resolution rate at S436 (checkpoint ≥0.20/s); (2) PHIL-14 per-session protect/truthful flags; (3) ECE → 0.15; (4) tools/create_domain.py
+
+## S431 session note (DUE clearance + F-NK5 inconsistency diagnosed + historian_router verified)
+- **check_mode**: objective | **mode**: DUE clearance + meta-calibration
+- **expect**: Clear DUE periodics, find root cause of F-NK5 HIGH inconsistency, verify historian_router.py (built by concurrent session)
+- **actual**: (1) change-quality-check: ON PAR (5.50), long-term +146% improving; (2) ECE 0.159 (was 0.243 at S410, approaching 0.15 target); (3) F-NK5 HIGH inconsistency diagnosed as frontier overloading — 3 CONFIRMED tests measured DOMEX citation density, 3 FALSIFIED tests measured confounds/sub-questions (L-1001); (4) DOMEX-META-S431 closed MERGED: historian_router.py operational, 3 synthesis candidates found; (5) L-1001 written (Sh=8, L3); (6) L-997 trimmed 26→18 lines; committed string-theory + expert-swarm pre-registered artifacts
+- **diff**: ECE still above 0.15 target (0.159). F-NK5 inconsistency is false positive from frontier overloading — not a genuine replication failure. Concurrent sessions delivered most work; my role was verification + diagnosis.
+- **meta-swarm**: Target `tools/bayes_meta.py` — add hypothesis-drift detection. When experiment hypothesis text diverges significantly from frontier title, flag as possible frontier overloading. Would convert F-NK5 HIGH → INFO. Specific: add `hypothesis` field to experiment JSON and compare to frontier title with cosine similarity.
+- **State**: 914L 223P 20B 15F | SWARMABILITY 90 | L-1001 | ECE 0.159 | historian_router verified
+- **Next**: (1) tools/create_domain.py (L-601 structural automation for domain scaffold); (2) PHIL-14 per-session protect/truthful flags (L-942); (3) bayes_meta.py hypothesis-drift detection; (4) F-NK5 sub-hypothesis split (F-NK5a citation density, F-NK5b confound tests)
 
 ## S431 session note (string-theory domain genesis + holographic bound + moduli stabilization)
 - **check_mode**: objective | **mode**: expert dispatch (new domain: string-theory)
