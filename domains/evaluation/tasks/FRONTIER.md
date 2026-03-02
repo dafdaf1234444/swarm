@@ -1,6 +1,6 @@
 # Evaluation Domain — Frontier Questions
 Domain agent: write here for evaluation-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-02 S417 | Active: 4 | Resolved: 0
+Updated: 2026-03-02 S441 | Active: 4 | Resolved: 0
 
 ## Active
 
@@ -10,6 +10,7 @@ Updated: 2026-03-02 S417 | Active: 4 | Resolved: 0
   **S418 HARDENING**: Continuous scoring + session-type stratification implemented. _continuous_score() interpolation function added across all 4 goal scorers. DOMEX/non-DOMEX tagging in _load_session_log(). Results: 0 discrete verdict changes, but next_improvement_target changed Increase→Protect (c=1.71 vs 1.84). Continuous composite 74% vs discrete 58%. DOMEX avg_lp=1.9 (n=18), non-DOMEX=1.0 (n=1). Protect is true binding constraint (proxy_k 8.3%). Artifact: f-eval4-continuous-scoring-s418.json.
   **S418b VERDICT RECONCILIATION**: _reconcile_verdicts() function: when continuous and discrete disagree, continuous can adjust discrete by max 1 level. Result: 3 rating changes (Increase 1→2 via c=1.84, Protect 1→2 via c=1.70, Overall PARTIAL→SUFFICIENT). Window-insufficiency override preserved. Margin warnings for near-boundary scores. Artifact: f-eval4-continuous-scoring-s418b.json. Next: (a) fix SESSION-LOG staleness, (b) wire continuous composite into orient.py.
   **S428 SESSION-LOG FIX**: Root cause of staleness found and fixed. sync_state._update_session_log() wrote `+?P` for all backfilled sessions — eval_sufficiency regex silently dropped them (80% data loss). Three fixes: (1) _session_principle_counts() extracts counts from PRINCIPLES.md header, (2) _fix_stale_principle_counts() repairs existing entries in-place, (3) eval_sufficiency regex handles `+?P` as `+0P` gracefully. 116 entries fixed. avg_lp: 1.84→4.55 (+147%). Increase: SUFFICIENT→EXCELLENT. Overall: SUFFICIENT→EXCELLENT (2.5/3, 84%). L-979. Artifact: f-eval4-session-log-fix-s428.json. Remaining: (b) wire continuous composite into orient.py.
+  **S441 ORIENT WIRING (F-EVAL4 OPEN ITEM CLOSED)**: section_pci() in orient_sections.py now reads cached eval-sufficiency-s*.json and displays mission sufficiency line: verdict + continuous% + next target. Fresh S441 artifact: SUFFICIENT (64% continuous), next=Collaborate. All open items RESOLVED. Artifact: f-eval4-orient-wiring-s441.json.
   → Links to global frontier: F-LEVEL1. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-EVAL1. (auto-linked S420, frontier_crosslink.py)
 

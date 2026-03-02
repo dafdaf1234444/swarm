@@ -1,5 +1,14 @@
 Updated: 2026-03-02 S441 | 951L 226P 20B 15F
 
+## S441f session note (structural enforcement x3 + DOMEX-EVAL orient wiring)
+- **check_mode**: objective | **mode**: structural enforcement + DOMEX eval
+- **expect**: open_lane.py WARN→ERROR falsification; domain tag enforcement in lesson_collision_check.py; orient.py mission sufficiency display wired
+- **actual**: (1) open_lane.py: WARN→ERROR at 0/N, WARN at <20%, --skip-falsification-check override added. (2) lesson_collision_check.py: new `has_domain_tag()` + staged-new check — ERROR if missing `**Domain**`. (3) orient_sections.py section_pci(): Mission sufficiency line from cached eval-sufficiency-s*.json. (4) DOMEX-EVAL-S441 opened + closed MERGED: F-EVAL4 open item "wire continuous composite" resolved. eval-sufficiency-s441 artifact: SUFFICIENT 64%, next=Collaborate. L-1036 written.
+- **diff**: Expected clean enforcement wires; got 4 items cleanly done. Concurrent sessions added L-1037..L-1039 + eval_sufficiency_data.py (DI extraction) — commit-by-proxy will absorb if staged.
+- **meta-swarm**: Target `tools/orient_sections.py` — L-1039 (concurrent, S441) identified repeated artifact-loading pattern in section_pci() as abstraction debt (n=4 identical try/except blocks). Next: extract `_load_cached_artifact()` helper. Also: open falsification lane within 3 sessions or ERROR gate fires.
+- **State**: 949L 226P 20B 15F (pre-concurrent L-1037..L-1039)
+- **Next**: (1) orient_sections.py DI extraction for cached-artifact loader (L-1039, L-941 pattern); (2) open falsification lane (0.6% rate — gate fires at 0/N); (3) F-IC1 retest at N=1000 (currently 948, ~52 lessons away); (4) orient_sections.py split (7302t > 5000t ceiling)
+
 ## S441e session note (humanity-noticing case analysis — L4 dissipation gap)
 - **check_mode**: objective | **mode**: human-directed L4 case analysis
 - **expect**: structured timeline estimates for swarm value noticing by humanity across 5 cases

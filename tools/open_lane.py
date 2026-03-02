@@ -241,6 +241,14 @@ def main():
                         ))
     parser.add_argument("--force", action="store_true",
                         help="Open lane even if lane ID already exists (not recommended)")
+    parser.add_argument("--skip-falsification-check", default="",
+                        metavar="REASON",
+                        help=(
+                            "Override falsification-rate block with a stated reason. "
+                            "Required when recent falsification rate is 0/N and this is not "
+                            "a falsification lane. Reason is recorded in lane notes. "
+                            "Example: --skip-falsification-check 'meta tooling session, no belief to falsify'"
+                        ))
     args = parser.parse_args()
 
     if lane_exists(args.lane) and not args.force:
@@ -353,17 +361,20 @@ def main():
             file=sys.stderr,
         )
 
-    # P-243 falsification mandate: track recent lanes and warn if no falsification lanes
-    # Count recent lanes to check 1-in-5 adversarial ratio
+    # P-243 falsification mandate: track recent lanes and enforce 1-in-5 adversarial ratio
+    # L-601: advisory display = 0% adoption; blocking enforcement = near-100% (L-949)
+    # Upgraded from WARN to ERROR to match structural enforcement pattern (PHIL-22/--self-apply).
     if args.mode == "falsification":
         print(
             f"INFO: Adversarial lane — explicitly testing against a belief/claim. "
             f"Target: prove the expect WRONG. Record DROP if falsified (P-243, L-804).",
         )
-    elif args.frontier:
-        # Count recent falsification lanes vs total to nudge the ratio
+    else:
+        # Count recent falsification lanes vs total (last 20 sessions)
         recent_falsification = 0
         recent_total = 0
+        sess_num_m = re.search(r"\d+", args.session)
+        cur_sess = int(sess_num_m.group()) if sess_num_m else 0
         for lanes_file in (LANES_FILE, LANES_ARCHIVE):
             if not lanes_file.exists():
                 continue
@@ -378,18 +389,33 @@ def main():
                 if not sess_m:
                     continue
                 sess = int(sess_m.group(1))
-                if sess < max(1, int(re.search(r"\d+", args.session).group()) - 20):
+                if sess < max(1, cur_sess - 20):
                     continue
                 recent_total += 1
                 if "mode=falsification" in etc:
                     recent_falsification += 1
-        if recent_total >= 5 and recent_falsification == 0:
-            print(
-                f"WARN: 0/{recent_total} recent lanes use mode=falsification. "
-                f"P-243 requires 1-in-5 adversarial lanes. Consider: "
-                f"--mode falsification --expect '<belief> is FALSE because <reason>'",
-                file=sys.stderr,
+        falsif_rate = recent_falsification / recent_total if recent_total > 0 else 1.0
+        if recent_total >= 5 and falsif_rate < 0.20:
+            msg = (
+                f"{'ERROR' if recent_falsification == 0 else 'WARN'}: "
+                f"{recent_falsification}/{recent_total} recent lanes use mode=falsification "
+                f"({falsif_rate:.0%} vs 20% target). "
+                f"P-243 requires 1-in-5 adversarial lanes (L-601: voluntary → structural enforcement). "
+                f"Options: (1) --mode falsification --expect '<belief> is FALSE because <reason>', "
+                f"(2) --skip-falsification-check 'reason' to override with justification."
             )
+            if recent_falsification == 0:
+                # Hard block: 0 falsification lanes in 5+ recent lanes (L-601 enforcement)
+                if args.skip_falsification_check:
+                    print(
+                        f"INFO: Falsification-rate block overridden: '{args.skip_falsification_check}'. "
+                        f"Current ratio {recent_falsification}/{recent_total} — next lane should be falsification.",
+                    )
+                else:
+                    print(msg, file=sys.stderr)
+                    sys.exit(1)
+            else:
+                print(msg, file=sys.stderr)
 
     # PHIL-22 enforcement: L3+ lanes must state self-application (L-950, SIG-48)
     # L-949: advisory display = 0% adoption; blocking enforcement = near-100%

@@ -280,6 +280,23 @@ def section_pci(session_num, compute_fn, root=ROOT):
                     lines.append(f"  Bayesian calibration ({age_note2}): ECE={ece:.3f}{ece_flag} | {n_front} frontiers | refresh: python3 tools/bayes_meta.py --json > experiments/meta/bayes-meta-s<N>.json")
         except Exception:
             pass
+        # Mission sufficiency from cached eval-sufficiency artifact (F-EVAL4, L-979)
+        # Shows continuous composite score so health is visible without re-running.
+        try:
+            es_files = sorted((root / "experiments" / "evaluation").glob("eval-sufficiency-s*.json"))
+            if es_files:
+                es_data = json.loads(es_files[-1].read_text())
+                es_m = re.search(r"eval-sufficiency-s(\d+)", es_files[-1].name)
+                es_age = (session_num - int(es_m.group(1))) if es_m else -1
+                if -5 <= es_age <= 50:
+                    overall = es_data.get("overall", "?")
+                    cont = es_data.get("continuous_composite", es_data.get("composite_normalized"))
+                    nxt = es_data.get("next_improvement_target", "?")
+                    age_note = f"S{es_m.group(1)}" + (f", {es_age}s ago" if es_age > 0 else "")
+                    cont_str = f" ({cont:.0%} continuous)" if cont is not None else ""
+                    lines.append(f"  Mission sufficiency ({age_note}): {overall}{cont_str} — next: {nxt} | refresh: python3 tools/eval_sufficiency.py --save")
+        except Exception:
+            pass
         if pci_val < 0.10:
             lines.append("  Tip: check `beliefs/CHALLENGES.md` for untested beliefs and open a DOMEX lane")
         lines.append("")

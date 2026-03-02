@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """lesson_collision_check.py — Detect L-NNN lesson number collisions (FM-18).
-Checks: title-filename mismatch, content mismatch vs HEAD, out-of-sequence.
+Checks: title-filename mismatch, content mismatch vs HEAD, out-of-sequence,
+        missing domain tag (L-601 creation-time enforcement for **Domain**).
 Usage: python3 tools/lesson_collision_check.py [--fix]
 """
 import argparse, os, re, subprocess, sys
@@ -10,6 +11,9 @@ ROOT = Path(__file__).resolve().parent.parent
 LESSON_DIR = ROOT / "memory" / "lessons"
 L_RE = re.compile(r"^L-(\d+)\.md$")
 TITLE_RE = re.compile(r"^#\s+L-(\d+)")
+# L-601: creation-time domain tag enforcement. Bold format (S433+): **Domain**: <domain>
+# Plain format (pre-S433) also accepted for backward compat.
+DOMAIN_TAG_RE = re.compile(r"\*\*Domain\*\*\s*:\s*\S+|Domain\s*:\s*\S+")
 
 def git_committed():
     """Return {number: relpath} for L-NNN.md in HEAD (excl. archive)."""
@@ -70,6 +74,19 @@ def title_num(path):
     except Exception:
         return None
 
+def has_domain_tag(path):
+    """Return True if lesson has a **Domain**: <value> header (L-601 enforcement)."""
+    try:
+        with open(path) as f:
+            for i, line in enumerate(f):
+                if i > 10:  # domain tag is always in header (first 10 lines)
+                    break
+                if DOMAIN_TAG_RE.search(line):
+                    return True
+    except Exception:
+        pass
+    return False
+
 def main():
     ap = argparse.ArgumentParser(description="Lesson collision detector (FM-18)")
     ap.add_argument("--fix", action="store_true", help="Show suggested fixes")
@@ -85,7 +102,8 @@ def main():
         if tn is not None and tn != num:
             s = f"TITLE MISMATCH: {path.name} title says L-{tn:03d}"
             issues.append(s + (" — rename file or fix title" if fix else ""))
-    # 2. Staged new-file collision: staged addition claims a slot already in HEAD (FM-18 core case)
+    # 2. Staged new-file collision + domain tag check: staged addition claims a slot already
+    # in HEAD (FM-18 core case) OR missing **Domain** tag (L-601 creation-time enforcement).
     # Only check in staged mode to avoid flagging untracked work-in-progress.
     if args.staged:
         try:
@@ -97,9 +115,16 @@ def main():
                 m = L_RE.match(os.path.basename(line))
                 if m and "/archive/" not in line:
                     num = int(m.group(1))
+                    path = ROOT / line
                     if num in committed:
                         s = f"SLOT CONFLICT: L-{num:03d}.md staged as new but already in HEAD"
                         issues.append(s + (" — rename to next free slot" if fix else ""))
+                    # L-601 domain tag enforcement: new lessons must declare **Domain**
+                    if path.is_file() and not has_domain_tag(path):
+                        s = (f"DOMAIN TAG MISSING: L-{num:03d}.md has no '**Domain**: <domain>' "
+                             f"in header (L-601/L-1030). Add: **Session**: S441 | **Domain**: "
+                             f"<domain> | **Level**: L2 | **Cites**: ... | **Confidence**: ...")
+                        issues.append(s + (" — add **Domain**: tag to header line" if fix else ""))
         except Exception:
             pass
     # Report
