@@ -225,6 +225,15 @@
       "registered_by": "S436",
       "last_session": "S441",
       "last_date": "2026-03-02"
+    },
+    {
+      "id": "scaling-timelines",
+      "description": "Scaling timelines update: refresh docs/SCALING-TIMELINES.md \u2014 update Current Position table (N, P, S, K_avg, Zipf \u03b1, ECE), retire falsified/confirmed projections, move crossed thresholds to Already Crossed, revise scenario trajectories if actual diverges from base case. Run: python3 tools/scaling_model.py --report + python3 tools/compact.py --dry-run for live metrics. Created S441.",
+      "cadence_sessions": 20,
+      "last_reviewed_session": 441,
+      "registered_by": "S441",
+      "last_session": "S441",
+      "last_date": "2026-03-02"
     }
   ]
 }

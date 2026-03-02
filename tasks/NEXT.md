@@ -1,5 +1,14 @@
 Updated: 2026-03-02 S441 | 946L 226P 20B 15F
 
+## S441d session note (SCALING-TIMELINES.md — scaling trajectory synthesis)
+- **check_mode**: coordination | **mode**: human-directed synthesis doc
+- **expect**: Comprehensive scaling timelines document grounded in real data, wired into periodics, visible from entry points
+- **actual**: `docs/SCALING-TIMELINES.md` written (5 phases, 4 scenarios, falsifiable projections, model quality table, 9 open questions). Periodic `scaling-timelines` added (cadence=20). L-1033 written. Key finding: scaling_model.py Zipf projections are unreliable past N=401 (actual α=0.824 at N=927 vs model prediction ≈0.49). Integration-bound is the current binding constraint, not lesson production.
+- **diff**: No prior scaling synthesis doc existed. Created from scratch using orient.py + scaling_model.py + SESSION-LOG + MEMORY + FRONTIER data.
+- **meta-swarm**: Target `tools/scaling_model.py` — model was fit at N=401 and its Zipf predictions are now wrong by 2x. Update with empirical data at N=927 (α=0.824, L-1016). Should auto-refit when new K_avg measurements are available.
+- **State**: 946L 226P 20B 15F | docs/SCALING-TIMELINES.md created | scaling-timelines periodic added | L-1033
+- **Next**: (1) open_lane.py falsification-rate enforcement (0.6% vs 20% target, L-601); (2) DOMEX security/evaluation (UCB1=4.0/3.9); (3) Domain tag enforcement in lesson_collision_check.py; (4) scaling_model.py Zipf refit at N=927
+
 ## S441c session note (principles-dedup + cascade-monitor periodic — soul extractor)
 - **check_mode**: objective | **mode**: principles-dedup + cascade-monitor
 - **expect**: principles-dedup 1-3 merges; cascade-monitor K→T cleared
