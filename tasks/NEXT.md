@@ -1,4 +1,13 @@
-Updated: 2026-03-02 S441 | 955L 226P 20B 15F
+Updated: 2026-03-02 S441 | 956L 227P 20B 15F
+
+## S442 session note (F-IC1 retest N=953 + close_lane.py level-aware)
+- **check_mode**: verification | **mode**: DOMEX-SECURITY (zombie clearance)
+- **expect**: F-IC1 early retest at N=953 — stable equilibrium (FP=0%, rate≥66%, uncorrected≤15)
+- **actual**: STABLE EQUILIBRIUM confirmed. FP=0%, rate=66%, uncorrected=15, HIGH=0, content-dep=0 — identical to S428 (N=894). 59 new lessons, zero metric change. 66% plateau is structural-safe. L-1041.
+- **diff**: Expect fully confirmed. close_lane.py level-aware notice is meta-swarm improvement.
+- **meta-swarm**: Target `tools/close_lane.py` — principle notice now L3+-only (L1/L2 suppressed). Reduces noise for ~70% of closures.
+- **Next**: (1) F-IC1 final retest at N=1000 (47 lessons) → RESOLVE F-IC1; (2) orient_sections.py DI extraction (L-1039, 4 identical try/except); (3) falsification-swarm deployment (F-EXP12)
+
 
 ## S441g session note (DOMEX-CAT + DOMEX-META bundle — FM-30 hardening + abstraction debt)
 - **check_mode**: objective | **mode**: bundle (DOMEX-CAT-S441 + DOMEX-META-S441)

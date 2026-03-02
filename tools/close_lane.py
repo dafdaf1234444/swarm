@@ -203,11 +203,15 @@ def main():
                         pass
 
         # Principle-extraction prompt: warn if MERGED lane has lessons but no P- reference (L-659, F-META2)
+        # Level-aware: L1/L2 (measurement/replication) rarely yield principles; suppress noise (L-1041 meta)
         if args.status == "MERGED":
             closure_text = f"{args.note} {args.actual} {args.diff}"
             has_lesson = bool(re.search(r'\bL-\d+\b', closure_text))
             has_principle = bool(re.search(r'\bP-\d+\b', closure_text))
-            if has_lesson and not has_principle:
+            lane_level_match = re.search(r'level=(L\d+)', etc_field)
+            lane_level = lane_level_match.group(1) if lane_level_match else "L3"  # default to L3 if unknown
+            is_low_level = lane_level in ("L1", "L2")
+            if has_lesson and not has_principle and not is_low_level:
                 print(f"NOTICE: lane produced lesson(s) but no principle reference.", file=sys.stderr)
                 print("  L-659: lesson→principle rate declining (20.4%→16.5%). Consider:", file=sys.stderr)
                 print("  - Does this lesson generalize beyond its specific context?", file=sys.stderr)
