@@ -351,6 +351,20 @@ if [ -n "$STAGED_LESSONS" ]; then
     fi
 fi
 
+# FM-30: Cross-layer cascade detector (L-1015, F-CAT1, S441).
+# cascade_monitor.py detects simultaneous failure of adjacent swarm layers (K,T,Q,E,A).
+# Non-blocking NOTICE — cascades require monitoring, not commit abort.
+if [ -f "tools/cascade_monitor.py" ]; then
+    CASCADE_OUT=$("${PYTHON_CMD[@]}" tools/cascade_monitor.py 2>&1) || true
+    CASCADE_COUNT=$(echo "$CASCADE_OUT" | grep -c "ACTIVE CASCADES" || true)
+    if echo "$CASCADE_OUT" | grep -q "ACTIVE CASCADES"; then
+        SEVERITY=$(echo "$CASCADE_OUT" | grep -oE "severity=[0-9]+" | awk -F= 'BEGIN{m=0}{if($2>m)m=$2}END{print m}')
+        echo "  FM-30 cascade guard: NOTICE — active cross-layer cascade (max severity=${SEVERITY}) — run cascade_monitor.py"
+    else
+        echo "  FM-30 cascade guard: PASS"
+    fi
+fi
+
 # EAD enforcement (Council S3, L-484): new session notes should have expect+actual fields.
 # Stigmergy amplification requires prediction metadata on every trace.
 if git diff --cached --name-only 2>/dev/null | grep -q 'tasks/NEXT.md'; then

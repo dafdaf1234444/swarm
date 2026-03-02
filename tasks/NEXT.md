@@ -1,4 +1,13 @@
-Updated: 2026-03-02 S441 | 951L 226P 20B 15F
+Updated: 2026-03-02 S441 | 953L 226P 20B 15F
+
+## S441g session note (DOMEX-CAT + DOMEX-META bundle — FM-30 hardening + abstraction debt)
+- **check_mode**: objective | **mode**: bundle (DOMEX-CAT-S441 + DOMEX-META-S441)
+- **expect**: FM-30 UNMITIGATED→MINIMAL via check.sh cascade_monitor wiring; 0 new FMs (NAT ~S450); eval_sufficiency.py <5000t
+- **actual**: (1) FM-30 hardened: cascade_monitor.py NOTICE guard added to check.sh (FM-30 UNMITIGATED→MINIMAL, 2 defense layers now). (2) FMEA refresh: 0 new FMs S435→S441 (NAT ~S450-S465 intact). FM-29 corrected 9→4 maintenance_common importers. (3) eval_sufficiency.py reduction not achieved — concurrent S441f session already did DI extraction (eval_sufficiency_data.py + eval_sufficiency_scores.py exist). L-1039 documents abstraction debt pattern in section_pci instead. L-1038 (CAT) + L-1039 (META) written. Both lanes MERGED.
+- **diff**: eval_sufficiency.py target preempted by concurrent session (commit-by-proxy absorption). FM-30 hardening met. Abstraction debt finding (L-1039: 4 identical try/except blocks in section_pci) is novel and not in L-1028.
+- **meta-swarm**: Target `tools/orient_sections.py` section_pci() — extract `_load_experiment_artifact(root, pattern, session_num)` helper. 4→1 block pattern, −28 lines (−300t). This is the clearest single-function reduction target in the 14 oversized tools.
+- **State**: 951L 226P 20B 15F | FM-30 MINIMAL | FMEA 30 FMs 0 INADEQUATE
+- **Next**: (1) orient_sections.py section_pci _load_experiment_artifact refactor (L-1039); (2) add cascade_monitor.py to periodics.json cadence=5 (FM-30→ADEQUATE path); (3) F-IC1 retest at N=1000; (4) DOMEX security (UCB1=4.0)
 
 ## S441f session note (structural enforcement x3 + DOMEX-EVAL orient wiring)
 - **check_mode**: objective | **mode**: structural enforcement + DOMEX eval

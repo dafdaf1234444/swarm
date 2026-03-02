@@ -509,3 +509,7 @@ S429	| 2026-03-02 | +1L (L-981) +0P | L-980 theory-to-enforcement wiring + L-981
 S430	| 2026-03-02 | +1L (L-986) +7P (P-284..P-290) | principle-batch-scan L-809→L-983: falsification-advantage, integration-bound, epistemological-FM, citation-gap-359x, n≥100-stability, EAD-only-trust, principle-orphaning
 S431	| 2026-03-02 | +6L (L-994, L-995, L-996, L-997, L-998... +1) +1P | string-theory domain artifacts — DOMEX-STR-S431 pre-registered, F-STR3/4/5 holog
 S432	| 2026-03-02 | +1L (L-1002) +0P | 3 DOMEX lanes MERGED + L-1000 P2P colony (L3) + historian_router operational
+S95	| 2026-03-02 | +1L (L-189) +0P | 
+S439	| 2026-03-02 | +1L (L-1027) +0P | L-1027 trim 29→14L + INDEX count 940→941L
+S440	| 2026-03-02 | +1L (L-1028) +0P | state-sync 941→942L, session S439→S440
+S441	| 2026-03-02 | +2L (L-1031, L-1033) +0P | sync-state count drift 947→948L

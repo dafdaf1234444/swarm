@@ -153,7 +153,8 @@ def check_level_quota() -> list[tuple[str, str]]:
     ]
 
     def _is_l3plus(text: str) -> bool:
-        if re.search(r"[Ll]evel[=:\s]+[Ll][3-5]", text):
+        # Handle both plain (Level: L3) and bold (**Level**: L3) formats
+        if re.search(r"\*{0,2}[Ll]evel\*{0,2}[=:\s]+[Ll][3-5]", text):
             return True
         high_sharpe = bool(re.search(r"\*{0,2}Sharpe\*{0,2}:\s*(9|10)\b", text))
         text_lower = text.lower()
