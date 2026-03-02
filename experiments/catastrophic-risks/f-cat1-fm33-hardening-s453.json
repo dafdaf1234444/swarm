@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-CAT-S453",
+    "frontier": "F-CAT1",
+    "session": "S453",
+    "domain": "catastrophic-risks",
+    "date": "2026-03-03",
+    "expect": "FM-33 UNMITIGATED\u2192MINIMAL: wire automatic cadence-adjustment into maintenance_health.py N=1000 waypoint",
+    "actual": "TBD",
+    "diff": "TBD"
+}

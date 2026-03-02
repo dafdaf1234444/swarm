@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-NK-S454",
+    "frontier": "F-NK5",
+    "session": "S454",
+    "domain": "nk-complexity",
+    "date": "2026-03-03",
+    "expect": "NK tracking at N=1007: K_avg \u2248 3.1-3.2 (extrapolating 0.00162/L rate from S434 N=924). Hub z should exceed 86.3. Sink% should continue declining below 24%. L-601 K_max \u2248 200+ (super-linear PA).",
+    "actual": "TBD",
+    "diff": "TBD"
+}
