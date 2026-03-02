@@ -39,12 +39,13 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Depended on by**: B2, B3, B6
 - **Last tested**: S433 (CONFIRMED — INDEX.md pointer coverage 11.3%, but citation graph giant component 98.7% at N=918. citation_retrieval.py provides dual retrieval path. Falsification criterion >20% miss NOT met via citation graph traversal.)
 
-### B2: Layered memory (always-load / per-task / rarely) prevents context bloat
+### B2: Layered memory (indexed-partial-load / per-task / rarely) prevents context bloat
 - **Evidence**: observed
+- **Degradation (S443)**: "always-load" tier is now "indexed-partial-load" — MEMORY.md has hard 200-line truncation limit; content past line 200 silently dropped. B2 holds for context bloat prevention but the guarantee is partial. Fix: MEMORY.md must stay <200L for full B2 compliance. Current: ~195L (near truncation). L-1057 adversary challenge (3rd challenge adversary-s443).
 - **Falsified if**: A session following the layered protocol hits context limit before completing a standard task, OR sessions ignoring layering complete equivalent tasks at equal context cost
 - **Depends on**: B1
 - **Depended on by**: B7
-- **Last tested**: S392 (CONFIRMED — 0 context-limit hits despite 430→710L growth, 85% savings sustained)
+- **Last tested**: S443 (PARTIAL — 0 context-limit hits, but always-load tier truncated at 200L since S338; structural guarantee degraded at N>700)
 
 ### B3: Small commits aid backtracking and session handoff
 - **Evidence**: observed

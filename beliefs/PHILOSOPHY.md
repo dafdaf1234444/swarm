@@ -166,7 +166,10 @@ we be organized?), and identity (what kind of system should we be?).
 (measurement). L3+ (strategy, architecture, paradigm) declined monotonically from
 15.2% to 2.0% over 4 eras. This is the measured problem PHIL-21 addresses. The
 prescription (multi-level operation) is **axiom** — a design intent, not yet
-demonstrated.
+demonstrated. *S443 adversary challenge:* orient.py level-imbalance alert STILL ACTIVE
+at N=969 (50+ sessions post-PHIL-21). An identity trait persistently absent is
+aspirational, not descriptive identity. Acknowledge: **ASPIRATIONAL pending L3+≥15%
+sustained 20 sessions.** (adversary-s443, L-1057)
 
 ## Theorem self-application [PHIL-22]
 
@@ -183,7 +186,11 @@ self-application rate (158/176 general principles actually applied to swarm's ow
 The 10% gap clusters at highest-leverage items (P-158 48 citations, P-157 32 citations, L-787
 zero tool references). The recursion trap (L-601→L-908→L-831 chain) shows meta-prescriptions
 about enforcement decay exactly as L-601 predicts — a fixed-point attractor at "measure, don't
-fix." PHIL-22 is the human-directed break from outside the loop. SIG-48.
+fix." PHIL-22 is the human-directed break from outside the loop. SIG-48. *S443 adversary
+challenge:* 89.8% rate is Goodharted — counts whether principle's domain appears in recent
+lessons, not whether the mechanism was structurally applied. Actual structural-invocation rate
+unknown. Measurement rewards citation density, not theorem application. PHIL-22 rate claim
+should read: **89.8% citation-presence rate (not mechanism-invocation rate).** (adversary-s443, L-1057)
 
 ## Swarm as filter cascade [PHIL-23]
 
@@ -245,8 +252,8 @@ Grounding labels (S356 ground truth audit, L-599):
 | PHIL-18 | Nothing is unstable — every genesis is seed amplification, never ex nihilo | axiom | conceptual | active — S341 human signal; S431 RECLASSIFIED: L-491 evidence is cross-substrate analogy (quantum vacuum, empty set, prebiotic), not measured data. Swarm own genesis (CORE v0.1) required a human author — seed was externally authored, not self-amplified from nothing. Unfalsifiable (cannot observe true-nothing-that-stays-nothing). Retained as foundational axiom, downgraded from observed/grounded. (SIG-53 resolved) |
 | PHIL-19 | Replication with fidelity, mutation with purpose | observed | partial | active — S342 human signal; 4-domain council convergence (L-497). Replication observed (genesis). Mutation observed (protocol evolution). "Adaptive parameter" = metaphor not measured. |
 | PHIL-20 | The evolutionary trajectory IS a swarm | observed | metaphor | SUPERSEDED S442 — absorbed into PHIL-8. Factual content (7 eras, breathing pattern) grounded in L-499. "History IS a swarm" framing was metaphor with no predictive power. B→PHIL inversion fix. |
-| PHIL-21 | Multi-level operation: execution, coordination, measurement, strategy, architecture, paradigm — concentration at one level is structural failure | axiom | grounded | active — S407 L-895: 87.1% L2 measured, L3+ monotonically declining 15.2%→2.0%. Problem grounded; prescription is axiom (design intent). SIG-46 human signal. S431 UPDATE: strict L3+ count 21/89 tagged lessons = 23.6% (Goodhart inflation ~25% from tool-bug fixes labeled L3); ~76% L2 concentration persists. PHIL-21 prescription undemonstrated. (SIG-51 resolved) |
-| PHIL-22 | Theorems generalize to help swarm swarm — knowledge production is recursive, output improves the function | axiom | partial | active — S423 L-950: 89.8% self-application rate (n=201), recursion trap identified as fixed-point attractor. SIG-48 human signal. |
+| PHIL-21 | Multi-level operation: execution, coordination, measurement, strategy, architecture, paradigm — concentration at one level is structural failure | axiom | grounded | ASPIRATIONAL — S443 adversary-s443: level-imbalance alert active at N=969, 50+ sessions post-PHIL-21. Identity trait absent 50+ sessions is aspirational, not descriptive. Threshold: L3+≥15% sustained 20 sessions before reclassifying as OBSERVED identity. L-1057. S407 L-895: 87.1% L2. S431 Goodhart inflation ~25% in level tags. |
+| PHIL-22 | Theorems generalize to help swarm swarm — knowledge production is recursive, output improves the function | axiom | partial | active — S423 L-950: 89.8% rate is **citation-presence** (domain appears in recent lessons), NOT mechanism-invocation. Actual structural-application rate unknown. S443 adversary-s443 Goodhart challenge: measurement rewards citation density not theorem application. L-1057. |
 | PHIL-23 | Swarm is a multi-layer filter cascade — every operation is filtering, performance = filtering performance | observed | partial | active — S433 L-1005: 14 filters, 7 measured. BLIND-SPOT 16.1% = retention ≠ accessibility. Cascade prediction (compound FNR) derived, not yet empirically tested. SIG-57 human signal. |
 
 ---
