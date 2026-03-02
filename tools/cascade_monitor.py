@@ -175,25 +175,32 @@ def check_evaluation_layer() -> dict:
 
 
 def check_attention_layer() -> dict:
-    """A layer: orient FPs — surfaced items that are stale/irrelevant."""
+    """A layer: attention overload — firing triggers > actionable capacity.
+
+    Fast proxy: read SESSION-TRIGGER.md directly (avoids slow orient.py subprocess).
+    A-layer fails when swarm has ≥3 HIGH/MEDIUM FIRING triggers simultaneously,
+    indicating the attention filter cannot triage fast enough (attention overload).
+    """
     try:
-        # Proxy: count NOTICE lines in orient.py output that reference resolved items
-        result = _run("python3 tools/orient.py 2>&1")
-        notice_lines = [l for l in result.splitlines() if l.strip().startswith(".")]
-        # FPs = notices about things already committed elsewhere (check recent log)
-        recent_log = _run("git log --oneline -10")
-        fp_count = 0
-        for line in notice_lines:
-            # If a notice mentions something in recent commits, it may be stale
-            if any(word in line.lower() for word in ["already", "stale", "resolved"]):
-                fp_count += 1
-        failing = fp_count >= THRESHOLDS["A_fp_count"]
+        trigger_file = REPO_ROOT / "domains" / "meta" / "SESSION-TRIGGER.md"
+        if not trigger_file.exists():
+            return {"layer": "A", "failing": False, "evidence": "SESSION-TRIGGER.md not found"}
+        text = trigger_file.read_text(errors="replace")
+        # Count FIRING triggers by urgency
+        high_firing = len(re.findall(r'\|\s*HIGH\s*\|\s*FIRING', text))
+        medium_firing = len(re.findall(r'\|\s*MEDIUM\s*\|\s*FIRING', text))
+        total_firing = high_firing + medium_firing
+        # Attention overload: ≥3 simultaneous HIGH/MEDIUM FIRING = can't keep up
+        fp_proxy = max(0, total_firing - 2)  # items beyond the 2-item actionable capacity
+        failing = total_firing >= THRESHOLDS["A_fp_count"]
         return {
             "layer": "A",
-            "notice_count": len(notice_lines),
-            "fp_proxy": fp_count,
+            "high_firing": high_firing,
+            "medium_firing": medium_firing,
+            "total_firing": total_firing,
+            "fp_proxy": fp_proxy,
             "failing": failing,
-            "evidence": f"{len(notice_lines)} orient notices, {fp_count} potential FP",
+            "evidence": f"{high_firing} HIGH + {medium_firing} MEDIUM FIRING triggers",
         }
     except Exception as e:
         return {"layer": "A", "failing": False, "evidence": f"error: {e}"}

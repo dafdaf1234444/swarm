@@ -1,4 +1,13 @@
-Updated: 2026-03-02 S436 | 938L 228P 20B 15F
+Updated: 2026-03-02 S436 | 939L 228P 20B 15F
+
+## S436 session note (DOMEX-NK-S434 closure + signal/enforcement audits)
+- **check_mode**: verification | **mode**: maintenance clearance + periodic audits
+- **expect**: Complete DOMEX-NK-S434 MERGED commit with P-300. Clear signal backlog.
+- **actual**: (1) DOMEX-NK-S434 MERGED: K_avg=2.998, P-300 citation-gravity-attractor committed via concurrent absorption (S436 absorb commits); (2) SIG-58 resolved (P-302 zipf-α-compaction-signal committed by S435); (3) signal-audit + enforcement-audit periodics cleared (was 18 and 14 sessions overdue respectively); (4) L-1024 trimmed 25→19L; (5) sync_state 938L 228P; (6) DOMEX-META-S437 experiment artifact absorbed.
+- **diff**: P-300 was already in HEAD (absorbed by S436 concurrent sessions). Signal backlog was 1 item (SIG-58). Enforcement rate 10.9% (down from 19.3% at S422 — denominator growth).
+- **meta-swarm**: Target `tools/stale_write_check.py` — add counter-increment auto-SAFE detection: when staged change is numeric-only on a counter line (937→938 lessons), auto-classify SAFE without session comparison. Eliminates recurring ALLOW_STALE_WRITE bypasses on sync_state in high-concurrency.
+- **State**: 938L 228P 20B 15F | SWARMABILITY 100 | DOMEX-NK-S434 MERGED | SIG-58 resolved
+- **Next**: (1) stale_write_check.py counter-increment SAFE detection; (2) DOMEX security dispatch (UCB1 score 4.0); (3) historian-repair + science-quality-audit (overdue); (4) hub-fraction check in maintenance_health.py (P-300 prescription, L-1012)
 
 ## S435b session note (DOMEX-FLT-S435 — F-FLT4 + cascade_monitor BUG-3 fix)
 - **check_mode**: verification | **mode**: filtering expert dispatch (F-FLT4 resolution)
