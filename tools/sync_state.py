@@ -96,6 +96,83 @@ def patch_file(path: Path, old: str, new: str, label: str) -> bool:
     return True
 
 
+def _update_session_log(session: int) -> bool:
+    """Backfill SESSION-LOG.md with missing session entries derived from lesson Session: headers.
+    Idempotent: only appends entries for sessions not already present.
+    L-955 structural remedy: SESSION-LOG was sparse because logging was voluntary.
+    """
+    log_path = ROOT / "memory" / "SESSION-LOG.md"
+    if not log_path.exists():
+        return False
+
+    existing_text = log_path.read_text(encoding="utf-8")
+    existing_sessions: set[int] = set()
+    for m in re.finditer(r"^S(\d+)[a-zA-Z+]?\s*\t", existing_text, re.MULTILINE):
+        existing_sessions.add(int(m.group(1)))
+
+    # Gather lessons by session from their Session: header lines
+    lessons_dir = ROOT / "memory" / "lessons"
+    session_lessons: dict[int, list[str]] = {}
+    if lessons_dir.exists():
+        for lf in sorted(lessons_dir.glob("L-*.md")):
+            m_num = re.match(r"L-(\d+)\.md$", lf.name)
+            if not m_num:
+                continue
+            lid = int(m_num.group(1))
+            try:
+                header = lf.read_text(encoding="utf-8", errors="replace")[:400]
+            except Exception:
+                continue
+            m_sess = re.search(r"Session:\s*S(\d+)", header)
+            if not m_sess:
+                continue
+            sn = int(m_sess.group(1))
+            session_lessons.setdefault(sn, []).append(f"L-{lid}")
+
+    # Find sessions to backfill: have lessons, not in log, not future
+    log_max = max(existing_sessions, default=0)
+    missing = sorted(s for s in session_lessons if s not in existing_sessions and s <= session)
+    if not missing:
+        return False
+
+    # Get commit messages for session descriptions
+    try:
+        log_output = _git("log", "--pretty=format:%s", f"-{min(session * 2, 600)}")
+        commit_msgs: dict[int, list[str]] = {}
+        for line in log_output.splitlines():
+            m_s = re.search(r"\[S(\d+)\]", line)
+            if m_s:
+                sn = int(m_s.group(1))
+                commit_msgs.setdefault(sn, []).append(line)
+    except Exception:
+        commit_msgs = {}
+
+    today = date.today().isoformat()
+    new_lines: list[str] = []
+    for sn in missing:
+        lids = sorted(session_lessons[sn], key=lambda x: int(x.split("-")[1]))
+        n_lessons = len(lids)
+        lesson_str = ", ".join(lids[:5]) + (f"... +{n_lessons-5}" if n_lessons > 5 else "")
+        msgs = commit_msgs.get(sn, [])
+        # Extract short description from first commit message
+        desc = ""
+        if msgs:
+            m_d = re.search(r"\[S\d+\]\s+(?:\w+:\s+)?(.+)", msgs[0])
+            if m_d:
+                desc = m_d.group(1)[:80]
+        new_lines.append(
+            f"S{sn}\t| {today} | +{n_lessons}L ({lesson_str}) +?P | {desc}"
+        )
+
+    if new_lines:
+        appended = "\n".join(new_lines) + "\n"
+        log_path.write_text(existing_text.rstrip("\n") + "\n" + appended, encoding="utf-8")
+        if not QUIET:
+            print(f"  SESSION-LOG: backfilled {len(new_lines)} sessions (S{missing[0]}..S{missing[-1]})")
+        return True
+    return False
+
+
 def main():
     session = _session_number()
     lessons = count_lessons()
@@ -271,6 +348,12 @@ def main():
             print("  all counts in sync — no changes needed")
     elif not DRY:
         print(f"  patched: {', '.join(changed)}")
+
+    # --- SESSION-LOG.md backfill ---
+    # L-955: SESSION-LOG sparse sampling bias — ad-hoc logging underrepresented high-productivity DOMEX sessions.
+    # Structural fix: sync_state.py auto-backfills missing sessions from lesson Session: headers.
+    if not DRY:
+        _update_session_log(session)
 
     # Update periodics.json state-sync entry so maintenance.py doesn't fire false DUE
     # every session (S412 meta-swarm reflection — fix target: tools/sync_state.py)
