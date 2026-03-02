@@ -10,9 +10,11 @@ Usage:
   python3 tools/secret_sauce.py --top 10     # top 10
   python3 tools/secret_sauce.py --json       # JSON output for experiment artifact
   python3 tools/secret_sauce.py --min-sharpe 8  # higher bar
+  python3 tools/secret_sauce.py --clusters   # distillation-ready cluster analysis
 
 Output:
   Ranked list of lessons + principle citation frequencies + cluster summary
+  --clusters: groups of related lessons by co-citation, with distillation readiness
 """
 
 import argparse
@@ -149,6 +151,121 @@ def cluster_summary(top_lessons: list[dict]) -> dict[str, list[str]]:
     return dict(clusters)
 
 
+def find_clusters(all_lessons: list[dict], cited_by: dict[str, int],
+                   min_sharpe: int = 7, min_cluster: int = 3, max_cluster: int = 8) -> list[dict]:
+    """Find distillation-ready clusters via co-citation proximity.
+
+    Two lessons are 'near' if they cite ≥2 common sources. Connected components
+    of near-pairs form clusters. Each cluster is scored for distillation readiness.
+    """
+    # Filter to eligible lessons
+    eligible = [l for l in all_lessons if l["sharpe"] >= min_sharpe or l["level"] in ("L3", "L4", "L5")]
+    if not eligible:
+        return []
+
+    # Build co-citation edges: pair (A,B) -> count of shared cited lessons
+    lesson_map = {l["id"]: l for l in eligible}
+    edges: dict[tuple[str, str], int] = {}
+    for i, a in enumerate(eligible):
+        a_refs = a["cites_lessons"] | a["body_refs"]
+        for b in eligible[i + 1:]:
+            b_refs = b["cites_lessons"] | b["body_refs"]
+            shared = a_refs & b_refs
+            if len(shared) >= 2:
+                edges[(a["id"], b["id"])] = len(shared)
+
+    # Connected components via union-find
+    parent: dict[str, str] = {l["id"]: l["id"] for l in eligible}
+
+    def find(x: str) -> str:
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+
+    def union(x: str, y: str) -> None:
+        px, py = find(x), find(y)
+        if px != py:
+            parent[px] = py
+
+    for (a, b) in edges:
+        union(a, b)
+
+    # Group into clusters
+    groups: dict[str, list[str]] = defaultdict(list)
+    for lid in [l["id"] for l in eligible]:
+        groups[find(lid)].append(lid)
+
+    # Score each cluster
+    clusters = []
+    for members in groups.values():
+        if len(members) < min_cluster:
+            continue
+        # Limit to top members by Sharpe if cluster is too large
+        member_lessons = [lesson_map[m] for m in members if m in lesson_map]
+        member_lessons.sort(key=lambda l: -l["sharpe"])
+        if len(member_lessons) > max_cluster:
+            member_lessons = member_lessons[:max_cluster]
+
+        domains = list({l["domain"] for l in member_lessons})
+        levels = [l["level"] for l in member_lessons]
+        sharpes = [l["sharpe"] for l in member_lessons]
+        has_l4_parent = any(l in ("L4", "L5") for l in levels)
+        max_level = max(levels, key=lambda x: LEVEL_WEIGHTS.get(x, 0))
+        avg_sharpe = sum(sharpes) / len(sharpes) if sharpes else 0
+
+        # Distillation readiness scoring
+        domain_diversity = len(domains)
+        readiness = 0.0
+        readiness += min(domain_diversity, 4) * 2.0  # multi-domain: up to 8 pts
+        readiness += avg_sharpe - 6  # Sharpe bonus
+        if has_l4_parent:
+            readiness -= 5.0  # L4 parent penalty
+        if domain_diversity == 1:
+            readiness -= 3.0  # single-domain penalty
+
+        # Shared mechanisms across cluster
+        mech_counts: Counter = Counter()
+        for l in member_lessons:
+            for m in l["mechanisms"]:
+                mech_counts[m] += 1
+        shared_mechs = [m for m, c in mech_counts.items() if c >= 2]
+
+        clusters.append({
+            "members": [l["id"] for l in member_lessons],
+            "member_count": len(member_lessons),
+            "domains": domains,
+            "domain_diversity": domain_diversity,
+            "avg_sharpe": round(avg_sharpe, 1),
+            "max_level": max_level,
+            "has_l4_parent": has_l4_parent,
+            "shared_mechanisms": shared_mechs,
+            "readiness": round(readiness, 1),
+            "titles": {l["id"]: l["title"][:60] for l in member_lessons},
+        })
+
+    clusters.sort(key=lambda c: -c["readiness"])
+    return clusters
+
+
+def print_clusters(clusters: list[dict]) -> None:
+    print(f"\n=== DISTILLATION CLUSTERS ({len(clusters)} found) ===\n")
+    print("Readiness = domain_diversity×2 + (avg_sharpe-6) - 5×has_L4 - 3×single_domain\n")
+    for i, c in enumerate(clusters, 1):
+        ready_label = "HIGH" if c["readiness"] >= 5 else "MED" if c["readiness"] >= 2 else "LOW"
+        l4_tag = " ⚠L4-PARENT" if c["has_l4_parent"] else ""
+        print(f"  {i}. [{ready_label}] readiness={c['readiness']:+.1f}{l4_tag}")
+        print(f"     domains: {', '.join(c['domains'])} ({c['domain_diversity']})")
+        print(f"     avg_sharpe={c['avg_sharpe']} max_level={c['max_level']} n={c['member_count']}")
+        if c["shared_mechanisms"]:
+            print(f"     mechanisms: {', '.join(c['shared_mechanisms'])}")
+        for mid, title in list(c["titles"].items())[:5]:
+            print(f"       {mid}: {title}")
+        if c["member_count"] > 5:
+            print(f"       ... +{c['member_count'] - 5} more")
+        print()
+
+
 def run(top: int = 20, min_sharpe: int = 6, json_output: bool = False) -> dict:
     all_lessons = []
     for path in sorted(LESSONS_DIR.glob("L-*.md")):
@@ -242,7 +359,23 @@ def main() -> None:
     parser.add_argument("--top", type=int, default=20, help="Number of top lessons to surface")
     parser.add_argument("--min-sharpe", type=int, default=6, help="Min Sharpe score (default 6)")
     parser.add_argument("--json", action="store_true", help="Output JSON")
+    parser.add_argument("--clusters", action="store_true",
+                        help="Show distillation-ready clusters by co-citation")
     args = parser.parse_args()
+
+    if args.clusters:
+        all_lessons = []
+        for path in sorted(LESSONS_DIR.glob("L-*.md")):
+            les = parse_lesson(path)
+            if les:
+                all_lessons.append(les)
+        cited_by = build_citation_graph(all_lessons)
+        clusters = find_clusters(all_lessons, cited_by, min_sharpe=args.min_sharpe)
+        if args.json:
+            print(json.dumps(clusters, indent=2, default=list))
+        else:
+            print_clusters(clusters)
+        return
 
     results = run(top=args.top, min_sharpe=args.min_sharpe, json_output=args.json)
 

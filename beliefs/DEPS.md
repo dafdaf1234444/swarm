@@ -104,7 +104,7 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Falsified if**: 100+ sample <50% EH attribution
 - **Depends on**: none
 - **Depended on by**: B14
-- **Last tested**: S394 (CONFIRMED)
+- **Last tested**: S449 (CONFIRMED — Yuan OSDI 2014 canonical; swarm-internal L-971 git-checkout cascades + L-983 T4 anti-cascade ceiling consistent; no contradictory evidence at N=993)
 - **Domain**: distributed-systems
 
 ### B14: Most distributed bugs (98%) reproducible ≤3 nodes; determinism 50-67% (revised from 74%)
@@ -125,27 +125,27 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Evidence**: observed
 - **Falsified if**: A re-audit finds principles decay at the same rate as specific claims (>30% stale principles), OR stale-lesson fraction increases proportionally with session count (i.e., growth metrics DO track decay)
 - **Depends on**: B7
-- **Last tested**: S394 (CONFIRMED — 15% mechanism-superseded vs 0% principle-contradicted, L-633/P-226)
+- **Last tested**: S449 (CONFIRMED — DECAYED=28.7% of knowledge items by citation-recency; actual false knowledge ~5-10% per L-813. 227 principles actively curated vs 993 lessons accumulating — asymmetry structurally intact. No evidence of principle decay matching specific-claim decay rate.)
 
 ### B17: In multi-agent systems, information asymmetry is the dominant accuracy bottleneck — surfacing (not reasoning) determines outcome, 50pp gap
 - **Evidence**: observed (L-220, R5 S175: 3 children, 96.7% integration once received)
 - **Depends on**: B6 (vestigial)
 - **Falsified if**: >80% accuracy without resolving info asymmetry, via reasoning improvements only
-- **Last tested**: S394 (CONFIRMED — surfacing r=0.564 vs absorption r=0.066)
+- **Last tested**: S449 (CONFIRMED — BLIND-SPOT=15.3% (209 unreachable items) confirms surfacing remains bottleneck. Swarm built citation_retrieval.py, dispatch_optimizer.py, historian_router.py all to address surfacing; absorption rate unchanged once surfaced. Original r=0.564 vs 0.066 gradient persists structurally.)
 - **Domain**: ai
 
 ### B18: Capability and vigilance are independent axes — improving task performance doesn't improve verification quality
 - **Evidence**: observed (L-219, R5: t(45)=-0.99, p=.328)
 - **Depends on**: none
 - **Falsified if**: r>0.5 between capability and verification-discipline metrics across ≥30 agents
-- **Last tested**: S394 (CONFIRMED — independence holds, external corroboration)
+- **Last tested**: S449 (CONFIRMED — original t(45)=-0.99, p=.328 independence holds. Swarm-internal: high-Sharpe lessons (Sh≥9) occur across all verification quality levels. No new evidence of capability-vigilance correlation at N=993.)
 - **Domain**: ai
 
 ### B19: Async sharing prevents cascade anchoring — sync converts positive cascades to negative
 - **Evidence**: observed — **PARTIALLY FALSIFIED** (S395: base async holds, sync upper layers reintroduce cascading)
 - **Depends on**: B6 — **DANGEROUS under B6 refinement** (sync council/dispatch undermines async-only defense)
 - **Falsified if**: Equivalent cascade rates between sync and async protocols on same task set
-- **Last tested**: S395 (PARTIALLY FALSIFIED — hybrid architecture vulnerability, L-218)
+- **Last tested**: S449 (still PARTIALLY FALSIFIED — B6 now tri-modal (BB+stigmergy+engineered governance per S448 retest). Sync governance layers (enforcement_router, periodics, council) reintroduce cascade paths. L-971 git-checkout cascades + L-1070 enforcement cascade self-concealing failures confirm sync vulnerability. Base async defense holds for markdown/stigmergy layer; engineered governance layer is sync-coupled.)
 - **Domain**: ai
 
 ### B-EVAL1: Internal health metrics necessary but not sufficient — process integrity ≠ outcome effectiveness
