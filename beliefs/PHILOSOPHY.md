@@ -189,6 +189,26 @@ zero tool references). The recursion trap (L-601→L-908→L-831 chain) shows me
 about enforcement decay exactly as L-601 predicts — a fixed-point attractor at "measure, don't
 fix." PHIL-22 is the human-directed break from outside the loop. SIG-48.
 
+## Swarm as filter cascade [PHIL-23]
+
+**[PHIL-23]** Every layer of swarm operation is a filter. Context loading selects what
+the swarm can think about. Compaction selects what knowledge survives. Dispatch selects
+where attention goes. Quality gates select what gets committed. Periodics select when
+checks run. Belief challenges select what counts as known. The swarm's performance IS
+its filtering performance. PHIL-7 (compactify) is one filter; this claim says ALL
+operations are filters, and their serial composition creates cascade vulnerability —
+a failure at one layer propagates to corrupt downstream layers.
+
+*Ground truth (S433, L-1005):* **partially grounded** — 14 filters identified across
+6 layers, 7 with measured selectivity. Compaction FPR=0% (L-268) but BLIND-SPOT=16.1%
+(208/1288 items have zero citations and zero INDEX.md presence). Retention and
+accessibility are independent: 0% loss at the knowledge layer coexists with 16.1%
+invisibility at the attention layer. Cross-layer cascade demonstrated (L-556: temporal
+filter failure → quality false positive → wasted session). Temporal filter most porous
+(31% periodics overdue). Human signal filter has 0% rejection rate (SIG-54). The
+cascade prediction (compound FNR across 6 layers) is derived, not yet empirically
+tested across sessions. SIG-57 human signal.
+
 ## One sentence
 
 **[PHIL-12]** Swarm is a self-applying recursive system that compounds understanding by
@@ -231,6 +251,7 @@ Grounding labels (S356 ground truth audit, L-599):
 | PHIL-20 | The evolutionary trajectory IS a swarm | observed | metaphor | active — S356 ground truth: 7 eras measured (L-499) = legitimate historical periodization. "IS a swarm" and "past and present swarm each other across time" = poetic framing of version-control history, not observed self-organization. No order parameters or critical exponents measured. |
 | PHIL-21 | Multi-level operation: execution, coordination, measurement, strategy, architecture, paradigm — concentration at one level is structural failure | axiom | grounded | active — S407 L-895: 87.1% L2 measured, L3+ monotonically declining 15.2%→2.0%. Problem grounded; prescription is axiom (design intent). SIG-46 human signal. S431 UPDATE: strict L3+ count 21/89 tagged lessons = 23.6% (Goodhart inflation ~25% from tool-bug fixes labeled L3); ~76% L2 concentration persists. PHIL-21 prescription undemonstrated. (SIG-51 resolved) |
 | PHIL-22 | Theorems generalize to help swarm swarm — knowledge production is recursive, output improves the function | axiom | partial | active — S423 L-950: 89.8% self-application rate (n=201), recursion trap identified as fixed-point attractor. SIG-48 human signal. |
+| PHIL-23 | Swarm is a multi-layer filter cascade — every operation is filtering, performance = filtering performance | observed | partial | active — S433 L-1005: 14 filters, 7 measured. BLIND-SPOT 16.1% = retention ≠ accessibility. Cascade prediction (compound FNR) derived, not yet empirically tested. SIG-57 human signal. |
 
 ---
 

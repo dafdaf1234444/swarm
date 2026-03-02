@@ -151,5 +151,17 @@
         "mean_citations_per_lesson": 3.20,
         "most_cited": "L-601 with 188 citations",
         "power_law": "Top 10 lessons account for disproportionate citation share (L-601=188, L-613=43, L-1=40)"
+    },
+    "f_flt2_scale_analysis": {
+        "frontier": "F-FLT2",
+        "prediction": "Epistemic filter degrades fastest at scale (O(N) revalidation cost, no auto-refresh)",
+        "verdict": "FALSIFIED",
+        "evidence": {
+            "knowledge_filter_proxyk_drift": "S350: 21.7% (URGENT) → S352: 5.0% → S433: -1.7% (IMPROVED at scale via Sharpe compaction)",
+            "attention_filter_gini": "S352: 0.362 → S368: 0.827 (overcorrection) → S433: 0.492 (SLIGHTLY WORSE than baseline +36%, but recovering)",
+            "epistemic_filter_decayed_pct": "S377: 34.4% (n=799) → S393: 20.6% → S433: 25.2% (n=1288, IMPROVED: items grew 61%, DECAYED count grew only 18%)"
+        },
+        "actual_scale_concern": "BLIND-SPOT absolute count grew 208→210 while DECAYED% improved. Accessibility (not recency) is the real scale degradation vector. No filter currently tracks accessibility growth rate.",
+        "root_cause_of_falsification": "Countermeasures deployed (compact.py Sharpe + UCB1 saturation penalties) actively oppose the predicted degradation. The degradation was predicted without accounting for these corrective filters — a meta-level filter interaction effect."
     }
 }
