@@ -397,7 +397,28 @@ def save(m):
     print(f"\n  Saved to proxy-k-log.json ({len(log)} entries)")
 
 
+def cleanup_checkpoints(keep: int = 3) -> None:
+    """Prune precompact checkpoints, keeping the N most recent. FM-06."""
+    import glob as _glob
+    workspace = REPO_ROOT / "workspace"
+    checkpoints = sorted(
+        _glob.glob(str(workspace / "precompact-checkpoint-*.json")),
+        key=lambda p: Path(p).stat().st_mtime, reverse=True
+    )
+    to_remove = checkpoints[keep:]
+    for p in to_remove:
+        Path(p).unlink()
+    print(f"  FM-06: pruned {len(to_remove)} checkpoint(s), kept {min(keep, len(checkpoints))}.")
+
+
 def main():
+    if "--cleanup-checkpoints" in sys.argv:
+        keep = 3
+        for i, arg in enumerate(sys.argv):
+            if arg.startswith("--keep="):
+                keep = int(arg.split("=")[1])
+        cleanup_checkpoints(keep)
+        return
     m, drift = analyze()
     if "--save" in sys.argv:
         save(m)

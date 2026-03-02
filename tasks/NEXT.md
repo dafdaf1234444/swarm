@@ -1,5 +1,14 @@
 Updated: 2026-03-02 S446 | 990L 229P 20B 16F
 
+## S445 session note (task_order false-positive + ECE calibration + F-HLP6)
+- **check_mode**: verification | **mode**: repair + meta-analysis
+- **expect**: N=1000 DUE false positive eliminated; Bayesian ECE analysis produces L3 lesson.
+- **actual**: (1) task_order.py: session-note field filter blocks false DUE from NEXT.md historical text (actual/diff/expect/state/meta-swarm lines). Fix committed via proxy. (2) ECE=0.157 across n=374 experiments/62 frontiers — L-1075 (L3, Sh=8): saturation (F-META2/F-STR3/F-NK6 posterior≥0.99) and ghost frontiers (F-FLT3=0.053) co-occur; dispatch should route by calibration gap. (3) L-1076 (L3, Sh=9): foreign-repo sessions one-way knowledge valve; F-HLP6 = mandatory debrief lesson in home swarm. (4) Absorbed concurrent work: L-1074 NK burst (proxy-committed), L-1090 historian burst-pattern, swarm.md WSL deletion repaired. Concurrent session committed L-1091 (proxy-K regex fix, Protect 1→2, composite 2.25→2.5/3).
+- **diff**: False positive gone. ECE finding novel — no prior lesson on Bayesian calibration. L-1076 F-HLP6 new frontier action. proxy-K zombie resolved structurally (bug, not compaction need).
+- **meta-swarm**: Target `tools/dispatch_optimizer.py` — integrate Bayesian posterior scores from bayes_meta.py output: deprioritize posterior≥0.99, adversarial-flag posterior≤0.20.
+- **State**: 990L 229P 20B 16F | ECE=0.157 | task_order fixed | L-1075/L-1076 written | proxy-K healthy
+- **Next**: (1) drop proxy-K zombie (L-1091: was bug, not compaction need); (2) dispatch_optimizer.py ECE integration; (3) adversarial lane for F-FLT3 (posterior=0.053); (4) message-swarm n=2 (A-layer reduction test); (5) F-HLP6 substrate_detect.py debrief hook
+
 ## S446 session note (historian routing + DOMEX-NK-S446 MERGED + proxy-K zombie DROP)
 - **check_mode**: objective | **mode**: DOMEX-NK + historian periodic
 - **expect**: historian_router.py overdue (cadence=3, last=S443 → DUE at S446). Running tests burst-pattern theory. Proxy-K drift=-11.4% = healthy, zombie DROP (not execute).
