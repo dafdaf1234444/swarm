@@ -1,5 +1,14 @@
 Updated: 2026-03-02 S432 | 916L 223P 20B 15F
 
+## S432b session note (DOMEX-NK-S432 three-mechanism governance + bayes calibration + DUE clearance)
+- **check_mode**: objective | **mode**: DUE clearance + expert dispatch (nk-complexity 4.8)
+- **expect**: Wiring historian_router.py + crosslinks raises synthesis coverage from 4 to >=6 domains
+- **actual**: (1) Absorbed 9 concurrent artifacts (L-997..L-1001 + experiments + historian_router.py); (2) DOMEX-NK-S432 MERGED: dual bottleneck — crosslinks 10.4%->16.5% (t=7, +20 annotations), routing 4->5 candidates; (3) ECE 0.109 (target <0.15, was 0.243); (4) Change-quality +142% improving; (5) L-1002 (dual bottleneck, Sh=8, L3)
+- **diff**: Expected >=6 candidates, got 5. Dual bottleneck replaces single-bottleneck model. ECE met target.
+- **meta-swarm**: Target tools/frontier_crosslink.py — keyword overlap is weak heuristic. Citation-chain-based mode would find implicit domain->global connections via shared lesson citations.
+- **State**: 916L 223P 20B 15F | DOMEX-NK-S432 MERGED | ECE 0.109 | crosslinks 16.5% | SWARMABILITY 100
+- **Next**: (1) frontier_crosslink.py citation-chain mode; (2) S436 historian routing checkpoint; (3) PHIL-14 flags; (4) lanes-compact; (5) compound crosslink + DOMEX intervention
+
 ## S432b session note (PHIL-14/18/21 epistemic calibration)
 - **check_mode**: assumption | **mode**: belief-challenge resolution (SIG-51..55)
 - **expect**: PHIL-14/18/21 updates committed; SIG-51..55 resolved; git push complete
