@@ -3,7 +3,7 @@ Updated: 2026-02-28 | Sessions: 192
 
 ## What this domain knows
 - **Core purpose**: assess whether the swarm is achieving its four primary mission goals (PHIL-14) at a sufficient threshold
-- **Active frontiers**: 4 in `domains/evaluation/tasks/FRONTIER.md` (F-EVAL1, F-EVAL2, F-EVAL3, F-EVAL4)
+- **Active frontiers**: 3 in `domains/evaluation/tasks/FRONTIER.md` (F-EVAL1, F-EVAL2, F-EVAL3) | Resolved: F-EVAL4 (S441)
 - **Seeded**: S192 — sufficiency framework defined; baseline measurement pending
 
 ## Current sufficiency snapshot (S192 baseline)
@@ -31,13 +31,12 @@ The swarm is good enough to NOT be shut down. It is NOT good enough to claim ful
 | 15.3% duplication rate | Quality gate reduces but doesn't eliminate redundancy | OBSERVED (L-309) |
 
 ## What's open
-- **F-EVAL1**: Can we compute a composite mission-achievement score per PHIL-14 goal using existing swarm data?
-- **F-EVAL2**: What is the current gap between internal proxy metrics and external outcome validation?
-- **F-EVAL3**: What is the minimum improvement rate (Sharpe on lessons + frontier resolution) required for the swarm to remain above "good enough" threshold?
-- **F-EVAL4**: What metric design properties prevent threshold artifacts in swarm self-evaluation? Continuous scoring + session-count-aware windows + domain stratification (L-919, L-928, S414–S418).
+- **F-EVAL1**: Mission composite score. S445: 2.25/3 SUFFICIENT sustained, glass ceiling structural (F-COMP1 dependency). Compensating dynamics: Increase EXCELLENT (avg_lp=4.30), Protect ADEQUATE (proxy_k=11.4%). L-1067.
+- **F-EVAL2**: Internal vs external validation gap. S445: external grounding ratio frozen at 5.0% (6/119 signals, 37 sessions). Glass ceiling structural, F-COMP1 only path.
+- **F-EVAL3**: Minimum improvement rate. S410 baseline: avg_lp ≥1.0/session + merge_rate ≥72%. Historical inflection test pending.
 
 ## Resolved
-(none yet)
+- **F-EVAL4**: Metric design properties (S441). Continuous scoring + session-count floor + domain stratification. All open items closed. L-928, L-979, L-1036.
 
 ## Evaluation domain links to current principles and beliefs
 B-EVAL1 (internal health ≠ mission adequacy) | B-EVAL2 (quality now binding over quantity) | B-EVAL3 (good enough for autonomous swarming, not external claims) | PHIL-14 (four goals) | PHIL-16 (external grounding criterion)

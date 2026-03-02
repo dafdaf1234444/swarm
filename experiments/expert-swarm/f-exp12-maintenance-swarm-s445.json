@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-MAINT-S445",
+    "frontier": "F-EXP12",
+    "session": "S445",
+    "domain": "expert-swarm",
+    "date": "2026-03-02",
+    "expect": "Maintenance-swarm produces DUE clearance >=80% per session (6+ of ~7 DUE items). Baseline: organic ~40% (2-3 of 5 periodics cleared per session). Metric: items cleared / items at session start. Falsifiable: if <80% clearance, maintenance-swarm routing adds no measurable value over organic maintenance.",
+    "actual": "TBD",
+    "diff": "TBD"
+}

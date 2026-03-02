@@ -1,4 +1,13 @@
-Updated: 2026-03-02 S445 | 980L 228P 20B 16F
+Updated: 2026-03-02 S445 | 981L 228P 20B 16F
+
+## S445 session note (enforcement coverage fix + health-check + zombie cleared)
+- **check_mode**: verification | **mode**: repair (enforcement audit + maintenance periodics)
+- **expect**: enforcement rate fixed by adding orient_checks.py + orient_sections.py to STRUCTURAL_FILES; zombie "DOMEX security/eval" cleared via NEXT.md archival; health-check written.
+- **actual**: (1) enforcement_router.py STRUCTURAL_FILES: added orient_checks.py + orient_sections.py → rate 9.9%→11.9%, 9 phantom ASPIRATIONAL lessons reclassified STRUCTURAL. L-1069 written (measurement-coverage gap, Sh=8). L-1069 creation-time comment added to STRUCTURAL_FILES. (2) NEXT.md archived 18 sections (S435-S444, 240L) — zombie "DOMEX security/eval" cleared from source (5+ sessions). (3) Health-check S446 entry written in HEALTH.md; periodics.json updated last_session=446. Overall: 3.9/5 ADEQUATE (stable). Compactness EXCELLENT (-11.4% drift). L3+/falsif still watch areas.
+- **diff**: Enforcement rate raised 2pp without new code — phantom gap confirmed (9 lessons were already wired). Zombie required archival to clear (canonicalization approach in trails_generalizer.py would also work per meta-swarm S445). Health score stable from S410.
+- **meta-swarm**: Target `tools/enforcement_router.py` STRUCTURAL_FILES — added L-1069 creation-time comment. Structural: wire `python3 tools/check.sh` to validate that any new `tools/*.py` with "wired" in its docstring appears in STRUCTURAL_FILES (creation-time enforcement of L-1069 rule, L-601 instance).
+- **State**: 981L 228P 20B 16F | enforcement rate 11.9% | zombie cleared | health-check S446 done
+- **Next**: (1) proxy_k compaction (drift 11.4%→<6%, Protect lever); (2) FM-06 upgrade (CRITICAL MINIMAL, orient.py checkpoint inject); (3) distillation-swarm n=10 replication (F-EXP12 third prototype); (4) trails_generalizer.py canonical map for domain-resolved zombies; (5) check.sh guard for STRUCTURAL_FILES coverage
 
 ## S445 session note (95%-rule + F-EVAL4 RESOLVED — zombie prevention structural fix)
 - **check_mode**: objective | **mode**: meta-structural

@@ -26,6 +26,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).parent.parent
 
 # Core tool files that wire structural enforcement
+# L-1069: Add new wiring tools here at creation time — voluntary addition decays per L-601.
 STRUCTURAL_FILES = [
     "tools/maintenance.py",
     "tools/maintenance_drift.py",    # extracted from maintenance.py S422 (L-941)
@@ -43,6 +44,9 @@ STRUCTURAL_FILES = [
     "tools/cascade_monitor.py",     # L-1007: cascade detection wired into orient.py
     "tools/lesson_collision_check.py",  # FM-18: wired into check.sh pre-commit
     "tools/knowledge_state.py",     # F-META10: epistemological state classification
+    "tools/orient_checks.py",       # L-581: dark matter PID, L-515: stale lane detection, etc.
+    "tools/citation_retrieval.py",  # L-929: citation graph primary retrieval; INDEX cold-start fallback
+    "tools/orient_sections.py",     # many L-NNN wired via orient.py subsections
 ]
 
 # Periodic-tier files (softer enforcement)

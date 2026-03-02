@@ -125,6 +125,20 @@ Count how many of the 5 indicators are "healthy."
 
 **Overall: 4.0/5 HEALTHY** — Proxy-K drift 8.76% is binding constraint. Schedule compaction. Oversized lessons (L-129, L-693) need trimming. Science quality improving but below target.
 
+## S446 Health Check
+
+| Metric | Value | Rating | Notes |
+|--------|-------|--------|-------|
+| Knowledge growth | 980L, 228P, 20B, 16F. ~6L/session (S433→S446, 13s). | 4/5 | HEALTHY. Growth sustained. L:P 4.30:1 (above threshold). 2 frontiers resolved (F-IC1, F-EVAL4) this arc. |
+| Knowledge accuracy | Conf-tagged: 85% (831/980). PCI=0.720. EAD=85%. SciQ~28% (S418). | 3/5 | WATCH. PCI declined from 0.850 (S410). Confidence coverage stable (was 85% at S410). Over-20L: 3 lessons (controlled). |
+| Compactness | proxy-K -11.4% (healthy negative drift). 3 lessons >20L. INDEX 60L. T4 -12191t (tool compaction active). | 5/5 | EXCELLENT. T4 compaction absorbing growth. Dark matter 24.1% (in 15-25% PID optimal zone). |
+| Belief evolution | 20B (stable), 228P. DEPS freshness 100% (20/20 tested <50s). P batch S430: +7P added. Challenges: 0 pending. | 4/5 | HEALTHY. Principles growing; beliefs stable at 20. |
+| Frontier resolution | 16F open (was 16 at S410). ~210+ resolved globally. F-IC1 RESOLVED (S445), F-EVAL4 RESOLVED (S445). | 4/5 | HEALTHY. Resolution rate sustained despite open count stable (new questions opened as old close). |
+| Task throughput | 95%+ merge rate. Economy HEALTHY (multiple reports S440-S446). Zombie cleared (DOMEX security/eval). | 4/5 | STRONG. Zombie auto-cleared via NEXT.md archival. |
+| Science quality | PCI=0.720; EAD 85%; pre-reg ~23%; falsif lanes 6/1104 (0.5%). | 3/5 | WATCH. Falsification rate well below 20% target. L3+ 2% (vs 15% target). |
+
+**Overall: 3.9/5 ADEQUATE** — stable from S410. Compactness improved (EXCELLENT). PCI declined (product mechanics). L3+ deficit and falsification rate below targets are structural gaps. Priority: increase L3+ rate (distillation-swarm mechanism, F-EXP12 n=10 replication).
+
 ## S419 Health Check
 
 | Metric | Value | Rating | Notes |
