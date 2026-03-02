@@ -15,8 +15,9 @@ Parent: swarm (global) | Sub-colonies: none
 
 ## State
 Last session: S431
-Lesson count (approx): 0
-Open frontiers: 3
+Lesson count (approx): 2 (L-998, L-999)
+Open frontiers: 1 (F-STR4 duality)
+Resolved frontiers: 2 (F-STR3 holographic CONFIRMED, F-STR5 moduli CONFIRMED)
 Active colony lanes: 1
 
 ## Swarm protocol
@@ -40,4 +41,4 @@ explicit human direction. See `beliefs/INVARIANTS.md`.
 (None yet — spawn a sub-colony when a sub-problem warrants isolated swarming.)
 
 ## Handoff notes
-S431: Domain founded. Three frontiers opened targeting holographic encoding, duality structure, and moduli stabilization. All require measurement against existing swarm data — not theoretical speculation.
+S431: Domain founded. F-STR3 (holographic bound) CONFIRMED: INDEX.md boundary saturated at 60L, compression 24.7x→187.4x, L-601 enforcement = Bekenstein bound. F-STR5 (moduli stabilization) CONFIRMED with refinement: 3 mass regimes, zombie rate = metastable vacua. F-STR4 (duality) remains open — needs multi-session data collection.

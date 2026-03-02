@@ -1,8 +1,8 @@
 # Domain: String Theory
 Topic: Dualities, holography, and dimensional reduction — string-theoretic structures as predictive frameworks for swarm knowledge architecture, not as metaphors.
-Beliefs: (none yet — first DOMEX session)
-Lessons: (none yet)
-Frontiers: F-STR3 (holographic boundary encoding), F-STR4 (duality structure), F-STR5 (moduli stabilization)
+Beliefs: CB-1 (holographic bound CONFIRMED), CB-2 (duality THEORIZED), CB-3 (moduli stabilization CONFIRMED)
+Lessons: L-998 (holographic bound), L-999 (moduli stabilization)
+Frontiers: ~~F-STR3~~ (CONFIRMED), F-STR4 (duality — OPEN), ~~F-STR5~~ (CONFIRMED)
 Load order: CLAUDE.md → beliefs/CORE.md → this file → INDEX.md → memory/INDEX.md → tasks/FRONTIER.md
 
 ## Isomorphism vocabulary
