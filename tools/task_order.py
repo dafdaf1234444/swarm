@@ -385,6 +385,64 @@ def _get_done_periodic_ids() -> set:
     return done
 
 
+def get_numeric_condition_due_items() -> list[dict]:
+    """Surface near-threshold numeric-condition items as DUE (S445 meta-swarm, L-1062).
+
+    Deferred-condition traps: items like 'F-IC1 retest at N=1000' recur as zombies
+    because exact thresholds are never reached. 95%-rule: if current_N >= 0.95 *
+    threshold_N, surface the item as DUE rather than waiting for 100%.
+    Converts zombie re-deferral to structural auto-resolve (L-601 instance).
+    """
+    tasks = []
+    try:
+        # Get current lesson count from INDEX.md
+        idx_path = ROOT / "memory" / "INDEX.md"
+        current_n = 0
+        if idx_path.exists():
+            m = re.search(r"(\d+)\s+lessons", idx_path.read_text(encoding="utf-8")[:500])
+            if m:
+                current_n = int(m.group(1))
+        if current_n == 0:
+            return tasks
+
+        # Parse NEXT.md for items containing numeric thresholds
+        next_path = ROOT / "tasks" / "NEXT.md"
+        if not next_path.exists():
+            return tasks
+
+        # Patterns: "N=1000", "at N=1000", "(~25 lessons away)", "N≈1000"
+        threshold_pat = re.compile(r'\bN[=≈~]\s*(\d{3,})\b')
+        seen: set[int] = set()
+        for line in next_path.read_text(encoding="utf-8").splitlines():
+            if not ("N=" in line or "N≈" in line or "N~" in line):
+                continue
+            # Skip example/explanatory text (e.g., "(e.g., N=1000 at N=975)")
+            if "e.g." in line or "(e.g" in line:
+                continue
+            # Skip resolved-frontier references (F-NNN RESOLVED in the line)
+            if re.search(r"F-\w+\b.*?RESOLVED|RESOLVED.*?F-\w+\b", line):
+                continue
+            for m in threshold_pat.finditer(line):
+                threshold = int(m.group(1))
+                if threshold in seen or threshold <= current_n:
+                    continue
+                if current_n >= 0.95 * threshold:
+                    seen.add(threshold)
+                    pct = current_n / threshold * 100
+                    context = line.strip()[:80]
+                    tasks.append({
+                        "priority": P_DUE,
+                        "tier": "DUE",
+                        "score": 88,
+                        "action": f"95%-rule: N={threshold} threshold at {pct:.0f}% ({current_n}/{threshold}) — act now",
+                        "detail": context,
+                        "command": None,
+                    })
+    except Exception:
+        pass
+    return tasks
+
+
 def get_dispatch_tasks() -> list[dict]:
     """Get top-3 dispatch recommendations that don't have active lanes."""
     tasks = []
@@ -609,6 +667,7 @@ def build_task_list(top_n: int = 8) -> list[dict]:
     all_tasks.extend(get_untracked_artifacts())
     all_tasks.extend(get_due_items())
     all_tasks.extend(get_zombie_due_items())
+    all_tasks.extend(get_numeric_condition_due_items())
     all_tasks.extend(get_closeable_lanes())
     all_tasks.extend(get_strategy_tasks())
     all_tasks.extend(get_signal_tasks())
