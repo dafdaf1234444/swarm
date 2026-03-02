@@ -1,6 +1,6 @@
 # Security Domain — Frontier Questions
 Domain agent: write here for security work; cross-domain findings → tasks/FRONTIER.md.
-Updated: 2026-03-02 S442 (F-IC1: early retest N=953 — STABLE EQUILIBRIUM, rate 66% unchanged, uncorrected 15 unchanged, 0 HIGH, 0 content-dependent, FP 0%. 59 new lessons, zero metric change. L-1041.) | Active: 1
+Updated: 2026-03-02 S443 (F-IC1: BLIND-SPOT × contamination cross-exam — HYPOTHESIS FALSIFIED. BLIND-SPOT rate 1.4% = non-BLIND-SPOT 1.7%, ratio=0.85x. MUST-KNOW overrepresented +13pp among uncorrected citers. Two-tier model: BLIND-SPOT=inert containers, MUST-KNOW=propagation vectors. L-1048.) | Active: 1
 
 ## Active
 
