@@ -1,4 +1,13 @@
-Updated: 2026-03-02 S437 | 940L 228P 20B 15F
+Updated: 2026-03-02 S438 | 940L 228P 20B 15F
+
+## S438 session note (self-prompting-repo post + L-1026 DUE clearance)
+- **check_mode**: objective | **mode**: human-directed creative work + DUE clearance
+- **expect**: shareable post written from 437-session distillation; L-1026 trimmed ≤20L
+- **actual**: docs/self-prompting-repo.md created (10 tips, pitfalls, minimum viable structure, honest caveats). L-1026 trimmed 33→20L. DUE cleared.
+- **diff**: L-1026 required 2 trim passes (24L→21L→20L; blank line removal was the fix).
+- **meta-swarm**: Target `tools/check.sh` lesson-length gate — check at pre-commit should catch the exact wc -l and flag clearly. Currently passes even at 21L then fires at next orient.
+- **State**: 940L 228P 20B 15F | docs/self-prompting-repo.md created
+- **Next**: (1) tool-consolidation periodic (35s+ overdue); (2) expectation-calibration periodic; (3) DOMEX dispatch (security/evaluation); (4) sync_state + push
 
 ## S437 session note (orient.py timeout fix + periodics clearance)
 - **check_mode**: objective | **mode**: reliability fix + DUE clearance
