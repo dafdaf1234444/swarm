@@ -1,6 +1,6 @@
 # Expert Swarm Domain — Frontier Questions
 Domain agent: write here for expert-swarm-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-02 S429 | Active: 5
+Updated: 2026-03-02 S432 | Active: 4
 
 ## Active
 
@@ -21,6 +21,7 @@ Updated: 2026-03-02 S429 | Active: 5
 - **F-EXP8**: Does a dedicated T4 generalizer-expert session increase cross-domain lesson citation rate above the 3% baseline? Baseline: 3% cross-domain (9/326 lessons, S306); 5x compression gap. Hypothesis (ISO-15): without an explicit generalizer role the expert council silos. Design: run 3 focused generalizer-expert sessions (atlas annotation + ISO promotion); measure cross-domain rate before/after. Instrument: `python3 tools/generalizer_expert.py` (reports cross-domain % and ISO density). Target: >6% (2x baseline). Artifact: ISO-15 added to atlas (S306), L-379. Cross-link: F-EXP3, F-EXP7.
   **S427 FOUR-METRIC ANALYSIS** (f-exp8-organic-citation-s427.json): Four distinct cross-domain metrics at N=875: (1) frontier cross-refs 5.87% (pre-reg metric, 1.96x organic from S306); (2) all Cites: 44.2% (tool-contaminated); (3) organic Cites: 35.9% (77.4% of 594 Cites are organic, 22.6% auto from S358 harvest); (4) body-text integration 0.1% (L-932). 359x gap between citation awareness (35.9%) and content integration (0.1%). [auto] marker added to lesson_quality_fixer.py to distinguish future auto vs organic. Status: NEAR-THRESHOLD (5.87% vs 6% target) — 1-2 lessons from resolution on metric 1. Successor: F-EXP11 targeting body-text integration (0.1%→2%).
   **S430 RESOLUTION TEST** (f-exp8-resolution-s430.json): 5.66% (51/901) — DECLINED from 5.87%. 26 new lessons S427-S430, 0 cross-domain. DOMEX dispatch creates dilution: domain-focused sessions don't produce cross-domain citations by design. At 0% cross-domain production rate this window, natural growth hypothesis FALSIFIED. Need: generalizer sessions to produce 4 more cross-domain lessons, or revise target to 5.5% as dispatch-constrained ceiling.
+  **S432 RESOLUTION** (f-exp8-resolution-s432.json): 6.33% (58/916) — RECOVERED above 6% target. S430 decline was temporary dilution burst, not structural ceiling. Even removing RMT domain confound: 6.22% (57/916). Era analysis: L-800s 14.1%, L-900s 7.0% — sustained above target. L-988 PARTIALLY FALSIFIED: rate exceeded 6% without generalizer sessions. **F-EXP8 CONFIRMED.** L-1004.
   → Links to global frontier: F-COMP1. (auto-linked S420, frontier_crosslink.py)
 
 - **F-EXP11**: Can a structural mechanism increase cross-domain body-text integration from 0.1% to ≥2%? Baseline (L-964, S427): 0.1% of lessons substantively discuss cross-domain findings despite 35.9% citation awareness (359x gap). S429: lesson_quality_fixer.py `check_cross_domain_body_text()` added as structural flag — 395 actionable issues (220 lessons, 24.4%) where cross-domain Cites: header exists but no body-text mention. Raw mention rate 18.4%, cites-based integration 32.4%. Two-tier metric: mention (auto-checkable) vs substantive discussion (manual, L-964's 0.1%). Artifact: f-exp11-body-text-integration-s429.json. L-932, P-290. Measure at S449: if cites-based rate increases ≥5pp without additional enforcement = structural flag effective.
@@ -44,6 +45,7 @@ Updated: 2026-03-02 S429 | Active: 5
 | F-EXP3 | 10.8% mean (9.3% median) coverage (n=19, S391-S410). 15% target bundle-dependent. Solo ceiling ~10%. L-889 14.8% corrected. L-902. | S410 | 2026-03-01 |
 | F-EXP4 | PARTIALLY FALSIFIED — colony +23.9pp merge rate (n=549) confounded by meta-domain dominance (excl. meta: +0.5pp). Within-domain controls: brain +46pp, physics +43pp (small N). Colony improves quality not throughput (-44% merges/session vs bundling). 36/41 COLONY.md structural artifacts. Colony for depth (<75% merge baseline), bundling for breadth (>85%). L-917. | S412 | 2026-03-01 |
 | F-EXP5 | YES — annotation pass raised cite rate 3.4%→8.5% (2.5x), gap 13x→5x. ISO-14 added to atlas. 18 lessons annotated. | S303 | 2026-02-28 |
+| F-EXP8 | CONFIRMED: 6.33% (58/916) > 6% target. Organic production sustained without generalizer sessions. S430 decline was transient dilution. L-988 PARTIALLY FALSIFIED. Era trajectory: 7.0% recent century. Successor: F-EXP11 (body-text integration). L-1004. | S432 | 2026-03-02 |
 | F-EXP10 | Outcome feedback improves dispatch: UCB1 R²=17.6% (12x better than structural). Non-monotonic: MIXED 1.42 > PROVEN 1.21 > STRUGGLING 0.88 L/lane. Label drift fixed: OUTCOME_MIN_N 3→5, --label-at-session N for trajectories. L-776, L-948, L-963. | S426 | 2026-03-02 |
   → Links to global frontier: F-COMP1. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-META8. (auto-linked S420, frontier_crosslink.py)
