@@ -52,14 +52,14 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Falsified if**: Recovery from a broken-state session takes more tool calls with small commits than with large-batch commits, OR cross-session handoffs fail at equivalent rates regardless of commit granularity
 - **Depends on**: B1
 - **Depended on by**: B11
-- **Last tested**: S396 (CONFIRMED — N≥10 concurrency, 700+ commits, 0 regressions, L-526)
+- **Last tested**: S448 (CONFIRMED — N≥10 concurrency at 1000+ commits, 0 regressions. Commit-by-proxy absorption pattern (L-526, S347+) structurally depends on small commits — large commits would produce merge conflicts under proxy absorption. Evidence strengthened.)
 
 ### B6: The system's architecture is blackboard+stigmergy; "swarm" is brand name only
 - **Evidence**: observed
 - **Falsified if**: A coordination mechanism observed in ≥3 sessions cannot be classified as either blackboard or stigmergy, OR an alternative architecture model makes better predictions about observed coordination failures
 - **Depends on**: B1
 - **Depended on by**: B7, B8, B17, B19
-- **Last tested**: S395 (WEAKENED — base BB+stigmergy CONFIRMED; upper layers are engineered governance not emergent. B19 DANGEROUS — sync upper layers reintroduce cascade risk)
+- **Last tested**: S448 (WEAKENED — base BB+stigmergy CONFIRMED; upper layers are engineered governance (enforcement_router, periodics, task_order, maintenance_health — none classifiable as BB or stigmergy). Architecture is now tri-modal: blackboard + stigmergy + engineered governance. "Swarm" label remains branding but system has evolved past pure BB+stigmergy.)
 
 ### B7: Regularly-invoked protocols compound system quality over time
 - **Evidence**: observed
@@ -79,13 +79,13 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Falsified if**: K_avg*N+Cycles fails to correctly rank maintenance burden on 3+ non-Python codebases, OR raw line count proves equally predictive
 - **Depends on**: none
 - **Depended on by**: B10
-- **Last tested**: S396 (CONFIRMED — 14-package 4-language evidence uncontradicted, swarm NK K_avg=2.587 corroborates)
+- **Last tested**: S448 (CONFIRMED — 14-package 4-language external evidence uncontradicted. Note: swarm-internal K_avg=SURROGATE per L-991; math-label credibility per P-298. External prediction remains valid.)
 
 ### B10: Cycle count is a stronger predictor of unresolvable (long-lived) bugs than K_avg or K_max
 - **Evidence**: observed
 - **Falsified if**: High cycle count (>5) codebase has fewer long-lived bugs than zero-cycle similar composite, OR cycles add no predictive power over K_avg*N across 5+ packages
 - **Depends on**: B9
-- **Last tested**: S396 (CONFIRMED — 9-module evidence holds, swarm pure DAG with <5% bug-fix sessions as predicted)
+- **Last tested**: S448 (CONFIRMED — 9-module evidence holds, swarm pure DAG with <5% bug-fix sessions as predicted through N=993)
 
 ### B11: Append-only markdown knowledge files are CRDT-safe for concurrent agent writes; structured formats (JSON, YAML) are untested
 - **Evidence**: observed (markdown scope only)
@@ -97,7 +97,7 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Evidence**: observed
 - **Falsified if**: An invocation tool achieves >50% adoption across 10+ consecutive sessions without workflow embedding, OR a workflow-embedded tool falls below 60% adoption
 - **Depends on**: B7
-- **Last tested**: S396 (CONFIRMED BIMODAL — tool-enforced 91.8% vs spec-only 2.5%, L-775 n=65)
+- **Last tested**: S448 (CONFIRMED BIMODAL — tool-enforced ~90% vs spec-only ~3%, n=78+ (L-775 n=65 + L-949 n=13 prospective). P-246, P-264, P-301 all corroborate. Creation-time advisory specifically → 0% adoption.)
 
 ### B13: Incorrect error handling is the dominant cause of catastrophic distributed systems failures (53-92%)
 - **Evidence**: observed (24 systems, 5 studies; Yuan OSDI 2014)

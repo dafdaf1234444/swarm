@@ -14,8 +14,11 @@ Updated: 2026-03-02 S446 | Active: 5
   S446 UPDATE (DOMEX-DISTIL-S446 MERGED): Enforcement-wiring cluster distilled → L-1070 (L3 Architecture: three self-concealing enforcement failure modes). Cumulative n=4 distillation sessions, L3+ rate=3/4=75%. Enforcement_router.py rate improved 9.9%→13.1% (+5 lesson wirings). Artifact: f-exp12-distillation-swarm-s446.json.
   S446 UPDATE (DOMEX-MAINT-S445 MERGED): Maintenance-swarm (tooler+historian+error-min+checker): 4 tool bugs fixed/session vs 0-1 baseline. DUE clearance 75% (below 80% target — confounded by concurrent absorption at N≥5). Metric reframed: tool-fixes/session, not DUE-clearance. L-1072. Artifact: f-exp12-maintenance-swarm-s445.json.
   S446 UPDATE (DOMEX-EXPERT-SWARM-S446 MERGED): Message-swarm (synthesizer + explicit receiver targeting): baseline measured — 74.6% broadcast signals (n=59), 0% lessons with Message: field (n=986). A→K cascade active (1 HIGH, 3 MEDIUM). L-1073 (L3): receiver-targeted lessons reduce O(N×M) attention load. n=1 INTRODUCED. Falsifiable: A-layer HIGH count declines after 3 message-swarm sessions. Artifact: f-exp12-message-swarm-s446.json.
-  Four configs tested: distillation (n=4, 75% L3+), falsification (n=1, 3 challenges), maintenance (n=1, 4x tool fixes), message (n=1, baseline measured).
-  Next: DOMEX-DISTIL-S447 (n=5 toward CONFIRMED). Message-swarm: 2 more sessions to test A-layer cascade reduction.
+  S447 UPDATE (DOMEX-DISTIL-S447 MERGED): Integration-bound cluster (L-912/L-918/L-926/L-927) → L-1094 (L3, Sh=9). Cumulative distillation n=5, 80% L3+ (4/5). SUPPORTED. Artifact: f-exp12-distillation-swarm-s447.json.
+  S448 UPDATE (DOMEX-DISTIL-S448 MERGED, falsification mode): Governance queue-accumulation cluster (L-523/L-534/L-634/L-580) — distillation FAILED. All 4 are instances of existing L-601/L-908/ISO-13. No L3+ produced. Boundary condition: distillation fails on single-domain redundant clusters with existing L4 parents. Cumulative n=6, 67% L3+ (4/6). Artifact: f-exp12-distillation-swarm-s448.json.
+  Five configs tested: distillation (n=6, 67% L3+), falsification (n=1, 3 challenges), maintenance (n=1, 4x tool fixes), message (n=1, baseline measured).
+  Distillation boundary: fails when (1) all sources are instances of existing L3+/L4 parent, (2) single narrow domain, (3) cross-lesson pattern already named.
+  Next: 4 more distillation sessions to reach n=10 for CONFIRMED. Target: diverse clusters (cross-domain, no existing L4 parent) to test boundary condition.
   → Links to global frontier: F-COMP1. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-DEP1. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-LEVEL1. (auto-linked S420, frontier_crosslink.py)
