@@ -145,18 +145,26 @@ def check_proxy_k_drift(
 def check_observer_staleness(
     REPO_ROOT: Path,
 ) -> list[tuple[str, str]]:
-    """L-820, L-556: detect measurement tools with stale baselines.
+    """L-820, L-556, FM-20: detect measurement tools with stale baselines.
 
     Observers that compare current state to a stored baseline drift silently
     when the baseline ages. Mean staleness was 63 sessions (L-820). This check
-    flags any observer baseline older than 50 sessions.
+    flags any observer baseline older than its threshold.
+
+    Three detection layers (L-966, DOMEX-CAT-S425):
+    1. Data-file baselines: proxy-K log, dispatch calibration, compaction floor
+    2. Source-code baselines: hardcoded S-numbers in tool .py files
+    3. Experiment artifact baselines: session-stamped JSON files tools depend on
     """
     results: list[tuple[str, str]] = []
-    # Extract current session number
+    # Extract current session number — INDEX.md uses "Sessions: NNN" format
+    # L-966: original regex S(\d+) never matched, causing 0 firings in 27+ sessions
     sess = 0
     try:
         idx = (REPO_ROOT / "memory" / "INDEX.md").read_text(encoding="utf-8", errors="replace")
-        m = re.search(r"S(\d+)", idx)
+        m = re.search(r"Sessions:\s*(\d+)", idx)
+        if not m:
+            m = re.search(r"\bS(\d+)\b", idx)
         if m:
             sess = int(m.group(1))
     except Exception:
@@ -165,7 +173,9 @@ def check_observer_staleness(
         return []
 
     stale: list[str] = []
-    threshold = 50  # sessions
+    threshold = 50  # sessions — data file baselines
+
+    # --- Layer 1: Data-file baselines ---
 
     # Check proxy-K baseline in proxy-k-log
     pk_data = None
@@ -209,8 +219,54 @@ def check_observer_staleness(
     except Exception:
         pass
 
+    # --- Layer 2: Source-code baselines (FM-20, L-966) ---
+    # Scan tool .py files for hardcoded S\d{3,} references. Tools that embed
+    # session numbers as baselines/defaults drift silently when those sessions
+    # age out. Root cause of 0 firings in 27+ sessions was regex mismatch.
+    source_threshold = 80  # source hardcodes have higher inertia
+    exclude_files = {
+        "maintenance_drift.py", "maintenance.py", "sync_state.py",
+        "orient.py", "orient_sections.py", "orient_state.py",
+        "orient_checks.py", "close_lane.py", "open_lane.py",
+        "validate_beliefs.py", "lane_history.py",
+    }
+    tool_dir = REPO_ROOT / "tools"
+    if tool_dir.exists():
+        for py_file in sorted(tool_dir.glob("*.py")):
+            if py_file.name in exclude_files or py_file.name.startswith("test_"):
+                continue
+            try:
+                content = py_file.read_text(encoding="utf-8", errors="replace")
+                sessions = [int(m.group(1)) for m in re.finditer(r"\bS(\d{3,})\b", content)]
+                if not sessions:
+                    continue
+                max_s = max(sessions)
+                age = sess - max_s
+                if age > source_threshold:
+                    stale.append(f"{py_file.name}(S{max_s},{age}s)")
+            except Exception:
+                pass
+
+    # --- Layer 3: Experiment artifact baselines ---
+    baseline_artifacts = [
+        ("experiments/conflict/f-con1-baseline-s189.json", "C1-conflict-baseline"),
+    ]
+    for rel_path, label in baseline_artifacts:
+        art_path = REPO_ROOT / rel_path
+        if not art_path.exists():
+            continue
+        art_m = re.search(r"[sS](\d{3,})", rel_path)
+        if art_m:
+            age = sess - int(art_m.group(1))
+            if age > threshold:
+                stale.append(f"{label}(S{art_m.group(1)},{age}s)")
+
     if stale:
-        severity = "DUE" if len(stale) >= 2 else "NOTICE"
-        return [(severity, f"{len(stale)} observer baseline(s) stale >{threshold}s: {', '.join(stale)}. "
-                 f"Refresh to prevent drift blindness (L-820, L-556)")]
+        has_critical = any(
+            "," in s and int(s.split(",")[1].rstrip("s)")) > 150
+            for s in stale
+        )
+        severity = "URGENT" if has_critical else "DUE" if len(stale) >= 2 else "NOTICE"
+        return [(severity, f"{len(stale)} observer baseline(s) stale: {', '.join(stale)}. "
+                 f"Refresh to prevent drift blindness (L-820, FM-20)")]
     return []

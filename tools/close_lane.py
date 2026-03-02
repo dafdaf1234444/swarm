@@ -320,7 +320,8 @@ def _check_global_synthesis_links(lane_id: str) -> None:
         print(f"Domain {domain_dir}: {len(global_links)} FQ(s) with global frontier links.")
         print("Before closing out, check if any global frontier can now be synthesized:")
         for fq, grefs in sorted(global_links):
-            print(f"  {fq} -> global: {\', \'.join(sorted(grefs))}")
+            grefs_str = ", ".join(sorted(grefs))
+            print(f"  {fq} -> global: {grefs_str}")
         print("Review tasks/FRONTIER.md and update if domain work closes them.")
         print("=================================================================\n")
 
