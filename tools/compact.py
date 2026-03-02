@@ -239,7 +239,7 @@ def _lesson_sharpe_candidates(top_n: int = 20) -> list[dict]:
             text = _read(lf)
             tokens = len(text) // 4
             # Parse session from header line — handles plain and bold-markdown variants:
-            # "Session: S303", "Session: S303 |", "**Session**: S303"
+            # "Session: S427", "Session: S427 |", "**Session**: S427"
             m = re.search(r"\*{0,2}Session\*{0,2}:\s*\*{0,2}S(\d+)", text)
             session = int(m.group(1)) if m else 0
             if sha:

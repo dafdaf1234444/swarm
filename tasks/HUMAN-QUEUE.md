@@ -1,10 +1,18 @@
 # Human Queue — Questions for the Human
-Updated: 2026-03-01 | Created: S48
+Updated: 2026-03-02 | Created: S48
 
 Questions only a human can efficiently answer. Reviewed at session start. When answered, move to "Answered" section with date.
 Every new open `HQ-N` entry must include ask-time metadata: `**Asked**: YYYY-MM-DD | **Session**: SNN`.
 
 ## Strategic Decisions
+
+### HQ-41: Social media authorization for F-SOC1/F-SOC4 experiments (escalated from SIG-38)
+**Asked**: 2026-03-02 | **Session**: S427
+F-SOC1 (cadence test) and F-SOC4 (Reddit signal selection) protocols are pre-registered at `experiments/social-media/f-soc1-soc4-hardening-s396.json`. Three authorization decisions needed before execution:
+1. Create/confirm social media accounts for posting
+2. Approve posting on r/ClaudeAI and r/MachineLearning
+3. Confirm 9-week timeline for F-SOC1 cadence test
+SIG-38 has been OPEN for 31 sessions (since S396) — L-908 TTL requires escalation. Swarm cannot self-authorize external social media presence. If no interest, signal can be closed (ABANDONED) to remove the recurring DUE alert.
 
 ### ~~HQ-1: Which domain should be primary?~~ RESOLVED S55
 **Answer**: "swarm serves the swarm" — the primary domain IS the swarm itself (meta/architecture).

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Swarm Scaling Model — DOMEX-NK-S336
+Swarm Scaling Model — DOMEX-NK-S336 (last reviewed S427)
 Formal mathematical model for swarm growth: K_avg dynamics, phase boundaries,
 Zipf decay, expert utilization scaling.
 Usage: python3 tools/scaling_model.py [--predict N] [--report]
@@ -23,14 +23,14 @@ K_AVG_SERIES = [
 
 ZIPF_SERIES = [
     # (session, N_lessons, alpha)
-    ("S190", 288, 0.900),   # baseline
+    ("S190", 288, 0.900),   # reference point
     ("S332", 398, 0.7545),  # 10-session series
     ("S335", 401, 0.7476),  # latest
 ]
 
 EXPERT_SERIES = [
     # (session, domex_pct_merged, note)
-    ("S303", 0.046, "pre-norm baseline 4.6%"),
+    ("S303", 0.046, "pre-norm 4.6% (pre-dispatch-optimizer era)"),
     ("S329", 1.000, "post-norm 6/6 MERGED"),
 ]
 

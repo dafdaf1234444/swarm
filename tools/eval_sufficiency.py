@@ -133,6 +133,27 @@ def _reconcile_verdicts(discrete_score: int, continuous: float) -> dict:
     return result
 
 
+def _finalize_goal(
+    details: dict, discrete_score: int, continuous_score: float,
+    rationale: str, external_grounding=False,
+) -> dict:
+    """Apply reconciled verdicts and rationale to details dict, then return it."""
+    reconciled = _reconcile_verdicts(discrete_score, continuous_score)
+    details.update({
+        "external_grounding": external_grounding,
+        "score": reconciled["score"],
+        "verdict": reconciled["verdict"],
+        "discrete_score": discrete_score,
+        "continuous_verdict": reconciled["continuous_verdict"],
+        "rationale": rationale,
+    })
+    if reconciled["adjusted"]:
+        details["adjustment"] = reconciled["adjustment_reason"]
+    if reconciled.get("margin_warning"):
+        details["margin_warning"] = reconciled["margin_warning"]
+    return details
+
+
 def _get_current_session() -> str:
     """Read current session number from INDEX.md (avoids hardcoded stale session labels)."""
     try:
@@ -190,9 +211,8 @@ def _count_swarm_lanes() -> dict:
 def _load_proxy_k(current_session: int = 193) -> dict:
     """Get proxy-K drift using compact.py --dry-run (authoritative source).
 
-    compact.py anchors the floor to the post-compaction S306 snapshot, which is the
-    correct reference point. The log-based floor ratchet diverged (picked historical
-    minimum ~54,939t vs actual post-S306 floor ~58,351t → false 8.3% drift).
+    compact.py reads current proxy-K state via --dry-run (dynamic, avoids drift).
+    Previously: static anchor at S306. Now: compact.py output is the authoritative source.
     """
     import subprocess as _sp
     try:
@@ -319,7 +339,7 @@ def _count_frontiers() -> dict:
 
 def _load_con1_baseline() -> dict:
     """Load F-CON1 conflict baseline from artifact."""
-    path = ROOT / "experiments" / "conflict" / "f-con1-baseline-s189.json"
+    path = ROOT / "experiments" / "conflict" / "f-con1-baseline-s428.json"
     if path.exists():
         return json.loads(path.read_text(encoding="utf-8"))
     return {}
@@ -356,9 +376,9 @@ def score_collaborate(lanes: dict, con1: dict, signals: dict) -> dict:
     details["lane_open_count"] = lanes["open"] + lanes.get("active", 0)
 
     # Metric 2: C1 conflict rate (lane-level duplicates) from F-CON1 baseline
-    c1_rate = con1.get("c1_rate_lane_level", 0.013)  # 1.3% baseline S189
+    c1_rate = con1.get("c1_rate_lane_level", 0.066)  # 6.6% from F-CON1 artifact (S428)
     details["c1_conflict_rate"] = c1_rate
-    details["c1_source"] = "f-con1-baseline-s189.json" if con1 else "default"
+    details["c1_source"] = "f-con1-baseline-s428.json" if con1 else "default"
 
     # Metric 3: Human signal enforcement completeness
     sig_completeness = signals["with_artifact_refs"] / signals["total"] if signals["total"] else 0
@@ -385,23 +405,12 @@ def score_collaborate(lanes: dict, con1: dict, signals: dict) -> dict:
     else:
         discrete_score = 1
 
-    # F-EVAL4 (L-928): reconcile discrete and continuous verdicts
-    reconciled = _reconcile_verdicts(discrete_score, continuous_score)
-    details["external_grounding"] = False
-    details["score"] = reconciled["score"]
-    details["verdict"] = reconciled["verdict"]
-    details["discrete_score"] = discrete_score
-    details["continuous_verdict"] = reconciled["continuous_verdict"]
-    if reconciled["adjusted"]:
-        details["adjustment"] = reconciled["adjustment_reason"]
-    if reconciled["margin_warning"]:
-        details["margin_warning"] = reconciled["margin_warning"]
-    details["rationale"] = (
+    return _finalize_goal(
+        details, discrete_score, continuous_score,
         f"merge_rate={merge_rate:.1%} ({lanes['merged']}/{total_productive} productive lanes MERGED), "
         f"c1={c1_rate:.1%} (lane-level duplicate rate), "
-        f"signal_enforcement={sig_completeness:.0%}, continuous={continuous_score:.2f}"
+        f"signal_enforcement={sig_completeness:.0%}, continuous={continuous_score:.2f}",
     )
-    return details
 
 
 def score_increase(sessions: list[dict], frontiers: dict, domains: int, lessons: int) -> dict:
@@ -565,23 +574,12 @@ def score_protect(proxy_k: dict, challenges: dict) -> dict:
     else:
         discrete_score = 1
 
-    # F-EVAL4 (L-928): reconcile discrete and continuous verdicts
-    reconciled = _reconcile_verdicts(discrete_score, continuous_score)
-    details["external_grounding"] = False
-    details["score"] = reconciled["score"]
-    details["verdict"] = reconciled["verdict"]
-    details["discrete_score"] = discrete_score
-    details["continuous_verdict"] = reconciled["continuous_verdict"]
-    if reconciled["adjusted"]:
-        details["adjustment"] = reconciled["adjustment_reason"]
-    if reconciled.get("margin_warning"):
-        details["margin_warning"] = reconciled["margin_warning"]
-    details["rationale"] = (
+    return _finalize_goal(
+        details, discrete_score, continuous_score,
         f"proxy_k_drift={drift:.1f}% (healthy<6%), "
         f"validator={'PASS' if details['validator_pass'] else 'FAIL'}, "
-        f"challenge_drop_rate={drop_rate:.1%} ({dropped}/{total_ch}), continuous={continuous_score:.2f}"
+        f"challenge_drop_rate={drop_rate:.1%} ({dropped}/{total_ch}), continuous={continuous_score:.2f}",
     )
-    return details
 
 
 def score_truthful(challenges: dict, signals: dict, frontiers: dict) -> dict:
@@ -649,23 +647,13 @@ def score_truthful(challenges: dict, signals: dict, frontiers: dict) -> dict:
     if discrete_score == 2 and evidence_rate >= 0.70:
         discrete_score = 3
 
-    # F-EVAL4 (L-928): reconcile discrete and continuous verdicts
-    reconciled = _reconcile_verdicts(discrete_score, continuous_score)
-    details["external_grounding"] = external_grounding_ok
-    details["score"] = reconciled["score"]
-    details["verdict"] = reconciled["verdict"]
-    details["discrete_score"] = discrete_score
-    details["continuous_verdict"] = reconciled["continuous_verdict"]
-    if reconciled["adjusted"]:
-        details["adjustment"] = reconciled["adjustment_reason"]
-    if reconciled.get("margin_warning"):
-        details["margin_warning"] = reconciled["margin_warning"]
-    details["rationale"] = (
+    return _finalize_goal(
+        details, discrete_score, continuous_score,
         f"evidence_grounded_rate={evidence_rate:.1%} ({evidence_grounded}/{total} challenges), "
         f"signal_density={signal_density:.2f}/session (target ≥0.1), "
-        f"external_grounding_ok={external_grounding_ok}, continuous={continuous_score:.2f}"
+        f"external_grounding_ok={external_grounding_ok}, continuous={continuous_score:.2f}",
+        external_grounding=external_grounding_ok,
     )
-    return details
 
 
 # ---------------------------------------------------------------------------
@@ -704,18 +692,10 @@ def compute_sufficiency() -> dict:
     continuous_composite = sum(continuous_scores) / (len(continuous_scores) * 3)
 
     # Lowest-scoring goal = next improvement target (use continuous for precision)
-    goal_scores = {
-        "Collaborate": collaborate["score"],
-        "Increase": increase["score"],
-        "Protect": protect["score"],
-        "Truthful": truthful["score"],
-    }
-    goal_continuous = {
-        "Collaborate": collaborate.get("continuous_score", float(collaborate["score"])),
-        "Increase": increase.get("continuous_score", float(increase["score"])),
-        "Protect": protect.get("continuous_score", float(protect["score"])),
-        "Truthful": truthful.get("continuous_score", float(truthful["score"])),
-    }
+    _goal_items = [("Collaborate", collaborate), ("Increase", increase),
+                   ("Protect", protect), ("Truthful", truthful)]
+    goal_scores = {n: d["score"] for n, d in _goal_items}
+    goal_continuous = {n: d.get("continuous_score", float(d["score"])) for n, d in _goal_items}
     next_target = min(goal_continuous, key=goal_continuous.get)
 
     # Overall verdict — uses continuous composite as tiebreaker (F-EVAL4)
@@ -741,19 +721,8 @@ def compute_sufficiency() -> dict:
             f"(discrete says {overall})"
         )
 
-    # Collect margin warnings from all goals
-    margin_warnings = []
-    for goal_name, goal_data in [("Collaborate", collaborate), ("Increase", increase),
-                                  ("Protect", protect), ("Truthful", truthful)]:
-        if goal_data.get("margin_warning"):
-            margin_warnings.append(f"{goal_name}: {goal_data['margin_warning']}")
-
-    # Collect adjustments from all goals
-    adjustments = []
-    for goal_name, goal_data in [("Collaborate", collaborate), ("Increase", increase),
-                                  ("Protect", protect), ("Truthful", truthful)]:
-        if goal_data.get("adjustment"):
-            adjustments.append(f"{goal_name}: {goal_data['adjustment']}")
+    margin_warnings = [f"{n}: {d['margin_warning']}" for n, d in _goal_items if d.get("margin_warning")]
+    adjustments = [f"{n}: {d['adjustment']}" for n, d in _goal_items if d.get("adjustment")]
 
     # F-EVAL4 (L-928): stratified scores from Increase goal (DOMEX vs non-DOMEX)
     stratified_scores = {

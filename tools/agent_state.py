@@ -14,7 +14,7 @@ This tool provides:
 Data stored in workspace/agent_positions.json (gitignored — ephemeral state).
 
 Usage:
-    python3 tools/agent_state.py register --session S340 --domain meta --lane DOMEX-META-S340
+    python3 tools/agent_state.py register --session S427 --domain meta --lane DOMEX-META-S427
     python3 tools/agent_state.py show
     python3 tools/agent_state.py sweep
     python3 tools/agent_state.py check-collision --domain meta

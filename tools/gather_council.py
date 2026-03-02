@@ -10,7 +10,7 @@ Usage:
   python3 tools/gather_council.py            # show seat status table
   python3 tools/gather_council.py --auto     # print open_lane.py commands for vacant seats
   python3 tools/gather_council.py --json     # machine-readable JSON output
-  python3 tools/gather_council.py --session S336  # tag generated lanes with session
+  python3 tools/gather_council.py --session S427  # tag generated lanes with session
 """
 
 import argparse
@@ -157,7 +157,7 @@ def main() -> None:
                         help="Print open_lane.py commands for all vacant seats")
     parser.add_argument("--json", action="store_true", help="Machine-readable JSON output")
     parser.add_argument("--session", default=f"S{date.today().strftime('%y%m%d')}",
-                        help="Session tag for generated lane IDs (e.g. S336)")
+                        help="Session tag for generated lane IDs (e.g. S427)")
     parser.add_argument("--top", type=int, default=10, help="How many seats to show (default 10)")
     args = parser.parse_args()
 
