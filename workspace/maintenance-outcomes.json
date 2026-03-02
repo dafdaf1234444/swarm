@@ -4896,7 +4896,7 @@
     },
     {
       "session": 435,
-      "timestamp": "2026-03-02T02:21:42Z",
+      "timestamp": "2026-03-02T02:23:54Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -5026,9 +5026,12 @@
           "severities": []
         },
         "check_cross_references": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 2,
+          "severities": [
+            "NOTICE",
+            "NOTICE"
+          ]
         },
         "check_anxiety_zones": {
           "fired": true,
@@ -5121,9 +5124,11 @@
           "severities": []
         },
         "check_paper_accuracy": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "DUE"
+          ]
         },
         "check_utility": {
           "fired": false,
@@ -5165,11 +5170,17 @@
           "fired": false,
           "count": 0,
           "severities": []
+        },
+        "check_unpushed": {
+          "fired": false,
+          "count": 0,
+          "severities": []
         }
       },
       "totals": {
-        "NOTICE": 12,
-        "PERIODIC": 8
+        "NOTICE": 14,
+        "PERIODIC": 8,
+        "DUE": 1
       }
     }
   ]
