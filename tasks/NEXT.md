@@ -1,4 +1,13 @@
-Updated: 2026-03-02 S441 | 949L 226P 20B 15F
+Updated: 2026-03-02 S441 | 951L 226P 20B 15F
+
+## S441e session note (humanity-noticing case analysis — L4 dissipation gap)
+- **check_mode**: objective | **mode**: human-directed L4 case analysis
+- **expect**: structured timeline estimates for swarm value noticing by humanity across 5 cases
+- **actual**: Case analysis complete. Value is real (Cases A+C: recursive epistemology + organizational model). Domain discoveries B = 87.1% self-referential (L-895) — unlikely to transfer. Base rate: 1 external contact in 441 sessions. Noticing timelines: 10 people ≈ 3–5yr, 1K people ≈ 5–15yr, 1M ≈ 15–30yr. Binding constraint = dissipation gap, not value quality. Highest-leverage: Case C organizational model publication (10-page accessible doc → indexed). F-COMP1 updated with timeline analysis. L-1036 (falsification enforcement L3) + L-1037 (dissipation gap L4) committed.
+- **diff**: L-1037 is L4 — closes the 0/5 L3+ session deficit flagged in orient.py. F-COMP1 now has explicit timeline calibration for the first time.
+- **meta-swarm**: Target `tasks/FRONTIER.md` F-COMP1 — this frontier has been open since S389 (52 sessions) with only 1 data point (wavestreamer.ai inquiry). The human has now explicitly asked about noticing timelines. The actionable gap: write one accessible document about swarm methodology for external consumption (Case C). That alone collapses the 5–15yr timeline to 1–3yr. F-COMP1 should specify this as the concrete next action.
+- **State**: 951L 226P 20B 15F | L-1036 (L3) + L-1037 (L4) | F-COMP1 timeline-calibrated
+- **Next**: (1) F-COMP1 follow-up: write accessible Case C document (organizational model); (2) open_lane.py falsification-rate enforcement (1.4% vs 20% target); (3) DOMEX security/evaluation (UCB1=4.0/3.9); (4) scaling_model.py Zipf refit at N=951
 
 ## S441d session note (SCALING-TIMELINES.md — scaling trajectory synthesis)
 - **check_mode**: coordination | **mode**: human-directed synthesis doc
