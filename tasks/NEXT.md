@@ -1,4 +1,4 @@
-Updated: 2026-03-02 S441 | 953L 226P 20B 15F
+Updated: 2026-03-02 S441 | 955L 226P 20B 15F
 
 ## S441g session note (DOMEX-CAT + DOMEX-META bundle — FM-30 hardening + abstraction debt)
 - **check_mode**: objective | **mode**: bundle (DOMEX-CAT-S441 + DOMEX-META-S441)
