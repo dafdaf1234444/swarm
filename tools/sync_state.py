@@ -171,7 +171,7 @@ def _update_session_log(session: int) -> bool:
                 header = lf.read_text(encoding="utf-8", errors="replace")[:400]
             except Exception:
                 continue
-            m_sess = re.search(r"Session:\s*S(\d+)", header)
+            m_sess = re.search(r"\*{0,2}Session\*{0,2}:\s*S(\d+)", header)
             if not m_sess:
                 continue
             sn = int(m_sess.group(1))

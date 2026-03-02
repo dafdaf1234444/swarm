@@ -86,7 +86,7 @@ def check_dark_matter() -> list[tuple[str, str]]:
         except Exception:
             continue
         total += 1
-        if not re.search(r"^Cites:\s*\S", content, re.MULTILINE):
+        if not re.search(r"^\*{0,2}Cites\*{0,2}:\s*\S", content, re.MULTILINE):
             no_cites += 1
     if total == 0:
         return []
@@ -155,7 +155,7 @@ def check_level_quota() -> list[tuple[str, str]]:
     def _is_l3plus(text: str) -> bool:
         if re.search(r"[Ll]evel[=:\s]+[Ll][3-5]", text):
             return True
-        high_sharpe = bool(re.search(r"Sharpe:\s*(9|10)\b", text))
+        high_sharpe = bool(re.search(r"\*{0,2}Sharpe\*{0,2}:\s*(9|10)\b", text))
         text_lower = text.lower()
         return high_sharpe and any(k.lower() in text_lower for k in strategic_keywords)
 
@@ -165,7 +165,7 @@ def check_level_quota() -> list[tuple[str, str]]:
             text = lf.read_text(encoding="utf-8", errors="replace")
         except Exception:
             continue
-        m = re.search(r"Session:\s*S(\d+)", text)
+        m = re.search(r"\*{0,2}Session\*{0,2}:\s*S(\d+)", text)
         if not m:
             continue
         sess = int(m.group(1))

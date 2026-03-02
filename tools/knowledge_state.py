@@ -100,24 +100,21 @@ def parse_lesson(path: Path, current_session: int) -> dict:
     num = int(num_m.group())
     title_m = re.search(r"^#\s+L-\d+[:\s]*(.+)", text, re.M)
 
-    # Session: try multiple formats
-    # Format 1: 'Session: S375' or 'Session: 375'
-    session_m = re.search(r"Session:\s*S?(\d+)", text)
-    # Format 2: HTML comment '<!-- lesson: L-706 | session: S375 | ... -->'
+    # Session: try multiple formats (plain or **bold** Markdown)
+    session_m = re.search(r"\*{0,2}Session\*{0,2}:\s*S?(\d+)", text)
+    # Fallback: HTML comment '<!-- lesson: L-706 | session: S375 | ... -->'
     if not session_m:
         session_m = re.search(r"session:\s*S?(\d+)", text)
     session = int(session_m.group(1)) if session_m else 0
     age = current_session - session if session else current_session
 
-    # Domain: try multiple formats
-    # Format 1: 'Domain: meta' (standalone line)
-    domain_m = re.search(r"^[Dd]omain:\s*([^\n|]+)", text, re.M)
-    # Format 2: HTML comment '<!-- ... | domain: economy -->'
+    # Domain: plain or **bold** Markdown, or HTML comment
+    domain_m = re.search(r"\*{0,2}[Dd]omain\*{0,2}:\s*([^\n|]+)", text)
     if not domain_m:
         domain_m = re.search(r"\|\s*domain:\s*([^|>\n]+)", text)
 
-    conf_m = re.search(r"Confidence:\s*(\w+)", text, re.I)
-    cites_m = re.search(r"^Cites?:\s*(.+)", text, re.M)
+    conf_m = re.search(r"\*{0,2}Confidence\*{0,2}:\s*(\w+)", text, re.I)
+    cites_m = re.search(r"^\*{0,2}Cites?\*{0,2}:\s*(.+)", text, re.M)
 
     # Citations from Cites: header
     cited_lessons = set()

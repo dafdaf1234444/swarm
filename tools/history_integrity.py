@@ -65,7 +65,7 @@ def check_lesson_attribution(sample_size: int = 50) -> dict:
 
     for lf in sample:
         content = lf.read_text()
-        declared = re.search(r'Session:\s*S(\d+)', content)
+        declared = re.search(r'\*{0,2}Session\*{0,2}:\s*S(\d+)', content)
         if not declared:
             no_declared += 1
             continue

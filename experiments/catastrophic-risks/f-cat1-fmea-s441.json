@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-CAT-S441",
+    "frontier": "F-CAT1",
+    "session": "S441",
+    "domain": "catastrophic-risks",
+    "date": "2026-03-02",
+    "expect": "FMEA refresh: FM-30 still unmitigated; cascade_monitor.py wired into check.sh \u2192 FM-30 UNMITIGATED\u2192MINIMAL; 0 new FMs (NAT predicts S450)",
+    "actual": "TBD",
+    "diff": "TBD"
+}

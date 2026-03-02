@@ -161,12 +161,12 @@ def scan_lessons(lessons_dir: Path, min_sharpe: int = 0) -> list[dict]:
         content = _read(f)
         lesson_id = f.stem
 
-        sharpe_m = re.search(r"Sharpe:\s*(\d+)", content)
+        sharpe_m = re.search(r"\*{0,2}Sharpe\*{0,2}:\s*(\d+)", content)
         sharpe = int(sharpe_m.group(1)) if sharpe_m else 0
         if sharpe < min_sharpe:
             continue
 
-        session_m = re.search(r"Session:\s*(S\d+)", content)
+        session_m = re.search(r"\*{0,2}Session\*{0,2}:\s*(S\d+)", content)
         session = session_m.group(1) if session_m else "?"
 
         domain_m = re.search(r"\|\s*\*{0,2}Domain\*{0,2}:\s*(\S+)", content)

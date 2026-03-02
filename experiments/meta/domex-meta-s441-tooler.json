@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-META-S441",
+    "frontier": "F-META2",
+    "session": "S441",
+    "domain": "meta",
+    "date": "2026-03-02",
+    "expect": "eval_sufficiency.py reduced from 9433t to <5000t via DI extraction; tool behavior unchanged",
+    "actual": "TBD",
+    "diff": "TBD"
+}

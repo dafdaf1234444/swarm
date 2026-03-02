@@ -58,7 +58,7 @@ def _parse_lessons() -> dict[str, dict]:
         # Extract Cites: header
         cites_header: list[str] = []
         for line in lines:
-            m = re.match(r"^Cites:\s*(.*)", line)
+            m = re.match(r"^\*{0,2}Cites\*{0,2}:\s*(.*)", line)
             if m:
                 cites_header = [f"L-{x}" for x in CITE_PAT.findall(m.group(1))]
                 break
@@ -138,7 +138,7 @@ def _detect_falsified_lessons(
             if _p3:
                 _ls = text.rfind("\n", 0, ref_match.start()) + 1
                 _rl = text[_ls:text.find("\n", ref_match.end())]
-                if not _rl.lstrip().startswith("Cites:"):
+                if not re.match(r"\*{0,2}Cites\*{0,2}:", _rl.lstrip()):
                     edges.append((lid, ref))
 
             # Pattern 4: "L-NNN supersedes/replaces" — lid is superseded, ref corrects
