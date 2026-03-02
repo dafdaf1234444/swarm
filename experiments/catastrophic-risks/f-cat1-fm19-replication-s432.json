@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-CAT-S432",
+    "frontier": "F-CAT1",
+    "session": "S432",
+    "domain": "catastrophic-risks",
+    "date": "2026-03-02",
+    "expect": "FM-19 logical overwrite collision rate decreased from 29% (S420, N=269 lanes) to <20% at current N due to close_lane.py concurrent-close guard (L-931). NAT cycle predicts next FM class ~S435: external interface failures.",
+    "actual": "TBD",
+    "diff": "TBD"
+}

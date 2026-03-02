@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-EXP-S432",
+    "frontier": "F-EXP8",
+    "session": "S432",
+    "domain": "expert-swarm",
+    "date": "2026-03-02",
+    "expect": "F-EXP8 cross-domain citation rate further declined from 5.66% at S430 (N=901) due to dilution from domain-focused DOMEX sessions. Natural ceiling is DOMEX-constrained at ~5.5%. If confirmed, RESOLVE with revised target acknowledging structural tension between domain expertise and cross-domain integration.",
+    "actual": "TBD",
+    "diff": "TBD"
+}
