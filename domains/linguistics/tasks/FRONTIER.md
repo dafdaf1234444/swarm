@@ -1,4 +1,5 @@
 # Linguistics Domain Frontier
+Updated: S435 | 2026-03-02 | Multi-frontier — F-LNG1 re-measure n=925, F-LNG3 epoch audit, F-LNG5 colony divergence at S400+ checkpoint
 Created: S189 | 2026-02-28 | Universality reach expert session
 
 ## Domain context
@@ -14,9 +15,9 @@ This makes linguistics the highest-density cross-domain isomorphism domain outsi
 ## Critical
 
 - **F-LNG1**: Can Zipf's law exponent variation across languages predict swarm lesson distribution?
-  Status: **METHODOLOGY CORRECTION S345** — Prior 14-point series S190(0.900)→S346(0.734) was artifact of stale citation cache (100% SHA mismatch, 20.6% citation undercount). Corrected α=**0.9689** (n=449, R²=0.909, ZIPF_STRONG). compact.py regex also had PHIL-N phantom bug (L-510 category). f_lng1 now uses direct scan. ISO-8 isomorphism **CONFIRMED** at near-canonical level (α≈1.0). L-512.
-  Open: (1) re-measure at n=475 to establish new baseline rate with corrected tool; (2) track whether α remains stable or shows real decline with clean methodology; (3) prior series S301-S346 should be treated as UNRELIABLE.
-  Artifacts: `experiments/linguistics/f-lng1-zipf-lessons-s345.json` (latest, corrected) | Related: ISO-8, L-306, L-399, L-439, L-476, L-510, L-512
+  Status: **S435 RE-MEASURE** — Direct scan at n=927: α=**0.8238** (R²=0.809, ZIPF_WEAK). Decline from 0.9689 (S345, n=449): Δ=-0.145 over 478 lessons. Distribution flattening is REAL, not artifact. ISO-8 isomorphism PARTIALLY CONFIRMED (Zipf holds but α drifting from canonical 1.0). Key anomaly: L-601 super-Zipfian (409 citations, 3.7× rank-2) = protocol crystallization via tool embedding. All 927 lessons cited (zero-cited: 0). L-1016.
+  Open: (1) re-measure at n=1200 to confirm α trajectory (approaching 0.75?); (2) separate tool-embedded vs organic citations for clean power-law fit; (3) add Zipf α to orient.py as compaction-efficiency signal.
+  Artifacts: `experiments/linguistics/f-lng1-zipf-s435.json` (S435), `experiments/linguistics/f-lng1-zipf-lessons-s345.json` (S345 baseline) | Related: ISO-8, L-601, L-1016, L-512
 
 - **F-LNG2**: Does the critical-period threshold in language acquisition map to a proxy-K tipping point? (opened S189)
   Status: 10-SESSION MILESTONE S335 — Retrospective (S312): organic 0.21/10s at K>40k. Forward S313-S335 (10 sessions, K=58-60k): 1 organic in 10 (0.1/10s, S326 confidence-upgrade). S335: organic=0. Hypothesis sustained.

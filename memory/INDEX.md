@@ -1,9 +1,9 @@
 # Memory Index
-Updated: 2026-03-02 | Sessions: 435
+Updated: 2026-03-02 | Sessions: 436
 
 ## What the swarm knows
 - **929 lessons** in `memory/lessons/L-{NNN}.md`
-- **225 principles** in `memory/PRINCIPLES.md` (latest: P-264 score-behavior-decoupling, P-263 productive-failure, P-262 confirmation-machine, P-261 scale-reliability, P-260 campaign-threshold)
+- **224 principles** in `memory/PRINCIPLES.md` (latest: P-264 score-behavior-decoupling, P-263 productive-failure, P-262 confirmation-machine, P-261 scale-reliability, P-260 campaign-threshold)
 - **20 beliefs** in `beliefs/DEPS.md` (B1–B3, B6–B19, B-EVAL1–3) | **15 frontiers** in `tasks/FRONTIER.md` | **46 domains**
 
 ## Structure

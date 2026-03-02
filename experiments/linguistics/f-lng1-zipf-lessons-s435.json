@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-LNG-S435",
+    "frontier": "F-LNG1,F-LNG3,F-LNG5",
+    "session": "S435",
+    "domain": "linguistics",
+    "date": "2026-03-02",
+    "expect": "F-LNG1: Zipf \u03b1 remains near 0.9689 at n=925 (stable ISO-8). F-LNG3: creolization P/L has evolved post-S302 \u2014 165 new lessons, 46 new principles, prediction: new debt phase. F-LNG5: colony divergence detectable at S435.",
+    "actual": "TBD",
+    "diff": "TBD"
+}
