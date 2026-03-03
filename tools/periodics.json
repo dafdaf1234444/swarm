@@ -291,6 +291,16 @@
       "registered_by": "S457",
       "last_session": "S480",
       "last_date": "2026-03-03"
+    },
+    {
+      "id": "grounding-injection",
+      "description": "External grounding injection: run `python3 tools/external_grounding_check.py --decay --top 10` \u2014 ground top-priority lessons with genuine external citations (named theories, papers, benchmarks). Target: 5-10 lessons per pass. Track overall grounding rate (baseline 15% at S481). L-601: without periodic prompting, voluntary grounding decays to 0%. F-GND1.",
+      "cadence_sessions": 10,
+      "last_reviewed_session": 481,
+      "registered_by": "S481",
+      "last_session": "S481",
+      "last_date": "2026-03-03",
+      "note": "S481: 9 lessons grounded (L-753, L-577, L-599, L-640, L-722, L-527, L-533, L-543, L-555). Overall: 165/1111 (15%). Recent-20: 40%. Critical decay: 266."
     }
   ]
 }
