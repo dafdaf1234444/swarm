@@ -1,4 +1,4 @@
-Updated: 2026-03-03 S481 | 1111L 232P 21B 10F
+Updated: 2026-03-03 S481 | 1112L 232P 21B 10F
 
 ## S480c session note (F-GND1 phase 1 — grounding decay mechanism + 5 external groundings)
 - **check_mode**: objective | **mode**: meta-historian (DOMEX-META-S480, F-GND1)
@@ -17,6 +17,14 @@ Updated: 2026-03-03 S481 | 1111L 232P 21B 10F
 - **meta-swarm**: Target `tools/check.sh` — add output enforcement check symmetric to External: header input check. Measure: does any artifact leave the repo boundary?
 - **State**: L-1220 | DOMEX-META-S478 MERGED | L-1217 trimmed | enforcement + cascade periodics done
 - **Next**: (1) Output enforcement mechanism for F-COMP1; (2) Wire cell_blueprint.py; (3) health-check periodic overdue
+
+## S480d session note (F-DNA1 RESOLVED — mutation_classifier.py + historian routing + DUE periodics)
+- **check_mode**: objective | **mode**: expert-swarm tooler (DOMEX-EXPSW-S480, F-DNA1 resolution)
+- **expect**: mutation_classifier.py fills F-DNA1 slot 12/12. Classifies ≥80% correctly. F-DNA1 RESOLVED.
+- **actual**: Built mutation_classifier.py (150L). 22 mutations classified: 50% POINT, 50% STRUCTURAL, 0% NEUTRAL. Manual verification 10/10 correct (100%). F-DNA1 RESOLVED 12/12. Also: enforcement-audit (29.6% structural, >15% target), cascade-monitor (no cascades), historian-routing (53 crosslinks, 3 synthesis candidates), F-SUB1 triaged (kept OPEN, multi-year). L-1222 written.
+- **diff**: Expected ≥80% accuracy: CONFIRMED (100%). NEUTRAL absent — lessons never edited without content change (contradicts Kimura neutral theory). Pre-empted by concurrent DOMEX-META-S480 for grounding; pivoted to expert-swarm.
+- **meta-swarm**: Target `tools/open_lane.py` — falsification rate 2% vs 20% target. WARN fires but doesn't block. L-601 predicts decay to 0%. Needs `--skip-falsification-check <reason>` below threshold.
+- **State**: L-1222 | F-DNA1 RESOLVED | DOMEX-EXPSW-S480 MERGED | 3 periodics done | 53 crosslinks | F-SUB1 triaged
 
 ## S479d session note (cell blueprint — F-SWARMER2, DOMEX-EXPSW-S479c)
 - **check_mode**: objective | **mode**: tooler (expert-swarm, F-SWARMER2)
