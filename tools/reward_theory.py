@@ -344,7 +344,7 @@ def session_reward_profile(session_id):
             channels[1]["evidence"].append(f"{lid}: {len(lines)}L (compact)")
 
         # Ch2: citation production
-        cites_m = re.search(r'Cites:\s*(.+)', text)
+        cites_m = re.search(r'\*{0,2}Cites\*{0,2}:\s*(.+)', text)  # L-1169
         if cites_m:
             cite_count = len(re.findall(r'L-\d+', cites_m.group(1)))
             if cite_count > 0:

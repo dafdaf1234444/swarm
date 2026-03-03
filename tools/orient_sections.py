@@ -807,7 +807,7 @@ def section_closure_metric(root=ROOT):
         for lf in recent:
             try:
                 txt = Path(lf).read_text(encoding="utf-8")
-                cites_match = re.search(r"^Cites:\s*(.+)", txt, re.MULTILINE)
+                cites_match = re.search(r"^\*{0,2}Cites\*{0,2}:\s*(.+)", txt, re.MULTILINE)  # L-1169
                 if not cites_match:
                     continue
                 cites_line = cites_match.group(1).lower()
