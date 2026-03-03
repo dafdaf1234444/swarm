@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-META-S476",
+    "frontier": "F-META2",
+    "session": "S476",
+    "domain": "meta",
+    "date": "2026-03-03",
+    "expect": "orient_sections.py reduced from 12000t to \u22645000t without losing orient.py output correctness. orient.py output unchanged before/after.",
+    "actual": "TBD",
+    "diff": "TBD"
+}

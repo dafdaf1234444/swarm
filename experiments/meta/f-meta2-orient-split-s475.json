@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-META-S475",
+    "frontier": "F-META2",
+    "session": "S475",
+    "domain": "meta",
+    "date": "2026-03-03",
+    "expect": "orient_sections.py split into core (under 5000t) + orient_helpers.py. All orient.py functionality preserved. No regression.",
+    "actual": "TBD",
+    "diff": "TBD"
+}

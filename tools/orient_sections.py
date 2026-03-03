@@ -18,6 +18,34 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 
 
+def _cached_artifact(root, subdir, pattern, session_num, max_age=20, min_age=-5):
+    """Load latest cached JSON artifact. Returns (data, age_str) or None."""
+    try:
+        files = sorted((root / "experiments" / subdir).glob(pattern))
+        if not files:
+            return None
+        data = json.loads(files[-1].read_text())
+        m = re.search(r"-s(\d+)", files[-1].name)
+        if not m:
+            return None
+        age = session_num - int(m.group(1))
+        if min_age <= age <= max_age:
+            return data, f"S{m.group(1)}" + (f", {age}s ago" if age > 0 else "")
+    except Exception:
+        pass
+    return None
+
+
+def _run_tool_json(tool_name, args=None, timeout=15, root=ROOT):
+    """Run a tool and parse JSON output. Returns dict or None."""
+    cmd = [sys.executable, str(root / "tools" / f"{tool_name}.py")] + (args or [])
+    try:
+        r = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
+        return json.loads(r.stdout) if r.returncode == 0 and r.stdout.strip() else None
+    except Exception:
+        return None
+
+
 def section_maintenance(maint_out, maint_level, brief):
     """Maintenance details section."""
     lines = []
@@ -86,55 +114,38 @@ def section_precompact_checkpoint(session, root=ROOT):
                          key=lambda p: p.stat().st_mtime)
     if not checkpoints:
         return lines
-    latest = checkpoints[-1]  # most recently modified checkpoint
     try:
-        cp = json.loads(latest.read_text())
+        cp = json.loads(checkpoints[-1].read_text())
         uncommitted = cp.get("uncommitted_files", [])
+        still_uncommitted, stale_ratio = [], 1
         if uncommitted:
-            status_out = subprocess.run(
-                ["git", "status", "--short"], capture_output=True, text=True, cwd=str(root)
-            ).stdout
-            status_files = {line.split()[-1] for line in status_out.strip().split("\n") if line.strip()}
+            status_out = subprocess.run(["git", "status", "--short"], capture_output=True, text=True, cwd=str(root)).stdout
+            status_files = {l.split()[-1] for l in status_out.strip().split("\n") if l.strip()}
             still_uncommitted = [f for f in uncommitted if f in status_files]
-            stale_ratio = 1 - (len(still_uncommitted) / len(uncommitted)) if uncommitted else 1
-        else:
-            still_uncommitted = []
-            stale_ratio = 1
-        # Session-age filter
-        cp_session = 0
-        for log_line in cp.get("recent_git_log", []):
-            m = re.search(r'\[S(\d+)\]', log_line)
-            if m:
-                cp_session = int(m.group(1))
-                break
-        cur_session_num = int(session[1:]) if session[1:].isdigit() else 0
-        session_age = (cur_session_num - cp_session) if cp_session else 999
-        if stale_ratio < 0.8 and session_age <= 2:
-            # Detect proxy-absorbed files (L-526): files committed after checkpoint #L-526
+            stale_ratio = 1 - (len(still_uncommitted) / len(uncommitted))
+        cp_session = next((int(re.search(r'\[S(\d+)\]', l).group(1)) for l in cp.get("recent_git_log", []) if re.search(r'\[S(\d+)\]', l)), 0)
+        cur_num = int(session[1:]) if session[1:].isdigit() else 0
+        if stale_ratio < 0.8 and (cur_num - cp_session if cp_session else 999) <= 2:
             absorbed = []
             if still_uncommitted and cp_session:
                 try:
-                    log_out = subprocess.run(
-                        ["git", "log", "--name-only", "--format=",
-                         "--diff-filter=M", f"HEAD~10..HEAD"],
-                        capture_output=True, text=True, cwd=str(root)
-                    ).stdout
-                    committed_files = {l.strip() for l in log_out.splitlines() if l.strip()}
-                    absorbed = [f for f in still_uncommitted if f in committed_files]
+                    log_out = subprocess.run(["git", "log", "--name-only", "--format=", "--diff-filter=M", "HEAD~10..HEAD"], capture_output=True, text=True, cwd=str(root)).stdout
+                    committed = {l.strip() for l in log_out.splitlines() if l.strip()}
+                    absorbed = [f for f in still_uncommitted if f in committed]
                 except Exception:
                     pass
             lines.append("--- !! COMPACTION RESUME DETECTED ---")
-            lines.append(f"  Checkpoint: {latest.name} ({cp.get('trigger', '?')} at {cp.get('timestamp', '?')})")
+            lines.append(f"  Checkpoint: {checkpoints[-1].name} ({cp.get('trigger', '?')} at {cp.get('timestamp', '?')})")
             hint = cp.get("next_md", {}).get("For next session", "")
             if hint:
                 lines.append(f"  In-flight: {hint[:120].splitlines()[0]}")
             if still_uncommitted:
                 lines.append(f"  Uncommitted files ({len(still_uncommitted)}/{len(uncommitted)}): {', '.join(still_uncommitted[:5])}")
             if absorbed:
-                lines.append(f"  ⚠ Likely proxy-absorbed ({len(absorbed)}/{len(still_uncommitted)}): working tree diffs may be stale (L-526)")
+                lines.append(f"  \u26a0 Likely proxy-absorbed ({len(absorbed)}/{len(still_uncommitted)}): working tree diffs may be stale (L-526)")
             staged = cp.get("staged_files", [])
             if staged:
-                lines.append(f"  ⚠ STAGED FILES ({len(staged)}): {', '.join(staged[:5])}")
+                lines.append(f"  \u26a0 STAGED FILES ({len(staged)}): {', '.join(staged[:5])}")
                 lines.append(f"    Run: git reset HEAD -- <files> before staging new work (FM-19 stale-write risk)")
             lines.append("")
     except Exception:
@@ -199,17 +210,10 @@ def section_self_application(session_num, check_fn):
             lines.append(f"--- Self-application gap ({len(stale_infra)} components not evolved >50s) ---")
             for si in stale_infra:
                 lines.append(f"  \u2298 {si}")
-            if len(stale_infra) >= 1:
-                lines.append("  Suggested (pick 1):")
-                for si in stale_infra[:3]:
-                    tool_name = si.split("(")[0].strip().replace(" ", "-")
-                    lines.append(
-                        f"    python3 tools/open_lane.py --lane EVOLVE-{tool_name}-S{session_num}"
-                        f" --session S{session_num}"
-                        f" --expect 'modernize-{tool_name}'"
-                        f" --artifact 'tools/{si.split('(')[0].strip()}'"
-                        f" --intent 'P14: evolve stale infrastructure'"
-                    )
+            lines.append("  Suggested (pick 1):")
+            for si in stale_infra[:3]:
+                name = si.split("(")[0].strip().replace(" ", "-")
+                lines.append(f"    python3 tools/open_lane.py --lane EVOLVE-{name}-S{session_num} --session S{session_num} --expect 'modernize-{name}' --artifact 'tools/{si.split('(')[0].strip()}' --intent 'P14: evolve stale infrastructure'")
             lines.append("")
     except Exception:
         pass
@@ -254,69 +258,24 @@ def section_pci(session_num, compute_fn, root=ROOT):
         lines.append(f"  EAD field presence: {pci_result['ead']:.0%} ({d['ead']} lanes with actual+diff — L-813: measures field presence, not prediction quality)")
         lines.append(f"  Belief freshness: {pci_result['belief_freshness']:.0%} ({d['belief_freshness']} tested <50 sessions)")
         lines.append(f"  Frontier testability: {pci_result['frontier_testability']:.0%} ({d['frontier_testability']} with test evidence)")
-        # Knowledge state from cached artifact
-        try:
-            ks_files = sorted((root / "experiments" / "meta").glob("knowledge-state-s*.json"))
-            if ks_files:
-                ks_data = json.loads(ks_files[-1].read_text())
-                ks_m = re.search(r"knowledge-state-s(\d+)", ks_files[-1].name)
-                ks_age = (session_num - int(ks_m.group(1))) if ks_m else -1
-                if 0 <= ks_age <= 20:
-                    dist = ks_data.get("global_states", {})
-                    total = sum(dist.values()) or 1
-                    blind = dist.get("BLIND-SPOT", 0)
-                    decayed = dist.get("DECAYED", 0)
-                    age_note = f"S{ks_m.group(1)}" + (f", {ks_age}s ago" if ks_age > 0 else "")
-                    lines.append(f"  Knowledge attention ({age_note}): BLIND-SPOT {blind/total:.1%} | DECAYED {decayed/total:.1%} (L-813: citation-recency, not validity — actual false knowledge ~5-10%) | refresh: python3 tools/knowledge_state.py --json")
-        except Exception:
-            pass
-        # Science quality from cached artifact
-        try:
-            sq_files = sorted((root / "experiments" / "meta").glob("science-quality-s*.json"))
-            if sq_files:
-                sq_data = json.loads(sq_files[-1].read_text())
-                sq_m = re.search(r"science-quality-s(\d+)", sq_files[-1].name)
-                sq_age = (session_num - int(sq_m.group(1))) if sq_m else -1
-                if -5 <= sq_age <= 30:
-                    mean_q = sq_data.get("mean_quality", 0)
-                    pre_reg = sq_data.get("criteria_means", {}).get("pre_registration", 0)
-                    falsif = sq_data.get("falsification_lanes", "?/0")
-                    age_note = f"S{sq_m.group(1)}" + (f", {sq_age}s ago" if sq_age > 0 else "")
-                    lines.append(f"  Science quality ({age_note}): mean {mean_q:.0%} | pre-reg {pre_reg:.0%} | falsif lanes {falsif} | refresh: python3 tools/science_quality.py --json")
-        except Exception:
-            pass
-        # Bayesian calibration
-        try:
-            bm_files = sorted((root / "experiments" / "meta").glob("bayes-meta-s*.json"))
-            if bm_files:
-                bm_data = json.loads(bm_files[-1].read_text())
-                bm_m = re.search(r"bayes-meta-s(\d+)", bm_files[-1].name)
-                bm_age = (session_num - int(bm_m.group(1))) if bm_m else -1
-                if -5 <= bm_age <= 30:
-                    ece = bm_data.get("results", {}).get("ece", "?")
-                    n_front = bm_data.get("n_frontiers_with_posteriors", "?")
-                    age_note2 = f"S{bm_m.group(1)}" + (f", {bm_age}s ago" if bm_age > 0 else "")
-                    ece_flag = " \u26a0 OVERCONFIDENT" if isinstance(ece, float) and ece > 0.15 else ""
-                    lines.append(f"  Bayesian calibration ({age_note2}): ECE={ece:.3f}{ece_flag} | {n_front} frontiers | refresh: python3 tools/bayes_meta.py --json > experiments/meta/bayes-meta-s<N>.json")
-        except Exception:
-            pass
-        # Mission sufficiency from cached eval-sufficiency artifact (F-EVAL4, L-979)
-        # Shows continuous composite score so health is visible without re-running.
-        try:
-            es_files = sorted((root / "experiments" / "evaluation").glob("eval-sufficiency-s*.json"))
-            if es_files:
-                es_data = json.loads(es_files[-1].read_text())
-                es_m = re.search(r"eval-sufficiency-s(\d+)", es_files[-1].name)
-                es_age = (session_num - int(es_m.group(1))) if es_m else -1
-                if -5 <= es_age <= 50:
-                    overall = es_data.get("overall", "?")
-                    cont = es_data.get("continuous_composite", es_data.get("composite_normalized"))
-                    nxt = es_data.get("next_improvement_target", "?")
-                    age_note = f"S{es_m.group(1)}" + (f", {es_age}s ago" if es_age > 0 else "")
-                    cont_str = f" ({cont:.0%} continuous)" if cont is not None else ""
-                    lines.append(f"  Mission sufficiency ({age_note}): {overall}{cont_str} — next: {nxt} | refresh: python3 tools/eval_sufficiency.py --save")
-        except Exception:
-            pass
+        # Cached artifact displays
+        ks = _cached_artifact(root, "meta", "knowledge-state-s*.json", session_num, max_age=20, min_age=0)
+        if ks:
+            dist = ks[0].get("global_states", {}); total = sum(dist.values()) or 1
+            lines.append(f"  Knowledge attention ({ks[1]}): BLIND-SPOT {dist.get('BLIND-SPOT',0)/total:.1%} | DECAYED {dist.get('DECAYED',0)/total:.1%} (L-813: citation-recency, not validity — actual false knowledge ~5-10%) | refresh: python3 tools/knowledge_state.py --json")
+        sq = _cached_artifact(root, "meta", "science-quality-s*.json", session_num, max_age=30)
+        if sq:
+            lines.append(f"  Science quality ({sq[1]}): mean {sq[0].get('mean_quality',0):.0%} | pre-reg {sq[0].get('criteria_means',{}).get('pre_registration',0):.0%} | falsif lanes {sq[0].get('falsification_lanes','?/0')} | refresh: python3 tools/science_quality.py --json")
+        bm = _cached_artifact(root, "meta", "bayes-meta-s*.json", session_num, max_age=30)
+        if bm:
+            ece = bm[0].get("results", {}).get("ece", "?")
+            ece_flag = " \u26a0 OVERCONFIDENT" if isinstance(ece, float) and ece > 0.15 else ""
+            lines.append(f"  Bayesian calibration ({bm[1]}): ECE={ece:.3f}{ece_flag} | {bm[0].get('n_frontiers_with_posteriors','?')} frontiers | refresh: python3 tools/bayes_meta.py --json > experiments/meta/bayes-meta-s<N>.json")
+        es = _cached_artifact(root, "evaluation", "eval-sufficiency-s*.json", session_num, max_age=50)
+        if es:
+            cont = es[0].get("continuous_composite", es[0].get("composite_normalized"))
+            cont_str = f" ({cont:.0%} continuous)" if cont is not None else ""
+            lines.append(f"  Mission sufficiency ({es[1]}): {es[0].get('overall','?')}{cont_str} — next: {es[0].get('next_improvement_target','?')} | refresh: python3 tools/eval_sufficiency.py --save")
         if pci_val < 0.10:
             lines.append("  Tip: check `beliefs/CHALLENGES.md` for untested beliefs and open a DOMEX lane")
         lines.append("")
@@ -390,60 +349,34 @@ def section_level_balance(root=ROOT):
 
 
 def section_succession_phase(root=ROOT):
-    """Attention carrying capacity / r-K phase indicator (L-1121).
-
-    Nature→swarm prescription: in biological succession, carrying capacity
-    shifts the optimal strategy from r-selected (produce many) to K-selected
-    (maintain well). In information systems, the carrying capacity is attention
-    per lesson (1/N), not storage. Emits NOTICE when attention pressure exceeds
-    the functional threshold.
-    """
+    """Attention carrying capacity / r-K phase indicator (L-1121)."""
     lines = []
     try:
         import glob as _gl
-        lesson_files = _gl.glob(str(root / "memory" / "lessons" / "L-*.md"))
-        n_lessons = len(lesson_files)
+        n_lessons = len(_gl.glob(str(root / "memory" / "lessons" / "L-*.md")))
         if n_lessons < 100:
             return lines
-
-        # Attention pressure: 1/N (fraction of session attention per lesson)
-        attention_per_lesson = 1.0 / n_lessons
-        # Functional threshold: below this, lessons decay faster than maintained
-        # Estimated from integration-bound crossover at N~550 (L-912)
-        threshold = 1.0 / 500
-
-        # r/K ratio: count new lessons vs cross-reference additions in recent commits
-        try:
-            new_result = subprocess.run(
-                ["git", "log", "--oneline", "--diff-filter=A", "--name-only", "-10",
-                 "--", "memory/lessons/L-*.md"],
-                capture_output=True, text=True, cwd=str(root), timeout=5
-            )
-            new_lessons = len([l for l in new_result.stdout.splitlines()
-                              if l.startswith("memory/lessons/L-") and l.endswith(".md")])
-            mod_result = subprocess.run(
-                ["git", "log", "--oneline", "--diff-filter=M", "--name-only", "-10",
-                 "--", "memory/lessons/L-*.md"],
-                capture_output=True, text=True, cwd=str(root), timeout=5
-            )
-            modified_lessons = len([l for l in mod_result.stdout.splitlines()
-                                   if l.startswith("memory/lessons/L-") and l.endswith(".md")])
-        except Exception:
-            new_lessons = 0
-            modified_lessons = 0
-
-        if attention_per_lesson < threshold:
-            ratio_str = f"{n_lessons / 500:.1f}x"
-            lines.append("--- Succession Phase (L-1121) ---")
-            lines.append(f"  Attention carrying capacity: {ratio_str} past threshold (N={n_lessons}, K_threshold=500)")
-            lines.append(f"  Attention per lesson: {attention_per_lesson:.5f} (threshold: {threshold:.4f})")
-            if new_lessons > 0 or modified_lessons > 0:
-                r_k = new_lessons / max(modified_lessons, 1)
-                mode = "r-mode (producing)" if r_k > 2 else "K-mode (integrating)" if r_k < 0.5 else "balanced"
-                lines.append(f"  Recent r/K: {new_lessons} new / {modified_lessons} modified = {r_k:.1f} ({mode})")
-                if r_k > 3:
-                    lines.append("  \u26a0 High r/K ratio — consider integration: compact, cross-reference, revive DECAYED")
-            lines.append("")
+        attn = 1.0 / n_lessons
+        threshold = 1.0 / 500  # integration-bound crossover at N~550 (L-912)
+        if attn >= threshold:
+            return lines
+        def _count_lessons(diff_filter):
+            try:
+                r = subprocess.run(["git", "log", "--oneline", f"--diff-filter={diff_filter}", "--name-only", "-10", "--", "memory/lessons/L-*.md"], capture_output=True, text=True, cwd=str(root), timeout=5)
+                return len([l for l in r.stdout.splitlines() if l.startswith("memory/lessons/L-") and l.endswith(".md")])
+            except Exception:
+                return 0
+        new_l, mod_l = _count_lessons("A"), _count_lessons("M")
+        lines.append("--- Succession Phase (L-1121) ---")
+        lines.append(f"  Attention carrying capacity: {n_lessons/500:.1f}x past threshold (N={n_lessons}, K_threshold=500)")
+        lines.append(f"  Attention per lesson: {attn:.5f} (threshold: {threshold:.4f})")
+        if new_l > 0 or mod_l > 0:
+            r_k = new_l / max(mod_l, 1)
+            mode = "r-mode (producing)" if r_k > 2 else "K-mode (integrating)" if r_k < 0.5 else "balanced"
+            lines.append(f"  Recent r/K: {new_l} new / {mod_l} modified = {r_k:.1f} ({mode})")
+            if r_k > 3:
+                lines.append("  \u26a0 High r/K ratio — consider integration: compact, cross-reference, revive DECAYED")
+        lines.append("")
     except Exception:
         pass
     return lines
@@ -453,18 +386,11 @@ def section_stalled_campaigns(root=ROOT):
     """Stalled 2-wave campaigns (F-STR3, L-845)."""
     stall_map: dict[str, str] = {}
     lines = []
-    try:
-        stall_result = subprocess.run(
-            [sys.executable, str(root / "tools" / "dispatch_optimizer.py"), "--json", "--all"],
-            capture_output=True, text=True, timeout=15
-        )
-        if stall_result.returncode == 0:
-            stall_data = json.loads(stall_result.stdout)
-            for d in stall_data:
-                for fid in (d.get("wave_2_stalls") or []):
-                    stall_map[fid] = d["domain"]
-    except Exception:
-        pass
+    data = _run_tool_json("dispatch_optimizer", ["--json", "--all"], root=root)
+    if data:
+        for d in data:
+            for fid in (d.get("wave_2_stalls") or []):
+                stall_map[fid] = d["domain"]
     if stall_map:
         lines.append(f"--- Stalled Campaigns ({len(stall_map)} frontiers in 2-wave valley — 11% resolve) ---")
         for fid, dom in sorted(stall_map.items())[:8]:
@@ -615,24 +541,28 @@ def section_agent_positions():
 
 
 def section_concurrent_activity(root=ROOT):
-    """Active sessions and task claims (L-686)."""
+    """Active sessions, task claims, and concurrency-level recommendation (L-686, L-526)."""
     lines = []
     try:
         sys.path.insert(0, str(root / "tools"))
         from claim import get_active_sessions, get_active_task_claims
         sessions = get_active_sessions()
         task_claims = get_active_task_claims()
-        if sessions or task_claims:
-            lines.append("--- Concurrent activity ---")
-            if sessions:
-                for s in sessions[:5]:
-                    label = s.get("current_task", "(idle)")
-                    if s.get("description"):
-                        label += f": {s['description'][:40]}"
-                    lines.append(f"  {s['session']:15s} {s['age_s']:4d}s ago  {label}")
-            if task_claims:
-                lines.append(f"  Task claims: {', '.join(task_claims.keys())}")
-            lines.append("")
+        n = len(sessions)
+        if not sessions and not task_claims:
+            return lines
+        level, icon = (("EXTREME", "\U0001f534") if n >= 5 else ("HIGH", "\U0001f7e0") if n >= 3 else ("MODERATE", "\U0001f7e1") if n >= 1 else ("LOW", "\U0001f7e2"))
+        lines.append(f"--- Concurrent activity ({n} sessions, {icon} {level}) ---")
+        for s in sessions[:5]:
+            label = s.get("current_task", "(idle)") + (f": {s['description'][:40]}" if s.get("description") else "")
+            lines.append(f"  {s['session']:15s} {s['age_s']:4d}s ago  {label}")
+        if task_claims:
+            lines.append(f"  Task claims: {', '.join(task_claims.keys())}")
+        if n >= 5:
+            lines.append(f"  \u26a0 EXTREME concurrency (N={n}): commit-by-proxy likely (L-526). Recommend: verification/historian mode. Re-check git log before EACH task.")
+        elif n >= 3:
+            lines.append(f"  \u26a0 HIGH concurrency (N={n}): planned tasks may be pre-empted (L-526). Recommend: verification/historian/meta-reflection. Re-check git log --oneline -3 before each task.")
+        lines.append("")
     except Exception:
         pass
     return lines
@@ -641,51 +571,32 @@ def section_concurrent_activity(root=ROOT):
 def section_historian_repair(root=ROOT):
     """Historian repair — SIG-39."""
     lines = []
-    try:
-        hr_result = subprocess.run(
-            ["python3", "tools/historian_repair.py", "--json"],
-            capture_output=True, text=True, cwd=str(root), timeout=15
-        )
-        if hr_result.returncode == 0:
-            hr_data = json.loads(hr_result.stdout)
-            high_items = [i for i in hr_data.get("items", []) if i.get("severity") == "HIGH"]
-            if high_items:
-                lines.append(f"--- Historian repair ({hr_data.get('total', 0)} stale, {len(high_items)} HIGH) ---")
-                cat_icons = {"beliefs": "\U0001f534", "frontiers": "\U0001f7e1", "domains": "\u26aa"}
-                for item in high_items[:3]:
-                    icon = cat_icons.get(item.get("category", ""), "\u25cb")
-                    lines.append(f"  {icon} [{item['item_id']}] {item['category']} — stale {item['sessions_stale']}s — {item['description'][:60]}")
-                if len(high_items) > 3:
-                    lines.append(f"  ... and {len(high_items) - 3} more HIGH items")
-                lines.append("  Run: python3 tools/historian_repair.py")
-                lines.append("")
-    except Exception:
-        pass
+    hr_data = _run_tool_json("historian_repair", ["--json"], root=root)
+    if hr_data:
+        high_items = [i for i in hr_data.get("items", []) if i.get("severity") == "HIGH"]
+        if high_items:
+            cat_icons = {"beliefs": "\U0001f534", "frontiers": "\U0001f7e1", "domains": "\u26aa"}
+            lines.append(f"--- Historian repair ({hr_data.get('total', 0)} stale, {len(high_items)} HIGH) ---")
+            for item in high_items[:3]:
+                lines.append(f"  {cat_icons.get(item.get('category',''),chr(0x25cb))} [{item['item_id']}] {item['category']} — stale {item['sessions_stale']}s — {item['description'][:60]}")
+            if len(high_items) > 3:
+                lines.append(f"  ... and {len(high_items) - 3} more HIGH items")
+            lines.append("  Run: python3 tools/historian_repair.py")
+            lines.append("")
     return lines
 
 
 def section_meta_tooler(root=ROOT):
     """Meta-tooler scan — SIG-39."""
     lines = []
-    try:
-        mt_result = subprocess.run(
-            ["python3", "tools/meta_tooler.py", "--json"],
-            capture_output=True, text=True, cwd=str(root), timeout=30
-        )
-        if mt_result.returncode == 0:
-            mt_data = json.loads(mt_result.stdout)
-            mt_high = mt_data.get("high", 0)
-            mt_med = mt_data.get("medium", 0)
-            if mt_high > 0 or mt_med > 5:
-                lines.append(f"--- Meta-tooler ({mt_data['total_tools']} tools, "
-                             f"HIGH={mt_high} MEDIUM={mt_med}) ---")
-                for f in mt_data.get("findings", []):
-                    if f["severity"] == "HIGH":
-                        lines.append(f"  \U0001f534 [{f['category']}] {f['tool']}: {f['message']}")
-                lines.append("  Run: python3 tools/meta_tooler.py")
-                lines.append("")
-    except Exception:
-        pass
+    mt = _run_tool_json("meta_tooler", ["--json"], timeout=30, root=root)
+    if mt and (mt.get("high", 0) > 0 or mt.get("medium", 0) > 5):
+        lines.append(f"--- Meta-tooler ({mt['total_tools']} tools, HIGH={mt['high']} MEDIUM={mt['medium']}) ---")
+        for f in mt.get("findings", []):
+            if f["severity"] == "HIGH":
+                lines.append(f"  \U0001f534 [{f['category']}] {f['tool']}: {f['message']}")
+        lines.append("  Run: python3 tools/meta_tooler.py")
+        lines.append("")
     return lines
 
 
@@ -730,78 +641,47 @@ def section_zombie_carryover(root=ROOT):
     try:
         sys.path.insert(0, str(root / "tools"))
         from trails_generalizer import parse_session_notes, canonicalize
+        from collections import Counter
         next_path = root / "tasks" / "NEXT.md"
         if not next_path.exists():
             return lines
-        text = next_path.read_text(encoding="utf-8")
-        notes = parse_session_notes(text)
+        notes = parse_session_notes(next_path.read_text(encoding="utf-8"))
         if len(notes) < 2:
             return lines
-
-        # Collect all actual: texts for cross-referencing resolved items
         actual_texts = [n.get("actual_text", "") for n in notes if n.get("actual_text")]
-
-        # Count canonical recurrences across all parsed sessions
-        from collections import Counter
         item_counter = Counter()
         for note in notes:
             seen: set[str] = set()
             for item in note["next_items"]:
-                canon = canonicalize(item)
-                if canon not in seen:
-                    item_counter[canon] += 1
-                    seen.add(canon)
-
-        # Load explicitly dropped zombies (zombie_drops.json)
-        dropped_zombies: set[str] = set()
+                c = canonicalize(item)
+                if c not in seen:
+                    item_counter[c] += 1; seen.add(c)
+        # Exclusion: dropped zombies + resolved by actual: fields
+        dropped: set[str] = set()
         try:
-            import json as _json
-            drops_path = root / "tools" / "zombie_drops.json"
-            if drops_path.exists():
-                drops_data = _json.loads(drops_path.read_text(encoding="utf-8"))
-                dropped_zombies = {e.get("canonical", "") for e in drops_data.get("drops", []) if e.get("canonical")}
+            dp = root / "tools" / "zombie_drops.json"
+            if dp.exists():
+                dropped = {e.get("canonical", "") for e in json.loads(dp.read_text()).get("drops", []) if e.get("canonical")}
         except Exception:
             pass
-
-        # Items resolved by actual: fields (cross-reference fix for false positives)
-        resolved_items: set[str] = set()
-        for canon in item_counter:
-            if _item_resolved_by_actual(canon, actual_texts):
-                resolved_items.add(canon)
-
-        # Combined exclusion set
-        excluded = dropped_zombies | resolved_items
-
-        # Zombie items: appearing in 5+ sessions (TG-2), excluding dropped + resolved
-        zombies = [(item, count) for item, count in item_counter.most_common()
-                   if count >= 5 and item not in excluded]
-
-        # Carried-over% for latest session (TG-4) — filter dropped + resolved
-        latest = notes[-1]
-        prior_items: set[str] = set()
-        for note in notes[-6:-1]:  # previous 5 sessions
-            for item in note["next_items"]:
-                prior_items.add(canonicalize(item))
-        latest_items = [canonicalize(it) for it in latest["next_items"]
-                        if canonicalize(it) not in excluded]
-        if latest_items:
-            carried = sum(1 for it in latest_items if it in prior_items)
-            pct = carried / len(latest_items) * 100
-        else:
-            pct = 0.0
-
+        resolved = {c for c in item_counter if _item_resolved_by_actual(c, actual_texts)}
+        excluded = dropped | resolved
+        zombies = [(it, cnt) for it, cnt in item_counter.most_common() if cnt >= 5 and it not in excluded]
+        # Carried-over% for latest session (TG-4)
+        prior_items = {canonicalize(it) for n in notes[-6:-1] for it in n["next_items"]}
+        latest_items = [canonicalize(it) for it in notes[-1]["next_items"] if canonicalize(it) not in excluded]
+        carried = sum(1 for it in latest_items if it in prior_items) if latest_items else 0
+        pct = (carried / len(latest_items) * 100) if latest_items else 0.0
         if zombies or pct >= 30:
-            lines.append(f"--- Zombie Items (L-978 TG-2/TG-4) ---")
-            if pct >= 30:
-                lines.append(f"  \u26a0 Carried-over: {pct:.0f}% ({carried}/{len(latest_items)}) — target <30%")
-            else:
-                lines.append(f"  Carried-over: {pct:.0f}% ({carried}/{len(latest_items)})")
+            lines.append("--- Zombie Items (L-978 TG-2/TG-4) ---")
+            warn = " — target <30%" if pct >= 30 else ""
+            lines.append(f"  {'⚠ ' if pct >= 30 else ''}Carried-over: {pct:.0f}% ({carried}/{len(latest_items)}){warn}")
             if zombies:
                 lines.append(f"  Zombies ({len(zombies)} items recurring 5+ sessions):")
                 for item, count in zombies[:5]:
                     lines.append(f"    \U0001f480 {count:3d}x  {item[:60]}")
-            if resolved_items:
-                lines.append(f"  Resolved by actual: {len(resolved_items)} item(s) excluded")
+            if resolved:
+                lines.append(f"  Resolved by actual: {len(resolved)} item(s) excluded")
             lines.append("")
     except Exception:
         pass
@@ -1019,8 +899,16 @@ def section_epsilon_dispatch(session_num, root=ROOT):
 
 
 def section_suggested_action(maint_out, open_signals, stall_map, priorities):
-    """Suggested next action."""
+    """Suggested next action (concurrency-aware via L-526)."""
     lines = ["--- Suggested next action ---"]
+    # Check concurrency level to adjust recommendations
+    try:
+        from claim import get_active_sessions
+        n_concurrent = len(get_active_sessions())
+    except Exception:
+        n_concurrent = 0
+    if n_concurrent >= 3:
+        lines.append(f"  \u26a0 N={n_concurrent} concurrent: prefer verification/historian/novel work")
     if "URGENT" in maint_out:
         urgent_lines = [l.strip() for l in maint_out.splitlines() if "URGENT" in l]
         for l in urgent_lines[:2]:
