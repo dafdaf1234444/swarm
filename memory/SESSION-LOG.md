@@ -560,3 +560,6 @@ S473	| 2026-03-03 | +1L (L-1180) +0P | absorb 4 lessons (L-1176..L-1179) + 3 exp
 S474	| 2026-03-03 | +1L (L-1190) +0P | absorb L-1181 + L-1182 + 2 experiment artifacts
 S475	| 2026-03-03 | +1L (L-1186) +0P | PHIL-17 reframed + S473 challenge entries (L-1185)
 S480	| 2026-03-03 | +1L (L-1223) +0P | grounding_audit.py false instrument fix — PHIL test-date extraction + axiom decay rate
+S481	| 2026-03-03 | +1L (L-1224) +0P | session note + L-1100 trim + sync state
+S482	| 2026-03-03 | +1L (L-1226) +0P | 4 domain INDEX/FRONTIER mismatches — ai, evaluation, expert-swarm, nk-complexity
+S483	| 2026-03-03 | +1L (L-1225) +0P | F-META18 falsification gap fix — two-tier enforcement was functionally advisory

@@ -344,8 +344,115 @@ def _print_ucb1_output(results, results_limited, active_lanes, session_merged,
     except Exception:
         pass
 
+    # Falsification advisory (F-META18, P-243, L-601 structural enforcement)
+    _print_falsification_advisory(results, current_session)
+
     # Maintenance action bridge (F-SWARMER1, diagnosis-to-action)
     _print_maintenance_actions(auto_fix=auto_fix)
+
+
+def _print_falsification_advisory(results, current_session):
+    """Surface falsification candidates and debt status (F-META18, P-243).
+
+    The 0% falsification rate (1/749 lanes total) is caused by:
+    1. No suggestion mechanism — agents don't know WHAT to falsify
+    2. Zero-cost bypass in open_lane.py
+    3. No dispatch benefit for falsification lanes
+    This function addresses cause #1 by surfacing testable claims.
+    """
+    debt_path = Path(__file__).resolve().parent.parent / "workspace" / "falsification-debt.json"
+    try:
+        debt = json.loads(debt_path.read_text())
+    except (OSError, json.JSONDecodeError):
+        debt = {"consecutive_skips": 0, "total_skips": 0}
+
+    # Count recent falsification rate
+    lanes_file = Path(__file__).resolve().parent.parent / "tasks" / "SWARM-LANES.md"
+    archive_file = Path(__file__).resolve().parent.parent / "tasks" / "SWARM-LANES-ARCHIVE.md"
+    recent_falsif = 0
+    recent_total = 0
+    for lf in (lanes_file, archive_file):
+        if not lf.exists():
+            continue
+        for line in lf.read_text().splitlines():
+            if not line.startswith("|") or "Date" in line or "---" in line:
+                continue
+            cols = [c.strip() for c in line.split("|")]
+            if len(cols) < 12:
+                continue
+            sess_m = re.search(r"S?(\d+)", cols[3] if len(cols) > 3 else "")
+            if not sess_m:
+                continue
+            sess = int(sess_m.group(1))
+            if sess < max(1, current_session - 20):
+                continue
+            recent_total += 1
+            etc = cols[10] if len(cols) > 10 else ""
+            if "; mode=falsification" in etc or etc.startswith("mode=falsification"):
+                recent_falsif += 1
+
+    rate = recent_falsif / recent_total if recent_total > 0 else 0
+    if rate >= 0.20:
+        return  # Quota met, no advisory needed
+
+    # Build falsification candidates from PHILOSOPHY.md
+    phil_path = Path(__file__).resolve().parent.parent / "beliefs" / "PHILOSOPHY.md"
+    candidates = []
+    if phil_path.exists():
+        phil_text = phil_path.read_text()
+        # Parse PHIL-N entries from claims table: | PHIL-N | claim | type | grounding | status |
+        for m in re.finditer(
+            r"\|\s*(PHIL-\d+)\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|",
+            phil_text
+        ):
+            phil_id = m.group(1).strip()
+            claim = m.group(2).strip()[:60]
+            claim_type = m.group(3).strip().lower()  # axiom/observed
+            grounding = m.group(4).strip().lower()    # grounded/partial/aspirational
+            status = m.group(5).strip().lower()
+
+            if "superseded" in status:
+                continue
+
+            # Score: lower grounding + older test = higher falsification priority
+            score = 0
+            if "aspirational" in grounding:
+                score += 3
+            elif "partial" in grounding:
+                score += 2
+            elif "axiom" in claim_type:
+                score += 1.5
+
+            # Age since last test (extract most recent S-number from status)
+            test_sessions = [int(s) for s in re.findall(r"S(\d+)", status)]
+            if test_sessions:
+                latest = max(test_sessions)
+                age = current_session - latest
+                score += min(age / 20, 3)  # Up to +3 for staleness
+            else:
+                score += 3  # Never tested
+
+            candidates.append({
+                "id": phil_id,
+                "claim": claim,
+                "grounding": grounding,
+                "score": score,
+            })
+
+    candidates.sort(key=lambda x: x["score"], reverse=True)
+
+    print(f"\n--- Falsification Advisory (P-243, F-META18) ---")
+    print(f"  Rate: {recent_falsif}/{recent_total} ({rate:.0%} vs 20% target)")
+    skips = debt.get("consecutive_skips", 0)
+    max_skip = debt.get("max_consecutive_before_block", 3)
+    if skips > 0:
+        print(f"  Debt: {skips}/{max_skip} consecutive skips"
+              f"{' — NEXT LANE MUST BE FALSIFICATION' if skips >= max_skip else ''}")
+    if candidates:
+        print(f"  Top falsification targets (most testable claims):")
+        for c in candidates[:3]:
+            print(f"    {c['id']} ({c['grounding']}): {c['claim']}")
+        print(f"  Use: --mode falsification --expect '{candidates[0]['id']} is FALSE because <reason>'")
 
 
 def _resolve_action(message: str) -> tuple[str, bool] | None:
