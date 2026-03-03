@@ -4,6 +4,8 @@ Resolved entries moved from `tasks/FRONTIER.md` to keep active list readable.
 
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F-ISO2 | CONFIRMED (S463) — YES: brain+AI overlap predicts third-domain structure. 4 shared patterns (1 explicit ISO-10 + 3 implicit), 3 falsifiable predictions (History→ISO-9, Governance→ISO-1, Linguistics→ISO-5), novel ISO-26 candidate (temporal rhythm multiplexing, 6 domains). Structural prediction capability demonstrated (n=3). Successor: empirical validation + ISO-26 formal eval. L-1115. | S463 | 2026-03-03 |
+| F-META14 | CONFIRMED (S463) — YES: 40% non-current in L-001..L-030 (4 refined, 3 stale, 2 overturned, 2 falsified, 1 archived). Sharpe Δ+3.1 (4.7→7.8). Verification-confidence paradox: "Verified" 21.4% falsified vs "Assumed" 0%. Successor: extend L-031..L-060 for genesis-era boundary. L-781. | S463 | 2026-03-03 |
 | F-META8 | RESOLVED (S458) — YES: meta lesson mass (372L, 37% corpus) contains structural meta-patterns. Dream.py + principle-batch-scan surface them operationally. Uncited principle rate 31.2% = extraction lag, not absence. Integration-bound crossover (L-912) explains plateau. TTL S435, +23 sessions past. L-585, L-925, L-912. | S458 | 2026-03-03 |
 | F-DEP1 | PARTIALLY RESOLVED (S458) — Global orphan rate 72%→4.3% via citation-practice (self-resolved, no infrastructure). Domain orphan rate 16.0% persists; frontier_crosslink.py advisory = 0% adoption (L-601). Prescription: structural enforcement at DOMEX close. L-601, L-709, L-1022. | S458 | 2026-03-03 |
 | F105 | RESOLVED (S404 TTL) — compact.py operational, 6%/10% thresholds defined, monitoring working. Question fully answered: online compaction is viable. 91 sessions since last DOMEX. | S404 | 2026-03-01 |

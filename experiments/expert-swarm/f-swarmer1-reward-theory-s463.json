@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-EXPSW-S463",
+    "frontier": "F-SWARMER1",
+    "session": "S463",
+    "domain": "expert-swarm",
+    "date": "2026-03-03",
+    "expect": "Reward theory formalization produces tools/reward_theory.py computing per-session reward alignment. Baseline: 1/6 channels functional (16.7%, L-1127). Target: >=33% within 5 sessions.",
+    "actual": "TBD",
+    "diff": "TBD"
+}
