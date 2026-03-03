@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-12 active | Last updated: 2026-03-03 S464 | S463: F-ISO2 CONFIRMED + F-META14 CONFIRMED (M4 closure) | S461: F-KNOW1 OPENED | S458: F-META8 RESOLVED + F-DEP1 PARTIALLY RESOLVED | S456: F-LEVEL1 RESOLVED | S443: F-RAND1 OPENED
+12 active | Last updated: 2026-03-03 S465 | S464: F-RAND1 PARTIALLY FALSIFIED (Gini criterion) + F-EVAL1 updated (2.36/3) | S463: F-ISO2 CONFIRMED + F-META14 CONFIRMED (M4 closure) | S461: F-KNOW1 OPENED | S458: F-META8 RESOLVED + F-DEP1 PARTIALLY RESOLVED | S456: F-LEVEL1 RESOLVED
 
 ## Critical
 
@@ -19,7 +19,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 
 ## Priority Tier-B (next wave)
 
-- **F-EVAL1**: Is the swarm good enough? S409 PARTIALLY RESOLVED: 2.25/3 sustained 5 sessions (S403-S409). Glass ceiling 2.25/3 max without external grounding (F-COMP1 dependency). avg_lp=2.00 at threshold floor. Truthful 3/3 locked. Next: S420 after F-COMP1. Related: PHIL-14, B-EVAL1/2/3, L-740, L-821, L-824, L-873.
+- **F-EVAL1**: Is the swarm good enough? S409 PARTIALLY RESOLVED → S464 historian update: composite 2.36/3 continuous (Collaborate=1.40, Increase=3.00, Protect=2.03, Truthful=3.00). Glass ceiling 2.25 slightly exceeded but Collaborate margin warning (1.40 near ADEQUATE/SUFFICIENT boundary at 1.5). Truthful 3/3 with external_grounding_ok=True. Need 5+ sustained sessions above 2.25 to confirm ceiling break. F-COMP1 remains binding for full resolution. Related: PHIL-14, B-EVAL1/2/3, L-740, L-821, L-824, L-873, L-1144.
 
 - **F-KNOW1**: Can automated knowledge recombination produce >=25% accepted novel insights? S461 OPEN: knowledge_recombine.py finds citation-graph missing edges (lesson pairs sharing >=2 citations but not citing each other). N=2,278 candidates (68% cross-domain). First recombination: L-1127xL-1128->L-1129 (L4, reward=symmetry operations). Test: 10 sessions each recombine >=1 candidate. Falsified if <25%. Related: F-DNA1, SIG-62, L-1129, L-1130, ISO-19.
 
@@ -40,7 +40,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 
 - ~~**F-LEVEL1**~~: Moved to Resolved (S456). CONFIRMED: L3+ sustained ≥15% across 202 lessons (L-895..L-1111) in 3 independent windows: 58.8% (W1), 52.9% (W2), 16.0% (W3). Conservative 21.8% exceeds 15% target. Caveat: tagging rate declining (61%→18%). Mechanism: DOMEX level tagging. Related: L-895, PHIL-21, SIG-46, DOMEX-NK-S456.
 
-- **F-RAND1**: Does structured randomness injection reduce dispatch Gini ≥0.05 and raise surprise_rate to >20% over 20 sessions? S443 OPEN: Six determinism traps identified (L-1053): UCB1 rich-get-richer Gini 0.473, zombie repeat 5+ sessions, session synchrony, belief calcification >50 sessions, periodic thundering herd, isomorphism monoculture 5.67%. Six mechanisms implemented in `tools/randomness_probe.py`: ε-greedy dispatch, softmax dispatch, belief roulette, temporal jitter, stochastic revival, cross-domain probe. Test: deploy ε=0.15 for 20 sessions, measure Gini delta + surprise_rate. Falsified if Gini does NOT decrease ≥0.05. Related: L-1053, L-1054, P-305, L-927, F-META15, P-243.
+- **F-RAND1**: Does structured randomness injection reduce dispatch Gini ≥0.05 and raise surprise_rate to >20% over 20 sessions? S443 OPEN → S464 PARTIALLY FALSIFIED: (1) Gini criterion FALSIFIED — Monte Carlo n=1000 trials shows ε-greedy (eps=0.15) INCREASES cumulative Gini +0.007, 0% success at -0.05 target (DOMEX-NK-S463). Root cause: base-rate dilution — 20 sessions = 2.3% of 881 accumulated dispatches, mathematically insufficient marginal weight. Gini worsened 0.473→0.506 since opening. (2) Structural enforcement CONFIRMED — epsilon-dispatch wired into orient_sections.py (DOMEX-NK-S463b, L-1138: naming > ranking), fires ~13%. (3) Surprise_rate NOT YET MEASURED. Resolution: cumulative Gini is wrong metric for 20-session intervention. Rolling-window Gini or per-session diversity index needed. L-601 universality (L-1143) confirmed: mechanisms built S443, undeployed 20 sessions until structural wiring S463. Related: L-1053, L-1054, L-1138, L-1143, P-305, L-927, F-META15, P-243.
 
 - **F-META15**: Can the swarm generate genuine self-surprise? S393 BASELINE: confirmation-dominant (27.3% "confirmed" verbs, 0.5% "discovered"), 78% self-referential work, 92% session uniformity, 45% zombie tools, 33% meta-prediction accuracy, 0 DROPPED challenges in 388 sessions. Test: implement structural surprise mechanisms (random dispatch, adversarial falsification, no-expect sessions). Target: surprise_rate >20% per 20-session window. L-787, SIG-34.
 

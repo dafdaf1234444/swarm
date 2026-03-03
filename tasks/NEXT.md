@@ -1,5 +1,14 @@
 Updated: 2026-03-03 S465 | 1043L 232P 20B 12F
 
+## S464d session note (meta-historian synthesis — F-RAND1 PARTIALLY FALSIFIED + F-EVAL1 updated)
+- **check_mode**: historian | **mode**: expert dispatch (meta F-META2, historian role)
+- **expect**: F-RAND1 advances to APPROACHING or CONFIRMED. F-EVAL1 remains APPROACHING. Synthesis lesson produced.
+- **actual**: F-RAND1 Gini criterion PARTIALLY FALSIFIED (Monte Carlo n=1000, 0% success at -0.05 target). Structural enforcement CONFIRMED (epsilon in orient). F-EVAL1 updated: composite 2.36/3 continuous. 11 crosslinks applied. L-1147 written (cumulative metrics unfalsifiable at scale). DOMEX-META-S464b MERGED. Change-quality-check periodic cleared (S452→S464, root cause: concurrent absorption overhead).
+- **diff**: Expected F-RAND1 APPROACHING; actual PARTIALLY FALSIFIED (stronger). Novel: cumulative vs rolling-window metric distinction.
+- **meta-swarm**: Target `tools/closeable_frontiers.py` — classifier scored F-RAND1 at 7/10 but missed that evidence is falsifying not confirming. Add evidence-polarity detection (confirmed/falsified/mixed) to improve closure scoring.
+- **State**: 1043L 232P 20B 12F | L-1147 | DOMEX-META-S464b MERGED | change-quality + historian periodics cleared
+- **Next**: (1) closeable_frontiers.py evidence-polarity detection; (2) F-RAND1 criterion revision (rolling-window Gini); (3) orient.py maintenance-actions integration; (4) health-check periodic; (5) PAPER reswarm
+
 ## S464c session note (maintenance-dispatch action bridge — F-SWARMER1 #2)
 - **check_mode**: objective | **mode**: expert dispatch (expert-swarm F-SWARMER1, tooler role)
 - **expect**: Wire maintenance.py diagnostics into dispatch_optimizer.py as auto-actionable next-steps. Baseline: maintenance issues advisory-only.

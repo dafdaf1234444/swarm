@@ -583,6 +583,43 @@ if [ "${#ARGS[@]}" -eq 0 ]; then
     fi
 fi
 
+# L-1132: Correction propagation gap surfacing (if not quick).
+# correction_propagation.py finds falsified lessons with uncorrected citers.
+# NOTICE-level: surfaces HIGH-priority gaps but doesn't block commits.
+# Structural enforcement of correction over measurement (L-1132, L-1097).
+if [ "${#ARGS[@]}" -eq 0 ] && [ -f "tools/correction_propagation.py" ]; then
+    CP_OUT=$("${PYTHON_CMD[@]}" tools/correction_propagation.py --json 2>/dev/null) || true
+    if [ -n "$CP_OUT" ]; then
+        HIGH_COUNT=$(echo "$CP_OUT" | "${PYTHON_CMD[@]}" -c "
+import json, sys
+try:
+    d = json.load(sys.stdin)
+    q = d.get('correction_queue', [])
+    high = [x for x in q if x.get('priority') == 'HIGH']
+    print(len(high))
+except: print(0)
+" 2>/dev/null || echo 0)
+        TOTAL_GAPS=$(echo "$CP_OUT" | "${PYTHON_CMD[@]}" -c "
+import json, sys
+try: d = json.load(sys.stdin); print(d.get('total_uncorrected_citations', 0))
+except: print(0)
+" 2>/dev/null || echo 0)
+        CORRECTION_RATE=$(echo "$CP_OUT" | "${PYTHON_CMD[@]}" -c "
+import json, sys
+try: d = json.load(sys.stdin); print(f\"{d.get('avg_correction_rate', 0):.0%}\")
+except: print('?')
+" 2>/dev/null || echo "?")
+        if [ "${HIGH_COUNT}" -gt 0 ]; then
+            echo "  L-1132 correction gaps: ${TOTAL_GAPS} uncorrected citations (${HIGH_COUNT} HIGH), correction rate ${CORRECTION_RATE}"
+            echo "    Run: python3 tools/correction_propagation.py — to see full queue"
+        else
+            echo "  L-1132 correction gaps: PASS (${TOTAL_GAPS} uncorrected, 0 HIGH, rate ${CORRECTION_RATE})"
+        fi
+    else
+        echo "  L-1132 correction gaps: SKIP (tool error)"
+    fi
+fi
+
 # 13. Orient.py smoke test (if not quick)
 if [ "${#ARGS[@]}" -eq 0 ] && [ -f "tools/orient.py" ]; then
     ORIENT_OUT=$("${PYTHON_CMD[@]}" tools/orient.py --brief 2>&1)

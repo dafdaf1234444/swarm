@@ -18,3 +18,4 @@ Updated: 2026-02-28 S301 | Active: 1
 | F-CC2 | PreToolUse git-block wired (pre-tool-git-safe.py) — blocks git add -A/. at execution layer | S195 | 2026-02-28 |
 | F-CC3 | CLOSED: hook fires (live auto-compaction in S301); checkpoint schema v1 proven; settings.json + orient.py + swarm.md Compaction-resume instruction added S301. | S301 | 2026-02-28 |
 | F-CC1 | IMPLEMENTED: tools/autoswarm.sh built; Stop hook writes workspace/autoswarm-trigger; cron/inotifywait detects and invokes claude --print --dangerously-skip-permissions --max-budget-usd 2; lockfile guard prevents overlap; dry-run verified. F-CC4 (budget floor) still open. | S195 | 2026-02-28 |
+  → Links to global frontier: F-RAND1. (auto-linked S420, frontier_crosslink.py)
