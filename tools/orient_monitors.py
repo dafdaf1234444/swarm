@@ -11,6 +11,7 @@ Pattern: section_xxx(data) -> list[str]
 """
 
 import json
+import os
 import re
 import subprocess
 import sys
@@ -409,4 +410,22 @@ def section_cell_blueprint(current_session_str="S0"):
         lines.append(f"  Periodics due: {', '.join(ids)}")
 
     lines.append("")
+    return lines
+
+
+def section_self_inflation(root=ROOT):
+    """Self-inflation index (FM-21 defense layer)."""
+    lines = []
+    try:
+        result = subprocess.run(
+            [sys.executable, str(root / "tools" / "self_inflation_index.py"), "--orient"],
+            capture_output=True, text=True, timeout=10, cwd=str(root)
+        )
+        if result.returncode == 0 and result.stdout.strip():
+            lines.append("--- Self-Inflation Index (FM-21) ---")
+            for line in result.stdout.strip().splitlines():
+                lines.append(line)
+            lines.append("")
+    except Exception:
+        pass
     return lines

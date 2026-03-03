@@ -304,7 +304,7 @@ def main():
         section_meta_tooler, section_zombie_carryover, section_closure_metric,
         section_knowledge_swarm, section_knowledge_recombination, section_correction_propagation,
         section_suggested_action, section_cascade_state, section_epsilon_dispatch,
-        section_grounding_audit, section_fairness,
+        section_grounding_audit, section_fairness, section_self_inflation,
     )
     from external_grounding_check import section_grounding_decay
     from closeable_frontiers import section_closeable_frontiers
@@ -403,6 +403,7 @@ def main():
     _print_lines(section_knowledge_recombination())
     _print_lines(section_correction_propagation())
     _print_lines(section_fairness())
+    _print_lines(section_self_inflation())
 
     # Stalled campaigns — need stall_map for suggested action
     stall_lines, stall_map = section_stalled_campaigns()

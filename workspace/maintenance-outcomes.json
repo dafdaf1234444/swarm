@@ -8746,7 +8746,7 @@
     },
     {
       "session": 490,
-      "timestamp": "2026-03-03T06:55:47Z",
+      "timestamp": "2026-03-03T07:04:04Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -8865,9 +8865,8 @@
         },
         "check_uncommitted": {
           "fired": true,
-          "count": 2,
+          "count": 1,
           "severities": [
-            "NOTICE",
             "NOTICE"
           ]
         },
@@ -8946,9 +8945,11 @@
           ]
         },
         "check_count_drift": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "DUE"
+          ]
         },
         "check_structure_layout": {
           "fired": false,
@@ -8966,9 +8967,11 @@
           "severities": []
         },
         "check_claim_gc": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         },
         "check_correction_propagation": {
           "fired": false,
@@ -9035,16 +9038,18 @@
         },
         "check_scale_waypoints": {
           "fired": true,
-          "count": 2,
+          "count": 3,
           "severities": [
+            "NOTICE",
             "NOTICE",
             "NOTICE"
           ]
         }
       },
       "totals": {
-        "NOTICE": 18,
-        "PERIODIC": 14
+        "NOTICE": 19,
+        "PERIODIC": 14,
+        "DUE": 1
       }
     }
   ],
