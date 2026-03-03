@@ -614,6 +614,74 @@ def get_meta_tasks() -> list[dict]:
     ]
 
 
+def _extract_task_anchors(action: str) -> set[str]:
+    """Extract anchor identifiers from a task action string for preemption matching."""
+    anchors = set()
+    # File names: INDEX.md, L-1117.md, NEXT.md
+    for m in re.finditer(r'\b([A-Za-z][-A-Za-z0-9_]*\.(?:md|py|json))\b', action):
+        anchors.add(m.group(1).lower())
+    # Lesson IDs: L-1117
+    for m in re.finditer(r'\b(L-\d+)\b', action):
+        anchors.add(m.group(1).lower())
+    # Lane IDs: DOMEX-BRN-S458
+    for m in re.finditer(r'\b(DOMEX-[A-Z]+-S\d+)\b', action):
+        anchors.add(m.group(1).lower())
+    # Frontier/FM/SIG IDs: F-CAT1, FM-28, SIG-60
+    for m in re.finditer(r'\b(F-[A-Z]+\d+|FM-\d+|SIG-\d+)\b', action):
+        anchors.add(m.group(1).lower())
+    return anchors
+
+
+def _check_preemption(tasks: list[dict]) -> list[dict]:
+    """Mark tasks preempted by recent commits (FM-28 hardening).
+
+    At N>=3 concurrent sessions, orient->execute gap exceeds commit rate.
+    Planned tasks may already be done. Checks recent git commit messages
+    and changed files for anchor overlap with task actions.
+    FM-28: UNMITIGATED -> MINIMAL (1 automated advisory layer).
+    """
+    recent_commits = _git(["log", "--oneline", "-5"])
+    changed_files = _git(["diff", "--name-only", "HEAD~5..HEAD"])
+    if not recent_commits:
+        return tasks
+
+    commit_text = (recent_commits + "\n" + changed_files).lower()
+    preempted_count = 0
+    actionable_count = 0
+
+    for task in tasks:
+        if task.get("claimed_by") or task["priority"] > P_DISPATCH:
+            continue
+        actionable_count += 1
+
+        anchors = _extract_task_anchors(task["action"])
+        if task.get("detail"):
+            anchors |= _extract_task_anchors(task["detail"])
+        if not anchors:
+            continue
+
+        matched = sum(1 for a in anchors if a in commit_text)
+        if matched >= 1 and len(anchors) > 0 and matched / len(anchors) >= 0.5:
+            task["preempted"] = True
+            task["score"] -= 50
+            if "[PREEMPTED]" not in task["tier"]:
+                task["tier"] = f"{task['tier']} [PREEMPTED]"
+            preempted_count += 1
+
+    # If >50% of actionable tasks preempted, suggest novel work (L-526)
+    if actionable_count > 0 and preempted_count / actionable_count > 0.5:
+        tasks.append({
+            "priority": P_STRATEGY,
+            "tier": "NOVEL",
+            "score": 85,
+            "action": "High preemption detected — switch to novel/meta work concurrent sessions cannot anticipate",
+            "detail": f"{preempted_count}/{actionable_count} top tasks preempted by recent commits (FM-28, L-526)",
+            "command": None,
+        })
+
+    return tasks
+
+
 def _get_task_fingerprint(task: dict) -> str:
     """Generate a stable fingerprint from a task for claim deconfliction.
 
@@ -703,6 +771,9 @@ def build_task_list(top_n: int = 8) -> list[dict]:
     # Check task claims from other sessions (L-686)
     all_tasks = _check_task_claims(all_tasks)
 
+    # Check preemption by recent commits (FM-28 hardening)
+    all_tasks = _check_preemption(all_tasks)
+
     # Sort: priority tier first, then score descending
     all_tasks.sort(key=lambda t: (t["priority"], -t["score"]))
 
@@ -728,6 +799,7 @@ TIER_COLORS = {
     "ACTIVE":   "\033[96m",  # cyan
     "DISPATCH": "\033[94m",  # blue
     "DISPATCH [DORMANT]": "\033[94m",
+    "NOVEL":    "\033[95m",  # magenta — preemption redirect
     "PERIODIC": "\033[37m",  # gray
     "META":     "\033[90m",  # dark gray
 }
@@ -787,9 +859,13 @@ def main():
         cmd = task.get("command", "")
         claimed = task.get("claimed_by", "")
 
+        preempted = task.get("preempted", False)
+
         print(f"  [{i}] {color}[{tier}]{RESET} (score={score:.0f}) {action}")
         if claimed:
             print(f"       ⚠ claimed by {claimed}")
+        if preempted and not claimed:
+            print(f"       ⚠ likely done by recent commit — verify before executing")
         if detail:
             print(f"       → {detail}")
         if cmd:
