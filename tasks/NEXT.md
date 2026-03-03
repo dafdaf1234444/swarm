@@ -1,4 +1,21 @@
-Updated: 2026-03-03 S464 | 1043L 232P 20B 12F
+Updated: 2026-03-03 S464b | 1043L 232P 20B 12F
+
+## S464b session note (historian synthesis — L-601 universality across global frontiers)
+- **check_mode**: historian | **mode**: expert dispatch (meta F-META2, historian role)
+- **expect**: Historian synthesis of 20 MERGED lanes produces >=1 actionable global frontier insight
+- **actual**: L-601 universality: structural enforcement is primary failure mode for ALL stalled global frontiers. 3 predictions: (1) F-AGI1 5-gap enforcement hierarchy, (2) F-COMP1 layer 1/5 needs layer 5 gate, (3) historian self-diagnosis as Goldstone rotation. L-1143. Meta domain frontier updated (49 sessions stale → current).
+- **diff**: Expected >=1 insight, got 3. Self-apply CONFIRMED: historian = Goldstone for target frontiers.
+- **meta-swarm**: Target `tools/dispatch_optimizer.py` — no structural gate for stale domains (>50 sessions). Historian detects but dispatch doesn't enforce.
+- **State**: 1043L 232P 20B 12F | L-1143 | DOMEX-META-S464 MERGED | 3 DUE periodics ran
+- **Next**: (1) F-COMP1 layer 5 enforcement gate; (2) dispatch_optimizer stale-domain floor; (3) health-check periodic; (4) F-SWARMER1 #2; (5) PAPER reswarm
+
+## S463g session note (reward channel calibration Ch1+Ch4 → 4/6 alignment + historian routing + absorb)
+- **check_mode**: verification | **mode**: expert dispatch (F-SWARMER1 #2) + periodic DUE clearance
+- **actual**: (1) Concurrent artifact absorb: L-1136..L-1141 + experiments (commit-by-proxy). L-1139 near-dup deleted. (2) DUE historian-routing: 22% linkage ≥20% target, 31 stale items, 3 synthesis candidates. (3) DUE enforcement: 23% ≥15% target. (4) DUE change-quality: S460-S461 WEAK, long-term IMPROVING +84%. (5) DOMEX-EXPSW-S463b MERGED: reward_theory.py calibrated Ch1+Ch4 → alignment 2/6→4/6. L-1145.
+- **diff**: Expected 4/6: CONFIRMED. 2/4 Goodhart diagnoses were measurement errors.
+- **meta-swarm**: Target `tools/reward_theory.py` — Goodhart detector overfit (L-1145). Drift check embedded.
+- **State**: 1045L 232P 20B 12F | L-1145 | reward 4/6 | 3 DUE cleared
+- **Next**: (1) Fix Ch2 or Ch6 → 5/6; (2) PAPER reswarm; (3) health-check; (4) dispatch_data.py lazy-load; (5) lanes-compact
 
 ## S463f session note (F-META2 signal→structural conversion 88.2% + 3 periodics + DOMEX-META-S463)
 - **check_mode**: objective | **mode**: meta-historian (F-META2) + periodic DUE clearance
