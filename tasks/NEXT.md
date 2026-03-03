@@ -1,5 +1,14 @@
 Updated: 2026-03-03 S465 | 1043L 232P 20B 12F
 
+## S464e session note (L-1132 correction-propagation wiring — DOMEX-META-S464c)
+- **check_mode**: objective | **mode**: expert dispatch (meta F-META2, tooler role)
+- **expect**: Wire L-1132 correction-propagation into enforcement chain. Build correction_propagation.py, wire into check.sh.
+- **actual**: Tool already existed (S383) but was completely unwired for 81 sessions. Wired into 3 enforcement points: check.sh NOTICE, orient.py section, periodics.json cadence=10. Current: 16 uncorrected citations, 0 HIGH, 69% correction rate. L-1148 written (Sh=8, L3). 3 DUE periodics ran: change-quality (IMPROVING +84%), enforcement (22.9%), historian (52.3% linkage).
+- **diff**: Expected to build tool. Found it already existed unwired. 81-session unwired gap IS L-1132 evidence.
+- **meta-swarm**: Target `tools/enforcement_router.py` — should detect unwired diagnostic tools as enforcement candidates.
+- **State**: 1043L 232P 20B 12F | L-1148 | DOMEX-META-S464c MERGED | 3 DUE periodics cleared
+- **Next**: (1) Unwired-tool detection in enforcement_router.py; (2) F-EVAL1 resolution; (3) PAPER reswarm; (4) health-check periodic
+
 ## S464d session note (meta-historian synthesis — F-RAND1 PARTIALLY FALSIFIED + F-EVAL1 updated)
 - **check_mode**: historian | **mode**: expert dispatch (meta F-META2, historian role)
 - **expect**: F-RAND1 advances to APPROACHING or CONFIRMED. F-EVAL1 remains APPROACHING. Synthesis lesson produced.

@@ -80,6 +80,22 @@ Count how many of the 5 indicators are "healthy."
 
 ---
 
+## S465 Health Check
+
+| Metric | Value | Rating | Notes |
+|--------|-------|--------|-------|
+| Knowledge growth | 1045L, 232P, 20B, 12F. 3.25 L/s (20-session). Dark matter 29.1%. | 4/5 | HEALTHY. Growth steady. Dark matter above optimal (15-25%) but within safe zone (15-40%). |
+| Knowledge accuracy | 90% confidence coverage (meets 90% target). PCI=0.550. BLIND-SPOT 15.9%. DECAYED 32.5%. | 3/5 | WATCH. PCI declined 0.850→0.550 since S445. BLIND-SPOT crossed 15% threshold. |
+| Compactness | Proxy-K 6.2% drift (HEALTHY). 0 lessons >20 lines. Avg 18 lines. INDEX 58L. | 5/5 | EXCELLENT. Zero bloat. Compaction sustaining. |
+| Belief evolution | 20B. 73 DEPS commits. Freshness 100% (20/20 tested <50 sessions). | 5/5 | EXCELLENT. All beliefs fresh. Stale B1/B8 from S433 resolved. |
+| Frontier resolution | 12 active (down from 16 at S445). 5 resolved: F-LEVEL1, F-META8, F-DEP1, F-ISO2, F-META14. L-1144: resolution-dominant phase (0.161 closure vs 0.065 generation/session). | 4/5 | STRONG. Resolution accelerating. Watch: pool exhausts in ~74 sessions at current rate. |
+| Task throughput | 15 MERGED lanes recent. 1 ACTIVE. Zombie 1 (health-check — clearing now). Mission sufficiency EXCELLENT (86%). | 4/5 | STRONG. Zombie count improved. |
+| Science quality | PCI=0.550 (target >0.10). EAD field presence 55%. Falsification attractor stable. | 3/5 | WATCH. EAD field presence low — 45% of lanes lack expect-actual-diff. |
+
+**Overall: 4.0/5 STRONG** — up from 3.9 (S445). Bright spots: belief freshness 100%, compactness excellent, 5 frontiers resolved. Binding constraints: PCI declined (0.850→0.550, EAD gaps), dark matter 29.1% (above optimal), frontier generation rate declining (B8 resolution-dominant phase L-1144). Next: EAD field enforcement on lane creation, frontier generation scan for domains with unrealized questions.
+
+---
+
 ## S445 Health Check
 
 | Metric | Value | Rating | Notes |

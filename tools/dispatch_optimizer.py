@@ -137,7 +137,8 @@ def run(args: argparse.Namespace) -> None:
             if epsilon_note:
                 print(f"\n{epsilon_note}")
             _print_ucb1_output(results, results_limited, active_lanes, session_merged,
-                               current_session, campaign_waves)
+                               current_session, campaign_waves,
+                               auto_fix=getattr(args, "fix", False))
             return
 
     # Heuristic mode
@@ -238,7 +239,7 @@ def _enrich_recombination(results):
 
 
 def _print_ucb1_output(results, results_limited, active_lanes, session_merged,
-                        current_session, campaign_waves):
+                        current_session, campaign_waves, *, auto_fix=False):
     """Display UCB1 mode output."""
     commit_reserved = [r for r in results if r.get("commit_reservation")]
     if commit_reserved:
@@ -344,14 +345,43 @@ def _print_ucb1_output(results, results_limited, active_lanes, session_merged,
         pass
 
     # Maintenance action bridge (F-SWARMER1, diagnosis-to-action)
-    _print_maintenance_actions()
+    _print_maintenance_actions(auto_fix=auto_fix)
 
 
-def _print_maintenance_actions():
-    """Display actionable maintenance items from workspace/maintenance-actions.json.
+def _resolve_action(message: str) -> tuple[str, bool] | None:
+    """Map a maintenance message to a concrete fix command.
+
+    Returns (command, auto_safe) or None if no resolver matches.
+    auto_safe=True means the command is idempotent and safe to auto-run.
+    F-SWARMER1 intervention #2: diagnosis-to-action bridge (S465).
+    """
+    resolvers: list[tuple[str, str, bool]] = [
+        (r"Count drift in INDEX\.md", "python3 tools/sync_state.py", True),
+        (r"uncorrected citation.*falsified", "python3 tools/correction_propagation.py --classify", True),
+        (r"\[lanes-compact\]", "python3 tools/lanes_compact.py --age 5", True),
+        (r"active dispatch lane.*no active coordinator", "", False),
+        (r"\[health-check\]", "python3 tools/maintenance.py --learn", False),
+        (r"\[paper-reswarm\]", "", False),
+        (r"\[fundamental-setup-reswarm\]", "", False),
+        (r"\[mission-constraint-reswarm\]", "", False),
+        (r"\[human-signal-harvest\]", "", False),
+        (r"dark matter.*BELOW", "python3 tools/sync_state.py", True),
+        (r"Council health CRITICAL", "", False),
+        (r"INDEX\.md bucket overflow", "", False),
+    ]
+    for pattern, cmd, safe in resolvers:
+        if re.search(pattern, message):
+            return (cmd, safe) if cmd else None
+    return None
+
+
+def _print_maintenance_actions(auto_fix: bool = False):
+    """Display actionable maintenance items with resolved fix commands.
 
     Bridges maintenance diagnostics into dispatch output so DUE/URGENT items
     are visible during domain selection. F-SWARMER1 intervention #2.
+
+    With auto_fix=True, runs safe/idempotent fix commands automatically.
     """
     actions_path = Path(__file__).resolve().parent.parent / "workspace" / "maintenance-actions.json"
     try:
@@ -362,12 +392,35 @@ def _print_maintenance_actions():
         urgent = [i for i in items if i["priority"] == "URGENT"]
         due = [i for i in items if i["priority"] == "DUE"]
         print(f"\n--- Maintenance Actions ({len(urgent)} URGENT, {len(due)} DUE) ---")
+        fixed = []
         for item in urgent[:3]:
-            print(f"  !!! {item['message'][:100]}")
+            action = _resolve_action(item["message"])
+            suffix = f"  → {action[0]}" if action else ""
+            print(f"  !!! {item['message'][:100]}{suffix}")
         for item in due[:5]:
-            print(f"   !  {item['message'][:100]}")
+            action = _resolve_action(item["message"])
+            suffix = f"  → {action[0]}" if action else ""
+            print(f"   !  {item['message'][:100]}{suffix}")
+            if auto_fix and action and action[1]:
+                fixed.append((item["message"], action[0]))
         if len(items) > 8:
             print(f"  ... {len(items) - 8} more (run python3 tools/maintenance.py)")
+        if fixed:
+            import subprocess
+            print(f"\n  AUTO-FIX: running {len(fixed)} safe command(s)...")
+            for msg, cmd in fixed:
+                print(f"    $ {cmd}")
+                try:
+                    result = subprocess.run(
+                        cmd.split(), capture_output=True, text=True, timeout=30,
+                        cwd=str(Path(__file__).resolve().parent.parent),
+                    )
+                    if result.returncode == 0:
+                        print(f"      done")
+                    else:
+                        print(f"      exit {result.returncode}: {result.stderr[:80]}")
+                except (subprocess.TimeoutExpired, OSError) as exc:
+                    print(f"      error: {exc}")
     except (OSError, json.JSONDecodeError, KeyError):
         pass
 
@@ -432,6 +485,8 @@ def main() -> None:
                         help="Show outcome labels as they were at session N (label_at_time — L-946/L-963)")
     parser.add_argument("--epsilon", type=float, default=0.15, metavar="E",
                         help="ε-greedy dispatch: with prob E bypass UCB1 and pick randomly (F-RAND1, L-601 structural enforcement)")
+    parser.add_argument("--fix", action="store_true",
+                        help="Auto-run safe/idempotent maintenance fixes (F-SWARMER1 action bridge)")
     args = parser.parse_args()
     if args.recalibrate:
         cal = recalibrate()

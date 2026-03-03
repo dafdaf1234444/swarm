@@ -37,6 +37,36 @@ def _load_knowledge_gaps():
 
 _knowledge_gaps = _load_knowledge_gaps()
 
+
+def _load_maintenance_urgency():
+    """Load maintenance urgency from workspace/maintenance-actions.json (F-SWARMER1 #3).
+
+    Returns dict with 'urgent_count', 'due_count', 'total' for UCB1 score modification.
+    Converts L-1146 passive display bridge into active dispatch pressure.
+    """
+    maint_path = Path("workspace") / "maintenance-actions.json"
+    if not maint_path.exists():
+        return {"urgent_count": 0, "due_count": 0, "total": 0}
+    try:
+        with open(maint_path) as f:
+            data = json.load(f)
+        items = data.get("items", [])
+        urgent = sum(1 for i in items if i.get("priority") == "URGENT")
+        due = sum(1 for i in items if i.get("priority") == "DUE")
+        return {"urgent_count": urgent, "due_count": due, "total": len(items)}
+    except Exception:
+        return {"urgent_count": 0, "due_count": 0, "total": 0}
+
+
+_maintenance_urgency = _load_maintenance_urgency()
+
+
+# Maintenance urgency constants (F-SWARMER1 intervention #3)
+MAINT_DUE_BOOST_PER_ITEM = 0.5      # meta domain boost per DUE item
+MAINT_URGENT_BOOST_PER_ITEM = 1.0   # meta domain boost per URGENT item
+MAINT_BOOST_CAP = 2.0               # maximum maintenance boost
+
+
 # Heuristic mode constants (shared with dispatch_optimizer.py display)
 HEAT_DECAY = 0.85
 HEAT_PENALTY_MAX = 6.0
@@ -252,6 +282,18 @@ def ucb1_score(results: list[dict], outcome_map: dict, heat_map: dict,
         k_bonus = min(k_rate * 0.5, 0.3)
         r["score"] += k_bonus
         r["knowledge_gap_bonus"] = round(k_bonus, 3)
+
+        # Maintenance-urgency modifier (F-SWARMER1 #3, L-1146 → active weighting)
+        # Boosts meta domain when DUE/URGENT items exist, converting passive
+        # maintenance display into structural dispatch pressure.
+        mu = _maintenance_urgency
+        maint_boost = 0.0
+        if dom == "meta" and mu["total"] > 0:
+            maint_boost = (mu["due_count"] * MAINT_DUE_BOOST_PER_ITEM
+                           + mu["urgent_count"] * MAINT_URGENT_BOOST_PER_ITEM)
+            maint_boost = min(maint_boost, MAINT_BOOST_CAP)
+        r["score"] += maint_boost
+        r["maintenance_boost"] = round(maint_boost, 3)
 
         # Claimed domain penalty
         if dom in claimed:
