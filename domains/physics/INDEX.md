@@ -1,8 +1,8 @@
 # Physics / Thermodynamics / Cosmology Domain Index
-Seeded: S246 | 2026-02-28 | Updated: S340
+Seeded: S246 | 2026-02-28 | Updated: S485
 
 ## Status
-Active | 1 resolved frontier (F-PHY1) | 5 open frontiers | 4 experiments
+Active | 3 resolved frontiers (F-PHY1, F-PHY2, F-PHY3) | 3 open frontiers (F-PHY4, F-PHY5, F-PHY6) | 4 experiments
 
 ## Key artifacts
 - `DOMAIN.md` - domain scope and isomorphism anchors
