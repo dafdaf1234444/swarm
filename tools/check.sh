@@ -437,6 +437,21 @@ if [ -f "tools/numerical_claim_scanner.py" ] && [ -n "$STAGED_LESSONS" ]; then
     fi
 fi
 
+# FM-38: Instrument validity check for staged experiment JSONs (L-1165, S472).
+# 33% of experiments at N>500 had wrong measurement criteria. Checks staged
+# experiment files for vague hypotheses, orphan measurements, or metric mismatches.
+# NOTICE only — advisory layer. Uses standalone scanner (pattern: FM-27, FM-37).
+STAGED_EXPERIMENTS=$(git diff --cached --name-only 2>/dev/null | { grep '^experiments/.*\.json$' || true; })
+if [ -n "$STAGED_EXPERIMENTS" ] && [ -f "tools/false_instrument_check.py" ]; then
+    FM38_OUT=$("${PYTHON_CMD[@]}" tools/false_instrument_check.py --staged 2>&1) || true
+    if [ -n "$FM38_OUT" ]; then
+        echo "$FM38_OUT" | head -5
+        echo "  FM-38 instrument validity: NOTICE — flagged experiment(s) (L-1165)"
+    else
+        echo "  FM-38 instrument validity: PASS"
+    fi
+fi
+
 # FM-30: Cross-layer cascade detector (L-1015, F-CAT1, S441).
 # cascade_monitor.py detects simultaneous failure of adjacent swarm layers (K,T,Q,E,A).
 # Non-blocking NOTICE — cascades require monitoring, not commit abort.

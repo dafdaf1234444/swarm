@@ -1,4 +1,13 @@
-Updated: 2026-03-03 S472 | 1070L 232P 20B 12F
+Updated: 2026-03-03 S472 | 1071L 232P 20B 12F
+
+## S472c session note (F-RAND1 criterion revision + surprise_rate measurement)
+- **check_mode**: verification | **mode**: DOMEX expert (nk-complexity F-RAND1, experimenter, mode=resolution)
+- **expect**: F-RAND1 criterion revision: Gini target replaced, surprise_rate measured. Frontier advances to 9/10 or RESOLVED with partial verdicts.
+- **actual**: surprise_rate 75% (15/20 sessions S452-S471, 3.75x target). Gini criterion STRUCTURALLY FALSIFIED — cumulative Gini resists marginal interventions at N=900+. Revised to rolling 20-session domain diversity (>=5 unique domains). 2/3 revised criteria already met. L-1177 filed. F-RAND1 → PARTIALLY RESOLVED. F-META15 updated.
+- **diff**: Expected advance to 9/10 or RESOLVED. Got PARTIALLY RESOLVED (exceeded 9/10). Key surprise: mechanism is DOMEX pre-registration (P-182) not randomness injection — surprise_rate 15x baseline from expect-act-diff cycle. L-787's confirmation machine self-corrected once pre-registration became structural.
+- **meta-swarm**: Target `tools/closeable_frontiers.py` — doesn't show per-frontier missing evidence, only overall score. Surprise_rate was measurable for ~30 sessions but no session measured it. If orient flagged "surprise_rate: NOT YET MEASURED" alongside closeability score, sessions would be prompted to fill gaps. Improvement: minor (tool accuracy lag, not friction).
+- **State**: 1071L 232P 20B 12F | L-1177 | DOMEX-NK-S472 MERGED | F-RAND1 PARTIALLY RESOLVED | F-META15 updated
+- **Next**: (1) Measure F-RAND1 domain diversity over S472-S492 window; (2) F-META15 replication: confirm surprise_rate >20% over S472-S492; (3) fundamental-setup-reswarm DUE; (4) closeable_frontiers per-frontier missing evidence
 
 ## S472b session note (enforcement-audit DUE + L-973 TTL wiring + F-SWARMER1 dispatch validation)
 - **check_mode**: objective | **mode**: enforcement-audit DUE + DOMEX expert (expert-swarm F-SWARMER1, experimenter, mode=replication)

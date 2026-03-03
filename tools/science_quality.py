@@ -96,14 +96,30 @@ def score_experiment(data: dict) -> dict:
     return scores
 
 
-def count_confirmation_ratio() -> tuple[int, int]:
+def _has_filled_ead(etc: str) -> bool:
+    """Check if lane Etc field has filled EAD (expect/actual/diff) — not skeleton/TBD.
+
+    FM-39 defense (L-1164): lanes without real predictions should not count toward
+    discovery ratio. A lane is experimental only if it has expect= with content AND
+    actual= with non-TBD content.
+    """
+    has_expect = bool(re.search(r"expect=[^;]{5,}", etc))  # non-trivial expect
+    has_actual = bool(re.search(r"actual=(?!TBD)[^;]{5,}", etc))  # actual != TBD
+    return has_expect and has_actual
+
+
+def count_confirmation_ratio() -> tuple[int, int, int]:
     """Count CONFIRMED vs FALSIFIED/OVERTURNED/NULL lane outcomes — measures discovery rate.
 
-    Uses SWARM-LANES.md status column outcomes, not keyword counting. This correctly
-    measures whether lanes produce confirmations or surprises (L-807 methodology fix).
+    FM-39 fix (L-1164): only counts lanes with filled EAD fields (expect + actual).
+    Non-experimental lanes (no prediction) are excluded to prevent baseline contamination
+    that inflated 54:1 → true ratio 9.2:1.
+
+    Returns (confirmed, discovered, skipped_no_ead).
     """
     confirmed = 0
     discovered = 0  # falsified + null + overturned outcomes
+    skipped = 0
     for lanes_file in (LANES_FILE, LANES_ARCHIVE):
         if not lanes_file.exists():
             continue
@@ -115,13 +131,67 @@ def count_confirmation_ratio() -> tuple[int, int]:
                 continue
             etc = cols[10] if len(cols) > 10 else ""
             note = cols[11] if len(cols) > 11 else ""
+            # FM-39: skip lanes without real predictions (L-1164)
+            if not _has_filled_ead(etc):
+                skipped += 1
+                continue
             combined = (etc + " " + note).lower()
             if "confirmed" in combined and "falsified" not in combined and "null" not in combined:
                 confirmed += 1
             elif any(kw in combined for kw in ("falsified", "null result", "overturned",
                                                 "unexpected", "inverted", "wrong", "failed")):
                 discovered += 1
-    return confirmed, max(1, discovered)
+    return confirmed, max(1, discovered), skipped
+
+
+def check_instrument_validity(data: dict) -> dict:
+    """FM-38 defense (L-1165): detect potential false-instrument experiments.
+
+    At N>500, 33% of experiments had wrong measurement criteria (measured the
+    wrong variable). This check flags experiments where:
+    1. expect/hypothesis has no quantifiable metric (vague prediction)
+    2. actual/result measures a metric not mentioned in the hypothesis
+    3. metric_name is declared but doesn't appear in the hypothesis
+
+    Returns {"valid": bool, "flags": list[str], "expect_metrics": list, "actual_metrics": list}.
+    """
+    expect = str(data.get("expect", data.get("hypothesis", "")))
+    actual = str(data.get("actual", data.get("result", data.get("verdict", ""))))
+    flags = []
+
+    # Extract metric-like tokens: numbers with units, percentages, ratios, named metrics
+    metric_re = re.compile(r"""
+        \d+\.?\d*\s*%          |  # percentages
+        \d+\.?\d*x             |  # multipliers
+        \d+:\d+                |  # ratios like 9.2:1
+        [rR]²?\s*[=<>]        |  # correlation coefficients
+        [pP]\s*[<>=]           |  # p-values
+        \b(?:rate|ratio|score|count|percentage|mean|median|correlation|coefficient)\b  |
+        \b(?:n\s*[=<>]\s*\d+)\b  # sample sizes
+    """, re.VERBOSE | re.IGNORECASE)
+
+    expect_metrics = metric_re.findall(expect)
+    actual_metrics = metric_re.findall(actual)
+
+    # Flag 1: vague hypothesis (no quantifiable metric in expect)
+    if expect and not expect_metrics and actual_metrics:
+        flags.append("vague_hypothesis: expect has no quantifiable metric but actual does")
+
+    # Flag 2: actual present with no expect
+    if actual and actual.lower() not in ("tbd", "", "none") and not expect:
+        flags.append("orphan_measurement: actual has data but no expect/hypothesis declared")
+
+    # Flag 3: explicit metric_name field that doesn't match expect text
+    metric_name = data.get("metric_name", data.get("metric", ""))
+    if metric_name and expect and metric_name.lower() not in expect.lower():
+        flags.append(f"metric_mismatch: declared metric '{metric_name}' not found in expect")
+
+    return {
+        "valid": len(flags) == 0,
+        "flags": flags,
+        "expect_metrics": expect_metrics,
+        "actual_metrics": actual_metrics,
+    }
 
 
 def count_falsification_lanes(recent_sessions: int = 20) -> tuple[int, int]:
@@ -167,10 +237,13 @@ def main():
         if not isinstance(data, dict):
             continue
         scores = score_experiment(data)
+        instrument = check_instrument_validity(data)
         results.append({
             "file": str(json_file.relative_to(REPO_ROOT)),
             "session": session,
             "scores": scores,
+            "instrument_valid": instrument["valid"],
+            "instrument_flags": instrument["flags"],
         })
 
     if not results:
@@ -185,19 +258,24 @@ def main():
         vals = [r["scores"][criterion] for r in results]
         criteria_means[criterion] = sum(vals) / len(vals) if vals else 0
 
-    confirmed, discovered = count_confirmation_ratio()
+    confirmed, discovered, skipped_no_ead = count_confirmation_ratio()
     falsif_lanes, total_lanes = count_falsification_lanes()
 
     n_falsif_outcome = sum(1 for r in results if r["scores"]["falsification_outcome"] > 0)
+    n_instrument_flags = sum(1 for r in results if not r["instrument_valid"])
+    flagged_experiments = [r for r in results if not r["instrument_valid"]]
     report = {
         "n_experiments": len(results),
         "mean_quality": sum(totals) / len(totals),
         "median_quality": sorted(totals)[len(totals) // 2],
         "criteria_means": criteria_means,
         "confirm_discover_ratio": f"{confirmed}:{discovered}",
+        "skipped_no_ead": skipped_no_ead,
         "falsification_lanes": f"{falsif_lanes}/{total_lanes}",
         "falsification_outcome_rate": round(n_falsif_outcome / len(results), 3) if results else 0,
         "falsification_outcome_count": n_falsif_outcome,
+        "instrument_flags": n_instrument_flags,
+        "instrument_flag_rate": round(n_instrument_flags / len(results), 3) if results else 0,
         "bottom_5": sorted(results, key=lambda r: r["scores"]["total"])[:5],
         "top_5": sorted(results, key=lambda r: r["scores"]["total"], reverse=True)[:5],
     }
@@ -216,7 +294,7 @@ def main():
             status = "PASS" if mean >= 0.5 else "FAIL"
             print(f"  {criterion:<25} {bar} {mean:.0%} [{status}]")
         print()
-        print(f"Confirm/discover ratio:    {confirmed}:{discovered} ({confirmed/discovered:.0f}:1)")
+        print(f"Confirm/discover ratio:    {confirmed}:{discovered} ({confirmed/discovered:.0f}:1) [EAD-filtered, {skipped_no_ead} non-experimental skipped]")
         print(f"Falsification lanes:       {falsif_lanes}/{total_lanes} (target: 1-in-5 = 20%)")
         print(f"Falsified outcomes (bonus): {n_falsif_outcome}/{len(results)} (L-900: +10% quality bonus)")
         print()
@@ -227,6 +305,13 @@ def main():
         print("--- Bottom 5 (weakest science) ---")
         for r in report["bottom_5"]:
             print(f"  {r['scores']['total']:.0%}  {r['file']}")
+        if flagged_experiments:
+            print()
+            print(f"--- FM-38 Instrument validity (L-1165) ---")
+            print(f"Flagged: {n_instrument_flags}/{len(results)} ({n_instrument_flags/len(results):.0%})")
+            for r in flagged_experiments[:5]:
+                for flag in r["instrument_flags"]:
+                    print(f"  ⚠ {r['file']}: {flag}")
 
 
 if __name__ == "__main__":
