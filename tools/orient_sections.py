@@ -610,6 +610,41 @@ def section_meta_tooler(root=ROOT):
     return lines
 
 
+def _item_resolved_by_actual(canon: str, actual_texts: list[str]) -> bool:
+    """Check if a canonical next-item was addressed in any actual: field.
+
+    Uses keyword overlap: if >=2 significant tokens from the canonical item
+    appear in any actual text, consider it resolved.
+    """
+    stop_words = {"the", "a", "an", "in", "on", "at", "to", "for", "of", "is",
+                  "and", "or", "with", "from", "by", "as", "its", "it", "be",
+                  "was", "were", "has", "had", "not", "no", "but", "if", "so",
+                  "that", "this", "than", "more", "very", "just", "also", "all",
+                  "each", "per", "any", "s", "yet", "re", "vs"}
+    # Extract significant tokens (letters/digits, >=3 chars, not stop words)
+    # Split word-compound hyphens (claim-vs-evidence → claim, evidence)
+    # but keep identifiers intact (FM-30, ISO-7 stay as-is)
+    import re as _re
+    raw_tokens = _re.findall(r'[A-Za-z0-9_-]{3,}', canon)
+    tokens: set[str] = set()
+    for t in raw_tokens:
+        # Only split if all hyphen-parts are alphabetic words (not IDs like FM-30)
+        parts = t.split('-')
+        if len(parts) > 1 and all(p.isalpha() and len(p) >= 2 for p in parts):
+            tokens.update(p.lower() for p in parts if len(p) >= 3)
+        else:
+            tokens.add(t.lower())
+    tokens -= stop_words
+    if len(tokens) < 2:
+        return False  # too few tokens to match reliably
+    for actual in actual_texts:
+        actual_lower = actual.lower()
+        matches = sum(1 for t in tokens if t in actual_lower)
+        if matches >= 2 and matches >= len(tokens) * 0.4:
+            return True
+    return False
+
+
 def section_zombie_carryover(root=ROOT):
     """Zombie items + carried-over% from NEXT.md session trails (L-978 TG-2/TG-4)."""
     lines = []
@@ -623,6 +658,9 @@ def section_zombie_carryover(root=ROOT):
         notes = parse_session_notes(text)
         if len(notes) < 2:
             return lines
+
+        # Collect all actual: texts for cross-referencing resolved items
+        actual_texts = [n.get("actual_text", "") for n in notes if n.get("actual_text")]
 
         # Count canonical recurrences across all parsed sessions
         from collections import Counter
@@ -646,18 +684,27 @@ def section_zombie_carryover(root=ROOT):
         except Exception:
             pass
 
-        # Zombie items: appearing in 5+ sessions (TG-2), excluding dropped
-        zombies = [(item, count) for item, count in item_counter.most_common()
-                   if count >= 5 and item not in dropped_zombies]
+        # Items resolved by actual: fields (cross-reference fix for false positives)
+        resolved_items: set[str] = set()
+        for canon in item_counter:
+            if _item_resolved_by_actual(canon, actual_texts):
+                resolved_items.add(canon)
 
-        # Carried-over% for latest session (TG-4) — filter dropped zombies
+        # Combined exclusion set
+        excluded = dropped_zombies | resolved_items
+
+        # Zombie items: appearing in 5+ sessions (TG-2), excluding dropped + resolved
+        zombies = [(item, count) for item, count in item_counter.most_common()
+                   if count >= 5 and item not in excluded]
+
+        # Carried-over% for latest session (TG-4) — filter dropped + resolved
         latest = notes[-1]
         prior_items: set[str] = set()
         for note in notes[-6:-1]:  # previous 5 sessions
             for item in note["next_items"]:
                 prior_items.add(canonicalize(item))
         latest_items = [canonicalize(it) for it in latest["next_items"]
-                        if canonicalize(it) not in dropped_zombies]
+                        if canonicalize(it) not in excluded]
         if latest_items:
             carried = sum(1 for it in latest_items if it in prior_items)
             pct = carried / len(latest_items) * 100
@@ -674,6 +721,8 @@ def section_zombie_carryover(root=ROOT):
                 lines.append(f"  Zombies ({len(zombies)} items recurring 5+ sessions):")
                 for item, count in zombies[:5]:
                     lines.append(f"    \U0001f480 {count:3d}x  {item[:60]}")
+            if resolved_items:
+                lines.append(f"  Resolved by actual: {len(resolved_items)} item(s) excluded")
             lines.append("")
     except Exception:
         pass

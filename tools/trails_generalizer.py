@@ -28,7 +28,7 @@ ROOT = Path(__file__).parent.parent
 def parse_session_notes(text: str) -> list[dict]:
     """Parse session notes from NEXT.md / NEXT-ARCHIVE.md content.
 
-    Returns list of dicts with: session, next_items, meta_swarm_target, meta_swarm_text
+    Returns list of dicts with: session, next_items, actual_text, meta_swarm_target, meta_swarm_text
     """
     notes = []
     # Session block header: ## S<N> session note (...)
@@ -41,12 +41,14 @@ def parse_session_notes(text: str) -> list[dict]:
         content = blocks[i + 1] if i + 1 < len(blocks) else ""
 
         next_items = _extract_next_items(content)
+        actual_text = _extract_actual_text(content)
         meta_target, meta_text = _extract_meta_swarm(content)
 
         if next_items or meta_target:
             notes.append({
                 "session": session,
                 "next_items": next_items,
+                "actual_text": actual_text,
                 "meta_swarm_target": meta_target,
                 "meta_swarm_text": meta_text,
             })
@@ -63,6 +65,14 @@ def _extract_next_items(block: str) -> list[str]:
     # Split on numbered items like (1) ... (2) ...
     items = re.split(r'\s*\(\d+\)\s*', raw)
     return [it.strip().rstrip(';').strip() for it in items if it.strip()]
+
+
+def _extract_actual_text(block: str) -> str:
+    """Extract the '- **actual**: ...' text from a session note block."""
+    m = re.search(r'\*\*actual\*\*:\s*(.+)', block)
+    if not m:
+        return ""
+    return m.group(1).strip()
 
 
 def _extract_meta_swarm(block: str) -> tuple[str, str]:

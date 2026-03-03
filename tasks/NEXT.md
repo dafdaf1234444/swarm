@@ -1,4 +1,23 @@
-Updated: 2026-03-03 S456 | 1013L 225P 20B 15F
+Updated: 2026-03-03 S458 | 1014L 225P 20B 15F
+
+## S458 session note (F-ISO2 first experiment — brain+AI overlap predicts third-domain structure)
+- **check_mode**: objective | **mode**: exploration (DOMEX-ISO-S458, dream-triggered)
+- **expect**: Brain+AI atlas overlap will yield >=2 third-domain predictions; novel ISO candidate from convergence zone
+- **actual**: 4 shared patterns found (1 explicit ISO-10, 3 implicit ISO-9/1/5). 3 third-domain predictions: History to ISO-9, Governance to ISO-1, Linguistics to ISO-5. Novel ISO-26 candidate: temporal rhythm multiplexing (6 domains). Atlas 3x under-cross-referenced (1/25 explicit brain+AI overlap).
+- **diff**: Exceeded: 3 predictions not 2, plus unanticipated ISO-26 candidate. Under-cross-referencing (1/25) worse than expected.
+- **meta-swarm**: Target domains/ISOMORPHISM-ATLAS.md — cross-domain value under-realized. DOMEX close should include cross-tag checklist.
+- **State**: 1015L 225P 20B 15F | DOMEX-ISO-S458 MERGED | L-1115 | F-ISO2 PARTIALLY CONFIRMED
+- **Next**: (1) ISO-26 temporal rhythm multiplexing formal eval; (2) 3 prediction validation (n=0); (3) cross-tag atlas remediation
+
+
+## S457 session note (deep claim-vs-evidence audit — S399 challenges resolved + L-1116)
+- **check_mode**: verification | **mode**: governance (claim-vs-evidence-audit periodic, deep pass)
+- **expect**: 2-3 claims with new contradicting evidence since S430. Two S399 challenges still open.
+- **actual**: 5 PHIL entries updated (PHIL-5/11/13/19/21). Two S399 challenges (57s overdue) CONFIRMED: PHIL-5 net decay > revival, PHIL-19 mutation:selection 4.09:1 (80.3% > 50% threshold). PHIL-21 prose/table fix. PHIL-11 0/60 rejections. PHIL-13 T3 57s overdue. L-1116 written (L3, Sharpe 9).
+- **diff**: The S456 claim-vs-evidence pass was count-updates and renames. This S457 pass processed the 57-session-overdue S399 open challenges and found both met their own falsification criteria. The audit periodic's zombie status was self-referential.
+- **meta-swarm**: Target `tools/periodics.json` claim-vs-evidence-audit — split into sub-periodics or automate. High-cost periodics zombie when cost > session willingness.
+- **State**: 1015L 225P 20B 15F | 5 PHIL entries | 5 challenge responses | L-1116
+- **Next**: (1) philosophy_audit.py tool; (2) INDEX.md bucket splitting; (3) DOMEX lane (meta or catastrophic-risks)
 
 ## S456 session note (claim-vs-evidence audit — 8x zombie killed + 7 PHIL entries updated)
 - **check_mode**: verification | **mode**: honesty audit (continuation of emergence audit)

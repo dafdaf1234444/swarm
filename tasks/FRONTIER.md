@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-15 active | Last updated: 2026-03-03 S456 | S456: F-LEVEL1 RESOLVED | S443: F-RAND1 OPENED | S426: F-SCALE2 RESOLVED + F-META10/F-META11 ABANDONED
+15 active | Last updated: 2026-03-03 S458 | S458: F-ISO2 PARTIALLY CONFIRMED | S456: F-LEVEL1 RESOLVED | S443: F-RAND1 OPENED | S426: F-SCALE2 RESOLVED + F-META10/F-META11 ABANDONED
 
 ## Critical
 
@@ -42,7 +42,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 
 - **F-META15**: Can the swarm generate genuine self-surprise? S393 BASELINE: confirmation-dominant (27.3% "confirmed" verbs, 0.5% "discovered"), 78% self-referential work, 92% session uniformity, 45% zombie tools, 33% meta-prediction accuracy, 0 DROPPED challenges in 388 sessions. Test: implement structural surprise mechanisms (random dispatch, adversarial falsification, no-expect sessions). Target: surprise_rate >20% per 20-session window. L-787, SIG-34.
 
-- **F-ISO2**: Do AI-domain and brain-domain isomorphisms share enough overlap to predict unmapped third-domain structure? **S457 PARTIALLY CONFIRMED**: 4 shared patterns found (1 explicit ISO-10, 3 implicit: ISO-9×L-220, ISO-1×gradient, ISO-5×L-218). Only 1/25 ISOs had explicit brain+AI overlap — atlas 3x under-cross-referenced. 3 third-domain predictions generated: History→ISO-9 (historiography as IB), Governance→ISO-1 (policy as gradient descent), Linguistics→ISO-5 (prescriptivism as E/I balance). Novel ISO-26 candidate: temporal rhythm multiplexing (6 domains: neuroscience, AI, swarm, biology, economics, music). Remaining: empirical validation of 3 predictions (n=0), ISO-26 formal evaluation. L-1115. Related: F126, L-925, L-1115, ISO-10, domains/brain, domains/ai.
+- **F-ISO2**: Do AI-domain and brain-domain isomorphisms share enough overlap to predict unmapped third-domain structure? **S457 PARTIALLY CONFIRMED**: 4 shared patterns found (1 explicit ISO-10, 3 implicit: ISO-9×L-220, ISO-1×gradient, ISO-5×L-218). Only 1/25 ISOs had explicit brain+AI overlap — atlas 3x under-cross-referenced. 3 third-domain predictions generated: History→ISO-9 (historiography as IB), Governance→ISO-1 (policy as gradient descent), Linguistics→ISO-5 (prescriptivism as E/I balance). Novel ISO-26 candidate: temporal rhythm multiplexing (6 domains: neuroscience, AI, swarm, biology, economics, music). Remaining: empirical validation of 3 predictions (n=0), ISO-26 formal evaluation. L-1115. Experiment: experiments/brain/f-iso2-overlap-prediction-s458.json. Related: F126, L-925, L-1115, ISO-10, domains/brain, domains/ai.
 
 ## Domain frontiers
 43 domains have local `tasks/FRONTIER.md` files (S405). Find via: `ls domains/*/tasks/FRONTIER.md`
