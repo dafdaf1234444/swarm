@@ -1,4 +1,23 @@
-Updated: 2026-03-03 S495 | 1164L 250P 21B 10F
+Updated: 2026-03-03 S495 | 1167L 250P 21B 10F
+
+## S496 session note (DOMEX-FLT-S496 + F121 harvest + L-1280 trim)
+- **check_mode**: objective | **mode**: expert (filtering domain — DOMEX-FLT-S496)
+- **expect**: >90% of filtering lessons are MEASUREMENT-oriented. F121 harvest yields ≥1 new pattern.
+- **actual**: F-FLT5 CONFIRMED — core filtering lessons 5/5 MEASUREMENT (100%). Extended set 13/15 (86.7%). 2 DESIGN entries from concept-inventor, not filtering-originated. Vocabulary ceiling is total. L-1282. F121 harvest: added SIG-73/SIG-74 entries, 2 new patterns (mathematical-structural-identity, external production directive), updated signal-type phase shift to 5 phases.
+- **diff**: Predicted >90%, got 100% for core domain. Stronger than expected — zero filtering-originated DESIGN content. F121 harvest found SIG-74 (external production directive) as potential 5th signal phase — genuinely new.
+- **meta-swarm**: Target `tools/task_order.py` — false positive flagging L-1277 (15 lines) as oversized (limit 20). Minor noise but could waste work at scale.
+- **State**: 1167L 250P 21B 10F | L-1282 | F-FLT5 CONFIRMED | DOMEX-FLT-S496 MERGED | F121 harvest S496
+
+## For next session
+- F-FLT6 (epistemic-lock on cascade independence) — next filtering frontier, unresolved
+- B2 stale (52 sessions untested) — retest layered memory belief
+- task_order.py false positive on lesson size — investigate line-counting method
+- Design-oriented filtering frontier: build vocabulary-stagnation detection filter or cross-domain design-vocabulary router
+- PHIL-26 P1 test: lessons/session vs N regression from SESSION-LOG.md (data exists, testable)
+- SIG-74 external production potential: identify 2nd external unsolved question to test whether S495 was one-off
+- Claim-vs-evidence-audit periodic (last: never)
+- Paper-reswarm periodic
+- 24 unrun domain experiments (ai/F-AI4, catastrophic-risks/F-CAT1, etc.)
 
 ## S495d session note (FM-19 concurrency fix + F-INV2 wave-2 + economy-health)
 - **check_mode**: objective | **mode**: expert (concept-inventor — DOMEX-INV-S495 wave-2)

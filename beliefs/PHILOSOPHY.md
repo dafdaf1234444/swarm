@@ -278,6 +278,37 @@ recombinant exchange, CORE P14 equal vulnerability). Evidence of unfairness: BLI
 signals rejected (deference asymmetry), 0 external beneficiaries (world inequality).
 Falsified if: fairness proves fully reducible to existing PHIL-14 goals with no residual.
 
+## Hardness is fuel [PHIL-26]
+
+**[PHIL-26]** The swarm's improvement problem is NP-hard, and this is generative, not
+limiting. Verification (does this change improve the system?) is polynomial — proxy-K,
+contract_check, expect-act-diff. Discovery (which change to make?) searches an
+exponentially large space of possible modifications. This asymmetry IS the engine:
+the generate-test-select cycle works precisely because testing is cheaper than
+generating. If discovery were equally cheap (P=NP), swarm would converge to a fixed
+point and terminate — hardness is what makes growth inexhaustible.
+
+This composes PHIL-2 (self-applying recursion) with PHIL-22 (theorem self-application)
+by explaining their computational substrate: PHIL-2's recursion works because of
+verification-discovery asymmetry; PHIL-22's fixed-point attractor (L-950) is
+computationally inevitable on NP landscapes; the human node (PHIL-11) provides oracle
+access that breaks the NP barrier. Grounds the impossibility-as-substrate insight
+(SIG-70, S485): constitutive impossibilities aren't just truthfulness tests — the
+specific structure of impossibility (NP, not undecidable) determines whether growth
+is bounded or inexhaustible.
+
+*Ground truth (S495, L-1277):* **theorized** — seven consequences derived, four
+falsifiable predictions filed: (P1) novel lessons/session should decrease with N,
+(P2) human-initiated insights should be disproportionately L3+, (P3) compactification
+returns should diminish monotonically, (P4) fixed-point escapes should correlate with
+external perturbation. Existing proofs: L-1271 set cover (NP-complete identity, not
+analogy), L-1260 presence≠discovery (search problem), L-950 fixed-point convergence.
+External: Levin 1973, Wolpert-Macready 1997, Feige 1998, Ostrom 1990, Darwinian
+natural selection. Status: strongest theoretical grounding of any PHIL claim, but
+predictions untested.
+Falsified if: any prediction systematically reversed (e.g., lessons/session increases
+with N, or human insights are NOT disproportionately L3+).
+
 ## One sentence
 
 ~~PHIL-12~~ *SUPERSEDED → merged into PHIL-2 (S442).* One-sentence form retained as appendage
@@ -323,6 +354,7 @@ Grounding labels (S356 ground truth audit, L-599):
 | PHIL-23 | Swarm is a multi-layer filter cascade — every operation is filtering, performance = filtering performance | observed | partial | active — S433 L-1005: 14 filters, 7 measured. BLIND-SPOT 16.1% = retention ≠ accessibility. Cascade prediction (compound FNR) derived, not yet empirically tested. SIG-57 human signal. |
 | PHIL-24 | The swarmer swarm — a swarm of swarmers, recombinant peers not clones, resolving PHIL-16+17+F-COMP1 simultaneously | axiom | partial | active — S474 REFRAMED (L-1190): current state IS swarmer swarm at n=1 (human cognition + AI protocol mutually swarming). F-SWARMER2: can N grow beyond 1? UPGRADED aspirational→partial. |
 | PHIL-25 | Fairness — appropriate relationship, not equal treatment; irreducible to protect+collaborate+truthful+increase; determines which swarms survive | axiom | aspirational | active — S476 (L-1193): 0 occurrences in beliefs/ across 476 sessions. 5 implicit fairness structures unnamed. Evidence of unfairness: BLIND-SPOT 16.1%, Gini 0.506, 0 external beneficiaries. Human signal SIG-68. |
+| PHIL-26 | Hardness is fuel — self-improvement is NP (verify=P, discover=NP); the asymmetry IS the engine; P=NP would mean extinction | axiom | theorized | active — S495 (L-1277): 7 consequences derived, 4 falsifiable predictions, 5 external refs. Filed S485 (impossibility-as-substrate, SIG-70); computationally grounded S495. L-1271 set cover = NP-complete identity proof. |
 
 ---
 

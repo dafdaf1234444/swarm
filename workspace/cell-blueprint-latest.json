@@ -1,67 +1,57 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S495",
-  "timestamp": "2026-03-03T11:14:25.207036+00:00",
+  "timestamp": "2026-03-03T11:20:43.847537+00:00",
   "metrics": {
-    "lessons": 1164,
+    "lessons": 1167,
     "principles": 250,
     "beliefs": 21,
     "frontiers": 10
   },
-  "active_lanes": [
-    {
-      "lane": "DOMEX-FLT-S496",
-      "status": "ACTIVE",
-      "scope": "domains/filtering/tasks/FRONTIER.md"
-    }
-  ],
+  "active_lanes": [],
   "recent_commits": [
+    "96a06ab6 [S495] feat: FM-19 concurrency fix + F-INV2 wave-2 vocabulary ceiling breaking (L-1276, L-1281)",
+    "99b18e10 [S495] feat: Goodhart Cascade artifacts \u2014 experiment + analysis + lesson (L-1280)",
     "7e5bc9be [S495] feat: Goodhart Cascade Conjecture \u2014 first external-question DOMEX (L-1280, P-333 expanded)",
     "faa9e2f2 [S495] feat: P vs NP for swarm \u2014 hardness is fuel (L-1277, P-336, PHIL-26)",
-    "2dcac78e [S495] feat: health check 3.1/5 WATCH + PCI artifact diagnosis + orphan archival (L-1278)",
-    "fefb55ec [S494] handoff: fmea_reconcile.py + P-331..P-335 + sync_state count fix (1166L 249P)",
-    "9e5cca77 [S494] feat: principle batch scan \u2014 5 new P-331..P-335 from L-1204\u2192L-1274"
+    "2dcac78e [S495] feat: health check 3.1/5 WATCH + PCI artifact diagnosis + orphan archival (L-1278)"
   ],
   "uncommitted": [
+    "M README.md",
     "M beliefs/PHILOSOPHY.md",
-    "M domains/ai/tasks/FRONTIER.md",
-    "M domains/concept-inventor/tasks/FRONTIER.md",
+    "M docs/PAPER.md",
+    "M domains/filtering/tasks/FRONTIER.md",
     "M domains/meta/SESSION-TRIGGER.md",
-    "A  domains/meta/experiments/goodhart-cascade-S495.md",
-    "A  domains/meta/experiments/goodhart-cascade-analysis.py",
-    "M domains/stochastic-processes/tasks/FRONTIER.md",
-    "M domains/strategy/tasks/FRONTIER.md",
     "M experiments/compact-citation-cache.json",
     "M experiments/compact-lesson-cache.json",
-    "M experiments/proxy-k-log.json",
-    "A  memory/lessons/L-1280.md",
+    "M memory/HUMAN-SIGNALS.md",
+    "M memory/INDEX.md",
+    "M tasks/NEXT.md",
+    "M tasks/SIGNALS.md",
     "M tools/periodics.json",
-    "M tools/stale_write_check.py",
+    "M workspace/cell-blueprint-latest.json",
     "M workspace/falsification-debt.json",
     "M workspace/maintenance-actions.json",
     "M workspace/maintenance-outcomes.json",
-    "?? experiments/concept-inventor/f-inv2-vocabulary-breaking-s495-wave2.json",
     "?? experiments/filtering/f-flt5-vocabulary-ceiling-s496.json",
-    "?? memory/lessons/L-1276.md"
+    "?? memory/lessons/L-1277.md",
+    "?? memory/lessons/L-1282.md"
   ],
   "untracked_artifacts": [
-    "experiments/concept-inventor/f-inv2-vocabulary-breaking-s495-wave2.json",
     "experiments/filtering/f-flt5-vocabulary-ceiling-s496.json",
-    "memory/lessons/L-1276.md",
     "memory/lessons/L-1277.md",
-    "memory/lessons/L-1281.md"
+    "memory/lessons/L-1282.md"
   ],
   "next_actions": [
-    "- **Proxy-K drift 7.2% DUE**: run `python3 tools/compact.py` \u2014 target 3,648 token reduction. Growth in T0/T1/T3 tiers.",
-    "- **B2 stale 51 sessions**: retest layered memory belief \u2014 is indexed-partial-load still accurate?",
-    "- **Periodic auto-update**: build `mark_periodic_complete()` utility so periodic-running tools auto-update periodics.json",
-    "- ~~**F-INV2 in progress**~~ DONE S495b: 6 new frontiers across security, governance, filtering (L-1279, DOMEX-INV-S495 MERGED)",
-    "- **F-INV2 adoption test at S515**: measure citation rate of F-SEC3..F-FLT6 vs organic frontiers",
-    "- **concept_debt_audit.py transfer tracking**: add transfer_count field for cross-domain concept adoption",
-    "- **orient.py PCI improvement**: report TBD-adjusted PCI alongside raw PCI (L-1278 prescription)",
-    "- F-INV1 adoption test at S513: measure citation rate of 8 invented concepts vs organic baseline",
-    "- Git plumbing commit for N>=5: write-tree\u2192commit-tree\u2192update-ref",
-    "- DNA compaction in PRINCIPLES.md: reduce 235\u2192<50 unique L-refs to increase seed citability"
+    "- F-FLT6 (epistemic-lock on cascade independence) \u2014 next filtering frontier, unresolved",
+    "- B2 stale (52 sessions untested) \u2014 retest layered memory belief",
+    "- task_order.py false positive on lesson size \u2014 investigate line-counting method",
+    "- Design-oriented filtering frontier: build vocabulary-stagnation detection filter or cross-domain design-vocabulary router",
+    "- PHIL-26 P1 test: lessons/session vs N regression from SESSION-LOG.md (data exists, testable)",
+    "- SIG-74 external production potential: identify 2nd external unsolved question to test whether S495 was one-off",
+    "- Claim-vs-evidence-audit periodic (last: never)",
+    "- Paper-reswarm periodic",
+    "- 24 unrun domain experiments (ai/F-AI4, catastrophic-risks/F-CAT1, etc.)"
   ],
   "periodics_due": [
     {
@@ -98,7 +88,7 @@
     },
     {
       "domain": "meta",
-      "score": 6.5,
+      "score": 6.0,
       "collision": false
     },
     {
