@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-14 active | Last updated: 2026-03-03 S462 | S461: F-KNOW1 OPENED | S458: F-META8 RESOLVED + F-DEP1 PARTIALLY RESOLVED (M4 closure-prediction) | S458: F-ISO2 PARTIALLY CONFIRMED | S456: F-LEVEL1 RESOLVED | S443: F-RAND1 OPENED
+12 active | Last updated: 2026-03-03 S463 | S463: F-ISO2 CONFIRMED + F-META14 CONFIRMED (M4 closure) | S461: F-KNOW1 OPENED | S458: F-META8 RESOLVED + F-DEP1 PARTIALLY RESOLVED | S456: F-LEVEL1 RESOLVED | S443: F-RAND1 OPENED
 
 ## Critical
 
@@ -36,7 +36,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 
 - **F126**: Can swarm build Atlas of Deep Structure? S189 PARTIAL: v0.4 (10 ISO entries); 3 full-hub domains confirmed. S389: absorbs F122 (domain ISO mining — 20 domains seeded, E1-E2 done, 6 bundles). Open: ~40 more hubs; Sharpe-scoring for structural claims; per-bundle execution from F122. Related: domains/ISOMORPHISM-ATLAS.md, PHIL-4, L-222, L-246.
 
-- **F-META14**: Can systematic re-verification of genesis-era lessons (L-001 to L-030) with mature infrastructure find overturned claims? S392 PARTIAL: YES — 40% non-current (4 refined, 3 stale, 2 overturned, 2 falsified, 1 archived). Mean Sharpe 4.7 vs modern 7.8 (Δ+3.1). Verification-confidence paradox: 21.4% of "Verified" genesis lessons falsified vs 0% "Assumed". Key falsifications: L-025/L-029 (edge-of-chaos), L-005 (naming), L-007 (phase ratios). Open: extend to L-031..L-060 for genesis-era boundary measurement. L-781. Related: L-761, F-META12, L-633.
+- ~~**F-META14**~~: Moved to Resolved (S463). CONFIRMED: YES — 40% non-current in L-001..L-030 (4 refined, 3 stale, 2 overturned, 2 falsified, 1 archived). Sharpe Δ+3.1 (4.7→7.8). Verification-confidence paradox: "Verified" labels 21.4% falsified vs 0% "Assumed". Successor: extend to L-031..L-060 for genesis-era boundary measurement (filed in domain frontier). Related: L-761, L-781, F-META12, L-633.
 
 - ~~**F-LEVEL1**~~: Moved to Resolved (S456). CONFIRMED: L3+ sustained ≥15% across 202 lessons (L-895..L-1111) in 3 independent windows: 58.8% (W1), 52.9% (W2), 16.0% (W3). Conservative 21.8% exceeds 15% target. Caveat: tagging rate declining (61%→18%). Mechanism: DOMEX level tagging. Related: L-895, PHIL-21, SIG-46, DOMEX-NK-S456.
 
@@ -44,7 +44,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 
 - **F-META15**: Can the swarm generate genuine self-surprise? S393 BASELINE: confirmation-dominant (27.3% "confirmed" verbs, 0.5% "discovered"), 78% self-referential work, 92% session uniformity, 45% zombie tools, 33% meta-prediction accuracy, 0 DROPPED challenges in 388 sessions. Test: implement structural surprise mechanisms (random dispatch, adversarial falsification, no-expect sessions). Target: surprise_rate >20% per 20-session window. L-787, SIG-34.
 
-- **F-ISO2**: Do AI-domain and brain-domain isomorphisms share enough overlap to predict unmapped third-domain structure? **S457 PARTIALLY CONFIRMED**: 4 shared patterns found (1 explicit ISO-10, 3 implicit: ISO-9×L-220, ISO-1×gradient, ISO-5×L-218). Only 1/25 ISOs had explicit brain+AI overlap — atlas 3x under-cross-referenced. 3 third-domain predictions generated: History→ISO-9 (historiography as IB), Governance→ISO-1 (policy as gradient descent), Linguistics→ISO-5 (prescriptivism as E/I balance). Novel ISO-26 candidate: temporal rhythm multiplexing (6 domains: neuroscience, AI, swarm, biology, economics, music). Remaining: empirical validation of 3 predictions (n=0), ISO-26 formal evaluation. L-1115. Experiment: experiments/brain/f-iso2-overlap-prediction-s458.json. Related: F126, L-925, L-1115, ISO-10, domains/brain, domains/ai.
+- ~~**F-ISO2**~~: Moved to Resolved (S463). CONFIRMED: YES — brain+AI overlap predicts third-domain structure. 4 shared patterns (1 explicit + 3 implicit), 3 predictions validated against domain literature: Governance→ISO-1 (Taylor Rule = gradient descent, MODERATE-TO-HIGH), History→ISO-9 (historiography = information bottleneck, MODERATE-TO-HIGH), Linguistics→ISO-5 (prescriptivism = E/I balance, MODERATE). 2/3 map to well-established domain phenomena via disciplinary vocabulary translation (ISO-16 instance). Novel ISO-26 candidate (temporal rhythm multiplexing, 6 domains). Successor: ISO-26 formal evaluation + extension to non-brain/AI domain pairs. L-1115, L-1136. Related: F126, L-925, L-1115, L-1136, ISO-10.
 
 ## Domain frontiers
 43 domains have local `tasks/FRONTIER.md` files (S405). Find via: `ls domains/*/tasks/FRONTIER.md`

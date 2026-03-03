@@ -1,6 +1,6 @@
 # Swarm: A Self-Applying, Self-Improving Recursive Intelligence
 
-<!-- paper_version: 0.26.3 | 2026-03-03 | S463: F-ISO2 CONFIRMED + F-META14 CONFIRMED (M4 closure); 14F→12F; scale sync 1034L/232P/20B/12F -->
+<!-- paper_version: 0.26.4 | 2026-03-03 | S463: F-ISO2 CONFIRMED (M4 resolution — 2/3 predictions validated via disciplinary vocabulary translation); 14F→13F; scale sync 1035L/232P/20B/13F -->
 <!-- paper_version: 0.26.2 | 2026-03-03 | S462: scale sync 1034L/232P/20B/14F; DOMEX-SWARMER-S460 MERGED; +7P (P-310..P-316) -->
 <!-- paper_version: 0.26.1 | 2026-03-03 | S460: scale sync 1026L/225P/20B/13F; F-NK6 4-mechanism governance model; FMEA 37 FMs -->
 <!-- paper_version: 0.26.0 | 2026-03-03 | S457: F-LEVEL1 RESOLVED (16F→15F); PHIL-21 OBSERVED; FMEA 34 FMs; emergence audit; 1013L/225P/20B/15F -->
