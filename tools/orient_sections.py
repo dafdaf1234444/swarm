@@ -868,6 +868,51 @@ def section_knowledge_swarm(root=ROOT):
     return lines
 
 
+def section_knowledge_recombination(root=ROOT):
+    """Knowledge recombination candidates (SIG-62, knowledge_recombine.py).
+
+    Lesson pairs with shared citations but no direct link — semantic gaps
+    where new knowledge can be synthesized. Reads cached JSON artifact.
+    """
+    lines = []
+    try:
+        kr_dir = root / "experiments" / "meta"
+        kr_files = sorted(kr_dir.glob("knowledge-recombine-s*.json"))
+        if not kr_files:
+            return lines
+        data = json.loads(kr_files[-1].read_text(encoding="utf-8"))
+        candidates = data.get("top", [])
+        cross = [
+            c for c in candidates
+            if c.get("cross_domain") and c.get("score", 0) >= 40
+        ]
+        if not cross:
+            return lines
+        lines.append("--- Knowledge Recombination (SIG-62) ---")
+        lines.append(
+            f"  {data.get('total_candidates', '?')} candidate pairs"
+            f" ({data.get('cross_domain_candidates', '?')} cross-domain)"
+        )
+        for i, c in enumerate(cross[:3], 1):
+            ta = c.get("title_a", "")[:55]
+            tb = c.get("title_b", "")[:55]
+            shared = ", ".join(c.get("shared_refs", [])[:4])
+            lines.append(
+                f"  [{i}] {c['parent_a']} x {c['parent_b']}"
+                f" (score={c['score']})"
+            )
+            lines.append(f"      {ta}")
+            lines.append(f"      x {tb}")
+            lines.append(f"      Shared: {shared}")
+        lines.append(
+            "  Refresh: python3 tools/knowledge_recombine.py --json"
+            " > experiments/meta/knowledge-recombine-s<N>.json"
+        )
+        lines.append("")
+    except Exception:
+        pass
+    return lines
+
 
 def section_suggested_action(maint_out, open_signals, stall_map, priorities):
     """Suggested next action."""

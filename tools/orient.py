@@ -300,7 +300,8 @@ def main():
         section_underused_tools, section_recent_commits, section_session_log_tail,
         section_agent_positions, section_concurrent_activity, section_historian_repair,
         section_meta_tooler, section_zombie_carryover, section_closure_metric,
-        section_knowledge_swarm, section_suggested_action, section_cascade_state,
+        section_knowledge_swarm, section_knowledge_recombination,
+        section_suggested_action, section_cascade_state,
     )
 
     # Parallelize all slow independent operations:
@@ -386,6 +387,7 @@ def main():
     _print_lines(section_zombie_carryover())
     _print_lines(section_closure_metric())
     _print_lines(section_knowledge_swarm())
+    _print_lines(section_knowledge_recombination())
 
     # Stalled campaigns — need stall_map for suggested action
     stall_lines, stall_map = section_stalled_campaigns()
