@@ -19,7 +19,8 @@ from orient_analysis import (  # noqa: F401
 
 # Re-export from orient_monitors.py
 from orient_monitors import (  # noqa: F401
-    section_precompact_checkpoint, section_cascade_state,
+    section_precompact_checkpoint, section_cell_blueprint,
+    section_cascade_state,
     section_concurrent_activity, section_historian_repair,
     section_meta_tooler, section_knowledge_swarm,
     section_correction_propagation, section_knowledge_recombination,

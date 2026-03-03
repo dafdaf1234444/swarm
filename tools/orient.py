@@ -292,7 +292,8 @@ def main():
     )
     from orient_sections import (
         section_maintenance, section_session_triggers, section_open_signals,
-        section_index_coverage, section_precompact_checkpoint, section_key_state,
+        section_index_coverage, section_precompact_checkpoint, section_cell_blueprint,
+        section_key_state,
         section_priorities, section_frontiers, section_stale_beliefs,
         section_self_application, section_stale_lanes, section_pci,
         section_prescription_gap, section_level_balance, section_succession_phase,
@@ -362,6 +363,7 @@ def main():
 
     _print_lines(section_index_coverage(index_text, check_index_coverage))
     _print_lines(section_precompact_checkpoint(session))
+    _print_lines(section_cell_blueprint(session))
 
     _print_lines(section_key_state(_key_state(next_text)))
 

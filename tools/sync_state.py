@@ -425,6 +425,16 @@ def main():
             except Exception:
                 pass  # non-fatal — periodics.json update is best-effort
 
+    # --- Cell blueprint auto-save (L-1184, L-601) ---
+    # Pre-compute daughter cell state so orient.py section_cell_blueprint
+    # can display it without requiring manual cell_blueprint.py save.
+    if not DRY:
+        try:
+            from cell_blueprint import save_blueprint
+            save_blueprint(session)
+        except Exception:
+            pass  # non-fatal — blueprint save is best-effort
+
 
 if __name__ == "__main__":
     try:

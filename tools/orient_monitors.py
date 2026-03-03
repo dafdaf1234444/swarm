@@ -353,3 +353,60 @@ def section_grounding_audit(root=ROOT):
     except Exception:
         pass
     return lines
+
+
+def section_cell_blueprint(current_session_str="S0"):
+    """Cell blueprint summary — pre-computed daughter cell state (L-1184, L-601).
+
+    Shows parent session's pre-computed dispatch, absorption targets, and
+    next actions so the daughter session can skip re-derivation.
+    """
+    lines = []
+    bp_path = ROOT / "workspace" / "cell-blueprint-latest.json"
+    if not bp_path.exists():
+        return lines
+    try:
+        bp = json.loads(bp_path.read_text())
+    except (json.JSONDecodeError, OSError):
+        return lines
+
+    parent = bp.get("session", "?")
+    # Skip if blueprint is from same or later session (stale / self-referential)
+    parent_num = int(re.search(r"(\d+)", str(parent)).group(1)) if re.search(r"(\d+)", str(parent)) else 0
+    cur_num = int(re.search(r"(\d+)", str(current_session_str)).group(1)) if re.search(r"(\d+)", str(current_session_str)) else 0
+    if parent_num >= cur_num and cur_num > 0:
+        return lines  # blueprint is current or future — no inheritance value
+
+    lines.append(f"\n--- Cell Blueprint (from {parent}) ---")
+
+    # Absorption targets — the primary boot bottleneck (76% of sessions)
+    artifacts = bp.get("untracked_artifacts", [])
+    if artifacts:
+        lines.append(f"  Absorb ({len(artifacts)} artifacts from parent):")
+        for a in artifacts[:5]:
+            lines.append(f"    ?? {a}")
+
+    # Pre-computed dispatch — saves 30s dispatch_optimizer.py run
+    top3 = bp.get("dispatch_top3", [])
+    if top3:
+        parts = []
+        for t in top3:
+            collision = " !" if t.get("collision") else ""
+            parts.append(f"{t['domain']}({t['score']}){collision}")
+        lines.append(f"  Dispatch hint: {', '.join(parts)}")
+
+    # Parent's next actions — context for what was planned
+    actions = bp.get("next_actions", [])
+    if actions:
+        lines.append(f"  Parent planned ({len(actions)} items):")
+        for a in actions[:3]:
+            lines.append(f"    {a}")
+
+    # Periodics due from parent's perspective
+    due = bp.get("periodics_due", [])
+    if due:
+        ids = [d["id"] for d in due[:3]]
+        lines.append(f"  Periodics due: {', '.join(ids)}")
+
+    lines.append("")
+    return lines
