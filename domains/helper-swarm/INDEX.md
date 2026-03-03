@@ -4,7 +4,7 @@ Updated: 2026-03-02 | Sessions: S441
 ## What this domain knows
 - **Seed evidence base**: active lane logs already expose blocked-lane rescue patterns, coordinator reassignment behavior, and helper-vs-delivery slot tension.
 - **Core structural pattern**: helper swarming works when assist triggers, ownership transfer, and exit conditions are explicit; otherwise support traffic becomes status-noise.
-- **Active frontiers**: 2 active domain frontiers (F-HLP4, F-HLP5). F-HLP5 opened S441: peer helper swarm genesis — genesis_peer.sh built, CB-4 test initiated (peer CONNECTED_CORE 30-50 sessions target). F-HLP3 RESOLVED S359: helper reservation unnecessary — 0% blocking, all abandonment is preemption/starvation, L-638. F-HLP1 RESOLVED S347: stale_age >0 is perfect stall predictor, L-515. F-HLP2 RESOLVED S347: actual=TBD is 100% rework predictor, minimal handoff contract, L-519.
+- **Active frontiers**: 3 active domain frontiers (F-HLP4, F-HLP5, F-HLP6). F-HLP6 opened S446: foreign-repo knowledge return. F-HLP5 opened S441: peer helper swarm genesis — genesis_peer.sh built, CB-4 test initiated. F-HLP3 RESOLVED S359, F-HLP1 RESOLVED S347, F-HLP2 RESOLVED S347.
 - **Cross-domain role**: helper-swarm turns stalled work signals (`blocked`, stale READY/ACTIVE rows, missing next steps) into targeted assist actions across all domain lanes.
 - **Latest baseline**: no dedicated helper-swarm artifact yet; first pass should mine `tasks/SWARM-LANES.md` + `tasks/NEXT.md` to quantify rescue lag and helper conversion quality.
 

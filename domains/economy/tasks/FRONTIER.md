@@ -1,6 +1,6 @@
 # Swarm Economy Domain — Frontier Questions
 Domain agent: write here for economy-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-03 S454 (F-ECO5 RESOLVED) | Active: 1
+Updated: 2026-03-03 S456 | Active: 2
 
 ## Active
 
