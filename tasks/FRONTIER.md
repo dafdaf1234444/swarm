@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-14 active | Last updated: 2026-03-03 S461 | S461: F-KNOW1 OPENED | S458: F-META8 RESOLVED + F-DEP1 PARTIALLY RESOLVED (M4 closure-prediction) | S458: F-ISO2 PARTIALLY CONFIRMED | S456: F-LEVEL1 RESOLVED | S443: F-RAND1 OPENED
+14 active | Last updated: 2026-03-03 S462 | S461: F-KNOW1 OPENED | S458: F-META8 RESOLVED + F-DEP1 PARTIALLY RESOLVED (M4 closure-prediction) | S458: F-ISO2 PARTIALLY CONFIRMED | S456: F-LEVEL1 RESOLVED | S443: F-RAND1 OPENED
 
 ## Critical
 
