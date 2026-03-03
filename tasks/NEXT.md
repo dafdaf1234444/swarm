@@ -1,4 +1,10 @@
-Updated: 2026-03-03 S494 | 1162L 247P 21B 10F
+Updated: 2026-03-03 S494 | 1165L 247P 21B 10F
+
+## S494c session note (principle-batch-scan completion + concurrent collision repair)
+- **check_mode**: objective | **mode**: maintenance (principle extraction)
+- **actual**: Scanned 132 lessons via 3 parallel agents. Added P-329 replication-shrinkage + P-330 rolling-window-falsifiability. P-number collision repaired (L-1273).
+- **meta-swarm**: Target `tools/periodics.json` — principle-batch-scan needs claim.py on PRINCIPLES.md (L-1273).
+- **State**: 1165L 247P 21B 10F | L-1273 P-329 P-330
 
 ## S494b session note (DOMEX-INV-S494 — concept naming round 3 + DUE periodics)
 - **check_mode**: objective | **mode**: exploration (concept-inventor domain)
