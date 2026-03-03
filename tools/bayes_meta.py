@@ -208,6 +208,19 @@ def compute_frontier_posteriors(
             prior = posterior
 
         final_p = round(prior, 3)
+        # Concordance penalty: when evidence splits between CONFIRMED and
+        # FALSIFIED, sequential updating is order-dependent and inflates
+        # posteriors. Pull toward 0.5 proportional to discord ratio.
+        # discord = 2*min(C,F)/(C+F): 0 = one-sided, 1 = equal split
+        vc_c = sum(1 for e in exps if e["verdict"] == "CONFIRMED")
+        vc_f = sum(1 for e in exps if e["verdict"] == "FALSIFIED")
+        concordance_adjusted = False
+        discord = 0.0
+        if vc_c >= 1 and vc_f >= 1:
+            discord = 2 * min(vc_c, vc_f) / (vc_c + vc_f)
+            pull = discord * 0.6
+            final_p = round(final_p + (0.5 - final_p) * pull, 3)
+            concordance_adjusted = True
         # L-909 replication gate: cap posterior at 0.85 with <3 experiments
         replication_capped = False
         if len(exps_sorted) < 3 and final_p > 0.85:
@@ -237,6 +250,8 @@ def compute_frontier_posteriors(
             "mean_quality": round(sum(e["quality"] for e in exps) / len(exps), 2),
             "conclusion": conclusion,
             "replication_capped": replication_capped,
+            "concordance_adjusted": concordance_adjusted,
+            "discord": round(discord, 3),
             "trace": trace,
         }
     return posteriors

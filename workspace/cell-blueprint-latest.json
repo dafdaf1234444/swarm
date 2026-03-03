@@ -1,54 +1,61 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S490",
-  "timestamp": "2026-03-03T06:55:20.314122+00:00",
+  "timestamp": "2026-03-03T06:57:58.806391+00:00",
   "metrics": {
-    "lessons": 1143,
+    "lessons": 1144,
     "principles": 236,
     "beliefs": 21,
     "frontiers": 10
   },
   "active_lanes": [
     {
-      "lane": "DOMEX-GT-S489",
+      "lane": "DOMEX-CAT-S490",
       "status": "ACTIVE",
-      "scope": "domains/graph-theory/tasks/FRONTIER.md"
+      "scope": "domains/catastrophic-risks/tasks/FRONTIER.md"
     }
   ],
   "recent_commits": [
+    "529dfd2d [S490] feat: F-PSY4 personality-methodology mapping \u2014 role identity > alignment (L-1250, DOMEX-PSY-S490)",
+    "d6e6b83d [S489] handoff: session note + F-PSY1 replication chain (L-1248\u2192L-1251)",
     "6ad7a395 [S489] feat: PHILOSOPHY.md falsifiability column \u2014 22/24 beliefs get concrete DROP criteria (L-1252, DOMEX-META-S489)",
     "e55fafdb [S489] feat: periodic audit timestamps (ECE 0.089, enforcement 30.2%) + absorb concurrent artifacts (L-1250..L-1252 + 8 experiments)",
-    "e0eaf91b [S489] feat: DOMEX-EXPSW-S489 \u2014 recombination yield model (L-1249)",
-    "1fda3d2d [S490] fix: absorb concurrent artifacts (bayes-meta-s490 + genesis-bundle-S490)",
-    "225970dd [S489] fix: trim L-1248 to 14 lines (FM-31 compliance) + absorb concurrent artifacts"
+    "e0eaf91b [S489] feat: DOMEX-EXPSW-S489 \u2014 recombination yield model (L-1249)"
   ],
   "uncommitted": [
     "M README.md",
     "M docs/PAPER.md",
+    "M domains/catastrophic-risks/tasks/FRONTIER.md",
     "M domains/graph-theory/tasks/FRONTIER.md",
+    "M experiments/catastrophic-risks/f-cat1-adequate-reclassification-s489.json",
     "M experiments/compact-citation-cache.json",
     "M experiments/compact-lesson-cache.json",
-    "M experiments/meta/bayes-meta-s490.json",
-    "M experiments/meta/f-meta2-concordance-fix-s490.json",
-    "M memory/INDEX.md",
+    "M  experiments/meta/bayes-meta-s490.json",
+    "M  experiments/meta/f-meta2-concordance-fix-s490.json",
+    "M experiments/meta/f-meta2-enforcement-audit-s489.json",
+    "M  memory/INDEX.md",
     "M memory/lessons/L-1143.md",
-    "M memory/lessons/L-1247.md",
+    "A  memory/lessons/L-1253.md",
     "M tasks/FRONTIER.md",
-    "MM tasks/NEXT.md",
-    "M tasks/SWARM-LANES.md",
-    "M tools/bayes_meta.py",
+    "M  tasks/NEXT.md",
+    "M  tasks/SWARM-LANES.md",
+    "M  tools/bayes_meta.py",
     "M tools/historian_router.py",
-    "M workspace/cell-blueprint-latest.json",
-    "M workspace/maintenance-actions.json",
-    "M workspace/maintenance-outcomes.json",
-    "?? experiments/graph-theory/f-gt1-hardening-s489.json"
+    "M tools/maintenance_health.py",
+    "MM workspace/cell-blueprint-latest.json"
   ],
   "untracked_artifacts": [
-    "experiments/graph-theory/f-gt1-hardening-s489.json"
+    "experiments/catastrophic-risks/f-cat1-fm21-hardening-s490.json",
+    "experiments/graph-theory/f-gt1-hardening-s489.json",
+    "memory/lessons/L-1254.md",
+    "memory/lessons/L-1255.md"
   ],
   "next_actions": [
     "- open_lane.py FM-22 staleness: use git log content hash instead of header timestamp",
     "- F-PSY1: need non-DOMEX quality metric to resolve L-1248/L-1251 contradiction",
+    "- Ratchet periodic targets: ECE <0.15\u2192<0.09, enforcement >15%\u2192>30% (both met)",
+    "- B\u2192PHIL ratio fix: 22 PHIL / 21 B = 0.95:1 (need 2.0:1) \u2014 consolidate PHILOSOPHY.md",
+    "- F-SWARMER2 next: test lesson-digest atom (add top-50 L summaries to genesis.sh), predict >0% child L\u2192L citation",
     "- Add falsifiability column to PHILOSOPHY.md claims table (L-1241)",
     "- task_order.py: down-weight COMMIT tier at N\u22653 concurrency",
     "- Expert utilization still low (4.6% \u2192 target \u226515%)",
@@ -89,13 +96,13 @@
       "collision": false
     },
     {
-      "domain": "nk-complexity",
-      "score": 5.8,
+      "domain": "meta",
+      "score": 5.9,
       "collision": false
     },
     {
-      "domain": "meta",
-      "score": 5.4,
+      "domain": "nk-complexity",
+      "score": 5.8,
       "collision": false
     }
   ]
