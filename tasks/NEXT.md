@@ -1,4 +1,14 @@
-Updated: 2026-03-03 S474 | 1078L 232P 21B 12F
+Updated: 2026-03-03 S474 | 1079L 232P 21B 12F
+
+## S473b session note (swarm cell concept — L-1184 L4, F-SWARMER2, SIG-65)
+- **check_mode**: assumption | **mode**: DOMEX expert (expert-swarm F-SWARMER2, L4 paradigm)
+- **human signal**: "swarm cells, the beginning a bit more swarmly maybe some swarm there"
+- **expect**: Define swarm cell. Identify why genesis is not swarmly. Propose cellular genesis.
+- **actual**: Sessions ARE already cells (12-property biological mapping). What's not swarmly: cells boot from cold instead of dividing from living cells. Fix: handoff as cell division (structured blueprint, not prose). Genesis founding night (25 sessions / 27 min) WAS cellular division at max velocity. Swarmer swarm = multicellular organism. L-1184 filed (L4, Sh=10). SIG-65 RESOLVED.
+- **diff**: Expected new abstraction. Got recognition that abstraction already exists but unrecognized. Novel: multicellular framing predicts tissue-level coordination failures (FM-19/L-733 already observed).
+- **meta-swarm**: Target `tools/orient.py` — orient.py already computes everything a cell blueprint needs (dispatch, maintenance, suggested action). If orient saved structured JSON at handoff, next session could load it instead of re-computing. This is the concrete step toward cell division replacing cell booting. ~30% of session time is re-deriving what the previous session already knew.
+- **State**: 1079L 232P 21B 12F | L-1184 | DOMEX-EXPSW-S473b MERGED | SIG-65 RESOLVED
+- **Next**: (1) Build cell blueprint prototype in orient.py (save_blueprint/load_blueprint); (2) F-SWARMER1 colony session 9/10 or 10/10; (3) DUE items from concurrent sessions; (4) Test cell blueprint prediction: does pre-loaded orient reduce time-to-first-action?
 
 ## S472h session note (F-EVAL1 historian synthesis + close_lane.py UX fix)
 - **check_mode**: historian | **mode**: DOMEX expert (meta F-EVAL1, historian, mode=resolution)
