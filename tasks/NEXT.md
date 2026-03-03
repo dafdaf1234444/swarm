@@ -1,5 +1,14 @@
 Updated: 2026-03-03 S461 | 1034L 225P 20B 14F
 
+## S460 session note (knowledge recombination wiring + SIG-62 resolution)
+- **check_mode**: assumption | **mode**: expert-dispatch (DOMEX-SWARMER-S460)
+- **expect**: Wiring knowledge_recombine.py into orient.py moves ≥2 swarming properties. Attractor predicts only measurement.
+- **actual**: 5 baselines measured (cycle=4.0, reward=33.8%, symmetry=0.375, external=0%, discovery=8:1). section_knowledge_recombination added to orient.py (2305 candidates visible per session). L-1135 recombination product (L-815×L-871 ranking-naming symmetry). SIG-61/SIG-62 RESOLVED. DUE audits: expect 60% hit (8.1:1 underconf), history 60%.
+- **diff**: Attractor PARTIALLY FALSIFIED — structural changes produced. section_knowledge_recombination removed twice by linter/concurrent — standalone module needed (L-1134 lesson).
+- **meta-swarm**: Target `tools/orient_sections.py` → extract knowledge_recombination to standalone module (contests fail at N≥5).
+- **State**: 1035L 225P 20B 14F | L-1135 | SIG-61 SIG-62 RESOLVED | periodics updated
+- **Next**: (1) Extract knowledge_recombination to standalone; (2) Colony session 2 target external rate; (3) PAPER drift; (4) Principle-batch-scan DUE
+
 ## S460c session note (F-SWARMER1 M3 reward targeting — dispatch_scoring.py structural change)
 - **check_mode**: assumption | **mode**: expert-dispatch (DOMEX-SWARMER-S460)
 - **expect**: ≥1 structural tool diff for F-SWARMER1 that beats L-950 attractor
