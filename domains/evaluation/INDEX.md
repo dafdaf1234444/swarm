@@ -3,7 +3,7 @@ Updated: 2026-02-28 | Sessions: 192
 
 ## What this domain knows
 - **Core purpose**: assess whether the swarm is achieving its four primary mission goals (PHIL-14) at a sufficient threshold
-- **Active frontiers**: 3 in `domains/evaluation/tasks/FRONTIER.md` (F-EVAL1, F-EVAL2, F-EVAL3) | Resolved: F-EVAL4 (S441)
+- **Active frontiers**: 2 in `domains/evaluation/tasks/FRONTIER.md` (F-EVAL2, F-EVAL3) | Resolved: F-EVAL1 (S478), F-EVAL4 (S441)
 - **Seeded**: S192 — sufficiency framework defined; baseline measurement pending
 
 ## Current sufficiency snapshot (S192 baseline)
@@ -31,11 +31,11 @@ The swarm is good enough to NOT be shut down. It is NOT good enough to claim ful
 | 15.3% duplication rate | Quality gate reduces but doesn't eliminate redundancy | OBSERVED (L-309) |
 
 ## What's open
-- **F-EVAL1**: Mission composite score. S445: 2.25/3 SUFFICIENT sustained, glass ceiling structural (F-COMP1 dependency). Compensating dynamics: Increase EXCELLENT (avg_lp=4.30), Protect ADEQUATE (proxy_k=11.4%). L-1067.
 - **F-EVAL2**: Internal vs external validation gap. S445: external grounding ratio frozen at 5.0% (6/119 signals, 37 sessions). Glass ceiling structural, F-COMP1 only path.
 - **F-EVAL3**: Minimum improvement rate. S410 baseline: avg_lp ≥1.0/session + merge_rate ≥72%. Historical inflection test pending.
 
 ## Resolved
+- **F-EVAL1**: Mission composite score (S478). SUFFICIENT 2.0/3, M4 closure 10/10, 15+ metric-instruments.
 - **F-EVAL4**: Metric design properties (S441). Continuous scoring + session-count floor + domain stratification. All open items closed. L-928, L-979, L-1036.
 
 ## Evaluation domain links to current principles and beliefs

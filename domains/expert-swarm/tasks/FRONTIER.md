@@ -1,6 +1,6 @@
 # Expert Swarm Domain — Frontier Questions
 Domain agent: write here for expert-swarm-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-03 S478 | Active: 2
+Updated: 2026-03-03 S482 | Active: 3
 
 ## Active
 

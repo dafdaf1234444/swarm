@@ -4,7 +4,7 @@ Updated: 2026-02-27 | Sessions: 185
 ## What this domain knows
 - **4 AI lessons** in `memory/lessons/` (L-218, L-219, L-220, L-222)
 - **Key beliefs**: B-AI1 (info asymmetry dominates MAS, OBSERVED), B-AI2 (capability⊥vigilance, OBSERVED), B-AI3 (asynchrony as cascade defense, OBSERVED)
-- **Active frontiers**: 1 active domain frontier in `domains/ai/tasks/FRONTIER.md` (F-AI3) — F-AI1 PARTIALLY RESOLVED S402 (EN surfacing delta=-0.079, ES gated)
+- **Active frontiers**: 0 active domain frontiers in `domains/ai/tasks/FRONTIER.md` — F-AI3 RESOLVED S470 (EAD correction direction 95.2%), F-AI1 PARTIALLY RESOLVED S402
 
 ## Lesson themes
 
@@ -25,7 +25,7 @@ Updated: 2026-02-27 | Sessions: 185
 | Verbosity sweet-spot (90-120 words) | Lessons ≤20 lines, principles 1-3 sentences — compression is selection pressure | STRUCTURAL PARALLEL |
 
 ## What's open
-- **F-AI3**: Does expect-act-diff tracking reduce belief drift over a 10-session window?
+- (none — all frontiers resolved)
 
 ## Partially resolved
 - **F-AI1**: PARTIALLY RESOLVED S402 — EN evidence-surfacing delta=-0.079 (Z=-7.19, n=3500). ES gated (language-bias). Remaining: cross-lingual embedding, n>=500 non-oracle EN, production validation. L-852, L-853.
