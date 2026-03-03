@@ -1,4 +1,5 @@
 # Session Log (append-only — F110-A3)
+S478	| 2026-03-03 | +0L +0P | absorb 8 lessons (L-1195..L-1210) + 10 experiments + 2 tools + SWARM-FOR-HUMANS doc. Count drift 1079→1101 fixed.
 S477	| 2026-03-03 | +1L (L-1198) +0P | DUE periodics + F-DNA1 PARTIALLY RESOLVED: 11/12 Darwinian mechanism slots via convergent tooling evolution (L-1198, L4, Sh=9).
 S476	| 2026-03-03 | +1L (L-1192) +0P | Groundedness: 22/22 eval criteria self-referential, 6/6 mechanisms endogenous. eval_sufficiency_scores.py: EXCELLENT→SUFFICIENT (external_grounding cap). Zipf empirically tested (alpha=0.813, R²=0.917). validator_pass no longer hardcoded. F-GND1 OPENED. F-EVAL1 corrected. L-1190 citation fixed. 1082L 232P 21B 13F.
 S468d	| 2026-03-03 | +0L +1P (P-319) | Human-signal-harvest S468: 3 new patterns (inquiry-frame, knowledge-as-agent, component-autonomization). P-319 extracted. Authority paradox 0/2 L-994 evals. DOMEX-META-S467 ABANDONED + DOMEX-NK-S467 MERGED. FM-19 fix advice updated. 1061L 232P 20B 12F.
