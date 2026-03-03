@@ -304,17 +304,19 @@ def score_truthful(challenges: dict, signals: dict, frontiers: dict) -> dict:
     signal_density = total_sig / estimated_sessions
     details["signal_density_per_session"] = round(signal_density, 3)
     details["signal_density_target_met"] = signal_density >= 0.1
-    # L-1211: signal_density is NOT external grounding — it measures internal signal
-    # frequency. True external grounding requires F-COMP1 outputs. Until those exist,
-    # external_grounding_ok defaults to False. Checks recent lesson external trail.
+    # L-1211 + L-1222: keyword "external" is a false instrument — lessons discussing
+    # LACK of external grounding pass the check. Use external_grounding_check.py's
+    # structural patterns (URLs, DOIs, arXiv, named theories) for real detection.
     external_trail_pct = 0.0
     try:
+        from external_grounding_check import scan_lesson
         _lessons = sorted((ROOT / "memory" / "lessons").glob("L-*.md"))
         _recent = _lessons[-50:] if len(_lessons) >= 50 else _lessons
-        _ext = sum(1 for lf in _recent if "external" in lf.read_text(encoding="utf-8", errors="ignore").lower()[:500])
+        _ext = sum(1 for lf in _recent if scan_lesson(lf).get("has_external", False))
         external_trail_pct = _ext / max(len(_recent), 1) * 100
     except Exception:
-        pass
+        # Fallback: conservative — assume no external grounding if scanner unavailable
+        external_trail_pct = 0.0
     external_grounding_ok = external_trail_pct > 5.0
     details["external_grounding_ok"] = external_grounding_ok
     details["external_trail_pct"] = round(external_trail_pct, 1)

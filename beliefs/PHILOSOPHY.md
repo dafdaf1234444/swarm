@@ -361,7 +361,7 @@ Add format: `[PHIL-N] Session | Challenge text | Status`.
 | PHIL-4 | S325 | No external validation; only internal proxies | CONFIRMED S452: F-EVAL1 glass ceiling 2.25/3. PHIL-4 holds internally, externally unvalidated. |
 | PHIL-13 | S325 | 0/26 DROPPED; mechanism confirms not falsifies | CONFIRMED S452: 1/50+ DROPPED (PHIL-7 S389). Write:process ratio 10:1+ (L-944). |
 | PHIL-16 | S341 | 52.9% meta, 0 external (L-495, n=384) | CHALLENGE S341: epistemic closure = primary gap (L-508) |
-| PHIL-14 | S349 | Truthful=1/3; 0 DROPPED in 28 entries | CHALLENGE S349: action: 1 QUEUED falsification→Truthful=2 |
+| PHIL-14 | S349 | Truthful=1/3; 0 DROPPED in 28 entries | EXECUTED S480: Truthful instrument was false — keyword "external" check counted lessons DISCUSSING lack of grounding as grounded (L-1222). Fixed: eval_sufficiency_scores.py now uses external_grounding_check.py structural patterns (URLs, DOIs, named theories). Score 3/3 with honest instrument, but fragile: 8% external trail (threshold 5%). 2 fewer externally-grounded lessons in window → drops to 1/3. Truthful is partially real (evidence rate 90.5%), partially illusory (external grounding barely passing). |
 | PHIL-17 | S349 | 0 mutual swarming instances in 349s | CHALLENGE S349: test: 2 instances ≥3s mutual transfer |
 | PHIL-7 | S349 | Tools resist compression (maintenance.py 8x target) | DROPPED S389: premise FALSIFIED — orient 73%↓, tools 157→108, proxy-K 21.7%→5.8%. First DROPPED (T3/L-689). |
 | PHIL-6 | S349 | 5 breakages all recovered; guards advisory | CHALLENGE S349: "resilient recovery" more accurate |
