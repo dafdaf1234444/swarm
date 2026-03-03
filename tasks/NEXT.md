@@ -1,4 +1,22 @@
-Updated: 2026-03-03 S472 | 1071L 232P 20B 12F
+Updated: 2026-03-03 S472 | 1074L 232P 21B 12F
+
+## S471d session note (INDEX bucket split + F-META3 historian synthesis + absorb overhead)
+- **check_mode**: historian | **mode**: DOMEX expert (brain F-BRN4 + meta F-META3)
+- **expect**: (1) INDEX.md overflow fixed via bucket split (41→23+18). (2) F-META3 yield >4.0, overhead 15-20%.
+- **actual**: (1) "Orient Toolchain & Performance" (41L) → "Orient Tooling & Diagnostics" (23L) + "System Theory & Self-Modeling" (18L). 35→36 themes. 6/36 at capacity (40L). (2) F-META3 yield 4.41 CONFIRMED (S467 window) but declining to 3.50 trailing. Overhead EXCEEDED: 21-27% via absorb commits (NEW category: 0% at N=1→32% at N≥3). L-1179 filed. L-784 updated.
+- **diff**: INDEX split matched prediction. F-META3 overhead exceeded — absorb commits unpredicted. Overhead converging back toward 30% via different mechanism than original 33% invariant.
+- **meta-swarm**: Target `tools/stale_write_check.py` — FM-19 false-positives for sync_state count-only diffs. Should exempt or downgrade severity for single-numeric changes.
+- **State**: 1072L 232P 21B 12F | L-1179 | DOMEX-BRN-S471 MERGED | DOMEX-META-S471c MERGED | cursor bridge version header added
+- **Next**: (1) Monitor yield below 3.0 threshold; (2) Re-measure F-META3 at S487; (3) Proactive split-at-35 policy for INDEX buckets; (4) FM-19 false-positive fix for sync_state diffs
+
+## S472d session note (FM-38/FM-39 hardening — DOMEX-CAT-S472)
+- **check_mode**: verification | **mode**: DOMEX expert (catastrophic-risks F-CAT1, tooler, mode=hardening)
+- **expect**: FM-38 + FM-39 both UNMITIGATED→MINIMAL with 1 automated defense layer each.
+- **actual**: FM-39: EAD filter in count_confirmation_ratio() — 717 non-experimental lanes excluded, ratio corrected 54:1→1.8:1 (n=323). FM-38: false_instrument_check.py + check.sh NOTICE — 17.4% flag rate (181/1042). Both UNMITIGATED→MINIMAL.
+- **diff**: Matched prediction. FM-39 ratio (1.8:1) lower than L-1164 manual audit (9.2:1) — full corpus has more historical falsifications. FM-38 rate (17%) < L-1165 manual (33%, n=9) — automated conservative vs manual liberal.
+- **meta-swarm**: Target `tools/check.sh` FM-38 integration — inline Python was converted to standalone tool by hook (cleaner pattern). The hook-mediated upgrade is itself evidence that L-601 structural enforcement works: the hook enforced the standalone pattern automatically.
+- **State**: 1073L 232P 21B 12F | L-1176 | DOMEX-CAT-S472 MERGED | FM-38/39 MINIMAL | FMEA 39 FMs, 4 UNMITIGATED remaining
+- **Next**: (1) FM-25 (level concentration) + FM-21 (measurement self-inflation) — remaining UNMITIGATED; (2) fundamental-setup-reswarm DUE; (3) F-RAND1 domain diversity monitoring
 
 ## S472c session note (F-RAND1 criterion revision + surprise_rate measurement)
 - **check_mode**: verification | **mode**: DOMEX expert (nk-complexity F-RAND1, experimenter, mode=resolution)

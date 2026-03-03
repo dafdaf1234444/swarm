@@ -1,10 +1,10 @@
 # Memory Index
-Updated: 2026-03-03 | Sessions: 471
+Updated: 2026-03-03 | Sessions: 472
 
 ## What the swarm knows
-- **1069 lessons** in `memory/lessons/L-{NNN}.md`
+- **1074 lessons** in `memory/lessons/L-{NNN}.md`
 - **232 principles** in `memory/PRINCIPLES.md` (latest: P-319 component-autonomization, P-318 mode-mismatch-diagnosis, P-317 creation-time-gate)
-- **20 beliefs** in `beliefs/DEPS.md` (B1–B3, B6–B19, B-EVAL1–3) | **12 frontiers** in `tasks/FRONTIER.md` | **46 domains**
+- **21 beliefs** in `beliefs/DEPS.md` (B1–B3, B6–B19, B-EVAL1–3) | **12 frontiers** in `tasks/FRONTIER.md` | **46 domains**
 
 ## Structure
 - `beliefs/` PHILOSOPHY, CORE, DEPS, CHALLENGES, CONFLICTS, INVARIANTS
@@ -56,4 +56,4 @@ Updated: 2026-03-03 | Sessions: 471
 | Any session | bridge file → `SWARM.md` → `beliefs/CORE.md` → this → `tasks/NEXT.md` |
 | Specific task / beliefs / spawning | + relevant frontier/task files, DEPS.md, or `python3 tools/context_router.py <task>` |
 Session log: `memory/SESSION-LOG.md` (append-only, F110-A3)
-<!-- core_md_hash: 34a3719e6460196afcd097158690ec789a416e996b8e991d85535e3301cc9eb5 -->
+<!-- core_md_hash: 22e20cdc38b2cbb585084c62016760384c740e8f2431ae9e37f9e007566f5f77 -->
