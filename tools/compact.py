@@ -411,6 +411,55 @@ def cleanup_checkpoints(keep: int = 3) -> None:
     print(f"  FM-06: pruned {len(to_remove)} checkpoint(s), kept {min(keep, len(checkpoints))}.")
 
 
+def cleanup_ghost_lessons() -> int:
+    """FM-03 layer 2: Auto-unstage ghost lessons left by WSL after git mv.
+
+    After archiving (git mv L-NNN.md archive/L-NNN.md), WSL may leave ghost
+    copies in the source directory. If staged, they undo the archiving.
+    Layer 1 (check.sh) detects and blocks commit. Layer 2 (this) prevents
+    by auto-unstaging before commit is attempted.
+
+    Returns number of ghosts unstaged.
+    """
+    import subprocess as _sp
+
+    archive_dir = REPO_ROOT / "memory" / "lessons" / "archive"
+    if not archive_dir.exists():
+        print("  FM-03: no archive directory — skipping ghost check.")
+        return 0
+
+    archived_names = {f.name for f in archive_dir.glob("L-*.md")}
+    if not archived_names:
+        print("  FM-03: archive empty — no ghost risk.")
+        return 0
+
+    result = _sp.run(
+        ["git", "status", "--porcelain"],
+        capture_output=True, text=True, cwd=REPO_ROOT
+    )
+
+    ghosts = []
+    for line in result.stdout.splitlines():
+        if not line.startswith("A "):
+            continue
+        path = line[2:].strip()
+        if "memory/lessons/L-" not in path or "/archive/" in path:
+            continue
+        lesson_name = Path(path).name
+        if lesson_name in archived_names:
+            ghosts.append(path)
+
+    if not ghosts:
+        print("  FM-03: no ghost lessons detected.")
+        return 0
+
+    _sp.run(["git", "restore", "--staged"] + ghosts, cwd=REPO_ROOT)
+    print(f"  FM-03 layer 2: auto-unstaged {len(ghosts)} ghost lesson(s):")
+    for g in ghosts:
+        print(f"    - {g}")
+    return len(ghosts)
+
+
 def main():
     if "--cleanup-checkpoints" in sys.argv:
         keep = 3
@@ -419,9 +468,14 @@ def main():
                 keep = int(arg.split("=")[1])
         cleanup_checkpoints(keep)
         return
+    if "--fix-ghosts" in sys.argv:
+        cleanup_ghost_lessons()
+        return
     m, drift = analyze()
     if "--save" in sys.argv:
         save(m)
+    # FM-03 layer 2: always check for ghosts after compaction analysis
+    cleanup_ghost_lessons()
     if drift > 0.06:
         print(f"\n  ACTION NEEDED: Drift {drift:.1%} exceeds 6%. Compress targets above.")
     else:

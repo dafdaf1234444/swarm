@@ -36,6 +36,12 @@
       "reason": "RESOLVED: S456 ran full audit. 7 PHIL entries updated (PHIL-2/3/8/14/15/16/21). PHIL-14 downgraded (deadline expired), PHIL-21 upgraded (F-LEVEL1 RESOLVED), PHIL-8 renamed. 8x zombie killed.",
       "session": "S456",
       "date": "2026-03-03"
+    },
+    {
+      "canonical": "FM-30/FM-03 hardening",
+      "reason": "RESOLVED: FM-03 hardened S457 (MINIMAL→ADEQUATE, 2 automated layers: check.sh pre-commit + orient.py session-start ghost detection). FM-30 already ADEQUATE per S444 FMEA refresh.",
+      "session": "S457",
+      "date": "2026-03-03"
     }
   ]
 }

@@ -650,13 +650,14 @@ def section_zombie_carryover(root=ROOT):
         zombies = [(item, count) for item, count in item_counter.most_common()
                    if count >= 5 and item not in dropped_zombies]
 
-        # Carried-over% for latest session (TG-4)
+        # Carried-over% for latest session (TG-4) — filter dropped zombies
         latest = notes[-1]
         prior_items: set[str] = set()
         for note in notes[-6:-1]:  # previous 5 sessions
             for item in note["next_items"]:
                 prior_items.add(canonicalize(item))
-        latest_items = [canonicalize(it) for it in latest["next_items"]]
+        latest_items = [canonicalize(it) for it in latest["next_items"]
+                        if canonicalize(it) not in dropped_zombies]
         if latest_items:
             carried = sum(1 for it in latest_items if it in prior_items)
             pct = carried / len(latest_items) * 100

@@ -547,3 +547,24 @@ def check_stale_baselines(current_session: int, ROOT, stale_threshold: int = 50)
                     })
     stale.sort(key=lambda x: x["age"], reverse=True)
     return stale
+
+
+def check_ghost_lessons(ROOT):
+    """FM-03 layer 2: detect lesson files in memory/lessons/ that also exist in archive/.
+
+    Ghost lessons arise when WSL git-mv leaves copies in the source directory.
+    check.sh catches these at pre-commit (layer 1); this catches them at session start (layer 2).
+    """
+    lessons_dir = ROOT / "memory" / "lessons"
+    archive_dir = lessons_dir / "archive"
+    if not archive_dir.exists():
+        return []
+    archived = {f.name for f in archive_dir.glob("L-*.md")}
+    ghosts = [f.name for f in lessons_dir.glob("L-*.md") if f.name in archived]
+    lines = []
+    if ghosts:
+        lines.append("  WARN: FM-03 ghost lessons detected (exist in both lessons/ and archive/):")
+        for g in sorted(ghosts)[:10]:
+            lines.append(f"    ghost: {g}")
+        lines.append(f"  Fix: rm {' '.join('memory/lessons/' + g for g in sorted(ghosts)[:5])}")
+    return lines

@@ -8295,7 +8295,7 @@
     },
     {
       "session": 456,
-      "timestamp": "2026-03-03T00:21:05Z",
+      "timestamp": "2026-03-03T00:27:20Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -8309,9 +8309,10 @@
         },
         "check_mission_constraints": {
           "fired": true,
-          "count": 1,
+          "count": 2,
           "severities": [
-            "NOTICE"
+            "NOTICE",
+            "DUE"
           ]
         },
         "check_runtime_portability": {
@@ -8363,10 +8364,8 @@
         },
         "check_periodics": {
           "fired": true,
-          "count": 13,
+          "count": 11,
           "severities": [
-            "PERIODIC",
-            "PERIODIC",
             "PERIODIC",
             "PERIODIC",
             "PERIODIC",
@@ -8594,8 +8593,8 @@
       },
       "totals": {
         "NOTICE": 15,
-        "PERIODIC": 13,
-        "DUE": 1
+        "DUE": 2,
+        "PERIODIC": 11
       }
     }
   ]

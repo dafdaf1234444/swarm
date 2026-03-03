@@ -167,6 +167,10 @@ def check_git_index_health():
     from orient_checks import check_git_index_health as _impl
     return _impl(ROOT)
 
+def check_ghost_lessons():
+    from orient_checks import check_ghost_lessons as _impl
+    return _impl(ROOT)
+
 def check_experiment_harvest_gap(threshold: int = 5) -> list:
     from orient_checks import check_experiment_harvest_gap as _impl
     return _impl(ROOT, _hcache, threshold)
@@ -317,6 +321,9 @@ def main():
         print(_line)
     # FM-04: git index health check at session start (1st automated layer, S444)
     for _line in _index_health_future.result():
+        print(_line)
+    # FM-03: ghost lesson detection at session start (2nd automated layer, S457)
+    for _line in check_ghost_lessons():
         print(_line)
     _historian_repair_lines = _hist_future.result()
     _meta_tooler_lines = _meta_future.result()
