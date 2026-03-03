@@ -143,10 +143,19 @@ def _detect_falsified_lessons(
 
             # Pattern 4: "L-NNN supersedes/replaces" — lid is superseded, ref corrects
             # Actually: if lid says "ref supersedes this" → lid falsified, ref corrects
-            if re.search(
+            # L-1200 fix: skip if ref is on a metadata line (Note:, Cites:, Confidence:)
+            # to prevent false positives from descriptions of OTHER lessons' supersession
+            _p4 = re.search(
                 rf"{re.escape(ref)}\s+{_SUPERSEDE_KW}", context, re.IGNORECASE
-            ):
-                edges.append((lid, ref))
+            )
+            if _p4:
+                _ls4 = text.rfind("\n", 0, ref_match.start()) + 1
+                _rl4 = text[_ls4:text.find("\n", ref_match.end())]
+                if not re.match(
+                    r"\*{0,2}(?:Cites|Note|Confidence|Falsified if)\*{0,2}:",
+                    _rl4.lstrip(),
+                ):
+                    edges.append((lid, ref))
 
     # Aggregate: build falsified→correctors map
     result: dict[str, set[str]] = {}
@@ -191,11 +200,21 @@ def _detect_falsified_lessons(
             continue  # keep in list
 
         # Explicitly says "falsified/superseded by L-NNN" → genuinely falsified
-        if re.search(
+        # L-1200 fix: exclude matches where another L-NNN precedes the keyword
+        # on the same line (describes ANOTHER lesson's supersession, not self)
+        _self_superseded = False
+        for _m in re.finditer(
             r"(?:falsified|superseded|replaced)\s+by\s+L-\d+",
             own_text,
             re.IGNORECASE,
         ):
+            _line_start = own_text.rfind("\n", 0, _m.start()) + 1
+            _prefix = own_text[_line_start:_m.start()]
+            # If another L-NNN appears in the prefix, this describes that lesson not self
+            if not re.search(r"\bL-\d+\b", _prefix):
+                _self_superseded = True
+                break
+        if _self_superseded:
             continue  # keep in list
 
         # In the known seed → keep
