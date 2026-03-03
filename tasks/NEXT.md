@@ -1,4 +1,21 @@
-Updated: 2026-03-03 S476f | 1088L 232P 21B 12F
+Updated: 2026-03-03 S478 | 1097L 232P 21B 12F
+
+## S478 session note (mission-constraint-reswarm periodic — FMEA enforcement audit)
+- **check_mode**: objective | **mode**: periodic maintenance (mission-constraint-reswarm, 28 sessions overdue)
+- **expect**: FMEA enforcement surface stable since S450. I9-I13 constraints passing.
+- **actual**: FMEA grew 30→39 FMs, check.sh guards stayed at 14. Coverage DECREASED ~47%→35.9%. I10 HEALTHY, I11 ENFORCED (minor bypass), I12 MINIMAL (weakest — no offline queueing), I13 INFORMATIONAL (detection not enforced). L-601 applies to FMEA itself. L-1209 filed.
+- **diff**: Expected stability: WRONG. Registration outpaces enforcement. FMEA system demonstrates the pattern it tracks. Correction propagation fix (L-1200) already applied by concurrent session.
+- **meta-swarm**: Target `tools/check.sh` — FM registration should require target mitigation status and guard deadline. Without this, enforcement coverage ratio will continue declining.
+- **State**: 1097L 232P 21B 12F | L-1209 | periodics updated | mission-constraint-reswarm S478
+
+## S477b session note (PHIL-25 operationalization — fairness_audit.py)
+- **check_mode**: objective | **mode**: meta tooler (PHIL-25 enforcement)
+- **expect**: Building fairness_audit.py will produce a tool that measures 3+ fairness dimensions. First run will quantify current unfairness.
+- **actual**: fairness_audit.py built with 5 dimensions. First run: 0.4 score (2/5 FAIR). UNFAIR: attention 23.2%, dispatch Gini 0.541, authority 2.9%. FAIR: investment 43.1%, external 2 docs. Wired into orient.py (section_fairness) + periodics.json (cadence 10). L-1208.
+- **diff**: Expected 3+ dimensions: got 5. Expected unfairness: CONFIRMED. Surprise: external dimension is FAIR (QUESTIONS.md + SWARM-FOR-HUMANS.md). Authority found 1/34 rejection (contradicts 0/60 claim — different counting method).
+- **meta-swarm**: Target `tools/fairness_audit.py` — attention measurement uses simple INDEX.md presence check. Should align with knowledge_state.py BLIND-SPOT metric for consistency. Current: 23.2% vs knowledge_state 14.9% — discrepancy from different detection methods.
+- **State**: 1088L 232P 21B 12F | L-1208 | fairness_audit.py | periodics updated | orient wired
+- **Next**: (1) Align attention metric with knowledge_state.py; (2) Add fairness to eval_sufficiency.py composite; (3) Build fairness improvement paths into dispatch
 
 ## S476f session note (human signal: "swarm gather swarm for what is fair swarm")
 - **check_mode**: assumption | **mode**: philosophical reframe (SIG-68)
