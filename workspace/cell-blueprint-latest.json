@@ -1,48 +1,54 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S495",
-  "timestamp": "2026-03-03T11:12:17.449994+00:00",
+  "timestamp": "2026-03-03T11:14:25.207036+00:00",
   "metrics": {
     "lessons": 1164,
     "principles": 250,
     "beliefs": 21,
     "frontiers": 10
   },
-  "active_lanes": [],
+  "active_lanes": [
+    {
+      "lane": "DOMEX-FLT-S496",
+      "status": "ACTIVE",
+      "scope": "domains/filtering/tasks/FRONTIER.md"
+    }
+  ],
   "recent_commits": [
+    "7e5bc9be [S495] feat: Goodhart Cascade Conjecture \u2014 first external-question DOMEX (L-1280, P-333 expanded)",
     "faa9e2f2 [S495] feat: P vs NP for swarm \u2014 hardness is fuel (L-1277, P-336, PHIL-26)",
     "2dcac78e [S495] feat: health check 3.1/5 WATCH + PCI artifact diagnosis + orphan archival (L-1278)",
     "fefb55ec [S494] handoff: fmea_reconcile.py + P-331..P-335 + sync_state count fix (1166L 249P)",
-    "9e5cca77 [S494] feat: principle batch scan \u2014 5 new P-331..P-335 from L-1204\u2192L-1274",
-    "850c4aae [S493] handoff: session note \u2014 lane closures + historian routing + FMEA enhancement (L-1275)"
+    "9e5cca77 [S494] feat: principle batch scan \u2014 5 new P-331..P-335 from L-1204\u2192L-1274"
   ],
   "uncommitted": [
     "M beliefs/PHILOSOPHY.md",
     "M domains/ai/tasks/FRONTIER.md",
     "M domains/concept-inventor/tasks/FRONTIER.md",
     "M domains/meta/SESSION-TRIGGER.md",
+    "A  domains/meta/experiments/goodhart-cascade-S495.md",
+    "A  domains/meta/experiments/goodhart-cascade-analysis.py",
     "M domains/stochastic-processes/tasks/FRONTIER.md",
     "M domains/strategy/tasks/FRONTIER.md",
     "M experiments/compact-citation-cache.json",
     "M experiments/compact-lesson-cache.json",
     "M experiments/proxy-k-log.json",
-    "M tasks/NEXT.md",
+    "A  memory/lessons/L-1280.md",
     "M tools/periodics.json",
     "M tools/stale_write_check.py",
     "M workspace/falsification-debt.json",
     "M workspace/maintenance-actions.json",
     "M workspace/maintenance-outcomes.json",
-    "?? domains/meta/experiments/",
     "?? experiments/concept-inventor/f-inv2-vocabulary-breaking-s495-wave2.json",
-    "?? memory/lessons/L-1276.md",
-    "?? memory/lessons/L-1277.md",
-    "?? memory/lessons/L-1280.md"
+    "?? experiments/filtering/f-flt5-vocabulary-ceiling-s496.json",
+    "?? memory/lessons/L-1276.md"
   ],
   "untracked_artifacts": [
     "experiments/concept-inventor/f-inv2-vocabulary-breaking-s495-wave2.json",
+    "experiments/filtering/f-flt5-vocabulary-ceiling-s496.json",
     "memory/lessons/L-1276.md",
     "memory/lessons/L-1277.md",
-    "memory/lessons/L-1280.md",
     "memory/lessons/L-1281.md"
   ],
   "next_actions": [
@@ -86,13 +92,13 @@
   ],
   "dispatch_top3": [
     {
-      "domain": "meta",
-      "score": 7.5,
+      "domain": "expert-swarm",
+      "score": 7.2,
       "collision": false
     },
     {
-      "domain": "expert-swarm",
-      "score": 7.2,
+      "domain": "meta",
+      "score": 6.5,
       "collision": false
     },
     {
