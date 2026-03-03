@@ -435,7 +435,7 @@ def _check_retention_accessibility(n: int, index_text: str) -> list[tuple[str, s
             try:
                 content = lf.read_text(encoding="utf-8", errors="replace")
                 # Check Cites: header for L-NNN references to other lessons
-                cites_match = re.search(r"^Cites:(.+)$", content, re.MULTILINE)
+                cites_match = re.search(r"^\*{0,2}Cites\*{0,2}:(.+)$", content, re.MULTILINE)  # L-1169
                 if cites_match:
                     if re.search(r"L-\d+", cites_match.group(1)):
                         continue

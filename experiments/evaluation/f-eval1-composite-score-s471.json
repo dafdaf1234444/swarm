@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-EVAL-S471",
+    "frontier": "F-EVAL1",
+    "session": "S471",
+    "domain": "evaluation",
+    "date": "2026-03-03",
+    "expect": "Composite mission score computable from existing discrete scores \u2014 weighted geometric mean of 8 sub-scores correlates >0.7 with human-judged mission health",
+    "actual": "TBD",
+    "diff": "TBD"
+}
