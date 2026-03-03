@@ -215,7 +215,8 @@ fi
 # re-exported in orient_sections.py. Missing re-exports break orient.py for ALL sessions.
 if [ -f "tools/orient_sections.py" ] && [ -f "tools/orient_analysis.py" ] && [ -f "tools/orient_monitors.py" ]; then
     REEXPORT_EXIT=0
-    REEXPORT_OUT=$("${PYTHON_CMD[@]}" - << 'PYEOF' 2>&1) || REEXPORT_EXIT=$?
+    REEXPORT_TMPF=$(mktemp)
+    "${PYTHON_CMD[@]}" - << 'PYEOF' > "$REEXPORT_TMPF" 2>&1 || REEXPORT_EXIT=$?
 import re
 missing = []
 hub = open("tools/orient_sections.py").read()
@@ -228,6 +229,8 @@ if missing:
         print(f"  MISSING re-export: {m}")
     raise SystemExit(1)
 PYEOF
+    REEXPORT_OUT=$(cat "$REEXPORT_TMPF")
+    rm -f "$REEXPORT_TMPF"
     if [ "$REEXPORT_EXIT" -ne 0 ]; then
         echo "FAIL: Orient section re-export integrity broken (L-1213)."
         echo "$REEXPORT_OUT"
