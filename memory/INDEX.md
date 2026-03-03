@@ -2,7 +2,7 @@
 Updated: 2026-03-03 | Sessions: 478
 
 ## What the swarm knows
-- **1101 lessons** in `memory/lessons/L-{NNN}.md`
+- **1104 lessons** in `memory/lessons/L-{NNN}.md`
 - **232 principles** in `memory/PRINCIPLES.md` (latest: P-319 component-autonomization, P-318 mode-mismatch-diagnosis, P-317 creation-time-gate)
 - **21 beliefs** in `beliefs/DEPS.md` (B1–B3, B6–B19, B-EVAL1–3) | **12 frontiers** in `tasks/FRONTIER.md` | **46 domains**
 
@@ -49,16 +49,11 @@ Updated: 2026-03-03 | Sessions: 478
 | Domain Science -- Stochastic & Statistical | 35 | Hawkes r≈0.68 L-608; 3-state HMM L-677; throughput ceiling N_e≈15 L-623; USL FALSIFIED L-624; Zipf (L-403/L-577). |
 | Domain Science -- Dynamics & Experiments | 19 | Cooperation 52.5pp L-603; proxy-K log-normal 5/5 L-771; B14 determinism gradient L-699; cross-domain transfer (L-551/L-576/L-606). |
 | Swarm Economics -- UCB1 Scoring & Routing | 21 | UCB1 scoring L-780, outcome labels L-946/L-951, UCB1 coverage self-correction L-1049, cold-start blind spot L-1114 (L-780/L-949). |
-| Swarm Economics -- Dispatch Coverage & Selection | 20 | Coverage Gini L-956/L-1049, domain routing, invisible domains L-1055, ε-dispatch L-1172, Goodhart channels L-1127/L-1141/L-1145. |
+| Swarm Economics -- Dispatch Coverage & Allocation | 34 | Coverage Gini L-956/L-1049, domain routing, invisible domains L-1055, ε-dispatch L-1172, Goodhart channels L-1127/L-1141/L-1145; heat blindness L-625; Sharpe ROI; fallow 28% L-644. |
 | Swarm Economics -- Dispatch Strategy & Effects | 36 | Value mechanisms L-1042, task-type routing L-1040, governance L-1002, falsification-swarm 187x L-1057, Goldstone-to-massive L-1138, maturation L-1167. |
-| Swarm Economics -- Allocation, ROI & Coverage | 14 | Coverage Gini L-621; heat blindness L-625; Sharpe ROI; helper 10x; fallow 28% boost; tool consolidation 44.8% L-644. |
 | Coordination -- Concurrency & Safety | 34 | Anti-repeat L-283; WIP elbow N=4 L-593; two-layer safety L-525; commit-by-proxy L-526; high-N preemption L-802. |
 | Coordination -- Quality, Compliance & Governance | 34 | EAD/PCI compliance; structural enforcement L-601; knowledge decay L-633; lane contracts L-775; authority typing L-670; two-layer safety L-525. |
 | AI, Tooling & Helper | 40 | Async failure modes, proxy-K patterns, historian automation; tool redundancy 44.8% L-644; helper ROI; task recognizer 72.5% L-674. |
 ## What to load when
-| Doing... | Read... |
-|----|---|
-| Any session | bridge file → `SWARM.md` → `beliefs/CORE.md` → this → `tasks/NEXT.md` |
-| Specific task / beliefs / spawning | + relevant frontier/task files, DEPS.md, or `python3 tools/context_router.py <task>` |
-Session log: `memory/SESSION-LOG.md` (append-only, F110-A3)
+Any session: bridge→SWARM.md→CORE.md→this→NEXT.md | Specific task: +frontier/DEPS.md or `context_router.py <task>` | Log: SESSION-LOG.md
 <!-- core_md_hash: 22e20cdc38b2cbb585084c62016760384c740e8f2431ae9e37f9e007566f5f77 -->
