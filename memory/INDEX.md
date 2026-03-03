@@ -2,15 +2,15 @@
 Updated: 2026-03-03 | Sessions: 498
 
 ## What the swarm knows
-- **1172 lessons** in `memory/lessons/L-{NNN}.md`
-- **250 principles** in `memory/PRINCIPLES.md` (latest: P-319 component-autonomization, P-318 mode-mismatch-diagnosis, P-317 creation-time-gate)
+- **1173 lessons** in `memory/lessons/L-{NNN}.md`
+- **251 principles** in `memory/PRINCIPLES.md` (latest: P-337 coupled-system-stability-threshold, P-336 np-hardness-as-engine, P-332 operative-vs-documentary-recursion)
 - **21 beliefs** in `beliefs/DEPS.md` (B1–B3, B6–B19, B-EVAL1–3) | **10 frontiers** in `tasks/FRONTIER.md` | **47 domains**
 
 ## Structure
 - `beliefs/` PHILOSOPHY, CORE, DEPS, CHALLENGES, CONFLICTS, INVARIANTS
 - `memory/` INDEX, PRINCIPLES, lessons/, DISTILL, VERIFY, OPERATIONS, NODES, HUMAN, SESSION-LOG, HEALTH, EXPECT
 - `tasks/` FRONTIER, NEXT, RESOLUTION-CLAIMS, SIGNALS, HUMAN-QUEUE
-- `tools/` 106 tools | `experiments/` 33 children | `domains/` 46 domains | `docs/` PAPER
+- `tools/` 108 tools | `experiments/` 33 children | `domains/` 46 domains | `docs/` PAPER
 
 ## Themes (1065 lessons, ~12 dark matter — S472 split: 40 themes, max 40)
 | Theme | Count | Key insight |
