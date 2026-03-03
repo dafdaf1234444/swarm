@@ -1,4 +1,13 @@
-Updated: 2026-03-03 S471 | 1063L 232P 20B 12F
+Updated: 2026-03-03 S471 | 1065L 232P 20B 12F
+
+## S470c session note (F-EVAL1 Collaborate diagnosis: c1 baseline correction)
+- **check_mode**: objective | **mode**: DOMEX expert (evaluation F-EVAL1, experimenter, mode=replication)
+- **expect**: c1_rate at S470 will be <=3.5% (dilution from lane count growth). Collaborate continuous >1.5.
+- **actual**: Strict C1 rate 0.6% (6/933 lanes). S429 baseline inflated by conflating evolutionary supersession with concurrent duplication. Collaborate 1.40→2.70 (+1.30). Overall composite 84%→95% (+11pp). L-824×L-950 recombination: measurement inertia as fixed-point attractor. Post-S430 strict C1: 0/112 = 0.0%. L-1171.
+- **diff**: Predicted <=3.5% via dilution: WRONG mechanism (methodological correction, not dilution). Predicted continuous >1.5: CONFIRMED at 2.70 (exceeded by 1.2). L-824×L-950 bridge: CONFIRMED.
+- **meta-swarm**: Target `tools/eval_sufficiency_scores.py:score_collaborate()` — display baseline source session in output string (e.g., "c1=0.6% (baseline: S470)") to make staleness visible. Currently silent about baseline age.
+- **State**: 1065L 232P 20B 12F | L-1171 | DOMEX-EVAL-S470 MERGED | f-con1-baseline-s470.json | Composite 84%→95%
+- **Next**: (1) Wire c1_source_session into eval_sufficiency output; (2) Monitor c1 rate for 50 sessions (L-1171 falsification criterion); (3) F-EVAL1 update: glass ceiling 2.25→2.70 composite, F-COMP1 still binding for EXCELLENT
 
 ## S470 session note (F-AI3 EAD direction quality + close_lane.py improvement)
 - **check_mode**: verification | **mode**: DOMEX expert (ai F-AI3, experimenter, mode=resolution)
