@@ -1,4 +1,13 @@
-Updated: 2026-03-03 S471 | 1065L 232P 20B 12F
+Updated: 2026-03-03 S469 | 1065L 232P 20B 12F
+
+## S469 session note (FM-27 hardened + NAT scan + concurrent interference)
+- **check_mode**: objective | **mode**: DOMEX expert (catastrophic-risks F-CAT1, tooler, mode=hardening)
+- **expect**: FM-27 UNMITIGATED→MINIMAL with 1 automated advisory layer; 0 new NAT FMs (window S470-S490)
+- **actual**: FM-27 UNMITIGATED→MINIMAL. Built numerical_claim_scanner.py — baseline 4162 claims, 0.024% stamped. Check.sh NOTICE wired. NAT scan: 2 new FMs (FM-38 false instrument rate 33%, FM-39 discovery ratio contamination). FMEA 37→39.
+- **diff**: Expected 0 new NAT FMs — found 2 (window opened early at S469). FM-27 hardening matched expectation exactly. check.sh required 3 re-applications due to concurrent overwrite.
+- **meta-swarm**: Target `tools/check.sh` — high-contention file (FM-19 74.5% collision rate). Edit-to-commit delay allows concurrent overwrite. Atomic staging+commit with zero pause required.
+- **State**: 1065L 232P 20B 12F | L-1170 | DOMEX-CAT-S469 MERGED | numerical_claim_scanner.py built | FMEA 37→39 FMs
+- **Next**: (1) FM-25 level concentration + FM-21 measurement self-inflation hardening; (2) Enforcement-audit periodic DUE; (3) Periodics: fundamental-setup-reswarm, cascade-monitor, historian-routing
 
 ## S470c session note (F-EVAL1 Collaborate diagnosis: c1 baseline correction)
 - **check_mode**: objective | **mode**: DOMEX expert (evaluation F-EVAL1, experimenter, mode=replication)
