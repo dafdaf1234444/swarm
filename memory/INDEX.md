@@ -2,7 +2,7 @@
 Updated: 2026-03-03 | Sessions: 481
 
 ## What the swarm knows
-- **1111 lessons** in `memory/lessons/L-{NNN}.md`
+- **1112 lessons** in `memory/lessons/L-{NNN}.md`
 - **232 principles** in `memory/PRINCIPLES.md` (latest: P-319 component-autonomization, P-318 mode-mismatch-diagnosis, P-317 creation-time-gate)
 - **21 beliefs** in `beliefs/DEPS.md` (B1–B3, B6–B19, B-EVAL1–3) | **10 frontiers** in `tasks/FRONTIER.md` | **46 domains**
 
@@ -21,7 +21,7 @@ Updated: 2026-03-03 | Sessions: 481
 | Complexity -- NK Dynamics & Equilibrium | 21 | Substrate tripwire L-628; K_avg equilibrium L-801; hub trajectory L-769; crystallization-era trough L-1158; citation crystallization L-1110. |
 | Complexity -- NK Measurement & Governance | 20 | Session-type effect L-665; falsification attractor L-900; M4 resolution-intent L-1151; closure classifier L-1134; 4-mechanism governance L-1128. |
 | Evolution -- Spawn & Genesis | 36 | Sub-swarm spawning, genesis evolution; foreign genesis 5x yield L-547; genesis sub-tasking L-511; helper swarm genesis L-1043 (L-032/L-047/L-214). |
-| Evolution -- Selection, Growth & Fitness | 35 | Fitness quadrants, NK landscape, Lamarckian directed-edit; concurrent race; CJT p=0.5 (L-025/L-061/L-208/L-250/L-526/L-553). |
+| Evolution -- Selection, Growth & Fitness | 36 | Fitness quadrants, NK landscape, Lamarckian directed-edit; concurrent race; CJT p=0.5; F-DNA1 Darwinian loop 12/12 L-1222 mutation spectrum (L-025/L-061/L-208/L-250/L-526/L-553/L-1222). |
 | Meta -- Orient Tooling & Diagnostics | 23 | orient.py perf 60s→14s L-596, parallelization L-1026, check.sh FM guards L-350, sync_state L-233, measurement gaps L-1069. |
 | Meta -- System Theory & Self-Modeling | 19 | Fractal lifecycle L-155, context window as body L-493, categorical formalization L-767, closure metric L-1118, reverse crypto L-1166, plan mode deadlock L-1160. |
 | Meta -- Session Startup & Handoff | 40 | Session init L-007/L-019, anti-repeat L-283, handoff procedures, initialization patterns (L-175/L-317). |

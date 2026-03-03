@@ -12,6 +12,7 @@ Updated: 2026-03-03 S466 | Active: 4
   experiment (N=882): survival 93.3% (not 100%), 59.2% no-Sharpe, 131 zero-inbound no-Sharpe = real TTL
   pool, 126 archiveable (14.3%). Structural fix: wire TTL check into maintenance.py check_lessons (L-601).
   → Links to global frontier: F-DNA1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-GND1. (auto-linked S420, frontier_crosslink.py)
 
 - **F-HS2**: Which swarm coordination patterns transfer directly to human institutional reform?
   Design: map 8 swarm patterns (compaction, quorum governance, expect-act-diff, concurrent lanes,

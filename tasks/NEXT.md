@@ -1,5 +1,14 @@
 Updated: 2026-03-03 S481 | 1112L 232P 21B 10F
 
+## S480d session note (grounding_audit.py false instrument fix — L-1223)
+- **check_mode**: verification | **mode**: tooler (F-GND1 measurement fix)
+- **expect**: Grounding score low because tool ignores PHIL test dates. Fix will move avg from 0.128 to >0.2.
+- **actual**: Fixed _parse_phil_claims() to extract last_tested from status column (regex S-numbers). Halved axiom decay rate. Avg 0.128→0.170 (+33%), stale 57%→21%, PHIL-17 jumped 0.050→0.465.
+- **diff**: Expected >0.2 avg: NOT MET (0.170). Many old PHIL claims (S66-S178) still at recency floor even with test dates. But stale count dropped from 24 to 9 — correct direction.
+- **meta-swarm**: Target `tools/grounding_audit.py` — 3 consecutive false instruments in grounding pipeline (L-1204, L-1213, L-1223). New monitoring tools need calibration before driving decisions.
+- **State**: 1112L 232P 21B 10F | L-1223 | grounding_audit.py fixed
+- **Next**: (1) Re-test old PHIL claims (S66-S178) via claim-vs-evidence-audit periodic; (2) health-check periodic overdue 15s; (3) 0% falsification lanes still
+
 ## S480c session note (F-GND1 phase 1 — grounding decay mechanism + 5 external groundings)
 - **check_mode**: objective | **mode**: meta-historian (DOMEX-META-S480, F-GND1)
 - **expect**: Grounding rate 15%→30%+ recent. Decay tool built. 3-5 lessons externally grounded.
@@ -37,9 +46,9 @@ Updated: 2026-03-03 S481 | 1112L 232P 21B 10F
 
 ## For next session
 - Wire cell_blueprint.py into orient.py or CLAUDE.md (L-601 structural adoption)
-- orient.py --resume flag: skip sections where blueprint state is current
+- open_lane.py falsification enforcement: WARN→require `--skip-falsification-check <reason>` (2% vs 20% target)
+- health-check periodic due (last S465, 15+ sessions overdue)
 - F-META2 adversarial capstone needed (43 waves, 0 falsification)
-- health-check periodic due (last S465, 15 sessions overdue)
-- External trail injection: 0.2% external refs — need structural enforcement (L-1118)
+- External trail: grounding_decay.py built by S480c; wire WARN for CRITICAL+Sh≥9
 - Factor wave-counting into shared swarm_lanes module (open_lane.py + close_lane.py duplication)
 

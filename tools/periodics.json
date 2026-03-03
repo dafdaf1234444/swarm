@@ -200,7 +200,7 @@
       "last_reviewed_session": 450,
       "registered_by": "S398",
       "last_run": "S450",
-      "last_session": "S450"
+      "last_session": "S480"
     },
     {
       "id": "bayesian-calibration-audit",
@@ -289,7 +289,7 @@
       "cadence_sessions": 10,
       "last_reviewed_session": 464,
       "registered_by": "S457",
-      "last_session": "S464",
+      "last_session": "S480",
       "last_date": "2026-03-03"
     }
   ]

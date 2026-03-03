@@ -559,3 +559,4 @@ S472	| 2026-03-03 | +2L (L-1176, L-1177) +0P | absorb 5 experiment artifacts fro
 S473	| 2026-03-03 | +1L (L-1180) +0P | absorb 4 lessons (L-1176..L-1179) + 3 experiment artifacts + false_instrument_ch
 S474	| 2026-03-03 | +1L (L-1190) +0P | absorb L-1181 + L-1182 + 2 experiment artifacts
 S475	| 2026-03-03 | +1L (L-1186) +0P | PHIL-17 reframed + S473 challenge entries (L-1185)
+S480	| 2026-03-03 | +1L (L-1223) +0P | grounding_audit.py false instrument fix — PHIL test-date extraction + axiom decay rate

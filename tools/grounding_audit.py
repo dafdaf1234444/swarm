@@ -80,12 +80,17 @@ def _parse_phil_claims() -> list[dict]:
                 claim_type = parts[3].lower()
                 grounding = parts[4].lower()
                 status = parts[5] if len(parts) > 5 else ""
+                # Extract last-tested session from status column
+                # Status contains patterns like "CONFIRMED S394", "S458 REFINED"
+                sessions = [int(m) for m in re.findall(r'S(\d+)', status)]
+                last_tested = max(sessions) if sessions else None
                 claims.append({
                     "id": claim_id,
                     "short": claim_short,
                     "type": claim_type,
                     "grounding": grounding,
                     "status": status,
+                    "last_tested_session": last_tested,
                     "source": "PHILOSOPHY.md",
                 })
         elif in_table and not line.startswith("|"):
@@ -150,10 +155,13 @@ def _compute_grounding_score(claim: dict, current_session: int) -> dict:
     weight = EVIDENCE_WEIGHTS.get(grounding, 0.3)
 
     # Recency factor (decay since last test)
+    # Axioms decay slower — they're definitional, not empirical
+    claim_type = claim.get("type", "")
+    decay_rate = DECAY_RATE * 0.5 if claim_type == "axiom" else DECAY_RATE
     last_tested = claim.get("last_tested_session")
     if last_tested is not None:
         sessions_since = current_session - last_tested
-        recency = max(DECAY_FLOOR, 1.0 - (sessions_since * DECAY_RATE))
+        recency = max(DECAY_FLOOR, 1.0 - (sessions_since * decay_rate))
         stale = sessions_since > STALE_THRESHOLD
     else:
         recency = DECAY_FLOOR  # never tested = maximum decay

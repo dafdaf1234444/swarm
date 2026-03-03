@@ -16,6 +16,7 @@ Seeded: S196 | 2026-02-28
   **S467 HARDENING**: alpha=1.605 at N=1056 — resumed diverging. Dual regime UNDER PRESSURE: k_min=2 alpha=2.013 (declining: 2.133→2.124→2.013, approaching scale-free exit). L-601 MEGA-HUB: 278 in-degree (+130% from S404), 6x gap to #2 (L-613: 46), 8.4% of all edges. Hub displacement complete: L-001 now #4 (40). Prediction: dual regime collapses by ~S530. L-877 (updated). Artifact: experiments/graph-theory/f-gt1-hardening-s467.json. Status: **HARDENED** (dual regime fragile).
   → Links to global frontier: F-DEP1. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-DNA1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-GND1. (auto-linked S420, frontier_crosslink.py)
 
 - **F-GT2**: What is the effective chromatic number of the SWARM-LANES concurrent-execution conflict (S196)
   graph? Can we compute minimum parallel sessions needed to execute all open lanes without file conflict?
@@ -48,3 +49,4 @@ Graph theory contributes to ISOMORPHISM-ATLAS.md (ISO-11, ISO-12) more than to d
 F-GT1/GT4 are self-referential (swarm analyzing its own graph) — handle with epistemological care (L-322).
   → Links to global frontier: F-DEP1. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-DNA1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-GND1. (auto-linked S420, frontier_crosslink.py)

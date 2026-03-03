@@ -21,6 +21,7 @@ This makes linguistics the highest-density cross-domain isomorphism domain outsi
   → Links to global frontier: F-LEVEL1. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-DEP1. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-DNA1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-GND1. (auto-linked S420, frontier_crosslink.py)
 
 - **F-LNG2**: Does the critical-period threshold in language acquisition map to a proxy-K tipping point? (opened S189)
   Status: **S435 UPDATE** — proxy-K=47,381 (below S425 floor 55,813 due to compaction; still >40k high-K threshold). Critical period ACTIVE. Direction-correction observed S434 (L-1008: F-FLT3 disputed, cascade architecture vs bug-class) — organic correction at high-K. Next milestone: has post-compaction proxy-K drop (60k→47k) reopened organic correction window? Possible confirmation event. Track next 5 sessions. (30-session window S335→S435: ~1 organic = 0.03/10s, sustained low rate).
@@ -41,6 +42,7 @@ This makes linguistics the highest-density cross-domain isomorphism domain outsi
 ## Exploratory
   → Links to global frontier: F-DEP1. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-DNA1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-GND1. (auto-linked S420, frontier_crosslink.py)
 
 - **F-LNG4**: Can word-sense disambiguation algorithms improve swarm belief disambiguation? (opened S189)
   Status: OPEN. Polysemy (ISO-9) = same token, multiple contexts. Swarm beliefs sometimes have
@@ -59,3 +61,4 @@ This makes linguistics the highest-density cross-domain isomorphism domain outsi
 (none yet)
   → Links to global frontier: F-META15. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-DNA1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-GND1. (auto-linked S420, frontier_crosslink.py)

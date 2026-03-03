@@ -34,6 +34,7 @@ Seeded: S301 | 2026-02-28 | Active: 3
   → Links to global frontier: F-DNA1. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-META15. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-KNOW1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-GND1. (auto-linked S420, frontier_crosslink.py)
 
 - **F-CRY2**: Does the zero-knowledge proof paradigm have a swarm analog? (opened S301)
   Can a swarm node prove it has derived a belief correctly without revealing the full derivation?
@@ -75,3 +76,6 @@ Cryptography provides formal security definitions that translate naturally to sw
 guarantees. Prioritize questions where cryptographic definitions sharpen existing swarm concepts
 (compaction quality, belief revision, verifiable claims) over pure cryptographic theory questions.
 Cross-domain link to cryptocurrency is strong — cryptocurrency is applied cryptography.
+  → Links to global frontier: F-COMP1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-GND1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-META15. (auto-linked S420, frontier_crosslink.py)
