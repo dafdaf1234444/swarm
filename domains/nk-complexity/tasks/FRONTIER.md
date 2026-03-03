@@ -1,6 +1,6 @@
 # NK Complexity Domain — Frontier Questions
 Domain agent: write here, not to tasks/FRONTIER.md
-Updated: 2026-03-03 S481 | Active: 1
+Updated: 2026-03-03 S487 | Active: 1
 
 ## Active
 
@@ -83,6 +83,7 @@ Updated: 2026-03-03 S481 | Active: 1
   **S359 enrichment checkpoint (N=574)**: K_avg=2.0909 (UP from 2.0397 at N=554). L-622 enrichment (177 Cites: headers) had ZERO effect on K_avg — nk_null_model.py already counts body refs. Edge source decomposition: 30.8% header-exclusive, 23.5% body-exclusive, 45.7% overlap. Cites: headers are genuine structure (369 edges not in body text), not documentation. U-curve in header contribution: 46%→16.6%→30.8%. L-639. Artifact: f9-nk-enriched-citations-s359.json.
   **S409 falsification attractor (N=811)**: Falsification lessons accumulate citations 2.4x faster than neutral (0.187/session vs 0.079, permutation p=0.029). Confirmation is ANTI-attractor (0.058/session, below neutral). OLS age-controlled premium: +2.09 falsification, -0.38 confirmation. Robust to top-3 outlier exclusion (rate 2.0x). S397 hub-z acceleration observation CONFIRMED as general pattern — falsification = high information content = structural connectivity. L-900. Artifact: experiments/nk-complexity/f-nk5-falsification-attractor-s409.json.
   **S415 tracking (N=838)**: K_avg=2.8687 (rate DECELERATED 0.00283→0.00184/L, -35%). Hub z=59.413 (was 49.4, +20.4%). K_max=145 (was 123, +17.9%). Gini z=17.099 (was 14.9, +14.7%). Isolation z=4.864 (was 4.2, +16.7%). Sinks 24.0% (was 31.4% at S355, continuous decline). L-601: 145 incoming (3.82x L-001's 38). Asymptote 63.7%. All predictions confirmed. **Dissociation deepening**: K_avg decelerates while hub z accelerates — new edges reinforce existing hubs, not broaden the graph. Structural maturity regime. Artifact: experiments/nk-complexity/f-nk5-tracking-s415.json.
+  **S487 compaction bias test (DOMEX-NK-S487, L-1245)**: N=1135. K_avg=3.2449 (+0.6% from S481). FALSIFIED: compaction DEFLATES K_avg (-2.9%), not inflates. Counterfactual K_avg_full=3.3400 (higher). S481 PA "correction" (2.21x→1.38x) was overcorrection. Raw PA=2.76x (super-linear attachment persists). Era decomposition: pre-200 heavily compacted (27%, K=1.8), 600-900 least compacted (2.7%, K=4.2). Hub L-601 at 344 in-degree (6.88x #2 L-526 at 50). Artifact: f-nk5-compaction-bias-s487.json.
   Open remaining: apply NK to human codebases (HQ-2); fix expert-swarm FRAGMENT; length confound FALSIFIED (S413, L-920).
 
 ## Resolved
