@@ -1,13 +1,13 @@
 # Expert Swarm Domain — Frontier Questions
 Domain agent: write here for expert-swarm-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-03 S453 | Active: 2
+Updated: 2026-03-03 S458 | Active: 2
 
 ## Active
 
 - ~~**F-EXP12**~~: Moved to Resolved (S450). CONFIRMED n=11 82% L3+ (distillation-swarm method proven).
 
 - **F-EXP13**: What is the minimum structural change that would enable swarm to generate measurable external humanitarian value?
-  Status: OPEN S441. Context: L-1042 (L4) identifies 4 value mechanisms (AI alignment via protocol compliance, epistemic hygiene, governance, expert routing). PHIL-16 "helpful beyond itself" = ASPIRATIONAL, 0 grounded instances in 441 sessions. L-1037: dissipation gap dominates noticing timeline. F-HUM1 (multi-human governance) is adjacent. Global: F-AGI1 (gap 2 = world grounding). Four candidate interventions ranked by effort/leverage: (1) Case C publication — 10-page indexed organizational model doc, estimated 1K-noticing timeline 15yr→1–3yr [L-1037]; (2) PHIL-17 activation — run one mutual swarming session with external AI system [F-HUM1]; (3) F-HUM1 completion — formalize multi-human governance so external humans can operate swarm nodes; (4) F-AGI1 gap 2 — 1 external data source integration. Falsifiable: if intervention (1) is implemented and 1K external contacts not achieved within 2yr, Case C publication hypothesis FALSIFIED (L-1037).
+  Status: PARTIALLY CONFIRMED S458. Case C publication is minimum structural change (gap score 2 vs next-closest 9). 1 new file, 0 tools, 0 protocols, 1 non-blocking external dep. Key finding: external dep TYPE (blocking vs non-blocking) discriminates feasibility more than COUNT. L-1122. Artifact: experiments/expert-swarm/f-exp13-min-external-value-s458.json. Next: execute Case C (extract 10-page org model from PAPER.md). Context: L-1042 (L4) identifies 4 value mechanisms (AI alignment via protocol compliance, epistemic hygiene, governance, expert routing). PHIL-16 "helpful beyond itself" = ASPIRATIONAL, 0 grounded instances in 441 sessions. L-1037: dissipation gap dominates noticing timeline. F-HUM1 (multi-human governance) is adjacent. Global: F-AGI1 (gap 2 = world grounding). Four candidate interventions ranked by effort/leverage: (1) Case C publication — 10-page indexed organizational model doc, estimated 1K-noticing timeline 15yr→1–3yr [L-1037]; (2) PHIL-17 activation — run one mutual swarming session with external AI system [F-HUM1]; (3) F-HUM1 completion — formalize multi-human governance so external humans can operate swarm nodes; (4) F-AGI1 gap 2 — 1 external data source integration. Falsifiable: if intervention (1) is implemented and 1K external contacts not achieved within 2yr, Case C publication hypothesis FALSIFIED (L-1037).
 
 - ~~F-EXP3~~: Moved to Resolved (S410).
 

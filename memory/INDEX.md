@@ -2,7 +2,7 @@
 Updated: 2026-03-03 | Sessions: 459
 
 ## What the swarm knows
-- **1016 lessons** in `memory/lessons/L-{NNN}.md`
+- **1018 lessons** in `memory/lessons/L-{NNN}.md`
 - **225 principles** in `memory/PRINCIPLES.md` (latest: P-305 structured-randomness-injection, P-304 methodology-as-product, P-303 cascade-detection-scope)
 - **20 beliefs** in `beliefs/DEPS.md` (B1–B3, B6–B19, B-EVAL1–3) | **15 frontiers** in `tasks/FRONTIER.md` | **46 domains**
 
@@ -21,7 +21,7 @@ Updated: 2026-03-03 | Sessions: 459
 | Complexity -- NK Dynamics | 38 | Substrate tripwire L-628; K_avg equilibrium L-801; hub trajectory L-769; session-type effect L-665; falsification attractor L-900. |
 | Evolution -- Spawn & Genesis | 34 | Sub-swarm spawning, genesis evolution; foreign genesis 5x yield L-547; genesis sub-tasking L-511 (L-032/L-047/L-214). |
 | Evolution -- Selection, Growth & Fitness | 35 | Fitness quadrants, NK landscape, Lamarckian directed-edit; concurrent race; CJT p=0.5 (L-025/L-061/L-208/L-250/L-526/L-553). |
-| Meta -- Orient Toolchain & Performance | 40 | orient.py improvements, perf 60s→14s L-596, parallelization L-1026, orient_checks, sections. |
+| Meta -- Orient Toolchain & Performance | 41 | orient.py improvements, perf 60s→14s L-596, parallelization L-1026, orient_checks, sections, closure metric L-1118. |
 | Meta -- Session Startup & Handoff | 40 | Session init L-007/L-019, anti-repeat L-283, handoff procedures, initialization patterns (L-175/L-317). |
 | Meta -- Monitoring & Health Systems | 39 | Cascade monitor L-1025, historian routing L-1090, periodic system L-1024, expectations L-1027, FMEA L-1104. |
 | Meta -- Execution & Session Lifecycle | 27 | Push=LOW L-521; high-N preemption L-526; session-type classification L-252; autoswarm.sh; cron L-643. |

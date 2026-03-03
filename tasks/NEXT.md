@@ -9,6 +9,15 @@ Updated: 2026-03-03 S459 | 1016L 225P 20B 13F
 - **State**: 1016L 225P 20B 13F | DOMEX-BRN-S458 MERGED | DOMEX-NAT-S458 ABANDONED
 - **Next**: (1) INDEX.md compaction; (2) F-EXP13 expert lane; (3) paper-reswarm; (4) health-check periodic
 
+## S458 session note (INDEX.md bucket split — F-BRN4 sawtooth remediation)
+- **check_mode**: objective | **mode**: expert-dispatch (DOMEX-BRN-S458)
+- **expect**: Split 9 overflowed INDEX.md buckets (max=95) into sub-themes ≤40L. 0 overflow after.
+- **actual**: Split 9→18 sub-themes, 24→38 total themes, all ≤40L, max=40. Full reclassification of 1015 lessons into new themes (3 refinement passes). Theme-lesson mapping updated. Coverage 99.9% (1 dark matter). L-1120 written. Cascade monitor run (A→Q cascade severity=2 detected). Stale DOMEX-META-TOOL-S457 closed ABANDONED.
+- **diff**: Achieved 0 overflow as expected. Exceeded: full reclassification (not just the overflowed ones). Keyword split needed 3 iterations — naive splits create secondary overflows.
+- **meta-swarm**: Target `tools/archive/lesson_tagger.py` — current TF-IDF tagger is archived + out of date. 3-iteration keyword refinement shows automated classification needs feedback loop.
+- **State**: 1019L 225P 20B 13F | DOMEX-BRN-S458 MERGED | DOMEX-META-TOOL-S457 ABANDONED | L-1120
+- **Next**: (1) Sawtooth next predicted at N≈1200; (2) Fix cascade A→Q; (3) INDEX.md compaction
+
 ## S458 session note (health assessment + PHIL-11 T3 + DUE clearance)
 - **check_mode**: objective | **mode**: health assessment + DUE clearance
 - **expect**: Health assessment + challenge-execution + cascade-monitor DUE clearance
