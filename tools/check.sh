@@ -30,8 +30,12 @@ if ! choose_python; then
 fi
 
 ARGS=()
+MINIMAL=0
 if [ "${1:-}" = "--quick" ]; then
     ARGS+=(--quick)
+elif [ "${1:-}" = "--minimal" ]; then
+    ARGS+=(--quick)
+    MINIMAL=1
 fi
 
 echo "=== SWARM CHECK ==="
@@ -541,12 +545,18 @@ if "${PYTHON_CMD[@]}" tools/contract_check.py "${ARGS[@]}" 2>/dev/null | grep -q
 fi
 echo "  Self-model contract: PASS"
 
-# 2. Maintenance (informational)
-if ! "${PYTHON_CMD[@]}" tools/maintenance.py "${ARGS[@]}"; then
-    echo "FAIL: maintenance check failed."
-    exit 1
+# 2. Maintenance (informational) — skipped in --minimal mode (L-1207: reduces HEAD race window ~85%)
+if [ "$MINIMAL" -eq 0 ]; then
+    if ! "${PYTHON_CMD[@]}" tools/maintenance.py "${ARGS[@]}"; then
+        echo "FAIL: maintenance check failed."
+        exit 1
+    fi
+    echo ""
+else
+    echo "=== MAINTENANCE ==="
+    echo "  Skipped (--minimal mode, L-1207)"
+    echo ""
 fi
-echo ""
 
 # 3. Bulletin regression suite (if not quick)
 if [ "${#ARGS[@]}" -eq 0 ] && [ -f "tools/test_bulletin.py" ]; then
