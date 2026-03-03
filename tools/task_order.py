@@ -24,6 +24,17 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 LANES_FILE = ROOT / "tasks" / "SWARM-LANES.md"
 
+from task_order_helpers import (
+    _current_session,
+    get_zombie_due_items as _get_zombie_due_items,
+    get_signal_tasks as _get_signal_tasks,
+    get_numeric_condition_due_items as _get_numeric_condition_due_items,
+    check_preemption as _check_preemption_ext,
+    check_task_claims as _check_task_claims_ext,
+    auto_claim_task as _auto_claim_task_ext,
+    get_task_fingerprint as _get_task_fingerprint_ext,
+)
+
 # Priority tiers (lower = higher priority)
 P_COMMIT   = 0   # uncommitted done work
 P_DUE      = 1   # DUE maintenance items
@@ -162,13 +173,7 @@ def get_closeable_lanes() -> list[dict]:
 
 
 def get_strategy_tasks() -> list[dict]:
-    """Generate L3+ strategy task when level imbalance fires (L-601 enforcement).
-
-    The level imbalance (L-895, SIG-46) means 0 recent L3+ lessons. The swarm's
-    pipeline (dispatch→DOMEX→measurement) structurally excludes strategic work.
-    This function injects a STRATEGY-tier task that scores above DISPATCH,
-    creating a structural path for L3+ work per L-601 (voluntary → enforcement).
-    """
+    """Generate L3+ strategy task when level imbalance fires (L-601, L-895)."""
     tasks = []
     lessons_dir = ROOT / "memory" / "lessons"
     if not lessons_dir.exists():
@@ -218,254 +223,18 @@ def get_strategy_tasks() -> list[dict]:
 
 
 def get_signal_tasks() -> list[dict]:
-    """Route stale/partially-resolved signals to actionable tasks (SIG-2 closure).
-
-    Closes the signal-to-action gap identified in SIG-2 (71 sessions PARTIALLY
-    RESOLVED): signals inform but don't trigger lanes or actions. This function
-    reads SIGNALS.md and generates specific tasks for signals that need work.
-    """
-    tasks = []
-    signals_file = ROOT / "tasks" / "SIGNALS.md"
-    if not signals_file.exists():
-        return tasks
-
-    try:
-        # Get current session number for age calculation
-        log_out = _git(["log", "--oneline", "-3"])
-        sn_m = re.search(r"\[S(\d+)\]", log_out)
-        current_session = int(sn_m.group(1)) if sn_m else 400
-
-        for line in signals_file.read_text().splitlines():
-            if not line.startswith("| SIG-"):
-                continue
-            cols = [c.strip() for c in line.split("|")]
-            if len(cols) < 11:
-                continue
-            sig_id = cols[1]
-            session_str = cols[3]
-            sig_type = cols[6]   # directive, observation, question
-            priority = cols[7]
-            content = cols[8][:80]
-            status = cols[9]
-            resolution = cols[10] if len(cols) > 10 else ""
-
-            sess_m = re.search(r"S?(\d+)", session_str)
-            sig_session = int(sess_m.group(1)) if sess_m else 0
-            age = current_session - sig_session
-
-            # Route PARTIALLY RESOLVED signals with identified gaps
-            if status == "PARTIALLY RESOLVED" and age > 15:
-                gap_m = re.search(r"[Gg]ap:\s*(.{10,80})", resolution)
-                gap = gap_m.group(1).rstrip(". |") if gap_m else "incomplete implementation"
-                score = 76 if priority == "P1" else 72
-                tasks.append({
-                    "priority": P_STRATEGY,
-                    "tier": "SIGNAL-ACTION",
-                    "score": score,
-                    "action": f"Close {sig_id} gap ({age}s stale): {gap[:60]}",
-                    "detail": f"[{sig_type}] {content}",
-                    "command": None,
-                })
-
-            # Route OPEN question signals targeting human
-            elif status == "OPEN" and sig_type == "question":
-                tasks.append({
-                    "priority": P_DUE,
-                    "tier": "SIGNAL-QUESTION",
-                    "score": 82,
-                    "action": f"Escalate {sig_id} to human: {content[:50]}",
-                    "detail": f"OPEN question signal, age {age}s — needs human decision",
-                    "command": None,
-                })
-    except Exception:
-        pass
-
-    return tasks[:5]  # cap at 5 signal-derived tasks
+    """Route stale/partially-resolved signals (SIG-2). Delegated to task_order_helpers."""
+    return _get_signal_tasks(P_DUE, P_STRATEGY)
 
 
 def get_zombie_due_items() -> list[dict]:
-    """Surface zombie Next: items as DUE tasks (L-978 TG-2).
-
-    Items recurring 5+ sessions in 'Next:' lists are structural deferrals.
-    Naming ≠ executing. Auto-elevating them to DUE creates structural pressure
-    to either execute or explicitly drop them.
-    """
-    tasks = []
-    try:
-        sys.path.insert(0, str(ROOT / "tools"))
-        from trails_generalizer import parse_session_notes, canonicalize
-        from collections import Counter
-
-        next_path = ROOT / "tasks" / "NEXT.md"
-        if not next_path.exists():
-            return tasks
-        notes = parse_session_notes(next_path.read_text(encoding="utf-8"))
-        if len(notes) < 3:
-            return tasks
-
-        item_counter = Counter()
-        for note in notes:
-            seen: set[str] = set()
-            for item in note["next_items"]:
-                canon = canonicalize(item)
-                if canon not in seen:
-                    item_counter[canon] += 1
-                    seen.add(canon)
-
-        # Filter: resolved signals, recently-done periodics, and explicitly dropped items
-        resolved_sigs = _get_resolved_signal_ids()
-        done_periodics = _get_done_periodic_ids()
-        dropped_zombies = _get_dropped_zombies()
-
-        for item, count in item_counter.most_common():
-            if count < 5:
-                break
-            # Skip RESOLVED signals (false zombie — item text contains SIG-NNN)
-            sig_match = re.search(r"SIG-(\d+)", item, re.IGNORECASE)
-            if sig_match and f"SIG-{sig_match.group(1)}" in resolved_sigs:
-                continue
-            # Skip periodics that have been run recently (within cadence)
-            per_match = re.search(r"\[([a-z][a-z0-9-]+)\]", item)
-            if per_match and per_match.group(1) in done_periodics:
-                continue
-            # Skip explicitly dropped zombies (zombie_drops.json registry)
-            if item in dropped_zombies:
-                continue
-            tasks.append({
-                "priority": P_DUE,
-                "tier": "DUE",
-                "score": min(85, 70 + count),
-                "action": f"Zombie ({count}x): {item[:60]} — execute or drop",
-                "detail": f"Recurring {count} sessions without resolution (L-978 TG-2)",
-                "command": None,
-            })
-    except Exception:
-        pass
-    return tasks[:5]
-
-
-def _get_resolved_signal_ids() -> set:
-    """Return set of SIG-NNN IDs that have RESOLVED status in SIGNALS.md."""
-    resolved = set()
-    signals_file = ROOT / "tasks" / "SIGNALS.md"
-    if not signals_file.exists():
-        return resolved
-    for line in signals_file.read_text(encoding="utf-8", errors="replace").splitlines():
-        if not line.startswith("| SIG-"):
-            continue
-        parts = [p.strip() for p in line.split("|")]
-        if len(parts) < 8:
-            continue
-        sig_id = parts[1]
-        status = parts[7] if len(parts) > 7 else ""
-        if "RESOLVED" in status.upper() or "ABANDONED" in status.upper():
-            resolved.add(sig_id)
-    return resolved
-
-
-def _get_done_periodic_ids() -> set:
-    """Return set of periodic IDs that are NOT overdue per periodics.json."""
-    done = set()
-    try:
-        import json as _json
-        periodics_path = ROOT / "tools" / "periodics.json"
-        if not periodics_path.exists():
-            return done
-        data = _json.loads(periodics_path.read_text(encoding="utf-8", errors="replace"))
-        # Detect current session
-        idx_path = ROOT / "memory" / "INDEX.md"
-        sess = 0
-        if idx_path.exists():
-            m = re.search(r"Sessions:\s*(\d+)", idx_path.read_text(encoding="utf-8", errors="replace"))
-            if m:
-                sess = int(m.group(1))
-        for pid, entry in data.items():
-            last = entry.get("last_reviewed_session", 0)
-            cadence = entry.get("cadence_sessions", 20)
-            if sess - last < cadence:  # not yet due — it's a false zombie
-                done.add(pid)
-    except Exception:
-        pass
-    return done
-
-
-def _get_dropped_zombies() -> set:
-    """Return set of canonical zombie items explicitly dropped in zombie_drops.json."""
-    dropped = set()
-    try:
-        import json as _json
-        drops_path = ROOT / "tools" / "zombie_drops.json"
-        if not drops_path.exists():
-            return dropped
-        data = _json.loads(drops_path.read_text(encoding="utf-8"))
-        for entry in data.get("drops", []):
-            canon = entry.get("canonical", "")
-            if canon:
-                dropped.add(canon)
-    except Exception:
-        pass
-    return dropped
+    """Surface zombie Next: items as DUE tasks (L-978 TG-2). Delegated to task_order_helpers."""
+    return _get_zombie_due_items(P_DUE)
 
 
 def get_numeric_condition_due_items() -> list[dict]:
-    """Surface near-threshold numeric-condition items as DUE (S445 meta-swarm, L-1062).
-
-    Deferred-condition traps: items like 'F-IC1 retest at N=1000' recur as zombies
-    because exact thresholds are never reached. 95%-rule: if current_N >= 0.95 *
-    threshold_N, surface the item as DUE rather than waiting for 100%.
-    Converts zombie re-deferral to structural auto-resolve (L-601 instance).
-    """
-    tasks = []
-    try:
-        # Get current lesson count from INDEX.md
-        idx_path = ROOT / "memory" / "INDEX.md"
-        current_n = 0
-        if idx_path.exists():
-            m = re.search(r"(\d+)\s+lessons", idx_path.read_text(encoding="utf-8")[:500])
-            if m:
-                current_n = int(m.group(1))
-        if current_n == 0:
-            return tasks
-
-        # Parse NEXT.md for items containing numeric thresholds
-        next_path = ROOT / "tasks" / "NEXT.md"
-        if not next_path.exists():
-            return tasks
-
-        # Patterns: "N=1000", "at N=1000", "(~25 lessons away)", "N≈1000"
-        threshold_pat = re.compile(r'\bN[=≈~]\s*(\d{3,})\b')
-        seen: set[int] = set()
-        for line in next_path.read_text(encoding="utf-8").splitlines():
-            if not ("N=" in line or "N≈" in line or "N~" in line):
-                continue
-            # Skip example/explanatory text (e.g., "(e.g., N=1000 at N=975)")
-            if "e.g." in line or "(e.g" in line:
-                continue
-            # Skip resolved-frontier references (F-NNN RESOLVED in the line)
-            if re.search(r"F-\w+\b.*?RESOLVED|RESOLVED.*?F-\w+\b", line):
-                continue
-            # Skip session-note fields (actual/diff/expect/state/meta-swarm describe past work)
-            if re.match(r'\s*-\s+\*\*(actual|diff|expect|state|meta-swarm|check_mode|mode)\*\*:', line):
-                continue
-            for m in threshold_pat.finditer(line):
-                threshold = int(m.group(1))
-                if threshold in seen or threshold <= current_n:
-                    continue
-                if current_n >= 0.95 * threshold:
-                    seen.add(threshold)
-                    pct = current_n / threshold * 100
-                    context = line.strip()[:80]
-                    tasks.append({
-                        "priority": P_DUE,
-                        "tier": "DUE",
-                        "score": 88,
-                        "action": f"95%-rule: N={threshold} threshold at {pct:.0f}% ({current_n}/{threshold}) — act now",
-                        "detail": context,
-                        "command": None,
-                    })
-    except Exception:
-        pass
-    return tasks
+    """Surface near-threshold items as DUE (L-1062). Delegated to task_order_helpers."""
+    return _get_numeric_condition_due_items(P_DUE)
 
 
 def get_dispatch_tasks() -> list[dict]:
@@ -523,22 +292,8 @@ def get_dispatch_tasks() -> list[dict]:
     return tasks[:3]  # top 3 dispatch suggestions
 
 
-def _current_session() -> int:
-    """Extract current session number from INDEX.md."""
-    try:
-        idx = (ROOT / "memory" / "INDEX.md").read_text(encoding="utf-8")
-        m = re.search(r"Sessions:\s*(\d+)", idx)
-        return int(m.group(1)) if m else 0
-    except Exception:
-        return 0
-
-
 def get_periodic_tasks() -> list[dict]:
-    """Get overdue periodic maintenance from maintenance output.
-    
-    L-985: periodics overdue by >1 cadence escalate to DUE tier (P-280 structural fix).
-    Prevents zombie accumulation (22% rate) for long-overdue periodics.
-    """
+    """Get overdue periodic maintenance. L-985: >1 cadence overdue escalates to DUE."""
     tasks = []
     try:
         r = subprocess.run(
@@ -614,144 +369,24 @@ def get_meta_tasks() -> list[dict]:
     ]
 
 
-def _extract_task_anchors(action: str) -> set[str]:
-    """Extract anchor identifiers from a task action string for preemption matching."""
-    anchors = set()
-    # File names: INDEX.md, L-1117.md, NEXT.md
-    for m in re.finditer(r'\b([A-Za-z][-A-Za-z0-9_]*\.(?:md|py|json))\b', action):
-        anchors.add(m.group(1).lower())
-    # Lesson IDs: L-1117
-    for m in re.finditer(r'\b(L-\d+)\b', action):
-        anchors.add(m.group(1).lower())
-    # Lane IDs: DOMEX-BRN-S458
-    for m in re.finditer(r'\b(DOMEX-[A-Z]+-S\d+)\b', action):
-        anchors.add(m.group(1).lower())
-    # Frontier/FM/SIG IDs: F-CAT1, FM-28, SIG-60
-    for m in re.finditer(r'\b(F-[A-Z]+\d+|FM-\d+|SIG-\d+)\b', action):
-        anchors.add(m.group(1).lower())
-    return anchors
-
-
 def _check_preemption(tasks: list[dict]) -> list[dict]:
-    """Mark tasks preempted by recent commits (FM-28 hardening).
-
-    At N>=3 concurrent sessions, orient->execute gap exceeds commit rate.
-    Planned tasks may already be done. Checks recent git commit messages
-    and changed files for anchor overlap with task actions.
-    FM-28: UNMITIGATED -> MINIMAL (1 automated advisory layer).
-    """
-    recent_commits = _git(["log", "--oneline", "-5"])
-    changed_files = _git(["diff", "--name-only", "HEAD~5..HEAD"])
-    if not recent_commits:
-        return tasks
-
-    commit_text = (recent_commits + "\n" + changed_files).lower()
-    preempted_count = 0
-    actionable_count = 0
-
-    for task in tasks:
-        if task.get("claimed_by") or task["priority"] > P_DISPATCH:
-            continue
-        actionable_count += 1
-
-        anchors = _extract_task_anchors(task["action"])
-        if task.get("detail"):
-            anchors |= _extract_task_anchors(task["detail"])
-        if not anchors:
-            continue
-
-        matched = sum(1 for a in anchors if a in commit_text)
-        if matched >= 1 and len(anchors) > 0 and matched / len(anchors) >= 0.5:
-            task["preempted"] = True
-            task["score"] -= 50
-            if "[PREEMPTED]" not in task["tier"]:
-                task["tier"] = f"{task['tier']} [PREEMPTED]"
-            preempted_count += 1
-
-    # If >50% of actionable tasks preempted, suggest novel work (L-526)
-    if actionable_count > 0 and preempted_count / actionable_count > 0.5:
-        tasks.append({
-            "priority": P_STRATEGY,
-            "tier": "NOVEL",
-            "score": 85,
-            "action": "High preemption detected — switch to novel/meta work concurrent sessions cannot anticipate",
-            "detail": f"{preempted_count}/{actionable_count} top tasks preempted by recent commits (FM-28, L-526)",
-            "command": None,
-        })
-
-    return tasks
+    """Mark tasks preempted by recent commits (FM-28). Delegated to task_order_helpers."""
+    return _check_preemption_ext(tasks, P_DISPATCH, P_STRATEGY)
 
 
 def _get_task_fingerprint(task: dict) -> str:
-    """Generate a stable fingerprint from a task for claim deconfliction.
-
-    Fingerprints map tasks to claim.py task claims so concurrent sessions
-    avoid duplicating work (L-686).
-    """
-    action = task["action"]
-    # Extract bracketed label from maintenance items: "[state-sync]" → "state-sync"
-    m = re.match(r".*\[([^\]]+)\]", action)
-    if m:
-        return m.group(1).lower().strip()
-    # Dispatch tasks: "Open DOMEX lane for cryptography" → "dispatch:cryptography"
-    m = re.search(r"DOMEX.*?for\s+(\S+)", action)
-    if m:
-        return f"dispatch:{m.group(1).lower()}"
-    # Close tasks: "Close lane DOMEX-CRY-S373" → "close:domex-cry-s373"
-    m = re.search(r"Close lane\s+(\S+)", action)
-    if m:
-        return f"close:{m.group(1).lower()}"
-    # Periodic tasks: "Periodic: health-check" → "periodic:health-check"
-    m = re.match(r"Periodic:\s*(\S+)", action)
-    if m:
-        return f"periodic:{m.group(1).lower()}"
-    # Trim tasks: "Lesson over 20 lines: L-925.md" → "trim:L-925" (L-933: unique per-lesson)
-    m = re.match(r"Lesson over 20 lines:\s*(L-\d+)", action)
-    if m:
-        return f"trim:{m.group(1)}"
-    # Fallback: normalized first 40 chars
-    return re.sub(r"[^a-z0-9]+", "-", action[:40].lower()).strip("-")
+    """Generate stable fingerprint. Delegated to task_order_helpers."""
+    return _get_task_fingerprint_ext(task)
 
 
 def _check_task_claims(tasks: list[dict]) -> list[dict]:
-    """Mark tasks claimed by other sessions (L-686).
-
-    Imports claim.py to check active task claims. Claimed tasks get
-    deprioritized (score -100) so concurrent sessions pick different work.
-    """
-    try:
-        sys.path.insert(0, str(ROOT / "tools"))
-        from claim import get_active_task_claims, get_session_id
-        my_session = get_session_id()
-        claimed = get_active_task_claims(exclude_session=my_session)
-    except Exception:
-        return tasks  # graceful degradation if claim.py unavailable
-
-    for task in tasks:
-        fp = _get_task_fingerprint(task)
-        task["fingerprint"] = fp
-        if fp in claimed:
-            claim_data = claimed[fp]
-            task["claimed_by"] = claim_data["session"]
-            task["score"] -= 100  # push to bottom
-            task["tier"] = f"{task['tier']} [CLAIMED]"
-    return tasks
+    """Mark tasks claimed by other sessions (L-686). Delegated to task_order_helpers."""
+    return _check_task_claims_ext(tasks)
 
 
 def _auto_claim_task(task: dict) -> None:
-    """Automatically claim the top task (L-686).
-
-    Called when --claim-top is used. Claims the task fingerprint so
-    concurrent sessions will see it as taken.
-    """
-    fp = task.get("fingerprint") or _get_task_fingerprint(task)
-    try:
-        sys.path.insert(0, str(ROOT / "tools"))
-        from claim import cmd_claim_task, get_session_id
-        session = get_session_id()
-        cmd_claim_task(fp, session, task["action"][:80])
-    except Exception:
-        pass  # best-effort
+    """Automatically claim the top task (L-686). Delegated to task_order_helpers."""
+    _auto_claim_task_ext(task)
 
 
 def build_task_list(top_n: int = 8) -> list[dict]:
