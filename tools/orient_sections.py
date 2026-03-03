@@ -790,11 +790,7 @@ def section_zombie_carryover(root=ROOT):
 
 
 def section_closure_metric(root=ROOT):
-    """External closure metric (L-1118): surfaces self-referential ratio at session start.
-
-    Per L-601, voluntary aspiration to external impact decays to zero without structural
-    enforcement. This section makes closure visible so every session sees it.
-    """
+    """Trail-provenance closure metric (L-1118, L-1125)."""
     lines = []
     try:
         import glob as _glob_closure
@@ -802,29 +798,75 @@ def section_closure_metric(root=ROOT):
         if len(lesson_files) < 20:
             return lines
         recent = lesson_files[-20:]
-        external_kw = [
-            "arxiv", "doi:", "github.com", "wikipedia", "et al.", "journal",
-            "published", "http://", "https://", "external", "real-world",
-            "production system", "open source", "user feedback",
-        ]
+        external_markers = ["arxiv", "doi:", "http://", "https://", "10.", "et al"]
         ext_count = 0
         for lf in recent:
             try:
-                txt = Path(lf).read_text(encoding="utf-8").lower()
-                if any(kw in txt for kw in external_kw):
+                txt = Path(lf).read_text(encoding="utf-8")
+                cites_match = re.search(r"^Cites:\s*(.+)", txt, re.MULTILINE)
+                if not cites_match:
+                    continue
+                cites_line = cites_match.group(1).lower()
+                if any(m in cites_line for m in external_markers):
                     ext_count += 1
             except Exception:
                 pass
         ext_pct = ext_count / len(recent) * 100
         if ext_pct < 20:
-            lines.append("--- External Closure (L-1118) ---")
-            lines.append(f"  \u26a0 External reference rate: {ext_pct:.0f}% ({ext_count}/{len(recent)} recent lessons)")
-            lines.append("  The execution loop is self-referential. F-COMP1: 0 external outputs.")
-            lines.append("  To break closure: produce something an outsider would use, or ingest external input.")
+            lines.append("--- External Closure (L-1118, L-1125) ---")
+            lines.append(f"  \u26a0 Trail provenance: {ext_pct:.0f}% external ({ext_count}/{len(recent)} recent Cites: headers)")
+            lines.append("  Cites: headers reference only internal artifacts.")
+            lines.append("  L-1125: trail provenance is cheapest break point.")
             lines.append("")
     except Exception:
         pass
     return lines
+
+
+def section_knowledge_swarm(root=ROOT):
+    """Knowledge swarming (SIG-62, L-1121): surface neglected knowledge."""
+    lines = []
+    try:
+        import glob as _glob_ks
+        import random as _rand_ks
+        lesson_files = sorted(_glob_ks.glob(str(root / "memory" / "lessons" / "L-*.md")))
+        if len(lesson_files) < 100:
+            return lines
+        cited = set()
+        l_ref = re.compile(r"L-(\d+)")
+        for lf in lesson_files:
+            try:
+                txt = Path(lf).read_text(encoding="utf-8")
+                cm = re.search(r"^Cites:\s*(.+)", txt, re.MULTILINE)
+                if cm:
+                    for m in l_ref.finditer(cm.group(1)):
+                        cited.add(int(m.group(1)))
+            except Exception:
+                pass
+        blind_spot = []
+        for lf in lesson_files:
+            try:
+                num = int(Path(lf).stem.split("-")[1])
+                if num not in cited:
+                    title = Path(lf).read_text(encoding="utf-8").split("\n")[0]
+                    title = title.lstrip("# ").strip()
+                    if title:
+                        blind_spot.append((num, title[:90]))
+            except Exception:
+                pass
+        if len(blind_spot) < 5:
+            return lines
+        picks = _rand_ks.sample(blind_spot, min(2, len(blind_spot)))
+        lines.append("--- Knowledge Swarm (SIG-62, L-1121) ---")
+        lines.append(f"  {len(blind_spot)} BLIND-SPOT lessons (zero inbound citations). Sample:")
+        for num, title in picks:
+            lines.append(f"  -> L-{num}: {title}")
+        lines.append("  Cite, challenge, or supersede these to redistribute attention.")
+        lines.append("")
+    except Exception:
+        pass
+    return lines
+
 
 
 def section_suggested_action(maint_out, open_signals, stall_map, priorities):
