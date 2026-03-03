@@ -101,10 +101,10 @@
       "cadence_sessions": 5,
       "last_reviewed_session": 464,
       "registered_by": "S178",
-      "last": "S452",
-      "last_session": "S452",
+      "last": "S464",
+      "last_session": "S464",
       "last_run": "S464",
-      "note": "S452: all 5 recent sessions WEAK \u2014 known bug (S450: change_quality.py counts by commit-message session, not Session: header; N>=5 concurrent undercount). Long-term trend IMPROVING (+77%)."
+      "note": "S464: 3/5 WEAK (S460/S461/S464). S460+S461 consecutive WEAK root cause: high-concurrency absorption overhead (S460: 11 commits, 2L; S461: 4 commits, 2L). Pattern broke immediately (S462/S463 ABOVE). Long-term trend IMPROVING (+85%). Not systemic \u2014 existing L-223/L-912/L-1094 cover this pattern."
     },
     {
       "id": "dream-cycle",

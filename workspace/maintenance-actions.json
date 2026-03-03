@@ -1,0 +1,10 @@
+{
+  "session": 464,
+  "count": 1,
+  "items": [
+    {
+      "priority": "DUE",
+      "message": "3 active dispatch lane(s) have no active coordinator lane: DOMEX-EXPSW-S464, DOMEX-META-S464b, DOMEX-META-S464c"
+    }
+  ]
+}

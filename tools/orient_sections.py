@@ -828,45 +828,33 @@ def section_closure_metric(root=ROOT):
 
 
 def section_knowledge_swarm(root=ROOT):
-    """Knowledge swarming (SIG-62, L-1121): surface neglected knowledge."""
+    """Knowledge self-organization (SIG-62, L-1121, S457): revive/compress/crosslink/orphan."""
     lines = []
     try:
-        import glob as _glob_ks
-        import random as _rand_ks
-        lesson_files = sorted(_glob_ks.glob(str(root / "memory" / "lessons" / "L-*.md")))
-        if len(lesson_files) < 100:
+        sys.path.insert(0, str(Path(__file__).parent))
+        from knowledge_swarm import (
+            parse_lesson_meta, build_citation_maps, classify_items,
+            revive_candidates, compress_candidates, crosslink_suggestions,
+            detect_orphaned_principles, section_output,
+        )
+        from swarm_io import session_number, lesson_paths
+        current = session_number()
+        lessons = {}
+        for path in lesson_paths():
+            meta = parse_lesson_meta(path)
+            if meta:
+                lessons[meta["id"]] = meta
+        if len(lessons) < 100:
             return lines
-        cited = set()
-        l_ref = re.compile(r"L-(\d+)")
-        for lf in lesson_files:
-            try:
-                txt = Path(lf).read_text(encoding="utf-8")
-                cm = re.search(r"^Cites:\s*(.+)", txt, re.MULTILINE)
-                if cm:
-                    for m in l_ref.finditer(cm.group(1)):
-                        cited.add(int(m.group(1)))
-            except Exception:
-                pass
-        blind_spot = []
-        for lf in lesson_files:
-            try:
-                num = int(Path(lf).stem.split("-")[1])
-                if num not in cited:
-                    title = Path(lf).read_text(encoding="utf-8").split("\n")[0]
-                    title = title.lstrip("# ").strip()
-                    if title:
-                        blind_spot.append((num, title[:90]))
-            except Exception:
-                pass
-        if len(blind_spot) < 5:
-            return lines
-        picks = _rand_ks.sample(blind_spot, min(2, len(blind_spot)))
-        lines.append("--- Knowledge Swarm (SIG-62, L-1121) ---")
-        lines.append(f"  {len(blind_spot)} BLIND-SPOT lessons (zero inbound citations). Sample:")
-        for num, title in picks:
-            lines.append(f"  -> L-{num}: {title}")
-        lines.append("  Cite, challenge, or supersede these to redistribute attention.")
-        lines.append("")
+        outbound, inbound = build_citation_maps(lessons)
+        states = classify_items(lessons, inbound, current)
+        results = {
+            "revival": revive_candidates(lessons, states, inbound, current),
+            "compress": compress_candidates(lessons, states, inbound, current),
+            "crosslinks": crosslink_suggestions(lessons, states, inbound, outbound),
+            "orphaned_principles": detect_orphaned_principles(lessons, states),
+        }
+        lines = section_output(results, current)
     except Exception:
         pass
     return lines

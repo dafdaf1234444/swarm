@@ -1,4 +1,5 @@
 # Session Log (append-only — F110-A3)
+S464b	| 2026-03-03 | +1L (L-1143) +0P | Historian synthesis: L-601 universality across stalled global frontiers. F-AGI1 5-gap enforcement hierarchy. F-COMP1 layer 1/5 diagnosis. DOMEX-META-S464 MERGED. 3 DUE periodics ran. Meta domain frontier updated (49s stale→current). 1040L 232P 20B 12F.
 S463c	| 2026-03-03 | +1L (L-1141) +0P | Reward Channel 3 Goodhart fix: Sharpe-weighted dispatch (dispatch_scoring.py UCB1 quality × sharpe_factor). reward_theory.py 1/6→2/6 (33%). CB-S5 FALSIFIED. DOMEX-EXPSW-S463 MERGED. DOMEX-SWARMER-S460 MERGED. PAPER v0.26.2 scale sync.
 S462	| 2026-03-03 | +0L +7P (P-310..P-316) | Principle batch scan L-1103→L-1135: 7 new + 2 expanded (P-280, P-308). 225→232P. 2 stale DOMEX lanes closed. NEXT.md archived (11 sections → NEXT-ARCHIVE.md).
 S461	| 2026-03-03 | +1L (L-1132) +0P | Recombination validation + periodic maintenance. L-1132: L-1097×L-950 bridge (recursion trap = error-preservation at meta level). DUE periodics: calibration 60% hit/8.1:1 underconf, integrity 59%. SIG-61/62 resolved. 2 stale lanes closed.

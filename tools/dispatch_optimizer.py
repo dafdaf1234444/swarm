@@ -343,6 +343,34 @@ def _print_ucb1_output(results, results_limited, active_lanes, session_merged,
     except Exception:
         pass
 
+    # Maintenance action bridge (F-SWARMER1, diagnosis-to-action)
+    _print_maintenance_actions()
+
+
+def _print_maintenance_actions():
+    """Display actionable maintenance items from workspace/maintenance-actions.json.
+
+    Bridges maintenance diagnostics into dispatch output so DUE/URGENT items
+    are visible during domain selection. F-SWARMER1 intervention #2.
+    """
+    actions_path = Path(__file__).resolve().parent.parent / "workspace" / "maintenance-actions.json"
+    try:
+        data = json.loads(actions_path.read_text())
+        items = data.get("items", [])
+        if not items:
+            return
+        urgent = [i for i in items if i["priority"] == "URGENT"]
+        due = [i for i in items if i["priority"] == "DUE"]
+        print(f"\n--- Maintenance Actions ({len(urgent)} URGENT, {len(due)} DUE) ---")
+        for item in urgent[:3]:
+            print(f"  !!! {item['message'][:100]}")
+        for item in due[:5]:
+            print(f"   !  {item['message'][:100]}")
+        if len(items) > 8:
+            print(f"  ... {len(items) - 8} more (run python3 tools/maintenance.py)")
+    except (OSError, json.JSONDecodeError, KeyError):
+        pass
+
 
 def _print_heuristic_output(results, sparse_domains, saturated_domains, claimed, args, calibration):
     """Display heuristic mode output."""

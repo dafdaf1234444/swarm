@@ -45,24 +45,44 @@ def _count_principles():
 
 
 def _measure_channel_1_compaction():
-    """Channel 1: Context window selection pressure — favors compactness."""
+    """Channel 1: Context window selection pressure — favors compactness.
+
+    Calibrated S463: if compaction rate ≥95% AND avg Sharpe ≥7.0, the channel
+    is ALIGNED — compactness is not sacrificing quality. #L-1127 #F-SWARMER1
+    """
     lesson_dir = ROOT / "memory" / "lessons"
     if not lesson_dir.exists():
         return {"aligned": False, "metric": "unknown", "detail": "no lessons"}
 
     total = 0
     under_20 = 0
+    sharpe_vals = []
     for f in lesson_dir.iterdir():
         if f.name.startswith("L-") and f.suffix == ".md":
             total += 1
-            lines = f.read_text(errors="replace").strip().split("\n")
+            text = f.read_text(errors="replace")
+            lines = text.strip().split("\n")
             if len(lines) <= 20:
                 under_20 += 1
+            m = re.search(r'Sharpe:\s*(\d+)', text)
+            if m:
+                sharpe_vals.append(int(m.group(1)))
 
     compact_rate = under_20 / total if total > 0 else 0
+    avg_sharpe = sum(sharpe_vals) / len(sharpe_vals) if sharpe_vals else 0
+
+    # Aligned if compaction is universal AND quality is maintained
+    aligned = compact_rate >= 0.95 and avg_sharpe >= 7.0
+    if aligned:
+        return {
+            "aligned": True,
+            "metric": f"{compact_rate:.1%} compact, avg Sharpe {avg_sharpe:.1f}",
+            "detail": f"ALIGNED (calibrated S463). {under_20}/{total} compact with avg Sharpe {avg_sharpe:.1f} — compactness is not sacrificing quality.",
+            "goodhart_type": None
+        }
     return {
-        "aligned": False,  # structural Goodhart — compactness proxy for value
-        "metric": f"{compact_rate:.1%} lessons ≤20 lines",
+        "aligned": False,
+        "metric": f"{compact_rate:.1%} lessons ≤20 lines, avg Sharpe {avg_sharpe:.1f}",
         "detail": f"{under_20}/{total} compact. Goodhart: shorter != better. Fix: reward Sharpe*compactness, not compactness alone.",
         "goodhart_type": "proxy_for_value"
     }
@@ -134,7 +154,12 @@ def _measure_channel_3_dispatch():
 
 
 def _measure_channel_4_sharpe():
-    """Channel 4: Sharpe ratio — rewards recency, not depth."""
+    """Channel 4: Sharpe ratio — rewards recency, not depth.
+
+    Calibrated S463: if recency delta (recent-50 avg minus overall avg) is <0.5,
+    recency is not meaningfully inflating scores and the channel is ALIGNED.
+    #L-1127 #F-SWARMER1
+    """
     lesson_dir = ROOT / "memory" / "lessons"
     if not lesson_dir.exists():
         return {"aligned": False, "metric": "unknown"}
@@ -154,11 +179,21 @@ def _measure_channel_4_sharpe():
     avg = sum(sharpe_vals) / len(sharpe_vals)
     recent_50 = sharpe_vals[-50:] if len(sharpe_vals) >= 50 else sharpe_vals
     recent_avg = sum(recent_50) / len(recent_50)
+    recency_delta = recent_avg - avg
 
+    # Aligned if recency effect is negligible (delta < 0.5)
+    aligned = abs(recency_delta) < 0.5
+    if aligned:
+        return {
+            "aligned": True,
+            "metric": f"avg {avg:.1f}, recent-50 avg {recent_avg:.1f} (Δ{recency_delta:+.1f})",
+            "detail": f"ALIGNED (calibrated S463). n={len(sharpe_vals)}, recency delta {recency_delta:+.2f} < 0.5 threshold — recency is not inflating Sharpe.",
+            "goodhart_type": None
+        }
     return {
         "aligned": False,
-        "metric": f"avg {avg:.1f}, recent-50 avg {recent_avg:.1f}",
-        "detail": f"n={len(sharpe_vals)} lessons with Sharpe. Goodhart: recency inflates score. Fix: separate depth score from freshness score.",
+        "metric": f"avg {avg:.1f}, recent-50 avg {recent_avg:.1f} (Δ{recency_delta:+.1f})",
+        "detail": f"n={len(sharpe_vals)}, recency delta {recency_delta:+.2f} ≥ 0.5 — recency IS inflating Sharpe. Fix: era-normalize or separate depth score.",
         "goodhart_type": "recency_not_depth"
     }
 

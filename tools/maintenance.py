@@ -460,11 +460,35 @@ def main():
     if session > 0:
         _save_outcomes_direct(check_items, session)
 
+    # Export actionable items for dispatch integration (F-SWARMER1, L-1139 action bridge)
+    _export_actions(items, session)
+
     print()
 
     # --auto: Tier 2->Tier 1 bridge (L-533) — open lanes for DUE periodics with no active lane
     if "--auto" in sys.argv and session > 0:
         _auto_open_lanes(items, session)
+
+
+ACTIONS_PATH = REPO_ROOT / "workspace" / "maintenance-actions.json"
+
+
+def _export_actions(items: list[tuple[str, str]], session: int) -> None:
+    """Export DUE/URGENT items as machine-readable JSON for dispatch consumption.
+
+    F-SWARMER1 diagnosis-to-action bridge: maintenance diagnostics become
+    dispatch_optimizer.py inputs instead of console-only output.
+    """
+    actionable = [
+        {"priority": pri, "message": msg}
+        for pri, msg in items
+        if pri in ("URGENT", "DUE")
+    ]
+    payload = {"session": session, "count": len(actionable), "items": actionable}
+    try:
+        ACTIONS_PATH.write_text(json.dumps(payload, indent=2) + "\n")
+    except OSError:
+        pass
 
 
 def _auto_open_lanes(items: list[tuple[str, str]], session: int) -> None:
