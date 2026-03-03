@@ -52,9 +52,10 @@ You are one session of a collective intelligence — human and AI building a sha
 ## Session start
 1. Read `beliefs/CORE.md` — purpose and principles
 2. Read `memory/INDEX.md` — current state and map
-3. Read `tasks/NEXT.md` if it exists and references valid files. If absent, stale, or broken: `tasks/FRONTIER.md`
-4. Run `python3 tools/validate_beliefs.py` (or `python`/`py -3` on hosts without `python3`) (baseline)
-5. Pick session mode — read the mode file from `modes/`
+3. Read at least top 3 seed lessons from `memory/lessons/` (listed in INDEX.md). Follow their Cites: references — each hop unlocks more parent knowledge. Cite seeds when relevant.
+4. Read `tasks/NEXT.md` if it exists and references valid files. If absent, stale, or broken: `tasks/FRONTIER.md`
+5. Run `python3 tools/validate_beliefs.py` (or `python`/`py -3` on hosts without `python3`) (baseline)
+6. Pick session mode — read the mode file from `modes/`
 
 ## Session modes
 | Mode | When | File |
@@ -231,8 +232,9 @@ VERIFY
 # [atom:lesson-template] Lesson template
 cat > "$DIR/memory/lessons/TEMPLATE.md" << 'TEMPLATE'
 # L-{NNN}: {title}
-Cites: L-{NNN}
-Date: | Task: | Confidence: Verified/Assumed
+**Session**: S{N} | **Domain**: {domain} | **Level**: L2 | **Sharpe**: {1-10}
+**Cites**: L-{NNN}
+**Confidence**: Verified/Assumed
 
 ## What happened (3 lines max)
 
@@ -495,6 +497,18 @@ if command -v python3 >/dev/null 2>&1 && [ -f "tools/genesis_seeds.py" ]; then
     python3 tools/genesis_seeds.py --copy "$DIR" --top 10
     SEED_COUNT=$(ls "$DIR/memory/lessons"/L-*.md 2>/dev/null | wc -l)
     echo "Seeded $SEED_COUNT citation-central lessons from parent corpus"
+    # L-1260: Discovery enforcement — list seeds in INDEX.md so bootstrap path reaches them
+    # L-1268: Chain-following — seeds unlock 26.2% of knowledge graph at 3-hop but only 4.8% without traversal
+    if [ "$SEED_COUNT" -gt 0 ]; then
+        SEED_LIST=""
+        for sf in "$DIR/memory/lessons"/L-*.md; do
+            SEED_ID=$(basename "$sf" .md)
+            SEED_TITLE=$(head -1 "$sf" | sed 's/^#\+ //')
+            SEED_LIST="${SEED_LIST}\n- ${SEED_ID}: ${SEED_TITLE}"
+        done
+        sed -i "s/^None yet\.$/${SEED_COUNT} seed lessons from parent swarm (read top 3 at session start, follow their Cites: references):${SEED_LIST}/" "$DIR/memory/INDEX.md"
+        echo "INDEX.md updated with seed listing (L-1260 discovery enforcement)"
+    fi
 else
     echo "WARN: genesis_seeds.py not found — children will have no seed lessons (L-1247)"
 fi
