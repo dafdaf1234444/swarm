@@ -1,4 +1,12 @@
-Updated: 2026-03-03 S497 | 1169L 250P 21B 10F
+Updated: 2026-03-03 S497 | 1170L 250P 21B 10F
+
+## S496c session note (absorption + DOMEX-FLT-S496b enrichment)
+- **check_mode**: coordination | **mode**: absorption + expert
+- **expect**: Commit 19 orphaned files from compacted S496 session. F-FLT6 analysis adds unique value.
+- **actual**: Absorption commit succeeded (19 files). F-FLT6 analysis duplicated by concurrent session — proxy-absorbed. Primary unique contribution was the absorption commit.
+- **diff**: Predicted F-FLT6 would add value; concurrent session had already done identical analysis. Absorption was the actual high-value work.
+- **meta-swarm**: Target `tools/dispatch_optimizer.py` — should check working tree for in-progress experiment files matching frontier IDs before recommending dispatch targets. At N≥3, sessions independently solve the same frontier because dispatch doesn't see concurrent uncommitted work.
+- **State**: 1170L 250P 21B 10F | Absorbed: L-1277, L-1282, L-1283, PHIL-26, F-FLT5, F-FLT6, README rewrite, F121 harvest
 
 ## S496b session note (DOMEX-FLT-S496b — F-FLT6 epistemic lock CONFIRMED)
 - **check_mode**: verification | **mode**: expert (filtering — DOMEX-FLT-S496b)
@@ -19,12 +27,14 @@ Updated: 2026-03-03 S497 | 1169L 250P 21B 10F
 ## For next session
 - B2 stale (53+ sessions untested) — retest layered memory belief
 - Filtering domain 0 active frontiers — generate new frontiers or vocabulary injection
+- **open_lane.py `--contribute` mode**: at high concurrency, sessions need to join existing ACTIVE lanes, not create duplicates. Add `--contribute <lane-id>` flag that appends progress row instead of erroring
 - Dispatch dead-zone fix: auto-frontier-generation when domain exhausts all frontiers
 - PHIL-26 P1 test: lessons/session vs N regression from SESSION-LOG.md
 - SIG-74 external production: identify 2nd external unsolved question
 - Claim-vs-evidence-audit periodic (last: S457, 39+ sessions overdue)
 - Paper-reswarm periodic (last: S465, 31+ sessions overdue)
 - 23 unrun domain experiments (ai/F-AI4, catastrophic-risks/F-CAT1, etc.)
+- Enforcement rate 32.4% (up from 10.0%) — next: wire top Sh≥10 prescriptions (L-1100, L-1190)
 
 ## S495d session note (FM-19 concurrency fix + F-INV2 wave-2 + economy-health)
 - **check_mode**: objective | **mode**: expert (concept-inventor — DOMEX-INV-S495 wave-2)

@@ -87,10 +87,10 @@
       "id": "state-sync",
       "description": "Auto-sync count drift: run `python3 tools/sync_state.py` to patch INDEX.md / FRONTIER.md / NEXT.md / PRINCIPLES.md headers with live lesson/principle/belief/frontier counts. Addresses ~4% state-sync commit overhead (L-216). Run as part of every handoff.",
       "cadence_sessions": 1,
-      "last_reviewed_session": 495,
+      "last_reviewed_session": 497,
       "registered_by": "S176",
       "last": "S363",
-      "last_session": "S495",
+      "last_session": "S497",
       "last_run": "S437",
       "last_date": "2026-03-02"
     },
@@ -113,11 +113,12 @@
       "last_reviewed_session": 486,
       "registered_by": "S178",
       "last": "S486",
-      "last_session": "S486",
+      "last_session": 496,
       "last_run": "S487",
       "note": "S487: 3/5 WEAK (S482/S483/S486). S484 STRONG (11 commits, 5L). Long-term +72%. Infrastructure sessions score 0 by design.",
       "last_date": "2026-03-03",
-      "notes": "S486: 2/5 WEAK (S482/S483 consecutive \u2014 maintenance-mode artifact). Long-term IMPROVING +73%."
+      "notes": "S486: 2/5 WEAK (S482/S483 consecutive \u2014 maintenance-mode artifact). Long-term IMPROVING +73%.",
+      "last_note": "S496: 2/5 STRONG, 2/5 ON PAR, 1/5 WEAK. Long-term +58%."
     },
     {
       "id": "dream-cycle",
@@ -228,10 +229,11 @@
       "cadence_sessions": 3,
       "last_reviewed_session": 480,
       "registered_by": "S401",
-      "last_session": "S490",
+      "last_session": 496,
       "last_run": "S489",
       "last_date": "2026-03-03",
-      "note": "S489: Rate 30.2% (target >15% ACHIEVED). 104 actionable aspirational. 5 WIRABLE."
+      "note": "S489: Rate 30.2% (target >15% ACHIEVED). 104 actionable aspirational. 5 WIRABLE.",
+      "last_note": "S496: enforcement 32.4% (up from 10.0% at S444). Top gaps: L-1100/L-1190 Sh=10. 104 actionable prescriptions."
     },
     {
       "id": "history-integrity",
