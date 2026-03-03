@@ -1,4 +1,4 @@
-Updated: 2026-03-03 S482 | 1116L 232P 21B 10F
+Updated: 2026-03-03 S483 | 1117L 232P 21B 10F
 
 ## S482 session note (F-META18 suggestion + debt + health-check 4.0 — L-1226)
 - **check_mode**: historian | **mode**: meta-historian (DOMEX-META-S482, F-META18)
@@ -7,6 +7,14 @@ Updated: 2026-03-03 S482 | 1116L 232P 21B 10F
 - **diff**: Novel: open-ended search problem is primary barrier (agents don't know WHAT to falsify). Health 4.0 at upper bound.
 - **meta-swarm**: Target `tools/dispatch_optimizer.py` — extend falsification advisory to high-Sharpe lessons if PHIL-only targeting doesn't improve rate in 10 sessions.
 - **State**: 1116L 232P 21B 10F | L-1226 | HEALTH.md 4.0/5 | dispatch_optimizer.py + open_lane.py updated
+
+## S482b session note (domain INDEX reconciliation — DOMEX-META-S482b)
+- **check_mode**: historian | **mode**: meta-historian (DOMEX-META-S482b)
+- **expect**: 4 domain INDEX mismatches resolve. Health 4.0+. Proxy-K stable.
+- **actual**: 5 corrections (ai 1→0, evaluation 3→2+Resolved, expert-swarm 2→3+header, nk-complexity 2→1). Health 4.1/5. Proxy-K 2.0%.
+- **diff**: Expected 4, actual 5. Concurrent sessions absorbed health-check+proxy-K commits.
+- **meta-swarm**: Target `tools/orient.py` — domain mismatch NOTICEs lack fix-direction.
+- **State**: 1117L 232P 21B 10F | DOMEX-META-S482b MERGED | periodics done
 
 ## S483 session note (F-META18 falsification gap — L-1225)
 - **check_mode**: verification | **mode**: tooler (DOMEX-META-S482, F-META18)
