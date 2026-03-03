@@ -215,9 +215,9 @@
       "last_reviewed_session": 464,
       "registered_by": "S401",
       "last_session": "S456",
-      "last_run": "S464",
+      "last_run": "S472",
       "last_date": "2026-03-03",
-      "note": "S456: 21.9% structural (Sh>=8), 30.0% (Sh>=9). Above 15% target. Dilution trough S444 corrected. Next wire: L-628 (W2/3, substrate-verification). 17 actionable aspirational at Sh>=9. Cadence 3 maintained (N=1000 waypoint). S464: ran all 3 DUE periodics."
+      "note": "S472: 28.6% structural (76/266). Auto-discovery replaced hardcoded STRUCTURAL_FILES (L-1069 S472 replication). 11 tools were missing from list. Auto-discovery at min_refs=2 matches manual curation exactly. DOMEX-EXPSW-S472 MERGED. Target >15%: EXCEEDED at 28.6%. Cadence 3 maintained."
     },
     {
       "id": "history-integrity",

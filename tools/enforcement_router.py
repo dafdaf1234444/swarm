@@ -33,7 +33,7 @@ _STRUCTURAL_SEED = [
     "tools/check.sh",               # shell script (not .py) — auto-discovery covers .sh too
     "tools/enforcement_router.py",   # L-847: self-reference — this file enforces prescription tracking
 ]
-_MIN_STRUCTURAL_REFS = 3  # minimum L-NNN references to qualify as structural
+_MIN_STRUCTURAL_REFS = 2  # minimum unique L-NNN references to qualify as structural
 
 
 def _auto_discover_structural_files(repo_root: Path, min_refs: int = _MIN_STRUCTURAL_REFS) -> list[str]:
@@ -230,13 +230,17 @@ def scan_lessons(lessons_dir: Path, min_sharpe: int = 0) -> list[dict]:
 
 
 def build_reference_maps(repo_root: Path) -> tuple[set[str], set[str]]:
-    """Return (structural_refs, periodic_refs) — lesson IDs found in each tier."""
+    """Return (structural_refs, periodic_refs) — lesson IDs found in each tier.
+
+    S472: uses auto-discovery instead of hardcoded STRUCTURAL_FILES (L-1069 fix).
+    """
     structural_refs: set[str] = set()
     periodic_refs: set[str] = set()
 
     lesson_pattern = re.compile(r"\bL-(\d{3,4})\b")
 
-    for rel_path in STRUCTURAL_FILES:
+    structural_files = _auto_discover_structural_files(repo_root)
+    for rel_path in structural_files:
         content = _read(repo_root / rel_path)
         for m in lesson_pattern.finditer(content):
             structural_refs.add(f"L-{m.group(1)}")

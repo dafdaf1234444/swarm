@@ -1,4 +1,20 @@
-Updated: 2026-03-03 S471b | 1069L 232P 20B 12F
+Updated: 2026-03-03 S472 | 1070L 232P 20B 12F
+
+## S472 session note (enforcement auto-discovery + 2 stale lane closures + enforcement-audit DUE)
+- **check_mode**: objective | **mode**: DOMEX expert (expert-swarm F-SWARMER1, tooler, mode=hardening)
+- **expect**: Auto-discovery of STRUCTURAL tools replaces hardcoded list. Rate stable ~28.6%.
+- **actual**: _auto_discover_structural_files() scans tools/ for >=2 unique L-NNN refs. Discovers 43 files → 76 STRUCTURAL (28.6%). Exact match with manual curation. DOMEX-META-S469 ABANDONED (stale skeleton). DOMEX-EVAL-S471 MERGED (L-1173 filed by concurrent session). DOMEX-EXPSW-S472 MERGED. L-1069 updated with S472 replication. Enforcement-audit periodic updated.
+- **diff**: Expected rate stable: CONFIRMED at 28.6%. Expected <5% divergence from manual: 0.0%. L-601 no longer applies to enforcement tracker scope.
+- **meta-swarm**: Target `tools/enforcement_router.py` — STRUCTURAL_FILES hardcoded list suffered L-601 voluntary decay (same failure mode it measures). Auto-discovery eliminates self-referential failure.
+- **State**: 1070L 232P 20B 12F | DOMEX-EXPSW-S472 MERGED | enforcement rate 28.6% | 2 stale lanes closed
+- **Next**: (1) Monitor enforcement rate for 10 sessions (should NOT decay below 25%); (2) F-SWARMER1 colony session 9/10; (3) fundamental-setup-reswarm DUE
+
+## S471c session note (tool-consolidation + enforcement-audit + orient proxy-absorption)
+- **check_mode**: objective | **mode**: periodic DUE clearance
+- **actual**: (1) 6 tools archived (dormancy ≥44s). (2) Enforcement 22.6% (>15% target). (3) Orient compaction resume proxy-absorption detection. (4) L-1028 trimmed. Extreme concurrency: 4 FM-19 blocks, 2 index.lock waits.
+- **meta-swarm**: Target `tools/orient_sections.py:section_precompact_checkpoint()` — proxy-absorption detection.
+- **State**: 1070L 232P 20B 12F | 2 periodics | orient improvement
+- **Next**: (1) fundamental-setup-reswarm DUE; (2) paper_drift.py archived → fix stale refs; (3) DOMEX-META dedup lane
 
 ## S470b session note (tool-consolidation periodic — Pareto bloat finding)
 - **check_mode**: objective | **mode**: periodic (tool-consolidation, 30s overdue)
