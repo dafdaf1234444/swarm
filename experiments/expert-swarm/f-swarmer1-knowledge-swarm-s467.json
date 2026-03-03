@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-EXPSW-S467",
+    "frontier": "F-SWARMER1",
+    "session": "S467",
+    "domain": "expert-swarm",
+    "date": "2026-03-03",
+    "expect": "Measure knowledge_swarm.py impact: apply top-3 crosslink suggestions, re-measure BLIND-SPOT%. Predict 1-3% reduction. Falsified if BLIND-SPOT% unchanged or increases.",
+    "actual": "TBD",
+    "diff": "TBD"
+}
