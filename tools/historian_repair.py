@@ -265,6 +265,29 @@ def scan_lanes(cs: int, stale_threshold: int = 2) -> list[StaleItem]:
     return items
 
 
+def _domain_lesson_health(domain_name: str) -> tuple[int, int]:
+    """Return (lesson_count, max_session) for lessons tagged with this domain.
+
+    L-1178: domains with >10 lessons and recent activity should not be flagged stale.
+    """
+    lessons_dir = ROOT / "memory" / "lessons"
+    if not lessons_dir.exists():
+        return 0, 0
+    count = 0
+    max_sess = 0
+    for lf in lessons_dir.glob("L-*.md"):
+        try:
+            header = lf.read_text()[:500]
+        except Exception:
+            continue
+        if re.search(rf"\bDomain:\s*{re.escape(domain_name)}\b", header, re.IGNORECASE):
+            count += 1
+            sess_nums = [int(n) for n in re.findall(r"\bS(\d+)\b", header)]
+            if sess_nums:
+                max_sess = max(max_sess, max(sess_nums))
+    return count, max_sess
+
+
 def scan_domains(cs: int, gap_threshold: int = 30) -> list[StaleItem]:
     """Find domains with active frontiers but no DOMEX lane in > gap_threshold sessions."""
     items: list[StaleItem] = []
@@ -357,6 +380,11 @@ def scan_domains(cs: int, gap_threshold: int = 30) -> list[StaleItem]:
 
         stale = cs - last_domex if last_domex > 0 else cs
         if stale > gap_threshold:
+            # L-1178: check lesson-count health before flagging
+            lesson_count, lesson_max_sess = _domain_lesson_health(domain_name)
+            frontier_max_sess = max_session_in_text(frontier_text)
+            if lesson_count > 10 and (cs - max(lesson_max_sess, frontier_max_sess)) < 50:
+                continue  # Domain is actively growing via organic knowledge, not dispatch-stale
             top_frontier = open_fs[0]
             repair = (
                 f"Open DOMEX lane for {domain_name}/{top_frontier}: "

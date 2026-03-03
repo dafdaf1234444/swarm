@@ -22,8 +22,9 @@
     "surprise_rate_improvement": "5% \u2192 75% (15x)"
   },
   "lessons_produced": [
-    "L-1175"
+    "L-1178"
   ],
+  "tool_fix": "historian_repair.py: added _domain_lesson_health() filter — domains with >10 Domain:-tagged lessons and recent activity (<50 sessions) are no longer flagged stale. Reduced false positives from 23→21 (economy, evolution filtered). Code fix validates L-1178.",
   "successor": "DOMEX-CTL-S473 or DOMEX-CRY-S473 for genuinely stale domains",
   "timestamp": "2026-03-03T03:23:52.841801Z"
 }
