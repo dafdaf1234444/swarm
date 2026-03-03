@@ -2,7 +2,7 @@
 Updated: 2026-03-03 | Sessions: 464
 
 ## What the swarm knows
-- **1037 lessons** in `memory/lessons/L-{NNN}.md`
+- **1039 lessons** in `memory/lessons/L-{NNN}.md`
 - **232 principles** in `memory/PRINCIPLES.md` (latest: P-316 citation-gap-recombination, P-315 temporal-mismatch-diagnosis, P-314 implicit-reward-goodhart)
 - **20 beliefs** in `beliefs/DEPS.md` (B1–B3, B6–B19, B-EVAL1–3) | **12 frontiers** in `tasks/FRONTIER.md` | **46 domains**
 
@@ -31,7 +31,7 @@ Updated: 2026-03-03 | Sessions: 464
 | Meta -- Signal Processing & Routing | 37 | Signal conversion L-660, broadcast routing L-1073, format evolution L-874, three-signal rule, inter-node L-565. |
 | Meta -- Human Interaction & Authority | 11 | On-ramp L-1092, authority paradox L-994, trust calibration L-858, steerer 3 roles L-371. |
 | Meta -- Integration & Extraction | 25 | Check_modes; principle batch extraction 4.5%→9.8% L-664; retrospective signaling fails L-604; tool degradation class L-530/L-532. |
-| Meta -- Citation Graph Topology | 32 | Hubs, giant component 98.6% L-937, preferential attachment, domain linkage L-958, 2-hop coverage L-967, recombination-as-M3 L-1137. |
+| Meta -- Citation Graph Topology | 32 | Hubs, giant component 98.6% L-937, preferential attachment, domain linkage L-958, 2-hop coverage L-967, recombination-as-M3 L-1139. |
 | Meta -- Cross-Domain Citation & Metrics | 14 | Cross-domain rates 3 definitions L-954, spectral universality L-997, implicit refs (L-574/L-622/L-639). |
 | Meta -- Compaction & Compression | 21 | Compression cycles, proxy-K drift, MDL, compact.py; oracle summaries; proxy-K log-normal L-771 (L-002/L-106/L-512). |
 | Meta -- Archival & Dark Matter | 39 | INDEX decay L-1111, dark matter L-573, SESSION-LOG L-979, retention vs accessibility L-1096. |

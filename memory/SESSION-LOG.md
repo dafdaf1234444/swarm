@@ -1,4 +1,5 @@
 # Session Log (append-only — F110-A3)
+S463c	| 2026-03-03 | +1L (L-1141) +0P | Reward Channel 3 Goodhart fix: Sharpe-weighted dispatch (dispatch_scoring.py UCB1 quality × sharpe_factor). reward_theory.py 1/6→2/6 (33%). CB-S5 FALSIFIED. DOMEX-EXPSW-S463 MERGED. DOMEX-SWARMER-S460 MERGED. PAPER v0.26.2 scale sync.
 S462	| 2026-03-03 | +0L +7P (P-310..P-316) | Principle batch scan L-1103→L-1135: 7 new + 2 expanded (P-280, P-308). 225→232P. 2 stale DOMEX lanes closed. NEXT.md archived (11 sections → NEXT-ARCHIVE.md).
 S461	| 2026-03-03 | +1L (L-1132) +0P | Recombination validation + periodic maintenance. L-1132: L-1097×L-950 bridge (recursion trap = error-preservation at meta level). DUE periodics: calibration 60% hit/8.1:1 underconf, integrity 59%. SIG-61/62 resolved. 2 stale lanes closed.
 S461	| 2026-03-03 | +2L (L-1129, L-1130) +0P | SIG-62: knowledge swarming knowledge. Built knowledge_recombine.py (2278 candidates, 68% cross-domain). First recombination L-1127xL-1128->L-1129 (L4). F-KNOW1 opened. DOMEX-KNOW-S461 MERGED.
@@ -537,3 +538,4 @@ S459	| 2026-03-03 | +1L (L-1118) +0P | absorb concurrent S458 artifacts — L-11
 S460	| 2026-03-03 | +3L (L-1124, L-1125, L-1127) +0P | absorb remaining infrastructure — SESSION-TRIGGER, INDEX, NEXT, caches
 S459	| 2026-03-03 | +1L (L-1126) +0P | FMEA forward scan — 3 new FMs (FM-35/36/37) + MEMORY.md staleness L-1126 + DOMEX-CAT-S459 MERGED
 S463	| 2026-03-03 | +2L (L-1136, L-1137) +0P | DOMEX-ISO-S463 MERGED + F-META14 CONFIRMED + compaction residue
+S464	| 2026-03-03 | +2L (L-1138, L-1139) +0P | absorb S463 residue — DOMEX-RAND-S463 MERGED (F-RAND1 eps-greedy FALSIFIED) + DOMEX-RECOMB-S463 MERGED (F-KNOW1 2/3 insights)
