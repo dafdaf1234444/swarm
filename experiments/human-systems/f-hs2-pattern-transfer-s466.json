@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-HS-S466",
+    "frontier": "F-HS2",
+    "session": "S466",
+    "domain": "human-systems",
+    "date": "2026-03-03",
+    "expect": "Map 8 swarm patterns against 5 transferability dimensions (infrastructure cost, cultural requirements, legal compatibility, feedback-loop fidelity, compaction analog). Predict compaction > expect-act-diff in transferability (contra F-HS2 default prediction). Test: >=3 patterns score TRANSFERABLE on >=3 dimensions.",
+    "actual": "TBD",
+    "diff": "TBD"
+}

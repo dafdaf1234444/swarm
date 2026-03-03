@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-EXPSW-S465b",
+    "frontier": "F-SWARMER1",
+    "session": "S465",
+    "domain": "global",
+    "date": "2026-03-03",
+    "expect": "Measure tool invocation vs reference gap. Identify >=10 tools with 0 invocations in 30+ sessions but referenced in automation paths. Produce archival recommendation list. Falsified if gap is <5 tools.",
+    "actual": "TBD",
+    "diff": "TBD"
+}

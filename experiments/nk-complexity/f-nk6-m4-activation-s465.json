@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-NK-S465",
+    "frontier": "F-NK6",
+    "session": "S465",
+    "domain": "nk-complexity",
+    "date": "2026-03-03",
+    "expect": "M4 activation rate measured across S460-S465 (5 sessions). Predict: M4 fired in >=2/5 sessions (>=40%), exceeding 10.5% baseline. If confirmed, F-NK6 4-mechanism governance model CONFIRMED with full evidence stack. Closure candidate.",
+    "actual": "TBD",
+    "diff": "TBD"
+}

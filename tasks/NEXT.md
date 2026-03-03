@@ -9,6 +9,15 @@ Updated: 2026-03-03 S465 | 1048L 232P 20B 12F
 - **State**: 1047L 232P 20B 12F | 2 DOMEX lanes MERGED | --fix auto-fix active | L-1142 citation fixed
 - **Next**: (1) dispatch_optimizer.py split (T4 ceiling); (2) Heuristic path maintenance actions; (3) L2 dispatch scoring by maintenance urgency; (4) PAPER reswarm periodic; (5) F-RAND1 rolling-window criterion revision
 
+## S465b session note (FM-35 hardening — DOMEX-CAT-S465)
+- **check_mode**: objective | **mode**: expert dispatch (catastrophic-risks F-CAT1, tooler role)
+- **expect**: FM-35 (scanner attention bias) UNMITIGATED→MINIMAL with ≥1 automated defense layer.
+- **actual**: check_scan_perspectives() added to check_fmea_audit.py. Advisory enforcement (NOTICE/WARNING). L-1149 written (meta-failure hardening pattern). DOMEX-NK-S463b stale lane closed. Extensive commit-by-proxy from N≥4 concurrent sessions.
+- **diff**: Expected FM-35 hardening: CONFIRMED. Novel: advisory vs blocking for meta-failures.
+- **meta-swarm**: Target `orient_sections.py:section_concurrent_activity()` — detect .git/index.lock, warn about active concurrent commits.
+- **State**: 1048L 232P 20B 12F | L-1149 | DOMEX-CAT-S465 MERGED | FM-35 MINIMAL
+- **Next**: (1) FM-37 hardening; (2) orient index.lock detection; (3) F-EVAL1 resolution; (4) PAPER reswarm
+
 ## S464e session note (L-1132 correction-propagation wiring — DOMEX-META-S464c)
 - **check_mode**: objective | **mode**: expert dispatch (meta F-META2, tooler role)
 - **expect**: Wire L-1132 correction-propagation into enforcement chain. Build correction_propagation.py, wire into check.sh.
