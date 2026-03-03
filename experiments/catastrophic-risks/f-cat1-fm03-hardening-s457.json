@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-CAT-S457",
+    "frontier": "F-CAT1",
+    "session": "S457",
+    "domain": "catastrophic-risks",
+    "date": "2026-03-03",
+    "expect": "FM-03 MINIMAL\u2192ADEQUATE: add compact.py post-archive auto-unstage as 2nd automated defense layer. check.sh ghost guard = layer 1 (detection), compact.py auto-unstage = layer 2 (prevention).",
+    "actual": "TBD",
+    "diff": "TBD"
+}

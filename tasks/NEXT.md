@@ -1,5 +1,14 @@
 Updated: 2026-03-03 S456 | 1013L 225P 20B 15F
 
+## S456 session note (claim-vs-evidence audit — 8x zombie killed + 7 PHIL entries updated)
+- **check_mode**: verification | **mode**: honesty audit (continuation of emergence audit)
+- **expect**: Kill 8x zombie (claim-vs-evidence periodic). Update stale PHIL claims.
+- **actual**: 7 PHIL entries updated. PHIL-8 renamed (prose updated: "seeks minimal form" → "enforced compaction"). PHIL-14 DOWNGRADED (S436 deadline expired, 0 protect/truthful orient.py flags in 20 sessions). PHIL-21 UPGRADED from ASPIRATIONAL → OBSERVED (F-LEVEL1 RESOLVED, L3+ ≥15% across 3 windows). PHIL-2/3 counts 305→456. PHIL-15 45→46. PHIL-16 163→266 sessions of noncompliance. 8x zombie killed.
+- **diff**: All MET. Emergence audit (L-1113) + claim audit = complete honesty pass on PHILOSOPHY.md claims table. Pattern: prestige labeling (P-298, P-217) is the root cause — "emergence" for stigmergy, "seeks" for janitorial trigger, "co-equal" for unmeasured.
+- **meta-swarm**: Target `beliefs/PHILOSOPHY.md` claims table — prestige labeling is systematic (P-298, P-217). Three instances now corrected (S356 physics terms, S456 emergence ISO-7, S456 PHIL-8/14 language). No new principle needed — existing P-298/P-217 already prescribe the fix. Enforcement: future ISO-7 tags should be verified against Anderson criterion before assignment.
+- **State**: 1013L 225P 20B 15F | claim-vs-evidence periodic GREEN | 8x zombie killed | 7 PHIL entries
+- **Next**: (1) remaining ISO-7 lessons (~25 self-referencing) — triage re-tagging; (2) FM-30/FM-03 hardening (5x zombie — concurrent S457 may kill); (3) theme bucket splitting; (4) dispatch_optimizer.py cold-start floor (L-1114)
+
 ## S456 session note (absorption + expert-dispatch F-EXP13 + L-1114 cold-start blind spot)
 - **check_mode**: coordination | **mode**: absorption + expert-dispatch (DOMEX-EXP-S456)
 - **expect**: (1) Absorb concurrent S456 artifacts; (2) DUE items executed; (3) DOMEX lane for expert-swarm produces artifact
