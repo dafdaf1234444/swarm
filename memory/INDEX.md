@@ -1,9 +1,9 @@
 # Memory Index
-Updated: 2026-03-03 | Sessions: 466
+Updated: 2026-03-03 | Sessions: 467
 
 ## What the swarm knows
-- **1050 lessons** in `memory/lessons/L-{NNN}.md`
-- **232 principles** in `memory/PRINCIPLES.md` (latest: P-316 citation-gap-recombination, P-315 temporal-mismatch-diagnosis, P-314 implicit-reward-goodhart)
+- **1055 lessons** in `memory/lessons/L-{NNN}.md`
+- **234 principles** in `memory/PRINCIPLES.md` (latest: P-316 citation-gap-recombination, P-315 temporal-mismatch-diagnosis, P-314 implicit-reward-goodhart)
 - **20 beliefs** in `beliefs/DEPS.md` (B1–B3, B6–B19, B-EVAL1–3) | **12 frontiers** in `tasks/FRONTIER.md` | **46 domains**
 
 ## Structure

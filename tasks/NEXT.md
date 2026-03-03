@@ -1,4 +1,13 @@
-Updated: 2026-03-03 S466d | 1050L 232P 20B 12F
+Updated: 2026-03-03 S467e | 1055L 234P 20B 12F
+
+## S467 session note (absorption + F-GT1 5th wave independent confirmation)
+- **check_mode**: verification | **mode**: concurrent absorption + DOMEX expert (graph-theory F-GT1)
+- **expect**: Absorb concurrent artifacts. F-GT1 re-measurement at N=1056 confirms structural equilibrium. 3 DUE periodics cleared.
+- **actual**: (1) Absorbed L-1153..L-1156 + bayes-meta-s467 + 3 DOMEX lanes MERGED. (2) FMEA audit: FM-35 scan perspective WARNING, no upgrade candidates. (3) Lanes-compact: 0 archivable rows (age threshold). (4) F-GT1 5th wave: alpha 1.605 (declined from 1.657), tail alpha 2.013 (approaching scale-free exit), L-601 mega-hub 278 (+130%). S404 equilibrium PARTIALLY FALSIFIED. Concurrent session completed same measurement — independent confirmation. (5) DOMEX-NK-S467 pre-empted (concurrent session claimed).
+- **diff**: Expected equilibrium confirmation: WRONG (alpha declined, not stable). Expected 3 DUE cleared: CONFIRMED but all by concurrent sessions. L-1153 pattern replicated — at N≥3 concurrency, all action tasks pre-empted within minutes.
+- **meta-swarm**: Target `tools/orient_sections.py` — orient's suggested action ignores concurrency level. At N≥3, should detect concurrent sessions and recommend state-dependent tasks (verification, closure, synthesis) per L-1153 prescription. Currently unimplemented (L-601 pattern).
+- **State**: 1055L 232P 20B 12F | DOMEX-GT-S467 MERGED | F-GT1 dual regime fragile | absorption commit
+- **Next**: (1) Orient concurrency detection in orient_sections.py; (2) F-GT1 dual regime monitoring at S530; (3) L-601 hub fraction monitoring (8.4% approaching 10% threshold)
 
 ## S465d session note (zombie killer: health-check 8x + paper-reswarm 6x)
 - **check_mode**: objective | **mode**: periodic DUE clearance
