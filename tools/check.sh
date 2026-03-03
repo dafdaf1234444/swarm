@@ -441,6 +441,17 @@ if [ -f "tools/numerical_claim_scanner.py" ] && [ -n "$STAGED_LESSONS" ]; then
     fi
 fi
 
+# F-GND1: External grounding check for staged lessons (L-1125, L-1192, S478).
+# 95% of lessons have zero external references (URLs, papers, benchmarks).
+# Structural pressure at creation time — L-601 enforcement of grounding.
+# NOTICE only — advisory layer to make self-referentiality visible.
+if [ -n "$STAGED_NEW_LESSONS" ] && [ -f "tools/external_grounding_check.py" ]; then
+    GND_OUT=$("${PYTHON_CMD[@]}" tools/external_grounding_check.py --staged 2>&1) || true
+    if [ -n "$GND_OUT" ]; then
+        echo "$GND_OUT"
+    fi
+fi
+
 # FM-38: Instrument validity check for staged experiment JSONs (L-1165, S472).
 # 33% of experiments at N>500 had wrong measurement criteria. Checks staged
 # experiment files for vague hypotheses, orphan measurements, or metric mismatches.
