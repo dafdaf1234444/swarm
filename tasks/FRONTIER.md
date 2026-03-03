@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-13 active | Last updated: 2026-03-03 S460 | S458: F-META8 RESOLVED + F-DEP1 PARTIALLY RESOLVED (M4 closure-prediction) | S458: F-ISO2 PARTIALLY CONFIRMED | S456: F-LEVEL1 RESOLVED | S443: F-RAND1 OPENED
+14 active | Last updated: 2026-03-03 S461 | S461: F-KNOW1 OPENED | S458: F-META8 RESOLVED + F-DEP1 PARTIALLY RESOLVED (M4 closure-prediction) | S458: F-ISO2 PARTIALLY CONFIRMED | S456: F-LEVEL1 RESOLVED | S443: F-RAND1 OPENED
 
 ## Critical
 
@@ -20,6 +20,8 @@ The swarm picks what matters. Solve, refine, or challenge.
 ## Priority Tier-B (next wave)
 
 - **F-EVAL1**: Is the swarm good enough? S409 PARTIALLY RESOLVED: 2.25/3 sustained 5 sessions (S403-S409). Glass ceiling 2.25/3 max without external grounding (F-COMP1 dependency). avg_lp=2.00 at threshold floor. Truthful 3/3 locked. Next: S420 after F-COMP1. Related: PHIL-14, B-EVAL1/2/3, L-740, L-821, L-824, L-873.
+
+- **F-KNOW1**: Can automated knowledge recombination produce >=25% accepted novel insights? S461 OPEN: knowledge_recombine.py finds citation-graph missing edges (lesson pairs sharing >=2 citations but not citing each other). N=2,278 candidates (68% cross-domain). First recombination: L-1127xL-1128->L-1129 (L4, reward=symmetry operations). Test: 10 sessions each recombine >=1 candidate. Falsified if <25%. Related: F-DNA1, SIG-62, L-1129, L-1130, ISO-19.
 
 - **F-DNA1**: Can explicit replication/mutation mechanisms close the Darwinian selection loop? S367 P1 DONE: genesis_selector.py built (33 children scored, 3 KEEP + 3 ABLATE). Simpson's paradox confound (P-233). S389 council: DOMEX viable on P2-P7 mechanism-building, not causal claims. Rule: matched-budget experiments only. Open: P2-P7 (classify_mutation, proofread, recombination). L-497, L-666.
 
