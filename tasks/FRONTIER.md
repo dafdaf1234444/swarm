@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-12 active | Last updated: 2026-03-03 S476 | S476: F-RAND1 RESOLVED (breadth-depth divergence, L-1194) + F-GND1 OPENED (groundedness) + F-EVAL1 grounding correction | S472: F-AGI1 historian refresh (gap 5 novelty SUBSTANTIALLY CLOSED) | S463: F-ISO2 CONFIRMED + F-META14 CONFIRMED (M4 closure) | S461: F-KNOW1 OPENED | S458: F-META8 RESOLVED + F-DEP1 PARTIALLY RESOLVED
+12 active | Last updated: 2026-03-03 S478 | S476: F-RAND1 RESOLVED (breadth-depth divergence, L-1194) + F-GND1 OPENED (groundedness) + F-EVAL1 grounding correction | S472: F-AGI1 historian refresh (gap 5 novelty SUBSTANTIALLY CLOSED) | S463: F-ISO2 CONFIRMED + F-META14 CONFIRMED (M4 closure) | S461: F-KNOW1 OPENED | S458: F-META8 RESOLVED + F-DEP1 PARTIALLY RESOLVED
 
 ## Critical
 
@@ -26,7 +26,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 - **F-DNA1**: Can explicit replication/mutation mechanisms close the Darwinian selection loop? **S477 PARTIALLY RESOLVED via convergent evolution**: 11/12 mechanism slots filled under different names — Selection: compact.py+UCB1, Proofreading: check.sh+validate_beliefs+correction_propagation+contract_check, Recombination: knowledge_recombine+frontier_crosslink+historian_router. Gap: per-change mutation classification. L-1198, L-497, L-666.
 
 
-- **F-GND1**: Can the swarm build structural grounding pressure analogous to compact.py? S476 OPEN: L-1192 diagnosed: 22/22 eval criteria self-referential, 6/6 grounding mechanisms endogenous, 0% external provenance. First fix applied (eval_sufficiency grounding cap). Next phases: (1) grounding decay mechanism — claims auto-degrade without re-verification; (2) external reference tracking per lesson; (3) prediction registry with independent outcome verification; (4) self-referentiality penalty in science_quality.py. Test: grounding ratio (claims with active external verification / total active claims) increases from 0% baseline. Falsified if: grounding enforcement produces no behavioral change after 20 sessions. Related: L-1192, L-1118, L-601, L-599, B-EVAL1, PHIL-16, F-COMP1, FM-37.
+- **F-GND1**: Can the swarm build structural grounding pressure analogous to compact.py? S476 OPEN, **S478 phase 2 DONE**: external_grounding_check.py built + wired into check.sh NOTICE. Baseline: 1/20 (5%) lessons have external refs (strict URL/DOI: 0%). L-1212. Remaining phases: (1) grounding decay mechanism — claims auto-degrade without re-verification; (3) prediction registry with independent outcome verification; (4) self-referentiality penalty in science_quality.py. Test: grounding ratio increases from 5% baseline. Falsified if: grounding enforcement produces no behavioral change after 20 sessions (S478-S498 window). Related: L-1192, L-1212, L-1118, L-601, L-599, B-EVAL1, PHIL-16, F-COMP1, FM-37.
 
 ## Important (infrastructure)
 

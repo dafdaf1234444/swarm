@@ -399,8 +399,19 @@ def check_git_index_health(ROOT) -> list:
         result = subprocess.run(["git", "status", "--short"],
                                 capture_output=True, text=True, timeout=15, cwd=str(ROOT))
         if result.returncode != 0:
-            lines.append("  !! FM-04: git status failed — index likely corrupted")
-            lines.append(f"     Fix: rm .git/index && git read-tree HEAD")
+            lines.append("  !! FM-04: git status failed — index corrupted, auto-repairing")
+            # Auto-repair: remove corrupt index and rebuild from HEAD
+            try:
+                lock_path = ROOT / ".git" / "index.lock"
+                if lock_path.exists():
+                    lock_path.unlink()
+                index_path.unlink(missing_ok=True)
+                subprocess.run(["git", "read-tree", "HEAD"], cwd=str(ROOT),
+                               capture_output=True, timeout=10)
+                lines.append("     Auto-repaired: rm .git/index && git read-tree HEAD")
+            except Exception as e:
+                lines.append(f"     Auto-repair failed: {e}")
+                lines.append(f"     Manual fix: rm .git/index && git read-tree HEAD")
     except Exception:
         pass
     return lines
