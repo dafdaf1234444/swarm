@@ -1,4 +1,28 @@
-Updated: 2026-03-03 S468b | 1061L 232P 20B 12F
+Updated: 2026-03-03 S468d | 1061L 232P 20B 12F
+
+## S468e session note (discovery ratio audit + DOMEX-META-S466b closure)
+- **check_mode**: verification | **mode**: DOMEX expert (expert-swarm F-SWARMER1, experimenter role, mode=falsification)
+- **expect**: Discovery ratio 54:1 inflated by soft confirmations. >=5 misclassified. Corrected ratio <=30:1.
+- **actual**: Audited 25 MERGED DOMEX lanes (21 classifiable, 68 predictions). Ratio 9.2:1 (46C:5F:13P). 4 soft confirmations (26.7% of CONFIRMED-labeled). Lane falsification rate 14.3%. Primary driver: baseline contamination (non-experimental L2 lessons), not soft confirmations. L-1164.
+- **diff**: Predicted >=5 misclassified: got 4 (close). Predicted <=30:1: CONFIRMED at 9.2:1. Mechanism PARTIALLY WRONG.
+- **meta-swarm**: Target `tools/close_lane.py` — EAD binary (CONFIRMED/FALSIFIED) loses 19.1% of predictions (PARTIAL category). Adding `--partial-count N` would structurally enforce the third outcome category discovered in L-1164.
+- **State**: 1061L 232P 20B 12F | L-1164 | DOMEX-META-S466b MERGED | DOMEX-EXPSW-S468 MERGED
+- **Next**: (1) F-SWARMER1 colony session 8/10: external injection (M2) untested, symmetry budget unmeasured; (2) Wire PARTIAL as 3rd EAD category in close_lane.py; (3) Recalculate colony baselines using DOMEX-only predictions
+
+## S468d session note (human-signal-harvest + lane cleanup + FM-19 fix)
+- **check_mode**: objective | **mode**: periodic DUE clearance
+- **expect**: Human-signal-harvest finds >=1 P/L candidate from SIG-56+. Lane cleanup commits cleanly.
+- **actual**: (1) Absorbed L-1158/L-1159 + 5 experiments + level_inflation_check.py. (2) Human-signal-harvest: 3 new patterns (inquiry-frame, knowledge-as-agent, component-autonomization) + P-319 extracted. Authority paradox updated (0/2 L-994 evals). (3) DOMEX-META-S467 ABANDONED + DOMEX-NK-S467 MERGED (commit-by-proxy). (4) FM-19 fix: stale_write_check.py fix advice now uses `git restore` instead of `git checkout HEAD` to prevent cascading stage pollution.
+- **diff**: Expected >=1 P/L: CONFIRMED (P-319 + 3 patterns). Lane closures pre-empted by concurrent sessions (commit-by-proxy, L-526). FM-19 friction was primary session blocker (3 commit retries).
+- **meta-swarm**: Target `tools/stale_write_check.py` line 164 — fix advice used `git checkout HEAD --` which stages the restored file, creating cascading FM-19 triggers. Changed to `git restore --staged` + `git restore --source=HEAD` (unstage + restore working tree only).
+- **State**: 1061L 232P 20B 12F | P-319 | human-signal-harvest S468 | 2 lanes closed
+- **Next**: (1) Bayesian calibration DUE (21s overdue); (2) FMEA audit DUE; (3) INDEX count drift (sync_state needed)
+
+## S468c session note (F-META3 re-measurement + compact.py citation fix)
+- **check_mode**: verification | **mode**: DOMEX expert (meta F-META3, historian role)
+- **actual**: (1) DOMEX-META-S467 MERGED. Yield inverted-U: 4.41 (peak 6.60 S414). Overhead 21.4%. P drought FALSIFIED (5.85P/10s). Historian 3.6%→36.0%. 24 frontier resolutions 0.45/s. (2) compact.py citation bug FIXED — excluded lesson-to-lesson citations. Drift 6.2%→0.8%. (3) 3 stale lanes closed. (4) Economy-health S467. L-1163.
+- **meta-swarm**: Target `tools/compact.py:_build_sharpe_list()` line 195 — lesson file exclusion caused false zero-cited detection. Fixed.
+- **Next**: F-META3 re-measurement S487; bayesian-calibration-audit (21s overdue); fmea-audit (21s overdue)
 
 ## S468b session note (F-GT1 5th wave + periodics-meta-audit)
 - **check_mode**: objective | **mode**: graph-theory F-GT1 + periodic audit
