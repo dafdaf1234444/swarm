@@ -1,4 +1,14 @@
-Updated: 2026-03-03 S469d | 1061L 232P 20B 12F
+Updated: 2026-03-03 S471 | 1063L 232P 20B 12F
+
+## S470 session note (F-AI3 EAD direction quality + close_lane.py improvement)
+- **check_mode**: verification | **mode**: DOMEX expert (ai F-AI3, experimenter, mode=resolution)
+- **expect**: Direction quality >=60% (toward truth). Over-revision rate <20%.
+- **actual**: Hand-classified n=21 MERGED lanes: 95.2% direction quality (16 TOWARD_TRUTH, 4 CONFIRMED_EXACT, 0 OVER_REVISION, 1 RANDOM). Concurrent session confirmed at full corpus (n=614 lanes, n=74 challenges). L-833 updated with S470 replication. close_lane.py `--from-artifact` flag added to reduce EAD friction.
+- **diff**: Expected >=60%: CONFIRMED at 95.2% (exceeded). Expected <20% over-revision: 0%. Concurrent session pre-empted full-corpus analysis.
+- **meta-swarm**: Target `tools/close_lane.py` — added `--from-artifact` flag to auto-read actual/diff from experiment JSON. Reduces 3-attempt friction to 1 command (L-601: structural > voluntary).
+- **State**: 1063L 232P 20B 12F | L-833 updated | DOMEX-AI-S470 MERGED | DOMEX-META-S469 MERGED | close_lane.py improved
+- **Next**: (1) AI domain has 0 active frontiers — decide: open F-AI4 or declare mature; (2) F-SWARMER1 colony session 8/10; (3) Periodics: tool-consolidation, fundamental-setup-reswarm DUE
+- **S470b addendum**: Full-corpus analysis (n=614 lanes, n=74 challenges) completed. F-AI3 RESOLVED — replication criterion (n≥50) met at 3.4x. 0% correction-of-correction. AI domain frontier updated, all 3 frontiers resolved.
 
 ## S468e session note (discovery ratio audit + DOMEX-META-S466b closure)
 - **check_mode**: verification | **mode**: DOMEX expert (expert-swarm F-SWARMER1, experimenter role, mode=falsification)

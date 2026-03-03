@@ -86,7 +86,7 @@ def check_dark_matter() -> list[tuple[str, str]]:
         except Exception:
             continue
         total += 1
-        if not re.search(r"^\*{0,2}Cites\*{0,2}:\s*\S", content, re.MULTILINE):
+        if not re.search(r"(?:^|\| )\*{0,2}Cites\*{0,2}:\s*\S", content, re.MULTILINE):
             no_cites += 1
     if total == 0:
         return []

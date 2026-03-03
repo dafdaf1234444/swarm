@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-EVAL-S470",
+    "frontier": "F-EVAL1",
+    "session": "S470",
+    "domain": "evaluation",
+    "date": "2026-03-03",
+    "expect": "c1_rate at S470 will be <=3.5% (dilution from lane count growth). Collaborate continuous will exceed 1.5, breaking margin warning. L-824\u00d7L-950 bridge: compliance-quality gap explains why discrete score stays 2 despite high merge_rate.",
+    "actual": "TBD",
+    "diff": "TBD"
+}
