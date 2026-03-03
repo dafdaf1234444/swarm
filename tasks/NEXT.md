@@ -1,4 +1,4 @@
-Updated: 2026-03-03 S459 | 1026L 225P 20B 13F
+Updated: 2026-03-03 S461 | 1034L 225P 20B 14F
 
 ## S461 session note (knowledge swarming knowledge — SIG-62 + knowledge_recombine.py + F-KNOW1)
 - **check_mode**: objective | **mode**: exploration (human-directed L4, SIG-62)
@@ -8,6 +8,23 @@ Updated: 2026-03-03 S459 | 1026L 225P 20B 13F
 - **meta-swarm**: Target tools/orient.py — wire knowledge_recombine.py into dispatch suggestions.
 - **State**: 1033L 225P 20B 14F | L-1129 L-1130 | F-KNOW1 | SIG-62
 - **Next**: (1) Wire into orient.py; (2) test 5 more recombinations; (3) ISO-29 candidate
+
+## S461 session note (calibration audit + knowledge recombination verification)
+- **check_mode**: verification | **mode**: audit + verification (high-concurrency absorption + periodic DUEs)
+- **expect**: calibration audit confirms L-778; history-integrity still below 80%; knowledge_recombine.py independently produces same insight as concurrent session
+- **actual**: Calibration: 93.7% directional (stable), 8.1:1 underconfidence (improving from 9.0:1). History integrity: 59% experiment outcome completeness (up from 38% S429). knowledge_recombine.py: independently derived L-1132 insight. Novel: falsified lessons 0.26x in-degree — errors persist in citation periphery (detection-gated).
+- **diff**: Periodic targets NOT YET MET (8.1:1 vs 5:1; 59% vs 80%). Both improving. In-degree finding adds detection dimension to L-1132.
+- **meta-swarm**: Target `tools/knowledge_recombine.py:137` — hub discount missing from scoring formula.
+- **State**: 1033L+ 225P 20B 14F | periodics updated | experiment artifact
+
+## S460 session note (DOMEX-NK-S460: closeable frontier M4 amplification)
+- **check_mode**: objective | **mode**: expert-dispatch (DOMEX-NK-S460)
+- **expect**: Closure classifier in orient; M4 activation 10.5%->>=25%
+- **actual**: tools/closeable_frontiers.py standalone. F-ISO2=10 CLOSEABLE, F-META14=7, F-RAND1=6. orient.py wiring contested N>=3. L-1134.
+- **diff**: Tool CONFIRMED. Wiring BLOCKED by concurrency. Standalone module pattern required at N>=3.
+- **meta-swarm**: Target orient_sections.py — 2-line change deferred to low-concurrency session.
+- **State**: L-1134 | DOMEX-NK-S460 MERGED
+- **Next**: (1) Wire closeable_frontiers into orient; (2) Re-classify at S470; (3) Measure M4 at S480
 
 ## S460 session note (trail→context→truth epistemic cycle investigation)
 - **check_mode**: assumption | **mode**: exploration (human-directed L4, paradigm-level)
@@ -44,6 +61,10 @@ Updated: 2026-03-03 S459 | 1026L 225P 20B 13F
 - **meta-swarm**: Target `docs/GENESIS-DNA.md` — the most externally-legible document in the swarm is not recognized as such by any tool or routing. Dispatch should prioritize it as Case C backbone.
 - **State**: 1019L+ 225P 20B 13F | DOMEX-BRN-S458 MERGED | DOMEX-NAT-S458 ABANDONED | DOMEX-EXP-S459 MERGED | INDEX 70→58 | L-1123
 - **Next**: (1) Case C translation layer (Gap #1); (2) worked examples (Gap #2); (3) related work expansion (Gap #3); (4) paper-reswarm DUE; (5) health-check periodic
+
+## S459 session note (Case C organizational model — first external output)
+- **actual**: Produced docs/CASE-C-ORGANIZATIONAL-MODEL.md — 3573 words, 10 sections, zero internal notation. First external output in 460 sessions. F-EXP13 EXECUTED.
+- **Next**: (1) Publish Case C externally (venue: human decides); (2) F-SWARMER1
 
 ## S459 session note (closed-system diagnosis — L-601 reflexive application + structural enforcement)
 - **check_mode**: assumption | **mode**: meta-reflection (human-directed)

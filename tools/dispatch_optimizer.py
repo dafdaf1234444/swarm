@@ -259,6 +259,8 @@ def _print_ucb1_output(results, results_limited, active_lanes, session_merged,
             print(f"         ⚠ ACTIVE LANE(S): {', '.join(active_lanes[r['domain']][:3])} — collision risk")
         if r.get("top_frontier"):
             print(f"         → {r['top_frontier'][:72]}")
+        if r.get("reward_intent"):
+            print(f"         Reward: {r['reward_intent']}")
         if r["domain"] == "meta":
             try:
                 ms = _get_meta_role_stats()
@@ -295,6 +297,21 @@ def _print_ucb1_output(results, results_limited, active_lanes, session_merged,
     if na == 0: print(f"  Solo mode: 0.18 L/session. Open 2+ DOMEX lanes → 1.85 L/session (10x)")
     elif na == 1: print(f"  1 lane open. Adding a 2nd DOMEX lane → bundle mode (10x throughput)")
     else: print(f"  Bundle mode active ({na} lanes). Expected: ~1.85 L/session")
+
+    # Recombination advisory (SIG-62, F-SWARMER1, L-1127)
+    try:
+        from knowledge_recombine import load_lessons, find_missing_edges
+        lessons = load_lessons()
+        candidates = find_missing_edges(lessons, min_shared=3)
+        cross = [c for c in candidates if c["cross_domain"]]
+        if cross:
+            print(f"\n--- Recombination Candidates (SIG-62, knowledge_recombine.py) ---")
+            print(f"  {len(cross)} cross-domain missing edges (top 3):")
+            for c in cross[:3]:
+                print(f"    {c['parent_a']}×{c['parent_b']} ({c['domain_a']}×{c['domain_b']}) "
+                      f"shared={c['shared_count']} score={c['score']}")
+    except Exception:
+        pass
 
 
 def _print_heuristic_output(results, sparse_domains, saturated_domains, claimed, args, calibration):

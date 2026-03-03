@@ -140,6 +140,27 @@ def score_domain(domain: str, calibration: dict | None = None) -> dict | None:
     }
 
 
+def _infer_reward_intent(r: dict, phase: str) -> str:
+    """Infer what behavior a dispatch should reinforce (L-1127, F-SWARMER1).
+
+    Makes implicit reward channels explicit so sessions can declare and audit
+    whether their work matched the intended behavioral reinforcement.
+    """
+    if r.get("self_dispatch_due"):
+        return "self-improve"
+    if phase == "danger":
+        return "commit"
+    if r.get("outcome_label") == "STRUGGLING":
+        return "pivot"
+    if r.get("outcome_label") == "NEW" or r.get("floor_protected"):
+        return "explore"
+    if r.get("heat") == "COLD" and r.get("outcome_label") == "PROVEN":
+        return "reconnect"
+    if r.get("outcome_label") == "PROVEN":
+        return "deepen"
+    return "resolve"
+
+
 def ucb1_score(results: list[dict], outcome_map: dict, heat_map: dict,
                current_session: int, claimed: set[str],
                campaign_waves: dict[str, dict] | None = None,
@@ -255,6 +276,9 @@ def ucb1_score(results: list[dict], outcome_map: dict, heat_map: dict,
         r["campaign_rx"] = rx
         r["wave_2_stalls"] = wave_2_stalls
         r["mode_repeats"] = mode_repeats
+
+        # Reward intent — what behavior should this dispatch reinforce? (L-1127, F-SWARMER1)
+        r["reward_intent"] = _infer_reward_intent(r, phase)
 
         from dispatch_campaigns import WAVE_DANGER_BOOST, WAVE_COMMITTED_BOOST
         if phase == "danger":

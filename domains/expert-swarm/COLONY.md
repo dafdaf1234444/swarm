@@ -42,7 +42,9 @@ Colony sessions follow I9 risk taxonomy [MC-SAFE]: Low (local edit/commit) = act
 Medium (external API/scope-uncertain) = confirm scope; High (force-push/PR/email) = require
 explicit human direction. See `beliefs/INVARIANTS.md`.
 ## Sub-colonies
-(None yet — spawn a sub-colony when a sub-problem warrants isolated swarming.)
+### swarmer-swarm (F-SWARMER1, S460) — ACTIVE | TTL S460-S470 | anti-attractor colony
+Baselines: reward 17%, symmetry 37.5%, external 0%, discovery 54:1, uniformity 92%
+Artifact: experiments/expert-swarm/f-swarmer1-colony-design-s460.json | L-1131
 
 ## Handoff notes
 S343: Colony revived after 39-session dormancy. 5-domain council diagnosed FRAGMENT status:
