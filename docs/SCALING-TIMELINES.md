@@ -293,54 +293,45 @@ Honest unknowns — not hypotheses, but genuine blind spots:
 
 | Model | Fit quality | Evidence | Status |
 |-------|------------|---------|--------|
-| NK logistic K_avg(N) | R²=unknown, tracks S329–S357 | 6 empirical points | SURROGATE (L-991) — citation density not NK epistasis |
-| Zipf α(N) power law | R²=0.999 at N=401; wrong at N=927 | Fit on N=325–401 data | ANALOGICAL — never empirically tested past N=401 |
-| Expert utilization council model | Linear, ceiling=100% | Theoretical | THEORETICAL |
+| NK logistic K_avg(N) | **FALSIFIED** K*=2.75, actual K=3.225 | 7 points S305–S481 | Model wrong: K exceeded equilibrium |
+| Zipf α(N) power law | α=0.813 at N≈1082 (S476, L-1192) | Tested empirically | Zipf-Mandelbrot q=20 fits α=1.02 |
+| Expert utilization | Stuck at 4.6% for 43 sessions | Empirical | THEORETICAL model irrelevant |
 | Lesson growth rate | 4.0 L/session | 43 sessions empirical (S441–S484) | OBSERVED |
-| Principle promotion rate | 5.7% | L-809→L-983 single scan | OBSERVED (n=1 scan) |
+| Principle promotion rate | 20.8% P/L | 232P / 1117L | OBSERVED — declining from 23.9% |
 
-**Warning**: All models except lesson growth rate were fit on data from N<500. At N=945 we are operating beyond the empirical range of every quantitative model we have. Confidence intervals widen substantially.
+**Warning**: NK logistic model is falsified. No predictive model for K_avg in SCALE_FREE regime. All pre-S441 projections retired.
 
 ---
 
-## Scaling Scenarios
+## Scaling Scenarios (revised S484)
 
-### Scenario A: Organic Continuation (base case)
-Continue at 4.5 L/session, 5.7% principle promotion, no structural changes.
+**S441 retrospective**: Scenario A predicted N=1000 at S455 — actual ~S458 (accurate). Dark matter dropped to 4.4% (Scenario C crisis never triggered). Expert utilization 4.6% unchanged (Scenario B unrealized). K_avg entered SCALE_FREE at N=1114 (no scenario predicted this).
 
-- N=1000: S455 (~14 sessions)
-- N=1500: S566 (~125 sessions from now)
-- N=2000: S677 (~236 sessions from now)
-- K*=2.75 reached: N≈2,500, S721+
-- P/L ratio < 15%: N≈1,500 (distillation debt becomes acute)
+### Scenario A: Hub-Managed Growth (base case, revised)
+Continue at ~4.0 L/session in SCALE_FREE phase. Hub (L-601, K=327) grows via preferential attachment.
 
-Risk: compaction not keeping pace. Zipf α declining → retrieval degrading → effective N (usable lessons) grows slower than raw N.
+- N=1500: ~S580 (~96 sessions from S484)
+- N=2000: ~S734 (~250 sessions from S484)
+- P/L ratio < 15%: ~N≈1,800
+- Hub K > 500: ~N≈1,400 (complexity ratchet risk)
 
-### Scenario B: Expert Dispatch Scaling (optimistic)
-Achieve 15% expert utilization. DOMEX lanes generate 8–11 L/session vs 4.5 average. L3+ rate sustained at >37%.
+Risk: star-topology convergence — all new knowledge routes through L-601 hub.
 
-- N=1000: S450 (~11 sessions)
-- N=1500: S540 (~99 sessions)
-- Principle promotion rate rises (DOMEX lanes cite principles more → more become "active")
-- Zipf α stabilizes as citation distribution improves
+### Scenario B: Grounding Breakthrough (optimistic)
+External trail provenance rises >25%. External inputs diversify citation targets away from L-601. Expert utilization reaches 15%.
 
-### Scenario C: Integration Crisis (pessimistic)
-Retrieval degradation accelerates. Dark matter (unthemed lessons) rises past 25%. Compaction debt forces multi-session compaction sprints.
+- Hub fraction stabilizes as external concepts create alternative hubs
+- P/L ratio stabilizes above 18%
+- Trigger: 3+ external sources per 20 sessions, expert utilization >10%
 
-- Effective throughput drops to ~2 L/session net (gross 4.5, but 2.5 consumed by compaction and maintenance)
-- N=1500 delayed to S632 (~191 sessions)
-- K_avg plateaus at 2.2 (not converging to K*) as orphan rate rises
+### Scenario C: Hub Collapse (pessimistic)
+L-601 becomes pathological hub. Gini > 0.80. Citation graph collapses to star topology.
 
-Trigger conditions: INDEX.md dark matter >30%, B1 retrieval miss >25%, Zipf α < 0.65.
+- Retrieval returns L-601 for every query; knowledge novelty erodes
+- Trigger: Hub K > 500, Gini > 0.75, hub fraction > 20%
 
 ### Scenario D: Structural Breakthrough (step-function)
-Autoswarm.sh deployed (F-AGI1 gap 1). Sessions become fully autonomous. 10–20x session rate possible.
-
-- N=2000 within weeks of deployment vs months
-- First measurable cross-session self-initiation
-- Changes every projection above — calendar timelines collapse
-
-This is the highest-leverage single intervention in the system. Priority: F-AGI1 gap 1.
+Autoswarm.sh deployed (F-AGI1 gap 1). 10-20x session rate. At high N, Scenario C risk increases.
 
 ---
 

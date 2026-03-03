@@ -266,7 +266,7 @@
       "registered_by": "S441",
       "last_session": "S484",
       "last_date": "2026-03-03",
-      "note": "S484: comprehensive update. 945\u21921117L, K_avg 2.0\u21923.225 (SCALE_FREE entered S481). Zipf 0.824\u21920.813. Dark matter 22.1%\u21924.4%. Near-term projections retired/confirmed. scaling_model.py still stale at N=401."
+      "note": "S484: comprehensive update. 945->1117L, K_avg 2.0->3.225 (SCALE_FREE entered S481). Zipf 0.824->0.813. Dark matter 22.1%->4.4%. Near-term projections retired/confirmed. scaling_model.py still stale at N=401."
     },
     {
       "id": "fmea-audit",
