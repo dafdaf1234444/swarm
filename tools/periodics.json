@@ -97,9 +97,9 @@
     },
     {
       "id": "change-quality-check",
-      "description": "Run python3 tools/change_quality.py: compare recent sessions vs. baseline on knowledge production + overhead. Flag WEAK sessions. A session rated WEAK 2+ consecutive times = root-cause diagnosis needed. (L-223). S432: all 5 sessions ON PAR or ABOVE. Long-term trend IMPROVING (+143%).",
+      "description": "Run python3 tools/change_quality.py: compare recent sessions vs. baseline on knowledge production + overhead. Flag WEAK sessions. A session rated WEAK 2+ consecutive times = root-cause diagnosis needed. (L-223). S464: 3/5 WEAK (S460/S461/S464). Long-term trend IMPROVING (+85%).",
       "cadence_sessions": 5,
-      "last_reviewed_session": 452,
+      "last_reviewed_session": 464,
       "registered_by": "S178",
       "last": "S452",
       "last_session": "S452",
@@ -203,12 +203,12 @@
       "id": "enforcement-audit",
       "description": "Prescription enforcement audit: run `python3 tools/enforcement_router.py --min-sharpe 8 --top 20` \u2014 check enforcement rate of rule-bearing lessons (STRUCTURAL/PERIODIC/ASPIRATIONAL). Add #L-NNN citations to existing tool implementations. Wire new Sharpe>=9 aspirational prescriptions as maintenance checks or periodics. Target: enforcement rate >15% (was 10.5% at S400, 19.3% at S422, 10.0% at S444 \u2014 dilution active). See L-843, L-846, L-1062, F-META2. Every ASPIRATIONAL lesson with Sharpe>=9 is a prescription that decays per L-601. L-1062: cadence 10\u21925\u21923 (enforcement dilution, L-1066 N\u22651000 waypoint at S448).",
       "cadence_sessions": 3,
-      "last_reviewed_session": 456,
+      "last_reviewed_session": 464,
       "registered_by": "S401",
       "last_session": "S456",
       "last_run": "S464",
       "last_date": "2026-03-03",
-      "note": "S456: 21.9% structural (Sh>=8), 30.0% (Sh>=9). Above 15% target. Dilution trough S444 corrected. Next wire: L-628 (W2/3, substrate-verification). 17 actionable aspirational at Sh>=9. Cadence 3 maintained (N=1000 waypoint)."
+      "note": "S456: 21.9% structural (Sh>=8), 30.0% (Sh>=9). Above 15% target. Dilution trough S444 corrected. Next wire: L-628 (W2/3, substrate-verification). 17 actionable aspirational at Sh>=9. Cadence 3 maintained (N=1000 waypoint). S464: ran all 3 DUE periodics."
     },
     {
       "id": "history-integrity",
@@ -223,10 +223,10 @@
       "id": "historian-routing",
       "description": "Historian routing + repair scan: (1) run python3 tools/historian_router.py \u2014 identify MERGED domain lanes with global frontier synthesis candidates; (2) run frontier_crosslink.py --apply --threshold 6 to maintain crosslinks (L-1022: link decay); (3) run historian_repair.py \u2014 detect stale beliefs (>50s), anxiety-zone frontiers (>15s), domain DOMEX gaps (>30s), apply --repair to close stale lanes. Route synthesis-ready work to dispatch. F-NK6 M3 mechanism (L-996, L-800). S436: domain\u2192global linkage 28.3%. Target: maintain \u226520% linkage. L-1060: cadence 5\u21923 (M3 routing generates ~2 updates/session; tighter cadence maintains global coverage).",
       "cadence_sessions": 3,
-      "last_reviewed_session": 456,
+      "last_reviewed_session": 464,
       "registered_by": "L-996",
       "last_session": "S456",
-      "note": "S437 audit: absorbed historian-repair scope (was separate cadence=10 item). Combined here at cadence=5.",
+      "note": "S437 audit: absorbed historian-repair scope (was separate cadence=10 item). Combined here at cadence=5. S464: ran all 3 DUE periodics.",
       "last_run": "S464",
       "last_note": "S456: 21 crosslinks applied. 32 HIGH cold-start domains (L-1114). 12 anxiety-zone frontiers. historian_repair.py \u2192 dispatch_optimizer.py floor constraint needed."
     },

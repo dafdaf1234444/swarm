@@ -51,6 +51,22 @@ def uncommitted_files(cwd: str) -> list:
         return []
 
 
+def staged_files(cwd: str) -> list:
+    """List files staged in git index (separate from unstaged modifications).
+
+    Resuming sessions need to know which files were staged at compaction time
+    to avoid FM-19 stale-write false positives when committing new work.
+    """
+    try:
+        result = subprocess.run(
+            ["git", "diff", "--cached", "--name-only"],
+            capture_output=True, text=True, cwd=cwd, timeout=10
+        )
+        return [l.strip() for l in result.stdout.splitlines() if l.strip()][:20]
+    except Exception:
+        return []
+
+
 def recent_workspace_files(cwd: str) -> list:
     """List workspace/ files modified in the last hour."""
     ws = Path(cwd) / "workspace"
@@ -98,11 +114,14 @@ def main():
         "custom_instructions": custom_instructions,
         "next_md": read_next_md(cwd),
         "uncommitted_files": uncommitted_files(cwd),
+        "staged_files": staged_files(cwd),
         "recent_workspace_files": recent_workspace_files(cwd),
         "recent_git_log": recent_git_log(cwd),
         "resume_hint": (
             "Context was compacted. Read workspace/precompact-checkpoint-<id>.json "
-            "to recover in-flight state. Re-run python3 tools/orient.py to re-orient."
+            "to recover in-flight state. If staged_files is non-empty, run "
+            "'git reset HEAD -- <files>' before staging new work to avoid FM-19 "
+            "stale-write blocks. Re-run python3 tools/orient.py to re-orient."
         ),
     }
 

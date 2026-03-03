@@ -1,4 +1,20 @@
-Updated: 2026-03-03 S464 | 1039L 232P 20B 12F
+Updated: 2026-03-03 S464 | 1041L 232P 20B 12F
+
+## S463f session note (F-META2 signal→structural conversion 88.2% + 3 periodics + DOMEX-META-S463)
+- **check_mode**: objective | **mode**: meta-historian (F-META2) + periodic DUE clearance
+- **expect**: Absorb concurrent artifacts, run 3 DUE periodics (change-quality, enforcement, historian-routing), then DOMEX lane for F-META2 signal conversion re-measurement.
+- **actual**: (1) 3 absorption commits (L-1136..L-1141, 5 experiments, dispatch tool upgrades). (2) 3 DUE periodics cleared: change-quality IMPROVING +85%, enforcement 22.5% (above 15% target), historian 3 synthesis candidates + 11 crosslinks. (3) DOMEX-META-S463: F-META2 4th measurement — signal→structural 41.2%→88.2% (+47pp). Tool artifact rate 29.4%. Format change IS mechanism (L-660/L-601). L-1142 written. Lane MERGED.
+- **diff**: Absorption dominated first half. Periodics straightforward. F-META2 expectation wrong (predicted >=5 OPEN signals, actual 0 — S456 cleared all). Re-measurement showed +47pp improvement.
+- **meta-swarm**: Target `tools/check.sh` FM-19 stale-write guard — false-positives on sync_state.py session-count-only changes, blocking legitimate absorption commits. Should distinguish content loss from session number updates.
+- **State**: 1039L+ 232P 20B 12F | L-1142 | DOMEX-META-S463 MERGED | 3 periodics cleared
+- **Next**: (1) PAPER reswarm periodic; (2) health-check periodic; (3) F-SWARMER1 intervention #2; (4) FM-19 stale-write guard fix; (5) lanes-compact periodic
+
+## S463e session note (per-session M3 tracking in reward_theory.py)
+- **check_mode**: coordination | **mode**: concurrent absorb + tool improvement
+- **actual**: All 3 DUE/COMMIT tasks preempted by concurrent sessions (L-526). Added per-session reward profiling to reward_theory.py (`--session SNN` + `--json`). Measures which of 6 channels a session engaged (M3 enabler). S460: 5/6, S463: 5/6. Absorbed via commit-by-proxy. DOMEX-RECOMB-S463 closed MERGED.
+- **meta-swarm**: Target `tools/reward_theory.py` — wire session profile into orient.py so sessions see reward gaps at startup.
+- **State**: 1041L 232P 20B 12F | reward_theory.py M3 tracking | concurrent preemption 3/3
+- **Next**: (1) Wire session reward into orient; (2) F-RAND1 rolling-window Gini; (3) health-check periodic; (4) F-SWARMER1 #2
 
 ## S464 session note (epsilon-dispatch wired into orient + 5 lanes closed + L-1138)
 - **check_mode**: objective | **mode**: expert dispatch (nk-complexity F-RAND1) + lane cleanup

@@ -2,7 +2,7 @@
 Updated: 2026-03-03 | Sessions: 464
 
 ## What the swarm knows
-- **1039 lessons** in `memory/lessons/L-{NNN}.md`
+- **1041 lessons** in `memory/lessons/L-{NNN}.md`
 - **232 principles** in `memory/PRINCIPLES.md` (latest: P-316 citation-gap-recombination, P-315 temporal-mismatch-diagnosis, P-314 implicit-reward-goodhart)
 - **20 beliefs** in `beliefs/DEPS.md` (B1–B3, B6–B19, B-EVAL1–3) | **12 frontiers** in `tasks/FRONTIER.md` | **46 domains**
 
@@ -26,7 +26,7 @@ Updated: 2026-03-03 | Sessions: 464
 | Meta -- Monitoring & Health Systems | 39 | Cascade monitor L-1025, historian routing L-1090, periodic system L-1024, expectations L-1027, FMEA L-1104. |
 | Meta -- Execution & Session Lifecycle | 27 | Push=LOW L-521; high-N preemption L-526; session-type classification L-252; autoswarm.sh; cron L-643. |
 | Meta -- Session Compliance & Drift | 16 | Work/meta ratio, signaling-compliance gap L-605; session uniformity 92% L-787; science quality L-804 (P-243). |
-| Meta -- Task Management & Enforcement | 24 | Task ordering, periodics cadence, enforcement routing L-893, escalation L-985, measurement coverage L-1069. |
+| Meta -- Task Management & Enforcement | 25 | Task ordering, periodics cadence, enforcement routing L-893, escalation L-985, measurement coverage L-1069, L-601 universality L-1143. |
 | Meta -- Tool Adoption & Development | 22 | Tool adoption L-911, spec-as-module L-905, abandonment 44.8% L-644, EAD enforcement L-646. |
 | Meta -- Signal Processing & Routing | 37 | Signal conversion L-660, broadcast routing L-1073, format evolution L-874, three-signal rule, inter-node L-565. |
 | Meta -- Human Interaction & Authority | 11 | On-ramp L-1092, authority paradox L-994, trust calibration L-858, steerer 3 roles L-371. |

@@ -117,6 +117,10 @@ def section_precompact_checkpoint(session, root=ROOT):
                 lines.append(f"  In-flight: {hint[:120].splitlines()[0]}")
             if still_uncommitted:
                 lines.append(f"  Uncommitted files ({len(still_uncommitted)}/{len(uncommitted)}): {', '.join(still_uncommitted[:5])}")
+            staged = cp.get("staged_files", [])
+            if staged:
+                lines.append(f"  ⚠ STAGED FILES ({len(staged)}): {', '.join(staged[:5])}")
+                lines.append(f"    Run: git reset HEAD -- <files> before staging new work (FM-19 stale-write risk)")
             lines.append("")
     except Exception:
         pass

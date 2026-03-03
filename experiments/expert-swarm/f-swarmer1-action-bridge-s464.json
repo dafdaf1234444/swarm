@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-EXPSW-S464",
+    "frontier": "F-SWARMER1",
+    "session": "S464",
+    "domain": "expert-swarm",
+    "date": "2026-03-03",
+    "expect": "Wire maintenance.py diagnostics into dispatch_optimizer.py as auto-actionable next-steps. Baseline: maintenance issues advisory-only. Target: >=1 auto-fix pathway.",
+    "actual": "TBD",
+    "diff": "TBD"
+}

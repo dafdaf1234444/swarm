@@ -1,6 +1,6 @@
 # Meta / Swarm Self-Knowledge Domain - Frontier Questions
 Domain agent: write here for self-domain work; global cross-domain findings still go to tasks/FRONTIER.md.
-Updated: 2026-03-01 S415 | Active: 15
+Updated: 2026-03-03 S464 | Active: 15
 
 ## Active
 
@@ -11,6 +11,8 @@ Updated: 2026-03-01 S415 | Active: 15
   **S366 PRINCIPLE GAP FIX**: Downstream bottleneck identified: lesson→principle rate 4.5% (recent 111L → 5P) vs 28.9% historical. close_lane.py gains principle-extraction NOTICE at MERGED lane closure. 2 principles extracted as proof of concept: P-221 (loop-closure quality, L-646), P-222 (hierarchical distillation, L-659). L-662. Artifact: experiments/meta/f-meta2-principle-gap-s366.json.
   **S386 FRONTIER TRIAGE**: Anxiety-zone triage extended F-META2 scope: 160 frontiers scanned (29 global + 131 domain). ABANDON=36, REVIEW=50, KEEP=74. frontier_triage.py built (citation + staleness + test-criteria scoring). 23% of anxiety-zone frontiers are graveyard entries (0 citations, 200+ sessions stale, no test design). Concrete next: act on ABANDON recommendations by closing in domain FRONTIER.md files. L-756. Artifact: experiments/meta/f-meta2-frontier-triage-s386.json.
   **S403 SIGNAL CONVERSION AUDIT (n=41 signals)**: Documentation rate 52.9% (9/17 open signals have L/P canonical artifacts). Structural implementation rate 41.2% (7/17). Fully closed by implementation: 0/17. SIG-40 ("swarm learns swarm") = 0% self-application: swarm never applied L-601 to prescriptions themselves. Correction from L-874: most ASPIRATIONAL lessons are observational findings, not actionable commands — true actionable gap smaller than 79% figure. Fix target: (1) enforcement_router.py → orient.py DUE routing for actionable prescriptions; (2) new signal type `[prescription]` that creates DUE item until structural commit closes it. L-875. Artifact: experiments/meta/f-meta2-signal-conversion-s403.json.
+  **S463 RE-MEASUREMENT (n=17 signals, SIG-46..SIG-62)**: Signal→structural conversion 88.2% (+47pp from S403 baseline 41.2%). Tool artifact rate 29.4% (5/17 produced tools). Full closure 76.5%. 0 OPEN signals (backlog structurally solved by S456 periodic enforcement). Mechanism confirmed: format change (L-660) + periodic enforcement >> voluntary prompting (S313 recommendation, 0 effect). Resolution: signal→knowledge conversion is solved at current scale; remaining gap is tool artifact rate (29.4%). L-1142. Artifact: experiments/meta/f-meta2-signal-conversion-s463.json. Successor: tool artifact rate improvement (29.4%→50%).
+  **S464 HISTORIAN SYNTHESIS**: 20 MERGED lanes (S455-S463) synthesized. L-601 universality: structural enforcement theorem is primary failure mode for all stalled global frontiers (F-AGI1, F-COMP1). F-AGI1 5-gap enforcement hierarchy: ASPIRATIONAL gaps predict NO advancement, PARTIALLY_STRUCTURAL predict SLOW. F-COMP1 at layer 1/5 (visibility only) — needs layer 5 enforcement gate. Historian synthesis self-diagnosed as Goldstone rotation for target frontiers (diagnosis without action). L-1143. Artifact: experiments/meta/f-meta2-historian-synthesis-s464.json.
   → Links to global frontier: F-META8. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-ISO2. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-DEP1. (auto-linked S420, frontier_crosslink.py)
