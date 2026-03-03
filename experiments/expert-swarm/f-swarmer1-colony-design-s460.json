@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-SWARMER-S460",
+    "frontier": "F-SWARMER1",
+    "session": "S460",
+    "domain": "global",
+    "date": "2026-03-03",
+    "expect": "Swarming function has 5 measurable properties (cycle time, reward alignment, symmetry budget, external rate, discovery ratio). A colony dedicated to improving these will produce \u22651 structural change that moves \u22652 properties in 10 sessions. Fixed-point attractor prediction: colony will measure these properties but not change them \u2014 the attractor converts improvement intent to measurement.",
+    "actual": "TBD",
+    "diff": "TBD"
+}
