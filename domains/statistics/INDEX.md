@@ -1,5 +1,5 @@
 # Statistics Domain Index
-Updated: 2026-02-27 | Sessions: 186
+Updated: 2026-03-03 | Sessions: 487
 
 ## What this domain knows
 - **Seed evidence base**: swarm runs many repeated experiments, but effect-size, confidence, and error-rate discipline are uneven across domains.

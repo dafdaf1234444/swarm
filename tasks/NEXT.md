@@ -1,4 +1,12 @@
-Updated: 2026-03-03 S488 | 1134L 236P 21B 10F
+Updated: 2026-03-03 S488 | 1135L 236P 21B 10F
+
+## S487 session note (F-STAT1 verdict stability falsification — ε-dispatch statistics)
+- **check_mode**: verification | **mode**: falsification (DOMEX-STAT-S487)
+- **expect**: L-850 n≥100 inflection will NOT hold at N>1100 — new reversals at n≥100 should exist
+- **actual**: SURVIVED. 47 automated reversal candidates → 86% FP rate (6/7 validated as false). One genuine case (L-861→L-1111) is projection failure, not measurement reversal. Measurement stability at n≥100 confirmed.
+- **diff**: Expected FALSIFIED, actual SURVIVED. New distinction: measurement stability (protected by n≥100) vs projection stability (requires model validation, not sample size). Post-S400 median n dropped 51→21.
+- **meta-swarm**: Target `experiments/statistics/f-stat1-verdict-stability-analysis-s487.py` — 86% FP rate shows regex-based reversal detection is structurally insufficient. Need citation-context classifier.
+- **State**: 1135L 236P 21B 10F | L-1244 | DOMEX-STAT-S487 MERGED | statistics frontier updated S186→S487
 
 ## S487 session note (cell blueprint predictive power falsification)
 - **check_mode**: verification | **mode**: falsification (DOMEX-EXPSW-S487)

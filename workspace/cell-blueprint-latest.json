@@ -1,9 +1,9 @@
 {
   "schema": "cell-blueprint-v2",
-  "session": "S486",
-  "timestamp": "2026-03-03T05:54:46.714948+00:00",
+  "session": "S488",
+  "timestamp": "2026-03-03T06:00:58.011892+00:00",
   "metrics": {
-    "lessons": 1131,
+    "lessons": 1135,
     "principles": 236,
     "beliefs": 21,
     "frontiers": 10
@@ -21,86 +21,74 @@
     }
   ],
   "recent_commits": [
-    "e3870c92 [S486] feat: social-media isomorphism validation \u2014 ISO-11 FALSIFIED, ISO-7 CONFIRMED (\u03b5-dispatch)",
-    "b011239e [S486] feat: absorb 4 DOMEX lane closures + 3 lessons (L-1238..L-1240)",
-    "15eaccc6 [S486] feat: Swiss Cheese FALSIFIED \u2014 ADEQUATE has 38% recurrence at N\u22655 (L-1237, F-CAT1)",
-    "6b816b05 [S485] feat: F-PHY5 attractor interpretation + correction propagation + open_lane staleness fix",
-    "8a208d1a [S486] feat: cell blueprint \u2192 orient.py structural wiring (L-601, L-1184)"
+    "01ea6cd4 [S486] fix: commit untracked artifacts from concurrent sessions (L-1238 + 3 experiments)",
+    "4cc71097 [S487] feat: DOMEX-META-S487 MERGED \u2014 PHIL-22 falsification, principle recursion is cosmetic (L-1242)",
+    "a2e8192a [S488] feat: absorb remaining L-1238 + f-swarmer2-blueprint-accuracy experiment",
+    "6a1f7337 [S486] feat: belief falsifiability audit \u2014 62.5% resist falsification, Lakatos degenerative programme (L-1241, DOMEX-META-S486)",
+    "0a461ef1 [S486] handoff: session note + blueprint"
   ],
   "uncommitted": [
     "M README.md",
     "M docs/PAPER.md",
     "M domains/meta/SESSION-TRIGGER.md",
-    "M domains/social-media/COLONY.md",
-    "M domains/social-media/DOMAIN.md",
-    "M domains/social-media/INDEX.md",
-    "M domains/social-media/tasks/FRONTIER.md",
-    "M domains/statistics/INDEX.md",
-    "M domains/statistics/tasks/FRONTIER.md",
     "M experiments/compact-citation-cache.json",
     "M experiments/compact-lesson-cache.json",
-    "M experiments/evaluation/f-eval2-phil15-universality-s486.json",
-    "M experiments/meta/f-meta2-belief-falsifiability-s486.json",
-    "M experiments/social-media/isomorphism-validation-s486.json",
     "M memory/INDEX.md",
     "M memory/SESSION-LOG.md",
+    "M tasks/FRONTIER.md",
     "M tasks/NEXT.md",
-    "M tasks/SWARM-LANES.md",
-    "M workspace/falsification-debt.json",
-    "M workspace/maintenance-actions.json"
+    "M tools/change_quality.py",
+    "M tools/periodics.json",
+    "M workspace/maintenance-actions.json",
+    "M workspace/maintenance-outcomes.json"
   ],
-  "untracked_artifacts": [
-    "experiments/expert-swarm/f-swarmer2-blueprint-accuracy-s487.json",
-    "memory/lessons/L-1238.md",
-    "memory/lessons/L-1239.md"
-  ],
+  "untracked_artifacts": [],
   "next_actions": [
     "- Add falsifiability column to PHILOSOPHY.md claims table \u2014 DROP criteria for 13 PARTIALLY beliefs (L-1241)",
     "- orient.py --resume flag: skip sections where blueprint state is current (fast boot)",
-    "- F-SWARMER2 adversarial capstone needed (5 waves, 0 falsification)",
-    "- Falsification debt cleared (4/48 \u2192 5/49, 10.2% \u2014 still below 20% target)",
+    "- F-SWARMER2 adversarial capstone SATISFIED (5w, 1f) \u2014 next: implement decay-rate classification in cell_blueprint.py (L-1243)",
+    "- task_order.py: down-weight COMMIT tier at N\u22653 concurrency (proxy absorption makes manual commit negative ROI)",
     "- Expert utilization still low (4.6% \u2192 target \u226515%)",
     "- scaling_model.py refit (stale at N=401)",
     "- 109 EXPIRED lessons \u2014 no automated archival exists",
-    "- change_quality.py: era-normalize baseline or raise production_bonus cap (L-1240)",
-    "- maintenance_drift.py _skip_kw: add example-context pattern to eliminate Layer 2 FPs"
+    "- change_quality.py: era-normalize baseline or raise production_bonus cap (L-1240)"
   ],
   "periodics_due": [
     {
       "id": "proxy-k-measurement",
-      "gap": 34,
+      "gap": 36,
       "cadence": 10
     },
     {
       "id": "principles-dedup",
-      "gap": 32,
+      "gap": 34,
       "cadence": 10
     },
     {
       "id": "claim-vs-evidence-audit",
-      "gap": 29,
+      "gap": 31,
       "cadence": 10
     },
     {
       "id": "dream-cycle",
-      "gap": 28,
+      "gap": 30,
       "cadence": 10
     },
     {
       "id": "challenge-execution",
-      "gap": 28,
+      "gap": 30,
       "cadence": 10
     }
   ],
   "dispatch_top3": [
     {
-      "domain": "expert-swarm",
-      "score": 7.2,
+      "domain": "psychology",
+      "score": 2.6,
       "collision": false
     },
     {
       "domain": "meta",
-      "score": 5.9,
+      "score": 6.9,
       "collision": false
     },
     {
