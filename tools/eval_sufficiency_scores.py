@@ -45,8 +45,9 @@ def _continuous_verdict(continuous: float) -> str:
 def _reconcile_verdicts(discrete_score: int, continuous: float) -> dict:
     """Reconcile discrete and continuous scores to produce final verdict.
 
-    F-EVAL4 (L-928): if continuous and discrete verdicts diverge by >1 step,
+    F-EVAL4 (L-928): if continuous and discrete verdicts diverge by >=1 step,
     adjust discrete toward continuous. Flag margin warnings for scores near boundaries.
+    L-1173: changed >1 to >=1 — boundary accumulation creates max-divergence at exactly 1 step.
     """
     discrete_verdict = _VERDICT_LABELS.get(discrete_score, "UNKNOWN")
     continuous_verdict = _continuous_verdict(continuous)
@@ -54,12 +55,12 @@ def _reconcile_verdicts(discrete_score: int, continuous: float) -> dict:
     adjustment_reason = None
 
     continuous_int = round(continuous)
-    if abs(continuous_int - discrete_score) > 1:
+    if abs(continuous_int - discrete_score) >= 1:  # L-1173: >=1 not >1
         discrete_score = max(0, min(3, discrete_score + (1 if continuous_int > discrete_score else -1)))
         discrete_verdict = _VERDICT_LABELS.get(discrete_score, "UNKNOWN")
         adjusted = True
         adjustment_reason = (
-            f"continuous={continuous:.2f} ({continuous_verdict}) diverged >1 step from "
+            f"continuous={continuous:.2f} ({continuous_verdict}) diverged >=1 step from "
             f"discrete; adjusted to {discrete_verdict}"
         )
 

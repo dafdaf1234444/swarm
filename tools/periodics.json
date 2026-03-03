@@ -12,13 +12,13 @@
     },
     {
       "id": "tool-consolidation",
-      "description": "Tool consolidation: audit tools/ for duplicates, dead code, lost-embedding (P-134). S402: 14 F-tools archived (109→95 active). S440: 0 new orphans; bloat is primary debt (14/106 tools >5000t, 13%). S471: 6 archived (dormancy criterion ≥44s), bloat 16/108=14.8%. L-1028. L-644 archival rule: archive after DOMEX lane merges. Also track: oversized fraction <10% target.",
+      "description": "Tool consolidation: audit tools/ for duplicates, dead code, lost-embedding (P-134). S402: 14 F-tools archived (109\u219295 active). S440: 0 new orphans; bloat is primary debt (14/106 tools >5000t, 13%). S471: 6 archived (dormancy criterion \u226544s), bloat 16/108=14.8%. L-1028. L-644 archival rule: archive after DOMEX lane merges. Also track: oversized fraction <10% target.",
       "cadence_sessions": 25,
       "last_reviewed_session": 471,
       "registered_by": "S69",
       "last_session": "S471",
       "last_date": "2026-03-03",
-      "note": "S471: 6 tools archived (agent_state, agent_time_profile, contamination_investigator/detector, problem_router, genesis_subtask). Dormancy ≥44s + no imports/check.sh refs. Unreferenced 37→30. Bloat 16/108=14.8% — remaining oversized are load-bearing core. Decomposition sessions needed to reach <10%."
+      "note": "S471: 6 tools archived (agent_state, agent_time_profile, contamination_investigator/detector, problem_router, genesis_subtask). Dormancy \u226544s + no imports/check.sh refs. Unreferenced 37\u219230. Bloat 16/108=14.8% \u2014 remaining oversized are load-bearing core. Decomposition sessions needed to reach <10%."
     },
     {
       "id": "principles-dedup",

@@ -1,6 +1,6 @@
 {
   "session": 471,
-  "count": 2,
+  "count": 3,
   "items": [
     {
       "priority": "DUE",
@@ -9,6 +9,10 @@
     {
       "priority": "DUE",
       "message": "1 active dispatch lane(s) have no active coordinator lane: DOMEX-EVAL-S471"
+    },
+    {
+      "priority": "DUE",
+      "message": "Count drift in INDEX.md (L: stated 1065 vs actual 1066) \u2014 run python3 tools/sync_state.py"
     }
   ]
 }

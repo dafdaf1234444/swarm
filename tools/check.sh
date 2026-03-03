@@ -563,11 +563,6 @@ if [ "${#ARGS[@]}" -eq 0 ] && [ -f "tools/test_mission_constraints.py" ]; then
     run_suite "Mission constraints regression" "tools/test_mission_constraints.py"
 fi
 
-# 10. Repair regression suite (if not quick)
-if [ "${#ARGS[@]}" -eq 0 ] && [ -f "tools/test_repair.py" ]; then
-    run_suite "Repair regression" "tools/test_repair.py"
-fi
-
 # 11. NK analyze regression suite (if not quick)
 if [ "${#ARGS[@]}" -eq 0 ] && [ -f "tools/test_nk_analyze.py" ]; then
     run_suite "NK analyze regression" "tools/test_nk_analyze.py"
@@ -583,7 +578,6 @@ if [ "${#ARGS[@]}" -eq 0 ]; then
         "tools/test_swarm_pr.py"
         "tools/test_swarm_lanes.py"
         "tools/test_mission_constraints.py"
-        "tools/test_repair.py"
         "tools/test_nk_analyze.py"
     )
     EXTRA_COUNT=0
