@@ -122,7 +122,20 @@ def check_compaction() -> list[tuple[str, str]]:
 def check_lessons() -> list[tuple[str, str]]:
     lessons_dir = REPO_ROOT / "memory" / "lessons"
     if not lessons_dir.exists(): return []
+    results: list[tuple[str, str]] = []
     over_20 = []
+    # L-973 TTL: track no-Sharpe + old lessons for archive candidates
+    sharpe_re = re.compile(r'Sharpe:\s*\d+')
+    session_re = re.compile(r'Session:\s*S?(\d+)')
+    ttl_candidates = 0
+    max_session = 0
+    # First pass: find max session from git log
+    log_line = _git("log", "--oneline", "-1")
+    sm = re.search(r'\[S(\d+)\]', log_line) if log_line else None
+    if sm:
+        max_session = int(sm.group(1))
+    else:
+        max_session = len(list(lessons_dir.glob("L-*.md")))
     for f in lessons_dir.glob("L-*.md"):
         if _line_count(f) > 20:
             # SIG-56: WSL page-cache can return stale content after concurrent trim.
@@ -132,11 +145,26 @@ def check_lessons() -> list[tuple[str, str]]:
             if committed and len(committed.splitlines()) <= 20:
                 continue  # already trimmed in HEAD — skip false positive
             over_20.append(f.name)
+        # L-973: TTL check — no Sharpe + age > 100 sessions = archive candidate
+        try:
+            header = f.read_text(encoding="utf-8", errors="replace")[:500]
+        except Exception:
+            continue
+        if sharpe_re.search(header):
+            continue  # has Sharpe — not a TTL candidate
+        lm = session_re.search(header)
+        if lm:
+            age = max_session - int(lm.group(1))
+            if age > 100:
+                ttl_candidates += 1
     if over_20:
         # One item per lesson for unique claim fingerprints (L-933: trim-collision waste).
         # Sessions can claim individual trim tasks: python3 tools/claim.py claim trim:L-NNN
-        return [("DUE", f"Lesson over 20 lines: {name}") for name in over_20[:5]]
-    return []
+        results.extend([("DUE", f"Lesson over 20 lines: {name}") for name in over_20[:5]])
+    # L-973: report TTL candidates (no-Sharpe + age>100) — structural enforcement of sunset clause
+    if ttl_candidates > 20:
+        results.append(("NOTICE", f"L-973 TTL: {ttl_candidates} lessons with no Sharpe + age>100 sessions — run compact.py for archive candidates"))
+    return results
 
 
 def check_t4_tool_size() -> list[tuple[str, str]]:
