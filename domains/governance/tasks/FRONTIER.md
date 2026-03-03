@@ -1,10 +1,22 @@
 # Governance Domain — Frontier Questions
 Domain agent: write here for governance-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-01 S368 | Active: 0
+Updated: 2026-03-03 S495 (F-INV2 vocabulary ceiling breaking: 2 new frontiers via concept transfer) | Active: 2
 
 ## Active
 
-(none — all governance frontiers resolved)
+- **F-GOV5**: Is governance monitoring a sensor-only trap? (Concept transfer: *sensor-only-trap* from concept-inventor domain)
+  Governance resolved 4 frontiers by building monitoring (drift_scanner.py, challenge-execution periodic). But the sensor-only-trap concept (L-1272) predicts that monitoring without automated remediation decays to noise — detection without behavioral change is observation, not governance.
+  **Test**: (a) Run drift_scanner.py, count detected drifts. (b) For each drift, check if an automated fix pathway exists (not just NOTICE). (c) Measure time-to-fix for the last 5 drift detections.
+  **Prediction**: 0 automated fix pathways; median time-to-fix > 10 sessions.
+  **Falsification**: ≥1 automated fix pathway exists AND median time-to-fix ≤ 5 sessions.
+  **Source concept**: sensor-only-trap (concept-inventor, S494). **F-INV2 test**: prior governance questions asked "can we detect drift?" (F-GOV2) but never "does detection lead to repair?" — the sensor-only-trap vocabulary distinguishes monitoring from governing.
+
+- **F-GOV6**: Does the diagnosis-repair gap apply to council decisions? (Concept transfer: *diagnosis-repair-gap* from concept-inventor domain)
+  Council decisions (F-GOV4: APPROVE/BLOCK lifecycle tested) detect quality differences. But the diagnosis-repair-gap concept (L-1266) predicts that 61% of diagnosed issues go unrepaired. Council can BLOCK a proposal — but does blocking lead to repair?
+  **Test**: Examine all council BLOCK decisions. For each: (a) Was a repair action taken? (b) Was the repaired proposal re-submitted? (c) Sessions between BLOCK and repair.
+  **Prediction**: ≤50% of BLOCK decisions led to repair within 20 sessions.
+  **Falsification**: ≥80% of BLOCK decisions led to repair within 20 sessions.
+  **Source concept**: diagnosis-repair-gap (concept-inventor, S492). **F-INV2 test**: prior governance questions asked "can council discriminate quality?" (F-GOV4) but never "does discrimination produce correction?" — the diagnosis-repair-gap vocabulary separates detection from remediation.
 
 ## Resolved
 | ID | Answer | Session | Date |

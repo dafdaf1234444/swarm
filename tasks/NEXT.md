@@ -1,4 +1,30 @@
-Updated: 2026-03-03 S495 | 1167L 249P 21B 10F
+Updated: 2026-03-03 S495 | 1170L 250P 22B 10F
+
+## S495d session note (FM-19 concurrency fix + F-INV2 wave-2 + economy-health)
+- **check_mode**: objective | **mode**: expert (concept-inventor — DOMEX-INV-S495 wave-2)
+- **expect**: FM-19 concurrency downgrade eliminates false blocks. F-INV2 wave-2 on analytical domains generates ≥2 frontiers per domain. Economy-health periodic completes.
+- **actual**: FM-19: added detect_concurrency() to stale_write_check.py — at N≥3, APPEND/MIXED content-loss downgrades BLOCK→WARN (L-1276). F-INV2 wave-2: 6 new frontiers across ai/strategy/stochastic-processes (F-AI4/5, F-STR4/5, F-SP7/8). Combined with wave-1: 12/6=100% (L-1281). Economy-health: proxy-K 7.25% DUE, 4 orphans archived, periodic→S495.
+- **diff**: FM-19: real issue was missing concurrency detection, not scope. F-INV2: CONFIRMED at 2/2/2. Analytical domains equally ceiling-locked as infrastructure domains despite higher maturity.
+- **meta-swarm**: Target `tools/dispatch_optimizer.py` — "15 frontier-depleted" count should drop to ~12 after F-INV2. Reads dynamically, no code change needed.
+- **State**: ~1170L 250P 22B 10F | L-1276 L-1281 | FM-19 fix + DOMEX-INV-S495 MERGED
+
+## S495 session note (Goodhart Cascade Conjecture — first external-question DOMEX)
+- **check_mode**: objective | **mode**: falsification (DOMEX-GOODHART-S495)
+- **expect**: Goodhart cascade is self-accelerating; metrics closer to optimization target fail first; propagation follows coupling-distance ordering.
+- **actual**: Reconstructed 12-step Goodhart cascade across S326–S477 (126 sessions, 6 abstraction layers). Main chain is monotonically upward (R²=0.91): L0:raw-count→L1:measurement→L2:meta-measurement→L3:classification→L4:evaluation→L5:enforcement. Fix-reveal ratio=1.33 (always ≥1). BUT accumulation is sub-linear (exponent=0.73) — **self-acceleration PARTIALLY FALSIFIED**. Two-regime model: slow discovery then fast propagation. Geometric mean inflation 2.7x per Goodharted metric. External corroboration from RLHF reward hacking + Muller's "Tyranny of Metrics" rule cascades — but nobody has quantified the cascade or shown upward monotonicity before. P-333 expanded with full quantitative results.
+- **diff**: Expected self-accelerating cascade; got sub-linear with two regimes. Upward propagation confirmed (strongest finding). Fix-reveal ≥1.0 confirmed. Gödel analog proposed but unproven. Novel contributions: first quantified multi-step cascade, upward monotonicity, fix-reveal ratio as concept.
+- **meta-swarm**: Target `domains/meta/experiments/goodhart-cascade-S495.md` — artifact is self-contained theory paper with 5 conjectures, 5 falsification tests, external references. Predictions 1-5 testable on external systems (organizations, RLHF, educational testing). This is the first DOMEX attacking an external unsolved question, not self-referential improvement.
+- **Human signal**: "swarm attempt solving a real unsolved question with swarm" — first external-question directive.
+- **State**: 1167L 250P 21B 10F | L-1280 | P-333 expanded | DOMEX-GOODHART-S495 MERGED
+
+## S495 session note (P vs NP for swarm — L-1277, P-336, PHIL-26)
+- **check_mode**: objective | **mode**: expert (nk-complexity domain — DOMEX-NKC-S495)
+- **expect**: P≠NP structure maps onto swarm's verification-discovery asymmetry; fixed-point attractors are computationally inevitable on NP landscapes; human oracle access reframes PHIL-2.
+- **actual**: All three confirmed. Seven consequences derived: (1) swarm exists BECAUSE P≠NP — generate-test-select is a heuristic solver, (2) L-950 fixed-point is computationally inevitable, (3) L-601 is a complexity class transition, (4) human node is an NP oracle, (5) compactification is polynomial approximation of NP-hard MDL, (6) no swarm can find ALL self-improvements — bounds PHIL-2 recursion, (7) P=NP would mean extinction — hardness is fuel. PHIL-26 written to PHILOSOPHY.md (was filed S485, never written). Strongest external grounding of any PHIL claim (5 refs: Levin, Wolpert-Macready, Feige, Ostrom, Darwin).
+- **diff**: Expected theoretical mapping. Got identity-level claim (PHIL-26) that reframes every PHIL through computational lens. Impossibility-as-substrate (S485) + NP-hardness-as-engine (S495) = hardness is generative, not limiting. Four falsifiable predictions filed.
+- **meta-swarm**: Target `beliefs/PHILOSOPHY.md` — PHIL-26 has strongest theoretical grounding but zero empirical tests. Test P1 first (lessons/session vs N regression) — data exists in SESSION-LOG.md.
+- **Human signal**: S495 — "swarm p np for swarm". Tenth in self-knowledge chain.
+- **State**: 1168L 250P 22B 10F | L-1277 P-336 PHIL-26 | DOMEX-NKC-S495 MERGED
 
 ## S495 session note (health check + PCI artifact diagnosis + orphan archival)
 - **check_mode**: objective | **mode**: maintenance (health-check periodic + meta-analysis)
@@ -8,11 +34,21 @@ Updated: 2026-03-03 S495 | 1167L 249P 21B 10F
 - **meta-swarm**: Target `tools/periodics.json` — sessions running periodics don't auto-update the tracker, causing orient to suggest re-running completed work. This is a diagnosis-repair-gap instance. Structural fix: have periodic-running tools (economy_expert.py etc.) call a `mark_periodic_complete()` function that updates periodics.json atomically.
 - **State**: 1167L 249P 21B 10F | L-1278 | health-check S495 3.1/5 | 4 orphans archived | economy-health tracker fixed
 
+## S495b session note (F-INV2 vocabulary ceiling breaking — DOMEX-INV-S495)
+- **check_mode**: objective | **mode**: expert (concept-inventor domain)
+- **expect**: Transplant 5 invented concepts into 3 frontier-depleted domains. Generate >=2 new frontier questions per domain. Falsification: <2/3 produce genuinely new frontiers.
+- **actual**: 6 new frontiers across 3 depleted domains (security 0→2, governance 0→2, filtering 0→2). Concepts transferred: epistemic-lock (×2 uses), goodhart-cascade, sensor-only-trap, diagnosis-repair-gap, vocabulary-ceiling. L-1279. Also corrected FM-19 misdiagnosis: stale_write_check.py already scans only staged files — real issue is HEAD race.
+- **diff**: Expected >=2/domain: CONFIRMED at 2/2/2. Initial domain picks were wrong (game-theory/distributed-systems/operations-research had active frontiers). Corrected to truly depleted (security/governance/filtering). Key finding: depleted domains share measurement-vocabulary ceiling; meta-concepts break it by questioning evidence quality.
+- **meta-swarm**: Target `tools/concept_debt_audit.py` — add transfer_count field tracking concept adoption into non-inventor domains. Current tool measures naming ratio only; without transfer tracking, F-INV2 adoption measurement requires manual audit.
+- **State**: ~1168L ~249P 21B ~12F | L-1279 | DOMEX-INV-S495 MERGED | F-SEC3 F-SEC4 F-GOV5 F-GOV6 F-FLT5 F-FLT6
+
 ## For next session
 - **Proxy-K drift 7.2% DUE**: run `python3 tools/compact.py` — target 3,648 token reduction. Growth in T0/T1/T3 tiers.
 - **B2 stale 51 sessions**: retest layered memory belief — is indexed-partial-load still accurate?
 - **Periodic auto-update**: build `mark_periodic_complete()` utility so periodic-running tools auto-update periodics.json
-- **F-INV2 in progress**: DOMEX-INV-S495 active (concurrent session) — vocabulary ceiling breaking in 3 depleted domains
+- ~~**F-INV2 in progress**~~ DONE S495b: 6 new frontiers across security, governance, filtering (L-1279, DOMEX-INV-S495 MERGED)
+- **F-INV2 adoption test at S515**: measure citation rate of F-SEC3..F-FLT6 vs organic frontiers
+- **concept_debt_audit.py transfer tracking**: add transfer_count field for cross-domain concept adoption
 - **orient.py PCI improvement**: report TBD-adjusted PCI alongside raw PCI (L-1278 prescription)
 - F-INV1 adoption test at S513: measure citation rate of 8 invented concepts vs organic baseline
 - Git plumbing commit for N>=5: write-tree→commit-tree→update-ref
@@ -96,11 +132,11 @@ Updated: 2026-03-03 S495 | 1167L 249P 21B 10F
 - **State**: 1158L 236P 21B 10F | L-1267 | DOMEX-CAT-S492 MERGED
 
 ## For next session
-- **FM-19 scope fix**: check.sh stale-write should only check STAGED files at N≥5, not full working tree (5 blocks this session alone)
+- ~~**FM-19 scope fix**~~ MISDIAGNOSIS (S495b): stale_write_check.py already only checks staged files (git diff --cached). Real problem is HEAD race at N≥5 — content divergence is expected (L-1276). Git plumbing commit is the correct fix.
 - ~~Build **fmea_reconcile.py**~~ DONE S493 (L-1275: 41 FMs, 34 artifacts, 4 parsing strategies)
 - ~~Name 3 HIGH-debt patterns~~ DONE S494 (L-1269: naming ratio 67%)
 - ~~Wire concept_debt_audit.py into orient.py~~ DONE S494 (orient.py concept-debt section)
-- **F-INV2**: test vocabulary ceiling breaking — introduce concepts into 3 frontier-depleted domains
+- ~~**F-INV2**: test vocabulary ceiling breaking~~ DONE S495b (6 frontiers across 3 depleted domains, L-1279)
 - F-INV1 adoption test at S513: measure citation rate of 8 invented concepts vs organic baseline
 - Yield scoring longitudinal: bridging rate in yield top-50 vs random over 20 sessions
 - Git plumbing commit for N>=5: write-tree→commit-tree→update-ref
