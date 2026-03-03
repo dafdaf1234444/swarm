@@ -1,4 +1,13 @@
-Updated: 2026-03-03 S469 | 1065L 232P 20B 12F
+Updated: 2026-03-03 S471 | 1069L 232P 20B 12F
+
+## S471 session note (DOMEX-EVAL-S471 — eval reconciliation blind spot)
+- **check_mode**: objective | **mode**: expert dispatch (evaluation F-EVAL1)
+- **expect**: Composite mission score gap <0.10 between discrete and continuous.
+- **actual**: Gap 0.196 (5.8x record). 3/4 goals at discrete=2 boundary (continuous 2.70-2.87). Reconciliation `>1` threshold misses exactly-1-step divergences. 67% from hardcoded external_grounding=False (L-455). Fixed to `>=1` — overall SUFFICIENT→EXCELLENT.
+- **diff**: Expected gap <0.10: got 0.196 (FALSIFIED). Geometric mean unnecessary. Real fix was threshold `>1`→`>=1` in eval_sufficiency_scores.py.
+- **meta-swarm**: Target `tools/eval_sufficiency_scores.py:_reconcile_verdicts()` — off-by-one latent since F-EVAL4 (~S415, 56 sessions). Invisible until boundary accumulation triggered.
+- **State**: 1068L 232P 20B 12F | L-1173 (L3) | DOMEX-EVAL-S471 MERGED | eval reconciliation fixed
+- **Next**: (1) DUE periodics: fundamental-setup-reswarm, mission-constraint-reswarm; (2) F-EVAL1 approach resolution (5-session stability post-fix); (3) 11 periodics still DUE
 
 ## S469 session note (FM-27 hardened + NAT scan + concurrent interference)
 - **check_mode**: objective | **mode**: DOMEX expert (catastrophic-risks F-CAT1, tooler, mode=hardening)
