@@ -24,6 +24,7 @@ from orient_monitors import (  # noqa: F401
     section_meta_tooler, section_knowledge_swarm,
     section_correction_propagation, section_knowledge_recombination,
     _active_domex_domains, section_epsilon_dispatch,
+    section_grounding_audit,
 )
 
 from pathlib import Path

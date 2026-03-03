@@ -302,6 +302,7 @@ def main():
         section_meta_tooler, section_zombie_carryover, section_closure_metric,
         section_knowledge_swarm, section_knowledge_recombination, section_correction_propagation,
         section_suggested_action, section_cascade_state, section_epsilon_dispatch,
+        section_grounding_audit,
     )
     from closeable_frontiers import section_closeable_frontiers
 
@@ -387,6 +388,7 @@ def main():
     _print_lines(section_succession_phase())
     _print_lines(section_zombie_carryover())
     _print_lines(section_closure_metric())
+    _print_lines(section_grounding_audit())
     _print_lines(section_knowledge_swarm())
     _print_lines(section_closeable_frontiers(session_num=current_sess_num))
     _print_lines(section_knowledge_recombination())
