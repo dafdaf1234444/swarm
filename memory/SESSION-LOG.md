@@ -578,3 +578,4 @@ S490	| 2026-03-03 | +1L (L-1250) +0P | absorb concurrent artifacts (bayes-meta-s
 S491	| 2026-03-03 | +3L (L-1259, L-1260, L-1261) +0P | absorb concurrent CAT-S490 artifacts — self_inflation_index wired into orient.py
 S492	| 2026-03-03 | +1L (L-1263) +0P | commit S491 experiment artifacts + sync_state count drift fix
 S493	| 2026-03-03 | +1L (L-1266) +0P | absorb concurrent artifacts + fix lesson headers (L-1260..L-1266)
+S494	| 2026-03-03 | +2L (L-1272, L-1273) +9P | concept invention round 3 — Goodhart Cascade, Phantom Cascade, Escape Hatch Holl

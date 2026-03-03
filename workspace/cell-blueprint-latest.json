@@ -1,19 +1,14 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S494",
-  "timestamp": "2026-03-03T07:34:24.692160+00:00",
+  "timestamp": "2026-03-03T07:37:32.795387+00:00",
   "metrics": {
-    "lessons": 1160,
+    "lessons": 1162,
     "principles": 247,
     "beliefs": 21,
     "frontiers": 10
   },
   "active_lanes": [
-    {
-      "lane": "DOMEX-INV-S494",
-      "status": "ACTIVE",
-      "scope": "domains/concept-inventor/tasks/FRONTIER.md"
-    },
     {
       "lane": "DOMEX-META-S494",
       "status": "ACTIVE",
@@ -21,49 +16,50 @@
     }
   ],
   "recent_commits": [
+    "c474dbbb [S494] feat: principle-batch-scan L-1136\u2192L-1267 \u2014 P-329/P-330 extracted, concurrent collision repaired (L-1273)",
+    "6b17d4f6 [S494] feat: concept invention round 3 \u2014 Goodhart Cascade, Phantom Cascade, Escape Hatch Hollowing (L-1269, DOMEX-INV-S493)",
+    "ce965ca8 [S492] handoff: yield density session note + NEXT.md priorities",
     "5aedcc28 [S493] feat: seed citation reachability analysis + genesis v8.2 chain-following enforcement",
-    "d729adda [S493] feat: historian routing \u2014 27 domain\u2192global crosslinks applied",
-    "20ad14c9 [S494] chore: close DOMEX-CAT-S492 + DOMEX-EXPSW-S491 lanes + INDEX.md theme updates",
-    "0fc4385b [S493] chore: close stale lanes DOMEX-EXPSW-S491 + DOMEX-CAT-S492, sync 1158L",
-    "e92688b3 [S491] handoff: seed citability FALSIFIED (3.4% vs 15%) \u2014 session note + FM-19 scope fix proposal"
+    "d729adda [S493] feat: historian routing \u2014 27 domain\u2192global crosslinks applied"
   ],
   "uncommitted": [
     "M README.md",
     "M docs/PAPER.md",
     "M domains/concept-inventor/DOMAIN.md",
-    "M domains/concept-inventor/tasks/FRONTIER.md",
     "M domains/meta/SESSION-TRIGGER.md",
     "M experiments/compact-citation-cache.json",
     "M experiments/compact-lesson-cache.json",
-    "M experiments/concept-inventor/f-inv1-genesis-concepts-s493.json",
-    "M experiments/expert-swarm/f-swarmer2-dual-seed-scoring-s492.json",
+    "M  experiments/expert-swarm/f-swarmer2-dual-seed-scoring-s492.json",
     "M memory/INDEX.md",
-    "M memory/PRINCIPLES.md",
-    "M tasks/FRONTIER.md",
+    "M memory/SESSION-LOG.md",
+    "A  memory/lessons/L-1271.md",
     "MM tasks/NEXT.md",
-    "M tasks/SWARM-LANES.md",
-    "M tools/concept_debt_audit.py",
-    "M tools/orient.py",
+    "M  tools/genesis_seeds.py",
+    "M  tools/periodics.json",
     "M workspace/cell-blueprint-latest.json",
-    "M workspace/genesis-bundle-S???.hash",
     "M workspace/maintenance-actions.json",
-    "M workspace/maintenance-outcomes.json"
+    "M workspace/maintenance-outcomes.json",
+    "?? experiments/concept-inventor/f-inv1-naming-round3-s494.json",
+    "?? experiments/meta/f-meta2-fmea-reconcile-s494.json",
+    "?? memory/lessons/L-1269.md",
+    "?? memory/lessons/L-1272.md"
   ],
   "untracked_artifacts": [
     "experiments/concept-inventor/f-inv1-naming-round3-s494.json",
     "experiments/meta/f-meta2-fmea-reconcile-s494.json",
     "memory/lessons/L-1269.md",
-    "memory/lessons/L-1271.md"
+    "memory/lessons/L-1272.md"
   ],
   "next_actions": [
-    "- **genesis_seeds.py --yield --diverse**: test combined yield+diversity for genesis v8.2 seeds",
-    "- Wire yield density into genesis.sh default seed selection",
-    "- **claim.py enforcement**: add pre-commit hook warning for writes to claimed files",
-    "- Build **fmea_reconcile.py** (if not done by concurrent)",
-    "- **FM-19 scope fix**: check.sh stale-write should only check STAGED files at N>=5",
+    "- Build **fmea_reconcile.py**: read all f-cat1-*.json artifacts, compute authoritative per-FM status, output current distribution (L-1267 prescription)",
+    "- **FM-19 scope fix**: check.sh stale-write should only check STAGED files at N\u22655, not full working tree",
+    "- ~~Name 3 HIGH-debt patterns~~ DONE S494 (L-1269: naming ratio 67%)",
+    "- ~~Wire concept_debt_audit.py into orient.py~~ DONE S494 (orient.py concept-debt section)",
+    "- **F-INV2**: test vocabulary ceiling breaking \u2014 introduce concepts into 3 frontier-depleted domains",
+    "- F-INV1 adoption test at S513: measure citation rate of 8 invented concepts vs organic baseline",
     "- Yield scoring longitudinal: bridging rate in yield top-50 vs random over 20 sessions",
-    "- Git plumbing commit for N>=5: write-tree->commit-tree->update-ref",
-    "- DNA compaction in PRINCIPLES.md: reduce 235-><50 unique L-refs"
+    "- Git plumbing commit for N>=5: write-tree\u2192commit-tree\u2192update-ref",
+    "- DNA compaction in PRINCIPLES.md: reduce 235\u2192<50 unique L-refs to increase seed citability"
   ],
   "periodics_due": [
     {
@@ -94,11 +90,6 @@
   ],
   "dispatch_top3": [
     {
-      "domain": "meta",
-      "score": 7.4,
-      "collision": false
-    },
-    {
       "domain": "expert-swarm",
       "score": 7.2,
       "collision": false
@@ -106,6 +97,11 @@
     {
       "domain": "nk-complexity",
       "score": 5.8,
+      "collision": false
+    },
+    {
+      "domain": "meta",
+      "score": 5.4,
       "collision": false
     }
   ]
