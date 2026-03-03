@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Analytical solutions for swarm self-improvement.
+"""Analytical solutions for swarm self-improvement (#L-1181).
 
 5 closed-form solutions parameterized from real swarm data. Each outputs
 a concrete actionable number. These are MECHANISMS (L-1131 M3 reward

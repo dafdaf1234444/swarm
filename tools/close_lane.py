@@ -30,7 +30,7 @@ LANES_ARCHIVE = REPO_ROOT / "tasks" / "SWARM-LANES-ARCHIVE.md"
 VALID_STATUSES = {"MERGED", "ABANDONED", "SUPERSEDED"}
 
 # Colony threshold: a frontier with this many waves qualifies as a colony
-# and requires adversarial capstone before final closure (L-1210, L-601).
+# and requires adversarial capstone before final closure (L-1210, L-1215, L-601).
 COLONY_WAVE_THRESHOLD = 3
 
 

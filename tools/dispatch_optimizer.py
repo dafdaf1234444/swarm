@@ -246,7 +246,7 @@ def _print_ucb1_output(results, results_limited, active_lanes, session_merged,
         crw = COMMIT_RESERVATION_WINDOW if _CAMPAIGNS_IMPORTED else 5
         print("\n=== COMMIT RESERVATION (F-STR3, L-815) ===")
         print(f"  0/{crw} recent lanes dispatched to danger-zone domains.")
-        print(f"  MANDATORY: next lane must go to a COMMIT domain (L-601 structural enforcement).")
+        print(f"  MANDATORY: next lane must go to a COMMIT domain (L-601, L-1138 Goldstone-to-massive).")
         for cr in commit_reserved:
             cw = campaign_waves.get(cr["domain"], {})
             fids = [f for f, d in cw.get("frontiers", {}).items() if not d["resolved"] and d["waves"] == 2]

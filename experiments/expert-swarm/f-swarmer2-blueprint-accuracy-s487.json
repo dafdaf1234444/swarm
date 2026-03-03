@@ -23,5 +23,12 @@
     "fast_moving": {"examples": ["periodics cadence", "count drift", "DUE items"], "half_life_sessions": "1-3", "blueprint_useful": false}
   },
   "verdict": "FALSIFICATION_FAILED — blueprint has selective predictive power. Dispatch domains are highly stable (100% overlap across 7 sessions). Planned actions degrade gracefully (67% relevant). Periodics are not predictable. Recommendation: blueprint should include state decay classification so daughter sessions know which fields to trust.",
+  "replication_s488": {
+    "gap_sessions": 2,
+    "dispatch_overlap": "2/3 — psychology dropped, expert-swarm entered",
+    "action_preemption": "1/9 — superseded by emergent priorities",
+    "periodics_completed": "0/5",
+    "refinement": "Blueprint is STATE CACHE not ACTION PREDICTOR"
+  },
   "lesson": "L-1243"
 }

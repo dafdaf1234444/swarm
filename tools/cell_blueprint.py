@@ -168,7 +168,7 @@ def _dispatch_top3():
             # Check for collision warning
             collision = "ACTIVE LANE" in out.split(domain, 1)[-1].split("\n")[1] if domain in out else False
             domains.append({"domain": domain, "score": score, "collision": collision})
-    return domains
+    return sorted(domains, key=lambda x: -x["score"])
 
 
 def save_blueprint(session_override=None):

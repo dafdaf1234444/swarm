@@ -263,7 +263,7 @@ def ucb1_score(results: list[dict], outcome_map: dict, heat_map: dict,
             merge_rate = oc["merged"] / n
             lessons_l3plus = oc.get("lessons_l3plus", 0)
             lessons_weighted = lessons + lessons_l3plus
-            # Sharpe-weighted quality (L-1127 Channel 3 fix): domains producing
+            # Sharpe-weighted quality (L-1127 Channel 3 fix, L-1141): domains producing
             # high-Sharpe lessons get a quality multiplier. Normalised against
             # global avg Sharpe (~7.7). Falls back to 1.0 if no Sharpe data.
             sharpe_sum = oc.get("sharpe_sum", 0)

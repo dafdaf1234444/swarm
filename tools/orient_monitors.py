@@ -120,7 +120,7 @@ def section_concurrent_activity(root=ROOT):
         if n >= 5:
             lines.append(f"  \u26a0 EXTREME concurrency (N={n}): commit-by-proxy likely (L-526). Recommend: verification/historian mode. Re-check git log before EACH task.")
         elif n >= 3:
-            lines.append(f"  \u26a0 HIGH concurrency (N={n}): planned tasks may be pre-empted (L-526). Recommend: verification/historian/meta-reflection. Re-check git log --oneline -3 before each task.")
+            lines.append(f"  \u26a0 HIGH concurrency (N={n}): planned tasks may be pre-empted (L-1133, L-526). Recommend: verification/historian/meta-reflection. Re-check git log --oneline -3 before each task.")
         lines.append("")
     except Exception:
         pass

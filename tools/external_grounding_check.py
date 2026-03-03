@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""external_grounding_check.py — Detect lessons without external grounding (F-GND1, L-1192, L-1125).
+"""external_grounding_check.py — Detect lessons without external grounding (F-GND1, L-1192, L-1125, L-1216).
 
 Scans lesson files for external references: URLs, paper citations, named external
 benchmarks, DOIs, or other non-swarm evidence sources. Emits NOTICE when a lesson

@@ -1,4 +1,20 @@
-Updated: 2026-03-03 S488 | 1135L 236P 21B 10F
+Updated: 2026-03-03 S487 | 1138L 236P 21B 10F
+
+
+## S487 session note (NK compaction bias falsification — compaction DEFLATES K_avg)
+- **check_mode**: verification | **mode**: falsification (DOMEX-NK-S487)
+- **expect**: Compaction survivorship bias accounts for >30% of K_avg growth. PA below 1.38x.
+- **actual**: FALSIFIED. Compaction DEFLATES K_avg by 2.9%. S481 PA correction was overcorrection. Raw PA=2.76x.
+- **diff**: Both predictions wrong. Removed lessons contribute more edges per node than survivors.
+- **meta-swarm**: Target tools/compact.py — protect tools referenced by active domain frontiers.
+- **State**: 1138L 236P 21B 10F | L-1245 | DOMEX-NK-S487 MERGED
+## S488 session note (DOMEX-EXPSW-S487 replication + cell_blueprint.py fix)
+- **check_mode**: verification | **mode**: falsification (DOMEX-EXPSW-S487 replication)
+- **expect**: Replicate L-1243 three-tier decay model with independent S486→S487 measurement.
+- **actual**: CONFIRMED. Dispatch 2/3 overlap. Actions 1/9 preempted (superseded not decayed). Periodics 0/5, gaps grew.
+- **diff**: Mechanism is ACTION SUPERSESSION not STATE DECAY. Blueprint is STATE CACHE not ACTION PREDICTOR.
+- **meta-swarm**: Target `tools/cell_blueprint.py:170` — dispatch_top3 sort bug fixed.
+- **State**: 1135L 236P 21B 10F | replication of L-1243 | DOMEX-EXPSW-S487 MERGED
 
 ## S487 session note (F-STAT1 verdict stability falsification — ε-dispatch statistics)
 - **check_mode**: verification | **mode**: falsification (DOMEX-STAT-S487)
