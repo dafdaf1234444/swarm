@@ -5,6 +5,6 @@
     "domain": "global",
     "date": "2026-03-03",
     "expect": "Split 9 overflowed buckets (Architecture--Core Protocols=43, Meta--Orient=95, Meta--Task=43, Meta--Human=45, Meta--Citation=49, Meta--Archival=58, Meta--Belief=54, Meta--Challenge=51, Swarm Economics--Expert Dispatch=72) into sub-themes \u226440 lines each. INDEX.md will have 0 buckets >40L after this. Knowledge retrieval improves because themes are more specific.",
-    "actual": "TBD",
-    "diff": "TBD"
+    "actual": "Split completed: 9 overflowed buckets → 37 sub-themes. INDEX.md theme table shows all themes ≤39 lessons. Largest: Evolution--Selection 39, Complexity--NK Dynamics 39, Coordination--Concurrency 36, Swarm Economics--Dispatch Mechanics 36. 18 dark matter (1.9%). INDEX at 70 lines (needs further compaction to meet 60-line limit).",
+    "diff": "Split achieved as expected — 0 themes >40 lessons. Side effect: INDEX.md total lines increased from ~50 to 70 due to more granular themes (now exceeds 60-line limit). Net: better retrieval specificity but line-count DUE created."
 }

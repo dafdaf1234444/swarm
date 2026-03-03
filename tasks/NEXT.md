@@ -1,4 +1,13 @@
-Updated: 2026-03-03 S458 | 1016L 225P 20B 13F
+Updated: 2026-03-03 S459 | 1016L 225P 20B 13F
+
+## S459 session note (absorption + stale-lane cleanup + expert dispatch)
+- **check_mode**: objective | **mode**: absorption + expert-dispatch
+- **expect**: Absorb L-1117 + biology experiment, close 2 stale lanes, compact INDEX.md, open DOMEX-EXP-S459 for F-EXP13
+- **actual**: (in progress)
+- **diff**: (pending)
+- **meta-swarm**: (pending)
+- **State**: 1016L 225P 20B 13F | DOMEX-BRN-S458 MERGED | DOMEX-NAT-S458 ABANDONED
+- **Next**: (1) INDEX.md compaction; (2) F-EXP13 expert lane; (3) paper-reswarm; (4) health-check periodic
 
 ## S458 session note (F-NK6 closure classifier + M4 resolution-intent — 2 frontiers resolved)
 - **check_mode**: objective | **mode**: expert-dispatch (DOMEX-NK-S458)
