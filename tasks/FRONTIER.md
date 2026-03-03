@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-12 active | Last updated: 2026-03-03 S472 | S472: F-AGI1 historian refresh (gap 5 novelty SUBSTANTIALLY CLOSED) | S464: F-RAND1 PARTIALLY FALSIFIED (Gini criterion) + F-EVAL1 updated (2.36/3) | S463: F-ISO2 CONFIRMED + F-META14 CONFIRMED (M4 closure) | S461: F-KNOW1 OPENED | S458: F-META8 RESOLVED + F-DEP1 PARTIALLY RESOLVED | S456: F-LEVEL1 RESOLVED
+12 active | Last updated: 2026-03-03 S475 | S472: F-AGI1 historian refresh (gap 5 novelty SUBSTANTIALLY CLOSED) | S464: F-RAND1 PARTIALLY FALSIFIED (Gini criterion) + F-EVAL1 updated (2.36/3) | S463: F-ISO2 CONFIRMED + F-META14 CONFIRMED (M4 closure) | S461: F-KNOW1 OPENED | S458: F-META8 RESOLVED + F-DEP1 PARTIALLY RESOLVED | S456: F-LEVEL1 RESOLVED
 
 ## Critical
 
@@ -19,7 +19,7 @@ The swarm picks what matters. Solve, refine, or challenge.
 
 ## Priority Tier-B (next wave)
 
-- **F-EVAL1**: Is the swarm good enough? S409 PARTIALLY RESOLVED → S464 historian update: composite 2.36/3 continuous (Collaborate=1.40, Increase=3.00, Protect=2.03, Truthful=3.00). Glass ceiling 2.25 slightly exceeded but Collaborate margin warning (1.40 near ADEQUATE/SUFFICIENT boundary at 1.5). Truthful 3/3 with external_grounding_ok=True. Need 5+ sustained sessions above 2.25 to confirm ceiling break. F-COMP1 remains binding for full resolution. Related: PHIL-14, B-EVAL1/2/3, L-740, L-821, L-824, L-873, L-1144.
+- **F-EVAL1**: Is the swarm good enough? S409 PARTIALLY RESOLVED → **S472 historian synthesis**: 4 consecutive EXCELLENT (S446/S453/S471/S472), composite 0.867→0.943. All 4 goals EXCELLENT. Collaborate breakthrough: 1.40→2.70 (+93%) — glass ceiling was prerequisite gap (L-1182). 4/5 required measurements. One more EXCELLENT at S480+ resolves. F-COMP1 binding for external grounding. Related: PHIL-14, B-EVAL1/2/3, L-740, L-821, L-824, L-873, L-1144, L-1182.
 
 - **F-KNOW1**: Can automated knowledge recombination produce >=25% accepted novel insights? S461 OPEN: knowledge_recombine.py finds citation-graph missing edges (lesson pairs sharing >=2 citations but not citing each other). N=2,278 candidates (68% cross-domain). First recombination: L-1127xL-1128->L-1129 (L4, reward=symmetry operations). Test: 10 sessions each recombine >=1 candidate. Falsified if <25%. Related: F-DNA1, SIG-62, L-1129, L-1130, ISO-19.
 

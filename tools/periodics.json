@@ -82,10 +82,10 @@
       "id": "state-sync",
       "description": "Auto-sync count drift: run `python3 tools/sync_state.py` to patch INDEX.md / FRONTIER.md / NEXT.md / PRINCIPLES.md headers with live lesson/principle/belief/frontier counts. Addresses ~4% state-sync commit overhead (L-216). Run as part of every handoff.",
       "cadence_sessions": 1,
-      "last_reviewed_session": 474,
+      "last_reviewed_session": 475,
       "registered_by": "S176",
       "last": "S363",
-      "last_session": "S474",
+      "last_session": "S475",
       "last_run": "S437",
       "last_date": "2026-03-02"
     },
@@ -93,13 +93,13 @@
       "id": "human-signal-harvest",
       "description": "F121 harvest: read memory/HUMAN-SIGNALS.md, scan for patterns not yet encoded as principles or lessons, extract at least one P- or L- candidate per pass. Update Patterns section. Flag any entry missing artifact refs. Addresses ephemeral human input loss (F121, L-224). S431: L-994 authority paradox (SIG-54), 3 new patterns added, SIG-51-55 flagged as OPEN.",
       "cadence_sessions": 5,
-      "last_reviewed_session": 468,
+      "last_reviewed_session": 472,
       "registered_by": "S176",
-      "last_session": "S468",
-      "last_run": "S468",
+      "last_session": "S472",
+      "last_run": "S472",
       "last": "S468",
       "last_date": "2026-03-03",
-      "note": "S468: SIG-56-62 scanned. 3 new patterns (inquiry-frame, knowledge-as-agent, component-autonomization). P-319 extracted. Authority paradox updated (0/2 L-994 evals). All 62 signals RESOLVED."
+      "note": "S472: SIG-65/SIG-66 resolved. SIG-65: PHIL-24+B20+F-SWARMER2+L-1180+L-1184 (swarmer swarm identity, S473). SIG-66: L-1185 (human co-evolution trajectory, S473). 0 OPEN signals remain."
     },
     {
       "id": "change-quality-check",
