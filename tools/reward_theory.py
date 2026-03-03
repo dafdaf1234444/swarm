@@ -89,7 +89,36 @@ def _measure_channel_1_compaction():
 
 
 def _measure_channel_2_citations():
-    """Channel 2: Citation in-degree — rewards being mentioned, not mechanism quality."""
+    """Channel 2: Citation in-degree — rewards being mentioned, not mechanism quality.
+
+    S477: uses citation_mechanism.py invoke_ratio for mechanism-aware measurement.
+    Ch2 Goodhart CONFIRMED at 3.6% aggregate invoke rate (n=20). #L-1201 #F-SWARMER1
+    """
+    # Try mechanism-aware measurement via citation_mechanism.py
+    try:
+        import importlib.util
+        cm_path = Path(__file__).parent / "citation_mechanism.py"
+        if cm_path.exists():
+            spec = importlib.util.spec_from_file_location("citation_mechanism", cm_path)
+            cm = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(cm)
+            analysis = cm.analyze_citation_mechanism(top_n=20)
+            if "error" not in analysis:
+                agg_rate = analysis["aggregate_invoke_rate"]
+                outliers = analysis["low_mechanism_count"]
+                top_n = analysis["top_n"]
+                verdict = analysis["ch2_verdict"]
+                aligned = verdict == "ALIGNED"
+                return {
+                    "aligned": aligned,
+                    "metric": f"invoke rate {agg_rate:.1%}, {outliers}/{top_n} outliers (<10%)",
+                    "detail": f"Verdict: {verdict}. {agg_rate:.1%} of top-20 citations are mechanism invocations. r(in_deg,invoke_ratio)={analysis.get('correlation_indeg_vs_ratio', '?')}.",
+                    "goodhart_type": None if aligned else "presence_not_mechanism"
+                }
+    except Exception:
+        pass
+
+    # Fallback: raw in-degree count (pre-S477 behavior)
     lesson_dir = ROOT / "memory" / "lessons"
     if not lesson_dir.exists():
         return {"aligned": False, "metric": "unknown"}
@@ -114,7 +143,7 @@ def _measure_channel_2_citations():
     return {
         "aligned": False,
         "metric": f"{cited}/{total} cited ({cited/total:.0%}), {uncited} orphans",
-        "detail": f"Top 5: {', '.join(f'{k}={v}' for k,v in top_5)}. Goodhart: citation rewards presence, not mechanism invocation (L-1057).",
+        "detail": f"Top 5: {', '.join(f'{k}={v}' for k,v in top_5)}. Goodhart: citation rewards presence, not mechanism invocation (L-1057). Run citation_mechanism.py for mechanism-aware audit.",
         "goodhart_type": "presence_not_mechanism"
     }
 
@@ -413,12 +442,12 @@ def audit_all():
     return results, aligned, len(CHANNELS)
 
 
-def print_audit(results, aligned, total):
+def print_audit(results, aligned, total, start_idx=1):
     """Print formatted audit."""
     print(f"=== REWARD THEORY AUDIT (L-1127, F-SWARMER1) ===")
     print(f"Alignment: {aligned}/{total} = {aligned / total:.0%}\n")
 
-    for i, r in enumerate(results, 1):
+    for i, r in enumerate(results, start_idx):
         status = "ALIGNED" if r.get("aligned") else "GOODHARTED"
         icon = "\u2713" if r.get("aligned") else "\u2717"
         print(f"  {icon} Channel {i}: {r['name']} [{status}]")
@@ -490,7 +519,7 @@ def main():
                 if use_json:
                     print(json_mod.dumps(r, indent=2))
                 else:
-                    print_audit([r], 1 if r.get("aligned") else 0, 1)
+                    print_audit([r], 1 if r.get("aligned") else 0, 1, start_idx=ch + 1)
             else:
                 print(f"Channel must be 1-{len(CHANNELS)}")
         else:
