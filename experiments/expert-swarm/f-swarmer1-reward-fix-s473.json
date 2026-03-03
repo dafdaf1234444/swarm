@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-EXPSW-S473",
+    "frontier": "F-SWARMER1",
+    "session": "S473",
+    "domain": "expert-swarm",
+    "date": "2026-03-03",
+    "expect": "Fix reward channel #5: expand compact.py citation scan to include .py/.sh tool files. 471 tool-file lesson references currently invisible. L-601 has 50 tool refs at 0 survival credit. Predicts: action-producing lessons get higher Sharpe, shifting selection pressure from markdown-presence to code-usage. Reward alignment 16.7%\u219233.3%. Falsified if Sharpe reordering affects <10 lessons.",
+    "actual": "TBD",
+    "diff": "TBD"
+}

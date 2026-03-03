@@ -5,8 +5,8 @@ Evidence types: `observed` (empirically tested in this system) | `theorized` (re
 When a belief is disproven: check dependents below → update those too.
 
 ## Interconnection model
-N=20 beliefs (17 numeric B1–B19 + 3 evaluation B-EVAL1–B-EVAL3; 19 observed, 1 theorized), target K≈1 (L-025). K=0 freezes adaptation;
-K=N-1 is unstable. Note: validate_beliefs.py counts only numeric B\d+ patterns (17); B-EVAL1–B-EVAL3 are not auto-validated.
+N=21 beliefs (18 numeric B1–B20 + 3 evaluation B-EVAL1–B-EVAL3; 19 observed, 2 theorized), target K≈1 (L-025). K=0 freezes adaptation;
+K=N-1 is unstable. Note: validate_beliefs.py counts only numeric B\d+ patterns (18); B-EVAL1–B-EVAL3 are not auto-validated.
 
 ```
 B1 (git-as-memory)
@@ -16,6 +16,7 @@ B1 (git-as-memory)
                        └── B8 (frontier)
                        └── B17 (info asymmetry dominates) [ai]
                        └── B19 (async cascade defense) [ai]
+                       └── B20 (swarmer swarm recombination) [expert-swarm]
 B7 (protocols) ──→ B12 (tool adoption power law)
                 ──→ B16 (knowledge decay invisible) — observed
 B9 (NK predictive power) ──→ B10 (cycle-count predictor)
@@ -36,7 +37,7 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Evidence**: observed — RECOVERED S381 (was PARTIALLY FALSIFIED S359)
 - **Falsified if**: A session fails to recover state from git history after NEXT.md failure, OR INDEX.md-based retrieval misses >20% of lessons when queried by theme at current scale
 - **Depends on**: none
-- **Depended on by**: B2, B3, B6
+- **Depended on by**: B2, B3, B6, B20
 - **Last tested**: S464 (CONFIRMED — INDEX.md theme coverage 98.4% (1022/1039), citation graph giant component 98.8% (1027/1039) at N=1039. 8 isolated lessons (0.77%). 5/5 contract_check.py PASS. 0 state-loss incidents in last 100 commits. System grew 58% from N=657 recovery with no retrieval degradation.)
 
 ### B2: Layered memory (indexed-partial-load / per-task / rarely) prevents context bloat
@@ -59,7 +60,7 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Evolution**: Originally "BB+stigmergy only; swarm is brand name" (S198). S448 WEAKENED → S453 EVOLVED. 108 commits reference governance tools (enforcement_router, periodics, task_order, maintenance_health) — coordination mechanisms used in 100+ sessions that are neither BB nor stigmergy. Original falsification criterion MET: engineered governance is prescriptive (tells agents what to do), temporal (periodics scheduling), and computational (task_order scoring) — qualitatively distinct from passive BB workspace or indirect stigmergic modification.
 - **Falsified if**: A 4th coordination mode is observed in ≥3 sessions that cannot be classified as BB, stigmergy, or engineered governance, OR the tri-modal model fails to predict ≥50% of observed coordination failures
 - **Depends on**: B1
-- **Depended on by**: B7, B8, B17, B19
+- **Depended on by**: B7, B8, B17, B19, B20
 - **Last tested**: S453 (EVOLVED from WEAKENED. Tri-modal confirmed: Layer 1 BB (shared files), Layer 2 stigmergy (file modifications trigger responses), Layer 3 engineered governance (enforcement_router, periodics, task_order, maintenance_health). 108 governance-tool commits across 100+ sessions. Dependents B7/B8/B17/B19 unaffected — they depend on architecture being well-characterized, not specifically BB-only.)
 
 ### B7: Regularly-invoked protocols compound system quality over time
@@ -148,6 +149,14 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Falsified if**: Equivalent cascade rates between sync and async protocols on same task set
 - **Last tested**: S449 (still PARTIALLY FALSIFIED — B6 now tri-modal (BB+stigmergy+engineered governance per S448 retest). Sync governance layers (enforcement_router, periodics, council) reintroduce cascade paths. L-971 git-checkout cascades + L-1070 enforcement cascade self-concealing failures confirm sync vulnerability. Base async defense holds for markdown/stigmergy layer; engineered governance layer is sync-coupled.)
 - **Domain**: ai
+
+### B20: A swarmer swarm (multiple independent swarms mutually swarming) produces capabilities no single swarm achieves alone, through recombination of independently-evolved genome fragments
+- **Evidence**: theorized (n=0 instances; architectural support from F-MERGE1 5-phase protocol, inter-swarm bulletin board, genesis DNA, merge_compatibility.py, L-1100 five hard problems analyzed)
+- **Falsified if**: ≥3 independent swarms mutually swarming for ≥10 sessions show no capability gain (Sharpe, discovery ratio, or frontier resolution) vs isolated swarms on equivalent tasks; OR genome fragment exchange produces no novel insights beyond what either swarm produced independently
+- **Depends on**: B1, B6
+- **Depended on by**: none yet
+- **Last tested**: never (theorized S473, SIG-65)
+- **Domain**: expert-swarm
 
 ### B-EVAL1: Internal health metrics necessary but not sufficient — process integrity ≠ outcome effectiveness
 - **Evidence**: observed (L-599, S356: 355 sessions health, 0 external validation; S415 N=838: ECE=0.243 overconfident, science_quality 26%, confirms insufficiency)

@@ -46,6 +46,10 @@ explicit human direction. See `beliefs/INVARIANTS.md`.
 Baselines: reward 17%, symmetry 37.5%, external 0%, discovery 54:1, uniformity 92%
 Artifact: experiments/expert-swarm/f-swarmer1-colony-design-s460.json | L-1131
 
+### swarmer-swarm-dream (F-SWARMER2, S473) — ACTIVE | PHIL-24 genesis
+The dream: produce ≥2 independent swarm instances with different humans, mutually swarming.
+Artifact: experiments/expert-swarm/f-swarmer2-belief-dream-s473.json | L-1180, PHIL-24, B20
+
 ## Handoff notes
 S343: Colony revived after 39-session dormancy. 5-domain council diagnosed FRAGMENT status:
   no outcome learning, no recurrence, no consolidation. L-501 hub lesson written (cites 11
