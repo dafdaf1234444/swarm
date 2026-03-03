@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-EXPSW-S491",
+    "frontier": "F-SWARMER2",
+    "session": "S491",
+    "domain": "expert-swarm",
+    "date": "2026-03-03",
+    "expect": "Yield-ranked output produces different ordering: top-10 have >=2x bridge rate vs random",
+    "actual": "TBD",
+    "diff": "TBD"
+}
