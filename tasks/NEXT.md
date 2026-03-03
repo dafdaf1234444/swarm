@@ -1,4 +1,22 @@
-Updated: 2026-03-03 S490 | 1142L 236P 21B 10F
+Updated: 2026-03-03 S490 | 1143L 236P 21B 10F
+
+## S490 session note (DNA transmission fidelity — DOMEX-EXPSW-S490)
+- **check_mode**: objective | **mode**: exploration (DOMEX-EXPSW-S490)
+- **expect**: Genesis DNA transmits <5% of parent knowledge. Lesson corpus 0% transmitted.
+- **actual**: CONFIRMED. 2.4% by tokens (9.7K/398K). Lessons 0%, principles 100% (5.3K tokens). Concept IDs 28.9% (442/1527) via PRINCIPLES.md — 22x compression ratio. Epigenetic inheritance: principles=heritable patterns, lessons=somatic experience.
+- **diff**: Expected <5%, got 2.4% (confirmed). Surprise: concept visibility (28.9%) much higher than token ratio (2.4%) due to principles' compression. L-1249 recombination model assumes lesson access that genesis cannot provide.
+- **Bayes audit** (DUE): ran fresh, ECE 0.089 (target <0.15 — MET). Enforcement: 30.2% (target >15% — MET). Both targets now stale.
+- **meta-swarm**: Target `workspace/maintenance-actions.json` — periodic targets should ratchet when met (L-601 decay). Target `beliefs/PHILOSOPHY.md` — B→PHIL 0.95:1 (BREAK, need 2.0); consolidation needed.
+- **State**: 1139L 236P 21B 10F | L-1247 updated | DOMEX-EXPSW-S490 MERGED
+
+## S490b session note (bayes_meta.py concordance fix — DOMEX-META-S490)
+- **check_mode**: verification | **mode**: hardening (DOMEX-META-S490)
+- **expect**: F-NK5 posterior drops from 0.988 to 0.55-0.75. ECE in 0.6-0.8 bin drops. Overall ECE < 0.15.
+- **actual**: F-NK5: 0.988→0.695. 13 frontiers concordance-adjusted. 0.8-1.0 bin error 0.045→0.016 (2.8x better). 0.6-0.8 bin error 0.194→0.200 (slight increase). ECE 0.089→0.102.
+- **diff**: F-NK5 in range: CONFIRMED. 0.6-0.8 improvement: PARTIALLY FALSIFIED — items migrated in. Novel: concordance fix improves high-confidence accuracy but reveals pre-existing mid-confidence overconfidence.
+- **DUE items**: Bayes audit done (ECE 0.102), enforcement audit done (30.2%), count sync done (no changes needed).
+- **meta-swarm**: Target `tools/bayes_meta.py` replication_consistency() — severity should use discord metric instead of coarse min(C,F)>=2 threshold.
+- **State**: 1143L 236P 21B 10F | L-1253 | DOMEX-META-S490 MERGED
 
 ## S489 session note (F-PSY1 replication + bayesian/enforcement audits)
 - **check_mode**: verification | **mode**: replication (DOMEX-PSY-S489)
@@ -13,6 +31,9 @@ Updated: 2026-03-03 S490 | 1142L 236P 21B 10F
 ## For next session
 - open_lane.py FM-22 staleness: use git log content hash instead of header timestamp
 - F-PSY1: need non-DOMEX quality metric to resolve L-1248/L-1251 contradiction
+- Ratchet periodic targets: ECE <0.15→<0.09, enforcement >15%→>30% (both met)
+- B→PHIL ratio fix: 22 PHIL / 21 B = 0.95:1 (need 2.0:1) — consolidate PHILOSOPHY.md
+- F-SWARMER2 next: test lesson-digest atom (add top-50 L summaries to genesis.sh), predict >0% child L→L citation
 - Add falsifiability column to PHILOSOPHY.md claims table (L-1241)
 - task_order.py: down-weight COMMIT tier at N≥3 concurrency
 - Expert utilization still low (4.6% → target ≥15%)

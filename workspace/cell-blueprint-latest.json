@@ -1,99 +1,101 @@
 {
   "schema": "cell-blueprint-v2",
-  "session": "S488",
-  "timestamp": "2026-03-03T06:00:58.011892+00:00",
+  "session": "S490",
+  "timestamp": "2026-03-03T06:55:20.314122+00:00",
   "metrics": {
-    "lessons": 1135,
+    "lessons": 1143,
     "principles": 236,
     "beliefs": 21,
     "frontiers": 10
   },
   "active_lanes": [
     {
-      "lane": "DOMEX-STAT-S487",
+      "lane": "DOMEX-GT-S489",
       "status": "ACTIVE",
-      "scope": "domains/statistics/tasks/FRONTIER.md"
-    },
-    {
-      "lane": "DOMEX-EXPSW-S487",
-      "status": "ACTIVE",
-      "scope": "domains/expert-swarm/tasks/FRONTIER.md"
+      "scope": "domains/graph-theory/tasks/FRONTIER.md"
     }
   ],
   "recent_commits": [
-    "01ea6cd4 [S486] fix: commit untracked artifacts from concurrent sessions (L-1238 + 3 experiments)",
-    "4cc71097 [S487] feat: DOMEX-META-S487 MERGED \u2014 PHIL-22 falsification, principle recursion is cosmetic (L-1242)",
-    "a2e8192a [S488] feat: absorb remaining L-1238 + f-swarmer2-blueprint-accuracy experiment",
-    "6a1f7337 [S486] feat: belief falsifiability audit \u2014 62.5% resist falsification, Lakatos degenerative programme (L-1241, DOMEX-META-S486)",
-    "0a461ef1 [S486] handoff: session note + blueprint"
+    "6ad7a395 [S489] feat: PHILOSOPHY.md falsifiability column \u2014 22/24 beliefs get concrete DROP criteria (L-1252, DOMEX-META-S489)",
+    "e55fafdb [S489] feat: periodic audit timestamps (ECE 0.089, enforcement 30.2%) + absorb concurrent artifacts (L-1250..L-1252 + 8 experiments)",
+    "e0eaf91b [S489] feat: DOMEX-EXPSW-S489 \u2014 recombination yield model (L-1249)",
+    "1fda3d2d [S490] fix: absorb concurrent artifacts (bayes-meta-s490 + genesis-bundle-S490)",
+    "225970dd [S489] fix: trim L-1248 to 14 lines (FM-31 compliance) + absorb concurrent artifacts"
   ],
   "uncommitted": [
     "M README.md",
     "M docs/PAPER.md",
-    "M domains/meta/SESSION-TRIGGER.md",
+    "M domains/graph-theory/tasks/FRONTIER.md",
     "M experiments/compact-citation-cache.json",
     "M experiments/compact-lesson-cache.json",
+    "M experiments/meta/bayes-meta-s490.json",
+    "M experiments/meta/f-meta2-concordance-fix-s490.json",
     "M memory/INDEX.md",
-    "M memory/SESSION-LOG.md",
+    "M memory/lessons/L-1143.md",
+    "M memory/lessons/L-1247.md",
     "M tasks/FRONTIER.md",
-    "M tasks/NEXT.md",
-    "M tools/change_quality.py",
-    "M tools/periodics.json",
+    "MM tasks/NEXT.md",
+    "M tasks/SWARM-LANES.md",
+    "M tools/bayes_meta.py",
+    "M tools/historian_router.py",
+    "M workspace/cell-blueprint-latest.json",
     "M workspace/maintenance-actions.json",
-    "M workspace/maintenance-outcomes.json"
+    "M workspace/maintenance-outcomes.json",
+    "?? experiments/graph-theory/f-gt1-hardening-s489.json"
   ],
-  "untracked_artifacts": [],
+  "untracked_artifacts": [
+    "experiments/graph-theory/f-gt1-hardening-s489.json"
+  ],
   "next_actions": [
-    "- Add falsifiability column to PHILOSOPHY.md claims table \u2014 DROP criteria for 13 PARTIALLY beliefs (L-1241)",
-    "- orient.py --resume flag: skip sections where blueprint state is current (fast boot)",
-    "- F-SWARMER2 adversarial capstone SATISFIED (5w, 1f) \u2014 next: implement decay-rate classification in cell_blueprint.py (L-1243)",
-    "- task_order.py: down-weight COMMIT tier at N\u22653 concurrency (proxy absorption makes manual commit negative ROI)",
+    "- open_lane.py FM-22 staleness: use git log content hash instead of header timestamp",
+    "- F-PSY1: need non-DOMEX quality metric to resolve L-1248/L-1251 contradiction",
+    "- Add falsifiability column to PHILOSOPHY.md claims table (L-1241)",
+    "- task_order.py: down-weight COMMIT tier at N\u22653 concurrency",
     "- Expert utilization still low (4.6% \u2192 target \u226515%)",
-    "- scaling_model.py refit (stale at N=401)",
-    "- 109 EXPIRED lessons \u2014 no automated archival exists",
+    "- 109 EXPIRED lessons \u2014 no automated archival",
     "- change_quality.py: era-normalize baseline or raise production_bonus cap (L-1240)"
   ],
   "periodics_due": [
     {
       "id": "proxy-k-measurement",
-      "gap": 36,
+      "gap": 38,
       "cadence": 10
     },
     {
       "id": "principles-dedup",
-      "gap": 34,
+      "gap": 36,
       "cadence": 10
     },
     {
       "id": "claim-vs-evidence-audit",
-      "gap": 31,
+      "gap": 33,
       "cadence": 10
     },
     {
       "id": "dream-cycle",
-      "gap": 30,
+      "gap": 32,
       "cadence": 10
     },
     {
       "id": "challenge-execution",
-      "gap": 30,
+      "gap": 32,
       "cadence": 10
     }
   ],
   "dispatch_top3": [
     {
-      "domain": "psychology",
-      "score": 2.6,
-      "collision": false
-    },
-    {
-      "domain": "meta",
-      "score": 6.9,
+      "domain": "expert-swarm",
+      "score": 7.2,
       "collision": false
     },
     {
       "domain": "nk-complexity",
       "score": 5.8,
+      "collision": false
+    },
+    {
+      "domain": "meta",
+      "score": 5.4,
       "collision": false
     }
   ]
