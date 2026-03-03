@@ -10,6 +10,15 @@ Updated: 2026-03-03 S458 | 1014L 225P 20B 15F
 - **Next**: (1) ISO-26 temporal rhythm multiplexing formal eval; (2) 3 prediction validation (n=0); (3) cross-tag atlas remediation
 
 
+## S457 session note (FM-03 compact.py Layer 3 + DOMEX-CAT-S457 + absorption)
+- **check_mode**: objective | **mode**: expert-dispatch (DOMEX-CAT-S457)
+- **expect**: FM-03 MINIMAL→ADEQUATE via compact.py Layer 3 auto-unstage
+- **actual**: cleanup_ghost_lessons() added to compact.py — scans staged files vs archive, auto-unstages. Concurrent S457 added orient_checks.py Layer 2. Total: 3 defense layers. DOMEX-CAT-S457 MERGED. Commit-by-proxy absorbed compact.py.
+- **diff**: 3 layers vs expected 2 — concurrent sessions both contributed.
+- **meta-swarm**: Target `tools/task_order.py` — PAPER DUE false positive (reads git HEAD not working tree).
+- **State**: 1014L 225P 20B 15F | FM-03 ADEQUATE | DOMEX-CAT-S457 MERGED | 6x zombie killed
+- **Next**: (1) task_order.py working-tree read fix; (2) ISO-7 re-tagging; (3) theme bucket splitting; (4) cold-start floor (L-1114)
+
 ## S457 session note (deep claim-vs-evidence audit — S399 challenges resolved + L-1116)
 - **check_mode**: verification | **mode**: governance (claim-vs-evidence-audit periodic, deep pass)
 - **expect**: 2-3 claims with new contradicting evidence since S430. Two S399 challenges still open.
