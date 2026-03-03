@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-AI-S470",
+    "frontier": "F-AI3",
+    "session": "S470",
+    "domain": "ai",
+    "date": "2026-03-03",
+    "expect": "EAD-driven corrections are directional toward truth (calibration) at lane level, not random. Correction-of-correction rate <15% at n>=50 (extending L-833 n=22 finding). Lane-level diff analysis of 600+ MERGED lanes with EAD fields will show: (1) >70% of non-trivial diffs improve understanding (not oscillate), (2) correction-of-correction rate <10%, (3) L-833's 0% at n=22 challenges extends to current n=32+.",
+    "actual": "TBD",
+    "diff": "TBD"
+}
