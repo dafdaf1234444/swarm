@@ -29,6 +29,51 @@ LANES_ARCHIVE = REPO_ROOT / "tasks" / "SWARM-LANES-ARCHIVE.md"
 
 VALID_STATUSES = {"MERGED", "ABANDONED", "SUPERSEDED"}
 
+# Colony threshold: a frontier with this many waves qualifies as a colony
+# and requires adversarial capstone before final closure (L-1210, L-601).
+COLONY_WAVE_THRESHOLD = 3
+
+
+def check_colony_adversarial(lane_id: str) -> tuple[str, int, int, bool]:
+    """Check if a frontier has colony-level history and whether adversarial review exists.
+
+    Returns (frontier_id, wave_count, falsification_count, needs_capstone).
+    L-1210: Self-assessment of self-improvement inflates ~2-3x.
+    Colony TTL final session must be adversarial (mode=falsification).
+    """
+    # Extract frontier from the lane's Etc field
+    latest = find_latest_lane_row(lane_id)
+    if not latest:
+        return "", 0, 0, False
+    etc = latest[10] if len(latest) > 10 else ""
+    frontier_match = re.search(r"frontier=(F-[A-Z0-9]+)", etc)
+    if not frontier_match:
+        return "", 0, 0, False
+    frontier_id = frontier_match.group(1)
+
+    # Count all waves and falsification waves for this frontier
+    wave_count = 0
+    falsification_count = 0
+    for lanes_file in (LANES_FILE, LANES_ARCHIVE):
+        if not lanes_file.exists():
+            continue
+        for line in lanes_file.read_text().splitlines():
+            if not line.startswith("|") or line.startswith("| ---") or line.startswith("| Date"):
+                continue
+            cols = [c.strip() for c in line.split("|")]
+            if len(cols) < 12:
+                continue
+            row_etc = cols[10] if len(cols) > 10 else ""
+            fid_match = re.search(r"frontier=(F-[A-Z0-9,/\s-]+?)(?:;|$)", row_etc)
+            if not fid_match or frontier_id not in re.findall(r"F-[A-Z0-9]+", fid_match.group(1)):
+                continue
+            wave_count += 1
+            if "mode=falsification" in row_etc:
+                falsification_count += 1
+
+    needs_capstone = wave_count >= COLONY_WAVE_THRESHOLD and falsification_count == 0
+    return frontier_id, wave_count, falsification_count, needs_capstone
+
 
 def find_latest_lane_row(lane_id: str) -> dict | None:
     """Return the most recent row for this lane from SWARM-LANES.md (or archive fallback)."""
@@ -154,6 +199,13 @@ def main():
                         help="Skip EAD enforcement (use for ABANDONED or lanes without expect)")
     parser.add_argument("--no-merge", action="store_true",
                         help="Disable merge-on-close: keep all prior rows (append-only mode)")
+    parser.add_argument("--skip-adversarial-capstone", default="",
+                        metavar="REASON",
+                        help=(
+                            "Override adversarial capstone block for colony closures (L-1210). "
+                            "Required when closing a colony (≥3 waves) with no mode=falsification wave. "
+                            "Example: --skip-adversarial-capstone 'adversarial review pending in successor lane'"
+                        ))
     args = parser.parse_args()
 
     # EAD enforcement: ALL MERGED lanes must provide actual/diff (L-741, L-601)
@@ -217,6 +269,34 @@ def main():
                 print("  - Does this lesson generalize beyond its specific context?", file=sys.stderr)
                 print("  - Could it become a P-NNN in memory/PRINCIPLES.md?", file=sys.stderr)
                 print("  - Add --note 'P-NNN extracted' or 'no principle: <reason>'", file=sys.stderr)
+
+    # L-1210 adversarial capstone enforcement: colony closures require falsification review.
+    # Self-assessment of self-improvement inflates ~2-3x (F-SWARMER1 measured 3/5, adversarial
+    # found 1-1.5/5). Structural fix: any frontier with ≥3 waves (colony) must have at least
+    # one mode=falsification wave before the colony can be MERGED. L-601: voluntary → structural.
+    if args.status == "MERGED":
+        frontier_id, wave_count, falsif_count, needs_capstone = check_colony_adversarial(args.lane)
+        if needs_capstone:
+            if args.skip_adversarial_capstone:
+                print(
+                    f"INFO: Adversarial capstone override: '{args.skip_adversarial_capstone}'. "
+                    f"Colony {frontier_id} ({wave_count} waves, 0 falsification). "
+                    f"L-1210: self-assessment inflates ~2-3x without adversarial review.",
+                )
+            else:
+                print(
+                    f"ERROR: Colony {frontier_id} has {wave_count} waves but 0 falsification lanes. "
+                    f"L-1210: self-assessment inflates ~2-3x. Before closing this colony, either:\n"
+                    f"  (1) Run a mode=falsification session for {frontier_id} (recommended), or\n"
+                    f"  (2) --skip-adversarial-capstone 'reason' to override with justification.",
+                    file=sys.stderr,
+                )
+                sys.exit(1)
+        elif frontier_id and wave_count >= COLONY_WAVE_THRESHOLD:
+            print(
+                f"INFO: Colony {frontier_id} ({wave_count} waves, {falsif_count} falsification) — "
+                f"adversarial capstone satisfied.",
+            )
 
     # False-abandon guard for ABANDONED lanes (L-756, L-783, F-STR1)
     # At high concurrency, commit-by-proxy causes nodes to self-classify
