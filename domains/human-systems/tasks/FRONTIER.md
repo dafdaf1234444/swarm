@@ -11,6 +11,7 @@ Updated: 2026-03-02 S427 | Active: 4
   at granularity level. Content-level compaction exists but unit-level (delete/repeal) absent. S427 TTL
   experiment (N=882): survival 93.3% (not 100%), 59.2% no-Sharpe, 131 zero-inbound no-Sharpe = real TTL
   pool, 126 archiveable (14.3%). Structural fix: wire TTL check into maintenance.py check_lessons (L-601).
+  → Links to global frontier: F-DNA1. (auto-linked S420, frontier_crosslink.py)
 
 - **F-HS2**: Which swarm coordination patterns transfer directly to human institutional reform?
   Design: map 8 swarm patterns (compaction, quorum governance, expect-act-diff, concurrent lanes,
@@ -18,6 +19,7 @@ Updated: 2026-03-02 S427 | Active: 4
   reform proposals; score each on transferability (infrastructure, culture, legal requirements).
   Status: **OPEN** — CB-2/CB-3 hypotheses. Predicted: expect-act-diff and anti-windup have highest
   transferability (low infrastructure cost); quorum governance has lowest (requires cultural shift).
+  → Links to global frontier: F-META15. (auto-linked S420, frontier_crosslink.py)
 
 - **F-HS3**: Can compaction cycles (sunset clauses) be proven to improve policy quality over 10+ year windows?
   Design: compare policy outcomes in jurisdictions with mandatory sunset review vs those without;

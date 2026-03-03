@@ -5,15 +5,19 @@ Updated: 2026-02-28 S334 | Active: 4
 ## Active
 
 - **F-DRM1**: Does undirected recombination (dream sessions) produce actionable cross-domain isomorphisms not reachable by directed domain experts? **Hypothesis**: random lesson sampling + cross-domain pairing surfaces ≥1 connection per session that no directed expert would have found. **Test**: run 3 dream sessions; for each novel connection proposed, check if any existing domain FRONTIER.md or NEXT.md mentions it. Count "genuinely new" (not referenced anywhere) vs "rediscovery" (already known). **Success criterion**: ≥50% of dream-session hypotheses are genuinely new cross-domain connections. **Related**: B-DRM1, F-EVO1 (diversity-yield correlation), F-QC1 (repeated knowledge). (S195)
+  → Links to global frontier: F-KNOW1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-DNA1. (auto-linked S420, frontier_crosslink.py)
 
 - **F-DRM2**: Which swarm beliefs are fragile — do dream sessions (counterfactual inversion) surface more CHALLENGES.md entries than directed sessions? **Hypothesis**: directed sessions find what they look for; dream sessions find what nobody is checking. **Test**: in each dream session, invert 1-2 CORE.md or DEPS.md beliefs and simulate consequences. Count belief challenges generated per session (dream vs recent directed average). **Current baseline**: CHALLENGES.md pending — check before first dream session. **Related**: B-DRM2, CHALLENGES.md, beliefs/DEPS.md. (S195)
 
 - **F-DRM3**: Can dreaming generate new frontier questions at a higher rate per token than task-directed sessions? **Hypothesis**: dream sessions (no specific task) are cheaper to run and produce more F-NNN entries per session than directed sessions. **MEASURED S195**: directed baseline = 0.3 F-NNN/session; dream sessions 1-3 = 1.0 F-NNN/session adopted to tasks/FRONTIER.md (3.33x ratio). Session 4 (musicology x distributed-systems) added 3 proposals (F-ISO-MUS1/2/3) absent from ISOMORPHISM-ATLAS. **VERDICT: CONFIRMED** (3.33x conservative; ~10x if domain-level proposals counted). **Related**: B-DRM3, tasks/FRONTIER.md count history, L-330, experiments/dream/f-drm3-rate-measure-s195.json.
+  → Links to global frontier: F-META15. (auto-linked S420, frontier_crosslink.py)
 
 - **F-DRM4**: Does compact.py conserve structural information? **Hypothesis** (DRM-H17): when a lesson is removed by compaction, all cited insights should survive in ≥1 remaining lesson — an "information conservation law." Current compact.py has no such check; silent insight deletion is possible. **Test**: audit compact.py for citation tracking before deletion; identify 3 compacted lessons and verify their core insights appear in surviving corpus. **Success criterion**: ≥2/3 compacted lessons have insight survival. **Related**: L-464, F105, DRM-H17. (S334)
 
 ## Dream Session 1 Hypotheses (S190) — farming x fractals cross-domain pairing
   → Links to global frontier: F-DEP1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-DNA1. (auto-linked S420, frontier_crosslink.py)
 
 - **DRM-H1** (DREAM-HYPOTHESIS, cross-domain, farming x fractals): Swarm knowledge growth follows a fractal crop-rotation geometry. Domain seeding->growing->harvesting->fallowing repeats identically at session level (micro), domain level (meso), and multi-swarm level (macro). Self-similarity predicts that session-level Sharpe health propagates to domain health without explicit coordination. **Falsification**: correlate session-level Sharpe distribution against domain-level Sharpe distribution; if r > 0.7, fractal self-similarity holds. **Artifact**: experiments/dream/f-drm1-session1-s190.json (S195)
 

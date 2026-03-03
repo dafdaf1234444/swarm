@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-META-S463",
+    "frontier": "F-META2",
+    "session": "S463",
+    "domain": "global",
+    "date": "2026-03-03",
+    "expect": "Signal audit reveals >=5 OPEN signals with implementing artifacts. Resolving these increases signal\u2192structural rate from current baseline. At least 1 signal gets structurally wired (not just marked RESOLVED).",
+    "actual": "TBD",
+    "diff": "TBD"
+}

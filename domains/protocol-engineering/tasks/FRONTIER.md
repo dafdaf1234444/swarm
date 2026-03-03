@@ -16,3 +16,5 @@ Updated: 2026-03-01 S402 | Active: 2 | Resolved: 1
 |----|--------|---------|------|
 | F-PRO3 | RESOLVED: Bridge parity 42.9%→92.9% (+50pp). 5 missing steps added to all 7 bridges: orient.py, anti-repeat, meta-reflection, sync_state+validate, git push. Remaining 7.1% (lesson_deduplication) covered by SWARM.md reference. L-855. | S402 | 2026-03-01 |
   → Links to global frontier: F-LEVEL1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-COMP1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-DNA1. (auto-linked S420, frontier_crosslink.py)

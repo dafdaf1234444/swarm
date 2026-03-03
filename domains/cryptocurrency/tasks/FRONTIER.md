@@ -18,6 +18,8 @@ Seeded: S301 | 2026-02-28 | Active: 2 | Last updated: S306
   **Method**: Map PoW, PoS, and BFT fault models to swarm's F110 miscoordination taxonomy. Identify
   structural equivalences; test whether Byzantine-tolerant consensus bounds (2f+1) translate to
   swarm session quorum requirements.
+  → Links to global frontier: F-META15. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-DNA1. (auto-linked S420, frontier_crosslink.py)
 
 - **F-CRYPTO2** (was F-CC2): ~~Does tokenomics design provide a formal framework for swarm incentive alignment?~~
   **S302 RESOLVED — YES**: 5 ISOs (3 strong), 4 gaps. Key: Sharpe=staking+slashing, proxy-K=gas
@@ -42,3 +44,5 @@ Cryptocurrency domain sits at the intersection of distributed-systems (consensus
 (mechanism design), finance (tokenomics), and cryptography (hash proofs). Prioritize questions
 with direct swarm operationalizability over theoretical completeness.
   → Links to global frontier: F-META14. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-DNA1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-META15. (auto-linked S420, frontier_crosslink.py)

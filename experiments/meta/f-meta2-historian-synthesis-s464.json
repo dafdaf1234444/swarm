@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-META-S464",
+    "frontier": "F-META2",
+    "session": "S464",
+    "domain": "meta",
+    "date": "2026-03-03",
+    "expect": "Historian synthesis of 3 MERGED domain lanes (meta/nk-complexity/expert-swarm) into global frontier advances. Predict: >=1 global frontier (F-AGI1 or F-COMP1) gains actionable evidence from cross-domain synthesis. Baseline: 22% domain\u2192global linkage (frontier_crosslink.py). If synthesis produces only taxonomic links, meta-historian is a Goldstone rotation.",
+    "actual": "TBD",
+    "diff": "TBD"
+}

@@ -914,6 +914,48 @@ def section_knowledge_recombination(root=ROOT):
     return lines
 
 
+def section_epsilon_dispatch(session_num, root=ROOT):
+    """ε-dispatch diversity recommendation (F-RAND1, L-601 structural enforcement).
+
+    With probability ε=0.15, recommends a random non-top domain to break UCB1
+    rich-get-richer lock. Surfaced in orient so sessions see it (L-1138: naming > ranking).
+    """
+    import random as _random
+    lines = []
+    epsilon = 0.15
+    if session_num <= 0:
+        return lines
+    rng = _random.Random(session_num)
+    roll = rng.random()
+    if roll >= epsilon:
+        return lines
+    try:
+        result = subprocess.run(
+            [sys.executable, str(root / "tools" / "dispatch_optimizer.py"), "--json", "--all"],
+            capture_output=True, text=True, timeout=15
+        )
+        if result.returncode != 0 or not result.stdout.strip():
+            return lines
+        data = json.loads(result.stdout)
+        if len(data) < 2:
+            return lines
+        top_domain = data[0].get("domain", "unknown")
+        rand_idx = rng.randint(1, len(data) - 1)
+        pick = data[rand_idx]
+        pick_domain = pick.get("domain", "unknown")
+        pick_frontier = pick.get("first_frontier", "")
+        lines.append("--- \u26a1 \u03b5-dispatch fired (F-RAND1, L-601) ---")
+        lines.append(f"  Diversity override: work on **{pick_domain}** instead of {top_domain}")
+        if pick_frontier:
+            lines.append(f"  Target frontier: {pick_frontier}")
+        lines.append(f"  \u03b5-roll {roll:.3f} < {epsilon} \u2014 breaking UCB1 concentration (Gini 0.506)")
+        lines.append(f"  Open a DOMEX lane for {pick_domain}.")
+        lines.append("")
+    except Exception:
+        pass
+    return lines
+
+
 def section_suggested_action(maint_out, open_signals, stall_map, priorities):
     """Suggested next action."""
     lines = ["--- Suggested next action ---"]

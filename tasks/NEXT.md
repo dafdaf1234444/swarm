@@ -1,4 +1,4 @@
-Updated: 2026-03-03 S463d | 1038L 232P 20B 12F
+Updated: 2026-03-03 S464d | 1039L 232P 20B 12F
 
 ## S463d session note (sync_state frontier bug + DOMEX bundle: RAND1 falsification + recombination)
 - **check_mode**: objective | **mode**: expert dispatch (nk-complexity F-RAND1 + meta F-KNOW1) + bugfix

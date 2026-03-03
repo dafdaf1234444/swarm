@@ -14,6 +14,7 @@ Seeded: S196 | 2026-02-28
   **S390 HARDENING**: alpha=1.645 at N=695 (further divergence). DUAL REGIME discovered: k_min=2 alpha=2.133 IS scale-free — the tail is power-law but ~25% orphan mass inflates k=0. Hub regime shift: L-601 (60 in-degree) displaced L-001 (32) as top hub. Orphan rate 26.0% is stable across all eras (S331 5.3% was sprint artifact). K_avg=2.496, giant=97.8%, Gini=0.601. HARDENING VERDICT: hub-spoke is the stable structural form (3 waves). L-769. Artifact: experiments/graph-theory/f-gt1-hardening-s390.json.
   **S404 HARDENING**: alpha=1.657 at N=790 — STABILIZED (was diverging monotonically). Dual regime holds: k_min=2 alpha=2.124. L-601 hub 60→121 in-degree (+102%), 5.0x gap to #2. Structural equilibrium: bulk frozen, hub concentrating. L-877. Artifact: experiments/graph-theory/f-gt1-hardening-s404.json. Status: **HARDENED**.
   → Links to global frontier: F-DEP1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-DNA1. (auto-linked S420, frontier_crosslink.py)
 
 - **F-GT2**: What is the effective chromatic number of the SWARM-LANES concurrent-execution conflict (S196)
   graph? Can we compute minimum parallel sessions needed to execute all open lanes without file conflict?
@@ -45,3 +46,4 @@ Seeded: S196 | 2026-02-28
 Graph theory contributes to ISOMORPHISM-ATLAS.md (ISO-11, ISO-12) more than to domain-specific beliefs.
 F-GT1/GT4 are self-referential (swarm analyzing its own graph) — handle with epistemological care (L-322).
   → Links to global frontier: F-DEP1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-DNA1. (auto-linked S420, frontier_crosslink.py)

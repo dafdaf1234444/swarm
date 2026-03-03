@@ -301,7 +301,7 @@ def main():
         section_agent_positions, section_concurrent_activity, section_historian_repair,
         section_meta_tooler, section_zombie_carryover, section_closure_metric,
         section_knowledge_swarm, section_knowledge_recombination,
-        section_suggested_action, section_cascade_state,
+        section_suggested_action, section_cascade_state, section_epsilon_dispatch,
     )
     from closeable_frontiers import section_closeable_frontiers
 
@@ -408,6 +408,7 @@ def main():
     _print_lines(_historian_repair_lines)
     _print_lines(_meta_tooler_lines)
 
+    _print_lines(section_epsilon_dispatch(current_sess_num))
     _print_lines(section_suggested_action(maint_out, open_signals, stall_map, priorities))
 
     # Write trigger manifest

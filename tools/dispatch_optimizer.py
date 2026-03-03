@@ -125,6 +125,7 @@ def run(args: argparse.Namespace) -> None:
                     epsilon_note = (f"⚡ ε-dispatch (ε={epsilon}): swapped top domain to "
                                    f"'{results[0]['domain']}' (was '{results[rand_idx]['domain']}')")
             results_limited = results if args.all or args.domain else results[:10]
+            _enrich_recombination(results)
             for r in results:
                 if r["domain"] == "meta":
                     try: r["meta_roles"] = _get_meta_role_stats()
@@ -210,6 +211,32 @@ def run(args: argparse.Namespace) -> None:
     if compare: _print_compare_output(results, ucb1_results)
 
 
+def _enrich_recombination(results):
+    """Attach per-domain recombination M3 targets to results (#L-1130 structural enforcement)."""
+    try:
+        from knowledge_recombine import load_lessons, find_missing_edges
+        lessons = load_lessons()
+        candidates = find_missing_edges(lessons, min_shared=3)
+        cross = [c for c in candidates if c["cross_domain"]]
+        # Build domain → top candidates map
+        dom_cands = {}
+        for c in cross:
+            for d in (c["domain_a"], c["domain_b"]):
+                dom_cands.setdefault(d, []).append(c)
+        for r in results:
+            cands = dom_cands.get(r["domain"], [])
+            if cands:
+                top = sorted(cands, key=lambda x: x["score"], reverse=True)[:2]
+                r["recombination_targets"] = [
+                    {"pair": f"{c['parent_a']}×{c['parent_b']}",
+                     "partner_domain": c["domain_b"] if c["domain_a"] == r["domain"] else c["domain_a"],
+                     "score": c["score"], "shared": c["shared_count"]}
+                    for c in top
+                ]
+    except Exception:
+        pass
+
+
 def _print_ucb1_output(results, results_limited, active_lanes, session_merged,
                         current_session, campaign_waves):
     """Display UCB1 mode output."""
@@ -261,6 +288,9 @@ def _print_ucb1_output(results, results_limited, active_lanes, session_merged,
             print(f"         → {r['top_frontier'][:72]}")
         if r.get("reward_intent"):
             print(f"         Reward: {r['reward_intent']}")
+        if r.get("recombination_targets"):
+            for rt in r["recombination_targets"][:2]:
+                print(f"         M3: {rt['pair']} (×{rt['partner_domain']}) score={rt['score']}")
         if r["domain"] == "meta":
             try:
                 ms = _get_meta_role_stats()

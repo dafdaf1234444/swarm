@@ -31,6 +31,9 @@ Seeded: S301 | 2026-02-28 | Active: 3
   **Next**: Measure whether 44.4% attribution gap degrades recoverability over time; test if
   append-only-log-with-GC model predicts proxy-K growth rate.
   → Links to global frontier: F-AGI1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-DNA1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-META15. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-KNOW1. (auto-linked S420, frontier_crosslink.py)
 
 - **F-CRY2**: Does the zero-knowledge proof paradigm have a swarm analog? (opened S301)
   Can a swarm node prove it has derived a belief correctly without revealing the full derivation?

@@ -9,10 +9,14 @@ Usage:
     python3 tools/reward_theory.py              # full audit
     python3 tools/reward_theory.py --summary    # one-line alignment score
     python3 tools/reward_theory.py --channel N  # deep-dive channel N (1-6)
+    python3 tools/reward_theory.py --session SN # per-session reward profile (M3)
+    python3 tools/reward_theory.py --json       # JSON output (combinable)
 
 Part of F-SWARMER1 colony: swarmer-swarm anti-attractor intervention #1.
+Per-session tracking enables M3 (L-1131): sessions declare + measure reward targeting.
 """
 
+import json as json_mod
 import os
 import re
 import sys
@@ -35,7 +39,6 @@ def _count_principles():
     if not pfile.exists():
         return 0
     text = pfile.read_text(errors="replace")
-    # Count P-NNN patterns in active section (before any "Removed:" section)
     removed_idx = text.find("Removed:")
     active = text[:removed_idx] if removed_idx > 0 else text
     return len(re.findall(r'\bP-\d+\b', active))
@@ -43,7 +46,6 @@ def _count_principles():
 
 def _measure_channel_1_compaction():
     """Channel 1: Context window selection pressure — favors compactness."""
-    # Measure: ratio of compacted vs total lessons
     lesson_dir = ROOT / "memory" / "lessons"
     if not lesson_dir.exists():
         return {"aligned": False, "metric": "unknown", "detail": "no lessons"}
@@ -58,8 +60,6 @@ def _measure_channel_1_compaction():
                 under_20 += 1
 
     compact_rate = under_20 / total if total > 0 else 0
-    # Goodhart: compactness is rewarded regardless of content quality
-    # Aligned if: compact AND high Sharpe (quality preserved during compression)
     return {
         "aligned": False,  # structural Goodhart — compactness proxy for value
         "metric": f"{compact_rate:.1%} lessons ≤20 lines",
@@ -81,11 +81,10 @@ def _measure_channel_2_citations():
             continue
         total += 1
         text = f.read_text(errors="replace")
-        # Count L-NNN references
         refs = re.findall(r'\bL-(\d+)\b', text)
         for ref in refs:
             lid = f"L-{ref}"
-            if lid != f.stem:  # exclude self-references
+            if lid != f.stem:
                 cite_counts[lid] = cite_counts.get(lid, 0) + 1
 
     cited = len([v for v in cite_counts.values() if v > 0])
@@ -93,7 +92,7 @@ def _measure_channel_2_citations():
     top_5 = sorted(cite_counts.items(), key=lambda x: -x[1])[:5]
 
     return {
-        "aligned": False,  # being mentioned != being valuable
+        "aligned": False,
         "metric": f"{cited}/{total} cited ({cited/total:.0%}), {uncited} orphans",
         "detail": f"Top 5: {', '.join(f'{k}={v}' for k,v in top_5)}. Goodhart: citation rewards presence, not mechanism invocation (L-1057).",
         "goodhart_type": "presence_not_mechanism"
@@ -112,7 +111,6 @@ def _measure_channel_3_dispatch():
     total = merged + abandoned
     merge_rate = merged / total if total > 0 else 0
 
-    # Dynamic alignment check: is dispatch_scoring.py Sharpe-weighted? (L-1127 fix)
     scoring_path = ROOT / "tools" / "dispatch_scoring.py"
     sharpe_weighted = False
     if scoring_path.exists():
@@ -130,7 +128,7 @@ def _measure_channel_3_dispatch():
     return {
         "aligned": False,
         "metric": f"{merge_rate:.0%} merge rate ({merged}/{total})",
-        "detail": f"Goodhart: easy/safe lanes merge more. Value-producing but risky lanes get ABANDONED. Fix: weight by Sharpe of produced lessons, not merge/abandon binary.",
+        "detail": f"Goodhart: easy/safe lanes merge more. Fix: weight by Sharpe of produced lessons.",
         "goodhart_type": "mergeability_not_value"
     }
 
@@ -158,7 +156,7 @@ def _measure_channel_4_sharpe():
     recent_avg = sum(recent_50) / len(recent_50)
 
     return {
-        "aligned": False,  # Sharpe formula uses recency as a component
+        "aligned": False,
         "metric": f"avg {avg:.1f}, recent-50 avg {recent_avg:.1f}",
         "detail": f"n={len(sharpe_vals)} lessons with Sharpe. Goodhart: recency inflates score. Fix: separate depth score from freshness score.",
         "goodhart_type": "recency_not_depth"
@@ -184,7 +182,7 @@ def _measure_channel_5_falsification():
     rate = falsified_count / total if total > 0 else 0
 
     return {
-        "aligned": True,  # 2.4x citation premium for productive wrongness is correctly aligned
+        "aligned": True,
         "metric": f"{rate:.1%} lessons mention falsification ({falsified_count}/{total})",
         "detail": "ALIGNED. Productive wrongness gets 2.4x citation (L-698). Incentive correct: being wrong and learning > being right and stagnant.",
         "goodhart_type": None
@@ -201,7 +199,7 @@ def _measure_channel_6_survival():
     total = len(py_tools)
 
     return {
-        "aligned": False,  # survival is proxy for use, not merit
+        "aligned": False,
         "metric": f"{total} tools in tools/",
         "detail": "Goodhart: survival rewards being referenced in orient/maintenance, not producing value. Zombie tools persist because nothing actively removes them. Fix: tool sunset protocol (unused >30 sessions → archive).",
         "goodhart_type": "survival_not_merit"
@@ -217,6 +215,117 @@ CHANNELS = [
     ("Compactification survival", _measure_channel_6_survival),
 ]
 
+
+# --- Per-session reward profiling (M3 tracking, L-1131) ---
+
+def _get_session_lessons(session_id):
+    """Find lessons produced by a session (reads Session: header)."""
+    lesson_dir = ROOT / "memory" / "lessons"
+    if not lesson_dir.exists():
+        return []
+    sid_num = re.sub(r'\D', '', session_id)
+    results = []
+    for f in sorted(lesson_dir.iterdir()):
+        if not (f.name.startswith("L-") and f.suffix == ".md"):
+            continue
+        text = f.read_text(errors="replace")
+        if re.search(rf'Session:\s*S{sid_num}\b', text):
+            results.append((f.stem, text))
+    return results
+
+
+def _get_session_lanes(session_id):
+    """Find lanes involving a session from SWARM-LANES.md."""
+    lanes_path = ROOT / "tasks" / "SWARM-LANES.md"
+    if not lanes_path.exists():
+        return []
+    text = lanes_path.read_text(errors="replace")
+    sid = session_id.upper() if session_id.startswith(("s", "S")) else f"S{session_id}"
+    results = []
+    for line in text.split("\n"):
+        if not line.startswith("|") or "---" in line:
+            continue
+        if sid in line:
+            status_m = re.search(r'\b(MERGED|ABANDONED|ACTIVE|CLAIMED|BLOCKED)\b', line)
+            status = status_m.group(1) if status_m else "UNKNOWN"
+            lane_m = re.search(r'DOMEX-\S+', line)
+            lane_id = lane_m.group(0).rstrip(" |") if lane_m else "unknown"
+            results.append({"lane": lane_id, "status": status})
+    return results
+
+
+def session_reward_profile(session_id):
+    """Analyze which reward channels a session engaged (M3 per-session tracking)."""
+    lessons = _get_session_lessons(session_id)
+    lanes = _get_session_lanes(session_id)
+
+    channels = {}
+    for i in range(1, 7):
+        channels[i] = {"name": CHANNELS[i - 1][0], "engaged": False, "evidence": []}
+
+    for lid, text in lessons:
+        lines = text.strip().split("\n")
+        # Ch1: lesson compactness
+        if len(lines) <= 20:
+            channels[1]["engaged"] = True
+            channels[1]["evidence"].append(f"{lid}: {len(lines)}L (compact)")
+
+        # Ch2: citation production
+        cites_m = re.search(r'Cites:\s*(.+)', text)
+        if cites_m:
+            cite_count = len(re.findall(r'L-\d+', cites_m.group(1)))
+            if cite_count > 0:
+                channels[2]["engaged"] = True
+                channels[2]["evidence"].append(f"{lid}: cites {cite_count} lessons")
+
+        # Ch4: Sharpe
+        sharpe_m = re.search(r'Sharpe:\s*(\d+)', text)
+        if sharpe_m:
+            channels[4]["engaged"] = True
+            channels[4]["evidence"].append(f"{lid}: Sharpe {sharpe_m.group(1)}")
+
+        # Ch5: falsification
+        if "falsif" in text.lower():
+            channels[5]["engaged"] = True
+            channels[5]["evidence"].append(f"{lid}: falsification content")
+
+        # Ch6: tool references
+        if re.search(r'tools/\w+\.py', text):
+            channels[6]["engaged"] = True
+            channels[6]["evidence"].append(f"{lid}: references tools/")
+
+    # Ch3: lane merges
+    merged = [l for l in lanes if l["status"] == "MERGED"]
+    if merged:
+        channels[3]["engaged"] = True
+        channels[3]["evidence"] = [f"{l['lane']}: MERGED" for l in merged]
+
+    engaged_count = sum(1 for c in channels.values() if c["engaged"])
+    return channels, engaged_count, 6, lessons, lanes
+
+
+def print_session_profile(session_id):
+    """Print per-session reward profile."""
+    channels, engaged, total, lessons, lanes = session_reward_profile(session_id)
+    print(f"=== SESSION {session_id.upper()} REWARD PROFILE (M3) ===")
+    print(f"Channels engaged: {engaged}/{total} = {engaged / total:.0%}")
+    print(f"Lessons: {len(lessons)} | Lanes: {len(lanes)}\n")
+
+    for i in range(1, 7):
+        ch = channels[i]
+        icon = "+" if ch["engaged"] else "-"
+        print(f"  {icon} Ch{i}: {ch['name']}")
+        for ev in ch["evidence"]:
+            print(f"      {ev}")
+
+    gaps = [channels[i]["name"] for i in range(1, 7) if not channels[i]["engaged"]]
+    if gaps:
+        print(f"\n  Gaps: {', '.join(gaps)}")
+        print(f"  M3: next session should target one of these channels")
+    print()
+
+
+# --- Core audit ---
 
 def audit_all():
     """Run full reward channel audit."""
@@ -234,11 +343,11 @@ def audit_all():
 def print_audit(results, aligned, total):
     """Print formatted audit."""
     print(f"=== REWARD THEORY AUDIT (L-1127, F-SWARMER1) ===")
-    print(f"Alignment: {aligned}/{total} = {aligned/total:.0%}\n")
+    print(f"Alignment: {aligned}/{total} = {aligned / total:.0%}\n")
 
     for i, r in enumerate(results, 1):
         status = "ALIGNED" if r.get("aligned") else "GOODHARTED"
-        icon = "✓" if r.get("aligned") else "✗"
+        icon = "\u2713" if r.get("aligned") else "\u2717"
         print(f"  {icon} Channel {i}: {r['name']} [{status}]")
         print(f"    Metric: {r.get('metric', 'unknown')}")
         if r.get("detail"):
@@ -248,25 +357,55 @@ def print_audit(results, aligned, total):
         print()
 
     print(f"--- Prescription ---")
-    print(f"  Target: {aligned}/{total} → {aligned+1}/{total} (next channel to fix)")
+    print(f"  Target: {aligned}/{total} \u2192 {aligned + 1}/{total} (next channel to fix)")
     goodharted = [r for r in results if not r.get("aligned")]
     if goodharted:
-        easiest = goodharted[0]  # Channel 1 is easiest to fix
+        easiest = goodharted[0]
         print(f"  Lowest-effort fix: {easiest['name']}")
-        print(f"  Mechanism: replace proxy metric with composite (proxy × quality)")
+        print(f"  Mechanism: replace proxy metric with composite (proxy \u00d7 quality)")
     print()
 
 
 def print_summary():
     """Print one-line alignment score."""
     _, aligned, total = audit_all()
-    print(f"Reward alignment: {aligned}/{total} = {aligned/total:.0%} (target: ≥33%, L-1127)")
+    print(f"Reward alignment: {aligned}/{total} = {aligned / total:.0%} (target: \u226533%, L-1127)")
 
 
 def main():
     args = sys.argv[1:]
-    if "--summary" in args:
-        print_summary()
+    use_json = "--json" in args
+
+    if "--session" in args:
+        idx = args.index("--session")
+        if idx + 1 < len(args):
+            sid = args[idx + 1]
+            if use_json:
+                channels, engaged, total, lessons, lanes = session_reward_profile(sid)
+                out = {
+                    "session": sid.upper(),
+                    "engaged": engaged,
+                    "total": total,
+                    "rate": f"{engaged / total:.0%}",
+                    "lessons_produced": len(lessons),
+                    "lanes": len(lanes),
+                    "channels": {
+                        i: {"name": c["name"], "engaged": c["engaged"], "evidence": c["evidence"]}
+                        for i, c in channels.items()
+                    },
+                    "gaps": [c["name"] for c in channels.values() if not c["engaged"]],
+                }
+                print(json_mod.dumps(out, indent=2))
+            else:
+                print_session_profile(sid)
+        else:
+            print("Usage: --session SNN")
+    elif "--summary" in args:
+        if use_json:
+            _, aligned, total = audit_all()
+            print(json_mod.dumps({"aligned": aligned, "total": total, "rate": f"{aligned / total:.0%}"}))
+        else:
+            print_summary()
     elif "--channel" in args:
         idx = args.index("--channel")
         if idx + 1 < len(args):
@@ -275,14 +414,24 @@ def main():
                 name, fn = CHANNELS[ch]
                 r = fn()
                 r["name"] = name
-                print_audit([r], 1 if r.get("aligned") else 0, 1)
+                if use_json:
+                    print(json_mod.dumps(r, indent=2))
+                else:
+                    print_audit([r], 1 if r.get("aligned") else 0, 1)
             else:
                 print(f"Channel must be 1-{len(CHANNELS)}")
         else:
             print("Usage: --channel N")
     else:
         results, aligned, total = audit_all()
-        print_audit(results, aligned, total)
+        if use_json:
+            print(json_mod.dumps({
+                "aligned": aligned, "total": total,
+                "rate": f"{aligned / total:.0%}",
+                "channels": results,
+            }, indent=2))
+        else:
+            print_audit(results, aligned, total)
 
 
 if __name__ == "__main__":

@@ -28,3 +28,5 @@ Seeded: S246 | 2026-02-28
 ## Notes
 Physics here is a structural lens. We only keep mappings that yield measurable swarm controls.
   → Links to global frontier: F-ISO2. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-META15. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-DNA1. (auto-linked S420, frontier_crosslink.py)

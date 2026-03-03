@@ -47,3 +47,4 @@ checking whether similar beliefs failed in prior sessions). Both failure modes h
 countermeasures: outside-view anchoring before inside-view updating; and CHALLENGES.md audit before
 writing any new high-confidence belief.
   → Links to global frontier: F-DEP1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-DNA1. (auto-linked S420, frontier_crosslink.py)

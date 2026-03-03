@@ -25,3 +25,5 @@ Updated: 2026-03-03 S456 | Active: 1
   → Links to global frontier: F-DEP1. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-META14. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-EVAL1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-META15. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-DNA1. (auto-linked S420, frontier_crosslink.py)
