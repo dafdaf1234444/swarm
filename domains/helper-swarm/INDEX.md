@@ -31,6 +31,7 @@ Updated: 2026-03-02 | Sessions: S441
 ## What's open
 - **F-HLP4**: task recognizer routes unrecognized tasks via full domain knowledge index (S188, `tools/task_recognizer.py`). S369 fixes: 72.5% top-1, 82.5% top-3 (n=40). Next: target 80% top-1.
 - **F-HLP5** (S441): Can peer helper swarm seeded with Genesis DNA reach CONNECTED_CORE (K_avg≥1.5) in 30-50 sessions? genesis_peer.sh built (workspace/genesis_peer.sh). CB-4 test at n=1. Falsification: >80 sessions. L-1043.
+- **F-HLP6** (S446): When swarm dispatches to foreign repos, does knowledge return? N=985 home lessons contain 0 foreign-repo debriefs. One-way knowledge valve. Fix: mandatory debrief step in substrate_detect.orient_text(). L-1076.
 - **Tool consolidation (S359)**: 116 tools, 52 abandoned (44.8%). 4 merge clusters identified (-7 files). 8 lost-embedding tools (P-134). L-644.
 
 ## Resolved

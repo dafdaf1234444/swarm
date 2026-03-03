@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-EXP-S456",
+    "frontier": "F-EXP13",
+    "session": "S456",
+    "domain": "expert-swarm",
+    "date": "2026-03-03",
+    "expect": "Case C publication (2 files) has highest readiness; PHIL-17 activation (external system) has lowest",
+    "actual": "TBD",
+    "diff": "TBD"
+}

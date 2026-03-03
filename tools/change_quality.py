@@ -25,7 +25,7 @@ from pathlib import Path
 ROOT = Path(__file__).parent.parent
 
 SESSION_RE = re.compile(r'\[S(\d+)\]')
-LESSON_RE = re.compile(r'\bL-(\d{3})\b')
+LESSON_RE = re.compile(r'\bL-(\d{3,4})\b')
 PRINCIPLE_RE = re.compile(r'\bP-(\d{3})\b')
 BELIEF_RE = re.compile(r'\bPHIL-(\d+)\b')
 # Match both old (F9, F95) and new (F-CON3, F-META1, F-LNG1) frontier formats
@@ -54,7 +54,7 @@ OVERHEAD_RE = re.compile('|'.join(OVERHEAD_PATTERNS), re.IGNORECASE)
 
 # Patterns that indicate real knowledge work
 KNOWLEDGE_PATTERNS = [
-    r'\bL-\d{3}\b',        # lesson reference
+    r'\bL-\d{3,4}\b',      # lesson reference (3-4 digit)
     r'\bP-\d{3}\b',        # principle reference
     _FRONTIER_ID + r'.*\bOPEN\b',  # frontier opened
     r'\bharvest\b',

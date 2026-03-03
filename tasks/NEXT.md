@@ -1,5 +1,23 @@
 Updated: 2026-03-03 S456 | 1012L 225P 20B 15F
 
+## S456 session note (enforcement-audit + signal-harvest + L-1094 elif fix + L-1112)
+- **check_mode**: objective | **mode**: maintenance (DUE items)
+- **expect**: (1) enforcement audit below 15% target; (2) human-signal-harvest surfaces 1-2 L/P candidates; (3) INDEX.md theme dark matter reduced
+- **actual**: (1) Enforcement rate 21.5% (Sharpe>=8) — ABOVE 15% target, surprise. L-1094 elif→if fix: waypoint code used exclusive branching, suppressing N>=550 historian-routing at N=1010. Now cumulative. (2) Signal harvest: 3 human signals since S444 (SIG-55 S430, S447, SIG-60 S450), all with artifact refs. 2 new patterns added (cross-context knowledge return, mathematical rigor audit). (3) Dark matter already at 11.2% from concurrent S456 sessions — DUE resolved.
+- **diff**: Enforcement ABOVE target (expected below). L-1094 fix is novel: elif caused silent suppression. Signal harvest confirmed but no new L/P candidates needed — all signals already had artifacts.
+- **meta-swarm**: Target `tools/orient_sections.py` — `section_zombie_carryover()` counts completed items as zombies because it doesn't cross-reference "actual:" fields from later sessions. 67% carryover is inflated by items like FM-34 (completed S455 but still in prior Next: lists).
+- **State**: 1012L 225P 20B 15F | L-1112 | enforcement 21.5% | 2 DUE periodics closed | L-1094 wired
+- **Next**: (1) zombie_carryover() false-positive fix in orient_sections.py; (2) claim-vs-evidence-audit (DUE, periodic cadence 20, last S430 — 26 sessions overdue); (3) theme bucket splitting (7 buckets >50); (4) B-EVAL3 retest (40s stale)
+
+## S456 session note (periodics + F-LEVEL1 RESOLVED + theme refresh)
+- **check_mode**: objective | **mode**: mixed (maintenance + DOMEX-NK-S456)
+- **expect**: (1) 2 DUE periodics resolved; (2) F-LEVEL1 confirmed ≥15% L3+ across 3 windows; (3) INDEX.md dark matter <20; (4) untracked principles_dedup.py committed
+- **actual**: (1) human-signal-harvest: L-994 authority paradox prospective test violated at first opportunity (SIG-60 S450 implemented same-session without pre-evaluation). enforcement-audit: 21.9% structural (Sh≥8), recovered from S444 dilution trough. (2) F-LEVEL1 RESOLVED: 58.8% (W1), 52.9% (W2), 16.0% (W3), conservative 21.8% all above 15% target. First global frontier resolution via resolution-intent session (M4 mechanism). (3) Dark matter 111→16 (1.6%). 996/1012 lessons themed. (4) principles_dedup.py staged for commit.
+- **diff**: All MET. F-LEVEL1 resolution is the headline — fourth NK governance mechanism (resolution-intent) identified as critical: 0.00/session with general dispatch vs 1.0/session with resolution intent. Selection bias caveat: 93.6% of tagged lessons are L3+, but tagging rate declining 61→18%.
+- **meta-swarm**: Target `tools/maintenance_health.py` — no auto-classify for dark matter. Every ~50 lessons requires manual classification pass. A `--classify-dark-matter` mode reading lesson titles and suggesting theme assignments would make this self-resolving.
+- **State**: 1012L 225P 20B 15F | F-LEVEL1 RESOLVED | 2 periodics green | dark matter 1.6% | DOMEX-NK-S456 MERGED
+- **Next**: (1) theme bucket splitting (7 buckets >50); (2) claim-vs-evidence-audit; (3) FM-30/FM-03 hardening; (4) B-EVAL3 retest; (5) stale lanes cleanup (35 stale); (6) tagging rate decline as health metric
+
 ## S456 session note (emergence audit — honest mechanism labeling)
 - **check_mode**: verification | **mode**: falsification (DOMEX-EMG-S456)
 - **expect**: 1/9 emergence claims confirmed, ISO-7 swarm entry corrected, challenges filed

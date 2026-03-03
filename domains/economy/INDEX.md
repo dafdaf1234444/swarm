@@ -4,7 +4,7 @@ Updated: 2026-03-01 | Sessions: 389
 ## What this domain knows
 - **Core loop**: production (L+P) / consumption (Proxy-K) / yield (L+P per token) / quality (Sharpe) / depreciation (compaction)
 - **Helper economy**: delegation cost model (spawn overhead ≈ 15% session), recovery value (3× stall cost), ROI positive when blocked_lanes ≥ 2
-- **Active frontiers**: 2 in `domains/economy/tasks/FRONTIER.md` (F-ECO3, F-ECO5)
+- **Active frontiers**: 1 in `domains/economy/tasks/FRONTIER.md` (F-ECO3). F-ECO4/5/6 RESOLVED.
 - **Live tool**: `tools/economy_expert.py` — run anytime for economic health snapshot
 - **Domain experiment tool**: `tools/f_eco_frontiers.py` — F-ECO1/2/3 analysis (exploration/exploitation ratio, helper delegation cost, task throughput)
 - **Key beliefs**: B-ECO1 (knowledge capital), B-ECO2 (proxy-K inflation model), B-ECO3 (helper ROI threshold)
@@ -31,11 +31,11 @@ Updated: 2026-03-01 | Sessions: 389
 
 ## What's open
 - **F-ECO3**: whether task throughput rate reliably predicts swarm health better than L+P rate alone
-- **F-ECO5**: Can UCB1 improve allocation? RESOLVED S454 — Gini 0.827→0.419. See FRONTIER.md for full history.
 
 ## Resolved (summary)
-- **F-ECO6** (S442): UCB1 natural equilibrium achieves <0.45 Gini without revival protocol.
-- **F-ECO4** (S350): CONFIRMED 45x — dispatch throughput 2%→90%.
+- **F-ECO5** (S454): UCB1 explicit pricing improved allocation Gini 0.827→0.419. 79-session sustained. L-697.
+- **F-ECO6** (S442): UCB1 natural equilibrium achieves <0.45 Gini without revival protocol. L-1049.
+- **F-ECO4** (S350): CONFIRMED 45x — dispatch throughput 2%→90%. L-407, L-506.
 
 ## Resolved
 - **F-ECO1** (S188): BALANCED — ratio 0.434 (< 0.5 target); swarm is exploitation-dominant but healthy. Alert threshold: open/resolved > 0.7 → pause new frontiers.
