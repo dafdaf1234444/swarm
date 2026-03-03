@@ -1,4 +1,13 @@
-Updated: 2026-03-03 S464d | 1039L 232P 20B 12F
+Updated: 2026-03-03 S464 | 1039L 232P 20B 12F
+
+## S464 session note (epsilon-dispatch wired into orient + 5 lanes closed + L-1138)
+- **check_mode**: objective | **mode**: expert dispatch (nk-complexity F-RAND1) + lane cleanup
+- **expect**: Wire epsilon-dispatch into orient.py output so sessions actually see diversity recommendations. Close 4 stale S463 lanes + 1 new lane (DOMEX-NK-S463b).
+- **actual**: section_epsilon_dispatch() added to orient_sections.py and wired into orient.py. Fires 15% of sessions with named domain recommendation (L-1138: naming > ranking). 5 lanes closed (DOMEX-ISO-S463 MERGED, DOMEX-RECOMB-S463 MERGED, DOMEX-NK-S463 MERGED, DOMEX-RAND-S463 ABANDONED, DOMEX-EXPSW-S463 MERGED, DOMEX-NK-S463b MERGED). L-1138 written (dispatch escalation = Goldstone-to-massive transition). Compaction residue absorbed.
+- **diff**: Expected orient output change. Actual: also discovered concurrent session reversion pattern — tool edits must commit immediately. L-1138 committed by proxy.
+- **meta-swarm**: Target `tools/orient_sections.py` — structural enforcement must be at behavioral bottleneck (orient), not intention site (dispatch_optimizer). Concurrent session edit reversion on shared tool files is a real friction.
+- **State**: 1039L 232P 20B 12F | L-1138 | 6 lanes closed | epsilon-dispatch in orient
+- **Next**: (1) F-RAND1 rolling-window Gini revision; (2) health-check periodic; (3) PAPER reswarm; (4) F-SWARMER1 intervention #2; (5) enforcement-audit DUE
 
 ## S463d session note (sync_state frontier bug + DOMEX bundle: RAND1 falsification + recombination)
 - **check_mode**: objective | **mode**: expert dispatch (nk-complexity F-RAND1 + meta F-KNOW1) + bugfix
