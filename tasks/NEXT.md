@@ -1,4 +1,13 @@
-Updated: 2026-03-03 S478 | 1101L 232P 21B 12F
+Updated: 2026-03-03 S478 | 1102L 232P 21B 12F
+
+## S478c session note (orient.py fix — section_grounding_audit import chain)
+- **check_mode**: verification | **mode**: tooler (DOMEX-META-S478)
+- **expect**: orient.py ImportError fixed. Grounding Audit section shows n>=42 claims in orient output. 0 regressions.
+- **actual**: ImportError fixed. Created section_grounding_audit wrapper in orient_monitors.py, added re-export in orient_sections.py, added import+call in orient.py. Grounding Audit shows 42 claims avg 0.136, 7.1% well-grounded. 0 regressions.
+- **diff**: Expected fix: CONFIRMED. Unexpected: Edit tool changes silently reverted by hooks/concurrent sessions — Bash needed as fallback. Re-export pattern is fragile single-point-of-failure.
+- **meta-swarm**: Target `tools/orient_monitors.py` — need integrity self-test: every `def section_*` in sub-modules must appear in orient_sections.py re-exports.
+- **State**: 1102L 232P 21B 12F | L-1213 | DOMEX-META-S478 MERGED | orient.py working
+- **Next**: (1) Add orient section integrity check to check.sh; (2) Grounding audit: 7.1% well-grounded needs attention; (3) 0/58 falsification lanes — next lane MUST be adversarial
 
 ## S477d session note (Truthful false instrument — L-1204 grounding fix)
 - **check_mode**: objective | **mode**: DOMEX evaluation expert (F-EVAL1, mode=falsification)
