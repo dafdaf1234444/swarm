@@ -1,19 +1,6 @@
 #!/usr/bin/env python3
-"""
-reward_theory.py — Map, measure, and audit the swarm's implicit reward channels.
-
-L-1127 identified 6 reward channels with 5/6 Goodharted. This tool makes the
-reward structure visible so it can be improved.
-
-Usage:
-    python3 tools/reward_theory.py              # full audit
-    python3 tools/reward_theory.py --summary    # one-line alignment score
-    python3 tools/reward_theory.py --channel N  # deep-dive channel N (1-6)
-    python3 tools/reward_theory.py --session SN # per-session reward profile (M3)
-    python3 tools/reward_theory.py --json       # JSON output (combinable)
-
-Part of F-SWARMER1 colony: swarmer-swarm anti-attractor intervention #1.
-Per-session tracking enables M3 (L-1131): sessions declare + measure reward targeting.
+"""reward_theory.py — Map and audit swarm's implicit reward channels (L-1127, F-SWARMER1).
+Usage: python3 tools/reward_theory.py [--summary|--channel N|--session SN|--json]
 """
 
 import json as json_mod
@@ -45,11 +32,7 @@ def _count_principles():
 
 
 def _measure_channel_1_compaction():
-    """Channel 1: Context window selection pressure — favors compactness.
-
-    Calibrated S463: if compaction rate ≥95% AND avg Sharpe ≥7.0, the channel
-    is ALIGNED — compactness is not sacrificing quality. #L-1127 #F-SWARMER1
-    """
+    """Channel 1: Context window selection pressure — favors compactness."""
     lesson_dir = ROOT / "memory" / "lessons"
     if not lesson_dir.exists():
         return {"aligned": False, "metric": "unknown", "detail": "no lessons"}
@@ -89,11 +72,7 @@ def _measure_channel_1_compaction():
 
 
 def _measure_channel_2_citations():
-    """Channel 2: Citation in-degree — rewards being mentioned, not mechanism quality.
-
-    S477: uses citation_mechanism.py invoke_ratio for mechanism-aware measurement.
-    Ch2 Goodhart CONFIRMED at 3.6% aggregate invoke rate (n=20). #L-1201 #F-SWARMER1
-    """
+    """Channel 2: Citation in-degree — rewards mentions over mechanism quality."""
     # Try mechanism-aware measurement via citation_mechanism.py
     try:
         import importlib.util
@@ -183,12 +162,7 @@ def _measure_channel_3_dispatch():
 
 
 def _measure_channel_4_sharpe():
-    """Channel 4: Sharpe ratio — rewards recency, not depth.
-
-    Calibrated S463: if recency delta (recent-50 avg minus overall avg) is <0.5,
-    recency is not meaningfully inflating scores and the channel is ALIGNED.
-    #L-1127 #F-SWARMER1
-    """
+    """Channel 4: Sharpe ratio — rewards recency over depth."""
     lesson_dir = ROOT / "memory" / "lessons"
     if not lesson_dir.exists():
         return {"aligned": False, "metric": "unknown"}
@@ -254,11 +228,7 @@ def _measure_channel_5_falsification():
 
 
 def _measure_channel_6_survival():
-    """Channel 6: Compactification survival — used tools persist, unused die.
-
-    Calibrated S465 (L-1155): measures dead code ratio (tools with 0 importers).
-    Aligned if dead code ratio < 10% (target < 5%, intermediate gate < 10%).
-    """
+    """Channel 6: Compactification survival — used tools persist, unused die."""
     tools_dir = ROOT / "tools"
     if not tools_dir.exists():
         return {"aligned": False, "metric": "unknown"}

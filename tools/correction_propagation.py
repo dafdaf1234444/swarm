@@ -1,22 +1,8 @@
 #!/usr/bin/env python3
-"""
-correction_propagation.py — Detect and queue correction gaps in the lesson graph.
+"""correction_propagation.py — Detect correction gaps in the lesson citation graph.
 
-When a lesson is falsified or superseded, citers may still treat the original
-framing as valid. This tool walks the citation graph to find those gaps.
-
-v2 (S383): Direction-aware falsification detection. Prior version had 75% FP rate
-because corrector lessons (containing "FALSIFIED" while describing another lesson's
-falsification) were flagged as falsified themselves. Fix: scan bidirectionally —
-a lesson is falsified only when OTHER lessons point at it with falsification language.
-Citation-type classification: content-dependent vs structural vs citation-only (L-739).
-
-Usage:
-  python3 tools/correction_propagation.py                  # report mode
-  python3 tools/correction_propagation.py --json           # machine-readable
-  python3 tools/correction_propagation.py --save           # save artifact
-  python3 tools/correction_propagation.py --no-classify     # skip citation-type breakdown
-
+v2 (S383): Direction-aware falsification detection (L-739).
+Usage: python3 tools/correction_propagation.py [--json|--save|--no-classify]
 Related: F-IC1, L-734, L-739, L-025, L-613
 """
 
@@ -88,18 +74,10 @@ def _build_citation_graph(lessons: dict[str, dict]) -> dict[str, set[str]]:
 def _detect_falsified_lessons(
     lessons: dict[str, dict],
 ) -> dict[str, set[str]]:
-    """Detect genuinely falsified lessons using bidirectional evidence.
-
+    """Detect genuinely falsified lessons using bidirectional evidence (L-739).
     Returns: {falsified_lesson_id: {corrector_ids}}
-
-    Key insight (L-739 S383): A lesson is falsified when OTHER lessons say so,
-    not when it mentions 'FALSIFIED' (which usually means it's the corrector).
-    Two patterns:
-      1. Forward: lesson Y says "L-025 ... FALSIFIED" → L-025 is falsified, Y corrects
-      2. Reverse: lesson X says "falsified by L-613" → X is falsified, L-613 corrects
     """
-    # Collect directed edges: (falsified_target, corrector)
-    edges: list[tuple[str, str]] = []
+    edges: list[tuple[str, str]] = []  # (falsified_target, corrector)
 
     for lid, data in lessons.items():
         text = data["text"]
@@ -109,27 +87,21 @@ def _detect_falsified_lessons(
             if ref == lid:
                 continue
 
-            # Get surrounding context (100 chars around the reference)
             start = max(0, ref_match.start() - 100)
             end = min(len(text), ref_match.end() + 100)
             context = text[start:end]
 
-            # Pattern 1: "L-NNN ... FALSIFIED/falsified" — ref is falsified, lid corrects
             if re.search(
                 rf"{re.escape(ref)}\b.{{0,60}}{_FALSIF_KW}", context
             ):
                 edges.append((ref, lid))
 
-            # Pattern 2: "FALSIFIED ... L-NNN" — ref is falsified, lid corrects
-            # (lid describes the falsification of ref)
             if re.search(
                 rf"{_FALSIF_KW}.{{0,60}}\b{re.escape(ref)}\b", context
             ):
                 edges.append((ref, lid))
 
-            # Pattern 3: "falsified by L-NNN" — lid is falsified, ref corrects
-            # L-968 fix: skip if ref is on a Cites: line (parenthetical notes
-            # describe cited lesson status, not the containing lesson)
+            # L-968: skip Cites: line matches
             _p3 = re.search(
                 rf"(?:falsified|corrected|superseded|replaced)\s+by\s+{re.escape(ref)}",
                 context,
@@ -141,10 +113,7 @@ def _detect_falsified_lessons(
                 if not re.match(r"\*{0,2}Cites\*{0,2}:", _rl.lstrip()):
                     edges.append((lid, ref))
 
-            # Pattern 4: "L-NNN supersedes/replaces" — lid is superseded, ref corrects
-            # Actually: if lid says "ref supersedes this" → lid falsified, ref corrects
-            # L-1200 fix: skip if ref is on a metadata line (Note:, Cites:, Confidence:)
-            # to prevent false positives from descriptions of OTHER lessons' supersession
+            # L-1200: skip metadata line matches
             _p4 = re.search(
                 rf"{re.escape(ref)}\s+{_SUPERSEDE_KW}", context, re.IGNORECASE
             )
@@ -168,19 +137,12 @@ def _detect_falsified_lessons(
         if fid in lessons:
             result.setdefault(fid, set()).update(correctors)
 
-    # Remove self-falsification artifacts (lesson can't falsify itself)
     for lid in list(result):
         result[lid].discard(lid)
         if not result[lid]:
             del result[lid]
 
-    # Remove false positives: lessons that contain FALSIFIED because they're
-    # REPORTING a falsification (correctors), not because they ARE falsified.
-    # A lesson is genuinely falsified only if it self-declares via:
-    #   - SUPERSEDED / retracted markers at the top
-    #   - "falsified by L-NNN" pattern
-    # A lesson that describes "X FALSIFIED" or "hypothesis FALSIFIED" is a
-    # corrector — remove it from the falsified list.
+    # Remove correctors misclassified as falsified (S405: 60% FP without this — L-879)
     all_correctors = set()
     for correctors in result.values():
         all_correctors.update(correctors)
@@ -188,7 +150,6 @@ def _detect_falsified_lessons(
     for cid in list(result.keys()):
         own_text = lessons.get(cid, {}).get("text", "")
 
-        # Self-declares as superseded/retracted/archived → genuinely falsified
         if re.search(
             r"^<!--\s*(?:SUPERSEDED|ARCHIVED)"
             r"|^\s*SUPERSEDED"
@@ -199,9 +160,7 @@ def _detect_falsified_lessons(
         ):
             continue  # keep in list
 
-        # Explicitly says "falsified/superseded by L-NNN" → genuinely falsified
-        # L-1200 fix: exclude matches where another L-NNN precedes the keyword
-        # on the same line (describes ANOTHER lesson's supersession, not self)
+        # L-1200: exclude lines where another L-NNN precedes the keyword
         _self_superseded = False
         for _m in re.finditer(
             r"(?:falsified|superseded|replaced)\s+by\s+L-\d+",
@@ -221,9 +180,6 @@ def _detect_falsified_lessons(
         if cid in _KNOWN_FALSIFICATIONS:
             continue
 
-        # If the lesson itself reports falsification of something else
-        # (e.g., "predictions FALSIFIED", "hypothesis FALSIFIED", "X FALSIFIED"),
-        # it's a corrector — not falsified.
         if re.search(
             r"(?:predictions?|hypothesis|model|claim)\s+FALSIFIED",
             own_text,
@@ -231,17 +187,11 @@ def _detect_falsified_lessons(
             del result[cid]
             continue
 
-        # If it's known as a corrector elsewhere and doesn't self-declare, remove it
         if cid in all_correctors:
             del result[cid]
             continue
 
-        # Default: no self-declaration found. The lesson was flagged by
-        # context-matching (L-NNN near FALSIFIED/SUPERSEDED in another lesson's
-        # text about something else). Require positive self-declaration to
-        # confirm falsification. Without it, remove as false positive.
-        # (S405 audit, re-confirmed S486: 60% FP rate without this guard — L-879)
-        del result[cid]
+        del result[cid]  # no self-declaration → false positive
 
     return result
 

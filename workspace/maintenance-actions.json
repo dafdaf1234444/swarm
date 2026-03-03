@@ -1,5 +1,10 @@
 {
-  "session": 497,
-  "count": 0,
-  "items": []
+  "session": 498,
+  "count": 1,
+  "items": [
+    {
+      "priority": "DUE",
+      "message": "[fmea-audit] FMEA periodic coverage audit: run `python3 tools/check_fmea_audit.py --verbose` \u2014 cross-check periodics.json against FMEA defense layers. Detects undercounted periodic-backed layers (FM-30 case: cascade-monitor periodic S436 missed by S441 manual auditor). Report upgrade candidates. L-601: manual auditors miss pre-existing periodic registrations. (Built S445, L-1063 meta-target). (every ~15 sessions, last: S467)"
+    }
+  ]
 }

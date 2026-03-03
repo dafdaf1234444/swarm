@@ -13,13 +13,13 @@
     },
     {
       "id": "tool-consolidation",
-      "description": "Tool consolidation: audit tools/ for duplicates, dead code, lost-embedding (P-134). S402: 14 F-tools archived (109\u219295 active). S440: 0 new orphans; bloat is primary debt (14/106 tools >5000t, 13%). S471: 6 archived (dormancy criterion \u226544s), bloat 16/108=14.8%. L-1028. L-644 archival rule: archive after DOMEX lane merges. Also track: oversized fraction <10% target.",
+      "description": "Tool consolidation: audit tools/ for duplicates, dead code, lost-embedding (P-134). S402: 14 F-tools archived (109\u219295 active). S440: 0 new orphans; bloat is primary debt (14/106 tools >5000t, 13%). S471: 6 archived (dormancy criterion \u226544s), bloat 16/108=14.8%. S498: 0 new archival candidates, slimmed 3 tools (correction_propagation, validate_beliefs, reward_theory) below 5000t. Oversized 14/108=13.0% (target <10%). L-1028. L-644 archival rule.",
       "cadence_sessions": 25,
       "last_reviewed_session": 498,
       "registered_by": "S69",
       "last_session": "S498",
       "last_date": "2026-03-03",
-      "note": "S498: 3 more archived (f_far1_gap_regression, f_phy5_rg_fixedpoint, wiki_swarm+test). 112\u2192108 active. Oversized 18/108=16.7% (target <10%). Top bloat: test_mission_constraints 11286t, dispatch_optimizer 7672t. Bloat reduction requires decomposition of load-bearing tools. Wired fmea_reconcile.py as periodic."
+      "note": "S498 (two concurrent sessions): Archived 4 (f_far1_gap_regression, f_phy5_rg_fixedpoint, wiki_swarm+test; 112\u2192108). Slimmed 3 below 5000t via docstring compression (correction_propagation 5029\u21924221t, validate_beliefs 5103\u21924993t, reward_theory 5203\u21924884t). Wired fmea_reconcile.py as periodic. 108 active (99 prod + 9 test). Oversized 14/108=13.0%. Next: decompose dispatch_optimizer (7672t) or test_mission_constraints (11286t)."
     },
     {
       "id": "principles-dedup",

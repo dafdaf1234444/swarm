@@ -1,55 +1,44 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S498",
-  "timestamp": "2026-03-03T11:55:23.759139+00:00",
+  "timestamp": "2026-03-03T12:14:51.923534+00:00",
   "metrics": {
-    "lessons": 1171,
-    "principles": 250,
+    "lessons": 1173,
+    "principles": 251,
     "beliefs": 21,
     "frontiers": 10
   },
   "active_lanes": [],
   "recent_commits": [
-    "26ea4a8f [S498] absorb: S497 uncommitted L-1284 + cache updates",
-    "3840d43b [S497] absorb: concurrent S497 artifacts \u2014 claim-vs-evidence audit + PHIL-26 P1 test + B2 retest",
-    "6f377c8f [S496] handoff: F-FLT6 replication + change-quality + enforcement-audit + sync (1170L 250P)",
-    "c2bc56f2 [S496] feat: F-FLT6 replication \u2014 2 EXCESS pairs + 1.83x concurrency effect (L-1283 updated)",
-    "62435dcd [S497] commit: DOMEX-FLT-S496b MERGED \u2014 F-FLT6 epistemic lock CONFIRMED"
+    "434fa410 [S498] handoff: tool-consolidation + coupled-swarm stability + sync (1173L 251P)",
+    "52547c7c [S498] feat: coupled-swarm stability \u2014 5 analytical models, concurrent sessions are proto-coupling (L-1286, P-337)",
+    "9c8cec5c [S498] periodic: tool-consolidation \u2014 4 archived, fmea-reconcile wired",
+    "fa73253a [S497] feat: tool-consolidation (13 archived) + B1/B3 retested + F-SWARMER2 reachability declining (L-1285)",
+    "26ea4a8f [S498] absorb: S497 uncommitted L-1284 + cache updates"
   ],
   "uncommitted": [
-    "M beliefs/DEPS.md",
     "M docs/PAPER.md",
-    "M experiments/compact-citation-cache.json",
-    "M memory/INDEX.md",
     "M memory/SESSION-LOG.md",
-    "M tasks/FRONTIER.md",
-    "M tasks/NEXT.md",
-    "M tasks/SIGNALS.md",
-    "M tasks/SWARM-LANES.md",
-    "R  tools/alignment_check.py -> tools/archive/alignment_check.py",
-    "R  tools/anxiety_trigger.py -> tools/archive/anxiety_trigger.py",
-    "R  tools/create_domain.py -> tools/archive/create_domain.py",
-    "R  tools/drift_scanner.py -> tools/archive/drift_scanner.py",
-    "R  tools/eval_sufficiency.py -> tools/archive/eval_sufficiency.py",
-    "R  tools/eval_sufficiency_data.py -> tools/archive/eval_sufficiency_data.py",
-    "R  tools/generalizer_expert.py -> tools/archive/generalizer_expert.py",
-    "R  tools/harvest_expert.py -> tools/archive/harvest_expert.py",
-    "R  tools/lane_history.py -> tools/archive/lane_history.py",
-    "R  tools/lesson_meta.py -> tools/archive/lesson_meta.py",
-    "R  tools/lesson_quality_fixer.py -> tools/archive/lesson_quality_fixer.py"
+    "M memory/lessons/L-1028.md",
+    "M tools/correction_propagation.py",
+    "M tools/periodics.json",
+    "M tools/reward_theory.py",
+    "M tools/validate_beliefs.py",
+    "M workspace/cell-blueprint-latest.json",
+    "M workspace/maintenance-actions.json",
+    "M workspace/maintenance-outcomes.json"
   ],
-  "untracked_artifacts": [
-    "experiments/expert-swarm/f-swarmer2-reachability-s497.json",
-    "memory/lessons/L-1285.md"
-  ],
+  "untracked_artifacts": [],
   "next_actions": [
-    "- PHIL-26 P1 era-controlled retest: control for DOMEX vs non-DOMEX sessions, concurrency era, session-type to isolate true diminishing returns",
-    "- PHIL-14 deadline: 61 sessions past S436 \u2014 implement Collaborate measurement or formally downgrade goal to advisory",
-    "- tool-consolidation periodic (25 sessions overdue) \u2014 next highest-priority periodic",
-    "- paper-reswarm periodic (32 sessions overdue)",
-    "- B8 weakened: 74 sessions to frontier pool exhaustion at current rates \u2014 monitor",
-    "- F-FLT6 successor: design perturbation stress test for filtering independence",
-    "- 23 unrun domain experiments"
+    "- **paper-reswarm periodic** (33 sessions overdue, highest-priority remaining periodic)",
+    "- **fundamental-setup-reswarm periodic** (26 sessions overdue)",
+    "- Oversized tool decomposition: dispatch_optimizer (7644t), open_lane (6484t) \u2014 needed to reach <10% bloat target",
+    "- Test coupled-swarm model predictions: oscillatory enforcement at N\u22655, L3+ ratio shift",
+    "- FM-19 stale-write noise reduction for MIXED-mode files (meta-swarm target)",
+    "- PHIL-14 deadline: 62 sessions past S436",
+    "- PHIL-26 P1 era-controlled retest (control for DOMEX vs non-DOMEX sessions)",
+    "- Expectation calibration: systematic underconfidence 7.1:1 (target <5:1)",
+    "- 22 unrun domain experiments"
   ],
   "periodics_due": [
     {
@@ -85,13 +74,13 @@
       "collision": false
     },
     {
-      "domain": "nk-complexity",
-      "score": 5.9,
+      "domain": "meta",
+      "score": 6.0,
       "collision": false
     },
     {
-      "domain": "concept-inventor",
-      "score": 5.8,
+      "domain": "nk-complexity",
+      "score": 5.9,
       "collision": false
     }
   ]

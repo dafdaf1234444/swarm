@@ -5,7 +5,7 @@ import re
 import sys
 from pathlib import Path
 
-# Consolidated validation functions (merged from validate_beliefs_extras.py S359)
+# Consolidated S359: beliefs + PHIL claims + swarmability + entropy
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
@@ -160,7 +160,7 @@ def cascade_check(beliefs: list[dict], changed_id: str) -> list[str]:
 
 
 def parse_phil_claims() -> list[dict]:
-    """Parse PHILOSOPHY.md claims table (PHIL-N entries). Added S348 (CORE P14)."""
+    """Parse PHILOSOPHY.md claims table (PHIL-N entries)."""
     phil_path = REPO_ROOT / "beliefs" / "PHILOSOPHY.md"
     text = _read_text(phil_path)
     if not text:
@@ -168,13 +168,11 @@ def parse_phil_claims() -> list[dict]:
     claims = []
     in_claims = False
     for line in text.splitlines():
-        # Detect the claims table header: | ID | Claim ...
         if "| ID |" in line and "Claim" in line:
             in_claims = True
             continue
         if in_claims and re.match(r"^\s*\|[-| ]+\|\s*$", line):
-            continue  # skip separator row
-        # Stop at blank line, section marker, or horizontal rule after table
+            continue
         if in_claims and (
             not line.strip() or line.startswith("##") or line.strip() == "---"
         ):
@@ -187,9 +185,7 @@ def parse_phil_claims() -> list[dict]:
         pid = cells[1]
         if not re.match(r"PHIL-\d+$", pid):
             continue
-        # S356 added Grounding column: | ID | Claim | Type | Grounding | Status |
-        # Handle both 4-column (pre-S356) and 5-column (post-S356) formats (L-599)
-        if len(cells) >= 7:  # 5 data columns + 2 empty borders
+        if len(cells) >= 7:  # 5-column format (post-S356 with Grounding)
             claims.append({
                 "id": pid,
                 "claim": cells[2],
@@ -209,7 +205,7 @@ def parse_phil_claims() -> list[dict]:
 
 
 def check_phil_format(claims: list[dict]) -> list[str]:
-    """Validate PHIL claims have required fields and grounding labels (L-599)."""
+    """Validate PHIL claims format and grounding labels (L-599)."""
     VALID_GROUNDING = {"grounded", "partial", "axiom", "aspirational", "unverified", "metaphor"}
     out = []
     for c in claims:
@@ -231,7 +227,6 @@ def check_phil_format(claims: list[dict]) -> list[str]:
 
 
 def check_stale_challenges(current_session: int, threshold: int = 50) -> list[str]:
-    """Flag OPEN/PERSISTENT challenges older than threshold sessions."""
     phil_path = REPO_ROOT / "beliefs" / "PHILOSOPHY.md"
     text = _read_text(phil_path)
     if not text:
