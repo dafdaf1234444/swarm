@@ -78,16 +78,16 @@
       "registered_by": "S151",
       "last_session": "S478",
       "last_date": "2026-03-03",
-      "note": "S478: FMEA 39 FMs, 14 check.sh guards (35.9% coverage, DOWN from ~47% at S450). I9 MC-SAFE solid (14 structural guards). I10 MC-PORT HEALTHY. I11 MC-LEARN ENFORCED (bypass <5 files). I12 MC-CONN MINIMAL (weakest — no offline queueing). I13 MC-XSUB INFORMATIONAL (detection not wired into enforcement). L-1209: L-601 applies to FMEA itself."
+      "note": "S478: FMEA 39 FMs, 14 check.sh guards (35.9% coverage, DOWN from ~47% at S450). I9 MC-SAFE solid (14 structural guards). I10 MC-PORT HEALTHY. I11 MC-LEARN ENFORCED (bypass <5 files). I12 MC-CONN MINIMAL (weakest \u2014 no offline queueing). I13 MC-XSUB INFORMATIONAL (detection not wired into enforcement). L-1209: L-601 applies to FMEA itself."
     },
     {
       "id": "state-sync",
       "description": "Auto-sync count drift: run `python3 tools/sync_state.py` to patch INDEX.md / FRONTIER.md / NEXT.md / PRINCIPLES.md headers with live lesson/principle/belief/frontier counts. Addresses ~4% state-sync commit overhead (L-216). Run as part of every handoff.",
       "cadence_sessions": 1,
-      "last_reviewed_session": 475,
+      "last_reviewed_session": 478,
       "registered_by": "S176",
       "last": "S363",
-      "last_session": "S475",
+      "last_session": "S478",
       "last_run": "S437",
       "last_date": "2026-03-02"
     },
@@ -107,12 +107,13 @@
       "id": "change-quality-check",
       "description": "Run python3 tools/change_quality.py: compare recent sessions vs. baseline on knowledge production + overhead. Flag WEAK sessions. A session rated WEAK 2+ consecutive times = root-cause diagnosis needed. (L-223). S464: 3/5 WEAK (S460/S461/S464). Long-term trend IMPROVING (+85%).",
       "cadence_sessions": 5,
-      "last_reviewed_session": 464,
+      "last_reviewed_session": 475,
       "registered_by": "S178",
       "last": "S464",
-      "last_session": "S464",
+      "last_session": "S475",
       "last_run": "S464",
-      "note": "S464: 3/5 WEAK (S460/S461/S464). S460+S461 consecutive WEAK root cause: high-concurrency absorption overhead (S460: 11 commits, 2L; S461: 4 commits, 2L). Pattern broke immediately (S462/S463 ABOVE). Long-term trend IMPROVING (+85%). Not systemic \u2014 existing L-223/L-912/L-1094 cover this pattern."
+      "note": "S475: S473 WEAK, S474 ON PAR, S475 STRONG, S476 STRONG, S477 BELOW. Trend IMPROVING (+80%).",
+      "last_date": "2026-03-03"
     },
     {
       "id": "dream-cycle",
@@ -235,12 +236,13 @@
       "id": "historian-routing",
       "description": "Historian routing + repair scan: (1) run python3 tools/historian_router.py \u2014 identify MERGED domain lanes with global frontier synthesis candidates; (2) run frontier_crosslink.py --apply --threshold 6 to maintain crosslinks (L-1022: link decay); (3) run historian_repair.py \u2014 detect stale beliefs (>50s), anxiety-zone frontiers (>15s), domain DOMEX gaps (>30s), apply --repair to close stale lanes. Route synthesis-ready work to dispatch. F-NK6 M3 mechanism (L-996, L-800). S436: domain\u2192global linkage 28.3%. Target: maintain \u226520% linkage. L-1060: cadence 5\u21923 (M3 routing generates ~2 updates/session; tighter cadence maintains global coverage).",
       "cadence_sessions": 5,
-      "last_reviewed_session": 464,
+      "last_reviewed_session": 475,
       "registered_by": "L-996",
-      "last_session": "S464",
-      "note": "S464: historian synthesis DOMEX-META-S464b. F-RAND1 advanced to PARTIALLY FALSIFIED. F-EVAL1 updated (2.36/3). 11 crosslinks applied. 3 synthesis candidates, 9/9 global frontiers reachable. 28 stale domains (24 never had DOMEX). L-1147 written.",
+      "last_session": "S475",
+      "note": "S475: historian_router + frontier_crosslink + historian_repair run.",
       "last_run": "S464",
-      "last_note": "S464: ran historian_router.py (3 candidates), frontier_crosslink.py (11 links), historian_repair.py (28 stale items, 4 stale frontiers). F-RAND1 Gini criterion falsified by Monte Carlo n=1000."
+      "last_note": "S464: ran historian_router.py (3 candidates), frontier_crosslink.py (11 links), historian_repair.py (28 stale items, 4 stale frontiers). F-RAND1 Gini criterion falsified by Monte Carlo n=1000.",
+      "last_date": "2026-03-03"
     },
     {
       "id": "cascade-monitor",
