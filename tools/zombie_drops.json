@@ -42,6 +42,12 @@
       "reason": "RESOLVED: FM-03 hardened S457 (MINIMAL→ADEQUATE, 2 automated layers: check.sh pre-commit + orient.py session-start ghost detection). FM-30 already ADEQUATE per S444 FMEA refresh.",
       "session": "S457",
       "date": "2026-03-03"
+    },
+    {
+      "canonical": "paper-reswarm periodic",
+      "reason": "RESOLVED: S465d ran paper v0.27.0 (PHIL-14 advisory downgrade, PHIL-11 deference refinement, F-COMP1 structural diagnosis, S463-S465 narrative). Cadence 20, next DUE ~S485. 12x zombie was false positive from NEXT.md compaction losing resolution signal.",
+      "session": "S467",
+      "date": "2026-03-03"
     }
   ]
 }

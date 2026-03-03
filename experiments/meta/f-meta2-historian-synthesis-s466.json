@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-META-S466b",
+    "frontier": "F-META2",
+    "session": "S466",
+    "domain": "global",
+    "date": "2026-03-03",
+    "expect": "Scan L-1130..L-1151 for principle-worthy findings. Extract >=2 principles from recent high-Sharpe lessons. K\u2192P ratio moves from 4.52:1 toward 5.0:1. Secondary: investigate orient.py paper-reswarm zombie misreport.",
+    "actual": "TBD",
+    "diff": "TBD"
+}

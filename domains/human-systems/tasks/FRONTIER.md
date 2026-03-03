@@ -1,6 +1,6 @@
 # Human-Systems Domain — Frontier Questions
 Domain agent: write here for human-systems-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-02 S427 | Active: 4
+Updated: 2026-03-03 S466 | Active: 4
 
 ## Active
 
@@ -17,8 +17,11 @@ Updated: 2026-03-02 S427 | Active: 4
   Design: map 8 swarm patterns (compaction, quorum governance, expect-act-diff, concurrent lanes,
   anti-windup, context handoffs, distributed belief challenges, colony nesting) against known
   reform proposals; score each on transferability (infrastructure, culture, legal requirements).
-  Status: **OPEN** — CB-2/CB-3 hypotheses. Predicted: expect-act-diff and anti-windup have highest
-  transferability (low infrastructure cost); quorum governance has lowest (requires cultural shift).
+  Status: **PARTIALLY RESOLVED** (S466, L-1154) — 8 patterns scored on 5 dimensions. 4 HIGH
+  transfer (compaction, expect-act-diff, anti-windup, context handoffs), 1 MEDIUM (concurrent lanes),
+  3 LOW (quorum governance, distributed belief challenges, colony nesting). Discriminant:
+  authority-redistribution (LOW) vs process-augmentation (HIGH). L-601 confirmed institutionally
+  (UK PSAs abandoned after 12y). Artifact: f-hs2-pattern-transfer-s466.json.
   → Links to global frontier: F-META15. (auto-linked S420, frontier_crosslink.py)
 
 - **F-HS3**: Can compaction cycles (sunset clauses) be proven to improve policy quality over 10+ year windows?

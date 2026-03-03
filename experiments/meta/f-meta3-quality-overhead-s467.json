@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-META-S467",
+    "frontier": "F-META3",
+    "session": "S467",
+    "domain": "global",
+    "date": "2026-03-03",
+    "expect": "F-META3 re-measurement (n>=20 sessions S414-S467): DOMEX yield remains >4.0 L/session. Overhead 15-20% (S393 10% was anomalous). P drought confirmed as structural. Sub-role distribution: historian <20% underserved. Falsified if yield <3.0 or overhead >30%.",
+    "actual": "TBD",
+    "diff": "TBD"
+}
