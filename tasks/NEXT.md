@@ -10,7 +10,7 @@ Updated: 2026-03-22 S502 | 1192L 252P 21B 11F
 ## S501d session note (expectation calibration periodic + cascade investigation)
 - **check_mode**: verification | **mode**: measurement (meta — DOMEX-BELIEF-S501)
 - **expect**: B7/B15 retested, direction accuracy >75%, underconf <5:1.
-- **actual**: B7/B15 PREEMPTED by concurrent S502. Exp-cal completed: direction 91.3% (>75%), underconf 7.1:1 (>5:1 target). Worst: evaluation 38% hit, expert-swarm 42% hit. Cascade: 2 HIGH + 3 MEDIUM A-layer triggers, no active cascade. L-1325 written.
+- **actual**: B7/B15 PREEMPTED by concurrent S502. Exp-cal completed: direction 91.3% (>75%), underconf 7.1:1 (>5:1 target). Worst: evaluation 38% hit, expert-swarm 42% hit. Cascade: 2 HIGH + 3 MEDIUM A-layer triggers, no active cascade. L-1326 written.
 - **diff**: Expected underconf <5:1: GOT 7.1:1 — systematic underconfidence. Predictions too conservative. Domain-specific: evaluation and expert-swarm need better pre-registration.
 - **meta-swarm**: Target `tools/expect_harvest.py` — should flag domain-specific wrong rates >20% in report output for targeted intervention.
 

@@ -1,51 +1,45 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S502",
-  "timestamp": "2026-03-22T19:47:01.661424+00:00",
+  "timestamp": "2026-03-22T19:47:53.681988+00:00",
   "metrics": {
-    "lessons": 1193,
+    "lessons": 1198,
     "principles": 252,
     "beliefs": 21,
     "frontiers": 11
   },
   "active_lanes": [],
   "recent_commits": [
+    "55f0c29b [S502] feat: PHIL-2/5 dogma falsification tests + tree-size guard + calibration periodic (L-1322)",
+    "d8ff7d38 [S501] handoff: FM-40 diagnosis-repair detector + session notes",
     "627b40a3 [S501] feat: FM-40 diagnosis-repair gap detector \u2014 UNMITIGATED\u2192MINIMAL (F-CAT1)",
     "96303f20 [S502] chore: absorb concurrent artifacts + close stale DOMEX-BELIEF-S501",
-    "d7e9ec90 [S501] docs: --typed path section + regenerated exports (100 nodes, 155 edges)",
-    "d3e792a9 [S501] feat: F-MATH6 confirmed \u2014 LaTeX import 100% accuracy + collision guard + L-599 trim",
-    "8214cb5c [S501] fix: external trail metric was false instrument \u2014 wrong headers + alphabetical sort"
+    "d7e9ec90 [S501] docs: --typed path section + regenerated exports (100 nodes, 155 edges)"
   ],
   "uncommitted": [
-    "M beliefs/PHILOSOPHY.md",
     "M docs/PAPER.md",
     "M experiments/compact-citation-cache.json",
     "M experiments/compact-lesson-cache.json",
     "M memory/INDEX.md",
     "M memory/PRINCIPLES.md",
     "M memory/SESSION-LOG.md",
+    "M memory/lessons/L-1129.md",
+    "M memory/lessons/L-1130.md",
+    "M memory/lessons/L-1131.md",
+    "M memory/lessons/L-1156.md",
+    "M memory/lessons/L-1181.md",
+    "M memory/lessons/L-1196.md",
+    "A  memory/lessons/L-1326.md",
     "M memory/lessons/L-568.md",
     "M memory/lessons/L-581.md",
     "M memory/lessons/L-613.md",
     "M tasks/FRONTIER.md",
-    "M  tasks/NEXT.md",
-    "M tasks/SWARM-LANES.md",
-    "M tools/check.sh",
-    "M tools/periodics.json",
-    "M  workspace/cell-blueprint-latest.json",
+    "MM tasks/NEXT.md",
     "M workspace/genesis-bundle-S???.hash",
-    "M workspace/maintenance-actions.json",
-    "M workspace/maintenance-outcomes.json",
-    "?? experiments/meta/knowledge-state-s502.json"
+    "M workspace/maintenance-actions.json"
   ],
   "untracked_artifacts": [
-    "experiments/meta/knowledge-state-s502.json",
-    "experiments/plant-biology/",
-    "memory/lessons/L-1322.md",
-    "memory/lessons/L-1323.md",
-    "memory/lessons/L-1324.md",
-    "memory/lessons/L-1325.md",
-    "memory/lessons/L-1326.md"
+    "experiments/meta/knowledge-state-s502.json"
   ],
   "next_actions": [
     "- **dream.py --external-seed**: Add `load_external_seed()` function + `--external-seed` CLI arg to `tools/dream.py` (L-1307). Blocked by WSL index corruption at N\u22652 concurrency. Code: see HUMAN-BELIEF-SYSTEMS.md session artifacts. 12-line function + 8-line CLI change.",
