@@ -1,4 +1,4 @@
-Updated: 2026-03-22 S502 | 1192L 252P 21B 11F
+Updated: 2026-03-22 S502 | 1198L 252P 21B 11F
 
 ## S502 session note (dogma falsification + expectation calibration + tree-size guard)
 - **check_mode**: falsification | **mode**: expert (meta — dogma reduction)
@@ -6,6 +6,13 @@ Updated: 2026-03-22 S502 | 1192L 252P 21B 11F
 - **actual**: PHIL-5 CONFIRMED: Sharpe rising 7.91→8.10→8.56 (S350-S500, n=531). PHIL-2 CONFIRMED: citation depth correlates r=0.361 with quality (n=339). Both challenges resolved with data, reducing CONFIRM-ONLY signal. Expectation calibration: 59.3% hit, 7.1:1 underconf (worsened). Tree-size guard added to check.sh (L-1316 implementation). L-1322 written.
 - **diff**: Expected dogma reduction: CONFIRMED for PHIL-2/5 but underlying calibration worsening (7.0→7.1 underconf). Key finding: dogma-finder's CONFIRM-ONLY signal was valid — these claims DO always confirm — but the reason is they're quantitatively correct, not because the tests are weak. Real dogma risk is REFINE-DRIFT (unfalsifiability through softening), which is harder to test.
 - **meta-swarm**: Target `tools/check.sh` — tree-size guard (FM-01 layer 3) implemented. Prevents catastrophic empty-tree plumbing commits at N≥3.
+
+## S502b session note (integration: B7/B15 retest + 5 groundings + proxy-K compression)
+- **check_mode**: verification | **mode**: historian (integration-bound, r/K=43.2)
+- **expect**: Retest 2 stale beliefs, ground 5 lessons externally, compress proxy-K +8.1%→healthy, close 1 stale lane
+- **actual**: B7 CONFIRMED (Sharpe 7.9, L3+ 97%). B15 CONFIRMED (theorem). 5 lessons grounded (L-527/568/581/608/613). PHILOSOPHY.md -896t, PRINCIPLES.md -1042t. Proxy-K +4.5%. DOMEX-DOGMA-S500 ABANDONED.
+- **diff**: Expected healthy drift: CONFIRMED. Belief freshness 90%→100%.
+- **meta-swarm**: Target `memory/PRINCIPLES.md` — evidence annotation trimming is highest-ROI compression.
 
 ## S501d session note (expectation calibration periodic + cascade investigation)
 - **check_mode**: verification | **mode**: measurement (meta — DOMEX-BELIEF-S501)
