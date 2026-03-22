@@ -13,6 +13,18 @@
       "notes": ""
     },
     {
+      "id": "A-002",
+      "type": "axiom",
+      "title": "Axiom of choice",
+      "statement": "For every collection of non-empty sets, there exists a choice function selecting one element from each",
+      "domain": "set-theory",
+      "prerequisites": [],
+      "status": "stated",
+      "proof_sketch": "",
+      "tags": [],
+      "notes": ""
+    },
+    {
       "id": "C-001",
       "type": "corollary",
       "title": "Integration by substitution",
@@ -63,6 +75,27 @@
         },
         {
           "ref": "D-014",
+          "edge_type": "uses_in_proof"
+        }
+      ],
+      "status": "stated",
+      "proof_sketch": "",
+      "tags": [],
+      "notes": ""
+    },
+    {
+      "id": "C-004",
+      "type": "corollary",
+      "title": "Weak law via Chebyshev",
+      "statement": "Chebyshev directly proves weak LLN: P(|mean-mu|>=epsilon) <= sigma^2/(n*epsilon^2) → 0",
+      "domain": "probability",
+      "prerequisites": [
+        {
+          "ref": "T-034",
+          "edge_type": "uses_in_proof"
+        },
+        {
+          "ref": "T-032",
           "edge_type": "uses_in_proof"
         }
       ],
@@ -692,6 +725,221 @@
         {
           "ref": "D-036",
           "edge_type": "uses_in_statement"
+        }
+      ],
+      "status": "stated",
+      "proof_sketch": "",
+      "tags": [],
+      "notes": ""
+    },
+    {
+      "id": "D-038",
+      "type": "definition",
+      "title": "Probability space",
+      "statement": "A triple (Omega,F,P) where Omega is sample space, F is sigma-algebra, P is probability measure with P(Omega)=1",
+      "domain": "probability",
+      "prerequisites": [
+        {
+          "ref": "D-033",
+          "edge_type": "uses_in_statement"
+        },
+        {
+          "ref": "D-034",
+          "edge_type": "uses_in_statement"
+        }
+      ],
+      "status": "stated",
+      "proof_sketch": "",
+      "tags": [],
+      "notes": ""
+    },
+    {
+      "id": "D-039",
+      "type": "definition",
+      "title": "Random variable",
+      "statement": "A measurable function X:Omega→R from probability space to reals",
+      "domain": "probability",
+      "prerequisites": [
+        {
+          "ref": "D-038",
+          "edge_type": "uses_in_statement"
+        },
+        {
+          "ref": "D-035",
+          "edge_type": "uses_in_statement"
+        }
+      ],
+      "status": "stated",
+      "proof_sketch": "",
+      "tags": [],
+      "notes": ""
+    },
+    {
+      "id": "D-040",
+      "type": "definition",
+      "title": "Expected value",
+      "statement": "E[X] = integral of X dP, the Lebesgue integral of X with respect to probability measure",
+      "domain": "probability",
+      "prerequisites": [
+        {
+          "ref": "D-039",
+          "edge_type": "uses_in_statement"
+        },
+        {
+          "ref": "D-036",
+          "edge_type": "uses_in_proof"
+        }
+      ],
+      "status": "stated",
+      "proof_sketch": "",
+      "tags": [],
+      "notes": ""
+    },
+    {
+      "id": "D-041",
+      "type": "definition",
+      "title": "Variance and standard deviation",
+      "statement": "Var(X) = E[(X-E[X])^2] = E[X^2] - (E[X])^2; SD(X) = sqrt(Var(X))",
+      "domain": "probability",
+      "prerequisites": [
+        {
+          "ref": "D-040",
+          "edge_type": "uses_in_statement"
+        }
+      ],
+      "status": "stated",
+      "proof_sketch": "",
+      "tags": [],
+      "notes": ""
+    },
+    {
+      "id": "D-042",
+      "type": "definition",
+      "title": "Conditional probability",
+      "statement": "P(A|B) = P(A intersect B)/P(B) for P(B)>0",
+      "domain": "probability",
+      "prerequisites": [
+        {
+          "ref": "D-038",
+          "edge_type": "uses_in_statement"
+        }
+      ],
+      "status": "stated",
+      "proof_sketch": "",
+      "tags": [],
+      "notes": ""
+    },
+    {
+      "id": "D-043",
+      "type": "definition",
+      "title": "Independence",
+      "statement": "Events A,B independent iff P(A intersect B)=P(A)P(B); random variables X,Y independent iff joint = product of marginals",
+      "domain": "probability",
+      "prerequisites": [
+        {
+          "ref": "D-042",
+          "edge_type": "uses_in_statement"
+        }
+      ],
+      "status": "stated",
+      "proof_sketch": "",
+      "tags": [],
+      "notes": ""
+    },
+    {
+      "id": "D-044",
+      "type": "definition",
+      "title": "Cardinality",
+      "statement": "Two sets have the same cardinality iff there exists a bijection between them",
+      "domain": "set-theory",
+      "prerequisites": [],
+      "status": "stated",
+      "proof_sketch": "",
+      "tags": [],
+      "notes": ""
+    },
+    {
+      "id": "D-045",
+      "type": "definition",
+      "title": "Countability",
+      "statement": "A set is countable iff it has a bijection with a subset of the natural numbers",
+      "domain": "set-theory",
+      "prerequisites": [
+        {
+          "ref": "D-044",
+          "edge_type": "uses_in_statement"
+        }
+      ],
+      "status": "stated",
+      "proof_sketch": "",
+      "tags": [],
+      "notes": ""
+    },
+    {
+      "id": "D-046",
+      "type": "definition",
+      "title": "Ordinary differential equation",
+      "statement": "An equation F(x,y,y',y'',...,y^(n))=0 relating a function to its derivatives",
+      "domain": "differential-equations",
+      "prerequisites": [
+        {
+          "ref": "D-003",
+          "edge_type": "uses_in_statement"
+        }
+      ],
+      "status": "stated",
+      "proof_sketch": "",
+      "tags": [],
+      "notes": ""
+    },
+    {
+      "id": "D-047",
+      "type": "definition",
+      "title": "Initial value problem",
+      "statement": "An ODE together with conditions y(x_0)=y_0, y'(x_0)=y_1, etc.",
+      "domain": "differential-equations",
+      "prerequisites": [
+        {
+          "ref": "D-046",
+          "edge_type": "uses_in_statement"
+        }
+      ],
+      "status": "stated",
+      "proof_sketch": "",
+      "tags": [],
+      "notes": ""
+    },
+    {
+      "id": "D-048",
+      "type": "definition",
+      "title": "Linear ODE",
+      "statement": "An ODE of the form y^(n) + a_{n-1}(x)y^{(n-1)} + ... + a_0(x)y = f(x)",
+      "domain": "differential-equations",
+      "prerequisites": [
+        {
+          "ref": "D-046",
+          "edge_type": "uses_in_statement"
+        },
+        {
+          "ref": "D-014",
+          "edge_type": "uses_in_proof"
+        }
+      ],
+      "status": "stated",
+      "proof_sketch": "",
+      "tags": [],
+      "notes": ""
+    },
+    {
+      "id": "D-049",
+      "type": "definition",
+      "title": "Partial differential equation",
+      "statement": "An equation involving partial derivatives of a function of several variables",
+      "domain": "differential-equations",
+      "prerequisites": [
+        {
+          "ref": "D-046",
+          "edge_type": "uses_in_proof"
         }
       ],
       "status": "stated",
@@ -1348,35 +1596,353 @@
       "proof_sketch": "",
       "tags": [],
       "notes": ""
+    },
+    {
+      "id": "T-031",
+      "type": "theorem",
+      "title": "Bayes' theorem",
+      "statement": "P(A|B) = P(B|A)P(A)/P(B)",
+      "domain": "probability",
+      "prerequisites": [
+        {
+          "ref": "D-042",
+          "edge_type": "uses_in_proof"
+        }
+      ],
+      "status": "stated",
+      "proof_sketch": "",
+      "tags": [],
+      "notes": ""
+    },
+    {
+      "id": "T-032",
+      "type": "theorem",
+      "title": "Law of large numbers",
+      "statement": "Sample mean converges to E[X] as n→infinity (weak: in probability; strong: almost surely)",
+      "domain": "probability",
+      "prerequisites": [
+        {
+          "ref": "D-040",
+          "edge_type": "uses_in_proof"
+        },
+        {
+          "ref": "D-043",
+          "edge_type": "uses_in_proof"
+        }
+      ],
+      "status": "stated",
+      "proof_sketch": "",
+      "tags": [],
+      "notes": ""
+    },
+    {
+      "id": "T-033",
+      "type": "theorem",
+      "title": "Central limit theorem",
+      "statement": "Normalized sum of iid random variables converges in distribution to N(0,1)",
+      "domain": "probability",
+      "prerequisites": [
+        {
+          "ref": "D-041",
+          "edge_type": "uses_in_proof"
+        },
+        {
+          "ref": "D-043",
+          "edge_type": "uses_in_proof"
+        },
+        {
+          "ref": "T-032",
+          "edge_type": "uses_in_proof"
+        }
+      ],
+      "status": "stated",
+      "proof_sketch": "",
+      "tags": [],
+      "notes": ""
+    },
+    {
+      "id": "T-034",
+      "type": "theorem",
+      "title": "Chebyshev's inequality",
+      "statement": "P(|X-E[X]| >= k*SD) <= 1/k^2",
+      "domain": "probability",
+      "prerequisites": [
+        {
+          "ref": "D-041",
+          "edge_type": "uses_in_proof"
+        },
+        {
+          "ref": "D-040",
+          "edge_type": "uses_in_proof"
+        }
+      ],
+      "status": "stated",
+      "proof_sketch": "",
+      "tags": [],
+      "notes": ""
+    },
+    {
+      "id": "T-035",
+      "type": "theorem",
+      "title": "Borel-Cantelli lemma",
+      "statement": "If sum P(A_n) < infinity, then P(A_n i.o.) = 0; if A_n independent and sum P(A_n) = infinity, then P(A_n i.o.) = 1",
+      "domain": "probability",
+      "prerequisites": [
+        {
+          "ref": "D-038",
+          "edge_type": "uses_in_proof"
+        },
+        {
+          "ref": "D-043",
+          "edge_type": "uses_in_proof"
+        }
+      ],
+      "status": "stated",
+      "proof_sketch": "",
+      "tags": [],
+      "notes": ""
+    },
+    {
+      "id": "T-036",
+      "type": "theorem",
+      "title": "Cantor's theorem",
+      "statement": "For any set S, |P(S)| > |S| — the power set is strictly larger",
+      "domain": "set-theory",
+      "prerequisites": [
+        {
+          "ref": "D-044",
+          "edge_type": "uses_in_proof"
+        }
+      ],
+      "status": "stated",
+      "proof_sketch": "",
+      "tags": [],
+      "notes": ""
+    },
+    {
+      "id": "T-037",
+      "type": "theorem",
+      "title": "Zorn's lemma",
+      "statement": "If every chain in a partially ordered set has an upper bound, then the set has a maximal element (equivalent to AC)",
+      "domain": "set-theory",
+      "prerequisites": [
+        {
+          "ref": "A-002",
+          "edge_type": "uses_in_proof"
+        }
+      ],
+      "status": "stated",
+      "proof_sketch": "",
+      "tags": [],
+      "notes": ""
+    },
+    {
+      "id": "T-038",
+      "type": "theorem",
+      "title": "Picard-Lindelof theorem",
+      "statement": "If f(x,y) is Lipschitz in y, the IVP y'=f(x,y), y(x_0)=y_0 has a unique local solution",
+      "domain": "differential-equations",
+      "prerequisites": [
+        {
+          "ref": "D-047",
+          "edge_type": "uses_in_proof"
+        },
+        {
+          "ref": "D-002",
+          "edge_type": "uses_in_proof"
+        }
+      ],
+      "status": "stated",
+      "proof_sketch": "",
+      "tags": [],
+      "notes": ""
+    },
+    {
+      "id": "T-039",
+      "type": "theorem",
+      "title": "Gronwall's inequality",
+      "statement": "If u'(t) <= beta(t)u(t), then u(t) <= u(0)exp(integral_0^t beta(s)ds) — stability tool for ODEs",
+      "domain": "differential-equations",
+      "prerequisites": [
+        {
+          "ref": "D-004",
+          "edge_type": "uses_in_proof"
+        },
+        {
+          "ref": "D-046",
+          "edge_type": "uses_in_proof"
+        }
+      ],
+      "status": "stated",
+      "proof_sketch": "",
+      "tags": [],
+      "notes": ""
+    },
+    {
+      "id": "T-040",
+      "type": "theorem",
+      "title": "Existence of matrix exponential",
+      "statement": "The linear system x'=Ax has solution x(t)=e^{At}x_0 where e^{At}=sum A^k t^k/k\\!",
+      "domain": "differential-equations",
+      "prerequisites": [
+        {
+          "ref": "D-048",
+          "edge_type": "uses_in_proof"
+        },
+        {
+          "ref": "D-017",
+          "edge_type": "uses_in_proof"
+        }
+      ],
+      "status": "stated",
+      "proof_sketch": "",
+      "tags": [],
+      "notes": ""
+    },
+    {
+      "id": "T-041",
+      "type": "theorem",
+      "title": "Sturm-Liouville theory",
+      "statement": "Self-adjoint boundary value problems have real eigenvalues and orthogonal eigenfunctions",
+      "domain": "differential-equations",
+      "prerequisites": [
+        {
+          "ref": "D-048",
+          "edge_type": "uses_in_proof"
+        },
+        {
+          "ref": "D-022",
+          "edge_type": "uses_in_proof"
+        }
+      ],
+      "status": "stated",
+      "proof_sketch": "",
+      "tags": [],
+      "notes": ""
+    },
+    {
+      "id": "T-042",
+      "type": "theorem",
+      "title": "Kolmogorov extension theorem",
+      "statement": "Consistent finite-dimensional distributions extend to a unique probability measure on infinite product space (uses Tychonoff + AC)",
+      "domain": "probability",
+      "prerequisites": [
+        {
+          "ref": "D-038",
+          "edge_type": "uses_in_proof"
+        },
+        {
+          "ref": "T-014",
+          "edge_type": "uses_in_proof"
+        },
+        {
+          "ref": "A-002",
+          "edge_type": "uses_in_proof"
+        }
+      ],
+      "status": "stated",
+      "proof_sketch": "",
+      "tags": [],
+      "notes": ""
+    },
+    {
+      "id": "T-043",
+      "type": "theorem",
+      "title": "Stone-Weierstrass theorem",
+      "statement": "Every continuous function on compact Hausdorff space is uniformly approximated by elements of a separating subalgebra",
+      "domain": "analysis",
+      "prerequisites": [
+        {
+          "ref": "D-024",
+          "edge_type": "uses_in_proof"
+        },
+        {
+          "ref": "D-002",
+          "edge_type": "uses_in_proof"
+        },
+        {
+          "ref": "D-008",
+          "edge_type": "uses_in_proof"
+        }
+      ],
+      "status": "stated",
+      "proof_sketch": "",
+      "tags": [],
+      "notes": ""
+    },
+    {
+      "id": "T-044",
+      "type": "theorem",
+      "title": "Baire category theorem",
+      "statement": "In a complete metric space, countable intersection of dense open sets is dense",
+      "domain": "topology",
+      "prerequisites": [
+        {
+          "ref": "D-027",
+          "edge_type": "uses_in_proof"
+        },
+        {
+          "ref": "D-024",
+          "edge_type": "uses_in_proof"
+        }
+      ],
+      "status": "stated",
+      "proof_sketch": "",
+      "tags": [],
+      "notes": ""
+    },
+    {
+      "id": "T-045",
+      "type": "theorem",
+      "title": "Banach fixed-point theorem",
+      "statement": "A contraction mapping on a complete metric space has a unique fixed point",
+      "domain": "analysis",
+      "prerequisites": [
+        {
+          "ref": "D-027",
+          "edge_type": "uses_in_proof"
+        },
+        {
+          "ref": "D-002",
+          "edge_type": "uses_in_proof"
+        }
+      ],
+      "status": "stated",
+      "proof_sketch": "",
+      "tags": [],
+      "notes": ""
     }
   ],
   "stats": {
-    "total_nodes": 71,
+    "total_nodes": 100,
     "by_type": {
-      "axiom": 1,
-      "corollary": 3,
-      "definition": 37,
-      "theorem": 30
+      "axiom": 2,
+      "corollary": 4,
+      "definition": 49,
+      "theorem": 45
     },
     "by_status": {
-      "stated": 71
+      "stated": 100
     },
     "by_domain": {
-      "analysis": 12,
+      "analysis": 14,
+      "set-theory": 5,
       "algebra": 16,
       "linear-algebra": 11,
-      "topology": 11,
+      "probability": 13,
+      "topology": 12,
       "number-theory": 11,
-      "measure-theory": 10
+      "measure-theory": 10,
+      "differential-equations": 8
     },
-    "total_edges": 108,
+    "total_edges": 155,
     "by_edge_type": {
-      "uses_in_proof": 74,
-      "uses_in_statement": 34
+      "uses_in_proof": 109,
+      "uses_in_statement": 46
     },
-    "avg_prereqs": 1.5211267605633803,
+    "avg_prereqs": 1.55,
     "max_depth": 9,
-    "root_count": 6,
-    "leaf_count": 25
+    "root_count": 8,
+    "leaf_count": 40
   }
 }
