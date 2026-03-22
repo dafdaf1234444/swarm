@@ -89,9 +89,16 @@ def resolve(args):
         print(f"WARNING: {args.id} already resolved as {pred['result']}")
 
     pred["outcome_date"] = datetime.now().strftime("%Y-%m-%d")
-    pred["outcome_price"] = args.outcome_price
+    pred["outcome_price"] = float(args.outcome_price)
     pred["result"] = args.result
     pred["status"] = "RESOLVED"
+
+    # Compute % change from baseline
+    baseline = pred.get("baseline_price")
+    if baseline and baseline > 0:
+        pct_change = ((pred["outcome_price"] - baseline) / baseline) * 100
+        pred["pct_change"] = round(pct_change, 2)
+        print(f"  Baseline: ${baseline} → Outcome: ${pred['outcome_price']} ({pct_change:+.2f}%)")
 
     # Compute Brier score component
     if args.result == "CORRECT":
@@ -193,13 +200,20 @@ def list_preds(args):
     for p in preds:
         status = p["status"]
         result_str = f" → {p['result']}" if p["result"] else ""
-        print(f"  {p['id']} [{status}{result_str}] {p['direction']} {p['asset']} "
-              f"({p['timeframe']}, conf={p['confidence']}) target={p['target']} "
+        baseline = p.get("baseline_price")
+        base_str = f" base=${baseline}" if baseline else ""
+        print(f"  {p['id']} [{status}{result_str}] {p['direction']} {p['asset']}"
+              f"{base_str} ({p['timeframe']}, conf={p['confidence']}) target={p['target']} "
               f"by {p.get('resolve_by', '?')}")
         if p.get("thesis"):
             # Show first 100 chars of thesis
             thesis = p["thesis"][:100] + ("..." if len(p["thesis"]) > 100 else "")
             print(f"         {thesis}")
+        if p.get("confidence_history"):
+            orig = p["confidence_history"][0]["value"]
+            curr = p["confidence"]
+            if orig != curr:
+                print(f"         [confidence adjusted: {orig:.0%} → {curr:.0%} after backtest]")
 
 
 def main():

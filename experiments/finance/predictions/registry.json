@@ -23,7 +23,9 @@
       "outcome_date": null,
       "outcome_price": null,
       "result": null,
-      "score": null
+      "score": null,
+      "baseline_price": 648.57,
+      "baseline_date": "2026-03-20"
     },
     {
       "id": "PRED-0002",
@@ -33,7 +35,19 @@
       "direction": "BULL",
       "target": "+5% to +15% from current",
       "timeframe": "3m",
-      "confidence": 0.65,
+      "confidence": 0.55,
+      "confidence_history": [
+        {
+          "value": 0.65,
+          "date": "2026-03-22",
+          "reason": "initial"
+        },
+        {
+          "value": 0.55,
+          "date": "2026-03-22",
+          "reason": "backtest: 2008 XLE -66% during demand destruction; recession risk underweighted"
+        }
+      ],
       "thesis": "Energy sector (XLE) already +9.4% while broad market flat \u2014 but the structural driver (Hormuz closure, Iran war) is ESCALATING not resolving. ISO-13 integral windup: oil inventory drawdown accumulates without discharge mechanism. Game theory: neither Iran nor coalition has incentive to de-escalate given current payoffs. Evolution lens: energy companies are the 'fit' organisms in stagflation \u2014 pricing power + real assets. Control theory: energy is the only sector with positive feedback loop from current macro (higher oil \u2192 higher revenue \u2192 higher stock).",
       "domains_applied": [
         "physics",
@@ -47,7 +61,9 @@
       "outcome_date": null,
       "outcome_price": null,
       "result": null,
-      "score": null
+      "score": null,
+      "baseline_price": 59.36,
+      "baseline_date": "2026-03-20"
     },
     {
       "id": "PRED-0003",
@@ -57,7 +73,19 @@
       "direction": "BULL",
       "target": "+3% to +8% from current",
       "timeframe": "1m",
-      "confidence": 0.55,
+      "confidence": 0.4,
+      "confidence_history": [
+        {
+          "value": 0.55,
+          "date": "2026-03-22",
+          "reason": "initial"
+        },
+        {
+          "value": 0.4,
+          "date": "2026-03-22",
+          "reason": "backtest: 2022 TLT -31% during stagflation; current regime resembles 2022 not 2020; yields RISING despite equity weakness"
+        }
+      ],
       "thesis": "10Y just breached 4% floor (4.39%) \u2014 flight to safety is beginning. ISO-4 phase transition: when equity risk-off accelerates, bonds become the attractor. Historical: in 7 of 8 major equity drawdowns since 1970, long bonds rallied within 30 days of the equity low. Psychology: fear regime shift from greed to fear drives capital rotation to safety. Control theory: Fed is in a bind (stagflation = can't cut OR hike) \u2014 policy paralysis favors bonds short-term. Confidence only 0.55 because stagflation is the one scenario where bonds DON'T rally (1970s analog).",
       "domains_applied": [
         "physics",
@@ -71,7 +99,9 @@
       "outcome_date": null,
       "outcome_price": null,
       "result": null,
-      "score": null
+      "score": null,
+      "baseline_price": 85.83,
+      "baseline_date": "2026-03-20"
     },
     {
       "id": "PRED-0004",
@@ -96,7 +126,9 @@
       "outcome_date": null,
       "outcome_price": null,
       "result": null,
-      "score": null
+      "score": null,
+      "baseline_price": 426.41,
+      "baseline_date": "2026-03-20"
     },
     {
       "id": "PRED-0005",
@@ -121,7 +153,9 @@
       "outcome_date": null,
       "outcome_price": null,
       "result": null,
-      "score": null
+      "score": null,
+      "baseline_price": 582.06,
+      "baseline_date": "2026-03-20"
     }
   ],
   "next_id": 6,

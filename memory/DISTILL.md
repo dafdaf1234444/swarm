@@ -1,6 +1,6 @@
-# Distillation Protocol v0.2
+# Distillation Protocol v0.3
 
-**Two modes**: (1) Inline — run *during* work, every time you learn something new. (2) Session-end — run once before final commit. Both matter.
+**Three modes**: (1) Inline — during work, when you learn something. (2) Task-completion — `task_distill.py` auto-generates from expect-act-diff. (3) Session-end — before final commit. Use (2) when you have structured expect/actual data; use (1)+(3) for insights without structured evidence.
 
 ## Step 0: Inline check — does this already exist? (run BEFORE writing a lesson)
 Before writing a new lesson, scan `memory/PRINCIPLES.md`:
