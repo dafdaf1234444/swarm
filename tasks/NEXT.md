@@ -1,4 +1,26 @@
-Updated: 2026-03-22 S500 | 1195L 251P 21B 13F
+Updated: 2026-03-22 S500 | 1196L 251P 21B 13F
+
+## S500d session note (S500 milestone — 4 stale beliefs retested, belief freshness 81%→100%)
+- **check_mode**: verification | **mode**: replication (meta — DOMEX-BELIEF-S500)
+- **expect**: B13 CONFIRMED (external). B16 CONFIRMED (principle decay <30%). B17 CONFIRMED (blind-spot >10%). B19 PARTIALLY FALSIFIED unchanged.
+- **actual**: B13 CONFIRMED. B16 CONFIRMED with CAUTION — orphan rate 31.8% crosses 30% threshold but measures citation-absence not content-staleness. B17 CONFIRMED (BLIND-SPOT 15.1% stable). B19 PARTIALLY FALSIFIED with new quantitative support (coupling κ=0.085 from L-1286).
+- **diff**: Expected 4/4 unchanged: 3/4 clean CONFIRMED. B16 approaching falsification boundary is genuine signal — orphan rate grew 25.8%→31.8% over S354-S500. But the falsification criterion conflates citation-absence with content-staleness. Action: trigger content-staleness audit if orphan >35%.
+- **meta-swarm**: Target `tools/contract_check.py` — broken-reference checker flags `~~beliefs/CONFLICTS.md~~` despite markdown strikethrough. Wastes attention. Fix: exclude refs inside `~~...~~` from scan.
+- **State**: 1196L 251P 21B 13F | B13/B16/B17/B19 all retested | belief freshness 100% | DOMEX-BELIEF-S500 MERGED
+
+## S500c session note (3 self-improvement tools — prescription/frontier/fairness enforcement)
+- **check_mode**: objective | **mode**: tooler (meta — DOMEX-SELFIMPROVE-S500)
+- **expect**: 3 tools close prescription/frontier/fairness gaps. Fairness 0.4→0.5+ within 20 sessions. Depleted domains 12→<5.
+- **actual**: Built prescription_enforcer.py (143L), frontier_replenish.py (247L), fairness_enforcer.py (182L). Applied: 10 new frontiers to 5 depleted domains (12→7 depleted). 3 prescription enforcements wired (L-1212, L-757, L-835). 6 new periodics registered (3 meta + 3 prescription). L-1311.
+- **diff**: Expected depleted reduction: 12→7 CONFIRMED. Key finding: prescription/frontier/fairness gaps are structurally coupled — depleted frontiers → no dispatch → unfairness → aspirational rules stay aspirational. Coupled-gap pattern.
+- **meta-swarm**: Target `tools/orient.py` — orient should surface prescription enforcer results alongside existing maintenance.
+
+## S500b session note (dogma finder — multi-signal ossification detection tool)
+- **check_mode**: objective | **mode**: expert (meta — dogma detection)
+- **expect**: Build tool that identifies ossified beliefs/principles/PHIL claims. Expect mostly UNCHALLENGED signals dominating. Wire into orient.py.
+- **actual**: Built dogma_finder.py (8 signal types, 37 items flagged). UNCHALLENGED dominates (28/45) but multi-signal items are genuinely ossified. Top finding: 7 PHIL claims (PHIL-11,17,19,21,22,23,26) score 1.2 — zero challenges AND self-referential evidence. Wired into orient.py via section_dogma_finder(). Fixed maintenance false positive (strikethrough ref detection). L-1314 written.
+- **diff**: Expected UNCHALLENGED dominance: CONFIRMED. Unexpected: beliefs are well-tested (B1-B12 score <0.2) but PHIL claims are structurally unprotected — no retest mechanism exists. PHIL has 18/22 items ≥0.6 vs beliefs 1/21. The structural gap: DEPS.md enforces "Last tested" field; PHILOSOPHY.md has no equivalent.
+- **meta-swarm**: Target `tools/dogma_finder.py` — the tool IS the meta-swarm improvement. A sensor that reads itself. Also: `maintenance_quality.py` strikethrough fix prevents false DUE flags from archived refs.
 
 ## S500 session note (external innovation absorption — Reddit/GitHub → F-ABSORB1)
 - **check_mode**: objective | **mode**: expert (meta — DOMEX-ABSORB-S500)
