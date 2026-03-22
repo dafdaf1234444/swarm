@@ -63,6 +63,30 @@ TOOLING_INDICATORS = [
     ("kubernetes",  ["k8s", "helm"]),
 ]
 
+# Test/metric infrastructure — what does "success" mean for this repo?
+METRIC_INDICATORS = {
+    "python":     [("pytest",    ["pytest.ini", "conftest.py", "tests/", "test_*.py"]),
+                   ("unittest",  ["tests/test_*.py"]),
+                   ("tox",       ["tox.ini"]),
+                   ("mypy",      ["mypy.ini", ".mypy.ini"]),
+                   ("ruff",      ["ruff.toml", ".ruff.toml"]),
+                   ("benchmark", ["benchmarks/", "bench/"]),
+                   ("ml_metric", ["results.tsv", "results.csv", "run.log", "wandb/", "mlruns/"])],
+    "javascript": [("jest",      ["jest.config.js", "jest.config.ts", "jest.config.mjs"]),
+                   ("vitest",    ["vitest.config.ts", "vitest.config.js"]),
+                   ("mocha",     [".mocharc.yml", ".mocharc.json"]),
+                   ("eslint",    [".eslintrc*", "eslint.config.*"]),
+                   ("playwright",["playwright.config.ts"]),
+                   ("benchmark", ["benchmarks/", "bench/"])],
+    "rust":       [("cargo_test",["tests/"]),
+                   ("criterion", ["benches/"]),
+                   ("clippy",    [])],
+    "go":         [("go_test",   ["*_test.go"]),
+                   ("benchmark", ["*_bench_test.go"])],
+    "_default":   [("ci_tests",  [".github/workflows"]),
+                   ("makefile",  ["Makefile"])],
+}
+
 # Swarm/AI tool indicators — detect swarm context
 SWARM_INDICATORS = [
     ("swarm",      ["SWARM.md", "beliefs/PHILOSOPHY.md"]),
@@ -119,6 +143,7 @@ def detect(repo_path: str = ".") -> dict:
         "language": None,
         "frameworks": [],
         "tooling": [],
+        "metrics": [],          # test/metric infrastructure detected
         "entry_files": [],
         "summary": "unknown",
     }
@@ -148,6 +173,14 @@ def detect(repo_path: str = ".") -> dict:
     for name, indicators in TOOLING_INDICATORS:
         if any(_glob_match(root, ind) for ind in indicators):
             result["tooling"].append(name)
+
+    # Detect metric/test infrastructure
+    metric_lang = lang or "_default"
+    for check_lang in [metric_lang, "_default"] if metric_lang != "_default" else ["_default"]:
+        if check_lang in METRIC_INDICATORS:
+            for name, indicators in METRIC_INDICATORS[check_lang]:
+                if indicators and any(_glob_match(root, ind) for ind in indicators):
+                    result["metrics"].append(name)
 
     # Entry files to read for orientation
     entry_patterns = ENTRY_FILES.get(lang or "_default", ENTRY_FILES["_default"])
@@ -191,7 +224,21 @@ def orient_text(info: dict) -> str:
     if info["tooling"]:
         lines.append("Tooling present: " + ", ".join(info["tooling"]) + ".")
 
+    if info.get("metrics"):
+        lines.append("Metrics/tests detected: " + ", ".join(info["metrics"])
+                     + ". Use these as your success signal for iterative improvement.")
+
     lines.append("No swarm infrastructure — behavioral norms only. Contribute, don't corrupt.")
+
+    # Experiment loop guidance (L-1292: learned from karpathy/autoresearch)
+    lines.append(
+        "EXPERIMENT LOOP (L-1292): For iterative improvement, use the try→measure→keep/discard cycle:"
+        " (1) identify the repo's success metric (tests, benchmarks, lint score, build),"
+        " (2) work on a branch, commit each experiment,"
+        " (3) run the metric, (4) keep if improved or revert if not,"
+        " (5) log results (what/metric/status) in a tracking file, (6) repeat."
+        " Don't one-shot — iterate."
+    )
     lines.append(
         "DEBRIEF REQUIRED (F-HLP6, L-1076, P-306): before closing this session, open the home swarm repo"
         " and write one lesson in memory/lessons/ tagged 'foreign-session: true' summarizing"

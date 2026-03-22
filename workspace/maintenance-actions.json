@@ -1,10 +1,34 @@
 {
-  "session": 498,
-  "count": 1,
+  "session": 499,
+  "count": 7,
   "items": [
     {
       "priority": "DUE",
-      "message": "[fmea-audit] FMEA periodic coverage audit: run `python3 tools/check_fmea_audit.py --verbose` \u2014 cross-check periodics.json against FMEA defense layers. Detects undercounted periodic-backed layers (FM-30 case: cascade-monitor periodic S436 missed by S441 manual auditor). Report upgrade candidates. L-601: manual auditors miss pre-existing periodic registrations. (Built S445, L-1063 meta-target). (every ~15 sessions, last: S467)"
+      "message": "F119 learning-quality gap: tracked deltas without knowledge-state update (NEXT/SESSION-LOG/INDEX/FRONTIER/PRINCIPLES/lessons)"
+    },
+    {
+      "priority": "DUE",
+      "message": "Lesson over 20 lines: L-1301.md"
+    },
+    {
+      "priority": "DUE",
+      "message": "Lesson over 20 lines: L-1302.md"
+    },
+    {
+      "priority": "DUE",
+      "message": "Lesson over 20 lines: L-1303.md"
+    },
+    {
+      "priority": "DUE",
+      "message": "Lesson over 20 lines: L-1304.md"
+    },
+    {
+      "priority": "DUE",
+      "message": "Lesson over 20 lines: L-1305.md"
+    },
+    {
+      "priority": "DUE",
+      "message": "1 active dispatch lane(s) have no active coordinator lane: DOMEX-BELIEF-S499"
     }
   ]
 }

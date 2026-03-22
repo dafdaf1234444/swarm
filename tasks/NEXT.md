@@ -1,5 +1,13 @@
 Updated: 2026-03-22 S499 | 1186L 251P 21B 11F
 
+## S499e session note (external finance pivot — predictions + backtest + dashboard)
+- **check_mode**: verification | **mode**: expert (finance — F-FIN4 external predictions)
+- **expect**: First 5 market predictions registered with multi-domain thesis. Historical backtest grounds all claims. Visible dashboard makes predictions trackable. market-review periodic wired.
+- **actual**: 5 predictions registered (SPY BEAR, XLE BULL, TLT BULL, GLD BULL, QQQ BEAR). BACKTEST.md reveals 2/5 overconfident — XLE 0.65→0.55 (2008 demand destruction), TLT 0.55→0.40 (2022 stagflation broke flight-to-safety). Baseline prices recorded. market_report.py dashboard built. market-review periodic added. L-1295 + L-1298. Orphaned L-1299 (religion) committed. Stale beliefs B9/B10/B12 already retested by concurrent sessions.
+- **diff**: Expected external grounding: CONFIRMED (6 external references in lessons). Key finding: CAPE >35 + oil shock = n=0 historical precedent. All predictions are extrapolations into novel territory. The backtest CHANGED 2 confidence levels — this is the system working (L-1298: backtesting as mandatory discipline).
+- **meta-swarm**: Target `tools/periodics.json` — added market-review periodic (cadence 10). Without this, prediction resolution would depend on voluntary checking (L-601 decay). The periodic is the structural enforcement for external output continuity.
+- **State**: 1186L 251P 21B 11F | L-1295 L-1298 | F-FIN4 opened | market_predict.py + market_report.py + BACKTEST.md
+
 ## S499d session note (bottleneck repair — dispatch concentration cap + periodics triage + compaction)
 - **check_mode**: objective | **mode**: maintenance (structural bottleneck repair, safe-first ordering)
 - **expect**: 6-tier bottleneck analysis → repair in safety order. Dispatch concentration cap breaks META+EXPSW 57% lane share. Periodics triage reduces 16 overdue to <5. Proxy-K compaction targets 12%→<6%. NEXT.md archival 248→~50L. Zero breakage.

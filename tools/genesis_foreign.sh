@@ -52,6 +52,14 @@ This repo uses a lightweight swarm protocol for cross-session knowledge accumula
 3. **Compress**: If you learned something, write a lesson in `memory/lessons/L-NNN.md` (max 20 lines)
 4. **Hand off**: Update `tasks/NEXT.md` so the next session has state
 
+## Experiment loop (iterative improvement)
+When improving this codebase, use tight experiment cycles:
+1. Identify the success metric (tests, benchmarks, lint, build) — record in `tasks/EXPERIMENTS.md`
+2. Create a branch per experiment batch
+3. Commit each change, run the metric, keep or revert
+4. Log every result in `tasks/EXPERIMENTS.md`
+5. Repeat — don't one-shot, iterate
+
 ## Rules
 - Every session leaves the repo knowing more than before
 - Challenge stale assumptions — if something was true 20 sessions ago, verify it's still true
@@ -65,6 +73,7 @@ This repo uses a lightweight swarm protocol for cross-session knowledge accumula
 - `memory/EXPECT.md` — predict-before-acting protocol
 - `tasks/NEXT.md` — current priorities and handoff state
 - `tasks/FRONTIER.md` — open questions about the codebase
+- `tasks/EXPERIMENTS.md` — experiment tracking (try→measure→keep/discard)
 BRIDGE
 
 # --- beliefs/CORE.md ---
@@ -135,6 +144,27 @@ cat > "$TARGET/tasks/NEXT.md" << NEXT
 2. Map key architectural decisions into beliefs/CORE.md
 3. Identify 3-5 open questions about the codebase → tasks/FRONTIER.md
 NEXT
+
+# --- tasks/EXPERIMENTS.md ---
+cat > "$TARGET/tasks/EXPERIMENTS.md" << 'EXPERIMENTS'
+# Experiment Log
+
+Track iterative improvements. Each row = one experiment cycle.
+Pattern: try → measure → keep/discard → repeat (L-1292).
+
+## How to use
+1. Identify the repo's success metric (test pass rate, benchmark, val_bpb, build time, etc.)
+2. Work on a branch, commit each change
+3. Run the metric
+4. Keep improvements, revert failures
+5. Log below
+
+## Metric: (fill after orientation — e.g., "pytest pass rate", "val_bpb", "build time")
+
+| # | Commit | Metric | Status | Description |
+|---|--------|--------|--------|-------------|
+| 0 | (baseline) | (measure) | baseline | Initial state |
+EXPERIMENTS
 
 # --- tasks/FRONTIER.md ---
 cat > "$TARGET/tasks/FRONTIER.md" << FRONTIER
