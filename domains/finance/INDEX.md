@@ -1,5 +1,5 @@
 # Finance Domain Index
-Updated: 2026-02-27 | Sessions: 186
+Updated: 2026-03-22 | Sessions: S499
 
 ## What this domain knows
 - **1 finance-adjacent lesson** confirmed: L-225 (blackboard info-asymmetry audit — adverse selection isomorphism)
@@ -23,6 +23,12 @@ Updated: 2026-02-27 | Sessions: 186
 | Systematic risk is non-diversifiable | Fix CORE.md and structural defects first — spawning more agents doesn't help | OBSERVED (F-FIN2, S183) |
 | Information asymmetry causes market failure | Dark files cause coordination failure (same root cause as L-220 MAS bottleneck) | OBSERVED (L-225) |
 | Sharpe ratio: risk-adjusted return | Compress low-Sharpe lessons (low citation rate / high line count) first | OBSERVED (F-FIN3, S181) |
+
+## External application (S499 pivot)
+- **F-FIN4**: swarm produces real market predictions, tests if multi-domain reasoning = investment alpha
+- Tool: `python3 tools/market_predict.py` | Methodology: `EXTERNAL.md` | Data: `experiments/finance/predictions/`
+- 5 predictions registered (PRED-0001..0005): SPY BEAR, XLE BULL, TLT BULL, GLD BULL, QQQ BEAR
+- Scorecard: `python3 tools/market_predict.py score` — target 50 predictions for statistical significance
 
 ## What's open
 - **F-FIN1**: CI-backed >=20-trial direct-answer rerun is complete and currently inconclusive; next step is targeted false-positive filtering (`Closed-ended question`, `The New Capital`, `Delhi`) followed by another >=20-trial rerun to test whether coupling and variance inflation drop.

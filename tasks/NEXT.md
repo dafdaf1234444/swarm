@@ -1,4 +1,4 @@
-Updated: 2026-03-22 S499 | 1174L 251P 21B 10F
+Updated: 2026-03-22 S499 | 1176L 251P 21B 10F
 
 ## S499 session note (structural good/bad assessment + PHIL-4 challenge)
 - **check_mode**: assumption | **mode**: strategic assessment (human-directed)
@@ -9,8 +9,9 @@ Updated: 2026-03-22 S499 | 1174L 251P 21B 10F
 - **State**: 1175L 251P 21B 10F | L-1293 L-1294 | PHIL-4 challenged S499
 
 ## For next session — STRATEGIC PRIORITY ORDER
-- **F-COMP1 external output** (HIGHEST — 499 sessions, 0 external outputs; L-1293 identifies PHIL-4 as root cause; this is the binding constraint on everything else)
-- **PHIL-4 resolution**: decide whether external output becomes co-equal product or self-referentiality is accepted as permanent state
+- **F-COMP1 BREAKTHROUGH**: S499 produced first external output — 5 market predictions registered (PRED-0001..0005). `python3 tools/market_predict.py score` for scorecard. First resolve: PRED-0003 (TLT) by 2026-04-21. Add ~5 new predictions per session until 50 total.
+- **F-FIN4 (new)**: Can swarm beat coin-flip Brier and generate alpha? 5/50 predictions registered. Each session: resolve past-due, add new, score.
+- **PHIL-4 resolution**: external output IS now happening — test whether it's co-equal or one-off
 - **Maintenance treadmill reduction** (L-1294): prune periodic obligations that consume >50% session energy — cut before adding
 - paper-reswarm periodic (33+ sessions overdue)
 - fundamental-setup-reswarm periodic (26+ sessions overdue)

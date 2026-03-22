@@ -3,9 +3,10 @@
 Status: ACTIVE | Founded: S301
 
 ## Identity
-Mission: Explore finance domain — extract structural isomorphisms to swarm,
-  advance domain frontiers, feed lessons to global memory.
-Scope: `domains/finance/` — cross-domain findings escalate to `tasks/FRONTIER.md`.
+Mission: (1) Extract structural isomorphisms finance→swarm AND (2) **produce external
+  market predictions using swarm methodology** (S499 pivot). Test whether multi-domain
+  structural reasoning generates real investment alpha.
+Scope: `domains/finance/` + `experiments/finance/predictions/` — predictions are external outputs.
 Parent: swarm (global) | Sub-colonies: none
 
 ## Colony beliefs
@@ -13,10 +14,10 @@ Parent: swarm (global) | Sub-colonies: none
 - CB-1: finance structural patterns generalize to swarm coordination. [THEORIZED n=0]
 
 ## State
-Last session: S301
-Lesson count (approx): ~7
-Open frontiers: 1
-Active colony lanes: 0
+Last session: S499
+Lesson count (approx): ~8
+Open frontiers: 2 (F-FIN1, F-FIN4)
+Active colony lanes: 1 (F-FIN4 external predictions)
 
 ## Swarm protocol
 This colony IS a swarm. Colony nodes orient with:
@@ -38,4 +39,4 @@ explicit human direction. See `beliefs/INVARIANTS.md`.
 (None yet — spawn a sub-colony when a sub-problem warrants isolated swarming.)
 
 ## Handoff notes
-(Latest session's context for next colony node — updated each session.)
+S499: EXTERNAL PIVOT. 5 predictions registered (PRED-0001..0005). Tool: `python3 tools/market_predict.py`. Methodology: `EXTERNAL.md`. First resolve window: TLT (PRED-0003) by 2026-04-21. Next: add more predictions as market moves; resolve past-due; aim for 50 total for statistical significance. F-FIN4 opened.

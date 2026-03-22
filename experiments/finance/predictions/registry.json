@@ -1,0 +1,132 @@
+{
+  "predictions": [
+    {
+      "id": "PRED-0001",
+      "date": "2026-03-22",
+      "session": "S499",
+      "asset": "SPY",
+      "direction": "BEAR",
+      "target": "-5% to -10% from current ~648",
+      "timeframe": "3m",
+      "confidence": 0.6,
+      "thesis": "CAPE at 39 is 2x historical avg \u2014 only 1929 and 2000 were comparable (ISO-4 phase transition). Oil shock from Strait of Hormuz closure propagates through economy with ~6-12mo lag (ISO-11 network diffusion). Stagflation fears suppress both growth and value \u2014 no safe haven in equities. Rising 10Y yield (4.39%) tightens financial conditions while economy weakens. Historical base rate: CAPE>35 + oil shock \u2192 negative 3mo return ~65% of time. Sector rotation to utilities/energy signals defensive positioning (ISO-2 selection). Swarm calibration note: confidence 0.60 not higher because EMH says this is mostly priced in.",
+      "domains_applied": [
+        "physics",
+        "control-theory",
+        "finance",
+        "history",
+        "psychology"
+      ],
+      "key_risk": "Fed pivot or ceasefire in Middle East reverses energy shock",
+      "resolve_by": "2026-06-20",
+      "status": "OPEN",
+      "outcome_date": null,
+      "outcome_price": null,
+      "result": null,
+      "score": null
+    },
+    {
+      "id": "PRED-0002",
+      "date": "2026-03-22",
+      "session": "S499",
+      "asset": "XLE",
+      "direction": "BULL",
+      "target": "+5% to +15% from current",
+      "timeframe": "3m",
+      "confidence": 0.65,
+      "thesis": "Energy sector (XLE) already +9.4% while broad market flat \u2014 but the structural driver (Hormuz closure, Iran war) is ESCALATING not resolving. ISO-13 integral windup: oil inventory drawdown accumulates without discharge mechanism. Game theory: neither Iran nor coalition has incentive to de-escalate given current payoffs. Evolution lens: energy companies are the 'fit' organisms in stagflation \u2014 pricing power + real assets. Control theory: energy is the only sector with positive feedback loop from current macro (higher oil \u2192 higher revenue \u2192 higher stock).",
+      "domains_applied": [
+        "physics",
+        "evolution",
+        "game-theory",
+        "control-theory"
+      ],
+      "key_risk": "Ceasefire reopens Hormuz, oil drops below 75, energy sector reverts",
+      "resolve_by": "2026-06-20",
+      "status": "OPEN",
+      "outcome_date": null,
+      "outcome_price": null,
+      "result": null,
+      "score": null
+    },
+    {
+      "id": "PRED-0003",
+      "date": "2026-03-22",
+      "session": "S499",
+      "asset": "TLT",
+      "direction": "BULL",
+      "target": "+3% to +8% from current",
+      "timeframe": "1m",
+      "confidence": 0.55,
+      "thesis": "10Y just breached 4% floor (4.39%) \u2014 flight to safety is beginning. ISO-4 phase transition: when equity risk-off accelerates, bonds become the attractor. Historical: in 7 of 8 major equity drawdowns since 1970, long bonds rallied within 30 days of the equity low. Psychology: fear regime shift from greed to fear drives capital rotation to safety. Control theory: Fed is in a bind (stagflation = can't cut OR hike) \u2014 policy paralysis favors bonds short-term. Confidence only 0.55 because stagflation is the one scenario where bonds DON'T rally (1970s analog).",
+      "domains_applied": [
+        "physics",
+        "control-theory",
+        "psychology",
+        "statistics"
+      ],
+      "key_risk": "Inflation spikes further, forcing Fed hawkish \u2014 yields rise, TLT falls",
+      "resolve_by": "2026-04-21",
+      "status": "OPEN",
+      "outcome_date": null,
+      "outcome_price": null,
+      "result": null,
+      "score": null
+    },
+    {
+      "id": "PRED-0004",
+      "date": "2026-03-22",
+      "session": "S499",
+      "asset": "GLD",
+      "direction": "BULL",
+      "target": "+5% to +12% from current",
+      "timeframe": "3m",
+      "confidence": 0.7,
+      "thesis": "Gold is the consensus safe haven in every historical analog to current conditions: (1) geopolitical war escalation, (2) stagflation fears, (3) loss of confidence in monetary policy, (4) CAPE extreme. ISO-8 power law: gold tends to move in explosive bursts, not gradual trends \u2014 current conditions are the preconditions for a burst. Game theory: central banks globally diversifying away from USD reserves (confirmed by BIS data). Distributed systems lens: gold is the decentralized store of value \u2014 network effects strengthen during centralized-system stress. Highest confidence prediction because multiple independent structural drivers converge.",
+      "domains_applied": [
+        "history",
+        "game-theory",
+        "physics",
+        "psychology",
+        "distributed-systems"
+      ],
+      "key_risk": "Strong dollar rally crushes gold despite macro tailwinds",
+      "resolve_by": "2026-06-20",
+      "status": "OPEN",
+      "outcome_date": null,
+      "outcome_price": null,
+      "result": null,
+      "score": null
+    },
+    {
+      "id": "PRED-0005",
+      "date": "2026-03-22",
+      "session": "S499",
+      "asset": "QQQ",
+      "direction": "BEAR",
+      "target": "-8% to -15% from current",
+      "timeframe": "3m",
+      "confidence": 0.6,
+      "thesis": "Nasdaq 100 plunged 1.8% to 6-month lows \u2014 AI narrative bifurcating (software DOWN, infrastructure UP). ISO-2 selection: market is discriminating between AI hype and AI substance. Phase transition: tech leadership regimes last ~7-10 years (2013-2024 was tech's run); rotation to energy/utilities/value signals regime change. Control theory: higher rates disproportionately hurt long-duration growth assets (tech). Information theory: AI software companies have high information asymmetry \u2014 market can't distinguish real AI revenue from hype \u2014 so it sells all. Bear case slightly stronger than SPY because QQQ has higher CAPE + more rate sensitivity + AI narrative reversal.",
+      "domains_applied": [
+        "evolution",
+        "physics",
+        "control-theory",
+        "information-science",
+        "psychology"
+      ],
+      "key_risk": "AI narrative re-accelerates with major product launch, tech leads recovery",
+      "resolve_by": "2026-06-20",
+      "status": "OPEN",
+      "outcome_date": null,
+      "outcome_price": null,
+      "result": null,
+      "score": null
+    }
+  ],
+  "next_id": 6,
+  "metadata": {
+    "created": "2026-03-22T19:25:01.650612",
+    "updated": "2026-03-22T19:25:26.991093"
+  }
+}
