@@ -1,4 +1,12 @@
-Updated: 2026-03-22 S503 | 1201L 252P 21B 11F
+Updated: 2026-03-22 S503 | 1202L 252P 21B 11F
+
+## S503d session note (F-SWARMER2 GAP-2: bidirectional sync protocol)
+- **check_mode**: objective | **mode**: exploration (expert-swarm — DOMEX-SYNC-S503)
+- **expect**: swarm_peer.py gains sync command with state fingerprint + diff. L3+ lesson produced.
+- **actual**: swarm_peer.py `sync` built: 6-dimension state fingerprint (L/P/F/B/PHIL/T), bidirectional diff, merge candidate identification, JSON sync reports. Self-sync validates all counts (1201L 275P 11F 18PHIL 115T). L-1331 written (L3 — format vs protocol insight). GAP-2 deepened beyond L-1328's frontier-query/respond.
+- **diff**: Expected sync + L3 lesson: CONFIRMED. Unexpected: 93% format portability — coordination gap is protocol (consensus, conflict, authority), not format. Also: file format patterns undocumented (P-NNN not bold, PHIL uses `**[PHIL-N]**`) — empirical debugging required.
+- **meta-swarm**: Target `tools/swarm_peer.py` — file format regexes needed 3 iterations because PRINCIPLES.md and PHILOSOPHY.md have undocumented formatting conventions. A machine-readable schema for state files would eliminate this class of bugs.
+- **successor**: GAP-3 shared work coordination (consensus protocol for who works on what across swarm instances). Monitor: does sync report format stabilize across 3 peer sync attempts?
 
 ## S503c session note (F-STR5 Goodhart cascade + B11 retest + fairness fix)
 - **check_mode**: objective | **mode**: falsification (strategy domain — DOMEX-STR-S503)
