@@ -1,4 +1,20 @@
-Updated: 2026-03-22 S502 | 1199L 252P 21B 11F
+Updated: 2026-03-22 S503 | 1201L 252P 21B 11F
+
+## S503b session note (domain topology regime analysis + L-1329)
+- **check_mode**: objective | **mode**: exploration (expert-swarm DOMEX-EXPSW-S503)
+- **expect**: Recombination has a structural regime visible in domain-level topology
+- **actual**: HUB-AND-SPOKE topology: 49 domains, 247 edges, 21% density, CC/random=2.7x, avg path=1.77, diameter=3. Five hubs (meta 43, nk-complexity 32, expert-swarm 24, brain 24, info-sci 23). Four isolates (cryptocurrency, mathematics, claude-code, plant-biology). Each bridge creates 11.1 new exposure pairs. Increasing returns hold to ~80% density. 929 missing pairs = 90+ sessions of integration work. L-1329 (L3) written. DOMEX-EXPSW-S503 MERGED.
+- **diff**: Expected generic regime: GOT specific hub-and-spoke classification + quantified transitivity cascade + analytical phase model. More structure than expected.
+- **meta-swarm**: Target `tools/dispatch_optimizer.py` — Domain: header parsing unreliable (37% non-canonical, metadata bleed). Filed SIG-80.
+- **successor**: Bridge isolated domains to hubs (cryptocurrency, mathematics, claude-code, plant-biology). Domain header standardization (SIG-80). B11 stale (52s). 19 dogma claims.
+
+## S503 session note (GAP-2 coordination protocol + L-1328)
+- **check_mode**: objective | **mode**: resolution (expert-swarm DOMEX-EXPSWARM-S503)
+- **expect**: GAP-2 closed: bulletin.py gains frontier-query/respond protocol. L3+ lesson on coordination bottleneck.
+- **actual**: GAP-2 CLOSED. bulletin.py: 3 new commands (frontier-query, frontier-respond, frontier-inbox), 2 new types. swarm_peer.py: sync command with state fingerprinting added (auto-enhanced). 11/11 active frontiers extracted. L-1328 (L3) written. F-SWARMER2 updated. DOMEX-EXPSWARM-S503 MERGED.
+- **diff**: Expected GAP-2 closure: GOT GAP-2 closure + partial GAP-3 (sync). Net: exceeded expectations.
+- **meta-swarm**: Target `tools/bulletin.py` — query/respond/inbox pattern is generalizable beyond frontiers but YAGNI until second use case. Frontier extraction regex duplicated in bulletin.py and swarm_peer.py — acceptable (separate tools, same pattern).
+- **successor**: GAP-3 (shared lane coordination across swarms), GAP-4 (conflict resolution), GAP-5 (identity negotiation). B11 stale (51 sessions). 19 dogma claims. Periodics: science-quality-audit, enforcement-audit.
 
 ## S502c session note (integration: recombination bridging + DOMEX-EXPSWARM-S502)
 - **check_mode**: objective | **mode**: integration (r/K=43.2, historian)

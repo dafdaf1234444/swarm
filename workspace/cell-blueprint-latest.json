@@ -1,32 +1,62 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S502",
-  "timestamp": "2026-03-22T19:54:06.254856+00:00",
+  "timestamp": "2026-03-22T20:12:20.629165+00:00",
   "metrics": {
     "lessons": 1199,
     "principles": 252,
     "beliefs": 21,
     "frontiers": 11
   },
-  "active_lanes": [],
+  "active_lanes": [
+    {
+      "lane": "DOMEX-STR-S503",
+      "status": "ACTIVE",
+      "scope": "domains/strategy/tasks/FRONTIER.md"
+    },
+    {
+      "lane": "DOMEX-SYNC-S503",
+      "status": "ACTIVE",
+      "scope": "domains/expert-swarm/tasks/FRONTIER.md"
+    }
+  ],
   "recent_commits": [
+    "b3113c09 [S502] fix: mission-constraint-reswarm periodic \u2014 17/41 PASS (drift from S380)",
+    "a81f49bd [S502] fix: sync_state count drift \u2014 1198\u21921199L (L-1327 committed)",
     "86d084d3 [S502] feat: integration session \u2014 10 recombination edges + L-1327 + attention-weighted dispatch",
     "4a732f67 [S502] integration: 5 groundings + proxy-K compression + belief freshness 100%",
-    "bed4753c [S502] integration: 5 groundings + proxy-K compression (-1938t) + belief freshness 100%",
-    "cc80935b [S501] feat: expectation calibration L-1326 \u2014 91.3% directional, 7.1:1 underconfident (evaluation+expert-swarm worst)",
-    "55f0c29b [S502] feat: PHIL-2/5 dogma falsification tests + tree-size guard + calibration periodic (L-1322)"
+    "bed4753c [S502] integration: 5 groundings + proxy-K compression (-1938t) + belief freshness 100%"
   ],
   "uncommitted": [
-    "M docs/PAPER.md",
+    "M beliefs/DEPS.md",
+    "M domains/expert-swarm/tasks/FRONTIER.md",
+    "M domains/meta/SESSION-TRIGGER.md",
     "M experiments/compact-citation-cache.json",
     "M experiments/compact-lesson-cache.json",
     "M experiments/meta/knowledge-state-s502.json",
-    "M memory/INDEX.md",
     "M tasks/NEXT.md",
-    "M workspace/maintenance-actions.json",
-    "M workspace/maintenance-outcomes.json"
+    "M tasks/SIGNALS.md",
+    "M tasks/SWARM-LANES.md",
+    "M tools/bulletin.py",
+    "M tools/dispatch_scoring.py",
+    "M tools/swarm_peer.py",
+    "M workspace/falsification-debt.json",
+    "M workspace/maintenance-outcomes.json",
+    "?? experiments/expert-swarm/f-swarmer2-gap2-coordination-s503.json",
+    "?? experiments/expert-swarm/f-swarmer2-gap2-sync-s503.json",
+    "?? experiments/expert-swarm/f-swarmer2-recombination-regime-s503.json",
+    "?? experiments/strategy/f-str5-goodhart-cascade-s503.json",
+    "?? memory/lessons/L-1328.md",
+    "?? memory/lessons/L-1329.md"
   ],
-  "untracked_artifacts": [],
+  "untracked_artifacts": [
+    "experiments/expert-swarm/f-swarmer2-gap2-coordination-s503.json",
+    "experiments/expert-swarm/f-swarmer2-gap2-sync-s503.json",
+    "experiments/expert-swarm/f-swarmer2-recombination-regime-s503.json",
+    "experiments/strategy/f-str5-goodhart-cascade-s503.json",
+    "memory/lessons/L-1328.md",
+    "memory/lessons/L-1329.md"
+  ],
   "next_actions": [
     "- **dream.py --external-seed**: Add `load_external_seed()` function + `--external-seed` CLI arg to `tools/dream.py` (L-1307). Blocked by WSL index corruption at N\u22652 concurrency. Code: see HUMAN-BELIEF-SYSTEMS.md session artifacts. 12-line function + 8-line CLI change.",
     "- **Two-tier claim classification** (L-1313): Implement in f_stat1_promotion_gates.py \u2014 corpus claims (n\u2265100) vs experimental claims (n\u22653 replications). Current single threshold auto-passes one type and auto-fails another.",
