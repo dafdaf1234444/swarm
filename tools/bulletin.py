@@ -7,6 +7,9 @@ Usage:
     python3 tools/bulletin.py request-help <swarm-name> <need>
     python3 tools/bulletin.py offer-help <swarm-name> <request-id> <response>
     python3 tools/bulletin.py help-queue
+    python3 tools/bulletin.py frontier-query <swarm-name>
+    python3 tools/bulletin.py frontier-respond <swarm-name> <query-id>
+    python3 tools/bulletin.py frontier-inbox
     python3 tools/bulletin.py genesis-feedback <swarm-name> <feedback>
     python3 tools/bulletin.py read [swarm-name]
     python3 tools/bulletin.py scan
@@ -14,13 +17,15 @@ Usage:
     python3 tools/bulletin.py genesis-report
 
 Types: discovery, question, warning, principle, belief-challenge, sibling-sync,
-       help-request, help-response, genesis-feedback
+       help-request, help-response, genesis-feedback, frontier-query, frontier-response
 genesis-feedback format: "used:atom1,atom2 ignored:atom3,atom4"
 belief-challenge format: "PHIL-N: challenge text"  (child challenges parent philosophy)
 request-help writes structured content:
   Request-ID: H-<timestamp>-<swarm>
   Need: <description>
 offer-help links a response to a specific Request-ID.
+frontier-query posts a structured query requesting a peer's frontier state.
+frontier-respond reads local FRONTIER.md, extracts active frontiers, and posts as response.
 Sync copies parent bulletins into a child's workspace for cross-swarm reading.
 Run propagate_challenges.py to pull belief-challenges into PHILOSOPHY.md.
 """
@@ -45,6 +50,8 @@ VALID_TYPES = {
     "sibling-sync",
     "help-request",
     "help-response",
+    "frontier-query",
+    "frontier-response",
 }
 VALID_TIERS = {"T1", "T2", "T3"}
 # Trust-Tier semantics (F-SEC1 Layer 2, domains/security/PROTOCOL.md):
@@ -60,6 +67,16 @@ HELP_REQUEST_PATTERN = re.compile(
 HELP_RESPONSE_PATTERN = re.compile(
     r"# Bulletin from:\s*(.+?)\nDate:\s*(\S+)\nType:\s*help-response(?:\nTrust-Tier:\s*\S+)?\n\n## Content\n"
     r"Request-ID:\s*(\S+)\nResponse:\s*(.+?)(?:\n---|\Z)",
+    re.DOTALL,
+)
+FRONTIER_QUERY_PATTERN = re.compile(
+    r"# Bulletin from:\s*(.+?)\nDate:\s*(\S+)\nType:\s*frontier-query(?:\nTrust-Tier:\s*\S+)?\n\n## Content\n"
+    r"Query-ID:\s*(\S+)\nScope:\s*(.+?)(?:\n---|\Z)",
+    re.DOTALL,
+)
+FRONTIER_RESPONSE_PATTERN = re.compile(
+    r"# Bulletin from:\s*(.+?)\nDate:\s*(\S+)\nType:\s*frontier-response(?:\nTrust-Tier:\s*\S+)?\n\n## Content\n"
+    r"Query-ID:\s*(\S+)\nFrontiers:\s*(.+?)(?:\n---|\Z)",
     re.DOTALL,
 )
 
@@ -257,6 +274,96 @@ def help_queue():
         print(f"- {rid} | from {req['requester']} ({req['date']}): {req['need']}")
 
 
+def _new_query_id(swarm_name: str) -> str:
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%d%H%M%S")
+    slug = re.sub(r"[^a-z0-9]+", "-", swarm_name.lower()).strip("-") or "swarm"
+    return f"FQ-{stamp}-{slug[:12]}"
+
+
+def _extract_active_frontiers() -> list[str]:
+    """Read local FRONTIER.md and extract active (non-resolved) frontier IDs + one-line summaries."""
+    frontier_path = REPO_ROOT / "tasks" / "FRONTIER.md"
+    if not frontier_path.exists():
+        return []
+
+    text = frontier_path.read_text()
+    # Stop at ## Resolved section if present
+    resolved_idx = text.find("\n## Resolved")
+    if resolved_idx > 0:
+        text = text[:resolved_idx]
+
+    frontiers = []
+    # Match non-struck-through frontier entries (skip ~~**F-xxx**~~ which are resolved/moved)
+    for m in re.finditer(
+        r"^- \*\*(\S+)\*\*:\s*(.+?)$", text, re.MULTILINE
+    ):
+        fid = m.group(1)
+        summary = m.group(2).strip()[:120]
+        frontiers.append(f"{fid}: {summary}")
+
+    return frontiers
+
+
+def write_frontier_query(swarm_name: str, scope: str = "all"):
+    """Post a frontier-query bulletin requesting a peer's active frontiers."""
+    query_id = _new_query_id(swarm_name)
+    message = f"Query-ID: {query_id}\nScope: {scope}"
+    write_bulletin(swarm_name, "frontier-query", message, tier="T3")
+    print(f"Frontier query id: {query_id}")
+    return query_id
+
+
+def write_frontier_response(swarm_name: str, query_id: str):
+    """Read local frontiers and post as response to a frontier-query."""
+    frontiers = _extract_active_frontiers()
+    if not frontiers:
+        summary = "(no active frontiers)"
+    else:
+        summary = "\n".join(f"  - {f}" for f in frontiers)
+
+    message = f"Query-ID: {query_id}\nFrontiers:\n{summary}"
+    write_bulletin(swarm_name, "frontier-response", message, tier="T3")
+    print(f"Responded to {query_id} with {len(frontiers)} active frontiers")
+
+
+def frontier_inbox():
+    """List unanswered frontier queries across all bulletins."""
+    if not BULLETINS_DIR.exists():
+        print("No bulletins directory found.")
+        return
+
+    queries: dict[str, dict[str, str]] = {}
+    responses: dict[str, list[str]] = {}
+
+    for f in sorted(BULLETINS_DIR.glob("*.md")):
+        text = f.read_text()
+        for m in FRONTIER_QUERY_PATTERN.finditer(text):
+            requester, req_date, query_id, scope = m.groups()
+            queries[query_id] = {
+                "requester": requester.strip(),
+                "date": req_date,
+                "scope": scope.strip(),
+            }
+        for m in FRONTIER_RESPONSE_PATTERN.finditer(text):
+            responder, _, query_id, _ = m.groups()
+            responses.setdefault(query_id, [])
+            responses[query_id].append(responder.strip())
+
+    print("=== FRONTIER QUERY INBOX ===")
+    print(f"Queries: {len(queries)} | Responded: {len(responses)}")
+
+    open_ids = [qid for qid in sorted(queries) if qid not in responses]
+    if not open_ids:
+        print("No unanswered frontier queries.")
+        return
+
+    print(f"\nUnanswered ({len(open_ids)}):")
+    for qid in open_ids:
+        q = queries[qid]
+        print(f"  {qid} | from {q['requester']} ({q['date']}) scope={q['scope']}")
+    print(f"\nRespond: python3 tools/bulletin.py frontier-respond <your-name> <query-id>")
+
+
 def read_bulletins(swarm_name: str = None):
     """Read bulletins, optionally filtered by swarm name."""
     if not BULLETINS_DIR.exists():
@@ -368,6 +475,22 @@ def main():
 
     elif cmd == "help-queue":
         help_queue()
+
+    elif cmd == "frontier-query":
+        if len(sys.argv) < 3:
+            print("Usage: bulletin.py frontier-query <swarm-name> [scope]")
+            sys.exit(1)
+        scope = " ".join(sys.argv[3:]) if len(sys.argv) > 3 else "all"
+        write_frontier_query(sys.argv[2], scope)
+
+    elif cmd == "frontier-respond":
+        if len(sys.argv) < 4:
+            print("Usage: bulletin.py frontier-respond <swarm-name> <query-id>")
+            sys.exit(1)
+        write_frontier_response(sys.argv[2], sys.argv[3])
+
+    elif cmd == "frontier-inbox":
+        frontier_inbox()
 
     elif cmd == "genesis-feedback":
         if len(sys.argv) < 4:

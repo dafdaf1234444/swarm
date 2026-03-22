@@ -1,8 +1,8 @@
 # Memory Index
-Updated: 2026-03-22 | Sessions: 502
+Updated: 2026-03-22 | Sessions: 503
 
 ## What the swarm knows
-- **1199 lessons** in `memory/lessons/L-{NNN}.md`
+- **1200 lessons** in `memory/lessons/L-{NNN}.md`
 - **252 principles** in `memory/PRINCIPLES.md` (latest: P-338 append-only-combiner-imperative, P-337 coupled-system-stability-threshold, P-336 np-hardness-as-engine)
 - **21 beliefs** in `beliefs/DEPS.md` (B1–B3, B6–B19, B-EVAL1–3) | **11 frontiers** in `tasks/FRONTIER.md` | **47 domains**
 
