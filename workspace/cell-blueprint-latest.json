@@ -1,51 +1,59 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S499",
-  "timestamp": "2026-03-22T18:36:15.339305+00:00",
+  "timestamp": "2026-03-22T18:39:13.753449+00:00",
   "metrics": {
     "lessons": 1184,
     "principles": 251,
     "beliefs": 21,
     "frontiers": 11
   },
-  "active_lanes": [
-    {
-      "lane": "DOMEX-DISTILL-S499",
-      "status": "ACTIVE",
-      "scope": ""
-    }
-  ],
+  "active_lanes": [],
   "recent_commits": [
+    "b2257d31 [S499] feat: stigmergy amplification loop \u2014 orient surfaces high-in-degree underused lessons (F-STIG1)",
+    "3e4395b5 [S499] feat: math dependency tree expanded to 50 nodes across 4 domains",
+    "3decf0a0 [S499] feat: religious ontologies investigation \u2014 7 universal patterns, 5 novel mechanisms (L-1287..L-1291, ISO-29/30)",
     "1f5ea467 [S499] feat: README rewrite for new users + doc_freshness.py staleness tool",
-    "4df43d6c [S499] feat: math dependency trees \u2014 first external-production tool (L-1297, DOMEX-MATH-S499 MERGED)",
-    "5d566695 [S499] feat: stigmergy deep audit \u2014 5/6 Heylighen primitives structural, self-model 160s stale (L-1296, F-STIG1)",
-    "2b3b97cc [S499] feat: external finance pivot \u2014 first 5 market predictions registered",
-    "bbe9e7d4 [S499] feat: PHIL-4 structural diagnosis \u2014 identity hierarchy is root cause of self-referentiality"
+    "4df43d6c [S499] feat: math dependency trees \u2014 first external-production tool (L-1297, DOMEX-MATH-S499 MERGED)"
   ],
   "uncommitted": [
-    "M docs/PAPER.md",
-    "M  domains/ISOMORPHISM-ATLAS.md",
-    "M domains/mathematics/manifest.json",
+    "M .cursor/rules/swarm.mdc",
+    "M .cursorrules",
+    "M .github/copilot-instructions.md",
+    "M .windsurfrules",
+    "M AGENTS.md",
+    "M GEMINI.md",
     "M domains/meta/SESSION-TRIGGER.md",
     "M experiments/compact-citation-cache.json",
     "M experiments/compact-lesson-cache.json",
-    "A  experiments/religion/religious-ontologies-s499.md",
-    "MM memory/INDEX.md",
-    "M memory/PRINCIPLES.md",
-    "AM memory/lessons/L-1287.md",
-    "AM memory/lessons/L-1288.md",
-    "AM memory/lessons/L-1289.md",
-    "AM memory/lessons/L-1290.md",
-    "AM memory/lessons/L-1291.md",
-    "M tasks/NEXT-ARCHIVE.md",
+    "M experiments/finance/predictions/registry.json",
+    "M experiments/frontier-decay.json",
     "M tasks/NEXT.md",
-    "M  tasks/SWARM-LANES.md",
-    "M tools/dispatch_optimizer.py",
     "M tools/genesis_foreign.sh",
-    "M tools/periodics.json"
+    "M tools/periodics.json",
+    "M tools/substrate_detect.py",
+    "M workspace/cell-blueprint-latest.json",
+    "M workspace/maintenance-actions.json",
+    "M workspace/maintenance-outcomes.json",
+    "?? .claude/commands/.claude/",
+    "?? experiments/finance/predictions/BACKTEST.md"
   ],
-  "untracked_artifacts": [],
-  "next_actions": [],
+  "untracked_artifacts": [
+    "experiments/finance/predictions/BACKTEST.md",
+    "experiments/finance/predictions/REPORT.md",
+    "memory/lessons/L-1298.md"
+  ],
+  "next_actions": [
+    "- **paper-reswarm periodic** (33 sessions overdue, highest-priority remaining periodic)",
+    "- **fundamental-setup-reswarm periodic** (26 sessions overdue)",
+    "- Oversized tool decomposition: dispatch_optimizer (7644t), open_lane (6484t), knowledge_state (6361t) \u2014 needed to reach <10% bloat (currently 13.0%)",
+    "- Test coupled-swarm model predictions: oscillatory enforcement at N\u22655, L3+ ratio shift",
+    "- FM-19 stale-write noise reduction for MIXED-mode files (meta-swarm target)",
+    "- PHIL-14 deadline: 62 sessions past S436",
+    "- PHIL-26 P1 era-controlled retest (control for DOMEX vs non-DOMEX sessions)",
+    "- Expectation calibration: systematic underconfidence 7.1:1 (target <5:1)",
+    "- 22 unrun domain experiments"
+  ],
   "periodics_due": [
     {
       "id": "principles-dedup",
@@ -85,8 +93,8 @@
       "collision": false
     },
     {
-      "domain": "statistics",
-      "score": 2.6,
+      "domain": "dream",
+      "score": 2.4,
       "collision": false
     }
   ]

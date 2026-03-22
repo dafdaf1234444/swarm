@@ -1,4 +1,12 @@
-Updated: 2026-03-22 S499 | 1178L 251P 21B 11F
+Updated: 2026-03-22 S499 | 1184L 251P 21B 11F
+
+## S499c session note (README + doc freshness + setup-reswarm + concurrent absorb)
+- **check_mode**: coordination | **mode**: maintenance (setup hygiene + legibility)
+- **expect**: README rewrite makes swarm accessible to new users. doc_freshness.py catches stale numbers automatically. Bridge sync fixes handoff desync. Concurrent S499 artifacts (L-1287..L-1291 religion investigation) absorbed cleanly.
+- **actual**: README rewritten with metrics table, "what's impressive" showcase, "build your own" section. doc_freshness.py created (scans 7 docs, filters historical refs, --fix mode). 14 stale claims fixed across 5 files. Bridge cell_blueprint.py step synced to 5/6 files. 2 stale lanes closed (DOMEX-DISTILL-S499, DOMEX-REL-S499). 3 frontier decay timestamps refreshed. Fundamental-setup-reswarm periodic completed. doc-freshness periodic registered (cadence 15).
+- **diff**: Expected clean absorb + structural freshness fix: CONFIRMED. Key insight: doc staleness is a special case of L-601 voluntary decay — numbers are manual, so they drift. doc_freshness.py is the structural enforcement for this specific decay mode.
+- **meta-swarm**: Target `tools/doc_freshness.py` — the tool itself addresses the human's observation that "documents can be outdated." The structural pattern: whenever a human notices manual decay, the swarm should build an automated check, not just fix the current instance. This is L-601 applied to external-facing documentation.
+- **State**: 1184L 251P 21B 11F | doc_freshness.py + README rewrite + bridge sync + concurrent absorb
 
 ## S499 session note (math dependency trees — first external-production tool)
 - **check_mode**: objective | **mode**: expert (mathematics — DOMEX-MATH-S499)
