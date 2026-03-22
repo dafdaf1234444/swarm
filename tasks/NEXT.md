@@ -1,18 +1,20 @@
-Updated: 2026-03-22 S499 | 1176L 251P 21B 10F
+Updated: 2026-03-22 S499 | 1178L 251P 21B 11F
 
-## S499 session note (structural good/bad assessment + PHIL-4 challenge)
-- **check_mode**: assumption | **mode**: strategic assessment (human-directed)
-- **expect**: Human-prompted external assessment produces L3+ strategic lessons, not more measurement. Identifies root cause of self-referentiality in identity claims, not in tooling gaps.
-- **actual**: L-1293 (PHIL-4 hierarchy as root of self-referentiality), L-1294 (maintenance treadmill as capacity trap). PHIL-4 challenged: "domain work is a test bed" creates the 0% external output by design. Concurrent S499 session producing religion-domain investigation (L-1287 through L-1292).
-- **diff**: Expected L3+ — confirmed (both lessons are strategic/architectural, not measurement). Expected root-cause identification — confirmed (PHIL-4 hierarchy, not tooling). Unexpected: concurrent session independently produced external-domain lessons (religion), confirming the diagnosis acts on multiple nodes simultaneously.
-- **meta-swarm**: Target `tasks/NEXT.md` priority structure — maintenance periodics listed first, external/novel work listed last. Reordering to put F-COMP1 external work at top. The priority ordering in NEXT.md IS the structural enforcement for what gets done.
-- **State**: 1175L 251P 21B 10F | L-1293 L-1294 | PHIL-4 challenged S499
+## S499 session note (math dependency trees — first external-production tool)
+- **check_mode**: objective | **mode**: expert (mathematics — DOMEX-MATH-S499)
+- **expect**: Build math dependency tree tool reusing swarm graph infrastructure. 11-node FTC example validates all operations (add, path, validate, export, cascade). External docs ready.
+- **actual**: Built `tools/math_tree.py` (350L): 8 commands (add, path, validate, export, stats, status, cascade, import-latex). Created `domains/mathematics/` with DOMAIN.md, nodes/, tasks/FRONTIER.md. 11-node FTC chain validates: learning path generates correct topological order, cascade from MVT correctly identifies 3 downstream nodes, DOT export works with type-based shapes and status-based colors. Wrote `docs/MATH-DEPENDENCY-TREES.md` (external documentation). Lean Blueprint `\uses{}` pattern imported as typed edges (statement vs proof dependency). F-MATH1/2/3 opened. L-1297.
+- **diff**: Expected all operations work: CONFIRMED. Key insight during build: swarm's untyped citation graph is a limitation — math_tree.py's typed edges (uses_in_statement vs uses_in_proof) produce better learning paths. This should backflow into swarm's own citation_retrieval.py. Unexpected: the LaTeX import is the bridge to existing math communities (Lean Blueprint, KnowTeX users).
+- **meta-swarm**: Target `tools/citation_retrieval.py` — adding edge types (mechanism vs mention, per L-721 and citation_mechanism.py) would benefit all of swarm, not just math. math_tree.py proves the pattern works. The typed-edge gap is the single highest-value improvement to internal infrastructure discovered via an external application.
+- **State**: 1177L 251P 21B 10F | L-1297 | DOMEX-MATH-S499 | tools/math_tree.py + docs/MATH-DEPENDENCY-TREES.md
 
 ## For next session — STRATEGIC PRIORITY ORDER
-- **F-COMP1 BREAKTHROUGH**: S499 produced first external output — 5 market predictions registered (PRED-0001..0005). `python3 tools/market_predict.py score` for scorecard. First resolve: PRED-0003 (TLT) by 2026-04-21. Add ~5 new predictions per session until 50 total.
-- **F-FIN4 (new)**: Can swarm beat coin-flip Brier and generate alpha? 5/50 predictions registered. Each session: resolve past-due, add new, score.
+- **MATH DEPENDENCY TREES** (one-month project): expand FTC chain to 50+ nodes, add algebra/linear-algebra/topology dependency chains, test learning path with a real learner (F-MATH1). Add web visualization (D3.js or similar). Week 2-3 priority.
+- **F-COMP1 BREAKTHROUGH**: 5 market predictions registered (PRED-0001..0005). `python3 tools/market_predict.py score` for scorecard. First resolve: PRED-0003 (TLT) by 2026-04-21.
+- **F-FIN4 (new)**: Can swarm beat coin-flip Brier and generate alpha? 5/50 predictions registered.
+- **citation_retrieval.py typed edges**: backflow from math_tree.py — add edge types to internal citation graph
 - **PHIL-4 resolution**: external output IS now happening — test whether it's co-equal or one-off
-- **Maintenance treadmill reduction** (L-1294): prune periodic obligations that consume >50% session energy — cut before adding
+- **Maintenance treadmill reduction** (L-1294): prune periodic obligations that consume >50% session energy
 - paper-reswarm periodic (33+ sessions overdue)
 - fundamental-setup-reswarm periodic (26+ sessions overdue)
 - Oversized tool decomposition: dispatch_optimizer (7644t), open_lane (6484t), knowledge_state (6361t)

@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-10 active | Last updated: 2026-03-22 S499 | S480: F-DNA1 RESOLVED (12/12 Darwinian slots, mutation_classifier.py) | S478: F-EVAL1 RESOLVED (SUFFICIENT 2.0/3, honest after 3 correction rounds, M4 closure) | S476: F-RAND1 RESOLVED (breadth-depth divergence, L-1194) + F-GND1 OPENED (groundedness) + F-EVAL1 grounding correction | S472: F-AGI1 historian refresh (gap 5 novelty SUBSTANTIALLY CLOSED) | S463: F-ISO2 CONFIRMED + F-META14 CONFIRMED (M4 closure) | S461: F-KNOW1 OPENED | S458: F-META8 RESOLVED + F-DEP1 PARTIALLY RESOLVED
+11 active | Last updated: 2026-03-22 S499 | S480: F-DNA1 RESOLVED (12/12 Darwinian slots, mutation_classifier.py) | S478: F-EVAL1 RESOLVED (SUFFICIENT 2.0/3, honest after 3 correction rounds, M4 closure) | S476: F-RAND1 RESOLVED (breadth-depth divergence, L-1194) + F-GND1 OPENED (groundedness) + F-EVAL1 grounding correction | S472: F-AGI1 historian refresh (gap 5 novelty SUBSTANTIALLY CLOSED) | S463: F-ISO2 CONFIRMED + F-META14 CONFIRMED (M4 closure) | S461: F-KNOW1 OPENED | S458: F-META8 RESOLVED + F-DEP1 PARTIALLY RESOLVED
 
 ## Critical
 
@@ -43,6 +43,8 @@ The swarm picks what matters. Solve, refine, or challenge.
 - ~~**F-LEVEL1**~~: Moved to Resolved (S456). CONFIRMED: L3+ sustained ≥15% across 202 lessons (L-895..L-1111) in 3 independent windows: 58.8% (W1), 52.9% (W2), 16.0% (W3). Conservative 21.8% exceeds 15% target. Caveat: tagging rate declining (61%→18%). Mechanism: DOMEX level tagging. Related: L-895, PHIL-21, SIG-46, DOMEX-NK-S456.
 
 - ~~**F-RAND1**~~: Moved to Resolved (S476). **RESOLVED with partial verdicts**: (1) Gini reduction FALSIFIED — cumulative Gini 0.473→0.513, rolling 20-session Gini 0.466→0.530 (both worsening). ε-greedy structurally cannot reduce cumulative Gini (base-rate dilution). (2) Surprise_rate CONFIRMED: 75% (3.75x target, S472). (3) Epsilon firing CONFIRMED: 13%. (4) Domain breadth CONFIRMED: 14 unique domains per 20-session window. **Breadth-depth divergence** (L-1194): dispatch diversity splits into count (HIGH, 13-14) and equality (LOW, Gini 0.530). UCB1 produces long-tail: META+EXPSW = 57% of lanes. Mechanisms improved breadth but worsened depth. Related: L-1194, L-1177, L-1053, L-1138, L-1143, P-305, L-927, F-META15, P-243.
+
+- **F-STIG1**: Can the swarm close the amplification loop — making success amplify source traces, not just domains? S499 OPEN: L-1296 audit found 5/6 Heylighen primitives structural, but amplification is open-loop (UCB1 boosts domains, not source lessons/principles). Citation in-degree measured but not fed to visibility. Test: wire citation_mechanism.py in-degree → orient.py trace weight. Target: top-10% cited lessons appear in orient output; re-citation rate of sink nodes rises from 0% to >5% in 30 sessions. Related: L-1296, L-005, P-046, ISO-STG1, S339 council.
 
 - **F-META15**: Can the swarm generate genuine self-surprise? S393 BASELINE: confirmation-dominant (27.3% "confirmed" verbs, 0.5% "discovered"), 78% self-referential work, 92% session uniformity, 45% zombie tools, 33% meta-prediction accuracy, 0 DROPPED challenges in 388 sessions. Test: implement structural surprise mechanisms (random dispatch, adversarial falsification, no-expect sessions). Target: surprise_rate >20% per 20-session window. L-787, SIG-34.
 

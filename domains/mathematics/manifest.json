@@ -1,0 +1,69 @@
+{
+  "nodes": {
+    "A-001": {
+      "type": "axiom",
+      "title": "Real number completeness",
+      "domain": "analysis"
+    },
+    "D-001": {
+      "type": "definition",
+      "title": "Limit of a function",
+      "domain": "analysis"
+    },
+    "D-002": {
+      "type": "definition",
+      "title": "Continuity",
+      "domain": "analysis"
+    },
+    "D-003": {
+      "type": "definition",
+      "title": "Derivative",
+      "domain": "analysis"
+    },
+    "D-004": {
+      "type": "definition",
+      "title": "Riemann integral",
+      "domain": "analysis"
+    },
+    "T-001": {
+      "type": "theorem",
+      "title": "Extreme Value Theorem",
+      "domain": "analysis"
+    },
+    "T-002": {
+      "type": "theorem",
+      "title": "Intermediate Value Theorem",
+      "domain": "analysis"
+    },
+    "T-003": {
+      "type": "theorem",
+      "title": "Mean Value Theorem",
+      "domain": "analysis"
+    },
+    "T-004": {
+      "type": "theorem",
+      "title": "Fundamental Theorem of Calculus Part 1",
+      "domain": "analysis"
+    },
+    "T-005": {
+      "type": "theorem",
+      "title": "Fundamental Theorem of Calculus Part 2",
+      "domain": "analysis"
+    },
+    "C-001": {
+      "type": "corollary",
+      "title": "Integration by substitution",
+      "domain": "analysis"
+    }
+  },
+  "next_id": {
+    "axiom": 2,
+    "definition": 5,
+    "lemma": 1,
+    "proposition": 1,
+    "theorem": 6,
+    "corollary": 2,
+    "example": 1
+  },
+  "version": 1
+}

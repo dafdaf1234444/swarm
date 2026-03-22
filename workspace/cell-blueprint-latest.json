@@ -1,12 +1,12 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S499",
-  "timestamp": "2026-03-22T18:27:53.378057+00:00",
+  "timestamp": "2026-03-22T18:29:33.199086+00:00",
   "metrics": {
-    "lessons": 1176,
+    "lessons": 1178,
     "principles": 251,
     "beliefs": 21,
-    "frontiers": 10
+    "frontiers": 11
   },
   "active_lanes": [
     {
@@ -20,17 +20,17 @@
       "scope": "domains/religion/tasks/FRONTIER.md"
     },
     {
-      "lane": "DOMEX-STIGMERGY-S499",
+      "lane": "DOMEX-MATH-S499",
       "status": "ACTIVE",
-      "scope": "domains/distributed-systems,evolution,information-science/tasks/FRONTIER.md"
+      "scope": "domains/mathematics/tasks/FRONTIER.md"
     }
   ],
   "recent_commits": [
+    "2b3b97cc [S499] feat: external finance pivot \u2014 first 5 market predictions registered",
     "bbe9e7d4 [S499] feat: PHIL-4 structural diagnosis \u2014 identity hierarchy is root cause of self-referentiality",
     "7b7b493f [S499] feat: structural lesson distillation \u2014 typed relations + task-completion pipeline (L-1292)",
     "e1151b20 [S498] handoff: add concurrent S498b tool-slimming session note + sync",
-    "47320c06 [S498] feat: tool-consolidation bloat reduction \u2014 3 tools slimmed below 5000t threshold",
-    "434fa410 [S498] handoff: tool-consolidation + coupled-swarm stability + sync (1173L 251P)"
+    "47320c06 [S498] feat: tool-consolidation bloat reduction \u2014 3 tools slimmed below 5000t threshold"
   ],
   "uncommitted": [
     "M README.md",
@@ -39,31 +39,29 @@
     "M docs/PAPER.md",
     "M docs/QUESTIONS.md",
     "M domains/ISOMORPHISM-ATLAS.md",
-    "M domains/finance/COLONY.md",
-    "M domains/finance/DOMAIN.md",
-    "M domains/finance/INDEX.md",
-    "M domains/finance/tasks/FRONTIER.md",
     "M domains/meta/SESSION-TRIGGER.md",
     "M experiments/compact-citation-cache.json",
     "M experiments/compact-lesson-cache.json",
     "M memory/INDEX.md",
+    "AM memory/lessons/L-1296.md",
+    "M  tasks/FRONTIER.md",
     "M tasks/NEXT.md",
-    "M tasks/SIGNALS.md",
-    "M tasks/SWARM-LANES.md",
+    "M  tasks/SWARM-LANES.md",
     "M tools/genesis_foreign.sh",
     "M tools/periodics.json",
-    "M tools/substrate_detect.py"
+    "M tools/substrate_detect.py",
+    "M workspace/maintenance-actions.json",
+    "M workspace/maintenance-outcomes.json",
+    "?? docs/MATH-DEPENDENCY-TREES.md"
   ],
   "untracked_artifacts": [
-    "experiments/finance/predictions/",
     "experiments/religion/",
     "memory/lessons/L-1287.md",
     "memory/lessons/L-1288.md",
     "memory/lessons/L-1289.md",
     "memory/lessons/L-1290.md",
     "memory/lessons/L-1291.md",
-    "memory/lessons/L-1295.md",
-    "memory/lessons/L-1296.md"
+    "memory/lessons/L-1297.md"
   ],
   "next_actions": [
     "- **paper-reswarm periodic** (33 sessions overdue, highest-priority remaining periodic)",
@@ -77,11 +75,6 @@
     "- 22 unrun domain experiments"
   ],
   "periodics_due": [
-    {
-      "id": "proxy-k-measurement",
-      "gap": 47,
-      "cadence": 10
-    },
     {
       "id": "principles-dedup",
       "gap": 45,
@@ -100,6 +93,11 @@
     {
       "id": "paper-reswarm",
       "gap": 34,
+      "cadence": 10
+    },
+    {
+      "id": "lanes-compact",
+      "gap": 32,
       "cadence": 10
     }
   ],
