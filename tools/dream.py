@@ -45,7 +45,10 @@ def load_lessons():
             domain_m = re.search(r'(?:^|\|)\s*(?:\*\*)?domain(?:\*\*)?\s*:\s*([^|\n,*>]+)', text, re.MULTILINE | re.IGNORECASE)
             theme = domain_m.group(1).strip() if domain_m else ""
         cited = list(set(re.findall(r'P-\d+', text)))
-        lessons.append({"id": f"L-{num}", "num": num, "theme": theme, "cited": cited})
+        # Extract title from first line (# L-NNN: title)
+        title_m = re.match(r'#\s*L-\d+:\s*(.+)', text)
+        title = title_m.group(1).strip() if title_m else ""
+        lessons.append({"id": f"L-{num}", "num": num, "theme": theme, "cited": cited, "title": title})
     return lessons
 
 
@@ -224,7 +227,58 @@ def auto_append_frontiers(candidates):
     return len(appended)
 
 
-def dream(auto_append=False):
+def load_external_seed(path):
+    """Load external knowledge file as dream seed material (L-1307).
+
+    Extracts section headers and key concepts from a markdown file.
+    External seeds provide diagnostic vocabulary — names for patterns
+    the swarm observes but cannot categorize.
+    """
+    text = Path(path).read_text(encoding="utf-8", errors="replace")
+    # Extract ## headers as concept names
+    headers = re.findall(r'^##\s+(.+)', text, re.MULTILINE)
+    # Extract bold terms as key concepts
+    bold = re.findall(r'\*\*([^*]+)\*\*', text)
+    # Extract bullet-point items (first 80 chars)
+    bullets = [m.group(1).strip()[:80] for m in re.finditer(r'^[-*]\s+(.+)', text, re.MULTILINE)]
+    concepts = list(dict.fromkeys(headers + bold[:20] + bullets[:20]))  # dedup, preserve order
+    return {"path": path, "concepts": concepts, "text": text}
+
+
+def external_resonances(seed, lessons, principles):
+    """Cross-reference external seed concepts with swarm corpus."""
+    stop = {"swarm", "lesson", "principle", "domain", "belief", "system", "based", "using",
+            "which", "their", "about", "these", "where", "other", "under", "above", "within"}
+    matches = []
+    for concept in seed["concepts"]:
+        c_words = {w for w in re.findall(r'\b\w{4,}\b', concept.lower()) if w not in stop}
+        if len(c_words) < 2:
+            continue
+        # Check against lesson titles
+        for l in lessons:
+            title = l.get("title", "")
+            t_words = {w for w in re.findall(r'\b\w{4,}\b', title.lower()) if w not in stop}
+            overlap = c_words & t_words
+            if len(overlap) >= 2:
+                matches.append((concept[:60], f"L-{l['num']}", sorted(overlap)[:4]))
+        # Check against principles
+        for p in principles:
+            p_words = {w for w in re.findall(r'\b\w{4,}\b', p["text"].lower()) if w not in stop}
+            overlap = c_words & p_words
+            if len(overlap) >= 2:
+                matches.append((concept[:60], p["id"], sorted(overlap)[:4]))
+    # Dedup by (concept, target)
+    seen = set()
+    unique = []
+    for concept, target, overlap in matches:
+        key = (concept, target)
+        if key not in seen:
+            seen.add(key)
+            unique.append((concept, target, overlap))
+    return unique
+
+
+def dream(auto_append=False, external_seed=None):
     print("=== SWARM DREAM CYCLE ===")
     print("Associative synthesis from corpus. Not goal-directed. Output = swarm input.")
 
@@ -232,6 +286,23 @@ def dream(auto_append=False):
     principles = load_principles()
     domains = load_domains()
     print(f"\nCorpus: {len(lessons)}L  {len(principles)}P  {len(domains)} domains")
+
+    # External seed mode (L-1307): cross-reference external knowledge
+    if external_seed:
+        seed = load_external_seed(external_seed)
+        print(f"\n--- External seed: {seed['path']} ({len(seed['concepts'])} concepts) ---")
+        for c in seed["concepts"][:8]:
+            print(f"  • {c[:70]}")
+        if len(seed["concepts"]) > 8:
+            print(f"  ... and {len(seed['concepts']) - 8} more")
+        ext_matches = external_resonances(seed, lessons, principles)
+        print(f"\n--- External × Corpus resonances ({len(ext_matches)}) ---")
+        for concept, target, overlap in ext_matches[:10]:
+            print(f"  [{concept}] ↔ {target}  shared: {overlap}")
+        if len(ext_matches) > 10:
+            print(f"  ... and {len(ext_matches) - 10} more")
+        print(f"\n  External seeds provide diagnostic vocabulary (L-1307).")
+        print(f"  Act on resonances: write lessons connecting external concepts to swarm patterns.")
 
     theme_counts = theme_gravity(lessons)
     uncited = find_uncited_principles(principles, lessons)
@@ -264,5 +335,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Swarm dream cycle")
     parser.add_argument("--auto-append", action="store_true",
                         help="Auto-append frontier candidates to FRONTIER.md (GAP-1 closure)")
+    parser.add_argument("--external-seed", type=str, metavar="PATH",
+                        help="Path to external knowledge file (markdown) to use as dream seed (L-1307)")
     args = parser.parse_args()
-    dream(auto_append=args.auto_append)
+    dream(auto_append=args.auto_append, external_seed=args.external_seed)
