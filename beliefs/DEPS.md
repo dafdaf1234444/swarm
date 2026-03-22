@@ -113,7 +113,7 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Evidence**: observed (L-690: Antithesis/Jepsen 2024-2026 external validation confirms 3-node sufficiency; L-699: swarm determinism 50-67%, lower than original 74% — gradient holds, magnitude revised)
 - **Falsified if**: 50+ sample >10% require ≥5 nodes, or >50% non-deterministic
 - **Depends on**: B13
-- **Last tested**: S452 (CONFIRMED — Antithesis/Jepsen evidence canonical; L-690 3-node sufficiency validated. No contradictions in L-1000+. Determinism gradient extended per L-690 but core claim stable.)
+- **Last tested**: S504 (CONFIRMED — Antithesis/Jepsen evidence canonical; L-690 3-node sufficiency validated. No contradictions in L-1000+. L-1053/L-1054 determinism traps consistent with 50-67% range. No new external counter-evidence.)
 - **Domain**: distributed-systems
 
 ### B15: CAP theorem — linearizability and availability mutually exclusive during partitions

@@ -73,9 +73,10 @@ def parse_lesson(path: Path) -> dict:
         if sm:
             result["session"] = f"S{sm.group(1)}"
         # Domain
-        dm = re.search(r"Domain:\s*(\S+)", line)
-        if dm:
-            result["domain"] = dm.group(1)
+        from lesson_header import parse_domain_field
+        _doms = parse_domain_field(line)
+        if _doms:
+            result["domain"] = _doms[0]
         # Cites
         cm = re.match(r"Cites:\s*(.+)", line)
         if cm:

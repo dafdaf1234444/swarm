@@ -64,11 +64,8 @@ def parse_lesson(path: Path) -> dict | None:
         level_m = re.search(r"\blevel[=:]\s*(L[1-5])\b", text[:200], re.I)
     level = level_m.group(1).upper() if level_m else "L2"
 
-    domain_m = re.search(r"Domain\*{0,2}:\s*([^\n|]+)", header)
-    domains = []
-    if domain_m:
-        raw = domain_m.group(1).strip()
-        domains = [d.strip() for d in raw.split(",")]
+    from lesson_header import parse_domain_field
+    domains = parse_domain_field(header)
     primary_domain = domains[0] if domains else "unknown"
 
     sess_m = re.search(r"Session\*{0,2}:\s*S(\d+)", header)

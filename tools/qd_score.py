@@ -46,10 +46,11 @@ def parse_lesson(path: Path) -> dict:
         if title_match:
             result["title"] = title_match.group(2)
 
-    # Extract domain
-    domain_match = re.search(r"Domain:\s*(\S+)", content)
-    if domain_match:
-        result["domain"] = domain_match.group(1).lower().rstrip("|")
+    # Extract domain (SIG-80: shared parser)
+    from lesson_header import parse_domain_field
+    _doms = parse_domain_field(content[:500])
+    if _doms:
+        result["domain"] = _doms[0]
 
     # Extract Sharpe
     sharpe_match = re.search(r"Sharpe:\s*(\d+)", content)

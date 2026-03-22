@@ -55,13 +55,15 @@ def parse_lesson_meta(path):
     domain = "unknown"
     sharpe = -1
     cites = set()
-    for line in lines[:10]:
+    from lesson_header import parse_domain_field
+    for line in lines[:5]:  # header only — body text can contain false Domain: matches
         sm = re.search(r"Session:\s*S?(\d+)", line)
         if sm:
             session = int(sm.group(1))
-        dm = re.search(r"Domain:\s*([^|,\n]+)", line)
-        if dm:
-            domain = dm.group(1).strip().lower().replace(" ", "-")
+        if domain == "unknown":  # only take first Domain: match
+            _doms = parse_domain_field(line)
+            if _doms:
+                domain = _doms[0]
         shm = re.search(r"Sharpe:\s*(\d+)", line)
         if shm:
             sharpe = int(shm.group(1))

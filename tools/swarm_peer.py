@@ -506,11 +506,12 @@ def cmd_sync(args: list[str]) -> None:
             if lpath.exists():
                 text = lpath.read_text(errors="ignore")
                 # Extract domain and Sharpe if present
-                domain_m = re.search(r"Domain:\s*(\S+)", text)
+                from lesson_header import parse_domain_field
+                _doms = parse_domain_field(text[:500])
                 sharpe_m = re.search(r"Sharpe:\s*(\d+)", text)
                 sync_report["merge_candidates"].append({
                     "id": lid,
-                    "domain": domain_m.group(1) if domain_m else "unknown",
+                    "domain": _doms[0] if _doms else "unknown",
                     "sharpe": int(sharpe_m.group(1)) if sharpe_m else 0,
                     "first_line": text.split("\n")[0].lstrip("# ").strip()[:100],
                 })
