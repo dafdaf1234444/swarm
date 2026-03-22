@@ -472,6 +472,9 @@ def cmd_import_latex(args):
                 continue
             prefix = NODE_TYPES[ntype]
             nid_num = manifest["next_id"].get(ntype, 1)
+            # Skip IDs that already exist on disk (collision guard)
+            while (NODES_DIR / f"{prefix}-{nid_num:03d}.json").exists():
+                nid_num += 1
             node_id = f"{prefix}-{nid_num:03d}"
             manifest["next_id"][ntype] = nid_num + 1
             label_to_id[item["label"]] = node_id

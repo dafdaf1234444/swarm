@@ -27,5 +27,10 @@
 
 ## F-MATH6: Can LaTeX import extract dependencies from real papers?
 **Test**: Run `math_tree.py import-latex` on a real LaTeX file with `\uses{}`.
-**Status**: OPEN (S499)
-**Evidence needed**: ≥1 real file processed with >80% edge accuracy
+**Status**: CONFIRMED (S501) — 100% accuracy (12/12 objects, 16/16 edges)
+**Evidence**: experiments/math/test-import.tex — metric space topology (12 objects, 5 types). Collision guard added: import no longer overwrites existing nodes. `--create` produces valid DAG (112 nodes, 0 cycles).
+
+## F-MATH7: Can imported LaTeX subgraphs connect to existing hand-built nodes?
+**Test**: Import a LaTeX file whose objects overlap with existing nodes (e.g., "metric space" when D-024 Metric space exists). Verify auto-linking.
+**Status**: OPEN (S501)
+**Evidence needed**: Import with `--link-existing` flag correctly maps LaTeX labels to existing node IDs
