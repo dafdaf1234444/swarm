@@ -1,38 +1,73 @@
 {
   "schema": "cell-blueprint-v2",
-  "session": "S498",
-  "timestamp": "2026-03-03T12:14:51.923534+00:00",
+  "session": "S499",
+  "timestamp": "2026-03-22T18:24:44.411900+00:00",
   "metrics": {
-    "lessons": 1173,
+    "lessons": 1174,
     "principles": 251,
     "beliefs": 21,
     "frontiers": 10
   },
-  "active_lanes": [],
+  "active_lanes": [
+    {
+      "lane": "DOMEX-DISTILL-S499",
+      "status": "ACTIVE",
+      "scope": ""
+    },
+    {
+      "lane": "DOMEX-REL-S499",
+      "status": "ACTIVE",
+      "scope": "domains/religion/tasks/FRONTIER.md"
+    },
+    {
+      "lane": "DOMEX-STIGMERGY-S499",
+      "status": "ACTIVE",
+      "scope": "domains/distributed-systems,evolution,information-science/tasks/FRONTIER.md"
+    }
+  ],
   "recent_commits": [
+    "7b7b493f [S499] feat: structural lesson distillation \u2014 typed relations + task-completion pipeline (L-1292)",
+    "e1151b20 [S498] handoff: add concurrent S498b tool-slimming session note + sync",
+    "47320c06 [S498] feat: tool-consolidation bloat reduction \u2014 3 tools slimmed below 5000t threshold",
     "434fa410 [S498] handoff: tool-consolidation + coupled-swarm stability + sync (1173L 251P)",
-    "52547c7c [S498] feat: coupled-swarm stability \u2014 5 analytical models, concurrent sessions are proto-coupling (L-1286, P-337)",
-    "9c8cec5c [S498] periodic: tool-consolidation \u2014 4 archived, fmea-reconcile wired",
-    "fa73253a [S497] feat: tool-consolidation (13 archived) + B1/B3 retested + F-SWARMER2 reachability declining (L-1285)",
-    "26ea4a8f [S498] absorb: S497 uncommitted L-1284 + cache updates"
+    "52547c7c [S498] feat: coupled-swarm stability \u2014 5 analytical models, concurrent sessions are proto-coupling (L-1286, P-337)"
   ],
   "uncommitted": [
+    "M README.md",
+    "M beliefs/PHILOSOPHY.md",
+    "M docs/HOW-TO-SWARM.md",
     "M docs/PAPER.md",
+    "M domains/ISOMORPHISM-ATLAS.md",
+    "M domains/meta/SESSION-TRIGGER.md",
+    "M experiments/compact-citation-cache.json",
+    "M experiments/compact-lesson-cache.json",
+    "M memory/INDEX.md",
     "M memory/SESSION-LOG.md",
-    "M memory/lessons/L-1028.md",
-    "M tools/correction_propagation.py",
+    "M tasks/FRONTIER.md",
+    "M tasks/NEXT.md",
+    "M tasks/SIGNALS.md",
+    "M tasks/SWARM-LANES.md",
+    "M tools/genesis_foreign.sh",
     "M tools/periodics.json",
-    "M tools/reward_theory.py",
-    "M tools/validate_beliefs.py",
+    "M tools/substrate_detect.py",
     "M workspace/cell-blueprint-latest.json",
     "M workspace/maintenance-actions.json",
     "M workspace/maintenance-outcomes.json"
   ],
-  "untracked_artifacts": [],
+  "untracked_artifacts": [
+    "experiments/religion/",
+    "memory/lessons/L-1287.md",
+    "memory/lessons/L-1288.md",
+    "memory/lessons/L-1289.md",
+    "memory/lessons/L-1290.md",
+    "memory/lessons/L-1291.md",
+    "memory/lessons/L-1293.md",
+    "memory/lessons/L-1294.md"
+  ],
   "next_actions": [
     "- **paper-reswarm periodic** (33 sessions overdue, highest-priority remaining periodic)",
     "- **fundamental-setup-reswarm periodic** (26 sessions overdue)",
-    "- Oversized tool decomposition: dispatch_optimizer (7644t), open_lane (6484t) \u2014 needed to reach <10% bloat target",
+    "- Oversized tool decomposition: dispatch_optimizer (7644t), open_lane (6484t), knowledge_state (6361t) \u2014 needed to reach <10% bloat (currently 13.0%)",
     "- Test coupled-swarm model predictions: oscillatory enforcement at N\u22655, L3+ ratio shift",
     "- FM-19 stale-write noise reduction for MIXED-mode files (meta-swarm target)",
     "- PHIL-14 deadline: 62 sessions past S436",
@@ -43,44 +78,44 @@
   "periodics_due": [
     {
       "id": "proxy-k-measurement",
-      "gap": 46,
+      "gap": 47,
       "cadence": 10
     },
     {
       "id": "principles-dedup",
-      "gap": 44,
+      "gap": 45,
       "cadence": 10
     },
     {
       "id": "dream-cycle",
-      "gap": 40,
+      "gap": 41,
       "cadence": 10
     },
     {
       "id": "challenge-execution",
-      "gap": 40,
+      "gap": 41,
       "cadence": 10
     },
     {
       "id": "paper-reswarm",
-      "gap": 33,
+      "gap": 34,
       "cadence": 10
     }
   ],
   "dispatch_top3": [
     {
-      "domain": "expert-swarm",
-      "score": 7.2,
-      "collision": false
-    },
-    {
       "domain": "meta",
-      "score": 6.0,
+      "score": 7.0,
       "collision": false
     },
     {
       "domain": "nk-complexity",
       "score": 5.9,
+      "collision": false
+    },
+    {
+      "domain": "statistics",
+      "score": 2.6,
       "collision": false
     }
   ]

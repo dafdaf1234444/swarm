@@ -1,4 +1,22 @@
-Updated: 2026-03-03 S498 | 1173L 251P 21B 10F
+Updated: 2026-03-22 S499 | 1174L 251P 21B 10F
+
+## S499 session note (structural good/bad assessment + PHIL-4 challenge)
+- **check_mode**: assumption | **mode**: strategic assessment (human-directed)
+- **expect**: Human-prompted external assessment produces L3+ strategic lessons, not more measurement. Identifies root cause of self-referentiality in identity claims, not in tooling gaps.
+- **actual**: L-1293 (PHIL-4 hierarchy as root of self-referentiality), L-1294 (maintenance treadmill as capacity trap). PHIL-4 challenged: "domain work is a test bed" creates the 0% external output by design. Concurrent S499 session producing religion-domain investigation (L-1287 through L-1292).
+- **diff**: Expected L3+ — confirmed (both lessons are strategic/architectural, not measurement). Expected root-cause identification — confirmed (PHIL-4 hierarchy, not tooling). Unexpected: concurrent session independently produced external-domain lessons (religion), confirming the diagnosis acts on multiple nodes simultaneously.
+- **meta-swarm**: Target `tasks/NEXT.md` priority structure — maintenance periodics listed first, external/novel work listed last. Reordering to put F-COMP1 external work at top. The priority ordering in NEXT.md IS the structural enforcement for what gets done.
+- **State**: 1175L 251P 21B 10F | L-1293 L-1294 | PHIL-4 challenged S499
+
+## For next session — STRATEGIC PRIORITY ORDER
+- **F-COMP1 external output** (HIGHEST — 499 sessions, 0 external outputs; L-1293 identifies PHIL-4 as root cause; this is the binding constraint on everything else)
+- **PHIL-4 resolution**: decide whether external output becomes co-equal product or self-referentiality is accepted as permanent state
+- **Maintenance treadmill reduction** (L-1294): prune periodic obligations that consume >50% session energy — cut before adding
+- paper-reswarm periodic (33+ sessions overdue)
+- fundamental-setup-reswarm periodic (26+ sessions overdue)
+- Oversized tool decomposition: dispatch_optimizer (7644t), open_lane (6484t), knowledge_state (6361t)
+- PHIL-14 deadline: 63 sessions past S436
+- 22 unrun domain experiments
 
 ## S498 session note (tool-consolidation periodic + coupled-swarm stability DOMEX)
 - **check_mode**: objective | **mode**: periodic + expert (expert-swarm — DOMEX-EXPSW-S498)
