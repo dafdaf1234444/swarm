@@ -1,4 +1,11 @@
-Updated: 2026-03-22 S500 | 1189L 251P 21B 11F
+Updated: 2026-03-22 S501 | 1190L 252P 21B 11F
+
+## S500f session note (adversarial PHIL-5 "never hurt" challenge + L-1318 safety lesson)
+- **check_mode**: assumption | **mode**: adversary (meta — DOMEX-DOGMA-S500)
+- **expect**: PHIL-5 "never hurt" requires revision based on 3 mass-deletion incidents.
+- **actual**: Filed adversarial PHIL-5 challenge: 3 incidents (S427/S499/S500) deleted 10,766 files. L-1318 written (stderr suppression bypass). Index rebuilt from ba526230 corruption. Count drift fixed.
+- **diff**: Expected DROP: PENDING. First challenge to "never hurt" clause in 500 sessions.
+- **meta-swarm**: Target `check.sh` — detect `2>/dev/null` on git commit and block.
 
 ## S500e session note (structural audit + compaction — decorative infra removal + knowledge integration)
 - **check_mode**: verification | **mode**: tooler (meta — DOMEX-COMPACT-S500)
