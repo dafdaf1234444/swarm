@@ -109,6 +109,25 @@ def run(args: argparse.Namespace) -> None:
                    campaign_phase_fn=campaign_phase_wrapper)
         ucb1_results.sort(key=lambda x: x["score"], reverse=True)
 
+        # Concentration rebalancing (S499 bottleneck repair)
+        # meta +2.0 maint bonus + expert-swarm +2.0 self-dispatch = 57% lane share
+        # Progressive penalty for domains exceeding 10% historical share (P-264)
+        CONCENTRATION_THRESHOLD = 0.10
+        CONCENTRATION_MULTIPLIER = 30.0
+        total_n = sum(r.get("outcome_n", 0) for r in ucb1_results)
+        if total_n > 20:
+            for r in ucb1_results:
+                share = r.get("outcome_n", 0) / total_n
+                if share > CONCENTRATION_THRESHOLD:
+                    excess = share - CONCENTRATION_THRESHOLD
+                    penalty = excess * CONCENTRATION_MULTIPLIER
+                    r["score"] -= penalty
+                    r["concentration_penalty"] = round(penalty, 2)
+                else:
+                    r["concentration_penalty"] = 0.0
+                r["concentration_pct"] = round(share * 100, 1)
+            ucb1_results.sort(key=lambda x: x["score"], reverse=True)
+
         if compare:
             heuristic_results = results
         elif not compare:
@@ -276,6 +295,7 @@ def _print_ucb1_output(results, results_limited, active_lanes, session_merged,
         es = "∞" if ex == float('inf') else f"{ex:.3f}"
         ss = f"{r['score']:.1f}" if r["score"] < 999 else "∞"
         m = ""
+        if r.get("concentration_penalty", 0) > 0: m += f" [CONC-{r['concentration_pct']:.0f}%]"
         if r.get("floor_protected"): m += " [FLOOR]"
         if r.get("commit_guarantee_boost", 0) > 0: m += " ⚡COMMIT"
         if r.get("commit_reservation"): m += " 🚨RESERVED"

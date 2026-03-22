@@ -429,3 +429,43 @@ def section_self_inflation(root=ROOT):
     except Exception:
         pass
     return lines
+
+
+def section_trace_amplification(root=ROOT):
+    """Stigmergic amplification — surface high-in-degree lessons not cited recently.
+
+    Closes the amplification loop (F-STIG1, L-1296): success should amplify
+    source traces. Shows top-cited lessons absent from recent Cites: headers.
+    """
+    lines = []
+    try:
+        from citation_mechanism import _get_in_degrees
+
+        in_deg = _get_in_degrees()
+        if not in_deg:
+            return lines
+
+        # Find lessons cited in last 50 lessons (recent activity)
+        lesson_dir = root / "memory" / "lessons"
+        recent_files = sorted(lesson_dir.glob("L-*.md"),
+                              key=lambda p: p.stat().st_mtime, reverse=True)[:50]
+        recently_cited = set()
+        for lf in recent_files:
+            for line in lf.read_text(errors="replace").splitlines()[:5]:
+                if line.startswith("Cites:"):
+                    for m in re.findall(r'L-\d+', line):
+                        recently_cited.add(m)
+                    break
+
+        # Top-cited lessons NOT in recent citations = amplification gap
+        top = sorted(in_deg.items(), key=lambda x: -x[1])[:30]
+        gap = [(lid, deg) for lid, deg in top if lid not in recently_cited][:8]
+        if gap:
+            lines.append(f"--- Trace Amplification (F-STIG1, {len(gap)} high-impact underused) ---")
+            for lid, deg in gap:
+                lines.append(f"  {lid} (in-deg={deg}) — high-cited but not in recent 50 Cites: headers")
+            lines.append(f"  Amplify: cite these when relevant — success should strengthen source trails")
+            lines.append("")
+    except Exception:
+        pass
+    return lines

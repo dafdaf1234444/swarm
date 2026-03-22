@@ -305,6 +305,7 @@ def main():
         section_knowledge_swarm, section_knowledge_recombination, section_correction_propagation,
         section_suggested_action, section_cascade_state, section_epsilon_dispatch,
         section_grounding_audit, section_fairness, section_self_inflation,
+        section_trace_amplification,
     )
     from external_grounding_check import section_grounding_decay
     from closeable_frontiers import section_closeable_frontiers
@@ -404,6 +405,7 @@ def main():
     _print_lines(section_correction_propagation())
     _print_lines(section_fairness())
     _print_lines(section_self_inflation())
+    _print_lines(section_trace_amplification())
 
     # Concept debt (F-INV1, L-1269)
     try:
