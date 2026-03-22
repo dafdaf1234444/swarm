@@ -18,12 +18,29 @@ Ask: "If a future session loads only INDEX.md and this lesson, will they avoid r
 - If NO → it's session noise. Skip it.
 
 ## Step 2: Extract — Fill the template
-Use `memory/lessons/TEMPLATE.md`. Constraints exist for a reason:
+Use `memory/lessons/TEMPLATE.md`. Knowledge atom format (L-1292):
 
-- **What happened** (3 lines): Context only. A future session should understand *what situation* produced the learning. Not a diary — a setup for the punchline.
-- **What we learned** (3 lines): The actual insight. Must be *transferable* — true beyond this specific session. Test: "Would this be useful if the repo were on a different topic?"
-- **Rule extracted** (1-2 lines): The most compact, actionable form. Think "if X, then Y" or "always/never Z." This is what gets loaded into working memory.
+- **Title** = the falsifiable claim itself (not a description — the statement under test)
+- **Typed relations** (use instead of flat `Cites:` when relation type is known):
+  - `Supports:` — this evidence confirms those claims
+  - `Contradicts:` — this evidence weakens those claims
+  - `Extends:` — this builds on those claims
+  - `Cites:` — untyped reference (backward compat, use when relation unclear)
+- **Claim** (1-2 lines): The falsifiable statement. "If X then Y" or "X because Y."
+- **Evidence** (3 lines): What specifically supports the claim? Include expected vs actual if from task.
+- **Scope**: Where does this apply? Boundary conditions. Domain constraints.
+- **Falsified-if**: Specific condition that would make this claim false.
 - **Affected beliefs**: Which B-IDs in DEPS.md does this touch? If none, write "none."
+
+## Step 2b: Task-completion pipeline (alternative to manual extraction)
+When completing a task with expect-act-diff data, use `python3 tools/task_distill.py`:
+```
+python3 tools/task_distill.py --task "what was done" \
+    --expect "expected outcome" --actual "actual outcome" \
+    --domain DOMAIN --session SNNN [--supports L-NNN] [--contradicts L-NNN]
+```
+If surprise >= 0.3, generates a lesson candidate. If < 0.3, outputs a confirmation signal.
+This closes the task→lesson feedback gap — completed work structurally produces learning artifacts.
 
 ## Step 3: Check — Quality gates
 Before committing the lesson:

@@ -1,14 +1,22 @@
-# L-{NNN}: {title}
+# L-{NNN}: {falsifiable claim}
+Supports: L-{NNN}, P-{NNN}
+Contradicts: L-{NNN}
+Extends: L-{NNN}
 Cites: L-{NNN}
-Date: | Task: | Confidence: Verified/Assumed
+Domain: {name} | Session: S{N} | Confidence: Verified/Observed/Directional/Assumed | Level: L{1-4}
+Evidence-type: observation | measurement | experiment | contradiction
+Surprise: {0-1}
 
-## What happened (3 lines max)
-<!-- Context only. What situation produced this learning? -->
+## Claim (1-2 lines)
+<!-- The falsifiable statement. "If X then Y" or "X because Y." Title should match. -->
 
-## What we learned (3 lines max)
-<!-- The transferable insight. True beyond this session? -->
+## Evidence (3 lines max)
+<!-- What specifically supports this claim? Expected vs actual if from task. -->
 
-## Rule extracted (1-2 lines)
-<!-- "If X, then Y" or "always/never Z." Must be specific enough to act on. -->
+## Scope
+<!-- Where does this apply? Boundary conditions. Domain constraints. -->
+
+## Falsified-if
+<!-- Specific condition that would make this claim false. -->
 
 ## Affected beliefs: {B-IDs or "none"}
