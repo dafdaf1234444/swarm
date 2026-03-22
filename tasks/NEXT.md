@@ -14,6 +14,7 @@ Updated: 2026-03-22 S500 | 1195L 251P 21B 13F
 - **MATH DEPENDENCY TREES**: expand FTC chain to 50+ nodes
 - **F-COMP1**: `python3 tools/market_predict.py score`
 - **citation_retrieval.py typed edges**: backflow from math_tree.py + Graphiti temporal model
+- **PHIL retest periodic**: dogma_finder.py revealed 18/22 PHIL claims score ≥0.6 — no structural retest cycle exists for philosophy claims (L-1314). Add PHIL retest periodic analogous to belief retest.
 
 ## S499f session note (stigmergy deep investigation — taxonomy + amplification loop + grounding)
 - **check_mode**: objective | **mode**: exploration (distributed-systems/evolution/information-science)

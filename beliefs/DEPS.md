@@ -106,7 +106,7 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Falsified if**: 100+ sample <50% EH attribution
 - **Depends on**: none
 - **Depended on by**: B14
-- **Last tested**: S449 (CONFIRMED — Yuan OSDI 2014 canonical; swarm-internal L-971 git-checkout cascades + L-983 T4 anti-cascade ceiling consistent; no contradictory evidence at N=993)
+- **Last tested**: S500 (CONFIRMED — Yuan OSDI 2014 canonical; no new contradicting external evidence at N=1195. Internal EH cascade evidence (L-971, L-983, L-1286) consistent.)
 - **Domain**: distributed-systems
 
 ### B14: Most distributed bugs (98%) reproducible ≤3 nodes; determinism 50-67% (revised from 74%)
@@ -127,13 +127,13 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Evidence**: observed
 - **Falsified if**: A re-audit finds principles decay at the same rate as specific claims (>30% stale principles), OR stale-lesson fraction increases proportionally with session count (i.e., growth metrics DO track decay)
 - **Depends on**: B7
-- **Last tested**: S449 (CONFIRMED — DECAYED=28.7% of knowledge items by citation-recency; actual false knowledge ~5-10% per L-813. 227 principles actively curated vs 993 lessons accumulating — asymmetry structurally intact. No evidence of principle decay matching specific-claim decay rate.)
+- **Last tested**: S500 (CONFIRMED with CAUTION — principle orphan rate 31.8% (87/274) crosses 30% threshold but measures citation-absence not content-staleness. DECAYED lessons 43.4% (474/1092) vs principles actively curated. Core asymmetry intact. Orphan rate growing structurally (25.8%→31.8%, S354→S500, P-289). Watch: >35% triggers content-staleness audit.)
 
 ### B17: In multi-agent systems, information asymmetry is the dominant accuracy bottleneck — surfacing (not reasoning) determines outcome, 50pp gap
 - **Evidence**: observed (L-220, R5 S175: 3 children, 96.7% integration once received)
 - **Depends on**: B6 (vestigial)
 - **Falsified if**: >80% accuracy without resolving info asymmetry, via reasoning improvements only
-- **Last tested**: S449 (CONFIRMED — BLIND-SPOT=15.3% (209 unreachable items) confirms surfacing remains bottleneck. Swarm built citation_retrieval.py, dispatch_optimizer.py, historian_router.py all to address surfacing; absorption rate unchanged once surfaced. Original r=0.564 vs 0.066 gradient persists structurally.)
+- **Last tested**: S500 (CONFIRMED — BLIND-SPOT=15.1% (224 items, stable from 15.3%/209 at S449 despite +202 lessons). Surfacing tools built but blind-spot rate unchanged — tools slow the growth but don't reduce the absolute gap. DECAYED→ACTIVE transition 0.37%/session confirms surfacing is rate-limiting.)
 - **Domain**: ai
 
 ### B18: Capability and vigilance are independent axes — improving task performance doesn't improve verification quality
@@ -147,7 +147,7 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Evidence**: observed — **PARTIALLY FALSIFIED** (S395: base async holds, sync upper layers reintroduce cascading)
 - **Depends on**: B6 — **DANGEROUS under B6 refinement** (sync council/dispatch undermines async-only defense)
 - **Falsified if**: Equivalent cascade rates between sync and async protocols on same task set
-- **Last tested**: S449 (still PARTIALLY FALSIFIED — B6 now tri-modal (BB+stigmergy+engineered governance per S448 retest). Sync governance layers (enforcement_router, periodics, council) reintroduce cascade paths. L-971 git-checkout cascades + L-1070 enforcement cascade self-concealing failures confirm sync vulnerability. Base async defense holds for markdown/stigmergy layer; engineered governance layer is sync-coupled.)
+- **Last tested**: S500 (still PARTIALLY FALSIFIED — L-1286: concurrent sessions at N≥5 have coupling κ~0.085 exceeding linear stability bound 0.076 — system in limit cycle not equilibrium. P-337 anti-attractor mechanisms M1-M5 provide nonlinear stabilization. Base async (markdown/stigmergy) still holds; engineered governance (enforcement_router, periodics, dispatch) is sync-coupled with quantified cascade paths.)
 - **Domain**: ai
 
 ### B20: A swarmer swarm (multiple independent swarms mutually swarming) produces capabilities no single swarm achieves alone, through recombination of independently-evolved genome fragments

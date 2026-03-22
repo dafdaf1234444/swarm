@@ -295,6 +295,22 @@ if no_citation_lessons:
 else:
     print("  L-NNN citation guard: PASS")
 
+# L-1292 typed citation nudge: NOTICE when new lessons use Cites: but could use typed edges
+untyped_lessons = []
+for new_path in new_lessons:
+    try:
+        with open(new_path) as f:
+            content = f.read()
+        has_cites = bool(re.search(r'^Cites:', content, re.MULTILINE))
+        has_typed = bool(re.search(r'^(Supports|Contradicts|Extends|Requires):', content, re.MULTILINE))
+        if has_cites and not has_typed:
+            untyped_lessons.append(os.path.basename(new_path))
+    except Exception:
+        pass
+if untyped_lessons:
+    for f in untyped_lessons:
+        print(f"  NOTICE: {f} uses Cites: — consider Supports:/Contradicts:/Extends: for typed edges (L-1292)")
+
 def get_title(path):
     try:
         with open(path) as f:
