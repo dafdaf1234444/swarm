@@ -13,6 +13,10 @@ python3 tools/math_tree.py add --type theorem --title "Extreme Value Theorem" --
 # Generate a learning path
 python3 tools/math_tree.py path T-001
 
+# Interactive visualization (open in browser)
+python3 tools/math_tree.py export --format json > domains/mathematics/nodes_export.json
+# Then open domains/mathematics/viewer.html in a browser
+
 # Validate the DAG
 python3 tools/math_tree.py validate
 

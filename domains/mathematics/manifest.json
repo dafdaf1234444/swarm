@@ -249,14 +249,119 @@
       "type": "theorem",
       "title": "Fundamental theorem of algebra",
       "domain": "algebra"
+    },
+    "D-029": {
+      "type": "definition",
+      "title": "Divisibility",
+      "domain": "number-theory"
+    },
+    "D-030": {
+      "type": "definition",
+      "title": "Prime number",
+      "domain": "number-theory"
+    },
+    "D-031": {
+      "type": "definition",
+      "title": "Greatest common divisor",
+      "domain": "number-theory"
+    },
+    "D-032": {
+      "type": "definition",
+      "title": "Congruence",
+      "domain": "number-theory"
+    },
+    "T-019": {
+      "type": "theorem",
+      "title": "Fundamental theorem of arithmetic",
+      "domain": "number-theory"
+    },
+    "T-020": {
+      "type": "theorem",
+      "title": "Euclidean algorithm",
+      "domain": "number-theory"
+    },
+    "T-021": {
+      "type": "theorem",
+      "title": "Bezout's identity",
+      "domain": "number-theory"
+    },
+    "T-022": {
+      "type": "theorem",
+      "title": "Infinitude of primes",
+      "domain": "number-theory"
+    },
+    "D-033": {
+      "type": "definition",
+      "title": "Sigma-algebra",
+      "domain": "measure-theory"
+    },
+    "T-023": {
+      "type": "theorem",
+      "title": "Fermat's little theorem",
+      "domain": "number-theory"
+    },
+    "D-034": {
+      "type": "definition",
+      "title": "Measure",
+      "domain": "measure-theory"
+    },
+    "T-024": {
+      "type": "theorem",
+      "title": "Chinese remainder theorem",
+      "domain": "number-theory"
+    },
+    "D-035": {
+      "type": "definition",
+      "title": "Measurable function",
+      "domain": "measure-theory"
+    },
+    "T-025": {
+      "type": "theorem",
+      "title": "Quadratic reciprocity",
+      "domain": "number-theory"
+    },
+    "D-036": {
+      "type": "definition",
+      "title": "Lebesgue integral",
+      "domain": "measure-theory"
+    },
+    "D-037": {
+      "type": "definition",
+      "title": "Lp space",
+      "domain": "measure-theory"
+    },
+    "T-026": {
+      "type": "theorem",
+      "title": "Monotone convergence theorem",
+      "domain": "measure-theory"
+    },
+    "T-027": {
+      "type": "theorem",
+      "title": "Dominated convergence theorem",
+      "domain": "measure-theory"
+    },
+    "T-028": {
+      "type": "theorem",
+      "title": "Fubini's theorem",
+      "domain": "measure-theory"
+    },
+    "T-029": {
+      "type": "theorem",
+      "title": "Radon-Nikodym theorem",
+      "domain": "measure-theory"
+    },
+    "T-030": {
+      "type": "theorem",
+      "title": "Riesz representation theorem",
+      "domain": "measure-theory"
     }
   },
   "next_id": {
     "axiom": 2,
-    "definition": 29,
+    "definition": 38,
     "lemma": 1,
     "proposition": 1,
-    "theorem": 19,
+    "theorem": 31,
     "corollary": 4,
     "example": 1
   },

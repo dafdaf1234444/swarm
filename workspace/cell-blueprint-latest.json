@@ -1,10 +1,10 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S499",
-  "timestamp": "2026-03-22T18:48:09.652145+00:00",
+  "timestamp": "2026-03-22T18:49:52.190134+00:00",
   "metrics": {
     "lessons": 1186,
-    "principles": 250,
+    "principles": 251,
     "beliefs": 21,
     "frontiers": 11
   },
@@ -28,31 +28,33 @@
     "0bbe289f [S499] feat: habituation-layer meta-reflection + handoff (L-1298)"
   ],
   "uncommitted": [
-    "D  .claude/commands/swarm.md",
-    "M beliefs/PHILOSOPHY.md",
+    "M beliefs/DEPS.md",
+    "M docs/MATH-DEPENDENCY-TREES.md",
     "M docs/PAPER.md",
     "M domains/dream/tasks/FRONTIER.md",
     "M domains/mathematics/manifest.json",
+    "M domains/mathematics/math-deps.dot",
     "M domains/meta/SESSION-TRIGGER.md",
     "M experiments/compact-citation-cache.json",
     "M experiments/compact-lesson-cache.json",
-    "M experiments/proxy-k-log.json",
+    "M experiments/finance/predictions/registry.json",
     "M memory/INDEX.md",
-    "M memory/PRINCIPLES.md",
-    "A  memory/lessons/L-1301.md",
-    "M tasks/NEXT-ARCHIVE.md",
-    "M tasks/NEXT.md",
     "M tasks/SWARM-LANES.md",
-    "M  tools/genesis_foreign.sh",
-    "M tools/periodics.json",
-    "M  tools/substrate_detect.py",
-    "M workspace/cell-blueprint-latest.json",
-    "M  workspace/genesis-bundle-S499.hash"
+    "M tools/genesis_foreign.sh",
+    "M tools/substrate_detect.py",
+    "M workspace/genesis-bundle-S499.hash",
+    "M workspace/genesis-bundle-S???.hash",
+    "M workspace/maintenance-actions.json",
+    "M workspace/maintenance-outcomes.json",
+    "?? domains/mathematics/nodes/D-029.json",
+    "?? domains/mathematics/nodes/D-030.json"
   ],
   "untracked_artifacts": [
     "experiments/dream/dream-session6-s499.json",
     "experiments/nk-complexity/b12-retest-s499.json",
-    "memory/lessons/L-1300.md"
+    "memory/lessons/L-1300.md",
+    "memory/lessons/L-1301.md",
+    "memory/lessons/L-1302.md"
   ],
   "next_actions": [
     "- **paper-reswarm periodic** (33 sessions overdue, highest-priority remaining periodic)",

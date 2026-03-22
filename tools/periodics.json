@@ -328,6 +328,17 @@
       "last_session": "S481",
       "last_date": "2026-03-03",
       "note": "S481: 9 lessons grounded (L-753, L-577, L-599, L-640, L-722, L-527, L-533, L-543, L-555). Overall: 165/1111 (15%). Recent-20: 40%. Critical decay: 266."
+    },
+    {
+      "id": "market-review",
+      "description": "External finance: fetch current prices for open predictions, resolve past-due predictions, add new predictions when market conditions change, run market_predict.py score. F-FIN4 (can swarm invest?). First external output periodic (F-COMP1). L-1295.",
+      "cadence_sessions": 10,
+      "last_reviewed_session": "S499",
+      "registered_by": "S499",
+      "last_session": "S499",
+      "last_date": "2026-03-22",
+      "note": "S499: 5 predictions registered (PRED-0001..0005). First resolve: TLT by 2026-04-21. Tools: market_predict.py (registry), market_report.py (dashboard). BACKTEST.md grounds all predictions.",
+      "last_run": "S499"
     }
   ]
 }

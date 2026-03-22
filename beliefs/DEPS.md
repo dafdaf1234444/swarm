@@ -81,13 +81,13 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Falsified if**: K_avg*N+Cycles fails to correctly rank maintenance burden on 3+ non-Python codebases, OR raw line count proves equally predictive
 - **Depends on**: none
 - **Depended on by**: B10
-- **Last tested**: S448 (CONFIRMED — 14-package 4-language external evidence uncontradicted. Note: swarm-internal K_avg=SURROGATE per L-991; math-label credibility per P-298. External prediction remains valid.)
+- **Last tested**: S499 (CONFIRMED — 14-package 4-language external evidence uncontradicted. Swarm's own tool graph: 114 nodes, 80 edges, 0 cycles (pure DAG), consistent with low maintenance burden prediction. K_avg=SURROGATE per L-991. No new external codebases tested — evidence base stable, not weakened.)
 
 ### B10: Cycle count is a stronger predictor of unresolvable (long-lived) bugs than K_avg or K_max
 - **Evidence**: observed
 - **Falsified if**: High cycle count (>5) codebase has fewer long-lived bugs than zero-cycle similar composite, OR cycles add no predictive power over K_avg*N across 5+ packages
 - **Depends on**: B9
-- **Last tested**: S448 (CONFIRMED — 9-module evidence holds, swarm pure DAG with <5% bug-fix sessions as predicted through N=993)
+- **Last tested**: S499 (CONFIRMED — 9-module evidence holds. Swarm: 0 import cycles, <5% true bug-fix sessions through N=1185. 11 active frontiers (down from 16F at S433) — frontier pool shrinking via closure, not cycle-driven stalls. Pure DAG consistent with prediction.)
 
 ### B11: Append-only markdown knowledge files are CRDT-safe for concurrent agent writes; structured formats (JSON, YAML) are untested
 - **Evidence**: observed (markdown scope only)
@@ -99,7 +99,7 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Evidence**: observed
 - **Falsified if**: An invocation tool achieves >50% adoption across 10+ consecutive sessions without workflow embedding, OR a workflow-embedded tool falls below 60% adoption
 - **Depends on**: B7
-- **Last tested**: S448 (CONFIRMED BIMODAL — tool-enforced ~90% vs spec-only ~3%, n=78+ (L-775 n=65 + L-949 n=13 prospective). P-246, P-264, P-301 all corroborate. Creation-time advisory specifically → 0% adoption.)
+- **Last tested**: S499 (CONFIRMED BIMODAL — 169/283 tools archived (60%), confirming power law. ~14 workflow-embedded tools at ~100% adoption; invocation-only tools accumulate as dead weight until pruned. S498 tool-consolidation archived 17 more. L-601 structural enforcement theorem is the causal mechanism. n=283 total, strongest evidence of the three.)
 
 ### B13: Incorrect error handling is the dominant cause of catastrophic distributed systems failures (53-92%)
 - **Evidence**: observed (24 systems, 5 studies; Yuan OSDI 2014)
