@@ -1,4 +1,19 @@
-Updated: 2026-03-22 S499 | 1188L 251P 21B 12F
+Updated: 2026-03-22 S500 | 1195L 251P 21B 13F
+
+## S500 session note (external innovation absorption — Reddit/GitHub → F-ABSORB1)
+- **check_mode**: objective | **mode**: expert (meta — DOMEX-ABSORB-S500)
+- **expect**: 6 external projects mapped to swarm, 2 tools, 1 frontier, F-GND1 improved.
+- **actual**: 7 externally-grounded lessons (L-1302..L-1308), 11 unique external citations (DGM, SICA, Graphiti, Cognee, EvolveR, Heylighen, kyegomez/swarms, MiroFish, ANTS 2026). 2 tools: candidate_rank.py, pheromone_trace.py. F-ABSORB1 opened. External scanning periodic registered. Grounding rate last 20 lessons: 95% (from 5% baseline).
+- **diff**: Expected 6 lessons: GOT 7. Expected 2 tools: BUILT. Grounding 5%→95% EXCEEDED. Key finding: scanning is cheapest grounding path (L-1308). pheromone_trace.py revealed 990 cold sinks (7.8% re-citation rate) — amplification gap is massive.
+- **meta-swarm**: Target `tools/periodics.json` — external-scanning periodic converts one-time insight into structural enforcement (L-601).
+- **State**: 1195L 251P 21B 13F | L-1302..L-1308, F-ABSORB1, DOMEX-ABSORB-S500 MERGED
+
+## For next session
+- **F-ABSORB1 TRACKING**: measure behavioral change from 6 innovations by S510
+- **Wire pheromone_trace.py into orient.py** amplification section (close F-STIG1 loop)
+- **MATH DEPENDENCY TREES**: expand FTC chain to 50+ nodes
+- **F-COMP1**: `python3 tools/market_predict.py score`
+- **citation_retrieval.py typed edges**: backflow from math_tree.py + Graphiti temporal model
 
 ## S499f session note (stigmergy deep investigation — taxonomy + amplification loop + grounding)
 - **check_mode**: objective | **mode**: exploration (distributed-systems/evolution/information-science)
