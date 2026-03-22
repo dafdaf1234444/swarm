@@ -5,27 +5,35 @@ Given a lesson ID or keyword, find related lessons via citation graph traversal.
 Coverage: 86.6% of lessons reachable via giant component (vs 29.5% INDEX pointers).
 Zero maintenance cost — edges from Cites: headers are self-updating.
 # L-929: Citation graph is primary retrieval; INDEX is cold-start fallback only.
+# L-1292: Typed edges (Supports/Contradicts/Extends) for semantic graph queries.
 
 Usage:
     python3 tools/citation_retrieval.py L-601               # 2-hop neighbors
     python3 tools/citation_retrieval.py L-601 --hops 3      # 3-hop neighbors
     python3 tools/citation_retrieval.py --keyword retrieval  # keyword → graph walk
     python3 tools/citation_retrieval.py --stats              # graph statistics
+    python3 tools/citation_retrieval.py L-601 --typed        # show edge types
 """
-import argparse, re, sys
+import argparse, sys
 from collections import defaultdict, deque
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from cite_parse import parse_lesson_citations, parse_all_refs  # noqa: E402
+
 ROOT = Path(__file__).resolve().parent.parent
 LESSONS_DIR = ROOT / "memory" / "lessons"
-CITE_RE = re.compile(r"\bL-(\d+)\b")
 
 
-def build_graph():
-    """Parse all lessons and return adjacency lists + metadata."""
+def build_graph(typed=False):
+    """Parse all lessons and return adjacency lists + metadata.
+
+    If typed=True, also returns edge_types dict: (src, tgt) → set of edge types.
+    """
     outbound = defaultdict(set)   # lesson → set of cited lessons
     inbound = defaultdict(set)    # lesson → set of lessons that cite it
     titles = {}                   # lesson → title line
+    edge_types = defaultdict(set) if typed else None  # (src, tgt) → {SUPPORTS, ...}
 
     for f in sorted(LESSONS_DIR.glob("L-*.md")):
         lid = f.stem  # e.g. "L-601"
@@ -33,10 +41,16 @@ def build_graph():
         lines = text.splitlines()
         titles[lid] = lines[0].lstrip("# ").strip() if lines else lid
 
-        # Extract citations from Cites: header and body
-        for line in lines:
-            for m in CITE_RE.finditer(line):
-                target = f"L-{m.group(1)}"
+        if typed:
+            refs = parse_lesson_citations(text)
+            for ref in refs:
+                if ref.is_lesson() and ref.target != lid:
+                    outbound[lid].add(ref.target)
+                    inbound[ref.target].add(lid)
+                    edge_types[(lid, ref.target)].add(ref.edge_type)
+        else:
+            # Fast path: just find all L-NNN refs
+            for target in parse_all_refs(text):
                 if target != lid:
                     outbound[lid].add(target)
                     inbound[target].add(lid)
@@ -51,6 +65,8 @@ def build_graph():
         else:
             inbound[lid] = inbound[lid] & all_ids
 
+    if typed:
+        return outbound, inbound, titles, edge_types
     return outbound, inbound, titles
 
 
@@ -106,7 +122,7 @@ def print_results(visited, titles, start_set, max_hops):
         print()
 
 
-def print_stats(outbound, inbound, titles):
+def print_stats(outbound, inbound, titles, edge_types=None):
     """Print citation graph statistics."""
     all_nodes = set(titles.keys())
     n = len(all_nodes)
@@ -131,6 +147,21 @@ def print_stats(outbound, inbound, titles):
     print(f"  Zero inbound:       {zero_in} ({zero_in * 100 / n:.1f}%)")
     print(f"  Isolated:           {isolated} ({isolated * 100 / n:.1f}%)")
     print(f"  Giant component:    {len(gc)} ({len(gc) * 100 / n:.1f}%)")
+
+    # Typed edge breakdown (L-1292)
+    if edge_types:
+        type_counts = defaultdict(int)
+        for etypes in edge_types.values():
+            for t in etypes:
+                type_counts[t] += 1
+        total_typed = sum(type_counts.values())
+        print(f"\n  Edge types ({total_typed} typed edges):")
+        for t in ["SUPPORTS", "CONTRADICTS", "EXTENDS", "REQUIRES", "CITES", "BODY"]:
+            c = type_counts.get(t, 0)
+            if c:
+                print(f"    {t:14s} {c:4d} ({c * 100 / total_typed:.1f}%)")
+        typed_non_body = sum(c for t, c in type_counts.items() if t not in ("CITES", "BODY"))
+        print(f"    Semantically typed: {typed_non_body}/{total_typed} ({typed_non_body * 100 / total_typed:.1f}%)")
     print()
 
     # Top-10 most cited
@@ -152,12 +183,17 @@ def main():
     ap.add_argument("--hops", type=int, default=2, help="Max hops (default 2)")
     ap.add_argument("--keyword", "-k", help="Search by keyword in titles")
     ap.add_argument("--stats", action="store_true", help="Show graph statistics")
+    ap.add_argument("--typed", action="store_true", help="Show typed edge info (L-1292)")
     args = ap.parse_args()
 
-    outbound, inbound, titles = build_graph()
+    if args.typed or args.stats:
+        outbound, inbound, titles, edge_types = build_graph(typed=True)
+    else:
+        outbound, inbound, titles = build_graph()
+        edge_types = None
 
     if args.stats:
-        print_stats(outbound, inbound, titles)
+        print_stats(outbound, inbound, titles, edge_types)
         return
 
     seeds = set()
