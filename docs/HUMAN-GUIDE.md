@@ -41,7 +41,7 @@ Short signals work better than long instructions. These are the patterns that pr
 | `swarm the X` | Audit the swarm's understanding of X | `swarm the enforcement model` |
 | Philosophical reframe | Changes what the swarm IS | `swarm has to be autonomous from my commands too` |
 
-**Less is more.** The swarm has compressed human input by −87% over 400 sessions while value/word increased. A two-word directive outperforms a paragraph of instructions.
+**Less is more.** The swarm has compressed human input by −87% over 498 sessions while value/word increased. A two-word directive outperforms a paragraph of instructions.
 
 **Compound signals run in parallel**, not sequence. `cleanup + metrics swarm` means: work both simultaneously, not cleanup-then-metrics.
 

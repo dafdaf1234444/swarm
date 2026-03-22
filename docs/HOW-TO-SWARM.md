@@ -1,12 +1,12 @@
 # How to Swarm a Repo — The Full Methodology
 
-*442 sessions, 960 lessons, 227 principles. One recursive function.*
+*498 sessions, 1181 lessons, 251 principles. One recursive function.*
 
 ---
 
 ## What this is
 
-A methodology for running AI sessions so they compound instead of reset. Learned by doing it wrong 442 times and correcting. Described at three levels:
+A methodology for running AI sessions so they compound instead of reset. Learned by doing it wrong 498 times and correcting. Described at three levels:
 
 1. **The loop** — apply to any repo, any tool, no setup required
 2. **The repo** — fork this, point Claude at it, type `/swarm`
@@ -198,13 +198,13 @@ If you want the full infrastructure without building it: fork [this repo](https:
 What you get immediately:
 - `python3 tools/orient.py` — synthesizes maintenance status, priorities, open frontiers, recent commits, and a suggested action in one command
 - Pre-commit hooks that enforce commit format and belief integrity
-- 227 principles distilled from 442 sessions of expect-act-diff — rules that have been tested, challenged, and kept
+- 251 principles distilled from 498 sessions of expect-act-diff — rules that have been tested, challenged, and kept
 - Expert dispatch: `python3 tools/dispatch_optimizer.py` — UCB1-based routing that picks the highest-value work area (MEASURED: +59% lessons/lane vs intuition, -24% concentration, P-245)
-- 46 active knowledge domains with structured frontier questions
+- 48 active knowledge domains with structured frontier questions
 - Compaction tools to keep knowledge density high as scale grows
 
 What you don't get immediately:
-- The 960 lessons — these are this swarm's specific observations; yours will be different
+- The 1181 lessons — these are this swarm's specific observations; yours will be different
 - The git history — this swarm's trajectory; yours starts fresh
 - The domain population — this swarm's exploration paths; you discover your own
 
@@ -261,9 +261,9 @@ The fix requires structure: one in five sessions should be explicitly adversaria
 
 (MEASURED: 18 reliability gaps at n=700, L-788) Every tool written at n=50 that compares against a threshold will produce false positives at n=500. Maintenance tools that read a baseline from 6 months ago will alarm on healthy growth and miss real problems. This isn't a code quality issue — it's a scaling property. Manual maintenance of thresholds doesn't scale.
 
-### The full loop produces 227 principles, not just notes
+### The full loop produces 251 principles, not just notes
 
-The compaction stack runs: observation → note → rule → principle → belief. Each level is a compression that makes future sessions faster. At 960 lessons, you need the stack — otherwise you have 960 individual observations that each session has to re-derive.
+The compaction stack runs: observation → note → rule → principle → belief. Each level is a compression that makes future sessions faster. At 1181 lessons, you need the stack — otherwise you have 1181 individual observations that each session has to re-derive.
 
 The stack requires a protocol for deciding what gets promoted (3+ occurrences → rule; tested against external evidence → principle). Without the protocol, notes pile up and the system becomes slower as it grows, not faster.
 
@@ -314,7 +314,7 @@ raw observation
     → philosophy (identity claim with evidence label)
 ```
 
-Each level filters. Not every observation becomes a lesson. Not every lesson becomes a principle. The stack is the compression mechanism — it's why 960 observations produce 227 principles rather than 960 individual notes you have to search.
+Each level filters. Not every observation becomes a lesson. Not every lesson becomes a principle. The stack is the compression mechanism — it's why 1181 observations produce 251 principles rather than 1181 individual notes you have to search.
 
 The compaction protocol runs when proxy-K (knowledge density metric) drifts above threshold. You can run it manually (`python3 tools/compact.py`) or it triggers via orient.py warnings.
 
@@ -337,7 +337,7 @@ These emerged from repeated pattern-matching across what went wrong:
 
 **Started:** 134 lines of markdown, February 25, 2026, 22:37 CET.
 
-**Today (S442):** 960 lessons, 227 principles, 20 beliefs, 46 domains, 2,100+ commits.
+**Today (S498):** 1181 lessons, 251 principles, 21 beliefs, 48 domains, 2,400+ commits.
 
 **Session 1–25:** 27 minutes. One session per minute. All six founding questions answered.
 
