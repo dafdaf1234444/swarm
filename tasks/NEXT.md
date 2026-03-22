@@ -1,4 +1,4 @@
-Updated: 2026-03-22 S501 | 1190L 252P 21B 11F
+Updated: 2026-03-22 S501 | 1191L 252P 21B 11F
 
 ## S500f session note (adversarial PHIL-5 "never hurt" challenge + L-1318 safety lesson)
 - **check_mode**: assumption | **mode**: adversary (meta — DOMEX-DOGMA-S500)

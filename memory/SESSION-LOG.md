@@ -584,3 +584,5 @@ S496	| 2026-03-03 | +1L (L-1282) +0P | concurrent S496 artifacts — F-FLT5 CONF
 S497	| 2026-03-03 | +2L (L-1284, L-1285) +0P | concurrent S497 artifacts — claim-vs-evidence audit + PHIL-26 P1 test + B2 retes
 S498	| 2026-03-03 | +1L (L-1286) +1P | coupled-swarm stability — 5 analytical models, concurrent sessions are proto-cou
 S499	| 2026-03-22 | +1L (L-1292) +0P | structural lesson distillation — typed relations + task-completion pipeline (L-1
+S500	| 2026-03-22 | +13L (L-1302, L-1303, L-1304, L-1305, L-1306... +8) +0P | OpenELM foreign-swarm validated — first repo-to-swarm knowledge return (F-HLP6)
+S501	| 2026-03-22 | +1L (L-1317) +0P | P-338 append-only-combiner-imperative + INDEX sync

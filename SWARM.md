@@ -148,7 +148,6 @@ Any node can challenge any belief. If your findings contradict a belief, append 
 - `memory/EXPECT.md` — expect-act-diff loop
 - `memory/OBJECTIVE-CHECK.md` — objective-focus check mode (optional lens under self-check loop)
 - `memory/VERIFY.md` — 3-S verification rule
-- `beliefs/CONFLICTS.md` — conflict resolution
 - `beliefs/INVARIANTS.md` — mission safety (I9-I13) + failure modes (FM-01 through FM-39; full FMEA registry in tasks/FRONTIER.md §FMEA)
 - `memory/OPERATIONS.md` — spawn, compaction, context
 - `tasks/SIGNALS.md` — structured inter-node signals (`tools/swarm_signal.py`)
