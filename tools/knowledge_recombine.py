@@ -99,6 +99,28 @@ def load_lessons() -> list[dict]:
     return lessons
 
 
+def _load_attention_deficit_domains() -> set[str]:
+    """Identify domains with DECAYED or BLIND-SPOT knowledge state (L-1181, L-1327)."""
+    try:
+        import subprocess
+        result = subprocess.run(
+            ["python3", str(REPO_ROOT / "tools" / "knowledge_state.py"), "--json"],
+            capture_output=True, text=True, timeout=30
+        )
+        if result.returncode == 0:
+            data = json.loads(result.stdout)
+            deficit = set()
+            for domain_info in data.get("domains", []):
+                name = domain_info.get("domain", "")
+                diagnosis = domain_info.get("diagnosis", "")
+                if "BLIND-SPOT" in diagnosis or "DECAY" in diagnosis:
+                    deficit.add(name)
+            return deficit
+    except Exception:
+        pass
+    return set()
+
+
 def find_missing_edges(lessons: list[dict], min_shared: int = 2) -> list[dict]:
     """Find lesson pairs with shared citations but no direct link.
 
@@ -107,6 +129,7 @@ def find_missing_edges(lessons: list[dict], min_shared: int = 2) -> list[dict]:
     a new insight could emerge.
     """
     by_id = {l["id"]: l for l in lessons}
+    attention_deficit_domains = _load_attention_deficit_domains()
     candidates = []
 
     for i, a in enumerate(lessons):
@@ -133,9 +156,15 @@ def find_missing_edges(lessons: list[dict], min_shared: int = 2) -> list[dict]:
             avg_sharpe = (a["sharpe"] + b["sharpe"]) / 2
             quality = max(avg_sharpe, 1)
 
+            # L-1327/L-1181: boost candidates involving attention-starved domains
+            attention_boost = 1.0
+            for d in (a["domain"], b["domain"]):
+                if d in attention_deficit_domains:
+                    attention_boost = max(attention_boost, 1.5)
+
             # Shared hub lessons (high in-degree) are less informative bridges
             # than shared niche lessons — weight by inverse frequency
-            score = len(shared) * domain_bonus * quality
+            score = len(shared) * domain_bonus * quality * attention_boost
 
             candidates.append({
                 "parent_a": a["id"],
@@ -148,6 +177,7 @@ def find_missing_edges(lessons: list[dict], min_shared: int = 2) -> list[dict]:
                 "shared_count": len(shared),
                 "cross_domain": cross_domain,
                 "avg_sharpe": avg_sharpe,
+                "attention_boosted": attention_boost > 1.0,
                 "score": round(score, 1),
             })
 

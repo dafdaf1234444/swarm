@@ -1,7 +1,7 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S502",
-  "timestamp": "2026-03-22T19:47:53.681988+00:00",
+  "timestamp": "2026-03-22T19:52:32.727005+00:00",
   "metrics": {
     "lessons": 1198,
     "principles": 252,
@@ -10,36 +10,35 @@
   },
   "active_lanes": [],
   "recent_commits": [
+    "4a732f67 [S502] integration: 5 groundings + proxy-K compression + belief freshness 100%",
+    "bed4753c [S502] integration: 5 groundings + proxy-K compression (-1938t) + belief freshness 100%",
+    "cc80935b [S501] feat: expectation calibration L-1326 \u2014 91.3% directional, 7.1:1 underconfident (evaluation+expert-swarm worst)",
     "55f0c29b [S502] feat: PHIL-2/5 dogma falsification tests + tree-size guard + calibration periodic (L-1322)",
-    "d8ff7d38 [S501] handoff: FM-40 diagnosis-repair detector + session notes",
-    "627b40a3 [S501] feat: FM-40 diagnosis-repair gap detector \u2014 UNMITIGATED\u2192MINIMAL (F-CAT1)",
-    "96303f20 [S502] chore: absorb concurrent artifacts + close stale DOMEX-BELIEF-S501",
-    "d7e9ec90 [S501] docs: --typed path section + regenerated exports (100 nodes, 155 edges)"
+    "d8ff7d38 [S501] handoff: FM-40 diagnosis-repair detector + session notes"
   ],
   "uncommitted": [
-    "M docs/PAPER.md",
     "M experiments/compact-citation-cache.json",
     "M experiments/compact-lesson-cache.json",
-    "M memory/INDEX.md",
-    "M memory/PRINCIPLES.md",
-    "M memory/SESSION-LOG.md",
     "M memory/lessons/L-1129.md",
     "M memory/lessons/L-1130.md",
     "M memory/lessons/L-1131.md",
     "M memory/lessons/L-1156.md",
     "M memory/lessons/L-1181.md",
     "M memory/lessons/L-1196.md",
-    "A  memory/lessons/L-1326.md",
-    "M memory/lessons/L-568.md",
-    "M memory/lessons/L-581.md",
-    "M memory/lessons/L-613.md",
-    "M tasks/FRONTIER.md",
-    "MM tasks/NEXT.md",
-    "M workspace/genesis-bundle-S???.hash",
-    "M workspace/maintenance-actions.json"
+    "M tasks/NEXT-ARCHIVE.md",
+    "M tasks/NEXT.md",
+    "M tools/knowledge_recombine.py",
+    "M tools/periodics.json",
+    "M workspace/maintenance-actions.json",
+    "M workspace/maintenance-outcomes.json",
+    "?? experiments/expert-swarm/recombination-bridge-s502.json",
+    "?? experiments/meta/knowledge-state-s502.json",
+    "?? memory/lessons/L-1327.md"
   ],
   "untracked_artifacts": [
-    "experiments/meta/knowledge-state-s502.json"
+    "experiments/expert-swarm/recombination-bridge-s502.json",
+    "experiments/meta/knowledge-state-s502.json",
+    "memory/lessons/L-1327.md"
   ],
   "next_actions": [
     "- **dream.py --external-seed**: Add `load_external_seed()` function + `--external-seed` CLI arg to `tools/dream.py` (L-1307). Blocked by WSL index corruption at N\u22652 concurrency. Code: see HUMAN-BELIEF-SYSTEMS.md session artifacts. 12-line function + 8-line CLI change.",
@@ -74,26 +73,10 @@
       "cadence": 10
     },
     {
-      "id": "fmea-audit",
-      "gap": 35,
+      "id": "science-quality-audit",
+      "gap": 30,
       "cadence": 10
     }
   ],
-  "dispatch_top3": [
-    {
-      "domain": "expert-swarm",
-      "score": 7.2,
-      "collision": false
-    },
-    {
-      "domain": "nk-complexity",
-      "score": 5.9,
-      "collision": false
-    },
-    {
-      "domain": "concept-inventor",
-      "score": 5.8,
-      "collision": false
-    }
-  ]
+  "dispatch_top3": []
 }
