@@ -98,7 +98,7 @@ Distinct from DOMEX lanes (per-session dispatch) — colonies are persistent acr
 
 Colony files:
 - `domains/<domain>/COLONY.md` — identity, mission, colony beliefs, state, handoff notes
-- `domains/<domain>/tasks/LANES.md` — colony-scoped coordination rows
+- All lane coordination routes through `tasks/SWARM-LANES.md` (domain LANES.md removed S500, L-1310)
 
 If you are in a colony:
 1. Orient: COLONY.md → FRONTIER.md → INDEX.md (instead of global files)

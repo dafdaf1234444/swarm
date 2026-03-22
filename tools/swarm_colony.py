@@ -136,9 +136,8 @@ This colony IS a swarm. Colony nodes orient with:
   1. This file (COLONY.md) — identity, beliefs, state
   2. `tasks/FRONTIER.md` — colony task queue
   3. `INDEX.md` — domain knowledge index
-  4. `tasks/LANES.md` — colony-scoped coordination rows
-
 Orient → Act → Compress → Handoff within colony scope.
+Global coordination → `tasks/SWARM-LANES.md`.
 Cross-domain findings → global `tasks/FRONTIER.md`.
 Colony lessons → `memory/lessons/` (globally shared memory).
 Colony state updates → this file (State section above).
@@ -192,13 +191,7 @@ def cmd_bootstrap(domain: str, parent: str = None) -> None:
         ))
         print(f"  Created: {cp.relative_to(ROOT)}")
 
-    lp = dp / "tasks" / "LANES.md"
-    lp.parent.mkdir(parents=True, exist_ok=True)
-    if lp.exists():
-        print(f"  SKIP: {lp.relative_to(ROOT)} already exists.")
-    else:
-        lp.write_text(LANES_TEMPLATE.format(domain=domain))
-        print(f"  Created: {lp.relative_to(ROOT)}")
+    (dp / "tasks").mkdir(parents=True, exist_ok=True)
 
     print(f"\nColony '{domain}' ready ({session}).")
     print(f"  orient:   python3 tools/swarm_colony.py orient {domain}")
