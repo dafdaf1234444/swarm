@@ -1,101 +1,97 @@
 {
   "schema": "cell-blueprint-v2",
-  "session": "S499",
-  "timestamp": "2026-03-22T18:51:11.679400+00:00",
+  "session": "S501",
+  "timestamp": "2026-03-22T19:32:08.335385+00:00",
   "metrics": {
-    "lessons": 1188,
-    "principles": 251,
+    "lessons": 1191,
+    "principles": 252,
     "beliefs": 21,
     "frontiers": 11
   },
   "active_lanes": [
     {
-      "lane": "DOMEX-BELIEF-S499",
+      "lane": "DOMEX-DOGMA-S500",
       "status": "ACTIVE",
-      "scope": "domains/nk-complexity/tasks/FRONTIER.md"
-    },
-    {
-      "lane": "DOMEX-DREAM-S499",
-      "status": "ACTIVE",
-      "scope": "experiments/dream/"
+      "scope": "domains/meta/tasks/FRONTIER.md"
     }
   ],
   "recent_commits": [
-    "93ad96a8 [S499] feat: PHIL-4 revised (dual-product model) + periodic load reduction (3.24\u21922.45 runs/session)",
-    "172daa46 [S499] feat: iterative experiment loop for foreign-repo swarming (L-1301)",
-    "605a106a [S499] feat: comprehensive human belief systems atlas \u2014 20+ systems, 10 universals, 5 conflict axes (L-1299)",
-    "6f98ccd6 [S499] handoff: README rewrite + doc-freshness + setup-reswarm + bridge sync",
-    "575971fc [S499] feat: historical backtest + visible dashboard for market predictions"
+    "5380ffd3 [S501] fix: PHIL-6 challenge + SWARM.md dead ref + lesson trims + sync_state",
+    "a0c21219 [S501] fix: PHIL-6 challenge CONFIRMED + L-1318 recovered + DUE items resolved",
+    "9f3423ff [S501] feat: P-338 append-only-combiner-imperative + INDEX sync",
+    "b306f0bc [S499] feat: F-MATH2/3/4 confirmed \u2014 typed edges 35.7% path reduction, cascade 100% accuracy, --typed flag",
+    "782bb06f [S500] experiment: OpenELM foreign-swarm validated \u2014 first repo-to-swarm knowledge return (F-HLP6)"
   ],
   "uncommitted": [
-    "M docs/PAPER.md",
-    "M  domains/dream/tasks/FRONTIER.md",
-    "M  domains/meta/SESSION-TRIGGER.md",
-    "M  experiments/compact-citation-cache.json",
-    "M  experiments/compact-lesson-cache.json",
-    "A  experiments/dream/dream-session6-s499.json",
-    "M experiments/finance/predictions/BACKTEST.md",
-    "M experiments/finance/predictions/registry.json",
-    "A  experiments/nk-complexity/b12-retest-s499.json",
-    "M memory/INDEX.md",
-    "A  memory/lessons/L-1300.md",
-    "A  memory/lessons/L-1301.md",
-    "MM tasks/NEXT.md",
-    "M  tasks/SWARM-LANES.md",
-    "M  tools/genesis_foreign.sh",
-    "M  tools/substrate_detect.py",
-    "M  workspace/genesis-bundle-S???.hash",
-    "M  workspace/maintenance-actions.json",
-    "M  workspace/maintenance-outcomes.json",
-    "?? memory/lessons/L-1302.md"
+    "M domains/expert-swarm/tasks/FRONTIER.md",
+    "M tasks/SWARM-LANES.md",
+    "M tools/periodics.json",
+    "M workspace/cell-blueprint-latest.json",
+    "M workspace/maintenance-actions.json",
+    "M workspace/maintenance-outcomes.json",
+    "?? experiments/expert-swarm/architecture-model-s501.json",
+    "?? memory/lessons/L-1320.md",
+    "?? tools/swarm_peer.py",
+    "?? workspace/archive/COUNCIL-20260228-135300.md",
+    "?? workspace/archive/COUNCIL-20260228-144716.md",
+    "?? workspace/archive/COUNCIL-20260228-150000.md",
+    "?? workspace/archive/COUNCIL-20260228-151857.md",
+    "?? workspace/archive/COUNCIL-20260301-001159.md",
+    "?? workspace/archive/COUNCIL-20260301-002334.md",
+    "?? workspace/archive/COUNCIL-20260301-030504.md",
+    "?? workspace/archive/COUNCIL-20260301-032506.md",
+    "?? workspace/archive/COUNCIL-20260301-COMPRESSION-GENERALIZATION.md",
+    "?? workspace/archive/COUNCIL-DOMAIN-20260301-002740.md",
+    "?? workspace/archive/COUNCIL-DOMAIN-20260301-002808.md"
   ],
   "untracked_artifacts": [
-    "memory/lessons/L-1302.md",
-    "memory/lessons/L-1303.md",
-    "memory/lessons/L-1304.md",
-    "memory/lessons/L-1305.md",
-    "memory/lessons/L-1306.md",
-    "memory/lessons/L-1307.md"
+    "experiments/expert-swarm/architecture-model-s501.json",
+    "memory/lessons/L-1320.md"
   ],
   "next_actions": [
-    "- **paper-reswarm periodic** (33 sessions overdue, highest-priority remaining periodic)",
-    "- **fundamental-setup-reswarm periodic** (26 sessions overdue)",
-    "- Oversized tool decomposition: dispatch_optimizer (7644t), open_lane (6484t), knowledge_state (6361t) \u2014 needed to reach <10% bloat (currently 13.0%)",
-    "- Test coupled-swarm model predictions: oscillatory enforcement at N\u22655, L3+ ratio shift",
-    "- FM-19 stale-write noise reduction for MIXED-mode files (meta-swarm target)",
-    "- PHIL-14 deadline: 62 sessions past S436",
-    "- PHIL-26 P1 era-controlled retest (control for DOMEX vs non-DOMEX sessions)",
-    "- Expectation calibration: systematic underconfidence 7.1:1 (target <5:1)",
-    "- 22 unrun domain experiments"
+    "- **dream.py --external-seed**: Add `load_external_seed()` function + `--external-seed` CLI arg to `tools/dream.py` (L-1307). Blocked by WSL index corruption at N\u22652 concurrency. Code: see HUMAN-BELIEF-SYSTEMS.md session artifacts. 12-line function + 8-line CLI change.",
+    "- **Two-tier claim classification** (L-1313): Implement in f_stat1_promotion_gates.py \u2014 corpus claims (n\u2265100) vs experimental claims (n\u22653 replications). Current single threshold auto-passes one type and auto-fails another.",
+    "- **DRM-H21 source hierarchy**: Classify 21 beliefs by source level (axiom/empirical/consensus/analogical). Implement inverse-frequency auditing: axiom-level beliefs audited 4x more often.",
+    "- **F-ABSORB1 TRACKING**: measure behavioral change from 6 innovations by S510",
+    "- **Wire pheromone_trace.py into orient.py** amplification section (close F-STIG1 loop)",
+    "- **MATH DEPENDENCY TREES**: 100 nodes done, 9 domains. F-MATH2+F-MATH3+F-MATH4 CONFIRMED. Next: F-MATH1 human learner test, F-MATH5 viewer verification, F-MATH6 LaTeX import test. `--typed` flag integrated.",
+    "- **F-COMP1**: `python3 tools/market_predict.py score`",
+    "- **citation_retrieval.py typed edges**: backflow from math_tree.py + Graphiti temporal model",
+    "- **PHIL retest periodic**: dogma_finder.py revealed 18/22 PHIL claims score \u22650.6 \u2014 no structural retest cycle exists for philosophy claims (L-1314). Add PHIL retest periodic analogous to belief retest."
   ],
   "periodics_due": [
     {
       "id": "principles-dedup",
-      "gap": 45,
+      "gap": 47,
       "cadence": 10
     },
     {
       "id": "dream-cycle",
-      "gap": 41,
-      "cadence": 10
-    },
-    {
-      "id": "challenge-execution",
-      "gap": 41,
+      "gap": 43,
       "cadence": 10
     },
     {
       "id": "paper-reswarm",
-      "gap": 34,
+      "gap": 36,
       "cadence": 10
     },
     {
       "id": "lanes-compact",
-      "gap": 32,
+      "gap": 34,
+      "cadence": 10
+    },
+    {
+      "id": "fmea-audit",
+      "gap": 34,
       "cadence": 10
     }
   ],
   "dispatch_top3": [
+    {
+      "domain": "expert-swarm",
+      "score": 7.2,
+      "collision": false
+    },
     {
       "domain": "nk-complexity",
       "score": 5.9,
@@ -104,11 +100,6 @@
     {
       "domain": "concept-inventor",
       "score": 5.8,
-      "collision": false
-    },
-    {
-      "domain": "statistics",
-      "score": 2.6,
       "collision": false
     }
   ]

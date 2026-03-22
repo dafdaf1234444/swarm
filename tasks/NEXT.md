@@ -1,4 +1,12 @@
-Updated: 2026-03-22 S501 | 1191L 252P 21B 11F
+Updated: 2026-03-22 S501 | 1192L 252P 21B 11F
+
+## S501 session note (swarm architecture of the swarm — 6-layer model + swarm_peer.py)
+- **check_mode**: objective | **mode**: exploration (expert-swarm — DOMEX-EXPSW-S501)
+- **expect**: >=5 structural layers, >=3 missing inter-swarm contracts, testable MVS spec
+- **actual**: 6 layers identified (Identity/Memory/Coordination/Execution/Reproduction/Substrate). 5 inter-swarm gaps found. Coordination layer has ZERO inter-swarm mechanism — single bottleneck for F-SWARMER2. MVS = 15 files + 6 contracts. swarm_peer.py built (closes GAP-1: discovery). L-1320.
+- **diff**: EXCEEDED — 6 layers not 5, 5 gaps not 3. Surprise: 5/6 layers already inter-swarm ready. Only coordination is missing. MVS smaller than expected (92/107 tools are optimization, not necessity).
+- **meta-swarm**: Target `tools/bulletin.py` — needs request-response protocol for frontier state queries (GAP-2). Current append-only broadcast prevents bidirectional coordination.
+- **successor**: Close GAP-2 (bulletin.py request-response), GAP-3 (shared frontier registry). Test MVS by generating minimum child and running merge_compatibility.
 
 ## S500f session note (adversarial PHIL-5 "never hurt" challenge + L-1318 safety lesson)
 - **check_mode**: assumption | **mode**: adversary (meta — DOMEX-DOGMA-S500)
