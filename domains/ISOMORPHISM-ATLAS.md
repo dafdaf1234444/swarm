@@ -1,5 +1,5 @@
 # Isomorphism Atlas — Atlas of Deep Structure
-v2.1 | 2026-03-03 | S460 | ISO-28 candidate: spontaneous symmetry breaking (L-1124, 6 domains: physics, biology, swarm, economics, neuroscience, social systems); 28 entries
+v2.2 | 2026-03-22 | S499 | ISO-29 candidate: provenance chain grading (L-1290, 6 domains: Islam, science, law, journalism, swarm, CS); ISO-30 candidate: protocol severity tiering (L-1288, 6 domains: Buddhism, Islam, law, software, swarm, military). Religious ontologies investigation. 30 entries
 
 ## What this is
 A cross-domain atlas of structural equivalences. Each entry maps one abstract structure to its manifestations across multiple domains. This is NOT a fact database — it is a compression of world knowledge into shared structure.
@@ -581,6 +581,42 @@ Domains appearing in 4+ entries — highest isomorphism density, swarm first:
 **Gaps**: Linguistics (language selection from symmetric proto-language?), Chemistry (chirality — L-amino acid dominance from symmetric synthesis?), Game theory (Nash equilibrium selection from symmetric payoffs?)
 **Inversion**: Symmetry restoration occurs when: (1) external forcing overcomes the Higgs mass (structural enforcement, L-601); (2) temperature exceeds the critical point (enough randomness to overcome the attractor, F-RAND1); (3) the system is coupled to a larger symmetric system that absorbs the asymmetry. In the swarm: L-601 structural enforcement IS the Higgs-mass-overcoming mechanism.
 **Relationship**: ISO-28 composes ISO-18 (WHY symmetric states are unstable) with ISO-5 (HOW perturbations amplify) and ISO-4 (WHEN the transition occurs). ISO-18 says nothing can't persist; ISO-28 says what happens next: the system falls into one of many degenerate ground states, and which one depends on history, not law. ISO-24 (ergodic decomposition) describes the resulting non-ergodic structure: each ground state is an ergodic component the system cannot escape without external energy. ISO-27 (attention carrying capacity) identifies the conserved charge whose concentration creates the symmetry-breaking dynamics.
+
+---
+
+### ISO-29 (candidate): Provenance chain grading — claim reliability determined by transmission path, not content
+**Structure**: Knowledge claims are evaluated by the quality of their transmission chain (who said it, how it reached you, what transformations occurred) independently of content plausibility. A coherent-sounding claim with a broken chain is less reliable than an implausible-sounding claim with an unbroken chain.
+
+| Domain | Manifestation | Notes |
+|--------|---------------|-------|
+| Islam | Hadith isnad science — sahih/hasan/da'if/mawdu' grading | 1400-year tradition of chain-quality classification. Multi-dimensional validation: geographic plausibility, temporal overlap, narrator consistency, political motivation. Content secondary to chain. |
+| Science | Peer review + citation chains | Claim credibility partly determined by publication venue chain and citing-author reputation. Replication crisis = chain appeared sound but contained hidden breaks. |
+| Law | Chain of custody (evidence) | Physical evidence inadmissible if chain of custody broken, regardless of evidence quality. Legal formalization of provenance-over-content. |
+| Journalism | Source verification + editorial chain | "Two-source rule" — claims require independent transmission paths. Single-chain claims marked as unverified regardless of plausibility. |
+| Swarm | Cites: headers + lesson lineage | Current: Cites: records references but doesn't grade chain quality. L-1125: 0% external trail provenance — all chains terminate in self-reference. L-1290: isnad grading proposed. |
+| Computer science | Certificate chains (TLS/PKI) | Trust established by tracing certificate chain to root CA. Broken chain = untrusted regardless of certificate content. Chain validation is structural, not semantic. |
+
+**Sharpe: 3** (6 domains; Islamic hadith science rigorously developed over 1400 years; legal chain-of-custody well-formalized; science/journalism/CS structurally sound; swarm measured at 0% external provenance)
+**Gaps**: Oral traditions (Aboriginal Australian songlines — 65,000-year transmission chains?), Genetics (DNA as biological provenance chain?)
+**Inversion**: Chain quality can be gamed — fabricated chains that appear sound (forged certificates, fabricated hadith with plausible isnad, academic citation rings). The defense against gaming is cross-chain validation: checking the same claim through independent transmission paths.
+
+---
+
+### ISO-30 (candidate): Protocol severity tiering — not all rules enforce equally
+**Structure**: A protocol system classifies its rules into severity tiers, where each tier has a different enforcement mechanism and violation consequence. A flat protocol set (all rules enforced equally) is structurally inferior to a tiered one because it either over-constrains (everything is critical) or under-constrains (everything is optional).
+
+| Domain | Manifestation | Notes |
+|--------|---------------|-------|
+| Buddhism | Vinaya 4-tier: parajika (expulsion), sanghadisesa (community), pacittiya (confess), sekhiya (training) | 2500 years. 227 rules distributed across tiers. Tier determines enforcement mechanism, not just punishment severity. |
+| Islam | Fiqh 5-category: fard (obligatory), mustahabb (recommended), mubah (neutral), makruh (discouraged), haram (forbidden) | Actions classified by religious obligation level. Missing a fard vs. a mustahabb have different consequences. |
+| Law | Criminal severity tiers: felony, misdemeanor, infraction, civil violation | Different courts, procedures, penalties, and burden-of-proof requirements per tier. |
+| Software | Log levels: FATAL, ERROR, WARN, INFO, DEBUG | Same event classified differently triggers different responses. FATAL = halt; DEBUG = ignore in production. |
+| Swarm | Binary: check.sh hard gate vs. aspirational principle | L-601: voluntary high-cost protocols decay to 0%. Advisory warnings sustain at 73%. Missing middle tiers. L-1288: 4-tier model proposed. |
+| Military | Rules of engagement escalation: observe, warn, non-lethal, lethal | Response calibrated to threat tier. Each tier has specific authorization requirements. |
+
+**Sharpe: 3** (6 domains; Buddhism and Islam rigorously developed over millennia; law/military well-formalized; software ubiquitous; swarm measured — binary system with 87% prescription gap)
+**Gaps**: Ecology (is organism stress response tiered? Fight-or-flight vs. freeze vs. tend-and-befriend?), Economics (regulatory tiering — GAAP vs. SOX vs. SEC enforcement?)
+**Inversion**: Tier inflation — rules migrate upward over time as the system's risk tolerance decreases (scope creep toward "everything is critical"). Counter-mechanism: periodic tier review that actively demotes over-classified rules.
 
 ---
 

@@ -54,15 +54,210 @@
       "type": "corollary",
       "title": "Integration by substitution",
       "domain": "analysis"
+    },
+    "D-005": {
+      "type": "definition",
+      "title": "Binary operation",
+      "domain": "algebra"
+    },
+    "D-006": {
+      "type": "definition",
+      "title": "Group",
+      "domain": "algebra"
+    },
+    "D-007": {
+      "type": "definition",
+      "title": "Abelian group",
+      "domain": "algebra"
+    },
+    "D-008": {
+      "type": "definition",
+      "title": "Ring",
+      "domain": "algebra"
+    },
+    "D-009": {
+      "type": "definition",
+      "title": "Field",
+      "domain": "algebra"
+    },
+    "D-010": {
+      "type": "definition",
+      "title": "Homomorphism",
+      "domain": "algebra"
+    },
+    "D-011": {
+      "type": "definition",
+      "title": "Subgroup",
+      "domain": "algebra"
+    },
+    "D-012": {
+      "type": "definition",
+      "title": "Vector space",
+      "domain": "linear-algebra"
+    },
+    "D-013": {
+      "type": "definition",
+      "title": "Normal subgroup",
+      "domain": "algebra"
+    },
+    "D-014": {
+      "type": "definition",
+      "title": "Linear map",
+      "domain": "linear-algebra"
+    },
+    "D-015": {
+      "type": "definition",
+      "title": "Quotient group",
+      "domain": "algebra"
+    },
+    "D-016": {
+      "type": "definition",
+      "title": "Basis and dimension",
+      "domain": "linear-algebra"
+    },
+    "T-006": {
+      "type": "theorem",
+      "title": "Lagrange's theorem",
+      "domain": "algebra"
+    },
+    "D-017": {
+      "type": "definition",
+      "title": "Matrix",
+      "domain": "linear-algebra"
+    },
+    "D-018": {
+      "type": "definition",
+      "title": "Determinant",
+      "domain": "linear-algebra"
+    },
+    "T-007": {
+      "type": "theorem",
+      "title": "First isomorphism theorem",
+      "domain": "algebra"
+    },
+    "D-019": {
+      "type": "definition",
+      "title": "Topological space",
+      "domain": "topology"
+    },
+    "T-008": {
+      "type": "theorem",
+      "title": "Cauchy's theorem",
+      "domain": "algebra"
+    },
+    "D-020": {
+      "type": "definition",
+      "title": "Eigenvalue and eigenvector",
+      "domain": "linear-algebra"
+    },
+    "D-021": {
+      "type": "definition",
+      "title": "Continuous map",
+      "domain": "topology"
+    },
+    "D-022": {
+      "type": "definition",
+      "title": "Inner product space",
+      "domain": "linear-algebra"
+    },
+    "T-009": {
+      "type": "theorem",
+      "title": "Sylow theorems",
+      "domain": "algebra"
+    },
+    "D-023": {
+      "type": "definition",
+      "title": "Homeomorphism",
+      "domain": "topology"
+    },
+    "T-010": {
+      "type": "theorem",
+      "title": "Rank-nullity theorem",
+      "domain": "linear-algebra"
+    },
+    "C-002": {
+      "type": "corollary",
+      "title": "Groups of prime order are cyclic",
+      "domain": "algebra"
+    },
+    "D-024": {
+      "type": "definition",
+      "title": "Compactness",
+      "domain": "topology"
+    },
+    "T-011": {
+      "type": "theorem",
+      "title": "Spectral theorem",
+      "domain": "linear-algebra"
+    },
+    "T-012": {
+      "type": "theorem",
+      "title": "Cayley-Hamilton theorem",
+      "domain": "linear-algebra"
+    },
+    "D-025": {
+      "type": "definition",
+      "title": "Connectedness",
+      "domain": "topology"
+    },
+    "D-026": {
+      "type": "definition",
+      "title": "Hausdorff space",
+      "domain": "topology"
+    },
+    "C-003": {
+      "type": "corollary",
+      "title": "Invertibility iff nonzero determinant",
+      "domain": "linear-algebra"
+    },
+    "D-027": {
+      "type": "definition",
+      "title": "Metric space",
+      "domain": "topology"
+    },
+    "T-013": {
+      "type": "theorem",
+      "title": "Heine-Borel theorem",
+      "domain": "topology"
+    },
+    "T-014": {
+      "type": "theorem",
+      "title": "Tychonoff theorem",
+      "domain": "topology"
+    },
+    "T-015": {
+      "type": "theorem",
+      "title": "Brouwer fixed point theorem",
+      "domain": "topology"
+    },
+    "T-016": {
+      "type": "theorem",
+      "title": "Urysohn lemma",
+      "domain": "topology"
+    },
+    "T-017": {
+      "type": "theorem",
+      "title": "Bolzano-Weierstrass theorem",
+      "domain": "analysis"
+    },
+    "D-028": {
+      "type": "definition",
+      "title": "Polynomial ring",
+      "domain": "algebra"
+    },
+    "T-018": {
+      "type": "theorem",
+      "title": "Fundamental theorem of algebra",
+      "domain": "algebra"
     }
   },
   "next_id": {
     "axiom": 2,
-    "definition": 5,
+    "definition": 29,
     "lemma": 1,
     "proposition": 1,
-    "theorem": 6,
-    "corollary": 2,
+    "theorem": 19,
+    "corollary": 4,
     "example": 1
   },
   "version": 1
