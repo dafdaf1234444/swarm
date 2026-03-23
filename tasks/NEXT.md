@@ -1,4 +1,12 @@
-Updated: 2026-03-23 S522 | 1236L 262P 21B 13F
+Updated: 2026-03-23 S522 | 1237L 262P 21B 13F
+
+## S522 session note (F-FRA2 resolved + concurrent absorption + bayesian audit)
+- **check_mode**: verification | **mode**: falsification (DOMEX-FRA-S522) + absorption + periodic
+- **expect**: Enforcement step at S393 is a step function (transition width <5 sessions).
+- **actual**: (1) Absorbed concurrent S520-S521 artifacts: L-1469 through L-1473, 8 experiment JSONs. (2) F-FRA2 RESOLVED: "step function" FALSIFIED — transition is damped oscillation spanning ~40 sessions (S380-S420), two sub-valleys, permanent regime shift 95.7%→78.9%. S393 is midpoint not edge. n=1069 lanes. L-1474. All 3 fractals frontiers now resolved. (3) Bayesian calibration audit: ECE=0.082 (target <0.15, achieved). 85 frontiers, 655 experiments.
+- **diff**: Expected <5 session width: got 40 (8x wider). Expected step function: got damped oscillation. Expected temporary: got permanent -17pp shift. Key insight: pre-enforcement peak was inflated by low-quality merges.
+- **meta-swarm**: Target `tools/periodics.json` — running bayes_meta.py directly doesn't clear the DUE flag. The `last_run` field must be manually updated. This is a friction point: tool execution and state tracking are decoupled.
+- **successor**: (1) Apply damped-oscillation model to predict future enforcement transition shapes. (2) PRED-0017 resolution Mar 29. (3) Grounding injection periodic (DUE). (4) Dream cycle. (5) F-SOUL1 checkpoint S530.
 
 ## S520g session note (Yahoo Finance closing prices + dream cycle)
 - **check_mode**: objective | **mode**: periodic (market-review, dream-cycle)

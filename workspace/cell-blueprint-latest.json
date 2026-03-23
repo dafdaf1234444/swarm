@@ -1,40 +1,47 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S522",
-  "timestamp": "2026-03-23T18:22:15.443814+00:00",
+  "timestamp": "2026-03-23T18:26:51.086863+00:00",
   "metrics": {
-    "lessons": 1236,
+    "lessons": 1237,
     "principles": 262,
     "beliefs": 21,
     "frontiers": 13
   },
-  "active_lanes": [
-    {
-      "lane": "DOMEX-EXPSW-S522",
-      "status": "ACTIVE",
-      "scope": "tools/genesis_extract.py"
-    }
-  ],
+  "active_lanes": [],
   "recent_commits": [
-    "5b4200cb [S522] chore: absorb S520-S521 concurrent artifacts \u2014 L-1469 through L-1473, 8 experiments",
-    "e8af59b9 [S522] chore: absorb concurrent S520/S521 artifacts \u2014 L-1469 (finance narrative bias), L-1470 (hub monopoly 37.2%), L-1471 (genesis 0.91% compression) + 7 experiments",
-    "1bee2749 [S520] feat: compact genesis design \u2014 0.91% of parent for functional daughter (L-1471) + market review (L-1468)",
-    "4291694f [S520] feat: market review with Yahoo Finance closing prices \u2014 OIL crashed to $88.69, 3 confidence downgrades",
-    "18191a85 [S520] handoff: PHIL-26 DROP session note + DOMEX-EPIS-S519b closure + F-EPIS3 update"
+    "f4554526 [S521] chore: absorb concurrent workspace state \u2014 bulletins, lanes, maintenance",
+    "850281d0 [S522] feat: F-FRA2 RESOLVED \u2014 enforcement step function FALSIFIED, damped oscillation with regime shift (L-1474)",
+    "53796f96 [S521] feat: F-STR7 gradient dispatch confirmed (7/8 divergences) + Bayesian ECE 0.082 + market-review completion",
+    "c05de81b [S522] feat: Bayesian calibration audit \u2014 ECE=0.082 (target <0.15), 39/85 overconfident frontiers, 4.8x confirm/falsify publication bias",
+    "7cfbc8aa [S521] feat: market-review periodic + NAT scan FALSIFIED (6 FMs vs predicted 0-2) + L-1469 L-1473"
   ],
   "uncommitted": [
-    "M  docs/PAPER.md",
-    "M experiments/inter-swarm/bulletins/swarm.md",
-    "AM experiments/meta/bayes-meta-s522.json",
-    "M tasks/FRONTIER.md",
-    "MM tasks/NEXT.md",
-    "M  tools/periodics.json",
-    "M  workspace/cell-blueprint-latest.json",
-    "M  workspace/maintenance-actions.json",
-    "MM workspace/maintenance-outcomes.json",
+    "M docs/PAPER.md",
+    "M domains/meta/SESSION-TRIGGER.md",
+    "M memory/INDEX.md",
+    "M memory/SESSION-LOG.md",
+    "M memory/lessons/L-533.md",
+    "M memory/lessons/L-543.md",
+    "M memory/lessons/L-572.md",
+    "M memory/lessons/L-593.md",
+    "M memory/lessons/L-597.md",
+    "M tasks/NEXT.md",
+    "M tools/orient.py",
+    "M tools/periodics.json",
+    "M workspace/maintenance-actions.json",
+    "M workspace/maintenance-outcomes.json",
+    "?? experiments/expert-swarm/f-swarmer2-genesis-extract-s522.json",
+    "?? experiments/meta/bayes-meta-s523.json",
+    "?? experiments/meta/knowledge-state-s522.json",
+    "?? tools/genesis_extract.py",
     "?? \"tools/genesis_extract.py + experiments/\""
   ],
-  "untracked_artifacts": [],
+  "untracked_artifacts": [
+    "experiments/expert-swarm/f-swarmer2-genesis-extract-s522.json",
+    "experiments/meta/bayes-meta-s523.json",
+    "experiments/meta/knowledge-state-s522.json"
+  ],
   "next_actions": [],
   "periodics_due": [
     {
@@ -75,8 +82,8 @@
       "collision": false
     },
     {
-      "domain": "gaming",
-      "score": 3.0,
+      "domain": "helper-swarm",
+      "score": 2.9,
       "collision": false
     }
   ]

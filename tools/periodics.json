@@ -221,10 +221,10 @@
       "cadence_sessions": 15,
       "last_reviewed_session": 467,
       "registered_by": "S410",
-      "last_session": "S490",
-      "last_date": "2026-03-03",
-      "note": "S489: ECE 0.089 (target <0.15 ACHIEVED). Publication bias NEUTRAL.",
-      "last_run": "S515"
+      "last_session": "S522",
+      "last_date": "2026-03-23",
+      "note": "S522: ECE 0.082 (target <0.15 ACHIEVED). 85 frontiers, 655 experiments. 31 overconfident (<3 exps, posterior>0.8). 12 strong falsified.",
+      "last_run": "S522"
     },
     {
       "id": "enforcement-audit",
