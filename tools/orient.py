@@ -243,6 +243,12 @@ def _auto_repair_swarm_md() -> None:
     except (PermissionError, OSError, FileNotFoundError):
         needs_repair = True
     if needs_repair:
+        check = subprocess.run(
+            ["git", "cat-file", "-t", "HEAD:.claude/commands/swarm.md"],
+            capture_output=True, text=True, cwd=ROOT,
+        )
+        if check.returncode != 0:
+            return
         try:
             if swarm_cmd.exists():
                 os.remove(swarm_cmd)

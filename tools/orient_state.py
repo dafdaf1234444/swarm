@@ -157,9 +157,12 @@ def extract_open_signals(signals_text: str, current_session: int = 0) -> list:
 
 def run_maintenance():
     """Run maintenance --quick and return stdout."""
+    maint_path = ROOT / "tools" / "maintenance.py"
+    if not maint_path.exists():
+        return "[NOTICE] maintenance.py not present (genesis daughter — expected)"
     try:
         result = subprocess.run(
-            [sys.executable, str(ROOT / "tools" / "maintenance.py"), "--quick"],
+            [sys.executable, str(maint_path), "--quick"],
             capture_output=True, text=True, cwd=ROOT, timeout=15
         )
         return result.stdout + result.stderr
