@@ -4,11 +4,11 @@
   "items": [
     {
       "priority": "DUE",
-      "message": "Lesson over 20 lines: L-1460.md"
+      "message": "[market-review] External finance: fetch current prices for open predictions, resolve past-due predictions, add new predictions when market conditions change, run market_predict.py score. F-FIN4 (can swarm invest?). First external output periodic (F-COMP1). L-1295. (every ~10 sessions, last: S499)"
     },
     {
       "priority": "DUE",
-      "message": "[market-review] External finance: fetch current prices for open predictions, resolve past-due predictions, add new predictions when market conditions change, run market_predict.py score. F-FIN4 (can swarm invest?). First external output periodic (F-COMP1). L-1295. (every ~10 sessions, last: S499)"
+      "message": "Count drift in INDEX.md (L: stated 1227 vs actual 1228) \u2014 run python3 tools/sync_state.py"
     }
   ]
 }

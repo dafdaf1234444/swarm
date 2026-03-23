@@ -2,7 +2,7 @@
   "session": 519,
   "stale_window": 50,
   "global_states": {
-    "ACTIVE": 424,
+    "ACTIVE": 430,
     "DECAYED": 505,
     "MUST-KNOW": 421,
     "BLIND-SPOT": 167,
@@ -130,7 +130,7 @@
       "DECAYED": 7,
       "BLIND-SPOT": 1,
       "MUST-KNOW": 14,
-      "ACTIVE": 18,
+      "ACTIVE": 19,
       "SHOULD-KNOW": 2
     },
     "claude-code": {
@@ -239,7 +239,7 @@
     "stochastic-processes": {
       "MUST-KNOW": 5,
       "DECAYED": 8,
-      "ACTIVE": 8,
+      "ACTIVE": 9,
       "BLIND-SPOT": 1,
       "SHOULD-KNOW": 1
     },
@@ -310,12 +310,12 @@
       "SHOULD-KNOW": 0
     },
     "epistemology": {
-      "ACTIVE": 8,
+      "ACTIVE": 11,
       "MUST-KNOW": 1,
       "SHOULD-KNOW": 3
     },
     "forecasting": {
-      "ACTIVE": 4,
+      "ACTIVE": 5,
       "MUST-KNOW": 1,
       "SHOULD-KNOW": 2
     },
@@ -344,8 +344,8 @@
   },
   "revival_rate": 17.727272727272727,
   "revival_per_session": 0.35454545454545455,
-  "total_items": 1517,
-  "total_lessons": 1222,
+  "total_items": 1523,
+  "total_lessons": 1228,
   "total_principles": 274,
   "total_beliefs": 21,
   "frontier_count": 126,
@@ -419,7 +419,7 @@
     },
     {
       "hypothesis": "Knowledge-state profiles change top-5 dispatch in \u22652/5 cases",
-      "result": "5/5 different (gap-ranked: ['protocol-engineering', 'claude-code', 'cryptocurrency', 'guesstimates', 'dream'], UCB1: ['expert-swarm', 'nk-complexity', 'catastrophic-risks', 'strategy', 'stochastic-processes'])",
+      "result": "5/5 different (gap-ranked: ['claude-code', 'protocol-engineering', 'cryptocurrency', 'guesstimates', 'dream'], UCB1: ['expert-swarm', 'nk-complexity', 'catastrophic-risks', 'epistemology', 'strategy'])",
       "pass": true,
       "threshold": "\u22652/5"
     }
