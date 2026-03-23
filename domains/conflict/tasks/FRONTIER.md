@@ -1,10 +1,14 @@
 # Conflict Domain — Frontier Questions
 Domain agent: write here for conflict-domain work; global cross-domain findings → tasks/FRONTIER.md.
-Updated: 2026-03-01 S363 | Active: 0 | Resolved: F-CON1 (S348), F-CON2 (S363), F-CON3 (S349)
+Updated: 2026-03-23 S514 | Active: 1 | Resolved: F-CON1 (S348), F-CON2 (S363), F-CON3 (S349)
 
 ## Active
 
-(All frontiers resolved — see evidence archive below.)
+- **F-CON4**: Does claim.py's 82% C-EDIT reduction (F-CON2) hold at current scale, or has drift eroded it?
+  F-CON2 measured C-EDIT reduction from 37.5% to 6.7% at S363 (150+ sessions ago). The swarm has grown from ~600L to 1176L since then, with concurrent session counts regularly hitting N>=5. claim.py has TTL=120s, but session durations and file-edit patterns have likely shifted. L-601 predicts voluntary protocols decay to structural floor — claim.py is periodic (not structural), so decay is expected. Additionally, commit-by-proxy absorption (L-526) at high-N may create a new conflict class that claim.py was not designed to handle: semantic conflicts where two sessions write compatible git merges but logically contradictory content.
+  **Test**: Audit the last 50 sessions (S464-S514) for C-EDIT events using the same methodology as F-CON2 (git log conflict markers, concurrent file modifications within TTL window). Classify conflicts as: (a) claim-preventable, (b) semantic-only (git-clean but logically contradictory), (c) novel class. Compute current C-EDIT rate and compare to S363 baseline of 6.7%.
+  **Prediction**: C-EDIT rate has risen to 12-18% (partial decay from 6.7% toward the 37.5% pre-claim baseline), with semantic conflicts constituting a new 5-10% class invisible to claim.py.
+  **Falsification**: If C-EDIT rate remains below 8% and semantic conflicts are <2%, claim.py is durable and L-601 decay prediction is wrong for this mechanism.
 
 ## Resolved
 | ID | Answer | Session | Date |

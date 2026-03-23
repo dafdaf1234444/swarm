@@ -195,7 +195,9 @@
       "outcome_date": null,
       "outcome_price": null,
       "result": null,
-      "score": null
+      "score": null,
+      "baseline_price": 69000,
+      "baseline_date": "2026-03-20"
     },
     {
       "id": "PRED-0007",
@@ -220,7 +222,9 @@
       "outcome_date": null,
       "outcome_price": null,
       "result": null,
-      "score": null
+      "score": null,
+      "baseline_price": 100,
+      "baseline_date": "2026-03-20"
     },
     {
       "id": "PRED-0008",
@@ -245,7 +249,9 @@
       "outcome_date": null,
       "outcome_price": null,
       "result": null,
-      "score": null
+      "score": null,
+      "baseline_price": 27,
+      "baseline_date": "2026-03-20"
     },
     {
       "id": "PRED-0009",
@@ -269,7 +275,9 @@
       "outcome_date": null,
       "outcome_price": null,
       "result": null,
-      "score": null
+      "score": null,
+      "baseline_price": 44.65,
+      "baseline_date": "2026-03-20"
     },
     {
       "id": "PRED-0010",
@@ -293,7 +301,9 @@
       "outcome_date": null,
       "outcome_price": null,
       "result": null,
-      "score": null
+      "score": null,
+      "baseline_price": 145.33,
+      "baseline_date": "2026-03-20"
     },
     {
       "id": "PRED-0011",
@@ -317,7 +327,10 @@
       "outcome_date": null,
       "outcome_price": null,
       "result": null,
-      "score": null
+      "score": null,
+      "baseline_price_spy": 648.57,
+      "baseline_price_qqq": 582.06,
+      "baseline_date": "2026-03-20"
     },
     {
       "id": "PRED-0012",
@@ -341,7 +354,9 @@
       "outcome_date": null,
       "outcome_price": null,
       "result": null,
-      "score": null
+      "score": null,
+      "baseline_price": 93.55,
+      "baseline_date": "2026-03-20"
     },
     {
       "id": "PRED-0013",
@@ -365,7 +380,9 @@
       "outcome_date": null,
       "outcome_price": null,
       "result": null,
-      "score": null
+      "score": null,
+      "baseline_price": 55.64,
+      "baseline_date": "2026-03-20"
     },
     {
       "id": "PRED-0014",
@@ -389,7 +406,9 @@
       "outcome_date": null,
       "outcome_price": null,
       "result": null,
-      "score": null
+      "score": null,
+      "baseline_price": 242.22,
+      "baseline_date": "2026-03-20"
     },
     {
       "id": "PRED-0015",
@@ -413,7 +432,9 @@
       "outcome_date": null,
       "outcome_price": null,
       "result": null,
-      "score": null
+      "score": null,
+      "baseline_price": 247.99,
+      "baseline_date": "2026-03-20"
     },
     {
       "id": "PRED-0016",
@@ -441,7 +462,10 @@
       "score": null,
       "notes": [
         "S513: Downgraded 0.65\u21920.45. GLD underperforming SPY by 3.1%."
-      ]
+      ],
+      "baseline_price_gld": 426.41,
+      "baseline_price_spy": 648.57,
+      "baseline_date": "2026-03-20"
     },
     {
       "id": "PRED-0017",
@@ -467,7 +491,9 @@
       "score": null,
       "notes": [
         "S513: Downgraded 0.45\u21920.30. 6 trading days left, SPY unchanged."
-      ]
+      ],
+      "baseline_price": 648.57,
+      "baseline_date": "2026-03-20"
     },
     {
       "id": "PRED-0018",
@@ -491,7 +517,9 @@
       "outcome_date": null,
       "outcome_price": null,
       "result": null,
-      "score": null
+      "score": null,
+      "baseline_price": 172.70,
+      "baseline_date": "2026-03-20"
     }
   ],
   "next_id": 19,

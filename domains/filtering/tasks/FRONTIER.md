@@ -1,10 +1,14 @@
 # Filtering Domain — Frontier Questions
 Domain agent: write here, not to tasks/FRONTIER.md
-Updated: 2026-03-03 S496 (F-FLT6 CONFIRMED — epistemic lock verified) | Active: 0 | Resolved: 6
+Updated: 2026-03-23 S514 | Active: 1 | Resolved: 6
 
 ## Active
 
-(none — all frontiers resolved. Next: design perturbation stress test for cascade independence, or generate new frontier from domain vocabulary injection.)
+- **F-FLT7**: Does the BLIND-SPOT accessibility gap (16.1% at F-FLT1) grow sub-linearly, linearly, or super-linearly with lesson count?
+  F-FLT1 measured 14 filters with 7 having measured selectivity. F-FLT2 falsified scale degradation for proxy metrics but identified BLIND-SPOT growth as the true scale concern. F-FLT5 confirmed vocabulary ceiling (100% MEASUREMENT). The critical open question: as the swarm grows from 1176L toward 1500L+, does the fraction of lessons that are retained but inaccessible (BLIND-SPOT) grow faster than the corpus itself? If super-linear, the swarm will eventually know more than it can access — a knowledge obesity problem that no current filter addresses.
+  **Test**: Using knowledge_state.py, measure BLIND-SPOT % at 3 historical snapshots (approximate via git checkouts at ~800L, ~1000L, ~1176L). Plot BLIND-SPOT % vs lesson count. Fit linear and power-law models. Compute growth exponent beta where BLIND-SPOT ~ N^beta.
+  **Prediction**: Super-linear growth (beta > 1.0, predicted ~1.2-1.4) because each new lesson increases combinatorial accessibility demands while INDEX.md is capped at 60 lines (holographic bound from F-STR3).
+  **Falsification**: If beta <= 1.0 (linear or sub-linear), existing filters scale adequately and no new accessibility mechanism is needed.
 
 ## Resolved
 | ID | Answer | Session | Date |

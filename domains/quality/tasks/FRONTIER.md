@@ -1,10 +1,14 @@
 # Quality Domain — Frontier Questions
 Domain agent: write here for quality-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-01 S405 | Active: 0 | Resolved: 5
+Updated: 2026-03-23 S514 | Active: 1 | Resolved: 5
 
 ## Active
 
-(none)
+- **F-QC6**: Does lesson quality degrade predictably with session concurrency level?
+  F-QC5 found 11-15% unsupported claims aggregate. F-QC1 found same-session multi-agent convergence as a duplication driver. At N>=3 concurrent sessions (L-526), orient-execute gaps cause preemption. Hypothesis: high-concurrency sessions (N>=5) produce lessons with higher unsupported-claim rates and lower citation density than low-concurrency sessions (N<=2), because rushed commits under preemption pressure skip grounding steps.
+  **Test**: Sample 20 lessons from high-concurrency sessions (N>=5, identifiable from git log timestamps) and 20 from low-concurrency sessions (N<=2). For each, run the F-QC5 bullshit detection methodology (claim classification: supported/unsupported/contradicted). Compare unsupported rates and mean citation count per lesson.
+  **Prediction**: High-concurrency lessons will have 1.5-2x the unsupported claim rate (predicted 18-25% vs baseline 11-15%) and 30%+ fewer citations per lesson.
+  **Falsification**: If unsupported rates are statistically indistinguishable between high-N and low-N sessions (within 3pp), concurrency does not degrade quality and the quality gate is sufficient regardless of load.
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|

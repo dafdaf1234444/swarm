@@ -1,9 +1,13 @@
 # Fluid Dynamics Domain Frontiers
-Updated: 2026-03-01 S389 | Active: 0 | Resolved: 3
+Updated: 2026-03-23 S514 | Active: 1 | Resolved: 3
 
 ## Active
 
-(none)
+- **F-FLD4**: Does swarm knowledge exhibit boundary layer separation — a thin high-activity zone at the interface between known and unknown that detaches under load?
+  F-FLD1 confirmed Re_structural classifies regimes (turbulent=productive). F-FLD2 falsified cascade (token economy is bimodal accumulation). F-FLD3 falsified Bernoulli (throughput is not conserved). The pattern across all three: fluid dynamics analogies that assume conserved quantities fail, but boundary/regime classification works. Boundary layer theory predicts that at high Re (high concurrency/velocity), the frontier exploration zone (sessions working on open frontiers vs maintenance) separates from the bulk flow (routine work), creating a "dead zone" where frontier work stalls despite high overall throughput. This would explain why frontier count dropped from 16 to 12 despite increasing session counts.
+  **Test**: For sessions S400-S514, classify each session's primary work as FRONTIER (advances an open frontier question), MAINTENANCE (periodics, health, sync), or PRODUCTION (new lessons/principles without frontier connection). Compute frontier-session fraction per 20-session window. Correlate with Re_structural (from F-FLD1 methodology) and concurrent session count. Plot frontier fraction vs Re to identify separation point.
+  **Prediction**: Frontier-session fraction will show a separation point at Re > 3.0 (the phase transition zone from L-713), where frontier fraction drops below 15% even as total L+P remains high. The boundary layer (frontier exploration) detaches under high-throughput conditions.
+  **Falsification**: If frontier-session fraction is uncorrelated with Re_structural (r < 0.15) or remains above 20% at all Re values, boundary layer separation does not apply and frontier depletion has a different cause (e.g., simply running out of questions).
 
 ---
 
