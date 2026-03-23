@@ -2,11 +2,11 @@
   "session": 511,
   "stale_window": 50,
   "global_states": {
-    "ACTIVE": 410,
+    "ACTIVE": 417,
     "DECAYED": 475,
     "BLIND-SPOT": 157,
     "MUST-KNOW": 407,
-    "SHOULD-KNOW": 124
+    "SHOULD-KNOW": 122
   },
   "domain_profiles": {
     "unknown": {
@@ -49,6 +49,7 @@
       "MUST-KNOW": 2,
       "DECAYED": 5,
       "BLIND-SPOT": 1,
+      "ACTIVE": 1,
       "SHOULD-KNOW": 2
     },
     "finance": {
@@ -171,7 +172,7 @@
     },
     "expert-swarm": {
       "DECAYED": 23,
-      "ACTIVE": 23,
+      "ACTIVE": 25,
       "MUST-KNOW": 37,
       "BLIND-SPOT": 8,
       "SHOULD-KNOW": 3
@@ -237,7 +238,7 @@
     "stochastic-processes": {
       "MUST-KNOW": 5,
       "DECAYED": 8,
-      "ACTIVE": 6,
+      "ACTIVE": 7,
       "BLIND-SPOT": 1,
       "SHOULD-KNOW": 1
     },
@@ -296,7 +297,7 @@
     },
     "concept-inventor": {
       "MUST-KNOW": 7,
-      "ACTIVE": 13,
+      "ACTIVE": 14,
       "SHOULD-KNOW": 2
     },
     "religion": {
@@ -308,16 +309,16 @@
       "SHOULD-KNOW": 0
     },
     "epistemology": {
-      "ACTIVE": 2,
-      "SHOULD-KNOW": 4
+      "ACTIVE": 3,
+      "SHOULD-KNOW": 3
     },
     "forecasting": {
       "ACTIVE": 2,
       "SHOULD-KNOW": 2
     },
     "thermodynamics": {
-      "ACTIVE": 1,
-      "SHOULD-KNOW": 2
+      "ACTIVE": 2,
+      "SHOULD-KNOW": 1
     },
     "cross-domain": {
       "ACTIVE": 147,
@@ -332,13 +333,13 @@
       "SHOULD-KNOW": 3
     }
   },
-  "revival_rate": 19.30835734870317,
-  "revival_per_session": 0.38616714697406335,
-  "total_items": 1449,
-  "total_lessons": 1162,
+  "revival_rate": 19.404418828049952,
+  "revival_per_session": 0.38808837656099904,
+  "total_items": 1456,
+  "total_lessons": 1169,
   "total_principles": 266,
   "total_beliefs": 21,
-  "frontier_count": 124,
+  "frontier_count": 122,
   "frontiers_per_domain": {
     "ai": 2,
     "brain": 1,
@@ -354,7 +355,7 @@
     "dream": 4,
     "economy": 1,
     "empathy": 0,
-    "epistemology": 4,
+    "epistemology": 3,
     "evaluation": 2,
     "evolution": 5,
     "expert-swarm": 3,
@@ -391,25 +392,25 @@
     "stochastic-processes": 1,
     "strategy": 3,
     "string-theory": 3,
-    "thermodynamics": 2,
+    "thermodynamics": 1,
     "global": 3
   },
   "hypotheses": [
     {
       "hypothesis": "SHOULD-KNOW > ACTIVE in \u226530% of domains",
-      "result": "33/49 domains (67.3%)",
+      "result": "32/49 domains (65.3%)",
       "pass": true,
       "threshold": "\u226530%"
     },
     {
       "hypothesis": "DECAYED\u2192ACTIVE transitions < 1% per session",
-      "result": "0.39% per session (cumulative 19.3% over 50s window)",
+      "result": "0.39% per session (cumulative 19.4% over 50s window)",
       "pass": true,
       "threshold": "<1%"
     },
     {
       "hypothesis": "Knowledge-state profiles change top-5 dispatch in \u22652/5 cases",
-      "result": "5/5 different (gap-ranked: ['protocol-engineering', 'mathematics', 'claude-code', 'cryptocurrency', 'guesstimates'], UCB1: ['forecasting', 'epistemology', 'expert-swarm', 'nk-complexity', 'concept-inventor'])",
+      "result": "5/5 different (gap-ranked: ['claude-code', 'protocol-engineering', 'mathematics', 'cryptocurrency', 'guesstimates'], UCB1: ['forecasting', 'expert-swarm', 'nk-complexity', 'concept-inventor', 'catastrophic-risks'])",
       "pass": true,
       "threshold": "\u22652/5"
     }

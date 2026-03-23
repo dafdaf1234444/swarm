@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-FRA-S512",
+    "frontier": "F-FRA1",
+    "session": "S512",
+    "domain": "fractals",
+    "date": "2026-03-23",
+    "expect": "Transfer-loss >30% across scales (lane\u2192session\u2192domain) because CV-of-Ginis=0.66 shows non-self-similarity",
+    "actual": "TBD",
+    "diff": "TBD"
+}
