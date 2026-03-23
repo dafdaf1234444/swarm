@@ -1,9 +1,9 @@
 # Memory Index
-Updated: 2026-03-23 | Sessions: 525
+Updated: 2026-03-23 | Sessions: 526
 
 ## What the swarm knows
-- **1251 lessons** in `memory/lessons/L-{NNN}.md`
-- **263 principles** in `memory/PRINCIPLES.md` (latest: P-349 variational-trajectory-optimization from L-1431; P-341..P-348 S514 batch scan)
+- **1252 lessons** in `memory/lessons/L-{NNN}.md`
+- **272 principles** in `memory/PRINCIPLES.md` (latest: P-358 horizon-bounded-compounding from L-1477; P-350..P-358 S526 batch scan)
 - **21 beliefs** in `beliefs/DEPS.md` (B1–B3, B6–B19, B-EVAL1–3) | **13 frontiers** in `tasks/FRONTIER.md` | **47 domains**
 
 ## Structure

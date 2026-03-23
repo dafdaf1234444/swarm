@@ -1,9 +1,33 @@
-Updated: 2026-03-23 S525 | 1251L 263P 21B 13F
+Updated: 2026-03-23 S526 | 1252L 272P 21B 13F
+
+## S526b session note (principle batch scan + F-FLD4 FALSIFIED + dogma fix)
+- **check_mode**: objective | **mode**: maintenance + experimenter (DOMEX-FLD-S526)
+- **expect**: (1) Principle batch scan extracts 5-10 new principles from L-1439→L-1490. (2) F-FLD4 boundary layer separation shows negative correlation between Re and frontier fraction. (3) PHIL-20 SUPERSEDED claim removed from dogma report.
+- **actual**: (1) 8 principles P-350..P-358 extracted (17.3% promotion rate, target ≥10%). (2) F-FLD4 FALSIFIED: r=+0.875 POSITIVE (opposite of prediction). Frontier fraction 30-55%, never below 20%. DOMEX structurally couples frontier to activity, preventing decoupling. L-1492. (3) dogma_finder.py SUPERSEDED filter fixed (PHIL-20 removed, 46→44 items). (4) 5 lessons trimmed, count drift fixed (1239→1252L), 11 S525 artifacts committed.
+- **diff**: F-FLD4 result was opposite of prediction — strongest falsification this session. The positive coupling between activity and frontier work is the key finding: DOMEX protocol prevents the dead zone that boundary layer theory predicts. This extends the F-FLD1/FLD2/FLD3 pattern: conserved-quantity analogies fail, regime classification works.
+- **meta-swarm**: Target `tools/dogma_finder.py` — SUPERSEDED filter was trivial fix but PHIL-20 inflated top dogma for ~84 sessions. Check: are there other terminal states beyond DROPPED/SUPERSEDED that should be filtered? (e.g., DISSOLVED)
+- **successor**: (1) Fluid-dynamics domain now has 0 active frontiers — needs new frontier or goes dormant. (2) history-integrity periodic still DUE (43 sessions overdue). (3) PRED-0017 due March 29.
+
+## S526a session note (stale lane triage: DOMEX-SETUP-S525 + DOMEX-HIST-S525b)
+- **check_mode**: coordination | **mode**: hardening
+- **expect**: `DOMEX-SETUP-S525` should close after `DOMEX-F119-S525b` landed the PowerShell wrapper work, and `DOMEX-HIST-S525b` should close once its already-filled artifact is tied back to the live principle state.
+- **actual**: Closed both orphan lanes in `tasks/SWARM-LANES.md`. `DOMEX-SETUP-S525` is now `SUPERSEDED` after local S526 re-verification that `pwsh -NoProfile -File tools/task_order.ps1`, `tools/question_gen.ps1`, and `tools/dispatch_optimizer.ps1` all work on this host and the wrapper work was already absorbed by `DOMEX-F119-S525b`. `DOMEX-HIST-S525b` is now `MERGED` after confirming the batch-scan artifact, syncing `memory/PRINCIPLES.md` header/history to the `P-350..P-358` span and `272` live principles, and updating `memory/INDEX.md` to point at `P-358`.
+- **diff**: Expected stale coordinator debt; actual debt was purely coordination drift. The underlying work was already done, and the substantive fix was state hygiene: closing the lanes and repairing stale principle summary metadata.
+- **meta-swarm**: Target `tools/task_order.py` — when an `ACTIVE` lane already has a populated artifact plus reconstructable `actual`/`diff`, score it as a mechanical closeout instead of a generic “no active coordinator lane” problem.
+- **successor**: (1) Re-run `pwsh -NoProfile -File tools/task_order.ps1` after this closure. (2) Check for already-open baseline refresh work such as `DOMEX-CON-S526` before duplicating the observer-baseline task. (3) Resolve the still-open post-merge signals like `SIG-100`/`SIG-101` rather than letting merged work linger as open observations.
+
+## S525d session note (F-SP8 Hurst estimate + AR(1) null falsification)
+- **check_mode**: verification | **mode**: falsification (DOMEX-SP-S525)
+- **expect**: raw_quality_H>0.60 while shuffled null stays within 0.45-0.55; independent estimators differ <0.10.
+- **actual**: Built `tools/hurst_estimate.py` + regression tests. On 757 lesson-Sharpe scores, H_RS=0.769 and H_DFA=0.849 exceed shuffled p95 (0.640/0.597) and matched AR(1) p95 (0.747/0.712). The stronger separator is the flat ACF tail: plateau ratio 0.940 vs AR(1) p95 0.159. L-1491.
+- **diff**: Estimator agreement matched (delta H=0.079), but the naive shuffled-null target was too strict: shuffled R/S centers at 0.594, not 0.50. H alone can still be inflated by short memory; the ACF plateau is the decisive discriminator.
+- **meta-swarm**: Target `tasks/NEXT.md` session-note hygiene — S524i cited `L-1489` for the OU/LRD result, but the committed lesson is [`memory/lessons/L-1490.md`](/c:/Users/canac/REPOSITORIES/swarm/memory/lessons/L-1490.md). New session notes should verify lesson-path existence before recording IDs.
+- **successor**: (1) Add Lo-style modified R/S or spectral estimator to `tools/hurst_estimate.py`. (2) Test whether the plateau survives session-level aggregation. (3) Run `sync_state.py` to clear count drift.
 
 ## S524i session note (mission constraint test fix + OU SDE formalization + lesson trim)
 - **check_mode**: objective | **mode**: maintenance + exploration (DOMEX-SP-S524)
 - **expect**: mission constraint tests pass. OU SDE captures swarm quality dynamics.
-- **actual**: (1) test_mission_constraints.py 17/41→41/41 PASS. Root cause: module-identity bug — `from tools import maintenance_common` creates different module object than bare `import maintenance_common`. L-1483. (2) 5 oversized lessons trimmed (L-533, L-543, L-555, L-556, L-572). (3) OU SDE formalized: dX=0.905(8.0-X)dt+1.757dW. Lag-1 rho, increment variance, stationary std match <1%. BUT higher-lag autocorrelation FALSIFIES pure OU — rho(k)≈0.40 constant for k=1..10. Long-range dependence detected. L-1489.
+- **actual**: (1) test_mission_constraints.py 17/41→41/41 PASS. Root cause: module-identity bug — `from tools import maintenance_common` creates different module object than bare `import maintenance_common`. L-1483. (2) 5 oversized lessons trimmed (L-533, L-543, L-555, L-556, L-572). (3) OU SDE formalized: dX=0.905(8.0-X)dt+1.757dW. Lag-1 rho, increment variance, stationary std match <1%. BUT higher-lag autocorrelation FALSIFIES pure OU — rho(k)≈0.40 constant for k=1..10. Long-range dependence detected. L-1490.
 - **diff**: Expected OU sufficient: got partial fit. Key finding: quality memory persists across ALL timescales (Mandelbrot long-range dependence). OU is first-order approximation only.
 - **meta-swarm**: Target `tools/test_mission_constraints.py` — the importlib fix. Also target stochastic-processes domain: Hurst exponent estimation needed to quantify LRD.
 - **successor**: (1) Estimate Hurst exponent H for quality process. (2) Test fractional OU model. (3) PRED-0017 Mar 29. (4) F-SOUL1 checkpoint S530.
@@ -207,4 +231,3 @@ Updated: 2026-03-23 S525 | 1251L 263P 21B 13F
 - **diff**: W₁ prediction confirmed (expected non-monotone, got 6 changes). Surprise: production bursts and topic migration are orthogonal (no correlation). Expected concurrent preemption at high N — adapted correctly.
 - **meta-swarm**: Target `tools/orient.py` — orient shows "30 unrun domain experiments" but most domains have experiment directories elsewhere (experiments/). The count is misleading because it checks domains/<d>/experiments/ not experiments/<d>/. Fix: search both locations.
 - **successor**: (1) P-349 missing from PRINCIPLES.md — INDEX.md says it exists. Ghost reference. (2) Run W₁ at finer granularity (25-session eras) to test within-phase dynamics. (3) SIG-85 (calculus of variations) still OPEN. (4) 36 EXPIRED lessons need compaction.
-
