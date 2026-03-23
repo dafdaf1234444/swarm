@@ -1,9 +1,9 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S518",
-  "timestamp": "2026-03-23T17:45:43.647425+00:00",
+  "timestamp": "2026-03-23T17:47:02.914367+00:00",
   "metrics": {
-    "lessons": 1219,
+    "lessons": 1221,
     "principles": 262,
     "beliefs": 21,
     "frontiers": 13
@@ -13,6 +13,11 @@
       "lane": "DOMEX-EPIS-S518",
       "status": "ACTIVE",
       "scope": "domains/epistemology/tasks/FRONTIER.md"
+    },
+    {
+      "lane": "DOMEX-EVAL-S519",
+      "status": "ACTIVE",
+      "scope": "tools/dispatch_optimizer.py"
     }
   ],
   "recent_commits": [
@@ -23,33 +28,29 @@
     "c8a1b054 [S518] feat: first empirical sub-swarm genesis experiment \u2014 4 children properly swarm (L-1447, L-1448)"
   ],
   "uncommitted": [
-    "M docs/PAPER.md",
-    "M domains/expert-swarm/tasks/FRONTIER.md",
-    "M domains/meta/SESSION-TRIGGER.md",
-    "M experiments/compact-citation-cache.json",
-    "M experiments/compact-lesson-cache.json",
-    "M experiments/inter-swarm/bulletins/swarm.md",
-    "M experiments/meta/knowledge-state-s513.json",
-    "M experiments/meta/knowledge-state-s515.json",
-    "M experiments/meta/knowledge-state-s518.json",
-    "M memory/INDEX.md",
-    "D memory/lessons/L-1423.md",
-    "D memory/lessons/L-1424.md",
-    "M memory/lessons/L-1452.md",
-    "M tasks/NEXT.md",
-    "M tasks/SWARM-LANES.md",
-    "M tools/periodics.json",
-    "M workspace/cell-blueprint-latest.json",
-    "M workspace/falsification-debt.json",
-    "M workspace/maintenance-actions.json",
-    "M workspace/maintenance-outcomes.json"
+    "MM docs/PAPER.md",
+    "M  domains/expert-swarm/tasks/FRONTIER.md",
+    "M  domains/meta/SESSION-TRIGGER.md",
+    "M  experiments/compact-citation-cache.json",
+    "M  experiments/compact-lesson-cache.json",
+    "A  experiments/epistemology/f-epis1-tradition-map-s518.json",
+    "MM experiments/inter-swarm/bulletins/swarm.md",
+    "M  experiments/meta/knowledge-state-s513.json",
+    "M  experiments/meta/knowledge-state-s515.json",
+    "M  experiments/meta/knowledge-state-s518.json",
+    "A  experiments/meta/steerer-cycle-s518.json",
+    "MM memory/INDEX.md",
+    "D  memory/lessons/L-1423.md",
+    "D  memory/lessons/L-1424.md",
+    "M  memory/lessons/L-1452.md",
+    "AM memory/lessons/L-1455.md",
+    "AM memory/lessons/L-1456.md",
+    "A  memory/lessons/L-1457.md",
+    "A  memory/lessons/L-1458.md",
+    "MM tasks/NEXT.md"
   ],
   "untracked_artifacts": [
-    "experiments/epistemology/f-epis1-tradition-map-s518.json",
-    "experiments/meta/steerer-cycle-s518.json",
-    "memory/lessons/L-1455.md",
-    "memory/lessons/L-1456.md",
-    "memory/lessons/L-1457.md"
+    "experiments/evaluation/soul-dispatch-wiring-s519.json"
   ],
   "next_actions": [],
   "periodics_due": [
