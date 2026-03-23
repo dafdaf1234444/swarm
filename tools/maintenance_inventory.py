@@ -96,6 +96,14 @@ def check_runtime_portability(
     has_bash = _command_exists("bash")
     has_pwsh = _command_exists("pwsh") or _command_exists("powershell")
     has_python_alias = _python_command_runs("python3") or _python_command_runs("python") or _py_launcher_runs()
+    ps_min_cycle_wrappers = (
+        "tools/orient.ps1",
+        "tools/task_order.ps1",
+        "tools/question_gen.ps1",
+        "tools/dispatch_optimizer.ps1",
+    )
+    missing_ps_min_cycle_wrappers = [p for p in ps_min_cycle_wrappers if not _exists(p)]
+    has_ps_min_cycle_wrappers = not missing_ps_min_cycle_wrappers
     has_bash_wrapper_pair = _exists("tools/check.sh") and _exists("tools/maintenance.sh")
     has_ps_wrapper_pair = _exists("tools/check.ps1") and _exists("tools/maintenance.ps1")
     has_bash_wrappers = has_bash and has_bash_wrapper_pair
@@ -104,14 +112,23 @@ def check_runtime_portability(
     if not has_git:
         results.append(("URGENT", "git not found in PATH -- swarm memory/commit workflow cannot run"))
     if not has_python_alias:
-        if has_bash_wrappers and has_pwsh_wrappers:
-            results.append(("NOTICE", "No python alias in active shell; use wrappers (`bash tools/check.sh --quick` or `pwsh -NoProfile -File tools/check.ps1 --quick`)"))
+        if has_pwsh_wrappers and has_ps_min_cycle_wrappers:
+            results.append((
+                "NOTICE",
+                "No python alias in active shell; use PowerShell wrappers (`pwsh -NoProfile -File tools/orient.ps1`, `tools/task_order.ps1`, `tools/question_gen.ps1`, `tools/dispatch_optimizer.ps1`, `tools/check.ps1 --quick`, `tools/maintenance.ps1 --inventory`)",
+            ))
         elif has_bash_wrappers:
             results.append(("NOTICE", "No python alias in active shell; use bash wrappers (`bash tools/check.sh --quick`, `bash tools/maintenance.sh --inventory`)"))
+            if has_pwsh_wrappers and missing_ps_min_cycle_wrappers:
+                sample = ", ".join(Path(p).name for p in missing_ps_min_cycle_wrappers[:3])
+                results.append(("NOTICE", f"PowerShell minimum-cycle wrappers missing ({sample}) -- native PowerShell swarm startup is degraded; use bash fallback or add wrappers"))
+        elif has_pwsh_wrappers and missing_ps_min_cycle_wrappers:
+            sample = ", ".join(Path(p).name for p in missing_ps_min_cycle_wrappers[:3])
+            results.append(("DUE", f"No python alias in active shell and PowerShell minimum-cycle wrappers are missing ({sample})"))
         else:
             results.append(("DUE", f"No python alias in PATH -- use explicit interpreter: {PYTHON_CMD}"))
     if not has_bash and (_exists("workspace/genesis.sh") or _exists("tools/check.sh")):
-        if has_python_alias and has_pwsh_wrappers:
+        if has_pwsh_wrappers and has_ps_min_cycle_wrappers:
             results.append(("NOTICE", "bash not found -- use PowerShell wrappers (`pwsh -NoProfile -File tools/check.ps1 --quick`, `pwsh -NoProfile -File tools/maintenance.ps1 --inventory`)"))
         elif has_python_alias:
             results.append(("NOTICE", f"bash not found -- use direct python entrypoints (`{PYTHON_CMD} tools/maintenance.py --quick`, `{PYTHON_CMD} tools/maintenance.py --inventory`)"))

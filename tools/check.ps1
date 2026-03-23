@@ -14,6 +14,7 @@ $repoRoot = Split-Path -Parent $PSScriptRoot
 $checkSh = Join-Path $PSScriptRoot "check.sh"
 $validatePy = Join-Path $PSScriptRoot "validate_beliefs.py"
 $maintenancePy = Join-Path $PSScriptRoot "maintenance.py"
+$missionConstraintsPy = Join-Path $PSScriptRoot "test_mission_constraints.py"
 
 function Convert-ToBashPath {
     param([string]$PathText)
@@ -64,6 +65,18 @@ try {
     }
 
     & $pythonCmd @pythonArgs $maintenancePy @pyArgs
+    if ($LASTEXITCODE -ne 0) {
+        exit $LASTEXITCODE
+    }
+
+    if (Test-Path $missionConstraintsPy) {
+        & $pythonCmd @pythonArgs $missionConstraintsPy
+        if ($LASTEXITCODE -ne 0) {
+            Write-Error "FAIL: Mission constraints regression failed."
+            exit $LASTEXITCODE
+        }
+    }
+
     exit $LASTEXITCODE
 } finally {
     Pop-Location

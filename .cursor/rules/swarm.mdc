@@ -26,6 +26,7 @@ This repo is a swarm. Read `SWARM.md` for the full protocol.
   - New questions: post via `python3 tools/swarm_signal.py post question "..." --target human`.
 
 ## Minimum Swarmed Cycle
+- **PowerShell host fallback**: if `python3`/`python`/`py -3` are unavailable in the active shell, use `pwsh -NoProfile -File tools/orient.ps1`, `tools/task_order.ps1`, `tools/question_gen.ps1`, `tools/dispatch_optimizer.ps1`, `tools/check.ps1 --quick`, and `tools/maintenance.ps1 --inventory`.
 - **Orient first**: `python3 tools/orient.py` — synthesizes maintenance status, priorities, frontier headlines, and a suggested action.
 - **Task order**: `python3 tools/task_order.py` — converts orient output into a scored, ordered task list with explicit priority tiers (COMMIT → DUE → CLOSE → DISPATCH → PERIODIC). Re-run after each task to re-rank.
 - **Inquiry frame**: `python3 tools/question_gen.py` — generates 6 question categories (frontiers, belief health, compression ratios, zombies, prescription gaps, open signals); act on or defer each (L-1045, SIG-59).

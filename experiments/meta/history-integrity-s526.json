@@ -1,0 +1,140 @@
+{
+  "commit_format": {
+    "total": 100,
+    "compliant": 100,
+    "rate": 1.0,
+    "non_compliant_examples": []
+  },
+  "lesson_attribution": {
+    "sample": 50,
+    "mass_restore_excluded": 0,
+    "matches": 47,
+    "mismatches": 3,
+    "no_declared": 0,
+    "errors": 0,
+    "rate": 0.94,
+    "mismatch_examples": [
+      {
+        "lesson": "L-1442.md",
+        "declared": "S518",
+        "committed": "S3",
+        "diff": 515
+      },
+      {
+        "lesson": "L-1443.md",
+        "declared": "S518",
+        "committed": "S3",
+        "diff": 515
+      },
+      {
+        "lesson": "L-1444.md",
+        "declared": "S518",
+        "committed": "S3",
+        "diff": 515
+      }
+    ]
+  },
+  "experiment_outcomes": {
+    "total_experiment_jsons": 1016,
+    "recent_threshold": "S400+",
+    "recent_total": 438,
+    "recent_with_actual": 425,
+    "recent_with_outcome": 425,
+    "recent_with_expected": 404,
+    "recent_outcome_rate": 0.9703196347031964,
+    "older_with_actual": 284,
+    "older_with_outcome": 284,
+    "older_total": 578,
+    "older_outcome_rate": 0.4913494809688581,
+    "missing_examples": [
+      {
+        "session": 501,
+        "file": "f-cat1-fm40-diagnosis-repair-s501.json",
+        "keys": [
+          "defense_layers",
+          "fm_id",
+          "fm_name",
+          "fulfilled",
+          "limitations",
+          "session",
+          "status_change",
+          "tool",
+          "total_prescriptions",
+          "unfulfilled"
+        ]
+      },
+      {
+        "session": 470,
+        "file": "f-con1-baseline-s470.json",
+        "keys": [
+          "abandoned",
+          "abandonment_taxonomy",
+          "active",
+          "administrative_branch_lifecycle",
+          "c1_duplicate_work",
+          "cites",
+          "collaborate_continuous_after",
+          "collaborate_continuous_before",
+          "count_strict_c1",
+          "data"
+        ]
+      },
+      {
+        "session": 429,
+        "file": "f-con1-baseline-s429.json",
+        "keys": [
+          "abandoned",
+          "active",
+          "active_lanes",
+          "analysis",
+          "c1_actual",
+          "c1_duplicate_work",
+          "c1_expected",
+          "c1_fraction_of_abandoned",
+          "c1_rate_below_threshold",
+          "c1_rate_change"
+        ]
+      },
+      {
+        "session": 428,
+        "file": "f-con1-baseline-s428.json",
+        "keys": [
+          "abandon_rate_vs_s189",
+          "abandoned",
+          "active",
+          "admin_closure_note",
+          "administrative_closures",
+          "analysis",
+          "c1_duplicate_work",
+          "c1_rate_lane_level",
+          "c1_rate_vs_s189",
+          "c3_cleared"
+        ]
+      },
+      {
+        "session": 421,
+        "file": "f-eval4-quality-metric-gap-s421.json",
+        "keys": [
+          "artifacts",
+          "combined_missed_pct",
+          "corrections",
+          "correlation_expanded_insertions",
+          "correlation_std_insertions",
+          "deletions",
+          "expanded_score",
+          "expect",
+          "frontier",
+          "gap"
+        ]
+      }
+    ]
+  },
+  "lane_history": {
+    "active_lanes": 17,
+    "archived_lanes": 862,
+    "total_historical": 879,
+    "multi_row_lanes": 0,
+    "history_preserved": false,
+    "design_note": "merge-on-close (L-527) deliberately erases per-lane history to prevent bloat"
+  }
+}

@@ -1,6 +1,6 @@
 # Conflict Domain — Frontier Questions
 Domain agent: write here for conflict-domain work; global cross-domain findings → tasks/FRONTIER.md.
-Updated: 2026-03-23 S514 | Active: 1 | Resolved: F-CON1 (S348), F-CON2 (S363), F-CON3 (S349)
+Updated: 2026-03-23 S526 | Active: 1 | Resolved: F-CON1 (S348), F-CON2 (S363), F-CON3 (S349)
 
 ## Active
 
@@ -19,7 +19,7 @@ Updated: 2026-03-23 S514 | Active: 1 | Resolved: F-CON1 (S348), F-CON2 (S363), F
 
 ## Evidence Archive (resolved frontiers — key artifacts and lessons)
 
-- **F-CON1** (C1/C3 rates): Baseline L-297, L-340 (bloat 3.72x), L-527 (merge-on-close 1.00x). Artifacts: `experiments/conflict/f-con1-*`. Re-measure at S400.
+- **F-CON1** (C1/C3 rates): Baseline L-297, L-340 (bloat 3.72x), L-527 (merge-on-close 1.00x), L-1171 (strict-C1 correction). Artifacts: `experiments/conflict/f-con1-*`. Re-measured S526: strict C1 = 12/1081 lanes (1.1%), with 2 new strict cases since S470; low overall, but no longer at the S470 floor.
 - **F-CON2** (concurrent edits): L-557 (claim.py), L-602 (C-EDIT 82% reduction), L-656/L-657 (CE-4 fix). Artifacts: `experiments/conflict/f-con2-*`. Re-measure at S380.
 - **F-CON3** (constitution monitor): L-312 (tool built). 6 runs, 0% FP, 100% TP. Artifacts: `experiments/conflict/f-con3-*`.
 

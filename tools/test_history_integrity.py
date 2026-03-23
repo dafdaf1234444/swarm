@@ -82,5 +82,42 @@ class TestLessonSampling(unittest.TestCase):
         self.assertEqual([path.name for path, _, _ in sample], ["L-1000.md", "L-1001.md"])
 
 
+class TestQuickModeDefaults(unittest.TestCase):
+    def test_apply_runtime_defaults_enables_recent_fast_path(self):
+        args = mock.Mock(
+            quick=True,
+            commit_count=None,
+            sample=None,
+            min_session=None,
+        )
+
+        with mock.patch.object(
+            history_integrity,
+            "_infer_latest_committed_session",
+            return_value=527,
+        ):
+            resolved = history_integrity._apply_runtime_defaults(args)
+
+        self.assertIs(resolved, args)
+        self.assertEqual(args.commit_count, history_integrity.QUICK_COMMIT_COUNT)
+        self.assertEqual(args.sample, history_integrity.QUICK_SAMPLE_SIZE)
+        self.assertEqual(args.min_session, 520)
+
+    def test_apply_runtime_defaults_preserves_explicit_overrides(self):
+        args = mock.Mock(
+            quick=True,
+            commit_count=10,
+            sample=12,
+            min_session=510,
+        )
+
+        resolved = history_integrity._apply_runtime_defaults(args)
+
+        self.assertIs(resolved, args)
+        self.assertEqual(args.commit_count, 10)
+        self.assertEqual(args.sample, 12)
+        self.assertEqual(args.min_session, 510)
+
+
 if __name__ == "__main__":
     unittest.main()

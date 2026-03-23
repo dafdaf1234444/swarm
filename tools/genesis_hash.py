@@ -16,8 +16,15 @@ Usage:
 
 import argparse
 import hashlib
+import re
 import sys
 from pathlib import Path
+
+try:
+    from swarm_io import session_number
+except ImportError:
+    def session_number() -> int:
+        return 0
 
 ROOT = Path(__file__).resolve().parent.parent
 GENESIS_FILES_ORDER = [
@@ -25,6 +32,7 @@ GENESIS_FILES_ORDER = [
     ROOT / "beliefs" / "CORE.md",
 ]
 PRINCIPLES_CANDIDATES = [ROOT / "beliefs" / "PRINCIPLES.md", ROOT / "memory" / "PRINCIPLES.md"]
+CANONICAL_HASH_RE = re.compile(r"genesis-bundle-S\d+[A-Za-z0-9-]*\.hash$")
 
 
 def compute_hash() -> str:
@@ -44,13 +52,23 @@ def compute_hash() -> str:
 
 def latest_hash_file():
     files = sorted((ROOT / "workspace").glob("genesis-bundle-*.hash"), key=lambda f: f.stat().st_mtime)
-    return files[-1] if files else None
+    if not files:
+        return None
+    canonical = [f for f in files if CANONICAL_HASH_RE.fullmatch(f.name)]
+    pool = canonical or files
+    return pool[-1]
+
+
+def default_session_label() -> str:
+    sess = session_number()
+    return f"S{sess}" if sess > 0 else "S0"
 
 
 def main():
+    default_session = default_session_label()
     parser = argparse.ArgumentParser(description="Genesis bundle hash tool")
     parser.add_argument("--write", action="store_true", help="Write hash to workspace/genesis-bundle-SXXX.hash")
-    parser.add_argument("--session", default="S???", help="Session label for hash filename (default: S???)")
+    parser.add_argument("--session", default=default_session, help=f"Session label for hash filename (default: {default_session})")
     parser.add_argument("--check", action="store_true", help="Exit 0 if hash matches, 1 if mismatch")
     args = parser.parse_args()
 

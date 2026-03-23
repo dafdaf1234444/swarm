@@ -54,6 +54,10 @@ def _seed_repo(root: Path, next_body: str) -> None:
     )
     _write(root / "tools/check.sh", "choose_python() { :; }\npython3\npython\npy -3\n")
     _write(root / "tools/maintenance.sh", "#!/bin/bash\n")
+    _write(root / "tools/orient.ps1", "# powershell orient wrapper\n")
+    _write(root / "tools/task_order.ps1", "# powershell task-order wrapper\n")
+    _write(root / "tools/question_gen.ps1", "# powershell question-gen wrapper\n")
+    _write(root / "tools/dispatch_optimizer.ps1", "# powershell dispatch wrapper\n")
     _write(root / "tools/check.ps1", "# powershell check wrapper\n")
     _write(root / "tools/maintenance.ps1", "# powershell maintenance wrapper\n")
     _write(root / "tools/bulletin.py", "# stub\n")
@@ -767,6 +771,10 @@ class TestRuntimePortabilityFallbacks(unittest.TestCase):
             "workspace/genesis.sh": True,
             "tools/check.sh": True,
             "tools/maintenance.sh": True,
+            "tools/orient.ps1": True,
+            "tools/task_order.ps1": True,
+            "tools/question_gen.ps1": True,
+            "tools/dispatch_optimizer.ps1": True,
             "tools/check.ps1": True,
             "tools/maintenance.ps1": True,
             "SWARM.md": True,
@@ -805,7 +813,7 @@ class TestRuntimePortabilityFallbacks(unittest.TestCase):
              patch.object(maintenance, "_py_launcher_runs", return_value=has_py_launcher), \
              patch.object(maintenance_common, "_is_wsl_mnt_repo", return_value=False), \
              patch.object(maintenance, "_git", return_value=""), \
-             patch.object(maintenance, "_read", return_value="SWARM.md\nswarm signaling\n"):
+             patch.object(maintenance, "_read", return_value="SWARM.md\nswarm signaling\nMinimum Swarmed Cycle\n"):
             return maintenance.check_runtime_portability()
 
     def test_no_bash_uses_powershell_wrappers_when_python_available(self):
@@ -832,7 +840,7 @@ class TestRuntimePortabilityFallbacks(unittest.TestCase):
         self.assertTrue(any("use direct python entrypoints" in msg for msg in messages))
         self.assertFalse(any("portable startup path is broken" in msg for msg in messages))
 
-    def test_no_bash_and_no_python_is_due(self):
+    def test_no_bash_and_no_python_uses_full_powershell_wrapper_set(self):
         results = self._run_portability(
             has_bash=False,
             has_pwsh=True,
@@ -840,9 +848,41 @@ class TestRuntimePortabilityFallbacks(unittest.TestCase):
             has_python=False,
             has_py_launcher=False,
         )
+        messages = [msg for _, msg in results]
+        self.assertTrue(any("use PowerShell wrappers" in msg for msg in messages))
+        self.assertFalse(any(level == "DUE" for level, _ in results))
+
+    def test_no_python_and_missing_minimum_cycle_pwsh_wrappers_is_due_without_bash(self):
+        results = self._run_portability(
+            has_bash=False,
+            has_pwsh=True,
+            has_python3=False,
+            has_python=False,
+            has_py_launcher=False,
+            exists_overrides={
+                "tools/task_order.ps1": False,
+                "tools/question_gen.ps1": False,
+                "tools/dispatch_optimizer.ps1": False,
+            },
+        )
         due_messages = [msg for level, msg in results if level == "DUE"]
-        self.assertTrue(any("No python alias in PATH" in msg for msg in due_messages))
-        self.assertTrue(any("portable startup path is broken" in msg for msg in due_messages))
+        self.assertTrue(any("PowerShell minimum-cycle wrappers are missing" in msg for msg in due_messages))
+
+    def test_no_python_and_missing_minimum_cycle_pwsh_wrappers_is_notice_with_bash(self):
+        results = self._run_portability(
+            has_bash=True,
+            has_pwsh=True,
+            has_python3=False,
+            has_python=False,
+            has_py_launcher=False,
+            exists_overrides={
+                "tools/task_order.ps1": False,
+                "tools/question_gen.ps1": False,
+            },
+        )
+        messages = [msg for _, msg in results]
+        self.assertTrue(any("use bash wrappers" in msg for msg in messages))
+        self.assertTrue(any("PowerShell minimum-cycle wrappers missing" in msg for msg in messages))
 
 
 class TestStateHeaderSyncParsing(unittest.TestCase):

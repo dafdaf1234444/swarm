@@ -23,6 +23,8 @@ try:
 except ImportError:
     _HAS_LESSON_META = False
 
+GENESIS_HASH_FILE_RE = re.compile(r"genesis-bundle-S\d+[A-Za-z0-9-]*\.hash$")
+
 
 def check_index_coverage(index_text):
     """Check INDEX.md theme bucket coverage vs total lesson count. F-BRN4."""
@@ -365,7 +367,8 @@ def check_genesis_hash(ROOT) -> list:
                             key=lambda f: f.stat().st_mtime)
         if not hash_files:
             return lines  # no hash file — skip silently (not yet initialized)
-        latest = hash_files[-1]
+        canonical = [f for f in hash_files if GENESIS_HASH_FILE_RE.fullmatch(f.name)]
+        latest = (canonical or hash_files)[-1]
         stored = latest.read_text().strip().split()[0]
         if not stored:
             return lines

@@ -167,8 +167,19 @@ if [ "$ATOM_DELETED" -eq 0 ]; then
 fi
 
 # FM-11: Genesis bundle hash verification (I9/MC-SAFE, F-SEC1 Layer 1, S377).
-# If a genesis hash file exists, verify current bundle matches. Mismatch = FAIL (was warning pre-S377).
-LATEST_HASH_FILE=$(ls -t workspace/genesis-bundle-*.hash 2>/dev/null | head -1)
+# If a genesis hash file exists, verify current bundle matches. Prefer canonical
+# sessioned hashes so placeholder files never outrank real state.
+LATEST_HASH_FILE=$("${PYTHON_CMD[@]}" - <<'PY' 2>/dev/null
+from pathlib import Path
+import re
+
+files = sorted(Path("workspace").glob("genesis-bundle-*.hash"),
+               key=lambda f: f.stat().st_mtime)
+canon = re.compile(r"genesis-bundle-S\d+[A-Za-z0-9-]*\.hash$")
+pool = [f for f in files if canon.fullmatch(f.name)] or files
+print(pool[-1].as_posix() if pool else "")
+PY
+)
 if [ -n "$LATEST_HASH_FILE" ]; then
     STORED_HASH=$(head -1 "$LATEST_HASH_FILE" | tr -d '[:space:]')
     if [ -n "$STORED_HASH" ]; then
@@ -656,6 +667,12 @@ else
     echo ""
 fi
 
+# 2b. Mission constraints regression suite (all modes)
+# Pre-commit runs --quick, so F119 regressions must gate there too.
+if [ -f "tools/test_mission_constraints.py" ]; then
+    run_suite "Mission constraints regression" "tools/test_mission_constraints.py"
+fi
+
 # 3. Bulletin regression suite (if not quick)
 if [ "${#ARGS[@]}" -eq 0 ] && [ -f "tools/test_bulletin.py" ]; then
     run_suite "Bulletin regression" "tools/test_bulletin.py"
@@ -686,11 +703,6 @@ if [ "${#ARGS[@]}" -eq 0 ] && [ -f "tools/test_swarm_lanes.py" ]; then
     run_suite "Swarm lanes regression" "tools/test_swarm_lanes.py"
 fi
 
-# 9. Mission constraints regression suite (if not quick)
-if [ "${#ARGS[@]}" -eq 0 ] && [ -f "tools/test_mission_constraints.py" ]; then
-    run_suite "Mission constraints regression" "tools/test_mission_constraints.py"
-fi
-
 # 11. NK analyze regression suite (if not quick)
 if [ "${#ARGS[@]}" -eq 0 ] && [ -f "tools/test_nk_analyze.py" ]; then
     run_suite "NK analyze regression" "tools/test_nk_analyze.py"
@@ -705,7 +717,6 @@ if [ "${#ARGS[@]}" -eq 0 ]; then
         "tools/test_colony.py"
         "tools/test_swarm_pr.py"
         "tools/test_swarm_lanes.py"
-        "tools/test_mission_constraints.py"
         "tools/test_nk_analyze.py"
     )
     EXTRA_COUNT=0

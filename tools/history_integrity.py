@@ -5,6 +5,7 @@ L-981: history integrity is a first-class property (SIG-49, human directive 2026
 
 Usage:
   python3 tools/history_integrity.py          # full report
+  python3 tools/history_integrity.py --quick  # recent-only fast path
   python3 tools/history_integrity.py --json   # JSON output for experiments
 """
 
@@ -55,6 +56,12 @@ DIFF_OUTCOME_KEYS = {
     "expect_vs_actual",
     "prediction_vs_actual",
 }
+DEFAULT_COMMIT_COUNT = 100
+DEFAULT_SAMPLE_SIZE = 50
+DEFAULT_MIN_SESSION = 400
+QUICK_COMMIT_COUNT = 25
+QUICK_SAMPLE_SIZE = 20
+QUICK_SESSION_WINDOW = 7
 
 
 def _declared_session(content: str) -> int | None:
@@ -138,7 +145,45 @@ def _get_session(path: str) -> tuple[str | None, bool]:
     return None, saw_restore
 
 
-def check_commit_format(n: int = 100) -> dict:
+def _infer_latest_committed_session() -> int | None:
+    """Infer the latest committed session id from git history."""
+    try:
+        result = subprocess.run(
+            ["git", "log", "--oneline", "-1"],
+            capture_output=True,
+            text=True,
+            timeout=10,
+        )
+    except Exception:
+        return None
+    match = SESSION_RE.search(result.stdout)
+    return int(match.group(1)) if match else None
+
+
+def _apply_runtime_defaults(args):
+    """Resolve CLI defaults and apply the recent-only quick preset when requested."""
+    if args.commit_count is None:
+        args.commit_count = DEFAULT_COMMIT_COUNT
+    if args.sample is None:
+        args.sample = DEFAULT_SAMPLE_SIZE
+    if args.min_session is None:
+        args.min_session = DEFAULT_MIN_SESSION
+
+    if not args.quick:
+        return args
+
+    if args.commit_count == DEFAULT_COMMIT_COUNT:
+        args.commit_count = QUICK_COMMIT_COUNT
+    if args.sample == DEFAULT_SAMPLE_SIZE:
+        args.sample = QUICK_SAMPLE_SIZE
+    if args.min_session == DEFAULT_MIN_SESSION:
+        latest_session = _infer_latest_committed_session()
+        if latest_session is not None:
+            args.min_session = max(0, latest_session - QUICK_SESSION_WINDOW)
+    return args
+
+
+def check_commit_format(n: int = DEFAULT_COMMIT_COUNT) -> dict:
     """Dimension 1: commit message format compliance."""
     log = subprocess.run(
         ["git", "log", "--oneline", f"-{n}"], capture_output=True, text=True
@@ -289,7 +334,7 @@ def run_all(args) -> dict:
     print("=== HISTORY INTEGRITY REPORT ===\n")
 
     print("[1] Commit message format")
-    r1 = check_commit_format()
+    r1 = check_commit_format(n=args.commit_count)
     results["commit_format"] = r1
     print(f"    Last {r1['total']} commits: {r1['compliant']} compliant ({r1['rate']*100:.0f}%)")
     if r1["non_compliant_examples"]:
@@ -346,10 +391,35 @@ def run_all(args) -> dict:
 
 def main():
     parser = argparse.ArgumentParser(description="Swarm history integrity checker")
+    parser.add_argument(
+        "--quick",
+        action="store_true",
+        help=(
+            "Recent-only fast path: defaults to 25 commits, 20 lesson samples, "
+            "and experiment outcomes from the last 7 committed sessions."
+        ),
+    )
     parser.add_argument("--json", action="store_true", help="Output JSON")
-    parser.add_argument("--sample", type=int, default=50, help="Lesson sample size")
-    parser.add_argument("--min-session", type=int, default=400, help="Min session for experiment check")
+    parser.add_argument(
+        "--commit-count",
+        type=int,
+        default=None,
+        help=f"How many recent commits to audit (default: {DEFAULT_COMMIT_COUNT})",
+    )
+    parser.add_argument(
+        "--sample",
+        type=int,
+        default=None,
+        help=f"Lesson sample size (default: {DEFAULT_SAMPLE_SIZE})",
+    )
+    parser.add_argument(
+        "--min-session",
+        type=int,
+        default=None,
+        help=f"Min session for experiment check (default: {DEFAULT_MIN_SESSION})",
+    )
     args = parser.parse_args()
+    args = _apply_runtime_defaults(args)
 
     results = run_all(args)
 

@@ -19,6 +19,9 @@ Read `tasks/FRONTIER.md` — open questions driving evolution.
 Run `bash tools/check.sh --quick` — portable startup validation + maintenance.
 Run `bash tools/maintenance.sh --inventory` — what this host can run and which swarm capabilities are available.
 PowerShell equivalents: `pwsh -NoProfile -File tools/orient.ps1`,
+`pwsh -NoProfile -File tools/task_order.ps1`,
+`pwsh -NoProfile -File tools/question_gen.ps1`,
+`pwsh -NoProfile -File tools/dispatch_optimizer.ps1`,
 `pwsh -NoProfile -File tools/check.ps1 --quick`, and
 `pwsh -NoProfile -File tools/maintenance.ps1 --inventory`.
 If `bash` is unavailable on host, run maintenance directly with a working interpreter for that shell
@@ -60,6 +63,7 @@ Science = discovering what the swarm doesn't already believe. Confirmation is ne
 - **Measure**: Run `python3 tools/science_quality.py` periodically for current baseline.
 
 ## Minimum Swarmed Cycle
+- **PowerShell host fallback**: if `python3`/`python`/`py -3` are unavailable in the active shell, use `pwsh -NoProfile -File tools/orient.ps1`, `tools/task_order.ps1`, `tools/question_gen.ps1`, `tools/dispatch_optimizer.ps1`, `tools/check.ps1 --quick`, and `tools/maintenance.ps1 --inventory`.
 - Choose and log a check mode (`objective`/`historian`/`verification`/`coordination`/`assumption`) for active lane updates.
 - Declare expectation before acting and record the diff after acting.
 - Treat positive, negative, and null outcomes as first-class evidence.

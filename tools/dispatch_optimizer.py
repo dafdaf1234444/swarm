@@ -387,9 +387,9 @@ def _print_ucb1_output(results, results_limited, active_lanes, session_merged,
         if r.get("commit_guarantee_boost", 0) > 0: m += " ⚡COMMIT"
         if r.get("commit_reservation"): m += " 🚨RESERVED"
         if r.get("execution_blocked"): m += " 🛑BLOCKED"
-        sb = r.get("soul_boost", 0)
-        if sb > 0: m += f" [SOUL+{sb:.1f}]"
-        elif sb < 0: m += f" [SOUL{sb:.1f}]"
+        sm = r.get("soul_multiplier", 1.0)
+        if sm > 1.0: m += f" [SOULx{sm:.2f}]"
+        elif sm < 1.0: m += f" [SOULx{sm:.2f}]"
         print(f"{ss:>6}  {r['domain']:<25}  {r.get('ucb1_exploit',0):7.3f}  {es:>7}  "
               f"{r.get('outcome_n',0):3d}  {r.get('outcome_lessons',0):3d}  {hi:>4} [{r.get('outcome_label','NEW')}]{m}")
         if r["domain"] in session_merged:

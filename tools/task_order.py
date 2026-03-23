@@ -50,6 +50,14 @@ def _git(args: list[str]) -> str:
     return r.stdout.strip()
 
 
+def _safe_mtime(path: Path) -> float:
+    """Return a stable sort key when files race with concurrent sessions."""
+    try:
+        return path.stat().st_mtime
+    except OSError:
+        return -1.0
+
+
 def _detect_concurrency() -> int:
     """Count unique sessions in recent commits to estimate active concurrency.
 
@@ -206,7 +214,7 @@ def get_strategy_tasks() -> list[dict]:
         return tasks
 
     # Check recent 10 lessons for L3+ keywords (mirrors orient.py logic)
-    lesson_files = sorted(lessons_dir.glob("L-*.md"), key=lambda f: f.stat().st_mtime, reverse=True)[:10]
+    lesson_files = sorted(lessons_dir.glob("L-*.md"), key=_safe_mtime, reverse=True)[:10]
     l3plus_kw = ["strategy", "campaign", "architecture", "organizational",
                  "paradigm", "redesign", "direction", "what should", "reframing",
                  "missing layer", "system design", "philosophy", "identity"]

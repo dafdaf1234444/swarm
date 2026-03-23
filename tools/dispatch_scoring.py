@@ -83,11 +83,11 @@ def _load_soul_weights():
 
 _soul_weights = _load_soul_weights()
 
-# Soul dispatch constants (F-SOUL1 Phase 2, SIG-81, L-1455)
-SOUL_BOOST_MAX = 0.8            # max soul boost per domain
-SOUL_PENALTY_MAX = 0.4          # max soul penalty per domain
+# Soul dispatch constants (F-SOUL1 Phase 2, SIG-81, L-1455, L-1485)
+SOUL_MULTIPLIER_MAX = 1.6       # cap positive soul weighting at +60%
+SOUL_MULTIPLIER_MIN = 0.6       # cap negative soul weighting at -40%
 SOUL_MIN_SAMPLE = 5             # minimum good+bad lessons for scoring
-SOUL_SCALE = 0.15               # score per unit deviation from mean ratio
+SOUL_SCALE = 0.15               # multiplier delta per unit deviation from mean ratio
 
 # Compute corpus-wide mean benefit ratio as reference point (L-1455)
 # Domains below mean displace human benefit; domains above generate it.
@@ -338,20 +338,22 @@ def ucb1_score(results: list[dict], outcome_map: dict, heat_map: dict,
         r["maintenance_boost"] = round(maint_boost, 3)
 
         # Soul-informed human benefit weighting (F-SOUL1 Phase 2, SIG-81, L-1455)
-        # L-1455: non-meta domains produce 1.66x more GOOD per unit.
-        # Continuous scoring relative to corpus mean — no dead zone.
-        soul_boost = 0.0
+        # L-1485: additive corrections do not fix multiplicative Goodhart.
+        # Weight the full score by human-benefit ratio instead of adding a flat nudge.
+        pre_soul_score = r["score"]
+        soul_multiplier = 1.0
         sw = _soul_weights.get(dom, {})
         sw_n = sw.get("good", 0) + sw.get("bad", 0)
         sw_ratio = sw.get("ratio", 1.0)
         if sw_n >= SOUL_MIN_SAMPLE:
             delta = sw_ratio - _soul_mean_ratio
             if delta > 0:
-                soul_boost = min(delta * SOUL_SCALE, SOUL_BOOST_MAX)
+                soul_multiplier = min(1.0 + delta * SOUL_SCALE, SOUL_MULTIPLIER_MAX)
             else:
-                soul_boost = max(delta * SOUL_SCALE, -SOUL_PENALTY_MAX)
-        r["score"] += soul_boost
-        r["soul_boost"] = round(soul_boost, 3)
+                soul_multiplier = max(1.0 + delta * SOUL_SCALE, SOUL_MULTIPLIER_MIN)
+        r["score"] *= soul_multiplier
+        r["soul_multiplier"] = round(soul_multiplier, 3)
+        r["soul_boost"] = round(r["score"] - pre_soul_score, 3)
 
         # Claimed domain penalty
         if dom in claimed:

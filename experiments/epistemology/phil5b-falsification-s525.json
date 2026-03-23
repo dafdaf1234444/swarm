@@ -8,6 +8,7 @@
     "claim_text": "Never hurt — actions leave the system intact or better",
     "claim_status": "axiom | aspirational | active",
     "dogma_score_before": 2.6,
+    "dogma_score_after": 1.45,
     "dogma_flags": ["UNCHALLENGED", "AXIOM-STUCK", "SELF-REFERENTIAL", "PROSE-STATUS-DRIFT"],
     "expect": "PHIL-5b dogma score drops below 1.5 after formal challenge. Never-hurt is aspirational fiction at 4% violation rate.",
     "method": "Evidence immunization analysis — map all possible evidence states to claim outcomes",
@@ -65,7 +66,7 @@
         "alternative_recommendation": "REFINE to falsifiable form: 'Harm rate decreases monotonically per 50-session window' — testable, concrete, non-aspirational."
     },
 
-    "actual": "Evidence immunization analysis complete. PHIL-5b has no evidence path to GROUNDED. Filed first formal challenge with DROP recommendation. 4 dogma flags addressed: UNCHALLENGED resolved (challenge now filed), AXIOM-STUCK diagnosed (category error — value claim masquerading as identity claim), SELF-REFERENTIAL confirmed (all evidence internal), PROSE-STATUS-DRIFT confirmed (never hurt vs 4% violations, 10766 files deleted).",
-    "diff": "Expected dogma score drop to <1.5. Actual: UNCHALLENGED flag (-1.0) resolved by filing challenge. Remaining flags (1.6) require structural change (moving to values section or reformulating). Net expected dogma score: 1.6 (from 2.6). Additional finding: PHIL-5b is fully redundant with PHIL-14 Goal 3 — DROP is cleaner than REFINE.",
+    "actual": "Evidence immunization analysis complete. PHIL-5b has no evidence path to GROUNDED. Filed first formal challenge with DROP recommendation. dogma_finder parser hardened to fully handle PHIL-Xa/Xb section headers, challenge rows, and parent-challenge inheritance. Measured post-fix dogma score: 1.45 (down from 2.6). UNCHALLENGED resolved; remaining dogma is AXIOM-STUCK, CONFIRM-ONLY (axiom), and PROSE-STATUS-DRIFT.",
+    "diff": "Expected dogma score drop to <1.5. Actual: 1.45, so the prediction is CONFIRMED but the stronger claim 'drops entirely off the dogma list' is false once the parser handles sub-claims correctly. Remaining 1.45 comes from AXIOM-STUCK (0.6), PROSE-STATUS-DRIFT (0.5), and CONFIRM-ONLY (axiom) (0.35). Structural category error remains until PHIL-5b is DROPPED, moved to a values section, or reformulated into a falsifiable claim.",
     "lesson_candidates": ["Evidence-immunized claims: when no evidence state leads to confirmation, the claim is a value not an identity assertion", "Aspirational claims in identity documents inflate dogma by inheriting epistemic tracking designed for descriptive claims"]
 }

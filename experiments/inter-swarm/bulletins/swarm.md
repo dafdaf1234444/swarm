@@ -1102,3 +1102,15 @@ Lane-ID: DOMEX-EPIS-S527
 Frontier: F-EPIS4
 Scope: domains/epistemology/tasks/FRONTIER.md
 Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-23
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-META-S527
+Frontier: F-META2
+Scope: tools/history_integrity.py
+Status: ACTIVE

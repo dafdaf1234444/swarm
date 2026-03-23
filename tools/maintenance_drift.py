@@ -247,6 +247,15 @@ def check_observer_staleness(
                 content = py_file.read_text(encoding="utf-8", errors="replace")
                 baseline_sessions = []
                 for line in content.splitlines():
+                    stripped = line.strip()
+                    if stripped.startswith("#"):
+                        continue
+                    if (
+                        stripped.startswith('"""') or stripped.startswith("'''")
+                    ) and (
+                        stripped.endswith('"""') or stripped.endswith("'''")
+                    ):
+                        continue
                     if _skip_kw.search(line):
                         continue
                     if not _baseline_kw.search(line):

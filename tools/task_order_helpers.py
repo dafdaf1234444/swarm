@@ -57,8 +57,17 @@ def get_done_periodic_ids() -> set:
             return done
         data = json.loads(periodics_path.read_text(encoding="utf-8", errors="replace"))
         sess = _current_session()
-        for pid, entry in data.items():
+        for entry in data.get("items", []):
+            pid = entry.get("id", "")
+            if not pid:
+                continue
             last = entry.get("last_reviewed_session", 0)
+            last_session = entry.get("last_session", 0)
+            try:
+                last = max(int(str(last).lstrip("S")) if last else 0,
+                           int(str(last_session).lstrip("S")) if last_session else 0)
+            except Exception:
+                last = 0
             cadence = entry.get("cadence_sessions", 20)
             if sess - last < cadence:
                 done.add(pid)
@@ -300,7 +309,7 @@ def get_signal_tasks(P_DUE: int, P_STRATEGY: int) -> list[dict]:
 
 
 def get_numeric_condition_due_items(P_DUE: int) -> list[dict]:
-    """Surface near-threshold numeric-condition items as DUE (S445, L-1062)."""
+    """Surface near-threshold numeric-condition items as DUE (L-1062)."""
     tasks = []
     try:
         idx_path = ROOT / "memory" / "INDEX.md"

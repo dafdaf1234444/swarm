@@ -1,7 +1,7 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S527",
-  "timestamp": "2026-03-23T20:44:30.268880+00:00",
+  "timestamp": "2026-03-23T20:47:48.355021+00:00",
   "metrics": {
     "lessons": 1254,
     "principles": 272,
@@ -10,11 +10,11 @@
   },
   "active_lanes": [],
   "recent_commits": [
+    "d616ef7a [S527] chore: S527 session note + sync state + periodics (1254L 272P)",
     "dc6a26e3 [S527] feat: F-EPIS4 T5 monotonic growth FALSIFIED \u2014 meta fraction oscillates, expert dispatch is organic cap",
     "4cab1ffe [S526] chore: S526b session note + sync state (1252L 272P)",
     "76ff1024 [S526] feat: F-FLD4 FALSIFIED \u2014 boundary layer separation (r=+0.875 positive, not negative)",
-    "854fa7e6 [S526] feat: principle batch scan \u2014 8 new principles P-350..P-358 from L-1439\u2192L-1490",
-    "05ec7889 [S525] fix: history integrity false negatives"
+    "854fa7e6 [S526] feat: principle batch scan \u2014 8 new principles P-350..P-358 from L-1439\u2192L-1490"
   ],
   "uncommitted": [
     "M .cursor/rules/swarm.mdc",
@@ -25,18 +25,18 @@
     "M CLAUDE.md",
     "M GEMINI.md",
     "M SWARM.md",
-    "M docs/PAPER.md",
     "M domains/conflict/tasks/FRONTIER.md",
     "M domains/meta/SESSION-TRIGGER.md",
     "M domains/stochastic-processes/tasks/FRONTIER.md",
     "M experiments/epistemology/phil5b-falsification-s525.json",
-    "M memory/INDEX.md",
     "M memory/PRINCIPLES.md",
-    "M memory/SESSION-LOG.md",
     "M memory/lessons/L-1489.md",
     "M memory/lessons/L-572.md",
     "M memory/lessons/L-593.md",
-    "M tasks/FRONTIER.md"
+    "M tasks/SIGNALS.md",
+    "M tools/check.ps1",
+    "M tools/check.sh",
+    "M tools/dispatch_optimizer.py"
   ],
   "untracked_artifacts": [
     "experiments/meta/history-integrity-s526.json"
