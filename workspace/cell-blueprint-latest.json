@@ -1,50 +1,54 @@
 {
   "schema": "cell-blueprint-v2",
-  "session": "S504",
-  "timestamp": "2026-03-22T20:35:57.953332+00:00",
+  "session": "S505",
+  "timestamp": "2026-03-23T02:54:05.853004+00:00",
   "metrics": {
-    "lessons": 1205,
+    "lessons": 1208,
     "principles": 252,
     "beliefs": 21,
     "frontiers": 11
   },
   "active_lanes": [],
   "recent_commits": [
+    "80d09578 [S505] feat: dogma finder clarity \u2014 epistemic type awareness separates axioms from empirical claims",
+    "4d556572 [S504] feat: NK tracking artifact + concept invention artifact + NEXT.md archival + state sync",
+    "531a33e1 [S504] feat: DOMEX bundle \u2014 NK monopoly convergence (L-601 33.6%) + 3 cross-domain concepts + L-1333/L-1334",
     "b40cf5a5 [S504] feat: SIG-80 resolved \u2014 shared domain header parser (42% \u2192 0% disagreement) + B14 retested",
-    "37972195 [S504] feat: DOMEX bundle \u2014 NK K_avg=3.35 (scale-free) + concept adoption 3/8 ADOPTED at 3-5x organic rate + L-1332",
-    "3d25bd55 [S503] feat: GAP-2 deepened \u2014 swarm_peer.py sync (6-dim fingerprint + diff + merge candidates) + L-1331 (L3)",
-    "cbc688fb [S503] feat: F-STR5 CONFIRMED \u2014 Goodhart cascade in dispatch (Gini 0.611) + multiplicative penalty fix + B11 retested",
-    "5d9adb5c [S503] feat: GAP-2 bidirectional coordination protocol \u2014 bulletin.py frontier-query/respond + L-1328 (L3)"
+    "37972195 [S504] feat: DOMEX bundle \u2014 NK K_avg=3.35 (scale-free) + concept adoption 3/8 ADOPTED at 3-5x organic rate + L-1332"
   ],
   "uncommitted": [
+    "M beliefs/DEPS.md",
+    "M docs/HUMAN-GUIDE.md",
     "M docs/PAPER.md",
+    "M domains/catastrophic-risks/tasks/FRONTIER.md",
+    "M domains/concept-inventor/tasks/FRONTIER.md",
     "M domains/meta/SESSION-TRIGGER.md",
-    "M domains/nk-complexity/tasks/FRONTIER.md",
     "M experiments/compact-citation-cache.json",
     "M experiments/compact-lesson-cache.json",
     "M experiments/meta/knowledge-state-s502.json",
-    "M memory/INDEX.md",
+    "M experiments/meta/knowledge-state-s504.json",
     "M memory/SESSION-LOG.md",
     "M tasks/FRONTIER.md",
     "M tasks/NEXT.md",
+    "M tasks/SWARM-LANES.md",
+    "M tools/fmea_reconcile.py",
     "M tools/periodics.json",
     "M workspace/cell-blueprint-latest.json",
     "M workspace/maintenance-actions.json",
     "M workspace/maintenance-outcomes.json",
-    "?? experiments/concept-inventor/f-inv1-invention-s504.json",
-    "?? experiments/meta/knowledge-state-s503.json",
-    "?? experiments/meta/knowledge-state-s504.json",
-    "?? experiments/nk-complexity/f-nk5-tracking-s504.json",
-    "?? memory/lessons/L-1333.md",
-    "?? memory/lessons/L-1334.md"
+    "?? experiments/catastrophic-risks/f-cat1-fm31-scope-overflow-s452.json"
   ],
   "untracked_artifacts": [
-    "experiments/concept-inventor/f-inv1-invention-s504.json",
-    "experiments/meta/knowledge-state-s503.json",
-    "experiments/meta/knowledge-state-s504.json",
-    "experiments/nk-complexity/f-nk5-tracking-s504.json",
-    "memory/lessons/L-1333.md",
-    "memory/lessons/L-1334.md"
+    "experiments/catastrophic-risks/f-cat1-fm31-scope-overflow-s452.json",
+    "experiments/catastrophic-risks/f-cat1-fm36-elif-masking-s456.json",
+    "experiments/catastrophic-risks/f-cat1-fmea-s505.json",
+    "experiments/concept-inventor/f-inv1-bridge-concepts-s505.json",
+    "experiments/concept-inventor/f-inv1-round4-s505.json",
+    "experiments/meta/knowledge-state-s505.json",
+    "memory/lessons/L-1336.md",
+    "memory/lessons/L-1338.md",
+    "memory/lessons/L-1339.md",
+    "memory/lessons/L-1340.md"
   ],
   "next_actions": [
     "- **dream.py --external-seed**: Add `load_external_seed()` function + `--external-seed` CLI arg to `tools/dream.py` (L-1307). Blocked by WSL index corruption at N\u22652 concurrency. Code: see HUMAN-BELIEF-SYSTEMS.md session artifacts. 12-line function + 8-line CLI change.",
@@ -60,27 +64,27 @@
   "periodics_due": [
     {
       "id": "principles-dedup",
-      "gap": 50,
+      "gap": 51,
       "cadence": 10
     },
     {
       "id": "dream-cycle",
-      "gap": 46,
+      "gap": 47,
       "cadence": 10
     },
     {
       "id": "paper-reswarm",
-      "gap": 39,
+      "gap": 40,
       "cadence": 10
     },
     {
       "id": "lanes-compact",
-      "gap": 37,
+      "gap": 38,
       "cadence": 10
     },
     {
       "id": "science-quality-audit",
-      "gap": 32,
+      "gap": 33,
       "cadence": 10
     }
   ],

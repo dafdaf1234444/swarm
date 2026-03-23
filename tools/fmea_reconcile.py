@@ -146,11 +146,12 @@ def extract_hardening_transitions(artifact):
             f"FM-{int(dual_match.group(2)):02d}",
         ]
 
-    # Infer new status from expect/actual/diff text
+    # Infer new status from expect/actual/diff text OR status_change field
     actual = str(data.get("actual", ""))
     expect = str(data.get("expect", ""))
     diff = str(data.get("diff", ""))
-    combined = f"{expect} {actual} {diff}"
+    status_change = str(data.get("status_change", ""))
+    combined = f"{expect} {actual} {diff} {status_change}"
 
     for fm_id in fm_ids:
         new_status = None

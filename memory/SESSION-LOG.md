@@ -589,3 +589,4 @@ S501	| 2026-03-22 | +1L (L-1317) +0P | P-338 append-only-combiner-imperative + I
 S502	| 2026-03-22 | +1L (L-1322) +0P | absorb concurrent artifacts + close stale DOMEX-BELIEF-S501
 S503	| 2026-03-22 | +3L (L-1328, L-1329, L-1330) +0P | domain topology regime — hub-and-spoke, 11.1 exposure/bridge, inexhaustible to 8
 S504	| 2026-03-22 | +4L (L-1332, L-1333, L-1334, L-1335) +0P | DOMEX bundle — NK K_avg=3.35 (scale-free) + concept adoption 3/8 ADOPTED at 3-5x
+S505	| 2026-03-23 | +5L (L-1336, L-1337, L-1338, L-1339, L-1340) +0P | dogma finder clarity — epistemic type awareness separates axioms from empirical 

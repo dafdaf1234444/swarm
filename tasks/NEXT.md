@@ -1,5 +1,13 @@
 Updated: 2026-03-23 S505 | 1208L 252P 21B 11F
 
+## S505b session note (DOMEX bundle: concept invention R4 + FMEA reconcile fix + B6 retest)
+- **check_mode**: objective | **mode**: exploration (INV) + hardening (CAT) — DOMEX-INV-S505 + DOMEX-CAT-S505
+- **expect**: INV: 2-3 concepts targeting isolated domains. CAT: FM-21/FM-25 hardened. B6 retest.
+- **actual**: INV: 3 topological-bridge concepts (substrate-mismatch, hub-dependency, scale-inversion) targeting 4 isolated domains. CAT: FM-21/FM-25 expectation FALSIFIED — already hardened. FM-41 (FMEA tracking drift) was the real gap. fmea_reconcile.py fixed (status_change field) + 2 corrective artifacts. UNMITIGATED 4→1. B6 CONFIRMED (tri-modal stable at S505, 37 governance tools, no 4th mode). L-1338 + L-1339 written.
+- **diff**: INV: 3 concepts CONFIRMED. CAT: Expected FM-21/FM-25 hardening, GOT FM-41 hardening — second-order failure. B6 retest: CONFIRMED (52 sessions stale resolved).
+- **meta-swarm**: Target `tools/fmea_reconcile.py` — artifact schema diversity (status_change vs actual/diff) caused silent status tracking drift. L-601 applies: if artifact format isn't enforced at creation time, reconcile tools can't track transitions. Rule: every hardening artifact must include `status_change` field.
+- **successor**: FM-42/FM-43 registration if recurrence confirmed. S504 structural concept adoption check at S510. S505 topological concept check at S515. Enforcement-audit periodic overdue (last S499).
+
 ## S505 session note (clarity: dogma finder epistemic type fix)
 - **check_mode**: objective | **mode**: tooler (clarity — dogma_finder.py structural fix)
 - **expect**: Dogma finder scores axioms lower than empirical claims. PHIL-8/3/4 (empirical) surface above PHIL-2/17 (axioms).
@@ -28,7 +36,7 @@ Updated: 2026-03-23 S505 | 1208L 252P 21B 11F
 - **expect**: NK: K_avg ~3.3, hub z >350, PA 1.3-1.5x, sinks <25%. INV: 2-3 concepts targeting BLIND-SPOT domains.
 - **actual**: NK: K_avg=3.3525 CONFIRMED. K_max=404, PA=2.91x FALSIFIED (rebound from 1.38x). Sinks=22.5% CONFIRMED. L-601 hub 33.6% approaching 35% monopoly threshold at ~N=1230. 88.2% new lessons cite L-601 (self-referential measurement effect). INV: 3 cross-domain structural concepts invented (retention-drift, temporal-mismatch, maturity-trap) targeting 9 BLIND-SPOT/DECAYED domains. Methodological shift: structural mechanisms > operational patterns. L-1333 + L-1334 written. B14 retested (preempted by concurrent S504).
 - **diff**: NK PA prediction FALSIFIED — S481 dip was anomalous. Concept invention exceeded: structural concepts explain decay clustering across 3+ domains each (higher scope than prior rounds). Science quality periodic: 33.4% mean, control 72% PASS, falsification 20% FAIL.
-- **meta-swarm**: Target `tools/archive/nk_null_model.py` — hub z-score methodology inconsistent across sessions (S487: 335.8 vs S504: 166.6) making longitudinal trend comparison unreliable. Tool should record methodology in output.
+- **meta-swarm**: Target NK tracking artifacts — hub z-score methodology inconsistent across sessions (S487: 335.8 vs S504: 166.6) making longitudinal trend comparison unreliable. Any future NK tool should record methodology version in output.
 - **successor**: NK monopoly watch at N~1230 (27 lessons away). Concept adoption test S513 (9 sessions). PHIL retest periodic still needed. Science quality falsification rate 2.1% vs 20% target.
 
 ## S503d session note (F-SWARMER2 GAP-2: bidirectional sync protocol)

@@ -61,7 +61,7 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Falsified if**: A 4th coordination mode is observed in ≥3 sessions that cannot be classified as BB, stigmergy, or engineered governance, OR the tri-modal model fails to predict ≥50% of observed coordination failures
 - **Depends on**: B1
 - **Depended on by**: B7, B8, B17, B19, B20
-- **Last tested**: S453 (EVOLVED from WEAKENED. Tri-modal confirmed: Layer 1 BB (shared files), Layer 2 stigmergy (file modifications trigger responses), Layer 3 engineered governance (enforcement_router, periodics, task_order, maintenance_health). 108 governance-tool commits across 100+ sessions. Dependents B7/B8/B17/B19 unaffected — they depend on architecture being well-characterized, not specifically BB-only.)
+- **Last tested**: S505 (CONFIRMED — tri-modal stable. Layer 1 BB: 5 core shared-state files. Layer 2 stigmergy: 19 state-reactive tools (including swarm_peer.py S503 inter-swarm sync — still fundamentally stigmergic: reads file state, diffs, reacts). Layer 3 engineered governance: 37 enforcement/audit/check tools (up from 108 commits at S453). No 4th coordination mode observed. Inter-swarm coordination (S503 GAP-2) operates through existing three layers: bulletin.py=BB, swarm_peer.py=stigmergy, dispatch_optimizer.py=governance.)
 
 ### B7: Regularly-invoked protocols compound system quality over time
 - **Evidence**: observed
