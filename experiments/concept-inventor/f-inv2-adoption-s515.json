@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-INV-S515",
+    "frontier": "F-INV2",
+    "session": "S515",
+    "domain": "concept-inventor",
+    "date": "2026-03-23",
+    "expect": "\u22654 of 12 injected frontiers have generated DOMEX activity or been resolved since S495",
+    "actual": "TBD",
+    "diff": "TBD"
+}

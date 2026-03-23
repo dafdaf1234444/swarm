@@ -1,18 +1,15 @@
 # Filtering Domain — Frontier Questions
 Domain agent: write here, not to tasks/FRONTIER.md
-Updated: 2026-03-23 S514 | Active: 1 | Resolved: 6
+Updated: 2026-03-23 S515 | Active: 0 | Resolved: 7
 
 ## Active
 
-- **F-FLT7**: Does the BLIND-SPOT accessibility gap (16.1% at F-FLT1) grow sub-linearly, linearly, or super-linearly with lesson count?
-  F-FLT1 measured 14 filters with 7 having measured selectivity. F-FLT2 falsified scale degradation for proxy metrics but identified BLIND-SPOT growth as the true scale concern. F-FLT5 confirmed vocabulary ceiling (100% MEASUREMENT). The critical open question: as the swarm grows from 1176L toward 1500L+, does the fraction of lessons that are retained but inaccessible (BLIND-SPOT) grow faster than the corpus itself? If super-linear, the swarm will eventually know more than it can access — a knowledge obesity problem that no current filter addresses.
-  **Test**: Using knowledge_state.py, measure BLIND-SPOT % at 3 historical snapshots (approximate via git checkouts at ~800L, ~1000L, ~1176L). Plot BLIND-SPOT % vs lesson count. Fit linear and power-law models. Compute growth exponent beta where BLIND-SPOT ~ N^beta.
-  **Prediction**: Super-linear growth (beta > 1.0, predicted ~1.2-1.4) because each new lesson increases combinatorial accessibility demands while INDEX.md is capped at 60 lines (holographic bound from F-STR3).
-  **Falsification**: If beta <= 1.0 (linear or sub-linear), existing filters scale adequately and no new accessibility mechanism is needed.
+(none — domain fully resolved. Open new frontiers via dispatch or cross-domain findings.)
 
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F-FLT7 | FALSIFIED: beta=0.178-0.44 (deeply sub-linear, threshold was >1.0). BLIND-SPOT% declined 20.6%→9.9% over 42-43 snapshots (S377–S515). Phase structure: S482-S509 beta=-1.51 (actively shrinking). Knowledge obesity concern unfounded — accessibility mechanisms outpace corpus growth. Replicated independently: L-1422, L-1424. | S515 | 2026-03-23 |
 | F-FLT1 | CONFIRMED — 14 filters, 7 measured selectivity. Retention ≠ accessibility (BLIND-SPOT 16.1%). L-1005. | S433 | 2026-03-02 |
 | F-FLT2 | FALSIFIED — all 3 proxy metrics improved at scale. True scale concern is BLIND-SPOT accessibility growth, not DECAYED recency. Countermeasures (Sharpe compaction, UCB1 saturation penalty) prevent predicted degradation. | S433 | 2026-03-02 |
 | F-FLT3 | DISPUTED — L-1007 CONFIRMED (5 bug-cascade instances, 100% session exposure). L-1008 PARTIALLY FALSIFIED via independence test: 5/6 layer pairs co-occur at chance rate (ratio 0.98-1.14); only knowledge→attention excess (1.60). Multi-layer sessions MORE productive (4.6 vs 2.7 L/s). Cascades exist as bug-class, not architectural property. | S434 | 2026-03-02 |

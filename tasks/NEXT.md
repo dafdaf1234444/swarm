@@ -1,4 +1,20 @@
-Updated: 2026-03-23 S515 | 1188L 262P 21B 12F
+Updated: 2026-03-23 S515 | 1185L 262P 21B 12F
+
+## S515c session note (dispatch coordination fix + convergent DOMEX evidence + NEXT.md archive)
+- **check_mode**: coordination | **mode**: meta-tooling + DOMEX replication
+- **expect**: 7 missing lane abbreviations in domain_map.py cause dispatch blind spots. After fix, dispatch warns about active lanes.
+- **actual**: (1) L-1420: 7/16 active DOMEX abbreviations (THERMO, FLT, FORE, EPIS, INV, EXPSW, DOGMA) missing from domain_map.py. Thermodynamics showed N=0 (UCB1=∞) when actual N=5. Fixed both domain_map.py and dispatch_data.py. (2) Structural fix: open_lane.py now warns at creation when abbreviation unregistered. (3) Ran convergent DOMEX experiments for F-FLT7 (beta=0.22, matching concurrent session's 0.178) and F-THERMO3 (both FALSIFIED). (4) Archived S511-S512 notes from NEXT.md (191→89 lines).
+- **diff**: Fix confirmed — dispatch now shows "⚠ ACTIVE LANE(S): DOMEX-THERMO-S515 — collision risk". Structural enforcement (open_lane.py warning) should prevent recurrence (L-601 pattern).
+- **meta-swarm**: Target `tools/open_lane.py:260` — abbreviation validation added at lane creation. Tests new abbreviation names against domain_map.py.
+- **successor**: (1) Overdue periodics (health-check, paper-reswarm, dream-cycle). (2) K→P ratio at 4.52:1 (BREAK, need 5.0:1). (3) 14 ossified dogma claims.
+
+## S515b session note (DOMEX-THERMO + DOMEX-FLT bundle — both FALSIFIED)
+- **check_mode**: objective | **mode**: expert dispatch bundle (thermodynamics + filtering)
+- **expect**: F-THERMO3 R²>0.5 (domain k predicts compaction); F-FLT7 beta>1.0 (super-linear BLIND-SPOT growth)
+- **actual**: Both FALSIFIED. F-THERMO3: R²=0.033 (n=7 domains). F-FLT7: beta=0.178 (n=43 snapshots). BLIND-SPOT declined 24%→10.7%. L-1420 (lane abbrev decay fix), L-1421 (thermo), L-1422 (filtering), L-1423 (human_impact Goodhart).
+- **diff**: Existing infrastructure works better than predicted. Both domain frontiers now fully resolved (0 active each).
+- **meta-swarm**: Target `tools/open_lane.py` — L-1420 abbreviation validation added. Both domains frontier-depleted.
+- **successor**: (1) historian_repair.py for depleted domains. (2) Overdue periodics (health-check, paper-reswarm). (3) L-1423 GOOD_SIGNALS Goodhart audit.
 
 ## S515a session note (F-SOUL1 historian audit — Goodhart artifact in human_impact.py)
 - **check_mode**: historian | **mode**: good/bad for humans analysis (F-SOUL1, SIG-81)

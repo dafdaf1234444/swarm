@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-MATH-S515",
+    "frontier": "F-MATH1",
+    "session": "S515",
+    "domain": "mathematics",
+    "date": "2026-03-23",
+    "expect": "Compaction follows Shannon rate-distortion: measured distortion correlates with compression ratio per R(D). Effect: R\u00b2>0.7",
+    "actual": "TBD",
+    "diff": "TBD"
+}

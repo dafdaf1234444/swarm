@@ -1,84 +1,110 @@
 {
   "schema": "cell-blueprint-v2",
-  "session": "S514",
-  "timestamp": "2026-03-23T06:35:24.239828+00:00",
+  "session": "S515",
+  "timestamp": "2026-03-23T06:48:03.297713+00:00",
   "metrics": {
-    "lessons": 1184,
+    "lessons": 1185,
     "principles": 262,
     "beliefs": 21,
     "frontiers": 12
   },
-  "active_lanes": [],
+  "active_lanes": [
+    {
+      "lane": "DOMEX-MATH-S515",
+      "status": "ACTIVE",
+      "scope": "domains/mathematics/tasks/FRONTIER.md"
+    },
+    {
+      "lane": "DOMEX-INV-S515",
+      "status": "ACTIVE",
+      "scope": "domains/concept-inventor/tasks/FRONTIER.md"
+    }
+  ],
   "recent_commits": [
+    "4b06bc0e [S515] feat: commit S514 knowledge-state experiment artifact",
+    "a606f253 [S515] chore: commit S514 knowledge-state experiment artifact",
+    "e862b916 [S514] fix: sync_state count drift (1182\u21921184L) + NEXT.md session note",
     "1280d028 [S514] feat: DOMEX-EVAL-S514 \u2014 F-EVAL2 strict 0%, F-EVAL3 avg_lp=3.76 (+88%), orient.py crash fix",
-    "13f1fd36 [S514] fix: L-1409 GLD data correction (+5.4%\u2192-3.1%) + L-1410 scoring update + PHIL-1 first challenge (L-1416)",
-    "c359a89b [S514] fix: handoff \u2014 NEXT.md S514h note, sync_state, validate_beliefs PASS",
-    "32a46acf [S514] feat: F-INV1 PARTIALLY FALSIFIED \u2014 DOMEX-INV-S514 MERGED, session note",
-    "2d8a0fcb [S514] feat: DOMEX-CAT + DOMEX-FIN \u2014 F-CAT1 confirmed closed (42 FMs), F-FIN4 pre-resolution bias (BULL 56%, safe-haven failing)"
+    "13f1fd36 [S514] fix: L-1409 GLD data correction (+5.4%\u2192-3.1%) + L-1410 scoring update + PHIL-1 first challenge (L-1416)"
   ],
   "uncommitted": [
+    "M beliefs/DEPS.md",
     "M docs/PAPER.md",
+    "M domains/filtering/INDEX.md",
+    "M domains/filtering/tasks/FRONTIER.md",
     "M domains/meta/SESSION-TRIGGER.md",
+    "M domains/thermodynamics/INDEX.md",
+    "M domains/thermodynamics/tasks/FRONTIER.md",
     "M experiments/compact-citation-cache.json",
     "M experiments/compact-lesson-cache.json",
+    "M experiments/inter-swarm/bulletins/swarm.md",
     "M experiments/meta/knowledge-state-s513.json",
     "M memory/INDEX.md",
     "M memory/SESSION-LOG.md",
+    "A  memory/lessons/L-1423.md",
     "M tasks/FRONTIER.md",
-    "M tasks/NEXT.md",
-    "M tools/periodics.json",
-    "M tools/synthetic-steerers/signal-history.json",
-    "M workspace/falsification-debt.json",
-    "M workspace/genesis-bundle-S???.hash",
-    "M workspace/maintenance-actions.json",
-    "M workspace/maintenance-outcomes.json",
-    "?? experiments/meta/knowledge-state-s514.json"
+    "M tasks/NEXT-ARCHIVE.md",
+    "MM tasks/NEXT.md",
+    "M tasks/SIGNALS.md",
+    "M tasks/SWARM-LANES-ARCHIVE.md",
+    "M tasks/SWARM-LANES.md"
   ],
   "untracked_artifacts": [
-    "experiments/meta/knowledge-state-s514.json"
+    "experiments/concept-inventor/f-inv2-adoption-s515.json",
+    "experiments/filtering/blindspot_growth_s515.json",
+    "experiments/filtering/f-flt7-gap-scaling-s515.json",
+    "experiments/mathematics/",
+    "experiments/meta/bayes-meta-s515.json",
+    "experiments/meta/knowledge-state-s515.json",
+    "experiments/thermodynamics/compaction_vs_k_s515.json",
+    "experiments/thermodynamics/f-thermo3-compaction-prediction-s515.json",
+    "memory/lessons/L-1420.md",
+    "memory/lessons/L-1421.md",
+    "memory/lessons/L-1422.md",
+    "memory/lessons/L-1424.md"
   ],
   "next_actions": [],
   "periodics_due": [
     {
       "id": "principles-dedup",
-      "gap": 60,
+      "gap": 61,
       "cadence": 10
     },
     {
       "id": "dream-cycle",
-      "gap": 56,
-      "cadence": 10
-    },
-    {
-      "id": "paper-reswarm",
-      "gap": 49,
+      "gap": 57,
       "cadence": 10
     },
     {
       "id": "lanes-compact",
-      "gap": 47,
+      "gap": 48,
       "cadence": 10
     },
     {
       "id": "signal-audit",
-      "gap": 34,
+      "gap": 35,
+      "cadence": 10
+    },
+    {
+      "id": "knowledge-swarm",
+      "gap": 35,
       "cadence": 10
     }
   ],
   "dispatch_top3": [
     {
       "domain": "expert-swarm",
-      "score": 6.1,
-      "collision": false
-    },
-    {
-      "domain": "nk-complexity",
-      "score": 6.0,
+      "score": 6.4,
       "collision": false
     },
     {
       "domain": "concept-inventor",
-      "score": 5.9,
+      "score": 6.1,
+      "collision": true
+    },
+    {
+      "domain": "nk-complexity",
+      "score": 6.0,
       "collision": false
     }
   ]

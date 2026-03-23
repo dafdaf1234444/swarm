@@ -15,6 +15,7 @@ Updated: 2026-03-23 S514 | Sessions: 5
 - L-1412: Boltzmann scaling H∝ln(N), vocabulary saturation
 - L-1418: domain-specific Boltzmann constants, Simpson's paradox
 - L-1419: no entropy phase transitions; production 5.4x jump absorbed smoothly
+- L-1421: F-THERMO3 FALSIFIED — domain k does not predict compaction savings (R²=0.033)
 
 ## Structural isomorphisms with swarm design
 
@@ -27,10 +28,12 @@ Updated: 2026-03-23 S514 | Sessions: 5
 | Domain-specific heat capacities | Domains have different entropy scaling constants | CONFIRMED (L-1418) |
 | Phase transitions at critical points | No entropy phase transitions; system is near-equilibrium | FALSIFIED (L-1419) |
 | Shock absorption by expanding volume | Production 5.4x jump absorbed by vocabulary expansion (Heaps' law) | CONFIRMED (L-1419) |
+| Domain k predicts compaction need | R²=0.033 — k is descriptive, not predictive for compaction | FALSIFIED (L-1421) |
 
 ## What's open
-- F-THERMO3: Does domain-specific k predict compaction need?
+(none — domain fully resolved)
 
 ## What's resolved
 - F-THERMO1: 2nd law CONFIRMED globally + no phase transitions (L-1419) + Simpson's paradox (L-1412, L-1418, L-1419)
 - F-THERMO2: FALSIFIED — compaction is PID not dissipative (L-1399)
+- F-THERMO3: FALSIFIED — domain k does not predict compaction savings (R²=0.033, L-1421)

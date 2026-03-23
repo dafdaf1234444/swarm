@@ -258,6 +258,23 @@ def main():
         print("Use --force to open a duplicate row (not recommended).", file=sys.stderr)
         sys.exit(1)
 
+    # L-1420: warn if lane abbreviation not in domain_map.py (causes invisible dispatch)
+    try:
+        m = re.match(r"DOMEX-([A-Z]+)", args.lane)
+        if m:
+            abbr = m.group(1)
+            sys.path.insert(0, str(Path(__file__).resolve().parent))
+            from domain_map import LANE_ABBREV_TO_DOMAIN
+            if abbr not in LANE_ABBREV_TO_DOMAIN:
+                print(
+                    f"WARN: Abbreviation '{abbr}' not in domain_map.py — dispatch_optimizer "
+                    f"won't track this lane. Add it to LANE_ABBREV_TO_DOMAIN in tools/domain_map.py "
+                    f"(L-1420, L-676).",
+                    file=sys.stderr,
+                )
+    except ImportError:
+        pass
+
     # L-908 maintenance gate: warn about stale ACTIVE lanes before creating new ones
     try:
         sess_num = int(re.search(r"\d+", args.session).group())

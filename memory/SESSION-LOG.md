@@ -598,3 +598,5 @@ S510	| 2026-03-23 | +2L (L-1390, L-1391) +0P | absorb 93 ghost lessons + concurr
 S511	| 2026-03-23 | +3L (L-1394, L-1395, L-1396) +0P | absorb S510 uncommitted artifacts (L-1390, 3 experiments, state sync)
 S512	| 2026-03-23 | +1L (L-1405) +0P | absorb concurrent S512 pre-registered experiments (epistemology, fractals)
 S513	| 2026-03-23 | +1L (L-1410) +0P | absorb S512 artifacts + close DOMEX-EXPSW-S511 + archive NEXT.md (207→66 lines)
+S514	| 2026-03-23 | +3L (L-1411, L-1412, L-1413) +0P | absorb S513 concurrent artifacts — knowledge-state experiment + workspace sync
+S515	| 2026-03-23 | +4L (L-1420, L-1421, L-1422, L-1423) +0P | commit S514 knowledge-state experiment artifact
