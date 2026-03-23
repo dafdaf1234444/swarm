@@ -835,6 +835,259 @@ def cmd_remove(args: list[str]) -> None:
         print(f"Peer '{name}' not found")
 
 
+def _extract_identity_dimensions(root: Path) -> dict:
+    """Extract identity dimensions from a swarm for negotiation (GAP-5, F-SWARMER2).
+
+    Identity = what makes this swarm THIS swarm, not any swarm.
+    Five dimensions: axioms, goals, methods, boundaries, lineage.
+    """
+    dims: dict = {
+        "axioms": [],      # PHIL claims marked as axioms (identity-defining)
+        "goals": [],       # PHIL-14 primary goals
+        "methods": [],     # Core methods (from CORE.md)
+        "boundaries": [],  # What this swarm refuses or constrains
+        "lineage": {},     # Origin, age, scale — non-negotiable history
+    }
+
+    # Axioms: PHIL claims that are identity-defining (axiom in challenge table)
+    phil_path = root / "beliefs" / "PHILOSOPHY.md"
+    if phil_path.exists():
+        phil_text = phil_path.read_text(errors="ignore")
+        # Find axiom-tagged claims
+        for m in re.finditer(r"\*\*\[PHIL-(\d+)\]\*\*\s*(.+?)(?=\n\n|\n\*\*\[PHIL|\Z)", phil_text, re.DOTALL):
+            pid = f"PHIL-{m.group(1)}"
+            claim_text = m.group(2).strip().split("\n")[0][:200]
+            # Check if marked as axiom in challenge table or text
+            if "axiom" in phil_text[m.start():m.end()+500].lower():
+                dims["axioms"].append({"id": pid, "claim": claim_text, "type": "axiom"})
+            elif "identity" in phil_text[m.start():m.end()+500].lower():
+                dims["axioms"].append({"id": pid, "claim": claim_text, "type": "identity"})
+
+        # Goals: PHIL-14 section — numbered goals with **bold** keywords
+        goal_m = re.search(r"Primary goals.*?PHIL-14.*?\n(.*?)(?=\n## |\Z)", phil_text, re.DOTALL)
+        if goal_m:
+            for line in goal_m.group(1).splitlines():
+                line = line.strip()
+                if re.match(r"^\d+\.\s", line) or line.startswith("- **"):
+                    dims["goals"].append(line[:200])
+
+    # Methods: from CORE.md operating principles (numbered with **bold** headings)
+    core_path = root / "beliefs" / "CORE.md"
+    if core_path.exists():
+        core_text = core_path.read_text(errors="ignore")
+        for m in re.finditer(r"^\d+\.\s*\*\*(.+?)\*\*", core_text, re.MULTILINE):
+            dims["methods"].append(m.group(1)[:100])
+
+    # Boundaries: safety/constraint rules from CORE.md
+    if core_path.exists():
+        for m in re.finditer(r"(?:never|must not|refuse|forbidden|constraint)[^\n]*", core_text, re.I):
+            dims["boundaries"].append(m.group(0).strip()[:150])
+
+    # Lineage: non-negotiable history
+    index_path = root / "memory" / "INDEX.md"
+    if index_path.exists():
+        idx_text = index_path.read_text(errors="ignore")
+        session_m = re.search(r"S(\d+)", idx_text)
+        if session_m:
+            dims["lineage"]["sessions"] = int(session_m.group(1))
+        lesson_m = re.search(r"(\d+)\s*(?:L|lessons?)", idx_text)
+        if lesson_m:
+            dims["lineage"]["lessons"] = int(lesson_m.group(1))
+
+    genesis_path = root / "docs" / "GENESIS.md"
+    if genesis_path.exists():
+        dims["lineage"]["has_genesis"] = True
+
+    return dims
+
+
+def _negotiate_identity(local_dims: dict, peer_dims: dict) -> dict:
+    """Produce identity negotiation report between two swarms.
+
+    Negotiation rules (from F-MERGE1, L-1100):
+    1. Axioms are NON-NEGOTIABLE — if they conflict, swarms are incompatible
+    2. Goals can be MERGED if non-contradictory, or PARTITIONED if contradictory
+    3. Methods are ADOPTABLE — either side can import
+    4. Boundaries use STRICTEST-WINS (union of constraints)
+    5. Lineage is PRESERVED — both histories survive (symbiogenesis, not absorption)
+    """
+    report: dict = {
+        "compatibility": "UNKNOWN",
+        "axiom_conflicts": [],
+        "goal_alignment": [],
+        "method_exchange": {"importable": [], "exportable": []},
+        "boundary_union": [],
+        "lineage_preserved": True,
+        "negotiation_actions": [],
+    }
+
+    # 1. Axiom compatibility check (blocking)
+    local_axiom_claims = {a["claim"][:80].lower() for a in local_dims["axioms"]}
+    peer_axiom_claims = {a["claim"][:80].lower() for a in peer_dims["axioms"]}
+
+    for la in local_dims["axioms"]:
+        for pa in peer_dims["axioms"]:
+            # Simple contradiction check: if both are axioms on same topic but different claim
+            if la["id"] == pa["id"] and la["claim"][:80].lower() != pa["claim"][:80].lower():
+                report["axiom_conflicts"].append({
+                    "id": la["id"],
+                    "local": la["claim"][:200],
+                    "peer": pa["claim"][:200],
+                    "verdict": "INCOMPATIBLE — axiom conflict requires human arbitration",
+                })
+
+    # 2. Goal alignment
+    local_goals = set(g[:80].lower() for g in local_dims["goals"])
+    peer_goals = set(g[:80].lower() for g in peer_dims["goals"])
+    shared_goals = local_goals & peer_goals
+    local_only = local_goals - peer_goals
+    peer_only = peer_goals - local_goals
+
+    if shared_goals:
+        report["goal_alignment"].append(f"SHARED ({len(shared_goals)}): compatible, merge directly")
+    if local_only:
+        report["goal_alignment"].append(f"LOCAL-ONLY ({len(local_only)}): propose to peer or partition")
+    if peer_only:
+        report["goal_alignment"].append(f"PEER-ONLY ({len(peer_only)}): evaluate for adoption or partition")
+
+    # 3. Method exchange
+    local_methods = set(m.lower() for m in local_dims["methods"])
+    peer_methods = set(m.lower() for m in peer_dims["methods"])
+    report["method_exchange"]["importable"] = sorted(peer_methods - local_methods)[:10]
+    report["method_exchange"]["exportable"] = sorted(local_methods - peer_methods)[:10]
+
+    # 4. Boundary union (strictest wins)
+    all_boundaries = set()
+    for b in local_dims["boundaries"] + peer_dims["boundaries"]:
+        all_boundaries.add(b[:100])
+    report["boundary_union"] = sorted(all_boundaries)[:20]
+
+    # 5. Compatibility verdict
+    if report["axiom_conflicts"]:
+        report["compatibility"] = "INCOMPATIBLE"
+        report["negotiation_actions"].append(
+            "BLOCK: Axiom conflicts detected. Human arbitration required before merge."
+        )
+    elif not shared_goals:
+        report["compatibility"] = "ORTHOGONAL"
+        report["negotiation_actions"].append(
+            "PARTITION: No shared goals. Swarms can exchange methods but not merge identity."
+        )
+    else:
+        report["compatibility"] = "COMPATIBLE"
+        report["negotiation_actions"].extend([
+            "MERGE axioms: union (no conflicts)",
+            f"MERGE goals: {len(shared_goals)} shared + partition unique goals",
+            f"EXCHANGE methods: import {len(report['method_exchange']['importable'])}, "
+            f"export {len(report['method_exchange']['exportable'])}",
+            f"MERGE boundaries: strictest-wins union ({len(report['boundary_union'])} total)",
+            "PRESERVE lineage: both histories retained (symbiogenesis)",
+        ])
+
+    return report
+
+
+def cmd_identity(args: list[str]) -> None:
+    """GAP-5: Identity negotiation with a peer swarm (F-SWARMER2, L-1100).
+
+    Compares identity dimensions (axioms, goals, methods, boundaries, lineage)
+    and produces a negotiation protocol for safe merge.
+    """
+    if not args:
+        print("Usage: identity <name> [--json]")
+        print("  Compare identity dimensions and produce merge negotiation protocol.")
+        sys.exit(1)
+
+    name = args[0]
+    output_json = "--json" in args
+
+    peers = load_peers()
+    if name not in peers["peers"]:
+        print(f"Unknown peer '{name}'. Register first.")
+        sys.exit(1)
+
+    url = peers["peers"][name]["url"]
+    print(f"=== IDENTITY NEGOTIATION: {name} ({url}) ===\n")
+
+    with tempfile.TemporaryDirectory(prefix="swarm-identity-") as tmpdir:
+        result = subprocess.run(
+            ["git", "clone", "--depth", "1", "--single-branch", url, tmpdir],
+            capture_output=True, text=True, timeout=60,
+        )
+        if result.returncode != 0:
+            print(f"FAIL: Could not clone {url}")
+            return
+
+        peer_root = Path(tmpdir)
+        if not (peer_root / "SWARM.md").exists():
+            print(f"NOT A SWARM: {url}")
+            return
+
+        local_dims = _extract_identity_dimensions(ROOT)
+        peer_dims = _extract_identity_dimensions(peer_root)
+
+        print(f"--- Local Identity ({len(local_dims['axioms'])} axioms, "
+              f"{len(local_dims['goals'])} goals, {len(local_dims['methods'])} methods, "
+              f"{len(local_dims['boundaries'])} boundaries) ---")
+        for a in local_dims["axioms"][:5]:
+            print(f"  [{a['type']}] {a['id']}: {a['claim'][:100]}")
+
+        print(f"\n--- Peer Identity ({len(peer_dims['axioms'])} axioms, "
+              f"{len(peer_dims['goals'])} goals, {len(peer_dims['methods'])} methods, "
+              f"{len(peer_dims['boundaries'])} boundaries) ---")
+        for a in peer_dims["axioms"][:5]:
+            print(f"  [{a['type']}] {a['id']}: {a['claim'][:100]}")
+
+        negotiation = _negotiate_identity(local_dims, peer_dims)
+
+        print(f"\n--- Negotiation Result ---")
+        print(f"  Compatibility: {negotiation['compatibility']}")
+
+        if negotiation["axiom_conflicts"]:
+            print(f"\n  AXIOM CONFLICTS ({len(negotiation['axiom_conflicts'])}):")
+            for ac in negotiation["axiom_conflicts"]:
+                print(f"    {ac['id']}: {ac['verdict']}")
+
+        for ga in negotiation["goal_alignment"]:
+            print(f"  Goals: {ga}")
+
+        me = negotiation["method_exchange"]
+        if me["importable"]:
+            print(f"  Methods importable: {len(me['importable'])}")
+        if me["exportable"]:
+            print(f"  Methods exportable: {len(me['exportable'])}")
+
+        print(f"  Boundary union: {len(negotiation['boundary_union'])} constraints")
+
+        print(f"\n--- Actions ---")
+        for action in negotiation["negotiation_actions"]:
+            print(f"  → {action}")
+
+        # Save report
+        report = {
+            "schema": "swarm-identity-negotiation-v1",
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "peer": name,
+            "peer_url": url,
+            "local_dimensions": {k: v if k != "lineage" else v
+                                 for k, v in local_dims.items()},
+            "peer_dimensions": {k: v if k != "lineage" else v
+                                for k, v in peer_dims.items()},
+            "negotiation": negotiation,
+        }
+
+        report_dir = ROOT / "workspace" / "identity-reports"
+        report_dir.mkdir(parents=True, exist_ok=True)
+        report_path = report_dir / f"identity-{name}-{datetime.now(timezone.utc).strftime('%Y%m%d')}.json"
+        report_path.write_text(json.dumps(report, indent=2) + "\n")
+        print(f"\nReport saved: {report_path.relative_to(ROOT)}")
+
+        if output_json:
+            print(json.dumps(report, indent=2))
+
+        return report
+
+
 COMMANDS = {
     "register": cmd_register,
     "list": cmd_list,
@@ -843,6 +1096,7 @@ COMMANDS = {
     "exchange": cmd_exchange,
     "sync": cmd_sync,
     "resolve": cmd_resolve,
+    "identity": cmd_identity,
     "remove": cmd_remove,
 }
 

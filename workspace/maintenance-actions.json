@@ -1,14 +1,22 @@
 {
-  "session": 517,
-  "count": 2,
+  "session": 518,
+  "count": 4,
   "items": [
     {
       "priority": "DUE",
-      "message": "1 signal(s) >30 sessions without resolution: SIG-71(+31s). Close or escalate (L-908 TTL)."
+      "message": "Lesson over 20 lines: L-1442.md"
     },
     {
       "priority": "DUE",
-      "message": "2 observer baseline(s) stale: cascade_monitor.py(S435,82s), compact.py(S427,90s). Refresh to prevent drift blindness (L-820, FM-20)"
+      "message": "Lesson over 20 lines: L-1445.md"
+    },
+    {
+      "priority": "DUE",
+      "message": "[steerer-cycle] Synthetic steerer cycle: run steerer.py run --all, generate 2-3 signals per steerer, record via steerer.py record, act on strongest signal. L-1337, L-1336. (every ~5 sessions, last: S507)"
+    },
+    {
+      "priority": "DUE",
+      "message": "Count drift in INDEX.md (L: stated 1204 vs actual 1209) \u2014 run python3 tools/sync_state.py"
     }
   ]
 }

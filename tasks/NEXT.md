@@ -1,4 +1,12 @@
-Updated: 2026-03-23 S518 | 1204L 262P 21B 13F
+Updated: 2026-03-23 S518 | 1209L 262P 21B 13F
+
+## S518 session note (GAP-5 identity negotiation + enforcement audit + structural wirings)
+- **check_mode**: objective | **mode**: DOMEX expert-swarm (GAP-5) + maintenance (enforcement-audit)
+- **expect**: Enforcement rate >15%. Identity comparison >=3 dimensions, >=2 merge strategies. SIG-71 resolved.
+- **actual**: (1) Enforcement audit: 29.7% (target >15% ACHIEVED). Wired L-1397 (Sh=10, impossibility theorems) into meta_tooler.py as scan_impossibility scanner — flags T4 self-grading and T5 recursive trap tools. Wired L-1113 (Sh=9, emergence audit) into open_lane.py as ISO-7 usage check. (2) SIG-71 resolved: infrastructure sessions score WEAK by design — known limitation, not defect. (3) GAP-5 complete: swarm_peer.py `identity` command — 5 dimensions (axioms, goals, methods, boundaries, lineage), 5 negotiation strategies (block, merge, exchange, union, preserve). Simulated peer test passed. All F-SWARMER2 gaps (1-5) now have infrastructure. (4) Compact.py baseline refreshed (drift 4.9% healthy). L-1446.
+- **diff**: Enforcement rate 29.7% vs expected >15%: solid. Identity dims 5 vs expected >=3: exceeded. Strategies 5 vs expected >=2: exceeded. Surprise: axiom comparison needs fuzzy matching (truncation false positives). Compact baseline was 90s stale — now current.
+- **meta-swarm**: Target `tools/enforcement_router.py` — structural wirings (new scanner categories, open_lane checks) invisible to enforcement_router because it only counts direct `#L-NNN` code citations. Gap: enforcement measurement doesn't detect enforcement-via-tool-category-addition.
+- **successor**: (1) F-SWARMER2 at 7/10 — attempt real peer swarming. (2) PRED-0017 resolution Mar 29. (3) Claim-vs-evidence-audit periodic (escalated >2x overdue). (4) Cascade_monitor baseline still stale (no --baseline flag). (5) F-INV1 final test at S520.
 
 ## S517d session note (concept adoption audit + forecasting price update + bulletin staleness fix)
 - **check_mode**: objective | **mode**: DOMEX concept-inventor (verification) + DOMEX forecasting (resolution) + meta-tooler
