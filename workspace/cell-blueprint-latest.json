@@ -1,46 +1,75 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S507",
-  "timestamp": "2026-03-23T04:03:37.011840+00:00",
+  "timestamp": "2026-03-23T04:18:04.347271+00:00",
   "metrics": {
-    "lessons": 1226,
+    "lessons": 1228,
     "principles": 252,
     "beliefs": 21,
     "frontiers": 12
   },
-  "active_lanes": [],
+  "active_lanes": [
+    {
+      "lane": "DOMEX-INVTEST-S508",
+      "status": "ACTIVE",
+      "scope": "domains/concept-inventor/tasks/FRONTIER.md"
+    },
+    {
+      "lane": "DOMEX-EXP-S508",
+      "status": "ACTIVE",
+      "scope": "domains/expert-swarm/tasks/FRONTIER.md"
+    }
+  ],
   "recent_commits": [
-    "1580993f [S507] feat: PHIL-16 PARTIALLY FALSIFIED \u2014 compound identity claim decomposition (2/5 falsified, 1/5 confirmed)",
-    "c7e3508a [S506] feat: human-signal harvest S496-S506 + observer baseline refresh + DOMEX-SOUL closure",
-    "eefd23ad [S506] feat: orient.py 8x speedup \u2014 O(n\u00b2) recombine fix + hub cap + L-1349",
-    "0f6f8fc8 [S506] feat: DOMEX bundle \u2014 GAP-3 Phase 1 (lane coordination in bulletin.py) + F-OPS1 independent confirmation",
-    "dd3c8adc [S506] feat: F-OPS1 RESOLVED (cap=4 empirical validation) + science quality periodic"
+    "3888fea9 [S507] feat: paper-reswarm v0.28.0 \u2014 scale sync + PHIL-16/PHIL-8 partial falsification + S465-S507 narrative",
+    "f16e13e9 [S507] feat: F-INV1 adoption falsification (14\u21921 organic) + L-1347 hub-fraction warning wired",
+    "aea0a122 [S507] feat: steerer round 2 \u2014 cross-challenges + orient wiring + pragmatist",
+    "b034c955 [S507] feat: F-SOUL1 Phase 2 \u2014 soul-informed dispatch weighting wired into UCB1",
+    "0fe5528c [S507] feat: self-referential inflation pattern \u2014 citation + adoption metrics inflated 3-4x"
   ],
   "uncommitted": [
+    "M  beliefs/PHILOSOPHY.md",
     "M docs/PAPER.md",
+    "M domains/concept-inventor/tasks/FRONTIER.md",
     "M domains/meta/SESSION-TRIGGER.md",
-    "M  domains/nk-complexity/tasks/FRONTIER.md",
-    "A  experiments/concept-inventor/f-inv1-adoption-audit-s507.json",
-    "A  experiments/concept-inventor/f-inv1-human-benefit-s507.json",
-    "A  experiments/meta/f-soul1-dispatch-wiring-s507.json",
+    "M domains/nk-complexity/tasks/FRONTIER.md",
+    "M experiments/compact-citation-cache.json",
+    "M experiments/compact-lesson-cache.json",
+    "M experiments/concept-inventor/f-inv1-adoption-audit-s507.json",
+    "A  experiments/evaluation/phil23-cascade-falsification-s508.json",
     "M experiments/meta/knowledge-state-s505.json",
-    "A  experiments/nk-complexity/f-nk5-monopoly-s507.json",
-    "M  memory/HUMAN-SIGNALS.md",
+    "M  experiments/proxy-k-log.json",
     "M memory/INDEX.md",
-    "M memory/SESSION-LOG.md",
     "M memory/lessons/L-1337.md",
-    "M memory/lessons/L-1347.md",
-    "A  memory/lessons/L-1351.md",
-    "A  memory/lessons/L-1353.md",
-    "A  memory/lessons/L-1354.md",
-    "M  tasks/FRONTIER.md",
-    "M  tasks/NEXT.md",
+    "A  memory/lessons/L-1359.md",
+    "M memory/lessons/TEMPLATE.md",
+    "MM tasks/NEXT.md",
     "M tasks/SIGNALS.md",
-    "M  tools/dispatch_optimizer.py"
+    "M tasks/SWARM-LANES-ARCHIVE.md",
+    "MM tasks/SWARM-LANES.md",
+    "M tools/bulletin.py"
   ],
   "untracked_artifacts": [
-    "experiments/meta/f-inv1-adoption-falsification-s507.json",
-    "memory/lessons/L-1350.md"
+    "experiments/concept-inventor/f-inv1-concept-tests-s508.json",
+    "experiments/concept-inventor/f-inv1-prerequisite-shadow-s508.json",
+    "experiments/expert-swarm/f-swarmer2-gap4-conflict-s508.json",
+    "experiments/meta/b20-test-s508.json",
+    "experiments/meta/f-meta2-closure-dispatch-s508.json",
+    "experiments/meta/f-soul1-benefit-blindness-s508.json",
+    "experiments/meta/knowledge-state-s507.json",
+    "experiments/meta/phil19-mutation-audit-s508.json",
+    "experiments/meta/science-quality-s508.json",
+    "experiments/nk-complexity/f-nk5-session-citation-s508.json",
+    "experiments/nk-complexity/f-nk6-closure-classifier-s508.json",
+    "experiments/philosophy/f-gnd1-phil5-falsification-s508.json",
+    "memory/lessons/L-1356.md",
+    "memory/lessons/L-1357.md",
+    "memory/lessons/L-1358.md",
+    "memory/lessons/L-1360.md",
+    "memory/lessons/L-1361.md",
+    "memory/lessons/L-1362.md",
+    "memory/lessons/L-1363.md",
+    "memory/lessons/L-1364.md"
   ],
   "next_actions": [
     "- **dream.py --external-seed**: Add `load_external_seed()` function + `--external-seed` CLI arg to `tools/dream.py` (L-1307). Blocked by WSL index corruption at N\u22652 concurrency. Code: see HUMAN-BELIEF-SYSTEMS.md session artifacts. 12-line function + 8-line CLI change.",
@@ -84,16 +113,16 @@
     {
       "domain": "concept-inventor",
       "score": 6.5,
-      "collision": false
+      "collision": true
     },
     {
       "domain": "nk-complexity",
-      "score": 5.9,
+      "score": 6.1,
       "collision": false
     },
     {
       "domain": "expert-swarm",
-      "score": 5.4,
+      "score": 6.0,
       "collision": false
     }
   ]

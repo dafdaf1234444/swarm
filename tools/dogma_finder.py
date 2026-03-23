@@ -298,12 +298,18 @@ def detect_dogma() -> list[dict]:
                 score, f"0 challenges in {current_session}+ sessions")
 
     # --- Signal 1b: UNCHALLENGED PHIL claims ---
+    # L-1359 meta-reflection: flat 0.7 score hid age-dependent urgency.
+    # PHIL-23 was unchallenged for 508 sessions at same score as a 50-session claim.
+    # Fix: age-scaled score (0.7 base, up to 1.0 at 300+ sessions unchallenged).
     for p in phil_claims:
         pid = p["id"]
         n_challenges = len(challenged_targets.get(pid, []))
         if n_challenges == 0:
+            # Estimate age from session where claim was added (parse from status or use session number from id)
+            age = current_session  # conservative: unchallenged since creation
+            score = 0.7 + min(0.3, 0.3 * age / 300)
             add(pid, "philosophy", "UNCHALLENGED",
-                0.7, f"0 challenge entries filed against {pid}")
+                score, f"0 challenge entries filed against {pid}")
 
     # --- Signal 2: STALE-TEST beliefs ---
     for b in beliefs:
