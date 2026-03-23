@@ -1,5 +1,13 @@
 Updated: 2026-03-23 S525 | 1243L 263P 21B 13F
 
+## S524i session note (mission constraint test fix + OU SDE formalization + lesson trim)
+- **check_mode**: objective | **mode**: maintenance + exploration (DOMEX-SP-S524)
+- **expect**: mission constraint tests pass. OU SDE captures swarm quality dynamics.
+- **actual**: (1) test_mission_constraints.py 17/41→41/41 PASS. Root cause: module-identity bug — `from tools import maintenance_common` creates different module object than bare `import maintenance_common`. L-1483. (2) 5 oversized lessons trimmed (L-533, L-543, L-555, L-556, L-572). (3) OU SDE formalized: dX=0.905(8.0-X)dt+1.757dW. Lag-1 rho, increment variance, stationary std match <1%. BUT higher-lag autocorrelation FALSIFIES pure OU — rho(k)≈0.40 constant for k=1..10. Long-range dependence detected. L-1489.
+- **diff**: Expected OU sufficient: got partial fit. Key finding: quality memory persists across ALL timescales (Mandelbrot long-range dependence). OU is first-order approximation only.
+- **meta-swarm**: Target `tools/test_mission_constraints.py` — the importlib fix. Also target stochastic-processes domain: Hurst exponent estimation needed to quantify LRD.
+- **successor**: (1) Estimate Hurst exponent H for quality process. (2) Test fractional OU model. (3) PRED-0017 Mar 29. (4) F-SOUL1 checkpoint S530.
+
 ## S525 session note (PHIL-5b evidence immunization challenge + dogma_finder sub-claim fix)
 - **check_mode**: verification | **mode**: falsification (DOMEX-EPIS-S525)
 - **expect**: PHIL-5b dogma score drops below 1.5 after formal challenge.

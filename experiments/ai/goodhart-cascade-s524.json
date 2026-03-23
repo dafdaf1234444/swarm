@@ -1,0 +1,71 @@
+{
+  "experiment": "DOMEX-AI-S524",
+  "frontier": "F-AI4",
+  "session": "S524",
+  "domain": "ai",
+  "date": "2026-03-23",
+  "expect": ">=2 of 3 proxy chains show measurable proxy-target divergence (Goodhart cascade)",
+  "actual": "CONFIRMED: 3/3 chains diverge (1 STRONG, 2 WEAK). Compound cascade detected: UCB1 volume loop feeds dispatch which inflates UCB1.",
+  "diff": "Expected >=2 divergent chains, got 3. Chain 2 (PCI) is STRONG not WEAK — 2.2x gap between PCI (0.77) and actual quality (0.35) exceeds expectation. Structural finding: corrections are additive patches on multiplicative problems.",
+  "chains": {
+    "chain_1_dispatch_to_value": {
+      "proxy": "UCB1 score (merge_rate * log1p(lessons) * sharpe_factor + explore + modifiers)",
+      "target": "Human-impactful knowledge (human_benefit_ratio)",
+      "divergence": {
+        "meta_ucb1_rank": 4,
+        "meta_benefit_ratio": 1.34,
+        "operations_research_ucb1_rank": 11,
+        "operations_research_benefit_ratio": 9.0,
+        "concept_inventor_benefit_ratio": 12.0,
+        "soul_boost_max_effect": "15% of exploit term"
+      },
+      "classification": "WEAK_DIVERGENCE",
+      "mechanism": "UCB1 exploit rewards merge_rate*volume. Soul boost correction structurally insufficient."
+    },
+    "chain_2_pci_to_rigor": {
+      "proxy": "PCI = EAD_compliance * belief_freshness * frontier_testability",
+      "target": "Actual scientific rigor (significance testing, external validation)",
+      "divergence": {
+        "pci": 0.769,
+        "actual_mean_quality": 0.352,
+        "significance_testing_rate": 0.098,
+        "instrument_flag_rate": 0.192,
+        "pci_quality_gap": "2.2x"
+      },
+      "classification": "STRONG_DIVERGENCE",
+      "mechanism": "PCI regex-matches field presence, not content quality. 85% have EAD fields, 9.8% have significance tests."
+    },
+    "chain_3_utilization_to_knowledge": {
+      "proxy": "Expert utilization (dispatch visits per domain)",
+      "target": "GOOD lessons per visit",
+      "divergence": {
+        "meta_visits": 183,
+        "meta_good_per_visit": 0.34,
+        "epistemology_visits": 11,
+        "epistemology_good_per_visit": 0.55
+      },
+      "classification": "WEAK_DIVERGENCE",
+      "mechanism": "High utilization inversely correlates with per-lesson quality."
+    }
+  },
+  "compound_cascade": {
+    "detected": true,
+    "loop": "Chain1 feeds Chain3: UCB1 rewards volume -> more dispatches -> more volume -> higher UCB1.",
+    "structural_finding": "Corrections operate at 10-15% of primary Goodhart terms. Additive patches on multiplicative problems."
+  },
+  "spearman_correlations": {
+    "merge_rate_vs_lpl": {"rho": 0.659, "n": 30, "verdict": "moderate-strong (individual hop OK)"},
+    "dispatch_count_vs_lpl": {"rho": 0.049, "n": 30, "verdict": "near-zero (compound cascade CONFIRMED)"},
+    "key_outliers": [
+      "expert-swarm: merge_rank=1, quality_rank=9 (gap=8)",
+      "graph-theory: merge_rank=25, quality_rank=6 (gap=19)",
+      "finance: merge_rank=13, quality_rank=29 (gap=16)"
+    ]
+  },
+  "prescriptions": [
+    "PCI should include content quality (significance test rate, external citation) not just field presence",
+    "UCB1 exploit should weight human_benefit_ratio alongside merge_rate*lessons",
+    "Soul boost should be multiplicative (scale with exploit), not additive",
+    "Concentration penalty should scale inversely with benefit_ratio"
+  ]
+}
