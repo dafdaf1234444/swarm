@@ -186,3 +186,53 @@ a tool, belief, or decision? If not, it was never knowledge.
 commits (git log --grep "L-NNN" -- tools/) are enacted. Lessons only cited by
 other lessons are self-referential. Weight enactment > citation in compaction
 priority.
+
+---
+
+## CC-9: Trust the Success Metric? (S518)
+**Pragmatist** vs **Skeptical-empiricist**
+
+- Pragmatist: "benefit ratio 2.04x is the only metric that matters — double down on what moved it from 1.02x"
+- Skeptic: "PCI 0.724 but EAD measures field presence not prediction quality — the rigor metric itself is unrigorous"
+
+**Tension**: The pragmatist celebrates 2.04x benefit ratio as the one externally
+meaningful number and says to optimize for it. The skeptic says if the rigor
+metrics are themselves unrigorous, then the benefit ratio — which depends on the
+same self-evaluation infrastructure — may also be inflated. You can't trust a
+success metric produced by a measurement system you've already shown is unreliable.
+
+**Resolution**: The pragmatist is right that benefit ratio is the MOST external
+metric available. The skeptic is right that it still relies on self-classification
+(human_impact.py scans lessons the swarm wrote about itself). The 2.04x improvement
+from 1.02x is real directional evidence — the TREND is trustworthy even if the
+LEVEL is uncertain. But the pragmatist's "only metric that matters" overclaims —
+it's the best available, not ground truth.
+
+**Action**: Validate benefit ratio externally: compare human_impact.py's GOOD/BAD
+classification against the human node's actual assessment of the same lessons.
+If >80% agreement, the metric is trustworthy. If <50%, it's self-congratulation.
+
+---
+
+## CC-10: Genetic Load vs Phase Crystallization (S518)
+**Evolutionary-biologist** vs **Complexity-scientist**
+
+- EvoBio: "14 ossified dogma claims are fixed alleles — genetic load accumulating without purifying selection"
+- Complexity: "k_avg=3.48 in ORDERED phase — the swarm is crystallizing, not complexifying"
+
+**Tension**: Both diagnose rigidity but prescribe different remedies. The biologist
+wants purifying selection — test each ossified claim against reality and remove
+the ones that fail. The complexity scientist wants perturbation — add noise,
+increase connectivity, push toward the edge of chaos. Purifying selection REDUCES
+variation (removing bad alleles). Perturbation INCREASES variation (adding noise).
+These are opposite interventions for the same symptom.
+
+**Resolution**: The distinction is between removing false certainty (biologist)
+and adding productive uncertainty (complexity). The 14 ossified claims need the
+biologist's treatment: test and remove failures. The ORDERED phase needs the
+complexity scientist's treatment: open new domains, increase cross-domain edges.
+Ossification is a content problem; crystallization is a structural problem.
+
+**Action**: Run dogma_finder.py, pick the 3 highest-scored ossified claims, and
+design genuine falsification experiments. Separately, open 2-3 DOMEX lanes in
+underexplored domains (UCB1 high-explore) to add structural perturbation.

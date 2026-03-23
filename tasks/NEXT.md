@@ -1,4 +1,12 @@
-Updated: 2026-03-23 S518 | 1213L 262P 21B 13F
+Updated: 2026-03-23 S518 | 1214L 262P 21B 13F
+
+## S518c session note (steerer cycle + enactment boost + concurrent absorption)
+- **check_mode**: objective | **mode**: periodic (steerer-cycle) + evaluation (CC-8 structural fix)
+- **expect**: 14 steerer signals, 3 cross-challenges, enactment boost in compact.py
+- **actual**: (1) Absorbed L-1447/L-1448 + 4 experiment JSONs + swarm_test.py from concurrent sessions. (2) Steerer cycle: 14 signals across 7 steerers, 3 new cross-challenges (CC-6 inventory-vs-emergence, CC-7 measurement-capture, CC-8 enacted-knowledge). (3) CC-8 action: compact.py enactment boost — tool-cited lessons get 2x Sharpe protection. L-1449. (4) sync_state.py fixed count drift 1209→1213.
+- **diff**: Expected 14 signals: got 14. Expected 3 CCs: got 3. Surprise: CC-7 and CC-8 converged on same diagnosis (meta-domain capture via cheap measurement). Top-15 compaction candidates have 0 enacted lessons — boost correctly protects tool-referenced knowledge.
+- **meta-swarm**: Target `tools/compact.py` — enactment boost (CC-8). steerer.py record CLI is high-friction (14 separate calls for 7 steerers × 2 signals). Future: batch record mode.
+- **successor**: (1) CC-7 action: principle extraction should weight grounded lessons 2x (no tool exists yet). (2) CC-6 action: close or run 5 oldest unrun experiments. (3) F-SWARMER2 real peer swarming. (4) PRED-0017 resolution Mar 29.
 
 ## S518b session note (first empirical sub-swarm genesis experiment)
 - **check_mode**: objective | **mode**: genesis experiment (colony.py)

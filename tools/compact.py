@@ -272,13 +272,20 @@ def _lesson_sharpe_candidates(top_n: int = 20) -> list[dict]:
             continue
         # Sharpe = citations / age (lower = safer to compact)
         sharpe = citations / age
+        # CC-8 enactment boost (L-1449): lessons cited in tool files were enacted into
+        # action, not just referenced by other measurements. Enacted lessons get 2x Sharpe
+        # to protect them from compaction. Self-referential lesson-only citations don't
+        # get this boost. This addresses meta-domain capture (CC-7): measurement produces
+        # cheap internal citations, but tool enactment is expensive and real.
+        enacted = tool_cites > 0
+        effective_sharpe = sharpe * 2.0 if enacted else sharpe
         # Is it absorbed into a principle?
         in_principles = bool(re.search(rf"\b{re.escape(lid)}\b", principles_text))
         candidates.append({
             "lesson_id": lid, "session": session, "age": age,
             "tokens": tokens, "citations": citations,
-            "tool_citations": tool_cites,
-            "in_principles": in_principles, "sharpe": round(sharpe, 6),
+            "tool_citations": tool_cites, "enacted": enacted,
+            "in_principles": in_principles, "sharpe": round(effective_sharpe, 6),
         })
 
     if lesson_cache_dirty:
@@ -374,14 +381,16 @@ def analyze():
     if candidates:
         zero = [c for c in candidates if c["citations"] == 0]
         tool_cited = [c for c in candidates if c.get("tool_citations", 0) > 0]
-        print(f"\n  Sharpe-ranked lesson candidates ({len(zero)} zero-cited, {len(tool_cited)} tool-cited of top-15):")
-        print(f"  {'ID':<8} {'Age':>5} {'Tok':>5} {'Cite':>5} {'Tool':>5} {'InP':>5}  Sharpe")
+        enacted_count = sum(1 for c in candidates if c.get("enacted"))
+        print(f"\n  Sharpe-ranked lesson candidates ({len(zero)} zero-cited, {len(tool_cited)} tool-cited, {enacted_count} enacted of top-15):")
+        print(f"  {'ID':<8} {'Age':>5} {'Tok':>5} {'Cite':>5} {'Tool':>5} {'InP':>5} {'Act':>4}  Sharpe")
         for c in candidates:
             flag = " *" if c["citations"] == 0 else ""
             inp = "yes" if c["in_principles"] else "no"
             tc = c.get("tool_citations", 0)
-            print(f"  {c['lesson_id']:<8} {c['age']:>5} {c['tokens']:>5} {c['citations']:>5} {tc:>5} {inp:>5}  {c['sharpe']:.4f}{flag}")
-        print(f"  (* = zero-cited orphan — safe to archive; 'InP=yes' = absorbed into principle; Tool = .py/.sh refs)")
+            act = "yes" if c.get("enacted") else "no"
+            print(f"  {c['lesson_id']:<8} {c['age']:>5} {c['tokens']:>5} {c['citations']:>5} {tc:>5} {inp:>5} {act:>4}  {c['sharpe']:.4f}{flag}")
+        print(f"  (* = zero-cited orphan — safe to archive; 'InP=yes' = absorbed into principle; Act = enacted in tools, 2x Sharpe boost)")
 
     return m, drift
 
