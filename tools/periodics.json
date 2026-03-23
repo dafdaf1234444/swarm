@@ -100,13 +100,13 @@
       "id": "human-signal-harvest",
       "description": "F121 harvest: read memory/HUMAN-SIGNALS.md, scan for patterns not yet encoded as principles or lessons, extract at least one P- or L- candidate per pass. Update Patterns section. Flag any entry missing artifact refs. Addresses ephemeral human input loss (F121, L-224). S484: identity-normative phase transition pattern added (SIG-65-69), authority paradox tracking updated.",
       "cadence_sessions": 10,
-      "last_reviewed_session": 484,
+      "last_reviewed_session": "S507",
       "registered_by": "S176",
-      "last_session": "S496",
-      "last_run": "S484",
-      "last": "S484",
-      "last_date": "2026-03-03",
-      "note": "S484: SIG-70 resolved (L-1230 from S485 concurrent). Existential challenge deepening arc pattern added (S307\u2192S484\u2192SIG-70). S484 hallucination entry updated with L-1229 refs. 0 OPEN signals remain."
+      "last_session": "S507",
+      "last_run": "S507",
+      "last": "S507",
+      "last_date": "2026-03-23",
+      "note": "S507: All signals through S505 captured with artifact refs. Patterns section current through Phase 5 (external production) + evaluative soul extraction. 9 OPEN signals but 0 missing harvest entries. No new P- or L- candidates — recent signals already well-encoded."
     },
     {
       "id": "change-quality-check",
@@ -387,6 +387,16 @@
       "last_session": "S500",
       "last_date": "2026-03-22",
       "note": "S500: registered. dogma_finder.py parse_challenges() fixed to read PHILOSOPHY.md 4-column challenge table (was blind to all PHIL challenges). Top targets: PHIL-5 (1.60), PHIL-16 (1.60), PHIL-2 (1.60)."
+    },
+    {
+      "id": "steerer-cycle",
+      "description": "Synthetic steerer cycle: run steerer.py run --all, generate 2-3 signals per steerer, record via steerer.py record, act on strongest signal. L-1337, L-1336.",
+      "cadence_sessions": 5,
+      "last_reviewed_session": "S507",
+      "registered_by": "S507",
+      "last_session": "S507",
+      "last_date": "2026-03-23",
+      "note": "S507: Round 2 signals. 7 steerers (added pragmatist). Cross-challenge mechanism added."
     }
   ]
 }

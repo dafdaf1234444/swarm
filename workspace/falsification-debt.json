@@ -1,7 +1,7 @@
 {
-  "consecutive_skips": 1,
-  "total_skips": 4,
-  "last_skip_session": "S506",
-  "last_falsification_session": "S503",
+  "consecutive_skips": 0,
+  "total_skips": 6,
+  "last_skip_session": "S507",
+  "last_falsification_session": "S507",
   "max_consecutive_before_block": 3
 }

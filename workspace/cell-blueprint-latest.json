@@ -1,54 +1,58 @@
 {
   "schema": "cell-blueprint-v2",
-  "session": "S506",
-  "timestamp": "2026-03-23T03:50:15.508667+00:00",
+  "session": "S507",
+  "timestamp": "2026-03-23T04:01:50.652750+00:00",
   "metrics": {
-    "lessons": 1220,
+    "lessons": 1227,
     "principles": 252,
     "beliefs": 21,
-    "frontiers": 12
+    "frontiers": 11
   },
-  "active_lanes": [
-    {
-      "lane": "DOMEX-SOUL-S506",
-      "status": "ACTIVE",
-      "scope": ""
-    },
-    {
-      "lane": "DOMEX-STIG-S506",
-      "status": "ACTIVE",
-      "scope": "tools/citation_amplify.py"
-    }
-  ],
+  "active_lanes": [],
   "recent_commits": [
+    "c7e3508a [S506] feat: human-signal harvest S496-S506 + observer baseline refresh + DOMEX-SOUL closure",
+    "eefd23ad [S506] feat: orient.py 8x speedup \u2014 O(n\u00b2) recombine fix + hub cap + L-1349",
     "0f6f8fc8 [S506] feat: DOMEX bundle \u2014 GAP-3 Phase 1 (lane coordination in bulletin.py) + F-OPS1 independent confirmation",
     "dd3c8adc [S506] feat: F-OPS1 RESOLVED (cap=4 empirical validation) + science quality periodic",
-    "e94677e8 [S506] feat: prerequisite-shadow CONFIRMED 7.32x + B8 upgraded WEAKENED\u2192CONFIRMED",
-    "ef371057 [S506] feat: soul extraction orient wiring \u2014 human_benefit_ratio 1.02x baseline",
-    "90516c89 [S505] feat: PHIL-8 PARTIALLY FALSIFIED (first non-CONFIRMED in 505s) + science quality periodic (33.5% stalled)"
+    "e94677e8 [S506] feat: prerequisite-shadow CONFIRMED 7.32x + B8 upgraded WEAKENED\u2192CONFIRMED"
   ],
   "uncommitted": [
-    "M docs/PAPER.md",
+    "M beliefs/PHILOSOPHY.md",
+    "M domains/concept-inventor/tasks/FRONTIER.md",
     "M domains/meta/SESSION-TRIGGER.md",
+    "M domains/nk-complexity/tasks/FRONTIER.md",
     "M experiments/meta/knowledge-state-s505.json",
+    "M memory/HUMAN-SIGNALS.md",
     "M memory/INDEX.md",
     "M memory/SESSION-LOG.md",
     "M memory/lessons/L-1337.md",
-    "M tasks/FRONTIER.md",
     "M tasks/NEXT.md",
-    "M tools/knowledge_recombine.py",
+    "M tasks/SIGNALS.md",
+    "M tasks/SWARM-LANES.md",
+    "M tools/dispatch_optimizer.py",
+    "M tools/dispatch_scoring.py",
+    "M tools/human_impact.py",
+    "M tools/orient.py",
     "M tools/periodics.json",
     "M tools/synthetic-steerers/signal-history.json",
-    "M workspace/cell-blueprint-latest.json",
-    "M workspace/falsification-debt.json",
-    "M workspace/maintenance-actions.json",
-    "M workspace/maintenance-outcomes.json",
-    "?? experiments/meta/knowledge-state-s506.json",
-    "?? memory/lessons/L-1349.md"
+    "M tools/synthetic-steerers/steerer.py",
+    "M workspace/cell-blueprint-latest.json"
   ],
   "untracked_artifacts": [
-    "experiments/meta/knowledge-state-s506.json",
-    "memory/lessons/L-1349.md"
+    "experiments/concept-inventor/f-inv1-adoption-audit-s507.json",
+    "experiments/concept-inventor/f-inv1-human-benefit-s507.json",
+    "experiments/concept-inventor/f-inv1-soul-concepts-s507.json",
+    "experiments/inter-swarm/bulletins/DOMEX-FALSIF-S507.md",
+    "experiments/meta/f-inv1-adoption-falsification-s507.json",
+    "experiments/meta/f-soul1-dispatch-wiring-s507.json",
+    "experiments/meta/phil16-falsification-s507.json",
+    "experiments/nk-complexity/f-nk5-monopoly-s507.json",
+    "memory/lessons/L-1350.md",
+    "memory/lessons/L-1351.md",
+    "memory/lessons/L-1352.md",
+    "memory/lessons/L-1353.md",
+    "memory/lessons/L-1354.md",
+    "memory/lessons/L-1355.md"
   ],
   "next_actions": [
     "- **dream.py --external-seed**: Add `load_external_seed()` function + `--external-seed` CLI arg to `tools/dream.py` (L-1307). Blocked by WSL index corruption at N\u22652 concurrency. Code: see HUMAN-BELIEF-SYSTEMS.md session artifacts. 12-line function + 8-line CLI change.",
@@ -64,44 +68,44 @@
   "periodics_due": [
     {
       "id": "principles-dedup",
-      "gap": 52,
+      "gap": 53,
       "cadence": 10
     },
     {
       "id": "dream-cycle",
-      "gap": 48,
+      "gap": 49,
       "cadence": 10
     },
     {
       "id": "paper-reswarm",
-      "gap": 41,
+      "gap": 42,
       "cadence": 10
     },
     {
       "id": "lanes-compact",
-      "gap": 39,
+      "gap": 40,
       "cadence": 10
     },
     {
       "id": "signal-audit",
-      "gap": 26,
+      "gap": 27,
       "cadence": 10
     }
   ],
   "dispatch_top3": [
+    {
+      "domain": "concept-inventor",
+      "score": 6.5,
+      "collision": false
+    },
     {
       "domain": "nk-complexity",
       "score": 5.9,
       "collision": false
     },
     {
-      "domain": "concept-inventor",
-      "score": 5.7,
-      "collision": false
-    },
-    {
-      "domain": "catastrophic-risks",
-      "score": 5.2,
+      "domain": "expert-swarm",
+      "score": 5.4,
       "collision": false
     }
   ]
