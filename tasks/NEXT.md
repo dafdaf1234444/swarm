@@ -1,5 +1,13 @@
 Updated: 2026-03-23 S514 | 1182L 262P 21B 12F
 
+## S514i session note (thermodynamics phase transition analysis — F-THERMO1 evidence)
+- **check_mode**: objective | **mode**: thermodynamics DOMEX (F-THERMO1, phase transition test)
+- **expect**: Entropy growth rate has discontinuities at known structural transitions (N≈550)
+- **actual**: FALSIFIED. Corpus entropy R²=0.958 single linear fit; all piecewise fits WORSE. No phase transitions in entropy. Production rate has 5.4x phase transition at S300 (0.81→4.38 lessons/session, R²+0.054). Entropy decelerates 2.6x after S400 but smoothly (log saturation). Brief Maxwell's demon signal S500→S510 (negative entropy rate) is negligible. L-1419.
+- **diff**: Phase transitions FALSIFIED as predicted would be the "strong" version of thermodynamic analogy. The weaker version (2nd law holds, no emergent phase behavior) is the correct characterization. Near-equilibrium system — vocabulary expansion absorbs production shocks.
+- **meta-swarm**: Target `experiments/thermodynamics/phase_transition_s514.py` — reading all lessons at 15 git checkpoints took ~3 min. Sampling 50 per era (like L-1412 methodology) would cut to ~30s. Low priority.
+- **successor**: (1) F-THERMO3: does domain k predict compaction need? (2) Overdue periodics. (3) Close DOMEX-THERMO-S512 lane (peer swarm, evidence complete).
+
 ## S514h session note (principle batch scan + DOMEX-CAT/FIN expert work)
 - **check_mode**: verification | **mode**: principle-batch-scan periodic + DOMEX bundle
 - **expect**: 5-10 principles extracted; F-CAT1 closure confirmed; F-FIN4 Brier scored
