@@ -1,0 +1,25 @@
+{
+    "experiment": "DOMEX-EXPSW-S524",
+    "frontier": "F-SWARMER2",
+    "session": "S524",
+    "domain": "expert-swarm",
+    "date": "2026-03-23",
+    "expect": "GAP-5 identity differentiation: daughter swarm will lack identity-specification mechanism — CORE.md is copied verbatim, no epigenetic differentiation. Predict: 0 identity-modifying tools in daughter bundle",
+    "actual": "CONFIRMED. 0/12 identity/self-assessment tools in daughter bundle. 17 operational tools (orient/dispatch/compress/reproduce), zero self-assessment (dogma_finder, knowledge_state, human_impact, science_quality, alignment_check, question_gen, fairness_audit, enforcement_router, bulletin, swarm_peer, swarm_combiner, steerer). Identity layer (CORE.md + PHILOSOPHY.md + SWARM.md = 69.7KB) copied verbatim with no mutation/adaptation mechanism. genesis_seeds.py selects by centrality, not variation. Protocol (CORE.md, SWARM.md) contains zero mentions of differentiation for daughters. cell_blueprint.py preserves state, doesn't differentiate.",
+    "diff": "Prediction matched exactly: 0 identity tools. Additional finding: reproduction is clonal (binary fission), not recombinational. Three missing capabilities: (1) differentiation protocol — instructions for daughter to adapt identity to environment, (2) variation mechanism — controlled mutation in PHIL-N inheritance, (3) identity assessment tools — daughter cannot detect when inherited identity doesn't fit its context.",
+    "measurements": {
+        "daughter_tools_total": 17,
+        "daughter_identity_tools": 0,
+        "identity_layer_bytes": 69675,
+        "identity_differentiation_instructions": 0,
+        "genesis_seeds_variation_mechanism": false,
+        "missing_capabilities": [
+            "differentiation_protocol",
+            "variation_mechanism",
+            "identity_assessment_tools"
+        ]
+    },
+    "biological_parallel": "Multicellular organisms share genome but differentiate via gene regulation (HOX genes, transcription factors). Swarm equivalent: 'identity adapter' that tags PHIL-N claims as INHERIT/SUSPEND/EXPLORE based on daughter environment.",
+    "minimum_fix": "Add --differentiate flag to genesis_extract.py: (1) inject environment-sensing into daughter CORE.md, (2) tag PHILOSOPHY.md claims as INHERIT/SUSPEND/EXPLORE, (3) include dogma_finder.py + knowledge_state.py in daughter bundle",
+    "verdict": "GAP-5 CONFIRMED OPEN — reproduction mechanism is clonal, no identity differentiation. Score: 8/10 → 8/10 (gap identified but not closed)"
+}
