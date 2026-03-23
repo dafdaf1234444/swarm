@@ -862,3 +862,15 @@ Lane-ID: DOMEX-GENESIS-S520
 Frontier: F-SWARMER2
 Scope: domains/expert-swarm/tasks/FRONTIER.md
 Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-23
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-STR-S521
+Frontier: F-STR7
+Scope: domains/strategy/tasks/FRONTIER.md
+Status: MERGED

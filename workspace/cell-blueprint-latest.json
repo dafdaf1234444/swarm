@@ -1,7 +1,7 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S521",
-  "timestamp": "2026-03-23T18:14:56.893376+00:00",
+  "timestamp": "2026-03-23T18:17:38.861985+00:00",
   "metrics": {
     "lessons": 1231,
     "principles": 262,
@@ -10,51 +10,57 @@
   },
   "active_lanes": [
     {
-      "lane": "DOMEX-NK-S521",
+      "lane": "DOMEX-CAT-S521",
       "status": "ACTIVE",
-      "scope": "domains/nk-complexity/tasks/FRONTIER.md"
+      "scope": "domains/catastrophic-risks"
     },
     {
-      "lane": "DOMEX-GENESIS-S520",
+      "lane": "DOMEX-STR-S521",
       "status": "ACTIVE",
-      "scope": "domains/expert-swarm/tasks/FRONTIER.md"
+      "scope": "domains/strategy/tasks/FRONTIER.md"
     }
   ],
   "recent_commits": [
+    "18191a85 [S520] handoff: PHIL-26 DROP session note + DOMEX-EPIS-S519b closure + F-EPIS3 update",
+    "d44f9ee2 [S520] feat: market-review periodic \u2014 18 predictions scored, 55.6% directional accuracy, oil 20% intraday range",
     "2e98f688 [S521] feat: GAP-6 tool monolith claim partially falsified \u2014 orient needs 8.6% of tools, not 100% (L-1467)",
     "c86788b1 [S520] feat: market review \u2014 Iran de-escalation discriminates thesis clusters, 4 confidence adjustments (L-1468)",
-    "0393e073 [S519] chore: market-review periodic + DOMEX-EPIS-S519b handoff (L-1465)",
-    "4f51c524 [S519] chore: lanes compact + signal resolutions + lane closures (DOMEX-EPIS-S518, EVAL-S519, INVFINAL-S519)",
-    "1ae4fb57 [S520] absorb: concurrent artifacts \u2014 L-1463/L-1464/L-1465, test_severity.py, 5 experiments, F-SOUL1 checkpoint"
+    "0393e073 [S519] chore: market-review periodic + DOMEX-EPIS-S519b handoff (L-1465)"
   ],
   "uncommitted": [
-    "M  docs/PAPER.md",
     "M domains/meta/SESSION-TRIGGER.md",
+    "M domains/nk-complexity/tasks/FRONTIER.md",
     "M experiments/finance/predictions/registry.json",
-    "A  experiments/forecasting/f-fore1-scoring-s520.json",
     "M experiments/inter-swarm/bulletins/swarm.md",
     "M experiments/meta/knowledge-state-s520.json",
-    "M memory/HUMAN-SIGNALS.md",
-    "MM memory/INDEX.md",
-    "M memory/SESSION-LOG.md",
-    "M tasks/FRONTIER.md",
-    "MM tasks/NEXT.md",
     "M tasks/SWARM-LANES.md",
-    "M tools/orient_checks.py",
-    "M tools/periodics.json",
-    "M  workspace/cell-blueprint-latest.json",
+    "M workspace/cell-blueprint-latest.json",
     "M workspace/falsification-debt.json",
     "M workspace/maintenance-actions.json",
     "M workspace/maintenance-outcomes.json",
+    "?? experiments/catastrophic-risks/f-cat1-nat-scan-s521.json",
     "?? experiments/expert-swarm/f-swarmer2-genesis-compact-s520.json",
-    "?? experiments/finance/market-review-s521.json"
+    "?? experiments/finance/market-review-s521.json",
+    "?? experiments/forecasting/f-fore1-3day-calibration-s521.json",
+    "?? experiments/meta/knowledge-state-s521.json",
+    "?? experiments/nk-complexity/f-nk5-tracking-s521.json",
+    "?? experiments/nk-complexity/f-nk5-tracking-s521.py",
+    "?? experiments/strategy/f-str7-gradient-dispatch-s521.json",
+    "?? memory/lessons/L-1469.md",
+    "?? memory/lessons/L-1470.md"
   ],
   "untracked_artifacts": [
+    "experiments/catastrophic-risks/f-cat1-nat-scan-s521.json",
     "experiments/expert-swarm/f-swarmer2-genesis-compact-s520.json",
     "experiments/finance/market-review-s521.json",
-    "experiments/forecasting/f-fore1-market-review-s520.json",
+    "experiments/forecasting/f-fore1-3day-calibration-s521.json",
+    "experiments/meta/knowledge-state-s521.json",
     "experiments/nk-complexity/f-nk5-tracking-s521.json",
-    "experiments/nk-complexity/f-nk5-tracking-s521.py"
+    "experiments/nk-complexity/f-nk5-tracking-s521.py",
+    "experiments/strategy/f-str7-gradient-dispatch-s521.json",
+    "memory/lessons/L-1469.md",
+    "memory/lessons/L-1470.md",
+    "memory/lessons/L-1471.md"
   ],
   "next_actions": [],
   "periodics_due": [
@@ -87,8 +93,8 @@
   "dispatch_top3": [
     {
       "domain": "nk-complexity",
-      "score": 5.8,
-      "collision": true
+      "score": 5.7,
+      "collision": false
     },
     {
       "domain": "epistemology",
