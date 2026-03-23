@@ -497,6 +497,20 @@ def main():
     except Exception:
         pass
 
+    # L-1113: emergence (ISO-7) usage check — flag if intent/expect claims "emergence"
+    # without justification. 1/9 swarm emergence claims survived audit; most are mislabeled
+    # stigmergy, composition, or engineered governance.
+    emergence_re = re.compile(r'\b(emerg(?:ence|ent|es|ing))\b', re.I)
+    for field_name, field_val in [("intent", args.intent), ("expect", args.expect)]:
+        if emergence_re.search(field_val):
+            print(
+                f"NOTICE: --{field_name} uses 'emergence' (ISO-7). L-1113 audit found 8/9 "
+                f"swarm emergence claims were mislabeled. Consider: is this genuinely irreducible "
+                f"to component design (Anderson's 'More is Different'), or is it stigmergy "
+                f"(ISO-1), composition, or engineered governance? Label mechanisms accurately.",
+                file=sys.stderr,
+            )
+
     # GAP-3 Phase 3: peer swarm conflict detection at creation time (L-1344, L-601)
     # Structural enforcement: check inter-swarm bulletin board for frontier collisions
     # before opening a lane. Voluntary lane-check had 0% adoption; creation-time is near-100%.

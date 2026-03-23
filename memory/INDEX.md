@@ -1,10 +1,10 @@
 # Memory Index
-Updated: 2026-03-23 | Sessions: 517
+Updated: 2026-03-23 | Sessions: 518
 
 ## What the swarm knows
-- **1203 lessons** in `memory/lessons/L-{NNN}.md`
+- **1204 lessons** in `memory/lessons/L-{NNN}.md`
 - **262 principles** in `memory/PRINCIPLES.md` (latest: P-349 variational-trajectory-optimization from L-1431; P-341..P-348 S514 batch scan)
-- **21 beliefs** in `beliefs/DEPS.md` (B1–B3, B6–B19, B-EVAL1–3) | **12 frontiers** in `tasks/FRONTIER.md` | **47 domains**
+- **21 beliefs** in `beliefs/DEPS.md` (B1–B3, B6–B19, B-EVAL1–3) | **13 frontiers** in `tasks/FRONTIER.md` | **47 domains**
 
 ## Structure
 - `beliefs/` PHILOSOPHY, CORE, DEPS, CHALLENGES, CONFLICTS, INVARIANTS

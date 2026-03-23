@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-EXP-S518",
+    "frontier": "F-SWARMER2",
+    "session": "S518",
+    "domain": "expert-swarm",
+    "date": "2026-03-23",
+    "expect": "Identity comparison >=3 dimensions, negotiation protocol with >=2 merge strategies. Falsified if cannot distinguish 2 hypothetical swarm identities.",
+    "actual": "TBD",
+    "diff": "TBD"
+}

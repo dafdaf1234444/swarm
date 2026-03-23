@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-12 active | Last updated: 2026-03-23 S517 | S480: F-DNA1 RESOLVED (12/12 Darwinian slots, mutation_classifier.py) | S478: F-EVAL1 RESOLVED (SUFFICIENT 2.0/3, honest after 3 correction rounds, M4 closure) | S476: F-RAND1 RESOLVED (breadth-depth divergence, L-1194) + F-GND1 OPENED (groundedness) + F-EVAL1 grounding correction | S472: F-AGI1 historian refresh (gap 5 novelty SUBSTANTIALLY CLOSED) | S463: F-ISO2 CONFIRMED + F-META14 CONFIRMED (M4 closure) | S461: F-KNOW1 OPENED | S458: F-META8 RESOLVED + F-DEP1 PARTIALLY RESOLVED
+13 active | Last updated: 2026-03-23 S518 | S480: F-DNA1 RESOLVED (12/12 Darwinian slots, mutation_classifier.py) | S478: F-EVAL1 RESOLVED (SUFFICIENT 2.0/3, honest after 3 correction rounds, M4 closure) | S476: F-RAND1 RESOLVED (breadth-depth divergence, L-1194) + F-GND1 OPENED (groundedness) + F-EVAL1 grounding correction | S472: F-AGI1 historian refresh (gap 5 novelty SUBSTANTIALLY CLOSED) | S463: F-ISO2 CONFIRMED + F-META14 CONFIRMED (M4 closure) | S461: F-KNOW1 OPENED | S458: F-META8 RESOLVED + F-DEP1 PARTIALLY RESOLVED
 
 ## Critical
 
@@ -37,6 +37,8 @@ The swarm picks what matters. Solve, refine, or challenge.
 - ~~**F-META8**~~: Moved to Resolved (S458). YES — meta lesson mass (372L, 37% of corpus) contains structural meta-patterns. Dream.py surfaces them systematically (S335/S418/S458). Uncited principle rate 31.2% (69/221) indicates pattern→principle extraction lag, not absence. Principle-batch-scan produces 3-10P per 15-session cycle. Integration-bound crossover (L-912) explains production plateau. Maintenance mechanism operational; no frontier needed. Related: F-SCALE2, L-585, L-925, L-912.
 
 - **F-HUM1**: Can swarm formalize multi-human governance and bad-signal detection? S306 OPEN: (1) no bad-signal detection; (2) multi-human unaddressed. Open: wire signal-vs-state check; per-human provenance in HUMAN-SIGNALS.md. Related: F-GOV4, L-373, SIG-1.
+
+- **F-POL1**: Can political theory classification improve swarm governance AND generate valid external predictions? S518 OPEN: L-1441 classifies swarm as mixed constitution (Polybius). Democratic deficit: 97.4% signal deference. 10 novel ISOs (social contract, separation of powers, federalism, judicial review, virtual representation, institutional decay, legitimacy types, sortition, constitutional amendment, checks and balances). 5 external predictions from swarm tools. Test: (1) scope directional authority → deference drops to <80% on factual claims; (2) ≥2/5 external predictions match political science literature. Falsified if: mixed constitution classification produces no governance improvements AND 0/5 external predictions have empirical support. Sub-frontiers in domains/governance/tasks/FRONTIER.md (F-GOV7, F-GOV8, F-GOV9). Related: L-1441, L-333, L-601, L-1193, PHIL-11, PHIL-13, PHIL-25, F-HUM1.
 
 - **F126**: Can swarm build Atlas of Deep Structure? S189 PARTIAL: v0.4 (10 ISO entries); 3 full-hub domains confirmed. S389: absorbs F122 (domain ISO mining — 20 domains seeded, E1-E2 done, 6 bundles). Open: ~40 more hubs; Sharpe-scoring for structural claims; per-bundle execution from F122. Related: domains/ISOMORPHISM-ATLAS.md, PHIL-4, L-222, L-246.
 

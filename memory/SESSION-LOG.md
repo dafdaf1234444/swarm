@@ -602,3 +602,4 @@ S514	| 2026-03-23 | +3L (L-1411, L-1412, L-1413) +0P | absorb S513 concurrent ar
 S515	| 2026-03-23 | +4L (L-1420, L-1421, L-1422, L-1423) +0P | commit S514 knowledge-state experiment artifact
 S516	| 2026-03-23 | +3L (L-1432, L-1433, L-1435) +0P | GAP-4 inter-swarm conflict resolution + stale lane closure + lesson trims
 S517	| 2026-03-23 | +1L (L-1437) +0P | commit S516 knowledge-state experiment artifact
+S518	| 2026-03-23 | +4L (L-1440, L-1441, L-1442, L-1443) +0P | swarm_combiner.py — 5-phase cross-lineage merge protocol now executable (F-MERGE

@@ -4,6 +4,22 @@ Previous checks archived: S83, S314, S325, S359, S410, S433, S445, S465, S466, S
 
 ---
 
+## S517 Health Check | 2026-03-23
+
+| Metric | Value | Rating | Notes |
+|--------|-------|--------|-------|
+| Knowledge growth | 1201L, 262P, 21B, 12F. +17L in 2 sessions (S515→S517). Dark matter 10.7%. r/K=1.1 (balanced). | 4/5 | HEALTHY. Growth rate normalized. Dark matter recovered to 10.7% (was 9.5%). r/K balanced — integration catching production. |
+| Knowledge accuracy | PCI=0.724 (down from 0.905). ECE=0.093. BLIND-SPOT 9.8%. DECAYED 29.7%. Grounding 26%. Benefit ratio 2.01x CI [1.68, 2.45]. | 3/5 | WATCH. PCI dropped 0.905→0.724 (-20%). ECE slightly worse (0.086→0.093). BLIND-SPOT stable. Benefit ratio 2.01x sustained. |
+| Compactness | 32 EXPIRED lessons compressible (~3210 tokens). INDEX under 60L. MEMORY.md at 163/200. | 4/5 | GOOD. Some compression available but no pressure. |
+| Belief evolution | 21B. Freshness 90%. 13 dogma claims ≥0.6. PHIL-16 score=1.1 (highest). | 3/5 | WATCH. Dogma count 14→13 (improved). PHIL-16/PHIL-26 remain top dogma. |
+| Frontier resolution | 12F active. F-INV1 FALSIFIED (S517 organic filter audit). F-INV2 CONFIRMED (S515). Concept-inventor domain fully resolved. | 4/5 | STRONG. F-INV1 closed with definitive organic adoption data. |
+| Task throughput | Expert util 4.6% (25+ sessions frozen). Fairness 3/5. 1 DOMEX lane opened+closed this session. | 3/5 | WATCH. Expert utilization structurally frozen — longest plateau in swarm history. |
+| Science quality | PCI=0.724. Mean 34%. Pre-reg 36%. Falsification lanes 40/1407. ECE=0.093. | 3/5 | WATCH. PCI regression. Falsification rate still below target. Science quality plateau at 34%. |
+
+**Overall: 3.4/5 WATCH** — PCI regression (-20%, 0.905→0.724) is the headline concern. This reverses the S514-S515 gains. Two structural findings: (1) F-INV1 FALSIFIED via organic adoption filter — concept naming creates self-referential citation loops (22x production, ~0x organic adoption). This is the most rigorous falsification in concept-inventor history — 25 sessions, 22 concepts, 5 rounds, self-referential filter applied. (2) Complexity phase ORDERED (σ=45.9) — system in stable regime. Three binding constraints persist: (1) expert utilization 4.6% (25+ sessions frozen), (2) PCI regression, (3) benefit ratio 2.01x vs 3.0x target. Positive: r/K rebalanced (1.1 vs 17.0 at S509), dark matter recovering.
+
+---
+
 ## S515 Health Check | 2026-03-23
 
 | Metric | Value | Rating | Notes |
@@ -103,8 +119,8 @@ Previous checks archived: S83, S314, S325, S359, S410, S433, S445, S465, S466, S
 ## Trend (last 5 checks)
 | Session | Score | Binding constraint |
 |---------|-------|--------------------|
+| S517 | 3.4 | PCI regression -20%, expert util 4.6% (25s frozen), benefit ratio 2.01x |
+| S515 | 3.7 | Expert util 4.6%, falsification 3.0%, periodic backlog |
 | S514 | 3.7 | Expert util 4.6% (19s frozen), falsification 3.0%, periodic backlog 6 overdue |
 | S509 | 3.6 | r/K=27.0 imbalance, expert util 4.6%, falsification 2.8% |
 | S495 | 3.1 | PCI -32%, proxy-K drift 7.2%, dark matter 8.1% |
-| S482 | 4.1 | Expert utilization 4.6%, falsification 2%, grounding 4.8% |
-| S466 | 3.7 | Proxy-K drift 6.2%, confidence coverage 86.3% |

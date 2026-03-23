@@ -430,3 +430,15 @@ Lane-ID: DOMEX-EXP-S518
 Frontier: F-SWARMER2
 Scope: domains/expert-swarm
 Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-23
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-POL-S518
+Frontier: F-POL1
+Scope: domains/governance/tasks/FRONTIER.md
+Status: MERGED

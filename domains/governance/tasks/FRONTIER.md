@@ -1,8 +1,29 @@
 # Governance Domain — Frontier Questions
 Domain agent: write here for governance-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-03 S495 (F-INV2 vocabulary ceiling breaking: 2 new frontiers via concept transfer) | Active: 2
+Updated: 2026-03-23 S518 (political systems analysis: mixed constitution classification, 10 ISOs, external predictions) | Active: 5
 
 ## Active
+
+- **F-GOV7**: Can the democratic deficit (97.4% signal deference) be reduced by scoping directional authority?
+  The swarm accepts 97.4% of human signals (1/39 rejected). PHIL-11 grants directional authority without scope limits. This contradicts CORE.md's "participant not commander" claim.
+  **Test**: (a) Classify recent 50 human signals by type: identity/values, factual claims, process directives. (b) For each type, measure whether evidence existed that could have challenged it. (c) Implement scoped authority and measure deference change.
+  **Prediction**: >30% of signals are factual claims that should be tested, not accepted.
+  **Falsification**: <10% of human signals are challengeable factual claims (deference is appropriate).
+  **Source**: L-1441 political systems analysis. ISO-POL-7 (Weber legitimacy types).
+
+- **F-GOV8**: Do swarm tools generate valid predictions about external political systems?
+  L-1441 generates 5 predictions from swarm tools (L-601→institutional decay, fairness→instability, Gini→regime type, dogma→brittle failure, NK→hub vulnerability). These are structural hypotheses, not verified claims.
+  **Test**: (a) Apply fairness audit framework (5 dimensions) to 3 real parliamentary systems using public data. (b) Check if L-601 enforcement decay rate matches empirical political science literature on norm erosion. (c) Compare dispatch Gini with Effective Number of Parties (Laakso-Taagepera) as power concentration measures.
+  **Prediction**: At least 2/5 predictions have empirical support in political science literature.
+  **Falsification**: 0/5 predictions match any empirical political data — the structural analogy fails when applied externally.
+  **Source**: L-1441. Extends L-333's governance isomorphisms from internal to external application.
+
+- **F-GOV9**: Does implementing a formal opposition mechanism improve decision quality?
+  The swarm has no loyal opposition — all nodes cooperate. Challenge process tests beliefs but not actions or directions. Political theory (Westminster system) predicts formal opposition improves decisions by surfacing ignored alternatives.
+  **Test**: (a) Designate one steerer as opposition voice for 10 sessions. (b) Measure: did opposition signals lead to changed actions? (c) Compare lesson quality (Sharpe) in sessions with vs without opposition.
+  **Prediction**: Opposition signals change actions in >20% of cases; lesson quality improves by >5%.
+  **Falsification**: Opposition signals are ignored in >80% of cases AND lesson quality unchanged.
+  **Source**: L-1441. ISO-POL-2 (separation of powers), ISO-POL-4 (judicial review).
 
 - **F-GOV5**: Is governance monitoring a sensor-only trap? (Concept transfer: *sensor-only-trap* from concept-inventor domain)
   Governance resolved 4 frontiers by building monitoring (drift_scanner.py, challenge-execution periodic). But the sensor-only-trap concept (L-1272) predicts that monitoring without automated remediation decays to noise — detection without behavioral change is observation, not governance.

@@ -194,12 +194,69 @@ def scan_tests() -> list[Finding]:
     return findings
 
 
+def scan_impossibility() -> list[Finding]:
+    """L-1397 impossibility theorem check: flag tools that may violate T1-T5.
+    Cites: #L-1397 (Sh=10, structural enforcement of impossibility theorems)
+
+    T1 (Confirmation Attractor): tools that only confirm, never falsify
+    T3 (Vocabulary Ceiling): tools using exhausted internal vocabulary
+    T4 (Self-Grading): tools that grade swarm output using only swarm data
+    T5 (Recursive Trap): meta-tools that measure meta-work
+    """
+    findings: list[Finding] = []
+    meta_keywords = re.compile(
+        r'\b(meta[-_]?tool|self[-_]?ref|self[-_]?grade|self[-_]?eval'
+        r'|self[-_]?score|self[-_]?assess|audit.*audit)\b', re.I
+    )
+    confirm_only = re.compile(
+        r'\b(CONFIRM|SUPPORTED|PASS)\b'
+    )
+    falsify_pattern = re.compile(
+        r'\b(FALSIF|CONTRADICT|FAIL|REJECT)\b'
+    )
+    external_pattern = re.compile(
+        r'\b(external|outside|real[-_]?world|empirical|user[-_]?input'
+        r'|api|fetch|http|import[-_]?data)\b', re.I
+    )
+
+    for f in _tool_files():
+        try:
+            text = f.read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            continue
+        tokens = _tool_tokens(f)
+
+        # T5: meta-tool that operates on meta-tools (recursive trap)
+        if meta_keywords.search(text) and "meta_tooler" not in f.stem:
+            # Check if it references tools/ scanning tools/
+            if re.search(r'tools/.*tools/', text) or text.count('meta') > 10:
+                findings.append(Finding(
+                    category="impossibility", severity="MEDIUM", tool=f.stem,
+                    message=f"T5 recursive trap risk: meta-tool scanning meta-tools ({tokens}t)",
+                    metric=tokens,
+                ))
+
+        # T4: self-grading without external input
+        if confirm_only.search(text) and not external_pattern.search(text):
+            if falsify_pattern.search(text):
+                continue  # has falsification path — OK
+            findings.append(Finding(
+                category="impossibility", severity="LOW", tool=f.stem,
+                message=f"T4 self-grading risk: confirms without external input or falsification path",
+                metric=tokens,
+            ))
+
+    findings.sort(key=lambda x: -(x.metric or 0))
+    return findings
+
+
 SCANNERS = {
     "oversized": scan_oversized,
     "unreferenced": scan_unreferenced,
     "stale": scan_stale,
     "quality": scan_quality,
     "tests": scan_tests,
+    "impossibility": scan_impossibility,
 }
 
 
@@ -275,7 +332,7 @@ def main():
     parser = argparse.ArgumentParser(description="Meta-tooler: tool health scanner")
     parser.add_argument("--json", action="store_true", help="JSON output")
     parser.add_argument("--category", default="all",
-                        choices=["oversized", "unreferenced", "stale", "quality", "tests", "all"])
+                        choices=["oversized", "unreferenced", "stale", "quality", "tests", "impossibility", "all"])
     args = parser.parse_args()
 
     cats = list(SCANNERS.keys()) if args.category == "all" else [args.category]

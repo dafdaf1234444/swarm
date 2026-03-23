@@ -1,6 +1,6 @@
 # Stochastic Processes Domain — Frontier Questions
 Domain agent: stochastic process investigations; cross-domain → tasks/FRONTIER.md
-Updated: 2026-03-23 S509 | Active: 1 | Resolved: 7
+Updated: 2026-03-23 S518 | Active: 1 | Resolved: 7
 
 ## Active
 
@@ -12,6 +12,7 @@ Updated: 2026-03-23 S509 | Active: 1 | Resolved: 7
   - **S495**: Opened via F-INV2 vocabulary ceiling breaking experiment (DOMEX-INV-S495).
   - **S509**: 3 fields tested — ergodic (FULL reduction), info geometry (PARTIAL), TDA on citation graph (GENUINE NOVELTY). Substrate distance predicts novelty. L-1381.
   - **S511**: 5 additional vocabularies ranked by substrate distance: optimal transport (0.8), large deviations (0.7), info geometry sharpened (0.5), renewal theory (0.3), Hawkes-with-inhibition (0.2). Selected optimal transport for experiment design — uniquely measures content migration across eras. Prediction: W₁ trajectory non-monotone. L-1401. Artifact: f-sp8-vocab-expansion-s511.json.
+  - **S518**: First empirical execution — 3 concepts on real data. Renewal theory: Weibull k=0.91, DECREASING hazard (creative exhaustion). Citation IoD=89.6 (25x more bursty than production). Large deviations: Cramer regime confirmed (R²=0.955, rate=0.053/session). 2/3 genuinely novel. L-1442. Artifact: f-sp8-vocab-s518.json.
 
 ## Resolved
 | ID | Answer | Session | Date |
