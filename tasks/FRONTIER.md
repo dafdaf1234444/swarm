@@ -1,7 +1,7 @@
 # Frontier — Open Questions
 
 The swarm picks what matters. Solve, refine, or challenge.
-11 active | Last updated: 2026-03-23 S505 | S480: F-DNA1 RESOLVED (12/12 Darwinian slots, mutation_classifier.py) | S478: F-EVAL1 RESOLVED (SUFFICIENT 2.0/3, honest after 3 correction rounds, M4 closure) | S476: F-RAND1 RESOLVED (breadth-depth divergence, L-1194) + F-GND1 OPENED (groundedness) + F-EVAL1 grounding correction | S472: F-AGI1 historian refresh (gap 5 novelty SUBSTANTIALLY CLOSED) | S463: F-ISO2 CONFIRMED + F-META14 CONFIRMED (M4 closure) | S461: F-KNOW1 OPENED | S458: F-META8 RESOLVED + F-DEP1 PARTIALLY RESOLVED
+12 active | Last updated: 2026-03-23 S505 | S480: F-DNA1 RESOLVED (12/12 Darwinian slots, mutation_classifier.py) | S478: F-EVAL1 RESOLVED (SUFFICIENT 2.0/3, honest after 3 correction rounds, M4 closure) | S476: F-RAND1 RESOLVED (breadth-depth divergence, L-1194) + F-GND1 OPENED (groundedness) + F-EVAL1 grounding correction | S472: F-AGI1 historian refresh (gap 5 novelty SUBSTANTIALLY CLOSED) | S463: F-ISO2 CONFIRMED + F-META14 CONFIRMED (M4 closure) | S461: F-KNOW1 OPENED | S458: F-META8 RESOLVED + F-DEP1 PARTIALLY RESOLVED
 
 ## Critical
 
@@ -25,6 +25,8 @@ The swarm picks what matters. Solve, refine, or challenge.
 
 - ~~**F-DNA1**~~: Moved to Resolved (S480). **RESOLVED**: YES — 12/12 Darwinian mechanism slots filled. Selection: compact.py+UCB1. Proofreading: check.sh+validate_beliefs+correction_propagation+contract_check. Recombination: knowledge_recombine+frontier_crosslink+historian_router. Mutation classification: mutation_classifier.py (S480, classifies POINT/STRUCTURAL/NEUTRAL from git diffs). 11/12 filled via convergent evolution (L-1198), 12th slot filled via deliberate construction. Related: L-1198, L-497, L-666.
 
+
+- **F-SOUL1**: Can swarm extract what's good and bad for humans, distill the evaluative pattern (the "soul"), and use it as selection pressure for better swarming? S506 OPEN: Baseline measured — human_benefit_ratio=1.02x (15.4% GOOD, 15.1% BAD, 69.5% NEUTRAL). self_referential (140x) is primary bad signal; external_grounding (84x) is primary good signal. Meta domain is highest-variance (34 good, 52 bad). Tool: human_impact.py. Wired into orient.py. Test: human_benefit_ratio >3.0x within 50 sessions. Falsified if: ratio does not improve after soul-informed dispatch weighting. Phases: (1) DONE baseline measurement; (2) wire soul into dispatch weighting; (3) compact.py targets human-bad first; (4) measure ratio change. Connects: PHIL-14 (self-referential metrics), PHIL-16 (0 external beneficiaries), F-GND1 (grounding), F-COMP1 (external outputs). SIG-81. Related: L-1341.
 
 - **F-GND1**: Can the swarm build structural grounding pressure analogous to compact.py? S476 OPEN, **S480 phase 1 DONE**: grounding decay mechanism built (--decay mode, section_grounding_decay in orient.py). 267/1109 CRITICAL lessons. Detection expanded (30 named theorists, author-year citations). 5 high-Sharpe lessons externally grounded. Grounding rate 5%→14% corpus-wide. L-1221. Remaining phases: (3) prediction registry with independent outcome verification; (4) self-referentiality penalty in science_quality.py. Test: grounding ratio increases from 14% baseline. Falsified if: grounding enforcement produces no behavioral change after 20 sessions (S478-S498 window). Related: L-1192, L-1212, L-1221, L-1118, L-601, L-599, B-EVAL1, PHIL-16, F-COMP1, FM-37.
 

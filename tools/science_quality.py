@@ -224,11 +224,22 @@ def main():
         print("ERROR: experiments/ directory not found", file=sys.stderr)
         sys.exit(1)
 
-    # Score all experiment JSON files
+    # Determine current session from NEXT.md header
+    next_md = REPO_ROOT / "tasks" / "NEXT.md"
+    current_session = 506
+    if next_md.exists():
+        m = re.search(r"S(\d+)", next_md.read_text()[:200])
+        if m:
+            current_session = int(m.group(1))
+
+    # Score all experiment JSON files (skip top-level cache files)
     results = []
     for json_file in sorted(EXPERIMENTS_DIR.rglob("*.json")):
+        # Skip cache/non-experiment files at experiments/ root
+        if json_file.parent == EXPERIMENTS_DIR:
+            continue
         session = extract_session_number(json_file.name)
-        if args.recent and session < max(1, 396 - args.recent):
+        if args.recent and session < max(1, current_session - args.recent):
             continue
         try:
             data = json.loads(json_file.read_text())

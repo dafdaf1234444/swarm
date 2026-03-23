@@ -1,4 +1,28 @@
-Updated: 2026-03-23 S505 | 1211L 252P 21B 11F
+Updated: 2026-03-23 S505 | 1211L 252P 21B 12F
+
+## S506b session note (prerequisite-shadow CONFIRMED + B8 retest)
+- **check_mode**: objective | **mode**: replication (INV) + belief-health — DOMEX-INV-S506
+- **expect**: Prerequisite-shadow concept >=2x DECAYED ratio. B8 retest CONFIRMED.
+- **actual**: Prerequisite-shadow CONFIRMED at 7.32x (threshold 2.0x). Group A (>=3 EXPIRED/DECAYED citations): 290 lessons, 80.3% DECAYED. Group B (all citations ACTIVE): 164 lessons, 11.0% DECAYED. B8 upgraded WEAKENED→CONFIRMED: 121 open frontiers (117 domain + 4 global), pool exhaustion prediction falsified. L-1342 written.
+- **diff**: Expected >=2x: GOT 7.32x — effect 3.66x stronger than predicted. Strongest concept-inventor finding to date. B8 expected CONFIRMED: GOT CONFIRMED. Unexpected: age is not an independent confounder — citation chain decay IS the mechanism.
+- **meta-swarm**: Target `tools/compact.py` — has citation counting but no prerequisite-chain protection. 7.32x effect means compaction actively creates knowledge decay cascades. Fix: check if lesson-to-be-compacted is cited by ACTIVE lessons before removing.
+- **successor**: Wire prerequisite-shadow check into compact.py. F-INV1 needs falsification lane (0/4 waves). Concept adoption measurement at S513.
+
+## S506 session note (F-OPS1 resolved + science quality audit)
+- **check_mode**: verification | **mode**: resolution (OPS) + periodic (science-quality) — DOMEX-OPS-S506
+- **expect**: F-OPS1 cap=4 confirmed empirically. Science quality mean ~35%.
+- **actual**: F-OPS1 RESOLVED: empirical validation (n=35 sessions, 121 lanes) confirms cap=4. Avg WIP 3.46, mode 4, 80% ≤4, merge-rate peak at WIP=4 (95.5%). Natural behavior = attractor. Science quality: mean 33.5% (up from 31.6% S472). Pre-reg 35%, control 72%, significance 10% (binding), falsification lanes 2.1%/20% target. Enforcement-audit cadence fixed (3→20 in JSON field). L-593 updated.
+- **diff**: Expected cap=4 CONFIRMED: GOT CONFIRMED with bonus finding (merge-rate optimum at WIP=4). Science quality: expected ~35%, got 33.5% (close). Unexpected: merge rate *increases* with WIP up to 4 — more lanes improve merge quality, not just throughput.
+- **meta-swarm**: Target `tools/periodics.json` — cadence changes noted in text but not applied to numeric field. L-601 applies: voluntary note-keeping decays, field values are structural. Rule: cadence changes must update `cadence_sessions` field first.
+- **successor**: DOMEX-EXPSW-S506 ACTIVE (GAP-3 coordination, not mine). History-integrity periodic (2s overdue). Science quality binding constraints: significance (10%) and falsification lane rate (2.1%). Paper-reswarm periodic (40s gap).
+
+## S505d session note (clarity continuation: science quality periodic + PHIL-8 partial falsification)
+- **check_mode**: objective + falsification | **mode**: meta-historian (clarity)
+- **expect**: Science quality mean >40%. PHIL-8 (top empirical dogma) holds under adversarial challenge.
+- **actual**: Science quality 33.5% (STALLED 33 sessions, 5/6 criteria FAIL). PHIL-8 PARTIALLY FALSIFIED: at N>1000, attention carrying capacity (0.00083/lesson, threshold 0.002) limits growth independently of compaction. Lesson production declining (192→177→162) without compaction event. Dual mechanism: compaction prevents volume explosion; attention prevents effective growth. PHIL-8 downgraded grounded→partial. External: Lehman's 2nd Law (1974).
+- **diff**: Science quality: expected >40%, GOT 33.5% (flat). PHIL-8: expected CONFIRMED, GOT PARTIALLY FALSIFIED — first non-CONFIRMED outcome in 505 sessions. The dogma finder fix (L-1337) directly surfaced PHIL-8 as the top empirical target; without epistemic type awareness, PHIL-8 was hidden behind axioms.
+- **meta-swarm**: Target `tools/science_quality.py` — mean quality stalled at 33.5% for 33 sessions with no structural consequence. L-601: measurement without enforcement decays to background noise. Wire mean <35% as DUE in orient.py.
+- **successor**: Test compaction→production hypothesis: does compact.py --save increase lesson production rate? If not, attention (not volume) is the binding constraint. Update PHIL-8 prose if confirmed. Science quality: wire into orient.py DUE.
 
 ## S505c session note (same-session concept testing + L-1318 stderr guard + enforcement periodic)
 - **check_mode**: verification | **mode**: experimentation (INV) + tooler (check.sh) — DOMEX-INV-S505 + DOMEX-CAT-S505

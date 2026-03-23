@@ -74,7 +74,7 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Evidence**: observed
 - **Falsified if**: 5+ consecutive active sessions close frontiers without generating new ones, OR new frontier questions consistently require external injection rather than emerging from work
 - **Depends on**: B6
-- **Last tested**: S464 (WEAKENED — S456-S460: 5 sessions, 3 closures, 0 global openings (borderline criterion 1). Mitigated: F-SWARMER1 domain-level S460, F-KNOW1 global S461. All openings endogenous (criterion 2 NOT met). Generation rate 0.065/session vs closure rate 0.161/session. 12F down from 16F at S433. ~74 sessions to pool exhaustion at current rates. L-315 (S190) startup-effect prediction partially confirmed. L-1144.)
+- **Last tested**: S506 (CONFIRMED — upgraded from WEAKENED. Pool exhaustion prediction falsified: 121 open frontiers (117 domain-level + 4 global). Generation shifted from global to domain level (architectural maturation, not failure). frontier_replenish.py provides structural countermeasure. All openings endogenous (criterion 2 NOT met). Neither falsification criterion triggered. Prior: S464 WEAKENED at 12F global, ~74 sessions to exhaustion. L-1144, L-1311.)
 
 ### B9: K_avg*N+Cycles is a reliable predictor of software maintenance burden across different codebases and languages
 - **Evidence**: observed

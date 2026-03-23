@@ -144,12 +144,13 @@ def section_stale_beliefs(session_num, check_fn):
 
 
 def section_dogma_finder():
-    """Dogma finder — surfaces ossified, unquestioned claims (L-1314)."""
+    """Dogma finder — surfaces ossified claims + prescriptions (L-1314, SIG-82)."""
     lines = []
     try:
-        from dogma_finder import detect_dogma
+        from dogma_finder import detect_dogma, prescribe
         findings = detect_dogma()
         high = [f for f in findings if f["total_score"] >= 0.6]
+        meta = [f for f in findings if f["kind"] == "meta"]
         if high:
             lines.append(f"--- Dogma alert ({len(high)} ossified claims, score \u22650.6) ---")
             for item in high[:5]:
@@ -160,6 +161,14 @@ def section_dogma_finder():
                 )
             if len(high) > 5:
                 lines.append(f"  ... and {len(high) - 5} more (run: python3 tools/dogma_finder.py)")
+            # Top prescription
+            rxs = prescribe(high, top_n=1)
+            if rxs:
+                rx = rxs[0]
+                lines.append(f"  \u2192 Rx for {rx['id']}: {rx['actions'][0]['action']}")
+            lines.append("")
+        if meta:
+            lines.append(f"  \u27f3 Meta-dogma: {len(meta)} assumptions in dogma finder itself untested")
             lines.append("")
     except Exception:
         pass

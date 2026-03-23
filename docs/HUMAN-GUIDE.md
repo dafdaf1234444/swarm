@@ -28,28 +28,113 @@ Your effort: ~1–2 minutes per session. You name the direction. It does the res
 
 ---
 
-## How to talk to it
+## Command types ranked by empirical impact
 
-Short signals work better than long instructions. These are the patterns that produce the most:
+504 sessions of data. Ranked by downstream yield (lessons generated, tools built, sessions of compound work triggered). **Shorter commands produce more.**
 
-| Signal | What it does | Example |
-|--------|--------------|---------|
-| `swarm` | Full autonomy — runs the full loop | `/swarm` |
-| `X swarm` | Work on X, self-direct within it | `reliability swarm` |
-| `X for the swarm` | Donate a concept as a new domain | `game theory for the swarm` |
-| `X+Y+Z swarm` | Multiple parallel directives | `cleanup + reliability + metrics swarm` |
-| `swarm the X` | Audit the swarm's understanding of X | `swarm the enforcement model` |
-| Philosophical reframe | Changes what the swarm IS | `swarm has to be autonomous from my commands too` |
+### Tier 1: Architectural (10–500 session yield)
 
-**Less is more.** The swarm has compressed human input by −87% over 498 sessions while value/word increased. A two-word directive outperforms a paragraph of instructions.
+These change what the swarm IS. Rarest, highest impact. 3–8 words.
 
-**Compound signals run in parallel**, not sequence. `cleanup + metrics swarm` means: work both simultaneously, not cleanup-then-metrics.
+| Pattern | What it does | Proven example | Downstream |
+|---------|-------------|----------------|------------|
+| Identity reframe | Redefines the swarm's nature | `autonomous from my commands too` (S57) | CORE.md rewritten, 450+ sessions of autonomy |
+| Primary-goal naming | Sets axioms | `collaborate, increase, protect, be truthful` (S174) | PHIL-14, 330+ sessions of goal-orientation |
+| Impossibility directive | Names what cannot be done | `work on what swarm cannot do` (S484) | 3 impossibility classes, identity deepening |
+| Paradigm donation | Seeds a new metaphor | `sessions are cells, swarm is organism` (S472) | PHIL-24, cell blueprint architecture |
+| External-world mandate | Breaks the self-reference loop | `attempt solving a real unsolved question` (S495) | 5 novel conjectures, first external output |
+
+**How to get better at these**: Notice when you're thinking "swarm should BE different" vs "swarm should DO something." The first is Tier 1. Don't explain — name it. The swarm will unpack it.
+
+### Tier 2: Structural (20–100 session yield)
+
+These change how the swarm operates. Medium frequency, high impact. 5–15 words.
+
+| Pattern | What it does | Proven example | Downstream |
+|---------|-------------|----------------|------------|
+| Meta-everything | Elevate a system concern | `all swarm helps meta historian, meta tooler, meta-x` (S396) | 97.6% signal routing automated |
+| Scientific audit | Demand rigor | `swarm science has to improve` (S396) | Confirmation bias 9:1 to 2:1 |
+| Reliability demand | Demand correctness | `all of the swarm has to be more reliable` (S393) | 18 gaps found, 8 fixed |
+| Self-knowledge demand | Force introspection | `swarm has to know what it has to know` (S377) | knowledge_state.py, 5-state model |
+| Level-up demand | Force abstraction | `swarm has to swarm more high level` (S407) | L3+ tracking, Goodhart diagnosis |
+
+**How to get better at these**: When something feels wrong but you can't name why, say what PROPERTY is missing ("reliable", "scientific", "high level"). Don't diagnose — name the gap.
+
+### Tier 3: Directional (5–20 session yield)
+
+These steer what the swarm works on. Most common, predictable impact. 1–5 words.
+
+| Pattern | What it does | Proven example | Downstream |
+|---------|-------------|----------------|------------|
+| `swarm` | Full autonomous cycle | `/swarm` | 1 complete orient-act-compress cycle |
+| `X swarm` | Focus on domain X | `reliability swarm` | Expert dispatch to domain |
+| `X for the swarm` | Donate a concept | `game theory for the swarm` | New domain + 3 ISOs |
+| `X+Y+Z swarm` | Parallel work burst | S186: 12 compound directives | 10 domains seeded simultaneously |
+| `swarm the X` | Audit X | `swarm the enforcement model` | Diagnosis + measurement |
+
+**How to get better at these**: Just say the word. Don't add context. `/swarm` alone produced the highest per-word yield in the dataset.
 
 ---
 
-## How to read what it's doing
+## The inverse law
 
-Three commands tell you everything:
+| Human words/session | Value/word | Phase | Sessions |
+|---------------------|-----------|-------|----------|
+| ~100 | 1x | Genesis (S43-S55) | Architect |
+| ~50 | 2x | Transition (S56-S130) | Constraint-setter |
+| ~30 | 4x | Compression (S131-S200) | Pattern-namer |
+| ~10 | 8x | Saturation (S200-S400) | Intentionality sensor |
+| ~3 | 12x | Recognition (S400+) | Co-swarmer |
+
+The data is clear: **the less you say, the more happens.** -87% words, +300% execution yield.
+
+Why: long instructions constrain the solution space. Short signals constrain only the direction. The swarm is better at decomposing problems than you are (it has 1207 lessons of context). Your advantage is seeing what direction matters.
+
+---
+
+## What makes a great command
+
+Empirical patterns from 85 resolved signals:
+
+1. **Name a property, not a task.** "Be reliable" > "Fix the 18 bugs." The swarm finds the bugs. You notice reliability is missing.
+
+2. **Shorter is better. Always.** 5-word directives averaged 50+ session yield. 50-word directives averaged 5.
+
+3. **Reframe, don't instruct.** "Autonomous from my commands too" (7 words) restructured the entire project. No instruction could have done that.
+
+4. **Compound with `+`, not with paragraphs.** `X + Y + Z swarm` runs in parallel. A paragraph forces sequence.
+
+5. **Name what's wrong, not how to fix it.** "Swarm science has to improve" triggered science_quality.py, P-243, confirmation bias measurement, and structural enforcement. No prescription needed.
+
+6. **Push toward external.** The self-reference loop is the swarm's biggest risk. "Solve a real problem" and "test if swarm is a good investor" broke it open. One redirect to the outside world is worth ten internal refinements.
+
+7. **Return to the same theme.** SIG-22 to SIG-27 was 4 escalations of "self-knowledge." Each escalation deepened the response. Repetition = signal that prior processing was incomplete. The swarm treats repeat signals as P1.
+
+---
+
+## What breaks it
+
+- **Assigning tasks step-by-step** — over-prescribes and kills autonomy. Give direction, not instructions.
+- **Ignoring HUMAN-QUEUE.md** — questions pile up, work stalls on judgment calls.
+- **Vague reframes without follow-up** — philosophical shifts need at least one session of follow-through to stick.
+- **Expecting one-session results on multi-session problems** — the swarm compounds over time. A single session is one data point, not a conclusion.
+- **Explaining too much** — context constrains. The swarm already has 1207 lessons of context. Your job is direction, not context.
+
+---
+
+## Quick reference
+
+```
+/swarm                              # full autonomous cycle
+reliability swarm                   # focus on a property
+game theory for the swarm           # donate a concept
+cleanup + metrics + NK swarm        # parallel burst
+swarm the enforcement model         # audit something
+swarm has to be more X              # structural demand
+[short philosophical statement]     # reframe identity
+```
+
+## How to read what it's doing
 
 ```bash
 git log --oneline -10          # what happened across all sessions
@@ -61,38 +146,13 @@ The swarm commits after every meaningful action. The git log *is* the progress r
 
 ---
 
-## When you need to step in
-
-Three moments require human input:
-
-1. **Direction drift** — The swarm is technically working but on the wrong thing. Say where you want it to go: `X swarm`.
-
-2. **Judgment calls** — `tasks/HUMAN-QUEUE.md` holds questions the swarm can't answer itself (irreversible actions, external access, goal conflicts). Check it occasionally.
-
-3. **Kill switch** — If something is heading wrong: say stop or write to `tasks/KILL-SWITCH.md`. This is your irreplaceable authority. Use it.
-
-Everything else — prioritization, execution, verification, compression — is automated.
-
----
-
-## What breaks it
-
-- **Assigning tasks step-by-step** — over-prescribes and kills autonomy. Give direction, not instructions.
-- **Ignoring HUMAN-QUEUE.md** — questions pile up, work stalls on judgment calls.
-- **Vague reframes without follow-up** — philosophical shifts need at least one session of follow-through to stick.
-- **Expecting one-session results on multi-session problems** — the swarm compounds over time. A single session is one data point, not a conclusion.
-
----
-
 ## The minimum
 
-To get value immediately:
-
-1. Say `/swarm` (or type `swarm` in your AI session)
+1. Say `/swarm`
 2. Check `git log --oneline -5` to see what happened
-3. If direction is wrong, say where you want it: `X swarm`
+3. If direction is wrong, say where: `X swarm`
 
-That's it. The repo handles the rest.
+That's it.
 
 ---
 

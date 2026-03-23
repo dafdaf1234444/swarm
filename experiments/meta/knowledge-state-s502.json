@@ -2,10 +2,10 @@
   "session": 502,
   "stale_window": 50,
   "global_states": {
-    "ACTIVE": 388,
-    "DECAYED": 500,
+    "ACTIVE": 392,
+    "DECAYED": 499,
     "BLIND-SPOT": 204,
-    "MUST-KNOW": 392,
+    "MUST-KNOW": 391,
     "SHOULD-KNOW": 117
   },
   "domain_profiles": {
@@ -17,9 +17,9 @@
     },
     "meta": {
       "MUST-KNOW": 143,
-      "DECAYED": 127,
+      "DECAYED": 126,
       "BLIND-SPOT": 63,
-      "ACTIVE": 92,
+      "ACTIVE": 93,
       "SHOULD-KNOW": 15
     },
     "information-science": {
@@ -177,7 +177,7 @@
     },
     "expert-swarm": {
       "DECAYED": 24,
-      "ACTIVE": 23,
+      "ACTIVE": 25,
       "MUST-KNOW": 35,
       "BLIND-SPOT": 5,
       "SHOULD-KNOW": 3
@@ -314,8 +314,8 @@
       "SHOULD-KNOW": 0
     },
     "cross-domain": {
-      "ACTIVE": 154,
-      "MUST-KNOW": 16,
+      "ACTIVE": 155,
+      "MUST-KNOW": 15,
       "DECAYED": 40,
       "BLIND-SPOT": 54
     },
@@ -323,10 +323,10 @@
       "SHOULD-KNOW": 3
     }
   },
-  "revival_rate": 16.988062442607895,
-  "revival_per_session": 0.3397612488521579,
-  "total_items": 1484,
-  "total_lessons": 1199,
+  "revival_rate": 17.003676470588236,
+  "revival_per_session": 0.3400735294117647,
+  "total_items": 1486,
+  "total_lessons": 1201,
   "total_principles": 264,
   "total_beliefs": 21,
   "frontier_count": 117,
@@ -397,7 +397,7 @@
     },
     {
       "hypothesis": "Knowledge-state profiles change top-5 dispatch in \u22652/5 cases",
-      "result": "5/5 different (gap-ranked: ['guesstimates', 'dream', 'protocol-engineering', 'cryptocurrency', 'history'], UCB1: [])",
+      "result": "5/5 different (gap-ranked: ['guesstimates', 'dream', 'protocol-engineering', 'cryptocurrency', 'claude-code'], UCB1: [])",
       "pass": true,
       "threshold": "\u22652/5"
     }

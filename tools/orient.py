@@ -310,32 +310,52 @@ def main():
     from external_grounding_check import section_grounding_decay
     from closeable_frontiers import section_closeable_frontiers
 
-    # Parallelize all slow independent operations:
-    # git_fsck ~3s, historian_repair ~7s, meta_tooler ~11s, prescription_gap ~2s
-    from concurrent.futures import ThreadPoolExecutor
-    with ThreadPoolExecutor(max_workers=6) as _pool:
-        _git_health_future = _pool.submit(check_git_object_health)
-        _genesis_future = _pool.submit(check_genesis_hash)
-        _index_health_future = _pool.submit(check_git_index_health)
-        _hist_future = _pool.submit(section_historian_repair)
-        _meta_future = _pool.submit(section_meta_tooler)
-        _prescription_future = _pool.submit(section_prescription_gap)
+    # Parallelize ALL slow independent operations (S506 perf fix):
+    # At N=1211, sequential total was ~135s. Parallelizing brings wall time to ~30s.
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+    _futures = {}
+    with ThreadPoolExecutor(max_workers=12) as _pool:
+        # Pre-checks (~3s each)
+        _futures['git_health'] = _pool.submit(check_git_object_health)
+        _futures['genesis'] = _pool.submit(check_genesis_hash)
+        _futures['index_health'] = _pool.submit(check_git_index_health)
+        _futures['ghost'] = _pool.submit(check_ghost_lessons)
+        # Heavy sections (~7-29s each when sequential)
+        _futures['historian'] = _pool.submit(section_historian_repair)
+        _futures['meta_tooler'] = _pool.submit(section_meta_tooler)
+        _futures['prescription'] = _pool.submit(section_prescription_gap)
+        _futures['dogma'] = _pool.submit(section_dogma_finder)
+        _futures['succession'] = _pool.submit(section_succession_phase)
+        _futures['knowledge_swarm'] = _pool.submit(section_knowledge_swarm)
+        _futures['correction'] = _pool.submit(section_correction_propagation)
+        _futures['fairness'] = _pool.submit(section_fairness)
+        _futures['trace'] = _pool.submit(section_trace_amplification)
+        _futures['stalled'] = _pool.submit(section_stalled_campaigns)
+        _futures['cascade'] = _pool.submit(lambda: section_cascade_state(maint_output=""))
         maint_out = _run_maint()  # run in main thread while others execute
-    # Print git health check results (moved from pre-checks, now parallelized)
-    for _line in _git_health_future.result():
+        # Re-submit cascade with actual maint_out if needed
+        _futures['cascade_real'] = _pool.submit(lambda mo=maint_out: section_cascade_state(maint_output=mo))
+    # Collect pre-check results
+    for _line in _futures['git_health'].result():
         print(_line)
-    # FM-11: genesis hash check at session start (2nd automated layer, S444)
-    for _line in _genesis_future.result():
+    for _line in _futures['genesis'].result():
         print(_line)
-    # FM-04: git index health check at session start (1st automated layer, S444)
-    for _line in _index_health_future.result():
+    for _line in _futures['index_health'].result():
         print(_line)
-    # FM-03: ghost lesson detection at session start (2nd automated layer, S457)
-    for _line in check_ghost_lessons():
+    for _line in _futures['ghost'].result():
         print(_line)
-    _historian_repair_lines = _hist_future.result()
-    _meta_tooler_lines = _meta_future.result()
-    _prescription_gap_lines = _prescription_future.result()
+    # Store heavy section results for ordered printing later
+    _historian_repair_lines = _futures['historian'].result()
+    _meta_tooler_lines = _futures['meta_tooler'].result()
+    _prescription_gap_lines = _futures['prescription'].result()
+    _dogma_lines = _futures['dogma'].result()
+    _succession_lines = _futures['succession'].result()
+    _knowledge_swarm_lines = _futures['knowledge_swarm'].result()
+    _correction_lines = _futures['correction'].result()
+    _fairness_lines = _futures['fairness'].result()
+    _trace_lines = _futures['trace'].result()
+    _stall_lines, _stall_map = _futures['stalled'].result()
+    _cascade_lines = _futures['cascade_real'].result()
 
     index_text = _read("memory/INDEX.md")
     next_text = _read("tasks/NEXT.md")
@@ -375,7 +395,7 @@ def main():
 
     if sess_num:
         _print_lines(section_stale_beliefs(sess_num, check_stale_beliefs))
-        _print_lines(section_dogma_finder())
+        _print_lines(_dogma_lines)
         _print_lines(section_self_application(sess_num, check_stale_infrastructure))
 
     # Stale lanes — need return value for trigger manifest
@@ -391,7 +411,7 @@ def main():
 
     _print_lines(_prescription_gap_lines)
     _print_lines(section_level_balance())
-    _print_lines(section_succession_phase())
+    _print_lines(_succession_lines)
     _print_lines(section_zombie_carryover())
     _print_lines(section_closure_metric())
     _print_lines(section_grounding_audit())
@@ -400,13 +420,29 @@ def main():
         print(section_grounding_decay())
     except Exception as e:
         print(f"  (grounding decay error: {e})")
-    _print_lines(section_knowledge_swarm())
+    _print_lines(_knowledge_swarm_lines)
     _print_lines(section_closeable_frontiers(session_num=current_sess_num))
     _print_lines(section_knowledge_recombination())
-    _print_lines(section_correction_propagation())
-    _print_lines(section_fairness())
+    _print_lines(_correction_lines)
+    _print_lines(_fairness_lines)
+
+    # Human impact / soul extraction (SIG-81, F-SOUL1)
+    try:
+        from human_impact import scan_lessons as _hi_scan, extract_soul as _hi_soul
+        _hi_results = _hi_scan()
+        _hi_soul_data = _hi_soul(_hi_results)
+        print(f"\n--- Human Impact (F-SOUL1, SIG-81) ---")
+        print(f"  {_hi_soul_data['good_pct']}% GOOD / {_hi_soul_data['bad_pct']}% BAD / "
+              f"{_hi_soul_data['neutral_pct']}% NEUTRAL | "
+              f"benefit ratio {_hi_soul_data['human_benefit_ratio']}x (target >3.0x)")
+        for _sp in _hi_soul_data.get("selection_pressure", [])[:2]:
+            print(f"    → {_sp}")
+        print(f"  Run: python3 tools/human_impact.py")
+    except Exception:
+        pass
+
     _print_lines(section_self_inflation())
-    _print_lines(section_trace_amplification())
+    _print_lines(_trace_lines)
 
     # Concept debt (F-INV1, L-1269)
     try:
@@ -432,16 +468,16 @@ def main():
     except Exception:
         pass
 
-    # Stalled campaigns — need stall_map for suggested action
-    stall_lines, stall_map = section_stalled_campaigns()
-    _print_lines(stall_lines)
+    # Stalled campaigns — pre-computed in parallel
+    _print_lines(_stall_lines)
+    stall_map = _stall_map
 
     _print_lines(section_stale_experiments(check_stale_experiments))
     _print_lines(section_experiment_harvest_gap(check_experiment_harvest_gap))
     if current_sess_num > 0:
         _print_lines(section_stale_baselines(current_sess_num, check_stale_baselines))
     _print_lines(section_underused_tools(check_underused_core_tools, log_text))
-    _print_lines(section_cascade_state(maint_output=maint_out))
+    _print_lines(_cascade_lines)
     _print_lines(section_recent_commits(_commits()))
     _print_lines(section_session_log_tail(log_text, brief))
     _print_lines(section_agent_positions())

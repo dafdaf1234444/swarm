@@ -10,6 +10,9 @@ Usage:
     python3 tools/bulletin.py frontier-query <swarm-name>
     python3 tools/bulletin.py frontier-respond <swarm-name> <query-id>
     python3 tools/bulletin.py frontier-inbox
+    python3 tools/bulletin.py lane-announce <swarm-name> <lane-id> <frontier-id> [--scope "..."] [--status ACTIVE|MERGED]
+    python3 tools/bulletin.py lane-check <swarm-name> <frontier-id> [--intent "..."]
+    python3 tools/bulletin.py lane-inbox
     python3 tools/bulletin.py genesis-feedback <swarm-name> <feedback>
     python3 tools/bulletin.py read [swarm-name]
     python3 tools/bulletin.py scan
@@ -52,6 +55,8 @@ VALID_TYPES = {
     "help-response",
     "frontier-query",
     "frontier-response",
+    "lane-announce",
+    "lane-check",
 }
 VALID_TIERS = {"T1", "T2", "T3"}
 # Trust-Tier semantics (F-SEC1 Layer 2, domains/security/PROTOCOL.md):
@@ -78,6 +83,14 @@ FRONTIER_RESPONSE_PATTERN = re.compile(
     r"# Bulletin from:\s*(.+?)\nDate:\s*(\S+)\nType:\s*frontier-response(?:\nTrust-Tier:\s*\S+)?\n\n## Content\n"
     r"Query-ID:\s*(\S+)\nFrontiers:\s*(.+?)(?:\n---|\Z)",
     re.DOTALL,
+)
+LANE_ANNOUNCE_PATTERN = re.compile(
+    r"# Bulletin from:\s*([^\n]+?)\nDate:\s*(\S+)\nType:\s*lane-announce(?:\nTrust-Tier:\s*\S+)?\n\n## Content\n"
+    r"Lane-ID:\s*(\S+)\nFrontier:\s*(\S+)\nScope:\s*([^\n]+?)\nStatus:\s*(\S+)",
+)
+LANE_CHECK_PATTERN = re.compile(
+    r"# Bulletin from:\s*([^\n]+?)\nDate:\s*(\S+)\nType:\s*lane-check(?:\nTrust-Tier:\s*\S+)?\n\n## Content\n"
+    r"Check-ID:\s*(\S+)\nFrontier:\s*(\S+)",
 )
 
 
@@ -364,6 +377,76 @@ def frontier_inbox():
     print(f"\nRespond: python3 tools/bulletin.py frontier-respond <your-name> <query-id>")
 
 
+def write_lane_announce(swarm_name: str, lane_id: str, frontier: str,
+                        scope: str = "n/a", status: str = "ACTIVE"):
+    """Announce a lane to peers (GAP-3 shared work coordination, L-1328)."""
+    message = f"Lane-ID: {lane_id}\nFrontier: {frontier}\nScope: {scope}\nStatus: {status}"
+    write_bulletin(swarm_name, "lane-announce", message, tier="T3")
+    print(f"Lane announced: {lane_id} on {frontier} [{status}]")
+
+
+def write_lane_check(swarm_name: str, frontier: str, intent: str = ""):
+    """Check if any peer is working on a frontier (GAP-3)."""
+    check_id = f"LC-{int(time.time())}-{swarm_name}"
+    msg = f"Check-ID: {check_id}\nFrontier: {frontier}"
+    if intent:
+        msg += f"\nIntent: {intent}"
+    write_bulletin(swarm_name, "lane-check", msg, tier="T3")
+    # Immediately scan for existing lane-announce on this frontier
+    conflicts = _scan_lane_conflicts(frontier)
+    if conflicts:
+        print(f"CONFLICT: {len(conflicts)} peer(s) already working on {frontier}:")
+        for c in conflicts:
+            print(f"  {c['swarm']} | {c['lane_id']} | {c['status']} ({c['date']})")
+    else:
+        print(f"No peer conflicts on {frontier}. Check-ID: {check_id}")
+    return check_id
+
+
+def _scan_lane_conflicts(frontier: str) -> list:
+    """Scan bulletins for lane-announce entries matching a frontier."""
+    if not BULLETINS_DIR.exists():
+        return []
+    conflicts = []
+    for f in sorted(BULLETINS_DIR.glob("*.md")):
+        text = f.read_text()
+        for m in LANE_ANNOUNCE_PATTERN.finditer(text):
+            swarm, dt, lane_id, fr, scope, status = m.groups()
+            if fr.strip() == frontier and status.strip() in ("ACTIVE", "CLAIMED"):
+                conflicts.append({
+                    "swarm": swarm.strip(), "lane_id": lane_id,
+                    "frontier": fr.strip(), "scope": scope.strip(),
+                    "status": status.strip(), "date": dt,
+                })
+    return conflicts
+
+
+def lane_inbox():
+    """List all lane announcements across peers (GAP-3)."""
+    if not BULLETINS_DIR.exists():
+        print("No bulletins directory found.")
+        return
+    announcements = []
+    for f in sorted(BULLETINS_DIR.glob("*.md")):
+        text = f.read_text()
+        for m in LANE_ANNOUNCE_PATTERN.finditer(text):
+            swarm, dt, lane_id, frontier, scope, status = m.groups()
+            announcements.append({
+                "swarm": swarm.strip(), "date": dt, "lane_id": lane_id,
+                "frontier": frontier.strip(), "scope": scope.strip(),
+                "status": status.strip(),
+            })
+    print(f"=== LANE COORDINATION INBOX (GAP-3) ===")
+    print(f"Announcements: {len(announcements)}")
+    active = [a for a in announcements if a["status"] in ("ACTIVE", "CLAIMED")]
+    if active:
+        print(f"\nActive ({len(active)}):")
+        for a in active:
+            print(f"  {a['lane_id']} | {a['frontier']} | {a['swarm']} ({a['date']}) scope={a['scope']}")
+    else:
+        print("No active peer lanes.")
+
+
 def read_bulletins(swarm_name: str = None):
     """Read bulletins, optionally filtered by swarm name."""
     if not BULLETINS_DIR.exists():
@@ -491,6 +574,39 @@ def main():
 
     elif cmd == "frontier-inbox":
         frontier_inbox()
+
+    elif cmd == "lane-announce":
+        if len(sys.argv) < 5:
+            print("Usage: bulletin.py lane-announce <swarm-name> <lane-id> <frontier-id> [--scope ...] [--status ...]")
+            sys.exit(1)
+        scope, status = "n/a", "ACTIVE"
+        remaining = sys.argv[5:]
+        if "--scope" in remaining:
+            idx = remaining.index("--scope")
+            if idx + 1 < len(remaining):
+                scope = remaining[idx + 1]
+                remaining = remaining[:idx] + remaining[idx + 2:]
+        if "--status" in remaining:
+            idx = remaining.index("--status")
+            if idx + 1 < len(remaining):
+                status = remaining[idx + 1]
+                remaining = remaining[:idx] + remaining[idx + 2:]
+        write_lane_announce(sys.argv[2], sys.argv[3], sys.argv[4], scope, status)
+
+    elif cmd == "lane-check":
+        if len(sys.argv) < 4:
+            print("Usage: bulletin.py lane-check <swarm-name> <frontier-id> [--intent ...]")
+            sys.exit(1)
+        intent = ""
+        remaining = sys.argv[4:]
+        if "--intent" in remaining:
+            idx = remaining.index("--intent")
+            if idx + 1 < len(remaining):
+                intent = " ".join(remaining[idx + 1:])
+        write_lane_check(sys.argv[2], sys.argv[3], intent)
+
+    elif cmd == "lane-inbox":
+        lane_inbox()
 
     elif cmd == "genesis-feedback":
         if len(sys.argv) < 4:

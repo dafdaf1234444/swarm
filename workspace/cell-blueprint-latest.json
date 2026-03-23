@@ -1,39 +1,61 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S505",
-  "timestamp": "2026-03-23T03:02:35.095967+00:00",
+  "timestamp": "2026-03-23T03:30:29.483377+00:00",
   "metrics": {
     "lessons": 1211,
     "principles": 252,
     "beliefs": 21,
     "frontiers": 11
   },
-  "active_lanes": [],
+  "active_lanes": [
+    {
+      "lane": "DOMEX-OPS-S506",
+      "status": "ACTIVE",
+      "scope": "domains/operations-research/tasks/FRONTIER.md"
+    },
+    {
+      "lane": "DOMEX-EXPSW-S506",
+      "status": "ACTIVE",
+      "scope": "domains/expert-swarm/tasks/FRONTIER.md"
+    }
+  ],
   "recent_commits": [
+    "b0f9de79 [S505] fix: sync_state count drift 1210\u21921211L",
     "c055e12e [S505] feat: same-session concept testing \u2014 phloem-gradient 1.87x (FALSIFIED \u22653x), fork-finality null + L-1318 stderr guard",
     "e99e6671 [S505] feat: DOMEX bundle \u2014 FM-41 FMEA tracking drift fix (UNMITIGATED 4\u21921) + 3 topological concepts + B6 retest",
     "80d09578 [S505] feat: dogma finder clarity \u2014 epistemic type awareness separates axioms from empirical claims",
-    "4d556572 [S504] feat: NK tracking artifact + concept invention artifact + NEXT.md archival + state sync",
-    "531a33e1 [S504] feat: DOMEX bundle \u2014 NK monopoly convergence (L-601 33.6%) + 3 cross-domain concepts + L-1333/L-1334"
+    "4d556572 [S504] feat: NK tracking artifact + concept invention artifact + NEXT.md archival + state sync"
   ],
   "uncommitted": [
+    "M beliefs/PHILOSOPHY.md",
     "M docs/HUMAN-GUIDE.md",
-    "M docs/PAPER.md",
     "M domains/meta/SESSION-TRIGGER.md",
     "M experiments/compact-citation-cache.json",
     "M experiments/compact-lesson-cache.json",
     "M experiments/meta/knowledge-state-s502.json",
     "M experiments/meta/knowledge-state-s504.json",
-    "M memory/INDEX.md",
     "M tasks/NEXT.md",
+    "M tasks/SIGNALS.md",
+    "M tasks/SWARM-LANES.md",
+    "M tools/dogma_finder.py",
+    "D tools/experiments/operations-research/f-ops1-wip-limit.json",
+    "M tools/orient_sections.py",
     "M tools/periodics.json",
-    "M workspace/maintenance-actions.json",
+    "M tools/science_quality.py",
     "M workspace/maintenance-outcomes.json",
+    "?? experiments/expert-swarm/f-swarmer2-gap3-s506.json",
     "?? experiments/meta/knowledge-state-s505.json",
-    "?? memory/lessons/L-1336.md"
+    "?? experiments/meta/phil8-falsification-s505.json",
+    "?? experiments/meta/science-quality-s505.json"
   ],
   "untracked_artifacts": [
+    "experiments/expert-swarm/f-swarmer2-gap3-s506.json",
     "experiments/meta/knowledge-state-s505.json",
+    "experiments/meta/phil8-falsification-s505.json",
+    "experiments/meta/science-quality-s505.json",
+    "experiments/operations-research/f-ops1-resolution-s506.json",
+    "experiments/operations-research/f-ops1-wip-validation-s506.json",
     "memory/lessons/L-1336.md"
   ],
   "next_actions": [
@@ -69,8 +91,8 @@
       "cadence": 10
     },
     {
-      "id": "science-quality-audit",
-      "gap": 33,
+      "id": "signal-audit",
+      "gap": 25,
       "cadence": 10
     }
   ],

@@ -1,10 +1,10 @@
 # Operations Research Domain — Frontier Questions
 Domain agent: write here for operations-research-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-02-28 S186 | Active: 2
+Updated: 2026-03-23 S506 | Active: 1 | Resolved: 1
 
 ## Active
 
-- **F-OPS1**: What active-lane WIP limit maximizes net swarm throughput? Design: replay recent sessions with simulated WIP caps (N=1..5 active lanes) and compare knowledge yield, conflict rate, and overhead ratio. (S186)
+- ~~**F-OPS1**~~: Moved to Resolved (S506). **RESOLVED**: YES — cap=4. Empirical validation (n=35 sessions, 121 lanes, S402-S505): avg WIP 3.46, mode 4, 80% sessions ≤4 lanes. Merge rate peaks at WIP=4 (95.5%). Natural behavior matches S186 simulation within 0.5 lanes — the optimum is an attractor, not a constraint. No enforcement needed. Artifact: `experiments/operations-research/f-ops1-wip-validation-s506.json`. Successor: F-OPS2 (scheduling policy). (S186 opened, S506 resolved)
 - **S186 update**: implemented executable replay harness `tools/f_ops1_wip_limit.py` with regression coverage (`tools/test_f_ops1_wip_limit.py`, 4/4 pass). Latest artifact `experiments/operations-research/f-ops1-wip-limit-s186.json` replays 108 lane jobs over the observed horizon (`observed_peak_wip=9`) at caps `N=1..5`; current heuristic score recommends `cap=5` (net `0.3199`, yield `0.9630`, conflict `0.2520`, overhead `1.6351`).
 - **S186 multiswarm rerun**: expanded replay bound to `N=6` via `experiments/operations-research/f-ops1-wip-limit-s186-rerun.json`; heuristic recommendation moved to `cap=6` (net `0.3368`, yield `0.9623`, conflict `0.1993`, overhead `1.7260`). Interpretation: throughput stays high while conflict proxy drops, but recommendation remains at the tested upper bound.
 - **S186 rerun2 (A/B instrumentation)**: upgraded harness now emits explicit `ab_comparison` + `recommendation_confidence` (`tools/f_ops1_wip_limit.py`; tests 6/6) and produced `experiments/operations-research/f-ops1-wip-limit-s186-rerun2.json`. On current lane state (115 jobs), best heuristic cap is `4` (net `0.2837`) with LOW confidence due near-tie with `cap=5` (`gap=0.003`). Requested A/B block (`cap=3` vs `cap=5`) still favors `cap=5` for completion/spillover (`delta_yield +0.226`, `delta_spillover -0.2783`) but with higher overhead (`+0.5871`) and blocked-per-merged (`+0.175`).

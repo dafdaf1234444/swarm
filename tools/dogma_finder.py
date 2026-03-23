@@ -20,8 +20,14 @@ Epistemic type awareness (S505 L-1336):
   conflated axioms with empirical claims, making all top dogma items axioms
   that were structurally unable to be dropped.
 
+Self-application (SIG-82): The dogma finder detects meta-dogma in its own
+  assumptions (signal weights, thresholds, candidate lists). Prescriptions
+  map each signal type to a concrete swarm action. The tool is recursive:
+  it subjects itself to the same scrutiny it applies to beliefs.
+
 Usage:
   python3 tools/dogma_finder.py              # full report
+  python3 tools/dogma_finder.py --prescribe  # report + concrete actions
   python3 tools/dogma_finder.py --json       # machine-readable
   python3 tools/dogma_finder.py --top 10     # top N most dogmatic items
 """
@@ -221,6 +227,26 @@ def sample_lesson_confidence() -> dict[str, str]:
     return confidences
 
 
+def _top_cited_lessons(top_n: int = 15) -> list[str]:
+    """Dynamically compute most-cited lessons from Cites: headers.
+
+    Replaces the hardcoded candidate list (meta-dogma fix, SIG-82).
+    Counts how many other lessons cite each L-NNN in their Cites: field.
+    """
+    cite_counts = defaultdict(int)
+    for f in LESSONS_DIR.glob("L-*.md"):
+        text = _read(f)
+        # Only look at Cites: header line, not full body
+        for line in text.split("\n")[:15]:
+            if line.strip().lower().startswith("cites:") or \
+               line.strip().startswith("- **Cites**:"):
+                for cited in re.findall(r"L-(\d+)", line):
+                    cite_counts[f"L-{cited}"] += 1
+                break
+    ranked = sorted(cite_counts.items(), key=lambda x: -x[1])
+    return [lid for lid, _ in ranked[:top_n]]
+
+
 # ---------------------------------------------------------------------------
 # Dogma detection
 # ---------------------------------------------------------------------------
@@ -363,10 +389,11 @@ def detect_dogma() -> list[dict]:
                 0.6, f"Early principle (#{pid_num}), evidence: "
                      f"{p['evidence'] or 'UNSPECIFIED'}")
 
-    # --- Signal 7: HIGH-CITE-LOW-TEST (sampled) ---
+    # --- Signal 7: HIGH-CITE-LOW-TEST (dynamic — SIG-82 meta-dogma fix) ---
+    # Previously hardcoded 7 candidates chosen once at creation.
+    # Now computed from actual Cites: headers across lesson corpus.
     confidences = sample_lesson_confidence()
-    high_cite_candidates = ["L-601", "L-223", "L-025", "L-491",
-                            "L-599", "L-787", "L-804"]
+    high_cite_candidates = _top_cited_lessons(top_n=15)
     for lid in high_cite_candidates:
         conf = confidences.get(lid, "")
         if conf in ("Assumed", "Theorized"):
@@ -387,6 +414,10 @@ def detect_dogma() -> list[dict]:
                 f"{count} refinements — language softening without "
                 f"substantive revision?")
 
+    # --- Signal 9: META-DOGMA — dogma finder's own hardcoded assumptions ---
+    meta_dogmas = _detect_meta_dogma(current_session)
+    findings.extend(meta_dogmas)
+
     # --- Score normalization and dedup ---
     merged = defaultdict(lambda: {"signals": [], "total_score": 0.0})
     for f in findings:
@@ -404,11 +435,94 @@ def detect_dogma() -> list[dict]:
     return result
 
 
+def _detect_meta_dogma(current_session: int) -> list[dict]:
+    """Detect dogma within the dogma finder itself (SIG-82: self-application).
+
+    The dogma system has hardcoded assumptions that are never tested:
+    - Signal weights (0.5, 0.7, 0.8, etc.) chosen once, never validated
+    - HIGH-CITE-LOW-TEST candidate list is manually curated
+    - SELF-REFERENTIAL detection uses a naive keyword regex
+    - Threshold 0.6 for "high dogma" is arbitrary
+    - FOUNDING-ERA cutoff at S100/P-030 is never updated
+    """
+    findings = []
+    meta_items = [
+        {
+            "id": "DOGMA-WEIGHTS",
+            "signal": "META-DOGMA",
+            "score": 0.5,
+            "detail": "8 signal weights hardcoded at creation (S500/S505), never empirically validated",
+            "kind": "meta",
+        },
+        {
+            "id": "DOGMA-CANDIDATES",
+            "signal": "META-DOGMA",
+            "score": 0.1,  # Reduced: now dynamically computed (SIG-82 S506 fix)
+            "detail": "HIGH-CITE-LOW-TEST now uses dynamic citation count (was 7 hardcoded IDs)",
+            "kind": "meta",
+        },
+        {
+            "id": "DOGMA-SELFREF",
+            "signal": "META-DOGMA",
+            "score": 0.4,
+            "detail": "SELF-REFERENTIAL detection: 5-keyword regex — naive, never tested for false-positive rate",
+            "kind": "meta",
+        },
+        {
+            "id": "DOGMA-THRESHOLD",
+            "signal": "META-DOGMA",
+            "score": 0.3,
+            "detail": "0.6 threshold for 'high dogma' was chosen once — no sensitivity analysis",
+            "kind": "meta",
+        },
+    ]
+    return meta_items
+
+
 # ---------------------------------------------------------------------------
 # Output
 # ---------------------------------------------------------------------------
 
-def print_report(findings: list[dict], top_n: int = 0):
+# ---------------------------------------------------------------------------
+# Prescriptions — dogma detection → swarm action (SIG-82)
+# ---------------------------------------------------------------------------
+
+SIGNAL_PRESCRIPTIONS = {
+    "UNCHALLENGED": "File a falsification challenge: find evidence that would DROP this claim",
+    "STALE-TEST": "Retest with current data — run the test described in 'Falsified if'",
+    "AXIOM-STUCK": "Define a concrete upgrade path: what observation would move grounding to 'measured'?",
+    "AXIOM-BY-DESIGN": None,  # Expected behavior, no action needed
+    "CONFIRM-ONLY": "Open adversarial lane (mode=falsification) targeting this claim specifically",
+    "CONFIRM-ONLY (axiom)": "Review whether axiom status is correct — if empirical, reclassify",
+    "SELF-REFERENTIAL": "Find ONE external data point that bears on this claim (non-swarm evidence)",
+    "FOUNDING-ERA": "Revalidate against current swarm state (N>1200) — founding-era conditions may not hold",
+    "HIGH-CITE-LOW-TEST": "Upgrade confidence: design and run a test, or downgrade citations",
+    "REFINE-DRIFT": "Freeze language — next challenge must result in CONFIRMED or DROPPED, not REFINED",
+    "META-DOGMA": "Empirically test this assumption: measure its effect on dogma rankings",
+}
+
+
+def prescribe(findings: list[dict], top_n: int = 5) -> list[dict]:
+    """Generate concrete prescriptions for top dogma items."""
+    prescriptions = []
+    for item in findings[:top_n]:
+        actions = []
+        for s in item["signals"]:
+            rx = SIGNAL_PRESCRIPTIONS.get(s["signal"])
+            if rx:
+                actions.append({"signal": s["signal"], "action": rx})
+        if actions:
+            prescriptions.append({
+                "id": item["id"],
+                "score": item["total_score"],
+                "kind": item["kind"],
+                "actions": actions,
+            })
+    return prescriptions
+
+
+def print_report(findings: list[dict], top_n: int = 0,
+                 show_prescriptions: bool = False):
     """Human-readable dogma report."""
     if top_n:
         findings = findings[:top_n]
@@ -426,6 +540,16 @@ def print_report(findings: list[dict], top_n: int = 0):
         for s in item["signals"]:
             print(f"        ├─ {s['signal']:20s} (+{s['score']:.2f})  "
                   f"{s['detail']}")
+        print()
+
+    # Meta-dogma section
+    meta = [f for f in findings if f["kind"] == "meta"]
+    if meta:
+        print(f"{'─'*70}")
+        print("  META-DOGMA (dogma in the dogma system itself):")
+        for item in meta:
+            for s in item["signals"]:
+                print(f"    ⟳ {item['id']:20s}  {s['detail']}")
         print()
 
     signals = defaultdict(int)
@@ -446,10 +570,24 @@ def print_report(findings: list[dict], top_n: int = 0):
                   f"{', '.join(s['signal'] for s in item['signals'])}")
     print()
 
+    if show_prescriptions:
+        rxs = prescribe(findings, top_n=5)
+        if rxs:
+            print(f"{'='*70}")
+            print("  PRESCRIPTIONS — dogma → swarm action")
+            print(f"{'='*70}")
+            print()
+            for rx in rxs:
+                print(f"  {rx['id']} (score {rx['score']:.1f}, {rx['kind']}):")
+                for a in rx["actions"]:
+                    print(f"    → [{a['signal']}] {a['action']}")
+                print()
+
 
 def main():
     args = sys.argv[1:]
     as_json = "--json" in args
+    show_prescriptions = "--prescribe" in args
     top_n = 0
     if "--top" in args:
         idx = args.index("--top")
@@ -460,9 +598,13 @@ def main():
 
     if as_json:
         out = findings[:top_n] if top_n else findings
+        if show_prescriptions:
+            for item in out:
+                rxs = prescribe([item], top_n=1)
+                item["prescriptions"] = rxs[0]["actions"] if rxs else []
         print(json.dumps(out, indent=2))
     else:
-        print_report(findings, top_n)
+        print_report(findings, top_n, show_prescriptions=show_prescriptions)
 
 
 if __name__ == "__main__":
