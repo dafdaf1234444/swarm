@@ -17,6 +17,13 @@ except Exception:
     # tools/ cwd invocation (e.g., `cd tools && python3 test_mission_constraints.py`).
     import maintenance  # type: ignore
 
+# Import sub-modules as top-level names (matching how maintenance.py loads them
+# via `from maintenance_signals import ...`) so patch.object targets the same
+# module objects.  `tools.maintenance_signals` and `maintenance_signals` are
+# distinct sys.modules entries -- we need the latter.
+import maintenance_signals  # type: ignore
+import maintenance_common  # type: ignore
+
 
 def _write(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -103,13 +110,13 @@ class TestMissionConstraintInvariantChecks(unittest.TestCase):
                 return check_sh_text
             return ""
 
-        with patch.object(maintenance, "_read", side_effect=fake_read), \
-             patch.object(maintenance, "_python_command_runs", return_value=python_ok), \
-             patch.object(maintenance, "_py_launcher_runs", return_value=False), \
-             patch.object(maintenance, "_exists", return_value=True), \
-             patch.object(maintenance, "_command_exists", return_value=True), \
-             patch.object(maintenance, "_session_number", return_value=200), \
-             patch.object(maintenance, "_git", return_value=git_status):
+        with patch.object(maintenance_signals, "_read", side_effect=fake_read), \
+             patch.object(maintenance_signals, "_python_command_runs", return_value=python_ok), \
+             patch.object(maintenance_signals, "_py_launcher_runs", return_value=False), \
+             patch.object(maintenance_signals, "_exists", return_value=True), \
+             patch.object(maintenance_signals, "_command_exists", return_value=True), \
+             patch.object(maintenance_signals, "_session_number", return_value=200), \
+             patch.object(maintenance_signals, "_tracked_changed_paths", return_value=[p.strip().split()[-1] for p in git_status.strip().splitlines() if p.strip()]):
             return maintenance.check_mission_constraints()
 
     def test_duplicate_invariant_ids_flagged(self):
@@ -242,9 +249,9 @@ class TestSessionLogIntegrityBackfill(unittest.TestCase):
 
 class TestSwarmLaneCoordinationSignals(unittest.TestCase):
     def _run_check(self, lanes_text: str, *, session: int = 200) -> list[tuple[str, str]]:
-        with patch.object(maintenance, "_read", return_value=lanes_text), patch.object(
-            maintenance, "_session_number", return_value=session
-        ):
+        with patch.object(maintenance_common, "_read", return_value=lanes_text), \
+             patch.object(maintenance_common, "_session_number", return_value=session), \
+             patch.object(maintenance, "_session_number", return_value=session):
             return maintenance.check_swarm_lanes()
 
     def test_active_lane_missing_setup_focus_is_noticed(self):
@@ -384,7 +391,7 @@ class TestSwarmLaneCoordinationSignals(unittest.TestCase):
 
 class TestSwarmLaneReportingQualitySignals(unittest.TestCase):
     def _run_check(self, lanes_text: str) -> list[tuple[str, str]]:
-        with patch.object(maintenance, "_read", return_value=lanes_text):
+        with patch.object(maintenance_common, "_read", return_value=lanes_text):
             return maintenance.check_lane_reporting_quality()
 
     def test_missing_explicit_fields_is_due_when_not_dispatchable(self):
@@ -455,7 +462,7 @@ class TestSwarmLaneReportingQualitySignals(unittest.TestCase):
 
 class TestSwarmCoordinatorSignals(unittest.TestCase):
     def _run_check(self, lanes_text: str) -> list[tuple[str, str]]:
-        with patch.object(maintenance, "_read", return_value=lanes_text):
+        with patch.object(maintenance_common, "_read", return_value=lanes_text):
             return maintenance.check_swarm_coordinator()
 
     def test_dispatch_fanout_without_coordinator_is_due(self):
@@ -578,13 +585,13 @@ class TestMissionConstraintDegradedRuntime(unittest.TestCase):
                 return pwsh_available
             return True
 
-        with patch.object(maintenance, "_read", side_effect=fake_read), \
-             patch.object(maintenance, "_python_command_runs", side_effect=fake_python_command_runs), \
-             patch.object(maintenance, "_py_launcher_runs", return_value=py_launcher), \
-             patch.object(maintenance, "_exists", side_effect=fake_exists), \
-             patch.object(maintenance, "_command_exists", side_effect=fake_command_exists), \
-             patch.object(maintenance, "_session_number", return_value=session), \
-             patch.object(maintenance, "_git", return_value=""):
+        with patch.object(maintenance_signals, "_read", side_effect=fake_read), \
+             patch.object(maintenance_signals, "_python_command_runs", side_effect=fake_python_command_runs), \
+             patch.object(maintenance_signals, "_py_launcher_runs", return_value=py_launcher), \
+             patch.object(maintenance_signals, "_exists", side_effect=fake_exists), \
+             patch.object(maintenance_signals, "_command_exists", side_effect=fake_command_exists), \
+             patch.object(maintenance_signals, "_session_number", return_value=session), \
+             patch.object(maintenance_signals, "_tracked_changed_paths", return_value=[]):
             return maintenance.check_mission_constraints()
 
     def test_runtime_portability_without_fallback_is_due(self):
@@ -669,17 +676,12 @@ class TestMissionConstraintDegradedRuntimeE2E(unittest.TestCase):
             (root / "tasks/PR-QUEUE.json").unlink(missing_ok=True)
             (root / "tasks/SWARM-LANES.md").unlink(missing_ok=True)
 
-            with patch.object(maintenance, "REPO_ROOT", root), patch.object(
-                maintenance, "_git", return_value=""
-            ), patch.object(
-                maintenance, "_python_command_runs", side_effect=lambda cmd: cmd in {"python3", "python"}
-            ), patch.object(
-                maintenance, "_py_launcher_runs", return_value=False
-            ), patch.object(
-                maintenance, "_command_exists", return_value=True
-            ), patch.object(
-                maintenance, "_command_runs", return_value=True
-            ):
+            with patch.object(maintenance_signals, "REPO_ROOT", root), \
+                 patch.object(maintenance_common, "REPO_ROOT", root), \
+                 patch.object(maintenance_signals, "_tracked_changed_paths", return_value=[]), \
+                 patch.object(maintenance_signals, "_python_command_runs", side_effect=lambda cmd: cmd in {"python3", "python"}), \
+                 patch.object(maintenance_signals, "_py_launcher_runs", return_value=False), \
+                 patch.object(maintenance_signals, "_command_exists", return_value=True):
                 results = maintenance.check_mission_constraints()
 
         messages = [msg for _, msg in results]
@@ -705,17 +707,12 @@ class TestMissionConstraintDegradedRuntimeE2E(unittest.TestCase):
                 "|---|---|---|---|---|---|---|---|---|---|---|---|\n",
             )
 
-            with patch.object(maintenance, "REPO_ROOT", root), patch.object(
-                maintenance, "_git", return_value=""
-            ), patch.object(
-                maintenance, "_python_command_runs", side_effect=lambda cmd: cmd in {"python3", "python"}
-            ), patch.object(
-                maintenance, "_py_launcher_runs", return_value=False
-            ), patch.object(
-                maintenance, "_command_exists", return_value=True
-            ), patch.object(
-                maintenance, "_command_runs", return_value=True
-            ):
+            with patch.object(maintenance_signals, "REPO_ROOT", root), \
+                 patch.object(maintenance_common, "REPO_ROOT", root), \
+                 patch.object(maintenance_signals, "_tracked_changed_paths", return_value=[]), \
+                 patch.object(maintenance_signals, "_python_command_runs", side_effect=lambda cmd: cmd in {"python3", "python"}), \
+                 patch.object(maintenance_signals, "_py_launcher_runs", return_value=False), \
+                 patch.object(maintenance_signals, "_command_exists", return_value=True):
                 results = maintenance.check_mission_constraints()
 
         messages = [msg for _, msg in results]
@@ -742,17 +739,12 @@ class TestMissionConstraintDegradedRuntimeE2E(unittest.TestCase):
                     return True
                 return True
 
-            with patch.object(maintenance, "REPO_ROOT", root), patch.object(
-                maintenance, "_git", return_value=""
-            ), patch.object(
-                maintenance, "_python_command_runs", return_value=False
-            ), patch.object(
-                maintenance, "_py_launcher_runs", return_value=False
-            ), patch.object(
-                maintenance, "_command_exists", side_effect=fake_command_exists
-            ), patch.object(
-                maintenance, "_command_runs", return_value=True
-            ):
+            with patch.object(maintenance_signals, "REPO_ROOT", root), \
+                 patch.object(maintenance_common, "REPO_ROOT", root), \
+                 patch.object(maintenance_signals, "_tracked_changed_paths", return_value=[]), \
+                 patch.object(maintenance_signals, "_python_command_runs", return_value=False), \
+                 patch.object(maintenance_signals, "_py_launcher_runs", return_value=False), \
+                 patch.object(maintenance_signals, "_command_exists", side_effect=fake_command_exists):
                 results = maintenance.check_mission_constraints()
 
         messages = [msg for _, msg in results]
@@ -807,14 +799,14 @@ class TestRuntimePortabilityFallbacks(unittest.TestCase):
             }
             return py_map.get(cmd, False)
 
-        with patch.object(maintenance, "_exists", side_effect=fake_exists):
-            with patch.object(maintenance, "_command_exists", side_effect=fake_command_exists):
-                with patch.object(maintenance, "_python_command_runs", side_effect=fake_python_command_runs):
-                    with patch.object(maintenance, "_py_launcher_runs", return_value=has_py_launcher):
-                        with patch.object(maintenance, "_is_wsl_mnt_repo", return_value=False):
-                            with patch.object(maintenance, "_git", return_value=""):
-                                with patch.object(maintenance, "_read", return_value="SWARM.md\nswarm signaling\n"):
-                                    return maintenance.check_runtime_portability()
+        with patch.object(maintenance, "_exists", side_effect=fake_exists), \
+             patch.object(maintenance, "_command_exists", side_effect=fake_command_exists), \
+             patch.object(maintenance, "_python_command_runs", side_effect=fake_python_command_runs), \
+             patch.object(maintenance, "_py_launcher_runs", return_value=has_py_launcher), \
+             patch.object(maintenance_common, "_is_wsl_mnt_repo", return_value=False), \
+             patch.object(maintenance, "_git", return_value=""), \
+             patch.object(maintenance, "_read", return_value="SWARM.md\nswarm signaling\n"):
+            return maintenance.check_runtime_portability()
 
     def test_no_bash_uses_powershell_wrappers_when_python_available(self):
         results = self._run_portability(
