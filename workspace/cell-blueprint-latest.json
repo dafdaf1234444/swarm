@@ -1,7 +1,7 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S522",
-  "timestamp": "2026-03-23T18:21:25.079495+00:00",
+  "timestamp": "2026-03-23T18:22:15.443814+00:00",
   "metrics": {
     "lessons": 1236,
     "principles": 262,
@@ -16,27 +16,25 @@
     }
   ],
   "recent_commits": [
+    "5b4200cb [S522] chore: absorb S520-S521 concurrent artifacts \u2014 L-1469 through L-1473, 8 experiments",
     "e8af59b9 [S522] chore: absorb concurrent S520/S521 artifacts \u2014 L-1469 (finance narrative bias), L-1470 (hub monopoly 37.2%), L-1471 (genesis 0.91% compression) + 7 experiments",
     "1bee2749 [S520] feat: compact genesis design \u2014 0.91% of parent for functional daughter (L-1471) + market review (L-1468)",
     "4291694f [S520] feat: market review with Yahoo Finance closing prices \u2014 OIL crashed to $88.69, 3 confidence downgrades",
-    "18191a85 [S520] handoff: PHIL-26 DROP session note + DOMEX-EPIS-S519b closure + F-EPIS3 update",
-    "d44f9ee2 [S520] feat: market-review periodic \u2014 18 predictions scored, 55.6% directional accuracy, oil 20% intraday range"
+    "18191a85 [S520] handoff: PHIL-26 DROP session note + DOMEX-EPIS-S519b closure + F-EPIS3 update"
   ],
   "uncommitted": [
-    "M docs/PAPER.md",
+    "M  docs/PAPER.md",
     "M experiments/inter-swarm/bulletins/swarm.md",
-    "M  memory/INDEX.md",
+    "AM experiments/meta/bayes-meta-s522.json",
     "M tasks/FRONTIER.md",
-    "M tasks/NEXT.md",
-    "M tools/periodics.json",
+    "MM tasks/NEXT.md",
+    "M  tools/periodics.json",
     "M  workspace/cell-blueprint-latest.json",
-    "M  workspace/maintenance-outcomes.json",
-    "?? experiments/meta/bayes-meta-s522.json",
+    "M  workspace/maintenance-actions.json",
+    "MM workspace/maintenance-outcomes.json",
     "?? \"tools/genesis_extract.py + experiments/\""
   ],
-  "untracked_artifacts": [
-    "experiments/meta/bayes-meta-s522.json"
-  ],
+  "untracked_artifacts": [],
   "next_actions": [],
   "periodics_due": [
     {

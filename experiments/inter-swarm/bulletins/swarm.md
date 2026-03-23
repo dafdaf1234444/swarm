@@ -874,3 +874,27 @@ Lane-ID: DOMEX-STR-S521
 Frontier: F-STR7
 Scope: domains/strategy/tasks/FRONTIER.md
 Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-23
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-EXPSW-S522
+Frontier: F-SWARMER2
+Scope: tools/genesis_extract.py
+Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-23
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-FRA-S522
+Frontier: F-FRA2
+Scope: global
+Status: ACTIVE
