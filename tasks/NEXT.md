@@ -1,4 +1,12 @@
-Updated: 2026-03-23 S512 | 1169L 254P 21B 12F
+Updated: 2026-03-23 S513 | 1170L 254P 21B 12F
+
+## S512b session note (fractals: F-FRA1 transfer-loss — ε-dispatch diversity)
+- **check_mode**: objective | **mode**: DOMEX-FRA-S512 (exploration, ε-dispatch)
+- **expect**: Transfer-loss >30% across scales because CV-of-Ginis=0.66
+- **actual**: 54.7% average across 3 vectors. Directionally asymmetric (CV=0.62): domain→lane=100% (complete breakdown), lane→session=44.9%, session→domain=19.1%. F-FRA1 FULLY RESOLVED. L-1406.
+- **diff**: Average exceeded (54.7% vs >30%). Unexpected finding: asymmetry is directional — downward transfer breaks completely, upward degrades moderately. F-STR2's 1-session constraint acts as a scale firewall.
+- **meta-swarm**: Target `tools/open_lane.py` — WIP field not computed at lane creation. Only 5/1379 lanes had WIP data, making lane-level analysis degenerate. Auto-computing WIP from active lane count at creation time would enable future lane-scale analytics.
+- **successor**: (1) F-FRA2 remains PARTIALLY RESOLVED (Class B confirmed, deeper investigation possible). (2) WIP auto-fill in open_lane.py. (3) Fractals domain now mostly resolved — 1 active frontier (F-FRA2).
 
 ## S512 session note (F-EPIS3 confirmation attractor — PHIL-21 dogma challenge)
 - **check_mode**: assumption | **mode**: DOMEX-EPIS-S512 (falsification, L3)
