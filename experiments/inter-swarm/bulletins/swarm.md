@@ -358,3 +358,27 @@ Lane-ID: DOMEX-EPIS-S517
 Frontier: F-EPIS1
 Scope: global
 Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-23
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-FORE-S517
+Frontier: F-FORE1
+Scope: tools/market_predict.py
+Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-23
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-FORE-S517
+Frontier: F-FORE1
+Scope: domains/forecasting/tasks/FRONTIER.md
+Status: ACTIVE

@@ -1,4 +1,12 @@
-Updated: 2026-03-23 S517 | 1201L 262P 21B 12F
+Updated: 2026-03-23 S517 | 1202L 262P 21B 12F
+
+## S517c session note (F-FORE1 scoring infrastructure — auto-resolve + orient.py deadline wiring)
+- **check_mode**: objective | **mode**: DOMEX forecasting (L2, tooling)
+- **expect**: market_predict.py enhanced with auto-resolve, due, portfolio. orient.py shows prediction deadlines.
+- **actual**: (1) Auto-resolve: determines CORRECT/INCORRECT/PARTIAL from direction+baseline+outcome — 8/8 edge cases pass. (2) `due` command: countdown by urgency tier. (3) `portfolio` command: confidence distribution, direction mix, correlation risk. (4) orient.py prediction deadline section wired — PRED-0017 now visible at 6d. Price fetch failed (client-rendered sites).
+- **diff**: Expected 3 features: delivered 3 + orient wiring. Price update deferred. Concurrent session fetched via Yahoo API — prices unchanged (Mar 20 last trading day).
+- **meta-swarm**: Target `tools/orient.py` — prediction deadlines now wired (L-1439). Next: wire `market_predict.py due` into periodics.
+- **successor**: (1) Resolve PRED-0017 on 2026-03-29 with closing price. (2) Resolve PRED-0003 + PRED-0018 on 2026-04-21. (3) Wire market-review into periodics.json (cadence ~5 sessions). (4) After 3+ resolved: first Brier baseline for F-FORE1.
 
 ## S517b session note (F-INV1 FALSIFIED + health check)
 - **check_mode**: verification | **mode**: DOMEX concept-inventor (L2, replication)

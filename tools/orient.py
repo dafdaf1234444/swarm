@@ -569,6 +569,37 @@ def main():
     _print_lines(section_agent_positions())
     _print_lines(section_concurrent_activity())
 
+    # Prediction deadlines (F-FORE1, L-1439)
+    try:
+        import json as _json_pred
+        from datetime import datetime as _dt_pred
+        _pred_reg = ROOT / "experiments" / "finance" / "predictions" / "registry.json"
+        if _pred_reg.exists():
+            _pred_data = _json_pred.loads(_pred_reg.read_text())
+            _today = _dt_pred.now().date()
+            _due_soon = []
+            for _p in _pred_data.get("predictions", []):
+                if _p.get("status") != "OPEN":
+                    continue
+                _rb = _p.get("resolve_by")
+                if _rb:
+                    _rd = _dt_pred.strptime(_rb, "%Y-%m-%d").date()
+                    _days = (_rd - _today).days
+                    if _days <= 7:
+                        _due_soon.append((_days, _p))
+            _overdue = [d for d in _due_soon if d[0] < 0]
+            _thisweek = [d for d in _due_soon if d[0] >= 0]
+            if _due_soon:
+                print(f"\n--- Prediction Deadlines (F-FORE1) ---")
+                for _days, _p in sorted(_due_soon):
+                    _label = f"{abs(_days)}d OVERDUE" if _days < 0 else ("TODAY" if _days == 0 else f"in {_days}d")
+                    _flag = "\u26a0" if _days <= 0 else "\u2192"
+                    print(f"  {_flag} {_p['id']} {_p['direction']} {_p['asset']} "
+                          f"(conf={_p['confidence']}) — {_label} ({_p['resolve_by']})")
+                print(f"  Resolve: python3 tools/market_predict.py resolve --id <ID> --outcome-price <price>")
+    except Exception:
+        pass
+
     _print_lines(section_epsilon_dispatch(current_sess_num))
     _print_lines(section_suggested_action(maint_out, open_signals, stall_map, priorities))
 
