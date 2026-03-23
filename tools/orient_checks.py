@@ -201,7 +201,7 @@ def check_stale_infrastructure(current_session, ROOT, CORE_SWARM_TOOLS, _hcache=
 
     result = subprocess.run(
         ["git", "log", "--format=%s", "--name-only", "-200"],
-        capture_output=True, text=True, cwd=ROOT, timeout=10,
+        capture_output=True, text=True, cwd=ROOT, timeout=30,
     )
     if result.returncode != 0:
         return []

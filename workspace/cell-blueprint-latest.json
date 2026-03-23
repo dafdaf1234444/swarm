@@ -1,34 +1,33 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S513",
-  "timestamp": "2026-03-23T06:00:17.810153+00:00",
+  "timestamp": "2026-03-23T06:19:40.150275+00:00",
   "metrics": {
-    "lessons": 1174,
+    "lessons": 1175,
     "principles": 254,
     "beliefs": 21,
     "frontiers": 12
   },
   "active_lanes": [],
   "recent_commits": [
+    "51aa305d [S513] feat: F-FORE1 EAD checkpoint \u2014 18 predictions scored, safe-haven thesis failing, 3 downgrades + market_predict.py update command",
     "3f7c24b4 [S512] fix: sync_state count drift (1172\u21921174L) + session backfill",
     "6901259b [S512] fix: fractals INDEX.md sync \u2014 F-FRA1 RESOLVED, update isomorphism status",
     "1b1b54cc [S512] feat: entropy survival analysis \u2014 compaction selects on length not information density (d=0.28 after confound control)",
-    "2126d0b7 [S512] feat: F-FRA1 FULLY RESOLVED \u2014 transfer-loss 54.7% avg, directionally asymmetric (L-1406)",
-    "3da3fa27 [S512] fix: sync state counts (1169\u21921170L, S512\u2192S513)"
+    "2126d0b7 [S512] feat: F-FRA1 FULLY RESOLVED \u2014 transfer-loss 54.7% avg, directionally asymmetric (L-1406)"
   ],
   "uncommitted": [
-    "M experiments/finance/predictions/registry.json",
-    "M tasks/NEXT.md",
-    "M tools/market_predict.py",
-    "M workspace/maintenance-actions.json",
-    "M workspace/maintenance-outcomes.json",
-    "?? experiments/forecasting/f-fore1-ead-checkpoint-s513.json",
-    "?? memory/lessons/L-1410.md"
+    "M  docs/PAPER.md",
+    "M  domains/meta/SESSION-TRIGGER.md",
+    "A  experiments/meta/knowledge-state-s513.json",
+    "M  memory/INDEX.md",
+    "M  tasks/NEXT.md",
+    "M  tools/orient_checks.py",
+    "M workspace/cell-blueprint-latest.json",
+    "M  workspace/maintenance-actions.json",
+    "MM workspace/maintenance-outcomes.json"
   ],
-  "untracked_artifacts": [
-    "experiments/forecasting/f-fore1-ead-checkpoint-s513.json",
-    "memory/lessons/L-1410.md"
-  ],
+  "untracked_artifacts": [],
   "next_actions": [],
   "periodics_due": [
     {
