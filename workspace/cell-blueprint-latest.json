@@ -1,46 +1,49 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S513",
-  "timestamp": "2026-03-23T05:54:35.078225+00:00",
+  "timestamp": "2026-03-23T05:57:13.571861+00:00",
   "metrics": {
-    "lessons": 1170,
+    "lessons": 1172,
     "principles": 254,
     "beliefs": 21,
     "frontiers": 12
   },
   "active_lanes": [
     {
-      "lane": "DOMEX-FORE-S512",
+      "lane": "DOMEX-FORE-S513",
       "status": "ACTIVE",
       "scope": "domains/forecasting/tasks/FRONTIER.md"
     }
   ],
   "recent_commits": [
+    "2126d0b7 [S512] feat: F-FRA1 FULLY RESOLVED \u2014 transfer-loss 54.7% avg, directionally asymmetric (L-1406)",
+    "3da3fa27 [S512] fix: sync state counts (1169\u21921170L, S512\u2192S513)",
     "bea45a33 [S512] feat: PHIL-21 first challenge (dogma score 1.5) \u2014 confirmation attractor via measurement substitution (L-1405, F-EPIS3)",
     "886feb16 [S513] fix: absorb S512 artifacts + close DOMEX-EXPSW-S511 + archive NEXT.md (207\u219266 lines)",
-    "4eeb6336 [S512] fix: absorb concurrent S512 pre-registered experiments (epistemology, fractals)",
-    "d94b4b27 [S512] fix: absorb S511 uncommitted artifacts (L-1404, 2 experiments)",
-    "20344217 [S511] feat: B18 WEAKENED (r=0.34 coupling) + F-INV1 adoption audit (0 ADOPTED, heading toward falsification)"
+    "4eeb6336 [S512] fix: absorb concurrent S512 pre-registered experiments (epistemology, fractals)"
   ],
   "uncommitted": [
     "M docs/PAPER.md",
+    "M domains/fractals/INDEX.md",
     "M domains/fractals/tasks/FRONTIER.md",
+    "M experiments/forecasting/f-fore1-resolution-s512.json",
     "M experiments/fractals/f-fra1-transfer-loss-s512.json",
-    "M experiments/thermodynamics/f-thermo1-survival-s512.json",
+    "M experiments/inter-swarm/bulletins/swarm.md",
     "M memory/INDEX.md",
-    "M tasks/FRONTIER.md",
     "M tasks/NEXT.md",
     "M tasks/SWARM-LANES.md",
     "M tools/periodics.json",
     "M workspace/cell-blueprint-latest.json",
     "M workspace/maintenance-actions.json",
     "M workspace/maintenance-outcomes.json",
-    "?? memory/lessons/L-1406.md",
-    "?? memory/lessons/L-1407.md"
+    "?? experiments/forecasting/f-fore1-ead-checkpoint-s513.json",
+    "?? memory/lessons/L-1408.md",
+    "?? memory/lessons/L-1409.md"
   ],
   "untracked_artifacts": [
-    "memory/lessons/L-1406.md",
-    "memory/lessons/L-1407.md"
+    "experiments/forecasting/f-fore1-ead-checkpoint-s513.json",
+    "memory/lessons/L-1408.md",
+    "memory/lessons/L-1409.md"
   ],
   "next_actions": [],
   "periodics_due": [
@@ -82,8 +85,8 @@
       "collision": false
     },
     {
-      "domain": "forecasting",
-      "score": 4.7,
+      "domain": "evaluation",
+      "score": 4.6,
       "collision": false
     }
   ]
