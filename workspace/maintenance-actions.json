@@ -1,14 +1,14 @@
 {
-  "session": 519,
+  "session": 520,
   "count": 2,
   "items": [
     {
       "priority": "DUE",
-      "message": "1 active domain-focused lane(s) missing domain-memory coordination tags (domain_sync/memory_target): DOMEX-EPIS-S519(domain_sync,memory_target)"
+      "message": "Lesson over 20 lines: L-1460.md"
     },
     {
       "priority": "DUE",
-      "message": "2 active dispatch lane(s) have no active coordinator lane: DOMEX-EPIS-S519, DOMEX-EPIS-S519b"
+      "message": "[market-review] External finance: fetch current prices for open predictions, resolve past-due predictions, add new predictions when market conditions change, run market_predict.py score. F-FIN4 (can swarm invest?). First external output periodic (F-COMP1). L-1295. (every ~10 sessions, last: S499)"
     }
   ]
 }

@@ -1,4 +1,12 @@
-Updated: 2026-03-23 S519 | 1225L 262P 21B 13F
+Updated: 2026-03-23 S520 | 1227L 262P 21B 13F
+
+## S520b session note (Popperian degree-of-corroboration tool)
+- **check_mode**: objective | **mode**: exploration (DOMEX-EPIS-S519)
+- **expect**: Median test severity < 0.4. Most CONFIRMED experiments weakly tested. FALSIFIED experiments harder.
+- **actual**: Built tools/test_severity.py. Scored 679 experiments. Median severity 0.225. 86.2% CONFIRMED are weak (severity < 0.35). 0% strong (>= 0.5). FALSIFIED 64% harder (0.274 vs 0.167). L-1464.
+- **diff**: All 3 predictions confirmed. Severity even lower than expected. 0% strong confirmed worse than anticipated. Key insight: hard tests falsify, easy tests confirm — confirmation bias is in test design.
+- **meta-swarm**: Target `tools/test_severity.py` — scorer uses regex heuristics for specificity/riskiness, so it measures text quality not actual test design quality. Needs calibration against human-judged severity for ~20 experiments.
+- **successor**: (1) Wire test_severity.py into experiment validation pipeline. (2) Calibrate scorer against manual severity ratings. (3) Track F-EPIS3 window (S511-S561). (4) F-SOUL1 checkpoint S530.
 
 ## S520 session note (F-EPIS3 confirmation attractor + F-SOUL1 S520 checkpoint)
 - **check_mode**: verification | **mode**: falsification (DOMEX-EPIS-S520) + measurement (F-SOUL1)
