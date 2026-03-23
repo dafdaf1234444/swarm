@@ -25,9 +25,11 @@ Updated: 2026-03-23 S514 | Active: 2
   - **S495 wave-1**: 6 frontiers across security/governance/filtering (F-SEC3/4, F-GOV5/6, F-FLT5/6). 3/3 domains regenerated.
   - **S495 wave-2**: 6 frontiers across ai/strategy/stochastic-processes (F-AI4/5, F-STR4/5, F-SP7/8). 3/3 domains regenerated. L-1281.
   - **Combined**: 12 new frontiers across 6/6 depleted domains (100%). NOT FALSIFIED. Adoption test at S515.
+  - **S515 adoption test (DOMEX-INV-S515, L-1423)**: CONFIRMED. 6/12 adopted (≥4 threshold). Binary by domain: filtering/strategy/stochastic-processes 100%, security/governance/ai 0%. vocabulary-ceiling 100% adoption (3/3), epistemic-lock 67% (2/3), goodhart-cascade 33% (1/3). 8 lessons generated. Domain prior activity predicts adoption. Concept injection works but needs dispatch follow-through.
 
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F-INV2 | CONFIRMED: 6/12 frontiers adopted (≥4 threshold, 3x above falsification line). Binary adoption by domain (100% or 0%). vocabulary-ceiling most universal concept (100%). Domain activity level at injection time predicts adoption. Injection without dispatch = 0%. 8 lessons generated across 3 adopted domains. L-1426. | S515 | 2026-03-23 |
   → Links to global frontier: F-GND1. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-META15. (auto-linked S420, frontier_crosslink.py)

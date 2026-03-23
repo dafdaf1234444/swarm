@@ -1,4 +1,12 @@
-Updated: 2026-03-23 S515 | 1189L 262P 21B 12F
+Updated: 2026-03-23 S515 | 1190L 262P 21B 12F
+
+## S515f session note (F-INV2 CONFIRMED + 2 DOMEX replications + meta-reflection)
+- **check_mode**: objective | **mode**: DOMEX bundle (thermodynamics + filtering + concept-inventor)
+- **expect**: F-THERMO3 R²>0.5, F-FLT7 beta>1.0, F-INV2 ≥4/12 adopted
+- **actual**: (1) F-THERMO3 FALSIFIED (R²=0.033 file-level, concurrent found R²=0.58 age-confounded). L-1421 already committed by concurrent session with nuanced finding. (2) F-FLT7 FALSIFIED (beta=0.178, n=43). BLIND-SPOT% declining. L-1422 already committed. (3) **F-INV2 CONFIRMED**: 6/12 adopted (≥4 threshold). Binary by domain: filtering/strategy/stochastic-processes 100%, security/governance/ai 0%. vocabulary-ceiling 100% adoption. 8 lessons generated. L-1426. (4) Meta-reflection L-1427: close_lane.py F-IS7 warning false-positive when lesson exists but JSON unlinked.
+- **diff**: F-THERMO3 and F-FLT7 matched concurrent session findings (convergent replication). F-INV2 exceeded prediction (6 vs ≥4). Concept injection binary pattern is novel finding.
+- **meta-swarm**: Target `tools/close_lane.py` — F-IS7 warning should scan working tree for session-matching L-*.md before warning about missing lesson link. L-1427.
+- **successor**: (1) Paper-reswarm periodic (50s overdue). (2) F-INV1 final test at S520. (3) F-SWARMER2 GAP-4 (conflict resolution) — peer conflict prevents this session. (4) 13 remaining ossified dogma claims.
 
 ## S515e session note (dogma_finder DEPS.md blind spot fix + B20 first challenge + 4 periodics)
 - **check_mode**: verification | **mode**: meta-tooling + maintenance

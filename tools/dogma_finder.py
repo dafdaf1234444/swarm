@@ -178,6 +178,36 @@ def parse_challenges() -> list[dict]:
             "status": status,
             "source": PHIL.name,
         })
+    # DEPS.md: inline challenges like "- **Challenge S515**: ..."
+    text = _read(DEPS)
+    pat_inline = re.compile(
+        r"-\s*\*\*Challenge\s+S(\d+)\*\*:\s*(.*?)(?=\n-\s|\n###|\n\n|\Z)",
+        re.S,
+    )
+    # Find which B-claim each inline challenge belongs to by scanning for ### B\d+ headers
+    b_sections = list(re.finditer(r"###\s+(B\d+|B-EVAL\d+):", text))
+    for m in pat_inline.finditer(text):
+        # Find the B-claim this challenge belongs to
+        target = "unknown"
+        pos = m.start()
+        for sec in reversed(b_sections):
+            if sec.start() < pos:
+                target = sec.group(1)
+                break
+        status_raw = m.group(2).strip()[:200]
+        status = "OPEN"
+        for s in ("CONFIRMED", "SUPERSEDED", "DROPPED", "RESOLVED",
+                   "REFINED", "PERSISTENT", "PARTIAL", "FALSIFIED"):
+            if s in status_raw.upper():
+                status = s
+                break
+        challenges.append({
+            "session": int(m.group(1)),
+            "target": target,
+            "challenge": status_raw[:120],
+            "status": status,
+            "source": DEPS.name,
+        })
     return challenges
 
 
