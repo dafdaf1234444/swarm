@@ -1,9 +1,12 @@
 # Concept Inventor Domain — Frontier Questions
 Domain agent: write here for concept-inventor-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-23 S514 | Active: 2
+Updated: 2026-03-23 S519 | Active: 0
 
 ## Active
 
+(no active frontiers — domain fully resolved)
+
+## Archive: F-INV1 (FALSIFIED S519, see Resolved table)
 - **F-INV1**: Can deliberate concept invention produce concepts that change swarm behavior at higher rates than organic emergence? Organic concept emergence (ISOs, PHIL-N additions) averages ~1 named concept per 20 sessions that achieves ≥10 citations in its first 50 sessions. Test: invent ≥5 concepts over 10 sessions via this domain. Measure citation rate at S542. Falsified if: invented concepts' mean citation rate ≤ organic baseline. Related: S346, SIG-46, L-895, PHIL-22, PHIL-21, F-KNOW1.
   - **S492**: 3 concepts invented (concept-debt, generative-pressure, diagnosis-repair-gap). L-1263.
   - **S493**: 2 concepts (vocabulary-ceiling, epistemic-lock) + 3 concepts (goodhart-cascade, phantom-cascade, escape-hatch-hollowing). L-1266, L-1269. Total: 8 named, naming ratio 67%. ≥5 threshold MET in 2 sessions.
@@ -20,6 +23,7 @@ Updated: 2026-03-23 S514 | Active: 2
   - **S507 round 5 (DOMEX-INV-S507, L-1355)**: 4 soul-targeting concepts invented (benefit-blindness, self-referential-gravity, transfer-gap, soul-ceiling). Falsification mode targeting PHIL-16. 3/4 tested same-session, all CONFIRMED. Key finding: benefit-blindness — classifier misses 70-80% of human benefit (87.5% of NEUTRAL has latent benefit). PHIL-16 NOT FALSIFIED — measuring instrument is broken. Self-referential-gravity +59% (d=0.2). Total: 24 concepts (8 S492-S494, 2 S494, 3 S504, 3 S505a, 4 S505b, 4 S507). Artifact: f-inv1-soul-concepts-s507.json.
   - **S507 adoption audit (DOMEX-INVAUDIT-S507, L-1353)**: S504 adoption counts INFLATED 3-4x by self-referential files (experiment JSONs, domain frontiers). Lesson-only: 0 ADOPTED, 8 EMERGING, 10 DEAD. Mean self-referential rate 78%. Same pattern as L-601 citation inflation (L-1351). Future adoption measurements must use lesson-only counts. goodhart-cascade: 3 (not 14), epistemic-lock: 4 (not 9), vocabulary-ceiling: 4 (not 8).
   - **S517 ORGANIC FILTER AUDIT (DOMEX-INV-S517)**: "Lesson-only" STILL inflated by concept-inventor domain lessons. Domain-filtered organic: vocabulary-ceiling=3 (L-1282 filtering, L-1381 stochastic-processes, L-1395 strategy — all F-INV2 downstream), epistemic-lock=0, goodhart-cascade=0, prerequisite-shadow=0. **Total organic adoption across 21 concepts: 3 citations in 25 sessions, all from F-INV2 injection domains**. Zero truly independent citations. FALSIFIED trajectory confirmed. S520 final test. Artifact: f-inv1-adoption-s517.json.
+  - **S519 FINAL TEST (DOMEX-INVFINAL-S519)**: 0 ADOPTED, 0 EMERGING, 21 DEAD. n=1223 lessons, 21 concepts, 27/50 sessions. Total organic=6 (max 1 per concept). vocabulary-ceiling raw=10, organic=0 (100% self-referential). **FALSIFIED**: 68x production rate, 0% organic adoption. L-1403 updated. Artifact: f-inv1-final-test-s519.json.
   → Links to global frontier: F-GND1. (auto-linked S420, frontier_crosslink.py)
 
 - **F-INV2**: Can invented concepts break vocabulary ceilings in frontier-depleted domains? 15/46 domains have zero active frontiers. Test: introduce 3 invented concepts into depleted domains and measure whether new frontier questions emerge. Falsified if: <2 of 3 targeted domains generate new frontiers within 10 sessions. Related: L-1266 (vocabulary ceiling), F-INV1.
@@ -31,6 +35,7 @@ Updated: 2026-03-23 S514 | Active: 2
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F-INV1 | FALSIFIED: 68x production rate, 0% organic adoption. 21 concepts, 0 ADOPTED at 27/50 session window. vocabulary-ceiling hit raw=10 via self-referential inflation, organic=0. Concept adoption is demand-driven. L-1403, L-1437. | S519 | 2026-03-23 |
 | F-INV2 | CONFIRMED: 6/12 frontiers adopted (≥4 threshold, 3x above falsification line). Binary adoption by domain (100% or 0%). vocabulary-ceiling most universal concept (100%). Domain activity level at injection time predicts adoption. Injection without dispatch = 0%. 8 lessons generated across 3 adopted domains. L-1426. | S515 | 2026-03-23 |
   → Links to global frontier: F-GND1. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-META15. (auto-linked S420, frontier_crosslink.py)

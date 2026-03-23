@@ -1,7 +1,7 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S518",
-  "timestamp": "2026-03-23T17:47:02.914367+00:00",
+  "timestamp": "2026-03-23T17:51:53.112095+00:00",
   "metrics": {
     "lessons": 1221,
     "principles": 262,
@@ -10,47 +10,38 @@
   },
   "active_lanes": [
     {
-      "lane": "DOMEX-EPIS-S518",
+      "lane": "DOMEX-INVFINAL-S519",
       "status": "ACTIVE",
-      "scope": "domains/epistemology/tasks/FRONTIER.md"
-    },
-    {
-      "lane": "DOMEX-EVAL-S519",
-      "status": "ACTIVE",
-      "scope": "tools/dispatch_optimizer.py"
+      "scope": "domains/concept-inventor/tasks/FRONTIER.md"
     }
   ],
   "recent_commits": [
+    "04a4353a [S518] feat: PCI quality audit (L-1458) + steerer cycle + NEXT.md archive (396\u219218 lines)",
+    "fc83a506 [S518] chore: S518g session note \u2014 PHIL-10 confirmed, F-EPIS1 tradition mapping, DOMEX-EPIS-S518",
+    "0ee2df43 [S518] feat: steerer cycle \u2014 meta-domain suppresses GOOD by 1.66x (L-1455, 18 signals)",
     "86a4bfa8 [S518] feat: steerer cycle S518e \u2014 17 signals, 3 cross-challenges, PHIL-26 P2 untestable (L-1451, L-1452)",
-    "42eeaf45 [S518] periodic: steerer cycle (18 signals) + PHILOSOPHY.md -23% compression (L-1453, L-1454)",
-    "6793ebb0 [S518] feat: steerer cycle S518 + compact.py enactment boost (CC-8, L-1449)",
-    "2e599a46 [S518] absorb: concurrent sub-swarm experiment artifacts (L-1447, L-1448)",
-    "c8a1b054 [S518] feat: first empirical sub-swarm genesis experiment \u2014 4 children properly swarm (L-1447, L-1448)"
+    "42eeaf45 [S518] periodic: steerer cycle (18 signals) + PHILOSOPHY.md -23% compression (L-1453, L-1454)"
   ],
   "uncommitted": [
-    "MM docs/PAPER.md",
-    "M  domains/expert-swarm/tasks/FRONTIER.md",
-    "M  domains/meta/SESSION-TRIGGER.md",
-    "M  experiments/compact-citation-cache.json",
-    "M  experiments/compact-lesson-cache.json",
-    "A  experiments/epistemology/f-epis1-tradition-map-s518.json",
-    "MM experiments/inter-swarm/bulletins/swarm.md",
-    "M  experiments/meta/knowledge-state-s513.json",
-    "M  experiments/meta/knowledge-state-s515.json",
-    "M  experiments/meta/knowledge-state-s518.json",
-    "A  experiments/meta/steerer-cycle-s518.json",
-    "MM memory/INDEX.md",
-    "D  memory/lessons/L-1423.md",
-    "D  memory/lessons/L-1424.md",
-    "M  memory/lessons/L-1452.md",
-    "AM memory/lessons/L-1455.md",
-    "AM memory/lessons/L-1456.md",
-    "A  memory/lessons/L-1457.md",
-    "A  memory/lessons/L-1458.md",
-    "MM tasks/NEXT.md"
+    "M domains/concept-inventor/tasks/FRONTIER.md",
+    "M domains/meta/SESSION-TRIGGER.md",
+    "M experiments/inter-swarm/bulletins/swarm.md",
+    "M experiments/meta/knowledge-state-s518.json",
+    "M memory/lessons/L-1403.md",
+    "M tasks/SWARM-LANES.md",
+    "M tools/dispatch_scoring.py",
+    "M workspace/falsification-debt.json",
+    "M workspace/maintenance-actions.json",
+    "M workspace/maintenance-outcomes.json",
+    "?? experiments/concept-inventor/f-inv1-final-test-s519.json",
+    "?? experiments/evaluation/soul-dispatch-wiring-s519.json",
+    "?? memory/lessons/L-1459.md",
+    "?? test.json"
   ],
   "untracked_artifacts": [
-    "experiments/evaluation/soul-dispatch-wiring-s519.json"
+    "experiments/concept-inventor/f-inv1-final-test-s519.json",
+    "experiments/evaluation/soul-dispatch-wiring-s519.json",
+    "memory/lessons/L-1459.md"
   ],
   "next_actions": [],
   "periodics_due": [
@@ -83,17 +74,17 @@
   "dispatch_top3": [
     {
       "domain": "expert-swarm",
-      "score": 6.5,
-      "collision": false
-    },
-    {
-      "domain": "concept-inventor",
       "score": 6.1,
       "collision": false
     },
     {
       "domain": "nk-complexity",
-      "score": 6.0,
+      "score": 5.8,
+      "collision": false
+    },
+    {
+      "domain": "catastrophic-risks",
+      "score": 5.4,
       "collision": false
     }
   ]

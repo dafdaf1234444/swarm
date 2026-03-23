@@ -1,0 +1,45 @@
+{
+    "experiment": "DOMEX-INVFINAL-S519",
+    "frontier": "F-INV1",
+    "session": "S519",
+    "domain": "concept-inventor",
+    "date": "2026-03-23",
+    "expect": "Final test: 0 ADOPTED concepts (>=10 organic citations). FALSIFIED: invention rate 22x but adoption 0%.",
+    "actual": "0 ADOPTED, 0 EMERGING, 21 DEAD. Total organic=6 (max 1 per concept). vocabulary-ceiling raw=10, organic=0 (100% self-ref + F-INV2 injection). FALSIFIED confirmed.",
+    "diff": "Expected 0 ADOPTED: confirmed. Surprise: vocabulary-ceiling reached raw=10 milestone while organic remained 0 \u2014 Goodhart effect where the metric (citations) hit threshold via self-referential inflation without any real adoption. This is the concept-invention version of the proxy-K drift problem.",
+    "method": "Lesson-only citation scan (n=1223 lessons) with 3-tier domain filter: self-referential (concept-inventor domain), downstream (F-INV2 injection domains: security, governance, filtering, ai, strategy, stochastic-processes), organic (all other domains).",
+    "n_concepts": 21,
+    "n_lessons_scanned": 1223,
+    "session_window": "S492-S519 (27/50 sessions)",
+    "results": {
+        "adopted_threshold": ">=10 organic citations",
+        "adopted": 0,
+        "emerging": 0,
+        "dead": 21,
+        "organic_baseline": "~1 per 20 sessions organic emergence achieves >=10 citations in first 50 sessions",
+        "best_performer": {
+            "concept": "vocabulary-ceiling",
+            "raw": 10,
+            "organic": 0,
+            "self_ref": 7,
+            "inv2_downstream": 3
+        },
+        "total_organic": 6,
+        "concepts_with_any_organic": [
+            "fork-finality",
+            "phloem-gradient",
+            "self-referential-gravity",
+            "benefit-blindness",
+            "transfer-gap",
+            "soul-ceiling"
+        ],
+        "production_rate": "24 concepts in 7 sessions = 3.4/session vs organic ~0.05/session = 68x",
+        "adoption_rate": "0/24 adopted vs organic baseline = 0%",
+        "self_referential_inflation": "each audit lesson adds +1 raw to top-3 concepts. 7 audits \u00d7 3 concepts = 21 phantom citations. vocabulary-ceiling raw=10 is 70% audit-generated."
+    },
+    "verdict": "FALSIFIED. Deliberate concept invention produces concepts at 68x the organic rate (24 vs ~1.35 expected) but with 0% independent adoption (0 vs >=10 threshold). At 27/50 session window, even projecting optimistically, no concept can reach 10 organic. Strongest signal: vocabulary-ceiling hit raw=10 via pure self-referential inflation while organic=0. The invention process creates concepts that name real patterns but adoption requires organic discovery pressure, which cannot be manufactured.",
+    "key_finding": "Concept invention is a PRODUCTION tool, not an ADOPTION tool. The demand side (what problems the swarm encounters) determines adoption, not the supply side (how many concepts exist). Meta-diagnostic concepts (naming existing problems) survive longer than solution-concepts, but neither achieves organic adoption threshold.",
+    "predecessor": "f-inv1-adoption-s517.json",
+    "successor": "none \u2014 F-INV1 closed as FALSIFIED",
+    "lesson": "L-1403"
+}

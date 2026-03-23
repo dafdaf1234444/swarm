@@ -79,11 +79,24 @@ def _load_soul_weights():
 
 _soul_weights = _load_soul_weights()
 
-# Soul dispatch constants (F-SOUL1 Phase 2, SIG-81)
+# Soul dispatch constants (F-SOUL1 Phase 2, SIG-81, L-1455)
 SOUL_BOOST_MAX = 0.8            # max soul boost per domain
 SOUL_PENALTY_MAX = 0.4          # max soul penalty per domain
-SOUL_GOOD_THRESHOLD = 5         # minimum good lessons to qualify for boost
-SOUL_BAD_THRESHOLD = 5          # minimum bad lessons to qualify for penalty
+SOUL_MIN_SAMPLE = 5             # minimum good+bad lessons for scoring
+SOUL_SCALE = 0.15               # score per unit deviation from mean ratio
+
+# Compute corpus-wide mean benefit ratio as reference point (L-1455)
+# Domains below mean displace human benefit; domains above generate it.
+def _compute_soul_mean():
+    weighted = [(v.get("ratio", 1.0), v.get("good", 0) + v.get("bad", 0))
+                for v in _soul_weights.values()
+                if v.get("good", 0) + v.get("bad", 0) >= SOUL_MIN_SAMPLE]
+    if not weighted:
+        return 1.0
+    total_n = sum(n for _, n in weighted)
+    return sum(r * n for r, n in weighted) / total_n if total_n > 0 else 1.0
+
+_soul_mean_ratio = _compute_soul_mean()
 
 
 # Maintenance urgency constants (F-SWARMER1 intervention #3)
@@ -320,21 +333,19 @@ def ucb1_score(results: list[dict], outcome_map: dict, heat_map: dict,
         r["score"] += maint_boost
         r["maintenance_boost"] = round(maint_boost, 3)
 
-        # Soul-informed human benefit weighting (F-SOUL1 Phase 2, SIG-81, L-1354)
-        # L-1354: benefit_ratio is dispatch allocation, not lesson quality.
-        # Domains producing more human-good knowledge get a boost;
-        # domains with net-negative human impact get a mild penalty.
+        # Soul-informed human benefit weighting (F-SOUL1 Phase 2, SIG-81, L-1455)
+        # L-1455: non-meta domains produce 1.66x more GOOD per unit.
+        # Continuous scoring relative to corpus mean — no dead zone.
         soul_boost = 0.0
         sw = _soul_weights.get(dom, {})
-        sw_good = sw.get("good", 0)
-        sw_bad = sw.get("bad", 0)
+        sw_n = sw.get("good", 0) + sw.get("bad", 0)
         sw_ratio = sw.get("ratio", 1.0)
-        if sw_good >= SOUL_GOOD_THRESHOLD and sw_ratio > 1.5:
-            # Domain produces meaningfully more good than bad
-            soul_boost = min((sw_ratio - 1.0) * 0.2, SOUL_BOOST_MAX)
-        elif sw_bad >= SOUL_BAD_THRESHOLD and sw_ratio < 0.5:
-            # Domain produces meaningfully more bad than good
-            soul_boost = -min((1.0 - sw_ratio) * 0.2, SOUL_PENALTY_MAX)
+        if sw_n >= SOUL_MIN_SAMPLE:
+            delta = sw_ratio - _soul_mean_ratio
+            if delta > 0:
+                soul_boost = min(delta * SOUL_SCALE, SOUL_BOOST_MAX)
+            else:
+                soul_boost = max(delta * SOUL_SCALE, -SOUL_PENALTY_MAX)
         r["score"] += soul_boost
         r["soul_boost"] = round(soul_boost, 3)
 

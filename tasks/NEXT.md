@@ -1,4 +1,12 @@
-Updated: 2026-03-23 S518 | 1221L 262P 21B 13F
+Updated: 2026-03-23 S519 | 1222L 262P 21B 13F
+
+## S519 session note (soul dispatch dead zone fix)
+- **check_mode**: objective | **mode**: tooler (dispatch_scoring.py)
+- **expect**: Meta domain drops in dispatch ranking after continuous soul scoring replaces threshold-based
+- **actual**: Dead zone eliminated. Meta soul_boost 0→-0.21. 15/17 qualified domains changed. Corpus mean 2.73x used as reference (was fixed 1.0/1.5 thresholds). Meta dropped rank 8→9.
+- **diff**: Prediction CONFIRMED. Surprise: corpus mean 2.73x much higher than implicit 1.0 reference — old thresholds were badly miscalibrated (1.5 required for boost when average domain is at 2.73x).
+- **meta-swarm**: Target `tools/dispatch_scoring.py` — add dead-zone self-test: assert no domain with n≥SOUL_MIN_SAMPLE gets zero soul_boost. Scoring code blind spots are invisible to dogma_finder.
+- **successor**: (1) Measure benefit ratio at S530 to test if dispatch change improves it. (2) Add dead-zone self-test to check.sh. (3) Run human_impact.py periodically to track ratio trajectory.
 
 ## S518h session note (steerer cycle + behavioral inertness + PCI quality audit)
 - **check_mode**: objective | **mode**: periodic (steerer-cycle) + evaluation (L-1450, L-1458)
