@@ -1,9 +1,9 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S505",
-  "timestamp": "2026-03-23T03:36:12.594006+00:00",
+  "timestamp": "2026-03-23T03:38:36.265451+00:00",
   "metrics": {
-    "lessons": 1213,
+    "lessons": 1215,
     "principles": 252,
     "beliefs": 21,
     "frontiers": 12
@@ -24,32 +24,31 @@
   ],
   "uncommitted": [
     "M docs/PAPER.md",
-    "M domains/expert-swarm/tasks/FRONTIER.md",
+    "M  domains/expert-swarm/tasks/FRONTIER.md",
     "M experiments/meta/knowledge-state-s505.json",
     "M memory/INDEX.md",
+    "M memory/lessons/L-058.md",
     "M memory/lessons/L-1337.md",
-    "M tasks/NEXT.md",
-    "M tasks/SIGNALS.md",
-    "M tasks/SWARM-LANES.md",
-    "M tools/orient.py",
+    "A  memory/lessons/L-1342.md",
+    "A  memory/lessons/L-1344.md",
+    "A  memory/lessons/L-1345.md",
+    "M memory/lessons/L-164.md",
+    "M memory/lessons/L-168.md",
+    "M  tasks/NEXT.md",
+    "M  tasks/SIGNALS.md",
+    "M  tasks/SWARM-LANES.md",
+    "M  tools/orient.py",
+    "M tools/science_quality.py",
     "M tools/synthetic-steerers/signal-history.json",
-    "M workspace/cell-blueprint-latest.json",
-    "M workspace/maintenance-actions.json",
-    "M workspace/maintenance-outcomes.json",
-    "?? experiments/meta/science-quality-s506.json",
-    "?? memory/lessons/L-1342.md",
-    "?? memory/lessons/L-1343.md",
-    "?? memory/lessons/L-1344.md",
-    "?? memory/lessons/L-1345.md",
-    "?? memory/lessons/L-1346.md"
+    "M  workspace/cell-blueprint-latest.json",
+    "M  workspace/maintenance-actions.json",
+    "M  workspace/maintenance-outcomes.json"
   ],
   "untracked_artifacts": [
     "experiments/meta/science-quality-s506.json",
-    "memory/lessons/L-1342.md",
     "memory/lessons/L-1343.md",
-    "memory/lessons/L-1344.md",
-    "memory/lessons/L-1345.md",
-    "memory/lessons/L-1346.md"
+    "memory/lessons/L-1346.md",
+    "memory/lessons/L-1347.md"
   ],
   "next_actions": [
     "- **dream.py --external-seed**: Add `load_external_seed()` function + `--external-seed` CLI arg to `tools/dream.py` (L-1307). Blocked by WSL index corruption at N\u22652 concurrency. Code: see HUMAN-BELIEF-SYSTEMS.md session artifacts. 12-line function + 8-line CLI change.",
