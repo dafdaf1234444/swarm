@@ -53,6 +53,12 @@ from dispatch_scoring import (
 )
 
 try:
+    from closeable_frontiers import section_closeable_frontiers as _section_closeable
+    _CLOSEABLE_IMPORTED = True
+except ImportError:
+    _CLOSEABLE_IMPORTED = False
+
+try:
     from dispatch_campaigns import print_campaign_advisory, COMMIT_RESERVATION_WINDOW
     _CAMPAIGNS_IMPORTED = True
 except ImportError:
@@ -68,6 +74,52 @@ except ImportError:
 
 DOMAINS_DIR = Path("domains")
 CALIBRATION_FILE = Path("tools/dispatch_calibration.json")
+
+
+def _load_closure_verdicts() -> dict[str, dict]:
+    """Load frontier closure-readiness from cached classifier (#L-1117).
+
+    Returns {frontier_id: {score, verdict}} for active frontiers.
+    """
+    if not _CLOSEABLE_IMPORTED:
+        return {}
+    try:
+        classifier_files = sorted(
+            Path("experiments/nk-complexity").glob("f-nk6-closure-classifier-s*.json")
+        )
+        if not classifier_files:
+            return {}
+        data = json.loads(classifier_files[-1].read_text())
+        scores = data.get("results", {}).get("frontier_scores", {}) or data.get("frontier_scores", {})
+        verdicts = {}
+        for fid, info in scores.items():
+            total = info.get("total", 0)
+            if total >= 8:
+                verdict = "CLOSEABLE"
+            elif total >= 6:
+                verdict = "APPROACHING"
+            elif total >= 4:
+                verdict = "NEEDS_WORK"
+            else:
+                verdict = "BLOCKED"
+            verdicts[fid] = {"score": total, "verdict": verdict}
+        return verdicts
+    except Exception:
+        return {}
+
+
+def _enrich_closure(results: list[dict], verdicts: dict) -> None:
+    """Add frontier closure-readiness fields to results (#L-1117)."""
+    if not verdicts:
+        return
+    for r in results:
+        tf = r.get("top_frontier", "")
+        m = re.search(r"\*\*(F-\w+)\*\*", tf)
+        if m:
+            fid = m.group(1)
+            if fid in verdicts:
+                r["frontier_closure_score"] = verdicts[fid]["score"]
+                r["frontier_closure_verdict"] = verdicts[fid]["verdict"]
 
 
 def run(args: argparse.Namespace) -> None:
@@ -91,6 +143,9 @@ def run(args: argparse.Namespace) -> None:
     session_merged = get_session_merged_domains(current_session)
     campaign_waves = get_campaign_waves_wrapper()
 
+    closure_verdicts = _load_closure_verdicts()
+    _enrich_closure(results, closure_verdicts)
+
     if getattr(args, 'wave_plan', False):
         prescriptions = wave_prescriptions_wrapper(campaign_waves)
         if args.json:
@@ -107,6 +162,25 @@ def run(args: argparse.Namespace) -> None:
         ucb1_score(ucb1_results, outcome_map, heat_map, current_session, claimed,
                    campaign_waves=campaign_waves,
                    campaign_phase_fn=campaign_phase_wrapper)
+        ucb1_results.sort(key=lambda x: x["score"], reverse=True)
+
+        # Recombination readiness boost (L-1375: advisory → scoring)
+        # Domains with high-scoring cross-domain missing-edge partners get
+        # a boost, turning recombination from display-only to dispatch driver.
+        _enrich_recombination(ucb1_results)
+        RECOMB_BOOST_PER_TARGET = 0.15  # per top-2 target
+        RECOMB_BOOST_CAP = 0.4
+        for r in ucb1_results:
+            targets = r.get("recombination_targets", [])
+            if targets:
+                boost = min(
+                    sum(min(t.get("score", 0), 1.0) * RECOMB_BOOST_PER_TARGET
+                        for t in targets[:3]),
+                    RECOMB_BOOST_CAP)
+                r["score"] += boost
+                r["recombination_boost"] = round(boost, 3)
+            else:
+                r["recombination_boost"] = 0.0
         ucb1_results.sort(key=lambda x: x["score"], reverse=True)
 
         # Concentration rebalancing (S499 bottleneck repair, F-STR5 S503 fix)
@@ -148,7 +222,6 @@ def run(args: argparse.Namespace) -> None:
                     epsilon_note = (f"⚡ ε-dispatch (ε={epsilon}): swapped top domain to "
                                    f"'{results[0]['domain']}' (was '{results[rand_idx]['domain']}')")
             results_limited = results if args.all or args.domain else results[:10]
-            _enrich_recombination(results)
             for r in results:
                 if r["domain"] == "meta":
                     try: r["meta_roles"] = _get_meta_role_stats()
@@ -314,7 +387,13 @@ def _print_ucb1_output(results, results_limited, active_lanes, session_merged,
         if r["domain"] in active_lanes:
             print(f"         ⚠ ACTIVE LANE(S): {', '.join(active_lanes[r['domain']][:3])} — collision risk")
         if r.get("top_frontier"):
-            print(f"         → {r['top_frontier'][:72]}")
+            closure = ""
+            if r.get("frontier_closure_verdict"):
+                v = r["frontier_closure_verdict"]
+                s = r.get("frontier_closure_score", "?")
+                icon = {"CLOSEABLE": "🟢", "APPROACHING": "🟡", "NEEDS_WORK": "⚪", "BLOCKED": "🛑"}.get(v, "")
+                closure = f" {icon} [{v} {s}/10]"
+            print(f"         → {r['top_frontier'][:72]}{closure}")
         if r.get("reward_intent"):
             print(f"         Reward: {r['reward_intent']}")
         if r.get("recombination_targets"):

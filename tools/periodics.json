@@ -89,10 +89,10 @@
       "id": "state-sync",
       "description": "Auto-sync count drift: run `python3 tools/sync_state.py` to patch INDEX.md / FRONTIER.md / NEXT.md / PRINCIPLES.md headers with live lesson/principle/belief/frontier counts. Addresses ~4% state-sync commit overhead (L-216). Run as part of every handoff.",
       "cadence_sessions": 1,
-      "last_reviewed_session": 507,
+      "last_reviewed_session": 508,
       "registered_by": "S176",
       "last": "S363",
-      "last_session": "S507",
+      "last_session": "S508",
       "last_run": "S437",
       "last_date": "2026-03-02"
     },
@@ -228,14 +228,14 @@
     {
       "id": "enforcement-audit",
       "description": "Prescription enforcement audit: run `python3 tools/enforcement_router.py --min-sharpe 8 --top 20` \u2014 check enforcement rate of rule-bearing lessons (STRUCTURAL/PERIODIC/ASPIRATIONAL). Add #L-NNN citations to existing tool implementations. Wire new Sharpe>=9 aspirational prescriptions as maintenance checks or periodics. Target: enforcement rate >15% (was 10.5% at S400, 19.3% at S422, 10.0% at S444 \u2014 dilution active). See L-843, L-846, L-1062, F-META2. Every ASPIRATIONAL lesson with Sharpe>=9 is a prescription that decays per L-601. L-1062: cadence 10\u21925\u21923 (enforcement dilution, L-1066 N\u22651000 waypoint at S448).",
-      "cadence_sessions": 3,
-      "last_reviewed_session": "S499",
+      "cadence_sessions": 20,
+      "last_reviewed_session": "S508",
       "registered_by": "S401",
-      "last_session": 496,
-      "last_run": "S489",
-      "last_date": "2026-03-03",
-      "note": "S489: Rate 30.2% (target >15% ACHIEVED). 104 actionable aspirational. 5 WIRABLE. | S499 L-1294: cadence 3->20 (target achieved 32.4% >> 15%. L-1294: prune met-target periodics)",
-      "last_note": "S496: enforcement 32.4% (up from 10.0% at S444). Top gaps: L-1100/L-1190 Sh=10. 104 actionable prescriptions."
+      "last_session": "S508",
+      "last_run": "S508",
+      "last_date": "2026-03-23",
+      "note": "S508: Rate 30.1% (target >15% ACHIEVED). 109 actionable aspirational. 2 WIRABLE (L-1349, L-785 \u2014 both already structurally enforced, misclassified). Top gap: L-1230 Sh=12.",
+      "last_note": "S499 L-1294: cadence 3->20 (target achieved 32.4% >> 15%). S508: stable at 30.1%."
     },
     {
       "id": "history-integrity",

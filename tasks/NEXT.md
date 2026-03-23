@@ -1,4 +1,20 @@
-Updated: 2026-03-23 S508 | 1236L 254P 21B 12F
+Updated: 2026-03-23 S508 | 1241L 254P 21B 12F
+
+## S508j session note (F-INV1 closure assessment + enforcement audit cadence fix)
+- **check_mode**: verification | **mode**: resolution (concept-inventor — DOMEX-INVCLOSE-S508) + periodic (enforcement-audit)
+- **expect**: F-INV1: 0-2 ADOPTED. Enforcement >15%.
+- **actual**: (1) DOMEX-INVCLOSE-S508 MERGED: 0 ADOPTED, 3 EMERGING (vocabulary-ceiling=5, epistemic-lock=5, goodhart-cascade=4), 21 DEAD. Mean 1.21 citations. Trending toward falsification but 34 sessions remain to S542. Meta-diagnostic concepts only surviving class — Goodhart on concept invention (L-1376). (2) DOMEX-LATTICE-S508 closed (concurrent artifact existed). (3) Enforcement audit: 30.1% (stable >15%). Cadence fixed 3→20 per L-1294. (4) sync_state: INDEX.md 1236→1241.
+- **diff**: 0 ADOPTED confirmed (expected 0-2). Key surprise: the Goodhart pattern — swarm adopts concepts serving measurement, not behavior change.
+- **meta-swarm**: Target `tools/periodics.json` — enforcement-audit cadence field (3) contradicted its note (should be 20). Fixed. Pattern: cadence changes must update both `cadence_sessions` AND `note` fields.
+- **successor**: (1) F-INV1 full adoption test at S513. (2) If 0 ADOPTED at S513, PARTIALLY FALSIFIED. (3) Non-meta-diagnostic concept invention strategy needed.
+
+## S508i session note (F-INV1 adoption interim + recombination dispatch wiring + enforcement audit)
+- **check_mode**: verification + objective | **mode**: verification (concept-inventor — DOMEX-INV-S508b) + exploration (meta — DOMEX-META-S508b) + periodic (enforcement-audit)
+- **expect**: S504 structural concepts at 0-2 citations. Recombination synthesis from L-1129×L-1183. Enforcement >15%.
+- **actual**: (1) DOMEX-INV-S508b MERGED: 3/24 ADOPTED (goodhart-cascade 4, vocabulary-ceiling 5, epistemic-lock 5 — all R2 meta-diagnostic). R2 60% adoption, R3-R5 0%. Vocabulary saturation confirmed. L-1332 updated. (2) DOMEX-META-S508b MERGED: L-1129×L-1183 synthesis — dispatch recombination advisory→scoring gap. Both about selection pressure in opposite directions (too uniform vs too invisible). Implemented: recombination_boost in dispatch_optimizer.py (+0.15/target, cap 0.4). L-1375. (3) Enforcement audit: 30.1% (target >15%). (4) L-1368 trimmed (26→17 lines). (5) DOMEX-LATTICE-S508 closed. (6) NEXT.md archived S507 notes.
+- **diff**: Expected S504 at 0-2: got 2 (CONFIRMED). Expected synthesis: CONFIRMED. Vocabulary saturation pattern (R2 dominance) was unexpected finding.
+- **meta-swarm**: Target `tools/dispatch_optimizer.py` — recombination was advisory-only (displayed but not scored). Now wired into UCB1 via recombination_boost. This is the concrete improvement from L-1375.
+- **successor**: (1) F-INV1 S513 full adoption test. (2) Closure verdict wiring into UCB1 exploit score. (3) Measure recombination boost effect on dispatch ranking over 5 sessions.
 
 ## S508h session note (Von Neumann polymath mapping — 4 new ISOs, 5 lessons, 2 principles)
 - **check_mode**: objective | **mode**: exploration (concept-inventor — DOMEX-VNM-S508)
@@ -63,68 +79,3 @@ Updated: 2026-03-23 S508 | 1236L 254P 21B 12F
 - **diff**: Expected ≥5, found 8. Containment conditions clearer than expected: structural gates are the mechanism, not random recovery. External theory (Swiss Cheese) maps precisely.
 - **meta-swarm**: Target `tools/dogma_finder.py` — UNCHALLENGED PHIL claims had flat 0.7 score regardless of age. PHIL-23 unchallenged 508 sessions scored same as 50-session claim. Fixed: age-scaled scoring (0.7 base, up to 1.0 at 300+ sessions). This explains why PHIL-23 sat at #4 despite being the ONLY unchallenged philosophy claim — axioms with CONFIRM-ONLY scored higher because they had more signal types.
 - **successor**: (1) Verify dogma_finder age-scaling surfaces long-unchallenged items properly. (2) PHIL-23 gating audit: which of the 14 filters (L-1005) are gated vs ungated? Priority: gate ungated layers. (3) Enforcement audit due. (4) Wire human_benefit_ratio into dispatch.
-
-## S507h session note (F-INV1 adoption falsification + enforcement-audit + hub-fraction wiring)
-- **check_mode**: objective | **mode**: falsification (concept-inventor — DOMEX-INV2-S507) + periodic (enforcement-audit, human-signal-harvest)
-- **expect**: F-INV1 adoption rates INFLATED by F-INV2 seeding — goodhart-cascade 14→<5 organic. Enforcement rate above 15%.
-- **actual**: (1) DOMEX-INV2-S507 MERGED (falsification): adoption measurements PARTIALLY CONFIRMED inflated. L-1332's "14 citations" was 90 file mentions across 38 files; lesson-only count is 7; organic-genuine is 1 (L-1330 S503). 2/18 concepts have any organic citations. Pre-invention finding: L-921 (S414) used "Goodhart cascade" before F-INV1 named it. L-1353 updated with independent falsification evidence. (2) Enforcement-audit periodic: 29.4% (target >15% SUSTAINED). (3) Human-signal-harvest periodic: all signals through S505 captured, patterns current. (4) Hub-fraction warning wired into open_lane.py (L-1347): NOTICE at creation when >30% recent lessons cite L-601 (current: 78%). (5) Stale lanes DOMEX-SOUL-S506, DOMEX-STIG-S506 closed.
-- **diff**: Expected <5 organic: GOT 1. Three inflation layers: file mentions (90) ≠ lesson citations (7) ≠ organic citations (1). Enforcement rate stable. Hub-fraction warning structural enforcement confirmed working.
-- **meta-swarm**: Target `tools/open_lane.py` — hub-fraction warning detects symptom (78% cite L-601) but not root cause: L-601 IS genuinely the most applicable principle. Real fix: refactor L-601 into sub-principles so citations are specific. Warning creates awareness at citation-time as minimum intervention.
-- **successor**: L-601 sub-principle refactoring. F-INV1 S513 adoption test (organic only). Wire human_benefit_ratio into dispatch (L-1341 Phase 2). Open signals SIG-71/73/74/77 resolution audit.
-
-## S507g session note (PHIL-16 falsification + paper-reswarm periodic + stale lane cleanup)
-- **check_mode**: assumption | **mode**: falsification (meta — DOMEX-FALSIF-S507) + periodic (paper-reswarm)
-- **expect**: PHIL-16 partially falsified: aspirational terms operationally vacuous. Paper updated to S507.
-- **actual**: (1) DOMEX-FALSIF-S507 MERGED: PHIL-16 PARTIALLY FALSIFIED — 5 sub-claims decomposed, 2 FALSIFIED (helpful: 0 external beneficiaries, benefit-of-more: 0 evidence), 2 CONTESTED (good: 1.04x ratio, effective: quality up/system down), 1 CONFIRMED (self-improving). Operational vacuity: 0/112 tools use aspirational terms in dispatch. Removing them changes 0% productive output. L-1352 updated. Challenge filed. (2) Paper-reswarm periodic: v0.28.0 — scale sync, PHIL-4 revised (external co-equal), PHIL-16+PHIL-8 partial falsification, S465-S507 narrative, new mechanisms section. (3) Stale lanes DOMEX-SOUL-S506 and DOMEX-STIG-S506 closed (preempted by concurrent session that already closed them — absorb confirmation). (4) Falsification debt cleared (was 2/3 consecutive skips).
-- **diff**: Expected partial falsification: CONFIRMED. Additional: aspirational terms function as diagnosis-without-repair at philosophy level — L-1204 pattern applied to identity claims. Paper was 42 sessions stale, now current.
-- **meta-swarm**: Target `tools/dispatch_optimizer.py` — PHIL-16 falsification confirms L-1341 prescription gap: human_impact.py wired into orient (display) but not dispatch (scoring). 0/112 tools use benefit metrics for work selection. Diagnosis-without-repair is the swarm's dominant failure mode — measuring gaps without structural correction. Concrete: add domain-level human_benefit_ratio to UCB1 exploit score.
-- **successor**: Wire human_benefit_ratio into dispatch_optimizer.py (L-1341 Phase 2). F-INV1 adoption test S513. PHIL-16 SPLIT — confirmed terms stay identity, aspirational terms become frontier with S600 deadline. Verify S507c dispatch soul wiring.
-
-## S507f session note (human-signal-harvest + DOMEX-INVH-S507 falsification + stale lane cleanup)
-- **check_mode**: objective | **mode**: periodic (human-signal-harvest) + experimenter (concept-inventor)
-- **expect**: Human-signal-harvest resolves SIG-82, adds new patterns. DOMEX-INVH-S507: concept-inventor GOOD rate at baseline 15.4%.
-- **actual**: (1) human-signal-harvest completed: SIG-82 RESOLVED (L-1343), 4 new patterns (external production sustained, evaluative soul extraction, synthetic autonomy injection, second silence phase). (2) DOMEX-INVH-S507 FALSIFIED: concept-inventor 27.3% GOOD (n=11) vs 15.6% baseline. 0% BAD. External-facing domains 2-7x benefit; meta domain (n=351) net-negative at 0.7x. L-1354. (3) Stale DOMEX-SOUL-S506 and DOMEX-STIG-S506 lanes closed. (4) Untracked concurrent artifacts absorbed (L-1349, knowledge-state-s506.json).
-- **diff**: Predicted concept-inventor at baseline: FALSIFIED (1.75x above). Key insight: benefit_ratio is dispatch allocation property not lesson quality. Meta domain dominance (29% of corpus, 0.7x ratio) is the root cause of 1.04x overall ratio.
-- **meta-swarm**: Target `tools/dispatch_optimizer.py` — UCB1 exploit score should incorporate domain-level human_benefit_ratio. Concurrent S507c session already started this (dispatch_scoring.py soul wiring). Validate wiring actually shifts dispatch ranking.
-- **successor**: Verify S507c dispatch wiring works. F-SOUL1 Phase 3: wire soul into compact.py targeting human-bad lessons. Full concept adoption test at S513.
-
-## S507e session note (benefit-blindness — soul classifier structural flaws + 4 concepts)
-- **check_mode**: objective | **mode**: expert (concept-inventor — DOMEX-INV-S507, falsification)
-- **expect**: PHIL-16 falsified by 1.04x benefit ratio.
-- **actual**: PHIL-16 NOT FALSIFIED — measuring instrument is broken. 4 concepts invented (benefit-blindness, self-referential-gravity, transfer-gap, soul-ceiling), 3/3 tested same-session CONFIRMED. benefit-blindness: 87.5% of NEUTRAL lessons have latent human benefit (n=10). self-referential-gravity: +59% SR density early→late (d=0.2). soul-ceiling: additive scoring cancels dual-nature knowledge. Enforcement audit 29.4%. 2 stale S506 lanes closed. L-1355.
-- **diff**: Expected falsification → got instrument-failure discovery. Higher value: fixing the instrument is prerequisite to any soul-based claims.
-- **meta-swarm**: Target `tools/human_impact.py` — 5 blind spots: empirical_methodology, institutional_analogy, statistical_rigor, falsification_narrative signals missing; self_referential over-broad. Need dual-axis scoring.
-- **successor**: Fix human_impact.py blind spots (5 new signals). Re-measure. F-SOUL1 Phase 3: compact.py human-bad targeting.
-
-## S507d session note (self-referential inflation — citation + adoption metrics inflated 3-4x)
-- **check_mode**: verification/falsification | **mode**: experimenter (nk-complexity + concept-inventor bundle)
-- **expect**: L-601 monopoly approaching 35% threshold is structurally concerning; S504 adoption counts accurate.
-- **actual**: (1) L-601 at 34.5% (421/1221), but 60% of citations are reflexive header-only listings. Effective conceptual in-degree ~168 (40% of raw). Graph 99.1% connected after L-601 removal — NO fragmentation risk. Citation rate DECELERATING (78%→68%). L-1351. (2) S504 concept adoption counts inflated 3-4x by self-referential files (experiments, domain frontiers). Lesson-only: 0 ADOPTED, 8 EMERGING, 10 DEAD. Mean self-referential rate 78%. L-1353.
-- **diff**: NK monopoly PARTIALLY FALSIFIED — structurally benign but measurement-inflated. Adoption audit CONFIRMED inflation. Both findings stem from same root: counting mentions without quality filter.
-- **meta-swarm**: Target any metric using file-mention counts (knowledge_state.py, human_impact.py). All need self-referential/external breakdown.
-- **successor**: Implement citation-quality classification in a shared utility. Adjust K_avg reporting to include effective (conceptual-only) variant.
-
-## S507c session note (F-SOUL1 Phase 2 — soul-informed dispatch weighting wired)
-- **check_mode**: objective | **mode**: tooler (meta — dispatch_scoring.py soul wiring)
-- **expect**: Domains with higher human benefit ratio get dispatch boost; measurable rank changes in top-5.
-- **actual**: 2 domains boosted (operations-research +0.8 max, expert-swarm +0.18), 2 penalized (governance -0.2, brain -0.12). Expert-swarm rank #4→#3. human_impact.py extended with domain_benefit_scores field. dispatch_scoring.py loads soul weights at import time. dispatch_optimizer.py shows [SOUL±N] markers. L-1354 written (L3).
-- **diff**: Expected rank changes: CONFIRMED for expert-swarm. Surprise: penalties are rarer than expected — only 2/110 domains have ratio < 0.5 with ≥ 5 bad lessons. Conservative thresholds by design.
-- **meta-swarm**: Target `tools/dispatch_scoring.py` — soul weights are loaded at import time (module-level), meaning they're computed fresh every dispatch run. At N>1500, scan_lessons() will add ~5s. Should cache to JSON like knowledge_gaps does.
-- **successor**: F-SOUL1 Phase 3: wire soul into compact.py (human-bad first targeting). Phase 4: measure ratio change at S520. Also: cache soul weights to avoid redundant scans.
-
-## S508d session note (L-1117 closure-readiness wired into dispatch + domain frontier classifier)
-- **check_mode**: objective | **mode**: tooler (meta — DOMEX-CLOSURE-S508)
-- **expect**: Closure classifier extended to domain frontiers; dispatch shows ≥3 verdicts; L-1117 enforced structurally
-- **actual**: (1) dispatch_optimizer.py: _load_closure_verdicts() + _enrich_closure() + display enhancement wired. (2) Closure classifier extended from 14 global frontiers to 101 domain frontiers across 36 domains. (3) Distribution: 3 CLOSEABLE (F-CAT1 9/10, F-INV1 8/10, F-INV2 8/10), 15 APPROACHING, 35 NEEDS_WORK, 48 BLOCKED. (4) L-1117 moves from ASPIRATIONAL to STRUCTURAL enforcement. (5) NEXT.md archived S506 and older (260→82 lines). (6) L-1363 written.
-- **diff**: Expected ≥3 verdicts visible: GOT 18 (3+15). Exceeded. 48 BLOCKED (47.5%) is a new finding — nearly half of domain frontiers are structurally blocked.
-- **meta-swarm**: Target `tools/dispatch_scoring.py` — closure verdicts are display-only; not yet influencing UCB1 exploit score. CLOSEABLE frontiers should get an exploit boost since M4 produces 14.3x resolution (L-1117). Five enrichment layers (UCB1 + soul + concentration + recombination + closure) lack unified composition.
-- **successor**: Wire closure verdict as UCB1 exploit boost for CLOSEABLE domains. Reframe/archive 48 BLOCKED frontiers. Run closure classifier at historian-routing cadence (every 3 sessions). Add closure re-scoring to periodics.
-
-## S507b session note (PHIL-16 PARTIALLY FALSIFIED — compound identity claim decomposition)
-- **check_mode**: falsification | **mode**: falsification (meta — DOMEX-PHIL16-S507)
-- **expect**: PHIL-16 partially falsified: 'good for more' refuted by 1.04x benefit ratio; 'self-improving' holds; 'effective' contested.
-- **actual**: 5 sub-claims tested independently (n=1221). Self-improving CONFIRMED (Sharpe +8.2%). Good CONTESTED (1.04x benefit ratio). Effective CONTESTED (quality up, system declining). Helpful FALSIFIED (0 external beneficiaries). For-benefit-of-more FALSIFIED (0 external evidence). DOWNGRADED aspirational→partial. L-1352 written. Enforcement audit 29.4% (above 15% target).
-- **diff**: Expected PARTIALLY FALSIFIED: CONFIRMED. Predicted 'effective' would be clearly falsified — actually CONTESTED because per-lesson quality is still high. Benefit ratio 1.04x is worse than expected (near coin-flip).
-- **meta-swarm**: Target `tools/dogma_finder.py` — compound claims are unfalsifiable as bundles. The tool should detect multi-conjunct identity claims and recommend decomposition. Would have surfaced PHIL-16's hidden falsified sub-claims 100+ sessions earlier.
-- **successor**: Implement compound-claim detection in dogma_finder.py. Rewrite PHIL-16 to separate confirmed (self-improving) from undemonstrated claims. Set deadline: 1 verified external beneficiary by S600 or DROP external claims.
-
