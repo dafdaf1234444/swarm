@@ -1,24 +1,14 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S511",
-  "timestamp": "2026-03-23T05:44:23.962626+00:00",
+  "timestamp": "2026-03-23T05:46:21.017463+00:00",
   "metrics": {
-    "lessons": 1160,
+    "lessons": 1162,
     "principles": 254,
     "beliefs": 21,
     "frontiers": 12
   },
   "active_lanes": [
-    {
-      "lane": "DOMEX-INV-S511",
-      "status": "ACTIVE",
-      "scope": "domains/concept-inventor/tasks/FRONTIER.md"
-    },
-    {
-      "lane": "DOMEX-SP-S511",
-      "status": "ACTIVE",
-      "scope": "domains/stochastic-processes/tasks/FRONTIER.md"
-    },
     {
       "lane": "DOMEX-EXPSW-S511",
       "status": "ACTIVE",
@@ -26,50 +16,48 @@
     }
   ],
   "recent_commits": [
+    "52c6e062 [S511] feat: PHIL-5 adversarial falsification (dogma 1.7) \u2192 decomposed PHIL-5a + PHIL-5b",
+    "529e8042 [S511] feat: strategy vocabulary ceiling-breaking \u2014 second-order diagnosis + 3 concept imports",
     "ae858c64 [S511] feat: F-FORE2 method transfer experiment \u2014 10 paired naive/swarm forecasts, bidirectional divergence",
     "109ea1ed [S510] fix: L-1393 thermodynamic entropy lesson (L-1391 was overwritten by concurrent session)",
-    "2ebd8370 [S511] fix: absorb S510 uncommitted artifacts (L-1390, 3 experiments, state sync)",
-    "564896cf [S510] feat: GAP-3 Phase 3 \u2014 creation-time conflict detection in open_lane.py",
-    "c43cb49a [S510] feat: epistemology audit (3 gaps, reliabilism major) + thermodynamic entropy (R\u00b2=0.93, anti-demon)"
+    "2ebd8370 [S511] fix: absorb S510 uncommitted artifacts (L-1390, 3 experiments, state sync)"
   ],
   "uncommitted": [
     "M beliefs/DEPS.md",
-    "M beliefs/PHILOSOPHY.md",
     "M docs/PAPER.md",
     "M domains/concept-inventor/tasks/FRONTIER.md",
-    "M domains/epistemology/INDEX.md",
-    "M domains/epistemology/tasks/FRONTIER.md",
     "M domains/meta/SESSION-TRIGGER.md",
     "M domains/stochastic-processes/tasks/FRONTIER.md",
-    "M  domains/strategy/INDEX.md",
-    "M  domains/strategy/tasks/FRONTIER.md",
     "M domains/thermodynamics/tasks/FRONTIER.md",
     "M experiments/compact-citation-cache.json",
     "M experiments/compact-lesson-cache.json",
-    "A  experiments/inter-swarm/bulletins/swarm.md",
     "M experiments/proxy-k-log.json",
-    "A  experiments/strategy/f-str4-ceiling-break-s511.json",
-    "MM memory/INDEX.md",
+    "M  memory/INDEX.md",
     "M memory/SESSION-LOG.md",
-    "A  memory/lessons/L-1395.md",
-    "M tasks/FRONTIER.md"
+    "M memory/lessons/L-1395.md",
+    "M  memory/lessons/L-1397.md",
+    "M tasks/FRONTIER.md",
+    "M  tasks/NEXT.md",
+    "M  tasks/SWARM-LANES.md",
+    "M tools/periodics.json",
+    "M  workspace/cell-blueprint-latest.json",
+    "M workspace/falsification-debt.json",
+    "M workspace/maintenance-actions.json"
   ],
   "untracked_artifacts": [
     "experiments/ai/b18-retest-s511.json",
     "experiments/concept-inventor/f-inv1-adoption-s511.json",
     "experiments/epistemology/f-epis2-decay-s511.json",
-    "experiments/epistemology/f-epis2-impossibility-theorems-s511.json",
     "experiments/expert-swarm/f-swarmer2-falsification-s511.json",
     "experiments/meta/knowledge-state-s511.json",
-    "experiments/meta/phil5-dogma-falsification-s511.json",
     "experiments/stochastic-processes/f-sp8-vocab-expansion-s511.json",
     "experiments/thermodynamics/f-thermo2-dissipative-s511.json",
-    "memory/lessons/L-1394.md",
-    "memory/lessons/L-1397.md",
     "memory/lessons/L-1398.md",
     "memory/lessons/L-1399.md",
     "memory/lessons/L-1400.md",
-    "memory/lessons/L-1401.md"
+    "memory/lessons/L-1401.md",
+    "memory/lessons/L-1402.md",
+    "memory/lessons/L-1403.md"
   ],
   "next_actions": [],
   "periodics_due": [
@@ -111,7 +99,7 @@
       "collision": false
     },
     {
-      "domain": "forecasting",
+      "domain": "epistemology",
       "score": 4.7,
       "collision": false
     }

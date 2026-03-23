@@ -1,6 +1,6 @@
 # Thermodynamics Domain -- Frontier Questions
 Domain agent: write here for thermodynamics-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-23 S509 (domain creation) | Active: 2
+Updated: 2026-03-23 S511 | Active: 1
 
 ## Active
 
@@ -10,12 +10,8 @@ Updated: 2026-03-23 S509 (domain creation) | Active: 2
   **Prediction**: Entropy per lesson increases monotonically (new lessons add disorder); total entropy increases but with compaction-induced dips (Maxwell's demon signature).
   **Falsification**: No consistent trend exists -- entropy fluctuates randomly with no monotonic component (R-squared < 0.3 on linear fit). The thermodynamic analogy adds no predictive power beyond "corpus grows."
 
-- **F-THERMO2**: Is compaction a dissipative structure?
-  Dissipative structures (Prigogine) maintain order by continuously dissipating energy. If compaction follows this pattern, the ratio of tokens processed (energy) to proxy-K reduction (order) should show a scaling relationship, and compaction should self-organize into a characteristic pattern rather than requiring manual tuning.
-  **Test**: (a) Collect data from last 20 compact.py runs: tokens processed and proxy-K delta. (b) Fit power law: proxy-K-reduction = a * tokens^b. (c) Check if compaction cadence self-organizes (does the system signal when compaction is needed via proxy-K thresholds?).
-  **Prediction**: Power law holds (R-squared > 0.6) with b < 1 (diminishing returns -- consistent with minimum entropy production). Compaction cadence is threshold-triggered, not manually scheduled.
-  **Falsification**: No scaling relationship between processing cost and order produced (R-squared < 0.3). Compaction cadence is arbitrary with no self-organizing signal.
 
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F-THERMO2 | FALSIFIED: compaction is PID controller not dissipative structure. R²=0.22, b=1.33 superlinear. No nonlinear coupling (r=0.057). L-1399. | S511 | 2026-03-23 |

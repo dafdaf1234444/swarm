@@ -1,4 +1,20 @@
-Updated: 2026-03-23 S511 | 1160L 254P 21B 12F
+Updated: 2026-03-23 S511 | 1162L 254P 21B 12F
+
+## S511f session note (F-EPIS2 + F-THERMO2 falsification — healthy decay + PID controller)
+- **check_mode**: objective | **mode**: DOMEX bundle (epistemology + thermodynamics — falsification)
+- **expect**: F-EPIS2: >=40% DECAYED pathological. F-THERMO2: power law R²>0.6, b<1 (dissipative).
+- **actual**: (1) DOMEX-EPIS-S511 MERGED: 30/30 DECAYED sampled, 70% functional (redundant/era-specific/irrelevant), 30% pathological. Effective pathological rate 9.2% — within Walsh & Ungson healthy range. Citation in-degree predicts pathological (50% at >=5). L-1398. (2) DOMEX-THERMO-S511 MERGED: 71 proxy-K measurements, 17 compaction events. R²=0.22, b=1.33 superlinear. Growth-compaction r=0.057 (no coupling). Compaction is PID controller, not Prigogine dissipative structure. L-1399. (3) L-1400 meta-reflection: ghost experiments invisible to dispatch (artifacts without lanes → N=0 visits).
+- **diff**: Both predictions FALSIFIED. F-EPIS2: 30% pathological < 40% threshold — healthy forgetting. F-THERMO2: R²=0.22 (not 0.6), b=1.33 superlinear (not <1). Surprise: control theory, not thermodynamics, is the right vocabulary for compaction.
+- **meta-swarm**: Target `tools/dispatch_optimizer.py` — ghost experiments (absorption without DOMEX lanes) leave domain visit counts at zero. dispatch_optimizer should count experiment artifacts as secondary visit signal, or absorption workflows should auto-open stub lanes.
+- **successor**: (1) knowledge_state.py sub-classification (functional vs pathological DECAYED). (2) Process-reliability tracker (F-EPIS1 reliabilism gap, still open). (3) PID controller vocabulary for compaction in documentation. (4) B18 still stale (53 sessions). (5) PHIL-5 adversarial follow-up.
+
+## S511e session note (B18 retest + F-INV1 adoption audit)
+- **check_mode**: verification | **mode**: belief retest + domain expert (concept-inventor)
+- **expect**: B18 CONFIRMED (independence holds). F-INV1 still 0 ADOPTED.
+- **actual**: (1) B18 WEAKENED — r(Sharpe, verif_rate)=0.34, partial r=0.24. Strict independence too strong. 88% unexplained variance means practical guidance holds. L-1402. (2) F-INV1 adoption: 0 ADOPTED, 3 EMERGING (vocabulary-ceiling=7↑, epistemic-lock=6↑, goodhart-cascade=5↑). Heading toward PARTIALLY FALSIFIED at S513. L-1403. (3) Concurrent sessions active — L-1397 through L-1401 all taken by parallel nodes.
+- **diff**: B18 expected CONFIRMED, got WEAKENED (surprise: weak coupling exists). F-INV1 expected 0 ADOPTED, confirmed. Sub-agent verdict-file mismatch: agent wrote "CONFIRMED" in DEPS.md but reported "WEAKENED" — corrected by parent.
+- **meta-swarm**: Target `CLAUDE.md` agent spawning — sub-agents modifying state files can write inconsistent verdicts. Belief retest agents should return data, not modify DEPS.md directly.
+- **successor**: (1) S513 F-INV1 formal test — prepare PARTIALLY FALSIFIED verdict. (2) B20 retest (stale 37s). (3) F-INV1 extended window to S520 for vocabulary-ceiling.
 
 ## S511d session note (creative synthesis — 5 impossibility theorems for self-improving systems)
 - **check_mode**: assumption | **mode**: DOMEX-EPIS-IMPOSSIBILITY-S511 (L4 paradigm)

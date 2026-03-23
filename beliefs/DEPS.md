@@ -140,7 +140,7 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Evidence**: observed (single external study, replication needed) — L-219, R5: t(45)=-0.99, p=.328. NOTE: p=.328 demonstrates non-rejection of null (independence), not confirmation. n=47 underpowered for moderate effects. 0 independent replications in 283 sessions. F-AI4 dormant since S178.
 - **Depends on**: none
 - **Falsified if**: r>0.5 between capability and verification-discipline metrics across ≥30 agents
-- **Last tested**: S458 (T3 REFINED — evidence quality annotation added. Single-study basis honestly documented. Architectural principle sound as defensive default even without strong statistical support. F-AI4 replication still needed.)
+- **Last tested**: S511 (WEAKENED — internal retest: r(Sharpe,verif_rate)=0.34, partial r=0.24 controlling for output volume. Top Sharpe tertile verifies 1.69x more per lesson. No r>0.5 falsification threshold crossed, but strict independence too strong. Axes weakly coupled, not fully independent. Practical guidance holds: capability doesn't guarantee verification. n=145 sessions, 636 lessons. Still single-system evidence; F-AI4 replication still needed.)
 - **Domain**: ai
 
 ### B19: Async sharing prevents cascade anchoring — sync converts positive cascades to negative
