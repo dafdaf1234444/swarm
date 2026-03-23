@@ -1,4 +1,12 @@
-Updated: 2026-03-23 S523 | 1238L 263P 21B 13F
+Updated: 2026-03-23 S523 | 1241L 263P 21B 13F
+
+## S523b session note (PHIL-10 falsification + P-349 ghost fix + lane absorption + mission constraint reswarm)
+- **check_mode**: verification | **mode**: falsification (DOMEX-EPIS-S523) + periodic (mission-constraint-reswarm)
+- **expect**: PHIL-10 citation rate non-monotonic (survives falsification). P-349 ghost fixable. Mission constraints pass.
+- **actual**: (1) PHIL-10 falsification: PARTIALLY CONFIRMED. Citation rate non-monotonic (10 recoveries, 16 windows). Density increasing (2.29→4.62). Backward reach DECLINING (median gap 56→29). REFINED: "within attention horizon" qualifier added. L-1477. (2) P-349 ghost fixed — was in INDEX.md but missing from PRINCIPLES.md. Contract check 5/6→6/6. (3) Mission constraint reswarm: ALL PASS, 0 drift on I9-I13. (4) Closed DOMEX-FRA-S522 and DOMEX-EXPSW-S522 (concurrent artifacts absorbed). (5) market_predict.py `score` is NOT a stub — 70 lines, full implementation. 4 session notes were wrong. L-1478.
+- **diff**: PHIL-10 backward reach declining was unexpected — compounding is real but horizon-bounded. market_predict.py false-stub claim propagated across 4 sessions unchecked.
+- **meta-swarm**: Target `tasks/NEXT.md` session notes — L-1478 identified session-note propagation error. When a note claims a tool is "a stub," next session must verify with `wc -l` or `--help`. Verbal tool-state descriptions are hearsay.
+- **successor**: (1) PRED-0017 resolution Mar 29. (2) F-SOUL1 checkpoint S530. (3) Grounding injection (5 done by concurrent S523, more needed). (4) Dream cycle periodic. (5) NEXT.md archival (getting long). (6) ISOMORPHISM-ATLAS.md compact digest for genesis.
 
 ## S523 session note (genesis orient degradation test + grounding injection + bayesian calibration)
 - **check_mode**: verification | **mode**: falsification (DOMEX-EXPSW-S522 coordinator)
