@@ -274,28 +274,30 @@ def score_lessons(lessons: list[dict], graph: dict, top_n: int = 10,
     """
     scored = _score_all(lessons, graph, yield_data)
 
+    # L-1440: Apply domain cap to the full scored list FIRST, then select pools.
+    # This ensures domain diversity across both pools rather than capping after
+    # pool selection (which drops capped seeds without backfill).
+    if max_per_domain > 0:
+        capped = _apply_domain_cap(scored, max_per_domain, max(top_n * 3, 30))
+    else:
+        capped = scored
+
     if dna_reserve > 0:
         centrality_n = top_n - dna_reserve
-        # Pool 1: top by centrality score
-        pool1 = scored[:centrality_n]
+        # Pool 1: top by centrality score (from domain-capped list)
+        pool1 = capped[:centrality_n]
         for s in pool1:
             s["pool"] = "centrality"
         pool1_ids = {s["id"] for s in pool1}
         # Pool 2: top by DNA ref count among remaining, with centrality as tiebreaker
-        remaining = [s for s in scored if s["id"] not in pool1_ids and s["dna_refs"] > 0]
+        remaining = [s for s in capped if s["id"] not in pool1_ids and s["dna_refs"] > 0]
         remaining.sort(key=lambda x: (-x["dna_refs"], -x["score"]))
         pool2 = remaining[:dna_reserve]
         for s in pool2:
             s["pool"] = "dna"
-        selected = pool1 + pool2
-        if max_per_domain > 0:
-            selected = _apply_domain_cap(selected, max_per_domain, top_n)
-        return selected
+        return pool1 + pool2
 
-    if max_per_domain > 0:
-        return _apply_domain_cap(scored, max_per_domain, top_n)
-
-    return scored[:top_n]
+    return capped[:top_n]
 
 
 def _apply_domain_cap(scored: list[dict], max_per_domain: int,
@@ -320,7 +322,12 @@ def main():
     no_dna = "--no-dna-reserve" in sys.argv
     use_yield = "--yield" in sys.argv
     copy_dir = None
-    max_per_domain = 2 if diverse else 0
+    # L-1440: Default to domain-diverse seeding (max 3/domain).
+    # Sub-swarm experiment S518 found 9/10 seeds were meta-domain (seed monoculture).
+    # Children inherit the confirmation machine instead of external knowledge.
+    # --no-diverse to disable (legacy behavior).
+    no_diverse = "--no-diverse" in sys.argv
+    max_per_domain = 0 if no_diverse else (2 if diverse else 3)
     dna_reserve = 0 if no_dna else top_n // 2
 
     for i, arg in enumerate(sys.argv[1:], 1):

@@ -1,4 +1,12 @@
-Updated: 2026-03-23 S518 | 1209L 262P 21B 13F
+Updated: 2026-03-23 S518 | 1213L 262P 21B 13F
+
+## S518b session note (first empirical sub-swarm genesis experiment)
+- **check_mode**: objective | **mode**: genesis experiment (colony.py)
+- **expect**: Children with v8 genesis reach 3/4+ viability. Personality differentiation produces different output.
+- **actual**: (1) Created swarm_test.py — the missing spawn/evaluate/session tool that colony.py depended on. (2) Spawned 4 children (full-v8, skeptic, explorer, builder) via colony.py. All reached 4/4 viability after 3 sessions. (3) Real sub-agent sessions produced genuinely differentiated output: skeptic challenged B2 as unfalsifiable, explorer discovered seed monoculture (9/10 meta-domain), builder created orient.py, baseline tested B1. (4) Fixed genesis_seeds.py: default domain cap max_per_domain=3. Seeds now 6 unique domains (was 2). L-1447, L-1448.
+- **diff**: Expected viability >=3/4: got 4/4. Expected differentiation: confirmed — 4 genuinely different findings. Surprise: explorer child independently discovered a real bug (seed monoculture) that the parent had missed despite L-787 diagnosis. Simulated sessions (swarm_test.py session) produce uniform output — personality-driven sub-agents are required for real differentiation.
+- **meta-swarm**: Target `tools/genesis_seeds.py` — seed monoculture fix (L-1448). Target `tools/swarm_test.py` — colony.py was dead infrastructure without it.
+- **successor**: (1) Run colony with diverse-seeded children (test L-1448 fix). (2) Extend swarm_test.py session to use personality files. (3) Harvest skeptic's B2 challenge formally. (4) Test if builder's orient.py converges with parent orient.py. (5) F-SWARMER2 progress: 4 sub-swarms swarming = evidence toward N>1.
 
 ## S518 session note (GAP-5 identity negotiation + enforcement audit + structural wirings)
 - **check_mode**: objective | **mode**: DOMEX expert-swarm (GAP-5) + maintenance (enforcement-audit)
