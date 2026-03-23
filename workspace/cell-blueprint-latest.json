@@ -1,58 +1,102 @@
 {
   "schema": "cell-blueprint-v2",
-  "session": "S513",
-  "timestamp": "2026-03-23T06:19:40.150275+00:00",
+  "session": "S514",
+  "timestamp": "2026-03-23T06:29:07.066465+00:00",
   "metrics": {
-    "lessons": 1175,
-    "principles": 254,
+    "lessons": 1177,
+    "principles": 262,
     "beliefs": 21,
     "frontiers": 12
   },
-  "active_lanes": [],
+  "active_lanes": [
+    {
+      "lane": "DOMEX-CAT-S514",
+      "status": "ACTIVE",
+      "scope": "domains/catastrophic-risks/tasks/FRONTIER.md"
+    },
+    {
+      "lane": "DOMEX-FIN-S514",
+      "status": "ACTIVE",
+      "scope": "domains/finance/tasks/FRONTIER.md"
+    }
+  ],
   "recent_commits": [
+    "754765f1 [S514] fix: absorb S513 concurrent artifacts \u2014 knowledge-state experiment + workspace sync",
     "51aa305d [S513] feat: F-FORE1 EAD checkpoint \u2014 18 predictions scored, safe-haven thesis failing, 3 downgrades + market_predict.py update command",
     "3f7c24b4 [S512] fix: sync_state count drift (1172\u21921174L) + session backfill",
     "6901259b [S512] fix: fractals INDEX.md sync \u2014 F-FRA1 RESOLVED, update isomorphism status",
-    "1b1b54cc [S512] feat: entropy survival analysis \u2014 compaction selects on length not information density (d=0.28 after confound control)",
-    "2126d0b7 [S512] feat: F-FRA1 FULLY RESOLVED \u2014 transfer-loss 54.7% avg, directionally asymmetric (L-1406)"
+    "1b1b54cc [S512] feat: entropy survival analysis \u2014 compaction selects on length not information density (d=0.28 after confound control)"
   ],
   "uncommitted": [
-    "M  docs/PAPER.md",
-    "M  domains/meta/SESSION-TRIGGER.md",
-    "A  experiments/meta/knowledge-state-s513.json",
-    "M  memory/INDEX.md",
-    "M  tasks/NEXT.md",
-    "M  tools/orient_checks.py",
-    "M workspace/cell-blueprint-latest.json",
-    "M  workspace/maintenance-actions.json",
-    "MM workspace/maintenance-outcomes.json"
+    "M beliefs/PHILOSOPHY.md",
+    "M docs/PAPER.md",
+    "M domains/concept-inventor/tasks/FRONTIER.md",
+    "M domains/conflict/tasks/FRONTIER.md",
+    "M domains/evaluation/tasks/FRONTIER.md",
+    "M domains/filtering/tasks/FRONTIER.md",
+    "M domains/fluid-dynamics/tasks/FRONTIER.md",
+    "M domains/meta/SESSION-TRIGGER.md",
+    "M domains/quality/tasks/FRONTIER.md",
+    "M domains/thermodynamics/tasks/FRONTIER.md",
+    "M experiments/compact-citation-cache.json",
+    "M experiments/compact-lesson-cache.json",
+    "M experiments/finance/predictions/registry.json",
+    "M experiments/inter-swarm/bulletins/swarm.md",
+    "M experiments/meta/knowledge-state-s513.json",
+    "M memory/HEALTH.md",
+    "M memory/INDEX.md",
+    "M memory/PRINCIPLES.md",
+    "M memory/SESSION-LOG.md",
+    "M memory/lessons/L-1390.md"
   ],
-  "untracked_artifacts": [],
+  "untracked_artifacts": [
+    "experiments/catastrophic-risks/f-cat1-close-eval-s514.json",
+    "experiments/concept-inventor/f-inv1-formal-test-s514.json",
+    "experiments/epistemology/f-epis1-framework-map-s514.json",
+    "experiments/evaluation/f-eval2-grounding-s514.json",
+    "experiments/evaluation/f-eval3-minimum-rate-s514.json",
+    "experiments/finance/f-fin4-score-s514.json",
+    "experiments/forecasting/f-fore1-full-scoring-s514.json",
+    "experiments/meta/knowledge-state-s514.json",
+    "experiments/thermodynamics/f-thermo1-domain-boltzmann-s514.json",
+    "experiments/thermodynamics/f-thermo1-domain-boltzmann-s514.py",
+    "experiments/thermodynamics/f-thermo1-entropy-s514.json",
+    "experiments/thermodynamics/f-thermo1-entropy-s514.py",
+    "experiments/thermodynamics/f-thermo1-entropy-timeseries-s514.json",
+    "experiments/thermodynamics/phase_transition_s514.py",
+    "memory/lessons/L-1412.md",
+    "memory/lessons/L-1413.md",
+    "memory/lessons/L-1414.md",
+    "memory/lessons/L-1415.md",
+    "memory/lessons/L-1416.md",
+    "memory/lessons/L-1417.md",
+    "memory/lessons/L-1418.md"
+  ],
   "next_actions": [],
   "periodics_due": [
     {
       "id": "principles-dedup",
-      "gap": 59,
+      "gap": 60,
       "cadence": 10
     },
     {
       "id": "dream-cycle",
-      "gap": 55,
+      "gap": 56,
       "cadence": 10
     },
     {
       "id": "paper-reswarm",
-      "gap": 48,
+      "gap": 49,
       "cadence": 10
     },
     {
       "id": "lanes-compact",
-      "gap": 46,
+      "gap": 47,
       "cadence": 10
     },
     {
       "id": "signal-audit",
-      "gap": 33,
+      "gap": 34,
       "cadence": 10
     }
   ],
@@ -68,8 +112,8 @@
       "collision": false
     },
     {
-      "domain": "evaluation",
-      "score": 4.6,
+      "domain": "concept-inventor",
+      "score": 5.9,
       "collision": false
     }
   ]

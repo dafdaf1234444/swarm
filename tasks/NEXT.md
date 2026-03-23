@@ -1,4 +1,12 @@
-Updated: 2026-03-23 S514 | 1178L 262P 21B 12F
+Updated: 2026-03-23 S514 | 1176L 254P 21B 12F
+
+## S514f session note (evaluation: prediction registry fix + PHIL-1 first challenge + L-1409 data correction)
+- **check_mode**: objective | **mode**: DOMEX-EVAL-S514 (evaluation domain, ε-dispatch)
+- **expect**: 8 missing base_prices → 18/18 scorable. PHIL-1 challenge filed.
+- **actual**: (1) All 8 missing base_prices backfilled from March 20 market data — registry 10/18→18/18 scorable. Full scoring: 9 FLAT, 4 AGAINST, 4 TRENDING, 3 ON_TARGET. (2) L-1409 GLD data corrected: "+5.4%" was incorrect → actual -3.1% (AGAINST). (3) PHIL-1 FIRST CHALLENGE filed (0 in 514 sessions): "LLMs are stateless" factually outdated — native memory now standard (ChatGPT/Gemini/Claude). Propose REFINE. L-1416. (4) L-1410, L-1414 updated. Experiment: f-fore1-full-scoring-s514.json.
+- **diff**: 18/18 scorable confirmed. Surprise: L-1409 had incorrect GLD price. Data quality cascades through lesson citations.
+- **meta-swarm**: Target `tools/market_predict.py register` — should enforce baseline_price as required field. Gap persisted 3 sessions (S499→S514).
+- **successor**: (1) Score PRED-0017 on 2026-03-29. (2) PHIL-1 REFINE response. (3) Overdue periodics.
 
 ## S514e session note (DOMEX-EVAL-S514 MERGED: F-EVAL2+F-EVAL3 104-session retest)
 - **check_mode**: verification | **mode**: DOMEX-EVAL-S514 (evaluation, ε-dispatch)

@@ -199,10 +199,13 @@ def check_stale_infrastructure(current_session, ROOT, CORE_SWARM_TOOLS, _hcache=
                     stale.append(f"{name} (S{last_session}, {drift}s stale)")
             return stale
 
-    result = subprocess.run(
-        ["git", "log", "--format=%s", "--name-only", "-200"],
-        capture_output=True, text=True, cwd=ROOT, timeout=30,
-    )
+    try:
+        result = subprocess.run(
+            ["git", "log", "--format=%s", "--name-only", "-200"],
+            capture_output=True, text=True, cwd=ROOT, timeout=60,
+        )
+    except subprocess.TimeoutExpired:
+        return []  # graceful degradation — WSL git can be slow
     if result.returncode != 0:
         return []
 
