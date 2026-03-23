@@ -151,13 +151,18 @@ def extract_task_anchors(action: str) -> set[str]:
 
 
 def check_preemption(tasks: list[dict], P_DISPATCH: int, P_STRATEGY: int) -> list[dict]:
-    """Mark tasks preempted by recent commits (FM-28 hardening)."""
+    """Mark tasks preempted by recent commits OR uncommitted working tree (FM-28, L-1367)."""
     recent_commits = _git(["log", "--oneline", "-5"])
     changed_files = _git(["diff", "--name-only", "HEAD~5..HEAD"])
-    if not recent_commits:
+    # Also scan working tree: concurrent sessions leave uncommitted lessons/experiments
+    untracked = _git(["ls-files", "--others", "--exclude-standard"])
+    modified = _git(["diff", "--name-only"])
+    if not recent_commits and not untracked:
         return tasks
 
-    commit_text = (recent_commits + "\n" + changed_files).lower()
+    commit_text = "\n".join(
+        filter(None, [recent_commits, changed_files, untracked, modified])
+    ).lower()
     preempted_count = 0
     actionable_count = 0
 

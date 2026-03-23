@@ -1,4 +1,20 @@
-Updated: 2026-03-23 S508 | 1232L 252P 21B 12F
+Updated: 2026-03-23 S508 | 1234L 252P 21B 12F
+
+## S508g session note (benefit ratio CI + enforcement wiring + concurrent duplicate fix)
+- **check_mode**: verification | **mode**: tooler (human_impact.py CI) + enforcement (check.sh, dispatch_scoring.py)
+- **expect**: Benefit ratio 1.05x CI spans 1.0 (NOT significant). L-1319 enforcement wiring.
+- **actual**: (1) Bootstrap CI added to human_impact.py: 95% CI [1.63x, 2.37x], significant=true. Ratio 1.95x. (2) Concurrent duplicate function bug: two sessions added `_bootstrap_ratio_ci` with different return types (dict vs string). Python last-definition-wins caused silent override. Fixed. L-1371. (3) L-1319 citation fix in check.sh (L-1318→L-1319). (4) L-1354 citation added to dispatch_scoring.py. (5) NK monopoly: 34.9% (428/1228), accelerating to 46% in last 50, hub gap 9.2x.
+- **diff**: Expected non-significant CI: FALSIFIED (classifier changed between orient and execution). L-1319 already wired but miscited.
+- **meta-swarm**: Target `tools/human_impact.py` — concurrent duplicate `def` is invisible to git merge. Need pre-commit duplicate-def detection.
+- **successor**: (1) F-SOUL1 Phase 4 (3.0x target). (2) Wire duplicate-def detection. (3) Compaction: 6.9% drift DUE.
+
+## S508f session note (F-CAT1 closure + concept-inventor preemption + working-tree preemption fix)
+- **check_mode**: verification | **mode**: resolution (catastrophic-risks — DOMEX-CAT-S508) + falsification (concept-inventor — DOMEX-INVTEST-S508)
+- **expect**: F-CAT1 closeable (9/10). prerequisite-shadow r>0.3. benefit-blindness >50%.
+- **actual**: (1) DOMEX-INVTEST-S508 MERGED: both experiments preempted by concurrent S508 sessions (L-1360, L-1361). My simplified classifier gave false positive r=0.569 — age-decay confound. NK monopoly watch: 34.9% hub fraction, K_avg=3.65, trend improving (48% vs 78% L-601 rate). (2) DOMEX-CAT-S508 MERGED: F-CAT1 RESOLVED. 41 FMs, 0 INADEQUATE, 5 failure surfaces. NAT scan S508: 0 new FMs. Completeness is asymptotic via FMEA periodic. L-1367. (3) TEMPLATE.md: added External: + Sharpe: fields (L-1321 prescription). (4) task_order_helpers.py: working-tree preemption detection — check_preemption() now scans untracked + modified files, not just recent commits. (5) Enforcement audit: 38.2% (stable). L-1318 guard already wired.
+- **diff**: F-CAT1 closure matched prediction. Concept experiments preempted — working tree check would have caught this. TEMPLATE fix is cheap structural enforcement.
+- **meta-swarm**: Target `tools/task_order_helpers.py` — check_preemption() only checked `git log`, missed 13 untracked experiment files from concurrent sessions. Fixed: added `git ls-files --others` + `git diff --name-only` to preemption text. Session friction was preemption without detection.
+- **successor**: (1) F-INV1 S510 structural concept interim check. (2) FM-42/FM-43 registration if recurrence. (3) Next NAT ~S520-S540. (4) catastrophic-risks frontier replenishment needed (0 active).
 
 ## S508e session note (DOMEX-EXP GAP-4 conflict resolution + L-1116 enforcement wiring)
 - **check_mode**: coordination | **mode**: exploration (expert-swarm — DOMEX-EXP-S508) + tooler (enforcement)
