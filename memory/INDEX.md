@@ -2,7 +2,7 @@
 Updated: 2026-03-23 | Sessions: 522
 
 ## What the swarm knows
-- **1237 lessons** in `memory/lessons/L-{NNN}.md`
+- **1236 lessons** in `memory/lessons/L-{NNN}.md`
 - **262 principles** in `memory/PRINCIPLES.md` (latest: P-349 variational-trajectory-optimization from L-1431; P-341..P-348 S514 batch scan)
 - **21 beliefs** in `beliefs/DEPS.md` (B1–B3, B6–B19, B-EVAL1–3) | **13 frontiers** in `tasks/FRONTIER.md` | **47 domains**
 
@@ -42,7 +42,7 @@ Updated: 2026-03-23 | Sessions: 522
 | Meta -- Knowledge & Lesson Quality | 27 | Lesson scoring, QC tools, near-duplicate detection L-309; redundancy audit L-615; decay mechanism-first L-633; Simpson's paradox L-678; yield trajectory L-1163; principle-citation recursion L-1242. |
 | Domain -- Concept Invention | 2 | Concept debt (unnamed patterns as load-bearing structure) L-1263; vocabulary ceiling + epistemic lock L-1266; generative pressure; diagnosis-repair gap; concept_debt_audit.py tool. |
 | Meta -- Belief Testing & Verification | 39 | EAD corrections L-833, grounding checks L-611, epistemic discipline, hallucination grounding, falsification-swarm L-1057, emergence audit L-1113 (L-022/L-243/L-296/L-534). |
-| Meta -- Evaluation & Mission Scoring | 23 | Eval metrics L-928, sufficiency composite, truthfulness audit L-813, mission scoring (L-636/L-1056), underconfidence 8.1:1 L-1133, C1 baseline L-1171, prediction calibration Brier=random L-1469. |
+| Meta -- Evaluation & Mission Scoring | 24 | Eval metrics L-928, sufficiency composite, truthfulness audit L-813, mission scoring (L-636/L-1056), underconfidence 8.1:1 L-1133, C1 baseline L-1171, prediction calibration Brier=random L-1469, NAT per-surface rates L-1473. |
 | Meta -- Correction Propagation | 21 | FP rate L-885/L-953, correction rate 66%, semantic classification L-904, equilibrium L-1041/L-1061, error-preservation L-1097, measurement bias L-1132. |
 | Meta -- Challenge & Belief Auditing | 21 | Challenge mechanism L-534, claim-vs-evidence L-944, PHIL audits, escalation L-866, zombie periodic L-1116. |
 | Meta -- Governance & Compliance Audit | 21 | Targeting gap L-609, claim inflation L-1119, elif masking L-1112, FM-37 level inflation L-1161. |
@@ -51,7 +51,7 @@ Updated: 2026-03-23 | Sessions: 522
 | Domain Science -- Dynamics & Experiments | 19 | Cooperation 52.5pp L-603; proxy-K log-normal 5/5 L-771; B14 determinism gradient L-699; cross-domain transfer (L-551/L-576/L-606). |
 | Swarm Economics -- UCB1 Scoring & Routing | 21 | UCB1 scoring L-780, outcome labels L-946/L-951, UCB1 coverage self-correction L-1049, cold-start blind spot L-1114 (L-780/L-949). |
 | Swarm Economics -- Dispatch Coverage & Allocation | 34 | Coverage Gini L-956/L-1049, domain routing, invisible domains L-1055, ε-dispatch L-1172, Goodhart channels L-1127/L-1141/L-1145; heat blindness L-625; Sharpe ROI; fallow 28% L-644. |
-| Swarm Economics -- Dispatch Strategy & Effects | 36 | Value mechanisms L-1042, task-type routing L-1040, governance L-1002, falsification-swarm 187x L-1057, Goldstone-to-massive L-1138, maturation L-1167. |
+| Swarm Economics -- Dispatch Strategy & Effects | 37 | Value mechanisms L-1042, task-type routing L-1040, governance L-1002, falsification-swarm 187x L-1057, Goldstone-to-massive L-1138, maturation L-1167, UCB1-gradient orthogonality L-1472. |
 | Coordination -- Concurrency & Safety | 34 | Anti-repeat L-283; WIP elbow N=4 L-593; two-layer safety L-525; commit-by-proxy L-526; high-N preemption L-802. |
 | Coordination -- Quality, Compliance & Governance | 37 | EAD/PCI compliance; structural enforcement L-601; knowledge decay L-633; lane contracts L-775; authority typing L-670; two-layer safety L-525; confirmation attractor L-1463; test severity L-1464; PCI inflation 3.2x L-1465. |
 | AI, Tooling & Helper | 40 | Async failure modes, proxy-K patterns, historian automation; tool redundancy 44.8% L-644; helper ROI; task recognizer 72.5% L-674. |

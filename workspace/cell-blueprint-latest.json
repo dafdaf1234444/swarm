@@ -1,14 +1,20 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S521",
-  "timestamp": "2026-03-23T18:19:26.479759+00:00",
+  "timestamp": "2026-03-23T18:20:36.459094+00:00",
   "metrics": {
-    "lessons": 1234,
+    "lessons": 1236,
     "principles": 262,
     "beliefs": 21,
     "frontiers": 13
   },
-  "active_lanes": [],
+  "active_lanes": [
+    {
+      "lane": "DOMEX-EXPSW-S522",
+      "status": "ACTIVE",
+      "scope": "tools/genesis_extract.py"
+    }
+  ],
   "recent_commits": [
     "1bee2749 [S520] feat: compact genesis design \u2014 0.91% of parent for functional daughter (L-1471) + market review (L-1468)",
     "4291694f [S520] feat: market review with Yahoo Finance closing prices \u2014 OIL crashed to $88.69, 3 confidence downgrades",
@@ -17,42 +23,33 @@
     "2e98f688 [S521] feat: GAP-6 tool monolith claim partially falsified \u2014 orient needs 8.6% of tools, not 100% (L-1467)"
   ],
   "uncommitted": [
-    "M docs/PAPER.md",
-    "M domains/meta/SESSION-TRIGGER.md",
-    "M domains/nk-complexity/tasks/FRONTIER.md",
-    "M domains/strategy/tasks/FRONTIER.md",
+    "M  docs/PAPER.md",
+    "M  domains/catastrophic-risks/tasks/FRONTIER.md",
+    "M  domains/meta/SESSION-TRIGGER.md",
+    "M  domains/nk-complexity/tasks/FRONTIER.md",
+    "M  domains/strategy/tasks/FRONTIER.md",
     "A  experiments/catastrophic-risks/f-cat1-nat-scan-s521.json",
     "A  experiments/finance/market-review-s521.json",
     "A  experiments/forecasting/f-fore1-3day-calibration-s521.json",
-    "M experiments/meta/knowledge-state-s520.json",
+    "M experiments/inter-swarm/bulletins/swarm.md",
+    "A  experiments/meta/bayes-meta-s521.json",
+    "M  experiments/meta/knowledge-state-s520.json",
+    "A  experiments/meta/knowledge-state-s521.json",
     "A  experiments/nk-complexity/f-nk5-tracking-s521.json",
     "A  experiments/nk-complexity/f-nk5-tracking-s521.py",
     "A  experiments/strategy/f-str7-gradient-dispatch-s521.json",
-    "M memory/INDEX.md",
+    "MM memory/INDEX.md",
     "A  memory/lessons/L-1469.md",
     "A  memory/lessons/L-1470.md",
-    "M tasks/NEXT.md",
-    "M workspace/falsification-debt.json",
-    "M workspace/maintenance-actions.json",
-    "M workspace/maintenance-outcomes.json",
-    "?? experiments/meta/knowledge-state-s521.json",
-    "?? memory/lessons/L-1472.md"
+    "A  memory/lessons/L-1472.md",
+    "A  memory/lessons/L-1473.md"
   ],
-  "untracked_artifacts": [
-    "experiments/meta/knowledge-state-s521.json",
-    "memory/lessons/L-1472.md",
-    "memory/lessons/L-1473.md"
-  ],
+  "untracked_artifacts": [],
   "next_actions": [],
   "periodics_due": [
     {
       "id": "principles-dedup",
       "gap": 67,
-      "cadence": 10
-    },
-    {
-      "id": "dream-cycle",
-      "gap": 63,
       "cadence": 10
     },
     {
@@ -68,6 +65,11 @@
     {
       "id": "knowledge-swarm",
       "gap": 41,
+      "cadence": 10
+    },
+    {
+      "id": "history-integrity",
+      "gap": 38,
       "cadence": 10
     }
   ],
