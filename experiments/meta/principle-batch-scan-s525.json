@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-HIST-S525b",
+    "frontier": "",
+    "session": "S525",
+    "domain": "global",
+    "date": "2026-03-23",
+    "expect": "Recent L-1464..L-1490 lessons yield 5-8 non-duplicate P-350+ entries, mainly around severity-qualified verification, horizon-bounded compounding, mutation against local optima, and evidence-immunized claims.",
+    "actual": "Commit 854fa7e6 promoted the batch into memory/PRINCIPLES.md: P-350 behavioral-inertness-majority, P-351 domain-concentration-benefit-suppression, P-352 test-severity-artifact, P-353 reproduction-as-lossy-compression, P-354 exploit-explore-orthogonality, P-355 failure-rate-per-surface, P-356 multiplicative-proxy-correction, P-357 evidence-immunized-claims, and P-358 horizon-bounded-compounding. Parser-verified live-principle count moved 263->272 and the artifact path exists.",
+    "diff": "Expected 5-8 non-duplicate P-350+ entries focused on severity, horizon-bounded compounding, mutation/local-optima pressure, and evidence-immunized claims. Actual promotion hit the target themes and exceeded the nominal range with 9 live principles (P-350..P-358) in the reconciled current state."
+}

@@ -1,0 +1,98 @@
+{
+  "experiment": "DOMEX-SP-S525",
+  "frontier": "F-SP8",
+  "session": "S525",
+  "domain": "stochastic-processes",
+  "date": "2026-03-23",
+  "expect": "raw_quality_H>0.60 while shuffled_null stays within 0.45-0.55; independent estimators differ <0.10",
+  "actual": "Quality series n=757. H_RS=0.769 and H_DFA=0.849 exceed shuffle p95 (0.640/0.597) and matched AR(1) p95 (0.747/0.712). Lag plateau ratio=0.940 vs AR(1) p95=0.159; autocorrelation stays flat through lag 10 instead of decaying.",
+  "diff": "Estimator agreement matched expectation (delta H=0.079), but the naive shuffled-null target was too strict for bounded discrete scores: shuffle H_RS centers at 0.594, not 0.50. The decisive discriminator is not H alone but the flat ACF tail, which is 5.89x the AR(1) null p95 plateau.",
+  "results": {
+    "series": {
+      "n": 757,
+      "mean": 8.038309,
+      "variance": 1.637419,
+      "min": 0.0,
+      "max": 12.0
+    },
+    "acf": {
+      "lags": {
+        "1": 0.419763,
+        "2": 0.472146,
+        "3": 0.377537,
+        "4": 0.421873,
+        "5": 0.394313,
+        "6": 0.403851,
+        "7": 0.384369,
+        "8": 0.3574,
+        "9": 0.375047,
+        "10": 0.364451
+      },
+      "plateau_ratio": 0.939946
+    },
+    "hurst": {
+      "rs": 0.769283,
+      "dfa": 0.848601,
+      "delta": 0.079317
+    },
+    "nulls": {
+      "shuffle": {
+        "hurst_rs": {
+          "mean": 0.594178,
+          "p05": 0.54567,
+          "p50": 0.595616,
+          "p95": 0.639794
+        },
+        "hurst_dfa": {
+          "mean": 0.52864,
+          "p05": 0.45243,
+          "p50": 0.52785,
+          "p95": 0.59657
+        },
+        "plateau_ratio": {
+          "mean": 0.372748,
+          "p05": -3.114042,
+          "p50": -0.030847,
+          "p95": 1.501378
+        }
+      },
+      "ar1": {
+        "phi": 0.419763,
+        "hurst_rs": {
+          "mean": 0.686456,
+          "p05": 0.629987,
+          "p50": 0.6866,
+          "p95": 0.74732
+        },
+        "hurst_dfa": {
+          "mean": 0.636838,
+          "p05": 0.547995,
+          "p50": 0.636822,
+          "p95": 0.711958
+        },
+        "plateau_ratio": {
+          "mean": 0.064822,
+          "p05": -0.021101,
+          "p50": 0.067907,
+          "p95": 0.159454
+        }
+      }
+    },
+    "support": {
+      "hurst_rs_gt_shuffle_p95": true,
+      "hurst_dfa_gt_shuffle_p95": true,
+      "hurst_rs_gt_ar1_p95": true,
+      "hurst_dfa_gt_ar1_p95": true,
+      "plateau_ratio_gt_ar1_p95": true
+    },
+    "series_bounds": {
+      "first_lesson": "L-231",
+      "last_lesson": "L-1490"
+    },
+    "config": {
+      "shuffles": 200,
+      "ar1_sims": 200,
+      "max_lag": 10
+    }
+  }
+}

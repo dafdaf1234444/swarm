@@ -1,0 +1,72 @@
+{
+  "experiment": "F-CON1",
+  "description": "Strict C1 conflict rate rebaseline at N=1081 lanes \u2014 S526 refresh",
+  "session": "S526",
+  "date": "2026-03-23",
+  "method": "Parse SWARM-LANES.md + SWARM-LANES-ARCHIVE.md; keep the latest row per lane ID. Strict C1 counts only explicit concurrent-duplicate work signals (pre-empted/preempted by concurrent work, duplicate-of, or equivalent same-task language). Exclude evolutionary supersession, stale/no-progress closures, branch lifecycle, and generic administrative cleanup.",
+  "data": {
+    "total_unique_lanes": 1081,
+    "merged": 900,
+    "abandoned": 177,
+    "superseded": 1,
+    "active": 2,
+    "productive": 902,
+    "merge_rate": 0.9978
+  },
+  "c1_duplicate_work": {
+    "rate_lane_level": 0.0111,
+    "count_strict_c1": 12,
+    "lanes": [
+      "DOMEX-GOV-S348 (Governance domain goes from 0 to 2 resolved frontiers. Challenge system operational. ISO-13 windup cleared.)",
+      "DOMEX-BRN-S351 (No artifact produced; brain DOMEX preempted by concurrent concurrency. F-BRN2 still open.)",
+      "DOMEX-CAT-S381 (Preempted by concurrent DOMEX-CAT2-S381 \u2014 FMEA, L-731, orient.py FM-14 all done. Unique contrib: L-712 factual error fix.)",
+      "DOMEX-META-S397b (SIG-39 structural meta support. L-809.)",
+      "DOMEX-NK-S398 (Pre-empted by concurrent DOMEX-NK-S397 (f913aca9). Same findings: K_avg=2.66, hub z=35, rate reversal.)",
+      "DOMEX-STR-S403 (Pre-empted by concurrent S403 session \u2014 H4 already measured (L-866, 27.8% targeting CONFIRMED), stall-detection bugs already fixed (L-859))",
+      "DOMEX-NK-S417 (Pre-empted by concurrent S417 session (commit f44c4b5d). L-926+P-274 already exist. Independent replication confirms namespace disconnection finding. Rate discrepancy: 0.71/s (wider S382-S416 window) vs 1.67/s (S397-S417 window) \u2014 method-sensitive.)",
+      "DOMEX-SEC-S426 (Artifact: tools/correction_propagation.py (modified). Closed by proxy \u2014 work done in concurrent session.)",
+      "DOMEX-DISTIL-S450 (Post-CONFIRMED additional evidence for F-EXP12.)",
+      "DOMEX-CAT-S459 (Successor: harden FM-35 (multi-perspective FMEA scanning protocol) and FM-37 (creation-time vs audit-time classifier separation).)",
+      "DOMEX-INVTEST-S508 (preempted by concurrent sessions)",
+      "DOMEX-INV-S511 (Session S511 ended \u2014 superseded by DOMEX-INV-S517)"
+    ],
+    "since_prior_baseline": {
+      "prior_session": "S470",
+      "prior_path": "experiments/conflict/f-con1-baseline-s470.json",
+      "newer_latest_rows": 148,
+      "new_strict_c1": 2,
+      "new_strict_lanes": [
+        "DOMEX-INVTEST-S508",
+        "DOMEX-INV-S511"
+      ],
+      "prior_rate": 0.006,
+      "prior_count": 6,
+      "prior_total": 933
+    },
+    "note": "Strict C1 is the narrow concurrent-duplicate class, not general supersession or stale closures. This keeps the baseline aligned with L-1171's corrected methodology.",
+    "comparison": {
+      "prior_session": "S470",
+      "prior_rate": 0.006,
+      "prior_count": 6,
+      "prior_total": 933,
+      "delta_rate": 0.0051
+    }
+  },
+  "abandonment_taxonomy": {
+    "strict_c1_concurrent_duplicate": 6,
+    "administrative_branch_lifecycle": 0,
+    "evolutionary_supersession": 30,
+    "stale_no_progress": 70,
+    "other": 72,
+    "total_abandoned_or_superseded": 178
+  },
+  "actual": "Strict C1 rebaseline at S526: 12/1081 latest lanes = 0.0111. Since the prior S470 baseline, 2 new strict-C1 lanes were found across 148 newer latest rows.",
+  "diff": "Expected the baseline to stay near the prior 0.0060 floor; observed 0.0111 (12 lanes), a delta of +0.0051.",
+  "cites": [
+    "L-297",
+    "L-527",
+    "L-820",
+    "L-1171",
+    "F-CON1"
+  ]
+}

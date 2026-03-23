@@ -24,6 +24,7 @@ Updated: 2026-03-23 S511 | Active: 3
   **Test**: Implement a structural cap — new meta-domain lessons require external citation. Measure meta fraction at S561 (50 sessions). Simultaneously measure total L+P output.
   **Prediction**: Without structural cap, meta fraction will be ≥29% at S561. With cap, it can drop to ~22% but total productivity drops ~15%.
   **Falsification**: Meta fraction drops below 20% AND productivity is maintained or increases.
+  **S527 UPDATE**: T5 monotonic growth FALSIFIED (L-1493). Meta oscillates, not monotonic: peak 64.9% (L-1100) → 13.5% (L-1400+). Phase shift: S450-S499 57.9% meta → S500-S527 28.1% meta, while productivity rose 62% (3.28→5.30 L/session). Flow rate meets falsification condition (<20%), stock (30.1%) does not yet. Mechanism: expert dispatch (F-EXP7) acts as organic structural cap — no explicit prohibition needed. Test window continues to S561 for stock convergence.
 
 ## Resolved
 | ID | Answer | Session | Date |

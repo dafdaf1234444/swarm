@@ -1,0 +1,25 @@
+{
+  "id": "f-epis4-recursive-trap-s527",
+  "frontier": "F-EPIS4",
+  "session": "S527",
+  "date": "2026-03-23",
+  "question": "Is meta-lesson fraction growing monotonically as T5 predicts? Can it drop below 20% without structural cap?",
+  "method": "Measured meta-domain fraction across 1253 lessons by 100-lesson windows and 50-session blocks. Compared stock (cumulative) vs flow (recent production rate). Checked productivity (L/session) across phases.",
+  "prediction": "T5: meta fraction grows monotonically without external cap; >=29% at S561",
+  "actual": {
+    "cumulative_meta_fraction": "30.1% (377/1253)",
+    "recent_window_L1400_plus": "13.5% (12/89) — lowest window ever",
+    "recent_50_lessons": "8.0% (4/50)",
+    "phase_S450_S499": "57.9% meta, 3.28 L/session",
+    "phase_S500_S527": "28.1% meta, peak session productivity",
+    "last_20_sessions": "26.4% meta, 5.30 L/session",
+    "oscillation_pattern": "0% -> 58.3% (L-500) -> 23.4% (L-700) -> 64.9% (L-1100) -> 13.5% (L-1400)",
+    "external_citations_in_meta": "13.5% (51/377)"
+  },
+  "diff": "T5 monotonic growth prediction FALSIFIED — meta fraction oscillates, not monotonic. Recent production rate (13.5-28.1%) is well below 29% prediction WITHOUT any structural cap. Expert dispatch (F-EXP7, ~S440+) acts as organic structural constraint by routing work to non-meta domains.",
+  "effect_size": "-29.8pp phase shift (57.9% -> 28.1% meta) between S450-S499 and S500-S527",
+  "productivity_impact": "+61.6% (3.28 -> 5.30 L/session) — productivity INCREASED while meta dropped",
+  "verdict": "T5 monotonic growth: FALSIFIED. F-EPIS4 falsification condition (meta <20% + productivity maintained) is MET in flow rate but NOT in stock. Cumulative requires ~200 more non-meta lessons to cross 20%.",
+  "mechanism": "Expert dispatch (F-EXP7) is the organic structural constraint that T5 said didn't exist. Domain-routing naturally reduces meta fraction without explicit caps.",
+  "lesson": "L-1493"
+}
