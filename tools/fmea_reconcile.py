@@ -97,7 +97,7 @@ def normalize_status(status):
 
 
 def extract_baseline(artifact):
-    """Extract FM baseline from S420 registry artifact."""
+    """Extract FM baseline from S506 registry artifact."""
     fms = {}
     data = artifact["data"]
     registry = data.get("registry", {})

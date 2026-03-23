@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Shared constants, config, and helper functions for maintenance.py and its extracted modules.
 
-Extracted from maintenance.py (DOMEX-META-S425) to reduce token count.
+Extracted from maintenance.py (DOMEX-META-S506) to reduce token count.
 All maintenance_*.py modules import from here instead of receiving DI params.
 """
 
