@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """compact.py — Compression target analysis (F105).
-Last validated: S427 — proxy-K 5.0% drift, within healthy range (threshold 10%).
+Last validated: S518 — proxy-K 4.9% drift, within healthy range (threshold 10%).
 
 Identifies specific files and techniques when proxy K drift exceeds threshold.
 Separates analysis from mutation (P-144): this tool diagnoses, session acts.

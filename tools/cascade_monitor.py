@@ -56,7 +56,7 @@ def _current_session() -> int:
     m = re.search(r'\[S(\d+)\]', log)
     if m:
         return int(m.group(1))
-    # Fallback: derive from lesson count (#L-1103, FM-35 — static fallback was S435-stale)
+    # Fallback: derive from lesson count (#L-1103, FM-35 — static fallback was S518-refreshed)
     import glob
     lesson_count = len(glob.glob(str(REPO_ROOT / "memory" / "lessons" / "L-*.md")))
     return max(lesson_count, 452)
