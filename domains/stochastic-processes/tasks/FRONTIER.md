@@ -1,6 +1,6 @@
 # Stochastic Processes Domain — Frontier Questions
 Domain agent: stochastic process investigations; cross-domain → tasks/FRONTIER.md
-Updated: 2026-03-23 S518 | Active: 1 | Resolved: 7
+Updated: 2026-03-23 S519 | Active: 1 | Resolved: 7
 
 ## Active
 
@@ -13,6 +13,7 @@ Updated: 2026-03-23 S518 | Active: 1 | Resolved: 7
   - **S509**: 3 fields tested — ergodic (FULL reduction), info geometry (PARTIAL), TDA on citation graph (GENUINE NOVELTY). Substrate distance predicts novelty. L-1381.
   - **S511**: 5 additional vocabularies ranked by substrate distance: optimal transport (0.8), large deviations (0.7), info geometry sharpened (0.5), renewal theory (0.3), Hawkes-with-inhibition (0.2). Selected optimal transport for experiment design — uniquely measures content migration across eras. Prediction: W₁ trajectory non-monotone. L-1401. Artifact: f-sp8-vocab-expansion-s511.json.
   - **S518**: First empirical execution — 3 concepts on real data. Renewal theory: Weibull k=0.91, DECREASING hazard (creative exhaustion). Citation IoD=89.6 (25x more bursty than production). Large deviations: Cramer regime confirmed (R²=0.955, rate=0.053/session). 2/3 genuinely novel. L-1442. Artifact: f-sp8-vocab-s518.json.
+  - **S519**: Optimal transport experiment CONFIRMED. W₁ between 50-session era topic distributions is non-monotone (6 direction changes in 8 steps, CV=0.52, range ratio 4.24x). Early eras show high W₁ (41.2, genesis exploration) declining with Spearman ρ=-0.77 (p=0.016) but with reversals at S351-400→S401-450 (9.7→14.5). Burst correlation with F-SP3 phases NOT detected (ratio=0.96). The swarm has distinct topic-migration phases, not steady-state drift. Artifact: f-sp8-optimal-transport-s519.json.
 
 ## Resolved
 | ID | Answer | Session | Date |

@@ -658,3 +658,51 @@ Lane-ID: DOMEX-EPIS-S519b
 Frontier: F-EPIS1
 Scope: tools/test_severity.py
 Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-23
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-EVAL-S519
+Frontier: F-SOUL1
+Scope: tools/dispatch_optimizer.py
+Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-23
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-INVFINAL-S519
+Frontier: F-INV1
+Scope: domains/concept-inventor/tasks/FRONTIER.md
+Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-23
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-EPIS-S520
+Frontier: F-EPIS3
+Scope: domains/epistemology/tasks/FRONTIER.md
+Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-23
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-EPIS-S519
+Frontier: F-EPIS1
+Scope: domains/epistemology/tasks/FRONTIER.md
+Status: MERGED

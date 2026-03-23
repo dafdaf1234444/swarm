@@ -1,0 +1,90 @@
+=== KNOWLEDGE STATE CLASSIFIER — S519 ===
+
+--- Global Knowledge State Distribution ---
+  MUST-KNOW      421  ( 25.6%)  ████████████
+  ACTIVE         428  ( 26.0%)  ████████████
+  SHOULD-KNOW    126  (  7.7%)  ███
+  DECAYED        505  ( 30.7%)  ███████████████
+  BLIND-SPOT     167  ( 10.1%)  █████
+  TOTAL         1647
+
+--- Per-Domain Knowledge State Profiles ---
+  Domain                        MUST  ACTV  SHLD  DECY  BLND  Total  Diagnosis
+  ---------------------------- ----- ----- ----- ----- ----- ------  -------------------------
+  *meta                          153    95    15   124    43    430  BLIND-SPOT: 43 unreachable
+   cross-domain                   15   135     0    51    73    274  BLIND-SPOT: 73 unreachable
+   unknown                        29    17     0   106     8    160  BLIND-SPOT: 8 unreachable
+  *expert-swarm                   38    28     3    25     7    101  BLIND-SPOT: 7 unreachable
+  *nk-complexity                  31    11     1    27     6     76  BLIND-SPOT: 6 unreachable
+  *evaluation                     14    19     2     7     1     43  BLIND-SPOT: 1 unreachable
+  *brain                           9     1     1    21     1     33  BLIND-SPOT: 1 unreachable
+  *strategy                       10     3     3    14     0     30  OPERATIONAL: infra-critical
+  *catastrophic-risks             12     8     1     5     2     28  BLIND-SPOT: 2 unreachable
+  *concept-inventor                6    17     2     0     0     25  HEALTHY
+  *governance                      8     4     5     6     1     24  BLIND-SPOT: 1 unreachable
+  *security                       10     0     2    11     1     24  BLIND-SPOT: 1 unreachable
+  *stochastic-processes            5     8     1     8     1     23  BLIND-SPOT: 1 unreachable
+  *information-science             6     1     5     7     2     21  BLIND-SPOT: 2 unreachable
+  *economy                         8     0     1    12     0     21  DECAY-HEAVY: needs revival
+  *evolution                       3     2     5     7     0     17  EXPLORE-RICH: needs experiments
+  *graph-theory                    1     2     5     7     1     16  BLIND-SPOT: 1 unreachable
+  *epistemology                    1    10     3     0     0     14  MIXED
+  *linguistics                     3     1     5     3     1     13  BLIND-SPOT: 1 unreachable
+  *operations-research             2     6     1     2     1     12  BLIND-SPOT: 1 unreachable
+  *helper-swarm                    7     0     3     1     1     12  BLIND-SPOT: 1 unreachable
+  *conflict                        6     1     1     4     0     12  OPERATIONAL: infra-critical
+  *ai                              2     1     2     5     1     11  BLIND-SPOT: 1 unreachable
+  *finance                         2     2     2     4     1     11  BLIND-SPOT: 1 unreachable
+  *quality                         4     0     1     4     2     11  BLIND-SPOT: 2 unreachable
+  *physics                         2     3     2     4     0     11  MIXED
+  *social-media                    1     3     4     1     1     10  BLIND-SPOT: 1 unreachable
+  *human-systems                   1     1     4     3     1     10  BLIND-SPOT: 1 unreachable
+  *statistics                      2     3     3     1     1     10  BLIND-SPOT: 1 unreachable
+  *psychology                      2     4     2     0     1      9  BLIND-SPOT: 1 unreachable
+  *gaming                          1     0     3     3     1      8  BLIND-SPOT: 1 unreachable
+  *fluid-dynamics                  1     1     1     4     1      8  BLIND-SPOT: 1 unreachable
+  *game-theory                     4     0     2     0     2      8  BLIND-SPOT: 2 unreachable
+  *forecasting                     1     5     2     0     0      8  MIXED
+  *thermodynamics                  1     7     0     0     0      8  MIXED
+  *filtering                       3     4     0     0     0      7  MIXED
+   religion                        2     5     0     0     0      7  MIXED
+  *distributed-systems             2     0     0     3     1      6  BLIND-SPOT: 1 unreachable
+  *dream                           1     0     4     1     0      6  EXPLORE-RICH: needs experiments
+  *cryptography                    1     0     3     2     0      6  EXPLORE-RICH: needs experiments
+  *fractals                        0     5     1     0     0      6  MIXED
+  *farming                         1     0     2     1     1      5  BLIND-SPOT: 1 unreachable
+  *cryptocurrency                  0     0     3     1     1      5  BLIND-SPOT: 1 unreachable
+  *history                         0     0     3     2     0      5  EXPLORE-RICH: needs experiments
+  *string-theory                   1     0     3     1     0      5  EXPLORE-RICH: needs experiments
+   architecture                    0     3     0     1     0      4  MIXED
+  *control-theory                  1     1     2     0     0      4  MIXED
+  *empathy                         0     2     0     2     0      4  MIXED
+  *guesstimates                    0     0     3     1     0      4  EXPLORE-RICH: needs experiments
+  *random-matrix-theory            1     0     2     1     0      4  MIXED
+  *health                          0     0     0     3     0      3  DECAY-HEAVY: needs revival
+   coordination                    0     1     0     2     0      3  DECAY-HEAVY: needs revival
+  *protocol-engineering            0     0     2     0     1      3  BLIND-SPOT: 1 unreachable
+  *plant-biology                   0     3     0     0     0      3  MIXED
+  *mathematics                     2     1     0     0     0      3  MIXED
+   global                          0     0     3     0     0      3  EXPLORE-RICH: needs experiments
+  *claude-code                     0     0     1     0     1      2  BLIND-SPOT: 1 unreachable
+  *competitions                    0     0     1     1     0      2  NASCENT
+  ... 13 small domains hidden (total < 3, not canonical)
+
+--- State Transition Diagnostics ---
+  ACTIVE items:    428 (avg age: 60 sessions)
+  DECAYED items:   505 (avg age: 244 sessions)
+  MUST-KNOW items: 421
+  BLIND-SPOT items: 167
+  SHOULD-KNOW:     126 open frontiers across 53 domains
+  Revival rate:    195/1100 old items recently cited (17.7%)
+
+--- F-META10 Hypothesis Tests ---
+  [PASS] SHOULD-KNOW > ACTIVE in ≥30% of domains
+        33/50 domains (66.0%)
+  [PASS] DECAYED→ACTIVE transitions < 1% per session
+        0.35% per session (cumulative 17.7% over 50s window)
+  [PASS] Knowledge-state profiles change top-5 dispatch in ≥2/5 cases
+        5/5 different (gap-ranked: ['claude-code', 'protocol-engineering', 'cryptocurrency', 'guesstimates', 'dream'], UCB1: ['expert-swarm', 'nk-complexity', 'catastrophic-risks', 'strategy', 'stochastic-processes'])
+
+JSON written to experiments/meta/knowledge-state-s519.json

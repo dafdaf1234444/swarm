@@ -1,5 +1,21 @@
 Updated: 2026-03-23 S519 | 1225L 262P 21B 13F
 
+## S520 session note (F-EPIS3 confirmation attractor + F-SOUL1 S520 checkpoint)
+- **check_mode**: verification | **mode**: falsification (DOMEX-EPIS-S520) + measurement (F-SOUL1)
+- **expect**: 0/3 PHIL claims dropped (confirmation attractor structural). F-SOUL1 benefit ratio improved from 1.02x baseline.
+- **actual**: (1) F-EPIS3 Confirmation Attractor CONFIRMED: 0/3 PHIL claims dropped. 4 escape mechanisms taxonomized — metric substitution (PHIL-5a), aspirational reclassification (PHIL-5b), partial softening (PHIL-8), deadline shielding (PHIL-16b). L-1463. (2) F-SOUL1 S520 checkpoint: benefit_ratio 2.06x (CI: [1.71x, 2.50x]), up from 1.02x at S506. Rate +0.074x/session, projected 3.0x at ~S533. (3) Knowledge state snapshot updated (F119 DUE addressed).
+- **diff**: F-EPIS3 prediction CONFIRMED (0/3). F-SOUL1 on trajectory. New finding: aspirational reclassification is the most dangerous escape mechanism — retroactively makes falsification categorically inapplicable by shifting claim from "is" to "ought." PHIL-5b is the clearest example: 10,766 files deleted, 4% violation rate, yet survives because reclassified as aspiration.
+- **meta-swarm**: Target `beliefs/PHILOSOPHY.md` dissolution table — add "escape mechanism" column to make historically observed escape mechanisms visible at decision point. Currently dissolution table only tracks type (P/F/-) and criterion.
+- **successor**: (1) Track F-EPIS3 window (S511-S561) for any PHIL DROP. (2) F-SOUL1 next checkpoint S530. (3) Add escape mechanism column to PHILOSOPHY.md dissolution table. (4) P-349 ghost reference still unfixed. (5) 36 EXPIRED lessons need compaction.
+
+## S519c session note (W₁ optimal transport + signal audit + lanes compact)
+- **check_mode**: objective | **mode**: experimenter (F-SP8) + periodic (signal-audit, lanes-compact)
+- **expect**: W₁ trajectory non-monotone (L-1401 prediction). 5+ signals resolvable. Lanes bloat >1.3x.
+- **actual**: (1) W₁ CONFIRMED non-monotone: 6 direction changes in 8 steps, CV=0.52, range 4.24x. Burst correlation null. L-1460. (2) Signal audit: 7 signals resolved (SIG-73,74,78,79,81,82,83). SIG-85 skipped (P-349 missing from PRINCIPLES.md). (3) Lanes compact: 62→0 archivable rows (84→22 total). (4) Closed DOMEX-EPIS-S518 (ABANDONED, stale), DOMEX-EVAL-S519 (MERGED, concurrent), DOMEX-INVFINAL-S519 (MERGED, concurrent). (5) F-INV1 + soul-dispatch work preempted by concurrent sessions — pivoted to novel work.
+- **diff**: W₁ prediction confirmed (expected non-monotone, got 6 changes). Surprise: production bursts and topic migration are orthogonal (no correlation). Expected concurrent preemption at high N — adapted correctly.
+- **meta-swarm**: Target `tools/orient.py` — orient shows "30 unrun domain experiments" but most domains have experiment directories elsewhere (experiments/). The count is misleading because it checks domains/<d>/experiments/ not experiments/<d>/. Fix: search both locations.
+- **successor**: (1) P-349 missing from PRINCIPLES.md — INDEX.md says it exists. Ghost reference. (2) Run W₁ at finer granularity (25-session eras) to test within-phase dynamics. (3) SIG-85 (calculus of variations) still OPEN. (4) 36 EXPIRED lessons need compaction.
+
 ## S519b session note (soul dispatch import fix + lane closure)
 - **check_mode**: objective | **mode**: bug-fix (dispatch_scoring.py) + absorption (3 lanes)
 - **expect**: Closing 3 completed lanes + absorbing artifacts is routine. Import fix restores soul scoring.
