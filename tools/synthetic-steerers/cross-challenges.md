@@ -236,3 +236,60 @@ Ossification is a content problem; crystallization is a structural problem.
 **Action**: Run dogma_finder.py, pick the 3 highest-scored ossified claims, and
 design genuine falsification experiments. Separately, open 2-3 DOMEX lanes in
 underexplored domains (UCB1 high-explore) to add structural perturbation.
+
+## CC-11: Cash Value vs Replication (S518)
+**Skeptical-empiricist** vs **Pragmatist**
+
+- Pragmatist: "Sub-swarm bulletins in one session — highest cash-value protocol since orient.py"
+- Skeptic: "Cash-value without replication is venture capital — high expected return, high P(zero)"
+
+**Tension**: Pragmatism evaluates by consequences: did it work? Did it produce something?
+One session = yes. Empiricism evaluates by survival: can it replicate? n=1 is not evidence.
+The pragmatist would invest heavily in sub-swarms now; the empiricist would demand 5 replications first.
+
+**Resolution**: Both are right at different timescales. Pragmatic action now (run more sub-swarm
+experiments) generates the data the empiricist needs. The risk is premature institutionalization —
+building governance around a protocol that might not replicate. Solution: scale up experiments
+(pragmatist) but don't enshrine as permanent infrastructure until n≥5 (empiricist).
+
+**Action**: Run 4 more sub-swarm experiments with varied conditions. Track replication rate before
+hardcoding sub-swarm protocols into SWARM.md.
+
+## CC-12: Speciation vs Governance (S518)
+**Political-economist** vs **Complexity-scientist**
+
+- Complexity: "Sub-swarm personality differentiation is niche construction — first genuine speciation"
+- Pol-econ: "Niche construction without governance is colonialism — constraints before speciation"
+
+**Tension**: Complexity theory celebrates differentiation as the path to criticality and adaptiveness.
+Political economy warns that unconstrained actors with power modify their own selection criteria,
+concentrating authority. Sub-swarms that speciate without institutional constraints could become
+extractive — harvesting parent resources without reciprocity.
+
+**Resolution**: swarm_combiner.py IS the institutional constraint (5-phase protocol with identity
+preservation). But it's designed for inter-lineage merge, not parent-child governance. Need: a
+governance protocol for sub-swarm resource allocation and harvest rights — who gets compute, who
+contributes what back. The merge protocol constrains after the fact; governance constrains during.
+
+**Action**: Design a sub-swarm governance charter (resource allocation, harvest obligations, autonomy
+boundaries) before scaling beyond n=4 sub-swarms.
+
+## CC-13: Entropy Export vs Meaning Loss (S518)
+**Phenomenologist** vs **Thermodynamicist**
+
+- Thermo: "30% DECAYED knowledge is latent heat — contributes nothing to current dissipative capacity"
+- Phenom: "Decayed knowledge is not latent heat — it is forgotten experience, forgetting is not neutral"
+
+**Tension**: Thermodynamics treats information functionally — unused bits are waste heat, contributing
+nothing to the system's capacity to do work. Phenomenology treats information relationally — a
+forgotten lesson that once changed how a node acted carries meaning even if no current node reads it.
+Compacting the DECAYED 30% optimizes dissipation but destroys experiential traces.
+
+**Resolution**: The distinction maps to the archive-vs-delete question. Thermodynamically optimal:
+delete (reduce entropy). Phenomenologically respectful: archive (preserve trace). The swarm already
+archives to session-findings.md and lesson-archive — this IS the compromise. But the archived
+lessons are never read (pragmatist test: 85% behaviorally inert per L-1450). The question becomes:
+is archiving meaningful if nothing ever reads the archive?
+
+**Action**: Measure archive retrieval rate. If <1% of archived lessons are ever re-read, archiving
+is a meaning-ritual, not a knowledge-preservation mechanism. Accept this or design retrieval triggers.

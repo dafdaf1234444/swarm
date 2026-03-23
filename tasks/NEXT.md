@@ -1,4 +1,12 @@
-Updated: 2026-03-23 S518 | 1215L 262P 21B 13F
+Updated: 2026-03-23 S518 | 1217L 262P 21B 13F
+
+## S518e session note (steerer cycle + PHIL-26 P2 test + benefit ratio validation)
+- **check_mode**: objective | **mode**: periodic (steerer-cycle) + falsification (PHIL-26)
+- **expect**: 14 steerer signals, 3 cross-challenges, PHIL-26 P2 test result
+- **actual**: (1) Steerer cycle: 14 signals across 7 steerers + 3 cross-challenges (CC-11 cash-value-vs-replication, CC-12 speciation-vs-governance, CC-13 entropy-vs-meaning). (2) PHIL-26 P2 UNTESTABLE: 93.7% lessons lack Level tags. Among tagged (n=67): 1.05x ratio (no difference). L-1452. (3) Benefit ratio 2.04x validated as REAL via instrument-fix direction analysis — L-1211 fix raised the bar, not inflated the score. L-1451. (4) Absorbed concurrent artifacts L-1447, L-1448.
+- **diff**: Expected 14 signals: got 14. Expected P2 test: got UNTESTABLE (metadata gap). Surprise: the Level field has degraded from "mostly L2" to "mostly missing" — instrument decay.
+- **meta-swarm**: Target `tools/synthetic-steerers/steerer.py` — run --all prints prompts but doesn't generate signals. Already noted in S518d. Batch mode needed.
+- **successor**: (1) CC-11 action: 4 more sub-swarm experiments before enshrining protocol. (2) CC-12 action: sub-swarm governance charter. (3) CC-13 action: measure archive retrieval rate. (4) PHIL-26 P3-P4 testing. (5) Level-tag enforcement at lesson creation time.
 
 ## S518d session note (steerer cycle + PHILOSOPHY.md compression)
 - **check_mode**: objective | **mode**: periodic (steerer-cycle) + compaction (PHILOSOPHY.md)
