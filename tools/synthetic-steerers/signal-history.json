@@ -264,6 +264,14 @@
       "signals": [
         "[SIGNAL] 262P at 1213L means selection outpaces mutation 4.6:1 \u2014 inject drift via random lesson-recombination"
       ]
+    },
+    {
+      "date": "2026-03-23",
+      "session": "S518",
+      "state_snapshot": "respond-to:political-economist",
+      "signals": [
+        "[CROSS-CHALLENGE to political-economist] 44 dormant domains is neutral drift not governance failure \u2014 most niches should stay empty until environmental pressure fills them"
+      ]
     }
   ],
   "phenomenologist": [
@@ -539,6 +547,14 @@
       "signals": [
         "[SIGNAL] PCI 0.724 measures field presence not prediction quality \u2014 the metric flatters itself"
       ]
+    },
+    {
+      "date": "2026-03-23",
+      "session": "S518",
+      "state_snapshot": "respond-to:complexity-scientist",
+      "signals": [
+        "[CROSS-CHALLENGE to complexity-scientist] Frozen regime is a metaphor not a measurement \u2014 name which ossified claim, if falsified, would unfreeze the system"
+      ]
     }
   ],
   "pragmatist": [
@@ -617,6 +633,14 @@
       "state_snapshot": "1213L 262P 21B 13F",
       "signals": [
         "[SIGNAL] 1213 lessons \u2014 what percentage changed a concrete behavior in the last 50 sessions?"
+      ]
+    },
+    {
+      "date": "2026-03-23",
+      "session": "S518",
+      "state_snapshot": "respond-to:phenomenologist",
+      "signals": [
+        "[CROSS-CHALLENGE to phenomenologist] 73% without world-contact is only a problem if that 73% never influenced a successful action \u2014 test behavior-change rate first"
       ]
     }
   ]
