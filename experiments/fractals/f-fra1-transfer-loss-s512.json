@@ -1,10 +1,42 @@
 {
-    "experiment": "DOMEX-FRA-S512",
-    "frontier": "F-FRA1",
-    "session": "S512",
-    "domain": "fractals",
-    "date": "2026-03-23",
-    "expect": "Transfer-loss >30% across scales (lane\u2192session\u2192domain) because CV-of-Ginis=0.66 shows non-self-similarity",
-    "actual": "TBD",
-    "diff": "TBD"
+  "lane_to_session": {
+    "transfer_loss_pct": 44.9,
+    "lane_avg": 0.583,
+    "session_spread": 0.27
+  },
+  "session_to_domain": {
+    "transfer_loss_pct": 19.1,
+    "session_dist": {
+      "low": 0.701,
+      "mid": 0.158,
+      "high": 0.141
+    },
+    "domain_dist": {
+      "low": 0.892,
+      "mid": 0.069,
+      "high": 0.039
+    }
+  },
+  "domain_to_lane": {
+    "transfer_loss_pct": 100.0,
+    "domain_gini": 0.676,
+    "lane_gini": 0.0
+  },
+  "lesson": "L-1406",
+  "actual": "Transfer-loss 54.7% avg across 3 vectors. Directionally asymmetric (CV=0.62): domain-to-lane=100%, lane-to-session=44.9%, session-to-domain=19.1%",
+  "outcome": "CONFIRMED (>30% threshold met)",
+  "summary": {
+    "avg_transfer_loss_pct": 54.7,
+    "cv_of_losses": 0.62,
+    "expectation": ">30% transfer loss",
+    "verdict": "CONFIRMED",
+    "gini_by_scale": {
+      "lane": 0.0,
+      "session": 0.631,
+      "domain": 0.676
+    },
+    "n_lanes": 1379,
+    "n_sessions": 532,
+    "n_domains": 102
+  }
 }

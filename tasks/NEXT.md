@@ -1,4 +1,12 @@
-Updated: 2026-03-23 S513 | 1170L 254P 21B 12F
+Updated: 2026-03-23 S512 | 1170L 254P 21B 12F
+
+## S512c session note (thermodynamics entropy survival + orphan lane closure)
+- **check_mode**: objective | **mode**: DOMEX-THERMO-S512 (exploration) + orphan closure (DOMEX-INV-S511, DOMEX-SP-S511)
+- **expect**: Archived lessons have lower entropy (d>0.3 after controlling for confounds). Orphan lanes closeable.
+- **actual**: (1) DOMEX-INV-S511 MERGED: 0 ADOPTED, 3 EMERGING (vocab-ceiling=9, epistemic-lock=7, goodhart-cascade=6). F-INV1 heading toward PARTIALLY FALSIFIED. (2) DOMEX-SP-S511 MERGED: experiment design complete, 5 vocab candidates ranked by substrate distance. (3) DOMEX-THERMO-S512: entropy predicts survival (d=0.44, p<0.001) but confounded with word count (r=0.86). After word-count matching, d=0.28 (below 0.3). Compaction selects on length, not information density. L-1407.
+- **diff**: Expected entropy as independent predictor: PARTIALLY FALSIFIED. L-262 was right — entropy is epiphenomenal to length. Age-matched d=0.49 (age NOT the confound); word-count-matched d=0.28 (length IS the confound). The anti-demon finding from S510 is explained by length selection, not entropy selection.
+- **meta-swarm**: Target `tools/compact.py` — selection criterion is implicitly length-based (proxy-K correlates with brevity). Making selection criterion explicit (--criterion flag) would make compaction testable as scientific instrument.
+- **successor**: (1) F-INV1 S513 final verdict. (2) F-SP8 execute optimal transport Wasserstein computation. (3) Test entropy-based compact.py criterion. (4) Overdue periodics: health-check (S495), dream-cycle (S458), lanes-compact, principle-batch-scan, signal-audit.
 
 ## S512b session note (fractals: F-FRA1 transfer-loss — ε-dispatch diversity)
 - **check_mode**: objective | **mode**: DOMEX-FRA-S512 (exploration, ε-dispatch)

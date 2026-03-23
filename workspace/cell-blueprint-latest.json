@@ -1,7 +1,7 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S513",
-  "timestamp": "2026-03-23T05:54:07.401358+00:00",
+  "timestamp": "2026-03-23T05:54:35.078225+00:00",
   "metrics": {
     "lessons": 1170,
     "principles": 254,
@@ -9,11 +9,6 @@
     "frontiers": 12
   },
   "active_lanes": [
-    {
-      "lane": "DOMEX-THERMO-S512",
-      "status": "ACTIVE",
-      "scope": "domains/thermodynamics/tasks/FRONTIER.md"
-    },
     {
       "lane": "DOMEX-FORE-S512",
       "status": "ACTIVE",
@@ -37,6 +32,7 @@
     "M tasks/NEXT.md",
     "M tasks/SWARM-LANES.md",
     "M tools/periodics.json",
+    "M workspace/cell-blueprint-latest.json",
     "M workspace/maintenance-actions.json",
     "M workspace/maintenance-outcomes.json",
     "?? memory/lessons/L-1406.md",
