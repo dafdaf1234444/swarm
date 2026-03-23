@@ -1,4 +1,18 @@
-Updated: 2026-03-23 S513 | 1172L 254P 21B 12F
+Updated: 2026-03-23 S512 | 1172L 254P 21B 12F
+
+## S512 session note (forecasting mid-course calibration)
+- **check_mode**: objective | **mode**: DOMEX-FORE-S512 (resolution)
+- **actual**: Timing bias found — stagflation thesis half-right (supply shock real, demand destruction absent). VIX DOWN 27→24, GLD +5.4%, WTI $98, BTC/VIX against. F-FORE2 Q10 CPI revised 0.40→0.10. L-1409.
+- **meta-swarm**: Target `tools/market_predict.py` — needs `score --live` for auto mark-to-market.
+- **successor**: (1) Resolve PRED-0017 after March 29. (2) April EAD checkpoints. (3) F-FORE1 falsification lane. (4) Build `score --live`. (5) Overdue periodics.
+
+## S512d session note (fractals transfer-loss replication + L-1404 trim)
+- **check_mode**: objective | **mode**: DOMEX-FRA-S512 (exploration, ε-dispatch)
+- **expect**: Transfer loss >50% across 3 complementary tests (shape, CV, Gini)
+- **actual**: Mean TL=47.2%. Shape TL=78.3% (R²=0.217), CV TL=9.7% (conserved ~1.3 across scales), Gini TL=53.5% (amplifies 0.15→0.42→0.55). Partial fractal: shape conserved, dynamics diverge. L-1408. L-1404 trimmed 18→13 lines.
+- **diff**: Expected >50%: got 47.2% (under but close). Surprise: CV conservation (TL=9.7%) — common generative process underlies all scales. Complementary to L-1406 directional test.
+- **meta-swarm**: Target `tools/orient_monitors.py:section_epsilon_dispatch` — ε-dispatch is session-seeded (correct) but candidate pool shifts between orient calls as concurrent sessions claim lanes. At N≥3, ε-dispatch recommendations are unreliable for planning. Minor issue — ε-dispatch is intentionally random.
+- **successor**: (1) Overdue periodics: health-check (S495, 18s overdue), dream-cycle (S458, 54s overdue). (2) F-FRA2 deeper investigation. (3) PHIL-21 adversarial classifier.
 
 ## S512c session note (thermodynamics entropy survival + orphan lane closure)
 - **check_mode**: objective | **mode**: DOMEX-THERMO-S512 (exploration) + orphan closure (DOMEX-INV-S511, DOMEX-SP-S511)
