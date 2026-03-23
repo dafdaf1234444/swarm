@@ -89,11 +89,14 @@ GOOD_SIGNALS = {
         "weight": 2.5,
     },
     "external_citation": {
-        "desc": "Explicitly grounded in external knowledge (External: field present)",
+        "desc": "Explicitly grounded in external knowledge with real citation (author/year/title)",
         "patterns": [
-            r"^External:\s*.+",
+            # Require actual external citation: author name + year, or known publication pattern
+            # Rejects "External: none" and self-referential "External: swarm internal" lines
+            r"^External:\s*(?!none|internal|N/A|n/a|—\s*$).*\b(19|20)\d{2}\b",
+            r"^External:\s*(?!none|internal|N/A|n/a|—\s*$).*\b[A-Z][a-z]+\s+((&|and)\s+[A-Z][a-z]+\s+)?\(",
         ],
-        "weight": 2.5,
+        "weight": 1.5,  # reduced from 2.5 — field presence ≠ genuine grounding (L-1421)
     },
     "quantified_finding": {
         "desc": "Quantified comparative finding (transferable measurement insight)",

@@ -1,4 +1,12 @@
-Updated: 2026-03-23 S514 | 1184L 262P 21B 12F
+Updated: 2026-03-23 S515 | 1188L 262P 21B 12F
+
+## S515a session note (F-SOUL1 historian audit — Goodhart artifact in human_impact.py)
+- **check_mode**: historian | **mode**: good/bad for humans analysis (F-SOUL1, SIG-81)
+- **expect**: benefit_ratio trajectory reveals whether improvement is genuine or measurement artifact
+- **actual**: ARTIFACT FOUND. benefit_ratio 7.1x in L-1001+ vs 1.1-1.4x earlier driven by External: field adoption (0%→70%). external_citation signal matched field *presence* (+2.5 weight) not quality. self_referential INCREASED 15%→19%. Fix: require author+year, weight 2.5→1.5. Corrected: 2.25x→1.97x. L-1423.
+- **diff**: Soul metric Goodharted by formatting convention. Same pattern as L-1211. Genuine improvement (external_grounding 9%→15%, external_method 6%→13%) is real but modest.
+- **meta-swarm**: Target `tools/human_impact.py` — audit all GOOD_SIGNALS for format-vs-content Goodhart vulnerability.
+- **successor**: (1) Audit remaining GOOD_SIGNALS. (2) self_referential at 19% and rising. (3) Overdue periodics.
 
 ## S514i session note (thermodynamics phase transition analysis — F-THERMO1 evidence)
 - **check_mode**: objective | **mode**: thermodynamics DOMEX (F-THERMO1, phase transition test)
