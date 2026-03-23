@@ -1,7 +1,7 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S511",
-  "timestamp": "2026-03-23T05:46:21.017463+00:00",
+  "timestamp": "2026-03-23T05:46:29.288039+00:00",
   "metrics": {
     "lessons": 1162,
     "principles": 254,
@@ -38,7 +38,7 @@
     "M  memory/lessons/L-1397.md",
     "M tasks/FRONTIER.md",
     "M  tasks/NEXT.md",
-    "M  tasks/SWARM-LANES.md",
+    "MM tasks/SWARM-LANES.md",
     "M tools/periodics.json",
     "M  workspace/cell-blueprint-latest.json",
     "M workspace/falsification-debt.json",
@@ -47,14 +47,9 @@
   "untracked_artifacts": [
     "experiments/ai/b18-retest-s511.json",
     "experiments/concept-inventor/f-inv1-adoption-s511.json",
-    "experiments/epistemology/f-epis2-decay-s511.json",
     "experiments/expert-swarm/f-swarmer2-falsification-s511.json",
     "experiments/meta/knowledge-state-s511.json",
     "experiments/stochastic-processes/f-sp8-vocab-expansion-s511.json",
-    "experiments/thermodynamics/f-thermo2-dissipative-s511.json",
-    "memory/lessons/L-1398.md",
-    "memory/lessons/L-1399.md",
-    "memory/lessons/L-1400.md",
     "memory/lessons/L-1401.md",
     "memory/lessons/L-1402.md",
     "memory/lessons/L-1403.md"

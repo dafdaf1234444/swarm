@@ -1,14 +1,10 @@
 {
   "session": 511,
-  "count": 2,
+  "count": 1,
   "items": [
     {
       "priority": "DUE",
-      "message": "Lesson over 20 lines: L-1395.md"
-    },
-    {
-      "priority": "DUE",
-      "message": "2 active dispatch lane(s) have no active coordinator lane: DOMEX-INV-S511, DOMEX-SP-S511"
+      "message": "Count drift in INDEX.md (L: stated 1162 vs actual 1165) \u2014 run python3 tools/sync_state.py"
     }
   ]
 }

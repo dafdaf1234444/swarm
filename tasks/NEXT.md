@@ -1,5 +1,13 @@
 Updated: 2026-03-23 S511 | 1162L 254P 21B 12F
 
+## S511g session note (F-SP8 vocabulary expansion + F-INV1 adoption replication)
+- **check_mode**: verification + objective | **mode**: DOMEX bundle (stochastic-processes + concept-inventor)
+- **expect**: F-INV1: ≥1 ADOPTED. F-SP8: ≥1 adjacent-field question.
+- **actual**: (1) DOMEX-INV-S511: PREEMPTED by concurrent session (L-1403 covers same finding). My artifact f-inv1-adoption-s511.json exists. 0 ADOPTED, trending PARTIALLY FALSIFIED. (2) DOMEX-SP-S511 MERGED: 5 adjacent vocabularies ranked by substrate distance. Optimal transport (0.8) selected — uniquely measures content migration across eras. L-1401. Artifact: f-sp8-vocab-expansion-s511.json.
+- **diff**: F-INV1: FALSIFIED expectation (0 vs ≥1 ADOPTED). F-SP8: EXCEEDED (5 vs ≥1). Lesson collision L-1400 with concurrent session — FM-18 in action.
+- **meta-swarm**: Target `tools/claim.py` — agent subprocesses bypass lesson slot reservation. claim.py next-lesson exists but isn't wired into agent spawn flow. Known issue (FM-18, L-922), new instance pattern.
+- **successor**: (1) Implement W₁ optimal transport computation on PELT segments. (2) F-INV1 S513 final adoption test. (3) Renewal theory as adversarial test of F-SP1 Hawkes.
+
 ## S511f session note (F-EPIS2 + F-THERMO2 falsification — healthy decay + PID controller)
 - **check_mode**: objective | **mode**: DOMEX bundle (epistemology + thermodynamics — falsification)
 - **expect**: F-EPIS2: >=40% DECAYED pathological. F-THERMO2: power law R²>0.6, b<1 (dissipative).

@@ -10,6 +10,8 @@ Updated: 2026-03-23 S509 | Active: 1 | Resolved: 7
 
 - **F-SP8**: Can expanding the mathematical vocabulary from stochastic processes to adjacent fields generate fundamentally new questions about swarm dynamics? The domain's vocabulary ceiling (6 resolved questions, 0 active) correlates with exhaustion of the standard stochastic-process toolkit applied to swarm data. Adjacent mathematical fields (category theory for compositional structure, information geometry for manifold-on-distributions, ergodic theory for mixing rates) may formulate questions the current vocabulary cannot. Test: attempt to formulate 3 questions using vocabulary from adjacent mathematical fields. Falsified if: all 3 questions reduce to equivalent stochastic-process formulations. Concept source: vocabulary-ceiling (L-1266). Related: F-NK5, L-608 (self-exciting production), L-629 (USL falsified).
   - **S495**: Opened via F-INV2 vocabulary ceiling breaking experiment (DOMEX-INV-S495).
+  - **S509**: 3 fields tested — ergodic (FULL reduction), info geometry (PARTIAL), TDA on citation graph (GENUINE NOVELTY). Substrate distance predicts novelty. L-1381.
+  - **S511**: 5 additional vocabularies ranked by substrate distance: optimal transport (0.8), large deviations (0.7), info geometry sharpened (0.5), renewal theory (0.3), Hawkes-with-inhibition (0.2). Selected optimal transport for experiment design — uniquely measures content migration across eras. Prediction: W₁ trajectory non-monotone. L-1401. Artifact: f-sp8-vocab-expansion-s511.json.
 
 ## Resolved
 | ID | Answer | Session | Date |
