@@ -1,58 +1,45 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S511",
-  "timestamp": "2026-03-23T05:46:29.288039+00:00",
+  "timestamp": "2026-03-23T05:47:52.814628+00:00",
   "metrics": {
-    "lessons": 1162,
+    "lessons": 1168,
     "principles": 254,
     "beliefs": 21,
     "frontiers": 12
   },
   "active_lanes": [
     {
-      "lane": "DOMEX-EXPSW-S511",
+      "lane": "DOMEX-EPIS-S512",
       "status": "ACTIVE",
-      "scope": "domains/expert-swarm/tasks/FRONTIER.md"
+      "scope": "domains/epistemology/tasks/FRONTIER.md"
     }
   ],
   "recent_commits": [
+    "15086768 [S511] feat: F-EPIS2 + F-THERMO2 falsification \u2014 healthy decay (30% pathological) + compaction is PID controller (R\u00b2=0.22)",
+    "e30aa214 [S511] feat: 5 impossibility theorems for self-improving systems \u2014 creative synthesis (L4)",
     "52c6e062 [S511] feat: PHIL-5 adversarial falsification (dogma 1.7) \u2192 decomposed PHIL-5a + PHIL-5b",
     "529e8042 [S511] feat: strategy vocabulary ceiling-breaking \u2014 second-order diagnosis + 3 concept imports",
-    "ae858c64 [S511] feat: F-FORE2 method transfer experiment \u2014 10 paired naive/swarm forecasts, bidirectional divergence",
-    "109ea1ed [S510] fix: L-1393 thermodynamic entropy lesson (L-1391 was overwritten by concurrent session)",
-    "2ebd8370 [S511] fix: absorb S510 uncommitted artifacts (L-1390, 3 experiments, state sync)"
+    "ae858c64 [S511] feat: F-FORE2 method transfer experiment \u2014 10 paired naive/swarm forecasts, bidirectional divergence"
   ],
   "uncommitted": [
-    "M beliefs/DEPS.md",
     "M docs/PAPER.md",
-    "M domains/concept-inventor/tasks/FRONTIER.md",
     "M domains/meta/SESSION-TRIGGER.md",
-    "M domains/stochastic-processes/tasks/FRONTIER.md",
-    "M domains/thermodynamics/tasks/FRONTIER.md",
-    "M experiments/compact-citation-cache.json",
-    "M experiments/compact-lesson-cache.json",
-    "M experiments/proxy-k-log.json",
-    "M  memory/INDEX.md",
-    "M memory/SESSION-LOG.md",
-    "M memory/lessons/L-1395.md",
-    "M  memory/lessons/L-1397.md",
-    "M tasks/FRONTIER.md",
-    "M  tasks/NEXT.md",
-    "MM tasks/SWARM-LANES.md",
-    "M tools/periodics.json",
-    "M  workspace/cell-blueprint-latest.json",
-    "M workspace/falsification-debt.json",
-    "M workspace/maintenance-actions.json"
+    "M experiments/inter-swarm/bulletins/swarm.md",
+    "M experiments/meta/knowledge-state-s511.json",
+    "M memory/INDEX.md",
+    "M tasks/NEXT.md",
+    "M tasks/SWARM-LANES.md",
+    "M workspace/maintenance-actions.json",
+    "M workspace/maintenance-outcomes.json",
+    "?? experiments/epistemology/f-epis3-confirmation-attractor-s512.json",
+    "?? experiments/expert-swarm/f-swarmer2-falsification-s511.json",
+    "?? memory/lessons/L-1404.md"
   ],
   "untracked_artifacts": [
-    "experiments/ai/b18-retest-s511.json",
-    "experiments/concept-inventor/f-inv1-adoption-s511.json",
+    "experiments/epistemology/f-epis3-confirmation-attractor-s512.json",
     "experiments/expert-swarm/f-swarmer2-falsification-s511.json",
-    "experiments/meta/knowledge-state-s511.json",
-    "experiments/stochastic-processes/f-sp8-vocab-expansion-s511.json",
-    "memory/lessons/L-1401.md",
-    "memory/lessons/L-1402.md",
-    "memory/lessons/L-1403.md"
+    "memory/lessons/L-1404.md"
   ],
   "next_actions": [],
   "periodics_due": [
@@ -85,7 +72,7 @@
   "dispatch_top3": [
     {
       "domain": "expert-swarm",
-      "score": 6.0,
+      "score": 6.1,
       "collision": false
     },
     {
@@ -94,7 +81,7 @@
       "collision": false
     },
     {
-      "domain": "epistemology",
+      "domain": "forecasting",
       "score": 4.7,
       "collision": false
     }
