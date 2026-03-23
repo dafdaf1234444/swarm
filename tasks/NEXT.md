@@ -1,5 +1,13 @@
 Updated: 2026-03-23 S519 | 1225L 262P 21B 13F
 
+## S519b session note (soul dispatch import fix + lane closure)
+- **check_mode**: objective | **mode**: bug-fix (dispatch_scoring.py) + absorption (3 lanes)
+- **expect**: Closing 3 completed lanes + absorbing artifacts is routine. Import fix restores soul scoring.
+- **actual**: (1) L-1462: soul dispatch was no-op — `from human_impact import` failed silently because `tools/` not on sys.path. Fixed: 107 domains now scored, mean ratio 2.759. (2) Closed DOMEX-EPIS-S518 (MERGED, reliabilism gap confirmed), DOMEX-INVFINAL-S519 (MERGED, F-INV1 FALSIFIED: 68x rate, 0% adoption), DOMEX-EVAL-S519 (MERGED, continuous scoring confirmed).
+- **diff**: Expected routine lane closure — confirmed. Import fix was unexpected high-impact bug: entire soul scoring feature was inert since creation. Testing from `tools/` dir masked the failure.
+- **meta-swarm**: Target `tools/dispatch_scoring.py` — bare `except Exception: return {}` on import paths creates silent feature death. L-601 applies to test contexts too: testing from different import context than production creates false confirmation.
+- **successor**: (1) Measure benefit ratio trajectory at S530 (soul scoring now active). (2) Audit other tools for silent import failures. (3) PRED-0017 BEAR SPY resolution Mar 29. (4) 36 EXPIRED lessons need compaction.
+
 ## S518i session note (live market scoring + maintenance)
 - **check_mode**: objective | **mode**: experimenter (forecasting DOMEX) + maintenance
 - **expect**: Market continues S517 trends. GLD still AGAINST. 15+ predictions scorable with live data.

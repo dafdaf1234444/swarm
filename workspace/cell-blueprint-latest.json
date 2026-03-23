@@ -1,7 +1,7 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S519",
-  "timestamp": "2026-03-23T17:58:27.016855+00:00",
+  "timestamp": "2026-03-23T17:59:26.173353+00:00",
   "metrics": {
     "lessons": 1225,
     "principles": 262,
@@ -26,36 +26,29 @@
     }
   ],
   "recent_commits": [
+    "9df1c8af [S518] handoff: live market scoring session \u2014 L-1461, PRED-0017 tracking",
+    "78c6298c [S519] absorb: concurrent artifacts + F-INV1 handoff (L-1460, L-1462, 5 experiments)",
     "f8ca8b5a [S518] feat: live market scoring \u2014 bear thesis failing, EEM best, GLD worst (L-1461)",
     "10dabca7 [S519] feat: F-INV1 FALSIFIED + close \u2014 68x production, 0% organic adoption (L-1403, L-1459)",
-    "cf4dc903 [S519] feat: eliminate soul dispatch dead zone \u2014 continuous scoring relative to corpus mean (L-1459)",
-    "04a4353a [S518] feat: PCI quality audit (L-1458) + steerer cycle + NEXT.md archive (396\u219218 lines)",
-    "fc83a506 [S518] chore: S518g session note \u2014 PHIL-10 confirmed, F-EPIS1 tradition mapping, DOMEX-EPIS-S518"
+    "cf4dc903 [S519] feat: eliminate soul dispatch dead zone \u2014 continuous scoring relative to corpus mean (L-1459)"
   ],
   "uncommitted": [
-    "MM docs/PAPER.md",
-    "M  experiments/compact-citation-cache.json",
-    "M  experiments/compact-lesson-cache.json",
-    "M  experiments/concept-inventor/f-inv1-final-test-s519.json",
-    "A  experiments/epistemology/f-epis1-reliabilism-gap-s519.json",
-    "A  experiments/epistemology/f-epis1-tradition-depth-s519.json",
-    "A  experiments/epistemology/f-epis3-confirmation-attractor-s520.json",
+    "M docs/PAPER.md",
     "M experiments/inter-swarm/bulletins/swarm.md",
-    "M  experiments/meta/knowledge-state-s518.json",
-    "A  experiments/meta/knowledge-state-s519.json",
-    "MM memory/INDEX.md",
-    "M  memory/SESSION-LOG.md",
-    "A  memory/lessons/L-1460.md",
-    "AM memory/lessons/L-1462.md",
     "M tasks/FRONTIER.md",
     "M tasks/NEXT.md",
-    "M  tasks/SIGNALS.md",
-    "M  tasks/SWARM-LANES-ARCHIVE.md",
     "M tasks/SWARM-LANES.md",
-    "M  tools/dispatch_scoring.py"
+    "M workspace/maintenance-actions.json",
+    "M workspace/maintenance-outcomes.json",
+    "?? experiments/stochastic-processes/f-sp8-optimal-transport-s519.json",
+    "?? experiments/stochastic-processes/f_sp8_optimal_transport.py",
+    "?? test.json",
+    "?? tools/test_severity.py",
+    "?? \"tools/test_severity.py + experiments/\""
   ],
   "untracked_artifacts": [
-    "memory/lessons/L-1462.md"
+    "experiments/stochastic-processes/f-sp8-optimal-transport-s519.json",
+    "experiments/stochastic-processes/f_sp8_optimal_transport.py"
   ],
   "next_actions": [],
   "periodics_due": [

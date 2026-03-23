@@ -646,3 +646,15 @@ Lane-ID: DOMEX-EPIS-S520
 Frontier: F-EPIS3
 Scope: global
 Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-23
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-EPIS-S519b
+Frontier: F-EPIS1
+Scope: tools/test_severity.py
+Status: ACTIVE

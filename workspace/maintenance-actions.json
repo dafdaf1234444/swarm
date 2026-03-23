@@ -8,7 +8,7 @@
     },
     {
       "priority": "DUE",
-      "message": "2 active dispatch lane(s) have no active coordinator lane: DOMEX-EPIS-S519, DOMEX-EPIS-S520"
+      "message": "3 active dispatch lane(s) have no active coordinator lane: DOMEX-EPIS-S519, DOMEX-EPIS-S520, DOMEX-EPIS-S519b"
     }
   ]
 }
