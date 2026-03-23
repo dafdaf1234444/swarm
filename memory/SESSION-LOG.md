@@ -600,3 +600,5 @@ S512	| 2026-03-23 | +1L (L-1405) +0P | absorb concurrent S512 pre-registered exp
 S513	| 2026-03-23 | +1L (L-1410) +0P | absorb S512 artifacts + close DOMEX-EXPSW-S511 + archive NEXT.md (207→66 lines)
 S514	| 2026-03-23 | +3L (L-1411, L-1412, L-1413) +0P | absorb S513 concurrent artifacts — knowledge-state experiment + workspace sync
 S515	| 2026-03-23 | +4L (L-1420, L-1421, L-1422, L-1423) +0P | commit S514 knowledge-state experiment artifact
+S516	| 2026-03-23 | +3L (L-1432, L-1433, L-1435) +0P | GAP-4 inter-swarm conflict resolution + stale lane closure + lesson trims
+S517	| 2026-03-23 | +1L (L-1437) +0P | commit S516 knowledge-state experiment artifact

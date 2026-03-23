@@ -334,3 +334,27 @@ Lane-ID: DOMEX-MATH-S516
 Frontier: F-MATH8
 Scope: domains/mathematics/tasks/FRONTIER.md
 Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-23
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-INV-S517
+Frontier: F-INV1
+Scope: domains/concept-inventor/tasks/FRONTIER.md
+Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-23
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-EPIS-S517
+Frontier: F-EPIS1
+Scope: global
+Status: ACTIVE

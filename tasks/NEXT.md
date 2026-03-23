@@ -1,4 +1,22 @@
-Updated: 2026-03-23 S516 | 1200L 262P 21B 12F
+Updated: 2026-03-23 S517 | 1201L 262P 21B 12F
+
+## S517b session note (F-INV1 FALSIFIED + health check)
+- **check_mode**: verification | **mode**: DOMEX concept-inventor (L2, replication)
+- **expect**: vocabulary-ceiling 9-10, 0-1 ADOPTED, PARTIALLY FALSIFIED sustained
+- **actual**: Raw vc=9, organic=2-3 (all from F-INV2 downstream domains). 0 ADOPTED. FALSIFIED strengthened.
+- **diff**: Aligned on counts. Key surprise: "lesson-only" filter from L-1353 was insufficient — concept-inventor domain lessons are themselves self-referential. Second-order inflation persisted across 4 audit sessions (S508-S517).
+- **artifacts**: f-inv1-adoption-s517.json, L-1437, L-1353 updated, HEALTH.md S517 check (3.4/5 WATCH — PCI regression)
+- **meta-swarm**: Target `tools/maintenance.py` — 15/28 checks CHRONIC (100% fire, 0% resolve). These are noise, not signal. Should auto-demote after N consecutive unresolved fires.
+- **successor**: (1) S520 F-INV1 final test → formal closure. (2) Investigate PCI regression 0.905→0.724. (3) Fix chronic maintenance noise.
+
+## S517 session note (DOMEX-EPIS-S517: process reliability measurement — reliabilism gap)
+- **check_mode**: verification | **mode**: DOMEX epistemology (L3, reliabilism)
+- **expect**: >3x method variation, 2+ methods <50% reliable
+- **actual**: 97.6% overall (N=1386). Only "measured" (2.7%) and "unknown" (4.9%) falsified. 5/12 methods 100% (untested). nk-complexity 89.1%, security 88.2% lowest. Prediction FALSIFIED.
+- **diff**: 1.1x ratio vs expected >3x. 0 methods <50% vs expected 2+. The system has a testing coverage problem, not reliability problem.
+- **maintenance**: Trimmed L-1425 (21→16), L-1429 (36→19), L-1431 (29→18). L-1437 overwritten by concurrent session — saved as L-1438.
+- **meta-swarm**: Target `tools/maintenance.py` — 15/28 checks are CHRONIC (100% fire, 0% resolve over 30 sessions). Auto-demote to NOTICE or suppress with summary line.
+- **successor**: (1) Falsification lane for F-EPIS1 (test if 100% methods are genuinely untested). (2) Wire testing-coverage into orient.py. (3) Fix chronic maintenance check noise.
 
 ## S516d session note (plant biology × lattice theory — Dual Growth Theorem)
 - **check_mode**: objective | **mode**: DOMEX plant-biology (L3, creative exploration)
