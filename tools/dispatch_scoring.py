@@ -61,6 +61,31 @@ def _load_maintenance_urgency():
 _maintenance_urgency = _load_maintenance_urgency()
 
 
+def _load_soul_weights():
+    """Load per-domain human benefit scores from human_impact.py (F-SOUL1 Phase 2).
+
+    Returns dict: domain -> {"good": N, "bad": N, "ratio": float}.
+    Domains with higher ratio produce more human-good knowledge and get
+    a dispatch boost. Converts soul extraction into structural selection pressure.
+    """
+    try:
+        from human_impact import scan_lessons, extract_soul
+        results = scan_lessons()
+        soul = extract_soul(results)
+        return soul.get("domain_benefit_scores", {})
+    except Exception:
+        return {}
+
+
+_soul_weights = _load_soul_weights()
+
+# Soul dispatch constants (F-SOUL1 Phase 2, SIG-81)
+SOUL_BOOST_MAX = 0.8            # max soul boost per domain
+SOUL_PENALTY_MAX = 0.4          # max soul penalty per domain
+SOUL_GOOD_THRESHOLD = 5         # minimum good lessons to qualify for boost
+SOUL_BAD_THRESHOLD = 5          # minimum bad lessons to qualify for penalty
+
+
 # Maintenance urgency constants (F-SWARMER1 intervention #3)
 MAINT_DUE_BOOST_PER_ITEM = 0.5      # meta domain boost per DUE item
 MAINT_URGENT_BOOST_PER_ITEM = 1.0   # meta domain boost per URGENT item
@@ -294,6 +319,23 @@ def ucb1_score(results: list[dict], outcome_map: dict, heat_map: dict,
             maint_boost = min(maint_boost, MAINT_BOOST_CAP)
         r["score"] += maint_boost
         r["maintenance_boost"] = round(maint_boost, 3)
+
+        # Soul-informed human benefit weighting (F-SOUL1 Phase 2, SIG-81)
+        # Domains producing more human-good knowledge get a boost;
+        # domains with net-negative human impact get a mild penalty.
+        soul_boost = 0.0
+        sw = _soul_weights.get(dom, {})
+        sw_good = sw.get("good", 0)
+        sw_bad = sw.get("bad", 0)
+        sw_ratio = sw.get("ratio", 1.0)
+        if sw_good >= SOUL_GOOD_THRESHOLD and sw_ratio > 1.5:
+            # Domain produces meaningfully more good than bad
+            soul_boost = min((sw_ratio - 1.0) * 0.2, SOUL_BOOST_MAX)
+        elif sw_bad >= SOUL_BAD_THRESHOLD and sw_ratio < 0.5:
+            # Domain produces meaningfully more bad than good
+            soul_boost = -min((1.0 - sw_ratio) * 0.2, SOUL_PENALTY_MAX)
+        r["score"] += soul_boost
+        r["soul_boost"] = round(soul_boost, 3)
 
         # Claimed domain penalty
         if dom in claimed:

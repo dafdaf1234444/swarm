@@ -281,6 +281,15 @@ def extract_soul(results: list[dict]) -> dict:
         "top_bad_signals": sorted(bad_signal_freq.items(), key=lambda x: -x[1])[:5],
         "good_levels": good_levels,
         "bad_levels": bad_levels,
+        # Per-domain benefit scores for dispatch weighting (F-SOUL1 Phase 2)
+        "domain_benefit_scores": {
+            d: {
+                "good": domain_good.get(d, 0),
+                "bad": domain_bad.get(d, 0),
+                "ratio": round(domain_good.get(d, 0) / max(domain_bad.get(d, 0), 1), 2),
+            }
+            for d in set(list(domain_good.keys()) + list(domain_bad.keys()))
+        },
         # The soul extraction — what should swarm optimize for
         "selection_pressure": [],
     }

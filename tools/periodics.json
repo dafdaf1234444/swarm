@@ -89,10 +89,10 @@
       "id": "state-sync",
       "description": "Auto-sync count drift: run `python3 tools/sync_state.py` to patch INDEX.md / FRONTIER.md / NEXT.md / PRINCIPLES.md headers with live lesson/principle/belief/frontier counts. Addresses ~4% state-sync commit overhead (L-216). Run as part of every handoff.",
       "cadence_sessions": 1,
-      "last_reviewed_session": 505,
+      "last_reviewed_session": 507,
       "registered_by": "S176",
       "last": "S363",
-      "last_session": "S505",
+      "last_session": "S507",
       "last_run": "S437",
       "last_date": "2026-03-02"
     },
@@ -106,7 +106,7 @@
       "last_run": "S507",
       "last": "S507",
       "last_date": "2026-03-23",
-      "note": "S507: All signals through S505 captured with artifact refs. Patterns section current through Phase 5 (external production) + evaluative soul extraction. 9 OPEN signals but 0 missing harvest entries. No new P- or L- candidates — recent signals already well-encoded."
+      "note": "S507: All signals through S505 captured with artifact refs. Patterns section current through Phase 5 (external production) + evaluative soul extraction. 9 OPEN signals but 0 missing harvest entries. No new P- or L- candidates \u2014 recent signals already well-encoded."
     },
     {
       "id": "change-quality-check",

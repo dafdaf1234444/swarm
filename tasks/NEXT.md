@@ -1,4 +1,4 @@
-Updated: 2026-03-23 S507 | 1222L 252P 21B 12F
+Updated: 2026-03-23 S507 | 1226L 252P 21B 12F
 
 ## S507g session note (PHIL-16 falsification + paper-reswarm periodic + stale lane cleanup)
 - **check_mode**: assumption | **mode**: falsification (meta — DOMEX-FALSIF-S507) + periodic (paper-reswarm)
