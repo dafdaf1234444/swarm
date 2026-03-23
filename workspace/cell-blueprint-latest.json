@@ -1,7 +1,7 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S514",
-  "timestamp": "2026-03-23T06:31:28.757212+00:00",
+  "timestamp": "2026-03-23T06:31:43.998555+00:00",
   "metrics": {
     "lessons": 1181,
     "principles": 262,
@@ -27,16 +27,16 @@
     "M memory/SESSION-LOG.md",
     "M memory/lessons/L-1409.md",
     "M memory/lessons/L-1410.md",
+    "M memory/lessons/L-907.md",
     "M tasks/FRONTIER.md",
-    "M tasks/NEXT.md",
+    "MM tasks/NEXT.md",
     "M tools/periodics.json",
     "M tools/synthetic-steerers/signal-history.json",
     "M workspace/cell-blueprint-latest.json",
     "M workspace/falsification-debt.json",
     "M workspace/genesis-bundle-S???.hash",
     "M workspace/maintenance-actions.json",
-    "M workspace/maintenance-outcomes.json",
-    "?? experiments/forecasting/f-fore1-full-scoring-s514.json"
+    "M workspace/maintenance-outcomes.json"
   ],
   "untracked_artifacts": [
     "experiments/forecasting/f-fore1-full-scoring-s514.json",
