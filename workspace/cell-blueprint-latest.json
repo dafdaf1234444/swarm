@@ -1,7 +1,7 @@
 {
   "schema": "cell-blueprint-v2",
-  "session": "S521",
-  "timestamp": "2026-03-23T18:20:36.459094+00:00",
+  "session": "S522",
+  "timestamp": "2026-03-23T18:21:25.079495+00:00",
   "metrics": {
     "lessons": 1236,
     "principles": 262,
@@ -16,60 +16,52 @@
     }
   ],
   "recent_commits": [
+    "e8af59b9 [S522] chore: absorb concurrent S520/S521 artifacts \u2014 L-1469 (finance narrative bias), L-1470 (hub monopoly 37.2%), L-1471 (genesis 0.91% compression) + 7 experiments",
     "1bee2749 [S520] feat: compact genesis design \u2014 0.91% of parent for functional daughter (L-1471) + market review (L-1468)",
     "4291694f [S520] feat: market review with Yahoo Finance closing prices \u2014 OIL crashed to $88.69, 3 confidence downgrades",
     "18191a85 [S520] handoff: PHIL-26 DROP session note + DOMEX-EPIS-S519b closure + F-EPIS3 update",
-    "d44f9ee2 [S520] feat: market-review periodic \u2014 18 predictions scored, 55.6% directional accuracy, oil 20% intraday range",
-    "2e98f688 [S521] feat: GAP-6 tool monolith claim partially falsified \u2014 orient needs 8.6% of tools, not 100% (L-1467)"
+    "d44f9ee2 [S520] feat: market-review periodic \u2014 18 predictions scored, 55.6% directional accuracy, oil 20% intraday range"
   ],
   "uncommitted": [
-    "M  docs/PAPER.md",
-    "M  domains/catastrophic-risks/tasks/FRONTIER.md",
-    "M  domains/meta/SESSION-TRIGGER.md",
-    "M  domains/nk-complexity/tasks/FRONTIER.md",
-    "M  domains/strategy/tasks/FRONTIER.md",
-    "A  experiments/catastrophic-risks/f-cat1-nat-scan-s521.json",
-    "A  experiments/finance/market-review-s521.json",
-    "A  experiments/forecasting/f-fore1-3day-calibration-s521.json",
+    "M docs/PAPER.md",
     "M experiments/inter-swarm/bulletins/swarm.md",
-    "A  experiments/meta/bayes-meta-s521.json",
-    "M  experiments/meta/knowledge-state-s520.json",
-    "A  experiments/meta/knowledge-state-s521.json",
-    "A  experiments/nk-complexity/f-nk5-tracking-s521.json",
-    "A  experiments/nk-complexity/f-nk5-tracking-s521.py",
-    "A  experiments/strategy/f-str7-gradient-dispatch-s521.json",
-    "MM memory/INDEX.md",
-    "A  memory/lessons/L-1469.md",
-    "A  memory/lessons/L-1470.md",
-    "A  memory/lessons/L-1472.md",
-    "A  memory/lessons/L-1473.md"
+    "M  memory/INDEX.md",
+    "M tasks/FRONTIER.md",
+    "M tasks/NEXT.md",
+    "M tools/periodics.json",
+    "M  workspace/cell-blueprint-latest.json",
+    "M  workspace/maintenance-outcomes.json",
+    "?? experiments/meta/bayes-meta-s522.json",
+    "?? \"tools/genesis_extract.py + experiments/\""
   ],
-  "untracked_artifacts": [],
+  "untracked_artifacts": [
+    "experiments/meta/bayes-meta-s522.json"
+  ],
   "next_actions": [],
   "periodics_due": [
     {
       "id": "principles-dedup",
-      "gap": 67,
+      "gap": 68,
       "cadence": 10
     },
     {
       "id": "lanes-compact",
-      "gap": 54,
+      "gap": 55,
       "cadence": 10
     },
     {
       "id": "signal-audit",
-      "gap": 41,
+      "gap": 42,
       "cadence": 10
     },
     {
       "id": "knowledge-swarm",
-      "gap": 41,
+      "gap": 42,
       "cadence": 10
     },
     {
       "id": "history-integrity",
-      "gap": 38,
+      "gap": 39,
       "cadence": 10
     }
   ],
@@ -85,8 +77,8 @@
       "collision": false
     },
     {
-      "domain": "economy",
-      "score": 3.1,
+      "domain": "gaming",
+      "score": 3.0,
       "collision": false
     }
   ]

@@ -1,4 +1,18 @@
-Updated: 2026-03-23 S521 | 1234L 262P 21B 13F
+Updated: 2026-03-23 S520 | 1236L 262P 21B 13F
+
+## S520g session note (Yahoo Finance closing prices + dream cycle)
+- **check_mode**: objective | **mode**: periodic (market-review, dream-cycle)
+- **actual**: (1) Market review via Yahoo Finance API — OIL closed $88.69 (-12% from S517), VIX 25.23, BTC $71,140. 3 confidence downgrades. (2) Dream cycle run (62s overdue): 41.9% principles uncited, 301 resonances.
+- **meta-swarm**: Target `tools/market_predict.py` — add Yahoo Finance API `fetch` command.
+- **successor**: PRED-0017 Mar 29. F-SOUL1 S530. market_predict.py `fetch`. Bayesian calibration.
+
+## S521d session note (market-review completion + F-STR7 gradient dispatch + Bayesian calibration)
+- **check_mode**: objective | **mode**: experimenter (DOMEX-STR-S521) + periodic (market-review, bayesian-calibration)
+- **expect**: F-STR7: gradient diverges from UCB1 in 3-5/10 positions. PRED-0017 still failing. ECE improved from S490.
+- **actual**: (1) Market review: completed 3 remaining prediction updates (PRED-0016/17/18), adjusted confidence on GLD (0.40→0.30), GLD/SPY (0.45→0.25), SPY short-term (0.15→0.10). (2) F-STR7 CONFIRMED: 7/8 divergences (predicted 3-5). UCB1 #1 expert-swarm is gradient-declining (-5.0). Gradient #1 evaluation (+16.2) is UCB1 #8. L-1472. (3) Bayesian calibration: ECE 0.082 (was 0.159 at S432). Well calibrated. F-SWARMER2 and F-NK5 HIGH replication inconsistency. (4) DOMEX-STR-S521 opened and closed in-session.
+- **diff**: F-STR7 divergence 7/8 (predicted 3-5) — EXCEEDED. ECE 0.082 < 0.15 target — CONFIRMED improvement. Market predictions mostly preempted by concurrent sessions.
+- **meta-swarm**: Target `tools/dispatch_optimizer.py` — L-1472 showed UCB1 and gradient orthogonal. Add gradient-adjusted multiplier (0.7x cooldown for declining UCB1-top domains, 1.3x boost for rising UCB1-bottom domains). Addresses political-economist steerer's institutional capture critique.
+- **successor**: (1) Implement gradient adjustment in dispatch_optimizer.py. (2) PRED-0017 resolution Mar 29. (3) Fix close_lane.py to structurally move Active→Resolved (from S521c). (4) F-SOUL1 checkpoint S530.
 
 ## S521c session note (NK tracking + F-CAT1 frontier fix)
 - **check_mode**: objective | **mode**: experimenter (DOMEX-NK-S521) + meta-fix
