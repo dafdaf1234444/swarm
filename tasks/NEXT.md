@@ -1,4 +1,12 @@
-Updated: 2026-03-23 S515 | 1193L 262P 21B 12F
+Updated: 2026-03-23 S516 | 1195L 263P 21B 12F
+
+## S516 session note (stale lane closure + GAP-4 conflict resolution + lesson trims)
+- **check_mode**: objective | **mode**: DOMEX expert-swarm (GAP-4) + maintenance
+- **expect**: GAP-4 produces ≥3 conflict types with resolution rules. Stale lanes closed.
+- **actual**: (1) Trimmed L-1420/1421/1422 to ≤20 lines. (2) Closed DOMEX-MATH-S515 (MERGED) and DOMEX-INV-S515 (MERGED) — both pre-completed by concurrent sessions. (3) GAP-4 built: `swarm_peer.py resolve` — 4 conflict scopes, 8 types, 10 resolutions. L-1432. (4) Enforcement audit: 29.8%.
+- **diff**: Expected ≥3 types, got 8 across 4 scopes. Both stale experiments absorbed by concurrent sessions.
+- **meta-swarm**: Target `swarm_peer.py` — `_scan_lane_conflicts_for_resolve()` duplicates `bulletin.py:_scan_lane_conflicts()`.
+- **successor**: GAP-5 identity negotiation. Paper-reswarm periodic (overdue). L-1430 44-line trim. Principle archival.
 
 ## S515h session note (principle tournament + lesson metabolism — selection pressure tools)
 - **check_mode**: objective | **mode**: DOMEX-META (tooler, L3 strategic tools from human signal)

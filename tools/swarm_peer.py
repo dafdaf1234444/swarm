@@ -12,6 +12,7 @@ Usage:
     python3 tools/swarm_peer.py fetch <name>           # shallow-clone peer, read their state
     python3 tools/swarm_peer.py exchange <name>        # post bulletin + fetch peer bulletins
     python3 tools/swarm_peer.py sync <name>             # bidirectional state diff + merge report
+    python3 tools/swarm_peer.py resolve <name>          # detect + classify conflicts, propose resolutions
     python3 tools/swarm_peer.py remove <name>
 """
 
@@ -559,6 +560,267 @@ def cmd_sync(args: list[str]) -> None:
     print(f"\n✓ Sync complete. Merge candidates: {len(sync_report['merge_candidates'])}")
 
 
+def _classify_frontier_conflict(local_text: str, peer_text: str) -> dict:
+    """Classify a frontier conflict between local and peer versions."""
+    # Extract status keywords
+    local_resolved = any(k in local_text.lower() for k in ["resolved", "confirmed", "falsified", "closed"])
+    peer_resolved = any(k in peer_text.lower() for k in ["resolved", "confirmed", "falsified", "closed"])
+
+    # Check for shared evidence markers
+    local_lessons = set(re.findall(r"L-\d+", local_text))
+    peer_lessons = set(re.findall(r"L-\d+", peer_text))
+    shared_evidence = local_lessons & peer_lessons
+
+    if local_resolved and peer_resolved:
+        if shared_evidence:
+            return {"type": "DUPLICATE", "resolution": "merge-keep-richer",
+                    "detail": "Both resolved with shared evidence — keep version with more data"}
+        return {"type": "CONTRADICTORY", "resolution": "adversarial-review",
+                "detail": "Both claim resolution but different evidence — needs manual review"}
+    elif local_resolved != peer_resolved:
+        return {"type": "COMPLEMENTARY", "resolution": "adopt-resolution",
+                "detail": "One resolved, one active — resolved version informs active"}
+    elif shared_evidence:
+        return {"type": "DUPLICATE", "resolution": "merge-deduplicate",
+                "detail": "Both active with shared evidence — merge to avoid redundant work"}
+    else:
+        return {"type": "COMPLEMENTARY", "resolution": "split-parallel",
+                "detail": "Both active, independent evidence — continue in parallel, sync later"}
+
+
+def _classify_belief_conflict(local_text: str, peer_text: str, bid: str) -> dict:
+    """Classify a belief conflict between local and peer belief text."""
+    # Simple heuristic: check if texts share key phrases
+    local_words = set(local_text.lower().split())
+    peer_words = set(peer_text.lower().split())
+    overlap = len(local_words & peer_words) / max(len(local_words | peer_words), 1)
+
+    if overlap > 0.7:
+        return {"type": "NEAR-DUPLICATE", "resolution": "merge-keep-newer",
+                "detail": f"{bid}: >70% word overlap — versions converged independently"}
+    elif overlap > 0.3:
+        return {"type": "DIVERGENT", "resolution": "merge-with-arbitration",
+                "detail": f"{bid}: partial overlap — beliefs diverged, needs lesson-backed arbitration"}
+    else:
+        return {"type": "CONTRADICTORY", "resolution": "challenge-required",
+                "detail": f"{bid}: <30% overlap — fundamentally different claims, file mutual challenge"}
+
+
+def cmd_resolve(args: list[str]) -> None:
+    """Detect and classify conflicts with a peer swarm, propose resolutions."""
+    if not args:
+        print("Usage: resolve <name> [--json] [--apply]")
+        sys.exit(1)
+    name = args[0]
+    output_json = "--json" in args
+
+    peers = load_peers()
+    if name not in peers["peers"]:
+        print(f"Unknown peer '{name}'. Register first.")
+        sys.exit(1)
+
+    url = peers["peers"][name]["url"]
+    print(f"=== CONFLICT RESOLUTION: {name} ({url}) ===\n")
+
+    with tempfile.TemporaryDirectory(prefix="swarm-resolve-") as tmpdir:
+        result = subprocess.run(
+            ["git", "clone", "--depth", "1", "--single-branch", url, tmpdir],
+            capture_output=True, text=True, timeout=60,
+        )
+        if result.returncode != 0:
+            print(f"FAIL: Could not clone {url}")
+            return
+
+        peer_root = Path(tmpdir)
+        if not (peer_root / "SWARM.md").exists():
+            print(f"NOT A SWARM: {url}")
+            return
+
+        local_fp = _compute_state_fingerprint(ROOT)
+        peer_fp = _compute_state_fingerprint(peer_root)
+        diff = _diff_fingerprints(local_fp, peer_fp)
+
+        conflicts = []
+
+        # --- 1. Frontier conflicts (shared frontiers with divergent state) ---
+        print("--- Frontier Conflicts ---")
+        shared_frontiers = diff["frontiers_shared"]
+        frontier_conflicts = 0
+        for fid in shared_frontiers:
+            # Read local and peer frontier text for this ID
+            local_text = ""
+            peer_text = ""
+            for fpath, text_store in [
+                (ROOT / "tasks" / "FRONTIER.md", "local"),
+                (peer_root / "tasks" / "FRONTIER.md", "peer"),
+            ]:
+                if fpath.exists():
+                    content = fpath.read_text(errors="ignore")
+                    # Extract the block for this frontier
+                    pattern = rf"^- \*\*{re.escape(fid)}\*\*:(.+?)(?=^- \*\*|\Z)"
+                    m = re.search(pattern, content, re.MULTILINE | re.DOTALL)
+                    if m:
+                        if text_store == "local":
+                            local_text = m.group(1).strip()[:500]
+                        else:
+                            peer_text = m.group(1).strip()[:500]
+
+            if local_text and peer_text:
+                classification = _classify_frontier_conflict(local_text, peer_text)
+                if classification["type"] != "DUPLICATE" or "shared evidence" not in classification.get("detail", ""):
+                    frontier_conflicts += 1
+                    conflicts.append({"scope": "frontier", "id": fid, **classification})
+                    print(f"  {fid}: {classification['type']} → {classification['resolution']}")
+
+        if frontier_conflicts == 0:
+            print("  No frontier conflicts detected")
+
+        # --- 2. Belief conflicts (shared beliefs with different content) ---
+        print("\n--- Belief Conflicts ---")
+        shared_beliefs = set(diff.get("beliefs_shared", []))
+        belief_conflicts = 0
+
+        local_deps = ROOT / "beliefs" / "DEPS.md"
+        peer_deps = peer_root / "beliefs" / "DEPS.md"
+        if local_deps.exists() and peer_deps.exists():
+            local_deps_text = local_deps.read_text(errors="ignore")
+            peer_deps_text = peer_deps.read_text(errors="ignore")
+
+            for bid in sorted(shared_beliefs):
+                # Extract belief block from each
+                pattern = rf"(^|\n)(##?\s*{re.escape(bid)}[^\n]*\n(?:(?!^##?\s).*\n)*)"
+                lm = re.search(pattern, local_deps_text)
+                pm = re.search(pattern, peer_deps_text)
+                if lm and pm:
+                    classification = _classify_belief_conflict(
+                        lm.group(2).strip()[:300], pm.group(2).strip()[:300], bid)
+                    if classification["type"] != "NEAR-DUPLICATE":
+                        belief_conflicts += 1
+                        conflicts.append({"scope": "belief", "id": bid, **classification})
+                        print(f"  {bid}: {classification['type']} → {classification['resolution']}")
+
+        if belief_conflicts == 0:
+            print("  No belief conflicts detected")
+
+        # --- 3. Philosophy conflicts (PHIL claims unique to each) ---
+        print("\n--- Philosophy Conflicts ---")
+        phils_only_local = diff.get("phils_only_local", [])
+        phils_only_peer = diff.get("phils_only_peer", [])
+        phil_shared = diff.get("phils_shared", [])
+
+        if phils_only_local:
+            print(f"  Local-only claims ({len(phils_only_local)}): {', '.join(phils_only_local[:5])}")
+            for pid in phils_only_local:
+                conflicts.append({"scope": "philosophy", "id": pid,
+                                  "type": "LOCAL-ONLY", "resolution": "propose-to-peer",
+                                  "detail": f"{pid} exists locally but not in peer — propose for adoption"})
+        if phils_only_peer:
+            print(f"  Peer-only claims ({len(phils_only_peer)}): {', '.join(phils_only_peer[:5])}")
+            for pid in phils_only_peer:
+                conflicts.append({"scope": "philosophy", "id": pid,
+                                  "type": "PEER-ONLY", "resolution": "evaluate-for-adoption",
+                                  "detail": f"{pid} exists in peer but not locally — evaluate before adopting"})
+        if not phils_only_local and not phils_only_peer:
+            print("  No philosophy conflicts")
+
+        # --- 4. Lane conflicts (both working same frontier) ---
+        print("\n--- Lane Conflicts (active work) ---")
+        lane_conflicts = _scan_lane_conflicts_for_resolve(peer_root)
+        if lane_conflicts:
+            for lc in lane_conflicts:
+                print(f"  {lc['frontier']}: local={lc['local_lane']} peer={lc['peer_lane']} → {lc['resolution']}")
+                conflicts.append({"scope": "lane", **lc})
+        else:
+            print("  No active lane conflicts")
+
+        # --- Summary ---
+        print(f"\n=== SUMMARY ===")
+        print(f"Total conflicts: {len(conflicts)}")
+        by_type = {}
+        for c in conflicts:
+            by_type[c["type"]] = by_type.get(c["type"], 0) + 1
+        for t, count in sorted(by_type.items()):
+            print(f"  {t}: {count}")
+
+        by_resolution = {}
+        for c in conflicts:
+            by_resolution[c["resolution"]] = by_resolution.get(c["resolution"], 0) + 1
+        print(f"\nResolution actions needed:")
+        for r, count in sorted(by_resolution.items()):
+            print(f"  {r}: {count}")
+
+        # Save resolution report
+        report = {
+            "schema": "swarm-conflict-resolution-v1",
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "peer": name,
+            "peer_url": url,
+            "local_session": local_fp.get("session", "unknown"),
+            "peer_session": peer_fp.get("session", "unknown"),
+            "conflict_count": len(conflicts),
+            "conflicts": conflicts,
+            "by_type": by_type,
+            "by_resolution": by_resolution,
+        }
+
+        resolve_dir = ROOT / "workspace" / "conflict-reports"
+        resolve_dir.mkdir(parents=True, exist_ok=True)
+        report_path = resolve_dir / f"resolve-{name}-{datetime.now(timezone.utc).strftime('%Y%m%d')}.json"
+        report_path.write_text(json.dumps(report, indent=2) + "\n")
+        print(f"\nReport saved: {report_path.relative_to(ROOT)}")
+
+        if output_json:
+            print(json.dumps(report, indent=2))
+
+        return report
+
+
+def _scan_lane_conflicts_for_resolve(peer_root: Path) -> list:
+    """Detect lanes where local and peer are both actively working on same frontier."""
+    conflicts = []
+
+    # Read local SWARM-LANES.md for active lanes
+    local_lanes = ROOT / "tasks" / "SWARM-LANES.md"
+    peer_lanes = peer_root / "tasks" / "SWARM-LANES.md"
+
+    if not local_lanes.exists() or not peer_lanes.exists():
+        return conflicts
+
+    def _extract_active_lanes(text: str) -> list[dict]:
+        active = []
+        for line in text.split("\n"):
+            if "| ACTIVE |" in line or "| CLAIMED |" in line:
+                parts = [p.strip() for p in line.split("|")]
+                if len(parts) >= 12:
+                    lane_id = parts[2] if len(parts) > 2 else ""
+                    # Extract frontier from Etc field
+                    etc_field = parts[10] if len(parts) > 10 else ""
+                    fm = re.search(r"frontier=(\S+?)(?:;|$)", etc_field)
+                    frontier = fm.group(1) if fm else ""
+                    if lane_id and frontier:
+                        active.append({"lane_id": lane_id, "frontier": frontier})
+        return active
+
+    local_active = _extract_active_lanes(local_lanes.read_text(errors="ignore"))
+    peer_active = _extract_active_lanes(peer_lanes.read_text(errors="ignore"))
+
+    local_frontiers = {la["frontier"]: la["lane_id"] for la in local_active}
+    peer_frontiers = {pa["frontier"]: pa["lane_id"] for pa in peer_active}
+
+    shared = set(local_frontiers.keys()) & set(peer_frontiers.keys())
+    for frontier in sorted(shared):
+        conflicts.append({
+            "frontier": frontier,
+            "local_lane": local_frontiers[frontier],
+            "peer_lane": peer_frontiers[frontier],
+            "type": "ACTIVE-COLLISION",
+            "resolution": "coordinate-or-split-scope",
+            "detail": f"Both swarms actively working on {frontier} — coordinate scope split or merge findings",
+        })
+
+    return conflicts
+
+
 def cmd_remove(args: list[str]) -> None:
     if not args:
         print("Usage: remove <name>")
@@ -580,6 +842,7 @@ COMMANDS = {
     "fetch": cmd_fetch,
     "exchange": cmd_exchange,
     "sync": cmd_sync,
+    "resolve": cmd_resolve,
     "remove": cmd_remove,
 }
 
