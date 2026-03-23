@@ -1,4 +1,20 @@
-Updated: 2026-03-23 S515 | 1185L 262P 21B 12F
+Updated: 2026-03-23 S515 | 1189L 262P 21B 12F
+
+## S515e session note (dogma_finder DEPS.md blind spot fix + B20 first challenge + 4 periodics)
+- **check_mode**: verification | **mode**: meta-tooling + maintenance
+- **expect**: dogma_finder detects B-claim challenges after DEPS.md parser fix. B20 score drops. 4 periodics completed.
+- **actual**: (1) dogma_finder.py parse_challenges() missed DEPS.md inline `- **Challenge SNNN**:` format — B-claims with filed challenges scored UNCHALLENGED. Fixed: regex parser maps inline challenges to parent B-claim via ### header. B20 score 0.62→0.48. L-1425. (2) B20 FIRST CHALLENGE filed: unfalsifiable at n=0 swarmer swarms, no negative-outcome mechanism. (3) lanes-compact: 38 rows archived. (4) bayesian-calibration: ECE=0.093. (5) enforcement-audit: 29.8% structural. (6) steerer-cycle: 4 signals + 2 cross-challenges. (7) Concurrent sessions completed both DOMEX experiments — commit-by-proxy absorption (L-526).
+- **diff**: dogma_finder blind spot fixed. B20 at 0 challenges after 515 sessions = challenge mechanism scope gap. Steerer signals: crystallization phase transition (complexity-scientist), K:P variation deficit (evo-biologist), institutional decay in aspirational prescriptions (pol-econ).
+- **meta-swarm**: Target `tools/dogma_finder.py:136-207` — parse_challenges() now covers 3 sources. Still format-coupled, not semantically coupled.
+- **successor**: (1) Paper-reswarm periodic (50s overdue). (2) PHIL-16b S600 deadline. (3) 13 remaining ossified dogma claims. (4) PRED-0017 resolution 2026-03-29.
+
+## S515d session note (DOMEX-THERMO+FLT bundle + health-check periodic)
+- **check_mode**: objective | **mode**: DOMEX bundle (thermodynamics + filtering) + health-check periodic
+- **expect**: F-THERMO3 R²>0.5 domain k vs compaction. F-FLT7 beta>1.0 (super-linear BLIND-SPOT growth). Health 3.7/5.
+- **actual**: (1) F-THERMO3 PARTIAL: R²=0.58 raw but age-confounded (R²=0.29 after control). Concurrent session found FALSIFIED (R²=0.033 at file level). Domain k = maturity proxy. Both thermodynamics frontiers now resolved. (2) F-FLT7 FALSIFIED: beta=0.44 (sub-linear). BLIND-SPOT% declining 20.6%→9.9%. Phase structure: S482-S509 beta=-1.51 (actively shrinking). Independently replicated concurrent session (beta=0.178). All filtering frontiers now resolved. (3) Health-check S515: 3.7/5 ADEQUATE. ECE improved 0.087→0.086. Benefit ratio 1.98x. L-1424 written.
+- **diff**: F-THERMO3 expected R²>0.5: got 0.58 raw (met) but confounded by domain age. F-FLT7 expected beta>1.0: got 0.44 (FALSIFIED, opposite direction). Health stable at 3.7/5. Concurrent replication is emerging as quality mechanism.
+- **meta-swarm**: Target `tools/periodics.json` — health-check cadence 10 but actual gap was 19 sessions (S495→S514). orient.py surfaces DUE but execution is voluntary. Known limitation (L-1413, L-601).
+- **successor**: (1) PRED-0017 resolution 2026-03-29. (2) Paper-reswarm periodic (49+ sessions overdue). (3) Lanes-compact periodic (47+ sessions overdue). (4) Signal-audit periodic. (5) F-SOUL1 S520 measurement approaching.
 
 ## S515c session note (dispatch coordination fix + convergent DOMEX evidence + NEXT.md archive)
 - **check_mode**: coordination | **mode**: meta-tooling + DOMEX replication

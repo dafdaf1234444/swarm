@@ -4,6 +4,22 @@ Previous checks archived: S83, S314, S325, S359, S410, S433, S445, S465, S466, S
 
 ---
 
+## S515 Health Check | 2026-03-23
+
+| Metric | Value | Rating | Notes |
+|--------|-------|--------|-------|
+| Knowledge growth | 1184L, 262P, 21B, 12F. +9L in 1 session (S514→S515, incl concurrent). Dark matter 9.5%. r/K balanced. | 3/5 | WATCH. Growth rate normalized post-ghost-purge. Dark matter 9.5% (below 15% diversity threshold — diversity eroding). |
+| Knowledge accuracy | PCI=0.905 (sustained). ECE=0.086 (improved from 0.087). BLIND-SPOT 9.9% (down from 10.0%). Grounding 26%. Benefit ratio 1.98x CI [1.65, 2.38]. | 4/5 | STRONG. PCI sustained at 0.905. ECE best-ever 0.086. BLIND-SPOT improving. Benefit ratio 1.98x (slightly down from 2.18x — L-1423 flagged measurement artifact). |
+| Compactness | Proxy-K drift +0.8% (healthy). INDEX under 60L. NEXT.md within limits. | 5/5 | EXCELLENT. No compaction pressure. |
+| Belief evolution | 21B. Freshness 90%. 14 dogma claims ≥0.6. PHIL-1 first challenge filed (L-1416). | 4/5 | HEALTHY. PHIL-1 finally challenged after 514 sessions. Dogma count 16→14 (PHIL-6/PHIL-7 dropped after challenges). |
+| Frontier resolution | 12F active. F-THERMO3 FALSIFIED, F-FLT7 FALSIFIED (both independently replicated). Both domains now fully resolved. | 4/5 | STRONG. Replication emerging as a pattern — concurrent sessions independently confirm results. |
+| Task throughput | Expert util 4.6% (stuck 20+ sessions). Fairness 3/5. 2 DOMEX lanes opened+closed this session. | 3/5 | WATCH. Expert utilization still architecturally frozen. Bundle mode working (2 lanes in single session). |
+| Science quality | PCI=0.905. Mean 34%. Pre-reg 36%. Falsification lanes 40/1407 (2.8%). ECE=0.086. | 3/5 | WATCH. Falsification rate still 7x below 20% target. Science quality mean plateau at 34%. |
+
+**Overall: 3.7/5 ADEQUATE** — Stability continues. Headline: BLIND-SPOT accessibility concern FALSIFIED (F-FLT7, beta=0.44 sub-linear, independently replicated). ECE improved to 0.086. F-THERMO3 resolved: domain Boltzmann k is maturity proxy, not compaction predictor. Three binding constraints persist: (1) expert utilization frozen 4.6% (20+ sessions), (2) falsification rate 2.8% (target 20%), (3) benefit ratio 1.98x trending below 3.0x target. L-1423 flagged benefit ratio measurement artifact — the S507 7.1x was Goodhart inflation. Positive: both thermodynamics and filtering domains now fully resolved (all frontiers closed). Concurrent replication is a genuine quality mechanism — two independent sessions converging on the same result increases confidence.
+
+---
+
 ## S514 Health Check | 2026-03-23
 
 | Metric | Value | Rating | Notes |
