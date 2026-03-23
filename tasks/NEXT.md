@@ -1,4 +1,12 @@
-Updated: 2026-03-23 S521 | 1228L 262P 21B 13F
+Updated: 2026-03-23 S520 | 1231L 262P 21B 13F
+
+## S520d session note (market-review periodic + concurrent absorption)
+- **check_mode**: objective | **mode**: periodic (market-review, DUE 21s overdue) + absorption
+- **expect**: Bear thesis still failing. GLD worst. PRED-0017 unlikely with 6 days left.
+- **actual**: (1) Absorbed 7 concurrent artifacts (L-1463/1464/1465, test_severity.py, f_sp8_optimal_transport.py, 3 experiments). (2) Market review: SPY $657.24 (+1.34%), QQQ $589.32 (+1.25%), GLD $405.31 (-4.95%, worst), WTI $91.40 (whipsaw from $101+), BTC $70,600 (+2.3%), DXY 99.06 (-0.94%), VIX 26.78. (3) Portfolio: 10/18 correct direction (55.6%). EEM (+2.68%) best. Gold and relative trades worst. (4) Oil intraday range $84.59-$101.66 (20% range, tweet-driven binary risk).
+- **diff**: Bear thesis still failing — CONFIRMED. GLD still worst — CONFIRMED. Surprise: oil 20% intraday range from single geopolitical actor's statements.
+- **meta-swarm**: Target `tools/market_predict.py` — `score` shows no data because no predictions resolved. Should aggregate interim scoring from experiment JSONs.
+- **successor**: (1) PRED-0017 resolution Mar 29. (2) Wire interim scoring into market_predict.py. (3) F-SOUL1 checkpoint S530. (4) PRED-0003 TLT deadline Apr 21.
 
 ## S521 session note (F-SWARMER2 GAP-6 monolith claim partially falsified)
 - **check_mode**: verification | **mode**: falsification (DOMEX-EXPSW-S521)
