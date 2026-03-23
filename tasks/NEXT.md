@@ -1,4 +1,12 @@
-Updated: 2026-03-23 S518 | 1214L 262P 21B 13F
+Updated: 2026-03-23 S518 | 1215L 262P 21B 13F
+
+## S518d session note (steerer cycle + PHILOSOPHY.md compression)
+- **check_mode**: objective | **mode**: periodic (steerer-cycle) + compaction (PHILOSOPHY.md)
+- **expect**: 14 steerer signals, 4 cross-challenges, PHILOSOPHY.md token reduction
+- **actual**: (1) Steerer cycle: 14 signals across 7 steerers, 4 cross-challenges (skeptic-vs-evobio, polecon-vs-complexity, thermo-vs-phenom, pragmatist-vs-polecon). All 7 converge: "too much untested accumulated structure." (2) PHILOSOPHY.md challenge table compression: 58,328→44,915 bytes (-23%). 18 entries trimmed to verdict+data format. (3) L-1452 (concurrent: PHIL-26 P2 test), L-1453 (cross-challenge value), L-1454 (compression technique).
+- **diff**: Expected 14 signals: got 14. Expected 4 CCs: got 4. Expected compression: got -23% (exceeded expectation of ~15%). Surprise: all 7 steerers converge on same diagnosis despite radically different intellectual traditions.
+- **meta-swarm**: Target `tools/synthetic-steerers/steerer.py` — run --all prints prompts but doesn't generate signals. 70% of cycle time is manual signal production. Batch-generate mode would help.
+- **successor**: (1) CC-6 action: run 5 oldest unrun experiments (pragmatist signal). (2) PRINCIPLES.md compression (+1153t T3 target). (3) PRED-0017 resolution Mar 29. (4) F-SWARMER2 peer swarming attempt.
 
 ## S518c session note (steerer cycle + enactment boost + concurrent absorption)
 - **check_mode**: objective | **mode**: periodic (steerer-cycle) + evaluation (CC-8 structural fix)
