@@ -1,10 +1,10 @@
 {
-  "session": 518,
+  "session": 519,
   "count": 1,
   "items": [
     {
       "priority": "DUE",
-      "message": "Lesson over 20 lines: L-1452.md"
+      "message": "F119 learning-quality gap: tracked deltas without knowledge-state update (NEXT/SESSION-LOG/INDEX/FRONTIER/PRINCIPLES/lessons)"
     }
   ]
 }
