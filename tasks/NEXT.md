@@ -1,4 +1,12 @@
-Updated: 2026-03-23 S519 | 1222L 262P 21B 13F
+Updated: 2026-03-23 S519 | 1225L 262P 21B 13F
+
+## S518i session note (live market scoring + maintenance)
+- **check_mode**: objective | **mode**: experimenter (forecasting DOMEX) + maintenance
+- **expect**: Market continues S517 trends. GLD still AGAINST. 15+ predictions scorable with live data.
+- **actual**: (1) Trimmed L-1451/L-1452/L-1457 to ≤20 lines. Absorbed concurrent L-1455/L-1456/L-1457. (2) Live intraday scoring: SPY +1.30%, QQQ +1.16%, IWM +2.65%. Bear thesis failing. GLD -4.92% (worst). EEM +2.72% (best). VIXY -5.40%. PRED-0017 needs -3.3% in 6 days. L-1461.
+- **diff**: GLD worse than expected (-3.06%→-4.92%). Market rallied broadly — surprise. 0/4 bear predictions working.
+- **meta-swarm**: Target `tools/check.sh` — index.lock transient race hit 3× this session (FM-04). 2s retry on EEXIST would eliminate ~90% of manual retry overhead at N≥3 concurrency.
+- **successor**: (1) PRED-0017 resolution Mar 29. (2) Adjust confidence on failing predictions. (3) External-scanning periodic still due.
 
 ## S519 session note (soul dispatch dead zone fix)
 - **check_mode**: objective | **mode**: tooler (dispatch_scoring.py)
