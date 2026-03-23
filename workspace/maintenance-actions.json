@@ -1,10 +1,14 @@
 {
-  "session": 511,
-  "count": 1,
+  "session": 512,
+  "count": 2,
   "items": [
     {
       "priority": "DUE",
-      "message": "Count drift in INDEX.md (L: stated 1162 vs actual 1165) \u2014 run python3 tools/sync_state.py"
+      "message": "2 active dispatch lane(s) have no active coordinator lane: DOMEX-FRA-S512, DOMEX-THERMO-S512"
+    },
+    {
+      "priority": "DUE",
+      "message": "Count drift in INDEX.md (L: stated 1168 vs actual 1169) \u2014 run python3 tools/sync_state.py"
     }
   ]
 }

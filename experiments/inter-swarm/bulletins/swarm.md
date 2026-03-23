@@ -106,3 +106,27 @@ Lane-ID: DOMEX-FRA-S512
 Frontier: F-FRA1
 Scope: global
 Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-23
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-THERMO-S512
+Frontier: F-THERMO1
+Scope: global
+Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-23
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-FORE-S512
+Frontier: F-FORE1
+Scope: global
+Status: ACTIVE

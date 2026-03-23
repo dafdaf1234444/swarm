@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-THERMO-S512",
+    "frontier": "F-THERMO1",
+    "session": "S512",
+    "domain": "thermodynamics",
+    "date": "2026-03-23",
+    "expect": "Lessons archived by compaction have lower Shannon entropy than survivors (effect size d>0.3, p<0.05). Entropy is a significant predictor in logistic regression controlling for age and citations.",
+    "actual": "TBD",
+    "diff": "TBD"
+}

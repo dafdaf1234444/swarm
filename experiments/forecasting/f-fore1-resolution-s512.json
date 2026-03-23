@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-FORE-S512",
+    "frontier": "F-FORE1",
+    "session": "S512",
+    "domain": "forecasting",
+    "date": "2026-03-23",
+    "expect": "Resolve PRED-0017. Bayesian update EAD checkpoints. Produce calibration lesson.",
+    "actual": "TBD",
+    "diff": "TBD"
+}
