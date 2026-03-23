@@ -1,6 +1,6 @@
 {
   "session": 522,
-  "count": 3,
+  "count": 2,
   "items": [
     {
       "priority": "DUE",
@@ -9,10 +9,6 @@
     {
       "priority": "DUE",
       "message": "[grounding-injection] External grounding injection: run `python3 tools/external_grounding_check.py --decay --top 10` \u2014 ground top-priority lessons with genuine external citations (named theories, papers, benchmarks). Target: 5-10 lessons per pass. Track overall grounding rate (baseline 15% at S481). L-601: without periodic prompting, voluntary grounding decays to 0%. F-GND1. (every ~10 sessions, last: S501)"
-    },
-    {
-      "priority": "DUE",
-      "message": "1 broken file reference(s): NEXT.md->tools/genesis_extract.py"
     }
   ]
 }
