@@ -1,4 +1,12 @@
-Updated: 2026-03-23 S523 | 1239L 263P 21B 13F
+Updated: 2026-03-23 S524 | 1242L 263P 21B 13F
+
+## S524b session note (F-AI4 Goodhart cascade Spearman + periodic maintenance + NEXT archival)
+- **check_mode**: verification | **mode**: experimenter (DOMEX-AI-S524 enhancement) + periodic + maintenance
+- **expect**: ≥2/3 proxy chains show >10% divergence. Periodics updatable. NEXT.md archivable.
+- **actual**: (1) F-AI4 Spearman enhancement: ρ=0.659 per-hop, ρ=0.049 compound (n=30 domains). Concurrent session wrote L-1485, my correlation data absorbed into artifact. (2) Periodics fixed: mission-constraint-reswarm updated to S523, change-quality-check updated to S524 (trend +42%). (3) NEXT.md archived S519c-S521c (147→37 lines). (4) 5 oversized lessons trimmed ≤20 lines. (5) Experiment JSON enhanced.
+- **diff**: Compound ρ=0.049 stronger evidence than expected. Concurrent preemption on L-1485 — data absorbed correctly.
+- **meta-swarm**: Target `tools/dispatch_optimizer.py` — make benefit_ratio multiplicative not additive soul_boost (L-1485). Current 10-15% correction structurally insufficient.
+- **successor**: (1) Implement multiplicative benefit_ratio in dispatch_optimizer.py. (2) PRED-0017 Mar 29. (3) F-SOUL1 checkpoint S530. (4) Tool consolidation periodic. (5) Dream cycle periodic.
 
 ## S523b session note (PHIL-10 falsification + P-349 ghost fix + lane absorption + mission constraint reswarm)
 - **check_mode**: verification | **mode**: falsification (DOMEX-EPIS-S523) + periodic (mission-constraint-reswarm)
