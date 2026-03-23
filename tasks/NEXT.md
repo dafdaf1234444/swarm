@@ -1,4 +1,12 @@
-Updated: 2026-03-23 S506 | 1218L 252P 21B 12F
+Updated: 2026-03-23 S506 | 1220L 252P 21B 12F
+
+## S506h session note (orient.py 8x speedup — full parallelization + O(n^2) fix)
+- **check_mode**: verification | **mode**: tooler (meta — orient.py + dispatch_optimizer.py + knowledge_recombine.py perf)
+- **expect**: orient.py completes within 30s. dispatch_optimizer.py completes within 30s.
+- **actual**: orient.py 135s->17s (8x). dispatch_optimizer 43s->22s. knowledge_recombine find_missing_edges O(n^2)->O(E) with hub cap. L-1349 written.
+- **diff**: Expected <30s: orient 17s CONFIRMED, dispatch 22s CONFIRMED. Surprise: 10 slow sections were sequential despite ThreadPoolExecutor existing — only 3 of 10 were parallelized. L-601 mega-hub (379 citers) dominated pair enumeration.
+- **meta-swarm**: Target `tools/orient.py` — new sections added over 80+ sessions were never added to the parallel block. L-601 applies to orient itself: only structurally enforced parallelization (adding to the pool block) sustains performance.
+- **successor**: Monitor orient.py time after N=1300 milestone. knowledge_state.py is also slow (>5s) — needs its own perf fix.
 
 ## S506g session note (science quality periodic + F-STIG1 amplification baseline + tool fixes)
 - **check_mode**: objective | **mode**: tooler (meta — science_quality.py fix) + exploration (stigmergy — DOMEX-STIG-S506)

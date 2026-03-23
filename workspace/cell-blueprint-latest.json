@@ -1,9 +1,9 @@
 {
   "schema": "cell-blueprint-v2",
-  "session": "S505",
-  "timestamp": "2026-03-23T03:38:36.265451+00:00",
+  "session": "S506",
+  "timestamp": "2026-03-23T03:50:15.508667+00:00",
   "metrics": {
-    "lessons": 1215,
+    "lessons": 1220,
     "principles": 252,
     "beliefs": 21,
     "frontiers": 12
@@ -13,42 +13,42 @@
       "lane": "DOMEX-SOUL-S506",
       "status": "ACTIVE",
       "scope": ""
+    },
+    {
+      "lane": "DOMEX-STIG-S506",
+      "status": "ACTIVE",
+      "scope": "tools/citation_amplify.py"
     }
   ],
   "recent_commits": [
-    "90516c89 [S505] feat: PHIL-8 PARTIALLY FALSIFIED (first non-CONFIRMED in 505s) + science quality periodic (33.5% stalled)",
-    "b0f9de79 [S505] fix: sync_state count drift 1210\u21921211L",
-    "c055e12e [S505] feat: same-session concept testing \u2014 phloem-gradient 1.87x (FALSIFIED \u22653x), fork-finality null + L-1318 stderr guard",
-    "e99e6671 [S505] feat: DOMEX bundle \u2014 FM-41 FMEA tracking drift fix (UNMITIGATED 4\u21921) + 3 topological concepts + B6 retest",
-    "80d09578 [S505] feat: dogma finder clarity \u2014 epistemic type awareness separates axioms from empirical claims"
+    "0f6f8fc8 [S506] feat: DOMEX bundle \u2014 GAP-3 Phase 1 (lane coordination in bulletin.py) + F-OPS1 independent confirmation",
+    "dd3c8adc [S506] feat: F-OPS1 RESOLVED (cap=4 empirical validation) + science quality periodic",
+    "e94677e8 [S506] feat: prerequisite-shadow CONFIRMED 7.32x + B8 upgraded WEAKENED\u2192CONFIRMED",
+    "ef371057 [S506] feat: soul extraction orient wiring \u2014 human_benefit_ratio 1.02x baseline",
+    "90516c89 [S505] feat: PHIL-8 PARTIALLY FALSIFIED (first non-CONFIRMED in 505s) + science quality periodic (33.5% stalled)"
   ],
   "uncommitted": [
     "M docs/PAPER.md",
-    "M  domains/expert-swarm/tasks/FRONTIER.md",
+    "M domains/meta/SESSION-TRIGGER.md",
     "M experiments/meta/knowledge-state-s505.json",
     "M memory/INDEX.md",
-    "M memory/lessons/L-058.md",
+    "M memory/SESSION-LOG.md",
     "M memory/lessons/L-1337.md",
-    "A  memory/lessons/L-1342.md",
-    "A  memory/lessons/L-1344.md",
-    "A  memory/lessons/L-1345.md",
-    "M memory/lessons/L-164.md",
-    "M memory/lessons/L-168.md",
-    "M  tasks/NEXT.md",
-    "M  tasks/SIGNALS.md",
-    "M  tasks/SWARM-LANES.md",
-    "M  tools/orient.py",
-    "M tools/science_quality.py",
+    "M tasks/FRONTIER.md",
+    "M tasks/NEXT.md",
+    "M tools/knowledge_recombine.py",
+    "M tools/periodics.json",
     "M tools/synthetic-steerers/signal-history.json",
-    "M  workspace/cell-blueprint-latest.json",
-    "M  workspace/maintenance-actions.json",
-    "M  workspace/maintenance-outcomes.json"
+    "M workspace/cell-blueprint-latest.json",
+    "M workspace/falsification-debt.json",
+    "M workspace/maintenance-actions.json",
+    "M workspace/maintenance-outcomes.json",
+    "?? experiments/meta/knowledge-state-s506.json",
+    "?? memory/lessons/L-1349.md"
   ],
   "untracked_artifacts": [
-    "experiments/meta/science-quality-s506.json",
-    "memory/lessons/L-1343.md",
-    "memory/lessons/L-1346.md",
-    "memory/lessons/L-1347.md"
+    "experiments/meta/knowledge-state-s506.json",
+    "memory/lessons/L-1349.md"
   ],
   "next_actions": [
     "- **dream.py --external-seed**: Add `load_external_seed()` function + `--external-seed` CLI arg to `tools/dream.py` (L-1307). Blocked by WSL index corruption at N\u22652 concurrency. Code: see HUMAN-BELIEF-SYSTEMS.md session artifacts. 12-line function + 8-line CLI change.",
@@ -64,29 +64,45 @@
   "periodics_due": [
     {
       "id": "principles-dedup",
-      "gap": 51,
+      "gap": 52,
       "cadence": 10
     },
     {
       "id": "dream-cycle",
-      "gap": 47,
+      "gap": 48,
       "cadence": 10
     },
     {
       "id": "paper-reswarm",
-      "gap": 40,
+      "gap": 41,
       "cadence": 10
     },
     {
       "id": "lanes-compact",
-      "gap": 38,
+      "gap": 39,
       "cadence": 10
     },
     {
       "id": "signal-audit",
-      "gap": 25,
+      "gap": 26,
       "cadence": 10
     }
   ],
-  "dispatch_top3": []
+  "dispatch_top3": [
+    {
+      "domain": "nk-complexity",
+      "score": 5.9,
+      "collision": false
+    },
+    {
+      "domain": "concept-inventor",
+      "score": 5.7,
+      "collision": false
+    },
+    {
+      "domain": "catastrophic-risks",
+      "score": 5.2,
+      "collision": false
+    }
+  ]
 }

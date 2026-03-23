@@ -102,7 +102,7 @@ def _load_attention_deficit_domains() -> set[str]:
         import subprocess
         result = subprocess.run(
             ["python3", str(REPO_ROOT / "tools" / "knowledge_state.py"), "--json"],
-            capture_output=True, text=True, timeout=30
+            capture_output=True, text=True, timeout=5
         )
         if result.returncode == 0:
             data = json.loads(result.stdout)
@@ -124,59 +124,75 @@ def find_missing_edges(lessons: list[dict], min_shared: int = 2) -> list[dict]:
     These are recombination candidates: semantically related (shared citations)
     but not yet connected (no direct citation). The gap between them is where
     a new insight could emerge.
+
+    Uses inverted index for O(E) instead of O(n²) pair enumeration (S506 perf fix).
     """
+    from collections import defaultdict, Counter
+
     by_id = {l["id"]: l for l in lessons}
     attention_deficit_domains = _load_attention_deficit_domains()
-    candidates = []
 
-    for i, a in enumerate(lessons):
-        a_refs = a["refs"]
-        if len(a_refs) < min_shared:
+    # Filter lessons with enough refs
+    eligible = [l for l in lessons if len(l["refs"]) >= min_shared]
+
+    # Build inverted index: ref_id -> set of lesson indices that cite it
+    # Skip mega-hubs (cited by >50 lessons) — too common to be informative bridges
+    MAX_HUB_SIZE = 50
+    ref_to_lessons = defaultdict(set)
+    for idx, l in enumerate(eligible):
+        for ref in l["refs"]:
+            ref_to_lessons[ref].add(idx)
+
+    # Count shared citations per pair using inverted index
+    pair_shared = Counter()
+    for ref_id, citing in ref_to_lessons.items():
+        if len(citing) > MAX_HUB_SIZE:
+            continue  # Skip mega-hubs — too common to signal real affinity
+        citing_list = sorted(citing)
+        for i_pos, i in enumerate(citing_list):
+            for j in citing_list[i_pos + 1:]:
+                pair_shared[(i, j)] += 1
+
+    # Score qualifying pairs
+    candidates = []
+    for (i, j), shared_count in pair_shared.items():
+        if shared_count < min_shared:
+            continue
+        a, b = eligible[i], eligible[j]
+
+        # Skip if they already cite each other
+        if b["id"] in a["refs"] or a["id"] in b["refs"]:
             continue
 
-        for b in lessons[i + 1:]:
-            # Skip if they already cite each other
-            if b["id"] in a_refs or a["id"] in b["refs"]:
-                continue
+        shared = a["refs"] & b["refs"]
 
-            b_refs = b["refs"]
-            if len(b_refs) < min_shared:
-                continue
+        cross_domain = a["domain"] != b["domain"]
+        domain_bonus = 2.0 if cross_domain else 1.0
+        avg_sharpe = (a["sharpe"] + b["sharpe"]) / 2
+        quality = max(avg_sharpe, 1)
 
-            shared = a_refs & b_refs
-            if len(shared) < min_shared:
-                continue
+        # L-1327/L-1181: boost candidates involving attention-starved domains
+        attention_boost = 1.0
+        for d in (a["domain"], b["domain"]):
+            if d in attention_deficit_domains:
+                attention_boost = max(attention_boost, 1.5)
 
-            # Score the recombination potential
-            cross_domain = a["domain"] != b["domain"]
-            domain_bonus = 2.0 if cross_domain else 1.0
-            avg_sharpe = (a["sharpe"] + b["sharpe"]) / 2
-            quality = max(avg_sharpe, 1)
+        score = shared_count * domain_bonus * quality * attention_boost
 
-            # L-1327/L-1181: boost candidates involving attention-starved domains
-            attention_boost = 1.0
-            for d in (a["domain"], b["domain"]):
-                if d in attention_deficit_domains:
-                    attention_boost = max(attention_boost, 1.5)
-
-            # Shared hub lessons (high in-degree) are less informative bridges
-            # than shared niche lessons — weight by inverse frequency
-            score = len(shared) * domain_bonus * quality * attention_boost
-
-            candidates.append({
-                "parent_a": a["id"],
-                "parent_b": b["id"],
-                "title_a": a["title"][:60],
-                "title_b": b["title"][:60],
-                "domain_a": a["domain"],
-                "domain_b": b["domain"],
-                "shared_refs": sorted(shared),
-                "shared_count": len(shared),
-                "cross_domain": cross_domain,
-                "avg_sharpe": avg_sharpe,
-                "attention_boosted": attention_boost > 1.0,
-                "score": round(score, 1),
-            })
+        candidates.append({
+            "parent_a": a["id"],
+            "parent_b": b["id"],
+            "title_a": a["title"][:60],
+            "title_b": b["title"][:60],
+            "domain_a": a["domain"],
+            "domain_b": b["domain"],
+            "shared_refs": sorted(shared),
+            "shared_count": shared_count,
+            "cross_domain": cross_domain,
+            "avg_sharpe": avg_sharpe,
+            "attention_boosted": attention_boost > 1.0,
+            "score": round(score, 1),
+        })
 
     candidates.sort(key=lambda c: c["score"], reverse=True)
     return candidates
