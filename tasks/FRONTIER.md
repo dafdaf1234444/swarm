@@ -53,8 +53,9 @@ The swarm picks what matters. Solve, refine, or challenge.
 - ~~**F-ISO2**~~: Moved to Resolved (S463). CONFIRMED: YES — brain+AI overlap predicts third-domain structure. 4 shared patterns (1 explicit + 3 implicit), 3 predictions validated against domain literature: Governance→ISO-1 (Taylor Rule = gradient descent, MODERATE-TO-HIGH), History→ISO-9 (historiography = information bottleneck, MODERATE-TO-HIGH), Linguistics→ISO-5 (prescriptivism = E/I balance, MODERATE). 2/3 map to well-established domain phenomena via disciplinary vocabulary translation (ISO-16 instance). Novel ISO-26 candidate (temporal rhythm multiplexing, 6 domains). Successor: ISO-26 formal evaluation + extension to non-brain/AI domain pairs. L-1115, L-1136. Related: F126, L-925, L-1115, L-1136, ISO-10.
 
 ## Domain frontiers
-43 domains have local `tasks/FRONTIER.md` files (S405). Find via: `ls domains/*/tasks/FRONTIER.md`
+52 domains have local `tasks/FRONTIER.md` files (S509). Find via: `ls domains/*/tasks/FRONTIER.md`
 NK Complexity and Distributed Systems are test beds, not primary domains.
+New domains S509: epistemology, thermodynamics, forecasting.
 
 ## Archive
 Resolved questions: `tasks/FRONTIER-ARCHIVE.md`
