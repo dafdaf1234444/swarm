@@ -27,7 +27,8 @@
       "baseline_price": 648.57,
       "baseline_date": "2026-03-20",
       "notes": [
-        "2026-03-23: SPY at ~648 (-1.8% from prev close 659.80) DESPITE Iran de-escalation. Bearish: market declining on structural factors (rising yields) not just geopolitics. Strengthens thesis \u2014 multiple independent drivers."
+        "2026-03-23: SPY at ~648 (-1.8% from prev close 659.80) DESPITE Iran de-escalation. Bearish: market declining on structural factors (rising yields) not just geopolitics. Strengthens thesis \u2014 multiple independent drivers.",
+        "S521 (2026-03-23): SPY at 657.63, UP +1.4% from 648.57 base. BEAR thesis wrong direction. Market rallying despite geopolitical uncertainty."
       ]
     },
     {
@@ -74,7 +75,8 @@
       "baseline_date": "2026-03-20",
       "notes": [
         "2026-03-23: Iran strike pause, oil -9%. XLE base 59.36. De-escalation weakens structural driver. Watch whether strikes resume in 5 days.",
-        "Confidence 0.55\u21920.40: XLE thesis depended on escalating Hormuz closure. De-escalation removes primary driver."
+        "Confidence 0.55\u21920.40: XLE thesis depended on escalating Hormuz closure. De-escalation removes primary driver.",
+        "S521 (2026-03-23): XLE at 59.79, UP +0.7% from 59.36 base. Right direction but slow. Oil volatile (91-98 range) on Trump Iran ultimatum."
       ]
     },
     {
@@ -115,7 +117,8 @@
       "baseline_price": 85.83,
       "baseline_date": "2026-03-20",
       "notes": [
-        "S519 check (2026-03-23): TLT at 86.35, UP +0.6% from 85.83 base. Right direction but small. 29 days remain."
+        "S519 check (2026-03-23): TLT at 86.35, UP +0.6% from 85.83 base. Right direction but small. 29 days remain.",
+        "S521 (2026-03-23): TLT at 86.33, UP +0.6% from 85.83 base. Right direction. 29 days remain."
       ]
     },
     {
@@ -149,7 +152,8 @@
         "S513 EAD: verified downgrade via update command",
         "S519 check (2026-03-23): GLD at 405.94, DOWN -4.8% from 426.41 base. Wrong direction. Gold selling off despite equity uncertainty.",
         "2026-03-23: Gold dropped ~4.5% intraday on Iran de-escalation. Safe-haven demand reduced. Structural drivers (central bank buying, USD weakness) persist. Watch if gold holds 4100+ this week.",
-        "Confidence 0.70\u21920.60: gold dropped 4.5% on de-escalation, but structural drivers (central bank buying, USD weakness, CAPE extreme) persist. Tactical hit, not thesis-breaking."
+        "Confidence 0.70\u21920.60: gold dropped 4.5% on de-escalation, but structural drivers (central bank buying, USD weakness, CAPE extreme) persist. Tactical hit, not thesis-breaking.",
+        "S521 (2026-03-23): GLD at 405.70, DOWN -4.9% from 426.41 base. WRONG direction. Gold safe-haven thesis not activating. Worst performer."
       ],
       "confidence_history": [
         {
@@ -193,7 +197,10 @@
       "result": null,
       "score": null,
       "baseline_price": 582.06,
-      "baseline_date": "2026-03-20"
+      "baseline_date": "2026-03-20",
+      "notes": [
+        "S521 (2026-03-23): QQQ at 589.62, UP +1.3% from 582.06 base. BEAR thesis wrong direction."
+      ]
     },
     {
       "id": "PRED-0006",
@@ -222,7 +229,8 @@
       "baseline_price": 69000,
       "baseline_date": "2026-03-20",
       "notes": [
-        "2026-03-23: BTC surged 5% to 71000 on Iran de-escalation. Digital gold thesis: BTC responds to risk-on events, not safe-haven events. This is COUNTER to thesis (predicted BTC as digital gold). BTC at 70600 vs 69000 base = +2.3%. Need +15% to hit target."
+        "2026-03-23: BTC surged 5% to 71000 on Iran de-escalation. Digital gold thesis: BTC responds to risk-on events, not safe-haven events. This is COUNTER to thesis (predicted BTC as digital gold). BTC at 70600 vs 69000 base = +2.3%. Need +15% to hit target.",
+        "S521 (2026-03-23): BTC at 70,600, UP +2.3% from 69,000 base. Right direction. 6 consecutive red months possible. Still needs +15% for target."
       ]
     },
     {
@@ -252,7 +260,8 @@
       "baseline_price": 100,
       "baseline_date": "2026-03-20",
       "notes": [
-        "2026-03-23: DXY at 99.6, down slightly from base ~100. Dollar weakening on de-escalation uncertainty. BEAR thesis tracking \u2014 dollar down 0.4%."
+        "2026-03-23: DXY at 99.6, down slightly from base ~100. Dollar weakening on de-escalation uncertainty. BEAR thesis tracking \u2014 dollar down 0.4%.",
+        "S521 (2026-03-23): DXY at 99.06, DOWN -0.9% from 100 base. Right direction. Dollar weakening on Iran de-escalation talk."
       ]
     },
     {
@@ -283,7 +292,8 @@
       "baseline_date": "2026-03-20",
       "notes": [
         "2026-03-23: VIX at 26.22 (-2.1%), down on de-escalation. Base 27. Target 35-45. Iran pause reduces near-term tail risk. BULL VIX thesis weakened.",
-        "Confidence 0.50\u21920.35: VIX at 26, de-escalation reduces tail risk. Spike to 35-45 requires new catalyst."
+        "Confidence 0.50\u21920.35: VIX at 26, de-escalation reduces tail risk. Spike to 35-45 requires new catalyst.",
+        "S521 (2026-03-23): VIX at 26.78, DOWN slightly from 27 base. BULL thesis not working \u2014 volatility declining despite geopolitical risk."
       ],
       "confidence_history": [
         {
@@ -321,7 +331,10 @@
       "result": null,
       "score": null,
       "baseline_price": 44.65,
-      "baseline_date": "2026-03-20"
+      "baseline_date": "2026-03-20",
+      "notes": [
+        "S521 (2026-03-23): XLU at 45.05, UP +0.9% from 44.65 base. Right direction, defensive sector holding."
+      ]
     },
     {
       "id": "PRED-0010",
@@ -347,7 +360,10 @@
       "result": null,
       "score": null,
       "baseline_price": 145.33,
-      "baseline_date": "2026-03-20"
+      "baseline_date": "2026-03-20",
+      "notes": [
+        "S521 (2026-03-23): XLV at 144.89, DOWN -0.3% from 145.33 base. Wrong direction. Healthcare not acting as defensive play."
+      ]
     },
     {
       "id": "PRED-0011",
@@ -374,7 +390,10 @@
       "score": null,
       "baseline_price_spy": 648.57,
       "baseline_price_qqq": 582.06,
-      "baseline_date": "2026-03-20"
+      "baseline_date": "2026-03-20",
+      "notes": [
+        "S521 (2026-03-23): SPY +1.4%, QQQ +1.3%. Spread +0.1% \u2014 SPY barely outperforming QQQ. Right direction but negligible."
+      ]
     },
     {
       "id": "PRED-0012",
@@ -403,7 +422,8 @@
       "baseline_date": "2026-03-20",
       "notes": [
         "2026-03-23: Trump postpones Iran strikes 5 days \u2014 WTI crashes 9% from 98 to 90. De-escalation undercuts Hormuz supply-disruption thesis. Oil still above 85 floor target but trajectory DOWN. If strikes resume, oil rebounds; if ceasefire, BULL thesis fails.",
-        "Confidence 0.60\u21920.45: Iran de-escalation directly undercuts supply-disruption thesis. If 5-day pause becomes ceasefire, oil drops to 75-80."
+        "Confidence 0.60\u21920.45: Iran de-escalation directly undercuts supply-disruption thesis. If 5-day pause becomes ceasefire, oil drops to 75-80.",
+        "S521 (2026-03-23): WTI volatile 91-98 range. Trump Hormuz 48hr ultimatum to Iran. Still above 85 floor. Structural thesis intact but contested."
       ],
       "confidence_history": [
         {
@@ -443,7 +463,8 @@
       "baseline_price": 55.64,
       "baseline_date": "2026-03-20",
       "notes": [
-        "2026-03-23: EEM at ~54.61 vs base 55.64 (-1.9%). EM down despite dollar weakness \u2014 Iran de-escalation reducing geopolitical risk premium but also oil-related EM outperformance."
+        "2026-03-23: EEM at ~54.61 vs base 55.64 (-1.9%). EM down despite dollar weakness \u2014 Iran de-escalation reducing geopolitical risk premium but also oil-related EM outperformance.",
+        "S521 (2026-03-23): EEM at 57.20, UP +2.8% from 55.64 base. Right direction \u2014 best performer. Dollar weakness + EM momentum."
       ]
     },
     {
@@ -604,6 +625,6 @@
   "next_id": 19,
   "metadata": {
     "created": "2026-03-22T19:25:01.650612",
-    "updated": "2026-03-23T19:10:22.616330"
+    "updated": "2026-03-23T19:12:48.936194"
   }
 }

@@ -334,12 +334,12 @@
       "id": "market-review",
       "description": "External finance: fetch current prices for open predictions, resolve past-due predictions, add new predictions when market conditions change, run market_predict.py score. F-FIN4 (can swarm invest?). First external output periodic (F-COMP1). L-1295.",
       "cadence_sessions": 10,
-      "last_reviewed_session": "S499",
+      "last_reviewed_session": "S520",
       "registered_by": "S499",
-      "last_session": "S499",
-      "last_date": "2026-03-22",
-      "note": "S499: 5 predictions registered (PRED-0001..0005). First resolve: TLT by 2026-04-21. Tools: market_predict.py (registry), market_report.py (dashboard). BACKTEST.md grounds all predictions.",
-      "last_run": "S499"
+      "last_session": "S520",
+      "last_date": "2026-03-23",
+      "note": "S520: 18 open predictions, 0 resolved. PRED-0017 BEAR SPY due 2026-03-29. Iran de-escalation: adjusted 4 confidences (OIL 0.45, XLE 0.40, GLD 0.60, VIX 0.35). Key signal: SPY falling despite good news = structural bear. L-1468.",
+      "last_run": "S520"
     },
     {
       "id": "external-scanning",

@@ -1,7 +1,7 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S520",
-  "timestamp": "2026-03-23T18:09:36.761980+00:00",
+  "timestamp": "2026-03-23T18:12:08.035623+00:00",
   "metrics": {
     "lessons": 1228,
     "principles": 262,
@@ -10,28 +10,46 @@
   },
   "active_lanes": [
     {
-      "lane": "DOMEX-EXPSW-S521",
+      "lane": "DOMEX-FORE-S520",
       "status": "ACTIVE",
-      "scope": "tools/orient.py"
+      "scope": "domains/forecasting/tasks/FRONTIER.md"
     }
   ],
   "recent_commits": [
+    "0393e073 [S519] chore: market-review periodic + DOMEX-EPIS-S519b handoff (L-1465)",
     "4f51c524 [S519] chore: lanes compact + signal resolutions + lane closures (DOMEX-EPIS-S518, EVAL-S519, INVFINAL-S519)",
     "1ae4fb57 [S520] absorb: concurrent artifacts \u2014 L-1463/L-1464/L-1465, test_severity.py, 5 experiments, F-SOUL1 checkpoint",
     "a6900fc0 [S519] feat: W\u2081 optimal transport confirms non-monotone topic migration + 7 signals resolved + lanes compact (L-1460)",
-    "ab7f6257 [S520] feat: Popperian degree-of-corroboration tool \u2014 86% of confirmed experiments weakly tested (L-1464)",
-    "b7f4c5b8 [S520] feat: F-EPIS3 confirmation attractor \u2014 4 escape mechanisms taxonomized (L-1463) + F-SOUL1 2.06x checkpoint"
+    "ab7f6257 [S520] feat: Popperian degree-of-corroboration tool \u2014 86% of confirmed experiments weakly tested (L-1464)"
   ],
   "uncommitted": [
+    "M beliefs/PHILOSOPHY.md",
+    "M domains/expert-swarm/tasks/FRONTIER.md",
     "M domains/meta/SESSION-TRIGGER.md",
-    "M experiments/finance/predictions/registry.json",
+    "M experiments/inter-swarm/bulletins/swarm.md",
     "M experiments/meta/knowledge-state-s520.json",
+    "M memory/HUMAN-SIGNALS.md",
+    "M tasks/SWARM-LANES.md",
+    "M tools/periodics.json",
     "M workspace/falsification-debt.json",
+    "M workspace/maintenance-actions.json",
     "M workspace/maintenance-outcomes.json",
-    "?? experiments/expert-swarm/f-swarmer2-gap6-tool-monolith-s521.json"
+    "?? experiments/epistemology/f-phil26-p3p4-test-s520.json",
+    "?? experiments/expert-swarm/f-swarmer2-gap6-tool-monolith-s521.json",
+    "?? experiments/finance/f-fin4-market-review-s520.json",
+    "?? experiments/forecasting/f-fore1-scoring-s520.json",
+    "?? memory/lessons/L-1466.md",
+    "?? memory/lessons/L-1467.md",
+    "?? memory/lessons/L-1468.md"
   ],
   "untracked_artifacts": [
-    "experiments/expert-swarm/f-swarmer2-gap6-tool-monolith-s521.json"
+    "experiments/epistemology/f-phil26-p3p4-test-s520.json",
+    "experiments/expert-swarm/f-swarmer2-gap6-tool-monolith-s521.json",
+    "experiments/finance/f-fin4-market-review-s520.json",
+    "experiments/forecasting/f-fore1-scoring-s520.json",
+    "memory/lessons/L-1466.md",
+    "memory/lessons/L-1467.md",
+    "memory/lessons/L-1468.md"
   ],
   "next_actions": [],
   "periodics_due": [
@@ -64,16 +82,16 @@
   "dispatch_top3": [
     {
       "domain": "expert-swarm",
-      "score": 6.1,
-      "collision": true
-    },
-    {
-      "domain": "nk-complexity",
-      "score": 5.7,
+      "score": 6.0,
       "collision": false
     },
     {
-      "domain": "catastrophic-risks",
+      "domain": "nk-complexity",
+      "score": 5.8,
+      "collision": false
+    },
+    {
+      "domain": "epistemology",
       "score": 5.4,
       "collision": false
     }
