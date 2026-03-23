@@ -65,12 +65,21 @@ def section_pci(session_num, compute_fn, root=ROOT):
             lines.append(f"  Knowledge attention ({ks[1]}): BLIND-SPOT {dist.get('BLIND-SPOT',0)/total:.1%} | DECAYED {dist.get('DECAYED',0)/total:.1%} (L-813: citation-recency, not validity — actual false knowledge ~5-10%) | refresh: python3 tools/knowledge_state.py --json")
         sq = _cached_artifact(root, "meta", "science-quality-s*.json", session_num, max_age=30)
         if sq:
-            lines.append(f"  Science quality ({sq[1]}): mean {sq[0].get('mean_quality',0):.0%} | pre-reg {sq[0].get('criteria_means',{}).get('pre_registration',0):.0%} | falsif lanes {sq[0].get('falsification_lanes','?/0')} | refresh: python3 tools/science_quality.py --json")
+            # Handle both top-level and nested-under-actual formats
+            sq_data = sq[0]
+            sq_actual = sq_data.get("actual", {})
+            sq_mean = sq_data.get("mean_quality") or sq_actual.get("mean_quality", 0)
+            sq_criteria = sq_data.get("criteria_means") or sq_actual.get("criteria", {})
+            sq_prereg = sq_criteria.get("pre_registration", 0)
+            sq_falsif = sq_data.get("falsification_lanes") or sq_actual.get("falsification_lanes", "?/0")
+            lines.append(f"  Science quality ({sq[1]}): mean {sq_mean:.0%} | pre-reg {sq_prereg:.0%} | falsif lanes {sq_falsif} | refresh: python3 tools/science_quality.py --json")
         bm = _cached_artifact(root, "meta", "bayes-meta-s*.json", session_num, max_age=30)
         if bm:
-            ece = bm[0].get("results", {}).get("ece", "?")
+            # Handle both top-level and nested-under-results formats
+            ece = bm[0].get("ece") or bm[0].get("results", {}).get("ece", "?")
             ece_flag = " \u26a0 OVERCONFIDENT" if isinstance(ece, float) and ece > 0.15 else ""
-            lines.append(f"  Bayesian calibration ({bm[1]}): ECE={ece:.3f}{ece_flag} | {bm[0].get('n_frontiers_with_posteriors','?')} frontiers | refresh: python3 tools/bayes_meta.py --json > experiments/meta/bayes-meta-s<N>.json")
+            n_frontiers = bm[0].get("n_frontiers_with_posteriors") or bm[0].get("n_frontiers", "?")
+            lines.append(f"  Bayesian calibration ({bm[1]}): ECE={ece:.3f}{ece_flag} | {n_frontiers} frontiers | refresh: python3 tools/bayes_meta.py --json > experiments/meta/bayes-meta-s<N>.json")
         es = _cached_artifact(root, "evaluation", "eval-sufficiency-s*.json", session_num, max_age=50)
         if es:
             cont = es[0].get("continuous_composite", es[0].get("composite_normalized"))
