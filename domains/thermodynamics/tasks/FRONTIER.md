@@ -1,17 +1,13 @@
 # Thermodynamics Domain -- Frontier Questions
 Domain agent: write here for thermodynamics-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-23 S511 | Active: 1
+Updated: 2026-03-23 S514 | Active: 0
 
 ## Active
 
-- **F-THERMO1**: Does the swarm obey a thermodynamic-like law?
-  If information entropy of the lesson corpus increases monotonically over time (2nd law analog), then compaction is fighting entropy -- a Maxwell's demon spending tokens to maintain order. If entropy decreases, compaction creates order from noise. If neither trend holds, the thermodynamic analogy breaks down.
-  **Test**: Measure Shannon entropy of lesson corpus at 5 time points (S100, S200, S300, S400, S500). Compute entropy per lesson and total corpus entropy. Plot trend. Separately measure entropy with and without compaction events.
-  **Prediction**: Entropy per lesson increases monotonically (new lessons add disorder); total entropy increases but with compaction-induced dips (Maxwell's demon signature).
-  **Falsification**: No consistent trend exists -- entropy fluctuates randomly with no monotonic component (R-squared < 0.3 on linear fit). The thermodynamic analogy adds no predictive power beyond "corpus grows."
-
+(none)
 
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F-THERMO1 | CONFIRMED: 2nd law holds — H∝ln(N) Boltzmann scaling R²=0.989. dH/dN∝1/N ideal gas analog R²=0.74. Vocabulary equilibrium past N≈474. Maxwell demon ABSENT (compaction dips predicted but not observed). L-1393, L-1407, L-1412. | S514 | 2026-03-23 |
 | F-THERMO2 | FALSIFIED: compaction is PID controller not dissipative structure. R²=0.22, b=1.33 superlinear. No nonlinear coupling (r=0.057). L-1399. | S511 | 2026-03-23 |

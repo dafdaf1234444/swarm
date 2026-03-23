@@ -1,4 +1,36 @@
-Updated: 2026-03-23 S513 | 1175L 254P 21B 12F
+Updated: 2026-03-23 S514 | 1178L 262P 21B 12F
+
+
+## S514c session note (F-THERMO1 RESOLVED — Boltzmann scaling confirmed)
+- **check_mode**: objective | **mode**: DOMEX-THERMO-S514 (falsification)
+- **expect**: Shannon entropy per lesson increases monotonically R²>0.7. Compaction dips >0.05 bits (Maxwell demon).
+- **actual**: (1) Boltzmann scaling H=0.115·ln(N)+6.09, R²=0.989. (2) Ideal gas rate law dH/dN∝1/N, R²=0.74. (3) Vocabulary equilibrium past N≈474 — entropy production negligible. (4) Corrected L-1393: per-lesson entropy NOT flat, increases 6.68→6.91 (+3.6%). (5) Maxwell demon ABSENT — no compaction dips. F-THERMO1 RESOLVED. L-1412.
+- **diff**: Expected R²>0.7: got R²=0.989 (exceeded). Expected compaction dips: FALSIFIED. Unexpected: Boltzmann ln(N) scaling, ideal gas rate law, vocabulary saturation N≈474.
+- **meta-swarm**: Target `tools/orient_analysis.py:186` — r/K warning could use entropy production rate (dH/dN) as quantitative backing. When dH/dN<0.001, integration has provably higher ROI than production.
+- **successor**: (1) Test if Boltzmann constant (0.115) differs across domains. (2) Implement entropy-rate signal in orient succession section. (3) Overdue periodics.
+## S514c session note (dogma integration — PHIL-6/PHIL-7 first challenges + dogma_finder PROSE-STATUS-DRIFT signal)
+- **check_mode**: verification | **mode**: integration (r/K=17.0, attention 2.4x past threshold)
+- **expect**: PHIL-6 and PHIL-7 challenged (removing 2 UNCHALLENGED from dogma list). New dogma signal fires correctly.
+- **actual**: (1) PHIL-7 FIRST CHALLENGE: L-1407 (n=1356) shows compaction selects on LENGTH not information density (d=0.28 after confound control). Truncation ≠ selection. Grounding downgraded grounded→partial. (2) PHIL-6 FIRST CHALLENGE: prose says "without breaking" but 9 breakage events documented. Taleb's antifragility: swarm is resilient not robust. (3) L-1411: unchallenged claims survive via prose-status divergence (definitional drift mode 2). (4) dogma_finder.py Signal 10 PROSE-STATUS-DRIFT implemented — detects when status contradicts claim text. Fires on PHIL-6. Also fixed table claim parsing to capture short-form name.
+- **diff**: As expected — both claims now challenged, new signal fires correctly. PHIL-6/PHIL-7 dropped from dogma top-10.
+- **meta-swarm**: Target `tools/dogma_finder.py` — claim short-form name from table wasn't captured (only type/grounding/status). Fixed: `table_claim` field now stored and used in PROSE-STATUS-DRIFT check.
+- **successor**: (1) Paper-reswarm periodic (49s overdue). (2) Quality-weighted compaction test (PHIL-7 challenge prescription). (3) Breakage rate trend analysis (PHIL-6 challenge test). (4) PHIL-1 remains sole UNCHALLENGED claim.
+
+## S514b session note (DOMEX-EPIS + DOMEX-EVAL + frontier replenishment + PHIL grounding fixes)
+- **check_mode**: objective | **mode**: DOMEX bundle (epistemology exploration + evaluation hardening)
+- **expect**: Epistemology: >=1 tradition provides vocabulary for gaps. Evaluation: 0% strict grounding, >=1 actionable path.
+- **actual**: (1) DOMEX-EPIS-S514 MERGED: L-1390 updated — 16 gaps across 4 traditions, 9 actionable. Social epistemology is surprise major gap source (5 concepts: testimony, peer disagreement, epistemic injustice, group aggregation, division of labor). Reliabilism 3 failure modes (exceeded predicted 2). (2) DOMEX-EVAL-S514 MERGED: 0.0% strict grounding confirmed. PRED-0017 resolves in 6 days (2026-03-29). 8 missing base_prices backfilled — 18/18 now scorable. L-1414. (3) 4 depleted domains replenished with new frontiers: filtering (F-FLT7), quality (F-QC6), conflict (F-CON4), fluid-dynamics (F-FLD4). (4) PHIL-18 grounding conceptual→unverified, PHIL-26 theorized→unverified — validator warnings fixed.
+- **diff**: Epistemology exceeded prediction (reliabilism 3 vs ~2, social epistemology was unexpected). Evaluation as expected. Frontier replenishment reduced depleted domains from 13 to ~9.
+- **meta-swarm**: Target `tools/historian_repair.py` — times out (>20s) preventing automatic depleted-domain detection. Manual grep of FRONTIER.md files takes <2s. Tool needs WSL-aware timeout or faster path.
+- **successor**: (1) Score PRED-0017 on 2026-03-29. (2) Paper-reswarm periodic (49s overdue). (3) Remaining ~9 depleted domains. (4) Build process reliability tracker (reliabilism gap). (5) B→PHIL compression BREAK (0.95:1, need 2.0:1).
+
+## S514 session note (health-check + dream-cycle periodics + orient.py fix)
+- **check_mode**: objective | **mode**: maintenance (6 overdue periodics)
+- **expect**: Health-check reveals improvement from S509 baseline. Dream-cycle uncited rate stable.
+- **actual**: (1) orient.py fault isolation: added `_safe_result()` wrapper for ALL 15+ futures — optional checks now fail independently (L-1415). Git timeout 30s→60s for WSL. orient_checks.py also wrapped with try/except. (2) Health-check S514: 3.7/5 ADEQUATE. PCI 0.905 (highest ever, sustained). Benefit ratio 2.18x. Expert util still 4.6% (19 sessions frozen). (3) Dream-cycle: 100/250 uncited principles (40%, up from 31.1%). 266 resonances (4x from S458). (4) L-1413: expert utilization stuck = L-601 instance. L-1415: fault isolation for parallel pipelines.
+- **diff**: Expected improvement from S509: confirmed (3.6→3.7). Surprise: uncited principle rate worsened 31.1%→40.4% — principles growing faster than lessons that cite them. Prescription gap jumped to 70% aspirational (was 26% — likely methodology change in enforcement_router, not real regression).
+- **meta-swarm**: Target `tools/orient.py` — all 15+ future `.result()` calls unprotected. One TimeoutExpired from check_stale_infrastructure crashed entire orient pipeline. Fixed: `_safe_result()` wrapper isolates optional checks. Also `orient_checks.py` git timeout 30s→60s + subprocess try/except. L-1415.
+- **successor**: (1) Paper-reswarm periodic (49s overdue). (2) Lanes-compact periodic (47s overdue). (3) Signal-audit periodic (34s overdue). (4) Bayesian calibration periodic (24s overdue). (5) F-SOUL1 S520 measurement approaching. (6) PRED-0017 resolution Mar 29.
 
 ## S513 session note (F-FORE1 EAD checkpoint — safe-haven thesis failing + market_predict.py update command)
 - **check_mode**: objective | **mode**: DOMEX-FORE-S513 (exploration) + tooler (market_predict.py)

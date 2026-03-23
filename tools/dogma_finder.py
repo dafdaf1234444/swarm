@@ -13,6 +13,8 @@ Dogma signals:
   6. FOUNDING-ERA    — early-session claims still active without re-validation
   7. HIGH-CITE-LOW-TEST — cited many times but confidence never upgraded
   8. REFINE-DRIFT    — multiple refinements soften language without substance change
+  9. META-DOGMA      — dogma finder's own hardcoded assumptions
+ 10. PROSE-STATUS-DRIFT — status text contradicts original claim prose (L-1411)
 
 Epistemic type awareness (S505 L-1336):
   Axioms (design choices) get lower dogma scores because they resist
@@ -109,19 +111,21 @@ def parse_phil_claims() -> list[dict]:
     table_claims = {}
     for line in text.splitlines():
         m = re.match(
-            r"\|\s*PHIL-(\d+)\s*\|[^|]*\|([^|]*)\|([^|]*)\|([^|]*)\|",
+            r"\|\s*PHIL-(\d+)\s*\|([^|]*)\|([^|]*)\|([^|]*)\|([^|]*)\|",
             line.strip(),
         )
         if m:
             pid = f"PHIL-{m.group(1).strip()}"
-            claim_type = m.group(2).strip()
-            grounding = m.group(3).strip()
+            table_claim_text = m.group(2).strip()
+            claim_type = m.group(3).strip()
+            grounding = m.group(4).strip()
             # Only accept entries from the Claims table (has valid type values)
             if claim_type in ("axiom", "observed"):
                 table_claims[pid] = {
+                    "table_claim": table_claim_text,
                     "type": claim_type,
                     "grounding": grounding,
-                    "status": m.group(4).strip(),
+                    "status": m.group(5).strip(),
                 }
     for c in claims:
         if c["id"] in table_claims:
@@ -424,6 +428,33 @@ def detect_dogma() -> list[dict]:
     meta_dogmas = _detect_meta_dogma(current_session)
     findings.extend(meta_dogmas)
 
+    # --- Signal 10: PROSE-STATUS-DRIFT (L-1411) ---
+    # Detect claims where the status text contradicts the original prose.
+    # E.g., prose says "without breaking" but status says "9 breakage events."
+    # This is definitional drift mode 2: status evolves, claim text stays fixed.
+    _contradiction_keywords = {
+        "without breaking": ["breakage", "broken", "break", "deleted", "catastrophic"],
+        "never hurt": ["violation", "incident", "deleted", "harm"],
+        "always learn": ["decay", "blind-spot", "inaccessible"],
+    }
+    for p in phil_claims:
+        # Check both inline statement and table claim short name
+        stmt_lower = p.get("statement", "").lower()
+        table_claim = p.get("table_claim", "").lower()
+        combined_claim = stmt_lower + " " + table_claim
+        status_text = p.get("status", "").lower()
+        if not status_text:
+            continue
+        for phrase, contradictions in _contradiction_keywords.items():
+            if phrase in combined_claim:
+                found = [w for w in contradictions if w in status_text]
+                if found:
+                    add(p["id"], "philosophy", "PROSE-STATUS-DRIFT",
+                        0.5,
+                        f"Claim says '{phrase}' but status contains "
+                        f"{found[:3]} — definitional drift (L-1241)")
+                    break
+
     # --- Score normalization and dedup ---
     merged = defaultdict(lambda: {"signals": [], "total_score": 0.0})
     for f in findings:
@@ -505,6 +536,7 @@ SIGNAL_PRESCRIPTIONS = {
     "HIGH-CITE-LOW-TEST": "Upgrade confidence: design and run a test, or downgrade citations",
     "REFINE-DRIFT": "Freeze language — next challenge must result in CONFIRMED or DROPPED, not REFINED",
     "META-DOGMA": "Empirically test this assumption: measure its effect on dogma rankings",
+    "PROSE-STATUS-DRIFT": "Update claim prose to match evidence, or acknowledge the gap explicitly",
 }
 
 

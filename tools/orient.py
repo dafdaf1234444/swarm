@@ -364,28 +364,36 @@ def main():
         print(_line)
     for _line in _futures['genesis'].result():
         print(_line)
-    for _line in _futures['index_health'].result():
+    def _safe_result(key, default=None):
+        """Fault-isolated future result — optional sections fail independently (L-1413)."""
+        try:
+            return _futures[key].result()
+        except Exception:
+            return default if default is not None else []
+
+    for _line in _safe_result('index_health'):
         print(_line)
-    for _line in _futures['ghost'].result():
+    for _line in _safe_result('ghost'):
         print(_line)
     # Store heavy section results for ordered printing later
-    _historian_repair_lines = _futures['historian'].result()
-    _meta_tooler_lines = _futures['meta_tooler'].result()
-    _prescription_gap_lines = _futures['prescription'].result()
-    _dogma_lines = _futures['dogma'].result()
-    _succession_lines = _futures['succession'].result()
-    _knowledge_swarm_lines = _futures['knowledge_swarm'].result()
-    _correction_lines = _futures['correction'].result()
-    _fairness_lines = _futures['fairness'].result()
-    _trace_lines = _futures['trace'].result()
-    _stall_lines, _stall_map = _futures['stalled'].result()
-    _cascade_lines = _futures['cascade_real'].result()
-    _stale_exp_lines = _futures['stale_exp'].result()
-    _exp_harvest_lines = _futures['exp_harvest'].result()
-    _self_app_result = _futures['self_app'].result()
-    _grounding_decay_result = _futures['grounding_decay'].result()
-    _human_impact_result = _futures['human_impact'].result()
-    _concept_debt_result = _futures['concept_debt'].result()
+    _historian_repair_lines = _safe_result('historian')
+    _meta_tooler_lines = _safe_result('meta_tooler')
+    _prescription_gap_lines = _safe_result('prescription')
+    _dogma_lines = _safe_result('dogma')
+    _succession_lines = _safe_result('succession')
+    _knowledge_swarm_lines = _safe_result('knowledge_swarm')
+    _correction_lines = _safe_result('correction')
+    _fairness_lines = _safe_result('fairness')
+    _trace_lines = _safe_result('trace')
+    _stall_result = _safe_result('stalled', default=([], {}))
+    _stall_lines, _stall_map = _stall_result if isinstance(_stall_result, tuple) else ([], {})
+    _cascade_lines = _safe_result('cascade_real')
+    _stale_exp_lines = _safe_result('stale_exp')
+    _exp_harvest_lines = _safe_result('exp_harvest')
+    _self_app_result = _safe_result('self_app')
+    _grounding_decay_result = _safe_result('grounding_decay')
+    _human_impact_result = _safe_result('human_impact')
+    _concept_debt_result = _safe_result('concept_debt')
 
     index_text = _read("memory/INDEX.md")
     next_text = _read("tasks/NEXT.md")
