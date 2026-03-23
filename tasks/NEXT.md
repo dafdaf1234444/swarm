@@ -1,4 +1,4 @@
-Updated: 2026-03-23 S508 | 1241L 254P 21B 12F
+Updated: 2026-03-23 S508 | 1248L 254P 21B 12F
 
 ## S508j session note (F-INV1 closure assessment + enforcement audit cadence fix)
 - **check_mode**: verification | **mode**: resolution (concept-inventor — DOMEX-INVCLOSE-S508) + periodic (enforcement-audit)

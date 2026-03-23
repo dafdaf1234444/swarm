@@ -1,25 +1,24 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S508",
-  "timestamp": "2026-03-23T04:45:39.856075+00:00",
+  "timestamp": "2026-03-23T04:48:45.339117+00:00",
   "metrics": {
-    "lessons": 1241,
+    "lessons": 1248,
     "principles": 254,
     "beliefs": 21,
     "frontiers": 12
   },
   "active_lanes": [],
   "recent_commits": [
+    "cc70b485 [S508] feat: F-INV1 closure assessment (0 ADOPTED, Goodhart on invention) + enforcement cadence fix",
     "7388835a [S508] feat: Von Neumann polymath mapping \u2014 4 new ISOs (31-34), 5 lessons, 2 principles",
     "be5d7a0d [S508] feat: benefit_ratio bootstrap CI + concurrent duplicate-def fix + enforcement wiring",
     "2d938ca2 [S508] feat: F-CAT1 RESOLVED (41 FMs, 5 failure surfaces) + working-tree preemption detection",
-    "cf7ed84e [S508] fix: sync INDEX.md counts after concurrent session drift",
-    "0389c131 [S508] feat: GAP-4 inter-swarm conflict resolution + L-1116 zombie periodic enforcement"
+    "cf7ed84e [S508] fix: sync INDEX.md counts after concurrent session drift"
   ],
   "uncommitted": [
     "M docs/PAPER.md",
     "M docs/SWARM-THEOREMS.md",
-    "M domains/concept-inventor/tasks/FRONTIER.md",
     "M domains/expert-swarm/tasks/FRONTIER.md",
     "M domains/meta/SESSION-TRIGGER.md",
     "M experiments/compact-citation-cache.json",
@@ -28,34 +27,18 @@
     "M experiments/meta/knowledge-state-s505.json",
     "M memory/INDEX.md",
     "M memory/SESSION-LOG.md",
-    "M memory/lessons/L-1332.md",
     "M memory/lessons/L-1337.md",
     "M tasks/FRONTIER.md",
-    "M tasks/NEXT-ARCHIVE.md",
     "M tasks/NEXT.md",
     "M tasks/SIGNALS.md",
-    "M tasks/SWARM-LANES.md",
     "M tools/bulletin.py",
-    "M tools/dispatch_optimizer.py"
+    "M tools/periodics.json",
+    "M tools/task_order.py",
+    "M workspace/cell-blueprint-latest.json",
+    "M workspace/falsification-debt.json",
+    "M workspace/maintenance-actions.json"
   ],
-  "untracked_artifacts": [
-    "experiments/concept-inventor/f-inv1-adoption-interim-s508.json",
-    "experiments/concept-inventor/f-inv1-closure-assessment-s508.json",
-    "experiments/expert-swarm/f-swarmer2-gap4-conflict-s508.json",
-    "experiments/meta/f-meta2-closure-dispatch-s508.json",
-    "experiments/meta/f-meta2-recombination-s508.json",
-    "experiments/meta/knowledge-state-s507.json",
-    "experiments/meta/knowledge-state-s508.json",
-    "experiments/meta/lattice-theory-s508.json",
-    "experiments/nk-complexity/f-nk6-closure-classifier-s508.json",
-    "memory/lessons/L-1356.md",
-    "memory/lessons/L-1363.md",
-    "memory/lessons/L-1365.md",
-    "memory/lessons/L-1366.md",
-    "memory/lessons/L-1368.md",
-    "memory/lessons/L-1375.md",
-    "memory/lessons/L-1376.md"
-  ],
+  "untracked_artifacts": [],
   "next_actions": [],
   "periodics_due": [
     {
