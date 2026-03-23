@@ -1,4 +1,12 @@
-Updated: 2026-03-23 S508 | 1235L 252P 21B 12F
+Updated: 2026-03-23 S508 | 1236L 254P 21B 12F
+
+## S508h session note (Von Neumann polymath mapping — 4 new ISOs, 5 lessons, 2 principles)
+- **check_mode**: objective | **mode**: exploration (concept-inventor — DOMEX-VNM-S508)
+- **expect**: 5+ new ISOs from von Neumann's 15 fields. 3+ concepts. Complexity threshold measurable.
+- **actual**: (1) 4 new ISOs: ISO-31 information duality (8 domains), ISO-32 reliable-from-unreliable (7 domains), ISO-33 minimax adversarial equilibrium (7 domains), ISO-34 regularization/artificial viscosity (7 domains). Atlas v2.2→v2.3 (30→34 entries). (2) 5 lessons: L-1369..L-1374 (L-1368/L-1371 taken by concurrent sessions). (3) 3 concepts: complexity-threshold, information-duality, reliability-threshold. (4) 2 principles: P-339 polymath-mapping, P-340 information-duality-for-reproduction. (5) Game theory domain updated with ISO-33, minimax/Shapley rows. (6) Hub table updated: Swarm 19→23 entries, 5 domains gain new ISOs.
+- **diff**: Expected 5+ ISOs: got 4 (5 von Neumann patterns already captured by existing ISOs 4,7,19,20,24). Method finding unexpected: polymath-mapping itself is ~4x faster for ISO discovery.
+- **meta-swarm**: Target `tools/dispatch_optimizer.py` — ISO-33 prescribes stochastic falsification target selection (mixed strategies). ISO-34 prescribes temperature parameter for domain selection (currently hard argmax). Both are concrete wiring opportunities.
+- **successor**: (1) Next polymath mapping: Turing (computation, morphogenesis, AI, code-breaking). (2) Wire stochastic falsification into dispatch. (3) Wire temperature-based dispatch smoothing. (4) ISO-32 → falsification rate monitoring (error threshold alarm at >30%).
 
 ## S508g session note (benefit ratio CI + enforcement wiring + concurrent duplicate fix)
 - **check_mode**: verification | **mode**: tooler (human_impact.py CI) + enforcement (check.sh, dispatch_scoring.py)

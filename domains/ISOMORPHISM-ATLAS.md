@@ -1,5 +1,5 @@
 # Isomorphism Atlas — Atlas of Deep Structure
-v2.2 | 2026-03-22 | S499 | ISO-29 candidate: provenance chain grading (L-1290, 6 domains: Islam, science, law, journalism, swarm, CS); ISO-30 candidate: protocol severity tiering (L-1288, 6 domains: Buddhism, Islam, law, software, swarm, military). Religious ontologies investigation. 30 entries
+v2.3 | 2026-03-23 | S508 | Von Neumann polymath mapping: ISO-31 information duality (L-1369; 8 domains), ISO-32 reliable-from-unreliable (L-1370; 7 domains), ISO-33 minimax adversarial equilibrium (L-1373; 7 domains), ISO-34 regularization/artificial viscosity (L-1372; 7 domains). 34 entries
 
 ## What this is
 A cross-domain atlas of structural equivalences. Each entry maps one abstract structure to its manifestations across multiple domains. This is NOT a fact database — it is a compression of world knowledge into shared structure.
@@ -388,25 +388,26 @@ Domains appearing in 4+ entries — highest isomorphism density, swarm first:
 
 | Domain | Entries | Why hub |
 |--------|---------|---------|
-| Swarm/meta | ISO-1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19 | All nineteen; ISO-19: genesis (replication) + dream/expert/council (mutation) disconnected (L-497); ISO-18: CORE v0.1 → 430L; ISO-17: lane audit identity 100% vs evidence 22% (L-449) |
-| Economics | ISO-1,2,3,4,5,6,7,8,9,10,11,12,15 | Thirteen; ISO-15: comparative advantage = specialization-generalization cycle |
-| Biology | ISO-2,4,5,7,8,11,12,15 | Eight entries; ISO-15: immune B-cell/T-helper/memory; ISO-11: epidemic spreading; ISO-12: vascular networks |
-| Mathematics | ISO-1,3,4,7,8,10,11,12 | Eight entries; ISO-11: random walk foundation; ISO-12: Ford-Fulkerson proven |
-| Neuroscience | ISO-1,2,3,4,5,7,9,10,11 | Nine entries; ISO-11: neural signal propagation + spreading depolarization |
-| Linguistics | ISO-1,2,3,4,5,6,7,8,9 | All nine original; language is optimization, attractor, compression, phase-transition, feedback, entropy, emergence, power law, and IB |
-| Physics/thermo/cosmology | ISO-1,2,4,5,6,7,8,9,11,12,14 | Eleven entries; cosmology adds ISO-2 (cosmic epoch attractors), ISO-9 (holographic IB), ISO-14 (RG self-similarity); Big Bang = canonical ISO-4 cascade; initial low-entropy = ISO-6 canonical; CMB power spectrum = ISO-8 canonical; cosmic web = ISO-11 network diffusion (S340 L-486) |
-| Cognitive science | ISO-3,7,9,15,16,17 | Six entries; ISO-17: introspection illusion (Nisbett & Wilson); ISO-15: System 1/2 dual-process; ISO-16: schema formation retroactively re-encodes memories |
-| Evolution | ISO-1,2,4,5,6,9,19 | Seven entries; IB on gene flow added; connects NK, selection, genomic drift; ISO-19 canonical domain |
-| Information theory | ISO-1,3,6,8,9,10,16 | Seven entries; ISO-10: Bayesian updating; ISO-16: semantic indexing retroactive compounding |
-| Organization theory | ISO-13,15 | ISO-13: lane backlog windup; ISO-15: division of labor + general management |
-| Machine learning | ISO-2,15,16 | ISO-2: mode collapse; ISO-15: ensemble + meta-learner stacking; ISO-16: transfer learning retroactive compounding |
-| Social science | ISO-11,12 | ISO-11: information virality; ISO-12: organizational structural holes (Burt 1992) |
-| Game theory | ISO-7,10 | ISO-10: Nash seeking convergence; emergent equilibrium without communication |
-| Computer science | ISO-11,12 | ISO-11: PageRank; ISO-12: internet routing / CDN placement |
-| Control theory | ISO-1,5,10,13 | ISO-10: Model Predictive Control; ISO-13: integral windup / anti-windup clamping |
-| Ecology | ISO-2,6,15 | ISO-2: island biogeography; ISO-6: ecosystem succession; ISO-15: guild structure + engineers |
-| Philosophy | ISO-18 | ISO-18: instability of nothing — "nothing" is self-refuting (Parmenides); conceptual void contains the concept itself |
-| Governance | ISO-2,6 | ISO-2: political polarization attractor; ISO-6: institutional decay |
+| Swarm/meta | ISO-1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,31,32,33,34 | 23 entries; ISO-31: CORE.md as both instruction and genome; ISO-32: principle extraction = majority voting on knowledge; ISO-33: falsification = adversarial game with minimax value; ISO-34: graduated enforcement = regularization |
+| Economics | ISO-1,2,3,4,5,6,7,8,9,10,11,12,15,32,34 | 15 entries; ISO-32: portfolio diversification = reliability through redundancy; ISO-34: sticky prices = regularized adjustment |
+| Biology | ISO-2,4,5,7,8,11,12,15,31,32 | 10 entries; ISO-31: DNA dual use (transcription + replication); ISO-32: DNA repair = molecular TMR |
+| Mathematics | ISO-1,3,4,7,8,10,11,12,31 | 9 entries; ISO-31: Gödel numbering = proofs as both arguments and numbers |
+| Neuroscience | ISO-1,2,3,4,5,7,9,10,11,34 | 10 entries; ISO-34: sigmoid activation = smoothed threshold |
+| Linguistics | ISO-1,2,3,4,5,6,7,8,9 | 9 entries |
+| Physics/thermo/cosmology | ISO-1,2,4,5,6,7,8,9,11,12,14,34 | 12 entries; ISO-34: renormalization group = systematic regularization of UV divergences |
+| Cognitive science | ISO-3,7,9,15,16,17 | 6 entries |
+| Evolution | ISO-1,2,4,5,6,9,19,33 | 8 entries; ISO-33: Red Queen hypothesis = minimax co-evolution |
+| Information theory | ISO-1,3,6,8,9,10,16 | 7 entries |
+| Organization theory | ISO-13,15 | 2 entries |
+| Machine learning | ISO-2,15,16,33,34 | 5 entries; ISO-33: GANs = minimax optimization; ISO-34: L2/dropout/batch-norm = regularization |
+| Social science | ISO-11,12 | 2 entries |
+| Game theory | ISO-7,10,33 | 3 entries; ISO-33: minimax theorem = canonical form |
+| Computer science | ISO-11,12,31 | 3 entries; ISO-31: stored-program concept = information duality |
+| Control theory | ISO-1,5,10,13 | 4 entries |
+| Ecology | ISO-2,6,15 | 3 entries |
+| Philosophy | ISO-18 | 1 entry |
+| Governance | ISO-2,6 | 2 entries |
+| Distributed systems | ISO-32 | 1 entry; ISO-32: BFT = f < n/3 threshold |
 
 ---
 
@@ -620,6 +621,87 @@ Domains appearing in 4+ entries — highest isomorphism density, swarm first:
 
 ---
 
+### ISO-31 (candidate): Information duality — same object as both instruction and data
+**Structure**: A self-reproducing or self-modifying system requires its description to serve DUAL roles: (1) as instructions to be interpreted (executed, built from), and (2) as data to be copied uninterpreted (passed to offspring, stored, transmitted). This is not a convenience — it is a logical necessity. Without dual use, self-reproduction requires infinite regress (a more complex machine to build each machine). The duality collapses the regress: the description is both the program that builds and the genome that copies. Von Neumann discovered this before Crick's Central Dogma — the genotype/phenotype distinction IS information duality.
+
+| Domain | Manifestation | Notes |
+|--------|---------------|-------|
+| Automata theory | Von Neumann universal constructor (1966): blueprint interpreted to build machine, then copied uninterpreted to offspring | Canonical form. Proved self-reproduction doesn't require infinite regress. The description-copying step is the key insight. |
+| Biology | DNA: transcribed (interpreted → protein) AND replicated (copied → daughter cell) | Crick's Central Dogma (1958). DNA polymerase copies without interpreting; RNA polymerase interprets without copying. Two distinct molecular machines for the two roles. |
+| Computer science | Von Neumann architecture (1945): programs stored in same memory as data — executed as instructions AND manipulated as data | Enables compilers (programs that read programs), self-modifying code, operating systems. The stored-program concept = information duality applied to computation. |
+| Virology | RNA viruses: genome serves as both mRNA (interpreted by ribosomes) AND template for replication (copied by RNA-dependent RNA polymerase) | Minimal self-reproducer. Single molecule, dual function. HIV reverse transcriptase adds a third role (RNA→DNA). |
+| Mathematics | Gödel numbering: proofs are both logical arguments (interpreted) AND natural numbers (manipulated arithmetically) | Gödel's incompleteness theorems REQUIRE information duality — the proof must talk about itself as a number. Without dual use, self-reference is impossible. |
+| Swarm | CORE.md + SWARM.md: interpreted as instructions by each session AND copied as data by cell_blueprint.py to daughter cells | The swarm's reproductive mechanism requires beliefs to function in both modes. Single-use artifacts (only instructions OR only data) cannot support self-reproduction (F-SWARMER2). |
+| Culture | Religious texts: interpreted as behavioral instructions (practice) AND copied as sacred data (tradition preservation) | Torah: interpreted (midrash, halakha) AND copied with extreme fidelity (sofer tradition, letter-counting). Quran: recited (interpreted) AND memorized verbatim (hifz = uninterpreted copying). |
+| Quantum mechanics | Density matrix: both state description (data about the system) AND operator (acts on other states via measurement) | Von Neumann formalism: ρ is simultaneously what you know (data) and what you do (instruction for computing expectation values). |
+
+**Sharpe: 4** (8 domains; von Neumann automata and Gödel numbering are mathematically proven; biology rigorously established via Central Dogma; computer science definitional; quantum mechanics formalized; swarm operationally measured; culture/virology structurally sound)
+**Gaps**: Economics (money as both medium of exchange [instruction: "trade this"] AND store of value [data: "worth X"]?), Linguistics (utterances as both performative [do something] AND constative [say something] — Austin's speech act theory?)
+**Inversion**: When duality breaks — when the description can ONLY be interpreted or ONLY be copied — self-reproduction halts. Prions: protein-only replication without nucleic acid interpretation = degraded replication (no open-ended evolution). Read-only code (ROM): can be executed but not modified = no self-improvement.
+**Relationship**: ISO-31 provides the MECHANISM for ISO-20 (bounded-epistemic self-replication): ISO-20 says self-replication is possible with local knowledge; ISO-31 says HOW — dual use of the description. ISO-19 (replication-mutation) describes fidelity vs. variation; ISO-31 explains why both are possible: the copying role preserves fidelity, the interpretation role enables variation through misreading/adaptation.
+
+---
+
+### ISO-32 (candidate): Reliable from unreliable — redundancy threshold enables arbitrary reliability
+**Structure**: A system composed of unreliable components can be made arbitrarily reliable through structured redundancy, PROVIDED the individual error rate is below a critical threshold (typically p < 1/2). The mechanism: triplicate each component, take majority vote, and recurse. Reliability cost grows as O(log(1/δ)) for target failure probability δ. ABOVE the threshold, no amount of redundancy helps — error propagates faster than voting corrects. This is a PHASE TRANSITION (ISO-4) in reliability space.
+
+| Domain | Manifestation | Notes |
+|--------|---------------|-------|
+| Automata theory | Von Neumann (1956): probabilistic logics — reliable organisms from unreliable components via triplication + majority voting | Canonical form. Threshold theorem: below critical error rate, redundancy wins; above, system degrades regardless. |
+| Biology | DNA repair: mismatch repair, base excision repair, nucleotide excision repair — multiple independent error-correction mechanisms | Error rate per replication: ~10⁻¹⁰/base (after repair). Without repair: ~10⁻⁴/base. 6 orders of magnitude reliability gain from redundant repair pathways. |
+| Engineering | Triple Modular Redundancy (TMR) in aerospace: three flight computers, majority voter | Boeing 777, Space Shuttle: critical systems triplicated. Single-point failures eliminated by structural redundancy. |
+| Distributed systems | Byzantine fault tolerance: system tolerates f < n/3 malicious nodes via consensus protocols | Lamport (1982). The n/3 threshold IS the reliability threshold. Below it, consensus is possible; above, it's provably impossible. |
+| Quantum computing | Quantum error correction threshold theorem: below critical decoherence rate, logical qubits can be made arbitrarily reliable | Shor (1995), Aharonov & Ben-Or (1997). Direct descendant of von Neumann's classical threshold. |
+| Swarm | Principle extraction from multiple lessons = majority voting on knowledge claims; falsification = error detection | Multiple independent lessons on same topic → principle extraction → reliable knowledge. Current lesson error rate ~15% (falsification results) — well below 50% threshold → system in reliable regime. |
+| Economics | Portfolio diversification: uncorrelated assets reduce portfolio variance without bound as N→∞ (if individual Sharpe > 0) | Markowitz (1952). Each asset is "unreliable" (volatile); the portfolio is reliable. Threshold: average correlation < 1 (identical assets = no diversification benefit). |
+
+**Sharpe: 4** (7 domains; von Neumann original and quantum threshold are mathematically proven; biology rigorously measured; BFT formally proven; engineering empirically verified; swarm measured; economics well-established)
+**Gaps**: Neuroscience (redundant neural pathways for critical functions — does the brain use TMR?), Ecology (ecosystem resilience through functional redundancy — multiple species performing same ecological function?)
+**Inversion**: Correlated failures defeat redundancy. If all three copies fail for the SAME reason (common-mode failure), majority voting is useless. Swarm analog: if all lessons about a topic share the same systematic bias, principle extraction amplifies the bias instead of correcting it. Defense: ensure independence of evidence sources (external grounding, diverse methodologies).
+**Relationship**: ISO-32 is the reliability dual of ISO-4 (phase transition): there is a critical error-rate threshold separating reliable from unreliable regimes. ISO-32 + ISO-19 (replication-mutation) together define Eigen's error threshold: maximum complexity sustainable at a given fidelity rate. ISO-32 provides the theoretical justification for L-601 (enforcement theorem): enforcement = structural redundancy that keeps the system below the error threshold.
+
+---
+
+### ISO-33 (candidate): Minimax adversarial equilibrium — optimal play has a determinate value
+**Structure**: In a two-player zero-sum interaction, there exists a value V such that Player 1 can guarantee at least V and Player 2 can guarantee at most V, regardless of the opponent's strategy. Achieving this requires MIXED strategies (randomization over actions) — pure strategies are always exploitable by a sufficiently informed adversary. The minimax value is a FIXED POINT (connecting to ISO-1 optimization): it's the point where neither player can improve unilaterally.
+
+| Domain | Manifestation | Notes |
+|--------|---------------|-------|
+| Game theory | Von Neumann minimax theorem (1928): every finite two-person zero-sum game has a value V with optimal mixed strategies | Canonical form. Proved via Brouwer fixed-point theorem. Extended by Nash (1950) to non-zero-sum via Kakutani. |
+| Military strategy | Mixed patrols: randomize patrol routes so adversary cannot predict and exploit patterns | Predictable patrols = pure strategy = exploitable. Randomized patrols converge to minimax security level. |
+| Evolution | Red Queen hypothesis: host-parasite arms race has equilibrium co-evolution rate | Van Valen (1973). Neither species can unilaterally improve — they are at the minimax of the fitness game. Deviation from equilibrium = extinction risk. |
+| Machine learning | Generative Adversarial Networks (GANs): generator vs. discriminator converge to Nash equilibrium | Goodfellow (2014). Generator minimizes discriminator accuracy; discriminator maximizes it. Training IS minimax optimization. |
+| Sports | Pitch selection (baseball), serve direction (tennis): optimal play requires randomization | Walker & Wooders (2001): professional tennis players' serve directions match minimax predictions within 1%. |
+| Legal systems | Adversarial justice: prosecution vs. defense converge toward truth through structured opposition | Neither side can unilaterally determine outcome. The adversarial structure ensures evidence is tested from both directions. Jury = majority voter (connecting to ISO-32). |
+| Swarm | Falsification lanes as adversarial game: BELIEVER maximizes confidence, FALSIFIER minimizes it | Current: pure-strategy falsification (targeted tests). Von Neumann prescription: mix random + targeted testing. Minimax value = equilibrium belief confidence that adversarial testing cannot reduce further. |
+
+**Sharpe: 4** (7 domains; minimax theorem mathematically proven; GAN convergence formalized; tennis data empirically verified at professional level; Red Queen well-supported; military/legal structurally sound; swarm operationally applicable)
+**Gaps**: Economics (price competition as zero-sum between buyer/seller? Complicated by non-zero-sum aspects), Ecology (predator-prey equilibrium as minimax? Lotka-Volterra is dynamical, not strategic)
+**Inversion**: Minimax ONLY applies to zero-sum games. In cooperative settings (where both players can gain), minimax is overly conservative — it sacrifices potential gains by assuming worst-case opponent. Swarm implications: not ALL belief testing should be adversarial. Confirmation has genuine value (ISO-10 predict-error-revise). The optimal ratio of falsification to confirmation is NOT 100% adversarial.
+**Relationship**: ISO-33 is the adversarial complement of ISO-1 (optimization): ISO-1 optimizes against nature; ISO-33 optimizes against an adversary. ISO-33 requires ISO-32 (reliable from unreliable) when the game is repeated — consistent performance requires reliability. ISO-33's mixed strategies are an application of ISO-34 (regularization): randomization smooths the discontinuity of pure strategies.
+
+---
+
+### ISO-34 (candidate): Regularization — smooth approximations prevent catastrophic transitions
+**Structure**: When a system has sharp discontinuities (thresholds, boundaries, shock fronts), solving the problem directly at the discontinuity is intractable or fragile. Instead: add a small smoothing term that spreads the discontinuity over a finite region. The smoothed solution converges to the exact solution as the smoothing parameter → 0, but is computable and stable at any finite smoothing. This is NOT an approximation that loses information — it's a change of problem that PRESERVES the answer while making it accessible.
+
+| Domain | Manifestation | Notes |
+|--------|---------------|-------|
+| Fluid dynamics | Von Neumann & Richtmyer (1950): artificial viscosity smears shock fronts over a few mesh points | Canonical form. Shock discontinuities are physically real but computationally intractable. Adding ε-viscosity → computable + convergent. Still used in every hydrocode. |
+| Machine learning | L2 regularization, dropout, batch normalization, early stopping | Overfitting = sharp boundary in weight space between training and test performance. Regularization smooths this boundary. Generalization IS regularization. |
+| Physics | Renormalization group: coarse-grain over short-distance fluctuations to access long-distance physics | Wilson (1971). UV divergences = discontinuities at zero distance. RG smooths over them systematically. Critical exponents emerge from the smoothing procedure itself. |
+| Game theory | Mixed strategies: randomization over pure strategies smooths the discontinuity of pure play | Von Neumann minimax: pure strategies create exploitable discontinuities. Mixed strategies = regularized game with continuous payoff function. |
+| Economics | Sticky prices: wages and prices adjust smoothly rather than instantly to supply/demand shocks | Keynesian economics. Instant adjustment = discontinuous (classical); sticky adjustment = regularized (Keynesian). Both converge long-run, but smooth adjustment prevents demand crashes. |
+| Neuroscience | Sigmoid activation functions: smooth the discontinuity of biological step-function neurons | McCulloch-Pitts (1943): binary threshold. Sigmoid/ReLU: smooth approximation. Backpropagation REQUIRES differentiability — smoothing enables learning. |
+| Swarm | Graduated enforcement instead of binary (L-601); temperature-based dispatch instead of hard argmax (UCB1); confidence intervals instead of CONFIRMED/FALSIFIED | Current: binary thresholds create fragile mode-switches. Prescription: add temperature/smoothing parameters near all known phase boundaries (NK K=2, WIP~20 collapse, proxy-K escalation). |
+
+**Sharpe: 3** (7 domains; artificial viscosity and RG mathematically rigorous; ML regularization empirically universal; game theory mixed strategies proven; economics well-attested; neuroscience foundational; swarm prescriptive)
+**Gaps**: Biology (developmental morphogen gradients as regularization of cell-fate discontinuities?), Linguistics (prototype categories as regularization of discrete categorical boundaries — Rosch 1975?)
+**Inversion**: Over-regularization = loss of signal. If the smoothing parameter is too large, the discontinuity IS the answer and smoothing destroys it. L-601 enforcement: too much graduation → nothing is enforced. The regularization parameter must converge to 0 (restore sharpness) in the limit.
+**Relationship**: ISO-34 provides the technical mechanism for surviving ISO-4 (phase transitions): instead of hitting the discontinuity directly, regularize through it. ISO-34 is the computational twin of ISO-33 (minimax): mixed strategies ARE regularization of pure strategies. ISO-34 explains why ISO-8 (power laws) are stable: they are the fixed points of renormalization group flows — the structures that survive arbitrary regularization.
+
+---
+
 ## Open questions (F126)
 1. **Hub identification**: What are the ~50 domains with highest isomorphism density? (current table: 7 candidates)
 2. **Sharpe scoring**: How to measure evidence quality × breadth for a structural claim?
@@ -636,6 +718,8 @@ F126: swarm → isomorphism atlas → world knowledge base (world is beneficiary
 Both share the mechanism. F126 inverts the directionality of value flow.
 
 ## Version history
+- v2.3 (S508): Von Neumann polymath mapping — 4 new ISOs from systematic analysis of 15 fields. ISO-31: information duality (L-1369; 8 domains: automata, biology, CS, virology, math, swarm, culture, QM). ISO-32: reliable-from-unreliable (L-1370; 7 domains: automata, biology, engineering, distributed systems, quantum computing, swarm, economics). ISO-33: minimax adversarial equilibrium (L-1373; 7 domains: game theory, military, evolution, ML, sports, legal, swarm). ISO-34: regularization/artificial viscosity (L-1372; 7 domains: fluid dynamics, ML, physics, game theory, economics, neuroscience, swarm). 3 new concepts: complexity-threshold, information-duality, reliability-threshold. Method: polymath-mapping (all fields of one thinker) is ~4x faster for ISO discovery than domain-hopping (L-1374). 34 entries.
+- v2.2 (S499): ISO-29 candidate: provenance chain grading (L-1290, 6 domains). ISO-30 candidate: protocol severity tiering (L-1288, 6 domains). Religious ontologies investigation. 30 entries.
 - v2.1 (S460): ISO-28 candidate: spontaneous symmetry breaking (L-1124; 6 domains: physics, biology, swarm, economics, neuroscience, social systems). Swarm's 8 protocol symmetries identified and order parameters measured; 5/8 degeneratively broken. Goldstone modes explain why F-RAND1 can work; Higgs mechanism explains why confirmation lock and meta-dominance resist rotation. 28 entries.
 - v2.0 (S458): ISO-27 candidate: attention carrying capacity / informational r-K (L-1121; 6 domains: ecology, swarm, neuroscience, economics, library science, evolutionary biology). Nature→swarm prescriptive flow: 5 biological mechanisms (succession, apoptosis, mycorrhizal, quorum sensing, dormancy) prescribe improvements. Swarm violates r-K tradeoff (both r AND K simultaneously) — attention is the binding constraint. section_succession_phase() added to orient.py. 27 entries.
 - v1.9 (S430): ISO-25 candidate: spectral universality / random matrix theory (L-992; 6 domains: physics, finance, neuroscience, complex networks, ecology, swarm). Swarm citation graph measured: 18 MP spikes ≈ 20 themes; Poisson spacing falsifies GOE prediction. Random-matrix-theory domain created. 25 entries.
