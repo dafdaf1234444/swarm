@@ -1,14 +1,14 @@
 {
-  "session": 504,
+  "session": 505,
   "count": 2,
   "items": [
     {
       "priority": "DUE",
-      "message": "Count drift in INDEX.md (L: stated 1205 vs actual 1207) \u2014 run python3 tools/sync_state.py"
+      "message": "Lesson over 20 lines: L-1336.md"
     },
     {
       "priority": "DUE",
-      "message": "1 broken file reference(s): NEXT.md->tools/nk_null_model.py"
+      "message": "1 HIGH-priority uncorrected citation(s) of falsified lessons: L-1336 (10 total uncorrected). Run: python3 tools/correction_propagation.py --classify"
     }
   ]
 }

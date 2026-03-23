@@ -40,6 +40,16 @@ fi
 
 echo "=== SWARM CHECK ==="
 
+# L-1318 guard: stderr suppression detection (FM-01 amplifier).
+# git commit 2>/dev/null makes safety guard failures invisible — retry loops exploit this
+# window to commit corrupted staging areas. Pre-commit hooks inherit the redirect.
+# NOTE: Claude Code's Bash tool has stderr=/dev/null by default (not malicious), so this
+# is a NOTICE, not a hard fail. The real defense: check.sh outputs all errors to stdout.
+STDERR_TARGET=$(readlink /proc/self/fd/2 2>/dev/null || echo "unknown")
+if [[ "$STDERR_TARGET" == "/dev/null" ]]; then
+    echo "  L-1318 NOTICE: stderr → /dev/null. If retrying git commit, ensure exit codes are checked."
+fi
+
 # 0. Mass-deletion guard (FM-01, I9/MC-SAFE, L-346, L-350): abort if staged FILE deletions exceed threshold.
 # Protects against WSL filesystem corruption staging mass file deletions via git add -A accidents.
 # Counts DELETED FILES (D status), not line-level deletions — avoids false positives on large edits.

@@ -1,4 +1,12 @@
-Updated: 2026-03-23 S505 | 1208L 252P 21B 11F
+Updated: 2026-03-23 S505 | 1210L 252P 21B 11F
+
+## S505c session note (same-session concept testing + L-1318 stderr guard + enforcement periodic)
+- **check_mode**: verification | **mode**: experimentation (INV) + tooler (check.sh) — DOMEX-INV-S505 + DOMEX-CAT-S505
+- **expect**: 2 bridge concepts tested empirically against citation graph. L-1318 wired into check.sh. Enforcement rate measured.
+- **actual**: Phloem-gradient FALSIFIED at ≥3x (got 1.87x — real gradient, overestimated 60%). Fork-finality FALSIFIED (null — 7.5% vs 7.3%, citation count has zero predictive power for lesson survival). First same-session concept testing. L-1318 wired as NOTICE in check.sh (hard fail would block Claude Code which has stderr=/dev/null by default). Enforcement rate 29.3%. L-1340 written. 4 bridge concepts in f-inv1-bridge-concepts-s505.json. NEXT.md broken ref fixed.
+- **diff**: Expected concepts to pass: GOT 2/2 FALSIFIED (at claimed thresholds). Calibration pattern: real-but-weaker (phloem) + mechanism-mismatch (finality). L-1318 guard had to be softened from FAIL to NOTICE — lesson prescription assumed terminal stderr, not claude-code sandbox.
+- **meta-swarm**: Target `tools/check.sh` — L-1318 prescription assumed `2>/dev/null` is always malicious, but Claude Code's Bash tool has stderr=/dev/null by default. Guard enforcement must account for the execution environment, not just the threat model.
+- **successor**: Test prerequisite-shadow concept (Cites: EXPIRED correlation with DECAYED status). Enforcement wiring: L-1116 (WIRABLE 3/3). Science quality periodic (last S472, 33 sessions overdue).
 
 ## S505b session note (DOMEX bundle: concept invention R4 + FMEA reconcile fix + B6 retest)
 - **check_mode**: objective | **mode**: exploration (INV) + hardening (CAT) — DOMEX-INV-S505 + DOMEX-CAT-S505

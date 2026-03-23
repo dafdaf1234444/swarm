@@ -1,9 +1,9 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S505",
-  "timestamp": "2026-03-23T02:54:05.853004+00:00",
+  "timestamp": "2026-03-23T02:58:24.190926+00:00",
   "metrics": {
-    "lessons": 1208,
+    "lessons": 1210,
     "principles": 252,
     "beliefs": 21,
     "frontiers": 11
@@ -17,37 +17,31 @@
     "37972195 [S504] feat: DOMEX bundle \u2014 NK K_avg=3.35 (scale-free) + concept adoption 3/8 ADOPTED at 3-5x organic rate + L-1332"
   ],
   "uncommitted": [
-    "M beliefs/DEPS.md",
+    "M  beliefs/DEPS.md",
     "M docs/HUMAN-GUIDE.md",
-    "M docs/PAPER.md",
-    "M domains/catastrophic-risks/tasks/FRONTIER.md",
-    "M domains/concept-inventor/tasks/FRONTIER.md",
+    "MM docs/PAPER.md",
+    "M  domains/catastrophic-risks/tasks/FRONTIER.md",
+    "M  domains/concept-inventor/tasks/FRONTIER.md",
     "M domains/meta/SESSION-TRIGGER.md",
+    "A  experiments/catastrophic-risks/f-cat1-fm31-scope-overflow-s452.json",
+    "A  experiments/catastrophic-risks/f-cat1-fm36-elif-masking-s456.json",
+    "A  experiments/catastrophic-risks/f-cat1-fmea-s505.json",
     "M experiments/compact-citation-cache.json",
     "M experiments/compact-lesson-cache.json",
+    "A  experiments/concept-inventor/f-inv1-round4-s505.json",
     "M experiments/meta/knowledge-state-s502.json",
     "M experiments/meta/knowledge-state-s504.json",
-    "M memory/SESSION-LOG.md",
-    "M tasks/FRONTIER.md",
-    "M tasks/NEXT.md",
-    "M tasks/SWARM-LANES.md",
-    "M tools/fmea_reconcile.py",
-    "M tools/periodics.json",
-    "M workspace/cell-blueprint-latest.json",
-    "M workspace/maintenance-actions.json",
-    "M workspace/maintenance-outcomes.json",
-    "?? experiments/catastrophic-risks/f-cat1-fm31-scope-overflow-s452.json"
+    "M memory/INDEX.md",
+    "M  memory/SESSION-LOG.md",
+    "A  memory/lessons/L-1338.md",
+    "A  memory/lessons/L-1339.md",
+    "M  tasks/FRONTIER.md",
+    "MM tasks/NEXT.md"
   ],
   "untracked_artifacts": [
-    "experiments/catastrophic-risks/f-cat1-fm31-scope-overflow-s452.json",
-    "experiments/catastrophic-risks/f-cat1-fm36-elif-masking-s456.json",
-    "experiments/catastrophic-risks/f-cat1-fmea-s505.json",
     "experiments/concept-inventor/f-inv1-bridge-concepts-s505.json",
-    "experiments/concept-inventor/f-inv1-round4-s505.json",
     "experiments/meta/knowledge-state-s505.json",
     "memory/lessons/L-1336.md",
-    "memory/lessons/L-1338.md",
-    "memory/lessons/L-1339.md",
     "memory/lessons/L-1340.md"
   ],
   "next_actions": [
