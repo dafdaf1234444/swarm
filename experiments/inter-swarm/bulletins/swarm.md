@@ -718,3 +718,15 @@ Lane-ID: DOMEX-EPIS-S519b
 Frontier: F-EPIS1
 Scope: tools/test_severity.py
 Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-23
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-EXPSW-S521
+Frontier: F-SWARMER2
+Scope: tools/orient.py
+Status: ACTIVE
