@@ -8,7 +8,7 @@
       "direction": "BEAR",
       "target": "-5% to -10% from current ~648",
       "timeframe": "3m",
-      "confidence": 0.6,
+      "confidence": 0.45,
       "thesis": "CAPE at 39 is 2x historical avg \u2014 only 1929 and 2000 were comparable (ISO-4 phase transition). Oil shock from Strait of Hormuz closure propagates through economy with ~6-12mo lag (ISO-11 network diffusion). Stagflation fears suppress both growth and value \u2014 no safe haven in equities. Rising 10Y yield (4.39%) tightens financial conditions while economy weakens. Historical base rate: CAPE>35 + oil shock \u2192 negative 3mo return ~65% of time. Sector rotation to utilities/energy signals defensive positioning (ISO-2 selection). Swarm calibration note: confidence 0.60 not higher because EMH says this is mostly priced in.",
       "domains_applied": [
         "physics",
@@ -28,7 +28,27 @@
       "baseline_date": "2026-03-20",
       "notes": [
         "2026-03-23: SPY at ~648 (-1.8% from prev close 659.80) DESPITE Iran de-escalation. Bearish: market declining on structural factors (rising yields) not just geopolitics. Strengthens thesis \u2014 multiple independent drivers.",
-        "S521 (2026-03-23): SPY at 657.63, UP +1.4% from 648.57 base. BEAR thesis wrong direction. Market rallying despite geopolitical uncertainty."
+        "S521 (2026-03-23): SPY at 657.63, UP +1.4% from 648.57 base. BEAR thesis wrong direction. Market rallying despite geopolitical uncertainty.",
+        "S521 (2026-03-23 14:10 ET): SPY at 657.25, +1.3% from 648.57 base.",
+        "Confidence 0.60\u21920.45: key_risk (ceasefire) materializing. Structural bear drivers (CAPE, yields) persist but geopolitical catalyst removed.",
+        "S521: Lowering 0.60\u21920.45. Market rallying despite geopolitical risk. Iran de-escalation weakens catalyst."
+      ],
+      "confidence_history": [
+        {
+          "value": 0.6,
+          "session": "original"
+        },
+        {
+          "value": 0.45,
+          "session": "S521",
+          "date": "2026-03-23",
+          "reason": "Iran de-escalation triggers key_risk scenario. SPY +1.3% from base. Bear thesis weakened but CAPE/yield drivers persist."
+        },
+        {
+          "value": 0.45,
+          "session": "S521",
+          "date": "2026-03-23"
+        }
       ]
     },
     {
@@ -76,7 +96,8 @@
       "notes": [
         "2026-03-23: Iran strike pause, oil -9%. XLE base 59.36. De-escalation weakens structural driver. Watch whether strikes resume in 5 days.",
         "Confidence 0.55\u21920.40: XLE thesis depended on escalating Hormuz closure. De-escalation removes primary driver.",
-        "S521 (2026-03-23): XLE at 59.79, UP +0.7% from 59.36 base. Right direction but slow. Oil volatile (91-98 range) on Trump Iran ultimatum."
+        "S521 (2026-03-23): XLE at 59.79, UP +0.7% from 59.36 base. Right direction but slow. Oil volatile (91-98 range) on Trump Iran ultimatum.",
+        "S521 (2026-03-23 14:10 ET): XLE at 59.81, +0.8% from 59.36 base."
       ]
     },
     {
@@ -118,7 +139,8 @@
       "baseline_date": "2026-03-20",
       "notes": [
         "S519 check (2026-03-23): TLT at 86.35, UP +0.6% from 85.83 base. Right direction but small. 29 days remain.",
-        "S521 (2026-03-23): TLT at 86.33, UP +0.6% from 85.83 base. Right direction. 29 days remain."
+        "S521 (2026-03-23): TLT at 86.33, UP +0.6% from 85.83 base. Right direction. 29 days remain.",
+        "S521 (2026-03-23 14:10 ET): TLT at 86.33, +0.6% from 85.83 base."
       ]
     },
     {
@@ -129,7 +151,7 @@
       "direction": "BULL",
       "target": "+5% to +12% from current",
       "timeframe": "3m",
-      "confidence": 0.6,
+      "confidence": 0.35,
       "thesis": "Gold is the consensus safe haven in every historical analog to current conditions: (1) geopolitical war escalation, (2) stagflation fears, (3) loss of confidence in monetary policy, (4) CAPE extreme. ISO-8 power law: gold tends to move in explosive bursts, not gradual trends \u2014 current conditions are the preconditions for a burst. Game theory: central banks globally diversifying away from USD reserves (confirmed by BIS data). Distributed systems lens: gold is the decentralized store of value \u2014 network effects strengthen during centralized-system stress. Highest confidence prediction because multiple independent structural drivers converge.",
       "domains_applied": [
         "history",
@@ -153,7 +175,13 @@
         "S519 check (2026-03-23): GLD at 405.94, DOWN -4.8% from 426.41 base. Wrong direction. Gold selling off despite equity uncertainty.",
         "2026-03-23: Gold dropped ~4.5% intraday on Iran de-escalation. Safe-haven demand reduced. Structural drivers (central bank buying, USD weakness) persist. Watch if gold holds 4100+ this week.",
         "Confidence 0.70\u21920.60: gold dropped 4.5% on de-escalation, but structural drivers (central bank buying, USD weakness, CAPE extreme) persist. Tactical hit, not thesis-breaking.",
-        "S521 (2026-03-23): GLD at 405.70, DOWN -4.9% from 426.41 base. WRONG direction. Gold safe-haven thesis not activating. Worst performer."
+        "S521 (2026-03-23): GLD at 405.70, DOWN -4.9% from 426.41 base. WRONG direction. Gold safe-haven thesis not activating. Worst performer.",
+        "S521 (2026-03-23 14:10 ET): GLD at 405.7, -4.9% from 426.41 base.",
+        "Confidence 0.60\u21920.40: GLD -4.9%. Safe-haven demand evaporating with Iran de-escalation. Gold NOT acting as crisis hedge.",
+        "S521: Lowering 0.50\u21920.30. Gold -4.9% \u2014 worst performer. Safe-haven thesis definitively not activating in this regime.",
+        "S521 confidence 0.60\u21920.40: Gold dropping -4.9% in WAR environment is strong disconfirming evidence. Safe-haven thesis not activating \u2014 possibly because dollar strength or crypto displacement.",
+        "S521 correction: 0.40\u21920.30. Gold -4.9% in wartime is strong disconfirmation.",
+        "GLD 05.69 (-4.86%). Safe-haven thesis failing despite active conflict."
       ],
       "confidence_history": [
         {
@@ -169,6 +197,32 @@
           "value": 0.6,
           "session": "S520",
           "date": "2026-03-23"
+        },
+        {
+          "value": 0.4,
+          "session": "S521",
+          "date": "2026-03-23",
+          "reason": "GLD -4.9% from base. De-escalation removes safe-haven demand. Structural drivers insufficient."
+        },
+        {
+          "value": 0.3,
+          "session": "S521",
+          "date": "2026-03-23"
+        },
+        {
+          "value": 0.4,
+          "session": "S521",
+          "date": "2026-03-23"
+        },
+        {
+          "value": 0.3,
+          "session": "S521",
+          "date": "2026-03-23"
+        },
+        {
+          "value": 0.35,
+          "session": "S520",
+          "date": "2026-03-23"
         }
       ]
     },
@@ -180,7 +234,7 @@
       "direction": "BEAR",
       "target": "-8% to -15% from current",
       "timeframe": "3m",
-      "confidence": 0.6,
+      "confidence": 0.45,
       "thesis": "Nasdaq 100 plunged 1.8% to 6-month lows \u2014 AI narrative bifurcating (software DOWN, infrastructure UP). ISO-2 selection: market is discriminating between AI hype and AI substance. Phase transition: tech leadership regimes last ~7-10 years (2013-2024 was tech's run); rotation to energy/utilities/value signals regime change. Control theory: higher rates disproportionately hurt long-duration growth assets (tech). Information theory: AI software companies have high information asymmetry \u2014 market can't distinguish real AI revenue from hype \u2014 so it sells all. Bear case slightly stronger than SPY because QQQ has higher CAPE + more rate sensitivity + AI narrative reversal.",
       "domains_applied": [
         "evolution",
@@ -199,7 +253,27 @@
       "baseline_price": 582.06,
       "baseline_date": "2026-03-20",
       "notes": [
-        "S521 (2026-03-23): QQQ at 589.62, UP +1.3% from 582.06 base. BEAR thesis wrong direction."
+        "S521 (2026-03-23): QQQ at 589.62, UP +1.3% from 582.06 base. BEAR thesis wrong direction.",
+        "S521 (2026-03-23 14:10 ET): QQQ at 589.62, +1.3% from 582.06 base.",
+        "Confidence 0.60\u21920.45: QQQ rallying on risk-on sentiment. AI narrative intact. Bear thesis needs renewed catalyst.",
+        "S521: Lowering 0.60\u21920.45. QQQ +1.3% \u2014 tech not declining. AI narrative intact."
+      ],
+      "confidence_history": [
+        {
+          "value": 0.6,
+          "session": "original"
+        },
+        {
+          "value": 0.45,
+          "session": "S521",
+          "date": "2026-03-23",
+          "reason": "QQQ +1.3% rally on risk-on. AI narrative resilient."
+        },
+        {
+          "value": 0.45,
+          "session": "S521",
+          "date": "2026-03-23"
+        }
       ]
     },
     {
@@ -230,7 +304,8 @@
       "baseline_date": "2026-03-20",
       "notes": [
         "2026-03-23: BTC surged 5% to 71000 on Iran de-escalation. Digital gold thesis: BTC responds to risk-on events, not safe-haven events. This is COUNTER to thesis (predicted BTC as digital gold). BTC at 70600 vs 69000 base = +2.3%. Need +15% to hit target.",
-        "S521 (2026-03-23): BTC at 70,600, UP +2.3% from 69,000 base. Right direction. 6 consecutive red months possible. Still needs +15% for target."
+        "S521 (2026-03-23): BTC at 70,600, UP +2.3% from 69,000 base. Right direction. 6 consecutive red months possible. Still needs +15% for target.",
+        "S521 (2026-03-23 14:10 ET): BTC at 70600, +2.3% from 69000 base."
       ]
     },
     {
@@ -261,7 +336,8 @@
       "baseline_date": "2026-03-20",
       "notes": [
         "2026-03-23: DXY at 99.6, down slightly from base ~100. Dollar weakening on de-escalation uncertainty. BEAR thesis tracking \u2014 dollar down 0.4%.",
-        "S521 (2026-03-23): DXY at 99.06, DOWN -0.9% from 100 base. Right direction. Dollar weakening on Iran de-escalation talk."
+        "S521 (2026-03-23): DXY at 99.06, DOWN -0.9% from 100 base. Right direction. Dollar weakening on Iran de-escalation talk.",
+        "S521 (2026-03-23 14:10 ET): DXY at 99.06, -0.9% from 100 base."
       ]
     },
     {
@@ -293,12 +369,25 @@
       "notes": [
         "2026-03-23: VIX at 26.22 (-2.1%), down on de-escalation. Base 27. Target 35-45. Iran pause reduces near-term tail risk. BULL VIX thesis weakened.",
         "Confidence 0.50\u21920.35: VIX at 26, de-escalation reduces tail risk. Spike to 35-45 requires new catalyst.",
-        "S521 (2026-03-23): VIX at 26.78, DOWN slightly from 27 base. BULL thesis not working \u2014 volatility declining despite geopolitical risk."
+        "S521 (2026-03-23): VIX at 26.78, DOWN slightly from 27 base. BULL thesis not working \u2014 volatility declining despite geopolitical risk.",
+        "S521 (2026-03-23 14:10 ET): VIX at 26.78, -0.8% from 27 base.",
+        "S521: Lowering 0.50\u21920.35. VIX declining despite active Hormuz situation. Market complacent or pricing in de-escalation.",
+        "VIX closed 25.23, declining from 27 base. No spike despite conflict."
       ],
       "confidence_history": [
         {
           "value": 0.5,
           "session": "original"
+        },
+        {
+          "value": 0.35,
+          "session": "S520",
+          "date": "2026-03-23"
+        },
+        {
+          "value": 0.35,
+          "session": "S521",
+          "date": "2026-03-23"
         },
         {
           "value": 0.35,
@@ -333,7 +422,8 @@
       "baseline_price": 44.65,
       "baseline_date": "2026-03-20",
       "notes": [
-        "S521 (2026-03-23): XLU at 45.05, UP +0.9% from 44.65 base. Right direction, defensive sector holding."
+        "S521 (2026-03-23): XLU at 45.05, UP +0.9% from 44.65 base. Right direction, defensive sector holding.",
+        "S521 (2026-03-23 14:10 ET): XLU at 45.03, +0.9% from 44.65 base."
       ]
     },
     {
@@ -362,7 +452,8 @@
       "baseline_price": 145.33,
       "baseline_date": "2026-03-20",
       "notes": [
-        "S521 (2026-03-23): XLV at 144.89, DOWN -0.3% from 145.33 base. Wrong direction. Healthcare not acting as defensive play."
+        "S521 (2026-03-23): XLV at 144.89, DOWN -0.3% from 145.33 base. Wrong direction. Healthcare not acting as defensive play.",
+        "S521 (2026-03-23 14:10 ET): XLV at 145.03, -0.2% from 145.33 base."
       ]
     },
     {
@@ -392,7 +483,8 @@
       "baseline_price_qqq": 582.06,
       "baseline_date": "2026-03-20",
       "notes": [
-        "S521 (2026-03-23): SPY +1.4%, QQQ +1.3%. Spread +0.1% \u2014 SPY barely outperforming QQQ. Right direction but negligible."
+        "S521 (2026-03-23): SPY +1.4%, QQQ +1.3%. Spread +0.1% \u2014 SPY barely outperforming QQQ. Right direction but negligible.",
+        "S521 (2026-03-23 14:10 ET): SPY +1.3%, QQQ +1.3%, spread +0.0pp. SPY barely outperforming."
       ]
     },
     {
@@ -423,12 +515,19 @@
       "notes": [
         "2026-03-23: Trump postpones Iran strikes 5 days \u2014 WTI crashes 9% from 98 to 90. De-escalation undercuts Hormuz supply-disruption thesis. Oil still above 85 floor target but trajectory DOWN. If strikes resume, oil rebounds; if ceasefire, BULL thesis fails.",
         "Confidence 0.60\u21920.45: Iran de-escalation directly undercuts supply-disruption thesis. If 5-day pause becomes ceasefire, oil drops to 75-80.",
-        "S521 (2026-03-23): WTI volatile 91-98 range. Trump Hormuz 48hr ultimatum to Iran. Still above 85 floor. Structural thesis intact but contested."
+        "S521 (2026-03-23): WTI volatile 91-98 range. Trump Hormuz 48hr ultimatum to Iran. Still above 85 floor. Structural thesis intact but contested.",
+        "S521 (2026-03-23 14:10 ET): OIL at 89.25, -4.6% from 93.55 base.",
+        "Oil closed 8.69, down from 00.83 S517 high (-12.0%). Intraday hit 4.59. De-escalation pricing."
       ],
       "confidence_history": [
         {
           "value": 0.6,
           "session": "original"
+        },
+        {
+          "value": 0.45,
+          "session": "S520",
+          "date": "2026-03-23"
         },
         {
           "value": 0.45,
@@ -445,7 +544,7 @@
       "direction": "BULL",
       "target": "+5% to +12%",
       "timeframe": "3m",
-      "confidence": 0.55,
+      "confidence": 0.6,
       "thesis": "EM positioned for dollar-weakness tailwind \u2014 DXY weakening from 109 to 99. AllianceBernstein and JP Morgan both highlight dollar weakness as clearest EM catalyst. EEM 4.77% YTD despite -8.4% week in early March. EM equities trade at ~40% P/E discount to US \u2014 valuation gap is structural tailwind. Rate cutting cycles in EM economies provide domestic support. Counterforce: China concentration risk (30%+ of EEM). This prediction partially hedges the stagflation concentration \u2014 if ceasefire happens and risk-on returns, EEM benefits while our BEAR SPY/QQQ predictions lose.",
       "domains_applied": [
         "game-theory",
@@ -464,7 +563,20 @@
       "baseline_date": "2026-03-20",
       "notes": [
         "2026-03-23: EEM at ~54.61 vs base 55.64 (-1.9%). EM down despite dollar weakness \u2014 Iran de-escalation reducing geopolitical risk premium but also oil-related EM outperformance.",
-        "S521 (2026-03-23): EEM at 57.20, UP +2.8% from 55.64 base. Right direction \u2014 best performer. Dollar weakness + EM momentum."
+        "S521 (2026-03-23): EEM at 57.20, UP +2.8% from 55.64 base. Right direction \u2014 best performer. Dollar weakness + EM momentum.",
+        "S521 (2026-03-23 14:10 ET): EEM at 57.24, +2.9% from 55.64 base.",
+        "S521: Raising 0.55\u21920.60. EEM +2.8% \u2014 best performer. Dollar weakness + EM momentum thesis validated."
+      ],
+      "confidence_history": [
+        {
+          "value": 0.55,
+          "session": "original"
+        },
+        {
+          "value": 0.6,
+          "session": "S521",
+          "date": "2026-03-23"
+        }
       ]
     },
     {
@@ -491,7 +603,11 @@
       "result": null,
       "score": null,
       "baseline_price": 242.22,
-      "baseline_date": "2026-03-20"
+      "baseline_date": "2026-03-20",
+      "notes": [
+        "S521 (2026-03-23): IWM at 248.96, UP +2.8% from 242.22 base. Within NEUTRAL range (-5% to +5%). Correct.",
+        "S521 (2026-03-23 14:10 ET): IWM at 248.98, +2.8% from 242.22 base."
+      ]
     },
     {
       "id": "PRED-0015",
@@ -501,7 +617,7 @@
       "direction": "BEAR",
       "target": "-5% to -15%",
       "timeframe": "3m",
-      "confidence": 0.55,
+      "confidence": 0.4,
       "thesis": "Single-stock prediction to test swarm's analytical depth. Apple faces unique headwinds: (1) China revenue exposure during trade tensions. (2) AI narrative disadvantage \u2014 perceived as behind in AI race vs Google/Meta. (3) Services growth decelerating. (4) Hardware cycle maturity \u2014 no breakthrough product since AirPods. ISO-2 selection: market rewards AI leaders and punishes AI laggards. Apple is in the laggard bucket despite being the most valuable company. Regression to mean from extreme valuation premium.",
       "domains_applied": [
         "evolution",
@@ -517,7 +633,30 @@
       "result": null,
       "score": null,
       "baseline_price": 247.99,
-      "baseline_date": "2026-03-20"
+      "baseline_date": "2026-03-20",
+      "notes": [
+        "S521 (2026-03-23): AAPL at 251.54, UP +1.4% from 247.99 base. BEAR thesis wrong direction.",
+        "S521 (2026-03-23 14:10 ET): AAPL at 251.54, +1.4% from 247.99 base.",
+        "Confidence 0.55\u21920.40: AAPL +1.4% from base, rallying with market. China risk thesis unchanged but broad market strength undermines bear case.",
+        "S521: Lowering 0.55\u21920.40. AAPL +1.4% \u2014 no bear thesis activation."
+      ],
+      "confidence_history": [
+        {
+          "value": 0.55,
+          "session": "original"
+        },
+        {
+          "value": 0.4,
+          "session": "S521",
+          "date": "2026-03-23",
+          "reason": "AAPL +1.4%, outperforming on broad rally."
+        },
+        {
+          "value": 0.4,
+          "session": "S521",
+          "date": "2026-03-23"
+        }
+      ]
     },
     {
       "id": "PRED-0016",
@@ -527,7 +666,7 @@
       "direction": "BULL",
       "target": "Gold outperforms S&P by 10-20% over 3 months",
       "timeframe": "3m",
-      "confidence": 0.45,
+      "confidence": 0.25,
       "thesis": "Relative trade combining our two highest-conviction predictions: GLD BULL (70%) and SPY BEAR (60%). In 1973-79 stagflation, gold returned +35%/yr while S&P returned -1%/yr \u2014 a 36pp annual spread. In 2022, gold was flat while S&P fell 25%. The spread is more reliable than either leg alone because it's net-neutral to market direction \u2014 only requires gold to OUTPERFORM equities, not necessarily rise in absolute terms. Central bank gold buying provides structural floor.",
       "domains_applied": [
         "history",
@@ -544,11 +683,39 @@
       "result": null,
       "score": null,
       "notes": [
-        "S513: Downgraded 0.65\u21920.45. GLD underperforming SPY by 3.1%."
+        "S513: Downgraded 0.65\u21920.45. GLD underperforming SPY by 3.1%.",
+        "S521 (2026-03-23): GLD -4.9%, SPY +1.4%. Spread -6.3% \u2014 WRONG direction. Gold massively underperforming equities.",
+        "S521 (2026-03-23 14:10 ET): GLD -4.9%, SPY +1.3%, spread -6.2pp. GLD deeply underperforming \u2014 thesis WRONG direction.",
+        "Confidence 0.45\u21920.25: GLD/SPY spread -6.2pp \u2014 deeply wrong. Both legs failing (GLD down, SPY up).",
+        "S521 (2026-03-23): GLD at 405.70 (-4.9%), SPY at 657.63 (+1.4%). Gold UNDERPERFORMING S&P by ~6.3%. WRONG direction \u2014 thesis predicted gold outperforms by 10-20%. Gold safe-haven thesis failing.",
+        "S521: Lowering 0.45\u21920.25. GLD/SPY spread -6.3%. Gold underperforming equities massively.",
+        "S521 confidence 0.45\u21920.25: Gold/SPY spread moving strongly wrong direction (-6.3%). Thesis impaired."
       ],
       "baseline_price_gld": 426.41,
       "baseline_price_spy": 648.57,
-      "baseline_date": "2026-03-20"
+      "baseline_date": "2026-03-20",
+      "confidence_history": [
+        {
+          "value": 0.45,
+          "session": "original"
+        },
+        {
+          "value": 0.25,
+          "session": "S521",
+          "date": "2026-03-23",
+          "reason": "GLD/SPY spread -6.2pp WRONG direction. Worst prediction."
+        },
+        {
+          "value": 0.25,
+          "session": "S521",
+          "date": "2026-03-23"
+        },
+        {
+          "value": 0.25,
+          "session": "S521",
+          "date": "2026-03-23"
+        }
+      ]
     },
     {
       "id": "PRED-0017",
@@ -558,7 +725,7 @@
       "direction": "BEAR",
       "target": "-2% to -5% within 1 week",
       "timeframe": "1w",
-      "confidence": 0.15,
+      "confidence": 0.1,
       "thesis": "Short-term momentum prediction: SPY trending down with negative breadth. Short-term market momentum has ~55% persistence at 1-week horizon (Jegadeesh & Titman 1993). Current negative sentiment + rising VIX suggests continuation not reversal. Low confidence (0.45) because 1-week predictions are close to noise \u2014 this tests whether swarm can predict short-term at all. If we can't beat 50% on short-term, we know our edge (if any) is in structural medium-term analysis.",
       "domains_applied": [
         "psychology",
@@ -575,7 +742,12 @@
       "notes": [
         "S513: Downgraded 0.45\u21920.30. 6 trading days left, SPY unchanged.",
         "S519 price check (2026-03-23): SPY at 657.76 intraday, UP +1.4% from 648.57 base. Wrong direction with 6 days left. Lowering confidence.",
-        "2026-03-23: SPY dropped from prev close 659.80 to ~648 range (-1.8%) despite Iran de-escalation. SPY down on rising bond yields, not geopolitics. 6 days to resolution. Need -2% to -5% from 648.57 base (635-616). Currently flat from base but bearish momentum."
+        "2026-03-23: SPY dropped from prev close 659.80 to ~648 range (-1.8%) despite Iran de-escalation. SPY down on rising bond yields, not geopolitics. 6 days to resolution. Need -2% to -5% from 648.57 base (635-616). Currently flat from base but bearish momentum.",
+        "S521 (2026-03-23 14:10 ET): SPY at 657.25, +1.3% from 648.57 base.",
+        "Confidence 0.15\u21920.05: SPY +1.3% from base with 6 days left. Would need -3.3% decline to even hit -2% target floor. Near-certain LOSS.",
+        "S521 (2026-03-23): SPY at 657.63, UP +1.4% from 648.57 base. 6 days left. Need -3.8% drop to hit even -2% target floor. Extremely unlikely. Lowering to 0.10.",
+        "S521 (2026-03-23): SPY at 657.63, UP +1.4% from 648.57 base. BEAR thesis wrong \u2014 6 days remain. Need -2% to -5% drop (to ~635-617) from 657.63 in 6 days. Market rallying on Iran de-escalation hopes.",
+        "S521 confidence 0.15\u21920.10: SPY rallying +1.4% with 6 days left. Need reversal of >3.5% in a week. Iran de-escalation makes this unlikely."
       ],
       "baseline_price": 648.57,
       "baseline_date": "2026-03-20",
@@ -587,6 +759,22 @@
         {
           "value": 0.15,
           "session": "S519",
+          "date": "2026-03-23"
+        },
+        {
+          "value": 0.05,
+          "session": "S521",
+          "date": "2026-03-23",
+          "reason": "SPY +1.3% with 6 days left. Need -3.3% to hit floor. Virtually impossible without black swan."
+        },
+        {
+          "value": 0.1,
+          "session": "S521",
+          "date": "2026-03-23"
+        },
+        {
+          "value": 0.1,
+          "session": "S521",
           "date": "2026-03-23"
         }
       ]
@@ -618,13 +806,16 @@
       "baseline_date": "2026-03-20",
       "notes": [
         "S519 check (2026-03-23): NVDA at 176.28, UP +2.1% from 172.70 base. Within neutral range (-10% to +10%). 29 days remain.",
-        "2026-03-23: NVDA at 176.32 vs base 172.70 (+2.1%). Within NEUTRAL range (-10% to +10%). AI narrative intact despite broad market weakness."
+        "2026-03-23: NVDA at 176.32 vs base 172.70 (+2.1%). Within NEUTRAL range (-10% to +10%). AI narrative intact despite broad market weakness.",
+        "S521 (2026-03-23 14:10 ET): NVDA at 176.2, +2.0% from 172.7 base.",
+        "S521 (2026-03-23): NVDA at 176.20, UP +2.0% from 172.70 base. Within NEUTRAL range (-10% to +10%). 29 days remain.",
+        "S521 (2026-03-23): NVDA at 176.32, UP +2.1% from 172.70 base. Within NEUTRAL range (-10% to +10%). Correct so far. AI narrative still bifurcating."
       ]
     }
   ],
   "next_id": 19,
   "metadata": {
     "created": "2026-03-22T19:25:01.650612",
-    "updated": "2026-03-23T19:12:48.936194"
+    "updated": "2026-03-23T19:14:47.091650"
   }
 }

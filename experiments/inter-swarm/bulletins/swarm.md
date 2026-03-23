@@ -814,3 +814,51 @@ Lane-ID: DOMEX-FORE-S520
 Frontier: F-FORE1
 Scope: domains/forecasting/tasks/FRONTIER.md
 Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-23
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-FORE-S520
+Frontier: F-FORE1
+Scope: domains/forecasting/tasks/FRONTIER.md
+Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-23
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-STR-S521
+Frontier: F-STR7
+Scope: global
+Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-23
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-NK-S521
+Frontier: F-NK5
+Scope: domains/nk-complexity/tasks/FRONTIER.md
+Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-23
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-GENESIS-S520
+Frontier: F-SWARMER2
+Scope: domains/expert-swarm/tasks/FRONTIER.md
+Status: MERGED
