@@ -5,12 +5,20 @@ into unquestioned dogma.
 Dogma signals:
   1. UNCHALLENGED    — existed many sessions with zero challenge entries
   2. STALE-TEST      — belief "Last tested" is old relative to current session
-  3. AXIOM-STUCK     — marked axiom/theorized for a long time, no upgrade path
+  3. AXIOM-STUCK     — aspirational/unverified/metaphor grounding with no upgrade path
+  3b.AXIOM-BY-DESIGN — design-choice axiom (low severity — DROP resistance is expected)
   4. CONFIRM-ONLY    — all challenges resolved as CONFIRMED, never DROPPED
+  4b.CONFIRM-ONLY (axiom) — axiom with all CONFIRMED (lower weight — expected behavior)
   5. SELF-REFERENTIAL — evidence chain is entirely internal
   6. FOUNDING-ERA    — early-session claims still active without re-validation
   7. HIGH-CITE-LOW-TEST — cited many times but confidence never upgraded
   8. REFINE-DRIFT    — multiple refinements soften language without substance change
+
+Epistemic type awareness (S505 L-1336):
+  Axioms (design choices) get lower dogma scores because they resist
+  falsification BY DESIGN, not due to confirmation bias. The prior version
+  conflated axioms with empirical claims, making all top dogma items axioms
+  that were structurally unable to be dropped.
 
 Usage:
   python3 tools/dogma_finder.py              # full report
@@ -78,7 +86,8 @@ def parse_phil_claims() -> list[dict]:
     """Parse PHIL-N claims from PHILOSOPHY.md."""
     text = _read(PHIL)
     claims = []
-    pat = re.compile(r"\*\*\[PHIL-(\d+)\]\*\*\s*(.+?)(?=\n\n|\n\*\*\[PHIL-|\Z)", re.S)
+    # Match both **[PHIL-N]** (inline) and [PHIL-N] (section header) formats
+    pat = re.compile(r"(?:\*\*)?(?:\[PHIL-(\d+)\])(?:\*\*)?\s*(.+?)(?=\n\n|\n(?:\*\*)?(?:\[PHIL-)|\Z)", re.S)
     for m in pat.finditer(text):
         phil_id = int(m.group(1))
         content = m.group(2).strip()
@@ -89,17 +98,25 @@ def parse_phil_claims() -> list[dict]:
             "content": content,
             "kind": "philosophy",
         })
-    table_pat = re.compile(
-        r"\|\s*PHIL-(\d+)\s*\|([^|]*)\|([^|]*)\|([^|]*)\|([^|]*)\|", re.M
-    )
+    # Parse claims table line-by-line to avoid cross-line regex bleed
+    # Format: | ID | Claim (short) | Type | Grounding | Status |
     table_claims = {}
-    for m in table_pat.finditer(text):
-        pid = f"PHIL-{m.group(1).strip()}"
-        table_claims[pid] = {
-            "type": m.group(3).strip(),
-            "grounding": m.group(4).strip(),
-            "status": m.group(5).strip(),
-        }
+    for line in text.splitlines():
+        m = re.match(
+            r"\|\s*PHIL-(\d+)\s*\|[^|]*\|([^|]*)\|([^|]*)\|([^|]*)\|",
+            line.strip(),
+        )
+        if m:
+            pid = f"PHIL-{m.group(1).strip()}"
+            claim_type = m.group(2).strip()
+            grounding = m.group(3).strip()
+            # Only accept entries from the Claims table (has valid type values)
+            if claim_type in ("axiom", "observed"):
+                table_claims[pid] = {
+                    "type": claim_type,
+                    "grounding": grounding,
+                    "status": m.group(4).strip(),
+                }
     for c in claims:
         if c["id"] in table_claims:
             c.update(table_claims[c["id"]])
@@ -274,11 +291,19 @@ def detect_dogma() -> list[dict]:
                     f"{staleness} sessions ago")
 
     # --- Signal 3: AXIOM-STUCK ---
+    # Distinguish axioms (design choices, expected to resist DROP) from
+    # aspirational/unverified claims (should be testable but aren't).
+    # Axioms get lower score — being stuck is their nature, not a defect.
     for p in phil_claims:
         grounding = p.get("grounding", "").lower()
-        if grounding in ("axiom", "aspirational", "unverified", "metaphor"):
+        claim_type = p.get("type", "").lower()
+        if grounding in ("aspirational", "unverified", "metaphor"):
             add(p["id"], "philosophy", "AXIOM-STUCK",
                 0.6, f"Grounding: {grounding} — no path to observed/measured")
+        elif grounding == "axiom" and claim_type == "axiom":
+            # Axioms are design choices — flag at lower severity
+            add(p["id"], "philosophy", "AXIOM-BY-DESIGN",
+                0.15, f"Axiom (design choice) — expected to resist falsification")
 
     for b in beliefs:
         if b["evidence"] == "theorized":
@@ -288,6 +313,8 @@ def detect_dogma() -> list[dict]:
                 score, f"Evidence: theorized for {age}+ sessions")
 
     # --- Signal 4: CONFIRM-ONLY challenges ---
+    # Build lookup for PHIL claim types to discount axioms
+    phil_types = {p["id"]: p.get("type", "").lower() for p in phil_claims}
     target_outcomes = defaultdict(list)
     for c in challenges:
         for tid in re.findall(r"(B-?\w+\d+|PHIL-\d+|P-\d+)", c["target"]):
@@ -297,10 +324,20 @@ def detect_dogma() -> list[dict]:
         if len(resolved) >= 2:
             n_dropped = sum(1 for o in resolved if o == "DROPPED")
             if n_dropped == 0:
-                add(tid, "mixed", "CONFIRM-ONLY",
-                    0.5 + 0.1 * len(resolved),
-                    f"{len(resolved)} challenges, 0 DROPPED — "
-                    f"challenge mechanism may confirm rather than test")
+                is_axiom = phil_types.get(tid) == "axiom"
+                if is_axiom:
+                    # Axioms resist DROP by design — lower score, different label
+                    score = 0.2 + 0.05 * len(resolved)
+                    add(tid, "mixed", "CONFIRM-ONLY (axiom)",
+                        score,
+                        f"{len(resolved)} challenges, 0 DROPPED — "
+                        f"axiom (design choice) — DROP resistance is expected")
+                else:
+                    score = 0.5 + 0.1 * len(resolved)
+                    add(tid, "mixed", "CONFIRM-ONLY",
+                        score,
+                        f"{len(resolved)} challenges, 0 DROPPED — "
+                        f"challenge mechanism may confirm rather than test")
 
     # --- Signal 5: SELF-REFERENTIAL evidence ---
     for p in phil_claims:
