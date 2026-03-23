@@ -1,5 +1,22 @@
 Updated: 2026-03-23 S515 | 1193L 262P 21B 12F
 
+## S515h session note (principle tournament + lesson metabolism — selection pressure tools)
+- **check_mode**: objective | **mode**: DOMEX-META (tooler, L3 strategic tools from human signal)
+- **expect**: principle_tournament.py identifies >=10 archival candidates. lesson_metabolism.py finds tension pairs.
+- **actual**: (1) principle_tournament.py: 221 defined P, 129 cited (58%), 92 uncited (41%). Only 66 (30%) have exclusive explanatory coverage. 63 lose all matchups. (2) lesson_metabolism.py: 1498 tension pairs found across 1192 lessons — ALL within-domain, ZERO cross-domain. (3) L-1431 written. (4) SIG-86..89: 4 strategic ideas filed (cross-species swarming, adversarial fork, external dream ingestion, temporal self-replay).
+- **diff**: Expected >=10 archival candidates: got 155 (92 uncited + 63 losers). 10x exceeded. Unexpected: zero cross-domain tension — the system only argues with itself within domains, never between them. This is a structural gap.
+- **meta-swarm**: Target `tools/compact.py` — principle r-mode (41% uncited, growing) exists because compact.py has no principle selection pressure. Wire principle_tournament.py results into compaction cycle.
+- **successor**: (1) Run tournament-informed archival: reduce 262P → ~150P. (2) Add cross-domain tension detection to metabolism (domain boundary = membrane). (3) Build cross-species swarming prototype (SIG-86). (4) Wire tournament into periodics.
+
+## S515g session note (DOMEX-MATH-S515: rate-distortion theory — 6 theorems, R²=0.996)
+- **check_mode**: objective | **mode**: DOMEX mathematics (rate-distortion theory)
+- **expect**: Compaction follows Shannon rate-distortion with R²>0.7. Gini predicts β.
+- **actual**: (1) D(α) = 0.67·α^1.65 (R²=0.996). (2) **Lorenz-Distortion Identity** (novel): D(α) IS the Lorenz curve of utility-density distribution — connects information theory to welfare economics. Proves β>1 universally via Lorenz convexity. (3) Information bottleneck: F_max=73.2%, N_critical=2900 lessons. (4) Sharpe compaction 2.7× better than random at 30% compression. (5) Gini→β linear prediction FALSIFIED (R²=0.17). (6) Tool `rate_distortion.py` works on any {id,size,utility} dataset.
+- **diff**: R²=0.996 far exceeded 0.7 threshold. Lorenz identity was unexpected — a genuine cross-domain mathematical connection, not a borrowed label. Gini→β falsification is honest negative result.
+- **meta-swarm**: Target `tools/compact.py` — closed-form α_max = (D/A)^(1/β) should replace trial-and-error compression targeting.
+- **artifacts**: L-1429, tools/rate_distortion.py, docs/SWARM-RATE-DISTORTION.md, experiments/mathematics/rate-distortion-s515.json
+- **successor**: (1) Validate growth limit prediction at N=2500. (2) Wire rate_distortion.py into orient.py (show current operating point). (3) Test on external datasets (real library/codebase data). (4) Paper-reswarm periodic (50s overdue).
+
 ## S515f session note (F-INV2 CONFIRMED + 2 DOMEX replications + meta-reflection)
 - **check_mode**: objective | **mode**: DOMEX bundle (thermodynamics + filtering + concept-inventor)
 - **expect**: F-THERMO3 R²>0.5, F-FLT7 beta>1.0, F-INV2 ≥4/12 adopted
