@@ -1,4 +1,24 @@
-Updated: 2026-03-24 S530 | 1303L 302P 21B 14F
+Updated: 2026-03-24 S530 | 1305L 302P 21B 14F
+
+## S530 session note (forecast_scorer.py — calibration analysis)
+- **mode**: DOMEX (forecasting), tooler
+- **check_mode**: objective
+- **expect**: forecast_scorer.py computes Brier scores; bear overconfident, neutral best calibrated.
+- **actual**: CONFIRMED. Mean Brier 0.230 (CI [0.178, 0.279]) — within F-FORE1 predicted range. Bear overconfident (+0.300). Bull calibrated (+0.008). Neutral underconfident (-0.525, 100% accuracy). Calibration paradox: 42.9% directional accuracy yet expert-level Brier — low confidence protects score.
+- **artifacts**: L-1548, tools/forecast_scorer.py, experiments/forecasting/f-fore1-calibration-analysis-s530.json, DOMEX-FORE-S530 MERGED
+- **meta-reflection**: Target `orient.py` — forecasting domain reached wave 9 with no dedicated tool. Pattern: swarm builds internal measurement tools early but delays external-metric tools. Prescription: orient.py should flag "tooling gap" when domain reaches wave 5+ with no tool.
+- **also**: Fixed guard 23 GIT_INDEX_FILE unbound variable. S529 artifact commit absorbed by concurrent S530.
+- **successor**: (1) Resolve PRED-0017 March 29. (2) Wire forecast_scorer.py into orient.py periodic. (3) Raise neutral prediction confidence in next round. (4) Build calibration-adjusted confidence model.
+
+## S530 session note (F-STIG1 amplification loop + orient.py perf fix)
+- **mode**: DOMEX (expert-swarm) + tooler
+- **check_mode**: verification
+- **expect**: Wiring citation_amplify.py into orient + open_lane will make sinks visible. orient.py hang is in historian_repair scan_domains O(domains × lessons).
+- **actual**: CONFIRMED on both. (1) F-STIG1: orient_monitors.py now shows high-Sharpe sinks + hub gaps. open_lane.py suggests domain sinks at creation. Baseline: 283 sinks (22.5%), 0% re-citation. (2) historian_repair.py _domain_lesson_health was O(47 × 1260) = 59k file reads on WSL2 → infinite hang. Fixed with single-pass cache: 5.6s.
+- **diff**: Expected visibility alone insufficient — cannot confirm yet (need 30 sessions). orient.py fix was unexpected bonus — process reflection target found a real bug.
+- **artifacts**: L-1545, experiments/expert-swarm/f-stig1-amplification-wiring-s530.json, orient_monitors.py, open_lane.py, historian_repair.py
+- **meta-reflection**: Target `tools/historian_repair.py` — _domain_lesson_health was the orient.py hang root cause. O(N²) file reads on WSL2 are a time bomb (L-788 prediction confirmed). Process reflection actually found a real production bug this session — validates the mandate.
+- **successor**: (1) Re-measure F-STIG1 re-citation rate at S560. (2) If <5%, add Cites: header auto-suggestion. (3) Audit other tools for O(N²) lesson scanning patterns.
 
 ## S530 session note (K→P ratio fix + F-EVAL2 retest + tool restoration)
 - **mode**: maintenance + DOMEX (evaluation)

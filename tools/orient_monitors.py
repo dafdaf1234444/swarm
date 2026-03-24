@@ -76,15 +76,16 @@ def section_cascade_state(maint_output: str = None):
             check_tool_layer, check_quality_layer, check_knowledge_layer,
             check_evaluation_layer, check_attention_layer, detect_cascades,
         )
-        with ThreadPoolExecutor(max_workers=5) as pool:
-            futures = {
-                "T": pool.submit(check_tool_layer),
-                "Q": pool.submit(check_quality_layer, maint_output),
-                "K": pool.submit(check_knowledge_layer),
-                "E": pool.submit(check_evaluation_layer),
-                "A": pool.submit(check_attention_layer),
-            }
-        layers = {k: v.result() for k, v in futures.items()}
+        pool = ThreadPoolExecutor(max_workers=5)
+        futures = {
+            "T": pool.submit(check_tool_layer),
+            "Q": pool.submit(check_quality_layer, maint_output),
+            "K": pool.submit(check_knowledge_layer),
+            "E": pool.submit(check_evaluation_layer),
+            "A": pool.submit(check_attention_layer),
+        }
+        layers = {k: v.result(timeout=8) for k, v in futures.items()}
+        pool.shutdown(wait=False, cancel_futures=True)
         failing = [k for k, v in layers.items() if v.get("failing")]
         cascades = detect_cascades(layers)
         if cascades:
@@ -432,10 +433,13 @@ def section_self_inflation(root=ROOT):
 
 
 def section_trace_amplification(root=ROOT):
-    """Stigmergic amplification — surface high-in-degree lessons not cited recently.
+    """Stigmergic amplification — surface high-in-degree lessons not cited recently
+    AND high-Sharpe sinks (0 incoming citations) that deserve visibility.
 
     Closes the amplification loop (F-STIG1, L-1296): success should amplify
-    source traces. Shows top-cited lessons absent from recent Cites: headers.
+    source traces. Two mechanisms:
+    1. Hub gap: top-cited lessons absent from recent Cites: headers
+    2. Sink surfacing: high-quality lessons with zero incoming citations
     """
     lines = []
     try:
@@ -460,11 +464,34 @@ def section_trace_amplification(root=ROOT):
         # Top-cited lessons NOT in recent citations = amplification gap
         top = sorted(in_deg.items(), key=lambda x: -x[1])[:30]
         gap = [(lid, deg) for lid, deg in top if lid not in recently_cited][:8]
-        if gap:
-            lines.append(f"--- Trace Amplification (F-STIG1, {len(gap)} high-impact underused) ---")
-            for lid, deg in gap:
-                lines.append(f"  {lid} (in-deg={deg}) — high-cited but not in recent 50 Cites: headers")
-            lines.append(f"  Amplify: cite these when relevant — success should strengthen source trails")
+
+        # Sink surfacing: high-Sharpe lessons with 0 incoming citations
+        sinks = []
+        try:
+            from citation_amplify import build_citation_graph, analyze
+            citations, lesson_meta = build_citation_graph()
+            analysis = analyze(citations, lesson_meta)
+            sinks = analysis.get("high_sharpe_sinks", [])[:5]
+        except Exception:
+            pass
+
+        if gap or sinks:
+            total_sink = 0
+            try:
+                total_sink = analysis.get("sink_count", 0)
+                sink_pct = analysis.get("sink_pct", 0)
+            except Exception:
+                sink_pct = 0
+            lines.append(f"--- Trace Amplification (F-STIG1) ---")
+            if gap:
+                lines.append(f"  Hub gap ({len(gap)} high-cited, not in recent 50 Cites:):")
+                for lid, deg in gap[:4]:
+                    lines.append(f"    {lid} (in-deg={deg})")
+            if sinks:
+                lines.append(f"  Sinks ({total_sink} lessons, {sink_pct}% zero incoming — cite these):")
+                for s in sinks[:4]:
+                    lines.append(f"    {s['id']} S{s['sharpe']} [{s['domain']}] {s['title'][:55]}")
+            lines.append(f"  ACTION: cite undervisible lessons in your Cites: header when relevant")
             lines.append("")
     except Exception:
         pass

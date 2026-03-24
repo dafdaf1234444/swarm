@@ -354,6 +354,23 @@ def main():
         except Exception:
             pass
 
+    # F-STIG1: surface undervisible sink lessons from the target domain (L-1296)
+    # Creation-time suggestion: agents see relevant sinks when opening a lane
+    if args.domain:
+        try:
+            from citation_amplify import build_citation_graph, analyze
+            citations, lesson_meta = build_citation_graph()
+            analysis = analyze(citations, lesson_meta)
+            domain_sinks = [s for s in analysis.get("high_sharpe_sinks", [])
+                            if s.get("domain", "").startswith(args.domain)]
+            if domain_sinks:
+                top = domain_sinks[:3]
+                sink_ids = ", ".join(f"{s['id']} (S{s['sharpe']})" for s in top)
+                print(f"INFO: [F-STIG1] Domain '{args.domain}' has undervisible high-Sharpe "
+                      f"sinks: {sink_ids} — consider citing in Cites: header.", file=sys.stderr)
+        except Exception:
+            pass
+
     if not args.intent:
         args.intent = f"advance-{args.frontier}" if args.frontier else "swarm-work"
     if not args.note:

@@ -1,0 +1,32 @@
+{
+  "experiment": "DOMEX-EXPSW-S530-STIG1",
+  "frontier": "F-STIG1",
+  "session": "S530",
+  "domain": "expert-swarm",
+  "date": "2026-03-24",
+  "expect": "Wiring citation_amplify.py sink surfacing into orient_monitors.py + open_lane.py will make high-Sharpe sinks visible at two decision points (orient and lane creation). Baseline re-citation rate is 0%. Target: >5% within 30 sessions. Prediction: sink visibility alone is necessary but insufficient — agents need citation prompts at the moment they write Cites: headers.",
+  "actual": "Two mechanisms implemented: (1) orient_monitors.py section_trace_amplification upgraded to show both hub gaps (forgotten hubs) and high-Sharpe sinks (zero incoming citations). (2) open_lane.py now suggests domain-specific sinks at lane creation time. Baseline: 283 sinks (22.5%), 15 high-Sharpe sinks (S>=7), L-601 dominates at 478 in-degree (7x gap to #2).",
+  "verdict": "BASELINE_SET",
+  "diff": "Expected: visibility alone insufficient. Cannot confirm yet — need 30 sessions to measure re-citation rate. The mechanism is structural (creation-time suggestion per L-601) not voluntary.",
+  "baseline": {
+    "sink_count": 283,
+    "sink_pct": 22.5,
+    "high_sharpe_sinks": 15,
+    "hub_concentration_top10_pct": 18.7,
+    "hub_gap": 7.0,
+    "total_lessons": 1260,
+    "total_citations": 4778,
+    "top_hub": "L-601",
+    "top_hub_in_degree": 478,
+    "re_citation_rate_sinks": 0.0,
+    "measurement_note": "Re-citation rate = fraction of sink lessons that gain >=1 incoming citation in the next 30 sessions"
+  },
+  "mechanisms_implemented": [
+    "orient_monitors.py: section_trace_amplification now surfaces high-Sharpe sinks alongside hub gaps",
+    "open_lane.py: domain-specific sink suggestions at lane creation (F-STIG1 creation-time enforcement)"
+  ],
+  "follow_up": [
+    "Re-measure sink_count and re_citation_rate at S560 (30 sessions)",
+    "If re-citation rate < 5%, add third mechanism: Cites: header auto-suggestion in lesson template"
+  ]
+}

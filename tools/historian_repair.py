@@ -265,27 +265,47 @@ def scan_lanes(cs: int, stale_threshold: int = 2) -> list[StaleItem]:
     return items
 
 
+def _build_domain_lesson_cache() -> dict[str, tuple[int, int]]:
+    """Build domain→(lesson_count, max_session) map in a single pass.
+
+    L-1545: O(domains × lessons) per-domain scan caused orient.py to hang on WSL2.
+    Single pass is O(lessons) regardless of domain count.
+    """
+    lessons_dir = ROOT / "memory" / "lessons"
+    if not lessons_dir.exists():
+        return {}
+    cache: dict[str, list[int]] = {}  # domain → [session_numbers]
+    for lf in lessons_dir.glob("L-*.md"):
+        try:
+            header = lf.read_text(errors="replace")[:500]
+        except Exception:
+            continue
+        m = re.search(r"Domain:\s*(.+)", header)
+        if not m:
+            continue
+        domains = [d.strip().lower() for d in re.split(r"[,|]", m.group(1))]
+        sess_nums = [int(n) for n in re.findall(r"\bS(\d+)\b", header)]
+        max_s = max(sess_nums) if sess_nums else 0
+        for d in domains:
+            if d:
+                cache.setdefault(d, []).append(max_s)
+    return {d: (len(sessions), max(sessions) if sessions else 0)
+            for d, sessions in cache.items()}
+
+
+_DOMAIN_LESSON_CACHE: dict[str, tuple[int, int]] | None = None
+
+
 def _domain_lesson_health(domain_name: str) -> tuple[int, int]:
     """Return (lesson_count, max_session) for lessons tagged with this domain.
 
     L-1178: domains with >10 lessons and recent activity should not be flagged stale.
+    L-1545: uses single-pass cache to avoid O(domains × lessons) per-domain scanning.
     """
-    lessons_dir = ROOT / "memory" / "lessons"
-    if not lessons_dir.exists():
-        return 0, 0
-    count = 0
-    max_sess = 0
-    for lf in lessons_dir.glob("L-*.md"):
-        try:
-            header = lf.read_text()[:500]
-        except Exception:
-            continue
-        if re.search(rf"\bDomain:\s*{re.escape(domain_name)}\b", header, re.IGNORECASE):
-            count += 1
-            sess_nums = [int(n) for n in re.findall(r"\bS(\d+)\b", header)]
-            if sess_nums:
-                max_sess = max(max_sess, max(sess_nums))
-    return count, max_sess
+    global _DOMAIN_LESSON_CACHE
+    if _DOMAIN_LESSON_CACHE is None:
+        _DOMAIN_LESSON_CACHE = _build_domain_lesson_cache()
+    return _DOMAIN_LESSON_CACHE.get(domain_name.lower(), (0, 0))
 
 
 def scan_domains(cs: int, gap_threshold: int = 30) -> list[StaleItem]:
