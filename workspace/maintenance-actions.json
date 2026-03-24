@@ -1,10 +1,14 @@
 {
-  "session": 527,
-  "count": 1,
+  "session": 528,
+  "count": 2,
   "items": [
     {
       "priority": "DUE",
-      "message": "Lesson over 20 lines: L-1489.md"
+      "message": "Lesson over 20 lines: L-1501.md"
+    },
+    {
+      "priority": "DUE",
+      "message": "Count drift in INDEX.md (L: stated 1259 vs actual 1261) \u2014 run python3 tools/sync_state.py"
     }
   ]
 }

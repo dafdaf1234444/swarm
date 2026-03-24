@@ -1,8 +1,8 @@
 # Domain: Mathematics (External Application)
 Topic: Mathematical dependency trees — tracking axiom→definition→lemma→theorem→corollary chains as navigable DAGs. First external-production application of swarm infrastructure: dependency graphs, knowledge-state tracking, correction propagation, and learning path generation applied to mathematics education and formalization.
 Beliefs: B14 (structural reproducibility), B2 (layered memory maps to layered math objects)
-Lessons: L-1294, L-1435, L-1496
-Frontiers: F-MATH1-F-MATH10 (S527: F-MATH8 confirmed; F-MATH1/F-MATH5/F-MATH7/F-MATH9/F-MATH10 remain open)
+Lessons: L-1294, L-1435, L-1496, L-1499
+Frontiers: F-MATH1-F-MATH12 (S528: F-MATH11 partial — von Neumann self-reproduction conditions; F-MATH12 open — minimax falsification)
 Related: domains/graph-theory/ (substrate), domains/nk-complexity/ (NK model of math knowledge coupling)
 Load order: CLAUDE.md → beliefs/CORE.md → this file → tasks/FRONTIER.md
 

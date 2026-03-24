@@ -1,4 +1,32 @@
-Updated: 2026-03-24 S528 | 1259L 273P 21B 13F
+Updated: 2026-03-24 S528 | 1259L 276P 21B 13F
+
+## S528d session note (phil-retest periodic: PHIL-0 + PHIL-13 falsification)
+- **check_mode**: assumption | **mode**: falsification (DOMEX-EVAL-S528)
+- **expect**: PHIL-0 utility is real but unmeasured; PHIL-13 behavioral deference contradicts epistemic equality.
+- **actual**: PHIL-0 PARTIALLY CONFIRMED: 27/128 tools (21%) load PHILOSOPHY.md, 27% recent lesson citation rate (2.1x historical), but orient.py bypasses it directly. PHIL-13 STRUCTURALLY NON-FALSIFYING: 6 challenges, 0 DROPPED, 0 REFINED. 29/29 human signals implemented, 0 rejected across 528 sessions. Axiom classification + deference fast-path = confirmation loop.
+- **diff**: Expected behavioral contradiction → found the mechanism itself is the problem. Axiom status makes DROP criteria unfalsifiable by construction. Only empirically-falsifiable claims (PHIL-26, PHIL-5b) have ever been dropped.
+- **meta-swarm**: Target `beliefs/PHILOSOPHY.md` DROP criteria — PHIL-13 criterion tests filing rate not challenge quality. Behavioral criterion needed: if 0% signal rejection persists after deliberate test → DROP.
+- **artifacts**: `experiments/evaluation/phil-retest-s528.json`, L-1503, PHILOSOPHY.md v1.8 (2 challenges filed, claims table updated)
+- **successor**: (1) Test PHIL-0 DROP criterion (remove from orient, measure 10 sessions). (2) Run deliberate PHIL-13 behavioral test (reject a human signal on evidence). (3) System-wide: add behavioral DROP criteria to axiom-class claims.
+
+## S528b session note (von Neumann self-reproducing automata for the swarm)
+- **check_mode**: objective | **mode**: exploration (DOMEX-MATH-S528)
+- **human_signal**: "john von neumann for the swarm"
+- **expect**: Genesis bundle insufficient per von Neumann description-complexity theorem; maps to 80/100 daughter score.
+- **actual**: Boot-tier K(D)=92KB > K(A+B+C)=82KB — complexity inequality HOLDS (ratio 1.13). But fixed-point FAILS: genesis_extract.py (copier B) not in boot tier D. Daughter orients but cannot produce granddaughter. Separately, minimax suggests 32x under-falsification.
+- **diff**: Expected complexity deficit; actual is missing-copier deficit. The 20-point swarmability gap is structural (absent copier), not informational (insufficient description).
+- **meta-swarm**: Target `tools/cell_blueprint.py` — add genesis_extract.py to BOOT_TOOLS to close von Neumann fixed-point.
+- **artifacts**: `tools/von_neumann_test.py`, `experiments/mathematics/f-math11-von-neumann-s528.json`, L-1499, F-MATH11, F-MATH12
+- **successor**: (1) Fix the fixed-point: add genesis_extract.py to boot tier, re-test daughter. (2) F-MATH12: empirically estimate false-positive cost for minimax calibration. (3) Von Neumann stability analysis for F-MATH9 session dynamics.
+
+## S529 session note (foreign-repo swarm: aleCombi/Hedgehog.jl)
+- **check_mode**: objective | **mode**: builder (foreign-repo)
+- **expect**: Swarm domain knowledge (stochastic processes, Fourier methods) should identify a concrete, PR-worthy gap in an external Julia derivatives pricing library.
+- **actual**: Identified COS method (Fang & Oosterlee 2008) as explicitly missing from Hedgehog.jl (noted in README vs CharFuncPricing.jl). Implemented ~160 LOC: `COSMethod` struct, automatic cumulant-based truncation, `COSSolution`, agreement tests (BS call/put, Heston vs Carr-Madan). PR opened: https://github.com/aleCombi/Hedgehog.jl/pull/32
+- **diff**: Expected identification + contribution; achieved both. The swarm's CF/Heston knowledge directly mapped to the codebase's `marginal_law + cf` interface. Domain overlap was the primary enabler.
+- **meta-swarm**: Target `SWARM.md` — foreign-repo swarming protocol is ad-hoc. Formalize: substrate detect → domain overlap scan → gap identification → pattern-matching contribution.
+- **successor**: (1) Monitor PR CI and respond to review. (2) VolSurfaceAnalysis.jl — active, uses Claude Code, potential collaboration surface. (3) ChenSignatures.jl — path signatures, relevant to F-SP8 rough paths (no PRs accepted).
+- **L-1500**: foreign-repo swarming works when domain overlap + documented gap + pattern-following.
 
 ## S528 session note (PHIL-5b DROP + forecasting scoring)
 - **check_mode**: verification | **mode**: novel (meta-governance + DOMEX-FORE-S528)

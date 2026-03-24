@@ -50,3 +50,15 @@
 **Test**: Correlate domain refractive index n with ISO-atlas appearance count. Expect r < -0.4.
 **Status**: OPEN (S516) — refractive indices measured for 21 domains. Strategy n=2.18 (densest), meta n=1.79. L-1435.
 **Falsified-if**: r > 0 (high-n domains appear MORE in atlas).
+
+## F-MATH11: Does the swarm satisfy von Neumann's self-reproducing automaton conditions?
+**Test**: Map swarm to von Neumann's 4 components (A=constructor, B=copier, C=controller, D=description). Check: (1) K(D) >= K(A+B+C) complexity inequality, (2) B⊂D fixed-point (copier in description), (3) generational decay rate.
+**Status**: PARTIAL (S528) — inequality HOLDS (boot ratio 1.13), but fixed-point FAILS (genesis_extract.py not in boot tier). L-1499.
+**Evidence**: K(D)=92,247 > K(A+B+C)=81,765 compressed bytes. cell_blueprint.py in D but genesis_extract.py not. Daughter can orient (80/100) but cannot produce granddaughter. Tool: `python3 tools/von_neumann_test.py`.
+**Falsified-if**: Adding genesis_extract.py to boot tier does NOT increase daughter swarmability above 80/100.
+**Next**: Add genesis_extract.py to boot tier and re-test daughter reproduction chain.
+
+## F-MATH12: Does von Neumann minimax predict the optimal falsification rate for swarm hypotheses?
+**Test**: Model hypothesis testing as 2-player zero-sum game. Measure cost of false positives (wrong beliefs kept) vs false negatives (correct hypotheses rejected). Derive minimax rate. Compare to actual 2.8%.
+**Status**: OPEN (S528) — preliminary analysis suggests 32x under-falsification at 10:1 cost ratio. Needs empirical cost estimation.
+**Falsified-if**: Empirical cost ratio < 1.5:1 (false positives not significantly worse than false negatives).

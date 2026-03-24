@@ -1,0 +1,49 @@
+{
+  "experiment": "DOMEX-MATH-S528",
+  "frontier": "F-MATH11",
+  "session": "S528",
+  "domain": "mathematics",
+  "date": "2026-03-24",
+  "title": "Von Neumann self-reproducing automaton conditions applied to swarm",
+  "human_signal": "john von neumann for the swarm",
+  "expect": "Genesis bundle insufficient per von Neumann description-complexity theorem; maps to 80/100 daughter score",
+  "actual": "Boot-tier inequality HOLDS (ratio 1.13) but fixed-point FAILS — genesis_extract.py not in boot tier. One-generation reproduction, not recursive. Predicted swarmability 100 vs actual 80 reveals fixed-point is the binding constraint, not complexity.",
+  "diff": "Expected complexity deficit; actual explanation is MISSING COPIER (fixed-point failure). The 20-point gap is not about K(D) but about B not in D.",
+  "measurements": {
+    "A_constructor": {"files": 8, "raw_bytes": 207465, "compressed_bytes": 60382},
+    "B_copier": {"files": 2, "raw_bytes": 25626, "compressed_bytes": 8220},
+    "C_controller": {"files": 3, "raw_bytes": 29104, "compressed_bytes": 13163},
+    "D_description_boot": {"files": 11, "raw_bytes": 250653, "compressed_bytes": 92247},
+    "T_total_swarm": {"files": 2361, "raw_bytes": 12160224, "compressed_bytes": 4477441},
+    "boot_ratio_KD_over_KABC": 1.1282,
+    "full_coverage_ratio": 0.0206,
+    "complexity_inequality_holds": true,
+    "copier_in_description": false,
+    "fixed_point_achieved": false,
+    "minimax_optimal_falsification": 0.909,
+    "actual_falsification_rate": 0.0284,
+    "falsification_gap_multiplier": 32
+  },
+  "von_neumann_mapping": {
+    "A_universal_constructor": "orient.py + validate_beliefs.py + compact.py + sync_state.py + dispatch_optimizer.py + open_lane.py + close_lane.py + maintenance.py",
+    "B_copier": "cell_blueprint.py (IN boot tier) + genesis_extract.py (NOT in boot tier)",
+    "C_controller": "SWARM.md + CORE.md + CLAUDE.md",
+    "D_description": "genesis bundle (~465KB, 11 boot-tier files)",
+    "dual_use": "D is READ by orient.py (construction) and COPIED by cell_blueprint.py (inheritance) — but genesis_extract.py (the extractor that produces D) is missing from D itself"
+  },
+  "key_findings": [
+    "Boot-tier K(D) > K(A+B+C) by 12.8% — complexity inequality satisfied",
+    "Fixed-point FAILS: genesis_extract.py not in boot tier → daughter cannot produce granddaughter",
+    "This is precisely von Neumann's insight: copier must be in description for recursive self-reproduction",
+    "The 80/100 swarmability is NOT an information deficit — it's a missing-copier deficit",
+    "Full swarm is 48.5x larger than boot description (2.1% coverage) — growth requires external input",
+    "Minimax: swarm under-falsifies by ~32x (2.8% vs 90.9% at 10:1 cost asymmetry)"
+  ],
+  "prescription": {
+    "fix_fixed_point": "Add genesis_extract.py to boot tier → enables recursive self-reproduction",
+    "minimax_calibration": "10:1 cost ratio is starting assumption. Even at 3:1, optimal rate is 75% vs current 2.8%",
+    "von_neumann_stability": "Future: apply vN stability analysis to discrete session-update dynamics (F-MATH9)"
+  },
+  "tool": "tools/von_neumann_test.py",
+  "level": "L3"
+}
