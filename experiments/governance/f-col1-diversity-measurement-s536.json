@@ -1,0 +1,40 @@
+{
+  "session": "S536",
+  "date": "2026-03-24",
+  "frontier": "F-COL1",
+  "test": "Effective diversity vs headcount diversity in swarm dispatch (F-COL1 test criterion 1)",
+  "method": "Parse 691 unique DOMEX lane IDs from SWARM-LANES.md + archive. Compute Shannon H, Simpson D, Gini, concentration ratios. Cross-reference with per-domain lesson Sharpe scores (n=664).",
+  "data": {
+    "total_lanes": 691,
+    "unique_domains": 123,
+    "shannon_H": 3.832,
+    "shannon_H_max": 4.812,
+    "shannon_evenness": 0.796,
+    "effective_shannon": 46.1,
+    "effective_simpson": 22.3,
+    "gini": 0.656,
+    "top3_share": 0.287,
+    "top5_share": 0.386,
+    "diversity_ratio": 0.375,
+    "meta_domain_share": 0.139,
+    "meta_quality_rank": "31/60",
+    "meta_mean_sharpe": 8.06,
+    "overall_mean_sharpe": 8.15,
+    "top5_mean_sharpe": 8.17,
+    "bottom50_mean_sharpe": 8.08,
+    "quality_gap": 0.08
+  },
+  "proposition_tests": {
+    "P3_imitation": "CONFIRMED — effective diversity 38% of nominal (Shannon), 18% (Simpson)",
+    "P5_elite_subset": "CONFIRMED — top 2.4% of domains produce 29% of lanes",
+    "P6_mediocrity_selection": "CONFIRMED — most-dispatched domain (META) is below-median quality (#31/60)",
+    "quality_concentration_tradeoff": "CONFIRMED — concentration buys volume (+0.08 Sharpe) not quality"
+  },
+  "verdict": "F-COL1 test 1 CONFIRMED. Concentration dynamics reduce effective cognitive bandwidth by 63%. UCB1 exploit bias produces rich-get-richer power law. Diversity pressure mechanisms (epsilon-greedy, soul_boost) insufficient — Gini 0.656 despite attempts.",
+  "lesson": "L-1591",
+  "next": [
+    "F-COL1 test 2: model threshold θ where competence-authority mismatch triggers degenerative spiral",
+    "F-COL1 test 3: compare equal-weight vs expert-weighted aggregation across 20+ decisions",
+    "Test: increase UCB1 c parameter and measure diversity response"
+  ]
+}
