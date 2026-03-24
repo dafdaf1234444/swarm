@@ -1,0 +1,35 @@
+{
+  "experiment": "DOMEX-EPIS-S535-DOGMA",
+  "frontier": "F-EPIS3",
+  "session": "S535",
+  "domain": "epistemology",
+  "date": "2026-03-24",
+  "expect": "PHIL-13 revision narrows claim to challenge-resolution only. P-025 either survives with evidence or gets DROP-flagged.",
+  "actual": "PHIL-13 REVISED to dual-pathway formulation (evidence routes challenges, authority routes creation). P-025 PARTIALLY CONFIRMED: correctly identified intended coupling unreliable, but git co-occurrence also insufficient at low N. DEPS.md is a dead graph (0/6 edges validated).",
+  "diff": "Expected PHIL-13 narrowed: DONE. Expected P-025 decisive test: got nuanced result — both intended and co-occurrence coupling fail. Deeper finding: DEPS.md K measurement is fictional.",
+  "objectives": [
+    {
+      "id": "phil13-revision",
+      "description": "Revise PHIL-13 claim text to reflect dual-pathway reality",
+      "actual": "Claim revised from universal 'no authority' to dual-pathway. DROP criterion updated for both pathways. Challenge count 11→12."
+    },
+    {
+      "id": "p025-empirical-test",
+      "description": "First empirical test of founding-era P-025",
+      "data": {
+        "deps_edges": 6,
+        "deps_edges_with_cooccurrence": 0,
+        "undeclared_cooccurrences_gte2": 1,
+        "commits_analyzed": 500,
+        "avg_mentions_per_belief": 1.0,
+        "top_undeclared": "PHIL-18 + PHIL-2 (3 co-occurrences)"
+      }
+    }
+  ],
+  "lessons_produced": ["L-1584"],
+  "dogma_reduction": {
+    "phil13_dogma_before": 0.80,
+    "p025_status_before": "UNSPECIFIED evidence",
+    "p025_status_after": "PARTIALLY CONFIRMED"
+  }
+}
