@@ -1,0 +1,22 @@
+{
+  "id": "PHIL-18-CHALLENGE-S529",
+  "session": "S529",
+  "type": "falsification",
+  "target": "PHIL-18",
+  "claim": "Nothing is unstable — every genesis is seed amplification, never ex nihilo",
+  "preregistered_expectation": "PHIL-18 is either tautological (if seed includes LLM training) or falsified (if seed means explicit protocol). Either way, it fails to constrain behavior.",
+  "evidence": {
+    "counter_evidence_L138": "Duplication-check behavior emerged spontaneously at S2 without explicit protocol seed (L-138)",
+    "counter_evidence_L1124": "8 invariances broke spontaneously via positive feedback (L-1124) — emergent behaviors not attributable to specific seeds",
+    "definitional_problem": "If 'seed' is broad enough to include LLM training data, the claim is unfalsifiable by tautology — every output can be post-hoc attributed to training. If 'seed' means explicit swarm protocol, L-138 provides counter-evidence.",
+    "external_grounding": "S524 arXiv papers support thermodynamic instability of nothing in chemistry/RBNs but NOT the 'seed amplification' claim specifically — autocatalytic sets emerge from random mixtures, which is closer to ex nihilo than seed amplification",
+    "arxiv_conflict": "Sornette & Troude 2025 actually supports the OPPOSITE reading: autocatalytic sets emerge from random molecular pools without designed seeds, suggesting genesis CAN be ex nihilo given sufficient thermodynamic conditions"
+  },
+  "verdict": "REFINED — claim split into two independent sub-claims",
+  "sub_claims": {
+    "PHIL-18a": "'Nothing is unstable' — thermodynamically supported (partial external evidence), retained as axiom",
+    "PHIL-18b": "'Every genesis is seed amplification, never ex nihilo' — falsified by L-138 (spontaneous emergence) and by definitional tautology problem. Downgrade to aspirational."
+  },
+  "dogma_score_before": 1.0,
+  "lessons": ["L-1527", "L-1528"]
+}
