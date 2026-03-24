@@ -3,7 +3,10 @@
 # Detects N>2 git processes and warns. At N>4, blocks commit to prevent index corruption.
 # L-1534: When concurrent, require GIT_INDEX_FILE to avoid shared .git/index corruption.
 # WSL/NTFS cannot handle multiple concurrent git index writes — they cascade into corruption.
-GIT_PROCS=$(ps aux 2>/dev/null | grep -E "git (commit|reset|add|read-tree|write-tree)" | grep -v grep | wc -l)
+GIT_PROCS=$(ps aux 2>/dev/null | awk '
+    /git (commit|reset|add|read-tree|write-tree)/ && $0 !~ /grep/ { count++ }
+    END { print count + 0 }
+')
 if [ "${GIT_PROCS:-0}" -gt 4 ]; then
     echo "FAIL: Concurrent-commit stampede detected (${GIT_PROCS} git processes)."
     echo "  L-1528: At N>4, index corruption is near-certain on WSL/NTFS."

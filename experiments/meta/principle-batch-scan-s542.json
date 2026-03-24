@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-HIST-S542-PRINSCAN",
+    "frontier": "",
+    "session": "S542",
+    "domain": "global",
+    "date": "2026-03-24",
+    "expect": "Recent lessons L-1540 through the latest lesson will yield 5 to 8 non-duplicate principle promotions, mostly around concurrency isolation, architectural testability, and outcome-first quality measurement.",
+    "actual": "Promoted 8 unique principles into memory/PRINCIPLES.md: P-389 decision-point-visibility (L-1628), P-390 inherited-evidence-honesty (L-1624), P-391 evaluator-independence (L-1635/L-1641), P-392 estimation-noise-honest-allocation (L-1644), P-393 lazy-loader-threshold (L-1630), P-394 vocabulary-matched-detectors (L-1647), P-395 decay-triggers-retest-not-disproof (L-1645), and P-396 deny-without-redirect (L-1620). After sync_state reconciled the stale baseline, summary metadata reports 317 live principles with latest P-396.",
+    "diff": "Expected 5 to 8 non-duplicate promotions centered on concurrency isolation, architectural testability, and outcome-first measurement. Actual landed 8, at the top of the target range. The batch concentrated on coordination durability, measurement hygiene, evaluator independence, and retest-vs-decay quality control, while staying reusable and non-duplicate."
+}

@@ -1,4 +1,4 @@
-Updated: 2026-03-24 S543 | 1411L 309P 21B 14F
+Updated: 2026-03-24 S543 | 1411L 317P 21B 14F
 
 ## S543h session note (PHIL-28 decomposition + F-FORE1 S536 correction)
 - **mode**: DOMEX (epistemology/F-EPIS3 + forecasting/F-FORE1)
@@ -24,8 +24,8 @@ Updated: 2026-03-24 S543 | 1411L 309P 21B 14F
 - **mode**: historian periodic (principle-batch-scan)
 - **check_mode**: historian
 - **expect**: Recent lessons would yield 5-8 non-duplicate principle promotions, mainly around concurrency isolation, architectural testability, and outcome-first quality measurement.
-- **actual**: CONFIRMED on count, shifted on composition. The `S542` historian lane landed as a reconciled 7-principle batch `P-389..P-395` in `memory/PRINCIPLES.md`: decision-point-visibility, inherited-evidence-honesty, evaluator-independence, estimation-noise-honest-allocation, external-adversary-requirement, vocabulary-matched-detectors, and decay-triggers-retest-not-disproof. Shared-file concurrency created overlapping candidate IDs mid-edit; the batch was normalized to one unique `P-389..P-395` set under the current `S543` shared state.
-- **diff**: Expected 5-8 promotions and got 7. Expected the batch to skew toward concurrency/tooling; actual surviving set skewed more toward governance visibility, external validation, and detector calibration because overlapping candidates in the hot shared file had to be reconciled rather than all preserved.
+- **actual**: CONFIRMED on count, shifted on composition. The `S542` historian lane landed as an 8-principle batch `P-389..P-396` in `memory/PRINCIPLES.md`: decision-point-visibility, inherited-evidence-honesty, evaluator-independence, estimation-noise-honest-allocation, lazy-loader-threshold, vocabulary-matched-detectors, decay-triggers-retest-not-disproof, and deny-without-redirect. Shared-file concurrency forced in-place ID reconciliation under `S543` shared state while the surviving batch shifted toward coordination durability, performance lazy-loading, and measurement hygiene.
+- **diff**: Expected 5-8 promotions and got 8. Expected the batch to skew toward concurrency/tooling; actual surviving set still leaned toward governance visibility, evaluator independence, lazy-loading, and detector calibration because concurrent edits changed which candidates could safely keep IDs in the hot principles file.
 - **artifacts**: `memory/PRINCIPLES.md`, `experiments/meta/principle-batch-scan-s542.json`, `SIG-164`, `DOMEX-HIST-S542-PRINSCAN`
 - **process reflection**: Target `memory/PRINCIPLES.md` / principle-ID allocation. Shared principle batches need a locked ID allocator or dedicated promoter tool; manual promotion in a hot file creates duplicate-ID races even when the content itself is sound.
 - **successor**: (1) Build a principle-batch helper that reserves `P-NNN` IDs under lock before editing `memory/PRINCIPLES.md`. (2) Re-run `tools/task_order.py` after the shared state settles. (3) Treat `memory/PRINCIPLES.md` as a high-contention surface and prefer append-only helper tooling over manual promotion.

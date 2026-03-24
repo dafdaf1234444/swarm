@@ -50,7 +50,7 @@ def _auto_discover_structural_files(repo_root: Path, min_refs: int = _MIN_STRUCT
     discovered = set()
 
     for ext in ("*.py", "*.sh"):
-        for filepath in tools_dir.glob(ext):
+        for filepath in tools_dir.rglob(ext):
             # Skip archived tools and test files
             if "archive" in str(filepath):
                 continue

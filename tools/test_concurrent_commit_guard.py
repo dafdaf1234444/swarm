@@ -39,6 +39,11 @@ def _run_guard(lines: list[str], extra_env: dict[str, str] | None = None) -> sub
 
 
 class TestConcurrentCommitGuard(unittest.TestCase):
+    def test_zero_matching_git_processes_is_clean_noop(self):
+        result = _run_guard([])
+        self.assertEqual(result.returncode, 0, result.stdout)
+        self.assertEqual(result.stdout.strip(), "")
+
     def test_blocks_missing_temp_index_under_moderate_concurrency(self):
         result = _run_guard(
             [

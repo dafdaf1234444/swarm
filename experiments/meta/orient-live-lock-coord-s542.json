@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-META-S542-ORIENTCOORD",
+    "frontier": "",
+    "session": "S542",
+    "domain": "meta",
+    "date": "2026-03-24",
+    "expect": "When a live .git/index.lock is present and no explicit mode is supplied, orient.ps1 will pass --coord to orient.py and complete successfully instead of launching the full orientation path; explicit mode args remain unchanged.",
+    "actual": "CONFIRMED. tools/orient.ps1 now auto-appends --coord when a live .git/index.lock is present and the caller did not choose an explicit mode. Focused verification passed: python3 -m unittest tools.test_orient_pwsh_wrapper (2/2). The wrapper preserved explicit --coord and still ran the full orient path when no live lock was present (pwsh -NoProfile -File tools/orient.ps1 completed in 33.6s on this host). Lesson: L-1651.",
+    "diff": "Expected a wrapper-only downgrade on live lock, and that held. One PowerShell-specific bug surfaced during verification: ValueFromRemainingArguments can yield null entries, so the explicit-mode scan needed a null guard. Remaining gap: direct bash/python invocations of tools/orient.py still do not auto-downgrade under concurrency; this patch only hardens the PowerShell entrypoint."
+}

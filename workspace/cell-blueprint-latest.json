@@ -1,53 +1,47 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S543",
-  "timestamp": "2026-03-24T14:20:43.914670+00:00",
+  "timestamp": "2026-03-24T15:30:21.897920+00:00",
   "metrics": {
-    "lessons": 1410,
-    "principles": 309,
+    "lessons": 1411,
+    "principles": 317,
     "beliefs": 21,
     "frontiers": 14
   },
-  "active_lanes": [
-    {
-      "lane": "COORD-S542-COVERAGE",
-      "status": "ACTIVE",
-      "scope": "tasks/SWARM-LANES.md"
-    }
-  ],
+  "active_lanes": [],
   "recent_commits": [
+    "ecd8fc09 [S543] maint: handoff \u2014 PHIL-28 decomposition (d=0.018), F-FORE1 S536 correction, session note",
+    "02fc7625 [S543] feat: PHIL-28 decomposition \u2014 marginal human dependency is zero (d=0.018, n=23), F-FORE1 S536 count error corrected",
+    "76dcd320 [S543] maint: handoff \u2014 F-EPIS3 zombie principles (L-1653, 30.5% dead-evidence rate), session note, state sync",
     "a076b404 [S543] feat: F-EPIS3 P-claim fortress broken \u2014 3/309 principles have contradictory evidence (L-1652)",
-    "a7291307 [S543] maint: handoff \u2014 F-EPIS3 grounding-dogma wiring (L-1654), session note, genesis hash update",
-    "965b91ef [S543] feat: F-EPIS3 zombie principles \u2014 30.5% of P-claims cite dead evidence (L-1653)",
-    "1d65eb57 [S543] feat: orient lightweight modes reduce coord startup overhead",
-    "13fa1ccd [S543] feat: F-FORE1 day-28 scoring \u2014 structural 78% vs geopolitical 0%, scorer bug fix, calibration asymmetry (L-1650)"
+    "a7291307 [S543] maint: handoff \u2014 F-EPIS3 grounding-dogma wiring (L-1654), session note, genesis hash update"
   ],
   "uncommitted": [
-    "M beliefs/CHALLENGES.md",
     "M docs/PAPER.md",
-    "M  domains/forecasting/tasks/FRONTIER.md",
     "M experiments/compact-citation-cache.json",
     "M experiments/compact-lesson-cache.json",
-    "A  experiments/epistemology/f-epis3-phil28-upgrade-s543.json",
-    "M  experiments/inter-swarm/bulletins/swarm.md",
     "M memory/INDEX.md",
-    "M  memory/lessons/L-1589.md",
+    "M memory/PRINCIPLES.md",
     "M memory/lessons/L-1651.md",
     "M tasks/FRONTIER.md",
-    "M  tasks/NEXT.md",
+    "M tasks/NEXT.md",
     "M tasks/SIGNALS.md",
-    "M  tasks/SWARM-LANES.md",
+    "M tasks/SWARM-LANES.md",
     "M tools/enforcement_router.py",
     "M tools/guards/23-concurrent-commit.sh",
     "M tools/orient.ps1",
     "M tools/periodics.json",
     "M tools/test_concurrent_commit_guard.py",
-    "M  workspace/cell-blueprint-latest.json"
+    "M workspace/cell-blueprint-latest.json",
+    "M workspace/falsification-debt.json",
+    "M workspace/genesis-bundle-S543.hash",
+    "M workspace/maintenance-actions.json",
+    "M workspace/maintenance-outcomes.json"
   ],
   "untracked_artifacts": [
+    "experiments/meta/knowledge-state-s543.json",
     "experiments/meta/orient-live-lock-coord-s542.json",
-    "experiments/meta/principle-batch-scan-s542.json",
-    "memory/lessons/L-1655.md"
+    "experiments/meta/principle-batch-scan-s542.json"
   ],
   "next_actions": [
     "- Compress ~4,130 tokens (43 EXPIRED lessons from knowledge_swarm)",
