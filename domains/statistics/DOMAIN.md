@@ -1,4 +1,5 @@
 # Domain: Statistics / Inference
+Adjacent: information-science, forecasting, mathematics, random-matrix-theory
 Topic: Experimental design, uncertainty quantification, hypothesis testing, and meta-analysis as structural isomorphisms for swarm experiment reliability, cross-domain transfer decisions, and swarm-of-swarms calibration.
 Beliefs: (candidate only; no formal B-STAT* entries in `beliefs/DEPS.md` yet)
 Lessons: L-223 (expect-act-diff instrumentation), L-253 (variance reduction evidence framing), L-257 (quality-dimension baselines), L-258 (coordination-mode quality split)

@@ -1,4 +1,5 @@
 # Domain: History / Historian Grounding
+Adjacent: epistemology, governance, human-systems, linguistics
 Topic: Historical method, chronology control, and source-criticism as structural isomorphisms for swarm memory quality, handoff trust, and conflict resolution across sessions and lanes.
 Beliefs: (candidate only; no formal B-HIS* entries in `beliefs/DEPS.md` yet)
 Lessons: L-214 (self-tooling loop), L-223 (expect-act-diff), L-224 (human-signal enforcement), L-252 (cross-tool protocol drift)

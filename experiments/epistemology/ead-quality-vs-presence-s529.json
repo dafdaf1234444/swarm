@@ -1,0 +1,25 @@
+{
+  "frontier": "F-EPIS1",
+  "domain": "epistemology",
+  "session": "S529",
+  "hypothesis": "EAD field presence (100%) inflates PCI because actual prediction accuracy is <50%",
+  "method": "Scan 47 recent experiment JSONs (S510-S529) for verdict fields. Compare field-presence metric with prediction quality (classifiability + surprise rate). Fix orient_pci.py to use quality-weighted EAD in PCI.",
+  "expected": "Prediction accuracy <50%, PCI drops significantly when using quality instead of presence",
+  "actual": {
+    "experiments_scanned": 47,
+    "confirmed": 10,
+    "falsified": 22,
+    "partial": 10,
+    "unclassified": 5,
+    "classifiable_rate": 0.894,
+    "surprise_rate": 0.762,
+    "pci_old": 0.857,
+    "pci_new": 0.812,
+    "ead_presence": 1.0,
+    "ead_quality": 0.947
+  },
+  "diff": "Prediction partially confirmed. Classifiability high (89%) so PCI drop modest (0.857→0.812). But surprise rate 76% is HIGH — swarm falsifies 2.2x more than it confirms (22F vs 10C). This is either good science (aggressive testing) or systematic overconfidence. Original hypothesis wrong on magnitude: quality gap is 5%, not 50%+. The real finding is the confirmation/falsification ratio asymmetry.",
+  "verdict": "PARTIALLY CONFIRMED — field presence does inflate PCI, but by 5% not 50%+. The deeper finding is surprise_rate=76% (HIGH): swarm predictions are systematically overconfident or deliberately aggressive.",
+  "tools_modified": ["tools/orient_pci.py", "tools/orient_analysis.py"],
+  "lesson": "L-1526"
+}

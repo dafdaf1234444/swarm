@@ -1,4 +1,5 @@
 # Domain: Swarm Farming
+Adjacent: evolution, strategy, quality, plant-biology
 Topic: How farming and agriculture concepts map to swarm knowledge production, resource cycles, quality filtering, and domain health. Covers the full farm-to-table loop: seeding frontiers, growing knowledge through experiment, harvesting lessons, composting via compaction, and rotating domains to prevent monoculture.
 Beliefs: B-FAR1 (domain rotation prevents knowledge monoculture — low-diversity domain coverage reduces cross-domain isomorphism yield — THEORIZED), B-FAR2 (fallow periods after compaction restore lesson quality — pausing a domain for 1+ sessions before re-swarming improves Sharpe of next harvest — THEORIZED), B-FAR3 (companion planting: synergistic domain pairs produce more transferable insights than isolated domain work — THEORIZED)
 Lessons: none yet

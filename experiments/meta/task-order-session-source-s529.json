@@ -1,0 +1,20 @@
+{
+    "experiment": "DOMEX-META-S529-TO",
+    "frontier": "",
+    "session": "S529",
+    "domain": "global",
+    "date": "2026-03-24",
+    "expect": "task_order header and helper session lookups converge on shared session source, yielding S529 on this host with regression coverage",
+    "actual": "task_order_helpers._current_session() now prefers swarm_io.session_number() and falls back to INDEX.md/git only if needed. task_order.py main uses that shared helper for the display header, and get_signal_tasks() uses the same session source for age calculations. Live verification on this host now prints '=== TASK ORDER S529 ... ==='. Regression suite tools/test_task_order_race.py passes 7/7.",
+    "diff": "Expected a header-only fix; actual result consolidated all task_order session lookups onto the shared helper path. Residual repo drift remains outside task_order: other tools such as question_gen.py still reimplement session detection independently.",
+    "files": [
+        "tools/task_order.py",
+        "tools/task_order_helpers.py",
+        "tools/test_task_order_race.py"
+    ],
+    "verification": [
+        "python3 -m unittest tools/test_task_order_race.py",
+        "python3 tools/task_order.py"
+    ],
+    "verdict": "CONFIRMED"
+}

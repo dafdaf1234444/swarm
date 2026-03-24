@@ -1,4 +1,5 @@
 # Domain: String Theory
+Adjacent: mathematics, physics, information-science, thermodynamics
 Topic: Dualities, holography, and dimensional reduction — string-theoretic structures as predictive frameworks for swarm knowledge architecture, not as metaphors.
 Beliefs: CB-1 (holographic bound CONFIRMED), CB-2 (duality THEORIZED), CB-3 (moduli stabilization CONFIRMED)
 Lessons: L-998 (holographic bound), L-999 (moduli stabilization)

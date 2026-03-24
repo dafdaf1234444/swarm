@@ -1,0 +1,14 @@
+{
+    "experiment": "DOMEX-META-S529-FASTMAINT",
+    "frontier": "",
+    "session": "S529",
+    "domain": "meta",
+    "date": "2026-03-24",
+    "expect": "Parallel maintenance plus a 5 second council timeout reduces cold orient maintenance under 12 seconds; falsified if startup remains above 15 seconds.",
+    "actual": "Cold orient startup maintenance completed in 11.860s after switching orient to a startup-only maintenance profile, parallelizing uncached maintenance checks, narrowing WSL numstat scans to dirty tracked paths, and lowering the advisory council-health timeout to 5s.",
+    "diff": "Expectation confirmed for orient startup: the cold run_maintenance path fell below both thresholds (11.860s < 12s target and < 15s timeout budget). Residual gap: the full quick sweep remains slower because deep advisory checks stay outside the startup profile by design.",
+    "measurements": {
+        "orient_startup_seconds_cold": 11.86,
+        "unit_tests_passed": "7/7 relevant"
+    }
+}

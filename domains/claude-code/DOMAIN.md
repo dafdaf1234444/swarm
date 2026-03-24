@@ -1,4 +1,5 @@
 # Claude Code Domain
+Adjacent: ai, expert-swarm, meta
 Agent type: limitations-expert
 Focus: What Claude Code can and cannot do — especially where those limits constrain swarm design.
 Seeded: S194 | 2026-02-28

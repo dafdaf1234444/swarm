@@ -1,4 +1,5 @@
 # Domain: Fractals
+Adjacent: graph-theory, mathematics, physics, nk-complexity
 Topic: Self-similarity, scale transitions, recursive generation, and boundary complexity as structural isomorphisms for swarm scaling behavior, coordination stability, and policy transfer across levels.
 Beliefs: (candidate only; no formal B-FRA* entries in `beliefs/DEPS.md` yet)
 Lessons: L-216, L-223, L-242, L-257

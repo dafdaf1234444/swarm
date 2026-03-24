@@ -1,4 +1,5 @@
 # Domain: Control Theory
+Adjacent: stochastic-processes, fluid-dynamics, thermodynamics, filtering
 Topic: Feedback loops, stability margins, gain tuning, state estimation, and disturbance rejection as structural isomorphisms for swarm calibration, maintenance policy, and coordination reliability.
 Beliefs: (candidate only; no formal B-CTL* entries in `beliefs/DEPS.md` yet)
 Lessons: L-216 (state-sync automation), L-223 (expect-act-diff), L-242 (rising sawtooth), L-257 (quality dimensions and execution pattern)

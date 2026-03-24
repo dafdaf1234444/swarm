@@ -1,4 +1,5 @@
 # Domain: Thermodynamics
+Adjacent: physics, information-science, fluid-dynamics, control-theory
 Topic: Entropy, dissipative structures, and free energy principles applied to information processing, compaction, and swarm self-organization.
 Beliefs: B1, B4 (thermodynamics-adjacent core beliefs)
 Lessons: (none yet -- domain is newly created)

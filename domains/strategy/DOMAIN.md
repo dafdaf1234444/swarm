@@ -1,4 +1,5 @@
 # Domain: Strategy
+Adjacent: game-theory, operations-research, meta, economy
 Topic: Prioritization, campaign planning, and execution sequencing as structural isomorphisms for swarm throughput, focus control, and goal completion.
 Beliefs: (candidate only; no formal B-STR* entries in `beliefs/DEPS.md` yet)
 Lessons: L-215, L-216, L-246, L-250, L-257

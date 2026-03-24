@@ -1,4 +1,5 @@
 # Domain: Cryptocurrency
+Adjacent: distributed-systems, finance, game-theory, security
 Topic: Blockchain protocols, consensus mechanisms (PoW/PoS/BFT), tokenomics, decentralized finance (DeFi), and the economic/game-theoretic foundations of trustless digital currency systems. Primary value: cryptocurrency provides working implementations of decentralized coordination, incentive alignment, and fork-recovery — all direct swarm isomorphisms.
 Beliefs: B2 (swarm as distributed system), B14 (structural reproducibility), connects to distributed-systems domain (consensus = coordination), finance domain (tokenomics = incentive design), game-theory domain (miner incentives = strategic agents)
 Lessons: (none yet)

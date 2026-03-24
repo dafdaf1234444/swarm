@@ -1,4 +1,5 @@
 # Domain: Knowledge Quality
+Adjacent: evaluation, meta, information-science, farming
 Topic: Detecting redundant, stale, and low-value knowledge in the swarm's own memory — repeated lessons, decayed beliefs, cross-domain isomorphism overlap, and structural noise in the lesson/principle corpus.
 Beliefs: B-QC1 (a fraction of swarm lessons are near-duplicate — THEORIZED), B-QC2 (high-citation lessons decay in accuracy over time as swarm evolves — THEORIZED), B-QC3 (domain pairs with high isomorphism overlap produce redundant lessons — THEORIZED)
 Lessons: (none yet — seeded S189)

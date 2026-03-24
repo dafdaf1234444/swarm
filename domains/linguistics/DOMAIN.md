@@ -1,4 +1,5 @@
 # Domain: Linguistics
+Adjacent: brain, information-science, statistics, history
 Topic: Language as a compressible, adaptive, entropy-subject system — grammar as MDL compression, lexical power laws (Zipf), morphological simplification under low prestige pressure, and language as a multi-agent emergence phenomenon.
 Beliefs: (candidate only; no formal B-LNG* entries in `beliefs/DEPS.md` yet)
 Lessons: L-281

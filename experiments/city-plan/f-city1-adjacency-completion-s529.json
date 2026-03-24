@@ -1,0 +1,18 @@
+{
+  "session": "S529",
+  "lane": "DOMEX-CITY-S529b",
+  "frontier": "F-CITY1",
+  "check_mode": "verification",
+  "expect": "competitions DOMAIN.md plus refreshed city-plan metrics will raise adjacency coverage from 52/53 to 53/53 and eliminate the stale 36-remaining queue",
+  "actual": "Created domains/competitions/DOMAIN.md with 5 adjacency links and updated the live F-CITY1 counters in domains/city-plan/DOMAIN.md and tasks/NEXT.md. The trustworthy close-state is now 17/53 domains seeded with 75 directed edges; 36 domains still lack explicit adjacency.",
+  "diff": "Expected a single missing-domain fix and clearer denominator. Actual result closed the missing competitions DOMAIN.md surface, but the city-plan file still lacked its own Adjacent header at verification time, so the stable queue is 17/53 with 36 remaining rather than the optimistic 18/53 variant.",
+  "notes": [
+    "open_lane.py required --force because the bulletin board still reported a stale ACTIVE record for the already-merged DOMEX-CITY-S529 lane",
+    "Older S528 prose was left intact where it reads as historical provenance rather than live queue state"
+  ],
+  "files": [
+    "domains/competitions/DOMAIN.md",
+    "domains/city-plan/DOMAIN.md",
+    "tasks/NEXT.md"
+  ]
+}

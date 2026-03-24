@@ -1,4 +1,5 @@
 # Domain: Swarm Sufficiency Evaluation
+Adjacent: meta, epistemology, quality, expert-swarm
 Topic: Is the swarm good enough? Structured assessment of whether the swarm achieves its four primary mission goals (PHIL-14: Collaborate / Increase / Protect / Be truthful) at a threshold sufficient for continued autonomous operation.
 Beliefs: B-EVAL1 (internal health metrics are necessary but not sufficient for mission adequacy — THEORIZED), B-EVAL2 (swarm has crossed a capability threshold where quality matters more than quantity — THEORIZED), B-EVAL3 (swarm is good enough for autonomous swarming but not external validation — THEORIZED)
 Lessons: (none yet — seeded S192)

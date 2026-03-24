@@ -1,4 +1,5 @@
 # Domain: Helper Swarm
+Adjacent: expert-swarm, operations-research, strategy, meta
 Topic: Helper-lane dispatch, rescue handoffs, and support-load balancing as structural isomorphisms for swarm continuity, correction speed, and execution stability.
 Beliefs: (candidate only; no formal B-HLP* entries in `beliefs/DEPS.md` yet)
 Lessons: L-214, L-216, L-220, L-255, L-258, L-515, L-519, L-638, L-641, L-644

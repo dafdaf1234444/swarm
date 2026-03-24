@@ -1,0 +1,353 @@
+{
+  "experiment": "F-SOUL1 stochastic first-passage",
+  "frontier": "F-SOUL1",
+  "domain": "stochastic-processes",
+  "session": "S529",
+  "date": "2026-03-24",
+  "expect": "If the soul metric is genuinely compounding after the S508 classifier repair, the post-repair trajectory should still imply a credible near-term path to >3.0x rather than relying on the repair jump.",
+  "actual": "Soul trajectory improved from 1.02x at S506 to 2.24x at S529, but the post-repair process is much slower than the naive full-history trend. All-regime slope = 0.027x/session (deterministic hit S558); post-repair slope = 0.009x/session (deterministic hit S612). Bootstrap first-passage after S508: P(hit 3.0x by S533)=0.0%, P(by S559)=20.2%.",
+  "diff": "The S506->S508 classifier repair dominates naive forecasting. Once that regime shift is isolated, soul improvement is 2.9x slower than the full-history slope and the S520-style near-term projection to S533 collapses. F-SOUL1 is still improving, but mostly in a slow post-repair drift that needs structural externalization, not just better measurement.",
+  "target_ratio": 3.0,
+  "check_sessions": [
+    533,
+    559,
+    600
+  ],
+  "regimes": {
+    "all_history": {
+      "checkpoint_count": 9,
+      "first_session": 506,
+      "last_session": 529,
+      "first_ratio": 1.02,
+      "last_ratio": 2.24,
+      "checkpoints": [
+        {
+          "session": 506,
+          "ratio": 1.02,
+          "source": "experiment-structured",
+          "note": "S506 baseline measurement"
+        },
+        {
+          "session": 508,
+          "ratio": 1.92,
+          "source": "experiment-parsed",
+          "note": "S508 classifier repair"
+        },
+        {
+          "session": 509,
+          "ratio": 2.01,
+          "source": "health",
+          "note": "Health snapshot"
+        },
+        {
+          "session": 514,
+          "ratio": 2.18,
+          "source": "health",
+          "note": "Health snapshot"
+        },
+        {
+          "session": 515,
+          "ratio": 1.98,
+          "source": "health",
+          "note": "Health snapshot"
+        },
+        {
+          "session": 517,
+          "ratio": 2.01,
+          "source": "health",
+          "note": "Health snapshot"
+        },
+        {
+          "session": 520,
+          "ratio": 2.06,
+          "source": "experiment-structured",
+          "note": "S520 checkpoint"
+        },
+        {
+          "session": 528,
+          "ratio": 2.09,
+          "source": "health",
+          "note": "Health snapshot"
+        },
+        {
+          "session": 529,
+          "ratio": 2.24,
+          "source": "live",
+          "note": "Current working tree"
+        }
+      ],
+      "intervals": [
+        {
+          "start_session": 506,
+          "end_session": 508,
+          "delta_sessions": 2,
+          "start_ratio": 1.02,
+          "end_ratio": 1.92,
+          "delta_ratio": 0.9,
+          "per_session_drift": 0.45
+        },
+        {
+          "start_session": 508,
+          "end_session": 509,
+          "delta_sessions": 1,
+          "start_ratio": 1.92,
+          "end_ratio": 2.01,
+          "delta_ratio": 0.09,
+          "per_session_drift": 0.09
+        },
+        {
+          "start_session": 509,
+          "end_session": 514,
+          "delta_sessions": 5,
+          "start_ratio": 2.01,
+          "end_ratio": 2.18,
+          "delta_ratio": 0.17,
+          "per_session_drift": 0.034
+        },
+        {
+          "start_session": 514,
+          "end_session": 515,
+          "delta_sessions": 1,
+          "start_ratio": 2.18,
+          "end_ratio": 1.98,
+          "delta_ratio": -0.2,
+          "per_session_drift": -0.2
+        },
+        {
+          "start_session": 515,
+          "end_session": 517,
+          "delta_sessions": 2,
+          "start_ratio": 1.98,
+          "end_ratio": 2.01,
+          "delta_ratio": 0.03,
+          "per_session_drift": 0.015
+        },
+        {
+          "start_session": 517,
+          "end_session": 520,
+          "delta_sessions": 3,
+          "start_ratio": 2.01,
+          "end_ratio": 2.06,
+          "delta_ratio": 0.05,
+          "per_session_drift": 0.016667
+        },
+        {
+          "start_session": 520,
+          "end_session": 528,
+          "delta_sessions": 8,
+          "start_ratio": 2.06,
+          "end_ratio": 2.09,
+          "delta_ratio": 0.03,
+          "per_session_drift": 0.00375
+        },
+        {
+          "start_session": 528,
+          "end_session": 529,
+          "delta_sessions": 1,
+          "start_ratio": 2.09,
+          "end_ratio": 2.24,
+          "delta_ratio": 0.15,
+          "per_session_drift": 0.15
+        }
+      ],
+      "largest_jump": {
+        "start_session": 506,
+        "end_session": 508,
+        "delta_sessions": 2,
+        "start_ratio": 1.02,
+        "end_ratio": 1.92,
+        "delta_ratio": 0.9,
+        "per_session_drift": 0.45
+      },
+      "increments": {
+        "count": 23,
+        "mean": 0.053043,
+        "stdev": 0.137851,
+        "min": -0.2,
+        "p05": 0.00375,
+        "p50": 0.016667,
+        "p95": 0.45,
+        "max": 0.45
+      },
+      "linear": {
+        "intercept": -11.808498,
+        "slope_per_session": 0.026644,
+        "residual_stdev": 0.285859,
+        "deterministic_hit_session": 558
+      },
+      "first_passage": {
+        "simulations": 5000,
+        "hit_rate_within_horizon": 1.0,
+        "hit_probabilities": {
+          "533": 0.0338,
+          "559": 0.8996,
+          "600": 0.999
+        },
+        "mean_hit_session": 546.403,
+        "median_hit_session": 544,
+        "p05_hit_session": 534,
+        "p95_hit_session": 565
+      }
+    },
+    "post_repair": {
+      "checkpoint_count": 8,
+      "first_session": 508,
+      "last_session": 529,
+      "first_ratio": 1.92,
+      "last_ratio": 2.24,
+      "checkpoints": [
+        {
+          "session": 508,
+          "ratio": 1.92,
+          "source": "experiment-parsed",
+          "note": "S508 classifier repair"
+        },
+        {
+          "session": 509,
+          "ratio": 2.01,
+          "source": "health",
+          "note": "Health snapshot"
+        },
+        {
+          "session": 514,
+          "ratio": 2.18,
+          "source": "health",
+          "note": "Health snapshot"
+        },
+        {
+          "session": 515,
+          "ratio": 1.98,
+          "source": "health",
+          "note": "Health snapshot"
+        },
+        {
+          "session": 517,
+          "ratio": 2.01,
+          "source": "health",
+          "note": "Health snapshot"
+        },
+        {
+          "session": 520,
+          "ratio": 2.06,
+          "source": "experiment-structured",
+          "note": "S520 checkpoint"
+        },
+        {
+          "session": 528,
+          "ratio": 2.09,
+          "source": "health",
+          "note": "Health snapshot"
+        },
+        {
+          "session": 529,
+          "ratio": 2.24,
+          "source": "live",
+          "note": "Current working tree"
+        }
+      ],
+      "intervals": [
+        {
+          "start_session": 508,
+          "end_session": 509,
+          "delta_sessions": 1,
+          "start_ratio": 1.92,
+          "end_ratio": 2.01,
+          "delta_ratio": 0.09,
+          "per_session_drift": 0.09
+        },
+        {
+          "start_session": 509,
+          "end_session": 514,
+          "delta_sessions": 5,
+          "start_ratio": 2.01,
+          "end_ratio": 2.18,
+          "delta_ratio": 0.17,
+          "per_session_drift": 0.034
+        },
+        {
+          "start_session": 514,
+          "end_session": 515,
+          "delta_sessions": 1,
+          "start_ratio": 2.18,
+          "end_ratio": 1.98,
+          "delta_ratio": -0.2,
+          "per_session_drift": -0.2
+        },
+        {
+          "start_session": 515,
+          "end_session": 517,
+          "delta_sessions": 2,
+          "start_ratio": 1.98,
+          "end_ratio": 2.01,
+          "delta_ratio": 0.03,
+          "per_session_drift": 0.015
+        },
+        {
+          "start_session": 517,
+          "end_session": 520,
+          "delta_sessions": 3,
+          "start_ratio": 2.01,
+          "end_ratio": 2.06,
+          "delta_ratio": 0.05,
+          "per_session_drift": 0.016667
+        },
+        {
+          "start_session": 520,
+          "end_session": 528,
+          "delta_sessions": 8,
+          "start_ratio": 2.06,
+          "end_ratio": 2.09,
+          "delta_ratio": 0.03,
+          "per_session_drift": 0.00375
+        },
+        {
+          "start_session": 528,
+          "end_session": 529,
+          "delta_sessions": 1,
+          "start_ratio": 2.09,
+          "end_ratio": 2.24,
+          "delta_ratio": 0.15,
+          "per_session_drift": 0.15
+        }
+      ],
+      "largest_jump": {
+        "start_session": 514,
+        "end_session": 515,
+        "delta_sessions": 1,
+        "start_ratio": 2.18,
+        "end_ratio": 1.98,
+        "delta_ratio": -0.2,
+        "per_session_drift": -0.2
+      },
+      "increments": {
+        "count": 21,
+        "mean": 0.015238,
+        "stdev": 0.060374,
+        "min": -0.2,
+        "p05": 0.00375,
+        "p50": 0.015,
+        "p95": 0.09,
+        "max": 0.15
+      },
+      "linear": {
+        "intercept": -2.686512,
+        "slope_per_session": 0.009174,
+        "residual_stdev": 0.077914,
+        "deterministic_hit_session": 612
+      },
+      "first_passage": {
+        "simulations": 5000,
+        "hit_rate_within_horizon": 0.9754,
+        "hit_probabilities": {
+          "533": 0.0,
+          "559": 0.2016,
+          "600": 0.8174
+        },
+        "mean_hit_session": 578.383,
+        "median_hit_session": 573,
+        "p05_hit_session": 551,
+        "p95_hit_session": 624
+      }
+    }
+  }
+}

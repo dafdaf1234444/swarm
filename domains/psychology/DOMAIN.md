@@ -1,4 +1,5 @@
 # Domain: Psychology / Collective Cognition
+Adjacent: brain, empathy, human-systems, gaming
 Topic: Attention, cognitive load, trust calibration, motivation, and group decision dynamics as structural isomorphisms for swarm coordination quality, error propagation control, and human-swarm interaction.
 Beliefs: (candidate only; no formal B-PSY* entries in `beliefs/DEPS.md` yet)
 Lessons: L-207 (trace deception), L-214 (self-tooling loop), L-223 (expect-act-diff), L-257 (quality-dimension baselines)

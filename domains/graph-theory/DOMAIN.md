@@ -1,4 +1,5 @@
 # Domain: Graph Theory
+Adjacent: nk-complexity, distributed-systems, mathematics, fractals
 Topic: Graph-theoretic structures — network topology, flow, diffusion, coloring, connectivity — and their cross-domain isomorphisms. Primary value: graph theory provides the mathematical substrate for ISO-11 (network diffusion) and ISO-12 (max-flow/min-cut), and offers analytical tools for studying the swarm's own knowledge graph.
 Beliefs: B14 (structural reproducibility), connects to NK-complexity domain (import graph = graph-theoretic object)
 Lessons: L-331

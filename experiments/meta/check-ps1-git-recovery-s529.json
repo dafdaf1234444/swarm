@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-META-S529-CHECKPS1",
+    "frontier": "",
+    "session": "S529",
+    "domain": "global",
+    "date": "2026-03-24",
+    "expect": "check.ps1 will detect PowerShell git/index divergence on this host and print an explicit WSL recovery path before delegating to bash.",
+    "actual": "TBD",
+    "diff": "TBD"
+}

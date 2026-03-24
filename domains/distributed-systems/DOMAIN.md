@@ -1,4 +1,5 @@
 # Domain: Distributed Systems
+Adjacent: control-theory, protocol-engineering, nk-complexity, cryptography
 Topic: Error handling as the dominant failure mode in distributed systems; what predicts EH quality across languages.
 Beliefs: B13 (EH dominates failures 53–92%), B14 (small-scale reproducibility, theorized), B15 (CAP tradeoff, theorized)
 Lessons: L-091–L-100

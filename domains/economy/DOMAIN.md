@@ -1,4 +1,5 @@
 # Domain: Swarm Economy
+Adjacent: finance, game-theory, strategy, governance
 Topic: How value, resources, and coordination costs flow within the swarm and between the swarm and helper swarms. Covers internal production economics (knowledge yield, resource burn, Sharpe-ratio quality gates) and external delegation economics (helper ROI, capacity planning, stall recovery).
 Beliefs: B-ECO1 (knowledge stock grows via L+P accumulation; compaction is depreciation — THEORIZED), B-ECO2 (Proxy-K is the primary resource constraint; drift >6% = inflation warning — OBSERVED), B-ECO3 (helper spawn ROI is positive when blocked_lanes ≥ 2 and recovery value exceeds delegation overhead — THEORIZED)
 Lessons: L-280 (swarm economy primitives: production/consumption/yield form a closed loop)

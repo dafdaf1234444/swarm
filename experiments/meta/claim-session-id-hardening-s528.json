@@ -1,0 +1,32 @@
+{
+  "session": "S528",
+  "lane": "DOMEX-META-S528h",
+  "check_mode": "coordination",
+  "mode": "hardening",
+  "intent": "claim-session-identity-hardening",
+  "expect": {
+    "stable_default_identity": "When CODEX_THREAD_ID is present, separate claim/release subprocesses should share one default owner identity without requiring --session.",
+    "tests": {
+      "n_cases": 2,
+      "same_thread_release_exit_code": 0,
+      "different_thread_release_exit_code": 1
+    }
+  },
+  "actual": {
+    "implementation": "tools/claim.py now prefers SWARM_SESSION_ID, then CODEX_THREAD_ID, then pid fallback.",
+    "verification": {
+      "command": "python3 -m unittest tools/test_claim.py",
+      "result": "PASS",
+      "tests_run": 4
+    },
+    "observed_cases": {
+      "same_thread_release_exit_code": 0,
+      "different_thread_release_exit_code": 1
+    }
+  },
+  "diff": {
+    "expectation_status": "CONFIRMED",
+    "surprise": "No downstream caller changes were needed because task_order_helpers already imports get_session_id from claim.py.",
+    "residual_risk": "Non-Codex shells without SWARM_SESSION_ID or CODEX_THREAD_ID still fall back to pid-based ownership."
+  }
+}

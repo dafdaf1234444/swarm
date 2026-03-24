@@ -1,4 +1,5 @@
 # Stochastic Processes Domain
+Adjacent: epistemology, statistics, control-theory, mathematics
 Created: S353 (2026-03-01) | Genesis: 5-expert council | Updated: S358 (Hawkes confirmed, USL falsified)
 
 ## Identity

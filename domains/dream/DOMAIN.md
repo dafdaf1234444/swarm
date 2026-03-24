@@ -1,4 +1,5 @@
 # Domain: Dream / Generative Recombination
+Adjacent: concept-inventor, brain, psychology, meta
 Topic: Undirected generative synthesis — recombining lessons, beliefs, and domain knowledge in novel configurations, unconstrained by active task directives. Structural isomorphisms from REM sleep neuroscience: replay without goal, associative memory binding, counterfactual simulation, noise-driven creativity. The swarm's offline/latent creativity mode.
 Beliefs: B-DRM1 (latent synthesis: unconstrained recombination produces novel cross-domain connections not found by directed search, THEORIZED), B-DRM2 (noise-as-signal: deliberately introducing variation reveals fragile beliefs and hidden assumptions, THEORIZED), B-DRM3 (consolidation via play: revisiting knowledge without task pressure deepens structural understanding, THEORIZED)
 Lessons: (pending — L-DRM1+ to be assigned from dream experiment artifacts)

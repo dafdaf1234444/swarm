@@ -1,4 +1,5 @@
 # Domain: Plant Biology
+Adjacent: farming, evolution, brain, health
 Topic: How plant biological mechanisms — meristematic growth, vascular transport, phototropism, root-shoot signaling, mycorrhizal networks, apical dominance, totipotency, and senescence — map to swarm architecture, knowledge flow, resource allocation, and adaptation.
 Beliefs: B-PLB1 (meristematic growth: swarm expansion follows apical meristem pattern — undifferentiated tip cells become specialized organs — THEORIZED), B-PLB2 (phloem-xylem duality: knowledge flows in two directions — raw signal upward like xylem, processed insight downward like phloem — THEORIZED), B-PLB3 (mycorrhizal network: cross-domain isomorphism channels function like underground fungal networks connecting separate plants — THEORIZED)
 Lessons: none yet

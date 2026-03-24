@@ -1,4 +1,5 @@
 # Domain: Catastrophic Risks
+Adjacent: conflict, control-theory, governance, health
 Topic: Catastrophic risk theory — Swiss Cheese model, bow-tie analysis, Normal Accident Theory, High Reliability Organization principles — applied as structural isomorphisms for swarm resilience, failure-mode hardening, and defense-in-depth design.
 Beliefs: (candidate; no formal B-CAT* in beliefs/DEPS.md yet)
 Lessons: (seeded S302)

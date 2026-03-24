@@ -1,4 +1,5 @@
 # Domain: Filtering
+Adjacent: information-science, statistics, control-theory, stochastic-processes
 Topic: Selection, noise reduction, and attention allocation — filtering as the mechanism by which swarm separates signal from noise at every layer (context, knowledge, dispatch, quality, temporal, epistemic)
 Beliefs: (none yet — first DOMEX session)
 Lessons: (none yet)

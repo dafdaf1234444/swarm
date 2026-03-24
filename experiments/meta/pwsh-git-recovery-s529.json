@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-META-S529p",
+    "frontier": "",
+    "session": "S529",
+    "domain": "meta",
+    "date": "2026-03-24",
+    "expect": "PowerShell startup wrappers will detect suspicious Windows git index state and print a concrete WSL/bash recovery path before delegating; healthy repos will remain pass-through.",
+    "actual": "Added shared tools/pwsh_startup.ps1 and rewired 5 PowerShell startup wrappers (orient, maintenance, task_order, dispatch_optimizer, question_gen) to use it before delegating. Live verification: 5/5 wrappers exited 0 on this host after the refactor. Scratch verification: helper notice count was 0 on a healthy disposable repo, then emitted a 5-line recovery notice with an exact bash read-tree/update-index command after .git/index was deleted.",
+    "diff": "Expected the live Windows-side git mismatch to trigger here; it did not reproduce during verification, so the new notice path stayed silent on the healthy repo. The recovery branch was confirmed via a disposable missing-index scenario instead. Scope also stayed off tools/check.ps1 because that file was already claimed by S529-PSREC."
+}

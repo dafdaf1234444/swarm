@@ -1,4 +1,5 @@
 # Domain: Physics / Thermodynamics
+Adjacent: thermodynamics, fluid-dynamics, mathematics, string-theory
 Topic: Fundamental physical laws as canonical instantiations of cross-domain structural isomorphisms — entropy, phase transitions, emergence, optimization, feedback, and power laws.
 Beliefs: (candidate only; no formal B-PHY* entries in `beliefs/DEPS.md` yet)
 Lessons: L-281, L-771

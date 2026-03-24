@@ -1,4 +1,5 @@
 # Domain: Concept Inventor
+Adjacent: dream, meta, epistemology, psychology
 Topic: Deliberate concept creation as a learnable, improvable skill. The generative complement to analysis — inventing new named abstractions, vocabulary, and frameworks that change how the swarm operates. Not concept application (target domain) or concept measurement (meta). The focus is the generative act itself.
 Beliefs: (candidate only; no formal B-INV* entries yet)
 Lessons: (none yet)

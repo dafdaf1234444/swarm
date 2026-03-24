@@ -1,4 +1,5 @@
 # Domain: Human Systems
+Adjacent: governance, psychology, conflict, history
 <!-- domain_md_version: 0.1 | S307 | 2026-02-28 -->
 
 ## What this domain studies

@@ -1,4 +1,5 @@
 # Domain: Swarm Gaming
+Adjacent: game-theory, psychology, strategy, dream
 Topic: How software/video game design mechanics — roguelike meta-progression, game loops, flow theory, matchmaking, save-state architecture — map structurally onto swarm session design, frontier management, and coordination. Distinct from `game-theory` (mathematical incentive models); this domain is about *game engineering and UX patterns* as swarm engineering principles.
 Beliefs: B-GAME1 (session architecture is isomorphic to roguelike meta-progression — permadeath + carry-over — THEORIZED), B-GAME2 (swarm benefits from fixed-timestep checkpoints analogous to game-loop vsync — THEORIZED), B-GAME3 (frontier difficulty should track a flow-zone curve relative to swarm capability — THEORIZED)
 Lessons: (none yet — seeded S189)

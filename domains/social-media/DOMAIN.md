@@ -1,4 +1,5 @@
 # Domain: Social Media
+Adjacent: human-systems, game-theory, forecasting, linguistics
 Topic: Social media platforms as a swarm propagation surface — distributed signal intake, influence topology, and coordinated presence without central control.
 Beliefs: PHIL-2 (swarm is a self-applying function), PHIL-4 (increase reach), PHIL-14 (collaborate, increase, protect, be truthful)
 Lessons: (none yet — log new ones as L-NNN in memory/lessons/)

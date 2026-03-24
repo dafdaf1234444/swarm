@@ -1,0 +1,18 @@
+{
+    "experiment": "DOMEX-EPIS-S529-RELTOOLS",
+    "frontier": "F-EPIS1",
+    "session": "S529",
+    "domain": "epistemology",
+    "date": "2026-03-24",
+    "expect": "Excluding test modules from the audit substrate will reduce isolated tools by >=15 and write-only tools by >=10 while low-truth tools remain within 0-2.",
+    "lesson": "L-1517",
+    "actual": "Default production-only audit excludes 24 test modules. Compared with --include-tests, isolated tools fell from 58 to 47 (-11, -19.0%), write-only tools stayed flat at 27, and low-truth tools stayed flat at 1. Mean R-score rose from 0.443 to 0.489 and mean integration rose from 0.487 to 0.528.",
+    "diff": "Expectation partially falsified. Test-module contamination was real and inflated the isolated count, but the reduction was 11 rather than the expected >=15 and write-only debt did not improve. The low-truth signal remained stable, indicating the substrate hardening removed noise without masking the main integration debt.",
+    "verification": {
+        "unit_tests": "python3 -m unittest tools/test_tool_reliability.py",
+        "audit_runs": [
+            "python3 tools/tool_reliability.py --json",
+            "python3 tools/tool_reliability.py --include-tests --json"
+        ]
+    }
+}

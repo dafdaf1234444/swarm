@@ -1,4 +1,5 @@
 # Domain: Health / Immunology
+Adjacent: evolution, control-theory, catastrophic-risks, brain
 Topic: Immune system architecture, adaptive vs. innate defense layers, homeostasis, memory-cell persistence, and clonal selection as structural isomorphisms for swarm defense design, belief persistence, variant evolution, and cascade detection.
 Beliefs: B-HLT1 (adaptive immunity = belief evolution: memory cells encode resolved challenges, REFUTED S182 — lessons behave as antibiotics not memory cells; see L-241), B-HLT2 (distributed detection without synchronization = cascade defense: synchronized detection causes autoimmune false positives, OBSERVED S185), B-HLT3 (homeostatic set point = proxy-K floor: minimum viable representation after compaction, REFUTED S182 — rising sawtooth not homeostasis; see L-242)
 Lessons: L-218 (asynchrony prevents cascade anchoring — direct parallel to distributed immune detection), L-207 (trace deception = molecular mimicry escape), L-241 (adaptive-immunity mapping refuted), L-242 (proxy-K not homeostatic), L-244 (citation era distribution: mid-era lessons dominate, not early-era)

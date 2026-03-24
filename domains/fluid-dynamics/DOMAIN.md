@@ -1,4 +1,5 @@
 # Domain: Fluid Dynamics
+Adjacent: control-theory, physics, stochastic-processes, thermodynamics
 Topic: Conservation laws, turbulence, flow regimes, and cascade phenomena as structural isomorphisms for swarm throughput, stability transitions, overhead scaling, and knowledge diffusion.
 Beliefs: (candidate only; no formal B-FLD* entries in `beliefs/DEPS.md` yet)
 Lessons: L-469 (T4 anti-cascade), L-470 (domain bootstrap findings)

@@ -1,0 +1,41 @@
+{
+  "id": "delib-s529-0339",
+  "session": "S529",
+  "date": "2026-03-24",
+  "question": "Is the deliberation tool working?",
+  "domains": [
+    "meta",
+    "epistemology",
+    "security"
+  ],
+  "method": "Parallel 3-domain deliberation. Each domain investigates independently, then synthesize.",
+  "perspectives": {
+    "meta": {
+      "context": "[loaded]",
+      "top_frontier": "F-META2: How can swarm convert human and self-generated signals into action-ready updates with less signal loss? (opened S303)",
+      "finding": "",
+      "evidence": [],
+      "cross_domain_signal": ""
+    },
+    "epistemology": {
+      "context": "[loaded]",
+      "top_frontier": "F-EPIS1: Does the swarm's epistemic architecture match any established epistemological framework?",
+      "finding": "",
+      "evidence": [],
+      "cross_domain_signal": ""
+    },
+    "security": {
+      "context": "[loaded]",
+      "top_frontier": "F-SEC3: Is security self-assessment epistemically locked? (Concept transfer: *epistemic-lock* from concept-inventor domain)",
+      "finding": "",
+      "evidence": [],
+      "cross_domain_signal": ""
+    }
+  },
+  "synthesis": {
+    "convergent_findings": [],
+    "divergent_findings": [],
+    "root_cause": "",
+    "prescribed_actions": []
+  }
+}

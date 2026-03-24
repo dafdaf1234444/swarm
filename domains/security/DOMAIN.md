@@ -1,4 +1,5 @@
 # Security Domain
+Adjacent: cryptography, distributed-systems, conflict, protocol-engineering
 <!-- domain_md_version: 0.1 | S307 | 2026-02-28 -->
 
 ## What this domain covers

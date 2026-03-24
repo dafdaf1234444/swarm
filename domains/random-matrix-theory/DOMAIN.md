@@ -1,4 +1,5 @@
 # Domain: Random Matrix Theory
+Adjacent: mathematics, statistics, nk-complexity, physics
 Topic: Spectral universality — eigenvalue statistics of large random matrices predict phase transitions, information thresholds, and scaling regimes in complex adaptive systems including knowledge graphs.
 Beliefs: (none yet — first DOMEX session)
 Lessons: L-992

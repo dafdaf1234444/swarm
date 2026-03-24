@@ -1,4 +1,5 @@
 # City Plan — Spatial Model of the Swarm
+Adjacent: graph-theory, operations-research, meta, nk-complexity
 v0.1 | S528 | 2026-03-24
 
 The swarm mapped as a city. Not metaphor — spatial reasoning applied to information topology.

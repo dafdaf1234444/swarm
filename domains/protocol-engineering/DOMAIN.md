@@ -1,4 +1,5 @@
 # Domain: Protocol Engineering
+Adjacent: distributed-systems, cryptography, governance, security
 Topic: Protocol design, adoption, enforcement, and evolution as structural isomorphisms for swarm reliability, portability, and coordination quality.
 Beliefs: (candidate only; no formal B-PRO* entries in `beliefs/DEPS.md` yet)
 Lessons: L-023, L-106, L-138, L-209, L-252

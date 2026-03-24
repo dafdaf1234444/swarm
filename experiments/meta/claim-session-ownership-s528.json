@@ -1,0 +1,10 @@
+{
+  "experiment": "DOMEX-META-S528c",
+  "frontier": "",
+  "session": "S528",
+  "domain": "meta",
+  "date": "2026-03-24",
+  "expect": "claim.py will default to a stable session identity across same-session shell invocations, so claim/release and claim-task/release-task work without repeating --session while preserving explicit overrides.",
+  "actual": "Concurrent lane DOMEX-META-S528h landed the CODEX_THREAD_ID fallback in tools/claim.py plus tools/test_claim.py. Local verification passed: python3 -m unittest tools/test_claim.py (4/4), same-thread claim/release succeeds across separate invocations, and cross-thread release still blocks.",
+  "diff": "Expected to implement the fix locally. Actual value was absorb-and-verify: one writer landed the change, and this lane confirmed the behavior without creating a same-file collision."
+}

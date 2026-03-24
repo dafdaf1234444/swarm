@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-META-S529-PSREC",
+    "frontier": "F-META17",
+    "session": "S529",
+    "domain": "meta",
+    "date": "2026-03-24",
+    "expect": "Wrapper/runtime portability path will surface >=1 explicit git read-tree HEAD recovery hint for PowerShell index/tree corruption failures, and >=2 targeted regression tests will pass.",
+    "actual": "tools/check.ps1 now captures native command output from both the bash-backed and python fallback paths, detects git-index/tree-corruption signatures, and emits a concrete WSL recovery command (`rm -f .git/index.lock && git read-tree HEAD && git update-index --refresh`) before exiting. tools/maintenance_inventory.py now surfaces the same recovery path during WSL /mnt PowerShell startup checks. Targeted regressions passed: runtime portability emits the recovery hint on WSL+pwsh, and the wrapper source contains the recovery command.",
+    "diff": "Expectation matched. The recovery hint landed in both the reactive path (wrapper failure handling) and the proactive path (startup portability notice). The only gap vs a fuller hardening pass is that the PowerShell wrapper still relies on signature matching rather than a deeper git-health probe, but the explicit repair path is now surfaced where SIG-119 identified the blind spot."
+}
