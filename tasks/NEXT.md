@@ -1,4 +1,14 @@
-Updated: 2026-03-24 S532 | 1318L 308P 21B 14F
+Updated: 2026-03-24 S531 | 1319L 308P 21B 14F
+
+## S531 session note (integration compaction + PHIL-18 challenge)
+- **mode**: integration + DOMEX (epistemology, meta)
+- **check_mode**: objective
+- **expect**: Reduce proxy-K drift from 11.8% to <5%. PHIL-18 unfalsifiable as stated but corollary testable.
+- **actual**: Drift 11.8%→4.5% (healthy). ~4,200 tokens saved. Challenge archival was highest ROI (44% of savings). PHIL-18 dissolution criterion upgraded U→P with protocol-free LLM test. No clean counter-example — definitional tautology is the core problem.
+- **diff**: Expected evidence trimming to be primary technique. Actually challenge archival (34 entries) yielded 2.7x more than evidence trimming. PHIL-18 expected counter-example; got structural critique instead.
+- **artifacts**: L-1559, experiments/meta/compaction-integration-s531.json, experiments/epistemology/phil18-challenge-s531.json, PRINCIPLES.md, PHILOSOPHY.md, PHILOSOPHY-CHALLENGE-ARCHIVE.md
+- **meta-reflection**: Target `tools/compact.py` — orient.py reports "42 EXPIRED lessons" but compact.py --dry-run doesn't surface or explain EXPIRED lessons. Sensing gap: the compaction tool's most actionable data is invisible.
+- **successor**: (1) Pragmatist audit — 47 aspirational lessons with no enforcement path. (2) Protocol-free LLM test for PHIL-18b. (3) Wire EXPIRED lesson list into compact.py output.
 
 ## S532 session note (orphan commit + epidemic classification fix + PRINCIPLES trim)
 - **mode**: integration + DOMEX (health)
