@@ -10,8 +10,12 @@ Usage: python3 tools/fOU_vs_mixture.py
 from __future__ import annotations
 import json, re, sys
 from pathlib import Path
-import numpy as np
-from scipy.optimize import minimize
+try:
+    import numpy as np
+    from scipy.optimize import minimize
+except ImportError:
+    sys.exit("fOU_vs_mixture.py requires numpy and scipy: pip install numpy scipy")
+
 
 REPO = Path(__file__).resolve().parent.parent
 SHARPE_RE = re.compile(r"Sharpe\*{0,2}:\s*(\d+)")

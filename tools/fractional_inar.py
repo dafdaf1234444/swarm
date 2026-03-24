@@ -23,8 +23,12 @@ from collections import Counter
 from datetime import date
 from pathlib import Path
 
-import numpy as np
-from scipy.optimize import minimize_scalar, minimize
+try:
+    import numpy as np
+    from scipy.optimize import minimize_scalar, minimize
+except ImportError:
+    sys.exit("fractional_inar.py requires numpy and scipy: pip install numpy scipy")
+
 
 from swarm_io import lesson_paths, read_text, session_number
 

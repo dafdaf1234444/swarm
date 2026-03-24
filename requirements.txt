@@ -1,0 +1,5 @@
+# Core swarm tools: stdlib-only (no deps needed)
+# These optional deps are used only by numerical analysis tools (F-SP8):
+#   bounded_fou.py, fOU_vs_mixture.py, fractional_inar.py
+numpy>=1.24
+scipy>=1.10

@@ -5,12 +5,16 @@ import sys
 import unittest
 from pathlib import Path
 
-import numpy as np
+try:
+    import numpy as np
+    sys.path.insert(0, str(Path(__file__).parent))
+    import fractional_inar as fi  # noqa: E402
+    HAS_DEPS = True
+except ImportError:
+    HAS_DEPS = False
 
-sys.path.insert(0, str(Path(__file__).parent))
-import fractional_inar as fi  # noqa: E402
 
-
+@unittest.skipUnless(HAS_DEPS, "numpy/scipy not installed")
 class TestFractionalWeights(unittest.TestCase):
     def test_weights_sum_below_one(self):
         for d in [0.1, 0.2, 0.3, 0.4, 0.49]:
@@ -27,6 +31,7 @@ class TestFractionalWeights(unittest.TestCase):
             self.assertLessEqual(w[i], w[i - 1], f"weight {i} > weight {i-1}")
 
 
+@unittest.skipUnless(HAS_DEPS, "numpy/scipy not installed")
 class TestSimulations(unittest.TestCase):
     def test_inar1_produces_nonnegative(self):
         sim = fi.simulate_inar1(100, 0.5, 3.0, seed=42)
@@ -44,6 +49,7 @@ class TestSimulations(unittest.TestCase):
         self.assertTrue(np.all(np.isfinite(sim)))
 
 
+@unittest.skipUnless(HAS_DEPS, "numpy/scipy not installed")
 class TestACF(unittest.TestCase):
     def test_iid_acf_near_zero(self):
         rng = np.random.RandomState(123)

@@ -18,8 +18,12 @@ from collections import Counter
 from datetime import date
 from pathlib import Path
 
-import numpy as np
-from scipy.optimize import minimize
+try:
+    import numpy as np
+    from scipy.optimize import minimize
+except ImportError:
+    sys.exit("bounded_fou.py requires numpy and scipy: pip install numpy scipy")
+
 
 from swarm_io import lesson_paths, read_text, session_number
 

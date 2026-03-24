@@ -5,12 +5,16 @@ import sys
 import unittest
 from pathlib import Path
 
-import numpy as np
+try:
+    import numpy as np
+    sys.path.insert(0, str(Path(__file__).parent))
+    import bounded_fou  # noqa: E402
+    HAS_DEPS = True
+except ImportError:
+    HAS_DEPS = False
 
-sys.path.insert(0, str(Path(__file__).parent))
-import bounded_fou  # noqa: E402
 
-
+@unittest.skipUnless(HAS_DEPS, "numpy/scipy not installed")
 class TestBoundedFou(unittest.TestCase):
     def test_empirical_rank_map_preserves_support(self):
         observed = np.array([0.0, 1.0, 1.0, 5.0, 9.0, 9.0])
