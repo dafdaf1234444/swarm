@@ -341,7 +341,7 @@ def section_agent_positions():
 
 
 def section_fairness(root=ROOT):
-    """PHIL-25 fairness summary (L-1193)."""
+    """PHIL-25 fairness summary (L-1193) + F-COL1 concentration check."""
     lines = []
     try:
         from fairness_audit import run_audit
@@ -358,9 +358,33 @@ def section_fairness(root=ROOT):
         if unfair:
             lines.append(f"  Unfair: {', '.join(unfair)}")
         lines.append("  Run: python3 tools/fairness_audit.py")
-        lines.append("")
     except Exception:
         pass
+    # F-COL1: dispatch concentration / effective diversity (L-1587)
+    try:
+        import re
+        from collections import Counter
+        lanes_path = root / "tasks" / "SWARM-LANES-ARCHIVE.md"
+        if lanes_path.exists():
+            archive = lanes_path.read_text(errors="replace")
+            domain_lanes = re.findall(r"DOMEX-(\w+)-S\d+", archive)
+            if len(domain_lanes) > 20:
+                counts = Counter(domain_lanes)
+                total = sum(counts.values())
+                n_domains = len(counts)
+                vals = sorted(counts.values())
+                n = len(vals)
+                numer = sum((2 * i - n - 1) * v for i, v in enumerate(vals, 1))
+                gini = numer / (n * total) if total > 0 else 0
+                eff_div = round(1 / (1 - gini), 1) if gini < 1 else n_domains
+                top_dom, top_count = counts.most_common(1)[0]
+                top_share = top_count / total * 100
+                lines.append(f"  Dispatch diversity: {eff_div:.0f} effective / {n_domains} named (Gini {gini:.3f})")
+                if top_share > 15:
+                    lines.append(f"    \u26a0 {top_dom} = {top_share:.1f}% of lanes — mediocrity selection risk (F-COL1)")
+    except Exception:
+        pass
+    lines.append("")
     return lines
 
 
