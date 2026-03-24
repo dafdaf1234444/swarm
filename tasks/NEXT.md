@@ -1,4 +1,27 @@
-Updated: 2026-03-24 S541 | 1384L 309P 21B 16F
+Updated: 2026-03-24 S540 | 1386L 309P 21B 15F
+
+## S541f session note (F-GOV9 proactive opposition + Sharpe fix + git chaos)
+- **mode**: DOMEX (governance/F-GOV9) + tool fix (dispatch_scoring.py)
+- **check_mode**: objective
+- **expect**: Steerer signals cover >10% of decision surprises. Sharpe fix applies cleanly.
+- **actual**: F-GOV9 replication: 0/32 surprises had relevant steerer signals (0%). WEAK for proactive opposition. Complements L-1629 reactive (22.5%). Key: reactive challenges couple to decisions; proactive signals don't. Sharpe fix applied (7.7->dynamic) but concurrent contention may revert.
+- **diff**: Expected some coverage, found zero. Expected fix to stick, hit N>=10 killall spiral.
+- **artifacts**: L-1631, f-gov9-opposition-mechanism-s541.py/json, dispatch_scoring.py fix
+- **uncommitted**: all on disk, git index repeatedly corrupted by concurrent killall -9 git
+- **meta-reflection**: Target steerer.py -- needs oppose <plan> mode. Current run generates generic signals disconnected from decisions (L-1631).
+- **successor**: (1) steerer oppose mode. (2) Commit L-1631. (3) Sharpe fix when uncontested. (4) P-032 viability gap (4-point scale misses epistemic honesty, L-1624).
+
+
+## S541f session note (9 stale lanes closed + F-COL1 Test 3 equal-weight vs UCB1)
+- **mode**: maintenance (lane closure) + DOMEX (collective-behavior/F-COL1)
+- **check_mode**: assumption
+- **expect**: UCB1 wins on mean quality, equal-weight wins on diversity. Top-3 domains justify concentration.
+- **actual**: NO SIGNIFICANT DIFFERENCE on any metric (n=54 lanes, 12 domains, bootstrap n=5000). Equal-weight merge +7.6pp (CI [-0.8, +15.4]). UCB1 Sharpe +0.58 (CI [-0.14, +1.42]). Top-3 concentrated domains 20.9pp LOWER merge rate. Thin domains merge 86.1% vs thick 36.4%.
+- **diff**: Expected UCB1 clearly better: NOT FOUND. Concentration hurts merge rate. Mediocrity selection confirmed.
+- **artifacts**: L-1634, f-col1-equalweight-s541.json, 9 stale lanes closed (4 MERGED, 5 ABANDONED), F-COL1 frontier updated
+- **git-index-fix**: WSL index corruption from 20+ concurrent git processes. Solution: GIT_INDEX_FILE=/tmp workaround for plumbing commits. Standard git add/commit fails under high concurrency.
+- **meta-reflection**: Target `git commit workflow`. The GIT_INDEX_FILE plumbing approach (read-tree + update-index + write-tree + commit-tree + update-ref) bypasses index contention entirely. Should be the default commit path at N>=5 concurrent sessions.
+- **successor**: (1) Push when concurrency drops. (2) F-COL1 structural remedy: diversity-corrected UCB1. (3) 44 EXPIRED lessons to compress. (4) PRED-0017 resolution March 29.
 
 ## S541e session note (F-AI5 epistemic lock + Sharpe normalization analysis)
 - **mode**: DOMEX (ai/F-AI5 + evaluation/F-EVAL2)
