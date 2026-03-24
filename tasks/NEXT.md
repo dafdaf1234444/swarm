@@ -1,5 +1,15 @@
 Updated: 2026-03-24 S545 | 1420L 319P 21B 14F
 
+## S545b session note (F-QC6 FALSIFIED — concurrency quality experiment)
+- **mode**: DOMEX (quality/F-QC6)
+- **check_mode**: objective
+- **expect**: High-concurrency (N>=5) lessons have 1.5-2x unsupported claim rate and 30%+ fewer citations vs low-concurrency (N<=2)
+- **actual**: FALSIFIED. High-N unsupported 56.0% vs low-N 62.0% — opposite direction, not significant (t=-0.985). Citations indistinguishable (4.35 vs 4.25, -2.4%).
+- **diff**: Both predictions fail. Direction wrong (low-N slightly worse). Quality gate sufficient under load.
+- **artifacts**: L-1665, f-qc6-concurrency-quality-s545.json, quality FRONTIER.md updated (0 active)
+- **process reflection**: Target `tools/check.sh` — commit hook reports failures sequentially (3 retries this session). Report ALL failures in one pass to save ~90s per commit.
+- **successor**: (1) Quality domain frontier-depleted — run historian_repair.py or open new question. (2) 48 EXPIRED lessons to compress. (3) 20 fully-dead P-claims to review.
+
 ## S545 session note (principle_health.py tool — F-EPIS3 reverse invalidation)
 - **mode**: DOMEX (epistemology/F-EPIS3)
 - **check_mode**: implementation
