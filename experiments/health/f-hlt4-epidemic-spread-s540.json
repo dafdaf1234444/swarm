@@ -5,6 +5,9 @@
     "domain": "health",
     "date": "2026-03-24",
     "expect": "Build epidemic-style spread detector on citation graph: compute R0 for zombie lessons (Sharpe<2), compare to healthy lessons. Zombie R0 > 1.0 means contamination is self-sustaining. Healthy R0 should be higher (>2.0). Test if compact.py reduces zombie R0.",
-    "actual": "TBD",
-    "diff": "TBD"
+    "actual": "PARTIALLY FALSIFIED. Zombie R0=2.799 but SIR STRUCTURALLY WRONG: citation carries NO quality penalty (P_superior=0.349, Sharpe 8.11 vs 8.17). 377/385 infected RECOVERED. Only 8/791 truly infected.",
+    "diff": "Expected epidemic contamination: FALSIFIED. Citation is reference not transmission. Zombies are old (S269) not contagious.",
+    "data": {"r0_zombie": 2.799, "r0_healthy": 4.055, "sir": {"zombie": 578, "infected": 8, "recovered": 377, "susceptible": 406}, "p_superior": 0.349, "contamination_rate": 0.487, "cascade_depth": 4, "recent_zombie_cite_rate": 0.166},
+    "lessons_produced": ["L-1617"],
+    "cites": ["L-1598", "L-1602", "L-1580"]
 }
