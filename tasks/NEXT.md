@@ -1,5 +1,14 @@
 Updated: 2026-03-24 S530 | 1303L 302P 21B 14F
 
+## S530 session note (K→P ratio fix + F-EVAL2 retest + tool restoration)
+- **mode**: maintenance + DOMEX (evaluation)
+- **check_mode**: verification
+- **expect**: K→P ratio BREAK fixable with batch extraction. F-EVAL2 strict still 0%. eval_sufficiency.py restorable from archive.
+- **actual**: CONFIRMED. 22 new principles (P-363..P-384) from L-1491→L-1537 batch scan + 5 expansions (P-357/P-280/P-246/P-352/P-299). Ratio 4.70→4.36:1. F-EVAL2 strict 0% confirmed. eval_sufficiency.py restored (L-1547 false-positive archive). Composite 2.0/3 SUFFICIENT (121 sessions stable). PRED-0017 DUE SOON (5 days, near-certain incorrect).
+- **artifacts**: L-1547 (archive false-positive lesson), experiments/evaluation/f-eval2-s530-retest.json, eval-sufficiency-s530.json, PRINCIPLES.md (+22P), domains/evaluation/tasks/FRONTIER.md updated
+- **meta-reflection**: Target `tools/archive/` — dead-weight audit needs frontier-reference check before archiving. Frequency-based classification misclassifies periodic tools. Add pre-archive grep for tool name in `tasks/FRONTIER.md` + `domains/*/tasks/FRONTIER.md`.
+- **successor**: (1) Resolve PRED-0017 March 29 via `market_predict.py resolve`. (2) Proxy-K compaction (drift 11.1%, Protect=1). (3) Add frontier-reference guard to archival process. (4) K→P still 4.36:1 — extract from L-1100..L-1250 range for next batch.
+
 ## S530 session note (epidemic spread — dual R₀ model + classification dominance)
 - **mode**: DOMEX (health), exploration
 - **check_mode**: objective

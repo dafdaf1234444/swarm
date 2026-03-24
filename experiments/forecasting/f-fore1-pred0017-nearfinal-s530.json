@@ -1,0 +1,32 @@
+{
+  "experiment": "PRED-0017 near-final scoring (5 days to deadline)",
+  "frontier": "F-FORE1",
+  "session": "S530",
+  "domain": "forecasting",
+  "date": "2026-03-24",
+  "question": "Will PRED-0017 (SPY 1w BEAR -2% to -5%) resolve correctly by Mar 29?",
+  "prediction": "INCORRECT — SPY at +1.05% from base with 5 days remaining. Needs -3% reversal.",
+  "actual": "SPY closed $648.57 (Mar 23 web data) or $655.38 (S528 Mar 23 scoring). Either way, far from -2% target. Market rallied on Trump-Iran de-escalation announcement.",
+  "diff": "Bear thesis failed because geopolitical-to-market model was too deterministic (L-1461). Iran conflict pushed oil +36% but SPY absorbed the shock. Safe-haven rotation did not trigger equity selloff.",
+  "market_context": {
+    "spy_base": 648.57,
+    "spy_latest": 655.38,
+    "spy_pct_from_base": 1.05,
+    "spy_52w_high": 697.84,
+    "spy_from_52w_high_pct": -6.1,
+    "spy_ytd_pct": -5.1,
+    "key_events": [
+      "US-Iran war started Feb 28, oil +36-39%",
+      "Trump announced US-Iran talks Mar 23, halted energy strikes",
+      "SPY rallied ~1.05% on de-escalation",
+      "AI spending concerns and rate cut pullback",
+      "JPMorgan cut S&P target to 7200, Goldman at 7600"
+    ]
+  },
+  "pred_0017_status": "NEAR_CERTAIN_INCORRECT",
+  "confidence_final": 0.05,
+  "brier_if_incorrect": 0.0025,
+  "resolution_date": "2026-03-29",
+  "note": "First swarm prediction to resolve. Even with SPY down 5% YTD and 7% from highs, the 1-week timeframe was too tight. The market moves were not synchronous with the prediction window. Lesson: short-term predictions need event-specific timing, not trend extrapolation.",
+  "first_resolution_significance": "This is the swarm's first externally-verifiable prediction reaching its deadline. Regardless of outcome, it establishes the scoring methodology for F-FORE1."
+}

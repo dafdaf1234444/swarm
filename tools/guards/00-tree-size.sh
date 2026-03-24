@@ -1,5 +1,5 @@
 #!/bin/bash
-# FM-01 layer 3: Tree-size guard (L-1316, S502).
+# FM-01 layer 0: Tree-size guard (L-1316, S502, reordered S530).
 # Catches plumbing commits (commit-tree) that bypass staging guards.
 # At N>=3 concurrency, git write-tree can read an emptied index and produce an empty tree.
 TREE_FILE_COUNT=$(git write-tree 2>/dev/null | xargs git ls-tree -r --name-only 2>/dev/null | wc -l | tr -d ' ')

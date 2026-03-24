@@ -1,5 +1,5 @@
 #!/bin/bash
-# FM-01 layer 1: Mass-deletion guard (I9/MC-SAFE, L-346, L-350).
+# FM-01 layer 2: Mass-deletion guard (I9/MC-SAFE, L-346, L-350, reordered S530).
 # Protects against WSL filesystem corruption staging mass file deletions via git add -A accidents.
 # Counts DELETED FILES (D status), not line-level deletions — avoids false positives on large edits.
 FILE_DELETION_THRESHOLD=20

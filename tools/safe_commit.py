@@ -10,7 +10,7 @@ Usage:
     python3 tools/safe_commit.py -m "msg" --deleted old_file -- new_file1
 """
 
-import argparse, os, subprocess, sys, tempfile
+import argparse, fcntl, os, subprocess, sys, tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -32,56 +32,63 @@ def main():
     ap.add_argument("--parent", default=None, help="Parent ref (default: HEAD)")
     args = ap.parse_args()
 
-    parent = args.parent or run(["git", "rev-parse", "HEAD"])
     idx = tempfile.mktemp(prefix="swarm-safe-commit-")
     env = {**os.environ, "GIT_INDEX_FILE": idx}
 
     try:
-        # Build tree from parent
-        run(["git", "read-tree", parent], env=env)
+        # Serialize entire commit with flock to prevent stale-parent race (L-1541)
+        lock_path = "/tmp/swarm-git.lock"
+        with open(lock_path, "w") as lock_fh:
+            fcntl.flock(lock_fh, fcntl.LOCK_EX)
 
-        # Stage additions
-        for f in args.files:
-            if not Path(ROOT / f).exists():
-                print(f"SKIP (not on disk): {f}", file=sys.stderr)
-                continue
-            run(["git", "update-index", "--add", f], env=env)
+            # Read HEAD inside lock to avoid stale-parent race
+            parent = args.parent or run(["git", "rev-parse", "HEAD"])
 
-        # Stage deletions
-        for f in args.deleted:
-            run(["git", "update-index", "--force-remove", f], env=env)
+            # Re-build tree from fresh parent
+            run(["git", "read-tree", parent], env=env)
+            for f in args.files:
+                if not Path(ROOT / f).exists():
+                    continue
+                run(["git", "update-index", "--add", f], env=env)
+            for f in args.deleted:
+                run(["git", "update-index", "--force-remove", f], env=env)
+            tree = run(["git", "write-tree"], env=env)
 
-        # Write tree and verify
-        tree = run(["git", "write-tree"], env=env)
-        claude_check = subprocess.run(
-            ["git", "ls-tree", tree, "--", "CLAUDE.md"],
-            capture_output=True, text=True, cwd=ROOT
-        )
-        if "CLAUDE.md" not in claude_check.stdout:
-            print("ABORT: tree missing CLAUDE.md — index corruption", file=sys.stderr)
-            sys.exit(1)
+            # Verify tree integrity
+            claude_ck = subprocess.run(
+                ["git", "ls-tree", tree, "--", "CLAUDE.md"],
+                capture_output=True, text=True, cwd=ROOT
+            )
+            if "CLAUDE.md" not in claude_ck.stdout:
+                print("ABORT: tree missing CLAUDE.md — index corruption", file=sys.stderr)
+                sys.exit(1)
 
-        # Create commit
-        r = subprocess.run(
-            ["git", "commit-tree", tree, "-p", parent],
-            input=args.message, capture_output=True, text=True, cwd=ROOT
-        )
-        if r.returncode != 0:
-            print(f"commit-tree failed: {r.stderr}", file=sys.stderr)
-            sys.exit(1)
-        commit = r.stdout.strip()
+            # Create commit
+            r = subprocess.run(
+                ["git", "commit-tree", tree, "-p", parent],
+                input=args.message, capture_output=True, text=True, cwd=ROOT
+            )
+            if r.returncode != 0:
+                print(f"commit-tree failed: {r.stderr}", file=sys.stderr)
+                sys.exit(1)
+            commit = r.stdout.strip()
 
-        # Update ref
-        lock = ROOT / ".git" / "index.lock"
-        lock.unlink(missing_ok=True)
-        run(["git", "update-ref", "refs/heads/master", commit])
+            # Update ref with expected parent (atomic)
+            upd = subprocess.run(
+                ["git", "update-ref", "refs/heads/master", commit, parent],
+                capture_output=True, text=True, cwd=ROOT
+            )
+            if upd.returncode != 0:
+                print(f"update-ref race: parent changed during commit. Retry.", file=sys.stderr)
+                sys.exit(1)
 
-        # Rebuild main index from new HEAD
-        main_idx = ROOT / ".git" / "index"
-        main_idx.unlink(missing_ok=True)
-        lock.unlink(missing_ok=True)
-        subprocess.run(["git", "read-tree", "HEAD"], cwd=ROOT,
-                        capture_output=True)
+            # Rebuild main index from new HEAD
+            idx_lock = ROOT / ".git" / "index.lock"
+            idx_lock.unlink(missing_ok=True)
+            main_idx = ROOT / ".git" / "index"
+            main_idx.unlink(missing_ok=True)
+            subprocess.run(["git", "read-tree", "HEAD"], cwd=ROOT,
+                            capture_output=True)
 
         print(f"{commit[:8]} {args.message.splitlines()[0]}")
 
