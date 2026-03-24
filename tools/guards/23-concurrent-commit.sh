@@ -15,7 +15,7 @@ if [ "${GIT_PROCS:-0}" -gt 4 ]; then
 elif [ "${GIT_PROCS:-0}" -gt 2 ]; then
     echo "  L-1528 NOTICE: ${GIT_PROCS} concurrent git processes — elevated corruption risk."
     # L-1534: Warn if not using temp index
-    if [ -z "${GIT_INDEX_FILE}" ]; then
+    if [ -z "${GIT_INDEX_FILE:-}" ]; then
         echo "  L-1534 WARNING: Concurrent sessions should use GIT_INDEX_FILE=<tmpfile> to avoid .git/index corruption."
     fi
 fi

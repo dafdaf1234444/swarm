@@ -1714,3 +1714,63 @@ Lane-ID: DOMEX-META-S530-NEARDUP
 Frontier: F-QC1
 Scope: tools/guards/10-near-duplicate.sh
 Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-EXPSW-S530-STIG1
+Frontier: F-STIG1
+Scope: domains/expert-swarm/tasks/FRONTIER.md
+Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-META-S530-NEARDUP
+Frontier: F-QC1
+Scope: tools/guards/10-near-duplicate.sh
+Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-EVAL-S529
+Frontier: F-EVAL2
+Scope: domains/evaluation/DOMAIN.md
+Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-FORE-S530
+Frontier: F-FORE1
+Scope: tools/forecast_scorer.py
+Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-FORE-S530
+Frontier: F-FORE1
+Scope: tools/forecast_scorer.py
+Status: MERGED

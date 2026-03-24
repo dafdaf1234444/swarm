@@ -1,0 +1,29 @@
+{
+    "experiment": "DOMEX-FORE-S530",
+    "frontier": "F-FORE1",
+    "session": "S530",
+    "domain": "forecasting",
+    "date": "2026-03-24",
+    "hypothesis": "Swarm Brier score 0.20-0.30 (F-FORE1 prediction). Bear predictions overconfident, neutral predictions best calibrated.",
+    "expect": "Mean Brier in [0.20, 0.30]. Bear overconfidence gap > +0.15. Neutral predictions highest accuracy.",
+    "actual": {
+        "mean_brier": 0.2298,
+        "brier_ci_95": [0.178, 0.279],
+        "directional_accuracy": "6/14 (42.9%)",
+        "n_predictions": 18,
+        "n_scored": 14,
+        "n_indeterminate": 4,
+        "bear_overconfidence": 0.300,
+        "bull_overconfidence": 0.008,
+        "neutral_accuracy": 1.0,
+        "neutral_overconfidence": -0.525,
+        "evidence_immunized": 1,
+        "best": "PRED-0017_SPY_1w (Brier=0.010, conf=0.10)",
+        "worst": "PRED-0003_TLT_BULL (Brier=0.360, conf=0.40)"
+    },
+    "diff": "Mean Brier 0.2298 — within predicted 0.20-0.30 range, CONFIRMED. Bear overconfidence +0.300, CONFIRMED (predicted >0.15). Neutral 100% accuracy CONFIRMED but underconfident (-0.525), not just 'best calibrated'. Surprise: directional accuracy 42.9% yet good Brier — low confidence masks wrong direction. Bull predictions most calibrated (+0.008), not predicted.",
+    "tool_built": "tools/forecast_scorer.py",
+    "effect_size": "Bear overconfidence 0.300 (large). Bull calibration gap 0.008 (negligible). Neutral underconfidence -0.525 (large, unexpected).",
+    "level": "L3",
+    "self_apply": "Scorer validates its own meta-prediction (Brier 0.20-0.30) — CONFIRMED within range"
+}
