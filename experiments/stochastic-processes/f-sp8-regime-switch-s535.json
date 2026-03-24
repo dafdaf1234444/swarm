@@ -1,0 +1,25 @@
+{
+  "experiment": "DOMEX-SP-S535-REGIME",
+  "frontier": "F-SP8",
+  "session": "S535",
+  "domain": "stochastic-processes",
+  "date": "2026-03-24",
+  "expect": "MS-ARMA with 2-3 regimes will reduce OOS RMSE from 0.397 to <0.15. Era-specific phi_1 values will correspond to developmental phases. Falsified if MS-ARMA fails to beat AR(1) OOS (0.148).",
+  "actual": "DEEPER FINDING: long memory itself was a LEVEL-SHIFT ARTIFACT. 10-micro-era demeaning reduces ACF plateau from 0.377 to 0.063 (83% reduction). Within any era after Era 1, phi_1 ≈ 0. Regime-switching is unnecessary because the underlying process is i.i.d. within eras — the apparent persistence was Simpson's paradox applied to time series.",
+  "diff": "Expected regime-switching to improve OOS: WRONG QUESTION. The phenomenon being modeled (ACF plateau) was not genuine long memory but aggregation artifact. 6+ sessions of model fitting (L-1491→L-1569) were modeling an illusion.",
+  "data": {
+    "n_observations": 765,
+    "era_phi1_values": [0.6028, 0.0543, -0.0277, 0.0098, -0.0065],
+    "era_means": [7.007, 8.007, 8.242, 8.588, 8.536],
+    "raw_acf_plateau": 0.377,
+    "demeaned_3era_plateau": 0.287,
+    "demeaned_10era_plateau": 0.063,
+    "plateau_reduction_pct": 83.4,
+    "era_phi_variance_pvalue": 0.0000,
+    "oos_rmse_naive": 1.229,
+    "oos_rmse_ar1": 1.139,
+    "oos_rmse_adaptive": 1.099
+  },
+  "lessons_produced": ["L-1585"],
+  "partially_falsifies": ["L-1491", "L-1509", "L-1555"]
+}
