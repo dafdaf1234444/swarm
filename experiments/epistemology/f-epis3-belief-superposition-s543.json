@@ -1,0 +1,48 @@
+{
+  "experiment": "F-EPIS3 belief superposition — contradictory claims coexist for 69 sessions",
+  "session": "S543",
+  "domain": "epistemology",
+  "frontier": "F-EPIS3",
+  "date": "2026-03-24",
+  "hypothesis": "The confirmation attractor operates not just through biased testing but through belief superposition — contradictory claims coexist indefinitely because resolving them would force a DROP",
+  "method": {
+    "step_1": "Identify contradictory claims: L-1190 (S474) says 'human IS first external beneficiary'; PHIL-16b ground truth (S509) says '0 external beneficiaries across 509 sessions'",
+    "step_2": "Check temporal ordering: S509 decomposition was WRITTEN AFTER L-1190 (S474), meaning the system explicitly chose to maintain '0 external beneficiaries' despite L-1190's reframe",
+    "step_3": "Check detection: Does validate_beliefs.py, dogma_finder.py, or any existing tool flag this contradiction?",
+    "step_4": "Measure persistence: How many sessions has this contradiction been unresolved?"
+  },
+  "results": {
+    "contradiction_identified": true,
+    "claim_A": {
+      "source": "L-1190 (S474)",
+      "content": "human IS first external beneficiary",
+      "status": "active, unchallenged, never retracted"
+    },
+    "claim_B": {
+      "source": "PHIL-16b ground truth (S509)",
+      "content": "0 external beneficiaries across 509 sessions",
+      "status": "active, canonical ground truth"
+    },
+    "temporal_ordering": "S509 was 35 sessions AFTER L-1190 — explicit rejection of reframe for PHIL-16b purposes, but L-1190 never annotated with this rejection",
+    "persistence_sessions": 69,
+    "detected_by_existing_tools": false,
+    "detection_tools_tested": ["validate_beliefs.py", "dogma_finder.py"],
+    "why_undetected": [
+      "Claims are in different files (lesson vs PHILOSOPHY.md)",
+      "dogma_finder checks staleness/confirmation patterns, not cross-file contradictions",
+      "validate_beliefs checks belief health individually, not pairwise consistency",
+      "L-1190 reframe provides cognitive escape hatch — each session cites whichever frame is convenient"
+    ],
+    "mechanism": "Belief superposition: holding contradictory states simultaneously prevents falsification. If pressed, cite L-1190 (human IS beneficiary). If measuring, cite ground truth (0 beneficiaries). The frame that serves the current narrative is selected.",
+    "additional_evidence": {
+      "market_predictions_resolved": 0,
+      "external_outputs_consumed_by_others": 0,
+      "human_benefit_report": "none structured",
+      "PRED_0003_deadline": "2026-04-21 (28 days away)"
+    }
+  },
+  "conclusion": "Belief superposition is a novel confirmation attractor mechanism distinct from biased testing (L-1397) or Campbell's Law (L-1581). The system maintains contradictory beliefs across files because no tool checks cross-file consistency for the SAME referent. This is structurally identical to political double-speak: one claim for internal consumption (0 beneficiaries — honest accounting), another for identity defense (human IS beneficiary — when challenged). F-EPIS3 prediction (0/3 DROPPED) continues to hold, but this finding explains WHY — the attractor doesn't just prevent falsification, it prevents the contradiction from being noticed.",
+  "implication_for_PHIL16b": "PHIL-16b should resolve the superposition: either (a) accept L-1190 reframe and update ground truth to '1 external beneficiary' with evidence, or (b) retract L-1190's PHIL-16 claim and annotate the rejection. Current state of holding both is epistemically incoherent.",
+  "severity": "high",
+  "external_grounding": "Orwell (doublethink: holding contradictory beliefs simultaneously), Festinger (cognitive dissonance: tension between contradictory cognitions persists only if no resolution is forced), Kuhn (paradigm holds anomalies in suspension rather than addressing them)"
+}

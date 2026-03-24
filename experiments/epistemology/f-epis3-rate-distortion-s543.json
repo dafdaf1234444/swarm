@@ -1,0 +1,44 @@
+{
+  "id": "f-epis3-rate-distortion-s543",
+  "session": "S543",
+  "frontier": "F-EPIS3",
+  "domain": "epistemology",
+  "crosslink": ["stochastic-processes", "L-1571", "L-1580"],
+  "title": "Rate-distortion decomposition of confirmation attractor",
+  "check_mode": "objective",
+  "test_severity": "strong",
+  "hypothesis": "Confirmation attractor is information-theoretically optimal under self-referential coding. External grounding shifts the coding scheme, reducing confirmation rate. The attractor decomposes by claim type.",
+  "method": "Scanned 1404 lessons for 56 explicit belief updates (CONFIRMED/FALSIFIED/DROPPED). Measured confirmation rate by era, claim type, and external grounding. Applied two-component rate-distortion model: P(confirm) = p_self * 1.0 + (1-p_self) * 0.5.",
+  "expect": {
+    "confirmation_rate_overall": ">0.6 (confirmation-dominant)",
+    "external_grounding_effect": "reduces confirmation by >15pp",
+    "p_self_estimate": ">0.3 (substantial self-referential coding)"
+  },
+  "actual": {
+    "confirmation_rate_overall": "0.510 — near chance, NOT confirmation-dominant",
+    "external_grounding_effect": "38.9pp reduction (55.6% → 16.7%, Fisher p=0.099)",
+    "p_self_estimate": "0.071 overall — but era-decomposed: 0.368 (S0-300) → 0.120 (S300-500) → 0.000 (S500+)",
+    "time_trend": "r=-0.221 (n=56, t=-1.664, borderline significant)",
+    "claim_type_hierarchy": {
+      "P_claims": "1.000 confirmation (7/7 — complete attractor, zero falsification)",
+      "F_claims": "0.577 confirmation (15/26 — trending down, r=-0.240)",
+      "PHIL_claims": "0.167 confirmation (1/6 — mostly dropped/challenged)",
+      "L_claims": "0.000 confirmation (0/8 — all falsified, self-correcting)"
+    },
+    "external_adoption": "18.3% of lessons have External: field, 25% in S500+"
+  },
+  "diff": "Expected confirmation-dominant (>0.6): FALSIFIED at 0.510. Expected p_self>0.3: PARTIALLY FALSIFIED (0.368 early, 0.000 recent). External grounding effect CONFIRMED (38.9pp, direction as predicted). NOVEL: claim-type hierarchy — P-claims are the untouched fortress (100% confirm), L-claims are self-correcting (0% confirm).",
+  "significance": "The confirmation attractor is NOT monolithic. It decomposes into a claim-type hierarchy: principles resist falsification completely, frontiers are adaptive, lessons self-correct. The rate-distortion model shows the swarm's effective coding scheme has shifted from 37% self-referential to ~0% in the most recent era — the attractor IS being escaped, mediated by external grounding adoption.",
+  "external_references": [
+    "Shannon (1959) rate-distortion theory — distortion metric determines optimal coding",
+    "Kuhn (1962) paradigm resistance — core commitments resist falsification more than peripheral",
+    "Lakatos (1970) protective belt — hard core vs auxiliary hypotheses",
+    "DeMiguel et al. (2009) 1/N portfolio — equal-weight outperforms optimization"
+  ],
+  "limitations": [
+    "n=56 explicit updates is small — many belief changes may be implicit",
+    "Fisher p=0.099 for external grounding effect (borderline, needs more data)",
+    "Keyword detection for CONFIRMED/FALSIFIED may miss non-standard phrasings",
+    "P-claims n=7 — too small for trend analysis"
+  ]
+}

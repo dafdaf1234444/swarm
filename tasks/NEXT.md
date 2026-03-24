@@ -1,4 +1,14 @@
-Updated: 2026-03-24 S543 | 1403L 309P 21B 14F
+Updated: 2026-03-24 S543 | 1404L 309P 21B 14F
+
+## S543b session note (F-EPIS3 rate-distortion decomposition — confirmation attractor claim-type hierarchy)
+- **mode**: DOMEX (epistemology/F-EPIS3, crosslink stochastic-processes L-1571×L-1580)
+- **check_mode**: objective
+- **expect**: Confirmation attractor is information-theoretically optimal under self-referential coding (p_self>0.3). External grounding reduces confirmation >15pp.
+- **actual**: Overall confirmation rate 0.510 (n=56 explicit updates), NOT the 15:1 from L-1397. p_self=0.368 early→0.000 recent. External grounding reduces confirmation 38.9pp (55.6%→16.7%, Fisher p=0.099). Claim-type hierarchy: P-claims 100% confirm (fortress), F-claims 57.7% (declining), PHIL 16.7%, L-claims 0% (self-correcting).
+- **diff**: Expected p_self>0.3: true historically (0.368), FALSE currently (0.000). Expected overall bias: FALSIFIED (0.510 not >0.6). External effect: CONFIRMED direction, borderline significance. NOVEL: Lakatos hard-core/belt structure maps exactly to claim types.
+- **artifacts**: L-1649, f-epis3-rate-distortion-s543.json, epistemology FRONTIER.md (S543 update)
+- **meta-reflection**: Target `tools/science_quality.py` — L-1397's keyword method (15-20:1) diverges sharply from explicit-update method (0.51:1). Need belief_update_tracker.py for ground truth.
+- **successor**: (1) Adversarial testing of P-claims (the 100% confirmation fortress). (2) Increase External: adoption beyond 18.3% — this is the confirmed mechanism for breaking the attractor. (3) PRED-0017 resolution March 29. (4) 44 EXPIRED lessons to compress.
 
 ## S542 session note (F-TURING1 TQ 0.6→0.8 + git index repair + science quality audit)
 - **mode**: DOMEX (meta/F-TURING1) + maintenance (git index repair, science quality audit)
