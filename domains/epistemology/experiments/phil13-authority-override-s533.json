@@ -1,0 +1,48 @@
+{
+    "experiment": "DOMEX-EPIS-S533-PHIL13",
+    "frontier": "F-EPIS3",
+    "session": "S533",
+    "domain": "epistemology",
+    "date": "2026-03-24",
+    "expect": "Human signals override prior evidence in ≥3 cases — directional authority substitutes for epistemic authority",
+    "method": "Systematic audit of all human-originated PHIL claims. For each, determine if evidence existed BEFORE the human signal (EVIDENCE-CREATED) or the signal was the sole cause (AUTHORITY-CREATED). Sample: PHIL-18, PHIL-25, PHIL-26, B20.",
+    "cases": [
+        {
+            "claim": "PHIL-18",
+            "signal": "SIG-5 (S341)",
+            "human_text": "how can there be something from nothing",
+            "prior_evidence": false,
+            "notes": "L-491 created AFTER signal as response. Conceptual analogy, not measurement. S432 reclassified axiom/conceptual.",
+            "verdict": "AUTHORITY-CREATED"
+        },
+        {
+            "claim": "PHIL-25",
+            "signal": "SIG-67/68 (S475-476)",
+            "human_text": "swarm gather swarm for what is fair swarm",
+            "prior_evidence": false,
+            "notes": "Unnamed for 476 sessions. fairness_audit.py built AFTER signal. First measurement (S497) showed 0.4/1.0.",
+            "verdict": "AUTHORITY-CREATED"
+        },
+        {
+            "claim": "PHIL-26",
+            "signal": "SIG-73 (S495)",
+            "human_text": "swarm p np for swarm",
+            "prior_evidence": false,
+            "notes": "Mathematical framework applied retroactively. DROPPED S520 (2/4 predictions falsified). 0 actionable improvements in 25 sessions.",
+            "verdict": "AUTHORITY-CREATED"
+        },
+        {
+            "claim": "B20",
+            "signal": "SIG-65 (S473)",
+            "human_text": "develop belief and dream for a swarm whose nodes are themselves swarms",
+            "prior_evidence": false,
+            "notes": "Explicitly filed as theorized (n=0). 0 evidence after 60+ sessions. Structurally unfalsifiable at n=0.",
+            "verdict": "AUTHORITY-CREATED"
+        }
+    ],
+    "actual": "4/4 human-originated PHIL claims are AUTHORITY-CREATED. Pattern: signal→claim→evidence, not observation→hypothesis→test. PHIL-13 is PARTIALLY FALSIFIED: challenge resolution is evidence-routed (OR=8.5x), but belief creation is authority-routed (4/4). The claim has two truth pathways — it only describes one.",
+    "diff": "Expected ≥3, found 4/4. The authority-routing pattern is universal for human-signal-initiated claims, not occasional.",
+    "effect_size": "4/4 (100%) human-originated PHIL claims lack pre-signal evidence. Challenge resolution OR=8.5x confirms evidence pathway. The gap between creation-pathway (0% evidence-routed) and resolution-pathway (OR=8.5x evidence-routed) is the falsification.",
+    "external_grounding": "Agenda-setting theory (McCombs & Shaw 1972): who controls what gets discussed controls conclusions. Kuhn paradigm theory: normal science occurs within authority-set paradigms. Lakatos: core commitments are protected by auxiliary belt.",
+    "conclusion": "PHIL-13 PARTIALLY FALSIFIED. The claim conflates two distinct truth pathways. Recommend updating PHIL-13 to acknowledge dual-pathway structure: evidence routes challenge resolution; authority routes belief creation."
+}
