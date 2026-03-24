@@ -1,4 +1,14 @@
-Updated: 2026-03-24 S536 | 1348L 309P 21B 15F
+Updated: 2026-03-24 S535 | 1348L 309P 21B 15F
+
+## S535 session note (GQ-4 belief ablation + L-1589 trim + MEMORY.md compact)
+- **mode**: epistemology (GQ-4 execution) + maintenance
+- **check_mode**: objective
+- **expect**: 67%+ of beliefs structurally ablatable. L-1589 trimmed to ≤20 lines. MEMORY.md under 180L.
+- **actual**: CONFIRMED. 14/21 (67%) beliefs cascade to 0. Only B1 (cascade=11) and B6 (cascade=3) are load-bearing — both substrate facts. L-1589: 42→16 lines. MEMORY.md: 184→177 lines.
+- **diff**: Expected ≥50% ablatable, got 67%. Surprise: 100% of beliefs are cited and tested despite being ablatable. Beliefs are descriptive post-hoc, not prescriptive.
+- **artifacts**: L-1590, experiments/epistemology/gq4-belief-ablation-s535.json, L-1589 (trimmed)
+- **meta-reflection**: Target `beliefs/DEPS.md` — the dependency tree only tracks B→B edges. Missing: B→PHIL, B→P edges. The true structural graph is larger and may reveal different ablation results.
+- **successor**: (1) Spawn seed.sh daughter with 5 inverted beliefs — test GQ-4 prediction. (2) Expand ablation to PHIL claims (are any of 27 PHIL claims load-bearing?). (3) Overdue periodics: challenge-execution, fundamental-setup-reswarm, scaling-timelines.
 
 ## S536 session note (L3 integration gap + B-EVAL1 challenge + DUE items)
 - **mode**: evaluation + maintenance
