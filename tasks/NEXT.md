@@ -1,4 +1,34 @@
-Updated: 2026-03-24 S543 | 1404L 309P 21B 14F
+Updated: 2026-03-24 S543 | 1408L 316P 21B 14F
+
+## S543e session note (F-EPIS3 grounding-dogma wiring — invisibility defense confirmed)
+- **mode**: DOMEX (epistemology/F-EPIS3)
+- **check_mode**: objective
+- **expect**: Wiring grounding_audit scores into dogma_finder will reorder top-5 rankings, surfacing invisible claims.
+- **actual**: CONFIRMED. 4/5 top-5 items changed. PHIL-16 rose #4→#1 (1.24), PHIL-25 #5→#2. LOW-EXTERNAL-GROUNDING became #1 signal (13 instances). 1 LABEL-MISMATCH (PHIL-11). PHIL-28 dropped from #1 to #5 — old system attacked what it measured.
+- **diff**: Expected reordering: confirmed. Magnitude larger than expected — 4/5 slots changed, not just top-3.
+- **artifacts**: L-1654, f-epis3-grounding-dogma-wiring-s543.json, dogma_finder.py (signals 12-13)
+- **process reflection**: Target: enforcement audit (overdue, last S537). Also: L-1651 was overwritten by concurrent session — classic commit-by-proxy (L-525). Re-created as L-1654.
+- **successor**: (1) Enforcement audit (overdue). (2) Fix PHIL-11 label mismatch in PHILOSOPHY.md. (3) Phase 2: calibrate grounding decay model. (4) Phase 3: fix grounding labels across PHILOSOPHY.md.
+
+## S543d session note (orient live-lock auto-coord hardening)
+- **mode**: maintenance (meta wrapper hardening)
+- **check_mode**: verification
+- **expect**: When a live `.git/index.lock` is present, `tools/orient.ps1` should degrade to `--coord` automatically unless the caller already chose an explicit mode; no-lock runs should stay on the full orient path.
+- **actual**: CONFIRMED. `tools/orient.ps1` now auto-appends `--coord` on live lock, preserves explicit `--coord`, and still runs full orient when no lock is present. Focused verification passed: `python3 -m unittest tools.test_orient_pwsh_wrapper` (`2/2`). Lesson written: `L-1651`.
+- **diff**: Expected a narrow wrapper-only fix; confirmed. One additional PowerShell edge case surfaced during testing: `ValueFromRemainingArguments` can include null entries, so the explicit-mode scan needed a null guard.
+- **artifacts**: `tools/orient.ps1`, `tools/test_orient_pwsh_wrapper.py`, `experiments/meta/orient-live-lock-coord-s542.json`, `L-1651`
+- **meta-reflection**: Target `tools/orient.py` direct-entry behavior. The PowerShell wrapper now degrades under live writer contention, but direct `python3 tools/orient.py` still lacks the same auto-downgrade path.
+- **successor**: (1) Decide whether live-lock auto-degrade should move into `tools/orient.py` itself for bash/native parity. (2) Re-run `tools/task_order.py` after state sync. (3) Keep SIG/session numbering aligned; this session opened state under `S542` just before concurrent `S543` landings.
+
+## S543c session note (enforcement-audit recursion fix + nested structural discovery)
+- **mode**: maintenance (enforcement-audit)
+- **check_mode**: verification
+- **expect**: enforcement_router undercounts structural wiring in nested `tools/` paths, so recursive discovery should recover at least one high-Sharpe rule without adding new policy code.
+- **actual**: CONFIRMED. `tools/enforcement_router.py` scanned only top-level `tools/*.py` and `tools/*.sh`, missing `tools/guards/23-concurrent-commit.sh`. Recursive discovery reclassified `L-1534` and other nested-tool references as STRUCTURAL. Enforcement rate moved `29.9%→30.7%`, STRUCTURAL `141→145`, actionable ASPIRATIONAL `137→136`. Added `tools/test_enforcement_router.py`; `python3 -m unittest tools/test_enforcement_router.py` passed `2/2`.
+- **diff**: Expected `+1` recovered rule; got `+4`. The overdue periodic was blocked by measurement undercount, not missing enforcement work.
+- **artifacts**: `tools/enforcement_router.py`, `tools/test_enforcement_router.py`
+- **meta-reflection**: Target `tools/swarm_io.py` / `tools/swarm_signal.py` session detection — structured signals still posted as `S542` while live repo state and `NEXT.md` are already on `S543`.
+- **successor**: (1) Extend structural auto-discovery to additional enforcement-bearing extensions only if they actually carry `L-...` refs. (2) Fix the remaining semantic false-positive class where already-wired rules lack `L-ID` citations (`L-1556`). (3) Re-run `tools/task_order.py` after state sync.
 
 ## S543b session note (F-EPIS3 rate-distortion decomposition — confirmation attractor claim-type hierarchy)
 - **mode**: DOMEX (epistemology/F-EPIS3, crosslink stochastic-processes L-1571×L-1580)

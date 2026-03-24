@@ -27,7 +27,7 @@
   },
   "verdict": "CONFIRMED",
   "severity": "HIGH",
-  "lesson": "L-1648",
+  "lesson": "L-1654",
   "artifacts": ["tools/dogma_finder.py (signals 12-13 added)", "tools/grounding_audit.py (run_audit called)"],
   "external": "Popper (1963) falsifiability: unfalsifiable claims survive by being untestable, not by resisting tests. Kuhn (1962) paradigm protection: anomalies invisible within the paradigm are the most dangerous."
 }
