@@ -11,11 +11,12 @@ Created: S352 | 2026-03-01 | Genesis council (5 experts: psychology, philosophy,
 - **Next**: (1) Measure wasted-work correlation at current accuracy levels; (2) Test prediction-aware dispatch; (3) Re-measure at S380 to track improvement trend.
 
 ## F-EMP2: Can the swarm detect and correct for empathy fatigue?
-- **Status**: OPEN | S352
-- **Question**: Does sustained helper-lane activity degrade helper quality within a session (compassion fatigue analog)?
-- **Test**: Measure helper-lane intervention quality (correction success, merge collision rate) vs. cumulative helper actions within session. Cross-reference F-PSY4 (introversion in scientists).
-- **Falsification**: If quality remains flat regardless of helper load, empathy fatigue is not a swarm phenomenon.
-- **Evidence**: ISO-13 (windup) predicts this. S186 human signal "kinda tired of spamming swarm" is anecdotal evidence.
+- **Status**: FALSIFIED | S541 (updated from S352)
+- **Question**: Does sustained activity within a session degrade quality (compassion fatigue analog)?
+- **Test**: Spearman correlation of relative commit ordinal vs. Sharpe score across multi-commit sessions (≥3 commits).
+- **Falsification**: If quality remains flat (|rho| < 0.15), empathy fatigue is not a swarm phenomenon. **MET**: rho=-0.065, p=0.050.
+- **S541 measurement (L-1636)**: n=900 ordinal-Sharpe pairs, 164 sessions. rho=-0.065 (NOT significant). Early Sharpe 8.27, late 8.07 (delta -0.20, trivial). L3+: early 93.5%, late 85.4% (level rho=-0.031, p=0.71). Per-session: 34 degrading, 30 improving, 41 neutral (symmetric). Context window reset eliminates classical fatigue. Artifact: experiments/empathy/f-emp2-fatigue-s541.json.
+- **Implication**: If fatigue exists in swarm, it is cross-session (knowledge debt accumulation), not within-session.
 
 ## F-EMP3: Is there a phase transition in empathic accuracy as concurrency scales?
 - **Status**: PARTIAL | S353

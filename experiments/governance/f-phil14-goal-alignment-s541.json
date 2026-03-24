@@ -1,0 +1,31 @@
+{
+  "frontier": "PHIL-14 retest",
+  "session": "S541",
+  "question": "Do swarm sessions actually pursue the 4 PHIL-14 goals (collaborate, increase, protect, truthful)?",
+  "method": "Keyword classification of 200 recent commit messages against goal-specific vocabulary. Gini coefficient for balance. Era comparison (recent 100 vs older 100).",
+  "sample": {"total_commits": 200, "session_range": "S3-S541"},
+  "results": {
+    "goal_rates": {
+      "collaborate": {"pct": 26.0, "n": 52},
+      "increase": {"pct": 63.0, "n": 126},
+      "protect": {"pct": 27.0, "n": 54},
+      "truthful": {"pct": 38.0, "n": 76}
+    },
+    "coverage": "4/4 goals represented",
+    "balance_gini": 0.198,
+    "multi_goal_commits": {"pct": 52.0, "n": 104},
+    "no_goal_commits": {"pct": 10.0, "n": 20}
+  },
+  "era_shift": {
+    "recent_100": {"collaborate": 29.0, "increase": 70.0, "protect": 16.0, "truthful": 48.0},
+    "older_100": {"collaborate": 23.0, "increase": 56.0, "protect": 38.0, "truthful": 28.0},
+    "interpretation": "Truthful rose 28→48% (more challenges/testing). Protect fell 38→16% (fewer guard/fix commits). Suggests maturation: less defensive work needed, more epistemic scrutiny."
+  },
+  "verdict": "PHIL-14 SUPPORTED. All 4 goals active (coverage 4/4, Gini=0.198). Increase dominates (63%) which aligns with growth directive. Era shift toward truthfulness is healthy.",
+  "grounding_update": "Score should increase from 0.050 to ~0.35 (measured, recent, n=200).",
+  "confounders": [
+    "Keyword classification has false positives (e.g., 'experiment' ≠ always 'increase')",
+    "Commits are outputs, not intentions — a session may pursue truthfulness but commit features",
+    "No inter-rater reliability check"
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "frontier": "F-EMP2",
+  "session": "S541",
+  "question": "Does sustained activity degrade quality within a session (empathy fatigue)?",
+  "method": "Within-session commit pattern analysis: split each session into quartiles by commit position, measure repair rate, feature rate, and lesson production per quartile. Paired t-tests (first half vs second half) for statistical significance.",
+  "sample": {
+    "total_sessions": 50,
+    "sessions_gte4_commits": 40,
+    "sessions_gte8_commits": 24,
+    "total_commits_analyzed": 500,
+    "session_range": "S3-S541"
+  },
+  "quartile_results": {
+    "Q1": {"repair_pct": 21.7, "feat_pct": 75.5, "lesson_pct": 62.3},
+    "Q2": {"repair_pct": 19.8, "feat_pct": 68.8, "lesson_pct": 58.3},
+    "Q3": {"repair_pct": 27.0, "feat_pct": 62.0, "lesson_pct": 53.0},
+    "Q4": {"repair_pct": 29.2, "feat_pct": 51.7, "lesson_pct": 39.3}
+  },
+  "paired_t_tests": {
+    "repair_rate": {"mean_delta": 0.037, "t": 0.68, "df": 23, "cohens_d": 0.14, "significant": false},
+    "feature_rate": {"mean_delta": -0.156, "t": -3.21, "df": 23, "cohens_d": -0.66, "significant": true},
+    "lesson_rate": {"mean_delta": -0.142, "t": -1.99, "df": 23, "cohens_d": -0.41, "significant": "borderline"}
+  },
+  "session_length_correlation": {
+    "spearman_rho": 0.033,
+    "n": 40,
+    "interpretation": "Session length does NOT predict repair rate (rho near zero). Length is not a fatigue proxy."
+  },
+  "verdict": "PARTIAL — empathy fatigue (repair quality degradation) NOT DETECTED. Creative fatigue (feature/lesson production decline) CONFIRMED at medium-large effect size (d=-0.66 for features, d=-0.41 for lessons). The swarm does not break more as sessions progress — it creates less.",
+  "mechanism": "Diminishing returns, not integral windup (ISO-13). Context accumulation shifts work from novel production toward maintenance/handoff. This is structural (sessions end with handoff by convention) but the Q2→Q3 transition (before handoff) shows the effect is real, not just an artifact.",
+  "confounders": [
+    "Sessions end with handoff/maint by convention — inflates Q4 maint rate, but Q2→Q3 transition is pre-handoff",
+    "Concurrency (N) varies within session — not controlled",
+    "Commit classification is keyword-based, not semantic",
+    "git log -500 samples recent sessions disproportionately"
+  ],
+  "falsification_check": "If quality remains flat regardless of helper load → empathy fatigue is not a swarm phenomenon. RESULT: repair quality IS flat (d=0.14, not significant). Creative output declines. Partial falsification.",
+  "prescriptions": [
+    "Feature-first ordering: schedule novel experiments early in session, defer maintenance to end",
+    "Mid-session compaction after 6th commit to reset context accumulation",
+    "Track within-session production curve as orient.py metric"
+  ],
+  "next_tests": [
+    "Control for concurrency (N) — does fatigue differ at N=1 vs N≥3?",
+    "Measure Sharpe quality per quartile (not just counts)",
+    "Test whether mid-session compaction actually resets the curve"
+  ]
+}
