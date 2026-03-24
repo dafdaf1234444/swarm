@@ -182,6 +182,10 @@ def check_frontier_namespace_linkage() -> list[tuple[str, str]]:
     from maintenance_signals import check_frontier_namespace_linkage as _impl
     return _impl()
 
+def check_challenge_quota() -> list[tuple[str, str]]:
+    from maintenance_signals import check_challenge_quota as _impl
+    return _impl()
+
 # ---------------------------------------------------------------------------
 # Delegation stubs — maintenance_lanes.py (pre-existing)
 # ---------------------------------------------------------------------------
@@ -413,6 +417,7 @@ def main():
         check_commit_hooks,
         check_version_drift,
         check_open_challenges,
+        check_challenge_quota,
         check_compaction,
         check_lessons,
         check_child_bulletins,

@@ -2,21 +2,21 @@
   "session": 537,
   "stale_window": 50,
   "global_states": {
-    "MUST-KNOW": 481,
-    "ACTIVE": 524,
-    "DECAYED": 519,
-    "BLIND-SPOT": 160,
+    "MUST-KNOW": 482,
+    "ACTIVE": 530,
+    "DECAYED": 518,
+    "BLIND-SPOT": 161,
     "SHOULD-KNOW": 129
   },
   "domain_profiles": {
     "unknown": {
       "MUST-KNOW": 34,
-      "ACTIVE": 19,
+      "ACTIVE": 20,
       "DECAYED": 99,
-      "BLIND-SPOT": 8
+      "BLIND-SPOT": 9
     },
     "meta": {
-      "MUST-KNOW": 164,
+      "MUST-KNOW": 165,
       "BLIND-SPOT": 47,
       "DECAYED": 145,
       "ACTIVE": 84,
@@ -45,7 +45,7 @@
     "health": {
       "DECAYED": 3,
       "MUST-KNOW": 3,
-      "ACTIVE": 1,
+      "ACTIVE": 2,
       "SHOULD-KNOW": 1
     },
     "ai": {
@@ -157,7 +157,7 @@
       "MUST-KNOW": 9,
       "DECAYED": 7,
       "BLIND-SPOT": 1,
-      "ACTIVE": 7,
+      "ACTIVE": 9,
       "SHOULD-KNOW": 6
     },
     "cryptocurrency": {
@@ -171,7 +171,7 @@
     "expert-swarm": {
       "DECAYED": 30,
       "MUST-KNOW": 46,
-      "ACTIVE": 25,
+      "ACTIVE": 26,
       "BLIND-SPOT": 7,
       "SHOULD-KNOW": 3
     },
@@ -255,10 +255,10 @@
       "SHOULD-KNOW": 3
     },
     "security": {
-      "DECAYED": 10,
+      "DECAYED": 9,
       "MUST-KNOW": 10,
+      "ACTIVE": 2,
       "BLIND-SPOT": 1,
-      "ACTIVE": 1,
       "SHOULD-KNOW": 2
     },
     "catastrophic-risks": {
@@ -349,10 +349,10 @@
       "SHOULD-KNOW": 3
     }
   },
-  "revival_rate": 17.96669588080631,
-  "revival_per_session": 0.3593339176161262,
-  "total_items": 1684,
-  "total_lessons": 1349,
+  "revival_rate": 18.285214348206473,
+  "revival_per_session": 0.3657042869641295,
+  "total_items": 1691,
+  "total_lessons": 1356,
   "total_principles": 314,
   "total_beliefs": 21,
   "frontier_count": 129,
@@ -415,19 +415,19 @@
   "hypotheses": [
     {
       "hypothesis": "SHOULD-KNOW > ACTIVE in \u226530% of domains",
-      "result": "33/52 domains (63.5%)",
+      "result": "32/52 domains (61.5%)",
       "pass": true,
       "threshold": "\u226530%"
     },
     {
       "hypothesis": "DECAYED\u2192ACTIVE transitions < 1% per session",
-      "result": "0.36% per session (cumulative 18.0% over 50s window)",
+      "result": "0.37% per session (cumulative 18.3% over 50s window)",
       "pass": true,
       "threshold": "<1%"
     },
     {
       "hypothesis": "Knowledge-state profiles change top-5 dispatch in \u22652/5 cases",
-      "result": "5/5 different (gap-ranked: ['protocol-engineering', 'claude-code', 'cryptocurrency', 'guesstimates', 'dream'], UCB1: ['epistemology', 'stochastic-processes', 'expert-swarm', 'forecasting', 'health'])",
+      "result": "5/5 different (gap-ranked: ['claude-code', 'protocol-engineering', 'cryptocurrency', 'guesstimates', 'dream'], UCB1: [])",
       "pass": true,
       "threshold": "\u22652/5"
     }
@@ -1032,6 +1032,12 @@
       "domain": "social-media",
       "title": "Social-media isomorphisms \u2014 ISO-7 confirmed (85x lift), ISO-",
       "age": 51
+    },
+    {
+      "id": "L-1597",
+      "domain": "unknown",
+      "title": "Von Neumann minimax reveals 10x under-falsification \u2014 every ",
+      "age": 537
     },
     {
       "id": "P-8",

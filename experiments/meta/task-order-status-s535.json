@@ -5,6 +5,28 @@
     "domain": "global",
     "date": "2026-03-24",
     "expect": "Replacing full-tree git status in task_order artifact discovery will cut build_task_list wall time by at least 10s without changing surfaced artifact tasks.",
-    "actual": "TBD",
-    "diff": "TBD"
+    "actual": "task_order.get_untracked_artifacts no longer uses full-tree git status. The targeted ls-files query reduced that step from 19.94s to 0.37s while still surfacing the same artifact class (untracked lessons/experiments). Full build_task_list timing remained noisy under live concurrent churn: 66.52s pre-patch in a profiled run versus 124.56s on a later live rerun, with remaining cost dominated by check_preemption (41.36s), dispatch tasks (19.09s), and maintenance-derived due parsing (9.08s). task_order.py --top 8 completed successfully in 126.5s on the patched run after earlier shell-level timeouts above 180s.",
+    "diff": "Expected an end-to-end build_task_list reduction of at least 10s. That prediction was NOT confirmed on the live repo because concurrent session movement shifted the bottleneck after the artifact-discovery fix landed. The local hotspot prediction WAS confirmed strongly: artifact discovery improved by about 98 percent (19.94s -> 0.37s) without changing task type surfaced. Successor work should target check_preemption and dispatch/maintenance subprocess cost instead of artifact discovery.",
+    "measurements": {
+        "before": {
+            "get_untracked_artifacts_s": 19.94,
+            "build_task_list_profiled_s": 66.52
+        },
+        "after": {
+            "get_untracked_artifacts_s": 0.37,
+            "get_due_items_s": 9.08,
+            "get_dispatch_tasks_s": 19.09,
+            "check_preemption_s": 41.36,
+            "build_task_list_live_s": 124.56,
+            "task_order_cli_top8_s": 126.5
+        }
+    },
+    "files_changed": [
+        "tools/task_order.py",
+        "tools/test_task_order_race.py"
+    ],
+    "verification": {
+        "unit_tests": "python3 -m unittest tools/test_task_order_race.py",
+        "unit_tests_result": "10/10 PASS"
+    }
 }

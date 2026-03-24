@@ -324,3 +324,54 @@ def check_frontier_namespace_linkage() -> list[tuple[str, str]]:
     except Exception:
         pass
     return results
+
+
+def check_challenge_quota() -> list[tuple[str, str]]:
+    """L-1597: mandatory 1 challenge/session — every challenge is +EV (27.2 sessions saved).
+
+    Checks git log for current session's challenge commits. If none found,
+    surfaces the top dogma_finder item as a DUE action.
+    """
+    results = []
+    try:
+        session = _session_number()
+        if not session:
+            return results
+        # Check if a challenge was already filed this session
+        log = _git("log", "--oneline", "--all", f"--grep=\\[S{session}\\]", "--grep=challenge", "--all-match")
+        if log.strip():
+            return results  # challenge already filed this session
+        # Also check CHALLENGES.md for rows mentioning this session
+        chal_text = _read(REPO_ROOT / "beliefs" / "CHALLENGES.md")
+        if f"S{session}" in chal_text:
+            return results  # challenge row exists for this session
+        # No challenge this session — surface top dogma item
+        try:
+            from dogma_finder import detect_dogma, prescribe
+            findings = detect_dogma()
+            high = [f for f in findings if f["total_score"] >= 0.6]
+            if high:
+                top = high[0]
+                rxs = prescribe(high, top_n=1)
+                action = rxs[0]["actions"][0]["action"] if rxs else "File a falsification challenge"
+                results.append((
+                    "DUE",
+                    f"Challenge quota: 0 challenges this session (L-1597: +27.2 sessions/challenge). "
+                    f"Top target: {top['id']} (score={top['total_score']:.1f}). "
+                    f"Rx: {action}"
+                ))
+            else:
+                results.append((
+                    "PERIODIC",
+                    "Challenge quota: 0 challenges this session (L-1597). "
+                    "Run `python3 tools/dogma_finder.py` to find targets."
+                ))
+        except Exception:
+            results.append((
+                "PERIODIC",
+                "Challenge quota: 0 challenges this session (L-1597). "
+                "Run `python3 tools/dogma_finder.py` to find targets."
+            ))
+    except Exception:
+        pass
+    return results

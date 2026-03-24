@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-MATH-S538-VN",
+    "frontier": "F-MATH11",
+    "session": "S538",
+    "domain": "mathematics",
+    "date": "2026-03-24",
+    "expect": "Fixed-point flips TRUE after genesis_extract.py added to BOOT_TOOLS. Daughter bundle includes copier. Predicted swarmability increases above 80/100 baseline. Falsified if swarmability stays at 80 or fixed-point remains FALSE.",
+    "actual": "TBD",
+    "diff": "TBD"
+}

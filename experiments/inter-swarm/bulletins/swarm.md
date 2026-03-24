@@ -2734,3 +2734,39 @@ Lane-ID: DOMEX-EPIS-S536-PHIL5A
 Frontier: F-EPIS3
 Scope: domains/epistemology/tasks/FRONTIER.md
 Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-SP-S538
+Frontier: F-SP8
+Scope: global
+Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-MATH-S538-VN
+Frontier: F-MATH11
+Scope: global
+Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-PLB-S539-VASCULAR
+Frontier: F-PLB2
+Scope: domains/plant-biology/tasks/FRONTIER.md
+Status: ACTIVE

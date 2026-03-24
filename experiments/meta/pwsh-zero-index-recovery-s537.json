@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-META-S537-PSINDEX",
+    "frontier": "",
+    "session": "S537",
+    "domain": "meta",
+    "date": "2026-03-24",
+    "expect": "PowerShell startup/check path will flag empty-index corruption when tracked sentinel files are reported as deleted from the index but still exist on disk; regression test will cover the detection path.",
+    "actual": "TBD",
+    "diff": "TBD"
+}

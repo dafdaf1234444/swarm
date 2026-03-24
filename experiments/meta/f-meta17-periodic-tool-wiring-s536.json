@@ -5,6 +5,6 @@
     "domain": "meta",
     "date": "2026-03-24",
     "expect": "Register 3-5 read-only audit tools in periodics.json so task surfaces shrink and the unreferenced-tool count drops without touching claimed pre-commit files.",
-    "actual": "TBD",
-    "diff": "TBD"
+    "actual": "Registered 4 read-only audit tools in tools/periodics.json: signal_integrity.py, tool_reliability.py, numerical_claim_scanner.py, and confidence_audit.py. All 4 commands ran cleanly on the live repo before registration. Post-change checks: tools/periodics.json parses, task_order.py no longer surfaces the unreferenced-tool DUE, and meta_tooler.py --category unreferenced reports 51 remaining findings.",
+    "diff": "Expected 3-5 periodic registrations without touching the claimed pre-commit files. Confirmed: landed 4 via the unclaimed periodic path. The exact count reduction was larger than expected on the direct meta_tooler measure (70 analyzed candidates in the S536 audit artifact vs 51 live unreferenced findings after wiring), though part of that delta may reflect concurrent repo movement and scan-method differences rather than only this patch."
 }
