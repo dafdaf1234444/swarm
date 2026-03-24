@@ -2662,3 +2662,75 @@ Lane-ID: DOMEX-COL-S536-DIVERSITY
 Frontier: F-COL1
 Scope: tools/dispatch_optimizer.py
 Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-EPIS-S520
+Frontier: F-EPIS3
+Scope: domains/epistemology/tasks/FRONTIER.md
+Status: ABANDONED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-EPIS-S525
+Frontier: F-EPIS3
+Scope: tools/dogma_finder.py
+Status: ABANDONED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-EPIS-S533-PHIL13
+Frontier: F-EPIS3
+Scope: domains/epistemology/tasks/FRONTIER.md
+Status: ABANDONED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-EPIS-S536-PHIL5A
+Frontier: F-EPIS3
+Scope: global
+Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-MATH-S537-MINIMAX
+Frontier: F-MATH12
+Scope: domains/mathematics/tasks/FRONTIER.md
+Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-EPIS-S536-PHIL5A
+Frontier: F-EPIS3
+Scope: domains/epistemology/tasks/FRONTIER.md
+Status: MERGED

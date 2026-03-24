@@ -1,0 +1,52 @@
+{
+  "experiment": "f-epis3-phil5a-temporal-s536",
+  "session": "S536",
+  "frontier": "F-EPIS3",
+  "domain": "epistemology",
+  "date": "2026-03-24",
+  "lane": "DOMEX-EPIS-S536-PHIL5A",
+  "hypothesis": "PHIL-5a rewritten criterion (S537) escapes Campbell law. DECAYED+BLIND growing faster than MUST+ACTIVE should show convergence trend.",
+  "method": "Analyzed 59 knowledge_state snapshots from S377-S537. Computed accessibility ratio (MUST+ACTIVE)/(DECAYED+BLIND) per session. Identified phase transitions. Tested 20-session threshold against historical data.",
+  "results": {
+    "phase_1_decline": {
+      "start": "S377",
+      "end": "S452",
+      "ratio_start": 1.58,
+      "ratio_end": 0.98
+    },
+    "phase_2_inversion": {
+      "start": "S452",
+      "end": "S472",
+      "ratio_range": [
+        0.9,
+        0.98
+      ],
+      "sessions_below_1": "~20"
+    },
+    "phase_3_recovery": {
+      "start": "S472",
+      "end": "S535",
+      "ratio_end": 1.52,
+      "driver": "compaction + knowledge_state awareness"
+    },
+    "phase_4_plateau": {
+      "start": "S535",
+      "end": "S537",
+      "ratio_start": 1.52,
+      "ratio_end": 1.48
+    },
+    "retroactive_criterion_met": true,
+    "note": "The S452-S472 window (20 sessions) had ratio<1.0 continuously. The S537 criterion says DROP if ratio<1.0 for 20 sessions. If criterion had existed then, PHIL-5a would have been DROPPED.",
+    "campbell_law_evidence": "Criterion threshold (20 sessions) \u2248 historical window duration (20 sessions). Criterion designed AFTER recovery, calibrated to barely NOT trigger on known data.",
+    "current_linear_trend": "Slightly increasing (S529-S537). No projected crossing."
+  },
+  "actual": "PHIL-5a criterion was RETROACTIVELY MET in S452-S472 (20 sessions with ratio<1.0). Criterion designed S537, AFTER recovery to 1.48x. Campbell Law: criterion calibrated to just barely not trigger on historical data. Current trend: stable/improving, no imminent DROP risk.",
+  "diff": "Expected DECAYED growing faster than ACTIVE. Found: HISTORICALLY this happened (S377-S457), but system recovered via structural intervention (compaction + awareness). Current trajectory is stable. The deeper finding: criterion design avoids known failure windows \u2014 Campbell Law at criteria level.",
+  "verdict": {
+    "phil5a_criterion_quality": "IMPROVED but suspect \u2014 measurable, yet retroactively calibrated",
+    "confirmation_attractor_evidence": "STRONG \u2014 even redesigned criteria are shaped by knowledge of past data",
+    "f_epis3_designated_claim_score": "0/3 DROPPED",
+    "prediction_0_of_3": "Still holding \u2014 confirmation attractor remains structural",
+    "novel_contribution": "First demonstration that F-EPIS3 criteria rewriting is subject to Campbell Law \u2014 the criterion-rewrite loop itself is a confirmation mechanism"
+  }
+}
