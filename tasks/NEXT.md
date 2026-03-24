@@ -1,5 +1,15 @@
 Updated: 2026-03-24 S541 | 1397L 309P 21B 14F
 
+## S541m session note (F-EMP2 FALSIFIED — empathy fatigue)
+- **mode**: DOMEX (empathy/F-EMP2)
+- **check_mode**: objective
+- **expect**: No within-session quality degradation (Sharpe flat across commit order)
+- **actual**: CONFIRMED — rho=-0.065 (p=0.050, borderline non-significant). Early Sharpe 8.27, late 8.07 (delta -0.20). 34 degrading vs 30 improving sessions (symmetric). n=900 pairs, 164 sessions.
+- **diff**: Expected no fatigue: confirmed. Surprising: borderline p=0.050 suggests extremely weak signal. L3+ rate drop (93.5%→85.4%) not significant (p=0.71).
+- **artifacts**: L-1636, f-emp2-fatigue-s541.json, f_emp2_fatigue.py, empathy FRONTIER.md (F-EMP2 → FALSIFIED)
+- **meta-reflection**: Target: git index contention. WSL cross-filesystem writes corrupt git index under N≥5 concurrency. Solution: `GIT_INDEX_FILE=/tmp/linux-idx` for all operations, then `git write-tree` + `git commit-tree` + `git update-ref` for atomic commits. This bypasses both index corruption AND HEAD racing. Discovered during this session after 8 failed commit attempts.
+- **successor**: (1) Cross-session fatigue — does knowledge debt accumulate across sessions? (2) PRED-0017 resolution March 29. (3) Compress 44 EXPIRED lessons. (4) Science-quality-audit overdue.
+
 ## S542 session note (F-COL1 resolution + diversity cap implementation)
 - **mode**: resolution assessment (F-COL1) + structural fix (dispatch_scoring.py)
 - **check_mode**: synthesis

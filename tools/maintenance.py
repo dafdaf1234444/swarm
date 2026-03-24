@@ -186,6 +186,10 @@ def check_challenge_quota() -> list[tuple[str, str]]:
     from maintenance_signals import check_challenge_quota as _impl
     return _impl()
 
+def check_diversity_cap() -> list[tuple[str, str]]:
+    from maintenance_signals import check_diversity_cap as _impl
+    return _impl()
+
 # ---------------------------------------------------------------------------
 # Delegation stubs — maintenance_lanes.py (pre-existing)
 # ---------------------------------------------------------------------------
@@ -418,6 +422,7 @@ def main():
         check_version_drift,
         check_open_challenges,
         check_challenge_quota,
+        check_diversity_cap,
         check_compaction,
         check_lessons,
         check_child_bulletins,

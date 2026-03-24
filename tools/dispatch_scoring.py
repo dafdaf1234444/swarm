@@ -159,6 +159,14 @@ CONCENTRATION_SHARE_THRESHOLD = 0.10   # domain must hold >10% of total lanes
 CONCENTRATION_PENALTY_SCALE = 2.0      # penalty per 1% above threshold
 CONCENTRATION_PENALTY_CAP = 3.0        # max penalty
 
+# Diversity cap — quality-independent (F-COL1, L-1643)
+# Top-3 domains by dispatch share are penalized if their combined share exceeds
+# this threshold. Unlike CONCENTRATION_* above, this fires REGARDLESS of exploit
+# score, because L-1635 showed UCB1 self-evaluation is Goodhart-contaminated.
+DIVERSITY_CAP_TOP3_THRESHOLD = 0.30    # top-3 combined share must stay ≤30%
+DIVERSITY_CAP_PENALTY_SCALE = 3.0      # penalty per 1% above threshold
+DIVERSITY_CAP_PENALTY_MAX = 5.0        # hard cap on penalty
+
 
 # Heuristic mode constants (shared with dispatch_optimizer.py display)
 HEAT_DECAY = 0.85
@@ -593,6 +601,36 @@ def ucb1_score(results: list[dict], outcome_map: dict, heat_map: dict,
                 r["concentration_penalty"] = round(penalty, 3)
             else:
                 r["concentration_penalty"] = 0.0
+
+    # Diversity cap — quality-independent top-3 share limit (F-COL1, L-1643)
+    # The concentration penalty above requires below-median exploit to fire.
+    # L-1635 showed UCB1 exploit is Goodhart-contaminated (rho=+0.693 vs
+    # external rho=-0.151), so the quality gate never triggers on dominant
+    # domains. This cap fires on ALL top-3 domains when their combined share
+    # exceeds 30%, regardless of exploit score.
+    if total_dispatches > 20:
+        domain_shares = {}
+        for r in results:
+            dom = r["domain"]
+            oc = outcome_map.get(dom, {"merged": 0, "abandoned": 0})
+            n_dom = oc["merged"] + oc["abandoned"]
+            domain_shares[dom] = n_dom / total_dispatches
+        top3_domains = sorted(domain_shares, key=domain_shares.get, reverse=True)[:3]
+        top3_share = sum(domain_shares.get(d, 0) for d in top3_domains)
+        for r in results:
+            r["diversity_cap_penalty"] = 0.0
+        if top3_share > DIVERSITY_CAP_TOP3_THRESHOLD:
+            excess_pct = (top3_share - DIVERSITY_CAP_TOP3_THRESHOLD) * 100
+            for r in results:
+                if r["domain"] in top3_domains:
+                    dom_excess = domain_shares.get(r["domain"], 0) / top3_share
+                    penalty = min(excess_pct * dom_excess * DIVERSITY_CAP_PENALTY_SCALE,
+                                  DIVERSITY_CAP_PENALTY_MAX)
+                    r["score"] -= penalty
+                    r["diversity_cap_penalty"] = round(penalty, 3)
+    else:
+        for r in results:
+            r["diversity_cap_penalty"] = 0.0
 
     # Adjacency bonus — post-loop computation (F-CITY1, L-1510)
     # After all individual scores are set, identify top-N domains and boost

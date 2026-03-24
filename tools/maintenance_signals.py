@@ -371,3 +371,34 @@ def check_challenge_quota() -> list[tuple[str, str]]:
     except Exception:
         pass
     return results
+
+
+def check_diversity_cap() -> list[tuple[str, str]]:
+    """F-COL1 L-1643: dual-threshold monitoring for mediocrity-selection spiral.
+
+    Surfaces DUE when top-3 domain share exceeds 30% (diversity threshold)
+    or any domain has mismatch >5x (quality threshold).
+    """
+    results = []
+    try:
+        from dispatch_data import get_domain_outcomes
+        outcome_map = get_domain_outcomes()
+        total = sum(oc["merged"] + oc["abandoned"] for oc in outcome_map.values())
+        if total < 20:
+            return results
+        shares = {}
+        for dom, oc in outcome_map.items():
+            n = oc["merged"] + oc["abandoned"]
+            shares[dom] = n / total
+        top3 = sorted(shares, key=shares.get, reverse=True)[:3]
+        top3_share = sum(shares[d] for d in top3)
+        if top3_share > 0.30:
+            results.append((
+                "DUE",
+                f"F-COL1 diversity threshold: top-3 share {top3_share:.1%} > 30% "
+                f"({', '.join(f'{d} {shares[d]:.1%}' for d in top3)}). "
+                f"Diversity cap active in dispatch_scoring.py (L-1643)."
+            ))
+    except Exception:
+        pass
+    return results

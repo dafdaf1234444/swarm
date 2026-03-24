@@ -1,0 +1,106 @@
+{
+  "frontier": "F-COL1",
+  "session": "S542",
+  "title": "F-COL1 Resolution Assessment: Mediocrity-Selection Degenerative Spiral",
+  "type": "resolution-assessment",
+  "question": "Can the swarm model and avoid the mediocrity-selection degenerative spiral?",
+  "evidence_summary": {
+    "test_1_diversity": {
+      "session": "S536",
+      "hypothesis": "Effective diversity < 40% of headcount",
+      "result": "CONFIRMED",
+      "data": {
+        "n_lanes": 929,
+        "n_domains": 142,
+        "shannon_effective": 49.6,
+        "herfindahl_effective": 21.4,
+        "gini": 0.686,
+        "top3_share": 0.346,
+        "temporal_decline": "27.8% -> 18.8% (0.68x)",
+        "recent_20_window": "3.4 effective / 7 domains"
+      },
+      "lessons": ["L-1591"],
+      "verdict": "Imitation dynamics real. UCB1 rich-get-richer confirmed."
+    },
+    "test_2_mismatch_threshold": {
+      "session": "S540-S541",
+      "hypothesis": "Theta ≈ 2.0 mismatch triggers spiral",
+      "result": "PARTIALLY_FALSIFIED",
+      "data": {
+        "auth_competence_rho_external": -0.151,
+        "auth_competence_rho_ucb1": 0.693,
+        "partial_r_mismatch_sharpe_time": -0.009,
+        "theta_quality": "5x mismatch",
+        "theta_diversity": "0.30 top-3 share",
+        "meta_mismatch": "13.3x",
+        "meta_quality_rank": "median (17/28)",
+        "top3_share_current": 0.346,
+        "diversity_threshold_crossed": true,
+        "quality_threshold_crossed": false
+      },
+      "lessons": ["L-1619", "L-1621", "L-1622", "L-1635"],
+      "verdict": "Dual-threshold model replaces single-threshold. Spiral inactive — diversity crossed, quality not. UCB1 self-evaluation Goodhart-contaminated."
+    },
+    "test_3_dispatch_vs_equal": {
+      "session": "S541",
+      "hypothesis": "UCB1-weighted dispatch outperforms equal-weight",
+      "result": "FALSIFIED",
+      "data": {
+        "n_lanes": 54,
+        "n_domains": 12,
+        "merge_rate_equal_delta": "+7.6pp (CI [-0.8, +15.4])",
+        "sharpe_ucb1_delta": "+0.58 (CI [-0.14, +1.42])",
+        "top3_merge_penalty": "-20.9pp vs rest",
+        "thin_domain_merge": 0.861,
+        "thick_domain_merge": 0.364,
+        "bootstrap_n": 5000
+      },
+      "lessons": ["L-1634"],
+      "verdict": "No significant UCB1 advantage. Concentration negatively correlated with quality."
+    }
+  },
+  "cross_cutting_finding": {
+    "goodhart_cascade": {
+      "lesson": "L-1622",
+      "finding": "Self-referential evaluation produces false meritocratic signal. UCB1 rho=+0.693 vs external rho=-0.151. Three proxy chains all diverge.",
+      "implication": "Cannot trust UCB1 to evaluate UCB1 allocation. Need external metrics."
+    }
+  },
+  "resolution_verdict": "PARTIALLY_RESOLVED",
+  "resolution_rationale": {
+    "what_was_answered": [
+      "Mediocrity-selection spiral EXISTS as structural mechanism (9 propositions, 4 tested empirically)",
+      "Dual-threshold model identified: quality (5x mismatch) AND diversity (30% top-3 share)",
+      "Current state: diversity threshold CROSSED (34.6%), quality threshold NOT crossed (meta at median)",
+      "UCB1 defense mechanism is Goodhart-contaminated — cannot self-diagnose",
+      "Expert dispatch ≈ equal allocation on quality metrics (no significant difference)"
+    ],
+    "what_remains_open": [
+      "Intervention test: does capping top-3 share <30% arrest diversity decline?",
+      "External quality metrics: needed to replace Goodhart-contaminated Sharpe",
+      "Activation test: what happens when quality threshold IS crossed? (requires deliberate or natural conditions)",
+      "Scale: results at n=54 lanes/12 domains; behavior at n>200 unknown"
+    ]
+  },
+  "prescriptions": {
+    "P1_diversity_cap": {
+      "action": "Add diversity_cap parameter to dispatch_optimizer.py: cap top-3 domain share at 30%",
+      "mechanism": "If top-3 share > 0.30, redistribute excess probability to underrepresented domains",
+      "test": "Top-3 share drops below 30%; effective diversity increases; mean Sharpe unchanged (CI includes 0)",
+      "priority": "HIGH — diversity threshold already crossed"
+    },
+    "P2_external_quality": {
+      "action": "Replace self-rated Sharpe with merge rate as primary quality signal in UCB1",
+      "mechanism": "merge_rate = merged_lanes / total_lanes per domain. External to assignment process.",
+      "test": "UCB1 rankings converge with external rankings at rho > 0.3",
+      "priority": "HIGH — Goodhart cascade active"
+    },
+    "P3_monitoring": {
+      "action": "Add dual-threshold monitoring to orient.py: surface DUE when top-3 > 30% OR any domain mismatch > 5x",
+      "mechanism": "Per-session check in maintenance_signals.py",
+      "test": "Threshold crossings surfaced within 1 session",
+      "priority": "MEDIUM — infrastructure for ongoing vigilance"
+    }
+  },
+  "successor_work": "F-COL1 monitoring phase (S542+). Implement P1 diversity cap. Track whether spiral activates if conditions change. Consider F-COL2 for external quality metrics integration."
+}
