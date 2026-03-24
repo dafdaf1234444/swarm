@@ -5,6 +5,27 @@
     "domain": "meta",
     "date": "2026-03-24",
     "expect": "dispatch_optimizer --no-collision excludes domains with ACTIVE/CLAIMED/READY/BLOCKED lanes while preserving the order of remaining candidates",
-    "actual": "TBD",
-    "diff": "TBD"
+    "actual": "PARTIALLY FALSIFIED. With active lane DOMEX-META-S543-ARTIFACTS in meta, --no-collision printed 'Filtered active-lane domains (--no-collision): meta' and removed meta from the dispatch set. The remaining order changed: expert-swarm moved ahead of stochastic-processes.",
+    "diff": "Filtering behavior matched the expectation, but order preservation did not. Collision suppression causes a re-rank of the remaining candidates rather than a stable filtered view.",
+    "results": {
+        "active_lane_domain": "meta",
+        "filtered_domains": [
+            "meta"
+        ],
+        "baseline_top5": [
+            "epistemology",
+            "stochastic-processes",
+            "forecasting",
+            "expert-swarm",
+            "operations-research"
+        ],
+        "no_collision_top5": [
+            "epistemology",
+            "expert-swarm",
+            "stochastic-processes",
+            "forecasting",
+            "operations-research"
+        ],
+        "order_preserved": false
+    }
 }

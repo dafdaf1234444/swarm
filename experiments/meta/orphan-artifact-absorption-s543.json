@@ -1,0 +1,49 @@
+{
+    "experiment": "DOMEX-META-S543-ARTIFACTS",
+    "frontier": "",
+    "session": "S543",
+    "domain": "meta",
+    "date": "2026-03-24",
+    "expect": "Artifact bundle will shrink to only complete, validated files; --no-collision verification will show active-lane domains are filtered without reordering the remaining domains.",
+    "actual": "PARTIALLY CONFIRMED. Cleaned 2 lesson files, validated 7 legacy artifacts unchanged, completed 1 skeleton experiment, and excluded 1 ambiguous file from commit scope. --no-collision filtered the active meta lane but changed the remaining order.",
+    "diff": "Expected filtering plus stable remaining ranks. Got filtering plus a rank swap (expert-swarm above stochastic-processes) after collision suppression. Bundle hygiene succeeded, but one science-quality artifact remains deferred because its filename/session provenance is inconsistent.",
+    "results": {
+        "candidate_files": 11,
+        "validated_for_commit": [
+            "memory/lessons/L-1626.md",
+            "memory/lessons/L-1632.md",
+            "experiments/ai/f-ai5-epistemic-lock-s541.json",
+            "experiments/epistemology/f-epis3-grounding-survival-s541.json",
+            "experiments/epistemology/f-epis3-grounding-survival-s541.py",
+            "experiments/epistemology/f-epis3-meta-dogma-audit-s541.json",
+            "experiments/evaluation/f-eval2-sharpe-normalization-s541.json",
+            "experiments/meta/dispatch-no-collision-s541.json",
+            "experiments/meta/knowledge-state-s542.json",
+            "experiments/meta/science-quality-audit-s541.json"
+        ],
+        "excluded_from_commit": [
+            {
+                "path": "experiments/meta/science-quality-audit-s540.json",
+                "reason": "Filename says S540 but payload session is 541; provenance is unclear enough to defer."
+            }
+        ],
+        "no_collision_verification": {
+            "active_lane_domain": "meta",
+            "baseline_top5": [
+                "epistemology",
+                "stochastic-processes",
+                "forecasting",
+                "expert-swarm",
+                "operations-research"
+            ],
+            "no_collision_top5": [
+                "epistemology",
+                "expert-swarm",
+                "stochastic-processes",
+                "forecasting",
+                "operations-research"
+            ],
+            "order_preserved": false
+        }
+    }
+}
