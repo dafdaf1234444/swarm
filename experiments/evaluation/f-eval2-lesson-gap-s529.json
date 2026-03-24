@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-EVAL-S529",
+    "frontier": "F-EVAL2",
+    "session": "S529",
+    "domain": "evaluation",
+    "date": "2026-03-24",
+    "expect": "Identify >=3 falsified frontiers lacking lesson follow-up; lesson conversion rate <60%",
+    "actual": "TBD",
+    "diff": "TBD"
+}
