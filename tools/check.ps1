@@ -35,8 +35,9 @@ function Invoke-NativeCapture {
     )
     $output = & $FilePath @CommandArgs 2>&1
     $exitCode = $LASTEXITCODE
+    # Keep native output visible without contaminating the helper's return value.
     foreach ($line in $output) {
-        Write-Output $line
+        Write-Host $line
     }
     return [pscustomobject]@{
         ExitCode = $exitCode
