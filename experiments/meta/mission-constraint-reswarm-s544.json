@@ -1,0 +1,10 @@
+{
+    "experiment": "MAINT-S544-MCR",
+    "frontier": "F119",
+    "session": "S544",
+    "domain": "global",
+    "date": "2026-03-24",
+    "expect": "I9-I13 remain zero-drift with 47/47 mission tests passing; MC-PORT fallback path remains valid despite broken Windows python alias.",
+    "actual": "TBD",
+    "diff": "TBD"
+}

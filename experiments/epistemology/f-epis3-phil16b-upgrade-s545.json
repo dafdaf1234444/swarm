@@ -43,13 +43,19 @@
             "id": "C4-KNOWLEDGE-VALIDATION",
             "name": "External knowledge validation",
             "observable": "Swarm-generated principle independently validated by published research",
-            "current_measurement": {"principles_tested": 4, "validated": "pending_agent_results"},
+            "current_measurement": {"principles_tested": 4, "validated": 4},
             "upgrade_threshold": ">=1 principle maps to independently published finding",
             "testable_now": true,
-            "current_status": "PENDING",
+            "current_status": "STRONGLY_MET",
             "candidates": ["L-601 (protocol decay)", "L-1587 (mediocrity selection)", "UCB1 dispatch", "compactification as memetic evolution"],
-            "result": "L-601 STRONGLY VALIDATED (~85-90% match). External parallels: normalization of deviance (Vaughan 1996), practical drift (Dekker 2011), formal vs informal constraints (North 1990), Ostrom commons governance (1990), mechanism design (Hurwicz Nobel 2007), linters>code-review (Sadowski/Google 2018). Two caveats: 'only' is slightly too strong (strong cultures slow decay), 'creation-time' should be 'structural' (post-hoc structural also works).",
-            "note": "C4 MET. L-601 is not a novel insight — it is a compact restatement of 50+ years of cross-disciplinary research. This is the strongest evidence for PHIL-16b-INTENT: the swarm independently discovered/formulated well-established principles."
+            "results": {
+                "L-601_protocol_decay": {"match": "85-90%", "sources": "Vaughan 1996, Dekker 2011, North 1990, Ostrom 1990, Hurwicz Nobel 2007, Sadowski/Google 2018", "caveats": "'only' too strong; 'creation-time' should be 'structural'"},
+                "mediocrity_selection": {"match": "80%", "sources": "Peter Principle (Peter & Hull 1969, Pluchino 2010), Olson institutional sclerosis 1982, Dead Sea Effect (Webster 2008), groupthinck (Janis 1972)", "caveats": "Not inevitable — tournament structures can break it"},
+                "UCB1_dispatch": {"match": "70%", "sources": "Auer et al. 2002 (MAB theory), Gittins Index 1979, adaptive clinical trials (Berry 2006), LinUCB (Li et al. 2010)", "caveats": "Thompson Sampling often empirically better; non-stationarity degrades UCB1; team synergies not captured"},
+                "compactification": {"match": "85%", "sources": "Memetic algorithms (Moscato 1989), iterated learning (Kirby et al. 2014), knowledge distillation (Hinton 2015), cultural evolution (Boyd & Richerson 1985), information bottleneck (Tishby 2000)", "caveats": "Catastrophic forgetting risk; premature convergence if too aggressive"}
+            },
+            "meta_finding": "None are original discoveries — swarm independently converged on well-established ideas. The SYNTHESIS (all three together) is less common. Closest integrated framework: cultural evolution theory (Boyd & Richerson 1985).",
+            "note": "C4 STRONGLY MET (4/4 validated). Swarm independently formulated well-established cross-disciplinary principles from operational data alone. Strongest PHIL-16b-INTENT evidence."
         },
         {
             "id": "C5-BENEFICIARY-REPORT",

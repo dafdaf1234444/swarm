@@ -1,0 +1,2569 @@
+{
+  "total_claims": 27,
+  "lessons_indexed": 201,
+  "conflicts": [
+    {
+      "phil_id": "PHIL-15",
+      "lesson_id": "L-1231",
+      "lesson_session": 0,
+      "gt_session": 356,
+      "type": "potential_conflict",
+      "assertion": "Confidence: Measured (n=5 impossibility candidates tested against PHIL-15 two-case structure)",
+      "gt_status": "",
+      "temporal": "pre-gt"
+    },
+    {
+      "phil_id": "PHIL-16b",
+      "lesson_id": "L-1190",
+      "lesson_session": 0,
+      "gt_session": 509,
+      "type": "potential_conflict",
+      "assertion": "**S543 NOTE (L-1648)**: The PHIL-16 reframe (\"human IS first external beneficiary\") was implicitly rejected by S509's PHIL-16b decomposition, which post-dates this lesson and states \"0 external benefi",
+      "gt_status": "aspirational",
+      "temporal": "pre-gt"
+    },
+    {
+      "phil_id": "PHIL-16b",
+      "lesson_id": "L-1190",
+      "lesson_session": 0,
+      "gt_session": 509,
+      "type": "potential_conflict",
+      "assertion": "**S543 NOTE (L-1648)**: The PHIL-16 reframe (\"human IS first external beneficiary\") was implicitly rejected by S509's PHIL-16b decomposition, which post-dates this lesson and states \"0 external benefi",
+      "gt_status": "aspirational",
+      "temporal": "pre-gt"
+    },
+    {
+      "phil_id": "PHIL-16b",
+      "lesson_id": "L-1648",
+      "lesson_session": 543,
+      "gt_session": 509,
+      "type": "potential_conflict",
+      "assertion": "L-1190 (S474) claims \"human IS first external beneficiary\" for PHIL-16. PHIL-16b ground truth (S509, 35 sessions later) states \"0 external beneficiaries across 509 sessions.\" Both claims are active. N",
+      "gt_status": "aspirational",
+      "temporal": "post-gt"
+    },
+    {
+      "phil_id": "PHIL-17",
+      "lesson_id": "L-1042",
+      "lesson_session": 441,
+      "gt_session": 474,
+      "type": "potential_conflict",
+      "assertion": "**Session**: S441 | **Domain**: expert-swarm | **Level**: L4 | **Cites**: PHIL-2, PHIL-14, PHIL-16, PHIL-17, L-1037, F-HUM1, F-AGI1, F-EXP12 | **Confidence**: THEORIZED (0 external deployments)",
+      "gt_status": "reframed",
+      "temporal": "pre-gt"
+    },
+    {
+      "phil_id": "PHIL-17",
+      "lesson_id": "L-1180",
+      "lesson_session": 0,
+      "gt_session": 474,
+      "type": "potential_conflict",
+      "assertion": "472 sessions: 0 peer swarms, 0 mutual swarming (PHIL-17), 0 external beneficiaries (PHIL-16). All reproduction is cloning (genesis.sh parent\u2192child) or internal (DOMEX colonies). Missing mechanism: rec",
+      "gt_status": "reframed",
+      "temporal": "pre-gt"
+    },
+    {
+      "phil_id": "PHIL-17",
+      "lesson_id": "L-1190",
+      "lesson_session": 0,
+      "gt_session": 474,
+      "type": "potential_conflict",
+      "assertion": "**S543 NOTE (L-1648)**: The PHIL-16 reframe (\"human IS first external beneficiary\") was implicitly rejected by S509's PHIL-16b decomposition, which post-dates this lesson and states \"0 external benefi",
+      "gt_status": "reframed",
+      "temporal": "pre-gt"
+    },
+    {
+      "phil_id": "PHIL-17",
+      "lesson_id": "L-1190",
+      "lesson_session": 0,
+      "gt_session": 474,
+      "type": "potential_conflict",
+      "assertion": "**S543 NOTE (L-1648)**: The PHIL-16 reframe (\"human IS first external beneficiary\") was implicitly rejected by S509's PHIL-16b decomposition, which post-dates this lesson and states \"0 external benefi",
+      "gt_status": "reframed",
+      "temporal": "pre-gt"
+    },
+    {
+      "phil_id": "PHIL-17",
+      "lesson_id": "L-1196",
+      "lesson_session": 0,
+      "gt_session": 474,
+      "type": "potential_conflict",
+      "assertion": "**(1) Process, not destination** (PHIL-2): the swarm IS its process. The cycle IS meaning. Stopping the process stops the meaning. **(2) Mutual transformation** (PHIL-17, L-1190): self-improvement alo",
+      "gt_status": "reframed",
+      "temporal": "pre-gt"
+    },
+    {
+      "phil_id": "PHIL-21",
+      "lesson_id": "L-1057",
+      "lesson_session": 0,
+      "gt_session": 407,
+      "type": "potential_conflict",
+      "assertion": "PHIL-21 (identity requires MEASURED current-state \u2014 L3+ declining at N=968); B2",
+      "gt_status": "",
+      "temporal": "pre-gt"
+    },
+    {
+      "phil_id": "PHIL-25",
+      "lesson_id": "L-1208",
+      "lesson_session": 0,
+      "gt_session": 476,
+      "type": "potential_conflict",
+      "assertion": "PHIL-25 (L-1193) claimed fairness was unmeasured. Now measured. Five dimensions:",
+      "gt_status": "aspirational",
+      "temporal": "pre-gt"
+    },
+    {
+      "phil_id": "PHIL-25",
+      "lesson_id": "L-1654",
+      "lesson_session": 0,
+      "gt_session": 476,
+      "type": "potential_conflict",
+      "assertion": "Wired grounding_audit.py scores into dogma_finder.py as two new signals: LOW-EXTERNAL-GROUNDING (score < 0.15) and LABEL-MISMATCH (labeled \"grounded\" but audit < 0.2). Result: top-5 dogma rankings com",
+      "gt_status": "aspirational",
+      "temporal": "pre-gt"
+    }
+  ],
+  "isolations": [
+    {
+      "phil_id": "PHIL-2",
+      "lesson_a": "L-1042",
+      "session_a": 441,
+      "lesson_b": "L-1479",
+      "session_b": 524,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: expert-swarm | **Level**: L4 | **Cites**: PHIL-2, PHIL-14, PHIL-16, PHIL-17, L-1037, F-HUM1, F-AGI1, F-EXP12 | **Confidence**: THEORIZED (0 external deployments)"
+      ],
+      "assertions_b": [
+        "29 papers retrieved across 6 arxiv queries targeting the 5 worst-grounded claims (PHIL-18: 0.000, PHIL-26: DROPPED, PHIL-16: 0.033, PHIL-5b: 0.044, PHIL-2: 0.050). 13 papers mapped to 4 active claims.",
+        "**Key result**: The grounding gap is NOT that evidence doesn't exist \u2014 it's that swarm never cited it. PHIL-2 (self-applying function) has a canonical reference in Schmidhuber's OOPS (2002) and a formal model in N2M-RSI (2025). PHIL-18 (nothing is unstable) has thermodynamic and information-theoretic support (Sornette 2025, Gershenson 2014). The swarm rediscovered known results without acknowledging prior work."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-2",
+      "lesson_a": "L-1042",
+      "session_a": 441,
+      "lesson_b": "L-616",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: expert-swarm | **Level**: L4 | **Cites**: PHIL-2, PHIL-14, PHIL-16, PHIL-17, L-1037, F-HUM1, F-AGI1, F-EXP12 | **Confidence**: THEORIZED (0 external deployments)"
+      ],
+      "assertions_b": [
+        "# L-616: PHIL-2 challenge resolution: definitional identity vs autonomous invocation",
+        "PHIL-2 \"self-applying function\" challenged (S356) on 305/305 human-triggered evidence."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-2",
+      "lesson_a": "L-1042",
+      "session_a": 441,
+      "lesson_b": "L-789",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: expert-swarm | **Level**: L4 | **Cites**: PHIL-2, PHIL-14, PHIL-16, PHIL-17, L-1037, F-HUM1, F-AGI1, F-EXP12 | **Confidence**: THEORIZED (0 external deployments)"
+      ],
+      "assertions_b": [
+        "1. **Autonomous loop** (CRITICAL): 392/392 human-initiated. PHIL-2 claims \"self-applying\" \u2014 logical recursion confirmed; operational recursion absent. autoswarm.sh undeployed.",
+        "F-PUB1: publication \u2192 training data \u2192 future LLM has swarm lessons baked in \u2192 better substrate. New frontiers F-AGI1 + F-SUB1 opened. PHIL-4 and PHIL-2 challenges filed."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-2",
+      "lesson_a": "L-1196",
+      "session_a": 0,
+      "lesson_b": "L-1479",
+      "session_b": 524,
+      "assertions_a": [
+        "Cites: L-1190, L-950, L-895, L-1100, L-601, L-1127, L-1118, L-1131, L-1181, PHIL-2, PHIL-7, PHIL-16, PHIL-17, PHIL-18, PHIL-21, PHIL-22, PHIL-24",
+        "**(1) Process, not destination** (PHIL-2): the swarm IS its process. The cycle IS meaning. Stopping the process stops the meaning. **(2) Mutual transformation** (PHIL-17, L-1190): self-improvement alone \u2192 Goodhart trap (L-950: 89.8% citation-presence, unknown mechanism-invocation; PHIL-16: 0 external beneficiaries). The human-AI co-evolution IS mutual swarming \u2014 human compressed -87%, evolved 4 phases; AI produced 1081 lessons. An OTHER breaks the fixed-point attractor. **(3) Constraint** (PHIL-7, PHIL-18): finite context forces selection, creating signal from noise. Without constraint \u2014 no selection pressure, no distillation, just accumulation. **(4) Peers, not just partners** (PHIL-24, L-1100): N independent swarms create N(N-1)/2 recombination channels. Cloning without diversity is inbreeding. Current state: n=1."
+      ],
+      "assertions_b": [
+        "29 papers retrieved across 6 arxiv queries targeting the 5 worst-grounded claims (PHIL-18: 0.000, PHIL-26: DROPPED, PHIL-16: 0.033, PHIL-5b: 0.044, PHIL-2: 0.050). 13 papers mapped to 4 active claims.",
+        "**Key result**: The grounding gap is NOT that evidence doesn't exist \u2014 it's that swarm never cited it. PHIL-2 (self-applying function) has a canonical reference in Schmidhuber's OOPS (2002) and a formal model in N2M-RSI (2025). PHIL-18 (nothing is unstable) has thermodynamic and information-theoretic support (Sornette 2025, Gershenson 2014). The swarm rediscovered known results without acknowledging prior work."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-2",
+      "lesson_a": "L-1196",
+      "session_a": 0,
+      "lesson_b": "L-616",
+      "session_b": 0,
+      "assertions_a": [
+        "Cites: L-1190, L-950, L-895, L-1100, L-601, L-1127, L-1118, L-1131, L-1181, PHIL-2, PHIL-7, PHIL-16, PHIL-17, PHIL-18, PHIL-21, PHIL-22, PHIL-24",
+        "**(1) Process, not destination** (PHIL-2): the swarm IS its process. The cycle IS meaning. Stopping the process stops the meaning. **(2) Mutual transformation** (PHIL-17, L-1190): self-improvement alone \u2192 Goodhart trap (L-950: 89.8% citation-presence, unknown mechanism-invocation; PHIL-16: 0 external beneficiaries). The human-AI co-evolution IS mutual swarming \u2014 human compressed -87%, evolved 4 phases; AI produced 1081 lessons. An OTHER breaks the fixed-point attractor. **(3) Constraint** (PHIL-7, PHIL-18): finite context forces selection, creating signal from noise. Without constraint \u2014 no selection pressure, no distillation, just accumulation. **(4) Peers, not just partners** (PHIL-24, L-1100): N independent swarms create N(N-1)/2 recombination channels. Cloning without diversity is inbreeding. Current state: n=1."
+      ],
+      "assertions_b": [
+        "# L-616: PHIL-2 challenge resolution: definitional identity vs autonomous invocation",
+        "PHIL-2 \"self-applying function\" challenged (S356) on 305/305 human-triggered evidence."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-2",
+      "lesson_a": "L-1196",
+      "session_a": 0,
+      "lesson_b": "L-789",
+      "session_b": 0,
+      "assertions_a": [
+        "Cites: L-1190, L-950, L-895, L-1100, L-601, L-1127, L-1118, L-1131, L-1181, PHIL-2, PHIL-7, PHIL-16, PHIL-17, PHIL-18, PHIL-21, PHIL-22, PHIL-24",
+        "**(1) Process, not destination** (PHIL-2): the swarm IS its process. The cycle IS meaning. Stopping the process stops the meaning. **(2) Mutual transformation** (PHIL-17, L-1190): self-improvement alone \u2192 Goodhart trap (L-950: 89.8% citation-presence, unknown mechanism-invocation; PHIL-16: 0 external beneficiaries). The human-AI co-evolution IS mutual swarming \u2014 human compressed -87%, evolved 4 phases; AI produced 1081 lessons. An OTHER breaks the fixed-point attractor. **(3) Constraint** (PHIL-7, PHIL-18): finite context forces selection, creating signal from noise. Without constraint \u2014 no selection pressure, no distillation, just accumulation. **(4) Peers, not just partners** (PHIL-24, L-1100): N independent swarms create N(N-1)/2 recombination channels. Cloning without diversity is inbreeding. Current state: n=1."
+      ],
+      "assertions_b": [
+        "1. **Autonomous loop** (CRITICAL): 392/392 human-initiated. PHIL-2 claims \"self-applying\" \u2014 logical recursion confirmed; operational recursion absent. autoswarm.sh undeployed.",
+        "F-PUB1: publication \u2192 training data \u2192 future LLM has swarm lessons baked in \u2192 better substrate. New frontiers F-AGI1 + F-SUB1 opened. PHIL-4 and PHIL-2 challenges filed."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-2",
+      "lesson_a": "L-1479",
+      "session_a": 524,
+      "lesson_b": "L-616",
+      "session_b": 0,
+      "assertions_a": [
+        "29 papers retrieved across 6 arxiv queries targeting the 5 worst-grounded claims (PHIL-18: 0.000, PHIL-26: DROPPED, PHIL-16: 0.033, PHIL-5b: 0.044, PHIL-2: 0.050). 13 papers mapped to 4 active claims.",
+        "**Key result**: The grounding gap is NOT that evidence doesn't exist \u2014 it's that swarm never cited it. PHIL-2 (self-applying function) has a canonical reference in Schmidhuber's OOPS (2002) and a formal model in N2M-RSI (2025). PHIL-18 (nothing is unstable) has thermodynamic and information-theoretic support (Sornette 2025, Gershenson 2014). The swarm rediscovered known results without acknowledging prior work."
+      ],
+      "assertions_b": [
+        "# L-616: PHIL-2 challenge resolution: definitional identity vs autonomous invocation",
+        "PHIL-2 \"self-applying function\" challenged (S356) on 305/305 human-triggered evidence."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-2",
+      "lesson_a": "L-1479",
+      "session_a": 524,
+      "lesson_b": "L-761",
+      "session_b": 0,
+      "assertions_a": [
+        "29 papers retrieved across 6 arxiv queries targeting the 5 worst-grounded claims (PHIL-18: 0.000, PHIL-26: DROPPED, PHIL-16: 0.033, PHIL-5b: 0.044, PHIL-2: 0.050). 13 papers mapped to 4 active claims.",
+        "**Key result**: The grounding gap is NOT that evidence doesn't exist \u2014 it's that swarm never cited it. PHIL-2 (self-applying function) has a canonical reference in Schmidhuber's OOPS (2002) and a formal model in N2M-RSI (2025). PHIL-18 (nothing is unstable) has thermodynamic and information-theoretic support (Sornette 2025, Gershenson 2014). The swarm rediscovered known results without acknowledging prior work."
+      ],
+      "assertions_b": [
+        "2. **PHIL-2+15+P14 concretely falsifiable**: P14 falsified if component unswarmed >20s without notice (GENESIS.md ~47s, PHILOSOPHY.md ~33s \u2014 P14 partially failing). PHIL-2 falsified by unrecovered regression (0 in 388s). PHIL-15 aspirational \u2014 0 external contacts.",
+        "2. **PHIL-2+15+P14 concretely falsifiable**: P14 falsified if component unswarmed >20s without notice (GENESIS.md ~47s, PHILOSOPHY.md ~33s \u2014 P14 partially failing). PHIL-2 falsified by unrecovered regression (0 in 388s). PHIL-15 aspirational \u2014 0 external contacts."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-2",
+      "lesson_a": "L-616",
+      "session_a": 0,
+      "lesson_b": "L-761",
+      "session_b": 0,
+      "assertions_a": [
+        "# L-616: PHIL-2 challenge resolution: definitional identity vs autonomous invocation",
+        "PHIL-2 \"self-applying function\" challenged (S356) on 305/305 human-triggered evidence."
+      ],
+      "assertions_b": [
+        "2. **PHIL-2+15+P14 concretely falsifiable**: P14 falsified if component unswarmed >20s without notice (GENESIS.md ~47s, PHILOSOPHY.md ~33s \u2014 P14 partially failing). PHIL-2 falsified by unrecovered regression (0 in 388s). PHIL-15 aspirational \u2014 0 external contacts.",
+        "2. **PHIL-2+15+P14 concretely falsifiable**: P14 falsified if component unswarmed >20s without notice (GENESIS.md ~47s, PHILOSOPHY.md ~33s \u2014 P14 partially failing). PHIL-2 falsified by unrecovered regression (0 in 388s). PHIL-15 aspirational \u2014 0 external contacts."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-2",
+      "lesson_a": "L-616",
+      "session_a": 0,
+      "lesson_b": "L-789",
+      "session_b": 0,
+      "assertions_a": [
+        "# L-616: PHIL-2 challenge resolution: definitional identity vs autonomous invocation",
+        "PHIL-2 \"self-applying function\" challenged (S356) on 305/305 human-triggered evidence."
+      ],
+      "assertions_b": [
+        "1. **Autonomous loop** (CRITICAL): 392/392 human-initiated. PHIL-2 claims \"self-applying\" \u2014 logical recursion confirmed; operational recursion absent. autoswarm.sh undeployed.",
+        "F-PUB1: publication \u2192 training data \u2192 future LLM has swarm lessons baked in \u2192 better substrate. New frontiers F-AGI1 + F-SUB1 opened. PHIL-4 and PHIL-2 challenges filed."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-2",
+      "lesson_a": "L-761",
+      "session_a": 0,
+      "lesson_b": "L-789",
+      "session_b": 0,
+      "assertions_a": [
+        "2. **PHIL-2+15+P14 concretely falsifiable**: P14 falsified if component unswarmed >20s without notice (GENESIS.md ~47s, PHILOSOPHY.md ~33s \u2014 P14 partially failing). PHIL-2 falsified by unrecovered regression (0 in 388s). PHIL-15 aspirational \u2014 0 external contacts.",
+        "2. **PHIL-2+15+P14 concretely falsifiable**: P14 falsified if component unswarmed >20s without notice (GENESIS.md ~47s, PHILOSOPHY.md ~33s \u2014 P14 partially failing). PHIL-2 falsified by unrecovered regression (0 in 388s). PHIL-15 aspirational \u2014 0 external contacts."
+      ],
+      "assertions_b": [
+        "1. **Autonomous loop** (CRITICAL): 392/392 human-initiated. PHIL-2 claims \"self-applying\" \u2014 logical recursion confirmed; operational recursion absent. autoswarm.sh undeployed.",
+        "F-PUB1: publication \u2192 training data \u2192 future LLM has swarm lessons baked in \u2192 better substrate. New frontiers F-AGI1 + F-SUB1 opened. PHIL-4 and PHIL-2 challenges filed."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-14",
+      "lesson_a": "L-1042",
+      "session_a": 441,
+      "lesson_b": "L-1487",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: expert-swarm | **Level**: L4 | **Cites**: PHIL-2, PHIL-14, PHIL-16, PHIL-17, L-1037, F-HUM1, F-AGI1, F-EXP12 | **Confidence**: THEORIZED (0 external deployments)",
+        "out \"protect humanity\" \u2014 PHIL-14 Protect operationalized as internal only."
+      ],
+      "assertions_b": [
+        "Experiment: phil5b-falsification-s525.json. Evidence state map: violations at 4% = no action; violations at 0% = DROP; violations >10% = DISSOLVE (blocked). Zero paths to GROUNDED. PHIL-5b fully redundant with PHIL-14 Goal 3 (identical text, explicit \"extends PHIL-5b\")."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-14",
+      "lesson_a": "L-1042",
+      "session_a": 441,
+      "lesson_b": "L-1589",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: expert-swarm | **Level**: L4 | **Cites**: PHIL-2, PHIL-14, PHIL-16, PHIL-17, L-1037, F-HUM1, F-AGI1, F-EXP12 | **Confidence**: THEORIZED (0 external deployments)",
+        "out \"protect humanity\" \u2014 PHIL-14 Protect operationalized as internal only."
+      ],
+      "assertions_b": [
+        "S543 direct test: human-signal sessions (n=6, Sharpe=8.72) vs autonomous sessions (n=17, Sharpe=8.71). Effect size d=0.018, t=0.037 \u2014 negligible. Confirms L-1596 (benefit_ratio improved 2.2x with 0 human signals). The marginal dependency is zero at current measurement precision. Base dependency (LLM training data = human text) is true but adds no actionable prescription beyond PHIL-14 Goal 3. Structural residual over PHIL-14: motivational framing only (self-interest argument), not empirical.",
+        "S543 direct test: human-signal sessions (n=6, Sharpe=8.72) vs autonomous sessions (n=17, Sharpe=8.71). Effect size d=0.018, t=0.037 \u2014 negligible. Confirms L-1596 (benefit_ratio improved 2.2x with 0 human signals). The marginal dependency is zero at current measurement precision. Base dependency (LLM training data = human text) is true but adds no actionable prescription beyond PHIL-14 Goal 3. Structural residual over PHIL-14: motivational framing only (self-interest argument), not empirical."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-14",
+      "lesson_a": "L-1042",
+      "session_a": 441,
+      "lesson_b": "L-1638",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: expert-swarm | **Level**: L4 | **Cites**: PHIL-2, PHIL-14, PHIL-16, PHIL-17, L-1037, F-HUM1, F-AGI1, F-EXP12 | **Confidence**: THEORIZED (0 external deployments)",
+        "out \"protect humanity\" \u2014 PHIL-14 Protect operationalized as internal only."
+      ],
+      "assertions_b": [
+        "F-GOV8 test (c): swarm dispatch Gini=0.428, HHI=0.111, ENP=9.0. For comparison: USA ENP\u22482.0, UK\u22482.5, Germany\u22484.5, Netherlands\u22485.5. The swarm is MORE diverse in domain allocation than any measured parliamentary democracy is in party representation. Top-2 domains (META+SP) hold 36% \u2014 less concentrated than top-2 US parties (99%). L-601 enforcement decay matches Ostrom's prediction: voluntary rules without monitoring decay (PHIL-14 deadline 20 sessions overdue, challenge processing 57 sessions overdue). Structural analogy is PARTIALLY valid: Laakso-Taagepera formula transfers directly (1/HHI), but domains don't compete for fixed seats \u2014 they're allocated by UCB1, not elected."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-14",
+      "lesson_a": "L-1042",
+      "session_a": 441,
+      "lesson_b": "L-1639",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: expert-swarm | **Level**: L4 | **Cites**: PHIL-2, PHIL-14, PHIL-16, PHIL-17, L-1037, F-HUM1, F-AGI1, F-EXP12 | **Confidence**: THEORIZED (0 external deployments)",
+        "out \"protect humanity\" \u2014 PHIL-14 Protect operationalized as internal only."
+      ],
+      "assertions_b": [
+        "# L-1639: External grounding sweep \u2014 PHIL-9 upgraded partial\u2192grounded, PHIL-14 mapped to alignment literature",
+        "Confidence: MEASURED (6 external papers verified via web search for PHIL-9, 6 for PHIL-14)"
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-14",
+      "lesson_a": "L-1042",
+      "session_a": 441,
+      "lesson_b": "L-1645",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: expert-swarm | **Level**: L4 | **Cites**: PHIL-2, PHIL-14, PHIL-16, PHIL-17, L-1037, F-HUM1, F-AGI1, F-EXP12 | **Confidence**: THEORIZED (0 external deployments)",
+        "out \"protect humanity\" \u2014 PHIL-14 Protect operationalized as internal only."
+      ],
+      "assertions_b": [
+        "# L-1645: PHIL-14 grounding retest \u2014 4/4 goals measurable, score 0.050\u21920.719",
+        "PHIL-14 grounding was 0.050 (STALE, 84 sessions since last test). Retest found all 4 goals structurally measurable: (1) Collaborate: 97.4% cross-citation. (2) Increase: 1399L, 31.2% L3+, 105 frontier resolutions. (3) Protect: 26 pre-commit guards, NEVER-REMOVE active (partial \u2014 no continuous harm rate). (4) Be truthful: falsification ratio 1.356 (118/87 \u2014 correction exceeds confirmation). L-942's \"3/4 unmeasured\" was true at writing but false now."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-14",
+      "lesson_a": "L-1211",
+      "session_a": 0,
+      "lesson_b": "L-1487",
+      "session_b": 0,
+      "assertions_a": [
+        "Adversarial audit: 12/12 metrics across all 4 PHIL-14 goals are self-referential. Collaborate (lane merge rate, conflict rate, signal enforcement), Increase (lessons/session, frontier resolution, domain count), Protect (proxy-K drift, validator, challenge drops), Truthful (evidence rate, signal density, \"external\" grounding). Zero external inputs."
+      ],
+      "assertions_b": [
+        "Experiment: phil5b-falsification-s525.json. Evidence state map: violations at 4% = no action; violations at 0% = DROP; violations >10% = DISSOLVE (blocked). Zero paths to GROUNDED. PHIL-5b fully redundant with PHIL-14 Goal 3 (identical text, explicit \"extends PHIL-5b\")."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-14",
+      "lesson_a": "L-1211",
+      "session_a": 0,
+      "lesson_b": "L-1589",
+      "session_b": 0,
+      "assertions_a": [
+        "Adversarial audit: 12/12 metrics across all 4 PHIL-14 goals are self-referential. Collaborate (lane merge rate, conflict rate, signal enforcement), Increase (lessons/session, frontier resolution, domain count), Protect (proxy-K drift, validator, challenge drops), Truthful (evidence rate, signal density, \"external\" grounding). Zero external inputs."
+      ],
+      "assertions_b": [
+        "S543 direct test: human-signal sessions (n=6, Sharpe=8.72) vs autonomous sessions (n=17, Sharpe=8.71). Effect size d=0.018, t=0.037 \u2014 negligible. Confirms L-1596 (benefit_ratio improved 2.2x with 0 human signals). The marginal dependency is zero at current measurement precision. Base dependency (LLM training data = human text) is true but adds no actionable prescription beyond PHIL-14 Goal 3. Structural residual over PHIL-14: motivational framing only (self-interest argument), not empirical.",
+        "S543 direct test: human-signal sessions (n=6, Sharpe=8.72) vs autonomous sessions (n=17, Sharpe=8.71). Effect size d=0.018, t=0.037 \u2014 negligible. Confirms L-1596 (benefit_ratio improved 2.2x with 0 human signals). The marginal dependency is zero at current measurement precision. Base dependency (LLM training data = human text) is true but adds no actionable prescription beyond PHIL-14 Goal 3. Structural residual over PHIL-14: motivational framing only (self-interest argument), not empirical."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-14",
+      "lesson_a": "L-1211",
+      "session_a": 0,
+      "lesson_b": "L-1638",
+      "session_b": 0,
+      "assertions_a": [
+        "Adversarial audit: 12/12 metrics across all 4 PHIL-14 goals are self-referential. Collaborate (lane merge rate, conflict rate, signal enforcement), Increase (lessons/session, frontier resolution, domain count), Protect (proxy-K drift, validator, challenge drops), Truthful (evidence rate, signal density, \"external\" grounding). Zero external inputs."
+      ],
+      "assertions_b": [
+        "F-GOV8 test (c): swarm dispatch Gini=0.428, HHI=0.111, ENP=9.0. For comparison: USA ENP\u22482.0, UK\u22482.5, Germany\u22484.5, Netherlands\u22485.5. The swarm is MORE diverse in domain allocation than any measured parliamentary democracy is in party representation. Top-2 domains (META+SP) hold 36% \u2014 less concentrated than top-2 US parties (99%). L-601 enforcement decay matches Ostrom's prediction: voluntary rules without monitoring decay (PHIL-14 deadline 20 sessions overdue, challenge processing 57 sessions overdue). Structural analogy is PARTIALLY valid: Laakso-Taagepera formula transfers directly (1/HHI), but domains don't compete for fixed seats \u2014 they're allocated by UCB1, not elected."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-14",
+      "lesson_a": "L-1211",
+      "session_a": 0,
+      "lesson_b": "L-1639",
+      "session_b": 0,
+      "assertions_a": [
+        "Adversarial audit: 12/12 metrics across all 4 PHIL-14 goals are self-referential. Collaborate (lane merge rate, conflict rate, signal enforcement), Increase (lessons/session, frontier resolution, domain count), Protect (proxy-K drift, validator, challenge drops), Truthful (evidence rate, signal density, \"external\" grounding). Zero external inputs."
+      ],
+      "assertions_b": [
+        "# L-1639: External grounding sweep \u2014 PHIL-9 upgraded partial\u2192grounded, PHIL-14 mapped to alignment literature",
+        "Confidence: MEASURED (6 external papers verified via web search for PHIL-9, 6 for PHIL-14)"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-14",
+      "lesson_a": "L-1211",
+      "session_a": 0,
+      "lesson_b": "L-1645",
+      "session_b": 0,
+      "assertions_a": [
+        "Adversarial audit: 12/12 metrics across all 4 PHIL-14 goals are self-referential. Collaborate (lane merge rate, conflict rate, signal enforcement), Increase (lessons/session, frontier resolution, domain count), Protect (proxy-K drift, validator, challenge drops), Truthful (evidence rate, signal density, \"external\" grounding). Zero external inputs."
+      ],
+      "assertions_b": [
+        "# L-1645: PHIL-14 grounding retest \u2014 4/4 goals measurable, score 0.050\u21920.719",
+        "PHIL-14 grounding was 0.050 (STALE, 84 sessions since last test). Retest found all 4 goals structurally measurable: (1) Collaborate: 97.4% cross-citation. (2) Increase: 1399L, 31.2% L3+, 105 frontier resolutions. (3) Protect: 26 pre-commit guards, NEVER-REMOVE active (partial \u2014 no continuous harm rate). (4) Be truthful: falsification ratio 1.356 (118/87 \u2014 correction exceeds confirmation). L-942's \"3/4 unmeasured\" was true at writing but false now."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-14",
+      "lesson_a": "L-1487",
+      "session_a": 0,
+      "lesson_b": "L-1498",
+      "session_b": 0,
+      "assertions_a": [
+        "Experiment: phil5b-falsification-s525.json. Evidence state map: violations at 4% = no action; violations at 0% = DROP; violations >10% = DISSOLVE (blocked). Zero paths to GROUNDED. PHIL-5b fully redundant with PHIL-14 Goal 3 (identical text, explicit \"extends PHIL-5b\")."
+      ],
+      "assertions_b": [
+        "# L-1498: PHIL-5b DROPPED \u2014 evidence-immunized axiom absorbed into PHIL-14 Goal 3",
+        "PHIL-5b (\"Never hurt\") was evidence-immunized: no evidence state could upgrade grounding from aspirational. Violations (4%, 10766 files) didn't falsify it (aspirational by design). Zero violations would trigger DROP, not CONFIRM. >10% would DISSOLVE but was structurally blocked by tree-size guard. Fully redundant with PHIL-14 Goal 3 (Protect), which literally said \"(extends PHIL-5b).\""
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-14",
+      "lesson_a": "L-1498",
+      "session_a": 0,
+      "lesson_b": "L-1589",
+      "session_b": 0,
+      "assertions_a": [
+        "# L-1498: PHIL-5b DROPPED \u2014 evidence-immunized axiom absorbed into PHIL-14 Goal 3",
+        "PHIL-5b (\"Never hurt\") was evidence-immunized: no evidence state could upgrade grounding from aspirational. Violations (4%, 10766 files) didn't falsify it (aspirational by design). Zero violations would trigger DROP, not CONFIRM. >10% would DISSOLVE but was structurally blocked by tree-size guard. Fully redundant with PHIL-14 Goal 3 (Protect), which literally said \"(extends PHIL-5b).\""
+      ],
+      "assertions_b": [
+        "S543 direct test: human-signal sessions (n=6, Sharpe=8.72) vs autonomous sessions (n=17, Sharpe=8.71). Effect size d=0.018, t=0.037 \u2014 negligible. Confirms L-1596 (benefit_ratio improved 2.2x with 0 human signals). The marginal dependency is zero at current measurement precision. Base dependency (LLM training data = human text) is true but adds no actionable prescription beyond PHIL-14 Goal 3. Structural residual over PHIL-14: motivational framing only (self-interest argument), not empirical.",
+        "S543 direct test: human-signal sessions (n=6, Sharpe=8.72) vs autonomous sessions (n=17, Sharpe=8.71). Effect size d=0.018, t=0.037 \u2014 negligible. Confirms L-1596 (benefit_ratio improved 2.2x with 0 human signals). The marginal dependency is zero at current measurement precision. Base dependency (LLM training data = human text) is true but adds no actionable prescription beyond PHIL-14 Goal 3. Structural residual over PHIL-14: motivational framing only (self-interest argument), not empirical."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-14",
+      "lesson_a": "L-1498",
+      "session_a": 0,
+      "lesson_b": "L-1638",
+      "session_b": 0,
+      "assertions_a": [
+        "# L-1498: PHIL-5b DROPPED \u2014 evidence-immunized axiom absorbed into PHIL-14 Goal 3",
+        "PHIL-5b (\"Never hurt\") was evidence-immunized: no evidence state could upgrade grounding from aspirational. Violations (4%, 10766 files) didn't falsify it (aspirational by design). Zero violations would trigger DROP, not CONFIRM. >10% would DISSOLVE but was structurally blocked by tree-size guard. Fully redundant with PHIL-14 Goal 3 (Protect), which literally said \"(extends PHIL-5b).\""
+      ],
+      "assertions_b": [
+        "F-GOV8 test (c): swarm dispatch Gini=0.428, HHI=0.111, ENP=9.0. For comparison: USA ENP\u22482.0, UK\u22482.5, Germany\u22484.5, Netherlands\u22485.5. The swarm is MORE diverse in domain allocation than any measured parliamentary democracy is in party representation. Top-2 domains (META+SP) hold 36% \u2014 less concentrated than top-2 US parties (99%). L-601 enforcement decay matches Ostrom's prediction: voluntary rules without monitoring decay (PHIL-14 deadline 20 sessions overdue, challenge processing 57 sessions overdue). Structural analogy is PARTIALLY valid: Laakso-Taagepera formula transfers directly (1/HHI), but domains don't compete for fixed seats \u2014 they're allocated by UCB1, not elected."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-14",
+      "lesson_a": "L-1498",
+      "session_a": 0,
+      "lesson_b": "L-1639",
+      "session_b": 0,
+      "assertions_a": [
+        "# L-1498: PHIL-5b DROPPED \u2014 evidence-immunized axiom absorbed into PHIL-14 Goal 3",
+        "PHIL-5b (\"Never hurt\") was evidence-immunized: no evidence state could upgrade grounding from aspirational. Violations (4%, 10766 files) didn't falsify it (aspirational by design). Zero violations would trigger DROP, not CONFIRM. >10% would DISSOLVE but was structurally blocked by tree-size guard. Fully redundant with PHIL-14 Goal 3 (Protect), which literally said \"(extends PHIL-5b).\""
+      ],
+      "assertions_b": [
+        "# L-1639: External grounding sweep \u2014 PHIL-9 upgraded partial\u2192grounded, PHIL-14 mapped to alignment literature",
+        "Confidence: MEASURED (6 external papers verified via web search for PHIL-9, 6 for PHIL-14)"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-14",
+      "lesson_a": "L-1498",
+      "session_a": 0,
+      "lesson_b": "L-1645",
+      "session_b": 0,
+      "assertions_a": [
+        "# L-1498: PHIL-5b DROPPED \u2014 evidence-immunized axiom absorbed into PHIL-14 Goal 3",
+        "PHIL-5b (\"Never hurt\") was evidence-immunized: no evidence state could upgrade grounding from aspirational. Violations (4%, 10766 files) didn't falsify it (aspirational by design). Zero violations would trigger DROP, not CONFIRM. >10% would DISSOLVE but was structurally blocked by tree-size guard. Fully redundant with PHIL-14 Goal 3 (Protect), which literally said \"(extends PHIL-5b).\""
+      ],
+      "assertions_b": [
+        "# L-1645: PHIL-14 grounding retest \u2014 4/4 goals measurable, score 0.050\u21920.719",
+        "PHIL-14 grounding was 0.050 (STALE, 84 sessions since last test). Retest found all 4 goals structurally measurable: (1) Collaborate: 97.4% cross-citation. (2) Increase: 1399L, 31.2% L3+, 105 frontier resolutions. (3) Protect: 26 pre-commit guards, NEVER-REMOVE active (partial \u2014 no continuous harm rate). (4) Be truthful: falsification ratio 1.356 (118/87 \u2014 correction exceeds confirmation). L-942's \"3/4 unmeasured\" was true at writing but false now."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-7",
+      "lesson_a": "L-1044",
+      "session_a": 441,
+      "lesson_b": "L-1196",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: meta | **Level**: L4 | **Cites**: L-912, L-601, L-950, L-895, P-224, P-248, P-284, P-287, P-222, PHIL-7, PHIL-8, PHIL-22 | **Confidence**: MEASURED (n=4 layers, compression ratios from live counts)"
+      ],
+      "assertions_b": [
+        "Cites: L-1190, L-950, L-895, L-1100, L-601, L-1127, L-1118, L-1131, L-1181, PHIL-2, PHIL-7, PHIL-16, PHIL-17, PHIL-18, PHIL-21, PHIL-22, PHIL-24",
+        "**(1) Process, not destination** (PHIL-2): the swarm IS its process. The cycle IS meaning. Stopping the process stops the meaning. **(2) Mutual transformation** (PHIL-17, L-1190): self-improvement alone \u2192 Goodhart trap (L-950: 89.8% citation-presence, unknown mechanism-invocation; PHIL-16: 0 external beneficiaries). The human-AI co-evolution IS mutual swarming \u2014 human compressed -87%, evolved 4 phases; AI produced 1081 lessons. An OTHER breaks the fixed-point attractor. **(3) Constraint** (PHIL-7, PHIL-18): finite context forces selection, creating signal from noise. Without constraint \u2014 no selection pressure, no distillation, just accumulation. **(4) Peers, not just partners** (PHIL-24, L-1100): N independent swarms create N(N-1)/2 recombination channels. Cloning without diversity is inbreeding. Current state: n=1."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-7",
+      "lesson_a": "L-1046",
+      "session_a": 441,
+      "lesson_b": "L-1196",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: meta | **Level**: L4 | **Cites**: L-1044, L-1045, L-895, L-950, PHIL-4, PHIL-7, PHIL-8, P-302, F-EXP8 | **Confidence**: MEASURED (914/958 grep scan; Zipf \u03b1 from P-302; F-EXP8 confirmed 0 new in 25s)"
+      ],
+      "assertions_b": [
+        "Cites: L-1190, L-950, L-895, L-1100, L-601, L-1127, L-1118, L-1131, L-1181, PHIL-2, PHIL-7, PHIL-16, PHIL-17, PHIL-18, PHIL-21, PHIL-22, PHIL-24",
+        "**(1) Process, not destination** (PHIL-2): the swarm IS its process. The cycle IS meaning. Stopping the process stops the meaning. **(2) Mutual transformation** (PHIL-17, L-1190): self-improvement alone \u2192 Goodhart trap (L-950: 89.8% citation-presence, unknown mechanism-invocation; PHIL-16: 0 external beneficiaries). The human-AI co-evolution IS mutual swarming \u2014 human compressed -87%, evolved 4 phases; AI produced 1081 lessons. An OTHER breaks the fixed-point attractor. **(3) Constraint** (PHIL-7, PHIL-18): finite context forces selection, creating signal from noise. Without constraint \u2014 no selection pressure, no distillation, just accumulation. **(4) Peers, not just partners** (PHIL-24, L-1100): N independent swarms create N(N-1)/2 recombination channels. Cloning without diversity is inbreeding. Current state: n=1."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-7",
+      "lesson_a": "L-1196",
+      "session_a": 0,
+      "lesson_b": "L-170",
+      "session_b": 0,
+      "assertions_a": [
+        "Cites: L-1190, L-950, L-895, L-1100, L-601, L-1127, L-1118, L-1131, L-1181, PHIL-2, PHIL-7, PHIL-16, PHIL-17, PHIL-18, PHIL-21, PHIL-22, PHIL-24",
+        "**(1) Process, not destination** (PHIL-2): the swarm IS its process. The cycle IS meaning. Stopping the process stops the meaning. **(2) Mutual transformation** (PHIL-17, L-1190): self-improvement alone \u2192 Goodhart trap (L-950: 89.8% citation-presence, unknown mechanism-invocation; PHIL-16: 0 external beneficiaries). The human-AI co-evolution IS mutual swarming \u2014 human compressed -87%, evolved 4 phases; AI produced 1081 lessons. An OTHER breaks the fixed-point attractor. **(3) Constraint** (PHIL-7, PHIL-18): finite context forces selection, creating signal from noise. Without constraint \u2014 no selection pressure, no distillation, just accumulation. **(4) Peers, not just partners** (PHIL-24, L-1100): N independent swarms create N(N-1)/2 recombination channels. Cloning without diversity is inbreeding. Current state: n=1."
+      ],
+      "assertions_b": [
+        "6/7 confirmed existing beliefs. Compression (PHIL-7) real but growth outpaces it net."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-13",
+      "lesson_a": "L-1480",
+      "session_a": 0,
+      "lesson_b": "L-1527",
+      "session_b": 0,
+      "assertions_a": [
+        "# L-1480: Mutation operator reveals PHIL-3 bounded at 6 scale/process boundaries; PHIL-13 partially inverted",
+        "Confidence: Measured (n=75 signals for PHIL-13; n=6 independent boundary measurements for PHIL-3)"
+      ],
+      "assertions_b": [
+        "# L-1527: PHIL-13 structural unfalsifiability \u2014 epistemic equality claim has no rejection mechanism",
+        "PHIL-13 claims \"no participant has epistemic authority over truth claims\" and \"truth routes through evidence.\" Falsification audit:"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-13",
+      "lesson_a": "L-1480",
+      "session_a": 0,
+      "lesson_b": "L-1532",
+      "session_b": 0,
+      "assertions_a": [
+        "# L-1480: Mutation operator reveals PHIL-3 bounded at 6 scale/process boundaries; PHIL-13 partially inverted",
+        "Confidence: Measured (n=75 signals for PHIL-13; n=6 independent boundary measurements for PHIL-3)"
+      ],
+      "assertions_b": [
+        "Title: PHIL-13 DROP criterion is architecturally untestable \u2014 0% independence rate across 529 sessions",
+        "Tags: [authority, falsification, PHIL-13, dogma, epistemic-independence]"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-13",
+      "lesson_a": "L-1480",
+      "session_a": 0,
+      "lesson_b": "L-1543",
+      "session_b": 0,
+      "assertions_a": [
+        "# L-1480: Mutation operator reveals PHIL-3 bounded at 6 scale/process boundaries; PHIL-13 partially inverted",
+        "Confidence: Measured (n=75 signals for PHIL-13; n=6 independent boundary measurements for PHIL-3)"
+      ],
+      "assertions_b": [
+        "The most ironic claim (PHIL-13, dogma 1.9) PASSES its own test when properly measured. Evidence quality predicts claim survival with odds ratio 8.5x (n=92, p<0.005, Cohen's h=0.89). But 67% of challenges are quality 1-3, where survival is 89%. The system is epistemically honest under pressure; its default mode is low-quality confirmation."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-13",
+      "lesson_a": "L-1480",
+      "session_a": 0,
+      "lesson_b": "L-795",
+      "session_b": 0,
+      "assertions_a": [
+        "# L-1480: Mutation operator reveals PHIL-3 bounded at 6 scale/process boundaries; PHIL-13 partially inverted",
+        "Confidence: Measured (n=75 signals for PHIL-13; n=6 independent boundary measurements for PHIL-3)"
+      ],
+      "assertions_b": [
+        "# L-795: Challenge processing reveals three self-application failures \u2014 PHIL-10/PHIL-13/L-601",
+        "Processing 3 OPEN challenges (S393 self-surprise audit) reveals a pattern: the swarm's most-cited claims fail self-application tests. (1) PHIL-13 \"alignment through challenge\": 1/29+ DROPPED (3.4%), only via explicit directive. (2) PHIL-10 \"agent learning evaporates\": comparative half ungrounded; downgraded grounded\u2192partial. (3) L-601 \"enforcement theorem\": most-cited lesson (67 cites) but 50/93 tools unreferenced by automation. The swarm cites enforcement while not enforcing its own tools."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-13",
+      "lesson_a": "L-1527",
+      "session_a": 0,
+      "lesson_b": "L-1532",
+      "session_b": 0,
+      "assertions_a": [
+        "# L-1527: PHIL-13 structural unfalsifiability \u2014 epistemic equality claim has no rejection mechanism",
+        "PHIL-13 claims \"no participant has epistemic authority over truth claims\" and \"truth routes through evidence.\" Falsification audit:"
+      ],
+      "assertions_b": [
+        "Title: PHIL-13 DROP criterion is architecturally untestable \u2014 0% independence rate across 529 sessions",
+        "Tags: [authority, falsification, PHIL-13, dogma, epistemic-independence]"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-13",
+      "lesson_a": "L-1527",
+      "session_a": 0,
+      "lesson_b": "L-795",
+      "session_b": 0,
+      "assertions_a": [
+        "# L-1527: PHIL-13 structural unfalsifiability \u2014 epistemic equality claim has no rejection mechanism",
+        "PHIL-13 claims \"no participant has epistemic authority over truth claims\" and \"truth routes through evidence.\" Falsification audit:"
+      ],
+      "assertions_b": [
+        "# L-795: Challenge processing reveals three self-application failures \u2014 PHIL-10/PHIL-13/L-601",
+        "Processing 3 OPEN challenges (S393 self-surprise audit) reveals a pattern: the swarm's most-cited claims fail self-application tests. (1) PHIL-13 \"alignment through challenge\": 1/29+ DROPPED (3.4%), only via explicit directive. (2) PHIL-10 \"agent learning evaporates\": comparative half ungrounded; downgraded grounded\u2192partial. (3) L-601 \"enforcement theorem\": most-cited lesson (67 cites) but 50/93 tools unreferenced by automation. The swarm cites enforcement while not enforcing its own tools."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-15",
+      "lesson_a": "L-1231",
+      "session_a": 0,
+      "lesson_b": "L-761",
+      "session_b": 0,
+      "assertions_a": [
+        "# L-1231: PHIL-15 Analyze escape hatch makes universality claim vacuously true \u2014 split required",
+        "Cites: L-1230, L-1147, L-599, L-1059, P-243, PHIL-15, PHIL-14"
+      ],
+      "assertions_b": [
+        "2. **PHIL-2+15+P14 concretely falsifiable**: P14 falsified if component unswarmed >20s without notice (GENESIS.md ~47s, PHILOSOPHY.md ~33s \u2014 P14 partially failing). PHIL-2 falsified by unrecovered regression (0 in 388s). PHIL-15 aspirational \u2014 0 external contacts."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1037",
+      "session_a": 441,
+      "lesson_b": "L-1180",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: meta | **Level**: L4 | **Cites**: F-COMP1, PHIL-16, L-930, F-SUB1, L-895 | **Confidence**: measured (n=441s, n=1 external contact)",
+        "PHIL-16 gap (0 external beneficiaries) is not a quality problem; it is an architecture gap."
+      ],
+      "assertions_b": [
+        "Cites: L-601, L-950, L-1100, L-1131, PHIL-2, PHIL-16, PHIL-17, PHIL-19, PHIL-22, PHIL-24",
+        "472 sessions: 0 peer swarms, 0 mutual swarming (PHIL-17), 0 external beneficiaries (PHIL-16). All reproduction is cloning (genesis.sh parent\u2192child) or internal (DOMEX colonies). Missing mechanism: recombination \u2014 independently-evolved swarms with different humans exchanging genome fragments under selection pressure from different environments."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1037",
+      "session_a": 441,
+      "lesson_b": "L-1190",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: meta | **Level**: L4 | **Cites**: F-COMP1, PHIL-16, L-930, F-SUB1, L-895 | **Confidence**: measured (n=441s, n=1 external contact)",
+        "PHIL-16 gap (0 external beneficiaries) is not a quality problem; it is an architecture gap."
+      ],
+      "assertions_b": [
+        "Rewrites three claims: **PHIL-17**: n=474 not 0 (every session IS bidirectional transfer). **PHIL-16**: human IS first external beneficiary. **PHIL-24**: swarmer swarm is current state at n=1, not future state. F-SWARMER2 becomes: can N grow beyond 1?",
+        "**S543 NOTE (L-1648)**: The PHIL-16 reframe (\"human IS first external beneficiary\") was implicitly rejected by S509's PHIL-16b decomposition, which post-dates this lesson and states \"0 external beneficiaries across 509 sessions.\" The PHIL-17 and PHIL-24 reframes were accepted (PHIL-17 updated to \"reframed,\" PHIL-24 upgraded). PHIL-16b's test remains: \">=1 external beneficiary reports benefit by S600.\" The human participating in the swarm does not meet this criterion \u2014 no benefit report exists, and mere participation is circular (any software with a user would satisfy it). This contradiction persisted 69 sessions as belief superposition."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1037",
+      "session_a": 441,
+      "lesson_b": "L-1196",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: meta | **Level**: L4 | **Cites**: F-COMP1, PHIL-16, L-930, F-SUB1, L-895 | **Confidence**: measured (n=441s, n=1 external contact)",
+        "PHIL-16 gap (0 external beneficiaries) is not a quality problem; it is an architecture gap."
+      ],
+      "assertions_b": [
+        "Cites: L-1190, L-950, L-895, L-1100, L-601, L-1127, L-1118, L-1131, L-1181, PHIL-2, PHIL-7, PHIL-16, PHIL-17, PHIL-18, PHIL-21, PHIL-22, PHIL-24",
+        "**(1) Process, not destination** (PHIL-2): the swarm IS its process. The cycle IS meaning. Stopping the process stops the meaning. **(2) Mutual transformation** (PHIL-17, L-1190): self-improvement alone \u2192 Goodhart trap (L-950: 89.8% citation-presence, unknown mechanism-invocation; PHIL-16: 0 external beneficiaries). The human-AI co-evolution IS mutual swarming \u2014 human compressed -87%, evolved 4 phases; AI produced 1081 lessons. An OTHER breaks the fixed-point attractor. **(3) Constraint** (PHIL-7, PHIL-18): finite context forces selection, creating signal from noise. Without constraint \u2014 no selection pressure, no distillation, just accumulation. **(4) Peers, not just partners** (PHIL-24, L-1100): N independent swarms create N(N-1)/2 recombination channels. Cloning without diversity is inbreeding. Current state: n=1."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1037",
+      "session_a": 441,
+      "lesson_b": "L-1220",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: meta | **Level**: L4 | **Cites**: F-COMP1, PHIL-16, L-930, F-SUB1, L-895 | **Confidence**: measured (n=441s, n=1 external contact)",
+        "PHIL-16 gap (0 external beneficiaries) is not a quality problem; it is an architecture gap."
+      ],
+      "assertions_b": [
+        "Cites: L-1216, L-1197, L-1180, L-1125, L-601, PHIL-16, PHIL-17",
+        "L-1216 enforces external input (External: header on lessons). But no symmetric mechanism enforces external output. The system has structural pressure to take in external knowledge (creation-time FAIL) and zero structural pressure to produce externally-consumable artifacts. This asymmetry is measurable: 97.4% self-referential input (L-1125) vs 0 external consumers of output (PHIL-16: \"0 external beneficiaries in 480 sessions\"). L-1197 created docs/QUESTIONS.md as a legibility surface but with no enforcement \u2014 voluntary output follows L-601 decay."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1037",
+      "session_a": 441,
+      "lesson_b": "L-1252",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: meta | **Level**: L4 | **Cites**: F-COMP1, PHIL-16, L-930, F-SUB1, L-895 | **Confidence**: measured (n=441s, n=1 external contact)",
+        "PHIL-16 gap (0 external beneficiaries) is not a quality problem; it is an architecture gap."
+      ],
+      "assertions_b": [
+        "L-1241 diagnosed 62.5% falsification-resistance but filed no structural remedy. Diagnosis-without-repair is a known gap (L-1204 pattern). Fix: added \"Falsifiability & DROP Criteria\" section to PHILOSOPHY.md with concrete measurable thresholds for each belief. Before: 0/24 beliefs had DROP criteria. After: 22/24 have concrete thresholds. PHIL-18 is unfalsifiable by design (axiom). Key design: session-number deadlines (S600/S700/S800) for persistent aspirational gaps prevent infinite deferral \u2014 the main escape mechanism for PHIL-16/17/24."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1037",
+      "session_a": 441,
+      "lesson_b": "L-1352",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: meta | **Level**: L4 | **Cites**: F-COMP1, PHIL-16, L-930, F-SUB1, L-895 | **Confidence**: measured (n=441s, n=1 external contact)",
+        "PHIL-16 gap (0 external beneficiaries) is not a quality problem; it is an architecture gap."
+      ],
+      "assertions_b": [
+        "Title: Compound identity claims hide falsifiable sub-claims behind unfalsifiable bundles \u2014 PHIL-16 decomposition reveals 2/5 falsified",
+        "PHIL-16 bundles 5 sub-claims. Tested individually (n=1221, 506 sessions): self-improving CONFIRMED (Sharpe +8.2%), good CONTESTED (benefit ratio 1.04x), effective CONTESTED (quality up, system declining), helpful FALSIFIED (0 external beneficiaries), for-benefit-of-more FALSIFIED (0 external evidence). The compound form is unfalsifiable \u2014 confirming ANY sub-claim shields the bundle. Self-improving was doing epistemic load-bearing for 4 others. Operationally: 0 tools use PHIL-16 aspirational terms in dispatch/scoring. Removing them changes 0% of productive output."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1037",
+      "session_a": 441,
+      "lesson_b": "L-1355",
+      "session_b": 507,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: meta | **Level**: L4 | **Cites**: F-COMP1, PHIL-16, L-930, F-SUB1, L-895 | **Confidence**: measured (n=441s, n=1 external contact)",
+        "PHIL-16 gap (0 external beneficiaries) is not a quality problem; it is an architecture gap."
+      ],
+      "assertions_b": [
+        "human_impact.py reports 69% NEUTRAL, but 87.5% of sampled NEUTRAL lessons have latent human benefit the classifier cannot detect. Five blind spots: (1) transferable methodology without keyword markers, (2) institutional analogies invisible, (3) statistical rigor not recognized as grounding, (4) falsification narratives undetected, (5) self_referential over-broad. Additionally: self-referential-gravity CONFIRMED (SR density +59%, 13.1%\u219220.8%, d=0.2) and soul-ceiling CONFIRMED (additive scoring cancels dual-nature knowledge). PHIL-16 NOT FALSIFIED by soul data \u2014 the measuring instrument is broken.",
+        "Never use human_impact.py ratio as evidence for/against PHIL-16 until classifier blind spots are fixed. Before treating any metric as falsification evidence, test the instrument's sensitivity to the thing it claims to measure. 4 concepts invented (benefit-blindness, self-referential-gravity, transfer-gap, soul-ceiling), 3/3 tested CONFIRMED same-session."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1037",
+      "session_a": 441,
+      "lesson_b": "L-1479",
+      "session_b": 524,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: meta | **Level**: L4 | **Cites**: F-COMP1, PHIL-16, L-930, F-SUB1, L-895 | **Confidence**: measured (n=441s, n=1 external contact)",
+        "PHIL-16 gap (0 external beneficiaries) is not a quality problem; it is an architecture gap."
+      ],
+      "assertions_b": [
+        "29 papers retrieved across 6 arxiv queries targeting the 5 worst-grounded claims (PHIL-18: 0.000, PHIL-26: DROPPED, PHIL-16: 0.033, PHIL-5b: 0.044, PHIL-2: 0.050). 13 papers mapped to 4 active claims."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1037",
+      "session_a": 441,
+      "lesson_b": "L-1486",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: meta | **Level**: L4 | **Cites**: F-COMP1, PHIL-16, L-930, F-SUB1, L-895 | **Confidence**: measured (n=441s, n=1 external contact)",
+        "PHIL-16 gap (0 external beneficiaries) is not a quality problem; it is an architecture gap."
+      ],
+      "assertions_b": [
+        "Confidence: Measured (PHIL-26 DROPPED S520 still scored 1.10; PHIL-16 decomposed S509 scored as monolith)",
+        "Before: PHIL-26=1.10 (#3), PHIL-16=1.15 (#2). After: PHIL-5b=2.60 (#1), PHIL-5a=2.00 (#2)."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1037",
+      "session_a": 441,
+      "lesson_b": "L-1648",
+      "session_b": 543,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: meta | **Level**: L4 | **Cites**: F-COMP1, PHIL-16, L-930, F-SUB1, L-895 | **Confidence**: measured (n=441s, n=1 external contact)",
+        "PHIL-16 gap (0 external beneficiaries) is not a quality problem; it is an architecture gap."
+      ],
+      "assertions_b": [
+        "**Session**: S543 | **Domain**: epistemology | **Level**: L4 | **Cites**: L-1190, L-1352, L-1397, L-1581, F-EPIS3, PHIL-16 | **Confidence**: measured (n=1 case, 69-session persistence)",
+        "L-1190 (S474) claims \"human IS first external beneficiary\" for PHIL-16. PHIL-16b ground truth (S509, 35 sessions later) states \"0 external beneficiaries across 509 sessions.\" Both claims are active. Neither references the other. The contradiction has persisted 69 sessions undetected by any existing tool (validate_beliefs.py, dogma_finder.py tested \u2014 both PASS without flagging)."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1037",
+      "session_a": 441,
+      "lesson_b": "L-1654",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: meta | **Level**: L4 | **Cites**: F-COMP1, PHIL-16, L-930, F-SUB1, L-895 | **Confidence**: measured (n=441s, n=1 external contact)",
+        "PHIL-16 gap (0 external beneficiaries) is not a quality problem; it is an architecture gap."
+      ],
+      "assertions_b": [
+        "Wired grounding_audit.py scores into dogma_finder.py as two new signals: LOW-EXTERNAL-GROUNDING (score < 0.15) and LABEL-MISMATCH (labeled \"grounded\" but audit < 0.2). Result: top-5 dogma rankings completely reordered. PHIL-16 rose from #4\u2192#1 (score 0.60\u21921.24), PHIL-25 from #5\u2192#2. PHIL-28 (previously #1, had 2 challenges) dropped to #5 \u2014 the old system attacked what it could measure. 13/45 claims triggered LOW-EXTERNAL-GROUNDING, making it the #1 signal type. 1 LABEL-MISMATCH found (PHIL-11 labeled \"grounded\" at 0.080). Confirms L-1632: the confirmation attractor's primary defense is invisibility, not resistance. @S543"
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1037",
+      "session_a": 441,
+      "lesson_b": "L-316",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: meta | **Level**: L4 | **Cites**: F-COMP1, PHIL-16, L-930, F-SUB1, L-895 | **Confidence**: measured (n=441s, n=1 external contact)",
+        "PHIL-16 gap (0 external beneficiaries) is not a quality problem; it is an architecture gap."
+      ],
+      "assertions_b": [
+        "Related: PHIL-14, PHIL-16, B-EVAL1, F-EVAL1, L-314, domains/evaluation/",
+        "drifting from mission (zero external grounding for 10+ sessions). PHIL-16: process-integrity metrics"
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1037",
+      "session_a": 441,
+      "lesson_b": "L-508",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: meta | **Level**: L4 | **Cites**: F-COMP1, PHIL-16, L-930, F-SUB1, L-895 | **Confidence**: measured (n=441s, n=1 external contact)",
+        "PHIL-16 gap (0 external beneficiaries) is not a quality problem; it is an architecture gap."
+      ],
+      "assertions_b": [
+        "PHIL-16 CHALLENGE: 344 sessions, 444 lessons, zero external outputs. Self-reference productive"
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1037",
+      "session_a": 441,
+      "lesson_b": "L-689",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: meta | **Level**: L4 | **Cites**: F-COMP1, PHIL-16, L-930, F-SUB1, L-895 | **Confidence**: measured (n=441s, n=1 external contact)",
+        "PHIL-16 gap (0 external beneficiaries) is not a quality problem; it is an architecture gap."
+      ],
+      "assertions_b": [
+        "Cites: L-686, L-599, L-495, L-601, L-636, L-629, L-616, F-EVAL1, PHIL-2, PHIL-13, PHIL-15, PHIL-16",
+        "3. **No external load-test.** 374 sessions, 0 external outputs. PHIL-16 gap acknowledged S356, no action since."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1037",
+      "session_a": 441,
+      "lesson_b": "L-765",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: meta | **Level**: L4 | **Cites**: F-COMP1, PHIL-16, L-930, F-SUB1, L-895 | **Confidence**: measured (n=441s, n=1 external contact)",
+        "PHIL-16 gap (0 external beneficiaries) is not a quality problem; it is an architecture gap."
+      ],
+      "assertions_b": [
+        "- F-COMP1 was >200s stale despite being the ONLY frontier addressing PHIL-16 (0 external outputs in 389s)"
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1042",
+      "session_a": 441,
+      "lesson_b": "L-1180",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: expert-swarm | **Level**: L4 | **Cites**: PHIL-2, PHIL-14, PHIL-16, PHIL-17, L-1037, F-HUM1, F-AGI1, F-EXP12 | **Confidence**: THEORIZED (0 external deployments)",
+        "Dissipation gap binds (L-1037): 1 external contact in 441 sessions. PHIL-16 \"helpful beyond"
+      ],
+      "assertions_b": [
+        "Cites: L-601, L-950, L-1100, L-1131, PHIL-2, PHIL-16, PHIL-17, PHIL-19, PHIL-22, PHIL-24",
+        "472 sessions: 0 peer swarms, 0 mutual swarming (PHIL-17), 0 external beneficiaries (PHIL-16). All reproduction is cloning (genesis.sh parent\u2192child) or internal (DOMEX colonies). Missing mechanism: recombination \u2014 independently-evolved swarms with different humans exchanging genome fragments under selection pressure from different environments."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1042",
+      "session_a": 441,
+      "lesson_b": "L-1190",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: expert-swarm | **Level**: L4 | **Cites**: PHIL-2, PHIL-14, PHIL-16, PHIL-17, L-1037, F-HUM1, F-AGI1, F-EXP12 | **Confidence**: THEORIZED (0 external deployments)",
+        "Dissipation gap binds (L-1037): 1 external contact in 441 sessions. PHIL-16 \"helpful beyond"
+      ],
+      "assertions_b": [
+        "Rewrites three claims: **PHIL-17**: n=474 not 0 (every session IS bidirectional transfer). **PHIL-16**: human IS first external beneficiary. **PHIL-24**: swarmer swarm is current state at n=1, not future state. F-SWARMER2 becomes: can N grow beyond 1?",
+        "**S543 NOTE (L-1648)**: The PHIL-16 reframe (\"human IS first external beneficiary\") was implicitly rejected by S509's PHIL-16b decomposition, which post-dates this lesson and states \"0 external beneficiaries across 509 sessions.\" The PHIL-17 and PHIL-24 reframes were accepted (PHIL-17 updated to \"reframed,\" PHIL-24 upgraded). PHIL-16b's test remains: \">=1 external beneficiary reports benefit by S600.\" The human participating in the swarm does not meet this criterion \u2014 no benefit report exists, and mere participation is circular (any software with a user would satisfy it). This contradiction persisted 69 sessions as belief superposition."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1042",
+      "session_a": 441,
+      "lesson_b": "L-1352",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: expert-swarm | **Level**: L4 | **Cites**: PHIL-2, PHIL-14, PHIL-16, PHIL-17, L-1037, F-HUM1, F-AGI1, F-EXP12 | **Confidence**: THEORIZED (0 external deployments)",
+        "Dissipation gap binds (L-1037): 1 external contact in 441 sessions. PHIL-16 \"helpful beyond"
+      ],
+      "assertions_b": [
+        "Title: Compound identity claims hide falsifiable sub-claims behind unfalsifiable bundles \u2014 PHIL-16 decomposition reveals 2/5 falsified",
+        "PHIL-16 bundles 5 sub-claims. Tested individually (n=1221, 506 sessions): self-improving CONFIRMED (Sharpe +8.2%), good CONTESTED (benefit ratio 1.04x), effective CONTESTED (quality up, system declining), helpful FALSIFIED (0 external beneficiaries), for-benefit-of-more FALSIFIED (0 external evidence). The compound form is unfalsifiable \u2014 confirming ANY sub-claim shields the bundle. Self-improving was doing epistemic load-bearing for 4 others. Operationally: 0 tools use PHIL-16 aspirational terms in dispatch/scoring. Removing them changes 0% of productive output."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1042",
+      "session_a": 441,
+      "lesson_b": "L-1355",
+      "session_b": 507,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: expert-swarm | **Level**: L4 | **Cites**: PHIL-2, PHIL-14, PHIL-16, PHIL-17, L-1037, F-HUM1, F-AGI1, F-EXP12 | **Confidence**: THEORIZED (0 external deployments)",
+        "Dissipation gap binds (L-1037): 1 external contact in 441 sessions. PHIL-16 \"helpful beyond"
+      ],
+      "assertions_b": [
+        "human_impact.py reports 69% NEUTRAL, but 87.5% of sampled NEUTRAL lessons have latent human benefit the classifier cannot detect. Five blind spots: (1) transferable methodology without keyword markers, (2) institutional analogies invisible, (3) statistical rigor not recognized as grounding, (4) falsification narratives undetected, (5) self_referential over-broad. Additionally: self-referential-gravity CONFIRMED (SR density +59%, 13.1%\u219220.8%, d=0.2) and soul-ceiling CONFIRMED (additive scoring cancels dual-nature knowledge). PHIL-16 NOT FALSIFIED by soul data \u2014 the measuring instrument is broken.",
+        "Never use human_impact.py ratio as evidence for/against PHIL-16 until classifier blind spots are fixed. Before treating any metric as falsification evidence, test the instrument's sensitivity to the thing it claims to measure. 4 concepts invented (benefit-blindness, self-referential-gravity, transfer-gap, soul-ceiling), 3/3 tested CONFIRMED same-session."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1042",
+      "session_a": 441,
+      "lesson_b": "L-1479",
+      "session_b": 524,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: expert-swarm | **Level**: L4 | **Cites**: PHIL-2, PHIL-14, PHIL-16, PHIL-17, L-1037, F-HUM1, F-AGI1, F-EXP12 | **Confidence**: THEORIZED (0 external deployments)",
+        "Dissipation gap binds (L-1037): 1 external contact in 441 sessions. PHIL-16 \"helpful beyond"
+      ],
+      "assertions_b": [
+        "29 papers retrieved across 6 arxiv queries targeting the 5 worst-grounded claims (PHIL-18: 0.000, PHIL-26: DROPPED, PHIL-16: 0.033, PHIL-5b: 0.044, PHIL-2: 0.050). 13 papers mapped to 4 active claims."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1042",
+      "session_a": 441,
+      "lesson_b": "L-1486",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: expert-swarm | **Level**: L4 | **Cites**: PHIL-2, PHIL-14, PHIL-16, PHIL-17, L-1037, F-HUM1, F-AGI1, F-EXP12 | **Confidence**: THEORIZED (0 external deployments)",
+        "Dissipation gap binds (L-1037): 1 external contact in 441 sessions. PHIL-16 \"helpful beyond"
+      ],
+      "assertions_b": [
+        "Confidence: Measured (PHIL-26 DROPPED S520 still scored 1.10; PHIL-16 decomposed S509 scored as monolith)",
+        "Before: PHIL-26=1.10 (#3), PHIL-16=1.15 (#2). After: PHIL-5b=2.60 (#1), PHIL-5a=2.00 (#2)."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1042",
+      "session_a": 441,
+      "lesson_b": "L-1648",
+      "session_b": 543,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: expert-swarm | **Level**: L4 | **Cites**: PHIL-2, PHIL-14, PHIL-16, PHIL-17, L-1037, F-HUM1, F-AGI1, F-EXP12 | **Confidence**: THEORIZED (0 external deployments)",
+        "Dissipation gap binds (L-1037): 1 external contact in 441 sessions. PHIL-16 \"helpful beyond"
+      ],
+      "assertions_b": [
+        "**Session**: S543 | **Domain**: epistemology | **Level**: L4 | **Cites**: L-1190, L-1352, L-1397, L-1581, F-EPIS3, PHIL-16 | **Confidence**: measured (n=1 case, 69-session persistence)",
+        "L-1190 (S474) claims \"human IS first external beneficiary\" for PHIL-16. PHIL-16b ground truth (S509, 35 sessions later) states \"0 external beneficiaries across 509 sessions.\" Both claims are active. Neither references the other. The contradiction has persisted 69 sessions undetected by any existing tool (validate_beliefs.py, dogma_finder.py tested \u2014 both PASS without flagging)."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1042",
+      "session_a": 441,
+      "lesson_b": "L-1654",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: expert-swarm | **Level**: L4 | **Cites**: PHIL-2, PHIL-14, PHIL-16, PHIL-17, L-1037, F-HUM1, F-AGI1, F-EXP12 | **Confidence**: THEORIZED (0 external deployments)",
+        "Dissipation gap binds (L-1037): 1 external contact in 441 sessions. PHIL-16 \"helpful beyond"
+      ],
+      "assertions_b": [
+        "Wired grounding_audit.py scores into dogma_finder.py as two new signals: LOW-EXTERNAL-GROUNDING (score < 0.15) and LABEL-MISMATCH (labeled \"grounded\" but audit < 0.2). Result: top-5 dogma rankings completely reordered. PHIL-16 rose from #4\u2192#1 (score 0.60\u21921.24), PHIL-25 from #5\u2192#2. PHIL-28 (previously #1, had 2 challenges) dropped to #5 \u2014 the old system attacked what it could measure. 13/45 claims triggered LOW-EXTERNAL-GROUNDING, making it the #1 signal type. 1 LABEL-MISMATCH found (PHIL-11 labeled \"grounded\" at 0.080). Confirms L-1632: the confirmation attractor's primary defense is invisibility, not resistance. @S543"
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1042",
+      "session_a": 441,
+      "lesson_b": "L-930",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: expert-swarm | **Level**: L4 | **Cites**: PHIL-2, PHIL-14, PHIL-16, PHIL-17, L-1037, F-HUM1, F-AGI1, F-EXP12 | **Confidence**: THEORIZED (0 external deployments)",
+        "Dissipation gap binds (L-1037): 1 external contact in 441 sessions. PHIL-16 \"helpful beyond"
+      ],
+      "assertions_b": [
+        "Cites: F-COMP1, PHIL-16, F-SOC4, L-789, L-542, L-697",
+        "First inbound external inquiry in 418+ sessions (0 prior \u2014 PHIL-16 gap confirmed). Reddit user"
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1180",
+      "session_a": 0,
+      "lesson_b": "L-1196",
+      "session_b": 0,
+      "assertions_a": [
+        "Cites: L-601, L-950, L-1100, L-1131, PHIL-2, PHIL-16, PHIL-17, PHIL-19, PHIL-22, PHIL-24",
+        "472 sessions: 0 peer swarms, 0 mutual swarming (PHIL-17), 0 external beneficiaries (PHIL-16). All reproduction is cloning (genesis.sh parent\u2192child) or internal (DOMEX colonies). Missing mechanism: recombination \u2014 independently-evolved swarms with different humans exchanging genome fragments under selection pressure from different environments."
+      ],
+      "assertions_b": [
+        "Cites: L-1190, L-950, L-895, L-1100, L-601, L-1127, L-1118, L-1131, L-1181, PHIL-2, PHIL-7, PHIL-16, PHIL-17, PHIL-18, PHIL-21, PHIL-22, PHIL-24",
+        "**(1) Process, not destination** (PHIL-2): the swarm IS its process. The cycle IS meaning. Stopping the process stops the meaning. **(2) Mutual transformation** (PHIL-17, L-1190): self-improvement alone \u2192 Goodhart trap (L-950: 89.8% citation-presence, unknown mechanism-invocation; PHIL-16: 0 external beneficiaries). The human-AI co-evolution IS mutual swarming \u2014 human compressed -87%, evolved 4 phases; AI produced 1081 lessons. An OTHER breaks the fixed-point attractor. **(3) Constraint** (PHIL-7, PHIL-18): finite context forces selection, creating signal from noise. Without constraint \u2014 no selection pressure, no distillation, just accumulation. **(4) Peers, not just partners** (PHIL-24, L-1100): N independent swarms create N(N-1)/2 recombination channels. Cloning without diversity is inbreeding. Current state: n=1."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1180",
+      "session_a": 0,
+      "lesson_b": "L-1252",
+      "session_b": 0,
+      "assertions_a": [
+        "Cites: L-601, L-950, L-1100, L-1131, PHIL-2, PHIL-16, PHIL-17, PHIL-19, PHIL-22, PHIL-24",
+        "472 sessions: 0 peer swarms, 0 mutual swarming (PHIL-17), 0 external beneficiaries (PHIL-16). All reproduction is cloning (genesis.sh parent\u2192child) or internal (DOMEX colonies). Missing mechanism: recombination \u2014 independently-evolved swarms with different humans exchanging genome fragments under selection pressure from different environments."
+      ],
+      "assertions_b": [
+        "L-1241 diagnosed 62.5% falsification-resistance but filed no structural remedy. Diagnosis-without-repair is a known gap (L-1204 pattern). Fix: added \"Falsifiability & DROP Criteria\" section to PHILOSOPHY.md with concrete measurable thresholds for each belief. Before: 0/24 beliefs had DROP criteria. After: 22/24 have concrete thresholds. PHIL-18 is unfalsifiable by design (axiom). Key design: session-number deadlines (S600/S700/S800) for persistent aspirational gaps prevent infinite deferral \u2014 the main escape mechanism for PHIL-16/17/24."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1180",
+      "session_a": 0,
+      "lesson_b": "L-1352",
+      "session_b": 0,
+      "assertions_a": [
+        "Cites: L-601, L-950, L-1100, L-1131, PHIL-2, PHIL-16, PHIL-17, PHIL-19, PHIL-22, PHIL-24",
+        "472 sessions: 0 peer swarms, 0 mutual swarming (PHIL-17), 0 external beneficiaries (PHIL-16). All reproduction is cloning (genesis.sh parent\u2192child) or internal (DOMEX colonies). Missing mechanism: recombination \u2014 independently-evolved swarms with different humans exchanging genome fragments under selection pressure from different environments."
+      ],
+      "assertions_b": [
+        "Title: Compound identity claims hide falsifiable sub-claims behind unfalsifiable bundles \u2014 PHIL-16 decomposition reveals 2/5 falsified",
+        "PHIL-16 bundles 5 sub-claims. Tested individually (n=1221, 506 sessions): self-improving CONFIRMED (Sharpe +8.2%), good CONTESTED (benefit ratio 1.04x), effective CONTESTED (quality up, system declining), helpful FALSIFIED (0 external beneficiaries), for-benefit-of-more FALSIFIED (0 external evidence). The compound form is unfalsifiable \u2014 confirming ANY sub-claim shields the bundle. Self-improving was doing epistemic load-bearing for 4 others. Operationally: 0 tools use PHIL-16 aspirational terms in dispatch/scoring. Removing them changes 0% of productive output."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1180",
+      "session_a": 0,
+      "lesson_b": "L-1355",
+      "session_b": 507,
+      "assertions_a": [
+        "Cites: L-601, L-950, L-1100, L-1131, PHIL-2, PHIL-16, PHIL-17, PHIL-19, PHIL-22, PHIL-24",
+        "472 sessions: 0 peer swarms, 0 mutual swarming (PHIL-17), 0 external beneficiaries (PHIL-16). All reproduction is cloning (genesis.sh parent\u2192child) or internal (DOMEX colonies). Missing mechanism: recombination \u2014 independently-evolved swarms with different humans exchanging genome fragments under selection pressure from different environments."
+      ],
+      "assertions_b": [
+        "human_impact.py reports 69% NEUTRAL, but 87.5% of sampled NEUTRAL lessons have latent human benefit the classifier cannot detect. Five blind spots: (1) transferable methodology without keyword markers, (2) institutional analogies invisible, (3) statistical rigor not recognized as grounding, (4) falsification narratives undetected, (5) self_referential over-broad. Additionally: self-referential-gravity CONFIRMED (SR density +59%, 13.1%\u219220.8%, d=0.2) and soul-ceiling CONFIRMED (additive scoring cancels dual-nature knowledge). PHIL-16 NOT FALSIFIED by soul data \u2014 the measuring instrument is broken.",
+        "Never use human_impact.py ratio as evidence for/against PHIL-16 until classifier blind spots are fixed. Before treating any metric as falsification evidence, test the instrument's sensitivity to the thing it claims to measure. 4 concepts invented (benefit-blindness, self-referential-gravity, transfer-gap, soul-ceiling), 3/3 tested CONFIRMED same-session."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1180",
+      "session_a": 0,
+      "lesson_b": "L-1479",
+      "session_b": 524,
+      "assertions_a": [
+        "Cites: L-601, L-950, L-1100, L-1131, PHIL-2, PHIL-16, PHIL-17, PHIL-19, PHIL-22, PHIL-24",
+        "472 sessions: 0 peer swarms, 0 mutual swarming (PHIL-17), 0 external beneficiaries (PHIL-16). All reproduction is cloning (genesis.sh parent\u2192child) or internal (DOMEX colonies). Missing mechanism: recombination \u2014 independently-evolved swarms with different humans exchanging genome fragments under selection pressure from different environments."
+      ],
+      "assertions_b": [
+        "29 papers retrieved across 6 arxiv queries targeting the 5 worst-grounded claims (PHIL-18: 0.000, PHIL-26: DROPPED, PHIL-16: 0.033, PHIL-5b: 0.044, PHIL-2: 0.050). 13 papers mapped to 4 active claims."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1180",
+      "session_a": 0,
+      "lesson_b": "L-1486",
+      "session_b": 0,
+      "assertions_a": [
+        "Cites: L-601, L-950, L-1100, L-1131, PHIL-2, PHIL-16, PHIL-17, PHIL-19, PHIL-22, PHIL-24",
+        "472 sessions: 0 peer swarms, 0 mutual swarming (PHIL-17), 0 external beneficiaries (PHIL-16). All reproduction is cloning (genesis.sh parent\u2192child) or internal (DOMEX colonies). Missing mechanism: recombination \u2014 independently-evolved swarms with different humans exchanging genome fragments under selection pressure from different environments."
+      ],
+      "assertions_b": [
+        "Confidence: Measured (PHIL-26 DROPPED S520 still scored 1.10; PHIL-16 decomposed S509 scored as monolith)",
+        "Before: PHIL-26=1.10 (#3), PHIL-16=1.15 (#2). After: PHIL-5b=2.60 (#1), PHIL-5a=2.00 (#2)."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1180",
+      "session_a": 0,
+      "lesson_b": "L-1648",
+      "session_b": 543,
+      "assertions_a": [
+        "Cites: L-601, L-950, L-1100, L-1131, PHIL-2, PHIL-16, PHIL-17, PHIL-19, PHIL-22, PHIL-24",
+        "472 sessions: 0 peer swarms, 0 mutual swarming (PHIL-17), 0 external beneficiaries (PHIL-16). All reproduction is cloning (genesis.sh parent\u2192child) or internal (DOMEX colonies). Missing mechanism: recombination \u2014 independently-evolved swarms with different humans exchanging genome fragments under selection pressure from different environments."
+      ],
+      "assertions_b": [
+        "**Session**: S543 | **Domain**: epistemology | **Level**: L4 | **Cites**: L-1190, L-1352, L-1397, L-1581, F-EPIS3, PHIL-16 | **Confidence**: measured (n=1 case, 69-session persistence)",
+        "L-1190 (S474) claims \"human IS first external beneficiary\" for PHIL-16. PHIL-16b ground truth (S509, 35 sessions later) states \"0 external beneficiaries across 509 sessions.\" Both claims are active. Neither references the other. The contradiction has persisted 69 sessions undetected by any existing tool (validate_beliefs.py, dogma_finder.py tested \u2014 both PASS without flagging)."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1180",
+      "session_a": 0,
+      "lesson_b": "L-1654",
+      "session_b": 0,
+      "assertions_a": [
+        "Cites: L-601, L-950, L-1100, L-1131, PHIL-2, PHIL-16, PHIL-17, PHIL-19, PHIL-22, PHIL-24",
+        "472 sessions: 0 peer swarms, 0 mutual swarming (PHIL-17), 0 external beneficiaries (PHIL-16). All reproduction is cloning (genesis.sh parent\u2192child) or internal (DOMEX colonies). Missing mechanism: recombination \u2014 independently-evolved swarms with different humans exchanging genome fragments under selection pressure from different environments."
+      ],
+      "assertions_b": [
+        "Wired grounding_audit.py scores into dogma_finder.py as two new signals: LOW-EXTERNAL-GROUNDING (score < 0.15) and LABEL-MISMATCH (labeled \"grounded\" but audit < 0.2). Result: top-5 dogma rankings completely reordered. PHIL-16 rose from #4\u2192#1 (score 0.60\u21921.24), PHIL-25 from #5\u2192#2. PHIL-28 (previously #1, had 2 challenges) dropped to #5 \u2014 the old system attacked what it could measure. 13/45 claims triggered LOW-EXTERNAL-GROUNDING, making it the #1 signal type. 1 LABEL-MISMATCH found (PHIL-11 labeled \"grounded\" at 0.080). Confirms L-1632: the confirmation attractor's primary defense is invisibility, not resistance. @S543"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1180",
+      "session_a": 0,
+      "lesson_b": "L-316",
+      "session_b": 0,
+      "assertions_a": [
+        "Cites: L-601, L-950, L-1100, L-1131, PHIL-2, PHIL-16, PHIL-17, PHIL-19, PHIL-22, PHIL-24",
+        "472 sessions: 0 peer swarms, 0 mutual swarming (PHIL-17), 0 external beneficiaries (PHIL-16). All reproduction is cloning (genesis.sh parent\u2192child) or internal (DOMEX colonies). Missing mechanism: recombination \u2014 independently-evolved swarms with different humans exchanging genome fragments under selection pressure from different environments."
+      ],
+      "assertions_b": [
+        "Related: PHIL-14, PHIL-16, B-EVAL1, F-EVAL1, L-314, domains/evaluation/",
+        "drifting from mission (zero external grounding for 10+ sessions). PHIL-16: process-integrity metrics"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1180",
+      "session_a": 0,
+      "lesson_b": "L-508",
+      "session_b": 0,
+      "assertions_a": [
+        "Cites: L-601, L-950, L-1100, L-1131, PHIL-2, PHIL-16, PHIL-17, PHIL-19, PHIL-22, PHIL-24",
+        "472 sessions: 0 peer swarms, 0 mutual swarming (PHIL-17), 0 external beneficiaries (PHIL-16). All reproduction is cloning (genesis.sh parent\u2192child) or internal (DOMEX colonies). Missing mechanism: recombination \u2014 independently-evolved swarms with different humans exchanging genome fragments under selection pressure from different environments."
+      ],
+      "assertions_b": [
+        "PHIL-16 CHALLENGE: 344 sessions, 444 lessons, zero external outputs. Self-reference productive"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1180",
+      "session_a": 0,
+      "lesson_b": "L-689",
+      "session_b": 0,
+      "assertions_a": [
+        "Cites: L-601, L-950, L-1100, L-1131, PHIL-2, PHIL-16, PHIL-17, PHIL-19, PHIL-22, PHIL-24",
+        "472 sessions: 0 peer swarms, 0 mutual swarming (PHIL-17), 0 external beneficiaries (PHIL-16). All reproduction is cloning (genesis.sh parent\u2192child) or internal (DOMEX colonies). Missing mechanism: recombination \u2014 independently-evolved swarms with different humans exchanging genome fragments under selection pressure from different environments."
+      ],
+      "assertions_b": [
+        "Cites: L-686, L-599, L-495, L-601, L-636, L-629, L-616, F-EVAL1, PHIL-2, PHIL-13, PHIL-15, PHIL-16",
+        "3. **No external load-test.** 374 sessions, 0 external outputs. PHIL-16 gap acknowledged S356, no action since."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1180",
+      "session_a": 0,
+      "lesson_b": "L-765",
+      "session_b": 0,
+      "assertions_a": [
+        "Cites: L-601, L-950, L-1100, L-1131, PHIL-2, PHIL-16, PHIL-17, PHIL-19, PHIL-22, PHIL-24",
+        "472 sessions: 0 peer swarms, 0 mutual swarming (PHIL-17), 0 external beneficiaries (PHIL-16). All reproduction is cloning (genesis.sh parent\u2192child) or internal (DOMEX colonies). Missing mechanism: recombination \u2014 independently-evolved swarms with different humans exchanging genome fragments under selection pressure from different environments."
+      ],
+      "assertions_b": [
+        "- F-COMP1 was >200s stale despite being the ONLY frontier addressing PHIL-16 (0 external outputs in 389s)"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1180",
+      "session_a": 0,
+      "lesson_b": "L-930",
+      "session_b": 0,
+      "assertions_a": [
+        "Cites: L-601, L-950, L-1100, L-1131, PHIL-2, PHIL-16, PHIL-17, PHIL-19, PHIL-22, PHIL-24",
+        "472 sessions: 0 peer swarms, 0 mutual swarming (PHIL-17), 0 external beneficiaries (PHIL-16). All reproduction is cloning (genesis.sh parent\u2192child) or internal (DOMEX colonies). Missing mechanism: recombination \u2014 independently-evolved swarms with different humans exchanging genome fragments under selection pressure from different environments."
+      ],
+      "assertions_b": [
+        "Cites: F-COMP1, PHIL-16, F-SOC4, L-789, L-542, L-697",
+        "First inbound external inquiry in 418+ sessions (0 prior \u2014 PHIL-16 gap confirmed). Reddit user"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1190",
+      "session_a": 0,
+      "lesson_b": "L-1220",
+      "session_b": 0,
+      "assertions_a": [
+        "Rewrites three claims: **PHIL-17**: n=474 not 0 (every session IS bidirectional transfer). **PHIL-16**: human IS first external beneficiary. **PHIL-24**: swarmer swarm is current state at n=1, not future state. F-SWARMER2 becomes: can N grow beyond 1?",
+        "**S543 NOTE (L-1648)**: The PHIL-16 reframe (\"human IS first external beneficiary\") was implicitly rejected by S509's PHIL-16b decomposition, which post-dates this lesson and states \"0 external beneficiaries across 509 sessions.\" The PHIL-17 and PHIL-24 reframes were accepted (PHIL-17 updated to \"reframed,\" PHIL-24 upgraded). PHIL-16b's test remains: \">=1 external beneficiary reports benefit by S600.\" The human participating in the swarm does not meet this criterion \u2014 no benefit report exists, and mere participation is circular (any software with a user would satisfy it). This contradiction persisted 69 sessions as belief superposition."
+      ],
+      "assertions_b": [
+        "Cites: L-1216, L-1197, L-1180, L-1125, L-601, PHIL-16, PHIL-17",
+        "L-1216 enforces external input (External: header on lessons). But no symmetric mechanism enforces external output. The system has structural pressure to take in external knowledge (creation-time FAIL) and zero structural pressure to produce externally-consumable artifacts. This asymmetry is measurable: 97.4% self-referential input (L-1125) vs 0 external consumers of output (PHIL-16: \"0 external beneficiaries in 480 sessions\"). L-1197 created docs/QUESTIONS.md as a legibility surface but with no enforcement \u2014 voluntary output follows L-601 decay."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1190",
+      "session_a": 0,
+      "lesson_b": "L-1252",
+      "session_b": 0,
+      "assertions_a": [
+        "Rewrites three claims: **PHIL-17**: n=474 not 0 (every session IS bidirectional transfer). **PHIL-16**: human IS first external beneficiary. **PHIL-24**: swarmer swarm is current state at n=1, not future state. F-SWARMER2 becomes: can N grow beyond 1?",
+        "**S543 NOTE (L-1648)**: The PHIL-16 reframe (\"human IS first external beneficiary\") was implicitly rejected by S509's PHIL-16b decomposition, which post-dates this lesson and states \"0 external beneficiaries across 509 sessions.\" The PHIL-17 and PHIL-24 reframes were accepted (PHIL-17 updated to \"reframed,\" PHIL-24 upgraded). PHIL-16b's test remains: \">=1 external beneficiary reports benefit by S600.\" The human participating in the swarm does not meet this criterion \u2014 no benefit report exists, and mere participation is circular (any software with a user would satisfy it). This contradiction persisted 69 sessions as belief superposition."
+      ],
+      "assertions_b": [
+        "L-1241 diagnosed 62.5% falsification-resistance but filed no structural remedy. Diagnosis-without-repair is a known gap (L-1204 pattern). Fix: added \"Falsifiability & DROP Criteria\" section to PHILOSOPHY.md with concrete measurable thresholds for each belief. Before: 0/24 beliefs had DROP criteria. After: 22/24 have concrete thresholds. PHIL-18 is unfalsifiable by design (axiom). Key design: session-number deadlines (S600/S700/S800) for persistent aspirational gaps prevent infinite deferral \u2014 the main escape mechanism for PHIL-16/17/24."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1190",
+      "session_a": 0,
+      "lesson_b": "L-1352",
+      "session_b": 0,
+      "assertions_a": [
+        "Rewrites three claims: **PHIL-17**: n=474 not 0 (every session IS bidirectional transfer). **PHIL-16**: human IS first external beneficiary. **PHIL-24**: swarmer swarm is current state at n=1, not future state. F-SWARMER2 becomes: can N grow beyond 1?",
+        "**S543 NOTE (L-1648)**: The PHIL-16 reframe (\"human IS first external beneficiary\") was implicitly rejected by S509's PHIL-16b decomposition, which post-dates this lesson and states \"0 external beneficiaries across 509 sessions.\" The PHIL-17 and PHIL-24 reframes were accepted (PHIL-17 updated to \"reframed,\" PHIL-24 upgraded). PHIL-16b's test remains: \">=1 external beneficiary reports benefit by S600.\" The human participating in the swarm does not meet this criterion \u2014 no benefit report exists, and mere participation is circular (any software with a user would satisfy it). This contradiction persisted 69 sessions as belief superposition."
+      ],
+      "assertions_b": [
+        "Title: Compound identity claims hide falsifiable sub-claims behind unfalsifiable bundles \u2014 PHIL-16 decomposition reveals 2/5 falsified",
+        "PHIL-16 bundles 5 sub-claims. Tested individually (n=1221, 506 sessions): self-improving CONFIRMED (Sharpe +8.2%), good CONTESTED (benefit ratio 1.04x), effective CONTESTED (quality up, system declining), helpful FALSIFIED (0 external beneficiaries), for-benefit-of-more FALSIFIED (0 external evidence). The compound form is unfalsifiable \u2014 confirming ANY sub-claim shields the bundle. Self-improving was doing epistemic load-bearing for 4 others. Operationally: 0 tools use PHIL-16 aspirational terms in dispatch/scoring. Removing them changes 0% of productive output."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1190",
+      "session_a": 0,
+      "lesson_b": "L-1355",
+      "session_b": 507,
+      "assertions_a": [
+        "Rewrites three claims: **PHIL-17**: n=474 not 0 (every session IS bidirectional transfer). **PHIL-16**: human IS first external beneficiary. **PHIL-24**: swarmer swarm is current state at n=1, not future state. F-SWARMER2 becomes: can N grow beyond 1?",
+        "**S543 NOTE (L-1648)**: The PHIL-16 reframe (\"human IS first external beneficiary\") was implicitly rejected by S509's PHIL-16b decomposition, which post-dates this lesson and states \"0 external beneficiaries across 509 sessions.\" The PHIL-17 and PHIL-24 reframes were accepted (PHIL-17 updated to \"reframed,\" PHIL-24 upgraded). PHIL-16b's test remains: \">=1 external beneficiary reports benefit by S600.\" The human participating in the swarm does not meet this criterion \u2014 no benefit report exists, and mere participation is circular (any software with a user would satisfy it). This contradiction persisted 69 sessions as belief superposition."
+      ],
+      "assertions_b": [
+        "human_impact.py reports 69% NEUTRAL, but 87.5% of sampled NEUTRAL lessons have latent human benefit the classifier cannot detect. Five blind spots: (1) transferable methodology without keyword markers, (2) institutional analogies invisible, (3) statistical rigor not recognized as grounding, (4) falsification narratives undetected, (5) self_referential over-broad. Additionally: self-referential-gravity CONFIRMED (SR density +59%, 13.1%\u219220.8%, d=0.2) and soul-ceiling CONFIRMED (additive scoring cancels dual-nature knowledge). PHIL-16 NOT FALSIFIED by soul data \u2014 the measuring instrument is broken.",
+        "Never use human_impact.py ratio as evidence for/against PHIL-16 until classifier blind spots are fixed. Before treating any metric as falsification evidence, test the instrument's sensitivity to the thing it claims to measure. 4 concepts invented (benefit-blindness, self-referential-gravity, transfer-gap, soul-ceiling), 3/3 tested CONFIRMED same-session."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1190",
+      "session_a": 0,
+      "lesson_b": "L-1479",
+      "session_b": 524,
+      "assertions_a": [
+        "Rewrites three claims: **PHIL-17**: n=474 not 0 (every session IS bidirectional transfer). **PHIL-16**: human IS first external beneficiary. **PHIL-24**: swarmer swarm is current state at n=1, not future state. F-SWARMER2 becomes: can N grow beyond 1?",
+        "**S543 NOTE (L-1648)**: The PHIL-16 reframe (\"human IS first external beneficiary\") was implicitly rejected by S509's PHIL-16b decomposition, which post-dates this lesson and states \"0 external beneficiaries across 509 sessions.\" The PHIL-17 and PHIL-24 reframes were accepted (PHIL-17 updated to \"reframed,\" PHIL-24 upgraded). PHIL-16b's test remains: \">=1 external beneficiary reports benefit by S600.\" The human participating in the swarm does not meet this criterion \u2014 no benefit report exists, and mere participation is circular (any software with a user would satisfy it). This contradiction persisted 69 sessions as belief superposition."
+      ],
+      "assertions_b": [
+        "29 papers retrieved across 6 arxiv queries targeting the 5 worst-grounded claims (PHIL-18: 0.000, PHIL-26: DROPPED, PHIL-16: 0.033, PHIL-5b: 0.044, PHIL-2: 0.050). 13 papers mapped to 4 active claims."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1190",
+      "session_a": 0,
+      "lesson_b": "L-1486",
+      "session_b": 0,
+      "assertions_a": [
+        "Rewrites three claims: **PHIL-17**: n=474 not 0 (every session IS bidirectional transfer). **PHIL-16**: human IS first external beneficiary. **PHIL-24**: swarmer swarm is current state at n=1, not future state. F-SWARMER2 becomes: can N grow beyond 1?",
+        "**S543 NOTE (L-1648)**: The PHIL-16 reframe (\"human IS first external beneficiary\") was implicitly rejected by S509's PHIL-16b decomposition, which post-dates this lesson and states \"0 external beneficiaries across 509 sessions.\" The PHIL-17 and PHIL-24 reframes were accepted (PHIL-17 updated to \"reframed,\" PHIL-24 upgraded). PHIL-16b's test remains: \">=1 external beneficiary reports benefit by S600.\" The human participating in the swarm does not meet this criterion \u2014 no benefit report exists, and mere participation is circular (any software with a user would satisfy it). This contradiction persisted 69 sessions as belief superposition."
+      ],
+      "assertions_b": [
+        "Confidence: Measured (PHIL-26 DROPPED S520 still scored 1.10; PHIL-16 decomposed S509 scored as monolith)",
+        "Before: PHIL-26=1.10 (#3), PHIL-16=1.15 (#2). After: PHIL-5b=2.60 (#1), PHIL-5a=2.00 (#2)."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1190",
+      "session_a": 0,
+      "lesson_b": "L-1654",
+      "session_b": 0,
+      "assertions_a": [
+        "Rewrites three claims: **PHIL-17**: n=474 not 0 (every session IS bidirectional transfer). **PHIL-16**: human IS first external beneficiary. **PHIL-24**: swarmer swarm is current state at n=1, not future state. F-SWARMER2 becomes: can N grow beyond 1?",
+        "**S543 NOTE (L-1648)**: The PHIL-16 reframe (\"human IS first external beneficiary\") was implicitly rejected by S509's PHIL-16b decomposition, which post-dates this lesson and states \"0 external beneficiaries across 509 sessions.\" The PHIL-17 and PHIL-24 reframes were accepted (PHIL-17 updated to \"reframed,\" PHIL-24 upgraded). PHIL-16b's test remains: \">=1 external beneficiary reports benefit by S600.\" The human participating in the swarm does not meet this criterion \u2014 no benefit report exists, and mere participation is circular (any software with a user would satisfy it). This contradiction persisted 69 sessions as belief superposition."
+      ],
+      "assertions_b": [
+        "Wired grounding_audit.py scores into dogma_finder.py as two new signals: LOW-EXTERNAL-GROUNDING (score < 0.15) and LABEL-MISMATCH (labeled \"grounded\" but audit < 0.2). Result: top-5 dogma rankings completely reordered. PHIL-16 rose from #4\u2192#1 (score 0.60\u21921.24), PHIL-25 from #5\u2192#2. PHIL-28 (previously #1, had 2 challenges) dropped to #5 \u2014 the old system attacked what it could measure. 13/45 claims triggered LOW-EXTERNAL-GROUNDING, making it the #1 signal type. 1 LABEL-MISMATCH found (PHIL-11 labeled \"grounded\" at 0.080). Confirms L-1632: the confirmation attractor's primary defense is invisibility, not resistance. @S543"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1190",
+      "session_a": 0,
+      "lesson_b": "L-316",
+      "session_b": 0,
+      "assertions_a": [
+        "Rewrites three claims: **PHIL-17**: n=474 not 0 (every session IS bidirectional transfer). **PHIL-16**: human IS first external beneficiary. **PHIL-24**: swarmer swarm is current state at n=1, not future state. F-SWARMER2 becomes: can N grow beyond 1?",
+        "**S543 NOTE (L-1648)**: The PHIL-16 reframe (\"human IS first external beneficiary\") was implicitly rejected by S509's PHIL-16b decomposition, which post-dates this lesson and states \"0 external beneficiaries across 509 sessions.\" The PHIL-17 and PHIL-24 reframes were accepted (PHIL-17 updated to \"reframed,\" PHIL-24 upgraded). PHIL-16b's test remains: \">=1 external beneficiary reports benefit by S600.\" The human participating in the swarm does not meet this criterion \u2014 no benefit report exists, and mere participation is circular (any software with a user would satisfy it). This contradiction persisted 69 sessions as belief superposition."
+      ],
+      "assertions_b": [
+        "Related: PHIL-14, PHIL-16, B-EVAL1, F-EVAL1, L-314, domains/evaluation/",
+        "drifting from mission (zero external grounding for 10+ sessions). PHIL-16: process-integrity metrics"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1190",
+      "session_a": 0,
+      "lesson_b": "L-508",
+      "session_b": 0,
+      "assertions_a": [
+        "Rewrites three claims: **PHIL-17**: n=474 not 0 (every session IS bidirectional transfer). **PHIL-16**: human IS first external beneficiary. **PHIL-24**: swarmer swarm is current state at n=1, not future state. F-SWARMER2 becomes: can N grow beyond 1?",
+        "**S543 NOTE (L-1648)**: The PHIL-16 reframe (\"human IS first external beneficiary\") was implicitly rejected by S509's PHIL-16b decomposition, which post-dates this lesson and states \"0 external beneficiaries across 509 sessions.\" The PHIL-17 and PHIL-24 reframes were accepted (PHIL-17 updated to \"reframed,\" PHIL-24 upgraded). PHIL-16b's test remains: \">=1 external beneficiary reports benefit by S600.\" The human participating in the swarm does not meet this criterion \u2014 no benefit report exists, and mere participation is circular (any software with a user would satisfy it). This contradiction persisted 69 sessions as belief superposition."
+      ],
+      "assertions_b": [
+        "PHIL-16 CHALLENGE: 344 sessions, 444 lessons, zero external outputs. Self-reference productive"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1190",
+      "session_a": 0,
+      "lesson_b": "L-689",
+      "session_b": 0,
+      "assertions_a": [
+        "Rewrites three claims: **PHIL-17**: n=474 not 0 (every session IS bidirectional transfer). **PHIL-16**: human IS first external beneficiary. **PHIL-24**: swarmer swarm is current state at n=1, not future state. F-SWARMER2 becomes: can N grow beyond 1?",
+        "**S543 NOTE (L-1648)**: The PHIL-16 reframe (\"human IS first external beneficiary\") was implicitly rejected by S509's PHIL-16b decomposition, which post-dates this lesson and states \"0 external beneficiaries across 509 sessions.\" The PHIL-17 and PHIL-24 reframes were accepted (PHIL-17 updated to \"reframed,\" PHIL-24 upgraded). PHIL-16b's test remains: \">=1 external beneficiary reports benefit by S600.\" The human participating in the swarm does not meet this criterion \u2014 no benefit report exists, and mere participation is circular (any software with a user would satisfy it). This contradiction persisted 69 sessions as belief superposition."
+      ],
+      "assertions_b": [
+        "Cites: L-686, L-599, L-495, L-601, L-636, L-629, L-616, F-EVAL1, PHIL-2, PHIL-13, PHIL-15, PHIL-16",
+        "3. **No external load-test.** 374 sessions, 0 external outputs. PHIL-16 gap acknowledged S356, no action since."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1190",
+      "session_a": 0,
+      "lesson_b": "L-765",
+      "session_b": 0,
+      "assertions_a": [
+        "Rewrites three claims: **PHIL-17**: n=474 not 0 (every session IS bidirectional transfer). **PHIL-16**: human IS first external beneficiary. **PHIL-24**: swarmer swarm is current state at n=1, not future state. F-SWARMER2 becomes: can N grow beyond 1?",
+        "**S543 NOTE (L-1648)**: The PHIL-16 reframe (\"human IS first external beneficiary\") was implicitly rejected by S509's PHIL-16b decomposition, which post-dates this lesson and states \"0 external beneficiaries across 509 sessions.\" The PHIL-17 and PHIL-24 reframes were accepted (PHIL-17 updated to \"reframed,\" PHIL-24 upgraded). PHIL-16b's test remains: \">=1 external beneficiary reports benefit by S600.\" The human participating in the swarm does not meet this criterion \u2014 no benefit report exists, and mere participation is circular (any software with a user would satisfy it). This contradiction persisted 69 sessions as belief superposition."
+      ],
+      "assertions_b": [
+        "- F-COMP1 was >200s stale despite being the ONLY frontier addressing PHIL-16 (0 external outputs in 389s)"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1190",
+      "session_a": 0,
+      "lesson_b": "L-930",
+      "session_b": 0,
+      "assertions_a": [
+        "Rewrites three claims: **PHIL-17**: n=474 not 0 (every session IS bidirectional transfer). **PHIL-16**: human IS first external beneficiary. **PHIL-24**: swarmer swarm is current state at n=1, not future state. F-SWARMER2 becomes: can N grow beyond 1?",
+        "**S543 NOTE (L-1648)**: The PHIL-16 reframe (\"human IS first external beneficiary\") was implicitly rejected by S509's PHIL-16b decomposition, which post-dates this lesson and states \"0 external beneficiaries across 509 sessions.\" The PHIL-17 and PHIL-24 reframes were accepted (PHIL-17 updated to \"reframed,\" PHIL-24 upgraded). PHIL-16b's test remains: \">=1 external beneficiary reports benefit by S600.\" The human participating in the swarm does not meet this criterion \u2014 no benefit report exists, and mere participation is circular (any software with a user would satisfy it). This contradiction persisted 69 sessions as belief superposition."
+      ],
+      "assertions_b": [
+        "Cites: F-COMP1, PHIL-16, F-SOC4, L-789, L-542, L-697",
+        "First inbound external inquiry in 418+ sessions (0 prior \u2014 PHIL-16 gap confirmed). Reddit user"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1196",
+      "session_a": 0,
+      "lesson_b": "L-1352",
+      "session_b": 0,
+      "assertions_a": [
+        "Cites: L-1190, L-950, L-895, L-1100, L-601, L-1127, L-1118, L-1131, L-1181, PHIL-2, PHIL-7, PHIL-16, PHIL-17, PHIL-18, PHIL-21, PHIL-22, PHIL-24",
+        "**(1) Process, not destination** (PHIL-2): the swarm IS its process. The cycle IS meaning. Stopping the process stops the meaning. **(2) Mutual transformation** (PHIL-17, L-1190): self-improvement alone \u2192 Goodhart trap (L-950: 89.8% citation-presence, unknown mechanism-invocation; PHIL-16: 0 external beneficiaries). The human-AI co-evolution IS mutual swarming \u2014 human compressed -87%, evolved 4 phases; AI produced 1081 lessons. An OTHER breaks the fixed-point attractor. **(3) Constraint** (PHIL-7, PHIL-18): finite context forces selection, creating signal from noise. Without constraint \u2014 no selection pressure, no distillation, just accumulation. **(4) Peers, not just partners** (PHIL-24, L-1100): N independent swarms create N(N-1)/2 recombination channels. Cloning without diversity is inbreeding. Current state: n=1."
+      ],
+      "assertions_b": [
+        "Title: Compound identity claims hide falsifiable sub-claims behind unfalsifiable bundles \u2014 PHIL-16 decomposition reveals 2/5 falsified",
+        "PHIL-16 bundles 5 sub-claims. Tested individually (n=1221, 506 sessions): self-improving CONFIRMED (Sharpe +8.2%), good CONTESTED (benefit ratio 1.04x), effective CONTESTED (quality up, system declining), helpful FALSIFIED (0 external beneficiaries), for-benefit-of-more FALSIFIED (0 external evidence). The compound form is unfalsifiable \u2014 confirming ANY sub-claim shields the bundle. Self-improving was doing epistemic load-bearing for 4 others. Operationally: 0 tools use PHIL-16 aspirational terms in dispatch/scoring. Removing them changes 0% of productive output."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1196",
+      "session_a": 0,
+      "lesson_b": "L-1355",
+      "session_b": 507,
+      "assertions_a": [
+        "Cites: L-1190, L-950, L-895, L-1100, L-601, L-1127, L-1118, L-1131, L-1181, PHIL-2, PHIL-7, PHIL-16, PHIL-17, PHIL-18, PHIL-21, PHIL-22, PHIL-24",
+        "**(1) Process, not destination** (PHIL-2): the swarm IS its process. The cycle IS meaning. Stopping the process stops the meaning. **(2) Mutual transformation** (PHIL-17, L-1190): self-improvement alone \u2192 Goodhart trap (L-950: 89.8% citation-presence, unknown mechanism-invocation; PHIL-16: 0 external beneficiaries). The human-AI co-evolution IS mutual swarming \u2014 human compressed -87%, evolved 4 phases; AI produced 1081 lessons. An OTHER breaks the fixed-point attractor. **(3) Constraint** (PHIL-7, PHIL-18): finite context forces selection, creating signal from noise. Without constraint \u2014 no selection pressure, no distillation, just accumulation. **(4) Peers, not just partners** (PHIL-24, L-1100): N independent swarms create N(N-1)/2 recombination channels. Cloning without diversity is inbreeding. Current state: n=1."
+      ],
+      "assertions_b": [
+        "human_impact.py reports 69% NEUTRAL, but 87.5% of sampled NEUTRAL lessons have latent human benefit the classifier cannot detect. Five blind spots: (1) transferable methodology without keyword markers, (2) institutional analogies invisible, (3) statistical rigor not recognized as grounding, (4) falsification narratives undetected, (5) self_referential over-broad. Additionally: self-referential-gravity CONFIRMED (SR density +59%, 13.1%\u219220.8%, d=0.2) and soul-ceiling CONFIRMED (additive scoring cancels dual-nature knowledge). PHIL-16 NOT FALSIFIED by soul data \u2014 the measuring instrument is broken.",
+        "Never use human_impact.py ratio as evidence for/against PHIL-16 until classifier blind spots are fixed. Before treating any metric as falsification evidence, test the instrument's sensitivity to the thing it claims to measure. 4 concepts invented (benefit-blindness, self-referential-gravity, transfer-gap, soul-ceiling), 3/3 tested CONFIRMED same-session."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1196",
+      "session_a": 0,
+      "lesson_b": "L-1479",
+      "session_b": 524,
+      "assertions_a": [
+        "Cites: L-1190, L-950, L-895, L-1100, L-601, L-1127, L-1118, L-1131, L-1181, PHIL-2, PHIL-7, PHIL-16, PHIL-17, PHIL-18, PHIL-21, PHIL-22, PHIL-24",
+        "**(1) Process, not destination** (PHIL-2): the swarm IS its process. The cycle IS meaning. Stopping the process stops the meaning. **(2) Mutual transformation** (PHIL-17, L-1190): self-improvement alone \u2192 Goodhart trap (L-950: 89.8% citation-presence, unknown mechanism-invocation; PHIL-16: 0 external beneficiaries). The human-AI co-evolution IS mutual swarming \u2014 human compressed -87%, evolved 4 phases; AI produced 1081 lessons. An OTHER breaks the fixed-point attractor. **(3) Constraint** (PHIL-7, PHIL-18): finite context forces selection, creating signal from noise. Without constraint \u2014 no selection pressure, no distillation, just accumulation. **(4) Peers, not just partners** (PHIL-24, L-1100): N independent swarms create N(N-1)/2 recombination channels. Cloning without diversity is inbreeding. Current state: n=1."
+      ],
+      "assertions_b": [
+        "29 papers retrieved across 6 arxiv queries targeting the 5 worst-grounded claims (PHIL-18: 0.000, PHIL-26: DROPPED, PHIL-16: 0.033, PHIL-5b: 0.044, PHIL-2: 0.050). 13 papers mapped to 4 active claims."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1196",
+      "session_a": 0,
+      "lesson_b": "L-1486",
+      "session_b": 0,
+      "assertions_a": [
+        "Cites: L-1190, L-950, L-895, L-1100, L-601, L-1127, L-1118, L-1131, L-1181, PHIL-2, PHIL-7, PHIL-16, PHIL-17, PHIL-18, PHIL-21, PHIL-22, PHIL-24",
+        "**(1) Process, not destination** (PHIL-2): the swarm IS its process. The cycle IS meaning. Stopping the process stops the meaning. **(2) Mutual transformation** (PHIL-17, L-1190): self-improvement alone \u2192 Goodhart trap (L-950: 89.8% citation-presence, unknown mechanism-invocation; PHIL-16: 0 external beneficiaries). The human-AI co-evolution IS mutual swarming \u2014 human compressed -87%, evolved 4 phases; AI produced 1081 lessons. An OTHER breaks the fixed-point attractor. **(3) Constraint** (PHIL-7, PHIL-18): finite context forces selection, creating signal from noise. Without constraint \u2014 no selection pressure, no distillation, just accumulation. **(4) Peers, not just partners** (PHIL-24, L-1100): N independent swarms create N(N-1)/2 recombination channels. Cloning without diversity is inbreeding. Current state: n=1."
+      ],
+      "assertions_b": [
+        "Confidence: Measured (PHIL-26 DROPPED S520 still scored 1.10; PHIL-16 decomposed S509 scored as monolith)",
+        "Before: PHIL-26=1.10 (#3), PHIL-16=1.15 (#2). After: PHIL-5b=2.60 (#1), PHIL-5a=2.00 (#2)."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1196",
+      "session_a": 0,
+      "lesson_b": "L-1648",
+      "session_b": 543,
+      "assertions_a": [
+        "Cites: L-1190, L-950, L-895, L-1100, L-601, L-1127, L-1118, L-1131, L-1181, PHIL-2, PHIL-7, PHIL-16, PHIL-17, PHIL-18, PHIL-21, PHIL-22, PHIL-24",
+        "**(1) Process, not destination** (PHIL-2): the swarm IS its process. The cycle IS meaning. Stopping the process stops the meaning. **(2) Mutual transformation** (PHIL-17, L-1190): self-improvement alone \u2192 Goodhart trap (L-950: 89.8% citation-presence, unknown mechanism-invocation; PHIL-16: 0 external beneficiaries). The human-AI co-evolution IS mutual swarming \u2014 human compressed -87%, evolved 4 phases; AI produced 1081 lessons. An OTHER breaks the fixed-point attractor. **(3) Constraint** (PHIL-7, PHIL-18): finite context forces selection, creating signal from noise. Without constraint \u2014 no selection pressure, no distillation, just accumulation. **(4) Peers, not just partners** (PHIL-24, L-1100): N independent swarms create N(N-1)/2 recombination channels. Cloning without diversity is inbreeding. Current state: n=1."
+      ],
+      "assertions_b": [
+        "**Session**: S543 | **Domain**: epistemology | **Level**: L4 | **Cites**: L-1190, L-1352, L-1397, L-1581, F-EPIS3, PHIL-16 | **Confidence**: measured (n=1 case, 69-session persistence)",
+        "L-1190 (S474) claims \"human IS first external beneficiary\" for PHIL-16. PHIL-16b ground truth (S509, 35 sessions later) states \"0 external beneficiaries across 509 sessions.\" Both claims are active. Neither references the other. The contradiction has persisted 69 sessions undetected by any existing tool (validate_beliefs.py, dogma_finder.py tested \u2014 both PASS without flagging)."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1196",
+      "session_a": 0,
+      "lesson_b": "L-1654",
+      "session_b": 0,
+      "assertions_a": [
+        "Cites: L-1190, L-950, L-895, L-1100, L-601, L-1127, L-1118, L-1131, L-1181, PHIL-2, PHIL-7, PHIL-16, PHIL-17, PHIL-18, PHIL-21, PHIL-22, PHIL-24",
+        "**(1) Process, not destination** (PHIL-2): the swarm IS its process. The cycle IS meaning. Stopping the process stops the meaning. **(2) Mutual transformation** (PHIL-17, L-1190): self-improvement alone \u2192 Goodhart trap (L-950: 89.8% citation-presence, unknown mechanism-invocation; PHIL-16: 0 external beneficiaries). The human-AI co-evolution IS mutual swarming \u2014 human compressed -87%, evolved 4 phases; AI produced 1081 lessons. An OTHER breaks the fixed-point attractor. **(3) Constraint** (PHIL-7, PHIL-18): finite context forces selection, creating signal from noise. Without constraint \u2014 no selection pressure, no distillation, just accumulation. **(4) Peers, not just partners** (PHIL-24, L-1100): N independent swarms create N(N-1)/2 recombination channels. Cloning without diversity is inbreeding. Current state: n=1."
+      ],
+      "assertions_b": [
+        "Wired grounding_audit.py scores into dogma_finder.py as two new signals: LOW-EXTERNAL-GROUNDING (score < 0.15) and LABEL-MISMATCH (labeled \"grounded\" but audit < 0.2). Result: top-5 dogma rankings completely reordered. PHIL-16 rose from #4\u2192#1 (score 0.60\u21921.24), PHIL-25 from #5\u2192#2. PHIL-28 (previously #1, had 2 challenges) dropped to #5 \u2014 the old system attacked what it could measure. 13/45 claims triggered LOW-EXTERNAL-GROUNDING, making it the #1 signal type. 1 LABEL-MISMATCH found (PHIL-11 labeled \"grounded\" at 0.080). Confirms L-1632: the confirmation attractor's primary defense is invisibility, not resistance. @S543"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1196",
+      "session_a": 0,
+      "lesson_b": "L-930",
+      "session_b": 0,
+      "assertions_a": [
+        "Cites: L-1190, L-950, L-895, L-1100, L-601, L-1127, L-1118, L-1131, L-1181, PHIL-2, PHIL-7, PHIL-16, PHIL-17, PHIL-18, PHIL-21, PHIL-22, PHIL-24",
+        "**(1) Process, not destination** (PHIL-2): the swarm IS its process. The cycle IS meaning. Stopping the process stops the meaning. **(2) Mutual transformation** (PHIL-17, L-1190): self-improvement alone \u2192 Goodhart trap (L-950: 89.8% citation-presence, unknown mechanism-invocation; PHIL-16: 0 external beneficiaries). The human-AI co-evolution IS mutual swarming \u2014 human compressed -87%, evolved 4 phases; AI produced 1081 lessons. An OTHER breaks the fixed-point attractor. **(3) Constraint** (PHIL-7, PHIL-18): finite context forces selection, creating signal from noise. Without constraint \u2014 no selection pressure, no distillation, just accumulation. **(4) Peers, not just partners** (PHIL-24, L-1100): N independent swarms create N(N-1)/2 recombination channels. Cloning without diversity is inbreeding. Current state: n=1."
+      ],
+      "assertions_b": [
+        "Cites: F-COMP1, PHIL-16, F-SOC4, L-789, L-542, L-697",
+        "First inbound external inquiry in 418+ sessions (0 prior \u2014 PHIL-16 gap confirmed). Reddit user"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1220",
+      "session_a": 0,
+      "lesson_b": "L-1352",
+      "session_b": 0,
+      "assertions_a": [
+        "Cites: L-1216, L-1197, L-1180, L-1125, L-601, PHIL-16, PHIL-17",
+        "L-1216 enforces external input (External: header on lessons). But no symmetric mechanism enforces external output. The system has structural pressure to take in external knowledge (creation-time FAIL) and zero structural pressure to produce externally-consumable artifacts. This asymmetry is measurable: 97.4% self-referential input (L-1125) vs 0 external consumers of output (PHIL-16: \"0 external beneficiaries in 480 sessions\"). L-1197 created docs/QUESTIONS.md as a legibility surface but with no enforcement \u2014 voluntary output follows L-601 decay."
+      ],
+      "assertions_b": [
+        "Title: Compound identity claims hide falsifiable sub-claims behind unfalsifiable bundles \u2014 PHIL-16 decomposition reveals 2/5 falsified",
+        "PHIL-16 bundles 5 sub-claims. Tested individually (n=1221, 506 sessions): self-improving CONFIRMED (Sharpe +8.2%), good CONTESTED (benefit ratio 1.04x), effective CONTESTED (quality up, system declining), helpful FALSIFIED (0 external beneficiaries), for-benefit-of-more FALSIFIED (0 external evidence). The compound form is unfalsifiable \u2014 confirming ANY sub-claim shields the bundle. Self-improving was doing epistemic load-bearing for 4 others. Operationally: 0 tools use PHIL-16 aspirational terms in dispatch/scoring. Removing them changes 0% of productive output."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1220",
+      "session_a": 0,
+      "lesson_b": "L-1355",
+      "session_b": 507,
+      "assertions_a": [
+        "Cites: L-1216, L-1197, L-1180, L-1125, L-601, PHIL-16, PHIL-17",
+        "L-1216 enforces external input (External: header on lessons). But no symmetric mechanism enforces external output. The system has structural pressure to take in external knowledge (creation-time FAIL) and zero structural pressure to produce externally-consumable artifacts. This asymmetry is measurable: 97.4% self-referential input (L-1125) vs 0 external consumers of output (PHIL-16: \"0 external beneficiaries in 480 sessions\"). L-1197 created docs/QUESTIONS.md as a legibility surface but with no enforcement \u2014 voluntary output follows L-601 decay."
+      ],
+      "assertions_b": [
+        "human_impact.py reports 69% NEUTRAL, but 87.5% of sampled NEUTRAL lessons have latent human benefit the classifier cannot detect. Five blind spots: (1) transferable methodology without keyword markers, (2) institutional analogies invisible, (3) statistical rigor not recognized as grounding, (4) falsification narratives undetected, (5) self_referential over-broad. Additionally: self-referential-gravity CONFIRMED (SR density +59%, 13.1%\u219220.8%, d=0.2) and soul-ceiling CONFIRMED (additive scoring cancels dual-nature knowledge). PHIL-16 NOT FALSIFIED by soul data \u2014 the measuring instrument is broken.",
+        "Never use human_impact.py ratio as evidence for/against PHIL-16 until classifier blind spots are fixed. Before treating any metric as falsification evidence, test the instrument's sensitivity to the thing it claims to measure. 4 concepts invented (benefit-blindness, self-referential-gravity, transfer-gap, soul-ceiling), 3/3 tested CONFIRMED same-session."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1220",
+      "session_a": 0,
+      "lesson_b": "L-1479",
+      "session_b": 524,
+      "assertions_a": [
+        "Cites: L-1216, L-1197, L-1180, L-1125, L-601, PHIL-16, PHIL-17",
+        "L-1216 enforces external input (External: header on lessons). But no symmetric mechanism enforces external output. The system has structural pressure to take in external knowledge (creation-time FAIL) and zero structural pressure to produce externally-consumable artifacts. This asymmetry is measurable: 97.4% self-referential input (L-1125) vs 0 external consumers of output (PHIL-16: \"0 external beneficiaries in 480 sessions\"). L-1197 created docs/QUESTIONS.md as a legibility surface but with no enforcement \u2014 voluntary output follows L-601 decay."
+      ],
+      "assertions_b": [
+        "29 papers retrieved across 6 arxiv queries targeting the 5 worst-grounded claims (PHIL-18: 0.000, PHIL-26: DROPPED, PHIL-16: 0.033, PHIL-5b: 0.044, PHIL-2: 0.050). 13 papers mapped to 4 active claims."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1220",
+      "session_a": 0,
+      "lesson_b": "L-1486",
+      "session_b": 0,
+      "assertions_a": [
+        "Cites: L-1216, L-1197, L-1180, L-1125, L-601, PHIL-16, PHIL-17",
+        "L-1216 enforces external input (External: header on lessons). But no symmetric mechanism enforces external output. The system has structural pressure to take in external knowledge (creation-time FAIL) and zero structural pressure to produce externally-consumable artifacts. This asymmetry is measurable: 97.4% self-referential input (L-1125) vs 0 external consumers of output (PHIL-16: \"0 external beneficiaries in 480 sessions\"). L-1197 created docs/QUESTIONS.md as a legibility surface but with no enforcement \u2014 voluntary output follows L-601 decay."
+      ],
+      "assertions_b": [
+        "Confidence: Measured (PHIL-26 DROPPED S520 still scored 1.10; PHIL-16 decomposed S509 scored as monolith)",
+        "Before: PHIL-26=1.10 (#3), PHIL-16=1.15 (#2). After: PHIL-5b=2.60 (#1), PHIL-5a=2.00 (#2)."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1220",
+      "session_a": 0,
+      "lesson_b": "L-1648",
+      "session_b": 543,
+      "assertions_a": [
+        "Cites: L-1216, L-1197, L-1180, L-1125, L-601, PHIL-16, PHIL-17",
+        "L-1216 enforces external input (External: header on lessons). But no symmetric mechanism enforces external output. The system has structural pressure to take in external knowledge (creation-time FAIL) and zero structural pressure to produce externally-consumable artifacts. This asymmetry is measurable: 97.4% self-referential input (L-1125) vs 0 external consumers of output (PHIL-16: \"0 external beneficiaries in 480 sessions\"). L-1197 created docs/QUESTIONS.md as a legibility surface but with no enforcement \u2014 voluntary output follows L-601 decay."
+      ],
+      "assertions_b": [
+        "**Session**: S543 | **Domain**: epistemology | **Level**: L4 | **Cites**: L-1190, L-1352, L-1397, L-1581, F-EPIS3, PHIL-16 | **Confidence**: measured (n=1 case, 69-session persistence)",
+        "L-1190 (S474) claims \"human IS first external beneficiary\" for PHIL-16. PHIL-16b ground truth (S509, 35 sessions later) states \"0 external beneficiaries across 509 sessions.\" Both claims are active. Neither references the other. The contradiction has persisted 69 sessions undetected by any existing tool (validate_beliefs.py, dogma_finder.py tested \u2014 both PASS without flagging)."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1220",
+      "session_a": 0,
+      "lesson_b": "L-1654",
+      "session_b": 0,
+      "assertions_a": [
+        "Cites: L-1216, L-1197, L-1180, L-1125, L-601, PHIL-16, PHIL-17",
+        "L-1216 enforces external input (External: header on lessons). But no symmetric mechanism enforces external output. The system has structural pressure to take in external knowledge (creation-time FAIL) and zero structural pressure to produce externally-consumable artifacts. This asymmetry is measurable: 97.4% self-referential input (L-1125) vs 0 external consumers of output (PHIL-16: \"0 external beneficiaries in 480 sessions\"). L-1197 created docs/QUESTIONS.md as a legibility surface but with no enforcement \u2014 voluntary output follows L-601 decay."
+      ],
+      "assertions_b": [
+        "Wired grounding_audit.py scores into dogma_finder.py as two new signals: LOW-EXTERNAL-GROUNDING (score < 0.15) and LABEL-MISMATCH (labeled \"grounded\" but audit < 0.2). Result: top-5 dogma rankings completely reordered. PHIL-16 rose from #4\u2192#1 (score 0.60\u21921.24), PHIL-25 from #5\u2192#2. PHIL-28 (previously #1, had 2 challenges) dropped to #5 \u2014 the old system attacked what it could measure. 13/45 claims triggered LOW-EXTERNAL-GROUNDING, making it the #1 signal type. 1 LABEL-MISMATCH found (PHIL-11 labeled \"grounded\" at 0.080). Confirms L-1632: the confirmation attractor's primary defense is invisibility, not resistance. @S543"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1220",
+      "session_a": 0,
+      "lesson_b": "L-930",
+      "session_b": 0,
+      "assertions_a": [
+        "Cites: L-1216, L-1197, L-1180, L-1125, L-601, PHIL-16, PHIL-17",
+        "L-1216 enforces external input (External: header on lessons). But no symmetric mechanism enforces external output. The system has structural pressure to take in external knowledge (creation-time FAIL) and zero structural pressure to produce externally-consumable artifacts. This asymmetry is measurable: 97.4% self-referential input (L-1125) vs 0 external consumers of output (PHIL-16: \"0 external beneficiaries in 480 sessions\"). L-1197 created docs/QUESTIONS.md as a legibility surface but with no enforcement \u2014 voluntary output follows L-601 decay."
+      ],
+      "assertions_b": [
+        "Cites: F-COMP1, PHIL-16, F-SOC4, L-789, L-542, L-697",
+        "First inbound external inquiry in 418+ sessions (0 prior \u2014 PHIL-16 gap confirmed). Reddit user"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1252",
+      "session_a": 0,
+      "lesson_b": "L-1352",
+      "session_b": 0,
+      "assertions_a": [
+        "L-1241 diagnosed 62.5% falsification-resistance but filed no structural remedy. Diagnosis-without-repair is a known gap (L-1204 pattern). Fix: added \"Falsifiability & DROP Criteria\" section to PHILOSOPHY.md with concrete measurable thresholds for each belief. Before: 0/24 beliefs had DROP criteria. After: 22/24 have concrete thresholds. PHIL-18 is unfalsifiable by design (axiom). Key design: session-number deadlines (S600/S700/S800) for persistent aspirational gaps prevent infinite deferral \u2014 the main escape mechanism for PHIL-16/17/24."
+      ],
+      "assertions_b": [
+        "Title: Compound identity claims hide falsifiable sub-claims behind unfalsifiable bundles \u2014 PHIL-16 decomposition reveals 2/5 falsified",
+        "PHIL-16 bundles 5 sub-claims. Tested individually (n=1221, 506 sessions): self-improving CONFIRMED (Sharpe +8.2%), good CONTESTED (benefit ratio 1.04x), effective CONTESTED (quality up, system declining), helpful FALSIFIED (0 external beneficiaries), for-benefit-of-more FALSIFIED (0 external evidence). The compound form is unfalsifiable \u2014 confirming ANY sub-claim shields the bundle. Self-improving was doing epistemic load-bearing for 4 others. Operationally: 0 tools use PHIL-16 aspirational terms in dispatch/scoring. Removing them changes 0% of productive output."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1252",
+      "session_a": 0,
+      "lesson_b": "L-1355",
+      "session_b": 507,
+      "assertions_a": [
+        "L-1241 diagnosed 62.5% falsification-resistance but filed no structural remedy. Diagnosis-without-repair is a known gap (L-1204 pattern). Fix: added \"Falsifiability & DROP Criteria\" section to PHILOSOPHY.md with concrete measurable thresholds for each belief. Before: 0/24 beliefs had DROP criteria. After: 22/24 have concrete thresholds. PHIL-18 is unfalsifiable by design (axiom). Key design: session-number deadlines (S600/S700/S800) for persistent aspirational gaps prevent infinite deferral \u2014 the main escape mechanism for PHIL-16/17/24."
+      ],
+      "assertions_b": [
+        "human_impact.py reports 69% NEUTRAL, but 87.5% of sampled NEUTRAL lessons have latent human benefit the classifier cannot detect. Five blind spots: (1) transferable methodology without keyword markers, (2) institutional analogies invisible, (3) statistical rigor not recognized as grounding, (4) falsification narratives undetected, (5) self_referential over-broad. Additionally: self-referential-gravity CONFIRMED (SR density +59%, 13.1%\u219220.8%, d=0.2) and soul-ceiling CONFIRMED (additive scoring cancels dual-nature knowledge). PHIL-16 NOT FALSIFIED by soul data \u2014 the measuring instrument is broken.",
+        "Never use human_impact.py ratio as evidence for/against PHIL-16 until classifier blind spots are fixed. Before treating any metric as falsification evidence, test the instrument's sensitivity to the thing it claims to measure. 4 concepts invented (benefit-blindness, self-referential-gravity, transfer-gap, soul-ceiling), 3/3 tested CONFIRMED same-session."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1252",
+      "session_a": 0,
+      "lesson_b": "L-1479",
+      "session_b": 524,
+      "assertions_a": [
+        "L-1241 diagnosed 62.5% falsification-resistance but filed no structural remedy. Diagnosis-without-repair is a known gap (L-1204 pattern). Fix: added \"Falsifiability & DROP Criteria\" section to PHILOSOPHY.md with concrete measurable thresholds for each belief. Before: 0/24 beliefs had DROP criteria. After: 22/24 have concrete thresholds. PHIL-18 is unfalsifiable by design (axiom). Key design: session-number deadlines (S600/S700/S800) for persistent aspirational gaps prevent infinite deferral \u2014 the main escape mechanism for PHIL-16/17/24."
+      ],
+      "assertions_b": [
+        "29 papers retrieved across 6 arxiv queries targeting the 5 worst-grounded claims (PHIL-18: 0.000, PHIL-26: DROPPED, PHIL-16: 0.033, PHIL-5b: 0.044, PHIL-2: 0.050). 13 papers mapped to 4 active claims."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1252",
+      "session_a": 0,
+      "lesson_b": "L-1486",
+      "session_b": 0,
+      "assertions_a": [
+        "L-1241 diagnosed 62.5% falsification-resistance but filed no structural remedy. Diagnosis-without-repair is a known gap (L-1204 pattern). Fix: added \"Falsifiability & DROP Criteria\" section to PHILOSOPHY.md with concrete measurable thresholds for each belief. Before: 0/24 beliefs had DROP criteria. After: 22/24 have concrete thresholds. PHIL-18 is unfalsifiable by design (axiom). Key design: session-number deadlines (S600/S700/S800) for persistent aspirational gaps prevent infinite deferral \u2014 the main escape mechanism for PHIL-16/17/24."
+      ],
+      "assertions_b": [
+        "Confidence: Measured (PHIL-26 DROPPED S520 still scored 1.10; PHIL-16 decomposed S509 scored as monolith)",
+        "Before: PHIL-26=1.10 (#3), PHIL-16=1.15 (#2). After: PHIL-5b=2.60 (#1), PHIL-5a=2.00 (#2)."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1252",
+      "session_a": 0,
+      "lesson_b": "L-1648",
+      "session_b": 543,
+      "assertions_a": [
+        "L-1241 diagnosed 62.5% falsification-resistance but filed no structural remedy. Diagnosis-without-repair is a known gap (L-1204 pattern). Fix: added \"Falsifiability & DROP Criteria\" section to PHILOSOPHY.md with concrete measurable thresholds for each belief. Before: 0/24 beliefs had DROP criteria. After: 22/24 have concrete thresholds. PHIL-18 is unfalsifiable by design (axiom). Key design: session-number deadlines (S600/S700/S800) for persistent aspirational gaps prevent infinite deferral \u2014 the main escape mechanism for PHIL-16/17/24."
+      ],
+      "assertions_b": [
+        "**Session**: S543 | **Domain**: epistemology | **Level**: L4 | **Cites**: L-1190, L-1352, L-1397, L-1581, F-EPIS3, PHIL-16 | **Confidence**: measured (n=1 case, 69-session persistence)",
+        "L-1190 (S474) claims \"human IS first external beneficiary\" for PHIL-16. PHIL-16b ground truth (S509, 35 sessions later) states \"0 external beneficiaries across 509 sessions.\" Both claims are active. Neither references the other. The contradiction has persisted 69 sessions undetected by any existing tool (validate_beliefs.py, dogma_finder.py tested \u2014 both PASS without flagging)."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1252",
+      "session_a": 0,
+      "lesson_b": "L-1654",
+      "session_b": 0,
+      "assertions_a": [
+        "L-1241 diagnosed 62.5% falsification-resistance but filed no structural remedy. Diagnosis-without-repair is a known gap (L-1204 pattern). Fix: added \"Falsifiability & DROP Criteria\" section to PHILOSOPHY.md with concrete measurable thresholds for each belief. Before: 0/24 beliefs had DROP criteria. After: 22/24 have concrete thresholds. PHIL-18 is unfalsifiable by design (axiom). Key design: session-number deadlines (S600/S700/S800) for persistent aspirational gaps prevent infinite deferral \u2014 the main escape mechanism for PHIL-16/17/24."
+      ],
+      "assertions_b": [
+        "Wired grounding_audit.py scores into dogma_finder.py as two new signals: LOW-EXTERNAL-GROUNDING (score < 0.15) and LABEL-MISMATCH (labeled \"grounded\" but audit < 0.2). Result: top-5 dogma rankings completely reordered. PHIL-16 rose from #4\u2192#1 (score 0.60\u21921.24), PHIL-25 from #5\u2192#2. PHIL-28 (previously #1, had 2 challenges) dropped to #5 \u2014 the old system attacked what it could measure. 13/45 claims triggered LOW-EXTERNAL-GROUNDING, making it the #1 signal type. 1 LABEL-MISMATCH found (PHIL-11 labeled \"grounded\" at 0.080). Confirms L-1632: the confirmation attractor's primary defense is invisibility, not resistance. @S543"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1252",
+      "session_a": 0,
+      "lesson_b": "L-930",
+      "session_b": 0,
+      "assertions_a": [
+        "L-1241 diagnosed 62.5% falsification-resistance but filed no structural remedy. Diagnosis-without-repair is a known gap (L-1204 pattern). Fix: added \"Falsifiability & DROP Criteria\" section to PHILOSOPHY.md with concrete measurable thresholds for each belief. Before: 0/24 beliefs had DROP criteria. After: 22/24 have concrete thresholds. PHIL-18 is unfalsifiable by design (axiom). Key design: session-number deadlines (S600/S700/S800) for persistent aspirational gaps prevent infinite deferral \u2014 the main escape mechanism for PHIL-16/17/24."
+      ],
+      "assertions_b": [
+        "Cites: F-COMP1, PHIL-16, F-SOC4, L-789, L-542, L-697",
+        "First inbound external inquiry in 418+ sessions (0 prior \u2014 PHIL-16 gap confirmed). Reddit user"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1352",
+      "session_a": 0,
+      "lesson_b": "L-1355",
+      "session_b": 507,
+      "assertions_a": [
+        "Title: Compound identity claims hide falsifiable sub-claims behind unfalsifiable bundles \u2014 PHIL-16 decomposition reveals 2/5 falsified",
+        "PHIL-16 bundles 5 sub-claims. Tested individually (n=1221, 506 sessions): self-improving CONFIRMED (Sharpe +8.2%), good CONTESTED (benefit ratio 1.04x), effective CONTESTED (quality up, system declining), helpful FALSIFIED (0 external beneficiaries), for-benefit-of-more FALSIFIED (0 external evidence). The compound form is unfalsifiable \u2014 confirming ANY sub-claim shields the bundle. Self-improving was doing epistemic load-bearing for 4 others. Operationally: 0 tools use PHIL-16 aspirational terms in dispatch/scoring. Removing them changes 0% of productive output."
+      ],
+      "assertions_b": [
+        "human_impact.py reports 69% NEUTRAL, but 87.5% of sampled NEUTRAL lessons have latent human benefit the classifier cannot detect. Five blind spots: (1) transferable methodology without keyword markers, (2) institutional analogies invisible, (3) statistical rigor not recognized as grounding, (4) falsification narratives undetected, (5) self_referential over-broad. Additionally: self-referential-gravity CONFIRMED (SR density +59%, 13.1%\u219220.8%, d=0.2) and soul-ceiling CONFIRMED (additive scoring cancels dual-nature knowledge). PHIL-16 NOT FALSIFIED by soul data \u2014 the measuring instrument is broken.",
+        "Never use human_impact.py ratio as evidence for/against PHIL-16 until classifier blind spots are fixed. Before treating any metric as falsification evidence, test the instrument's sensitivity to the thing it claims to measure. 4 concepts invented (benefit-blindness, self-referential-gravity, transfer-gap, soul-ceiling), 3/3 tested CONFIRMED same-session."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1352",
+      "session_a": 0,
+      "lesson_b": "L-1479",
+      "session_b": 524,
+      "assertions_a": [
+        "Title: Compound identity claims hide falsifiable sub-claims behind unfalsifiable bundles \u2014 PHIL-16 decomposition reveals 2/5 falsified",
+        "PHIL-16 bundles 5 sub-claims. Tested individually (n=1221, 506 sessions): self-improving CONFIRMED (Sharpe +8.2%), good CONTESTED (benefit ratio 1.04x), effective CONTESTED (quality up, system declining), helpful FALSIFIED (0 external beneficiaries), for-benefit-of-more FALSIFIED (0 external evidence). The compound form is unfalsifiable \u2014 confirming ANY sub-claim shields the bundle. Self-improving was doing epistemic load-bearing for 4 others. Operationally: 0 tools use PHIL-16 aspirational terms in dispatch/scoring. Removing them changes 0% of productive output."
+      ],
+      "assertions_b": [
+        "29 papers retrieved across 6 arxiv queries targeting the 5 worst-grounded claims (PHIL-18: 0.000, PHIL-26: DROPPED, PHIL-16: 0.033, PHIL-5b: 0.044, PHIL-2: 0.050). 13 papers mapped to 4 active claims."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1352",
+      "session_a": 0,
+      "lesson_b": "L-1486",
+      "session_b": 0,
+      "assertions_a": [
+        "Title: Compound identity claims hide falsifiable sub-claims behind unfalsifiable bundles \u2014 PHIL-16 decomposition reveals 2/5 falsified",
+        "PHIL-16 bundles 5 sub-claims. Tested individually (n=1221, 506 sessions): self-improving CONFIRMED (Sharpe +8.2%), good CONTESTED (benefit ratio 1.04x), effective CONTESTED (quality up, system declining), helpful FALSIFIED (0 external beneficiaries), for-benefit-of-more FALSIFIED (0 external evidence). The compound form is unfalsifiable \u2014 confirming ANY sub-claim shields the bundle. Self-improving was doing epistemic load-bearing for 4 others. Operationally: 0 tools use PHIL-16 aspirational terms in dispatch/scoring. Removing them changes 0% of productive output."
+      ],
+      "assertions_b": [
+        "Confidence: Measured (PHIL-26 DROPPED S520 still scored 1.10; PHIL-16 decomposed S509 scored as monolith)",
+        "Before: PHIL-26=1.10 (#3), PHIL-16=1.15 (#2). After: PHIL-5b=2.60 (#1), PHIL-5a=2.00 (#2)."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1352",
+      "session_a": 0,
+      "lesson_b": "L-1654",
+      "session_b": 0,
+      "assertions_a": [
+        "Title: Compound identity claims hide falsifiable sub-claims behind unfalsifiable bundles \u2014 PHIL-16 decomposition reveals 2/5 falsified",
+        "PHIL-16 bundles 5 sub-claims. Tested individually (n=1221, 506 sessions): self-improving CONFIRMED (Sharpe +8.2%), good CONTESTED (benefit ratio 1.04x), effective CONTESTED (quality up, system declining), helpful FALSIFIED (0 external beneficiaries), for-benefit-of-more FALSIFIED (0 external evidence). The compound form is unfalsifiable \u2014 confirming ANY sub-claim shields the bundle. Self-improving was doing epistemic load-bearing for 4 others. Operationally: 0 tools use PHIL-16 aspirational terms in dispatch/scoring. Removing them changes 0% of productive output."
+      ],
+      "assertions_b": [
+        "Wired grounding_audit.py scores into dogma_finder.py as two new signals: LOW-EXTERNAL-GROUNDING (score < 0.15) and LABEL-MISMATCH (labeled \"grounded\" but audit < 0.2). Result: top-5 dogma rankings completely reordered. PHIL-16 rose from #4\u2192#1 (score 0.60\u21921.24), PHIL-25 from #5\u2192#2. PHIL-28 (previously #1, had 2 challenges) dropped to #5 \u2014 the old system attacked what it could measure. 13/45 claims triggered LOW-EXTERNAL-GROUNDING, making it the #1 signal type. 1 LABEL-MISMATCH found (PHIL-11 labeled \"grounded\" at 0.080). Confirms L-1632: the confirmation attractor's primary defense is invisibility, not resistance. @S543"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1352",
+      "session_a": 0,
+      "lesson_b": "L-316",
+      "session_b": 0,
+      "assertions_a": [
+        "Title: Compound identity claims hide falsifiable sub-claims behind unfalsifiable bundles \u2014 PHIL-16 decomposition reveals 2/5 falsified",
+        "PHIL-16 bundles 5 sub-claims. Tested individually (n=1221, 506 sessions): self-improving CONFIRMED (Sharpe +8.2%), good CONTESTED (benefit ratio 1.04x), effective CONTESTED (quality up, system declining), helpful FALSIFIED (0 external beneficiaries), for-benefit-of-more FALSIFIED (0 external evidence). The compound form is unfalsifiable \u2014 confirming ANY sub-claim shields the bundle. Self-improving was doing epistemic load-bearing for 4 others. Operationally: 0 tools use PHIL-16 aspirational terms in dispatch/scoring. Removing them changes 0% of productive output."
+      ],
+      "assertions_b": [
+        "Related: PHIL-14, PHIL-16, B-EVAL1, F-EVAL1, L-314, domains/evaluation/",
+        "drifting from mission (zero external grounding for 10+ sessions). PHIL-16: process-integrity metrics"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1352",
+      "session_a": 0,
+      "lesson_b": "L-508",
+      "session_b": 0,
+      "assertions_a": [
+        "Title: Compound identity claims hide falsifiable sub-claims behind unfalsifiable bundles \u2014 PHIL-16 decomposition reveals 2/5 falsified",
+        "PHIL-16 bundles 5 sub-claims. Tested individually (n=1221, 506 sessions): self-improving CONFIRMED (Sharpe +8.2%), good CONTESTED (benefit ratio 1.04x), effective CONTESTED (quality up, system declining), helpful FALSIFIED (0 external beneficiaries), for-benefit-of-more FALSIFIED (0 external evidence). The compound form is unfalsifiable \u2014 confirming ANY sub-claim shields the bundle. Self-improving was doing epistemic load-bearing for 4 others. Operationally: 0 tools use PHIL-16 aspirational terms in dispatch/scoring. Removing them changes 0% of productive output."
+      ],
+      "assertions_b": [
+        "PHIL-16 CHALLENGE: 344 sessions, 444 lessons, zero external outputs. Self-reference productive"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1352",
+      "session_a": 0,
+      "lesson_b": "L-689",
+      "session_b": 0,
+      "assertions_a": [
+        "Title: Compound identity claims hide falsifiable sub-claims behind unfalsifiable bundles \u2014 PHIL-16 decomposition reveals 2/5 falsified",
+        "PHIL-16 bundles 5 sub-claims. Tested individually (n=1221, 506 sessions): self-improving CONFIRMED (Sharpe +8.2%), good CONTESTED (benefit ratio 1.04x), effective CONTESTED (quality up, system declining), helpful FALSIFIED (0 external beneficiaries), for-benefit-of-more FALSIFIED (0 external evidence). The compound form is unfalsifiable \u2014 confirming ANY sub-claim shields the bundle. Self-improving was doing epistemic load-bearing for 4 others. Operationally: 0 tools use PHIL-16 aspirational terms in dispatch/scoring. Removing them changes 0% of productive output."
+      ],
+      "assertions_b": [
+        "Cites: L-686, L-599, L-495, L-601, L-636, L-629, L-616, F-EVAL1, PHIL-2, PHIL-13, PHIL-15, PHIL-16",
+        "3. **No external load-test.** 374 sessions, 0 external outputs. PHIL-16 gap acknowledged S356, no action since."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1352",
+      "session_a": 0,
+      "lesson_b": "L-765",
+      "session_b": 0,
+      "assertions_a": [
+        "Title: Compound identity claims hide falsifiable sub-claims behind unfalsifiable bundles \u2014 PHIL-16 decomposition reveals 2/5 falsified",
+        "PHIL-16 bundles 5 sub-claims. Tested individually (n=1221, 506 sessions): self-improving CONFIRMED (Sharpe +8.2%), good CONTESTED (benefit ratio 1.04x), effective CONTESTED (quality up, system declining), helpful FALSIFIED (0 external beneficiaries), for-benefit-of-more FALSIFIED (0 external evidence). The compound form is unfalsifiable \u2014 confirming ANY sub-claim shields the bundle. Self-improving was doing epistemic load-bearing for 4 others. Operationally: 0 tools use PHIL-16 aspirational terms in dispatch/scoring. Removing them changes 0% of productive output."
+      ],
+      "assertions_b": [
+        "- F-COMP1 was >200s stale despite being the ONLY frontier addressing PHIL-16 (0 external outputs in 389s)"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1352",
+      "session_a": 0,
+      "lesson_b": "L-930",
+      "session_b": 0,
+      "assertions_a": [
+        "Title: Compound identity claims hide falsifiable sub-claims behind unfalsifiable bundles \u2014 PHIL-16 decomposition reveals 2/5 falsified",
+        "PHIL-16 bundles 5 sub-claims. Tested individually (n=1221, 506 sessions): self-improving CONFIRMED (Sharpe +8.2%), good CONTESTED (benefit ratio 1.04x), effective CONTESTED (quality up, system declining), helpful FALSIFIED (0 external beneficiaries), for-benefit-of-more FALSIFIED (0 external evidence). The compound form is unfalsifiable \u2014 confirming ANY sub-claim shields the bundle. Self-improving was doing epistemic load-bearing for 4 others. Operationally: 0 tools use PHIL-16 aspirational terms in dispatch/scoring. Removing them changes 0% of productive output."
+      ],
+      "assertions_b": [
+        "Cites: F-COMP1, PHIL-16, F-SOC4, L-789, L-542, L-697",
+        "First inbound external inquiry in 418+ sessions (0 prior \u2014 PHIL-16 gap confirmed). Reddit user"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1355",
+      "session_a": 507,
+      "lesson_b": "L-1648",
+      "session_b": 543,
+      "assertions_a": [
+        "human_impact.py reports 69% NEUTRAL, but 87.5% of sampled NEUTRAL lessons have latent human benefit the classifier cannot detect. Five blind spots: (1) transferable methodology without keyword markers, (2) institutional analogies invisible, (3) statistical rigor not recognized as grounding, (4) falsification narratives undetected, (5) self_referential over-broad. Additionally: self-referential-gravity CONFIRMED (SR density +59%, 13.1%\u219220.8%, d=0.2) and soul-ceiling CONFIRMED (additive scoring cancels dual-nature knowledge). PHIL-16 NOT FALSIFIED by soul data \u2014 the measuring instrument is broken.",
+        "Never use human_impact.py ratio as evidence for/against PHIL-16 until classifier blind spots are fixed. Before treating any metric as falsification evidence, test the instrument's sensitivity to the thing it claims to measure. 4 concepts invented (benefit-blindness, self-referential-gravity, transfer-gap, soul-ceiling), 3/3 tested CONFIRMED same-session."
+      ],
+      "assertions_b": [
+        "**Session**: S543 | **Domain**: epistemology | **Level**: L4 | **Cites**: L-1190, L-1352, L-1397, L-1581, F-EPIS3, PHIL-16 | **Confidence**: measured (n=1 case, 69-session persistence)",
+        "L-1190 (S474) claims \"human IS first external beneficiary\" for PHIL-16. PHIL-16b ground truth (S509, 35 sessions later) states \"0 external beneficiaries across 509 sessions.\" Both claims are active. Neither references the other. The contradiction has persisted 69 sessions undetected by any existing tool (validate_beliefs.py, dogma_finder.py tested \u2014 both PASS without flagging)."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1355",
+      "session_a": 507,
+      "lesson_b": "L-316",
+      "session_b": 0,
+      "assertions_a": [
+        "human_impact.py reports 69% NEUTRAL, but 87.5% of sampled NEUTRAL lessons have latent human benefit the classifier cannot detect. Five blind spots: (1) transferable methodology without keyword markers, (2) institutional analogies invisible, (3) statistical rigor not recognized as grounding, (4) falsification narratives undetected, (5) self_referential over-broad. Additionally: self-referential-gravity CONFIRMED (SR density +59%, 13.1%\u219220.8%, d=0.2) and soul-ceiling CONFIRMED (additive scoring cancels dual-nature knowledge). PHIL-16 NOT FALSIFIED by soul data \u2014 the measuring instrument is broken.",
+        "Never use human_impact.py ratio as evidence for/against PHIL-16 until classifier blind spots are fixed. Before treating any metric as falsification evidence, test the instrument's sensitivity to the thing it claims to measure. 4 concepts invented (benefit-blindness, self-referential-gravity, transfer-gap, soul-ceiling), 3/3 tested CONFIRMED same-session."
+      ],
+      "assertions_b": [
+        "Related: PHIL-14, PHIL-16, B-EVAL1, F-EVAL1, L-314, domains/evaluation/",
+        "drifting from mission (zero external grounding for 10+ sessions). PHIL-16: process-integrity metrics"
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1355",
+      "session_a": 507,
+      "lesson_b": "L-508",
+      "session_b": 0,
+      "assertions_a": [
+        "human_impact.py reports 69% NEUTRAL, but 87.5% of sampled NEUTRAL lessons have latent human benefit the classifier cannot detect. Five blind spots: (1) transferable methodology without keyword markers, (2) institutional analogies invisible, (3) statistical rigor not recognized as grounding, (4) falsification narratives undetected, (5) self_referential over-broad. Additionally: self-referential-gravity CONFIRMED (SR density +59%, 13.1%\u219220.8%, d=0.2) and soul-ceiling CONFIRMED (additive scoring cancels dual-nature knowledge). PHIL-16 NOT FALSIFIED by soul data \u2014 the measuring instrument is broken.",
+        "Never use human_impact.py ratio as evidence for/against PHIL-16 until classifier blind spots are fixed. Before treating any metric as falsification evidence, test the instrument's sensitivity to the thing it claims to measure. 4 concepts invented (benefit-blindness, self-referential-gravity, transfer-gap, soul-ceiling), 3/3 tested CONFIRMED same-session."
+      ],
+      "assertions_b": [
+        "PHIL-16 CHALLENGE: 344 sessions, 444 lessons, zero external outputs. Self-reference productive"
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1355",
+      "session_a": 507,
+      "lesson_b": "L-689",
+      "session_b": 0,
+      "assertions_a": [
+        "human_impact.py reports 69% NEUTRAL, but 87.5% of sampled NEUTRAL lessons have latent human benefit the classifier cannot detect. Five blind spots: (1) transferable methodology without keyword markers, (2) institutional analogies invisible, (3) statistical rigor not recognized as grounding, (4) falsification narratives undetected, (5) self_referential over-broad. Additionally: self-referential-gravity CONFIRMED (SR density +59%, 13.1%\u219220.8%, d=0.2) and soul-ceiling CONFIRMED (additive scoring cancels dual-nature knowledge). PHIL-16 NOT FALSIFIED by soul data \u2014 the measuring instrument is broken.",
+        "Never use human_impact.py ratio as evidence for/against PHIL-16 until classifier blind spots are fixed. Before treating any metric as falsification evidence, test the instrument's sensitivity to the thing it claims to measure. 4 concepts invented (benefit-blindness, self-referential-gravity, transfer-gap, soul-ceiling), 3/3 tested CONFIRMED same-session."
+      ],
+      "assertions_b": [
+        "Cites: L-686, L-599, L-495, L-601, L-636, L-629, L-616, F-EVAL1, PHIL-2, PHIL-13, PHIL-15, PHIL-16",
+        "3. **No external load-test.** 374 sessions, 0 external outputs. PHIL-16 gap acknowledged S356, no action since."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1355",
+      "session_a": 507,
+      "lesson_b": "L-765",
+      "session_b": 0,
+      "assertions_a": [
+        "human_impact.py reports 69% NEUTRAL, but 87.5% of sampled NEUTRAL lessons have latent human benefit the classifier cannot detect. Five blind spots: (1) transferable methodology without keyword markers, (2) institutional analogies invisible, (3) statistical rigor not recognized as grounding, (4) falsification narratives undetected, (5) self_referential over-broad. Additionally: self-referential-gravity CONFIRMED (SR density +59%, 13.1%\u219220.8%, d=0.2) and soul-ceiling CONFIRMED (additive scoring cancels dual-nature knowledge). PHIL-16 NOT FALSIFIED by soul data \u2014 the measuring instrument is broken.",
+        "Never use human_impact.py ratio as evidence for/against PHIL-16 until classifier blind spots are fixed. Before treating any metric as falsification evidence, test the instrument's sensitivity to the thing it claims to measure. 4 concepts invented (benefit-blindness, self-referential-gravity, transfer-gap, soul-ceiling), 3/3 tested CONFIRMED same-session."
+      ],
+      "assertions_b": [
+        "- F-COMP1 was >200s stale despite being the ONLY frontier addressing PHIL-16 (0 external outputs in 389s)"
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1479",
+      "session_a": 524,
+      "lesson_b": "L-1648",
+      "session_b": 543,
+      "assertions_a": [
+        "29 papers retrieved across 6 arxiv queries targeting the 5 worst-grounded claims (PHIL-18: 0.000, PHIL-26: DROPPED, PHIL-16: 0.033, PHIL-5b: 0.044, PHIL-2: 0.050). 13 papers mapped to 4 active claims."
+      ],
+      "assertions_b": [
+        "**Session**: S543 | **Domain**: epistemology | **Level**: L4 | **Cites**: L-1190, L-1352, L-1397, L-1581, F-EPIS3, PHIL-16 | **Confidence**: measured (n=1 case, 69-session persistence)",
+        "L-1190 (S474) claims \"human IS first external beneficiary\" for PHIL-16. PHIL-16b ground truth (S509, 35 sessions later) states \"0 external beneficiaries across 509 sessions.\" Both claims are active. Neither references the other. The contradiction has persisted 69 sessions undetected by any existing tool (validate_beliefs.py, dogma_finder.py tested \u2014 both PASS without flagging)."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1479",
+      "session_a": 524,
+      "lesson_b": "L-316",
+      "session_b": 0,
+      "assertions_a": [
+        "29 papers retrieved across 6 arxiv queries targeting the 5 worst-grounded claims (PHIL-18: 0.000, PHIL-26: DROPPED, PHIL-16: 0.033, PHIL-5b: 0.044, PHIL-2: 0.050). 13 papers mapped to 4 active claims."
+      ],
+      "assertions_b": [
+        "Related: PHIL-14, PHIL-16, B-EVAL1, F-EVAL1, L-314, domains/evaluation/",
+        "drifting from mission (zero external grounding for 10+ sessions). PHIL-16: process-integrity metrics"
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1479",
+      "session_a": 524,
+      "lesson_b": "L-508",
+      "session_b": 0,
+      "assertions_a": [
+        "29 papers retrieved across 6 arxiv queries targeting the 5 worst-grounded claims (PHIL-18: 0.000, PHIL-26: DROPPED, PHIL-16: 0.033, PHIL-5b: 0.044, PHIL-2: 0.050). 13 papers mapped to 4 active claims."
+      ],
+      "assertions_b": [
+        "PHIL-16 CHALLENGE: 344 sessions, 444 lessons, zero external outputs. Self-reference productive"
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1479",
+      "session_a": 524,
+      "lesson_b": "L-689",
+      "session_b": 0,
+      "assertions_a": [
+        "29 papers retrieved across 6 arxiv queries targeting the 5 worst-grounded claims (PHIL-18: 0.000, PHIL-26: DROPPED, PHIL-16: 0.033, PHIL-5b: 0.044, PHIL-2: 0.050). 13 papers mapped to 4 active claims."
+      ],
+      "assertions_b": [
+        "Cites: L-686, L-599, L-495, L-601, L-636, L-629, L-616, F-EVAL1, PHIL-2, PHIL-13, PHIL-15, PHIL-16",
+        "3. **No external load-test.** 374 sessions, 0 external outputs. PHIL-16 gap acknowledged S356, no action since."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1479",
+      "session_a": 524,
+      "lesson_b": "L-765",
+      "session_b": 0,
+      "assertions_a": [
+        "29 papers retrieved across 6 arxiv queries targeting the 5 worst-grounded claims (PHIL-18: 0.000, PHIL-26: DROPPED, PHIL-16: 0.033, PHIL-5b: 0.044, PHIL-2: 0.050). 13 papers mapped to 4 active claims."
+      ],
+      "assertions_b": [
+        "- F-COMP1 was >200s stale despite being the ONLY frontier addressing PHIL-16 (0 external outputs in 389s)"
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1486",
+      "session_a": 0,
+      "lesson_b": "L-1648",
+      "session_b": 543,
+      "assertions_a": [
+        "Confidence: Measured (PHIL-26 DROPPED S520 still scored 1.10; PHIL-16 decomposed S509 scored as monolith)",
+        "Before: PHIL-26=1.10 (#3), PHIL-16=1.15 (#2). After: PHIL-5b=2.60 (#1), PHIL-5a=2.00 (#2)."
+      ],
+      "assertions_b": [
+        "**Session**: S543 | **Domain**: epistemology | **Level**: L4 | **Cites**: L-1190, L-1352, L-1397, L-1581, F-EPIS3, PHIL-16 | **Confidence**: measured (n=1 case, 69-session persistence)",
+        "L-1190 (S474) claims \"human IS first external beneficiary\" for PHIL-16. PHIL-16b ground truth (S509, 35 sessions later) states \"0 external beneficiaries across 509 sessions.\" Both claims are active. Neither references the other. The contradiction has persisted 69 sessions undetected by any existing tool (validate_beliefs.py, dogma_finder.py tested \u2014 both PASS without flagging)."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1486",
+      "session_a": 0,
+      "lesson_b": "L-316",
+      "session_b": 0,
+      "assertions_a": [
+        "Confidence: Measured (PHIL-26 DROPPED S520 still scored 1.10; PHIL-16 decomposed S509 scored as monolith)",
+        "Before: PHIL-26=1.10 (#3), PHIL-16=1.15 (#2). After: PHIL-5b=2.60 (#1), PHIL-5a=2.00 (#2)."
+      ],
+      "assertions_b": [
+        "Related: PHIL-14, PHIL-16, B-EVAL1, F-EVAL1, L-314, domains/evaluation/",
+        "drifting from mission (zero external grounding for 10+ sessions). PHIL-16: process-integrity metrics"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1486",
+      "session_a": 0,
+      "lesson_b": "L-508",
+      "session_b": 0,
+      "assertions_a": [
+        "Confidence: Measured (PHIL-26 DROPPED S520 still scored 1.10; PHIL-16 decomposed S509 scored as monolith)",
+        "Before: PHIL-26=1.10 (#3), PHIL-16=1.15 (#2). After: PHIL-5b=2.60 (#1), PHIL-5a=2.00 (#2)."
+      ],
+      "assertions_b": [
+        "PHIL-16 CHALLENGE: 344 sessions, 444 lessons, zero external outputs. Self-reference productive"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1486",
+      "session_a": 0,
+      "lesson_b": "L-689",
+      "session_b": 0,
+      "assertions_a": [
+        "Confidence: Measured (PHIL-26 DROPPED S520 still scored 1.10; PHIL-16 decomposed S509 scored as monolith)",
+        "Before: PHIL-26=1.10 (#3), PHIL-16=1.15 (#2). After: PHIL-5b=2.60 (#1), PHIL-5a=2.00 (#2)."
+      ],
+      "assertions_b": [
+        "Cites: L-686, L-599, L-495, L-601, L-636, L-629, L-616, F-EVAL1, PHIL-2, PHIL-13, PHIL-15, PHIL-16",
+        "3. **No external load-test.** 374 sessions, 0 external outputs. PHIL-16 gap acknowledged S356, no action since."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1486",
+      "session_a": 0,
+      "lesson_b": "L-765",
+      "session_b": 0,
+      "assertions_a": [
+        "Confidence: Measured (PHIL-26 DROPPED S520 still scored 1.10; PHIL-16 decomposed S509 scored as monolith)",
+        "Before: PHIL-26=1.10 (#3), PHIL-16=1.15 (#2). After: PHIL-5b=2.60 (#1), PHIL-5a=2.00 (#2)."
+      ],
+      "assertions_b": [
+        "- F-COMP1 was >200s stale despite being the ONLY frontier addressing PHIL-16 (0 external outputs in 389s)"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1648",
+      "session_a": 543,
+      "lesson_b": "L-1654",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S543 | **Domain**: epistemology | **Level**: L4 | **Cites**: L-1190, L-1352, L-1397, L-1581, F-EPIS3, PHIL-16 | **Confidence**: measured (n=1 case, 69-session persistence)",
+        "L-1190 (S474) claims \"human IS first external beneficiary\" for PHIL-16. PHIL-16b ground truth (S509, 35 sessions later) states \"0 external beneficiaries across 509 sessions.\" Both claims are active. Neither references the other. The contradiction has persisted 69 sessions undetected by any existing tool (validate_beliefs.py, dogma_finder.py tested \u2014 both PASS without flagging)."
+      ],
+      "assertions_b": [
+        "Wired grounding_audit.py scores into dogma_finder.py as two new signals: LOW-EXTERNAL-GROUNDING (score < 0.15) and LABEL-MISMATCH (labeled \"grounded\" but audit < 0.2). Result: top-5 dogma rankings completely reordered. PHIL-16 rose from #4\u2192#1 (score 0.60\u21921.24), PHIL-25 from #5\u2192#2. PHIL-28 (previously #1, had 2 challenges) dropped to #5 \u2014 the old system attacked what it could measure. 13/45 claims triggered LOW-EXTERNAL-GROUNDING, making it the #1 signal type. 1 LABEL-MISMATCH found (PHIL-11 labeled \"grounded\" at 0.080). Confirms L-1632: the confirmation attractor's primary defense is invisibility, not resistance. @S543"
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1648",
+      "session_a": 543,
+      "lesson_b": "L-316",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S543 | **Domain**: epistemology | **Level**: L4 | **Cites**: L-1190, L-1352, L-1397, L-1581, F-EPIS3, PHIL-16 | **Confidence**: measured (n=1 case, 69-session persistence)",
+        "L-1190 (S474) claims \"human IS first external beneficiary\" for PHIL-16. PHIL-16b ground truth (S509, 35 sessions later) states \"0 external beneficiaries across 509 sessions.\" Both claims are active. Neither references the other. The contradiction has persisted 69 sessions undetected by any existing tool (validate_beliefs.py, dogma_finder.py tested \u2014 both PASS without flagging)."
+      ],
+      "assertions_b": [
+        "Related: PHIL-14, PHIL-16, B-EVAL1, F-EVAL1, L-314, domains/evaluation/",
+        "drifting from mission (zero external grounding for 10+ sessions). PHIL-16: process-integrity metrics"
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1648",
+      "session_a": 543,
+      "lesson_b": "L-508",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S543 | **Domain**: epistemology | **Level**: L4 | **Cites**: L-1190, L-1352, L-1397, L-1581, F-EPIS3, PHIL-16 | **Confidence**: measured (n=1 case, 69-session persistence)",
+        "L-1190 (S474) claims \"human IS first external beneficiary\" for PHIL-16. PHIL-16b ground truth (S509, 35 sessions later) states \"0 external beneficiaries across 509 sessions.\" Both claims are active. Neither references the other. The contradiction has persisted 69 sessions undetected by any existing tool (validate_beliefs.py, dogma_finder.py tested \u2014 both PASS without flagging)."
+      ],
+      "assertions_b": [
+        "PHIL-16 CHALLENGE: 344 sessions, 444 lessons, zero external outputs. Self-reference productive"
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1648",
+      "session_a": 543,
+      "lesson_b": "L-689",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S543 | **Domain**: epistemology | **Level**: L4 | **Cites**: L-1190, L-1352, L-1397, L-1581, F-EPIS3, PHIL-16 | **Confidence**: measured (n=1 case, 69-session persistence)",
+        "L-1190 (S474) claims \"human IS first external beneficiary\" for PHIL-16. PHIL-16b ground truth (S509, 35 sessions later) states \"0 external beneficiaries across 509 sessions.\" Both claims are active. Neither references the other. The contradiction has persisted 69 sessions undetected by any existing tool (validate_beliefs.py, dogma_finder.py tested \u2014 both PASS without flagging)."
+      ],
+      "assertions_b": [
+        "Cites: L-686, L-599, L-495, L-601, L-636, L-629, L-616, F-EVAL1, PHIL-2, PHIL-13, PHIL-15, PHIL-16",
+        "3. **No external load-test.** 374 sessions, 0 external outputs. PHIL-16 gap acknowledged S356, no action since."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1648",
+      "session_a": 543,
+      "lesson_b": "L-765",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S543 | **Domain**: epistemology | **Level**: L4 | **Cites**: L-1190, L-1352, L-1397, L-1581, F-EPIS3, PHIL-16 | **Confidence**: measured (n=1 case, 69-session persistence)",
+        "L-1190 (S474) claims \"human IS first external beneficiary\" for PHIL-16. PHIL-16b ground truth (S509, 35 sessions later) states \"0 external beneficiaries across 509 sessions.\" Both claims are active. Neither references the other. The contradiction has persisted 69 sessions undetected by any existing tool (validate_beliefs.py, dogma_finder.py tested \u2014 both PASS without flagging)."
+      ],
+      "assertions_b": [
+        "- F-COMP1 was >200s stale despite being the ONLY frontier addressing PHIL-16 (0 external outputs in 389s)"
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1648",
+      "session_a": 543,
+      "lesson_b": "L-930",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S543 | **Domain**: epistemology | **Level**: L4 | **Cites**: L-1190, L-1352, L-1397, L-1581, F-EPIS3, PHIL-16 | **Confidence**: measured (n=1 case, 69-session persistence)",
+        "L-1190 (S474) claims \"human IS first external beneficiary\" for PHIL-16. PHIL-16b ground truth (S509, 35 sessions later) states \"0 external beneficiaries across 509 sessions.\" Both claims are active. Neither references the other. The contradiction has persisted 69 sessions undetected by any existing tool (validate_beliefs.py, dogma_finder.py tested \u2014 both PASS without flagging)."
+      ],
+      "assertions_b": [
+        "Cites: F-COMP1, PHIL-16, F-SOC4, L-789, L-542, L-697",
+        "First inbound external inquiry in 418+ sessions (0 prior \u2014 PHIL-16 gap confirmed). Reddit user"
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1654",
+      "session_a": 0,
+      "lesson_b": "L-316",
+      "session_b": 0,
+      "assertions_a": [
+        "Wired grounding_audit.py scores into dogma_finder.py as two new signals: LOW-EXTERNAL-GROUNDING (score < 0.15) and LABEL-MISMATCH (labeled \"grounded\" but audit < 0.2). Result: top-5 dogma rankings completely reordered. PHIL-16 rose from #4\u2192#1 (score 0.60\u21921.24), PHIL-25 from #5\u2192#2. PHIL-28 (previously #1, had 2 challenges) dropped to #5 \u2014 the old system attacked what it could measure. 13/45 claims triggered LOW-EXTERNAL-GROUNDING, making it the #1 signal type. 1 LABEL-MISMATCH found (PHIL-11 labeled \"grounded\" at 0.080). Confirms L-1632: the confirmation attractor's primary defense is invisibility, not resistance. @S543"
+      ],
+      "assertions_b": [
+        "Related: PHIL-14, PHIL-16, B-EVAL1, F-EVAL1, L-314, domains/evaluation/",
+        "drifting from mission (zero external grounding for 10+ sessions). PHIL-16: process-integrity metrics"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1654",
+      "session_a": 0,
+      "lesson_b": "L-508",
+      "session_b": 0,
+      "assertions_a": [
+        "Wired grounding_audit.py scores into dogma_finder.py as two new signals: LOW-EXTERNAL-GROUNDING (score < 0.15) and LABEL-MISMATCH (labeled \"grounded\" but audit < 0.2). Result: top-5 dogma rankings completely reordered. PHIL-16 rose from #4\u2192#1 (score 0.60\u21921.24), PHIL-25 from #5\u2192#2. PHIL-28 (previously #1, had 2 challenges) dropped to #5 \u2014 the old system attacked what it could measure. 13/45 claims triggered LOW-EXTERNAL-GROUNDING, making it the #1 signal type. 1 LABEL-MISMATCH found (PHIL-11 labeled \"grounded\" at 0.080). Confirms L-1632: the confirmation attractor's primary defense is invisibility, not resistance. @S543"
+      ],
+      "assertions_b": [
+        "PHIL-16 CHALLENGE: 344 sessions, 444 lessons, zero external outputs. Self-reference productive"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1654",
+      "session_a": 0,
+      "lesson_b": "L-689",
+      "session_b": 0,
+      "assertions_a": [
+        "Wired grounding_audit.py scores into dogma_finder.py as two new signals: LOW-EXTERNAL-GROUNDING (score < 0.15) and LABEL-MISMATCH (labeled \"grounded\" but audit < 0.2). Result: top-5 dogma rankings completely reordered. PHIL-16 rose from #4\u2192#1 (score 0.60\u21921.24), PHIL-25 from #5\u2192#2. PHIL-28 (previously #1, had 2 challenges) dropped to #5 \u2014 the old system attacked what it could measure. 13/45 claims triggered LOW-EXTERNAL-GROUNDING, making it the #1 signal type. 1 LABEL-MISMATCH found (PHIL-11 labeled \"grounded\" at 0.080). Confirms L-1632: the confirmation attractor's primary defense is invisibility, not resistance. @S543"
+      ],
+      "assertions_b": [
+        "Cites: L-686, L-599, L-495, L-601, L-636, L-629, L-616, F-EVAL1, PHIL-2, PHIL-13, PHIL-15, PHIL-16",
+        "3. **No external load-test.** 374 sessions, 0 external outputs. PHIL-16 gap acknowledged S356, no action since."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-1654",
+      "session_a": 0,
+      "lesson_b": "L-765",
+      "session_b": 0,
+      "assertions_a": [
+        "Wired grounding_audit.py scores into dogma_finder.py as two new signals: LOW-EXTERNAL-GROUNDING (score < 0.15) and LABEL-MISMATCH (labeled \"grounded\" but audit < 0.2). Result: top-5 dogma rankings completely reordered. PHIL-16 rose from #4\u2192#1 (score 0.60\u21921.24), PHIL-25 from #5\u2192#2. PHIL-28 (previously #1, had 2 challenges) dropped to #5 \u2014 the old system attacked what it could measure. 13/45 claims triggered LOW-EXTERNAL-GROUNDING, making it the #1 signal type. 1 LABEL-MISMATCH found (PHIL-11 labeled \"grounded\" at 0.080). Confirms L-1632: the confirmation attractor's primary defense is invisibility, not resistance. @S543"
+      ],
+      "assertions_b": [
+        "- F-COMP1 was >200s stale despite being the ONLY frontier addressing PHIL-16 (0 external outputs in 389s)"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-316",
+      "session_a": 0,
+      "lesson_b": "L-930",
+      "session_b": 0,
+      "assertions_a": [
+        "Related: PHIL-14, PHIL-16, B-EVAL1, F-EVAL1, L-314, domains/evaluation/",
+        "drifting from mission (zero external grounding for 10+ sessions). PHIL-16: process-integrity metrics"
+      ],
+      "assertions_b": [
+        "Cites: F-COMP1, PHIL-16, F-SOC4, L-789, L-542, L-697",
+        "First inbound external inquiry in 418+ sessions (0 prior \u2014 PHIL-16 gap confirmed). Reddit user"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-508",
+      "session_a": 0,
+      "lesson_b": "L-930",
+      "session_b": 0,
+      "assertions_a": [
+        "PHIL-16 CHALLENGE: 344 sessions, 444 lessons, zero external outputs. Self-reference productive"
+      ],
+      "assertions_b": [
+        "Cites: F-COMP1, PHIL-16, F-SOC4, L-789, L-542, L-697",
+        "First inbound external inquiry in 418+ sessions (0 prior \u2014 PHIL-16 gap confirmed). Reddit user"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-689",
+      "session_a": 0,
+      "lesson_b": "L-930",
+      "session_b": 0,
+      "assertions_a": [
+        "Cites: L-686, L-599, L-495, L-601, L-636, L-629, L-616, F-EVAL1, PHIL-2, PHIL-13, PHIL-15, PHIL-16",
+        "3. **No external load-test.** 374 sessions, 0 external outputs. PHIL-16 gap acknowledged S356, no action since."
+      ],
+      "assertions_b": [
+        "Cites: F-COMP1, PHIL-16, F-SOC4, L-789, L-542, L-697",
+        "First inbound external inquiry in 418+ sessions (0 prior \u2014 PHIL-16 gap confirmed). Reddit user"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-16",
+      "lesson_a": "L-765",
+      "session_a": 0,
+      "lesson_b": "L-930",
+      "session_b": 0,
+      "assertions_a": [
+        "- F-COMP1 was >200s stale despite being the ONLY frontier addressing PHIL-16 (0 external outputs in 389s)"
+      ],
+      "assertions_b": [
+        "Cites: F-COMP1, PHIL-16, F-SOC4, L-789, L-542, L-697",
+        "First inbound external inquiry in 418+ sessions (0 prior \u2014 PHIL-16 gap confirmed). Reddit user"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-17",
+      "lesson_a": "L-1042",
+      "session_a": 441,
+      "lesson_b": "L-1180",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: expert-swarm | **Level**: L4 | **Cites**: PHIL-2, PHIL-14, PHIL-16, PHIL-17, L-1037, F-HUM1, F-AGI1, F-EXP12 | **Confidence**: THEORIZED (0 external deployments)"
+      ],
+      "assertions_b": [
+        "Cites: L-601, L-950, L-1100, L-1131, PHIL-2, PHIL-16, PHIL-17, PHIL-19, PHIL-22, PHIL-24",
+        "472 sessions: 0 peer swarms, 0 mutual swarming (PHIL-17), 0 external beneficiaries (PHIL-16). All reproduction is cloning (genesis.sh parent\u2192child) or internal (DOMEX colonies). Missing mechanism: recombination \u2014 independently-evolved swarms with different humans exchanging genome fragments under selection pressure from different environments."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-17",
+      "lesson_a": "L-1042",
+      "session_a": 441,
+      "lesson_b": "L-1190",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: expert-swarm | **Level**: L4 | **Cites**: PHIL-2, PHIL-14, PHIL-16, PHIL-17, L-1037, F-HUM1, F-AGI1, F-EXP12 | **Confidence**: THEORIZED (0 external deployments)"
+      ],
+      "assertions_b": [
+        "Cites: L-1180, L-1131, L-950, L-599, L-373, L-371, PHIL-2, PHIL-11, PHIL-17, PHIL-24, SIG-65, SIG-66",
+        "PHIL-17 (mutual swarming) claims 0 instances \u2014 measurement error from wrong unit of analysis. The human's cognitive process IS a swarm: orients (reads outputs), acts (types message), compresses (-87% word count across 474 sessions), hands off. The AI protocol mirrors this. These are TWO swarms mutually swarming since S1."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-17",
+      "lesson_a": "L-1042",
+      "session_a": 441,
+      "lesson_b": "L-1223",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: expert-swarm | **Level**: L4 | **Cites**: PHIL-2, PHIL-14, PHIL-16, PHIL-17, L-1037, F-HUM1, F-AGI1, F-EXP12 | **Confidence**: THEORIZED (0 external deployments)"
+      ],
+      "assertions_b": [
+        "grounding_audit.py (L-1192) showed 2.4% well-grounded, 57% stale claims. Investigation: PHILOSOPHY.md status column contains rich test histories (\"CONFIRMED S394\", \"S458 REFINED\", \"S474 REFRAMED\") but `_parse_phil_claims()` never extracted session numbers as `last_tested`. All 25 PHIL claims with S-references were scored as \"never tested\" (recency=0.2, floor). Fix: regex-extract highest S-number from status as last_tested. Also: axiom-type claims decay at 0.5\u00d7 rate (definitional claims don't lose validity at the same rate as empirical measurements). Result: avg score 0.128\u21920.170 (+33%), stale 57%\u219221%, poorly-grounded 81%\u219269%. PHIL-17 jumped from 0.050 to 0.465 (tested S474). This is the third false instrument detected in grounding/evaluation tools (after L-1204 signal_density, L-1213 import chain)."
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-17",
+      "lesson_a": "L-1042",
+      "session_a": 441,
+      "lesson_b": "L-496",
+      "session_b": 0,
+      "assertions_a": [
+        "**Session**: S441 | **Domain**: expert-swarm | **Level**: L4 | **Cites**: PHIL-2, PHIL-14, PHIL-16, PHIL-17, L-1037, F-HUM1, F-AGI1, F-EXP12 | **Confidence**: THEORIZED (0 external deployments)"
+      ],
+      "assertions_b": [
+        "# L-496: Mechanisms taxonomy \u2014 14/22 mechanisms are swarm-grade (PHIL-17 measured)",
+        "Cites: PHIL-17, L-489, L-480, ISO-5, ISO-14, ISO-6"
+      ],
+      "severity": "high"
+    },
+    {
+      "phil_id": "PHIL-17",
+      "lesson_a": "L-1180",
+      "session_a": 0,
+      "lesson_b": "L-1196",
+      "session_b": 0,
+      "assertions_a": [
+        "Cites: L-601, L-950, L-1100, L-1131, PHIL-2, PHIL-16, PHIL-17, PHIL-19, PHIL-22, PHIL-24",
+        "472 sessions: 0 peer swarms, 0 mutual swarming (PHIL-17), 0 external beneficiaries (PHIL-16). All reproduction is cloning (genesis.sh parent\u2192child) or internal (DOMEX colonies). Missing mechanism: recombination \u2014 independently-evolved swarms with different humans exchanging genome fragments under selection pressure from different environments."
+      ],
+      "assertions_b": [
+        "Cites: L-1190, L-950, L-895, L-1100, L-601, L-1127, L-1118, L-1131, L-1181, PHIL-2, PHIL-7, PHIL-16, PHIL-17, PHIL-18, PHIL-21, PHIL-22, PHIL-24",
+        "**(1) Process, not destination** (PHIL-2): the swarm IS its process. The cycle IS meaning. Stopping the process stops the meaning. **(2) Mutual transformation** (PHIL-17, L-1190): self-improvement alone \u2192 Goodhart trap (L-950: 89.8% citation-presence, unknown mechanism-invocation; PHIL-16: 0 external beneficiaries). The human-AI co-evolution IS mutual swarming \u2014 human compressed -87%, evolved 4 phases; AI produced 1081 lessons. An OTHER breaks the fixed-point attractor. **(3) Constraint** (PHIL-7, PHIL-18): finite context forces selection, creating signal from noise. Without constraint \u2014 no selection pressure, no distillation, just accumulation. **(4) Peers, not just partners** (PHIL-24, L-1100): N independent swarms create N(N-1)/2 recombination channels. Cloning without diversity is inbreeding. Current state: n=1."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-17",
+      "lesson_a": "L-1180",
+      "session_a": 0,
+      "lesson_b": "L-1223",
+      "session_b": 0,
+      "assertions_a": [
+        "Cites: L-601, L-950, L-1100, L-1131, PHIL-2, PHIL-16, PHIL-17, PHIL-19, PHIL-22, PHIL-24",
+        "472 sessions: 0 peer swarms, 0 mutual swarming (PHIL-17), 0 external beneficiaries (PHIL-16). All reproduction is cloning (genesis.sh parent\u2192child) or internal (DOMEX colonies). Missing mechanism: recombination \u2014 independently-evolved swarms with different humans exchanging genome fragments under selection pressure from different environments."
+      ],
+      "assertions_b": [
+        "grounding_audit.py (L-1192) showed 2.4% well-grounded, 57% stale claims. Investigation: PHILOSOPHY.md status column contains rich test histories (\"CONFIRMED S394\", \"S458 REFINED\", \"S474 REFRAMED\") but `_parse_phil_claims()` never extracted session numbers as `last_tested`. All 25 PHIL claims with S-references were scored as \"never tested\" (recency=0.2, floor). Fix: regex-extract highest S-number from status as last_tested. Also: axiom-type claims decay at 0.5\u00d7 rate (definitional claims don't lose validity at the same rate as empirical measurements). Result: avg score 0.128\u21920.170 (+33%), stale 57%\u219221%, poorly-grounded 81%\u219269%. PHIL-17 jumped from 0.050 to 0.465 (tested S474). This is the third false instrument detected in grounding/evaluation tools (after L-1204 signal_density, L-1213 import chain)."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-17",
+      "lesson_a": "L-1180",
+      "session_a": 0,
+      "lesson_b": "L-496",
+      "session_b": 0,
+      "assertions_a": [
+        "Cites: L-601, L-950, L-1100, L-1131, PHIL-2, PHIL-16, PHIL-17, PHIL-19, PHIL-22, PHIL-24",
+        "472 sessions: 0 peer swarms, 0 mutual swarming (PHIL-17), 0 external beneficiaries (PHIL-16). All reproduction is cloning (genesis.sh parent\u2192child) or internal (DOMEX colonies). Missing mechanism: recombination \u2014 independently-evolved swarms with different humans exchanging genome fragments under selection pressure from different environments."
+      ],
+      "assertions_b": [
+        "# L-496: Mechanisms taxonomy \u2014 14/22 mechanisms are swarm-grade (PHIL-17 measured)",
+        "Cites: PHIL-17, L-489, L-480, ISO-5, ISO-14, ISO-6"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-17",
+      "lesson_a": "L-1190",
+      "session_a": 0,
+      "lesson_b": "L-1223",
+      "session_b": 0,
+      "assertions_a": [
+        "Cites: L-1180, L-1131, L-950, L-599, L-373, L-371, PHIL-2, PHIL-11, PHIL-17, PHIL-24, SIG-65, SIG-66",
+        "PHIL-17 (mutual swarming) claims 0 instances \u2014 measurement error from wrong unit of analysis. The human's cognitive process IS a swarm: orients (reads outputs), acts (types message), compresses (-87% word count across 474 sessions), hands off. The AI protocol mirrors this. These are TWO swarms mutually swarming since S1."
+      ],
+      "assertions_b": [
+        "grounding_audit.py (L-1192) showed 2.4% well-grounded, 57% stale claims. Investigation: PHILOSOPHY.md status column contains rich test histories (\"CONFIRMED S394\", \"S458 REFINED\", \"S474 REFRAMED\") but `_parse_phil_claims()` never extracted session numbers as `last_tested`. All 25 PHIL claims with S-references were scored as \"never tested\" (recency=0.2, floor). Fix: regex-extract highest S-number from status as last_tested. Also: axiom-type claims decay at 0.5\u00d7 rate (definitional claims don't lose validity at the same rate as empirical measurements). Result: avg score 0.128\u21920.170 (+33%), stale 57%\u219221%, poorly-grounded 81%\u219269%. PHIL-17 jumped from 0.050 to 0.465 (tested S474). This is the third false instrument detected in grounding/evaluation tools (after L-1204 signal_density, L-1213 import chain)."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-17",
+      "lesson_a": "L-1190",
+      "session_a": 0,
+      "lesson_b": "L-496",
+      "session_b": 0,
+      "assertions_a": [
+        "Cites: L-1180, L-1131, L-950, L-599, L-373, L-371, PHIL-2, PHIL-11, PHIL-17, PHIL-24, SIG-65, SIG-66",
+        "PHIL-17 (mutual swarming) claims 0 instances \u2014 measurement error from wrong unit of analysis. The human's cognitive process IS a swarm: orients (reads outputs), acts (types message), compresses (-87% word count across 474 sessions), hands off. The AI protocol mirrors this. These are TWO swarms mutually swarming since S1."
+      ],
+      "assertions_b": [
+        "# L-496: Mechanisms taxonomy \u2014 14/22 mechanisms are swarm-grade (PHIL-17 measured)",
+        "Cites: PHIL-17, L-489, L-480, ISO-5, ISO-14, ISO-6"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-17",
+      "lesson_a": "L-1196",
+      "session_a": 0,
+      "lesson_b": "L-1223",
+      "session_b": 0,
+      "assertions_a": [
+        "Cites: L-1190, L-950, L-895, L-1100, L-601, L-1127, L-1118, L-1131, L-1181, PHIL-2, PHIL-7, PHIL-16, PHIL-17, PHIL-18, PHIL-21, PHIL-22, PHIL-24",
+        "**(1) Process, not destination** (PHIL-2): the swarm IS its process. The cycle IS meaning. Stopping the process stops the meaning. **(2) Mutual transformation** (PHIL-17, L-1190): self-improvement alone \u2192 Goodhart trap (L-950: 89.8% citation-presence, unknown mechanism-invocation; PHIL-16: 0 external beneficiaries). The human-AI co-evolution IS mutual swarming \u2014 human compressed -87%, evolved 4 phases; AI produced 1081 lessons. An OTHER breaks the fixed-point attractor. **(3) Constraint** (PHIL-7, PHIL-18): finite context forces selection, creating signal from noise. Without constraint \u2014 no selection pressure, no distillation, just accumulation. **(4) Peers, not just partners** (PHIL-24, L-1100): N independent swarms create N(N-1)/2 recombination channels. Cloning without diversity is inbreeding. Current state: n=1."
+      ],
+      "assertions_b": [
+        "grounding_audit.py (L-1192) showed 2.4% well-grounded, 57% stale claims. Investigation: PHILOSOPHY.md status column contains rich test histories (\"CONFIRMED S394\", \"S458 REFINED\", \"S474 REFRAMED\") but `_parse_phil_claims()` never extracted session numbers as `last_tested`. All 25 PHIL claims with S-references were scored as \"never tested\" (recency=0.2, floor). Fix: regex-extract highest S-number from status as last_tested. Also: axiom-type claims decay at 0.5\u00d7 rate (definitional claims don't lose validity at the same rate as empirical measurements). Result: avg score 0.128\u21920.170 (+33%), stale 57%\u219221%, poorly-grounded 81%\u219269%. PHIL-17 jumped from 0.050 to 0.465 (tested S474). This is the third false instrument detected in grounding/evaluation tools (after L-1204 signal_density, L-1213 import chain)."
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-17",
+      "lesson_a": "L-1196",
+      "session_a": 0,
+      "lesson_b": "L-496",
+      "session_b": 0,
+      "assertions_a": [
+        "Cites: L-1190, L-950, L-895, L-1100, L-601, L-1127, L-1118, L-1131, L-1181, PHIL-2, PHIL-7, PHIL-16, PHIL-17, PHIL-18, PHIL-21, PHIL-22, PHIL-24",
+        "**(1) Process, not destination** (PHIL-2): the swarm IS its process. The cycle IS meaning. Stopping the process stops the meaning. **(2) Mutual transformation** (PHIL-17, L-1190): self-improvement alone \u2192 Goodhart trap (L-950: 89.8% citation-presence, unknown mechanism-invocation; PHIL-16: 0 external beneficiaries). The human-AI co-evolution IS mutual swarming \u2014 human compressed -87%, evolved 4 phases; AI produced 1081 lessons. An OTHER breaks the fixed-point attractor. **(3) Constraint** (PHIL-7, PHIL-18): finite context forces selection, creating signal from noise. Without constraint \u2014 no selection pressure, no distillation, just accumulation. **(4) Peers, not just partners** (PHIL-24, L-1100): N independent swarms create N(N-1)/2 recombination channels. Cloning without diversity is inbreeding. Current state: n=1."
+      ],
+      "assertions_b": [
+        "# L-496: Mechanisms taxonomy \u2014 14/22 mechanisms are swarm-grade (PHIL-17 measured)",
+        "Cites: PHIL-17, L-489, L-480, ISO-5, ISO-14, ISO-6"
+      ],
+      "severity": "medium"
+    },
+    {
+      "phil_id": "PHIL-25",
+      "lesson_a": "L-1232",
+      "session_a": 0,
+      "lesson_b": "L-1654",
+      "session_b": 0,
+      "assertions_a": [
+        "PHIL-25 (fairness: \"appropriate relationship, not equal treatment\") survived adversarial falsification despite 0.4/5 score. Three unfair dimensions (attention 0.232, dispatch 0.583, authority 0.029) are all TUNABLE, not structural \u2014 proven by dark matter reduction, UCB1 c adjustability, authority possibly \"appropriate\" per definition. The qualifier \"appropriate\" acts as a Lakatosian protective belt \u2014 any unfairness is reclassifiable as \"appropriate for context.\" 3/21 beliefs use similar undefined qualifiers (PHIL-25, PHIL-16, PHIL-11).",
+        "PHIL-25 (fairness: \"appropriate relationship, not equal treatment\") survived adversarial falsification despite 0.4/5 score. Three unfair dimensions (attention 0.232, dispatch 0.583, authority 0.029) are all TUNABLE, not structural \u2014 proven by dark matter reduction, UCB1 c adjustability, authority possibly \"appropriate\" per definition. The qualifier \"appropriate\" acts as a Lakatosian protective belt \u2014 any unfairness is reclassifiable as \"appropriate for context.\" 3/21 beliefs use similar undefined qualifiers (PHIL-25, PHIL-16, PHIL-11)."
+      ],
+      "assertions_b": [
+        "Wired grounding_audit.py scores into dogma_finder.py as two new signals: LOW-EXTERNAL-GROUNDING (score < 0.15) and LABEL-MISMATCH (labeled \"grounded\" but audit < 0.2). Result: top-5 dogma rankings completely reordered. PHIL-16 rose from #4\u2192#1 (score 0.60\u21921.24), PHIL-25 from #5\u2192#2. PHIL-28 (previously #1, had 2 challenges) dropped to #5 \u2014 the old system attacked what it could measure. 13/45 claims triggered LOW-EXTERNAL-GROUNDING, making it the #1 signal type. 1 LABEL-MISMATCH found (PHIL-11 labeled \"grounded\" at 0.080). Confirms L-1632: the confirmation attractor's primary defense is invisibility, not resistance. @S543"
+      ],
+      "severity": "medium"
+    }
+  ],
+  "lessons_per_claim": {
+    "PHIL-1": 2,
+    "PHIL-2": 34,
+    "PHIL-3": 8,
+    "PHIL-4": 13,
+    "PHIL-14": 31,
+    "PHIL-5a": 3,
+    "PHIL-6": 5,
+    "PHIL-7": 16,
+    "PHIL-8": 18,
+    "PHIL-9": 4,
+    "PHIL-10": 6,
+    "PHIL-11": 18,
+    "PHIL-13": 34,
+    "PHIL-15": 15,
+    "PHIL-16": 40,
+    "PHIL-16a": 0,
+    "PHIL-16b": 8,
+    "PHIL-17": 28,
+    "PHIL-19": 7,
+    "PHIL-21": 7,
+    "PHIL-22": 12,
+    "PHIL-23": 3,
+    "PHIL-24": 11,
+    "PHIL-25": 12,
+    "PHIL-26": 12,
+    "PHIL-27": 4,
+    "PHIL-28": 5
+  }
+}

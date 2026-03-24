@@ -1,6 +1,6 @@
 # Governance Domain — Frontier Questions
 Domain agent: write here for governance-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-24 S544 (F-GOV5 CONFIRMED) | Active: 4
+Updated: 2026-03-24 S545 (F-GOV10 partial) | Active: 4
 
 ## Active
 
@@ -37,6 +37,7 @@ Updated: 2026-03-24 S544 (F-GOV5 CONFIRMED) | Active: 4
   **Falsification**: F-MERGE1 Phase 4 + PHIL-25 fairness audit + PHIL-11 authority already sufficient for N>2 governance without new structure (governance emerges from existing components).
   **Source**: PHIL-27 Layer 1 (SIG-111, S528). Extends F-MERGE1, composes PHIL-11+25+14.
   **S528 Ostrom audit (L-1512)**: 2/8 Ostrom principles satisfied at N=1. Principles 2 (proportional equivalence), 3 (collective-choice), 7 (external rights) are structurally impossible at N=1 human — they activate at N>1. Constitution must address these three specifically. Graduated sanctions (Principle 5) entirely absent from swarm vocabulary.
+  **S545 Constitution v1 (L-1666)**: Draft 9-article constitution addresses all 8 Ostrom principles (4 NEW, 2 UPGRADED). Simulated 10 conflicts with 3 synthetic humans: 90% resolved (9/10). Single deadlock: fundamental 3-way vision split. 5 structural gaps found beyond PHIL-11+25: status quo bias, three-way deadlock, HALT asymmetry, no AI voice, quorum phase transitions at small N. Key remedy: fork right (managed schism). Constitution draft at `domains/governance/experiments/f-gov10-constitution-draft-v1.md`. Prediction (<50% resolution) FALSIFIED — tactical conflicts easier than expected; fundamental value conflicts are the true barrier.
   → Links to global frontier: F-POL1. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-COMP1. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-GND1. (auto-linked S420, frontier_crosslink.py)

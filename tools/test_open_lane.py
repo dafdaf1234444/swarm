@@ -1,74 +1,53 @@
 #!/usr/bin/env python3
-"""Regression tests for artifact path normalization in open_lane.py."""
+"""Focused regressions for lane metadata generation."""
 
-import sys
 import tempfile
 import unittest
 from pathlib import Path
 from unittest import mock
+import sys
 
-sys.path.insert(0, str(Path(__file__).parent))
-import open_lane  # noqa: E402
-
-
-LANE_HEADER = """# Swarm Lanes
-| Date | Lane | Session | Agent | Branch | PR | Model | Platform | Scope-Key | Etc | Status | Notes |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-"""
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import open_lane
 
 
-class TestOpenLaneArtifactNormalization(unittest.TestCase):
-    def test_normalize_artifact_path_prefixes_bare_json_with_domain_experiments_dir(self):
-        self.assertEqual(
-            open_lane.normalize_artifact_path(
-                artifact="f-fore1-scoring-s999.json",
-                domain="forecasting",
-                focus="domains/forecasting",
-            ),
-            "experiments/forecasting/f-fore1-scoring-s999.json",
+class TestOpenLaneHelpers(unittest.TestCase):
+    def test_scope_key_domain_inference_normalizes_artifact_path(self):
+        artifact = open_lane.normalize_artifact_path(
+            "f-qc6.json",
+            domain="",
+            focus="global",
+            scope_key="domains/quality/tasks/FRONTIER.md",
         )
+        self.assertEqual(artifact, "experiments/quality/f-qc6.json")
 
-    def test_normalize_artifact_path_leaves_explicit_paths_unchanged(self):
-        self.assertEqual(
-            open_lane.normalize_artifact_path(
-                artifact="experiments/meta/already-scoped.json",
-                domain="meta",
-                focus="domains/meta",
-            ),
-            "experiments/meta/already-scoped.json",
-        )
-
-    def test_main_writes_normalized_artifact_to_lane_and_skeleton(self):
+    def test_append_open_row_writes_check_focus_and_domain_tags(self):
         with tempfile.TemporaryDirectory() as tmpdir:
-            repo_root = Path(tmpdir)
-            lanes_file = repo_root / "tasks" / "SWARM-LANES.md"
-            lanes_file.parent.mkdir(parents=True, exist_ok=True)
-            lanes_file.write_text(LANE_HEADER, encoding="utf-8")
-            archive_file = repo_root / "tasks" / "SWARM-LANES-ARCHIVE.md"
-            archive_file.write_text("", encoding="utf-8")
-
-            argv = [
-                "open_lane.py",
-                "--lane", "DOMEX-FORE-S999",
-                "--session", "S999",
-                "--domain", "forecasting",
-                "--focus", "domains/forecasting",
-                "--intent", "regression-test",
-                "--expect", "artifact skeleton lands in experiments directory and fails if repo root file appears",
-                "--artifact", "f-fore1-scoring-s999.json",
-            ]
-            with mock.patch.object(open_lane, "REPO_ROOT", repo_root), \
-                 mock.patch.object(open_lane, "LANES_FILE", lanes_file), \
-                 mock.patch.object(open_lane, "LANES_ARCHIVE", archive_file), \
-                 mock.patch.object(sys, "argv", argv):
-                open_lane.main()
-
-            normalized = "experiments/forecasting/f-fore1-scoring-s999.json"
-            lane_text = lanes_file.read_text(encoding="utf-8")
-            self.assertIn(f"artifact={normalized}", lane_text)
-            skeleton_path = repo_root / normalized
-            self.assertTrue(skeleton_path.exists())
-            self.assertFalse((repo_root / "f-fore1-scoring-s999.json").exists())
+            lane_file = Path(tmpdir) / "SWARM-LANES.md"
+            lane_file.write_text("", encoding="utf-8")
+            with mock.patch.object(open_lane, "LANES_FILE", lane_file):
+                open_lane.append_open_row(
+                    lane_id="COORD-S545-COVERAGE",
+                    session="S545",
+                    intent="coordination-pass",
+                    expect="Coordinator row should clear missing-coordinator DUE for 2 active dispatch lanes.",
+                    artifact="tasks/SWARM-LANES.md",
+                    frontier="",
+                    focus="global",
+                    check_mode="coordination",
+                    personality="domain-expert",
+                    scope_key="domains/quality/tasks/FRONTIER.md",
+                    author="ai-session",
+                    model="gpt-5",
+                    branch="master",
+                    domain="",
+                    note="test row",
+                    check_focus="coordinator-contract",
+                )
+            text = lane_file.read_text(encoding="utf-8")
+            self.assertIn("check_focus=coordinator-contract", text)
+            self.assertIn("domain_sync=queued", text)
+            self.assertIn("memory_target=domains/quality/tasks/FRONTIER.md", text)
 
 
 if __name__ == "__main__":

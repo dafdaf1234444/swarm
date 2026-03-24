@@ -45,19 +45,24 @@ VAGUE_EXPECT_PATTERNS = [
 ]
 
 
-def infer_artifact_domain(domain: str, focus: str) -> str:
-    """Resolve the experiment domain from explicit domain or domain focus."""
+def infer_lane_domain(domain: str, focus: str, scope_key: str = "") -> str:
+    """Resolve the domain from explicit args or a domain-scoped path."""
     if domain:
         return domain.strip().strip("/\\")
-    norm_focus = (focus or "").replace("\\", "/")
-    if norm_focus.startswith("domains/"):
-        parts = [part for part in norm_focus.split("/") if part]
-        if len(parts) >= 2:
-            return parts[1]
+    for raw in (focus, scope_key):
+        norm = (raw or "").replace("\\", "/").strip("/")
+        match = re.search(r"(?:^|/)domains/([a-z0-9][a-z0-9-]*)", norm.lower())
+        if match:
+            return match.group(1)
     return ""
 
 
-def normalize_artifact_path(artifact: str, domain: str, focus: str) -> str:
+def infer_artifact_domain(domain: str, focus: str, scope_key: str = "") -> str:
+    """Backward-compatible alias for artifact domain inference."""
+    return infer_lane_domain(domain, focus, scope_key)
+
+
+def normalize_artifact_path(artifact: str, domain: str, focus: str, scope_key: str = "") -> str:
     """Map bare JSON artifact names to the domain experiment directory.
 
     Historically many lanes passed `--artifact f-foo.json` while the actual
@@ -74,7 +79,7 @@ def normalize_artifact_path(artifact: str, domain: str, focus: str) -> str:
         return artifact
     if not artifact.lower().endswith(".json"):
         return artifact
-    domain_name = infer_artifact_domain(domain, focus)
+    domain_name = infer_artifact_domain(domain, focus, scope_key)
     if not domain_name:
         return artifact
     return f"experiments/{domain_name}/{artifact}"
@@ -159,6 +164,7 @@ def append_open_row(
     level: str = "L2",
     role: str = "",
     self_apply: str = "",
+    check_focus: str = "",
 ) -> None:
     today = date.today().isoformat()
 
@@ -169,8 +175,8 @@ def append_open_row(
         scope_key = f"{focus}/tasks/FRONTIER.md" if not focus.endswith(".md") else focus
 
     # Determine domain_sync and memory_target
-    if focus.startswith("domains/") or domain:
-        domain_path = domain or focus.split("/")[1] if "/" in focus else focus
+    domain_path = infer_lane_domain(domain, focus, scope_key)
+    if domain_path:
         memory_target = scope_key or f"domains/{domain_path}/tasks/FRONTIER.md"
         domain_fields = f"; domain_sync=queued; memory_target={memory_target}"
     else:
@@ -198,6 +204,8 @@ def append_open_row(
         etc_parts.append(f"role={role}")
     if self_apply:
         etc_parts.append(f"self_apply={self_apply}")
+    if check_focus:
+        etc_parts.append(f"check_focus={check_focus}")
     if personality and personality != "domain-expert":
         etc_parts.append(f"personality={personality}")
     if frontier:
@@ -275,6 +283,11 @@ def main():
                             "PHIL-22 self-application statement: how will this finding feed back "
                             "into the swarm's own process? Required for L3+ lanes (L-950, SIG-48). "
                             "Example: 'If confirmed, wire threshold into dispatch_optimizer.py scoring'"
+                        ))
+    parser.add_argument("--check-focus", default="",
+                        help=(
+                            "Coordinator/historian check target, recorded as check_focus= in Etc. "
+                            "Use for lanes that satisfy coordinator or reporting contracts."
                         ))
     parser.add_argument("--force", action="store_true",
                         help="Open lane even if lane ID already exists (not recommended)")
@@ -670,7 +683,7 @@ def main():
                     f"mode transition increases resolution probability (L-755)."
                 )
 
-    artifact = normalize_artifact_path(args.artifact, args.domain, args.focus)
+    artifact = normalize_artifact_path(args.artifact, args.domain, args.focus, args.scope_key)
     if artifact != args.artifact:
         print(
             f"INFO: normalized artifact path {args.artifact} -> {artifact}",
@@ -697,6 +710,7 @@ def main():
         level=args.level,
         role=args.role,
         self_apply=getattr(args, 'self_apply', ''),
+        check_focus=getattr(args, "check_focus", ""),
     )
 
     # Skeleton artifact creation (L-984, SIG-49): create experiment JSON template
@@ -705,7 +719,7 @@ def main():
     artifact_path = REPO_ROOT / artifact
     if artifact_path.suffix == ".json" and not artifact_path.exists():
         artifact_path.parent.mkdir(parents=True, exist_ok=True)
-        domain_val = infer_artifact_domain(args.domain, args.focus) or args.focus
+        domain_val = infer_artifact_domain(args.domain, args.focus, args.scope_key) or args.focus
         skeleton = {
             "experiment": args.lane,
             "frontier": args.frontier or "",

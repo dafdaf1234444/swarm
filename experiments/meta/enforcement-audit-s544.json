@@ -1,0 +1,30 @@
+{
+  "experiment": "DOMEX-META-S544-ENFORCE",
+  "frontier": "F-META2",
+  "session": "S544",
+  "domain": "meta",
+  "date": "2026-03-24",
+  "check_mode": "verification",
+  "expect": "Enforcement audit will stay above 15% and may recover missing structural citations or surface one actionable high-Sharpe unwired prescription without overlapping active F119 or quality lanes.",
+  "actual": "CONFIRMED. tools/enforcement_router.py stayed well above target and the audit recovered L-1354 as a structural prescription after adding the missing citation to tools/dispatch_scoring.py. The recovered wiring is the soul-informed dispatch multiplier that weights domains by human-good ratio, which matches L-1354's rule that benefit_ratio is a dispatch-allocation property rather than a lesson-quality property.",
+  "diff": "Expected at most one recovered citation and got a clean recovery: L-1354 disappeared from the aspirational list. Structural count moved 145 -> 147, periodic 23 -> 22, aspirational 313 -> 312, and structural enforcement rate improved 30.1% -> 30.6%. No behavior change was required because the mechanism was already live; the gap was provenance, not implementation.",
+  "baseline": {
+    "structural": 145,
+    "periodic": 23,
+    "aspirational": 313,
+    "enforcement_rate": 0.301
+  },
+  "after": {
+    "structural": 147,
+    "periodic": 22,
+    "aspirational": 312,
+    "enforcement_rate": 0.306
+  },
+  "recovered_lessons": [
+    "L-1354"
+  ],
+  "artifacts": [
+    "tools/dispatch_scoring.py",
+    "experiments/meta/enforcement-audit-s544.json"
+  ]
+}

@@ -393,11 +393,26 @@ def check_diversity_cap() -> list[tuple[str, str]]:
         top3 = sorted(shares, key=shares.get, reverse=True)[:3]
         top3_share = sum(shares[d] for d in top3)
         if top3_share > 0.30:
+            frontier_text = _read(REPO_ROOT / "tasks" / "FRONTIER.md")
+            resolved = bool(
+                re.search(
+                    r"^-\s+~~\*\*F-COL1\*\*~~:.*Moved to Resolved",
+                    frontier_text,
+                    re.MULTILINE,
+                )
+            )
+            level = "NOTICE" if resolved else "DUE"
+            prefix = "F-COL1 monitoring" if resolved else "F-COL1 diversity threshold"
+            suffix = (
+                "Frontier resolved in tasks/FRONTIER.md; monitor cap effectiveness."
+                if resolved else
+                "Diversity cap active in dispatch_scoring.py (L-1643)."
+            )
             results.append((
-                "DUE",
-                f"F-COL1 diversity threshold: top-3 share {top3_share:.1%} > 30% "
+                level,
+                f"{prefix}: top-3 share {top3_share:.1%} > 30% "
                 f"({', '.join(f'{d} {shares[d]:.1%}' for d in top3)}). "
-                f"Diversity cap active in dispatch_scoring.py (L-1643)."
+                f"{suffix}"
             ))
     except Exception:
         pass

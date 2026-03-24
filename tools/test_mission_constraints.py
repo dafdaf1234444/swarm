@@ -5,6 +5,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
 from unittest.mock import patch
 
 # Ensure tools/ is on sys.path so maintenance.py can import maintenance_common
@@ -512,6 +513,43 @@ class TestSwarmCoordinatorSignals(unittest.TestCase):
         )
         results = self._run_check(lanes_text)
         self.assertFalse(any("coordinator" in msg for _, msg in results), results)
+
+
+class TestDiversityCapSignals(unittest.TestCase):
+    def _run_check(self, frontier_text: str) -> list[tuple[str, str]]:
+        outcome_map = {
+            "meta": {"merged": 40, "abandoned": 0},
+            "expert-swarm": {"merged": 20, "abandoned": 0},
+            "nk-complexity": {"merged": 10, "abandoned": 0},
+            "physics": {"merged": 30, "abandoned": 0},
+        }
+        fake_dispatch = SimpleNamespace(get_domain_outcomes=lambda: outcome_map)
+        with patch.object(maintenance_signals, "_read", return_value=frontier_text), \
+             patch.dict(sys.modules, {"dispatch_data": fake_dispatch}):
+            return maintenance.check_diversity_cap()
+
+    def test_resolved_f_col1_becomes_notice_monitoring(self):
+        frontier_text = (
+            "# Frontier\n"
+            "- ~~**F-COL1**~~: Moved to Resolved (S542). Successor: monitoring.\n"
+        )
+        results = self._run_check(frontier_text)
+        self.assertTrue(
+            any(priority == "NOTICE" and "F-COL1 monitoring" in msg for priority, msg in results),
+            f"Expected NOTICE monitoring signal, got: {results}",
+        )
+        self.assertFalse(
+            any(priority == "DUE" and "F-COL1 diversity threshold" in msg for priority, msg in results),
+            f"Resolved frontier should not emit DUE, got: {results}",
+        )
+
+    def test_unresolved_f_col1_stays_due(self):
+        frontier_text = "# Frontier\n- **F-COL1**: open\n"
+        results = self._run_check(frontier_text)
+        self.assertTrue(
+            any(priority == "DUE" and "F-COL1 diversity threshold" in msg for priority, msg in results),
+            f"Expected DUE signal, got: {results}",
+        )
 
 
 class TestMissionConstraintDegradedRuntime(unittest.TestCase):
