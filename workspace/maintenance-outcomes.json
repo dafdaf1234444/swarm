@@ -2252,7 +2252,7 @@
     },
     {
       "session": 533,
-      "timestamp": "2026-03-24T05:53:27Z",
+      "timestamp": "2026-03-24T05:58:49Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -2270,11 +2270,9 @@
           "severities": []
         },
         "check_runtime_portability": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "NOTICE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_commit_hooks": {
           "fired": false,
@@ -2298,10 +2296,8 @@
         },
         "check_lessons": {
           "fired": true,
-          "count": 4,
+          "count": 2,
           "severities": [
-            "DUE",
-            "DUE",
             "DUE",
             "NOTICE"
           ]
@@ -2344,11 +2340,9 @@
           ]
         },
         "check_swarm_lanes": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "DUE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_swarm_coordinator": {
           "fired": true,
@@ -2454,11 +2448,9 @@
           ]
         },
         "check_count_drift": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "DUE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_structure_layout": {
           "fired": false,
@@ -2500,9 +2492,11 @@
           ]
         },
         "check_utility": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         },
         "check_dark_matter": {
           "fired": true,
@@ -2561,8 +2555,8 @@
         }
       },
       "totals": {
+        "DUE": 5,
         "NOTICE": 22,
-        "DUE": 9,
         "PERIODIC": 7
       }
     }

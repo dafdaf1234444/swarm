@@ -1,10 +1,24 @@
 {
-    "experiment": "DOMEX-EVAL-S533-BEVAL",
-    "frontier": "F-EVAL2",
-    "session": "S533",
-    "domain": "evaluation",
-    "date": "2026-03-24",
-    "expect": "B-EVAL2 quality-binds-over-quantity may no longer hold at N=1324 \u2014 integration tooling matured since N=550 diagnosis",
-    "actual": "TBD",
-    "diff": "TBD"
+  "lane": "DOMEX-EVAL-S533-BEVAL",
+  "session": "S533",
+  "domain": "evaluation",
+  "frontier": "F-EVAL2",
+  "mode": "falsification",
+  "target_belief": "B-EVAL2",
+  "expect": "B-EVAL2 quality-binds-over-quantity may no longer hold at N=1324 — integration tooling matured since N=550 diagnosis",
+  "actual": "PARTIALLY CONFIRMED — quality-quantity tradeoff SOFTENED but not eliminated. Production 0.8→3.5 L/session (4.4x increase) while L3+ held 86.3% (from 92.7%). Integration improved: 3.6→4.3 cites/lesson (+19%). Sharpe 8.1→8.5 (+5%). BUT L4+ declined 17.1%→11.4% — depth is the new binding constraint, not integration.",
+  "measurements": {
+    "production_rate": {"S400_S450": 0.8, "recent_50": 3.5, "change": "4.4x increase"},
+    "L3_plus_rate": {"S400_S450": 0.927, "recent": 0.863, "change": "-6.4pp"},
+    "L4_plus_rate": {"S400_S450": 0.171, "recent": 0.114, "change": "-5.7pp"},
+    "cites_per_lesson": {"L500_L600": 3.6, "recent_100": 4.3, "change": "+19%"},
+    "zero_cite_lessons": {"L500_L600": "1/97", "recent_100": "0/100"},
+    "avg_sharpe": {"S400_S450": 8.1, "recent": 8.5, "change": "+5%"},
+    "total_lessons": 1521,
+    "active_lessons": 1284,
+    "archived": 237
+  },
+  "finding": "B-EVAL2 needs revision. The original diagnosis (N≈550, quality binds over quantity) was correct at that scale. At N=1324, tooling maturation (shared parsers, historian routing, automatic crosslinks) loosened the integration constraint. Swarm now produces 4.4x more lessons with only 6.4pp quality decline. The NEW binding constraint is DEPTH — L4+ (architecture/paradigm) work declined from 17.1% to 11.4%. Quality-vs-quantity is a false binary when integration is automated; the real tradeoff is breadth-vs-depth.",
+  "recommendation": "Revise B-EVAL2 from 'quality binds over quantity' to 'depth binds over breadth — integration is no longer the bottleneck, but paradigm-level (L4+) work is crowded out by high-volume L3 production'",
+  "falsified": "PARTIAL — original form falsified (integration no longer binding), deeper form confirmed (depth still binds)"
 }

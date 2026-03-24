@@ -21,8 +21,25 @@ from pathlib import Path
 
 PRED_DIR = Path("experiments/finance/predictions")
 REGISTRY = PRED_DIR / "registry.json"
+FORECAST_DIR = Path("experiments/forecasting")
 
 TIMEFRAME_DAYS = {"1w": 7, "2w": 14, "1m": 30, "3m": 90, "6m": 180, "1y": 365}
+
+INTERIM_DEFINITE_CORRECT = {
+    "WITH",
+    "WITHIN",
+    "ON_TRACK",
+    "ON_TARGET",
+    "STRONGLY_ON_TARGET",
+}
+INTERIM_DIRECTIONAL_CORRECT = INTERIM_DEFINITE_CORRECT | {
+    "EARLY",
+    "WEAK_TRENDING",
+    "LIKELY_ON_TARGET",
+    "WEAKENING",
+}
+INTERIM_PARTIAL = {"EARLY", "WEAK_TRENDING", "LIKELY_ON_TARGET", "WEAKENING", "FLAT"}
+INTERIM_INCORRECT = {"AGAINST", "STRONGLY_AGAINST"}
 
 
 def load_registry():
@@ -35,6 +52,148 @@ def save_registry(reg):
     PRED_DIR.mkdir(parents=True, exist_ok=True)
     reg["metadata"]["updated"] = datetime.now().isoformat()
     REGISTRY.write_text(json.dumps(reg, indent=2) + "\n")
+
+
+def _artifact_session(path):
+    stem = path.stem
+    parts = stem.rsplit("-s", 1)
+    if len(parts) == 2 and parts[1].isdigit():
+        return int(parts[1])
+    return -1
+
+
+def _prediction_id_from_artifact_key(key):
+    if key.startswith("PRED-"):
+        return key.split("_", 1)[0]
+    return key
+
+
+def _load_latest_interim_artifact():
+    if not FORECAST_DIR.exists():
+        return None
+
+    latest = None
+    latest_sort = (-1, 0.0)
+    for path in FORECAST_DIR.glob("f-fore1*scoring*.json"):
+        try:
+            data = json.loads(path.read_text())
+        except (OSError, json.JSONDecodeError):
+            continue
+        actual = data.get("actual", {})
+        predictions = actual.get("predictions_scored") if isinstance(actual, dict) else None
+        if not isinstance(predictions, dict) or not predictions:
+            continue
+        sort_key = (_artifact_session(path), path.stat().st_mtime)
+        if sort_key > latest_sort:
+            latest = (path, data)
+            latest_sort = sort_key
+    return latest
+
+
+def _interim_score_class(status):
+    status = (status or "").upper()
+    if status in INTERIM_DEFINITE_CORRECT:
+        return "CORRECT"
+    if status in INTERIM_PARTIAL:
+        return "PARTIAL"
+    if status in INTERIM_INCORRECT:
+        return "INCORRECT"
+    return None
+
+
+def _interim_directional_hit(status):
+    return (status or "").upper() in INTERIM_DIRECTIONAL_CORRECT
+
+
+def _compute_interim_scorecard(reg, artifact_data):
+    actual = artifact_data.get("actual", {})
+    predictions = actual.get("predictions_scored") if isinstance(actual, dict) else {}
+    registry_by_id = {p["id"]: p for p in reg["predictions"]}
+
+    rows = []
+    for key, snapshot in predictions.items():
+        if not isinstance(snapshot, dict):
+            continue
+        pred_id = _prediction_id_from_artifact_key(key)
+        pred = registry_by_id.get(pred_id)
+        if not pred or pred.get("status") != "OPEN":
+            continue
+        status = str(snapshot.get("status", "")).upper()
+        score_class = _interim_score_class(status)
+        if score_class is None:
+            continue
+        conf = snapshot.get("conf", pred.get("confidence"))
+        if conf is None:
+            continue
+        conf = float(conf)
+        if score_class == "CORRECT":
+            actual_value = 1.0
+            pseudo_score = (1 - conf) ** 2
+        elif score_class == "INCORRECT":
+            actual_value = 0.0
+            pseudo_score = conf ** 2
+        else:
+            actual_value = 0.5
+            pseudo_score = (0.5 - conf) ** 2 + 0.125
+        rows.append({
+            "id": pred_id,
+            "status": status,
+            "confidence": conf,
+            "actual_value": actual_value,
+            "pseudo_score": round(pseudo_score, 4),
+            "directional_hit": _interim_directional_hit(status),
+        })
+
+    if not rows:
+        return None
+
+    n = len(rows)
+    directional_hits = sum(1 for row in rows if row["directional_hit"])
+    brier = sum(row["pseudo_score"] for row in rows) / n
+    buckets = {}
+    for row in rows:
+        bucket = round(row["confidence"] * 10) / 10
+        entry = buckets.setdefault(bucket, {"total": 0, "actual_sum": 0.0})
+        entry["total"] += 1
+        entry["actual_sum"] += row["actual_value"]
+    ece = 0.0
+    for conf, data in buckets.items():
+        actual_mean = data["actual_sum"] / data["total"]
+        ece += abs(actual_mean - conf) * (data["total"] / n)
+
+    return {
+        "n": n,
+        "directional_hits": directional_hits,
+        "direction_acc": directional_hits / n,
+        "brier": brier,
+        "ece": ece,
+        "status_counts": dict(sorted(
+            ((status, sum(1 for row in rows if row["status"] == status))
+             for status in {row["status"] for row in rows}),
+            key=lambda item: (-item[1], item[0]),
+        )),
+    }
+
+
+def _print_interim_scorecard(reg, path, artifact_data, summary):
+    open_preds = [p for p in reg["predictions"] if p["status"] == "OPEN"]
+    print("No resolved predictions yet.")
+    print(f"  Open predictions: {len(open_preds)}")
+    print()
+    print("=== SWARM INVESTOR SCORECARD (INTERIM) ===")
+    print(f"  Interim fallback: {path}")
+    session = artifact_data.get("session", "unknown")
+    data_date = artifact_data.get("data_date", artifact_data.get("date", "unknown"))
+    print(f"  Artifact session: {session} | data date: {data_date}")
+    print(f"  Scored open predictions: {summary['n']}/{len(open_preds)}")
+    print(f"  Direction accuracy: {summary['direction_acc']:.1%} "
+          f"({summary['directional_hits']}/{summary['n']})")
+    print(f"  Interim Brier-like score: {summary['brier']:.4f} (confidence-weighted, lower=better)")
+    print(f"  Interim ECE: {summary['ece']:.4f} (lower=better)")
+    print()
+    print("  Status mix:")
+    for status, count in summary["status_counts"].items():
+        print(f"    {status}: {count}")
 
 
 def register(args):
@@ -185,6 +344,13 @@ def score(_args):
     open_preds = [p for p in reg["predictions"] if p["status"] == "OPEN"]
 
     if not resolved:
+        interim = _load_latest_interim_artifact()
+        if interim:
+            path, artifact_data = interim
+            summary = _compute_interim_scorecard(reg, artifact_data)
+            if summary:
+                _print_interim_scorecard(reg, path, artifact_data, summary)
+                return
         print("No resolved predictions yet.")
         print(f"  Open predictions: {len(open_preds)}")
         return

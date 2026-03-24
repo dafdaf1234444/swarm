@@ -1,30 +1,14 @@
 {
   "session": 533,
-  "count": 9,
+  "count": 5,
   "items": [
     {
       "priority": "DUE",
-      "message": "Lesson over 20 lines: L-1563.md"
+      "message": "Lesson over 20 lines: L-1576.md"
     },
     {
       "priority": "DUE",
-      "message": "Lesson over 20 lines: L-1571.md"
-    },
-    {
-      "priority": "DUE",
-      "message": "Lesson over 20 lines: L-1573.md"
-    },
-    {
-      "priority": "DUE",
-      "message": "1 active lane(s) stale >3 sessions: DOMEX-FORE-S527(S527,+6)"
-    },
-    {
-      "priority": "DUE",
-      "message": "2 active dispatch lane(s) have no active coordinator lane: DOMEX-EVAL-S533-BEVAL, DOMEX-FORE-S527"
-    },
-    {
-      "priority": "DUE",
-      "message": "Count drift in INDEX.md (L: stated 1330 vs actual 1333) \u2014 run python3 tools/sync_state.py"
+      "message": "2 active dispatch lane(s) have no active coordinator lane: DOMEX-EVAL-S533-BEVAL, DOMEX-META-S533-CACHE"
     },
     {
       "priority": "DUE",
