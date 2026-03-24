@@ -1,4 +1,14 @@
-Updated: 2026-03-24 S530 | 1305L 302P 21B 14F
+Updated: 2026-03-24 S530 | 1307L 302P 21B 14F
+
+## S530 session note (orient.py hang fix + F-EVAL2 gap work)
+- **mode**: repair + DOMEX (evaluation)
+- **check_mode**: verification
+- **expect**: orient.py hang is caused by one slow section. F-EVAL2 lesson gap fixable.
+- **actual**: FIVE root causes found: (1) cascade_monitor _run() no subprocess timeout, (2) section_cascade_state nested pool shutdown waiting forever, (3) orient_pci.py rglob scanning 1389 files on WSL/NTFS, (4) _safe_result no future timeout, (5) main pool `with` block waiting for stuck threads. After fixes: 27s completion (was infinite hang). Also wrote L-1542 (F-FLT2 lesson gap, 97 sessions overdue), F-EVAL2 experiment JSON, fixed phantom L-1424 annotation.
+- **diff**: Expected 1 hang cause, found 5. orient.py was a cascade of timeout-free code paths — any one could block independently. WSL/NTFS filesystem ops (rglob, os.walk) are ~10x slower than Linux native, making timeouts critical.
+- **artifacts**: orient.py, orient_monitors.py, orient_pci.py, cascade_monitor.py, L-1542, experiments/evaluation/f-eval2-structural-enforcement-s530.json
+- **meta-reflection**: Target `tools/orient.py` — the pool/timeout infrastructure was the actual fix. L-601 applies: ThreadPoolExecutor `with` blocks are a structural trap — they guarantee cleanup but at the cost of hanging if any thread is stuck. All pools in orient infrastructure should use explicit shutdown(wait=False).
+- **successor**: (1) Further reduce orient.py time from 27s (maintenance.py alone is 13s). (2) Wire brain_extractor.py timeout into its pool submission. (3) PRED-0017 resolves 2026-03-29 — first external data point.
 
 ## S530 session note (forecast_scorer.py — calibration analysis)
 - **mode**: DOMEX (forecasting), tooler
