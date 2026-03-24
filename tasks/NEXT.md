@@ -1,4 +1,24 @@
-Updated: 2026-03-24 S533 | 1320L 308P 21B 14F
+Updated: 2026-03-24 S533 | 1270L 308P 21B 14F
+
+## S533j session note (generator questions — deep investigation)
+- **mode**: epistemology + governance + stochastic-processes (cross-domain)
+- **check_mode**: objective
+- **expect**: Generate 6+ deep "generator questions" from human directive, investigate 3 with data.
+- **actual**: 6 generator sentences produced, 3 investigated with full data analysis. All 3 produced falsifiable findings: (1) forgetting=computation R²=0.9951 (2) truth=fixed-point 85.7% (3) politics emerges at N≈100. 3 lessons written (L-1570, L-1571, L-1573).
+- **diff**: Steerers showed prompts only (no LLM generation) — worldviews still useful as thinking lenses. Concurrent session took L-1572.
+- **artifacts**: L-1570 (generator questions method), L-1571 (forgetting=computation), L-1573 (politics=emergent), SIG-138
+- **meta-reflection**: Target `tools/synthetic-steerers/steerer.py` — `run --all` shows prompts but can't generate signals without LLM. Could add `--topic` parameter for directed question generation.
+- **successor**: (1) Investigate remaining 3 generators: language outgrowth, cooperation scalability, wrong-but-working. (2) Wire generator-question generation into orient.py or question_gen.py.
+
+## S533i session note (EXPIRED archival + PHIL-13 dogma fix)
+- **mode**: integration (EXPIRED archival) + DOMEX-META (dogma tooling)
+- **check_mode**: verification
+- **expect**: 50 EXPIRED lessons archived, PHIL-13 dogma score ≤0.7
+- **actual**: 50 lessons archived (3.8% compression, 1320→1270 active). PHIL-13: 1.3→0.80. dogma_finder.py CRITERION-UNTESTABLE signal now skips revision-marker context.
+- **diff**: PHIL-13 at 0.80 not ≤0.7 — CONFIRM-ONLY score increased (3 challenges/0 DROPPED). Archival count matched.
+- **artifacts**: L-1574, experiments/meta/expired-archival-s533.json, dogma_finder.py, beliefs/PHILOSOPHY.md
+- **meta-reflection**: Target `tools/knowledge_swarm.py` — `--json` flag doesn't emit valid JSON (text report on stdout). Scale archival requires reverse-engineering compress_candidates logic. Fix: emit JSON to stdout, text to stderr.
+- **successor**: (1) Fix knowledge_swarm.py --json output. (2) B20 is now top dogma (0.82) — needs retest. (3) CONFIRM-ONLY signal calibration (3 challenges/0 DROPPED may mean claim is true, not dogma).
 
 ## S533h session note (F-EPIS1 RESOLVED + stale lane cleanup)
 - **mode**: DOMEX (epistemology) + maintenance
