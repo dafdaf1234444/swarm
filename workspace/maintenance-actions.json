@@ -1,6 +1,6 @@
 {
   "session": 533,
-  "count": 7,
+  "count": 6,
   "items": [
     {
       "priority": "DUE",
@@ -16,10 +16,6 @@
     },
     {
       "priority": "DUE",
-      "message": "Count drift in INDEX.md (L: stated 1325 vs actual 1326) \u2014 run python3 tools/sync_state.py"
-    },
-    {
-      "priority": "DUE",
       "message": "1 broken file reference(s): NEXT.md->tools/testimony_calibration.py"
     },
     {
@@ -28,7 +24,7 @@
     },
     {
       "priority": "DUE",
-      "message": "INDEX.md theme counts stale: 245 lessons unthemed \u2014 refresh theme table counts (L-1111, F-BRN4 sawtooth cycle)"
+      "message": "INDEX.md theme counts stale: 249 lessons unthemed \u2014 refresh theme table counts (L-1111, F-BRN4 sawtooth cycle)"
     }
   ]
 }

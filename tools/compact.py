@@ -7,6 +7,7 @@ Separates analysis from mutation (P-144): this tool diagnoses, session acts.
 
 Usage:
     python3 tools/compact.py           # show compression targets
+    python3 tools/compact.py --all-expired  # show full EXPIRED backlog from knowledge_swarm
     python3 tools/compact.py --save    # record measurement + save floor if lower
 """
 
@@ -35,6 +36,27 @@ try:
     _HAS_IMPACT = True
 except Exception:
     _HAS_IMPACT = False
+
+_HAS_KNOWLEDGE_SWARM = False
+_ks_build_citation_maps = None
+_ks_classify_items = None
+_ks_compress_candidates = None
+_ks_lesson_paths = None
+_ks_parse_lesson_meta = None
+_ks_session_number = None
+try:
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from knowledge_swarm import (
+        build_citation_maps as _ks_build_citation_maps,
+        classify_items as _ks_classify_items,
+        compress_candidates as _ks_compress_candidates,
+        lesson_paths as _ks_lesson_paths,
+        parse_lesson_meta as _ks_parse_lesson_meta,
+        session_number as _ks_session_number,
+    )
+    _HAS_KNOWLEDGE_SWARM = True
+except Exception:
+    pass
 
 
 def _build_self_ref_set() -> set:
@@ -154,6 +176,56 @@ if not _has_swarm_io:
         return len(_read(path)) // 4
     def _lines(path: Path) -> int:
         return len(_read(path).splitlines())
+
+
+def _knowledge_swarm_expired_candidates(limit: int | None = 15) -> tuple[list[dict], int, int]:
+    """Return canonical EXPIRED lesson candidates from knowledge_swarm.py."""
+    if not _HAS_KNOWLEDGE_SWARM:
+        return [], 0, 0
+
+    lessons = {}
+    for path in _ks_lesson_paths():
+        meta = _ks_parse_lesson_meta(path)
+        if meta:
+            lessons[meta["id"]] = meta
+    if not lessons:
+        return [], 0, 0
+
+    current = _ks_session_number()
+    _, inbound = _ks_build_citation_maps(lessons)
+    states = _ks_classify_items(lessons, inbound, current)
+    candidates = _ks_compress_candidates(lessons, states, inbound, current)
+    total_count = len(candidates)
+    total_tokens = sum(c["est_tokens"] for c in candidates)
+    if limit is not None:
+        candidates = candidates[:limit]
+    return candidates, total_count, total_tokens
+
+
+def _format_expired_section(
+    candidates: list[dict],
+    total_count: int,
+    total_tokens: int,
+    limit: int | None = 15,
+) -> list[str]:
+    """Format EXPIRED lesson visibility using the canonical knowledge_swarm criteria."""
+    if total_count <= 0:
+        return []
+
+    lines = [
+        f"  EXPIRED lesson candidates ({total_count}, ~{total_tokens}t total):",
+        "    Criteria: zero inbound citations, age >=100 sessions, DECAYED/BLIND-SPOT, Sharpe <2 or missing",
+    ]
+    for candidate in candidates:
+        title = candidate["title"][:68]
+        lines.append(
+            f"    {candidate['id']:<7} age={candidate['age']:>4} est={candidate['est_tokens']:>4}t "
+            f"Sh={candidate['sharpe']:>2} -> {candidate['action']} | \"{title}\""
+        )
+    omitted = total_count - len(candidates)
+    if omitted > 0 and limit is not None:
+        lines.append(f"    ... and {omitted} more (full list: python3 tools/knowledge_swarm.py --json)")
+    return lines
 
 
 def _find_floor() -> dict | None:
@@ -344,7 +416,7 @@ def _section_sizes(filepath: str) -> list[tuple[str, int]]:
     return [(n, t) for n, t in sections if t > 50]
 
 
-def analyze():
+def analyze(expired_limit: int | None = 15):
     floor = _find_floor()
     m = _measure()
 
@@ -423,6 +495,18 @@ def analyze():
             sr = "yes" if c.get("self_ref") else "no"
             print(f"  {c['lesson_id']:<8} {c['age']:>5} {c['tokens']:>5} {c['citations']:>5} {tc:>5} {inp:>5} {act:>4} {sr:>3}  {c['sharpe']:.4f}{flag}")
         print(f"  (* = zero-cited orphan; § = self-referential (0.5x Sharpe penalty); Act = enacted in tools, 2x boost)")
+
+    expired_candidates, expired_total, expired_tokens = _knowledge_swarm_expired_candidates(limit=expired_limit)
+    expired_lines = _format_expired_section(
+        expired_candidates,
+        total_count=expired_total,
+        total_tokens=expired_tokens,
+        limit=expired_limit,
+    )
+    if expired_lines:
+        print("")
+        for line in expired_lines:
+            print(line)
 
     return m, drift
 
@@ -535,7 +619,8 @@ def main():
     if "--fix-ghosts" in sys.argv:
         cleanup_ghost_lessons()
         return
-    m, drift = analyze()
+    expired_limit = None if "--all-expired" in sys.argv else 15
+    m, drift = analyze(expired_limit=expired_limit)
     if "--save" in sys.argv:
         save(m)
     # FM-03 layer 2: always check for ghosts after compaction analysis

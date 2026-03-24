@@ -35,11 +35,18 @@ CLAIMS_DIR = Path("workspace/claims")
 CLAIM_TTL_SECONDS = 120  # 2 minutes — sessions that crash leave auto-expiring claims (L-589: 300s→120s, commit cycle ~60s at N≥5)
 TASK_CLAIM_TTL_SECONDS = 600  # 10 minutes — tasks take longer than file edits
 SESSION_TTL_SECONDS = 600  # 10 minutes — session heartbeat expiry
+CODEX_THREAD_ENV = "CODEX_THREAD_ID"
 
 
 def get_session_id():
     """Get current session ID from env or generate a stable one from PID."""
-    return os.environ.get("SWARM_SESSION_ID", f"pid-{os.getpid()}")
+    explicit = os.environ.get("SWARM_SESSION_ID")
+    if explicit:
+        return explicit
+    codex_thread = os.environ.get(CODEX_THREAD_ENV)
+    if codex_thread:
+        return f"codex-{codex_thread}"
+    return f"pid-{os.getpid()}"
 
 
 def claim_path(file: str) -> Path:
@@ -108,15 +115,23 @@ def cmd_list() -> int:
         return 0
     claims = []
     for p in CLAIMS_DIR.glob("*.claim.json"):
+        if p.name.startswith("task__"):
+            data = read_task_claim(p)
+            if data:
+                age = (datetime.now(timezone.utc) - datetime.fromisoformat(data["timestamp"])).total_seconds()
+                claims.append(("task", data["fingerprint"], data["session"], int(age), data.get("description", "")))
+            continue
         data = read_claim(p)
         if data:
             age = (datetime.now(timezone.utc) - datetime.fromisoformat(data["timestamp"])).total_seconds()
-            claims.append((data["file"], data["session"], int(age)))
+            claims.append(("file", data["file"], data["session"], int(age), ""))
     if not claims:
         print("No active claims.")
         return 0
-    for file, session, age in sorted(claims, key=lambda x: x[2]):
-        print(f"  {session:20s} {age:4d}s  {file}")
+    for kind, target, session, age, desc in sorted(claims, key=lambda x: x[3]):
+        prefix = "task" if kind == "task" else "file"
+        suffix = f": {desc[:60]}" if desc else ""
+        print(f"  {session:20s} {age:4d}s  [{prefix}] {target}{suffix}")
     return 0
 
 

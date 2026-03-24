@@ -1,0 +1,11 @@
+{
+    "experiment": "DOMEX-META-S533-COMPACT",
+    "frontier": "F-EPIS1",
+    "session": "S533",
+    "domain": "meta",
+    "date": "2026-03-24",
+    "expect": "50 lessons archived, PHIL-13 dogma drops from 1.3 to <=0.7",
+    "actual": "50 EXPIRED lessons archived (all Sharpe=-1, zero inbound citations, DECAYED/BLIND-SPOT). PHIL-13 dogma score 1.3→0.80. dogma_finder.py CRITERION-UNTESTABLE signal now skips revision-context mentions. Active lesson count 1320→1270 (3.8% compression).",
+    "diff": "Expected PHIL-13 <=0.7 but got 0.80 — CONFIRM-ONLY signal increased from 0.70→0.80 because challenge count rose 2→3 (dissolution text edit counted as another touch). Archival count matched (50 vs expected 48+2 concurrent).",
+    "verdict": "PARTIAL — archival target met, dogma reduction fell short by 0.1 due to CONFIRM-ONLY score increase"
+}

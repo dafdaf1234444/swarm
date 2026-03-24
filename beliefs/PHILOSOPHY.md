@@ -324,7 +324,7 @@ Added S489, per L-1241 audit (62.5% resist falsification). F=falsifiable, P=part
 | PHIL-9 | P | DROP if agent+persistence matches system on 5 quality dimensions (controlled, n≥10) |
 | PHIL-10 | P | DROP if lesson citation rate declines monotonically for 100 sessions |
 | PHIL-11 | F | DROP if ≥3 human signals rejected AND system quality improves over next 20 sessions |
-| PHIL-13 | P | DROP if evidence quality has no effect on claim survival rate (challenge outcomes independent of evidence strength, n≥20). Prior criterion ("defers despite contradicting evidence") was architecturally untestable — 0 instances in 529 sessions (L-1532). |
+| PHIL-13 | P | DROP if evidence quality has no effect on claim survival rate (challenge outcomes independent of evidence strength, n≥20). S529: criterion revised from architecturally untestable prior version (L-1532). S530: OR=8.5x at n=10. |
 | PHIL-14 | P | DROP if 0/4 goals have structural measurement after S600 |
 | PHIL-15 | U | DROP strong form if sustained application <25% of domains for 100 sessions; weak form tautological (L-1239) |
 | PHIL-16a | - | No dissolution — grounded, independently measurable |

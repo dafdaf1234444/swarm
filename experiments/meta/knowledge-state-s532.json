@@ -2,10 +2,10 @@
   "session": 532,
   "stale_window": 50,
   "global_states": {
-    "MUST-KNOW": 477,
-    "ACTIVE": 507,
+    "MUST-KNOW": 479,
+    "ACTIVE": 520,
     "DECAYED": 501,
-    "BLIND-SPOT": 161,
+    "BLIND-SPOT": 160,
     "SHOULD-KNOW": 130
   },
   "domain_profiles": {
@@ -16,10 +16,10 @@
       "BLIND-SPOT": 8
     },
     "meta": {
-      "MUST-KNOW": 163,
+      "MUST-KNOW": 164,
       "BLIND-SPOT": 44,
       "DECAYED": 138,
-      "ACTIVE": 89,
+      "ACTIVE": 91,
       "SHOULD-KNOW": 15
     },
     "information-science": {
@@ -44,8 +44,8 @@
     },
     "health": {
       "DECAYED": 3,
-      "ACTIVE": 2,
-      "MUST-KNOW": 1,
+      "MUST-KNOW": 3,
+      "ACTIVE": 1,
       "SHOULD-KNOW": 1
     },
     "ai": {
@@ -131,8 +131,8 @@
     "evaluation": {
       "DECAYED": 10,
       "BLIND-SPOT": 2,
-      "MUST-KNOW": 18,
-      "ACTIVE": 16,
+      "MUST-KNOW": 17,
+      "ACTIVE": 19,
       "SHOULD-KNOW": 2
     },
     "claude-code": {
@@ -227,7 +227,7 @@
       "SHOULD-KNOW": 2
     },
     "control-theory": {
-      "ACTIVE": 1,
+      "ACTIVE": 2,
       "MUST-KNOW": 1,
       "SHOULD-KNOW": 3
     },
@@ -245,7 +245,7 @@
     "stochastic-processes": {
       "MUST-KNOW": 8,
       "DECAYED": 8,
-      "ACTIVE": 13,
+      "ACTIVE": 14,
       "BLIND-SPOT": 1,
       "SHOULD-KNOW": 1
     },
@@ -268,8 +268,8 @@
     "catastrophic-risks": {
       "MUST-KNOW": 13,
       "DECAYED": 4,
-      "ACTIVE": 8,
-      "BLIND-SPOT": 3,
+      "ACTIVE": 9,
+      "BLIND-SPOT": 2,
       "SHOULD-KNOW": 1
     },
     "protocol-engineering": {
@@ -318,7 +318,7 @@
     },
     "epistemology": {
       "MUST-KNOW": 10,
-      "ACTIVE": 18,
+      "ACTIVE": 23,
       "SHOULD-KNOW": 3
     },
     "forecasting": {
@@ -353,10 +353,10 @@
       "SHOULD-KNOW": 3
     }
   },
-  "revival_rate": 18.81625441696113,
-  "revival_per_session": 0.37632508833922257,
-  "total_items": 1646,
-  "total_lessons": 1311,
+  "revival_rate": 19.081272084805654,
+  "revival_per_session": 0.38162544169611307,
+  "total_items": 1660,
+  "total_lessons": 1325,
   "total_principles": 314,
   "total_beliefs": 21,
   "frontier_count": 130,
@@ -419,19 +419,19 @@
   "hypotheses": [
     {
       "hypothesis": "SHOULD-KNOW > ACTIVE in \u226530% of domains",
-      "result": "33/52 domains (63.5%)",
+      "result": "34/52 domains (65.4%)",
       "pass": true,
       "threshold": "\u226530%"
     },
     {
       "hypothesis": "DECAYED\u2192ACTIVE transitions < 1% per session",
-      "result": "0.38% per session (cumulative 18.8% over 50s window)",
+      "result": "0.38% per session (cumulative 19.1% over 50s window)",
       "pass": true,
       "threshold": "<1%"
     },
     {
       "hypothesis": "Knowledge-state profiles change top-5 dispatch in \u22652/5 cases",
-      "result": "5/5 different (gap-ranked: ['protocol-engineering', 'claude-code', 'cryptocurrency', 'guesstimates', 'dream'], UCB1: ['epistemology', 'stochastic-processes', 'expert-swarm', 'forecasting', 'health'])",
+      "result": "5/5 different (gap-ranked: ['protocol-engineering', 'claude-code', 'cryptocurrency', 'guesstimates', 'dream'], UCB1: ['stochastic-processes', 'epistemology', 'expert-swarm', 'forecasting', 'health'])",
       "pass": true,
       "threshold": "\u22652/5"
     }
@@ -994,12 +994,6 @@
       "domain": "human-systems",
       "title": "Authority redistribution is the structural discriminant for ",
       "age": 66
-    },
-    {
-      "id": "L-1170",
-      "domain": "catastrophic-risks",
-      "title": "FM-27 body-text numerical claims are 99.98% unstamped \u2014 volu",
-      "age": 63
     },
     {
       "id": "L-1182",

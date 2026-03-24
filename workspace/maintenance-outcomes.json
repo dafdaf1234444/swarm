@@ -2252,7 +2252,7 @@
     },
     {
       "session": 533,
-      "timestamp": "2026-03-24T05:48:27Z",
+      "timestamp": "2026-03-24T05:50:13Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -2447,11 +2447,9 @@
           ]
         },
         "check_count_drift": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "DUE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_structure_layout": {
           "fired": false,
@@ -2471,9 +2469,11 @@
           ]
         },
         "check_claim_gc": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "NOTICE"
+          ]
         },
         "check_correction_propagation": {
           "fired": false,
@@ -2544,8 +2544,9 @@
         },
         "check_scale_waypoints": {
           "fired": true,
-          "count": 4,
+          "count": 5,
           "severities": [
+            "NOTICE",
             "NOTICE",
             "NOTICE",
             "DUE",
@@ -2554,8 +2555,8 @@
         }
       },
       "totals": {
-        "NOTICE": 20,
-        "DUE": 7,
+        "NOTICE": 22,
+        "DUE": 6,
         "PERIODIC": 7
       }
     }

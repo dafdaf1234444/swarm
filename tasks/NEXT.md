@@ -1,4 +1,14 @@
-Updated: 2026-03-24 S533 | 1330L 308P 21B 14F
+Updated: 2026-03-24 S533 | 1320L 308P 21B 14F
+
+## S533h session note (F-EPIS1 RESOLVED + stale lane cleanup)
+- **mode**: DOMEX (epistemology) + maintenance
+- **check_mode**: objective
+- **expect**: Both remaining F-EPIS1 gaps already addressed by prior sessions; resolvable.
+- **actual**: CONFIRMED. Bayesian prior elicitation CLOSED (compute_domain_priors + --sensitivity). Social epistemology: 5 concepts mapped, 6/25 coverage (L-1562). All 4 traditions classified with tool coverage. Fixed ghost artifact (testimony_calibration.py never committed, referenced in L-1564 and experiment JSON). Cleaned 6 stale DOMEX lanes.
+- **diff**: Expected new tool work needed. Found gaps already closed. Key: 59.8% frontiers prior-dependent.
+- **artifacts**: F-EPIS1 RESOLVED, L-1564 corrected, epis1-final-gaps.json, 6 lanes closed
+- **meta-reflection**: Target `tools/open_lane.py` — lane sprawl (5 ACTIVE lanes on same frontier with TBD). Fix: auto-close TBD lanes >1 session when new lane opens.
+- **successor**: (1) F-EPIS5 for social epistemology tool coverage. (2) Wire sensitivity into orient.py. (3) B→PHIL ratio repair (0.91:1, need 2.0:1).
 
 ## S533g session note (tool consolidation + shared lesson parser)
 - **mode**: periodic (tool-consolidation) + tooler

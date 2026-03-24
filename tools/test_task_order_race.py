@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Regression tests for task_order.py race handling."""
 
+import json
 import os
 import io
 import sys
@@ -181,6 +182,56 @@ class TestTaskOrderRace(unittest.TestCase):
                 task_order.main()
 
         self.assertIn("=== TASK ORDER S529 (0 items) ===", buf.getvalue())
+
+    def test_get_zombie_due_items_skips_retired_periodics(self):
+        original_root = task_order_helpers.ROOT
+        original_shared = task_order_helpers._shared_session_number
+        try:
+            with tempfile.TemporaryDirectory() as tmpdir:
+                root = Path(tmpdir)
+                tools_dir = root / "tools"
+                tasks_dir = root / "tasks"
+                tools_dir.mkdir()
+                tasks_dir.mkdir()
+                (tools_dir / "periodics.json").write_text(
+                    json.dumps({
+                        "items": [
+                            {
+                                "id": "historian-routing",
+                                "cadence_sessions": 15,
+                                "last_reviewed_session": "S494",
+                                "last_session": "S494",
+                                "status": "retired",
+                            }
+                        ]
+                    }),
+                    encoding="utf-8",
+                )
+                (tasks_dir / "NEXT.md").write_text(
+                    "\n".join(
+                        [
+                            "## S529 session note (a)",
+                            "- **Next**: (1) [historian-routing] run the historian repair pass",
+                            "## S530 session note (b)",
+                            "- **Next**: (1) [historian-routing] run the historian repair pass",
+                            "## S531 session note (c)",
+                            "- **Next**: (1) [historian-routing] run the historian repair pass",
+                            "## S532 session note (d)",
+                            "- **Next**: (1) [historian-routing] run the historian repair pass",
+                            "## S533 session note (e)",
+                            "- **Next**: (1) [historian-routing] run the historian repair pass",
+                        ]
+                    ),
+                    encoding="utf-8",
+                )
+
+                task_order_helpers.ROOT = root
+                task_order_helpers._shared_session_number = lambda: 533
+
+                self.assertEqual(task_order_helpers.get_zombie_due_items(task_order.P_DUE), [])
+        finally:
+            task_order_helpers.ROOT = original_root
+            task_order_helpers._shared_session_number = original_shared
 
 
 if __name__ == "__main__":

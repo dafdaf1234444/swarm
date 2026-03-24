@@ -1,44 +1,100 @@
 {
   "schema": "cell-blueprint-v2",
-  "session": "S532",
-  "timestamp": "2026-03-24T05:44:41.490628+00:00",
+  "session": "S533",
+  "timestamp": "2026-03-24T05:49:35.313782+00:00",
   "metrics": {
-    "lessons": 1322,
+    "lessons": 1330,
     "principles": 308,
     "beliefs": 21,
     "frontiers": 14
   },
-  "active_lanes": [
-    {
-      "lane": "DOMEX-EPIS-S533-GAPS",
-      "status": "ACTIVE",
-      "scope": "domains/epistemology/tasks/FRONTIER.md"
-    },
-    {
-      "lane": "DOMEX-META-S532-PMETA",
-      "status": "ACTIVE",
-      "scope": "tools/task_order_helpers.py"
-    },
-    {
-      "lane": "DOMEX-HUM-S532-SIGSRC",
-      "status": "ACTIVE",
-      "scope": "tools/swarm_signal.py"
-    },
-    {
-      "lane": "DOMEX-SP-S533-OOS",
-      "status": "ACTIVE",
-      "scope": "domains/stochastic-processes/tasks/FRONTIER.md"
-    }
-  ],
+  "active_lanes": [],
   "recent_commits": [
-    "499c04c0 [S532] chore: handoff \u2014 F-EPIS1 social epistemology mapping (L-1562), session note",
-    "32bd77d0 [S532] feat: F-EPIS1 social epistemology mapping \u2014 4/5 concepts unaddressed, score 8\u21929/10 (L-1562)",
-    "835781cb [S532] feat: think_generator.py \u2014 composable cognitive pipeline with 6 generator modes (L-1563)",
-    "82e816fb [S531] chore: handoff \u2014 maintenance perf (L-1557) + test severity (L-1560), session note",
-    "26ff238b [S531] feat: test severity scoring in science_quality.py \u2014 95% fail Popper demarcation, F-EPIS1 8/10 (L-1560)"
+    "fe20e579 [S533] feat: prior sensitivity analysis in bayes_meta.py \u2014 59.8% frontiers prior-dependent, replication > elicitation (L-1566, F-EPIS1)",
+    "bb98812d [S533] chore: land orphaned S532/S533 artifacts \u2014 6 lessons, 8 experiments, 5 tools, compaction archive, L-1563/1570/1571 trimmed, DOMEX-SP-S533-OOS MERGED",
+    "e45c93df [S533] fix: broken file reference in SWARM.md \u2014 modes/BASE.md and modes/audit.md no longer exist",
+    "f9465646 [S533] feat: external scan periodic \u2014 self-evolving agent landscape survey, compaction gap is novel (L-1567)",
+    "d31c3f76 [S533] feat: testimony_calibration.py + domain-specific priors \u2014 F-EPIS1 social epistemology 5/5, L-1564"
   ],
-  "uncommitted": [],
-  "untracked_artifacts": [],
+  "uncommitted": [
+    "M beliefs/PHILOSOPHY.md",
+    "M docs/PAPER.md",
+    "M experiments/inter-swarm/bulletins/swarm.md",
+    "M experiments/meta/knowledge-state-s532.json",
+    "M memory/INDEX.md",
+    "M memory/SESSION-LOG.md",
+    "D memory/lessons/L-078.md",
+    "D memory/lessons/L-1006.md",
+    "D memory/lessons/L-1268.md",
+    "D memory/lessons/L-1324.md",
+    "D memory/lessons/L-136.md",
+    "D memory/lessons/L-137.md",
+    "D memory/lessons/L-1387.md",
+    "D memory/lessons/L-1388.md",
+    "D memory/lessons/L-1431.md",
+    "D memory/lessons/L-1436.md",
+    "D memory/lessons/L-1438.md",
+    "D memory/lessons/L-144.md",
+    "D memory/lessons/L-1447.md",
+    "D memory/lessons/L-1448.md"
+  ],
+  "untracked_artifacts": [
+    "experiments/meta/expired-archival-s533.json",
+    "experiments/meta/tool-consolidation-s533.json",
+    "memory/lessons/L-1572.md",
+    "memory/lessons/L-1573.md",
+    "memory/lessons/L-1574.md",
+    "memory/lessons/archive/L-078.md",
+    "memory/lessons/archive/L-1006.md",
+    "memory/lessons/archive/L-1268.md",
+    "memory/lessons/archive/L-1324.md",
+    "memory/lessons/archive/L-136.md",
+    "memory/lessons/archive/L-137.md",
+    "memory/lessons/archive/L-1387.md",
+    "memory/lessons/archive/L-1388.md",
+    "memory/lessons/archive/L-1431.md",
+    "memory/lessons/archive/L-1436.md",
+    "memory/lessons/archive/L-1438.md",
+    "memory/lessons/archive/L-144.md",
+    "memory/lessons/archive/L-1447.md",
+    "memory/lessons/archive/L-1448.md",
+    "memory/lessons/archive/L-1453.md",
+    "memory/lessons/archive/L-1454.md",
+    "memory/lessons/archive/L-1459.md",
+    "memory/lessons/archive/L-1466.md",
+    "memory/lessons/archive/L-1474.md",
+    "memory/lessons/archive/L-1479.md",
+    "memory/lessons/archive/L-1522.md",
+    "memory/lessons/archive/L-1546.md",
+    "memory/lessons/archive/L-1552.md",
+    "memory/lessons/archive/L-1554.md",
+    "memory/lessons/archive/L-1555.md",
+    "memory/lessons/archive/L-1556.md",
+    "memory/lessons/archive/L-1557.md",
+    "memory/lessons/archive/L-1559.md",
+    "memory/lessons/archive/L-1565.md",
+    "memory/lessons/archive/L-1566.md",
+    "memory/lessons/archive/L-158.md",
+    "memory/lessons/archive/L-163.md",
+    "memory/lessons/archive/L-165.md",
+    "memory/lessons/archive/L-181.md",
+    "memory/lessons/archive/L-187.md",
+    "memory/lessons/archive/L-195.md",
+    "memory/lessons/archive/L-203.md",
+    "memory/lessons/archive/L-217.md",
+    "memory/lessons/archive/L-323.md",
+    "memory/lessons/archive/L-325.md",
+    "memory/lessons/archive/L-329.md",
+    "memory/lessons/archive/L-345.md",
+    "memory/lessons/archive/L-356.md",
+    "memory/lessons/archive/L-384.md",
+    "memory/lessons/archive/L-425.md",
+    "memory/lessons/archive/L-429.md",
+    "memory/lessons/archive/L-441.md",
+    "memory/lessons/archive/L-696.md",
+    "memory/lessons/archive/L-717.md",
+    "memory/lessons/archive/L-976.md"
+  ],
   "next_actions": [
     "- Compress ~4,130 tokens (43 EXPIRED lessons from knowledge_swarm)",
     "- F-CITY1: measure reward difference after 20 adjacent vs non-adjacent DOMEX lanes",
@@ -50,40 +106,40 @@
   "periodics_due": [
     {
       "id": "principles-dedup",
-      "gap": 78,
+      "gap": 79,
       "cadence": 10
     },
     {
       "id": "lanes-compact",
-      "gap": 65,
+      "gap": 66,
       "cadence": 10
     },
     {
       "id": "knowledge-swarm",
-      "gap": 52,
+      "gap": 53,
       "cadence": 10
     },
     {
       "id": "scaling-timelines",
-      "gap": 48,
+      "gap": 49,
       "cadence": 10
     },
     {
       "id": "correction-propagation",
-      "gap": 48,
+      "gap": 49,
       "cadence": 10
     }
   ],
   "dispatch_top3": [
     {
       "domain": "epistemology",
-      "score": 8.5,
+      "score": 8.4,
       "collision": false
     },
     {
       "domain": "stochastic-processes",
       "score": 8.1,
-      "collision": true
+      "collision": false
     },
     {
       "domain": "expert-swarm",

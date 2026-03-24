@@ -94,6 +94,9 @@ def get_done_periodic_ids() -> set:
             pid = entry.get("id", "")
             if not pid:
                 continue
+            if str(entry.get("status", "")).lower() == "retired":
+                done.add(pid)
+                continue
             last = entry.get("last_reviewed_session", 0)
             last_session = entry.get("last_session", 0)
             try:

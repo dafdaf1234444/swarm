@@ -2,6 +2,7 @@
 """Tests for contract_check.py (F-META8)."""
 import json
 import os
+import subprocess
 import sys
 import unittest
 
@@ -42,13 +43,14 @@ class TestContractCheck(unittest.TestCase):
 
     def test_run_all_returns_5_components(self):
         _, results = run_all(session_id="S354")
-        self.assertEqual(len(results), 5)
+        self.assertEqual(len(results), 6)
         for name in [
             "identity_invariant",
             "monotonic_state_vector",
             "active_work_pointer",
             "write_obligation",
             "protocol_handshake",
+            "principle_existence",
         ]:
             self.assertIn(name, results)
 
@@ -64,7 +66,17 @@ class TestContractCheck(unittest.TestCase):
         self.assertIn("contract_version", data)
         self.assertIn("all_pass", data)
         self.assertIn("components", data)
-        self.assertEqual(data["total"], 5)
+        self.assertEqual(data["total"], 6)
+
+    def test_quick_flag_is_accepted_for_check_sh_compatibility(self):
+        repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        result = subprocess.run(
+            [sys.executable, os.path.join("tools", "contract_check.py"), "--quick"],
+            capture_output=True,
+            text=True,
+            cwd=repo_root,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
 
 
 if __name__ == "__main__":

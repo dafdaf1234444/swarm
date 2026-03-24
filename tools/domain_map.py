@@ -35,7 +35,7 @@ LANE_ABBREV_TO_DOMAIN: dict[str, str] = {
     "GUE": "guesstimates", "GAM": "game-theory", "PSY": "psychology",
     "SOC": "social-media", "STR": "strategy", "QC": "quality",
     "QUALITY": "quality", "OR": "operations-research", "OPS": "operations-research",
-    "FARMING": "farming", "FAR": "farming", "COORD": "meta", "HUMAN": "human-systems",
+    "FARMING": "farming", "FAR": "farming", "COORD": "meta", "HUM": "human-systems", "HUMAN": "human-systems",
     "INFOFLOW": "information-science", "INFRA": "meta", "GEN": "meta",
     "DREAM": "dream", "BRAIN": "brain", "ECON": "economy", "ECONOMY": "economy",
     "EMPATHY": "empathy", "EVOLUTION": "evolution", "EXPERT": "expert-swarm",

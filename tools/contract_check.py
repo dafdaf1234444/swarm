@@ -279,6 +279,8 @@ def run_all(session_id=None, as_json=False, strict=False):
 def main():
     parser = argparse.ArgumentParser(description="F-META8 self-model contract checker")
     parser.add_argument("--json", action="store_true", help="JSON output")
+    parser.add_argument("--quick", action="store_true",
+                        help="Compatibility flag for check.sh quick mode; no behavior change")
     parser.add_argument("--session", help="Session ID (e.g. S355)")
     parser.add_argument("--strict", action="store_true",
                         help="Verify header counts against file system (F-META8 accuracy mode)")

@@ -68,6 +68,20 @@ class TestCrossProcessClaimRelease(unittest.TestCase):
             self.assertIn("WARN: demo.txt is claimed by codex-owner-thread, not codex-other-thread", released.stdout)
             self.assertTrue((Path(tmpdir) / "workspace" / "claims" / "demo.txt.claim.json").exists())
 
+    def test_list_handles_mixed_file_and_task_claims(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            env = {"PATH": os.environ.get("PATH", ""), "SWARM_SESSION_ID": "mixed-session"}
+
+            file_claim = self._run(tmpdir, "claim", "demo.txt", env=env)
+            task_claim = self._run(tmpdir, "claim-task", "demo-task", "--desc", "task description", env=env)
+            listed = self._run(tmpdir, "list", env=env)
+
+            self.assertEqual(file_claim.returncode, 0, file_claim.stderr)
+            self.assertEqual(task_claim.returncode, 0, task_claim.stderr)
+            self.assertEqual(listed.returncode, 0, listed.stderr)
+            self.assertIn("[file] demo.txt", listed.stdout)
+            self.assertIn("[task] demo-task: task description", listed.stdout)
+
 
 if __name__ == "__main__":
     unittest.main()

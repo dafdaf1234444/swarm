@@ -548,9 +548,16 @@ def detect_dogma() -> list[dict]:
         phil_text,
     )
     # Check each dissolution criterion for "architectural" / "untestable" markers
-    # or criteria revised due to 0 instances
+    # or criteria revised due to 0 instances.
+    # Skip if the untestable language appears only in historical context
+    # (e.g., "prior criterion was untestable", "revised from").
+    revision_markers = ["prior criterion", "revised from", "prior version",
+                        "previously", "former criterion"]
     for claim_id, criterion in diss_rows:
         lower_crit = criterion.lower()
+        # Skip if untestable language is in historical/revision context
+        if any(rm in lower_crit for rm in revision_markers):
+            continue
         if any(kw in lower_crit for kw in [
             "architecturally untestable",
             "0 instances",

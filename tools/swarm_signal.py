@@ -7,6 +7,7 @@ universal node-to-node communication channel.
 
 Usage:
     python3 tools/swarm_signal.py post <type> <content> [--source <node>] [--target <node>] [--priority <P>]
+    python3 tools/swarm_signal.py post-human <type> <content> [--target <node>] [--priority <P>]
     python3 tools/swarm_signal.py read [--type <type>] [--target <node>] [--since <session>] [--status <status>]
     python3 tools/swarm_signal.py resolve <signal-id> <resolution>
     python3 tools/swarm_signal.py stats
@@ -60,7 +61,7 @@ def _ensure_signals_file():
     SIGNALS_FILE.write_text(
         "# Swarm Signals\n"
         "Structured node-to-node communication. Any node can post; any node can read.\n"
-        "Use `python3 tools/signal.py` to interact.\n\n"
+        "Use `python3 tools/swarm_signal.py` to interact.\n\n"
         "| ID | Date | Session | Source | Target | Type | Priority | Content | Status | Resolution |\n"
         "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n",
         encoding="utf-8",
@@ -99,6 +100,9 @@ def _parse_signals():
     return signals
 
 
+parse_signals = _parse_signals
+
+
 def post_signal(sig_type, content, source="ai-session", target="broadcast", priority="P2"):
     """Post a new signal to SIGNALS.md."""
     if sig_type not in VALID_TYPES:
@@ -128,6 +132,25 @@ def post_signal(sig_type, content, source="ai-session", target="broadcast", prio
 
     print(f"Posted {sid}: [{sig_type}] {source}→{target} ({priority}): {content}")
     return True
+
+
+def _parse_post_kwargs(args, start_index):
+    """Parse shared post/post-human flags."""
+    kwargs = {}
+    i = start_index
+    while i < len(args):
+        if args[i] == "--source" and i + 1 < len(args):
+            kwargs["source"] = args[i + 1]
+            i += 2
+        elif args[i] == "--target" and i + 1 < len(args):
+            kwargs["target"] = args[i + 1]
+            i += 2
+        elif args[i] == "--priority" and i + 1 < len(args):
+            kwargs["priority"] = args[i + 1]
+            i += 2
+        else:
+            i += 1
+    return kwargs
 
 
 def read_signals(sig_type=None, target=None, since_session=None, status=None):
@@ -209,24 +232,21 @@ def main():
 
     if cmd == "post":
         if len(args) < 3:
-            print("Usage: signal.py post <type> <content> [--source S] [--target T] [--priority P]")
+            print("Usage: swarm_signal.py post <type> <content> [--source S] [--target T] [--priority P]")
             return
         sig_type = args[1]
         content = args[2]
-        kwargs = {}
-        i = 3
-        while i < len(args):
-            if args[i] == "--source" and i + 1 < len(args):
-                kwargs["source"] = args[i + 1]
-                i += 2
-            elif args[i] == "--target" and i + 1 < len(args):
-                kwargs["target"] = args[i + 1]
-                i += 2
-            elif args[i] == "--priority" and i + 1 < len(args):
-                kwargs["priority"] = args[i + 1]
-                i += 2
-            else:
-                i += 1
+        kwargs = _parse_post_kwargs(args, 3)
+        post_signal(sig_type, content, **kwargs)
+
+    elif cmd == "post-human":
+        if len(args) < 3:
+            print("Usage: swarm_signal.py post-human <type> <content> [--target T] [--priority P]")
+            return
+        sig_type = args[1]
+        content = args[2]
+        kwargs = _parse_post_kwargs(args, 3)
+        kwargs["source"] = "human"
         post_signal(sig_type, content, **kwargs)
 
     elif cmd == "read":
@@ -251,7 +271,7 @@ def main():
 
     elif cmd == "resolve":
         if len(args) < 3:
-            print("Usage: signal.py resolve <signal-id> <resolution>")
+            print("Usage: swarm_signal.py resolve <signal-id> <resolution>")
             return
         resolve_signal(args[1], args[2])
 
