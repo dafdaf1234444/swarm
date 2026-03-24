@@ -10,6 +10,8 @@ Usage:
     python3 tools/swarm_signal.py post-human <type> <content> [--target <node>] [--priority <P>]
     python3 tools/swarm_signal.py read [--type <type>] [--target <node>] [--since <session>] [--status <status>]
     python3 tools/swarm_signal.py resolve <signal-id> <resolution>
+    python3 tools/swarm_signal.py reject <signal-id> <reason>
+    python3 tools/swarm_signal.py triage
     python3 tools/swarm_signal.py stats
 
 Signal types:
@@ -50,7 +52,7 @@ VALID_TYPES = {
 }
 
 VALID_PRIORITIES = {"P0", "P1", "P2", "P3"}
-VALID_STATUSES = {"OPEN", "RESOLVED", "EXPIRED"}
+VALID_STATUSES = {"OPEN", "RESOLVED", "EXPIRED", "REJECTED"}
 
 
 def _ensure_signals_file():
@@ -202,6 +204,107 @@ def resolve_signal(signal_id, resolution):
     return True
 
 
+def _classify_signal(sig, current_session):
+    """Classify an OPEN signal as ACTIONABLE/STALE/NOISE/REDUNDANT."""
+    content = sig["content"].strip()
+    sig_session = int(sig["session"].lstrip("S"))
+    age = current_session - sig_session
+
+    # NOISE: empty, broken, or trivially short content
+    if len(content) < 5 or not any(c.isalpha() for c in content):
+        return "NOISE", "Content is empty or broken"
+
+    # STALE patterns: operational status signals that completed their purpose
+    stale_prefixes = (
+        "Claimed ", "Tracing stale ", "check_mode=", "diff=confirmed",
+        "S5", "S4",  # session note openings like "S528 health-check..."
+    )
+    operational_phrases = (
+        "check_mode=verification", "check_mode=coordination",
+        "expect=", "Opened DOMEX-", "follow-through landed",
+        "follow-through verified", "periodic complete",
+        "periodic selected", "normalized to canonical",
+        "Meta-reflection target", "now names swarm signaling",
+        "now defaults to", "pivoted off claimed",
+        "opening DOMEX-", "verified.", "investigation:",
+    )
+
+    if sig["type"] == "handoff" and age > 2:
+        return "STALE", f"Handoff signal, {age} sessions old"
+
+    if sig["type"] == "response" and age > 3:
+        return "STALE", f"Response signal, {age} sessions old"
+
+    if sig["type"] == "observation" and age > 2:
+        if any(content.startswith(p) for p in stale_prefixes):
+            return "STALE", f"Operational status, {age} sessions old"
+        if any(phrase in content for phrase in operational_phrases):
+            return "STALE", f"Operational observation, {age} sessions old"
+
+    return "ACTIONABLE", ""
+
+
+def triage_signals():
+    """Classify all OPEN signals and print triage report."""
+    _ensure_signals_file()
+    signals = _parse_signals()
+    open_sigs = [s for s in signals if s["status"] == "OPEN"]
+
+    if not open_sigs:
+        print("No OPEN signals to triage.")
+        return {}
+
+    sn = session_number()
+    results = {"ACTIONABLE": [], "STALE": [], "NOISE": [], "REDUNDANT": []}
+
+    for sig in open_sigs:
+        category, reason = _classify_signal(sig, sn)
+        results[category].append((sig, reason))
+
+    # Print report
+    total = len(open_sigs)
+    print(f"=== SIGNAL TRIAGE ({total} OPEN) ===\n")
+
+    for cat in ["NOISE", "STALE", "REDUNDANT", "ACTIONABLE"]:
+        items = results[cat]
+        if not items:
+            continue
+        print(f"--- {cat} ({len(items)}) ---")
+        for sig, reason in items:
+            content_preview = sig["content"][:80]
+            print(f"  {sig['id']} [{sig['type']}] {sig['session']}: {content_preview}")
+            if reason:
+                print(f"    → {reason}")
+        print()
+
+    print(f"Summary: {len(results['ACTIONABLE'])} actionable, "
+          f"{len(results['STALE'])} stale, "
+          f"{len(results['NOISE'])} noise, "
+          f"{len(results['REDUNDANT'])} redundant")
+    print(f"\nTo reject: python3 tools/swarm_signal.py reject <SIG-ID> <reason>")
+    return results
+
+
+def reject_signal(signal_id, reason):
+    """Mark a signal as REJECTED with reason."""
+    _ensure_signals_file()
+    text = read_text(SIGNALS_FILE)
+
+    pattern = re.compile(
+        r"(\| " + re.escape(signal_id) + r" \|.*?\| )OPEN( \| )(—)( \|)"
+    )
+    match = pattern.search(text)
+    if not match:
+        print(f"ERROR: Signal {signal_id} not found or not OPEN.")
+        return False
+
+    safe_reason = f"REJECTED: {reason}".replace("|", "\\|")
+    new_text = pattern.sub(rf"\g<1>REJECTED\g<2>{safe_reason}\g<4>", text)
+    SIGNALS_FILE.write_text(new_text, encoding="utf-8")
+    print(f"Rejected {signal_id}: {reason}")
+    return True
+
+
 def signal_stats():
     """Print signal statistics."""
     _ensure_signals_file()
@@ -274,6 +377,15 @@ def main():
             print("Usage: swarm_signal.py resolve <signal-id> <resolution>")
             return
         resolve_signal(args[1], args[2])
+
+    elif cmd == "triage":
+        triage_signals()
+
+    elif cmd == "reject":
+        if len(args) < 3:
+            print("Usage: swarm_signal.py reject <signal-id> <reason>")
+            return
+        reject_signal(args[1], args[2])
 
     elif cmd == "stats":
         signal_stats()
