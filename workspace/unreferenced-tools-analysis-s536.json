@@ -1,0 +1,287 @@
+{
+  "session": "S536",
+  "date": "2026-03-24",
+  "total_unreferenced": 70,
+  "method": "meta_tooler.py --category unreferenced cross-referenced against: periodics.json, orient.py (and orient_checks.py, orient_monitors.py, orient_sections.py, orient_analysis.py), maintenance.py, check.sh, CLAUDE.md, SWARM.md, dispatch_optimizer.py, task_order.py, plus all tools/*.py for cross-tool imports",
+  "wire": [
+    {
+      "tool": "confidence_audit",
+      "reason": "Detects lesson evidence vs confidence mismatches. No callers at all. Useful quality guard.",
+      "target": "periodics.json (cadence ~25 sessions, under claim-vs-evidence-audit family)"
+    },
+    {
+      "tool": "lesson_collision_check",
+      "reason": "Detects L-NNN number collisions (FM-18). Zero callers. Critical for data integrity at 1300+ lessons.",
+      "target": "check.sh (pre-commit guard) or periodics.json (cadence ~10)"
+    },
+    {
+      "tool": "numerical_claim_scanner",
+      "reason": "FM-27: detects unstamped/stale numerical claims. Zero callers. Prevents stale data propagation.",
+      "target": "periodics.json (cadence ~25 sessions)"
+    },
+    {
+      "tool": "level_inflation_check",
+      "reason": "FM-37: detects LLM self-tagging level inflation in lessons. Zero callers. Guards science quality.",
+      "target": "periodics.json (cadence ~25 sessions, under health-check family)"
+    },
+    {
+      "tool": "false_instrument_check",
+      "reason": "FM-38: detects false measurement instruments. Zero callers. Guards experiment validity.",
+      "target": "periodics.json (cadence ~25 sessions)"
+    },
+    {
+      "tool": "diagnosis_repair_check",
+      "reason": "FM-40: detects diagnosis-without-repair gaps. Zero callers. Guards actionability.",
+      "target": "periodics.json (cadence ~25 sessions)"
+    },
+    {
+      "tool": "stale_write_check",
+      "reason": "FM-19: detects concurrent logical overwrites at pre-commit. Zero callers despite being designed for check.sh.",
+      "target": "check.sh (pre-commit guard, high priority)"
+    },
+    {
+      "tool": "frontier_replenish",
+      "reason": "Detects frontier-depleted domains. Zero callers. Prevents domain starvation.",
+      "target": "periodics.json (cadence ~25 sessions) or orient.py health section"
+    },
+    {
+      "tool": "lesson_metabolism",
+      "reason": "Finds tensioned lesson pairs and proposes syntheses. Zero callers. Knowledge quality mechanism.",
+      "target": "periodics.json (cadence ~25 sessions, under knowledge-health family)"
+    },
+    {
+      "tool": "process_reliability",
+      "reason": "F-EPIS1 reliabilism gap tracker. Zero callers. Directly supports SIG-35 reliability directive.",
+      "target": "periodics.json (cadence ~10 sessions)"
+    },
+    {
+      "tool": "tool_reliability",
+      "reason": "F-EPIS1 tool reliability auditor. Only called by its own test. Supports reliability directive.",
+      "target": "periodics.json (cadence ~25 sessions, under tool-consolidation family)"
+    },
+    {
+      "tool": "signal_integrity",
+      "reason": "Audits HUMAN.md signal references against SIGNALS.md. Only called by test. Data integrity tool.",
+      "target": "periodics.json (cadence ~25 sessions)"
+    },
+    {
+      "tool": "sync_bridges",
+      "reason": "Synchronizes bridge files (CLAUDE.md, AGENTS.md, etc). Zero callers despite F118 multi-tool requirement.",
+      "target": "periodics.json (cadence ~10 sessions) or check.sh"
+    },
+    {
+      "tool": "knowledge_state",
+      "reason": "Epistemological state classifier (L-707, F-META10). Referenced in MEMORY.md as key tool but not wired into automation. Called by 7 other tools.",
+      "target": "periodics.json (cadence ~25 sessions, replaces ad-hoc runs)"
+    },
+    {
+      "tool": "forecast_scorer",
+      "reason": "Computes Brier scores and calibration. Zero callers. Essential for market prediction validation (finance-external directive).",
+      "target": "periodics.json (cadence ~10 sessions, under market-prediction family)"
+    }
+  ],
+  "archive": [
+    {
+      "tool": "eval_sufficiency",
+      "reason": "Already has identical copy in tools/archive/eval_sufficiency.py (same SHA256). Live copy is redundant."
+    },
+    {
+      "tool": "eval_sufficiency_data",
+      "reason": "Already has identical copy in tools/archive/eval_sufficiency_data.py (same SHA256). Live copy is redundant."
+    },
+    {
+      "tool": "testimony_calibration",
+      "reason": "Self-described compatibility shim that just redirects to tools/archive/testimony_calibration.py. 608 bytes. Already archived."
+    },
+    {
+      "tool": "bounded_fou",
+      "reason": "One-off F-SP8 experiment testing bounded/discrete fOU plateau. 12KB. Only referenced by its own test."
+    },
+    {
+      "tool": "fOU_vs_mixture",
+      "reason": "One-off experiment comparing fractional-OU vs mixture-of-OU. Zero callers. Statistical experiment artifact."
+    },
+    {
+      "tool": "fractional_inar",
+      "reason": "One-off F-SP8 experiment (discrete-native long memory INAR model). Only referenced by its own test."
+    },
+    {
+      "tool": "hurst_estimate",
+      "reason": "One-off Hurst exponent estimator for lesson-Sharpe series. Only referenced by its own test."
+    },
+    {
+      "tool": "f_con1_conflict_baseline",
+      "reason": "One-off F-CON1 conflict baseline refresh tool. Only referenced by its own test."
+    },
+    {
+      "tool": "f_math8_partition_ranking",
+      "reason": "One-off F-MATH8 compaction ranking comparison. Only referenced by its own test."
+    },
+    {
+      "tool": "soul_trajectory",
+      "reason": "Models human-impact soul metric as stochastic trajectory. Only referenced by its own test. Exploratory statistics."
+    },
+    {
+      "tool": "epidemic_spread",
+      "reason": "Dual R0 model for knowledge contagion. Zero non-self callers. Academic exploration, never integrated."
+    },
+    {
+      "tool": "free_energy",
+      "reason": "Active-inference surprise metric. Zero callers. Theoretical exploration never connected to workflow."
+    },
+    {
+      "tool": "rate_distortion",
+      "reason": "Rate-distortion analysis for knowledge systems. Zero callers. Information-theoretic exploration."
+    },
+    {
+      "tool": "disease_diagnostic",
+      "reason": "Unified disease scanner for knowledge systems. Zero direct automation callers. Superseded by orient_checks health diagnostics."
+    },
+    {
+      "tool": "doc_usage",
+      "reason": "Classifies docs by reference footprint. Only referenced by its own test. Low utility for automation."
+    },
+    {
+      "tool": "von_neumann_test",
+      "reason": "Tests von Neumann self-reproducing automaton conditions. Only referenced by its own test. One-off theoretical validation."
+    },
+    {
+      "tool": "add_adjacency",
+      "reason": "Completes domain adjacency network. Zero callers anywhere. One-time graph construction tool."
+    },
+    {
+      "tool": "source_hierarchy",
+      "reason": "Classifies beliefs/claims by evidence source level. Zero callers. Never integrated."
+    },
+    {
+      "tool": "prescription_audit",
+      "reason": "Classifies lessons as prescriptive vs descriptive. Zero callers except NEXT.md mention. Low automation value."
+    },
+    {
+      "tool": "control_analysis",
+      "reason": "Control theory analysis of feedback loops (F-CTL4). Zero callers. Domain experiment artifact."
+    },
+    {
+      "tool": "fairness_enforcer",
+      "reason": "Remediates PHIL-25 fairness gaps. Zero callers. fairness_audit is wired via orient_sections; enforcer is standalone and unused."
+    }
+  ],
+  "keep": [
+    {
+      "tool": "orient_analysis",
+      "reason": "Called by orient_sections.py which is imported by orient.py. Core orient pipeline component. False positive in meta_tooler."
+    },
+    {
+      "tool": "orient_monitors",
+      "reason": "Called by orient_sections.py which is imported by orient.py. Core orient pipeline component. False positive in meta_tooler."
+    },
+    {
+      "tool": "citation_amplify",
+      "reason": "Imported by orient_monitors.py (build_citation_graph, analyze). Part of orient pipeline."
+    },
+    {
+      "tool": "citation_mechanism",
+      "reason": "Imported by orient_monitors.py (_get_in_degrees). Part of orient pipeline."
+    },
+    {
+      "tool": "complexity_measure",
+      "reason": "Called by orient_monitors.py via subprocess. Part of orient pipeline."
+    },
+    {
+      "tool": "reactivation",
+      "reason": "Called by orient_monitors.py via subprocess. Surfaces dormant knowledge in orient output."
+    },
+    {
+      "tool": "cite_parse",
+      "reason": "Shared citation parser library. Imported by citation_retrieval.py, complexity_measure.py, reach.py."
+    },
+    {
+      "tool": "lesson_header",
+      "reason": "Shared lesson header parsing library. Imported by 10+ tools (brain_extractor, genesis_seeds, human_impact, knowledge_recombine, etc)."
+    },
+    {
+      "tool": "reach",
+      "reason": "Shared reach measurement library. Imported by 16 tools (compact.py, genesis_extract.py, etc). Core infrastructure."
+    },
+    {
+      "tool": "deliberate",
+      "reason": "Lightweight multi-domain deliberation. Called by brain_extractor.py, swarm_council.py, history_integrity.py, epidemic_spread.py."
+    },
+    {
+      "tool": "genesis_seeds",
+      "reason": "Select citation-central seed lessons. Called by genesis_extract.py. Part of reproduction pipeline."
+    },
+    {
+      "tool": "merge_compatibility",
+      "reason": "Cross-lineage merge checker. Called by swarm_combiner.py and swarm_peer.py. Part of merge pipeline."
+    },
+    {
+      "tool": "mutate",
+      "reason": "Mutation operator. Called by knowledge_swarm.py. Part of evolutionary mechanism."
+    },
+    {
+      "tool": "city_plan",
+      "reason": "Domain adjacency diagnostics. Called by dispatch_scoring.py."
+    },
+    {
+      "tool": "foreign_scope",
+      "reason": "Detect modifiable scope in foreign repos. Called by foreign_orient.py."
+    },
+    {
+      "tool": "eval_sufficiency_scores",
+      "reason": "Goal scorers for eval_sufficiency. Called by eval_sufficiency.py (but note eval_sufficiency itself is archivable)."
+    },
+    {
+      "tool": "trails_generalizer",
+      "reason": "Extract recurring patterns from session trails. Called by orient_analysis.py and task_order_helpers.py."
+    },
+    {
+      "tool": "principles_dedup",
+      "reason": "Surface merge candidates in PRINCIPLES.md. Called by principle_tournament.py."
+    },
+    {
+      "tool": "gather_council",
+      "reason": "Activate council seats by scanning domains. Called by maintenance_signals.py."
+    },
+    {
+      "tool": "fairness_audit",
+      "reason": "PHIL-25 fairness measurement. Called by orient_sections.py. Part of orient pipeline."
+    },
+    {
+      "tool": "arxiv_search",
+      "reason": "ArXiv intake harness. Called by swarm_searcher.py."
+    },
+    {
+      "tool": "irony_audit",
+      "reason": "Detects structural ironies. Calls knowledge_state.py and reach.py. Part of analysis toolchain."
+    },
+    {
+      "tool": "qd_score",
+      "reason": "Quality-Diversity score. Imports lesson_header.py. Standalone metric but used in knowledge assessment."
+    }
+  ],
+  "uncategorized_notes": [
+    "orient_analysis, orient_monitors, citation_amplify, citation_mechanism, complexity_measure, reactivation, fairness_audit are all called via the orient.py -> orient_sections.py chain. meta_tooler flags them because it only checks direct references in the listed automation entry points, not transitive imports.",
+    "eval_sufficiency + eval_sufficiency_data have identical copies in tools/archive/ — the live copies should simply be deleted (they are the same file).",
+    "FM-series tools (stale_write_check, lesson_collision_check, false_instrument_check, diagnosis_repair_check, numerical_claim_scanner, level_inflation_check) were designed as failure-mode defenses but never wired into any automation. These are the highest-priority WIRE candidates.",
+    "Statistical experiment tools (bounded_fou, fOU_vs_mixture, fractional_inar, hurst_estimate, soul_trajectory) are one-off experiments that produced results recorded in lessons. They have no ongoing value as automation."
+  ],
+  "recommended_actions": [
+    "PRIORITY 1: Wire stale_write_check into check.sh — it was designed for pre-commit but never connected (FM-19 defense gap)",
+    "PRIORITY 2: Wire lesson_collision_check into check.sh — L-NNN collisions at 1300+ lessons is a real risk",
+    "PRIORITY 3: Add FM-series tools (numerical_claim_scanner, level_inflation_check, false_instrument_check, diagnosis_repair_check) to periodics.json as a 'quality-guard' periodic at cadence ~25",
+    "PRIORITY 4: Wire sync_bridges into periodics.json — F118 multi-tool compatibility requires bridge synchronization",
+    "PRIORITY 5: Wire forecast_scorer + process_reliability + tool_reliability into periodics.json — supports SIG-35 reliability directive",
+    "PRIORITY 6: Delete tools/eval_sufficiency.py and tools/eval_sufficiency_data.py (identical to archive copies, SHA256 match confirmed)",
+    "PRIORITY 7: Archive 19 one-off experiment/exploration tools (bounded_fou, fOU_vs_mixture, fractional_inar, hurst_estimate, etc) to tools/archive/",
+    "PRIORITY 8: Fix meta_tooler.py to follow transitive imports (orient.py -> orient_sections.py -> orient_monitors.py) to reduce false positives from 70 to ~48 true unreferenced"
+  ],
+  "summary": {
+    "wire_count": 15,
+    "archive_count": 21,
+    "keep_count": 22,
+    "false_positive_count": 12,
+    "true_unreferenced": 58,
+    "note": "12 tools (orient_analysis, orient_monitors, citation_amplify, citation_mechanism, complexity_measure, reactivation, fairness_audit, cite_parse, lesson_header, reach, trails_generalizer, gather_council) are false positives — they ARE referenced by automation but through transitive imports that meta_tooler does not follow. The remaining 58 are genuinely unreferenced by direct automation entry points, but 22 of those serve as libraries called by other tools (KEEP category)."
+  }
+}

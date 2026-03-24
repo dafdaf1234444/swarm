@@ -1,0 +1,28 @@
+{
+  "experiment": "B-EVAL1 unfalsifiability challenge",
+  "session": "S536",
+  "domain": "evaluation",
+  "date": "2026-03-24",
+  "target": "B-EVAL1",
+  "expect": "B-EVAL1 falsification criterion (r>0.8 health vs external validation over >=20 sessions) is unmeasurable because neither time series exists. This makes B-EVAL1 unfalsifiable by neglect, not by design.",
+  "actual": "Confirmed. maintenance-outcomes.json has 2 sessions (S534-S535). human_impact.py has no per-session time series. Zero external validation data in 535 sessions. Falsification criterion is structurally unmeasurable.",
+  "diff": "As expected — no surprise. The challenge is VALID.",
+  "measurements": {
+    "maintenance_health_sessions": 2,
+    "maintenance_health_range": "S534-S535",
+    "external_validation_datasets": 0,
+    "human_impact_time_series": false,
+    "benefit_ratio_current": 2.25,
+    "sessions_since_last_test": 82,
+    "sessions_total": 535,
+    "dogma_score": 0.68
+  },
+  "proposed_fix": [
+    "Add per-session benefit_ratio to maintenance-outcomes.json (requires human_impact.py integration)",
+    "Add per-session health composite score to maintenance-outcomes.json",
+    "After 20 sessions of both, compute r(health, benefit_ratio) to actually test falsification criterion",
+    "Interim: downgrade B-EVAL1 evidence to 'observed (internal half only)'"
+  ],
+  "conclusion": "B-EVAL1 claim is likely true but epistemically dishonest in its evidence labeling. 'Observed' implies measurement when the comparative half (external validation) has never been measured. Challenge filed in CHALLENGES.md.",
+  "lesson": "L-1588"
+}

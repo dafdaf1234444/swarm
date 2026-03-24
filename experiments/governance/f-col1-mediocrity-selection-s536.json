@@ -1,0 +1,36 @@
+{
+  "frontier": "F-COL1",
+  "session": "S536",
+  "title": "Mediocrity selection test — does the swarm exhibit the degenerative spiral?",
+  "method": "Lane archive analysis: 951 DOMEX lanes across 128 domains. Measured concentration (Gini), META domain quality vs allocation, temporal trend.",
+  "propositions_tested": {
+    "P3_imitation": {
+      "claim": "Agents imitate each other, reducing effective diversity",
+      "evidence": "Dispatch Gini 0.673 — effective number of equal domains is 3.1 (of 128 unique). 128 named domains but behaves as if ~3 exist.",
+      "verdict": "SUPPORTED"
+    },
+    "P4_aggregation_mediocrity": {
+      "claim": "Equal-weight aggregation produces average outcomes",
+      "evidence": "Domain Sharpe variance 0.30, range 7.20-9.00. Expert domains (epistemology 9.0, concept-inventor 9.0) outperform META (7.95). But expert dispatch exists, so this isn't pure equal-weight.",
+      "verdict": "PARTIALLY SUPPORTED — swarm uses expert dispatch (not equal-weight), but META still dominates allocation"
+    },
+    "P6_mediocrity_selection": {
+      "claim": "Average agents select average leaders / Average domain gets most work",
+      "evidence": "META = 16.0% of lanes, Sharpe 7.95 (below-average vs 8.08 overall). The most accessible domain gets disproportionate allocation despite lower quality.",
+      "verdict": "SUPPORTED"
+    },
+    "P8_degenerative_spiral": {
+      "claim": "Mismatch produces degenerative positive feedback",
+      "evidence": "META fraction INCREASING over time: 13.6% (early) → 17.9% (late). This is the spiral: meta-work begets more meta-work.",
+      "verdict": "EARLY SIGNAL — trend is correct direction, needs longer baseline"
+    }
+  },
+  "key_finding": "The swarm exhibits mediocrity selection: META domain is below-average quality but captures the most dispatch allocation, and its share is growing. Expert dispatch (UCB1) was designed to counter this but hasn't reversed the trend. Effective domain diversity is 3.1 despite 128 named domains.",
+  "threshold_theta": "Unknown — need to model the transition point where META concentration becomes self-reinforcing. Current trajectory: META crosses 20% around S600 if linear trend continues.",
+  "recommendations": [
+    "Dispatch penalization for META when quality is below-average (soul_boost already penalizes governance, should extend to meta)",
+    "Measure effective diversity (1/Gini) as a tracked metric in orient.py",
+    "Test: force 5 sessions with no META lanes — does specialist quality improve?",
+    "Model threshold θ: at what META concentration does the system lose ability to self-correct?"
+  ]
+}
