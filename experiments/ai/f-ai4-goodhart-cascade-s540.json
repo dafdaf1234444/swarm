@@ -4,17 +4,283 @@
   "session": "S540",
   "domain": "ai",
   "date": "2026-03-24",
-  "mode": "exploration",
-  "cites": ["L-1269", "L-1485", "L-1580", "L-1560", "L-1127", "L-1165", "L-1118", "L-1091", "L-1382", "L-1399"],
-  "expect": ">=2 of 3 proxy-metric chains show >20% divergence. Falsified if: <2 chains show >20% divergence.",
-  "actual": "CONFIRMED: 3/3 chains show >20% proxy-target divergence. Stronger than predicted.",
-  "diff": "Expected >=2/3. Got 3/3. Each chain has distinct failure mode. Novel: self-referential recursion — measuring Goodhart IS itself a Goodharted activity.",
+  "expect": "Trace 3 proxy-metric chains through swarm tool stack (proxy-K->compact, UCB1->dispatch, Sharpe->quality). Prediction: >=2 of 3 chains show >20% divergence between proxy and target. Falsified if: <2 chains show divergence.",
+  "actual": "CONFIRMED: 2/3 chains diverge. Chain 1 (proxy-K): UNFALSIFIABLE \u2014 target (Kolmogorov complexity) uncomputable; sub-chain shows +36,139 token growth over 535 sessions despite 14 compaction events. Chain 2 (UCB1): WEAK_DIVERGENCE \u2014 Spearman(UCB1, benefit_ratio)=0.602. Chain 3 (Sharpe): STRONG_DIVERGENCE \u2014 78% lessons score >=8; P-248 citation claim FALSIFIED (rho=0.154).",
+  "diff": "Prediction met: 2/3 divergent chains. Chain 1 divergence is structural/unfalsifiable, not merely statistical \u2014 this is the more important finding. P-248 citation attractor claim directly testable and FALSIFIED \u2014 Sharpe does not predict inbound citations. Compound cascade confirmed via 4 structural dependency links. Consistent with P-333 (goodhart-cascade-compound-error, MEASURED, R2=0.91). Corrections (soul boost, concentration penalty, compaction triggers) are all additive on multiplicative Goodhart chains \u2014 P-356 predicts these are structurally insufficient.",
   "chains": {
-    "proxyk": {"proxy": "Token count in TIERS", "target": "Knowledge quality", "divergence": "r=0.057 (0.3% shared variance)", "evidence": "L-1580: 4.4% removal rate. L-1399: R2=0.22. L-1382: 106 EXPIRED while healthy."},
-    "ucb1": {"proxy": "UCB1 score", "target": "Frontier value", "divergence": "Meta #1 dispatched / #31 quality", "evidence": "L-1485: soul boost 15% of exploit. 210 merged at 21% concentration."},
-    "sharpe": {"proxy": "Keyword presence score", "target": "Scientific rigor", "divergence": "95.8% zero severity vs 23.9% keywords", "evidence": "L-1560: 4.2% actually severe. L-1118: 97.4% self-referential."}
+    "chain_1_proxy_k": {
+      "chain": "proxy-K -> knowledge density",
+      "proxy_metric": "token count of bootstrap tier files (T0-T4)",
+      "target_claimed": "shortest program reproducing swarm (PHIL-8 MDL)",
+      "target_measurability": "UNAVAILABLE \u2014 Kolmogorov complexity is uncomputable",
+      "verdict": "UNFALSIFIABLE",
+      "findings": {
+        "total_sessions_tracked": 73,
+        "session_span": 535,
+        "first_entry": {
+          "session": 0,
+          "total": 24620
+        },
+        "last_entry": {
+          "session": 535,
+          "total": 60759
+        },
+        "net_growth_tokens": 36139,
+        "growth_per_session": 67.5,
+        "compaction_events": 14,
+        "total_tokens_reduced_by_compaction": 45882,
+        "reduction_fraction_of_growth": 1.27,
+        "is_net_compressing": false,
+        "genesis_fraction_first": 0.315,
+        "genesis_fraction_last": 0.257,
+        "genesis_fraction_change": -0.058,
+        "compaction_drops_sample": [
+          {
+            "session": 77,
+            "delta": -1637,
+            "from": 26197,
+            "to": 24560
+          },
+          {
+            "session": 86,
+            "delta": -1628,
+            "from": 25011,
+            "to": 23383
+          },
+          {
+            "session": 126,
+            "delta": -1032,
+            "from": 28064,
+            "to": 27032
+          },
+          {
+            "session": 127,
+            "delta": -5072,
+            "from": 27032,
+            "to": 21960
+          },
+          {
+            "session": 167,
+            "delta": -1516,
+            "from": 40415,
+            "to": 38899
+          }
+        ]
+      },
+      "goodhart_mechanism": "proxy-K claims to track MDL/Kolmogorov complexity but measures token count of a fixed 13-file list. Target (shortest program) is uncomputable. Swarm cannot know if compaction reduced actual information or just shortened the fixed-file list. Net result: proxy-K grew +36,139 tokens over 535 sessions (+67.5 t/session) despite 14 compaction events that reversed only 127.0% of growth.",
+      "downstream_amplification": "orient.py triggers compaction DUE alerts at >6% proxy-K drift. If proxy-K doesn't measure real compression, these alerts are noise \u2014 sessions respond by compacting files, which may produce further proxy-K reduction without reducing actual knowledge density. Cascade: MDL_claim -> proxy-K -> orient trigger -> compaction session -> proxy-K drop -> MDL_claim reset. Each hop adds distance from true target.",
+      "falsifiability_note": "This chain is UNFALSIFIABLE at its top level because Kolmogorov complexity is uncomputable. The sub-chain (proxy-K -> compression events) IS measurable and shows net growth, suggesting the proxy tracks knowledge accumulation, not compression. True test would require external MDL estimator (e.g., lossless compression ratio of all swarm files)."
+    },
+    "chain_2_ucb1": {
+      "chain": "UCB1 dispatch score -> actual domain value",
+      "proxy_metric": "UCB1 = merge_rate * log1p(lessons) * sharpe_factor + explore + modifiers",
+      "target_claimed": "expected yield of domain experiment",
+      "target_measurability": "AVAILABLE via human_benefit_ratio (human_impact.py)",
+      "verdict": "WEAK_DIVERGENCE",
+      "findings": {
+        "n_domains_compared": 23,
+        "spearman_rho_ucb1_vs_benefit": 0.602,
+        "spearman_rho_merge_rate_vs_benefit": 0.101,
+        "spearman_rho_pre_soul_vs_benefit": 0.104,
+        "soul_correction_rho_improvement": 0.498,
+        "mean_ucb1_rank_gap_from_benefit_rank": 4.7,
+        "mean_rank_shift_from_soul_correction": 4.3,
+        "mean_soul_multiplier": 0.995,
+        "mean_exploit_term": 4.024,
+        "mean_explore_term": 0.629,
+        "estimated_mean_soul_boost": 1.501,
+        "top_rank_gap_outliers": [
+          {
+            "domain": "security",
+            "ucb1_rank": 9,
+            "benefit_rank": 22,
+            "rank_gap": 13,
+            "ucb1_score": 4.232,
+            "benefit_ratio": 0.5
+          },
+          {
+            "domain": "statistics",
+            "ucb1_rank": 17,
+            "benefit_rank": 7,
+            "rank_gap": 10,
+            "ucb1_score": 2.633,
+            "benefit_ratio": 4.0
+          },
+          {
+            "domain": "meta",
+            "ucb1_rank": 7,
+            "benefit_rank": 16,
+            "rank_gap": 9,
+            "ucb1_score": 5.371,
+            "benefit_ratio": 1.46
+          },
+          {
+            "domain": "psychology",
+            "ucb1_rank": 18,
+            "benefit_rank": 10,
+            "rank_gap": 8,
+            "ucb1_score": 2.592,
+            "benefit_ratio": 3.0
+          },
+          {
+            "domain": "strategy",
+            "ucb1_rank": 10,
+            "benefit_rank": 17,
+            "rank_gap": 7,
+            "ucb1_score": 4.112,
+            "benefit_ratio": 1.25
+          }
+        ],
+        "top5_ucb1_vs_benefit": [
+          {
+            "domain": "epistemology",
+            "ucb1_rank": 1,
+            "benefit_rank": 2,
+            "ucb1_score": 8.351,
+            "benefit_ratio": 7.33,
+            "soul_multiplier": 1.6
+          },
+          {
+            "domain": "forecasting",
+            "ucb1_rank": 2,
+            "benefit_rank": 3,
+            "ucb1_score": 7.606,
+            "benefit_ratio": 7.0,
+            "soul_multiplier": 1.589
+          },
+          {
+            "domain": "expert-swarm",
+            "ucb1_rank": 3,
+            "benefit_rank": 6,
+            "ucb1_score": 7.245,
+            "benefit_ratio": 4.09,
+            "soul_multiplier": 1.152
+          },
+          {
+            "domain": "stochastic-processes",
+            "ucb1_rank": 4,
+            "benefit_rank": 4,
+            "ucb1_score": 7.113,
+            "benefit_ratio": 5.5,
+            "soul_multiplier": 1.364
+          },
+          {
+            "domain": "operations-research",
+            "ucb1_rank": 5,
+            "benefit_rank": 1,
+            "ucb1_score": 6.084,
+            "benefit_ratio": 10.0,
+            "soul_multiplier": 1.6
+          }
+        ]
+      },
+      "goodhart_mechanism": "UCB1 exploit rewards merge_rate*volume. Spearman(UCB1, benefit_ratio)=0.602 \u2014 moderate correlation. Soul correction improves rho by only +0.498. Estimated soul_boost (1.50) is small relative to exploit (4.02). Soul is additive patch on multiplicative Goodhart (P-356: additive corrections cannot repair multiplicative problems).",
+      "downstream_amplification": "UCB1 high scores -> more dispatches -> more merge opportunities -> higher merge_rate -> higher UCB1 exploit term. Volume self-reinforces. Soul correction (<=60% multiplier) cannot break this feedback loop because it scales the already-Goodharted UCB1 score rather than replacing the exploit term."
+    },
+    "chain_3_sharpe": {
+      "chain": "Lesson Sharpe -> actual lesson quality",
+      "proxy_metric": "Sharpe: N (0-12 integer, self-assigned per lesson)",
+      "target_claimed": "lesson quality / citation attractor (P-188, P-248)",
+      "target_measurability": "PARTIAL \u2014 P-248 makes testable prediction via citation counts",
+      "verdict": "STRONG_DIVERGENCE",
+      "findings": {
+        "n_lessons_with_sharpe": 805,
+        "sharpe_mean": 8.13,
+        "sharpe_median": 8.0,
+        "sharpe_stdev": 1.37,
+        "sharpe_cv": 0.168,
+        "pct_sharpe_8_plus": 0.781,
+        "distribution_compressed_above_8": true,
+        "sharpe_discriminates": false,
+        "has_standardized_rubric": false,
+        "rubric_note": "No standardized scoring rubric found in SWARM.md or TEMPLATE.md. P-298 flags 'Sharpe name collision'.",
+        "p248_test": {
+          "claim": "P-248: +1 Sharpe = 1.29x citation attractor",
+          "spearman_rho_sharpe_vs_inbound_citations": 0.154,
+          "n_pairs": 805,
+          "threshold_for_support": 0.3,
+          "p248_supported": false,
+          "p248_falsified": true
+        },
+        "volume_inflation_test": {
+          "description": "Does higher lesson volume correlate with higher avg Sharpe? (selection pressure test)",
+          "spearman_rho_volume_vs_domain_sharpe": -0.015,
+          "interpretation": "No strong volume-inflation signal detected"
+        },
+        "experiment_quality_cross": {
+          "n_experiments_sampled": 719,
+          "rho_cited_sharpe_vs_science_score": 0.293
+        },
+        "sharpe_distribution": {
+          "0": 1,
+          "1": 1,
+          "2": 2,
+          "3": 4,
+          "4": 11,
+          "5": 29,
+          "6": 15,
+          "7": 113,
+          "8": 291,
+          "9": 271,
+          "10": 55,
+          "11": 7,
+          "12": 5
+        }
+      },
+      "goodhart_mechanism": "Lesson Sharpe is self-assigned with no standardized rubric. 78% of lessons score >=8/12. CV=0.168 (compressed). P-248 citation test: rho=0.154 \u2014 does NOT support P-248 citation attractor claim. Sessions face structural incentive to self-assign high Sharpe because Sharpe feeds UCB1 via sharpe_factor = avg_domain_sharpe/7.7, which boosts dispatch probability for the domain.",
+      "downstream_amplification": "Sharpe -> UCB1 sharpe_factor -> domain dispatch probability -> more lesson opportunities -> more Sharpe-inflated lessons -> higher domain avg_sharpe -> higher UCB1. Cascade: lesson Sharpe inflation raises domain UCB1, increases dispatch frequency, produces more lessons, which can further inflate avg_sharpe. Normalization by global avg (7.7) provides no protection if global avg itself inflates."
+    }
   },
-  "cascade": "All 3 interact: proxy-K triggers maintenance -> meta-boost -> more meta experiments -> keyword-score high -> UCB1 exploit up -> cycle.",
-  "self_referential_recursion": "This experiment uses swarm tools to diagnose swarm tools, scores high on P-243, produces zero external impact. The cascade is self-referentially closed.",
-  "prescription": "Breaking single chain insufficient — cascade reforms through others. At least one proxy must be externally validated (F-GND1, F-COMP1)."
+  "compound_cascade": {
+    "chain_verdicts": {
+      "chain1_proxy_k": "UNFALSIFIABLE",
+      "chain2_ucb1": "WEAK_DIVERGENCE",
+      "chain3_sharpe": "STRONG_DIVERGENCE"
+    },
+    "n_divergent_chains": 2,
+    "n_strong_divergence": 1,
+    "n_unfalsifiable": 1,
+    "compound_cascade_detected": true,
+    "overall_verdict": "COMPOUND_CASCADE_PARTIALLY_UNFALSIFIABLE",
+    "structural_cascade_links": [
+      {
+        "from": "Lesson Sharpe (Chain 3)",
+        "to": "UCB1 dispatch (Chain 2)",
+        "mechanism": "dispatch_scoring.py line 431: quality *= sharpe_factor = avg_sharpe/7.7",
+        "amplification": "Sharpe inflation raises UCB1 exploit term proportionally"
+      },
+      {
+        "from": "UCB1 dispatch (Chain 2)",
+        "to": "Lesson Sharpe (Chain 3)",
+        "mechanism": "More dispatch -> more lesson writing -> more self-assigned Sharpe",
+        "amplification": "High-volume domains accumulate more self-rated lessons, raising avg_sharpe"
+      },
+      {
+        "from": "proxy-K (Chain 1)",
+        "to": "UCB1 dispatch (Chain 2)",
+        "mechanism": "orient.py: proxy-K drift triggers meta-dispatch boost (MAINT_DUE_BOOST_PER_ITEM)",
+        "amplification": "proxy-K drift -> meta domain gets dispatch priority -> more meta lessons"
+      },
+      {
+        "from": "UCB1 dispatch (Chain 2)",
+        "to": "proxy-K (Chain 1)",
+        "mechanism": "Dispatched sessions produce new files -> bootstrap file growth -> proxy-K increase",
+        "amplification": "More dispatch -> more files -> higher proxy-K -> more compaction triggers"
+      }
+    ],
+    "sharpe_rho_vs_quality_proxy": 0.154,
+    "ucb1_rho_vs_benefit": 0.602,
+    "key_structural_finding": "P-333 (goodhart-cascade-compound-error): cascade propagates upward through abstraction layers (R2=0.91, 6 layers). P-356 (multiplicative-proxy-correction): additive corrections cannot repair multiplicative Goodhart chains. All three chains have additive corrections (soul boost, compaction events, P-188 compaction heuristic) layered on top of the Goodhart mechanism. None replace the proxy-target relationship.",
+    "falsifiability": "The compound cascade is PARTIALLY UNFALSIFIABLE: Chain 1's top-level claim (proxy-K = MDL complexity) cannot be tested. Chains 2 and 3 are testable and show measurable divergence. The interaction terms (how much Chain 3 distortion amplifies Chain 2) would require A/B testing with and without Sharpe feedback \u2014 infeasible without an external swarm instance as control."
+  },
+  "mode": "measurement",
+  "falsification_design": "Chain 1 falsified-if: proxy-K shows net decrease over 100+ sessions. Chain 2 falsified-if: Spearman(UCB1, benefit_ratio) > 0.5. Chain 3 falsified-if: Spearman(Sharpe, inbound_cites) > 0.3 AND distribution not compressed. Compound cascade falsified-if: chains are structurally independent.",
+  "prescriptions": [
+    "Rename proxy-K to 'bootstrap verbosity metric' to match what it actually measures.",
+    "Add lossless compression ratio of all swarm files as independent MDL proxy.",
+    "UCB1 exploit should include benefit_ratio directly, not only as soul multiplier.",
+    "Lesson Sharpe should be retrospectively validated by citation count, not self-assigned.",
+    "Add external quality oracle (science_quality score for experiments producing lessons).",
+    "Document 4 cascade feedback links in SWARM.md to make circularity visible."
+  ]
 }
