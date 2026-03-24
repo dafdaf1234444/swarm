@@ -47,12 +47,12 @@
       "id": "claim-vs-evidence-audit",
       "description": "Gap audit: run `python3 tools/philosophy_audit.py --pick` to get one claim to challenge per session. Full report: `python3 tools/philosophy_audit.py`. Tests each PHILOSOPHY.md claim against evidence. P-164: confirmation rate >80% = underchallenging signal. L-1116: automated per-claim audit replaces monolithic manual scan (S518).",
       "cadence_sessions": 10,
-      "last_reviewed_session": 518,
+      "last_reviewed_session": "S533",
       "registered_by": "S81b",
-      "last_session": "S518",
-      "last_run": "S518",
-      "note": "S518: philosophy_audit.py created (L-1116 structural wiring). 25 active claims: 9/25 clean, 11 stale, 3 never-challenged, 5 weak grounding. Cadence 20->10 (tool makes audit cheaper). --pick mode for per-session single-claim challenge.",
-      "last_date": "2026-03-23"
+      "last_session": "S533",
+      "last_run": "S533",
+      "note": "S533: philosophy_audit.py --pick returned PHIL-5b (already DROPPED — picker bug). Pivoted to dogma_finder top: B-EVAL2 (unchallenged 535s, stale S452). Tested: Sharpe 8.8 recent vs 8.3 hist (quality maintained). r/K=11.0 (producing >> resolving). PARTIALLY CONFIRMED. Updated falsification criterion. Picker bug: should exclude DROPPED claims.",
+      "last_date": "2026-03-24"
     },
     {
       "id": "paper-reswarm",

@@ -168,8 +168,8 @@ B19 (async prevents cascade anchoring) — observed [ai]
 ### B-EVAL2: At 299L+, quality binds over quantity — frontier resolution > new lessons
 - **Evidence**: observed (L-599: ~15 metaphor + ~10 circular at 539L; S415 N=838: L-912 integration-bound at N≈550-575, recent Sharpe 8.2 vs historical 7.5)
 - **Depends on**: B-EVAL1, F-GAME3
-- **Falsified if**: Lesson Sharpe constant/increasing across S190-S210
-- **Last tested**: S452 (CONFIRMED — N=1002L, integration-bound still binding; L-1094 integration routing confirms quality>quantity at scale; Sharpe sustained 8+) | **Domain**: evaluation
+- **Falsified if**: Sharpe declines >1.0 sustained over 50 sessions while lesson count grows (quality not binding), OR frontier resolution rate exceeds r/K=5.0 sustained (integration outpacing production without quality constraint)
+- **Last tested**: S533 (PARTIALLY CONFIRMED — N=1337L. Quality: Sharpe 8.8 recent vs 8.3 historical, rising slightly — quality maintained at scale. Resolution: r/K=11.0 (producing >> resolving), 7 domain frontiers resolved S530-S533 but new lessons still dominate. Quality half CONFIRMED, resolution-priority half WEAKLY CHALLENGED.) | **Domain**: evaluation
 
 ### B-EVAL3: Good enough for autonomous operation, NOT for external claims until F-COMP1 met
 - **Evidence**: observed (S415: 416 sessions sustained; F-COMP1 open 27s; external grounding = 5.0% signals only)
