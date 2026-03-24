@@ -1,0 +1,33 @@
+{
+  "id": "f-epis3-grounding-dogma-wiring-s543",
+  "session": "S543",
+  "frontier": "F-EPIS3",
+  "domain": "epistemology",
+  "question": "Does wiring grounding_audit scores into dogma_finder expose previously invisible high-risk claims?",
+  "hypothesis": "Claims with low grounding scores (< 0.15) are underrepresented in dogma rankings because dogma_finder only uses internal signals. Adding LOW-EXTERNAL-GROUNDING signal will reorder top-5 rankings, surfacing claims that survived by invisibility.",
+  "expect": "Top-5 dogma rankings will change; previously mid-ranked claims with low grounding will rise to top-3.",
+  "method": "Pre/post comparison of dogma_finder output. Pre: dogma_finder without grounding signals. Post: with LOW-EXTERNAL-GROUNDING and LABEL-MISMATCH signals wired from grounding_audit.run_audit(detail=True).",
+  "result": {
+    "pre_top5": ["PHIL-28 (0.80)", "P-032 (0.70)", "PHIL-10 (0.70)", "PHIL-16 (0.60)", "PHIL-25 (0.60)"],
+    "post_top5": ["PHIL-16 (1.24)", "PHIL-25 (1.14)", "PHIL-21 (1.05)", "PHIL-22 (1.05)", "PHIL-28 (1.05)"],
+    "new_signal_instances": 14,
+    "new_signal_types": ["LOW-EXTERNAL-GROUNDING (13)", "LABEL-MISMATCH (1)"],
+    "rank_changes": {
+      "PHIL-16": "4 -> 1 (was invisible, now #1 threat)",
+      "PHIL-25": "5 -> 2 (aspirational + low grounding)",
+      "PHIL-21": "not in top 5 -> 3 (self-referential + low grounding)",
+      "PHIL-22": "not in top 5 -> 4 (self-referential + low grounding)",
+      "PHIL-28": "1 -> 5 (was most-attacked, now surpassed by truly invisible claims)",
+      "P-032": "2 -> 11 (had no grounding gap)",
+      "PHIL-10": "3 -> 12 (had no grounding gap)"
+    },
+    "label_mismatches_found": ["PHIL-11: labeled 'grounded' but audit score 0.080"],
+    "low_external_grounding_signal_is_top_signal": true,
+    "confirms_l1632": "Yes — poorly grounded claims survived by invisibility. The old system attacked well-measured claims (PHIL-28 had 2 challenges). The new system exposes the truly unexamined."
+  },
+  "verdict": "CONFIRMED",
+  "severity": "HIGH",
+  "lesson": "L-1648",
+  "artifacts": ["tools/dogma_finder.py (signals 12-13 added)", "tools/grounding_audit.py (run_audit called)"],
+  "external": "Popper (1963) falsifiability: unfalsifiable claims survive by being untestable, not by resisting tests. Kuhn (1962) paradigm protection: anomalies invisible within the paradigm are the most dangerous."
+}

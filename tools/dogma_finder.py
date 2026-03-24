@@ -16,6 +16,8 @@ Dogma signals:
   9. META-DOGMA      — dogma finder's own hardcoded assumptions
  10. PROSE-STATUS-DRIFT — status text contradicts original claim prose (L-1411)
  11. CRITERION-UNTESTABLE — dissolution criterion references an event with 0 historical instances (L-1532)
+ 12. LOW-EXTERNAL-GROUNDING — grounding_audit score < 0.15 (L-1632: invisibility defense)
+ 13. LABEL-MISMATCH  — PHILOSOPHY.md label says "grounded" but audit score < 0.2
 
 Epistemic type awareness (S505 L-1336):
   Axioms (design choices) get lower dogma scores because they resist
@@ -569,6 +571,56 @@ def detect_dogma() -> list[dict]:
                 f"Dissolution criterion references an event with 0 historical "
                 f"instances — criterion is architectural impossibility (L-1532)")
 
+    # --- Signal 12: LOW-EXTERNAL-GROUNDING (L-1632, F-EPIS3) ---
+    # Poorly grounded claims survive by invisibility, not resistance.
+    # Wire grounding_audit scores into dogma detection so low-grounding claims
+    # get flagged as high dogma risk — the most dangerous claims are the ones
+    # nobody can test.
+    try:
+        import importlib.util
+        _spec = importlib.util.spec_from_file_location(
+            "grounding_audit", REPO / "tools" / "grounding_audit.py")
+        _mod = importlib.util.module_from_spec(_spec)
+        _spec.loader.exec_module(_mod)
+        _grounding_audit = _mod.run_audit
+        grounding_data = _grounding_audit(detail=True)
+        grounding_map = {}
+        for claim in (grounding_data.get("all_claims") or []):
+            grounding_map[claim["id"]] = claim["score"]
+
+        # Signal 12a: LOW-EXTERNAL-GROUNDING — score < 0.15
+        for p in phil_claims:
+            pid = p["id"]
+            gs = grounding_map.get(pid)
+            if gs is not None and gs < 0.15:
+                add(pid, "philosophy", "LOW-EXTERNAL-GROUNDING",
+                    round(0.7 - (gs * 3.0), 2),  # 0.7 at gs=0, 0.25 at gs=0.15
+                    f"External grounding score: {gs:.3f} — below 0.15 threshold "
+                    f"(L-1632: invisibility defense)")
+
+        for b in beliefs:
+            bid = b["id"]
+            gs = grounding_map.get(bid)
+            if gs is not None and gs < 0.15:
+                add(bid, "belief", "LOW-EXTERNAL-GROUNDING",
+                    round(0.7 - (gs * 3.0), 2),
+                    f"External grounding score: {gs:.3f} — below 0.15 threshold")
+
+        # Signal 13: LABEL-MISMATCH — labeled "grounded" but audit score < 0.2
+        for p in phil_claims:
+            pid = p["id"]
+            label = p.get("grounding", "").lower()
+            gs = grounding_map.get(pid, None)
+            if gs is not None and label == "grounded" and gs < 0.2:
+                add(pid, "philosophy", "LABEL-MISMATCH",
+                    0.6,
+                    f"Labeled 'grounded' but audit score {gs:.3f} — "
+                    f"false confidence in grounding status")
+
+    except Exception:
+        # grounding_audit unavailable — skip these signals gracefully
+        pass
+
     # --- Score normalization and dedup ---
     merged = defaultdict(lambda: {"signals": [], "total_score": 0.0})
     for f in findings:
@@ -678,6 +730,8 @@ SIGNAL_PRESCRIPTIONS = {
     "META-DOGMA": "Empirically test this assumption: measure its effect on dogma rankings",
     "PROSE-STATUS-DRIFT": "Update claim prose to match evidence, or acknowledge the gap explicitly",
     "CRITERION-UNTESTABLE": "Revise dissolution criterion to reference an architecturally possible test event (L-1532)",
+    "LOW-EXTERNAL-GROUNDING": "Find external evidence (paper, benchmark, named theory) that bears on this claim — low grounding = high invisibility risk (L-1632)",
+    "LABEL-MISMATCH": "Correct grounding label in PHILOSOPHY.md to match audit score, or provide evidence to justify 'grounded' status",
 }
 
 
