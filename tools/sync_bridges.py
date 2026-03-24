@@ -16,6 +16,16 @@ import re
 from typing import Dict, List, Set
 
 
+def _has_common_bridge_reference(content: str) -> bool:
+    return bool(re.search(r"\bSWARM\.md\b", content, re.IGNORECASE) and
+                re.search(r"Common Bridge Items", content, re.IGNORECASE))
+
+
+def _has_minimum_cycle_reference(content: str) -> bool:
+    return bool(re.search(r"\bSWARM\.md\b", content, re.IGNORECASE) and
+                re.search(r"\bMinimum Cycle\b", content, re.IGNORECASE))
+
+
 def get_bridge_files() -> Dict[str, str]:
     """Get all bridge files and their paths."""
     return {
@@ -39,11 +49,21 @@ def extract_protocol_sections(content: str) -> Dict[str, str]:
         if match:
             sections["multi_tool"] = match.group(0).strip()
 
+    # Common Bridge Items
+    if "Common Bridge Items" in content:
+        match = re.search(r"## Common Bridge Items.*?\n(?=##|$)", content, re.DOTALL)
+        if match:
+            sections["common_bridge_items"] = match.group(0).strip()
+        elif _has_common_bridge_reference(content):
+            sections["common_bridge_items"] = "REF: SWARM.md §Common Bridge Items"
+
     # Minimum Swarmed Cycle
     if "Minimum Swarmed Cycle" in content:
         match = re.search(r"## Minimum Swarmed Cycle.*?\n(?=##|$)", content, re.DOTALL)
         if match:
             sections["min_cycle"] = match.group(0).strip()
+    elif _has_minimum_cycle_reference(content):
+        sections["min_cycle"] = "REF: SWARM.md §Minimum Cycle"
 
     # Expert dispatch mentions
     expert_dispatch = re.findall(r".*[Ee]xpert dispatch.*", content)
@@ -103,14 +123,18 @@ def check_swarm_parity(sync_status: Dict) -> List[str]:
     for name, data in sync_status.items():
         if not data.get("exists"):
             continue
+        path = get_bridge_files().get(name, "")
+        full = ""
+        if path and os.path.exists(path):
+            with open(path, 'r') as f:
+                full = f.read()
+        if _has_common_bridge_reference(full) and _has_minimum_cycle_reference(full):
+            continue
         min_cycle = data.get("sections", {}).get("min_cycle", "")
         missing = []
         for tool in sorted(swarm_tools):
             if tool not in min_cycle:
-                path = get_bridge_files().get(name, "")
-                if path and os.path.exists(path):
-                    with open(path, 'r') as f:
-                        full = f.read()
+                if full:
                     if tool not in full:
                         missing.append(tool)
                 else:

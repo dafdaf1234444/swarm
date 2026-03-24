@@ -18,6 +18,87 @@ function Quote-BashArg {
     return "'" + ($Text -replace "'", $escapedQuote) + "'"
 }
 
+$script:LIVE_GIT_LOCK_SECONDS = 120
+
+function Test-PwshGitWriteLockActive {
+    param([string]$GitDir)
+
+    if (-not $GitDir -or -not (Test-Path $GitDir)) {
+        return $false
+    }
+
+    $lockPath = Join-Path $GitDir "index.lock"
+    if (-not (Test-Path $lockPath)) {
+        return $false
+    }
+
+    try {
+        $ageSeconds = ((Get-Date) - (Get-Item $lockPath).LastWriteTime).TotalSeconds
+    } catch {
+        return $false
+    }
+
+    return $ageSeconds -le $script:LIVE_GIT_LOCK_SECONDS
+}
+
+function Invoke-PwshSafeGitIndexRebuild {
+    param([string]$RepoRoot)
+
+    $gitDir = Join-Path $RepoRoot ".git"
+    if (-not (Test-Path $gitDir)) {
+        return $false
+    }
+
+    $timestamp = Get-Date -Format "yyyyMMdd-HHmmssfff"
+    $indexPath = Join-Path $gitDir "index"
+    $lockPath = Join-Path $gitDir "index.lock"
+    $tempIndex = Join-Path $gitDir "index.pwsh-repair.$timestamp.tmp"
+    $headCount = $null
+    $trackedCount = $null
+    $oldIndexEnv = $env:GIT_INDEX_FILE
+
+    try {
+        Remove-Item $tempIndex -Force -ErrorAction SilentlyContinue
+        Remove-Item $lockPath -Force -ErrorAction SilentlyContinue
+        $env:GIT_INDEX_FILE = $tempIndex
+
+        $null = @(& git -C $RepoRoot read-tree HEAD 2>&1)
+        if ($LASTEXITCODE -ne 0 -or -not (Test-Path $tempIndex)) {
+            return $false
+        }
+
+        $headLines = @(& git -C $RepoRoot ls-tree -r --name-only HEAD 2>&1)
+        if ($LASTEXITCODE -ne 0) {
+            return $false
+        }
+        $headCount = @($headLines | Where-Object { "$_".Trim() -ne "" }).Count
+        if ($headCount -le 0) {
+            return $false
+        }
+
+        $trackedLines = @(& git -C $RepoRoot ls-files 2>&1)
+        if ($LASTEXITCODE -ne 0) {
+            return $false
+        }
+        $trackedCount = @($trackedLines | Where-Object { "$_".Trim() -ne "" }).Count
+        if ($trackedCount -lt $headCount) {
+            return $false
+        }
+    } finally {
+        $env:GIT_INDEX_FILE = $oldIndexEnv
+    }
+
+    try {
+        Move-Item $tempIndex $indexPath -Force
+        Remove-Item $lockPath -Force -ErrorAction SilentlyContinue
+        return $true
+    } catch {
+        return $false
+    } finally {
+        Remove-Item $tempIndex -Force -ErrorAction SilentlyContinue
+    }
+}
+
 function Get-PwshGitRecoveryNotice {
     param(
         [string]$RepoRoot,
@@ -31,6 +112,14 @@ function Get-PwshGitRecoveryNotice {
     $gitDir = Join-Path $RepoRoot ".git"
     if (-not (Test-Path $gitDir)) {
         return @()
+    }
+
+    if (Test-PwshGitWriteLockActive -GitDir $gitDir) {
+        return @(
+            "[NOTICE] PowerShell git write is active.",
+            "  - Live .git/index.lock detected (<= $($script:LIVE_GIT_LOCK_SECONDS)s old) — another git writer is active; skipping PowerShell index diagnostics until it clears.",
+            "  - Wrapper will continue with the repo's preferred runtime path while the writer finishes."
+        )
     }
 
     $problems = New-Object System.Collections.Generic.List[string]
@@ -75,6 +164,72 @@ function Get-PwshGitRecoveryNotice {
 
     if ($existingSentinels.Count -gt 0 -and $trackedSentinels.Count -eq 0) {
         $problems.Add("PowerShell git tracks 0 sentinel files despite worktree sentinels existing")
+    }
+
+    $trackedAllExit = 0
+    try {
+        $trackedAllLines = @(& git -C $RepoRoot ls-files 2>&1)
+        $trackedAllExit = $LASTEXITCODE
+    } catch {
+        $trackedAllLines = @($_.Exception.Message)
+        $trackedAllExit = 1
+    }
+
+    if ($trackedAllExit -eq 0) {
+        $trackedAllCount = @(
+            $trackedAllLines | Where-Object { "$_".Trim() -ne "" }
+        ).Count
+    } else {
+        $trackedAllCount = $null
+        $problems.Add("PowerShell git ls-files (full) failed")
+    }
+
+    $headExit = 0
+    try {
+        $headLines = @(& git -C $RepoRoot ls-tree -r --name-only HEAD 2>&1)
+        $headExit = $LASTEXITCODE
+    } catch {
+        $headLines = @($_.Exception.Message)
+        $headExit = 1
+    }
+
+    if ($headExit -eq 0) {
+        $headCount = @(
+            $headLines | Where-Object { "$_".Trim() -ne "" }
+        ).Count
+    } else {
+        $headCount = $null
+        $problems.Add("PowerShell git ls-tree HEAD failed")
+    }
+
+    $stagedDeletedExit = 0
+    try {
+        $stagedDeletedLines = @(& git -C $RepoRoot diff --cached --name-status 2>&1)
+        $stagedDeletedExit = $LASTEXITCODE
+    } catch {
+        $stagedDeletedLines = @()
+        $stagedDeletedExit = 1
+    }
+
+    if ($stagedDeletedExit -eq 0) {
+        $stagedDeletedCount = 0
+        foreach ($line in $stagedDeletedLines) {
+            $text = "$line".Trim()
+            if ($text -match '^(D|R\d+)\s+') {
+                $stagedDeletedCount += 1
+            }
+        }
+    } else {
+        $stagedDeletedCount = 0
+    }
+
+    if (
+        ($null -ne $trackedAllCount) -and
+        ($null -ne $headCount) -and
+        ($headCount -gt 0) -and
+        (($headCount - ($trackedAllCount + $stagedDeletedCount)) -gt 1)
+    ) {
+        $problems.Add("PowerShell git index tracks only $trackedAllCount/$headCount HEAD files")
     }
 
     $gitArgs = @("-C", $RepoRoot, "status", "--short", "--untracked-files=all", "--") + $SentinelPaths
@@ -160,20 +315,46 @@ function Get-PwshGitRecoveryNotice {
     }
     $lines.Add("  - Wrapper will continue with the repo's preferred runtime path so startup can proceed.")
 
-    if ($bashCmd) {
-        $bashRoot = Convert-ToBashPath $RepoRoot
-        $repairBody = "cd $(Quote-BashArg $bashRoot) && rm -f .git/index .git/index.lock && git read-tree HEAD && git update-index --refresh"
-        $lines.Add('  - Recovery: bash -lc "' + $repairBody + '"')
-    } else {
-        $lines.Add("  - Recovery: remove .git/index/.git/index.lock, then run git read-tree HEAD and git update-index --refresh.")
-    }
+    $lines.Add("  - Recovery: git read-tree HEAD via a temporary index; clear stale .git/index.lock only if no git write is active.")
 
     $lines.Add("  - Note: this preserves worktree files but rebuilds the index from HEAD; re-stage intentional changes afterward.")
     return $lines
 }
 
-function Show-PwshGitRecoveryNotice {
+function Repair-PwshGitIndexIfNeeded {
     param([string]$RepoRoot)
+
+    $notice = @(Get-PwshGitRecoveryNotice -RepoRoot $RepoRoot)
+    if ($notice.Count -eq 0) {
+        return $false
+    }
+
+    if ($notice[0] -ne "[NOTICE] PowerShell git/index state looks inconsistent.") {
+        return $false
+    }
+
+    if (-not (Invoke-PwshSafeGitIndexRebuild -RepoRoot $RepoRoot)) {
+        return $false
+    }
+
+    $remaining = @(Get-PwshGitRecoveryNotice -RepoRoot $RepoRoot)
+    if ($remaining.Count -eq 0) {
+        Write-Host "[RECOVERY] Rebuilt .git/index from HEAD via temporary native index."
+        return $true
+    }
+
+    return $false
+}
+
+function Show-PwshGitRecoveryNotice {
+    param(
+        [string]$RepoRoot,
+        [switch]$AutoRepair
+    )
+
+    if ($AutoRepair) {
+        Repair-PwshGitIndexIfNeeded -RepoRoot $RepoRoot | Out-Null
+    }
 
     foreach ($line in Get-PwshGitRecoveryNotice -RepoRoot $RepoRoot) {
         Write-Host $line

@@ -173,15 +173,30 @@ def check_runtime_portability(
         results.append((level, f"{len(missing_bridges)} missing bridge file(s): {sample}"))
 
     swarm_ref_re = re.compile(r"\bswarm\.md\b", re.IGNORECASE)
+    common_bridge_re = re.compile(r"Common Bridge Items", re.IGNORECASE)
     swarm_signal_re = re.compile(r"\bswarm signaling\b", re.IGNORECASE)
+    min_cycle_re = re.compile(r"\bMinimum Cycle\b", re.IGNORECASE)
     min_swarmed_re = re.compile(r"Minimum Swarmed Cycle", re.IGNORECASE)
+
+    def _has_signal_guidance(content: str) -> bool:
+        return bool(
+            swarm_signal_re.search(content)
+            or (swarm_ref_re.search(content) and common_bridge_re.search(content))
+        )
+
+    def _has_min_cycle_guidance(content: str) -> bool:
+        return bool(
+            min_swarmed_re.search(content)
+            or (swarm_ref_re.search(content) and min_cycle_re.search(content))
+        )
+
     no_ref, no_signal, no_min_swarmed = [], [], []
     for path in bridges:
         if path == "SWARM.md" or path in missing_bridges: continue
         content = _read(REPO_ROOT / path)
         if not swarm_ref_re.search(content): no_ref.append(path)
-        if not swarm_signal_re.search(content): no_signal.append(path)
-        if not min_swarmed_re.search(content): no_min_swarmed.append(path)
+        if not _has_signal_guidance(content): no_signal.append(path)
+        if not _has_min_cycle_guidance(content): no_min_swarmed.append(path)
     if no_ref:
         results.append(("DUE", f"{len(no_ref)} bridge file(s) missing SWARM.md protocol reference: {', '.join(no_ref[:3])}"))
     if "SWARM.md" not in missing_bridges and not swarm_signal_re.search(_read(REPO_ROOT / "SWARM.md")):

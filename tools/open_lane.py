@@ -45,6 +45,41 @@ VAGUE_EXPECT_PATTERNS = [
 ]
 
 
+def infer_artifact_domain(domain: str, focus: str) -> str:
+    """Resolve the experiment domain from explicit domain or domain focus."""
+    if domain:
+        return domain.strip().strip("/\\")
+    norm_focus = (focus or "").replace("\\", "/")
+    if norm_focus.startswith("domains/"):
+        parts = [part for part in norm_focus.split("/") if part]
+        if len(parts) >= 2:
+            return parts[1]
+    return ""
+
+
+def normalize_artifact_path(artifact: str, domain: str, focus: str) -> str:
+    """Map bare JSON artifact names to the domain experiment directory.
+
+    Historically many lanes passed `--artifact f-foo.json` while the actual
+    experiment lived under `experiments/<domain>/`. The lane row then pointed at
+    a repo-root path, causing close_lane validation to miss the real artifact.
+    Normalize only bare JSON filenames; explicit paths remain untouched.
+    """
+    artifact = (artifact or "").strip()
+    if not artifact:
+        return artifact
+    if Path(artifact).is_absolute():
+        return artifact
+    if "/" in artifact or "\\" in artifact:
+        return artifact
+    if not artifact.lower().endswith(".json"):
+        return artifact
+    domain_name = infer_artifact_domain(domain, focus)
+    if not domain_name:
+        return artifact
+    return f"experiments/{domain_name}/{artifact}"
+
+
 def lane_exists(lane_id: str) -> bool:
     with open(LANES_FILE) as f:
         for line in f:
@@ -635,12 +670,19 @@ def main():
                     f"mode transition increases resolution probability (L-755)."
                 )
 
+    artifact = normalize_artifact_path(args.artifact, args.domain, args.focus)
+    if artifact != args.artifact:
+        print(
+            f"INFO: normalized artifact path {args.artifact} -> {artifact}",
+            file=sys.stderr,
+        )
+
     append_open_row(
         lane_id=args.lane,
         session=args.session,
         intent=args.intent,
         expect=args.expect,
-        artifact=args.artifact,
+        artifact=artifact,
         frontier=args.frontier,
         focus=args.focus,
         check_mode=args.check_mode,
@@ -660,10 +702,10 @@ def main():
     # Skeleton artifact creation (L-984, SIG-49): create experiment JSON template
     # at lane-open time so 'actual' is present as TBD from the start.
     # close_lane.py will error if 'actual' is still TBD on MERGED.
-    artifact_path = REPO_ROOT / args.artifact
+    artifact_path = REPO_ROOT / artifact
     if artifact_path.suffix == ".json" and not artifact_path.exists():
         artifact_path.parent.mkdir(parents=True, exist_ok=True)
-        domain_val = args.domain or (args.focus.split("/")[1] if "/" in args.focus else args.focus)
+        domain_val = infer_artifact_domain(args.domain, args.focus) or args.focus
         skeleton = {
             "experiment": args.lane,
             "frontier": args.frontier or "",
@@ -675,7 +717,7 @@ def main():
             "diff": "TBD",
         }
         artifact_path.write_text(json.dumps(skeleton, indent=4) + "\n")
-        print(f"  skeleton: {args.artifact} (fill 'actual' before MERGED)")
+        print(f"  skeleton: {artifact} (fill 'actual' before MERGED)")
 
     # GAP-3 Phase 3: auto-announce lane to peer swarms via bulletin board (L-1344, L-601)
     # Structural enforcement: announcement happens at creation, not voluntarily later.

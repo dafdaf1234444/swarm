@@ -1,7 +1,7 @@
 #!/bin/bash
 # Universal swarm validation — call from any tool at session start/end.
 # Replaces tool-specific hooks for non-Claude tools.
-# Usage: bash tools/check.sh [--quick]
+# Usage: bash tools/check.sh [--quick|--minimal] [--index-file <path>]
 #
 # Guards are modular: each tools/guards/NN-name.sh is an independent check.
 # Add new guards by dropping files into tools/guards/ — no check.sh edits needed.
@@ -34,16 +34,45 @@ fi
 
 ARGS=()
 MINIMAL=0
-GUARD_MODE="quick"
-if [ "${1:-}" = "--quick" ]; then
-    ARGS+=(--quick)
-    GUARD_MODE="quick"
-elif [ "${1:-}" = "--minimal" ]; then
-    ARGS+=(--quick)
-    MINIMAL=1
-    GUARD_MODE="quick"
-else
-    GUARD_MODE="full"
+GUARD_MODE="full"
+INDEX_FILE="${GIT_INDEX_FILE:-}"
+
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --quick)
+            ARGS+=(--quick)
+            GUARD_MODE="quick"
+            ;;
+        --minimal)
+            ARGS+=(--quick)
+            MINIMAL=1
+            GUARD_MODE="quick"
+            ;;
+        --index-file)
+            shift
+            if [ $# -eq 0 ]; then
+                echo "FAIL: --index-file requires a path."
+                exit 1
+            fi
+            INDEX_FILE="$1"
+            ;;
+        *)
+            echo "FAIL: unknown argument '$1'"
+            exit 1
+            ;;
+    esac
+    shift
+done
+
+if [ -n "$INDEX_FILE" ]; then
+    if [[ "$INDEX_FILE" != /* ]]; then
+        INDEX_FILE="$REPO_ROOT/$INDEX_FILE"
+    fi
+    if [ ! -f "$INDEX_FILE" ]; then
+        echo "FAIL: GIT_INDEX_FILE not found: $INDEX_FILE"
+        exit 1
+    fi
+    export GIT_INDEX_FILE="$INDEX_FILE"
 fi
 
 echo "=== SWARM CHECK ==="

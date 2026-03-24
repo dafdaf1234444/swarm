@@ -10,6 +10,7 @@ check_experiment_harvest_gap, check_active_claims, _scan_lesson_domains.
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 import time
@@ -400,33 +401,108 @@ def check_git_index_health(ROOT) -> list:
     lines = []
     try:
         index_path = ROOT / ".git" / "index"
-        if not index_path.exists():
-            lines.append("  !! FM-04: .git/index missing — rebuilding from HEAD")
-            subprocess.run(["git", "read-tree", "HEAD"], cwd=str(ROOT),
-                           capture_output=True, timeout=10)
-            return lines
-        # Minimum viable index is >100 bytes (empty repo index is 12 bytes + entries)
-        if index_path.stat().st_size < 100:
-            lines.append(f"  !! FM-04: .git/index suspiciously small ({index_path.stat().st_size}b) — may be corrupted")
-            lines.append(f"     Fix: rm .git/index && git read-tree HEAD")
-            return lines
-        # Verify git status works (index parse succeeds)
-        result = subprocess.run(["git", "status", "--short"],
-                                capture_output=True, text=True, timeout=15, cwd=str(ROOT))
-        if result.returncode != 0:
-            lines.append("  !! FM-04: git status failed — index corrupted, auto-repairing")
-            # Auto-repair: remove corrupt index and rebuild from HEAD
+        git_dir = ROOT / ".git"
+        lock_path = git_dir / "index.lock"
+        needs_repair = False
+
+        def _git_line_count(args, env=None, timeout=15):
+            result = subprocess.run(
+                args,
+                capture_output=True,
+                text=True,
+                timeout=timeout,
+                cwd=str(ROOT),
+                env=env,
+            )
+            if result.returncode != 0:
+                return None
+            return sum(1 for line in result.stdout.splitlines() if line.strip())
+
+        def _rebuild_index():
+            tmp_index = git_dir / f"index.repair.{os.getpid()}.{int(time.time() * 1000)}"
+            backup_index = git_dir / f"index.pre-repair.{os.getpid()}.{int(time.time() * 1000)}.bak"
+            env = os.environ.copy()
+            env["GIT_INDEX_FILE"] = str(tmp_index)
             try:
-                lock_path = ROOT / ".git" / "index.lock"
+                tmp_index.unlink(missing_ok=True)
                 if lock_path.exists():
-                    lock_path.unlink()
-                index_path.unlink(missing_ok=True)
-                subprocess.run(["git", "read-tree", "HEAD"], cwd=str(ROOT),
-                               capture_output=True, timeout=10)
-                lines.append("     Auto-repaired: rm .git/index && git read-tree HEAD")
-            except Exception as e:
-                lines.append(f"     Auto-repair failed: {e}")
-                lines.append(f"     Manual fix: rm .git/index && git read-tree HEAD")
+                    try:
+                        lock_age = time.time() - lock_path.stat().st_mtime
+                    except OSError:
+                        lock_age = None
+                    if lock_age is not None and lock_age <= 120:
+                        return False, f"live .git/index.lock present ({lock_age:.0f}s old)"
+                read_tree = subprocess.run(
+                    ["git", "read-tree", "HEAD"],
+                    cwd=str(ROOT),
+                    capture_output=True,
+                    text=True,
+                    timeout=15,
+                    env=env,
+                )
+                if read_tree.returncode != 0:
+                    detail = read_tree.stderr.strip() or read_tree.stdout.strip() or "git read-tree HEAD failed"
+                    return False, detail
+                head_count = _git_line_count(["git", "ls-tree", "-r", "--name-only", "HEAD"])
+                tracked_count = _git_line_count(["git", "ls-files"], env=env)
+                if not head_count or tracked_count is None or tracked_count < head_count:
+                    return False, f"rebuilt index tracks {tracked_count or 0}/{head_count or 0} HEAD files"
+                if index_path.exists() and index_path.stat().st_size > 0:
+                    shutil.copy2(index_path, backup_index)
+                tmp_index.replace(index_path)
+                return True, f"temp-index HEAD rebuild ({tracked_count}/{head_count} files)"
+            finally:
+                tmp_index.unlink(missing_ok=True)
+
+        if not index_path.exists():
+            lines.append("  !! FM-04: .git/index missing — auto-repairing from HEAD")
+            needs_repair = True
+        else:
+            index_size = index_path.stat().st_size
+            if index_size < 100:
+                lines.append(f"  !! FM-04: .git/index suspiciously small ({index_size}b) — auto-repairing")
+                needs_repair = True
+
+        head_count = _git_line_count(["git", "ls-tree", "-r", "--name-only", "HEAD"])
+        tracked_count = _git_line_count(["git", "ls-files"])
+        staged_deleted_result = subprocess.run(
+            ["git", "diff", "--cached", "--name-only", "--diff-filter=D", "HEAD"],
+            capture_output=True,
+            text=True,
+            timeout=15,
+            cwd=str(ROOT),
+        )
+        if staged_deleted_result.returncode == 0:
+            staged_deleted_count = sum(
+                1
+                for line in staged_deleted_result.stdout.splitlines()
+                if line.strip() and not (ROOT / line.strip()).exists()
+            )
+        else:
+            staged_deleted_count = 0
+        effective_tracked = None if tracked_count is None else tracked_count + staged_deleted_count
+        if head_count and effective_tracked is not None and (head_count - effective_tracked) > 1:
+            lines.append(f"  !! FM-04: index tracks only {tracked_count}/{head_count} HEAD files — auto-repairing")
+            needs_repair = True
+
+        result = subprocess.run(
+            ["git", "status", "--short"],
+            capture_output=True,
+            text=True,
+            timeout=15,
+            cwd=str(ROOT),
+        )
+        if result.returncode != 0:
+            lines.append("  !! FM-04: git status failed — auto-repairing")
+            needs_repair = True
+
+        if needs_repair:
+            ok, detail = _rebuild_index()
+            if ok:
+                lines.append(f"     Auto-repaired: {detail}")
+            else:
+                lines.append(f"     Auto-repair failed: {detail}")
+                lines.append("     Manual fix: rebuild via temporary GIT_INDEX_FILE, then move it into .git/index")
     except Exception:
         pass
     return lines

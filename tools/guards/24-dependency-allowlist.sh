@@ -15,14 +15,68 @@ fi
 VIOLATIONS=0
 while IFS= read -r pyfile; do
     [ -f "$pyfile" ] || continue
-    # Extract top-level import lines, skip comments and strings
-    # Look for: import X / from X import Y where X is not stdlib and not local
-    EXTERN=$(grep -nE '^\s*(import|from)\s+' "$pyfile" 2>/dev/null \
-        | grep -vE '^\s*#' \
-        | grep -vE '(import|from)\s+(os|sys|re|json|math|pathlib|argparse|collections|datetime|glob|io|hashlib|textwrap|unittest|contextlib|copy|functools|itertools|operator|shutil|subprocess|tempfile|time|typing|urllib|uuid|xml|zlib|base64|bisect|concurrent|csv|decimal|difflib|enum|heapq|importlib|inspect|logging|multiprocessing|random|socket|statistics|string|struct|threading|traceback|warnings|zipfile|abc|ast|codecs|configparser|dataclasses|fnmatch|fractions|getpass|http|mimetypes|numbers|pdb|pickle|platform|pprint|signal|sqlite3|ssl|stat|token|tokenize|__future__|swarm_|lesson_header|compact_core)' \
-        | grep -vE '(import|from)\s+\.' \
-        | grep -vE "($ALLOWLIST)" \
-        || true)
+    # Parse imports structurally so sibling tools/*.py modules count as local.
+    EXTERN=$("${PYTHON_CMD[@]}" - "$pyfile" "$REPO_ROOT" "$ALLOWLIST" <<'PY'
+import ast
+import pathlib
+import re
+import sys
+
+pyfile = pathlib.Path(sys.argv[1])
+repo_root = pathlib.Path(sys.argv[2])
+allowlist = {item for item in sys.argv[3].split("|") if item}
+lines = pyfile.read_text(encoding="utf-8", errors="replace").splitlines()
+
+stdlib = set(getattr(sys, "stdlib_module_names", set()))
+stdlib.update({
+    "__future__",
+})
+local_modules = {p.stem for p in (repo_root / "tools").glob("*.py")}
+local_modules.update({p.stem for p in repo_root.glob("*.py")})
+local_modules.update({"lesson_header", "compact_core"})
+
+def is_allowed(module: str) -> bool:
+    if not module:
+        return True
+    root = module.split(".", 1)[0]
+    return (
+        root in stdlib
+        or root in allowlist
+        or root in local_modules
+        or root.startswith("swarm_")
+    )
+
+try:
+    tree = ast.parse("\n".join(lines), filename=str(pyfile))
+except SyntaxError as exc:
+    print(f"{exc.lineno}:syntax-error: {exc.msg}")
+    raise SystemExit(0)
+
+violations: list[str] = []
+seen: set[tuple[int, str]] = set()
+for node in ast.walk(tree):
+    if isinstance(node, ast.Import):
+        modules = [alias.name for alias in node.names]
+    elif isinstance(node, ast.ImportFrom):
+        if node.level:
+            continue
+        modules = [node.module or ""]
+    else:
+        continue
+
+    for module in modules:
+        if is_allowed(module):
+            continue
+        key = (node.lineno, module)
+        if key in seen:
+            continue
+        seen.add(key)
+        source = lines[node.lineno - 1] if 0 < node.lineno <= len(lines) else module
+        violations.append(f"{node.lineno}:{source}")
+
+print("\n".join(violations))
+PY
+)
     if [ -n "$EXTERN" ]; then
         echo "  FAIL: ${pyfile} has non-allowlisted imports:"
         echo "$EXTERN" | sed 's/^/    /'

@@ -767,6 +767,7 @@ class TestRuntimePortabilityFallbacks(unittest.TestCase):
         has_py_launcher: bool = False,
         exists_overrides: dict[str, bool] | None = None,
         is_wsl_repo: bool = False,
+        bridge_text: str = "SWARM.md\nswarm signaling\nMinimum Swarmed Cycle\n",
     ) -> list[tuple[str, str]]:
         exists_values = {
             "workspace/genesis.sh": True,
@@ -783,6 +784,7 @@ class TestRuntimePortabilityFallbacks(unittest.TestCase):
             "AGENTS.md": True,
             "GEMINI.md": True,
             ".cursorrules": True,
+            ".cursor/rules/swarm.mdc": True,
             ".windsurfrules": True,
             ".github/copilot-instructions.md": True,
         }
@@ -814,7 +816,7 @@ class TestRuntimePortabilityFallbacks(unittest.TestCase):
              patch.object(maintenance, "_py_launcher_runs", return_value=has_py_launcher), \
              patch.object(maintenance_common, "_is_wsl_mnt_repo", return_value=is_wsl_repo), \
              patch.object(maintenance, "_git", return_value=""), \
-             patch.object(maintenance, "_read", return_value="SWARM.md\nswarm signaling\nMinimum Swarmed Cycle\n"):
+             patch.object(maintenance, "_read", return_value=bridge_text):
             return maintenance.check_runtime_portability()
 
     def test_no_bash_uses_powershell_wrappers_when_python_available(self):
@@ -896,6 +898,27 @@ class TestRuntimePortabilityFallbacks(unittest.TestCase):
         )
         messages = [msg for _, msg in results]
         self.assertTrue(any("git read-tree HEAD" in msg for msg in messages))
+
+    def test_bridge_refs_satisfy_signal_and_min_cycle_guidance(self):
+        results = self._run_portability(
+            bridge_text=(
+                "Read SWARM.md for the full protocol.\n"
+                "See SWARM.md §Common Bridge Items for signaling, coordination, and safety.\n"
+                "See SWARM.md §Minimum Cycle for the orient→act→compress→handoff loop.\n"
+            ),
+        )
+        messages = [msg for _, msg in results]
+        self.assertFalse(any("missing swarm signaling guidance" in msg for msg in messages))
+        self.assertFalse(any("missing 'Minimum Swarmed Cycle' section" in msg for msg in messages))
+
+    def test_missing_modern_cursor_bridge_is_due(self):
+        results = self._run_portability(
+            exists_overrides={
+                ".cursor/rules/swarm.mdc": False,
+            },
+        )
+        due_messages = [msg for level, msg in results if level == "DUE"]
+        self.assertTrue(any(".cursor/rules/swarm.mdc" in msg for msg in due_messages))
 
 
 class TestPowerShellWrapperContent(unittest.TestCase):

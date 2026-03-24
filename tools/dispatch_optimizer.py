@@ -7,6 +7,7 @@ Usage:
     python3 tools/dispatch_optimizer.py                 # Top-10 recommendations
     python3 tools/dispatch_optimizer.py --all           # Full ranked list
     python3 tools/dispatch_optimizer.py --domain X      # Score single domain
+    python3 tools/dispatch_optimizer.py --no-collision  # Exclude active-lane domains
     python3 tools/dispatch_optimizer.py --json          # JSON output
 
 L-1537: Every domain must satisfy its own filter within 50 sessions — a domain
@@ -125,6 +126,32 @@ def _enrich_closure(results: list[dict], verdicts: dict) -> None:
                 r["frontier_closure_verdict"] = verdicts[fid]["verdict"]
 
 
+def _filter_collision_domains(
+    results: list[dict],
+    active_lanes: dict[str, list[str]],
+    *,
+    enabled: bool,
+    requested_domain: str | None = None,
+) -> tuple[list[dict], list[str]]:
+    """Optionally exclude domains that already have active lanes.
+
+    `--domain` is treated as an explicit inspection request, so the requested
+    domain is preserved even when `--no-collision` is enabled.
+    """
+    if not enabled or not active_lanes:
+        return results, []
+
+    filtered: list[dict] = []
+    omitted: list[str] = []
+    for row in results:
+        domain = row.get("domain")
+        if domain in active_lanes and domain != requested_domain:
+            omitted.append(domain)
+            continue
+        filtered.append(row)
+    return filtered, omitted
+
+
 def run(args: argparse.Namespace) -> None:
     if not DOMAINS_DIR.exists():
         print("ERROR: domains/ directory not found. Run from repo root.", file=sys.stderr)
@@ -145,6 +172,12 @@ def run(args: argparse.Namespace) -> None:
     active_lanes = get_active_lane_domains()
     session_merged = get_session_merged_domains(current_session)
     campaign_waves = get_campaign_waves_wrapper()
+    results, collision_filtered = _filter_collision_domains(
+        results,
+        active_lanes,
+        enabled=getattr(args, "no_collision", False),
+        requested_domain=args.domain,
+    )
 
     closure_verdicts = _load_closure_verdicts()
     _enrich_closure(results, closure_verdicts)
@@ -232,6 +265,17 @@ def run(args: argparse.Namespace) -> None:
             if len(results) > 0:
                 falsif_note = _stochastic_falsification(results, current_session)
 
+            if not results:
+                if args.json:
+                    print("[]")
+                else:
+                    print("\n=== DISPATCH OPTIMIZER — UCB1 MODE (F-ECO5, L-697) ===")
+                    print("No dispatchable domains remain after applying --no-collision.")
+                    if collision_filtered:
+                        print(f"Filtered active-lane domains: {', '.join(collision_filtered[:10])}")
+                    print("Tip: rerun without --no-collision or coordinate with the active lane owners.")
+                return
+
             results_limited = results if args.all or args.domain else results[:10]
             for r in results:
                 if r["domain"] == "meta":
@@ -247,7 +291,8 @@ def run(args: argparse.Namespace) -> None:
                 print(f"\n{falsif_note}")
             _print_ucb1_output(results, results_limited, active_lanes, session_merged,
                                current_session, campaign_waves,
-                               auto_fix=getattr(args, "fix", False))
+                               auto_fix=getattr(args, "fix", False),
+                               collision_filtered=collision_filtered)
             return
 
     # Heuristic mode
@@ -315,9 +360,20 @@ def run(args: argparse.Namespace) -> None:
 
     results.sort(key=lambda x: x["score"], reverse=True)
     if not args.all and not args.domain: results = results[:10]
+    if not results:
+        if args.json:
+            print("[]")
+        else:
+            print("\n=== DISPATCH OPTIMIZER (F-ECO4) ===")
+            print("No dispatchable domains remain after applying --no-collision.")
+            if collision_filtered:
+                print(f"Filtered active-lane domains: {', '.join(collision_filtered[:10])}")
+            print("Tip: rerun without --no-collision or coordinate with the active lane owners.")
+        return
     if args.json:
         print(json.dumps(results, indent=2)); return
-    _print_heuristic_output(results, sparse_domains, saturated_domains, claimed, args, calibration)
+    _print_heuristic_output(results, sparse_domains, saturated_domains, claimed, args, calibration,
+                            collision_filtered=collision_filtered)
     if compare: _print_compare_output(results, ucb1_results)
 
 
@@ -349,7 +405,8 @@ def _enrich_recombination(results):
 
 
 def _print_ucb1_output(results, results_limited, active_lanes, session_merged,
-                        current_session, campaign_waves, *, auto_fix=False):
+                        current_session, campaign_waves, *, auto_fix=False,
+                        collision_filtered=None):
     """Display UCB1 mode output."""
     commit_reserved = [r for r in results if r.get("commit_reservation")]
     if commit_reserved:
@@ -377,6 +434,11 @@ def _print_ucb1_output(results, results_limited, active_lanes, session_merged,
             print(f"  ⚡ {cp['domain']} promoted to top-3 (+{cp['commit_guarantee_boost']:.2f}) — {', '.join(fids[:3]) or 'danger-zone'}")
     print("\n=== DISPATCH OPTIMIZER — UCB1 MODE (F-ECO5, L-697) ===")
     print(f"Single parameter c=1.414 replaces 10+ heuristic constants\n")
+    if collision_filtered:
+        print(f"Filtered active-lane domains (--no-collision): {', '.join(collision_filtered[:10])}")
+        if len(collision_filtered) > 10:
+            print(f"  ... and {len(collision_filtered) - 10} more")
+        print()
     print(f"{'Score':>6}  {'Domain':<25}  {'Exploit':>7}  {'Explore':>7}  {'N':>3}  {'L':>3}  {'Heat':>4}")
     print("-" * 75)
     for r in results_limited:
@@ -425,9 +487,13 @@ def _print_ucb1_output(results, results_limited, active_lanes, session_merged,
                           f"experimenter {ms['experimenter']}/{ms['total']} ({100*ms['experimenter']//ms['total']}%)")
                     print(f"         → Suggested: meta-{ms['suggested_role']} (most underserved)")
             except Exception: pass
-    if active_lanes:
+    visible_active_lanes = {
+        dom: lanes for dom, lanes in active_lanes.items()
+        if any(r["domain"] == dom for r in results_limited)
+    }
+    if visible_active_lanes:
         print(f"\n--- Active Lane Collision Warning (L-733, F-STR2) ---")
-        for dom, lanes in sorted(active_lanes.items()):
+        for dom, lanes in sorted(visible_active_lanes.items()):
             print(f"  ⚠ {dom}: {', '.join(lanes)}")
         print(f"  Tip: avoid these domains or coordinate with active session")
     av = [r.get("outcome_n", 0) for r in results]
@@ -692,10 +758,16 @@ def _print_maintenance_actions(auto_fix: bool = False):
         pass
 
 
-def _print_heuristic_output(results, sparse_domains, saturated_domains, claimed, args, calibration):
+def _print_heuristic_output(results, sparse_domains, saturated_domains, claimed, args, calibration,
+                            collision_filtered=None):
     """Display heuristic mode output."""
     print("\n=== DISPATCH OPTIMIZER (F-ECO4) ===")
     print(f"Expert economy: rank open frontiers by expected yield\n")
+    if collision_filtered:
+        print(f"  Filtered active-lane domains (--no-collision): {', '.join(collision_filtered[:10])}")
+        if len(collision_filtered) > 10:
+            print(f"  ... and {len(collision_filtered) - 10} more")
+        print()
     if sparse_domains or saturated_domains:
         new_doms = [r["domain"] for r in results if r.get("heat") == "NEW"]
         cold_doms = [r["domain"] for r in results if r.get("heat") == "COLD"]
@@ -752,6 +824,8 @@ def main() -> None:
                         help="Show outcome labels as they were at session N (label_at_time — L-946/L-963)")
     parser.add_argument("--epsilon", type=float, default=0.15, metavar="E",
                         help="ε-greedy dispatch: with prob E bypass UCB1 and pick randomly (F-RAND1, L-601 structural enforcement)")
+    parser.add_argument("--no-collision", action="store_true",
+                        help="Exclude domains that already have active lanes from ranked recommendations")
     parser.add_argument("--fix", action="store_true",
                         help="Auto-run safe/idempotent maintenance fixes (F-SWARMER1 action bridge)")
     args = parser.parse_args()

@@ -28,9 +28,8 @@ function Test-GitIndexFailureText {
 
 function Write-GitIndexRecoveryHint {
     param([string]$Context)
-    $repoBash = Convert-ToBashPath $repoRoot
-    $recovery = "bash -lc 'cd $repoBash && rm -f .git/index .git/index.lock && git read-tree HEAD && git update-index --refresh'"
-    Write-Warning "$Context Recover via WSL/bash: $recovery"
+    $recovery = "git read-tree HEAD via a temporary index; clear stale .git/index.lock only if no git write is active"
+    Write-Warning "$Context Recover with the PowerShell wrapper's safe rebuild path: $recovery"
 }
 
 Show-PwshGitRecoveryNotice -RepoRoot $repoRoot

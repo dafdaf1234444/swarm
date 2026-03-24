@@ -1,0 +1,313 @@
+{
+  "id": "f-epis3-grounding-survival-s541",
+  "session": "S541",
+  "domain": "epistemology",
+  "frontier": "F-EPIS3",
+  "hypothesis": "Confirmation attractor prevents grounding quality from predicting challenge probability or survival",
+  "method": "Spearman correlation on claims with grounding scores from grounding_audit.py (detail=True). Compare age as alternative predictor.",
+  "predictions": {
+    "H1_grounding_challenge_abs_r_lt_0.2": true,
+    "H2_grounding_survival_abs_r_lt_0.2": true,
+    "H3_age_beats_grounding": true
+  },
+  "results": {
+    "H1": {
+      "rho": 0.348,
+      "n": 25,
+      "result": "FALSIFIED"
+    },
+    "H2": {
+      "rho": 0.41,
+      "n": 19,
+      "result": "FALSIFIED"
+    },
+    "H3": {
+      "rho_age": -0.004,
+      "rho_ground": 0.348,
+      "age_beats": false,
+      "result": "FALSIFIED"
+    },
+    "age_full_dataset": {
+      "rho": -0.128,
+      "n": 29
+    },
+    "age_intensity_full": {
+      "rho": 0.326
+    }
+  },
+  "data_quality": {
+    "scored_claims": 25,
+    "total_claims": 29,
+    "coverage_pct": 86.2,
+    "low_coverage_warning": false
+  },
+  "claims": [
+    {
+      "id": "PHIL-4",
+      "grounding_score": null,
+      "age_sessions": 42,
+      "challenged": 1,
+      "dropped": 1,
+      "survived": 0,
+      "n_challenges": 1
+    },
+    {
+      "id": "PHIL-12",
+      "grounding_score": null,
+      "age_sessions": 99,
+      "challenged": 0,
+      "dropped": 1,
+      "survived": 0,
+      "n_challenges": 1
+    },
+    {
+      "id": "PHIL-20",
+      "grounding_score": null,
+      "age_sessions": 99,
+      "challenged": 0,
+      "dropped": 1,
+      "survived": 0,
+      "n_challenges": 1
+    },
+    {
+      "id": "PHIL-26",
+      "grounding_score": 0.0,
+      "age_sessions": 21,
+      "challenged": 1,
+      "dropped": 1,
+      "survived": 0,
+      "n_challenges": 1
+    },
+    {
+      "id": "PHIL-5",
+      "grounding_score": null,
+      "age_sessions": 30,
+      "challenged": 0,
+      "dropped": 0,
+      "survived": 0,
+      "n_challenges": 1
+    },
+    {
+      "id": "PHIL-16",
+      "grounding_score": 0.02,
+      "age_sessions": 32,
+      "challenged": 1,
+      "dropped": 0,
+      "survived": 1,
+      "n_challenges": 2
+    },
+    {
+      "id": "PHIL-9",
+      "grounding_score": 0.05,
+      "age_sessions": 481,
+      "challenged": 0,
+      "dropped": 0,
+      "survived": 0,
+      "n_challenges": 2
+    },
+    {
+      "id": "PHIL-14",
+      "grounding_score": 0.05,
+      "age_sessions": 35,
+      "challenged": 1,
+      "dropped": 0,
+      "survived": 1,
+      "n_challenges": 1
+    },
+    {
+      "id": "PHIL-21",
+      "grounding_score": 0.05,
+      "age_sessions": 83,
+      "challenged": 1,
+      "dropped": 0,
+      "survived": 1,
+      "n_challenges": 2
+    },
+    {
+      "id": "PHIL-22",
+      "grounding_score": 0.05,
+      "age_sessions": 98,
+      "challenged": 1,
+      "dropped": 0,
+      "survived": 1,
+      "n_challenges": 2
+    },
+    {
+      "id": "PHIL-25",
+      "grounding_score": 0.057,
+      "age_sessions": 44,
+      "challenged": 0,
+      "dropped": 0,
+      "survived": 0,
+      "n_challenges": 1
+    },
+    {
+      "id": "PHIL-11",
+      "grounding_score": 0.08,
+      "age_sessions": 83,
+      "challenged": 0,
+      "dropped": 0,
+      "survived": 0,
+      "n_challenges": 2
+    },
+    {
+      "id": "PHIL-24",
+      "grounding_score": 0.085,
+      "age_sessions": 67,
+      "challenged": 0,
+      "dropped": 0,
+      "survived": 0,
+      "n_challenges": 1
+    },
+    {
+      "id": "PHIL-23",
+      "grounding_score": 0.09,
+      "age_sessions": 33,
+      "challenged": 1,
+      "dropped": 0,
+      "survived": 1,
+      "n_challenges": 1
+    },
+    {
+      "id": "PHIL-28",
+      "grounding_score": 0.097,
+      "age_sessions": 1,
+      "challenged": 1,
+      "dropped": 0,
+      "survived": 1,
+      "n_challenges": 1
+    },
+    {
+      "id": "PHIL-27",
+      "grounding_score": 0.098,
+      "age_sessions": 13,
+      "challenged": 1,
+      "dropped": 0,
+      "survived": 1,
+      "n_challenges": 1
+    },
+    {
+      "id": "PHIL-3",
+      "grounding_score": 0.1,
+      "age_sessions": 4,
+      "challenged": 0,
+      "dropped": 0,
+      "survived": 0,
+      "n_challenges": 1
+    },
+    {
+      "id": "PHIL-19",
+      "grounding_score": 0.1,
+      "age_sessions": 142,
+      "challenged": 1,
+      "dropped": 0,
+      "survived": 1,
+      "n_challenges": 2
+    },
+    {
+      "id": "PHIL-15",
+      "grounding_score": 0.115,
+      "age_sessions": 55,
+      "challenged": 1,
+      "dropped": 0,
+      "survived": 1,
+      "n_challenges": 1
+    },
+    {
+      "id": "PHIL-7",
+      "grounding_score": 0.12,
+      "age_sessions": 3,
+      "challenged": 1,
+      "dropped": 0,
+      "survived": 1,
+      "n_challenges": 1
+    },
+    {
+      "id": "PHIL-17",
+      "grounding_score": 0.17,
+      "age_sessions": 67,
+      "challenged": 1,
+      "dropped": 0,
+      "survived": 1,
+      "n_challenges": 4
+    },
+    {
+      "id": "PHIL-6",
+      "grounding_score": 0.185,
+      "age_sessions": 27,
+      "challenged": 1,
+      "dropped": 0,
+      "survived": 1,
+      "n_challenges": 1
+    },
+    {
+      "id": "PHIL-1",
+      "grounding_score": 0.192,
+      "age_sessions": 27,
+      "challenged": 1,
+      "dropped": 0,
+      "survived": 1,
+      "n_challenges": 1
+    },
+    {
+      "id": "PHIL-10",
+      "grounding_score": 0.22,
+      "age_sessions": 23,
+      "challenged": 1,
+      "dropped": 0,
+      "survived": 1,
+      "n_challenges": 3
+    },
+    {
+      "id": "PHIL-13",
+      "grounding_score": 0.225,
+      "age_sessions": 11,
+      "challenged": 1,
+      "dropped": 1,
+      "survived": 0,
+      "n_challenges": 3
+    },
+    {
+      "id": "PHIL-0",
+      "grounding_score": 0.304,
+      "age_sessions": 13,
+      "challenged": 1,
+      "dropped": 0,
+      "survived": 1,
+      "n_challenges": 1
+    },
+    {
+      "id": "PHIL-2",
+      "grounding_score": 0.42,
+      "age_sessions": 41,
+      "challenged": 0,
+      "dropped": 0,
+      "survived": 0,
+      "n_challenges": 2
+    },
+    {
+      "id": "PHIL-18",
+      "grounding_score": 0.42,
+      "age_sessions": 17,
+      "challenged": 1,
+      "dropped": 0,
+      "survived": 1,
+      "n_challenges": 2
+    },
+    {
+      "id": "PHIL-8",
+      "grounding_score": 0.44,
+      "age_sessions": 36,
+      "challenged": 1,
+      "dropped": 0,
+      "survived": 1,
+      "n_challenges": 2
+    }
+  ],
+  "cites": [
+    "L-1581",
+    "L-1580",
+    "L-1571"
+  ],
+  "lesson_candidate": true
+}

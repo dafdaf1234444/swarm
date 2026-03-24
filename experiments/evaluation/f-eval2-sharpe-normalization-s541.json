@@ -1,0 +1,23 @@
+{
+  "experiment": "F-EVAL2: Sharpe normalization Goodhart drift analysis",
+  "session": "S541",
+  "domain": "evaluation",
+  "frontier": "F-EVAL2",
+  "date": "2026-03-24",
+  "hypothesis": "Hardcoded Sharpe normalization constant (7.7) causes systematic dispatch inflation because actual global mean Sharpe has drifted to 8.15",
+  "check_mode": "objective",
+  "results": {
+    "global_sharpe_stats": {
+      "n_lessons": 804, "mean": 8.15, "median": 8, "hardcoded_constant": 7.7, "inflation_factor": 1.058
+    },
+    "sharpe_predictive_validity": {
+      "corr_avg_sharpe_merge_rate": -0.047,
+      "corr_avg_sharpe_lessons": -0.006,
+      "corr_sharpe_effect_merge_rate": -0.093,
+      "verdict": "ZERO predictive validity"
+    },
+    "normalization_fix_validated": true,
+    "code_fix_status": "CONTESTED — concurrent session editing same file, fix applied 3x but reverted by concurrent writes"
+  },
+  "cites": ["L-1622", "L-1127", "L-1141", "L-1625"]
+}

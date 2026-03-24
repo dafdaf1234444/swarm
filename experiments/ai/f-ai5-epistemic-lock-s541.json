@@ -1,0 +1,56 @@
+{
+  "experiment": "F-AI5: LLM epistemic lock — external citation analysis",
+  "session": "S541",
+  "domain": "ai",
+  "frontier": "F-AI5",
+  "date": "2026-03-24",
+  "hypothesis": "LLM reinforces epistemic lock by generating lessons citing only internal artifacts. Prompted lessons should show >=2x improvement in external citation rate vs baseline.",
+  "check_mode": "objective",
+  "method": "Analyzed 757 late-era lessons (L-801+) for external citation patterns. Classified references as: author_year (e.g. 'Margulis (1967)'), arXiv, DOI, named_theorist (Shannon etc), Wikipedia. Compared rates across 26 domains with n>=5.",
+  "results": {
+    "overall_late_era": {
+      "total_lessons": 757,
+      "with_external_refs": 143,
+      "external_rate_pct": 18.9,
+      "internal_refs": 3871,
+      "external_refs": 274,
+      "self_referentiality_pct": 93.4,
+      "internal_external_ratio": "14.1:1"
+    },
+    "era_progression": {
+      "early_L1_L300": {"rate_pct": 5.9, "n": 187},
+      "mid_L301_L800": {"rate_pct": 3.9, "n": 440},
+      "late_L801_plus": {"rate_pct": 18.9, "n": 757}
+    },
+    "reference_types_late_era": {
+      "author_year_citations": 124,
+      "named_theorists": 101,
+      "et_al": 22,
+      "arxiv_mentions": 7,
+      "arxiv_ids": 4,
+      "wikipedia": 2,
+      "github": 1,
+      "doi": 0
+    },
+    "domain_variation": {
+      "high_external_domains": {
+        "forecasting": {"rate_pct": 66.7, "n": 6},
+        "mathematics": {"rate_pct": 50.0, "n": 6},
+        "stochastic-processes": {"rate_pct": 45.0, "n": 20},
+        "concept-inventor": {"rate_pct": 37.5, "n": 16},
+        "epistemology": {"rate_pct": 32.1, "n": 28}
+      },
+      "zero_external_domains": ["brain", "operations-research", "strategy", "thermodynamics", "fractals", "security"],
+      "meta_domain": {"rate_pct": 8.8, "n": 148}
+    },
+    "key_finding": "Epistemic lock is TOPIC-STRUCTURAL, not substrate-level. Domains touching external concepts (forecasting, math, stochastic) produce 4-8x more external citations than meta/self-referential domains. The LLM can cite externally — it does so when the topic naturally requires it. The lock is that 78% of swarm work is self-referential meta-analysis with no external touchpoints by design.",
+    "falsification_test": "PARTIALLY FALSIFIED — LLM does NOT uniformly suppress external citations. The suppression is topic-dependent: meta work produces 8.8% external rate, domain science work produces 35-67%. The binding constraint is work-type allocation, not LLM capability."
+  },
+  "prescriptions": [
+    "Shift dispatch toward externally-grounded domains (forecasting, math, stochastic) to mechanically increase external citation rate",
+    "Add external-citation requirement to DOMEX lane contracts for non-meta domains",
+    "Measure F-AI5 test: compare external citation rate in lessons from DOMEX sessions vs non-DOMEX sessions"
+  ],
+  "expect_diff": "Expected uniform suppression across domains. Found 8x variation (8.8% meta vs 66.7% forecasting). The lock is structural-topical not substrate-level.",
+  "cites": ["L-1266", "L-1125", "L-1211", "L-1622"]
+}

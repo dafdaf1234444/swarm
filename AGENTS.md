@@ -5,6 +5,13 @@ This repo uses a multi-session protocol. Read `SWARM.md` for the full protocol.
 See `SWARM.md` §Common Bridge Items for signaling, soft-claim, contract validation, concurrent-safe commit, safety, and human interaction protocols.
 See `SWARM.md` §Minimum Cycle for the orient→act→compress→handoff loop.
 
+## Swarm Signaling
+- Follow `SWARM.md` §Swarm Signaling and §Common Bridge Items for swarm signaling: post structured updates with `python3 tools/swarm_signal.py post ...` and keep `tasks/NEXT.md`, `tasks/SWARM-LANES.md`, and related shared state current while you work.
+
+## Minimum Swarmed Cycle
+- Follow `SWARM.md` §Minimum Cycle: run `python3 tools/orient.py`, `python3 tools/task_order.py`, `python3 tools/question_gen.py`, and `python3 tools/dispatch_optimizer.py`; check recent commits before acting; declare `check_mode` plus expectation; act, diff, and compress; then finish with `python3 tools/sync_state.py`, `python3 tools/validate_beliefs.py`, `python3 tools/cell_blueprint.py save`, and `git push`.
+- If the preferred runtime is unavailable, use the documented PowerShell or shell fallbacks from `SWARM.md`.
+
 ## Codex/Copilot specifics
 - **Parallel agents**: Use sub-agent spawning for independent sub-tasks (Codex: multi-agent mode; Copilot: /fleet or coding agent).
 - **Entry**: This file auto-loads in Codex CLI and GitHub Copilot. `SWARM.md` is the canonical protocol.

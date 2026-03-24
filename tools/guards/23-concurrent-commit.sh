@@ -14,8 +14,15 @@ if [ "${GIT_PROCS:-0}" -gt 4 ]; then
     echo "  ALLOW_STAMPEDE=1 set — bypassing guard."
 elif [ "${GIT_PROCS:-0}" -gt 2 ]; then
     echo "  L-1528 NOTICE: ${GIT_PROCS} concurrent git processes — elevated corruption risk."
-    # L-1534: Warn if not using temp index
+    # L-1534: Concurrent sessions must isolate index writes.
     if [ -z "${GIT_INDEX_FILE:-}" ]; then
-        echo "  L-1534 WARNING: Concurrent sessions should use GIT_INDEX_FILE=<tmpfile> to avoid .git/index corruption."
+        echo "FAIL: L-1534 concurrent sessions require GIT_INDEX_FILE=<tmpfile>."
+        echo "  Retry with an isolated index or use python3 tools/safe_commit.py."
+        if [ "${ALLOW_STAMPEDE:-0}" != "1" ]; then
+            exit 1
+        fi
+        echo "  ALLOW_STAMPEDE=1 set — bypassing temp-index requirement."
+    else
+        echo "  L-1534 OK: isolated index detected (${GIT_INDEX_FILE})."
     fi
 fi

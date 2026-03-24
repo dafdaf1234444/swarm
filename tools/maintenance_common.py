@@ -110,7 +110,8 @@ CHECK_FOCUS_HISTORIAN_REQUIRED = {"objective", "historian"}
 HISTORIAN_SELF_ANCHOR_TOKENS = ("next", "swarm-lanes", "session-log")
 HISTORIAN_SURROUNDINGS_ANCHOR_TOKENS = ("frontier", "artifact", "domain", "experiment", "bulletin")
 BRIDGE_FILES = ["SWARM.md", "CLAUDE.md", "AGENTS.md", "GEMINI.md",
-                ".cursorrules", ".windsurfrules", ".github/copilot-instructions.md"]
+                ".cursorrules", ".cursor/rules/swarm.mdc",
+                ".windsurfrules", ".github/copilot-instructions.md"]
 KILL_SWITCH_PATH = REPO_ROOT / "tasks" / "KILL-SWITCH.md"
 DOMAIN_FRONTIER_ID_PATTERN = r"F(?:-[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*|\d+(?:-[A-Za-z0-9]+)?)"
 DOMAIN_FRONTIER_ID_RE = re.compile(rf"\b({DOMAIN_FRONTIER_ID_PATTERN})\b", re.IGNORECASE)
