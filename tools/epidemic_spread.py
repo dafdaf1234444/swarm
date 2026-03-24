@@ -49,13 +49,20 @@ def load_graph():
         # Falsification detection: SUPERSEDED/ARCHIVED/RETRACTED markers
         # NOT "mentions falsification" — only lessons whose OWN content is invalidated
         # Critical distinction (L-1540): "reports falsification" != "is falsified"
+        # L-1551: substring match had 34.6% FP rate — "mechanism-superseded",
+        # "tools archived", "bundles superseded" all triggered false positives.
+        # Fix: require ownership markers (HTML comments, "SUPERSEDED by L-NNN",
+        # bracketed status), not substring presence.
         first_line = text.split("\n")[0] if text else ""
         is_falsified = (
-            "SUPERSEDED" in first_line.upper()
-            or "ARCHIVED" in first_line.upper()
-            or "<!-- SUPERSEDED" in text[:200]
+            # HTML comment markers are explicit status annotations
+            "<!-- SUPERSEDED" in text[:200]
             or "<!-- ARCHIVED" in text[:200]
+            # Title says THIS lesson is superseded (by another lesson)
+            or bool(re.search(r"SUPERSEDED\s+(?:by|BY)\s+L-\d+", first_line))
+            # Bracketed status marker
             or "[RETRACTED]" in header
+            or "[SUPERSEDED" in first_line
         )
         if is_falsified:
             falsified.add(lid)

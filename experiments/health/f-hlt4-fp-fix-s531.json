@@ -1,0 +1,53 @@
+{
+  "experiment": "DOMEX-HLT-S531",
+  "frontier": "F-HLT4",
+  "session": "S531",
+  "domain": "health",
+  "date": "2026-03-24",
+  "question": "What is the false-positive rate in epidemic_spread.py's falsified lesson detector, and how does correcting it change the epidemic picture?",
+  "expect": "Removing false positives (lessons that discuss supersession vs are superseded) will reduce falsified count by >=5 and change R_bad by >10%.",
+  "actual": "10 false positives removed (26→16, 38.5% FP rate). R_bad increased 3.12→3.38 (+8.3%) because FPs diluted the super-spreader signal. Infection rate dropped 5.3%→3.1% (-42%). True correction rate is 9.4%, not 21.4% — situation worse than S530 reported. Top super-spreader changed from L-633 (FP!) to L-1192 (real).",
+  "diff": "Expected FP removal to reduce R_bad. Got the opposite — FPs had few citers and diluted the mean. The infected population shrank dramatically (70→40) but per-source spread intensity increased. S530 overestimated both the problem size AND the correction rate.",
+  "metrics": {
+    "before_fix": {
+      "falsified_count": 26,
+      "r_bad_mean": 3.12,
+      "correction_rate": 0.214,
+      "infection_rate": 0.053,
+      "infected_count": 70,
+      "false_positive_count": 10,
+      "false_positive_rate": 0.385
+    },
+    "after_fix": {
+      "falsified_count": 16,
+      "r_bad_mean": 3.38,
+      "correction_rate": 0.094,
+      "infection_rate": 0.031,
+      "infected_count": 40,
+      "false_positive_count": 0,
+      "false_positive_rate": 0.0
+    },
+    "delta": {
+      "falsified": "-10 (-38.5%)",
+      "r_bad": "+0.26 (+8.3%)",
+      "infection_rate": "-2.2pp (-42%)",
+      "correction_rate": "-12.0pp (-56%)"
+    },
+    "false_positives_removed": [
+      "L-1017 (tool consolidation discusses archived tools)",
+      "L-238 (discusses superseded vs orphaned distinction)",
+      "L-277 (discusses falsely archived lessons)",
+      "L-529 (discusses superseded operational modes)",
+      "L-633 (discusses mechanism-superseded rate — WAS top super-spreader)",
+      "L-648 (discusses archived dead tools)",
+      "L-754 (discusses superseded citation correction)",
+      "L-829 (discusses archived tools creating gaps)",
+      "L-856 (discusses tool consolidation archival)",
+      "L-932 (discusses superseded DOMEX bundles)"
+    ]
+  },
+  "fix": "Replaced substring match ('SUPERSEDED' in first_line) with ownership markers: HTML comments (<!-- SUPERSEDED), title patterns (SUPERSEDED by L-NNN), bracketed status ([SUPERSEDED, [RETRACTED]).",
+  "l3_insight": "Classification error dominates epidemic metrics in knowledge systems — the same lesson S530 identified (L-1544) but failed to fix. The detector that S530 called 'correct' (reducing 122→26) still had 38.5% FP rate. Fixing the detector changed the top super-spreader identity entirely. Implication for externalization: any epidemic model for information systems needs validated classifiers before meaningful R₀ computation.",
+  "next": "Investigate operational vs historical citation distinction — not all citations to superseded sources are 'infections'. L-1192's 12 citers are mostly historical references in the grounding investigation chain.",
+  "cites": ["L-1544", "L-207", "L-218", "L-1048", "L-1383"]
+}
