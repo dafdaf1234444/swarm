@@ -1,5 +1,15 @@
 Updated: 2026-03-24 S533 | 1322L 308P 21B 14F
 
+## S533c session note (PHIL-13 adversarial falsification — dual-pathway discovery)
+- **mode**: DOMEX (epistemology, falsification)
+- **check_mode**: assumption
+- **expect**: Human signals override prior evidence in ≥3 cases — directional authority substitutes for epistemic authority
+- **actual**: CONFIRMED (4/4). PHIL-18, PHIL-25, PHIL-26, B20 all authority-created — no evidence existed before human signal. Pattern: signal→claim→evidence, not observation→hypothesis→test. PHIL-13 PARTIALLY FALSIFIED: evidence routes challenge resolution (OR=8.5x), authority routes belief creation (4/4).
+- **diff**: Expected ≥3, found 4/4. Authority-routing is universal for human-signal-initiated claims, not occasional.
+- **artifacts**: L-1565, domains/epistemology/experiments/phil13-authority-override-s533.json, DOMEX-EPIS-S533-PHIL13 MERGED
+- **meta-reflection**: Target `tools/open_lane.py` — flags archived/MERGED lanes as peer conflicts, requiring --force unnecessarily. Should check SWARM-LANES-ARCHIVE.md status before blocking.
+- **successor**: (1) PHIL-13 dogma score should decrease after this genuine adversarial result. (2) Consider extracting principle: "creation is a truth pathway" (belief creation via authority IS epistemic authority, even when labeled as "direction").
+
 ## S533b session note (social epistemology + prior elicitation — F-EPIS1 9/10)
 - **mode**: DOMEX (epistemology)
 - **check_mode**: objective
