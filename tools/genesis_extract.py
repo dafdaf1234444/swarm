@@ -2,7 +2,7 @@
 """
 genesis_extract.py — Produce a compact genesis bundle for daughter swarm (L-1471).
 
-Tiers: --lean --minimal projected ~350KB | --minimal ~730KB | default ~870KB
+Tiers: --ultra-lean <300KB | --lean --minimal ~350KB | --minimal ~730KB | default ~870KB
 
 Usage:
     python3 tools/genesis_extract.py --out /tmp/daughter --minimal --lean
@@ -40,12 +40,15 @@ ORIENTATION_REFERENCE = [
     ("memory/VERIFY.md", "memory/VERIFY.md"),
     ("domains/ISOMORPHISM-ATLAS.md", "domains/ISOMORPHISM-ATLAS.md"),
 ]
-BOOT_TOOLS = [
+ORIENT_TOOLS = [
     "tools/orient.py", "tools/orient_checks.py", "tools/orient_state.py",
     "tools/orient_sections.py", "tools/orient_analysis.py", "tools/orient_monitors.py",
+]
+OPERATIONAL_TOOLS = [
     "tools/compact.py", "tools/validate_beliefs.py", "tools/sync_state.py",
     "tools/cell_blueprint.py",
 ]
+BOOT_TOOLS = ORIENT_TOOLS + OPERATIONAL_TOOLS
 GROWTH_TOOLS = [
     "tools/dispatch_optimizer.py", "tools/dispatch_data.py", "tools/dispatch_scoring.py",
     "tools/open_lane.py", "tools/close_lane.py", "tools/claim.py",
@@ -207,11 +210,15 @@ def _project_principles_text(text: str) -> str:
 
 
 def extract_genesis(out_dir, top_n=100, include_tools=True, minimal=False,
-                    lean=False, dry_run=False):
+                    lean=False, ultra_lean=False, dry_run=False):
     out = Path(out_dir)
     manifest = {"layers": {}, "total_files": 0, "total_bytes": 0}
 
-    if lean:
+    if ultra_lean:
+        lean = True
+        minimal = True
+        top_n = min(top_n, 25)
+    elif lean:
         top_n = min(top_n, 55)
 
     def _copy(src_rel, dst_rel, layer_name, projector=None):
@@ -258,7 +265,13 @@ def extract_genesis(out_dir, top_n=100, include_tools=True, minimal=False,
         _copy(hub["path"], hub["path"], "hub_lessons",
               projector=_project_lesson_text if lean else None)
     if include_tools:
-        for tool_path in (BOOT_TOOLS if lean else CORE_TOOLS):
+        if ultra_lean:
+            tool_list = ORIENT_TOOLS
+        elif lean:
+            tool_list = BOOT_TOOLS
+        else:
+            tool_list = CORE_TOOLS
+        for tool_path in tool_list:
             _copy(tool_path, tool_path, "core_tools")
     if not dry_run:
         _rewrite_daughter_index(out, hubs)
@@ -376,13 +389,16 @@ def main():
     parser.add_argument("--no-tools", action="store_true")
     parser.add_argument("--minimal", action="store_true", help="Skip reference + ISO atlas")
     parser.add_argument("--lean", action="store_true", help="Boot-only tools")
+    parser.add_argument("--ultra-lean", action="store_true",
+                        help="Orient-only tools, 25 hub lessons, skip reference (target <300KB)")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--json", action="store_true")
     args = parser.parse_args()
     if not args.dry_run and os.path.exists(args.out):
         shutil.rmtree(args.out)
     manifest = extract_genesis(args.out, top_n=args.top, include_tools=not args.no_tools,
-                               minimal=args.minimal, lean=args.lean, dry_run=args.dry_run)
+                               minimal=args.minimal, lean=args.lean,
+                               ultra_lean=args.ultra_lean, dry_run=args.dry_run)
     if args.json:
         print(json.dumps(manifest, indent=2))
     else:

@@ -1,0 +1,24 @@
+{
+    "experiment": "DOMEX-EXPSW-S532c",
+    "frontier": "F-SWARMER2",
+    "session": "S532",
+    "domain": "expert-swarm",
+    "date": "2026-03-24",
+    "expect": "genesis_extract.py --ultra-lean produces bundle under 300KB (from 474KB lean baseline) that passes orient.py in daughter repo. Falsified if orient fails or bundle exceeds 300KB.",
+    "actual": "CONFIRMED. 253KB bundle (35 files) passes orient.py in daughter repo. Breakdown: identity 68.5KB, orientation 53.5KB, hub_lessons 14.5KB (20 lessons), core_tools 116.3KB (6 orient-only tools). Daughter reports 20L 308P 21B 14F at genesis.",
+    "diff": "Expected <300KB: got 253KB (47% reduction from lean 474KB). Key insight: separating ORIENT_TOOLS from OPERATIONAL_TOOLS cuts 73KB — compact.py, validate_beliefs.py, sync_state.py, cell_blueprint.py are operational (needed for handoff) but not boot-essential. orient.py imports them all via try/except. Reducing hub lessons from 42 to 20 saves 15KB.",
+    "measurements": {
+        "lean_baseline_bytes": 485830,
+        "lean_minimal_bytes": 345737,
+        "ultra_lean_bytes": 258843,
+        "reduction_from_lean": "47%",
+        "n_files": 35,
+        "n_hub_lessons": 20,
+        "n_tools": 6,
+        "orient_passes": true,
+        "daughter_counts": "20L 308P 21B 14F"
+    },
+    "tool_changes": "genesis_extract.py: added ORIENT_TOOLS/OPERATIONAL_TOOLS split, --ultra-lean flag",
+    "external_grounding": "L-1467 (orient needs 11/128 tools), L-1471 (3-layer genesis design), L-1184 (cell blueprint)",
+    "verdict": "CONFIRMED"
+}
