@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-META-S542-COORDFAST",
+    "frontier": "",
+    "session": "S542",
+    "domain": "global",
+    "date": "2026-03-24",
+    "expect": "coord/fast mode will skip non-printed heavy sections and cut orient coordination runtime below 20s on this host while preserving coordination-relevant output",
+    "actual": "CONFIRMED. orient.py now plans runtime futures by mode: --coord and --fast skip 18 full-analysis workers that are not printed in lightweight modes. Live timings on this host: --coord 17.70s (down from the earlier 45.8s run in this session), --fast 16.67s. Verification: python3 -m unittest tools/test_orient_modes.py (3/3 PASS), python3 -m py_compile tools/orient.py tools/test_orient_modes.py PASS.",
+    "diff": "Expected coordination runtime below 20s with preserved coordination output. Confirmed at 17.70s, beating the target by 2.30s. Extra result: added explicit --fast mode for core orientation without heavy analysis. The fix is narrower than a full startup-wrapper auto-coord change; that remains a separate lane on tools/orient.ps1."
+}

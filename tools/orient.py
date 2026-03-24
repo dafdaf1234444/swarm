@@ -9,6 +9,7 @@ Replaces the manual pattern of: read NEXT.md + INDEX.md + FRONTIER.md + run main
 
 Usage:
     python3 tools/orient.py                         # full orientation
+    python3 tools/orient.py --fast                  # core orientation, skip heavy analysis
     python3 tools/orient.py --brief                 # compact one-screen summary
     python3 tools/orient.py --coord                 # coordination-only (for concurrent sessions)
     python3 tools/orient.py --classify "build X"   # route a task to domain+personality
@@ -71,6 +72,40 @@ CORE_SWARM_TOOLS = (
     "tools/question_gen.py",
     "tools/cell_blueprint.py",
 )
+
+FULL_ANALYSIS_FUTURES = frozenset({
+    "historian",
+    "meta_tooler",
+    "prescription",
+    "dogma",
+    "succession",
+    "knowledge_swarm",
+    "correction",
+    "fairness",
+    "trace",
+    "stalled",
+    "stale_exp",
+    "exp_harvest",
+    "self_app",
+    "grounding_decay",
+    "human_impact",
+    "brain_turing",
+    "concept_debt",
+    "complexity_phase",
+})
+
+
+def _planned_future_keys(*, coord: bool, fast: bool) -> set[str]:
+    keys = {
+        "git_health",
+        "genesis",
+        "index_health",
+        "ghost",
+        "agent_empathy",
+    }
+    if not (coord or fast):
+        keys.update(FULL_ANALYSIS_FUTURES)
+    return keys
 
 
 # --- Backwards-compat wrappers (orient_state.py, DOMEX-META-S426) ---
@@ -289,6 +324,7 @@ def _print_lines(lines):
 
 def main():
     brief = "--brief" in sys.argv
+    fast = "--fast" in sys.argv
     coord = "--coord" in sys.argv  # coordination-only: skip static analysis (L-1425)
 
     _auto_repair_swarm_md()
@@ -341,8 +377,10 @@ def main():
     # Parallelize ALL slow independent operations (S506 perf fix, L-1349):
     # At N=1211, sequential total was ~135s. Parallelizing brings wall time to ~30s.
     # L-1349: any new section MUST be added to this executor block.
-    from concurrent.futures import ThreadPoolExecutor, as_completed
+    from concurrent.futures import ThreadPoolExecutor
     _futures = {}
+    planned_futures = _planned_future_keys(coord=coord, fast=fast)
+    run_full_analysis = bool(FULL_ANALYSIS_FUTURES & planned_futures)
     _pool = ThreadPoolExecutor(max_workers=12)
     if True:  # was 'with' block — explicit shutdown to avoid hang on stuck threads (L-1542)
         # Pre-checks (~3s each)
@@ -350,57 +388,65 @@ def main():
         _futures['genesis'] = _pool.submit(check_genesis_hash)
         _futures['index_health'] = _pool.submit(check_git_index_health)
         _futures['ghost'] = _pool.submit(check_ghost_lessons)
-        # Heavy sections (~7-29s each when sequential)
-        _futures['historian'] = _pool.submit(section_historian_repair)
-        _futures['meta_tooler'] = _pool.submit(section_meta_tooler)
-        _futures['prescription'] = _pool.submit(section_prescription_gap)
-        _futures['dogma'] = _pool.submit(section_dogma_finder)
-        _futures['succession'] = _pool.submit(section_succession_phase)
-        _futures['knowledge_swarm'] = _pool.submit(section_knowledge_swarm)
-        _futures['correction'] = _pool.submit(section_correction_propagation)
-        _futures['fairness'] = _pool.submit(section_fairness)
-        _futures['trace'] = _pool.submit(section_trace_amplification)
-        _futures['stalled'] = _pool.submit(section_stalled_campaigns)
-        _futures['cascade'] = _pool.submit(lambda: section_cascade_state(maint_output=""))
-        _futures['stale_exp'] = _pool.submit(check_stale_experiments)
-        _futures['exp_harvest'] = _pool.submit(check_experiment_harvest_gap)
-        # self_app needs session_num which we don't have yet — use orient_checks directly
-        try:
-            from orient_checks import check_stale_infrastructure as _check_infra_impl
-            _futures['self_app'] = _pool.submit(lambda: _check_infra_impl(500, ROOT, CORE_SWARM_TOOLS, _hcache, 50))
-        except (ImportError, ModuleNotFoundError):
-            _futures['self_app'] = _pool.submit(lambda: [])
-        # Inline slow sections
-        _futures['grounding_decay'] = _pool.submit(section_grounding_decay)
-        def _run_human_impact():
+        if run_full_analysis:
+            # Heavy sections (~7-29s each when sequential)
+            _futures['historian'] = _pool.submit(section_historian_repair)
+            _futures['meta_tooler'] = _pool.submit(section_meta_tooler)
+            _futures['prescription'] = _pool.submit(section_prescription_gap)
+            _futures['dogma'] = _pool.submit(section_dogma_finder)
+            _futures['succession'] = _pool.submit(section_succession_phase)
+            _futures['knowledge_swarm'] = _pool.submit(section_knowledge_swarm)
+            _futures['correction'] = _pool.submit(section_correction_propagation)
+            _futures['fairness'] = _pool.submit(section_fairness)
+            _futures['trace'] = _pool.submit(section_trace_amplification)
+            _futures['stalled'] = _pool.submit(section_stalled_campaigns)
+            _futures['stale_exp'] = _pool.submit(check_stale_experiments)
+            _futures['exp_harvest'] = _pool.submit(check_experiment_harvest_gap)
+            # self_app needs session_num which we don't have yet — use orient_checks directly
             try:
-                from human_impact import scan_lessons as _hi_scan, extract_soul as _hi_soul
-                return _hi_soul(_hi_scan())
-            except Exception:
-                return None
-        _futures['human_impact'] = _pool.submit(_run_human_impact)
-        def _run_brain_turing():
-            try:
-                from brain_extractor import scan_all_lessons as _br_scan, extract_brain as _br_extract
-                from turing_test import run_all_tests as _tt_run
-                _br = _br_extract(_br_scan())
-                _tt = _tt_run()
-                return {"brain": _br, "turing": _tt}
-            except Exception:
-                return None
-        _futures['brain_turing'] = _pool.submit(_run_brain_turing)
-        def _run_concept_debt():
-            try:
-                from concept_debt_audit import audit as _cda
-                import io, contextlib
-                _cda_buf = io.StringIO()
-                with contextlib.redirect_stdout(_cda_buf):
-                    return _cda(json_mode=False)
-            except Exception:
-                return None
-        _futures['concept_debt'] = _pool.submit(_run_concept_debt)
-        # Move slow synchronous sections into pool (S531 perf fix)
-        _futures['complexity_phase'] = _pool.submit(section_complexity_phase)
+                from orient_checks import check_stale_infrastructure as _check_infra_impl
+                _futures['self_app'] = _pool.submit(
+                    lambda: _check_infra_impl(500, ROOT, CORE_SWARM_TOOLS, _hcache, 50)
+                )
+            except (ImportError, ModuleNotFoundError):
+                _futures['self_app'] = _pool.submit(lambda: [])
+            _futures['grounding_decay'] = _pool.submit(section_grounding_decay)
+
+            def _run_human_impact():
+                try:
+                    from human_impact import scan_lessons as _hi_scan, extract_soul as _hi_soul
+                    return _hi_soul(_hi_scan())
+                except Exception:
+                    return None
+
+            _futures['human_impact'] = _pool.submit(_run_human_impact)
+
+            def _run_brain_turing():
+                try:
+                    from brain_extractor import scan_all_lessons as _br_scan, extract_brain as _br_extract
+                    from turing_test import run_all_tests as _tt_run
+                    _br = _br_extract(_br_scan())
+                    _tt = _tt_run()
+                    return {"brain": _br, "turing": _tt}
+                except Exception:
+                    return None
+
+            _futures['brain_turing'] = _pool.submit(_run_brain_turing)
+
+            def _run_concept_debt():
+                try:
+                    from concept_debt_audit import audit as _cda
+                    import io, contextlib
+                    _cda_buf = io.StringIO()
+                    with contextlib.redirect_stdout(_cda_buf):
+                        return _cda(json_mode=False)
+                except Exception:
+                    return None
+
+            _futures['concept_debt'] = _pool.submit(_run_concept_debt)
+            # Move slow synchronous sections into pool (S531 perf fix)
+            _futures['complexity_phase'] = _pool.submit(section_complexity_phase)
+
         def _run_agent_empathy():
             try:
                 from agent_empathy import model_agents, compute_priority_adjustments
@@ -466,7 +512,12 @@ def main():
     sess_num = int(sess_m.group(1)) if sess_m else 0
 
     # Header
-    mode_tag = " [COORD]" if coord else ""
+    mode_flags = []
+    if coord:
+        mode_flags.append("COORD")
+    if fast:
+        mode_flags.append("FAST")
+    mode_tag = f" [{' '.join(mode_flags)}]" if mode_flags else ""
     print(f"=== ORIENT {session} | {counts}{mode_tag} ===")
     print(f"Maintenance: {maint_level}")
     print()
@@ -517,7 +568,7 @@ def main():
     if sess_num and not coord:
         _print_lines(section_pci(sess_num, compute_pci))
 
-    if not coord:
+    if run_full_analysis:
         _print_lines(_prescription_gap_lines)
         _print_lines(section_level_balance())
         _print_lines(_succession_lines)
@@ -539,7 +590,7 @@ def main():
         _print_lines(_fairness_lines)
         _print_lines(_complexity_phase_lines)
 
-    if not coord:
+    if run_full_analysis:
         # Human impact / soul extraction (SIG-81, F-SOUL1) — pre-computed in parallel
         _hi_soul_data = _human_impact_result
         if _hi_soul_data:
