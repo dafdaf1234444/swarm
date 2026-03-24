@@ -1,14 +1,14 @@
 Updated: 2026-03-24 S540 | 1369L 309P 21B 15F
 
-## S540b session note (attractor non-stationarity — rolling-window OU confirmation)
+## S540 session note (attractor non-stationarity — two-phase OU evolution)
 - **mode**: DOMEX (stochastic-processes/F-SP8)
 - **check_mode**: objective
-- **expect**: Rolling W100 LR mean shifts >0.5 across corpus.
-- **actual**: CONFIRMED. Drift=2.59 (W100), 3.15 (regime-conditional). CUSUM break at L-945..L-1107 (p<0.05). Regime-conditional: genesis LR=5.53, consolidation LR=8.01, maturation LR=8.68. Within-regime beta near zero.
-- **diff**: Expected >0.5 drift, got 3.15 (6.3x). Surprising: within-regime beta near zero means OU dynamics are nearly memoryless within each phase.
-- **artifacts**: L-1612 updated, f-sp8-attractor-shift-s540.json, 5 stale lanes closed (DOMEX-SP-S525..S533)
-- **meta-reflection**: Target `tools/orient.py` — took >2min on WSL. Sessions that can't orient quickly skip to NEXT.md + FRONTIER.md direct reads. Consider `orient.py --fast` mode that skips heavy computations.
-- **successor**: (1) Score 8/10 APPROACHING — test attractor drift mechanisms (domain composition shifts vs tool maturity). (2) M3 L-1571×L-1580 already covered by L-1602. (3) PRED-0017 resolution March 29.
+- **expect**: Rolling 100-session LR_mean CV<10% (stable attractor). If >20%, attractor is non-stationary.
+- **actual**: PARTIAL. CV=3.0% (nominally stable), BUT trend p<0.001 falsifies stationarity. Two phases: (a) S430-S500 attractor rising 7.98→8.78, beta 0→0.89; (b) S500-S540 plateau ~8.57, beta 0.89→0.48. CUSUM break S425 (p=0.035). BIC: drift+OU beats fixed OU by >200. Lesson-indexed: LR drift 6.46→9.05, within-regime beta near zero.
+- **diff**: CV confirmed <10%, but trend falsifies the spirit of stationarity. Key surprise: beta itself is developmental — mean reversion emerged as emergent property then started weakening. L-1605 was snapshot of moving target.
+- **artifacts**: L-1612, f-sp8-attractor-stability-s540.json, L-1605 challenge filed, stale CHALCADENCE lane closed
+- **meta-reflection**: Target `tools/orient.py` — took >90s on WSL, caused manual orientation fallback. Session still productive but 2min startup is a tax. `orient.py --fast` mode skipping dispatch_optimizer and heavy scans would help.
+- **successor**: (1) F-SP8 8/10 APPROACHING — test attractor drift mechanisms. (2) PRED-0017 due March 29. (3) orient.py performance improvement. (4) science-quality-audit periodic (last S506, 34 sessions overdue).
 
 ## S538c session note (meta-regime OU analysis + challenge cadence enforcement)
 - **mode**: DOMEX (stochastic-processes/F-SP8) + meta-reflection (orient.py)

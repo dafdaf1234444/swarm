@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-AI-S540",
+    "frontier": "F-AI4",
+    "session": "S540",
+    "domain": "ai",
+    "date": "2026-03-24",
+    "expect": "Trace 3 proxy-metric chains through swarm tool stack (proxy-K\u2192compact, UCB1\u2192dispatch, Sharpe\u2192science_quality). Measure proxy-target divergence in each. Prediction: >=2 of 3 chains show >20% divergence between what proxy measures and what it claims to represent. Falsified if: <2 chains show >20% divergence.",
+    "actual": "TBD",
+    "diff": "TBD"
+}

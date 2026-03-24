@@ -1,0 +1,51 @@
+{
+  "experiment": "DOMEX-EPIS-S539-ATTENTION",
+  "frontier": "F-EPIS3",
+  "session": "S539",
+  "domain": "epistemology",
+  "date": "2026-03-24",
+  "recombination": "L-1571 × L-1580 (M3 score 0.1641)",
+  "expect": "Rate-distortion (L-1571) and compaction-is-hygiene (L-1580) are both correct but incomplete. The binding constraint on knowledge growth is the ATTENTION bottleneck (per-session retrieval fraction K/N), not storage compression.",
+  "actual": "CONFIRMED. Per-session retrieval fraction K/N = 44/1370 = 3.2%. Storage compression (compaction) removes 12.2% of total production. Retrieval compression (attention) filters 96.8% per session. The attention bottleneck is 8x more selective than compaction. Citation-guided retrieval advantage over random scales from 7x at N=500 to 51x at N=5000 (Zipf model). Compaction becomes growth-controlling only at N>5000 (~726 sessions away).",
+  "diff": "Expected attention bottleneck to be binding — confirmed. Surprise: 99.9% of lessons are eventually cited (no permanent neglect), but per-session access is only 3.2%. The gap between lifetime coverage and per-session access is the key tension.",
+  "data": {
+    "corpus_size": 1370,
+    "total_produced": 1560,
+    "archived": 190,
+    "storage_compression": 0.122,
+    "per_session_citations": {
+      "mean": 44.9,
+      "median": 19,
+      "max": 326,
+      "n_sessions": 291
+    },
+    "retrieval_fraction": 0.032,
+    "lifetime_citation_coverage": 0.999,
+    "attention_vs_storage_ratio": 7.9,
+    "zipf_retrieval_scaling": {
+      "N_500": {"p_random": 0.088, "p_guided": 0.612, "advantage": 7.0},
+      "N_1000": {"p_random": 0.044, "p_guided": 0.551, "advantage": 12.5},
+      "N_1500": {"p_random": 0.029, "p_guided": 0.520, "advantage": 17.7},
+      "N_2000": {"p_random": 0.022, "p_guided": 0.501, "advantage": 22.8},
+      "N_3000": {"p_random": 0.015, "p_guided": 0.475, "advantage": 32.4},
+      "N_5000": {"p_random": 0.009, "p_guided": 0.447, "advantage": 50.8}
+    },
+    "transition_prediction": {
+      "compaction_becomes_growth_controlling_at": "N>5000",
+      "sessions_away": 726,
+      "current_compaction_rate": "4.4% of production",
+      "current_production_rate": "5.0 L/session"
+    }
+  },
+  "recombination_insight": "L-1571 models compression at STORAGE level (rate-distortion on archival). L-1580 shows compaction removes only 4.4%. Neither addresses RETRIEVAL. The synthesis: rate-distortion theory applies at the READ level — each session performs a ~97% compression of the corpus via selective attention. Citation-guided retrieval is the mechanism that makes this work (Zipf advantage 7-51x vs random). Compaction serves retrieval quality (concentrating citation weight into high-value lessons), not storage management.",
+  "lessons_produced": ["L-1612"],
+  "predecessor_data": ["L-1571", "L-1580"],
+  "falsification_target": "If per-session retrieval fraction increases to >10% (via better retrieval tooling), compaction's role should shift measurably from quality-filtering to capacity-management",
+  "science_quality": {
+    "pre_registered": true,
+    "falsifiable": true,
+    "effect_size": "attention 8x more selective than compaction; guided retrieval 7-51x better than random",
+    "sample_size": 291,
+    "external_grounding": "Shannon rate-distortion theory, Zipf law of selective attention"
+  }
+}

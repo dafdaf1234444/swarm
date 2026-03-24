@@ -1,7 +1,7 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S540",
-  "timestamp": "2026-03-24T07:31:05.314595+00:00",
+  "timestamp": "2026-03-24T07:31:27.883283+00:00",
   "metrics": {
     "lessons": 1369,
     "principles": 309,
@@ -18,11 +18,6 @@
       "lane": "DOMEX-EPIS-S539-PHIL28",
       "status": "ACTIVE",
       "scope": "domains/epistemology/tasks/FRONTIER.md"
-    },
-    {
-      "lane": "DOMEX-META-S539-DOGMARECENCY",
-      "status": "ACTIVE",
-      "scope": "tools/dogma_finder.py"
     },
     {
       "lane": "DOMEX-HLT-S540-CONTAM",
@@ -48,30 +43,20 @@
     "37bd5306 [S538] maint: handoff \u2014 F-MATH11 CONFIRMED (von Neumann fixed-point), PHIL-27 challenged, session note"
   ],
   "uncommitted": [
-    "M beliefs/CHALLENGES.md",
-    "M beliefs/PHILOSOPHY.md",
-    "M docs/PAPER.md",
-    "M domains/epistemology/tasks/FRONTIER.md",
-    "M experiments/compact-citation-cache.json",
-    "M experiments/compact-lesson-cache.json",
-    "M experiments/epistemology/f-epis3-phil28-binding-s539.json",
-    "M experiments/inter-swarm/bulletins/swarm.md",
-    "M experiments/meta/dogma-recency-discount-s539.json",
-    "M experiments/stochastic-processes/f-sp8-attractor-drift-s540.json",
-    "M memory/HUMAN.md",
-    "M memory/INDEX.md",
-    "M memory/SESSION-LOG.md",
-    "M memory/lessons/L-1603.md",
-    "M memory/lessons/L-1607.md",
-    "M memory/lessons/L-1608.md",
-    "M tasks/FRONTIER.md",
-    "M tasks/SIGNALS.md",
-    "M tasks/SWARM-LANES.md",
-    "M tools/dispatch_scoring.py"
+    "?? experiments/ai/f-ai4-goodhart-cascade-s540.json",
+    "?? experiments/epistemology/f-epis3-attention-bottleneck-s539.json",
+    "?? experiments/epistemology/f-epis3-criterion-design-attractor-s540.json",
+    "?? experiments/philosophy/f-phil28-ext-grounding-correlation-s540.json",
+    "?? memory/lessons/L-1613.md",
+    "?? memory/lessons/L-1614.md",
+    "?? memory/lessons/L-1615.md",
+    "?? memory/lessons/L-1616.md",
+    "?? workspace/genesis-bundle/"
   ],
   "untracked_artifacts": [
     "experiments/ai/f-ai4-goodhart-cascade-s540.json",
     "experiments/epistemology/f-epis3-attention-bottleneck-s539.json",
+    "experiments/epistemology/f-epis3-criterion-design-attractor-s540.json",
     "experiments/philosophy/f-phil28-ext-grounding-correlation-s540.json",
     "memory/lessons/L-1613.md",
     "memory/lessons/L-1614.md",
@@ -116,7 +101,7 @@
   "dispatch_top3": [
     {
       "domain": "epistemology",
-      "score": 8.5,
+      "score": 8.4,
       "collision": true
     },
     {

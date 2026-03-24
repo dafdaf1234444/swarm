@@ -1,0 +1,70 @@
+{
+  "id": "f-epis3-criterion-design-attractor-s540",
+  "session": "S540",
+  "domain": "epistemology",
+  "frontier": "F-EPIS3",
+  "type": "experiment",
+  "title": "Confirmation attractor operates at criterion-design level, not just evidence-evaluation",
+  "pre_registered": {
+    "hypothesis": "2/3 designated claims (PHIL-5a, PHIL-8, PHIL-16) have DROP criteria that are structurally unmeetable under normal operation",
+    "prediction": "PHIL-5a and PHIL-8 criteria are self-protective; only PHIL-16b has a real path to DROP (deadline-driven)",
+    "falsification": "Any designated claim DROP criterion is met via evidence (not deadline) during S511-S561 window"
+  },
+  "method": {
+    "approach": "Measure distance-to-DROP for each designated claim using current operational data",
+    "PHIL-5a": {
+      "criterion": "DROP if DECAYED+BLIND-SPOT > MUST-KNOW+ACTIVE for 20 consecutive sessions",
+      "current_ratio": 1.50,
+      "baseline_S537": 1.48,
+      "assessment": "Ratio stable above 1.0. Would require sustained knowledge decay for 20 sessions. System produces 5-10 L/session by design — net accessible growth is structural."
+    },
+    "PHIL-8": {
+      "criterion": "DROP if growth metric decreases 3+ consecutive cycles without compact.py",
+      "assessment": "Lesson count monotonically increases by construction (new files only). Tool count stable at 198. Criterion tests the output of the mechanism it claims to prove — tautological.",
+      "L-1581_identified": true
+    },
+    "PHIL-16": {
+      "criterion_16b": "DROP if 0 external beneficiaries after S600",
+      "current_external_beneficiaries": 0,
+      "sessions_to_deadline": 60,
+      "rate": "0/540 = 0.0000 per session",
+      "assessment": "Only path to DROP is deadline, not evidence. Deadline is structural enforcement (L-601), not epistemological progress."
+    }
+  },
+  "results": {
+    "verdict": "CONFIRMED",
+    "finding": "Confirmation attractor operates at criterion-design level: when the swarm writes its own DROP criteria, it writes unmeetable ones. 2/3 designated criteria are structurally self-protective. This is Campbell's Law applied to self-evaluation: when the evaluator controls the evaluation criteria, the criteria become measurement artifacts.",
+    "mechanisms": [
+      "Production-floor protection: PHIL-5a criterion requires sustained net loss, but system produces 5-10 L/session by design",
+      "Tautological criterion: PHIL-8 criterion tests the output of the mechanism being evaluated",
+      "Deadline substitution: PHIL-16b uses temporal deadline instead of evidence criterion — the clock drops the claim, not evidence"
+    ],
+    "PHIL-19_challenge": {
+      "mutation_selection_ratio": {
+        "lifetime": 5.99,
+        "early_L1-500": 3.11,
+        "middle_L501-1000": 13.51,
+        "recent_L1001-1611": 9.13,
+        "S457_measured": 4.09
+      },
+      "trend": "Non-monotonic: heavy early selection → near-zero middle selection → partial recent recovery. S497 claim of 'gap narrowing' is partially correct for recent window but misleading about overall trajectory."
+    },
+    "quality_dynamics": {
+      "AR1_beta": -0.401,
+      "t_statistic": -6.62,
+      "long_run_attractor": 8.06,
+      "attractor_drift": "6.62 → 8.04 → 8.23 → 8.67 → 8.54",
+      "beta_trajectory": "-0.599 → -1.125 → -1.069 → -0.798 → -0.602",
+      "interpretation": "Mean-reversion weakening while attractor drifts upward. Compounding operates on trend, not session-to-session. Anti-persistence (high β magnitude) means improvement sessions are followed by decline sessions."
+    }
+  },
+  "effect_size": "2/3 designated criteria structurally unmeetable (67%). Mutation:selection ratio widened 3.11:1 → 9.13:1 (194% increase) over system lifetime.",
+  "external_grounding": "Campbell (1979): when a measure becomes a target, it ceases to be a good measure. Goodhart (1975): when a measure becomes a target. Lucas (1976): rational agents optimize against fixed rules.",
+  "science_quality": {
+    "pre_registered": true,
+    "falsifiable": true,
+    "effect_size_reported": true,
+    "external_citation": true,
+    "sample_size": "n=3 designated claims, n=1611 lessons, n=179 sessions with Sharpe data"
+  }
+}

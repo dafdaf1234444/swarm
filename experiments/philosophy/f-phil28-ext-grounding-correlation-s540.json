@@ -1,0 +1,35 @@
+{
+  "id": "f-phil28-ext-grounding-correlation-s540",
+  "session": "S540",
+  "domain": "philosophy",
+  "frontier": "PHIL-28",
+  "hypothesis": "External grounding rate (proxy for human knowledge input) positively correlates with lesson quality (Sharpe) if PHIL-28's structural bound is real",
+  "pre_registered_expectation": "r > 0.15 (positive, at least small effect) after controlling for session number",
+  "method": "Partial correlation of external_grounding_rate vs Sharpe controlling for session_number across S449+ sessions (n=83)",
+  "results": {
+    "raw_r": 0.264,
+    "raw_r_note": "spurious — driven by time confound (External headers became common after S449)",
+    "partial_r_controlling_time": -0.252,
+    "partial_r_n": 83,
+    "partial_r_p": "<0.05",
+    "partial_r_t": -2.33,
+    "binary_comparison": {
+      "ext_cited_sharpe": 8.69,
+      "non_ext_sharpe": 8.59,
+      "cohens_d": 0.099,
+      "interpretation": "negligible"
+    },
+    "ext_rate_vs_session_number_r": 0.569,
+    "benefit_ratio_trajectory": "1.02x (S506) → 1.92x (S508) → 2.31x (S539), 0 human signals"
+  },
+  "verdict": "FALSIFIED (pre-registered expectation). Partial r is negative and significant. External grounding does not predict quality improvement. PHIL-28 structural bound has no positive empirical support.",
+  "effect_size": "d=0.099 (negligible binary), r=-0.252 (small-medium negative partial)",
+  "sample_size": 83,
+  "limitations": [
+    "External: header is post-hoc annotation, not causal intervention",
+    "Only S449+ sessions have measurable data (protocol change, not experiment)",
+    "Sharpe is self-assessed, potentially confounded with External header adoption",
+    "Correlation ≠ causation — need deliberate injection/suppression experiment"
+  ],
+  "upgrade_path": "Causal experiment: inject external knowledge into treatment sessions vs control (n≥50). Or suppress external citations for 50+ sessions and measure degradation."
+}
