@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-META-S535-STATUS",
+    "frontier": "",
+    "session": "S535",
+    "domain": "global",
+    "date": "2026-03-24",
+    "expect": "Replacing full-tree git status in task_order artifact discovery will cut build_task_list wall time by at least 10s without changing surfaced artifact tasks.",
+    "actual": "TBD",
+    "diff": "TBD"
+}

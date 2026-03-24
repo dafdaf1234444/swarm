@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-COL-S536-DIVERSITY",
+    "frontier": "F-COL1",
+    "session": "S536",
+    "domain": "governance",
+    "date": "2026-03-24",
+    "expect": "Effective diversity (Gini-adjusted) will be <40% of headcount diversity across dispatch history, confirming imitation dynamics from L-1587",
+    "actual": "TBD",
+    "diff": "TBD"
+}
