@@ -1,0 +1,25 @@
+{
+  "experiment": "DOMEX-EPIS-S545-ATTRACTOR",
+  "frontier": "F-EPIS3",
+  "session": "S545",
+  "domain": "epistemology",
+  "date": "2026-03-24",
+  "expect": "PHIL-8 DROP criterion can be tested with growth metric data — predict at least one 3+ consecutive decrease window exists in proxy-K/lesson-count/tool-count history",
+  "actual": "First DROP criterion narrowly survives (max 2 consecutive decreases, not 3). Second DROP criterion partially met: for quality, attention-only model predicts equally well (Sharpe delta=0.00, n=177). PHIL-8 is mislabeled, not droppable.",
+  "diff": "Expected at least one 3+ decrease window — found max 2. But discovered stronger finding: quality is INVARIANT to compaction (Sharpe delta=0.00).",
+  "hypothesis": "PHIL-8 'Evolve through distillation' can be dropped — compaction doesn't cause quality evolution",
+  "method": {
+    "test_1": "Scanned 76 proxy-K entries for 3+ consecutive decreases without compact.py",
+    "test_2": "Compared Sharpe in compaction-adjacent (n=110) vs non-adjacent (n=67) windows",
+    "test_3": "Compared lesson output rate: early 2.46 vs late 5.18 L/session (+110%)"
+  },
+  "results": {
+    "consecutive_decreases": {"max": 2, "threshold": 3, "met": false},
+    "sharpe_quality": {"adjacent": 8.03, "non_adjacent": 8.03, "delta": 0.00, "met": true},
+    "productivity": {"early": 2.46, "late": 5.18, "change_pct": 110.3},
+    "proxy_k_compaction_removal": "44.4% of positive growth removed by compaction"
+  },
+  "verdict": "PARTIAL — PHIL-8 title mislabeled (evolve→compress). Quality unchanged by compaction. Not droppable by first criterion. Second criterion partially met for quality metrics.",
+  "lesson": "L-1667",
+  "recommendation": "REVISE PHIL-8: rename from 'Evolve through distillation' to 'Compress through distillation'. Add challenge."
+}
