@@ -55,9 +55,24 @@ def section_pci(session_num, compute_fn, root=ROOT):
         d = pci_result["details"]
         lines.append("--- Scientific Rigor (PCI) ---")
         lines.append(f"  PCI: {pci_val:.3f} (target >0.10)")
-        lines.append(f"  EAD field presence: {pci_result['ead']:.0%} ({d['ead']} lanes with actual+diff — L-813: measures field presence, not prediction quality)")
+        ead_q = pci_result.get("ead_quality", pci_result["ead"])
+        lines.append(f"  EAD field presence: {pci_result['ead']:.0%} ({d['ead']} lanes with actual+diff)")
+        pq = pci_result.get("pred_quality", {})
+        if pq.get("total", 0) > 0:
+            sr = pq["surprise_rate"]
+            cr = pq.get("classifiable_rate", 0)
+            health = "HEALTHY" if 0.2 <= sr <= 0.5 else ("LOW" if sr < 0.2 else "HIGH")
+            lines.append(f"  EAD prediction quality: {pq['confirmed']}C/{pq['falsified']}F/{pq['partial']}P of {pq['total']} ({pq.get('source','lanes')}) | surprise={sr:.0%} ({health}) | classifiable={cr:.0%}")
+            lines.append(f"  EAD quality (PCI input): {ead_q:.0%} = presence * (0.5 + 0.5 * classifiable) — L-1526")
         lines.append(f"  Belief freshness: {pci_result['belief_freshness']:.0%} ({d['belief_freshness']} tested <50 sessions)")
         lines.append(f"  Frontier testability: {pci_result['frontier_testability']:.0%} ({d['frontier_testability']} with test evidence)")
+        ey = pci_result.get("epistemic_yield", {})
+        if ey.get("total_falsified", 0) > 0:
+            ey_rate = ey["yield_rate"]
+            ey_health = "LEARNING" if ey_rate >= 0.7 else ("PARTIAL" if ey_rate >= 0.4 else "STALE")
+            lines.append(f"  Epistemic yield: {ey_rate:.0%} ({ey['falsified_with_lesson']}/{ey['total_falsified']} falsifications → lesson) ({ey_health})")
+        elif ey:
+            lines.append(f"  Epistemic yield: n/a (no falsifications in window)")
         # Cached artifact displays
         ks = _cached_artifact(root, "meta", "knowledge-state-s*.json", session_num, max_age=20, min_age=0)
         if ks:

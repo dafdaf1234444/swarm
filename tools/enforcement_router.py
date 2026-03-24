@@ -104,11 +104,19 @@ _IMPERATIVE_VERBS = {
 }
 
 
-def classify_wirability(rule_text: str, full_content: str) -> dict:
-    """Classify whether an ASPIRATIONAL prescription has the 3 features that predict
-    behavioral adoption (L-975: lesson_grounding + metric_threshold + tool_target).
+def _extract_wire_targets(full_content: str) -> list[str]:
+    """Extract concrete file targets from lesson body (L-1366)."""
+    targets = set(re.findall(r"tools/[\\w_]+\\.(?:py|sh)", full_content))
+    bare = re.findall(r"\\b([\\w_]+\\.(?:py|sh))\\b", full_content)
+    tools_dir = REPO_ROOT / "tools"
+    for b in bare:
+        if (tools_dir / b).exists():
+            targets.add(f"tools/{b}")
+    return sorted(targets)
 
-    Returns dict with features present and missing list.
+
+def classify_wirability(rule_text: str, full_content: str) -> dict:
+    """Classify — L-975 + wire_targets (L-1366).
     """
     features = {}
     missing = []
@@ -134,11 +142,13 @@ def classify_wirability(rule_text: str, full_content: str) -> dict:
         missing.append("tool_target")
 
     score = sum(features.values())
+    wire_targets = _extract_wire_targets(full_content) if score >= 2 else []
     return {
         "features": features,
         "missing": missing,
         "score": score,
         "wirable": score == 3,
+        "wire_targets": wire_targets,
     }
 
 
