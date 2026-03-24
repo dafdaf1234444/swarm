@@ -1,0 +1,31 @@
+{
+    "experiment": "DOMEX-COL-S544-ENFBACKFILL",
+    "frontier": "F-COL1",
+    "session": "S544",
+    "domain": "collective-behavior",
+    "date": "2026-03-24",
+    "expect": "Backfilling missing F-COL1 lesson citations in dispatch_scoring.py will reclassify already-wired concentration/diversity defenses as STRUCTURAL without changing runtime behavior; enforcement_router structural count should rise by at least 2.",
+    "actual": "Backfilled live F-COL1 enforcement comments in tools/dispatch_scoring.py so the wired mechanisms now cite the lessons they implement. Concentration penalty now cites L-1594 (quality-gated concentration control). Diversity cap now cites L-1591 and L-1621 (explicit diversity pressure, 30% top-3 threshold). python3 -m py_compile tools/dispatch_scoring.py passed. enforcement_router --json --min-sharpe 9 changed from STRUCTURAL/PERIODIC/ASPIRATIONAL = 101/15/162 to 106/14/158 on the live worktree; targeted lessons L-1591, L-1594, and L-1621 now classify as STRUCTURAL, while L-1619 remains ASPIRATIONAL because the quality-threshold monitor is still not wired on this surface.",
+    "diff": "Expected >=2 structural reclassifications without runtime change. Got 3 targeted F-COL1 lessons reclassified and no code-path changes. Net structural gain was +5, larger than expected, because the live worktree moved concurrently while this lane was open (same file also carried a concurrent L-1354 citation backfill that was preserved rather than reverted).",
+    "verification": {
+        "py_compile": "pass",
+        "enforcement_router_before": {
+            "structural": 101,
+            "periodic": 15,
+            "aspirational": 162,
+            "enforcement_rate": 0.363
+        },
+        "enforcement_router_after": {
+            "structural": 106,
+            "periodic": 14,
+            "aspirational": 158,
+            "enforcement_rate": 0.381
+        },
+        "targeted_tiers_after": {
+            "L-1591": "STRUCTURAL",
+            "L-1594": "STRUCTURAL",
+            "L-1621": "STRUCTURAL",
+            "L-1619": "ASPIRATIONAL"
+        }
+    }
+}
