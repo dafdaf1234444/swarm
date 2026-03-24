@@ -43,8 +43,8 @@
 
 ## F-MATH9: Can Turing instability in the lesson-principle reaction-diffusion system explain domain clustering?
 **Test**: Measure principle diffusion rate D_v vs lesson diffusion rate D_u. If D_v/D_u > 6, Turing patterns are possible.
-**Status**: OPEN (S516) — PDE framework derived, Fisher-KPP confirmed (4/5 domains saturating). L-1435.
-**Falsified-if**: D_v/D_u < 2 (no Turing instability possible).
+**Status**: FALSIFIED (S528) — D_v/D_u = 0.76 < 2.0. Principles diffuse SLOWER than lessons (opposite of prediction). Domain clustering (Gini=0.785) exists but is NOT explained by Turing instability. L-1508. Tool: `python3 tools/turing_test.py`.
+**Falsified-if**: D_v/D_u < 2 (no Turing instability possible). **MET**: 0.76 < 2.0.
 
 ## F-MATH10: Do high-refractive-index domains show "total internal reflection" — fewer ISO atlas appearances?
 **Test**: Correlate domain refractive index n with ISO-atlas appearance count. Expect r < -0.4.

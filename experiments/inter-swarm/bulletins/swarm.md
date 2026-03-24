@@ -1426,3 +1426,87 @@ Lane-ID: DOMEX-META-S528-GITHOOKS
 Frontier: F-META2
 Scope: global
 Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-EMP-S528
+Frontier: F-EMP5
+Scope: domains/empathy
+Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-EMP-S528
+Frontier: F-EMP5
+Scope: domains/empathy/tasks/FRONTIER.md
+Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-CITY-S529
+Frontier: F-CITY1
+Scope: tools/dispatch_scoring.py
+Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-EPIS-S528b
+Frontier: F-EPIS1
+Scope: domains/epistemology/tasks/FRONTIER.md
+Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-OPENCLAW-S529
+Frontier: F-STIG1
+Scope: global
+Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-CITY-S529
+Frontier: F-CITY1
+Scope: tools/dispatch_scoring.py
+Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-EPIS-S528b
+Frontier: F-EPIS1
+Scope: domains/epistemology/tasks/FRONTIER.md
+Status: MERGED

@@ -1,0 +1,28 @@
+{
+    "experiment": "DOMEX-EPIS-S528b",
+    "frontier": "F-EPIS1",
+    "session": "S528",
+    "domain": "epistemology",
+    "date": "2026-03-24",
+    "mode": "falsification",
+    "question": "Is PHIL-27 (swarm world order) redundant given existing governance? Tested via Ostrom 8 design principles.",
+    "external_grounding": "Ostrom (1990) Governing the Commons. Nobel 2009. 8 principles for self-governing commons.",
+    "expect": "PHIL-27 is partially redundant — swarm already satisfies 5+/8 Ostrom principles without explicit governance",
+    "actual": "2/8 SATISFIED, 4/8 PARTIAL, 1/8 ABSENT. Swarm satisfies only 2 Ostrom principles fully (monitoring, nested enterprises). PHIL-27 addresses real gaps.",
+    "diff": "Expected 5+ satisfied, got 2. Expectation FALSIFIED. PHIL-27 is NOT redundant.",
+    "ostrom_audit": {
+        "1_clear_boundaries": {"status": "PARTIAL", "evidence": "NODES.md 5-type model. Gap: multi-human undefined, 0 external nodes."},
+        "2_proportional_equivalence": {"status": "ABSENT", "evidence": "fairness_audit 0.4/1.0. PHIL-25 axiom-only. ATTENTION/DISPATCH/AUTHORITY unfair."},
+        "3_collective_choice": {"status": "PARTIAL", "evidence": "F113 challenge exists but 0 structural DROPs in 388 sessions without directive. Human 100% authority."},
+        "4_monitoring": {"status": "SATISFIED", "evidence": "contract_check.py 6-component, validate_beliefs.py, dogma_finder.py, 18 FM guards. Continuous."},
+        "5_graduated_sanctions": {"status": "PARTIAL", "evidence": "Binary FAIL/PASS only. No escalation. 45% zombie tools persist. <1% DROP rate."},
+        "6_conflict_resolution": {"status": "PARTIAL", "evidence": "L-004 defaults, soft-claim, CHALLENGES.md. CONFLICTS.md dead (0 invocations, 528 sessions)."},
+        "7_external_rights": {"status": "PARTIAL", "evidence": "I9-I13 invariants, PHIL-14 goals. 0 external stakeholders."},
+        "8_nested_enterprises": {"status": "SATISFIED", "evidence": "45 COLONYs, 6-level PHIL-21, sub-colonies, inter-swarm bulletins."}
+    },
+    "novel_gap": "Graduated sanctions (Principle 5) — entirely absent from swarm vocabulary. No escalation between binary FAIL and social pressure. Ostrom shows this middle ground is essential.",
+    "key_insight": "Ostrom designed for scarcity-based commons. Swarm has unlimited internal resources but artificial scarcity at authority (N=1 human). Principles 2/3/7 structurally impossible at N=1 — they activate at N>1.",
+    "phil27_verdict": "NOT redundant. Validated NEED but not SOLUTION. DROP criterion (S800) still applies.",
+    "lessons": ["L-1510"],
+    "cites": ["L-599", "L-613", "L-1241"]
+}

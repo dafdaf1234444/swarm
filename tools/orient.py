@@ -371,6 +371,16 @@ def main():
             except Exception:
                 return None
         _futures['human_impact'] = _pool.submit(_run_human_impact)
+        def _run_brain_turing():
+            try:
+                from brain_extractor import scan_all_lessons as _br_scan, extract_brain as _br_extract
+                from turing_test import run_all_tests as _tt_run
+                _br = _br_extract(_br_scan())
+                _tt = _tt_run()
+                return {"brain": _br, "turing": _tt}
+            except Exception:
+                return None
+        _futures['brain_turing'] = _pool.submit(_run_brain_turing)
         def _run_concept_debt():
             try:
                 from concept_debt_audit import audit as _cda
@@ -418,6 +428,7 @@ def main():
     _self_app_result = _safe_result('self_app')
     _grounding_decay_result = _safe_result('grounding_decay')
     _human_impact_result = _safe_result('human_impact')
+    _brain_turing_result = _safe_result('brain_turing')
     _concept_debt_result = _safe_result('concept_debt')
 
     index_text = _read("memory/INDEX.md")
@@ -517,6 +528,29 @@ def main():
             for _sp in _hi_soul_data.get("selection_pressure", [])[:2]:
                 print(f"    \u2192 {_sp}")
             print(f"  Run: python3 tools/human_impact.py")
+
+        # Brain + Turing (SIG-108, L-1508) — cognitive architecture + intelligence criteria
+        if _brain_turing_result:
+            _br = _brain_turing_result.get("brain")
+            _tt = _brain_turing_result.get("turing")
+            if _br:
+                _s12 = _br.get("system1_vs_system2", {})
+                _bh = _br.get("health", {})
+                _marr = _br.get("marr_levels", {})
+                print(f"\n--- Brain (SIG-108, L-1508) ---")
+                print(f"  S1/S2={_s12.get('ratio','?')}x ({_s12.get('interpretation','?')}) | "
+                      f"bias={_bh.get('bias_ratio','?')} ({_bh.get('bias_health','?')}) | "
+                      f"diversity={_br.get('reasoning_diversity_avg','?')} ({_bh.get('diversity_health','?')})")
+                print(f"  Marr: {_marr.get('computational_pct','?')}% computational / "
+                      f"{_marr.get('algorithmic_pct','?')}% algorithmic / "
+                      f"{_marr.get('implementational_pct','?')}% implementational")
+                for _sp in _br.get("selection_pressure", [])[:1]:
+                    print(f"    \u2192 {_sp}")
+            if _tt:
+                _tc = _tt.get("composite", {})
+                print(f"  Turing: TQ={_tc.get('turing_quotient','?')} "
+                      f"({_tc.get('pass',0)}P/{_tc.get('partial',0)}M/{_tc.get('fail',0)}F)")
+                print(f"  Run: python3 tools/brain_extractor.py | python3 tools/turing_test.py")
 
         # Steerer voices (L-1337, L-1350) — synthetic humans challenging the swarm
         try:

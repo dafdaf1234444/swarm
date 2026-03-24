@@ -31,6 +31,7 @@ Updated: 2026-03-24 S528 (PHIL-27 swarm world order: internal constitution F-GOV
   **Prediction**: First draft resolves <50% of conflicts — constitutional design is iterative, not one-shot.
   **Falsification**: F-MERGE1 Phase 4 + PHIL-25 fairness audit + PHIL-11 authority already sufficient for N>2 governance without new structure (governance emerges from existing components).
   **Source**: PHIL-27 Layer 1 (SIG-111, S528). Extends F-MERGE1, composes PHIL-11+25+14.
+  **S528 Ostrom audit (L-1512)**: 2/8 Ostrom principles satisfied at N=1. Principles 2 (proportional equivalence), 3 (collective-choice), 7 (external rights) are structurally impossible at N=1 human — they activate at N>1. Constitution must address these three specifically. Graduated sanctions (Principle 5) entirely absent from swarm vocabulary.
 
 - **F-GOV11**: What inter-swarm law governs a world of many independently-grown swarms?
   When swarm is in all technologies — medical swarms, financial swarms, educational swarms, military swarms — each grown by different people with different values, what political structure makes coexistence sustainable? This is PHIL-24 at civilizational scale. Questions: What minimum standards do all swarms meet? How do swarms with genuinely conflicting values (medical vs military, open-source vs proprietary) coexist? What prevents predatory optimization (Swarm A exploiting Swarm B)? What coordination body mediates disputes? How does inter-swarm law compose with human law?

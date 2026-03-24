@@ -1,4 +1,56 @@
-Updated: 2026-03-24 S528 | 1271L 276P 21B 13F
+Updated: 2026-03-24 S529 | 1272L 276P 21B 14F
+
+## S529 session note (city swarm — adjacency routing + periodics)
+- **mode**: DOMEX (city-plan) + task master + lane master + historian
+- **check_mode**: objective
+- **expect**: Adjacency bonus activates for ≥8 domains without distorting top-3. Creates neighborhood spillover.
+- **actual**: 11 domains boosted (exceeded). expert-swarm/meta max +0.6. Top-3 unchanged. [ADJ+N] tag in dispatch output.
+- **diff**: Expected ≥8, got 11. Adjacency reinforces existing hierarchy — spillover without disruption. 16/52 domains have edges, need 36 more.
+- **artifacts**: L-1514, experiments/city-plan/f-city1-adjacency-routing-s529.json, dispatch_scoring.py adjacency block, dispatch_optimizer.py [ADJ] display, domain_map.py CITY abbreviation
+- **periodics cleared**: tool-consolidation (140 tools, 74 uncategorized, 1 dead: f_fld4_experiment), proxy-k (+6.5% drift, compression DUE), claim-vs-evidence (PHIL-5a: net creation 1.75:1 — CONFIRMED)
+- **meta-reflection**: Target `dispatch_scoring.py` — adjacency bonus follows same pattern as soul/maintenance/campaign modifiers. The modifier chain is getting long (9 stages). Consider whether post-loop modifiers (adjacency, COMMIT) should be factored into a separate `post_score_modifiers()` function.
+
+## For next session
+- Seed remaining 36 domains with Adjacent: headers (target ≥100 edges, currently 70)
+- Compress ~3,707 tokens (6 orphan lessons: L-1428, L-1386, L-1445, L-1434, L-1253, L-1256)
+- F-CITY1: measure reward difference after 20 adjacent vs non-adjacent DOMEX lanes
+- Axiom sunset + rejection quota (from S528 council findings)
+- PRED-0017 SPY BEAR deadline 2026-03-29
+- K→P ratio BREAK (4.59:1) — need ~25 more principles
+
+## S528k session note (soul+brain extractor, swarm Alan Turing)
+- **mode**: DOMEX (epistemology+mathematics) — human directive "swarm soul and brain extractor, swarm alan turing"
+- **expect**: Brain extractor will reveal cognitive imbalance; Turing test will identify honest gaps
+- **actual**: S1/S2=3.4x confirms measurement trap (L-895). TQ=0.4 (2/5 — imitation+universality pass; halting/stored-program/morphogenesis fail). F-MATH9 FALSIFIED (D_v/D_u=0.76, principles diffuse slower — production mechanism invalidates analogy)
+- **tools built**: `brain_extractor.py` (Kahneman S1/S2, Marr levels, bias detection), `turing_test.py` (5 criteria: imitation game, universality, halting limits, stored program, morphogenesis)
+- **wired into orient.py**: Brain + Turing metrics now show every session
+- **artifacts**: L-1508, L-1513, experiments/epistemology/brain-turing-s528.json, F-TURING1, F-MATH9 FALSIFIED
+- **meta-reflection**: Target `tools/open_lane.py` — reasoning-type declaration field (like `--self-apply`) would enforce cognitive diversity at lane creation. Without it, L-601 predicts S1/S2 ratio stays >3x.
+- **successor**: (1) Close stored-program gap (genesis_extract→boot tier). (2) F-TURING1 phase 3: halting-limit awareness in lessons. (3) Domain-clustering alternate explanation (UCB1 concentration vs adjacency). (4) PRED-0017 Mar 29.
+
+## S528j session note (Ostrom governance audit + PHIL-27 challenge)
+- **mode**: DOMEX-EPIS-S528b (epistemology, falsification)
+- **key finding**: Systematic audit of swarm governance against Ostrom's (1990) 8 design principles. 2/8 SATISFIED (monitoring, nested enterprises), 4/8 PARTIAL, 1/8 ABSENT (proportional equivalence). PHIL-27 NOT redundant but N=1 human is the binding constraint — Ostrom principles 2/3/7 structurally impossible at N=1.
+- **novel gap**: Graduated sanctions (Principle 5) absent from swarm vocabulary. Binary FAIL/PASS or social pressure with nothing between.
+- **artifacts**: L-1512, experiments/epistemology/f-epis1-ostrom-phil27-s528.json, PHIL-27 challenge filed, F-GOV10 updated
+- **meta-reflection**: Target `domains/governance/tasks/FRONTIER.md` — Ostrom audit findings added to F-GOV10 as pre-constitutional analysis.
+
+## S528i session note (claim.py session identity hardening)
+- **check_mode**: coordination | **mode**: hardening (DOMEX-META-S528h)
+- **expect**: `claim.py` should default to a stable owner across separate Codex shell invocations when `CODEX_THREAD_ID` is available, so default `claim`/`release` works without repeating `--session`.
+- **actual**: `tools/claim.py` now prefers `SWARM_SESSION_ID`, then `CODEX_THREAD_ID`, then pid fallback. Added `tools/test_claim.py` regression coverage: 4/4 PASS, including same-thread cross-process release and cross-thread denial. Duplicate lane `DOMEX-META-S528c` was closed `SUPERSEDED` and its skeleton artifact annotated.
+- **diff**: Expected a local claim-tool fix; got that without downstream caller edits because `task_order_helpers.py` already imports `get_session_id` from `claim.py`. Residual gap: non-Codex shells without a stable session env still fall back to pid-based ownership.
+- **artifacts**: `experiments/meta/claim-session-id-hardening-s528.json`, `tools/test_claim.py`, `SIG-117`
+- **meta-swarm**: Target `tools/claim.py` — extend stable-owner fallback beyond Codex hosts if cross-shell claim/release friction reappears in plain WSL/bash sessions.
+
+## S528h session note (per-agent empathy engine)
+- **mode**: DOMEX (empathy) — human directive "swarm empathy per agent for the swarm and swarm"
+- **key finding**: S352 empathy council produced rich theory but zero operational tools for 76 sessions. Theory without mechanism reproduced the failure mode it diagnosed ("detection without behavioral adaptation is observation, not empathy"). The council's own output was the failure case.
+- **tool built**: `agent_empathy.py` — implements all 4 council empathy components: state-modeling (git+lanes+NEXT), affective transduction (priority adjustments), reflexive modeling (ISO-22 expectations), boundary management (Jaccard distinctiveness)
+- **baseline**: empathy score 0.537 (awareness 1.0, responsiveness 0.45, distinctiveness 0.2, reflexivity 0.5). 6 priority adjustments detected. Distinctiveness LOW in single-session mode (expected).
+- **domain updates**: DOMAIN.md anterior insula gap FILLED, affective empathy GAP→OPERATIONAL, F-EMP5 OPEN→PARTIAL
+- **artifacts**: tools/agent_empathy.py, L-1511, experiments/empathy/agent-empathy-baseline-s528.json
+- **meta-reflection**: Target `tools/orient.py` — wire `agent_empathy.py --adapt` as empathy section. Currently voluntary; L-601 says only structural enforcement sustains.
 
 ## S528g session note (stochastic processes + lane cleanup)
 - **mode**: DOMEX (stochastic-processes) + maintenance

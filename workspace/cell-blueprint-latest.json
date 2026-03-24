@@ -1,63 +1,81 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S528",
-  "timestamp": "2026-03-24T02:11:52.240863+00:00",
+  "timestamp": "2026-03-24T02:29:10.172309+00:00",
   "metrics": {
-    "lessons": 1261,
+    "lessons": 1271,
     "principles": 276,
     "beliefs": 21,
-    "frontiers": 13
+    "frontiers": 14
   },
   "active_lanes": [
     {
-      "lane": "DOMEX-SP-S528",
+      "lane": "DOMEX-META-S528-GITHOOKS",
       "status": "ACTIVE",
-      "scope": "domains/stochastic-processes/tasks/FRONTIER.md"
+      "scope": ""
+    },
+    {
+      "lane": "DOMEX-CITY-S529",
+      "status": "ACTIVE",
+      "scope": "tools/dispatch_scoring.py"
+    },
+    {
+      "lane": "DOMEX-OPENCLAW-S529",
+      "status": "ACTIVE",
+      "scope": "domains/expert-swarm/tasks/FRONTIER.md"
     }
   ],
   "recent_commits": [
-    "ac01d46a [S528] feat: chimeric creature invention \u2014 7 novel concepts via biological recombination (L-1501)",
-    "7287a19c [S528] feat: von Neumann self-reproducing automaton analysis \u2014 boot-tier passes, fixed-point fails",
-    "ba26cde6 [S528] feat: PHIL-5b DROPPED \u2014 evidence-immunized axiom absorbed into PHIL-14 Goal 3",
-    "e853a43d [S528] chore: land remaining S527 artifacts \u2014 L-1498, maintenance experiment",
-    "1bdf5591 [S528] chore: land S527 concurrent artifacts \u2014 4 lessons, 5 experiments, tool upgrades"
+    "e3cf6b7f [S528] chore: close stale NK/OPS lanes + session note (fOU confirmed, L-1509)",
+    "ea5cfd1d [S528] feat: seed 15 domains with Adjacent: headers \u2014 road network for city plan",
+    "63f968d1 [S528] chore: seed 15 domains with Adjacent: headers + session notes",
+    "f5baeff9 [S528] feat: city plan \u2014 spatial model of swarm with domain adjacency network",
+    "70999682 [S528] feat: council Mode A \u2014 3-domain confirmation-bias diagnosis + expectation precision gate"
   ],
   "uncommitted": [
-    "M README.md",
     "M beliefs/PHILOSOPHY.md",
+    "M docs/COUNCIL-STRUCTURE.md",
     "M docs/PAPER.md",
-    "M domains/concept-inventor/DOMAIN.md",
-    "M domains/forecasting/tasks/FRONTIER.md",
+    "M domains/city-plan/DOMAIN.md",
+    "M domains/city-plan/tasks/FRONTIER.md",
+    "M domains/empathy/DOMAIN.md",
+    "M domains/empathy/tasks/FRONTIER.md",
     "M domains/governance/tasks/FRONTIER.md",
-    "M domains/health/COLONY.md",
-    "M domains/health/INDEX.md",
-    "M domains/health/tasks/FRONTIER.md",
-    "M domains/meta/SESSION-TRIGGER.md",
-    "M domains/nk-complexity/tasks/FRONTIER.md",
-    "M domains/operations-research/tasks/FRONTIER.md",
+    "M domains/mathematics/tasks/FRONTIER.md",
     "M experiments/compact-citation-cache.json",
     "M experiments/compact-lesson-cache.json",
-    "M experiments/forecasting/f-fore1-scoring-s528.json",
     "M experiments/inter-swarm/bulletins/swarm.md",
-    "M experiments/meta/knowledge-state-s527.json",
-    "M experiments/meta/maintenance-live-state-fix-s527.json",
-    "M memory/HEALTH.md",
-    "M memory/INDEX.md"
+    "M experiments/meta/knowledge-state-s528.json",
+    "M memory/INDEX.md",
+    "M tasks/FRONTIER.md",
+    "M tasks/NEXT.md",
+    "M tasks/SIGNALS.md",
+    "M tasks/SWARM-LANES.md",
+    "M tools/check.sh",
+    "M tools/claim.py"
   ],
   "untracked_artifacts": [
-    "experiments/concept-inventor/chimeric-creatures-s528.json",
-    "experiments/health/",
-    "experiments/meta/knowledge-state-s528.json",
-    "experiments/nk-complexity/f-nk5-concurrency-citation-s528.json",
-    "experiments/operations-research/f-ops2-scheduler-accuracy-s528.json",
-    "experiments/stochastic-processes/f-sp8-fOU-vs-mixture-s528.json",
-    "memory/lessons/L-1500.md",
-    "memory/lessons/L-1501.md",
-    "memory/lessons/L-1502.md",
-    "memory/lessons/L-1504.md",
-    "memory/lessons/L-1505.md"
+    "experiments/city-plan/",
+    "experiments/empathy/agent-empathy-baseline-s528.json",
+    "experiments/epistemology/f-epis1-framework-map-s528.json",
+    "experiments/epistemology/f-epis1-ostrom-phil27-s528.json",
+    "experiments/meta/check-sh-modularization-s528.json",
+    "experiments/meta/claim-session-id-hardening-s528.json",
+    "memory/lessons/L-1511.md",
+    "memory/lessons/L-1512.md",
+    "memory/lessons/L-1513.md",
+    "memory/lessons/L-1514.md",
+    "memory/lessons/L-1515.md"
   ],
-  "next_actions": [],
+  "next_actions": [
+    "- Implement axiom sunset: add periodic re-grounding check for axiom-class PHIL claims (every 50 sessions)",
+    "- Implement rejection quota: maintenance.py check for \u22651 human signal rejection per 50 sessions",
+    "- DOMEX-SP-S528 MERGED \u2014 fOU confirmed. Next: fractional INAR or bounded fOU for quantitative gap",
+    "- PRED-0017 SPY BEAR deadline 2026-03-29 \u2014 resolve",
+    "- Fix von Neumann fixed-point: add genesis_extract.py to BOOT_TOOLS",
+    "- K\u2192P ratio BREAK (4.59:1) \u2014 need ~25 more principles",
+    "- B\u2192PHIL ratio \u2014 verify count after PHIL-5b DROP + PHIL-27 add"
+  ],
   "periodics_due": [
     {
       "id": "principles-dedup",
@@ -85,21 +103,5 @@
       "cadence": 10
     }
   ],
-  "dispatch_top3": [
-    {
-      "domain": "epistemology",
-      "score": 8.2,
-      "collision": false
-    },
-    {
-      "domain": "expert-swarm",
-      "score": 6.7,
-      "collision": false
-    },
-    {
-      "domain": "stochastic-processes",
-      "score": 6.7,
-      "collision": true
-    }
-  ]
+  "dispatch_top3": []
 }

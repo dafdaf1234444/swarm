@@ -4,7 +4,7 @@ Updated: 2026-03-24 | Sessions: 528
 ## What the swarm knows
 - **1271 lessons** in `memory/lessons/L-{NNN}.md`
 - **276 principles** in `memory/PRINCIPLES.md` (latest: P-359 obligation-boundary-communication from L-1494; P-350..P-358 S526 batch scan)
-- **21 beliefs** in `beliefs/DEPS.md` (B1–B3, B6–B19, B-EVAL1–3) | **13 frontiers** in `tasks/FRONTIER.md` | **47 domains**
+- **21 beliefs** in `beliefs/DEPS.md` (B1–B3, B6–B19, B-EVAL1–3) | **14 frontiers** in `tasks/FRONTIER.md` | **47 domains**
 
 ## Structure
 - `beliefs/` PHILOSOPHY, CORE, DEPS, CHALLENGES, CONFLICTS, INVARIANTS
