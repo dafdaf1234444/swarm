@@ -1,11 +1,11 @@
 {
-  "session": 537,
+  "session": 538,
   "stale_window": 50,
   "global_states": {
-    "MUST-KNOW": 482,
-    "ACTIVE": 530,
-    "DECAYED": 518,
-    "BLIND-SPOT": 161,
+    "MUST-KNOW": 488,
+    "ACTIVE": 529,
+    "DECAYED": 517,
+    "BLIND-SPOT": 160,
     "SHOULD-KNOW": 129
   },
   "domain_profiles": {
