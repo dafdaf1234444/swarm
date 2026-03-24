@@ -207,6 +207,7 @@ def parse_phil_claims() -> list[dict]:
 def check_phil_format(claims: list[dict]) -> list[str]:
     """Validate PHIL claims format and grounding labels (L-599)."""
     VALID_GROUNDING = {"grounded", "partial", "axiom", "aspirational", "unverified", "metaphor"}
+    is_daughter = (REPO_ROOT / "IDENTITY.md").exists()
     out = []
     for c in claims:
         if c["type"] not in ("observed", "axiom"):
@@ -214,7 +215,11 @@ def check_phil_format(claims: list[dict]) -> list[str]:
                 f"FAIL PHIL: {c['id']} invalid type '{c['type']}' "
                 f"(need 'observed' or 'axiom')"
             )
-        if not c["status"].startswith("active"):
+        status = c["status"]
+        # Daughter swarms: "inherited — active ..." is valid (GAP-5 L-1601)
+        if is_daughter and status.startswith("inherited"):
+            status = status.replace("inherited — ", "", 1)
+        if not status.startswith("active"):
             out.append(f"WARN PHIL: {c['id']} status not active: '{c['status'][:50]}'")
         # L-599 grounding enforcement: every PHIL claim must have a grounding label
         grounding = c.get("grounding", "")
@@ -267,6 +272,9 @@ def check_identity() -> list[str]:
     index_md = REPO_ROOT / "memory" / "INDEX.md"
     core_md = REPO_ROOT / "beliefs" / "CORE.md"
     if not index_md.exists() or not core_md.exists():
+        return []
+    # Daughter swarms modify CORE.md (lineage section) — skip hash check (GAP-5)
+    if (REPO_ROOT / "IDENTITY.md").exists():
         return []
     m = re.search(r"<!--\s*core_md_hash:\s*([a-f0-9]{64})\s*-->", _read_text(index_md))
     if not m:

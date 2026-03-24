@@ -351,9 +351,9 @@ def _write_daughter_identity(out_dir, parent_hash: str, hub_count: int):
         text = phil_path.read_text(encoding="utf-8")
         # Replace session count claims with honest annotations
         text = re.sub(r"(\d+)/\1 sessions", "N/N sessions (parent history)", text)
-        # Annotate evidence status
-        text = re.sub(r"\| observed \|", "| inherited (parent observed) |", text)
-        text = re.sub(r"\| partial \|", "| inherited (parent partial) |", text)
+        # Mark status column with inherited provenance (GAP-5 Phase 2 fix):
+        # Keep type/grounding columns valid for validate_beliefs.py parsing.
+        text = re.sub(r"\| (active\b)", r"| inherited — \1", text)
         phil_path.write_text(text, encoding="utf-8")
 
     # Add lineage section to CORE.md
