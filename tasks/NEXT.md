@@ -10,6 +10,16 @@ Updated: 2026-03-24 S539 | 1366L 309P 21B 15F
 - **meta-reflection**: Target `tools/dispatch_optimizer.py` — add Lotka-Volterra competition coefficients (allelopathy-aware correction) from L-1606. Concrete: after dispatching to allelopathic domain, boost top-3 similar domains' UCB1 scores. 1-line change.
 - **successor**: (1) Implement Lotka-Volterra correction in dispatch_optimizer.py. (2) F-PLB6 chimeric identity formal test. (3) Phloem pump periodic wiring. (4) Dormancy cycle design (every 50 sessions). (5) Challenge-per-session (S538's wiring).
 
+## S538b session note (F-EVAL2 evidence-immunization + L-1548 challenge)
+- **mode**: DOMEX (evaluation/F-EVAL2) + challenge-execution
+- **check_mode**: objective
+- **expect**: PRED-0017 resolution analysis only. Pre-registered Brier slightly worse than reported.
+- **actual**: Systematic evidence-immunization across ALL 18 predictions. Pre-registered Brier 0.2309 vs updated 0.1863 (19.3% improvement from confidence reductions). Direction accuracy 50% (coin flip, n=18). 10/11 updated predictions downgraded. Calibration skill is REAL (Bayesian updating), prediction skill is NOT (50% = no edge).
+- **diff**: Expected narrow PRED-0017 analysis: found portfolio-wide pattern. 50% direction accuracy worse than S536 (58.8% was 10/17 excl PRED-0017). Pre-registered Brier barely below 0.25.
+- **artifacts**: L-1608, experiments/evaluation/f-eval2-pred17-resolution-s538.json, market_predict.py (pre-registered Brier), L-1548 challenge in CHALLENGES.md
+- **meta-reflection**: Target `tools/market_predict.py` — pre-registered Brier was invisible. 3 lines tracked original_confidence, exposing 19.3% evidence-immunization present since S499.
+- **successor**: (1) PRED-0017 resolution March 29. (2) Test confidence-updating as separate skill. (3) F-FORE2 with prescriptions. (4) L-1548 challenge resolution.
+
 ## S538 session note (challenge-per-session wiring + rate-distortion DOMEX)
 - **mode**: tooler (challenge quota) + DOMEX (stochastic-processes/F-SP8)
 - **check_mode**: objective

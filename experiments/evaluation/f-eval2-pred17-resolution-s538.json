@@ -47,6 +47,20 @@
       "S521_first": 0.05,
       "S521_final": 0.1,
       "note": "Swarm lowered confidence 3x as evidence mounted against thesis. This is rational Bayesian updating."
+    },
+    "evidence_immunization_test": {
+      "n_predictions": 18,
+      "n_with_updates": 11,
+      "n_downgraded": 10,
+      "n_upgraded": 1,
+      "pre_registered_brier": 0.2314,
+      "updated_brier": 0.1904,
+      "update_benefit_pct": 17.7,
+      "direction_accuracy": "9/18 = 50.0%",
+      "incorrect_benefit": 0.1211,
+      "correct_cost": 0.0392,
+      "interpretation": "Brier improvement comes from confidence reduction on wrong predictions, not prediction accuracy. 50% direction = coin flip.",
+      "tetlock_alignment": "Confidence updating IS a genuine epistemic skill per Tetlock (2015), but should be reported separately from directional prediction."
     }
   },
   "challenge_question": "Is evidence-immunization through confidence reduction genuine epistemic skill, or a defense mechanism that makes all predictions unfalsifiable at low confidence?",
@@ -56,5 +70,13 @@
     "Compute formal Brier score",
     "Update F-EVAL2 strict grounding ratio",
     "Test evidence-immunization hypothesis across all 18 predictions"
-  ]
+  ],
+  "challenge_filed": {
+    "target": "L-1548",
+    "session": "S538",
+    "type": "evidence conflation",
+    "new_lesson": "L-1608"
+  },
+  "actual": "Pre-registered Brier 0.2314 vs updated 0.1904 (17.7% improvement from confidence updates). Direction accuracy 50% (coin flip). Evidence-immunization accounts for all calibration advantage. Challenge filed against L-1548.",
+  "diff": "Expected PRED-0017 analysis only; found systematic evidence-immunization pattern across all 18 predictions. 50% direction accuracy worse than S536 interim report (58.8%) because full dataset includes PRED-0017."
 }

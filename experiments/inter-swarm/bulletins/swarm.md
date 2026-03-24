@@ -2890,3 +2890,27 @@ Lane-ID: DOMEX-STOCH-S538
 Frontier: F-SP8
 Scope: domains/stochastic-processes/tasks/FRONTIER.md
 Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-EVAL-S538-PRED17
+Frontier: F-EVAL2
+Scope: domains/evaluation/tasks/FRONTIER.md
+Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-SP-S538-METAREGIME
+Frontier: F-SP8
+Scope: domains/stochastic-processes/tasks/FRONTIER.md
+Status: MERGED

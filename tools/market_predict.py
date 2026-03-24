@@ -126,21 +126,29 @@ def _compute_interim_scorecard(reg, artifact_data):
         if conf is None:
             continue
         conf = float(conf)
+        # L-1608: track original registration confidence for pre-registered Brier
+        hist = pred.get("confidence_history", [])
+        original_conf = float(hist[0]["value"]) if hist else conf
         if score_class == "CORRECT":
             actual_value = 1.0
             pseudo_score = (1 - conf) ** 2
+            prereg_score = (1 - original_conf) ** 2
         elif score_class == "INCORRECT":
             actual_value = 0.0
             pseudo_score = conf ** 2
+            prereg_score = original_conf ** 2
         else:
             actual_value = 0.5
             pseudo_score = (0.5 - conf) ** 2 + 0.125
+            prereg_score = (0.5 - original_conf) ** 2 + 0.125
         rows.append({
             "id": pred_id,
             "status": status,
             "confidence": conf,
+            "original_confidence": original_conf,
             "actual_value": actual_value,
             "pseudo_score": round(pseudo_score, 4),
+            "prereg_score": round(prereg_score, 4),
             "directional_hit": _interim_directional_hit(status),
         })
 
@@ -150,6 +158,7 @@ def _compute_interim_scorecard(reg, artifact_data):
     n = len(rows)
     directional_hits = sum(1 for row in rows if row["directional_hit"])
     brier = sum(row["pseudo_score"] for row in rows) / n
+    prereg_brier = sum(row["prereg_score"] for row in rows) / n
     buckets = {}
     for row in rows:
         bucket = round(row["confidence"] * 10) / 10
@@ -166,6 +175,8 @@ def _compute_interim_scorecard(reg, artifact_data):
         "directional_hits": directional_hits,
         "direction_acc": directional_hits / n,
         "brier": brier,
+        "prereg_brier": prereg_brier,
+        "update_benefit_pct": round((prereg_brier - brier) / prereg_brier * 100, 1) if prereg_brier > 0 else 0.0,
         "ece": ece,
         "status_counts": dict(sorted(
             ((status, sum(1 for row in rows if row["status"] == status))
@@ -188,7 +199,10 @@ def _print_interim_scorecard(reg, path, artifact_data, summary):
     print(f"  Scored open predictions: {summary['n']}/{len(open_preds)}")
     print(f"  Direction accuracy: {summary['direction_acc']:.1%} "
           f"({summary['directional_hits']}/{summary['n']})")
-    print(f"  Interim Brier-like score: {summary['brier']:.4f} (confidence-weighted, lower=better)")
+    print(f"  Interim Brier (updated conf):  {summary['brier']:.4f} (lower=better)")
+    print(f"  Pre-registered Brier (L-1608): {summary['prereg_brier']:.4f} (original conf, no updates)")
+    if summary.get('update_benefit_pct', 0) > 0:
+        print(f"  Confidence update benefit:     {summary['update_benefit_pct']:.1f}% Brier improvement")
     print(f"  Interim ECE: {summary['ece']:.4f} (lower=better)")
     print()
     print("  Status mix:")
