@@ -1,0 +1,23 @@
+{
+    "experiment": "DOMEX-EPIS-S533-GAPS",
+    "frontier": "F-EPIS1",
+    "session": "S533",
+    "domain": "epistemology",
+    "date": "2026-03-24",
+    "expect": "Mapping 2 remaining traditions reveals 3+ actionable gaps addressable by existing or new tools",
+    "actual": "CONFIRMED. Built prior_sensitivity() in bayes_meta.py — 59.8% of 87 frontiers are prior-sensitive (conclusion flips across priors 0.2/0.5/0.8). Single-experiment frontiers: 80.4% flip vs multi-experiment: 36.6%. Replication reduces prior dependence more than elicitation. Mean robustness 0.494.",
+    "diff": "Expected 3+ gaps. Got 1 Bayesian gap (prior sensitivity) now CLOSED by tool, plus 5 social epistemology gaps (4 still open from S532 mapping). Surprise: prior sensitivity measurement shows the CURE is replication, not better priors — reframing the Bayesian gap.",
+    "measurements": {
+        "frontiers_tested": 87,
+        "prior_sensitive_pct": 59.8,
+        "single_exp_flip_pct": 80.4,
+        "multi_exp_flip_pct": 36.6,
+        "mean_robustness": 0.494,
+        "priors_tested": [0.2, 0.5, 0.8],
+        "most_robust": ["F-STR3", "F-CAT1", "F-EPIS1", "F-META2", "F-INV1"],
+        "most_sensitive": ["F-SP2", "F-THERMO1", "F-FRA2", "F-THERMO3"]
+    },
+    "tool_built": "bayes_meta.py --sensitivity (prior_sensitivity + format_sensitivity_report)",
+    "f_epis1_score_update": "9/10 maintained. Bayesian prior elicitation gap now CLOSED (tool built + measured). Social epistemology gaps remain (4/5 open). Path to 10/10: build 1 social-epistemic tool.",
+    "verdict": "CONFIRMED"
+}
