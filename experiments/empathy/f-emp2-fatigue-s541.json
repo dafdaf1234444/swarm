@@ -1,0 +1,36 @@
+{
+  "experiment": "F-EMP2: Within-session quality degradation",
+  "session": "S541",
+  "date": "2026-03-24",
+  "hypothesis": "No degradation: Sharpe flat across commit order",
+  "method": "Spearman correlation of relative commit ordinal vs Sharpe score",
+  "data": {
+    "total_sessions_analyzed": 280,
+    "sessions_with_lessons": 164,
+    "total_ordinal_sharpe_pairs": 900,
+    "total_ordinal_level_pairs": 145
+  },
+  "results": {
+    "sharpe_gradient": {
+      "spearman_rho": -0.0652,
+      "p_value": 0.050397,
+      "early_third_mean": 8.27,
+      "late_third_mean": 8.07,
+      "delta": -0.2
+    },
+    "level_gradient": {
+      "spearman_rho": -0.0309,
+      "p_value": 0.711804,
+      "early_l3plus_rate": 0.935,
+      "late_l3plus_rate": 0.854
+    },
+    "per_session": {
+      "sessions_with_gradient": 105,
+      "degrading_sessions": 34,
+      "improving_sessions": 30,
+      "neutral_sessions": 41
+    }
+  },
+  "verdict": "NO FATIGUE",
+  "falsification_threshold": "|rho| > 0.15 and p < 0.05"
+}
