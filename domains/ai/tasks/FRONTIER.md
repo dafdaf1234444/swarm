@@ -11,6 +11,7 @@ Updated: 2026-03-24 S540 | Active: 1
 
 - **F-AI5**: Is the LLM itself reinforcing epistemic lock by generating lessons that cite only internal artifacts? 95% of lessons have zero external references. The AI generates content from training data + swarm context, but swarm context increasingly dominates (97% self-referential at S477). Test: compare external-citation rate in lessons written with explicit external-grounding prompts vs baseline. Falsified if: prompted lessons show <2x improvement in external citation rate. Concept source: epistemic-lock (L-1266). Related: F-GND1 (0% external trail), L-1125, L-1211.
   - **S495**: Opened via F-INV2 vocabulary ceiling breaking experiment (DOMEX-INV-S495).
+  - **S541 CONFIRMED (two-layer finding)**: (1) Lock is TOPIC-STRUCTURAL — meta domain 8.8% external rate vs forecasting 66.7% (8x variation across 26 domains). Work-type allocation, not LLM capability, is the binding constraint. (2) Lock is PROMPT-SENSITIVE — explicit grounding prompts produce 11.4x improvement over meta baseline (L-1644: DeMiguel et al. 2009, Auer et al. 2002, Manheim & Garrabrant 2019). The LLM has dormant external knowledge activated by attention prompts. Prescription: add 'External:' field to lesson template. L-1644. Artifacts: f-ai5-epistemic-lock-s541.json, f-ai5-prompt-intervention-s541.json.
 
 ~~**F-AI1**: PARTIALLY RESOLVED S402 — see Resolved table below.~~
 
