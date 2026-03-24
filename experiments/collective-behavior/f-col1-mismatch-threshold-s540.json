@@ -1,0 +1,28 @@
+{
+  "experiment_id": "f-col1-mismatch-threshold-s540",
+  "frontier": "F-COL1",
+  "session": "S540",
+  "hypothesis": "Competence-authority mismatch threshold theta approx 2.0 triggers degenerative spiral",
+  "pre_registered_theta": 2.0,
+  "method": "For 54 domains with >=2 merged lanes (N=919 total), computed mismatch = (authority_share / equal_share) / competence_ratio where authority = dispatch fraction and competence = domain mean Sharpe / overall mean Sharpe",
+  "findings": {
+    "theta_quality": 5.0,
+    "theta_diversity": 0.30,
+    "pre_registered_falsified": true,
+    "pearson_mismatch_l3_per_lane": 0.04,
+    "r_squared": 0.002,
+    "meta_mismatch": 13.3,
+    "meta_l3_per_lane": 0.162,
+    "peak_l3_per_lane": 0.327,
+    "peak_mismatch_bin": "[3-5)",
+    "top_3_share": 0.346,
+    "top_3_domains": ["meta", "expert-swarm", "nk-complexity"]
+  },
+  "pre_registration_outcomes": {
+    "theta_2.0": "FALSIFIED — mismatch 2-3x produces ABOVE-median quality",
+    "meta_above_threshold": "CONFIRMED — mismatch 13.3x",
+    "declining_merge_rate": "PARTIALLY CONFIRMED — spiral in diversity space not quality space"
+  },
+  "revised_model": "Two-threshold: theta_quality=5x (quality decay), theta_diversity=0.30 (diversity collapse). Diversity-first, quality-secondary.",
+  "lesson": "L-1621"
+}

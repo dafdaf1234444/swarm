@@ -184,6 +184,32 @@ ADJ_BONUS_PER_NEIGHBOR = 0.2     # additive bonus per high-scoring adjacent doma
 ADJ_BONUS_CAP = 0.6              # max adjacency bonus (3 neighbors)
 ADJ_TOP_N = 10                   # consider top-N domains as "high-scoring"
 
+# Lotka-Volterra allelopathy constants (L-1606, F-PLB5)
+ALLELO_BOOST_SCALE = 0.3         # neighbor boost per unit allelopathy coefficient
+ALLELO_BOOST_CAP = 0.5           # max allelopathy correction bonus
+
+
+def _load_allelopathy_coefficients():
+    """Load domain allelopathy coefficients from F-PLB5 experiment (L-1606)."""
+    pattern = str(EXPERIMENTS_DIR / "plant-biology" / "f-plb5-allelopathy-dispatch-s*.json")
+    files = sorted(glob.glob(pattern))
+    if not files:
+        return {}
+    try:
+        with open(files[-1]) as f:
+            data = json.load(f)
+        coeffs = {}
+        for domain, coeff in data.get("top_allelopaths", []):
+            coeffs[domain] = coeff
+        for domain, coeff in data.get("top_facilitators", []):
+            coeffs[domain] = coeff
+        return coeffs
+    except Exception:
+        return {}
+
+
+_allelopathy_coefficients = _load_allelopathy_coefficients()
+
 
 def _load_adjacency_graph():
     """Load domain adjacency graph from DOMAIN.md Adjacent: headers (city_plan.py)."""
@@ -578,6 +604,27 @@ def ucb1_score(results: list[dict], outcome_map: dict, heat_map: dict,
                 bonus = min(high_neighbors * ADJ_BONUS_PER_NEIGHBOR, ADJ_BONUS_CAP)
                 r["score"] += bonus
                 r["adjacency_bonus"] = round(bonus, 3)
+
+    # Lotka-Volterra allelopathy correction (L-1606, F-PLB5)
+    if _allelopathy_coefficients and _adjacency_graph:
+        for r in results:
+            r.setdefault("allelopathy_boost", 0.0)
+        hot_allelopaths = {
+            r["domain"]: _allelopathy_coefficients.get(r["domain"], 0)
+            for r in results
+            if _allelopathy_coefficients.get(r["domain"], 0) > 0
+            and r.get("heat") in ("HOT", "WARM")
+        }
+        for r in results:
+            dom = r["domain"]
+            boost = 0.0
+            for allelo_dom, coeff in hot_allelopaths.items():
+                if dom in _adjacency_graph.get(allelo_dom, []):
+                    boost += coeff * ALLELO_BOOST_SCALE
+            if boost > 0:
+                boost = min(boost, ALLELO_BOOST_CAP)
+                r["score"] += boost
+                r["allelopathy_boost"] = round(boost, 3)
 
     # COMMIT floor (F-STR3, L-794)
     all_scores = sorted([r["score"] for r in results])

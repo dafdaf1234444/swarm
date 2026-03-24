@@ -582,6 +582,32 @@ def detect_dogma() -> list[dict]:
         })
         merged[key]["total_score"] += f["score"]
 
+    # Recency discount (S538 meta-reflection)
+    recent_challenges = defaultdict(int)
+    for c in challenges:
+        session = c.get("session", 0)
+        recency = current_session - session
+        if recency <= 20:
+            for tid in re.findall(
+                rf"(B-?\w*\d+|{PHIL_ID_RE}|P-\d+)", c["target"]
+            ):
+                m_b = re.match(r"B-(\d+)$", tid)
+                norm = f"B{m_b.group(1)}" if m_b else tid
+                recent_challenges[norm] = max(
+                    recent_challenges[norm], 20 - recency
+                )
+    for key, item in merged.items():
+        recency_strength = recent_challenges.get(key, 0)
+        if recency_strength > 0:
+            discount = recency_strength / 20 * 0.5
+            item["total_score"] *= (1.0 - discount)
+            item["signals"].append({
+                "signal": "RECENCY-DISCOUNT",
+                "score": 0.0,
+                "detail": f"Challenged {20 - recency_strength} sessions ago "
+                          f"\u2014 score reduced {discount:.0%}",
+            })
+
     result = sorted(merged.values(), key=lambda x: -x["total_score"])
     return result
 
