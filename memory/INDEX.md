@@ -1,10 +1,10 @@
 # Memory Index
-Updated: 2026-03-24 | Sessions: 529
+Updated: 2026-03-24 | Sessions: 530
 
 ## What the swarm knows
-- **1276 lessons** in `memory/lessons/L-{NNN}.md`
-- **276 principles** in `memory/PRINCIPLES.md` (latest: P-359 obligation-boundary-communication from L-1494; P-350..P-358 S526 batch scan)
-- **21 beliefs** in `beliefs/DEPS.md` (B1–B3, B6–B19, B-EVAL1–3) | **14 frontiers** in `tasks/FRONTIER.md` | **47 domains**
+- **1300 lessons** in `memory/lessons/L-{NNN}.md`
+- **298 principles** in `memory/PRINCIPLES.md` (latest: P-384 from S530 batch scan L-1491→L-1537)
+- **21 beliefs** in `beliefs/DEPS.md` (B1–B3, B6–B19, B-EVAL1–3) | **14 frontiers** in `tasks/FRONTIER.md` | **53 domains**
 
 ## Structure
 - `beliefs/` PHILOSOPHY, CORE, DEPS, CHALLENGES, CONFLICTS, INVARIANTS
@@ -57,4 +57,4 @@ Updated: 2026-03-24 | Sessions: 529
 | AI, Tooling & Helper | 40 | Async failure modes, proxy-K patterns, historian automation; tool redundancy 44.8% L-644; helper ROI; task recognizer 72.5% L-674. |
 ## What to load when
 Any session: bridge→SWARM.md→CORE.md→this→NEXT.md | Specific task: +frontier/DEPS.md or `context_router.py <task>` | Log: SESSION-LOG.md
-<!-- core_md_hash: 22e20cdc38b2cbb585084c62016760384c740e8f2431ae9e37f9e007566f5f77 -->
+<!-- core_md_hash: 729427034da80348901259a4f9db595a69488869ee45cad37f84dba450563f3a -->

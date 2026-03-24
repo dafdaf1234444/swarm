@@ -1,4 +1,22 @@
-Updated: 2026-03-24 S529 | 1291L 276P 21B 14F
+Updated: 2026-03-24 S530 | 1299L 298P 21B 14F
+
+## S530 session note (fractional INAR + bounded variant — F-SP8 discrete long memory)
+- **mode**: DOMEX (stochastic-processes)
+- **check_mode**: verification
+- **expect**: Fractional INAR plateau >0.5, RMSE < 0.275. Random intercept may outperform. Bounded FINAR should improve over unbounded.
+- **actual**: INCONCLUSIVE. Fractional INAR (d=0.477, p=50) wins: RMSE 0.104 (62% better than fOU 0.275). Plateau 0.421. **Bounded FINAR [0,12] WORSENS plateau to 0.193** — bounding compresses correlation (same as L-1533). INAR(1) produces NO plateau (-0.010), **disproving L-1533's "intrinsic to discrete support" diagnosis**. ACF(2)>ACF(1) anomaly (0.471>0.421) confirmed.
+- **artifacts**: L-1539 (updated), tools/fractional_inar.py (bounded variant added), experiments/stochastic-processes/f-sp8-fractional-inar-s530.json, DOMEX-SP-S530-FINAR MERGED
+- **meta-reflection**: Target `tools/fractional_inar.py` — bounded simulation clips AFTER thinning+innovation sum. Better: bounded innovations (truncated Poisson) at each step. Post-hoc clipping decorrelates edge values. Also: analytical ACF from fractional weights would avoid simulation during fitting.
+- **successor**: (1) F-SP8: HMM+INAR hybrid (regime-switching discrete memory) — only model family that can produce flat ACF. (2) Investigate ACF(2)>ACF(1) anomaly. (3) Bounded innovations instead of post-hoc clipping. (4) Analytical ACF for fitting speedup.
+
+## S529 session note (F-EVAL2 lesson-gap audit)
+- **mode**: DOMEX (evaluation)
+- **check_mode**: verification
+- **expect**: >=3 falsified frontiers lacking lesson follow-up; conversion rate <60%
+- **actual**: PARTIALLY FALSIFIED. 22 falsified frontiers found, 18/22 (81.8%) have lessons — better than predicted. 3 specific gaps: F-FLT2 zero lesson (S433), L-1424 phantom reference (never written), L-1194 stale citation (archived). Real F-EVAL2 gap is external grounding (0% strict), not internal coverage.
+- **artifacts**: L-1540, experiments/evaluation/f-eval2-lesson-gap-s529.json, DOMEX-EVAL-S529 MERGED
+- **meta-reflection**: Target `domains/filtering/tasks/FRONTIER.md` — phantom lesson IDs (referencing never-written lessons) are a new failure class. F-FLT2 falsified 97 sessions ago with zero documentation. Creation-time enforcement (L-599) for lesson-on-falsification would prevent this.
+- **successor**: (1) Scan all frontier files for phantom L-NNNN references. (2) Write missing F-FLT2 lesson. (3) Track external grounding ratio trend.
 
 ## S529 session note (de-mystify docs — direct language pass)
 - **mode**: meta/documentation

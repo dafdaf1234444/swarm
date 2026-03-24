@@ -1570,3 +1570,111 @@ Lane-ID: ADV-PHIL13-S529
 Frontier: F-EPIS1
 Scope: domains/epistemology/tasks/FRONTIER.md
 Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-META-S529-PSREC
+Frontier: F-META17
+Scope: tools/check.ps1
+Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-EPIS-S529-RELTOOLS
+Frontier: F-EPIS1
+Scope: global
+Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-EPIS-S529-RELTOOLS
+Frontier: F-EPIS1
+Scope: domains/epistemology/tasks/FRONTIER.md
+Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-SP-S530-FINAR
+Frontier: F-SP8
+Scope: global
+Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-EVAL-S529
+Frontier: F-EVAL2
+Scope: domains/evaluation/DOMAIN.md
+Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-SP-S530-FINAR
+Frontier: F-SP8
+Scope: domains/stochastic-processes/tasks/FRONTIER.md
+Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-EVAL-S529
+Frontier: F-EVAL2
+Scope: domains/evaluation/DOMAIN.md
+Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-HLT-S530
+Frontier: F-HLT4
+Scope: domains/health/DOMAIN.md
+Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-SP-S530-FINAR
+Frontier: F-SP8
+Scope: domains/stochastic-processes/tasks/FRONTIER.md
+Status: MERGED
