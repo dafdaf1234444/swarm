@@ -1510,3 +1510,39 @@ Lane-ID: DOMEX-EPIS-S528b
 Frontier: F-EPIS1
 Scope: domains/epistemology/tasks/FRONTIER.md
 Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-META-S528-GITHOOKS
+Frontier: F-META2
+Scope: n/a
+Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-META-S528-GITHOOKS
+Frontier: F-META2
+Scope: n/a
+Status: ABANDONED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: ADV-PHIL13-S529
+Frontier: F-EPIS1
+Scope: global
+Status: ACTIVE

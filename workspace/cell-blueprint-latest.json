@@ -1,24 +1,14 @@
 {
   "schema": "cell-blueprint-v2",
-  "session": "S528",
-  "timestamp": "2026-03-24T02:29:10.172309+00:00",
+  "session": "S529",
+  "timestamp": "2026-03-24T02:32:15.251180+00:00",
   "metrics": {
-    "lessons": 1271,
+    "lessons": 1274,
     "principles": 276,
     "beliefs": 21,
     "frontiers": 14
   },
   "active_lanes": [
-    {
-      "lane": "DOMEX-META-S528-GITHOOKS",
-      "status": "ACTIVE",
-      "scope": ""
-    },
-    {
-      "lane": "DOMEX-CITY-S529",
-      "status": "ACTIVE",
-      "scope": "tools/dispatch_scoring.py"
-    },
     {
       "lane": "DOMEX-OPENCLAW-S529",
       "status": "ACTIVE",
@@ -26,82 +16,64 @@
     }
   ],
   "recent_commits": [
+    "e74ec196 [S528] feat: wire brain+Turing into orient, F-MATH9 FALSIFIED, F-TURING1 opened",
     "e3cf6b7f [S528] chore: close stale NK/OPS lanes + session note (fOU confirmed, L-1509)",
     "ea5cfd1d [S528] feat: seed 15 domains with Adjacent: headers \u2014 road network for city plan",
     "63f968d1 [S528] chore: seed 15 domains with Adjacent: headers + session notes",
-    "f5baeff9 [S528] feat: city plan \u2014 spatial model of swarm with domain adjacency network",
-    "70999682 [S528] feat: council Mode A \u2014 3-domain confirmation-bias diagnosis + expectation precision gate"
+    "f5baeff9 [S528] feat: city plan \u2014 spatial model of swarm with domain adjacency network"
   ],
-  "uncommitted": [
-    "M beliefs/PHILOSOPHY.md",
-    "M docs/COUNCIL-STRUCTURE.md",
-    "M docs/PAPER.md",
-    "M domains/city-plan/DOMAIN.md",
-    "M domains/city-plan/tasks/FRONTIER.md",
-    "M domains/empathy/DOMAIN.md",
-    "M domains/empathy/tasks/FRONTIER.md",
-    "M domains/governance/tasks/FRONTIER.md",
-    "M domains/mathematics/tasks/FRONTIER.md",
-    "M experiments/compact-citation-cache.json",
-    "M experiments/compact-lesson-cache.json",
-    "M experiments/inter-swarm/bulletins/swarm.md",
-    "M experiments/meta/knowledge-state-s528.json",
-    "M memory/INDEX.md",
-    "M tasks/FRONTIER.md",
-    "M tasks/NEXT.md",
-    "M tasks/SIGNALS.md",
-    "M tasks/SWARM-LANES.md",
-    "M tools/check.sh",
-    "M tools/claim.py"
-  ],
-  "untracked_artifacts": [
-    "experiments/city-plan/",
-    "experiments/empathy/agent-empathy-baseline-s528.json",
-    "experiments/epistemology/f-epis1-framework-map-s528.json",
-    "experiments/epistemology/f-epis1-ostrom-phil27-s528.json",
-    "experiments/meta/check-sh-modularization-s528.json",
-    "experiments/meta/claim-session-id-hardening-s528.json",
-    "memory/lessons/L-1511.md",
-    "memory/lessons/L-1512.md",
-    "memory/lessons/L-1513.md",
-    "memory/lessons/L-1514.md",
-    "memory/lessons/L-1515.md"
-  ],
+  "uncommitted": [],
+  "untracked_artifacts": [],
   "next_actions": [
-    "- Implement axiom sunset: add periodic re-grounding check for axiom-class PHIL claims (every 50 sessions)",
-    "- Implement rejection quota: maintenance.py check for \u22651 human signal rejection per 50 sessions",
-    "- DOMEX-SP-S528 MERGED \u2014 fOU confirmed. Next: fractional INAR or bounded fOU for quantitative gap",
-    "- PRED-0017 SPY BEAR deadline 2026-03-29 \u2014 resolve",
-    "- Fix von Neumann fixed-point: add genesis_extract.py to BOOT_TOOLS",
-    "- K\u2192P ratio BREAK (4.59:1) \u2014 need ~25 more principles",
-    "- B\u2192PHIL ratio \u2014 verify count after PHIL-5b DROP + PHIL-27 add"
+    "- Seed remaining 36 domains with Adjacent: headers (target \u2265100 edges, currently 70)",
+    "- Compress ~3,707 tokens (6 orphan lessons: L-1428, L-1386, L-1445, L-1434, L-1253, L-1256)",
+    "- F-CITY1: measure reward difference after 20 adjacent vs non-adjacent DOMEX lanes",
+    "- Axiom sunset + rejection quota (from S528 council findings)",
+    "- PRED-0017 SPY BEAR deadline 2026-03-29",
+    "- K\u2192P ratio BREAK (4.59:1) \u2014 need ~25 more principles"
   ],
   "periodics_due": [
     {
       "id": "principles-dedup",
-      "gap": 74,
+      "gap": 75,
       "cadence": 10
     },
     {
       "id": "lanes-compact",
-      "gap": 61,
+      "gap": 62,
       "cadence": 10
     },
     {
       "id": "knowledge-swarm",
-      "gap": 48,
+      "gap": 49,
       "cadence": 10
     },
     {
       "id": "scaling-timelines",
-      "gap": 44,
+      "gap": 45,
       "cadence": 10
     },
     {
       "id": "correction-propagation",
-      "gap": 44,
+      "gap": 45,
       "cadence": 10
     }
   ],
-  "dispatch_top3": []
+  "dispatch_top3": [
+    {
+      "domain": "epistemology",
+      "score": 8.5,
+      "collision": false
+    },
+    {
+      "domain": "stochastic-processes",
+      "score": 7.5,
+      "collision": false
+    },
+    {
+      "domain": "expert-swarm",
+      "score": 7.3,
+      "collision": false
+    }
+  ]
 }

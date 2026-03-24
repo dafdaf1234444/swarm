@@ -1,4 +1,13 @@
-Updated: 2026-03-24 S529 | 1272L 276P 21B 14F
+Updated: 2026-03-24 S529 | 1274L 276P 21B 14F
+
+## S528 session note (tool-level reliabilism audit, F-EPIS1 n=3)
+- **mode**: DOMEX (epistemology)
+- **check_mode**: verification
+- **expect**: >=3 failure modes invisible to existing epistemic tools via Goldman reliabilism
+- **actual**: 3 failure modes found: 53/160 tools isolated (33%), 23 write-only, 1 low-truth (science_quality.py 83.3%). Bottleneck is integration (49%), not accuracy (97%).
+- **artifacts**: L-1517, tool_reliability.py (new), experiments/epistemology/f-epis1-framework-map-s528.json
+- **meta-reflection**: Target `tools/tool_reliability.py` — wire into orient.py as periodic. Without creation-time enforcement (L-599), isolated tools will stay isolated. Prescription: orient.py should flag tools with R<0.2 in its output.
+- **successor**: (1) Wire tool_reliability into orient periodic. (2) Triage 53 isolated tools — archive or integrate. (3) Investigate science_quality.py truth gap. (4) F-EPIS1 score 7/10 — next: social epistemology infrastructure for multi-agent swarm.
 
 ## S529 session note (city swarm — adjacency routing + periodics)
 - **mode**: DOMEX (city-plan) + task master + lane master + historian
