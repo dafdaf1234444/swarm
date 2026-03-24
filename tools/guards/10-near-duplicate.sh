@@ -49,10 +49,16 @@ if untyped_lessons:
 def get_title(path):
     try:
         with open(path) as f:
-            for line in f:
-                line = line.strip()
-                if line.startswith("#"):
-                    return re.sub(r"^#+\s*", "", line).lower()
+            content = f.read()
+        # Prefer YAML Title: field (lessons use frontmatter, not # headers)
+        m = re.search(r'^Title:\s*(.+)', content, re.MULTILINE)
+        if m:
+            return m.group(1).strip().lower()
+        # Fallback: first # header that is NOT a section like ## Rule
+        for line in content.splitlines():
+            line = line.strip()
+            if line.startswith("# ") and not line.startswith("## "):
+                return re.sub(r"^#+\s*", "", line).lower()
     except Exception:
         pass
     return ""
