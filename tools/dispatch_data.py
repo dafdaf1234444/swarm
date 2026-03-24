@@ -270,26 +270,29 @@ def get_claimed_domains() -> set[str]:
     return set()
 
 
-def _build_lesson_sharpe_cache() -> dict[str, int]:
-    """Build lesson ID → Sharpe score cache from lesson files (L-1127 Channel 3 fix)."""
-    cache: dict[str, int] = {}
-    lesson_dir = Path("memory/lessons")
-    if not lesson_dir.exists():
-        return cache
-    for f in lesson_dir.iterdir():
-        if f.name.startswith("L-") and f.suffix == ".md":
-            lid = f.stem.split("-")[1] if "-" in f.stem else ""
-            try:
-                text = f.read_text(errors="replace")
-                m = re.search(r"Sharpe:\s*(\d+)", text)
-                if m:
-                    cache[lid] = int(m.group(1))
-            except Exception:
-                pass
-    return cache
+_lesson_sharpe_cache: dict[str, int | None] = {}
 
 
-_lesson_sharpe_cache = _build_lesson_sharpe_cache()
+def _get_lesson_sharpe(lid: str) -> int | None:
+    """Memoize Sharpe lookups for cited lessons instead of scanning all lessons at import."""
+    if lid in _lesson_sharpe_cache:
+        return _lesson_sharpe_cache[lid]
+
+    lesson_path = Path("memory/lessons") / f"L-{lid}.md"
+    if not lesson_path.exists():
+        _lesson_sharpe_cache[lid] = None
+        return None
+
+    try:
+        text = lesson_path.read_text(encoding="utf-8", errors="replace")
+    except Exception:
+        _lesson_sharpe_cache[lid] = None
+        return None
+
+    m = re.search(r"Sharpe:\s*(\d+)", text)
+    sharpe = int(m.group(1)) if m else None
+    _lesson_sharpe_cache[lid] = sharpe
+    return sharpe
 
 
 def get_domain_outcomes(at_session: int | None = None) -> dict[str, dict]:
@@ -334,7 +337,7 @@ def get_domain_outcomes(at_session: int | None = None) -> dict[str, dict]:
                 outcomes[domain]["lessons_l3plus"] += len(lesson_ids)
             # Track Sharpe per domain for quality-weighted dispatch (L-1127 Channel 3 fix)
             for lid in lesson_ids:
-                sharpe = _lesson_sharpe_cache.get(lid)
+                sharpe = _get_lesson_sharpe(lid)
                 if sharpe is not None:
                     outcomes[domain]["sharpe_sum"] += sharpe
                     outcomes[domain]["sharpe_count"] += 1

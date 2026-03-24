@@ -1,8 +1,8 @@
 #!/bin/bash
 # FM-31: Lesson line-count guard (L-601, L-1053). Max 20 lines per lesson.
-# Enforces at creation time — prevents post-hoc trim cycles.
-# Requires: STAGED_NEW_LESSONS variable set by caller.
-if [ -n "$STAGED_NEW_LESSONS" ]; then
+# Blocks staged lesson additions and edits from reintroducing post-hoc trim debt.
+# Requires: STAGED_LESSONS variable set by caller.
+if [ -n "${STAGED_LESSONS:-}" ]; then
     LONG_LESSONS=""
     while IFS= read -r lesson_path; do
         if [ -f "$lesson_path" ]; then
@@ -11,7 +11,7 @@ if [ -n "$STAGED_NEW_LESSONS" ]; then
                 LONG_LESSONS="${LONG_LESSONS} ${lesson_path}(${LINE_COUNT}L)"
             fi
         fi
-    done <<< "$STAGED_NEW_LESSONS"
+    done <<< "$STAGED_LESSONS"
     if [ -n "$LONG_LESSONS" ]; then
         echo "  FM-31 FAIL: Lesson(s) exceed 20-line limit:${LONG_LESSONS}"
         echo "    Trim before committing. Bypass: ALLOW_LONG_LESSON=1 git commit ..."
