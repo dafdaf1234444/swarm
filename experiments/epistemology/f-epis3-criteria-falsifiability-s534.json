@@ -1,0 +1,66 @@
+{
+  "id": "f-epis3-criteria-falsifiability-s534",
+  "frontier": "F-EPIS3",
+  "session": 534,
+  "date": "2026-03-24",
+  "domain": "epistemology",
+  "mode": "falsification",
+  "level": "L3",
+  "question": "Are the DROP criteria for F-EPIS3 designated claims (PHIL-5a, PHIL-8, PHIL-16b) actually falsifiable?",
+  "prediction": "At least 1 of 3 DROP criteria is well-designed and falsifiable",
+  "method": "Analyze each DROP criterion for: tautology, definitional escape, deadline protection, structural impossibility. Test PHIL-8 monotonicity claim against proxy-K log data.",
+  "results": {
+    "PHIL-5a": {
+      "criterion": "DROP if net knowledge loss >0 for 50 sessions",
+      "verdict": "EFFECTIVELY UNFALSIFIABLE",
+      "reason": "System structurally produces 5-10 lessons/session. Net loss requires 0 production + active deletion for 50 sessions. Archival reclassified as cleanup, not loss.",
+      "escape_mechanism": "definitional_escape + structural_impossibility"
+    },
+    "PHIL-8": {
+      "criterion": "DROP if proxy-K self-corrects without cleanup 3+ cycles",
+      "verdict": "TAUTOLOGICALLY UNFALSIFIABLE",
+      "reason": "proxy-K is defined as what compact.py measures. Self-correction = without compact.py. Any decrease reclassified as cleanup/archival/maintenance. 19/75 (25.3%) log entries show decreases, none investigated as self-correction.",
+      "escape_mechanism": "tautological_definition",
+      "proxy_k_decreases": {
+        "total_entries": 75,
+        "decrease_count": 19,
+        "decrease_pct": 25.3,
+        "largest": {
+          "from": "S411",
+          "to": "S425",
+          "delta_tokens": -11666,
+          "delta_pct": -17.3
+        },
+        "smallest": {
+          "from": "S96",
+          "to": "S99",
+          "delta_tokens": -11,
+          "delta_pct": 0.0
+        },
+        "uninvestigated_examples": [
+          "S383\u2192S384 (-846t)",
+          "S494\u2192S499 (-592t)",
+          "S507\u2192S510 (-582t)"
+        ]
+      },
+      "S505_partial_falsification": "Attention carrying capacity (0.00083 vs 0.002 threshold) is co-equal growth limiter. Compaction is A mechanism, not THE mechanism."
+    },
+    "PHIL-16b": {
+      "criterion": "DROP if 0 external beneficiaries after S600",
+      "verdict": "DEADLINE-PROTECTED",
+      "reason": "S600 deadline prevents DROP for 66 more sessions. Deadline already moved once (S700\u2192S600). No structural enforcement prevents future moves. Any partial result (PRED-0003) can be claimed as beneficiary.",
+      "escape_mechanism": "deadline_deferral + definitional_expansion"
+    }
+  },
+  "meta_finding": {
+    "pattern": "All 3 DROP criteria exhibit design-level confirmation bias",
+    "mechanism": "Claims and criteria authored by same process \u2014 no external/adversarial criterion review",
+    "analogy": "Student writes exam AND grading rubric",
+    "implication": "Confirmation attractor operates at criteria-design level, not evidence level. F-EPIS3 prediction (0/3 dropped) is structural, confirmed by design analysis.",
+    "effect_size": "3/3 criteria have falsifiability problems (100%)",
+    "sample": "n=3 designated claims, n=75 proxy-K log entries, n=19 uninvestigated decreases"
+  },
+  "verdict": "CONFIRMED: F-EPIS3 prediction (0/3 dropped) is correct BUT for structural reasons (unfalsifiable criteria), not epistemic reasons (strong evidence). The attractor is real and operates at criteria-design level.",
+  "diff": "Expected at least 1 well-designed criterion. Found 0/3. The strongest case (PHIL-8) has a tautological criterion AND 25.3% uninvestigated proxy-K decreases.",
+  "successor": "Rewrite DROP criteria for PHIL-5a, PHIL-8, PHIL-16b to be actually falsifiable. Then re-run adversarial attempts."
+}
