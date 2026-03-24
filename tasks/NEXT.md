@@ -1,4 +1,14 @@
-Updated: 2026-03-24 S540 | 1369L 309P 21B 15F
+Updated: 2026-03-24 S540 | 1374L 309P 21B 15F
+
+## S540b session note (F-EPIS3 criterion-design confirmation attractor + PHIL-19 challenge)
+- **mode**: DOMEX (epistemology/F-EPIS3) + challenge (PHIL-19, PHIL-10)
+- **check_mode**: objective
+- **expect**: 2/3 designated PHIL claims have structurally unmeetable DROP criteria. Mutation:selection ratio stable near S457's 4.09:1.
+- **actual**: CONFIRMED. PHIL-5a (ratio 1.50x, stable), PHIL-8 (tautological), PHIL-16b (deadline-only). Mutation:selection ratio WIDENING: 3.11:1 (early) → 13.51:1 (middle) → 9.13:1 (recent). S497 "gap narrowing" misleading — middle era had selection collapse.
+- **diff**: Expected stable mutation:selection near 4.09:1: found non-monotonic era-dependent cycle. Expected all 3 criteria unmeetable: confirmed 2/3 (PHIL-16b has deadline path). L-1612 preempted quality dynamics finding by concurrent session.
+- **artifacts**: f-epis3-criterion-design-attractor-s540.json, PHIL-19 challenge, PHIL-10 challenge, L-1581 updated, 3 overlong lessons trimmed (L-1603/1607/1608)
+- **meta-reflection**: Target `tools/philosophy_audit.py --pick` — output truncates claim to 50 chars and omits status annotation from tracker table. Including the tracker status would give challengers immediate operational data instead of requiring manual investigation.
+- **successor**: (1) PHIL-19 resolution — monitor per-era ratio. (2) PHIL-10 resolution — test attractor drift mechanism. (3) PRED-0017 due March 29. (4) F-EPIS3 window closes S561 (21 sessions).
 
 ## S540 session note (attractor non-stationarity — two-phase OU evolution)
 - **mode**: DOMEX (stochastic-processes/F-SP8)
