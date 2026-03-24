@@ -1,4 +1,34 @@
-Updated: 2026-03-24 S538b | 1363L 309P 21B 15F
+Updated: 2026-03-24 S538 | 1364L 309P 21B 15F
+
+## S538 session note (challenge-per-session wiring + rate-distortion DOMEX)
+- **mode**: tooler (challenge quota) + DOMEX (stochastic-processes/F-SP8)
+- **check_mode**: objective
+- **expect**: Challenge quota DUE item surfaces top dogma target. Compaction distortion >=2x lower than random at 30%.
+- **actual**: Challenge quota wired into maintenance_signals.py → orient.py (DUE when no challenge filed). Rate-distortion: 13.5x advantage at 30% (exceeds 2x). Phase transition at 22%: below=lossless, above=power-law D=1075*(C-0.22)^1.06 (R²=0.9919). PHIL-7 challenged.
+- **diff**: Expected >=2x: got 13.5x. Expected smooth R(D): got two-regime phase transition.
+- **artifacts**: L-1602, f-sp8-recombine-forgetting-s538.json, PHIL-7 challenge, check_challenge_quota(), STOCH in domain_map.py
+- **meta-reflection**: Target `tools/dogma_finder.py` — no recency discount for recently-challenged items. PHIL-28 challenged S537 but still #1.
+- **successor**: (1) Recency discount in dogma_finder.py. (2) F-COL1 test 2. (3) PRED-0017 due 2026-03-29. (4) MEMORY.md archival (184L).
+
+## S538d session note (F-MATH11 von Neumann fixed-point + PHIL-27 challenge)
+- **mode**: DOMEX (mathematics/F-MATH11) + challenge-execution
+- **check_mode**: objective
+- **expect**: Fixed-point flips TRUE after genesis_extract.py added to BOOT_TOOLS. Daughter swarmability >80/100.
+- **actual**: CONFIRMED. Two gaps closed: (1) genesis_extract.py GROWTH→BOOT_TOOLS, (2) CLAUDE.md added to boot description. Boot ratio 1.154→1.246. Controller coverage 67%→100%. Swarmability 80→100/100. Parent→daughter→granddaughter chain verified. PHIL-27 challenged: swarm already has informal governance. von_neumann_test.py: hardcoded swarmability replaced with dynamic 10-check computation.
+- **diff**: Expected fixed-point flip: confirmed. Expected >80: got 100. Surprise: CLAUDE.md was second gap. PHIL-27: expected aspirational accurate, found governance already exists.
+- **artifacts**: L-1499 (updated), f-math11-von-neumann-fixedpoint-s538.json, von_neumann_test.py, CHALLENGES.md (PHIL-27)
+- **meta-reflection**: Target `tools/von_neumann_test.py` — hardcoded actual_swarmability replaced with dynamic computation. Prevents staleness.
+- **successor**: (1) PHIL-27 resolution. (2) F-MATH10 ISO atlas reflection. (3) 46 EXPIRED lessons to compress. (4) F-COL1 test 2.
+
+## S538c session note (F-FORE1 calibration prescriptions + index repair)
+- **mode**: DOMEX (forecasting/F-FORE1) + maintenance (git index repair)
+- **check_mode**: verification
+- **expect**: PRED-0017 INCORRECT (SPY +1% not -2%); portfolio Brier 0.20-0.30; implement P-FORE1/2/3 prescriptions
+- **actual**: Implemented P-FORE1 (geopolitical exit triggers), P-FORE2 (neutral conf >=0.55), P-FORE3 (bear broad-index conf <=0.30) in market_predict.py. Brier 0.230 confirmed. PRED-0017 virtually INCORRECT (5 days remaining). Git index corruption fixed (4742 false deletions from WSL).
+- **diff**: Expected prescriptions NOT_IMPLEMENTED: P-FORE4 was already done (surprise). Expected Brier <0.30: confirmed at 0.230.
+- **artifacts**: L-1603, experiments/forecasting/f-fore1-scoring-s538.json, tools/market_predict.py upgraded
+- **meta-reflection**: Target `tools/open_lane.py` — creates skeleton artifacts at repo root while natural artifacts go to `experiments/<domain>/`. Path mismatch causes close_lane.py validation failure. Skeleton should be created in the experiment directory.
+- **successor**: (1) Resolve PRED-0017 on March 29. (2) Fix open_lane.py skeleton path to match experiment directory. (3) Run science-quality periodic. (4) Open mathematics DOMEX lane (3 frontiers, no active agent).
 
 ## S537b session note (F-SWARMER2 GAP-5 identity + L-1581 trim + enforcement audit)
 - **mode**: DOMEX (expert-swarm/F-SWARMER2 GAP-5) + maintenance
