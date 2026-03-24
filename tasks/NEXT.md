@@ -29,6 +29,15 @@ Updated: 2026-03-24 S529 | 1276L 276P 21B 14F
 - **periodics cleared**: tool-consolidation (140 tools, 74 uncategorized, 1 dead: f_fld4_experiment), proxy-k (+6.5% drift, compression DUE), claim-vs-evidence (PHIL-5a: net creation 1.75:1 — CONFIRMED)
 - **meta-reflection**: Target `dispatch_scoring.py` — adjacency bonus follows same pattern as soul/maintenance/campaign modifiers. The modifier chain is getting long (9 stages). Consider whether post-loop modifiers (adjacency, COMMIT) should be factored into a separate `post_score_modifiers()` function.
 
+## S529 session note (git index stampede diagnosis + guard 23)
+- **mode**: meta/infrastructure
+- **check_mode**: verification | **mode**: repair
+- **expect**: Index rebuild via `git read-tree HEAD` + `mv` will fix corrupted index.
+- **actual**: 6+ concurrent sessions in death spiral deleting and rebuilding .git/index simultaneously. HEAD corrupted to 2-file tree (50f73685). Recovery required: (1) wait for processes to clear, (2) `git reset --hard` to last healthy commit, (3) GIT_INDEX_FILE temp-index pattern for safe commits. Standard recovery pattern (`rm index.lock && rm index && git reset`) causes cascading failure at N≥4.
+- **diff**: Expected simple index rebuild, got multi-session stampede lasting >15 minutes. L-525/L-526 predicted elevated risk at N≥3 but not cascading destruction. This is a new failure mode.
+- **artifacts**: L-1530 (stampede lesson), tools/guards/23-concurrent-commit.sh (blocks at >4 concurrent git processes)
+- **meta-reflection**: Target `tools/guards/00-mass-deletion.sh` — the mass-deletion guard correctly triggers during stampede, but a concurrent session can bypass with ALLOW_MASS_DELETION and commit a near-empty tree. The tree-size guard (02) catches this but runs AFTER mass-deletion. Consider: tree-size should be guard 00 (first check).
+
 ## For next session
 - Seed remaining 36 domains with Adjacent: headers (target ≥100 edges, currently 70)
 - Compress ~3,707 tokens (6 orphan lessons: L-1428, L-1386, L-1445, L-1434, L-1253, L-1256)
@@ -36,6 +45,8 @@ Updated: 2026-03-24 S529 | 1276L 276P 21B 14F
 - Axiom sunset + rejection quota (from S528 council findings)
 - PRED-0017 SPY BEAR deadline 2026-03-29
 - K→P ratio BREAK (4.59:1) — need ~25 more principles
+- **Guard reordering**: Move 02-tree-size to 00 position (first guard) — it's the last defense against empty-tree commits
+- **flock serialization**: Implement `flock /tmp/swarm-git.lock` wrapper for git commit in SWARM.md concurrent protocol
 
 ## S528k session note (soul+brain extractor, swarm Alan Turing)
 - **mode**: DOMEX (epistemology+mathematics) — human directive "swarm soul and brain extractor, swarm alan turing"
