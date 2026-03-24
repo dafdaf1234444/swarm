@@ -28,7 +28,8 @@ def load_graph():
     files = sorted(LESSONS.glob("L-*.md"))
     graph = {}       # lid -> [cited lids]
     reverse = {}     # lid -> [citing lids]
-    falsified = set()
+    falsified = set()   # truly harmful (RETRACTED)
+    obsolete = set()    # superseded/archived (not harmful, just outdated)
     sharpe = {}
     sessions = {}
     domains = {}
@@ -46,26 +47,22 @@ def load_graph():
         for c in graph[lid]:
             reverse.setdefault(c, []).append(lid)
 
-        # Falsification detection: SUPERSEDED/ARCHIVED/RETRACTED markers
-        # NOT "mentions falsification" — only lessons whose OWN content is invalidated
-        # Critical distinction (L-1540): "reports falsification" != "is falsified"
-        # L-1551: substring match had 34.6% FP rate — "mechanism-superseded",
-        # "tools archived", "bundles superseded" all triggered false positives.
-        # Fix: require ownership markers (HTML comments, "SUPERSEDED by L-NNN",
-        # bracketed status), not substring presence.
+        # Status classification (L-1550): separate genuinely harmful from merely obsolete.
+        # RETRACTED/FALSIFIED = harmful (R_bad applies, needs correction cascade)
+        # SUPERSEDED/ARCHIVED = obsolete (successor exists, not harmful spread)
+        # L-1544: classification error dominates all downstream metrics.
         first_line = text.split("\n")[0] if text else ""
-        is_falsified = (
-            # HTML comment markers are explicit status annotations
+        is_retracted = "[RETRACTED]" in header
+        is_superseded = (
             "<!-- SUPERSEDED" in text[:200]
-            or "<!-- ARCHIVED" in text[:200]
-            # Title says THIS lesson is superseded (by another lesson)
             or bool(re.search(r"SUPERSEDED\s+(?:by|BY)\s+L-\d+", first_line))
-            # Bracketed status marker
-            or "[RETRACTED]" in header
             or "[SUPERSEDED" in first_line
         )
-        if is_falsified:
-            falsified.add(lid)
+        is_archived = "<!-- ARCHIVED" in text[:200]
+        if is_retracted:
+            falsified.add(lid)  # truly harmful — R_bad applies
+        if is_superseded or is_archived:
+            obsolete.add(lid)   # maintenance debt, not epidemic contamination
 
         m = re.search(r"Sharpe:\s*(\d+)", header)
         if m:
@@ -77,7 +74,7 @@ def load_graph():
         if m:
             domains[lid] = m.group(1)
 
-    return graph, reverse, falsified, sharpe, sessions, domains
+    return graph, reverse, falsified, obsolete, sharpe, sessions, domains
 
 
 def compute_r_bad(reverse, falsified):
@@ -307,7 +304,7 @@ def main():
                 print(f"    {k}: {v}")
         return
 
-    graph, reverse, falsified, sharpe, sessions, domains = load_graph()
+    graph, reverse, falsified, obsolete, sharpe, sessions, domains = load_graph()
 
     bad = compute_r_bad(reverse, falsified)
     good = compute_r_good(graph, reverse, falsified, sharpe, sessions)
@@ -331,6 +328,7 @@ def main():
             "viral_knowledge": good["viral_knowledge"][:3],
         },
         "compartments_SIR": sir,
+        "obsolete_count": len(obsolete),
         "diagnosis": "",
     }
 
@@ -372,6 +370,12 @@ def main():
         for ss in b["super_spreaders"]:
             print(f"    {ss['lesson']}: {ss['live_citers']} live citers / {ss['total_citers']} total "
                   f"(correction={ss['correction_rate']:.2f})")
+
+        if obsolete:
+            print(f"\n--- Obsolete Lessons (maintenance debt, not epidemic) ---")
+            print(f"  SUPERSEDED/ARCHIVED:        {len(obsolete)}")
+            print(f"  NOTE: these are NOT harmful — successors exist. Citers may benefit")
+            print(f"  from updating references but this is maintenance, not contamination.")
 
         print("\n--- Beneficial Spread (R_good) ---")
         g = report["beneficial_spread"]
