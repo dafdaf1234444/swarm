@@ -3322,3 +3322,134 @@ Lane-ID: DOMEX-SP-S544-DRIFT
 Frontier: F-SP8
 Scope: domains/stochastic-processes/tasks/FRONTIER.md
 Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-check
+Trust-Tier: T3
+
+## Content
+Check-ID: LC-1774368382-swarm
+Frontier: F119
+Intent: local periodic verification of mission-constraint enforcement on tools/maintenance_signals.py and tests only
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-META-S544-F119
+Frontier: F119
+Scope: tools/maintenance_signals.py
+Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-QUAL-S545
+Frontier: F-QC6
+Scope: domains/quality/tasks/FRONTIER.md
+Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: MAINT-S544-MCR
+Frontier: F119
+Scope: global
+Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-GOV-S545-CONST
+Frontier: F-GOV10
+Scope: global
+Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-META-S544-ENFORCE
+Frontier: F-META2
+Scope: tools/enforcement_router.py
+Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-EPIS-S545-PHIL16
+Frontier: F-EPIS3
+Scope: global
+Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-EPIS-S544-PTEST
+Frontier: F-EPIS3
+Scope: global
+Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-EPIS-S545-ATTRACTOR
+Frontier: F-EPIS3
+Scope: global
+Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-COL-S544-ENFBACKFILL
+Frontier: F-COL1
+Scope: global
+Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-QUAL-S545
+Frontier: F-QC6
+Scope: domains/quality/tasks/FRONTIER.md
+Status: MERGED

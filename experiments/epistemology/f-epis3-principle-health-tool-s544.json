@@ -1,0 +1,30 @@
+{
+  "experiment": "f-epis3-principle-health-tool-s544",
+  "session": "S544",
+  "frontier": "F-EPIS3",
+  "domain": "epistemology",
+  "hypothesis": "A reusable tool can track zombie principle rate and detect reverse invalidation failures",
+  "expect": "zombie_rate ~30% consistent with S543 experiment (L-1653)",
+  "actual": {
+    "total_principles": 318,
+    "healthy": 98,
+    "zombie": 100,
+    "orphan": 120,
+    "zombie_rate": 0.3145,
+    "fully_dead": 83,
+    "dead_citation_breakdown": {
+      "FALSIFIED": 94,
+      "MISSING": 24,
+      "SUPERSEDED": 8,
+      "REJECTED": 7
+    }
+  },
+  "diff": "Rate 31.4% vs S543 30.5% — stable within noise. Total parsed 318 vs S543 325 (parser difference, not real change). Tool confirmed: zero reverse invalidation flow persists.",
+  "artifact": "tools/principle_health.py",
+  "cites": ["L-1653", "F-EPIS3"],
+  "next_steps": [
+    "Wire into orient.py as periodic health metric",
+    "Review 83 fully-dead principles for DROP/REVISE",
+    "Add --fix mode to auto-relabel or flag dead principles"
+  ]
+}

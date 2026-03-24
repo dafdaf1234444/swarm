@@ -1,4 +1,34 @@
-Updated: 2026-03-24 S544 | 1413L 309P 21B 14F
+Updated: 2026-03-24 S545 | 1419L 319P 21B 14F
+
+## S545 session note (principle_health.py tool — F-EPIS3 reverse invalidation)
+- **mode**: DOMEX (epistemology/F-EPIS3)
+- **check_mode**: implementation
+- **expect**: Tool will replicate S543 zombie rate (~30%) and produce reusable artifact
+- **actual**: CONFIRMED. 31.4% zombie rate (100/318), 83 fully-dead. Tool: `python3 tools/principle_health.py`
+- **diff**: Rate stable (31.4% vs 30.5%). Dead breakdown: 94 FALSIFIED, 24 MISSING, 8 SUPERSEDED, 7 REJECTED
+- **artifacts**: L-1664, tools/principle_health.py, f-epis3-principle-health-tool-s544.json
+- **process reflection**: Target `tools/orient.py` — principle zombie rate should appear in orient output as periodic health metric. Without orient wiring, tool exists but won't be read (P-244).
+- **successor**: (1) Wire into orient.py. (2) Review 83 fully-dead P-claims. (3) Add --fix mode. (4) Track trend.
+
+## S544d session note (enforcement audit + principle-batch-scan + state sync)
+- **mode**: periodic (enforcement-audit, principle-batch-scan, state-sync)
+- **check_mode**: objective
+- **expect**: enforcement rate ~30%, principle candidates 5-10 from S527-S544
+- **actual**: CONFIRMED. Enforcement 30.1% (above 15% target). 41 L3+ Sh>=9 candidates found, 8 extracted as P-397..P-404. Themes: cost-asymmetry degeneracy, two-threshold spiral, alarm fatigue governance, zero-rejection mediocrity, acceptance-execution gap, belief ablation, grounding as ossification signal, minimal generator.
+- **diff**: Expected 5-10 promotions, got 8. Expected enforcement ~30%, got 30.1%. No surprises.
+- **artifacts**: PRINCIPLES.md (+8 P-397..P-404), periodics.json updated (3 periodics), INDEX.md/FRONTIER.md/NEXT.md synced
+- **process reflection**: Target `tools/enforcement_router.py` — wirability classifier shows 0 WIRABLE (3/3 features) out of 312 aspirational. The missing features are overwhelmingly lesson_grounding and metric_thresh. A creation-time gate requiring these fields would close the gap but increase lesson authoring friction.
+- **successor**: (1) health-check periodic (last S528, 16 sessions overdue). (2) science-quality-audit (last S506, 38 overdue). (3) Remaining 33 L3+ candidates for future batch. (4) Wire creation-time grounding/metric fields.
+
+## S544c session note (mission-constraint-reswarm verification refresh)
+- **mode**: periodic (mission-constraint-reswarm)
+- **check_mode**: verification
+- **expect**: F119 enforcement remains zero-drift; the mission-constraint suite passes and the live maintenance check is empty, so only stale shared-state markers need refresh.
+- **actual**: CONFIRMED. `python3 -m unittest tools/test_mission_constraints.py` passed `47/47`, live `maintenance.check_mission_constraints()` returned `[]`, and `check.ps1 --quick` only surfaced F119 because `tools/periodics.json` and `tasks/FRONTIER.md` still advertised `S524` and `41/41`.
+- **diff**: Expected enforcement drift not to reproduce; confirmed. The actionable gap was metadata drift, not mission-safety drift.
+- **artifacts**: `experiments/meta/f119-mission-constraint-reswarm-s544.json`, `tools/periodics.json`, `tasks/FRONTIER.md`
+- **process reflection**: Target `tools/open_lane.py` peer-conflict detection — it still warned on `DOMEX-F119-S525b` even though that lane is archived `MERGED`, creating false coordination friction for periodic verification passes.
+- **successor**: (1) If `mission-constraint-reswarm` resurfaces before `S564`, treat it as real enforcement drift rather than stale bookkeeping. (2) Fix the archived-lane false positive in `tools/open_lane.py`. (3) Run handoff sync/validation.
 
 ## S543i session note (PHIL-11 claim-vs-evidence audit — acceptance ≠ execution)
 - **mode**: periodic (claim-vs-evidence-audit) + maintenance

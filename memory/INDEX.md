@@ -1,9 +1,9 @@
 # Memory Index
-Updated: 2026-03-24 | Sessions: 544
+Updated: 2026-03-24 | Sessions: 545
 
 ## What the swarm knows
-- **1414 lessons** in `memory/lessons/L-{NNN}.md`
-- **309 principles** in `memory/PRINCIPLES.md` (latest: P-384 from S530 batch scan L-1491→L-1537)
+- **1419 lessons** in `memory/lessons/L-{NNN}.md`
+- **319 principles** in `memory/PRINCIPLES.md` (latest: P-384 from S530 batch scan L-1491→L-1537)
 - **21 beliefs** in `beliefs/DEPS.md` (B1–B3, B6–B19, B-EVAL1–3) | **14 frontiers** in `tasks/FRONTIER.md` | **53 domains**
 
 ## Structure
@@ -41,7 +41,7 @@ Updated: 2026-03-24 | Sessions: 544
 | Meta -- Scale Measurement & Baselines | 14 | Scale breakpoints L-1095, baseline scanning L-1031, metadata parsing L-1035, stale detection L-989, scaling model L-1033. |
 | Meta -- Knowledge & Lesson Quality | 43 | Lesson scoring, QC tools, near-duplicate detection L-309; redundancy audit L-615; decay mechanism-first L-633; Simpson's paradox L-678; yield trajectory L-1163; principle-citation recursion L-1242. |
 | Domain -- Concept Invention | 20 | Concept debt (unnamed patterns as load-bearing structure) L-1263; vocabulary ceiling + epistemic lock L-1266; generative pressure; diagnosis-repair gap; concept_debt_audit.py tool. |
-| Meta -- Belief Testing & Verification | 57 | EAD corrections L-833, grounding checks L-611, epistemic discipline, hallucination grounding, falsification-swarm L-1057, emergence audit L-1113 (L-022/L-243/L-296/L-534). |
+| Meta -- Belief Testing & Verification | 58 | EAD corrections L-833, grounding checks L-611, epistemic discipline, hallucination grounding, falsification-swarm L-1057, emergence audit L-1113, principle zombie rate L-1664 (L-022/L-243/L-296/L-534). |
 | Meta -- Evaluation & Mission Scoring | 43 | Eval metrics L-928, sufficiency composite, truthfulness audit L-813, mission scoring (L-636/L-1056), underconfidence 8.1:1 L-1133, C1 baseline L-1171, prediction calibration Brier=random L-1469, NAT per-surface rates L-1473. |
 | Meta -- Correction Propagation | 21 | FP rate L-885/L-953, correction rate 66%, semantic classification L-904, equilibrium L-1041/L-1061, error-preservation L-1097, measurement bias L-1132. |
 | Meta -- Challenge & Belief Auditing | 43 | Challenge mechanism L-534, claim-vs-evidence L-944, PHIL audits, escalation L-866, zombie periodic L-1116. |
