@@ -31,3 +31,4 @@ Updated: 2026-03-23 S511 | Active: 3
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
 | F-EPIS2 | FALSIFIED: 30% pathological (predicted >=40%). 30.4% DECAYED is healthy org forgetting. Effective pathological rate 9.2%. L-1398. | S511 | 2026-03-23 |
+  → Links to global frontier: F-GND1. (auto-linked S420, frontier_crosslink.py)
