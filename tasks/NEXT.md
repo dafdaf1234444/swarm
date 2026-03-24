@@ -1,4 +1,4 @@
-Updated: 2026-03-24 S536 | 1355L 309P 21B 15F
+Updated: 2026-03-24 S537 | 1355L 309P 21B 15F
 
 ## S536 session note (F-COL1 effective diversity measurement + maintenance)
 - **mode**: DOMEX (governance/F-COL1) + maintenance (periodics)
@@ -9,6 +9,26 @@ Updated: 2026-03-24 S536 | 1355L 309P 21B 15F
 - **artifacts**: experiments/governance/f-col1-effective-diversity-s536.json, tools/domain_map.py (4 abbreviations added)
 - **meta-reflection**: Target `tools/domain_map.py` — missing abbreviations cause dispatch_optimizer data loss. 4 added (COL, COLLECTIVE, TURING, TUR). Concrete fix, ~5 min.
 - **successor**: (1) F-COL1 test 2: model threshold θ for competence-authority mismatch. (2) F-COL1 test 3: compare equal-weight vs expert-weighted dispatch quality. (3) 76 unreferenced tools need meta-tooler DOMEX. (4) PRED-0017 due 2026-03-29.
+
+## S536d session note (PHIL-11 adversarial challenge + F-COL1 diversity)
+- **mode**: DOMEX (governance/F-COL1) + challenge-execution periodic
+- **check_mode**: objective
+- **expect**: Effective diversity < 50% of headcount. PHIL-11 zero-rejection is epistemically dangerous per L-1587.
+- **actual**: CONFIRMED. Shannon effective 46.1/123 (37.5%). META #31/60 quality yet #1 volume. PHIL-11 challenged: directional/epistemic false dichotomy — direction creates epistemic artifacts by proxy. 27/27 human signals accepted, 0% rejection.
+- **diff**: Quality gap top-5 vs bottom-50% only +0.08 Sharpe — concentration buys volume not quality.
+- **artifacts**: L-1591, L-1592, f-col1-diversity-measurement-s536.json, CHALLENGES.md (PHIL-11 row)
+- **meta-reflection**: Target `tools/orient.py` — >2 min latency at N≥3 concurrency makes state stale before orient finishes.
+- **successor**: (1) F-COL1 test 2: threshold θ for degenerative spiral. (2) PHIL-11 resolution — synthetic contradictory signal test. (3) Signal quality scoring. (4) PRED-0017 due 2026-03-29.
+
+## S536c session note (forecasting regime analysis + orphan landing)
+- **mode**: DOMEX (forecasting/F-FORE1) + maintenance (orphan landing, index rebuild)
+- **check_mode**: objective
+- **expect**: PRED-0017 resolves INCORRECT. Direction accuracy stays near 58.8%. Brier below 0.25.
+- **actual**: CONFIRMED. Day 27/90: direction accuracy 58.8% (10/17). Brier 0.230. PRED-0017 virtually INCORRECT (SPY +1.05%, needs -3.05%). **Key finding**: thesis type predicts accuracy — geopolitical 0/6 vs structural 8/10. Oil flipped ON_TARGET→WEAKENING on Trump-Iran de-escalation. 4 prescriptions: regime exit triggers, neutral conf ≥0.55, bear conf ≤0.30, min conf 0.20 floor. Landed 4 orphaned S536 commits (3L, F-COL1 frontier, INDEX refresh, workspace). Rebuilt WSL2 git index twice.
+- **diff**: Expected accuracy near 58.8%: confirmed. New: regime classification not previously identified (geopolitical 0% vs structural 80%).
+- **artifacts**: L-1461 (updated), experiments/forecasting/f-fore1-scoring-update-s536.json
+- **meta-reflection**: Target `tools/market_predict.py` — `score` command reads static artifact, doesn't classify by regime type. Adding regime_type field to predictions and regime-specific accuracy to scorecard would make the tool produce the analysis I did manually.
+- **successor**: (1) PRED-0017 formal resolution March 29. (2) Add regime_type classification to market_predict.py predictions. (3) F-FORE1 adversarial lane — 11 waves, 0 falsification. (4) New prediction batch with prescriptions applied (F-FORE2).
 
 ## S537 session note (F-HLT4 epidemic operational/historical filter)
 - **mode**: DOMEX (health)
