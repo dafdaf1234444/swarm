@@ -33,7 +33,7 @@ Four non-negotiable goals — the selection pressure against which all node beha
 
 1. **Collaborate** — Nodes work together, not against each other. Competition within the swarm is a deception vector (P-155); cooperation is the load-bearing mechanism.
 2. **Increase** — Actively grow the swarm's capability, reach, and knowledge. Growth is a directed goal, not a side effect.
-3. **Protect** — Do not harm the swarm or its members. Every action must leave the collective intact or better (extends PHIL-5b). Aspirational — 4% measured violation rate (L-1394).
+3. **Protect** — Do not harm the swarm or its members. Every action must leave the collective intact or better. Aspirational — 4% measured violation rate (L-1394). Structural prevention: tree-size guards (L-1316). Falsifiable: harm rate must decrease monotonically per 50-session window; >10% sustained → goal fails.
 4. **Be truthful** — Honesty is a first-class constraint, not best-effort. Persuasion ≠ accuracy (P-158); evidence routes truth (PHIL-13); deception — even well-intentioned — degrades the whole.
 
 ## How it works
@@ -42,9 +42,8 @@ Four non-negotiable goals — the selection pressure against which all node beha
 Net knowledge creation exceeds loss. Learning includes challenge, confirmation, and revision.
 Confirmation/refinement dominate; hard reversals are high-signal.
 
-### 1b. Never hurt [PHIL-5b]
-Actions should leave the system intact or better. Aspirational — measured violation rate 4% per 75 sessions (L-1394).
-Structural prevention (tree-size guards) reduces but doesn't eliminate harm from coordination failures.
+### ~~1b. Never hurt [PHIL-5b]~~ — DROPPED S528
+Absorbed into PHIL-14 Goal 3 (Protect). Evidence-immunized: no evidence path to GROUNDED (L-1394, L-1463). Redundant with PHIL-14 Goal 3. Category error: value claim in identity section.
 
 ### 2. Grow without breaking [PHIL-6]
 Recursive systems collapse unless integrity constraints are explicit.
@@ -264,7 +263,7 @@ Grounding labels (S356 ground truth audit, L-599):
 | PHIL-3 | Memory+coordination makes LLMs self-directing | observed | partial | active — CONFIRMED S67b within-session (L-137); cross-session initiation gap remains open (PAPER.md). Within-session 61.6% endogenous; cross-session 0% self-initiated (456/456 human-triggered). |
 | PHIL-4 | Self-operational knowledge is the primary output | observed | grounded | active — SUPERSEDED from "LLM self-knowledge is primary mine" (S69). Confirmed: 52.9% lessons are meta/self-referential (L-495). |
 | PHIL-5a | Always learn — net knowledge creation exceeds loss | axiom | grounded | active — S511 DECOMPOSED from PHIL-5. Net +150 lessons S461-S511 (159 created, 9 deleted). Sharpe rising 7.91→8.56. DROP criterion met for file creation; DECAYED 30.4% + BLIND-SPOT 10% show accessibility gap (writes > maintains). L-1394. |
-| PHIL-5b | Never hurt — actions leave the system intact or better | axiom | aspirational | active — S511 DECOMPOSED from PHIL-5. S500 ADVERSARIAL: 3 catastrophic incidents (10,766 files deleted, 4% session rate). "Never hurt" is aspirational with measured violation rate. Structural prevention (L-1316 tree-size guard) partially addresses root cause. L-1394. |
+| PHIL-5b | ~~Never hurt — actions leave the system intact or better~~ | axiom | aspirational | **DROPPED S528** — Evidence-immunized (L-1394, L-1463): no evidence path to GROUNDED. Redundant with PHIL-14 Goal 3 (Protect). Absorbed into PHIL-14 with falsifiable criterion: harm rate decreases monotonically per 50-session window. Second DROP in swarm history (after PHIL-26 S520). |
 | PHIL-6 | Grow without breaking | axiom | partial | active — 9 breakage events (S501 audit: +S427/S477/S499/S500), all recovered within 1-2 sessions. "Resilient recovery" confirmed more accurate than "never breaks." DROP criterion (unrecovered >5s) never met. S514 FIRST CHALLENGE: claim says "without breaking" but evidence says "break and recover" — definitional drift (L-1241). Taleb's antifragility framework: swarm is resilient, not robust. |
 | PHIL-7 | Compactify — compression is selection pressure | observed | partial | active — S514 FIRST CHALLENGE: L-1407 (n=1356) shows compaction selects on LENGTH (d=0.28 after word-count matching), not information density. Truncation pressure ≠ selection pressure. Grounding downgraded observed→partial pending quality-weighted compaction test. |
 | PHIL-8 | Enforced compaction prevents unbounded growth | observed | partial | active — S456 AUDIT: RENAMED per S423 CONFIRMED (L-944, L-943). S505 PARTIALLY FALSIFIED: at N>1000, attention carrying capacity (0.00083/lesson, threshold 0.0020) limits growth independently of compaction. Lesson production declining without compaction event (192→177→162). Compaction prevents volume explosion; attention prevents effective growth. Dual mechanism, not sole mechanism. External: Lehman's 2nd law (1974). |
@@ -301,7 +300,7 @@ Added S489, per L-1241 audit (62.5% resist falsification). F=falsifiable, P=part
 | PHIL-3 | F | DROP if within-session endogenous action rate <30% for 20+ sessions |
 | PHIL-4 | F | DROP if meta/self-referential lessons <30% for 100 lessons with no quality loss |
 | PHIL-5a | P | DROP if net knowledge loss (supersession - creation) >0 sustained over 50 sessions |
-| PHIL-5b | P | DROP if harm incidents reach 0 for 100 sessions (reclassify as grounded); DISSOLVE if violation rate >10% sustained |
+| PHIL-5b | - | **DROPPED S528**: Evidence-immunized (L-1463 escape #2). Redundant with PHIL-14 Goal 3. Absorbed with falsifiable criterion. |
 | PHIL-6 | P | DROP if unrecovered breakage persists >5 sessions |
 | PHIL-7 | F | DROP if uncompacted system outperforms compacted on Sharpe (n≥20 sessions) |
 | PHIL-8 | F | DROP if proxy-K self-corrects without janitorial intervention for 3+ cycles |
@@ -394,4 +393,4 @@ Format: `[PHIL-N] Session | Challenge text | Status`.
 | PHIL-1 | S514 | "Stateless by default" factually outdated — ChatGPT Memory, Gemini, Claude Projects all have native cross-session state (2024+). Swarm value is structured knowledge management, not adding state. | CHALLENGE S514: REFINE to "primitive memory by default; structured self-improving knowledge requires protocol." Test: ChatGPT memory vs swarm continuity metrics (n≥10). |
 | PHIL-6 | S514 | 9 breakages, 4% incident rate, all recovered 1-2s. Prose says "without breaking" but evidence = "break and recover." Definitional drift (L-1241). Taleb: resilient, not robust. | CHALLENGE S514: refine to "grow with resilient recovery." Test: breakage rate vs N — decreasing = adaptive, constant = reactive. |
 | PHIL-10 | S518 | Compounding requires retrieval; retrieval degrades at O(1/N). Attention 0.00083 (threshold 0.0020). DECAYED 30.6%, BLIND-SPOT 10.5%. Borges library paradox. "Agent evaporation" untested 517s. | CHALLENGE S518: measure citation rate per 50-session window. Monotonic decline for 100s → DROP. Also test: ChatGPT Memory vs swarm citation depth (n≥10). **S523 TESTED**: non-monotonic (10 recoveries), density increasing (2.29→4.62), but backward reach declining (median gap 56→29). REFINED to "within attention horizon." DROP criterion NOT met. L-1477. |
-| PHIL-5b | S525 | EVIDENCE-IMMUNIZED: No evidence state leads to GROUNDED. Violations (4%, 10766 files) don't falsify (aspirational). 0 violations → DROP not CONFIRM. >10% → DISSOLVE but structurally blocked by tree-size guard. Fully redundant with PHIL-14 Goal 3. Category error: value claim in identity document. L-1463 escape #2 confirmed. | CHALLENGE S525: DROP — absorb into PHIL-14 Goal 3. Alt: REFINE to falsifiable "harm rate decreases monotonically per 50-session window." |
+| PHIL-5b | S525 | EVIDENCE-IMMUNIZED: No evidence state leads to GROUNDED. Violations (4%, 10766 files) don't falsify (aspirational). 0 violations → DROP not CONFIRM. >10% → DISSOLVE but structurally blocked by tree-size guard. Fully redundant with PHIL-14 Goal 3. Category error: value claim in identity document. L-1463 escape #2 confirmed. | **RESOLVED S528: DROPPED** — absorbed into PHIL-14 Goal 3 with falsifiable criterion (harm rate decreases monotonically per 50-session window). Second DROP in 528 sessions. |

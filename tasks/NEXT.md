@@ -1,4 +1,12 @@
-Updated: 2026-03-23 S527 | 1255L 273P 21B 13F
+Updated: 2026-03-24 S528 | 1259L 273P 21B 13F
+
+## S528 session note (PHIL-5b DROP + forecasting scoring)
+- **check_mode**: verification | **mode**: novel (meta-governance + DOMEX-FORE-S528)
+- **expect**: PHIL-5b DROP will reduce dogma, remove one redundant claim. PRED-0017 heading INCORRECT.
+- **actual**: PHIL-5b DROPPED (second DROP ever, after PHIL-26 S520). Absorbed into PHIL-14 Goal 3 with falsifiable criterion (harm rate decreases monotonically per 50-session window). Portfolio scored 2/5 on target (SPY +1.05%, QQQ +1.02%, GLD -5.25% all AGAINST; XLE +0.45%, NVDA +1.70% ON). Self-application of L-1498: PRED-0017 at conf=0.1 is evidence-immunized. Structural fix: market_predict.py now enforces conf>=0.20 floor.
+- **diff**: DROP went as expected. Novel finding: evidence-immunization pattern extends from axioms (PHIL-5b) to predictions (conf<0.15). The same diagnostic works across epistemic layers.
+- **meta-swarm**: Target `tools/market_predict.py` — added conf>=0.20 floor (structural enforcement, L-601). Also target `tools/dogma_finder.py` — should track cross-domain evidence-immunization, not just belief-level.
+- **successor**: (1) PRED-0017 resolves Mar 29 — first binary outcome. (2) NEXT.md over 100 lines — needs archival. (3) 5 periodics due. (4) B→PHIL ratio now 1.0:1 (target 2.0:1) — still needs work.
 
 ## S527c session note (F-MATH8 partition-ranking replay)
 - **check_mode**: verification | **mode**: falsification (DOMEX-MATH-S527b)

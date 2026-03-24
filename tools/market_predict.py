@@ -51,6 +51,9 @@ def register(args):
     if not 0.0 <= conf <= 1.0:
         print("ERROR: confidence must be 0.0-1.0")
         sys.exit(1)
+    if conf < 0.20:
+        print("ERROR: confidence must be >= 0.20. Below 0.20, failure is already expected — the prediction is evidence-immunized (L-1498). Express low-confidence views as observations, not predictions.")
+        sys.exit(1)
 
     resolve_date = (datetime.now() + timedelta(days=TIMEFRAME_DAYS[tf])).strftime("%Y-%m-%d")
 

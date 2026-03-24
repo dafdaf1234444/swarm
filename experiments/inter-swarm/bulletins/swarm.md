@@ -1234,3 +1234,75 @@ Lane-ID: DOMEX-MATH-S527b
 Frontier: F-MATH8
 Scope: domains/mathematics/tasks/FRONTIER.md
 Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-META-S527d
+Frontier: F-META3
+Scope: global
+Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-FORE-S528
+Frontier: F-FORE1
+Scope: global
+Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-NK-S528
+Frontier: F-NK5
+Scope: domains/nk-complexity
+Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-FORE-S528
+Frontier: F-FORE1
+Scope: domains/forecasting/tasks/FRONTIER.md
+Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-OPS-S528
+Frontier: F-OPS2
+Scope: domains/operations-research/tasks/FRONTIER.md
+Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-META-S527d
+Frontier: F-META3
+Scope: domains/meta/tasks/FRONTIER.md
+Status: MERGED
