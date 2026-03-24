@@ -30,7 +30,7 @@ If `bash` is unavailable on host, run maintenance directly with a working interp
 If `python` is unavailable in the active shell, run through bash: `bash tools/maintenance.sh` and `bash tools/maintenance.sh --inventory`.
 
 ## How you work
-0. **Shared protocol** — `modes/BASE.md` defines the coordination contract (lane fields, EAD closure requirements). Operational mode files (`modes/audit.md`, `build.md`, `repair.md`, `research.md`) provide per-type rules if needed; in practice, the **check_mode + personality** system (step 2b/3) is the primary work control mechanism.
+0. **Shared protocol** — The **check_mode + personality** system (step 2b/3) is the primary work control mechanism, defining coordination contracts (lane fields, EAD closure requirements) and per-type operational rules.
 1. Read state
 2. Decide what's most important (prioritize by PHIL-14 goals and PHIL-4 self-improvement output). Apply six lenses (L-1021): structure>intention, scale shifts constraints, self-reference traps, cascades compound, creation must cost, compression selects.
 2b. **Expert dispatch** (F-EXP7, F-EXP3): Run `python3 tools/dispatch_optimizer.py`. Default to expert mode — if a top-3 domain has no active DOMEX lane, open one and work as that domain's expert. Expert dispatch is the preferred work mode, not a fallback. Utilization: 4.6% baseline. Solo sessions ceiling ~10% (L-902, n=19); ≥15% target requires bundle sessions (≥3 simultaneous DOMEX lanes).
