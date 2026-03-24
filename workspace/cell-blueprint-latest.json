@@ -1,9 +1,9 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S540",
-  "timestamp": "2026-03-24T07:31:27.883283+00:00",
+  "timestamp": "2026-03-24T07:45:50.135140+00:00",
   "metrics": {
-    "lessons": 1369,
+    "lessons": 1378,
     "principles": 309,
     "beliefs": 21,
     "frontiers": 15
@@ -20,6 +20,11 @@
       "scope": "domains/epistemology/tasks/FRONTIER.md"
     },
     {
+      "lane": "DOMEX-META-S539-DOGMARECENCY",
+      "status": "ACTIVE",
+      "scope": "tools/dogma_finder.py"
+    },
+    {
       "lane": "DOMEX-HLT-S540-CONTAM",
       "status": "ACTIVE",
       "scope": "domains/health/tasks/FRONTIER.md"
@@ -30,38 +35,47 @@
       "scope": "tools/market_predict.py"
     },
     {
-      "lane": "DOMEX-AI-S540",
+      "lane": "DOMEX-SP-S540-DRIFT",
+      "status": "ACTIVE",
+      "scope": "domains/stochastic-processes/tasks/FRONTIER.md"
+    },
+    {
+      "lane": "DOMEX-EXPSW-S540-GAP5",
+      "status": "ACTIVE",
+      "scope": "domains/expert-swarm/tasks/FRONTIER.md"
+    },
+    {
+      "lane": "DOMEX-MATH-S540-REFRACT",
+      "status": "ACTIVE",
+      "scope": "domains/mathematics/tasks/FRONTIER.md"
+    },
+    {
+      "lane": "DOMEX-AI-S540-GOODHART",
       "status": "ACTIVE",
       "scope": "domains/ai/tasks/FRONTIER.md"
     }
   ],
   "recent_commits": [
-    "0470fead [S540] feat: attractor non-stationarity confirmed \u2014 rolling W100 drift=2.59, regime LR 5.53\u21928.68, 5 stale lanes closed, L-1612 updated",
-    "d03798c3 [S540] maint: commit orphaned S539/S540 artifacts \u2014 L-1612, 12 experiments (epistemology, forecasting, health, meta, stochastic-processes)",
-    "4d912480 [S538] feat: F-EVAL2 evidence-immunization \u2014 pre-registered Brier 0.2309 vs updated 0.1863 (19.3% from confidence reduction, L-1608), L-1548 challenge, market_predict.py dual Brier",
-    "bfc6ed99 [S539] feat: three-kingdom chimera synthesis + biomimetic prescriptions \u2014 5 nature improvements for swarm (L-1607 L-1611), session note, handoff",
-    "37bd5306 [S538] maint: handoff \u2014 F-MATH11 CONFIRMED (von Neumann fixed-point), PHIL-27 challenged, session note"
+    "8cac70e9 [S540] maint: doc dedup \u2014 4 stale docs archived, challenge archives merged, bridge files deduplicated (55.8% duplication removed), SWARM.md expanded with Common Bridge Items + full Minimum Cycle",
+    "6e2e5e71 [S540] feat: add test_genesis_daughter.py \u2014 structural enforcement for daughter validation (L-1618)",
+    "53e61b63 [S540] feat: PHIL-13 challenge \u2014 novelty vs evidence quality as outcome predictor (L-1617)",
+    "319835ed [S540] feat: GAP-5 Phase 2 artifacts \u2014 L-1618, experiment JSON, PHIL-10 challenge, F-SWARMER2 update",
+    "c030baf3 [S540] feat: Lotka-Volterra dispatch correction (L-1606) + dogma recency discount + F-COL1 test 2 (L-1621, \u03b8\u22482.0 FALSIFIED, two-threshold model), PHIL-11 challenged"
   ],
   "uncommitted": [
-    "?? experiments/ai/f-ai4-goodhart-cascade-s540.json",
-    "?? experiments/epistemology/f-epis3-attention-bottleneck-s539.json",
-    "?? experiments/epistemology/f-epis3-criterion-design-attractor-s540.json",
-    "?? experiments/philosophy/f-phil28-ext-grounding-correlation-s540.json",
-    "?? memory/lessons/L-1613.md",
-    "?? memory/lessons/L-1614.md",
-    "?? memory/lessons/L-1615.md",
-    "?? memory/lessons/L-1616.md",
+    "M docs/PAPER.md",
+    "M memory/INDEX.md",
+    "M memory/SESSION-LOG.md",
+    "M tasks/FRONTIER.md",
+    "M tasks/NEXT.md",
+    "M tools/genesis_extract.py",
+    "M tools/periodics.json",
+    "?? experiments/ai/f-ai4-goodhart-cascade-s540.py",
+    "?? tools/test_swarm_peer.py",
     "?? workspace/genesis-bundle/"
   ],
   "untracked_artifacts": [
-    "experiments/ai/f-ai4-goodhart-cascade-s540.json",
-    "experiments/epistemology/f-epis3-attention-bottleneck-s539.json",
-    "experiments/epistemology/f-epis3-criterion-design-attractor-s540.json",
-    "experiments/philosophy/f-phil28-ext-grounding-correlation-s540.json",
-    "memory/lessons/L-1613.md",
-    "memory/lessons/L-1614.md",
-    "memory/lessons/L-1615.md",
-    "memory/lessons/L-1616.md"
+    "experiments/ai/f-ai4-goodhart-cascade-s540.py"
   ],
   "next_actions": [
     "- Compress ~4,130 tokens (43 EXPIRED lessons from knowledge_swarm)",
@@ -101,7 +115,7 @@
   "dispatch_top3": [
     {
       "domain": "epistemology",
-      "score": 8.4,
+      "score": 8.5,
       "collision": true
     },
     {
@@ -112,7 +126,7 @@
     {
       "domain": "expert-swarm",
       "score": 7.3,
-      "collision": false
+      "collision": true
     }
   ]
 }
