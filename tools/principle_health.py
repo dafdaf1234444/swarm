@@ -22,6 +22,7 @@ import sys
 REPO = pathlib.Path(__file__).resolve().parent.parent
 PRINCIPLES_FILE = REPO / "memory" / "PRINCIPLES.md"
 LESSONS_DIR = REPO / "memory" / "lessons"
+ARCHIVE_DIR = LESSONS_DIR / "archive"
 
 # Cache lesson health to avoid re-reading files
 _lesson_cache: dict[str, str] = {}
@@ -40,6 +41,11 @@ def get_lesson_status(lesson_id: str) -> str:
     num = lesson_id.replace("L-", "")
     path = LESSONS_DIR / f"L-{num}.md"
     if not path.exists():
+        # Check archive before declaring MISSING
+        archive_path = ARCHIVE_DIR / f"L-{num}.md"
+        if archive_path.exists():
+            _lesson_cache[lesson_id] = "ARCHIVED"
+            return "ARCHIVED"
         _lesson_cache[lesson_id] = "MISSING"
         return "MISSING"
 
@@ -101,7 +107,7 @@ def classify_principles(principles: dict) -> dict:
         alive = []
         for lid in cited:
             status = get_lesson_status(lid)
-            if status == "ACTIVE":
+            if status in ("ACTIVE", "ARCHIVED"):
                 alive.append(lid)
             else:
                 dead.append((lid, status))

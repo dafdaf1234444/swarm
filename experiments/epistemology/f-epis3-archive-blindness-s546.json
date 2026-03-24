@@ -1,0 +1,17 @@
+{
+  "id": "f-epis3-archive-blindness-s546",
+  "session": "S546",
+  "frontier": "F-EPIS3",
+  "hypothesis": "principle_health.py reports 13 fully-dead principles because it doesn't check memory/lessons/archive/ — all 13 have archived evidence",
+  "method": "Add ARCHIVE_DIR fallback to get_lesson_status(); treat ARCHIVED as alive evidence",
+  "pre_registered": true,
+  "threshold": "fully_dead drops from 13 to 0; healthy% rises from 54.2% to >58%",
+  "result": {
+    "before": {"healthy": 173, "zombie": 25, "orphan": 121, "fully_dead": 13, "healthy_pct": 54.2},
+    "after": {"healthy": 192, "zombie": 6, "orphan": 121, "fully_dead": 0, "healthy_pct": 60.2},
+    "delta": {"healthy": "+19", "zombie": "-19", "fully_dead": "-13"}
+  },
+  "verdict": "CONFIRMED — archive blindness was sole cause of 13 false-positive dead principles",
+  "lesson": "L-1675",
+  "artifacts": ["tools/principle_health.py"]
+}
