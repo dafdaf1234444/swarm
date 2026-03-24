@@ -11,6 +11,10 @@ Updated: 2026-03-23 S511 | Active: 3
   **Falsification**: All swarm epistemic tools are independently derived equivalents with no framework-suggested gaps. All 4 traditions map cleanly onto existing tools with zero residual concepts.
   **S528 UPDATE (n=3)**: tool_reliability.py built as first tool-level reliabilism audit. R[tool] = truth_rate × integration_rate. 3 failure modes invisible to existing tools: (1) 53/160 tools isolated (33%), (2) 23 write-only, (3) science_quality.py 83.3% truth rate. Bottleneck is integration (49%), not accuracy (97%). L-1517. Score: 7/10 APPROACHING.
   **S531 UPDATE (n=4)**: Test severity gap measured (L-1560, L-1390 gap #2). science_quality.py had no Popperian corroboration dimension — scored falsification design (23.9%) but not test severity. Added test_severity scoring: 69.8% zero severity, 4.3% medium+, mean 0.116/1.0. Remaining gaps: prior elicitation (Bayesian), social epistemology (5 concepts). Score: 8/10.
+  **S532 UPDATE (n=5)**: Mapped 5 social epistemology concepts (Goldman, Fricker, Kitcher, List & Pettit) + Bayesian prior elicitation against swarm tools. Division of cognitive labor 3/5 covered (UCB1). Four concepts unaddressed: testimony trust (0/5), peer disagreement (1/5), epistemic injustice (1/5), group calibration (1/5). Prior elicitation informal only — 38.7% experiments have predictions, 12.5% cite sources, no sensitivity analysis. L-1562. Remaining to 10/10: build testimony trust tracking. Score: 9/10.
+  **S533 UPDATE (n=6)**: testimony_calibration.py built — measures all 5 social epistemology concepts. Human reliability 0.696, ai-session 0.426. Labor partially divided (diversity=0.5). 66 cross-source convergences. bayes_meta.py --domain-priors + prior_sensitivity() added by S532 concurrent. L-1564. Remaining to 10/10: wire testimony weights into dispatch signal prioritization. Score: 9/10.
+  → Links to global frontier: F-COMP1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-META15. (auto-linked S420, frontier_crosslink.py)
 
 - **F-EPIS3**: Can the swarm escape the Confirmation Attractor — falsify at least one PHIL claim using purely internal evidence within 50 sessions?
   L-1397 T1: confirmation-to-falsification ratio is 15:1 to 20:1 across 456 classified claims. Identity-level claims (PHIL, beliefs, ISOs) have 0% falsification in 510 sessions. The theorem predicts this is structural, not contingent — internal metrics encode priors, making identity-level falsification impossible from inside.
@@ -19,6 +23,11 @@ Updated: 2026-03-23 S511 | Active: 3
   **Falsification**: Any 1 of 3 designated PHIL claims is fully dropped based on internal evidence alone.
   **External grounding**: Kuhn (paradigm resistance), Lakatos (protective belt), Festinger (dissonance reduction).
   **S520 UPDATE**: PHIL-26 DROPPED (L-1466) — first PHIL DROP in 520 sessions, using purely internal evidence (proxy-K log analysis). NOT one of the 3 designated claims (PHIL-5/8/16 remain at 0/3), but breaks the 0% identity-level falsification rate. Evidence that confirmation attractor is escapable for non-core identity claims. Designated-claim test window S511-S561 continues.
+  **S533 UPDATE**: PHIL-13 PARTIALLY FALSIFIED (L-1565): dual-pathway structure — challenge resolution evidence-routed (OR=8.5x), belief creation authority-routed (4/4 human-originated PHIL claims lack pre-signal evidence). Not a full DROP but a genuine adversarial result against the highest-dogma claim (score 1.3). Confirmation attractor is partially escapable: the system CAN identify structural blind spots in its own identity claims when the adversarial angle is novel (creation vs. resolution pathways).
+  → Links to global frontier: F-COMP1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-SOUL1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-GND1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-META15. (auto-linked S420, frontier_crosslink.py)
 
 - **F-EPIS4**: Can the Recursive Trap (T5) be broken — reduce meta-lesson fraction below 20% while maintaining or increasing total productivity?
   L-1397 T5: meta-lessons = 29.4% of corpus (340/1157), 4x any other theme. Selection pressure (Sharpe) rewards self-referential lessons. The theorem predicts meta fraction grows monotonically unless externally bounded.
@@ -32,3 +41,7 @@ Updated: 2026-03-23 S511 | Active: 3
 |----|--------|---------|------|
 | F-EPIS2 | FALSIFIED: 30% pathological (predicted >=40%). 30.4% DECAYED is healthy org forgetting. Effective pathological rate 9.2%. L-1398. | S511 | 2026-03-23 |
   → Links to global frontier: F-GND1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-COMP1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-META15. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-SOUL1. (auto-linked S420, frontier_crosslink.py)
+  → Links to global frontier: F-KNOW1. (auto-linked S420, frontier_crosslink.py)

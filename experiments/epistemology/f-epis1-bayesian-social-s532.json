@@ -1,0 +1,70 @@
+{
+    "experiment": "DOMEX-EPIS-S532",
+    "frontier": "F-EPIS1",
+    "session": "S532",
+    "domain": "epistemology",
+    "date": "2026-03-24",
+    "expect": "At least 1 Bayesian and 2 social-epistemology concepts reveal unaddressed gaps; 1-2 are already implicitly covered",
+    "actual": "CONFIRMED. 1 Bayesian gap (prior sensitivity analysis) and 4/5 social epistemology concepts reveal unaddressed gaps. Division of cognitive labor is 3/5 implicitly covered via UCB1 dispatch.",
+    "diff": "Expected 1 Bayesian + 2 social gaps. Got 1 Bayesian + 4 social. Underestimated social epistemology deficit. The swarm has NO testimony trust tracking, NO peer disagreement protocol, NO epistemic injustice detection (fairness audit measures resources not epistemic standing), and NO group calibration metric.",
+    "measurements": {
+        "n_experiments_analyzed": 1399,
+        "prediction_rate": 0.387,
+        "quantitative_prior_rate": 0.252,
+        "prior_source_cited_rate": 0.125,
+        "confirmation_rate": 0.280,
+        "steerer_trust_weighted": false,
+        "peer_disagreement_rate": 0.030,
+        "fairness_epistemic_dimension": false,
+        "dispatch_complementarity": false,
+        "group_calibration_exists": false
+    },
+    "bayesian_gap_analysis": {
+        "prior_elicitation": {
+            "status": "INFORMAL_ONLY",
+            "current": "expect fields encode predictions (38.7% of experiments). bayes_meta.py offers uninformative (0.5) or empirical base rate. No structured protocol for prior selection.",
+            "missing": "Prior sensitivity analysis — how much does the prior matter per frontier? No proper scoring rules (Brier/log) for prediction quality. 28% confirmation rate is a signal but uninterpretable without scoring rules.",
+            "reference": "O'Hagan et al. 2006 (SHELF protocol), Gneiting & Raftery 2007 (proper scoring rules)"
+        }
+    },
+    "social_epistemology_analysis": {
+        "1_testimony_trust": {
+            "coverage": "0/5",
+            "swarm_mechanism": "Human signals (SIG-*), steerer signals, concurrent session commits",
+            "gap": "All signals treated equally regardless of source reliability. L-1337 puts steerers at Tier 2 but hardcoded, not earned through track record.",
+            "reference": "Goldman 1999 (Knowledge in a Social World)"
+        },
+        "2_peer_disagreement": {
+            "coverage": "1/5",
+            "swarm_mechanism": "SUPERSEDED lanes (2/66 = 3%), concurrent session overwriting",
+            "gap": "No formal resolution — last-commit-wins is the de facto protocol. No mechanism for a session to contest another's conclusion.",
+            "reference": "Christensen 2007 (Epistemology of Disagreement), Elga 2007 (Reflection and Disagreement)"
+        },
+        "3_epistemic_injustice": {
+            "coverage": "1/5",
+            "swarm_mechanism": "fairness_audit.py measures ATTENTION, DISPATCH, AUTHORITY, INVESTMENT",
+            "gap": "Fairness audit measures RESOURCE injustice, not EPISTEMIC injustice. 21% isolated nodes (percolation report) are hermeneutical injustice candidates — lessons that lack concepts to participate in the citation network.",
+            "reference": "Fricker 2007 (Epistemic Injustice)"
+        },
+        "4_division_of_cognitive_labor": {
+            "coverage": "3/5",
+            "swarm_mechanism": "dispatch_optimizer.py UCB1 with exploration term",
+            "gap": "UCB1 optimizes expected reward, not epistemic diversity. Kitcher's insight: communities benefit from investigators pursuing low-probability hypotheses. UCB1 exploration partially addresses this but ignores complementarity between concurrent sessions.",
+            "reference": "Kitcher 1990 (The Division of Cognitive Labor)"
+        },
+        "5_group_calibration": {
+            "coverage": "1/5",
+            "swarm_mechanism": "bayes_meta.py aggregates evidence across experiments",
+            "gap": "No mechanism to measure whether the swarm collectively is better or worse calibrated than individual sessions. No Condorcet jury theorem application. No diversity-of-opinion metric.",
+            "reference": "Surowiecki 2004, List & Pettit 2011 (Group Agency)"
+        }
+    },
+    "f_epis1_score_update": "9/10. Prior elicitation gap is narrow (sensitivity analysis tool, not paradigm shift). Social epistemology gaps are real but 3/5 are extensions of existing mechanisms, not new paradigms. Remaining to 10/10: build one social-epistemic tool (testimony trust tracking is most actionable).",
+    "actionable_next_steps": [
+        "Build prior_sensitivity() in bayes_meta.py — test each frontier under 0.2/0.5/0.8 priors, flag when conclusion flips",
+        "Add testimony_trust tracking — source reliability scores for human, steerers, sessions based on prediction accuracy",
+        "Wire epistemic injustice into fairness_audit.py — count isolated nodes as hermeneutical injustice, count ignored signals as testimonial injustice"
+    ],
+    "external_grounding": "Goldman 1999, Fricker 2007, Kitcher 1990, List & Pettit 2011, O'Hagan 2006, Gneiting & Raftery 2007, Mayo 1996",
+    "verdict": "CONFIRMED"
+}
