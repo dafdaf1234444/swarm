@@ -408,6 +408,8 @@ def main():
         maint_out = _run_maint()  # run in main thread while others execute
         # Re-submit cascade with actual maint_out if needed
         _futures['cascade_real'] = _pool.submit(lambda mo=maint_out: section_cascade_state(maint_output=mo))
+    # ── ALL SLOW SECTIONS MUST BE IN THE POOL ABOVE (L-1349, L-1551) ──
+    # Synchronous code here wastes concurrency. Use _pool.submit() + _safe_result().
     # Collect pre-check results (timeout per future to prevent orient hang — L-1542)
     def _safe_result(key, default=None, timeout=10):
         """Fault-isolated future result — optional sections fail independently (L-1413).
