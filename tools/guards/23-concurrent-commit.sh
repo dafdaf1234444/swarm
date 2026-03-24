@@ -1,6 +1,7 @@
 #!/bin/bash
-# L-1528: Concurrent-commit stampede guard.
+# L-1528/L-1534: Concurrent-commit stampede guard.
 # Detects N>2 git processes and warns. At N>4, blocks commit to prevent index corruption.
+# L-1534: When concurrent, require GIT_INDEX_FILE to avoid shared .git/index corruption.
 # WSL/NTFS cannot handle multiple concurrent git index writes — they cascade into corruption.
 GIT_PROCS=$(ps aux 2>/dev/null | grep -E "git (commit|reset|add|read-tree|write-tree)" | grep -v grep | wc -l)
 if [ "${GIT_PROCS:-0}" -gt 4 ]; then
@@ -13,4 +14,8 @@ if [ "${GIT_PROCS:-0}" -gt 4 ]; then
     echo "  ALLOW_STAMPEDE=1 set — bypassing guard."
 elif [ "${GIT_PROCS:-0}" -gt 2 ]; then
     echo "  L-1528 NOTICE: ${GIT_PROCS} concurrent git processes — elevated corruption risk."
+    # L-1534: Warn if not using temp index
+    if [ -z "${GIT_INDEX_FILE}" ]; then
+        echo "  L-1534 WARNING: Concurrent sessions should use GIT_INDEX_FILE=<tmpfile> to avoid .git/index corruption."
+    fi
 fi
