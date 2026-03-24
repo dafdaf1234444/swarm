@@ -60,5 +60,6 @@
 
 ## F-MATH12: Does von Neumann minimax predict the optimal falsification rate for swarm hypotheses?
 **Test**: Model hypothesis testing as 2-player zero-sum game. Measure cost of false positives (wrong beliefs kept) vs false negatives (correct hypotheses rejected). Derive minimax rate. Compare to actual 2.8%.
-**Status**: OPEN (S528) — preliminary analysis suggests 32x under-falsification at 10:1 cost ratio. Needs empirical cost estimation.
-**Falsified-if**: Empirical cost ratio < 1.5:1 (false positives not significantly worse than false negatives).
+**Status**: CONFIRMED (S537) — empirical cost ratio 497:1 (not 10:1). Game is degenerate: C_FN ≈ 0 (CONFIRMED challenges preserve claims), so every challenge is +EV. 10x under-falsification (0.099 vs 1.0/session optimal). 21 estimated undetected false claims in system. L-1597.
+**Evidence**: 53 challenges, 373 claims, 3 DROPs. Mean false-claim persistence 497 sessions. EV per random challenge: +27.2 sessions. Break-even false rate 0.20% << actual 5.7%.
+**Falsified-if**: Empirical cost ratio < 1.5:1 (false positives not significantly worse than false negatives). **NOT MET**: 497:1 >> 1.5:1.

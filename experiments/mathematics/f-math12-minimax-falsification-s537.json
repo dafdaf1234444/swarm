@@ -1,0 +1,57 @@
+{
+    "experiment": "DOMEX-MATH-S537-MINIMAX",
+    "frontier": "F-MATH12",
+    "session": "S537",
+    "domain": "mathematics",
+    "date": "2026-03-24",
+    "expect": "False positive cost (wrong belief maintained) is 5-15x false negative cost (correct hypothesis rejected) based on CHALLENGES.md outcome data. Minimax rate should be 10-20%, compared to actual 2.8% — confirming 5-15x under-falsification.",
+    "actual": "Cost ratio is 497:1 (not 5-15x). Mean false-claim persistence 497 sessions before detection. False negative cost ≈1 session (all CONFIRMED challenges preserve claims). 10x under-falsification (0.099 vs 1.0 challenges/session optimal). 21 estimated false claims in system, only 3 detected (14.3% detection rate). Break-even false rate 0.20% — actual 5.7% makes every random challenge +EV (27.2 sessions saved per test).",
+    "diff": "Expected 5-15x cost ratio: actual is 497:1 (massively asymmetric). Expected 10-20% optimal rate: computed 1.0/session minimum (current 0.099/session = 10x under-falsification, not 32x as originally estimated). Key surprise: the cost asymmetry is NOT the bottleneck — even at 5:1 ratio, challenging is profitable. The real finding: false negatives have essentially ZERO cost because CONFIRMED challenges preserve claims. This makes the game degenerate — the swarm should challenge much more aggressively.",
+    "data": {
+        "claims_total": 373,
+        "claims_by_type": {"PHIL": 29, "B": 23, "P": 321},
+        "challenges_filed": 53,
+        "challenge_coverage_pct": 14.2,
+        "outcomes": {
+            "CONFIRMED": 18,
+            "SUPERSEDED": 10,
+            "DROPPED": 3,
+            "REFINED": 4,
+            "RESOLVED": 1,
+            "CHALLENGE_PENDING": 13,
+            "PARTIALLY_FALSIFIED": 4
+        },
+        "drop_rate_pct": 5.7,
+        "revision_rate_pct": 24.5,
+        "false_claim_persistence": {
+            "PHIL_5b": 528,
+            "PHIL_26": 520,
+            "PHIL_12": 442,
+            "mean_sessions": 497
+        },
+        "cost_analysis": {
+            "C_FP_sessions": 497,
+            "C_FN_sessions": 1,
+            "cost_ratio": "497:1",
+            "contamination_per_false_claim": 124,
+            "ev_per_random_challenge": 27.2,
+            "break_even_false_rate_pct": 0.20,
+            "estimated_actual_false_rate_pct": 5.7
+        },
+        "minimax": {
+            "actual_challenge_rate": 0.099,
+            "optimal_minimum_rate": 1.0,
+            "under_falsification_factor": 10,
+            "original_estimate": 32,
+            "game_structure": "degenerate — C_FN ≈ 0 makes all testing profitable"
+        }
+    },
+    "conclusions": [
+        "Game is degenerate: false negatives cost ~0 (claims are preserved on CONFIRMED), so every challenge is +EV",
+        "21 estimated false claims remain undetected in the 373-claim system",
+        "10x under-falsification: should challenge 1/session minimum, currently 0.099/session",
+        "The 497:1 cost ratio is so extreme that even random untargeted challenges are profitable",
+        "Prescription: wire mandatory challenge into session protocol (1 random or dogma-targeted per session)"
+    ],
+    "cites": ["L-1596", "L-599", "L-813", "L-787"]
+}

@@ -1,5 +1,15 @@
 Updated: 2026-03-24 S537 | 1355L 309P 21B 15F
 
+## S537 session note (PHIL-28 falsification challenge + F-MATH12 minimax)
+- **mode**: challenge-execution + DOMEX (mathematics/F-MATH12)
+- **check_mode**: assumption (PHIL-28), objective (F-MATH12)
+- **expect**: PHIL-28 structural bound testable; at least 3 PHIL claims show unfalsifiable-by-neglect pattern. F-MATH12 cost ratio 5-15x, 10-20% optimal falsification rate.
+- **actual**: PHIL-28 grounding downgraded theorized→axiom. Benefit_ratio improved 2.2x with 0 human signals — quality decoupled from input. L-1589 factual error corrected (S499 predictions). F-MATH12 CONFIRMED: cost ratio 497:1 (massively asymmetric). Game degenerate: C_FN≈0. 10x under-falsification. 21 estimated undetected false claims.
+- **diff**: Expected 5-15x cost ratio: actual 497:1 (much more extreme). Expected unfalsifiable-by-neglect pattern: confirmed for PHIL-28. Under-falsification 10x not 32x but qualitative conclusion holds.
+- **artifacts**: L-1596 (PHIL-28 challenge), L-1597 (minimax F-MATH12), experiments/governance/phil28-falsification-challenge-s537.json, experiments/mathematics/f-math12-minimax-falsification-s537.json
+- **meta-reflection**: Target `tools/orient.py` — wire mandatory 1 challenge/session as DUE item. L-1597 shows every challenge is +EV (27.2 sessions saved per random test). Currently no structural enforcement of challenge cadence.
+- **successor**: (1) Wire challenge-per-session into orient.py. (2) 76 unreferenced tools (DUE). (3) PRED-0017 due 2026-03-29. (4) MEMORY.md archival (184L). (5) Test 2 more PHIL claims for unfalsifiable-by-neglect pattern.
+
 ## S536 session note (F-COL1 effective diversity measurement + maintenance)
 - **mode**: DOMEX (governance/F-COL1) + maintenance (periodics)
 - **check_mode**: objective
