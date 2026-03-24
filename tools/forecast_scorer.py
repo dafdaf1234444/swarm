@@ -18,14 +18,23 @@ EXPERIMENT_DIR = ROOT / "experiments" / "forecasting"
 
 
 def load_latest_scoring():
-    """Load the most recent f-fore1-scoring experiment JSON."""
-    candidates = sorted(EXPERIMENT_DIR.glob("f-fore1-scoring-s*.json"))
-    if not candidates:
-        # Try full-scoring variant
-        candidates = sorted(EXPERIMENT_DIR.glob("f-fore1-full-scoring-s*.json"))
+    """Load the most recent f-fore1-scoring experiment JSON with structured predictions."""
+    candidates = sorted(
+        list(EXPERIMENT_DIR.glob("f-fore1-scoring-s*.json"))
+        + list(EXPERIMENT_DIR.glob("f-fore1-full-scoring-s*.json")),
+        key=lambda p: p.stat().st_mtime,
+    )
     if not candidates:
         print("ERROR: No scoring experiment JSONs found in experiments/forecasting/")
         sys.exit(1)
+    # Walk backwards to find the latest with structured actual.predictions_scored
+    for candidate in reversed(candidates):
+        with open(candidate) as f:
+            data = json.load(f)
+        actual = data.get("actual", {})
+        if isinstance(actual, dict) and "predictions_scored" in actual:
+            return data, candidate.name
+    # Fallback: return the latest anyway (will fail gracefully downstream)
     latest = candidates[-1]
     with open(latest) as f:
         return json.load(f), latest.name
