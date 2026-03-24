@@ -2,7 +2,8 @@
 """close_lane.py — F-META: reduce friction in lane closure + EAD enforcement.
 
 Appends a MERGED/ABANDONED row to tasks/SWARM-LANES.md for a given lane ID
-and optionally updates the target FRONTIER.md with a status note.
+and can optionally update the target FRONTIER.md when a lane resolves a
+frontier.
 
 EAD enforcement (PCI improvement): when closing as MERGED, requires
 --actual and --diff arguments so the expect-act-diff loop is completed.
@@ -187,6 +188,163 @@ def append_closure_row(
             pass  # bulletin.py unavailable — non-fatal
 
 
+def _lane_tags(value: str) -> dict[str, str]:
+    return {
+        key.strip().lower(): val.strip()
+        for key, val in re.findall(r"([A-Za-z][A-Za-z0-9_-]*)\s*=\s*([^\s,;|]+)", value or "")
+    }
+
+
+def _extract_frontier_ids(value: str) -> list[str]:
+    return re.findall(r"\bF(?:-[A-Z0-9-]*\d+|\d+)\b", value or "", re.IGNORECASE)
+
+
+def _markdown_section_bounds(text: str, heading: str) -> tuple[int, int] | None:
+    match = re.search(rf"^##\s*{heading}\b.*$", text, re.MULTILINE | re.IGNORECASE)
+    if not match:
+        return None
+    start = match.end()
+    tail = text[start:]
+    next_heading = re.search(r"^##\s+\S", tail, re.MULTILINE)
+    end = start + (next_heading.start() if next_heading else len(tail))
+    return start, end
+
+
+def _count_active_frontier_bullets(section: str) -> int:
+    return len(re.findall(r"^\s*-\s*\*\*F(?:-[A-Z0-9-]*\d+|\d+)\*\*", section, re.MULTILINE | re.IGNORECASE))
+
+
+def _count_resolved_rows(section: str) -> int:
+    return len(re.findall(r"^\|\s*F(?:-[A-Z0-9-]*\d+|\d+)\s*\|", section, re.MULTILINE | re.IGNORECASE))
+
+
+def _mark_frontier_resolved_line(line: str, frontier_id: str, session: str) -> str:
+    if f"~~**{frontier_id}**~~" not in line:
+        line = line.replace(f"**{frontier_id}**", f"~~**{frontier_id}**~~", 1)
+
+    if "Moved to Resolved" in line or "RESOLVED" in line.upper():
+        return line
+
+    marker = f"Moved to Resolved ({session})."
+    if ":" in line:
+        head, tail = line.split(":", 1)
+        return f"{head}: {marker} {tail.lstrip()}"
+    return line.rstrip("\n") + f" {marker}\n"
+
+
+def update_frontier_file(frontier_path: Path, frontier_id: str, session: str, answer: str, today: str | None = None) -> bool:
+    today = today or date.today().isoformat()
+    text = frontier_path.read_text(encoding="utf-8")
+
+    active_bounds = _markdown_section_bounds(text, "Active")
+    if active_bounds is None:
+        raise ValueError(f"{frontier_path} has no ## Active section")
+    active_start, active_end = active_bounds
+    active_section = text[active_start:active_end]
+
+    lines = active_section.splitlines(keepends=True)
+    lead_line_found = False
+    for idx, line in enumerate(lines):
+        if not re.match(r"^\s*-\s*", line):
+            continue
+        if re.search(rf"\*\*{re.escape(frontier_id)}\*\*", line, re.IGNORECASE):
+            lines[idx] = _mark_frontier_resolved_line(line, frontier_id, session)
+            lead_line_found = True
+            break
+    if not lead_line_found:
+        raise ValueError(f"{frontier_id} not found in ## Active section of {frontier_path}")
+
+    active_section = "".join(lines)
+    text = text[:active_start] + active_section + text[active_end:]
+
+    resolved_bounds = _markdown_section_bounds(text, "Resolved")
+    row = f"| {frontier_id} | {answer} | {session} | {today} |\n"
+    table_header = "| ID | Answer | Session | Date |\n|----|--------|---------|------|\n"
+
+    if resolved_bounds is None:
+        addition = f"\n## Resolved\n{table_header}{row}"
+        text = text.rstrip() + "\n" + addition
+    else:
+        resolved_start, resolved_end = resolved_bounds
+        resolved_section = text[resolved_start:resolved_end]
+        if not re.search(r"^\|\s*ID\s*\|", resolved_section, re.MULTILINE):
+            resolved_section = "\n" + table_header + resolved_section.lstrip("\n")
+
+        lines = resolved_section.splitlines(keepends=True)
+        table_start = next((i for i, line in enumerate(lines) if line.startswith("| ID |")), None)
+        if table_start is None:
+            lines = [table_header, row]
+        else:
+            table_end = table_start + 2
+            while table_end < len(lines) and lines[table_end].startswith("|"):
+                table_end += 1
+
+            replaced = False
+            for idx in range(table_start + 2, table_end):
+                if re.match(rf"^\|\s*{re.escape(frontier_id)}\s*\|", lines[idx], re.IGNORECASE):
+                    lines[idx] = row
+                    replaced = True
+                    break
+            if not replaced:
+                lines.insert(table_end, row)
+        resolved_section = "".join(lines)
+        text = text[:resolved_start] + resolved_section + text[resolved_end:]
+
+    active_bounds = _markdown_section_bounds(text, "Active")
+    resolved_bounds = _markdown_section_bounds(text, "Resolved")
+    active_count = _count_active_frontier_bullets(text[active_bounds[0]:active_bounds[1]]) if active_bounds else 0
+    resolved_count = _count_resolved_rows(text[resolved_bounds[0]:resolved_bounds[1]]) if resolved_bounds else 0
+
+    text = re.sub(r"Updated:\s*\d{4}-\d{2}-\d{2}\s+S\d+", f"Updated: {today} {session}", text, count=1)
+    text = re.sub(r"(\bActive:\s*)\d+\b", rf"\g<1>{active_count}", text, count=1)
+    if re.search(r"\bResolved:\s*\d+\b", text):
+        text = re.sub(r"(\bResolved:\s*)\d+\b", rf"\g<1>{resolved_count}", text, count=1)
+
+    frontier_path.write_text(text, encoding="utf-8")
+    return True
+
+
+def resolve_frontier_for_lane(
+    lane_id: str,
+    session: str,
+    answer: str,
+    frontier_id: str = "",
+    frontier_file: str = "",
+) -> Path:
+    latest = find_latest_lane_row(lane_id)
+    if latest is None:
+        raise ValueError(f"lane {lane_id} not found")
+
+    etc_field = latest[10] if len(latest) > 10 else ""
+    tags = _lane_tags(etc_field)
+
+    if frontier_id:
+        resolved_frontier = frontier_id
+    else:
+        frontiers = _extract_frontier_ids(tags.get("frontier", ""))
+        unique_frontiers = list(dict.fromkeys(frontiers))
+        if len(unique_frontiers) != 1:
+            raise ValueError(
+                f"{lane_id} tracks {len(unique_frontiers)} frontiers; pass --frontier-id explicitly"
+            )
+        resolved_frontier = unique_frontiers[0]
+
+    frontier_candidates = [frontier_file, tags.get("memory_target", ""), latest[9] if len(latest) > 9 else ""]
+    resolved_path = None
+    for candidate in frontier_candidates:
+        candidate = (candidate or "").strip()
+        if candidate.endswith("FRONTIER.md"):
+            resolved_path = REPO_ROOT / candidate
+            break
+
+    if resolved_path is None or not resolved_path.exists():
+        raise ValueError(f"could not infer a domain FRONTIER.md for {lane_id}; pass --frontier-file")
+
+    update_frontier_file(resolved_path, resolved_frontier, session, answer)
+    print(f"Updated frontier file: {resolved_path.relative_to(REPO_ROOT)} [{resolved_frontier}]")
+    return resolved_path
+
+
 def main():
     parser = argparse.ArgumentParser(description="Close a swarm lane with minimal friction.")
     parser.add_argument("--lane", required=True, help="Lane ID, e.g. L-S186-DOMEX-BRN")
@@ -216,7 +374,25 @@ def main():
                             "Required when closing a colony (≥3 waves) with no mode=falsification wave. "
                             "Example: --skip-adversarial-capstone 'adversarial review pending in successor lane'"
                         ))
+    parser.add_argument("--resolve-frontier", action="store_true",
+                        help=(
+                            "When this lane resolves a frontier, update the matching domain FRONTIER.md "
+                            "by marking the frontier non-active and syncing the Resolved table."
+                        ))
+    parser.add_argument("--frontier-id", default="",
+                        help="Explicit frontier ID to resolve when the lane tracks multiple frontiers.")
+    parser.add_argument("--frontier-file", default="",
+                        help="Explicit domain FRONTIER.md path to update with --resolve-frontier.")
+    parser.add_argument("--resolution-answer", default="",
+                        help="Resolved-table answer text written when --resolve-frontier is used.")
     args = parser.parse_args()
+
+    if args.resolve_frontier and args.status != "MERGED":
+        print("ERROR: --resolve-frontier is only valid with --status MERGED.", file=sys.stderr)
+        sys.exit(1)
+    if args.resolve_frontier and not args.resolution_answer:
+        print("ERROR: --resolve-frontier requires --resolution-answer.", file=sys.stderr)
+        sys.exit(1)
 
     # EAD enforcement: ALL MERGED lanes must provide actual/diff (L-741, L-601)
     # Previous gate: only enforced if lane had expect= set. This allowed stub closures
@@ -373,6 +549,19 @@ def main():
         actual=args.actual,
         diff=args.diff,
     )
+
+    if args.resolve_frontier:
+        try:
+            resolve_frontier_for_lane(
+                lane_id=args.lane,
+                session=args.session,
+                answer=args.resolution_answer,
+                frontier_id=args.frontier_id,
+                frontier_file=args.frontier_file,
+            )
+        except ValueError as exc:
+            print(f"ERROR: {exc}", file=sys.stderr)
+            sys.exit(1)
 
     # Federated convergence check (F-NK6, L-960): when a DOMEX domain lane closes as MERGED,
     # scan the domain's FRONTIER.md for FQs with "Global synthesis: F-XXXX" tags and surface

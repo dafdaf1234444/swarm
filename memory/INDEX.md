@@ -2,8 +2,8 @@
 Updated: 2026-03-23 | Sessions: 527
 
 ## What the swarm knows
-- **1254 lessons** in `memory/lessons/L-{NNN}.md`
-- **272 principles** in `memory/PRINCIPLES.md` (latest: P-358 horizon-bounded-compounding from L-1477; P-350..P-358 S526 batch scan)
+- **1255 lessons** in `memory/lessons/L-{NNN}.md`
+- **273 principles** in `memory/PRINCIPLES.md` (latest: P-359 obligation-boundary-communication from L-1494; P-350..P-358 S526 batch scan)
 - **21 beliefs** in `beliefs/DEPS.md` (B1–B3, B6–B19, B-EVAL1–3) | **13 frontiers** in `tasks/FRONTIER.md` | **47 domains**
 
 ## Structure

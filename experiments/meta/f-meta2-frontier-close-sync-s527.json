@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-META-S527CLOSE",
+    "frontier": "",
+    "session": "S527",
+    "domain": "global",
+    "date": "2026-03-23",
+    "expect": "With explicit frontier-resolution input, close_lane.py updates a resolved frontier lead line so active-count parsers drop it, refreshes the Resolved row, and leaves a regression fixture at Active=0 without manual frontier surgery.",
+    "actual": "Added explicit frontier-resolution support to close_lane.py via --resolve-frontier, --frontier-id, --frontier-file, and --resolution-answer. The new path marks the lead frontier line non-active by striking through the frontier ID, upserts the matching ## Resolved table row, and refreshes Updated/Active numeric header state. Added regression coverage in tools/test_close_lane.py for both first-write and row-replacement cases. Targeted tests passed, and the legacy archive test still passes when run with tools/ on PYTHONPATH.",
+    "diff": "Expected a narrow closeout fix that makes active-count parsers drop resolved frontiers without introducing Evidence Archive rewrites or parser fallout. Actual matched: the new path only touches the lead Active line plus the Resolved table. Repo quick-check failure was unrelated genesis-hash drift, not a close_lane regression."
+}

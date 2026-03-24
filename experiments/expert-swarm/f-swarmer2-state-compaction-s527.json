@@ -1,0 +1,28 @@
+{
+  "experiment": "DOMEX-EXPSW-S527",
+  "frontier": "F-SWARMER2",
+  "session": "S527",
+  "domain": "expert-swarm",
+  "lesson": "L-1497",
+  "date": "2026-03-23",
+  "expect": "Lean genesis bundle uses projected state and shrinks from about 465KB to <=350KB while daughter startup viability checks still pass (`orient.py`, `validate_beliefs.py --quick`, `sync_state.py`).",
+  "actual": "Confirmed. Lean bundle now measures 335,883 bytes (328KB) with 62 copied files. Projection is lossy by design: `memory/PRINCIPLES.md` is reduced to an ID-only list (2.4KB) and lean hub lessons are capped at 55 with compacted section summaries (30.1KB total). Daughter boot checks passed in the generated bundle: `orient.py` exit 0, `validate_beliefs.py --quick` exit 0, `sync_state.py` exit 0.",
+  "diff": "Expected <=350KB with viable startup checks. Actual came in at 328KB, 22KB under target, while the daughter bundle still booted cleanly. The remaining margin comes from keeping identity, index, frontier, and boot tools intact while projecting principles/lessons instead of copying them verbatim.",
+  "method": "Added lean-only state projection to `tools/genesis_extract.py`: principles are rewritten as an ID-only compact list, hub lessons are summarized to at most two sections each, and lean mode caps hub lesson fanout at 55. Added `tools/test_genesis_extract.py` to verify the size ceiling and run daughter `orient`/`validate_beliefs`/`sync_state` checks against an extracted bundle.",
+  "results": {
+    "baseline_lean_bundle_bytes": 479934,
+    "projected_lean_bundle_bytes": 335883,
+    "projected_lean_bundle_kb": 328,
+    "file_count": 62,
+    "hub_lesson_count": 43,
+    "principles_projection_bytes": 2378,
+    "hub_lessons_projection_bytes": 30055,
+    "orient_exit": 0,
+    "validate_beliefs_exit": 0,
+    "sync_state_exit": 0,
+    "test_status": "PASS"
+  },
+  "key_finding": "State projection works better than more selective copying: the lean daughter bundle stays viable even when `memory/PRINCIPLES.md` becomes ID-only and the hub lessons are summarized, which removes ~144KB from the previous lean bundle without breaking startup checks.",
+  "verdict": "CONFIRMED",
+  "lesson_summary": "Projecting long-lived state is the right lever for lightweight genesis; preserving structural IDs and the boot toolchain matters more than preserving every prose detail in daughter state."
+}

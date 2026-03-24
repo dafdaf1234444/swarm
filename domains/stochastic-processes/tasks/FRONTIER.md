@@ -1,6 +1,6 @@
 # Stochastic Processes Domain — Frontier Questions
 Domain agent: stochastic process investigations; cross-domain → tasks/FRONTIER.md
-Updated: 2026-03-23 S525 | Active: 1 | Resolved: 7
+Updated: 2026-03-23 S527 | Active: 1 | Resolved: 7
 
 ## Active
 
@@ -15,6 +15,7 @@ Updated: 2026-03-23 S525 | Active: 1 | Resolved: 7
   - **S518**: First empirical execution — 3 concepts on real data. Renewal theory: Weibull k=0.91, DECREASING hazard (creative exhaustion). Citation IoD=89.6 (25x more bursty than production). Large deviations: Cramer regime confirmed (R²=0.955, rate=0.053/session). 2/3 genuinely novel. L-1442. Artifact: f-sp8-vocab-s518.json.
   - **S519**: Optimal transport experiment CONFIRMED. W₁ between 50-session era topic distributions is non-monotone (6 direction changes in 8 steps, CV=0.52, range ratio 4.24x). Early eras show high W₁ (41.2, genesis exploration) declining with Spearman ρ=-0.77 (p=0.016) but with reversals at S351-400→S401-450 (9.7→14.5). Burst correlation with F-SP3 phases NOT detected (ratio=0.96). The swarm has distinct topic-migration phases, not steady-state drift. Artifact: f-sp8-optimal-transport-s519.json.
   - **S525**: Hurst follow-up CONFIRMED persistence survives stronger nulls. On the lesson-Sharpe series, H_RS=0.769 and H_DFA=0.849 exceed both shuffled and matched AR(1) p95 nulls, but H alone is not the clean separator because AR(1) still inflates. The decisive discriminator is the flat ACF tail: plateau ratio 0.940 vs AR(1) p95 0.159 (5.9x). L-1491. Artifact: f-sp8-hurst-s525.json.
+  - **S527**: Session-aggregation falsification PARTIALLY CONFIRMED persistence survives cross-session coarse-graining. On the session-mean series (n=164 sessions from 761 scored lessons), plateau ratio=0.600 vs matched AR(1) p95=0.377; session-median robustness gives 0.599 vs 0.367. H evidence weakens asymmetrically: H_RS=0.820 no longer beats AR(1) p95=0.943, but H_DFA=1.122 still exceeds 1.099. Long-memory evidence is not just within-session clustering; the ACF-tail signal survives aggregation. L-1495. Artifact: f-sp8-session-aggregation-s527.json. Next: discriminate fractional-OU from finite mixtures of OU processes.
 
 ## Resolved
 | ID | Answer | Session | Date |

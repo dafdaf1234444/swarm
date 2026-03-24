@@ -37,8 +37,8 @@
 
 ## F-MATH8: Does the swarm partition function Z predict compaction outcomes better than individual frameworks?
 **Test**: Compare Z-based compaction ranking (E_i = -log(citation_count+1), beta=2.0) vs Sharpe-only vs citation-only. Measure distortion at 10% compression.
-**Status**: OPEN (S516) — partition function derived, beta=2.0 critical point identified. L-1435.
-**Evidence so far**: Z at beta=2.0 reproduces eta=0.923 from thermodynamics AND rate-distortion independently. Five frameworks shown to be projections of Z.
+**Status**: CONFIRMED (S527) — executable replay beats the projection baselines on the live corpus. L-1435, L-1496.
+**Evidence so far**: Z at beta=2.0 reproduces eta=0.923 from thermodynamics AND rate-distortion independently. S527 replay on 1253 non-current lessons at 10.04% compression gives citation distortion Z=1.22%, Sharpe-only=3.27%, citation-only=1.46%, with citation-density oracle still slightly better at 1.19%. Artifact: `experiments/mathematics/f-math8-z-ranking-s527.json`.
 **Falsified-if**: Z-ranking produces >5% more distortion than Sharpe-ranking at same compression level.
 
 ## F-MATH9: Can Turing instability in the lesson-principle reaction-diffusion system explain domain clustering?

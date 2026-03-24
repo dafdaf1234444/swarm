@@ -2,7 +2,7 @@
 """
 genesis_extract.py — Produce a compact genesis bundle for daughter swarm (L-1471).
 
-Tiers: --lean --minimal ~470KB | --minimal ~730KB | default ~870KB
+Tiers: --lean --minimal projected ~350KB | --minimal ~730KB | default ~870KB
 
 Usage:
     python3 tools/genesis_extract.py --out /tmp/daughter --minimal --lean
@@ -113,21 +113,126 @@ def select_hub_lessons(top_n=100):
     return results
 
 
+def _shorten_text(text: str, max_chars: int = 220) -> str:
+    text = re.sub(r"\s+", " ", text).strip()
+    if len(text) <= max_chars:
+        return text
+    return text[: max_chars - 3].rstrip() + "..."
+
+
+def _summarize_block(lines: list[str], max_chars: int = 220) -> str:
+    text = " ".join(line.strip().lstrip("-•").strip() for line in lines if line.strip())
+    text = re.sub(r"\s+", " ", text).strip()
+    if not text:
+        return ""
+    parts = re.split(r"(?<=[.!?])\s+", text)
+    summary = " ".join(parts[:2]).strip()
+    if len(summary) > max_chars:
+        summary = summary[: max_chars - 3].rstrip() + "..."
+    return summary
+
+
+def _project_lesson_text(text: str) -> str:
+    lines = text.splitlines()
+    out: list[str] = []
+    idx = 0
+
+    while idx < len(lines):
+        line = lines[idx].rstrip()
+        if line.startswith("## "):
+            break
+        out.append(line)
+        idx += 1
+
+    while out and out[-1] == "":
+        out.pop()
+    if out:
+        out.append("")
+
+    sections: list[tuple[str, list[str]]] = []
+    heading = None
+    block: list[str] = []
+    for line in lines[idx:]:
+        if line.startswith("## "):
+            if heading is not None:
+                sections.append((heading, block))
+            heading = line.strip()
+            block = []
+        elif heading is not None:
+            block.append(line.rstrip())
+    if heading is not None:
+        sections.append((heading, block))
+
+    emitted = 0
+    for heading, block in sections:
+        summary = _summarize_block(block)
+        if summary:
+            out.append(heading)
+            out.append(summary)
+            out.append("")
+            emitted += 1
+            if emitted >= 2:
+                break
+
+    while out and out[-1] == "":
+        out.pop()
+    return "\n".join(out) + "\n"
+
+
+def _project_principles_text(text: str) -> str:
+    entries: dict[str, str] = {}
+    for line in text.splitlines():
+        for match in re.finditer(r"\b(P-\d+)\s+([^|*\n]+)", line):
+            pid = match.group(1)
+            title = _shorten_text(match.group(2).rstrip(":"), 120)
+            if pid not in entries and title:
+                entries[pid] = title
+
+    ordered = sorted(entries.items(), key=lambda item: int(item[0].split("-")[1]))
+    out = [
+        "# Principles - Compact Daughter Projection",
+        "Extracted from parent principles for lightweight genesis.",
+        f"{len(ordered)} live principles.",
+        "",
+        "## Live Principles",
+    ]
+    for pid, title in ordered:
+        out.append(f"- {pid}")
+    out.extend([
+        "",
+        "## Notes",
+        "IDs preserved for sync_state and orient counts; titles stripped for size.",
+    ])
+    return "\n".join(out) + "\n"
+
+
 def extract_genesis(out_dir, top_n=100, include_tools=True, minimal=False,
                     lean=False, dry_run=False):
     out = Path(out_dir)
     manifest = {"layers": {}, "total_files": 0, "total_bytes": 0}
 
-    def _copy(src_rel, dst_rel, layer_name):
+    if lean:
+        top_n = min(top_n, 55)
+
+    def _copy(src_rel, dst_rel, layer_name, projector=None):
         src = ROOT / src_rel
         if not src.exists():
             return None
-        size = src.stat().st_size
+        output_text = None
+        if projector is not None:
+            source_text = src.read_text(encoding="utf-8", errors="replace")
+            output_text = projector(source_text)
+            size = len(output_text.encode("utf-8"))
+        else:
+            size = src.stat().st_size
         entry = {"src": src_rel, "dst": dst_rel, "bytes": size}
         if not dry_run:
             dst = out / dst_rel
             dst.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(str(src), str(dst))
+            if output_text is not None:
+                dst.write_text(output_text, encoding="utf-8")
+            else:
+                shutil.copy2(str(src), str(dst))
         if layer_name not in manifest["layers"]:
             manifest["layers"][layer_name] = {"files": [], "bytes": 0}
         manifest["layers"][layer_name]["files"].append(entry)
@@ -139,7 +244,10 @@ def extract_genesis(out_dir, top_n=100, include_tools=True, minimal=False,
     for src, dst in IDENTITY_FILES:
         _copy(src, dst, "identity")
     for src, dst in ORIENTATION_ESSENTIAL:
-        _copy(src, dst, "orientation")
+        projector = None
+        if lean and src == "memory/PRINCIPLES.md":
+            projector = _project_principles_text
+        _copy(src, dst, "orientation", projector=projector)
     if not minimal:
         for src, dst in ORIENTATION_REFERENCE:
             _copy(src, dst, "orientation_ref")
@@ -147,7 +255,8 @@ def extract_genesis(out_dir, top_n=100, include_tools=True, minimal=False,
     manifest["hub_lesson_count"] = len(hubs)
     manifest["hub_lessons_top5"] = [h["id"] for h in hubs[:5]]
     for hub in hubs:
-        _copy(hub["path"], hub["path"], "hub_lessons")
+        _copy(hub["path"], hub["path"], "hub_lessons",
+              projector=_project_lesson_text if lean else None)
     if include_tools:
         for tool_path in (BOOT_TOOLS if lean else CORE_TOOLS):
             _copy(tool_path, tool_path, "core_tools")

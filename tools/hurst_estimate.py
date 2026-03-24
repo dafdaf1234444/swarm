@@ -19,6 +19,7 @@ import math
 import random
 import re
 import statistics
+from collections import defaultdict
 from datetime import date
 from pathlib import Path
 from typing import Iterable
@@ -28,6 +29,12 @@ from swarm_io import lesson_paths, read_text, session_number
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SHARPE_RE = re.compile(r"Sharpe\*{0,2}:\s*(\d+)")
 SESSION_RE = re.compile(r"Session\*{0,2}:\s*S?(\d+)")
+AGGREGATORS = {
+    "mean": statistics.fmean,
+    "median": statistics.median,
+    "max": max,
+    "min": min,
+}
 
 
 def _linear_regression(xs: list[float], ys: list[float]) -> float:
@@ -70,6 +77,54 @@ def load_lesson_sharpe_series() -> list[dict[str, int | float | str | None]]:
             }
         )
     return series
+
+
+def project_series(
+    rows: list[dict[str, int | float | str | None]],
+    *,
+    aggregate: str = "lesson",
+    agg: str = "mean",
+) -> dict[str, object]:
+    if aggregate == "lesson":
+        values = [float(row["value"]) for row in rows]
+        return {
+            "values": values,
+            "bounds": {
+                "first_lesson": rows[0]["lesson"] if rows else None,
+                "last_lesson": rows[-1]["lesson"] if rows else None,
+                "first_session": rows[0]["session"] if rows else None,
+                "last_session": rows[-1]["session"] if rows else None,
+                "points": len(values),
+                "source_points": len(rows),
+            },
+            "aggregation": {"mode": "lesson", "agg": "none"},
+        }
+
+    if aggregate != "session":
+        raise ValueError(f"unsupported aggregate mode: {aggregate}")
+    if agg not in AGGREGATORS:
+        raise ValueError(f"unsupported aggregator: {agg}")
+
+    grouped: dict[int, list[float]] = defaultdict(list)
+    for row in rows:
+        session = row.get("session")
+        if session is None:
+            continue
+        grouped[int(session)].append(float(row["value"]))
+
+    sessions = sorted(grouped)
+    values = [float(AGGREGATORS[agg](grouped[session])) for session in sessions]
+    return {
+        "values": values,
+        "bounds": {
+            "first_session": sessions[0] if sessions else None,
+            "last_session": sessions[-1] if sessions else None,
+            "points": len(values),
+            "source_points": len(rows),
+            "dropped_without_session": sum(1 for row in rows if row.get("session") is None),
+        },
+        "aggregation": {"mode": "session", "agg": agg},
+    }
 
 
 def autocorrelation(series: list[float], lag: int) -> float:
@@ -274,17 +329,43 @@ def evaluate_series(
     }
 
 
-def _actual_and_diff(results: dict[str, object]) -> tuple[str, str]:
+def _series_label(aggregation: dict[str, str]) -> str:
+    if aggregation["mode"] == "session":
+        return f"Session-aggregated {aggregation['agg']} quality series"
+    return "Lesson-level quality series"
+
+
+def _actual_and_diff(
+    results: dict[str, object],
+    aggregation: dict[str, str],
+    robustness: dict[str, object] | None = None,
+) -> tuple[str, str]:
     hurst = results["hurst"]
     acf = results["acf"]
     shuffle = results["nulls"]["shuffle"]
     ar1 = results["nulls"]["ar1"]
+    label = _series_label(aggregation)
+    robustness_note = ""
+    if robustness:
+        rob_acf = robustness["acf"]
+        rob_ar1 = robustness["nulls"]["ar1"]
+        state = "survives" if robustness["support"]["plateau_ratio_gt_ar1_p95"] else "fails"
+        robustness_note = (
+            " Robustness: session-{agg} plateau ratio={plateau:.3f} vs AR(1) p95={p95:.3f} "
+            "({state})."
+        ).format(
+            agg=robustness["aggregation"]["agg"],
+            plateau=rob_acf["plateau_ratio"],
+            p95=rob_ar1["plateau_ratio"]["p95"],
+            state=state,
+        )
     actual = (
-        "Quality series n={n}. H_RS={hrs:.3f} and H_DFA={hdfa:.3f} exceed shuffle p95 "
+        "{label} n={n}. H_RS={hrs:.3f} and H_DFA={hdfa:.3f} exceed shuffle p95 "
         "({srs:.3f}/{sdfa:.3f}) and matched AR(1) p95 ({ars:.3f}/{adfa:.3f}). "
         "Lag plateau ratio={plateau:.3f} vs AR(1) p95={ar1p:.3f}; autocorrelation stays "
-        "flat through lag 10 instead of decaying."
+        "flat through lag 10 instead of decaying.{robustness}"
     ).format(
+        label=label,
         n=results["series"]["n"],
         hrs=hurst["rs"],
         hdfa=hurst["dfa"],
@@ -294,12 +375,12 @@ def _actual_and_diff(results: dict[str, object]) -> tuple[str, str]:
         adfa=ar1["hurst_dfa"]["p95"],
         plateau=acf["plateau_ratio"],
         ar1p=ar1["plateau_ratio"]["p95"],
+        robustness=robustness_note,
     )
     diff = (
-        "Estimator agreement matched expectation (delta H={delta:.3f}), but the naive shuffled-null "
-        "target was too strict for bounded discrete scores: shuffle H_RS centers at {srsm:.3f}, not 0.50. "
-        "The decisive discriminator is not H alone but the flat ACF tail, which is {plateau:.2f}x the AR(1) "
-        "null p95 plateau."
+        "Estimator agreement delta is {delta:.3f}. The naive shuffled-null target remains too strict for "
+        "bounded discrete scores: shuffle H_RS centers at {srsm:.3f}, not 0.50. The decisive discriminator "
+        "is not H alone but the flat ACF tail, which is {plateau:.2f}x the AR(1) null p95 plateau."
     ).format(
         delta=hurst["delta"],
         srsm=shuffle["hurst_rs"]["mean"],
@@ -314,34 +395,61 @@ def build_report(
     shuffles: int,
     ar1_sims: int,
     max_lag: int,
+    aggregate: str,
+    agg: str,
+    compare_agg: str,
 ) -> dict[str, object]:
     rows = load_lesson_sharpe_series()
-    values = [float(row["value"]) for row in rows]
+    projection = project_series(rows, aggregate=aggregate, agg=agg)
+    values = projection["values"]
     results = evaluate_series(values, shuffles=shuffles, ar1_sims=ar1_sims, max_lag=max_lag)
-    actual, diff = _actual_and_diff(results)
+    robustness = None
+    if aggregate == "session" and compare_agg:
+        robustness_projection = project_series(rows, aggregate=aggregate, agg=compare_agg)
+        robustness_results = evaluate_series(
+            robustness_projection["values"],
+            shuffles=shuffles,
+            ar1_sims=ar1_sims,
+            max_lag=max_lag,
+        )
+        robustness = {
+            **robustness_results,
+            "aggregation": robustness_projection["aggregation"],
+            "series_bounds": robustness_projection["bounds"],
+        }
+    actual, diff = _actual_and_diff(results, projection["aggregation"], robustness)
+    if aggregate == "session":
+        expect = (
+            f"session-aggregated {agg} Sharpe series still shows plateau_ratio > matched AR1 p95; "
+            "H estimates may shrink, but the ACF-tail discriminator survives"
+        )
+    else:
+        expect = (
+            "raw_quality_H>0.60 while shuffled_null stays within 0.45-0.55; "
+            "independent estimators differ <0.10"
+        )
     return {
         "experiment": f"DOMEX-SP-{session}",
         "frontier": "F-SP8",
         "session": session,
         "domain": "stochastic-processes",
         "date": date.today().isoformat(),
-        "expect": (
-            "raw_quality_H>0.60 while shuffled_null stays within 0.45-0.55; "
-            "independent estimators differ <0.10"
-        ),
+        "expect": expect,
         "actual": actual,
         "diff": diff,
         "results": {
             **results,
-            "series_bounds": {
-                "first_lesson": rows[0]["lesson"] if rows else None,
-                "last_lesson": rows[-1]["lesson"] if rows else None,
-            },
+            "aggregation": projection["aggregation"],
+            "series_bounds": projection["bounds"],
             "config": {
                 "shuffles": shuffles,
                 "ar1_sims": ar1_sims,
                 "max_lag": max_lag,
+                "aggregate": aggregate,
+                "agg": agg,
+                "compare_agg": compare_agg or None,
             },
+            "robustness": robustness,
         },
     }
 
@@ -352,6 +460,24 @@ def main() -> int:
     parser.add_argument("--shuffles", type=int, default=200, help="Number of shuffled null samples")
     parser.add_argument("--ar1-sims", type=int, default=200, help="Number of AR(1) null samples")
     parser.add_argument("--max-lag", type=int, default=10, help="Max lag for ACF profile")
+    parser.add_argument(
+        "--aggregate",
+        choices=["lesson", "session"],
+        default="lesson",
+        help="Project the quality series before estimation (default: lesson)",
+    )
+    parser.add_argument(
+        "--agg",
+        choices=sorted(AGGREGATORS),
+        default="mean",
+        help="Aggregator used when --aggregate session (default: mean)",
+    )
+    parser.add_argument(
+        "--compare-agg",
+        choices=sorted(AGGREGATORS),
+        default="",
+        help="Optional robustness aggregator to compare against the primary session aggregate",
+    )
     parser.add_argument("--artifact", default="", help="Write JSON report to this path")
     parser.add_argument("--json", action="store_true", help="Print report JSON")
     args = parser.parse_args()
@@ -361,6 +487,9 @@ def main() -> int:
         shuffles=args.shuffles,
         ar1_sims=args.ar1_sims,
         max_lag=args.max_lag,
+        aggregate=args.aggregate,
+        agg=args.agg,
+        compare_agg=args.compare_agg,
     )
 
     if args.artifact:

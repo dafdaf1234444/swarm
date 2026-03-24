@@ -11,6 +11,32 @@ import hurst_estimate  # noqa: E402
 
 
 class TestHurstEstimate(unittest.TestCase):
+    def test_project_series_keeps_lesson_order_by_default(self):
+        rows = [
+            {"lesson": "L-1", "session": 1, "value": 4.0},
+            {"lesson": "L-2", "session": 1, "value": 6.0},
+            {"lesson": "L-3", "session": 2, "value": 9.0},
+        ]
+        projected = hurst_estimate.project_series(rows)
+        self.assertEqual(projected["aggregation"], {"mode": "lesson", "agg": "none"})
+        self.assertEqual(projected["values"], [4.0, 6.0, 9.0])
+        self.assertEqual(projected["bounds"]["first_lesson"], "L-1")
+        self.assertEqual(projected["bounds"]["last_lesson"], "L-3")
+
+    def test_project_series_aggregates_by_session(self):
+        rows = [
+            {"lesson": "L-1", "session": 1, "value": 4.0},
+            {"lesson": "L-2", "session": 1, "value": 6.0},
+            {"lesson": "L-3", "session": 2, "value": 9.0},
+            {"lesson": "L-4", "session": None, "value": 12.0},
+        ]
+        projected = hurst_estimate.project_series(rows, aggregate="session", agg="mean")
+        self.assertEqual(projected["aggregation"], {"mode": "session", "agg": "mean"})
+        self.assertEqual(projected["values"], [5.0, 9.0])
+        self.assertEqual(projected["bounds"]["first_session"], 1)
+        self.assertEqual(projected["bounds"]["last_session"], 2)
+        self.assertEqual(projected["bounds"]["dropped_without_session"], 1)
+
     def test_white_noise_stays_near_half(self):
         rng = random.Random(0)
         series = [rng.gauss(0.0, 1.0) for _ in range(2048)]

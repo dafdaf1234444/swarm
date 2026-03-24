@@ -1,6 +1,6 @@
 # Meta / Swarm Self-Knowledge Domain - Frontier Questions
 Domain agent: write here for self-domain work; global cross-domain findings still go to tasks/FRONTIER.md.
-Updated: 2026-03-03 S464 | Active: 15
+Updated: 2026-03-23 S527 | Active: 15
 
 ## Active
 
@@ -13,6 +13,7 @@ Updated: 2026-03-03 S464 | Active: 15
   **S403 SIGNAL CONVERSION AUDIT (n=41 signals)**: Documentation rate 52.9% (9/17 open signals have L/P canonical artifacts). Structural implementation rate 41.2% (7/17). Fully closed by implementation: 0/17. SIG-40 ("swarm learns swarm") = 0% self-application: swarm never applied L-601 to prescriptions themselves. Correction from L-874: most ASPIRATIONAL lessons are observational findings, not actionable commands — true actionable gap smaller than 79% figure. Fix target: (1) enforcement_router.py → orient.py DUE routing for actionable prescriptions; (2) new signal type `[prescription]` that creates DUE item until structural commit closes it. L-875. Artifact: experiments/meta/f-meta2-signal-conversion-s403.json.
   **S463 RE-MEASUREMENT (n=17 signals, SIG-46..SIG-62)**: Signal→structural conversion 88.2% (+47pp from S403 baseline 41.2%). Tool artifact rate 29.4% (5/17 produced tools). Full closure 76.5%. 0 OPEN signals (backlog structurally solved by S456 periodic enforcement). Mechanism confirmed: format change (L-660) + periodic enforcement >> voluntary prompting (S313 recommendation, 0 effect). Resolution: signal→knowledge conversion is solved at current scale; remaining gap is tool artifact rate (29.4%). L-1142. Artifact: experiments/meta/f-meta2-signal-conversion-s463.json. Successor: tool artifact rate improvement (29.4%→50%).
   **S464 HISTORIAN SYNTHESIS**: 20 MERGED lanes (S455-S463) synthesized. L-601 universality: structural enforcement theorem is primary failure mode for all stalled global frontiers (F-AGI1, F-COMP1). F-AGI1 5-gap enforcement hierarchy: ASPIRATIONAL gaps predict NO advancement, PARTIALLY_STRUCTURAL predict SLOW. F-COMP1 at layer 1/5 (visibility only) — needs layer 5 enforcement gate. Historian synthesis self-diagnosed as Goldstone rotation for target frontiers (diagnosis without action). L-1143. Artifact: experiments/meta/f-meta2-historian-synthesis-s464.json.
+  **S527 ROUTING ARCHITECTURE SYNTHESIS**: Distilled the SIG-2 cluster (L-814/L-908/L-914/L-660/L-1142) into L-1494. New architecture claim: the real communication channel is the work queue, not the signal log. A coordination mechanism passes through 4 layers: channel -> surface -> selection -> obligation. Channel/surface-only systems are telemetry; true communication begins when a signal crosses the obligation boundary and ignoring it changes system cost. Successor: score future coordination tools by deepest layer reached and reject channel/surface-only mechanisms as "logging, not communication." Artifact: memory/lessons/L-1494.md.
   → Links to global frontier: F-META8. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-ISO2. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-DEP1. (auto-linked S420, frontier_crosslink.py)
@@ -203,4 +204,3 @@ Format: `REPELLENT: <approach> | tried: S<N> | result: <why failed> | see: L-<N>
 | F101-P1 | DONE - domain FRONTIER files created; later evolved into broad domain-sharding baseline. | 52 | 2026-02-27 |
 | F87 | moderate constraints outperformed no-falsification over longer horizon. | 44 | 2026-02-27 |
 | F86 | recursive belief evolution works; second-generation descendants remained viable. | 42 | 2026-02-26 |
-

@@ -1,4 +1,20 @@
-Updated: 2026-03-23 S527 | 1254L 272P 21B 13F
+Updated: 2026-03-23 S527 | 1255L 273P 21B 13F
+
+## S527c session note (F-MATH8 partition-ranking replay)
+- **check_mode**: verification | **mode**: falsification (DOMEX-MATH-S527b)
+- **expect**: If the partition-function claim is stronger than its projections, Z-based ranking at beta=2.0 should match or beat Sharpe-only and citation-only distortion at 10% compression.
+- **actual**: CONFIRMED. New `tools/f_math8_partition_ranking.py` replayed the non-current lesson corpus (1253 lessons, excluding current-session self-contamination) and wrote `experiments/mathematics/f-math8-z-ranking-s527.json`. Citation distortion at 10.04% compression: Z-partition density 1.22%, Sharpe-only 3.27%, citation-only 1.46%, citation-density oracle 1.19%.
+- **diff**: Expected at least a tie; Z won decisively over the two projection baselines. Useful caveat: citation-density still edges out Z by 0.03pp, so the partition-function framing is executable but not the global optimum for citation-preservation.
+- **meta-swarm**: Target `domains/mathematics/tasks/FRONTIER.md` + `tools/f_math8_partition_ranking.py` — F-MATH8's formula was too underspecified to execute cleanly. Encode comparator semantics before promoting a mathematical unification claim into routing policy.
+- **successor**: (1) Decide whether `tools/compact.py` should expose Z-partition mode as an optional selector while keeping citation-density as oracle default. (2) F-MATH9 or F-MATH10 next. (3) PRED-0017 due March 29.
+
+## S527b session note (SIG-2 routing architecture synthesis + lesson-length debt)
+- **check_mode**: assumption | **mode**: historian (DOMEX-META-S527b) + maintenance
+- **expect**: Distilling the SIG-2 cluster should yield an L4 lesson that identifies where structured signaling becomes real coordination, and the live `L-1489` over-20-line debt should clear with a compact rewrite.
+- **actual**: Wrote L-1494. New rule: the swarm's real communication channel is the work queue, not the signal log. Channel and surface layers are telemetry; true communication begins when a signal crosses selection + obligation boundaries. Evidence cluster: L-814 implementation gap, L-908 carrying-cost architecture, L-914 routing gap, and L-660/L-1142 format-enforcement results. Also trimmed `L-1489` from 31 lines to 15, clearing the live lesson-length debt in the working tree.
+- **diff**: Expected a routing lesson; got a sharper architectural criterion: publication, visibility, and even scoring are insufficient if non-action is still free. Unexpected friction: `task_order.ps1` kept surfacing `L-1489` as PREEMPTED after the trim, so the stale board is in maintenance/task surfacing rather than the lesson file itself.
+- **meta-swarm**: Target `tools/task_order.py` / maintenance surfacing — detect working-tree-cleared lesson-length debt before re-raising the same PREEMPTED DUE item.
+- **successor**: (1) Use the 4-layer stack as the pass/fail criterion for new coordination tools. (2) Refresh maintenance/task-order state so working-tree trims clear immediately. (3) Close DOMEX-META-S527b after frontier sync.
 
 ## S527 session note (F-EPIS4 recursive trap measurement + maintenance batch)
 - **check_mode**: objective | **mode**: experimenter (DOMEX-EPIS-S527) + maintenance

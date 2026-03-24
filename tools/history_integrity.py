@@ -10,6 +10,7 @@ Usage:
 """
 
 import argparse
+import concurrent.futures
 import json
 import re
 import subprocess
@@ -204,6 +205,22 @@ def check_lesson_attribution(sample_size: int = 50) -> dict:
     lessons_dir = Path("memory/lessons")
     files = sorted([f for f in lessons_dir.glob("L-*.md") if f.name != "TEMPLATE.md"])
     sample = _sample_lessons(files, sample_size)
+    lookup_paths = [str(lf) for lf, _, declared in sample if declared is not None]
+    session_info: dict[str, tuple[str | None, bool] | None] = {}
+
+    if lookup_paths:
+        worker_count = min(8, len(lookup_paths))
+        with concurrent.futures.ThreadPoolExecutor(max_workers=worker_count) as executor:
+            future_map = {
+                executor.submit(_get_session, lesson_path): lesson_path
+                for lesson_path in lookup_paths
+            }
+            for future in concurrent.futures.as_completed(future_map):
+                lesson_path = future_map[future]
+                try:
+                    session_info[lesson_path] = future.result()
+                except Exception:
+                    session_info[lesson_path] = None
 
     matches = mismatches = no_declared = mass_restore_count = errors = 0
     mismatch_examples = []
@@ -213,7 +230,11 @@ def check_lesson_attribution(sample_size: int = 50) -> dict:
             no_declared += 1
             continue
 
-        commit_sess, is_restore = _get_session(str(lf))
+        result = session_info.get(str(lf))
+        if result is None:
+            errors += 1
+            continue
+        commit_sess, is_restore = result
         if is_restore:
             mass_restore_count += 1
             continue

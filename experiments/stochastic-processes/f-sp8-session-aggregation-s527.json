@@ -1,0 +1,199 @@
+{
+  "experiment": "DOMEX-SP-S527",
+  "frontier": "F-SP8",
+  "session": "S527",
+  "domain": "stochastic-processes",
+  "lesson": "L-1495",
+  "date": "2026-03-23",
+  "expect": "session-aggregated mean Sharpe series still shows plateau_ratio > matched AR1 p95; H estimates may shrink, but the ACF-tail discriminator survives",
+  "actual": "Session-aggregated mean quality series n=164. H_RS=0.820 and H_DFA=1.122 exceed shuffle p95 (0.719/0.759) and matched AR(1) p95 (0.943/1.099). Lag plateau ratio=0.600 vs AR(1) p95=0.377; autocorrelation stays flat through lag 10 instead of decaying. Robustness: session-median plateau ratio=0.599 vs AR(1) p95=0.367 (survives).",
+  "diff": "Estimator agreement delta is 0.302. The naive shuffled-null target remains too strict for bounded discrete scores: shuffle H_RS centers at 0.611, not 0.50. The decisive discriminator is not H alone but the flat ACF tail, which is 1.59x the AR(1) null p95 plateau.",
+  "results": {
+    "series": {
+      "n": 164,
+      "mean": 8.036955,
+      "variance": 1.404683,
+      "min": 0.0,
+      "max": 10.0
+    },
+    "acf": {
+      "lags": {
+        "1": 0.657692,
+        "2": 0.596707,
+        "3": 0.521397,
+        "4": 0.501838,
+        "5": 0.427604,
+        "6": 0.421217,
+        "7": 0.303763,
+        "8": 0.297146,
+        "9": 0.249281,
+        "10": 0.23471
+      },
+      "plateau_ratio": 0.60036
+    },
+    "hurst": {
+      "rs": 0.820029,
+      "dfa": 1.122272,
+      "delta": 0.302244
+    },
+    "nulls": {
+      "shuffle": {
+        "hurst_rs": {
+          "mean": 0.611178,
+          "p05": 0.516086,
+          "p50": 0.612853,
+          "p95": 0.719013
+        },
+        "hurst_dfa": {
+          "mean": 0.598371,
+          "p05": 0.43708,
+          "p50": 0.5945,
+          "p95": 0.759458
+        },
+        "plateau_ratio": {
+          "mean": -0.828122,
+          "p05": -1.965962,
+          "p50": -0.007868,
+          "p95": 1.435108
+        }
+      },
+      "ar1": {
+        "phi": 0.657692,
+        "hurst_rs": {
+          "mean": 0.844434,
+          "p05": 0.733704,
+          "p50": 0.849168,
+          "p95": 0.943226
+        },
+        "hurst_dfa": {
+          "mean": 0.909576,
+          "p05": 0.701527,
+          "p50": 0.912462,
+          "p95": 1.099083
+        },
+        "plateau_ratio": {
+          "mean": 0.152291,
+          "p05": -0.03193,
+          "p50": 0.148475,
+          "p95": 0.377166
+        }
+      }
+    },
+    "support": {
+      "hurst_rs_gt_shuffle_p95": true,
+      "hurst_dfa_gt_shuffle_p95": true,
+      "hurst_rs_gt_ar1_p95": false,
+      "hurst_dfa_gt_ar1_p95": true,
+      "plateau_ratio_gt_ar1_p95": true
+    },
+    "aggregation": {
+      "mode": "session",
+      "agg": "mean"
+    },
+    "series_bounds": {
+      "first_session": 180,
+      "last_session": 527,
+      "points": 164,
+      "source_points": 761,
+      "dropped_without_session": 3
+    },
+    "config": {
+      "shuffles": 200,
+      "ar1_sims": 200,
+      "max_lag": 10,
+      "aggregate": "session",
+      "agg": "mean",
+      "compare_agg": "median"
+    },
+    "robustness": {
+      "series": {
+        "n": 164,
+        "mean": 8.039634,
+        "variance": 1.496886,
+        "min": 0.0,
+        "max": 10.0
+      },
+      "acf": {
+        "lags": {
+          "1": 0.643313,
+          "2": 0.559743,
+          "3": 0.536708,
+          "4": 0.469776,
+          "5": 0.418051,
+          "6": 0.419688,
+          "7": 0.316732,
+          "8": 0.286768,
+          "9": 0.252786,
+          "10": 0.210364
+        },
+        "plateau_ratio": 0.599435
+      },
+      "hurst": {
+        "rs": 0.832544,
+        "dfa": 1.129875,
+        "delta": 0.297332
+      },
+      "nulls": {
+        "shuffle": {
+          "hurst_rs": {
+            "mean": 0.608911,
+            "p05": 0.50168,
+            "p50": 0.610535,
+            "p95": 0.71771
+          },
+          "hurst_dfa": {
+            "mean": 0.595238,
+            "p05": 0.425043,
+            "p50": 0.58803,
+            "p95": 0.774116
+          },
+          "plateau_ratio": {
+            "mean": 0.07065,
+            "p05": -1.425452,
+            "p50": 0.012324,
+            "p95": 1.261433
+          }
+        },
+        "ar1": {
+          "phi": 0.643313,
+          "hurst_rs": {
+            "mean": 0.838269,
+            "p05": 0.730113,
+            "p50": 0.842904,
+            "p95": 0.93618
+          },
+          "hurst_dfa": {
+            "mean": 0.89533,
+            "p05": 0.68898,
+            "p50": 0.899116,
+            "p95": 1.081854
+          },
+          "plateau_ratio": {
+            "mean": 0.141941,
+            "p05": -0.040643,
+            "p50": 0.138364,
+            "p95": 0.367386
+          }
+        }
+      },
+      "support": {
+        "hurst_rs_gt_shuffle_p95": true,
+        "hurst_dfa_gt_shuffle_p95": true,
+        "hurst_rs_gt_ar1_p95": false,
+        "hurst_dfa_gt_ar1_p95": true,
+        "plateau_ratio_gt_ar1_p95": true
+      },
+      "aggregation": {
+        "mode": "session",
+        "agg": "median"
+      },
+      "series_bounds": {
+        "first_session": 180,
+        "last_session": 527,
+        "points": 164,
+        "source_points": 761,
+        "dropped_without_session": 3
+      }
+    }
+  }
+}

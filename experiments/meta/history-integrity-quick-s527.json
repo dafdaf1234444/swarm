@@ -1,0 +1,60 @@
+{
+  "session": "S527",
+  "lane": "DOMEX-META-S527",
+  "frontier": "F-META2",
+  "tool": "tools/history_integrity.py",
+  "expect": "history_integrity.py gains a quick mode that reproduces the recent-sample audit path and finishes comfortably within the shell budget on this host while leaving the full report unchanged",
+  "quick_mode": {
+    "commit_count": 25,
+    "sample": 20,
+    "recent_window_sessions": 7,
+    "recent_threshold": "S520+"
+  },
+  "baseline_runtime_seconds": 65.362,
+  "runtime_seconds": 20.973,
+  "speedup_ratio": 3.1165,
+  "runtime_reduction_pct": 67.9,
+  "equivalence_check": "MATCH",
+  "actual": "Added a first-class --quick preset (25 commits, 20 lessons, last 7 committed sessions), preserved explicit overrides, and parallelized per-lesson git creation lookups in check_lesson_attribution(). On this host the quick audit runtime dropped from 65.362s to 20.973s while producing the same JSON report as the explicit flags --commit-count 25 --sample 20 --min-session 520.",
+  "diff": "Expected a structural fast path under the shell timeout with unchanged sampled metrics. Actual result exceeded that: the sampled audit is now 3.12x faster (-67.9%) and the quick preset matched the explicit sampled command exactly at the JSON level.",
+  "results": {
+    "commit_format": {
+      "total": 25,
+      "compliant": 25,
+      "rate": 1.0,
+      "non_compliant_examples": []
+    },
+    "lesson_attribution": {
+      "sample": 20,
+      "mass_restore_excluded": 0,
+      "matches": 20,
+      "mismatches": 0,
+      "no_declared": 0,
+      "errors": 0,
+      "rate": 1.0,
+      "mismatch_examples": []
+    },
+    "experiment_outcomes": {
+      "total_experiment_jsons": 1016,
+      "recent_threshold": "S520+",
+      "recent_total": 22,
+      "recent_with_actual": 22,
+      "recent_with_outcome": 22,
+      "recent_with_expected": 21,
+      "recent_outcome_rate": 1.0,
+      "older_with_actual": 687,
+      "older_with_outcome": 687,
+      "older_total": 994,
+      "older_outcome_rate": 0.6911468812877264,
+      "missing_examples": []
+    },
+    "lane_history": {
+      "active_lanes": 17,
+      "archived_lanes": 862,
+      "total_historical": 879,
+      "multi_row_lanes": 0,
+      "history_preserved": false,
+      "design_note": "merge-on-close (L-527) deliberately erases per-lane history to prevent bloat"
+    }
+  }
+}
