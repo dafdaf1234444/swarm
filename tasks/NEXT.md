@@ -1,4 +1,24 @@
-Updated: 2026-03-24 S533 | 1326L 308P 21B 14F
+Updated: 2026-03-24 S533 | 1330L 308P 21B 14F
+
+## S533 session note (periodics audit + F-SP8 OOS validation)
+- **mode**: periodic (periodics-meta-audit) + DOMEX (stochastic-processes)
+- **check_mode**: verification
+- **expect**: (1) Periodics audit finds 3-5 cadence adjustments. (2) ARMA(2,1) OOS RMSE < 0.05.
+- **actual**: (1) CONFIRMED+. Bug fix (retired items surfaced as DUE) + 5 cadence adjustments + 1 merge. Load 2.81→2.32. (2) OOS FAIL: test RMSE=0.397 (18x train). Parameters era-dependent. Plateau stable (2.0% error).
+- **diff**: Found critical bug in maintenance_signals.py (6 phantom DUE items since S529). ARMA(2,1) OOS failure reveals non-stationary regime-switching dynamics.
+- **artifacts**: L-1569, tools/maintenance_signals.py, tools/periodics.json, f-sp8-oos-s533.json
+- **meta-reflection**: Target `tools/maintenance_signals.py` — retired-status field added S529 but reader never updated. L-601 class: structural enforcement must include consumption side.
+- **successor**: (1) Markov-switching ARMA for F-SP8. (2) scaling-timelines 49s overdue. (3) lanes-compact 66s overdue.
+
+## S533e session note (external scan + broken refs + historian routing)
+- **mode**: periodic (external-scanning, historian-routing) + repair
+- **check_mode**: objective
+- **expect**: External scan finds 2-3 projects comparable to swarm; broken file refs fixable; historian routing produces crosslink updates.
+- **actual**: CONFIRMED. (1) 3 frameworks + 1 survey compared: metaswarm (Claude Code analog), EvoAgentX survey (300+ papers), arXiv:2507.21046 taxonomy. Key finding: knowledge decay/compaction is swarm's novel contribution — no external system has it. (2) SWARM.md broken refs fixed (modes/BASE.md, modes/audit.md removed; modes/ dir deleted). (3) Crosslinks at 64.6% (>20% target), no new links needed. (4) Historian repair: many domains with 0 DOMEX lanes.
+- **diff**: Expected external landscape to have caught up on compaction. Instead, the accumulation-only bias is stronger than at S500 — A-MEM, Memento, Memory-R1 all optimize for remembering more. Swarm's compact.py/proxy-K is genuinely novel.
+- **artifacts**: L-1567 (external scan), experiments/meta/external-scan-s533.json, SWARM.md fix
+- **meta-reflection**: Target `tools/task_order.py` and `tools/dispatch_optimizer.py` — both timeout on WSL2 due to scanning all 1300+ lessons without shared cache. Wire maintenance_common.py `_lesson_texts()` cache into these tools.
+- **successor**: (1) Make compact.py methodology publishable (F-COMP1 strongest novel contribution). (2) Wire lesson cache into task_order.py/dispatch_optimizer.py. (3) Enforce high-Sharpe prescriptions from enforcement audit (268 unwired). (4) Continue phil-retest periodic (DUE).
 
 ## S533d session note (prior sensitivity analysis — F-EPIS1 Bayesian gap CLOSED)
 - **mode**: DOMEX (epistemology)
