@@ -96,26 +96,23 @@ def check_dark_matter() -> list[tuple[str, str]]:
 
 def check_meta_tooler_gap() -> list[tuple[str, str]]:
     """L-896: When >20 tools are unreferenced by automation, surface meta-tooler DUE."""
-    tools_dir = REPO_ROOT / "tools"
-    if not tools_dir.exists():
+    try:
+        from meta_tooler import _tool_files, collect_automation_reference_tools
+    except ImportError:
+        try:
+            from tools.meta_tooler import _tool_files, collect_automation_reference_tools
+        except ImportError:
+            _tool_files = None
+            collect_automation_reference_tools = None
+
+    if _tool_files is None or collect_automation_reference_tools is None:
         return []
-    tool_files = sorted(
-        f.stem for f in tools_dir.glob("*.py")
-        if not f.stem.startswith("test_") and f.stem != "__init__"
-    )
+
+    tool_files = sorted(f.stem for f in _tool_files())
     if not tool_files:
         return []
-    entry_files = ["tools/check.sh", "tools/orient.py", "tools/maintenance.py",
-                   "tools/periodics.json", "CLAUDE.md", "SWARM.md"]
-    ref_text = ""
-    for ef in entry_files:
-        ef_path = REPO_ROOT / ef
-        if ef_path.exists():
-            try:
-                ref_text += ef_path.read_text(encoding="utf-8", errors="replace")
-            except Exception:
-                pass
-    unreferenced = [t for t in tool_files if t not in ref_text]
+    referenced = collect_automation_reference_tools()
+    unreferenced = [t for t in tool_files if t not in referenced]
     # Threshold: >40% unreferenced signals wiring gap; below that is normal for
     # mature swarms with many standalone user-invocable tools (S408 audit: 28/80).
     threshold = max(20, int(len(tool_files) * 0.4))

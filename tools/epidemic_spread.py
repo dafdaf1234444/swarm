@@ -47,9 +47,11 @@ def load_graph():
         for c in graph[lid]:
             reverse.setdefault(c, []).append(lid)
 
-        # Status classification (L-1550): separate genuinely harmful from merely obsolete.
-        # RETRACTED/FALSIFIED = harmful (R_bad applies, needs correction cascade)
-        # SUPERSEDED/ARCHIVED = obsolete (successor exists, not harmful spread)
+        # Three-tier classification (L-1550, S537 operational filter):
+        # Tier 1: RETRACTED = truly harmful (R_bad applies)
+        # Tier 2: Genuinely falsified = contextual evidence of falsification
+        #         (claim proved wrong, but not formally retracted)
+        # Tier 3: SUPERSEDED/ARCHIVED = obsolete (successor exists, maintenance debt)
         # L-1544: classification error dominates all downstream metrics.
         first_line = text.split("\n")[0] if text else ""
         is_retracted = "[RETRACTED]" in header
@@ -59,10 +61,21 @@ def load_graph():
             or "[SUPERSEDED" in first_line
         )
         is_archived = "<!-- ARCHIVED" in text[:200]
+        # Tier 2: contextual falsification evidence (not retracted/superseded/archived,
+        # but text contains "FALSIFIED" applied to its own claim)
+        is_contextual_falsified = (
+            not is_retracted and not is_superseded and not is_archived
+            and bool(re.search(
+                r"(?:^#.*FALSIFIED|prediction\s+FALSIFIED|claim\s+FALSIFIED|hypothesis\s+FALSIFIED)",
+                text[:500], re.MULTILINE
+            ))
+        )
         if is_retracted:
-            falsified.add(lid)  # truly harmful — R_bad applies
+            falsified.add(lid)  # Tier 1: truly harmful — R_bad applies
+        elif is_contextual_falsified:
+            falsified.add(lid)  # Tier 2: genuinely falsified — R_bad applies
         if is_superseded or is_archived:
-            obsolete.add(lid)   # maintenance debt, not epidemic contamination
+            obsolete.add(lid)   # Tier 3: maintenance debt, not epidemic contamination
 
         m = re.search(r"Sharpe:\s*(\d+)", header)
         if m:
@@ -77,28 +90,84 @@ def load_graph():
     return graph, reverse, falsified, obsolete, sharpe, sessions, domains
 
 
-def compute_r_bad(reverse, falsified):
+def _is_operational_citation(citer_text, falsified_lid):
+    """Classify whether a citation is operational (builds on claim) vs historical (discusses it).
+
+    S537 finding: operational/historical distinction is the binding classifier.
+    Historical refs (discussing falsification) are not infections.
+    Operational refs (using as premise) are genuine infections.
+    """
+    ref_positions = [m.start() for m in re.finditer(re.escape(falsified_lid), citer_text)]
+    for pos in ref_positions:
+        ctx = citer_text[max(0, pos - 200):min(len(citer_text), pos + 200)]
+        # Operational: uses the claim as a premise
+        if re.search(
+            r"(?:as\s+shown|per|following|based\s+on|using|applies|confirms?|supports?)"
+            r"\s+" + re.escape(falsified_lid),
+            ctx, re.IGNORECASE
+        ):
+            # Check override: historical context nearby
+            if not re.search(
+                r"(?:see\s+also|cf\.|related|compare|history|background|era|legacy)"
+                r"\s+.*?" + re.escape(falsified_lid),
+                ctx, re.IGNORECASE
+            ):
+                return True
+    return False
+
+
+def compute_r_bad(reverse, falsified, graph=None):
     """Compute R_bad: effective reproduction of falsified knowledge.
 
-    R_bad for a falsified node = number of live (non-falsified) citers.
-    This measures how many active lessons cite a falsified source
-    without correction — the "uncorrected spread" of bad knowledge.
+    S537 three-tier model:
+    - R_bad counts only OPERATIONAL citations (premise-building)
+    - Historical citations (reference-only) are not infections
+    - This prevents classification artifacts from inflating R_bad
 
     Epidemic analog: secondary infections from an infected individual.
     """
+    # Load citer texts for operational/historical classification
+    citer_texts = {}
+    if graph:
+        for lid in falsified:
+            for citer in reverse.get(lid, []):
+                if citer not in citer_texts:
+                    citer_path = LESSONS / f"{citer}.md"
+                    if citer_path.exists():
+                        citer_texts[citer] = citer_path.read_text(errors="replace")[:2000]
+
     results = []
+    total_operational = 0
+    total_historical = 0
     for lid in falsified:
         citers = reverse.get(lid, [])
         live_citers = [c for c in citers if c not in falsified]
         total = len(citers)
         live = len(live_citers)
+
+        # S537: split live citers into operational vs historical
+        operational_citers = []
+        historical_citers = []
+        for c in live_citers:
+            if c in citer_texts and _is_operational_citation(citer_texts[c], lid):
+                operational_citers.append(c)
+            else:
+                historical_citers.append(c)
+
+        operational = len(operational_citers)
+        total_operational += operational
+        total_historical += len(historical_citers)
+
         correction_rate = 1 - (live / total) if total > 0 else 1.0
         results.append({
             "lesson": lid,
             "total_citers": total,
             "live_citers": live,
+            "operational_citers": operational,
+            "historical_citers": len(historical_citers),
             "correction_rate": correction_rate,
-            "r_effective": live,  # each live citer is a "secondary infection"
+            "r_effective": live,
+            "r_operational": operational,
         })
     results.sort(key=lambda x: -x["r_effective"])
 
@@ -107,6 +176,9 @@ def compute_r_bad(reverse, falsified):
     total_falsified = len(results) or 1
     r_bad_mean = total_live / total_falsified
 
+    # S537: R_bad_operational counts only premise-building citations
+    r_bad_operational = total_operational / total_falsified if total_falsified else 0
+
     # Herd immunity threshold: 1 - 1/R₀
     # If correction_rate > HIT, epidemic is controlled
     hit = 1 - 1 / r_bad_mean if r_bad_mean > 1 else 0
@@ -114,11 +186,19 @@ def compute_r_bad(reverse, falsified):
         sum(r["correction_rate"] for r in results) / len(results) if results else 1.0
     )
 
+    # Determine status using operational R_bad (more accurate)
+    immune_status = "CONTROLLED" if r_bad_operational < 1.0 else (
+        "CONTROLLED" if actual_correction > hit else "SUPERCRITICAL"
+    )
+
     return {
         "r_bad_mean": round(r_bad_mean, 2),
+        "r_bad_operational": round(r_bad_operational, 2),
+        "total_operational_infections": total_operational,
+        "total_historical_refs": total_historical,
         "herd_immunity_threshold": round(hit, 3),
         "actual_correction_rate": round(actual_correction, 3),
-        "immune_status": "CONTROLLED" if actual_correction > hit else "SUPERCRITICAL",
+        "immune_status": immune_status,
         "falsified_count": len(falsified),
         "super_spreaders": results[:5],  # top 5 by live citers
         "all": results,
@@ -306,13 +386,16 @@ def main():
 
     graph, reverse, falsified, obsolete, sharpe, sessions, domains = load_graph()
 
-    bad = compute_r_bad(reverse, falsified)
+    bad = compute_r_bad(reverse, falsified, graph=graph)
     good = compute_r_good(graph, reverse, falsified, sharpe, sessions)
     sir = compute_compartments(graph, reverse, falsified, sharpe)
 
     report = {
         "harmful_spread": {
             "R_bad_mean": bad["r_bad_mean"],
+            "R_bad_operational": bad["r_bad_operational"],
+            "operational_infections": bad["total_operational_infections"],
+            "historical_refs": bad["total_historical_refs"],
             "herd_immunity_threshold": bad["herd_immunity_threshold"],
             "actual_correction_rate": bad["actual_correction_rate"],
             "immune_status": bad["immune_status"],
@@ -362,14 +445,20 @@ def main():
         print("--- Harmful Spread (R_bad) ---")
         b = report["harmful_spread"]
         print(f"  R_bad (mean effective):     {b['R_bad_mean']}")
+        print(f"  R_bad (operational only):   {b['R_bad_operational']}")
+        print(f"    Operational infections:   {b['operational_infections']}")
+        print(f"    Historical references:    {b['historical_refs']}")
         print(f"  Herd immunity threshold:    {b['herd_immunity_threshold']}")
         print(f"  Actual correction rate:     {b['actual_correction_rate']}")
         print(f"  Status:                     {b['immune_status']}")
         print(f"  Falsified lessons:          {b['falsified_count']}")
-        print(f"  Super-spreaders (top 3):")
-        for ss in b["super_spreaders"]:
-            print(f"    {ss['lesson']}: {ss['live_citers']} live citers / {ss['total_citers']} total "
-                  f"(correction={ss['correction_rate']:.2f})")
+        if b["super_spreaders"]:
+            print(f"  Super-spreaders (top 3):")
+            for ss in b["super_spreaders"]:
+                op = ss.get("operational_citers", "?")
+                hist = ss.get("historical_citers", "?")
+                print(f"    {ss['lesson']}: {ss['live_citers']} live ({op} operational, {hist} historical) "
+                      f"/ {ss['total_citers']} total (correction={ss['correction_rate']:.2f})")
 
         if obsolete:
             print(f"\n--- Obsolete Lessons (maintenance debt, not epidemic) ---")

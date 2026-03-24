@@ -1,14 +1,14 @@
 {
-  "session": 536,
+  "session": 537,
   "count": 2,
   "items": [
     {
       "priority": "DUE",
-      "message": "2 active dispatch lane(s) have no active coordinator lane: DOMEX-HLT-S537-EPIDEMIC, DOMEX-META-S536-INTEGRATION"
+      "message": "F119 learning-quality gap: tracked deltas without knowledge-state update (NEXT/SESSION-LOG/INDEX/FRONTIER/PRINCIPLES/lessons)"
     },
     {
       "priority": "DUE",
-      "message": "76 tools unreferenced by automation (>64 threshold, L-896) \u2014 open a meta-tooler DOMEX lane to wire or archive"
+      "message": "Count drift in INDEX.md (L: stated 1348 vs actual 1349) \u2014 run python3 tools/sync_state.py"
     }
   ]
 }

@@ -461,29 +461,6 @@ def ucb1_score(results: list[dict], outcome_map: dict, heat_map: dict,
         r["soul_multiplier"] = round(soul_multiplier, 3)
         r["soul_boost"] = round(r["score"] - pre_soul_score, 3)
 
-        # Concentration penalty — anti-mediocrity selection (F-COL1, L-1587)
-        # If a domain holds >10% of total dispatches AND its quality (exploit score)
-        # is below median, penalize proportionally. Prevents the degenerative spiral
-        # where accessible-but-average domains crowd out specialist work.
-        concentration_penalty = 0.0
-        if total_dispatches > 10 and n > 0:
-            share = n / total_dispatches
-            if share > CONCENTRATION_SHARE_THRESHOLD:
-                # Only penalize if quality is below median exploit
-                median_exploit = sorted(
-                    [rr.get("ucb1_exploit", 0) for rr in results
-                     if rr.get("ucb1_exploit") is not None]
-                )
-                med_val = median_exploit[len(median_exploit) // 2] if median_exploit else 0
-                if r.get("ucb1_exploit", 0) < med_val:
-                    excess_pct = (share - CONCENTRATION_SHARE_THRESHOLD) * 100
-                    concentration_penalty = min(
-                        excess_pct * CONCENTRATION_PENALTY_SCALE,
-                        CONCENTRATION_PENALTY_CAP
-                    )
-                    r["score"] -= concentration_penalty
-        r["concentration_penalty"] = round(concentration_penalty, 3)
-
         # Adjacency bonus — neighborhood spillover (F-CITY1, L-1510)
         # Domains adjacent to high-scoring domains get a boost, creating
         # "agglomeration economics" — success in one area lifts neighbors.
@@ -561,6 +538,30 @@ def ucb1_score(results: list[dict], outcome_map: dict, heat_map: dict,
             r["campaign_boost"] = WAVE_COMMITTED_BOOST
         else:
             r["campaign_boost"] = 0.0
+
+    # Concentration penalty — anti-mediocrity selection (F-COL1, L-1587)
+    # When a domain captures >10% of total dispatches with below-median quality,
+    # penalize it. Prevents the degenerative spiral where the most accessible
+    # domain crowds out specialists. Structural enforcement per L-601.
+    if total_dispatches > 10:  # only meaningful with enough history
+        exploit_scores = [r.get("ucb1_exploit", 0) for r in results
+                          if r.get("ucb1_exploit", 0) > 0]
+        median_exploit = (sorted(exploit_scores)[len(exploit_scores) // 2]
+                          if exploit_scores else 0)
+        for r in results:
+            dom = r["domain"]
+            oc = outcome_map.get(dom, {"merged": 0, "abandoned": 0})
+            n_dom = oc["merged"] + oc["abandoned"]
+            share = n_dom / total_dispatches
+            exploit = r.get("ucb1_exploit", 0)
+            if share > CONCENTRATION_SHARE_THRESHOLD and exploit < median_exploit:
+                excess = (share - CONCENTRATION_SHARE_THRESHOLD) * 100
+                penalty = min(excess * CONCENTRATION_PENALTY_SCALE,
+                              CONCENTRATION_PENALTY_CAP)
+                r["score"] -= penalty
+                r["concentration_penalty"] = round(penalty, 3)
+            else:
+                r["concentration_penalty"] = 0.0
 
     # Adjacency bonus — post-loop computation (F-CITY1, L-1510)
     # After all individual scores are set, identify top-N domains and boost

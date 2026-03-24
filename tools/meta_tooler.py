@@ -13,6 +13,7 @@ Usage:
 
 from __future__ import annotations
 
+import ast
 import argparse
 import json
 import os
@@ -29,11 +30,12 @@ ARCHIVE_DIR = ROOT / "tools" / "archive"
 # Thresholds
 T4_TOKEN_CEILING = 5_000  # tokens (chars//4) — L-469 anti-cascade
 STALE_SESSION_THRESHOLD = 50  # sessions since last git modification
-UNREFERENCED_ENTRY_FILES = [
+AUTOMATION_ENTRY_FILES = [
     "tools/check.sh", "tools/orient.py", "tools/maintenance.py",
-    "tools/periodics.json", "CLAUDE.md", "SWARM.md", "tools/task_order.py",
-    "tools/dispatch_optimizer.py",
+    "tools/check.ps1", "tools/periodics.json", "CLAUDE.md", "SWARM.md",
+    "tools/task_order.py", "tools/dispatch_optimizer.py",
 ]
+AUTOMATION_ENTRY_GLOBS = ["tools/guards/*.sh"]
 
 sys.path.insert(0, str(TOOLS_DIR))
 try:
@@ -73,6 +75,110 @@ def _tool_tokens(path: Path) -> int:
         return len(path.read_text(encoding="utf-8", errors="replace")) // 4
     except OSError:
         return 0
+
+
+def _tool_names() -> set[str]:
+    return {f.stem for f in _tool_files()}
+
+
+def _read_text(path: Path) -> str:
+    try:
+        return path.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return ""
+
+
+def _scan_text_tool_refs(text: str, tool_names: set[str]) -> set[str]:
+    refs = set()
+    for match in re.finditer(r"tools/([A-Za-z_][A-Za-z0-9_]*)\.py", text):
+        name = match.group(1)
+        if name in tool_names:
+            refs.add(name)
+    for match in re.finditer(r'["\']([A-Za-z_][A-Za-z0-9_]*)\.py["\']', text):
+        name = match.group(1)
+        if name in tool_names:
+            refs.add(name)
+    return refs
+
+
+def _scan_python_tool_refs(path: Path, tool_names: set[str]) -> set[str]:
+    refs = set()
+    text = _read_text(path)
+    if not text:
+        return refs
+
+    refs |= _scan_text_tool_refs(text, tool_names)
+    try:
+        tree = ast.parse(text, filename=str(path))
+    except SyntaxError:
+        return refs
+
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            for alias in node.names:
+                name = alias.name
+                if name.startswith("tools."):
+                    candidate = name.split(".", 2)[1]
+                else:
+                    candidate = name.split(".", 1)[0]
+                if candidate in tool_names:
+                    refs.add(candidate)
+        elif isinstance(node, ast.ImportFrom):
+            module = node.module or ""
+            if module == "tools":
+                for alias in node.names:
+                    if alias.name in tool_names:
+                        refs.add(alias.name)
+                continue
+            if module.startswith("tools."):
+                candidate = module.split(".", 2)[1]
+            else:
+                candidate = module.split(".", 1)[0] if module else ""
+            if candidate in tool_names:
+                refs.add(candidate)
+    return refs
+
+
+def collect_automation_reference_tools() -> set[str]:
+    """Collect tools reachable from automation entry points.
+
+    Includes direct `tools/*.py` references from text files, guard scripts sourced by
+    `check.sh`, and local Python imports reached transitively from entry-point tools.
+    """
+    tool_names = _tool_names()
+    if not tool_names:
+        return set()
+
+    refs: set[str] = set()
+    visited_python: set[Path] = set()
+
+    def walk_python(path: Path) -> None:
+        if path in visited_python or not path.exists():
+            return
+        visited_python.add(path)
+        if path.parent == TOOLS_DIR and path.stem in tool_names:
+            refs.add(path.stem)
+        direct_refs = _scan_python_tool_refs(path, tool_names)
+        new_refs = direct_refs - refs
+        refs.update(direct_refs)
+        for ref in sorted(new_refs):
+            dep_path = TOOLS_DIR / f"{ref}.py"
+            if dep_path.exists():
+                walk_python(dep_path)
+
+    for rel_path in AUTOMATION_ENTRY_FILES:
+        path = ROOT / rel_path
+        if not path.exists():
+            continue
+        refs |= _scan_text_tool_refs(_read_text(path), tool_names)
+        if path.suffix == ".py":
+            walk_python(path)
+
+    for pattern in AUTOMATION_ENTRY_GLOBS:
+        for path in sorted(ROOT.glob(pattern)):
+            refs |= _scan_text_tool_refs(_read_text(path), tool_names)
+
+    return refs
 
 
 def _git_last_sessions() -> dict[str, int]:
@@ -116,17 +222,10 @@ def scan_oversized() -> list[Finding]:
 
 def scan_unreferenced() -> list[Finding]:
     """Tools not referenced by any automation entry point."""
-    ref_text = ""
-    for ef in UNREFERENCED_ENTRY_FILES:
-        ef_path = ROOT / ef
-        if ef_path.exists():
-            try:
-                ref_text += ef_path.read_text(encoding="utf-8", errors="replace")
-            except OSError:
-                pass
+    referenced_tools = collect_automation_reference_tools()
     findings = []
     for f in _tool_files():
-        if f.stem not in ref_text:
+        if f.stem not in referenced_tools:
             findings.append(Finding(
                 category="unreferenced", severity="LOW", tool=f.stem,
                 message="not referenced by automation entry points",

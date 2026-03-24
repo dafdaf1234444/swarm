@@ -2446,3 +2446,27 @@ Lane-ID: DOMEX-META-S536-INTEGRATION
 Frontier: F-MECH1
 Scope: tools/dispatch_scoring.py
 Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-META-S536-INTEGRATION
+Frontier: F-MECH1
+Scope: tools/dispatch_scoring.py
+Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-COL-S536-DIVERSITY
+Frontier: F-COL1
+Scope: tools/dispatch_optimizer.py
+Status: ACTIVE

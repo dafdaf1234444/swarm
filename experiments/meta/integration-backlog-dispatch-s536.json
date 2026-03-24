@@ -5,6 +5,20 @@
     "domain": "meta",
     "date": "2026-03-24",
     "expect": "meta gets integration_boost >0.8 when true_unreferenced>50 and artifact age<=1 session; integration_boost decays below 0.2 by age>=10 sessions; non-meta domains keep integration_boost=0.0",
-    "actual": "TBD",
-    "diff": "TBD"
+    "actual": "CONFIRMED. dispatch_scoring.py now reads workspace/unreferenced-tools-analysis-s*.json, computes a freshness-weighted integration_boost for the meta domain, and leaves non-meta domains unchanged. Focused regression: python3 -m unittest tools.test_dispatch_scoring -> 2/2 PASS. Live check with the current S536 backlog produced meta integration_boost=1.16, maintenance_boost=1.0, soul_multiplier=0.732, while physics integration_boost=0.0.",
+    "diff": "Expected >0.8 fresh and <0.2 stale: confirmed at 1.16 (age 0) and 0.0 (age 10 in regression). Narrower than a full integration-yield channel: this adds proactive meta pressure from the unreferenced-tools backlog, but it does not yet credit originating domains for downstream integration work.",
+    "measurements": {
+        "backlog_session": 536,
+        "true_unreferenced": 58,
+        "wire_count": 15,
+        "archive_count": 21,
+        "meta_integration_boost_fresh": 1.16,
+        "meta_integration_boost_age_10": 0.0,
+        "physics_integration_boost": 0.0,
+        "unit_tests_passed": 2
+    },
+    "files_changed": [
+        "tools/dispatch_scoring.py",
+        "tools/test_dispatch_scoring.py"
+    ]
 }
