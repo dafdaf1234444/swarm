@@ -27,6 +27,9 @@ import subprocess
 import sys
 from pathlib import Path
 
+# Prevent stale .pyc on WSL2/NTFS where mtime granularity causes cache misuse (L-1549)
+sys.dont_write_bytecode = True
+
 ROOT = Path(__file__).resolve().parent.parent
 
 try:
@@ -392,14 +395,20 @@ def main():
             except Exception:
                 return None
         _futures['concept_debt'] = _pool.submit(_run_concept_debt)
+        # Move slow synchronous sections into pool (S531 perf fix)
+        _futures['complexity_phase'] = _pool.submit(section_complexity_phase)
+        def _run_agent_empathy():
+            try:
+                from agent_empathy import model_agents, compute_priority_adjustments
+                _m = model_agents()
+                return compute_priority_adjustments(_m)
+            except Exception:
+                return None
+        _futures['agent_empathy'] = _pool.submit(_run_agent_empathy)
         maint_out = _run_maint()  # run in main thread while others execute
         # Re-submit cascade with actual maint_out if needed
         _futures['cascade_real'] = _pool.submit(lambda mo=maint_out: section_cascade_state(maint_output=mo))
-    # Collect pre-check results (10s timeout per future to prevent orient hang — L-1542)
-    for _line in _futures['git_health'].result(timeout=10):
-        print(_line)
-    for _line in _futures['genesis'].result(timeout=10):
-        print(_line)
+    # Collect pre-check results (timeout per future to prevent orient hang — L-1542)
     def _safe_result(key, default=None, timeout=10):
         """Fault-isolated future result — optional sections fail independently (L-1413).
         Timeout prevents a single hung future from blocking all of orient (L-1542)."""
@@ -408,6 +417,10 @@ def main():
         except Exception:
             return default if default is not None else []
 
+    for _line in _safe_result('git_health', timeout=20):
+        print(_line)
+    for _line in _safe_result('genesis', timeout=15):
+        print(_line)
     for _line in _safe_result('index_health'):
         print(_line)
     for _line in _safe_result('ghost'):
@@ -432,6 +445,8 @@ def main():
     _human_impact_result = _safe_result('human_impact')
     _brain_turing_result = _safe_result('brain_turing')
     _concept_debt_result = _safe_result('concept_debt')
+    _complexity_phase_lines = _safe_result('complexity_phase')
+    _agent_empathy_result = _safe_result('agent_empathy')
 
     index_text = _read("memory/INDEX.md")
     next_text = _read("tasks/NEXT.md")
@@ -515,7 +530,7 @@ def main():
         _print_lines(section_knowledge_recombination())
         _print_lines(_correction_lines)
         _print_lines(_fairness_lines)
-        _print_lines(section_complexity_phase())
+        _print_lines(_complexity_phase_lines)
 
     if not coord:
         # Human impact / soul extraction (SIG-81, F-SOUL1) — pre-computed in parallel
