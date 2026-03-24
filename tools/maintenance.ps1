@@ -11,19 +11,12 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
+$startupHelper = Join-Path $PSScriptRoot "pwsh_startup.ps1"
 $maintenanceSh = Join-Path $PSScriptRoot "maintenance.sh"
 $maintenancePy = Join-Path $PSScriptRoot "maintenance.py"
+. $startupHelper
 
-function Convert-ToBashPath {
-    param([string]$PathText)
-    $p = ($PathText -replace "\\", "/")
-    if ($p -match "^[A-Za-z]:") {
-        $drive = $p.Substring(0, 1).ToLower()
-        $rest = $p.Substring(2)
-        return "/mnt/$drive$rest"
-    }
-    return $p
-}
+Show-PwshGitRecoveryNotice -RepoRoot $repoRoot
 
 if (Get-Command bash -ErrorAction SilentlyContinue) {
     $bashScript = Convert-ToBashPath $maintenanceSh

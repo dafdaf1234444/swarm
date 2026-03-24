@@ -13,6 +13,7 @@ Usage:
     python3 tools/tool_reliability.py              # summary report
     python3 tools/tool_reliability.py --json       # JSON output
     python3 tools/tool_reliability.py --detail     # per-tool detail
+    python3 tools/tool_reliability.py --include-tests
 """
 
 import argparse
@@ -28,12 +29,26 @@ TOOLS_DIR = Path("tools")
 LESSON_DIR = Path("memory/lessons")
 
 
-def discover_tools() -> list[dict]:
-    """Find all Python tools and their metadata."""
-    tools = []
+def _iter_tool_paths(include_tests: bool = False) -> list[Path]:
+    """Enumerate audited tool paths.
+
+    By default, exclude test modules from the reliability substrate. Tests
+    verify tools; they are not downstream consumers of tool outputs.
+    """
+    paths: list[Path] = []
     for p in sorted(TOOLS_DIR.glob("*.py")):
         if p.name.startswith("__"):
             continue
+        if not include_tests and p.name.startswith("test_"):
+            continue
+        paths.append(p)
+    return paths
+
+
+def discover_tools(include_tests: bool = False) -> list[dict]:
+    """Find all audited Python tools and their metadata."""
+    tools = []
+    for p in _iter_tool_paths(include_tests=include_tests):
         tools.append({
             "name": p.name,
             "path": str(p),
@@ -41,14 +56,13 @@ def discover_tools() -> list[dict]:
     return tools
 
 
-def compute_import_graph() -> dict[str, list[str]]:
+def compute_import_graph(include_tests: bool = False) -> dict[str, list[str]]:
     """Map each tool → tools it imports/calls (downstream readers)."""
     graph = defaultdict(set)  # tool_name → set of tools that reference it
-    tool_names = {p.name for p in TOOLS_DIR.glob("*.py") if not p.name.startswith("__")}
+    tool_paths = _iter_tool_paths(include_tests=include_tests)
+    tool_names = {p.name for p in tool_paths}
 
-    for p in TOOLS_DIR.glob("*.py"):
-        if p.name.startswith("__"):
-            continue
+    for p in tool_paths:
         try:
             text = p.read_text(encoding="utf-8", errors="replace")
         except Exception:
@@ -78,10 +92,10 @@ def compute_import_graph() -> dict[str, list[str]]:
     return {k: sorted(v) for k, v in graph.items()}
 
 
-def parse_lesson_tool_refs() -> dict[str, list[str]]:
+def parse_lesson_tool_refs(tool_names: set[str]) -> dict[str, list[str]]:
     """Map each tool → lessons that reference it (evidence of usage)."""
     tool_lessons = defaultdict(list)
-    tool_names = {p.stem for p in TOOLS_DIR.glob("*.py") if not p.name.startswith("__")}
+    tool_stems = {Path(name).stem for name in tool_names}
 
     for lp in sorted(LESSON_DIR.glob("L-*.md")):
         try:
@@ -89,7 +103,7 @@ def parse_lesson_tool_refs() -> dict[str, list[str]]:
         except Exception:
             continue
         lid = lp.stem
-        for stem in tool_names:
+        for stem in tool_stems:
             if f"{stem}.py" in text or f"tools/{stem}" in text:
                 tool_lessons[f"{stem}.py"].append(lid)
 
@@ -136,14 +150,17 @@ def compute_tool_ages_batch() -> dict[str, int | None]:
     return ages
 
 
-def audit_tools() -> dict:
+def audit_tools(include_tests: bool = False) -> dict:
     """Run full tool reliability audit."""
-    tools = discover_tools()
-    import_graph = compute_import_graph()
-    lesson_refs = parse_lesson_tool_refs()
+    all_tool_paths = [p for p in sorted(TOOLS_DIR.glob("*.py")) if not p.name.startswith("__")]
+    tools = discover_tools(include_tests=include_tests)
+    audited_tool_names = {t["name"] for t in tools}
+    import_graph = compute_import_graph(include_tests=include_tests)
+    lesson_refs = parse_lesson_tool_refs(audited_tool_names)
 
     results = []
     n_tools = len(tools)
+    n_test_modules_excluded = sum(1 for p in all_tool_paths if p.name.startswith("test_")) if not include_tests else 0
     tool_ages = compute_tool_ages_batch()
 
     for t in tools:
@@ -192,7 +209,9 @@ def audit_tools() -> dict:
     well_integrated = [r for r in results if r["n_readers"] >= 3]
 
     return {
+        "audit_scope": "all-python-modules" if include_tests else "production-tools",
         "n_tools": n_tools,
+        "n_test_modules_excluded": n_test_modules_excluded,
         "n_isolated": len(isolated),
         "n_write_only": len(write_only),
         "n_low_truth": len(low_truth),
@@ -209,6 +228,9 @@ def audit_tools() -> dict:
 def print_report(data: dict, detail: bool = False):
     """Print human-readable report."""
     print(f"=== TOOL RELIABILITY AUDIT ({data['n_tools']} tools) ===")
+    print(f"  Scope: {data.get('audit_scope', 'production-tools')}")
+    if data.get("n_test_modules_excluded"):
+        print(f"  Excluded test modules: {data['n_test_modules_excluded']}")
     print(f"  Mean R-score: {data['mean_r_score']}")
     print(f"  Mean integration: {data['mean_integration']}")
     print(f"  Isolated (0 readers): {data['n_isolated']}")
@@ -260,9 +282,14 @@ def main():
     parser = argparse.ArgumentParser(description="Tool reliability auditor (Goldman's reliabilism)")
     parser.add_argument("--json", action="store_true", help="JSON output")
     parser.add_argument("--detail", action="store_true", help="Per-tool detail")
+    parser.add_argument(
+        "--include-tests",
+        action="store_true",
+        help="Audit all Python modules, including test_*.py files",
+    )
     args = parser.parse_args()
 
-    data = audit_tools()
+    data = audit_tools(include_tests=args.include_tests)
 
     if args.json:
         print(json.dumps(data, indent=2))

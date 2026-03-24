@@ -766,6 +766,7 @@ class TestRuntimePortabilityFallbacks(unittest.TestCase):
         has_python: bool = False,
         has_py_launcher: bool = False,
         exists_overrides: dict[str, bool] | None = None,
+        is_wsl_repo: bool = False,
     ) -> list[tuple[str, str]]:
         exists_values = {
             "workspace/genesis.sh": True,
@@ -811,7 +812,7 @@ class TestRuntimePortabilityFallbacks(unittest.TestCase):
              patch.object(maintenance, "_command_exists", side_effect=fake_command_exists), \
              patch.object(maintenance, "_python_command_runs", side_effect=fake_python_command_runs), \
              patch.object(maintenance, "_py_launcher_runs", return_value=has_py_launcher), \
-             patch.object(maintenance_common, "_is_wsl_mnt_repo", return_value=False), \
+             patch.object(maintenance_common, "_is_wsl_mnt_repo", return_value=is_wsl_repo), \
              patch.object(maintenance, "_git", return_value=""), \
              patch.object(maintenance, "_read", return_value="SWARM.md\nswarm signaling\nMinimum Swarmed Cycle\n"):
             return maintenance.check_runtime_portability()
@@ -883,6 +884,25 @@ class TestRuntimePortabilityFallbacks(unittest.TestCase):
         messages = [msg for _, msg in results]
         self.assertTrue(any("use bash wrappers" in msg for msg in messages))
         self.assertTrue(any("PowerShell minimum-cycle wrappers missing" in msg for msg in messages))
+
+    def test_wsl_pwsh_portability_surfaces_git_index_recovery_hint(self):
+        results = self._run_portability(
+            has_bash=True,
+            has_pwsh=True,
+            has_python3=False,
+            has_python=False,
+            has_py_launcher=False,
+            is_wsl_repo=True,
+        )
+        messages = [msg for _, msg in results]
+        self.assertTrue(any("git read-tree HEAD" in msg for msg in messages))
+
+
+class TestPowerShellWrapperContent(unittest.TestCase):
+    def test_check_ps1_mentions_git_index_recovery_command(self):
+        text = (Path(__file__).with_name("check.ps1")).read_text(encoding="utf-8")
+        self.assertIn("git read-tree HEAD", text)
+        self.assertIn("index.lock", text)
 
 
 class TestStateHeaderSyncParsing(unittest.TestCase):

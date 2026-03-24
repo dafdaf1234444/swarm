@@ -2,11 +2,14 @@
 """Regression tests for task_order.py race handling."""
 
 import os
+import io
 import sys
 import tempfile
 import time
 import unittest
+from contextlib import redirect_stdout
 from pathlib import Path
+from unittest import mock
 
 sys.path.insert(0, str(Path(__file__).parent))
 import task_order  # noqa: E402
@@ -14,6 +17,27 @@ import task_order_helpers  # noqa: E402
 
 
 class TestTaskOrderRace(unittest.TestCase):
+    def test_current_session_prefers_shared_helper(self):
+        original_shared = task_order_helpers._shared_session_number
+        original_root = task_order_helpers.ROOT
+        try:
+            with tempfile.TemporaryDirectory() as tmpdir:
+                root = Path(tmpdir)
+                memory = root / "memory"
+                memory.mkdir()
+                (memory / "INDEX.md").write_text(
+                    "# Memory Index\nUpdated: 2026-03-24 | Sessions: 528\n",
+                    encoding="utf-8",
+                )
+
+                task_order_helpers.ROOT = root
+                task_order_helpers._shared_session_number = lambda: 529
+
+                self.assertEqual(task_order_helpers._current_session(), 529)
+        finally:
+            task_order_helpers._shared_session_number = original_shared
+            task_order_helpers.ROOT = original_root
+
     def test_safe_mtime_handles_missing_file(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             root = Path(tmpdir)
@@ -147,6 +171,16 @@ class TestTaskOrderRace(unittest.TestCase):
         finally:
             task_order_helpers.ROOT = original_root
             task_order_helpers._git = original_git
+
+    def test_main_header_uses_current_session_helper(self):
+        with mock.patch.object(task_order, "build_task_list", return_value=[]), \
+             mock.patch.object(task_order, "_current_session", return_value=529), \
+             mock.patch.object(sys, "argv", ["task_order.py"]):
+            buf = io.StringIO()
+            with redirect_stdout(buf):
+                task_order.main()
+
+        self.assertIn("=== TASK ORDER S529 (0 items) ===", buf.getvalue())
 
 
 if __name__ == "__main__":

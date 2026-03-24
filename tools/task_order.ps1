@@ -11,25 +11,14 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
+$startupHelper = Join-Path $PSScriptRoot "pwsh_startup.ps1"
 $taskOrderPy = Join-Path $PSScriptRoot "task_order.py"
+. $startupHelper
 
-function Convert-ToBashPath {
-    param([string]$PathText)
-    $p = ($PathText -replace "\\", "/")
-    if ($p -match "^[A-Za-z]:") {
-        $drive = $p.Substring(0, 1).ToLower()
-        $rest = $p.Substring(2)
-        return "/mnt/$drive$rest"
-    }
-    return $p
-}
+Show-PwshGitRecoveryNotice -RepoRoot $repoRoot
 
 if (Get-Command bash -ErrorAction SilentlyContinue) {
-    $bashRoot = Convert-ToBashPath $repoRoot
-    $argCount = if ($null -eq $Args) { 0 } else { @($Args).Count }
-    $argText = if ($argCount -gt 0) { " " + (@($Args) -join " ") } else { "" }
-    & bash -lc "cd '$bashRoot' && python3 tools/task_order.py$argText"
-    exit $LASTEXITCODE
+    exit (Invoke-BashPythonTool -RepoRoot $repoRoot -ToolPath "tools/task_order.py" -Args $Args)
 }
 
 $pythonCmd = $null

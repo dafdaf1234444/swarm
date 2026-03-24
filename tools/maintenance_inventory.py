@@ -11,6 +11,13 @@ import re
 from pathlib import Path
 
 
+def _to_bash_path(path: Path) -> str:
+    text = str(path).replace("\\", "/")
+    if re.match(r"^[A-Za-z]:", text):
+        return f"/mnt/{text[0].lower()}{text[2:]}"
+    return text
+
+
 def build_inventory(
     REPO_ROOT: Path,
     PYTHON_EXE: str,
@@ -142,6 +149,12 @@ def check_runtime_portability(
     if _is_wsl_mnt_repo():
         if not _git("status", "--porcelain"):
             results.append(("NOTICE", "WSL on /mnt/* repo: status/proxy-K may diverge from Windows runtime"))
+        if has_pwsh and has_bash:
+            repo_bash = _to_bash_path(REPO_ROOT)
+            results.append((
+                "NOTICE",
+                f"PowerShell host on WSL /mnt repo: if git reports a missing/truncated index, recover via bash (`cd {repo_bash} && rm -f .git/index.lock && git read-tree HEAD && git update-index --refresh`) before retrying PowerShell wrappers",
+            ))
         swarm_cmd = REPO_ROOT / ".claude" / "commands" / "swarm.md"
         if not swarm_cmd.exists():
             results.append(("DUE", ".claude/commands/swarm.md DELETED -- WSL deletion bug (L-279). Fix: rm -f .claude/commands/swarm.md && git checkout HEAD -- .claude/commands/swarm.md"))

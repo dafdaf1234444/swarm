@@ -16,6 +16,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 LIVE_GIT_LOCK_SECONDS = 120
 
+try:
+    from swarm_io import session_number as _shared_session_number
+except ImportError:
+    _shared_session_number = None
+
 
 def _git(args: list[str]) -> str:
     r = subprocess.run(["git"] + args, capture_output=True, text=True, cwd=ROOT)
@@ -35,10 +40,24 @@ def has_live_git_write_lock(window_seconds: int = LIVE_GIT_LOCK_SECONDS) -> bool
 
 
 def _current_session() -> int:
+    if _shared_session_number is not None:
+        try:
+            session = int(_shared_session_number())
+            if session > 0:
+                return session
+        except Exception:
+            pass
     try:
         idx = (ROOT / "memory" / "INDEX.md").read_text(encoding="utf-8")
         m = re.search(r"Sessions:\s*(\d+)", idx)
-        return int(m.group(1)) if m else 0
+        if m:
+            return int(m.group(1))
+    except Exception:
+        pass
+    try:
+        log = _git(["log", "--oneline", "-5"])
+        sessions = [int(n) for n in re.findall(r"\[S(\d+)\]", log)]
+        return max(sessions) if sessions else 0
     except Exception:
         return 0
 
@@ -285,9 +304,7 @@ def get_signal_tasks(P_DUE: int, P_STRATEGY: int) -> list[dict]:
     if not signals_file.exists():
         return tasks
     try:
-        log_out = _git(["log", "--oneline", "-3"])
-        sn_m = re.search(r"\[S(\d+)\]", log_out)
-        current_session = int(sn_m.group(1)) if sn_m else 400
+        current_session = _current_session() or 400
 
         for line in signals_file.read_text().splitlines():
             if not line.startswith("| SIG-"):

@@ -526,16 +526,7 @@ def main():
         print(json.dumps({"tasks": tasks}, indent=2))
         return
 
-    # Get session number
-    try:
-        r = subprocess.run(
-            [sys.executable, str(ROOT / "tools" / "swarm_io.py")],
-            capture_output=True, text=True, cwd=ROOT, timeout=5
-        )
-        sn_match = re.search(r"\[S(\d+)\]", _git(["log", "--oneline", "-3"]))
-        session = int(sn_match.group(1)) if sn_match else "?"
-    except Exception:
-        session = "?"
+    session = _current_session() or "?"
 
     # Count claimed tasks
     claimed_count = sum(1 for t in tasks if "claimed_by" in t)

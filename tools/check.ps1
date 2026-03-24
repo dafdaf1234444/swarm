@@ -27,10 +27,45 @@ function Convert-ToBashPath {
     return $p
 }
 
+function Invoke-NativeCapture {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$FilePath,
+        [string[]]$CommandArgs = @()
+    )
+    $output = & $FilePath @CommandArgs 2>&1
+    $exitCode = $LASTEXITCODE
+    foreach ($line in $output) {
+        Write-Output $line
+    }
+    return [pscustomobject]@{
+        ExitCode = $exitCode
+        Output = ($output | Out-String)
+    }
+}
+
+function Test-GitIndexFailureText {
+    param([string]$Text)
+    if (-not $Text) {
+        return $false
+    }
+    return $Text -match '(?im)(Tree-size guard triggered|corrupted the git index|unable to read index|could not read index|index file smaller than expected|fatal:\s+index file corrupt|index\.lock)'
+}
+
+function Write-GitIndexRecoveryHint {
+    param([string]$Context)
+    $repoBash = Convert-ToBashPath $repoRoot
+    $recovery = "bash -lc 'cd $repoBash && rm -f .git/index.lock && git read-tree HEAD && git update-index --refresh'"
+    Write-Warning "$Context Recover via WSL/bash: $recovery"
+}
+
 if (Get-Command bash -ErrorAction SilentlyContinue) {
     $bashScript = Convert-ToBashPath $checkSh
-    & bash $bashScript @Args
-    exit $LASTEXITCODE
+    $bashResult = Invoke-NativeCapture -FilePath "bash" -CommandArgs (@($bashScript) + $Args)
+    if ($bashResult.ExitCode -ne 0 -and (Test-GitIndexFailureText $bashResult.Output)) {
+        Write-GitIndexRecoveryHint "bash-backed check hit a git-index/tree corruption signature."
+    }
+    exit $bashResult.ExitCode
 }
 
 $pythonCmd = $null
@@ -58,26 +93,32 @@ if ($quick) {
 
 Push-Location $repoRoot
 try {
-    & $pythonCmd @pythonArgs $validatePy @pyArgs
-    if ($LASTEXITCODE -ne 0) {
+    $validateResult = Invoke-NativeCapture -FilePath $pythonCmd -CommandArgs (@($pythonArgs) + @($validatePy) + $pyArgs)
+    if ($validateResult.ExitCode -ne 0) {
+        if (Test-GitIndexFailureText $validateResult.Output) {
+            Write-GitIndexRecoveryHint "Belief validation failed with a git-index/tree corruption signature."
+        }
         Write-Error "FAIL: Belief validation failed."
-        exit $LASTEXITCODE
+        exit $validateResult.ExitCode
     }
 
-    & $pythonCmd @pythonArgs $maintenancePy @pyArgs
-    if ($LASTEXITCODE -ne 0) {
-        exit $LASTEXITCODE
+    $maintenanceResult = Invoke-NativeCapture -FilePath $pythonCmd -CommandArgs (@($pythonArgs) + @($maintenancePy) + $pyArgs)
+    if ($maintenanceResult.ExitCode -ne 0) {
+        if (Test-GitIndexFailureText $maintenanceResult.Output) {
+            Write-GitIndexRecoveryHint "Maintenance failed with a git-index/tree corruption signature."
+        }
+        exit $maintenanceResult.ExitCode
     }
 
     if (Test-Path $missionConstraintsPy) {
-        & $pythonCmd @pythonArgs $missionConstraintsPy
-        if ($LASTEXITCODE -ne 0) {
+        $missionResult = Invoke-NativeCapture -FilePath $pythonCmd -CommandArgs (@($pythonArgs) + @($missionConstraintsPy))
+        if ($missionResult.ExitCode -ne 0) {
             Write-Error "FAIL: Mission constraints regression failed."
-            exit $LASTEXITCODE
+            exit $missionResult.ExitCode
         }
     }
 
-    exit $LASTEXITCODE
+    exit 0
 } finally {
     Pop-Location
 }

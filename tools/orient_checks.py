@@ -336,7 +336,7 @@ def check_git_object_health(ROOT) -> list:
     try:
         result = subprocess.run(
             ["git", "fsck", "--no-dangling", "--connectivity-only"],
-            capture_output=True, text=True, timeout=30, cwd=str(ROOT),
+            capture_output=True, text=True, timeout=15, cwd=str(ROOT),
         )
         errors = result.stderr.strip() if result.stderr else ""
         if result.returncode != 0 or errors:

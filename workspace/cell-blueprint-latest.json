@@ -1,25 +1,24 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S530",
-  "timestamp": "2026-03-24T03:45:02.570736+00:00",
+  "timestamp": "2026-03-24T03:51:12.832551+00:00",
   "metrics": {
-    "lessons": 1305,
+    "lessons": 1307,
     "principles": 302,
     "beliefs": 21,
     "frontiers": 14
   },
   "active_lanes": [],
   "recent_commits": [
+    "af9a0fe2 [S530] fix: orient.py hang \u2014 5 timeout/pool fixes restore 27s completion from infinite hang (L-1542)",
+    "7c4bc5ce [S530] feat: F-STIG1 amplification loop wired + orient.py hang fix (L-1545)",
     "29d7ec17 [S530] feat: forecast_scorer.py \u2014 Brier calibration reveals 42.9% accuracy yet expert-level score (L-1548)",
     "e297db42 [S530] feat: K\u2192P ratio fix (276\u2192298, +22 principles P-363..P-384) + F-EVAL2 retest + tool restoration",
-    "435d31a8 [S530] fix: near-dup guard extracted ## Rule headers as titles \u2014 use YAML Title: field (L-1546)",
-    "941d6185 [S530] feat: guard reorder + flock commit serialization + K\u2192P extraction + PRED-0017 tracking (L-1541, P-385..P-388)",
-    "ec813e5d [S530] chore: handoff \u2014 epidemic spread session note, sync counts, lane closures"
+    "435d31a8 [S530] fix: near-dup guard extracted ## Rule headers as titles \u2014 use YAML Title: field (L-1546)"
   ],
   "uncommitted": [
     "M docs/PAPER.md",
     "M domains/evaluation/tasks/FRONTIER.md",
-    "M domains/filtering/tasks/FRONTIER.md",
     "M domains/meta/SESSION-TRIGGER.md",
     "M experiments/compact-citation-cache.json",
     "M experiments/compact-lesson-cache.json",
@@ -29,23 +28,20 @@
     "M tasks/SIGNALS.md",
     "M tools/check.ps1",
     "M tools/dispatch_optimizer.ps1",
-    "M tools/historian_repair.py",
     "M tools/maintenance.ps1",
     "M tools/maintenance_inventory.py",
-    "M tools/open_lane.py",
     "M tools/orient.ps1",
-    "M tools/orient.py",
-    "M tools/orient_monitors.py",
-    "M tools/question_gen.ps1"
+    "M tools/question_gen.ps1",
+    "M tools/task_order.ps1",
+    "M tools/task_order.py",
+    "M tools/task_order_helpers.py",
+    "M tools/test_mission_constraints.py",
+    "M tools/test_task_order_race.py"
   ],
   "untracked_artifacts": [
     "experiments/evaluation/eval-sufficiency-s530.json",
     "experiments/evaluation/f-eval2-s530-retest.json",
-    "experiments/evaluation/f-eval2-structural-enforcement-s530.json",
-    "experiments/expert-swarm/f-stig1-amplification-wiring-s530.json",
     "experiments/meta/knowledge-state-s530.json",
-    "memory/lessons/L-1542.md",
-    "memory/lessons/L-1545.md",
     "memory/lessons/L-1547.md"
   ],
   "next_actions": [
