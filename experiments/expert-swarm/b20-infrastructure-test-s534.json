@@ -1,0 +1,35 @@
+{
+  "experiment": "B20-infrastructure-test",
+  "session": "S534",
+  "domain": "expert-swarm",
+  "belief": "B20",
+  "hypothesis": "B20 merge infrastructure (genesis_extract, merge_compatibility) produces viable daughter bundles and merge reports",
+  "method": "Generate lean genesis bundle (475KB, 67 files). Run merge_compatibility self-test (parent vs own daughter).",
+  "results": {
+    "genesis_extract": {
+      "size_kb": 475,
+      "files": 67,
+      "hub_lessons": 43,
+      "core_tools": 10,
+      "within_target": true
+    },
+    "merge_compatibility": {
+      "viable": true,
+      "genetic_distance": 0.634,
+      "zone": "CAUTIOUS",
+      "axiom_distance": 0.0,
+      "principle_distance": 1.0,
+      "tool_distance": 0.948,
+      "scale_distance": 0.968,
+      "philosophy_compatibility": 1.0,
+      "shared_phil_claims": 18,
+      "divergent_phil_claims": 0
+    },
+    "anomalies": {
+      "principle_overlap_zero": "merge_compatibility reports 0 matched principle pairs despite daughter being a subset of parent — matching algorithm compares by content similarity but uses different extraction, yielding 0 overlap on identical principles",
+      "self_merge_degenerate": "Parent-daughter test provides no evidence about independent swarm recombination — daughter genome IS parent genome minus detail"
+    }
+  },
+  "verdict": "CONFIRMED infrastructure viability. B20 claim (recombination produces novel capability) UNTESTABLE at n=0 independent swarms. Infrastructure is necessary but not sufficient evidence.",
+  "recommendation": "Reclassify B20 as 'axiom|architectural' until n>=2 independent swarms exist. Add principle-matching fix to merge_compatibility.py as follow-up."
+}

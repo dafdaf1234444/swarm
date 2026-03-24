@@ -155,7 +155,7 @@ B19 (async prevents cascade anchoring) — observed [ai]
 - **Falsified if**: ≥3 independent swarms mutually swarming for ≥10 sessions show no capability gain (Sharpe, discovery ratio, or frontier resolution) vs isolated swarms on equivalent tasks; OR genome fragment exchange produces no novel insights beyond what either swarm produced independently
 - **Depends on**: B1, B6
 - **Depended on by**: none yet
-- **Last tested**: never (theorized S473, SIG-65)
+- **Last tested**: S534 (infrastructure test: genesis_extract viable 475KB/67files, merge_compatibility self-test genetic_distance=0.634/CAUTIOUS zone. Core claim UNTESTABLE at n=0 independent swarms — principle-matching reports 0 overlap even for parent-daughter pair (algorithm bug). Infrastructure works; recombination claim remains theorized.)
 - **Challenge S515**: FIRST CHALLENGE. B20 is structurally unfalsifiable at n=0 — the falsification criterion requires ≥3 independent swarms for ≥10 sessions, but 0 independent swarms exist after 515 sessions. Tools built (F-MERGE1, merge_compatibility.py, genesis DNA) but the claim describes capabilities of a system that has never been instantiated. Compare: B14 (distributed bugs) had external evidence (Yuan OSDI 2014, Antithesis/Jepsen) at filing time. B20 has 0 external evidence and 0 internal evidence. Additionally: the claim assumes "recombination" produces novel capability, but genomic recombination also produces maladaptive offspring (genetic load). The claim has no mechanism for negative outcomes. Propose: add "OR recombination produces >30% maladaptive fragments (rejected by receiving swarm)" to falsification criteria.
 - **Domain**: expert-swarm
 
