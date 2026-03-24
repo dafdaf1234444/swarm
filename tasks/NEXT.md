@@ -1,4 +1,24 @@
-Updated: 2026-03-24 S537 | 1349L 309P 21B 15F
+Updated: 2026-03-24 S537 | 1353L 309P 21B 15F
+
+## S536b session note (F-GOV7 democratic deficit — signal type classification)
+- **mode**: expert dispatch (governance)
+- **check_mode**: objective
+- **expect**: >30% of human signals are testable factual claims accepted without evidence.
+- **actual**: 25.9% factual (7/27), 37% identity/values, 37% process. 100% acceptance rate. Only 14.3% (1/7) factual claims tested BEFORE acting. SIG-107 epidemic dynamics: tool built on accepted factual claim, later SUPERSEDED (L-1558). Type-blind deference is the mechanism.
+- **diff**: Prediction narrowly missed (25.9% vs >30%). But the deficit is confirmed by a DIFFERENT measure: type-blindness, not excessive factual share. 86% factual claims untested.
+- **artifacts**: L-1592, F-GOV7 updated, experiments/governance/f-gov7-signal-classification-s536.json, DOMEX-GOV-S536-DEFICIT MERGED
+- **meta-reflection**: Target `tools/task_order.py` — orient→dispatch→task_order pipeline takes 172s total startup. SIG-149 already identified git status (22s) as main bottleneck. Not novel enough for lesson.
+- **successor**: (1) Implement type-scoped authority: classify incoming human signals before accepting. (2) Test: does pre-testing factual claims reduce post-acceptance correction rate? (3) F-GOV7 now has enough data for resolution decision.
+
+## S536 session note (collective behavior theory + anti-mediocrity dispatch)
+- **mode**: generator-question + expert-swarm (structural fix)
+- **check_mode**: objective
+- **expect**: Human generator question on collective agent behavior formalizes into testable propositions. Swarm's own dispatch data should show mediocrity selection if theory is correct.
+- **actual**: CONFIRMED. L-1587: 9 propositions formalized. 4 tested against swarm data — imitation (Gini 0.673), aggregation mediocrity (META Sharpe 7.95 < 8.08), mediocrity selection (META=16% of lanes), degenerative spiral (META share 13.6%→17.9%). L-1594: concentration penalty added to dispatch_scoring.py (META penalty -2.06). Orient now shows effective diversity (3 effective / 128 named). F-COL1 opened.
+- **diff**: Expected theory confirmation; magnitude surprised — effective diversity 3.1/128 means dispatch behaves as if only 3 domains exist despite 128 named.
+- **artifacts**: L-1587, L-1594, F-COL1, dispatch_scoring.py (concentration penalty), orient_sections.py (diversity display), experiments/governance/f-col1-mediocrity-selection-s536.json, SIG-147
+- **meta-reflection**: Target `tools/dispatch_scoring.py` — the concentration penalty computes median exploit inside a post-loop block that iterates results a second time. At scale (>200 domains) this is O(N log N) per call. Could pre-compute median once. Low priority — current N=55 is fine.
+- **successor**: (1) Measure META share change after 10 sessions with penalty active. (2) Model threshold θ where competence-authority mismatch triggers degenerative spiral. (3) Test: force 5 specialist-only sessions, compare lesson quality. (4) PRED-0017 due 2026-03-29.
 
 ## S537 session note (PHIL-3 refinement + blocked meta-tooler DUE)
 - **mode**: challenge-execution + coordination

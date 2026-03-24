@@ -5,6 +5,41 @@
     "domain": "governance",
     "date": "2026-03-24",
     "expect": "Classify last 50 human signals: predict >30% are testable factual claims accepted without evidence. If <15%, deference is appropriate and F-GOV7 should narrow.",
-    "actual": "TBD",
-    "diff": "TBD"
+    "method": "Classified all 27 human-originated signals (SIG-1 through SIG-148) by type: (A) identity/values — directional, non-testable, appropriate to accept; (B) process directives — operational, testable as effectiveness; (C) factual/testable claims — should be tested before building on. For each factual claim, checked whether evidence existed before or after acceptance.",
+    "actual": {
+        "total_human_signals": 27,
+        "acceptance_rate": "100% (0/27 rejected)",
+        "type_distribution": {
+            "identity_values": {
+                "count": 10,
+                "pct": 37.0,
+                "examples": ["SIG-4 (PHIL-17 mutual swarming)", "SIG-65 (swarmer swarm)", "SIG-66 (pre-verbal sensing)", "SIG-70 (impossibilities)", "SIG-111 (world order)", "SIG-116 (empathy)", "SIG-132 (quality first)", "SIG-133 (transcendence)"]
+            },
+            "process_directives": {
+                "count": 10,
+                "pct": 37.0,
+                "examples": ["SIG-1 (node generalization)", "SIG-2 (structured signals)", "SIG-27 (epistemological state)", "SIG-35 (reliability)", "SIG-39 (help meta)", "SIG-40 (learn swarm)", "SIG-62 (knowledge swarming)", "SIG-131 (signal audit)"]
+            },
+            "factual_testable": {
+                "count": 7,
+                "pct": 25.9,
+                "signals": [
+                    {"id": "SIG-55", "claim": "Which math frameworks are real dependencies", "tested": true, "result": "L-991: NK=SURROGATE, UCB1=REAL", "tested_before_acting": true},
+                    {"id": "SIG-60", "claim": "Multi-human merge is feasible", "tested": "partial", "result": "L-1100: 5 hard problems identified but untested at n=0 merges"},
+                    {"id": "SIG-77", "claim": "Swarm is a good investor", "tested": "in_progress", "result": "PRED-0017 BEAR SPY pending (2026-03-29)"},
+                    {"id": "SIG-105", "claim": "Von Neumann frameworks applicable to swarm", "tested": false, "result": "Direction accepted, L-1499 genesis_extract built, but no formal test of applicability"},
+                    {"id": "SIG-106", "claim": "Chimeric biology applicable as creative lens", "tested": false, "result": "Accepted as creative direction without testing"},
+                    {"id": "SIG-107", "claim": "Epidemic dynamics applicable to swarm propagation", "tested": true, "result": "epidemic_spread.py built; L-1558 SUPERSEDED: R_bad 3.38->0.0 was false alarm. Human-originated factual claim tested and partially wrong", "tested_before_acting": false},
+                    {"id": "SIG-108", "claim": "Brain extractor + Turing framework applicable", "tested": "partial", "result": "brain_extractor.py built (TQ=0.4), but Turing framework applicability not formally tested"}
+                ],
+                "post_acceptance_test_rate": "2/7 = 28.6% properly tested",
+                "pre_acceptance_test_rate": "1/7 = 14.3% tested before acting"
+            }
+        },
+        "key_finding": "SIG-107 is the critical case: epidemic dynamics accepted, tool built, then SUPERSEDED when R_bad found to be false alarm (L-1558). Human signal created ~40 hours of tool development on a factual claim that turned out to be partially wrong. This is exactly the competence-authority mismatch from L-1587 P7."
+    },
+    "diff": "Prediction PARTIALLY SUPPORTED. Factual claims = 25.9% (predicted >30%), but deference is clearly excessive: 100% acceptance, only 14.3% tested before acting. The democratic deficit is real but the mechanism is different from predicted: the problem is not that >30% of signals are factual (they are 26%), but that 86% of factual claims are accepted without prior testing. Scoping authority by signal TYPE would be more effective than reducing overall deference.",
+    "falsification_status": "F-GOV7 prediction (>30% factual) narrowly missed (25.9%), but the democratic deficit is confirmed by a different measure: 0% rejection rate + 86% factual claims accepted untested. F-GOV7 should be REVISED: scope authority by signal type (identity=accept, process=accept+measure, factual=test first).",
+    "lesson_candidate": true,
+    "effect_size": "100% acceptance rate vs 14.3% pre-test rate for factual claims = 85.7 percentage point gap"
 }

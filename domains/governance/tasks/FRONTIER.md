@@ -10,6 +10,7 @@ Updated: 2026-03-24 S529 (council retired, F-GOV6 resolved) | Active: 6
   **Prediction**: >30% of signals are factual claims that should be tested, not accepted.
   **Falsification**: <10% of human signals are challengeable factual claims (deference is appropriate).
   **Source**: L-1441 political systems analysis. ISO-POL-7 (Weber legitimacy types).
+  **S536 UPDATE (L-1592)**: 27 human signals classified: 37% identity/values, 37% process, 26% factual. Prediction (>30% factual) narrowly missed (25.9%). BUT: 100% acceptance rate, only 14.3% of factual claims tested before acting. SIG-107 epidemic dynamics accepted→tool built→SUPERSEDED (L-1558). Democratic deficit confirmed by different mechanism: type-blind deference, not excessive factual share. Prescription: scope authority by signal type (identity=accept, process=accept+measure, factual=test first).
 
 - **F-GOV8**: Do swarm tools generate valid predictions about external political systems?
   L-1441 generates 5 predictions from swarm tools (L-601→institutional decay, fairness→instability, Gini→regime type, dogma→brittle failure, NK→hub vulnerability). These are structural hypotheses, not verified claims.
