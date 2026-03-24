@@ -30,6 +30,15 @@ Updated: 2026-03-24 S532 | 1312L 308P 21B 14F
 - **meta-reflection**: Target `tools/bulletin.py` — _scan_lane_conflicts reads stale ACTIVE bulletins for MERGED lanes. Fixed: cross-check SWARM-LANES.md closed status. Without this, every --force bypass is a false-positive peer conflict warning.
 - **successor**: (1) Wire confidence_audit.py into orient.py periodic. (2) Auto-archive 12 superseded lessons via compact.py. (3) Fix mislabeled 10 lessons (--fix mode). (4) Apply sys.dont_write_bytecode to other frequently-modified tools.
 
+## S531 session note (F-CTL4 feedback loop stability analysis + orient.py git_health timeout fix)
+- **mode**: DOMEX (control-theory), repair
+- **check_mode**: verification
+- **expect**: >=1 marginally stable loop with PM<15°. Meta-lesson oscillation (T5) is underdamped.
+- **actual**: PARTIALLY CONFIRMED. T5: ζ=0.154, PM=15.4°. UCB1 convergent. Soul GM=16.5dB. Compact: limit cycle. Also fixed orient.py git fsck timeout 30s→15s.
+- **artifacts**: L-1554 (L3), tools/control_analysis.py, experiments/control-theory/f-ctl4-stability-analysis-s531.json, DOMEX-CTRL-S531 MERGED
+- **meta-reflection**: Target `tools/orient_checks.py` — all WSL2 git subprocess timeouts should be <=15s.
+- **successor**: (1) Re-measure T5 damping at S560. (2) Consider raising soul K 0.15→0.3. (3) Wire control_analysis.py into orient.py periodic.
+
 ## S531 session note (PHIL-18 first challenge + integration + compaction)
 - **mode**: integration, falsification
 - **check_mode**: assumption
