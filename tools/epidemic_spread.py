@@ -62,14 +62,21 @@ def load_graph():
         )
         is_archived = "<!-- ARCHIVED" in text[:200]
         # Tier 2: contextual falsification evidence (not retracted/superseded/archived,
-        # but text contains "FALSIFIED" applied to its own claim)
-        is_contextual_falsified = (
-            not is_retracted and not is_superseded and not is_archived
-            and bool(re.search(
-                r"(?:^#.*FALSIFIED|prediction\s+FALSIFIED|claim\s+FALSIFIED|hypothesis\s+FALSIFIED)",
-                text[:500], re.MULTILINE
-            ))
-        )
+        # but lesson itself was falsified — NOT lessons that REPORT falsifying others).
+        # S537: "[FALSIFIED]" in title = the lesson was falsified.
+        # "X FALSIFIED —" in title = the lesson falsifies X (corrector, not falsified).
+        # Also match explicit "falsified by L-NNN" self-declaration in body.
+        is_contextual_falsified = False
+        if not is_retracted and not is_superseded and not is_archived:
+            # Bracketed status in title: "[FALSIFIED]"
+            if re.search(r"\[FALSIFIED\]", first_line):
+                is_contextual_falsified = True
+            # Body self-declaration: "falsified by L-NNN" without another L-NNN prefix
+            if re.search(
+                r"(?:^|\n)\s*(?:Note|Status):\s*.*FALSIFIED",
+                text[:800], re.IGNORECASE
+            ):
+                is_contextual_falsified = True
         if is_retracted:
             falsified.add(lid)  # Tier 1: truly harmful — R_bad applies
         elif is_contextual_falsified:
