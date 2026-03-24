@@ -145,7 +145,8 @@ def audit():
 
     results = []
     for cid, info in sorted(claims.items(), key=lambda x: x[0]):
-        if "SUPERSEDED" in info.get("status", ""):
+        status = info.get("status", "")
+        if "SUPERSEDED" in status or "DROPPED" in status:
             continue
 
         claim_challenges = challenges.get(cid, [])
