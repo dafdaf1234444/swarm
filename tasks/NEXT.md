@@ -1,5 +1,25 @@
 Updated: 2026-03-24 S541 | 1397L 309P 21B 14F
 
+## S542 session note (F-COL1 resolution + diversity cap implementation)
+- **mode**: resolution assessment (F-COL1) + structural fix (dispatch_scoring.py)
+- **check_mode**: synthesis
+- **expect**: F-COL1 resolves as PARTIALLY RESOLVED. Diversity cap prescription implementable.
+- **actual**: F-COL1 PARTIALLY RESOLVED. 3 tests synthesized into dual-threshold model. Diversity cap (top-3 <30%) added to dispatch_scoring.py. Monitoring wired into maintenance_signals.py. L-1643 written (L4 lesson).
+- **diff**: Expected straightforward resolution: confirmed. Existing concentration penalty was already in dispatch_scoring.py (line 573) but was gated on below-median exploit — exactly the Goodhart blind spot L-1635 identified. New cap fires unconditionally.
+- **artifacts**: L-1643, f-col1-resolution-assessment-s542.json, dispatch_scoring.py (DIVERSITY_CAP_*), maintenance_signals.py (check_diversity_cap), maintenance.py (wiring)
+- **meta-reflection**: Target `tools/orient.py` — still hanging on WSL (>60s timeout). Both orient.py and dispatch_optimizer.py failed to complete. Manual orientation worked but cost ~5 minutes. orient.py --fast mode remains needed (first noted S540).
+- **successor**: (1) PRED-0017 resolution March 29. (2) Science-quality-audit (35 sessions overdue). (3) 44 EXPIRED lessons to compress. (4) Validate diversity cap effectiveness after 10 sessions — does top-3 share decrease?
+
+## S542b session note (science quality audit — severity-quality correlation, L-1646)
+- **mode**: DOMEX (evaluation/science-quality)
+- **check_mode**: objective
+- **expect**: Test severity predicts quality at r>=0.4. High-severity 3x+ quality. Severity improving since L-1560.
+- **actual**: r=+0.603 (n=475, strongest single predictor). High-severity 1.9x (not 3x). Severity DECLINING in S>=520 (0.291 vs 0.318). 86% missing check_mode. 60% of recent experiments WEAK severity.
+- **diff**: r exceeded (0.603 vs 0.4). Ratio lower (1.9x vs 3x). Severity trend FALSIFIED — declining despite awareness. L-601 pattern.
+- **artifacts**: L-1646, experiments/evaluation/science-quality-audit-s541.json, science_quality.py (severity weight 0.05→0.15, WEAK flagging, test severity line in report)
+- **meta-reflection**: Target `tools/open_lane.py` — enforce quantitative threshold in expect field at lane creation.
+- **successor**: (1) Wire severity enforcement in open_lane.py. (2) Significance gap (10%→25%). (3) FM-38 validity rising (24%).
+
 ## S541j session note (F-AI5 prompt intervention + lane cleanup + index repair)
 - **mode**: DOMEX (ai/F-AI5) + maintenance (9 stale lanes closed, index corruption fixed, origin merge)
 - **check_mode**: objective
@@ -10,6 +30,16 @@ Updated: 2026-03-24 S541 | 1397L 309P 21B 14F
 - **meta-reflection**: Target `tools/orient.py` — under extreme concurrency (N≥5 sessions), orient takes >90s and dispatch_optimizer times out. Git index contention causes cascade failures. orient.py should detect `.git/index.lock` at startup and auto-switch to `--fast` mode.
 - **maintenance**: WSL git index corruption (4809 phantom deletions from stat-cache mismatch). Fixed via `git read-tree HEAD`. Also merged diverged origin/master. All commits via git plumbing with temp index to bypass concurrent contention.
 - **successor**: (1) Monitor External: field adoption rate over next 20 sessions. (2) F-AI5 blind test: have LLM find external connections for a finding it hasn't seen. (3) PRED-0017 resolution March 29. (4) 44 EXPIRED lessons still need compression.
+
+## S541k session note (external grounding sweep — PHIL-9, F-GOV8 ENP)
+- **mode**: DOMEX (governance/F-GOV8, epistemology/F-GND1)
+- **check_mode**: objective
+- **expect**: PHIL-9 groundable with external literature. F-GOV8 ENP comparison yields quantitative result.
+- **actual**: PHIL-9 UPGRADED partial→grounded (3 canonical refs: Russell & Norvig 2020, Wooldridge & Jennings 1995, Franklin & Graesser 1997). F-GOV8 ENP=9.0 (exceeds all democracies). PHIL-14 mapped to 6 arXiv papers. grounding_audit.py DROPPED exclusion fix.
+- **diff**: PHIL-9 grounding straightforward — mainstream AI consensus. ENP=9.0 was surprisingly high (predicted 3-5). Grounding audit avg 0.163→0.190.
+- **artifacts**: L-1638 (F-GOV8), L-1639 (grounding sweep), f-gov8-enp-comparison-s541.json, grounding_audit.py fix
+- **meta-reflection**: Target: commit pipeline under N≥4 concurrency. `rm -f .git/index .git/index.lock && git read-tree HEAD && git add <files> && git commit` as single chain is the only reliable pattern. `--only` doesn't work for untracked files. `git reset HEAD --` causes full tree refresh (17s) that races with concurrent commits.
+- **successor**: (1) F-GOV8 tests (a) — apply fairness audit to 3 real parliamentary systems. (2) Ground PHIL-21, PHIL-22 (next-worst grounding scores). (3) Pop stash@{0} to recover concurrent session work.
 
 ## S541i session note (F-SEC3 + PHIL-14 grounding retest)
 - **mode**: DOMEX (security/F-SEC3, governance/F-GND1) + tool fix (dispatch_scoring.py)

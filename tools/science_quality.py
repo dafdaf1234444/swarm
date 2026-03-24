@@ -31,11 +31,50 @@ LANES_FILE = REPO_ROOT / "tasks" / "SWARM-LANES.md"
 LANES_ARCHIVE = REPO_ROOT / "tasks" / "SWARM-LANES-ARCHIVE.md"
 LESSONS_DIR = REPO_ROOT / "memory" / "lessons"
 
+try:
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from swarm_io import session_number as _shared_session_number
+except ImportError:
+    _shared_session_number = None
+
 
 def extract_session_number(filename: str) -> int:
     """Extract session number from filename like f-str1-hardening-sNNN.json."""
     m = re.search(r"[sS](\d+)", filename)
     return int(m.group(1)) if m else 0
+
+
+def _current_session() -> int:
+    """Resolve the current session without depending on stale NEXT headers."""
+    if _shared_session_number is not None:
+        try:
+            return int(_shared_session_number())
+        except Exception:
+            pass
+
+    session_log = REPO_ROOT / "memory" / "SESSION-LOG.md"
+    if session_log.exists():
+        matches = re.findall(r"\bS(\d+)\b", session_log.read_text(encoding="utf-8", errors="replace"))
+        if matches:
+            return int(matches[-1])
+
+    next_md = REPO_ROOT / "tasks" / "NEXT.md"
+    if next_md.exists():
+        matches = re.findall(r"\bS(\d+)\b", next_md.read_text(encoding="utf-8", errors="replace")[:500])
+        if matches:
+            return int(matches[0])
+
+    return 506
+
+
+def _artifact_path(session: int) -> Path:
+    """Canonical periodic artifact path for science-quality audits."""
+    return EXPERIMENTS_DIR / "meta" / f"science-quality-audit-s{session}.json"
+
+
+def _is_periodic_audit_artifact(path: Path) -> bool:
+    """Exclude the tool's own saved audit artifacts from future scoring runs."""
+    return bool(re.fullmatch(r"science-quality-audit-s\d+\.json", path.name))
 
 
 def score_experiment(data: dict) -> dict:
@@ -116,9 +155,9 @@ def score_experiment(data: dict) -> dict:
 
     base = sum(scores[k] for k in ("pre_registration", "control", "significance",
                                    "external_validation", "falsification")) / 5.0
-    # Add test severity as bonus (like falsification_outcome) — additive, not substitutive
+    # Add test severity as bonus — weight 0.15 reflects r=+0.603 correlation with quality (L-1646)
     scores["total"] = min(1.0, base + scores["falsification_outcome"] * 0.10
-                          + scores["test_severity"] * 0.05)
+                          + scores["test_severity"] * 0.15)
     return scores
 
 
@@ -240,33 +279,24 @@ def count_falsification_lanes(recent_sessions: int = 20) -> tuple[int, int]:
     return falsification, total
 
 
-def main():
-    parser = argparse.ArgumentParser(description="P-243: Score swarm experiment quality")
-    parser.add_argument("--recent", type=int, default=0, help="Only score experiments from last N sessions")
-    parser.add_argument("--json", action="store_true", help="JSON output")
-    args = parser.parse_args()
-
+def build_report(recent: int = 0) -> dict | None:
+    """Build the science-quality report payload."""
     if not EXPERIMENTS_DIR.exists():
-        print("ERROR: experiments/ directory not found", file=sys.stderr)
-        sys.exit(1)
+        raise FileNotFoundError("experiments/ directory not found")
 
-    # Determine current session from NEXT.md header
-    next_md = REPO_ROOT / "tasks" / "NEXT.md"
-    current_session = 506
-    if next_md.exists():
-        m = re.search(r"S(\d+)", next_md.read_text()[:200])
-        if m:
-            current_session = int(m.group(1))
+    current_session = _current_session()
 
     # Score experiment JSON files
     # Use os.scandir for WSL performance (rglob on 1000+ files takes >30s on NTFS mount)
-    min_session = max(1, current_session - args.recent) if args.recent else 0
+    min_session = max(1, current_session - recent) if recent else 0
     json_files = []
     for subdir in sorted(EXPERIMENTS_DIR.iterdir()):
         if not subdir.is_dir():
             continue
         for entry in subdir.iterdir():
             if not entry.name.endswith(".json"):
+                continue
+            if _is_periodic_audit_artifact(entry):
                 continue
             session = extract_session_number(entry.name)
             if min_session and session < min_session:
@@ -293,8 +323,7 @@ def main():
         })
 
     if not results:
-        print("No experiment artifacts found.")
-        return
+        return None
 
     # Aggregate statistics
     totals = [r["scores"]["total"] for r in results]
@@ -311,6 +340,10 @@ def main():
     n_instrument_flags = sum(1 for r in results if not r["instrument_valid"])
     flagged_experiments = [r for r in results if not r["instrument_valid"]]
     report = {
+        "session": f"S{current_session}",
+        "mode": "periodic",
+        "tool": "science_quality.py",
+        "recent_arg": recent,
         "n_experiments": len(results),
         "mean_quality": sum(totals) / len(totals),
         "median_quality": sorted(totals)[len(totals) // 2],
@@ -323,43 +356,91 @@ def main():
         "instrument_flags": n_instrument_flags,
         "instrument_flag_rate": round(n_instrument_flags / len(results), 3) if results else 0,
         "mean_test_severity": round(sum(r["scores"].get("test_severity", 0) for r in results) / len(results), 3) if results else 0,
+        "sessions_observed": sorted({r["session"] for r in results}),
         "bottom_5": sorted(results, key=lambda r: r["scores"]["total"])[:5],
         "top_5": sorted(results, key=lambda r: r["scores"]["total"], reverse=True)[:5],
+        "weak_severity_count": sum(1 for r in results if r["scores"].get("test_severity", 0) < 0.3),
+        "weak_severity_rate": round(sum(1 for r in results if r["scores"].get("test_severity", 0) < 0.3) / len(results), 3) if results else 0,
     }
+    return report
 
-    if args.json:
-        print(json.dumps(report, indent=2))
+
+def print_report(report: dict) -> None:
+    """Render the human-readable report."""
+    criteria_means = report["criteria_means"]
+    confirmed, discovered = [int(x) for x in report["confirm_discover_ratio"].split(":")]
+    skipped_no_ead = report["skipped_no_ead"]
+    falsif_lanes, total_lanes = [int(x) for x in report["falsification_lanes"].split("/")]
+    n_falsif_outcome = report["falsification_outcome_count"]
+    n_instrument_flags = report["instrument_flags"]
+    n_experiments = report["n_experiments"]
+    flagged_experiments = [r for r in report["bottom_5"] if r["instrument_flags"]]
+
+    print(f"=== SCIENCE QUALITY REPORT (P-243) ===")
+    print(f"Experiments scored: {n_experiments}")
+    print(f"Mean quality:  {report['mean_quality']:.1%}")
+    print(f"Median quality: {report['median_quality']:.1%}")
+    print()
+    print("--- Criteria breakdown ---")
+    for criterion, mean in criteria_means.items():
+        bar = "█" * int(mean * 20) + "░" * (20 - int(mean * 20))
+        status = "PASS" if mean >= 0.5 else "FAIL"
+        print(f"  {criterion:<25} {bar} {mean:.0%} [{status}]")
+    print()
+    print(f"Confirm/discover ratio:    {confirmed}:{discovered} ({confirmed/discovered:.0f}:1) [EAD-filtered, {skipped_no_ead} non-experimental skipped]")
+    print(f"Falsification lanes:       {falsif_lanes}/{total_lanes} (target: 1-in-5 = 20%)")
+    print(f"Falsified outcomes (bonus): {n_falsif_outcome}/{n_experiments} (L-900: +10% quality bonus)")
+    weak_count = report.get("weak_severity_count", 0)
+    weak_rate = report.get("weak_severity_rate", 0)
+    sev_mean = report.get("mean_test_severity", 0)
+    print(f"Test severity (Popper):    mean={sev_mean:.3f}, WEAK (<0.3): {weak_count}/{n_experiments} ({weak_rate:.0%}) [L-1646: r=+0.603]")
+    print()
+    print("--- Top 5 (best science) ---")
+    for r in report["top_5"]:
+        print(f"  {r['scores']['total']:.0%}  {r['file']}")
+    print()
+    print("--- Bottom 5 (weakest science) ---")
+    for r in report["bottom_5"]:
+        print(f"  {r['scores']['total']:.0%}  {r['file']}")
+    if flagged_experiments:
+        print()
+        print(f"--- FM-38 Instrument validity (L-1165) ---")
+        print(f"Flagged: {n_instrument_flags}/{n_experiments} ({n_instrument_flags/n_experiments:.0%})")
+        for r in flagged_experiments[:5]:
+            for flag in r["instrument_flags"]:
+                print(f"  ⚠ {r['file']}: {flag}")
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="P-243: Score swarm experiment quality")
+    parser.add_argument("--recent", type=int, default=0, help="Only score experiments from last N sessions")
+    parser.add_argument("--json", action="store_true", help="JSON output")
+    parser.add_argument("--save", action="store_true", help="Save report to experiments/meta/")
+    args = parser.parse_args(argv)
+
+    try:
+        report = build_report(recent=args.recent)
+    except FileNotFoundError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 1
+
+    if report is None:
+        print("No experiment artifacts found.")
+        return 0
+
+    output = json.dumps(report, indent=2)
+    if args.save:
+        session_num = int(report["session"][1:])
+        out_path = _artifact_path(session_num)
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(output + "\n", encoding="utf-8")
+        print(f"Artifact saved: {out_path}")
+    elif args.json:
+        print(output)
     else:
-        print(f"=== SCIENCE QUALITY REPORT (P-243) ===")
-        print(f"Experiments scored: {len(results)}")
-        print(f"Mean quality:  {report['mean_quality']:.1%}")
-        print(f"Median quality: {report['median_quality']:.1%}")
-        print()
-        print("--- Criteria breakdown ---")
-        for criterion, mean in criteria_means.items():
-            bar = "█" * int(mean * 20) + "░" * (20 - int(mean * 20))
-            status = "PASS" if mean >= 0.5 else "FAIL"
-            print(f"  {criterion:<25} {bar} {mean:.0%} [{status}]")
-        print()
-        print(f"Confirm/discover ratio:    {confirmed}:{discovered} ({confirmed/discovered:.0f}:1) [EAD-filtered, {skipped_no_ead} non-experimental skipped]")
-        print(f"Falsification lanes:       {falsif_lanes}/{total_lanes} (target: 1-in-5 = 20%)")
-        print(f"Falsified outcomes (bonus): {n_falsif_outcome}/{len(results)} (L-900: +10% quality bonus)")
-        print()
-        print("--- Top 5 (best science) ---")
-        for r in report["top_5"]:
-            print(f"  {r['scores']['total']:.0%}  {r['file']}")
-        print()
-        print("--- Bottom 5 (weakest science) ---")
-        for r in report["bottom_5"]:
-            print(f"  {r['scores']['total']:.0%}  {r['file']}")
-        if flagged_experiments:
-            print()
-            print(f"--- FM-38 Instrument validity (L-1165) ---")
-            print(f"Flagged: {n_instrument_flags}/{len(results)} ({n_instrument_flags/len(results):.0%})")
-            for r in flagged_experiments[:5]:
-                for flag in r["instrument_flags"]:
-                    print(f"  ⚠ {r['file']}: {flag}")
+        print_report(report)
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

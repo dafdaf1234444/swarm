@@ -1,0 +1,43 @@
+{
+  "id": "science-quality-audit-s541",
+  "session": "S541",
+  "date": "2026-03-24",
+  "domain": "evaluation",
+  "frontier": "F-EVAL1",
+  "type": "audit",
+  "check_mode": "objective",
+  "level": "L3",
+  "expect": "Test severity (Popper demarcation) predicts experiment quality with r>=0.4. High-severity experiments (>=0.5) have 3x+ higher quality scores. Severity trend improving since L-1560 (S531). FM-38 rate correlates with low severity.",
+  "actual": "r(severity, quality) = +0.603 (n=475, strong). High-severity mean quality 0.452 vs low-severity 0.239 (1.9x ratio, not 3x). Severity trend DECLINING: S>=520 mean=0.291 vs S<520 mean=0.318 despite L-1560 awareness. 86% of experiments have no check_mode field. Full corpus: mean quality 36.6%, significance 10%, pre-registration 39%, falsification lanes 95/1600 (5.9% vs 20% target).",
+  "diff": "Predicted r>=0.4: got +0.603 (CONFIRMED, stronger than expected). Predicted 3x ratio: got 1.9x (PARTIALLY CONFIRMED, direction correct). Predicted severity improving: FALSIFIED — severity is declining in recent sessions. Root cause: L-1560 diagnosed the gap but created no structural enforcement (L-601 pattern). check_mode field absent in 86% means mode enforcement is voluntary → decays.",
+  "prescriptions": [
+    "P-SQ1: open_lane.py should require check_mode in experiment JSON (structural enforcement, not advisory)",
+    "P-SQ2: science_quality.py should flag experiments with severity < 0.3 as WEAK (visibility pressure)",
+    "P-SQ3: target significance criterion improvement from 10% to 25% by S560 (add effect size template to experiment JSON schema)"
+  ],
+  "metrics": {
+    "n_experiments": 475,
+    "r_severity_quality": 0.603,
+    "high_severity_n": 96,
+    "low_severity_n": 379,
+    "quality_ratio_high_vs_low": 1.9,
+    "mean_quality_full_corpus": 0.366,
+    "mean_quality_recent_20": 0.43,
+    "mean_test_severity": 0.118,
+    "severity_trend_old": 0.318,
+    "severity_trend_recent": 0.291,
+    "check_mode_missing_pct": 86,
+    "significance_rate": 0.10,
+    "falsification_lane_rate": 0.059,
+    "fm38_flag_rate": 0.199,
+    "pre_registration_rate": 0.39
+  },
+  "lessons_learned": [
+    "L-1560 diagnosed Popper demarcation gap but created no enforcement → severity declined (L-601 pattern)",
+    "Severity-quality correlation r=0.603 is the strongest single predictor of experiment quality in the corpus",
+    "86% missing check_mode means mode-based routing (falsification lanes) has no experiment-level anchor",
+    "Recent quality improvement (43% vs 36.6% full corpus) comes from better controls, not better severity"
+  ],
+  "falsification_conditions": "Falsified if r(severity, quality) < 0.3 on independent sample, or if severity enforcement produces no quality improvement within 20 sessions",
+  "cites": ["L-1560", "L-1597", "L-601", "L-900", "L-1164", "L-1165"]
+}
