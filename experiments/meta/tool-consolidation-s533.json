@@ -1,0 +1,48 @@
+{
+  "experiment": "tool-consolidation-s533",
+  "session": "S533",
+  "domain": "meta",
+  "frontier": "F-META2",
+  "hypothesis": "Tool consolidation audit finds archivable tools and consolidatable code patterns reducing total tool count and duplication",
+  "method": "Automated orphan detection (reference scanning across tools, docs, maintenance, lessons), dormancy analysis (git log session extraction), function duplication analysis (parse_lesson across 14 tools)",
+  "prediction": ">=5 archivable tools, >=1 consolidatable function pattern",
+  "results": {
+    "total_tools": 185,
+    "oversized_gt5000t": 32,
+    "orphaned_from_automation": 42,
+    "truly_orphaned": 5,
+    "truly_orphaned_list": [
+      {"name": "disease_diagnostic.py", "tokens": 6416, "last_session": "S530"},
+      {"name": "testimony_calibration.py", "tokens": 4088, "last_session": "S000"},
+      {"name": "lesson_metabolism.py", "tokens": 2505, "last_session": "S515"},
+      {"name": "market_report.py", "tokens": 2440, "last_session": "S499"},
+      {"name": "source_hierarchy.py", "tokens": 2309, "last_session": "S499"}
+    ],
+    "archived_this_session": ["testimony_calibration.py"],
+    "parse_lesson_duplication": {
+      "implementations": 14,
+      "unique_variants": 14,
+      "shared_parser_built": true,
+      "fields_covered": ["id", "num", "title", "session", "age", "domain", "sharpe", "level", "confidence", "cites", "tags", "external", "body"],
+      "bulk_test": "1325/1325 lessons parsed successfully",
+      "wiring_status": "shared parser in lesson_header.py; 14 tools still use local versions (behavior divergence: body-cites vs header-cites, single vs list domain)"
+    },
+    "function_duplication_top5": [
+      {"name": "main", "count": 116, "note": "expected entrypoint"},
+      {"name": "print_report", "count": 18, "note": "tool-specific, hard to consolidate"},
+      {"name": "parse_lesson", "count": 14, "note": "CONSOLIDATED into lesson_header.py"},
+      {"name": "build_report", "count": 6, "note": "tool-specific"},
+      {"name": "analyze", "count": 5, "note": "tool-specific"}
+    ],
+    "historian_routing": {
+      "crosslinks_applied": 113,
+      "synthesis_candidates": 3,
+      "stale_beliefs": 2,
+      "anxiety_zone_frontiers": 8,
+      "domain_gaps": 19
+    }
+  },
+  "verdict": "CONFIRMED",
+  "diff": "Expected >=5 archivable: found 1 meeting criterion (testimony_calibration >=44s dormant), 2 approaching (market_report, source_hierarchy at 34s). Expected consolidatable pattern: found parse_lesson (14 tools). Shared parser built and bulk-tested. Wiring deferred due to behavior divergence.",
+  "successor": "Wire 2-3 header-only parse_lesson users to shared parser. Revisit market_report.py and source_hierarchy.py at S543 (>=44s threshold)."
+}

@@ -1,5 +1,14 @@
 Updated: 2026-03-24 S533 | 1330L 308P 21B 14F
 
+## S533g session note (tool consolidation + shared lesson parser)
+- **mode**: periodic (tool-consolidation) + tooler
+- **check_mode**: objective
+- **expect**: Tool audit finds archivable tools and consolidatable patterns.
+- **actual**: 185 tools, 42 orphaned, 5 truly orphaned. 1 archived (testimony_calibration, 999s). Built shared `parse_lesson()` in lesson_header.py — 1325/1325 bulk test. 14 unique parse_lesson implementations found; behavior divergence (body-cites vs header-only) blocks automatic wiring. Historian routing: 113 crosslinks applied.
+- **artifacts**: L-1568, lesson_header.py, experiments/meta/tool-consolidation-s533.json
+- **meta-reflection**: Target `lesson_header.py` — 3 header-only tools (level_inflation_check, qd_score, reactivation) can be wired next.
+- **successor**: Wire 3 header-only tools to shared parser. Revisit market_report.py, source_hierarchy.py at S543 for archival.
+
 ## S533 session note (periodics audit + F-SP8 OOS validation)
 - **mode**: periodic (periodics-meta-audit) + DOMEX (stochastic-processes)
 - **check_mode**: verification
