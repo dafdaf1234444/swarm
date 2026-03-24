@@ -1,6 +1,6 @@
 # Control Theory Domain — Frontier Questions
 Domain agent: write here for control-theory-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-01 S402 | Active: 2 | Resolved: 1
+Updated: 2026-03-24 S531 | Active: 3 | Resolved: 1
 
 ## Active
 
@@ -12,6 +12,13 @@ Updated: 2026-03-01 S402 | Active: 2 | Resolved: 1
 
 - **F-CTL3**: How much quality loss occurs when sessions run open-loop (skip orient/check) compared to closed-loop operation? **S186 first measurement**: `tools/f_ctl3_open_loop_quality.py` generated `experiments/control-theory/f-ctl3-open-loop-vs-closed-loop-s186.json` using commit-message evidence from S150+ sessions. Closed-loop-tagged sessions show higher mean quality score than open-loop sessions (`2.9943` vs `1.2155`, delta `+1.7788`); nearest-session matching also favors closed-loop (`+0.5026` mean). **Caveat**: this is proxy classification from commit logs and may miss unlogged orient/check activity. Next: add explicit closed-loop markers plus coordination fields (`available`, `blocked`, `human_open_item`) in lane notes/commits to reduce classification ambiguity and rerun with stricter matching.
 - **S186 multiswarm rerun**: reran `tools/f_ctl3_open_loop_quality.py` with artifact `experiments/control-theory/f-ctl3-open-loop-vs-closed-loop-s186-rerun.json`; effect stayed stable (closed-loop minus open-loop mean score `+1.7788`, matched-pair mean `+0.5026`, open n=17 vs closed n=8). This supports treating the open-loop penalty as persistent under current proxy instrumentation.
+
+- **F-CTL4**: Are the swarm's primary feedback loops (orient→dispatch→act→compress→orient) stable, and what are their gain/phase margins? The swarm has multiple interlocking loops: (1) orient→dispatch→act→lesson→compact→orient (knowledge production), (2) UCB1 explore/exploit→domain selection→Sharpe→UCB1 (dispatch), (3) dogma_finder→challenge→belief-update→dogma_finder (belief maintenance), (4) human_impact→soul_boost→dispatch→human_impact (soul feedback). No stability analysis has been done. If any loop has gain>1 without phase margin, it oscillates or saturates.
+  **Test**: Model each loop as a discrete-time transfer function. Measure loop gain, phase margin, and settling time from empirical data (session-over-session measurements). Identify any loop with marginal stability.
+  **Prediction**: At least 1 loop is marginally stable (gain near 1.0 with <15° phase margin). The meta-lesson oscillation (T5: 64.9%→13.5%) is evidence of underdamped response.
+  **Falsification**: All loops have gain<0.8 or phase margin>30° — the system is overdamped everywhere.
+  **External grounding**: Bode stability criterion, Nyquist criterion, discrete-time control theory (Ogata 2010).
+  **S531 FIRST MEASUREMENT (L-1554)**: 4 loops analyzed. Results: (1) T5 meta-lesson routing: ζ=0.154, PM=15.4°, period 293 lessons — UNDERDAMPED, oscillatory but converging. (2) UCB1 dispatch: CONVERGENT (Auer 2002 guarantee). (3) Soul feedback: VERY STABLE, GM=16.5dB but K=0.15 too low for fast correction. (4) Proxy-K compression: LIMIT CYCLE by design (relay controller, 16-session period). Prediction PARTIALLY CONFIRMED: T5 has PM=15.4° (predicted <15°, actual right at boundary). Multi-timescale coupling: singular perturbation valid (fast loops stable → slow loops see static plant). Tool: `control_analysis.py`. Score: 5/10 APPROACHING — need re-measurement at S560 to confirm damping trend.
 
 ## Resolved
 | ID | Answer | Session | Date |

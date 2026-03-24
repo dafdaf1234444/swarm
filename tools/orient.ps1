@@ -18,7 +18,7 @@ $orientPy = Join-Path $PSScriptRoot "orient.py"
 Show-PwshGitRecoveryNotice -RepoRoot $repoRoot
 
 if (Get-Command bash -ErrorAction SilentlyContinue) {
-    exit (Invoke-BashPythonTool -RepoRoot $repoRoot -ToolPath "tools/orient.py" -Args $Args)
+    exit (Invoke-BashPythonTool -RepoRoot $repoRoot -ToolPath "tools/orient.py" -ToolArgs $Args)
 }
 
 $pythonCmd = $null

@@ -130,11 +130,35 @@ function Show-PwshGitRecoveryNotice {
     }
 }
 
+function Invoke-NativeCapturePassthrough {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$FilePath,
+        [string[]]$CommandArgs = @()
+    )
+
+    $output = @(& $FilePath @CommandArgs 2>&1)
+    $exitCode = $LASTEXITCODE
+    foreach ($line in $output) {
+        $text = if ($line -is [System.Management.Automation.ErrorRecord]) {
+            $line.ToString()
+        } else {
+            "$line"
+        }
+        [Console]::Out.WriteLine($text)
+    }
+
+    return [pscustomobject]@{
+        ExitCode = if ($null -eq $exitCode) { 0 } else { [int]$exitCode }
+        Output = ($output | Out-String)
+    }
+}
+
 function Invoke-BashPythonTool {
     param(
         [string]$RepoRoot,
         [string]$ToolPath,
-        [string[]]$Args
+        [string[]]$ToolArgs
     )
 
     $bashRoot = Convert-ToBashPath $RepoRoot
@@ -145,10 +169,13 @@ function Invoke-BashPythonTool {
         (Quote-BashArg ($ToolPath -replace "\\", "/"))
     )
 
-    foreach ($arg in @($Args)) {
+    foreach ($arg in @($ToolArgs)) {
+        if ($null -eq $arg -or $arg -eq "") {
+            continue
+        }
         $commandParts += Quote-BashArg $arg
     }
 
-    & bash -lc ($commandParts -join " ")
-    return $LASTEXITCODE
+    $result = Invoke-NativeCapturePassthrough -FilePath "bash" -CommandArgs @("-lc", ($commandParts -join " "))
+    return $result.ExitCode
 }

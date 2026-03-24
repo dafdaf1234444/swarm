@@ -6,7 +6,7 @@ This repo uses a multi-session protocol. Read `SWARM.md` for the full protocol.
 ## Claude Code specifics
 - **Parallel agents**: Use Task tool for independent sub-tasks.
 - **Spawn**: Task tool IS the spawn mechanism. Sub-agents receive `beliefs/CORE.md` + `memory/INDEX.md` + their task.
-- **Signaling**: Use `python3 tools/swarm_signal.py post <type> <content>` for structured signals. Also update `tasks/NEXT.md`, `tasks/SWARM-LANES.md`, or inter-swarm bulletins as appropriate. See `memory/NODES.md` for the participant model.
+- **Swarm signaling**: Use `python3 tools/swarm_signal.py post <type> <content>` for structured signals. Also update `tasks/NEXT.md`, `tasks/SWARM-LANES.md`, or inter-swarm bulletins as appropriate. See `memory/NODES.md` for the participant model.
 - **Hooks**: Install with `bash tools/install-hooks.sh` (pre-commit runs `bash tools/check.sh --quick`; commit-msg enforces `[S<N>] what: why`). See `.claude/settings.json`.
 - **Soft-claim protocol**: Use `python3 tools/claim.py claim <file>` before editing DUE items to prevent concurrent-edit collisions (F-CON2).
 - **Contract validation**: Run `python3 tools/contract_check.py` to validate self-model integrity (F-META8). Wired into check.sh pre-commit.
@@ -20,7 +20,7 @@ This repo uses a multi-session protocol. Read `SWARM.md` for the full protocol.
   - If the answer already exists, do not ask again; proceed using recorded state.
   - New questions: post via `python3 tools/swarm_signal.py post question "..." --target human`.
 
-## Minimum Cycle
+## Minimum Swarmed Cycle
 - **PowerShell host fallback**: if `python3`/`python`/`py -3` are unavailable in the active shell, use `pwsh -NoProfile -File tools/orient.ps1`, `tools/task_order.ps1`, `tools/question_gen.ps1`, `tools/dispatch_optimizer.ps1`, `tools/check.ps1 --quick`, and `tools/maintenance.ps1 --inventory`.
 - **Orient first**: `python3 tools/orient.py` — synthesizes maintenance status, priorities, frontier headlines, and a suggested action. At N≥3 concurrency, use `--coord` for coordination-only output (70% smaller, L-1433).
 - **Task order**: `python3 tools/task_order.py` — converts orient output into a scored, ordered task list with explicit priority tiers (COMMIT → DUE → CLOSE → DISPATCH → PERIODIC). Re-run after each task to re-rank.

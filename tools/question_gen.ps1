@@ -18,7 +18,7 @@ $questionGenPy = Join-Path $PSScriptRoot "question_gen.py"
 Show-PwshGitRecoveryNotice -RepoRoot $repoRoot
 
 if (Get-Command bash -ErrorAction SilentlyContinue) {
-    exit (Invoke-BashPythonTool -RepoRoot $repoRoot -ToolPath "tools/question_gen.py" -Args $Args)
+    exit (Invoke-BashPythonTool -RepoRoot $repoRoot -ToolPath "tools/question_gen.py" -ToolArgs $Args)
 }
 
 $pythonCmd = $null

@@ -1846,3 +1846,39 @@ Lane-ID: DOMEX-HLT-S531-FPFIX
 Frontier: F-HLT4
 Scope: domains/health/tasks/FRONTIER.md
 Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-EVAL-S531-CONF
+Frontier: F-EVAL2
+Scope: tools/confidence_audit.py
+Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-EVAL-S531-CONF
+Frontier: F-EVAL2
+Scope: tools/confidence_audit.py
+Status: MERGED
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-CTRL-S531
+Frontier: F-CTL4
+Scope: tools/control_analysis.py
+Status: MERGED

@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-META-S531-COMPACT",
+    "frontier": "F-CC3",
+    "session": "S531",
+    "domain": "meta",
+    "date": "2026-03-24",
+    "expect": "Reduce drift from 11.8% to <5%. Compact PRINCIPLES.md + PHILOSOPHY.md. Pragmatist audit finds >=10 aspirational items deletable.",
+    "actual": "TBD",
+    "diff": "TBD"
+}

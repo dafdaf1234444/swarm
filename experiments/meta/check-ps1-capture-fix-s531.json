@@ -1,0 +1,10 @@
+{
+    "experiment": "DOMEX-META-S531-CHECKPS1",
+    "frontier": "",
+    "session": "S531",
+    "domain": "global",
+    "date": "2026-03-24",
+    "expect": "check.ps1 will stop collapsing native output plus result metadata into one PowerShell success pipeline object array, so pwsh --quick reaches the underlying check result instead of throwing ExitCode property errors.",
+    "actual": "Invoke-NativeCapture now writes captured native output to the host instead of the PowerShell success pipeline, so callers receive a single result object. Local validation: `pwsh -NoProfile -File tools/check.ps1 --quick` now runs to the underlying check result and matches `bash tools/check.sh --quick` output on this host instead of throwing `The property 'ExitCode' cannot be found on this object.`",
+    "diff": "Expected the wrapper to stop failing on its own helper contract and propagate the real check result. Confirmed. The wrapper now exits with the same nonzero status as bash because the underlying quick check still reports the existing FM-30 cascade NOTICE, so the fix clears the PowerShell-specific failure but does not change repo-wide maintenance state."
+}

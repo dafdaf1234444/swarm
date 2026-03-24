@@ -39,7 +39,7 @@ LANE_ABBREV_TO_DOMAIN: dict[str, str] = {
     "INFOFLOW": "information-science", "INFRA": "meta", "GEN": "meta",
     "DREAM": "dream", "BRAIN": "brain", "ECON": "economy", "ECONOMY": "economy",
     "EMPATHY": "empathy", "EVOLUTION": "evolution", "EXPERT": "expert-swarm",
-    "AGENT": "meta", "CT": "meta", "CTL": "control-theory",
+    "AGENT": "meta", "CT": "meta", "CTL": "control-theory", "CTRL": "control-theory",
     "CC": "cryptocurrency", "CRY": "cryptography", "CRYPTO": "cryptocurrency",
     "CRYPTOGRAPHY": "cryptography",
     "THERMO": "thermodynamics", "FLT": "filtering", "FORE": "forecasting",

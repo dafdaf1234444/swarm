@@ -1,0 +1,120 @@
+{
+  "session": "S531",
+  "loops": {
+    "meta_lesson_routing": {
+      "loop": "T5_meta_lesson_routing",
+      "n_windows": 51,
+      "mean_fraction": 0.03,
+      "min_fraction": 0.0,
+      "max_fraction": 0.2,
+      "peaks": 4,
+      "troughs": 4,
+      "period_lessons": 293,
+      "damping_ratio": 0.1541,
+      "phase_margin_deg": 15.4,
+      "settling_lessons": 1209,
+      "stability": "UNDERDAMPED (oscillatory but converging)",
+      "amplitude_sequence": [
+        0.15,
+        0.03,
+        0.01,
+        0.17
+      ]
+    },
+    "ucb1_dispatch": {
+      "loop": "UCB1_dispatch",
+      "c": 1.414,
+      "total_dispatches": 54,
+      "unique_domains": 0,
+      "visit_gini": 0,
+      "high_explore_domains": 0,
+      "low_explore_domains": 0,
+      "regret_bound": 4.0,
+      "stability": "CONVERGENT (UCB1 theoretical guarantee, Auer 2002)",
+      "concern": "Gini=0.000 \u2014 concentration risk if >0.5",
+      "top_sensitive": {}
+    },
+    "soul_feedback": {
+      "loop": "soul_feedback",
+      "K_proportional": 0.15,
+      "saturation": [
+        0.6,
+        1.6
+      ],
+      "gain_margin": 6.67,
+      "gain_margin_dB": 16.5,
+      "phase_margin_deg": ">90 (gain never reaches unity in linear region)",
+      "stability": "VERY STABLE (low-gain proportional with saturation)",
+      "max_amplification": "1.6x (60% boost cap)",
+      "max_attenuation": "0.6x (40% penalty floor)",
+      "concern": "Low gain means slow correction \u2014 7 sessions to shift domain 10% at max deviation",
+      "time_constant_sessions": 7
+    },
+    "proxy_k_compression": {
+      "loop": "proxy_K_compression",
+      "controller_type": "relay_with_hysteresis (bang-bang)",
+      "thresholds": {
+        "DUE": "6.0%",
+        "URGENT": "10.0%"
+      },
+      "hysteresis_band": "4.000000000000001%",
+      "current_drift": "5.0%",
+      "growth_rate_est": "0.5%/session",
+      "limit_cycle_period_sessions": 16.0,
+      "limit_cycle_amplitude": "\u00b12.0%",
+      "stability": "LIMIT CYCLE (relay controllers always oscillate within hysteresis band)",
+      "phase_margin_deg": "N/A (nonlinear \u2014 use describing function analysis)",
+      "concern": "Oscillation is BY DESIGN \u2014 16-session cycle between DUE and healthy",
+      "describing_function": "Relay DF: N(A) = 4d/(\u03c0A), always intersects plant \u2192 guaranteed limit cycle"
+    }
+  },
+  "coupling": {
+    "couplings": [
+      {
+        "pair": "meta \u2194 UCB1",
+        "mechanism": "UCB1 explore term shrinks for meta as visit count grows, routing to non-meta",
+        "coupling_strength": "STRONG (primary damping mechanism for T5)",
+        "time_scale": "per-dispatch (fast)"
+      },
+      {
+        "pair": "soul \u2194 UCB1",
+        "mechanism": "soul_multiplier scales UCB1 exploit term \u00b160%",
+        "coupling_strength": "MODERATE (K=0.15 \u00d7 UCB1 score)",
+        "time_scale": "per-dispatch (fast), but measurement lag = 1 session"
+      },
+      {
+        "pair": "compact \u2194 meta",
+        "mechanism": "compact.py self-referential penalty (0.5\u00d7 Sharpe) targets meta lessons",
+        "coupling_strength": "MODERATE (acts only during DUE/URGENT phases)",
+        "time_scale": "10-20 session cycle (slow)"
+      },
+      {
+        "pair": "compact \u2194 UCB1",
+        "mechanism": "compaction changes lesson count \u2192 affects UCB1 exploit term log(lessons)",
+        "coupling_strength": "WEAK (logarithmic dependence)",
+        "time_scale": "10-20 session cycle (slow)"
+      }
+    ],
+    "timescale_separation": {
+      "fast": "soul \u00d7 UCB1 (per-dispatch)",
+      "medium": "meta routing (50-session period)",
+      "slow": "compact (10-20 session cycle)"
+    },
+    "singular_perturbation_valid": true,
+    "overall_stability": "BOUNDED OSCILLATION \u2014 fast loops stable, slow loops in designed limit cycles. No unbounded growth detected. Meta-lesson loop is the only loop with potential marginal stability (damping ratio measurement needed)."
+  },
+  "summary": {
+    "stable_loops": [
+      "UCB1_dispatch",
+      "soul_feedback"
+    ],
+    "marginally_stable_loops": [
+      "T5_meta_lesson_routing"
+    ],
+    "limit_cycle_loops": [
+      "proxy_K_compression"
+    ],
+    "overall": "BOUNDED OSCILLATION \u2014 fast loops stable, slow loops in designed limit cycles. No unbounded growth detected. Meta-lesson loop is the only loop with potential marginal stability (damping ratio measurement needed).",
+    "recommendation": "Monitor meta-lesson damping ratio over next 50 sessions. If amplitude grows (\u03b6 < 0), add explicit structural cap. Compact limit cycle is by design \u2014 no action needed. Soul feedback is heavily overdamped \u2014 consider raising K from 0.15 to 0.3 for faster convergence if benefit ratio stalls."
+  }
+}

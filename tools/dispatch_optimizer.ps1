@@ -18,7 +18,7 @@ $dispatchOptimizerPy = Join-Path $PSScriptRoot "dispatch_optimizer.py"
 Show-PwshGitRecoveryNotice -RepoRoot $repoRoot
 
 if (Get-Command bash -ErrorAction SilentlyContinue) {
-    exit (Invoke-BashPythonTool -RepoRoot $repoRoot -ToolPath "tools/dispatch_optimizer.py" -Args $Args)
+    exit (Invoke-BashPythonTool -RepoRoot $repoRoot -ToolPath "tools/dispatch_optimizer.py" -ToolArgs $Args)
 }
 
 $pythonCmd = $null

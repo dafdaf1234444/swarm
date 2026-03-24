@@ -18,7 +18,7 @@ $taskOrderPy = Join-Path $PSScriptRoot "task_order.py"
 Show-PwshGitRecoveryNotice -RepoRoot $repoRoot
 
 if (Get-Command bash -ErrorAction SilentlyContinue) {
-    exit (Invoke-BashPythonTool -RepoRoot $repoRoot -ToolPath "tools/task_order.py" -Args $Args)
+    exit (Invoke-BashPythonTool -RepoRoot $repoRoot -ToolPath "tools/task_order.py" -ToolArgs $Args)
 }
 
 $pythonCmd = $null

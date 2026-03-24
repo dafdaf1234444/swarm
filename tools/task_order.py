@@ -45,6 +45,8 @@ P_PERIODIC = 5   # periodic maintenance
 P_META     = 6   # meta-reflection suggestions
 
 LESSON_TRIM_RE = re.compile(r"Lesson over 20 lines:\s*(L-\d+)(?:\.md)?")
+_MAINT_QUICK_OUTPUT: str | None = None
+_MAINT_QUICK_ATTEMPTS = 0
 
 
 def _git(args: list[str]) -> str:
@@ -82,6 +84,32 @@ def _working_tree_clears_lesson_due(action: str) -> bool:
         return len(lesson_path.read_text(encoding="utf-8", errors="replace").splitlines()) <= 20
     except OSError:
         return False
+
+
+def _maintenance_quick_output() -> str:
+    """Run maintenance --quick once per successful snapshot and reuse that output.
+
+    If a run times out or returns nothing, allow one retry so DUE and PERIODIC
+    parsing do not become coupled to the same failure.
+    """
+    global _MAINT_QUICK_OUTPUT, _MAINT_QUICK_ATTEMPTS
+    if _MAINT_QUICK_OUTPUT:
+        return _MAINT_QUICK_OUTPUT
+    if _MAINT_QUICK_ATTEMPTS >= 2:
+        return ""
+    _MAINT_QUICK_ATTEMPTS += 1
+    try:
+        r = subprocess.run(
+            [sys.executable, str(ROOT / "tools" / "maintenance.py"), "--quick"],
+            capture_output=True, text=True, cwd=ROOT, timeout=20
+        )
+        output = r.stdout + r.stderr
+        if output.strip():
+            _MAINT_QUICK_OUTPUT = output
+            return output
+    except Exception:
+        pass
+    return ""
 
 
 def _detect_concurrency() -> int:
@@ -141,13 +169,8 @@ def get_untracked_artifacts() -> list[dict]:
 def get_due_items() -> list[dict]:
     """Parse maintenance --quick for DUE items."""
     tasks = []
-    try:
-        r = subprocess.run(
-            [sys.executable, str(ROOT / "tools" / "maintenance.py"), "--quick"],
-            capture_output=True, text=True, cwd=ROOT, timeout=20
-        )
-        output = r.stdout + r.stderr
-    except Exception:
+    output = _maintenance_quick_output()
+    if not output:
         return tasks
 
     for line in output.splitlines():
@@ -357,13 +380,8 @@ def get_dispatch_tasks() -> list[dict]:
 def get_periodic_tasks() -> list[dict]:
     """Get overdue periodic maintenance. L-985: >1 cadence overdue escalates to DUE."""
     tasks = []
-    try:
-        r = subprocess.run(
-            [sys.executable, str(ROOT / "tools" / "maintenance.py"), "--quick"],
-            capture_output=True, text=True, cwd=ROOT, timeout=20
-        )
-        output = r.stdout + r.stderr
-    except Exception:
+    output = _maintenance_quick_output()
+    if not output:
         return tasks
 
     # Check periodics.json for escalation candidates (overdue by >1 cadence)

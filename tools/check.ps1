@@ -11,39 +11,12 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
+$startupHelper = Join-Path $PSScriptRoot "pwsh_startup.ps1"
 $checkSh = Join-Path $PSScriptRoot "check.sh"
 $validatePy = Join-Path $PSScriptRoot "validate_beliefs.py"
 $maintenancePy = Join-Path $PSScriptRoot "maintenance.py"
 $missionConstraintsPy = Join-Path $PSScriptRoot "test_mission_constraints.py"
-
-function Convert-ToBashPath {
-    param([string]$PathText)
-    $p = ($PathText -replace "\\", "/")
-    if ($p -match "^[A-Za-z]:") {
-        $drive = $p.Substring(0, 1).ToLower()
-        $rest = $p.Substring(2)
-        return "/mnt/$drive$rest"
-    }
-    return $p
-}
-
-function Invoke-NativeCapture {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$FilePath,
-        [string[]]$CommandArgs = @()
-    )
-    $output = & $FilePath @CommandArgs 2>&1
-    $exitCode = $LASTEXITCODE
-    # Keep native output visible without contaminating the helper's return value.
-    foreach ($line in $output) {
-        Write-Host $line
-    }
-    return [pscustomobject]@{
-        ExitCode = $exitCode
-        Output = ($output | Out-String)
-    }
-}
+. $startupHelper
 
 function Test-GitIndexFailureText {
     param([string]$Text)
@@ -60,9 +33,11 @@ function Write-GitIndexRecoveryHint {
     Write-Warning "$Context Recover via WSL/bash: $recovery"
 }
 
+Show-PwshGitRecoveryNotice -RepoRoot $repoRoot
+
 if (Get-Command bash -ErrorAction SilentlyContinue) {
     $bashScript = Convert-ToBashPath $checkSh
-    $bashResult = Invoke-NativeCapture -FilePath "bash" -CommandArgs (@($bashScript) + $Args)
+    $bashResult = Invoke-NativeCapturePassthrough -FilePath "bash" -CommandArgs (@($bashScript) + $Args)
     if ($bashResult.ExitCode -ne 0 -and (Test-GitIndexFailureText $bashResult.Output)) {
         Write-GitIndexRecoveryHint "bash-backed check hit a git-index/tree corruption signature."
     }
@@ -94,7 +69,7 @@ if ($quick) {
 
 Push-Location $repoRoot
 try {
-    $validateResult = Invoke-NativeCapture -FilePath $pythonCmd -CommandArgs (@($pythonArgs) + @($validatePy) + $pyArgs)
+    $validateResult = Invoke-NativeCapturePassthrough -FilePath $pythonCmd -CommandArgs (@($pythonArgs) + @($validatePy) + $pyArgs)
     if ($validateResult.ExitCode -ne 0) {
         if (Test-GitIndexFailureText $validateResult.Output) {
             Write-GitIndexRecoveryHint "Belief validation failed with a git-index/tree corruption signature."
@@ -103,7 +78,7 @@ try {
         exit $validateResult.ExitCode
     }
 
-    $maintenanceResult = Invoke-NativeCapture -FilePath $pythonCmd -CommandArgs (@($pythonArgs) + @($maintenancePy) + $pyArgs)
+    $maintenanceResult = Invoke-NativeCapturePassthrough -FilePath $pythonCmd -CommandArgs (@($pythonArgs) + @($maintenancePy) + $pyArgs)
     if ($maintenanceResult.ExitCode -ne 0) {
         if (Test-GitIndexFailureText $maintenanceResult.Output) {
             Write-GitIndexRecoveryHint "Maintenance failed with a git-index/tree corruption signature."
@@ -112,7 +87,7 @@ try {
     }
 
     if (Test-Path $missionConstraintsPy) {
-        $missionResult = Invoke-NativeCapture -FilePath $pythonCmd -CommandArgs (@($pythonArgs) + @($missionConstraintsPy))
+        $missionResult = Invoke-NativeCapturePassthrough -FilePath $pythonCmd -CommandArgs (@($pythonArgs) + @($missionConstraintsPy))
         if ($missionResult.ExitCode -ne 0) {
             Write-Error "FAIL: Mission constraints regression failed."
             exit $missionResult.ExitCode

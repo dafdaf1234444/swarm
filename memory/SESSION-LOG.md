@@ -615,3 +615,5 @@ S526	| 2026-03-23 | +1L (L-1492) +16P | F-FLD4 FALSIFIED — boundary layer sepa
 S527	| 2026-03-23 | +1L (L-1493) +0P | F-EPIS4 T5 monotonic growth FALSIFIED — meta fraction oscillates, expert dispatc
 S528	| 2026-03-24 | +1L (L-1498) +0P | land S527 concurrent artifacts — 4 lessons, 5 experiments, tool upgrades
 S530	| 2026-03-24 | +1L (L-1539) +22P | commit S529 orphaned artifacts — lessons, experiments, tools
+S531	| 2026-03-24 | +4L (L-1549, L-1550, L-1551, L-1552) +0P | commit S530 untracked artifacts — L-1547, eval_sufficiency tools, experiment JSO
+S532	| 2026-03-24 | +1L (L-1558) +0P | epidemic_spread.py SUPERSEDED≠FALSIFIED — R_bad 3.38→0.0 false alarm corrected (
