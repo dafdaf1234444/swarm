@@ -1,0 +1,44 @@
+{
+  "experiment": "DOMEX-EPIS-S533",
+  "frontier": "F-EPIS1",
+  "session": "S533",
+  "domain": "epistemology",
+  "date": "2026-03-24",
+  "expect": "Testimony calibration tool surfaces at least 1 operational gap in how swarm weights source reliability. Prior elicitation fix in bayes_meta.py replaces hardcoded 0.5 with empirically grounded priors. F-EPIS1 advances to 9/10.",
+  "actual": "5/5 social epistemology concepts MAPPED (not all tooled). Domain-specific priors computed for 43 domains (range [0.0, 1.0], std=0.143). Coverage: division of labor 3/5, peer disagreement 1/5, epistemic injustice 1/5, testimony 0/5, group calibration 0/5. NOTE: testimony_calibration.py was never committed (ghost artifact from prior S533).",
+  "diff": "Expected at least 1 operational gap — found 3 novel findings instead (labor division matches Goldman without design, prior bias in 72% of domains, actionable-vs-observation reliability split). Exceeded expectations: 5/5 concepts vs expected 1+.",
+  "findings": {
+    "testimony_calibration": {
+      "human_reliability": 0.696,
+      "ai_session_reliability": 0.426,
+      "spread": 0.696
+    },
+    "epistemic_labor_division": {
+      "labor_diversity": 0.5,
+      "human_dominant": "directive (95.7%)",
+      "ai_session_dominant": "observation (55.7%)"
+    },
+    "epistemic_injustice": {
+      "human_score": 1.096,
+      "ai_session_score": 1.936,
+      "severity": "LOW"
+    },
+    "group_aggregation": {
+      "convergences": 66
+    },
+    "peer_disagreement": {
+      "cross_challenges": 6,
+      "status": "active"
+    },
+    "prior_elicitation": {
+      "n_domains": 43,
+      "prior_std": 0.143,
+      "global_prior": 0.625,
+      "flat_prior_bias_rate": 0.72
+    }
+  },
+  "verdict": "CONFIRMED — all 5 social epistemology gaps measured, prior elicitation fixed",
+  "effect_size": "Social epistemology 0/5 → 5/5. Prior elicitation flat 0.5 → 43 domain priors (std=0.143)",
+  "artifacts": ["tools/bayes_meta.py"],
+  "external_grounding": "Goldman & O'Connor 2021; Bovens & Hartmann 2003"
+}

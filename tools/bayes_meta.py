@@ -178,10 +178,45 @@ def compute_empirical_prior(experiments: list[dict]) -> float:
     return support / len(resolved)
 
 
+def compute_domain_priors(experiments: list[dict]) -> dict[str, float]:
+    """Compute domain-specific empirical priors (L-1390 gap #3 fix).
+
+    Bayesian epistemology requires coherent prior assignment, not just
+    update mechanics. Flat 0.5 is uninformative but ignores the strong
+    domain-level base rates the swarm has already accumulated.
+
+    Returns domain→prior mapping. Domains with <3 resolved experiments
+    fall back to the global empirical prior (shrinkage toward global mean).
+    """
+    global_prior = compute_empirical_prior(experiments)
+    by_domain = defaultdict(list)
+    for e in experiments:
+        domain = extract_domain(e["frontier"])
+        if e["verdict"] in ("CONFIRMED", "PARTIAL", "FALSIFIED"):
+            by_domain[domain].append(e)
+
+    domain_priors = {}
+    for domain, exps in by_domain.items():
+        if len(exps) < 3:
+            # Shrinkage: insufficient evidence → global prior
+            domain_priors[domain] = global_prior
+        else:
+            support = sum(1.0 if e["verdict"] == "CONFIRMED" else
+                          0.5 if e["verdict"] == "PARTIAL" else
+                          0.0 for e in exps)
+            domain_priors[domain] = support / len(exps)
+    return domain_priors
+
+
 def compute_frontier_posteriors(
-    experiments: list[dict], base_prior: float = 0.5, quality_weighted: bool = True
+    experiments: list[dict], base_prior: float = 0.5, quality_weighted: bool = True,
+    domain_priors: dict[str, float] | None = None,
 ) -> dict[str, dict]:
-    """Compute sequential Bayesian posterior for each frontier."""
+    """Compute sequential Bayesian posterior for each frontier.
+
+    When domain_priors is provided, each frontier uses its domain-specific
+    prior instead of the flat base_prior (L-1390 gap #3: prior elicitation).
+    """
     by_frontier = defaultdict(list)
     for e in experiments:
         if e["frontier"] and e["verdict"] != "UNCLEAR":
@@ -191,7 +226,12 @@ def compute_frontier_posteriors(
     for frontier, exps in by_frontier.items():
         # Sort chronologically
         exps_sorted = sorted(exps, key=lambda x: x["session"])
-        prior = base_prior
+        # Use domain-specific prior if available (L-1390 prior elicitation fix)
+        domain = extract_domain(frontier)
+        if domain_priors and domain in domain_priors:
+            prior = domain_priors[domain]
+        else:
+            prior = base_prior
         trace = []
         for e in exps_sorted:
             bf = BAYES_FACTORS[e["verdict"]]
@@ -493,6 +533,88 @@ def format_report(
     return "\n".join(lines)
 
 
+def prior_sensitivity(experiments: list[dict], quality_weighted: bool = True,
+                      priors: tuple[float, ...] = (0.2, 0.5, 0.8)) -> dict[str, dict]:
+    """Test prior sensitivity: run each frontier under multiple priors.
+
+    Flags frontiers where the conclusion changes across priors — evidence is
+    too weak to overcome prior dependence. This is the formal prior elicitation
+    gap identified in F-EPIS1 (O'Hagan et al. 2006 SHELF protocol analogue).
+
+    Returns {frontier: {priors, conclusions, flips, n_experiments, robustness}}.
+    """
+    results = {}
+    for p in priors:
+        posteriors = compute_frontier_posteriors(experiments, p, quality_weighted)
+        for frontier, data in posteriors.items():
+            if frontier not in results:
+                results[frontier] = {
+                    "n_experiments": data["n_experiments"],
+                    "verdicts": data["verdict_counts"],
+                    "tests": [],
+                }
+            results[frontier]["tests"].append({
+                "prior": p,
+                "posterior": data["posterior"],
+                "conclusion": data["conclusion"],
+            })
+
+    # Detect conclusion flips
+    sensitivity = {}
+    for frontier, r in results.items():
+        conclusions = [t["conclusion"] for t in r["tests"]]
+        flips = len(set(conclusions)) > 1
+        posteriors_range = max(t["posterior"] for t in r["tests"]) - min(t["posterior"] for t in r["tests"])
+        # Robustness: 1.0 = conclusion identical under all priors, 0.0 = flips with large spread
+        robustness = 1.0 - posteriors_range if not flips else max(0.0, 0.5 - posteriors_range)
+        sensitivity[frontier] = {
+            "n_experiments": r["n_experiments"],
+            "tests": r["tests"],
+            "flips": flips,
+            "posterior_range": round(posteriors_range, 3),
+            "robustness": round(robustness, 3),
+        }
+    return sensitivity
+
+
+def format_sensitivity_report(sensitivity: dict[str, dict]) -> str:
+    """Format prior sensitivity analysis report."""
+    lines = ["=== PRIOR SENSITIVITY ANALYSIS ==="]
+    flipping = {k: v for k, v in sensitivity.items() if v["flips"]}
+    robust = {k: v for k, v in sensitivity.items() if not v["flips"]}
+    lines.append(f"Frontiers tested: {len(sensitivity)}")
+    lines.append(f"Prior-sensitive (conclusion flips): {len(flipping)} "
+                 f"({100*len(flipping)/len(sensitivity):.1f}%)" if sensitivity else "")
+    lines.append(f"Prior-robust (conclusion stable): {len(robust)}")
+    lines.append("")
+
+    if flipping:
+        lines.append("--- PRIOR-SENSITIVE FRONTIERS (conclusion depends on prior) ---")
+        for frontier, data in sorted(flipping.items(), key=lambda x: -x[1]["posterior_range"])[:15]:
+            tests_str = "  ".join(
+                f"P({t['prior']})→{t['posterior']:.3f}[{t['conclusion'][:8]}]"
+                for t in data["tests"]
+            )
+            lines.append(f"  {frontier:12s}  n={data['n_experiments']}  range={data['posterior_range']:.3f}  {tests_str}")
+        lines.append("")
+
+    lines.append("--- MOST ROBUST FRONTIERS (prior-independent) ---")
+    for frontier, data in sorted(robust.items(), key=lambda x: x[1]["posterior_range"])[:10]:
+        tests_str = "  ".join(
+            f"P({t['prior']})→{t['posterior']:.3f}"
+            for t in data["tests"]
+        )
+        lines.append(f"  {frontier:12s}  n={data['n_experiments']}  range={data['posterior_range']:.3f}  {tests_str}")
+
+    # Summary statistics
+    robustness_vals = [v["robustness"] for v in sensitivity.values()]
+    mean_robustness = sum(robustness_vals) / len(robustness_vals) if robustness_vals else 0
+    lines.append("")
+    lines.append(f"Mean robustness: {mean_robustness:.3f}  "
+                 f"(1.0=fully prior-independent, 0.0=fully prior-dependent)")
+    return "\n".join(lines)
+
+
 def main():
     parser = argparse.ArgumentParser(description="Bayesian meta-analysis for swarm")
     parser.add_argument("--json", action="store_true", help="Output JSON")
@@ -500,15 +622,31 @@ def main():
     parser.add_argument("--domain", help="Filter by domain")
     parser.add_argument("--empirical", action="store_true",
                         help="Use empirical base rate instead of uninformative 0.5 prior (L-909: uninformative default)")
+    parser.add_argument("--domain-priors", action="store_true",
+                        help="Use domain-specific empirical priors (L-1390 prior elicitation fix)")
     parser.add_argument("--no-quality-weight", action="store_true",
                         help="Disable quality-weighted Bayes factors")
+    parser.add_argument("--sensitivity", action="store_true",
+                        help="Run prior sensitivity analysis (F-EPIS1: test conclusions under multiple priors)")
     args = parser.parse_args()
 
     experiments = load_experiments()
-    base_prior = compute_empirical_prior(experiments) if args.empirical else 0.5
     quality_weighted = not args.no_quality_weight
 
-    posteriors = compute_frontier_posteriors(experiments, base_prior, quality_weighted)
+    if args.sensitivity:
+        sensitivity = prior_sensitivity(experiments, quality_weighted)
+        if args.json:
+            print(json.dumps(sensitivity, indent=2))
+        else:
+            print(format_sensitivity_report(sensitivity))
+        return
+
+    base_prior = compute_empirical_prior(experiments) if args.empirical else 0.5
+    domain_priors = compute_domain_priors(experiments) if args.domain_priors else None
+
+    posteriors = compute_frontier_posteriors(
+        experiments, base_prior, quality_weighted, domain_priors=domain_priors
+    )
 
     if args.frontier:
         fid = args.frontier.upper()

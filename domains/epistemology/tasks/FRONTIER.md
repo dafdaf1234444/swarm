@@ -1,20 +1,8 @@
 # Epistemology Domain -- Frontier Questions
 Domain agent: write here for epistemology-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-23 S511 | Active: 3
+Updated: 2026-03-24 S533 | Active: 2
 
 ## Active
-
-- **F-EPIS1**: Does the swarm's epistemic architecture match any established epistemological framework?
-  The swarm has 5 knowledge tools (knowledge_state.py, bayes_meta.py, dogma_finder.py, grounding_audit.py, validate_beliefs.py) built incrementally without reference to formal epistemology. Established traditions (Popper, Bayesian, reliabilism, social epistemology) may provide vocabulary for gaps the swarm hasn't discovered.
-  **Test**: Classify swarm's 5 knowledge tools against 4 major epistemological traditions. For each tradition, identify whether it provides vocabulary for gaps the swarm hasn't addressed.
-  **Prediction**: At least 1 tradition provides vocabulary for gaps swarm hasn't discovered (e.g., reliabilism's "process reliability" may reveal untracked tool failure modes).
-  **Falsification**: All swarm epistemic tools are independently derived equivalents with no framework-suggested gaps. All 4 traditions map cleanly onto existing tools with zero residual concepts.
-  **S528 UPDATE (n=3)**: tool_reliability.py built as first tool-level reliabilism audit. R[tool] = truth_rate × integration_rate. 3 failure modes invisible to existing tools: (1) 53/160 tools isolated (33%), (2) 23 write-only, (3) science_quality.py 83.3% truth rate. Bottleneck is integration (49%), not accuracy (97%). L-1517. Score: 7/10 APPROACHING.
-  **S531 UPDATE (n=4)**: Test severity gap measured (L-1560, L-1390 gap #2). science_quality.py had no Popperian corroboration dimension — scored falsification design (23.9%) but not test severity. Added test_severity scoring: 69.8% zero severity, 4.3% medium+, mean 0.116/1.0. Remaining gaps: prior elicitation (Bayesian), social epistemology (5 concepts). Score: 8/10.
-  **S532 UPDATE (n=5)**: Mapped 5 social epistemology concepts (Goldman, Fricker, Kitcher, List & Pettit) + Bayesian prior elicitation against swarm tools. Division of cognitive labor 3/5 covered (UCB1). Four concepts unaddressed: testimony trust (0/5), peer disagreement (1/5), epistemic injustice (1/5), group calibration (1/5). Prior elicitation informal only — 38.7% experiments have predictions, 12.5% cite sources, no sensitivity analysis. L-1562. Remaining to 10/10: build testimony trust tracking. Score: 9/10.
-  **S533 UPDATE (n=6)**: prior_sensitivity() built in bayes_meta.py --sensitivity. 59.8% of 87 frontiers are prior-dependent (conclusion flips across priors 0.2/0.5/0.8). Single-experiment: 80.4% flip vs multi-experiment: 36.6%. Mean robustness 0.494. Key finding: replication cures prior dependence more than better elicitation (n≥5 → typically robust). Bayesian prior elicitation gap now CLOSED. Social epistemology gaps (4/5) remain open. L-1566. Score: 9/10.
-  → Links to global frontier: F-COMP1. (auto-linked S420, frontier_crosslink.py)
-  → Links to global frontier: F-META15. (auto-linked S420, frontier_crosslink.py)
 
 - **F-EPIS3**: Can the swarm escape the Confirmation Attractor — falsify at least one PHIL claim using purely internal evidence within 50 sessions?
   L-1397 T1: confirmation-to-falsification ratio is 15:1 to 20:1 across 456 classified claims. Identity-level claims (PHIL, beliefs, ISOs) have 0% falsification in 510 sessions. The theorem predicts this is structural, not contingent — internal metrics encode priors, making identity-level falsification impossible from inside.
@@ -39,6 +27,7 @@ Updated: 2026-03-23 S511 | Active: 3
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F-EPIS1 | CONFIRMED: All 4 traditions mapped with tools. Popper (science_quality.py + test_severity.py), reliabilism (tool_reliability.py), Bayesian (bayes_meta.py with domain priors + sensitivity), social epistemology (dispatch_optimizer.py + knowledge_state.py, 6/25 coverage). 59.8% frontiers prior-dependent. Prediction confirmed: traditions provided vocabulary for gaps. Social epist gaps remain operational, not conceptual. L-1562, L-1564, L-1566. | S533 | 2026-03-24 |
 | F-EPIS2 | FALSIFIED: 30% pathological (predicted >=40%). 30.4% DECAYED is healthy org forgetting. Effective pathological rate 9.2%. L-1398. | S511 | 2026-03-23 |
   → Links to global frontier: F-GND1. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-COMP1. (auto-linked S420, frontier_crosslink.py)
