@@ -1,0 +1,269 @@
+{
+  "experiment": "f-epis3-zombie-principles-s543",
+  "session": "S543",
+  "frontier": "F-EPIS3",
+  "hypothesis": ">=10% of P-claims cite dead (SUPERSEDED/FALSIFIED) lessons",
+  "expect": "zombie_rate >= 0.10",
+  "actual": {
+    "total_principles": 325,
+    "orphans": 113,
+    "healthy": 113,
+    "zombies": 99,
+    "zombie_rate": 0.3046
+  },
+  "zombie_details": [
+    {
+      "principle": "P-059",
+      "text": "parallel for exploration, sequential for synthesis; specialist parallel ~35% more",
+      "dead_citations": [
+        [
+          "L-191",
+          "MISSING"
+        ]
+      ],
+      "total_citations": 1,
+      "dead_fraction": 1.0
+    },
+    {
+      "principle": "P-115",
+      "text": "genesis rules form redundancy network",
+      "dead_citations": [
+        [
+          "L-109",
+          "FALSIFIED"
+        ]
+      ],
+      "total_citations": 1,
+      "dead_fraction": 1.0
+    },
+    {
+      "principle": "P-149",
+      "text": "after updating B-ID, run `validate_beliefs.py --changed=B-ID`",
+      "dead_citations": [
+        [
+          "L-142",
+          "FALSIFIED"
+        ]
+      ],
+      "total_citations": 1,
+      "dead_fraction": 1.0
+    },
+    {
+      "principle": "P-159",
+      "text": "fitness: Q1-stars/Q2-immune/Q3-redundant/Q4-underperformers",
+      "dead_citations": [
+        [
+          "L-164",
+          "SUPERSEDED"
+        ]
+      ],
+      "total_citations": 1,
+      "dead_fraction": 1.0
+    },
+    {
+      "principle": "P-163",
+      "text": "proxy K follows growth-compression sawtooth",
+      "dead_citations": [
+        [
+          "L-168",
+          "SUPERSEDED"
+        ],
+        [
+          "L-8",
+          "FALSIFIED"
+        ]
+      ],
+      "total_citations": 2,
+      "dead_fraction": 1.0
+    },
+    {
+      "principle": "P-174",
+      "text": "substrate-scope: runtime facts host-specific; portable-by-default encodes false constraints",
+      "dead_citations": [
+        [
+          "L-212",
+          "MISSING"
+        ]
+      ],
+      "total_citations": 1,
+      "dead_fraction": 1.0
+    },
+    {
+      "principle": "P-178",
+      "text": "(L-1162, MEASURED) |",
+      "dead_citations": [
+        [
+          "L-1162",
+          "FALSIFIED"
+        ]
+      ],
+      "total_citations": 1,
+      "dead_fraction": 1.0
+    },
+    {
+      "principle": "P-184",
+      "text": "external validation upgrades confidence: independent confirmation \u2192 upgrade to observed; external gap \u2192 open test fronti",
+      "dead_citations": [
+        [
+          "L-227",
+          "MISSING"
+        ]
+      ],
+      "total_citations": 1,
+      "dead_fraction": 1.0
+    },
+    {
+      "principle": "P-192",
+      "text": "MDL floor: savings <0.5% AND hurts readability \u2192 stop; thematic overlap \u2260 information redundancy; format serves function",
+      "dead_citations": [
+        [
+          "L-166",
+          "MISSING"
+        ]
+      ],
+      "total_citations": 1,
+      "dead_fraction": 1.0
+    },
+    {
+      "principle": "P-225",
+      "text": "absorption-bounded: ~1.75 L/group regardless of N; stratify by type",
+      "dead_citations": [
+        [
+          "L-624",
+          "FALSIFIED"
+        ]
+      ],
+      "total_citations": 1,
+      "dead_fraction": 1.0
+    },
+    {
+      "principle": "P-231",
+      "text": "Lamarckian correction immunity: directed correction prevents quality degradation regardless of mutation rate; 2.4x past ",
+      "dead_citations": [
+        [
+          "L-626",
+          "FALSIFIED"
+        ],
+        [
+          "L-633",
+          "SUPERSEDED"
+        ]
+      ],
+      "total_citations": 2,
+      "dead_fraction": 1.0
+    },
+    {
+      "principle": "P-236",
+      "text": "structural refs survive falsification; target content-dependent citers only ~11%",
+      "dead_citations": [
+        [
+          "L-739",
+          "FALSIFIED"
+        ]
+      ],
+      "total_citations": 1,
+      "dead_fraction": 1.0
+    },
+    {
+      "principle": "P-238",
+      "text": "falsification propagates through premise-dependency not citation-dependency: superseded-duplicate, independent-confirmat",
+      "dead_citations": [
+        [
+          "L-745",
+          "SUPERSEDED"
+        ],
+        [
+          "L-739",
+          "FALSIFIED"
+        ]
+      ],
+      "total_citations": 2,
+      "dead_fraction": 1.0
+    },
+    {
+      "principle": "P-239",
+      "text": "scope-neutrality: throughput scope-invariant after controlling for type+era",
+      "dead_citations": [
+        [
+          "L-751",
+          "FALSIFIED"
+        ]
+      ],
+      "total_citations": 1,
+      "dead_fraction": 1.0
+    },
+    {
+      "principle": "P-240",
+      "text": "confirmation >80% = underchallenging; DROP rate is health metric",
+      "dead_citations": [
+        [
+          "L-761",
+          "FALSIFIED"
+        ]
+      ],
+      "total_citations": 1,
+      "dead_fraction": 1.0
+    },
+    {
+      "principle": "P-249",
+      "text": "transfer fidelity 152.6%, absorption 4.7%/session but 1.5x cited",
+      "dead_citations": [
+        [
+          "L-792",
+          "FALSIFIED"
+        ]
+      ],
+      "total_citations": 1,
+      "dead_fraction": 1.0
+    },
+    {
+      "principle": "P-253",
+      "text": "pre-infrastructure label inversion: old \"Verified\" = negative reliability predictor",
+      "dead_citations": [
+        [
+          "L-781",
+          "FALSIFIED"
+        ]
+      ],
+      "total_citations": 1,
+      "dead_fraction": 1.0
+    },
+    {
+      "principle": "P-258",
+      "text": "operational-declarative compaction gradient: tools 55% > principles 12.3% > lessons 2.7%; convert declarative to operati",
+      "dead_citations": [
+        [
+          "L-700",
+          "SUPERSEDED"
+        ]
+      ],
+      "total_citations": 1,
+      "dead_fraction": 1.0
+    },
+    {
+      "principle": "P-262",
+      "text": "merged); ratio >10:1 = failure; enforce: pre-register hypothesis+threshold, 1-in-5 falsification lanes, effect size+sign",
+      "dead_citations": [
+        [
+          "L-804",
+          "FALSIFIED"
+        ]
+      ],
+      "total_citations": 1,
+      "dead_fraction": 1.0
+    },
+    {
+      "principle": "P-266",
+      "text": "Fermi from structural priors: 1 OOM accuracy",
+      "dead_citations": [
+        [
+          "L-782",
+          "MISSING"
+        ]
+      ],
+      "total_citations": 1,
+      "dead_fraction": 1.0
+    }
+  ],
+  "verdict": "SUPPORTED"
+}
