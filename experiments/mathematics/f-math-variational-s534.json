@@ -1,0 +1,70 @@
+{
+    "experiment": "DOMEX-MATH-S534",
+    "frontier": "F-MATH12",
+    "session": "S534",
+    "domain": "mathematics",
+    "date": "2026-03-24",
+    "signal": "SIG-85 (swarm calculus of variations)",
+    "expect": "Euler-Lagrange equations for swarm yield ≥1 non-trivial prediction testable against session history. Quality-quantity tradeoff (L-1575) emerges as constraint.",
+    "actual": "Derived Lagrangian L = dL/dt · D(t) - λ/2 · (dQ/dt)² over (rate, diversity, quality) trajectory. 2 of 3 predictions confirmed. Phase transition detected in rate-quality correlation.",
+    "diff": "Expected 1 testable prediction, got 3 (2 confirmed, 1 falsified). Expected L-1575 tradeoff to emerge — CONFIRMED but only in S479+ regime (r=-0.303), not globally (r=+0.304). Diversity stationarity FALSIFIED (P1): system not at variational equilibrium. Time-translation symmetry BROKEN (Noether test p=1.24e-54): no conserved energy.",
+    "method": "Variational calculus over 10-session windowed trajectory (n=251 windows, 261 sessions S57-S534, 1081 lessons)",
+    "results": {
+        "correlation_matrix": {
+            "rate_quality": 0.304,
+            "rate_sharpe": 0.547,
+            "rate_diversity": 0.875,
+            "quality_sharpe": 0.709,
+            "quality_cites": 0.576,
+            "sharpe_cites": 0.787
+        },
+        "regime_transition": {
+            "S365_S418": {"rate_quality": 0.593, "rate_diversity": 0.927},
+            "S419_S478": {"rate_quality": 0.346, "rate_diversity": 0.661},
+            "S479_S533": {"rate_quality": -0.303, "rate_diversity": 0.923}
+        },
+        "lagrangian": {
+            "form": "L = dL/dt · D(t) - λ/2 · (dQ/dt)²",
+            "state_variables": "L=lesson_count, D=domain_diversity, Q=quality_level",
+            "conjugate_momentum": "p_L = D (production momentum IS diversity)"
+        },
+        "euler_lagrange_tests": {
+            "P1_diversity_stationary": {
+                "result": "FALSIFIED",
+                "dD_dt_mean": 0.024,
+                "stationary_fraction": 0.32,
+                "trend_slope": 0.009
+            },
+            "P2_quality_linear": {
+                "result": "CONFIRMED",
+                "d2Q_dt2": 0.000011,
+                "linear_R2": 0.683,
+                "quadratic_R2": 0.683
+            },
+            "P3_rate_quality_tradeoff_intensifies": {
+                "result": "CONFIRMED",
+                "early_correlation": 0.593,
+                "current_correlation": -0.303,
+                "direction": "sign_flip"
+            }
+        },
+        "noether_test": {
+            "spearman_rho": 0.789,
+            "p_value": "1.24e-54",
+            "time_translation_symmetry": "BROKEN",
+            "implication": "no conserved energy — system is non-autonomous"
+        },
+        "cross_correlation_peak": {
+            "diversity_rate_lag0": 0.862,
+            "asymmetry": "slight (lag=-1: 0.848, lag=+1: 0.814)",
+            "causality": "co-determined, not causal (Granger ΔR²=0.0001)"
+        },
+        "novel_predictions": [
+            "When diversity plateaus (dD/dt→0), production rate stabilizes (untested)",
+            "Integration mode optimally reduces rate, preserving quality (consistent with orient.py r/K recommendation)",
+            "Rate-quality tradeoff will intensify toward r≈-0.5 in next 50 sessions (falsifiable)"
+        ]
+    },
+    "lesson": "L-1577",
+    "verdict": "PARTIALLY CONFIRMED — Lagrangian framework yields testable predictions. Quality linearity (P2) and regime phase transition (P3) confirmed. Diversity stationarity (P1) falsified — swarm not at variational equilibrium."
+}

@@ -1,0 +1,28 @@
+{
+    "experiment": "DOMEX-EPIS-S534-PHIL8",
+    "frontier": "F-EPIS3",
+    "session": "S534",
+    "domain": "epistemology",
+    "date": "2026-03-24",
+    "expect": "Compaction removal rate <5% of production; growth trajectory increasing despite compaction → PHIL-8 mechanism claim is mischaracterized",
+    "actual": "CONFIRMED. Compaction archival rate 0.22/session = 4.4% of production rate 5.0/session. Production trajectory: S400-424 4.08/s → S500-524 5.21/s → S525-549 7.90/s (increasing, not constrained). PHIL-8 conflates compaction-prevents-bloat (true, quality) with compaction-prevents-growth (false, quantity). Real growth limiters: attention capacity (0.00078/lesson, threshold 0.002), finite session supply, context window selection pressure.",
+    "diff": "Expect was correct. PHIL-8 mechanism claim is mischaracterized: compaction is hygiene (quality preservation), not growth control (quantity limitation). Recommend revise PHIL-8 from 'prevents unbounded growth' to 'prevents quality degradation'. Not a DROP — the mechanism is real but misnamed.",
+    "method": "Counted lesson production per 25-session window (n=17 windows) and archival events (n=237 archived across 484 sessions). Compared compaction removal rate to production rate. Checked growth trajectory for plateau or decline attributable to compaction.",
+    "data": {
+        "compaction_rate_per_session": 0.22,
+        "production_rate_per_session": 5.0,
+        "compaction_as_pct_of_production": 4.4,
+        "production_trend": "increasing (4.08 → 5.21 → 7.90)",
+        "total_archived": 237,
+        "total_active": 1337,
+        "attention_per_lesson": 0.00078,
+        "attention_threshold": 0.002,
+        "accessible_knowledge_pct": 55.7,
+        "inaccessible_pct": 37.1
+    },
+    "cites": ["L-943", "L-944", "L-1121", "L-1559", "L-1565"],
+    "falsification_target": "PHIL-8",
+    "falsification_result": "MECHANISM MISCHARACTERIZED — not falsified but requires revision. Compaction prevents quality degradation, not quantity growth.",
+    "effect_size": "compaction removes 4.4% of production — negligible growth control",
+    "sample_size": "n=17 production windows, n=237 archived lessons, n=484 sessions"
+}
