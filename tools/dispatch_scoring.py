@@ -118,7 +118,7 @@ def _load_soul_weights():
 
 _soul_weights = _load_soul_weights()
 
-# Soul dispatch constants (F-SOUL1 Phase 2, SIG-81, L-1455, L-1485)
+# Soul dispatch constants (F-SOUL1 Phase 2, SIG-81, L-1354, L-1455, L-1485)
 SOUL_MULTIPLIER_MAX = 1.6       # cap positive soul weighting at +60%
 SOUL_MULTIPLIER_MIN = 0.6       # cap negative soul weighting at -40%
 SOUL_MIN_SAMPLE = 5             # minimum good+bad lessons for scoring
@@ -151,18 +151,22 @@ INTEGRATION_ARCHIVE_WEIGHT = 0.02
 INTEGRATION_BOOST_CAP = 1.5
 INTEGRATION_STALE_AFTER = 10
 
-# Concentration penalty constants (F-COL1, L-1587 — anti-mediocrity selection)
+# Concentration penalty constants (F-COL1, L-1587, L-1594 — anti-mediocrity
+# selection)
 # When a domain captures too much dispatch share with below-median quality,
 # apply a penalty. Prevents the degenerative spiral where the most accessible
-# domain crowds out specialists. Structural enforcement per L-601.
+# domain crowds out specialists. L-1594 requires this pressure to stay
+# quality-gated. Structural enforcement per L-601.
 CONCENTRATION_SHARE_THRESHOLD = 0.10   # domain must hold >10% of total lanes
 CONCENTRATION_PENALTY_SCALE = 2.0      # penalty per 1% above threshold
 CONCENTRATION_PENALTY_CAP = 3.0        # max penalty
 
-# Diversity cap — quality-independent (F-COL1, L-1643)
+# Diversity cap — quality-independent (F-COL1, L-1591, L-1621, L-1643)
 # Top-3 domains by dispatch share are penalized if their combined share exceeds
-# this threshold. Unlike CONCENTRATION_* above, this fires REGARDLESS of exploit
-# score, because L-1635 showed UCB1 self-evaluation is Goodhart-contaminated.
+# this threshold. L-1591 prescribes explicit diversity pressure beyond UCB1, and
+# L-1621 fixes the intervention threshold at top-3 share >30%.
+# Unlike CONCENTRATION_* above, this fires REGARDLESS of exploit score, because
+# L-1635 showed UCB1 self-evaluation is Goodhart-contaminated.
 DIVERSITY_CAP_TOP3_THRESHOLD = 0.30    # top-3 combined share must stay ≤30%
 DIVERSITY_CAP_PENALTY_SCALE = 3.0      # penalty per 1% above threshold
 DIVERSITY_CAP_PENALTY_MAX = 5.0        # hard cap on penalty
@@ -482,7 +486,9 @@ def ucb1_score(results: list[dict], outcome_map: dict, heat_map: dict,
         r["score"] += integration_boost
         r["integration_boost"] = round(integration_boost, 3)
 
-        # Soul-informed human benefit weighting (F-SOUL1 Phase 2, SIG-81, L-1455)
+        # Soul-informed human benefit weighting (F-SOUL1 Phase 2, SIG-81, L-1354, L-1455)
+        # L-1354: benefit_ratio is a dispatch-allocation property, so the weight
+        # belongs in domain scoring rather than in lesson-quality evaluation.
         # L-1485: additive corrections do not fix multiplicative Goodhart.
         # Weight the full score by human-benefit ratio instead of adding a flat nudge.
         pre_soul_score = r["score"]
@@ -578,10 +584,12 @@ def ucb1_score(results: list[dict], outcome_map: dict, heat_map: dict,
         else:
             r["campaign_boost"] = 0.0
 
-    # Concentration penalty — anti-mediocrity selection (F-COL1, L-1587)
+    # Concentration penalty — anti-mediocrity selection
+    # (F-COL1, L-1587, L-1594)
     # When a domain captures >10% of total dispatches with below-median quality,
     # penalize it. Prevents the degenerative spiral where the most accessible
-    # domain crowds out specialists. Structural enforcement per L-601.
+    # domain crowds out specialists, while keeping the penalty quality-gated per
+    # L-1594. Structural enforcement per L-601.
     if total_dispatches > 10:  # only meaningful with enough history
         exploit_scores = [r.get("ucb1_exploit", 0) for r in results
                           if r.get("ucb1_exploit", 0) > 0]
@@ -602,12 +610,14 @@ def ucb1_score(results: list[dict], outcome_map: dict, heat_map: dict,
             else:
                 r["concentration_penalty"] = 0.0
 
-    # Diversity cap — quality-independent top-3 share limit (F-COL1, L-1643)
+    # Diversity cap — quality-independent top-3 share limit
+    # (F-COL1, L-1591, L-1621, L-1643)
     # The concentration penalty above requires below-median exploit to fire.
     # L-1635 showed UCB1 exploit is Goodhart-contaminated (rho=+0.693 vs
     # external rho=-0.151), so the quality gate never triggers on dominant
     # domains. This cap fires on ALL top-3 domains when their combined share
-    # exceeds 30%, regardless of exploit score.
+    # exceeds 30%, regardless of exploit score, matching L-1621's threshold
+    # and L-1591's explicit diversity-pressure prescription.
     if total_dispatches > 20:
         domain_shares = {}
         for r in results:
