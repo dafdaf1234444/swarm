@@ -388,6 +388,36 @@ def section_fairness(root=ROOT):
     return lines
 
 
+def section_principle_health():
+    """Principle health check — zombie detection (F-EPIS3, L-1653, L-1664)."""
+    lines = []
+    try:
+        from principle_health import parse_principles, classify_principles
+        principles = parse_principles()
+        results = classify_principles(principles)
+        n_h = len(results["healthy"])
+        n_z = len(results["zombie"])
+        n_o = len(results["orphan"])
+        total = n_h + n_z + n_o
+        if total == 0:
+            return lines
+        fully_dead = [z for z in results["zombie"] if z["dead_fraction"] >= 1.0]
+        zombie_pct = 100 * n_z / total
+        lines.append(f"--- Principle Health (F-EPIS3, L-1653) ---")
+        lines.append(f"  {n_h}/{total} healthy ({100*n_h/total:.0f}%) | "
+                     f"{n_z} zombie ({zombie_pct:.0f}%) | "
+                     f"{len(fully_dead)} fully dead | {n_o} orphan")
+        if zombie_pct > 25:
+            lines.append(f"  \u26a0 Zombie rate {zombie_pct:.0f}% — reverse propagation gap active")
+        if fully_dead:
+            lines.append(f"  ACTION: {len(fully_dead)} principles with 100% dead evidence need DROP/REVISE")
+        lines.append(f"  Run: python3 tools/principle_health.py")
+        lines.append("")
+    except Exception:
+        pass
+    return lines
+
+
 def section_challenge_cadence(session_num, check_fn):
     """Challenge cadence DUE (L-1597, F-MATH12: 497:1 cost ratio, +27.2 EV per challenge)."""
     lines = []

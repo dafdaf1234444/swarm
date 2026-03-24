@@ -1,0 +1,38 @@
+{
+  "experiment": "f-epis3-status-detection-fp-s545",
+  "session": "S545",
+  "frontier": "F-EPIS3",
+  "lesson": "L-1672",
+  "hypothesis": "principle_health.py status detection is accurate",
+  "expect": "false positive rate < 10%",
+  "actual": {
+    "total_lessons_with_keywords": 507,
+    "true_positives_header": 61,
+    "false_positives_body": 446,
+    "false_positive_rate": 0.88,
+    "prior_zombie_rate": 0.305,
+    "corrected_zombie_rate": 0.098,
+    "after_drop_zombie_rate": 0.078,
+    "principles_dropped": [
+      "P-239",
+      "P-253",
+      "P-360",
+      "P-387",
+      "P-141",
+      "P-128",
+      "P-193"
+    ],
+    "drop_reason": {
+      "P-239": "L-751 FALSIFIED \u2014 scope-neutrality reversed at n=122",
+      "P-253": "L-781 FALSIFIED \u2014 label inversion obsolete",
+      "P-360": "L-1492 FALSIFIED \u2014 analogy independence prerequisite wrong",
+      "P-387": "L-1513 FALSIFIED \u2014 production mechanism test failed",
+      "P-141": "Go-specific, all evidence MISSING, not applicable to swarm",
+      "P-128": "EH triage, all evidence MISSING, obsolete infrastructure",
+      "P-193": "Parse error description, all evidence MISSING"
+    }
+  },
+  "fix": "check only first 3 lines (header) for status markers",
+  "verdict": "FALSIFIED \u2014 88% false positive rate, 3x zombie inflation",
+  "impact": "L-1653 zombie rate was artifact; L-1652 P-claim fortress partially contaminated"
+}

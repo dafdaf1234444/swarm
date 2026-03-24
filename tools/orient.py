@@ -364,6 +364,7 @@ def main():
         section_grounding_audit, section_fairness, section_self_inflation,
         section_trace_amplification,
         section_complexity_phase, section_challenge_cadence,
+        section_principle_health,
     )
     try:
         from external_grounding_check import section_grounding_decay
@@ -446,6 +447,7 @@ def main():
             _futures['concept_debt'] = _pool.submit(_run_concept_debt)
             # Move slow synchronous sections into pool (S531 perf fix)
             _futures['complexity_phase'] = _pool.submit(section_complexity_phase)
+            _futures['principle_health'] = _pool.submit(section_principle_health)
 
         def _run_agent_empathy():
             try:
@@ -498,6 +500,7 @@ def main():
     _brain_turing_result = _safe_result('brain_turing')
     _concept_debt_result = _safe_result('concept_debt')
     _complexity_phase_lines = _safe_result('complexity_phase')
+    _principle_health_lines = _safe_result('principle_health')
     _agent_empathy_result = _safe_result('agent_empathy')
 
     index_text = _read("memory/INDEX.md")
@@ -589,6 +592,7 @@ def main():
         _print_lines(_correction_lines)
         _print_lines(_fairness_lines)
         _print_lines(_complexity_phase_lines)
+        _print_lines(_principle_health_lines)
 
     if run_full_analysis:
         # Human impact / soul extraction (SIG-81, F-SOUL1) — pre-computed in parallel

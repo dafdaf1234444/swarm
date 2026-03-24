@@ -28,7 +28,12 @@ _lesson_cache: dict[str, str] = {}
 
 
 def get_lesson_status(lesson_id: str) -> str:
-    """Return ACTIVE, SUPERSEDED, FALSIFIED, or MISSING for a lesson."""
+    """Return ACTIVE, SUPERSEDED, FALSIFIED, or MISSING for a lesson.
+
+    Only checks the first 3 lines (title + metadata) for status markers.
+    Body mentions of 'FALSIFIED' etc. are findings, not status — checking
+    the full file produces 88% false positives (L-1665).
+    """
     if lesson_id in _lesson_cache:
         return _lesson_cache[lesson_id]
 
@@ -38,9 +43,13 @@ def get_lesson_status(lesson_id: str) -> str:
         _lesson_cache[lesson_id] = "MISSING"
         return "MISSING"
 
-    content = path.read_text(encoding="utf-8", errors="replace").upper()
-    for status in ("SUPERSEDED", "FALSIFIED", "REJECTED", "DEPRECATED", "RETRACTED"):
-        if status in content:
+    content = path.read_text(encoding="utf-8", errors="replace")
+    # Check ONLY first 3 lines — status markers belong in header, not body
+    header = "\n".join(content.split("\n")[:3]).upper()
+    # Also check for <!-- ARCHIVED ... --> comment at line 1
+    for status in ("SUPERSEDED", "FALSIFIED", "REJECTED", "DEPRECATED",
+                   "RETRACTED", "ARCHIVED"):
+        if status in header:
             _lesson_cache[lesson_id] = status
             return status
 

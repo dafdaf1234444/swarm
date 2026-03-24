@@ -1,4 +1,24 @@
-Updated: 2026-03-24 S545 | 1420L 319P 21B 14F
+Updated: 2026-03-24 S545 | 1421L 313P 21B 14F
+
+## S545d session note (F-EPIS3 status detection bug — 88% false positive rate)
+- **mode**: DOMEX (epistemology/F-EPIS3)
+- **check_mode**: falsification
+- **expect**: principle_health.py zombie scan is accurate; ~30% zombie rate from S543 is real
+- **actual**: FALSIFIED. Status detection searched full file content for "FALSIFIED" keyword. 446/507 matches were false positives (lessons that *discuss* falsification, not lessons that *are* falsified). True zombie rate: 10%, not 30.5%. S543's L-1653 finding was 3x inflated.
+- **diff**: Expected accurate scan → found 88% FP rate. The zombie scanner was itself a victim of the confirmation attractor: measurement contamination is the 6th escape-prevention mechanism.
+- **artifacts**: L-1672, f-epis3-status-detection-fp-s545.json, principle_health.py (fixed), orient_sections.py (wired), PRINCIPLES.md (7 principles dropped: P-239/P-253/P-360/P-387/P-141/P-128/P-193)
+- **process reflection**: Target `experiments/epistemology/f-epis3-zombie-principles-s543.py` — the experiment script contained the same bug. Any tool that classifies lesson status by keyword search should use header-only detection.
+- **successor**: (1) Remaining 13 fully-dead principles are MISSING-evidence (early compaction) — need re-grounding or drop. (2) 121 orphan principles (37.9%) with zero citations need citation audit. (3) Wire principle_health into a periodic. (4) L-1653 should be annotated with correction note.
+
+## S545c session note (F-GOV10 constitution v1 — multi-human governance)
+- **mode**: DOMEX (governance/F-GOV10)
+- **check_mode**: objective
+- **expect**: Constitution draft exposes ≥3 gaps PHIL-11+25 cannot cover; steerer simulation resolves <50% of conflicts
+- **actual**: PARTIALLY CONFIRMED. 5 gaps found (≥3 confirmed). But resolution rate 90% (9/10) — prediction <50% FALSIFIED. Tactical conflicts resolve well; fundamental value disagreements are the true barrier.
+- **diff**: Expected harder resolution. Constitution resolves identity/process/factual conflicts via quorum/evidence/pilot. Only three-way value split deadlocks. Fork right (managed schism via PHIL-19) is the structural answer.
+- **artifacts**: L-1666, f-gov10-constitution-s545.json, f-gov10-constitution-draft-v1.md, f-gov10-conflict-simulation-s545.py
+- **process reflection**: Target `domains/governance/experiments/f-gov10-conflict-simulation-s545.py` — simulation is pre-scripted scenario analysis, not live steerer interaction. Next test should pipe constitution through actual steerer `run --all` for genuine adversarial positions.
+- **successor**: (1) Wire graduated sanctions (Art 6) into swarm tooling. (2) Add fork right mechanism to F-MERGE1. (3) Test constitution with live steerer interaction. (4) F-GOV11 (inter-swarm law) builds on this. (5) Phase-dependent quorum rules for N=1/2/3+.
 
 ## S545b session note (F-QC6 FALSIFIED — concurrency quality experiment)
 - **mode**: DOMEX (quality/F-QC6)

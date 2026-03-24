@@ -55,7 +55,12 @@ def parse_principles():
 
 
 def check_lesson_health(lesson_id: str):
-    """Check if a lesson file exists and whether it's been superseded or falsified."""
+    """Check if a lesson file exists and whether it's been superseded or falsified.
+
+    BUGFIX (S545, L-1665): Only check first 3 lines (header) for status markers.
+    Checking full file content produced 88% false positives — body mentions of
+    'FALSIFIED' are findings about falsification, not the lesson's own status.
+    """
     num = lesson_id.replace("L-", "")
     path = LESSONS_DIR / f"L-{num}.md"
     if not path.exists():
@@ -67,18 +72,13 @@ def check_lesson_health(lesson_id: str):
             return {"exists": False, "status": "MISSING"}
 
     content = path.read_text(encoding="utf-8", errors="replace")
-    content_upper = content.upper()
+    # Only check header (first 3 lines) — body mentions are findings, not status
+    header = "\n".join(content.split("\n")[:3]).upper()
 
-    if "SUPERSEDED" in content_upper:
-        return {"exists": True, "status": "SUPERSEDED"}
-    if "FALSIFIED" in content_upper:
-        return {"exists": True, "status": "FALSIFIED"}
-    if "REJECTED" in content_upper:
-        return {"exists": True, "status": "REJECTED"}
-    if "DEPRECATED" in content_upper:
-        return {"exists": True, "status": "DEPRECATED"}
-    if "RETRACTED" in content_upper:
-        return {"exists": True, "status": "RETRACTED"}
+    for status in ("SUPERSEDED", "FALSIFIED", "REJECTED", "DEPRECATED",
+                   "RETRACTED", "ARCHIVED"):
+        if status in header:
+            return {"exists": True, "status": status}
     return {"exists": True, "status": "ACTIVE"}
 
 

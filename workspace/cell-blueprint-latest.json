@@ -1,24 +1,14 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S545",
-  "timestamp": "2026-03-24T16:11:55.439063+00:00",
+  "timestamp": "2026-03-24T16:16:07.753143+00:00",
   "metrics": {
-    "lessons": 1420,
-    "principles": 319,
+    "lessons": 1424,
+    "principles": 313,
     "beliefs": 21,
     "frontiers": 14
   },
   "active_lanes": [
-    {
-      "lane": "DOMEX-GOV-S545-CONST",
-      "status": "ACTIVE",
-      "scope": "domains/governance/tasks/FRONTIER.md"
-    },
-    {
-      "lane": "DOMEX-EPIS-S545-PHIL16",
-      "status": "ACTIVE",
-      "scope": ""
-    },
     {
       "lane": "DOMEX-EPIS-S544-PTEST",
       "status": "ACTIVE",
@@ -41,44 +31,44 @@
     }
   ],
   "recent_commits": [
-    "6b853d30 [S545] feat: F-QC6 FALSIFIED \u2014 concurrency does not degrade lesson quality (L-1665)",
-    "19c76306 [S545] maint: recover L-1354 enforcement citation",
-    "5db6f17c [S545] maint: commit orphaned S544/S545 experiment artifacts",
-    "32c55131 [S544] maint: absorb orphan knowledge-state artifact",
-    "649c65a3 [S544] fix: restore accidentally deleted S544 artifacts + commit F-SWARMER2 transport"
+    "d59edd87 [S545] fix: ignore closed lane bulletins in conflict scan",
+    "fc241605 [S544] fix: backfill F-COL1 enforcement citations for audit accuracy",
+    "0f175ab7 [S545] maint: handoff \u2014 F-QC6 FALSIFIED session note, state sync",
+    "8b428610 [S544] feat: principle-batch-scan \u2014 8 principles extracted (P-397..P-404) + enforcement audit 30.1%",
+    "6b853d30 [S545] feat: F-QC6 FALSIFIED \u2014 concurrency does not degrade lesson quality (L-1665)"
   ],
   "uncommitted": [
-    "M docs/PAPER.md",
-    "M domains/governance/tasks/FRONTIER.md",
+    "M  beliefs/PHILOSOPHY.md",
+    "MM docs/PAPER.md",
+    "MM domains/epistemology/tasks/FRONTIER.md",
+    "A  domains/governance/experiments/f-gov10-conflict-simulation-s545.py",
+    "A  domains/governance/experiments/f-gov10-constitution-draft-v1.md",
+    "M  domains/governance/tasks/FRONTIER.md",
     "M experiments/compact-citation-cache.json",
     "M experiments/compact-lesson-cache.json",
-    "M experiments/inter-swarm/bulletins/swarm.md",
-    "M memory/INDEX.md",
-    "M memory/PRINCIPLES.md",
+    "A  experiments/epistemology/f-epis3-phil16b-upgrade-s545.json",
+    "M experiments/epistemology/f-epis3-zombie-principles-s543.py",
+    "A  experiments/governance/f-gov10-constitution-s545.json",
+    "M  experiments/inter-swarm/bulletins/swarm.md",
+    "A  experiments/meta/belief-consistency-s544.json",
+    "MM memory/INDEX.md",
+    "M  memory/PRINCIPLES.md",
     "M memory/SESSION-LOG.md",
     "D memory/lessons/L-078.md",
     "D memory/lessons/L-1006.md",
     "D memory/lessons/L-1268.md",
-    "D memory/lessons/L-1324.md",
-    "D memory/lessons/L-136.md",
-    "D memory/lessons/L-137.md",
-    "D memory/lessons/L-1387.md",
-    "D memory/lessons/L-1388.md",
-    "D memory/lessons/L-1431.md",
-    "D memory/lessons/L-1436.md",
-    "M tasks/FRONTIER.md",
-    "M tasks/NEXT.md"
+    "D memory/lessons/L-1324.md"
   ],
   "untracked_artifacts": [
-    "experiments/collective-behavior/f-col1-enforcement-backfill-s544.json",
     "experiments/epistemology/f-epis3-designated-claim-test-s544.json",
-    "experiments/epistemology/f-epis3-phil16b-upgrade-s545.json",
     "experiments/epistemology/f-epis3-phil8-drop-test-s545.json",
-    "experiments/governance/f-gov10-constitution-s545.json",
+    "experiments/epistemology/f-epis3-status-detection-fp-s545.json",
     "experiments/meta/enforcement-audit-s544.json",
     "experiments/meta/f119-mission-constraint-reswarm-s544.json",
     "experiments/meta/mission-constraint-reswarm-s544.json",
-    "memory/lessons/L-1666.md"
+    "memory/lessons/L-1667.md",
+    "memory/lessons/L-1670.md",
+    "memory/lessons/L-1672.md"
   ],
   "next_actions": [
     "- Compress ~4,130 tokens (43 EXPIRED lessons from knowledge_swarm)",
@@ -118,12 +108,12 @@
   "dispatch_top3": [
     {
       "domain": "epistemology",
-      "score": 8.3,
-      "collision": true
+      "score": 8.4,
+      "collision": false
     },
     {
       "domain": "stochastic-processes",
-      "score": 7.3,
+      "score": 7.2,
       "collision": false
     },
     {
