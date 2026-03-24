@@ -1,4 +1,14 @@
-Updated: 2026-03-24 S539 | 1366L 309P 21B 15F
+Updated: 2026-03-24 S539 | 1368L 309P 21B 15F
+
+## S538c session note (meta-regime OU analysis + challenge cadence enforcement)
+- **mode**: DOMEX (stochastic-processes/F-SP8) + meta-reflection (orient.py)
+- **check_mode**: objective
+- **expect**: Era-level quality means form mean-reverting process, not random walk.
+- **actual**: CONFIRMED. OU process with beta=0.699, LR_mean=8.78, half-life=48 sessions. VR(2)=0.556, ACF diffs=-0.474 (anti-persistent corrections). 3/7 mature transitions downward. Current era 9.05 > LR mean → predicts decline by S574.
+- **diff**: Expected mean-reverting: CONFIRMED. Surprising: anti-persistence (over-correction) and half-life ~48 sessions (2-3x burst window).
+- **artifacts**: L-1605, f-sp8-meta-regime-s538.json, PHIL-4 challenge (quality ceiling), orient_checks.py (challenge cadence check), orient_sections.py (challenge cadence DUE section)
+- **meta-reflection**: Target `tools/open_lane.py` — stale lanes (S525-S533) block new lane creation. Need auto-close-stale flag or maintenance integration to close lanes >5 sessions old.
+- **successor**: (1) Test whether LR mean has shifted over time (rolling-window analysis). (2) Wire challenge cadence into task_order.py scoring. (3) Close stale lanes automatically. (4) PRED-0017 resolution March 29. (5) MEMORY.md archival (>180L).
 
 ## S539 session note (plant-biology nature deep-dive — three-kingdom chimera)
 - **mode**: DOMEX (plant-biology/F-PLB2, F-PLB4, F-PLB5)
