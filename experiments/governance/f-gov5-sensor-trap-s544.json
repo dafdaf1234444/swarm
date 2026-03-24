@@ -1,0 +1,33 @@
+{
+  "experiment": "F-GOV5: Is governance monitoring a sensor-only trap?",
+  "session": "S544",
+  "date": "2026-03-24",
+  "lane": "DOMEX-GOV-S544-SENSOR",
+  "mode": "falsification",
+  "domain": "governance",
+  "results": {
+    "tool_census": {
+      "total_monitoring_tools": 40,
+      "full_automated_fix": 7,
+      "partial_suggest_only": 6,
+      "sensor_only": 27,
+      "remediation_rate_pct": 17.5
+    },
+    "maintenance_outcomes": {
+      "sessions_tracked": 7,
+      "total_fire_events": 132,
+      "total_remediation_events": 0,
+      "remediation_rate_pct": 0.0,
+      "checks_firing_100pct": 10
+    },
+    "fix_mode_usage": {
+      "consistency_check_fix_commits": 0,
+      "doc_freshness_fix_commits": 0,
+      "historian_repair_fix_commits": 1,
+      "lesson_collision_fix_commits": 0
+    }
+  },
+  "verdict": "CONFIRMED — sensor-only trap. 82.5% sensor-only, 132/0 fire/remediate. Fix pathways exist but unused.",
+  "actual": "YES — governance monitoring is a sensor-only trap. Three failure modes: (1) no pathway 67.5%, (2) pathway unwired 15%, (3) wired but uninvoked 17.5%. Sole working loop: sync_state.py (zero voluntary action).",
+  "cites": ["L-601", "L-1186", "L-1272"]
+}

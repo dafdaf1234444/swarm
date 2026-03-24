@@ -1,6 +1,6 @@
 # Governance Domain — Frontier Questions
 Domain agent: write here for governance-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-24 S540 (F-GOV9 CONFIRMED) | Active: 5
+Updated: 2026-03-24 S544 (F-GOV5 CONFIRMED) | Active: 4
 
 ## Active
 
@@ -55,10 +55,12 @@ Updated: 2026-03-24 S540 (F-GOV9 CONFIRMED) | Active: 5
   **Prediction**: 0 automated fix pathways; median time-to-fix > 10 sessions.
   **Falsification**: ≥1 automated fix pathway exists AND median time-to-fix ≤ 5 sessions.
   **Source concept**: sensor-only-trap (concept-inventor, S494). **F-INV2 test**: prior governance questions asked "can we detect drift?" (F-GOV2) but never "does detection lead to repair?" — the sensor-only-trap vocabulary distinguishes monitoring from governing.
+  **S544 CONFIRMED (L-1662)**: YES — sensor-only trap. 40+ tools: 7 FULL fix, 27 sensor-only (82.5%). 132 fires / 0 remediations across 7 sessions. Artifact: f-gov5-sensor-trap-s544.json.
 
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
+| F-GOV5 | Yes: sensor-only trap. 82.5% sensor-only, 132/0 fire-remediate. L-601 confirmed. L-1662. | S544 | 2026-03-24 |
 | F-GOV1 | Yes: 4/4 governance surfaces green (S302→S348). Bridge sync 6/6, lane fields 100%, enforcement 7 auto checks + PCI 0.429, challenge throughput 100%. L-351, L-522, L-534. | S348 | 2026-03-01 |
 | F-GOV2 | Yes: tools/drift_scanner.py checks 14 blocks × 6 bridges. Found 1 HIGH drift (node-interaction, ~260s undetected), fixed. Coverage 89.9%→94.4%. L-580. | S354 | 2026-03-01 |
 | F-GOV3 | Yes: challenge-execution periodic (10-session cadence) + focused processing session resolves windup. 3/3 stale items processed in one session. Throughput 0%→100%. L-534. | S348 | 2026-03-01 |
