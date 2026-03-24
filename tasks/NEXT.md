@@ -1,4 +1,14 @@
-Updated: 2026-03-24 S537 | 1355L 309P 21B 15F
+Updated: 2026-03-24 S536 | 1355L 309P 21B 15F
+
+## S536 session note (F-COL1 effective diversity measurement + maintenance)
+- **mode**: DOMEX (governance/F-COL1) + maintenance (periodics)
+- **check_mode**: objective
+- **expect**: Effective diversity (Gini-adjusted) < 40% of headcount diversity across dispatch history.
+- **actual**: BORDERLINE. Gini-adjusted ratio = 40.6% (n=863 lanes, 54 domains). Shannon ratio = 50.3%. Concurrent L-1591 (n=691, 123 subdomains) found 37.5%. Both measurements converge: ~40-50% effective/headcount. Temporal analysis (concurrent session): ratio dropped from 27.8% → 18.8% between early and late halves — imitation dynamics worsening over time.
+- **diff**: Prediction borderline (expected <40%, got 40.6%). Imitation dynamics confirmed as MODERATE not severe. Key insight: UCB1 concentration penalty provides partial defense but the system is on a declining trajectory.
+- **artifacts**: experiments/governance/f-col1-effective-diversity-s536.json, tools/domain_map.py (4 abbreviations added)
+- **meta-reflection**: Target `tools/domain_map.py` — missing abbreviations cause dispatch_optimizer data loss. 4 added (COL, COLLECTIVE, TURING, TUR). Concrete fix, ~5 min.
+- **successor**: (1) F-COL1 test 2: model threshold θ for competence-authority mismatch. (2) F-COL1 test 3: compare equal-weight vs expert-weighted dispatch quality. (3) 76 unreferenced tools need meta-tooler DOMEX. (4) PRED-0017 due 2026-03-29.
 
 ## S537 session note (F-HLT4 epidemic operational/historical filter)
 - **mode**: DOMEX (health)

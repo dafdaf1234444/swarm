@@ -289,6 +289,8 @@ def main():
     parser.add_argument("--ranked", action="store_true", help="Yield-scored ranking (L-1249)")
     parser.add_argument("--json", action="store_true", help="JSON output")
     parser.add_argument("--stats", action="store_true", help="Graph statistics only")
+    parser.add_argument("--diverse", action="store_true",
+                        help="Greedy diversity filter: no two results share an A/B lesson (L-1593)")
     args = parser.parse_args()
 
     lessons = load_lessons()
@@ -317,6 +319,17 @@ def main():
 
     if args.ranked:
         candidates = compute_yield_scores(candidates, lessons)
+
+    if args.diverse:
+        # Greedy diversity: skip candidates that share A or B with already-selected ones
+        seen_lessons = set()
+        diverse_candidates = []
+        for c in candidates:
+            if c["parent_a"] not in seen_lessons and c["parent_b"] not in seen_lessons:
+                diverse_candidates.append(c)
+                seen_lessons.add(c["parent_a"])
+                seen_lessons.add(c["parent_b"])
+        candidates = diverse_candidates
 
     top = candidates[:args.top]
 
