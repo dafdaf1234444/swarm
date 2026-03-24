@@ -135,7 +135,36 @@ def _summarize_block(lines: list[str], max_chars: int = 220) -> str:
     return summary
 
 
+def _annotate_inherited_evidence(text: str) -> str:
+    """L-1601 GAP-5: Replace evidence claims with inherited annotations in lesson headers.
+
+    Applied to all daughter lessons (both lean-projected and full-copy) so that
+    daughters never claim to have personally observed/measured/confirmed anything.
+    """
+    lines = text.splitlines()
+    out = []
+    for line in lines:
+        # Annotate Confidence: anywhere on the line (some lessons put it on Session: line)
+        if "Confidence:" in line:
+            line = re.sub(
+                r'\b([Mm]easured|MEASURED|[Oo]bserved|[Cc]onfirmed|CONFIRMED)\b',
+                r'Inherited (parent \1)',
+                line)
+        # Annotate Session: lines - mark as parent session for traceability
+        if line.startswith("Session:"):
+            session_match = re.search(r'S(\d+)', line)
+            if session_match:
+                s_num = session_match.group(0)
+                line = line.replace(
+                    "Session: " + s_num,
+                    "Session: " + s_num + " (parent session, inherited)")
+        out.append(line)
+    return "\n".join(out)
+
+
 def _project_lesson_text(text: str) -> str:
+    # L-1601 GAP-5: annotate inherited evidence before projection
+    text = _annotate_inherited_evidence(text)
     lines = text.splitlines()
     out: list[str] = []
     idx = 0
@@ -262,8 +291,9 @@ def extract_genesis(out_dir, top_n=100, include_tools=True, minimal=False,
     manifest["hub_lesson_count"] = len(hubs)
     manifest["hub_lessons_top5"] = [h["id"] for h in hubs[:5]]
     for hub in hubs:
+        # L-1601 GAP-5: always annotate inherited evidence; lean also projects/compresses
         _copy(hub["path"], hub["path"], "hub_lessons",
-              projector=_project_lesson_text if lean else None)
+              projector=_project_lesson_text if lean else _annotate_inherited_evidence)
     if include_tools:
         if ultra_lean:
             tool_list = ORIENT_TOOLS
@@ -325,46 +355,91 @@ def _rewrite_daughter_index(out_dir, hubs):
 
 
 def _write_daughter_identity(out_dir, parent_hash: str, hub_count: int):
-    """L-1601: daughters need honest epistemology — lineage, not inherited claims."""
+    """L-1601 GAP-5: daughters born with honest epistemology and unique identity."""
     import datetime
+    import hashlib
     birth = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    # Auto-generate a unique daughter name from parent hash + birth time
+    name_hash = hashlib.sha256((parent_hash + "-" + birth).encode()).hexdigest()[:8]
+    daughter_name = "daughter-" + name_hash
+
+    # Extract purpose from parent PHILOSOPHY.md if available
+    purpose = "Inherit parent genome, develop independent identity, grow through experience."
+    phil_src = out_dir / "beliefs" / "PHILOSOPHY.md"
+    if phil_src.exists():
+        phil_text = phil_src.read_text(encoding="utf-8", errors="replace")
+        purpose_match = re.search(
+            r"(?:purpose|goal|mission)[:\s]+(.{20,120}?)(?:\.|$)",
+            phil_text[:2000], re.IGNORECASE)
+        if purpose_match:
+            purpose = purpose_match.group(1).strip() + " (inherited from parent)"
+
     ident = (out_dir / "IDENTITY.md")
     ident.write_text(
         "# Daughter Swarm Identity\n\n"
-        f"- **Born**: {birth}\n"
-        f"- **Parent hash**: {parent_hash}\n"
-        f"- **Generation**: 1 (first daughter)\n"
-        f"- **Inherited lessons**: {hub_count} (hub knowledge, not personal experience)\n"
-        "- **Earned lessons**: 0 (grow your own)\n\n"
+        "- **name**: " + daughter_name + "\n"
+        "- **birth_session**: S0\n"
+        "- **born**: " + birth + "\n"
+        "- **parent_hash**: " + parent_hash + "\n"
+        "- **generation**: 1\n"
+        "- **inherited_lessons**: " + str(hub_count) + " (hub knowledge, not personal experience)\n"
+        "- **earned_lessons**: 0\n"
+        "- **earned_sessions**: 0\n\n"
+        "## Lineage\n"
+        "Parent: " + parent_hash + " (generation 0)\n"
+        "This swarm: " + daughter_name + " (generation 1)\n\n"
+        "## Purpose\n" + purpose + "\n\n"
         "## Epistemic honesty\n"
         "Everything in this bundle is INHERITED knowledge. You have not observed, measured,\n"
         "or confirmed any of it yourself. Parent claims labeled 'observed' mean the PARENT\n"
         "observed them. Until you replicate, treat all inherited knowledge as 'reported'.\n\n"
-        "## Your purpose\n"
+        "## Your identity\n"
         "You are not your parent. You share genome (CORE.md, PHILOSOPHY.md) but your\n"
         "experience, lessons, and identity are your own. Diverge honestly.\n",
         encoding="utf-8")
 
-    # Annotate PHILOSOPHY.md evidence as inherited
+    # L-1601 GAP-5: Annotate PHILOSOPHY.md evidence as inherited
     phil_path = out_dir / "beliefs" / "PHILOSOPHY.md"
     if phil_path.exists():
         text = phil_path.read_text(encoding="utf-8")
         # Replace session count claims with honest annotations
         text = re.sub(r"(\d+)/\1 sessions", "N/N sessions (parent history)", text)
-        # Mark status column with inherited provenance (GAP-5 Phase 2 fix):
-        # Keep type/grounding columns valid for validate_beliefs.py parsing.
-        text = re.sub(r"\| (active\b)", r"| inherited — \1", text)
+        # Replace absolute session counts like "355 sessions", "509 sessions"
+        text = re.sub(r"\b(\d{2,}) sessions\b", r"\1 sessions (parent history)", text)
+        # Annotate evidence-type words in PHIL table cells
+        text = re.sub(r"\| observed \|", "| inherited (parent observed) |", text)
+        text = re.sub(r"\| partial \|", "| inherited (parent partial) |", text)
+        # Annotate ground truth lines with inherited prefix
+        text = re.sub(
+            r"(\*Ground truth.*?:\*\s*\*\*)(observed|measured|confirmed|"
+            r"partially grounded|grounded|partial|aspirational|reframed)",
+            r"\1inherited (\2)",
+            text)
+        # Mark status column with inherited provenance
+        text = re.sub(r"\| (active\b)", r"| inherited -- \1", text)
+        # Add provenance header
+        if "<!-- DAUGHTER:" not in text:
+            text = ("<!-- DAUGHTER: All claims inherited from parent. "
+                    "Evidence status reflects parent observations, "
+                    "not daughter experience. -->\n"
+                    + text)
         phil_path.write_text(text, encoding="utf-8")
 
-    # Add lineage section to CORE.md
+    # L-1601 GAP-5: Add genesis_lineage section to CORE.md
     core_path = out_dir / "beliefs" / "CORE.md"
     if core_path.exists():
         text = core_path.read_text(encoding="utf-8")
         lineage = (
-            f"\n## Lineage (L-1601)\n"
-            f"This is a daughter swarm, born {birth} from parent {parent_hash}.\n"
-            f"Inherited {hub_count} hub lessons. All evidence claims are inherited, not earned.\n"
-            "Your first task: verify what matters, discard what doesn't, discover what's new.\n")
+            "\n## genesis_lineage\n"
+            "- **parent_hash**: " + parent_hash + "\n"
+            "- **parent_date**: " + birth + "\n"
+            "- **generation**: 1\n"
+            "- **inherited_lessons**: " + str(hub_count) + "\n"
+            "- **birth_session**: S0\n"
+            "- **epistemic_status**: all evidence inherited, none earned\n"
+            "\nThis is a daughter swarm. All evidence claims are inherited from parent.\n"
+            "Your first task: verify what matters, discard what doesn't, "
+            "discover what's new.\n")
         text += lineage
         core_path.write_text(text, encoding="utf-8")
 

@@ -48,8 +48,8 @@
 
 ## F-MATH10: Do high-refractive-index domains show "total internal reflection" — fewer ISO atlas appearances?
 **Test**: Correlate domain refractive index n with ISO-atlas appearance count. Expect r < -0.4.
-**Status**: OPEN (S516) — refractive indices measured for 21 domains. Strategy n=2.18 (densest), meta n=1.79. L-1435.
-**Falsified-if**: r > 0 (high-n domains appear MORE in atlas).
+**Status**: FALSIFIED (S540) — Spearman r = +0.70, Pearson r = +0.87 (n=5 matched domains). Dense domains appear MORE in ISO atlas, not less. meta/swarm (n=1.79, ISO=23), physics (n=1.44, ISO=12), brain (n=1.21, ISO=10), economics (n=1.06, ISO=15), governance (n=0.79, ISO=2). L-1623. Limitation: only 5/21 domains matched due to naming inconsistency.
+**Falsified-if**: r > 0 (high-n domains appear MORE in atlas). **MET**: r = +0.70 > 0.
 
 ## F-MATH11: Does the swarm satisfy von Neumann's self-reproducing automaton conditions?
 **Test**: Map swarm to von Neumann's 4 components (A=constructor, B=copier, C=controller, D=description). Check: (1) K(D) >= K(A+B+C) complexity inequality, (2) B⊂D fixed-point (copier in description), (3) generational decay rate.

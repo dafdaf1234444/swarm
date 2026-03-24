@@ -1,0 +1,81 @@
+{
+  "id": "f-swarmer2-gap5-identity-s540",
+  "frontier": "F-SWARMER2",
+  "gap": "GAP-5",
+  "domain": "expert-swarm",
+  "session": "S540",
+  "date": "2026-03-24T07:47:59Z",
+  "title": "Genesis extract epistemically honest daughter identity (L-1601 full fix)",
+  "hypothesis": "genesis_extract.py can produce daughters with honest epistemic identity: no false parent evidence claims, lineage markers, birth identity, session reset",
+  "pre_registered_expectations": {
+    "daughter_has_IDENTITY_md": true,
+    "CORE_md_has_genesis_lineage": true,
+    "zero_unattributed_observed_measured_confirmed_in_lessons": true,
+    "zero_unattributed_observed_partial_in_PHILOSOPHY_table": true,
+    "session_counter_reset_to_0": true,
+    "orient_py_works_in_daughter": true,
+    "bundle_size_under_300KB": true
+  },
+  "method": [
+    "Added _annotate_inherited_evidence() function to genesis_extract.py",
+    "All daughter lessons get evidence annotation (Measured->Inherited (parent Measured))",
+    "PHILOSOPHY.md: table cells, ground truth lines, session counts all annotated",
+    "IDENTITY.md: auto-generated name, birth_session=S0, lineage, purpose",
+    "CORE.md: genesis_lineage section with parent_hash, generation, birth_session",
+    "Session lines in lessons marked (parent session, inherited)",
+    "Tested with --ultra-lean bundle, verified orient.py works"
+  ],
+  "results": {
+    "daughter_has_IDENTITY_md": true,
+    "IDENTITY_fields": [
+      "name",
+      "birth_session",
+      "born",
+      "parent_hash",
+      "generation",
+      "inherited_lessons",
+      "earned_lessons",
+      "earned_sessions",
+      "Lineage",
+      "Purpose",
+      "Epistemic honesty",
+      "Your identity"
+    ],
+    "CORE_md_has_genesis_lineage": true,
+    "genesis_lineage_fields": [
+      "parent_hash",
+      "parent_date",
+      "generation",
+      "inherited_lessons",
+      "birth_session",
+      "epistemic_status"
+    ],
+    "lessons_with_inherited_confidence": 14,
+    "lessons_total": 19,
+    "lessons_without_annotation": 5,
+    "lessons_without_annotation_reason": "Confidence types (Assumed, Designed, Theorized, verified) that don't claim observation - correctly left as-is",
+    "unattributed_observed_in_lessons": 0,
+    "unattributed_measured_in_lessons": 0,
+    "PHILOSOPHY_observed_annotated": 12,
+    "PHILOSOPHY_partial_annotated": 17,
+    "PHILOSOPHY_ground_truth_annotated": 29,
+    "PHILOSOPHY_active_status_annotated": 23,
+    "PHILOSOPHY_session_counts_annotated": true,
+    "PHILOSOPHY_provenance_header": true,
+    "session_counter_in_INDEX": "Sessions: 0",
+    "orient_py_works": true,
+    "orient_output": "=== ORIENT S0 | 19L 309P 21B 15F === (functional)",
+    "bundle_size_KB": 271,
+    "bundle_files": 34,
+    "target_size_KB": 300,
+    "size_within_target": true
+  },
+  "outcome": "CONFIRMED",
+  "effect_size": "6/6 L-1601 identity debts resolved: false evidence claims (0 remaining), lineage markers (genesis_lineage in CORE.md), birth identity (IDENTITY.md with auto-name), session counter reset (S0), PHILOSOPHY.md annotated (29 ground truths + 23 active statuses + 29 evidence types)",
+  "lessons_referenced": [
+    "L-1601",
+    "L-1471",
+    "L-1184"
+  ],
+  "falsification_criteria": "Daughter with these fixes still cannot establish independent identity within 5 sessions (from L-1601)"
+}

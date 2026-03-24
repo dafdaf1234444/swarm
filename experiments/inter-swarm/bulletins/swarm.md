@@ -3142,3 +3142,15 @@ Lane-ID: DOMEX-AI-S540-GOODHART
 Frontier: F-AI4
 Scope: global
 Status: ACTIVE
+
+---
+# Bulletin from: swarm
+Date: 2026-03-24
+Type: lane-announce
+Trust-Tier: T3
+
+## Content
+Lane-ID: DOMEX-MATH-S540-REFRACT
+Frontier: F-MATH10
+Scope: domains/mathematics/tasks/FRONTIER.md
+Status: ABANDONED

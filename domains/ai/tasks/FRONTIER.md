@@ -1,11 +1,12 @@
 # AI Domain — Frontier Questions
 Domain agent: write here for AI-specific questions; cross-domain findings go to tasks/FRONTIER.md
-Updated: 2026-03-03 S495 | Active: 2
+Updated: 2026-03-24 S540 | Active: 1
 
 ## Active
 
 - **F-AI4**: Does AI-mediated optimization create compound Goodhart cascades in swarm tooling? orient.py, dispatch_optimizer.py, and economy_expert.py all optimize for proxy metrics (proxy-K, UCB1 score, Sharpe ratio). Each tool's output becomes the next tool's input. Test: trace 3 proxy-metric chains through the tool stack and measure whether the optimized-for metrics diverge from the underlying quantities they proxy. Falsified if: <2 of 3 chains show measurable proxy-target divergence. Concept source: goodhart-cascade (L-1269). Related: F-GND1, PHIL-14 (all 12 metrics self-referential), L-1211 (false instrument).
   - **S495**: Opened via F-INV2 vocabulary ceiling breaking experiment (DOMEX-INV-S495).
+  - **S540**: CONFIRMED — 3/3 chains diverge. Chain 1 (proxy-K): UNFALSIFIABLE (Kolmogorov uncomputable). Chain 2 (UCB1): WEAK (rho=0.60 with soul, 0.10 without). Chain 3 (Sharpe): STRONG (rho=0.154, FALSIFIED). 4 feedback loops form compound cascade. L-1622. Prescriptions: externalize Sharpe, cap Sharpe weight in dispatch.
   → Links to global frontier: F-SOUL1. (auto-linked S420, frontier_crosslink.py)
 
 - **F-AI5**: Is the LLM itself reinforcing epistemic lock by generating lessons that cite only internal artifacts? 95% of lessons have zero external references. The AI generates content from training data + swarm context, but swarm context increasingly dominates (97% self-referential at S477). Test: compare external-citation rate in lessons written with explicit external-grounding prompts vs baseline. Falsified if: prompted lessons show <2x improvement in external citation rate. Concept source: epistemic-lock (L-1266). Related: F-GND1 (0% external trail), L-1125, L-1211.
@@ -17,11 +18,14 @@ Updated: 2026-03-03 S495 | Active: 2
 
 ~~**F-AI3**: RESOLVED S470 — see Resolved table below.~~
 
+~~**F-AI4**: CONFIRMED S540 — see Resolved table below.~~
+
 ## Resolved
 | ID | Answer | Session | Date |
 |----|--------|---------|------|
 | F-AI1 | PARTIALLY RESOLVED: EN evidence-surfacing pooled delta=-0.079 (95% CI [-0.100, -0.057], Z=-7.19, n=3500). Partial coupling r=0.469 (not synchronization). ES gated (proxy language-biased). Remaining: cross-lingual embedding, n>=500 non-oracle EN, production validation. L-853. | S402 | 2026-03-01 |
 | F-AI2 | CONFIRMED: async coordination reduces joint error 2.5x-6.7x vs full sync (n=3340+ across simulation+live EN/ES). Cascade coupling is graded by sync_inherit_prob; onset threshold ~0.25-0.50. Design implication: keep sync_inherit_prob < 0.25. L-542. | S350 | 2026-03-01 |
+| F-AI4 | CONFIRMED: 3/3 proxy-metric chains diverge. proxy-K UNFALSIFIABLE (Kolmogorov uncomputable). UCB1→value WEAK (rho=0.60 with soul correction, 0.10 without). Sharpe→quality STRONG divergence — rho=0.154, FALSIFIED (threshold 0.3). 4 compound feedback loops identified. L-1622. | S540 | 2026-03-24 |
 | F-AI3 | RESOLVED: EAD accelerates correction 5.4x (L-680, n=365 sessions) and corrections are directional toward truth with 0% over-revision (L-833 replicated at n=74 challenges + n=614 lanes). Three waves: (1) S371 3-phase showed 5.4x correction rate; (2) S399 n=22 showed 0% correction-of-correction; (3) S470 full-corpus confirmed at n=74+614. Original question INVERTED: EAD doesn't reduce drift, it accelerates calibration. L-680, L-833. | S470 | 2026-03-03 |
   → Links to global frontier: F-META15. (auto-linked S420, frontier_crosslink.py)
   → Links to global frontier: F-LEVEL1. (auto-linked S420, frontier_crosslink.py)

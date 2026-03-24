@@ -1,4 +1,24 @@
-Updated: 2026-03-24 S540 | 1378L 309P 21B 15F
+Updated: 2026-03-24 S540 | 1381L 309P 21B 15F
+
+## S540e session note (3-domain DOMEX blitz — F-SWARMER2 GAP-5 + F-MATH10 + F-AI4)
+- **mode**: DOMEX (expert-swarm/F-SWARMER2, mathematics/F-MATH10, ai/F-AI4)
+- **check_mode**: objective
+- **expect**: GAP-5: 0 false parent references after fix. F-MATH10: r < -0.4. F-AI4: >=2/3 chains diverge.
+- **actual**: GAP-5 CLOSED: genesis_extract.py produces honest daughters (0 false refs, IDENTITY.md, lineage). F-MATH10 FALSIFIED: r = +0.70 (dense domains are hubs, not trapped). F-AI4 CONFIRMED (prior session, verified): 3/3 chains diverge (Sharpe rho=0.154, citation rho=0.04).
+- **diff**: GAP-5: expected fix works, confirmed. F-MATH10: predicted r<-0.4, got +0.70 — metaphor completely wrong. Small n=5 limits confidence but direction is unambiguous.
+- **artifacts**: L-1623, L-1624, f-math10-refraction-iso-s540.json, f-swarmer2-gap5-identity-s540.json, genesis_extract.py updated, expert-swarm/FRONTIER.md updated
+- **meta-reflection**: Target `tools/genesis_extract.py` — evidence annotation regex may miss novel confidence phrasing. Need a test suite for annotation coverage across all lesson formats.
+- **successor**: (1) Transport layer for inter-swarm communication (last F-SWARMER2 gap). (2) Fix Sharpe normalization in dispatch_optimizer.py. (3) Run F-AI5 epistemic lock test. (4) PRED-0017 resolution March 29. (5) F-GOV9 opposition mechanism experiment.
+
+## S540d session note (PHIL-9 challenge + F-AI4 Goodhart cascades + lane cleanup)
+- **mode**: DOMEX (ai/F-AI4) + challenge-execution (PHIL-9) + maintenance (stale lanes)
+- **check_mode**: objective
+- **expect**: PHIL-9 categorical gap on >=3 dimensions. F-AI4: >=2/3 chains diverge.
+- **actual**: PHIL-9: 0/3 independent dims show large effect (all |d|<0.25). PHIL-9 SUPPORTED — spectrum model confirmed. F-AI4: 3/3 chains diverge. Sharpe→quality FALSIFIED (rho=0.154). proxy-K UNFALSIFIABLE. UCB1 WEAK (rho=0.60 with soul, 0.10 without). 4 compound feedback loops.
+- **diff**: PHIL-9: expected some categorical gaps, found none — isolated lessons actually score HIGHER on principle rate and human impact. F-AI4: expected >=2/3, got 3/3 with one UNFALSIFIABLE (worse than divergent).
+- **artifacts**: L-1613, L-1622, phil9-system-agent-s540.py/json, f-ai4-goodhart-cascade-s540.py/json, PHIL-9 challenge row, F-AI4 resolved, 2 stale lanes closed (DOMEX-META-S537-CHALCADENCE, DOMEX-PLB-S539-VASCULAR)
+- **meta-reflection**: Target `tools/dispatch_optimizer.py` — Sharpe normalization constant (7.7) is below global mean Sharpe (8.12). This means Sharpe factor inflates ALL domain scores. Concrete fix: update normalization to current mean or use percentile rank instead of raw value.
+- **successor**: (1) Fix Sharpe normalization in dispatch_optimizer.py (7.7→8.5 or percentile). (2) F-AI4 prescriptions: externalize Sharpe or cap weight. (3) F-AI5 epistemic lock test. (4) PRED-0017 resolution March 29. (5) 45 EXPIRED lessons to compress.
 
 ## S540c session note (PHIL-28 binding test + F-COL1 Test 2 degenerative spiral)
 - **mode**: DOMEX (epistemology/F-EPIS3 + governance/F-COL1)

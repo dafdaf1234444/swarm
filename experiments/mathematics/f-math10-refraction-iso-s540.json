@@ -1,0 +1,21 @@
+{
+  "experiment": "DOMEX-MATH-S540-REFRACT",
+  "frontier": "F-MATH10",
+  "session": "S540",
+  "domain": "mathematics",
+  "date": "2026-03-24",
+  "expect": "r < -0.4 between domain refractive index and ISO atlas appearances. High-density domains appear less in cross-domain atlas (total internal reflection).",
+  "actual": "FALSIFIED. Spearman r = +0.70, Pearson r = +0.87 (n=5 matched domains). Correlation is strongly POSITIVE — dense domains appear MORE in ISO atlas, not less. Data: meta/swarm (n=1.79, ISO=23), thermodynamics/physics (n=1.44, ISO=12), brain/neuroscience (n=1.21, ISO=10), economy/economics (n=1.06, ISO=15), governance (n=0.79, ISO=2).",
+  "diff": "Predicted r < -0.4, got r = +0.70. Direction completely wrong. The 'total internal reflection' metaphor breaks down: dense domains are not trapped — they are hubs. Internally rich domains are also cross-domain productive. Limitation: only 5 of 21 refractive-index domains matched ISO atlas hub names (naming mismatch between internal domain names and ISO atlas entries).",
+  "effect_size": "r = +0.70 (Spearman), +0.87 (Pearson), opposite direction from predicted",
+  "verdict": "FALSIFIED",
+  "sample_size": 5,
+  "limitations": "Small n=5 due to naming mismatch between refractive-index domains and ISO atlas domains. 16/21 domains could not be matched. Result direction is clear but magnitude uncertain.",
+  "lessons_cited": ["L-1269"],
+  "artifacts": ["experiments/mathematics/f-math10-refraction-iso-s540.json"],
+  "prescriptions": [
+    "Retire the 'total internal reflection' metaphor — domain density predicts cross-domain influence, not isolation",
+    "Standardize domain naming between tools to enable broader correlation analysis",
+    "Update F-MATH10 to FALSIFIED status"
+  ]
+}
