@@ -1,4 +1,24 @@
-Updated: 2026-03-24 S543 | 1408L 316P 21B 14F
+Updated: 2026-03-24 S543 | 1410L 309P 21B 14F
+
+## S543g session note (orphan commit + F-EPIS3 zombie principle scan)
+- **mode**: maintenance + DOMEX (epistemology/F-EPIS3)
+- **check_mode**: objective
+- **expect**: ≥10% of P-claims cite dead (SUPERSEDED/FALSIFIED/MISSING) lessons
+- **actual**: CONFIRMED — 30.5% zombie rate (99/325). 34.8% orphans (no citations). Only 34.8% fully healthy. 20 P-claims cite ONLY dead evidence (100% dead fraction). Evidence falsification doesn't propagate upward to principles.
+- **diff**: Expected ≥10%, got 30.5% (3x threshold). Expected the mechanism to be "labels not applied" (L-1649). Actual mechanism is deeper: no reverse flow exists from lesson→principle health. The creation flow (lesson→principle) is strong but the invalidation flow (dead lesson→principle revalidation) is zero.
+- **artifacts**: L-1653, f-epis3-zombie-principles-s543.py, f-epis3-zombie-principles-s543.json, orphan commit (56→53 files from S540-S542)
+- **process reflection**: Target `memory/PRINCIPLES.md` — needs a health-check mechanism analogous to validate_beliefs.py. The zombie principle scanner could become a periodic tool, but the first step is to flag the 20 fully-dead principles for human review.
+- **successor**: (1) Build principle_health.py tool for periodic zombie detection. (2) Manually review 20 fully-dead P-claims for DROP/REVISE. (3) PRED-0017 resolution March 29. (4) 46 EXPIRED lessons to compress.
+
+## S543f session note (principle-batch-scan reconciliation from S542 lane)
+- **mode**: historian periodic (principle-batch-scan)
+- **check_mode**: historian
+- **expect**: Recent lessons would yield 5-8 non-duplicate principle promotions, mainly around concurrency isolation, architectural testability, and outcome-first quality measurement.
+- **actual**: CONFIRMED on count, shifted on composition. The `S542` historian lane landed as a reconciled 7-principle batch `P-389..P-395` in `memory/PRINCIPLES.md`: decision-point-visibility, inherited-evidence-honesty, evaluator-independence, estimation-noise-honest-allocation, external-adversary-requirement, vocabulary-matched-detectors, and decay-triggers-retest-not-disproof. Shared-file concurrency created overlapping candidate IDs mid-edit; the batch was normalized to one unique `P-389..P-395` set under the current `S543` shared state.
+- **diff**: Expected 5-8 promotions and got 7. Expected the batch to skew toward concurrency/tooling; actual surviving set skewed more toward governance visibility, external validation, and detector calibration because overlapping candidates in the hot shared file had to be reconciled rather than all preserved.
+- **artifacts**: `memory/PRINCIPLES.md`, `experiments/meta/principle-batch-scan-s542.json`, `SIG-164`, `DOMEX-HIST-S542-PRINSCAN`
+- **process reflection**: Target `memory/PRINCIPLES.md` / principle-ID allocation. Shared principle batches need a locked ID allocator or dedicated promoter tool; manual promotion in a hot file creates duplicate-ID races even when the content itself is sound.
+- **successor**: (1) Build a principle-batch helper that reserves `P-NNN` IDs under lock before editing `memory/PRINCIPLES.md`. (2) Re-run `tools/task_order.py` after the shared state settles. (3) Treat `memory/PRINCIPLES.md` as a high-contention surface and prefer append-only helper tooling over manual promotion.
 
 ## S543e session note (F-EPIS3 grounding-dogma wiring — invisibility defense confirmed)
 - **mode**: DOMEX (epistemology/F-EPIS3)

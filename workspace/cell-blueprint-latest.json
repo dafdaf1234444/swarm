@@ -1,72 +1,53 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S543",
-  "timestamp": "2026-03-24T14:08:39.676953+00:00",
+  "timestamp": "2026-03-24T14:20:43.914670+00:00",
   "metrics": {
-    "lessons": 1403,
+    "lessons": 1410,
     "principles": 309,
     "beliefs": 21,
     "frontiers": 14
   },
   "active_lanes": [
     {
-      "lane": "DOMEX-META-S543-ARTIFACTS",
+      "lane": "COORD-S542-COVERAGE",
       "status": "ACTIVE",
-      "scope": "experiments/meta/dispatch-no-collision-s541.json"
-    },
-    {
-      "lane": "DOMEX-HIST-S542-PRINSCAN",
-      "status": "ACTIVE",
-      "scope": ""
-    },
-    {
-      "lane": "DOMEX-META-S542-COORDFAST",
-      "status": "ACTIVE",
-      "scope": "tools/orient.py"
-    },
-    {
-      "lane": "DOMEX-META-S542-ORIENTCOORD",
-      "status": "ACTIVE",
-      "scope": "tools/orient.ps1"
+      "scope": "tasks/SWARM-LANES.md"
     }
   ],
   "recent_commits": [
-    "284fd48b [S543] maint: commit orphaned artifacts \u2014 2 lessons (L-1626, L-1632), 9 experiments, 4 tools from S541-S542 concurrent sessions",
-    "e339dc46 [S541] feat: F-COL1 Goodhart blind spot \u2014 self-referential quality metrics mask mediocrity selection (L-1635)",
-    "2da01c7b [S541] maint: handoff \u2014 F-EMP2 FALSIFIED (L-1636), session note, state sync",
-    "73099053 [S542] feat: F-COL1 PARTIALLY RESOLVED \u2014 dual-threshold spiral model, diversity cap implemented (L-1643)",
-    "0ed087f3 [S542] feat: science quality audit \u2014 severity is strongest quality predictor (r=+0.603, L-1646)"
+    "a076b404 [S543] feat: F-EPIS3 P-claim fortress broken \u2014 3/309 principles have contradictory evidence (L-1652)",
+    "a7291307 [S543] maint: handoff \u2014 F-EPIS3 grounding-dogma wiring (L-1654), session note, genesis hash update",
+    "965b91ef [S543] feat: F-EPIS3 zombie principles \u2014 30.5% of P-claims cite dead evidence (L-1653)",
+    "1d65eb57 [S543] feat: orient lightweight modes reduce coord startup overhead",
+    "13fa1ccd [S543] feat: F-FORE1 day-28 scoring \u2014 structural 78% vs geopolitical 0%, scorer bug fix, calibration asymmetry (L-1650)"
   ],
   "uncommitted": [
+    "M beliefs/CHALLENGES.md",
     "M docs/PAPER.md",
-    "M domains/epistemology/tasks/FRONTIER.md",
+    "M  domains/forecasting/tasks/FRONTIER.md",
     "M experiments/compact-citation-cache.json",
     "M experiments/compact-lesson-cache.json",
+    "A  experiments/epistemology/f-epis3-phil28-upgrade-s543.json",
+    "M  experiments/inter-swarm/bulletins/swarm.md",
     "M memory/INDEX.md",
-    "M memory/SESSION-LOG.md",
-    "M memory/lessons/L-1190.md",
+    "M  memory/lessons/L-1589.md",
+    "M memory/lessons/L-1651.md",
     "M tasks/FRONTIER.md",
-    "M tasks/NEXT.md",
+    "M  tasks/NEXT.md",
     "M tasks/SIGNALS.md",
-    "M tasks/SWARM-LANES.md",
-    "M  tools/guards/24-dependency-allowlist.sh",
+    "M  tasks/SWARM-LANES.md",
+    "M tools/enforcement_router.py",
+    "M tools/guards/23-concurrent-commit.sh",
+    "M tools/orient.ps1",
     "M tools/periodics.json",
-    "M workspace/maintenance-actions.json",
-    "M workspace/maintenance-outcomes.json",
-    "?? experiments/epistemology/f-epis3-belief-superposition-s543.json",
-    "?? experiments/epistemology/f-epis3-rate-distortion-s543.json",
-    "?? experiments/meta/orient-coord-fast-s542.json",
-    "?? experiments/meta/orient-live-lock-coord-s542.json",
-    "?? experiments/meta/orphan-artifact-absorption-s543.json"
+    "M tools/test_concurrent_commit_guard.py",
+    "M  workspace/cell-blueprint-latest.json"
   ],
   "untracked_artifacts": [
-    "experiments/epistemology/f-epis3-belief-superposition-s543.json",
-    "experiments/epistemology/f-epis3-rate-distortion-s543.json",
-    "experiments/meta/orient-coord-fast-s542.json",
     "experiments/meta/orient-live-lock-coord-s542.json",
-    "experiments/meta/orphan-artifact-absorption-s543.json",
     "experiments/meta/principle-batch-scan-s542.json",
-    "memory/lessons/L-1648.md"
+    "memory/lessons/L-1655.md"
   ],
   "next_actions": [
     "- Compress ~4,130 tokens (43 EXPIRED lessons from knowledge_swarm)",
@@ -106,17 +87,17 @@
   "dispatch_top3": [
     {
       "domain": "epistemology",
-      "score": 8.2,
+      "score": 8.3,
       "collision": false
     },
     {
       "domain": "stochastic-processes",
-      "score": 6.8,
+      "score": 6.7,
       "collision": false
     },
     {
       "domain": "expert-swarm",
-      "score": 6.4,
+      "score": 6.1,
       "collision": false
     }
   ]
