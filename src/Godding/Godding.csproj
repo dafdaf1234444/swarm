@@ -5,6 +5,11 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>godding</ToolCommandName>
+    <PackageId>Godding</PackageId>
+    <Version>1.0.0</Version>
+    <Description>The bidirectional tree. One becomes many, many become one. Fair for all.</Description>
   </PropertyGroup>
 
   <ItemGroup>

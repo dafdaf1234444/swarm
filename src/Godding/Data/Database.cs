@@ -66,7 +66,7 @@ public class Database : IDisposable
     public Node? GetNodeByName(string name)
     {
         using var cmd = _connection.CreateCommand();
-        cmd.CommandText = "SELECT id, name, content, type, created_at, updated_at FROM nodes WHERE name = @name";
+        cmd.CommandText = "SELECT id, name, content, type, created_at, updated_at FROM nodes WHERE name = @name COLLATE NOCASE";
         cmd.Parameters.AddWithValue("@name", name);
         using var reader = cmd.ExecuteReader();
         return reader.Read() ? ReadNode(reader) : null;

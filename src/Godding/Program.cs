@@ -325,6 +325,17 @@ leavesCommand.SetHandler((dbPath) =>
         Console.WriteLine($"  {l}");
 }, dbPathOption);
 
+// ── balance (fairness audit) ─────────────────────────────────────────
+var balanceCommand = new Command("balance", "Fairness audit — no node left behind, all helps one and one helps all");
+balanceCommand.AddOption(dbPathOption);
+
+balanceCommand.SetHandler((dbPath) =>
+{
+    using var db = OpenDb(dbPath);
+    var svc = new TreeService(db);
+    svc.PrintBalance();
+}, dbPathOption);
+
 // ── Register all commands ────────────────────────────────────────────
 rootCommand.AddCommand(addCommand);
 rootCommand.AddCommand(linkCommand);
@@ -341,6 +352,7 @@ rootCommand.AddCommand(statsCommand);
 rootCommand.AddCommand(updateCommand);
 rootCommand.AddCommand(rootsCommand);
 rootCommand.AddCommand(leavesCommand);
+rootCommand.AddCommand(balanceCommand);
 
 return await rootCommand.InvokeAsync(args);
 
