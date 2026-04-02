@@ -1,0 +1,151 @@
+[
+  {
+    "name": "Bill Clinton",
+    "role": "Former US President / Epstein Associate",
+    "country": "United States",
+    "said": ["I had no knowledge of his crimes.", "I took four trips on his plane."],
+    "did": [
+      "Flight logs show 26+ flights on Epstein's planes — not 4 as claimed.",
+      "Visited Epstein's private island — confirmed by witness testimony.",
+      "Secret Service detail reportedly declined on some Epstein flights."
+    ],
+    "facts": [
+      "FAA flight logs: 26+ flights documented on Epstein's aircraft.",
+      "Clinton initially claimed 4 trips — logs show far more.",
+      "Witness testimony places Clinton on Little St. James island.",
+      "No criminal charges filed.",
+      "Photos with Epstein and Maxwell at multiple events."
+    ],
+    "sources": ["FAA flight logs (court exhibits)", "Giuffre v. Maxwell depositions", "Photographic evidence", "Clinton spokesperson statements"],
+    "grade": "A-"
+  },
+  {
+    "name": "Alan Dershowitz",
+    "role": "Harvard Law Professor / Epstein Associate",
+    "country": "United States",
+    "said": ["I never had sex with any underage person.", "Virginia Giuffre is lying."],
+    "did": [
+      "Named by Virginia Giuffre as someone she was trafficked to — under oath.",
+      "Helped negotiate Epstein's 2008 sweetheart plea deal as part of legal team.",
+      "Settled defamation claims with Giuffre (2024) — then recanted his denial.",
+      "Admitted getting a massage at Epstein's mansion — 'I kept my underwear on.'"
+    ],
+    "facts": [
+      "Named in Giuffre sworn testimony as person she was directed to have sex with as a minor.",
+      "Part of Epstein's legal defense team that negotiated 2008 NPA.",
+      "Settled with Giuffre 2024 — retracted years of calling her a liar.",
+      "After settlement, stated he had 'made a mistake' in his denials.",
+      "Frequent visitor to Epstein properties — self-admitted."
+    ],
+    "sources": ["Giuffre sworn depositions (court record)", "2008 NPA legal team records", "Dershowitz-Giuffre settlement (2024)", "Dershowitz public statements and interviews", "Flight logs"],
+    "grade": "A-"
+  },
+  {
+    "name": "Bill Gates",
+    "role": "Microsoft Co-founder / Epstein Associate",
+    "country": "United States",
+    "said": ["I didn't have any business relationship with him.", "Meeting him was a mistake."],
+    "did": [
+      "Met with Epstein multiple times AFTER 2008 conviction — NYT documented.",
+      "Flew on Epstein's plane at least once (2013).",
+      "Epstein advised Gates on philanthropy and marriage.",
+      "Melinda Gates cited Epstein meetings as factor in divorce."
+    ],
+    "facts": [
+      "NYT: Gates met Epstein 'numerous times' starting 2011 — after conviction.",
+      "Gates Foundation: Epstein facilitated at least one multimillion-dollar donation.",
+      "Email from Gates to colleagues: 'His lifestyle is very different and kind of intriguing.'",
+      "Melinda French Gates: Epstein meetings were one factor in filing for divorce.",
+      "No allegations of criminal conduct against Gates.",
+      "Gates initially minimized contact — later acknowledged multiple meetings."
+    ],
+    "sources": ["NYT investigation (Oct 2019)", "Gates Foundation records", "Gates emails (reported by NYT)", "Melinda French Gates interviews", "Flight records"],
+    "grade": "B"
+  },
+  {
+    "name": "Leon Black",
+    "role": "CEO, Apollo Global Management / Epstein Associate",
+    "country": "United States",
+    "said": ["Epstein provided professional services only.", "I was not involved in any wrongdoing."],
+    "did": [
+      "Paid Epstein $158 million between 2012-2017 — AFTER conviction.",
+      "Payments described as 'professional services' — nature unclear.",
+      "Stepped down as Apollo CEO after payments revealed (2021).",
+      "Guzel Ganieva accused Black of sexual assault — settled."
+    ],
+    "facts": [
+      "Apollo review (Dechert LLP): confirmed $158M in payments to Epstein 2012-2017.",
+      "Payments were AFTER Epstein's 2008 conviction for sex trafficking.",
+      "Black stepped down as CEO March 2021 — remained chairman briefly.",
+      "Ganieva lawsuit: alleged rape and sexual abuse — settled out of court.",
+      "$158M for 'tax and estate planning services' — questioned by investors and media."
+    ],
+    "sources": ["Dechert LLP independent review for Apollo", "Apollo board disclosures", "Ganieva v. Black court filings", "SEC filings — Apollo", "NYT/WSJ/Bloomberg reporting"],
+    "grade": "A-"
+  },
+  {
+    "name": "Jes Staley",
+    "role": "CEO, Barclays / Epstein Associate",
+    "country": "United Kingdom",
+    "said": ["My relationship with Epstein was professional.", "I deeply regret the association."],
+    "did": [
+      "1,200+ emails with Epstein over 7-year period — including AFTER conviction.",
+      "Visited Epstein in prison in Florida.",
+      "Visited Epstein on Little St. James island.",
+      "Resigned as Barclays CEO after FCA investigation (2021).",
+      "JP Morgan sued Staley — alleged he facilitated Epstein's banking relationship."
+    ],
+    "facts": [
+      "FCA/PRA investigation: Staley 'mischaracterized' Epstein relationship to regulators.",
+      "1,200+ emails between Staley and Epstein documented.",
+      "Visited Epstein in Florida jail during 2008-2009 sentence.",
+      "Visited Little St. James island — confirmed.",
+      "JP Morgan lawsuit: alleged Staley knew about Epstein's trafficking.",
+      "Virgin Islands AG: Staley identified as co-conspirator in trafficking (civil complaint).",
+      "Resigned Barclays Nov 2021."
+    ],
+    "sources": ["FCA/PRA regulatory findings", "JP Morgan v. Staley court filings", "US Virgin Islands AG civil complaint", "Barclays board disclosure", "Email records (court exhibits)"],
+    "grade": "A"
+  },
+  {
+    "name": "JP Morgan Chase",
+    "role": "Bank / Epstein Financial Services",
+    "country": "United States",
+    "said": ["We deeply regret the Epstein relationship."],
+    "did": [
+      "Maintained Epstein as client for 15 years (2003-2018) — including after conviction.",
+      "Paid $290M settlement to Epstein victims (June 2023).",
+      "Paid $75M settlement to US Virgin Islands (Sept 2023).",
+      "Internal compliance flagged Epstein — management overrode warnings."
+    ],
+    "facts": [
+      "Epstein client 2003-2018 — maintained relationship 10 years after sex trafficking conviction.",
+      "$290M settlement with Epstein victims (SDNY, 2023).",
+      "$75M settlement with US Virgin Islands.",
+      "Internal emails show compliance raised concerns — overridden by senior management.",
+      "Jes Staley facilitated the continued relationship (per JP Morgan's own lawsuit against him)."
+    ],
+    "sources": ["Settlement agreements (SDNY)", "US Virgin Islands settlement", "JP Morgan internal communications (court exhibits)", "JP Morgan v. Staley filings"],
+    "grade": "A"
+  },
+  {
+    "name": "Deutsche Bank",
+    "role": "Bank / Epstein Financial Services",
+    "country": "Germany",
+    "said": ["We deeply regret onboarding Epstein."],
+    "did": [
+      "Accepted Epstein as client in 2013 — 5 years AFTER conviction.",
+      "Processed hundreds of transactions for Epstein.",
+      "Paid $150M fine to NY regulators for compliance failures.",
+      "Fined for facilitating suspicious transactions including payments to known associates."
+    ],
+    "facts": [
+      "NYDFS: $150M penalty for 'significant compliance failures' in Epstein account (July 2020).",
+      "Onboarded Epstein 2013 — after conviction, after JP Morgan dropped him.",
+      "Processed transactions including 'payments to individuals who have been publicly identified as co-conspirators.'",
+      "Internal red flags ignored or overridden."
+    ],
+    "sources": ["NYDFS consent order ($150M penalty)", "NYDFS investigation findings", "Deutsche Bank internal audit findings (referenced in consent order)"],
+    "grade": "A"
+  }
+]
