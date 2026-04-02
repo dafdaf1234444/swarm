@@ -13,156 +13,37 @@ body {
     min-height: 100vh;
     line-height: 1.8;
 }
-.page {
-    max-width: 520px;
-    margin: 0 auto;
-    padding: 48px 20px;
-}
-
-/* ── Story ── */
-.story {
-    margin-bottom: 40px;
-}
-.story h1 {
-    font-size: 26px;
-    font-weight: normal;
-    text-align: center;
-    margin-bottom: 28px;
-    color: #2a2a2a;
-}
-.story p {
-    font-size: 16px;
-    color: #555;
-    margin-bottom: 16px;
-}
-.story .quiet {
-    color: #999;
-    font-style: italic;
-    font-size: 14px;
-}
-.story .break {
-    text-align: center;
-    color: #ccc;
-    margin: 24px 0;
-    font-size: 13px;
-    letter-spacing: 4px;
-}
-
-/* ── Tool ── */
-.tool {
-    background: #fff;
-    border-radius: 10px;
-    padding: 24px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    margin-bottom: 16px;
-}
-.tool-label {
-    font-size: 12px;
-    color: #bbb;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 8px;
-}
-.status {
-    text-align: center;
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 14px;
-    margin-bottom: 18px;
-}
+.page { max-width: 520px; margin: 0 auto; padding: 48px 20px; }
+.story { margin-bottom: 40px; }
+.story h1 { font-size: 26px; font-weight: normal; text-align: center; margin-bottom: 28px; color: #2a2a2a; }
+.story p { font-size: 16px; color: #555; margin-bottom: 16px; }
+.story .quiet { color: #999; font-style: italic; font-size: 14px; }
+.story .break { text-align: center; color: #ccc; margin: 24px 0; font-size: 13px; letter-spacing: 4px; }
+.tool { background: #fff; border-radius: 10px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 16px; }
+.tool-label { font-size: 12px; color: #bbb; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+.status { text-align: center; padding: 12px; border-radius: 8px; font-size: 14px; margin-bottom: 18px; }
 .status.good { background: #eaf2ea; color: #4a6a4a; }
 .status.needs { background: #f2eae6; color: #7a5a4a; }
 .status.empty { background: #ede8e2; color: #999; }
-
-.row {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 16px;
-}
-.row input {
-    flex: 1;
-    padding: 11px 12px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 16px;
-    font-family: inherit;
-    background: #fafaf8;
-    color: #3a3a3a;
-    outline: none;
-}
+.row { display: flex; gap: 8px; margin-bottom: 16px; }
+.row input { flex: 1; padding: 11px 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; font-family: inherit; background: #fafaf8; color: #3a3a3a; outline: none; }
 .row input:focus { border-color: #b8a88a; }
 .row input::placeholder { color: #ccc; }
-.btn {
-    padding: 11px 18px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 14px;
-    font-family: inherit;
-    cursor: pointer;
-    color: #555;
-    background: #fafaf8;
-}
+.btn { padding: 11px 18px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; font-family: inherit; cursor: pointer; color: #555; background: #fafaf8; }
 .btn:hover { background: #f0ece5; }
 .btn-go { background: #eef4ee; border-color: #c5d5c5; color: #4a6a4a; }
 .btn-go:hover { background: #e4ede4; }
-
-.connect-row {
-    display: flex;
-    gap: 6px;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-bottom: 16px;
-}
-.connect-row select {
-    flex: 1;
-    min-width: 90px;
-    padding: 9px 8px;
-    border: 1px solid #ddd;
-    border-radius: 7px;
-    font-size: 14px;
-    font-family: inherit;
-    background: #fafaf8;
-    color: #555;
-    outline: none;
-    cursor: pointer;
-}
+.connect-row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; margin-bottom: 16px; }
+.connect-row select { flex: 1; min-width: 90px; padding: 9px 8px; border: 1px solid #ddd; border-radius: 7px; font-size: 14px; font-family: inherit; background: #fafaf8; color: #555; outline: none; cursor: pointer; }
 .arrow { color: #ccc; }
-.divider {
-    border: none;
-    border-top: 1px solid #eee;
-    margin: 18px 0;
-}
-
-/* ── Items ── */
-.item {
-    padding: 12px 0;
-    border-bottom: 1px solid #f0ece5;
-}
+.divider { border: none; border-top: 1px solid #eee; margin: 18px 0; }
+.item { padding: 12px 0; border-bottom: 1px solid #f0ece5; }
 .item:last-child { border-bottom: none; }
-.item .name {
-    font-size: 15px;
-    color: #2a2a2a;
-}
-.item .meta {
-    font-size: 13px;
-    color: #aaa;
-    margin-top: 2px;
-}
+.item .name { font-size: 15px; color: #2a2a2a; }
+.item .meta { font-size: 13px; color: #aaa; margin-top: 2px; }
 .item .meta b { color: #777; font-weight: normal; }
-.item .alone {
-    font-size: 13px;
-    color: #c09080;
-    font-style: italic;
-    margin-top: 2px;
-}
-
-footer {
-    text-align: center;
-    color: #ccc;
-    font-size: 11px;
-    margin-top: 40px;
-    line-height: 1.8;
-}
+.item .alone { font-size: 13px; color: #c09080; font-style: italic; margin-top: 2px; }
+footer { text-align: center; color: #ccc; font-size: 11px; margin-top: 40px; line-height: 1.8; }
 </style>
 </head>
 <body>
@@ -172,59 +53,51 @@ footer {
     <h1>Godding</h1>
 
     <p>
-        You know how sometimes you have a bunch of things in your head
-        and you can feel they're related but you can't see how?
+        You make a choice. That choice has a consequence.
+        The consequence touches someone. That someone makes their own choice.
+        And so on, forever.
     </p>
     <p>
-        That's what this is for. You write things down.
-        Then you draw the lines between them.
-        This helps that. That came from this.
-    </p>
-    <p>
-        When something is sitting there with no lines going in or out,
-        it shows up differently. Not as a punishment.
-        Just so you notice. So you can decide what to do about it.
+        That's all this is. A way to see it.
     </p>
 
     <div class="break">&middot; &middot; &middot;</div>
 
     <p>
-        Below you'll see three things already here:
-        <strong>You</strong>, <strong>Someone else</strong>, and
-        <strong>Something in common</strong>.
-        They're connected to each other. You give to Something in common.
-        Someone else gives to it too. And it gives back to both of you.
+        You add something — anything real to you.
+        Then you connect it to what it touches.
+        "This gives to that." "That receives from this."
     </p>
     <p>
-        That's the whole idea. Things help things. And when everything
-        is helping something and being helped by something, it says
-        "Everything is connected." That's the goal.
+        If something is sitting alone with no connection,
+        you'll see it. Not as a warning. Just as a fact.
+        What you do about it is your choice.
+    </p>
+    <p>
+        When everything is connected, it says so.
+        When something is left out, it says that too.
+        It doesn't tell you what's right. It tells you what is.
     </p>
 
     <div class="break">&middot; &middot; &middot;</div>
 
     <p>
-        You can add anything. A feeling. A person's name. A problem.
-        A dream. A fear. Something you're grateful for.
-        Then connect it to what it's related to.
+        Nothing is sent anywhere. Nothing is stored on a server.
+        It lives in your browser. It's yours.
+        You reap what you sow here, and only you see it.
     </p>
-    <p>
-        It doesn't judge what you put in. It doesn't send it anywhere.
-        It only lives in your browser, right here, right now.
-        If you clear your browser data, it's gone. That's it.
-    </p>
+
     <p class="quiet">
         The hand that gives is connected to the hand that receives.
     </p>
 </div>
 
-<!-- ── TOOL ── -->
 <div class="tool">
-    <div class="status empty" id="status">Try it below.</div>
+    <div class="status empty" id="status">Try it.</div>
 
-    <div class="tool-label">Add something</div>
+    <div class="tool-label">Add something real</div>
     <div class="row">
-        <input type="text" id="inp" placeholder="Anything at all..." autocomplete="off">
+        <input type="text" id="inp" placeholder="Anything..." autocomplete="off">
         <button class="btn" onclick="add()">Add</button>
     </div>
 
@@ -240,7 +113,7 @@ footer {
 
     <div id="listWrap" style="display:none">
         <div class="divider"></div>
-        <div class="tool-label">Everything</div>
+        <div class="tool-label">What's here</div>
         <div id="list"></div>
     </div>
 </div>
@@ -249,127 +122,121 @@ footer {
     All helps one and one helps all, forever.<br>
     Hence all is known in the end, and the end knows the beginning.<br><br>
     Your data never leaves your browser.<br>
-    Free, open, and fair for all.
+    Free, open, fair for all.
 </footer>
 
 </div>
 <script>
-const K = 'godding4';
-const seed = {nextId:4, nodes:[
-    {id:1,name:'You'},
-    {id:2,name:'Someone else'},
-    {id:3,name:'Something in common'}
-], edges:[
-    {from:1,to:3},{from:2,to:3},{from:3,to:1},{from:3,to:2}
+const K='godding5';
+const seed={nextId:9,nodes:[
+    {id:1,name:'A choice you make'},
+    {id:2,name:'The consequence'},
+    {id:3,name:'Someone it touches'},
+    {id:4,name:'Their choice'},
+    {id:5,name:'A promise you keep'},
+    {id:6,name:'Trust'},
+    {id:7,name:'What you give'},
+    {id:8,name:'What comes back'}
+],edges:[
+    {from:1,to:2},
+    {from:2,to:3},
+    {from:3,to:4},
+    {from:4,to:1},
+    {from:5,to:6},
+    {from:6,to:3},
+    {from:7,to:3},
+    {from:3,to:8},
+    {from:8,to:1},
+    {from:6,to:7}
 ]};
 
-function load() {
-    try {
-        const d = JSON.parse(localStorage.getItem(K));
-        if (d && d.nodes && d.nodes.length > 0) return d;
-        return JSON.parse(JSON.stringify(seed));
-    } catch { return JSON.parse(JSON.stringify(seed)); }
+function load(){
+    try{const d=JSON.parse(localStorage.getItem(K));
+    if(d&&d.nodes&&d.nodes.length>0)return d;
+    return JSON.parse(JSON.stringify(seed));
+    }catch{return JSON.parse(JSON.stringify(seed));}
 }
-function save(d) { localStorage.setItem(K, JSON.stringify(d)); }
+function save(d){localStorage.setItem(K,JSON.stringify(d));}
 
-function add() {
-    const inp = document.getElementById('inp');
-    const name = inp.value.trim();
-    if (!name) return;
-    const d = load();
-    d.nodes.push({id: d.nextId++, name});
-    save(d);
-    inp.value = '';
-    render();
+function add(){
+    const inp=document.getElementById('inp');
+    const name=inp.value.trim();
+    if(!name)return;
+    const d=load();
+    d.nodes.push({id:d.nextId++,name});
+    save(d);inp.value='';render();
 }
 
-function link() {
-    const f = parseInt(document.getElementById('fromSel').value);
-    const t = parseInt(document.getElementById('toSel').value);
-    if (!f || !t || f === t) return;
-    const d = load();
-    if (d.edges.some(e => e.from === f && e.to === t)) return;
-    d.edges.push({from: f, to: t});
-    save(d);
-    render();
+function link(){
+    const f=parseInt(document.getElementById('fromSel').value);
+    const t=parseInt(document.getElementById('toSel').value);
+    if(!f||!t||f===t)return;
+    const d=load();
+    if(d.edges.some(e=>e.from===f&&e.to===t))return;
+    d.edges.push({from:f,to:t});
+    save(d);render();
 }
 
-function render() {
-    const d = load();
+function render(){
+    const d=load();
+    const el=document.getElementById('status');
+    const linked=new Set();
+    d.edges.forEach(e=>{linked.add(e.from);linked.add(e.to);});
+    const alone=d.nodes.filter(n=>!linked.has(n.id));
 
-    // Status
-    const el = document.getElementById('status');
-    const linked = new Set();
-    d.edges.forEach(e => { linked.add(e.from); linked.add(e.to); });
-    const alone = d.nodes.filter(n => !linked.has(n.id));
-
-    if (d.nodes.length === 0) {
-        el.textContent = 'Nothing here yet. Add something.';
-        el.className = 'status empty';
-    } else if (alone.length === 0) {
-        el.textContent = 'Everything is connected.';
-        el.className = 'status good';
-    } else if (d.nodes.length === 1) {
-        el.textContent = 'One thing so far. Add another.';
-        el.className = 'status empty';
-    } else {
-        const n = alone.map(x => '\u201c' + x.name + '\u201d');
-        el.textContent = (n.length <= 3 ? n.join(' and ') : alone.length + ' things') + ' \u2014 not connected yet.';
-        el.className = 'status needs';
+    if(d.nodes.length===0){
+        el.textContent='Nothing here yet.';el.className='status empty';
+    }else if(alone.length===0){
+        el.textContent='Everything is connected.';el.className='status good';
+    }else if(d.nodes.length===1){
+        el.textContent='One thing. Add another.';el.className='status empty';
+    }else{
+        const n=alone.map(x=>'\u201c'+x.name+'\u201d');
+        el.textContent=(n.length<=3?n.join(' and '):alone.length+' things')+' \u2014 not connected yet.';
+        el.className='status needs';
     }
 
-    // Connect
-    const show = d.nodes.length >= 2;
-    document.getElementById('connectBox').style.display = show ? 'block' : 'none';
-    if (show) {
-        ['fromSel','toSel'].forEach(id => {
-            const sel = document.getElementById(id);
-            const old = sel.value;
-            sel.innerHTML = '<option value="">pick...</option>';
-            d.nodes.forEach(n => {
-                const o = document.createElement('option');
-                o.value = n.id; o.textContent = n.name;
+    const show=d.nodes.length>=2;
+    document.getElementById('connectBox').style.display=show?'block':'none';
+    if(show){
+        ['fromSel','toSel'].forEach(id=>{
+            const sel=document.getElementById(id);
+            const old=sel.value;
+            sel.innerHTML='<option value="">pick...</option>';
+            d.nodes.forEach(n=>{
+                const o=document.createElement('option');
+                o.value=n.id;o.textContent=n.name;
                 sel.appendChild(o);
             });
-            sel.value = old;
+            sel.value=old;
         });
     }
 
-    // List
-    document.getElementById('listWrap').style.display = d.nodes.length > 0 ? 'block' : 'none';
-    const list = document.getElementById('list');
-    list.innerHTML = '';
+    document.getElementById('listWrap').style.display=d.nodes.length>0?'block':'none';
+    const list=document.getElementById('list');
+    list.innerHTML='';
 
-    d.nodes.forEach(n => {
-        const div = document.createElement('div');
-        div.className = 'item';
-
-        const to = d.edges.filter(e => e.from===n.id).map(e => d.nodes.find(x => x.id===e.to)).filter(Boolean);
-        const from = d.edges.filter(e => e.to===n.id).map(e => d.nodes.find(x => x.id===e.from)).filter(Boolean);
-
-        let html = '<div class="name">' + esc(n.name) + '</div>';
-
-        if (to.length || from.length) {
-            let parts = [];
-            if (to.length) parts.push('gives to <b>' + to.map(x=>esc(x.name)).join('</b>, <b>') + '</b>');
-            if (from.length) parts.push('receives from <b>' + from.map(x=>esc(x.name)).join('</b>, <b>') + '</b>');
-            html += '<div class="meta">' + parts.join(' · ') + '</div>';
-        } else if (d.nodes.length > 1) {
-            html += '<div class="alone">not connected yet</div>';
+    d.nodes.forEach(n=>{
+        const div=document.createElement('div');
+        div.className='item';
+        const to=d.edges.filter(e=>e.from===n.id).map(e=>d.nodes.find(x=>x.id===e.to)).filter(Boolean);
+        const from=d.edges.filter(e=>e.to===n.id).map(e=>d.nodes.find(x=>x.id===e.from)).filter(Boolean);
+        let html='<div class="name">'+esc(n.name)+'</div>';
+        if(to.length||from.length){
+            let p=[];
+            if(to.length)p.push('gives to <b>'+to.map(x=>esc(x.name)).join('</b>, <b>')+'</b>');
+            if(from.length)p.push('receives from <b>'+from.map(x=>esc(x.name)).join('</b>, <b>')+'</b>');
+            html+='<div class="meta">'+p.join(' &middot; ')+'</div>';
+        }else if(d.nodes.length>1){
+            html+='<div class="alone">not connected yet</div>';
         }
-
-        div.innerHTML = html;
+        div.innerHTML=html;
         list.appendChild(div);
     });
 }
 
-function esc(s) {
-    const el = document.createElement('div');
-    el.textContent = s;
-    return el.innerHTML;
-}
-
-document.getElementById('inp').addEventListener('keydown', e => { if (e.key==='Enter') add(); });
+function esc(s){const el=document.createElement('div');el.textContent=s;return el.innerHTML;}
+document.getElementById('inp').addEventListener('keydown',e=>{if(e.key==='Enter')add();});
 render();
 </script>
 </body>
