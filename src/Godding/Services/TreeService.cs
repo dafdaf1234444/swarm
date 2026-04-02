@@ -257,6 +257,137 @@ public class TreeService
     }
 
     /// <summary>
+    /// Fairness audit. Every node must be reachable. No node left behind.
+    /// All helps one and one helps all.
+    /// </summary>
+    public void PrintBalance()
+    {
+        var allNodes = _db.GetAllNodes();
+        if (allNodes.Count == 0)
+        {
+            Console.WriteLine("(empty tree — nothing to balance)");
+            return;
+        }
+
+        var roots = _db.GetRoots();
+        var leaves = _db.GetLeaves();
+
+        // 1. Orphans — nodes with no edges at all
+        var connected = new HashSet<long>();
+        foreach (var node in allNodes)
+        {
+            if (_db.GetChildren(node.Id).Count > 0 || _db.GetParents(node.Id).Count > 0)
+                connected.Add(node.Id);
+        }
+        var orphans = allNodes.Where(n => !connected.Contains(n.Id)).ToList();
+
+        // 2. Reachability — can every node reach a root?
+        var unreachable = new List<Node>();
+        foreach (var node in allNodes)
+        {
+            if (roots.Any(r => r.Id == node.Id)) continue;
+            var paths = new List<List<Node>>();
+            FindPathsToRoot(node, new List<Node> { node }, paths, new HashSet<long>());
+            if (paths.Count == 0 && connected.Contains(node.Id))
+                unreachable.Add(node);
+        }
+
+        // 3. Branch depths — measure balance
+        var branchDepths = new Dictionary<long, int>();
+        foreach (var root in roots)
+        {
+            var directChildren = _db.GetChildren(root.Id);
+            foreach (var child in directChildren)
+            {
+                branchDepths[child.Id] = ComputeDepth(child.Id, new HashSet<long>());
+            }
+        }
+
+        // 4. Connectivity — can any node reach any other?
+        int totalPairs = 0;
+        int reachablePairs = 0;
+        foreach (var a in allNodes)
+        {
+            foreach (var b in allNodes)
+            {
+                if (a.Id >= b.Id) continue;
+                totalPairs++;
+                if (FindPath(a.Id, b.Id) != null)
+                    reachablePairs++;
+            }
+        }
+
+        // Report
+        Console.WriteLine("Fairness Audit");
+        Console.WriteLine("==============");
+        Console.WriteLine($"  All helps one and one helps all.");
+        Console.WriteLine();
+
+        // Orphans
+        if (orphans.Count == 0)
+            Console.WriteLine("  Orphans:       0  (none left behind)");
+        else
+        {
+            Console.WriteLine($"  Orphans:       {orphans.Count}  (LEFT BEHIND)");
+            foreach (var o in orphans)
+                Console.WriteLine($"    ! {o}");
+        }
+
+        // Unreachable
+        if (unreachable.Count == 0)
+            Console.WriteLine("  Unreachable:   0  (all can reach a root)");
+        else
+        {
+            Console.WriteLine($"  Unreachable:   {unreachable.Count}  (CANNOT REACH ROOT)");
+            foreach (var u in unreachable)
+                Console.WriteLine($"    ! {u}");
+        }
+
+        // Connectivity
+        double connectivity = totalPairs > 0 ? (double)reachablePairs / totalPairs : 1.0;
+        string connLabel = connectivity >= 1.0 ? "FAIR" : connectivity >= 0.5 ? "PARTIAL" : "UNFAIR";
+        Console.WriteLine($"  Connectivity:  {connectivity:P1}  ({connLabel} — {reachablePairs}/{totalPairs} pairs)");
+
+        // Branch balance
+        if (branchDepths.Count > 1)
+        {
+            int minD = branchDepths.Values.Min();
+            int maxD = branchDepths.Values.Max();
+            double avgD = branchDepths.Values.Average();
+            double variance = branchDepths.Values.Select(d => Math.Pow(d - avgD, 2)).Average();
+            double imbalance = maxD > 0 ? (double)(maxD - minD) / maxD : 0;
+            string balLabel = imbalance <= 0.2 ? "BALANCED" : imbalance <= 0.5 ? "LEANING" : "UNBALANCED";
+            Console.WriteLine($"  Branch depth:  min={minD} max={maxD} avg={avgD:F1} variance={variance:F2}");
+            Console.WriteLine($"  Balance:       {balLabel} (imbalance={imbalance:P0})");
+        }
+        else if (branchDepths.Count == 1)
+            Console.WriteLine($"  Balance:       SINGLE BRANCH (depth={branchDepths.Values.First()})");
+
+        // Type distribution
+        int functions = allNodes.Count(n => n.Type == "function");
+        int components = allNodes.Count(n => n.Type == "component");
+        double typeRatio = allNodes.Count > 0 ? (double)Math.Min(functions, components) / Math.Max(functions, components) : 1;
+        string typeLabel = typeRatio >= 0.5 ? "BALANCED" : typeRatio >= 0.25 ? "SKEWED" : "LOPSIDED";
+        Console.WriteLine($"  Type mix:      {functions}F / {components}C  ratio={typeRatio:F2} ({typeLabel})");
+
+        // Verdict
+        Console.WriteLine();
+        bool fair = orphans.Count == 0 && unreachable.Count == 0 && connectivity >= 1.0;
+        if (fair)
+            Console.WriteLine("  Verdict: FAIR FOR ALL");
+        else
+        {
+            Console.WriteLine("  Verdict: NOT YET FAIR");
+            if (orphans.Count > 0)
+                Console.WriteLine("    -> Link orphan nodes so none are left behind");
+            if (unreachable.Count > 0)
+                Console.WriteLine("    -> Connect unreachable nodes to a root path");
+            if (connectivity < 1.0)
+                Console.WriteLine("    -> Bridge disconnected components so all can reach all");
+        }
+    }
+
+    /// <summary>
     /// Resolve a node by ID (numeric) or name (string).
     /// </summary>
     public Node? ResolveNode(string identifier)
