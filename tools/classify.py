@@ -28,6 +28,9 @@ SINS = {
             "child abuse", "minor", "underage", "trafficking children",
             "child labor", "child soldiers", "child marriage",
             "pedophil", "sexual abuse of minors", "exploitation of children",
+            "trafficking of minor", "rape of minor", "grooming",
+            "young girls", "age 16", "age 17", "age 14", "age 15",
+            "sexual abuse", "sex trafficking",
         ],
     },
     "MURDER": {
@@ -36,7 +39,9 @@ SINS = {
         "keywords": [
             "war crime", "civilian casualties", "massacre", "assassination",
             "extrajudicial", "torture", "bombing civilian", "genocide",
-            "ethnic cleansing", "crimes against humanity",
+            "ethnic cleansing", "crimes against humanity", "killed",
+            "murder", "death", "died", "lethal", "premature deaths",
+            "atrocit", "killed in",
         ],
     },
     "THEFT": {
@@ -65,7 +70,10 @@ SINS = {
             "censorship", "jailed journalist", "killed journalist",
             "destroyed evidence", "cover-up", "classified", "sealed records",
             "threatened witness", "NDA", "silenced", "propaganda",
-            "disinformation campaign", "media control",
+            "disinformation campaign", "media control", "denial",
+            "misled", "deceiving", "lied", "false", "misleading",
+            "funded denial", "hid the findings", "concealed",
+            "press freedom", "banned", "suppressed",
         ],
     },
     "BETRAYAL": {
@@ -75,6 +83,9 @@ SINS = {
             "abuse of power", "oath of office", "conflict of interest",
             "nepotism", "cronyism", "breach of duty", "violated oath",
             "self-dealing", "insider", "position of trust",
+            "poor judgment", "sweetheart", "protected co-conspirators",
+            "plea deal", "settled", "stripped of", "resigned",
+            "failed to", "violated", "asbestos", "knew for decades",
         ],
     },
 }

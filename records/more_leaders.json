@@ -1,0 +1,156 @@
+[
+  {
+    "name": "Narendra Modi",
+    "role": "Prime Minister of India",
+    "country": "India",
+    "said": ["Development for all.", "India is the mother of democracy."],
+    "did": [
+      "2002 Gujarat riots: 1,000+ killed (mostly Muslims) while he was Chief Minister — accused of inaction.",
+      "Citizenship Amendment Act — discriminates based on religion (excludes Muslims).",
+      "Crackdown on press freedom — India dropped to 161/180 on RSF index.",
+      "Kashmir lockdown 2019: internet cut for 18 months, mass detentions.",
+      "Pegasus spyware used against journalists, opposition — confirmed by Amnesty/Citizen Lab."
+    ],
+    "facts": [
+      "US denied Modi visa 2005-2014 under religious freedom act for Gujarat role.",
+      "India press freedom: 161/180 (RSF 2024).",
+      "Pegasus spyware on phones of 300+ Indians including journalists — Amnesty/Citizen Lab verified.",
+      "Sedition laws used against critics — 13,000+ cases filed.",
+      "BBC documentary on Gujarat banned in India — offices raided by tax authorities."
+    ],
+    "sources": ["US State Dept visa denial (2005)", "RSF press freedom index", "Amnesty International/Citizen Lab — Pegasus Project", "SIT Gujarat investigation records", "BBC documentary raid reporting (Reuters, AP)"],
+    "grade": "B"
+  },
+  {
+    "name": "Viktor Orbán",
+    "role": "Prime Minister of Hungary",
+    "country": "Hungary",
+    "said": ["I defend Christian Europe.", "Hungary is a democracy."],
+    "did": [
+      "Dismantled independent judiciary — EU Article 7 proceedings triggered.",
+      "Captured 80%+ of Hungarian media through oligarch allies.",
+      "EU froze €22B in funds over rule-of-law concerns.",
+      "Central European University forced out of the country.",
+      "Corruption: Hungary ranked worst in EU on Transparency International CPI."
+    ],
+    "facts": [
+      "EU Parliament: Hungary 'no longer a full democracy' (Sept 2022 vote).",
+      "Transparency International: Hungary most corrupt EU member state.",
+      "OLAF (EU anti-fraud office): systematic misuse of EU funds documented.",
+      "Media empire controlled by Orbán allies via KESMA foundation.",
+      "Constitutional court packed, independent institutions hollowed."
+    ],
+    "sources": ["European Parliament resolution (Sept 2022)", "Transparency International CPI", "OLAF investigation reports", "EU Commission rule-of-law reports", "RSF press freedom index"],
+    "grade": "A-"
+  },
+  {
+    "name": "Jair Bolsonaro",
+    "role": "Former President of Brazil",
+    "country": "Brazil",
+    "said": ["I will end corruption.", "The Amazon is ours."],
+    "did": [
+      "Amazon deforestation increased 75% during his term (INPE satellite data).",
+      "Undermined COVID response — 700,000+ Brazilian deaths (one of highest per capita).",
+      "Indicted for falsifying COVID vaccine records.",
+      "Jan 8 2023 insurrection attempt — supporters stormed government buildings.",
+      "Barred from running for office until 2030 by electoral court."
+    ],
+    "facts": [
+      "INPE: Amazon deforestation hit 15-year high under Bolsonaro.",
+      "Brazilian Senate COVID CPI: recommended criminal charges for 'crimes against humanity.'",
+      "Electoral court: barred from office for 'abuse of power and misuse of media.'",
+      "Indicted for falsifying vaccine cards (2024).",
+      "Under investigation for role in Jan 8 insurrection attempt."
+    ],
+    "sources": ["INPE satellite deforestation data", "Brazilian Senate CPI final report", "TSE (Superior Electoral Court) ruling", "Federal Police indictment records", "Brazilian federal investigation files"],
+    "grade": "A"
+  },
+  {
+    "name": "Rodrigo Duterte",
+    "role": "Former President of Philippines",
+    "country": "Philippines",
+    "said": ["I will end drugs in six months.", "I don't care about human rights."],
+    "did": [
+      "Drug war: 12,000-30,000 extrajudicial killings (UN, Human Rights Watch estimates).",
+      "ICC investigation opened for crimes against humanity.",
+      "Police incentivized to kill — bounties per body documented.",
+      "Jailed opposition senator Leila de Lima for 6+ years on politically motivated charges.",
+      "Publicly bragged about personally killing suspects."
+    ],
+    "facts": [
+      "ICC authorized investigation into drug war killings (Sept 2021).",
+      "UN OHCHR: documented pattern of extrajudicial killings by police.",
+      "Human Rights Watch: estimated 12,000+ killed in drug war.",
+      "Duterte publicly stated he personally killed people ('I used to do it personally').",
+      "De Lima imprisoned 2017-2023 on charges widely condemned as political."
+    ],
+    "sources": ["ICC Pre-Trial Chamber — investigation authorization", "UN OHCHR Philippines report (June 2020)", "Human Rights Watch — Philippines drug war documentation", "Duterte public statements (video record)", "Amnesty International — de Lima case"],
+    "grade": "A"
+  },
+  {
+    "name": "Nicolás Maduro",
+    "role": "President of Venezuela",
+    "country": "Venezuela",
+    "said": ["I continue Chávez's revolution for the people.", "Our elections are fair."],
+    "did": [
+      "Economic collapse: GDP fell 75%, worst peacetime contraction in modern history.",
+      "7+ million Venezuelans fled the country (UN refugee agency).",
+      "Stole 2024 election — refused to publish vote tallies despite international demand.",
+      "Political prisoners: 250+ documented by Foro Penal.",
+      "UN fact-finding mission: crimes against humanity including torture and extrajudicial killings."
+    ],
+    "facts": [
+      "UN Fact-Finding Mission: 'crimes against humanity' including extrajudicial executions (2020, 2022 reports).",
+      "ICC investigation opened for crimes against humanity.",
+      "UNHCR: 7.7 million Venezuelan refugees/migrants.",
+      "Hyperinflation: 1,000,000%+ in 2018.",
+      "Foro Penal: 269 political prisoners as of 2024.",
+      "2024 election: CNE claimed Maduro won but never published detailed results — widely condemned."
+    ],
+    "sources": ["UN Human Rights Council Fact-Finding Mission reports", "ICC investigation (Venezuela I)", "UNHCR displacement figures", "Foro Penal political prisoner database", "Carter Center election observation report (2024)"],
+    "grade": "A"
+  },
+  {
+    "name": "Abdel Fattah el-Sisi",
+    "role": "President of Egypt",
+    "country": "Egypt",
+    "said": ["I restored stability.", "Egypt respects human rights."],
+    "did": [
+      "Rabaa massacre 2013: at least 817 killed in single day (HRW) — possibly over 1,000.",
+      "60,000+ political prisoners (HRW estimate).",
+      "Shut down all independent media.",
+      "Constitutional changes to allow rule until 2030.",
+      "Worst crackdown on civil society in Egyptian history — Amnesty."
+    ],
+    "facts": [
+      "Human Rights Watch: Rabaa massacre 'likely crimes against humanity' — 817+ killed Aug 14, 2013.",
+      "HRW: estimated 60,000 political prisoners.",
+      "RSF: Egypt among top 5 jailers of journalists globally.",
+      "Death sentences: mass trials sentencing hundreds at once.",
+      "Al Jazeera journalists imprisoned for years."
+    ],
+    "sources": ["Human Rights Watch — Rabaa investigation ('All According to Plan')", "Amnesty International Egypt reports", "RSF press freedom index", "Egyptian court records (mass trials)", "UN OHCHR periodic review"],
+    "grade": "A-"
+  },
+  {
+    "name": "Isaias Afwerki",
+    "role": "President of Eritrea",
+    "country": "Eritrea",
+    "said": ["We are building a self-reliant nation."],
+    "did": [
+      "No elections held since 1993 — 30+ years of one-man rule.",
+      "Indefinite mandatory national service (effectively forced labor) — UN.",
+      "UN Commission: crimes against humanity including enslavement, torture, rape.",
+      "Zero press freedom — ranked last or near-last globally every year.",
+      "Eritrean forces committed atrocities in Tigray war — documented by UN, Amnesty."
+    ],
+    "facts": [
+      "UN Commission of Inquiry (2016): crimes against humanity in 'systematic and widespread manner.'",
+      "No independent media — 180/180 dead last on RSF (multiple years).",
+      "National service: indefinite conscription described as 'slavery' by UN.",
+      "Tigray atrocities: rape, massacres documented by Amnesty, HRW, UN."
+    ],
+    "sources": ["UN Commission of Inquiry on Eritrea (A/HRC/32/47)", "RSF press freedom index", "Amnesty International — Tigray reports", "Human Rights Watch Eritrea reports"],
+    "grade": "A"
+  }
+]

@@ -1,0 +1,137 @@
+[
+  {
+    "name": "Jeffrey Epstein",
+    "role": "Financier / Convicted Sex Offender",
+    "country": "United States",
+    "said": ["I am a philanthropist.", "These allegations are false."],
+    "did": [
+      "Federal conviction: trafficking of minors for sexual abuse.",
+      "Operated abuse network across multiple states and countries.",
+      "Used private island (Little St. James), Manhattan mansion, New Mexico ranch.",
+      "Victims: dozens of underage girls — some as young as 14.",
+      "First plea deal (2008): non-prosecution agreement — widely condemned as corrupt.",
+      "Died in federal custody Aug 2019 — ruled suicide."
+    ],
+    "facts": [
+      "2008 Florida conviction: solicitation of prostitution with a minor. Served 13 months.",
+      "2008 NPA (non-prosecution agreement): protected co-conspirators — signed by Alex Acosta (later Trump Labor Secretary).",
+      "2019 SDNY indictment: sex trafficking of minors.",
+      "Flight logs: hundreds of flights on private jets with prominent passengers.",
+      "Victim testimonies: 36+ women provided statements to federal investigators.",
+      "Properties: Manhattan townhouse, Palm Beach mansion, Little St. James island, Zorro Ranch NM, Paris apartment.",
+      "Financial network: unclear source of wealth — possible intelligence connections investigated.",
+      "Died in Metropolitan Correctional Center — guards failed to check on him, cameras malfunctioned."
+    ],
+    "sources": ["SDNY indictment (2019)", "Florida state court records (2008)", "NPA agreement (signed by AUSA, approved by Alex Acosta)", "FAA flight logs (court exhibits)", "Victim impact statements", "Federal Bureau of Prisons records"],
+    "grade": "A"
+  },
+  {
+    "name": "Ghislaine Maxwell",
+    "role": "Epstein Associate / Convicted Sex Trafficker",
+    "country": "United Kingdom / United States",
+    "said": ["I am innocent.", "I never saw any inappropriate behavior."],
+    "did": [
+      "Convicted on 5 of 6 federal counts including sex trafficking of a minor (Dec 2021).",
+      "Sentenced to 20 years in federal prison.",
+      "Recruited and groomed underage girls for Epstein.",
+      "Participated directly in sexual abuse of minors — victim testimony."
+    ],
+    "facts": [
+      "Federal conviction: sex trafficking of minor, transporting minor to engage in criminal sexual activity, conspiracy.",
+      "Sentenced to 20 years (June 2022).",
+      "Four victims testified at trial about recruitment and grooming.",
+      "Virginia Giuffre: recruited at age 16 from Mar-a-Lago.",
+      "Fled to New Hampshire property, arrested July 2020 by FBI.",
+      "Father: Robert Maxwell — media mogul, died under suspicious circumstances 1991."
+    ],
+    "sources": ["US v. Maxwell — SDNY trial record and verdict (Dec 2021)", "Sentencing memorandum and judgment (June 2022)", "Trial transcripts — victim testimony", "FBI arrest affidavit", "Virginia Giuffre civil complaint and testimony"],
+    "grade": "A"
+  },
+  {
+    "name": "Prince Andrew (Duke of York)",
+    "role": "British Royal / Epstein Associate",
+    "country": "United Kingdom",
+    "said": ["I have no recollection of meeting this woman.", "I don't sweat."],
+    "did": [
+      "Settled Virginia Giuffre sexual abuse lawsuit for reported $12M+ (Feb 2022).",
+      "Photographed with arm around 17-year-old Giuffre at Maxwell's London home.",
+      "Visited Epstein after 2008 conviction — photographed together in Central Park 2010.",
+      "Stripped of military titles and royal patronages by Queen Elizabeth (Jan 2022)."
+    ],
+    "facts": [
+      "Civil settlement with Virginia Giuffre — undisclosed amount, reported $12M+ (Feb 2022).",
+      "Photo evidence: Andrew with arm around Giuffre (age 17) at Maxwell's London residence.",
+      "Giuffre testimony: trafficked to Andrew by Epstein/Maxwell on multiple occasions.",
+      "Andrew visited Epstein in New York AFTER 2008 conviction — stayed at mansion.",
+      "BBC Newsnight interview (2019): widely seen as disastrous — claimed he 'didn't sweat.'",
+      "Stripped of all military affiliations, royal patronages, use of HRH by the Queen."
+    ],
+    "sources": ["Civil settlement court filing (SDNY, Feb 2022)", "Giuffre v. Andrew complaint and testimony", "Photographic evidence (widely published)", "BBC Newsnight interview (Nov 2019)", "Buckingham Palace statement (Jan 2022)"],
+    "grade": "A-"
+  },
+  {
+    "name": "Jean-Luc Brunel",
+    "role": "Model Agency Owner / Epstein Associate",
+    "country": "France",
+    "said": ["I am innocent of all charges."],
+    "did": [
+      "Charged with rape of minors and sexual harassment in France.",
+      "Supplied young models to Epstein — victim testimonies.",
+      "MC2 modeling agency: used as pipeline for young girls.",
+      "Found dead in prison Feb 2022 — ruled suicide, before trial."
+    ],
+    "facts": [
+      "French prosecutors charged Brunel with rape of minors, sexual harassment (2020).",
+      "Multiple victims testified he supplied girls as young as 15 to Epstein.",
+      "MC2 Model Management: co-founded with Epstein funding — used as recruitment vehicle.",
+      "Arrested at Charles de Gaulle airport Dec 2020.",
+      "Found hanged in Paris prison Feb 2022 — before trial could proceed.",
+      "Flight logs: frequent passenger on Epstein's planes."
+    ],
+    "sources": ["French judicial investigation records", "Victim depositions (US and French proceedings)", "FAA flight logs", "Paris prosecutor's office charges", "MC2 corporate records"],
+    "grade": "A-"
+  },
+  {
+    "name": "Alex Acosta",
+    "role": "US Attorney / Trump Labor Secretary",
+    "country": "United States",
+    "said": ["The plea deal was appropriate given the evidence at the time.", "I welcome a full investigation."],
+    "did": [
+      "As US Attorney, approved sweetheart plea deal for Epstein (2008 NPA).",
+      "Deal gave Epstein 13 months in private wing of county jail with work release.",
+      "Protected unnamed co-conspirators from prosecution.",
+      "Failed to notify victims as required by law — federal judge ruled NPA violated Crime Victims' Rights Act.",
+      "Later appointed Trump's Secretary of Labor — resigned when NPA became public scandal (2019)."
+    ],
+    "facts": [
+      "2008 NPA: Epstein avoided federal charges, served 13 months county jail, 6 days/week work release.",
+      "Federal judge (Kenneth Marra, 2019): NPA violated Crime Victims' Rights Act — victims not notified.",
+      "Deal protected 'any potential co-conspirators' from federal prosecution.",
+      "OPR (Office of Professional Responsibility): found Acosta used 'poor judgment' but not professional misconduct.",
+      "Resigned as Labor Secretary July 2019 after NPA details became national news."
+    ],
+    "sources": ["Non-Prosecution Agreement (2008) — public document", "Judge Marra ruling — Crime Victims' Rights Act violation", "DOJ OPR review report", "Congressional testimony", "Resignation public record"],
+    "grade": "A"
+  },
+  {
+    "name": "Les Wexner",
+    "role": "CEO, L Brands (Victoria's Secret) / Epstein Associate",
+    "country": "United States",
+    "said": ["I was deceived by Epstein.", "I severed ties when I learned of his activities."],
+    "did": [
+      "Gave Epstein sweeping power of attorney over his finances.",
+      "Gifted Epstein the Manhattan mansion (worth $77M).",
+      "Epstein managed Wexner's money for over a decade.",
+      "Relationship continued years after Epstein's 2008 conviction."
+    ],
+    "facts": [
+      "Power of attorney: Epstein had authority over all of Wexner's financial affairs.",
+      "Manhattan townhouse: transferred from Wexner to Epstein for $0 (property records).",
+      "Epstein claimed Wexner was his only known billionaire client.",
+      "Wexner's spokesperson: Wexner severed ties in 2007 — but property transfer and financial records suggest continued relationship.",
+      "No criminal charges filed against Wexner."
+    ],
+    "sources": ["NYC property transfer records", "Power of attorney documents (referenced in NYT investigation)", "NYT/WSJ investigative reporting", "Wexner public statements", "L Brands board communications"],
+    "grade": "B"
+  }
+]
