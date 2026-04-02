@@ -7,155 +7,153 @@
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-    font-family: -apple-system, system-ui, 'Segoe UI', sans-serif;
-    background: #0e0e0e;
-    color: #ccc;
+    font-family: Georgia, 'Times New Roman', serif;
+    background: #f5f0eb;
+    color: #3a3a3a;
     min-height: 100vh;
 }
 
 .page {
-    max-width: 620px;
+    max-width: 580px;
     margin: 0 auto;
-    padding: 24px 16px;
+    padding: 32px 20px;
 }
 
 h1 {
     text-align: center;
-    font-size: 24px;
-    color: #fff;
+    font-size: 22px;
+    color: #2a2a2a;
+    font-weight: normal;
     margin-bottom: 4px;
+    letter-spacing: 1px;
 }
 .tagline {
     text-align: center;
-    color: #777;
-    font-size: 14px;
-    margin-bottom: 28px;
+    color: #999;
+    font-size: 13px;
+    font-style: italic;
+    margin-bottom: 32px;
 }
 
 /* ── Cards ── */
 .card {
-    background: #181818;
-    border: 1px solid #2a2a2a;
-    border-radius: 14px;
+    background: #fff;
+    border-radius: 10px;
     padding: 20px;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
 .card h2 {
-    font-size: 15px;
-    color: #aaa;
-    margin-bottom: 12px;
-    font-weight: 500;
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 10px;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-/* ── Input row ── */
+/* ── Inputs ── */
 .input-row {
     display: flex;
     gap: 8px;
 }
 .input-row input {
     flex: 1;
-    padding: 12px 14px;
-    background: #111;
-    border: 1px solid #2a2a2a;
-    border-radius: 10px;
-    color: #ddd;
-    font-size: 16px;
+    padding: 10px 12px;
+    background: #fafaf8;
+    border: 1px solid #e0dcd6;
+    border-radius: 8px;
+    color: #3a3a3a;
+    font-size: 15px;
+    font-family: inherit;
     outline: none;
 }
-.input-row input:focus { border-color: #4a90d9; }
-.input-row input::placeholder { color: #555; }
+.input-row input:focus { border-color: #b8a88a; }
+.input-row input::placeholder { color: #bbb; }
 .btn {
-    padding: 12px 20px;
-    border: none;
-    border-radius: 10px;
-    font-size: 15px;
+    padding: 10px 18px;
+    border: 1px solid #d5cfc5;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
     cursor: pointer;
-    color: #ddd;
-    background: #2a2a2a;
+    color: #555;
+    background: #f0ece5;
 }
-.btn:hover { background: #3a3a3a; }
-.btn-blue { background: #1d3557; }
-.btn-blue:hover { background: #264a73; }
-.btn-green { background: #1a3a2a; }
-.btn-green:hover { background: #245038; }
+.btn:hover { background: #e5e0d8; }
+.btn-go { background: #e8efe8; border-color: #b5ccb5; color: #4a6a4a; }
+.btn-go:hover { background: #dce8dc; }
 
-/* ── Status bar ── */
+/* ── Status ── */
 .status {
     text-align: center;
-    padding: 14px;
-    border-radius: 14px;
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 16px;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 14px;
+    margin-bottom: 14px;
 }
 .status.fair {
-    background: #0f2a1a;
-    border: 1px solid #2a5a3a;
-    color: #4ade80;
+    background: #edf5ed;
+    color: #4a7a4a;
 }
 .status.unfair {
-    background: #2a1515;
-    border: 1px solid #5a2a2a;
-    color: #f0a0a0;
+    background: #f5edea;
+    color: #8a5a4a;
 }
 .status.empty {
-    background: #181818;
-    border: 1px solid #2a2a2a;
-    color: #666;
+    background: #f0ece5;
+    color: #999;
 }
 
 /* ── Canvas ── */
 .canvas-wrap {
-    background: #0a0a0a;
-    border-radius: 14px;
+    background: #fafaf8;
+    border: 1px solid #e8e4de;
+    border-radius: 10px;
     overflow: hidden;
-    margin-bottom: 16px;
     position: relative;
 }
 canvas {
     display: block;
     width: 100%;
-    height: 400px;
+    height: 380px;
     cursor: grab;
 }
 canvas:active { cursor: grabbing; }
-.canvas-hint {
+.hint {
     position: absolute;
-    bottom: 10px;
-    left: 0;
-    right: 0;
+    bottom: 8px;
+    left: 0; right: 0;
     text-align: center;
-    color: #444;
-    font-size: 12px;
+    color: #ccc;
+    font-size: 11px;
     pointer-events: none;
 }
+
 .connect-bar {
     display: none;
     text-align: center;
-    padding: 12px;
-    background: #1a3a2a;
-    border: 1px solid #4ade80;
-    border-radius: 14px;
-    margin-bottom: 16px;
-    color: #4ade80;
-    font-size: 14px;
+    padding: 10px;
+    background: #edf5ed;
+    border: 1px solid #c5d8c5;
+    border-radius: 10px;
+    margin-bottom: 14px;
+    color: #4a7a4a;
+    font-size: 13px;
 }
 
 /* ── Detail ── */
-.detail {
-    display: none;
-}
-.detail .name { font-size: 18px; color: #fff; margin-bottom: 4px; }
-.detail .desc { color: #888; margin-bottom: 10px; font-size: 14px; }
-.detail .conn { color: #777; font-size: 14px; line-height: 1.7; }
-.detail .conn b { color: #bbb; font-weight: 500; }
+.detail { display: none; }
+.detail .name { font-size: 17px; color: #2a2a2a; margin-bottom: 4px; }
+.detail .desc { color: #999; margin-bottom: 8px; font-size: 13px; font-style: italic; }
+.detail .conn { color: #777; font-size: 13px; line-height: 1.7; }
+.detail .conn b { color: #555; font-weight: normal; }
 
-/* ── Footer ── */
 footer {
     text-align: center;
-    color: #444;
-    font-size: 12px;
-    padding: 16px;
+    color: #ccc;
+    font-size: 11px;
+    padding: 20px;
     line-height: 1.6;
 }
 </style>
@@ -172,7 +170,7 @@ footer {
     <h2>Add something</h2>
     <div class="input-row">
         <input type="text" id="name" placeholder="What is it?" autocomplete="off">
-        <button class="btn btn-blue" onclick="add()">Add</button>
+        <button class="btn" onclick="add()">Add</button>
     </div>
 </div>
 
@@ -180,12 +178,12 @@ footer {
 
 <div class="card">
     <h2>Your tree</h2>
-    <div style="display:flex;gap:8px;margin-bottom:12px">
-        <button class="btn btn-green" id="connectBtn" onclick="startConnect()">Connect</button>
+    <div style="margin-bottom:10px">
+        <button class="btn btn-go" id="connectBtn" onclick="startConnect()">Connect two things</button>
     </div>
     <div class="canvas-wrap">
         <canvas id="c"></canvas>
-        <div class="canvas-hint" id="hint">Click any circle to see it. Drag to move.</div>
+        <div class="hint" id="hint">Click a circle to see it. Drag to move.</div>
     </div>
 </div>
 
@@ -202,13 +200,12 @@ footer {
 
 </div>
 <script>
-// ── Storage ──
 const KEY = 'godding';
 const seed = {nextId:7, nodes:[
     {id:1, name:'You', desc:'The one reading this'},
     {id:2, name:'Someone else', desc:'Anyone in the world'},
-    {id:3, name:'An idea', desc:'Something you want to understand'},
-    {id:4, name:'A question', desc:'Something you want to ask'},
+    {id:3, name:'An idea', desc:'Something worth understanding'},
+    {id:4, name:'A question', desc:'Something worth asking'},
     {id:5, name:'Kindness', desc:'The simplest connection'},
     {id:6, name:'Understanding', desc:'What comes after'}
 ], edges:[
@@ -227,18 +224,16 @@ function load() {
 }
 function save(d) { localStorage.setItem(KEY, JSON.stringify(d)); }
 
-// ── State ──
 let pos = {};
 let drag = null, dragOff = {x:0,y:0}, dragMoved = false;
 let connecting = false, connectFrom = null;
 
-// ── Actions ──
 function add() {
     const inp = document.getElementById('name');
-    const name = inp.value.trim();
-    if (!name) return;
+    const n = inp.value.trim();
+    if (!n) return;
     const d = load();
-    d.nodes.push({id: d.nextId++, name, desc: null});
+    d.nodes.push({id: d.nextId++, name: n, desc: null});
     save(d);
     inp.value = '';
     render();
@@ -247,35 +242,33 @@ function add() {
 function startConnect() {
     connecting = !connecting;
     connectFrom = null;
-    document.getElementById('connectBtn').textContent = connecting ? 'Cancel' : 'Connect';
+    document.getElementById('connectBtn').textContent = connecting ? 'Cancel' : 'Connect two things';
     document.getElementById('connectBar').style.display = connecting ? 'block' : 'none';
     document.getElementById('connectBar').textContent = 'Click two circles to connect them';
     render();
 }
 
-function doConnect(nodeId) {
+function doConnect(nid) {
     if (!connectFrom) {
-        connectFrom = nodeId;
+        connectFrom = nid;
         const d = load();
-        const n = d.nodes.find(x => x.id === nodeId);
-        document.getElementById('connectBar').textContent = `Now click what "${n.name}" connects to`;
+        const n = d.nodes.find(x => x.id === nid);
+        document.getElementById('connectBar').textContent = 'Now click what "' + n.name + '" connects to';
         render();
         return;
     }
-    if (nodeId === connectFrom) return;
+    if (nid === connectFrom) return;
     const d = load();
-    if (!d.edges.some(e => e.from === connectFrom && e.to === nodeId)) {
-        d.edges.push({from: connectFrom, to: nodeId});
+    if (!d.edges.some(e => e.from === connectFrom && e.to === nid)) {
+        d.edges.push({from: connectFrom, to: nid});
         save(d);
     }
-    connecting = false;
-    connectFrom = null;
-    document.getElementById('connectBtn').textContent = 'Connect';
+    connecting = false; connectFrom = null;
+    document.getElementById('connectBtn').textContent = 'Connect two things';
     document.getElementById('connectBar').style.display = 'none';
     render();
 }
 
-// ── Render ──
 function render() {
     const d = load();
     updateStatus(d);
@@ -284,27 +277,19 @@ function render() {
 
 function updateStatus(d) {
     const el = document.getElementById('status');
-    if (d.nodes.length === 0) {
-        el.textContent = 'Add something to begin';
-        el.className = 'status empty';
-        return;
-    }
+    if (d.nodes.length === 0) { el.textContent = 'Add something to begin'; el.className = 'status empty'; return; }
     const linked = new Set();
     d.edges.forEach(e => { linked.add(e.from); linked.add(e.to); });
     const alone = d.nodes.filter(n => !linked.has(n.id));
     if (alone.length === 0) {
-        el.textContent = 'Fair for all — everything is connected';
+        el.textContent = 'Everything is connected.';
         el.className = 'status fair';
     } else if (d.nodes.length === 1) {
-        el.textContent = 'One thing so far. Add more and connect them.';
+        el.textContent = 'One thing so far.';
         el.className = 'status empty';
     } else {
         const names = alone.map(n => n.name);
-        if (names.length <= 2) {
-            el.textContent = names.join(' and ') + ' — not connected yet';
-        } else {
-            el.textContent = names.length + ' things not connected yet';
-        }
+        el.textContent = (names.length <= 2 ? names.join(' and ') : names.length + ' things') + ' \u2014 not connected yet';
         el.className = 'status unfair';
     }
 }
@@ -324,19 +309,16 @@ function draw(d) {
         return;
     }
     document.getElementById('hint').textContent = connecting
-        ? 'Click a circle to start the connection'
-        : 'Click any circle to see it. Drag to move.';
+        ? 'Click a circle to start' : 'Click a circle to see it. Drag to move.';
 
-    // Init positions
     d.nodes.forEach((n, i) => {
         if (!pos[n.id]) {
             const a = (i / d.nodes.length) * Math.PI * 2 - Math.PI/2;
-            const r = 60 + d.nodes.length * 14;
+            const r = 55 + d.nodes.length * 13;
             pos[n.id] = {x: W/2 + Math.cos(a)*r, y: H/2 + Math.sin(a)*r};
         }
     });
 
-    // Physics
     for (let t = 0; t < 40; t++) {
         d.nodes.forEach(a => {
             if (drag && a.id === drag.id) return;
@@ -346,38 +328,38 @@ function draw(d) {
                 if (a.id === b.id) return;
                 const pb = pos[b.id];
                 let dx = pb.x-pa.x, dy = pb.y-pa.y, dist = Math.sqrt(dx*dx+dy*dy)||1;
-                fx -= dx/dist * 2500/(dist*dist);
-                fy -= dy/dist * 2500/(dist*dist);
+                fx -= dx/dist * 2200/(dist*dist);
+                fy -= dy/dist * 2200/(dist*dist);
             });
             d.edges.forEach(e => {
                 let oid = e.from===a.id ? e.to : e.to===a.id ? e.from : null;
                 if (!oid || !pos[oid]) return;
                 let dx = pos[oid].x-pa.x, dy = pos[oid].y-pa.y, dist = Math.sqrt(dx*dx+dy*dy)||1;
-                fx += dx/dist * (dist-90) * 0.04;
-                fy += dy/dist * (dist-90) * 0.04;
+                fx += dx/dist * (dist-85) * 0.04;
+                fy += dy/dist * (dist-85) * 0.04;
             });
             fx += (W/2 - pa.x) * 0.004;
             fy += (H/2 - pa.y) * 0.004;
-            pa.x = Math.max(30, Math.min(W-30, pa.x + fx*0.25));
-            pa.y = Math.max(30, Math.min(H-30, pa.y + fy*0.25));
+            pa.x = Math.max(35, Math.min(W-35, pa.x + fx*0.22));
+            pa.y = Math.max(35, Math.min(H-35, pa.y + fy*0.22));
         });
     }
 
     ctx.clearRect(0,0,W,H);
-    const R = 24;
+    const R = 22;
 
     // Edges
     d.edges.forEach(e => {
         const a = pos[e.from], b = pos[e.to];
         if (!a || !b) return;
         ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y);
-        ctx.strokeStyle = '#333'; ctx.lineWidth = 1.5; ctx.stroke();
+        ctx.strokeStyle = '#d0ccc5'; ctx.lineWidth = 1; ctx.stroke();
         const ang = Math.atan2(b.y-a.y, b.x-a.x);
         const ax = b.x - Math.cos(ang)*R, ay = b.y - Math.sin(ang)*R;
         ctx.beginPath(); ctx.moveTo(ax,ay);
-        ctx.lineTo(ax-Math.cos(ang-0.35)*8, ay-Math.sin(ang-0.35)*8);
-        ctx.lineTo(ax-Math.cos(ang+0.35)*8, ay-Math.sin(ang+0.35)*8);
-        ctx.closePath(); ctx.fillStyle='#444'; ctx.fill();
+        ctx.lineTo(ax-Math.cos(ang-0.3)*7, ay-Math.sin(ang-0.3)*7);
+        ctx.lineTo(ax-Math.cos(ang+0.3)*7, ay-Math.sin(ang+0.3)*7);
+        ctx.closePath(); ctx.fillStyle='#c5c0b8'; ctx.fill();
     });
 
     // Nodes
@@ -387,43 +369,40 @@ function draw(d) {
     d.nodes.forEach(n => {
         const p = pos[n.id]; if (!p) return;
         const orphan = !linked.has(n.id) && d.nodes.length > 1;
-        const isConnectFrom = connecting && connectFrom === n.id;
-
-        // Glow
-        if (orphan) {
-            ctx.beginPath(); ctx.arc(p.x,p.y,R+8,0,Math.PI*2);
-            ctx.fillStyle='rgba(240,160,160,0.08)'; ctx.fill();
-        }
-        if (isConnectFrom) {
-            ctx.beginPath(); ctx.arc(p.x,p.y,R+8,0,Math.PI*2);
-            ctx.fillStyle='rgba(74,222,128,0.12)'; ctx.fill();
-        }
+        const isCF = connecting && connectFrom === n.id;
 
         ctx.beginPath(); ctx.arc(p.x,p.y,R,0,Math.PI*2);
-        ctx.fillStyle = orphan ? '#251515' : '#152535';
+        if (orphan) {
+            ctx.fillStyle = '#f5e8e4';
+            ctx.strokeStyle = '#c89a8a';
+        } else if (isCF) {
+            ctx.fillStyle = '#e4f0e4';
+            ctx.strokeStyle = '#7aaa7a';
+        } else {
+            ctx.fillStyle = '#fff';
+            ctx.strokeStyle = '#b8b0a5';
+        }
         ctx.fill();
-        ctx.lineWidth = 2;
-        ctx.strokeStyle = orphan ? '#c07070' : isConnectFrom ? '#4ade80' : '#4a90d9';
+        ctx.lineWidth = 1.5;
         ctx.stroke();
 
-        ctx.fillStyle = '#ccc';
-        ctx.font = '11px -apple-system, system-ui, sans-serif';
+        ctx.fillStyle = '#555';
+        ctx.font = '11px Georgia, serif';
         ctx.textAlign = 'center';
         const words = n.name.split(' ');
         if (n.name.length <= 12) {
-            ctx.fillText(n.name, p.x, p.y + R + 15);
+            ctx.fillText(n.name, p.x, p.y + R + 14);
         } else {
             const mid = Math.ceil(words.length/2);
-            ctx.fillText(words.slice(0,mid).join(' '), p.x, p.y+R+13);
+            ctx.fillText(words.slice(0,mid).join(' '), p.x, p.y+R+12);
             if (words.length > 1)
-                ctx.fillText(words.slice(mid).join(' '), p.x, p.y+R+25);
+                ctx.fillText(words.slice(mid).join(' '), p.x, p.y+R+24);
         }
     });
 }
 
 function nodeAt(cx, cy) {
-    const d = load();
-    const rect = document.getElementById('c').getBoundingClientRect();
+    const d = load(), rect = document.getElementById('c').getBoundingClientRect();
     const x = cx - rect.left, y = cy - rect.top;
     for (let i = d.nodes.length-1; i >= 0; i--) {
         const p = pos[d.nodes[i].id]; if (!p) continue;
@@ -433,28 +412,20 @@ function nodeAt(cx, cy) {
 }
 
 function showDetail(node) {
-    const d = load();
-    const el = document.getElementById('detail');
-    el.style.display = 'block';
-    el.className = 'card detail';
+    const d = load(), el = document.getElementById('detail');
+    el.style.display = 'block'; el.className = 'card detail';
     document.getElementById('dName').textContent = node.name;
     document.getElementById('dDesc').textContent = node.desc || '';
-
-    const givesTo = d.edges.filter(e => e.from===node.id)
-        .map(e => d.nodes.find(n => n.id===e.to)?.name).filter(Boolean);
-    const getsFrom = d.edges.filter(e => e.to===node.id)
-        .map(e => d.nodes.find(n => n.id===e.from)?.name).filter(Boolean);
-
+    const to = d.edges.filter(e => e.from===node.id).map(e => d.nodes.find(n => n.id===e.to)?.name).filter(Boolean);
+    const from = d.edges.filter(e => e.to===node.id).map(e => d.nodes.find(n => n.id===e.from)?.name).filter(Boolean);
     let h = '';
-    if (givesTo.length) h += `Gives to <b>${givesTo.join('</b>, <b>')}</b><br>`;
-    if (getsFrom.length) h += `Receives from <b>${getsFrom.join('</b>, <b>')}</b>`;
-    if (!givesTo.length && !getsFrom.length) h = 'Not connected to anything yet. Click Connect above.';
+    if (to.length) h += 'Gives to <b>' + to.join('</b>, <b>') + '</b><br>';
+    if (from.length) h += 'Receives from <b>' + from.join('</b>, <b>') + '</b>';
+    if (!to.length && !from.length) h = 'Not connected yet.';
     document.getElementById('dConn').innerHTML = h;
 }
 
-// ── Events ──
 const c = document.getElementById('c');
-
 c.addEventListener('mousedown', e => {
     const n = nodeAt(e.clientX, e.clientY);
     if (n) {
@@ -465,16 +436,12 @@ c.addEventListener('mousedown', e => {
     }
 });
 c.addEventListener('mousemove', e => {
-    if (!drag) return;
-    dragMoved = true;
+    if (!drag) return; dragMoved = true;
     const rect = c.getBoundingClientRect();
     pos[drag.id] = {x: e.clientX-rect.left-dragOff.x, y: e.clientY-rect.top-dragOff.y};
     draw(load());
 });
-c.addEventListener('mouseup', () => {
-    if (drag && !dragMoved) showDetail(drag);
-    drag = null;
-});
+c.addEventListener('mouseup', () => { if (drag && !dragMoved) showDetail(drag); drag = null; });
 c.addEventListener('mouseleave', () => { drag = null; });
 
 c.addEventListener('touchstart', e => {
@@ -489,19 +456,14 @@ c.addEventListener('touchstart', e => {
 }, {passive:false});
 c.addEventListener('touchmove', e => {
     e.preventDefault();
-    if (!drag) return;
-    dragMoved = true;
+    if (!drag) return; dragMoved = true;
     const t = e.touches[0], rect = c.getBoundingClientRect();
     pos[drag.id] = {x: t.clientX-rect.left-dragOff.x, y: t.clientY-rect.top-dragOff.y};
     draw(load());
 }, {passive:false});
-c.addEventListener('touchend', () => {
-    if (drag && !dragMoved) showDetail(drag);
-    drag = null;
-});
+c.addEventListener('touchend', () => { if (drag && !dragMoved) showDetail(drag); drag = null; });
 
 document.getElementById('name').addEventListener('keydown', e => { if (e.key==='Enter') add(); });
-
 render();
 </script>
 </body>
