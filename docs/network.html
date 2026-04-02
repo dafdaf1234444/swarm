@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Network — Who knows who</title>
+<meta name="description" content="Visual map of connections between leaders, CEOs, and the Epstein network.">
+<meta property="og:title" content="The Network — Who knows who">
+<meta property="og:description" content="Follow the connections. Flight logs. Payments. Meetings. All documented.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#128065;</text></svg>">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Georgia, serif; background: #111; color: #ddd; min-height: 100vh; }
+.top { text-align: center; padding: 40px 20px 20px; }
+.top h1 { font-size: 26px; color: #fff; font-weight: normal; }
+.top h1 span { color: #d4756a; }
+.top p { color: #666; font-size: 14px; margin-top: 8px; }
+.legend { display: flex; justify-content: center; gap: 16px; padding: 16px; flex-wrap: wrap; }
+.legend-item { font-size: 12px; display: flex; align-items: center; gap: 6px; }
+.legend-dot { width: 14px; height: 14px; border-radius: 50%; }
+
+.network { position: relative; width: 100%; height: 70vh; min-height: 500px; overflow: hidden; }
+canvas { width: 100%; height: 100%; }
+
+.tooltip {
+    display: none;
+    position: fixed;
+    background: #222;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 14px 18px;
+    max-width: 320px;
+    z-index: 100;
+    pointer-events: none;
+}
+.tooltip .tt-name { font-size: 16px; color: #fff; margin-bottom: 4px; }
+.tooltip .tt-role { font-size: 12px; color: #888; margin-bottom: 8px; }
+.tooltip .tt-sins { margin-bottom: 6px; }
+.tooltip .tt-sin { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; color: #fff; margin: 2px; }
+.tooltip .tt-connections { font-size: 12px; color: #999; border-top: 1px solid #333; padding-top: 8px; margin-top: 4px; }
+.tooltip .tt-conn { margin: 3px 0; }
+
+.stats { text-align: center; padding: 20px; color: #555; font-size: 13px; }
+.stats span { color: #999; }
+
+.bottom { text-align: center; padding: 30px 20px 50px; }
+.bottom a { color: #666; text-decoration: none; font-size: 13px; margin: 0 8px; }
+.bottom a:hover { color: #999; }
+.bottom .big {
+    display: inline-block; background: #1a1a1a; color: #bbb;
+    padding: 14px 28px; border-radius: 10px; border: 1px solid #333;
+    font-size: 15px; font-family: inherit; text-decoration: none; margin: 8px;
+}
+.bottom .big:hover { background: #222; color: #fff; border-color: #555; }
+</style>
+</head>
+<body>
+
+<div class="top">
+    <h1>The Network — <span>who knows who</span></h1>
+    <p>Every line is a documented connection. Flight logs. Payments. Meetings. Court records.</p>
+</div>
+
+<div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#8a4a4a;"></div> Tier 3 — Children harmed</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#c47474;"></div> Tier 2 — Murder / slavery / truth</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#d4a574;"></div> Tier 1 — Corruption / betrayal</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#666;"></div> Tier 0 — Insufficient data</div>
+</div>
+
+<div class="network">
+    <canvas id="graph"></canvas>
+</div>
+<div class="tooltip" id="tooltip">
+    <div class="tt-name"></div>
+    <div class="tt-role"></div>
+    <div class="tt-sins"></div>
+    <div class="tt-connections"></div>
+</div>
+
+<div class="stats">
+    <span>39</span> people &middot;
+    <span>26</span> documented connections &middot;
+    all sourced &middot; all graded
+</div>
+
+<div class="bottom">
+    <a class="big" href="records.html">See all records</a>
+    <a class="big" href="door.html">Said vs Did</a>
+    <div style="margin-top:20px;">
+        <a href="all.html">The six sins</a>
+        <a href="see.html">How we verify</a>
+        <a href="spread.html">How to share</a>
+        <a href="index.html">Godding</a>
+    </div>
+    <p style="color:#333;font-size:11px;margin-top:24px;">
+        No tracking. No ads. No owner. Open source.<br>
+        Every connection documented. You decide what it means.
+    </p>
+</div>
+
+<script>
+const NODES = [{"name": "Boeing Leadership (Dennis Muilenburg / Dave Calhoun)", "role": "CEO, Boeing", "country": "United States", "tier": 2, "sins": ["Theft from the powerless", "Murder of innocents"], "grade": "A"}, {"name": "Wells Fargo Leadership (John Stumpf / Tim Sloan)", "role": "CEO, Wells Fargo", "country": "United States", "tier": 1, "sins": ["Theft from the powerless"], "grade": "A"}, {"name": "Volkswagen Leadership (Martin Winterkorn)", "role": "CEO, Volkswagen", "country": "Germany", "tier": 2, "sins": ["Theft from the powerless", "Murder of innocents", "Destruction of truth"], "grade": "A"}, {"name": "Meta / Facebook (Mark Zuckerberg)", "role": "CEO, Meta", "country": "United States", "tier": 2, "sins": ["Destruction of truth", "Murder of innocents", "Betrayal of trust"], "grade": "A"}, {"name": "Nestl\u00e9 Leadership", "role": "CEO / Board, Nestl\u00e9", "country": "Switzerland", "tier": 3, "sins": ["Harming children", "Murder of innocents"], "grade": "B"}, {"name": "Rabobank Leadership", "role": "CEO / Board, Rabobank", "country": "Netherlands", "tier": 1, "sins": ["Theft from the powerless", "Betrayal of trust"], "grade": "A"}, {"name": "Goldman Sachs (David Solomon / Lloyd Blankfein era)", "role": "CEO, Goldman Sachs", "country": "United States", "tier": 2, "sins": ["Theft from the powerless", "Destruction of truth"], "grade": "A"}, {"name": "ExxonMobil Leadership (Rex Tillerson / Darren Woods era)", "role": "CEO, ExxonMobil", "country": "United States", "tier": 2, "sins": ["Destruction of truth"], "grade": "A"}, {"name": "Johnson & Johnson Leadership", "role": "CEO / Board, Johnson & Johnson", "country": "United States", "tier": 1, "sins": ["Betrayal of trust"], "grade": "A"}, {"name": "Bill Clinton", "role": "Former US President / Epstein Associate", "country": "United States", "tier": 0, "sins": [], "grade": "A-"}, {"name": "Alan Dershowitz", "role": "Harvard Law Professor / Epstein Associate", "country": "United States", "tier": 3, "sins": ["Harming children", "Betrayal of trust", "Destruction of truth"], "grade": "A-"}, {"name": "Bill Gates", "role": "Microsoft Co-founder / Epstein Associate", "country": "United States", "tier": 0, "sins": [], "grade": "B"}, {"name": "Leon Black", "role": "CEO, Apollo Global Management / Epstein Associate", "country": "United States", "tier": 3, "sins": ["Harming children", "Slavery / forced labor", "Betrayal of trust"], "grade": "A-"}, {"name": "Jes Staley", "role": "CEO, Barclays / Epstein Associate", "country": "United Kingdom", "tier": 2, "sins": ["Slavery / forced labor", "Betrayal of trust"], "grade": "A"}, {"name": "JP Morgan Chase", "role": "Bank / Epstein Financial Services", "country": "United States", "tier": 3, "sins": ["Harming children", "Slavery / forced labor"], "grade": "A"}, {"name": "Deutsche Bank", "role": "Bank / Epstein Financial Services", "country": "Germany", "tier": 0, "sins": [], "grade": "A"}, {"name": "Jeffrey Epstein", "role": "Financier / Convicted Sex Offender", "country": "United States", "tier": 3, "sins": ["Harming children", "Betrayal of trust", "Slavery / forced labor", "Murder of innocents"], "grade": "A"}, {"name": "Ghislaine Maxwell", "role": "Epstein Associate / Convicted Sex Trafficker", "country": "United Kingdom / United States", "tier": 3, "sins": ["Harming children", "Slavery / forced labor", "Murder of innocents"], "grade": "A"}, {"name": "Prince Andrew (Duke of York)", "role": "British Royal / Epstein Associate", "country": "United Kingdom", "tier": 3, "sins": ["Harming children", "Betrayal of trust"], "grade": "A-"}, {"name": "Jean-Luc Brunel", "role": "Model Agency Owner / Epstein Associate", "country": "France", "tier": 3, "sins": ["Harming children", "Destruction of truth"], "grade": "A-"}, {"name": "Alex Acosta", "role": "US Attorney / Trump Labor Secretary", "country": "United States", "tier": 1, "sins": ["Betrayal of trust"], "grade": "A"}, {"name": "Les Wexner", "role": "CEO, L Brands (Victoria's Secret) / Epstein Associate", "country": "United States", "tier": 0, "sins": [], "grade": "B"}, {"name": "Narendra Modi", "role": "Prime Minister of India", "country": "India", "tier": 2, "sins": ["Destruction of truth", "Murder of innocents"], "grade": "B"}, {"name": "Viktor Orb\u00e1n", "role": "Prime Minister of Hungary", "country": "Hungary", "tier": 1, "sins": ["Theft from the powerless"], "grade": "A-"}, {"name": "Jair Bolsonaro", "role": "Former President of Brazil", "country": "Brazil", "tier": 2, "sins": ["Murder of innocents", "Betrayal of trust"], "grade": "A"}, {"name": "Rodrigo Duterte", "role": "Former President of Philippines", "country": "Philippines", "tier": 2, "sins": ["Murder of innocents"], "grade": "A"}, {"name": "Nicol\u00e1s Maduro", "role": "President of Venezuela", "country": "Venezuela", "tier": 2, "sins": ["Murder of innocents"], "grade": "A"}, {"name": "Abdel Fattah el-Sisi", "role": "President of Egypt", "country": "Egypt", "tier": 2, "sins": ["Murder of innocents"], "grade": "A-"}, {"name": "Isaias Afwerki", "role": "President of Eritrea", "country": "Eritrea", "tier": 2, "sins": ["Murder of innocents", "Slavery / forced labor", "Destruction of truth"], "grade": "A"}, {"name": "Vladimir Putin", "role": "President of Russia", "country": "Russia", "tier": 2, "sins": ["Murder of innocents", "Destruction of truth"], "grade": "A"}, {"name": "Recep Tayyip Erdogan", "role": "President of Turkey", "country": "Turkey", "tier": 2, "sins": ["Destruction of truth", "Theft from the powerless", "Betrayal of trust", "Murder of innocents"], "grade": "A-"}, {"name": "Donald Trump", "role": "President of the United States", "country": "United States", "tier": 3, "sins": ["Theft from the powerless", "Harming children", "Destruction of truth", "Betrayal of trust"], "grade": "A"}, {"name": "Benjamin Netanyahu", "role": "Prime Minister of Israel", "country": "Israel", "tier": 2, "sins": ["Murder of innocents", "Theft from the powerless"], "grade": "A"}, {"name": "Mohammed bin Salman (MBS)", "role": "Crown Prince / De facto ruler of Saudi Arabia", "country": "Saudi Arabia", "tier": 2, "sins": ["Murder of innocents", "Destruction of truth", "Theft from the powerless"], "grade": "A"}, {"name": "Xi Jinping", "role": "President / General Secretary CPC", "country": "China", "tier": 2, "sins": ["Murder of innocents", "Slavery / forced labor", "Destruction of truth"], "grade": "A"}, {"name": "Bashar al-Assad", "role": "Former President of Syria (ousted 2024)", "country": "Syria", "tier": 2, "sins": ["Murder of innocents"], "grade": "A"}, {"name": "Kim Jong-un", "role": "Supreme Leader", "country": "North Korea", "tier": 2, "sins": ["Murder of innocents", "Destruction of truth"], "grade": "A"}, {"name": "Alexander Lukashenko", "role": "President of Belarus", "country": "Belarus", "tier": 2, "sins": ["Murder of innocents", "Theft from the powerless"], "grade": "A"}, {"name": "Sackler Family / Purdue Pharma", "role": "Owners of Purdue Pharma", "country": "United States", "tier": 2, "sins": ["Theft from the powerless", "Murder of innocents", "Betrayal of trust"], "grade": "A"}];
+const EDGES = [{"from": "Jeffrey Epstein", "to": "Ghislaine Maxwell", "reason": "Partner in trafficking \u2014 convicted"}, {"from": "Jeffrey Epstein", "to": "Jean-Luc Brunel", "reason": "Supplied victims \u2014 charged"}, {"from": "Jeffrey Epstein", "to": "Prince Andrew (Duke of York)", "reason": "Flight logs, island visits, photo with victim"}, {"from": "Jeffrey Epstein", "to": "Alan Dershowitz", "reason": "Legal team + named by victim under oath"}, {"from": "Jeffrey Epstein", "to": "Bill Clinton", "reason": "26+ flights on Epstein's planes"}, {"from": "Jeffrey Epstein", "to": "Donald Trump", "reason": "Photos, quotes, flight records, Mar-a-Lago"}, {"from": "Jeffrey Epstein", "to": "Bill Gates", "reason": "Multiple meetings after conviction"}, {"from": "Jeffrey Epstein", "to": "Leon Black", "reason": "$158M payments after conviction"}, {"from": "Jeffrey Epstein", "to": "Jes Staley", "reason": "1,200+ emails, island visits, prison visits"}, {"from": "Jeffrey Epstein", "to": "Les Wexner", "reason": "Power of attorney, $77M mansion gift"}, {"from": "Jeffrey Epstein", "to": "Alex Acosta", "reason": "Sweetheart plea deal \u2014 protected co-conspirators"}, {"from": "Jeffrey Epstein", "to": "JP Morgan Chase", "reason": "Client for 15 years including after conviction"}, {"from": "Jeffrey Epstein", "to": "Deutsche Bank", "reason": "Client after JP Morgan dropped him"}, {"from": "Ghislaine Maxwell", "to": "Prince Andrew (Duke of York)", "reason": "Photo at her London home with victim"}, {"from": "Ghislaine Maxwell", "to": "Jean-Luc Brunel", "reason": "Collaborated on victim recruitment"}, {"from": "Alex Acosta", "to": "Donald Trump", "reason": "Appointed as Labor Secretary"}, {"from": "Donald Trump", "to": "Vladimir Putin", "reason": "Documented relationship, Helsinki summit, intelligence sharing concerns"}, {"from": "Donald Trump", "to": "Mohammed bin Salman (MBS)", "reason": "Arms deal, Kushner $2B Saudi investment"}, {"from": "Donald Trump", "to": "Benjamin Netanyahu", "reason": "Political alliance, policy coordination"}, {"from": "Vladimir Putin", "to": "Alexander Lukashenko", "reason": "Military alliance, enabled Ukraine invasion from Belarus"}, {"from": "Vladimir Putin", "to": "Bashar al-Assad", "reason": "Military intervention to keep Assad in power"}, {"from": "Vladimir Putin", "to": "Xi Jinping", "reason": "'No limits' partnership declared Feb 2022"}, {"from": "Xi Jinping", "to": "Kim Jong-un", "reason": "Primary economic and diplomatic supporter"}, {"from": "Goldman Sachs (David Solomon / Lloyd Blankfein era)", "to": "Mohammed bin Salman (MBS)", "reason": "1MDB connections, Saudi business"}, {"from": "ExxonMobil Leadership (Rex Tillerson / Darren Woods era)", "to": "Vladimir Putin", "reason": "Tillerson received Order of Friendship from Putin"}, {"from": "Meta / Facebook (Mark Zuckerberg)", "to": "Donald Trump", "reason": "Platform policies, political advertising"}];
+
+const canvas = document.getElementById('graph');
+const ctx = canvas.getContext('2d');
+const tooltip = document.getElementById('tooltip');
+
+function resize() {
+    const r = canvas.parentElement.getBoundingClientRect();
+    canvas.width = r.width * 2;
+    canvas.height = r.height * 2;
+    canvas.style.width = r.width + 'px';
+    canvas.style.height = r.height + 'px';
+    ctx.setTransform(2, 0, 0, 2, 0, 0);
+}
+resize();
+window.addEventListener('resize', () => { resize(); });
+
+const W = () => canvas.width / 2;
+const H = () => canvas.height / 2;
+
+const tierColor = { 0: '#666', 1: '#d4a574', 2: '#c47474', 3: '#8a4a4a' };
+const tierSize = { 0: 6, 1: 8, 2: 10, 3: 14 };
+
+// Layout: force-directed (simple)
+const pos = {};
+NODES.forEach((n, i) => {
+    const angle = (i / NODES.length) * Math.PI * 2;
+    const r = 150 + Math.random() * 80;
+    pos[n.name] = { x: W()/2 + Math.cos(angle) * r, y: H()/2 + Math.sin(angle) * r, vx: 0, vy: 0 };
+});
+
+// Count connections per node
+const connCount = {};
+EDGES.forEach(e => {
+    connCount[e.from] = (connCount[e.from] || 0) + 1;
+    connCount[e.to] = (connCount[e.to] || 0) + 1;
+});
+
+function simulate() {
+    // Repulsion between all nodes
+    for (let i = 0; i < NODES.length; i++) {
+        for (let j = i + 1; j < NODES.length; j++) {
+            const a = pos[NODES[i].name], b = pos[NODES[j].name];
+            let dx = b.x - a.x, dy = b.y - a.y;
+            let d = Math.sqrt(dx*dx + dy*dy) || 1;
+            let f = 800 / (d * d);
+            a.vx -= dx / d * f;
+            a.vy -= dy / d * f;
+            b.vx += dx / d * f;
+            b.vy += dy / d * f;
+        }
+    }
+    // Attraction along edges
+    EDGES.forEach(e => {
+        const a = pos[e.from], b = pos[e.to];
+        if (!a || !b) return;
+        let dx = b.x - a.x, dy = b.y - a.y;
+        let d = Math.sqrt(dx*dx + dy*dy) || 1;
+        let f = (d - 100) * 0.01;
+        a.vx += dx / d * f;
+        a.vy += dy / d * f;
+        b.vx -= dx / d * f;
+        b.vy -= dy / d * f;
+    });
+    // Center gravity
+    NODES.forEach(n => {
+        const p = pos[n.name];
+        p.vx += (W()/2 - p.x) * 0.002;
+        p.vy += (H()/2 - p.y) * 0.002;
+        p.x += p.vx * 0.3;
+        p.y += p.vy * 0.3;
+        p.vx *= 0.8;
+        p.vy *= 0.8;
+        // Bounds
+        p.x = Math.max(40, Math.min(W() - 40, p.x));
+        p.y = Math.max(40, Math.min(H() - 40, p.y));
+    });
+}
+
+function draw() {
+    ctx.clearRect(0, 0, W(), H());
+
+    // Draw edges
+    EDGES.forEach(e => {
+        const a = pos[e.from], b = pos[e.to];
+        if (!a || !b) return;
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+    });
+
+    // Draw nodes
+    NODES.forEach(n => {
+        const p = pos[n.name];
+        const c = tierColor[n.tier] || '#666';
+        const s = tierSize[n.tier] || 6;
+        const conns = connCount[n.name] || 0;
+        const size = s + conns * 1.5;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
+        ctx.fillStyle = c;
+        ctx.globalAlpha = 0.8;
+        ctx.fill();
+        ctx.globalAlpha = 1;
+
+        // Label
+        ctx.fillStyle = '#aaa';
+        ctx.font = '9px Georgia';
+        ctx.textAlign = 'center';
+        const short = n.name.length > 20 ? n.name.split(' ').slice(0, 2).join(' ') : n.name;
+        ctx.fillText(short, p.x, p.y + size + 12);
+    });
+}
+
+// Simulate
+let frame = 0;
+function loop() {
+    simulate();
+    draw();
+    frame++;
+    if (frame < 300) requestAnimationFrame(loop);
+    else { draw(); /* final frame */ }
+}
+loop();
+
+// Tooltip on hover
+canvas.addEventListener('mousemove', (evt) => {
+    const rect = canvas.getBoundingClientRect();
+    const mx = evt.clientX - rect.left;
+    const my = evt.clientY - rect.top;
+
+    let found = null;
+    NODES.forEach(n => {
+        const p = pos[n.name];
+        const s = (tierSize[n.tier] || 6) + (connCount[n.name] || 0) * 1.5;
+        const dx = p.x - mx, dy = p.y - my;
+        if (dx*dx + dy*dy < (s+5)*(s+5)) found = n;
+    });
+
+    if (found) {
+        const conns = EDGES.filter(e => e.from === found.name || e.to === found.name);
+        let connHtml = conns.map(e => {
+            const other = e.from === found.name ? e.to : e.from;
+            return '<div class="tt-conn">&rarr; ' + other + ': ' + e.reason + '</div>';
+        }).join('');
+
+        let sinHtml = found.sins.map(s => {
+            const c = found.tier === 3 ? '#8a4a4a' : found.tier === 2 ? '#c47474' : '#d4a574';
+            return '<span class="tt-sin" style="background:' + c + ';">' + s + '</span>';
+        }).join('');
+
+        tooltip.querySelector('.tt-name').textContent = found.name;
+        tooltip.querySelector('.tt-role').textContent = found.role + ' — ' + found.country;
+        tooltip.querySelector('.tt-sins').innerHTML = sinHtml || '<span style="color:#555;">No sins matched</span>';
+        tooltip.querySelector('.tt-connections').innerHTML = connHtml || '<div style="color:#555;">No mapped connections</div>';
+        tooltip.style.display = 'block';
+        tooltip.style.left = (evt.clientX + 16) + 'px';
+        tooltip.style.top = (evt.clientY + 16) + 'px';
+    } else {
+        tooltip.style.display = 'none';
+    }
+});
+
+canvas.addEventListener('mouseleave', () => { tooltip.style.display = 'none'; });
+</script>
+
+</body>
+</html>
