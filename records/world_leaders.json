@@ -1,0 +1,387 @@
+[
+  {
+    "name": "Vladimir Putin",
+    "role": "President of Russia",
+    "country": "Russia",
+    "said": [
+      "A short, special military operation.",
+      "We are protecting Russian-speaking people.",
+      "Russia does not attack civilian infrastructure."
+    ],
+    "did": [
+      "Full-scale invasion of Ukraine, Feb 2022 — no UN authorization.",
+      "Hundreds of thousands of casualties (military + civilian) documented by UN OHCHR.",
+      "Systematic targeting of civilian infrastructure — hospitals, schools, power grid.",
+      "Forced deportation of Ukrainian children — ICC arrest warrant issued March 2023.",
+      "Blocking humanitarian access to besieged cities (Mariupol).",
+      "Assassination and poisoning of political opponents (Navalny, Litvinenko, Skripal).",
+      "Personal wealth estimated $70-200B despite official salary of ~$140K/year."
+    ],
+    "facts": [
+      "ICC arrest warrant for war crimes — deportation of children (March 2023).",
+      "UN General Assembly resolution condemning invasion (141 countries in favor).",
+      "OHCHR documented 10,000+ civilian casualties in first year alone.",
+      "Bucha massacre documented by satellite imagery and forensic evidence.",
+      "Navalny died in prison February 2024 after documenting Putin's $1.35B palace.",
+      "Novichok nerve agent used on Skripal family in UK — OPCW confirmed.",
+      "Constitutional changes 2020 to allow rule until 2036.",
+      "Jailed journalists — Russia ranked 164/180 press freedom (RSF).",
+      "Wagner Group mercenaries deployed in Syria, Africa — documented war crimes.",
+      "Election manipulation documented by independent monitors (OSCE)."
+    ],
+    "sources": [
+      "International Criminal Court — arrest warrant ICC-01/22",
+      "UN OHCHR civilian casualty reports",
+      "OPCW Technical Assessment — Skripal poisoning",
+      "Navalny Anti-Corruption Foundation — palace investigation",
+      "OSCE election monitoring reports",
+      "Reporters Without Borders press freedom index",
+      "Satellite imagery (Maxar Technologies) — Bucha",
+      "UN General Assembly Resolution ES-11/1"
+    ],
+    "grade": "A"
+  },
+  {
+    "name": "Recep Tayyip Erdogan",
+    "role": "President of Turkey",
+    "country": "Turkey",
+    "said": [
+      "Turkey is a democracy that respects the rule of law.",
+      "I serve the nation.",
+      "Press freedom is essential."
+    ],
+    "did": [
+      "Jailed more journalists than any other country (CPJ, multiple years running).",
+      "Post-2016 coup purge: 150,000+ people detained, fired, or arrested.",
+      "Constitutional referendum 2017 — concentrated power in presidency.",
+      "Currency crisis: Turkish lira lost 80%+ value 2018-2023 under his economic policies.",
+      "Family members in key positions — son-in-law was Finance Minister.",
+      "Seized independent media outlets — now state-controlled or allied-owned."
+    ],
+    "facts": [
+      "Turkey holds world record for jailed journalists (CPJ annual reports 2016-2022).",
+      "European Court of Human Rights — hundreds of rulings against Turkey for rights violations.",
+      "Corruption probe 2013 — wiretaps showed ministers discussing bribes; Erdogan shut down investigation, reassigned prosecutors.",
+      "Nepotism: son-in-law Berat Albayrak served as Finance Minister 2018-2020.",
+      "Post-coup purge: 160,000+ passports cancelled, 50,000+ arrested (Amnesty International).",
+      "Press freedom: Turkey ranked 165/180 (RSF 2023).",
+      "Erdogan's declared wealth increased significantly during time in office.",
+      "Military operations in Syria — civilian casualties documented by UN."
+    ],
+    "sources": [
+      "Committee to Protect Journalists (CPJ) annual prison census",
+      "Amnesty International Turkey reports",
+      "European Court of Human Rights case database",
+      "Reporters Without Borders press freedom index",
+      "Turkish government financial disclosures",
+      "UN OHCHR reports on northeast Syria operations",
+      "OECD anti-corruption reviews",
+      "2013 corruption probe wiretap transcripts (leaked, widely reported)"
+    ],
+    "grade": "A-"
+  },
+  {
+    "name": "Donald Trump",
+    "role": "President of the United States",
+    "country": "United States",
+    "said": [
+      "I will drain the swamp.",
+      "I will fight for the working people.",
+      "The election was stolen.",
+      "I have never met that woman."
+    ],
+    "did": [
+      "34 felony convictions — falsifying business records (NY, May 2024).",
+      "Found liable for sexual abuse and defamation — $83.3M judgment (E. Jean Carroll case).",
+      "Tax cuts primarily benefiting top 1% — Congressional Budget Office analysis.",
+      "Four criminal indictments across multiple jurisdictions.",
+      "January 6th Capitol breach after rally speech — impeached for incitement.",
+      "Documented association with Jeffrey Epstein — photos, flight records, public statements.",
+      "Family members in White House positions — Jared Kushner, Ivanka Trump (nepotism)."
+    ],
+    "facts": [
+      "34 felony convictions — People of New York v. Trump (2024).",
+      "Civil fraud judgment: $454M for inflating asset values (NY AG case).",
+      "E. Jean Carroll: found liable for sexual abuse by federal jury.",
+      "Two impeachments by House of Representatives (2019, 2021).",
+      "January 6 Committee: referred for criminal prosecution on 4 charges.",
+      "Documented 30,000+ false or misleading claims during presidency (Washington Post tracker).",
+      "Trump Foundation shut down by NY AG for 'shocking pattern of illegality.'",
+      "Classified documents found at Mar-a-Lago — federal indictment.",
+      "Kushner received $2B from Saudi sovereign wealth fund after leaving White House.",
+      "On Epstein: 'I've known Jeff for fifteen years. Terrific guy.' (2002, NY Magazine)."
+    ],
+    "sources": [
+      "NY County Supreme Court — People v. Trump (34 felony convictions)",
+      "US District Court SDNY — Carroll v. Trump (sexual abuse, defamation)",
+      "NY Supreme Court — AG v. Trump Organization ($454M civil fraud)",
+      "US House January 6th Committee Final Report",
+      "Congressional Budget Office — Tax Cuts and Jobs Act analysis",
+      "NY AG Office — Trump Foundation dissolution order",
+      "Washington Post Fact Checker database",
+      "Federal court records — US v. Trump (classified documents)",
+      "Saudi PIF investment records (public reporting by NYT, WaPo, Reuters)"
+    ],
+    "grade": "A"
+  },
+  {
+    "name": "Benjamin Netanyahu",
+    "role": "Prime Minister of Israel",
+    "country": "Israel",
+    "said": [
+      "We act in accordance with international law.",
+      "We take every precaution to avoid civilian casualties.",
+      "I have never accepted bribes."
+    ],
+    "did": [
+      "ICC arrest warrant issued November 2024 for war crimes and crimes against humanity.",
+      "Gaza operation 2023-2024: 30,000+ civilian casualties documented by UN.",
+      "Blocking humanitarian aid — UN reported famine conditions.",
+      "Ongoing corruption trial: bribery, fraud, and breach of trust (Case 4000, Case 1000, Case 2000).",
+      "Judicial overhaul attempt to weaken courts while under indictment."
+    ],
+    "facts": [
+      "ICC arrest warrant — war crimes, crimes against humanity (Nov 2024).",
+      "UN OCHA: over 35,000 Palestinians killed including 13,000+ children by mid-2024.",
+      "ICJ ruled plausible risk of genocide — ordered provisional measures (Jan 2024).",
+      "Corruption trial ongoing since 2020: bribery (Case 4000), fraud (Case 1000, 2000).",
+      "UN: 70%+ of housing in Gaza destroyed or damaged.",
+      "Amnesty International: documented use of white phosphorus in populated areas.",
+      "Multiple UN votes condemning settlement expansion — violations of international law.",
+      "Attempted judicial overhaul while under criminal indictment."
+    ],
+    "sources": [
+      "International Criminal Court — arrest warrant (Nov 2024)",
+      "International Court of Justice — provisional measures order (Jan 2024)",
+      "UN OCHA situation reports — Gaza casualty figures",
+      "Jerusalem District Court — State v. Netanyahu (corruption cases)",
+      "Amnesty International investigation reports",
+      "UN Human Rights Council commission of inquiry",
+      "UNRWA damage assessments"
+    ],
+    "grade": "A"
+  },
+  {
+    "name": "Mohammed bin Salman (MBS)",
+    "role": "Crown Prince / De facto ruler of Saudi Arabia",
+    "country": "Saudi Arabia",
+    "said": [
+      "Saudi Arabia is modernizing and reforming.",
+      "I had nothing to do with the Khashoggi killing.",
+      "We respect human rights."
+    ],
+    "did": [
+      "Jamal Khashoggi murdered and dismembered in Saudi consulate, Istanbul, Oct 2018.",
+      "UN investigation concluded 'credible evidence' MBS was responsible.",
+      "US intelligence assessment: MBS approved Khashoggi operation (ODNI report released 2021).",
+      "Mass execution of 81 people in single day (March 2022) — largest in Saudi history.",
+      "Imprisoned women's rights activists who campaigned for right to drive.",
+      "Yemen war: coalition airstrikes killed thousands of civilians."
+    ],
+    "facts": [
+      "UN Special Rapporteur Callamard: 'credible evidence warranting investigation of MBS' for Khashoggi murder.",
+      "US ODNI declassified report: 'MBS approved an operation to capture or kill Khashoggi.'",
+      "Saudi agents who killed Khashoggi included MBS personal security team.",
+      "Women's rights activist Loujain al-Hathloul imprisoned 2018-2021 for campaigning.",
+      "Yemen coalition airstrikes: 19,000+ killed including 4,000+ children (UNICEF/UN data through 2022).",
+      "Ritz-Carlton 'anti-corruption' purge 2017: detained 200+ businesspeople, extracted ~$100B (Wall Street Journal).",
+      "Neom megaproject: forced displacement of Huwaitat tribe, at least 1 killed resisting (Amnesty).",
+      "Saudi Arabia: 196 executions in 2022, 172 in 2023 (Amnesty International)."
+    ],
+    "sources": [
+      "UN Special Rapporteur report on Khashoggi killing (A/HRC/41/CRP.1)",
+      "US ODNI declassified assessment (released Feb 2021)",
+      "Amnesty International annual reports — Saudi Arabia",
+      "UNICEF Yemen situation reports",
+      "Wall Street Journal — Ritz-Carlton detentions reporting",
+      "Human Rights Watch Saudi Arabia reports",
+      "Turkish prosecutor investigation files (leaked portions)"
+    ],
+    "grade": "A"
+  },
+  {
+    "name": "Xi Jinping",
+    "role": "President / General Secretary CPC",
+    "country": "China",
+    "said": [
+      "These are vocational training centers.",
+      "China respects human rights with Chinese characteristics.",
+      "We will peacefully reunify with Taiwan."
+    ],
+    "did": [
+      "Mass detention of Uyghur Muslims — UN estimated 1 million+ in camps.",
+      "Forced sterilization, forced labor, cultural erasure documented by multiple UN bodies.",
+      "Crushing of Hong Kong democracy movement — National Security Law 2020.",
+      "Zero independent media — China ranked 179/180 press freedom (RSF).",
+      "Eliminated presidential term limits 2018 — indefinite rule.",
+      "Disappeared critics: tennis star Peng Shuai, business leaders, lawyers."
+    ],
+    "facts": [
+      "UN OHCHR report (Aug 2022): 'serious human rights violations' against Uyghurs, possible 'crimes against humanity.'",
+      "Xinjiang Police Files (2022): leaked internal documents showing mass detention system.",
+      "Uyghur Tribunal (independent, UK-based): concluded genocide, Dec 2021.",
+      "Hong Kong: 260+ arrested under National Security Law, pro-democracy media shut down.",
+      "Forced labor in Xinjiang: cotton, solar panels — documented by ASPI, Sheffield Hallam U.",
+      "Disappearances: Peng Shuai (tennis star, 2021), Jack Ma (weeks, 2020), human rights lawyers (ongoing).",
+      "Press freedom: 127 journalists jailed (CPJ 2022) — world's worst jailer.",
+      "Constitutional amendment removed term limits (2018) — president for life."
+    ],
+    "sources": [
+      "UN OHCHR Assessment — Xinjiang (Aug 31, 2022)",
+      "Xinjiang Police Files — leaked documents (2022)",
+      "Uyghur Tribunal judgment (Dec 2021)",
+      "Australian Strategic Policy Institute (ASPI) Xinjiang research",
+      "Committee to Protect Journalists — China prison census",
+      "Reporters Without Borders press freedom index",
+      "Hong Kong police arrest records under NSL",
+      "Sheffield Hallam University — forced labor in solar supply chain"
+    ],
+    "grade": "A"
+  },
+  {
+    "name": "Bashar al-Assad",
+    "role": "Former President of Syria (ousted 2024)",
+    "country": "Syria",
+    "said": [
+      "I protect the Syrian people.",
+      "There are no chemical weapons attacks.",
+      "The opposition are terrorists."
+    ],
+    "did": [
+      "Chemical weapons attacks on own civilians — confirmed by OPCW and UN.",
+      "Ghouta sarin attack 2013: 1,400+ killed including hundreds of children.",
+      "Barrel bombs dropped on hospitals, schools, markets — systematic targeting of civilians.",
+      "Caesar photos: 11,000+ images of systematic torture deaths in government prisons.",
+      "500,000+ killed in civil war. 13 million displaced (half the population)."
+    ],
+    "facts": [
+      "OPCW Investigation and Identification Team: confirmed Syrian government responsibility for chemical attacks.",
+      "Caesar photos: 55,000 images smuggled out by military defector, verified by FBI.",
+      "UN Commission of Inquiry: documented crimes against humanity, war crimes.",
+      "Siege warfare: starvation of civilian populations in Madaya, Eastern Ghouta, Yarmouk.",
+      "Enforced disappearances: 100,000+ detainees (Syrian Network for Human Rights).",
+      "Destruction of hospitals: 601 attacks on medical facilities documented (Physicians for Human Rights).",
+      "After fall 2024: mass graves discovered, torture facilities documented."
+    ],
+    "sources": [
+      "OPCW Investigation and Identification Team reports",
+      "UN Commission of Inquiry on Syria — multiple reports",
+      "Caesar photos — FBI verification, Holocaust Memorial Museum analysis",
+      "Physicians for Human Rights — attacks on medical facilities database",
+      "Syrian Network for Human Rights documentation",
+      "UN OCHA displacement and casualty figures"
+    ],
+    "grade": "A"
+  },
+  {
+    "name": "Kim Jong-un",
+    "role": "Supreme Leader",
+    "country": "North Korea",
+    "said": [
+      "The people are prosperous under our system.",
+      "We are a workers' paradise."
+    ],
+    "did": [
+      "Political prison camps holding 80,000-120,000 people — documented by satellite and defectors.",
+      "Public executions including by anti-aircraft guns.",
+      "Ordered assassination of half-brother Kim Jong-nam with VX nerve agent (2017).",
+      "Three generations of punishment — families imprisoned for one member's perceived disloyalty.",
+      "Famine and malnutrition while spending billions on nuclear weapons and luxury goods."
+    ],
+    "facts": [
+      "UN Commission of Inquiry (2014): crimes against humanity 'without parallel in the contemporary world.'",
+      "Political prison camps: Camp 14, 15, 16, 18, 25 documented by satellite imagery and defector testimony.",
+      "Kim Jong-nam assassination: VX nerve agent, Kuala Lumpur airport, Feb 2017 — Malaysian court case.",
+      "Estimated 60% of population food insecure (UN World Food Programme).",
+      "Nuclear weapons program: 6 nuclear tests, dozens of missile tests violating UN resolutions.",
+      "Zero press freedom — ranked 180/180, dead last (RSF).",
+      "Estimated $2-4B in luxury goods imports while population starves (UN Panel of Experts).",
+      "Three generations of collective punishment documented by UN COI."
+    ],
+    "sources": [
+      "UN Commission of Inquiry report (2014) — A/HRC/25/CRP.1",
+      "UN Panel of Experts — DPRK sanctions monitoring",
+      "HRNK (Committee for Human Rights in North Korea) — satellite analysis",
+      "Malaysian court records — Kim Jong-nam assassination",
+      "Reporters Without Borders — press freedom index",
+      "Defector testimonies compiled by UN COI",
+      "World Food Programme — DPRK food security assessments"
+    ],
+    "grade": "A"
+  },
+  {
+    "name": "Alexander Lukashenko",
+    "role": "President of Belarus",
+    "country": "Belarus",
+    "said": [
+      "I won the election fairly.",
+      "Belarus is a democracy.",
+      "The protesters are foreign agents."
+    ],
+    "did": [
+      "2020 election: widely documented fraud — EU, US, and most international observers rejected results.",
+      "Mass arrests: 35,000+ detained during 2020 protests (Viasna Human Rights Centre).",
+      "Systematic torture of detainees — documented by UN, Amnesty, HRW.",
+      "Forced Ryanair flight to land to arrest dissident journalist Roman Protasevich (2021).",
+      "Shut down all independent media, imprisoned journalists.",
+      "Enabled Russian invasion of Ukraine from Belarusian territory."
+    ],
+    "facts": [
+      "OSCE: 2020 election 'not free and fair' — EU imposed sanctions.",
+      "Viasna Human Rights Centre: 35,000+ detained, 1,500+ cases of torture documented.",
+      "Nobel laureate Svetlana Alexievich forced to flee.",
+      "Forced landing of Ryanair FR4978 — ICAO investigation confirmed state-directed.",
+      "All independent media shut down by 2022 — Tut.by, Belsat, Nasha Niva raided/closed.",
+      "UN Human Rights Council: documented 'widespread and systematic' torture.",
+      "In power since 1994 — 'Europe's last dictator' per international consensus."
+    ],
+    "sources": [
+      "OSCE/ODIHR election observation reports",
+      "Viasna Human Rights Centre documentation",
+      "UN Human Rights Council resolution and reports on Belarus",
+      "ICAO investigation — Ryanair FR4978 incident",
+      "Amnesty International Belarus reports",
+      "EU Council sanctions decisions",
+      "Committee to Protect Journalists — Belarus"
+    ],
+    "grade": "A"
+  },
+  {
+    "name": "Sackler Family / Purdue Pharma",
+    "role": "Owners of Purdue Pharma",
+    "country": "United States",
+    "said": [
+      "OxyContin is not addictive when used as directed.",
+      "We acted ethically and lawfully.",
+      "We are part of the solution to the opioid crisis."
+    ],
+    "did": [
+      "Aggressively marketed OxyContin knowing it was highly addictive.",
+      "Internal documents show they knew about addiction risk and pushed sales harder.",
+      "500,000+ Americans dead from opioid overdoses (CDC, 1999-2020).",
+      "Purdue pleaded guilty to federal criminal charges — TWICE (2007 and 2020).",
+      "Sackler family extracted $10.7 billion from Purdue while company fueled crisis.",
+      "Moved billions offshore to shield personal wealth from lawsuits."
+    ],
+    "facts": [
+      "Purdue Pharma guilty plea 2007: 'misbranding' OxyContin, $600M fine.",
+      "Purdue Pharma guilty plea 2020: conspiracy to defraud the US, $8.3B settlement.",
+      "DOJ: Purdue 'knowingly and intentionally conspired and agreed to aid and abet' illegal distribution.",
+      "Sackler family transferred $10.7B out of Purdue over a decade (court findings in bankruptcy).",
+      "CDC: 500,000+ opioid overdose deaths 1999-2020 in US alone.",
+      "McKinsey consulting advice to Purdue: 'turbocharge' OxyContin sales (leaked documents).",
+      "Internal Purdue memo (1996): 'We do not want to niche OxyContin just for cancer pain.'",
+      "Multiple state AG lawsuits — settled for combined $6B+ (Sackler personal contribution)."
+    ],
+    "sources": [
+      "US DOJ — Purdue Pharma guilty pleas (2007, 2020)",
+      "Purdue Pharma bankruptcy court filings — asset transfer findings",
+      "CDC WONDER database — opioid overdose mortality data",
+      "State AG complaint filings (Massachusetts, New York, etc.)",
+      "Internal Purdue documents released in litigation",
+      "McKinsey settlement documents",
+      "Congressional investigation records (House Oversight Committee)"
+    ],
+    "grade": "A"
+  }
+]
