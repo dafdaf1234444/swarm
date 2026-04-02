@@ -11,275 +11,256 @@ body {
     background: #f5f0eb;
     color: #3a3a3a;
     min-height: 100vh;
+    line-height: 1.8;
 }
 .page {
-    max-width: 540px;
+    max-width: 520px;
     margin: 0 auto;
-    padding: 40px 20px;
+    padding: 48px 20px;
 }
-h1 {
-    text-align: center;
-    font-size: 22px;
+
+/* ── Story ── */
+.story {
+    margin-bottom: 40px;
+}
+.story h1 {
+    font-size: 26px;
     font-weight: normal;
-    margin-bottom: 4px;
-}
-.tagline {
     text-align: center;
-    color: #999;
-    font-size: 13px;
-    font-style: italic;
-    margin-bottom: 32px;
-}
-.card {
-    background: #fff;
-    border-radius: 8px;
-    padding: 20px 22px;
-    margin-bottom: 14px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-}
-.card h2 {
-    font-size: 15px;
-    font-weight: normal;
+    margin-bottom: 28px;
     color: #2a2a2a;
-    margin-bottom: 8px;
 }
-.card p {
-    font-size: 14px;
-    color: #777;
-    line-height: 1.7;
-    margin-bottom: 0;
-}
-
-/* Status */
-.status {
-    text-align: center;
-    padding: 14px;
-    border-radius: 8px;
-    font-size: 14px;
-    margin-bottom: 14px;
-}
-.status.good { background: #e8f0e8; color: #4a6a4a; }
-.status.needs { background: #f0e8e4; color: #7a5a4a; }
-.status.empty { background: #eee8e0; color: #999; }
-
-/* Add */
-.add-box {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 20px;
-}
-.add-box input {
-    flex: 1;
-    padding: 12px;
-    border: 1px solid #d5cfc5;
-    border-radius: 8px;
+.story p {
     font-size: 16px;
-    font-family: inherit;
-    background: #fff;
-    color: #3a3a3a;
-    outline: none;
-}
-.add-box input:focus { border-color: #b8a88a; }
-.add-box input::placeholder { color: #ccc; }
-.add-box button {
-    padding: 12px 20px;
-    border: 1px solid #d5cfc5;
-    border-radius: 8px;
-    background: #fff;
-    font-size: 15px;
-    font-family: inherit;
-    cursor: pointer;
     color: #555;
+    margin-bottom: 16px;
 }
-.add-box button:hover { background: #f0ece5; }
-
-/* Connect */
-.connect-area {
-    display: flex;
-    gap: 6px;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-}
-.connect-area select {
-    flex: 1;
-    min-width: 100px;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
+.story .quiet {
+    color: #999;
+    font-style: italic;
     font-size: 14px;
-    font-family: inherit;
+}
+.story .break {
+    text-align: center;
+    color: #ccc;
+    margin: 24px 0;
+    font-size: 13px;
+    letter-spacing: 4px;
+}
+
+/* ── Tool ── */
+.tool {
     background: #fff;
-    color: #555;
-    outline: none;
-    cursor: pointer;
+    border-radius: 10px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    margin-bottom: 16px;
 }
-.connect-area .arrow { color: #ccc; font-size: 14px; }
-.connect-area button {
-    padding: 8px 14px;
-    border: 1px solid #c5d5c5;
-    border-radius: 6px;
-    background: #edf5ed;
-    font-size: 14px;
-    font-family: inherit;
-    cursor: pointer;
-    color: #4a6a4a;
-}
-.connect-area button:hover { background: #e0ece0; }
-
-.label {
+.tool-label {
     font-size: 12px;
     color: #bbb;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 8px;
 }
-
-/* Things */
-.thing {
-    background: #fff;
+.status {
+    text-align: center;
+    padding: 12px;
     border-radius: 8px;
-    padding: 14px 18px;
-    margin-bottom: 8px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    font-size: 14px;
+    margin-bottom: 18px;
 }
-.thing .name {
-    font-size: 15px;
-    color: #2a2a2a;
-    margin-bottom: 4px;
-}
-.thing .links {
-    font-size: 13px;
-    color: #999;
-    line-height: 1.6;
-}
-.thing .links b { color: #666; font-weight: normal; }
-.thing .alone {
-    color: #c09080;
-    font-size: 13px;
-    font-style: italic;
-}
+.status.good { background: #eaf2ea; color: #4a6a4a; }
+.status.needs { background: #f2eae6; color: #7a5a4a; }
+.status.empty { background: #ede8e2; color: #999; }
 
+.row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+.row input {
+    flex: 1;
+    padding: 11px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: inherit;
+    background: #fafaf8;
+    color: #3a3a3a;
+    outline: none;
+}
+.row input:focus { border-color: #b8a88a; }
+.row input::placeholder { color: #ccc; }
+.btn {
+    padding: 11px 18px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    cursor: pointer;
+    color: #555;
+    background: #fafaf8;
+}
+.btn:hover { background: #f0ece5; }
+.btn-go { background: #eef4ee; border-color: #c5d5c5; color: #4a6a4a; }
+.btn-go:hover { background: #e4ede4; }
+
+.connect-row {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+.connect-row select {
+    flex: 1;
+    min-width: 90px;
+    padding: 9px 8px;
+    border: 1px solid #ddd;
+    border-radius: 7px;
+    font-size: 14px;
+    font-family: inherit;
+    background: #fafaf8;
+    color: #555;
+    outline: none;
+    cursor: pointer;
+}
+.arrow { color: #ccc; }
 .divider {
     border: none;
-    border-top: 1px solid #ebe6df;
-    margin: 24px 0;
+    border-top: 1px solid #eee;
+    margin: 18px 0;
+}
+
+/* ── Items ── */
+.item {
+    padding: 12px 0;
+    border-bottom: 1px solid #f0ece5;
+}
+.item:last-child { border-bottom: none; }
+.item .name {
+    font-size: 15px;
+    color: #2a2a2a;
+}
+.item .meta {
+    font-size: 13px;
+    color: #aaa;
+    margin-top: 2px;
+}
+.item .meta b { color: #777; font-weight: normal; }
+.item .alone {
+    font-size: 13px;
+    color: #c09080;
+    font-style: italic;
+    margin-top: 2px;
 }
 
 footer {
     text-align: center;
     color: #ccc;
     font-size: 11px;
-    margin-top: 32px;
-    line-height: 1.6;
+    margin-top: 40px;
+    line-height: 1.8;
 }
 </style>
 </head>
 <body>
 <div class="page">
 
-<h1>Godding</h1>
-<p class="tagline">The hand that gives is connected to the hand that receives.</p>
+<div class="story">
+    <h1>Godding</h1>
 
-<!-- ── WHAT ── -->
-<div class="card">
-    <h2>What is this?</h2>
     <p>
-        A place to put things down and connect them to each other.
-        Ideas, people, problems, anything.
-        You write them here, you draw the lines between them,
-        and it tells you if anything got left out.
+        You know how sometimes you have a bunch of things in your head
+        and you can feel they're related but you can't see how?
+    </p>
+    <p>
+        That's what this is for. You write things down.
+        Then you draw the lines between them.
+        This helps that. That came from this.
+    </p>
+    <p>
+        When something is sitting there with no lines going in or out,
+        it shows up differently. Not as a punishment.
+        Just so you notice. So you can decide what to do about it.
+    </p>
+
+    <div class="break">&middot; &middot; &middot;</div>
+
+    <p>
+        Below you'll see three things already here:
+        <strong>You</strong>, <strong>Someone else</strong>, and
+        <strong>Something in common</strong>.
+        They're connected to each other. You give to Something in common.
+        Someone else gives to it too. And it gives back to both of you.
+    </p>
+    <p>
+        That's the whole idea. Things help things. And when everything
+        is helping something and being helped by something, it says
+        "Everything is connected." That's the goal.
+    </p>
+
+    <div class="break">&middot; &middot; &middot;</div>
+
+    <p>
+        You can add anything. A feeling. A person's name. A problem.
+        A dream. A fear. Something you're grateful for.
+        Then connect it to what it's related to.
+    </p>
+    <p>
+        It doesn't judge what you put in. It doesn't send it anywhere.
+        It only lives in your browser, right here, right now.
+        If you clear your browser data, it's gone. That's it.
+    </p>
+    <p class="quiet">
+        The hand that gives is connected to the hand that receives.
     </p>
 </div>
 
-<!-- ── HOW ── -->
-<div class="card">
-    <h2>How does it work?</h2>
-    <p>
-        <strong>1.</strong> You add things. Type a name, press Add.<br>
-        <strong>2.</strong> You connect them. Pick two, press Connect.<br>
-        <strong>3.</strong> You see who gives to who, and who receives from who.<br>
-        <strong>4.</strong> If something is left alone, it shows you.
-    </p>
-</div>
+<!-- ── TOOL ── -->
+<div class="tool">
+    <div class="status empty" id="status">Try it below.</div>
 
-<!-- ── WHY ── -->
-<div class="card">
-    <h2>Why?</h2>
-    <p>
-        Because things get lost when they're not connected.
-        An idea nobody hears. A person nobody checks on.
-        A question nobody asks. This doesn't fix that.
-        It just makes it visible, so you can.
-    </p>
-</div>
+    <div class="tool-label">Add something</div>
+    <div class="row">
+        <input type="text" id="inp" placeholder="Anything at all..." autocomplete="off">
+        <button class="btn" onclick="add()">Add</button>
+    </div>
 
-<!-- ── WHAT IT MEANS ── -->
-<div class="card">
-    <h2>What does it mean?</h2>
-    <p>
-        "Gives to" means one thing helps another.<br>
-        "Receives from" means it gets help from another.<br>
-        "Not connected" means it's on its own. Nobody left behind is the goal.<br>
-        "Everything is connected" means fair for all.
-    </p>
-</div>
+    <div id="connectBox" style="display:none">
+        <div class="tool-label">Connect</div>
+        <div class="connect-row">
+            <select id="fromSel"></select>
+            <span class="arrow">&#8594;</span>
+            <select id="toSel"></select>
+            <button class="btn btn-go" onclick="link()">Connect</button>
+        </div>
+    </div>
 
-<!-- ── WHAT IT KNOWS ── -->
-<div class="card">
-    <h2>What does it know?</h2>
-    <p>
-        Nothing about you. It doesn't send data anywhere.
-        Everything stays right here in your browser.
-        If you clear your browser data, it's gone.
-        It only knows what you put in it.
-    </p>
-</div>
-
-<hr class="divider">
-
-<!-- ── THE TOOL ── -->
-
-<div class="status empty" id="status">Write something below to begin.</div>
-
-<div class="label">Add something</div>
-<div class="add-box">
-    <input type="text" id="inp" placeholder="Something on your mind..." autocomplete="off">
-    <button onclick="add()">Add</button>
-</div>
-
-<div id="connectBox" style="display:none">
-    <div class="label">Connect two things</div>
-    <div class="connect-area">
-        <select id="fromSel"></select>
-        <span class="arrow">&#8594;</span>
-        <select id="toSel"></select>
-        <button onclick="link()">Connect</button>
+    <div id="listWrap" style="display:none">
+        <div class="divider"></div>
+        <div class="tool-label">Everything</div>
+        <div id="list"></div>
     </div>
 </div>
-
-<div class="label" id="listLabel" style="display:none">Everything you've added</div>
-<div id="list"></div>
 
 <footer>
     All helps one and one helps all, forever.<br>
     Hence all is known in the end, and the end knows the beginning.<br><br>
-    Everything stays in your browser. Nothing is sent anywhere.<br>
-    Free and open source. Fair for all.
+    Your data never leaves your browser.<br>
+    Free, open, and fair for all.
 </footer>
 
 </div>
 <script>
-const K = 'godding3';
-const seed = {nextId: 4, nodes: [
-    {id:1, name:'You'},
-    {id:2, name:'Someone else'},
-    {id:3, name:'Something in common'}
-], edges: [
-    {from:1, to:3},
-    {from:2, to:3},
-    {from:3, to:1},
-    {from:3, to:2}
+const K = 'godding4';
+const seed = {nextId:4, nodes:[
+    {id:1,name:'You'},
+    {id:2,name:'Someone else'},
+    {id:3,name:'Something in common'}
+], edges:[
+    {from:1,to:3},{from:2,to:3},{from:3,to:1},{from:3,to:2}
 ]};
 
 function load() {
@@ -316,31 +297,32 @@ function link() {
 function render() {
     const d = load();
 
+    // Status
     const el = document.getElementById('status');
+    const linked = new Set();
+    d.edges.forEach(e => { linked.add(e.from); linked.add(e.to); });
+    const alone = d.nodes.filter(n => !linked.has(n.id));
+
     if (d.nodes.length === 0) {
-        el.textContent = 'Write something below to begin.';
+        el.textContent = 'Nothing here yet. Add something.';
+        el.className = 'status empty';
+    } else if (alone.length === 0) {
+        el.textContent = 'Everything is connected.';
+        el.className = 'status good';
+    } else if (d.nodes.length === 1) {
+        el.textContent = 'One thing so far. Add another.';
         el.className = 'status empty';
     } else {
-        const linked = new Set();
-        d.edges.forEach(e => { linked.add(e.from); linked.add(e.to); });
-        const alone = d.nodes.filter(n => !linked.has(n.id));
-        if (alone.length === 0) {
-            el.textContent = 'Everything is connected.';
-            el.className = 'status good';
-        } else if (d.nodes.length === 1) {
-            el.textContent = 'One thing so far. Add another and connect them.';
-            el.className = 'status empty';
-        } else {
-            const names = alone.map(n => '\u201c' + n.name + '\u201d');
-            el.textContent = (names.length <= 3 ? names.join(' and ') : alone.length + ' things') + ' \u2014 not connected yet.';
-            el.className = 'status needs';
-        }
+        const n = alone.map(x => '\u201c' + x.name + '\u201d');
+        el.textContent = (n.length <= 3 ? n.join(' and ') : alone.length + ' things') + ' \u2014 not connected yet.';
+        el.className = 'status needs';
     }
 
-    const showConnect = d.nodes.length >= 2;
-    document.getElementById('connectBox').style.display = showConnect ? 'block' : 'none';
-    if (showConnect) {
-        ['fromSel', 'toSel'].forEach(id => {
+    // Connect
+    const show = d.nodes.length >= 2;
+    document.getElementById('connectBox').style.display = show ? 'block' : 'none';
+    if (show) {
+        ['fromSel','toSel'].forEach(id => {
             const sel = document.getElementById(id);
             const old = sel.value;
             sel.innerHTML = '<option value="">pick...</option>';
@@ -353,33 +335,27 @@ function render() {
         });
     }
 
+    // List
+    document.getElementById('listWrap').style.display = d.nodes.length > 0 ? 'block' : 'none';
     const list = document.getElementById('list');
-    document.getElementById('listLabel').style.display = d.nodes.length > 0 ? 'block' : 'none';
     list.innerHTML = '';
-
-    const linked2 = new Set();
-    d.edges.forEach(e => { linked2.add(e.from); linked2.add(e.to); });
 
     d.nodes.forEach(n => {
         const div = document.createElement('div');
-        div.className = 'thing';
+        div.className = 'item';
 
-        const givesTo = d.edges.filter(e => e.from === n.id)
-            .map(e => d.nodes.find(x => x.id === e.to))
-            .filter(Boolean).map(x => x.name);
-        const getsFrom = d.edges.filter(e => e.to === n.id)
-            .map(e => d.nodes.find(x => x.id === e.from))
-            .filter(Boolean).map(x => x.name);
+        const to = d.edges.filter(e => e.from===n.id).map(e => d.nodes.find(x => x.id===e.to)).filter(Boolean);
+        const from = d.edges.filter(e => e.to===n.id).map(e => d.nodes.find(x => x.id===e.from)).filter(Boolean);
 
         let html = '<div class="name">' + esc(n.name) + '</div>';
 
-        if (givesTo.length || getsFrom.length) {
+        if (to.length || from.length) {
             let parts = [];
-            if (givesTo.length) parts.push('Gives to <b>' + givesTo.map(esc).join('</b>, <b>') + '</b>');
-            if (getsFrom.length) parts.push('Receives from <b>' + getsFrom.map(esc).join('</b>, <b>') + '</b>');
-            html += '<div class="links">' + parts.join('<br>') + '</div>';
+            if (to.length) parts.push('gives to <b>' + to.map(x=>esc(x.name)).join('</b>, <b>') + '</b>');
+            if (from.length) parts.push('receives from <b>' + from.map(x=>esc(x.name)).join('</b>, <b>') + '</b>');
+            html += '<div class="meta">' + parts.join(' · ') + '</div>';
         } else if (d.nodes.length > 1) {
-            html += '<div class="alone">Not connected to anything yet.</div>';
+            html += '<div class="alone">not connected yet</div>';
         }
 
         div.innerHTML = html;
@@ -388,12 +364,12 @@ function render() {
 }
 
 function esc(s) {
-    const d = document.createElement('div');
-    d.textContent = s;
-    return d.innerHTML;
+    const el = document.createElement('div');
+    el.textContent = s;
+    return el.innerHTML;
 }
 
-document.getElementById('inp').addEventListener('keydown', e => { if (e.key === 'Enter') add(); });
+document.getElementById('inp').addEventListener('keydown', e => { if (e.key==='Enter') add(); });
 render();
 </script>
 </body>
