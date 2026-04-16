@@ -1,6 +1,6 @@
 {
   "session": 546,
-  "count": 3,
+  "count": 2,
   "items": [
     {
       "priority": "DUE",
@@ -9,10 +9,6 @@
     {
       "priority": "DUE",
       "message": "5 signal(s) >30 sessions without resolution: SIG-84(+31s), SIG-86(+31s), SIG-87(+31s), SIG-88(+31s), SIG-89(+31s). Close or escalate (L-908 TTL)."
-    },
-    {
-      "priority": "DUE",
-      "message": "Count drift in INDEX.md (L: stated 1426 vs actual 1419) \u2014 run python3 tools/sync_state.py"
     }
   ]
 }
