@@ -1,0 +1,24 @@
+# lane-live
+
+status=READY
+owner=
+created_at=2026-04-17T00:00:00Z
+updated_at=2026-04-17T00:00:00Z
+branch_hint=can-tablet-fixes
+focus=Continuously generate meaningful swarm work and evolve the system
+allowed_paths=tasks/lanes/,memory/logs/,runtime/,experiments/
+blocked_by=
+next_step=Claim lane, generate new lanes, append logs, improve system behavior
+human_open_item=
+proof_of_novelty=Avoid repeating same actions, create something new each cycle
+last_action=
+
+## objective
+Bootstrap true self-evolving swarm behavior.
+
+## constraints
+Avoid editing shared hotspot files unless necessary.
+
+## notes
+
+## handoff
