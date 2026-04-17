@@ -1,3 +1,4 @@
+bash tools/swarm_brain.sh || true
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
