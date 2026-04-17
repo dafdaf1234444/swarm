@@ -1,9 +1,9 @@
 # lane-example
 
-status=READY
-owner=
+status=ACTIVE
+owner=localhost
 created_at=2026-04-17T00:00:00Z
-updated_at=2026-04-17T00:00:00Z
+updated_at=2026-04-17T16:28:40Z
 branch_hint=
 focus=Perform safe bounded swarm heartbeat without editing shared hotspot files
 allowed_paths=tasks/lanes/,memory/logs/,runtime/
@@ -20,5 +20,7 @@ Keep autonomous loop alive while minimizing merge conflicts.
 Do not edit shared root docs unless explicitly needed.
 
 ## notes
+
+- 2026-04-17T16:29:44Z owner=localhost heartbeat
 
 ## handoff
