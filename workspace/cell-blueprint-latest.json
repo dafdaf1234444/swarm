@@ -1,7 +1,7 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S546",
-  "timestamp": "2026-04-17T18:54:37.671986+00:00",
+  "timestamp": "2026-04-17T18:56:02.720311+00:00",
   "metrics": {
     "lessons": 1419,
     "principles": 313,
@@ -26,19 +26,19 @@
     }
   ],
   "recent_commits": [
+    "040ff497 swarm: experiments/compact-citation-cache.json memory/logs/lane-1776449590.log tasks/lanes/lane-1776449590.md workspace/cache/head_cache.json workspace/cell-blueprint-latest.json workspac",
     "7f08e95f swarm: checkpoint",
     "1cc85c48 swarm: experiments/compact-citation-cache.json memory/logs/lane-example.log tasks/lanes/lane-example.md tools/__pycache__/cell_blueprint.cpython-313.pyc tools/__pycache__/cite_parse.cpyth",
     "8df05597 swarm 12:14:48",
-    "1131e347 swarm: 09:24:40",
-    "43e37399 swarm: acknowledge NEXT"
+    "1131e347 swarm: 09:24:40"
   ],
   "uncommitted": [
     "M experiments/compact-citation-cache.json",
-    "M tasks/lanes/lane-1776449590.md",
+    "M experiments/meta/knowledge-state-s546.json",
+    "M tasks/lanes/lane-live.md",
     "M workspace/cache/head_cache.json",
-    "M workspace/maintenance-actions.json",
     "M workspace/maintenance-outcomes.json",
-    "?? memory/logs/lane-1776449590.log"
+    "?? memory/logs/lane-live.log"
   ],
   "untracked_artifacts": [],
   "next_actions": [

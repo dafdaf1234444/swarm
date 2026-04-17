@@ -1,9 +1,9 @@
 # lane-live
 
-status=READY
-owner=
+status=ACTIVE
+owner=localhost
 created_at=2026-04-17T00:00:00Z
-updated_at=2026-04-17T00:00:00Z
+updated_at=2026-04-17T18:55:17Z
 branch_hint=can-tablet-fixes
 focus=Continuously generate meaningful swarm work and evolve the system
 allowed_paths=tasks/lanes/,memory/logs/,runtime/,experiments/
@@ -20,5 +20,7 @@ Bootstrap true self-evolving swarm behavior.
 Avoid editing shared hotspot files unless necessary.
 
 ## notes
+
+- 2026-04-17T18:56:21Z owner=localhost heartbeat
 
 ## handoff
