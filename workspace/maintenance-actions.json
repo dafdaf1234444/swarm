@@ -1,19 +1,7 @@
 {
   "session": 546,
-  "count": 5,
+  "count": 2,
   "items": [
-    {
-      "priority": "URGENT",
-      "message": "34 unpushed commits \u2014 git push"
-    },
-    {
-      "priority": "URGENT",
-      "message": "Commit saturation (>=20 unpushed) \u2014 run: python3 tools/agent_swarm.py create <child> \"reduce commit backlog\" --personality commit-swarmer"
-    },
-    {
-      "priority": "DUE",
-      "message": "F119 learning-quality gap: tracked deltas without knowledge-state update (NEXT/SESSION-LOG/INDEX/FRONTIER/PRINCIPLES/lessons)"
-    },
     {
       "priority": "DUE",
       "message": "3 frontier(s) below archive threshold: F119, F120, F126"

@@ -2820,7 +2820,7 @@
     },
     {
       "session": 546,
-      "timestamp": "2026-04-17T16:28:50Z",
+      "timestamp": "2026-04-17T18:54:32Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -2833,11 +2833,9 @@
           "severities": []
         },
         "check_mission_constraints": {
-          "fired": true,
-          "count": 1,
-          "severities": [
-            "DUE"
-          ]
+          "fired": false,
+          "count": 0,
+          "severities": []
         },
         "check_runtime_portability": {
           "fired": false,
@@ -3135,18 +3133,16 @@
         },
         "check_unpushed": {
           "fired": true,
-          "count": 2,
+          "count": 1,
           "severities": [
-            "URGENT",
-            "URGENT"
+            "NOTICE"
           ]
         }
       },
       "totals": {
-        "DUE": 3,
-        "NOTICE": 24,
-        "PERIODIC": 7,
-        "URGENT": 2
+        "NOTICE": 25,
+        "DUE": 2,
+        "PERIODIC": 7
       }
     }
   ]
