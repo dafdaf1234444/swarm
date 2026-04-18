@@ -1,6 +1,6 @@
 {
   "session": 546,
-  "count": 2,
+  "count": 3,
   "items": [
     {
       "priority": "DUE",
@@ -9,6 +9,10 @@
     {
       "priority": "DUE",
       "message": "5 signal(s) >30 sessions without resolution: SIG-84(+31s), SIG-86(+31s), SIG-87(+31s), SIG-88(+31s), SIG-89(+31s). Close or escalate (L-908 TTL)."
+    },
+    {
+      "priority": "DUE",
+      "message": "1 broken file reference(s): SWARM.md->tasks/KILL-SWITCH.md"
     }
   ]
 }

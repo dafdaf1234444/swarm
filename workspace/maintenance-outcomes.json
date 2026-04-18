@@ -2820,7 +2820,7 @@
     },
     {
       "session": 546,
-      "timestamp": "2026-04-18T01:00:34Z",
+      "timestamp": "2026-04-18T01:29:20Z",
       "checks": {
         "check_kill_switch": {
           "fired": false,
@@ -3047,9 +3047,11 @@
           "severities": []
         },
         "check_file_graph": {
-          "fired": false,
-          "count": 0,
-          "severities": []
+          "fired": true,
+          "count": 1,
+          "severities": [
+            "DUE"
+          ]
         },
         "check_claim_gc": {
           "fired": false,
@@ -3129,11 +3131,16 @@
             "NOTICE",
             "NOTICE"
           ]
+        },
+        "check_unpushed": {
+          "fired": false,
+          "count": 0,
+          "severities": []
         }
       },
       "totals": {
         "NOTICE": 23,
-        "DUE": 2,
+        "DUE": 3,
         "PERIODIC": 7
       }
     }
