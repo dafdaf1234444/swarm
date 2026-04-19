@@ -1,7 +1,7 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S546",
-  "timestamp": "2026-04-19T00:30:00.840551+00:00",
+  "timestamp": "2026-04-19T00:48:13.706356+00:00",
   "metrics": {
     "lessons": 1419,
     "principles": 313,
@@ -26,16 +26,21 @@
     }
   ],
   "recent_commits": [
+    "f1f8e699 tablet: ignore runtime/ logs",
+    "9b1b42c1 tablet: local changes before auto loop",
     "efbe6f85 auto: swarm loop 2026-04-18 14:24:01",
     "e8683c24 auto: swarm loop 2026-04-18 14:21:55",
-    "9063ef75 auto: swarm loop 2026-04-18 14:19:54",
-    "fd150c43 auto: swarm loop 2026-04-18 14:17:34",
-    "55f85a4e auto: swarm loop 2026-04-18 14:03:45"
+    "9063ef75 auto: swarm loop 2026-04-18 14:19:54"
   ],
   "uncommitted": [
     "M experiments/compact-citation-cache.json",
+    "M experiments/meta/knowledge-state-s546.json",
+    "M tasks/lanes/lane-1776453991.md",
+    "M tasks/lanes/lane-1776454071.md",
+    "M tasks/lanes/lane-1776454073.md",
     "M workspace/cache/head_cache.json",
-    "M workspace/maintenance-outcomes.json"
+    "M workspace/maintenance-outcomes.json",
+    "?? memory/logs/lane-1776454073.log"
   ],
   "untracked_artifacts": [],
   "next_actions": [
