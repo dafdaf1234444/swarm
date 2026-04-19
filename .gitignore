@@ -57,3 +57,5 @@ runtime/*.pid
 runtime/*.tmp
 runtime/*.local
 runtime/
+__pycache__/
+*.pyc
