@@ -1,10 +1,18 @@
 {
-  "session": 545,
-  "count": 1,
+  "session": 546,
+  "count": 3,
   "items": [
     {
       "priority": "DUE",
-      "message": "Count drift in INDEX.md (L: stated 1421 vs actual 1426) \u2014 run python3 tools/sync_state.py"
+      "message": "Missing hook(s): pre-commit, commit-msg -- run: bash tools/install-hooks.sh"
+    },
+    {
+      "priority": "DUE",
+      "message": "3 frontier(s) below archive threshold: F119, F120, F126"
+    },
+    {
+      "priority": "DUE",
+      "message": "5 signal(s) >30 sessions without resolution: SIG-84(+31s), SIG-86(+31s), SIG-87(+31s), SIG-88(+31s), SIG-89(+31s). Close or escalate (L-908 TTL)."
     }
   ]
 }

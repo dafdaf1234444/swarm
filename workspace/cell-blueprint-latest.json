@@ -1,24 +1,14 @@
 {
   "schema": "cell-blueprint-v2",
-  "session": "S545",
-  "timestamp": "2026-03-24T16:16:07.753143+00:00",
+  "session": "S546",
+  "timestamp": "2026-04-21T00:39:00.252811+00:00",
   "metrics": {
-    "lessons": 1424,
+    "lessons": 1419,
     "principles": 313,
     "beliefs": 21,
     "frontiers": 14
   },
   "active_lanes": [
-    {
-      "lane": "DOMEX-EPIS-S544-PTEST",
-      "status": "ACTIVE",
-      "scope": "domains/epistemology/tasks/FRONTIER.md"
-    },
-    {
-      "lane": "DOMEX-EPIS-S545-ATTRACTOR",
-      "status": "ACTIVE",
-      "scope": "domains/epistemology/tasks/FRONTIER.md"
-    },
     {
       "lane": "DOMEX-COL-S544-ENFBACKFILL",
       "status": "ACTIVE",
@@ -28,47 +18,38 @@
       "lane": "COORD-S545-COVERAGE",
       "status": "ACTIVE",
       "scope": "tasks/SWARM-LANES.md"
+    },
+    {
+      "lane": "DOMEX-META-S545-CHECKAGG",
+      "status": "ACTIVE",
+      "scope": "tools/check.sh"
     }
   ],
   "recent_commits": [
-    "d59edd87 [S545] fix: ignore closed lane bulletins in conflict scan",
-    "fc241605 [S544] fix: backfill F-COL1 enforcement citations for audit accuracy",
-    "0f175ab7 [S545] maint: handoff \u2014 F-QC6 FALSIFIED session note, state sync",
-    "8b428610 [S544] feat: principle-batch-scan \u2014 8 principles extracted (P-397..P-404) + enforcement audit 30.1%",
-    "6b853d30 [S545] feat: F-QC6 FALSIFIED \u2014 concurrency does not degrade lesson quality (L-1665)"
+    "3e818ee3 [S546] fix: principle_health.py archive blindness \u2014 13 false-positive dead principles eliminated (L-1674)",
+    "5ce670ec [S545] fix: checkpoint guard integer comparison bug \u2014 find+trim replaces fragile ls|wc",
+    "4b336da4 [S545] maint: handoff \u2014 PHIL-16b upgrade path (L-1668, L-1669), state sync, session note",
+    "777d3eaf [S544] maint: session note \u2014 belief consistency checker (L-1671)",
+    "be0fcea3 [S545] feat: PHIL-16b upgrade path \u2014 intent/outcome decomposition + first external knowledge validation (L-1668, L-1669)"
   ],
   "uncommitted": [
-    "M  beliefs/PHILOSOPHY.md",
-    "MM docs/PAPER.md",
-    "MM domains/epistemology/tasks/FRONTIER.md",
-    "A  domains/governance/experiments/f-gov10-conflict-simulation-s545.py",
-    "A  domains/governance/experiments/f-gov10-constitution-draft-v1.md",
-    "M  domains/governance/tasks/FRONTIER.md",
+    "M docs/PAPER.md",
     "M experiments/compact-citation-cache.json",
     "M experiments/compact-lesson-cache.json",
-    "A  experiments/epistemology/f-epis3-phil16b-upgrade-s545.json",
-    "M experiments/epistemology/f-epis3-zombie-principles-s543.py",
-    "A  experiments/governance/f-gov10-constitution-s545.json",
-    "M  experiments/inter-swarm/bulletins/swarm.md",
-    "A  experiments/meta/belief-consistency-s544.json",
-    "MM memory/INDEX.md",
-    "M  memory/PRINCIPLES.md",
+    "M memory/INDEX.md",
     "M memory/SESSION-LOG.md",
-    "D memory/lessons/L-078.md",
-    "D memory/lessons/L-1006.md",
-    "D memory/lessons/L-1268.md",
-    "D memory/lessons/L-1324.md"
+    "M tasks/FRONTIER.md",
+    "M tasks/NEXT.md",
+    "M tools/periodics.json",
+    "M workspace/cell-blueprint-latest.json",
+    "M workspace/maintenance-actions.json",
+    "M workspace/maintenance-outcomes.json",
+    "?? experiments/meta/knowledge-state-s546.json",
+    "?? logs/",
+    "?? tools/swarm_dispatch.sh"
   ],
   "untracked_artifacts": [
-    "experiments/epistemology/f-epis3-designated-claim-test-s544.json",
-    "experiments/epistemology/f-epis3-phil8-drop-test-s545.json",
-    "experiments/epistemology/f-epis3-status-detection-fp-s545.json",
-    "experiments/meta/enforcement-audit-s544.json",
-    "experiments/meta/f119-mission-constraint-reswarm-s544.json",
-    "experiments/meta/mission-constraint-reswarm-s544.json",
-    "memory/lessons/L-1667.md",
-    "memory/lessons/L-1670.md",
-    "memory/lessons/L-1672.md"
+    "experiments/meta/knowledge-state-s546.json"
   ],
   "next_actions": [
     "- Compress ~4,130 tokens (43 EXPIRED lessons from knowledge_swarm)",
@@ -81,44 +62,44 @@
   "periodics_due": [
     {
       "id": "principles-dedup",
-      "gap": 91,
+      "gap": 92,
       "cadence": 10
     },
     {
       "id": "knowledge-swarm",
-      "gap": 65,
+      "gap": 66,
       "cadence": 10
     },
     {
       "id": "scaling-timelines",
-      "gap": 61,
+      "gap": 62,
       "cadence": 10
     },
     {
       "id": "correction-propagation",
-      "gap": 61,
+      "gap": 62,
       "cadence": 10
     },
     {
       "id": "economy-health",
-      "gap": 54,
+      "gap": 55,
       "cadence": 10
     }
   ],
   "dispatch_top3": [
     {
-      "domain": "epistemology",
-      "score": 8.4,
-      "collision": false
-    },
-    {
       "domain": "stochastic-processes",
-      "score": 7.2,
+      "score": 7.1,
       "collision": false
     },
     {
       "domain": "expert-swarm",
-      "score": 6.0,
+      "score": 5.9,
+      "collision": false
+    },
+    {
+      "domain": "physics",
+      "score": 2.7,
       "collision": false
     }
   ]
