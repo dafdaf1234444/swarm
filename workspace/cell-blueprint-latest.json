@@ -1,7 +1,7 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S546",
-  "timestamp": "2026-04-21T18:03:22.626399+00:00",
+  "timestamp": "2026-04-21T18:23:17.041412+00:00",
   "metrics": {
     "lessons": 1419,
     "principles": 313,
@@ -26,13 +26,15 @@
     }
   ],
   "recent_commits": [
+    "e1329040 swarm: 20:03:55",
+    "4741ffcf swarm: 20:03:39",
     "85935814 swarm: 18:01:48",
     "b3623572 swarm: 18:01:16",
-    "d546bda5 swarm: 17:08:58",
-    "617a2ec7 swarm: 17:00:12",
-    "1c264e76 swarm: 16:24:28"
+    "d546bda5 swarm: 17:08:58"
   ],
-  "uncommitted": [],
+  "uncommitted": [
+    "M experiments/meta/knowledge-state-s546.json"
+  ],
   "untracked_artifacts": [],
   "next_actions": [
     "- Compress ~4,130 tokens (43 EXPIRED lessons from knowledge_swarm)",
