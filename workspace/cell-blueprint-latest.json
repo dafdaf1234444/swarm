@@ -1,7 +1,7 @@
 {
   "schema": "cell-blueprint-v2",
   "session": "S546",
-  "timestamp": "2026-04-21T06:27:06.976850+00:00",
+  "timestamp": "2026-04-21T06:27:16.504983+00:00",
   "metrics": {
     "lessons": 1419,
     "principles": 313,
@@ -69,5 +69,21 @@
       "cadence": 10
     }
   ],
-  "dispatch_top3": []
+  "dispatch_top3": [
+    {
+      "domain": "stochastic-processes",
+      "score": 7.1,
+      "collision": false
+    },
+    {
+      "domain": "expert-swarm",
+      "score": 5.9,
+      "collision": false
+    },
+    {
+      "domain": "physics",
+      "score": 2.7,
+      "collision": false
+    }
+  ]
 }
